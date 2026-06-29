@@ -339,10 +339,39 @@ drops.
     builds (`scares_base` vs a fresh HEAD rebuild) — 45 of the 49 mapped
     walkthroughs. (Earlier phases that reported alexis/cybercow as "MATCH" were
     comparing within a single baseline link and got lucky on layout.)
-- [ ] `scgamest.cpp` / `scprops.cpp` (with P4) — also unblocked now. Much of the
+- [~] `scgamest.cpp` / `scprops.cpp` (with P4) — also unblocked now. Much of the
   runner-adjacent ownership here is **game-struct fields** (`current_room_name`,
   `status_line`, `hint_text`, the property tree) freed during the turn loop; the
   old `longjmp` hazard over those is gone, so RAII on them is now safe to pursue.
+  - **DONE — the five owning game-status strings** (`current_room_name`,
+    `status_line`, `title`, `author`, `hint_text`) → `scr_owned_string` (the
+    `unique_ptr<scr_char>`+`scr_free` owner from the scrunner/sctasks work). These
+    are the leak-on-throw class the item names: the turn loop replaced them with
+    `scr_free(game->X); game->X = filtered;` where `filtered` came from a
+    `pf_filter` that can `throw` (a `prop_*` `scr_fatal`) mid-acquire. `.reset()`
+    now carries the free; readers take `.get()` (NULL stays NULL, so no
+    empty-vs-unset ambiguity — important because `run_get_attributes` lazily
+    computes `title`/`author` keyed on `if (!game->title)`). Adding non-trivial
+    members makes `scr_game_s` non-POD, so `gs_create` now `new scr_game_s ()`s it
+    (value-init zeroes the POD fields it already set explicitly) and `gs_destroy`
+    `delete`s it — the old `scr_malloc` + `memset(game, 0xaa)` poison is gone
+    (poison would corrupt the `unique_ptr`s the destructor frees, exactly the
+    `scr_filter_s` precedent). `gs_string_copy` (used by `gs_copy` for undo/
+    restore deep-copies) now takes `scr_owned_string &`. Sites: `scgamest.h`
+    (5 field types), `scgamest.cpp` (create/copy/destroy), `scrunner.cpp`
+    (`run_update_status` ×2, `run_quit`-time reset, `run_get_attributes`
+    title/author/room/status, `run_get_game_hint`). Validated **byte-identical**
+    across the determinism-checked v4 corpus (**49 MATCH / 0 DIFFER**; the 3
+    NONDET are the time-dependent Shadowpeak variants whose two identical-source
+    baselines already disagree — never a regression); `make -f Makefile.headless
+    test` + `sanitize` green; ASan/UBSan clean.
+  - **STILL OPEN — `scprops.cpp` property tree + the remaining `scgamest.cpp`
+    POD state arrays** (`rooms`/`objects`/`tasks`/`events`/`npcs[].walksteps`/
+    `*_references`, still `scr_malloc`/`scr_free`'d). The property bundle uses a
+    deliberate **arena/pool allocator** (`node_pools`, dictionary, orphans) that
+    P4 profiling confirmed is the hot path — converting it to `std::vector`/RAII
+    risks both the byte-exact bar and the arena's performance, so it stays its own
+    coordinated P4-adjacent project, not a mechanical sweep.
 - [ ] Track corpus leak count before/after each file. (Blocked on tooling:
   LeakSanitizer is unavailable on macOS/arm64, so the ledger can't be produced in
   this environment; the proxy used so far is "changes only remove manual

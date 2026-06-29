@@ -634,9 +634,8 @@ run_update_status (scr_gameref_t game)
   filtered = pf_filter (name, vars, bundle);
   pf_strip_tags (filtered);
 
-  /* Free any existing room name, then save this room name. */
-  scr_free (game->current_room_name);
-  game->current_room_name = filtered;
+  /* Save this room name; the owning pointer frees any existing name. */
+  game->current_room_name.reset (filtered);
 
   /* See if the game does a status box. */
   vt_key[0].string = "Globals";
@@ -654,9 +653,8 @@ run_update_status (scr_gameref_t game)
     /* No status line, so use NULL. */
     filtered = NULL;
 
-  /* Free any existing status line, then save this status text. */
-  scr_free (game->status_line);
-  game->status_line = filtered;
+  /* Save this status text; the owning pointer frees any existing line. */
+  game->status_line.reset (filtered);
 }
 
 
@@ -1969,10 +1967,8 @@ run_restart_handler (scr_gameref_t game)
   gs_copy (game, new_game);
 
   /* Destroy invalid game status strings. */
-  scr_free (game->current_room_name);
-  game->current_room_name = NULL;
-  scr_free (game->status_line);
-  game->status_line = NULL;
+  game->current_room_name.reset ();
+  game->status_line.reset ();
 
   /*
    * Now it's safely copied, destroy the temporary new game, and its
@@ -2449,9 +2445,9 @@ run_get_attributes (scr_gameref_t game,
 
           filtered = pf_filter_for_info (gamename, vars);
           pf_strip_tags (filtered);
-          game->title = filtered;
+          game->title.reset (filtered);
         }
-      *game_name = game->title;
+      *game_name = game->title.get ();
     }
   if (game_author)
     {
@@ -2466,9 +2462,9 @@ run_get_attributes (scr_gameref_t game,
 
           filtered = pf_filter_for_info (gameauthor, vars);
           pf_strip_tags (filtered);
-          game->author = filtered;
+          game->author.reset (filtered);
         }
-      *game_author = game->author;
+      *game_author = game->author.get ();
     }
   if (game_compile_date)
     {
@@ -2478,9 +2474,9 @@ run_get_attributes (scr_gameref_t game,
 
   /* Return the current room name and status line if requested. */
   if (current_room_name)
-    *current_room_name = game->current_room_name;
+    *current_room_name = game->current_room_name.get ();
   if (status_line)
-    *status_line = game->status_line;
+    *status_line = game->status_line.get ();
 
   /* Return any game preferred font, or NULL if none. */
   if (preferred_font)
@@ -2620,17 +2616,15 @@ run_get_hint_common (scr_gameref_t game, scr_hintref_t hint,
       /* Filter and strip tags, note in game. */
       filtered = pf_filter (string, vars, bundle);
       pf_strip_tags_for_hints (filtered);
-      scr_free (game->hint_text);
-      game->hint_text = filtered;
+      game->hint_text.reset (filtered);
     }
   else
     {
       /* Hint text is empty; drop any text noted in game. */
-      scr_free (game->hint_text);
-      game->hint_text = NULL;
+      game->hint_text.reset ();
     }
 
-  return game->hint_text;
+  return game->hint_text.get ();
 }
 
 const scr_char *

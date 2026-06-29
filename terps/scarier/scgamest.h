@@ -184,11 +184,20 @@ typedef struct scr_game_s
   scr_bool bold_room_names;
   scr_bool verbose;
   scr_bool notify_score_change;
-  scr_char *current_room_name;
-  scr_char *status_line;
-  scr_char *title;
-  scr_char *author;
-  scr_char *hint_text;
+  /*
+   * Owning game-status strings, freed at scope exit (P3 RAII).  scr_owned_string
+   * preserves the engine's char* contract exactly — .get() hands the raw pointer
+   * to readers and NULL stays NULL (no empty-vs-unset confusion) — while a
+   * scr_fatal_error / run_loop_halt thrown mid-turn (e.g. from a pf_filter ->
+   * prop_* deep in run_update_status) no longer leaks the buffer being replaced.
+   * Having non-trivial members makes scr_game_s non-POD, so gs_create new()s it
+   * and gs_destroy delete()s it (the old scr_malloc + 0xaa poison is gone).
+   */
+  scr_owned_string current_room_name;
+  scr_owned_string status_line;
+  scr_owned_string title;
+  scr_owned_string author;
+  scr_owned_string hint_text;
 
   /* Resource management data. */
   scr_resource_t requested_sound;

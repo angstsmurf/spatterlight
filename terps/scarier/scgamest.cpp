@@ -871,8 +871,11 @@ gs_create (scr_var_setref_t vars,
   scr_int index_, bytes;
   assert (vars && bundle && filter);
 
-  /* Create the initial state structure. */
-  game = (decltype(game)) scr_malloc (sizeof (*game));
+  /* Create the initial state structure.  sc_game_s now owns std::unique_ptr
+   * status strings (P3 RAII), so it is non-POD and must be new()'d — value-init
+   * zeroes the POD fields (all of which gs_create sets explicitly below anyway)
+   * and default-constructs the owning strings to NULL. */
+  game = new scr_game_s ();
   game->magic = GAME_MAGIC;
 
   /* Store the variables, properties bundle, and filter references. */
@@ -1181,11 +1184,7 @@ gs_create (scr_var_setref_t vars,
   game->score = 0;
   game->bold_room_names = TRUE;
   game->verbose = TRUE;
-  game->current_room_name = NULL;
-  game->status_line = NULL;
-  game->title = NULL;
-  game->author = NULL;
-  game->hint_text = NULL;
+  /* The owning status strings default-construct to NULL via value-init above. */
 
   /* Resource controls. */
   res_clear_resource (&game->requested_sound);
@@ -1255,19 +1254,18 @@ gs_is_game_valid (scr_gameref_t game)
  * if from is NULL, taking care not to leak memory.
  */
 static void
-gs_string_copy (scr_char **to_string, const scr_char *from_string)
+gs_string_copy (scr_owned_string &to_string, const scr_char *from_string)
 {
-  /* Free any current contents of to_string. */
-  scr_free (*to_string);
-
-  /* Copy from_string if set, otherwise set to_string to NULL. */
+  /* Copy from_string if set, otherwise set to_string to NULL.  Assigning the
+   * unique_ptr frees any current contents. */
   if (from_string)
     {
-      *to_string = (decltype(+*to_string)) scr_malloc (strlen (from_string) + 1);
-      memcpy (*to_string, from_string, strlen (from_string) + 1);
+      scr_char *copy = (scr_char *) scr_malloc (strlen (from_string) + 1);
+      memcpy (copy, from_string, strlen (from_string) + 1);
+      to_string.reset (copy);
     }
   else
-    *to_string = NULL;
+    to_string.reset ();
 }
 
 
@@ -1385,11 +1383,11 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->turns = from->turns;
   to->score = from->score;
 
-  gs_string_copy (&to->current_room_name, from->current_room_name);
-  gs_string_copy (&to->status_line, from->status_line);
-  gs_string_copy (&to->title, from->title);
-  gs_string_copy (&to->author, from->author);
-  gs_string_copy (&to->hint_text, from->hint_text);
+  gs_string_copy (to->current_room_name, from->current_room_name.get ());
+  gs_string_copy (to->status_line, from->status_line.get ());
+  gs_string_copy (to->title, from->title.get ());
+  gs_string_copy (to->author, from->author.get ());
+  gs_string_copy (to->hint_text, from->hint_text.get ());
 
   /*
    * Specifically exclude playing sound and displayed graphic from the copy
@@ -1461,14 +1459,12 @@ gs_destroy (scr_gameref_t game)
   scr_free (game->multiple_references);
   scr_free (game->npc_references);
 
-  /* Free malloc'ed game strings. */
-  scr_free (game->current_room_name);
-  scr_free (game->status_line);
-  scr_free (game->title);
-  scr_free (game->author);
-  scr_free (game->hint_text);
+  /* The owning game strings (current_room_name, status_line, title, author,
+   * hint_text) free themselves when the game is delete'd below. */
 
-  /* Poison and free the game state itself. */
-  memset (game, 0xaa, sizeof (*game));
-  scr_free (game);
+  /* Free the game state itself; its destructor releases the owned strings.
+   * (The old 0xaa poison is gone — it would corrupt the unique_ptr members the
+   * destructor is about to free, the same reason the scr_filter_s struct moved
+   * to new/delete in P3.) */
+  delete game;
 }
