@@ -31,8 +31,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <string>
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
+
+
+/*
+ * pf_strdup()
+ *
+ * Copy a std::string into a freshly scr_malloc'ed C string, so callers that
+ * expect to scr_free() the result keep working unchanged.  Used as the boundary
+ * between the std::string accumulators below and the engine's char* contract.
+ */
+static scr_char *
+pf_strdup (const std::string &string)
+{
+  scr_char *buffer = (scr_char *) scr_malloc (string.size () + 1);
+  memcpy (buffer, string.c_str (), string.size () + 1);
+  return buffer;
+}
 
 
 /* Assorted definitions and constants. */
@@ -194,57 +213,46 @@ pf_destroy (scr_filterref_t filter)
 static scr_char *
 pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
 {
-  scr_char *buffer, *cursor, *name;
-  const scr_char *marker;
-  scr_bool is_interpolated;
+  std::string buffer;
+  std::vector<scr_char> name;
+  const scr_char *marker, *cursor;
+  scr_bool buffer_used, is_interpolated;
 
   /*
-   * Begin with NULL buffer and name strings for lazy allocation, and clear
-   * interpolation detection flag.
+   * Begin with an empty buffer (and "unused" flag, mirroring the original lazy
+   * allocation), an unallocated name buffer, and a clear interpolation flag.
    */
-  buffer = NULL;
-  name = NULL;
+  buffer_used = FALSE;
   is_interpolated = FALSE;
 
   /* Run through the string looking for variables. */
   marker = string;
-  for (cursor = (scr_char *) strchr (marker, PERCENT);
-       cursor; cursor = (scr_char *) strchr (marker, PERCENT))
+  for (cursor = strchr (marker, PERCENT);
+       cursor; cursor = strchr (marker, PERCENT))
     {
       scr_int type;
       scr_vartype_t vt_rvalue;
       scr_char close;
 
       /*
-       * If not yet allocated, allocate a buffer for the return string and
-       * copy up to the percent character into it; otherwise append to buffer
-       * up to percent character.  And if not yet done, allocate a name
-       * buffer guaranteed long enough.
+       * Append up to the percent character to the buffer (amortized O(1)), and
+       * note the buffer as now in use.  If not yet done, allocate a name buffer
+       * guaranteed long enough.
        */
-      if (!buffer)
-        {
-          buffer = (decltype(buffer)) scr_malloc (cursor - marker + 1);
-          memcpy (buffer, marker, cursor - marker);
-          buffer[cursor - marker] = NUL;
-        }
-      else
-        {
-          buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + cursor - marker + 1);
-          strncat (buffer, marker, cursor - marker);
-        }
-      if (!name)
-        name = (decltype(name)) scr_malloc (strlen (string) + 1);
+      buffer.append (marker, cursor - marker);
+      buffer_used = TRUE;
+      if (name.empty ())
+        name.resize (strlen (string) + 1);
 
       /*
        * Get the variable name, and from that, the value.  If we encounter a
        * mismatched '%' or unknown variable, skip it.
        */
-      if (sscanf (cursor, "%%%[^%]%c", name, &close) != 2
+      if (sscanf (cursor, "%%%[^%]%c", name.data (), &close) != 2
           || close != PERCENT
-          || !var_get (vars, name, &type, &vt_rvalue))
+          || !var_get (vars, name.data (), &type, &vt_rvalue))
         {
-          buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + 2);
-          strncat (buffer, cursor, 1);
+          buffer.append (cursor, 1);
           marker = cursor + 1;
           continue;
         }
@@ -257,15 +265,12 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
             scr_char value[32];
 
             snprintf (value, sizeof(value), "%ld", vt_rvalue.integer);
-            buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + strlen (value) + 1);
-            strncat (buffer, value, strlen (value));
+            buffer.append (value);
             break;
           }
 
         case VAR_STRING:
-          buffer = (decltype(buffer)) scr_realloc (buffer,
-                               strlen (buffer) + strlen (vt_rvalue.string) + 1);
-          strncat (buffer, vt_rvalue.string, strlen (vt_rvalue.string));
+          buffer.append (vt_rvalue.string);
           break;
 
         default:
@@ -273,33 +278,22 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
         }
 
       /* Advance over the %...% variable name, and note success. */
-      marker = cursor + strlen (name) + 2;
+      marker = cursor + strlen (name.data ()) + 2;
       is_interpolated = TRUE;
     }
 
   /*
-   * If we allocated a buffer and interpolated into it, append the remainder
-   * of the string.  If we didn't interpolate successfully (the input contained
-   * a rogue '%' character), throw out the buffer as it will be the same as
-   * our input.
+   * If we used the buffer and interpolated into it, append the remainder of
+   * the string and return it.  If we didn't interpolate successfully (the
+   * input contained a rogue '%' character), throw out the buffer as it will be
+   * the same as our input, and return NULL.
    */
-  if (buffer)
+  if (buffer_used && is_interpolated)
     {
-      if (is_interpolated)
-        {
-          buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + strlen (marker) + 1);
-          strncat (buffer, marker, strlen (marker));
-        }
-      else
-        {
-          scr_free (buffer);
-          buffer = NULL;
-        }
+      buffer.append (marker);
+      return pf_strdup (buffer);
     }
-
-  /* Clean up, and return either the updated string or NULL. */
-  scr_free (name);
-  return buffer;
+  return NULL;
 }
 
 
@@ -316,7 +310,6 @@ pf_replace_alr (const scr_char *string,
 {
   scr_vartype_t vt_key[3];
   const scr_char *marker, *cursor, *original, *replacement;
-  scr_char *buffer_ = *buffer;
 
   /* Retrieve the ALR original string, set replacement to NULL for now. */
   vt_key[0].string = "ALRs";
@@ -330,6 +323,7 @@ pf_replace_alr (const scr_char *string,
     return FALSE;
 
   /* Run through the marker string looking for things to replace. */
+  std::string result;
   marker = string;
   for (cursor = strstr (marker, original);
        cursor; cursor = strstr (marker, original))
@@ -341,38 +335,25 @@ pf_replace_alr (const scr_char *string,
           replacement = prop_get_string (bundle, "S<-sis", vt_key);
         }
 
-      /*
-       * If not yet allocated, allocate a buffer for the return string and
-       * copy; else append to the existing buffer: basic copy-on-write.
-       */
-      if (!buffer_)
-        {
-          buffer_ = (decltype(buffer_)) scr_malloc (cursor - marker + strlen (replacement) + 1);
-          memcpy (buffer_, marker, cursor - marker);
-          buffer_[cursor - marker] = NUL;
-          strncat (buffer_, replacement, strlen (replacement));
-        }
-      else
-        {
-          buffer_ = (decltype(buffer_)) scr_realloc (buffer_, strlen (buffer_) +
-                                cursor - marker + strlen (replacement) + 1);
-          strncat (buffer_, marker, cursor - marker);
-          strncat (buffer_, replacement, strlen (replacement));
-        }
+      /* Append the text up to the match, then the replacement. */
+      result.append (marker, cursor - marker);
+      result.append (replacement);
 
       /* Advance over the original. */
       marker = cursor + strlen (original);
     }
 
-  /* If any pending text, append it to the buffer. */
+  /*
+   * If a replacement was made, append any trailing text and hand the rebuilt
+   * string back through *buffer, freeing whatever it held before.  If nothing
+   * matched, leave *buffer untouched.
+   */
   if (replacement)
     {
-      buffer_ = (decltype(buffer_)) scr_realloc (buffer_, strlen (buffer_) + strlen (marker) + 1);
-      strncat (buffer_, marker, strlen (marker));
+      result.append (marker);
+      scr_free (*buffer);
+      *buffer = pf_strdup (result);
     }
-
-  /* Write back buffer, and if replacement set, the buffer was altered. */
-  *buffer = buffer_;
   return replacement != NULL;
 }
 
@@ -1373,11 +1354,7 @@ scr_char *
 pf_escape (const scr_char *string)
 {
   const scr_char *marker, *cursor;
-  scr_char *buffer;
-
-  /* Start with an empty return buffer. */
-  buffer = (decltype(buffer)) scr_malloc (strlen (string) + 1);
-  buffer[0] = NUL;
+  std::string buffer;
 
   /* Run through the string looking for <, >, %, or other escapes. */
   marker = string;
@@ -1389,11 +1366,7 @@ pf_escape (const scr_char *string)
 
       /* Extend buffer to hold the string so far. */
       if (cursor > marker)
-        {
-          buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + cursor - marker + 1);
-          buffer[strlen (buffer) + cursor - marker] = NUL;
-          memcpy (buffer + strlen (buffer), marker, cursor - marker);
-        }
+        buffer.append (marker, cursor - marker);
 
       /* Determine the appropriate character escape. */
       if (cursor[0] == LESSTHAN)
@@ -1425,8 +1398,7 @@ pf_escape (const scr_char *string)
           escape = escape_buffer;
         }
 
-      buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + strlen (escape) + 1);
-      strncat (buffer, escape, strlen (escape));
+      buffer.append (escape);
 
       /* Pass over character escaped and continue. */
       cursor++;
@@ -1435,13 +1407,9 @@ pf_escape (const scr_char *string)
 
   /* Add all remaining characters to the buffer. */
   if (cursor > marker)
-    {
-      buffer = (decltype(buffer)) scr_realloc (buffer, strlen (buffer) + cursor - marker + 1);
-      buffer[strlen (buffer) + cursor - marker] = NUL;
-      memcpy (buffer + strlen (buffer), marker, cursor - marker);
-    }
+    buffer.append (marker, cursor - marker);
 
-  return buffer;
+  return pf_strdup (buffer);
 }
 
 

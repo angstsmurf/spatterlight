@@ -76,9 +76,23 @@ are untouched.
 soak under `ulimit`/`head` and confirm the RAM/CPU blow-up shrinks; ASan/UBSan
 clean.
 
-- [ ] Rewrite `scprintf.cpp` accumulators on `std::string`.
-- [ ] Sweep other `scr_realloc(buf, strlen(buf)+…)` builders in the hot path.
-- [ ] Re-measure the event-heavy soak (before/after RSS + wall-clock).
+- [x] Rewrite `scprintf.cpp` accumulators on `std::string`
+  (`pf_interpolate_vars`, `pf_replace_alr`, `pf_escape`; `pf_strdup` boundary
+  hands a `scr_malloc`'d `char*` back so callers are untouched).
+- [x] Sweep other `scr_realloc(buf, strlen(buf)+…)` builders in the hot path —
+  scprintf held the **only** per-fragment accumulator loops. The remaining
+  reallocs there are the amortized filter buffer (`pf_append_string`, tracks
+  `buffer_allocation`) and the memmove-based `pf_filter_input`, neither
+  quadratic. Outside scprintf: `scvars.cpp` reallocs resize a reusable scratch
+  buffer to one string's length (not accumulating); `scexpr.cpp:1128` is a
+  single pairwise string concat (no per-fragment loop, and owned by P2).
+- [x] Re-measure: full-corpus replay wall-clock **unchanged** (game strings are
+  short, so the O(n²) never bit there), but an isolated accumulator microbench
+  shows the old realloc+`strncat` is quadratic (4× length → ~16× time:
+  0.7→9.7→145 ms at 2k/8k/32k fragments) while the `std::string` version is
+  linear (0.02→0.08→0.30 ms) — ~480× at 32k. The OOM/slowness footgun on
+  pathological long single strings is now linear. ASan/UBSan clean on the heavy
+  games (light_up, Shadowpeak, ALEXIS, Sun Empire, Secret of Lost World, …).
 
 ---
 
