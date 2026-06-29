@@ -254,15 +254,22 @@ os_read_line (scr_char *buffer, scr_int length)
       exit (EXIT_SUCCESS);
     }
 
-#ifdef SCARIER_DUMP_TOOLS
   /*
-   * Scripting aid (harness only): treat a line whose first non-blank character
-   * is '#' as a comment and skip it, reading the next line instead.  This lets
-   * walkthrough solution files carry inline documentation without the SCARIER
-   * parser pulling stray direction/verb tokens out of the prose and firing
-   * spurious, timing-desyncing moves.  A '#' is never the start of a valid
-   * ADRIFT command, so nothing legitimate is lost.  Gated behind the dump-tools
-   * build macro so the standard SCARIER CLI keeps its byte-faithful input path.
+   * Scripting aid: treat a line whose first non-blank character is '#' as a
+   * comment and skip it, reading the next line instead.  This lets walkthrough
+   * solution files carry inline documentation without the SCARIER parser
+   * pulling stray direction/verb tokens out of the prose and firing spurious,
+   * timing-desyncing moves.  A '#' is never the start of a valid ADRIFT
+   * command, so nothing legitimate is lost.
+   *
+   * This is UNCONDITIONAL (not gated behind SCARIER_DUMP_TOOLS): the commented
+   * solution files in adrift-walkthroughs/ are the documented validation corpus,
+   * and gating comment-skipping behind the dump build meant a plain build
+   * silently mis-executed them -- the comment tokens desynced the route into a
+   * spurious "death", which once led to a wrong "the walkthrough no longer wins,
+   * re-derive it" diagnosis.  os_ansi is the headless dev/test player only
+   * (Spatterlight ships os_glk), so there is no byte-faithfulness contract here
+   * to protect.
    */
   while (buffer[strspn (buffer, " \t")] == '#')
     {
@@ -272,7 +279,6 @@ os_read_line (scr_char *buffer, scr_int length)
           exit (EXIT_SUCCESS);
         }
     }
-#endif
 
   return TRUE;
 }

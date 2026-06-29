@@ -680,12 +680,29 @@ follow-up is re-deriving the Shadowpeak walkthrough (a content task, noted below
   shadowpeak ×3 + alexis_worn_cube now run-to-run **byte-stable**;
   previously-deterministic corpus games **byte-identical**; `make test` +
   `sanitize` green.
-  - ⚠️ **Follow-up — re-derive the Shadowpeak walkthrough.** It was tuned against
-    the *old, non-reproducible* initial-event RNG (its "deterministic win" was a
-    same-second illusion), so under genuinely-stable seeding it now
-    *deterministically dies* in the Morac/chase sequence. `alexis_worn_cube` and
-    `cybercow_win` still complete. Re-tuning is now finally durable because the
-    seed is stable. Tracked as a walkthrough task, not an engine bug.
+  - [x] ~~**Follow-up — re-derive the Shadowpeak walkthrough.**~~ **RESOLVED — no
+    re-derivation needed; the premise was wrong.** The claim that Shadowpeak "now
+    deterministically dies in the Morac/chase sequence" was a **harness artifact,
+    not a route or seed problem.** The canonical `shadowpeak_solution.txt` (and the
+    `_allgargoyles` / `_killwraith` variants) **win deterministically, 710/790, 0
+    deaths** on the now-stable seed — verified on a *plain* `os_ansi` build (no dump
+    flag, `SCR_STABLE_RANDOM_ENABLED=1`, run twice → byte-identical) directly from
+    the committed commented solution files. Root cause of the false "death": the
+    `os_read_line` **`#`-comment skip in `os_ansi.cpp` was gated behind
+    `SCARIER_DUMP_TOOLS`**, so a build *without* the dump flag fed the inline `#…`
+    documentation lines straight to the SCARIER parser, which pulls stray
+    direction/verb tokens out of the prose and fires spurious, timing-desyncing
+    moves — desyncing the route into a bogus death (the Morac death was reached
+    only via these injected moves). A dump-tools build (which strips the comments)
+    always won. **Fix: make the `#`-comment skip unconditional** — `os_ansi` is the
+    headless dev/test player only (Spatterlight ships `os_glk`), the commented
+    `adrift-walkthroughs/` files are the documented validation corpus, and `#` is
+    never a valid ADRIFT command, so there is no input-faithfulness contract to
+    protect. The plain build now byte-matches the dump build on every commented
+    solution (shadowpeak ×3 + circus + space_boy). `make -f Makefile.headless test`
+    green. (The ca72eea2 reseed-before-load *did* shift the initial event schedule,
+    but the route is robust to it; the apparent fragility was entirely the comment
+    gating.)
 
 ---
 
