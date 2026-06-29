@@ -616,20 +616,32 @@ refinement note in P3). Both block byte-validation of their games until fixed.
   no-op everywhere except the bug path); `make test` + `sanitize` green. Repro of
   the original bug: `MallocPreScribble=1 SCR_STABLE_RANDOM_ENABLED=1 ./scares
   ALEXIS.TAF < alexis_solution` vs clean.
-- [ ] **Use-after-free / dangling pointer after a `realloc` move** —
-  `shadowpeak` (+ `_killwraith` / `_allgargoyles`) and `alexis_worn_cube`.
-  Residual run-to-run nondeterminism persists with the clock frozen, the
-  `prop_ensure_capacity` gap fixed, AND stack zero-init — so it is neither time,
-  nor grown-tail, nor an uninitialised stack var. Repro: `MallocScribble=1`
-  (free-poison) changes output; **ASan does not catch it even at
-  `quarantine_size_mb=512`** (the freed slot is reused before the read). No raw
-  allocations bypass `scr_*`, so it is a stale pointer into a `scr_realloc`-moved
-  or `scr_free`d block that has since been reused. Pinning the exact site
-  realistically wants MSan or Valgrind — both unavailable on macOS/arm64; needs a
-  Linux/MSan environment or painstaking pointer-lifetime bisection. (Note: the
-  `prop_ensure_capacity` fix means a `scr_realloc` move within the property tree
-  no longer leaves an uninitialised tail, so the surviving dangling read is into
-  a *reused* block, not an uninitialised one — a true UAF, not a read-before-write.)
+- [ ] **Residual read of indeterminate-but-valid memory** — `shadowpeak`
+  (+ `_killwraith` / `_allgargoyles`) and `alexis_worn_cube`. Run-to-run
+  nondeterminism persists after the clock-freeze and the `prop_ensure_capacity`
+  fix. Systematically narrowed (each ruled out independently):
+  - **not time** — persists with the clock frozen;
+  - **not an uninitialised stack/auto var** — persists under
+    `-ftrivial-auto-var-init=zero`;
+  - **not a `scr_realloc` grown tail** — persisted even with a size-tracking
+    `scr_realloc` that zeroed *every* grown tail (so it is a different mechanism
+    from the alexis bug fixed above);
+  - **not a freed-block use-after-free** — runs to completion with **no fault**
+    under macOS **Guard Malloc** (`DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib`),
+    which never reuses freed addresses and leaves freed pages `PROT_NONE`, so a
+    real UAF read *would* fault. (Supersedes an earlier, wrong "use-after-free"
+    label here.)
+  It *is* allocator-fill-sensitive: both `MallocScribble=1` (free-fill) and
+  `MallocPreScribble=1` (alloc-fill) change the output, so genuine indeterminate
+  *content* is read — but from a valid, currently-live allocation, and no raw
+  allocations bypass `scr_*` (which zeroes on fresh alloc). Remaining suspects:
+  an intra-block over-read past the written portion of a valid buffer (Guard
+  Malloc reported "16-byte boundaries … some buffer overruns may not be
+  noticed"), or content that depends on allocation *ordering*. Pinning it
+  realistically wants **MemorySanitizer** (uninitialised-read tracking), which is
+  unavailable on macOS/arm64 (no docker/colima/valgrind here either). Next step
+  when an MSan-capable Linux box is available: build `c++ -fsanitize=memory
+  os_ansi.cpp sc*.cpp` and replay `shadowpeak_solution.txt`.
 
 ---
 
