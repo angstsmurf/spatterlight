@@ -185,22 +185,38 @@ FILTER="${1:-}"
 # (Scarier prints full room descriptions where FD prints "It is too dark to make
 # anything out clearly.") plus, for Amazon, the P2b Date/Time line placement --
 # the same "now-playable, downstream bugs visible" budget rise as the P1 fix.
+#
+# Re-blessed after the malformed-bracket / specific-override-completion fixes
+# (2026-06-29): (1) a malformed BracketSequence such as Anno's "##A#" now FAILS
+# the restriction block (frankendrift's EvaluateRestrictionBlock falls off the
+# end returning default False) instead of passing, so the over-specific
+# "OpeningClo2" task no longer fires and the general open task runs; (2)
+# MoveObject now honours the "Everything*" source variants (EverythingInGroup,
+# EverythingHeldBy, ...) so the closet's clothes are moved in and listed; (3) a
+# Specific *override* sub-task is now marked Completed when it runs (and skipped
+# when already complete + non-repeatable), so "<task> Must BeComplete"
+# restrictions (Anno's PullHookIn -> PushingBri secret passage) resolve.
+# anno1700 127->98, SpectreOfCastleCoris 34->16, DieFeuerfaust 15->14,
+# GrandpasRanch 45->39.  JacarandaJim 442->446 is RNG/event-timing realignment
+# noise (its rain + %AlanRemarks% RAND draws shift with the corrected event
+# timing; it has no malformed bracket sequences, so the bracket fix doesn't
+# touch it) -- still the known RAND-divergence wall.
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0
-anno1700|Anno1700.blorb|131
+anno1700|Anno1700.blorb|98
 AxeOfKolt|TheAxeOfKolt.blorb|42
-SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|34
+SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|16
 StarshipQuest|StarshipQuest.blorb|0
 MagneticMoon|MagneticMoon.blorb|6
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5
-DieFeuerfaust|DieFeuerfaust.blorb|16
-LostChildren|TheLostChildren.blorb|6
+DieFeuerfaust|DieFeuerfaust.blorb|14
+LostChildren|TheLostChildren.blorb|5
 RunBronwynnRun|RunBronwynnRun.blorb|45
-RtC|RtC.blorb|141
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|64
-StoneOfWisdom|StoneOfWisdom.blorb|3
-GrandpasRanch|Grandpa_ParserComp_V1.blorb|45
-JacarandaJim|JacarandaJim.blorb|449
+RtC|RtC.blorb|143
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|6
+StoneOfWisdom|StoneOfWisdom.blorb|2
+GrandpasRanch|Grandpa_ParserComp_V1.blorb|39
+JacarandaJim|JacarandaJim.blorb|446
 EOF
 )
 

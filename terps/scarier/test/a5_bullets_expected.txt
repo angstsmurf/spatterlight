@@ -19,8 +19,6 @@ You are asleep, and sleep is a terrible thing.
 You must WAKE UP!
 
 
-
-
 > wake up
 
 "...and in the blood of Time that Sword shall rust away."
@@ -73,8 +71,7 @@ You take the Yellow Note from the Table.
 
 > take gun
 (from the Table)
-You take the Silver Gun from the Table.
-
+You take the Silver Gun from the Table.  
 
 ENCOUNTER: THE VISITOR
 

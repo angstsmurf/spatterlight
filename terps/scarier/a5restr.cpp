@@ -923,7 +923,11 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
   else
     {
       free (norm);
-      return 1;             /* malformed bracket sequence: pass */
+      /* frankendrift's EvaluateRestrictionBlock hits "Case Else" (a block that
+         starts with neither '(' nor '#') and falls off the end with no Return,
+         so the Boolean function yields its default False -- a malformed bracket
+         sequence FAILS, it does not pass. */
+      return 0;
     }
 
   if (rest == NULL)
@@ -939,7 +943,12 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
       else result = eval_block (st, rs, nodes, n, rest, idx, last_fail);
     }
   else
-    result = first;
+    /* The character after the leading term is neither 'A' nor 'O' (e.g. the
+       extra '#' in the malformed "##A#").  frankendrift's inner Select Case
+       takes "Case Else" and falls off the end -> default False.  Some games
+       (Anno 1700's OpeningClo2) ship such sequences expecting the task to FAIL,
+       so the engine moves on to the general task. */
+    result = 0;
 
   free (norm);
   return result;

@@ -53,6 +53,33 @@ sb_puts (sb_t *b, const char *s)
   b->p[b->len] = '\0';
 }
 static char *sb_take (sb_t *b) { return b->p ? b->p : strdup (""); }
+/* FrankenDrift's Global.pSpace: before appending the next Display() chunk, the
+   accumulator gets two trailing spaces -- UNLESS it is empty or already ends in
+   a newline (vbLf).  This is what joins a task's completion message and a
+   turn-based event's message onto the same line ("...milk.  The postman...")
+   while a message that ends in a newline keeps the next one on a fresh line.
+   Scarier formerly forced a '\n' after every message, so multi-message turns
+   diverged from FD; call sb_pspace before each message instead. */
+static void
+sb_pspace (sb_t *b)
+{
+  if (b->len > 0 && b->p[b->len - 1] != '\n')
+    sb_puts (b, "  ");
+}
+/* True when `m` has visible content (FD's bHasOutput, approximated): a message
+   that renders to nothing but whitespace produces no output and is skipped (the
+   stock cl_PAtStartOp "page" task has an empty Before message, for instance).
+   Messages with real text are emitted verbatim -- their own trailing newline,
+   if any, drives the pSpace line/paragraph break before the next message. */
+static int
+msg_has_output (const char *m)
+{
+  if (m == NULL) return 0;
+  for (; *m; m++)
+    if (*m != '\n' && *m != '\r' && *m != ' ' && *m != '\t')
+      return 1;
+  return 0;
+}
 
 /* ----------------------------------------------------------------- run state */
 
@@ -1499,10 +1526,15 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
   if (parent->n_commands > 0)            /* only reference-bearing parents have children */
     for (size_t oi = 0; oi < run->order->size (); oi++)
       {
-        const a5_task_t *child = &run->adv->tasks[(*run->order)[oi]];
+        int cidx = (*run->order)[oi];
+        const a5_task_t *child = &run->adv->tasks[cidx];
         if (!streq (child->type, "Specific")) continue;
         if (!streq (child->general_key, parent->key)) continue;
         if (!refs_match_specifics (st, child, refs)) continue;
+        /* clsUserSession.AttemptToExecuteTask returns False at entry for an
+           already-completed non-repeatable task (vb:730), so such a child does
+           not fire as an override -- the parent (or a later child) runs. */
+        if (!child->repeatable && st->task_done[cidx]) continue;
 
         const char *ot = child->override_type;
         int is_after = ot != NULL && strncmp (ot, "After", 5) == 0;
@@ -1533,6 +1565,7 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
             if (fm != NULL)
               {
                 char *fmsg = a5text_describe (st, fm);
+                sb_pspace (out);
                 sb_puts (out, fmsg);
                 free (fmsg);
                 parent_text = 0;
@@ -1544,6 +1577,7 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
           }
 
         run_task (run, child, 0, out);
+        st->task_done[cidx] = 1;        /* clsUserSession.vb:1193 task.Completed = True */
         if (ot == NULL || streq (ot, "Override"))
           { parent_text = 0; parent_actions = 0; }
         else if (streq (ot, "BeforeTextOnly"))      parent_text = 0;
@@ -1572,7 +1606,11 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
 
   for (auto *child : after)
     if (a5restr_pass (st, child->restrictions))
-      run_task (run, child, 0, out);
+      {
+        run_task (run, child, 0, out);
+        int ai = a5state_task_index (st, child->key);
+        if (ai >= 0) st->task_done[ai] = 1;   /* task.Completed = True */
+      }
 }
 
 /* ------------------------------------------------------------ conversation */
@@ -1636,12 +1674,8 @@ static void
 emit_conv (a5_run_t *run, const char *rendered_owned, sb_t *out)
 {
   char *m = (char *) rendered_owned;
-  size_t n = m ? strlen (m) : 0;
-  while (n > 0 && (m[n - 1] == '\n' || m[n - 1] == '\r'
-                   || m[n - 1] == ' ' || m[n - 1] == '\t'))
-    m[--n] = '\0';
-  if (m != NULL && m[0])
-    { sb_puts (out, m); sb_puts (out, "\n"); }
+  if (msg_has_output (m))
+    { sb_pspace (out); sb_puts (out, m); }
   free (m);
 }
 
@@ -1910,41 +1944,104 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
 
   if (streq (kind, "MoveObject"))
     {
-      if (tk.size () < 4 || tk[0] != "Object")
+      if (tk.size () < 4)
         return;
-      const char *k1 = act_key (st, tk[1].c_str ());
+      /* clsUserSession.vb:1479 MoveObjectWhat: the source may be a single Object
+         or an "Everything*" set (a group's members, everything held/worn by a
+         character, inside/on an object, at a location, or with a property).
+         tk[1] names the source entity; tk[2] is the destination kind; tk[3] the
+         destination key.  Collect the affected object indices, then apply the
+         same per-object move to each. */
+      const std::string &what = tk[0];
+      const char *srckey = act_key (st, tk[1].c_str ());
       const std::string &to = tk[2];
       const char *k2 = act_key (st, tk[3].c_str ());
-      int oi = a5state_object_index (st, k1);
-      if (oi < 0) return;
-      a5_objloc_t *L = &st->obj[oi];
-      if (to == "ToCarriedBy")      { L->where = A5_OWHERE_HELD_BY;   L->key = k2; }
-      else if (to == "ToWornBy")    { L->where = A5_OWHERE_WORN_BY;   L->key = k2; }
-      else if (to == "OntoObject")  { L->where = A5_OWHERE_ON_OBJECT; L->key = k2; }
-      else if (to == "InsideObject"){ L->where = A5_OWHERE_IN_OBJECT; L->key = k2; }
-      else if (to == "ToLocation")
-        { if (streq (k2, "Hidden")) { L->where = A5_OWHERE_HIDDEN; L->key = NULL; }
-          else { L->where = A5_OWHERE_LOCATION; L->key = k2; } }
-      else if (to == "ToLocationGroup") { L->where = A5_OWHERE_LOCGROUP; L->key = k2; }
-      else if (to == "ToSameLocationAs")
+      std::vector<int> targets;
+
+      if (what == "Object")
         {
-          /* The target may be a character or an object (clsUserSession.vb:1570).
-             Character: place the object in the character's room (the common
-             "drop" case).  Object: copy the target object's full location
-             (where + key) — e.g. eating "four food rations" reveals the hidden
-             "three food rations" inside the same backpack. */
-          int ci = a5state_character_index (st, k2);
-          if (ci >= 0)
+          int oi = a5state_object_index (st, srckey);
+          if (oi >= 0) targets.push_back (oi);
+        }
+      else if (what == "EverythingInGroup")
+        {
+          for (int i = 0; i < st->adv->n_objects; i++)
             {
-              const char *loc = st->char_loc[ci];
-              if (loc != NULL) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
-              else             { L->where = A5_OWHERE_HIDDEN;   L->key = NULL; }
+              const char *ok = st->adv->objects[i].key;
+              int member = a5state_object_in_group (st, tk[1].c_str (), ok);
+              for (int g = 0; !member && g < st->adv->n_groups; g++)
+                if (streq (st->adv->groups[g].key, tk[1].c_str ()))
+                  for (int m = 0; !member && m < st->adv->groups[g].n_members; m++)
+                    if (streq (st->adv->groups[g].members[m], ok)) member = 1;
+              if (member) targets.push_back (i);
             }
-          else
+        }
+      else if (what == "EverythingHeldBy" || what == "EverythingWornBy")
+        {
+          a5_owhere_t w = (what == "EverythingHeldBy") ? A5_OWHERE_HELD_BY
+                                                       : A5_OWHERE_WORN_BY;
+          for (int i = 0; i < st->adv->n_objects; i++)
+            if (st->obj[i].where == w && streq (st->obj[i].key, srckey))
+              targets.push_back (i);
+        }
+      else if (what == "EverythingInside" || what == "EverythingOn")
+        {
+          a5_owhere_t w = (what == "EverythingInside") ? A5_OWHERE_IN_OBJECT
+                                                       : A5_OWHERE_ON_OBJECT;
+          for (int i = 0; i < st->adv->n_objects; i++)
+            if (st->obj[i].where == w && streq (st->obj[i].key, srckey))
+              targets.push_back (i);
+        }
+      else if (what == "EverythingAtLocation")
+        {
+          for (int i = 0; i < st->adv->n_objects; i++)
+            if (st->obj[i].where == A5_OWHERE_LOCATION
+                && streq (st->obj[i].key, srckey))
+              targets.push_back (i);
+        }
+      else if (what == "EverythingWithProperty")
+        {
+          for (int i = 0; i < st->adv->n_objects; i++)
+            if (a5_prop_find (st->adv->objects[i].props,
+                              st->adv->objects[i].n_props, tk[1].c_str ()))
+              targets.push_back (i);
+        }
+      else
+        return;
+
+      for (size_t ti = 0; ti < targets.size (); ti++)
+        {
+          a5_objloc_t *L = &st->obj[targets[ti]];
+          if (to == "ToCarriedBy")      { L->where = A5_OWHERE_HELD_BY;   L->key = k2; }
+          else if (to == "ToWornBy")    { L->where = A5_OWHERE_WORN_BY;   L->key = k2; }
+          else if (to == "OntoObject")  { L->where = A5_OWHERE_ON_OBJECT; L->key = k2; }
+          else if (to == "InsideObject"){ L->where = A5_OWHERE_IN_OBJECT; L->key = k2; }
+          else if (to == "ToPartOfObject"){ L->where = A5_OWHERE_PART_OBJECT; L->key = k2; }
+          else if (to == "ToPartOfCharacter"){ L->where = A5_OWHERE_PART_CHAR; L->key = k2; }
+          else if (to == "ToLocation")
+            { if (streq (k2, "Hidden")) { L->where = A5_OWHERE_HIDDEN; L->key = NULL; }
+              else { L->where = A5_OWHERE_LOCATION; L->key = k2; } }
+          else if (to == "ToLocationGroup") { L->where = A5_OWHERE_LOCGROUP; L->key = k2; }
+          else if (to == "ToSameLocationAs")
             {
-              int ti = a5state_object_index (st, k2);
-              if (ti >= 0) { L->where = st->obj[ti].where; L->key = st->obj[ti].key; }
-              else         { L->where = A5_OWHERE_HIDDEN;  L->key = NULL; }
+              /* The target may be a character or an object (clsUserSession.vb:1570).
+                 Character: place the object in the character's room (the common
+                 "drop" case).  Object: copy the target object's full location
+                 (where + key) — e.g. eating "four food rations" reveals the hidden
+                 "three food rations" inside the same backpack. */
+              int ci = a5state_character_index (st, k2);
+              if (ci >= 0)
+                {
+                  const char *loc = st->char_loc[ci];
+                  if (loc != NULL) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
+                  else             { L->where = A5_OWHERE_HIDDEN;   L->key = NULL; }
+                }
+              else
+                {
+                  int oj = a5state_object_index (st, k2);
+                  if (oj >= 0) { L->where = st->obj[oj].where; L->key = st->obj[oj].key; }
+                  else         { L->where = A5_OWHERE_HIDDEN;  L->key = NULL; }
+                }
             }
         }
       return;
@@ -2228,11 +2325,12 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
   run->st->marking_display = 1;
   char *m = a5text_describe (run->st, comp);
   run->st->marking_display = prev_mark;
-  size_t n = strlen (m);
-  while (n > 0 && (m[n - 1] == '\n' || m[n - 1] == '\r'
-                   || m[n - 1] == ' ' || m[n - 1] == '\t'))
-    m[--n] = '\0';
-  if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
+  /* Append exactly as FD Display() does: pSpace-join to the running output, then
+     the rendered text verbatim.  A whitespace-only message has no output (FD's
+     bHasOutput) and is dropped; a real message keeps its own trailing newline so
+     it forces a line/paragraph break before the next message, while one ending
+     in text space-joins to the next. */
+  if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
   free (m);
 }
 
@@ -2285,8 +2383,8 @@ emit_look (a5_run_t *run, sb_t *out)
         }
     }
 
+  sb_pspace (out);
   sb_puts (out, result.c_str ());
-  sb_puts (out, "\n");
 }
 
 static void
@@ -2391,7 +2489,7 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
       if (se->description != NULL && se->key != NULL && se->key[0] != '\0'
           && a5state_in_group_or_location (run->st, "Player", se->key))
         { char *m = a5text_describe (run->st, se->description);
-          if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
+          if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
           free (m); }
       break;
     case A5_SE_SETLOOK:
@@ -2819,7 +2917,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             }
         }
       s += ".";
-      sb_puts (out, s.c_str ()); sb_puts (out, "\n");
+      sb_pspace (out); sb_puts (out, s.c_str ());
     }
   else if (streq (dest, ploc))                 /* entering the player's room */
     {
@@ -2834,7 +2932,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             s += " from " + dir;
         }
       s += ".";
-      sb_puts (out, s.c_str ()); sb_puts (out, "\n");
+      sb_pspace (out); sb_puts (out, s.c_str ());
     }
 }
 
@@ -2969,7 +3067,7 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
               && sw->only_apply_at[0] != '\0'
               && a5state_in_group_or_location (st, "Player", sw->only_apply_at))
             { char *m = a5text_describe (st, sw->description);
-              if (m[0]) { sb_puts (out, m); sb_puts (out, "\n"); }
+              if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
               free (m); }
           break;
         case A5_SW_EXECTASK:
@@ -3314,7 +3412,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                 {
                   char *fo = a5text_describe (st, run->pending_failover);
                   run->pending_failover = NULL;
-                  if (fo[0]) { sb_puts (out, fo); sb_puts (out, "\n"); }
+                  if (msg_has_output (fo)) { sb_pspace (out); sb_puts (out, fo); }
                   free (fo);
                   return 1;
                 }
@@ -3430,11 +3528,30 @@ static char *
 finish_turn (a5_run_t *run, sb_t *out)
 {
   char *raw, *fin;
+  size_t n;
   if (run->st->game_over && !run->st->end_displayed)
     emit_endgame (run, out);
   raw = sb_take (out);
   fin = a5text_display_alr (run->st, raw);
   free (raw);
+  /* Normalise only the very end of the turn: FD's pSpace model leaves a message
+     ending in trailing spaces or a paragraph break, and FD then appends its own
+     end-of-turn vbCrLf pair.  The interior pSpace joins are what matter for
+     conformance; the turn's tail is cosmetic (the diff harness collapses it).
+     Trim trailing whitespace/newlines and re-add a single '\n' so each turn ends
+     the same shape it always did -- the dump harness supplies the blank line. */
+  n = strlen (fin);
+  while (n > 0 && (fin[n - 1] == '\n' || fin[n - 1] == '\r'
+                   || fin[n - 1] == ' ' || fin[n - 1] == '\t'))
+    n--;
+  if (n > 0)
+    {
+      fin = (char *) realloc (fin, n + 2);
+      fin[n] = '\n';
+      fin[n + 1] = '\0';
+    }
+  else if (fin != NULL)
+    fin[0] = '\0';
   return fin;
 }
 

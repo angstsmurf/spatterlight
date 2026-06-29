@@ -119,6 +119,11 @@ static void
 check_exact (a5_run_t *run, const char *cmd, const char *want)
 {
   char *out = a5run_input (run, cmd);
+  /* a5run_input now ends every turn's output with a single '\n' (FD's
+     end-of-turn break, normalised in finish_turn); the `want` strings carry the
+     bare message, so ignore one trailing newline when comparing. */
+  size_t n = strlen (out);
+  if (n > 0 && out[n - 1] == '\n') out[n - 1] = '\0';
   if (strcmp (out, want) != 0)
     {
       printf ("FAIL: \"%s\"\n  want: [%s]\n  got:  [%s]\n", cmd, want, out);

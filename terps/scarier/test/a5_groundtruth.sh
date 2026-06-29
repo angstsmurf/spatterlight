@@ -87,15 +87,52 @@ fd_key=$(
 )
 fd_cached="$FD_CACHE/$fd_key.txt"
 
+# Number of real commands the script feeds FD (skip blank lines and #-comments,
+# matching the headless runner's own filter).  A complete FD transcript echoes
+# "> cmd" for each command it processed; the count is < this only when the game
+# ended early (won/lost/neutral), which the banner/prompt check below allows.
+script_cmds=$(grep -cE -v '^[[:space:]]*($|#)' "$SCRIPT" 2>/dev/null || echo 0)
+
+# A transcript is COMPLETE iff dotnet exited 0 *and* either every command was
+# echoed, or the game ended (a win/lose banner or the restart prompt is present).
+# A short, banner-less transcript means dotnet was killed mid-run (OOM / signal
+# under load) -- the classic cache-poisoning truncation.  Such output must never
+# be cached, because the next run would silently diff against a stunted FD.
+fd_is_complete() {  # $1 = transcript file, $2 = dotnet exit code
+    [ "$2" = 0 ] || return 1
+    [ -s "$1" ]  || return 1
+    local echoed
+    echoed=$(grep -cE '^> ' "$1" 2>/dev/null || echo 0)
+    [ "$echoed" -ge "$script_cmds" ] && return 0
+    grep -qE '\*\*\* You have (won|lost) \*\*\*|Would you like to .*(restart|restore)' "$1" \
+        && return 0
+    return 1
+}
+
+run_fd() {  # populate $TMP/frankendrift.txt; echo "ok"/"bad" via return code
+    local rc
+    FD_SEED="$FD_SEED" dotnet "$FD_DLL" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/frankendrift.txt"
+    rc=$?
+    fd_is_complete "$TMP/frankendrift.txt" "$rc"
+}
+
 if [ -z "${FD_NOCACHE:-}" ] && [ -s "$fd_cached" ]; then
     cp "$fd_cached" "$TMP/frankendrift.txt"
 else
-    FD_SEED="$FD_SEED" dotnet "$FD_DLL" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/frankendrift.txt" || true
-    # Only cache a non-empty transcript (an empty file means dotnet failed; don't
-    # poison the cache with it).
-    if [ -s "$TMP/frankendrift.txt" ]; then
+    # The truncation is load-transient, so retry a few times before giving up.
+    fd_ok=
+    for attempt in 1 2 3; do
+        if run_fd; then fd_ok=1; break; fi
+        echo "a5_groundtruth: FrankenDrift run looked truncated (attempt $attempt/3), retrying..." >&2
+    done
+    if [ -n "$fd_ok" ]; then
         mkdir -p "$FD_CACHE"
         cp "$TMP/frankendrift.txt" "$fd_cached"
+    else
+        # Don't poison the cache; warn loudly so the caller knows the diff is
+        # against an incomplete FD transcript (hunk counts are not trustworthy).
+        echo "a5_groundtruth: WARNING -- FrankenDrift transcript incomplete after 3 tries" >&2
+        echo "  ($GAME: echoed $(grep -cE '^> ' "$TMP/frankendrift.txt" 2>/dev/null || echo 0)/$script_cmds commands, no end banner); NOT caching." >&2
     fi
 fi
 
