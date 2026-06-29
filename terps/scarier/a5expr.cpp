@@ -178,7 +178,12 @@ objs_in_location (a5_state_t *st, const char *lockey)
   return v;
 }
 
-/* The parent key of an object/character (the thing it is in/on/held/worn by). */
+/* The parent key of an object (clsObject.Parent, clsObject.vb:663): the thing it
+   is in/on/held/worn by/part of -- AND, for an object sitting directly in a
+   location (or location group), that location key.  st->obj[oi].key holds the
+   container key in every placed case (it is the location key for
+   A5_OWHERE_LOCATION/LOCGROUP), so all of these return it; only the unplaced
+   cases (Hidden/Everywhere/None) have no parent here. */
 static const char *
 parent_key (a5_state_t *st, const char *key)
 {
@@ -188,7 +193,8 @@ parent_key (a5_state_t *st, const char *key)
       a5_owhere_t w = st->obj[oi].where;
       if (w == A5_OWHERE_ON_OBJECT || w == A5_OWHERE_IN_OBJECT
           || w == A5_OWHERE_HELD_BY || w == A5_OWHERE_WORN_BY
-          || w == A5_OWHERE_PART_OBJECT || w == A5_OWHERE_PART_CHAR)
+          || w == A5_OWHERE_PART_OBJECT || w == A5_OWHERE_PART_CHAR
+          || w == A5_OWHERE_LOCATION || w == A5_OWHERE_LOCGROUP)
         return st->obj[oi].key;
     }
   return NULL;
@@ -524,6 +530,13 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
               { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
             return v;
           }
+        /* a Text property's value is a rich <Description> (value_node), e.g.
+           the flashlight's WhenOn -> "The flashlight is now emitting a strong
+           light."; render it (clsItemWithProperties property string value). */
+        const a5_prop_t *pr = a5_prop_find (o->props, o->n_props, fn.c_str ());
+        if (pr != NULL && pr->value_node != NULL)
+          { char *d = a5text_eval_description (st, pr->value_node);
+            std::string r = d ? d : ""; free (d); return r; }
         if (!rem.empty ()) { *ok = 0; return ""; }
         return "0";
       }
@@ -538,6 +551,16 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
       if (fn == "Name")
         { char *n = a5text_character_subjective (st, c);
           std::string r = n ? n : key; free (n); return r; }
+      if (fn == "ProperName")
+        { /* clsCharacter.ProperName (Global.vb:1334): the CharacterProperName
+             override (typed-in player name) else the model Name, "" ->
+             "Anonymous". */
+          const char *pn = a5state_entity_prop (st, key.c_str (),
+                                                "CharacterProperName");
+          if (pn == NULL || pn[0] == '\0')
+            pn = (c != NULL && c->name != NULL && c->name[0] != '\0')
+                   ? c->name : "Anonymous";
+          return pn; }
       if (fn == "Descriptor")   return c->n_descriptors > 0 ? c->descriptors[0] : "";
       if (fn == "Exits")
         {

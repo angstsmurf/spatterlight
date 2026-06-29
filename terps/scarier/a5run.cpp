@@ -291,31 +291,11 @@ collect_words (const char *article, const char *prefix,
       { allowed.push_back (lower (w)); nouns.push_back (lower (w)); }
 }
 
-/* Match `text` against an entity the way clsObject/clsCharacter's
-   sRegularExpressionString does: `^(article |the )?(prefix_i )?...(name_alt)$` --
-   an optional article, each prefix word independently optional in order, then
-   exactly one whole name (a multi-word name like "key rack" must appear in full,
-   unlike the looser word-set words_match used for clarifiers/AmbWord). */
+/* The input words from index `i` onward must equal exactly one whole name. */
 static int
-name_match (const char *article, const char *prefix,
-            const char **names, int n_names, const std::string &text)
+name_match_tail (const std::vector<std::string> &in, size_t i,
+                 const char **names, int n_names)
 {
-  std::vector<std::string> in = split_ws (text.c_str ());
-  size_t i = 0;
-  if (in.empty ())
-    return 0;
-  /* optional leading article: the entity's own article, or "the". */
-  {
-    std::string w = lower (in[i]);
-    std::string art = article ? lower (article) : "";
-    if (w == "the" || (!art.empty () && w == art))
-      i++;
-  }
-  /* optional prefix words, each independent, in defined order. */
-  for (auto &p : split_ws (prefix))
-    if (i < in.size () && lower (in[i]) == lower (p))
-      i++;
-  /* the remaining words must equal exactly one whole name. */
   std::vector<std::string> rest (in.begin () + i, in.end ());
   if (rest.empty ())
     return 0;
@@ -330,6 +310,57 @@ name_match (const char *article, const char *prefix,
       if (eq)
         return 1;
     }
+  return 0;
+}
+
+/* Match the `(prefix_pi )?...(name_alt)` tail of the regex with backtracking:
+   each remaining prefix word is independently optional (in order), then one
+   whole name must consume the rest.  Crucially this BACKTRACKS -- a prefix word
+   that also equals a name (e.g. the ID pass's prefix "ID" vs its name "id")
+   must be skippable so the bare noun still resolves, exactly as .NET's regex
+   engine does for FrankenDrift's `(ID )?(id|pass)` pattern. */
+static int
+name_match_prefix (const std::vector<std::string> &in, size_t i,
+                   const std::vector<std::string> &pfx, size_t pi,
+                   const char **names, int n_names)
+{
+  if (pi == pfx.size ())
+    return name_match_tail (in, i, names, n_names);
+  /* option 1: skip this prefix word. */
+  if (name_match_prefix (in, i, pfx, pi + 1, names, n_names))
+    return 1;
+  /* option 2: consume it if the next input word matches. */
+  if (i < in.size () && lower (in[i]) == lower (pfx[pi]))
+    if (name_match_prefix (in, i + 1, pfx, pi + 1, names, n_names))
+      return 1;
+  return 0;
+}
+
+/* Match `text` against an entity the way clsObject/clsCharacter's
+   sRegularExpressionString does: `^(article |the )?(prefix_i )?...(name_alt)$` --
+   an optional article, each prefix word independently optional in order, then
+   exactly one whole name (a multi-word name like "key rack" must appear in full,
+   unlike the looser word-set words_match used for clarifiers/AmbWord).  The
+   prefix/name tail is matched with backtracking (name_match_prefix). */
+static int
+name_match (const char *article, const char *prefix,
+            const char **names, int n_names, const std::string &text)
+{
+  std::vector<std::string> in = split_ws (text.c_str ());
+  if (in.empty ())
+    return 0;
+  std::vector<std::string> pfx = split_ws (prefix);
+  /* without the optional leading article. */
+  if (name_match_prefix (in, 0, pfx, 0, names, n_names))
+    return 1;
+  /* with the optional leading article (the entity's own, or "the") consumed. */
+  {
+    std::string w = lower (in[0]);
+    std::string art = article ? lower (article) : "";
+    if (w == "the" || (!art.empty () && w == art))
+      if (name_match_prefix (in, 1, pfx, 0, names, n_names))
+        return 1;
+  }
   return 0;
 }
 
@@ -1301,6 +1332,7 @@ static void run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out);
 static void run_action (a5_run_t *run, const char *kind, const char *body,
                         int depth, sb_t *out);
 static void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
+static void emit_look (a5_run_t *run, sb_t *out);
 
 /* Conversation type bits (clsAction.ConversationEnum). */
 enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
@@ -1477,16 +1509,25 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
         if (is_after)
           { after.push_back (child); continue; }
 
+        /* clsUserSession.AttemptToExecuteSubTask iterates EVERY matching child in
+           priority order (clsUserSession.vb:1056-1160), not just the first.  After
+           running a child it keeps going unless that child claims the turn -- the
+           bContinue rule (clsUserSession.vb:911-936): continue past a child that
+           produced no output (or whose Continue is ContinueAlways), stop after one
+           that did.  So Amazon's per-move travel-time override (Delay*, no output)
+           runs and then falls through to Beforeplay (the "You move <dir>." +
+           Date/Time override, with output), which then stops the scan.  Detect a
+           child's output by the growth of `out`. */
+        size_t len0 = out->len;
+
         if (!a5restr_pass (st, child->restrictions))
           {
-            /* A Specific task is a first-class, higher-priority task in
-               frankendrift (its command is the parent's with the specifics
-               substituted), so when it matches the references but its
-               restrictions fail it still claims the turn: if it has a fail
-               message, show it and suppress the parent (the default move/etc.);
-               if it has no output, fall through and let the parent run (the
-               HighestPriorityPassingTask "fails but no output -> continue"
-               rule). */
+            /* A Specific task that matches the references but whose restrictions
+               fail still claims the turn if it has a fail message: show it and
+               suppress the parent.  In the default HighestPriorityTask mode a
+               fail *with* output stops the scan; in HighestPriorityPassingTask
+               mode, or with no output at all, scanning continues so a later
+               override (or the parent) can run. */
             const a5_xml_node_t *fm =
               a5restr_fail_message (st, child->restrictions);
             if (fm != NULL)
@@ -1496,9 +1537,10 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
                 free (fmsg);
                 parent_text = 0;
                 parent_actions = 0;
-                break;
               }
-            continue;                     /* no output: parent still runs */
+            if (out->len > len0 && !child->continue_lower && !st->adv->hp_passing)
+              break;                        /* fail with output: claims the turn */
+            continue;                       /* no output (or HPPT): keep scanning */
           }
 
         run_task (run, child, 0, out);
@@ -1506,8 +1548,12 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
           { parent_text = 0; parent_actions = 0; }
         else if (streq (ot, "BeforeTextOnly"))      parent_text = 0;
         else if (streq (ot, "BeforeActionsOnly"))   parent_actions = 0;
-        /* BeforeTextAndActions: parent still runs both (child ran first) */
-        break;                            /* one override is enough for v1 */
+        /* BeforeTextAndActions: parent still runs both (child ran first). */
+
+        /* Stop only when this passing child produced output (and isn't
+           ContinueAlways); otherwise fall through to the next matching child. */
+        if (out->len > len0 && !child->continue_lower)
+          break;
       }
 
   if (parent_text || parent_actions)
@@ -1904,6 +1950,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       return;
     }
 
+  if (streq (kind, "AddObjectToGroup") || streq (kind, "RemoveObjectFromGroup"))
+    {
+      /* "Object <obj> ToGroup <grp>" / "Object <obj> FromGroup <grp>"
+         (clsAction AddObjectToGroup/RemoveObjectFromGroup): runtime membership,
+         e.g. the flashlight joins LightSources while switched on so the darkness
+         override's "MustNot BeInSameLocationAsObject LightSources" sees it. */
+      if (tk.size () < 4 || tk[0] != "Object")
+        return;
+      const char *obj = act_key (st, tk[1].c_str ());
+      const char *grp = tk[3].c_str ();
+      a5state_set_object_in_group (st, grp, obj, streq (kind, "AddObjectToGroup"));
+      return;
+    }
+
   if (streq (kind, "MoveCharacter"))
     {
       if (tk.size () < 3 || tk[0] != "Character")
@@ -1999,7 +2059,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       std::string val;
       for (size_t i = 2; i < tk.size (); i++)
         { if (i > 2) val += " "; val += tk[i]; }
+      /* clsUserSession SetProperties: an Integer/Text/StateList/ValueList
+         property value is an expression (EvaluateExpression), e.g.
+         "PCASE(%text%)" for the player's typed name.  Evaluate it when it
+         carries a %reference% (a plain key/state value has none and is stored
+         verbatim, matching FD's Nothing->raw fallback). */
+      if (val.find ('%') != std::string::npos)
+        {
+          char *ev = a5text_eval_expression (st, val.c_str ());
+          if (ev != NULL && ev[0] != '\0') val = ev;
+          free (ev);
+        }
       a5state_set_prop (st, k1, tk[1].c_str (), val.c_str ());
+      /* clsCharacter.ProperName tracks the CharacterProperName property
+         (clsUserSession.vb:2080), so .Name/.ProperName render the new value. */
       if (tk[1] == "CharacterPosition")
         {
           int ci = a5state_character_index (st, k1);
@@ -2022,11 +2095,9 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       if (tk[0] == "Execute" && tk.size () >= 2)
         {
           std::string key = tk[1];
-          if (key == "Look")            /* built-in room view */
+          if (key == "Look")            /* built-in room view + darkness override */
             {
-              char *v = a5text_view_location (st);
-              sb_puts (out, v); sb_puts (out, "\n");
-              free (v);
+              emit_look (run, out);
               return;
             }
           const a5_task_t *tt = a5model_task (st->adv, key.c_str ());
@@ -2165,6 +2236,59 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
   free (m);
 }
 
+/* Render the room view for FD's "Execute Look" (on movement / "look").  The
+   stock Look task's CompletionMessage is "%Player%.Location.Description" (== the
+   room view) followed by an optional restriction-gated darkness override -- a
+   StartDescriptionWithThis description that, when the player is in a
+   DarkLocations-group location with no LightSources object in scope, replaces
+   the whole view with the game's "It is too dark..." line (clsDescription.ToString;
+   the override lives in the Look task data, not the engine).  We render the room
+   view exactly as before (a5text_view_location -- not back through the text
+   pipeline, which would perturb whitespace in the common no-override case), then
+   apply any further passing descriptions just as ToString would. */
+static void
+emit_look (a5_run_t *run, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  const a5_task_t *look = a5model_task (st->adv, "Look");
+  const a5_xml_node_t *comp =
+      look != NULL ? a5xml_child (look->node, "CompletionMessage") : NULL;
+  char *view = a5text_view_location (st);
+  std::string result = view ? view : "";
+  free (view);
+
+  if (comp != NULL)
+    {
+      int idx = 0;
+      for (const a5_xml_node_t *c = comp->first_child; c; c = c->next)
+        {
+          const a5_xml_node_t *restr;
+          const char *when, *raw;
+          char *proc, *plain;
+          if (strcmp (c->name, "Description") != 0)
+            continue;
+          if (idx++ == 0)
+            continue;                          /* the room-view default */
+          restr = a5xml_child (c, "Restrictions");
+          if (restr != NULL && !a5restr_pass (st, restr))
+            continue;
+          when = a5xml_child_text (c, "DisplayWhen");
+          raw  = a5xml_child_text (c, "Text");
+          proc = a5text_process (st, raw ? raw : "");
+          plain = a5text_render_plain (proc);
+          free (proc);
+          if (streq (when, "StartDescriptionWithThis"))
+            result = plain;
+          else                                  /* Append / StartAfterDefault */
+            { if (!result.empty ()) result += "  "; result += plain; }
+          free (plain);
+        }
+    }
+
+  sb_puts (out, result.c_str ());
+  sb_puts (out, "\n");
+}
+
 static void
 run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
 {
@@ -2183,12 +2307,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
     fprintf (stderr, "  [run task %s]\n", t->key ? t->key : "?");
 
   /* The built-in Look task's completion is the ADRIFT property expression
-     "%Player%.Location.Description"; render the room view directly instead. */
+     "%Player%.Location.Description" plus a restriction-gated darkness override;
+     render that CompletionMessage (emit_look) instead of the room view directly,
+     so a dark location shows the game's "too dark" line. */
   if (streq (t->key, "Look"))
     {
-      char *v = a5text_view_location (run->st);
-      sb_puts (out, v); sb_puts (out, "\n");
-      free (v);
+      emit_look (run, out);
       if (t->actions != NULL)
         for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
           run_action (run, c->name, c->text, depth, out);
@@ -3106,6 +3230,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
             int *have_noref, int *noref_ti, int *noref_ci)
 {
   a5_state_t *st = run->st;
+  int fail_priority = 0;
   for (size_t oi = 0; oi < run->order->size (); oi++)
     {
       int ti = (*run->order)[oi];
@@ -3114,6 +3239,19 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
         continue;
       if (st->task_done[ti] && !t->repeatable)
         continue;
+
+      /* HighestPriorityTask mode: a recorded failing-with-output task claims the
+         turn over any *lower*-priority task (higher Priority value).  But an
+         *equal*-priority task that passes still overrides it -- frankendrift's
+         GetGeneralTask reaches such a passing task first when its (unstable)
+         priority sort happens to order it ahead of the failing one (e.g. the
+         library "say %text%" pair: the "Say" fallback needs an active
+         conversation and fails with a message, while the equal-priority
+         "SayLazy" passes when alone with a character and prints "(to <char>)").
+         So keep scanning within the same priority band, but stop the moment we
+         descend to a strictly lower priority: emit the recorded message. */
+      if (*have_fail && !st->adv->hp_passing && t->priority > fail_priority)
+        return 0;
 
       for (int ci = 0; ci < t->n_commands; ci++)
         {
@@ -3202,10 +3340,14 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                   char *fmsg = a5text_describe (st, fm);
                   if (fmsg[0])
                     {
-                      if (!st->adv->hp_passing)
-                        { sb_puts (out, fmsg); free (fmsg); return 1; }
+                      /* Record the first (highest-priority) failing-with-output
+                         task and keep scanning.  Under HighestPriorityPassingTask
+                         any later passing task (any priority) overrides it; under
+                         the default HighestPriorityTask only an equal-priority
+                         passing task does (enforced by the loop-top guard, which
+                         stops once a strictly lower priority is reached). */
                       if (!*have_fail)
-                        { *have_fail = 1; *fail_text = fmsg; }
+                        { *have_fail = 1; *fail_text = fmsg; fail_priority = t->priority; }
                     }
                   free (fmsg);
                 }
@@ -3234,6 +3376,27 @@ emit_endgame (a5_run_t *run, sb_t *out)
   a5_state_t *st = run->st;
   const char *es = st->end_message;     /* "Win" / "Lose" / "Neutral" */
   long score = 0, maxscore = 0;
+
+  /* FrankenDrift's CheckEndOfGame Displays the banner through pSpace, so a
+     paragraph break always separates it from the turn's preceding output.  A
+     game that ends via a turn-based event (e.g. StarshipQuest's hyperspace
+     death, MagneticMoon's "took too long" timer) emits its death text with a
+     single trailing newline -- without this the banner would abut it, whereas a
+     command-ending game's last response already ends in a blank line.  Top up
+     the trailing newlines to a blank-line separator. */
+  if (out->len > 0)
+    {
+      size_t k = out->len;
+      int nl = 0;
+      while (k > 0 && (out->p[k - 1] == '\n' || out->p[k - 1] == '\r'
+                       || out->p[k - 1] == ' ' || out->p[k - 1] == '\t'))
+        {
+          if (out->p[k - 1] == '\n') nl++;
+          k--;
+        }
+      if (nl < 2)
+        sb_puts (out, nl == 0 ? "\n\n" : "\n");
+    }
 
   if (es != NULL && streq (es, "Win"))
     sb_puts (out, "*** You have won ***\n");

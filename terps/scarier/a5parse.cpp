@@ -10,6 +10,7 @@
  */
 
 #include <ctype.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <regex>
@@ -300,13 +301,14 @@ convert_to_re (const char *pattern, std::string &out_pattern,
     }
 
   /*
-   * A literal space that immediately follows an optional group ")?" must itself
-   * be optional, or a command like "{[go] {to {the}}} %direction%" could never
-   * match a bare "se" (the optional prefix collapses to empty but the space
-   * before the reference would remain mandatory).  ADRIFT accepts the bare form,
-   * so relax exactly those spaces -- and no others, so "xgun" still fails.
+   * NOTE: Scarier used to relax a literal space following an optional group
+   * (")? " -> ")? ?") here, to fake the bare-form matching that real ADRIFT gets
+   * from clsUserSession.CorrectCommand restructuring `{x} y` into `{x }y`.  Now
+   * that a5model applies CorrectCommand (a5_correct_command) at load -- exactly
+   * as FrankenDrift does at game-start init -- this matcher must mirror FD's
+   * ConvertToRE *verbatim* (no extra space relaxation), or the two double-relax
+   * and over-match.
    */
-  replace_all (result, ")? ", ")? ?");
 
   /* Trim and anchor. */
   size_t a = result.find_first_not_of (' ');
@@ -317,6 +319,183 @@ convert_to_re (const char *pattern, std::string &out_pattern,
     result = result.substr (a, b - a + 1);
   out_pattern = "^" + result + "$";
   return true;
+}
+
+/* ------------------------------------------------ CorrectCommand (bracket fix) */
+
+/*
+ * A verbatim port of clsUserSession.CorrectCommand / ProcessBlock / GetSubBlock
+ * / ContainsMandatoryText (clsUserSession.vb:6126-6295).  FrankenDrift applies
+ * this to every task command at game-start init, restructuring an optional
+ * group so an adjacent literal space becomes optional too: `{x} y` -> `{x }y`,
+ * `{a/b}` -> `{ [a/b]}`.  a5model calls a5_correct_command at load on every
+ * command, after which a5parse_match_command's ConvertToRE mirrors FD exactly.
+ */
+
+/* GetSubBlock: peel the next token off sBlock (modified in place) -- either the
+   leading plain text up to a top-level bracket, a complete bracketed block, or
+   text up to and including a top-level '/'. */
+static std::string
+cc_get_sub_block (std::string &sBlock)
+{
+  int iDepth = 0;
+  std::string sNewBlock;
+  int len = (int) sBlock.size ();
+
+  for (int i = 0; i < len; i++)
+    {
+      char c = sBlock[i];
+      sNewBlock += c;
+      switch (c)
+        {
+        case '{':
+        case '[':
+          if (iDepth == 0 && i > 0)
+            {
+              sBlock = sBlock.substr (i);       /* keep bracket char onward */
+              return sNewBlock.substr (0, i);   /* sLeft(sNewBlock, i)      */
+            }
+          iDepth += 1;
+          break;
+        case ']':
+        case '}':
+          iDepth -= 1;
+          if (iDepth == 0)
+            {
+              sBlock = sBlock.substr (i + 1);
+              return sNewBlock;
+            }
+          break;
+        case '/':
+          if (iDepth == 0)
+            {
+              sBlock = sBlock.substr (i + 1);
+              return sNewBlock;
+            }
+          break;
+        }
+    }
+  sBlock = "";
+  return sNewBlock;
+}
+
+/* ContainsMandatoryText: true if any part of the block is mandatory (inside []
+   or not in {} brackets at all -- spaces ignored). */
+static bool
+cc_contains_mandatory (const std::string &sBlock)
+{
+  if (sBlock.empty ())
+    return false;
+
+  int iLevel = 0;
+  for (char c : sBlock)
+    {
+      switch (c)
+        {
+        case ' ':
+          break;
+        case '{':
+          iLevel += 1;
+          break;
+        case '}':
+          iLevel -= 1;
+          break;
+        default:
+          if (iLevel == 0)
+            return true;
+        }
+    }
+  return false;
+}
+
+static std::string
+cc_process_block (const std::string &sBlock)
+{
+  std::string sAfter = sBlock;
+  std::string sNextBlock;
+  std::string sBefore;
+
+  do
+    {
+      sNextBlock = cc_get_sub_block (sAfter);
+      if (!sNextBlock.empty ())
+        {
+          if (sNextBlock[0] == '{')
+            {
+              bool bContainsMandatory = cc_contains_mandatory (sAfter);
+              if (bContainsMandatory && !sAfter.empty () && sAfter[0] == ' ')
+                {
+                  /* before final [] block: _{x}_ => _{x_} */
+                  if (sBefore.empty () || sBefore.back () == ' '
+                      || sBefore.back () == '}')
+                    {
+                      if (sNextBlock.find ('/') != std::string::npos)
+                        sNextBlock = "{["
+                            + sNextBlock.substr (1, sNextBlock.size () - 2)
+                            + "] }";
+                      else
+                        sNextBlock = sNextBlock.substr (0, sNextBlock.size () - 1)
+                            + " }";
+                      sAfter = sAfter.substr (1);
+                    }
+                }
+              else if (!bContainsMandatory && !sBefore.empty ()
+                       && sBefore.back () == ' ')
+                {
+                  /* after final [] block: _{x}_ => {_x}_ */
+                  if (sNextBlock.find ('/') != std::string::npos)
+                    sNextBlock = "{ ["
+                        + sNextBlock.substr (1, sNextBlock.size () - 2) + "]}";
+                  else
+                    sNextBlock = "{ " + sNextBlock.substr (1);
+                  sBefore = sBefore.substr (0, sBefore.size () - 1);
+                }
+
+              /* End block: " {#}" => "{ #}" or "{ [#/#]}" */
+              if (!sBefore.empty () && sBefore.back () == ' ' && sAfter.empty ())
+                {
+                  if (sNextBlock.find ('/') != std::string::npos)
+                    sNextBlock = "{ ["
+                        + sNextBlock.substr (1, sNextBlock.size () - 2) + "]}";
+                  else
+                    sNextBlock = "{ " + sNextBlock.substr (1);
+                  sBefore = sBefore.substr (0, sBefore.size () - 1);
+                }
+              sBefore += "{"
+                  + cc_process_block (sNextBlock.substr (1, sNextBlock.size () - 2))
+                  + "}";
+            }
+          else if (sNextBlock[0] == '[')
+            {
+              sBefore += "["
+                  + cc_process_block (sNextBlock.substr (1, sNextBlock.size () - 2))
+                  + "]";
+            }
+          else if (sNextBlock.back () == '/')
+            {
+              sBefore += cc_process_block (
+                             sNextBlock.substr (0, sNextBlock.size () - 1))
+                  + "/";
+            }
+          else
+            {
+              sBefore += sNextBlock;
+            }
+        }
+    }
+  while (!sAfter.empty ());
+  return sBefore;
+}
+
+char *
+a5_correct_command (const char *cmd)
+{
+  std::string in = cmd ? cmd : "";
+  std::string out = cc_process_block (in);
+  char *r = (char *) malloc (out.size () + 1);
+  if (r != NULL)
+    memcpy (r, out.c_str (), out.size () + 1);
+  return r;
 }
 
 /* ---------------------------------------------------------------- matching */

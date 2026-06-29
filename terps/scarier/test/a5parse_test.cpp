@@ -10,19 +10,26 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "a5parse.h"
 
 static int failures = 0;
 
-/* Expect input to (not) match pattern, and optionally check one bound ref. */
+/* Expect input to (not) match pattern, and optionally check one bound ref.
+   The pattern is bracket-corrected first (a5_correct_command), mirroring the
+   real flow: a5model applies CorrectCommand to every task command at load, and
+   a5parse_match_command then matches the corrected form (e.g. the bare-direction
+   "se" matches only after "{...} %direction%" becomes "{... }%direction%"). */
 static void
 expect (const char *pat, const char *in, int want_match,
         const char *ref, const char *want_val)
 {
   a5_match_t m;
-  int got = a5parse_match_command (pat, in, &m);
+  char *cpat = a5_correct_command (pat);
+  int got = a5parse_match_command (cpat, in, &m);
+  free (cpat);
   if (got != want_match)
     {
       printf ("FAIL match: \"%s\" vs \"%s\" -> %d (want %d)\n", pat, in, got, want_match);

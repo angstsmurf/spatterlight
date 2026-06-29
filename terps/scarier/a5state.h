@@ -218,6 +218,13 @@ extern const char *a5state_entity_prop (const a5_state_t *st, const char *entkey
 extern void a5state_set_prop (a5_state_t *st, const char *entkey,
                               const char *propkey, const char *value);
 
+/* Runtime object-group membership (AddObjectToGroup/RemoveObjectFromGroup):
+   effective membership = runtime override else the model <Member> list. */
+extern int  a5state_object_in_group (const a5_state_t *st, const char *grpkey,
+                                     const char *objkey);
+extern void a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
+                                         const char *objkey, int present);
+
 /* Conversation state setters (own the string; "" clears). */
 extern void a5state_set_conv_char (a5_state_t *st, const char *key);
 extern void a5state_set_conv_node (a5_state_t *st, const char *key);

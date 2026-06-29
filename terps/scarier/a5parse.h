@@ -48,6 +48,18 @@ typedef struct a5_match_s {
 extern int a5parse_match_command (const char *pattern, const char *input,
                                   a5_match_t *m);
 
+/*
+ * clsUserSession.CorrectCommand: bracket-normalise a command pattern before it
+ * is matched.  Moves a literal space adjacent to an optional `{...}` group
+ * *inside* it (so the space becomes optional) and wraps an optional alternation
+ * in `[...]` -- e.g. `[look] [around] {me/you}` -> `[look] [around]{ [me/you]}`,
+ * letting a bare "look around" (or a bare-direction "n") match.  FrankenDrift
+ * applies this to every task command at game-start init; a5model does the same
+ * at load, and a5parse_match_command therefore expects the corrected form.
+ * Returns a malloc'd string the caller must free.
+ */
+extern char *a5_correct_command (const char *cmd);
+
 /* Look up the value of a named reference in a match, or NULL if absent. */
 extern const char *a5parse_ref (const a5_match_t *m, const char *name);
 

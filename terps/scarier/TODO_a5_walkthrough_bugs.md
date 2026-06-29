@@ -127,6 +127,126 @@ further. All a5 unit tests pass; budgets re-blessed.
 
 ---
 
+## End-of-game banner spacing  ✅ DONE (2026-06-29)
+
+**Was:** when a game ends via a turn-based **event** (StarshipQuest's hyperspace
+death, MagneticMoon's "took too long" timer) rather than a command, the death
+text was emitted with a single trailing newline and the `*** You have won/lost ***`
+banner abutted it — FrankenDrift always shows a blank line before the banner.
+
+**Root cause:** FD's `CheckEndOfGame` Displays the banner via `pSpace`
+(Global.vb:568 → clsUserSession.Display:310), so a paragraph break always
+precedes it. Command-ending games' last response already ends in a blank line, so
+Scarier matched those; event-ending games didn't.
+
+**Fixed** in `a5run.cpp emit_endgame`: before the banner, count the trailing
+newlines already in `out` (skipping `\r`/spaces) and top them up to a blank-line
+separator (`nl<2 ⇒ add "\n\n"`/`"\n"`).
+
+**Result:** StarshipQuest 1→**0** (now a golden `test/StarshipQuest_expected.txt`),
+AxeOfKolt 56→54, MagneticMoon 14→13. RunBronwynn 46→47 and Amazon 41→42 each rose
+by one line-shift artifact only (both emit the banner at the *wrong* point —
+RunBronwynn ends prematurely, Amazon misses the P2b Date/Time lines and never
+reaches the real win — so FD has no banner there and the extra blank just splits a
+hunk). All a5 unit tests pass; budgets re-blessed.
+
+---
+
+## Command bracket normalisation (CorrectCommand)  ✅ DONE (2026-06-29)
+
+**Was:** bare-direction movement (`N`, `U`, …) and commands like `look around`
+emitted "Sorry, I didn't understand that command." in games whose direction/verb
+tasks use the optional-with-space syntax `{[go] {to {the}}} %direction%` /
+`[look] [around] {me/you/myself/yourself}`. **Jacaranda Jim** (every move failed),
+**Amazon** (movement), and broadly.
+
+**Root cause — Scarier never applied `clsUserSession.CorrectCommand`.** FD rewrites
+every task command at game-start init (clsUserSession.vb:211, `ProcessBlock`/
+`GetSubBlock`/`ContainsMandatoryText`): an optional group `{x} y` becomes `{x }y`
+and `{a/b}` becomes `{ [a/b]}`, *moving the space adjacent to the optional group
+inside it* so that space is itself optional.  So `[look] [around] {me/...}` →
+`[look] [around]{ [me/...]}` → regex `(look) (around)( (me|...))?`, which matches a
+bare "look around"; likewise the bare direction matches `{[go] …} %direction%`.
+The raw blorb XML stores the *un*-corrected form (verified: FD's `<Command>`
+InnerText == Scarier's a5dump bytes; FD transforms it at load), and Scarier had
+been faking the effect with a single `")? " → ")? ?"` relaxation in
+`a5parse.cpp convert_to_re`.
+
+**Fixed:** ported `CorrectCommand` verbatim as `a5_correct_command` (+`cc_*`
+helpers, `a5model.cpp`), applied to every task command at load (the collected
+pointers alias the XML tree, so each is replaced with an owned bracket-corrected
+copy, freed in `a5model_free`).  Verified character-for-character against FD via
+an instrumented `CorrectCommand` dump (only diff = `%object%` vs `%object1%`,
+which Scarier normalises later).  **Removed** the `")? "→")? ?"` hack so the
+matcher mirrors FD's `ConvertToRE` exactly (the two would otherwise double-relax
+and over-match).
+
+**Result:** AxeOfKolt 50→42, SpectreOfCastleCoris stays 34, Revenge 7→5,
+LostChildren 359→354, StoneOfWisdom 5→3; StarshipQuest still a clean golden;
+MagneticMoon/RunBronwynn back at baseline (the hack removal undid its
+over-matching there too).  **Amazon 34→65 and Jacaranda 147→450 ROSE** — without
+CorrectCommand their bare-direction moves silently failed so Scarier was stuck
+near the start; now it traverses the whole game and the transcript exposes the
+pre-existing **darkness** bug (new item below) plus Amazon's P2b Date/Time
+placement — the same "now-playable, downstream bugs visible" rise as P1.  All a5
+unit tests pass; budgets re-blessed.
+
+**Harness note:** FrankenDrift.Headless has a per-turn 10s wait-loop that can
+*truncate* its transcript on a slow game (Axe FD takes >1 min) under system load;
+the truncated output then poisons `test/.fd_cache`, inflating that game's hunk
+count on the next run (seen as Axe 42→48 flapping).  The true value is the
+`FD_NOCACHE=1` number.  Not a Scarier bug; consider validating FD output isn't
+truncated before caching.
+
+---
+
+## DARKNESS — dark locations show full room text instead of "It is too dark…"  ✅ DONE (2026-06-29)
+
+**Was:** in a dark location Scarier printed the full room description; FD prints
+the game's darkness line (e.g. Jacaranda's "It is too dark to make anything out
+clearly.").
+
+**Root cause — two parts, both confirmed:**
+1. **The darkness line is the stock `Look` task's CompletionMessage second
+   description**, not engine: `%Player%.Location.Description` (= the room view)
+   followed by a `StartDescriptionWithThis` description gated on `%Player% Must
+   BeWithinLocationGroup DarkLocations` AND `%Player% MustNot
+   BeInSameLocationAsObject LightSources`.  `clsDescription.ToString`'s
+   StartDescriptionWithThis **replaces** the whole view when those pass.  Movement
+   runs it via `PlayerMovement`'s `<Actions>` `SetTasks Execute Look`.  Scarier
+   shortcut `Execute Look` (and the `run_task` Look path) straight to
+   `a5text_view_location`, bypassing the override.
+   **Fixed** with `emit_look` (`a5run.cpp`): render the room view exactly as
+   before (NOT back through the text pipeline — that perturbs whitespace in the
+   no-override common case and regressed anno1700/RtC when first tried), then walk
+   any *further* Look-CompletionMessage descriptions and apply each passing one's
+   DisplayWhen (the darkness override → StartDescriptionWithThis replaces).  Both
+   Look sites now call it.
+2. **`BeInSameLocationAsObject` didn't expand an object GROUP.** The light-source
+   check references the `LightSources` *group*; Scarier's `a5state_object_index`
+   returns −1 for a group key ⇒ predicate false ⇒ `MustNot` wrongly passed ⇒
+   darkness shown even while holding the torch.  **Fixed** in `a5restr.cpp`: if
+   the key is an Objects-group, the predicate is true when **any** member is in
+   scope (`a5state_object_at_location`), mirroring `clsCharacter.CanSeeObject`'s
+   group expansion.
+
+**Result:** Jacaranda's tunnel/Alan's-Den render "It is too dark…" before the
+torch and the normal room after `get it` (matches FD line-for-line).
+JacarandaJim 450→449, Amazon 65→64 (the bulk of each game's remaining hunks is
+downstream desync — rain timing, the `%AlanRemarks[...]%` array template P10, the
+"Alan is with me" follower, postman move-message wording — not darkness).  No
+regressions; all a5 unit tests pass; budgets re-blessed.
+
+**Build-recovery note:** this session also restored `a5_correct_command`
+(P3 CorrectCommand) — its *definition* (+`cc_get_sub_block`/`cc_contains_mandatory`/
+`cc_process_block`) had been lost (declared in `a5parse.h`, called from
+`a5model.cpp`, but undefined → link error).  Re-ported verbatim from
+clsUserSession.vb:6126-6295 into `a5parse.cpp`; `a5parse_test.cpp`'s `expect` now
+bracket-corrects the pattern first (mirrors the load flow), fixing the bare-"se"
+movement case.
+
+---
+
 ## P2 — Room-rendering omissions (broad; biggest hunk inflator)
 
 ### 2a — exit lists  ✅ DONE (2026-06-29)
@@ -142,24 +262,44 @@ restriction-unchecked routes, lower-cased "a, b and c" join), `>1` ⇒ "Exits ar
 must stay exit-less (caught a regression when the bool was mis-parsed). Grandpa's
 exits now match line-for-line; Jacaranda 439→433. Re-blessed.
 
-### 2b — movement confirmations + status line  (still open; re-diagnosed 2026-06-29)
-- **The "standard-library merge" hypothesis is wrong.** FD loads **no** library:
-  `Global.GetLibraries` (which would look for `StandardLibrary.amf`) has **zero
-  callers** and the file is absent from the FD tree. So `You move <dir>.` and the
-  `Date: … Time: …` status line both come from the **game's own data**, not a
-  merged library — Scarier must already have the data and is mis-running /
-  mis-ordering it. (Note: `You move <dir>.` also appears on Scarier's side in
-  anno1700, positionally shifted — i.e. it *is* emitted, just desynced by an
-  upstream cascade, not absent.)
-- status line `Date: … Time: …` (Amazon) — a **game turn-event** (Amazon.xml
-  ~line 11824) that prints the date/time each turn; Scarier isn't firing it.
-  Entangled with the Amazon P4 buy cascade; diagnose together.
+### 2b — movement confirmations + status line  ✅ DONE (2026-06-29)
+- **Root cause (confirmed): `run_general` ran only ONE Specific override.** The
+  "standard-library merge" hypothesis was wrong (FD loads no library). Both lines
+  are emitted by the game's own data: `You move <dir>.` and `Date: … Time: …` come
+  from the **Specific override task `Beforeplay`** (a `BeforeTextAndActions`
+  override of the stock `PlayerMovement` general task — empty-key `<Specific>
+  Direction</>` that matches any direction; its CompletionMessage is the move
+  confirmation, its action `Execute ts_tasCheckTime` prints the date/time). It is
+  **not** a turn-event — Amazon.xml ~11824 is `ts_tasCheckTime`'s own message.
+  Amazon also stacks a per-location/direction travel-time override (`Delay57`,
+  `Delay45`, …; sets `MinutesPerTurn` + `Execute ts_tasIncrement`, no output) on
+  nearly every move, so a typical move matches **two** `BeforeTextAndActions`
+  children. `run_general` (`a5run.cpp`) ran the first (`Delay*`) and then
+  unconditionally `break`ed (`/* one override is enough for v1 */`), dropping
+  `Beforeplay` — so no `You move` / `Date:` line.
+- **Fix:** `run_general` now ports FrankenDrift's child-override loop
+  (`clsUserSession.AttemptToExecuteSubTask`, clsUserSession.vb:1056-1160): it runs
+  **all** matching `Before*` overrides in priority order, continuing past a passing
+  child that produced no output (or `ContinueAlways`) and stopping after one that
+  did (FD's `bContinue` rule, vb:911-936; restriction-fail-with-output still claims
+  the turn in HighestPriorityTask mode). So `Delay*` (no output) runs and falls
+  through to `Beforeplay` (output) every move. Verified: trace shows
+  `Delay57 → Beforeplay → PlayerMovement`, and `You move <dir>.` + `Date:` now emit.
+- **Plus a division-rounding fix (`a5arith.cpp`):** the date/time arithmetic
+  `ts_varHour += (%Minute%-30)/60` needs ADRIFT's `/` semantics —
+  `Math.Round(a/b, MidpointRounding.AwayFromZero)` in double (clsVariable.vb:811),
+  not C integer truncation. Without it the clock carried the wrong hour (Scarier
+  showed 14:22 where FD shows 15:22). a5arith now evaluates in double and rounds at
+  `/` (away from zero), `fmod` for `mod`; the Date/Time values now match FD exactly
+  (12:35, 15:22, 15:53, …). a5arithtest extended with the rounding cases.
 
-**Locus:** the v5 location/look renderer is `a5text_view_location` (`a5text.cpp`,
-not `a5run.cpp`); turn-event firing in the turn driver (`ev_tick_all`).
-
-**Verify:** Amazon simple-movement stretch matches line-for-line once the
-standard-library move task + date/time event fire.
+**Residual (separate items, not 2b):** Amazon still shows the *startup* `Date:
+12:04` offset (StartGame's `Execute Look` → `Beforeplay1` override; Scarier's
+`SetTasks Execute Look` is a direct room-render shortcut that skips the override),
+and it dies at the **bear cave** (`shoot bear` parser/combat gap) so the
+playthrough stops at ~1/3 of FD's. JacarandaJim now **completes** instead of dying
+at turn 272, exposing the unimplemented `%Array[index]%` text-function. Corpus
+re-blessed (AxeOfKolt 48→42, JacarandaJim/Amazon at their full-traversal budgets).
 
 ---
 
@@ -191,13 +331,81 @@ Jim (35×)**, cascaded hard.
 downstream event/template/NPC bugs, not pronouns).  No other corpus script uses
 pronouns, so the rest are unchanged.  a5runtest + a5savetest pass; re-blessed.
 
-### 3b — object aliases not matched  (still open)
-`examine id` / `show id` → "You see no such thing." while FD resolves `id` → "ID
-pass". **Revenge of the Space Pirates** (sibling nouns `lighter`/`documents`/
-`card` do resolve, so it's alias-specific).  `name_match` (`a5run.cpp`) already
-iterates all `names[]` entries; investigate whether the "ID pass" alias is being
-dropped at model-parse or whether it is a multi-word alias the single-name
-`name_match` path mishandles.
+### 3b — object aliases not matched  ✅ DONE (2026-06-29)
+**Was:** `examine id` → "You see no such thing." while FD resolves `id` → "ID
+pass". **Revenge of the Space Pirates** (sibling nouns `lighter`/`pass` resolve,
+so it's alias-specific).
+**Root cause:** `name_match` (`a5run.cpp`) mirrors FD's
+`(article )?(prefix_i )?...(name)` regex but consumed the prefix words
+**greedily, without backtracking**.  The ID pass object has prefix `ID` *and*
+name `id`; "examine id" consumed "id" as the (optional) prefix and left nothing
+for the name → no match, where .NET's regex backtracks and matches "id" as the
+noun.
+**Fixed:** `name_match` now backtracks via `name_match_prefix` (tries
+skip-vs-consume for each prefix word, both article branches) + `name_match_tail`.
+Strictly a superset of the old matches (= exactly the regex semantics), so more
+conformant with no false positives.  AxeOfKolt 54→50, MagneticMoon 13→10, Revenge
+8→7, RunBronwynn 47→45, JacarandaJim 151→147.  All a5 unit tests pass.
+
+### 3c — CharHereDesc blank suppression  ✅ DONE (2026-06-29)
+**Was:** Revenge's room view appended "Customs Official is here." (10+ times)
+where FD's prose already says "A customs official stands here." and FD omits the
+auto present-line.
+**Root cause:** the Customs Official has a `<Property><Key>CharHereDesc</Key></>`
+with **no `<Value>`** — a blank override.  FD's `clsLocation.ViewLocation` checks
+`ch.HasProperty("CharHereDesc")` (== `ContainsKey`), so a blank value still
+overrides the default and `IsHereDesc` returns `""` ⇒ suppressed.  Scarier's
+`char_here_desc` gated on `p->value_node != NULL`, falling through to the default
+"<Name> is here.".
+**Fixed:** `char_here_desc` (`a5text.cpp`) now treats a present-but-value-less
+property as an empty (suppressing) override.  SpectreOfCastleCoris 68→44, Revenge
+23→8, Amazon 42→34.  No regressions.
+
+### End-of-game banner pSpace  ✅ DONE (2026-06-29) — see top of file.
+
+---
+
+## P11 — Equal-priority task selection: passing task must override a failing-with-output one  ✅ DONE (2026-06-29)
+
+**Was:** **Anno 1700** desynced on its FIRST conversation. `say hello` (alone with
+the receptionist, not yet conversing) → Scarier "I'm not sure who you are referring
+to." where FD prints `(to a young woman)` and fires her greeting. From that one
+miss the whole 335-hunk transcript cascaded (the "announce arrival" flag never set,
+every later room/inventory step drifted).
+
+**Root cause — equal-priority task ordering in HighestPriorityTask mode.** The
+stock library ships two tasks for `say %text%` at the *same* Priority (50064):
+- `Say` — restriction `%Player% Must BeInConversationWith AnyCharacter`, fail
+  **message** "I'm not sure who you are referring to." (fires only mid-conversation).
+- `SayLazy` — restrictions `MustNot BeInConversationWith AnyCharacter` **and**
+  `Must BeAloneWith AnyCharacter`, **no** fail message; its CompletionMessage is
+  `(to %CharacterName[%AloneWithChar%]%)` and it delegates to `SayToCharacter`
+  with `%AloneWithChar%`.  They are complementary: when alone-and-not-conversing,
+  `Say` fails *with output*, `SayLazy` *passes*.
+
+  FrankenDrift's `GetGeneralTask` (clsUserSession.vb:6065-6088) stops at the first
+  command-matching task that fails-with-output **or** passes (`GoTo FoundTask`),
+  so in HighestPriorityTask mode (Anno's default — no `<TaskExecution>`) it only
+  reaches `SayLazy` because .NET's **unstable** `List(Of TaskKey).Sort` happens to
+  order `SayLazy` ahead of the XML-earlier `Say`.  Scarier sorts with
+  `std::stable_sort`, preserving XML order, so it hit `Say` first, emitted its
+  message, and claimed the turn.
+
+**Fixed** in `a5run.cpp scan_tasks`: rather than replicate .NET introsort's
+tie-break (fragile), Scarier now defers the HighestPriorityTask fail-claim the same
+way the HighestPriorityPassingTask path already does — record the first
+failing-with-output task (+ its `fail_priority`) and keep scanning.  A later
+**equal-priority** task that returns `RR_OK` runs and overrides it; the moment the
+scan descends to a **strictly lower** priority (higher value) with no pass found,
+it returns 0 and the caller emits the recorded message (HighestPriorityTask still
+blocks all genuinely-lower tasks).  Deterministic and principled: a passing task
+beats an equal-priority failing one regardless of model order.
+
+**Result:** Anno 1700 **335 → 134** (−60%); the conversation works and the cascade
+is gone (residual = downstream object-property template gaps, e.g.
+`%closet.openstatus%`).  **No other game regressed** (the corpus has no case where
+FD's sort intentionally shows an equal-priority fail message over a pass).  All a5
+unit tests pass; baseline re-blessed.
 
 ---
 
@@ -277,18 +485,96 @@ visibility/`obj_seen` or fires as an event. **Re-scope before working RtC.**
 
 ---
 
-## P6 — Object pickup via examine not registered
+## Direction restriction always passed + ProperName/SetProperty expression  ✅ DONE (2026-06-29)
 
-**Symptom:** the shovel revealed by `x shelves` is never taken, so the final
-`dig` → "You have nothing to dig with"; FD wins. **Grandpa's Ranch.**
+**Was:** **Grandpa's Ranch** desynced on the FIRST move — `n` (north into the
+house) printed "You enter the car and sit down…" and teleported the player into
+the car. Two unrelated root causes, both broad:
 
-**Locus:** task side-effects of examine (move-object-to-player on look), object
-state after `x <container/surface>` in `a5run.cpp` task execution.
+1. **`Direction` restrictions always returned 1 (pass).** `pass_single`
+   (`a5restr.cpp`) had no `Direction` branch — it fell through to the
+   `result = 1` "Item/Direction: Phase 3-4" stub. Grandpa's `vnl_GoCarFirst`
+   PlayerMovement override is gated on `BeLocation Location1 AND (Direction
+   BeWest OR Direction BeIn)`; since both direction checks "passed", moving
+   *north* fired the car-entry override.
+   **Fixed** by porting `clsUserSession.vb:5161` (`r = sKey1 == ReferencedDirection`).
+   The `<Direction>` element text is `"<Must|MustNot> Be<Dir>"` (FileIO.vb:611-615
+   strips the leading `Be`); parse_spec's generic key1/op split mishandles it, so
+   the new branch re-tokenises `r->raw`, strips `Be`, and compares against the
+   bound `ReferencedDirection` (canonical names already match DirectionsEnum:
+   "West"/"In"/…), returning directly (must_not handled inline — parse_spec
+   can't see the leading-token `MustNot`). **Broad impact: LostChildren
+   354→6, GrandpasRanch 125→67, MagneticMoon 10→6, DieFeuerfaust 19→16.**
 
-**Fix:** ensure the examine task's object-movement/grant action executes (the
-shovel becomes held/available) as FD does.
+2. **Player's typed-in name rendered as "0".** Grandpa's name task does
+   `SetProperty %Player% CharacterProperName PCASE(%text%)` and templates use the
+   OO chain `Player.ProperName`. Two gaps: (a) `SetProperty` stored the value
+   verbatim (`PCASE(%text%)`) instead of evaluating it — fixed in `a5run.cpp` by
+   running `a5text_eval_expression` on any value containing a `%reference%`
+   (mirrors `EvaluateExpression`; plain keys/state values have no `%` and stay
+   raw, matching FD's Nothing→raw fallback). (b) the `.ProperName` OO step had no
+   handler so it hit the generic-property fallback for key `ProperName` (the real
+   key is `CharacterProperName`) → "0"; added a `ProperName` case in
+   `a5expr.cpp`'s char branch and made `character_display_name` (`a5text.cpp`)
+   prefer the runtime `CharacterProperName` override, both mirroring
+   `clsCharacter.ProperName` (override → model Name → "Anonymous").
 
-**Verify:** Grandpa's Ranch reaches "YOU HAVE WON!!! 15/15".
+**Result:** Grandpa moves north correctly and greets "Hi Pete". Budgets
+re-blessed (above). No regressions; all a5 unit tests pass. **LostChildren
+residual (6):** object-resolution edge cases (`take slates/seashells/shells` →
+FD "not sure which object"/"no seashells to give"; an "as it is not locked"
+line) — separate noun-resolution item, not direction/name.
+
+---
+
+## P6 — Object pickup via examine + light-source darkness  ✅ DONE (2026-06-29)
+
+**Was:** the shovel revealed by `x shelves` was "never taken" so `dig` failed.
+The shovel examine itself was fine — the player never *reached* its room. Three
+chained root causes, each broad:
+
+1. **`%object%.Parent` was NULL for an object lying in a location.**
+   `parent_key` (`a5expr.cpp`) returned the container key only for
+   on/in/held/worn/part placements, NULL for `A5_OWHERE_LOCATION`/`LOCGROUP`.
+   FD's `clsObject.Parent` (clsObject.vb:663) returns `Location.Key` for *every*
+   placed case incl. InLocation. So the stock take task's restriction
+   `%objects%.Parent.Takefix.Sum=0` (detects "already carrying": parent==Player
+   has Takefix=1) evaluated wrong → `get flashlight` produced no output and the
+   flashlight was never taken. **Fixed** by adding LOCATION/LOCGROUP to
+   `parent_key` (st->obj[oi].key already holds the location key there).
+
+2. **A Text property whose value is a rich `<Description>` (value_node) rendered
+   as "0".** `flashlight on` prints `%object%.WhenOn`; the OO resolver's generic
+   property branch (`a5expr.cpp`, char/obj) only read the scalar
+   `a5state_entity_prop` value (NULL for a value_node prop) → fell through to
+   "0". **Fixed** by rendering `pr->value_node` via `a5text_eval_description`
+   when the scalar is absent (mirrors the existing `%PropertyValue%` path).
+
+3. **No runtime object-group membership.** The flashlight joins the
+   `LightSources` group via an `AddObjectToGroup` action in a
+   `BeforeTextAndActions` Specific override of `SwitchObjectOn` (and leaves it on
+   SwitchObjectOff). `AddObjectToGroup`/`RemoveObjectFromGroup` actions were
+   unhandled and group membership was static, so the darkness override's
+   `MustNot BeInSameLocationAsObject LightSources` never saw the lit torch → the
+   tunnel/storage stayed "too dark". **Fixed** with a runtime membership layer
+   (`a5state_object_in_group`/`a5state_set_object_in_group`, `a5state.cpp`),
+   stored on the existing property-override store under a synthetic
+   `@InGroup:<group>` key (so it saves/restores for free); the two actions wired
+   in `run_action`; `a5restr` `BeInGroup` (objects) and the
+   `BeInSameLocationAsObject` group expansion now consult it.
+
+**Result:** flashlight taken + turned on, darkness lifts, `x shelves` yields the
+shovel. **Grandpa's Ranch 67→45**; no regressions; all a5 unit tests pass
+(incl. save). Re-blessed.
+
+**Still open (Grandpa residual 45):** (a) the **dial numeric-input prompt** —
+`turn dial` should enter a "Which number do you choose?" input state, `853` then
+opens the box (same family as **P8** Y/N prompts; Scarier emits "I did not
+understand the word 853"). (b) the **bull-capture event chain** (`open gate` /
+`wave cloth` / `pull rope` move Buster between enclosures via events) — Scarier
+doesn't track Buster's position, so the eastern enclosure is never reachable and
+`dig` → "You see no reason to dig here." Both are distinct from the examine/
+darkness mechanism and block the final `*** YOU HAVE WON 15/15 ***`.
 
 ---
 
@@ -370,16 +656,63 @@ casing bug.  No fix warranted.
 
 ---
 
-## P10 — Template / function expansion gaps
+## P10b — OO property chain inside a text function's arguments  ✅ DONE (2026-06-29)
 
-**Symptom:** Jacaranda Jim leaks a literal `%AlanRemarks[%AlanRemarkIndex%]%` —
-a nested array-index function/variable reference not evaluated. **Jacaranda Jim.**
+**Was:** Anno 1700 leaked `the tall closet is currently closet.openstatus.` for the
+template `%PCase[%object%.Name]% is currently %LCase[%object%.OpenStatus]%.` — the
+inner OO property chain (`%object%.OpenStatus`) was substituted to its entity *key*
++ literal `.OpenStatus`, then the outer `%LCase[...]%` lower-cased that whole raw
+string to `closet.openstatus` instead of the property *value* `closed`.
 
-**Locus:** text/function expander `a5text.cpp` (`Global.ReplaceFunctions` analog,
-`a5text.cpp:1235`); nested `%var[%index%]%` array-subscript handling.
+**Root cause — pass ordering.** `process_inner` (a5text.cpp) runs the whole
+`replace_functions` pass *then* the OO pass (`a5expr_replace`).  A function whose
+**argument** contains an OO chain (`%LCase[%object%.OpenStatus]%`) consumed and
+transformed that chain during the function pass, before the OO pass ever saw it.
+FrankenDrift avoids this because its `ReplaceFunctions(sArgs)` recursion (Global.vb
+:2046) runs its *own* trailing `ReplaceOO` on the args, so `Closet.OpenStatus`
+becomes `Closed` before `LCase` applies.
 
-**Fix:** evaluate inner `%...%` first, then the array subscript on the outer
-function/variable.
+**Fixed** in `a5text.cpp replace_functions` (`[`-args branch): after expanding a
+function's args, run `a5expr_replace` on them (guarded by `strchr(args,'.')`) so any
+`<key>.<chain>` resolves to its value before the outer function transforms it.
+`a5expr_replace` is a no-op on argument strings without a real entity `key.chain`,
+so bare-key args (`%TheObject[Closet]%`, `%PropertyValue[a, b]%`) are untouched.
+
+**Result:** `The tall closet is currently closed.` / `The kitchen stove is currently
+closed.` now render correctly (both `%PCase[.Name]%` and `%LCase[.OpenStatus]%`).
+Anno 1700 134 → 131; no other game regressed; all a5 unit tests pass. (Residual
+Anno gaps are object-resolution specifics: `open closet` binds the "closet door"
+where FD binds the "tall closet", and several push/specific-override puzzle steps.)
+
+---
+
+## P10 — Template / function expansion gaps  ✅ DONE (2026-06-29)
+
+**Was:** Jacaranda Jim leaked a literal `%AlanRemarks[%AlanRemarkIndex%]%` — a
+nested array-index variable reference not evaluated. `AlanRemarks` (Variable2) is
+a **Text array variable** (`<ArrayLength>14</ArrayLength>`, 14 newline-separated
+remarks in `<InitialValue>`); it is read-only, indexed 1-based by the index
+variable `AlanRemarkIndex`, which a System task sets via `RAND(1,14)`.
+
+**Root cause:** `replace_functions` already split `%AlanRemarks[%AlanRemarkIndex%]%`
+into name=`AlanRemarks` + function-expanded args=`"7"` and called
+`eval_function(st, "AlanRemarks", args)`, but `eval_function`'s variable lookup
+was gated on `args == NULL`, so an indexed variable fell through to the verbatim
+`return NULL` (token left as-is).
+
+**Fixed** in `a5text.cpp eval_function`: an `args != NULL` branch now matches the
+variable by name and, for a Text array, walks the single newline-separated
+`var_text` string to the 1-based index'th line (mirroring ADRIFT's
+`clsVariable` string array; out-of-range ⇒ empty). Numeric arrays (unused by the
+corpus) fall back to the scalar value. Verified: the token now renders a real
+member ("Alan burps." = line 2, correct 1-based).
+
+**Result:** the literal leak is gone. Hunk count unchanged (Jacaranda still 449):
+the remark *line* still diverges because `RAND(1,14)` draws a **different index**
+in each engine's RNG stream (and `FD_RNG=xoshiro` makes Jacaranda diverge
+*earlier*, not later — measured 1125 changed lines — so it does not align here).
+Correctness improvement with no hunk change. No regressions; a5runtest/a5savetest/
+a5arithtest pass.
 
 ---
 

@@ -513,7 +513,17 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite)
                  && (known == NULL || strstr (known, "Selected") != NULL);
   int use_proper = has_known ? selected : (c == NULL || c->n_descriptors == 0);
   if (use_proper)
-    return strdup ((c != NULL && c->name != NULL) ? c->name : "Anonymous");
+    {
+      /* clsCharacter.ProperName: the runtime CharacterProperName override
+         (set via SetProperty, e.g. a typed-in player name) wins over the
+         model Name; "" -> "Anonymous". */
+      const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
+                         : NULL;
+      if (pn == NULL || pn[0] == '\0')
+        pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
+                                                                  : "Anonymous";
+      return strdup (pn);
+    }
   {
     sb_t sb;
     sb_init (&sb);
@@ -999,6 +1009,43 @@ eval_function (a5_state_t *st, const char *name, const char *args)
               }
           }
     }
+  /* An array-variable element: %VariableName[index]% (1-based, mirroring
+     ADRIFT's clsVariable string/int arrays).  A Text array stores its elements
+     newline-separated in the single var_text string (the InitialValue layout),
+     so split on '\n' and return the index'th line; out-of-range -> empty. */
+  else
+    {
+      for (i = 0; i < st->adv->n_variables; i++)
+        if (ci_eq (st->adv->variables[i].name, name))
+          {
+            char *end = NULL;
+            long idx = strtol (args, &end, 10);
+            if (end == args)        /* not a numeric index -> not our case */
+              break;
+            if (streq (st->adv->variables[i].type, "Text"))
+              {
+                const char *s = st->var_text[i] ? st->var_text[i] : "";
+                long line = 1;
+                const char *ls = s;
+                while (line < idx && *s != '\0')
+                  if (*s++ == '\n')
+                    { line++; ls = s; }
+                if (line != idx)
+                  return strdup ("");
+                const char *le = strchr (ls, '\n');
+                size_t n = le ? (size_t) (le - ls) : strlen (ls);
+                return strndup (ls, n);
+              }
+            else
+              {
+                /* Numeric arrays aren't exercised by the corpus; fall back to
+                   the scalar value. */
+                char buf[32];
+                snprintf (buf, sizeof buf, "%ld", st->var_num[i]);
+                return strdup (buf);
+              }
+          }
+    }
 
   return NULL;                  /* unhandled: leave the token verbatim */
 }
@@ -1087,6 +1134,22 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                       char *rawargs = strndup (astart, (size_t) (a - astart));
                       name = strndup (name_start, nlen);
                       args = replace_functions (st, rawargs, 1);
+                      /* Resolve any OO property chain left in the args (e.g.
+                         %LCase[%object%.OpenStatus]% -> args "Closet.OpenStatus"
+                         -> "Closed") before the outer function transforms it.
+                         FrankenDrift's ReplaceFunctions(sArgs) recursion runs its
+                         own ReplaceOO pass on the args (Global.vb:2046); Scarier's
+                         OO pass otherwise runs only after the whole replace pass,
+                         too late for a function that consumed the chain as an
+                         argument (LCase would lower-case the raw "Closet.OpenStatus"
+                         to "closet.openstatus").  a5expr_replace is a no-op unless
+                         args holds a real <key>.<chain>. */
+                      if (strchr (args, '.') != NULL)
+                        {
+                          char *ooargs = a5expr_replace (st, args);
+                          free (args);
+                          args = ooargs;
+                        }
                       value = eval_function (st, name, args);
                       free (rawargs);
                       free (args);
@@ -1714,15 +1777,25 @@ char_here_desc (a5_state_t *st, const a5_character_t *c)
   const char *prev_ctx = st->ctx_char;
   char *result;
   st->ctx_char = c->key;
-  if (p != NULL && p->value_node != NULL)
+  if (p != NULL)
     {
-      int prev_mark = st->marking_display;
-      char *raw;
-      st->marking_display = 1;
-      raw = a5text_eval_description (st, p->value_node);
-      st->marking_display = prev_mark;
-      result = process_inner (st, raw, 0);     /* %functions% / OO pass */
-      free (raw);
+      /* The property is present (clsItem.HasProperty == ContainsKey), so it
+         overrides the default -- even when its value is blank, in which case
+         IsHereDesc returns "" and the character is suppressed from the present
+         list (the Customs Official in Revenge: its room prose already says "A
+         customs official stands here."). */
+      if (p->value_node != NULL)
+        {
+          int prev_mark = st->marking_display;
+          char *raw;
+          st->marking_display = 1;
+          raw = a5text_eval_description (st, p->value_node);
+          st->marking_display = prev_mark;
+          result = process_inner (st, raw, 0);     /* %functions% / OO pass */
+          free (raw);
+        }
+      else
+        result = strdup ("");
     }
   else
     {

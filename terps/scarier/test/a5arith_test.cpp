@@ -55,6 +55,17 @@ main (void)
   expect ("20/4/5", 1);          /* left-associative division     */
   expect ("2^3^2", 512);         /* right-associative power       */
 
+  /* Division rounds to nearest, half away from zero (FD Math.Round /
+     MidpointRounding.AwayFromZero), per operator -- not C truncation. */
+  expect ("171/60", 3);          /* 2.85 -> 3  (Amazon clock carry)   */
+  expect ("(201-30)/60", 3);     /* the actual ts_varHour expression  */
+  expect ("5/2", 3);             /* 2.5  -> 3  (half away from zero)   */
+  expect ("7/2", 4);             /* 3.5  -> 4                          */
+  expect ("1/2", 1);             /* 0.5  -> 1                          */
+  expect ("5/3", 2);             /* 1.66 -> 2                          */
+  expect ("-5/2", -3);           /* -2.5 -> -3 (away from zero)        */
+  expect ("7/2*2", 8);           /* round at '/' first: 4*2, not 7     */
+
   /* mod, parentheses, unary minus. */
   expect ("17 mod 5", 2);
   expect ("(2+3)*4", 20);

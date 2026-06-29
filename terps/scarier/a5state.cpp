@@ -388,6 +388,54 @@ a5state_entity_prop (const a5_state_t *st, const char *entkey, const char *propk
   return NULL;
 }
 
+/* Runtime object-group membership (clsGroup add/remove at runtime: the
+   AddObjectToGroup / RemoveObjectFromGroup actions, e.g. the flashlight joins
+   "LightSources" while switched on).  We layer it onto the property-override
+   store under a synthetic key ("@InGroup:<group>"), so it saves/restores for
+   free; '@'/':' never occur in real ADRIFT property keys.  Returns the
+   effective membership: a runtime override wins, else the model's static
+   <Member> list. */
+static void
+group_prop_key (char *buf, size_t n, const char *grpkey)
+{
+  snprintf (buf, n, "@InGroup:%s", grpkey ? grpkey : "");
+}
+
+int
+a5state_object_in_group (const a5_state_t *st, const char *grpkey,
+                         const char *objkey)
+{
+  char key[160];
+  const char *ov;
+  int i, m;
+  if (grpkey == NULL || objkey == NULL)
+    return 0;
+  group_prop_key (key, sizeof key, grpkey);
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, objkey) && streq (st->ov[i].prop, key))
+      return streq (st->ov[i].value, "1");
+  for (i = 0; i < st->adv->n_groups; i++)
+    if (streq (st->adv->groups[i].key, grpkey))
+      {
+        for (m = 0; m < st->adv->groups[i].n_members; m++)
+          if (streq (st->adv->groups[i].members[m], objkey))
+            return 1;
+        return 0;
+      }
+  return 0;
+}
+
+void
+a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
+                             const char *objkey, int present)
+{
+  char key[160];
+  if (grpkey == NULL || objkey == NULL)
+    return;
+  group_prop_key (key, sizeof key, grpkey);
+  a5state_set_prop (st, objkey, key, present ? "1" : "0");
+}
+
 void
 a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
                   const char *value)

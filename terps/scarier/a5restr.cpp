@@ -254,19 +254,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       return 0;
     }
   if (streq (r->op, "BeInGroup"))
-    {
-      int i;
-      for (i = 0; i < st->adv->n_groups; i++)
-        if (streq (st->adv->groups[i].key, k2))
-          {
-            int m;
-            for (m = 0; m < st->adv->groups[i].n_members; m++)
-              if (streq (st->adv->groups[i].members[m], k1))
-                return 1;
-            return 0;
-          }
-      return 0;
-    }
+    return a5state_object_in_group (st, k2, k1);
   if (streq (r->op, "BeExactText"))
     {
       /* True if the player's typed reference text equals k2 (e.g. "All"). */
@@ -440,9 +428,27 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "BeInSameLocationAsObject"))
     {
-      int oi = a5state_object_index (st, k2);
-      return oi >= 0 && cloc != NULL
-             && a5state_object_at_location (st, oi, cloc, 0);
+      int oi;
+      if (cloc == NULL)
+        return 0;
+      /* k2 may be an object GROUP (e.g. LightSources): true if any member is in
+         scope, mirroring clsCharacter.CanSeeObject's group expansion (the
+         darkness override's "MustNot BeInSameLocationAsObject LightSources"
+         must see a held torch). */
+      for (int gi = 0; gi < st->adv->n_groups; gi++)
+        if (streq (st->adv->groups[gi].key, k2))
+          {
+            /* Effective membership = static <Member>s plus runtime adds minus
+               removes; scan every object so runtime-added members (e.g. a lit
+               flashlight in LightSources) count too. */
+            for (int oi = 0; oi < st->adv->n_objects; oi++)
+              if (a5state_object_in_group (st, k2, st->adv->objects[oi].key)
+                  && a5state_object_at_location (st, oi, cloc, 0))
+                return 1;
+            return 0;
+          }
+      oi = a5state_object_index (st, k2);
+      return oi >= 0 && a5state_object_at_location (st, oi, cloc, 0);
     }
   if (streq (r->op, "BeInSameLocationAsCharacter"))
     {
@@ -782,8 +788,32 @@ pass_single (a5_state_t *st, a5_restr_t *r)
       result = safe_bool (v);
       free (v);
     }
+  else if (streq (r->type, "Direction"))
+    {
+      /* clsUserSession.vb:5161: r = (sKey1 == ReferencedDirection).
+         The element text is "<Must|MustNot> Be<Dir>" (FileIO.vb:611-615:
+         eMust=token0, sKey1=token1 with the leading "Be" trimmed).  parse_spec's
+         generic key1/op split mishandles this, so re-tokenise r->raw here and
+         return directly (the trailing must_not negation below would double-flip
+         since parse_spec couldn't see the "MustNot"). */
+      char tok0[32] = "", tok1[32] = "";
+      const char *raw = r->raw ? r->raw : "";
+      const char *want, *cur;
+      int mnot, rr;
+      sscanf (raw, "%31s %31s", tok0, tok1);
+      mnot = (strcmp (tok0, "MustNot") == 0);
+      want = (strncmp (tok1, "Be", 2) == 0) ? tok1 + 2 : tok1;
+      cur = a5state_lookup_ref (st, "ReferencedDirection");
+      rr = (cur != NULL && strcmp (want, cur) == 0);
+      result = mnot ? !rr : rr;
+      if (a5restr_trace)
+        fprintf (stderr, "    [restr Direction: %s%s vs %s] -> %d\n",
+                 mnot ? "MustNot " : "Must ", want, cur ? cur : "(none)",
+                 result);
+      return result;
+    }
   else
-    result = 1;               /* Item/Direction: Phase 3-4 */
+    result = 1;               /* Item: Phase 3-4 */
 
   if (r->must_not)
     result = !result;

@@ -11,6 +11,7 @@
 #include "a5blorb.h"
 #include "a5deobf.h"
 #include "a5model.h"
+#include "a5parse.h"   /* a5_correct_command (CorrectCommand) */
 
 /* ------------------------------------------------------------------ helpers */
 
@@ -224,6 +225,14 @@ a5_load_tasks (a5_adventure_t *a)
       t->type = a5xml_child_text (c, "Type");
       t->location_trigger = a5xml_child_text (c, "LocationTrigger");
       t->commands = a5_collect_text (c, "Command", &t->n_commands);
+      /* Apply clsUserSession.CorrectCommand to every command (FD does this once
+         at game-start init).  The collected pointers alias the XML tree; replace
+         each with an owned, bracket-corrected copy (freed in a5model_free). */
+      {
+        int k;
+        for (k = 0; k < t->n_commands; k++)
+          ((char **) t->commands)[k] = a5_correct_command (t->commands[k]);
+      }
       rep = a5xml_child_text (c, "Repeatable");
       t->repeatable = (rep != NULL && strcmp (rep, "1") == 0);
       {
@@ -901,6 +910,8 @@ a5model_free (a5_adventure_t *a)
   for (i = 0; i < a->n_tasks; i++)
     {
       int s;
+      for (s = 0; s < a->tasks[i].n_commands; s++)
+        free ((void *) a->tasks[i].commands[s]);  /* owned (a5_correct_command) */
       free ((void *) a->tasks[i].commands);
       for (s = 0; s < a->tasks[i].n_specifics; s++)
         free ((void *) a->tasks[i].specifics[s].keys);

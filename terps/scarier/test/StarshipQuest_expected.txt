@@ -1,0 +1,220 @@
+Starship Quest
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+STARSHIP QUEST
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (strongly recommended if you are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This adventure game was programmed by the author with mostly Cyan text on a Black background. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Some useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : INTRO : MACROS : MAP : VOCAB;
+
+> b
+
+The Control Room
+You're seated at your console in the control room of the Stellar Queen. There is a wide viewscreen on the forward bulkhead, in front of which is the helmsman's console, with the Captain's command chair behind that. Arranged around the rear of the room, either side of you, are the consoles that control other ships functions, in between which, leading Aft, are the exit doors. The Captain and the rest of the crew are in their seats patiently waiting for the ship to reach the hyperspace jump point.  Captain Rosenloev and Lieutenant Small are here.
+
+Do You Wish To Explore The Ship First? ("Y/N")
+
+> n
+You must now get all that you need and get off the ship as fast as you can before it goes into hyperspace!
+
+You turn to the Captain and report.
+
+"Course to hyperspace jump point laid in, Sir!"
+
+"Thank you, Mr. Erlin, once we come out of hyper please set a course to Rigel III," he tells you. "Commander Newman, as soon as we have reached the system please contact the survey hospital."
+
+"Aye, aye Captain!" she replies.
+
+Captain Rosenloev presses a button on the arm of his command chair, and you hear his voice over the ship's address system.
+
+"Attention all hands! Three minutes to hyperspace jump!"
+
+> s
+There is no route to Starboard!
+
+> s
+There is no route to Starboard!
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam locker
+You see no such thing.
+
+> take flashlight
+Sorry, I'm not sure which object you are trying to take.
+
+> exam rack
+You can't see any rack!
+
+> take mask
+Sorry, I'm not sure which object you are trying to take.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> press hand
+Sorry, I'm not sure which object you are trying to press.
+
+> say mike erlin
+I don't understand what you want to do with Mike Erlin.
+
+> enter door
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> press button
+You can't see any buttons!
+
+> climb steps
+You can't see any steps!
+
+> press button
+You can't see any buttons!
+
+> sit down
+You are already sitting down!
+
+> wear harness
+You can't see any harnesses!
+
+> press a
+Sorry, I'm not sure which object you are trying to press.
+
+> i
+You are wearing some shipboard fatigues, and are carrying nothing. A machete is in the sheath.
+
+> drop stungun
+Sorry, I'm not sure which object you're referring to.
+
+> exam rack
+You can't see any rack!
+
+> take blaster
+Sorry, I'm not sure which object you are trying to take.
+
+Captain Rosenloev presses the button on the arm of his command chair again and announces.
+
+"Attention! One minute to hyperspace jump!"
+
+> remove harness
+You can't see any harnesses!
+
+> get up
+You stand up.
+
+> press button
+You can't see any buttons!
+
+> enter door
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> s
+There is no route to Starboard!
+
+> in
+You have to use nautical directions when on board any spaceship.
+
+> flashlight on
+I did not understand the word "flashlight".
+
+> look down
+You look Down, but see nothing of any interest or use.
+
+> exam shaft
+You see no such thing.
+
+> climb rail
+Sorry, I'm not sure which object you are trying to climb.
+
+> d
+You cannot go Down!
+
+> s
+There is no route to Starboard!
+
+> exam map
+You see no such thing.
+
+> enter car
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> enter cubicle
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> exam dead cell
+You see no such thing.
+
+> disconnect wires
+Sorry, I'm not sure which object you are trying to detach/unattach/disconnect.
+
+> take dead cell
+Sorry, I'm not sure which object you are trying to take.
+Captain Rosenloev presses the button on the arm of his command chair again and announces.
+
+"Attention all hands! Ten seconds to hyperspace jump!"
+
+> out
+You have to use nautical directions when on board any spaceship.
+
+> out
+You have to use nautical directions when on board any spaceship.
+
+> enter door
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> exam junk
+You see no such thing.
+
+> drop dead cell
+Sorry, I'm not sure which object you're referring to.
+
+> take charged cell
+Sorry, I'm not sure which object you are trying to take.
+
+> out
+You have to use nautical directions when on board any spaceship.
+
+> enter car
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> enter cubicle
+Please do not use the verb ENTER in this game. Use GO INTO or GO INSIDE. Thank you.
+
+> drop charged cell
+Sorry, I'm not sure which object you're referring to.
+
+Your stomach flip-flops as the ship goes into hyperspace - now you'll never get off the ship!
+
+*** You have lost ***
+In that game you scored 0 out of a possible 800, in 52 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?

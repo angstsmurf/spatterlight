@@ -132,22 +132,75 @@ FILTER="${1:-}"
 # (Residual MagneticMoon "cut glass with laser" noref-vs-cantsee is a SEPARATE
 # reference-resolution bug: object2 "laser" fails to name-match in that state, so
 # CutObjectW yields noref not cantsee -- no cantsee for the reorder to prefer.)
+#
+# End-of-game banner pSpace (emit_endgame): FrankenDrift's CheckEndOfGame Displays
+# the win/lose banner through pSpace, so a paragraph break always separates it
+# from the turn's preceding output.  A game that ends via a turn-based event
+# (StarshipQuest's hyperspace death, MagneticMoon's "took too long" timer) emits
+# its death text with a single trailing newline, so Scarier's banner abutted it;
+# now emit_endgame tops the trailing newlines up to a blank line.  StarshipQuest
+# 1->0 (now golden), AxeOfKolt 56->54, MagneticMoon 14->13.  RunBronwynn 46->47
+# and Amazon 41->42 each rose by one line-shift artifact: both emit the banner at
+# the WRONG point (RunBronwynn ends prematurely, Amazon misses the P2b Date/Time
+# lines and never reaches the real win), where FD has no banner at all, so the
+# extra blank just splits one hunk -- faithful change, re-blessed +1.
+#
+# Blank CharHereDesc suppression (char_here_desc, a5text.cpp): a character whose
+# CharHereDesc property is *present but blank* is now omitted from the room's "X
+# is here." present-list, mirroring FD's clsLocation.ViewLocation (HasProperty ==
+# ContainsKey, so a blank value overrides the default and IsHereDesc returns "").
+# Scarier had gated on the property having a <Value> node, so a value-less
+# CharHereDesc fell through to the default "<Name> is here." (e.g. Revenge's
+# Customs Official, whose room prose already says "A customs official stands
+# here.").  Broad drop, no regressions: SpectreOfCastleCoris 68->44, Revenge
+# 23->8, Amazon 42->34.
+#
+# P3b name_match backtracking (a5run.cpp): the noun matcher mirrors FD's
+# `(article )?(prefix_i )?...(name)` regex, but consumed prefix words GREEDILY
+# without backtracking.  When a prefix word also equals a name alias -- the ID
+# pass (Revenge) has prefix "ID" and name "id" -- "examine id" consumed "id" as
+# the prefix and left nothing for the name, so it failed ("You see no such
+# thing.") where FD's regex backtracks and matches "id" as the noun.  name_match
+# now backtracks (name_match_prefix tries skip-vs-consume for each prefix word,
+# and both article branches).  Strictly a superset of the old matches (= the
+# regex), so more conformant, no regressions: AxeOfKolt 54->50, MagneticMoon
+# 13->10, Revenge 8->7, RunBronwynn 47->45, JacarandaJim 151->147.
+#
+# CorrectCommand bracket normalisation (a5_correct_command, a5model.cpp): a
+# faithful port of clsUserSession.CorrectCommand/ProcessBlock, applied to every
+# task command at load (FD runs it at game-start init).  It rewrites an optional
+# `{x} y` group into `{x }y` (and `{a/b}` into `{ [a/b]}`), moving the space
+# adjacent to the optional group INSIDE it so that space becomes optional.  This
+# is what makes a bare "look around" match `[look] [around] {me/...}` and -- more
+# importantly -- bare-direction movement match `{[go] {to {the}}} %direction%`
+# (e.g. "N").  Scarier had been faking this with a single ")? " -> ")? ?"
+# relaxation in a5parse.cpp convert_to_re; that hack is REMOVED now (FD's
+# ConvertToRE has no such relaxation), so the matcher mirrors FD verbatim and the
+# two no longer double-relax.  AxeOfKolt 50->42, SpectreOfCastleCoris stays 34,
+# Revenge 7->5, LostChildren 359->354, StoneOfWisdom 5->3; StarshipQuest still a
+# clean golden.  TreasureHuntInTheAmazon 34->65 and JacarandaJim 147->450 ROSE:
+# without CorrectCommand those games' bare-direction moves silently failed
+# ("didn't understand"), so Scarier was stuck near the start; now it traverses
+# the whole game and the transcript exposes the pre-existing DARKNESS bug
+# (Scarier prints full room descriptions where FD prints "It is too dark to make
+# anything out clearly.") plus, for Amazon, the P2b Date/Time line placement --
+# the same "now-playable, downstream bugs visible" budget rise as the P1 fix.
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0
-anno1700|Anno1700.blorb|335
-AxeOfKolt|TheAxeOfKolt.blorb|56
-SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|68
-StarshipQuest|StarshipQuest.blorb|1
-MagneticMoon|MagneticMoon.blorb|14
-RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|23
-DieFeuerfaust|DieFeuerfaust.blorb|19
-LostChildren|TheLostChildren.blorb|359
-RunBronwynnRun|RunBronwynnRun.blorb|46
+anno1700|Anno1700.blorb|131
+AxeOfKolt|TheAxeOfKolt.blorb|42
+SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|34
+StarshipQuest|StarshipQuest.blorb|0
+MagneticMoon|MagneticMoon.blorb|6
+RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5
+DieFeuerfaust|DieFeuerfaust.blorb|16
+LostChildren|TheLostChildren.blorb|6
+RunBronwynnRun|RunBronwynnRun.blorb|45
 RtC|RtC.blorb|141
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|41
-StoneOfWisdom|StoneOfWisdom.blorb|5
-GrandpasRanch|Grandpa_ParserComp_V1.blorb|125
-JacarandaJim|JacarandaJim.blorb|151
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|64
+StoneOfWisdom|StoneOfWisdom.blorb|3
+GrandpasRanch|Grandpa_ParserComp_V1.blorb|45
+JacarandaJim|JacarandaJim.blorb|449
 EOF
 )
 
