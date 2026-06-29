@@ -702,7 +702,6 @@ task_run_change_variable_action (scr_gameref_t game,
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_vartype_t vt_key[3];
   const scr_char *name, *string;
-  scr_char *mutable_string;
   scr_int type, value;
 
   /*
@@ -825,22 +824,31 @@ task_run_change_variable_action (scr_gameref_t game,
           return;
 
         case 2:                /* Var = expr */
-          if (!expr_eval_string_expression (expr, vars, &mutable_string))
-            {
-              scr_error ("task_run_change_variable_action:"
-                        " invalid string expression, %s\n", expr);
-              mutable_string = (decltype(mutable_string)) scr_malloc (strlen ("[expr error]") + 1);
-              memcpy (mutable_string, "[expr error]", strlen ("[expr error]") + 1);
-            }
-          if (task_trace)
-            {
-              scr_trace ("Task: variable %ld (%s) = %s, %s\n",
-                        var1, name, expr, mutable_string);
-            }
+          {
+            /*
+             * expr_eval_string_expression() hands back a scr_malloc'd string
+             * (or we synthesise the error one); own it with RAII so the
+             * var_put_string() below -- which can throw scr_fatal_error from a
+             * prop_put -- no longer leaks it past the old trailing scr_free.
+             */
+            scr_char *evaluated;
+            if (!expr_eval_string_expression (expr, vars, &evaluated))
+              {
+                scr_error ("task_run_change_variable_action:"
+                          " invalid string expression, %s\n", expr);
+                evaluated = (scr_char *) scr_malloc (strlen ("[expr error]") + 1);
+                memcpy (evaluated, "[expr error]", strlen ("[expr error]") + 1);
+              }
+            scr_owned_string mutable_string (evaluated);
+            if (task_trace)
+              {
+                scr_trace ("Task: variable %ld (%s) = %s, %s\n",
+                          var1, name, expr, mutable_string.get ());
+              }
 
-          var_put_string (vars, name, mutable_string);
-          scr_free (mutable_string);
-          return;
+            var_put_string (vars, name, mutable_string.get ());
+            return;
+          }
 
         default:
           scr_fatal ("task_run_change_variable_action:"
@@ -1406,24 +1414,22 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   action_count = prop_get_child_count (bundle, "I<-sis", vt_key);
   if (action_count > 0)
     {
-      scr_char *buffer;
-
       /*
        * Take ownership of the current filter buffer text, then start NPC
        * walks based on alerts, and run any and all task actions.  Note that
        * the buffer transferred out of the filter may be NULL if there is no
-       * text currently in the filter.
+       * text currently in the filter.  RAII the transferred buffer: the
+       * task_start_npc_walks() / task_run_task_actions() below can throw
+       * (run_loop_halt / scr_fatal_error), which previously leaked it past the
+       * prepend-and-free.
        */
-      buffer = pf_transfer_buffer (filter);
+      scr_owned_string buffer (pf_transfer_buffer (filter));
       task_start_npc_walks (game, task);
       status |= task_run_task_actions (game, task);
 
       /* Prepend the saved buffer data back onto the front of the filter. */
       if (buffer)
-        {
-          pf_prepend_string (filter, buffer);
-          scr_free (buffer);
-        }
+        pf_prepend_string (filter, buffer.get ());
     }
   else
     {
