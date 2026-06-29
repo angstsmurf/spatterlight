@@ -256,6 +256,33 @@ FILTER="${1:-}"
 # event).  Of the 6 hunks, 3 are inherent RAND troll-taunt lines (default-RNG mode)
 # and the rest are that death + its loss-vs-137-turn-win cascade.  See
 # TODO_a5_walkthrough_bugs.md ("Troll knockout death") / A5_WALKTHROUGH_FINDINGS.md.
+#
+# (2026-06-30) Bare-`all` narrowing done properly + MoveCharacter bulk source forms.
+#  - resolve_plural already narrowed a bare `all`/list to the restriction-passing
+#    items, but resolve_refine's final whole-set re-check then evaluated the task's
+#    restrictions with ReferencedObjects bound to the raw "k1|k2|..." pipe (which
+#    a5restr could not resolve -> Must Exist=0 -> the whole multi-object command
+#    failed).  Two faithful fixes: (a) a5restr resolve_key now resolves a piped
+#    ReferencedObjects binding to its FIRST item (FD's GetReference returns Items(0);
+#    per-item narrowing already happened in RefineMatchingPossibilites); (b) a5text
+#    %TheObjects[%objects%]% / bare %objects% render a piped key list as FD's "the a,
+#    the b and the c" definite article list (htblObjects.List).  StoneOfWisdom 44->5
+#    (`put all in backpack` -> coins, then `climb tree`); RunBronwynn stays 9.
+#  - MoveCharacter only handled a single `Character` source; ported FD's bulk
+#    MoveCharacterWho set (EveryoneAtLocation/InGroup/Inside/On/WithProperty) so the
+#    Jacaranda wand-teleport `EveryoneAtLocation Location33 ToLocation Location34`
+#    actually moves the player -> the colour-button room is now in scope, the buttons
+#    push, navigation reaches the quarry, and the buzzard-nest event fires (inventory
+#    aligns to within one item).
+#  - JacarandaJim 109->271 (re-bless): both fixes are strictly more faithful but make
+#    the heavily-RNG game play far deeper, surfacing pre-existing divergences -- 247
+#    of 271 hunks are AFTER the champagne event (Task67 `MoveCharacter %Player%
+#    ToLocationGroup Group7`, a *random* room pick), whose whole-game tail cascade is
+#    irreducible under vanilla RNG (Scarier and FD draw different Group7 rooms; would
+#    align under FD_RNG=xoshiro).  The other ~24 are the catalogued Alan-follower /
+#    rain-timing RAND residual.  No rendering bug (verified: no pipe leaks, correct
+#    "a, b and c" lists).  Remaining JJ blockers: MoveCharacter ToLocationGroup +
+#    %DisplayLocation%/%LocationOf% functions (champagne), the Alan follower, rain RNG.
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0
 anno1700|Anno1700.blorb|5
@@ -269,9 +296,9 @@ LostChildren|TheLostChildren.blorb|4
 RunBronwynnRun|RunBronwynnRun.blorb|9
 RtC|RtC.blorb|142
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|6
-StoneOfWisdom|StoneOfWisdom.blorb|44
+StoneOfWisdom|StoneOfWisdom.blorb|5
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|2
-JacarandaJim|JacarandaJim.blorb|109
+JacarandaJim|JacarandaJim.blorb|271
 EOF
 )
 

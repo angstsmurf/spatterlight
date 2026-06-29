@@ -2168,68 +2168,114 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
 
   if (streq (kind, "MoveCharacter"))
     {
-      if (tk.size () < 3 || tk[0] != "Character")
+      if (tk.size () < 3)
         return;
-      const char *k1 = act_key (st, tk[1].c_str ());
-      const std::string &to = tk[2];
-      int ci = a5state_character_index (st, k1);
-      if (ci < 0) return;
-      if (to == "InDirection")
+      /* The "who" set: a single Character, or one of FD's bulk source forms
+         (clsAction.MoveCharacterWhoEnum, clsUserSession.vb:1689) -- e.g. the
+         wand-teleport `EveryoneAtLocation Location33 ToLocation Location34`.
+         Token layout is identical to MoveObject: tk[0]=who, tk[1]=who-key,
+         tk[2]=to, tk[3]=to-key. */
+      const std::string &who = tk[0];
+      const char *whok = act_key (st, tk[1].c_str ());
+      std::vector<int> cis;
+      if (who == "Character")
+        { int ci = a5state_character_index (st, whok); if (ci >= 0) cis.push_back (ci); }
+      else if (who == "EveryoneAtLocation")
         {
-          const char *dir = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
-          const char *canon = a5parse_canonical_direction (dir);
-          const char *here = st->char_loc[ci];
-          const char *dest;
-          if (canon == NULL) canon = dir;   /* already canonical */
-          dest = here ? a5restr_exit_in_direction (st, here, canon, NULL) : NULL;
-          if (dest != NULL)
+          /* clsLocation.CharactersDirectlyInLocation(True): directly at the
+             location (not on/in an object), Player included. */
+          for (int i = 0; i < st->adv->n_characters; i++)
+            if (streq (st->char_loc[i], whok) && st->char_onobj[i] == NULL)
+              cis.push_back (i);
+        }
+      else if (who == "EveryoneInGroup")
+        {
+          for (int g = 0; g < st->adv->n_groups; g++)
+            if (streq (st->adv->groups[g].key, whok))
+              { for (int m = 0; m < st->adv->groups[g].n_members; m++)
+                  { int ci = a5state_character_index (st, st->adv->groups[g].members[m]);
+                    if (ci >= 0) cis.push_back (ci); }
+                break; }
+        }
+      else if (who == "EveryoneInside" || who == "EveryoneOn")
+        {
+          char want_in = (who == "EveryoneInside") ? 1 : 0;
+          for (int i = 0; i < st->adv->n_characters; i++)
+            if (streq (st->char_onobj[i], whok) && st->char_in[i] == want_in)
+              cis.push_back (i);
+        }
+      else if (who == "EveryoneWithProperty")
+        {
+          for (int i = 0; i < st->adv->n_characters; i++)
+            if (a5_prop_find (st->adv->characters[i].props,
+                              st->adv->characters[i].n_props, whok) != NULL
+                || a5state_entity_prop (st, st->adv->characters[i].key, whok) != NULL)
+              cis.push_back (i);
+        }
+      else
+        return;
+      if (cis.empty ())
+        return;
+
+      const std::string &to = tk[2];
+      for (size_t ix = 0; ix < cis.size (); ix++)
+        {
+          int ci = cis[ix];
+          const char *k1 = st->adv->characters[ci].key;
+          if (to == "InDirection")
             {
-              /* destination may be a location group -> first member */
-              if (a5model_location (st->adv, dest) == NULL)
+              const char *dir = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+              const char *canon = a5parse_canonical_direction (dir);
+              const char *here = st->char_loc[ci];
+              const char *dest;
+              if (canon == NULL) canon = dir;   /* already canonical */
+              dest = here ? a5restr_exit_in_direction (st, here, canon, NULL) : NULL;
+              if (dest != NULL)
                 {
-                  for (int g = 0; g < st->adv->n_groups; g++)
-                    if (streq (st->adv->groups[g].key, dest)
-                        && st->adv->groups[g].n_members > 0)
-                      { dest = st->adv->groups[g].members[0]; break; }
+                  /* destination may be a location group -> first member */
+                  if (a5model_location (st->adv, dest) == NULL)
+                    {
+                      for (int g = 0; g < st->adv->n_groups; g++)
+                        if (streq (st->adv->groups[g].key, dest)
+                            && st->adv->groups[g].n_members > 0)
+                          { dest = st->adv->groups[g].members[0]; break; }
+                    }
+                  if (streq (k1, "Player"))
+                    enqueue_loc_trigger_tasks (run, st->char_loc[ci], dest);
+                  st->char_loc[ci] = dest;
+                  st->char_onobj[ci] = NULL;   /* now "at location" */
+                  if (streq (k1, "Player"))
+                    clear_conv_if_partner_gone (run, out);
                 }
+            }
+          else if (to == "ToLocation")
+            {
+              const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+              const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
               if (streq (k1, "Player"))
-                enqueue_loc_trigger_tasks (run, st->char_loc[ci], dest);
-              st->char_loc[ci] = dest;
-              st->char_onobj[ci] = NULL;   /* now "at location" */
+                enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
+              st->char_loc[ci] = new_loc;
+              st->char_onobj[ci] = NULL;       /* now "at location" */
               if (streq (k1, "Player"))
                 clear_conv_if_partner_gone (run, out);
             }
-          return;
+          else if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
+            {
+              const char *pos = (to == "ToSittingOn") ? "Sitting"
+                              : (to == "ToLyingOn")   ? "Lying" : "Standing";
+              const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+              free (st->char_position[ci]);
+              st->char_position[ci] = strdup (pos);
+              a5state_set_prop (st, k1, "CharacterPosition", pos);
+              /* "TheFloor" means standing/sitting/lying at the location, not on an
+                 object (clsCharacterLocation.ExistsWhere AtLocation vs OnObject). */
+              if (k2 == NULL || streq (k2, "TheFloor"))
+                st->char_onobj[ci] = NULL;
+              else
+                { st->char_onobj[ci] = k2; st->char_in[ci] = 0; }
+            }
+          /* ToParentLocation / others: best-effort no-op for Phase 3 */
         }
-      if (to == "ToLocation")
-        {
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
-          const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
-          if (streq (k1, "Player"))
-            enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
-          st->char_loc[ci] = new_loc;
-          st->char_onobj[ci] = NULL;       /* now "at location" */
-          if (streq (k1, "Player"))
-            clear_conv_if_partner_gone (run, out);
-          return;
-        }
-      if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
-        {
-          const char *pos = (to == "ToSittingOn") ? "Sitting"
-                          : (to == "ToLyingOn")   ? "Lying" : "Standing";
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
-          free (st->char_position[ci]);
-          st->char_position[ci] = strdup (pos);
-          a5state_set_prop (st, k1, "CharacterPosition", pos);
-          /* "TheFloor" means standing/sitting/lying at the location, not on an
-             object (clsCharacterLocation.ExistsWhere AtLocation vs OnObject). */
-          if (k2 == NULL || streq (k2, "TheFloor"))
-            st->char_onobj[ci] = NULL;
-          else
-            { st->char_onobj[ci] = k2; st->char_in[ci] = 0; }
-          return;
-        }
-      /* ToParentLocation / others: best-effort no-op for Phase 3 */
       return;
     }
 

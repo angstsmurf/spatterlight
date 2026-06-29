@@ -155,55 +155,102 @@ desyncing the village navigation. Strictly more correct (trade + greeting fixed)
 
 ---
 
-## Bare `all` not narrowed by task restrictions (broad)  ⏳ OPEN
+## Bare `all` narrowed by task restrictions (broad)  ✅ DONE (2026-06-30)
 
-**Symptom:** **Stone of Wisdom** `put all in backpack` → `Sorry, I'm not sure
-which object you're referring to.` where FD prints `You put the silver coin and
-the gold coin inside the backpack.` (the SoW gating divergence after the Pamba
-trade fix; also blocks the subsequent `climb tree`).
+**Was:** **Stone of Wisdom** `put all in backpack` → `Sorry, I'm not sure which
+object you're referring to.` where FD prints `You put the silver coin and the gold
+coin inside the backpack.` (the SoW gating divergence after the Pamba trade fix;
+also blocked the subsequent `climb tree`).
 
-**Root cause:** Scarier's `expand_all_objects` (`a5run.cpp`) expands a bare `all`
-to **every seen object in the game**, each as a single-candidate item; the put
-then iterates them and fails (`ReferencedObjects Must Exist`/`BeHeldByCharacter`
-→ 0 for the non-held ones) so the whole task fails with the Exist message.
-FrankenDrift's `RefineMatchingPossibilitesUsingRestrictions`
-(clsUserSession.vb:5734) narrows an `all` reference to only the candidates that
-**pass the task's restrictions** (here `BeHeldByCharacter %Player%` → just the two
-coins), then runs the action on that set.
+**Root cause:** `resolve_plural` (`a5run.cpp`) already narrowed a bare `all`/list
+to the restriction-passing items (binds each candidate as `objects`, keeps those
+that pass `a5restr_pass(t->restrictions)`), but `resolve_refine`'s **final
+whole-set re-check** (the `a5restr_pass` after the `plural_idx` block) then ran the
+task restrictions with `ReferencedObjects` bound to the `"k1|k2|..."` pipe — which
+`a5restr`'s `resolve_key`→`a5state_object_index` couldn't resolve, so
+`ReferencedObjects Must Exist`/`BeHeldByCharacter` → 0 and the whole multi-object
+command failed. (Single-object commands and `get all` whose restrictions reference
+the SINGULAR `ReferencedObject` were unaffected — that pipe was never bound there.)
 
-**`resolve_plural` ALREADY narrows correctly** (it binds each candidate as
-`objects` and keeps those that pass `a5restr_pass(t->restrictions)` — confirmed:
-SoW's coins+rations all `pass=1`). The remaining blocker is the **final whole-set
-re-check** in `resolve_refine` (the `a5restr_pass` after the `plural_idx` block):
-it runs with `ReferencedObjects` bound to the `"k1|k2|..."` pipe, which `a5restr`
-`resolve_key`→`a5state_object_index` can't resolve, so `ReferencedObjects Must
-Exist` → 0 and the whole multi-object command fails. (Single-object commands and
-`get all` whose restrictions reference the SINGULAR `ReferencedObject` are
-unaffected — that's why they work today.)
+**How FD does it:** `RefineMatchingPossibilitesUsingRestrictions`
+(clsUserSession.vb:5734) narrows the `all` reference per-item against the
+restrictions, then the post-refine `PassRestrictions` (vb:6057) resolves
+`ReferencedObjects` via `GetReference` (vb:3990), which returns
+`Items(0).MatchingPossibilities(0)` — i.e. only the **first** narrowed item.
+`%TheObjects[%objects%]%` (the completion message) builds a temp `ObjectHashTable`
+from the split pipe keys and renders `htblObjects.List` — a **definite-article
+"the a, the b and the c"** list (StronglyTypedCollections.vb:183, Global.vb:2056/
+2386).
 
-**Tried & reverted (2026-06-29):** skipping that final re-check after a successful
-`resolve_plural` (return `pr` directly) **does** fix SoW (`put all in backpack`
-→ coins-only, `climb tree` succeeds, **StoneOfWisdom 44→5**) but **regresses
-JacarandaJim 109→233 and RunBronwynnRun 9→10**, because removing the "crutch"
-exposes *two* unfinished pieces of the multi-object path:
-1. **`%objects%` completion-message rendering leaks the raw pipe** — RunBronwynn
-   `remove tiara, gown and shoes` prints `Ok, you remove Tiara|Ballgown|Shoes.`
-   (raw KEYS) where FD prints `the diamond tiara and the high-heel shoes` (names,
-   "a and b" list, only the *worn* items).  The text engine doesn't expand a
-   piped `ReferencedObjects`/`%objects%`/`%objects%.Name` into a formatted name
-   list.
-2. **Per-candidate narrowing diverges from FD on some tasks** — RunBronwynn's
-   `remove` kept the un-worn gown that FD drops (FD also appends "You need to be
-   standing up to do that.").  Plus a pre-existing **inventory desync** in
-   Jacaranda (RNG/champagne-teleport) means even a correctly-working `drop all`
-   drops a *different* held set than FD, cascading.
+**Fixed** (both faithful to FD, verified clean across the corpus):
+1. **`a5restr.cpp resolve_key`** — a bound value containing `|` resolves to its
+   first pipe-segment (the stable model-key pointer), mirroring `GetReference`
+   returning `Items(0)`. Per-item narrowing already happened in `resolve_plural`,
+   so checking only the first item in the final pass is exactly FD's behaviour.
+2. **`a5text.cpp`** — `%TheObjects[...]%` / `%TheObject[...]%` (and bare `%objects%`)
+   with a piped multi-key arg now render the article list via the new
+   `list_objects_art` (definite for `The*`, indefinite for `A*`, none otherwise),
+   splitting the pipe with the existing `arg_object_keys`. Single-key args keep the
+   old single-name path. No pipe leaks.
 
-**Real fix needs all three together:** (a) skip/replace the pipe-breaking
-whole-set re-check; (b) render a piped `%objects%`/`ReferencedObjects[.Name]` as
-FD's "a, b and c" name list (Global `ReplaceFunctions`/`TheObjects`); (c) confirm
-the per-candidate narrowing matches FD's `RefineMatchingPossibilitesUsing
-Restrictions` for `remove`/worn cases.  Verify SoW reaches the dwarf village AND
-JacarandaJim/RunBronwynn do not regress before re-blessing.
+**Result:** **StoneOfWisdom 44→5** (`put all in backpack` → the two coins, then
+`climb tree` succeeds — the whole post-trade village chain plays). **RunBronwynn
+stays 9** (`remove tiara, gown and shoes` now renders `Ok, you remove the diamond
+tiara, the blue ballgown and the high-heel shoes.`; FD trims the gown into a
+separate `<Multiple>1</Multiple>` per-item override — see residual below — but the
+net hunk count is unchanged). No other corpus game moved; all a5 unit tests pass
+(a5run/save/arith/parse/dis/walk/obj); budgets re-blessed.
+
+**Residual (c) — `<Multiple>1</Multiple>` per-item specific overrides:** FD's
+multi-object remove peels the ballgown out to its `RemoveBall` Specific override
+(restriction `Player Must BeInPosition Standing` → "You need to be standing up to
+do that."), running the general `RemoveObjects` only over the other two — Scarier
+runs the general over all three. Same mechanism gates Jacaranda's buzzard
+(`Task62`, `DropObjects` override Multiple=1). Not implemented; tracked as its own
+item. It does **not** affect SoW (no per-item override on `put`).
+
+---
+
+## MoveCharacter bulk source forms (EveryoneAtLocation/InGroup/Inside/On/...)  ✅ DONE (2026-06-30)
+
+**Was:** Jacaranda's `wave wand` (in the police cell) printed the teleport prose
+but left the player put — the colour-button room (`Location34`) stayed out of
+scope, so `push pink button`/`x pink button` → "You see no such thing.", the
+button puzzle never advanced, the player never reached the quarry, and the
+buzzard-nest event never fired (so the inventory diverged for the rest of the
+game).
+
+**Root cause:** the wand action is `<MoveCharacter>EveryoneAtLocation Location33
+ToLocation Location34</MoveCharacter>`. Scarier's `MoveCharacter` handler
+(`a5run.cpp`) bailed unless `tk[0]=="Character"`, so every bulk "who" form was a
+silent no-op (the same class as the P12 `MoveObject EverythingInGroup` gap). FD's
+`MoveCharacterWho` set (clsUserSession.vb:1689) collects a `chars` set first
+(`EveryoneAtLocation` = `CharactersDirectlyInLocation(True)`, i.e. directly at the
+location incl. Player; `EveryoneInGroup`/`Inside`/`On`/`WithProperty`) then applies
+the destination per character.
+
+**Fixed** by porting that set: the handler now builds a character-index vector from
+`(tk[0], tk[1])` — `Character`, `EveryoneAtLocation` (`char_loc==key &&
+char_onobj==NULL`), `EveryoneInGroup`, `EveryoneInside`/`EveryoneOn`
+(`char_onobj==key`, `char_in` flag), `EveryoneWithProperty` — and applies the
+existing per-character destination switch (`InDirection`/`ToLocation`/`ToStanding/
+Sitting/LyingOn`) to each. Token layout matches `MoveObject`, so the destination
+parsing is unchanged.
+
+**Result:** the wand teleport works, the buttons push, navigation reaches the
+quarry, and the buzzard fires (inventory aligns to within one item). This makes
+Jacaranda play far deeper, which is why **JacarandaJim 109→271** (re-blessed):
+**247 of the 271 hunks are AFTER the champagne event** — `Task67`'s `MoveCharacter
+%Player% ToLocationGroup Group7` teleports to a *random* room, so its whole-game
+tail cascade is irreducible under vanilla RNG (Scarier and FD pick different Group7
+rooms; would align under `FD_RNG=xoshiro`). The other ~24 are the catalogued
+Alan-follower / rain-timing RAND residual. No other game moved; rendering verified
+clean (no pipe leaks, correct "a, b and c" lists).
+
+**Remaining JJ blockers (next):** `MoveCharacter ToLocationGroup` +
+`%DisplayLocation[…]%`/`%LocationOf[…]%` text functions (the champagne teleport
+prose + move), the **Alan follower** ("Alan is with me" presence), and rain-event
+RAND timing.
 
 ---
 
@@ -1468,7 +1515,7 @@ a5arithtest pass.
   measure per game and, where it helps, re-bless that game's baseline under
   xoshiro (note it in the MAP). The vanilla baselines above are the
   `FD_RNG`-unset numbers.
-- **Stone of Wisdom** now plays deep into the game in both engines (173→44 after
-  the steel-door unlock + Pamba-trade fixes); it is no longer a weak/stuck test.
-  The remaining divergence is the bare-`all` narrowing (`put all in backpack`) →
-  `climb tree` blocker plus a window-counter off-by-one and troll-attack RNG.
+- **Stone of Wisdom** now plays deep into the game in both engines (173→44→**5**
+  after the steel-door unlock + Pamba-trade + bare-`all` narrowing fixes); it is no
+  longer a weak/stuck test. The remaining 5 hunks are a window-counter off-by-one
+  and troll-attack RNG (the `put all`/`climb tree` blocker is fixed).

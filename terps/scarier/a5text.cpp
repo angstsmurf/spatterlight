@@ -281,21 +281,30 @@ resolve_object_arg (a5_state_t *st, const char *args)
   return NULL;
 }
 
-/* Join a list of object keys as an indefinite "a, b and c" list ("" if empty). */
+/* Join a list of object keys as an "a, b and c" list with the given article
+   ("" if empty).  Mirrors ObjectHashTable.List (StronglyTypedCollections.vb:183). */
 static char *
-list_objects (a5_state_t *st, const std::vector<const char *> &keys)
+list_objects_art (a5_state_t *st, const std::vector<const char *> &keys,
+                  a5_article_t art)
 {
   sb_t sb; sb_init (&sb);
   int n = (int) keys.size ();
   for (int i = 0; i < n; i++)
     {
       const a5_object_t *o = a5model_object (st->adv, keys[i]);
-      char *nm = o ? a5text_object_name (o, A5_ART_INDEFINITE) : strdup (keys[i]);
+      char *nm = o ? a5text_object_name (o, art) : strdup (keys[i]);
       if (i > 0) sb_puts (&sb, (i == n - 1) ? " and " : ", ");
       sb_puts (&sb, nm);
       free (nm);
     }
   return sb_finish (&sb);
+}
+
+/* Join a list of object keys as an indefinite "a, b and c" list ("" if empty). */
+static char *
+list_objects (a5_state_t *st, const std::vector<const char *> &keys)
+{
+  return list_objects_art (st, keys, A5_ART_INDEFINITE);
 }
 
 /* Objects placed on (want=A5_OWHERE_ON_OBJECT) or in a container object key. */
@@ -721,6 +730,20 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                        : (ci_eq (name, "aobject") || ci_eq (name, "aobjects"))
                            ? A5_ART_INDEFINITE
                            : A5_ART_NONE;
+      /* A piped multi-object arg (%TheObjects[%objects%]% with a "k1|k2|..."
+         binding from resolve_plural) renders as FD's "the a, the b and the c"
+         article list -- ReplaceFunctions builds a temp ObjectHashTable from the
+         split keys and returns htblObjects.List (Global.vb:2056/2386). */
+      if (o == NULL && strchr (args, '|') != NULL)
+        {
+          std::vector<std::string> ks = arg_object_keys (st, args);
+          if (ks.size () > 1)
+            {
+              std::vector<const char *> kp;
+              for (auto &s : ks) kp.push_back (s.c_str ());
+              return list_objects_art (st, kp, art);
+            }
+        }
       if (o == NULL && args != NULL && args[0] != '\0')
         {
           /* args may be a key or a display name; resolve_object_arg also

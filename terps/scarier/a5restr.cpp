@@ -121,7 +121,28 @@ resolve_key (a5_state_t *st, const char *k)
   /* A per-turn binding (ReferencedObject2, ReferencedDirection, ...) wins. */
   bound = a5state_lookup_ref (st, k);
   if (bound != NULL)
-    return bound;
+    {
+      /* A piped multi-object binding (ReferencedObjects = "k1|k2|...", set by
+         resolve_plural so the text engine can render the whole set) resolves,
+         for restriction purposes, to its FIRST item -- mirroring FD's
+         GetReference("ReferencedObjects"), which returns Items(0).  Per-item
+         narrowing already happened in RefineMatchingPossibilitesUsingRestrictions;
+         the final PassRestrictions only ever checks the first item. */
+      const char *bar = strchr (bound, '|');
+      if (bar != NULL)
+        {
+          char tmp[128];
+          size_t n = (size_t) (bar - bound);
+          if (n < sizeof tmp)
+            {
+              memcpy (tmp, bound, n);
+              tmp[n] = '\0';
+              const a5_object_t *o = a5model_object (st->adv, tmp);
+              if (o != NULL) return o->key;   /* stable model-key pointer */
+            }
+        }
+      return bound;
+    }
   if (streq (k, "ReferencedCharacter"))
     return "Player";
   return k;
