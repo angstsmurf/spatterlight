@@ -193,19 +193,32 @@ drops.
   entity-decode scratch → `std::string`; `pf_output_untagged` tag-parse scratch →
   `std::vector<scr_char>`; `pf_prepend_string` saved copy → `std::string`. These
   were the leak-on-throw-prone locals (a `scr_fatal` raised by a `prop_*` call
-  mid-function now unwinds them cleanly). **Still raw (deferred — cross-function
-  ownership / transfer contracts):** the `scr_filter_t::buffer` growth accumulator
-  (explicit ownership transfer via `pf_transfer_buffer`), the
+  mid-function now unwinds them cleanly). **ALR replacement path also done**
+  (second commit): `pf_replace_alr` now hands its result back via a
+  `std::string &out` (was a reallocating `scr_char **buffer`), and
+  `pf_replace_alrs` replaces the `buffer1`/`buffer2` double-buffer juggling with
+  a single `std::string` accumulator (`std::string`'s amortized growth makes the
+  two-buffer alloc-reuse trick unnecessary), still returning `char*` via
+  `pf_strdup` so `pf_filter_internal` is untouched. **Still raw (deferred —
+  cross-function ownership / transfer contracts):** the `scr_filter_t::buffer`
+  growth accumulator (explicit ownership transfer via `pf_transfer_buffer`), the
   `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter` return-
-  `char*`-caller-frees chain (incl. `current`/`intermediate`), the
-  `pf_replace_alrs` `buffer1`/`buffer2` double-buffer juggling, and the
+  `char*`-caller-frees chain (incl. `current`/`intermediate`), and the
   `pf_filter_input` in-place copy-on-write editor. Validation: `make -f
-  Makefile.headless test` green; **byte-identical across the full 42-game v4
-  corpus** (standalone `os_ansi` player, `SCR_STABLE_RANDOM_ENABLED`, old-vs-new
-  transcript diff); ASan/UBSan clean on the heavy games (light_up, Shadowpeak,
-  X-Files, Space Boy). NB: LeakSanitizer is unavailable on macOS/arm64, so the
-  "leak ledger" can't be measured here — but the change only removes manual
-  `malloc`/`free`, so the leak surface can only shrink.
+  Makefile.headless test` green; **byte-identical across the deterministic v4
+  corpus** — a determinism-filtered diff (run the baseline binary twice, compare
+  the new binary only where the baseline is stable) gives **46 MATCH / 0 DIFFER /
+  1 NONDET** (Shadowpeak is nondeterministic in the *baseline* `os_ansi` player
+  too, so it can't be byte-validated this way — not a regression). Harness:
+  standalone `os_ansi` player, `SCR_STABLE_RANDOM_ENABLED`. ASan/UBSan clean on
+  ALR-heavy games (light_up, X-Files, Screen Savers, Alexis). NB: LeakSanitizer
+  is unavailable on macOS/arm64, so the "leak ledger" can't be measured here —
+  but the change only removes manual `malloc`/`free`, so the leak surface can
+  only shrink. **Reusable validation harness:** build a standalone player with
+  `c++ -O2 -std=c++17 os_ansi.cpp sc*.cpp -lz -o scares` and replay the
+  `adrift-walkthroughs/harness/*_solution.txt` scripts; always compare against a
+  *determinism-checked* baseline (the v4 player is not deterministic on every
+  game even with a fixed seed).
 - [ ] `scparser.cpp`.
 - [ ] `scrunner.cpp` / `sctasks.cpp`.
 - [ ] `scgamest.cpp` / `scprops.cpp` (with P4).

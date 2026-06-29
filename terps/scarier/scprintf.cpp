@@ -301,12 +301,13 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
  * pf_replace_alr()
  *
  * Helper for pf_replace_alrs().  Replace one ALR found in the string with
- * its equivalent, updating the buffer at the address passed in, including
- * reallocating if necessary.  Return TRUE if the buffer was changed.
+ * its equivalent.  If any replacement was made, the rebuilt string is handed
+ * back in 'out' and TRUE returned; otherwise 'out' is untouched and FALSE
+ * returned.
  */
 static scr_bool
 pf_replace_alr (const scr_char *string,
-                scr_char **buffer, scr_int alr, scr_prop_setref_t bundle)
+                std::string &out, scr_int alr, scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[3];
   const scr_char *marker, *cursor, *original, *replacement;
@@ -345,14 +346,12 @@ pf_replace_alr (const scr_char *string,
 
   /*
    * If a replacement was made, append any trailing text and hand the rebuilt
-   * string back through *buffer, freeing whatever it held before.  If nothing
-   * matched, leave *buffer untouched.
+   * string back through 'out'.  If nothing matched, leave 'out' untouched.
    */
   if (replacement)
     {
       result.append (marker);
-      scr_free (*buffer);
-      *buffer = pf_strdup (result);
+      out = std::move (result);
     }
   return replacement != NULL;
 }
@@ -370,23 +369,25 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
                  scr_bool alr_applied[], scr_int alr_count)
 {
   scr_int index_;
-  scr_char *buffer1, *buffer2, **buffer;
+  std::string current;
   const scr_char *marker;
+  scr_bool replaced;
 
   /*
-   * Begin with NULL buffers and alternate for lazy allocation.  To avoid a
-   * lot of allocation and copying, we use two buffers to help with repeated
-   * ALR replacement.
+   * 'marker' is the string we replace into; it starts as the input and, once
+   * any ALR fires, points into 'current' (the std::string holding the rebuilt
+   * text).  std::string's amortized growth removes the need for the old two-
+   * buffer alternation.
    */
-  buffer1 = buffer2 = NULL;
-  buffer = &buffer1;
+  marker = string;
+  replaced = FALSE;
 
   /* Run through each ALR that exists. */
-  marker = string;
   for (index_ = 0; index_ < alr_count; index_++)
     {
       scr_vartype_t vt_key[3];
       scr_int alr;
+      std::string rebuilt;
 
       /*
        * Ignore ALR indexes that have already been applied.  This prevents
@@ -405,43 +406,25 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
       vt_key[2].string = "ALRIndex";
       alr = prop_get_integer (bundle, "I<-sis", vt_key);
 
-      if (pf_replace_alr (marker, buffer, alr, bundle))
+      if (pf_replace_alr (marker, rebuilt, alr, bundle))
         {
           /*
-           * The current buffer in use has been altered.  This means that we
-           * have to switch the marker string to the buffer containing the
-           * replacement, and switch 'buffer' to the other one for the next
-           * ALR iteration.
+           * The string was altered.  Adopt the rebuilt text as the current
+           * string and re-point marker into it for the next ALR iteration.
+           * pf_replace_alr finished reading marker before returning, so moving
+           * rebuilt into current (which marker may have pointed into) is safe.
            */
-          marker = *buffer;
-          buffer = (buffer == &buffer1) ? &buffer2 : &buffer1;
-
-          /* Discard any content in the buffer switched to above. */
-          if (*buffer)
-            (*buffer)[0] = NUL;
+          current = std::move (rebuilt);
+          marker = current.c_str ();
+          replaced = TRUE;
 
           /* Note this ALR as "used up", and unavailable for future passes. */
           alr_applied[index_] = TRUE;
         }
     }
 
-  /*
-   * If marker points to one or other of the buffers, that buffer is the
-   * return string, and the other is garbage, and should now be freed (or
-   * was never used, in which case it is NULL).
-   */
-  if (marker == buffer1)
-    {
-      scr_free (buffer2);
-      return buffer1;
-    }
-  else if (marker == buffer2)
-    {
-      scr_free (buffer1);
-      return buffer2;
-    }
-  else
-    return NULL;
+  /* Return the rebuilt string if any replacement was made, else NULL. */
+  return replaced ? pf_strdup (current) : NULL;
 }
 
 
