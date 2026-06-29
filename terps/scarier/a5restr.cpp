@@ -199,6 +199,23 @@ pass_object (a5_state_t *st, a5_restr_t *r)
         return st->obj[oi].where == want;
       return st->obj[oi].where == want && streq (st->obj[oi].key, k2);
     }
+  if (streq (r->op, "BePartOfCharacter"))
+    {
+      /* clsUserSession.vb:4291: object's where == PartOfCharacter and its
+         holder key == k2 (a specific character).  A Hidden/elsewhere object
+         fails -- this gates MI/TBN's "handfire winks out" System task. */
+      if (oi < 0) return 0;
+      return st->obj[oi].where == A5_OWHERE_PART_CHAR && streq (st->obj[oi].key, k2);
+    }
+  if (streq (r->op, "BePartOfObject"))
+    {
+      /* clsUserSession.vb:4306: where == PartOfObject; k2 == ANYOBJECT checks
+         the where alone, else also the parent object key. */
+      if (oi < 0) return 0;
+      if (streq (k2, ANYOBJECT))
+        return st->obj[oi].where == A5_OWHERE_PART_OBJECT;
+      return st->obj[oi].where == A5_OWHERE_PART_OBJECT && streq (st->obj[oi].key, k2);
+    }
   if (streq (r->op, "BeHidden"))
     return oi >= 0 && st->obj[oi].where == A5_OWHERE_HIDDEN;
   if (streq (r->op, "Exist"))

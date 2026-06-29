@@ -1146,10 +1146,23 @@ ADRIFT text is full of embedded directives evaluated at display time:
         negative zero.  Lost Coastlines `score` now byte-matches FrankenDrift;
         Six Silver Bullets' `(NaN%)` (divide by a missing `%maxscore%`) and the
         whole-corpus `score` soak (Anno/Stone/TEE/XXR/Halloween/… all zero)
-        unchanged; full headless suite green; ASan/UBSan-clean.  NOTE: MI and TBN
-        still emit a spurious turn-0 "the ball of handfire winks out" line (a
-        shared event/task fires under the seed where FrankenDrift's does not) —
-        a separate event-trigger investigation, not a scoring issue.
+        unchanged; full headless suite green; ASan/UBSan-clean.
+      - **`BePartOfCharacter` / `BePartOfObject` object restrictions** — **DONE.**
+        Both were unhandled in `pass_object`, falling through to the lenient
+        "unknown operator => don't suppress" `return 1`.  This let MI's and TBN's
+        stock `cl_HandfireOu1` **System** task ("As you move into the light, the
+        ball of handfire winks out with a 'pop'.") fire on turn 0: its AND chain
+        is `Player MustNot BeWithinLocationGroup DarkLocations` (true at the
+        non-dark `StartOptio` start room) AND `Player MustNot BeAtLocation
+        cl_MagorSCham1` (true) AND `cl_Handfire1 Must BePartOfCharacter Player`
+        — and that last restriction wrongly passed even though the handfire is a
+        Static object whose StaticLocation is Hidden, so the task ran and printed
+        the spurious line FrankenDrift never shows.  Ported
+        clsUserSession.vb:4291/4306: `BePartOfCharacter` = object `where ==
+        PART_CHAR` and holder key == k2; `BePartOfObject` = `where ==
+        PART_OBJECT` (k2 == ANYOBJECT) or also parent key == k2.  MI and TBN now
+        diff to ZERO; the three ground-truth games + the whole-corpus score soak
+        unchanged; ASan/UBSan-clean.
       - **Known non-fixable / game-specific corpus residuals**: FBA is
         event/RNG-shifted (an early "custodian catches you" event fires turn 1
         under the xoshiro seed → immediate loss; .NET `System.Random` divergence)
