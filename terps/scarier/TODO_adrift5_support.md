@@ -1174,15 +1174,62 @@ ADRIFT text is full of embedded directives evaluated at display time:
         PART_OBJECT` (k2 == ANYOBJECT) or also parent key == k2.  MI and TBN now
         diff to ZERO; the three ground-truth games + the whole-corpus score soak
         unchanged; ASan/UBSan-clean.
+      - **Non-English localization (Halloween — the next big P4 subsystem,
+        fully RE'd, NOT yet implemented).**  Halloween is a Danish ADRIFT 5 game;
+        a generic `look/examine me/inventory/get all/<dirs>/wait` soak shows ~29
+        divergence lines, all localization, from two coupled mechanisms:
+        1. **ALR applied to the *whole assembled turn output*, not per-fragment.**
+           FrankenDrift's `Global.ReplaceALRs` (Global.vb:519 — the real text
+           pipeline: ReplaceFunctions → ReplaceExpressions → ALR loop →
+           auto-capitalise → a second ALR round) is run by **`Display()` on the
+           final output string**, so even engine-generated stock literals get
+           translated.  Halloween ships ~138 `<TextOverride>` ALRs whose OldText
+           are the *English* built-ins: `I did not understand the word ` → `Jeg
+           forstod ikke ordet `, `Also here is ` → `Desuden er her `, ` and ` →
+           ` og `, `You ` → `Du `, ` nothing ` → ` intet `, etc.  Scarier instead
+           applies `a5text_process`/`replace_alrs` **per fragment** and emits its
+           stock messages (NotUnderstood ladder in `a5run.cpp`, the `Also here
+           is ` prefix in `a5text_view_location`, the route/visibility messages)
+           as **raw C literals that never see the ALR pass** — so they stay
+           English.  The faithful fix is to ALR the assembled turn output at the
+           Display boundary (mirroring FrankenDrift), but that risks
+           double-applying ALRs / re-auto-capitalising the already-per-fragment-
+           processed descriptions in the three English ground-truth games, so it
+           needs care (likely: stop ALR-ing per fragment and move the single ALR
+           pass to the output boundary, keeping per-fragment *function* expansion
+           for its character/object context).
+        2. **Localized direction names from the Adventure header.**  The header
+           carries 12 `<DirectionNorth>Nord/N/Nordpå</DirectionNorth>` …
+           `<DirectionOut>Ud/Udenfor/Forlad</DirectionOut>` fields (slash-
+           separated synonyms; the **first** is the display name).  These drive
+           BOTH (a) **direction parsing** — only the listed synonyms match, so
+           Danish `w` is *not* a direction and must fall to `Jeg forstod ikke
+           ordet "w"` (Scarier's hardcoded English compass words wrongly match
+           `w`→west), and (b) **direction display** — the no-route / exit-list
+           messages must use `nord, syd og op`, not `north, south and up`
+           (canonical English is currently hardcoded in `a5parse`/`a5restr`/
+           `a5expr`'s `.Exits`).  The two are coupled: even localized names render
+           `nord, syd and op` until the ` and `→` og ` ALR (item 1) also runs.
+           **Safe to add:** the three ground-truth games define **no** `<Direction*>`
+           fields (verified), so defaulting to the English compass set when the
+           fields are absent leaves SSB/Anno/Stone byte-identical.  Implement as:
+           parse the 12 fields into `a5_adventure_t`, build the parse synonym set
+           and the display-name array from them (English fallback), and thread
+           through `a5parse_directions_re`/`a5parse_canonical_direction` + the
+           Exits renderers.
       - **Known non-fixable / game-specific corpus residuals**: FBA is
         event/RNG-shifted (an early "custodian catches you" event fires turn 1
         under the xoshiro seed → immediate loss; .NET `System.Random` divergence)
-        and its end-menu prompt is the single-key "Please press O…" variant; RtC
-        opens with an interactive "Adventure Upgrade" prompt (a 5.0.26 task
-        auto-correct FD offers) and uses an ALR whose OldText carries a leading
-        capital ("You is wearing…") that depends on `%CharacterName%` sentence-
-        capitalisation; Grandpa's first-turn "Tutorial:" hints are first-time
-        system messages not yet wired.
+        and its end-menu prompt is the single-key "Please press O…" variant; **Bug
+        Hunt On Menelaus, Oct 31st and XXR are the same RNG/event-timing class** —
+        a death/timer event (Meneltra acid, the mummy, the tin-mould hardening)
+        fires earlier under xoshiro than under .NET `System.Random`, diverging the
+        whole run, and Bug Hunt/Oct 31st also use the single-key "Please press
+        O…" end-menu prompt; RtC opens with an interactive "Adventure Upgrade"
+        prompt (a 5.0.26 task auto-correct FD offers) and uses an ALR whose
+        OldText carries a leading capital ("You is wearing…") that depends on
+        `%CharacterName%` sentence-capitalisation; Grandpa's first-turn
+        "Tutorial:" hints are first-time system messages not yet wired.
       - **Still TODO (earlier list)**: full
         UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
         function library; scoring display (no ADRIFT Score/MaxScore status);
