@@ -1449,9 +1449,11 @@ scr_char *
 pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[3];
-  scr_int synonym_count, buffer_allocation;
-  scr_char *buffer;
+  scr_int synonym_count;
+  std::string buffer;
+  scr_bool modified;
   const scr_char *current;
+  scr_int offset;
   assert (string && bundle);
 
   if (pf_trace)
@@ -1461,13 +1463,17 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
   vt_key[0].string = "Synonyms";
   synonym_count = prop_get_child_count (bundle, "I<-s", vt_key);
 
-  /* Begin with a NULL buffer for lazy allocation. */
-  buffer_allocation = 0;
-  buffer = NULL;
+  /*
+   * 'current' is the active string -- the input until a synonym fires, then
+   * the 'buffer' copy (basic copy-on-write).  'offset' is our position within
+   * it; we work by offset because std::string edits may reallocate.
+   */
+  modified = FALSE;
+  current = string;
 
   /* Loop over each word in the string. */
-  current = string + strspn (string, WHITESPACE);
-  while (current[0] != NUL)
+  offset = strspn (current, WHITESPACE);
+  while (current[offset] != NUL)
     {
       scr_int index_, extent;
 
@@ -1484,7 +1490,7 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
           original = prop_get_string (bundle, "S<-sis", vt_key);
 
           /* Compare the original at this point. */
-          extent = pf_compare_words (current, original);
+          extent = pf_compare_words (current + offset, original);
           if (extent > 0)
             break;
         }
@@ -1496,20 +1502,18 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
       if (index_ < synonym_count && extent > 0)
         {
           const scr_char *replacement;
-          scr_char *position;
-          scr_int length, final;
+          scr_int length;
 
           /*
-           * If not yet allocated, allocate a buffer now, and copy the input
-           * string into it.  Then switch current to the equivalent location
-           * in the allocated buffer.  More basic copy-on-write.
+           * If not yet copied, copy the input string into the buffer now and
+           * switch 'current' to it.  The offset is unchanged since the buffer
+           * starts as an exact copy.  More basic copy-on-write.
            */
-          if (!buffer)
+          if (!modified)
             {
-              buffer_allocation = strlen (string) + 1;
-              buffer = (decltype(buffer)) scr_malloc (buffer_allocation);
-              strncpy (buffer, string, buffer_allocation);
-              current = buffer + (current - string);
+              buffer = string;
+              current = buffer.c_str ();
+              modified = TRUE;
             }
 
           /* Find the replacement text for this synonym. */
@@ -1519,49 +1523,28 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
           replacement = prop_get_string (bundle, "S<-sis", vt_key);
           length = strlen (replacement);
 
-          /*
-           * If necessary, grow the output buffer for the replacement,
-           * remembering to adjust current for the new buffer allocated.
-           * At the same time, note the last character index for the move.
-           */
-          if (length > extent)
-            {
-              scr_int offset;
+          /* Splice the replacement in for the matched extent. */
+          buffer.replace (offset, extent, replacement, length);
+          current = buffer.c_str ();
 
-              offset = current - buffer;
-              buffer_allocation += length - extent;
-              buffer = (decltype(buffer)) scr_realloc (buffer, buffer_allocation);
-              current = buffer + offset;
-              final = length;
-            }
-          else
-            final = extent;
-
-          /* Insert the replacement string into the buffer. */
-          position = buffer + (current - buffer);
-          memmove (position + length,
-                   position + extent,
-                   buffer_allocation - (current - buffer) - final);
-          memcpy (position, replacement, length);
-
-          /* Adjust current to skip over the replacement. */
-          current += length;
+          /* Adjust offset to skip over the replacement. */
+          offset += length;
 
           if (pf_trace)
-            scr_trace ("Printfilter: synonym \"%s\"\n", buffer);
+            scr_trace ("Printfilter: synonym \"%s\"\n", buffer.c_str ());
         }
       else
         {
-          /* If no match, advance current over the unmatched word. */
-          current += strcspn (current, WHITESPACE);
+          /* If no match, advance over the unmatched word. */
+          offset += strcspn (current + offset, WHITESPACE);
         }
 
-      /* Set current to the next word start. */
-      current += strspn (current, WHITESPACE);
+      /* Set offset to the next word start. */
+      offset += strspn (current + offset, WHITESPACE);
     }
 
   /* Return the final string, or NULL if no synonym replacements. */
-  return buffer;
+  return modified ? pf_strdup (buffer) : NULL;
 }
 
 

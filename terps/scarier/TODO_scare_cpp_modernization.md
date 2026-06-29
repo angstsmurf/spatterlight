@@ -199,12 +199,19 @@ drops.
   `pf_replace_alrs` replaces the `buffer1`/`buffer2` double-buffer juggling with
   a single `std::string` accumulator (`std::string`'s amortized growth makes the
   two-buffer alloc-reuse trick unnecessary), still returning `char*` via
-  `pf_strdup` so `pf_filter_internal` is untouched. **Still raw (deferred —
+  `pf_strdup` so `pf_filter_internal` is untouched. **`pf_filter_input` done**
+  (third commit): the synonym copy-on-write editor's `scr_malloc`/`scr_realloc` +
+  pointer-walked in-place `memmove`/`memcpy` is now a `std::string` with
+  offset-based walking and `std::string::replace` for the splice (offsets survive
+  reallocation); still takes `const char*` and returns `char*` via `pf_strdup`,
+  so callers are untouched. The match branch is genuinely exercised by the corpus
+  (secret_of_lost_world 32×, circus 16×, cybercow_win 4×, les_feux 3×,
+  melbourne_beach 2×, inverness 1× — all byte-identical). **Still raw (deferred —
   cross-function ownership / transfer contracts):** the `scr_filter_t::buffer`
-  growth accumulator (explicit ownership transfer via `pf_transfer_buffer`), the
-  `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter` return-
-  `char*`-caller-frees chain (incl. `current`/`intermediate`), and the
-  `pf_filter_input` in-place copy-on-write editor. Validation: `make -f
+  growth accumulator (explicit ownership transfer via `pf_transfer_buffer`) and
+  the `pf_interpolate_vars`/`pf_replace_alrs`/`pf_filter_internal`/`pf_filter`
+  return-`char*`-caller-frees chain (incl. `current`/`intermediate`).
+  Validation: `make -f
   Makefile.headless test` green; **byte-identical across the deterministic v4
   corpus** — a determinism-filtered diff (run the baseline binary twice, compare
   the new binary only where the baseline is stable) gives **46 MATCH / 0 DIFFER /
