@@ -999,8 +999,13 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           std::vector<std::vector<std::string>> items;
           int had_all = 0;
           bool ok = match_objects (st, r.text, items, false, false, &had_all);
-          if (ok && items.size () > 1)
-            { plural_idx = i; plural_text = r.text; continue; }   /* multi */
+          /* A genuine multi-object input *or* any "all" command (even one that
+             expands to zero/one seen object) goes through resolve_plural, so a
+             "get all" with nothing takeable surfaces the task's FailOverride
+             ("There is nothing worth taking here.") rather than the single-ref
+             no-reference message. */
+          if (ok && (items.size () > 1 || had_all))
+            { plural_idx = i; plural_text = r.text; continue; }   /* multi/all */
           r.type = 'o';
           if (ok && items.size () == 1)
             r.orig = order_visible_first (st, items[0]);

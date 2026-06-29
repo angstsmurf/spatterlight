@@ -1110,7 +1110,18 @@ ADRIFT text is full of embedded directives evaluated at display time:
         - **FailOverride**: a "get all"-style command whose `%objects%` resolved
           to no passing item shows the matched task's `<FailOverride>` ("There is
           nothing worth taking here." — vb:788), now modelled
-          (`a5_task_t.fail_override`) and emitted by `scan_tasks`.
+          (`a5_task_t.fail_override`) and emitted by `scan_tasks`.  **Follow-up
+          fix:** `resolve_refine` only routed `%objects%` to `resolve_plural`
+          when `match_objects` yielded > 1 item, so a bare `all` that expands to
+          **zero or one** seen object (e.g. `get all` in an empty room) fell into
+          the single-reference path and emitted the no-ref "Sorry, I'm not sure
+          which object you are trying to take." instead of the FailOverride.  Now
+          any `had_all` input (the `all` flag, matching FrankenDrift's
+          InputMatchesObjects) takes the plural path regardless of count, so the
+          empty/single "all" cases reach `resolve_plural`'s FailOverride/per-item
+          logic.  Six Silver Bullets' `get all` now byte-matches FrankenDrift
+          ("There is nothing worth taking here."); the SSB golden + `a5objtest` +
+          Anno/Stone are unchanged; ASan/UBSan-clean.
         - **Fix surfaced**: a sentence-ending `%objects%.`/`%object%.` was
           mis-parsed as the start of an OO property chain (rendering a raw key);
           the OO branch now requires an alpha char after the dot, so the bare
