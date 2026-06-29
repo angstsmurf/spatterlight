@@ -250,7 +250,23 @@ drops.
   `adrift-walkthroughs/harness/*_solution.txt` scripts; always compare against a
   *determinism-checked* baseline (the v4 player is not deterministic on every
   game even with a fixed seed).
-- [ ] `scparser.cpp`.
+- [x] `scparser.cpp` — **safe sites done; the rest deliberately left raw.**
+  Converted (both standalone / match-phase, off the longjmp path): the
+  `uip_replace_pronouns` copy-on-write pronoun editor → `std::string` +
+  offset-walk + `.replace()` (heavily corpus-exercised: light_up 582, shadowpeak
+  924, secret_of_lost_world 336, alexis 304 …), and the `uip_match_text` `%text%`
+  reference buffer → `std::string` (always heap-allocated anyway). Added a
+  `uip_strdup` boundary helper. **Left raw on purpose:** (a) everything on the
+  parser's `setjmp(uip_parse_error)`/`longjmp` path — the tokenizer
+  (`uip_tokenize_start`/`uip_temporary`), the node/word pools and their overflow
+  fallbacks (`uip_new_node`/`uip_new_word`), and the parse builders — because the
+  two `longjmp` sites (`uip_parse_match`, `uip_parse_element`) would skip
+  non-trivial destructors (UB) and leak; (b) `uip_cleanse_string` and
+  `uip_compare_prefixed_name`, which use intentional stack-buffer/`malloc`-
+  overflow optimizations with immediate frees (no leak risk; RAII would force a
+  heap alloc on a hot path or change the caller-buffer return contract). These
+  are correct as-is and stay. Validation: same harness, byte-identical corpus,
+  ASan/UBSan clean.
 - [ ] `scrunner.cpp` / `sctasks.cpp`.
 - [ ] `scgamest.cpp` / `scprops.cpp` (with P4).
 - [ ] Track corpus leak count before/after each file.
