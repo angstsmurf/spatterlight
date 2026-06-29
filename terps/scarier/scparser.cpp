@@ -33,9 +33,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <string>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
+
+
+/*
+ * uip_strdup()
+ *
+ * Copy a std::string into a freshly scr_malloc'ed C string, so callers that
+ * expect to scr_free() the result keep working unchanged.  The boundary between
+ * std::string internals and the engine's char* contract.
+ */
+static scr_char *
+uip_strdup (const std::string &string)
+{
+  scr_char *buffer = (scr_char *) scr_malloc (string.size () + 1);
+  memcpy (buffer, string.c_str (), string.size () + 1);
+  return buffer;
+}
 
 
 /* Assorted definitions and constants. */
@@ -1837,21 +1855,26 @@ scr_char *
 uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int buffer_allocation;
-  scr_char *buffer;
+  std::string buffer;
+  scr_bool modified;
   const scr_char *current;
+  scr_int offset;
   assert (string);
 
   if (uip_trace)
     scr_trace ("UIParser: pronoun search \"%s\"\n", string);
 
-  /* Begin with a NULL buffer for lazy allocation. */
-  buffer_allocation = 0;
-  buffer = NULL;
+  /*
+   * 'current' is the active string -- the input until a pronoun fires, then
+   * the 'buffer' copy (basic copy-on-write).  'offset' is our position within
+   * it; we work by offset because std::string edits may reallocate.
+   */
+  modified = FALSE;
+  current = string;
 
   /* Search for pronouns until no more string remains. */
-  current = string + strspn (string, WHITESPACE);
-  while (current[0] != NUL)
+  offset = strspn (current, WHITESPACE);
+  while (current[offset] != NUL)
     {
       scr_vartype_t vt_key[3];
       scr_int object, npc, extent;
@@ -1869,27 +1892,27 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
        * a "them"?  Because of this, we just treat "it" and "them" equally
        * for now.
        */
-      if (game->it_object != -1 && scr_compare_word (current, "it", 2))
+      if (game->it_object != -1 && scr_compare_word (current + offset, "it", 2))
         {
           object = game->it_object;
           extent = 2;
         }
-      else if (game->it_object != -1 && scr_compare_word (current, "them", 4))
+      else if (game->it_object != -1 && scr_compare_word (current + offset, "them", 4))
         {
           object = game->it_object;
           extent = 4;
         }
-      else if (game->him_npc != -1 && scr_compare_word (current, "him", 3))
+      else if (game->him_npc != -1 && scr_compare_word (current + offset, "him", 3))
         {
           npc = game->him_npc;
           extent = 3;
         }
-      else if (game->her_npc != -1 && scr_compare_word (current, "her", 3))
+      else if (game->her_npc != -1 && scr_compare_word (current + offset, "her", 3))
         {
           npc = game->her_npc;
           extent = 3;
         }
-      else if (game->it_npc != -1 && scr_compare_word (current, "it", 2))
+      else if (game->it_npc != -1 && scr_compare_word (current + offset, "it", 2))
         {
           npc = game->it_npc;
           extent = 2;
@@ -1921,70 +1944,48 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
        */
       if (prefix && name && extent > 0)
         {
-          scr_char *position;
-          scr_int prefix_length, name_length, length, final;
+          std::string replacement;
 
           /*
-           * If not yet allocated, allocate a buffer now, and copy the input
-           * string into it.  Then switch current to the equivalent location
-           * in the allocated buffer; basic copy-on-write.
+           * If not yet copied, copy the input string into the buffer now and
+           * switch 'current' to it.  The offset is unchanged since the buffer
+           * starts as an exact copy; basic copy-on-write.
            */
-          if (!buffer)
+          if (!modified)
             {
-              buffer_allocation = strlen (string) + 1;
-              buffer = (decltype(buffer)) scr_malloc (buffer_allocation);
-              strncpy (buffer, string, buffer_allocation);
-              current = buffer + (current - string);
+              buffer = string;
+              current = buffer.c_str ();
+              modified = TRUE;
             }
 
-          /*
-           * If necessary, grow the output buffer for the replacement,
-           * remembering to adjust current for the new buffer allocated.
-           * At the same time, note the last character index for the move.
-           */
-          prefix_length = strlen (prefix);
-          name_length = strlen (name);
-          length = prefix_length + name_length + 1;
-          if (length > extent)
-            {
-              scr_int offset;
+          /* Build the replacement text: "<prefix> <name>". */
+          replacement.reserve (strlen (prefix) + 1 + strlen (name));
+          replacement.append (prefix);
+          replacement.push_back (' ');
+          replacement.append (name);
 
-              offset = current - buffer;
-              buffer_allocation += length - extent;
-              buffer = (decltype(buffer)) scr_realloc (buffer, buffer_allocation);
-              current = buffer + offset;
-              final = length;
-            }
-          else
-            final = extent;
+          /* Splice the replacement in for the matched extent. */
+          buffer.replace (offset, extent, replacement);
+          current = buffer.c_str ();
 
-          /* Insert the replacement strings into the buffer. */
-          position = buffer + (current - buffer);
-          memmove (position + length,
-                   position + extent,
-                   buffer_allocation - (current - buffer) - final);
-          memcpy (position, prefix, prefix_length);
-          position[prefix_length] = ' ';
-          memcpy (position + prefix_length + 1, name, name_length);
-
-          /* Adjust current to skip over the replacement. */
-          current += length;
+          /* Adjust offset to skip over the replacement. */
+          offset += replacement.size ();
 
           if (uip_trace)
-            scr_trace ("Parser: pronoun \"%s\"\n", buffer);
+            scr_trace ("Parser: pronoun \"%s\"\n", buffer.c_str ());
         }
       else
         {
-          /* If no match, advance current over the unmatched word. */
-          current += strcspn (current, WHITESPACE);
+          /* If no match, advance over the unmatched word. */
+          offset += strcspn (current + offset, WHITESPACE);
         }
 
-      /* Set current to the next word start. */
-      current += strspn (current, WHITESPACE);
+      /* Set offset to the next word start. */
+      offset += strspn (current + offset, WHITESPACE);
     }
 
   /* Return the final string, or NULL if no pronoun replacements. */
-  return buffer;
+  return modified ? uip_strdup (buffer) : NULL;
 }
 
 
