@@ -629,7 +629,7 @@ parse_get_taf_string (void)
           scr_error ("parse_get_taf_string:"
                     " out of TAF data at line %ld\n", parse_tafline);
           parse_stack_backtrace ();
-          longjmp (parse_taf_error, 1);
+          scr_longjmp (parse_taf_error, 1);
         }
 
       /* Note this line for possible pushback. */
@@ -657,7 +657,7 @@ parse_get_taf_integer (void)
       scr_error ("parse_get_taf_integer:"
                 " invalid integer at line %ld\n", parse_tafline - 1);
       parse_stack_backtrace ();
-      longjmp (parse_taf_error, 1);
+      scr_longjmp (parse_taf_error, 1);
     }
 
   return integer;
@@ -679,7 +679,7 @@ parse_get_taf_boolean (void)
       scr_error ("parse_get_taf_boolean:"
                 " invalid boolean at line %ld\n", parse_tafline - 1);
       parse_stack_backtrace ();
-      longjmp (parse_taf_error, 1);
+      scr_longjmp (parse_taf_error, 1);
     }
   if (boolean != 0 && boolean != 1)
     {
@@ -3489,7 +3489,7 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   parse_depth = 0;
 
   /* Try parsing, and catch errors from longjmp. */
-  if (setjmp (parse_taf_error) == 0)
+  if (scr_setjmp (parse_taf_error) == 0)
     {
       /* Parse a complete game. */
       taf_first_line (parse_taf);

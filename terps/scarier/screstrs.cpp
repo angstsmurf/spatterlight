@@ -975,7 +975,7 @@ restr_match (scr_char c)
     {
       scr_error ("restr_match:"
                 " syntax error, expected %d, got %d\n", c, restr_lookahead);
-      longjmp (restr_parse_error, 1);
+      scr_longjmp (restr_parse_error, 1);
     }
 }
 
@@ -1032,7 +1032,7 @@ restr_bexpr (void)
 
     default:
       scr_error ("restr_bexpr: syntax error, unexpected %d\n", restr_lookahead);
-      longjmp (restr_parse_error, 1);
+      scr_longjmp (restr_parse_error, 1);
     }
 }
 
@@ -1128,7 +1128,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
   restr_tokenize_start (pattern);
 
   /* Try parsing the pattern, and catch errors. */
-  if (setjmp (restr_parse_error) == 0)
+  if (scr_setjmp (restr_parse_error) == 0)
     {
       /* Parse the pattern, and ensure it ends at string end. */
       restr_lookahead = restr_next_token ();

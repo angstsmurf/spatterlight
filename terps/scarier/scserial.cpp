@@ -711,7 +711,7 @@ ser_get_string (void)
   if (!string)
     {
       scr_error ("ser_get_string: out of TAS data at line %ld\n", ser_tasline);
-      longjmp (ser_tas_error, 1);
+      scr_longjmp (ser_tas_error, 1);
     }
 
   ser_tasline++;
@@ -730,7 +730,7 @@ ser_get_int (void)
     {
       scr_error ("ser_get_int:"
                 " invalid integer at line %ld\n", ser_tasline - 1);
-      longjmp (ser_tas_error, 1);
+      scr_longjmp (ser_tas_error, 1);
     }
 
   return value;
@@ -832,7 +832,7 @@ ser_get_uint (void)
     {
       scr_error ("ser_get_uint:"
                 " invalid integer at line %ld\n", ser_tasline - 1);
-      longjmp (ser_tas_error, 1);
+      scr_longjmp (ser_tas_error, 1);
     }
 
   return value;
@@ -853,7 +853,7 @@ ser_get_boolean (void)
     {
       scr_error ("ser_get_boolean:"
                 " invalid boolean at line %ld\n", ser_tasline - 1);
-      longjmp (ser_tas_error, 1);
+      scr_longjmp (ser_tas_error, 1);
     }
   if (value != 0 && value != 1)
     {
@@ -897,7 +897,7 @@ ser_load_game (scr_gameref_t game,
   new_vars = NULL;
 
   /* Set up error handling jump buffer, and handle errors. */
-  if (setjmp (ser_tas_error) != 0)
+  if (scr_setjmp (ser_tas_error) != 0)
     {
       /* Destroy any temporary game and variables. */
       if (new_game)
@@ -934,7 +934,7 @@ ser_load_game (scr_gameref_t game,
   vt_key[0].string = "Globals";
   vt_key[1].string = "GameName";
   if (strcmp (gamename, prop_get_string (bundle, "S<-ss", vt_key)) != 0)
-    longjmp (ser_tas_error, 1);
+    scr_longjmp (ser_tas_error, 1);
 
   /* Read and verify the counts in the saved game. */
   if (ser_get_int () != gs_room_count (game)
@@ -942,7 +942,7 @@ ser_load_game (scr_gameref_t game,
       || ser_get_int () != gs_task_count (game)
       || ser_get_int () != gs_event_count (game)
       || ser_get_int () != gs_npc_count (game))
-    longjmp (ser_tas_error, 1);
+    scr_longjmp (ser_tas_error, 1);
 
   /* Create a variables set and game to restore into. */
   new_vars = var_create (bundle);
@@ -1038,7 +1038,7 @@ ser_load_game (scr_gameref_t game,
           vt_key[2].string = "StarterType";
           startertype = prop_get_integer (bundle, "I<-sis", vt_key);
           if (startertype != 3)
-            longjmp (ser_tas_error, 1);
+            scr_longjmp (ser_tas_error, 1);
 
           /* Restore task state. */
           gs_set_task_done (new_game, task - 1, ser_get_boolean ());

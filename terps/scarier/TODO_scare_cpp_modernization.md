@@ -311,12 +311,22 @@ drops.
 
 ## P4. The property-tree hot path (highest ceiling, highest risk)
 
-**Why.** `prop_get`/`prop_put` **parse a printf-style format string and walk a
-string-keyed tree on every access** (`scprops.cpp:451+`; paths like
-`"Objects[%d].Name"` assembled and re-parsed at runtime, vararg key array). This
-is the single most-called operation in the engine — every restriction, action,
-variable read, and text substitution funnels through it. Runtime format parsing +
-tree descent per access is the dominant cost.
+**Why.** `prop_get`/`prop_put` walk a string-keyed tree on every access
+(`scprops.cpp:451+`, vararg key array). This is the single most-called operation
+in the engine — every restriction, action, variable read, and text substitution
+funnels through it.
+
+> ⚠️ **Premise correction (from profiling, see below).** An earlier draft of
+> this section claimed `prop_*` *"parse[s] a printf-style format string"* with
+> *`"Objects[%d].Name"`*-style paths *"assembled and re-parsed at runtime"*.
+> That is **not** how the code works. The format strings are compile-time
+> literals (`"I<-sis"`, `"S<-sisis"`, …) whose characters after index 3 directly
+> encode key types ('s' = string, 'i' = integer); the "parse" is a trivial
+> char-by-char read (`format[index_ + 3]`) — **no `sscanf`/`sprintf`, no runtime
+> path assembly**. So the TODO's first proposed remedy below (*"cache parsed
+> format paths"*) would save essentially nothing and is **withdrawn**. The real
+> per-access cost is the **string-keyed child scan** (`prop_find_child`'s
+> `strcmp` loop) and sheer **call volume**.
 
 **Approach (only after P1–P3; this is the risky one).**
 - **Low-risk first step:** cache the parsed format path (the `%s`/`%d` template →
@@ -331,9 +341,52 @@ tree descent per access is the dominant cost.
 **Validate.** Whole walkthrough corpus byte-identical; profile before/after on
 the event-heavy games to confirm the win justifies the risk.
 
-- [ ] Profile to confirm `prop_*` is the hot path (don't assume).
-- [ ] Cache parsed format paths (no structural change).
-- [ ] (Optional) typed/`unordered_map` node lookup.
+- [x] **Profile to confirm `prop_*` is the hot path (don't assume).** Done, two
+  ways. (1) **Call volume** via opt-in counters (`-DSCARE_PROFILE_PROPS`, since
+  reverted) over the corpus — Shadowpeak's 849-command walkthrough:
+  **9.98 M `prop_get`**, 56.7 K `prop_put`, **36.4 M `prop_find_child`** (65 %
+  string-key scans), **48.3 M `strcmp`**. (2) **Self-time** via macOS `sample` on
+  a standalone `os_ansi` replay (build: `c++ -O2 -g -std=c++17 -I. -I../cheapglk
+  sc*.cpp os_ansi.cpp ../common_utils/randomness.c -lz`). `prop_find_child` is the
+  largest engine leaf, with `prop_get` + its `strcmp`/`memmove` share close behind;
+  the parser (`uip_match_node`/`scr_compare_word`) is a clear second. **`prop_*`
+  is confirmed the hot path.** Two important nuances the profile surfaced:
+  - **The move-to-front heuristic already works:** avg **~2.0 `strcmp` per
+    string-key lookup** (child lists are short and recency-sorted), so the scans
+    are *not* pathologically deep. But the heuristic fires a `memmove` on ~31 % of
+    string lookups (7.2 M shuffles on Shadowpeak) — possibly net-negative on such
+    short lists vs. a single swap-toward-front. Candidate micro-opt, low ceiling.
+  - **The biggest *avoidable* steady-state cost was not `prop_*` at all** — it was
+    `setjmp` saving the signal mask (`sigprocmask`+`sigaltstack`), see the
+    realized win below. Fixed.
+- [~] ~~Cache parsed format paths~~ — **withdrawn** (premise was wrong; format
+  walk is already trivial char reads, see premise correction above).
+- [ ] (Optional) typed/`unordered_map` node lookup, or move-to-front → single
+  swap. Lower expected payoff than first assumed (scans are already ~2 deep);
+  weigh against the byte-exact-validation cost before attempting.
+
+### Realized win (from P4 profiling): skip the `setjmp` signal-mask save
+
+The profile's single largest steady-state cost was the kernel **signal-mask
+handling inside `setjmp`** (`sigprocmask` + `sigaltstack` syscalls on macOS/BSD,
+**~114 sample units vs. 87 for `prop_find_child`**). The expression evaluator
+(`scexpr`), command parser (`scparser`), and restriction evaluator (`screstrs`)
+each arm a `setjmp` recovery point on essentially every turn; SCARE never alters
+the signal mask between `setjmp` and `longjmp`, so the save/restore is pure waste.
+
+- [x] Added `scr_setjmp`/`scr_longjmp` macros (`scprotos.h`) mapping to POSIX
+  `_setjmp`/`_longjmp` (identical control flow, **no** mask save), with the
+  profiling rationale documented at the macro. Converted **all 34** engine
+  set/longjmp sites (`scexpr`, `scparser`, `screstrs`, `scrunner`, `sctafpar`,
+  `scserial`) — every pair is file-local, so the swap is self-contained and does
+  **not** alter the `longjmp`-over-live-frames hazard discussed in P3 (it is still
+  a `longjmp`, just faster). Validated **byte-identical** across the
+  determinism-checked v4 corpus (17 stable games, 0 differ), `make -f
+  Makefile.headless test` green, ASan/UBSan clean (light_up, alexis,
+  secret_of_lost_world, circus). Measured **~5–13 % whole-run speedup**
+  (light_up 9.7 %, sun_empire 13.0 %, secret 4.3 %, best-of-N over 30 reps);
+  steady-state turn-loop gain is larger since these numbers include the constant
+  per-process TAF-load overhead, which a long Spatterlight session amortizes away.
 
 ---
 

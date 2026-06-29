@@ -643,7 +643,7 @@ expr_eval_action (scr_int token)
           {
             scr_error ("expr_eval_action:"
                       " undefined variable, %s\n", token_value.string);
-            longjmp (expr_parse_error, 1);
+            scr_longjmp (expr_parse_error, 1);
           }
         switch (type)
           {
@@ -1161,7 +1161,7 @@ expr_parse_match (scr_int token)
       /* Syntax error. */
       scr_error ("expr_parse_match: syntax error,"
                 " expected %ld, got %ld\n", expr_parse_lookahead, token);
-      longjmp (expr_parse_error, 1);
+      scr_longjmp (expr_parse_error, 1);
     }
 }
 
@@ -1334,14 +1334,14 @@ expr_parse_numeric_factor (void)
           {
             scr_error ("expr_parse_numeric_factor:"
                       " undefined variable, %s\n", token_value.string);
-            longjmp (expr_parse_error, 1);
+            scr_longjmp (expr_parse_error, 1);
           }
         if (type != VAR_INTEGER)
           {
             scr_error ("expr_parse_numeric_factor:"
                       " string variable in numeric context, %s\n",
                       token_value.string);
-            longjmp (expr_parse_error, 1);
+            scr_longjmp (expr_parse_error, 1);
           }
         expr_eval_action (TOK_VARIABLE);
         expr_parse_match (TOK_VARIABLE);
@@ -1443,13 +1443,13 @@ expr_parse_numeric_factor (void)
     case TOK_IDENT:
       /* Unrecognized function-type token. */
       scr_error ("expr_parse_numeric_factor: syntax error, unknown ident\n");
-      longjmp (expr_parse_error, 1);
+      scr_longjmp (expr_parse_error, 1);
 
     default:
       /* Syntax error. */
       scr_error ("expr_parse_numeric_factor:"
                 " syntax error, unexpected token, %ld\n", expr_parse_lookahead);
-      longjmp (expr_parse_error, 1);
+      scr_longjmp (expr_parse_error, 1);
     }
 }
 
@@ -1510,14 +1510,14 @@ expr_parse_string_factor (void)
           {
             scr_error ("expr_parse_string_factor:"
                       " undefined variable, %s\n", token_value.string);
-            longjmp (expr_parse_error, 1);
+            scr_longjmp (expr_parse_error, 1);
           }
         if (type != VAR_STRING)
           {
             scr_error ("expr_parse_string_factor:"
                       " numeric variable in string context, %s\n",
                       token_value.string);
-            longjmp (expr_parse_error, 1);
+            scr_longjmp (expr_parse_error, 1);
           }
         expr_eval_action (TOK_VARIABLE);
         expr_parse_match (TOK_VARIABLE);
@@ -1583,13 +1583,13 @@ expr_parse_string_factor (void)
     case TOK_IDENT:
       /* Unrecognized function-type token. */
       scr_error ("expr_parse_string_factor: syntax error, unknown ident\n");
-      longjmp (expr_parse_error, 1);
+      scr_longjmp (expr_parse_error, 1);
 
     default:
       /* Syntax error. */
       scr_error ("expr_parse_string_factor:"
                 " syntax error, unexpected token, %ld\n", expr_parse_lookahead);
-      longjmp (expr_parse_error, 1);
+      scr_longjmp (expr_parse_error, 1);
     }
 }
 
@@ -1611,7 +1611,7 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
   expr_tokenize_start (expression);
 
   /* Try parsing an expression, and catch errors. */
-  if (setjmp (expr_parse_error) == 0)
+  if (scr_setjmp (expr_parse_error) == 0)
     {
       /* Parse an expression, and ensure it ends at string end. */
       expr_parse_lookahead = expr_next_token ();

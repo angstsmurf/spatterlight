@@ -2063,7 +2063,7 @@ run_interpret (scr_gameref_t game)
   do
     {
       /* Run the game until some form of halt is requested. */
-      if (setjmp (game->quitter) == 0)
+      if (scr_setjmp (game->quitter) == 0)
         run_main_loop (game);
 
       /*
@@ -2167,7 +2167,7 @@ run_quit (scr_gameref_t game)
 
   /* Exit the main loop with a longjump. */
   game->is_running = FALSE;
-  longjmp (game->quitter, 1);
+  scr_longjmp (game->quitter, 1);
   scr_fatal ("run_quit: unable to quit cleanly\n");
 }
 
@@ -2192,7 +2192,7 @@ run_restart (scr_gameref_t game)
     {
       game->is_running = FALSE;
       game->do_restart = TRUE;
-      longjmp (game->quitter, 1);
+      scr_longjmp (game->quitter, 1);
       scr_fatal ("run_restart: unable to restart cleanly\n");
     }
 
@@ -2264,7 +2264,7 @@ run_restore_common (scr_gameref_t game,
         {
           game->is_running = FALSE;
           game->do_restore = TRUE;
-          longjmp (game->quitter, 1);
+          scr_longjmp (game->quitter, 1);
           scr_fatal ("run_restore_common: unable to restart cleanly\n");
         }
     }
@@ -2340,7 +2340,7 @@ run_undo (scr_gameref_t game)
         {
           game->is_running = FALSE;
           game->do_restore = TRUE;
-          longjmp (game->quitter, 1);
+          scr_longjmp (game->quitter, 1);
           scr_fatal ("run_undo: unable to restart cleanly\n");
         }
 

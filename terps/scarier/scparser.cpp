@@ -334,7 +334,7 @@ uip_parse_match (scr_uip_tok_t token)
       /* Syntax error. */
       scr_error ("uip_parse_match: syntax error, expected %ld, got %ld\n",
                 (scr_int) uip_parse_lookahead, (scr_int) token);
-      longjmp (uip_parse_error, 1);
+      scr_longjmp (uip_parse_error, 1);
     }
 }
 
@@ -654,7 +654,7 @@ uip_parse_element (void)
       /* Syntax error. */
       scr_error ("uip_parse_element: syntax error,"
                 " unexpected token, %ld\n", (scr_int) uip_parse_lookahead);
-      longjmp (uip_parse_error, 1);
+      scr_longjmp (uip_parse_error, 1);
     }
 
   /* Return the newly created node. */
@@ -1796,7 +1796,7 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
   uip_tokenize_start (cleansed);
 
   /* Try parsing the pattern, and catch errors. */
-  if (setjmp (uip_parse_error) == 0)
+  if (scr_setjmp (uip_parse_error) == 0)
     {
       /* Parse the pattern into a match tree. */
       uip_parse_lookahead = uip_next_token ();
