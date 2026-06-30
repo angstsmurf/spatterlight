@@ -357,7 +357,7 @@ RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
 RunBronwynnRun|RunBronwynnRun.blorb|0|0
-RtC|RtC.blorb|21|21
+RtC|RtC.blorb|0|0
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|42|42
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0

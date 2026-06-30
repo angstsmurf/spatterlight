@@ -162,7 +162,11 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
          room's "soft rain" line in Stone of Wisdom shows at game start, then not
          on a later LOOK) -- clsDescription.ToString: "If Not sd.DisplayOnce
          OrElse Not sd.Displayed". */
-      once = streq (a5xml_child_text (c, "DisplayOnce"), "1");
+      /* FileIO.GetBool semantics: RtC serialises <DisplayOnce>True</DisplayOnce>,
+         not "1", so a literal "1" compare missed it and the first-visit segment
+         never short-circuited (later StartDescriptionWithThis segments overrode
+         it).  Route through a5xml_bool like every other model boolean. */
+      once = a5xml_bool (a5xml_child_text (c, "DisplayOnce"));
       if (once && a5state_disp_once_seen (st, c))
         {
           first = 0;

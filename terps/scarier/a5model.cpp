@@ -17,7 +17,7 @@
 
 /* Parse an ADRIFT serialised boolean (FileIO.GetBool): only "TRUE"/"1"/"-1"/
    "VRAI" (case-insensitively) are true; everything else is false. */
-static int
+int
 a5xml_bool (const char *s)
 {
   if (s == NULL)

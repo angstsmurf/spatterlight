@@ -1,5 +1,71 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Return to Camelot → full MATCH: `DisplayOnce` "True" parse + empty-keyword `ContainsWord` + ambiguity-clarifier "does not clarify" + auto-correct prompt prose  ✅ DONE (2026-06-30)
+
+**RtC 21→0** (full MATCH, golden `test/RtC_expected.txt`) — no other corpus game
+moved in either mode (all 11 MATCH games now hold 0/0; Amazon/StoneOfWisdom/
+JacarandaJim/SixSilverBullets unchanged at baseline), all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden), budget re-blessed
+21→0. Four independent root causes, three of them broad:
+
+1. **`<DisplayOnce>` was parsed by a literal `"1"` compare, but RtC serialises
+   `True`.** `eval_desc_into` (`a5text.cpp`) did `streq(DisplayOnce, "1")`, so
+   RtC's `<DisplayOnce>True</DisplayOnce>` first-visit description segments read
+   `once=0` and never short-circuited — `clsDescription.ToString` returns
+   immediately after a not-yet-shown DisplayOnce segment (Global.vb:3939), so the
+   first-visit segment must win over later `StartDescriptionWithThis` segments.
+   With `once=0` the segment didn't terminate and a later (e.g. `Variable5=1`)
+   segment overrode it, so every first-visit room/object showed its *subsequent*
+   text (corridor guard "The dead body…" instead of "Everything looks normal at
+   the first glance…", the dying-guard scene, the rose garden/stairway/tent
+   first-visit prose, the slammed-door commotion event). **Fixed** by routing the
+   read through `a5xml_bool` (FileIO.GetBool: True/1/-1/Vrai), exported from
+   `a5model.cpp` via `a5xml.h`. Same boolean-parse class as the earlier RtC
+   `a5xml_bool` sweep — DisplayOnce was the one field still on the `"1"` compare.
+   **RtC 19→10** on its own.
+
+2. **`conv_contains_word` treated an empty keyword as match-everything.** FD's
+   `ContainsWord` (clsUserSession.vb:3885) splits with VB `Split(x," ")`, which
+   KEEPS empty tokens, so an empty-keyword Ask/Tell topic (`<Keywords/>`) splits
+   to the single check-word `""`, found only when the subject also has an empty
+   token — a real subject like "freeze" never matches it. Scarier used `split_ws`
+   (drops empties), so the empty check-list returned "matched all" and RtC's
+   keyword-less "ask about igor" Topic6 stole `ask hagrid about freeze` from the
+   keyworded Topic7 — Hagrid never handed over the leather pouch of freeze-powder,
+   cascading into the whole powder→rose→inventory chain. **Fixed** by mirroring VB
+   `Split` (split on a single space, keep empties) in `conv_contains_word`.
+   **RtC 10→1**.
+
+3. **A pending-ambiguity clarifier that matched none of the candidates re-asked
+   "Which X?" instead of "Sorry, that does not clarify the ambiguity."** FD keeps
+   `sAmbTask` set while trying the clarifier as a fresh command (GetGeneralTask
+   sets sAmbTask only when it is Nothing, and the second-chance noref pass runs
+   only when sAmbTask Is Nothing), so a fresh ambiguity/noref CANNOT override the
+   remembered one — only a passing/failing-with-output task claims the turn; then
+   `DisplayAmbiguityQuestion` re-runs on the remembered reference narrowed by
+   `PossibleKeys`: Count 0 → "Sorry, that does not clarify the ambiguity."
+   (clsUserSession.vb:2780), Count >1 → "Which X?". `ask rose for food` after
+   "Which rose?" narrows {the roses, the beautiful rose} to 0 (neither matches
+   "ask"/"for"/"food") → "Sorry…". Scarier let the re-parsed clarifier raise a
+   *fresh* "Which rose?" ambiguity. **Fixed** in `a5run_input`: a `resolving_amb`
+   flag captures the narrow count; after `scan_tasks`/`have_fail` (the only paths
+   that can claim the turn), the fresh-command ambiguity/cantsee/noref paths are
+   suppressed and the remembered ambiguity's DisplayAmbiguityQuestion result is
+   emitted (Count 0 → "Sorry…"; Count >1 → re-ask). **RtC 1→0**.
+
+4. **The "Adventure Upgrade" auto-correct prompt prose was never emitted.** FD
+   asks once at load (FileIO.vb:634) when the file version < 5.0.26 and a task
+   carries an `#A#O#` (AND-then-OR) BracketSequence; the headless ground truth
+   answers it only when the next script line is literally yes/no, so RtC (first
+   line a real command) gets a NO — the correction is **not** applied (Scarier and
+   FD-no read the BracketSequence verbatim, so restriction logic already matched),
+   but FD still prints the question. **Fixed** in `a5run_intro`: when
+   `atof(version) < 5.000026` and any task's BracketSequence contains `#A#O#`,
+   emit the two-paragraph "Adventure Upgrade" prompt before the intro (never
+   applying CorrectBracketSequence, matching FD's NO). The dump harness also now
+   skips an empty title line (FD emits nothing for RtC's empty title; the blank
+   used to be absorbed by the intro's leading blanks under `cat -s`). **RtC 21→19**.
+
 ## ⭐ JacarandaJim xoshiro → full MATCH: 0-exit room-view trailing pSpace + the location-darkness feature (group props + ShortLocationDescription)  ✅ DONE (2026-06-30)
 
 **JacarandaJim xoshiro 2→0** (full MATCH under FD_RNG=xoshiro) — no corpus game

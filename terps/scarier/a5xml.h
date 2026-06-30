@@ -51,4 +51,8 @@ extern const char *a5xml_child_text (const a5_xml_node_t *node, const char *name
 /* Count direct children named `name`. */
 extern int a5xml_count (const a5_xml_node_t *node, const char *name);
 
+/* Parse an ADRIFT serialised boolean (FileIO.GetBool): only "TRUE"/"1"/"-1"/
+   "VRAI" (case-insensitively) are true; everything else (incl. NULL) is false. */
+extern int a5xml_bool (const char *s);
+
 #endif

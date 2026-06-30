@@ -1,0 +1,598 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.
+
+Your office
+It's not much, but it's your office, and a very spartan one at that.
+The contents show your affection for Humphrey Bogart, Mike Hammer and other detective movies, with a minimum of furniture. You like to give the impression of a poor but compassionate detective.
+An easy chair, where, hopefully, your clients will sit and write out some fat cheques,is positioned in front of your desk. A scratched desk and an office chair is placed just in front of the window, where the dusty Venetian blinds mercifully block the sad view to the backyard.
+Against the wall, right next to the closet door, is an old filing cabinet, and across the office is the front door leading out to the corridor. To complete the 'detective office' look you have positioned a hat stand next to the front door. This is where you were going to hang your Fedora hat, once you can afford one.
+The last wall is dominated by a huge empty space. You deliberately left this place open for all the rewards and framed newspaper clippings of famous solved cases. But since cases haven't exactly been pouring in, you have seriously considered going out and buying a few fake diplomas.
+
+> open top drawer
+You open the top drawer.  There are some file folders in the top drawer.
+
+> get folders
+You have no use for the folders since there's no clients to impress, so you just fumble with them a little. Ah! That's where you put it! Your .45 cal Colt comes into view as you move the folders.
+
+> get gun
+(from the top drawer)
+
+Ok, you take the .45 cal colt from the top drawer.
+
+> x gun
+This is the same Colt 45 your dad used when fighting the war. Luckily for you he kept it in perfect working condition, oiled and polished at all times.
+
+  Inside the .45 cal colt is an ammo clip.
+
+> holster gun
+You holster the colt, comfortably feeling its weight in the holster.
+
+> close top drawer
+You close the top drawer.
+
+> x desk
+Ahh.. the command center of your business. This is where you answer your calls, if they ever come, and write out bills to satisfied clients, if they ever come.
+Nobody can accuse you of having a messy desk; in fact this desk is the Sahara of desks. A telephone and a dirty coffee mug are the only things breaking the monotony of the empty surface.
+On the left side are two drawers, a top and a bottom drawer.
+
+> x phone
+It's probably the most quiet phone you've ever seen. It is as silent as Harpo Marx, but far less amusing.
+
+> use phone
+You pick up the receiver and hear the all too familiar dial tone. Since you have no one to dial and no one is on the phone, you quietly hang up the phone again with a little sigh.
+
+There's a sudden knock on your front door. First you think that it's a couple of gorillas from the debt collecting agency further down the hall. You swallow hard and ready yourself for a knuckle sandwich before opening the door.
+Outside you see two men holding a huge package. They push you aside and walk past you into your office, grunting under the weight of whatever it is they're carrying. Once inside they unwrap the package and reveal a full size painting. They look around as if they both got the same bright idea at the same time. One of them holds the painting while the other mounts the frame that will hold the painting. They both lift the painting and mount it on the wall, then they make you sign for the delivery and leave.
+Looks like your problem with the empty space has been solved.
+
+> x picture
+The simple wooden frame is nothing to speak of, but the painting itself is quite impressive. It shows what you suspect is a surrealistic vision of Merlin's chamber where the artist has pictured him in what appears to be a gentlemen's "den" at an old English country estate, rather than a damp chamber at the Castle of Camelot.
+
+The fireplace is still there, but the cauldron has been replaced by an electrical stove in the corner. A bearskin rug lies in front of the fireplace, and a small table is placed within reachable distance of the comfortable looking chair. On the table is a book, a glass and a bottle, and behind the chair, you see a lamp.
+
+A long oak desk, with a chair is placed just under the window. The desk is, as before, filled with mysterious looking tubes and flasks. A Bunsen burner is heating up a brownish liquid, which bubbles joyfully in the flask.
+In the corner, to your surprise, you see an exercise bike, almost brand new.
+Most of the walls are covered with bookshelves, reaching from the floor to the ceiling. Some paintings are mounted on the wall between the shelves. Merlin's owl, Archimedes, is pictured sitting on a heavy oak beam under the ceiling, keeping a watchful eyes on things.
+
+> x office chair
+It's the best chair you could find on the flea market. Once, in the distant past, it could swivel, but now you're lucky if you can make it turn more than a few inches to each side.
+It's quite comfortable though, almost inviting you to sit on it, and more than once have you taken a nice nap while waiting for clients to call. (Which coincidentally means, you get a lot of sleep...)
+
+> sit in office chair
+You sink down in your chair, and casually lean back, letting its rear legs balance delicately on the floor at an angle that threatens to send you tumbling down onto the floor any minute. But, hey... what's life without a bit of danger?
+You slowly doze off, your last conscious thought being that you really need to get a couch in the office for cases like this...
+Somewhere within your hazy mind you sense that you are suddenly not alone in the office any more. As you slowly open your eyes you see a beautiful woman standing in front of your desk, smiling at you. You briefly wonder how she managed to get into your office without you hearing her.
+Trying to get up in a more dignified position You tumble to the floor with arms and legs milling about as the chair slides under you.
+You slowly pick yourself up, and with a casual expression on your face you pick up the chair. Then you look at the woman standing before you.
+
+> x woman
+The woman standing before you is unbelievably pretty in a way you've never experienced before. Her wavy dark hair falls softly down each side of her face, caressing her shoulders as it continues down her back.
+Her hazel eyes smile at you, a smile which is underlined by the arc of her full lips. She is wearing a smoke-blue dress which reaches just a little under her knees. Your gaze is drawn to a pair of high heels and your eyes can't help caress those legs as you slowly let them move upwards to her waist where a silk scarf wraps itself tightly above her beautifully rounded hips.
+Her whole appearance indicates that she's not just the prettiest woman you've seen but also, probably, stinking rich.
+It doesn't take much detective work to realize that this could mean the end of your financial problems.
+
+> say hello to woman
+"Hello there", you say, trying to look very busy. "What can I do for you?"
+The woman moves closer, and you feel her intoxicating perfume tickling your nostrils. Her manner of speaking gives her an upper-class feel.
+“I, or rather, my master needs your help desperately. He has lost something very important to him and needs to find it. You might say it's a matter of life or death.” She pauses, her chest moving heavily as she speaks and she almost stutters out the words.
+
+> ask about job
+"What would you like me to do?" you ask the woman.
+"Like I said," she answers, "My master has sent me to get you, it's a matter of life or death."
+
+> ask about master
+She looks bewildered for a short while. "I can't tell you his name, but he's a very important person I can assure you. He will pay you well for your services."
+
+> ask about pay
+“I'm not at liberty to say,” she whispers secretly her lips almost touching your ear. “But I can promise you that you will not be disappointed.”
+
+> ask about woman
+“Ohhh, little unimportant me?” She flashes those long eyelashes at you. “I'm just a simple servant.”
+
+The woman begins to look impatient, then suddenly she looks at you through half closed eyelids...
+“Don't you find me attractive?” she says in a low voice, “most real men would at least have tried to kiss me by now.”
+
+> kiss woman
+She smiles invitingly as you move closer. You close your eyes and brace yourself for the feeling of her lips against yours. A delicious sensation runs through you as you kiss her... but what is this??
+Is she shrinking? With your lips against hers you bend forward as she seems to get smaller and smaller. Baffled beyond description you open your eyes and find yourself staring into the laughing eyes of the ugliest bald headed hunchback dwarf you could ever think imaginable. The last thing you see is his grin before his, very masculine, fist knocks you out cold.
+A merciful darkness engulfs you and you hardly notice as the hunchback slings you over his shoulder and carries you through the office. Being carried over the shoulder by a dwarf only half your size is a painful experience, but you are too far gone to feel your head being dragged across the floor.
+Press any key
+You land on a wooden floor with a bone cracking thud, and a cloud of dust rises around you to further signal your arrival. Luckily the dwarf lands ahead of you and softens the otherwise uncontrollable crash landing.
+As the haze slowly lifts from your eyes, a figure slowly appears before you. He is standing behind a desk with his back turned towards you, and turns in surprise at your unexpected arrival. It only takes him a few seconds to assess the situation, and with a grimace of irritation he tears the wizard's hat off his head and with each syllable he speaks, he rhythmically clobbers the dwarf over the head. “I told you the crystal orb was defective, not that I needed a detective!!"
+He looks at you, “I'll be with you in a minute. Jeez... This is what you get for not hiring professional help. I should have hired an au-pair, if only the concept had been invented.” While Merlin (who else could it possibly be?) continues to scold the dwarf, you take the time to look around.
+
+Wow... things have really changed since you were here last. Well, not the mess, it still looks the same as the last time you “visited.” The chamber still seems incredibly huge compared with the actual space available, but Merlin has redecorated. It now looks more like a cozy gentleman's den than a magician's workshop. The fireplace is still there, but no cauldron. Instead a nice comfortable looking leather chair, and a bear rug is placed within reachable distance of a small table which holds a book, a glass and a bottle.
+A long oak desk, with an accompanying chair is placed against the wall, beneath the window. The desk is, as before, filled with mysterious looking tubes and flasks. A Bunsen burner heats a brownish liquid which bubbles joyfully through the flasks. In the corner you see an almost brand new exercise bike. Most of the walls are covered with bookshelves, reaching from the floor to the ceiling. The few spaces between the shelves is occupied by paintings.
+
+Finally Merlin is done. He returns his, now somewhat dented and a lot less dignified iconic headgear to his head, and turns to you. “Well, let's get you back to where you came from.” He raises his arms, and begins to mumble a spell, when he suddenly stops. “Hmm... on the other hand, you did do pretty well the last time you were here. Maybe you'll be lucky again. (Luck? It had absolutely nothing to do with luck!)
+"I'll make you a deal... You help me, and I promise to reward you beyond your wildest expectations. What do you say?” Without waiting for you to answer, he continues. “Well, that's a deal then. Besides, come to think of it, you can't return without my help anyway.” He giggles under his beard.
+
+> ask merlin about job
+“Aha! Now you get to the point!” Merlin lights up, the symbols on his gown and hat sparkling in the light from the fire place. “The job.. yes, let me see... Oh, yes... It has come to my attention that someone is planning to kidnap Queen Guinevere and force Arthur to give up the throne in return for her release. With King Arthur and the knight out on one of their usual quests, it's up to me to protect her, and although I have sent a messenger to find Arthur and warn him, I fear it will be too late.
+Unfortunately I can't see who they are, because someone!” Merlin turns towards Igor who shrinks under the scathing look. “broke my crystal ball, and I can't get a new one until the wizard's convention next year.”
+
+He places a hand on your shoulder. “Since Igor brought you here, I want, no I NEED you to protect the Queen, until I figure out a way to clear up this mess. Do you think you can do that?”
+He doesn't wait for your reply, but continues, “Well, that settles it then. Here take this ring," he says as he hands you a silver ring. "Use it properly and it will ease your way around Camelot. Now off you go.”
+
+He snaps his fingers and everything goes dark around you.
+A few seconds later you slowly pick yourself up from the floor. As you rub your hurting butt you decide that you are no big supporter of this way of moving about.
+Press any key
+
+The Knight's Hall
+The hall stretches out before you almost endlessly before you.
+Furthest away is a huge oak table with twelve oak chairs around it and a little further away, is a long table where trays are placed in rows along the table. Torches are placed high on the walls, ready to be lit at night but for now the sun streams in through the tall windows and there is no need for them. Huge tapestries hang on the walls, reaching from the ceiling almost to the floor and in the eastern wall is a stairway leading up. Across the hall from the tapestries, three paintings like the ones you saw at Merlin's are decorating the wall.
+
+There are two huge fireplaces, one in the center of the hall and one built into the northeastern corner. Only the northeastern fireplace is lit and burns brightly radiating a comfortable warmth into the room. Behind you, so the south, lies the entrance to a passage leading down, and far away, across the hall to the west are the doors leading out. To the east, behind the long table, is a dark opening in the wall.
+
+> x fireplace
+Which fireplace?  The center fire pit or the northeastern fireplace.
+
+> x northeastern fireplace
+A very decorative fireplace. Built into the wall, it looks pretty deep. There's a nice fire burning brightly and the crackling of the wood sounds quite homely. On each side of the fireplace a dragon head is carved into the wall, their mouths open and ruby eyes staring blindly across the hall.
+
+> x dragon
+They have been carved with great precision, looking almost alive. At first you think that the dragon head has been carved out in one piece with the frame of the fireplace, but then you notice a hair thin line running around the neck of it. Indicating that the dragon head is a separate piece.
+Is it the heat from the fire, or is it the warm breath from the dragon you feel, as you near your hand to the sculptured head?
+
+> touch head
+The beautifully sculptured dragon's head feels warm to your touch as you put your hand on it. It gives a little under the weight of your hand.
+
+> push head
+The dragon's head feels warm to your touch and you can almost feel the dry scales as your fingers run across it. The ruby eyes begin to glow and slowly, almost reluctantly, the head begins to move. A faint click emanates from behind the fireplace and slowly it swings inward, flames and all, revealing a passage to the northeast.
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring.
+
+> ne
+You walk through the opening, and find yourself in a small room. Behind you the fireplace swings back and with a faint click once again becomes one with the castle wall.
+
+The Panic room
+The room isn't that big and completely empty except for a single lit torch which is the only source of light. Its flickering flame cast eerie shadows on the walls as you move around the room.
+
+> x torch
+This torch is the only source of light in the room and although burning brightly, it can't light up the entire room so most of it is left in a dusky darkness.
+
+> get torch
+You grab the torch and slowly turn it to one side. At first nothing happens and it seems that the torch is solidly embedded into the wall. But then a faint click is heard and the torch moves about an inch.
+Shortly after you hear a distant rumbling and to your surprise a section of the wall slides aside, revealing a full size picture of King Arthur.
+
+> x picture
+The picture shows King Arthur, standing in a chamber in front of a heavy oak chest. He's holding the famous sword Excalibur in his right hand. He's wearing a suit of armor, the visor on his helmet open. His face looks honest and noble, and in his eyes you see a firmness and fortitude that gives his courage almost visible form.
+
+> wear ring
+No sooner has the ring slid over your finger before it begins to shrink until it sits nice and tight on your finger. You feel a light tingling sensation and your surroundings become slightly blurred.
+
+> x picture
+The picture shows King Arthur, standing in a chamber in front of a heavy oak chest. He's holding the famous sword Excalibur in his right hand. He's wearing a suit of armor, the visor on his helmet open. His face looks honest and noble, and in his eyes you see a firmness and fortitude that gives his courage almost visible form.
+
+Through the shimmering air the painting seems to have come alive. There's a spectacular depth to it, and it seems to be three-dimensional.
+
+> enter arthur's picture
+You step into the painting. It engulfs you with a warmth you've never experienced before, and you suddenly feel not only strong, but also courageous. A few moments later you leave it, tumbling into another room. The ring magically slips off your finger and into your pocket.
+
+King Arthur's chamber
+One look at this place and there's no doubt to whom it belongs.
+On the wall, right before you, hangs the shield displaying the crest of King Arthur. Next to a huge bed is Excalibur, embedded deep into a stone. In the corner, against the southern wall you can see King Arthur's armor sitting upon a wooden rack, and next to it is a wooden closet.
+A big desk of dark oak is placed close by the window, and a few chairs are casually spread across the room. In the north wall is a huge oak door leading out of the room, right next to a beautifully carved cedar chest.
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring.
+
+> out
+You open the door and almost step into the back of the guard standing outside the chamber. You quickly retreat your steps and close the door silently.
+You realize that there's no way you can get out that way as long as the guard is there.
+
+> x excalibur
+Ah... the legendary Excalibur. Stuck deep into the stone, it stands proud, radiating power and pure magic. The blade is almost like silver, without a speck of dirt, reflecting the pale sunlight from the windows.
+
+> x stone
+The stone is light gray, not that it matters, but that's the color. It's polished smooth and is actually quite decorative. There's some writing on the side, only a few sentences written in glowing letters.
+Suddenly you hear a muffled scream from the corridor outside the chamber. The sound of steel against steel, then a painful grunt and a bump. Seconds later the slamming of a door and everything is quiet.
+
+> out
+You open the door and step out into the corridor.
+
+East end of corridor
+As you do so you hear a lot of commotion and the door leading into Queen Guinevere's chamber is abruptly slammed shut.
+You have stepped out into what must be the east end of a long corridor. Behind you to the west at the other end of the corridor is a stairway leading down to the Knight's Hall. Ahead of you, a little further to the east, is a small room in which you can see a stairway leading upwards.
+This part of the corridor is better illuminated than the west end, as the torches seem to burn brighter. Two doors, one of each side of the corridor (left and right) leads into chambers. The one on the right obviously leads into King Arthur's chamber, and by use of your detective skills you assume that the one opposite leads into Queen Guinevere's chamber. (the carved crest on the door giving you a pretty good clue)
+Everything looks normal at the first glance until you discover the body of a guard lying crumbled up on the floor.
+
+> x guard
+It looks like he's been dragged along the corridor. Your sudden appearance must have disturbed the perpetrators.
+As you lean over him, he reaches up and grasps your collar, pulling you closer. Blood bubbles from his mouth and his life is quickly seeping away with the puddle that slowly grows on the floor. With a ragged voice, he tries to deliever one last message; “They -- napped the Queen. --- Her chamb -- keep her ti---   dark then tak-- he-- from Cam--lot”
+With a sigh he closes his eyes and dies in your arms.
+
+> look at queen's door
+The door looks like the rest of the doors in the corridor except for the engraved crest indicating that this is the entry to Queen Guinevere's chamber
+
+> open queen's door
+The queen's door cannot be opened or closed!
+
+> w
+You move west.
+
+West end of corridor
+The corridor runs east/west with what appears to be a small antechamber at the eastern end. At this, the west end, a flight of stairs leads down to the Knight's hall. On each side of the corridor, to the north and south, doors are leading in to the chambers occupied by people of the court closest to the King and Queen. In the dim light you can vaguely see other doors and the body of the dead guard lying on the floor.
+
+> d
+You move down.
+
+Stairway to corridor
+The dusky passage winds its way between the walls of the castle, leading up to a corridor higher up or down to the Great hall.
+The steps have been polished smooth and even, so that Queen Guinevere can walk safely from her chamber to the hall. The passage is only lit partly by what little light that seeps in from above and below, hardly enough to allow you to see where you put your feet.
+This is no problem to Guinevere who of course is always followed by a maid holding a torch or candle.
+
+> d
+You move down.
+
+The Knight's Hall
+The hall stretches out before you almost endlessly before you.
+Furthest away is a huge oak table with twelve oak chairs around it and a little further away, is a long table where trays are placed in rows along the table. Torches are placed high on the walls, ready to be lit at night but for now the sun streams in through the tall windows and there is no need for them. Huge tapestries hang on the walls, reaching from the ceiling almost to the floor and in the eastern wall is a stairway leading up. Across the hall from the tapestries, three paintings like the ones you saw at Merlin's are decorating the wall.
+
+There are two huge fireplaces, one in the center of the hall and one built into the northeastern corner. Only the northeastern fireplace is lit and burns brightly radiating a comfortable warmth into the room. Behind you, so the south, lies the entrance to the passage leading down to the cave, and far away, across the hall to the west are the doors leading out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> out
+You move out.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> tell guards about queen
+At first it looks as if you've finally caught the guards attention. But just as soon as it appeared, the glimpse of interest in their eyes dies out again. One of then give you a hard push. “You should not jest with such matters,” he says. “It is a very serious thing to imply that the Queen should not be safe within these castle walls.”
+
+> x guard
+The guards are all dressed the same. Homespun pants and jacket, a thick leather helmet protects their heads, and in their hand a nasty looking halberd. On their feet they're wearing solid leather shoes.
+
+As you move closer to get a better look at the guards you hear their conversation;
+Guard #1: “I really can't see why we have to carry the key to the armoury. There's nothing in there but weapons for training and the old suits of armour.”
+Guard #2; “You're right, and what's more, we can't leave this post before our relief is here to take over."
+Guard #1; “If you hear thunder, don't worry, it's just my stomach. I'm so hungry I'd do anything for a piece of bread.“
+
+> ask guard about key
+"I don't feel like giving you anything! I'm so hungry my stomach hurts."
+
+> ask guard about food
+”Where do you think we get food from? Think boy, think!”
+
+> d
+There is no route to the down, only north, east, south, west and in.
+
+> x maid
+Sorry, I'm not sure which object or character you are trying to examine.
+
+> ask maid for food
+Sorry, I didn't understand that command.
+
+> up
+There is no route to the up, only north, east, south, west and in.
+
+> w
+You move west.
+
+The Rose garden
+You recognize Merlin's touch as you walk through the arch and enter the rose garden. Even in the midst of winter the roses are in full bloom and the delightful scent as overwhelming as ever.
+Although there are hundreds of different kinds, you discover that each of them smells differently and you are somehow able to catch each distinctive scent. A green carpet of grass is spread out before you, only broken by the flower beds which have been placed in decorative patterns throughout the garden.
+Peacocks, pecking for food, wander around a marble bench which is placed under the protective shade of a small almond tree and a low stone wall surrounds the garden on two sides, the castle wall making out the third and the wall with the arch which you walked through to the east, makes out the fourth.
+
+> x rose
+All over the garden the roses stand tall blooming with all their magnificence. Some are stemmed up, others are bushes and others again are nothing but a single flower gently nursed from the ground.
+Their delicate colors cast a faint, almost unearthly light through the garden.
+
+> get rose
+As soon as you reach out to pick one of the roses, it gently sways out of your reach.
+
+> e
+You walk through the rose covered arch and into the courtyard, feeling as if you've left behind a piece of yourself. The sudden absence of the peace and tranquility almost brings tears to your eyes.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> e
+You move east.
+
+The Knight's Hall
+The hall stretches out before you almost endlessly before you.
+Furthest away is a huge oak table with twelve oak chairs around it and a little further away, is a long table where trays are placed in rows along the table. Torches are placed high on the walls, ready to be lit at night but for now the sun streams in through the tall windows and there is no need for them. Huge tapestries hang on the walls, reaching from the ceiling almost to the floor and in the eastern wall is a stairway leading up. Across the hall from the tapestries, three paintings like the ones you saw at Merlin's are decorating the wall.
+
+There are two huge fireplaces, one in the center of the hall and one built into the northeastern corner. Only the northeastern fireplace is lit and burns brightly radiating a comfortable warmth into the room. Behind you, so the south, lies the entrance to the passage leading down to the cave, and far away, across the hall to the west are the doors leading out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> d
+You move down.
+
+The Cave
+The ceiling of this huge cave is towering high above you, invisible in the darkness. What was in the beginning a natural cave has been carved into a huge cellar like room deep under the castle. The cave would have been completely dark hadn't it been for the burning torches mounted high on the walls.
+The flickering flames from the torches and the moving shadows makes is somewhat confusing, but you remember that the passage leading back up to the kitchen lies to the west, and amongst the erratic moving shadows you notice that there's an opening in the southern wall, leading down, and a narrow dark passage in the northern wall leading up to the Knight's Hall.
+
+> d
+You bang your head against the low archway as you leave the cave and walk down the few steps to the dark stairway.
+
+The dark stairway
+The stairway is a lot safer than you remember, and a whole lot cleaner too. Further down you can see a small section of the dungeons and the hollow sound of chains and prisoners moaning echoes from the darkness. Through the moans and rattle of chains you can vaguely hear the sound of music. It seems to come from all around you but you can't determine the direct source.
+ Up a few steps to the north, is the cave.
+It strikes you as a bit odd that Igor is sitting here manning a teller. A sign is fastened to the wall a little above his head.
+
+> listen
+It's a joyful tune with a nice rhythm. You can't make out exactly where it comes from, but it seems to radiate from the walls around you.
+
+> ask igor about music
+Igor looks at you, his eyes running from your face to your hands. “Muzik? I hear no muzik, only tze sad moaning and the rattling of chains from tze unfortunate souls in tze dungeons.” It's not to see that he's lying through his teeth. (The few he has left, that is)
+
+> up
+You move up.
+
+The Cave
+The ceiling of this huge cave is towering high above you, invisible in the darkness. What was in the beginning a natural cave has been carved into a huge cellar like room deep under the castle. The cave would have been completely dark hadn't it been for the burning torches mounted high on the walls.
+The flickering flames from the torches and the moving shadows makes is somewhat confusing, but you remember that the passage leading back up to the kitchen lies to the west, and amongst the erratic moving shadows you notice that there's an opening in the southern wall, leading down, and a narrow dark passage in the northern wall leading up to the Knight's Hall.
+
+> wear ring
+No sooner has the ring slid over your finger before it begins to shrink until it sits nice and tight on your finger. You feel a light tingling sensation and your surroundings become slightly blurred.
+
+> d
+You bang your head against the low archway as you leave the cave and walk down the few steps to the dark stairway.
+Igor looks up at the sound of your quiet swearing. He is already holding out his greedy hand for the entry fee to the dungeons when his notices your hand.
+Mumbling something barely audible he quickly leads you through a secret passage which magically opens in the wall.
+“Go rite ahead, Sire.” He gives you a push and you stumble forward into a rather noisy and smoke filled room. Just before the wall closes behind you, you hear Igor shout: “Juzt say, “leave” wen you wisj out.”
+
+The Wizard's hat
+The room is not only dark, but also smoke-filled beyond belief, making it very hard to get a good look at your surroundings. You can just make out the tables closest to you, where candles shine through the haze like flickering tiny light towers. In one corner, barely visible through the haze, you can the the silhouettes of a brass band. Judging by the noise their enthusiasm is bigger than their talent as they do their utmost to blow their lungs out through their instruments. High under the ceiling, fireflies and glow worms move about in a beautiful dance, sending flashes of bright  light through the haze. A well stocked bar is positioned along the wall, and a bartender is busy serving drinks to the thirsty guests. Tiny fairies are flying to and fro, serving drinks.
+The bartender hagrid is here.
+
+> x hagrid
+Hagrid looks nothing like his old self. Dressed up in trendy pants, white shirt and tie, his hair and beard neatly combed. He doesn't look too comfortable behind the bar, and tries desperately to be in all places at once.
+Upon seeing you, he smiles. He takes out a small leather pouch, opens it and
+Sprinkle a little bit on the flowers. To your amazement the flowers stop swaying and becomes completely rigid.
+“I call it instant freeze,” he smiles. “Dumbledore had a more fancy word for it, but instant freeze seems to fit nicely."
+
+> ask hagrid about freeze
+“I'm a little busy right now, can't you tell?” He quickly sends a pint down the counter where a troll elegantly grabs it and swallows it in one gulp. He then turns to you... “Well, what can do for you?”
+“Ohh, it's nothing special. Like I said, I got it from Dumbledore some years ago. It helps to calm things down so they are easier to handle.” He pours some into a leather pouch and hands it to you. “Here, take this. You never know when it comes in handy.”
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring and a leather pouch.
+
+> leave
+No sooner have you said the word before the wall in front of you slowly disintegrates in a cloud of sparkling dust. Through it you can see the dark passage, and Igor at the teller.
+You walk through and with a soft sigh the wall closes behind you.
+
+The dark stairway
+The stairway is a lot safer than you remember, and a whole lot cleaner too. Further down you can see a small section of the dungeons and the hollow sound of chains and prisoners moaning reaches you from the darkness.  Through the moans and rattle of chains you can vaguely hear the sound of music. It seems to come from all around you but you can't determine the direct source.
+ Up a few steps to the north, is the cave. Up a few steps to the north is the cave.
+Igor is still sitting here manning the teller. A sign is fastened to the wall a little above his head.
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring and a leather pouch.
+
+> up
+You move up.
+
+The Cave
+The ceiling of this huge cave is towering high above you, invisible in the darkness. What was in the beginning a natural cave has been carved into a huge cellar like room deep under the castle. The cave would have been completely dark hadn't it been for the burning torches mounted high on the walls.
+The flickering flames from the torches and the moving shadows makes is somewhat confusing, but you remember that the passage leading back up to the kitchen lies to the west, and amongst the erratic moving shadows you notice that there's an opening in the southern wall, leading down, and a narrow dark passage in the northern wall leading up to the Knight's Hall.
+
+> up
+You move up.
+
+The Knight's Hall
+The hall stretches out before you almost endlessly before you.
+Furthest away is a huge oak table with twelve oak chairs around it and a little further away, is a long table where trays are placed in rows along the table. Torches are placed high on the walls, ready to be lit at night but for now the sun streams in through the tall windows and there is no need for them. Huge tapestries hang on the walls, reaching from the ceiling almost to the floor and in the eastern wall is a stairway leading up. Across the hall from the tapestries, three paintings like the ones you saw at Merlin's are decorating the wall.
+
+There are two huge fireplaces, one in the center of the hall and one built into the northeastern corner. Only the northeastern fireplace is lit and burns brightly radiating a comfortable warmth into the room. Behind you, so the south, lies the entrance to the passage leading down to the cave, and far away, across the hall to the west are the doors leading out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> out
+You move out.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> w
+You move west.
+
+The Rose garden
+Although there are hundreds of different kinds of roses, you are taken aback by discovering that you can smell each of them distinctively as you get closer. Their bright colors light up the garden casting a soft glow changing from a deep red over a bright orange to an almost blinding white.
+A green carpet of grass is spread out before you, only broken by the flower beds which have been placed in decorative patterns throughout the garden. Peacocks, pecking for food, wander around a stone bench which is placed under the protective shade of a small almond tree and a low stone wall surrounds the garden on two sides, the castle wall making out the third and the wall with the arch which you walked through to the east, makes out the fourth.
+
+> use freeze on rose
+You carefully sprinkle the powder onto one of the roses. It shivers for a brief moment then stands still, not even the breeze effecting it.
+
+> get rose
+With the rose unable to sway out of reach, you have no problem picking it.
+
+> e
+You walk through the rose covered arch and into the courtyard, feeling as if you've left behind a piece of yourself. The sudden absence of the peace and tranquility almost brings tears to your eyes.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> d
+There is no route to the down, only north, east, south, west and in.
+
+> give rose to maid
+Which rose?  The roses or the beautiful rose.
+
+> ask rose for food
+Sorry, that does not clarify the ambiguity.
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a leather pouch and a beautiful rose.
+
+> up
+There is no route to the up, only north, east, south, west and in.
+
+> give sandwich to guard
+I don't understand what you want to do with the castle guards.
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a leather pouch and a beautiful rose.
+
+> ask guard about key
+"I don't feel like giving you anything! I'm so hungry my stomach hurts."
+
+> n
+You move north.
+
+Stables and Armoury
+The first thing you notice is the strong smell of horse and manure which is not so surprising considering you are in the stables of Camelot.
+A long aisle leads back south towards the entrance of the stable, and on the northern wall at the back of the stable is a small cubicle where the weapons and training armor is stored. The stable holds twelve stalls, one each for the Knight's horses. They are all occupied and locked.
+In the armory at the back of the stable, halberds, spears and some training swords are stored, placed neatly in racks along the wall. Right next to them a few shields are hanging, also in neat rows.
+Behind the shields is the hidden passage from the King's chamber, now completely invisible.
+A knight is here, desperately trying to squeeze into a suit of armour.
+
+> x knight
+Sorry, I'm not sure which object or character you are trying to examine.
+
+> help knight
+You manage to squeeze the Knight into the armour, tying all the straps and buckles. Apparently satisfied he tosses you a couple of coins and waddles out of the stable with an appropriate amount of noise.
+
+> x rack
+The racks are made of wood and nailed to the wall. They hold the training lances and swords, and a little to the side another rack holds the shields. A few of the lances are trembling in their holder as if moved by a slight draft.
+
+> x armour
+Which armour?  The battered suit of armour or the suits of armor.
+
+> x suits of armor
+Different suits of armor hangs on the racks, all dull and dented beyond belief. One looks like your size and appears to be in better condition than the others. It looks as if it can still take a pretty good beating. Unfortunately they are locked in place by a chain and a rather solid looking lock.
+
+> x battered suit of armour
+It's probably the most dented and rusty piece or armoury you've ever seen. But it feels sturdy enough to protect you... At least you hope it will.
+
+> get armour
+You can only move the suit or armour an inch or two. The heavy chain is holding it in place against the rack.
+
+> unlock chain
+The heavy chain cannot be locked or unlocked.
+
+> get armour
+You can only move the suit or armour an inch or two. The heavy chain is holding it in place against the rack.
+
+> wear armour
+Which armour?  The battered suit of armour or the suits of armor.
+
+> out
+You move out.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> enter tent
+A quick glance around… OK, no one's there. You quickly untie the string and pull the flap aside stepping into the tent pulling the flap close behind you. No sooner have you entered the tent before a terrible squawking and a flutter of wings is breaking loose. In a cage a huge parrot is making the most infernal noise you've ever heard.
+
+A tent
+The bright light is dimmed in here, giving the inside of the tent a dusty appearance. Sturdy wooden poles holds up the tent, stretching the canvas.
+There's remarkably little space to move around and it doesn't take you long to break one or two items which you discreetly swipe under the long table that is placed in the middle. This is the place where the traveling entertainers keep their equipment and change during their performances. The table is filled with all kinds of accessories and props they use in their acts.
+Outside you can hear the voices from people passing by and someone may come in here any moment soon.
+A couple of small leather balls are placed on the table.
+A set of juggler's clubs are thrown in the corner.
+
+> x table
+It's not as much a table as a couple of wide planks placed upon two saw benches, but it fulfill its purpose which is to be a storage place for all kinds of props and accessories.
+
+> x props
+The table is filled with them. There are costumes in all shapes, sizes and colors (none of them will fit you!) A couple of brightly colored juggler's clubs, a wooden cage and a couple of leather balls. You also notice what appears to be a magnifying glass, hidden halfway under the other stuff.
+
+The parrot may very well be a “Norwegian Blue” but he is also a rare type of the species, namely a watch parrot.
+Apparently he has now made his mind up that you are not a “friendly” and begins to squawk loudly, fluttering around inside its cage.
+
+> get magnifying glass
+As soon as the watch parrot sees you steal from the table, he immediately begins to flapper his wings and scream from the top of his lungs.
+You hastily pull back and to your relief the parrot calms down a bit, but still keeps a watchful eye at you.
+
+The flap of the tent is violently pulled aside and suddenly the tent seems to shrink as the biggest man you've ever seen enters. Without a word he lift you up by your collar and while holding you at what seems like a couple of hundred feet above the ground, he gives the parrot a cracker which calms it down. Then, with a well aimed throw, he sends you tumbling out of the tent and across the courtyard.
+As you lie there, trying to find out what happened, he closes the flap and tie the string before taking up his post at the castle gate.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> d
+There is no route to the down, only north, east, south, west and in.
+
+> ask maid about substance
+Sorry, I'm not sure which character you're referring to. (characters must be seen)
+
+> i
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a two pieces of copper, a leather pouch and a beautiful rose.
+
+> up
+There is no route to the up, only north, east, south, west and in.
+
+> enter tent
+A quick glance around… OK, no one's there. You quickly untie the string and pull the flap aside stepping into the tent pulling the flap close behind you. No sooner have you entered the tent before a terrible squawking and a flutter of wings is breaking loose. In a cage a huge parrot is making the most infernal noise you've ever heard.
+
+A tent
+The bright light is dimmed in here, giving the inside of the tent a dusty appearance. Sturdy wooden poles holds up the tent, stretching the canvas. There's remarkably little space to move around and it doesn't take you long before you are about to repeat your earlier stunt and break something, but you manage to avoid it by a quick reaction.
+This is the place where the traveling entertainers keep their equipment and change during their performances. A long wooden table, placed in the middle of the tent is filled with all kinds of accessories and props they use in their acts.
+Outside you can hear the voices from people passing by and someone may come in here any moment soon.
+A couple of small leather balls are placed on the table.
+A set of juggler's clubs are thrown in the corner.
+
+> give candy to parrot
+What piece of candy? You're not holding a piece of candy.
+
+> get magnifying glass
+As soon as the watch parrot sees you steal from the table, he immediately begins to flapper his wings and scream from the top of his lungs.
+You hastily pull back and to your relief the parrot calms down a bit, but still keeps a watchful eye at you.
+
+The parrot may very well be a “Norwegian Blue” but he is also a rare type of the species, namely a watch parrot.
+Apparently he has now made his mind up that you are not a “friendly” and begins to squawk loudly, fluttering around inside its cage.
+
+> out
+You quickly peak out and as no one is looking, you swiftly leave the tent and are once again in the courtyard.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
+
+> x catapult
+Now this is a different caliber than your .45. one of those boulders could easily take out a man.
+The catapult looks enormous next to you. Its arm pulled back and fastened with a piece of heavy rope. The bowl where the boulder is to be placed is empty right now, but some boulders are lying on the ground next to it.
+
+> x wall
+The castle wall reaches high into the air, ending in a parapet at the top where guards patrol the perimeter keeping a stern lookout.
+The wall look impregnable, like a solid surface without a weak spot anywhere to be seen. The stone used to build not only the castle wall, but the entire castle, has been chiseled to fit perfectly with its neighbors. The only thing breaking the monotony of the are the few windows overlooking the courtyard.
+After your visit to the corridor you have a pretty good idea that the window to the right belong to the Queen's maid and the other to the Queen herself.
+
+> x catapult rope
+The rope is very tight, currently holding the catapult sling pulled back to a firing position.
+
+> aim catapult
+Not the easiest thing, but you manage to push and pull the catapult around until it's aimed at, what you believe is, Guinevere's window.
+
+> climb catapult
+Aha! I see what you're doing.. Clever, very clever... and yet! Getting onto the catapult without wearing some kind of protective gear isn't one of your brightest ideas. I mean, you wouldn't go into space without a suitable suit, would you?
+
+> burn rope
+Not a bad idea at all, and absolutely doable. You may even want to try that later.
+
+> grab guinevere
+Sorry, I didn't understand that command.
+
+> wear ring
+No sooner has the ring slid over your finger before it begins to shrink until it sits nice and tight on your finger. You feel a light tingling sensation and your surroundings become slightly blurred.
+
+> enter merlin's painting
+I don't understand what you want to do with Player.

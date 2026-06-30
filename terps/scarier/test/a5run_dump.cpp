@@ -73,7 +73,11 @@ main (int argc, char **argv)
      the introduction directly -- no separating blank (the intro supplies its own
      leading blank when it has one).  Match that so the ground-truth diff is free
      of harness noise. */
-  printf ("%s\n", a->title ? a->title : "(none)");
+  /* FD emits nothing for an empty title; only print a title line when there is
+     one (an empty-title blank used to be absorbed by the intro's leading blanks
+     under cat -s, but the Adventure-Upgrade prompt now separates them). */
+  if (a->title && a->title[0])
+    printf ("%s\n", a->title);
   txt = a5run_intro (run);
   printf ("%s\n", txt);
   free (txt);

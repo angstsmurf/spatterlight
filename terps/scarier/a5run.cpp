@@ -2416,13 +2416,34 @@ update_seen (a5_state_t *st)
         st->obj_seen[i] = 1;
 }
 
-/* ContainsWord (clsUserSession): every space-separated word of `check` appears
-   among the space-separated words of `sentence` (case-insensitive). */
+/* ContainsWord (clsUserSession.vb:3885): every space-separated word of `check`
+   appears among the space-separated words of `sentence` (case-insensitive).
+
+   FAITHFUL QUIRK: FD splits with VB `Split(x, " ")`, which KEEPS empty tokens.
+   So an empty `check` (an empty-keyword Ask/Tell topic, e.g. RtC's "ask about
+   igor" Topic6 with <Keywords/>) splits to the single check-word "", which is
+   found only when the sentence also has an empty token -- i.e. a non-empty
+   subject like "freeze" never matches an empty keyword.  C++ `split_ws` drops
+   empties, so an empty keyword used to match EVERYTHING (Topic6 stole the turn
+   from the keyworded "freeze" Topic7).  Mirror VB Split (split on a single
+   space, keep empties) exactly. */
 static int
 conv_contains_word (const std::string &sentence, const std::string &check)
 {
-  std::vector<std::string> words = split_ws (lower (sentence).c_str ());
-  for (auto &c : split_ws (check.c_str ()))
+  auto vb_split = [] (const std::string &s) {
+    std::vector<std::string> out;
+    size_t start = 0;
+    for (;;)
+      {
+        size_t sp = s.find (' ', start);
+        if (sp == std::string::npos) { out.push_back (s.substr (start)); break; }
+        out.push_back (s.substr (start, sp - start));
+        start = sp + 1;
+      }
+    return out;
+  };
+  std::vector<std::string> words = vb_split (lower (sentence));
+  for (auto &c : vb_split (check))
     {
       int found = 0;
       for (auto &w : words)
@@ -4786,6 +4807,38 @@ a5run_intro (a5_run_t *run)
   sb_t out;
   char *intro, *look;
   sb_init (&out);
+  /*
+   * "Adventure Upgrade" auto-correct prompt (FileIO.vb:634).  When the file
+   * format version is older than 5.0.26 and any task carries an "#A#O#"
+   * (AND-then-OR) BracketSequence, FD asks once at load whether to auto-correct
+   * those tasks.  Our headless ground truth (FrankenDrift.Headless) answers the
+   * question only when the next script line is literally yes/no; RtC's first
+   * script line is a real command, so FD answers NO -- the correction is NOT
+   * applied (and Scarier, like FD-no, reads the BracketSequence verbatim, so the
+   * restriction logic already matches).  But FD still EMITS the question prose
+   * before the intro, so we must too.  We never apply CorrectBracketSequence
+   * (matching FD's NO answer for this corpus).
+   */
+  if (run->adv->version != NULL && atof (run->adv->version) < 5.000026)
+    {
+      int ti;
+      for (ti = 0; ti < run->adv->n_tasks; ti++)
+        {
+          const a5_xml_node_t *r = run->adv->tasks[ti].restrictions;
+          const char *bs = r ? a5xml_child_text (r, "BracketSequence") : NULL;
+          if (bs != NULL && strstr (bs, "#A#O#") != NULL)
+            {
+              sb_puts (&out,
+                "Adventure Upgrade\n"
+                "There was a logic correction in version 5.0.26 which means OR "
+                "restrictions after AND restrictions were not evaluated.  Would "
+                "you like to auto-correct these tasks?\n\n"
+                "You may not wish to do so if you have already used brackets "
+                "around any OR restrictions following AND restrictions.\n\n");
+              break;
+            }
+        }
+    }
   intro = a5text_describe (run->st, run->adv->introduction);
   if (intro[0]) { sb_puts (&out, intro); sb_puts (&out, "\n\n"); }
   free (intro);
@@ -5332,6 +5385,8 @@ a5run_input (a5_run_t *run, const char *line)
      clarifier first -- if it narrows the remembered candidates to exactly one,
      re-run the remembered task with that pick.  Otherwise fall through and let
      `in` be parsed as a fresh command; only if nothing runs do we re-prompt. */
+  int resolving_amb = 0;
+  long amb_narrowed = -1;
   if (run->amb_active)
     {
       std::vector<std::string> narrowed =
@@ -5339,6 +5394,16 @@ a5run_input (a5_run_t *run, const char *line)
       if (narrowed.size () == 1
           && run_remembered (run, narrowed[0].c_str (), &out))
         { run->amb_active = 0; ev_tick_all (run, &out); return finish_turn (run, &out); }
+      /* Not resolved to one.  FD keeps sAmbTask set while trying the new input as
+         a fresh command (GetGeneralTask sets sAmbTask only when it is Nothing,
+         and the second-chance noref pass runs only when sAmbTask Is Nothing), so
+         a fresh ambiguity / noref CANNOT override the remembered ambiguity --
+         only a passing or failing-with-output task can claim the turn.  After
+         that, DisplayAmbiguityQuestion re-runs on the remembered reference now
+         narrowed by PossibleKeys: Count 0 -> "Sorry, that does not clarify the
+         ambiguity."; Count >1 -> "Which X?". */
+      resolving_amb = 1;
+      amb_narrowed = (long) narrowed.size ();
       if (narrowed.size () > 1)            /* a partial narrowing: keep progress */
         run->amb_keys = narrowed;
     }
@@ -5357,6 +5422,26 @@ a5run_input (a5_run_t *run, const char *line)
       run->amb_active = 0;
       sb_puts (&out, fail_text.c_str ());
       ev_tick_all (run, &out);
+      return finish_turn (run, &out);
+    }
+
+  if (resolving_amb)
+    {
+      /* The new input neither resolved the ambiguity nor ran a fresh task.  Show
+         the remembered ambiguity's DisplayAmbiguityQuestion result (the fresh
+         command's own ambiguity/noref is suppressed, as FD leaves sAmbTask set
+         throughout resolution).  A clarifier matching none of the candidates
+         narrows the reference to zero -> "Sorry, that does not clarify the
+         ambiguity." (clsUserSession.vb:2780); a still-ambiguous clarifier
+         (Count >1) re-asks "Which X?". */
+      if (amb_narrowed == 0)
+        {
+          run->amb_active = 0;
+          sb_puts (&out, "Sorry, that does not clarify the ambiguity.\n");
+        }
+      else
+        sb_puts (&out, build_amb_prompt (st, run->amb_word, run->amb_keys,
+                                         run->amb_ref_type).c_str ());
       return finish_turn (run, &out);
     }
 
