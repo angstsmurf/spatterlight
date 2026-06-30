@@ -1,0 +1,61 @@
+# Six Silver Bullets (William Dooling, 2018) -- a real winning walkthrough.
+#
+# There is no published walkthrough; the game is a heavily randomised stealth
+# game (random missions, random time passage, random patrols).  This script
+# wins deterministically under the regression seed (FD_SEED=1234 / Scarier
+# erkyrath-1234): it reaches "*** You have won ***" in FrankenDrift.
+#
+# Win path (Encounter/Time state machine, reverse-engineered from the .taf):
+#   wake -> arm yourself -> survive the Green Agent -> burn ~15 hours of Time
+#   (18 -> <=3) while keeping Suspicion low -> reach The Docks -> run the dock
+#   showdown via the "fight together" branch (the Green Agent followed you) ->
+#   End your mission -> Leave the city.
+# Notes: Time only ticks on in-place turns (wait), not on movement.  Fighting
+# raises Suspicion and gets you sniped, so the Green Agent is handled by trust.
+
+# --- Wake, and take the silver gun + six bullets from the suite table ---
+wake up
+take gun
+take bullets
+
+# --- The Hotel: the Green Agent. Trust her (keeps Suspicion low, keeps her
+#     alive so she follows you to the dock showdown). Take her cloak, leave. ---
+se
+trust the green agent
+answer yes
+take the cloak
+leave
+
+# --- Back to the Mews; burn time (Time 18 -> ~7). Eleven waits also lines the
+#     RNG up so the sniper room is crossed safely and the Docks stay clear. ---
+se
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+
+# --- Cross to the Docks: Mews SE Clocktower, S Highway, E Nightclub, E Docks ---
+se
+s
+e
+e
+
+# --- Final hours: wait until Time <= 3 (the dock-departure window) ---
+wait
+wait
+wait
+
+# --- The dock showdown (the only way out of the City) ---
+end your mission
+sneak through the shipping yard
+reveal yourself
+kill them all
+end your mission
+leave the city

@@ -1,0 +1,882 @@
+Grandpa's Ranch
+Grandpa's Ranch
+
+You are nine years old and you are visiting your Grandpa's Ranch. Grandpa says that he will rather give his family some of his valuables while he is still alive. However, he wants you to earn it and so you are here on some sort of treasure hunt, devised by your Grandpa. Exciting!
+
+* If you cannot see the map, press CTRL and M or click on "Window" followed by "Show map".
+
+* Move graphics to separate window (recommended): CTRL+G. If you don't, the text scrolls less smoothly. Type LAYOUT for more information.
+
+* If you need a break, you can SAVE your game and RESTORE it later.
+
+* Please no more than two words (except the word "the" which is ignored anyway)
+
+* Examples:
+ - GO NORTH (or just N)  - OPEN DOOR
+ - TALK GRANDPA          - UNLOCK CAR
+ - INVENTORY (or just I) - LOOK
+
+* Special commands: ABOUT - HELP - WORDS - LAYOUT - CREDITS - UNDO - QUIT - RESTART - MUSIC ON/OFF - TUTORIAL ON/OFF
+
+What is your name?
+
+> Pete
+
+Driveway
+
+You are standing in the driveway by the front door to Grandpa's ranch. His car is here, so he is definitely home.
+
+You can go:
+ - North(N) into the house
+ - West(W) into Grandpa's car
+
+You can see:
+ - Grandpa's car (locked)
+ - A poster
+ - A door (closed)
+ - A window
+
+Tutorial: The tutorial is here to teach new players how to play text adventures, but you can always type TUTORIAL OFF. Before you go north into the house, I recommend to EXAMINE the objects you can see, especially the poster: X POSTER
+
+> open door
+You open the door.
+
+Tutorial: Now that the door is open, you can go north (type N or click on the map)
+
+> n
+You move north.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+As you enter the living room, You hear Grandpa's voice from the east: "Hi Pete, I am out here on the patio."
+
+Tutorial: Grandpa is on the patio to the east. To go there, simply type: E
+
+> x table
+The coffee table is made of solid marble. It is covered by a red tablecloth and there is a laptop on it.
+
+> x cloth
+It is a red tablecloth which covers the coffee table.
+
+> get it
+(the tablecloth)
+Carefully you take the tablecloth from the coffee table.
+
+> x laptop
+The screen is black except for the sentence "Type password" and a white field where you can type the password.
+
+> type password
+You must type the exact password, not the word "password".
+
+> e
+You move east.
+
+Patio
+You are standing on the cosy patio where Grandpa tends to be most of the day during summer.
+
+You can go:
+ - North(N) along a path
+ - West(W) into the living room
+
+You can see:
+ - Grandpa seated in a wooden rocking chair
+
+Tutorial: You can SAY HI or simply TALK if you don't have anything specific to say. Grandpa might give you a few hints sometimes.
+
+> say hi
+You say hi to Grandpa, who says, "Good to see you Pete, I hope you are ready to go on a treasure hunt! Today you can look anywhere you please."
+
+Tutorial: You might want to TALK some more to grandpa. He might give you a few hints now and then.
+
+> talk
+Grandpa says "Remember to talk to Molly in the kitchen as she doesn't like to be alone. By the way, her secret nickname is Kennedy."
+
+Tutorial: Let's go to the kitchen and TALK to Molly. To get there, go west twice.
+
+> n
+You move north.
+
+Path
+You're on a path which connects the patio to the northern lawns and enclosures. Your old tree house is right above you in the big oak.
+
+You can go:
+ - North(N) towards the lawn
+ - South(S) back to the patio
+ - Up(U) the rope to your tree house
+
+You can see:
+ - A tree house
+ - A dangling rope
+
+> x house
+This is your old tree house, which Grandpa built before you were born. For your convenience, a rope dangles down, though you could just as well climb the oak without it.
+
+> climb rope
+You move up.
+
+Tree House
+You're inside your old tree house. There isn't a lot of stuff here, but you don't need much to have a good time up here.
+
+You can go:
+ - Down(D) the rope
+
+You can see:
+ - A flashlight
+ - A rope tied to a branch
+ - A stool
+ - A window
+
+> get flashlight
+Ok, you pick up the flashlight.
+
+> get rope
+First you must untie it.
+
+> untie rope
+You untie the rope, coil it up and take it with you.
+
+1 point for untying the rope.
+
+> climb down
+You move down.
+
+Path
+You're on a path which connects the patio to the northern lawns and enclosures. Your old tree house is right above you in the big oak.
+
+You can go:
+ - North(N) towards the lawn
+ - South(S) back to the patio
+ - Up(U) the oak to your tree house
+
+You can see:
+ - A tree house
+
+> s
+You move south.
+
+Patio
+You are standing on the cosy patio where Grandpa tends to be most of the day during summer.
+
+You can go:
+ - North(N) along a path
+ - West(W) into the living room
+
+You can see:
+ - Grandpa seated in a wooden rocking chair
+
+> w
+You move west.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+Tutorial: Go west again to enter the kitchen. I am about to help you with your first two puzzles in the kitchen, but if you don't want my help you must type TUTORIAL OFF now.
+
+> n
+You move north.
+
+Bedroom
+
+You are in Grandpa's bedroom. Close to the bed, there is a small bedside table.
+
+You can go:
+ - South(S) to the living room
+
+You can see:
+ - A bed
+ - A bedside table
+
+> x table
+There's nothing on it but it has a small drawer.
+
+> open drawer
+You search the drawer and find two batteries, which you take. You close the drawer again.
+
+1 point for finding some batteries.
+
+> s
+You move south.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+> w
+You move west.
+
+Kitchen
+You are in Grandpa's kitchen. This is where Molly the parrot usually hangs out.
+
+You can go:
+ - East(E) into the living room
+ - West(W) down to the basement
+
+You can see:
+ - An extractor hood
+ - A kitchen table
+ - A chair
+ - Molly sitting on a branch in a small tree in the corner
+
+Tutorial: Since Molly the parrot is here, you might as well TALK to her.
+
+> say hi
+You say "hi" to Molly and she reacts by screaming: "Sugar, sugar, sugar - give me some sugar!"
+
+Perhaps you should SAY Molly's secret nickname?
+
+> say kennedy
+Molly looks confused but then she starts screaming: "Cherries! I  want CHERRIES, cherries, cherries!" Strange! Normally, Molly always begs for sugar. It seems that saying her secret nickname Kennedy triggered a different response... Hmm, perhaps "cherries" is a clue?
+
+Tutorial: Puzzle solved! There is one more puzzle in here, so remember to EXAMINE(X) everything and type LOOK if you need to see the room description again.
+
+1 point for hearing Molly's secret message.
+
+> say cherries
+Molly starts shouting: "Cherries is the password! Cherries is the password!"
+
+> e
+You move east.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+> x laptop
+The screen is black except for the sentence "Type password" and a white field where you can type the password.
+
+> type cherries
+The laptop comes to life and a title screen saying "Bandits in Space - Programmed by Grandpa" is displayed. You might want to PLAY GAME.
+
+> play game
+
+You play the game for a while and reach a high score of 544 points. If you play again, you might do better.
+
+> play game
+
+You play the game for a while and reach a high score of 724 points. If you play again, you might do better.
+
+> play game
+
+You play the game again, when suddenly a window pops up saying that you have reached the highest possible score of 853 points.
+
+> w
+You move west.
+
+Kitchen
+You are in Grandpa's kitchen. This is where Molly the parrot usually hangs out.
+
+You can go:
+ - East(E) into the living room
+ - West(W) down to the basement
+
+You can see:
+ - An extractor hood
+ - A kitchen table
+ - A chair
+ - Molly sitting on a branch in a small tree in the corner
+
+Tutorial: Since Molly the parrot is here, you might as well TALK to her.
+
+> x hood
+It seems to be a quite ordinary extractor hood. However, there is something on top of it, but you can't quite see what from down here.
+
+If you could climb onto something, perhaps you will get a better view: CLIMB CHAIR
+
+> stand chair
+You climb onto the chair and stand up. Now you have a better overview of the kitchen.
+
+Tutorial: You are now some distance above the floor. Try to examine the extractor hood again.
+
+> x hood
+It seems to be a quite ordinary extractor hood. There is a key on it!
+
+Tutorial: Now you can: GET KEY
+
+> get key
+Ok, you pick up the key.
+
+1 point for getting the key to Grandpa's car.
+
+Tutorial: To complete your tutorial training, you must first see what you are carrying by typing I (for INVENTORY)
+
+> x key
+It's the key to Grandpa's car.
+
+> e
+(getting off the chair first)
+You move east.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+> s
+You move south.
+
+Driveway
+
+You are standing in the driveway by the front door to Grandpa's ranch. His car is here, so he is definitely home.
+
+You can go:
+ - North(N) into the house
+ - West(W) into Grandpa's car
+
+You can see:
+ - Grandpa's car (locked)
+ - A poster
+ - A door (open)
+ - A window
+
+Tutorial: The tutorial is here to teach new players how to play text adventures, but you can always type TUTORIAL OFF. Before you go north into the house, I recommend to EXAMINE the objects you can see, especially the poster: X POSTER
+
+> unlock car
+You unlock the car door and open it.
+
+> enter car
+You enter the car and sit down in the driver's seat.
+
+1 point for getting inside the car.
+
+Car
+
+You are sitting by the wheel in Grandpa's old chevy. You enjoy the smell of cigars that grandpa always smokes when he takes the chevy for a ride.
+
+Since you don't need the car key anymore today, you hide it under the car visor.
+
+You can go:
+ - Out (or east(E) if you like)
+
+You can see:
+   - A visor
+ - A glove compartment
+
+> open compartment
+You open the compartment and rummage through the contents until you find an old key, which you take. Then you close the glove compartment again.
+
+1 point for finding the old key.
+
+> go out
+(standing up first)
+You move out.
+
+Driveway
+
+You are standing in the driveway by the front door to Grandpa's ranch. His car is here, so he is definitely home.
+
+You can go:
+ - North(N) into the house
+ - West(W) into Grandpa's car
+
+You can see:
+ - Grandpa's car (open)
+ - A poster
+ - A door (open)
+ - A window
+
+Tutorial: The tutorial is here to teach new players how to play text adventures, but you can always type TUTORIAL OFF. Before you go north into the house, I recommend to EXAMINE the objects you can see, especially the poster: X POSTER
+
+> n
+You move north.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+> w
+You move west.
+
+Kitchen
+You are in Grandpa's kitchen. This is where Molly the parrot usually hangs out.
+
+You can go:
+ - East(E) into the living room
+ - West(W) down to the basement
+
+You can see:
+ - An extractor hood
+ - A kitchen table
+ - A chair
+ - Molly sitting on a branch in a small tree in the corner
+
+Tutorial: Since Molly the parrot is here, you might as well TALK to her.
+
+> w
+You go west through the doorway and down the stairs to the basement.
+
+Basement
+You are in the basement. Apart from a few shelves and an old carpet on the floor, there isn't much to see here.
+
+You can go:
+ - East(E) up the stairs
+
+You can see:
+ - A carpet
+ - Some shelves
+
+> x carpet
+It's an old brown carpet, which covers half the floor in the middle of the room.
+
+> move carpet
+As you move the carpet, a trapdoor is revealed.
+
+1 point for revealing the trapdoor.
+
+> x trapdoor
+It's a wooden trapdoor.  The trapdoor is currently locked.
+
+> unlock trapdoor
+You unlock the trapdoor with the old key and open it.
+
+1 point for unlocking the trapdoor.
+
+Basement
+You are in the basement. Apart from a few shelves and an old carpet on the floor, there isn't much to see here.
+
+You can go:
+ - East(E) up the stairs
+ - Down(D) through the trapdoor
+
+You can see:
+ - A carpet
+ - Some shelves
+ - A trapdoor (open)
+
+> go down
+You go down through the trapdoor.
+
+Tunnel
+You are in a tunnel you never knew existed under the basement. Further down the tunnel it gets pretty dark, so you don't want to proceed without a light source.
+
+You can go:
+ - South(S) into the dark tunnel
+ - Up(U) the ladder to the basement
+
+You can see:
+ - A ladder leading up
+
+> go south
+You better turn the flashlight on, before you go south into the dark tunnel.
+
+> x flashlight
+It is old and battered. You could try to turn the FLASHLIGHT ON.
+
+> flashlight on
+You can't. There are no batteries in it.
+
+> insert batteries
+You insert the batteries in the flashlight.
+
+1 point for inserting batteries.
+
+> flashlight on
+The flashlight is now emitting a strong light.
+
+> s
+You move south.
+
+End of tunnel
+You are in the southern end of the tunnel. The light from your flashlight reveals a storage room to the west.
+
+You can go:
+ - North(N) back to the ladder
+ - West(W) into a storage room
+
+You can see:
+ - Some empty shelves
+
+1 point for entering the dark tunnel.
+
+> x shelves
+The shelves are empty but you find a shovel hidden beside the shelves. You take it.
+
+1 point for finding a shovel.
+
+> w
+You move west.
+
+Storage Room
+You are in a dusty storage room. The main attraction here is a ship's wheel on the wall.
+
+You can go:
+ - East(E) to the tunnel
+
+You can see:
+ - A ship's wheel
+
+> x wheel
+The wheel looks old but well kept. It could be fun to take it for a spin.
+
+> spin wheel
+You turn the wheel a couple of rounds, until you here a sound from the wall. A recess has opened in the wall.
+
+> x recess
+It is a small recess, which contains a metal box.
+
+> x box
+The metal box is locked and it seems to be bolted to the recess. It has a dial which is currently set to the number 100.
+
+> turn dial
+The dial can be set to a number between 100 and 999. Which number do you choose?
+
+> 853
+You set the dial to 853, there is a click from the box and then it springs open. Some sort of treasure map falls out onto the floor.
+
+1 point for opening the box.
+
+> get map
+Ok, you pick up the map.
+
+> x map
+It is a map of Grandpa's ranch. There is a cross on the part of the map which looks like the eastern enclosure, right beside the pine tree.
+
+> e
+You move east.
+
+End of tunnel
+You are in the southern end of the tunnel. The light from your flashlight reveals a storage room to the west.
+
+You can go:
+ - North(N) back to the ladder
+ - West(W) into a storage room
+
+You can see:
+ - Some empty shelves
+
+> n
+You move north.
+
+Tunnel
+You are in a tunnel you never knew existed under the basement. Further down the tunnel it gets pretty dark, so you don't want to proceed without a light source.
+
+You can go:
+ - South(S) into the dark tunnel
+ - Up(U) the ladder to the basement
+
+You can see:
+ - A ladder leading up
+
+> u
+You climb the ladder.
+
+Basement
+You are in the basement. Apart from a few shelves and an old carpet on the floor, there isn't much to see here.
+
+You can go:
+ - East(E) up the stairs
+ - Down(D) through the trapdoor
+
+You can see:
+ - A carpet
+ - Some shelves
+ - A trapdoor (open)
+
+> e
+You go east and up the stairs to the kitchen.
+
+Kitchen
+You are in Grandpa's kitchen. This is where Molly the parrot usually hangs out.
+
+You can go:
+ - East(E) into the living room
+ - West(W) down to the basement
+
+You can see:
+ - An extractor hood
+ - A kitchen table
+ - A chair
+ - Molly sitting on a branch in a small tree in the corner
+
+Tutorial: Since Molly the parrot is here, you might as well TALK to her.
+
+> e
+You move east.
+
+Living Room
+You are standing in Grandpa's living room. Open doorways lead in most directions.
+
+You can go:
+ - North(N) to the bedroom
+ - South(S) to the driveway
+ - East(E) onto the patio
+ - West(W) into the kitchen
+
+You can see:
+ - A door (open)
+ - A sofa
+ - A TV (off)
+ - A window
+ - A coffee table
+ - A laptop on the coffee table
+
+> e
+You move east.
+
+Patio
+You are standing on the cosy patio where Grandpa tends to be most of the day during summer.
+
+You can go:
+ - North(N) along a path
+ - West(W) into the living room
+
+You can see:
+ - Grandpa seated in a wooden rocking chair
+
+> n
+You move north.
+
+Path
+You're on a path which connects the patio to the northern lawns and enclosures. Your old tree house is right above you in the big oak.
+
+You can go:
+ - North(N) towards the lawn
+ - South(S) back to the patio
+ - Up(U) the oak to your tree house
+
+You can see:
+ - A tree house
+
+> n
+You move north.
+
+Eastern lawn
+You're on a lawn and just north of you is the gate to an enclosure where the bull Buster normally is.
+
+You can go:
+ - North(N) through the gate
+ - South(S) along the path
+ - West(W) towards the western lawn
+
+You can see:
+ - A fence surrounding the eastern enclosure
+ - A gate in the fence
+ - A bull far to the north in the eastern enclosure
+
+> w
+You move west.
+
+Western lawn
+You're on a lawn by the fence to another enclosure which has been empty since Grandpa sold all his cattle. To enter this enclosure, you must climb the ladder that is fixed to the fence.
+
+You can go:
+ - North(N) onto the ladder, over the fence
+ - East(E) towards the eastern lawn
+
+You can see:
+ - A fence surrounding the western enclosure
+ - A bull far to the north in the eastern enclosure
+ - A ladder you can climb to enter the western enclosure
+
+> climb ladder
+You climb the ladder and enter the enclosure.
+
+Western Enclosure
+You're in the southern part of the western enclosure, close to the ladder you climbed to get here. Here, there is a gate which connects the two enclosures.
+
+You can go:
+ - South(S) to get out of this enclosure
+
+You can see:
+ - A fence surrounding the western enclosure
+ - A bull far to the north in the eastern enclosure
+ - A gate connecting the eastern and western enclosures
+ - The ladder which you climbed to get into this enclosure
+
+> x gate
+This gate connects the eastern and western enclosures and it has a handle.  The gate is currently closed.
+
+> x handle
+The handle makes it easier to open and close the gate. It is designed such, that you may tie a rope to it.
+
+> tie handle
+You tie the rope to the handle and hold on to the other end of the rope.
+
+> open gate
+As Buster the Bull is far away in the northern end of the eastern enclosure, it should be safe enough to open the gate for a moment. If he turns around, you can quickly close the gate again.
+
+> climb ladder
+You climb the ladder and leave the enclosure.
+
+Western lawn
+You're on a lawn by the fence to another enclosure which has been empty since Grandpa sold all his cattle. To enter this enclosure, you must climb the ladder that is fixed to the fence.
+
+You can go:
+ - North(N) onto the ladder, over the fence
+ - East(E) towards the eastern lawn
+
+You can see:
+ - A fence surrounding the western enclosure
+ - A bull far to the north in the eastern enclosure
+ - A ladder you can climb to enter the western enclosure
+
+> e
+You move east.
+
+Eastern lawn
+You're on a lawn and just north of you is the gate to an enclosure where the bull Buster normally is.
+
+You can go:
+ - North(N) through the gate
+ - South(S) along the path
+ - West(W) towards the western lawn
+
+You can see:
+ - A fence surrounding the eastern enclosure
+ - A gate in the fence
+ - A bull far to the north in the eastern enclosure
+
+> x bull
+Buster the Bull is far away to the north in the eastern enclosure. You might be able to catch his attention.
+
+> wave cloth
+You wave with the tablecloth and as you do so, Buster begins to run towards you. He stops when he reaches the fence, still staring at you.
+
+1 point for attracting Buster's attention.
+
+> go west
+You move west.
+
+Western lawn
+You're on a lawn by the fence to another enclosure which has been empty since Grandpa sold all his cattle. To enter this enclosure, you must climb the ladder that is fixed to the fence.
+
+You can go:
+ - North(N) onto the ladder, over the fence
+ - East(E) towards the eastern lawn
+
+You can see:
+ - A fence surrounding the western enclosure
+ - A bull in the western enclosure
+ - A ladder you can climb to enter the western enclosure
+
+Buster follows you on the other side of the fence and passes through the gate which connects the two enclosures. Buster is now in the western enclosure.
+
+> pull rope
+You pull the rope so the gate between the enclosures is slammed shut. Buster is now trapped in the western enclosure, so you can safely enter the eastern enclosure now.
+
+1 point for capturing Buster.
+
+> e
+(rope dropped as it isn't needed anymore)
+You move east.
+
+Eastern lawn
+You're on a lawn and just north of you is the gate to an enclosure where the bull Buster normally is.
+
+You can go:
+ - North(N) through the gate
+ - South(S) along the path
+ - West(W) towards the western lawn
+
+You can see:
+ - A fence surrounding the eastern enclosure
+ - A gate in the fence
+ - A bull in the western enclosure
+
+> open gate
+Now that Buster the Bull is trapped in the western enclosure, you safely open the gate to the eastern enclosure. You enter the enclosure and walk north, until you are by the pine tree where the treasure is buried.
+
+Eastern Enclosure
+You're in the northern part of the eastern enclosure close to a single pine tree. There is a bare patch of earth here, that is marked with a cross on the treasure map.
+
+You can go:
+ - South(S) out of the enclosure
+
+You can see:
+ - A fence surrounding the eastern enclosure
+ - A bull in the western enclosure
+ - A pine tree
+ - A bare patch of earth
+
+> dig
+(1 point for digging here)
+You dig for a while, until you hit something hard. You have found some sort of plastic box. You open it and find a huge diamond ring inside!
+
+You run back to your grandpa on the patio, shouting "I found it! I found it!"
+
+"Well done Pete," says Grandpa. "You have truly deserved it. It is no doubt very valuable. It used to belong to your grandmother. If you decide to sell it, spend your money wisely," he says with a smile.
+
+CONGRATULATIONS! - YOU HAVE WON!!!
+
+In that game you scored 15 out of a possible 15, in 92 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?

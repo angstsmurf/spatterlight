@@ -620,6 +620,17 @@ oo_firstkey (a5_state_t *st, const char *name)
   const char *k = NULL;
   if (ci_eq (name, "player"))
     return strdup ("Player");
+  /* The singular %object%/%object1% (resp. %character%/%character1%) token
+     resolves to nothing when the slot was filled by a *plural* %objects%/
+     %characters% reference -- FD's GetReference requires ReferenceMatch="object1"
+     (clsUserSession.vb:3990), so a %objects% command never sets %object%.  The
+     plural %objects% / index forms %object2%.. and override matching are
+     unaffected (they read the still-bound key). */
+  if ((ci_eq (name, "object") || ci_eq (name, "object1")) && st->ref_object1_plural)
+    return NULL;
+  if ((ci_eq (name, "character") || ci_eq (name, "character1"))
+      && st->ref_character1_plural)
+    return NULL;
   if (ci_eq (name, "objects"))
     k = a5state_lookup_ref (st, "ReferencedObjects");
   else if (ci_eq (name, "object") || ci_eq (name, "object1"))

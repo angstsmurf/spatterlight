@@ -139,6 +139,17 @@ typedef struct a5_state_s {
   int   n_ref_items;
   char  ref_items_type;        /* 'o' object / 'c' character                  */
 
+  /* The first object/character slot (%object%==%object1% / %character%) was
+     filled by a *plural* %objects%/%characters% reference (FD ReferenceMatch
+     "objects"/"characters", not "object1").  The key stays bound for override-key
+     matching and the ReferencedObjects/ReferencedCharacters restriction paths,
+     but the singular %object%/%object1% (resp. %character%) text token must
+     render EMPTY (GetReference returns Nothing unless ReferenceMatch="object1",
+     clsUserSession.vb:3990) -- e.g. a give task's "%TheObject[%object%]%" prints
+     "nothing".  Set by bind_reference, reset by a5state_clear_refs. */
+  int   ref_object1_plural;
+  int   ref_character1_plural;
+
   /* SetLook event sub-event "look stack" (clsEvent.stackLookText): each SetLook
      pushes a (location/group gate, rendered text) entry; a5text_view_location
      appends the most-recent entry whose gate matches the player's location.

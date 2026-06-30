@@ -29,7 +29,7 @@ strict-diffed against Scarier with no dotnet dependency.
 |---|---:|---|---:|---|
 | Achtung Panzer! | 6 | **MATCH** ✅ | 0 | golden committed; conformant |
 | Anno 1700 | 246 | diverge | 335 | pre-existing script; timed storage-room event is RNG-gated (335 after P1: its 1 LocationTrigger task now fires, shifting RNG alignment) |
-| The Axe of Kolt | 1010 | diverge | 72 | ~~BUG 1~~ **FIXED** (was 1 = instant death on `o`); now plays the whole script — remaining 72 are **BUG 2** object-in-room listings ("…you see a brewer's dray") + missing event prose |
+| The Axe of Kolt | 1010 | diverge | **4** | ~~72~~ → 42 (doubled-quote numeric vars) → 12 (event/Score chain) → **4**: plural `%objects%` reference model (singular-`%object%` token leak + spurious `resolve_plural` cantsee, see TODO top). Residual 4 = `say to`/`tell` HighestPriorityPassingTask message selection (3) + `throw seed` second-chance noref (1) |
 | The Spectre of Castle Coris | 400 | diverge | 96 | ~~BUG 1~~ **FIXED** (no more teleport/flood); remaining 96 are **BUG 9** parser wording ("…not sure which object you are trying to examine." vs "You can't see any X!") |
 | Run, Bronwynn, Run! | 299 | diverge | 49 | ~~BUG 1~~ **FIXED** (no more turn-4 `[GAME OVER]`); plays whole script; 47→49 after end-game text added (Scarier ends prematurely, FD plays on ⇒ win/lose block diverges) |
 | Die Feuerfaust | 528 | diverge | 40 | ~~BUG 1~~ **FIXED** (no more Part-3 death); plays whole script, downstream P2/P9 visible |
@@ -41,14 +41,15 @@ strict-diffed against Scarier with no dotnet dependency.
 | Treasure Hunt in the Amazon | 133 | diverge | 41 | ~~**BUG 3**~~ **FIXED** (object-group property inheritance: the `BuyableItems` group confers `StaticOrDynamic=Dynamic`+`BuyableItem`, so `buy` works; 44→41); residual **BUG 2** no `Date:/Time:`+`You move` lines (NOT a stdlib merge — FD loads no library), provisions line-join, title centring, downstream darkness |
 | Grandpa's Ranch | 93 | diverge | 125 | **BUG 2** missing room desc/exit+object listings; **BUG 7** `dig` → "nothing to dig with" (shovel not taken from `x shelves`) |
 | Jacaranda Jim | 440 | diverge | 439 | **BUG 4** pronoun `get it`/`get them` unresolved (35×); **BUG 2** missing "Exits are …"; **BUG 10** leaks template `%AlanRemarks[%AlanRemarkIndex%]%`; darkness handling |
+| Six Silver Bullets | 33 | diverge | 20 (xo 10) | **NEW** real winning walkthrough (*** You have won *** in FrankenDrift). Surfaces **BUG 14** time-passing model: Scarier fires the location `TimeTraps` "A bell tolls… Time has passed" on *movement* turns where FD ticks time on `wait` ("A chime rings out. An hour has passed."), so the `Time` countdown desyncs; the script's RNG-tuned `wait` count then crosses the Highway sniper room at a `Roller<3` phase and Scarier dies (sniper) before the dock showdown. FD (ground truth) survives and wins. |
 | Stone of Wisdom | 137 | diverge | 6 | **REWRITTEN** as a real winning walkthrough (50/50, *** You have won *** in FrankenDrift, 137 turns). Surfaces **BUG 13** troll-knockout death — after `hit troll with ring` knocks the troll unconscious, Scarier still fires the troll's "you-didn't-act → die" event on the same turn, killing the player at turn 10 (FD's knockout cancels it). 3 of the 6 hunks are inherent RAND troll-taunt lines (default-RNG); the rest are that death + the loss-vs-win cascade. See TODO_a5_walkthrough_bugs.md. |
 
 Anno 1700 predates this batch; its FrankenDrift golden was never empty
 because of an RNG-gated storage-room event (documented in its script header).
 
-FrankenDrift reaches `*** You have won ***` on the **Amazon** and **Grandpa's
-Ranch** scripts, so those walkthroughs are *correct* — the divergence is all
-Scarier. The CASA Horsfield scripts are for the original releases; a handful of
+FrankenDrift reaches `*** You have won ***` on the **Amazon**, **Grandpa's
+Ranch**, **Stone of Wisdom** and **Six Silver Bullets** scripts, so those
+walkthroughs are *correct* — the divergence is all Scarier. The CASA Horsfield scripts are for the original releases; a handful of
 verbs differ in the remakes (both engines reject those identically, so they are
 not counted as Scarier bugs).
 
@@ -111,6 +112,18 @@ not counted as Scarier bugs).
     `%AlanRemarks[%AlanRemarkIndex%]%` — nested array-index function not
     evaluated. Direction capitalization "SouthEast" vs "Southeast"
     (Lost Children).
+14. **Time-passing model (Six Silver Bullets).** The game's `Ticker` event runs
+    `TimeTraps1` (location-group "A bell tolls… Time has passed") and `TimeTrapsT`
+    (Roller-gated "A chime rings out. An hour has passed.") each turn. Scarier
+    decrements `Time` on *movement* turns via the location trap where FD only
+    ticks on in-place (`wait`) turns, so the two engines' `Time` countdowns drift
+    apart. Because the dock-departure window (`Time<=3`) and the Highway sniper
+    (`Roller<3`) are both timing/RNG gated, the drift makes Scarier cross the
+    sniper room at a fatal phase and die before the showdown, while FrankenDrift
+    (ground truth) survives and wins. The walkthrough is correct; the divergence
+    is entirely Scarier's. Likely the same RNG draw-order/`TimeTraps`-group
+    membership family as BUG 1 — investigate the `Ticker` sub-event order and the
+    `TimeTraps` location-group re-add against FrankenDrift's `clsEvent` tick.
 
 ## Caveats
 

@@ -68,6 +68,27 @@ sb_pspace (sb_t *b)
   if (b->len > 0 && b->p[b->len - 1] != '\n')
     sb_puts (b, "  ");
 }
+/* Splice `s` into the buffer at byte offset `pos`, shifting the tail right.
+   Used to render a deferred room view (emit_look) at the position it was skipped
+   once the After children have updated world state. */
+static void
+sb_insert (sb_t *b, size_t pos, const char *s)
+{
+  size_t n;
+  if (s == NULL || (n = strlen (s)) == 0) return;
+  if (pos > b->len) pos = b->len;
+  if (b->len + n + 1 > b->cap)
+    {
+      size_t cap = b->cap ? b->cap : 128;
+      while (cap < b->len + n + 1) cap *= 2;
+      b->p = (char *) realloc (b->p, cap);
+      b->cap = cap;
+    }
+  memmove (b->p + pos + n, b->p + pos, b->len - pos);
+  memcpy (b->p + pos, s, n);
+  b->len += n;
+  b->p[b->len] = '\0';
+}
 /* True when `m` has visible content (FD's bHasOutput, approximated): a message
    that renders to nothing but whitespace produces no output and is skipped (the
    stock cl_PAtStartOp "page" task has an empty Before message, for instance).
@@ -186,6 +207,20 @@ struct a5_run_s {
      <LocationTrigger> (clsCharacter.Move); drained after the turn's task runs,
      before TurnBasedStuff (clsUserSession.vb:3421). */
   std::vector<std::string> *tasks_to_run;
+
+  /* Deferred room-view render.  The stock Look task's CompletionMessage is
+     "%Player%.Location.Description" with no <Aggregate> => AggregateOutput=True,
+     so FD defers its function replacement to final Display (clsUserSession.vb:
+     1184/1210): the room view reflects state changed by AfterText/Actions
+     children that run after the parent's `Execute Look`.  When defer_look is set
+     (a parent with After children runs on the direct path), emit_look records
+     the insertion offset instead of rendering; the view is then rendered once --
+     at final state -- and spliced in at that offset, ahead of the children's own
+     output.  Grandpa's Ranch `go west`: vnl_GoWestBust (AfterTextAndActions)
+     moves Buster, so the new room must list him "in the western enclosure". */
+  int    defer_look;
+  int    look_pending;
+  size_t look_pos;
 };
 
 static int
@@ -295,6 +330,9 @@ a5run_new (const a5_adventure_t *adv)
   run->amb_ref_type = 'o';
   run->known_words = NULL;
   run->resp = NULL;
+  run->defer_look = 0;
+  run->look_pending = 0;
+  run->look_pos = 0;
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -649,6 +687,25 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
   if (num == "1") bind ("Referenced" + stem + "1");
   if (base == "objects")    bind ("ReferencedObjects");
   if (base == "characters") bind ("ReferencedCharacters");
+
+  /* Track whether the *singular* %object%/%object1% (resp. %character%) text
+     token should resolve.  In FrankenDrift GetReference("ReferencedObject")
+     resolves a reference only when its ReferenceMatch is "object1"
+     (clsUserSession.vb:3990); a plural %objects% reference has ReferenceMatch
+     "objects", so %object%/%object1% in a message render EMPTY even though the
+     plural's first key stays bound for override-key matching and the
+     ReferencedObjects restriction path.  E.g. Axe of Kolt's give task R1 message
+     "There is nobody here to give %TheObject[%object%]% to!" must render the
+     singular as nothing -> "...give nothing to!".  We keep the binding but mark
+     the slot plural-derived so a5text suppresses the singular token. */
+  if (base == "object" && (num.empty () || num == "1"))
+    st->ref_object1_plural = 0;
+  else if (base == "objects")
+    st->ref_object1_plural = 1;
+  if (base == "character" && (num.empty () || num == "1"))
+    st->ref_character1_plural = 0;
+  else if (base == "characters")
+    st->ref_character1_plural = 1;
 }
 
 /* The "Which <word>?" noun: the first word of the typed reference text that
@@ -1029,24 +1086,21 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
   int none_passed = chosen.empty ();
   if (none_passed)
     {
-      /* No item passed.  A "get all"-style command shows the FailOverride; an
-         explicit plural/list that named only out-of-scope objects is the
-         "You can't see any <plural>!" case (DisplayAmbiguityQuestion,
-         bCanSeeAny=False) -- mirroring the single-reference path so e.g.
-         "x threads" (several thread objects, none here) matches FrankenDrift. */
-      if (!had_all)
-        {
-          int any_vis = 0;
-          for (auto &k : all_keys)
-            if (obj_visible (st, k.c_str ())) { any_vis = 1; break; }
-          if (!any_vis)
-            {
-              if (amb != NULL)
-                { amb->ref_name = "objects"; amb->type = 'o';
-                  amb->ref_text = text; amb->keys = all_keys; }
-              return RR_CANTSEE;
-            }
-        }
+      /* No item passed.  A "get all"-style command shows the FailOverride.
+         Otherwise the task runs with the whole (reset) reference set and its
+         restrictions decide the message -- a genuine plural %objects% reference
+         is NEVER an out-of-scope "You can't see any <plural>!" ambiguity: FD's
+         InputMatchesObject spreads each matching object into its own Item with a
+         single MatchingPossibility (clsUserSession.vb:5387-5391), so no Item ever
+         holds >1 possibility and DisplayAmbiguityQuestion (which needs Count>1)
+         is unreachable from a plural.  Instead GetGeneralTask runs the task and
+         PassRestrictions surfaces the first failing restriction's message --
+         e.g. Axe of Kolt's `give planks` (nobody present) -> the give task's
+         "There is nobody here to give nothing to!", `take seeds` (never seen) ->
+         "Sorry, I'm not sure which object you are trying to take.".  (The "You
+         can't see any <plural>!" message proper comes only from a *singular*
+         %object% reference whose one Item name-matched >1 objects -- the
+         resolve_refine RR_CANTSEE path, e.g. `press button`.) */
       chosen = all_keys;          /* reset to the original set; the task fails */
     }
 
@@ -1200,16 +1254,17 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       refs.push_back (r);
     }
 
-  /* A reference matched nothing -> defer the whole task as the no-reference
-     fallback (GetGeneralTask sNoRefTask; bMatchesPreRefine is false because the
-     empty reference had count 0).  Other references stay bound for the message. */
-  if (have_noref)
-    {
-      if (amb != NULL)
-        { amb->ref_name = noref_r.name; amb->type = noref_r.type;
-          amb->ref_text = noref_r.text; amb->keys.clear (); }
-      return RR_NOREF;
-    }
+  /* A reference matched nothing -> the whole task is deferred as the no-reference
+     fallback (GetGeneralTask sNoRefTask).  But the unmatched reference does NOT
+     preempt the *other* references' ambiguity resolution: in frankendrift an
+     unmatched-but-Must-Exist reference is a second-chance match that adds a
+     zero-Item NewReference (InputMatchesObject returns True via
+     HasObjectExistRestriction but appends no Item), so the post-refine loop simply
+     skips it while a *sibling* reference that is ambiguous-and-invisible still sets
+     sAmbTask and wins ("You can't see any oil!" for `pour oil on me`, where object1
+     "oil" is out-of-scope-ambiguous and object2 "me" names no object).  So fall
+     through to the refine + ambiguity pass on the matched refs and only return the
+     no-reference fallback below if none of them is ambiguous. */
 
   /* Pass 2: three-tier refinement (Applicable / Visible / Seen).  Each tier that
      empties a reference resets it to the full original set; a tier that leaves
@@ -1281,9 +1336,39 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
     }
 
+  /* Is the unmatched reference genuinely *required* by this task -- i.e. is its
+     `Must Exist` restriction actually evaluated within the BracketSequence?  If so
+     the no-reference fallback wins outright (FD surfaces the task's Must-Exist
+     message, e.g. `blow dart at <absent>` -> "Sorry, I'm not sure which object you
+     are trying to blow.", `hang amulet on <absent>` -> "...trying to hang...").  If
+     the Must Exist is truncated out of the bracket, the reference is optional and
+     does NOT block the task, so a *sibling* reference's out-of-scope ambiguity
+     surfaces instead (`pour oil on me`, whose pour task's `#A#A#` omits object2's
+     Exist -> "You can't see any oil!"). */
+  int noref_required = 0;
+  if (have_noref)
+    {
+      std::string nm = noref_r.name, num;
+      while (!nm.empty () && isdigit ((unsigned char) nm.back ()))
+        { num.insert (num.begin (), nm.back ()); nm.pop_back (); }
+      std::string alias = std::string ("Referenced")
+        + (noref_r.type == 'c' ? "Character" : "Object") + num;
+      noref_required =
+        a5restr_exist_evaluated (t->restrictions, alias.c_str ());
+    }
+  if (noref_required)
+    {
+      if (amb != NULL)
+        { amb->ref_name = noref_r.name; amb->type = noref_r.type;
+          amb->ref_text = noref_r.text; amb->keys.clear (); }
+      return RR_NOREF;
+    }
+
   /* Post-refine: a reference left with >1 candidate is an ambiguity.  The Runner
      prompts "Which X?" when at least one candidate is currently visible, else it
-     answers "You can't see any <plural>!" (DisplayAmbiguityQuestion bCanSeeAny). */
+     answers "You can't see any <plural>!" (DisplayAmbiguityQuestion bCanSeeAny).
+     This precedes the (non-required) no-reference fallback below: a sibling
+     reference's ambiguity (sAmbTask) wins over an unmatched optional reference. */
   for (auto &r : refs)
     if (r.keys.size () > 1)
       {
@@ -1297,6 +1382,16 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
             amb->ref_text = r.text; amb->keys = r.keys; }
         return any_vis ? RR_AMBIG : RR_CANTSEE;
       }
+
+  /* No sibling reference was ambiguous: honour the deferred (optional)
+     no-reference fallback (GetGeneralTask sNoRefTask). */
+  if (have_noref)
+    {
+      if (amb != NULL)
+        { amb->ref_name = noref_r.name; amb->type = noref_r.type;
+          amb->ref_text = noref_r.text; amb->keys.clear (); }
+      return RR_NOREF;
+    }
 
   /* Bind the resolved singular references, then resolve the deferred plural
      %objects% reference against them. */
@@ -1430,6 +1525,7 @@ static void run_action (a5_run_t *run, const char *kind, const char *body,
                         int depth, sb_t *out);
 static void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 static void emit_look (a5_run_t *run, sb_t *out);
+static std::string render_look_string (a5_run_t *run);
 static void emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out);
 
 /* Conversation type bits (clsAction.ConversationEnum). */
@@ -1959,9 +2055,15 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
         ev_on_task_completed (run, child->key, out);
         if (ot == NULL || streq (ot, "Override"))
           { parent_text = 0; parent_actions = 0; }
-        else if (streq (ot, "BeforeTextOnly"))      parent_text = 0;
-        else if (streq (ot, "BeforeActionsOnly"))   parent_actions = 0;
-        /* BeforeTextAndActions: parent still runs both (child ran first). */
+        else if (streq (ot, "BeforeTextOnly"))      parent_actions = 0;
+        else if (streq (ot, "BeforeActionsOnly"))   parent_text = 0;
+        /* BeforeTextAndActions: parent still runs both (child ran first).
+           FD (clsUserSession.vb:1106/1111): parent ACTIONS run for
+           BeforeActionsOnly|BeforeTextAndActions; parent TEXT is output for
+           BeforeTextOnly|BeforeTextAndActions.  So BeforeActionsOnly keeps the
+           parent's actions but suppresses its completion message (Grandpa's
+           `vnl_OpenGate1` "safe enough to open" override: the gate still opens,
+           but the generic "You open the gate." is not shown). */
 
         /* Stop only when this passing child produced output (and isn't
            ContinueAlways); otherwise fall through to the next matching child. */
@@ -1983,6 +2085,15 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
   int defer_text = run->resp == NULL && parent_text && parent->aggregate
                    && parent->actions == NULL && !after.empty ();
 
+  /* If the parent has After children that run actions on the direct path, defer
+     its room view (Execute Look) so it renders at the post-child state, mirroring
+     FD's AggregateOutput Look deferral (see emit_look). */
+  int prev_defer_look = run->defer_look;
+  int prev_look_pending = run->look_pending;
+  size_t prev_look_pos = run->look_pos;
+  int enable_look_defer = run->resp == NULL && !defer_text && !after.empty ();
+  if (enable_look_defer) { run->defer_look = 1; run->look_pending = 0; }
+
   if (parent_text || parent_actions)
     {
       /* run_task emits both text and actions; gate via temporary copies. */
@@ -1997,7 +2108,45 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
         run_task (run, parent, 0, out);
     }
 
-  if (defer_text)
+  run->defer_look = prev_defer_look;
+  /* Only the frame that enabled deferral consumes the pending look; a nested
+     non-enabling frame (e.g. MovePlayer, run via SetTasks Execute, which emits
+     the actual Look) leaves it pending for the enabling parent to render after
+     its After children run.  The Look's offset is into the enabling frame's
+     `out`, which is the same sink threaded through the nested calls. */
+  int look_deferred = 0;
+  if (enable_look_defer)
+    {
+      if (run->look_pending) look_deferred = 1;
+      run->look_pending = prev_look_pending;
+      run->look_pos = prev_look_pos;
+    }
+
+  if (look_deferred)
+    {
+      /* The parent's room view was skipped.  Run the After children into a side
+         buffer (their actions update what the room lists -- e.g. Grandpa's `go
+         west` moves Buster into the western enclosure), render the view once at
+         the resulting final state, then emit view-then-children so the room
+         reflects the moves and the children's lines follow it.  Using a side
+         buffer (rather than splicing) lets sb_pspace compute each separator
+         against real preceding text -- e.g. Jacaranda's "...Exits are ... in.
+         [pSpace]It is raining out here." */
+      sb_t after_buf; sb_init (&after_buf);
+      for (auto *child : after)
+        if (a5restr_pass (st, child->restrictions))
+          {
+            run_task (run, child, 0, &after_buf);
+            int ai = a5state_task_index (st, child->key);
+            if (ai >= 0) st->task_done[ai] = 1;
+            ev_on_task_completed (run, child->key, &after_buf);
+          }
+      std::string view = render_look_string (run);
+      sb_pspace (out); sb_puts (out, view.c_str ());
+      if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
+      free (after_buf.p);
+    }
+  else if (defer_text)
     {
       /* Children run into a side buffer so the parent text can be spliced ahead
          of them once their actions have updated state. */
@@ -2979,8 +3128,8 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
    view exactly as before (a5text_view_location -- not back through the text
    pipeline, which would perturb whitespace in the common no-override case), then
    apply any further passing descriptions just as ToString would. */
-static void
-emit_look (a5_run_t *run, sb_t *out)
+static std::string
+render_look_string (a5_run_t *run)
 {
   a5_state_t *st = run->st;
   const a5_task_t *look = a5model_task (st->adv, "Look");
@@ -3017,7 +3166,23 @@ emit_look (a5_run_t *run, sb_t *out)
           free (plain);
         }
     }
+  return result;
+}
 
+static void
+emit_look (a5_run_t *run, sb_t *out)
+{
+  /* Defer the room view until the command's After children have run (FD's
+     AggregateOutput Look render at final Display).  Record the insertion offset;
+     execute_task_with_overrides renders and splices it once at final state. */
+  if (run->defer_look && run->resp == NULL)
+    {
+      if (!run->look_pending)
+        { run->look_pending = 1; run->look_pos = out->len; }
+      return;
+    }
+
+  std::string result = render_look_string (run);
   if (run->resp != NULL)
     { resp_add_text (run, result.c_str (), true); return; }
   sb_pspace (out);
@@ -4212,12 +4377,25 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                   char *fmsg = a5text_describe (st, fm);
                   if (fmsg[0])
                     {
-                      /* Record the first (highest-priority) failing-with-output
-                         task and keep scanning.  Under HighestPriorityPassingTask
-                         any later passing task (any priority) overrides it; under
-                         the default HighestPriorityTask only an equal-priority
-                         passing task does (enforced by the loop-top guard, which
-                         stops once a strictly lower priority is reached). */
+                      /* Record the first (lowest-Priority, since run->order is
+                         ascending) failing-with-output task and keep scanning.
+                         Under HighestPriorityPassingTask any later passing task
+                         (any priority) overrides it; under the default
+                         HighestPriorityTask only an equal-priority passing task
+                         does (enforced by the loop-top guard, which stops once a
+                         strictly lower priority is reached).
+
+                         NOTE: a faithful HighestPriorityPassingTask would let a
+                         *higher*-priority failing-with-output task override this
+                         message too (FD reassigns GetGeneralTask for every failing
+                         task, clsUserSession.vb:6076) -- e.g. Axe of Kolt's `say to
+                         <absent char> <text>` should surface the high-priority Say
+                         task's "I'm not sure which character you are referring to."
+                         rather than Task314's "You can't see X!".  But simply
+                         keeping the highest mis-ticks Six Silver Bullets' turn
+                         timer (its bell-toll/sniper events fire early), so the
+                         precise interaction with turn advancement is still open --
+                         tracked as an Axe residual. */
                       if (!*have_fail)
                         { *have_fail = 1; *fail_text = fmsg; fail_priority = t->priority; }
                     }
@@ -4800,6 +4978,8 @@ a5run_input (a5_run_t *run, const char *line)
     size_t b = in.find_last_not_of (" \t");
     in = (a == std::string::npos) ? "" : in.substr (a, b - a + 1);
   }
+  if (a5run_trace)
+    fprintf (stderr, "\n=== INPUT: \"%s\" ===\n", in.c_str ());
   if (in.empty ())
     return finish_turn (run, &out);
 

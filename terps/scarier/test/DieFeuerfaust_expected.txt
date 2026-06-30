@@ -1,0 +1,1778 @@
+Die Feuerfaust
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game is not for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+DIE FEUERFAUST - The Fist of Fire
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not yet support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+COMMANDS : CREDITS : HALL : HELP : MACROS : MAP : VOCAB;
+
+> b
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you.
+
+> inventory
+You are wearing, apart from your clothes, nothing, and are carrying nothing.  A leather pouch is attached to your belt.
+
+> examine pouch
+A small, leather, drawstring pouch, used for carrying money. You notice it has some fancy leatherwork on it.  It is attached to your belt.
+
+> examine leatherwork
+The leatherwork forms some words which you could read.
+
+> read words
+The words read: "Say RUCKK to retrieve me".
+
+> look in pouch
+You look into the pouch and see that it contains 200 marks.
+
+> examine flotsam
+You see no such thing.
+
+> search flotsam
+Sorry, I'm not sure which object you are trying to search.
+
+> examine cliffs
+You cast your gaze up at the chalk cliffs. At first they appear to featureless, but then you see, a short distance from where you stand, a long flight of steps leading up the almost sheer cliff face.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> climb steps
+Do you want to CLIMB UP, DOWN, INTO, ONTO, OUT (of), OVER or THROUGH the cliff steps?
+
+> s
+There is no route to the south, only east, west and up.
+
+> examine milestone
+You can't see any milestones!
+
+> examine cottages
+You see no such thing.
+
+> w
+You move west.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which goes east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Sticking out from the sand just here is the shaft of an old anchor.
+
+> examine cottage
+You can't see any cottages!
+
+> examine porch
+You can't see any porches!
+
+> knock on door
+You can't see any doors!
+
+> fix porch
+You can't see any porches!
+
+> knock on door
+You can't see any doors!
+
+> e
+You move east.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> wait
+You wait around for a few minutes.
+
+> look around
+You look around and see the sea to the north. The foreshore stretches away to the east and west and the cliffs loom above you in all southerly directions.
+
+> examine inn
+You can't see any inns!
+
+> se
+There is no route to the southeast, only east, west and up.
+
+> examine willy
+You can't see the landlord!
+
+> look around
+You look around and see the sea to the north. The foreshore stretches away to the east and west and the cliffs loom above you in all southerly directions.
+
+> listen
+You hear nothing out of the ordinary.
+
+> buy ale
+You can't see any ale!
+
+> willy "tomb"
+I did not understand the word ""tomb"".
+
+> nw
+There is no route to the northwest, only east, west and up.
+
+> n
+There is no route to the north, only east, west and up.
+
+> examine tomb
+You see no such thing.
+
+> n
+There is no route to the north, only east, west and up.
+
+> s
+There is no route to the south, only east, west and up.
+
+> s
+There is no route to the south, only east, west and up.
+
+> se
+There is no route to the southeast, only east, west and up.
+
+> willy "light"
+I did not understand the word ""light"".
+
+> examine customers
+You can't see Customers!
+
+> examine table
+You can't see any tables!
+
+> sit down
+SIT DOWN AT or ON what object?
+
+> listen
+You hear nothing out of the ordinary.
+
+> up
+You walk up the steps, leaning against the face of the cliff. They seem to go on forever and as you get higher you look away from the sheer drop on one side to stop yourself getting dizzy. Eventually you reach the top.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> willy "hermit"
+I did not understand the word ""hermit"".
+
+> willy "fist"
+I did not understand the word ""fist"".
+
+> nw
+There is no route to the northwest, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> examine stiggy
+You can't see the alchemist!
+
+> stiggy "thieves"
+I did not understand the word ""thieves"".
+
+> stiggy "light"
+I did not understand the word ""light"".
+
+> down
+You move down.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> n
+There is no route to the north, only east, west and up.
+
+> n
+There is no route to the north, only east, west and up.
+
+> torch "zunde"
+I did not understand the word ""zunde"".
+
+> search debris
+You can't see any debris!
+
+> examine shirt
+A shirt made from the finest linen.
+
+> take shirt
+You can't take the linen shirt!
+
+> examine rings
+You can't see any rings!
+
+> search bones
+Sorry, I'm not sure which object you are trying to search.
+
+> examine talisman
+You see no such thing.
+
+> take lid
+Sorry, I'm not sure which object you are trying to take.
+
+> move lid
+Sorry, I'm not sure which object you are trying to move/shift.
+
+> take tome
+Sorry, I'm not sure which object you are trying to take.
+
+> examine tome
+You see no such thing.
+
+> s
+There is no route to the south, only east, west and up.
+
+> torch "losch"
+I did not understand the word ""losch"".
+
+> s
+There is no route to the south, only east, west and up.
+
+> e
+You move east.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around. The foreshore stretches east and west from where you stand.
+
+> show talisman
+There's nobody her to give anything to.
+
+> stiggy "fist"
+I did not understand the word ""fist"".
+
+> show tome
+There's nobody her to give anything to.
+
+> down
+There is no route to the down, only east and west.
+
+> se
+There is no route to the southeast, only east and west.
+
+> willy "bergen"
+I did not understand the word ""bergen"".
+
+> examine soldiers
+You can't see any soldiers!
+
+> soldiers "market"
+I did not understand the word ""market"".
+
+> smell
+You take a deep breath through your nose but everything smells normal.
+
+> examine men
+You see no such thing.
+
+> men "fist"
+I did not understand the word ""fist"".
+
+> find kurt
+Sorry, I didn't understand that command.
+
+> listen
+You hear nothing out of the ordinary.
+
+> listen
+You hear nothing out of the ordinary.
+
+> wait
+You wait around for a few minutes.
+
+> kurt "margo"
+I did not understand the word ""margo"".
+
+> haggle
+Sorry, I didn't understand that command.
+
+> examine horse
+You see no such thing.
+
+> ride horse
+Sorry, I didn't understand that command.
+
+> e
+You walk east along the foreshore for several minutes, but all you see is more sand, rocks and pebbles - and water. You reach a huge rockfall where the cliff face has collapsed, blocking the entire foreshore, so you return to where you started out from.
+
+> e
+You walk east along the foreshore for several minutes, but all you see is more sand, rocks and pebbles - and water. You reach a huge rockfall where the cliff face has collapsed, blocking the entire foreshore, so you return to where you started out from.
+
+> examine max
+You can't see the saddler!
+
+> buy tack
+Sorry, I'm not sure which object you are trying to buy.
+
+> haggle
+Sorry, I didn't understand that command.
+
+> w
+You move west.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> ride horse
+Sorry, I didn't understand that command.
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> give pouch
+There's nobody her to give anything to.
+
+> pouch "ruckk"
+I did not understand the word ""ruckk"".
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> se
+There is no route to the southeast, only east, west and up.
+
+> wait
+You wait around for a few minutes.
+
+> examine klaus
+You can't see the merchant!
+
+> klaus "city"
+I did not understand the word ""city"".
+
+> klaus "go city"
+I did not understand the word ""go".
+
+> buy badge
+Sorry, I'm not sure which object you are trying to buy.
+
+> examine badge
+You see no such thing.
+
+> wear badge
+Sorry, I'm not sure which object you're referring to.
+
+> tether horse to tree
+Sorry, I'm not sure which character you are referring to.
+
+> dismount
+You are not riding your horse!
+
+> nw
+There is no route to the northwest, only east, west and up.
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> sw
+There is no route to the southwest, only east, west and up.
+
+> w
+You move west.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which goes east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Sticking out from the sand just here is the shaft of an old anchor.
+
+> w
+You walk west along the foreshore for several minutes, but there is just more sand, rocks and pebbles - and water. So you return to where you started out from.
+
+> s
+There is no route to the south, only east and west.
+
+> sw
+There is no route to the southwest, only east and west.
+
+> knock on door
+You can't see any doors!
+
+> show talisman
+There's nobody her to give anything to.
+
+> examine crucifix
+You can't see any crucifixes!
+
+> examine number
+You can't see any numbers!
+
+> wait
+You wait around for a few minutes.
+
+> oberin "stiggy"
+I did not understand the word ""stiggy"".
+
+> show talisman
+There's nobody her to give anything to.
+
+> oberin "churches"
+I did not understand the word ""churches"".
+
+> oberin "thank you"
+I did not understand the word ""thank".
+
+> ne
+There is no route to the northeast, only east and west.
+
+> n
+There is no route to the north, only east and west.
+
+> n
+There is no route to the north, only east and west.
+
+> examine floor
+You can't see any floors!
+
+> examine pattern
+You see no such thing.
+
+> wear talisman
+Sorry, I'm not sure which object you're referring to.
+
+> s
+There is no route to the south, only east and west.
+
+> e
+You move east.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> e
+You move east.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around. The foreshore stretches east and west from where you stand.
+
+> ne
+There is no route to the northeast, only east and west.
+
+> ne
+There is no route to the northeast, only east and west.
+
+> se
+There is no route to the southeast, only east and west.
+
+> undo reins
+You can't see any reins!
+
+> nw
+There is no route to the northwest, only east and west.
+
+> sw
+There is no route to the southwest, only east and west.
+
+> cast unsic at horse
+I did not understand the word "unsic".
+
+> sw
+There is no route to the southwest, only east and west.
+
+> w
+You move west.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> w
+You move west.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which goes east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Sticking out from the sand just here is the shaft of an old anchor.
+
+> n
+There is no route to the north, only east and west.
+
+> fahren rostock
+I did not understand the word "rostock".
+
+> look down
+You look down but you see nothing that is of any particular use or interest to you.
+
+> n
+There is no route to the north, only east and west.
+
+> e
+You move east.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> examine clock
+You can't see any clocks!
+
+> examine number
+You can't see any numbers!
+
+> w
+You move west.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which goes east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Sticking out from the sand just here is the shaft of an old anchor.
+
+> w
+You walk west along the foreshore for several minutes, but there is just more sand, rocks and pebbles - and water. So you return to where you started out from.
+
+> s
+There is no route to the south, only east and west.
+
+> wait
+You wait around for a few minutes.
+
+> boy "stable horse"
+I did not understand the word ""stable".
+
+> examine token
+You see no such thing.
+
+> examine facade
+You see no such thing.
+
+> examine coin
+You see no such thing.
+
+> examine number
+You can't see any numbers!
+
+> n
+There is no route to the north, only east and west.
+
+> n
+There is no route to the north, only east and west.
+
+> ne
+There is no route to the northeast, only east and west.
+
+> e
+You move east.
+
+The Foreshore
+You're on a narrow foreshore at the tip of the Jasmund peninsula which stretches off to the east and west. The tall chalk cliffs of the Stubbenkammer soar high above you and the Ostsee is behind you. There is lots of driftwood lying around you. Cut into the cliff just here are a flight of steps which lead Up the sheer cliff to the top.
+
+> s
+There is no route to the south, only east, west and up.
+
+> torch "zunde"
+I did not understand the word ""zunde"".
+
+> down
+There is no route to the down, only east, west and up.
+
+> cast stark at me
+How do you know that spell?
+
+> clear rubble
+Sorry, I'm not sure which object you are trying to clear.
+
+> s
+There is no route to the south, only east, west and up.
+
+> examine dials
+You can't see any dials!
+
+> turn red dial to
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn black dial to
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn gold dial to
+Sorry, I'm not sure which object you are trying to turn.
+
+> s
+There is no route to the south, only east, west and up.
+
+> examine bottle
+You see no such thing.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> take ring
+Sorry, I'm not sure which object you are trying to take.
+
+> examine ring
+You see no such thing.
+
+> wear ring
+Sorry, I'm not sure which object you're referring to.
+
+> examine open
+You see no such thing.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> drop bottle
+Sorry, I didn't understand that command.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> n
+There is no route to the north, only east, west and up.
+
+> n
+There is no route to the north, only east, west and up.
+
+> up
+You move up.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> w
+There is no route to the west, only south and down.
+
+> sw
+There is no route to the southwest, only south and down.
+
+> w
+There is no route to the west, only south and down.
+
+> n
+There is no route to the north, only south and down.
+
+> examine zampf
+You can't see any zampfs!
+
+> examine ears
+You can't see any ears!
+
+> separate rings
+You are not carrying the rings.
+
+> examine rings
+You can't see any rings!
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+As you reach the village you see that it is deserted, probably because it is too early in the morning for anyone to be out and about.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> sw
+It is too far to go on foot.
+
+> drop bottle
+Sorry, I didn't understand that command.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> give token
+There's nobody her to give anything to.
+
+> mount horse
+Sorry, I didn't understand that command.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> dismount
+You are not riding your horse!
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> sw
+There is no route to the southwest, only north.
+
+> s
+There is no route to the south, only north.
+
+> cast wahne at soldiers
+You can't see any soldiers!
+
+> examine soldiers
+You can't see any soldiers!
+
+> look under soldiers
+You can't see any soldiers!
+
+> examine halberd
+You see no such thing.
+
+> take sword
+Sorry, I'm not sure which object you are trying to take.
+
+> examine sword
+You see no such thing.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> search stalls
+Sorry, I'm not sure which object you are trying to search.
+
+> take turnips
+Sorry, I'm not sure which object you are trying to take.
+
+> examine turnips
+You can't see any turnips!
+
+> s
+There is no route to the south, only north.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> w
+There is no route to the west, only north.
+
+> look west
+You look to the West but you see nothing that is of any particular use or interest to you.
+
+> throw bottle to boy
+Sorry, I'm not sure which object you are trying to throw.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> call woman
+I did not understand the word "call".
+
+> throw bottle to woman
+You can't see any woman!
+
+> children "hold me"
+I did not understand the word ""hold".
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> children "hold me"
+I did not understand the word ""hold".
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> up
+There is no route to the up, only north, south and southwest.
+
+> take dagger
+Sorry, I'm not sure which object you are trying to take.
+
+> look through window
+Sorry, I'm not sure which object you are trying to look through.
+
+> examine plunder
+You see no such thing.
+
+> wait
+You wait around for a while but see nobody.
+
+> examine cart
+You see no such thing.
+
+> drop bottle on cushion
+Sorry, I'm not sure which object you are trying to drop.
+
+> wait
+You wait around for a while but see nobody.
+
+> down
+There is no route to the down, only north, south and southwest.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> w
+There is no route to the west, only north.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> ne
+There is no route to the northeast, only north, south and southwest.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> look up
+You look up and see the beech forests covering most of the island with the tiny village directly south.
+
+> cast wolke at sky
+How do you know that spell?
+
+> cast regen at clouds
+How do you know that spell?
+
+> w
+There is no route to the west, only south and down.
+
+> look west
+You look to the West and see the narrow strip of foreshore stretching out in that direction.
+
+> take string
+Sorry, I'm not sure which object you are trying to take.
+
+> take string with halberd
+Sorry, I'm not sure which object you are trying to get/take.
+
+> examine string
+You see no such thing.
+
+> e
+There is no route to the east, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> wait
+You wait around for a few minutes.
+
+> cast heile at people
+You can't see any people!
+
+> w
+There is no route to the west, only south and down.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> cast eizap at river
+How do you know that spell?
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> w
+There is no route to the west, only north.
+
+> examine saplings
+You see no such thing.
+
+> cut saplings
+Sorry, I'm not sure which object you are trying to cut.
+
+> take poles
+Sorry, I'm not sure which object you are trying to take.
+
+> take branches
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> dig pit
+You can't see any pits!
+
+> cast stark at me
+How do you know that spell?
+
+> dig pit
+You can't see any pits!
+
+> lay poles across pit
+You can't see any poles!
+
+> lay branches on poles
+You can't see any branches!
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> lay turnips on grass
+You can't see any turnips!
+
+> ne
+There is no route to the northeast, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> attach reins to zampf
+Sorry, I didn't understand that command.
+
+> jump on zampf
+You can't see any zampfs!
+
+> cast stark at zampf
+You can't see any zampfs!
+
+> inventory
+You are wearing, apart from your clothes, nothing, and are carrying nothing.  A leather pouch is attached to your belt.
+
+> s
+There is no route to the south, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> examine heads
+You see no such thing.
+
+> search vegetation
+You can't see the forest vegetation!
+
+> examine wineskin
+You see no such thing.
+
+> ne
+There is no route to the northeast, only north.
+
+> s
+There is no route to the south, only north.
+
+> look around
+You look around you but do not see anything of any particular interest or use.
+
+> cut sapling
+Sorry, I'm not sure which object you are trying to cut.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> ne
+There is no route to the northeast, only north, south and southwest.
+
+> se
+There is no route to the southeast, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> examine tree
+As the name suggests, the forests to the south of Stubbenkammer are comprised entirely of beech trees.
+
+> up
+There is no route to the up, only north, south and southwest.
+
+> examine nest
+You can't see any nests!
+
+> take twigs
+Sorry, I'm not sure which object you are trying to take.
+
+> down
+There is no route to the down, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> search rags
+Sorry, I'm not sure which object you are trying to search.
+
+> read label
+Sorry, I'm not sure which object you are trying to read.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> tie twigs to staff
+You can't see any twigs!
+
+> move debris
+You can't see any debris!
+
+> move leaves
+You can't see any leaves!
+
+> examine floor
+You can't see any floors!
+
+> examine pattern
+You see no such thing.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> se
+There is no route to the southeast, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> examine chest
+You can't see any chests!
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> examine wall
+You can't see any walls!
+
+> examine hole
+You can't see any holes!
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> sw
+It is too far to go on foot.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> s
+There is no route to the south, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> examine web
+You see no such thing.
+
+> examine bushes
+You can't see any bushes!
+
+> hide in bushes
+You can't see any bushes!
+
+> wait
+You wait around for a few minutes.
+
+> examine boar
+You see no such thing.
+
+> ne
+There is no route to the northeast, only north.
+
+> examine trail
+You can't see any trails!
+
+> nw
+There is no route to the northwest, only north.
+
+> examine trail
+You can't see any trails!
+
+> ne
+There is no route to the northeast, only north.
+
+> jump in pool
+You can't see any pool!
+
+> fill wineskin
+Sorry, I didn't understand that command.
+
+> sw
+There is no route to the southwest, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> s
+There is no route to the south, only north.
+
+> examine waterfall
+You see no such thing.
+
+> enter waterfall
+Sorry, I'm not sure which object you are trying to enter.
+
+> search rocks
+You can't see the rocks!
+
+> examine tile
+You see no such thing.
+
+> out
+There is no route to the out, only north.
+
+> climb cliff
+You can't see the tall cliffs.
+
+> pour oil on me
+You can't see any oil!
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> ne
+There is no route to the northeast, only north, south and southwest.
+
+> fill wineskin
+Sorry, I didn't understand that command.
+
+> sw
+It is too far to go on foot.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> n
+There is no route to the north, only south and down.
+
+> ne
+There is no route to the northeast, only south and down.
+
+> se
+There is no route to the southeast, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> n
+There is no route to the north, only south and down.
+
+> put tile in pattern
+Sorry, I'm not sure which object you're referring to.
+
+> examine pattern
+You see no such thing.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> search boxes
+Sorry, I'm not sure which object you are trying to search.
+
+> take bellows
+Sorry, I'm not sure which object you are trying to take.
+
+> examine bellows
+You see no such thing.
+
+> cut hole in tent
+You can't see any holes!
+
+> look north
+You look to the North over the featureless sea to the horizon.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> cut hole in tent
+You can't see any holes!
+
+> look north
+You look to the North but you see nothing that is of any particular use or interest to you.
+
+> listen
+You hear nothing out of the ordinary.
+
+> drop bottle
+Sorry, I didn't understand that command.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> e
+There is no route to the east, only north.
+
+> search mud
+Sorry, I'm not sure which object you are trying to search.
+
+> examine tile
+You see no such thing.
+
+> e
+There is no route to the east, only north.
+
+> down
+There is no route to the down, only north.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> ne
+There is no route to the northeast, only north, south and southwest.
+
+> fill wineskin
+Sorry, I didn't understand that command.
+
+> sw
+It is too far to go on foot.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> n
+There is no route to the north, only south and down.
+
+> ne
+There is no route to the northeast, only south and down.
+
+> se
+There is no route to the southeast, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> n
+There is no route to the north, only south and down.
+
+> put tile in pattern
+Sorry, I'm not sure which object you're referring to.
+
+> examine pattern
+You see no such thing.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> listen
+You hear nothing out of the ordinary.
+
+> n
+There is no route to the north, only south and down.
+
+> show talisman
+There's nobody her to give anything to.
+
+> examine candles
+You can't see any candles!
+
+> drop bottle
+Sorry, I didn't understand that command.
+
+> women "hold me"
+I did not understand the word ""hold".
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> down
+There is no route to the down, only north.
+
+> enter waterfall
+Sorry, I'm not sure which object you are trying to enter.
+
+> out
+There is no route to the out, only north.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> fill hole with wax
+You can't see any holes!
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> pour oil over me
+You can't see any oil!
+
+> down
+There is no route to the down, only north.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> n
+There is no route to the north, only south and down.
+
+> ne
+There is no route to the northeast, only south and down.
+
+> se
+There is no route to the southeast, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> se
+There is no route to the southeast, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> insert bellows in hole
+You can't see any holes!
+
+> e
+There is no route to the east, only south and down.
+
+> take key
+You can't see any keys!
+
+> unlock chest
+You can't see any chests!
+
+> search chest
+You can't see any chests!
+
+> examine phial
+You see no such thing.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> look east
+You look to the East but you see nothing that is of any particular use or interest to you.
+
+> crawl east
+You think about crawling to the East but decide it is not worth your while.
+
+> cut tent
+You can't see any tents!
+
+> listen
+You hear nothing out of the ordinary.
+
+> wait
+You wait around for a while but see nobody.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> examine table
+You can't see any tables!
+
+> poison wine
+Sorry, I didn't understand that command.
+
+> look under bed
+Sorry, I'm not sure which object you are trying to look underneath/below/beneath.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> wait
+You wait around for a while but see nobody.
+
+> wait
+You wait around for a while but see nobody.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> examine chieftain
+You see no such thing.
+
+> take gauntlet
+You can't see any gauntlets!
+
+> examine gauntlet
+You can't see any gauntlets!
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> crawl west
+You think about crawling to the West but decide it is not worth your while.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> s
+You move south.
+
+Inside Church
+You are inside the tiny church, which is only about 3 yards square. There is nothing to sit on and there is no altar, just a wooden crucifix hung on the east wall. The doorway is North.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> d
+There is no route to the down, only north.
+
+> n
+You move north.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> nw
+There is no route to the northwest, only north, south and southwest.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> n
+There is no route to the north, only south and down.
+
+> ne
+There is no route to the northeast, only south and down.
+
+> se
+There is no route to the southeast, only south and down.
+
+> e
+There is no route to the east, only south and down.
+
+> n
+There is no route to the north, only south and down.
+
+> insert tile in pattern
+Sorry, I'm not sure which object you're referring to.
+
+> examine pattern
+You see no such thing.
+
+> fahren schwerin
+Sorry, I didn't understand that command.
+
+> drop bottle
+Sorry, I didn't understand that command.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> women "hold me"
+I did not understand the word ""hold".
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> fahren lubeck
+I did not understand the word "lubeck".
+
+> n
+There is no route to the north, only south and down.
+
+> examine priest
+You can't see Priest!
+
+> show talisman
+There's nobody her to give anything to.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> w
+There is no route to the west, only north, south and southwest.
+
+> n
+You move north.
+
+Top of Cliffs
+You're at the top of the Stubbenkammer cliffs, from where you have a magnificent view of the Ostsee. Over 120 yards below you lies the foreshore and to the South you see a tiny village. Beyond the village, to the south and east, are the Stubnitz beech forests. Steps, cut into the chalk cliffs, lead Down to the foreshore.
+
+> n
+There is no route to the north, only south and down.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> turn opal
+Sorry, I'm not sure which object you are trying to turn.
+
+> take bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> fahren marienkirche
+Sorry, I didn't understand that command.
+
+> s
+You move south.
+
+Middle of Village
+You're in the tiny village of Stubbenkammer, a cluster of stone-built cottages and an ancient church, through an open doorway to the South, huddled around a tiny green. A dirt track winds North to the clifftops while a wider road, rutted by wagon wheels, leads SW into the Stubnitz beech forests. By the side of the road you see a milestone.
+
+> se
+There is no route to the southeast, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> e
+There is no route to the east, only north, south and southwest.
+
+> put gauntlet on pedestal
+You can't see any gauntlets!

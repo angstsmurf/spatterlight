@@ -1286,6 +1286,59 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
   return eval_restrictions (st, restrictions, NULL);
 }
 
+/* Does a `<ref_alias> Must Exist` restriction (e.g. "ReferencedObject2") fall
+ * *within* the task's evaluated BracketSequence?  ADRIFT evaluates only the first
+ * M restrictions, where M is the number of '#' placeholders in the bracket (the
+ * restrictions list may be longer than the bracket -- a truncated/malformed bracket
+ * simply leaves the trailing restrictions unevaluated, exactly as eval_block does).
+ * Used to decide whether an unmatched reference is genuinely *required*: if its
+ * Must Exist is never evaluated, the task does not actually need it, so a sibling
+ * reference's out-of-scope ambiguity ("You can't see any oil!") surfaces instead of
+ * this reference's no-reference fallback ("Sorry, I'm not sure which object...").
+ * Mirrors the pour task (`#A#A#`, object2's Exist truncated -> cantsee) vs the blow
+ * / hang tasks (object2's Exist inside the bracket -> no-reference message). */
+int
+a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alias)
+{
+  const a5_xml_node_t *c;
+  const char *bracket;
+  int n = 0, M, i;
+
+  if (restrictions == NULL || ref_alias == NULL)
+    return 0;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    if (strcmp (c->name, "Restriction") == 0)
+      n++;
+  bracket = a5xml_child_text (restrictions, "BracketSequence");
+  if (bracket == NULL || bracket[0] == '\0')
+    M = n;                       /* default bracket ANDs every restriction */
+  else
+    { M = 0; for (const char *q = bracket; *q; q++) if (*q == '#') M++; }
+
+  i = 0;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    {
+      const a5_xml_node_t *tn;
+      a5_restr_t r;
+      int hit;
+      if (strcmp (c->name, "Restriction") != 0)
+        continue;
+      if (i >= M)
+        break;                   /* beyond the evaluated bracket prefix */
+      tn = restr_type_node (c);
+      if (tn != NULL)
+        {
+          parse_spec (&r, tn->text);
+          hit = (strcmp (r.key1, ref_alias) == 0 && streq (r.op, "Exist"));
+          free (r.buf);
+          if (hit)
+            return 1;
+        }
+      i++;
+    }
+  return 0;
+}
+
 int
 a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
 {

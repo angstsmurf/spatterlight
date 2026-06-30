@@ -1,5 +1,164 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Unmatched sibling reference must not preempt another reference's cantsee (DieFeuerfaust, broad)  ✅ DONE (2026-06-30)
+
+**DieFeuerfaust → full MATCH (golden `test/DieFeuerfaust_expected.txt`); MagneticMoon
+6→4 bonus.** `pour oil on me` printed Scarier "Sorry, I'm not sure which object you
+are trying to pour." where FD prints **"You can't see any oil!"** (the singular
+`%object%` out-of-scope cantsee for object1="oil", which matches 2 hidden liquid
+objects, neither in scope).
+
+**Root cause — `resolve_refine` (`a5run.cpp`) short-circuited on the *first*
+unmatched reference.** `pour %object1% on %object2%`: object1="oil" resolves to 2
+out-of-scope candidates (an ambiguity → cantsee), object2="me" matches no object. As
+soon as object2 hit the `have_noref` branch, Scarier returned `RR_NOREF` immediately
+— before refining object1 or detecting its cantsee — so scan_tasks surfaced the
+task's `ReferencedObject2 Must Exist` message instead. FD instead treats an
+unmatched-but-`Must Exist` reference as a **second-chance zero-Item match**
+(`InputMatchesObject` returns True via `HasObjectExistRestriction` but appends no
+Item, clsUserSession.vb:5404), so the post-refine loop skips it while a *sibling*
+reference's ambiguity still sets `sAmbTask` and wins (DisplayAmbiguityQuestion).
+
+**The discriminator (why `pour oil on me`→cantsee but `blow dart at <absent>`→Must
+Exist).** Both are `%object1% PREP %object2%` with object1 out-of-scope-ambiguous and
+object2 unmatched — structurally identical. The difference is the **BracketSequence**:
+the pour task's `#A#A#` evaluates only object1's 3 restrictions — object2's `Must
+Exist` is **truncated out**, so object2 is *not actually required* → object1's
+ambiguity surfaces. The blow task's `#A#A(#O#)A#A#` and Spectre's hang task
+`#A#A#A#A#A#` **include** object2's `Must Exist` → object2 is required → its absence
+is the no-reference fallback ("...trying to blow.", "...trying to hang..."). ADRIFT
+evaluates only the first M restrictions where M = the `#` count in the bracket (the
+same truncation `eval_block` already models).
+
+**Fixed (both faithful, validated zero-regression):**
+1. **`a5restr.cpp a5restr_exist_evaluated(restrictions, ref_alias)`** — is a
+   `<ref_alias> Must Exist` restriction within the evaluated bracket prefix (first M
+   `#`)?  Default (empty) bracket ANDs every restriction, so it's required then.
+2. **`a5run.cpp resolve_refine`** — the deferred `have_noref` return now runs only
+   *before* the post-refine ambiguity loop when the unmatched reference is genuinely
+   **required** (`a5restr_exist_evaluated` of its `Referenced…`-alias true). Otherwise
+   the sibling ambiguity (`RR_CANTSEE`/`RR_AMBIG`) is checked first, and the optional
+   no-reference fallback returns only if nothing was ambiguous.
+
+**Result:** **DieFeuerfaust 2→0** (full MATCH, golden captured), **MagneticMoon 6→4**
+(two hunks of the same class), Axe/Spectre unchanged at baseline (the `blow dart` /
+`hang amulet` Must-Exist messages stay correct). No other corpus game moved; all a5
+unit tests pass (parse/arith/dis/walk/obj/save); budgets re-blessed.
+
+## ⭐ Plural `%objects%` reference model: singular-token leak + spurious cantsee (AxeOfKolt, broad)  ✅ DONE (2026-06-30)
+
+**Two faithful fixes to the `%objects%` reference model, both broadly beneficial:
+AxeOfKolt 12→4, SpectreOfCastleCoris 17→8, RevengeOfTheSpacePirates 5→4,
+DieFeuerfaust 6→2, LostChildren 4→2, RunBronwynnRun 7→4** — no other corpus game
+moved, all a5 unit tests pass (arith/parse/dis/walk/obj/save), budgets re-blessed.
+
+1. **A `%objects%` command wrongly bound the *singular* `%object%`/`%object1%`
+   text token.** Axe's give task (`Task268`, `[give/offer] %objects%`) fails its
+   first restriction (`AnyCharacter Must BeInSameLocationAsCharacter Player`) when
+   nobody is present, whose message is `There is nobody here to give
+   %TheObject[%object%]% to!` — note **`%object%`** (singular), not `%objects%`.
+   FD renders the singular as **nothing** (`GetReference("ReferencedObject")`
+   resolves only a reference whose `ReferenceMatch="object1"`,
+   clsUserSession.vb:3990; a `%objects%` command's ReferenceMatch is "objects"),
+   so FD prints **"...give nothing to!"**.  Scarier's `bind_reference` aliased the
+   plural's first key onto `ReferencedObject` (stem-strips "objects"→"Object"), so
+   `%object%` rendered "the domino" → **"...give the domino to!"**.  **Fixed**:
+   `bind_reference` still binds the key (override-key matching and the
+   `ReferencedObjects` restriction path need it) but sets a new
+   `a5state.ref_object1_plural` / `ref_character1_plural` flag; `a5text`'s
+   `oo_firstkey` returns empty for the singular `%object%`/`%object1%`
+   (resp. `%character%`/`%character1%`) token when the slot was plural-derived.
+   Fixes Axe `give domino/hat/fruit/hammer`.
+
+2. **`resolve_plural` returned a spurious `RR_CANTSEE` ("You can't see any
+   <plural>!") for an out-of-scope plural reference.**  FD's `InputMatchesObject`
+   spreads each matching object into its **own Item with a single
+   MatchingPossibility** (clsUserSession.vb:5387-5391), so a plural reference
+   NEVER has an Item with >1 possibilities — and `DisplayAmbiguityQuestion`
+   (the source of "You can't see any X!") only fires for Count>1.  So a plural
+   command whose nouns are all out of scope is NOT a cantsee: GetGeneralTask runs
+   the task and `PassRestrictions` surfaces the first failing restriction's
+   message.  Axe `give planks`/`give nails` (nobody present) → the give task's
+   "There is nobody here to give nothing to!"; `take seeds` (never seen) →
+   `ReferencedObjects Must HaveBeenSeen` → "Sorry, I'm not sure which object you
+   are trying to take."; `wear goggles` likewise.  **Fixed**: dropped the
+   `RR_CANTSEE` return from `resolve_plural`'s none-passed branch (it now resets to
+   the full set and returns `RR_FAIL`, letting restrictions decide).  The genuine
+   "You can't see any X!" message still comes from the **singular** `%object%`
+   path (`resolve_refine` `RR_CANTSEE`, e.g. `press button`, `examine rack` — one
+   Item, >1 possibilities, none visible), which StarshipQuest/anno1700 goldens
+   exercise and which is unchanged.
+
+**Residual (AxeOfKolt 4):**
+- **`say to <absent char> <text>` / `tell <unseen char> about <text>`** (3 hunks).
+  Axe is **`HighestPriorityPassingTask`**; in that mode FD reassigns
+  `GetGeneralTask` for *every* failing-with-output task (clsUserSession.vb:6076),
+  so the **highest**-priority failing task's message wins, not the first.
+  `say to apprentice "nails"` matches both `Task314` (`[say to] %character%
+  %text%`, Priority 100989 → "You can't see the blacksmith's apprentice!") and the
+  higher `Say` (`[say] %text%`, 801176 → "I'm not sure which character you are
+  referring to."); FD shows Say's.  Scarier's `scan_tasks` keeps the *first*
+  (lowest-Priority) failing-with-output message.  **A naive "keep highest under
+  hp_passing" fix mis-ticks Six Silver Bullets' turn timer** (its bell-toll/sniper
+  events fire early and the agent dies), so the precise interaction with turn
+  advancement / the `iPriorityFail`+LowPriority guard is still open.  Same cause
+  fixes the `tell magor` "must be seen" vs "You can't see Magor!" hunk.
+- **`throw seed`** (1 hunk): Scarier "Sorry, I didn't understand that command." vs
+  FD "Sorry, I'm not sure which object you are trying to throw."  `throw %object%`
+  (singular); "seed" resolves to no in-scope object, but FD keeps the throw task as
+  the second-chance `sNoRefTask` (it has a `Must Exist` restriction) and surfaces
+  that message, while Scarier drops it to NotUnderstood.  The singular-noun
+  second-chance/noref path for a never-matched object.
+
+## ⭐ Grandpa's Ranch → full MATCH: BeforeActionsOnly swap + deferred room view  ✅ DONE (2026-06-30)
+
+The last two GrandpasRanch hunks fixed; **GrandpasRanch 2→0** (golden
+`test/GrandpasRanch_expected.txt`), and the deferred-look fix also dropped
+**JacarandaJim 101→99** vanilla / **5→3** xoshiro. Two independent root causes:
+
+1. **`BeforeTextOnly`/`BeforeActionsOnly` parent-suppression flags were swapped**
+   (`a5run.cpp execute_task_with_overrides`). FD (clsUserSession.vb:1106/1111):
+   parent **actions** run for `BeforeActionsOnly`|`BeforeTextAndActions`; parent
+   **text** is output for `BeforeTextOnly`|`BeforeTextAndActions`. Scarier had
+   `BeforeTextOnly→parent_text=0` and `BeforeActionsOnly→parent_actions=0`, the
+   exact inverse. Grandpa's first `open gate` (`vnl_OpenGate1`, `BeforeActionsOnly`,
+   "safe enough to open…") therefore printed the generic **"You open the gate."**
+   that FD suppresses (and, via the run_task both-text-and-actions gating, still
+   opened the gate, so the bug was invisible until the message). Fixed by swapping
+   the two assignments: `BeforeActionsOnly→parent_text=0`,
+   `BeforeTextOnly→parent_actions=0`.
+
+2. **The room view (`Execute Look`) rendered eagerly, at pre-After-child state.**
+   The stock `Look` task's CompletionMessage is `%Player%.Location.Description`
+   with no `<Aggregate>` ⇒ `AggregateOutput=True`, so FD **defers** its function
+   replacement to final Display (clsUserSession.vb:1184/1210) — the room view
+   reflects state changed by `AfterText/Actions` children that run after the
+   parent's `Execute Look`. Grandpa's `go west` matches `vnl_GoWestBust`
+   (`AfterTextAndActions`, `MoveCharacter Buster ToLocation Location14`), so the
+   new room must list Buster **"in the western enclosure"** (`ListDescription`
+   gated on his location), not "just on the other side of the fence" (his old
+   spot). Scarier's `emit_look` rendered immediately, before the after-child moved
+   him. **Fixed** with a faithful deferral in `a5run.cpp`: when a parent has After
+   children on the direct path, `run->defer_look` makes `emit_look` record a
+   pending look (skip render) instead of emitting; after the After children run
+   (into a side buffer), `render_look_string` renders the view **once** at final
+   state and it is emitted view-then-children (so `sb_pspace` computes each
+   separator against real text — Jacaranda's "…Exits are … in.  It is raining out
+   here." regained its two-space join; an earlier splice-at-offset attempt lost
+   it). The capture is **nesting-safe**: only the frame that *enabled* deferral
+   consumes the pending look, so the nested `MovePlayer` frame (run via `SetTasks
+   Execute`, which emits the actual Look) leaves it pending for the enclosing
+   `PlayerMovement` frame. A single render means `view_location_impl`'s
+   `marking_display` retires each `<DisplayOnce>` segment exactly once.
+
+**Result:** **GrandpasRanch 2→0** (full MATCH, golden captured), **JacarandaJim
+101→99 / 5→3** (the deferred room view also corrected JJ's rain/Alan room-entry
+lines). No other corpus game moved; all a5 unit tests pass
+(arith/parse/dis/walk/obj/save); budgets re-blessed.
+
+---
+
+
 Source: `test/run_a5_walkthroughs.sh` — 15 real-game walkthroughs replayed through
 Scarier (`test/a5run_dump`) and FrankenDrift (ground truth) via
 `test/a5_groundtruth.sh`. Full per-game diagnosis + baselines:
@@ -1766,14 +1925,14 @@ chained root causes, each broad:
 shovel. **Grandpa's Ranch 67→45**; no regressions; all a5 unit tests pass
 (incl. save). Re-blessed.
 
-**Still open (Grandpa residual 45):** (a) the **dial numeric-input prompt** —
-`turn dial` should enter a "Which number do you choose?" input state, `853` then
-opens the box (same family as **P8** Y/N prompts; Scarier emits "I did not
-understand the word 853"). (b) the **bull-capture event chain** (`open gate` /
-`wave cloth` / `pull rope` move Buster between enclosures via events) — Scarier
-doesn't track Buster's position, so the eastern enclosure is never reachable and
-`dig` → "You see no reason to dig here." Both are distinct from the examine/
-darkness mechanism and block the final `*** YOU HAVE WON 15/15 ***`.
+**Still open (Grandpa residual 45):** ✅ **all resolved — GrandpasRanch is now a
+full MATCH (0/0).** (a) the **dial numeric-input prompt** was fixed by the
+SetTasks-Execute literal-key fix (the `vnl_Dial` auto-cap item below: `turn dial`
+→ box → map → Buster → dig → WIN). (b) the **bull-capture event chain** played
+once Buster's `MoveCharacter ToLocation`/`ToSameLocationAs` was implemented; the
+final two render-ordering hunks (`open gate` "You open the gate." +
+`go west` bull list-description) were fixed by the BeforeActionsOnly swap and the
+deferred room view (see the ⭐ item at the top of this file).
 
 ---
 

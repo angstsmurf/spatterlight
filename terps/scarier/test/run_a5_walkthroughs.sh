@@ -349,19 +349,20 @@ FILTER="${1:-}"
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
 anno1700|Anno1700.blorb|0|0
-AxeOfKolt|TheAxeOfKolt.blorb|12|12
-SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|17|17
+AxeOfKolt|TheAxeOfKolt.blorb|4|4
+SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|8|8
 StarshipQuest|StarshipQuest.blorb|0|0
-MagneticMoon|MagneticMoon.blorb|6|6
-RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5|5
-DieFeuerfaust|DieFeuerfaust.blorb|6|6
-LostChildren|TheLostChildren.blorb|4|4
-RunBronwynnRun|RunBronwynnRun.blorb|7|7
+MagneticMoon|MagneticMoon.blorb|4|4
+RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|4|4
+DieFeuerfaust|DieFeuerfaust.blorb|0|0
+LostChildren|TheLostChildren.blorb|2|2
+RunBronwynnRun|RunBronwynnRun.blorb|4|4
 RtC|RtC.blorb|22|22
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|42|42
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
-GrandpasRanch|Grandpa_ParserComp_V1.blorb|2|2
-JacarandaJim|JacarandaJim.blorb|101|5
+GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
+JacarandaJim|JacarandaJim.blorb|99|3
+SixSilverBullets|SixSilverBullets.blorb|20|10
 EOF
 )
 

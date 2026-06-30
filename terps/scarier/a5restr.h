@@ -37,6 +37,17 @@ extern int a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions);
 extern int a5restr_has_exist (const a5_xml_node_t *restrictions, char type);
 
 /*
+ * Does a `<ref_alias> Must Exist` restriction (e.g. "ReferencedObject2") fall
+ * within the task's *evaluated* BracketSequence (the first M restrictions, M =
+ * number of '#' in the bracket)?  Lets resolve_refine decide whether an unmatched
+ * reference is genuinely required: a Must Exist truncated out of the bracket means
+ * the reference is optional, so a sibling reference's out-of-scope ambiguity
+ * surfaces instead of this reference's no-reference fallback.
+ */
+extern int a5restr_exist_evaluated (const a5_xml_node_t *restrictions,
+                                    const char *ref_alias);
+
+/*
  * The <Message> description node of the first restriction that individually
  * fails (document order), or NULL.  Used to surface a task's failure text;
  * faithful for the common AND-chain case.
