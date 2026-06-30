@@ -1,5 +1,48 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ MagneticMoon → full MATCH: end-game score by KEY + second-chance ambiguity yields to clean no-ref  ✅ DONE (2026-06-30)
+
+**MagneticMoon 2→0** (full MATCH, golden `test/MagneticMoon_expected.txt`); no
+other corpus game moved in either mode, all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save), budget re-blessed 2→0. Two independent
+root causes:
+
+1. **The end-game score line read the Score variable by NAME, not KEY.** FD's
+   `Adventure.Score`/`MaxScore` (clsAdventure.vb:242/260) read
+   `htblVariables("Score")` / `htblVariables("MaxScore")` — keyed by the
+   variable **Key**. MagneticMoon's score variable has key `Score` but a
+   user-facing **Name** `__Points_Scored`, so Scarier's `emit_endgame`
+   (`a5run.cpp`) `a5state_var_num_by_name(st, "Score", …)` matched no variable
+   and the line always printed **"…you scored 0…"** (the local default) even
+   though the variable held 10. **Fixed** by resolving Score/MaxScore through
+   `a5state_variable_index` (key lookup) and reading `var_num[idx]`, mirroring
+   FD's keyed `htblVariables` access. (The per-task `SetVariable Score …`
+   *writes* already used the key index, so the value was correct — only the
+   final read was wrong.) MagneticMoon score `0→10`.
+
+2. **A second-chance ambiguity wrongly preempted a sibling task's clean
+   no-reference fallback.** `tie wire to girder` (wire is out-of-scope-
+   ambiguous → cantsee; girder names nothing) → Scarier surfaced `TieObjectT`
+   (`[tie/bind] %object1% [to] %object2%`)'s `%object1%` no-ref message
+   "…trying to **tie**.", where FD surfaces the simpler `TieObject1`
+   (`[tie/bind/secure] %object%`)'s "…trying to **tie/bind/secure**.". In FD a
+   task whose unmatched reference is *required* (`Must Exist` inside the
+   evaluated bracket) never matches in the **first** pass; it is found only in
+   the **second-chance** (existence) pass, where its *ambiguous sibling*
+   (`%object1%`="wire", >1 candidate) sets `sAmbTask` — but a **different**
+   task's 0-item Must-Exist failure (`TieObject1`, GetGeneralTask) wins over
+   sAmbTask. Scarier's `resolve_refine` returned `RR_NOREF` outright for
+   `TieObjectT` (noref_required short-circuit, the DieFeuerfaust `blow dart`
+   path), so it became the no-ref winner. **Fixed**: when `noref_required` and
+   a *sibling* reference is still ambiguous (>1), `resolve_refine` now returns
+   that sibling's `RR_CANTSEE`/`RR_AMBIG` flagged `amb.second_chance` instead
+   of `RR_NOREF`; `scan_tasks` lets a genuine first-pass ambiguity replace a
+   recorded second-chance one; and `a5run_input` orders a **second-chance**
+   ambiguity *after* the clean `sNoRefTask` (so `TieObject1`'s message wins),
+   falling back to the ambiguity only when nothing claimed the turn. A
+   first-pass ambiguity (`pour oil on me`, whose object2 is *optional*) and a
+   clean required no-ref (`blow dart at <absent>`) are both unchanged.
+
 ## ⭐ Plural `%objects%` none-pass reset must follow FD's Visible/Seen tiers (RevengeOfTheSpacePirates → full MATCH)  ✅ DONE (2026-06-30)
 
 **RevengeOfTheSpacePirates 1→0** (full MATCH, golden

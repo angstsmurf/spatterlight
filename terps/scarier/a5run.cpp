@@ -991,6 +991,14 @@ struct amb_info {
   char        type;              /* 'o' / 'c'                                 */
   std::string ref_text;          /* the captured reference text typed         */
   std::vector<std::string> keys; /* surviving candidate keys                  */
+  /* This ambiguity arose only because the *same task* also has an unmatched
+     but *required* (`Must Exist`) reference, so in frankendrift the task does
+     not match in the first pass and is found only in the second-chance
+     (existence) pass.  There it sets sAmbTask, but a *different* task's
+     0-item Must-Exist failure (GetGeneralTask) wins over it.  So unlike a
+     first-pass ambiguity (which preempts any sNoRefTask), a second-chance
+     ambiguity must YIELD to a clean no-reference fallback. */
+  int         second_chance = 0;
 };
 
 /*
@@ -1389,6 +1397,34 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
     }
   if (noref_required)
     {
+      /* The task has an unmatched but *required* reference, so in frankendrift
+         it never matches in the first pass; it is found only in the
+         second-chance (existence) pass.  If a *sibling* reference is itself
+         ambiguous (>1 candidate), FD's second-chance pass sets sAmbTask for
+         this task but a different task's clean 0-item Must-Exist failure
+         (GetGeneralTask) wins.  So surface the sibling ambiguity flagged as
+         `second_chance` -- the caller yields it to a clean no-reference
+         fallback (e.g. `tie wire to girder`: TieObjectT's "wire" is out-of-
+         scope-ambiguous and "girder" is the required unmatched ref, so the
+         simpler `[tie/bind/secure] %object%` task's "...trying to
+         tie/bind/secure." wins over TieObjectT's "...trying to tie.").  When
+         every sibling resolves uniquely, the required no-reference fallback
+         still wins outright (`blow dart at <absent>` -> "...trying to
+         blow."). */
+      for (auto &r : refs)
+        if (r.keys.size () > 1)
+          {
+            int any_vis = 0;
+            for (auto &k : r.keys)
+              if (r.type == 'o' ? obj_visible (st, k.c_str ())
+                                : char_visible (st, k.c_str ()))
+                { any_vis = 1; break; }
+            if (amb != NULL)
+              { amb->ref_name = r.name; amb->type = r.type;
+                amb->ref_text = r.text; amb->keys = r.keys;
+                amb->second_chance = 1; }
+            return any_vis ? RR_AMBIG : RR_CANTSEE;
+          }
       if (amb != NULL)
         { amb->ref_name = noref_r.name; amb->type = noref_r.type;
           amb->ref_text = noref_r.text; amb->keys.clear (); }
@@ -4335,7 +4371,8 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                 }
               return 1;
             }
-          if (r == RR_CANTSEE && !*have_amb)
+          if (r == RR_CANTSEE
+              && (!*have_amb || (amb->second_chance && !this_amb.second_chance)))
             {
               /* "You can't see any <plural>!" -- an out-of-scope object
                  reference.  Like a "which?" ambiguity (sAmbTask), this does NOT
@@ -4344,7 +4381,9 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  resolving the same noun to an NPC and reporting "You can't see
                  the woman!") overrides it.  Mirrors GetGeneralTask, where
                  sAmbTask is shown only when no later task claims sTaskKey.  Record
-                 the first such reference and keep scanning. */
+                 the first such reference and keep scanning.  A genuine first-pass
+                 ambiguity replaces an earlier *second-chance* one (FD finds all
+                 first-pass results before the second-chance pass). */
               *have_amb = 1; *amb_cantsee = 1; *amb = this_amb;
               *amb_ti = ti; *amb_ci = ci;
               continue;
@@ -4359,8 +4398,10 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               *have_noref = 1; *noref_ti = ti; *noref_ci = ci;
               continue;
             }
-          if (r == RR_AMBIG && !*have_amb)
-            { *have_amb = 1; *amb = this_amb; *amb_ti = ti; *amb_ci = ci; }
+          if (r == RR_AMBIG
+              && (!*have_amb || (amb->second_chance && !this_amb.second_chance)))
+            { *have_amb = 1; *amb_cantsee = 0; *amb = this_amb;
+              *amb_ti = ti; *amb_ci = ci; }
           if (r == RR_FAIL)
             {
               /* A "get all"-style command whose %objects% resolved to no passing
@@ -4499,8 +4540,17 @@ emit_endgame (a5_run_t *run, sb_t *out)
       free (wt);
     }
 
-  a5state_var_num_by_name (st, "Score", &score);
-  if (a5state_var_num_by_name (st, "MaxScore", &maxscore) && maxscore > 0)
+  /* FD reads Adventure.Score / MaxScore = htblVariables("Score"/"MaxScore"),
+     which is keyed by the variable KEY, not its (user-facing) Name.  Magnetic
+     Moon's score variable has key "Score" but Name "__Points_Scored", so a
+     by-Name lookup misses it.  Look up by key (index) to match FD. */
+  {
+    int svi = a5state_variable_index (st, "Score");
+    if (svi >= 0) score = st->var_num[svi];
+    int mvi = a5state_variable_index (st, "MaxScore");
+    if (mvi >= 0) maxscore = st->var_num[mvi];
+  }
+  if (maxscore > 0)
     {
       char line[160];
       snprintf (line, sizeof line,
@@ -5100,7 +5150,7 @@ a5run_input (a5_run_t *run, const char *line)
       return finish_turn (run, &out);
     }
 
-  if (have_amb && amb_cantsee)
+  if (have_amb && amb_cantsee && !amb.second_chance)
     {
       /* No later task claimed the turn: emit the deferred "You can't see any
          <plural>!" (the out-of-scope reference is a dead end, not a pending
@@ -5128,7 +5178,7 @@ a5run_input (a5_run_t *run, const char *line)
       return finish_turn (run, &out);
     }
 
-  if (have_amb)
+  if (have_amb && !amb.second_chance)
     {
       /* Remember the ambiguity and prompt; the next turn resolves it.  Like the
          cantsee above, a first-pass ambiguity preempts the second-chance
@@ -5157,6 +5207,33 @@ a5run_input (a5_run_t *run, const char *line)
          Nothing (clsUserSession.vb:5965).  It does claim the turn and ticks. */
       run->amb_active = 0;
       ev_tick_all (run, &out);
+      return finish_turn (run, &out);
+    }
+
+  if (have_amb)
+    {
+      /* A *second-chance* ambiguity: the task it came from matched only because
+         it also had an unmatched required reference, so FD found it in the
+         second-chance pass (sAmbTask).  It loses to a clean sNoRefTask above;
+         only when none claimed the turn does it surface here (FD shows sAmbTask
+         when GetGeneralTask is Nothing).  Same cantsee-vs-prompt split as the
+         first-pass case above. */
+      if (amb_cantsee)
+        {
+          run->amb_active = 0;
+          emit_cantsee (st, &amb, &out);
+          return finish_turn (run, &out);
+        }
+      run->amb_active = 1;
+      run->amb_task_index = amb_ti;
+      run->amb_command_index = amb_ci;
+      run->amb_input = in;
+      run->amb_ref_name = amb.ref_name;
+      run->amb_ref_type = amb.type;
+      run->amb_word = amb_word (st, amb.keys, amb.ref_text, amb.type);
+      run->amb_keys = amb.keys;
+      sb_puts (&out,
+               build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
       return finish_turn (run, &out);
     }
 

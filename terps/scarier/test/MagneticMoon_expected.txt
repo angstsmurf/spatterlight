@@ -1,0 +1,984 @@
+Magnetic Moon
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+MAGNETIC MOON
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was programmed by the author with mostly Cyan text on a Black background. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not BLACK and font colour CYAN, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+Some useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : INTRO : MACROS : MAP : VOCAB;
+
+> b
+
+The Control Room
+You're seated at your console in the control room of the Stellar Queen. There is a wide viewscreen on the forward bulkhead, in front of which is the helmsman's console, with the Captain's command chair behind that. Arranged around the rear of the room, either side of you, are the consoles that control other ship's functions, in between which, leading Aft, are the exit doors. The noise made by the repair crew is very loud and it is a veritable assault on your eardrums.  Commander Roffey, Commander Ringshaw, Captain Rosenloev and the repairmen are here.
+
+Do You Wish To Explore The Ship First? ("Y/N")
+
+> n
+You now have a limited number of turns in which to get all that you need and get off the ship - can you do it?!
+
+Captain Rosenloev presses a button on his command console.
+
+"Attention away team! Assemble in the loading bay at the double!"
+
+> wait
+You wait impatiently for a while.
+
+Eventually, the captain stands up from his command chair, reaches his arms up above his head and groans as he stretches the kinks out of his body. He turns to Cmdr.Roffey and shouts,
+
+"OK Tony, you have the conn, I'd better go and join the away team".
+
+The repairmen realise that the captain has got to his feet and they all stop work in respect, giving you a bit of respite from the noise. Cmdr.Roffey gets up from his console and takes the captain's place in the command chair as you all get to your feet.
+
+"Very well, Sir, I have the conn." he tells the captain.
+
+The captain looks around the room at you all and sketches a quick salute.
+
+"Carry on, ladies and gentlemen," he says as he heads for the exit doors, dodging the various repairmen, a couple of whom have to step back to let him pass.
+
+The doors judder closed after him and the noise returns as everyone resumes what they were doing, except yourself of course as you haven't got anything to do at the moment.
+
+The Control Room
+You're seated at your console in the control room of the Stellar Queen. There is a wide viewscreen on the forward bulkhead, in front of which is the helmsman's console, with the Captain's command chair behind that. Arranged around the rear of the room, either side of you, are the consoles that control other ship's functions, in between which, leading Aft, are the exit doors. The noise made by the repair crew is very loud and it is a veritable assault on your eardrums.  Commander Roffey, Commander Ringshaw and the repairmen are here.
+
+> wait
+You wait a while longer, drumming your fingers on the surface of your console, much to the annoyance of the repairman working next to you.
+
+After what seems like an eternity, Cmdr.Roffey gets up from the command chair. He turns to Cmdr.Ringshaw and indicates that he should take over.
+
+"If you could take the conn please, Mr.Ringshaw," he shouts to the engineering officer. "I'm going to the loading bay to see the captain off."
+
+"Certainly, commander," he shouts back in his east London accent. "I kin supervise the repair works from there just as easily as from me own console."
+
+Cmdr.Roffey leaves the control room as Cmdr.Ringshaw takes his place in the command chair and keys himself into the command console.
+
+The Control Room
+You're seated at your console in the control room of the Stellar Queen. There is a wide viewscreen on the forward bulkhead, in front of which is the helmsman's console, with the Captain's command chair behind that. Arranged around the rear of the room, either side of you, are the consoles that control other ship's functions, in between which, leading Aft, are the exit doors. The noise made by the repair crew is very loud and it is a veritable assault on your eardrums.  Commander Ringshaw and the repairmen are here.
+
+> aft
+You will have to stand up first.
+
+> starboard
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> search flitter
+You can't see any flitters!
+
+> get backpack
+Sorry, I'm not sure which object you are trying to get.
+
+> wear backpack
+Sorry, I'm not sure which object you're referring to.
+
+> aft
+You will have to stand up first.
+
+> search tools
+You can't see any tools!
+
+> get headshield
+Sorry, I'm not sure which object you are trying to get.
+
+> wear headshield
+Sorry, I'm not sure which object you're referring to.
+
+> aft
+You will have to stand up first.
+
+> listen
+Any conversation is made impossible by the horrendous din that the repair crew are making.
+
+> wait
+You wait for a while and a few minutes of time goes by.
+
+> port
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> forward
+You will have to stand up first.
+
+> starboard
+You will have to stand up first.
+
+> search shelves
+You can't see any shelves!
+
+> search racks
+You can't see any racks!
+
+> open cupboard
+You can't see any cupboards!
+
+> search cupboard
+You can't see any cupboards!
+
+> get flashlight
+You can't see any flashlights!
+
+> get rope
+You can't see any ropes!
+
+> get laser
+Sorry, I'm not sure which object you are trying to get.
+
+> get forcer
+Sorry, I'm not sure which object you are trying to get.
+
+> put all in backpack
+You have nothing to put in the large backpack.
+
+> port
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> starboard
+You will have to stand up first.
+
+> starboard
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> get grapnel
+You can't see any grapnels!
+
+> get axe
+Sorry, I'm not sure which object you are trying to get.
+
+> starboard
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> starboard
+You will have to stand up first.
+
+> search sick bay
+Sorry, I'm not sure which object you are trying to search.
+
+> get bottle
+Sorry, I'm not sure which object you are trying to get.
+
+> port
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> exam panel
+You can't see any panels!
+
+> press hand on panel
+Sorry, I'm not sure which object you are trying to press.
+
+> say erlin in microphone
+Sorry, I didn't understand that command.
+
+> port
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> u
+You cannot go Up!
+
+> f
+You will have to stand up first.
+
+> exam couch
+You see no such thing.
+
+> search compartment
+You can't see any compartments!
+
+> get helmet
+You can't see any helmet!
+
+> fit bottle to helmet
+You can't see any helmet!
+
+> aft
+You will have to stand up first.
+
+> d
+You cannot go Down!
+
+> aft
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> press red button
+Sorry, I'm not sure which object you are trying to press.
+
+> enter airlock
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> wear helmet
+You can't see any helmet!
+
+> press green button
+You can't see any buttons!
+
+> leave airlock
+You can't see any airlocks!
+
+> jump down
+You cannot jump that way!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> get flashlight from backpack
+You can't see any flashlights!
+
+> switch on flashlight
+You can't see any flashlights!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> s
+You will have to stand up first.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> get rope from backpack
+You can't see any ropes!
+
+> get grapnel from backpack
+You can't see any grapnels!
+
+> tie ropes together
+Sorry, I'm not sure which object you are trying to tie/bind/secure.
+
+> look up
+Sorry, I didn't understand that command.
+
+> throw grapnel
+You can't see any grapnels!
+
+> climb rope
+You can't see any ropes!
+
+> climb into port
+You cannot climb into the observation port.
+
+> get grapnel
+You can't see any grapnels!
+
+> port
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> search wreckage
+You can't see any wreckages!
+
+> get laser from backpack
+Sorry, I'm not sure which object you are trying to take.
+
+> cut girder with laser
+Sorry, I'm not sure which object you are trying to cut.
+
+> put laser in backpack
+Sorry, I'm not sure which object you're referring to.
+
+> get girder
+Sorry, I'm not sure which object you are trying to get.
+
+> f
+You will have to stand up first.
+
+> drop girder
+Sorry, I'm not sure which object you're referring to.
+
+> look up
+Sorry, I didn't understand that command.
+
+> jump to handrail
+Sorry, I didn't understand that command.
+
+> u
+You cannot go Up!
+
+> throw grapnel
+You can't see any grapnels!
+
+> climb rope
+You can't see any ropes!
+
+> u
+You cannot go Up!
+
+> u
+You cannot go Up!
+
+> port
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> search junk
+Sorry, I'm not sure which object you are trying to search.
+
+> get wire
+You can't see any wires!
+
+> starboard
+You will have to stand up first.
+
+> f
+You will have to stand up first.
+
+> starboard
+You will have to stand up first.
+
+> exam door
+Twin doors which open automatically when approached, and close when you have walked through.
+
+> tie wire to boltholes
+You can't see any wires!
+
+> throw wire into hold
+You can't see any wires!
+
+> d
+You cannot go Down!
+
+> d
+You cannot go Down!
+
+> d
+You cannot go Down!
+
+> climb down rope
+You can't see any ropes!
+
+> d
+You cannot go Down!
+
+> jump down
+You cannot jump that way!
+
+> girder
+I did not understand the word "girder".
+
+> tie wire to girder
+Sorry, I'm not sure which object you are trying to tie/bind/secure.
+
+> drop girder
+Sorry, I'm not sure which object you're referring to.
+
+> jump to handrail
+Sorry, I didn't understand that command.
+
+> u
+You cannot go Up!
+
+> climb rope
+You can't see any ropes!
+
+> et grapnel
+I did not understand the word "et".
+
+> u
+You cannot go Up!
+
+> u
+You cannot go Up!
+
+> pull wire up
+You can't see any wires!
+
+> get girder
+Sorry, I'm not sure which object you are trying to get.
+
+> untie wire
+You can't see any wires!
+
+> port
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> prop girder under plates
+I did not understand the word "girder".
+
+> run aft
+You will have to stand up first.
+
+> aft
+You will have to stand up first.
+
+> port
+You will have to stand up first.
+
+> exam glass
+You can't see any glass!
+
+> get laser from backpack
+Sorry, I'm not sure which object you are trying to take.
+
+> cut glass with laser
+You can't see any glass!
+
+> put laser in backpack
+Sorry, I'm not sure which object you're referring to.
+
+> break glass with axe
+You can't see any glass!
+
+> exam port
+You see no such thing.
+
+> hook grapnel onto port
+Sorry, I didn't understand that command.
+
+> drop wire
+You can't see any wires!
+
+> climb out of port
+Sorry, I'm not sure which object you are trying to climb/clamber out of.
+
+> climb down rope
+You can't see any ropes!
+
+> flick rope
+You can't see any ropes!
+
+> follow tracks
+You can't see any tracks!
+
+> exam cliff
+You see no such thing.
+
+> exam niche
+You see no such thing.
+
+> push/pull/turn button
+I did not understand the word "push/pull/turn".
+
+> enter tunnel
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> s
+You will have to stand up first.
+
+> s
+You will have to stand up first.
+
+> s
+You will have to stand up first.
+
+> exam alcove
+You can't see any alcoves!
+
+> search rubbish
+You can't see any rubbish!
+
+> get glue
+Sorry, I'm not sure which object you are trying to get.
+
+> push crate hard
+Sorry, I'm not sure which object you are trying to push.
+
+> s
+You will have to stand up first.
+
+> get wire
+You can't see any wires!
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> open crate
+You can't see any crates!
+
+> put helmet and axe n crate
+I don't understand what you want to do with Mike Erlin.
+
+> close crate
+You can't see any crates!
+
+> climb onto crate
+You can't see any crates!
+
+> get paper
+You can't see any papers!
+
+> exam grill
+You can't see any grills!
+
+> cur grill with laser
+I did not understand the word "cur".
+
+> put laser in backpack
+Sorry, I'm not sure which object you're referring to.
+
+> climb into hole
+You can't see any holes!
+
+> get grill
+You can't see any grills!
+
+> glue grill
+Sorry, I didn't understand that command.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam paper
+You can't see any papers!
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam paper
+You can't see any papers!
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam paper
+You can't see any papers!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam paper
+You can't see any papers!
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam paper
+You can't see any papers!
+
+> s
+You will have to stand up first.
+
+> exam paper
+You can't see any papers!
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam paper
+You can't see any papers!
+
+> look up
+Sorry, I didn't understand that command.
+
+> exam shaft
+You can't see any shafts!
+
+> throw grapnel
+You can't see any grapnels!
+
+> get forcer from backpack
+Sorry, I'm not sure which object you are trying to get.
+
+> climb up rope
+You can't see any ropes!
+
+> exam grill
+You can't see any grills!
+
+> unscrew grill with forcer
+Sorry, I'm not sure which object you are trying to unscrew.
+
+> climb into hole
+You can't see any holes!
+
+> get grapnel
+You can't see any grapnels!
+
+> get grill
+You can't see any grills!
+
+> screw grill with forcer
+Sorry, I'm not sure which object you are trying to bolt/screw.
+
+> press button
+You can't see any buttons!
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> pick lock with wire
+Sorry, I'm not sure which object you are trying to pick.
+
+> open door
+You open the control room doors.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> wait
+You wait for a while and a few minutes of time goes by.
+
+> drop all
+You have nothing to drop.
+
+> s
+You will have to stand up first.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> search lockers
+You can't see any lockers!
+
+> get overalls
+Sorry, I'm not sure which object you are trying to get.
+
+> wear overalls
+Sorry, I'm not sure which object you're referring to.
+
+> s
+You will have to stand up first.
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> d
+You cannot go Down!
+
+> d
+You cannot go Down!
+
+> d
+You cannot go Down!
+
+> leave shaft
+You can't see any shafts!
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> search table
+You can't see any tables!
+
+> get wrench
+Sorry, I'm not sure which object you are trying to get.
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> u
+You cannot go Up!
+
+> u
+You cannot go Up!
+
+> leave shaft
+You can't see any shafts!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> s
+You will have to stand up first.
+
+> wait
+You wait for a while and a few minutes of time goes by.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> d
+You cannot go Down!
+
+> leave shaft
+You can't see any shafts!
+
+> look west
+You must use nautical directions while on board any spaceship, e.g.LOOK AFT or LOOK STARBOARD, etc.
+
+> quietly west
+I did not understand the word "quietly".
+
+> hit medic with wrench
+Sorry, I'm not sure which character you are referring to.
+
+> search desk
+You can't see any desks!
+
+> get dictaphone
+Sorry, I'm not sure which object you are trying to get.
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> u
+You cannot go Up!
+
+> leave shaft
+You can't see any shafts!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> s
+You will have to stand up first.
+
+> wait
+You wait for a while and a few minutes of time goes by.
+
+> press record
+Sorry, I'm not sure which object you are trying to press.
+
+> drop dictaphone
+Sorry, I'm not sure which object you're referring to.
+
+> drop wrench
+You will have to take the adjustable wrench off of whatever it is on first.
+
+> get box
+You can't see any boxes!
+
+> get all from box
+You can't see any boxes!
+
+> drop all but box
+You have nothing to drop.
+
+> n
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> d
+You cannot go Down!
+
+> leave shaft
+You can't see any shafts!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> search medic
+Sorry, I'm not sure which character you are referring to.
+
+> get key
+You can't see any keys!
+
+> search sickbay
+Sorry, I'm not sure which object you are trying to search.
+
+> unlock locker
+You can't see any lockers!
+
+> open locker
+You can't see any lockers!
+
+> drop key
+You can't see any keys!
+
+> get red cylinder
+Sorry, I'm not sure which object you are trying to get.
+
+> get green cylinder
+Sorry, I'm not sure which object you are trying to get.
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> d
+You cannot go Down!
+
+> leave shaft
+You can't see any shafts!
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> get cutter from backpack
+Sorry, I'm not sure which object you are trying to take.
+
+> exam pump
+You see no such thing.
+
+> cut pipe with cutter
+Sorry, I'm not sure which object you are trying to cut/sever.
+
+> drop cutter
+You will have to take the laser cutter out of whatever it is in first.
+
+> wear box on head
+Right idea - wrong location!
+
+> open valve on green cylinder
+Open what?
+
+> open valve on red cylinder
+Open what?
+
+> put re cylinder into hole
+You can't see any holes!
+
+> remove box
+Right idea - wrong location!
+
+> drop box
+You can't see any boxes!
+
+> w
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> enter shaft
+Please do not use the verb ENTER when playing this game. Instead apply directions including IN and OUT or instructions such as CLIMB INTO or CLIMB THROUGH.
+
+> u
+You cannot go Up!
+
+> u
+You cannot go Up!
+
+> leave shaft
+You can't see any shafts!
+
+> e
+You must use the nautical terms Forward, Aft, Port and Starboard when on board any spaceship. Note that these directions do NOT correspond to N, S, E or W. Forward is towards the front of the spaceship at all times, Starboard to the right when facing forward, etc. There is no equivalent to the diagonal compass directions.
+
+> exam pirates
+You can't see any pirates!
+
+> pull ryrzq west
+Sorry, I'm not sure which object you are trying to pull.
+
+> pull ryrzq west
+Sorry, I'm not sure which object you are trying to pull.
+
+You feel a tap on your shoulder which makes you jump, and you turn around to see Commander Ringshaw standing behind you.
+
+"Whatever it is you are up to, Mr. Erlin, you can stop it now!" he snarls at you. "Get yourself back to the control room and resume your duties - you're lucky I don't put you on a charge!"
+
+As you make your way to the control room, you curse yourself for taking too long about getting off the ship!
+
+*** You have lost ***
+In that game you scored 10 out of a possible 800, in 301 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?

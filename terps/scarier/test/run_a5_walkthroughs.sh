@@ -352,7 +352,7 @@ anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|4|4
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|3|3
 StarshipQuest|StarshipQuest.blorb|0|0
-MagneticMoon|MagneticMoon.blorb|2|2
+MagneticMoon|MagneticMoon.blorb|0|0
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
