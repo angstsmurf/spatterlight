@@ -3907,6 +3907,46 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
   ti = a5state_task_index (st, key);
   if (ti >= 0 && st->task_done[ti] && !t->repeatable)
     return;
+
+  /* FrankenDrift runs an event-fired task through the *same* AttemptToExecuteTask
+     as a command: it copies the leftover command references
+     (`CopyNewRefs(NewReferences)`) and `ExecuteSubTasks`-iterates them one item at
+     a time.  After a plural `%objects%` command whose final response reference
+     still holds N items (`NewReferences = refs` in the Display loop,
+     clsUserSession.vb:868), that copy carries all N items, so the event task runs
+     once PER item.  This is why Amazon's `get ammo and rifle` ticks
+     `ts_tasIncrement` twice (+2 minutes) where `get crown and bottle` -- whose
+     two takes leave a single-item final reference -- ticks once.  Scarier's
+     `resp_flush` already leaves `st->ref_items` equal to FD's post-Display
+     `NewReferences`, so iterate it here.  A 0/1-item leftover keeps the original
+     single, refs-cleared run (the overwhelmingly common case stays byte-exact). */
+  if (st->n_ref_items > 1)
+    {
+      int nleft = st->n_ref_items;
+      char tchar = st->ref_items_type;
+      const char *grp  = (tchar == 'c') ? "characters" : "objects";
+      const char *rbnd = (tchar == 'c') ? "ReferencedCharacters" : "ReferencedObjects";
+      std::vector<const char *> items (st->ref_items, st->ref_items + nleft);
+      for (const char *it : items)
+        {
+          /* FD AttemptToExecuteSubTask ReDims NewReferences to this single item;
+             mirror run_general's per-item bind so a task that *does* read its
+             reference resolves the right one (the increment reads none). */
+          a5state_clear_refs (st);
+          st->ref_items[0] = it;
+          st->n_ref_items = 1;
+          st->ref_items_type = tchar;
+          bind_reference (st, grp, it, it);
+          a5state_bind_ref (st, rbnd, it);
+          if (a5restr_pass (st, t->restrictions))
+            run_task (run, t, depth + 1, out);
+        }
+      if (ti >= 0)
+        st->task_done[ti] = 1;
+      ev_on_task_completed (run, key, out);
+      return;
+    }
+
   a5state_clear_refs (st);                 /* event tasks carry no command refs */
   if (!a5restr_pass (st, t->restrictions))
     return;

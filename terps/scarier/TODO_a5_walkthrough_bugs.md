@@ -1,5 +1,66 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Event-fired task iterates the leftover plural reference: `get ammo and rifle` ticks `ts_tasIncrement` twice (Amazon off-by-one clock drift)  ✅ DONE (2026-06-30)
+
+**TreasureHuntInTheAmazon 31→1** (both modes; residual 1 = the title's 3-space
+`<center>` centring, the separate cosmetic detail below) — **no corpus game moved
+in either mode** (all 11 MATCH games hold 0/0; SixSilverBullets' turn timer
+UNCHANGED at 20/10, the specific regression risk the TODO flagged; StoneOfWisdom
+2/0, JacarandaJim 99/0 unchanged), all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden), budget re-blessed
+31→1. This closes the long-deferred "off-by-one-minute clock drift" residual — all
+30 drifting `Date:`/time lines (day-5 `By Totem` onward, `10:59`→`11:00`, through
+the win-banner `…returned to the camp …Time: 11:01`) now match.
+
+**Root cause — the response-aggregation Display loop leaves `NewReferences` =
+the LAST displayed message's reference, and an event-fired task ExecuteSubTasks-
+iterates it once PER item.** Confirmed by instrumenting BOTH engines (a temporary
+`FD_DBG_TICK` in FD's `AttemptToExecuteTask` logging `CopyNewRefs(NewReferences)`'s
+item count; `A5_DBG_TICK` in Scarier logging the leftover `st->ref_items` at
+`ev_tick_all`). FD's `ts_tasIncrement` (`IncVariable ts_varMinute = %MinutesPerTurn%`)
+is fired each turn by the `ts_evtCallIncrementTime` TurnBased event as a subevent
+`ExecuteTask`, which runs through the *same* `AttemptToExecuteTask` as a command:
+it does `InReferences = task.CopyNewRefs(NewReferences)` (clsUserSession.vb:756)
+then `ExecuteSubTasks` iterates `InReferences` **one item at a time**
+(vb:702/714 → `AttemptToExecuteSubTask` per item). The key: after the *command's*
+own `AttemptToExecuteTask`, the response Display loop has set `NewReferences = refs`
+for each shown message (vb:868) — so the global `NewReferences` ends as the **last
+displayed message's** reference. For the plural `get ammo and rifle` the
+AggregateOutput take emits ONE merged message ("…the ammunition and the rifle")
+whose reference still holds **both** items, so the turn event's `ts_tasIncrement`
+runs **twice** → +2 minutes. For `get crown and bottle` the crown (override "(from
+the pedestal)") and bottle ("pick up") are **two separate** messages, so the last
+leaves a **1-item** reference → +1. Every other Amazon turn leaves 0/1 leftover
+items → +1 (instrumentation confirmed `get ammo and rifle` is the ONLY turn in the
+whole walkthrough with leftover>1, in BOTH engines). Scarier ticked +1 on the ammo
+turn; FD +2 — so from that turn on every clock reading was exactly 1 minute behind.
+This is precisely the "per-turn response-aggregation" connection: Scarier's
+`resp_flush` *already* leaves `st->ref_items` equal to FD's post-Display
+`NewReferences` (verified: 2 items {Ammunition,Rifle} after `get ammo and rifle`,
+1 item {BottleOfWh} after `get crown and bottle`) — the only missing piece was the
+per-item event-task iteration.
+
+**Fixed** in `a5run.cpp attempt_event_task`: when the leftover reference
+(`st->n_ref_items`) holds **>1** items, run the event-fired task once per item
+(mirroring run_general's per-item single-reference bind = FD's
+`AttemptToExecuteSubTask` `ReDim NewReferences`), each with its own restriction
+check; `task_done`/`ev_on_task_completed` fire once at the end (one
+`AttemptToExecuteTask`). A 0/1-item leftover keeps the original single, refs-
+cleared run, so the overwhelmingly common case (and SixSilverBullets' timer) stays
+byte-identical — the entire blast radius is "an event subevent fires in the same
+turn a multi-item `%objects%` command's final response reference still holds N>1
+items". The inline movement `SetTasks Execute ts_tasIncrement` (the big +30/+45/+66
+travel jumps, depth 0) is unaffected — it runs via the direct action path, not
+`attempt_event_task`.
+
+**Residual (Amazon 1): the title's 3-space `<center>` centring** — `Treasure Hunt
+in the Amazon` (flush-left) vs FD's `   Treasure Hunt in the Amazon`. The 3 spaces
+are NOT from the `<Title>` model field (no leading space) nor the headless EmitHtml
+(which drops `<center>`/`<c>`); they originate in the Introduction's
+`<cls><center><font size=40><c>Treasure Hunt…` first line, where FD's render path
+produces a centred (space-padded) title. A cosmetic `<center>`-width render detail,
+1 hunk; deferred (fragile to reproduce, depends on a console width).
+
 ## ⭐ Per-turn response aggregation on the movement path: `Execute Look` fires `Beforeplay1`, double-`Date:` dedups (Amazon)  ✅ DONE (2026-06-30)
 
 **TreasureHuntInTheAmazon 34→31** (both modes) — no corpus game moved in either
