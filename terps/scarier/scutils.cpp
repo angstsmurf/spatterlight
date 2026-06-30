@@ -36,8 +36,12 @@
 #ifdef SPATTERLIGHT
 /* In the Spatterlight build all randomness draws from the shared
    erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
-   the Scott, TaylorMade, Plus and Comprehend ports. */
+   the Scott, TaylorMade, Plus and Comprehend ports.  randomness.h declares
+   these as C functions and has no C++ linkage guards; this is a C++ translation
+   unit, so include it with C linkage to match the C-compiled randomness.o. */
+extern "C" {
 #include "randomness.h"
+}
 #endif
 
 

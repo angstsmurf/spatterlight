@@ -124,7 +124,7 @@ PasteboardFilePasteLocation;
     gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility"};
 
     gFormatMap = @{
-                   @"adrift" : @"scare",
+                   @"adrift" : @"scarier",
                    @"advsys" : @"advsys",
                    @"agt" : @"agility",
                    @"archetype" : @"archetype",

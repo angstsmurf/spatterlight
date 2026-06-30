@@ -40,6 +40,29 @@ extern char *a5run_input (a5_run_t *run, const char *line);
 /* Non-zero once an EndGame action has fired. */
 extern int a5run_is_over (a5_run_t *run);
 
+/* Status-line accessors.  a5run_location_name returns the current room NAME as
+   plain text (caller frees; NULL if unknown); the others read Adventure.Score /
+   MaxScore / Turns (0 when the game defines no Score/MaxScore variable). */
+extern char *a5run_location_name (a5_run_t *run);
+extern long  a5run_score         (a5_run_t *run);
+extern long  a5run_maxscore      (a5_run_t *run);
+extern int   a5run_turns         (a5_run_t *run);
+
+/* Embedded-media events produced by the most recent a5run_intro / a5run_input,
+   in display order, for the host to show images / play sounds.  `kind` is one of
+   the A5_MEDIA_* values (a5text.h); `number` is the Blorb resource number (from
+   <FileMappings>), or -1 when unresolved / for sound-stop.  The list is rebuilt
+   each turn; pointers from a5run_media_get are valid until the next turn. */
+typedef struct {
+  int kind;          /* A5_MEDIA_IMAGE / A5_MEDIA_SOUND / A5_MEDIA_SOUND_STOP    */
+  int number;        /* Blorb resource number, or -1                            */
+  int channel;       /* sound channel (audio), else 0                           */
+  int loop;          /* sound loop flag                                         */
+} a5_media_event_t;
+
+extern int                     a5run_media_count (a5_run_t *run);
+extern const a5_media_event_t *a5run_media_get   (a5_run_t *run, int i);
+
 /* Save/restore (Phase 5).  a5run_save serialises the full mutable runtime state
    -- object/character locations, variable values, completed tasks, property
    overrides, the "seen" sets, event/walk timers, displayed <DisplayOnce>

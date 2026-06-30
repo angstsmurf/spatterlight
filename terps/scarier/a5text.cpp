@@ -1833,6 +1833,58 @@ a5text_process_nocap (a5_state_t *st, const char *src)
   return persp;
 }
 
+/* ------------------------------------------------------- media side channel */
+
+static a5_media_cb a5_media_sink = NULL;
+static void *a5_media_sink_ctx = NULL;
+
+void
+a5text_set_media_sink (a5_media_cb cb, void *ctx)
+{
+  a5_media_sink = cb;
+  a5_media_sink_ctx = ctx;
+}
+
+/* Parse an <img>/<audio> tag body (without the angle brackets) and report it to
+   the installed media sink: src="..." (image/sound file), and for <audio> the
+   play/stop verb, channel=N and an optional loop flag. */
+static void
+a5_emit_media (const std::string &tag, int is_img)
+{
+  std::string src;
+  size_t sp = tag.find ("src=");
+  if (sp != std::string::npos)
+    {
+      sp += 4;
+      char quote = 0;
+      if (sp < tag.size () && (tag[sp] == '"' || tag[sp] == '\''))
+        quote = tag[sp++];
+      while (sp < tag.size ()
+             && (quote ? tag[sp] != quote : (tag[sp] != ' ' && tag[sp] != '>')))
+        src.push_back (tag[sp++]);
+    }
+
+  if (is_img)
+    {
+      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_IMAGE, src.c_str (), 0, 0);
+      return;
+    }
+
+  /* <audio>: play (default) or stop, with channel=N and optional loop. */
+  {
+    int is_stop = tag.find ("stop") != std::string::npos;
+    int loop = tag.find ("loop") != std::string::npos;
+    int channel = 0;
+    size_t cp = tag.find ("channel=");
+    if (cp != std::string::npos)
+      channel = atoi (tag.c_str () + cp + 8);
+    if (is_stop)
+      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_STOP, NULL, channel, 0);
+    else
+      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND, src.c_str (), channel, loop);
+  }
+}
+
 /* ----------------------------------------------------------- plain renderer */
 
 char *
@@ -1856,11 +1908,20 @@ a5text_render_plain (const char *src)
               q++;
             }
           tag[tl] = '\0';
+          const char *tagend = q;     /* at '>' or '\0' */
           if (*q == '>')
             q++;
-          if (strcmp (tag, "br") == 0)
+          /* Tag name = the leading non-space run (img, audio, br, cls, ...). */
+          char name[16];
+          {
+            size_t k = 0;
+            while (tag[k] != '\0' && tag[k] != ' ' && k + 1 < sizeof name)
+              { name[k] = tag[k]; k++; }
+            name[k] = '\0';
+          }
+          if (strcmp (name, "br") == 0)
             sb_putc (&sb, '\n');
-          else if (strcmp (tag, "cls") == 0)
+          else if (strcmp (name, "cls") == 0)
             {
               /* Screen clear: drop everything buffered so far, mirroring the
                  GlkHtmlWin / FrankenDrift.Headless handling of <cls>.  An Anno
@@ -1869,6 +1930,11 @@ a5text_render_plain (const char *src)
               sb.len = 0;
               if (sb.p != NULL) sb.p[0] = '\0';
             }
+          else if (a5_media_sink != NULL
+                   && (strcmp (name, "img") == 0 || strcmp (name, "audio") == 0))
+            /* Embedded media: report it out of band; it still drops from the
+               plain text (so the text output is unchanged). */
+            a5_emit_media (std::string (p + 1, tagend), strcmp (name, "img") == 0);
           /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...) drops */
           p = q;
           continue;

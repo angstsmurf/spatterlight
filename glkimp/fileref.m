@@ -13,7 +13,7 @@ static void setdefaultworkdir(char **string)
     *string = NULL;
     @autoreleasepool {
 
-        NSDictionary *gFolderMap = @{@"scare": @"SCARE",
+        NSDictionary *gFolderMap = @{@"scarier": @"SCARE",
                                      @"advsys": @"AdvSys",
                                      @"agility": @"AGiliTy",
                                      @"alan": @"Alan 2",

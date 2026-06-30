@@ -51,6 +51,20 @@ extern char *a5text_eval_expression (a5_state_t *st, const char *expr);
 extern char *a5text_render_plain (const char *src);
 
 /*
+ * Embedded-media side channel.  ADRIFT 5 embeds graphics/sound in description
+ * text as <img src="..."> and <audio play|stop src="..." channel=N> tags.
+ * a5text_render_plain always drops these from the plain text (so the text output
+ * stays byte-identical), but when a media sink is installed it also reports each
+ * one, so the host (Glk driver) can show images / play sounds out of band.  src
+ * is the original file path (resolve via a5model_resource_for_file); channel/loop
+ * apply to sound.  A NULL callback (the default) disables reporting.
+ */
+enum { A5_MEDIA_IMAGE = 1, A5_MEDIA_SOUND = 2, A5_MEDIA_SOUND_STOP = 3 };
+typedef void (*a5_media_cb) (void *ctx, int kind, const char *src,
+                             int channel, int loop);
+extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
+
+/*
  * The Display() ALR boundary (clsUserSession.Display -> Global.ReplaceALRs):
  * apply the game's ALR ("Text Override") substitutions + auto-capitalisation to
  * an already-assembled, already-plain turn output, then render any markup an ALR

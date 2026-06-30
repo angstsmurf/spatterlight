@@ -1,4 +1,0 @@
-take cone
-scoop ice cream
-put ice cream in cone
-give cone to customer

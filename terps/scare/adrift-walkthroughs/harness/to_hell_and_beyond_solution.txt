@@ -1,3 +1,0 @@
-greet zifan
-open door
-s

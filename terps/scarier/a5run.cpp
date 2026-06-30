@@ -198,6 +198,9 @@ struct resp_map;   /* per-top-level-command response collector (htblResponses) *
 struct a5_run_s {
   const a5_adventure_t *adv;
   a5_state_t *st;
+  /* Embedded-media events captured from this turn's rendered text (a5text media
+     sink); rebuilt each a5run_intro / a5run_input.  See a5run_media_* . */
+  std::vector<a5_media_event_t> *media;
   std::vector<int> *order;   /* task indices, ascending priority */
 
   /* FrankenDrift's per-top-level-command response aggregation layer
@@ -311,6 +314,86 @@ a5run_state (a5_run_t *run) { return run->st; }
 int
 a5run_is_over (a5_run_t *run) { return run->st->game_over; }
 
+/* ----------------------------------------------------- status-line accessors */
+
+/* The player's current location short description (room NAME) as plain text,
+   caller frees; NULL if the location is unknown. */
+char *
+a5run_location_name (a5_run_t *run)
+{
+  const char *loc = a5state_player_location (run->st);
+  if (loc == NULL)
+    return NULL;
+  return a5text_location_short_plain (run->st, loc);
+}
+
+/* Adventure.Score / MaxScore (FD reads htblVariables("Score"/"MaxScore"); see
+   emit_endgame).  0 when the game defines no such variable. */
+long
+a5run_score (a5_run_t *run)
+{
+  int i = a5state_variable_index (run->st, "Score");
+  return i >= 0 ? run->st->var_num[i] : 0;
+}
+
+long
+a5run_maxscore (a5_run_t *run)
+{
+  int i = a5state_variable_index (run->st, "MaxScore");
+  return i >= 0 ? run->st->var_num[i] : 0;
+}
+
+int
+a5run_turns (a5_run_t *run) { return run->st->turns; }
+
+/* ------------------------------------------------------------- media capture */
+
+/* a5text media sink: resolve the src path to a Blorb resource number (via the
+   game's <FileMappings>) and record the event on the run's per-turn list. */
+static void
+a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
+{
+  a5_run_t *run = (a5_run_t *) ctx;
+  a5_media_event_t ev;
+  ev.kind = kind;
+  ev.channel = channel;
+  ev.loop = loop;
+  ev.number = (src != NULL) ? a5model_resource_for_file (run->adv, src) : -1;
+  /* A description may be rendered more than once internally during a turn; drop
+     an image already recorded this turn so it is not shown twice. */
+  if (kind == A5_MEDIA_IMAGE)
+    for (size_t i = 0; i < run->media->size (); i++)
+      if ((*run->media)[i].kind == A5_MEDIA_IMAGE
+          && (*run->media)[i].number == ev.number)
+        return;
+  run->media->push_back (ev);
+}
+
+/* Install/remove the media sink around a turn's text generation. */
+static void
+a5run_media_begin (a5_run_t *run)
+{
+  run->media->clear ();
+  a5text_set_media_sink (a5run_media_cb, run);
+}
+
+static void
+a5run_media_end (void)
+{
+  a5text_set_media_sink (NULL, NULL);
+}
+
+int
+a5run_media_count (a5_run_t *run) { return (int) run->media->size (); }
+
+const a5_media_event_t *
+a5run_media_get (a5_run_t *run, int i)
+{
+  if (i < 0 || (size_t) i >= run->media->size ())
+    return NULL;
+  return &(*run->media)[i];
+}
+
 a5_run_t *
 a5run_new (const a5_adventure_t *adv)
 {
@@ -337,6 +420,7 @@ a5run_new (const a5_adventure_t *adv)
   run = new a5_run_s;
   run->adv = adv;
   run->st = a5state_new (adv);
+  run->media = new std::vector<a5_media_event_t>;
   run->order = new std::vector<int>;
   run->events = new std::vector<a5_event_rt> (adv->n_events);
   run->events_running = 0;
@@ -404,6 +488,7 @@ a5run_free (a5_run_t *run)
   if (run == NULL)
     return;
   a5state_free (run->st);
+  delete run->media;
   delete run->order;
   delete run->events;
   delete run->walks;
@@ -4994,7 +5079,7 @@ finish_turn (a5_run_t *run, sb_t *out)
   if (run->st->game_over && !run->st->end_displayed)
     emit_endgame (run, out);
   raw = sb_take (out);
-  fin = a5text_display_alr (run->st, raw);
+  fin = a5text_display_alr (run->st, raw);   /* may render ALR <img>/<audio> too */
   free (raw);
   /* Normalise only the very end of the turn: FD's pSpace model leaves a message
      ending in trailing spaces or a paragraph break, and FD then appends its own
@@ -5014,6 +5099,7 @@ finish_turn (a5_run_t *run, sb_t *out)
     }
   else if (fin != NULL)
     fin[0] = '\0';
+  a5run_media_end ();
   return fin;
 }
 
@@ -5051,6 +5137,7 @@ a5run_intro (a5_run_t *run)
   sb_t out;
   char *intro, *look;
   sb_init (&out);
+  a5run_media_begin (run);
   /*
    * "Adventure Upgrade" auto-correct prompt (FileIO.vb:634).  When the file
    * format version is older than 5.0.26 and any task carries an "#A#O#"
@@ -5600,6 +5687,7 @@ a5run_input (a5_run_t *run, const char *line)
   amb_info amb;
 
   sb_init (&out);
+  a5run_media_begin (run);
   /* trim */
   {
     size_t a = in.find_first_not_of (" \t");

@@ -317,19 +317,10 @@ void freeContext(void **ctx) {
             return nil;
         }
 
-        if ([executable.chunkType isEqualToString:@"ADRI"]) {
-            if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Unsupported format.", nil);
-                    alert.informativeText = NSLocalizedString(@"Adrift 5 games are not supported.", nil);
-                    [alert runModal];
-                });
-            } else {
-                NSLog(@"Adrift 5 games are not supported.");
-            }
-            return nil;
-        }
+        // ADRIFT games shipped in a Blorb (an ADRI executable chunk) are
+        // identified by the normal babel pass below: babel/blorb.c maps the
+        // ADRI chunk to the "adrift" format and reads the IFID/metadata from
+        // the IFmd chunk, and the scarier terp plays the Blorb directly.
     }
 
     if (!directAGT) {

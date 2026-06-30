@@ -260,6 +260,16 @@ typedef struct a5_udf_s {
   const a5_xml_node_t *node;
 } a5_udf_t;
 
+/* <FileMappings>/<Mapping>: maps an embedded-media resource number (the number
+   used by <img src>/<audio src> references, via the original file path) to the
+   Blorb resource number.  In ADRIFT 5 Blorbs the <Resource> number IS the Blorb
+   resource number (a single sequence shared across Pict and Snd usages), so the
+   driver loads giblorb (Pict|Snd, number) directly. */
+typedef struct a5_filemap_s {
+  int number;                       /* <Resource> (== Blorb resource number)  */
+  const char *file;                 /* <File> original path (aliases the doc)  */
+} a5_filemap_t;
+
 typedef struct a5_adventure_s {
   a5_xml_doc_t *doc;                /* owned                                 */
   const a5_xml_node_t *root;
@@ -304,6 +314,7 @@ typedef struct a5_adventure_s {
   a5_propdef_t   *propdefs;   int n_propdefs;
   a5_alr_t       *alrs;       int n_alrs;
   a5_udf_t       *udfs;       int n_udfs;
+  a5_filemap_t   *filemaps;   int n_filemaps;
 } a5_adventure_t;
 
 /* Build the model from an already-parsed doc (takes ownership of doc). */
@@ -325,5 +336,10 @@ extern const a5_character_t *a5model_character (const a5_adventure_t *a, const c
 extern const a5_task_t      *a5model_task      (const a5_adventure_t *a, const char *key);
 extern const a5_variable_t  *a5model_variable  (const a5_adventure_t *a, const char *key);
 extern const a5_propdef_t   *a5model_propdef   (const a5_adventure_t *a, const char *key);
+
+/* Resolve an <img>/<audio> src reference (an original file path) to its Blorb
+   resource number via <FileMappings>, matching on the path's basename.  Returns
+   -1 when there is no matching mapping. */
+extern int a5model_resource_for_file (const a5_adventure_t *a, const char *src);
 
 #endif

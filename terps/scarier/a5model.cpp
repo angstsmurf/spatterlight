@@ -745,7 +745,62 @@ a5_load_udfs (a5_adventure_t *a)
     }
 }
 
+static void
+a5_load_filemappings (a5_adventure_t *a)
+{
+  a5_xml_node_t *fm, *c;
+  int i = 0;
+  fm = a5xml_child (a->root, "FileMappings");
+  if (fm == NULL)
+    return;
+  a->n_filemaps = a5xml_count (fm, "Mapping");
+  if (a->n_filemaps == 0)
+    return;
+  a->filemaps = (a5_filemap_t *) calloc ((size_t) a->n_filemaps, sizeof *a->filemaps);
+  for (c = fm->first_child; c != NULL; c = c->next)
+    {
+      const char *num;
+      a5_filemap_t *m;
+      if (strcmp (c->name, "Mapping") != 0)
+        continue;
+      m = &a->filemaps[i++];
+      num = a5xml_child_text (c, "Resource");
+      m->number = num != NULL ? atoi (num) : -1;
+      m->file = a5xml_child_text (c, "File");
+    }
+}
+
+/* The basename of an original (usually Windows) media path. */
+static const char *
+a5_path_basename (const char *path)
+{
+  const char *base = path, *p;
+  if (path == NULL)
+    return NULL;
+  for (p = path; *p != '\0'; p++)
+    if (*p == '\\' || *p == '/')
+      base = p + 1;
+  return base;
+}
+
 /* ------------------------------------------------------------------- public */
+
+int
+a5model_resource_for_file (const a5_adventure_t *a, const char *src)
+{
+  const char *sbase;
+  int i;
+  if (a == NULL || src == NULL)
+    return -1;
+  sbase = a5_path_basename (src);
+  for (i = 0; i < a->n_filemaps; i++)
+    {
+      const char *fbase = a5_path_basename (a->filemaps[i].file);
+      if (fbase != NULL && strcasecmp (fbase, sbase) == 0)
+        return a->filemaps[i].number;
+    }
+  return -1;
+}
 
 a5_adventure_t *
 a5model_from_doc (a5_xml_doc_t *doc)
@@ -825,6 +880,7 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a5_apply_group_properties (a);
   a5_load_alrs (a);
   a5_load_udfs (a);
+  a5_load_filemappings (a);
   return a;
 }
 
@@ -957,6 +1013,7 @@ a5model_free (a5_adventure_t *a)
   free (a->propdefs);
   free (a->alrs);
   free (a->udfs);
+  free (a->filemaps);
   a5xml_free (a->doc);
   free (a);
 }

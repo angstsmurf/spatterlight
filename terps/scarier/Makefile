@@ -86,6 +86,13 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
 HEADERS	= scarier.h scprotos.h scgamest.h
 
+# ADRIFT 5 engine objects and headers (driven by os_glk.cpp via gsc_a5_main
+# when the loaded file is an ADRIFT 5 game).
+A5OBJECTS = a5blorb.o a5deobf.o a5xml.o a5model.o a5state.o a5restr.o	\
+	  a5expr.o a5sexpr.o a5text.o a5parse.o a5rand.o a5arith.o a5run.o
+A5HEADERS = a5blorb.h a5deobf.h a5xml.h a5model.h a5state.h a5restr.h	\
+	  a5expr.h a5sexpr.h a5text.h a5parse.h a5rand.h a5arith.h a5run.h
+
 # Scarier verifier objects and headers.
 XOBJECTS= sxmain.o sxutils.o sxglob.o sxtester.o sxscript.o sxfile.o	\
 	  sxstubs.o
@@ -121,13 +128,15 @@ sx: $(ZOBJECTS) $(OBJECTS) $(XOBJECTS)
 	$(CXX) $(LDFLAGS) -o sx $(OBJECTS) $(ZOBJECTS) $(XOBJECTS) $(LDLIBS)
 
 # Option to build the Glk port of Scarier.
-glkscarier: $(ZOBJECTS) $(OBJECTS) os_glk.o
+glkscarier: $(ZOBJECTS) $(OBJECTS) $(A5OBJECTS) os_glk.o
 	@$(TEST) -n "$(GLKLIB)" \
 		|| ( echo "Could not include $(GLKPATH)/Make.$(GLK)"; exit 1 )
-	$(CXX) $(LDFLAGS) -o glkscarier $(OBJECTS) $(ZOBJECTS) os_glk.o	\
-		$(LDLIBS) $(GLKLIBS)
+	$(CXX) $(LDFLAGS) -o glkscarier $(OBJECTS) $(ZOBJECTS) $(A5OBJECTS)	\
+		os_glk.o $(LDLIBS) $(GLKLIBS)
 
-os_glk.o: os_glk.cpp $(HEADERS)
+$(A5OBJECTS): $(A5HEADERS)
+
+os_glk.o: os_glk.cpp $(HEADERS) $(A5HEADERS)
 	$(CXX) $(GLKARCH) $(CXXFLAGS) -Wno-write-strings			\
 		-I $(GLKDIR)/$(GLK) -c -o $@ $<
 

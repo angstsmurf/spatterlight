@@ -33,14 +33,24 @@
 #include <string.h>
 
 #include "scarier.h"
+
+/* The Glk headers and the glkimp host symbols (glk_*, garglk_*, glkunix_*,
+ * gli_determinism, win_*) are C; this is a C++ translation unit, so include
+ * them with C linkage.  This also gives the glk_main / glkunix_startup_code /
+ * glkunix_arguments definitions below C linkage so the C glkimp host can find
+ * them (matching the bocfel / geas C++ ports). */
+extern "C" {
 #include "glk.h"
+}
 
 #if defined (SPATTERLIGHT)
-extern glui32 gli_determinism;
+extern "C" glui32 gli_determinism;
 #endif
 
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
+extern "C" {
 #include "gi_blorb.h"
+}
 
 char gamefile[1024];
 
@@ -59,6 +69,21 @@ static const char *find_last_of(const char *str, const char *chars)
 #endif
 
 #include "scprotos.h" /* for SCARIER_VERSION */
+
+/* ADRIFT 5 engine -- driven by the dedicated a5 Glk loop (gsc_a5_main) when
+ * the game file is detected as ADRIFT 5 rather than ADRIFT <=4. */
+#include "a5model.h"
+#include "a5run.h"
+#include "a5state.h"
+#include "a5text.h"          /* A5_MEDIA_* kinds */
+
+/* Blorb resource map, for ADRIFT 5 graphics/sound (the game file is a Blorb).
+ * Included unconditionally here -- the GARGLK block below only includes it when
+ * GLK_MODULE_GARGLK_FILE_RESOURCES is defined, which the Spatterlight build is
+ * not; gi_blorb.h has its own include guard so this is a no-op when it is. */
+extern "C" {
+#include "gi_blorb.h"
+}
 
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
@@ -101,6 +126,15 @@ static int gsc_commands_enabled = TRUE,
 
 /* Adrift game to interpret. */
 static scr_game gsc_game = NULL;
+
+/* ADRIFT 5 game.  When the file loaded at startup is an ADRIFT 5 game,
+ * gsc_a5_adv holds the parsed adventure and gsc_is_a5 is set; glk_main then
+ * runs the dedicated a5 turn loop (gsc_a5_main) instead of the scare engine.
+ * gsc_game_path is the on-disk path, needed by a5model_load (which reads the
+ * file itself rather than via a Glk stream). */
+static char gsc_game_path[2048];
+static a5_adventure_t *gsc_a5_adv = NULL;
+static int gsc_is_a5 = FALSE;
 
 /* Special out-of-band os_confirm() options used locally with os_glk. */
 static const scr_int GSC_CONF_SUBTLE_HINT = INT_MAX,
@@ -175,6 +209,26 @@ gsc_malloc (size_t size)
     }
 
   return pointer;
+}
+
+/*
+ * gsc_realloc()
+ *
+ * Non-failing realloc; call gsc_fatal and exit if memory allocation fails.
+ */
+static void *
+gsc_realloc (void *pointer, size_t size)
+{
+  void *result;
+
+  result = realloc (pointer, size > 0 ? size : 1);
+  if (!result)
+    {
+      gsc_fatal ("GLK: Out of system memory");
+      glk_exit ();
+    }
+
+  return result;
 }
 
 
@@ -1821,11 +1875,11 @@ os_stop_sound (void)
  * the Spatterlight Glk image/sound cache via win_loadimage/win_loadsound
  * and then dispatch through the standard Glk drawing/playing routines.
  */
-extern char *gli_game_path;
-extern int  win_findimage (int resno);
-extern void win_loadimage (int resno, const char *filename, int offset, int reslen);
-extern int  win_findsound (int resno);
-extern void win_loadsound (int resno, char *filename, int offset, int reslen);
+extern "C" char *gli_game_path;
+extern "C" int  win_findimage (int resno);
+extern "C" void win_loadimage (int resno, const char *filename, int offset, int reslen);
+extern "C" int  win_findsound (int resno);
+extern "C" void win_loadsound (int resno, char *filename, int offset, int reslen);
 
 static glui32
 gsc_resource_id (scr_int offset, scr_int length)
@@ -3796,6 +3850,38 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       scr_reseed_random_sequence (1);
     }
 
+  /*
+   * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
+   * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the scare engine
+   * reads.  a5model_load returns NULL cleanly for a non-ADRIFT-5 file, so we
+   * try it first; on success we run the dedicated a5 turn loop (gsc_a5_main)
+   * and skip the scare path entirely.  a5model_load reads the file by path, so
+   * this requires gsc_game_path to have been set by the startup code.
+   */
+  if (gsc_game_path[0] != '\0')
+    {
+      gsc_a5_adv = a5model_load (gsc_game_path);
+      if (gsc_a5_adv)
+        {
+          gsc_is_a5 = TRUE;
+          gsc_game = NULL;
+          gsc_game_message = NULL;
+          glk_stream_close (game_stream, NULL);
+          if (restore_stream)
+            glk_stream_close (restore_stream, NULL);
+          if (window)
+            glk_window_close (window, NULL);
+#ifdef GARGLK
+          if (gsc_a5_adv->title && gsc_a5_adv->title[0])
+            {
+              garglk_set_story_name (gsc_a5_adv->title);
+              garglk_set_story_title (gsc_a5_adv->title);
+            }
+#endif
+          return TRUE;
+        }
+    }
+
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
     {
@@ -3983,6 +4069,584 @@ gsc_main (void)
 static int gsc_startup_called = FALSE,
            gsc_main_called = FALSE;
 
+/*---------------------------------------------------------------------*/
+/*  ADRIFT 5 Glk driver                                                */
+/*                                                                     */
+/*  A minimal text-buffer turn loop over the a5 engine (a5run_*).  The */
+/*  a5 engine produces plain UTF-8 text; meta-commands (quit, restart, */
+/*  save, restore) are handled here at the host level since the engine */
+/*  does not interpret them itself.                                    */
+/*---------------------------------------------------------------------*/
+
+/*
+ * gsc_a5_put_string()
+ *
+ * Print a NUL-terminated UTF-8 string from the a5 engine to the current Glk
+ * window, decoding to Unicode code points so non-ASCII text (smart quotes,
+ * accented letters) renders correctly.  Falls back to raw output if the Glk
+ * library has no Unicode support.
+ */
+static void
+gsc_a5_put_string (const char *string)
+{
+  const unsigned char *p = (const unsigned char *) string;
+
+  if (string == NULL)
+    return;
+  if (!gsc_unicode_enabled)
+    {
+      glk_put_string ((char *) string);
+      return;
+    }
+
+  while (*p)
+    {
+      glui32 c = *p++;
+      int extra;
+
+      if (c < 0x80)
+        extra = 0;
+      else if ((c & 0xe0) == 0xc0)
+        { c &= 0x1f; extra = 1; }
+      else if ((c & 0xf0) == 0xe0)
+        { c &= 0x0f; extra = 2; }
+      else if ((c & 0xf8) == 0xf0)
+        { c &= 0x07; extra = 3; }
+      else
+        { c = '?'; extra = 0; }   /* invalid lead byte */
+
+      while (extra-- > 0 && (*p & 0xc0) == 0x80)
+        c = (c << 6) | (*p++ & 0x3f);
+
+      glk_put_char_uni (c);
+    }
+}
+
+/*
+ * gsc_a5_read_line()
+ *
+ * Read a line of player input into buf as UTF-8 (so accented input round-trips
+ * to the a5 parser).  Returns the byte length stored.  Reuses gsc_event_wait so
+ * window resize / redraw events are handled while waiting.
+ */
+static int
+gsc_a5_read_line (char *buf, int bufsize)
+{
+  event_t event;
+  int n = 0;
+
+  if (gsc_unicode_enabled)
+    {
+      const glui32 cap = 256;
+      glui32 *unicode = (glui32 *) gsc_malloc (cap * sizeof (*unicode));
+      glui32 i;
+
+      memset (unicode, 0, cap * sizeof (*unicode));
+      glk_request_line_event_uni (gsc_main_window, unicode, cap, 0);
+      gsc_event_wait (evtype_LineInput, &event);
+
+      for (i = 0; i < event.val1; i++)
+        {
+          glui32 c = unicode[i];
+
+          if (c < 0x80 && n < bufsize - 1)
+            buf[n++] = (char) c;
+          else if (c < 0x800 && n < bufsize - 2)
+            {
+              buf[n++] = (char) (0xc0 | (c >> 6));
+              buf[n++] = (char) (0x80 | (c & 0x3f));
+            }
+          else if (c < 0x10000 && n < bufsize - 3)
+            {
+              buf[n++] = (char) (0xe0 | (c >> 12));
+              buf[n++] = (char) (0x80 | ((c >> 6) & 0x3f));
+              buf[n++] = (char) (0x80 | (c & 0x3f));
+            }
+          else if (n < bufsize - 4)
+            {
+              buf[n++] = (char) (0xf0 | (c >> 18));
+              buf[n++] = (char) (0x80 | ((c >> 12) & 0x3f));
+              buf[n++] = (char) (0x80 | ((c >> 6) & 0x3f));
+              buf[n++] = (char) (0x80 | (c & 0x3f));
+            }
+        }
+      free (unicode);
+    }
+  else
+    {
+      glk_request_line_event (gsc_main_window, buf, bufsize - 1, 0);
+      gsc_event_wait (evtype_LineInput, &event);
+      n = event.val1;
+    }
+
+  buf[n] = '\0';
+  return n;
+}
+
+/*
+ * gsc_a5_match_command()
+ *
+ * Case-insensitively test whether the player input (after trimming surrounding
+ * whitespace) equals the given meta-command word.
+ */
+static int
+gsc_a5_match_command (const char *input, const char *command)
+{
+  while (*input == ' ' || *input == '\t')
+    input++;
+  while (*input && *command)
+    {
+      if (glk_char_to_lower ((unsigned char) *input) != (unsigned char) *command)
+        return FALSE;
+      input++;
+      command++;
+    }
+  while (*input == ' ' || *input == '\t')
+    input++;
+  return *input == '\0' && *command == '\0';
+}
+
+/*
+ * gsc_a5_save()
+ *
+ * Serialise the a5 runtime state (a5run_save -> XML body) to a Glk-prompted
+ * save file.
+ */
+static void
+gsc_a5_save (a5_run_t *run)
+{
+  frefid_t fileref;
+  strid_t stream;
+  char *blob;
+  size_t length = 0;
+
+  fileref = glk_fileref_create_by_prompt (fileusage_SavedGame | fileusage_BinaryMode,
+                                          filemode_Write, 0);
+  if (!fileref)
+    {
+      gsc_a5_put_string ("Save cancelled.\n");
+      return;
+    }
+
+  blob = a5run_save (run, &length);
+  if (!blob)
+    {
+      glk_fileref_destroy (fileref);
+      gsc_a5_put_string ("Save failed.\n");
+      return;
+    }
+
+  stream = glk_stream_open_file (fileref, filemode_Write, 0);
+  glk_fileref_destroy (fileref);
+  if (!stream)
+    {
+      free (blob);
+      gsc_a5_put_string ("Save failed.\n");
+      return;
+    }
+
+  glk_put_buffer_stream (stream, blob, (glui32) length);
+  glk_stream_close (stream, NULL);
+  free (blob);
+  gsc_a5_put_string ("Game saved.\n");
+}
+
+/*
+ * gsc_a5_restore()
+ *
+ * Read a Glk-prompted save file and apply it to the run with a5run_restore.
+ * Returns TRUE on success.
+ */
+static int
+gsc_a5_restore (a5_run_t *run)
+{
+  frefid_t fileref;
+  strid_t stream;
+  char *buffer;
+  glui32 capacity, total;
+  int ok;
+
+  fileref = glk_fileref_create_by_prompt (fileusage_SavedGame | fileusage_BinaryMode,
+                                          filemode_Read, 0);
+  if (!fileref)
+    return FALSE;
+
+  stream = glk_stream_open_file (fileref, filemode_Read, 0);
+  glk_fileref_destroy (fileref);
+  if (!stream)
+    return FALSE;
+
+  capacity = 65536;
+  buffer = (char *) gsc_malloc (capacity);
+  total = 0;
+  for (;;)
+    {
+      glui32 got = glk_get_buffer_stream (stream, buffer + total, capacity - total);
+      total += got;
+      if (total < capacity)
+        break;
+      capacity *= 2;
+      buffer = (char *) gsc_realloc (buffer, capacity);
+    }
+  glk_stream_close (stream, NULL);
+
+  ok = a5run_restore (run, buffer, total);
+  free (buffer);
+  return ok;
+}
+
+/*---------------------------------------------------------------------*/
+/*  ADRIFT 5 graphics + sound                                          */
+/*                                                                     */
+/*  The game file is a Blorb; its Pict/Snd resources are addressed by  */
+/*  the same numbers the engine reports through the media side channel */
+/*  (a5run_media_*).  We register the Blorb as the Glk resource map so */
+/*  glk_image_draw / glk_schannel_play work by resource number.        */
+/*---------------------------------------------------------------------*/
+
+static int gsc_a5_graphics_ok = FALSE;
+static int gsc_a5_sound_ok = FALSE;
+
+/* One Glk sound channel per ADRIFT audio channel. */
+enum { GSC_A5_MAX_CHANNELS = 16 };
+static schanid_t gsc_a5_channels[GSC_A5_MAX_CHANNELS];
+
+/* Declared in glkstart.h, which is included further down (in the UNIX linkage
+ * section); forward-declared here so the resource setup above it can open the
+ * game file as a Glk stream for giblorb. */
+extern "C" strid_t glkunix_stream_open_pathname (char *pathname,
+                                                 glui32 textmode, glui32 rock);
+
+/*
+ * gsc_a5_init_resources()
+ *
+ * Probe for graphics/sound support and register the game Blorb as the Glk
+ * resource map, so image/sound resources can be addressed by Blorb number.
+ */
+static void
+gsc_a5_init_resources (void)
+{
+  strid_t stream;
+
+  gsc_a5_graphics_ok = glk_gestalt (gestalt_Graphics, 0) != 0;
+  gsc_a5_sound_ok = glk_gestalt (gestalt_Sound, 0) != 0;
+  if ((!gsc_a5_graphics_ok && !gsc_a5_sound_ok) || gsc_game_path[0] == '\0')
+    return;
+
+  stream = glkunix_stream_open_pathname (gsc_game_path, FALSE, 0);
+  if (stream != NULL && giblorb_set_resource_map (stream) != giblorb_err_None)
+    {
+      /* Not a Blorb (e.g. a raw .taf with no resources): no media. */
+      glk_stream_close (stream, NULL);
+      gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
+    }
+}
+
+/*
+ * gsc_a5_draw_image()
+ *
+ * Draw Blorb Pict resource `number` centred on its own line in the story window.
+ * Returns TRUE if an image was actually drawn.
+ */
+static int
+gsc_a5_draw_image (glui32 number)
+{
+  glui32 width = 0, height = 0;
+
+  if (!gsc_a5_graphics_ok || number == 0)
+    return FALSE;
+  if (!glk_image_get_info (number, &width, &height))
+    return FALSE;
+  glk_window_flow_break (gsc_main_window);
+  gsc_a5_put_string ("\n");
+  glk_image_draw (gsc_main_window, number, imagealign_InlineCenter, 0);
+  gsc_a5_put_string ("\n");
+  return TRUE;
+}
+
+/*
+ * gsc_a5_show_media()
+ *
+ * Present the media events the engine collected for the turn just rendered:
+ * draw images, and start/stop sounds on their channels.  Returns the number of
+ * images drawn (so the caller can decide whether to fall back to the cover).
+ */
+static int
+gsc_a5_show_media (a5_run_t *run)
+{
+  int n = a5run_media_count (run), i, images = 0;
+
+  for (i = 0; i < n; i++)
+    {
+      const a5_media_event_t *m = a5run_media_get (run, i);
+
+      if (m->kind == A5_MEDIA_IMAGE)
+        {
+          if (gsc_a5_draw_image ((glui32) m->number))
+            images++;
+        }
+      else if (gsc_a5_sound_ok)
+        {
+          int ch = (m->channel >= 0 && m->channel < GSC_A5_MAX_CHANNELS)
+                   ? m->channel : 0;
+          if (gsc_a5_channels[ch] == NULL)
+            gsc_a5_channels[ch] = glk_schannel_create ((glui32) ch);
+          if (gsc_a5_channels[ch] == NULL)
+            continue;
+          if (m->kind == A5_MEDIA_SOUND_STOP)
+            glk_schannel_stop (gsc_a5_channels[ch]);
+          else if (m->number > 0)
+            glk_schannel_play_ext (gsc_a5_channels[ch], (glui32) m->number,
+                                   m->loop ? 0xffffffffu : 1, 0);
+        }
+    }
+  return images;
+}
+
+/*
+ * gsc_a5_show_cover()
+ *
+ * Draw the Blorb frontispiece (cover) image.  Used only when a game's intro
+ * does not itself embed any image, so the cover is not shown twice.
+ */
+static void
+gsc_a5_show_cover (void)
+{
+  giblorb_map_t *map;
+  giblorb_result_t chunk;
+  const unsigned char *p;
+
+  if (!gsc_a5_graphics_ok)
+    return;
+  map = giblorb_get_resource_map ();
+  if (map == NULL)
+    return;
+  if (giblorb_load_chunk_by_type (map, giblorb_method_Memory, &chunk,
+                                  giblorb_make_id ('F', 's', 'p', 'c'), 0)
+      != giblorb_err_None)
+    return;
+  if (chunk.length >= 4 && chunk.data.ptr != NULL)
+    {
+      p = (const unsigned char *) chunk.data.ptr;
+      gsc_a5_draw_image (((glui32) p[0] << 24) | ((glui32) p[1] << 16)
+                         | ((glui32) p[2] << 8) | (glui32) p[3]);
+    }
+  giblorb_unload_chunk (map, chunk.chunknum);
+}
+
+/*
+ * gsc_a5_present_intro_media()
+ *
+ * Show the intro's media; if the intro embedded no image of its own, fall back
+ * to the cover so a game with only a frontispiece still shows it.
+ */
+static void
+gsc_a5_present_intro_media (a5_run_t *run)
+{
+  if (gsc_a5_show_media (run) == 0)
+    gsc_a5_show_cover ();
+}
+
+/*
+ * gsc_a5_status()
+ *
+ * Redraw the one-line status window: the current room name at the left, and the
+ * score (when the game keeps a Score variable) plus move count at the right.
+ */
+static void
+gsc_a5_status (a5_run_t *run)
+{
+  glui32 width, height;
+  char *room;
+  char right[96];
+  long score, maxscore;
+  size_t rlen;
+
+  if (!gsc_status_window)
+    return;
+
+  glk_window_get_size (gsc_status_window, &width, &height);
+  glk_window_clear (gsc_status_window);
+  glk_set_window (gsc_status_window);
+  glk_set_style (style_User1);
+
+  /* Fill the bar so the reverse-video background spans the whole width. */
+  glk_window_move_cursor (gsc_status_window, 0, 0);
+  for (glui32 i = 0; i < width; i++)
+    glk_put_char (' ');
+
+  /* Right-hand score / moves. */
+  score = a5run_score (run);
+  maxscore = a5run_maxscore (run);
+  if (maxscore > 0)
+    snprintf (right, sizeof right, "Score: %ld/%ld  Moves: %d",
+              score, maxscore, a5run_turns (run));
+  else if (score != 0)
+    snprintf (right, sizeof right, "Score: %ld  Moves: %d",
+              score, a5run_turns (run));
+  else
+    snprintf (right, sizeof right, "Moves: %d", a5run_turns (run));
+
+  /* Room name at the left. */
+  glk_window_move_cursor (gsc_status_window, 1, 0);
+  room = a5run_location_name (run);
+  if (room)
+    {
+      gsc_a5_put_string (room);
+      free (room);
+    }
+
+  /* Right-justified score/moves, if it fits. */
+  rlen = strlen (right);
+  if (width > rlen + 2)
+    {
+      glk_window_move_cursor (gsc_status_window, width - (glui32) rlen - 1, 0);
+      glk_put_string (right);
+    }
+
+  glk_set_window (gsc_main_window);
+}
+
+/*
+ * gsc_a5_main()
+ *
+ * Run the ADRIFT 5 game in a single text-buffer window: print the intro, then
+ * loop reading commands and printing each turn's output, handling the host
+ * meta-commands and end-of-game.
+ */
+static void
+gsc_a5_main (void)
+{
+  a5_run_t *run;
+  char *text;
+  char input[1024];
+
+  gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+  if (!gsc_main_window)
+    {
+      gsc_fatal ("GLK: Can't open main window");
+      glk_exit ();
+    }
+  glk_window_clear (gsc_main_window);
+
+  /* One-line reverse-video status window above the story window. */
+  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+  gsc_status_window = glk_window_open (gsc_main_window,
+                                       winmethod_Above | winmethod_Fixed,
+                                       1, wintype_TextGrid, 0);
+
+  glk_set_window (gsc_main_window);
+  glk_set_style (style_Normal);
+
+  /* Register the game Blorb for image/sound resources. */
+  gsc_a5_init_resources ();
+
+  if (!gsc_a5_adv)
+    {
+      gsc_a5_put_string ("No ADRIFT 5 game loaded.\n");
+      glk_exit ();
+    }
+
+  run = a5run_new (gsc_a5_adv);
+  if (!run)
+    {
+      gsc_a5_put_string ("Out of memory loading ADRIFT 5 game.\n");
+      glk_exit ();
+    }
+
+  text = a5run_intro (run);
+  gsc_a5_put_string (text);
+  free (text);
+  gsc_a5_present_intro_media (run);
+  gsc_a5_status (run);
+
+  for (;;)
+    {
+      gsc_a5_put_string ("\n> ");
+      if (gsc_a5_read_line (input, sizeof input) == 0)
+        continue;
+
+      if (gsc_a5_match_command (input, "quit")
+          || gsc_a5_match_command (input, "q"))
+        break;
+
+      if (gsc_a5_match_command (input, "restart"))
+        {
+          a5run_free (run);
+          run = a5run_new (gsc_a5_adv);
+          if (!run)
+            {
+              gsc_a5_put_string ("Out of memory restarting game.\n");
+              glk_exit ();
+            }
+          glk_window_clear (gsc_main_window);
+          text = a5run_intro (run);
+          gsc_a5_put_string (text);
+          free (text);
+          gsc_a5_present_intro_media (run);
+          gsc_a5_status (run);
+          continue;
+        }
+
+      if (gsc_a5_match_command (input, "save"))
+        {
+          gsc_a5_save (run);
+          continue;
+        }
+
+      if (gsc_a5_match_command (input, "restore"))
+        {
+          if (gsc_a5_restore (run))
+            gsc_a5_put_string ("Game restored.\n");
+          else
+            gsc_a5_put_string ("Restore failed.\n");
+          continue;
+        }
+
+      text = a5run_input (run, input);
+      gsc_a5_put_string (text);
+      free (text);
+      gsc_a5_show_media (run);
+      gsc_a5_status (run);
+
+      if (a5run_is_over (run))
+        /* The engine has already emitted the win/lose/score block; let the
+           player read it, then accept only quit/restart on the next line. */
+        {
+          for (;;)
+            {
+              gsc_a5_put_string ("\nPlease enter RESTART or QUIT.\n> ");
+              if (gsc_a5_read_line (input, sizeof input) == 0)
+                continue;
+              if (gsc_a5_match_command (input, "quit")
+                  || gsc_a5_match_command (input, "q"))
+                {
+                  a5run_free (run);
+                  glk_exit ();
+                }
+              if (gsc_a5_match_command (input, "restart"))
+                break;
+            }
+          a5run_free (run);
+          run = a5run_new (gsc_a5_adv);
+          if (!run)
+            {
+              gsc_a5_put_string ("Out of memory restarting game.\n");
+              glk_exit ();
+            }
+          glk_window_clear (gsc_main_window);
+          text = a5run_intro (run);
+          gsc_a5_put_string (text);
+          free (text);
+          gsc_a5_present_intro_media (run);
+          gsc_a5_status (run);
+        }
+    }
+
+  a5run_free (run);
+  glk_exit ();
+}
+
 /*
  * glk_main()
  *
@@ -3995,8 +4659,12 @@ glk_main (void)
   assert (gsc_startup_called && !gsc_main_called);
   gsc_main_called = TRUE;
 
-  /* Call the generic interpreter main function. */
-  gsc_main ();
+  /* ADRIFT 5 games run the dedicated a5 turn loop; everything else (ADRIFT
+   * <=4) uses the scare engine. */
+  if (gsc_is_a5)
+    gsc_a5_main ();
+  else
+    gsc_main ();
 }
 
 
@@ -4005,7 +4673,9 @@ glk_main (void)
 /*---------------------------------------------------------------------*/
 #ifdef TRUE
 
+extern "C" {
 #include "glkstart.h"
+}
 
 /*
  * Glk arguments for UNIX versions of the Glk interpreter.
@@ -4104,6 +4774,10 @@ glkunix_startup_code (glkunix_startup_t * data)
         gsc_game_message = "No game file was given on the command line.";
       return TRUE;
     }
+
+  /* Remember the game file path; the ADRIFT 5 loader (a5model_load) reads the
+   * file directly by path rather than through a Glk stream. */
+  snprintf (gsc_game_path, sizeof gsc_game_path, "%s", argv[argv_index]);
 
   /* Open a stream to the TAF file, complain if this fails. */
   game_stream = glkunix_stream_open_pathname (argv[argv_index], FALSE, 0);
