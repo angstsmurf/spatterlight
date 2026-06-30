@@ -348,7 +348,7 @@ FILTER="${1:-}"
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
-anno1700|Anno1700.blorb|5|5
+anno1700|Anno1700.blorb|3|3
 AxeOfKolt|TheAxeOfKolt.blorb|12|12
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|17|17
 StarshipQuest|StarshipQuest.blorb|0|0
@@ -358,7 +358,7 @@ DieFeuerfaust|DieFeuerfaust.blorb|6|6
 LostChildren|TheLostChildren.blorb|4|4
 RunBronwynnRun|RunBronwynnRun.blorb|9|9
 RtC|RtC.blorb|22|22
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|54|54
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|47|47
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|2|2
 JacarandaJim|JacarandaJim.blorb|101|5

@@ -2529,7 +2529,17 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                  chains `Execute vnl_TutorialSt` (the location-gated tutorial lines)
                  off every room view via vnl_NameTyped's `Execute Look`.  emit_look
                  only renders the view, so run those actions here too.  (No-op for
-                 every other corpus game: only Grandpa's Look carries actions.) */
+                 every other corpus game: only Grandpa's Look carries actions.)
+
+                 NOTE: FD also runs Look's Specific overrides here (e.g. Amazon's
+                 `Beforeplay1` -> `Execute ts_tasCheckTime`, the startup "Date: ..."
+                 line).  We deliberately do NOT, because PlayerMovement's action is
+                 `Execute Look` *after* its own `Beforeplay` override already ran
+                 ts_tasCheckTime; FD's per-turn response dedup (htblResponses keyed
+                 by message text, clsUserSession.vb:783) collapses the two identical
+                 "Date:" lines to one, but Scarier has no such dedup, so firing
+                 Beforeplay1 here would double the date on every move.  The startup
+                 date and the move-date dedup both await that aggregation layer. */
               const a5_task_t *lt = a5model_task (st->adv, "Look");
               if (lt != NULL && lt->actions != NULL && depth < 16)
                 for (const a5_xml_node_t *c = lt->actions->first_child; c;

@@ -188,6 +188,27 @@ is_holding_object (a5_state_t *st, int oi, const char *charkey)
 
 /* ------------------------------------------------------ object sub-evaluator */
 
+/* Does an object "have" a property, mirroring clsObject.HasProperty over the
+   merged (static + runtime) property table?  A runtime SetProperty override
+   wins (an `<Unselected>` value means the SelectionOnly property was removed,
+   per clsUserSession.vb:2058 -- e.g. `SetProperty Flashlight Purchased
+   Selected` from a "buy" task); otherwise the model's static prop set.  The
+   static layer alone is not enough: SelectionOnly props such as Purchased are
+   only ever added at runtime. */
+static int
+obj_has_property (const a5_state_t *st, const char *okey, const char *propkey)
+{
+  int i;
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, okey) && streq (st->ov[i].prop, propkey))
+      return strstr (st->ov[i].value, "Unselected") == NULL;
+  for (i = 0; i < st->adv->n_objects; i++)
+    if (streq (st->adv->objects[i].key, okey))
+      return a5_prop_find (st->adv->objects[i].props,
+                           st->adv->objects[i].n_props, propkey) != NULL;
+  return 0;
+}
+
 static int
 pass_object (a5_state_t *st, a5_restr_t *r)
 {
@@ -276,13 +297,10 @@ pass_object (a5_state_t *st, a5_restr_t *r)
         {
           int i, any = 0;
           for (i = 0; i < st->adv->n_objects; i++)
-            if (a5_prop_find (st->adv->objects[i].props,
-                              st->adv->objects[i].n_props, k2)) { any = 1; break; }
+            if (obj_has_property (st, st->adv->objects[i].key, k2)) { any = 1; break; }
           return streq (k1, ANYOBJECT) ? any : !any;
         }
-      return oi >= 0
-             && a5_prop_find (st->adv->objects[oi].props,
-                              st->adv->objects[oi].n_props, k2) != NULL;
+      return oi >= 0 && obj_has_property (st, k1, k2);
     }
   if (streq (r->op, "BeInState"))
     {
@@ -480,6 +498,21 @@ char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
   return 0;
 }
 
+/* Does a character "have" a property, mirroring clsCharacter.HasProperty over
+   the merged (static + runtime) property table?  A runtime SetProperty override
+   wins (an `<Unselected>` value means the SelectionOnly property was removed,
+   per clsUserSession.vb:2058); otherwise the model's static prop set. */
+static int
+char_has_property (const a5_state_t *st, const char *ckey, const char *propkey)
+{
+  int i;
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, ckey) && streq (st->ov[i].prop, propkey))
+      return strstr (st->ov[i].value, "Unselected") == NULL;
+  const a5_character_t *c = a5model_character (st->adv, ckey);
+  return c != NULL && a5_prop_find (c->props, c->n_props, propkey) != NULL;
+}
+
 static int
 pass_character (a5_state_t *st, a5_restr_t *r)
 {
@@ -614,8 +647,21 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "HaveProperty"))
     {
-      const a5_character_t *c = (ci >= 0) ? &st->adv->characters[ci] : NULL;
-      return c != NULL && a5_prop_find (c->props, c->n_props, k2) != NULL;
+      /* clsCharacter.HasProperty (clsItem.vb:386) consults the *merged*
+         property table, so a property added at runtime via SetProperty
+         (e.g. `SetProperty Susan Known <Selected>`, clsUserSession.vb:2042)
+         must count -- not just the static model props.  FD's
+         SetPropertyValue(Boolean) removes a SelectionOnly property when set
+         to <Unselected>, so an override carrying that sentinel reads as
+         absent (mirroring the display-name "Selected" check at a5text.cpp). */
+      if (streq (k1, ANYCHARACTER))
+        {
+          for (int s = 0; s < st->adv->n_characters; s++)
+            if (char_has_property (st, st->adv->characters[s].key, k2))
+              return 1;
+          return 0;
+        }
+      return ci >= 0 && char_has_property (st, k1, k2);
     }
   if (streq (r->op, "Exist"))
     return ci >= 0;

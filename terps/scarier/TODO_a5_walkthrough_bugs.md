@@ -19,6 +19,167 @@ Ordered by impact. Each item: symptom → evidence → suspected locus → fix �
 
 ---
 
+## ⭐ NEXT BIG ITEM — Per-command response aggregation (`htblResponses`)  🔲 OPEN
+
+**The single largest remaining lever.** FD does not emit task output directly.
+Within one **top-level** command (`AttemptToExecuteTask`, *not* a child/sub-task),
+it collects every completion/restriction message into two ordered maps —
+`htblResponsesPass` / `htblResponsesFail` (cleared at the top of each top-level
+call) — keyed by the **message string**, then displays each once at the end
+(clsUserSession.vb:777-863). Two mechanisms hang off this, both Scarier lacks:
+
+1. **Per-item subtask iteration** (`ExecuteSubTasks`, vb:695-716). A plural
+   `%objects%` reference is expanded **one item at a time**: for each item, a
+   fresh single-item ref set runs the full `AttemptToExecuteSubTask` (task
+   selection + overrides). So `get crown and bottle` runs *twice* — crown hits the
+   `<Multiple>1</Multiple>` `TakeObjectsFromOthersLazy` override ("(from the
+   pedestal)" → `TakeObjectsFromOthers`), bottle (loose) hits the general
+   `TakeObjects` ("Ok, you pick up …"). Scarier instead binds `%objects%` to one
+   piped key `"Crown|Bottle"` and runs the override **once over the whole set** →
+   "(from the pedestal and Treasury)" and takes neither.
+
+2. **Message merge + dedup** (`AddResponse`, vb:1295-1320). When a message text is
+   already in the map, the new item's **references are merged into the existing
+   entry** (object list grows) instead of adding a second line. For an
+   **AggregateOutput** task the stored key is the **raw, un-substituted** template
+   (`%TheObjects[%objects%]%` deferred to Display, vb:1184/1210), so two items
+   through the same task collapse to one entry whose merged refs render
+   "the ammunition and the rifle". Identical messages dedup outright — which is why
+   a move shows **one** `Date:` line even though both `Beforeplay` (the move
+   override) *and* `PlayerMovement`'s `Execute Look` → `Beforeplay1` each run
+   `Execute ts_tasCheckTime` and emit the same "Date: …" text.
+
+**What it would fix:**
+- **Amazon** the bulk of the residual 47: the startup `Date: 12:04` (StartGame →
+  Execute Look → `Beforeplay1`, currently skipped because routing Execute Look
+  through overrides would *double* every move's date without the dedup — confirmed
+  by experiment), the per-move date lines FD shows and Scarier omits, and the
+  `get crown and bottle` → bottle cascade (open bottle → pour whiskey → secret
+  passage → iron key → unlock door → camp), which is ~all of the non-date hunks.
+- **RunBronwynn** the ballgown (`remove tiara, gown and shoes` → `RemoveBall`
+  `<Multiple>1</Multiple>` "need to be standing" peeled per-item).
+- **Jacaranda** the buzzard (`Task62`, `DropObjects` override `Multiple=1`).
+
+**Why deferred:** it replaces Scarier's straight-to-`out` output model with a
+keyed per-command collection + per-item iteration + deferred substitution + a
+flush pass — a broad, high-regression-risk refactor across all 15 games. Scarier
+already has a *narrow* slice of #2 (the `defer_text`/AggregateOutput hack in
+`execute_task_with_overrides` for `x window`); a faithful port would generalise
+that. The `<Multiple>` flag is **not yet parsed** into the model (`a5model.cpp`;
+FD `clsTask.Specific.Multiple`, used in `KeyListsMatch`'s `bMultiple`).
+
+**Locus:** `a5run.cpp` `execute_task_with_overrides` / `run_general` /
+`run_task`'s completion emission; `emit_completion`; the `SetTasks Execute Look`
+shortcut (the deliberate no-Beforeplay1 NOTE there comes out once dedup exists);
+`a5model.cpp` (parse `<Multiple>`). Mirror vb:695-863 + 1295-1320.
+
+**Independent sub-bug (may be separable):** an **off-by-one-minute** clock drift
+deep in Amazon (`10:59` vs `11:00`, day 5+) — the early clock matches exactly, so
+it's an extra/missing `ts_tasIncrement` somewhere, possibly surfaced only once the
+date lines align. Re-check after the aggregation layer; might be a standalone
+`MinutesPerTurn` accumulation fix.
+
+---
+
+## Object `HaveProperty` ignored the runtime SetProperty layer (Amazon `Purchased`, broad)  ✅ DONE (2026-06-30)
+
+**Was:** Treasure Hunt in the Amazon went dark for the entire back half of the
+game. After buying the flashlight (`buy torch` → "You purchase the flashlight.")
+and carrying it through the lit caves, the carriers' totem event (`CarriersFl1`,
+`MoveObject EverythingHeldBy %Player% ToSameLocationAs %Player%`) drops everything
+at the totem; from there FD shows the bought items "lying on the ground" and
+`get flashlight` picks it up, but Scarier omitted the "lying on the ground" lines
+and `get flashlight` printed **"The flashlight costs 10."**. With the flashlight
+never re-acquired, every later cave rendered **"It is too dark to make anything
+out clearly."** and the whole navigation/puzzle chain (open bottle → pour whiskey
+→ secret passage → iron key → unlock door → camp) cascaded wrong.
+
+**Root cause — `a5restr.cpp pass_object`'s `HaveProperty` only checked the
+*static* model props** (`a5_prop_find(o->props,…)`), never the runtime override
+store. `Purchased` is a `SelectionOnly` property (DependentKey `BuyableItem`) that
+exists *only* once `buy`'s `SetProperty ReferencedObject Purchased Selected` adds
+it at runtime (`a5state_set_prop`). So `Flashlight HaveProperty Purchased` was
+**always false**: the take task's `ReferencedObjects Must HaveProperty Purchased`
+restriction failed → "costs 10", and the flashlight's `ListDescriptionDynamic`
+("…lying on the ground", gated on the same prop) rendered empty. (It read false
+even while carried — the carried case just short-circuited on the earlier
+`BeHeldByCharacter` checks, masking it.) This is the exact object-side analogue of
+the character `HaveProperty` fix at the top of this file.
+
+**Fixed** in `a5restr.cpp`: new `obj_has_property` helper mirroring
+`char_has_property` — a runtime override wins (value reads absent when it carries
+the `Unselected` sentinel, per clsUserSession.vb:2058), else the static prop set.
+The `HaveProperty` object case (both the specific and `ANYOBJECT`/`NOOBJECT`
+branches) now uses it.
+
+**Result:** flashlight re-acquired at the totem, darkness lifts, the cave chain
+plays. **TreasureHuntInTheAmazon 54→47**; no other corpus game moved (vanilla and
+xoshiro both clean); all a5 unit tests pass; budget re-blessed 54→47.
+
+**Residual (47):** 32 are `Date:`/time lines (the startup `Beforeplay1`
+`Execute Look` date line FD shows but Scarier's `Execute Look` shortcut skips, plus
+an off-by-one-minute clock drift); the title's leading spaces (centring); and the
+`get crown and bottle` cascade — the crown is on the pedestal, the bottle loose, so
+FD's `<Multiple>1</Multiple>` lazy override (`TakeObjectsFromOthersLazy`) peels only
+the crown to "(from the pedestal)" while the bottle takes the general path. Scarier
+runs the override over the whole piped set → "(from the pedestal and Treasury)" and
+takes neither. That's the deferred per-item `<Multiple>1</Multiple>` override
+feature (also RunBronwynn ballgown, Jacaranda buzzard) — FD's `ExecuteSubTasks`
+iterates each item of a plural reference and aggregates same-message results
+(clsUserSession.vb:695); faithful porting needs the response-aggregation layer.
+
+---
+
+## Character `HaveProperty` ignored the runtime SetProperty layer (Anno greetings, broad)  ✅ DONE (2026-06-30)
+
+**Was:** Anno 1700 re-introduced an already-greeted NPC on the FIRST `tell`/`ask`.
+`tell susan about cave` printed the implicit-intro greeting `She looks up at you.
+"Hello there, what can I do for you?"` *before* the topic reply (FD goes straight to
+the Tell topic); same with `tell lulu about raid` leaking Lulu-Belle's `"Hello
+there, I'm Lulu-Belle, I own this establishment…"` ahead of the raid topic.
+
+**Root cause — `pass_character`'s `HaveProperty` only checked the *static* model
+props.** Susan's implicit-intro topic (Topic2) is gated `Susan MustNot HaveProperty
+Known`; her explicit greeting (`say hello`, Topic1) runs `SetProperty Susan Known
+<Selected>`, which Scarier stores in the runtime override layer (`a5state_set_prop`).
+But `a5restr.cpp pass_character`'s `HaveProperty` case read only
+`c->props`/`a5_prop_find` — never the override store — so `Susan HaveProperty Known`
+stayed false after the greeting, the implicit intro's `MustNot` passed, and
+`exec_conversation` emitted the greeting again on the next `tell`/`ask`. FD's
+`clsRestriction.CharacterEnum.HaveProperty` (clsUserSession.vb:4888) calls
+`clsCharacter.HasProperty` (clsItem.vb:386) over the *merged* (static + runtime)
+property table; `SetPropertyValue(Boolean)` adds a SelectionOnly prop on `<Selected>`
+and *removes* it on `<Unselected>` (clsUserSession.vb:2058).
+
+**Fixed** in `a5restr.cpp`: new `char_has_property` helper — a runtime override
+wins (its value reads absent when it carries the `Unselected` sentinel, mirroring
+the display-name "Selected" check in `a5text.cpp`), else the static prop set. The
+`HaveProperty` character case now uses it and also handles `ANYCHARACTER` (any
+character carrying the prop), matching FD's enum branch.
+
+**Result:** **anno1700 6→3** (vanilla and xoshiro) — both leaked greetings gone. No
+other corpus game regressed; all a5 unit tests pass (arith/parse/obj/save +
+Six Silver Bullets golden); budget re-blessed 5→3.
+
+**Residual (3, analysed — the storage-room wake event, ONE coupled cause):** the
+walkthrough's flagged best-effort "wait until you wake in a storage room" tail. The
+`EffectOfTh` turn-based event (Length 15, teleport subevent at offset 15) reaches
+`fromstart=14` in Scarier but never the 15th tick, so the storage-room teleport never
+fires and the post-wake closet/hole/wall chain plays in the corridor instead. Traced
+to **one missing event tick**: between the offset-11 vision and the teleport, FD's
+`open closet` (out of scope, previously seen) **matches `OpenObjects` and fails its
+`BeVisibleToCharacter` restriction with output** (`You can't see nothing.`) → a
+matched-task-with-output that ticks TurnBasedStuff; Scarier classifies the same
+command `RR_CANTSEE` (>1 unseen "closet" candidates → `You can't see any closets!`)
+which doesn't tick. The discriminator is FD's multi-stage scope refinement
+(`RefineMatchingPossibilitesUsingRestrictions`, clsUserSession.vb:5734:
+Applicable→Visible→Seen) narrowing `open closet`'s candidates to a single seen object
+where `x closet` stays ambiguous. Reproducing that refinement faithfully is a broad,
+high-regression-risk change to object resolution across all 15 games; not attempted
+(the residual lives entirely in the explicitly non-deterministic section).
+
+---
+
 ## JacarandaJim RNG-stream alignment: five fixes → byte-identical draws (xoshiro 261→5)  ✅ DONE (2026-06-30)
 
 **Was:** JacarandaJim diverged massively even under `FD_RNG=xoshiro` (261 hunks),
