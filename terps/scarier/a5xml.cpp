@@ -26,6 +26,15 @@ is_name_char (int c)
  * Decode XML entities in [s, e) in place, returning the new length.  Only the
  * five predefined entities and numeric character references are handled; an
  * unrecognised "&..." is copied through verbatim.  Output never grows.
+ *
+ * Line-ending normalisation (XML 1.0 sec. 2.11) is applied at the same time:
+ * the two-character sequence CR-LF and a stand-alone CR are both translated to
+ * a single LF before the value is handed to the application.  .NET's XmlReader
+ * (which FrankenDrift, the ground-truth engine, relies on) does this, so e.g. a
+ * CR-LF-separated list field ("Alan looks smug.\r\nAlan looks pleased.\r\n...")
+ * yields clean LF-delimited options rather than options each carrying a
+ * trailing CR -- the latter defeats the pSpace newline check and leaks a stray
+ * carriage return into the rendered transcript.
  */
 static size_t
 a5_decode_entities (char *s, char *e)
@@ -35,6 +44,14 @@ a5_decode_entities (char *s, char *e)
 
   while (p < e)
     {
+      if (*p == '\r')
+        {
+          *out++ = '\n';
+          p++;
+          if (p < e && *p == '\n')   /* collapse CR-LF to a single LF */
+            p++;
+          continue;
+        }
       if (*p != '&')
         {
           *out++ = *p++;

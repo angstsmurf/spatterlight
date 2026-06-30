@@ -1,5 +1,83 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ XML text content must normalise line endings (CR-LF / lone CR → LF), per XML 1.0 §2.11 (broad)  ✅ DONE (2026-06-30)
+
+**JacarandaJim 3→2 (xoshiro)**, SixSilverBullets snapshot re-blessed (CR-LF→LF in
+the title art, now matching FD byte-for-byte) — no corpus game moved in either
+mode (all 10 MATCH games hold 0/0), all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save + the re-captured Six Silver Bullets golden).
+
+**Symptom.** A stray carriage return leaked into the rendered transcript:
+`...Alan looks very pleased with himself.\r  It beings to rain.` where FD has
+`...himself.  It beings to rain.` (the `\r` displays as a spurious line break in
+the diff). Exactly one mid-line `\r` survived in the whole JJ transcript.
+
+**Root cause — Scarier's hand-rolled XML parser never applied XML 1.0 §2.11
+line-ending normalisation.** The model field that holds Alan's random walk
+messages is a **CR-LF-separated list** stored verbatim in the XML text node
+(`...looks smug.\r\nAlan looks very pleased with himself.\r\nAlan scratches...`).
+A conformant XML parser (.NET's `XmlReader`, which FrankenDrift relies on)
+translates every `\r\n` and stand-alone `\r` to a single `\n` *before* handing
+the value to the application, so when FD splits the list on `\n` each option is
+clean. Scarier kept the `\r`, so the chosen option was `"...himself.\r"`; its
+trailing `\r` is not `\n`, so `sb_pspace` (FD's `pSpace`, which only special-cases
+a trailing `\n`) appended its `"  "` *after* the `\r`, leaking it through. (FD's
+headless `EmitHtml` also does a `\r\n`→`\n` pass, but that is redundant after the
+XML-layer normalisation — a lone `\r` followed by spaces would otherwise survive
+it too.)
+
+**Fixed** in `a5xml.cpp a5_decode_entities` (the in-place pass already run over
+every element's text content): a `\r` is now emitted as `\n`, collapsing a
+following `\n` so `\r\n` becomes a single `\n` — matching `XmlReader`. Output
+never grows, so the in-place rewrite stays valid. This also strips the (harmless,
+trailing-whitespace-stripped) `\r`s that Scarier used to emit elsewhere; the only
+visible golden affected was the Six Silver Bullets self-snapshot, whose title
+ASCII-art carried `\r\n`s that **FD renders as plain `\n`** (FD transcript has 0
+CRs) — the snapshot was re-captured to the now-FD-matching LF form (diff with CRs
+stripped is byte-identical, confirming the change is purely CR-LF→LF).
+
+**Residual (JacarandaJim xoshiro 2):** (a) the police-cell `look` renders
+`...way out of the cell.  Alan appears...` (2 spaces) where FD has 4 — a
+room-view trailing-space detail (the description text ends cleanly at "cell." in
+the model, so FD's extra 2 spaces come from the ViewLocation/event join, not the
+text). (b) the champagne "go for a walk" teleport: **both engines land in the
+SAME room** (Location13, the marketplace — identical RNG pick, identical body
+text), but FD renders its short name as "Everything is dark" where Scarier shows
+"Outside the Vegetable shop". **This is NOT an RNG/move bug — it's an unimplemented
+location-group-property + darkness feature** (fully diagnosed below; deferred as a
+multi-part feature, low payoff since JJ is RNG-bound at vanilla 99 and can't MATCH):
+
+  - The ADRIFT standard library models darkness via a **`ShortLocationDescription`
+    location property** whose value is a `Description` restricted to `%Player%
+    MustNot BeInSameLocationAsObject LightSources`, text "Everything is dark".
+    FD's `clsLocation.ShortDescription` getter (clsLocation.vb:62) appends that
+    property's alternates onto the base short desc, so when the player has no
+    light the dark alternate wins (the room NAME becomes "Everything is dark";
+    the LONG description is unaffected — there is no matching
+    `LongLocationDescription`, hence FD's full marketplace body under the dark
+    header).
+  - The property is assigned to a **group** (`DarkLocations`), and ADRIFT
+    **group properties apply to every member**. Location13 is not a static
+    member, but a day/night event runs `AddLocationToGroup EverywhereInGroup
+    Group2 ToGroup DarkLocations` (with a dawn `RemoveLocationFromGroup`), so at
+    night every outdoor (Group2) location — including Location13 — is in
+    `DarkLocations` and inherits the dark-name property. The champagne sleep
+    happens at night, so Location13 is dark.
+  - **Scarier implements none of this**: `AddLocationToGroup`/
+    `RemoveLocationFromGroup` are unimplemented (`a5run.cpp:3256` is a stub
+    comment), there is no runtime **location**-group membership (only the
+    object-group layer from the P6 fix), location `HasProperty`/`GetProperty`
+    does not consult group-assigned properties, and the location short-desc
+    renderer (`a5text.cpp` `view_location_impl`, reads `ShortDescription`
+    straight off the XML node) has no `ShortLocationDescription`/
+    `LongLocationDescription` override. Faithful port = (1) runtime location-group
+    membership (mirror `a5state_object_in_group`), (2) the two
+    Add/RemoveLocationToGroup actions incl. the `EverywhereInGroup` selector,
+    (3) location group-property inheritance, (4) the `ShortLocationDescription`/
+    `LongLocationDescription` append-and-evaluate in the short/long-desc render
+    (mirror clsLocation.vb:62/79). Touches the location-render + property core, so
+    verify against all 10 MATCH goldens.
+
 ## ⭐ Run Bronwynn Run → full MATCH: `%objects%` reference model — single-noun-matches-many ambiguity, and-form hard-fail, second-chance ambiguity yields  ✅ DONE (2026-06-30)
 
 **RunBronwynnRun 3→0** (full MATCH, golden `test/RunBronwynnRun_expected.txt`) —
