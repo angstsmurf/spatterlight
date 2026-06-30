@@ -554,7 +554,7 @@ resolve_object_candidates (a5_state_t *st, const std::string &text)
       const a5_object_t *o = &st->adv->objects[i];
       if (!name_match (o->article, o->prefix, o->names, o->n_names, text))
         continue;
-      if (ploc != NULL && a5state_object_at_location (st, i, ploc, 0))
+      if (ploc != NULL && a5state_object_visible_at_location (st, i, ploc, 0))
         vis.push_back (o->key);
       else if (st->obj_seen != NULL && st->obj_seen[i])
         seen.push_back (o->key);   /* known but not here now */
@@ -799,7 +799,8 @@ obj_in_scope (a5_state_t *st, const char *key)
 {
   const char *ploc = a5state_player_location (st);
   int i = a5state_object_index (st, key);
-  return ploc != NULL && i >= 0 && a5state_object_at_location (st, i, ploc, 0);
+  return ploc != NULL && i >= 0
+         && a5state_object_visible_at_location (st, i, ploc, 0);
 }
 
 /* Visible/seen predicates the refine tiers use (clsObject.IsVisibleTo /
@@ -2255,7 +2256,7 @@ update_seen (a5_state_t *st)
      object has been viewed. */
   if (st->obj_seen != NULL && ploc != NULL)
     for (i = 0; i < st->adv->n_objects; i++)
-      if (a5state_object_at_location (st, i, ploc, 0))
+      if (a5state_object_visible_at_location (st, i, ploc, 0))
         st->obj_seen[i] = 1;
 }
 

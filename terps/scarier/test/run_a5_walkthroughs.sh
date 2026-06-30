@@ -350,13 +350,13 @@ MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
 anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|4|4
-SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|4|4
+SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|3|3
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|2|2
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|1|1
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
-RunBronwynnRun|RunBronwynnRun.blorb|4|4
+RunBronwynnRun|RunBronwynnRun.blorb|3|3
 RtC|RtC.blorb|21|21
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|42|42
 StoneOfWisdom|StoneOfWisdom.blorb|2|0

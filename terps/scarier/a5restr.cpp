@@ -349,10 +349,12 @@ pass_object (a5_state_t *st, a5_restr_t *r)
     return streq (k1, k2);
   if (streq (r->op, "BeVisibleToCharacter"))
     {
+      /* FD's CanSeeObject (clsCharacter.vb:772) compares BoundVisible keys, so
+         an object inside a closed opaque container is not visible. */
       int ci = a5state_character_index (st, k2);
       const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
       return oi >= 0 && cloc != NULL
-             && a5state_object_at_location (st, oi, cloc, 0);
+             && a5state_object_visible_at_location (st, oi, cloc, 0);
     }
   if (streq (r->op, "HaveBeenSeenByCharacter"))
     {
@@ -560,12 +562,12 @@ pass_character (a5_state_t *st, a5_restr_t *r)
                flashlight in LightSources) count too. */
             for (int oi = 0; oi < st->adv->n_objects; oi++)
               if (a5state_object_in_group (st, k2, st->adv->objects[oi].key)
-                  && a5state_object_at_location (st, oi, cloc, 0))
+                  && a5state_object_visible_at_location (st, oi, cloc, 0))
                 return 1;
             return 0;
           }
       oi = a5state_object_index (st, k2);
-      return oi >= 0 && a5state_object_at_location (st, oi, cloc, 0);
+      return oi >= 0 && a5state_object_visible_at_location (st, oi, cloc, 0);
     }
   if (streq (r->op, "BeInSameLocationAsCharacter"))
     {

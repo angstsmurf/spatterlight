@@ -220,6 +220,16 @@ extern int a5state_object_key_at_location (const a5_state_t *st, const char *obj
                                            const char *lockey, int directly);
 
 /*
+ * Is object `oi` *visible* at location `lockey`?  Like a5state_object_at_location
+ * but mirrors clsObject.BoundVisible / IsVisibleAtLocation: an object inside a
+ * closed opaque openable container resolves to the container key (not the room),
+ * so it is hidden.  Used for scope/visibility and end-of-turn seen-tracking,
+ * where FD uses CanSeeObject/IsVisibleTo rather than the raw ExistsAtLocation.
+ */
+extern int a5state_object_visible_at_location (const a5_state_t *st, int oi,
+                                           const char *lockey, int directly);
+
+/*
  * Is character `ci` visible at location `lockey`?  Mirrors
  * clsCharacter.IsVisibleAtLocation (via BoundVisible): a character "At Location"
  * matches that location; one "On Object"/"In Object" matches wherever its

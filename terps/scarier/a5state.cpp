@@ -521,9 +521,49 @@ a5state_player_location (const a5_state_t *st)
   return st->char_loc[pi];
 }
 
-/* Recursive ExistsAtLocation, with a depth guard against cyclic placements. */
+/* Does container object `parent` *hide* its In-Object contents from view?
+   Mirrors clsObject.BoundVisible's InObject branch (clsObject.vb:804): the
+   contents are visible when the container is `Not Openable OrElse IsOpen OrElse
+   IsTransparent`, so it hides only when it is openable AND closed AND opaque.
+   Openable = HasProperty("Openable"); IsOpen = the OpenStatus property is absent
+   or "Open"; IsTransparent is always False in FD (clsObject.vb:308).  Consults
+   the runtime override layer first (so a SetProperty OpenStatus is reflected). */
 static int
-exists_at (const a5_state_t *st, int oi, const char *lockey, int directly, int depth)
+obj_hides_contents (const a5_state_t *st, int parent)
+{
+  const char *pkey, *os;
+  int i, openable = 0;
+
+  if (parent < 0)
+    return 0;
+  pkey = st->adv->objects[parent].key;
+
+  /* Openable = HasProperty("Openable"), runtime override winning. */
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, pkey) && streq (st->ov[i].prop, "Openable"))
+      { openable = strstr (st->ov[i].value, "Unselected") == NULL; goto have_openable; }
+  openable = a5_prop_find (st->adv->objects[parent].props,
+                           st->adv->objects[parent].n_props, "Openable") != NULL;
+have_openable:
+  if (!openable)
+    return 0;
+
+  /* IsOpen: OpenStatus absent (Nothing) or "Open" => open => visible. */
+  os = a5state_entity_prop (st, pkey, "OpenStatus");
+  if (os == NULL || streq (os, "Open"))
+    return 0;
+
+  return 1;                     /* openable, closed, opaque => hides contents */
+}
+
+/* Recursive ExistsAtLocation, with a depth guard against cyclic placements.
+   When `visible` is set this mirrors clsObject.BoundVisible / IsVisibleAtLocation
+   instead of the raw ExistsAtLocation: an object inside a *closed opaque*
+   openable container resolves to the container's own key (not the room), so it
+   is not visible at any location.  ExistsAtLocation (visible=0) ignores that. */
+static int
+exists_at (const a5_state_t *st, int oi, const char *lockey, int directly,
+           int visible, int depth)
 {
   const a5_objloc_t *loc;
   int parent;
@@ -556,13 +596,21 @@ exists_at (const a5_state_t *st, int oi, const char *lockey, int directly, int d
             }
         return 0;
       }
-    case A5_OWHERE_ON_OBJECT:
     case A5_OWHERE_IN_OBJECT:
+      if (directly)
+        return 0;
+      parent = a5state_object_index (st, loc->key);
+      /* BoundVisible of a closed opaque container is the container key, so the
+         contents are not visible at any room. */
+      if (visible && obj_hides_contents (st, parent))
+        return streq (lockey, loc->key);
+      return exists_at (st, parent, lockey, 0, visible, depth + 1);
+    case A5_OWHERE_ON_OBJECT:
     case A5_OWHERE_PART_OBJECT:
       if (directly)
         return 0;
       parent = a5state_object_index (st, loc->key);
-      return exists_at (st, parent, lockey, 0, depth + 1);
+      return exists_at (st, parent, lockey, 0, visible, depth + 1);
     case A5_OWHERE_HELD_BY:
     case A5_OWHERE_WORN_BY:
     case A5_OWHERE_PART_CHAR:
@@ -583,14 +631,21 @@ int
 a5state_object_at_location (const a5_state_t *st, int oi, const char *lockey,
                             int directly)
 {
-  return exists_at (st, oi, lockey, directly, 0);
+  return exists_at (st, oi, lockey, directly, 0, 0);
 }
 
 int
 a5state_object_key_at_location (const a5_state_t *st, const char *objkey,
                                 const char *lockey, int directly)
 {
-  return exists_at (st, a5state_object_index (st, objkey), lockey, directly, 0);
+  return exists_at (st, a5state_object_index (st, objkey), lockey, directly, 0, 0);
+}
+
+int
+a5state_object_visible_at_location (const a5_state_t *st, int oi,
+                                    const char *lockey, int directly)
+{
+  return exists_at (st, oi, lockey, directly, 1, 0);
 }
 
 int

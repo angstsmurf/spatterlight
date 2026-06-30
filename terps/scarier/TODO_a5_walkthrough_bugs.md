@@ -1,5 +1,58 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ FD-faithful container-open visibility + seen-tracking (closed opaque containers hide contents, broad)  ✅ DONE (2026-06-30)
+
+**SpectreOfCastleCoris 4→3, RunBronwynnRun 4→3** (both vanilla and xoshiro) — no
+other corpus game moved, all a5 unit tests pass (arith/parse/dis/walk/obj/save +
+Six Silver Bullets golden), budgets re-blessed.
+
+**Symptom.** An object lying *inside a closed container* was treated as visible /
+in scope and got marked **seen**, where FD hides it. Spectre: examining the money
+(inside a closed container) → Scarier rendered its description **"A sum of money
+for your everyday expenses."**, FD **"You see no such thing."** (never seen ⇒
+`HaveBeenSeenByCharacter` fails). RunBronwynn: the `riding leathers` (in a closed
+container) wrongly resolved in scope, flipping the `wear/take` outcome.
+
+**Root cause — Scarier had only the raw `ExistsAtLocation`, never FD's
+`BoundVisible`.** FD models object location two distinct ways: `ExistsAtLocation`
+(clsObject.vb:270, raw containment — for `InObject` it just recurses into the
+container) and `BoundVisible`/`IsVisibleAtLocation` (clsObject.vb:776/844), which
+for the `InObject` case (vb:804) returns the *container's own key* (⇒ not at any
+room) unless `Not Openable OrElse IsOpen OrElse IsTransparent`. So an object is
+hidden iff its container is **openable AND closed AND opaque** (`Openable` =
+`HasProperty("Openable")`; `IsOpen` = the `OpenStatus` property is absent or
+`"Open"`; `IsTransparent` is hard-coded `False`, vb:308). Scarier's
+`a5state_object_at_location` (`exists_at`) implemented only the raw recursion and
+was used *everywhere* — including the scope/visibility and end-of-turn seen passes
+that FD drives off `CanSeeObject`/`IsVisibleTo`/`IsVisibleAtLocation` (all
+`BoundVisible`-based; the seen mark is `PrepareForNextTurn` `ch.CanSeeObject(ob)`,
+clsUserSession.vb:3778).
+
+**Fixed (faithful, zero-regression):**
+1. **`a5state.cpp` — `obj_hides_contents(parent)`**: openable (HasProperty, runtime
+   override winning) AND `OpenStatus` present-and-not-`"Open"`. Mirrors
+   clsObject.vb:804's hide condition.
+2. **`a5state.cpp` — `exists_at` gained a `visible` flag**; the `IN_OBJECT` case,
+   when `visible`, returns the container key (⇒ hidden at any room) instead of
+   recursing if `obj_hides_contents`. `ON_OBJECT`/supporter and held/worn always
+   recurse (FD's BoundVisible never hides those). New public
+   `a5state_object_visible_at_location` (visible=1); `a5state_object_at_location`
+   stays raw (visible=0).
+3. **Routed only the BoundVisible-based callers through the visible variant**:
+   `obj_in_scope` + `resolve_object_candidates`' visible bucket (`a5run.cpp`),
+   `update_seen` (the seen mark, `a5run.cpp`), object `BeVisibleToCharacter`
+   (FD `CanSeeObject`) and character `BeInSameLocationAsObject` (FD
+   `CanSeeObject`, incl. its group expansion) in `a5restr.cpp`. The raw
+   `ExistsAtLocation` callers FD keeps raw are **unchanged**: object
+   `BeAtLocation` (vb:4151), the OO `%object%.Location`/location-roots reads
+   (`a5expr.cpp`), and the room-render `directly=1` lists (`a5text.cpp`,
+   FD `ObjectsInLocation(..., bDirectly:=True)`).
+
+**Result:** Spectre 4→3 (the `examine <object-in-closed-container>` →
+"You see no such thing." hunk), RunBronwynn 4→3 (the closed-container
+`riding leathers` scope hunk). No other corpus game moved in either mode; all a5
+unit tests pass; budgets re-blessed 4→3 (both columns).
+
 ## ⭐ `AmbWord` must match names case-sensitively and fall back to empty (FD quirk, broad)  ✅ DONE (2026-06-30)
 
 **SpectreOfCastleCoris 8→4** — no other corpus game moved, all a5 unit tests pass
