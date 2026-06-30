@@ -438,6 +438,35 @@ a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
   a5state_set_prop (st, objkey, key, present ? "1" : "0");
 }
 
+/* A location's inherited group property (clsItem.htblInheritedProperties layered
+   from each Locations-type group it belongs to, clsLocation.GetProperty): scan
+   every Locations group whose (runtime-or-static) membership includes `lockey`
+   and return the last match for `propkey` (FD's later property-group wins).
+   Used for the dynamic ShortLocationDescription darkness property, which the
+   day/night events add to every outdoor location's group at night. */
+const a5_prop_t *
+a5state_location_group_prop (const a5_state_t *st, const char *lockey,
+                             const char *propkey)
+{
+  const a5_prop_t *found = NULL;
+  int i;
+  if (lockey == NULL || propkey == NULL)
+    return NULL;
+  for (i = 0; i < st->adv->n_groups; i++)
+    {
+      const a5_group_t *g = &st->adv->groups[i];
+      const a5_prop_t *p;
+      if (g->type == NULL || strcmp (g->type, "Locations") != 0 || g->n_props == 0)
+        continue;
+      if (!a5state_object_in_group (st, g->key, lockey))
+        continue;
+      p = a5_prop_find (g->props, g->n_props, propkey);
+      if (p != NULL)
+        found = p;
+    }
+  return found;
+}
+
 void
 a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
                   const char *value)

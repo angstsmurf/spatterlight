@@ -3253,7 +3253,57 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       return;
     }
 
-  /* AddLocationToGroup / RemoveLocationFromGroup: later phases. */
+  if (streq (kind, "AddLocationToGroup") || streq (kind, "RemoveLocationFromGroup"))
+    {
+      /* "<what> <key1> [To|From]Group <grp>" (clsUserSession.vb:1917): build the
+         location set from the selector, then add/remove each from the target
+         group's runtime membership.  Jacaranda's day/night events run
+         `AddLocationToGroup EverywhereInGroup Group2 ToGroup DarkLocations` (dusk)
+         and the matching Remove (dawn), so every outdoor location inherits the
+         DarkLocations ShortLocationDescription ("Everything is dark") at night. */
+      if (tk.size () < 4)
+        return;
+      const std::string &what = tk[0];
+      const char *k1  = tk[1].c_str ();
+      const char *grp = tk[3].c_str ();
+      int add = streq (kind, "AddLocationToGroup");
+      std::vector<std::string> locs;
+      if (what == "Location")
+        locs.push_back (k1);
+      else if (what == "LocationOf")
+        {
+          int ci = a5state_character_index (st, k1);
+          if (ci >= 0)
+            { const char *lk = st->char_loc[ci];
+              if (lk != NULL && !streq (lk, "Hidden")) locs.push_back (lk); }
+          else
+            { int oi = a5state_object_index (st, k1);
+              if (oi >= 0)
+                for (int i = 0; i < st->adv->n_locations; i++)
+                  if (a5state_object_at_location (st, oi, st->adv->locations[i].key, 1))
+                    locs.push_back (st->adv->locations[i].key); }
+        }
+      else if (what == "EverywhereInGroup")
+        {
+          for (int g = 0; g < st->adv->n_groups; g++)
+            if (streq (st->adv->groups[g].key, k1))
+              { for (int m = 0; m < st->adv->groups[g].n_members; m++)
+                  locs.push_back (st->adv->groups[g].members[m]);
+                break; }
+        }
+      else if (what == "EverywhereWithProperty")
+        {
+          for (int i = 0; i < st->adv->n_locations; i++)
+            { const a5_location_t *l = &st->adv->locations[i];
+              if (a5_prop_find (l->props, l->n_props, k1) != NULL)
+                locs.push_back (l->key); }
+        }
+      else
+        return;
+      for (size_t i = 0; i < locs.size (); i++)
+        a5state_set_object_in_group (st, grp, locs[i].c_str (), add);
+      return;
+    }
 }
 
 

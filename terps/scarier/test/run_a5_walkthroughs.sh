@@ -361,7 +361,7 @@ RtC|RtC.blorb|21|21
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|42|42
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
-JacarandaJim|JacarandaJim.blorb|99|2
+JacarandaJim|JacarandaJim.blorb|99|0
 SixSilverBullets|SixSilverBullets.blorb|20|10
 EOF
 )

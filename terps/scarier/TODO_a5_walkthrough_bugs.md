@@ -1,5 +1,69 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ JacarandaJim xoshiro → full MATCH: 0-exit room-view trailing pSpace + the location-darkness feature (group props + ShortLocationDescription)  ✅ DONE (2026-06-30)
+
+**JacarandaJim xoshiro 2→0** (full MATCH under FD_RNG=xoshiro) — no corpus game
+moved in either mode (all 10 MATCH games hold 0/0; RtC/Amazon/StoneOfWisdom/
+SixSilverBullets unchanged at baseline), all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden), xoshiro budget
+re-blessed 2→0. (JJ's vanilla column stays at 99 — RNG-irreducible: at the stock
+System.Random the champagne "go for a walk" and the Group7 follower rooms draw a
+different stream than Scarier's xoshiro128**, so vanilla can't MATCH; the xoshiro
+column is the real-logic-bug metric and is now clean.) Two independent root causes:
+
+1. **The room view's trailing two-space pSpace was skipped when a room has NO
+   exits.** `clsLocation.ViewLocation` calls `pSpace(sView)` **unconditionally**
+   (clsLocation.vb:177) *before* the `iExitCount` check, so a 0-exit room ends
+   with two dangling trailing spaces; a same-turn event message then joins onto it
+   with another pSpace → **four** spaces. Scarier's `view_location_impl`
+   (`a5text.cpp`) only emitted the pSpace *inside* the `n >= 1` branch, so the
+   police-cell `look` (no exits) → "...way out of the cell.  Alan appears…" (2
+   spaces) where FD has 4. **Fixed** by hoisting the `add_space`/"  " emission out
+   of the `n >= 1` branch to before it, matching vb:177. (The dangling spaces are
+   only ever visible when something follows the view on the same turn — a
+   turn-event message; a view that ends a turn has them stripped by the
+   trailing-whitespace normalisation, so no other game moved.)
+
+2. **The location-darkness feature was entirely unimplemented** (the deferred
+   multi-part feature from this file's old JJ residual). The ADRIFT standard
+   library models darkness as a **`ShortLocationDescription` location property**
+   (a `Description` whose dark alternate "Everything is dark" is
+   `StartDescriptionWithThis` + restricted `%Player% MustNot
+   BeInSameLocationAsObject LightSources`) assigned to a **`DarkLocations`
+   Locations-group**; `clsLocation.ShortDescription` (vb:62) appends that
+   property's alternates onto the base short desc so a dark member's NAME becomes
+   "Everything is dark". JJ's day/night events run `AddLocationToGroup
+   EverywhereInGroup Group2 ToGroup DarkLocations` at dusk (matching Remove at
+   dawn), so at night every outdoor location (incl. Location13, where the
+   champagne sleep lands) inherits the dark name. **Implemented faithfully in four
+   pieces:**
+   - **Runtime location-group membership** reuses the generic
+     `a5state_object_in_group`/`set` override store (`@InGroup:<grp>`), keyed by
+     the location key — saves/restores for free.
+   - **`AddLocationToGroup`/`RemoveLocationFromGroup` actions** (`a5run.cpp
+     run_action`): the `Location`/`LocationOf`/`EverywhereInGroup`/
+     `EverywhereWithProperty` selectors (clsUserSession.vb:1917) build the location
+     set, then set/clear each location's membership in the target group.
+   - **Location group-property inheritance** (`a5state_location_group_prop`,
+     `a5state.cpp`): scans every Locations-type group whose runtime-or-static
+     membership includes the location and returns the last `propkey` match (FD's
+     later-property-group-wins).
+   - **Combined short-description render** (`a5text.cpp`): `eval_desc_into`
+     factored out of `a5text_eval_description` threads ToString's
+     `first`/`default_text`/DisplayOnce-terminate state across several `<Description>`
+     wrappers, so `a5text_location_short` concatenates the base `<ShortDescription>`
+     with the inherited `ShortLocationDescription` property's segments exactly as
+     FD's `oShortDesc.Copy` + appended `StringData`. All short-NAME read sites are
+     routed through it (`%LocationName%`, the `%DisplayLocation%`/look room name,
+     and the `.ShortDescription`/`.Name` OO reads) — non-dark locations resolve a
+     NULL property and evaluate base-only (byte-identical to before), so the blast
+     radius is exactly "a location that is a member of a Locations-group carrying
+     ShortLocationDescription, with the dark restriction passing".
+
+   Now the champagne teleport renders FD's "…to find myself everything is dark."
+   (the `%LCase[%LocationName%]%`) under the "Everything is dark" room header,
+   both resolved through the inherited dark property.
+
 ## ⭐ XML text content must normalise line endings (CR-LF / lone CR → LF), per XML 1.0 §2.11 (broad)  ✅ DONE (2026-06-30)
 
 **JacarandaJim 3→2 (xoshiro)**, SixSilverBullets snapshot re-blessed (CR-LF→LF in
@@ -36,7 +100,8 @@ ASCII-art carried `\r\n`s that **FD renders as plain `\n`** (FD transcript has 0
 CRs) — the snapshot was re-captured to the now-FD-matching LF form (diff with CRs
 stripped is byte-identical, confirming the change is purely CR-LF→LF).
 
-**Residual (JacarandaJim xoshiro 2):** (a) the police-cell `look` renders
+**Residual (JacarandaJim xoshiro 2): ✅ BOTH FIXED 2026-06-30 — see the new top
+entry "JacarandaJim xoshiro → full MATCH". JJ xoshiro is now 0.** (a) the police-cell `look` renders
 `...way out of the cell.  Alan appears...` (2 spaces) where FD has 4 — a
 room-view trailing-space detail (the description text ends cleanly at "cell." in
 the model, so FD's extra 2 spaces come from the ViewLocation/event join, not the

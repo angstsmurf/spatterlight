@@ -257,7 +257,7 @@ item_name (a5_state_t *st, const std::string &key, a5_article_t art)
   const a5_location_t *l = a5model_location (st->adv, key.c_str ());
   if (l != NULL)
     {
-      char *n = a5text_describe (st, a5xml_child (l->node, "ShortDescription"));
+      char *n = a5text_location_short_plain (st, key.c_str ());
       std::string r = n ? n : "";
       free (n);
       return r;
@@ -668,7 +668,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
       (void) l;
       if (fn.empty ())          return key;
       if (fn == "Name" || fn == "List")
-        { char *n = a5text_describe (st, a5xml_child (l->node, "ShortDescription"));
+        { char *n = a5text_location_short_plain (st, key.c_str ());
           std::string r = n ? n : ""; free (n); return r; }
       if (fn == "Description")  return item_description (st, key);
       if (fn == "Exits")

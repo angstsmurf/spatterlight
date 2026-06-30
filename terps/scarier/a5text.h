@@ -28,6 +28,11 @@
  * still embedded.  Returns "" (never NULL) if node is NULL/empty.
  */
 extern char *a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper);
+/* The effective short description of a location (base <ShortDescription> plus any
+   inherited ShortLocationDescription group-property alternates -- darkness). */
+extern char *a5text_location_short (a5_state_t *st, const char *lockey);
+/* As a5text_location_short but fully rendered to plain text (the room NAME). */
+extern char *a5text_location_short_plain (a5_state_t *st, const char *lockey);
 
 /* Run the %function%/%variable% and ALR passes + auto-capitalisation on src. */
 extern char *a5text_process (a5_state_t *st, const char *src);

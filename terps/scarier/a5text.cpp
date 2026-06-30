@@ -126,17 +126,24 @@ add_space (const char *s, size_t len)
 
 /* ----------------------------------------------------- description -> source */
 
-char *
-a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
+/* Process every <Description> child of `wrapper` into the running buffer `sb`,
+   threading clsDescription.ToString's `first`/`default_text` state so several
+   wrappers can be concatenated into one logical Description (FD's
+   oShortDesc.Copy + appended group-property SingleDescriptions, clsLocation.vb:62).
+   Returns 1 when a DisplayOnce segment terminated the description (no later
+   wrapper should be considered), else 0. */
+static int
+eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
+                const a5_xml_node_t *wrapper)
 {
-  sb_t sb;
+  sb_t sb = *psb;
   const a5_xml_node_t *c;
-  const char *default_text = NULL;
-  int first = 1;
+  const char *default_text = *pdefault;
+  int first = *pfirst;
+  int terminated = 0;
 
-  sb_init (&sb);
   if (wrapper == NULL)
-    return sb_finish (&sb);
+    { *psb = sb; return 0; }
 
   for (c = wrapper->first_child; c != NULL; c = c->next)
     {
@@ -176,7 +183,7 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
              shows the line once because the failing faint segment returns before
              the second append.)  */
           if (once)
-            break;
+            { terminated = 1; break; }
           continue;             /* (Phase 4: show the description's FailMessage) */
         }
 
@@ -223,9 +230,50 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
          a plain StartDescriptionWithThis follow-up only wins once the first has
          been retired. */
       if (once)
-        break;
+        { terminated = 1; break; }
     }
 
+  *psb = sb;
+  *pfirst = first;
+  *pdefault = default_text;
+  return terminated;
+}
+
+char *
+a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
+{
+  sb_t sb;
+  const char *default_text = NULL;
+  int first = 1;
+  sb_init (&sb);
+  eval_desc_into (st, &sb, &first, &default_text, wrapper);
+  return sb_finish (&sb);
+}
+
+/* The effective short description of a location (clsLocation.ShortDescription,
+   vb:62): the base <ShortDescription> Description, with any inherited
+   ShortLocationDescription group property's SingleDescriptions appended -- so a
+   DarkLocations member with no LightSources in scope renders "Everything is
+   dark" (its dark alternate is StartDescriptionWithThis + restricted).  Routed
+   through by %LocationName%, %DisplayLocation%'s room name, and the
+   `.ShortDescription` OO reads, mirroring FD where every short-name read goes
+   through the property getter. */
+char *
+a5text_location_short (a5_state_t *st, const char *lockey)
+{
+  const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : NULL;
+  const a5_prop_t *dark;
+  sb_t sb;
+  const char *default_text = NULL;
+  int first = 1, term;
+  sb_init (&sb);
+  if (l == NULL)
+    return sb_finish (&sb);
+  term = eval_desc_into (st, &sb, &first, &default_text,
+                         a5xml_child (l->node, "ShortDescription"));
+  dark = a5state_location_group_prop (st, lockey, "ShortLocationDescription");
+  if (!term && dark != NULL && dark->value_node != NULL)
+    eval_desc_into (st, &sb, &first, &default_text, dark->value_node);
   return sb_finish (&sb);
 }
 
@@ -724,12 +772,8 @@ eval_function (a5_state_t *st, const char *name, const char *args)
   if (ci_eq (name, "locationname"))
     {
       const char *key = (args && args[0]) ? args : a5state_player_location (st);
-      const a5_location_t *l = key ? a5model_location (st->adv, key) : NULL;
-      if (l != NULL)
-        {
-          char *s = a5text_eval_description (st, a5xml_child (l->node, "ShortDescription"));
-          return s;
-        }
+      if (key != NULL && a5model_location (st->adv, key) != NULL)
+        return a5text_location_short (st, key);
       return strdup ("");
     }
   if (ci_eq (name, "locationof"))
@@ -1897,6 +1941,19 @@ a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper)
   return plain;
 }
 
+/* a5text_describe applied to a location's effective short description (base +
+   inherited darkness alternate) -- the fully-rendered room NAME. */
+char *
+a5text_location_short_plain (a5_state_t *st, const char *lockey)
+{
+  char *raw = a5text_location_short (st, lockey);
+  char *proc = a5text_process (st, raw);
+  char *plain = a5text_render_plain (proc);
+  free (raw);
+  free (proc);
+  return plain;
+}
+
 /* ----------------------------------------------------------- LOOK / location */
 
 /* Get an object's "list description" text (static/dynamic), or NULL. */
@@ -2003,7 +2060,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
 
   /* Room name (bold), then the long description. */
   {
-    char *name = a5text_describe (st, a5xml_child (loc->node, "ShortDescription"));
+    char *name = a5text_location_short_plain (st, lockey);
     sb_puts (&sb, name);
     sb_putc (&sb, '\n');
     free (name);
@@ -2176,11 +2233,16 @@ view_location_impl (a5_state_t *st, const char *lockey)
       char *cnt = a5expr_eval (st, "Player", ".Exits.Count");
       long n = cnt ? strtol (cnt, NULL, 10) : 0;
       free (cnt);
+      /* clsLocation.ViewLocation calls pSpace(sView) *unconditionally* (vb:177)
+         before the iExitCount check, so a room with NO exits ends with two
+         dangling trailing spaces -- which a following same-turn event message
+         then joins onto with another pSpace, giving four spaces (the JJ police
+         cell "...out of the cell.    Alan appears..." case). */
+      if (add_space (sb.p, sb.len))
+        sb_puts (&sb, "  ");
       if (n >= 1)
         {
           char *lst = a5expr_eval (st, "Player", ".Exits.List");
-          if (add_space (sb.p, sb.len))
-            sb_puts (&sb, "  ");
           if (n > 1)
             { sb_puts (&sb, "Exits are "); sb_puts (&sb, lst ? lst : ""); }
           else

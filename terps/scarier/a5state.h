@@ -258,6 +258,11 @@ extern int  a5state_object_in_group (const a5_state_t *st, const char *grpkey,
 extern void a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
                                          const char *objkey, int present);
 
+/* A location's inherited Locations-group property (e.g. the dynamic
+   ShortLocationDescription darkness property), or NULL. */
+extern const a5_prop_t *a5state_location_group_prop (const a5_state_t *st,
+                                  const char *lockey, const char *propkey);
+
 /* Conversation state setters (own the string; "" clears). */
 extern void a5state_set_conv_char (a5_state_t *st, const char *key);
 extern void a5state_set_conv_node (a5_state_t *st, const char *key);
