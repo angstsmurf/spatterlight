@@ -1,0 +1,930 @@
+Run, Bronwynn, Run!
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+RUN, BRONWYNN, RUN!
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HALL : HELP : MACROS : MAP : VOCAB;
+
+> b
+
+Your Bedroom
+You are sitting on your bed in your bedroom, which is situated on the first floor of the castle. It is a huge room, far too big for one person, but your father insisted that anything smaller would be unsuitable for a princess. The furnishings consist of a bed, a dressing table with a stool and a built-in wardrobe. A doorway leads North to your sitting room and there is a fireplace in the south wall.
+
+> search fireplace
+You cannot do that while you are sitting down.
+
+> read paper
+You can't see any papers!
+
+> look under cushions
+Sorry, I'm not sure which object you are trying to look under.
+
+> s
+There is no route to the south, only north.
+
+> look under bed
+Maybe you should get up off the bed first?
+
+> open chest
+Open what?
+
+> search clothes
+You search the clothes but find nothing of interest or use.
+
+> x table
+A wide, deep, dressing table finished in white satinwood with gold trimmings, it has a large oval mirror. The table contains one large drawer. On the dressing table you see an onyx hairbrush, an ivory comb, some nail varnish, some mascara, some blue eyeliner, some face powder, some lip paint, some blusher, a pair of tweezers and a nail file.
+
+> search drawers
+Sorry, I'm not sure which object you are trying to search.
+
+> cut hair
+CUT THE HAIR WITH what?
+
+> get hair
+You can't take your hair!
+
+> remove tiara, gown and shoes
+Ok, you remove the diamond tiara and the high-heel shoes.  You need to be standing up to do that.
+
+> wear leathers and boots
+You can't see any leathers!
+
+> drop gown
+You are not carrying the blue ballgown.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> open window
+You can't see any windows!
+
+> climb out
+Sorry, I'm not sure which object you are trying to climb.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> jump ne
+You cannot jump that way.
+
+> d
+There is no route going down, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> s
+There is no route to the south, only north.
+
+> x horse
+You see no such thing.
+
+> search straw
+You can't see any straw!
+
+> e
+There is no route to the east, only north.
+
+> get fleetwind saddle and fleetwind bridle
+Sorry, I didn't understand that command.
+
+> w
+There is no route to the west, only north.
+
+> u
+There is no route going up, only north.
+
+> search hay
+You can't see any hays!
+
+> get dummy
+Sorry, I'm not sure which object you are trying to take.
+
+> d
+There is no route going down, only north.
+
+> remove uniform from dummy
+Sorry, I'm not sure which object you're referring to.
+
+> remove leathers
+You are not wearing the riding leathers and the riding leathers.
+
+> wear uniform
+You can't see any uniforms!
+
+> put leathers on dummy
+Sorry, I didn't understand that command.
+
+> tie hair to dummy
+Sorry, I'm not sure which object you are trying to tie something to.
+
+> saddle horse
+Sorry, I didn't understand that command.
+
+> put bridle on horse
+You can't see any bridles!
+
+> feed horse
+Sorry, I'm not sure which character you are referring to.
+
+> put dummy on horse
+You are not carrying the dummy.
+
+> smack horse
+You should lead Fleetwind out of the stall first.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> ne
+There is no route to the northeast, only north.
+
+> e
+There is no route to the east, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> nw
+There is no route to the northwest, only north.
+
+> give tiara to boy
+You can't see any boy!
+
+> ask about bridget
+You must specify which character who you wish to speak to.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> search shadow
+You can't see any shadows!
+
+> climb into bin
+You can't see any bins!
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> search bin
+You can't see any bins!
+
+> climb out
+Sorry, I'm not sure which object you are trying to climb.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> read nameplates
+Sorry, I'm not sure which object you are trying to read.
+
+> pick lock
+You can't see any locks!
+
+> u
+There is no route going up, only north.
+
+> search washstand quietly
+Sorry, I'm not sure which object you are trying to carefully/quietly/gently search.
+
+> d
+There is no route going down, only north.
+
+> w
+There is no route to the west, only north.
+
+> unlock door
+You can't see any doors!
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> look n
+You look to the North, but see nothing of any interest or use.
+
+> whistle
+There is no need to do that here - you might draw attention to yourself!
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> look under bed
+Maybe you should get up off the bed first?
+
+> s
+There is no route to the south, only north.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> say to woman "where horse"
+You must specify which character you wish to speak to when there is more than one character present.
+
+> say to woman "return horse"
+You must specify which character you wish to speak to when there is more than one character present.
+
+> x curtains
+You can't see any curtains!
+
+> get cotton
+You can't see any cottons!
+
+> w
+There is no route to the west, only north.
+
+> nw
+There is no route to the northwest, only north.
+
+> w
+There is no route to the west, only north.
+
+> d
+There is no route going down, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> x line
+You can't see any lines!
+
+> get dress
+You are already carrying the blue ballgown!
+
+> s
+There is no route to the south, only north.
+
+> w
+There is no route to the west, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> e
+There is no route to the east, only north.
+
+> search sawdust
+Sorry, I'm not sure which object you are trying to search.
+
+> w
+There is no route to the west, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> w
+There is no route to the west, only north.
+
+> sit on bench
+You can't see any benches!
+
+> e
+There is no route to the east, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> x scarecrow
+You see no such thing.
+
+> get coat and hat
+Sorry, I'm not sure which object you are trying to take.
+
+> thread needle
+You are not carrying the needle.
+
+> sew button to coat
+Sorry, I'm not sure which object you are trying to sew/stitch.
+
+> wear coat and hat
+Sorry, I'm not sure which object you're referring to.
+
+> fasten coat
+You should be wearing the coat if you want to do that.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> d
+There is no route going down, only north.
+
+> search vegetation
+You can't see any vegetations!
+
+> u
+There is no route going up, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> search tables
+You can't see any tables!
+
+> x patrons
+You see no such thing.
+
+> start fight
+Sorry, I didn't understand that command.
+
+> get knife
+Sorry, I'm not sure which object you are trying to take.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> get wool
+You can't see any wool!
+
+> w
+There is no route to the west, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> talk to sue
+I did not understand the word "sue".
+
+> x sue
+You see no such thing.
+
+> wash sue
+I did not understand the word "sue".
+
+> say to sue "follow me"
+You must specify which character you wish to speak to when there is more than one character present.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> get wool
+You can't see any wool!
+
+> w
+There is no route to the west, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> search shed
+You can't see any sheds!
+
+> spin wool
+You can't see any wool!
+
+> search shed
+You can't see any sheds!
+
+> get crate
+You can't see any crates!
+
+> nw
+There is no route to the northwest, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> e
+There is no route to the east, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> drop crate
+You can't see any crates!
+
+> climb fence
+Sorry, I'm not sure which object you are trying to climb.
+
+> look in opening
+Sorry, I'm not sure which object you are trying to look in.
+
+> sharpen stick
+Sorry, I'm not sure which object you are trying to sharpen.
+
+> put wool on stick
+You can't see any wool!
+
+> dip wool in dye
+You can't see any wool!
+
+> climb fence
+Sorry, I'm not sure which object you are trying to climb.
+
+> get crate
+You can't see any crates!
+
+> e
+There is no route to the east, only north.
+
+> se
+There is no route to the southeast, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> drop crate
+You can't see any crates!
+
+> light crate
+You can't see any crates!
+
+> hold wool by fire
+Sorry, I didn't understand that command.
+
+> separate wool from stick
+I did not understand the word "separate".
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> e
+There is no route to the east, only north.
+
+> u
+There is no route going up, only north.
+
+> e
+There is no route to the east, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> give wool to woman
+You can't see any wool!
+
+> say to woman "return horse"
+You must specify which character you wish to speak to when there is more than one character present.
+
+> threaten woman
+You can't see any woman!
+
+> crawl out
+You cannot crawl in that direction.
+
+> no
+Sorry, I didn't understand that command.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> nw
+There is no route to the northwest, only north.
+
+> nw
+There is no route to the northwest, only north.
+
+> nw
+There is no route to the northwest, only north.
+
+> w
+There is no route to the west, only north.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> w
+There is no route to the west, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> w
+There is no route to the west, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> w
+There is no route to the west, only north.
+
+> free horses
+I did not understand the word "free".
+
+> mount fleetwind
+Fleetwind isn't here!
+
+> yell
+Sorry, I didn't understand that command.
+
+> x hummock
+You see no such thing.
+
+> get pebbles
+Sorry, I'm not sure which object you are trying to take.
+
+> throw pebble sw
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> sw
+There is no route to the southwest, only north.
+
+> throw pebble w
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> w
+There is no route to the west, only north.
+
+> throw pebble s
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> s
+There is no route to the south, only north.
+
+> throw pebble se
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> se
+There is no route to the southeast, only north.
+
+> sw
+There is no route to the southwest, only north.
+
+> throw pebble w
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> w
+There is no route to the west, only north.
+
+> throw pebble w
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> w
+There is no route to the west, only north.
+
+> throw pebble sw
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> sw
+There is no route to the southwest, only north.
+
+> throw pebble sw
+Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
+
+> sw
+There is no route to the southwest, only north.
+
+> w
+There is no route to the west, only north.
+
+> dismount
+Sorry, I didn't understand that command.
+
+> x soldier
+You can't see any soldier!
+
+> talk to soldier
+You can't see any soldier!
+
+> pull bolt
+You can't see any bolts!
+
+> search body
+You can't see any body!
+
+> mount fleetwind
+Fleetwind isn't here!
+
+> w
+There is no route to the west, only north.
+
+> x milestone
+You see no such thing.
+
+> w
+There is no route to the west, only north.
+
+> dismount
+Sorry, I didn't understand that command.
+
+> n
+Perhaps it would be a good idea if you were to get off the bed first?
+
+> tether fleetwind to tree
+You can't see any tree!
+
+> w
+There is no route to the west, only north.
+
+> search undergrowth
+You can't see any undergrowths!
+
+> search soldiers
+You can't see any soldiers!
+
+> s
+There is no route to the south, only north.
+
+> s
+There is no route to the south, only north.
+
+> e
+There is no route to the east, only north.
+
+> search undergrowth
+You can't see any undergrowths!
+
+> search horse
+Sorry, I'm not sure which character you are referring to.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> w
+There is no route to the west, only north.
+
+> climb tree
+You can't see any tree!
+
+> look down
+You look Down, but see nothing of any interest or use.
+
+> x outlaws
+You see no such thing.
+
+> d
+There is no route going down, only north.
+
+> e
+There is no route to the east, only north.
+
+> e
+There is no route to the east, only north.
+
+> fire crossbow at outlaw
+You can't see any outlaws!
+
+> w
+There is no route to the west, only north.
+
+> move outlaw
+Sorry, I'm not sure which character you are referring to.
+
+> get longbow
+Sorry, I'm not sure which object you are trying to take.
+
+> fit bowstring on longbow
+Sorry, I'm not sure which object you are trying to attach.
+
+> w
+There is no route to the west, only north.
+
+> climb tree
+You can't see any tree!
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> fire longbow at outlaws
+Sorry, I'm not sure which object you are trying to light/ignite.

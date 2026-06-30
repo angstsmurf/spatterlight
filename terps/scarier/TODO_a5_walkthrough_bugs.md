@@ -1,5 +1,78 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Run Bronwynn Run → full MATCH: `%objects%` reference model — single-noun-matches-many ambiguity, and-form hard-fail, second-chance ambiguity yields  ✅ DONE (2026-06-30)
+
+**RunBronwynnRun 3→0** (full MATCH, golden `test/RunBronwynnRun_expected.txt`) —
+no other corpus game moved in either mode (10 games MATCH), all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden), budget re-blessed
+3→0. Three independent root causes, all in the `%objects%` plural-reference model
+and all faithful to FD's `InputMatchesObjects`/`RefineMatchingPossibilitesUsing
+Restrictions`/`GetGeneralTask`:
+
+1. **A single noun in an "X and Y" list that name-matches several objects collapses
+   into ONE ambiguous Item (Count>1) — `resolve_plural` lost it.** FD's
+   `InputMatchesObjects` (clsUserSession.vb:5305) parses `%objects%` two ways: the
+   *bare-plural* path (`all`, `all <plural>`, a plural-noun match → `bPlural=True`)
+   spreads each object into its own single-possibility Item, but the *"X and Y" /
+   comma* path matches each chunk with the **singular** `InputMatchesObject`
+   (`bPlural=False`), which appends every name-match of that chunk to the **same**
+   Item (vb:5466) — so a chunk matching >1 object is a Count>1 ambiguity. `wear
+   leathers and boots`: the "leathers" chunk matches two "riding leathers" objects →
+   Item Count 2. FD refines every Item through Applicable/Visible/Seen, resetting the
+   whole reference to its original Items whenever a tier empties them all
+   (vb:5825-5959); both leathers are unseen+invisible so every tier empties → the
+   reference resets to original → the Count 2 Item survives → `GetGeneralTask` raises
+   it as `sAmbTask` → `DisplayAmbiguityQuestion` → **"You can't see any leathers!"**
+   (none visible). Scarier's `resolve_plural` (`a5run.cpp`) collapsed each Item to a
+   single key via `pick_item_key` before checking restrictions, discarding the
+   ambiguity, so it ran the task to a restriction-fail message ("...you're referring
+   to."). **Fixed**: `resolve_plural` now mirrors the tiered per-Item refine
+   (Applicable→Visible→Seen, reset-to-original on a tier that empties every Item) over
+   the candidate sets and, if an Item survives Count>1, returns `RR_AMBIG`/`RR_CANTSEE`
+   (the resolved/none-passed machinery below runs only when every Item is unique). The
+   bare-plural path stays Count-1-per-Item, so `take all` / `show documents` are
+   unaffected.
+
+2. **An "X and Y" list one of whose chunks names NO object must hard-fail the task
+   match — Scarier fell through to a single-object resolution + second-chance no-ref.**
+   FD's and-form does `If Not InputMatchesObject(chunk, …) Then Return False`
+   (vb:5366-5371) — returning False *without* the single-noun second-chance
+   `HasObjectExistRestriction` fallback (that fallback lives only on the final
+   single-`InputMatchesObject` line, vb:5470, never reached once the and-regex
+   matched). So `get fleetwind saddle and fleetwind bridle` (neither chunk names an
+   object) → the take task does **not** match → **"Sorry, I didn't understand that
+   command."**. Scarier's `match_objects` returned false, and `resolve_refine` then
+   re-tried the *whole* string through `resolve_object_candidates` → empty → the
+   second-chance no-ref path → the take task's "...trying to take." **Fixed**:
+   `match_objects` sets a new `hard_fail` out-param when an and/comma chunk matched
+   nothing; `resolve_refine`'s `%objects%` branch returns `RR_NOMATCH` outright on
+   `hard_fail` (no `resolve_object_candidates` retry, no no-ref registration). A plain
+   single-noun no-match (`get xyzzy`) is unchanged — it still gets the second-chance
+   no-ref, as FD's final single-`InputMatchesObject` line does.
+
+3. **A *second-chance*-pass task's sibling ambiguity must YIELD to another task's
+   clean no-reference message.** `remove uniform from dummy`: `TakeFromCh1`
+   (`%objects% from %character%`) is ambiguous on "uniform" (2 objects) but its
+   "dummy" names no **character** — so in FD the task matches only in the
+   second-chance (existence) pass, where the ambiguous-Item sets `sAmbTask` but a
+   *different* task, `RemoveObjects` (`[remove/take off] %objects%`, "uniform from
+   dummy" → one unmatched 0-Item ref), reaches `GetGeneralTask = sNoRefTask` and so
+   **wins** (DisplayAmbiguityQuestion fires only when `sTaskKey Is Nothing`,
+   vb:3410) → **"Sorry, I'm not sure which object you're referring to."** Scarier
+   surfaced `TakeFromCh1`'s ambiguity as a *first-pass* `RR_CANTSEE`
+   ("You can't see any uniforms!"), which preempts the no-ref. **Root cause**:
+   `resolve_refine`'s post-refine ambiguity loop flagged `amb.second_chance` only via
+   the `noref_required` branch; a task with an unmatched *optional* (bracket-truncated)
+   reference plus an ambiguous sibling stayed `second_chance=0` (first-pass).
+   **Fixed**: the post-refine ambiguity now sets `amb.second_chance = have_noref` —
+   any task that matched only because some reference name-matched nothing (exist
+   fallback) produces a *second-chance* ambiguity, which `a5run_input` orders **after**
+   the clean `sNoRefTask`. A pure first-pass ambiguity (no unmatched ref, e.g. `press
+   button`) stays `second_chance=0` and still preempts the no-ref. (`pour oil on me`
+   in DieFeuerfaust — `have_noref` with a truncated object2 — becomes second_chance but
+   has no competing no-ref, so its "You can't see any oil!" still surfaces; golden
+   unchanged.)
+
 ## ⭐ SpectreOfCastleCoris + AxeOfKolt → full MATCH: HighestPriorityPassingTask keeps the *highest* failing task + empty-article indefinite leading space  ✅ DONE (2026-06-30)
 
 **SpectreOfCastleCoris 3→0, AxeOfKolt 4→0** (both full MATCH, goldens

@@ -904,12 +904,18 @@ expand_all_objects (a5_state_t *st, std::vector<std::vector<std::string>> &items
  * grammar into per-item candidate sets -- "all" / "all <plural>",
  * "X and Y" / comma lists, and a trailing "... except/but/apart from ...".
  * `had_all` is set when a bare/refined "all" appeared (drives the FailOverride).
+ * `hard_fail` is set when the input parsed as an explicit "X and Y" / comma
+ * multi-reference but a *chunk* named no object: frankendrift's and-form path
+ * (`If Not InputMatchesObject(...) Then Return False`, vb:5371) returns False
+ * outright and -- unlike a single-noun no-match -- does NOT fall through to the
+ * second-chance `HasObjectExistRestriction` fallback, so the task does not match
+ * at all (-> "Sorry, I didn't understand that command.").
  * Returns true if the text resolved to at least one item.
  */
 static bool
 match_objects (a5_state_t *st, const std::string &input_raw,
                std::vector<std::vector<std::string>> &items,
-               bool excepts, bool plural, int *had_all)
+               bool excepts, bool plural, int *had_all, int *hard_fail = NULL)
 {
   std::string input = trim_ws (input_raw);
   if (input.empty ())
@@ -969,12 +975,12 @@ match_objects (a5_state_t *st, const std::string &input_raw,
                                   : left.substr (start, comma - start));
               if (!tok.empty ()
                   && !match_object_one (st, tok, items, item_num++, excepts, false))
-                return false;
+                { if (hard_fail) *hard_fail = 1; return false; }
               if (comma == std::string::npos) break;
               start = comma + 2;
             }
           if (!match_object_one (st, o3, items, item_num++, excepts, false))
-            return false;
+            { if (hard_fail) *hard_fail = 1; return false; }
           return true;
         }
     }
@@ -1082,6 +1088,80 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
 
   if (!match_objects (st, text, items, false, false, &had_all))
     return RR_NOMATCH;
+
+  /* Per-item ambiguity (clsUserSession.RefineMatchingPossibilitesUsingRestrictions
+     + GetGeneralTask).  A single noun (no "and"/comma) that name-matches several
+     objects collapses into one Item holding >1 MatchingPossibility -- e.g. the
+     "leathers" chunk of `wear leathers and boots` matches two "riding leathers"
+     objects, so its Item has Count 2.  (The bare-plural path -- "all", "all
+     <plural>", or a plural-noun match -- instead spreads each object into its own
+     single-possibility Item, so it is never ambiguous.)  FD refines every Item
+     through the Applicable/Visible/Seen tiers, resetting the whole reference to
+     its original Items whenever a tier empties *all* of them; an Item that is
+     never reduced to a unique key stays Count>1, and GetGeneralTask then raises
+     it as sAmbTask (DisplayAmbiguityQuestion -> "Which <noun>?" if any candidate
+     is visible, else "You can't see any <plural>!").  So mirror the tiered refine
+     over the per-item candidate sets and, if an Item survives ambiguous, surface
+     it here -- the resolved/none-passed machinery below only runs when every Item
+     is unique. */
+  {
+    std::vector<std::vector<std::string>> cur = items;
+
+    /* Applicable: keep, per Item, the candidates that pass the restrictions with
+       that single key bound (a key already kept in an earlier Item is not added
+       again -- FD's global lAdded).  Items with no surviving candidate are
+       dropped; if *every* Item is dropped, the whole reference resets to its
+       original Items (so a Count>1 Item is preserved). */
+    {
+      std::vector<std::vector<std::string>> nr;
+      std::vector<std::string> added;
+      for (auto &item : cur)
+        {
+          std::vector<std::string> out;
+          for (auto &k : item)
+            {
+              bind_reference (st, "objects", k.c_str (), text.c_str ());
+              if (a5restr_pass (st, t->restrictions)
+                  && std::find (added.begin (), added.end (), k) == added.end ())
+                { out.push_back (k); added.push_back (k); }
+            }
+          if (!out.empty ()) nr.push_back (out);
+        }
+      cur = nr.empty () ? items : nr;
+    }
+
+    /* Visible, then Seen: drop non-visible / non-seen candidates per Item; reset
+       to the original Items whenever a tier empties them all. */
+    for (int tier = 0; tier < 2; tier++)
+      {
+        std::vector<std::vector<std::string>> nr;
+        for (auto &item : cur)
+          {
+            std::vector<std::string> out;
+            for (auto &k : item)
+              if (tier == 0 ? obj_visible (st, k.c_str ())
+                            : obj_seen_p  (st, k.c_str ()))
+                out.push_back (k);
+            if (!out.empty ()) nr.push_back (out);
+          }
+        cur = nr.empty () ? items : nr;
+      }
+
+    /* The first Item still holding >1 candidate is the ambiguity (FD scans Items
+       in order; GetGeneralTask sets sAmbTask for the first Count>1). */
+    for (auto &item : cur)
+      if (item.size () > 1)
+        {
+          int any_vis = 0;
+          for (auto &k : item)
+            if (obj_visible (st, k.c_str ())) { any_vis = 1; break; }
+          if (amb != NULL)
+            { amb->ref_name = "objects"; amb->type = 'o';
+              amb->ref_text = text; amb->keys = item;
+              amb->second_chance = 0; }
+          return any_vis ? RR_AMBIG : RR_CANTSEE;
+        }
+  }
 
   /* Choose one key per item; keep the items whose key passes the restrictions. */
   std::vector<std::string> chosen, all_keys;
@@ -1213,8 +1293,17 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       if (base == "objects")
         {
           std::vector<std::vector<std::string>> items;
-          int had_all = 0;
-          bool ok = match_objects (st, r.text, items, false, false, &had_all);
+          int had_all = 0, hard_fail = 0;
+          bool ok = match_objects (st, r.text, items, false, false, &had_all,
+                                   &hard_fail);
+          /* An explicit "X and Y" / comma list one of whose chunks named no
+             object: frankendrift returns False without the second-chance
+             existence fallback, so the command does not match this task at all
+             (no sNoRefTask) -- e.g. `get fleetwind saddle and fleetwind bridle`,
+             where neither chunk names an object, is "I didn't understand", not
+             the take task's "...trying to take." no-reference message. */
+          if (hard_fail)
+            return RR_NOMATCH;
           /* A genuine multi-object input *or* any "all" command (even one that
              expands to zero/one seen object) goes through resolve_plural, so a
              "get all" with nothing takeable surfaces the task's FailOverride
@@ -1446,7 +1535,18 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
             { any_vis = 1; break; }
         if (amb != NULL)
           { amb->ref_name = r.name; amb->type = r.type;
-            amb->ref_text = r.text; amb->keys = r.keys; }
+            amb->ref_text = r.text; amb->keys = r.keys;
+            /* If this task ALSO had a reference that named nothing, it matched
+               only via frankendrift's second-chance (existence) pass -- so its
+               ambiguity is a second-chance sAmbTask, which a *different* task's
+               clean no-reference / failing-with-output result (GetGeneralTask)
+               beats.  `remove uniform from dummy`: TakeFromCh1 (`%objects% from
+               %character%`) is ambiguous on "uniform" but its "dummy" names no
+               character, so RemoveObjects' `[remove/take off] %objects%`
+               no-reference message ("...you're referring to.") wins over the
+               cantsee.  A pure first-pass ambiguity (no unmatched ref) stays
+               second_chance=0 and preempts any no-reference fallback. */
+            amb->second_chance = have_noref; }
         return any_vis ? RR_AMBIG : RR_CANTSEE;
       }
 
