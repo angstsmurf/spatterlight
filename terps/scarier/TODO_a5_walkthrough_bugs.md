@@ -1,5 +1,54 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ SpectreOfCastleCoris + AxeOfKolt → full MATCH: HighestPriorityPassingTask keeps the *highest* failing task + empty-article indefinite leading space  ✅ DONE (2026-06-30)
+
+**SpectreOfCastleCoris 3→0, AxeOfKolt 4→0** (both full MATCH, goldens
+`test/SpectreOfCastleCoris_expected.txt` / `test/AxeOfKolt_expected.txt`) — no
+other corpus game moved in either mode, SixSilverBullets held at baseline (no
+mis-tick), all a5 unit tests pass (run/arith/parse/dis/walk/obj/save + Six Silver
+Bullets golden), budgets re-blessed. Two independent root causes:
+
+1. **Indefinite `FullName` of an empty-article object dropped the leading space.**
+   FD's `clsObject.FullName` (clsObject.vb:324) renders an Indefinite article as
+   `sArticle2 = sArticle & " "` — the space is appended **even when the article is
+   empty**, so an empty-`<Article/>` object renders with a leading space. Spectre's
+   `Clothes` object has an empty article and prefix "your", so the inventory line's
+   `%Player%.Worn(False).List(Indefinite, False)` yields `" your clothes and the
+   bottomless bag"` (leading space) → `"You are wearing  your clothes…"` (double
+   space after "wearing"). Scarier's `a5text_object_name` (`a5text.cpp`) only
+   emitted the article-space for a **non-empty** article, so it rendered a single
+   space. **Fixed**: the INDEFINITE branch now always appends the space (the
+   article when present, then `' '`), matching FD's `sArticle & " "`.
+
+2. **Under `HighestPriorityPassingTask`, FD surfaces the *highest*-priority failing
+   task; Scarier kept the *first* (lowest).** FD's `GetGeneralTask`
+   (clsUserSession.vb:6076) reassigns `GetGeneralTask = tas.Key` for **every**
+   command-matching task that fails *with output* (`sRestrictionText <> ""`) without
+   `GoTo FoundTask` in this mode, so the last (highest-priority) one wins; the
+   loop-top `Not (LowPriority AndAlso Priority > iPriorityFail)` guard (vb:5981)
+   skips LowPriority tasks once a fail floor is set. Scarier's `scan_tasks`
+   (`a5run.cpp`) recorded only the *first* failing-with-output task (the documented
+   Axe `say`/`tell` residual). **Fixed** in three faithful pieces:
+   - `scan_tasks` loop top: under `hp_passing`, once a fail-with-output is recorded,
+     skip a LowPriority task above the fail floor (the iPriorityFail guard). This is
+     what keeps **SixSilverBullets'** turn timer aligned — a bare keep-highest
+     without it ticked early (bell-toll/sniper events fired prematurely).
+   - The RR_FAIL recording overwrites to the highest under `hp_passing` (run->order
+     is ascending), keeps the first within the priority band under the default
+     HighestPriorityTask. Fixes Spectre `give bottle` ("You can't see the
+     linctus!" not "You are not carrying the linctus.") and Axe's `say`/`tell` hunks.
+   - The RR_NOREF (second-chance Must-Exist) path likewise overwrites to the
+     highest under `hp_passing`, **gated on the new task producing a non-empty
+     message** (`noref_has_output`, mirroring FD's `sRestrictionText <> ""`).
+     Spectre's `remove bricks` matches both RemoveObjects (P50736, "…you're
+     referring to.") and RemoveObje (P50749, "…trying to remove."); FD surfaces the
+     latter. The output gate keeps Axe's `examine <unknown noun>` on its "You see
+     no such thing." rather than yielding to a higher refless task that fails
+     silently and drops the turn to NotUnderstood.
+
+This closes the long-standing Axe `say to <absent char>` / `tell <unseen char>`
+residual (the TODO note's predicted bonus) and Spectre's last three hunks.
+
 ## ⭐ MagneticMoon → full MATCH: end-game score by KEY + second-chance ambiguity yields to clean no-ref  ✅ DONE (2026-06-30)
 
 **MagneticMoon 2→0** (full MATCH, golden `test/MagneticMoon_expected.txt`); no

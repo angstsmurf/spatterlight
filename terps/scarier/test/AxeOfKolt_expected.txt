@@ -1,0 +1,2315 @@
+The Axe of Kolt
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+THE AXE OF KOLT  Start-Up Options:
+
+Press B (enter) to Begin the Adventure from the First Location.
+
+Press P (enter) to read the Prologue and Playing Instructions.
+(Recommended if starting this adventure for the first time)
+
+If you have already started the adventure and wish to restart from a saved position, click on the Blue Folder Icon in the taskbar above.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's colour preferences, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the font colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Before starting, please ensure that Autocomplete is unticked in the "Edit" tab in the taskbar above.
+
+Useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP
+MACROS : MAP : SPEECH : VOCAB
+
+> b
+
+Crossroads
+You are at a crossroad on the main highway that runs from north to south through the kingdom of Scippar. Here two other narrower roads head off to the East and West. By the side of the road is a freshly-painted signpost. The ground under your feet is covered in a layer of brown leaves which have fallen from the trees that surround you. Through the thickly clustered bare branches of the trees you can just about see, to the north, the mighty Droomdark mountains that form a spine across the continent.
+
+You hear the haywain move off behind you, and turn to wave to the farmer, who gives you a nod and a thumbs-up for luck as he flicks his reins onto the backs of his oxen in a bid to encourage them to move a bit quicker.
+
+> i
+You are wearing some clothes, and are carrying nothing.  A knife is in the sheath on your belt.
+
+> x signpost
+A simple wooden post with four arms giving directions to nearby villages, it looks quite new as if has recently been erected.
+
+Nailed to the post lower down is a wooden board on which is painted: "Hengemire Market - Mondays and Tuesdays - Come Early for the Best Bargains!".
+
+> read notice
+You can't see any notices!
+
+> e
+You move east.
+
+Road to Hengemire
+The road has now emerged from the woodland into open farmland. The farms and fields are marked by a network of drystone walls either side of the road. In the distance to the north, you see fields stretching away towards the foothills of the snow-peaked Droomdark mountains. The road continues East towards the village of Hengemire or you can go back West to the crossroads where you left the haywain.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> look e
+You look in that direction, but see nothing of any interest.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> s
+You move south.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> s
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> search grass
+You search the grass, but find nothing of any use.
+
+> e
+You move east.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+A woman comes out the church, wrapped in a cloak to ward off the cold wind. As she passes, you nod a greeting and smile. She looks at you with a slightly curious look on her face, but she returns your greeting with a nod and then hurries off towards the cottages on the north side of the green.
+
+She is followed shortly after by several other villagers, some of whom pass you by without noticing you, but one or two glance in your direction and nod politely.
+
+Finally, the vicar leaves the church and, shutting the door behind him, walks towards you. He is a surprisingly young man, probably in his late twenties, and as he passes you he doffs his hat and smiles. "God be with you, my friend," he says cheerily. You nod your head and reply in kind, and he walks away across the green, whistling merrily.
+
+> w
+You move west.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+You hear a horse neigh and turn to see a brewer's dray, towed by two huge shire horses, come rumbling along the road from the west. As it approaches the village green, the drayman turns the horses north towards the inn. The dray trundles past the inn door, turns into the yard of the inn and is lost to sight.
+
+> nw
+You move northwest.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> nw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> nw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> help landlord
+Sorry, I didn't understand that command.
+
+> talk to lorna
+I did not understand the word "lorna".
+
+> ask lorna about "pass"
+I did not understand the word "lorna".
+
+> ask lorna about "dwark"
+I did not understand the word "lorna".
+
+> x beam
+You can't see any beams!
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> x tapestry
+You see no such thing.
+
+> e
+You move east.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> e
+You move east.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here.
+
+A man comes towards you pushing a wheelbarrow which has some stakes in it. He nods a greeting to you and proceeds to unload the contents of the wheelbarrow, which includes a length of rope and a sledgehammer.
+
+As you watch he hammers one of the stakes upright into the ground then measures off 5 strides from the first stake and drives another stake into the earth. He then turns 90 degrees, measures off another 5 strides and drives another stake into the ground. He repeats this a third time to make a square.
+
+Throwing the sledgehammer into the wheelbarrow, he picks up the rope and ties it to one of the stakes and then goes around the square of stakes, looping it over the other three before tying the rope off on the stake where he started.
+
+Finally he takes a notice and a hammer from the wheelbarrow and nails the notice to one of the stakes. Placing the hammer back into the wheelbarrow, he picks up the handles and wheels the wheelbarrow off towards the cottages to the north of the green and he disappears behind one of them.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> n
+You move north.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> nw
+You move northwest.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> w
+You move west.
+
+By Inn Yard
+You are to the north of the inn, by the entrance to the yard which is West. Further North, NE and NW the cottages of the village folk lay huddled together with narrow paths between them. You can also go East and SE onto the village green or South along the track to the Inn door. In the yard of the inn to the west you see a brewer's dray.
+
+You see the drayman come walking quickly out of the inn yard, looking furtively behind as he goes. He sees you watching him and puts his finger to his lips and winks - you realise that he is probably up to no good! However, you think to yourself that it is none of your business and you watch as he enters the huddle of cottages to the north. He knocks at the door of a small neat cottage, looking around to see if anyone else is watching him. The door opens and you catch a glimpse of a woman's face as the drayman slips inside and the door is closed behind him.
+
+> say "zorak"
+I'm not sure which character you are referring to.
+
+> w
+You move west.
+
+Inn Yard
+You are to the north of the inn, in a large cobbled yard. On the west side of the yard there are storage sheds and to the north the stables. The track by the village green is to the East. Here you see a brewer's dray.
+
+You see a man, probably the innkeeper, open the doors of a storage shed and go inside. He fetches out what looks like a large thick cushion and drops it by the side of the dray. He looks around as if seeking someone.
+
+"Jonnie K!" he yells, "where are ya, ye lazy git?!". He waits a moment or two then, realising he is not going to get any help, he climbs up onto the dray and manhandles a barrel of ale from the top of the pile and rolls it so that it falls off the dray onto the cushion with a dull thud. He then jumps down and rolls the barrel towards the storage shed.
+
+"I'll bloody murder that lazy bugger Jonnie!" you hear him mutter as he rolls the barrel into the storage shed. "Always skiving off when there's work to be done!"
+
+> x bell
+You see no such thing.
+
+The innkeeper come out of the storage shed and he climbs up on to the dray. He rolls a barrel off onto the cushion and jumps down again. He then rolls the barrel into the storage shed.
+
+> fit clapper
+Sorry, I didn't understand that command.
+
+> ring bell
+Sorry, I didn't understand that command.
+
+> w
+Only full-time employees of the Dragonslayer's Arms are allowed inside the storage shed.
+
+> u
+There is no route in that direction, only north, east and west.
+
+> tell magor about "xixon"
+You can't see Magor!
+
+> x bag
+You can't see any bags!
+
+> look in bag
+You can't see any bags!
+
+> d
+There is no route in that direction, only north, east and west.
+
+> e
+You move east.
+
+By Inn Yard
+You are to the north of the inn, by the entrance to the yard which is West. Further North, NE and NW the cottages of the village folk lay huddled together with narrow paths between them. You can also go East and SE onto the village green or South along the track to the Inn door. In the yard of the inn to the west you see a brewer's dray.
+
+> e
+You move east.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> se
+You move southeast.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> d
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> s
+You move south.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> x stalls
+You can't see any stalls!
+
+> nw
+You move northwest.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> w
+You move west.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> buy ale
+You cannot buy that here!
+
+> e
+You move east.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> e
+You move east.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> talk to lampmaker
+Sorry, I didn't understand that command.
+
+> buy lamp
+You can't see any lamp!
+
+> buy tinderbox
+You cannot buy one of those!
+
+> x lamp
+You can't see any lamp!
+
+> ask lampmaker about "oil"
+Sorry, I'm not sure which character you're referring to. (characters must be seen)
+
+> s
+You move south.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> x cross
+A tall, weather-worn stone cross.
+
+> wait
+You wait for a while.....
+
+> buy oil
+You have no money!
+
+> x stall
+You can't see any stalls!
+
+> w
+You move west.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> ask trapper about "dwark"
+Sorry, I'm not sure which character you're referring to. (characters must be seen)
+
+> x coats
+You see no such thing.
+
+> buy coat
+You have no money!
+
+> ne
+You move northeast.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> n
+You move north.
+
+NE Side of Village Green
+You are on the northeast side of the village green, by the well. Beyond, to the North and NE you see some of the cottages and other dwellings belonging to the residents of Hengemire. To the east lies thick impassable vegetation with the forest beyond that.
+
+> wear coat
+Sorry, I'm not sure which object you're referring to.
+
+> u
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> light lamp
+You can't see any lamp!
+
+> u
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> dive into snow
+Sorry, I didn't understand that command.
+
+> u
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> dive into snow
+Sorry, I didn't understand that command.
+
+> u
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> throw rock
+You can't see any rocks!
+
+> run se
+There is nowhere to run in that direction!
+
+> run e
+There is nowhere to run in that direction!
+
+> extinguish lamp
+You can't see any lamp!
+
+> w
+You move west.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> d
+There is no route in that direction, only north, east, south, west, northeast, southeast, southwest and northwest.
+
+> sw
+You move southwest.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> look sw
+You look in that direction, but see nothing of any interest.
+
+> ne
+You move northeast.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> e
+You move east.
+
+NE Side of Village Green
+You are on the northeast side of the village green, by the well. Beyond, to the North and NE you see some of the cottages and other dwellings belonging to the residents of Hengemire. To the east lies thick impassable vegetation with the forest beyond that.
+
+> e
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> n
+You think about wandering around amongst the cottages, but don't want to intrude upon the privacy of the villagers nor do you wish to arouse suspicion, so you decide not to.
+
+> e
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> x signpost
+You see no such thing here.
+
+> s
+You move south.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> talk to lady
+You can't see any lady!
+
+> search bed
+You can't see any beds!
+
+> x lady
+You see no such thing.
+
+> give coat to lady
+You can't see any lady!
+
+> w
+You move west.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> n
+You move north.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> w
+You move west.
+
+By Inn Yard
+You are to the north of the inn, by the entrance to the yard which is West. Further North, NE and NW the cottages of the village folk lay huddled together with narrow paths between them. You can also go East and SE onto the village green or South along the track to the Inn door. In the yard of the inn to the west you see a brewer's dray.
+
+> n
+You think about wandering around amongst the cottages, but don't want to intrude upon the privacy of the villagers nor do you wish to arouse suspicion, so you decide not to.
+
+> search farmyard
+You can't see any farmyards!
+
+> take sieve
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+You move south.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> e
+You move east.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> s
+You move south.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> s
+You move south.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> talk to ferryman
+Sorry, I didn't understand that command.
+
+> ask ferryman "cross river"
+I did not understand the word ""cross".
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> n
+You move north.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> n
+You move north.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> w
+You move west.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> w
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> s
+You move south.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> say sawyer "wood"
+I'm not sure which character you are referring to.
+
+> take rod
+You can't see any rods!
+
+> n
+You move north.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> e
+You move east.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> e
+You move east.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> ne
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> say blacksmith "straighten rod"
+I'm not sure which character you are referring to.
+
+> sw
+You move southwest.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> s
+You move south.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> w
+You move west.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> buy ale
+You cannot buy that here!
+
+> e
+You move east.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> n
+You move north.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> w
+You move west.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> say sergeant "forest"
+I'm not sure which character you are referring to.
+
+> sw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> sw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> n
+You move north.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> help girl
+Sorry, I didn't understand that command.
+
+> s
+You move south.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> talk to toolmaker
+I did not understand the word "toolmaker".
+
+> buy hammer
+You have no money!
+
+> nw
+There is no route in that direction, only north, east, south, west, northeast and southeast.
+
+> x stall
+You can't see any stalls!
+
+> buy axe
+You can't see any axe!
+
+> look in bag
+You can't see any bags!
+
+> s
+You move south.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> x goat
+You see no such thing.
+
+> w
+There is no route in that direction, only north, east and northeast.
+
+> search weeds
+You search the weeds but find nothing of any use to you at the moment.
+
+> drop all
+You have nothing to drop.
+
+> take pin
+You can't see any pins!
+
+> drop pin
+You can't see any pins!
+
+> ne
+You move northeast.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> ne
+You move northeast.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> turn handle
+You can't see the well handle!
+
+> turn handle
+You can't see the well handle!
+
+> x bucket
+You see no such thing here.
+
+> wash
+Wash what?
+
+> sw
+You move southwest.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> sw
+You move southwest.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> take all
+There is nothing worth taking here.
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> n
+You move north.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> look around
+You look around you but see nothing that would be of any interest.
+
+> x men
+You can't see any men!
+
+> w
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> dry clothes
+You cannot dry your clothes properly here!
+
+> x mantelpiece
+You see no such thing.
+
+> search dust
+You can't see any dust!
+
+> e
+You move east.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> give domino
+There is nobody here to give nothing to!
+
+> x talisman
+You see no such thing.
+
+> x runes
+You see no such thing.
+
+> e
+You move east.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> n
+You move north.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> nw
+You move northwest.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> w
+You move west.
+
+By Inn Yard
+You are to the north of the inn, by the entrance to the yard which is West. Further North, NE and NW the cottages of the village folk lay huddled together with narrow paths between them. You can also go East and SE onto the village green or South along the track to the Inn door. In the yard of the inn to the west you see a brewer's dray.
+
+> ring bell
+Sorry, I didn't understand that command.
+
+> w
+You move west.
+
+Inn Yard
+You are to the north of the inn, in a large cobbled yard. On the west side of the yard there are storage sheds and to the north the stables. The track by the village green is to the East. Here you see a brewer's dray.  William Roffey is here.
+
+> u
+There is no route in that direction, only north, east and west.
+
+> show talisman to magor
+Sorry, I'm not sure which object you are trying to show.
+
+> wear talisman
+Sorry, I'm not sure which object you're referring to.
+
+> d
+There is no route in that direction, only north, east and west.
+
+> e
+You move east.
+
+By Inn Yard
+You are to the north of the inn, by the entrance to the yard which is West. Further North, NE and NW the cottages of the village folk lay huddled together with narrow paths between them. You can also go East and SE onto the village green or South along the track to the Inn door. In the yard of the inn to the west you see a brewer's dray.
+
+> e
+You move east.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> se
+You move southeast.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> d
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> s
+You move south.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> ne
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> ne
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> n
+You move north.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> chop logs
+Sorry, I'm not sure which object you are trying to chop/hew.
+
+> take sieve
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+You move south.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> e
+You move east.
+
+Road East of Hengemire
+You are about 100 metres from where the road from Hengemire enters the Old Forest. The road is bounded to the north and south by tangled vegetation which looks impassable. You can continue East into the forest or West to Hengemire.
+
+You see movement in the trees either side of the road just inside the forest. There are men - probably outlaws - concealing themselves behind the trees in preparation to ambush you. As you only have a knife with which to defend yourself it would be wise not to venture into the forest.
+
+> sieve bed
+You can't see any beds!
+
+> drop sieve
+You are not carrying the sieve.
+
+> s
+There is no route in that direction, only east and west.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> buy ale
+You cannot buy that here!
+
+> e
+You move east.
+
+Road East of Hengemire
+You are about 100 metres from where the road from Hengemire enters the Old Forest. The road is bounded to the north and south by tangled vegetation which looks impassable. You can continue East into the forest or West to Hengemire.
+
+You see movement in the trees either side of the road just inside the forest. The outlaws are concealing themselves behind the trees in preparation to ambush you. As you only have a knife with which to defend yourself it would be wise not to venture into the forest.
+
+> n
+There is no route in that direction, only east and west.
+
+> n
+There is no route in that direction, only east and west.
+
+> ne
+There is no route in that direction, only east and west.
+
+> give ale
+You can't see any ale!
+
+> give rod
+You can't see any rods!
+
+> drop tankard
+You can't see any tankards!
+
+> sw
+There is no route in that direction, only east and west.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> s
+You move south.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> give rod
+You can't see any rods!
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> e
+You move east.
+
+Road East of Hengemire
+You are about 100 metres from where the road from Hengemire enters the Old Forest. The road is bounded to the north and south by tangled vegetation which looks impassable. You can continue East into the forest or West to Hengemire.
+
+You see movement in the trees either side of the road just inside the forest. The outlaws are concealing themselves behind the trees in preparation to ambush you. As you only have a knife with which to defend yourself it would be wise not to venture into the forest.
+
+> s
+There is no route in that direction, only east and west.
+
+> s
+There is no route in that direction, only east and west.
+
+> x woman
+You can't see any woman!
+
+> talk to woman
+You can't see any woman!
+
+> n
+There is no route in that direction, only east and west.
+
+> climb tree
+Please specify whether you want to CLIMB UP, DOWN, IN(TO), OUT (of), ON(TO), OVER or THROUGH something, e.g. CLIMB UP TREE or CLIMB THROUGH OPENING.
+
+> take hat
+Sorry, I'm not sure which object you are trying to take.
+
+> d
+There is no route in that direction, only east and west.
+
+> s
+There is no route in that direction, only east and west.
+
+> give hat
+There is nobody here to give nothing to!
+
+> give pin
+You can't see any pins!
+
+> give fruit
+There is nobody here to give nothing to!
+
+> n
+There is no route in that direction, only east and west.
+
+> n
+There is no route in that direction, only east and west.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> sw
+There is no route in that direction, only north, east, south, west, northeast and southeast.
+
+> sw
+There is no route in that direction, only north, east, south, west, northeast and southeast.
+
+> w
+You move west.
+
+Road to Hengemire
+The road has now emerged from the woodland into open farmland. The farms and fields are marked by a network of drystone walls either side of the road. In the distance to the north, you see fields stretching away towards the foothills of the snow-peaked Droomdark mountains. The road continues East towards the village of Hengemire or you can go back West to the crossroads where you left the haywain.
+
+> w
+You move west.
+
+Crossroads
+You are at a crossroad on the main highway that runs from north to south through the kingdom of Scippar. Here two other narrower roads head off to the East and West. By the side of the road is a freshly-painted signpost. The ground under your feet is covered in a layer of brown leaves which have fallen from the trees that surround you. Through the thickly clustered bare branches of the trees you can just about see, to the north, the mighty Droomdark mountains that form a spine across the continent.
+
+> w
+You think about going to Roffey but you decide that you do not want to go there as it is rather a long way to walk. Besides, Hengemire is much nearer and the farmer said the folk there are friendly.
+
+> buy chainmail
+You can't see any chainmail!
+
+> e
+You move east.
+
+Road to Hengemire
+The road has now emerged from the woodland into open farmland. The farms and fields are marked by a network of drystone walls either side of the road. In the distance to the north, you see fields stretching away towards the foothills of the snow-peaked Droomdark mountains. The road continues East towards the village of Hengemire or you can go back West to the crossroads where you left the haywain.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> ne
+You move northeast.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> ne
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> s
+You move south.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+> s
+You must open the church door first.
+
+> give planks
+There is nobody here to give nothing to!
+
+> give hammer
+There is nobody here to give nothing to!
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> n
+You move north.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> n
+You move north.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> ne
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> say to apprentice "nails"
+I'm not sure which character you are referring to.
+
+> give axe
+You can't see any axe!
+
+> sw
+You move southwest.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> s
+You move south.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> s
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> give nails
+There is nobody here to give nothing to!
+
+> board ferry
+Sorry, I didn't understand that command.
+
+> s
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> w
+You move west.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> w
+There is no route in that direction, only north, east and northeast.
+
+> wear chainmail
+You can't see any chainmail!
+
+> nw
+There is no route in that direction, only north, east and northeast.
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> x path
+You can't see any paths!
+
+> search leaves
+You search around but find nothing of any use.
+
+> lift doormat
+Sorry, I'm not sure which object you are referring to.
+
+> unlock door
+You can't see any doors!
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> light lamp
+You can't see any lamp!
+
+> x floor
+You can't see any floors!
+
+> search rubbish
+Sorry, I'm not sure which object you are referring to?
+
+> x ball
+You see no such thing.
+
+> x table
+You can't see any table!
+
+> open drawer
+You can't see any drawers!
+
+> search drawer
+You can't see any drawers!
+
+> remove drawer
+You can't see any drawers!
+
+> turn drawer over
+You can't see any drawers!
+
+> drop drawer
+You can't see any drawers!
+
+> x paper
+You see no such thing here.
+
+> read paper
+You can't see the notice.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> drop key
+You can't see any keys!
+
+> extinguish lamp
+You can't see any lamp!
+
+> s
+You move south.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> x flowers
+You see no such thing.
+
+> take pod
+You can't see any pods!
+
+> shake pod
+You can't see any pods!
+
+> shake pod hard
+You can't see any pods!
+
+> take seeds
+Sorry, I'm not sure which object you are trying to take.
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> w
+You move west.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> w
+You move west.
+
+Road to Hengemire
+The road has now emerged from the woodland into open farmland. The farms and fields are marked by a network of drystone walls either side of the road. In the distance to the north, you see fields stretching away towards the foothills of the snow-peaked Droomdark mountains. The road continues East towards the village of Hengemire or you can go back West to the crossroads where you left the haywain.
+
+> brush spider
+You can't see any spiders!
+
+> stamp on spider
+You can't see any spiders!
+
+> x spider
+You can't see any spiders!
+
+> w
+You move west.
+
+Crossroads
+You are at a crossroad on the main highway that runs from north to south through the kingdom of Scippar. Here two other narrower roads head off to the East and West. By the side of the road is a freshly-painted signpost. The ground under your feet is covered in a layer of brown leaves which have fallen from the trees that surround you. Through the thickly clustered bare branches of the trees you can just about see, to the north, the mighty Droomdark mountains that form a spine across the continent.
+
+> sw
+There is no route in that direction, only north, east, south and west.
+
+> sw
+There is no route in that direction, only north, east, south and west.
+
+> x river
+You can't see any rivers!
+
+> x fish
+You can't see any fish!
+
+> se
+There is no route in that direction, only north, east, south and west.
+
+> e
+You move east.
+
+Road to Hengemire
+The road has now emerged from the woodland into open farmland. The farms and fields are marked by a network of drystone walls either side of the road. In the distance to the north, you see fields stretching away towards the foothills of the snow-peaked Droomdark mountains. The road continues East towards the village of Hengemire or you can go back West to the crossroads where you left the haywain.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> s
+You move south.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> sw
+There is no route in that direction, only north, east and northeast.
+
+> x door
+You can't see any doors!
+
+> knock
+Knock ON what?
+
+> s
+There is no route in that direction, only north, east and northeast.
+
+> search ivy
+You search around but find nothing of any use.
+
+> x window
+You see no such thing.
+
+> remove glass
+Sorry, I'm not sure which object you're referring to.
+
+> climb in
+Sorry, I'm not sure which object you are trying to climb.
+
+> light lamp
+You can't see any lamp!
+
+> search wreckage
+Sorry, I'm not sure which object you are referring to?
+
+> x book
+You see no such thing.
+
+> read book
+Sorry, I'm not sure which object you are trying to read.
+
+> climb out
+Sorry, I'm not sure which object you are trying to climb.
+
+> x gap
+You see no such thing here.
+
+> x string
+You can't see any strings!
+
+> take string
+You can't see any strings!
+
+> x shed
+You see no such thing here.
+
+> light lamp
+You can't see any lamp!
+
+> w
+There is no route in that direction, only north, east and northeast.
+
+> x junk
+You see no such thing.
+
+> search junk
+Sorry, I'm not sure which object you are referring to?
+
+> close door
+You can't see any doors!
+
+> search junk
+Sorry, I'm not sure which object you are referring to?
+
+> x wood
+You can't see any wood!
+
+> x knickers
+You see no such thing.
+
+> tear knickers
+Sorry, I'm not sure which object you are trying to tear.
+
+> tie elastic to wood
+You can't see any elastics!
+
+> open door
+You can't see any doors!
+
+> e
+You move east.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> extinguish lamp
+You can't see any lamp!
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> ne
+You move northeast.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> n
+You move north.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> w
+You move west.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> listen
+You hear nothing other than the usual sounds of a village that is just waking up.
+
+> look n
+You look in that direction, but see nothing of any interest.
+
+> find stone
+You can't see any stones!
+
+> fire stone at woodsmen
+I did not understand the word "woodsmen".
+
+> n
+You move north.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> take spear
+You can't see any spears!
+
+> x spear
+You can't see any spears!
+
+> s
+You move south.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> w
+You move west.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> nw
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> s
+You move south.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> se
+You move southeast.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> x dovecot
+You can't see any dovecots!
+
+> x dove
+You see no such thing.
+
+> throw seed
+Sorry, I'm not sure which object you are trying to throw.
+
+> take cotton
+You can't see any cottons!
+
+> nw
+You move northwest.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> n
+You move north.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> se
+You move southeast.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> e
+You move east.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> find stone
+Try FIND STONES.
+
+> fire stone at magpie
+You are not carrying the catapult!
+
+> take cotton
+You can't see any cottons!
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> x hedge
+You can't see any hedges!
+
+> n
+You move north.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> x bushes
+You can't see any bushes!
+
+> throw spear at bushes
+You can't see any spears!
+
+> n
+You move north.
+
+NE Side of Village Green
+You are on the northeast side of the village green, by the well. Beyond, to the North and NE you see some of the cottages and other dwellings belonging to the residents of Hengemire. To the east lies thick impassable vegetation with the forest beyond that.
+
+> take spear
+You can't see any spears!
+
+> search bushes
+You can't see any bushes!
+
+> s
+You move south.
+
+East Side of Village Green
+You are on the east side of the village green. You can go North, South, West, NW and SW but to the East lies thick vegetation with the forest beyond that.
+
+> s
+You move south.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> sw
+You move southwest.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> knock
+Knock ON what?
+
+> say to dwarf "yes"
+I'm not sure which character you are referring to.
+
+> show spear
+You can't see any spears!
+
+> show bow
+You can't see any bows!
+
+> show paper
+You can't see the notice!
+
+> ne
+You move northeast.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> n
+You move north.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> ne
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> nw
+You move northwest.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> n
+You move north.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> e
+You move east.
+
+NE Side of Village Green
+You are on the northeast side of the village green, by the well. Beyond, to the North and NE you see some of the cottages and other dwellings belonging to the residents of Hengemire. To the east lies thick impassable vegetation with the forest beyond that.
+
+> n
+You think about wandering around amongst the cottages, but don't want to intrude upon the privacy of the villagers nor do you wish to arouse suspicion, so you decide not to.
+
+> look e
+You look in that direction, but see nothing of any interest.
+
+> fire arrow at partridge
+You can't see any partridges!
+
+> drop bow
+You can't see any bows!
+
+> e
+There is no route in that direction, only north, south, west, northeast, southwest and northwest.
+
+> x dog
+Sorry, I'm not sure which object or character you are trying to examine.
+
+> whistle
+You whistle a little tune you remember from your youth.
+
+> bounce ball
+Sorry, I'm not sure which object you are trying to bounce.
+
+> throw ball over wall
+Sorry, I'm not sure which object you are trying to throw.
+
+> take partridge
+You can't see any partridges!
+
+> w
+You move west.
+
+North Side of Village Green
+You are on the north side of the village green, where a wide track leads North towards the mountains,leading between the cottages which stand in clusters to the NW, NE and East. You can also go West, South, SE and SW across the green from here.
+
+> s
+You move south.
+
+Middle of Village Green
+You are roughly at the centre of the village green, standing by the stone cross. You have a good view of the whole village from this spot, which is slightly elevated above the rest of the green. You can go in all directions.
+
+> w
+You move west.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> w
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> w
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> sw
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> throw spear at boar
+You can't see any spears!
+
+> take spear
+You can't see any spears!
+
+> sw
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> se
+You move southeast.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> e
+You move east.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> e
+There is no route in that direction, only north, south, west, southwest and northwest.
+
+> s
+You move south.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> sw
+You move southwest.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> knock
+Knock ON what?
+
+> show paper
+You can't see the notice!
+
+> show book
+Sorry, I'm not sure which object you are trying to show.
+
+> ne
+You move northeast.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> n
+You move north.
+
+SE Corner of Village Green
+You stand on the southeast corner of the village green. On the other side of the road, due south, lies the village church. The eastern side of the village green is hemmed in by impenetrable vegetation with forest beyond that, but you can go North, NW, West and SW from here. An area here has been roped off around four stakes, one of which has a notice nailed to it.
+
+> w
+You move west.
+
+South Side of Village Green
+You are on the south side of the village green. This wide expanse of grass is bounded on the south side by the road that runs through the village, while to the north you see the village cross. You can go in all directions from here.
+
+> w
+You move west.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> nw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> follow man
+You can't see William Roffey!
+
+> n
+You move north.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> n
+You move north.
+
+By Inn Yard
+You are to the north of the inn, by the entrance to the yard which is West. Further North, NE and NW the cottages of the village folk lay huddled together with narrow paths between them. You can also go East and SE onto the village green or South along the track to the Inn door. In the yard of the inn to the west you see a brewer's dray.
+
+> search hut
+You can't see any huts!
+
+> lock door
+You can't see any doors!
+
+> s
+You move south.
+
+By Inn
+You are standing on the west side of the village green, by the large building, which a sign hanging from the wall by the door declares itself to be the "Dragonslayer's Arms" inn. The inn door leads In, going North takes you to the entrance to the inn yard and you can go South back along the track to the road. The village green itself lies to the East, SE and NE.
+
+> open door
+You can't open the inn door as it is locked!
+
+> d
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> light lamp
+You can't see any lamp!
+
+> look under wardrobe
+Sorry, I'm not sure which object you are referring to?
+
+> read grimoire
+Sorry, I'm not sure which object you are trying to read.
+
+> replace grimoire
+Sorry, I didn't understand that command.
+
+> u
+There is no route in that direction, only north, east, south, in, northeast and southeast.
+
+> s
+You move south.
+
+SW Side of Village Green
+You are on the southwest side of the village green, by the road that runs through Hengemire, which lies South and SE of where you stand. A rutted dirt track runs roughly North along the edge of the green to the Inn, and you can go East or NE onto the main part of the green.
+
+> follow tracks
+You can't see any tracks!
+
+> sw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> sw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> empty bottle into river
+You can't see any rivers!
+
+> cross river
+You can't see any rivers!
+
+> u
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> nw
+There is no route in that direction, only north, east, south, northeast and southeast.
+
+> take thorn
+You can't see any thorns!
+
+> se
+You move southeast.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> d
+There is no route in that direction, only north, east, south, west, northeast, southeast, southwest and northwest.
+
+> cross river
+You can't see any rivers!
+
+> se
+You move southeast.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+> e
+You move east.
+
+North End of Graveyard
+You are at the north end of the graveyard, by the gap in the fence that leads West out to the church entrance. A cobbled path leading South divides the graveyard into two unequal halves containing lots of headstones.
+
+You see a magpie perched on the top of one of the headstones at the south end of the graveyard. You notice it is holding a small object in its beak. As it sees you the bird takes wing but as it does so it drops the object it is holding in the grass by one of the headstones.
+
+> e
+There is no route in that direction, only south and west.
+
+> e
+There is no route in that direction, only south and west.
+
+> ne
+There is no route in that direction, only south and west.
+
+> nw
+There is no route in that direction, only south and west.
+
+> x sapling
+You see no such thing.
+
+> break branch
+You can't see any branches!
+
+> dip thorn into resin
+You can't see any thorns!
+
+> stick cotton to thorn
+You can't see any cottons!
+
+> n
+There is no route in that direction, only south and west.
+
+> w
+You move west.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+> x spider
+You can't see any spiders!
+
+> dip thorn into poison
+You can't see any thorns!
+
+> w
+You move west.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> sw
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> sw
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> cross river
+You can't see any rivers!
+
+> u
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> s
+There is no route in that direction, only north, east, west, northeast and northwest.
+
+> duck
+You duck your head and then stand upright again.
+
+> jump
+You jump on the spot.
+
+> throw spear at xixon
+You can't see any spears!
+
+> w
+You move west.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> w
+There is no route in that direction, only north, east and northeast.
+
+> take spear
+You can't see any spears!
+
+> w
+There is no route in that direction, only north, east and northeast.
+
+> look w
+You look in that direction, but see nothing of any interest.
+
+> e
+You move east.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> e
+You move east.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+> sw
+There is no route in that direction, only north, east, south, west, in and northwest.
+
+> x brambles
+You can't see any brambles!
+
+> crawl w
+You don't need to crawl in that direction at the moment.
+
+> w
+You move west.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> look n
+You look in that direction, but see nothing of any interest.
+
+> x spear
+You can't see any spears!
+
+> untie head
+You can't see any heads!
+
+> say "nilre ekim"
+I'm not sure which character you are referring to.
+
+> insert dart into tube
+You are not carrying the dart!
+
+> blow dart at morgeth
+Sorry, I'm not sure which object you are trying to blow.
+
+> e
+You move east.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+> e
+You move east.
+
+North End of Graveyard
+You are at the north end of the graveyard, by the gap in the fence that leads West out to the church entrance. A cobbled path leading South divides the graveyard into two unequal halves containing lots of headstones.
+
+> ne
+There is no route in that direction, only south and west.
+
+> w
+You move west.
+
+By Old Church
+You are in the southeast corner of the village green, standing by the door to the church, which leads South. Nearby is a gap that leads East through an iron fence into the village graveyard. The road through the village is to the North, NW or NE.
+
+> w
+You move west.
+
+South of Road
+You're to the south of the road that runs through Hengemire. Here stand the pillory and stocks, two devices that aren't used much as, on the whole, the folk around here are honest and hardworking. You can go West to the cesspool, East to the village church, as well as North, NW and NE onto the road.
+
+> w
+You move west.
+
+By Cesspool
+You are in the southwest corner of the village green, by a stand of weeds which partly conceals the cesspool. You can go North, East and NE from here.
+
+> x morgeth
+You see no such thing.
+
+> i
+You are wearing some clothes, and are carrying nothing.  A knife is in the sheath on your belt.
+
+> drop tube
+You can't see any tubes!
+
+> remove chainmail
+The chainmail cannot be removed from there.
+
+> drop chainmail
+You can't see any chainmail!
+
+> d
+There is no route in that direction, only north, east and northeast.
+
+> se
+There is no route in that direction, only north, east and northeast.
+
+> look e
+You look in that direction, but see nothing of any interest.
+
+> se
+There is no route in that direction, only north, east and northeast.
+
+> look e
+You look in that direction, but see nothing of any interest.
+
+> find stone
+Try FIND STONES.
+
+> fire stone
+Sorry, I didn't understand that command.
+
+> run e
+On this occasion there is no need to run anywhere.
+
+> look around
+You look around you but see nothing that would be of any interest.
+
+> crawl e
+You don't need to crawl in that direction at the moment.
+
+> look around
+You look around you but see nothing that would be of any interest.
+
+> tie string to head
+You can't see any strings!
+
+> whirl head
+You can't see any heads!
+
+> release string
+You can't see any strings!
+
+> run e
+On this occasion there is no need to run anywhere.
+
+> se
+There is no route in that direction, only north, east and northeast.
+
+> s
+There is no route in that direction, only north, east and northeast.
+
+> s
+There is no route in that direction, only north, east and northeast.
+
+> x boards
+You see no such thing here.
+
+> wait
+You wait for a while.....
+
+> grab rope
+You can't see any ropes!
+
+> climb d
+Sorry, I'm not sure which object you are trying to climb.
+
+> a
+Sorry, I didn't understand that command.
+
+> a
+Sorry, I didn't understand that command.
+
+> feel around
+Why are you feeling around when you can see around you?
+
+> jump s
+You cannot jump in that direction!
+
+> feel around
+Why are you feeling around when you can see around you?
+
+> s
+There is no route in that direction, only north, east and northeast.
+
+> feel around
+Why are you feeling around when you can see around you?
+
+> a
+Sorry, I didn't understand that command.
+
+> feel object
+Sorry, I'm not sure which object you are trying to touch.
+
+> wear goggles
+Sorry, I'm not sure which object you're referring to.
+
+> n
+You move north.
+
+Road through Village
+You are on the road that runs along the southern edge of Hengemire village green. On the South side of the road is the village cesspool with the church some distance further east. A wide, rutted track leads North from here along the west side of the green towards a large, sprawling building which you recognise as an inn and you can also go NE and SE, or East and West along the road. In the centre of the village green to the northeast you see a stone cross.
+
+> jump n
+Jumping to the North will not help you in this instance.
+
+> climb u
+Sorry, I'm not sure which object you are trying to climb.
+
+> a
+Sorry, I didn't understand that command.
+
+> a
+Sorry, I didn't understand that command.
+
+> a
+Sorry, I didn't understand that command.
+
+> a
+Sorry, I didn't understand that command.
+
+> jump e
+Jumping to the East will not help you in this instance.
+
+> look u
+You look in that direction, but see nothing of any interest.
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs through Hengemire along the southern edge of the village green. Directly North, in the centre of the green, you see a stone cross. The road continues East and West, the village cesspool is SW, the church SE, and to the South are the village stocks and pillory.
+
+> x wagon
+You see no such thing here.
+
+> x carriage
+You see no such thing.
+
+> x brake
+You can't see any brakes!
+
+> x wheels
+You can't see any wheels!
+
+> x box
+You can't see any box!
+
+> x lug
+You can't see any lugs!
+
+> e
+You move east.
+
+Road through Village
+You are on the road that runs along the south side of the village green. The road continues East out of the village, entering a forest about half a kilometre away. By the side of the road, almost hidden by the grass, is a milestone. To the South stands the village church, while some distance due North you see a well. You can also go North and NW onto the village green or West back along the road.
+
+> e
+You move east.
+
+Road East of Hengemire
+You are about 100 metres from where the road from Hengemire enters the Old Forest. The road is bounded to the north and south by tangled vegetation which looks impassable. You can continue East into the forest or West to Hengemire.
+
+You see movement in the trees either side of the road just inside the forest. The outlaws are concealing themselves behind the trees in preparation to ambush you. As you only have a knife with which to defend yourself it would be wise not to venture into the forest.
+
+> e
+You foolishly walk along the road into the dark forest, where you are waylaid by the outlaws.
+
+You put up a furious fight and kill one of them with your knife, but their numbers are too much for you and a sword thrust to your back deals you a fatal wound. Your only consolation is that as you were penniless the outlaws got nothing other than your clothes and your knife.
+
+*** You have lost ***
+In that game you scored 0 out of a possible 1200, in 566 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?

@@ -241,9 +241,14 @@ a5text_object_name (const a5_object_t *o, a5_article_t art)
   sb_init (&sb);
   if (art == A5_ART_DEFINITE)
     sb_puts (&sb, "the ");
-  else if (art == A5_ART_INDEFINITE && o->article != NULL && o->article[0] != '\0')
+  else if (art == A5_ART_INDEFINITE)
     {
-      sb_puts (&sb, o->article);
+      /* FD clsObject.FullName: Indefinite -> sArticle2 = sArticle & " ",
+         i.e. the space is appended even when the article is empty, so an
+         empty-article object renders with a leading space (e.g. the worn
+         "your clothes" -> " your clothes" in an inventory list). */
+      if (o->article != NULL && o->article[0] != '\0')
+        sb_puts (&sb, o->article);
       sb_putc (&sb, ' ');
     }
   if (prefix != NULL && prefix[0] != '\0')

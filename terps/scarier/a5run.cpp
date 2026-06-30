@@ -4285,6 +4285,9 @@ emit_cantsee (a5_state_t *st, const amb_info *amb, sb_t *out)
   sb_puts (out, "!");
 }
 
+static int noref_has_output (a5_run_t *run, int ti, int ci,
+                             const std::string &in);
+
 /* Scan general tasks for `in`.  Runs (and returns 1) on the first unique passing
    match.  Otherwise returns 0, recording -- for the caller to act on after the
    scan -- the first ambiguity (*have_amb/*amb/*amb_ti/*amb_ci; *amb_cantsee
@@ -4339,6 +4342,18 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
       if (*have_fail && !st->adv->hp_passing && t->priority > fail_priority)
         return 0;
 
+      /* HighestPriorityPassingTask: once a task fails *with output*, FD sets
+         iPriorityFail to its Priority, so the loop-top guard
+         `Not (LowPriority AndAlso Priority > iPriorityFail)`
+         (clsUserSession.vb:5981) then skips any LowPriority task above that
+         floor.  This is what keeps Six Silver Bullets' turn timer aligned when
+         the highest-priority failing task wins (below): a LowPriority failing
+         task above the floor must not be recorded (and so claim/tick the turn)
+         when FD would have skipped it outright. */
+      if (st->adv->hp_passing && *have_fail
+          && t->low_priority && t->priority > fail_priority)
+        continue;
+
       for (int ci = 0; ci < t->n_commands; ci++)
         {
           a5_match_t m;
@@ -4388,14 +4403,33 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               *amb_ti = ti; *amb_ci = ci;
               continue;
             }
-          if (r == RR_NOREF && !*have_noref)
+          if (r == RR_NOREF)
             {
               /* A reference named nothing: remember this task as the
                  no-reference fallback (clsUserSession.GetGeneralTask sNoRefTask).
                  Keep scanning -- a later task may resolve uniquely or fail with
                  output; only if nothing claims does the caller run this task
-                 with the reference unresolved. */
-              *have_noref = 1; *noref_ti = ti; *noref_ci = ci;
+                 with the reference unresolved.
+
+                 These are FD's second-chance pass tasks (matched only via
+                 HasObjectExistRestriction, with zero-Item references): there they
+                 fail their `Must Exist` restriction *with output*, so the same
+                 TaskExecution ordering applies.  Under HighestPriorityPassingTask
+                 the highest-priority such task that fails *with output* wins
+                 (clsUserSession.vb:6076, gated on `sRestrictionText <> ""`) --
+                 run->order is ascending, so overwrite each time a higher task
+                 would produce a message; under the default HighestPriorityTask the
+                 first (lowest-priority) one is kept.  E.g. Spectre's `remove
+                 bricks` matches both RemoveObjects (P50736, "...you're referring
+                 to.") and RemoveObje (P50749, "...trying to remove."); FD surfaces
+                 the latter.  The output gate keeps Axe of Kolt's `examine
+                 <unknown noun>` on its "You see no such thing." rather than
+                 yielding to a higher refless task that fails silently. */
+              if (!*have_noref)
+                { *have_noref = 1; *noref_ti = ti; *noref_ci = ci; }
+              else if (st->adv->hp_passing
+                       && noref_has_output (run, ti, ci, in))
+                { *noref_ti = ti; *noref_ci = ci; }
               continue;
             }
           if (r == RR_AMBIG
@@ -4457,18 +4491,19 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                          does (enforced by the loop-top guard, which stops once a
                          strictly lower priority is reached).
 
-                         NOTE: a faithful HighestPriorityPassingTask would let a
-                         *higher*-priority failing-with-output task override this
-                         message too (FD reassigns GetGeneralTask for every failing
-                         task, clsUserSession.vb:6076) -- e.g. Axe of Kolt's `say to
-                         <absent char> <text>` should surface the high-priority Say
-                         task's "I'm not sure which character you are referring to."
-                         rather than Task314's "You can't see X!".  But simply
-                         keeping the highest mis-ticks Six Silver Bullets' turn
-                         timer (its bell-toll/sniper events fire early), so the
-                         precise interaction with turn advancement is still open --
-                         tracked as an Axe residual. */
-                      if (!*have_fail)
+                         Under HighestPriorityPassingTask FD reassigns
+                         GetGeneralTask for *every* failing-with-output task
+                         (clsUserSession.vb:6076), so the *highest*-priority such
+                         task wins -- run->order is ascending, so overwrite each
+                         time.  The LowPriority/iPriorityFail guard at the loop top
+                         (above) already excludes the LowPriority tasks FD skips
+                         once a fail floor is set, which keeps Six Silver Bullets'
+                         turn timer aligned (a bare keep-highest without that guard
+                         ticked early).  Under the default HighestPriorityTask the
+                         loop-top guard stops the scan once a strictly lower
+                         priority is reached, so keeping the first within the band
+                         is correct there. */
+                      if (!*have_fail || st->adv->hp_passing)
                         { *have_fail = 1; *fail_text = fmsg; fail_priority = t->priority; }
                     }
                   free (fmsg);
@@ -4867,6 +4902,31 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
   /* All words known but nothing matched: Adventure.NotUnderstood (FileIO.vb:850
      defaults a missing <NotUnderstood> to this string). */
   sb_puts (out, "Sorry, I didn't understand that command.");
+}
+
+/* Would run_noref produce a non-empty message for this task?  Mirrors FD's
+   `sRestrictionText <> ""` gate: a second-chance Must-Exist task only updates
+   GetGeneralTask when its failing restriction has output.  Used to decide
+   whether a higher-priority no-reference task may override a recorded one under
+   HighestPriorityPassingTask (so an examine task whose noun is unknown keeps its
+   "You see no such thing." rather than yielding to a higher refless task that
+   fails silently and drops the turn to NotUnderstood). */
+static int
+noref_has_output (a5_run_t *run, int ti, int ci, const std::string &in)
+{
+  a5_state_t *st = run->st;
+  const a5_task_t *t = &run->adv->tasks[ti];
+  a5_match_t m;
+  if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
+    return 0;
+  resolve_refine (run, t, &m, NULL, NULL, NULL);
+  const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
+  if (fm == NULL)
+    return 0;
+  char *fmsg = a5text_describe (st, fm);
+  int has = fmsg[0] != '\0';
+  free (fmsg);
+  return has;
 }
 
 /* Run the deferred sNoRefTask (clsUserSession.GetGeneralTask, GetGeneralTask =

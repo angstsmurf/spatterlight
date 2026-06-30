@@ -1,0 +1,1433 @@
+The Spectre of Castle Coris
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game might not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+THE SPECTRE OF CASTLE CORIS - Start Options:
+
+Press B (enter) to Begin the Adventure from the First Location.
+
+Press P (enter) to read the Prologue and Playing Instructions.
+(Recommended if starting this adventure for the first time)
+
+If you have already started the adventure and wish to restart from a saved position, click on the Blue Folder Icon in the taskbar above.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands When Playing The Adventure:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : MACROS : MAP : SPEECH : VOCAB;
+
+> b
+
+East of Corwyn
+You're on the road to Corwyn, about a mile east of the town. The walk from the farm where you left your horse, which is about four miles back east, has left you footsore and thirsty. Looking west, you see the town, with Castle Coris dimly visible on the hill beyond the town. By the side of the road is a milestone.
+
+> inventory
+You are wearing  your clothes and the bottomless bag, and are carrying nothing.  Hanging from your belt is a leather scabbard in which is sheathed your broadsword. Also attached to your belt is a leather sheath in which your knife is sheathed.
+
+> examine money
+You see no such thing.
+
+> n
+There is no route to the north, only east and west.
+
+> examine bakery
+You can't see any bakeries!
+
+> examine boards
+You can't see any boards!
+
+> move boards
+You can't see any boards!
+
+> climb in bakery
+You can't see any bakeries!
+
+> search counter
+You can't see any counters!
+
+> examine sack
+You see no such thing.
+
+> examine flour
+You can't see any flours!
+
+> climb out
+Sorry, I'm not sure which object you are trying to climb.
+
+> n
+There is no route to the north, only east and west.
+
+> w
+As you walk towards Corwyn, you meet some men, women & children, laden with what appears to be all of their worldly goods, heading east. You stop to speak with them, and you realise that they are very frightened.
+
+"If you've any sense, you'll turn around and go straight back to where you've just come from!" one of the men tells you. "We've decided to leave before the Spectre visits us!" a young woman calls out as she hurries past.
+
+You try to ask them about this 'spectre', but they are too set on getting as much distance between themselves and the town as they hurry east along the road. You head west towards Corwyn, determined to get to the bottom of this 'spectre' business.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+As you stand looking around at the deserted town square, you feel the crawling sensation in your back that warns you that somebody is watching you.
+
+Sure enough, you see a man staring at you from the building at the corner of the street that leads north from the square. When he sees that you have spotted him, the man turns and walks away along the street. You see him enter a building further along the street on the west side.
+
+> examine landlord
+You see no such thing.
+
+> examine patrons
+You see no such thing.
+
+> ask landlord
+Sorry, I didn't understand that command.
+
+> buy ale
+You can't see any !
+
+> ask landlord
+Sorry, I didn't understand that command.
+
+> say blackmoon
+I'm not sure who you are referring to.
+
+> say yes
+I'm not sure who you are referring to.
+
+> buy ale
+You can't see any !
+
+> e
+You move east.
+
+By Ramshackle Cottage
+You're on the road that leads East from the town square, past deserted houses, cottages, shops and other establishments that are nearly all deserted. South of the road you see a small, ramshackle cottage that shows signs of occupation. Scrawled across the door are the words "Iain the Mystic - Please knock". Underneath that is written "Good Prices Paid for Curios and Memorabilia".
+
+> s
+You cannot enter the cottage until Iain invites you in.
+
+> s
+You cannot enter the cottage until Iain invites you in.
+
+> w
+You move west.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+> w
+You move west.
+
+West of Town
+You're on the road that leads west from the town. To north and south are deserted farms and smallholdings and, dominating the hill about a mile to the northwest is the mysterious Castle Coris. The road continues West, and goes East back to the town square, and a wide lane leads SW.
+
+> n
+There is no route to the north, only east, west and southwest.
+
+> n
+There is no route to the north, only east, west and southwest.
+
+> examine altar
+You can't see any altars!
+
+> search pulpit
+Sorry, I'm not sure which object you are trying to search.
+
+> examine book
+You see no such thing.
+
+> read book
+Sorry, I'm not sure which object you are trying to read.
+
+> pray
+Although this is not a sacred place, you pray for success in your mission to uncover the mystery of the "Spectre".
+
+> s
+There is no route to the south, only east, west and southwest.
+
+> s
+There is no route to the south, only east, west and southwest.
+
+> e
+You move east.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+> e
+You move east.
+
+By Ramshackle Cottage
+You're on the road that leads East from the town square, past deserted houses, cottages, shops and other establishments that are nearly all deserted. South of the road you see a small, ramshackle cottage that shows signs of occupation. Scrawled across the door are the words "Iain the Mystic - Please knock". Underneath that is written "Good Prices Paid for Curios and Memorabilia".
+
+> s
+You cannot enter the cottage until Iain invites you in.
+
+> read sign
+You can't see any signs!
+
+> s
+You cannot enter the cottage until Iain invites you in.
+
+> e
+Going East from here will take you away from Corwyn. Maybe you should stay to sort out this spectre business?
+
+> examine will
+You see no such thing.
+
+> examine tools
+You can't see any tools!
+
+> ask about bran
+I'm not sure who you are referring to.
+
+> ask about megan
+I'm not sure who you are referring to.
+
+> ask about castle
+I'm not sure who you are referring to.
+
+> say lend tools
+I'm not sure who you are referring to.
+
+> w
+You move west.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+> n
+You move north.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> n
+You move north.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+As you enter the tavern you see that it is full of frightened-looking townspeople talking amongst themselves. The hubbub of noise goes quiet as you walk in as everyone's eyes turn towards you. The man who was watching you in the town square points to you and mumbles something to the people surrounding him.
+
+You walk up to the counter behind which stands the landlord, who regards you with suspicion, but his voice is not entirely unfriendly when he speaks.
+
+"Good day to you sir, what can I get you?" he asks you.
+
+> w
+There is no route to the west, only east.
+
+> nw
+There is no route to the northwest, only east.
+
+> up
+There is no route to the up, only east.
+
+> n
+There is no route to the north, only east.
+
+> s
+There is no route to the south, only east.
+
+> sw
+There is no route to the southwest, only east.
+
+> examine wall closely
+You see no such thing.
+
+> remove bricks
+Sorry, I'm not sure which object you are trying to remove.
+
+> ne
+There is no route to the northeast, only east.
+
+> down
+There is no route to the down, only east.
+
+> se
+There is no route to the southeast, only east.
+
+> e
+As you leave the tavern, Bernie and the townspeople all wish you luck.
+
+"Your ale will be waiting for you when you return, Duke Alaric," Bernie calls out to you.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+> s
+You move south.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> s
+You move south.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+> e
+You move east.
+
+By Ramshackle Cottage
+You're on the road that leads East from the town square, past deserted houses, cottages, shops and other establishments that are nearly all deserted. South of the road you see a small, ramshackle cottage that shows signs of occupation. Scrawled across the door are the words "Iain the Mystic - Please knock". Underneath that is written "Good Prices Paid for Curios and Memorabilia".
+
+> drop tools
+You can't drop the blacksmith's tools and the garden implements.
+
+> w
+You move west.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+> n
+You move north.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> w
+There is no route to the west, only north, east and south.
+
+> examine bran
+You see no such thing.
+
+> ask bran
+Sorry, I didn't understand that command.
+
+> ask about spectre
+I'm not sure who you are referring to.
+
+> examine wares
+You can't see the pedlar's wares.
+
+> buy lantern
+Sorry, I didn't understand that command.
+
+> e
+There is no route to the east, only north, east and south.
+
+> n
+You move north.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> w
+There is no route to the west, only east.
+
+> n
+There is no route to the north, only east.
+
+> n
+There is no route to the north, only east.
+
+> light lantern
+Sorry, I'm not sure which object you are trying to light.
+
+> down
+There is no route to the down, only east.
+
+> examine coffin
+You see no such thing.
+
+> read plaque
+Sorry, I'm not sure which object you are trying to read.
+
+> up
+There is no route to the up, only east.
+
+> extinguish lantern
+Sorry, I'm not sure which object you are trying to extinguish.
+
+> s
+There is no route to the south, only east.
+
+> s
+There is no route to the south, only east.
+
+> nw
+There is no route to the northwest, only east.
+
+> up
+There is no route to the up, only east.
+
+> sw
+There is no route to the southwest, only east.
+
+> nw
+There is no route to the northwest, only east.
+
+> ne
+There is no route to the northeast, only east.
+
+> nw
+There is no route to the northwest, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> nw
+There is no route to the northwest, only east.
+
+> examine fountain
+You see no such thing.
+
+> examine mud
+You see no such thing.
+
+> ne
+There is no route to the northeast, only east.
+
+> examine ponds
+You see no such thing.
+
+> sw
+There is no route to the southwest, only east.
+
+> sw
+There is no route to the southwest, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> examine agnes
+You see no such thing.
+
+> examine fireplace
+You can't see any fireplaces!
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> s
+You move south.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> look over fence
+Sorry, I'm not sure which object you are trying to look under.
+
+> climb fence
+Sorry, I'm not sure which object you are trying to climb.
+
+> s
+You move south.
+
+Corwyn Town Square
+You're in the main square of the small town of Corwyn. The damp, rubbish-strewn cobblestones are empty of life, and a stone war memorial stands forlornly in the middle. Surrounding the square are houses and shops, most of which are empty or boarded up. The wide road leads East and continues West from the square. Narrower streets wind off North and South.
+
+> examine shrine
+You can't see any shrines!
+
+> read inscription
+"Dedicated to the men and women of Corwyn who gave their lives in the war against the Xixon 3740 - 3745".
+
+> n
+You move north.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> climb fence
+Sorry, I'm not sure which object you are trying to climb.
+
+> take wood
+You can't see any wood!
+
+> n
+You move north.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> drop wood
+You can't see any wood!
+
+> examine fire
+You see no such thing.
+
+> take wood
+You can't see any wood!
+
+> make fire
+I did not understand the word "make".
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> w
+There is no route to the west, only south and northeast.
+
+> search shelves
+You can't see any shelves!
+
+> e
+There is no route to the east, only south and northeast.
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> ne
+There is no route to the northeast, only north, south and west.
+
+> nw
+There is no route to the northwest, only north, south and west.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> nw
+There is no route to the northwest, only east.
+
+> up
+There is no route to the up, only east.
+
+> pull bellrope
+Sorry, I'm not sure which object you are trying to pull.
+
+> n
+There is no route to the north, only east.
+
+> examine weapons
+You see no such thing.
+
+> w
+There is no route to the west, only east.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> take ladder
+You can't see any ladders!
+
+> examine ladder
+You can't see any ladders!
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> n
+There is no route to the north, only east.
+
+> look up
+You look in that direction, but you see nothing of use or interest.
+
+> n
+There is no route to the north, only east.
+
+> s
+There is no route to the south, only east.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> drop ladder
+You can't see any ladders!
+
+> climb chimney
+You can't see any chimneys!
+
+> light lantern
+Sorry, I'm not sure which object you are trying to light.
+
+> search soot
+You can't see any soot!
+
+> examine amulet
+You can't see any amulets!
+
+> read runes
+Sorry, I'm not sure which object you are trying to read.
+
+> wear amulet
+You can't see any amulets!
+
+> down
+There is no route to the down, only north, south and west.
+
+> take ladder
+You can't see any ladders!
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> extinguish lantern
+Sorry, I'm not sure which object you are trying to extinguish.
+
+> s
+There is no route to the south, only east.
+
+> drop ladder
+You can't see any ladders!
+
+> climb ladder
+You can't see any ladders!
+
+> examine display
+You see no such thing.
+
+> examine swords
+You see no such thing.
+
+> examine cutlass closely
+You see no such thing.
+
+> snap wire
+You can't see any wires!
+
+> examine wire
+You can't see any wires!
+
+> down
+There is no route to the down, only east.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> n
+There is no route to the north, only south and northeast.
+
+> pick lock
+You can't see any locks!
+
+> n
+There is no route to the north, only south and northeast.
+
+> w
+There is no route to the west, only south and northeast.
+
+> search kitchen
+Sorry, I'm not sure which object you are trying to search.
+
+> e
+There is no route to the east, only south and northeast.
+
+> e
+There is no route to the east, only south and northeast.
+
+> examine butler
+You see no such thing.
+
+> ask butler about xixon
+Sorry, I'm not sure which character you're referring to. (characters must be seen)
+
+> ask butler about horde
+Sorry, I'm not sure which character you're referring to. (characters must be seen)
+
+> down
+There is no route to the down, only south and northeast.
+
+> e
+There is no route to the east, only south and northeast.
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> dig
+Dig what?
+
+> take bones
+Sorry, I'm not sure which object you are trying to take.
+
+> examine bones
+You can't see any bones!
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> drop bones
+You are not carrying the bones and the human bones.
+
+> w
+There is no route to the west, only east.
+
+> n
+There is no route to the north, only east.
+
+> up
+There is no route to the up, only east.
+
+> give bottle
+You can't see the linctus!
+
+> hum lullaby
+I did not understand the word "hum".
+
+> search butler
+Sorry, I'm not sure which character you are referring to.
+
+> w
+There is no route to the west, only east.
+
+> n
+There is no route to the north, only east.
+
+> search shelves
+You can't see any shelves!
+
+> examine chalice
+You can't see any chalices!
+
+> s
+There is no route to the south, only east.
+
+> s
+There is no route to the south, only east.
+
+> s
+There is no route to the south, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> n
+There is no route to the north, only east.
+
+> examine bookcase
+You see no such thing.
+
+> find bible
+You can't see any bibles!
+
+> examine bible
+You can't see any bibles!
+
+> s
+There is no route to the south, only east.
+
+> w
+There is no route to the west, only east.
+
+> n
+There is no route to the north, only east.
+
+> examine books
+You can't see any books!
+
+> take grimoire
+Sorry, I'm not sure which object you are trying to take.
+
+> read grimoire
+Sorry, I'm not sure which object you are trying to read.
+
+> read chapter
+Sorry, I'm not sure which object you are trying to read.
+
+> drop grimoire
+Sorry, I didn't understand that command.
+
+> s
+There is no route to the south, only east.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+You hear the sounds of a church bell ringing out the noon bells in the distance. As the church in Corwyn has been wrecked you realise it must be coming from the nearest village to Corwyn.
+
+> e
+There is no route to the east, only north, south and west.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> examine panelling
+You see no such thing.
+
+> sprinkle flour
+You can't see any flours!
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> drop sack
+You are not carrying the small sack.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> up
+There is no route to the up, only east.
+
+> n
+There is no route to the north, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> examine drainpipe
+You can't see any drainpipes!
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> look around
+You look around you, but other than what you see surrounding you, there is nothing else of interest or use to you.
+
+> examine wall
+There are walls everywhere, some holding things up, some holding things in and others keeping things out. There is nothing remarkable about those around you right now.
+
+> examine handle
+You see no such thing.
+
+> turn handle
+Sorry, I'm not sure which object you are trying to turn.
+
+> drop all
+You have nothing to drop.
+
+> jump on chandelier
+You can't see any chandeliers!
+
+> up
+There is no route to the up, only north, south and west.
+
+> examine dome
+You can't see any domes!
+
+> examine ringbolt
+You see no such thing.
+
+> grab ringbolt
+Sorry, I'm not sure which object you are trying to grab/hold on to.
+
+> jump e
+Jumping in that direction will not achieve anything.
+
+> up
+There is no route to the up, only north, south and west.
+
+> up
+There is no route to the up, only north, south and west.
+
+> examine weathervane
+You see no such thing.
+
+> remove amulet
+You can't see any amulets!
+
+> hang amulet on weathervane
+Sorry, I'm not sure which object you are trying to hang.
+
+> down
+There is no route to the down, only north, south and west.
+
+> down
+There is no route to the down, only north, south and west.
+
+> climb drainpipe
+You can't see any drainpipes!
+
+> e
+There is no route to the east, only north, south and west.
+
+> look under bed
+You can't see any beds!
+
+> examine reliquary
+You see no such thing.
+
+> take reliquary
+Sorry, I'm not sure which object you are trying to take.
+
+> e
+There is no route to the east, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> take all
+There are no objects you can pick up here.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> drop all
+You have nothing to drop.
+
+> jump on chandelier
+You can't see any chandeliers!
+
+> up
+There is no route to the up, only north, south and west.
+
+> grab ringbolt
+Sorry, I'm not sure which object you are trying to grab/hold on to.
+
+> jump e
+Jumping in that direction will not achieve anything.
+
+> up
+There is no route to the up, only north, south and west.
+
+> up
+There is no route to the up, only north, south and west.
+
+> take arcanus
+You can't see any !
+
+> wear arcanus
+You can't see any !
+
+> down
+There is no route to the down, only north, south and west.
+
+> down
+There is no route to the down, only north, south and west.
+
+> climb drainpipe
+You can't see any drainpipes!
+
+> e
+There is no route to the east, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> take all
+There are no objects you can pick up here.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> w
+There is no route to the west, only east.
+
+> sleep
+You are not feeling tired at the moment.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> s
+You move south.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> down
+There is no route to the down, only north, east and south.
+
+> e
+There is no route to the east, only north, east and south.
+
+> n
+You move north.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> examine flour
+You can't see any flours!
+
+> examine panel
+You see no such thing.
+
+> push button
+You can't see any buttons!
+
+> e
+There is no route to the east, only north, south and west.
+
+> down
+There is no route to the down, only north, south and west.
+
+> call baron
+Maybe you should call the baron to the challenge somewhere there is enough room to manoeuvre whilst you are fighting him.
+
+> e
+There is no route to the east, only north, south and west.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> push button
+You can't see any buttons!
+
+> e
+There is no route to the east, only south and northeast.
+
+> down
+There is no route to the down, only south and northeast.
+
+> examine woman
+You can't see any women!
+
+> untie woman
+You can't see any women!
+
+> up
+There is no route to the up, only south and northeast.
+
+> press button
+You can't see any buttons!
+
+> w
+There is no route to the west, only south and northeast.
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> n
+There is no route to the north, only south and northeast.
+
+> e
+There is no route to the east, only south and northeast.
+
+> down
+There is no route to the down, only south and northeast.
+
+> e
+There is no route to the east, only south and northeast.
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> take bones
+Sorry, I'm not sure which object you are trying to take.
+
+> put bones in reliquary
+Sorry, I'm not sure which object you're referring to.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> n
+There is no route to the north, only east.
+
+> up
+There is no route to the up, only east.
+
+> w
+There is no route to the west, only east.
+
+> s
+There is no route to the south, only east.
+
+> s
+There is no route to the south, only east.
+
+> w
+There is no route to the west, only east.
+
+> w
+There is no route to the west, only east.
+
+> s
+There is no route to the south, only east.
+
+> down
+There is no route to the down, only east.
+
+> se
+There is no route to the southeast, only east.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> se
+There is no route to the southeast, only north, south and west.
+
+> ne
+There is no route to the northeast, only north, south and west.
+
+> fill chalice
+You can't see any chalices!
+
+> sw
+There is no route to the southwest, only north, south and west.
+
+> pour water into fountain
+You can't see any water!
+
+> examine fountain
+You see no such thing.
+
+> examine mud
+You see no such thing.
+
+> search mud
+Sorry, I'm not sure which object you are trying to search.
+
+> examine medal
+You see no such thing.
+
+> sw
+There is no route to the southwest, only north, south and west.
+
+> w
+You move west.
+
+In Tavern
+You are inside the tavern, which is a large room full of tables, chairs and benches with a counter at one end. Every available seat is taken by one of the townspeople, who have gathered here for safety. Behind the counter stands the large figure of the tavernkeeper and behind him are several casks above which is a single shelf with various bottles arrayed along it. The door leads East to the street outside.
+
+> w
+There is no route to the west, only east.
+
+> s
+There is no route to the south, only east.
+
+> climb fence
+Sorry, I'm not sure which object you are trying to climb.
+
+> s
+There is no route to the south, only east.
+
+> fill chalice
+You can't see any chalices!
+
+> drink water
+You can't see any water!
+
+> n
+There is no route to the north, only east.
+
+> climb fence
+Sorry, I'm not sure which object you are trying to climb.
+
+> n
+There is no route to the north, only east.
+
+> e
+You move east.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> e
+There is no route to the east, only north, south and west.
+
+> ne
+There is no route to the northeast, only north, south and west.
+
+> se
+There is no route to the southeast, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> e
+There is no route to the east, only north, south and west.
+
+> se
+There is no route to the southeast, only north, south and west.
+
+> sw
+There is no route to the southwest, only north, south and west.
+
+> se
+There is no route to the southeast, only north, south and west.
+
+> ne
+There is no route to the northeast, only north, south and west.
+
+> down
+There is no route to the down, only north, south and west.
+
+> se
+There is no route to the southeast, only north, south and west.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> n
+There is no route to the north, only south and northeast.
+
+> clean dust
+Sorry, I'm not sure which object you are trying to clean/wipe.
+
+> read inscription
+You can't see the inscription.
+
+> light lantern
+Sorry, I'm not sure which object you are trying to light.
+
+> down
+There is no route to the down, only south and northeast.
+
+> take bones from reliquary
+Sorry, I'm not sure which object you are trying to take.
+
+> put bones in coffin
+Sorry, I'm not sure which object you're referring to.
+
+> up
+There is no route to the up, only south and northeast.
+
+> extinguish lantern
+Sorry, I'm not sure which object you are trying to extinguish.
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> s
+You move south.
+
+Narrow Street By Bakery
+You're north of the square, in a narrow street that winds past deserted houses and shops. On the wall of a house on the west side of the street is a faded sign, while on the east side there is a boarded-up bakery, the upper storey of which has been ravaged by fire. The street widens out further North.
+
+> e
+There is no route to the east, only north, east and south.
+
+> e
+There is no route to the east, only north, east and south.
+
+> e
+There is no route to the east, only north, east and south.
+
+> knock
+Knock on what?
+
+> show medal
+Sorry, I'm not sure which object you are trying to show.
+
+> no
+I did not understand the word "no".
+
+> yes
+I did not understand the word "yes".
+
+> examine crucifix
+You see no such thing.
+
+> w
+There is no route to the west, only north, east and south.
+
+> w
+There is no route to the west, only north, east and south.
+
+> w
+There is no route to the west, only north, east and south.
+
+> n
+You move north.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
+
+> n
+You move north.
+
+Path to Windmill
+You're in the fields to the north of Corwyn town. These were once heavily cultivated, but now lie forlorn and neglected. A hard-packed dirt path leads NE to a windmill that stands surrounded by fields that once must have glowed golden with a sea of wheat. The street that leads to the town square is South.
+
+> light lantern
+Sorry, I'm not sure which object you are trying to light.
+
+> put crucifix on altar
+You can't see any altars!
+
+> pray
+Although this is not a sacred place, you pray for success in your mission to uncover the mystery of the "Spectre".
+
+> pray to saint celia
+I did not understand the word "celia".
+
+> bless water
+You can't see any water!
+
+> down
+There is no route to the down, only south and northeast.
+
+> pour water on coffin
+You can't see any water!
+
+> bless coffin
+You need to have priestly powers before you can do that.
+
+> up
+There is no route to the up, only south and northeast.
+
+> s
+You move south.
+
+By Tavern
+You're at a wider part of the street, where it passes a small tavern on the west side. A sign, hanging drunkenly from the eaves above the door proclaims the name of the tavern as "The Baron's Arms". The street ends here just past the last houses, merging into a path that winds North into the fields that surround the town. Standing with his back to the building opposite the tavern is a pedlar.
