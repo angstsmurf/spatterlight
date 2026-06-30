@@ -569,8 +569,52 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "BeInSameLocationAsCharacter"))
     {
+      /* clsUserSession.vb:4681-4698.  clsCharacter.Location.LocationKey resolves a
+         seated/carried character to its room, so the comparison must walk an
+         on/in-object character (e.g. Anne seated on Chair1) through its carrier
+         rather than read the raw char_loc (NULL for a non-"At Location"
+         character).  `same_room` does that resolution for either operand (prefer
+         the recorded room, else scan locations for the on/in-object case). */
+      auto same_room = [&] (int a, int b) -> int {
+        if (a < 0 || b < 0)
+          return 0;
+        const char *la = (st->char_loc != NULL) ? st->char_loc[a] : NULL;
+        if (la != NULL)
+          return a5state_character_at_location (st, b, la);
+        for (int L = 0; L < st->adv->n_locations; L++)
+          { const char *lk = st->adv->locations[L].key;
+            if (a5state_character_at_location (st, a, lk)
+                && a5state_character_at_location (st, b, lk))
+              return 1; }
+        return 0;
+      };
       int c2 = a5state_character_index (st, k2);
-      return c2 >= 0 && cloc != NULL && streq (cloc, st->char_loc[c2]);
+      /* k1 = ANYCHARACTER: r = Not htblCharacters(k2).IsAlone -- some *other*
+         character shares k2's room (vb:4684). */
+      if (streq (k1, ANYCHARACTER))
+        {
+          if (c2 < 0)
+            return 0;
+          for (int s = 0; s < st->adv->n_characters; s++)
+            if (s != c2 && same_room (s, c2))
+              return 1;
+          return 0;
+        }
+      /* k1 = specific, k2 = ANYCHARACTER: any *other* character co-located with
+         k1 (vb:4687-4694) -- e.g. Revenge's `Player Must
+         BeInSameLocationAsCharacter AnyCharacter` ("There's nobody here to show
+         anything to!"), true when the customs official is present. */
+      if (streq (k2, ANYCHARACTER))
+        {
+          if (ci < 0)
+            return 0;
+          for (int c = 0; c < st->adv->n_characters; c++)
+            if (c != ci && same_room (c, ci))
+              return 1;
+          return 0;
+        }
+      /* k1, k2 both specific: identical rooms (vb:4696). */
+      return same_room (ci, c2);
     }
   if (streq (r->op, "BeCharacter"))
     {

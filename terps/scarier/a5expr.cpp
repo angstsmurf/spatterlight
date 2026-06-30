@@ -702,13 +702,21 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
 }
 
 char *
-a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain)
+a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain,
+             int force_list)
 {
   if (firstkeys == NULL || chain == NULL)
     return NULL;
   Ctx ctx = resolve_first (st, firstkeys);
   if (ctx.keys.empty () && !ctx.is_list)
     return NULL;
+  /* A plural reference (%objects%/%characters%) is a collection even when it
+     bound a single object, so list aggregators (.Sum/.Count/.List) and the
+     list .Parent step apply -- e.g. the stock take task's
+     `%objects%.Parent.Takefix.Sum=0` over one ground object must sum the
+     parent location's (absent) Takefix as 0, not render "". */
+  if (force_list && !ctx.keys.empty ())
+    ctx.is_list = 1;
 
   std::string rem = chain;
   while (!rem.empty () && rem[0] == '.') rem.erase (rem.begin ());

@@ -1,5 +1,186 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ `AmbWord` must match names case-sensitively and fall back to empty (FD quirk, broad)  ✅ DONE (2026-06-30)
+
+**SpectreOfCastleCoris 8→4** — no other corpus game moved, all a5 unit tests pass
+(arith/parse/dis/walk/obj/save + Six Silver Bullets golden), budget re-blessed.
+
+**Symptom (4 hunks).** `buy ale` / `buy arcani` (out of scope) → Scarier `You can't see
+any ale!` / `...any arcani!`, FD `You can't see any !` (the noun rendered **empty**).
+
+**Root cause — `clsUserSession.AmbWord` (vb:2656) compares the input word to each
+candidate's `arlNames`/ProperName/descriptors CASE-SENSITIVELY (`sWord = sName`) and
+returns `Nothing` (→ "") when no input word names *every* candidate.** `buy ale`
+matches two objects, one named **"Ale"** and one **"ale"**; the lowercase input word
+"ale" is not a case-exact name of the "Ale" object, so AmbWord finds no common word
+and the `DisplayAmbiguityQuestion` cantsee (Count>1, none visible) renders `You can't
+see any !`. Scarier's `amb_word` lowercased both sides (so "ale" matched both) and fell
+back to the **raw text** ("ale") when nothing was common — both un-faithful.
+
+**Fixed** in `a5run.cpp amb_word`: compare each input word to the candidates' whole
+`o->names` (objects) / `c->name` + `c->descriptors` (characters) **case-sensitively**,
+and return **""** (not the raw text) when no common name is found — mirroring FD's
+`sWord = sName` and `AmbWord = Nothing`. (Same family as the known-words case quirk
+above: the input is lowercased upstream, model names keep their original case.)
+
+**Result:** Spectre 8→4 (the four `buy <out-of-scope>` cantsee lines now render the
+empty noun). The `Which <word>?` prompt path uses the same helper and stays faithful
+(an empty common word → "Which ?", as FD). No regression in any MATCH game (their
+ambiguity/cantsee goldens — StarshipQuest/anno1700 — are unchanged); all a5 unit tests
+pass; budget re-blessed.
+
+## ⭐ Known-words validity check must keep model words' ORIGINAL case (FD quirk, broad)  ✅ DONE (2026-06-30)
+
+**RevengeOfTheSpacePirates 2→1** — no other corpus game moved, all a5 unit tests pass
+(arith/parse/dis/walk/obj/save + Six Silver Bullets golden), budget re-blessed.
+
+**Symptom.** `insert crystal in bracket` (no matching task) → Scarier `I did not
+understand the word "bracket".`, FD `I did not understand the word "crystal".` Both
+words are "unknown"; the engines disagree on *which* is the first unknown one.
+
+**Root cause — FD's `listKnownWords` keeps each model word's ORIGINAL case**
+(clsUserSession.vb:3489-3531 adds task-command verbs, object/character articles,
+prefixes, names and descriptors verbatim; only the character ProperName is
+`.ToLower`-ed), and the validity loop compares the **lowercased** input word against
+it with a case-sensitive `List.Contains` (vb:3534-3540, sInput already `.ToLower`-ed
+at vb:3356). The object is named **"Crystal"** (prefix "Zykon"), so the lowercase
+input word "crystal" is NOT a known word and FD rejects it first. Scarier's
+`build_known_words` lowercased every word, so "crystal" matched and Scarier instead
+rejected the next unknown word, "bracket". (`take crystal` earlier matched the take
+task and never reached this check, so the quirk only shows on an unmatched command.)
+
+**Fixed** in `a5run.cpp build_known_words`: insert command verbs and object/character
+articles/prefixes/names/descriptors with original case (drop the `lower()`), keep
+`lower()` only on the character proper name (FD's sole lowercased field) and on
+directions/"and" (already lowercase). `not_understood`'s lookup still lowercases the
+input word, reproducing FD's lowercase-sInput vs mixed-case-known comparison.
+
+**Result:** Revenge 2→1 (residual 1 = the `show documents` plural binding "travel
+documents and the documents", a `%objects%` dedup issue). No regression in any MATCH
+game (their unmatched-command word-rejection lines are unaffected, or already
+diverged-and-absent); all a5 unit tests pass; budget re-blessed.
+
+## ⭐ `BeInSameLocationAsCharacter AnyCharacter` (and `AnyCharacter`-subject) unhandled (broad)  ✅ DONE (2026-06-30)
+
+**RevengeOfTheSpacePirates 3→2** — no other corpus game moved, all a5 unit tests
+pass (arith/parse/dis/walk/obj/save + Six Silver Bullets golden), budget re-blessed.
+
+**Symptom.** `show id` / `show documents` at customs → Scarier **"There's nobody here
+to show anything to!"** where FD takes the same `[show] %objects%` task (GiveObject2)
+to its *fifth* restriction, **"You will have to take the ID pass out of whatever it is
+in first."** The customs official is standing right there.
+
+**Root cause — the `BeInSameLocationAsCharacter` restriction only handled a *specific*
+target character (k2).** GiveObject2's first restriction is `Player Must
+BeInSameLocationAsCharacter AnyCharacter`; `a5restr.cpp` did `c2 =
+a5state_character_index(st, "AnyCharacter")` → −1 → returned false, so R1 failed and
+the "nobody here" message fired before the object's container check could be reached.
+FD's enum (clsUserSession.vb:4681-4698) has three branches: **k1=ANYCHARACTER** → `Not
+htblCharacters(k2).IsAlone` (some other char shares k2's room); **k1 specific,
+k2=ANYCHARACTER** → any *other* character co-located with k1; **both specific** →
+identical `Location.LocationKey`. Scarier implemented only the third.
+
+**Fixed** in `a5restr.cpp`: a `same_room(a,b)` lambda (resolves either operand through
+its carrier via `a5state_character_at_location`, scanning locations for the
+on/in-object case — the same seated-NPC resolution as the LostChildren fix), then the
+three FD branches dispatched on `ANYCHARACTER` for k1/k2. The both-specific result is
+identical to before. Now R1 passes (the official is present), R5 (`ReferencedObjects
+MustNot BeInsideObject AnyObject`) becomes the deciding fail → the "take it out first"
+message, matching FD.
+
+**Result:** Revenge 3→2 (one `show` hunk fixed; residual 2 = the *other* `show
+documents` plural binding "travel documents **and the documents**" — a `%objects%`
+dedup issue — and a `bracket`/`crystal` known-word ordering line). No regression in any
+MATCH game; all a5 unit tests pass; budget re-blessed.
+
+## ⭐ NotUnderstood default-noun branch must match the entity regex *unanchored* (substring) (broad)  ✅ DONE (2026-06-30)
+
+**MagneticMoon 4→2, RevengeOfTheSpacePirates 4→3, RtC 22→21** — no other corpus
+game moved, all a5 unit tests pass (arith/parse/dis/walk/obj/save + Six Silver
+Bullets golden), budgets re-blessed.
+
+**Symptom (two inverted hunks, same root cause).** With no task matched, FD's
+`NotUnderstood` ladder (clsUserSession.vb:3584-3609) falls back to "I don't
+understand what you want to do with %X%." when a *seen+visible* object/character is
+named, else `Adventure.NotUnderstood` ("Sorry, I didn't understand that command.").
+Scarier got the X-vs-NotUnderstood decision backwards in two opposite ways:
+- `say erlin in microphone` → Scarier **"…do with Mike Erlin."**, FD **"…didn't
+  understand…"**. Scarier wrongly matched the player on the bare name-word "erlin".
+- `put helmet and axe n crate` → Scarier **"…didn't understand…"**, FD **"…do with
+  Mike Erlin."**. FD matched the player on descriptor **"me"** found *inside*
+  "hel<me>t".
+
+**Root cause — FD matches the entity's `sRegularExpressionString` UNANCHORED**
+(`New Regex(ob/ch.sRegularExpressionString)` then `re.IsMatch(sInput)`, **no**
+`^...$`, vb:3587/3600), so a noun alternative need only appear as a **substring** of
+the whole input. Scarier instead used the looser word-set (`object_words`/
+`character_words` + word-equality), which (a) split the proper name "Mike Erlin" into
+standalone tokens "mike"/"erlin" (so "erlin" wrongly matched), and (b) required a
+*whole-word* hit (so "me" inside "helmet" was missed). Since the regex's article and
+prefix groups are all optional (`(art |the )?(prefix )?(noun1|noun2|…)`), `IsMatch`
+reduces exactly to: **does any noun alternative occur as a substring of the lowercased
+input?** The noun set is the object's `arlNames`, or the character's `arlDescriptors`
+plus its **ProperName when usable** (`char_name_usable`) — the proper name kept as a
+*whole* string ("mike erlin" must appear contiguously), which is why `say erlin …`
+correctly falls through to NotUnderstood.
+
+**Fixed** in `a5run.cpp not_understood`: the seen-noun object and character branches
+now build the FD noun set (object names; char descriptors + name-when-usable, **not**
+the word-split `*_words` set) and test each noun as a `lin.find(noun)` substring of
+the lowercased input (`noun_substr` lambda). Faithful to FD's `If arl.Count = 0 Then
+sRE &= "|"` fudge: a nameless seen+visible object matches always. Loop order
+(objects before characters) and the seen+visible gating are unchanged.
+
+**Result:** MagneticMoon 4→2 (both Mike-Erlin hunks gone; residual 2 = a `tie X to Y`
+task-selection message + the score-0-vs-10 line), Revenge 4→3, RtC 22→21 (one
+NotUnderstood line of the same class). No regression in any MATCH game; all a5 unit
+tests pass; budgets re-blessed.
+
+## ⭐ The Lost Children → full MATCH: seated-NPC same-location + plural OO `.Sum` (broad)  ✅ DONE (2026-06-30)
+
+**LostChildren 2→0** (full MATCH, golden `test/LostChildren_expected.txt`); no
+other corpus game moved, all a5 unit tests pass
+(arith/run/save/obj/walk/dis/parse), budgets re-blessed. Two independent root
+causes, both broad:
+
+1. **`BeInSameLocationAsCharacter` compared the raw `char_loc`, so a seated/carried
+   target was never co-located.** `give shells` at Anne's cottage matched the
+   reference-free task `GiveShells3` (`[give/hand/offer] [{sea}shells] {to}
+   {anne/lady/woman}`), whose first restriction is `Player Must
+   BeInSameLocationAsCharacter Ann`. Anne's `CharacterLocation` is **`On Object`**
+   (seated on `Chair1`, which is at `InCottage`), so her `char_loc` is NULL — the
+   on-object slot lives in `char_onobj` (per the P7 fix). `pass_character`'s
+   `BeInSameLocationAsCharacter` (`a5restr.cpp`) did `streq(cloc,
+   st->char_loc[c2])`, i.e. `streq("InCottage", NULL)` → false. The whole task
+   short-circuited at R1 (no message), so `GiveShells3` recorded nothing and the
+   turn fell through to the general give task's **singular `%object%` cantsee**
+   ("You can't see any shells!"). FD compares `ch.Location.LocationKey ==
+   other.Location.LocationKey` (clsUserSession.vb:4681), where
+   `clsCharacter.Location.LocationKey` resolves a seated character through its
+   carrier to the room. **Fixed** by resolving the target via
+   `a5state_character_at_location(st, c2, cloc)` (the same carrier-walk the
+   renderer and `BeVisibleToCharacter` already use) instead of the raw `char_loc`
+   read. Now R1 passes, the OR-group's `Seashells2 Must BeInsideObject Bag4`
+   becomes the deciding fail → "You have no seashells to give to Anne!".
+
+2. **A plural `%objects%` OO chain bound to a *single* object lost its
+   collection semantics, so `.Sum` rendered "" not "0".** `take all` (rations on
+   the ground) failed the stock `TakeObjects` restriction `%objects%.Parent.
+   Takefix.Sum=0` (the "already-carrying" guard: a held object's parent is the
+   Player, Takefix=1). `%objects%` resolved to the single key `Rations`, which
+   `resolve_first` (`a5expr.cpp`) made a **single item** (`is_list=0`); the
+   single-item `.Parent` produced a single-item `InCottage`, and `InCottage.
+   Takefix.Sum` walked the single-item/location path where the absent `Takefix`
+   rendered **empty** instead of being summed to **0** — so the expression became
+   `""=0` (string-compare → false) and **every** ground object failed `take all`
+   → "There is nothing worth taking here." In FD a plural reference is always a
+   collection (clsObjectList), so `.Sum` aggregates with a missing per-item
+   property contributing 0. **Fixed** with a `force_list` flag on `a5expr_eval`
+   (`a5expr.cpp`/`.h`): when the OO head is the plural `%objects%`/`%characters%`
+   (detected in `a5text.cpp`'s `expr_substitute`), the head is a list even with one
+   key, so `.Sum`/`.Count`/list-`.Parent` apply. Now `Rations.Parent` → list
+   `{InCottage}`, `.Takefix.Sum` → "0", `0=0` → true → the rations are taken.
+
 ## ⭐ Unmatched sibling reference must not preempt another reference's cantsee (DieFeuerfaust, broad)  ✅ DONE (2026-06-30)
 
 **DieFeuerfaust → full MATCH (golden `test/DieFeuerfaust_expected.txt`); MagneticMoon

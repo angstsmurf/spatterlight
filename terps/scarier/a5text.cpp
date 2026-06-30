@@ -1555,7 +1555,9 @@ expr_substitute (a5_state_t *st, const char *src)
                     {
                       const char *chain_end = sexpr_scan_chain (q + 1);
                       char *chain = strndup (q + 1, (size_t) (chain_end - (q + 1)));
-                      char *val = a5expr_eval (st, fk, chain);
+                      int flist = ci_eq (name, "objects")
+                                  || ci_eq (name, "characters");
+                      char *val = a5expr_eval (st, fk, chain, flist);
                       sb_quote_val (&sb, val ? val : "", in_quote);
                       free (val); free (chain); free (fk); free (name);
                       p = chain_end;

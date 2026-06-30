@@ -709,33 +709,43 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
 }
 
 /* The "Which <word>?" noun: the first word of the typed reference text that
-   names every candidate (clsUserSession.AmbWord); falls back to the raw text. */
+   names every candidate (clsUserSession.AmbWord, vb:2656).
+
+   FAITHFUL QUIRK: FD compares each input word `sWord` to the candidates' whole
+   `arlNames` / ProperName / descriptors **case-sensitively** (`sWord = sName`),
+   and returns Nothing (rendered "") when no input word is a name of *every*
+   candidate.  So `buy ale` -- which matches two objects, one named "Ale" and one
+   "ale" -- finds no common case-exact name for the lowercase input word "ale"
+   (the "Ale" object fails), so AmbWord is empty and the cantsee renders
+   "You can't see any !".  We mirror both: case-sensitive whole-name comparison
+   and an empty fallback (NOT the raw text). */
 static std::string
 amb_word (a5_state_t *st, const std::vector<std::string> &keys,
           const std::string &ref_text, char type)
 {
   for (auto &w : split_ws (ref_text.c_str ()))
     {
-      std::string lw = lower (w);
       int in_all = 1;
       for (auto &k : keys)
         {
-          std::vector<std::string> allowed, nouns;
+          int hit = 0;
           if (type == 'o')
             { int oi = a5state_object_index (st, k.c_str ());
-              if (oi < 0) { in_all = 0; break; }
-              object_words (&st->adv->objects[oi], allowed, nouns); }
+              if (oi >= 0)
+                for (int n = 0; n < st->adv->objects[oi].n_names && !hit; n++)
+                  if (w == st->adv->objects[oi].names[n]) hit = 1; }
           else
             { int ci = a5state_character_index (st, k.c_str ());
-              if (ci < 0) { in_all = 0; break; }
-              character_words (st, &st->adv->characters[ci], allowed, nouns); }
-          int hit = 0;
-          for (auto &n : nouns) if (n == lw) { hit = 1; break; }
+              if (ci >= 0)
+                { const a5_character_t *c = &st->adv->characters[ci];
+                  if (c->name != NULL && w == c->name) hit = 1;
+                  for (int d = 0; d < c->n_descriptors && !hit; d++)
+                    if (w == c->descriptors[d]) hit = 1; } }
           if (!hit) { in_all = 0; break; }
         }
-      if (in_all) return lw;
+      if (in_all) return w;
     }
-  return lower (ref_text);
+  return "";
 }
 
 /* clsObject.GuessPluralFromNoun: a naive English pluraliser (the quirky FRotZ
@@ -4539,7 +4549,18 @@ a5run_intro (a5_run_t *run)
 }
 
 /* Seed the known-words list exactly as clsUserSession.NotUnderstood does, lazily
-   (the first time an unmatched command needs the word-validity check). */
+   (the first time an unmatched command needs the word-validity check).
+
+   FAITHFUL QUIRK: FD stores command verbs, object/character articles, prefixes,
+   names and descriptors in listKnownWords with their ORIGINAL case (only the
+   character ProperName is `.ToLower`-ed; vb:3489-3531), and the validity check
+   compares the *lowercased* input word case-sensitively (`List.Contains`).  So a
+   capitalised model word like the object name "Crystal" or prefix "Zykon" is NOT
+   a known word for the lowercase input "crystal"/"zykon" -- e.g. Revenge's
+   `insert crystal in bracket` reports `I did not understand the word "crystal".`
+   (the object is named "Crystal").  We preserve case here to reproduce it; the
+   lookup in not_understood lowercases the input word, mirroring FD's lowercase
+   sInput vs mixed-case known words. */
 static void
 build_known_words (a5_run_t *run)
 {
@@ -4560,26 +4581,27 @@ build_known_words (a5_run_t *run)
             if (ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '/')
               ch = ' ';
           for (auto &w : split_ws (c.c_str ()))
-            kw->insert (lower (w));
+            kw->insert (w);
         }
     }
-  /* Nouns: each object's article + prefix words + names. */
+  /* Nouns: each object's article + prefix words + names (original case). */
   for (i = 0; i < adv->n_objects; i++)
     {
       const a5_object_t *o = &adv->objects[i];
-      if (o->article && o->article[0]) kw->insert (lower (o->article));
-      for (auto &w : split_ws (o->prefix)) kw->insert (lower (w));
+      if (o->article && o->article[0]) kw->insert (o->article);
+      for (auto &w : split_ws (o->prefix)) kw->insert (w);
       for (j = 0; j < o->n_names; j++)
-        for (auto &w : split_ws (o->names[j])) kw->insert (lower (w));
+        for (auto &w : split_ws (o->names[j])) kw->insert (w);
     }
-  /* Characters: article + prefix words + descriptors + proper name. */
+  /* Characters: article + prefix words + descriptors (original case) + proper
+     name (the one field FD lowercases, vb:3522). */
   for (i = 0; i < adv->n_characters; i++)
     {
       const a5_character_t *c = &adv->characters[i];
-      if (c->article && c->article[0]) kw->insert (lower (c->article));
-      for (auto &w : split_ws (c->prefix)) kw->insert (lower (w));
+      if (c->article && c->article[0]) kw->insert (c->article);
+      for (auto &w : split_ws (c->prefix)) kw->insert (w);
       for (j = 0; j < c->n_descriptors; j++)
-        for (auto &w : split_ws (c->descriptors[j])) kw->insert (lower (w));
+        for (auto &w : split_ws (c->descriptors[j])) kw->insert (w);
       if (c->name && c->name[0]) kw->insert (lower (c->name));
     }
   /* Adverbs: every direction word (sDirectionsRE split on "|"). */
@@ -4701,23 +4723,41 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
 
   /* The input names an object the player has seen and can see now, but no task
      accepted it: "I don't understand what you want to do with the X."
-     (NotUnderstood's seen-noun branch).  First seen+visible match wins. */
+     (NotUnderstood's seen-noun branch, vb:3584-3609).  First seen+visible match
+     wins, objects before characters (FD's loop order).
+
+     FAITHFUL QUIRK: FD matches the entity's sRegularExpressionString *unanchored*
+     against the whole input (`re.IsMatch(sInput)`, no `^...$`), so a noun
+     alternative need only appear as a SUBSTRING -- FD's player descriptor "me"
+     matches inside "hel<me>t", so `put helmet ... ` reports "...do with Mike
+     Erlin.".  Since the regex's article/prefix groups are all optional, IsMatch
+     reduces to: does any noun alternative occur as a substring of the lowercased
+     input?  The noun set is the object's names, or the character's descriptors
+     plus its proper name when usable -- the proper name as a WHOLE string ("mike
+     erlin" must appear contiguously, unlike the word-split set used elsewhere),
+     so `say erlin ...` does NOT match the player and falls through to
+     NotUnderstood, matching FD. */
   {
     a5_state_t *st = run->st;
-    std::vector<std::string> words = split_ws (in.c_str ());
+    std::string lin = lower (in);
+    auto noun_substr = [&] (const std::vector<std::string> &nouns) {
+      for (auto &n : nouns)
+        if (!n.empty () && lin.find (n) != std::string::npos)
+          return 1;
+      return 0;
+    };
     for (int oi = 0; oi < st->adv->n_objects; oi++)
       {
         const a5_object_t *o = &st->adv->objects[oi];
         if (st->obj_seen == NULL || !st->obj_seen[oi]
             || !obj_in_scope (st, o->key))
           continue;
-        std::vector<std::string> allowed, nouns;
-        object_words (o, allowed, nouns);
-        int hit = 0;
-        for (auto &w : words)
-          { std::string lw = lower (w);
-            for (auto &n : nouns) if (n == lw) { hit = 1; break; }
-            if (hit) break; }
+        std::vector<std::string> nouns;
+        for (int n = 0; n < o->n_names; n++)
+          nouns.push_back (lower (o->names[n]));
+        /* FD's `If arl.Count = 0 Then sRE &= "|"` fudge: a nameless object's
+           empty alternation matches anywhere -> always IsMatch. */
+        int hit = (o->n_names == 0) ? 1 : noun_substr (nouns);
         if (hit)
           {
             char *nm = a5text_object_name (o, A5_ART_DEFINITE);
@@ -4736,14 +4776,12 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         const a5_character_t *c = &st->adv->characters[ci];
         if (!char_seen_p (st, c->key) || !char_visible (st, c->key))
           continue;
-        std::vector<std::string> allowed, nouns;
-        character_words (st, c, allowed, nouns);
-        int hit = 0;
-        for (auto &w : words)
-          { std::string lw = lower (w);
-            for (auto &n : nouns) if (n == lw) { hit = 1; break; }
-            if (hit) break; }
-        if (hit)
+        std::vector<std::string> nouns;
+        for (int d = 0; d < c->n_descriptors; d++)
+          nouns.push_back (lower (c->descriptors[d]));
+        if (char_name_usable (st, c) && c->name != NULL)
+          nouns.push_back (lower (c->name));
+        if (noun_substr (nouns))
           {
             char *nm = a5text_character_known_name (st, c, 0);
             sb_puts (out, "I don't understand what you want to do with ");

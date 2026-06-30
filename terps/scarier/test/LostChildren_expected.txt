@@ -1,0 +1,1422 @@
+The Lost Children
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+THE LOST CHILDREN
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+COMMANDS : CREDITS : HALL : HELP : MACROS : MAP : VOCAB;
+
+> b
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+As you look around to get your bearings you notice that you are no longer carrying your broadsword - it has vanished! You check the rest of your belongings and find that, while you still have your food supplies, all your money has also disappeared as well!
+
+It also occurs to you that it might help if you found a bag or something to put things into.
+
+> info
+I did not understand the word "info".
+
+> vocab
+Here are some verbs and other words that you will need to use in this adventure:
+
+ABOUT, AGAINST, AROUND, ASK, AT, BUY, CHISEL, CLIMB, COUNT, CUT, DEMOLISH, DRAW, DRINK, EMPTY, EXCEPT, EXTINGUISH, FIND, FOLLOW, GIVE, HIT, IN, INSERT, INTO, JUMP, KNOCK, LEVER, LIGHT, LISTEN, LOCK, MAKE, ON, ONTO, OPEN, OVER, PROP, PULL, PUSH, REPLACE, READ, RUN, SAY, SHUT, SLIDE, SLING, SMASH, SPEAK, STEP, TALK, THROW, TIE, TURN, UNBOLT, UNDO, UNLOCK, UNTIE, USING, WAIT.
+
+> speech
+
+In this adventure, you will find that some characters will speak to you first when you first meet them. You can either SAY HELLO or reply to whatever they have said to you. If you are going to use the command INTRODUCE MYSELF you must specific the name of the character you are talking to, e.g. INTRODUCE MYSELF TO ANNE.
+
+Obtaining information from the characters can be very useful, so you should them questions, e.g. ASK BERNIE ABOUT SPECTRE, etc. On the other hand, you may need to tell them things that they need to know, for example TELL PEOPLE ABOUT SORCEROR. NOTE: Do not use a 'definite article' (e.g. "the" or "a") before any noun when questioning characters.
+
+If you want to purchase any items you should simply input BUY ITEM. There is no need to tell the vendor you want to buy it, i.e. SAY TO PEDLAR BUY LINCTUS. You do not need to physically remove coins from whatever they are in, the appropriate number will be deducted from the total whenever you buy anything.
+
+NOTE: If there is only ONE character present, you can simply input, e.g., ASK ABOUT WARES or just SAY HELLO. However, if there are two or more characters present (an animal or bird, etc, may count as a character), you must specify which character you wish to speak to, e.g. SAY HELLO TO BILL. This is very important - it may save your life!
+
+> inventory
+You are wearing, apart from your clothes, nothing, and are carrying some travel rations.
+
+> examine amulet
+You see no such thing.
+
+> examine food
+A week's supply of ordinary soldier's hard tack rations - not very tasty but highly nutritious.
+
+> examine dolmen
+You see no such thing.
+
+> sw
+There is no route to the southwest, only north, east, south, west and in.
+
+> sw
+There is no route to the southwest, only north, east, south, west and in.
+
+> sw
+There is no route to the southwest, only north, east, south, west and in.
+
+> sw
+There is no route to the southwest, only north, east, south, west and in.
+
+> w
+You walk West.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> examine woman
+You can't see any woman!
+
+> examine cigarette
+You see no such thing.
+
+> anne "give cigarette"
+I did not understand the word ""give".
+
+> anne "dolmen"
+I did not understand the word ""dolmen"".
+
+> anne "children"
+I did not understand the word ""children"".
+
+> anne "trolls"
+I did not understand the word ""trolls"".
+
+> anne "woods"
+I did not understand the word ""woods"".
+
+> anne "tobacco"
+I did not understand the word ""tobacco"".
+
+> buy tobacco
+Sorry, I'm not sure which object you are trying to buy.
+
+> anne "hillside"
+I did not understand the word ""hillside"".
+
+> e
+You walk East.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+> e
+You walk East.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> e
+You walk East.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> e
+You walk East.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> examine field
+You see no such thing.
+
+> pick buttercups
+You can't see any buttercups!
+
+> e
+You walk East.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> n
+There is no route to the north, only east, west, northeast and southeast.
+
+> n
+There is no route to the north, only east, west, northeast and southeast.
+
+> ne
+You walk NorthEast.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> e
+You walk East.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> s
+There is no route to the south, only east, west, northeast and southeast.
+
+> e
+You walk East.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> s
+There is no route to the south, only east, west, northeast and southeast.
+
+> w
+You walk West.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> search hut
+You can't see any huts!
+
+> examine nails
+You can't see any nails!
+
+> e
+You walk East.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> se
+You walk Southeast.
+
+After a couple of minutes walking you hear the roar of a mountain lion up ahead, so you decide not to go any further. You retrace your steps back to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> examine basket
+You see no such thing.
+
+> search ashes
+Sorry, I'm not sure which object you are trying to search.
+
+> down
+There is no route down, only east, west, northeast and southeast.
+
+> e
+You walk East.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> se
+You already went that way once and heard a mountain lion. You had better not go that way again until it has gone away.
+
+> se
+You already went that way once and heard a mountain lion. You had better not go that way again until it has gone away.
+
+> examine boy
+You can't see any boy!
+
+> examine bowl
+You can't see any bowls!
+
+> read notice
+You can't see any notices!
+
+> drop food in bowl
+Sorry, I'm not sure which object you're referring to.
+
+> follow boy
+You can't see any boy!
+
+> n
+There is no route to the north, only east, west, northeast and southeast.
+
+> jenny "roof"
+I did not understand the word "jenny".
+
+> jenny "children"
+I did not understand the word "jenny".
+
+> jenny "tom"
+I did not understand the word "jenny".
+
+> jenny "anne"
+I did not understand the word "jenny".
+
+> w
+You walk West.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> e
+You walk East.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> pet cat
+I did not understand the word "pet".
+
+> s
+There is no route to the south, only east, west, northeast and southeast.
+
+> se
+You already went that way once and heard a mountain lion. You had better not go that way again until it has gone away.
+
+> e
+You walk East.
+
+After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+> read blackboard
+You can't see any blackboards!
+
+> w
+You walk West.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> sw
+You walk SouthWest.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> se
+You walk SouthEast.
+
+Woods East of Cottage
+You are in woodland to the southeast of the moors. Through the trees you can just see a cottage some distance to the west. The ground between the trees is carpeted with flowers.
+
+> take crowbar
+Sorry, I'm not sure which object you are trying to take.
+
+> examine crowbar
+You see no such thing.
+
+> s
+There is no route to the south, only west and northwest.
+
+> ne
+There is no route to the northeast, only west and northwest.
+
+> read sign
+You can't see the old signpost.
+
+> s
+There is no route to the south, only west and northwest.
+
+> down
+There is no route down, only west and northwest.
+
+> look around
+You look all around but see nothing of any particular interest.
+
+> examine jetty
+You can't see any jetties!
+
+> search rocks
+You can't see any rocks!
+
+> examine net
+You see no such thing.
+
+> up
+There is no route up, only west and northwest.
+
+> n
+There is no route to the north, only west and northwest.
+
+> up
+There is no route up, only west and northwest.
+
+> se
+There is no route to the southeast, only west and northwest.
+
+> se
+There is no route to the southeast, only west and northwest.
+
+> e
+There is no route to the east, only west and northwest.
+
+> e
+There is no route to the east, only west and northwest.
+
+> e
+There is no route to the east, only west and northwest.
+
+> se
+There is no route to the southeast, only west and northwest.
+
+> s
+There is no route to the south, only west and northwest.
+
+> s
+There is no route to the south, only west and northwest.
+
+> e
+There is no route to the east, only west and northwest.
+
+> s
+There is no route to the south, only west and northwest.
+
+> hit hut
+You can't see any huts!
+
+> search wood
+Sorry, I'm not sure which object you are trying to search.
+
+> take felt
+You can't see any felt!
+
+> examine felt
+You can't see any felt!
+
+> examine quarry
+You see no such thing.
+
+> n
+There is no route to the north, only west and northwest.
+
+> w
+You walk West.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> n
+You walk North.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> n
+You walk North.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+> n
+You walk North.
+
+Edge of Forest
+You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
+
+> nw
+There is no route to the northwest, only north, south, southeast and southwest.
+
+> n
+You walk North.
+
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+
+> n
+You wander off in that direction but after a couple of minutes find yourself lost. You manage to make your way back to where you started.
+
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+
+> ne
+You wander off in that direction but after a couple of minutes find yourself lost. You manage to make your way back to where you started.
+
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+
+> examine floor
+The floor or ground is whatever surface is under your feet. If you are sitting or laying on something, or on a ladder for example, the floor will be further away.
+
+> lever floor
+You cannot lever that!
+
+> take bag
+You can't see any bags!
+
+> take floorboard
+You can't see any floorboards!
+
+> examine floorboard
+You can't see any floorboards!
+
+> examine bag
+You can't see any bags!
+
+> sw
+You wander off in that direction but after a couple of minutes find yourself lost. You manage to make your way back to where you started.
+
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+
+> s
+You walk South.
+
+Edge of Forest
+You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
+
+> s
+You walk South.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+> s
+You walk South.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> se
+You walk SouthEast.
+
+Woods East of Cottage
+You are in woodland to the southeast of the moors. Through the trees you can just see a cottage some distance to the west. The ground between the trees is carpeted with flowers.
+
+> s
+There is no route to the south, only west and northwest.
+
+> s
+There is no route to the south, only west and northwest.
+
+> e
+There is no route to the east, only west and northwest.
+
+> s
+There is no route to the south, only west and northwest.
+
+> se
+There is no route to the southeast, only west and northwest.
+
+> down
+There is no route down, only west and northwest.
+
+> e
+There is no route to the east, only west and northwest.
+
+> se
+There is no route to the southeast, only west and northwest.
+
+> se
+There is no route to the southeast, only west and northwest.
+
+> s
+There is no route to the south, only west and northwest.
+
+> w
+You walk West.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> w
+You walk West.
+
+Woods West of Cottage
+You are in woodland to the southwest of the moors. Through the trees you can just see a cottage some distance to the east. The ground between the trees is carpeted with flowers.
+
+> s
+There is no route to the south, only east and northeast.
+
+> read list
+You can't see any lists!
+
+> buy lantern
+Sorry, I'm not sure which object you are trying to buy.
+
+> buy rope
+You can't see any ropes!
+
+> buy tinderbox
+You can't see any tinderboxes!
+
+> n
+There is no route to the north, only east and northeast.
+
+> e
+You walk East.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> s
+You walk South.
+
+In Cottage
+You are in the single room of the cottage, which is much larger than it would appear to be from outside. It is light, airy and very tidy. Against one wall is a bed and there is a table and chair by the opposite wall. Under the window in the south wall is a sink and in the middle of the room a wood-burning stove with a chimney pipe that goes up through the ceiling.  Here you see an elderly lady, rocking in her chair.
+
+The woman smiles as you enter and you notice the tips of pointed ears sticking out between her curls, indicating that she is an elf.
+
+"Hello dearie," she says pleasantly. "Nice of you to visit, my name is Anne. We don't get many people in this neck of the woods these days. What's your name and how did you come to be here?"
+
+> s
+There is no route to the south, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> look through wndow
+Sorry, I'm not sure which object you are trying to look through.
+
+> examine display
+You see no such thing.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> e
+There is no route to the east, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> examine inkeeper
+You see no such thing.
+
+> buy ale
+You can't see any ale!
+
+> inkeeper "find pawnbroker"
+I did not understand the word "inkeeper".
+
+> buy ale
+You can't see any ale!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> w
+There is no route to the west, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> buy tinderbox
+You can't see any tinderboxes!
+
+> w
+There is no route to the west, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> e
+There is no route to the east, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> look around
+You look all around but see nothing of any particular interest.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> light lantern
+Sorry, I'm not sure which object you are trying to switch/turn/flick.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> extinguish lantern
+Sorry, I'm not sure which object you are trying to switch/turn/flick.
+
+> s
+There is no route to the south, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> chisel slates
+You can't see any slates!
+
+> take slates
+Sorry, I'm not sure which object you are trying to take.
+
+> examine slates
+You can't see any slates!
+
+> se
+There is no route to the southeast, only north and out.
+
+> lever ladder
+You can't see any ladders!
+
+> take ladder
+You can't see any ladders!
+
+> e
+There is no route to the east, only north and out.
+
+> examine carpenter
+You see no such thing.
+
+> carpenter "lend saw"
+I did not understand the word "carpenter".
+
+> se
+There is no route to the southeast, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> nw
+There is no route to the northwest, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> w
+There is no route to the west, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> prop ladder
+You can't see any ladders!
+
+> climb ladder
+You can't see any ladders!
+
+> examine hole
+You can't see any holes!
+
+> fix roof
+You can't see the thatched roof!
+
+> down
+There is no route down, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> nw
+There is no route to the northwest, only north and out.
+
+> return saw
+I did not understand the word "return".
+
+> se
+There is no route to the southeast, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> search pews
+Sorry, I'm not sure which object you are trying to search.
+
+> examine carnation
+You see no such thing.
+
+> remove pin
+You are not wearing the pins.
+
+> examine pin
+You see no such thing.
+
+> w
+There is no route to the west, only north and out.
+
+> nw
+There is no route to the northwest, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> nw
+There is no route to the northwest, only north and out.
+
+> look around
+You look all around but see nothing of any particular interest.
+
+> examine boat
+You see no such thing.
+
+> board boat
+Sorry, I didn't understand that command.
+
+> examine fisherman
+You see no such thing.
+
+> fisherman "boat"
+I did not understand the word "fisherman".
+
+> up
+There is no route up, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> read list
+You can't see any lists!
+
+> buy kit
+You can't see any kits!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> e
+There is no route to the east, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> nw
+There is no route to the northwest, only north and out.
+
+> board boat
+Sorry, I didn't understand that command.
+
+> give kit
+You can't see any kits!
+
+> examine beeswax
+You see no such thing.
+
+> up
+There is no route up, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> buy helmet
+Sorry, I'm not sure which object you are trying to buy.
+
+> buy shield
+You can't see any shields!
+
+> buy sword
+Sorry, I'm not sure which object you are trying to buy.
+
+> examine shield
+You can't see any shields!
+
+> examine sword
+You see no such thing.
+
+> examine helmet
+You see no such thing.
+
+> w
+There is no route to the west, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> drop shield
+You can't see any shields!
+
+> sit on shield
+Right idea - wrong location!
+
+> drop all
+Ok, you put down the travel rations.
+
+> sit on shield
+Right idea - wrong location!
+
+> slide down
+Sorry, I didn't understand that command.
+
+> examine seashells
+You can't see any seashells!
+
+> take seashells
+Sorry, I'm not sure which object you are trying to take.
+
+> take shield
+You can't see any shields!
+
+> examine roof
+You can't see the thatched roof.
+
+> up
+There is no route up, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> take all
+Ok, you pick up the travel rations.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> up
+There is no route up, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> nw
+There is no route to the northwest, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> examine plant
+You see no such thing.
+
+> pick plant
+Sorry, I'm not sure which object you are trying to pick.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> se
+There is no route to the southeast, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> give shells
+You have no seashells to give to Anne!
+
+> show plant
+Sorry, I'm not sure which object you are trying to show.
+
+> anne "potion"
+I did not understand the word ""potion"".
+
+> anne "make potion"
+I did not understand the word ""make".
+
+> give carnation
+Sorry, I'm not sure which object you are trying to show.
+
+> give buttercup
+You can't see the buttercups!
+
+> give beeswax
+Sorry, I'm not sure which object you are trying to show.
+
+> e
+There is no route to the east, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> look around
+You look all around but see nothing of any particular interest.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> ne
+There is no route to the northeast, only north and out.
+
+> search vegetation
+You can't see any vegetation!
+
+> e
+There is no route to the east, only north and out.
+
+> examine bob
+You see no such thing.
+
+> examine pipe
+A simple metal pipe that takes the smoke from the stove out through the thatched roof.
+
+> bob "tom"
+I did not understand the word ""tom"".
+
+> bob "maze"
+I did not understand the word ""maze"".
+
+> bob "trolls"
+I did not understand the word ""trolls"".
+
+> bob "children"
+I did not understand the word ""children"".
+
+> show amulet
+Sorry, I'm not sure which object you are trying to show.
+
+> bob "find children"
+I did not understand the word ""find".
+
+> give tobacco
+Sorry, I'm not sure which object you are trying to show.
+
+> light lantern
+Sorry, I'm not sure which object you are trying to switch/turn/flick.
+
+> s
+There is no route to the south, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> down
+There is no route down, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> examine box
+You see no such thing.
+
+> read letters
+Sorry, I'm not sure which object you are trying to read.
+
+> climb in
+Sorry, I'm not sure which object you are trying to climb down.
+
+> s
+There is no route to the south, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> d
+There is no route down, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> look n
+You look to the North, but see nothing that is of any interest to you.
+
+> look w
+You look to the West, but see nothing that is of any interest to you.
+
+> w
+There is no route to the west, only north and out.
+
+> look n
+You look to the North, but see nothing that is of any interest to you.
+
+> look e
+You look to the East, but see nothing that is of any interest to you.
+
+> e
+There is no route to the east, only north and out.
+
+> look e
+You look to the East, but see nothing that is of any interest to you.
+
+> e
+There is no route to the east, only north and out.
+
+> examine boulder
+You see no such thing.
+
+> climb boulder
+Sorry, I'm not sure which object you are trying to climb.
+
+> examine wall
+There are walls in a lot of places, holding things up or in. If you are outside there may not be any walls within sight.
+
+> jump on ledge
+Sorry, I'm not sure which object you are trying to climb down.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> down
+There is no route down, only north and out.
+
+> examine tower
+You see no such thing.
+
+> look up
+You look up, but see nothing that is of any interest to you.
+
+> examine opening
+You can't see any openings!
+
+> climb opening
+You can't see any openings!
+
+> tie rope to crowbar
+You can't see any ropes!
+
+> throw crowbar at opening
+You can't see any openings!
+
+> climb rope
+You can't see any ropes!
+
+> sw
+There is no route to the southwest, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> examine table
+A simple wooden table for eating at.
+
+> examine tankards
+You see no such thing.
+
+> examine barrel
+You see no such thing.
+
+> drop potion in barrel
+Sorry, I'm not sure which object you're referring to.
+
+> up
+There is no route up, only north and out.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+> up
+There is no route up, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> examine glider
+You see no such thing.
+
+> examine straps
+You see no such thing.
+
+> cut straps
+Sorry, I'm not sure which object you are trying to cut.
+
+> w
+There is no route to the west, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> down
+There is no route down, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> search rondio
+Sorry, I'm not sure which object you are trying to search.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> climb boulder
+Sorry, I'm not sure which object you are trying to climb.
+
+> jump on ledge
+Sorry, I'm not sure which object you are trying to climb down.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> e
+There is no route to the east, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> throw net
+Sorry, I'm not sure which object you are trying to throw/toss/lob/pitch.
+
+> kill troll
+Sorry, I'm not sure which object you are trying to attack/kill.
+
+> e
+There is no route to the east, only north and out.
+
+> ne
+There is no route to the northeast, only north and out.
+
+> unlock door
+You can't unlock the cottage door as it is not locked!
+
+> sw
+There is no route to the southwest, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> sw
+There is no route to the southwest, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> e
+There is no route to the east, only north and out.
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> n
+You cannot leave without saying "Hello" to Anne!
+
+> e
+There is no route to the east, only north and out.
+
+> w
+There is no route to the west, only north and out.
+
+> up
+There is no route up, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.
+
+> s
+There is no route to the south, only north and out.

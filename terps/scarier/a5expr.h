@@ -33,8 +33,14 @@
  * starting at the first '.' (e.g. ".Name", ".Held(False).List(Indefinite)").
  * Returns the rendered text, or NULL if the expression is not resolvable (the
  * caller then leaves the original token verbatim).
+ *
+ * `force_list` makes the head a collection even for a single key -- a plural
+ * reference (%objects%/%characters%) is always a collection in frankendrift
+ * (clsObjectList/clsCharacterList), so list aggregators like .Sum/.Count walk it
+ * (a missing per-item property contributes 0, not "") even when one item bound.
  */
-extern char *a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain);
+extern char *a5expr_eval (a5_state_t *st, const char *firstkeys,
+                          const char *chain, int force_list = 0);
 
 /*
  * Scan `text` for property expressions "<entitykey>.<chain>" (the first token
