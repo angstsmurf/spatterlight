@@ -1,5 +1,73 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ SixSilverBullets xoshiro → full MATCH: `RAND()` restriction RHS draws a random + runtime location-group membership + room-view `pSpace`  ✅ DONE (2026-06-30)
+
+**SixSilverBullets xoshiro 10→0** (full every-line MATCH under FD_RNG=xoshiro;
+budget re-blessed 20|10 → 18|0) — no corpus game moved in either mode (all 12 MATCH
+games hold 0/0; StoneOfWisdom 2/0, JacarandaJim 99/0 unchanged), all a5 unit tests
+pass (run/arith/parse/dis/walk/obj/save + the Six Silver Bullets golden) and the
+SSB run pipeline is ASan/UBSan-clean. SSB is RNG-bound at vanilla (now 18, like
+JacarandaJim's 99): FD's stock System.Random and Scarier's xoshiro128** pick
+different chime/bomb flavour text, so the xoshiro column is the real-logic metric
+— and it is now clean. The game plays byte-for-byte through to `*** You have won
+***` (it previously diverged from ~the Green-Agent encounter onward and the player
+was **sniped to a `*** You have lost ***`** roughly two-thirds of the way in).
+
+**The bug was an RNG-stream desync** in the game's per-turn time-trap subsystem.
+Three independent root causes, found by instrumenting BOTH engines' RNG draws
+(a temporary `A5_TRACE_RNG` in `a5rand_between` / FD's `Global.Random`) and
+diffing the consumed stream — the first divergence pinned the cause exactly:
+
+1. **A `RAND(min,max)` expression on a restriction's right-hand side was never
+   evaluated as a draw.** SSB's turn ticker (`Maintainen` TurnBased event) runs
+   the System task `TimeTrapsT` every turn; its gating restriction
+   `Roller Must BeEqualTo 'RAND(1,16)'` draws a fresh `RAND(1,16)` each evaluation
+   (FD's `PassSingleRestriction` → `EvaluateExpression` → `clsVariable.SetToExpression`
+   → `Global.Random(1,16)`, clsUserSession.vb:4486). Scarier's `num_value`
+   (`a5restr.cpp`) did `strtol("'RAND(1,16)'")` = **0**, so `Roller == 0` always
+   failed (the chime never fired) AND, fatally, **no random was drawn** — so from
+   the first such turn Scarier's `Roller` stream ran ~31 draws behind FD's, and the
+   `SniperHits`/bomb/night events (all gated on `Roller`) mistimed, sniping the
+   player. **Fixed**: `num_value` strips a surrounding single-quote wrapper and, on
+   a `RAND(` token, parses `(lo,hi)` and draws via `a5rand_between` — exactly
+   mirroring FD's expression path. With this the two engines' real-draw streams are
+   **identical** (75 vs 75, zero diff). The bracket-sequence evaluator already
+   short-circuits like FD, so the draw happens iff the prior AND-terms pass —
+   matching FD's draw count, not just its values.
+
+2. **`BeWithinLocationGroup` ignored the runtime group-membership override.**
+   `TimeTraps1` (the "A bell tolls…" task) fires when the player is in the
+   `TimeTraps` location group with `Roller<=2`, then runs
+   `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps` so a
+   once-tolled room never re-tolls. Scarier's `BeWithinLocationGroup` restriction
+   (`a5restr.cpp`) checked only the **static** model members, so the override the
+   Remove sets was invisible and The Hotel re-tolled the bell every turn of the
+   Green-Agent encounter (3 spurious tolls). **Fixed** by routing it through
+   `a5state_object_in_group` (runtime override wins, then static) — the same layer
+   `AddLocationToGroup`/`RemoveLocationFromGroup` write and that JacarandaJim's
+   dark-locations feature already uses.
+
+3. **`LocationOf %Player%` in the group actions never resolved `%Player%`.** The
+   `AddLocationToGroup`/`RemoveLocationFromGroup` handler (`a5run.cpp`) looked up a
+   character literally named `"%Player%"` (none exists; the key is `Player`), so the
+   Remove collected an empty location set and removed nothing. **Fixed** by passing
+   the source key through `act_key` (which maps `%Player%`/`%objectN%` → the entity
+   key; a group key is returned verbatim). Needed together with (2) for the Remove
+   to take effect.
+
+4. **Room-view internal joins must use `pSpace`, not the sentence-aware
+   `add_space`.** FD's `clsLocation.ViewLocation` joins the look-text, each NPC
+   "is here" line and the exit list with `pSpace(sView)` (Global.vb:572), which
+   appends two spaces **unless the buffer ends in a newline** — it does *not* check
+   for a trailing space or sentence punctuation. Scarier used `add_space` there,
+   which suppresses the join when the text already ends in a space. SSB's Hotel
+   long description ends `"…grim and gray. "` (a model trailing space), so FD
+   rendered `"gray.   The Purple Agent is here."` (3 spaces) where Scarier rendered
+   1. **Fixed** by replacing the three `add_space` guards in `view_location_impl`
+   (`a5text.cpp`) with the newline-only `pSpace` test already used for the
+   object-listing joins. Most descriptions end in `.` (where `add_space` and
+   `pSpace` agree), so no other corpus game moved.
+
 ## ⭐ Event-fired task iterates the leftover plural reference: `get ammo and rifle` ticks `ts_tasIncrement` twice (Amazon off-by-one clock drift)  ✅ DONE (2026-06-30)
 
 **TreasureHuntInTheAmazon 31→1** (both modes; residual 1 = the title's 3-space

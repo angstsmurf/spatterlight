@@ -2172,7 +2172,12 @@ view_location_impl (a5_state_t *st, const char *lockey)
     const char *lt = a5state_player_look (st);
     if (lt != NULL && lt[0] != '\0')
       {
-        if (add_space (sb.p, sb.len))
+        /* pSpace(sView) (clsLocation.ViewLocation:144): always two spaces unless
+           the buffer ends in a newline -- NOT add_space's sentence-aware test, so
+           a description ending in a trailing space still gets the two (e.g.
+           SixSilverBullets' Hotel "...grim and gray. " + "  " before the
+           Purple Agent's "is here" line -> three spaces). */
+        if (sb.len > 0 && sb.p[sb.len - 1] != '\n')
           sb_puts (&sb, "  ");
         sb_puts (&sb, lt);
       }
@@ -2232,7 +2237,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
               }
             d = ci_replace_all (d, "##CHARNAME##", list);
           }
-        if (add_space (sb.p, sb.len))
+        if (sb.len > 0 && sb.p[sb.len - 1] != '\n')   /* pSpace, vb:166 */
           sb_puts (&sb, "  ");
         sb_puts (&sb, d.c_str ());
       }
@@ -2252,7 +2257,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
          dangling trailing spaces -- which a following same-turn event message
          then joins onto with another pSpace, giving four spaces (the JJ police
          cell "...out of the cell.    Alan appears..." case). */
-      if (add_space (sb.p, sb.len))
+      if (sb.len > 0 && sb.p[sb.len - 1] != '\n')   /* pSpace, vb:177 */
         sb_puts (&sb, "  ");
       if (n >= 1)
         {

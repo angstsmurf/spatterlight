@@ -358,11 +358,11 @@ DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
 RunBronwynnRun|RunBronwynnRun.blorb|0|0
 RtC|RtC.blorb|0|0
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|1|1
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|0|0
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
 JacarandaJim|JacarandaJim.blorb|99|0
-SixSilverBullets|SixSilverBullets.blorb|20|10
+SixSilverBullets|SixSilverBullets.blorb|18|0
 EOF
 )
 

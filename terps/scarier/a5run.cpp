@@ -3375,7 +3375,14 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       if (tk.size () < 4)
         return;
       const std::string &what = tk[0];
-      const char *k1  = tk[1].c_str ();
+      /* Resolve the source key through act_key so a `%Player%` / `%objectN%`
+         operand maps to its entity key (FD's ReferenceControl expansion).  A
+         group key (EverywhereInGroup) is not an entity, so act_key returns it
+         verbatim -- harmless.  Without this `LocationOf %Player%` looked up a
+         character literally named "%Player%" (none), so SixSilverBullets'
+         `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps` removed
+         nothing and The Hotel kept tolling the bell every turn. */
+      const char *k1  = act_key (st, tk[1].c_str ());
       const char *grp = tk[3].c_str ();
       int add = streq (kind, "AddLocationToGroup");
       std::vector<std::string> locs;

@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "a5parse.h"
+#include "a5rand.h"
 #include "a5restr.h"
 #include "a5text.h"
 
@@ -148,14 +149,45 @@ resolve_key (a5_state_t *st, const char *k)
   return k;
 }
 
-/* Evaluate key2 as a number: a variable key's value, else an integer literal. */
+/* Evaluate key2 as a number: a variable key's value, a `RAND(min,max)`
+   expression, else an integer literal.  An expression RHS is wrapped in single
+   quotes in the model (FD's clsRestriction summary quotes it; the stored
+   StringValue is the bare expression), and FD's PassSingleRestriction evaluates
+   it via EvaluateExpression -> clsVariable.SetToExpression, which calls
+   Global.Random(min,max) for a RAND() token (clsUserSession.vb:4486).  So
+   SixSilverBullets' TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'` draws one
+   random per evaluation -- a draw Scarier previously skipped (strtol of the
+   quoted string yields 0, so the chime never fired and the RAND stream desynced
+   from FD, mistiming the sniper/bomb events). */
 static long
 num_value (a5_state_t *st, const char *k)
 {
-  int vi = a5state_variable_index (st, k);
+  int vi;
+  const char *s = k;
+  char unq[64];
+  if (s != NULL && s[0] == '\'')
+    {
+      /* strip surrounding single quotes into a small scratch buffer */
+      size_t len = strlen (s);
+      if (len >= 2 && s[len - 1] == '\'' && len - 2 < sizeof unq)
+        { memcpy (unq, s + 1, len - 2); unq[len - 2] = '\0'; s = unq; }
+    }
+  if (s != NULL && strncmp (s, "RAND", 4) == 0)
+    {
+      long lo = 0, hi = 0;
+      char *end;
+      const char *p = s + 4;
+      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
+      lo = strtol (p, &end, 10);
+      p = end;
+      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
+      hi = (*p) ? strtol (p, NULL, 10) : lo;
+      return a5rand_between (lo, hi);
+    }
+  vi = a5state_variable_index (st, s);
   if (vi >= 0)
     return st->var_num[vi];
-  return strtol (k != NULL ? k : "0", NULL, 10);
+  return strtol (s != NULL ? s : "0", NULL, 10);
 }
 
 static const char *
@@ -679,17 +711,12 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "BeWithinLocationGroup"))
     {
-      int i;
-      for (i = 0; i < st->adv->n_groups; i++)
-        if (streq (st->adv->groups[i].key, k2))
-          {
-            int m;
-            for (m = 0; m < st->adv->groups[i].n_members; m++)
-              if (streq (st->adv->groups[i].members[m], cloc))
-                return 1;
-            return 0;
-          }
-      return 0;
+      /* Membership must consult the runtime override layer, not just the static
+         model members: SixSilverBullets' TimeTraps1 fires the bell then runs
+         `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps`, so a
+         once-tolled location leaves the group and must not re-toll.  Likewise
+         AddLocationToGroup (Jacaranda's dark-locations) must count. */
+      return cloc != NULL && a5state_object_in_group (st, k2, cloc);
     }
   if (streq (r->op, "HaveProperty"))
     {

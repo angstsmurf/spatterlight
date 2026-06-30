@@ -41,7 +41,7 @@ strict-diffed against Scarier with no dotnet dependency.
 | Treasure Hunt in the Amazon | 133 | diverge | 41 | ~~**BUG 3**~~ **FIXED** (object-group property inheritance: the `BuyableItems` group confers `StaticOrDynamic=Dynamic`+`BuyableItem`, so `buy` works; 44→41); residual **BUG 2** no `Date:/Time:`+`You move` lines (NOT a stdlib merge — FD loads no library), provisions line-join, title centring, downstream darkness |
 | Grandpa's Ranch | 93 | diverge | 125 | **BUG 2** missing room desc/exit+object listings; **BUG 7** `dig` → "nothing to dig with" (shovel not taken from `x shelves`) |
 | Jacaranda Jim | 440 | diverge | 439 | **BUG 4** pronoun `get it`/`get them` unresolved (35×); **BUG 2** missing "Exits are …"; **BUG 10** leaks template `%AlanRemarks[%AlanRemarkIndex%]%`; darkness handling |
-| Six Silver Bullets | 33 | diverge | 20 (xo 10) | **NEW** real winning walkthrough (*** You have won *** in FrankenDrift). Surfaces **BUG 14** time-passing model: Scarier fires the location `TimeTraps` "A bell tolls… Time has passed" on *movement* turns where FD ticks time on `wait` ("A chime rings out. An hour has passed."), so the `Time` countdown desyncs; the script's RNG-tuned `wait` count then crosses the Highway sniper room at a `Roller<3` phase and Scarier dies (sniper) before the dock showdown. FD (ground truth) survives and wins. |
+| Six Silver Bullets | 33 | MATCH ✅ (xoshiro) | 18 (xo 0) | real winning walkthrough (*** You have won ***). **BUG 14 RESOLVED**: the time-trap subsystem desynced the `Roller` RNG stream (the `'RAND(1,16)'` restriction RHS was never drawn), mistiming the sniper/bomb events and killing the player. Fixed (RAND-on-RHS draw + runtime location-group membership + `LocationOf %Player%` resolution + room-view `pSpace`); xoshiro now 0 (full FD-logic MATCH), vanilla 18 is irreducible System.Random RNG noise. See TODO top entry. |
 | Stone of Wisdom | 137 | diverge | 6 | **REWRITTEN** as a real winning walkthrough (50/50, *** You have won *** in FrankenDrift, 137 turns). Surfaces **BUG 13** troll-knockout death — after `hit troll with ring` knocks the troll unconscious, Scarier still fires the troll's "you-didn't-act → die" event on the same turn, killing the player at turn 10 (FD's knockout cancels it). 3 of the 6 hunks are inherent RAND troll-taunt lines (default-RNG); the rest are that death + the loss-vs-win cascade. See TODO_a5_walkthrough_bugs.md. |
 
 Anno 1700 predates this batch; its FrankenDrift golden was never empty
@@ -112,18 +112,19 @@ not counted as Scarier bugs).
     `%AlanRemarks[%AlanRemarkIndex%]%` — nested array-index function not
     evaluated. Direction capitalization "SouthEast" vs "Southeast"
     (Lost Children).
-14. **Time-passing model (Six Silver Bullets).** The game's `Ticker` event runs
-    `TimeTraps1` (location-group "A bell tolls… Time has passed") and `TimeTrapsT`
-    (Roller-gated "A chime rings out. An hour has passed.") each turn. Scarier
-    decrements `Time` on *movement* turns via the location trap where FD only
-    ticks on in-place (`wait`) turns, so the two engines' `Time` countdowns drift
-    apart. Because the dock-departure window (`Time<=3`) and the Highway sniper
-    (`Roller<3`) are both timing/RNG gated, the drift makes Scarier cross the
-    sniper room at a fatal phase and die before the showdown, while FrankenDrift
-    (ground truth) survives and wins. The walkthrough is correct; the divergence
-    is entirely Scarier's. Likely the same RNG draw-order/`TimeTraps`-group
-    membership family as BUG 1 — investigate the `Ticker` sub-event order and the
-    `TimeTraps` location-group re-add against FrankenDrift's `clsEvent` tick.
+14. **Time-passing model (Six Silver Bullets).** ✅ RESOLVED (xoshiro 10→0,
+    full MATCH; see TODO top entry). The root cause was an RNG-stream desync, not
+    a `Time`-decrement-on-movement difference: `TimeTrapsT`'s gate
+    `Roller Must BeEqualTo 'RAND(1,16)'` draws a random each turn in FD, but
+    Scarier evaluated the quoted `'RAND(1,16)'` as `strtol`=0 and drew nothing, so
+    its `Roller` stream ran ~31 draws behind FD and every `Roller`-gated event
+    (chime/bomb/`SniperHits`) mistimed — sniping the player. Fixed by (a) drawing
+    `RAND(min,max)` on a restriction RHS (`num_value`, `a5restr.cpp`), (b) routing
+    `BeWithinLocationGroup` through the runtime group-membership override so the
+    bell task's `RemoveLocationFromGroup` sticks, (c) resolving `LocationOf
+    %Player%` via `act_key`, and (d) using `pSpace` (not the sentence-aware
+    `add_space`) for the room-view look/NPC/exit joins. xoshiro now 0; vanilla 18
+    is irreducible System.Random-vs-xoshiro flavour-text noise (like JacarandaJim).
 
 ## Caveats
 
