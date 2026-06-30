@@ -161,6 +161,18 @@ typedef struct a5_state_s {
      movement restriction's generic "There is no route..." text.  NULL when the
      exit is open or simply absent.  Not owned (a DOM node). */
   const a5_xml_node_t *route_error;
+
+  /* frankendrift's sRestrictionText, as a (non-owned) <Message> DOM node.  Every
+     PassRestrictions call updates it: a restriction that fails sets it to that
+     restriction's Message (NULL when the restriction has none), a passing one on
+     the deciding path clears it, and a call that evaluates *no* single
+     restriction (a malformed BracketSequence, whose EvaluateRestrictionBlock
+     returns False without calling PassSingleRestriction) leaves it untouched.
+     Crucially it is NOT reset between commands, so a command-matching task whose
+     restrictions never overwrite it (the malformed-bracket case) inherits the
+     previous command's leftover -- e.g. Anno 1700's reference-free OpeningHid
+     ("##A#"), which thereby fails *with output* and ticks the turn.  NULL == "". */
+  const a5_xml_node_t *restriction_text;
 } a5_state_t;
 
 extern a5_state_t *a5state_new  (const a5_adventure_t *adv);

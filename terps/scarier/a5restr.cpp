@@ -1102,11 +1102,27 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
     }
   else if (norm[0] == '#')
     {
-      int my = (*idx)++;
-      first = (my < n) ? pass_single (st, &rs[my]) : 1;
-      if (my < n)
-        *last_fail = first ? -1 : my;   /* clear on pass, record on fail */
       op = norm[1];
+      if (op != '\0' && op != 'A' && op != 'O')
+        {
+          /* frankendrift's inner "Case Else": a '#' followed by neither an
+             operator nor end-of-block (e.g. the spurious leading '#' of a
+             malformed "##A#").  EvaluateRestrictionBlock takes Case Else and
+             falls off the end -> default False, WITHOUT calling
+             PassSingleRestriction.  So the restriction is never evaluated and
+             sRestrictionText (here *last_fail) is left untouched -- preserving
+             any carried value (the basis for Anno's reference-free OpeningHid
+             failing *with* the previous command's leftover message). */
+          (*idx)++;             /* FD still runs iRestNum += 1 */
+          free (norm);
+          return 0;
+        }
+      {
+        int my = (*idx)++;
+        first = (my < n) ? pass_single (st, &rs[my]) : 1;
+        if (my < n)
+          *last_fail = first ? -1 : my; /* clear on pass, record on fail */
+      }
       rest = (op == '\0') ? NULL : norm + 2;
     }
   else
@@ -1158,7 +1174,7 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
   const a5_xml_node_t **nodes;
   const a5_xml_node_t *c;
   const char *bracket;
-  int n, i, idx = 0, result, last_fail = -1;
+  int n, i, idx = 0, result, last_fail = -2;   /* -2 = no restriction evaluated */
   char *normbrackets = NULL;
 
   if (fail_node_out != NULL)
@@ -1219,6 +1235,17 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
     result = eval_block (st, rs, nodes, n, b, &idx, &last_fail);
     free (b);
   }
+
+  /* frankendrift's sRestrictionText side effect (clsUserSession.vb:5176/5181):
+     every PassSingleRestriction on the deciding path clears it on a pass and
+     sets it to the restriction's Message on a fail; a call that evaluates *no*
+     single restriction (malformed bracket -> last_fail still -2) leaves it
+     untouched, so the carried value from a previous command survives.  Persists
+     across commands -- never reset per turn. */
+  if (last_fail == -1)
+    st->restriction_text = NULL;                 /* deciding restriction passed */
+  else if (last_fail >= 0 && last_fail < n)
+    st->restriction_text = a5xml_child (nodes[last_fail], "Message");
 
   if (fail_node_out != NULL && !result && last_fail >= 0 && last_fail < n)
     {

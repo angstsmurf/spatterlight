@@ -12,8 +12,8 @@ test/a5_groundtruth.sh test/adrift5-games/<Game>.blorb test/<Game>_walkthrough.t
 ```
 **Verify a fix:** `test/run_a5_walkthroughs.sh` — the game's hunk count must
 drop below its baseline budget (then re-bless the budget in the runner's MAP and,
-if it reaches 0, capture a golden `test/<Game>_expected.txt`). Only Achtung
-Panzer is fully conformant (MATCH) today.
+if it reaches 0, capture a golden `test/<Game>_expected.txt`). Achtung Panzer,
+StarshipQuest, and anno1700 are fully conformant (MATCH) today.
 
 Ordered by impact. Each item: symptom → evidence → suspected locus → fix → verify.
 
@@ -214,22 +214,55 @@ character carrying the prop), matching FD's enum branch.
 other corpus game regressed; all a5 unit tests pass (arith/parse/obj/save +
 Six Silver Bullets golden); budget re-blessed 5→3.
 
-**Residual (3, analysed — the storage-room wake event, ONE coupled cause):** the
-walkthrough's flagged best-effort "wait until you wake in a storage room" tail. The
-`EffectOfTh` turn-based event (Length 15, teleport subevent at offset 15) reaches
-`fromstart=14` in Scarier but never the 15th tick, so the storage-room teleport never
-fires and the post-wake closet/hole/wall chain plays in the corridor instead. Traced
-to **one missing event tick**: between the offset-11 vision and the teleport, FD's
-`open closet` (out of scope, previously seen) **matches `OpenObjects` and fails its
-`BeVisibleToCharacter` restriction with output** (`You can't see nothing.`) → a
-matched-task-with-output that ticks TurnBasedStuff; Scarier classifies the same
-command `RR_CANTSEE` (>1 unseen "closet" candidates → `You can't see any closets!`)
-which doesn't tick. The discriminator is FD's multi-stage scope refinement
-(`RefineMatchingPossibilitesUsingRestrictions`, clsUserSession.vb:5734:
-Applicable→Visible→Seen) narrowing `open closet`'s candidates to a single seen object
-where `x closet` stays ambiguous. Reproducing that refinement faithfully is a broad,
-high-regression-risk change to object resolution across all 15 games; not attempted
-(the residual lives entirely in the explicitly non-deterministic section).
+**Residual (3) — storage-room wake event ✅ DONE (2026-06-30); anno1700 3→0, now a
+full MATCH (golden `test/anno1700_expected.txt`).** The walkthrough's best-effort
+"wait until you wake in a storage room" tail: the `EffectOfTh` turn-based event
+(Length 15, teleport subevent at offset 15) reached tick 11 then stalled in Scarier,
+so the storage-room teleport fired one command late and the post-wake
+closet/hole/wall chain played in the corridor (3 hunks). The discriminator was
+**one missing event tick** on `open closet` — FD ticks the turn, Scarier didn't.
+
+**Root cause — NOT the Applicable→Visible→Seen refinement** (the earlier hypothesis,
+disproven by instrumented traces of both engines: both refine identically here).
+The real cause is **FD never resetting `sRestrictionText` between commands**. In the
+wait sequence, `open closet` matches the *reference-free* specific task `OpeningHid`
+("Opening hideous closet in storage room") whose `<BracketSequence>` is the malformed
+`##A#` (2 restrictions, 3 `#`). FD's `EvaluateRestrictionBlock` hits its inner
+`Case Else` ("Error"), returns its default False **without calling any
+`PassSingleRestriction`** — so `sRestrictionText` is never overwritten and keeps the
+**stale** value the *previous* command (`x hole`) left from `ExamineObjects`'
+`BeVisibleToCharacter` refine pass (`%CharacterName% can't see %TheObject[%object%]%.`).
+GetGeneralTask sees a non-empty `sRestrictionText` → treats `OpeningHid` as
+failing-*with-output* → claims the turn (HighestPriorityTask) and **ticks**, rendering
+the carried template with `OpeningHid`'s empty refs as **`You can't see nothing.`**
+Scarier reset its fail text per command, so `OpeningHid`'s message-less
+`BeAtLocation` failure recorded nothing and the turn fell through to `OpenObjects`'
+`RR_CANTSEE` (`You can't see any closets!`) — no tick.
+
+**Fixed (four faithful pieces, all validated zero-regression across the corpus):**
+1. **`a5state.restriction_text`** — a persistent (non-owned `<Message>` DOM node)
+   analogue of FD's `sRestrictionText`, **not** reset between commands.
+2. **`a5restr.cpp eval_restrictions`** updates it as FD's `PassSingleRestriction`
+   side effect: a failing deciding restriction sets it (its `<Message>`, NULL when
+   none), a passing one clears it, and a call that evaluates **no** single
+   restriction (malformed bracket → `last_fail` stays the new `-2` "untouched"
+   sentinel) leaves it untouched (the carry).
+3. **`a5restr.cpp eval_block`** — the leading-`#`-then-non-operator (malformed) path
+   now returns False **without** calling `pass_single` (matching FD's inner
+   `Case Else`), so it no longer clobbers the carried text. Also the Applicable tier
+   in `a5run.cpp resolve_refine` now evaluates candidates in **model order** (as FD's
+   `InputMatchesObject` builds `MatchingPossibilities`), so the last-evaluated
+   candidate — hence the carried `sRestrictionText` — matches FD (the surviving set
+   is still kept visible-first for the default-pick).
+4. **`a5run.cpp scan_tasks`** — an `RR_FAIL` task whose own restrictions name no
+   failing message falls back to the carried `st->restriction_text` (failing
+   *with output* → claims the turn, ticks). **`a5text.cpp`**: an unbound
+   object/character reference used as a function arg renders empty (FD
+   `GetReference` → `""`), and `%TheObject[]%`/`%ObjectName[]%` with an empty arg
+   renders `nothing` (FD `htblObjects.List` on an empty set).
+
+No other corpus game moved; all a5 unit tests pass (arith/obj/save/walk/dis/parse +
+Six Silver Bullets golden); budget re-blessed 3→0 and golden captured.
 
 ---
 

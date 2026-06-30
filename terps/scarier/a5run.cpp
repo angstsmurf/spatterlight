@@ -1220,14 +1220,35 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       if (r.keys.size () <= 1)
         continue;
 
-      /* Tier 1: Applicable -- the candidates that pass the task's restrictions. */
-      std::vector<std::string> pass;
-      for (auto &k : r.keys)
+      /* Tier 1: Applicable -- the candidates that pass the task's restrictions.
+         frankendrift evaluates candidates in *model order* (the order
+         InputMatchesObject/Character add them to MatchingPossibilities), and the
+         last PassRestrictions call leaves sRestrictionText set to its deciding
+         restriction's Message (st->restriction_text).  That carried text is what
+         a later malformed-bracket task displays, so iterate in model order here
+         even though the surviving set is kept in Scarier's visible-first order
+         (the default-pick hint) -- only the *last evaluated* candidate, hence
+         st->restriction_text, depends on this. */
+      std::vector<std::string> eval_order = r.keys;
+      std::stable_sort (eval_order.begin (), eval_order.end (),
+        [&] (const std::string &a, const std::string &b) {
+          int ia = (r.type == 'o') ? a5state_object_index (st, a.c_str ())
+                                   : a5state_character_index (st, a.c_str ());
+          int ib = (r.type == 'o') ? a5state_object_index (st, b.c_str ())
+                                   : a5state_character_index (st, b.c_str ());
+          return ia < ib;
+        });
+      std::vector<std::string> passset;
+      for (auto &k : eval_order)
         {
           bind_reference (st, r.name.c_str (), k.c_str (), r.text.c_str ());
           if (a5restr_pass (st, t->restrictions))
-            pass.push_back (k);
+            passset.push_back (k);
         }
+      std::vector<std::string> pass;            /* survivors, visible-first */
+      for (auto &k : r.keys)
+        if (std::find (passset.begin (), passset.end (), k) != passset.end ())
+          pass.push_back (k);
       int more;
       if (pass.empty ())          { r.keys = r.orig; more = 1; }
       else if (pass.size () > 1)  { r.keys = pass;   more = 1; }
@@ -4175,6 +4196,17 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                      Silver Bullets sets this, so its refless "LOOK" peephole
                      task falls through to the real Look. */
               const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
+              if (fm == NULL)
+                /* The task's own restrictions named no failing message (e.g. a
+                   malformed BracketSequence whose evaluation calls no single
+                   restriction).  frankendrift then still has sRestrictionText
+                   set to the *previous* command's leftover message, so the task
+                   fails *with output* and claims the turn -- ticking
+                   TurnBasedStuff.  Anno 1700's reference-free OpeningHid ("##A#")
+                   matches "open closet", fails, and inherits the prior turn's
+                   "%CharacterName% can't see %TheObject[%object%]%." (rendered
+                   with its empty references as "You can't see nothing."). */
+                fm = st->restriction_text;
               if (fm != NULL)
                 {
                   char *fmsg = a5text_describe (st, fm);

@@ -348,7 +348,7 @@ FILTER="${1:-}"
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
-anno1700|Anno1700.blorb|3|3
+anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|12|12
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|17|17
 StarshipQuest|StarshipQuest.blorb|0|0

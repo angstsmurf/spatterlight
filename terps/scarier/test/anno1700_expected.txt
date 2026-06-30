@@ -1,0 +1,1448 @@
+Anno 1700
+
+Garden
+The garden in front of the hotel is quite big. It gently slopes down towards the south from the porch, ending abruptly on the edge of a steep cliff. A white picket fence has been erected a few yards from the edge, preventing careless guests from wandering too close to the vertical drop.
+
+A few trees, quite young, yet standing with a full canopy, provide shelter from the sun and a few guests are sitting around tables underneath them enjoying the incredible view over the Mexican Gulf. An old crooked tree stands just on the other side of the fence, leaning dangerously over the edge of the cliff. Its naked branches reach towards the sky, except one that is reaching out horizontally from the gnarled trunk.
+
+Close to the foot of the tree there are two old weatherbeaten headstones leaning slightly to one side.
+
+To the south lies the hotel, looking peaceful in the summer sun.
+
+> x tree
+Which tree?  The old crooked tree or the young tree.
+
+> x crooked tree
+Even in daylight, the sight of this gnarled old tree sends a slight chill down your spine. There is an indefinable atmosphere of fear that seems to grow stronger the closer you get.
+
+You estimate the tree to be well over a hundred years old, and it surely looks every bit of its age. The gnarled trunk is crooked and twisted, its naked branches reaching, almost pleadingly towards the sky. Shaped by the frequent storms, the tree leans heavily over the cliff as if it holds on by sheer will power.
+
+High up on the tree trunk a squirrel sits, holding an acorn, looking at you from one of the branches. It eyes you suspiciously for a short while, then hastens down the trunk and disappears into a small hole. It appears again shortly after, and runs up the trunk again.
+
+A small brass plaque is mounted on the trunk, below a particular thick branch that sticks out horizontally from the trunk, approximately 25 feet above the ground.
+
+> x hole
+It's a natural hole, formed as the tree grew over the years. Looks like a squirrel has moved in.
+
+> search hole
+Whether it's the fantasy of a hidden treasure or just plain curiosity you nevertheless move closer to the old tree and try to look into the hole. At first you don't see much, but after a while the dim light seeping through the top of the tree reveals a squirrel’s winter stock of nuts.
+
+> get nuts
+Not minding the testy chittering from the very agitated squirrel, you reach into the tree and grab the nuts. As you do so your fingers brush against what appears to be a small twig.
+
+> get twig
+Reaching into the hole again you fumble around for a bit until your fingers touch the twig. You carefully pull it from the hole and as you hold it in your hand you discover that it's in fact an old piece of leather string, all hard and stiff from age.
+
+> x string
+It's a piece of rotten leather string. All crumpled and hard from spending year after year in the tree. It has the corroded remains of a key attached to it.
+
+> x key
+It's hard to see that this was once a key. Its bow and shank are almost gone, and the pin and key wards are paper thin as the metal has corroded away over the years.
+
+> s
+You slowly walk along the path and climb the few steps to the porch.
+
+Porch
+The hollow sound of your footsteps breaks the silence as you walk across the planks.
+
+It's nice and cool in here away from the sun which a few guests are taking advantage of as they sit and enjoy the view over the garden and the sea in the distance.
+
+Behind you is a wooden railing with an opening and a few steps leading down to the lawn. In front of you is the front door of the hotel. The porch stretches out to both sides of you covering the length of the facade of the building.
+
+> s
+You move south.
+
+Reception
+You stop abruptly just inside the door. It's like, by just stepping through the door, you have stepped a couple of hundred years back in time. This whole place oozes with atmosphere and you greedily suck it all in as you look around.
+
+Next to the door, leading out to the porch, a small tilted desk is positioned under a window, and a framed newspaper article is hanging on the wall next to it.
+
+With your back to the door, which leads out to the porch, you have, right in front of you, the reception counter where you will be working. Behind it, hanging decoratively on the wall, you see a huge worm-eaten ship's steering wheel and under it a wooden key rack made from an old piece of driftwood.
+
+To the right of the wheel is a door leading in to an office, and to the left of the reception counter an old wooden stairway is leading up to the first floor where you assume the rooms are.
+
+Through an arched doorway to the east you can see the dining room with a long table placed in the middle of the room.
+
+Around you, the walls are decorated with old antiques... Over the arch leading to the dining room hangs another piece of driftwood with the letters “Dining Room” carved into it.
+
+> s
+You move south.
+
+Office
+The first thing you notice is the huge desk of weather-beaten oak which dominates the room. Placed close to the window with a beautiful view over the ragged cliffs and the azure blue ocean. A tall leather chair is placed behind it facing the door.
+
+The room is nicely decorated with various maritime artifacts and two paintings of whom you believe to be Lulu-Belle and Captain LeBeuf are hanging side by side on the wall closest to the desk.
+
+Behind you, to the north the door leads out to the reception.  A young woman stands leaning over the big desk. She greets you with a big smile as you enter.
+
+> say hello
+(to a young woman)
+"Hi there" she says. "you must be the new receptionist, we've been expecting.
+ My name is Susan, I'm the manager here, or actually the owner. But this is a small place so I do a little bit of everything.” She lets go of your hand and returns behind her desk. "Why don't you get settled in first. Your room is upstairs, Room 101, at the top of the stairs."
+She hands you a key, then takes some papers from her desk and starts to look through them. The conversation is obviously over for now.
+
+> n
+You move north.
+
+Reception
+A small tilted desk is positioned under a window, and a framed newspaper article is hanging on the wall next to it, right beside the door leading out to the porch.
+
+In front of you is the reception counter where you will be working. Behind it, hanging decoratively on the wall you see a huge worm-eaten ship's steering wheel and under it a wooden key rack made from an old piece of driftwood.
+
+To the right of the wheel is a door leading in to an office, and to the left of the reception counter an old wooden stairway is leading up to the first floor where the guests' rooms are.
+
+Through an arched doorway to the east you can see the dining room with a long table placed in the middle of the room.
+
+Around you, the walls are decorated with old antiques... Over the arch leading to the dining room hangs another piece of driftwood with the letters “Dining Room” carved into it.
+
+> x article
+What appeared to be a picture on the wall, turns out to be a page from the local newspaper. Under a picture of a young woman, standing in front of the hotel, is a short story about the hotel.
+An elderly couple walks by you and hangs their room key on the rack.
+
+> read article
+ *House of Ill Repute Turns Decent*
+The house known as Lulu-Belle's Safe Harbor, a notorious brothel in the days when pirates prowled the Gulf, has perhaps finally settled. Rumors have long existed of a curse upon the Safe Harbor’s tower room, which forced the place to close shortly after the death of Lulu-Belle in 1700. Since then, it has served as an unofficial historical landmark, but no longer provided services for paying travellers.
+
+In the years since the house stood empty, it has been an informal shelter for the homeless and even the famous smuggler Hautaín, not to mention the numerous other treasure hunters who almost tore the house down in search of treasure. Captain LeBeuf, the famous pirate, is said to have left his “treasure and his heart” at the Safe Harbor some time before his death, the same year as Belle’s.
+
+Only recently has Belle’s Harbor, slowly been given a renaissance since Belle's great, great granddaughter, Susan LeBeuf, bought the place and turned it into a respectable hotel just days before it was to be torn down. A new crowd of tourists, drawn by the legends around the historical building, has sought their safe harbor at the Safe Harbor.
+
+Although originally in bad repair, Miss Susan has managed to bring the Safe Harbor back to its former beauty, modeling all of the renovation after styles of the late 17th century with just a few modern touches. Only the tower room, cursed according to a local legend, remains locked. Though Susan reports she holds no superstition about the tower room, she claims to keep it locked out of respect of her great, great grandmother, Lulu-Belle.
+
+“Keeping the legend alive is important,” says Susan. “It’s an important part of our community’s history and culture as a colonial port town. Besides, it’s good for business."
+
+> u
+The old wooden steps squeak under your weight as you walk up the stairway towards the corridor upstairs.
+
+As you slowly climb upwards you run your hand over the railing, imagining how pirates and ladies of the night once walked these stairs many centuries ago.
+
+Landing above stairs 2017
+It is not hard to imagine what the corridor must have looked like back in the wild days of Belle's Harbor. Susan has successfully managed to recreate the atmosphere from way back then.
+
+Right in front of you is the door to room 101, and the stairway leading down to the reception is right behind you.
+
+To your left, the corridor extends to the east, running the length of the hotel. On the walls, replicas of ancient oil lamps, now fitted with modern electric light bulbs, are placed close to the doors leading into the various rooms.
+
+To the west the corridor widens out into a small hall formed like a circle. Here too, the walls are decorated with antique artifacts and pictures of famous pirates.
+
+> unlock door 101
+You open the door to room 101 and enter, closing the door behind you.
+
+You drop your suitcase on the bed and quickly change into something more comfortable. Then you take a look around your new "home."
+
+Room 101
+This is Room 101, the first room on the first floor and it's the room where you'll be living for the summer. It's not a very big room, but you don’t mind. The wallpaper is kept in a light color and the single bed is placed near the window so the occupant can look out. Beside it is a small nightstand made of dark wood and on top of it is a lamp.
+
+A tall simple wooden closet is placed against the wall at the far end of the room. Next to it an old antique iron candleholder is mounted on the wall.
+
+Close to the window are a small desk and a chair. The door is right behind you, leading out to the corridor and another leading south to the bathroom.
+
+> open closet
+You open the tall closet.  Inside the tall closet is a business suit, a white shirt, a tie and a pair of shoes.
+
+> look inside closet
+It's rather big, a good deal taller than you and pretty dark. At the back of the closet, near the top corner, you notice what appears to be a loose board.
+
+> x board
+The board is loose at the top near the upper edge of the closet leaving a small crack between it, and the back of the closet.
+
+> move board
+You can only move the loose board a little. But it's enough to discover that there's a narrow crack between the board and the wall of the closet.
+
+> close closet
+You close the closet doors again.
+
+> x candleholder
+The candle holder is one of the original items from back when Lulu-Belle ran the inn many years ago. It is made of iron and is forged into a peculiar crooked shape. A brightly polished brass plate is  mounted behind it to reflect the light.
+
+> get candleholder
+You take the candle holder from the wall. Hmmm... Interesting. Once the candle holder is removed from the wall it looks like a winch handle.
+
+> x handle
+Interesting! The candle holder you took from the wall looks incredibly like a winch handle.
+
+It has a square end at the end that was fastened in the wall and the other is hammered flat to a thickness of approximately half an inch.
+
+> x closet
+You walk closer and study the closet.
+
+The wood is untreated but still feels smooth to the touch and the doors are simple with no signs of decorations at all. The way the grains of the various timbers allign  with the various pieces makes you think that the entire closet is made of one huge piece of wood.
+
+Its intriguingly crafted feet are standing solid on the wooden floor.
+There's a square shaped hole near the bottom of the closet.
+  The tall closet is currently closed.
+
+> x hole
+The hole is near the bottom of the closet, close to one of the feet. It seems a little out of place and doesn't appear to have a function.
+
+> x feet
+Apart from the excellent craftsmanship, you notice that the closet feet are made of two separate pieces of wood, one set inside the other, rather like the sections of a telescope.
+
+> insert handle in hole
+The end of the winch fits perfectly into the square hole.
+
+> turn handle
+You turn the winch and slowly the closet rises from the floor.
+
+> push closet
+You really put your weight into it and slowly you manage to push the heavy closet aside. A dark opening approximately half your size, leading west, has been hidden behind the closet.
+
+> w
+You manage to squeeze yourself into the hole in the wall. To your surprise it's not as narrow as it looked from the outside.
+
+Secret passage to Tower
+Walking through the passage, you wonder how it managed to go unnoticed during the restoration of the hotel. But apparently it did.
+
+Your shoulders rub against the brick walls as you fumble your way forward, fighting off cobwebs and dust as you go along. The only source of light managing to penetrate this darkness is the light from the room.
+
+Suddenly your passage is blocked by what appears to be a solid wall. Is this all there is?
+
+> x wall
+The bricks feel rough against your fingertips as you carefully run them over the surface. They feel like ordinary bricks and considering the length of time the mortar between them is still firm and dry.
+
+The walls on each side of you are not that interesting but at the lower corner of the wall in front of you, blocking your further passage a brick feels kind of “wobbly.”
+
+> x brick
+It's a loose brick.
+
+> move brick
+You patiently wiggle the brick from side to side and slowly it slides out and leaves a hole in the wall.
+
+> x hole
+The hole isn't very deep, a few inches in you can feel a small hook like "thingy."
+
+> pull hook
+You manage to bend your finger around the hook and give it a pull. A faint click is heard and the wall in front of you moves slightly.
+
+> push wall
+At first nothing happens, then the wall slowly slides to one side.
+
+What! Another wall?
+
+> x wall
+Running your hands over it you find that this wall is made of wood.
+
+> push wall
+Placing both hands against the wooden barrier you push with all your strength. The barrier slowly moves and a bright light blinds you.
+
+Another push and the barrier tumbles over with a tremendous noise, leaving a hole leading North.
+
+> n
+You move north.
+
+Lulu-Belle's room
+You stop abruptly as you enter the room. In the gray ghostlike light that filters through the dirty windows the devastation in here is unbelievable.
+
+A big four poster bed is leaning crazily and the torn moth-eaten covers lie in a heap on the floor. The barrier that blocked your passage turns out to be a huge wooden closet which is now lying on the floor.
+
+Across the room, a small wooden dresser lies smashed to pieces as if it has been picked up and thrown against the wall. A broken mirror is thrown in the corner and something that resembles a chair is lying in pieces in the fireplace. The only thing that seems untouched is the beautiful ornamented silver candle holder on the windowsill.
+
+Behind you, leading South, is the secret passage from which you just entered.
+
+> x fireplace
+The size of the fireplace amazes you and you can easily imagine how it would be able to warm up this room even on the coldest of nights.
+
+An ornamented marble column on each side supports the delicate mantelpiece and inside the fireplace is the ashes from the last time it was in use hundreds of years ago.
+
+Next to it is a brass bucket filled with firewood. Above it you see the only thing not damaged or destroyed in the entire room: a portrait of Lulu-Belle.
+
+> x column
+They are very beautiful and show magnificent craftsmanship. The ornaments on both sides of the fireplace are identical and picture a twisting vine embracing a naked woman holding a pitcher.
+
+> x woman
+The sculptured woman holding a pitcher is very beautiful. You must admire the work and talent of the one that has managed to create such a piece of art.
+
+> x pitcher
+You admire the fine details in the craftsmanship and the way the artist has managed to make it look as if this is one continuous ornament.
+
+> x bucket
+It's a plain brass bucket, holding the firewood for the fireplace.
+  Inside the brass bucket is some firewood.
+
+> get bucket
+That's strange!
+It appears that the bucket is fastened to the floor.
+
+> x firewood
+The logs are stacked neatly in the brass bucket.
+
+> get firewood
+As you pick up one of the logs, the bucket rises a little.
+
+> x fireplace
+The size of the fireplace amazes you and you can easily imagine how it would be able to warm up this room even on the coldest of nights.
+
+An ornamented marble column on each side supports the delicate mantelpiece and inside the fireplace is the ashes from the last time it was in use hundreds of years ago.
+
+Next to it is a brass bucket filled with firewood. Above it you see the only thing not damaged or destroyed in the entire room: a portrait of Lulu-Belle.
+It looks as if the entire fireplace floor has risen a few inches leaving a small space between the fireplace and the floor of the room.
+
+> x columns
+They are very beautiful and show magnificent craftsmanship. The ornaments on both sides of the fireplace are identical and picture a twisting vine embracing a naked woman holding a pitcher.
+The pitcher on the left side of the fireplace is now protruding from its base.
+
+> turn pitcher
+With the pitcher now protruding a little from the fireplace it's no problem getting a hold of it and you gently turn it. A faint click and the pitcher opens revealing a keyhole.
+
+> insert key in hole
+You insert the key into the keyhole and slowly turn it.
+
+Too late you realize that the key is too corroded and before you know it, it bends between your fingers and breaks.
+
+> s
+You move south.
+
+Secret passage to Tower
+The passage leads back towards your room and forward, north, towards the Tower room. The secret room that has been locked up for centuries.
+Also here is an old brick.
+
+> out
+You move out.
+
+Room 101
+This is your room.
+
+The wallpaper and the other furniture is becoming familiar to you and you’ve even come to like the old closet. The single bed is placed near the window so the occupant can look out. Beside it is a small nightstand made of dark wood and on top of it is a lamp.
+
+Close to the window is a small desk and a chair. The door is right behind you, leading out to the corridor and another leading south to the bathroom.
+There's a narrow opening in the wall leading west.
+
+> out
+You leave the room the same way you came in, through the door, making sure you remember to lock it behind you.
+
+Landing above stairs 2017
+It is not hard to imagine what the corridor must have looked like back in the wild days of Belle's Harbor. Susan has successfully managed to recreate the atmosphere from way back then.
+
+Right in front of you is the door to room 101, and the stairway leading down to the reception is right behind you.
+
+To your left, the corridor extends to the east, running the length of the hotel. On the walls, replicas of ancient oil lamps, now fitted with modern electric light bulbs, are placed close to the doors leading into the various rooms.
+
+To the west the corridor widens out into a small hall formed like a circle. Here too, the walls are decorated with antique artifacts and pictures of famous pirates.
+
+> d
+You move down.
+
+Reception
+A small tilted desk is positioned under a window, and a framed newspaper article is hanging on the wall next to it, right beside the door leading out to the porch.
+
+In front of you is the reception counter where you will be working. Behind it, hanging decoratively on the wall you see a huge worm-eaten ship's steering wheel and under it a wooden key rack made from an old piece of driftwood.
+
+To the right of the wheel is a door leading in to an office, and to the left of the reception counter an old wooden stairway is leading up to the first floor where the guests' rooms are.
+
+Through an arched doorway to the east you can see the dining room with a long table placed in the middle of the room.
+
+Around you, the walls are decorated with old antiques... Over the arch leading to the dining room hangs another piece of driftwood with the letters “Dining Room” carved into it.
+
+> x counter
+The reception counter is set against the back wall of the entrance area.
+The polished surface glows with a dark reddish color and you can almost see your face in it. An antique inkwell is built into the counter adding to the atmosphere of the hotel.
+
+  A registry, a goose feather quill, a brass lantern and a silver bell are on the reception counter.
+
+> x lantern
+It's quite big and bulky but the brass base and the glass have been neatly cleaned and polished. A metal handle allows you to carry it around if needed. It has a faint smell of kerosene and when you lift it up the weight indicates that it's full.
+
+> get lantern
+(from the reception counter)
+Ok, you take the brass lantern from the reception counter.  An elderly couple enters from outside takes a key and disappears up the stairs.
+
+> e
+You move east.
+
+Dining room
+The dining room is quite big and is dominated by a long table that almost runs the entire length of the room. Here too, the decoration is kept in the “old pirate” style. To the north, beside two windows overlooking the garden, is a door, and behind you to the west is the opening leading to the reception.
+
+Antique kerosene lamps are hanging on the walls but it's really the two chandeliers suspended from the heavy beams, which provide the light. Two cutlasses are hanging across the fireplace at the far end of the room, and an old worn “Jolly Roger” is hanging above them.
+
+The table is set for whatever meal is next, as there are cutlery and napkins at the seats around it. All the kitchen staff have to do is to put whatever dishes are needed on the table.
+
+> n
+You open the door and walk into the next room. The door closes silently behind you.
+
+Kitchen
+The light from the windows shines on the long counter placed against the wall.
+
+A cook is busy preparing the meal for later while the kitchen maid appears to be occupied sweeping the floor.
+The kitchen range is placed opposite the kitchen counter and right beside it is a small table with a marble slate, used for preparing whatever needs to be cooked.
+
+A few cupboards are mounted on the wall and a rather tall closet stands in the corner beside the fridge.
+
+A door leads south, out to the dining room.
+The cook and the kitchen maid are here.
+
+> x fridge
+It's one of the few things that Susan hasn't been able to keep original, a modern fridge standing white and shiny.
+
+> open fridge
+Opening the fridge reveals nothing but the usual things, such as butter, milk etc. Finding none of this interesting, you close the fridge again.
+
+One thing puzzles you... When you walked to the fridge to open it, one of the floorboards felt “squishy” under your feet.
+
+The cook turns her head and says: “Don't worry, you won't fall through the floor” she laughs. “The floor has been like that over there for as long as I can remember.”
+
+> x floor
+The floor is made of heavy planks and is kept neat and clean. Most of the floorboards seem to be very old and only a few of them, close to the window have been replaced.
+The "squishy" floorboards seem to run under the fridge.
+
+> x floorboards
+The floor is made of heavy planks and is kept neat and clean. Most of the floorboards seem to be very old and only a few of them, close to the window have been replaced.
+The "squishy" floorboards seem to run under the fridge.
+
+> move fridge
+The cook and kitchen maid stare at you in disbelief as you put your shoulder against the side of the fridge and start pushing. It's quite heavy and you consider emptying the contents before moving it. Then just as you are about to give up the fridge begins to move slowly. Soon it is pushed to one side, leaving the floor exposed.
+
+> move floorboards
+Ignoring the cook's frantic protests you kneel on the floor and begin to lift one of the floorboards.
+
+They are not that easy to move as they have been there for ages. They are quite heavy and very unmanageable but finally you lift up the last one and place it on the floor beside you.
+
+Where the fridge used to be there is now a dark hole. The top of a rickety ladder can be seen just under the edge of the hole.
+
+> x hole
+You are staring into a big hole of blackness. The light can't penetrate the darkness and reach the bottom of the hole. The edges of the hole have been supported by planks of oak, preventing them from caving in.
+
+> x range
+The kitchen range looks as if it's as old as the house itself.
+A huge monstrosity of a beast, standing in the corner of the kitchen. It's currently lit and the kitchen maid is feeding it with logs of wood from a stack placed at a safe distance from the range.
+  The kitchen stove is currently closed.
+
+> open stove
+You open the kitchen stove.  Inside the kitchen stove is a burning twig.
+
+> get twig
+(from the kitchen stove)
+Being careful not to burn yourself you reach in and grab a burning twig from the kitchen stove.
+
+> light lantern
+Carefully lifting the glass you light the wick of the lantern with the burning twig. It splutters a little at first, then it starts burning with a bright yellow flame.
+You discard the twig, making sure it doesn't set fire to anything.
+
+> d
+You reluctantly begin your descent into darkness feeling your way with your feet every step of the way. The darkness engulfs you the further down you get and it seems like an eternity before you finally reach the bottom.
+
+Cellar
+Not a great deal of light emits from the old lantern but it does manage to light up more of the cellar giving you a better idea of what is in here.
+
+Apparently the cellar isn't as empty as it appeared in the first place. Crates and barrels are stacked along the walls at the far end of the cellar and although many of them are nothing more but rotting pieces of wood there are still some which have withstood the teeth of time.
+
+Two, man-sized wine barrels are lying on wooden supports against the wall.
+
+Some places the heavy oak beams have given in to the pressure and the dirt wall has caved in leaving a hole and a pile of dirt on the floor.
+
+> x barrels
+There are two barrels, one to the left and one to the right.
+
+They are both raised about a foot or so above the ground, resting on heavy wooden supports. They are tall enough for a person to almost be able to stand up straight in there.
+
+You can only wonder how they got them through the hole in the ceiling.
+
+A brass spigot is mounted on the front of each of the barrels.
+
+> x spigots
+The brass spigots are placed about one inch above the lowest part of the barrel preventing the sediment from being poured into the pitcher. The left spigot must have been in a bad condition since it's nailed to the barrel.
+
+> pull left spigot
+You grab the tap and give it a good pull.
+
+It feels as if the lid of the barrel is moving just a tiny bit. Once more you pull, harder this time, and finally...
+Very slowly, and with a high pitched screech of rusty hinges, the lid of the barrel moves outwards.
+
+> enter barrel
+With your heart racing like mad in your chest, you enter the huge wine barrel.
+
+Inside the wine barrel
+Even though it must have been hundreds of years since there was anything in this barrel you can still smell the faint odor of wine. The opening behind you, leading out, leads to the cellar while, where the bottom of the barrel is supposed to be, an exit leads east into darkness.
+
+> e
+You move east.
+
+Cave
+It’s not a huge cave, but big enough to allow at least three or four men to stand on top of each other.
+
+The walls are arch over you forming an almost perfect dome. High up, way out of your reach it looks as if there’s a narrow ledge.
+
+The sand under your feet is the softest and whitest you've ever seen. Ahead of you to the south is the opening leading out to the beach where you can see the azure blue Gulf glittering in the sunshine, and to the west is the entrance back through the wine barrel where you came from.
+
+The cave seems pretty dry and so far from the water that the tide rarely, if ever, reaches it.
+
+> x walls
+The walls are rugged and gray without any marks of tide. They tower up around you curving in forming the ceiling high over your head.
+
+At the far side of the cave a formation of rocks protrudes out from the side of the cave and above them what appears to be a very narrow ledge.
+
+> x ledge
+You can't see much of the ledge from down here. It may be just wide enough for you to stand on and then again, maybe not which means a nasty fall.
+
+> s
+You move south.
+
+Pirate's cove
+Your feet sink down in the sand with a low crunching sound as you walk along the beach.
+
+Pieces of driftwood litter the beach. The surf is washing gently against the shore and withdrawing again with a monotonous sizzling, only to send up a new wave a few seconds later.
+
+Far out to sea, the horizon blends in with the sky in a seamless line.
+
+To the south of you, a little further inland, a tall rocky cliff rises high into the sky and in the distance to the east and west you see how they curve out to the north forming the hidden cove where you are.
+
+In the wall of the cliff is the entrance to a cave, the only way out of here.
+
+> x sand
+The sand stretches out before your, so white you have to shield your eyes with your hand to keep the reflections from hurting them.
+Some distance away you see a piece of driftwood sticking up from the sand.
+
+> dig sand
+Kneeling down you begin to dig the sand with your hands. It's a cumbersome task and you work for some time finally realizing that this piece of driftwood is somewhat bigger than you expected. After more serious digging you finally uncover what appears to be a tree trunk. You pull it out of the hole and place it on the beach.
+
+> get trunk
+It's as heavy as sin... But after a few attempts you manage to pick up the tree trunk.
+
+> n
+You move north.
+
+Cave
+It’s not a huge cave, but big enough to allow at least three or four men to stand on top of each other.
+
+The walls are arch over you forming an almost perfect dome. High up, way out of your reach it looks as if there’s a narrow ledge.
+
+The sand under your feet is the softest and whitest you've ever seen. Ahead of you to the south is the opening leading out to the beach where you can see the azure blue Gulf glittering in the sunshine, and to the west is the entrance back through the wine barrel where you came from.
+
+The cave seems pretty dry and so far from the water that the tide rarely, if ever, reaches it.
+
+> drop trunk
+You manage to maneuver the trunk close to the cave wall before dropping it onto the sand.
+
+> climb trunk
+It's not easy but you manage to keep your balance as you climb up on the trunk. You can now almost reach the ledge.
+
+> climb wall
+Standing on the trunk allows you to reach the projection. You get a good grip and without too much trouble you manage to climb onto the narrow ledge.
+
+A narrow ledge
+The ledge isn't very wide and is about 10 feet or so above the ground. To the east is what appears to be an opening leading into the wall.
+
+> e
+On hands and knees, holding the lantern you crawl through the narrow passage. After what seems like an eternity you finally see light up ahead.
+You leave the passage and slowly stagger to your feet overlooking an even bigger cave.
+
+Ledge in hidden cave
+Standing on this narrow ledge you can hardly believe your eyes.
+
+An enormous cave lies before you like Mother Nature's cathedral. You can hardly see the rugged ceiling above you not to mention the farthest wall at the other side.
+
+The greenish water is still and the few rays of sun that penetrate from somewhere high above reflect the color onto the wall and ceiling.
+
+The sound of the waves crashing against the cliff outside sounds like distant thunder, or is it the echo from a battle long ago?
+
+Close to the ledge a little under you, connected by a wooden gangway lies an old pirate ship. Battle-damaged and almost a wreck it's stuck upon the rocks.
+
+Behind you to the west is the passage you came from, leading back to the cave.
+
+> d
+You carefully step out onto the gangway trying hard to ignore the creaking sound from the planks.
+Covered in sweat you make it to the deck of the Pirate ship.
+
+Pirate ship
+Your footsteps echo hollowly as you walk across the deck, avoiding holes and planks that look too rotten to carry your weight. The massive masts are marked with cuts and musket holes and in many places the tarred rigging has been shot away, leaving the ropes dangling like lifeless tentacles.
+
+Although almost a wreck the ship is still incredibly impressive. It's tilted slightly to one side, and takes up most of the space in the cave. The sails are hanging lifeless from the yards, torn and shredded by countless cannon and bullet holes. One of the yards has been shot clear off and is now leaning against the superstructure, its charred sail draped over it like a shroud.
+
+Part of the railing has been shot away and the mount of a small cannon is visible. The cannon itself is dangling at a crazy angle and looks as if the slightest touch could send it tumbling down on the deck, or into the sea, and the splinters and debris are still scattered across the deck.
+
+The stairs leading up to the quarterdeck look very fragile, but a few feet ahead of you a stairway leads down into the hull. The wooden gangway you came from is to the north of you, leaning crookedly against the deck.
+
+To the north is the exit from the ship, leading to the ledge overlooking the cave.
+
+> x cannon
+This is the only cannon that looks remotely in order. It’s mounted on a swivel and although not of a significant caliber it could probably clear the deck in an emergency.
+
+> x sails
+The huge canvas sails, ragged and with huge holes torn in them, hang limp from the outriggers.
+One of them has fallen in flames and lies, charred by fire, draped over a yard against the superstructure.
+
+> move sails
+It's only with great difficulty you manage to pull the bulky canvas aside. But finally your efforts are rewarded and a door comes into sight.
+
+> x door
+As far as you can figure out this door leads into the master cabin.
+
+Unfortunately it is currently blocked by a huge piece of one of the yards which has fallen from one of the masts.
+
+Above the door a grim-looking skull is scornfully laughing down at you.
+
+> x skull
+Alas, poor Yorick! I knew him, Horatio; a fellow of infinite jest, of most excellent fancy; The rest of the words elude you as you look at the grinning skull.
+Considering its age, the skull is in pretty good condition without a single crack, and it would make quite a souvenir if it wasn't for the macabre grin that sends chills down your spine.
+
+> get skull
+It's not easy, but you somehow manage to climb over the yard and grab the skull.
+
+> open door
+You can't get to the door. The yard that has fallen from the mast is leaning tightly against the superstructure, completely blocking the door.
+
+> x yard
+The yard has clearly been shot off the mast and has fallen down wedging itself solid between the wall of the quarter deck and the main deck of the ship.
+
+> d
+You move down.
+
+Pirates' Quarters
+The room is totally devastated.
+
+Several holes in the hull shows where large caliber cannon balls have entered, wreaking havoc amongst the men that might have been here.
+The few tables and benches still here lie scattered through the room, smashed to smithereens.
+
+In the far corner an open hatch allows access down into the lower part of the ship. The entrance to the gun deck is blocked by fallen timber allowing you only a glimpse of what's in there.
+
+> x benches
+Looking under what's left of the tables you find a pistol hidden among the debris.
+
+> get pistol
+Ok, you pick up the pistol.
+
+> x pistol
+The woodwork has long rotted away and only the rusty barrel and the pistol lock are still working. A closer inspection of the pistol reveals that not only is it loaded, but there's also a flint in the pan.
+
+> d
+You move down.
+
+Pirate ship Hull
+The air is almost suffocating down here.
+
+The little light that reluctantly finds its way through the hatch is not enough to light up the room which is left in a gloomy twilight. The water reaches up to your knees and the reason is obvious. There's a huge hole in the side of the hull below the waterline.
+
+Kegs of different sizes are scattered around, most of them have sunk below the surface, now resting on the bottom of the hull while a few others are wedged between the ribs of the hull and just behind are the stairs leading back up to the deck.
+
+> x kegs
+There isn't much to see about the kegs.
+
+The ones which are still afloat are out of your reach and the ones that have sunk are not interesting to you, their contents whatever that may have been ruined by seawater many years ago.
+
+However, there's a keg positioned above the water, wedged between the side of the ship and one of the ribs.
+
+> x wedged keg
+Since the other kegs are too far away you take a closer look at the wedged keg near you, and find yourself staring down at the lid of what appears to be a powder keg.
+
+> open wedged keg
+Although not able to take the wedged keg you can still reach it from where you are.
+
+You pry open the lid. Inside the keg is some black coarse-grained powder and you realize that you've found probably the only, surviving keg of gunpowder.
+
+Only the top few inches are dry though, the rest, having absorbed the moisture from the water, is useless.
+
+> get powder
+(from the wedged keg)
+By turning the skull and carefully tilting it, you manage fill it with as much gunpowder you can.
+
+> u
+You move up.
+
+Pirates' Quarters
+The room is totally devastated.
+
+Several holes in the hull shows where large caliber cannon balls have entered, wreaking havoc amongst the men that might have been here.
+The few tables and benches still here lie scattered through the room, smashed to smithereens.
+
+In the far corner an open hatch allows access down into the lower part of the ship. The entrance to the gun deck is blocked by fallen timber allowing you only a glimpse of what's in there.
+
+> x gun deck
+Leaning over the debris blocking the entrance to the gun deck you can see most of the deck.
+
+Everything in there is a mess as if a giant fist has swept across the room. It must have been a direct hit and it must have been terrible.
+
+It's hard to make out what's what but just within your reach lies a cannon ball.
+
+> get ball
+You reach through the hole in the wall, into the gun deck, and try to get one of the cannonballs stacked there.
+
+You can barely reach it and when you do the stack crumbles and scatters over the deck.
+
+One smaller cannonball which, apparently, was leaning against the stack rolls towards you, through the hole and stops right at your feet.
+
+> get ball
+Ok, you pick up the small cannonball.
+
+> u
+You move up.
+
+Pirate ship
+Your footsteps echo hollowly as you walk across the deck, avoiding holes and planks that look too rotten to carry your weight. The massive masts are marked with cuts and musket holes and in many places the tarred rigging has been shot away, leaving the ropes dangling like lifeless tentacles.
+
+Although almost a wreck the ship is still incredibly impressive. It's tilted slightly to one side, and takes up most of the space in the cave. The sails are hanging lifeless from the yards, torn and shredded by countless cannon and bullet holes. One of the yards has been shot clear off and is now leaning against the superstructure, its charred sail draped over it like a shroud.
+
+Part of the railing has been shot away and the mount of a small cannon is visible. The cannon itself is dangling at a crazy angle and looks as if the slightest touch could send it tumbling down on the deck, or into the sea, and the splinters and debris are still scattered across the deck.
+
+The stairs leading up to the quarterdeck look very fragile, but a few feet ahead of you a stairway leads down into the hull. The wooden gangway you came from is to the north of you, leaning crookedly against the deck.
+
+To the north is the exit from the ship, leading to the ledge overlooking the cave.
+
+> x mast
+The masts tower high above you, their tops only faintly visible in the dusk.
+
+They are all carrying battle scars some more than others. Cuts and bullet holes decorate them and here and there a big chunk has been taken out by a cannon ball.
+
+A ramrod is deeply embedded in one of the masts.
+
+> get ramrod
+The ramrod is so deeply embedded in the mast that you accidentally break it when trying to take it.
+
+> pour powder in cannon
+You’re not quite sure how much gunpowder to use, so to be on the safe side you pour all you’ve got into the muzzle of the cannon. Then, using the broken ramrod, you make sure that the gunpowder is pressed all the way to the back of the cannon.
+
+> put ball in cannon
+You let the cannon ball roll down the tube and hear the satisfying ”thud” as it settles against the gunpowder.
+
+> x charred sail
+The charred sail lies limp over the yard. There are several ragged holes in it and huge patches of rot discolor the once white surface. Here and there mice or rats have taken their share leaving the canvas in threads.
+
+> get threads
+It takes you but a few moments to tear a few threads from the canvas.
+
+> braid threads
+You send a kind thought to your sister and forgive her for all the times she made you braid her hair. Within moments you've made a usable wick. Now, if you could only be sure that it would ignite.
+
+> prime wick
+Hoping this will work, you rub the gunpowder into the braided threads. You look at it and hope you've done a good enough job. Question is... will the fuse work?
+
+> place fuse in cannon
+You carefully place the homemade fuse into the hole.
+
+> aim cannon at yard
+You carefully aim the cannon at the huge yard.
+
+> light fuse
+Holding the pistol close to the fuse you cock it and then squeeze the trigger. The hammer falls, the steel hits the little piece of flint and a spark is created.
+
+The fuse starts to splutter furiously and you quickly step back watching the flame eat its way downwards. Just as you think nothing is going to happen the old cannon goes off with a thundering roar that echoes through the cave.
+
+An artillery man you’re not! The amount of gunpowder is too much for the old cannon, the recoil sending it flying out over the side and into the water and you tumbling across the deck.
+
+When the smoke finally clears you discover that you have at least achieved what you wanted. The yard blocking the door has been completely splintered as has the door by the way.
+
+> e
+You climb awkwardly over the debris and walk through the door opening.
+
+LeBeuf's Quarters
+Is it your imagination, or is there a scent of burned wood and cordite still lingering in the room?
+
+The dim light shining through the huge windows in the back of the cabin makes the morbid grinning skeleton behind the huge desk cast an eerie shadow across the room.
+
+The cabin is quite big and very roomy. It’s also a mess from the numerous holes in the hull where cannon balls have entered and exited leaving behind them a trail of splintered wood. The sad remains of the furniture lies scattered around the floor.
+
+Behind you, leading out, is the door to the deck.
+
+> x skeleton
+He’s dressed in what must once have been quite an impressive uniform.
+
+Although faded over the years the gold threads on his lapel and his hat are still very impressive, and the reddish color of his overcoat is still visible under the heavy layer of dust.
+Although time has taken its heavy toll on the fabric it’s not hard to imagine the fearful sight this man must have once been.
+
+He’s leaning over the desk resting on his elbows his boney fingers clutching a piece of parchment.
+
+> x parchment
+
+The parchment is yellow with age and in many places the ink has faded away over time. You know you’ll have to treat this very carefully if you don’t want it to disintegrate between your fingers.
+
+> get parchment
+Ok, you pick up the parchment.
+
+> out
+You move out.
+
+Pirate ship
+Your footsteps echo hollowly as you walk across the deck avoiding holes and planks that look too rotten to carry your weight. The massive masts are marked with cuts and musket holes and in many places the tarred rigging has been shot away, leaving the ropes dangling like lifeless tentacles.
+
+Although almost a wreck the ship is still incredibly impressive. It's tilted slightly to one side, and takes up most of the space in the cave. The sails are hanging lifeless from the yards, torn and shredded by countless cannon and bullet holes. There's a hole in the superstructure leading east and splinters of the yard and scraps of the sail are scattered around it.
+
+The stairs leading up to the quarterdeck look very fragile and a few feet ahead of you a stairway leads down into the hull. The wooden gangway you came from is to the north of you, leaning crazily against the deck.
+
+To the north is the exit from the ship, leading to the ledge overlooking the cave.
+
+> n
+You walk carefully up the swaying gangway and are soon standing on the ledge overlooking the cave.
+
+Ledge in hidden cave
+The size of the cave still takes your breath away.
+
+The farthest part is engulfed in dark shadows making it impossible to actually see how far the cave stretches. The old battle-scarred pirate ship lies motionless in the still waters, its torn rotten sails hanging limp from the masts.
+
+Every now and then the light fades as a cloud passes the sun causing shadows to move across the deck as if the ghostly crew were still on board.
+
+The dark opening leading back to the other cave is right behind you to the west.
+
+> w
+Once again you squeeze your way through the narrow dark opening. Crawling on all fours you make your way west and have soon reached the narrow ledge from where you came.
+
+A narrow ledge
+The ledge isn't very wide and is about 10 feet or so above the ground. To the east is what appears to be an opening leading into the wall.
+
+> d
+You carefully climb down the way you came up, soon standing safely on the ground again.
+Cave
+It’s not a huge cave, but big enough to allow at least three or four men to stand on top of each other.
+
+The walls are arch over you forming an almost perfect dome. High up, way out of your reach it looks as if there’s a narrow ledge.
+
+The sand under your feet is the softest and whitest you've ever seen. Ahead of you to the south is the opening leading out to the beach where you can see the azure blue Gulf glittering in the sunshine, and to the west is the entrance back through the wine barrel where you came from.
+
+The cave seems pretty dry and so far from the water that the tide rarely, if ever, reaches it.
+Also here is a wooden trunk.
+
+> w
+You move west.
+
+Inside the wine barrel
+Even though it must have been hundreds of years since there was anything in this barrel you can still smell the faint odor of wine. The opening behind you, leading out, leads to the cellar while, where the bottom of the barrel is supposed to be, an exit leads east into darkness.
+
+> out
+
+Cellar
+Not a great deal of light emits from the old lantern but it does manage to light up more of the cellar giving you a better idea of what is in here.
+
+Apparently the cellar isn't as empty as it appeared in the first place. Crates and barrels are stacked along the walls at the far end of the cellar and although many of them are nothing more but rotting pieces of wood there are still some which have withstood the teeth of time.
+
+Two, man-sized wine barrels are lying on wooden supports against the wall.
+
+Some places the heavy oak beams have given in to the pressure and the dirt wall has caved in leaving a hole and a pile of dirt on the floor.
+As you step out from the wine barrel your foot kicks over an old wooden pitcher you hadn’t noticed earlier.
+
+> get pitcher
+Ok, you pick up the wooden pitcher.
+
+> x pitcher
+It's an old pitcher, used for bringing beer or wine from the cellar to the visitors upstairs. The wooden handle is broken and the wood so dry that there are big cracks.
+Quite amazingly there's still a little wine left at the bottom of the pitcher. The delicate aroma tantalizes  your nostrils.
+
+> drink wine
+You decide to take a go at the wine and bring the pitcher to your lips taking a good gulp.
+
+Hmmm... Not bad, not bad at all. Amazingly the wine still has a smooth taste to it and you can feel how it warms you as it runs down your throat.
+
+A few minutes pass by and you suddenly start to feel a little dizzy. Nothing really noticeable at first but soon your vision gets blurred and the warmth from the wine gets stronger and stronger until it feels as if you're burning up inside.
+
+You stagger for a moment, trying desperately not to fall as you try to catch your breath. The wooden pitcher falls from your numb hand and disintegrates as it hits the floor.
+
+Blurred images flash through your head. Huge pirate ships in a vicious battle with the British frigates, LeBeuf and Lulu-Belle in each other’s arms. The shadow of a woman through a window, two silhouettes standing over her... A foggy image of LeBeuf’s ship shot to pieces desperately heading for a huge cave, and the distant sails of the pursuing British Man O' War.
+
+Then slowly, too slowly for your taste, the feeling fades away and you’re feeling alright again.
+
+> u
+You move up.
+
+Kitchen
+The light from the windows shines on the long counter placed against the wall.
+
+A cook is busy preparing the meal for later while the kitchen maid appears to be occupied sweeping the floor.
+The kitchen range is placed opposite the kitchen counter and right beside it is a small table with a marble slate, used for preparing whatever needs to be cooked.
+
+A few cupboards are mounted on the wall and a rather tall closet stands in the corner beside the fridge.
+
+A door leads south, out to the dining room.
+There's a hole in the kitchen floor where the fridge used to be.  The cook and the kitchen maid are here.
+
+> s
+You move south.
+
+Dining room
+The dining room is quite big and is dominated by a long table that almost runs the entire length of the room. Here too, the decoration is kept in the “old pirate” style. To the north, beside two windows overlooking the garden, is a door, and behind you to the west is the opening leading to the reception.
+
+Antique kerosene lamps are hanging on the walls but it's really the two chandeliers suspended from the heavy beams, which provide the light. Two cutlasses are hanging across the fireplace at the far end of the room, and an old worn “Jolly Roger” is hanging above them.
+
+The table is set for whatever meal is next, as there are cutlery and napkins at the seats around it. All the kitchen staff have to do is to put whatever dishes are needed on the table.
+
+> w
+You move west.
+
+Reception
+A small tilted desk is positioned under a window, and a framed newspaper article is hanging on the wall next to it, right beside the door leading out to the porch.
+
+In front of you is the reception counter where you will be working. Behind it, hanging decoratively on the wall you see a huge worm-eaten ship's steering wheel and under it a wooden key rack made from an old piece of driftwood.
+
+To the right of the wheel is a door leading in to an office, and to the left of the reception counter an old wooden stairway is leading up to the first floor where the guests' rooms are.
+
+Through an arched doorway to the east you can see the dining room with a long table placed in the middle of the room.
+
+Around you, the walls are decorated with old antiques... Over the arch leading to the dining room hangs another piece of driftwood with the letters “Dining Room” carved into it.
+
+> s
+You move south.
+
+Office
+The first thing you notice is the huge desk of weather-beaten oak which dominates the room. Placed close to the window with a beautiful view over the ragged cliffs and the azure blue ocean. A tall leather chair is placed behind it facing the door.
+
+The room is nicely decorated with various maritime artifacts and two paintings of whom you believe to be Lulu-Belle and Captain LeBeuf are hanging side by side on the wall closest to the desk.
+
+Behind you, to the north the door leads out to the reception.  Susan is here.
+
+> tell susan about cave
+Her eyes grows bigger as you tell her all about the secret cave, the pirate ship and her great grandfather LeBeuf.
+
+As soon as you're done Susan rushes over to you and gives you the biggest hug. "This is fantastic!" she exclaims. "I can't believe that you have found my great great grandfather's ship.
+
+> show susan the parchment
+As she studies the parchment her eyes grows bigger and bigger and she begins to tremble when she reads the signature.
+
+"This is amazing" she breathe deeply. "If the signature is genuine this is written by my great great grandfather. I can only make out a word or two, but they appear to be in French.
+Luckily we have a guest staying with us, Messieu Jacques, a rather famous historian. He will, no doubt be able to tell us more about it."
+
+> ask about jacques
+"He's around here somewhere, I'm sure." Susan says. "If you can't find him on the lawn, he may be in his room. 107, that is."
+
+> n
+You move north.
+
+Reception
+A small tilted desk is positioned under a window, and a framed newspaper article is hanging on the wall next to it, right beside the door leading out to the porch.
+
+In front of you is the reception counter where you will be working. Behind it, hanging decoratively on the wall you see a huge worm-eaten ship's steering wheel and under it a wooden key rack made from an old piece of driftwood.
+
+To the right of the wheel is a door leading in to an office, and to the left of the reception counter an old wooden stairway is leading up to the first floor where the guests' rooms are.
+
+Through an arched doorway to the east you can see the dining room with a long table placed in the middle of the room.
+
+Around you, the walls are decorated with old antiques... Over the arch leading to the dining room hangs another piece of driftwood with the letters “Dining Room” carved into it.
+
+> u
+The old steps squeal under your feet as you walk up the stairs to the first floor and the corridor.
+
+Landing above stairs 2017
+It is not hard to imagine what the corridor must have looked like back in the wild days of Belle's Harbor. Susan has successfully managed to recreate the atmosphere from way back then.
+
+Right in front of you is the door to room 101, and the stairway leading down to the reception is right behind you.
+
+To your left, the corridor extends to the east, running the length of the hotel. On the walls, replicas of ancient oil lamps, now fitted with modern electric light bulbs, are placed close to the doors leading into the various rooms.
+
+To the west the corridor widens out into a small hall formed like a circle. Here too, the walls are decorated with antique artifacts and pictures of famous pirates.
+
+> e
+You move east.
+
+West end of Corridor
+The corridor runs east west, ending to the west in a small circular alcove. To the east you can see the other end of the corridor in the distance.
+
+A carpet softens the sound of your steps and lamps on each side of the corridor provide you with the necessary light to read the numbers on the two doors nearest you. The one to the north is numbered 102 and the one to the south is numbered 103.
+
+> e
+You move east.
+
+Mid Corridor
+The corridor runs east west, ending to the east, further down in a wall, and to the west in a small circle shaped hall.
+
+A carpet softens the sound of your steps and lamps on each side of the corridor provide you with the necessary light to read the numbers on the two doors nearest you.
+
+The one to the north is numbered 104 and the one to the south is numbered 105.
+
+> e
+You move east.
+
+East end of Corridor
+The corridor ends here at the east wall.
+
+To the west, you can see down to the other end where the corridor ends in a small hall.
+
+A carpet softens the sound of your steps and a single lamp on the western wall provide you with the necessary light to read the numbers on the two doors. The one to the north is numbered 106 and the one to the south is numbered 107.
+
+> knock on door 107
+You knock on the door.
+
+After a few moments the door opens and a face that immediately brings Agatha Christie's Hercule Poirot to mind pops out."Yes, what can I do for you, young man?"
+
+> ask jacques about parchment
+Jacques eyes the parchment in your hand. As he glance over it his eyes lights up with interest. Soon he starts to mumble to himself as he read the document.
+Finally he looks up at you.
+
+“You 'ave found a true gem 'ere, young man. This document is at least a couple of 'undred years old."
+
+Grabbing your arm he virtually drag you into his room. "Come on in, come on in... Zis is very interresant."
+
+Once inside his room, Jacques turns to you. So you want moi, Jacques to... ow you say ... traduire ehh translate the parchment, mas uoi?"
+
+> show parchment to jacques
+The little Frenchman studies the old parchment. His lips move as he reads the words to himself. It’s only when you demonstratively clear your throat that he looks up and with an apologetic smile starts to read out loud.
+
+"Forgive me for not being there to see you grow up, but I know you will be just as beautiful and kind as your mother.
+You must know that I avenged her death and, I console myself, knowing that I will be reunited with your mother soon.
+
+I have made sure you will not miss anything. The future is there where your mother has waited for me.
+Live well my beloved daughter and forgive me for my absence in your life.
+
+From your father who loves you.
+
+Remember, a fireplace is sometimes more than just a place to keep warm by."
+
+Then, almost reluctantly, he hands it back to you.
+
+> out
+You move out.
+
+East end of Corridor
+The corridor ends here at the east wall.
+
+To the west, you can see down to the other end where the corridor ends in a small hall.
+
+A carpet softens the sound of your steps and a single lamp on the western wall provide you with the necessary light to read the numbers on the two doors. The one to the north is numbered 106 and the one to the south is numbered 107.
+
+> z
+Time passes...
+Slowly a feeling of dizziness begins to overwhelm you. Again your vision is periodically becoming blurred and the sounds around you are muffled. As before it only lasts a few moments and soon you feel ok again.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+A new dizzy spell sets in. You see blurred images of sails on the horizon, the muzzle flash of guns and echoes of voices shouting.
+
+> z
+Time passes...
+The roar of cannon fire and the scream of men becomes stronger… The vision of an English Man O’ War becomes ever clearer and the smell of cordite ever stronger. Shadow like figures move frantically across your field of vision.
+
+Then slowly everything fades and a merciful darkness engulfs you before you become aware of your present surroundings.
+
+> x closet
+You can't see any closets!
+
+> x hole
+You can't see any holes!
+
+> open closet
+You can't see nothing.
+
+> look in closet
+You can't see any closets!
+
+> x board
+You can't see any boards!
+
+> move board
+Sorry, I didn't understand that command.
+
+> close closet
+You can't see any closets!
+
+> x candleholder
+You can't see any candleholders!
+
+> get candleholder
+You can't see any candleholders!
+
+> insert handle in hole
+I don't understand what you want to do with the brass door handle.
+
+> turn handle
+The brass door handle can't be switched off or on.
+
+> push closet
+You can't see any closets!
+
+> w
+You move west.
+
+Mid Corridor
+The corridor runs east west, ending to the east, further down in a wall, and to the west in a small circle shaped hall.
+
+A carpet softens the sound of your steps and lamps on each side of the corridor provide you with the necessary light to read the numbers on the two doors nearest you.
+
+The one to the north is numbered 104 and the one to the south is numbered 105.
+
+> x wall
+You can't see any walls!
+
+> x brick
+You can't see the old brick.
+As a new seizure of dizziness overwhelms you, you find yourself in a corridor unbeknownst to you. You hear voices behind a closed door, brutal guttural voices and a defiant female answering back.
+
+As if it’s not a part of you, you watch yourself reach for the doorknob, turn it and open it. Stepping into the room you see a young woman being held by two British soldiers while a third is pointing a pistol at her.
+
+Assessing the situation in a fragment of a second you throw yourself against the soldier with the pistol. You have the satisfaction of landing your fist square on his jaw sending him tumbling across the room.
+
+A blinding flash and a roar of thunder! A sharp pain like your chest is being pulled apart. Sinking to the floor you helplessly watch as one of the soldiers turns towards the young woman, pulling his pistol.
+
+Then a merciful peace engulfs you and you drift away into darkness.
+
+Storage room
+Slowly, much too slowly for your liking, the darkness lifts and you struggle to open your eyes.
+You are on a dusty couch, with your head resting on some crumbled canvas sacks. As you slowly gain consciousness and your head stops spinning like crazy you begin to take in your nearest surroundings.
+
+Everything around you seems different. Your head has stopped spinning but you still feel a little nauseous as you slowly get up from the bunch of canvas bags that you’ve been lying on.
+As the clouds lift from your brain you begin to take notice of your surroundings.
+
+From the amount of dust and the stale smell you conclude that this room hasn’t been used for quite a long time.
+The little light that filters through the cracks on the boarded wall allows you to distinguish vague silhouettes in what appears to be a storage room.
+
+The couch you woke up on is placed under a blinded window, leaving the room in almost complete darkness. Shelves are placed against the walls except over by the door where a hideous monstrosity of a closet takes up most of the wall space. A single empty candle holder is mounted on the wall next to the closet and it slowly dawns on you that you are in your room in the hotel and yet something is completely different.
+
+There’s a door to the north leading out.
+
+> move brick
+Sorry, I didn't understand that command.
+
+> x hole
+The hole is near the bottom of the closet, close to one of the feet. It seems a little out of place and doesn't appear to have a function.
+
+> pull hook
+You can't see any hooks!
+
+> push wall
+You push the storage room walls, but nothing happens.
+
+> x wall
+They are ordinary rough boards making the wall to the outside. Here and there is a space between the boards allowing a little light to filter in from the outside.
+
+> push wall
+You push the storage room walls, but nothing happens.
+
+> e
+There is no route to the east, only out.
+
+> open door
+You can't open the storage room door as it is locked!
+
+> x shelves
+They are just rough boards, hastily slammed up on the walls. Some are empty and others are bending under the weight of the goods stored upon them.
+
+> x goods
+Different kinds of goods are stored on the shelves, two and three rows deep. You can only see the first row which consists of old tin boxes, cardboard crates, bags of (what could be) flour. Nothing of interest to you.
+
+> move goods
+You grab something, not quite sure what and discover that all the way in the back, crushed between a heavy metal can (for which you have no use) and a heavy sack of flour (no, you have no use for that either) you find a hat.
+
+> get hat
+(from the shelves)
+Ok, you take the crumpled hat from the shelves.
+
+> x hat
+The hat is crumpled, almost beyond recognition. The millinery wire sewn into the brim has been bent completely out of shape.
+
+> get wire
+You tear the fabric of the hat and retract the millinery wire. With the wire in your hand you drop the hat.
+
+> x wire
+It’s the millinery wire that was sewn into the brim of the hat. It’s quite flexible, but apparently not flexible enough to withstand the pressure on the shelf.
+
+> bend wire
+Bending the metal thread in various shapes you end up with a usable lock pick.
+
+> unlock door
+Kneeling before the door you insert your home made lock pick into the key hole. A few twists and turn and you are rewarded with the satisfying click as the door unlocks. Unfortunately the wire breaks and is now useless to you, so you get rid of it.
+
+> out
+You quietly slip out of the storage room.
+
+Landing above stairs
+Having left the storage room you are now standing at the top of a flight of stairs leading down. To the east the corridor stretches out into an almost impenetrable darkness which is only broken here and there by the sleepy dim light from kerosene lamps mounted on the walls.
+
+To the west of you, the corridor grows wider into a small rotunda and you can see a door at the far end. Behind you is the door leading into the storage room where you woke up earlier.
+
+> d
+You quietly walk down the staircase and into the smoky bar room. Fortunately, for you, the smoke is so heavy that you happen to realize that you're stark naked, before anyone turns their head and sees you.
+You quickly retreat up the stairs to the first floor again.
+
+> e
+You move east.
+
+Mid corridor
+As you pass the doors halfway down the corridor you hear raw laughter and girlish giggling from behind the doors.
+A single kerosene lamp hangs on the wall illuminating your closest surroundings.
+
+To the east and west of you the corridor fades into darkness.
+
+> e
+You move east.
+
+Corridor east end
+You have reached the end of the corridor. A wall is blocking any further movement to the east.
+
+Behind you, the corridor stretches out to the west with the lit rotunda at the far end. Here too, doors are embedded in the wall on each side of the corridor.
+
+A loud rumbling snore is heard from behind one of the doors.
+
+> open door
+After a few moments of choosing you reach out and open one of the doors and quickly slip in.
+Pirate's room
+The shutters at the windows are closed, leaving the dim light from the kerosene lamp in the corridor the only light source in the room.
+You can vaguely see the outline of a bed and a few other furniture.
+
+> x bed
+It's too dark in here to see any particular details about the bed. It looks as if it is already in use by the dark lump in shape of a human being that lies upon it. Right beside it you see a dark bundle of "something."
+
+> x human
+Apparently one of the guests is taking a nap.
+
+> x bundle
+The smell is kind of overwhelming but your curiosity gets the better of you and you reach out and pick up the bundle. It turns out to be the discarded clothes that the guest in the bed has dropped on the floor.
+
+> get bundle
+Bending over the bundle a foul stench viscously attacks your poor unprepared nostrils. You hold your breath and discover that it is the clothes belonging to the sleeping pirate in the bed.
+
+> wear clothes
+You put on the clothes, trying hard not to smell the odor.
+Now you look like any other guest of Lulu's.
+
+> out
+You move out.
+
+Corridor east end
+You have reached the end of the corridor. A wall is blocking any further movement to the east.
+
+Behind you, the corridor stretches out to the west with the lit rotunda at the far end. Here too, doors are embedded in the wall on each side of the corridor.
+
+A loud rumbling snore is heard from behind one of the doors.
+
+> w
+You move west.
+
+Mid corridor
+As you pass the doors halfway down the corridor you hear raw laughter and girlish giggling from behind the doors.
+A single kerosene lamp hangs on the wall illuminating your closest surroundings.
+
+To the east and west of you the corridor fades into darkness.
+
+> w
+You move west.
+
+Landing above stairs
+Standing with your back to the door leading into the storage room you can hear loud voices and raw laughter from the room below the stairs leading down. To the east of you, a corridor stretches into a dusky area only dimly lit by the few kerosene lamps on the wall.
+
+On the other side, to the west the corridor ends in a small rotunda with a door.
+
+> d
+You start your descent down the stairs and soon step into a smoky and very noisy bar room.
+
+Bar room
+Heavy clouds of blue-gray smoke obscure the visibility as you enter the bar. The smell of tobacco mixed with the sour odor of sweat and unwashed bodies makes you gasp for air and your eyes water.
+
+The only thing making your stay here tolerable is the slight breeze of fresh air that sweeps the room every time the door to the outside is opened.
+
+A bar, made from crude planks runs the entire length of the room and behind it; a fat bartender is busy pouring grog in huge pitchers handing them over the counter to the ever thirsty clientele.
+
+Behind you, leading up, are a stairway and across the room, leading out, is a door.
+A very pretty woman is working behind the bar, handing grog and ale over the counter.
+
+> x woman
+The moment you lay eyes on her you are in no doubt that this is Susan’s great grandmother. The resemblance is striking.
+
+Lulu-Belle has her long reddish hair pulled back and tied with a silken scarf allowing it to cascade around her neck in soft curls. Her blue eyes sparkle with laughter and her lips are beautifully curved.
+
+She even makes the simple cotton blouse and skirt she is wearing look expensive. Around her waist is a broad leather belt with a shiny brass buckle.
+
+Around her neck hangs a small skeleton key on a leather string.
+
+> say hello
+(to a pretty woman)
+The woman looks up from what’s she’s doing and eyes you. A big smile lights up her face as she greets you.
+“Hello there, stranger. I'm Lulu-Belle, the owner of this establishment. I can’t remember seeing you around here before. But make yourself at home and enjoy your stay.”
+
+> out
+You move out.
+
+Garden
+The garden gently slopes down towards the north from the path outside the entrance to the inn. The patch ends at the top of a chiseled stairway leading down to the beach far below.
+
+Some trees are scattered across the garden and in the pale moonlight they look as if they are alive with their branches swaying in the wind.
+
+A crooked tree stands close to the edge of the cliff and a dark figure hangs grotesquely over the cliff swaying back and forth from one of the branches.
+
+> d
+Not quite sure that you're doing the right thing and with your feet desperately searching for a steady foothold you start your descent down.
+After what feels like an eternity you finally reach the beach.
+
+The Cove
+In the dark it’s almost impossible to see the top of the steep cliff and it’s only when the moon breaks from behind the clouds that you can see the ragged edge far above you.
+
+To the north of you can see what appears to be the entrance to a cave and to the south the waves of the Mexican Gulf crash against the beach with a monotonous sound.
+
+> x sea
+You look out to the sea... Everything seems normal. Just then the moon breaks from behind the dark clouds and a silhouette of a ship suddenly becomes visible like a ghost appearing.
+
+> x silhouette
+You are not a history major for nothing and it doesn’t take you long to recognize the ship as a British Man O’ War. It lies there, silent and completely dark. Like an ominous omen of things to come.
+Just before the clouds once more hide the moon a flicker of light is seen much closer to the beach.
+
+> x light
+The flicker is gone and the sea seems deserted once again. Then you hear low voices, muffled orders. A boat is approaching the beach … A raiding party, perhaps?
+
+> listen
+The voices are unmistakably British. A raiding party is on the way to Lulu-Belle's place. You realize that if you want to warn her in time you better move fast.
+
+> u
+If you thought that going back up would be easier you are quickly reminded of your mistake as you fight your way up the narrow steps. You are completely out of breath when, at last, you reach the top of the cliff.
+
+Garden
+The garden gently slopes down towards the north from the path outside the entrance to the inn. The patch ends at the top of a chiseled stairway leading down to the beach far below.
+
+Some trees are scattered across the garden and in the pale moonlight they look as if they are alive with their branches swaying in the wind.
+
+A crooked tree stands close to the edge of the cliff and a dark figure hangs grotesquely over the cliff swaying back and forth from one of the branches.
+
+> in
+You move in.
+
+Bar room
+Heavy clouds of blue-gray smoke obscure the visibility as you enter the bar. The smell of tobacco mixed with the sour odor of sweat and unwashed bodies makes you gasp for air and your eyes water.
+
+The only thing making your stay here tolerable is the slight breeze of fresh air that sweeps the room every time the door to the outside is opened.
+
+A bar, made from crude planks runs the entire length of the room and behind it; a fat bartender is busy pouring grog in huge pitchers handing them over the counter to the ever thirsty clientele.
+
+Behind you, leading up, are a stairway and across the room, leading out, is a door.
+A very pretty woman is working behind the bar, handing grog and ale over the counter.
+
+> tell lulu about raid
+Upon hearing your story Lulu-Belle instinctively reaches for the key around her neck. Then, without a word, she leaves the bar.
+
+A whiff of fresh air tells you that the front door has been opened, and then a little later, the heavy clouds of smoke in the bar is once again fluttering as the door is opened once more and a few moments later, as Lulu-Belle passes you and disappears up the stairs, you notice that she's no longer wearing the key around her neck.
+
+A few moments later the door to the Inn is violently kicked open and suddenly the room is filled with red clad British soldiers.
+
+> out
+Moving slowly along the wall you manage to sneak out of the bar unnoticed.
+
+Garden
+The garden gently slopes down towards the north from the path outside the entrance to the inn. The patch ends at the top of a chiseled stairway leading down to the beach far below.
+
+Some trees are scattered across the garden and in the pale moonlight they look as if they are alive with their branches swaying in the wind.
+
+A crooked tree stands close to the edge of the cliff and a dark figure hangs grotesquely over the cliff swaying back and forth from one of the branches.
+
+> x tree
+The tree is nothing but a dark silhouette against the moon. It is leaning dangerously out over the edge of the cliff, crooked over the years by the wind.
+From a branch approximately 10 feet above the ground you can see a figure swaying back and forth in the wind, performing a “Dance macabre” in the light of the moon. The bumps and cracks in the trunk give the old tree a devilish grin. There's a small hole about 5 feet up the trunk.
+
+> x hole
+It's quite deep and you have to stick most of your arm in before your fingertips can touch the bottom where you find... a small skeleton key.
+
+> get key
+(from the small hole)
+Ok, you take the skeleton key from the small hole.
+
+> s
+You open the door just enough to squeeze past it and close it silently behind you.
+
+Bar room
+Heavy clouds of blue-gray smoke obscure the visibility as you enter the bar. The smell of tobacco mixed with the sour odor of sweat and unwashed bodies makes you gasp for air and your eyes water.
+
+The only thing making your stay here tolerable is the slight breeze of fresh air that sweeps the room every time the door to the outside is opened.
+
+A bar, made from crude planks runs the entire length of the room and behind it; a fat bartender is busy pouring grog in huge pitchers handing them over the counter to the ever thirsty clientele.
+
+Behind you, leading up, are a stairway and across the room, leading out, is a door.
+While the soldiers are keeping everyone in the bar, an officer and two men are heading up the stairs to the second floor.
+
+> u
+You move up.
+
+Landing above stairs
+Standing with your back to the door leading into the storage room you can hear loud voices and raw laughter from the room below the stairs leading down. To the east of you, a corridor stretches into a dusky area only dimly lit by the few kerosene lamps on the wall.
+
+On the other side, to the west the corridor ends in a small rotunda with a door.
+
+> w
+You move west.
+
+Rotunda
+The rotunda is, as the name suggests, a circular room. A couple of windows are embedded in the northern wall and a door is embedded in the western wall. Behind you to the east lies the landing with the stairs leading down.
+
+Two kerosene lamps are mounted on the walls, fighting to light up the area.  Suddenly you hear a loud commotion. Muffled angry voices reach you from behind the closed door.
+
+> open door
+Just as you're about to open the door and barge in, you realize that maybe it's not such a good idea having the key in your position.
+What if this key means something, and it's what the soldiers are looking for?
+
+> e
+You move east.
+
+Landing above stairs
+Standing with your back to the door leading into the storage room you can hear loud voices and raw laughter from the room below the stairs leading down. To the east of you, a corridor stretches into a dusky area only dimly lit by the few kerosene lamps on the wall.
+
+On the other side, to the west the corridor ends in a small rotunda with a door.
+
+> in
+You move in.
+
+Storage room
+The little light that filters through the cracks on the boarded wall allows you to distinguish vague silhouettes in what appears to be a storage room.
+
+The canvas bags that you woke up on are placed under a blinded window, leaving the room in ghostlike darkness. Shelves are placed against the walls except over by the door where a hideous monstrosity of a closet takes up most of the wall space.
+
+A single empty candleholder is mounted on the wall next to the closet and it slowly dawns on you that you are in your room in the hotel and yet something is completely different.
+
+There’s a door to the north leading out.  Also here is a ripped hat.
+
+> open closet
+You open the hideous closet.
+
+> hide key
+The narrow crack isn't big enough to hold the key.
+
+> close closet
+You close the hideous closet.
+
+> out
+You quietly slip out of the storage room.
+
+Landing above stairs
+Standing with your back to the door leading into the storage room you can hear loud voices and raw laughter from the room below the stairs leading down. To the east of you, a corridor stretches into a dusky area only dimly lit by the few kerosene lamps on the wall.
+
+On the other side, to the west the corridor ends in a small rotunda with a door.
+
+> w
+You move west.
+
+Rotunda
+The rotunda is, as the name suggests, a circular room. A couple of windows are embedded in the northern wall and a door is embedded in the western wall. Behind you to the east lies the landing with the stairs leading down.
+
+Two kerosene lamps are mounted on the walls, fighting to light up the area.  Suddenly you hear a loud commotion. Muffled angry voices reach you from behind the closed door.
+
+> listen
+You recognize Lulu-Belle’s voice. It’s angry but you sense a tone of fear. The other voices you don’t know but they are definitely male.
+
+> open door
+Just as you're about to open the door and barge in, you realize that maybe it's not such a good idea having the key in your position.
+What if this key means something, and it's what the soldiers are looking for?
+
+> attack officer
+Sorry, I didn't understand that command.
+
+> open closet
+You can't see any closets!
+
+> get key
+You are already carrying the skeleton key!
+
+> get handle
+You can't see any handles!
+
+> get holder
+You can't see any holders!
+
+> w
+Just as you're about to open the door and barge in, you realize that maybe it's not such a good idea having the key in your position.
+What if this key means something, and it's what the soldiers are looking for?
+
+> n
+There is no route to the north, only east.
+
+> x fireplace
+You can't see any fireplaces!
+
+> x floor
+You can't see any floors!
+
+> get firewood
+You can't see any firewood!
+
+> turn pitcher
+You can't see any pitchers!
+
+> insert key in hole
+I don't understand what you want to do with the skeleton key.
+
+> lift floor
+Sorry, I didn't understand that command.
+
+> *** YOU HAVE WON! ***
+I did not understand the word "***".

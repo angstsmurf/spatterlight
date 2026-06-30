@@ -794,6 +794,17 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         }
       if (o != NULL)
         return a5text_object_name (o, art);
+      /* No object resolved.  frankendrift builds an ObjectHashTable from the key
+         arg and renders htblObjects.List, which returns "nothing" for an empty
+         set (Global.vb:804) -- so %TheObject[]% / %ObjectName[]% with an empty
+         (or whitespace-only) argument is "nothing", not a blank.  A non-empty but
+         unresolved arg is left as-is (it may be an already-rendered name). */
+      {
+        const char *a = args ? args : "";
+        while (*a == ' ' || *a == '\t') a++;
+        if (*a == '\0')
+          return strdup ("nothing");
+      }
       return strdup (args ? args : "");
     }
   if (ci_eq (name, "propertyvalue") && args != NULL)
@@ -1183,6 +1194,24 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                           free (fk); free (name);
                           p = q + 1;
                           continue;
+                        }
+                      /* An *unbound* object/character reference keyword used as a
+                         function argument resolves to the empty string, just as
+                         frankendrift's GetReference("ReferencedObject") returns ""
+                         when no reference was captured (a reference-free task).
+                         The outer %TheObject[]%/%ObjectName[]% then renders
+                         "nothing" (htblObjects.List on an empty set) -- e.g. Anno's
+                         OpeningHid displaying the carried "...can't see
+                         %TheObject[%object%]%." as "You can't see nothing." */
+                      if (ci_eq (name, "object") || ci_eq (name, "objects")
+                          || ci_eq (name, "object1") || ci_eq (name, "object2")
+                          || ci_eq (name, "object3") || ci_eq (name, "object4")
+                          || ci_eq (name, "object5") || ci_eq (name, "character")
+                          || ci_eq (name, "characters") || ci_eq (name, "character1"))
+                        {
+                          free (name);
+                          p = q + 1;
+                          continue;        /* substitute "" */
                         }
                     }
                   value = eval_function (st, name, NULL);
