@@ -1,0 +1,879 @@
+   Treasure Hunt in the Amazon
+
+Among your late uncle's documents you find a letter from one of his friends, who used to be quite an adventurer.  In the letter it is mentioned that there is a treasure, a magnificent jeweled crown, somewhere in a mysterious temple in the middle of the Amazon. The letter contains latitude and longitude and so, you begin to pack your most important objects needed for a treasure hunt in the Amazon.
+
+On board the airplane, you read a newspaper, and you find, that the area you are about to visit will be flooded within ten days, when a new dam is being opened.
+
+When the airplane lands and the pilot is about to leave you in the middle of the Amazon, he promises to pick you up again on the 10th of July twelve o'clock.  He also tells you that there is a trading post nearby, where you can buy what you need. Then he takes off...
+
+Treasure Hunt in the Amazon
+An Interactive Treasure Hunt
+Release 1 / ADRIFT 5.0.35.3
+
+CHALLENGES:
+---------------
+Do you want unlimited time? (Y/N)
+
+> yes
+
+Disable randomness? (Y/N)
+
+> yes
+
+Disable inventory limit for normal objects? (Y/N)
+(exceptions are things you can never carry alone)
+
+> yes
+
+Disable hunger timer? (Y/N)
+
+> yes
+Perfect. Now press any key to begin.
+
+Windows User:
+PLEASE NOTE THAT AUTO COMPLETE CAN BE DISABLED UNDER "Edit"!
+It is also recommended to display graphics in a seperate window (CTRL + G)
+
+Special commands:
+FLEE
+SHOOT animal
+EAT animal
+HELP
+SETTINGS
+WORDS
+
+Date: 1st of July. Time: 12:04
+Camp
+You are completely alone. You are standing in your camp in the middle of the Amazon, eager to explore the area. You may go north, south, east and west from here.
+
+> n
+You move north.
+
+Date: 1st of July. Time: 12:35
+Barren Valley
+You are walking through a barren valley, a rare sight in the Amazon. There isn't much vegetation here. You may go north, south and west.
+
+> west
+You move west.
+
+Date: 1st of July. Time: 15:22
+Dark Rainforest
+You are fighting your way through the dense vegetation of a dark rainforest. Only a very limited light reaches the ground through the dense tree tops. You may go north or east.
+
+> n
+You move north.
+
+Date: 1st of July. Time: 15:53
+Trading Post
+You are by a trading post, which has several things on sale:
+Ammunition (price: 25)
+Provisions (price: 15)
+Matches (price: 5)
+Flashlight (price: 10)
+
+The trading post is to be evacuated soon so they are low on supplies.
+
+You may go south.
+
+> buy ammo
+You purchase the ammunition.
+
+> buy provisions
+You purchase the provisions.  The salesman puts the heavy provisions on the ground.
+
+> buy matches
+You purchase the matches.
+
+> buy torch
+You purchase the flashlight.
+
+> south
+You move south.
+
+Date: 1st of July. Time: 16:28
+Dark Rainforest
+You are fighting your way through the dense vegetation of a dark rainforest. Only a very limited light reaches the ground through the dense tree tops. You may go north or east.
+
+> east
+You move east.
+
+Date: 1st of July. Time: 19:15
+Barren Valley
+You are walking through a barren valley, a rare sight in the Amazon. There isn't much vegetation here. You may go north, south and west.
+
+> n
+You move north.
+
+Date: 1st of July. Time: 20:01
+Cave with altar
+You are standing in a cave with a stone altar in the center. The light from your flashlight illuminates the cave. You may leave the cave to the east and south.
+
+> x altar
+It's a century old stone altar.  A jewelry box is on the stone altar.
+
+> get box
+(from the stone altar)
+Ok, you take the jewelry box from the stone altar.
+
+> south
+You move south.
+
+Date: 1st of July. Time: 20:49
+Barren Valley
+You are walking through a barren valley, a rare sight in the Amazon. There isn't much vegetation here. You may go north, south and west.
+
+> south
+You move south.
+
+Date: 1st of July. Time: 21:20
+Camp
+You are completely alone. You are standing in your camp in the middle of the Amazon, eager to explore the area. You may go north, south, east and west from here.
+
+> south
+You move south.
+
+Date: 1st of July. Time: 21:45
+Beautiful Clearing
+You are standing in a beautiful clearing, which is surrounded by trees. You may go north or south.
+
+> south
+You move south.
+
+Date: 1st of July. Time: 22:44
+In Deep Gorge
+You are walking through a deep gorge. You may go north and west.  Also here is a rifle.
+
+You are very tired and so you lie down on the spot and fall asleep.  Next thing you know, it's the morning.
+
+Date: 2nd of July. Time: 06:45
+
+> get rifle
+Ok, you pick up the rifle.
+
+> n
+You move north.
+
+Date: 2nd of July. Time: 07:44
+Beautiful Clearing
+You are standing in a beautiful clearing, which is surrounded by trees. You may go north or south.
+
+> n
+You move north.
+
+Date: 2nd of July. Time: 08:09
+Camp
+You are completely alone. You are standing in your camp in the middle of the Amazon, eager to explore the area. You may go north, south, east and west from here.
+
+> west
+You move west.
+
+Date: 2nd of July. Time: 09:02
+By Bear Cave
+You are standing by the entrance to a dark bear cave. From here you may go south and east. If it wasn't for the angry bear blocking the entrance, you could also go west into the cave.  An angry bear is here.
+
+Oh no! The bear is about to attack you!
+
+> shoot bear
+You shoot the bear with your rifle. It falls to the ground, dead.
+
+> south
+You move south.
+
+Date: 2nd of July. Time: 09:34
+Old Abandoned Camp
+You are standing in an old abandoned camp. Lying here is the skeleton of some unlucky adventurer. You may go north.  Also here is a diary.
+
+> read diary
+You read the last page in the diary:
+
+"26th of August
+
+Today I found a small gold key, which I am now wearing on a chain around my neck. I almost got lost in the cave, but then I came to think about my dear friend Ewen. Unfortunately I have lost my rifle and now I fear for my life, since a big jaguar is circling the camp. If I don'..."
+
+Looks like the adventurer was interrupted while he was writing in the diary.
+
+> n
+You move north.
+
+Date: 2nd of July. Time: 10:06
+By Bear Cave
+You are standing by the entrance to a dark bear cave. From here you may go south and east. Now that the bear is dead, you may also go west into the cave.  Also here is a dead bear.
+
+> west
+You move west.
+
+Date: 2nd of July. Time: 10:09
+Inside Bear Cave
+You are standing within the bear cave. From the light of your flashlight you notice a tunnel to the west, leading further into the cave. You may leave the cave by going east.
+
+> west
+You move west.
+
+Date: 2nd of July. Time: 10:10
+Rock Chamber
+You are standing in a small rock chamber behind the bear cave. Your flashlight reveals another tunnel leading south. You may go back to the bear cave by going east.
+
+> south
+You move south.
+
+Date: 2nd of July. Time: 10:11
+Labyrinth
+You are wandering through a confusing labyrinth consisting of tunnels leading everywhere.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 10:22
+Labyrinth
+You are wandering through a confusing labyrinth consisting of tunnels leading everywhere.
+
+> west
+You move west.
+
+Date: 2nd of July. Time: 10:33
+Labyrinth
+You are wandering through a confusing labyrinth consisting of tunnels leading everywhere.  Also here is a machete.
+
+> get all
+Ok, you pick up the machete.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 10:45
+Labyrinth
+You are wandering through a confusing labyrinth consisting of tunnels leading everywhere.
+
+> n
+You move north.
+
+Date: 2nd of July. Time: 10:56
+Rock Chamber
+You are standing in a small rock chamber behind the bear cave. Your flashlight reveals another tunnel leading south. You may go back to the bear cave by going east.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 10:57
+Inside Bear Cave
+You are standing within the bear cave. From the light of your flashlight you notice a tunnel to the west, leading further into the cave. You may leave the cave by going east.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 11:00
+By Bear Cave
+You are standing by the entrance to a dark bear cave. From here you may go south and east. Now that the bear is dead, you may also go west into the cave.  Also here is a dead bear.
+
+> eat bear
+You prepare the bear meat and eat it. Then you leave the remains of the bear on the ground.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 12:24
+Camp
+You are completely alone. You are standing in your camp in the middle of the Amazon, eager to explore the area. You may go north, south, east and west from here.
+
+> south
+You move south.
+
+Date: 2nd of July. Time: 12:49
+Beautiful Clearing
+You are standing in a beautiful clearing, which is surrounded by trees. You may go north or south.
+
+> south
+You move south.
+
+Date: 2nd of July. Time: 13:48
+In Deep Gorge
+You are walking through a deep gorge. You may go north and west.
+
+> west
+You move west.
+
+Date: 2nd of July. Time: 14:50
+Small Clearing
+You are standing in the middle of a small clearing. At the moment everything seems peaceful here. Obvious exits are south and east. The path leading west is blocked by a dense thicket.
+
+Suddenly a big jaguar appears from nowhere. It growls, ready to attack!
+
+> shoot jaguar
+Just as the jaguar is about to leap at you, you fire the rifle at the jaguar and manage to shoot it right through its head. It falls to the ground, dead.
+
+> eat jaguar
+You prepare the jaguar meat so you can eat it. While doing so, you find a small gold key in the stomach of the jaguar. You wonder what this key is for. Then you eat the jaguar meat and leave the remains of the jaguar on the ground.
+
+> unlock box
+(using the small gold key)
+Using the gold key you unlock and open the jewelry box.  Inside the jewelry box is a silver key.
+
+> open box
+The jewelry box is already open!
+
+> south
+You move south.
+
+Date: 2nd of July. Time: 15:41
+River Bank
+You are by the bank of a wide river. You may go north and east.  Also here is a can opener.
+
+> get opener
+Ok, you pick up the can opener.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 17:48
+By Ruin
+
+You are standing by an old ruin near the river. There is some graffiti on one wall. You may go east and west.
+
+> east
+You move east.
+
+Date: 2nd of July. Time: 21:59
+Foot of waterfall
+You are standing by the foot of a beautiful waterfall. Paths lead east, west and south.
+
+You are very tired and so you lie down on the spot and fall asleep.  Next thing you know, it's the morning.
+
+Date: 3rd of July. Time: 06:00
+
+> south
+You move south.
+
+Date: 3rd of July. Time: 06:02
+Gorge with Door
+You are standing in a gorge with a door set into the rock wall. Unless you can find a way to open the door, the only way out of here is north.
+
+> unlock door
+(using the silver key)
+You unlock the sturdy door with the silver key.
+
+> open door
+You open the sturdy door.
+
+> south
+You move south.
+
+Date: 3rd of July. Time: 06:05
+Inside Cave Door
+You are just inside the cave door. There are tunnels leading east, west and south. You may leave the cave through the door by going north.
+
+> west
+You move west.
+
+Date: 3rd of July. Time: 06:16
+Narrow Tunnel
+You are walking through a long but narrow tunnel. You may go east and west.  Also here is some dynamite.
+
+> west
+You move west.
+
+Date: 3rd of July. Time: 06:27
+Suspension bridge
+You are standing on a swaying suspension bridge, made of rope and wooden planks. You may go east and west.
+
+> x bridge
+It is scary to be standing here on the middle of the bridge. However, the bridge seems solid enough.
+
+On further inspection you notice a long rope hanging down from the bridge.
+
+> get rope
+Ok, you pick up the long rope.
+
+> east
+You move east.
+
+Date: 3rd of July. Time: 06:40
+Narrow Tunnel
+You are walking through a long but narrow tunnel. You may go east and west.  Also here is some dynamite.
+
+> east
+You move east.
+
+Date: 3rd of July. Time: 06:51
+Inside Cave Door
+You are just inside the cave door. There are tunnels leading east, west and south. You may leave the cave through the door by going north.
+
+> n
+You move north.
+
+Date: 3rd of July. Time: 06:52
+Gorge with Door
+You are standing outside the entrance to the underground temple holding the treasure. You may go north back to the waterfall or south through the door.
+
+> n
+You move north.
+
+Date: 3rd of July. Time: 06:55
+Foot of waterfall
+You are standing by the foot of a beautiful waterfall. Paths lead east, west and south.
+
+> west
+You move west.
+
+Date: 3rd of July. Time: 11:06
+By Ruin
+
+You are standing by an old ruin near the river. There is some graffiti on one wall. You may go east and west.
+
+> west
+You move west.
+
+Date: 3rd of July. Time: 13:12
+River Bank
+You are by the bank of a wide river. You may go north and east.
+
+> n
+You move north.
+
+Date: 3rd of July. Time: 13:29
+Small Clearing
+You are standing in the middle of a small clearing. At the moment everything seems peaceful here. Obvious exits are south and east. The path leading west is blocked by a dense thicket.  Also here is a jaguar carcass.
+
+> cut thicket
+With the sharp machete you manage to cut your way through the dense thicket. Once through the thicket you arrive at a small pond.
+
+Date: 3rd of July. Time: 13:59
+By Pond
+You are standing by a peaceful pond. It is very silent here. Paths lead east and west.
+
+> west
+You move west.
+
+Date: 3rd of July. Time: 17:50
+Path
+You are walking down a path in the middle of the Amazon. You may go east or west.
+
+> west
+You move west.
+
+Date: 3rd of July. Time: 22:57
+Village
+You have arrived at a village with friendly natives. The natives are eager to earn some money before they evacuate the entire village due to the dam being opened.
+
+You are very tired and so you lie down on the spot and fall asleep.  Next thing you know, it's the morning.
+
+Date: 4th of July. Time: 06:58
+
+> talk to natives
+You talk to some of the natives and they propose that you HIRE some NATIVES to carry your stuff. The prize for that is 100 coins.
+
+> hire natives
+You hire a group of carriers. The carriers follow you and they pick up most of the items you were carrying.
+
+> east
+You move east.
+
+Date: 4th of July. Time: 12:06
+Path
+You and your carriers are walking down a path in the middle of the Amazon. You may go east or west.
+
+> east
+You move east.
+
+Date: 4th of July. Time: 15:57
+By Pond
+You and your carriers are standing by a peaceful pond. It is very silent here. Paths lead east and west.
+
+> east
+You move east.
+
+Date: 4th of July. Time: 16:13
+Small Clearing
+You and your carriers are standing in the middle of a small clearing. At the moment everything seems peaceful here. You may go south, east and west from here.  Also here is a jaguar carcass.
+
+> south
+You move south.
+
+Date: 4th of July. Time: 16:30
+River Bank
+You and your carriers are by the bank of a wide river. You may go north and east.
+
+> east
+You move east.
+
+Date: 4th of July. Time: 18:36
+By Ruin
+
+You and your carriers are standing by an old ruin near the river. There is some graffiti on one wall. You may go east and west.
+
+> east
+You move east.
+
+Date: 4th of July. Time: 22:47
+Foot of waterfall
+You and your carriers are standing by the foot of a beautiful waterfall. Paths lead east, west and south.
+
+You are very tired and so you lie down on the spot and fall asleep.  Next thing you know, it's the morning.
+
+Date: 5th of July. Time: 06:48
+
+> south
+You move south.
+
+Date: 5th of July. Time: 06:50
+Gorge with Door
+You and your carriers are standing outside the entrance to the underground temple holding the treasure. You may go north back to the waterfall or south through the door.
+
+> south
+You move south.
+
+Date: 5th of July. Time: 06:51
+Inside Cave Door
+You and your carriers are just inside the cave door. There are tunnels leading east, west and south. You may leave the cave through the door by going north.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 07:02
+Narrow Tunnel
+You and your carriers are walking through a long but narrow tunnel. You may go east and west.  Also here is some dynamite.
+
+> get dynamite
+Ok, you pick up the dynamite.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 07:14
+Inside Cave Door
+You and your carriers are just inside the cave door. There are tunnels leading east, west and south. You may leave the cave through the door by going north.
+
+> south
+You move south.
+
+Date: 5th of July. Time: 07:42
+Wide Tunnel
+You and your carriers are walking through a wide tunnel. You may go north and south.
+
+> south
+You move south.
+
+Date: 5th of July. Time: 07:58
+By Deep Ravine
+You and your carriers are standing by the edge of a deep ravine. You may go north.
+
+> x ravine
+The ravine is pretty deep, and too steep to climb down with your bare hands. There is a tree stump standing close to the edge of the ravine.
+
+> tie rope to stump
+You tie the rope to the tree stump and let the end of the rope dangle down in the ravine. The end of the rope just reached the bottom of the ravine.
+
+> down
+You move down.
+
+Date: 5th of July. Time: 08:01
+By the Foot of Tall Cliff
+You and your carriers are standing by the foot of a tall cliff. A rope dangles down from the cliff. Tunnels lead east, west and south.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 08:16
+Straight Tunnel
+You and your carriers are walking through a long straight tunnel. You may go east and west.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 08:37
+Small Cave
+You and your carriers are standing in a small cave. You may go east and west.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 08:43
+By Walled Up Entrance
+You and your carriers are standing by a walled up entrance. You wonder what is beyond the wall...
+
+> drop dynamite
+Ok, you put down the dynamite.
+
+> light it
+(the dynamite)
+You light the dynamite. It will explode in a few seconds, so you better get away fast!
+
+> west
+You move west.
+
+Date: 5th of July. Time: 10:46
+Small Cave
+You and your carriers are standing in a small cave. You may go east and west.
+
+> z
+Time passes...
+
+You hear the sound of a big explosion nearby.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 10:53
+By Walled Up Entrance
+You and your carriers are standing where the wall was blown up. Lots of rubble is scattered all over the place due to the explosion. You may go east and west.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 10:54
+By Totem
+You and your carriers are standing in front of a terrifying totem. You may go east and west.
+
+As you and your carriers enter the room, your carriers watches the totem in horror. They scream and drop (almost) everything they are carrying before they flee to the west.
+
+Date: 5th of July. Time: 10:54
+By Totem
+You are standing in front of a terrifying totem. You may go east and west.  The flashlight that you bought is lying on the ground.  The ammunition you bought is lying on the ground.  The matches you purchased are lying on the ground.  Also here is a machete, a can opener, a small gold key, a rifle and a jewelry box.
+
+> get ammo and rifle
+Ok, you pick up the ammunition and the rifle.
+
+> get flashlight
+Ok, you pick up the flashlight.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 11:00
+Treasury
+
+Finally! You found the treasury!
+
+Here, in the middle of the room stands a pedestal with the magnificent jeweled crown on it.  Also here is a bottle of whiskey.
+
+> get crown and bottle
+(from the pedestal)
+Ok, you take the jeweled crown from the pedestal.  Ok, you pick up the bottle of whiskey.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 11:04
+By Totem
+You are standing in front of a terrifying totem. You may go east and west.  The matches you purchased are lying on the ground.  Also here is a machete, a can opener, a small gold key and a jewelry box.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 11:05
+By Walled Up Entrance
+You are standing where the wall was blown up. Lots of rubble is scattered all over the place due to the explosion. You may go east and west.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 13:06
+Small Cave
+You are standing in a small cave. You may go east and west.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 13:15
+Straight Tunnel
+You are walking through a long straight tunnel. You may go east and west.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 13:30
+By the Foot of Tall Cliff
+You are standing by the foot of a tall cliff. A rope dangles down from the cliff. Tunnels lead east, west and south.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 13:36
+Cave with Three Exits
+You are standing in a cave with three exits: East, west and south.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 13:45
+Curving tunnel
+You are walking through a curving tunnel. You may go east and south.
+
+> south
+You move south.
+
+Date: 5th of July. Time: 14:02
+Chamber
+You are standing in a small chamber with some mysterious statues. You may go north, south and east.
+
+> south
+You move south.
+
+Date: 5th of July. Time: 14:23
+End of tunnel
+You are standing by the end of a tunnel in front of a small hole in the cave wall. You may go north.
+
+> x hole
+The hole is about the size of a bottle cap. You try to look through the hole but all you see is darkness.
+
+> open bottle
+You open the bottle of whiskey.  The bottle is full.
+
+> pour whiskey in hole
+You pour the contents of the bottle into the hole. At first nothing happens but then the walls start to rumble and the south wall starts to move into the east wall. Shortly after the noise disappears and the wall stops moving. There is now a tight passage leading south.
+
+Date: 5th of July. Time: 14:26
+End of tunnel
+You are standing by the end of a tunnel. You may go back north from where you came or you can squeeze through a tight passage leading south.
+
+> south
+You move south.
+
+Date: 5th of July. Time: 14:27
+Small Niche
+You are standing in a small featureless niche. You may go north through the tight passage where you came from.  Also here is an iron key.
+
+> get key
+Ok, you pick up the iron key.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 14:29
+End of tunnel
+You are standing by the end of a tunnel. You may go back north from where you came or you can squeeze through a tight passage leading south.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 14:50
+Chamber
+You are standing in a small chamber with some mysterious statues. You may go north, south and east.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 14:59
+Small Cave
+You are standing in a small featureless cave. You may go east, west and north.
+
+> east
+You move east.
+
+Date: 5th of July. Time: 17:00
+Tunnel with a Bend
+You are standing in a dark tunnel, which bends from north to west. You may follow the tunnel in those directions.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 17:09
+By the Foot of Tall Cliff
+You are standing by the foot of a tall cliff. A rope dangles down from the cliff. Tunnels lead east, west and south.
+
+> up
+You move up.
+
+Date: 5th of July. Time: 17:10
+By Deep Ravine
+You are standing by the edge of a deep ravine. A rope dangles over the edge of the ravine. You may go north or climb down the rope.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 17:26
+Wide Tunnel
+You are walking through a wide tunnel. You may go north and south.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 17:54
+Inside Cave Door
+You are just inside the cave door. There are tunnels leading east, west and south. You may leave the cave through the door by going north, if you can get it open.
+
+Unfortunately it seems that the door out of here has been locked from the outside by the scared carriers.
+
+> unlock door
+(using the iron key)
+You unlock the sturdy door with the iron key.
+
+> open door
+You open the sturdy door.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 17:57
+Gorge with Door
+You are standing outside the entrance to the underground temple holding the treasure. You may go north back to the waterfall or south through the door.
+
+> n
+You move north.
+
+Date: 5th of July. Time: 18:00
+Foot of waterfall
+You are standing by the foot of a beautiful waterfall. Paths lead east, west and south.
+
+> west
+You move west.
+
+Date: 5th of July. Time: 22:11
+By Ruin
+
+You are standing by an old ruin near the river. There is some graffiti on one wall. You may go east and west.
+
+You are very tired and so you lie down on the spot and fall asleep.  Next thing you know, it's the morning.
+
+Date: 6th of July. Time: 06:12
+
+> west
+You move west.
+
+Date: 6th of July. Time: 08:17
+River Bank
+You are by the bank of a wide river. You may go north and east.
+
+> n
+You move north.
+
+Date: 6th of July. Time: 08:34
+Small Clearing
+You are standing in the middle of a small clearing. At the moment everything seems peaceful here. You may go south, east and west from here.  Also here is a jaguar carcass.
+
+> east
+You move east.
+
+Date: 6th of July. Time: 09:36
+In Deep Gorge
+You are walking through a deep gorge. You may go north and west.
+
+Suddenly a black panther appears right in front of you! It is about to attack!
+
+> shoot panther
+You fire your rifle towards the black panther. You miss it but the sound from the rifle makes the panther flee into the jungle. Phew - that was close!
+
+> n
+You move north.
+
+Date: 6th of July. Time: 10:36
+Beautiful Clearing
+You are standing in a beautiful clearing, which is surrounded by trees. You may go north or south.
+
+> n
+You move north.
+
+Date: 6th of July. Time: 11:01
+Camp
+
+Finally! You have reached the camp with the jeweled crown! Now "all" you have to do is to stay alive until the pilot comes to pick you up. Since you do not need to go anywhere, you hunt prey in the vicinity of the camp and in this manner you manage to have enough food until the pilot arrives.
+
+Happy to see the pilot, you follow him east to the river bank, where his seaplane is waiting. You both board the plane and take off towards your home country. Back home you sell the jeweled crown to a well known museum for a significant amount of money. Besides the money, your name will never be forgotten. Forever you will be remembered as the adventurer who managed to find the jeweled crown of the Amazon.
+
+Congratulations! You are a level 1 adventurer!
+(enable more challenges to reach a higher level)
+You returned to the camp on the 6th of July. Time: 11:01
+
+HALL OF FAME: E-mail level, date and time to kennethvpedersen@yahoo.dk
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?

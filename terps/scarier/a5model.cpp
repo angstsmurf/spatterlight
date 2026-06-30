@@ -229,6 +229,7 @@ a5_load_tasks (a5_adventure_t *a)
       prio = a5xml_child_text (c, "Priority");
       t->priority = (prio != NULL) ? strtol (prio, NULL, 10) : 0;
       t->type = a5xml_child_text (c, "Type");
+      t->run_immediately = a5xml_bool (a5xml_child_text (c, "RunImmediately"));
       t->location_trigger = a5xml_child_text (c, "LocationTrigger");
       t->commands = a5_collect_text (c, "Command", &t->n_commands);
       /* Apply clsUserSession.CorrectCommand to every command (FD does this once

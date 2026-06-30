@@ -143,6 +143,12 @@ typedef struct a5_task_s {
   const char *key;
   long priority;
   const char *type;                 /* General / Specific / System           */
+  int run_immediately;              /* <RunImmediately>: a System task FD runs
+                                       once at game start (clsUserSession init
+                                       loop, vb:209-216) before the title --
+                                       e.g. PlayTune (title music) whose audio
+                                       markup contributes the title's leading
+                                       space, or ts_tasInitialise (set time). */
   const char *location_trigger;     /* <LocationTrigger>: a System task armed
                                        when the Player moves into this location
                                        (clsCharacter.Move), or NULL            */

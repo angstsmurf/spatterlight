@@ -69,15 +69,10 @@ main (int argc, char **argv)
         }
     }
 
-  /* FrankenDrift opens with the centered title ("<c>Title</c>" + newline) then
-     the introduction directly -- no separating blank (the intro supplies its own
-     leading blank when it has one).  Match that so the ground-truth diff is free
-     of harness noise. */
-  /* FD emits nothing for an empty title; only print a title line when there is
-     one (an empty-title blank used to be absorbed by the intro's leading blanks
-     under cat -s, but the Adventure-Upgrade prompt now separates them). */
-  if (a->title && a->title[0])
-    printf ("%s\n", a->title);
+  /* a5run_intro now emits the centred title itself (mirroring FD's
+     Display("<c>" & Adventure.Title & "</c>") at clsUserSession init), so that
+     any System <RunImmediately> title-music task's output can join onto it via
+     pSpace -- the harness no longer prints the title separately. */
   txt = a5run_intro (run);
   printf ("%s\n", txt);
   free (txt);

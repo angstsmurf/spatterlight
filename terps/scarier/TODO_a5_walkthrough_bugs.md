@@ -68,6 +68,68 @@ diffing the consumed stream — the first divergence pinned the cause exactly:
    object-listing joins. Most descriptions end in `.` (where `add_space` and
    `pSpace` agree), so no other corpus game moved.
 
+## ⭐ TreasureHuntInTheAmazon → full MATCH: System `<RunImmediately>` startup tasks + the title's centring space (markup-aware `bHasOutput`)  ✅ DONE (2026-06-30)
+
+**TreasureHuntInTheAmazon 1→0** (full MATCH, both modes; golden
+`test/TreasureHuntInTheAmazon_expected.txt` committed) — no other corpus game
+moved in either mode (all 12 MATCH goldens hold 0/0, incl. the self-snapshot
+SixSilverBullets 20/10 and the movement-heavy GrandpasRanch; StoneOfWisdom 2/0,
+JacarandaJim 99/0 unchanged at baseline), all a5 unit tests pass
+(run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden) and the whole
+run/dump pipeline is ASan/UBSan-clean. This closes the LAST Amazon residual — the
+game now plays byte-for-byte through to `*** You have won ***`.
+
+**Symptom.** The centred title rendered flush-left — `Treasure Hunt in the
+Amazon` where FD has `   Treasure Hunt in the Amazon` (three leading spaces). The
+TODO had deferred this as a "fragile `<center>`-width render detail", but it is
+neither console-width-dependent nor a `<center>` artifact.
+
+**Root cause — two coupled gaps.** (1) **Scarier never ran the System tasks
+flagged `<RunImmediately>`.** FD's clsUserSession init loop (vb:209-216) runs every
+`System AndAlso RunImmediately` task once at game start, BEFORE displaying the
+title (vb:226 `Display("<c>" & Adventure.Title & "</c>")`). Their (uncommitted)
+output accumulates in `sOutputText`, so the title's `Display` does
+`pSpace(sOutputText) & "<c>Title</c>"` and merges them. Amazon's **`PlayTune1`**
+(System, RunImmediately, restriction `Musicon = 1`) is the title-music task; its
+completion message is **`<audio play src="...Forest-Drama.mp3"> `** (a media tag
+plus ONE literal trailing space). So the merged buffer is
+`<audio...> ` + pSpace's two spaces + `<c>Title</c>` = **three** leading spaces
+once the tags strip. (2) **The audio task's whitespace counted as output in FD but
+not in Scarier.** FD's `bHasOutput` (clsUserSession.vb:1272) inspects the message
+with markup STILL EMBEDDED: `StripCarats("<audio...> ")` leaves `" "`, which is
+non-empty ⇒ output. Scarier's `emit_completion` tested the already-plain-rendered
+text with `msg_has_output`, which treats a lone space as nothing and dropped it.
+
+**Fixed (faithful, tightly scoped) in three pieces:**
+1. **`<RunImmediately>` parsed** onto `a5_task_t.run_immediately`
+   (`a5model.cpp`/`.h`, via `a5xml_bool`).
+2. **`run_immediate_tasks` (`a5run.cpp`)** runs every System+RunImmediately task in
+   file order at the top of `a5run_intro`, before the title — mirroring FD's init
+   loop (skip done-&&-non-repeatable, restriction-gate, `run_task`). Events are not
+   yet initialised here (FD starts them after the intro), so no event-completion
+   hooks fire. Amazon's `ts_tasInitialise` (sets the day-period var) and
+   `StartAllEv` (no actions) run too but produce no visible output and draw no RNG
+   — verified by the whole corpus (incl. the just-fixed clock alignment) staying
+   put. The **centred title is now emitted by `a5run_intro` itself** (FD's
+   `Display("<c>"&Title&"</c>")`), pSpace-joined to the RunImmediately output; the
+   dump harness no longer prints the title separately. An empty title still emits
+   nothing (RtC).
+3. **`fd_has_output` (`a5run.cpp`)** is a faithful port of FD's `bHasOutput` on the
+   markup-bearing message (StripCarats-non-empty ⇒ output; else a known
+   formatting/media tag or an ALR key ⇒ output). It is used by `emit_completion`
+   **only while the `run->immediate_emit` flag is set** (during
+   `run_immediate_tasks`); every per-turn completion message keeps the proven
+   `msg_has_output` (plain-whitespace) test, so the blast radius is exactly "the
+   startup RunImmediately tasks". A first global swap to `fd_has_output` regressed
+   8 golden games (whitespace-only mid-turn messages started leaking spaces/blank
+   lines) — hence the flag-gating.
+
+**Verification.** Two engines instrumented to confirm the source of the three
+spaces: FD's `EmitHtml` receives `<audio...>   <c>Treasure Hunt in the Amazon</c>`
+(audio task's 1 space + pSpace's 2). The raw model `<Title>` field has no leading
+spaces in either engine; the spaces are purely the PlayTune1 + pSpace + title
+merge. Golden committed; Amazon budget re-blessed 1→0.
+
 ## ⭐ Event-fired task iterates the leftover plural reference: `get ammo and rifle` ticks `ts_tasIncrement` twice (Amazon off-by-one clock drift)  ✅ DONE (2026-06-30)
 
 **TreasureHuntInTheAmazon 31→1** (both modes; residual 1 = the title's 3-space

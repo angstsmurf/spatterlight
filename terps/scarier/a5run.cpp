@@ -104,6 +104,52 @@ msg_has_output (const char *m)
   return 0;
 }
 
+/* A faithful port of clsUserSession.bHasOutput (vb:1272), applied to a message
+   string with its markup STILL EMBEDDED (the value FD's Display() sees, before
+   the final HTML->plain pass).  Unlike msg_has_output (which inspects the
+   already-plain text and treats whitespace as nothing), FD keeps a message when
+   stripping all <...> tags leaves ANY character behind -- including a bare space.
+   This is why Amazon's title music task `<audio play src="...">` followed by a
+   space counts as output: StripCarats leaves " ", so the space joins onto the
+   centred title (giving its leading indent).  When stripping leaves nothing, FD
+   keeps the message only if it carries a known formatting/media tag, or the whole
+   string is an ALR (Text Override) trigger key. */
+static int
+fd_has_output (a5_state_t *st, const char *raw)
+{
+  const char *p;
+  int i;
+  if (raw == NULL || raw[0] == '\0')
+    return 0;
+  /* StripCarats: is there any character outside a <...> tag? */
+  for (p = raw; *p; )
+    {
+      if (*p == '<')
+        { while (*p && *p != '>') p++; if (*p == '>') p++; }
+      else
+        return 1;                       /* a non-tag char survives -> output */
+    }
+  /* All tags: FD keeps it only for a recognised formatting/media tag. */
+  {
+    static const char *const known[] = {
+      "<br>", "<center>", "<centre>", "<i>", "</i>", "<b>", "</b>", "<u>",
+      "</u>", "<c>", "</c>", "<font", "</font>", "<right>", "</right>",
+      "<left>", "</left>", "<del>", "<wait", "<cls>", "<img " };
+    std::string low;
+    for (p = raw; *p; p++)
+      low += (char) tolower ((unsigned char) *p);
+    for (size_t k = 0; k < sizeof known / sizeof known[0]; k++)
+      if (low.find (known[k]) != std::string::npos)
+        return 1;
+  }
+  /* An ALR may rewrite the whole tag-only string into something visible. */
+  for (i = 0; i < st->adv->n_alrs; i++)
+    if (st->adv->alrs[i].old_text != NULL
+        && strcmp (st->adv->alrs[i].old_text, raw) == 0)
+      return 1;
+  return 0;
+}
+
 /* ----------------------------------------------------------------- run state */
 
 /* Per-event runtime (clsEvent instance state).  Status mirrors
@@ -221,6 +267,13 @@ struct a5_run_s {
   int    defer_look;
   int    look_pending;
   size_t look_pos;
+
+  /* Set only while the System <RunImmediately> startup tasks run (before the
+     title).  emit_completion then uses FD's bHasOutput (markup-aware) instead of
+     the plain whitespace test, so a title-music task's `<audio ...> ` keeps its
+     trailing space to join onto the centred title.  Off everywhere else, so the
+     per-turn completion-message emission is byte-identical to before. */
+  int    immediate_emit;
 };
 
 static int
@@ -3442,6 +3495,22 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
      thereafter). */
   int prev_mark = run->st->marking_display;
   run->st->marking_display = 1;
+  if (run->immediate_emit)
+    {
+      /* Startup RunImmediately path: render in two stages so the markup-bearing
+         form (`proc`, what FD's Display sees) drives the output test, while the
+         plain form is emitted.  FD's bHasOutput keeps a message when stripping
+         tags leaves any character -- so a title-music task's `<audio ...> ` keeps
+         its trailing space to join onto the title.  a5text_describe ==
+         eval_description -> process -> render_plain. */
+      char *raw   = a5text_eval_description (run->st, comp);
+      char *proc  = a5text_process (run->st, raw);
+      char *plain = a5text_render_plain (proc);
+      run->st->marking_display = prev_mark;
+      if (fd_has_output (run->st, proc)) { sb_pspace (out); sb_puts (out, plain); }
+      free (raw); free (proc); free (plain);
+      return;
+    }
   char *m = a5text_describe (run->st, comp);
   run->st->marking_display = prev_mark;
   /* Append exactly as FD Display() does: pSpace-join to the running output, then
@@ -4948,6 +5017,34 @@ finish_turn (a5_run_t *run, sb_t *out)
   return fin;
 }
 
+/* Run the System tasks flagged <RunImmediately> once at game start, in file
+   order, exactly as clsUserSession's init loop does (vb:209-216) -- before the
+   title is shown.  Their completion-message output (e.g. a title-music task's
+   audio markup + trailing space) accumulates in the same buffer so it joins onto
+   the title via pSpace.  Events are not yet initialised at this point (FD starts
+   them after the intro), so no event-completion hooks fire here. */
+static void
+run_immediate_tasks (a5_run_t *run, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  int i;
+  run->immediate_emit = 1;
+  for (i = 0; i < run->adv->n_tasks; i++)
+    {
+      const a5_task_t *t = &run->adv->tasks[i];
+      int ti;
+      if (!t->run_immediately || !streq (t->type, "System"))
+        continue;
+      ti = a5state_task_index (st, t->key);
+      if (ti >= 0 && st->task_done[ti] && !t->repeatable)
+        continue;
+      if (!a5restr_pass (st, t->restrictions))
+        continue;
+      run_task (run, t, 0, out);
+    }
+  run->immediate_emit = 0;
+}
+
 char *
 a5run_intro (a5_run_t *run)
 {
@@ -4986,6 +5083,18 @@ a5run_intro (a5_run_t *run)
             }
         }
     }
+  /* System <RunImmediately> tasks run before the title (FD clsUserSession init,
+     vb:209-216); a title-music task's audio markup leaves a trailing space that
+     joins onto the centred title. */
+  run_immediate_tasks (run, &out);
+  /* The centred title: FD's Display("<c>" & Adventure.Title & "</c>" & vbCrLf)
+     at vb:226, emitted through the same buffer so the RunImmediately output above
+     joins onto it via pSpace.  An empty title emits nothing (FD's "<c></c>"
+     renders to a bare blank that the turn-tail normalisation drops); a non-empty
+     one space-joins to any preceding RunImmediately output, then the intro's own
+     leading break follows. */
+  if (run->adv->title != NULL && run->adv->title[0] != '\0')
+    { sb_pspace (&out); sb_puts (&out, run->adv->title); sb_puts (&out, "\n"); }
   intro = a5text_describe (run->st, run->adv->introduction);
   if (intro[0]) { sb_puts (&out, intro); sb_puts (&out, "\n\n"); }
   free (intro);
