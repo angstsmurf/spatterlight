@@ -890,6 +890,16 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       strip (prop);
       /* arg0 may be a key or a display name; map to a key. */
       const char *ekey = resolve_object_arg (st, ent.c_str ());
+      /* A runtime SetProperty override wins over the static model value, just
+         as a5state_entity_prop layers it (e.g. Amazon's CarriersFl1 runs
+         `SetProperty Door1 LockKey Key3`, retargeting the lazy-unlock chain's
+         `%PropertyValue[Door1,LockKey]%` from the lost silver key to the iron
+         key).  The static value_node path below still serves text properties. */
+      if (ekey != NULL)
+        for (int oi = 0; oi < st->n_ov; oi++)
+          if (streq (st->ov[oi].entity, ekey)
+              && streq (st->ov[oi].prop, prop.c_str ()))
+            return strdup (st->ov[oi].value ? st->ov[oi].value : "");
       const a5_prop_t *props = NULL; int n_props = 0;
       const a5_object_t *o = ekey ? a5model_object (st->adv, ekey) : NULL;
       if (o != NULL) { props = o->props; n_props = o->n_props; }

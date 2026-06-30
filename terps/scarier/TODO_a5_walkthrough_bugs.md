@@ -1,5 +1,67 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ `%PropertyValue[entity,prop]%` must read the runtime SetProperty override (Amazon iron-key door, broad)  ✅ DONE (2026-06-30)
+
+**TreasureHuntInTheAmazon 42→34** (the whole back half of the game now plays
+through to the win) — no other corpus game moved in either mode (all 11 MATCH
+games hold 0/0; StoneOfWisdom/JacarandaJim/SixSilverBullets unchanged at
+baseline), all a5 unit tests pass (run/arith/parse/dis/walk/obj/save + Six Silver
+Bullets golden), budget re-blessed 42→34.
+
+**Symptom.** The *second* sturdy door (the cave exit, unlocked with the iron key)
+never opened: `unlock door` produced **no output** and `open door` → "You can't
+open the sturdy door as it is locked!", where FD shows **"(using the iron key)" /
+"You unlock the sturdy door with the iron key."** The player was then trapped, so
+every command from that point (north through the temple → waterfall → camp → win)
+diverged — ~the entire remainder of the transcript.
+
+**Root cause — `%PropertyValue[entity,prop]%` read only the *static* model
+value, ignoring the runtime SetProperty override layer.** There is a single
+`Door1` object (LockKey statically `Key1`, the silver key). On entering Location45
+the `CarriersFl1` location trigger runs `MoveObject Key1 ToLocation Hidden` +
+`SetProperty Door1 LockKey Key3` (the iron key), retargeting the door's key. The
+lazy-unlock chain `UnlockObjectLazy` → `Execute UnlockObWithKey
+(%object1%|%PropertyValue[%object1%,LockKey]%)` therefore must resolve the key via
+`%PropertyValue[Door1,LockKey]%` = **Key3** at runtime. Scarier's handler
+(`a5text.cpp`) did `a5_prop_find (o->props, …)` straight off the static model, so
+it returned **Key1** (the silver key, now hidden) — the chain auto-filled a key
+the player doesn't hold and silently no-op'd. **Fixed** by checking the runtime
+override store (`st->ov`, the same layer `a5state_entity_prop` reads) before the
+static lookup; the static `value_node` path still serves text properties. Same
+runtime-override-precedence class as the earlier "Object `HaveProperty` ignored
+the runtime SetProperty layer" fix — `PropertyValue` was the remaining read site
+still on the static-only path.
+
+**Residual (Amazon 34): all `Date:`/time lines — deferred, fully diagnosed.** Two
+coupled manifestations, both in the `ts_*` time subsystem; both need the
+high-risk per-turn response-aggregation work flagged below ("Per-command response
+aggregation … single/movement path OPEN"):
+  1. **Missing extra `Date:` display lines** (startup `12:04`; the day-3 cut-thicket
+     line; the totem carriers-flee re-look; etc.). FD's `Execute Look` runs the
+     `Look` override `Beforeplay1` → `Execute ts_tasCheckTime`, emitting a `Date:`
+     line that Scarier deliberately suppresses (the documented NOTE in
+     `a5run.cpp`'s `SetTasks Execute Look`), because without FD's per-turn
+     identical-message dedup, routing it would *double* every move's date.
+  2. **Off-by-one-minute drift from day 5 (the `By Totem` turn) onward.** Pinned
+     down precisely (instrumented both engines): it is the **plural command `get
+     ammo and rifle`** that ticks the clock **+2** where Scarier ticks +1. **It is
+     a genuine FD quirk**: when the turn-increment event (`ts_evtCallIncrementTime`
+     → subevent `ExecuteTask ts_tasIncrement`) fires in `TurnBasedStuff` *during a
+     plural turn*, `AttemptToExecuteTask` builds the increment task's
+     `InReferences` via `CopyNewRefs(NewReferences)` — which copies the **leftover
+     `%objects%` reference still holding both items** — so `ExecuteSubTasks`
+     iterates and runs `ts_tasIncrement`'s `IncVariable ts_varMinute` **once per
+     item** (clsUserSession.vb:766 + 711). A plural command whose items all stay in
+     one aggregated reference (`get ammo and rifle`) thus advances time by N; one
+     whose items split across an override + the general task (`get crown and
+     bottle`) leaves a 1-item leftover ref and stays +1. Faithfully replicating
+     this means making Scarier's event-fired tasks (`ev_tick_all` → the subevent
+     task run) iterate over the leftover plural `ref_items` and execute their
+     actions per-item — invasive (touches the whole event-tick path; would also
+     re-run `ReduceHung`/`ts_tasSleep`/etc. per-item, matching FD) and risky for
+     other games, so deferred. Also note line 1: FD indents the title with three
+     leading spaces (`<center>` render); Scarier emits it flush-left.
+
 ## ⭐ Return to Camelot → full MATCH: `DisplayOnce` "True" parse + empty-keyword `ContainsWord` + ambiguity-clarifier "does not clarify" + auto-correct prompt prose  ✅ DONE (2026-06-30)
 
 **RtC 21→0** (full MATCH, golden `test/RtC_expected.txt`) — no other corpus game
