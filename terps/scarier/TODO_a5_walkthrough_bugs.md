@@ -1,5 +1,44 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Plural `%objects%` none-pass reset must follow FD's Visible/Seen tiers (RevengeOfTheSpacePirates → full MATCH)  ✅ DONE (2026-06-30)
+
+**RevengeOfTheSpacePirates 1→0** (full MATCH, golden
+`test/RevengeOfTheSpacePirates_expected.txt`) — no other corpus game moved, all
+a5 unit tests pass (arith/parse/dis/walk/obj/save + Six Silver Bullets golden),
+budget re-blessed.
+
+**Symptom.** `show documents` at customs → Scarier **"You will have to take the
+travel documents and the documents out of whatever it is in first."**, FD **"…take
+the travel documents out…"** (only the in-scope object). The game has two objects
+named "documents": `Documents` ("travel documents", held by the player) and
+`Documents1` (a second "documents", `Part of Object` the distant `Cabinets` at
+Location45 — out of scope here). `show documents` (GiveObject2 `[show] %objects%`)
+matches both by name; FD renders only the visible one in the R5 `ReferencedObjects
+MustNot BeInsideObject AnyObject` message.
+
+**Root cause — `resolve_plural`'s none-passed branch reset to the *full* key set,
+skipping FD's tiered Visible/Seen refinement.** FD's
+`RefineMatchingPossibilitesUsingRestrictions` (clsUserSession.vb:5734) spreads each
+matching object into its own single-possibility Item, runs the **Applicable** tier
+(keep items whose key passes all restrictions). Here both fail Applicable — Documents
+fails R5 (it's inside something), Documents1 fails R3 `Must HaveBeenSeen` (never
+seen) — so the whole reference empties and FD **resets to the full set and refines by
+Visible** (vb:5848-5912): each emptied single-possibility item is dropped, so the
+out-of-scope `Documents1` falls away and only the visible `Documents` survives. Only
+if Visible empties *every* item does it reset again and refine by **Seen**; only if
+Seen empties everything too does the full set survive. Scarier's `resolve_plural`
+collapsed all three tiers into a blunt `chosen = all_keys`, so both documents stayed
+in `ReferencedObjects` and R5 listed both.
+
+**Fixed** in `a5run.cpp resolve_plural`: the none-passed reset now mirrors the tiered
+fallback — `chosen` = the **Visible** subset of `all_keys` (`obj_visible`), else the
+**Seen** subset (`obj_seen_p`), else the full set. The Applicable-survivors path
+(some items pass) is unchanged, as is the `had_all`/FailOverride path (its
+keys are already seen-filtered by `expand_all_objects`).
+
+**Result:** Revenge 1→0 (full MATCH, golden captured). No other corpus game moved in
+either mode; all a5 unit tests pass; budget re-blessed 1→0.
+
 ## ⭐ FD-faithful container-open visibility + seen-tracking (closed opaque containers hide contents, broad)  ✅ DONE (2026-06-30)
 
 **SpectreOfCastleCoris 4→3, RunBronwynnRun 4→3** (both vanilla and xoshiro) — no

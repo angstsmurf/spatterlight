@@ -1,0 +1,1794 @@
+Revenge of the Space Pirates
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+REVENGE OF THE SPACE PIRATES
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (strongly recommended if you are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This adventure game was programmed by the author with mostly Cyan text on a Black background. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Some useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : INTRO : MACROS : MAP : VOCAB;
+
+> b
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> inventory
+You are wearing a coverall, and are carrying nothing.
+
+> examine lighter
+You will have to take the cigarette lighter out of whatever it is in if you want to do that.
+
+> examine id
+You will have to take the ID pass out of whatever it is in if you want to do that.
+
+> examine documents
+You will have to take the travel documents out of whatever it is in if you want to do that.
+
+> examine card
+You will have to take the credit card out of whatever it is in if you want to do that.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> look around
+You look around at your surroundings but see nothing of special interest or use.
+
+> examine official
+The customs official is sitting at the customs desk, checking traveller's documents. You recognise him! He was a fellow student at the Survey & Exploration Corps Academy and he will surely recognise you if he spots you.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> buy drink
+You buy something to eat and drink, costing you a couple of credits, and spend a while watching the activity in the customs hall. While you are watching the official you recognised is replaced by another whom you do not know.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> examine official
+The customs official is sitting at the customs desk, checking traveller's documents. You do not know this official and he will not know your true identity.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> show id
+You will have to take the ID pass out of whatever it is in first.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> show documents
+You will have to take the travel documents out of whatever it is in first.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+> wait
+You wait around for a couple of minutes.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+> look around
+You look around at your surroundings but see nothing of special interest or use.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+> n
+There is no route to the north, only east and west.
+
+> sign register
+Sorry, I didn't understand that command.
+
+> examine window
+You can't see any windows!
+
+> examine bed
+You can't see any beds!
+
+> sleep
+You aren't feeling tired at the moment.
+
+> s
+There is no route to the south, only east and west.
+
+> e
+You move East.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> s
+There is no route to the south, only north, east and west.
+
+> s
+There is no route to the south, only north, east and west.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> buy map
+Sorry, I'm not sure which object you are trying to buy.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> e
+You move East.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> find hort street
+Sorry, I'm not sure which object you are trying to find.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> n
+There is no route to the north, only south.
+
+> e
+There is no route to the east, only south.
+
+> n
+There is no route to the north, only south.
+
+> w
+There is no route to the west, only south.
+
+> examine notice
+You can't see the notice.
+
+> up
+There is no route to the up, only south.
+
+> e
+There is no route to the east, only south.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> s
+There is no route to the south, only east and west.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> examine jobs
+You see no such thing.
+
+> clerk "job 7135"
+I did not understand the word ""job".
+
+> examine slip
+You see no such thing.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> s
+There is no route to the south, only west.
+
+> s
+There is no route to the south, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> buy pe kit
+Sorry, I'm not sure which object you are trying to buy.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> n
+There is no route to the north, only west.
+
+> n
+There is no route to the north, only west.
+
+> n
+There is no route to the north, only west.
+
+> e
+There is no route to the east, only west.
+
+> n
+There is no route to the north, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> give slip
+There's nobody here to give anything to!
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> search equipment
+You can't see any equipments!
+
+> take mat
+You can't see any mats!
+
+> examine mat
+You can't see any mats!
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> down
+There is no route to the down, only north, east and west.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> s
+There is no route to the south, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> n
+There is no route to the north, only east and west.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> sleep
+You aren't feeling tired at the moment.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> s
+There is no route to the south, only north, east and west.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> e
+There is no route to the east, only west.
+
+> n
+There is no route to the north, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> remove clothes
+You are not wearing the sportswear.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> listen
+You hear nothing out of the ordinary.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> wear clothes
+Sorry, I'm not sure which object you're referring to.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> down
+There is no route to the down, only south.
+
+> e
+There is no route to the east, only south.
+
+> find park
+Sorry, I'm not sure which object you are trying to find.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> examine bench
+You can't see any benches!
+
+> sit on bench
+You can't see any benches!
+
+> wait
+You wait around for a couple of minutes.
+
+> listen
+You hear nothing out of the ordinary.
+
+> up
+There is no route to the up, only north, east and west.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> e
+There is no route to the east, only west.
+
+> s
+There is no route to the south, only west.
+
+> e
+There is no route to the east, only west.
+
+> examine list
+You see no such thing.
+
+> buy rope
+You can't see any ropes!
+
+> buy forcer
+Sorry, I'm not sure which object you are trying to buy.
+
+> buy lead
+You can't see any leads!
+
+> examine rope
+You can't see any ropes!
+
+> examine forcer
+You see no such thing.
+
+> examine lead
+You can't see any leads!
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> s
+There is no route to the south, only north, east and west.
+
+> s
+There is no route to the south, only north, east and west.
+
+> look south
+You look in that direction but see nothing of special interest or use.
+
+> examine guard
+You can't see any guards!
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> examine lingerie
+You see no such thing.
+
+> light lingerie
+Sorry, I didn't understand that command.
+
+> s
+There is no route to the south, only west.
+
+> examine lorry
+You can't see any lorries!
+
+> enter lorry
+I did not understand the word "enter".
+
+> examine controls
+You see no such thing.
+
+> examine handbrake
+You see no such thing.
+
+> release handbrake
+Sorry, I'm not sure which object you are trying to release.
+
+> search cab
+Sorry, I'm not sure which object you are trying to search.
+
+> inventory
+You are wearing a coverall, and are carrying nothing.
+
+> leave lorry
+You can't see any lorries!
+
+> climb on lorry
+You can't see any lorries!
+
+> examine wire
+You can't see any wires!
+
+> put mat on wire
+You can't see any mats!
+
+> hook rope on wire
+You can't see any ropes!
+
+> climb rope
+You can't see any ropes!
+
+> s
+There is no route to the south, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> s
+There is no route to the south, only north, east and west.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> se
+There is no route to the southeast, only west.
+
+> sw
+There is no route to the southwest, only west.
+
+> n
+There is no route to the north, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> nw
+There is no route to the northwest, only north, east and west.
+
+> examine freighter
+You see no such thing.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> examine console
+You can't see any consoles!
+
+> examine computer
+You can't see any computers!
+
+> examine compartment
+You can't see any compartments!
+
+> take crystal
+Sorry, I'm not sure which object you are trying to take.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> examine crystal
+You see no such thing.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> examine wall
+There are just walls, part of the scenery.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> ne
+There is no route to the northeast, only west.
+
+> s
+There is no route to the south, only west.
+
+> e
+There is no route to the east, only west.
+
+> se
+There is no route to the southeast, only west.
+
+> examine courier
+You see no such thing.
+
+> e
+There is no route to the east, only west.
+
+> examine console
+You can't see any consoles!
+
+> examine computer
+You can't see any computers!
+
+> examine panel
+You see no such thing.
+
+> open panel
+Open what?
+
+> drop forcer
+You are not carrying the forcer.
+
+> take panel
+Sorry, I'm not sure which object you are trying to take.
+
+> examine panel
+You see no such thing.
+
+> drop panel
+You can't drop the triangular panels!
+
+> drop lighter
+I don't understand what you want to do with the cigarette lighter.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> nw
+There is no route to the northwest, only north, east and west.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> w
+There is no route to the west, only south.
+
+> n
+There is no route to the north, only south.
+
+> n
+There is no route to the north, only south.
+
+> climb rope
+You can't see any ropes!
+
+> take rope
+You can't see any ropes!
+
+> take mat
+You can't see any mats!
+
+> down
+There is no route to the down, only south.
+
+> n
+There is no route to the north, only south.
+
+> n
+There is no route to the north, only south.
+
+> n
+There is no route to the north, only south.
+
+> n
+There is no route to the north, only south.
+
+> e
+There is no route to the east, only south.
+
+> shopkeeper "retune crystal"
+I did not understand the word ""retune".
+
+> shopkeeper "13922"
+I did not understand the word ""13922"".
+
+> examine card
+You will have to take the credit card out of whatever it is in if you want to do that.
+
+> w
+There is no route to the west, only south.
+
+> n
+There is no route to the north, only south.
+
+> w
+There is no route to the west, only south.
+
+> n
+There is no route to the north, only south.
+
+> sleep
+You aren't feeling tired at the moment.
+
+> examine window
+You can't see any windows!
+
+> open window
+You can't see any windows!
+
+> climb window
+You can't see any windows!
+
+> examine man
+You can't see any man!
+
+> search man
+You can't see any man!
+
+> read diary
+Sorry, I'm not sure which object you are trying to read.
+
+> read diary
+Sorry, I'm not sure which object you are trying to read.
+
+> e
+There is no route to the east, only south.
+
+> n
+There is no route to the north, only south.
+
+> w
+There is no route to the west, only south.
+
+> examine card
+You will have to take the credit card out of whatever it is in if you want to do that.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> s
+There is no route to the south, only east and west.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> e
+You move East.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> give ticket
+There's nobody here to give anything to!
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> drop pe kit
+You are not carrying the PE Kit.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> wear badge
+You can't see any badges!
+
+> s
+There is no route to the south, only east and west.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> s
+There is no route to the south, only north, east and west.
+
+> s
+There is no route to the south, only north, east and west.
+
+> enter lorry
+I did not understand the word "enter".
+
+> release handbrake
+Sorry, I'm not sure which object you are trying to release.
+
+> leave lorry
+You can't see any lorries!
+
+> climb on lorry
+You can't see any lorries!
+
+> put mat on wire
+You can't see any mats!
+
+> hook rope on wire
+You can't see any ropes!
+
+> climb rope
+You can't see any ropes!
+
+> s
+There is no route to the south, only north, east and west.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> s
+There is no route to the south, only east and west.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> e
+You move East.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> se
+There is no route to the southeast, only north, east and west.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> insert crystal in bracket
+I did not understand the word "crystal".
+
+> drop diary
+You are not carrying the diary.
+
+> take forcer
+Sorry, I'm not sure which object you are trying to take.
+
+> launch ship
+I did not understand the word "ship".
+
+> input waystar 4361 9292
+You can't type anything here!
+
+> launch ship
+I did not understand the word "ship".
+
+> waystar "venus"
+I did not understand the word "waystar".
+
+> inventory
+You are wearing a coverall, and are carrying nothing.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> w
+There is no route to the west, only south.
+
+> search locker
+You can't see any lockers!
+
+> examine coveralls
+You see no such thing.
+
+> wear coveralls
+You are already wearing the coverall!
+
+> e
+There is no route to the east, only south.
+
+> n
+There is no route to the north, only south.
+
+> w
+There is no route to the west, only south.
+
+> examine doors
+You can't see any doors!
+
+> n
+There is no route to the north, only south.
+
+> examine doors
+You can't see any doors!
+
+> w
+There is no route to the west, only south.
+
+> move sofa
+You can't see any sofas!
+
+> examine grille
+You can't see any grilles!
+
+> unscrew grille
+You can't see any grilles!
+
+> n
+There is no route to the north, only south.
+
+> look behind fridge
+Sorry, I'm not sure which object you are trying to look behind.
+
+> take cockroach
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> climb duct
+You can't see any ducts!
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> e
+There is no route to the east, only south.
+
+> look through grille
+You can't see any grilles!
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> woman "mike"
+I did not understand the word ""mike"".
+
+> glenda "ducts"
+I did not understand the word "glenda".
+
+> climb duct
+You can't see any ducts!
+
+> w
+There is no route to the west, only south.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> climb duct
+You can't see any ducts!
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> s
+There is no route to the south, only west.
+
+> e
+There is no route to the east, only west.
+
+> e
+There is no route to the east, only west.
+
+> n
+There is no route to the north, only west.
+
+> search cabinets
+Sorry, I'm not sure which object you are trying to search.
+
+> s
+There is no route to the south, only west.
+
+> e
+There is no route to the east, only west.
+
+> e
+There is no route to the east, only west.
+
+> search rubble
+Sorry, I'm not sure which object you are trying to search.
+
+> search rubble
+Sorry, I'm not sure which object you are trying to search.
+
+> examine semtex
+You can't see any semtices!
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> w
+There is no route to the west, only south.
+
+> climb duct
+You can't see any ducts!
+
+> n
+There is no route to the north, only south.
+
+> e
+There is no route to the east, only south.
+
+> climb duct
+You can't see any ducts!
+
+> examine plans
+You see no such thing.
+
+> show plans
+There's nobody here to show anything to!
+
+> read index
+Sorry, I'm not sure which object you are trying to read.
+
+> climb duct
+You can't see any ducts!
+
+> goto b4
+Sorry, I didn't understand that command.
+
+> look through grille
+You can't see any grilles!
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> search workbench
+Sorry, I'm not sure which object you are trying to search.
+
+> examine ropegun
+You see no such thing.
+
+> look under workbench
+Sorry, I'm not sure which object you are trying to look below/beneath/under.
+
+> search workshop
+Sorry, I'm not sure which object you are trying to search.
+
+> take bar
+Sorry, I'm not sure which object you are trying to take.
+
+> make bomb
+You're going to need some sort of explosive if you want to make a bomb.
+
+> climb duct
+You can't see any ducts!
+
+> goto s1
+I did not understand the word "s1".
+
+> fire gun
+You can't see any guns!
+
+> climb rope
+You can't see any ropes!
+
+> release grapnel
+You can't see any grapnels!
+
+> reload gun
+I did not understand the word "reload".
+
+> goto s1
+I did not understand the word "s1".
+
+> fire gun
+You can't see any guns!
+
+> climb rope
+You can't see any ropes!
+
+> release grapnel
+You can't see any grapnels!
+
+> reload gun
+I did not understand the word "reload".
+
+> goto s1
+I did not understand the word "s1".
+
+> look through grille
+You can't see any grilles!
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> search installation
+Sorry, I'm not sure which object you are trying to search.
+
+> cllimb duct
+I did not understand the word "cllimb".
+
+> goto b3
+Sorry, I didn't understand that command.
+
+> tie lead to bar
+You can't see any leads!
+
+> lay bar across shaft
+You can't see any shafts!
+
+> goto b3
+Sorry, I didn't understand that command.
+
+> look through grille
+You can't see any grilles!
+
+> w
+There is no route to the west, only south.
+
+> look through grille
+You can't see any grilles!
+
+> wait
+You wait around for a couple of minutes.
+
+> e
+There is no route to the east, only south.
+
+> look through grille
+You can't see any grilles!
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> wake scientist
+Sorry, I didn't understand that command.
+
+> simon "jaelaine"
+I did not understand the word "simon".
+
+> climb duct
+You can't see any ducts!
+
+> goto c1
+Sorry, I didn't understand that command.
+
+> look through grille
+You can't see any grilles!
+
+> goto a14
+I did not understand the word "a14".
+
+> climb duct
+You can't see any ducts!
+
+> glenda "nurse"
+I did not understand the word "glenda".
+
+> climb duct
+You can't see any ducts!
+
+> goto c1
+Sorry, I didn't understand that command.
+
+> wait
+You wait around for a couple of minutes.
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> search cupboard
+Sorry, I'm not sure which object you are trying to search.
+
+> climb duct
+You can't see any ducts!
+
+> screw grille
+You can't see any grilles!
+
+> e
+There is no route to the east, only south.
+
+> look through grille
+You can't see any grilles!
+
+> examine console
+You can't see any consoles!
+
+> wait
+You wait around for a couple of minutes.
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> put cockroach in sandwich
+You are not carrying the dead cockroach!
+
+> climb duct
+You can't see any ducts!
+
+> screw grille
+You can't see any grilles!
+
+> wait
+You wait around for a couple of minutes.
+
+> unscrew grille
+You can't see any grilles!
+
+> climb duct
+You can't see any ducts!
+
+> wotan "merlin"
+I did not understand the word "wotan".
+
+> wotan "merlin"
+I did not understand the word "wotan".
+
+> wotan "4361 9292"
+I did not understand the word "wotan".
+
+> climb duct
+You can't see any ducts!
+
+> screw grille
+You can't see any grilles!
+
+> goto b3
+Sorry, I didn't understand that command.
+
+> climb duct
+You can't see any ducts!
+
+> give antidote
+There's nobody here to give anything to!
+
+> give spanner
+There's nobody here to give anything to!
+
+> simon "bomb"
+I did not understand the word "simon".
+
+> simon "timer"
+I did not understand the word "simon".
+
+> climb duct
+You can't see any ducts!
+
+> goto s1
+I did not understand the word "s1".
+
+> fire gun
+You can't see any guns!
+
+> climb rope
+You can't see any ropes!
+
+> release grapnel
+You can't see any grapnels!
+
+> reload gun
+I did not understand the word "reload".
+
+> goto s1
+I did not understand the word "s1".
+
+> climb duct
+You can't see any ducts!
+
+> make bomb
+You're going to need some sort of explosive if you want to make a bomb.
+
+> set timer
+I don't understand what you want to do with Mike Erlin.
+
+> climb duct
+You can't see any ducts!
+
+> goto a11
+Sorry, I didn't understand that command.
+
+> climb duct
+You can't see any ducts!
+
+> e
+There is no route to the east, only south.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> e
+There is no route to the east, only west.
+
+> e
+There is no route to the east, only west.
+
+> up
+There is no route to the up, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> wait
+You wait around for a couple of minutes.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> hit guard
+You can't see any guard!
+
+> e
+You move East.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> down
+There is no route to the down, only north, east and west.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> w
+You must be carrying your ID card if you want to get through customs.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> n
+You move North.
+
+Cafeteria
+You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+
+> w
+There is no route to the west, only south.
+
+> climb duct
+You can't see any ducts!
+
+> goto b3
+Sorry, I didn't understand that command.
+
+> climb duct
+You can't see any ducts!
+
+> give spanner
+There's nobody here to give anything to!
+
+> w
+There is no route to the west, only south.
+
+> w
+There is no route to the west, only south.
+
+> take jaelaine
+Sorry, I'm not sure which object you are trying to take.
+
+> e
+There is no route to the east, only south.
+
+> s
+You move South.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+
+> e
+There is no route to the east, only west.
+
+> down
+There is no route to the down, only west.
+
+> w
+You move West.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> w
+You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+
+By Customs Desk
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+
+As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+
+"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+
+> s
+There is no route to the south, only east and west.
+
+The official is getting a bit impatient with you.
+
+"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+
+> s
+There is no route to the south, only east and west.
+
+The customs official loses patient with you!
+
+"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+
+He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+
+Middle of Customs Hall
+You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+
+Please have your ID and Travel Documents ready for inspection.
+
+> e
+You move East.
+
+Darisopolis Shuttle Port
+You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.

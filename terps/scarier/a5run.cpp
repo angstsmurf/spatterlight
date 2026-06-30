@@ -1111,8 +1111,28 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
          "Sorry, I'm not sure which object you are trying to take.".  (The "You
          can't see any <plural>!" message proper comes only from a *singular*
          %object% reference whose one Item name-matched >1 objects -- the
-         resolve_refine RR_CANTSEE path, e.g. `press button`.) */
-      chosen = all_keys;          /* reset to the original set; the task fails */
+         resolve_refine RR_CANTSEE path, e.g. `press button`.)
+
+         The reset is FD's tiered fallback, not a blunt reset to the full set:
+         when the Applicable tier empties the whole reference, FD resets to the
+         full set and refines by Visible (each emptied single-possibility item is
+         dropped, clsUserSession.vb:5848-5912); only if Visible empties *every*
+         item does it reset again and refine by Seen; only if Seen empties
+         everything too does the full set survive (vb:5914-5959).  So the
+         surviving set is the Visible subset, else the Seen subset, else all --
+         which is why `show documents` (travel documents in scope, a second
+         out-of-scope "documents" part of distant cabinets) renders only the
+         visible "travel documents" in the "take ... out of whatever it is in
+         first" message, not both. */
+      std::vector<std::string> vis, seen;
+      for (auto &k : all_keys)
+        {
+          if (obj_visible (st, k.c_str ()))  vis.push_back (k);
+          if (obj_seen_p  (st, k.c_str ()))  seen.push_back (k);
+        }
+      if (!vis.empty ())       chosen = vis;
+      else if (!seen.empty ()) chosen = seen;
+      else                     chosen = all_keys;
     }
 
   /* De-duplicate, preserving order (a noun and "all" may name an object twice). */

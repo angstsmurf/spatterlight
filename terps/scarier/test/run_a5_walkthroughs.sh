@@ -353,7 +353,7 @@ AxeOfKolt|TheAxeOfKolt.blorb|4|4
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|3|3
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|2|2
-RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|1|1
+RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
 RunBronwynnRun|RunBronwynnRun.blorb|3|3
