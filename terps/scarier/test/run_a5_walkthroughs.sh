@@ -358,7 +358,7 @@ DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
 RunBronwynnRun|RunBronwynnRun.blorb|0|0
 RtC|RtC.blorb|0|0
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|34|34
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|31|31
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
 JacarandaJim|JacarandaJim.blorb|99|0

@@ -1941,15 +1941,57 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
 
    Scarier mirrors this only on the plural path (run_general); the single-
    reference path keeps writing straight to `out`. */
+/* Snapshot of the per-turn reference bindings, captured when a deferred
+   (AggregateOutput) message is queued and restored before it is re-rendered at
+   flush.  FrankenDrift stores the message's NewReferences alongside it and
+   reassigns them at Display (clsUserSession.vb:851-854), so the deferred
+   "%object%.Description"/"(to %character%)"/"%direction%" tokens resolve against
+   the entity the command referenced -- not whatever the binding table holds by
+   the end of the command. */
+struct ref_snap {
+  char ref_name[16][32];
+  char ref_value[16][256];
+  int  n_refbind;
+  int  ref_object1_plural;
+  int  ref_character1_plural;
+};
+
 struct resp_entry {
   bool is_pass;
   bool aggregate;                 /* key is comp ptr; render deferred to flush  */
+  bool is_look;                   /* deferred room view: render_look_string()   */
+  bool has_snap;                  /* snap holds the refs to restore at flush    */
   const a5_xml_node_t *comp;      /* aggregate: re-rendered at flush            */
   std::string rendered;           /* non-aggregate / fail: final text           */
   std::vector<std::string> obj_keys;  /* merged %objects% items (aggregate)     */
   std::string obj2;               /* %object2% snapshot (first occurrence)      */
   std::string item;               /* the single item this entry was made for    */
+  ref_snap snap;
+  resp_entry () : is_pass (false), aggregate (false), is_look (false),
+                  has_snap (false), comp (NULL) {}
 };
+
+/* Capture / restore the live reference-binding table (a5state_bind_ref store +
+   the plural-derived flags), so a deferred message renders with the references
+   the command had when it produced the message. */
+static void
+ref_snap_take (a5_state_t *st, ref_snap *s)
+{
+  memcpy (s->ref_name, st->ref_name, sizeof s->ref_name);
+  memcpy (s->ref_value, st->ref_value, sizeof s->ref_value);
+  s->n_refbind = st->n_refbind;
+  s->ref_object1_plural = st->ref_object1_plural;
+  s->ref_character1_plural = st->ref_character1_plural;
+}
+static void
+ref_snap_restore (a5_state_t *st, const ref_snap *s)
+{
+  memcpy (st->ref_name, s->ref_name, sizeof s->ref_name);
+  memcpy (st->ref_value, s->ref_value, sizeof s->ref_value);
+  st->n_refbind = s->n_refbind;
+  st->ref_object1_plural = s->ref_object1_plural;
+  st->ref_character1_plural = s->ref_character1_plural;
+}
 struct resp_map {
   std::vector<resp_entry> ents;
   std::string cur_item;           /* item currently being iterated              */
@@ -1998,8 +2040,16 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
 {
   resp_map *rm = run->resp;
   a5_state_t *st = run->st;
-  bool aggregate = t != NULL && t->aggregate;
   const std::string &item = rm->cur_item;
+  /* The AggregateOutput deferral (store the comp, re-render at flush over the
+     merged %objects% list) only earns its keep inside a *plural* iteration, where
+     a later item merges into the same entry.  In a single-reference command
+     (cur_item empty -- e.g. movement's `Beforeplay` "You move north." After
+     message, and `ts_tasCheckTime`'s "Date: ...") render eagerly and dedup on the
+     text: re-rendering at flush is fragile (the `move[//s]` verb conjugation reads
+     transient per-turn context that has changed by the end of the command), and
+     two identical "Date:" lines still collapse via the text dedup. */
+  bool aggregate = t != NULL && t->aggregate && !item.empty ();
 
   if (aggregate)
     {
@@ -2018,6 +2068,7 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
       e.obj2 = o2 ? o2 : "";
       if (!item.empty ()) e.obj_keys.push_back (item);
       e.item = item;
+      ref_snap_take (st, &e.snap); e.has_snap = true;
       resp_insert (rm, e, pos);
     }
   else
@@ -2075,27 +2126,44 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
         if (!e.is_pass && !e.item.empty () && passed.count (e.item)) continue;
 
         std::string text;
-        if (e.aggregate)
+        if (e.is_look)
           {
-            /* Rebind the merged %objects% set exactly as resolve_plural does so
-               the completion renders its "a, b and c" list (a5text reads
-               st->ref_items / the ReferencedObjects pipe). */
-            std::string pipe;
-            st->n_ref_items = 0;
-            st->ref_items_type = 'o';
-            for (auto &k : e.obj_keys)
+            /* A deferred room view (Execute Look): rendered now, at the command's
+               final state, mirroring FrankenDrift's AggregateOutput Look whose
+               function replacement is deferred to Display.  So a move whose After
+               children relocated an NPC lists it at its new spot. */
+            text = render_look_string (run);
+          }
+        else if (e.aggregate)
+          {
+            /* Restore the references this message was queued with, so its
+               deferred %object%/%character%/%direction% tokens resolve as they
+               did when the task ran (FD reassigns NewReferences at Display). */
+            if (e.has_snap) ref_snap_restore (st, &e.snap);
+            /* A genuine plural %objects% command merged several items into this
+               entry: rebind the whole set (overriding the snapshot's singular
+               object binding) so the completion renders its "a, b and c" list.
+               A single-reference command has no merged items (obj_keys empty) and
+               keeps the restored snapshot's singular binding untouched. */
+            if (!e.obj_keys.empty ())
               {
-                const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-                if (o == NULL) continue;
-                if (st->n_ref_items < A5_MAX_ITEMS)
-                  st->ref_items[st->n_ref_items++] = o->key;
-                if (!pipe.empty ()) pipe += "|";
-                pipe += o->key;
+                std::string pipe;
+                st->n_ref_items = 0;
+                st->ref_items_type = 'o';
+                for (auto &k : e.obj_keys)
+                  {
+                    const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+                    if (o == NULL) continue;
+                    if (st->n_ref_items < A5_MAX_ITEMS)
+                      st->ref_items[st->n_ref_items++] = o->key;
+                    if (!pipe.empty ()) pipe += "|";
+                    pipe += o->key;
+                  }
+                bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
+                a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+                if (!e.obj2.empty ())
+                  bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
               }
-            bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
-            a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
-            if (!e.obj2.empty ())
-              bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
             int pm = st->marking_display; st->marking_display = 1;
             char *m = a5text_describe (st, e.comp);
             st->marking_display = pm;
@@ -2358,17 +2426,37 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
      completion / fail messages are aggregated (dedup + %objects% merge) and
      flushed once.  A single resolved item keeps the ordinary direct path so
      non-plural commands are byte-identical. */
-  int objidx = -1;
+  int objidx = -1, diridx = -1;
   for (int i = 0; i < m->n_refs; i++)
-    if (strcmp (m->ref_name[i], "objects") == 0) { objidx = i; break; }
+    {
+      if (strcmp (m->ref_name[i], "objects") == 0 && objidx < 0) objidx = i;
+      if (strncmp (m->ref_name[i], "direction", 9) == 0) diridx = i;
+    }
 
-  if (objidx >= 0 && st->n_ref_items > 1)
+  /* A command runs under a per-command response map (FrankenDrift's
+     htblResponsesPass/Fail, cleared at the top of AttemptToExecuteTask and flushed
+     once at the end) in two cases.  (1) A genuine plural %objects% command
+     iterates its items one at a time (ExecuteSubTasks), aggregating completion /
+     fail messages.  (2) A *movement* command (a %direction% reference): its
+     `Beforeplay` override and its `Execute Look` -> `Beforeplay1` both run
+     `ts_tasCheckTime`, emitting the same "Date: ..." line, and the map dedups the
+     two into one (clsUserSession.vb:783).  Other single-reference commands stay
+     on the direct path -- they never produce a same-turn duplicate, and routing
+     conversation / multi-restriction output through the map's pass-then-fail
+     reorder would perturb their byte-exact ordering.  A SetTasks-Execute sub-task
+     shares whichever map is active (it does not flush). */
+  bool plural = (objidx >= 0 && st->n_ref_items > 1);
+  bool movement = (diridx >= 0);
+  bool use_map = plural || movement;
+
+  resp_map rm;
+  if (use_map) run->resp = &rm;
+
+  if (plural)
     {
       std::vector<const char *> items (st->ref_items,
                                        st->ref_items + st->n_ref_items);
       const char *rtext = m->ref_text[objidx];
-      resp_map rm;
-      run->resp = &rm;
       for (const char *it : items)
         {
           rm.cur_item = it;
@@ -2379,13 +2467,14 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
           std::vector<ref_info> refs = collect_refs (st, m);
           execute_task_with_overrides (run, parent, refs, 0, out);
         }
-      run->resp = NULL;
-      resp_flush (run, &rm, out);
-      return;
+    }
+  else
+    {
+      std::vector<ref_info> refs = collect_refs (st, m);
+      execute_task_with_overrides (run, parent, refs, 0, out);
     }
 
-  std::vector<ref_info> refs = collect_refs (st, m);
-  execute_task_with_overrides (run, parent, refs, 0, out);
+  if (use_map) { run->resp = NULL; resp_flush (run, &rm, out); }
 }
 
 /* ------------------------------------------------------------ conversation */
@@ -3137,28 +3226,29 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
           std::string key = tk[1];
           if (key == "Look")            /* built-in room view + the Look task's actions */
             {
-              emit_look (run, out);
-              /* FD's ExecuteTask(Look) is a full AttemptToExecuteTask, so the Look
-                 task's own <Actions> run after the view -- e.g. Grandpa's Ranch
-                 chains `Execute vnl_TutorialSt` (the location-gated tutorial lines)
-                 off every room view via vnl_NameTyped's `Execute Look`.  emit_look
-                 only renders the view, so run those actions here too.  (No-op for
-                 every other corpus game: only Grandpa's Look carries actions.)
+              /* FD's ExecuteTask(Look) is a full AttemptToExecuteTask(Look): its
+                 Specific overrides run before the view, then the room view
+                 (Look's AggregateOutput CompletionMessage), then Look's own
+                 <Actions>.  Routing through execute_task_with_overrides fires
+                 both -- e.g. Amazon's `Beforeplay1` -> `Execute ts_tasCheckTime`
+                 (the "Date: ..." line: startup, re-looks and per-move) AND
+                 Grandpa's `vnl_TutorialSt` chain off Look's actions.
 
-                 NOTE: FD also runs Look's Specific overrides here (e.g. Amazon's
-                 `Beforeplay1` -> `Execute ts_tasCheckTime`, the startup "Date: ..."
-                 line).  We deliberately do NOT, because PlayerMovement's action is
-                 `Execute Look` *after* its own `Beforeplay` override already ran
-                 ts_tasCheckTime; FD's per-turn response dedup (htblResponses keyed
-                 by message text, clsUserSession.vb:783) collapses the two identical
-                 "Date:" lines to one, but Scarier has no such dedup, so firing
-                 Beforeplay1 here would double the date on every move.  The startup
-                 date and the move-date dedup both await that aggregation layer. */
+                 The per-move duplicate is real: PlayerMovement's `Beforeplay`
+                 override already ran ts_tasCheckTime, so its `Execute Look` ->
+                 `Beforeplay1` emits the same "Date: ..." a second time.  FD's
+                 per-turn response dedup (htblResponses keyed by message text,
+                 clsUserSession.vb:783) collapses the two -- which run_general's
+                 movement response map now reproduces (the two Date lines share
+                 ts_tasCheckTime's AggregateOutput comp node and merge to one). */
               const a5_task_t *lt = a5model_task (st->adv, "Look");
-              if (lt != NULL && lt->actions != NULL && depth < 16)
-                for (const a5_xml_node_t *c = lt->actions->first_child; c;
-                     c = c->next)
-                  run_action (run, c->name, c->text, depth + 1, out);
+              if (lt != NULL && depth < 16)
+                {
+                  std::vector<ref_info> noref;
+                  execute_task_with_overrides (run, lt, noref, depth, out);
+                }
+              else
+                emit_look (run, out);
               return;
             }
           const a5_task_t *tt = a5model_task (st->adv, key.c_str ());
@@ -3420,9 +3510,19 @@ emit_look (a5_run_t *run, sb_t *out)
       return;
     }
 
-  std::string result = render_look_string (run);
   if (run->resp != NULL)
-    { resp_add_text (run, result.c_str (), true); return; }
+    {
+      /* Defer the room view to flush (final command state): FD's stock Look
+         CompletionMessage is AggregateOutput, so its render is deferred to
+         Display.  Recording a look entry (rather than rendering now) lets a
+         command whose After children move things have the view reflect them. */
+      resp_entry e;
+      e.is_pass = true; e.is_look = true;
+      e.item = run->resp->cur_item;
+      resp_insert (run->resp, e, -1);
+      return;
+    }
+  std::string result = render_look_string (run);
   sb_pspace (out);
   sb_puts (out, result.c_str ());
 }

@@ -1,5 +1,66 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Per-turn response aggregation on the movement path: `Execute Look` fires `Beforeplay1`, double-`Date:` dedups (Amazon)  ✅ DONE (2026-06-30)
+
+**TreasureHuntInTheAmazon 34→31** (both modes) — no corpus game moved in either
+mode (all 12 MATCH goldens hold 0/0, incl. movement-heavy GrandpasRanch;
+StoneOfWisdom 2/0, JacarandaJim 99/0, SixSilverBullets 20/10 all unchanged), all
+a5 unit tests pass (run/arith/parse/dis/walk/obj/save + Six Silver Bullets
+golden), budget re-blessed 34→31.
+
+**The four missing `Date:` lines are all fixed** (the startup `12:04`, the day-3
+`cut thicket` `13:59`, the totem carriers-flee re-look `10:54`, the `pour whiskey`
+tunnel `14:26`). The residual 31 = the title's 3-space centring (1, separate
+`<center>` issue) + the off-by-one-minute drift (30, the *separate* deferred
+sub-bug below: the plural `get ammo and rifle` ticks +2 in FD where Scarier ticks
++1 — a per-item event-tick quirk, untouched by this work).
+
+**Root cause — `SetTasks Execute Look` deliberately did NOT fire Look's
+`Beforeplay1` override, because without a per-turn message dedup it doubled the
+date on every move.** FD's `ExecuteTask(Look)` is a full `AttemptToExecuteTask`
+that runs Look's Specific overrides; Amazon's `Beforeplay1` (a Look override)
+runs `Execute ts_tasCheckTime`, emitting the `Date:` line. The 4 missing lines
+are exactly the `Execute Look` invocations *without* a movement `Beforeplay`
+(startup `StartGame`, the cut-thicket/pour-whiskey teleports, the carriers-flee
+event re-look) — single Date, no double. But a *movement* turn runs the date
+twice (PlayerMovement's `Beforeplay` override AND its `Execute Look` ->
+`Beforeplay1`), which FD collapses via its per-turn response dedup
+(`htblResponses` keyed by message text, clsUserSession.vb:783).
+
+**Fixed in three faithful pieces (`a5run.cpp`):**
+1. **`SetTasks Execute Look` now routes through `execute_task_with_overrides(Look)`**
+   — a real `AttemptToExecuteTask(Look)` that fires Look's Before overrides
+   (`Beforeplay1` -> the Date) before the room view, and still runs Look's own
+   actions (Grandpa's `vnl_TutorialSt` chain). So every `Execute Look` shows the
+   date, fixing the 4 standalone cases on the direct path.
+2. **`run_general` installs the per-command response map for a *movement* command
+   (a `%direction%` reference), not just a plural `%objects%` command.** The map
+   dedups the move's two identical `Date:` lines into one (FD's htblResponses).
+   Deliberately narrow: routing *all* single commands through the map's
+   pass-then-fail reorder perturbs conversation / multi-restriction byte-ordering
+   (anno1700's `(to a young woman)`, Grandpa's password) — those have no same-turn
+   duplicate and stay on the proven direct path.
+3. **The AggregateOutput deferral (store the comp, re-render at flush) is gated on
+   being inside a plural iteration** (`resp_add_comp`: `aggregate &&
+   !cur_item.empty()`). A movement command's `Beforeplay` "You move north." and
+   `ts_tasCheckTime`'s "Date:" render *eagerly* and dedup on text — re-rendering at
+   flush is fragile (the `move[//s]` verb conjugation reads transient per-turn
+   subject context that has changed by the command's end, so it came out empty).
+   Plus a deferred-look `resp_entry` (the room view renders at flush = final
+   state, so a move's After children still relocate NPCs correctly) and a
+   reference-snapshot on aggregate entries (FD's `NewReferences` reassigned at
+   Display) for robust plural `%object2%`/`%character%` resolution.
+
+**Residual (Amazon 31): the off-by-one-minute drift (day 5+, the `By Totem` turn
+onward) — UNCHANGED, still deferred.** This is the genuinely separate FD quirk
+fully diagnosed below: a plural command whose items stay in one aggregated
+reference (`get ammo and rifle`) ticks `ts_varMinute` once *per item* in
+`AttemptToExecuteTask`'s event-fired increment, so FD advances +2 where Scarier
+advances +1. Faithfully replicating it means making Scarier's event-tick path
+iterate the leftover plural `ref_items` per-item (re-running ReduceHung/sleep/etc.
+per item) — invasive and risky for other games, so still deferred. Plus the
+title's leading-space centring (a `<center>`/`<centre>` render detail).
+
 ## ⭐ `%PropertyValue[entity,prop]%` must read the runtime SetProperty override (Amazon iron-key door, broad)  ✅ DONE (2026-06-30)
 
 **TreasureHuntInTheAmazon 42→34** (the whole back half of the game now plays
@@ -953,8 +1014,9 @@ call) — keyed by the **message string**, then displays each once at the end
    the pedestal)" → `TakeObjectsFromOthers`), bottle (loose) hits the general
    `TakeObjects` ("Ok, you pick up …").
 
-2. **Message merge + dedup** (`AddResponse`, vb:1295-1320). 🔲 **plural path done,
-   single/movement path OPEN.** When a message text is
+2. **Message merge + dedup** (`AddResponse`, vb:1295-1320). ✅ **plural path done;
+   movement path DONE (2026-06-30) — see the top entry "Per-turn response
+   aggregation on the movement path".** When a message text is
    already in the map, the new item's **references are merged into the existing
    entry** (object list grows) instead of adding a second line. For an
    **AggregateOutput** task the stored key is the **raw, un-substituted** template
