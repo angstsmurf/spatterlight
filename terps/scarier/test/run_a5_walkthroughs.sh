@@ -356,9 +356,9 @@ MagneticMoon|MagneticMoon.blorb|6|6
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5|5
 DieFeuerfaust|DieFeuerfaust.blorb|6|6
 LostChildren|TheLostChildren.blorb|4|4
-RunBronwynnRun|RunBronwynnRun.blorb|9|9
+RunBronwynnRun|RunBronwynnRun.blorb|7|7
 RtC|RtC.blorb|22|22
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|47|47
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|42|42
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|2|2
 JacarandaJim|JacarandaJim.blorb|101|5

@@ -126,10 +126,21 @@ struct a5_walk_rt {
   std::vector<char> came_across;  /* per-sub-walk ComesAcross prev-same-loc   */
 };
 
+struct resp_map;   /* per-top-level-command response collector (htblResponses) */
+
 struct a5_run_s {
   const a5_adventure_t *adv;
   a5_state_t *st;
   std::vector<int> *order;   /* task indices, ascending priority */
+
+  /* FrankenDrift's per-top-level-command response aggregation layer
+     (clsUserSession htblResponsesPass/Fail).  Non-NULL only while a plural
+     %objects% command iterates its items (run_general): completion + override-
+     fail messages are collected here keyed by message/template, deduped and
+     ref-merged, then flushed once at the end (mirroring AttemptToExecuteTask's
+     final Display loop).  NULL on the single-reference path, so non-plural
+     commands keep the byte-identical direct-to-`out` behaviour. */
+  resp_map *resp;
 
   /* Event runtime, one slot per adv->events (clsEvent instances). */
   std::vector<a5_event_rt> *events;
@@ -283,6 +294,7 @@ a5run_new (const a5_adventure_t *adv)
   run->amb_task_index = run->amb_command_index = -1;
   run->amb_ref_type = 'o';
   run->known_words = NULL;
+  run->resp = NULL;
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -1629,6 +1641,205 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
   return match_specifics_vec (st, specs, refs);
 }
 
+/* ----------------------------------------- per-command response aggregation */
+
+/* FrankenDrift's clsUserSession collects every task completion / restriction-
+   fail message of a single top-level command into two ordered, message-keyed
+   maps (htblResponsesPass / htblResponsesFail) and flushes them once at the end
+   (AttemptToExecuteTask, clsUserSession.vb:782-863).  Two behaviours fall out:
+
+     * a plural %objects% reference is run one item at a time (ExecuteSubTasks,
+       vb:695), so each item independently selects its Specific overrides; and
+     * identical messages dedup, while an AggregateOutput task's raw template is
+       the key so two items through the same task collapse to one entry whose
+       %objects% list grows (AddResponse, vb:1295) -- e.g. "the tiara and the
+       shoes".  A pass for an item drops that item's earlier fail message.
+
+   Scarier mirrors this only on the plural path (run_general); the single-
+   reference path keeps writing straight to `out`. */
+struct resp_entry {
+  bool is_pass;
+  bool aggregate;                 /* key is comp ptr; render deferred to flush  */
+  const a5_xml_node_t *comp;      /* aggregate: re-rendered at flush            */
+  std::string rendered;           /* non-aggregate / fail: final text           */
+  std::vector<std::string> obj_keys;  /* merged %objects% items (aggregate)     */
+  std::string obj2;               /* %object2% snapshot (first occurrence)      */
+  std::string item;               /* the single item this entry was made for    */
+};
+struct resp_map {
+  std::vector<resp_entry> ents;
+  std::string cur_item;           /* item currently being iterated              */
+};
+
+/* The "did this produce a response" probe used by the override scan: with a map
+   active it is the entry count (out never grows), else the byte length of out. */
+static size_t
+sink_len (a5_run_t *run, sb_t *out)
+{
+  return run->resp != NULL ? run->resp->ents.size () : out->len;
+}
+
+/* Render a completion wrapper without retiring its DisplayOnce segments
+   (FrankenDrift's bTestingOutput=True): used for the pre/post-action comparison
+   that decides whether a Before message is pinned or deferred. */
+static char *
+render_comp_test (a5_state_t *st, const a5_xml_node_t *comp)
+{
+  int pm = st->marking_display; st->marking_display = 0;
+  char *m = a5text_describe (st, comp);
+  st->marking_display = pm;
+  return m;
+}
+
+/* Insert a freshly-built entry, honouring a reserved position (the slot a
+   "Before" message claimed before its actions ran -- clsUserSession's
+   iResponsePosition / OrderedHashTable.Insert, vb:1189/1311). */
+static void
+resp_insert (resp_map *rm, resp_entry &e, int pos)
+{
+  if (pos >= 0 && (size_t) pos < rm->ents.size ())
+    rm->ents.insert (rm->ents.begin () + pos, e);
+  else
+    rm->ents.push_back (e);
+}
+
+/* Add a completion message (from task t) as a response.  An AggregateOutput
+   task defers its function replacement: the comp node is the dedup key, and a
+   second item through the same task merges into the existing entry (its
+   %objects% list grows).  A non-aggregate task renders eagerly at the current
+   (single-item) state and dedups on the rendered text. */
+static void
+resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
+               bool is_pass, int pos = -1)
+{
+  resp_map *rm = run->resp;
+  a5_state_t *st = run->st;
+  bool aggregate = t != NULL && t->aggregate;
+  const std::string &item = rm->cur_item;
+
+  if (aggregate)
+    {
+      for (auto &e : rm->ents)
+        if (e.aggregate && e.comp == comp && e.is_pass == is_pass)
+          {
+            if (!item.empty ()
+                && std::find (e.obj_keys.begin (), e.obj_keys.end (), item)
+                     == e.obj_keys.end ())
+              e.obj_keys.push_back (item);
+            return;
+          }
+      resp_entry e;
+      e.is_pass = is_pass; e.aggregate = true; e.comp = comp;
+      const char *o2 = a5state_lookup_ref (st, "ReferencedObject2");
+      e.obj2 = o2 ? o2 : "";
+      if (!item.empty ()) e.obj_keys.push_back (item);
+      e.item = item;
+      resp_insert (rm, e, pos);
+    }
+  else
+    {
+      int pm = st->marking_display; st->marking_display = 1;
+      char *m = a5text_describe (st, comp);
+      st->marking_display = pm;
+      bool has = msg_has_output (m);
+      std::string r = m ? m : ""; free (m);
+      if (!has) return;
+      for (auto &e : rm->ents)
+        if (!e.aggregate && e.is_pass == is_pass && e.rendered == r) return;
+      resp_entry e;
+      e.is_pass = is_pass; e.aggregate = false; e.comp = NULL;
+      e.rendered = r; e.item = item;
+      resp_insert (rm, e, pos);
+    }
+}
+
+/* Add an already-rendered string as a response (override-fail messages, room
+   views, pinned Before messages).  Always non-aggregate; deduped on the text. */
+static void
+resp_add_text (a5_run_t *run, const char *text, bool is_pass, int pos = -1)
+{
+  resp_map *rm = run->resp;
+  if (!msg_has_output (text)) return;
+  std::string r = text;
+  for (auto &e : rm->ents)
+    if (!e.aggregate && e.is_pass == is_pass && e.rendered == r) return;
+  resp_entry e;
+  e.is_pass = is_pass; e.aggregate = false; e.comp = NULL;
+  e.rendered = r; e.item = rm->cur_item;
+  resp_insert (rm, e, pos);
+}
+
+/* Flush the map to `out`: pass responses first in insertion order (aggregate
+   entries re-rendered over their merged %objects% set), then any fail response
+   whose item was not covered by a pass (clsUserSession.vb:804-855). */
+static void
+resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  std::set<std::string> passed;
+  for (auto &e : rm->ents)
+    if (e.is_pass)
+      {
+        if (!e.item.empty ()) passed.insert (e.item);
+        for (auto &k : e.obj_keys) passed.insert (k);
+      }
+
+  for (int phase = 0; phase < 2; phase++)
+    for (auto &e : rm->ents)
+      {
+        if (e.is_pass != (phase == 0)) continue;
+        if (!e.is_pass && !e.item.empty () && passed.count (e.item)) continue;
+
+        std::string text;
+        if (e.aggregate)
+          {
+            /* Rebind the merged %objects% set exactly as resolve_plural does so
+               the completion renders its "a, b and c" list (a5text reads
+               st->ref_items / the ReferencedObjects pipe). */
+            std::string pipe;
+            st->n_ref_items = 0;
+            st->ref_items_type = 'o';
+            for (auto &k : e.obj_keys)
+              {
+                const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+                if (o == NULL) continue;
+                if (st->n_ref_items < A5_MAX_ITEMS)
+                  st->ref_items[st->n_ref_items++] = o->key;
+                if (!pipe.empty ()) pipe += "|";
+                pipe += o->key;
+              }
+            bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
+            a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+            if (!e.obj2.empty ())
+              bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
+            int pm = st->marking_display; st->marking_display = 1;
+            char *m = a5text_describe (st, e.comp);
+            st->marking_display = pm;
+            if (m != NULL) text = m;
+            free (m);
+          }
+        else
+          text = e.rendered;
+
+        if (msg_has_output (text.c_str ()))
+          { sb_pspace (out); sb_puts (out, text.c_str ()); }
+      }
+}
+
+/* True when every Specific of a child override matches "any" (an empty key) --
+   the "lazy" catch-all pattern (e.g. TakeObjectsFromOthersLazy, Key empty).
+   Such an override that *fails* its restrictions simply declines the item and
+   lets the general parent run; an object-specific override (Key=Ballgown) that
+   fails instead asserts a per-object failure and suppresses the parent. */
+static int
+child_all_any (a5_state_t *st, const a5_task_t *child)
+{
+  if (child->n_specifics == 0) return 0;
+  for (int i = 0; i < child->n_specifics; i++)
+    if (!spec_is_any (st, &child->specifics[i])) return 0;
+  return 1;
+}
+
 /*
  * Run PARENT honouring its Specific child overrides (clsTask Children +
  * SpecificOverrideType), recursively -- a faithful port of FD's
@@ -1677,7 +1888,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
            runs and then falls through to Beforeplay (the "You move <dir>." +
            Date/Time override, with output), which then stops the scan.  Detect a
            child's output by the growth of `out`. */
-        size_t len0 = out->len;
+        size_t len0 = sink_len (run, out);
 
         if (!a5restr_pass (st, child->restrictions))
           {
@@ -1689,16 +1900,27 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
                override (or the parent) can run. */
             const a5_xml_node_t *fm =
               a5restr_fail_message (st, child->restrictions);
+            /* On the plural map path, a "lazy" match-any override (empty
+               Specific key) that fails simply declines this item -- its fail
+               message is collected (and dropped later if the item passes the
+               general task), but the parent still runs.  An object-specific
+               override that fails asserts a per-object failure: show it and
+               suppress the parent (clsUserSession's bShouldParentExecuteTasks).
+               Mirrors why Amazon's bottle (lazy fail) is still picked up while
+               RunBronwynn's ballgown (RemoveBall, Key=Ballgown) is not. */
+            int lazy = run->resp != NULL && child_all_any (st, child);
             if (fm != NULL)
               {
-                char *fmsg = a5text_describe (st, fm);
-                sb_pspace (out);
-                sb_puts (out, fmsg);
-                free (fmsg);
-                parent_text = 0;
-                parent_actions = 0;
+                if (run->resp != NULL)
+                  { char *f = a5text_describe (st, fm);
+                    resp_add_text (run, f, false); free (f); }
+                else
+                  { char *fmsg = a5text_describe (st, fm);
+                    sb_pspace (out); sb_puts (out, fmsg); free (fmsg); }
+                if (!lazy) { parent_text = 0; parent_actions = 0; }
               }
-            if (out->len > len0 && !child->continue_lower && !st->adv->hp_passing)
+            if (!lazy && sink_len (run, out) > len0
+                && !child->continue_lower && !st->adv->hp_passing)
               break;                        /* fail with output: claims the turn */
             continue;                       /* no output (or HPPT): keep scanning */
           }
@@ -1722,7 +1944,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
 
         /* Stop only when this passing child produced output (and isn't
            ContinueAlways); otherwise fall through to the next matching child. */
-        if (out->len > len0 && !child->continue_lower)
+        if (sink_len (run, out) > len0 && !child->continue_lower)
           break;
       }
 
@@ -1737,7 +1959,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
      increments Windowcoun, and ExamineObjects' %object%.Description segments are
      gated on it, so the "movement"/"creatures" lines must reflect the post-
      increment count on the same turn FD shows them. */
-  int defer_text = parent_text && parent->aggregate
+  int defer_text = run->resp == NULL && parent_text && parent->aggregate
                    && parent->actions == NULL && !after.empty ();
 
   if (parent_text || parent_actions)
@@ -1791,7 +2013,41 @@ static void
 run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
              sb_t *out)
 {
-  std::vector<ref_info> refs = collect_refs (run->st, m);
+  a5_state_t *st = run->st;
+
+  /* A genuine plural %objects% command (resolve_plural bound ref_items this
+     turn) is run one item at a time, FrankenDrift-style (ExecuteSubTasks):
+     each item independently selects its Specific overrides, and the resulting
+     completion / fail messages are aggregated (dedup + %objects% merge) and
+     flushed once.  A single resolved item keeps the ordinary direct path so
+     non-plural commands are byte-identical. */
+  int objidx = -1;
+  for (int i = 0; i < m->n_refs; i++)
+    if (strcmp (m->ref_name[i], "objects") == 0) { objidx = i; break; }
+
+  if (objidx >= 0 && st->n_ref_items > 1)
+    {
+      std::vector<const char *> items (st->ref_items,
+                                       st->ref_items + st->n_ref_items);
+      const char *rtext = m->ref_text[objidx];
+      resp_map rm;
+      run->resp = &rm;
+      for (const char *it : items)
+        {
+          rm.cur_item = it;
+          st->ref_items[0] = it;
+          st->n_ref_items = 1;
+          bind_reference (st, "objects", it, rtext);
+          a5state_bind_ref (st, "ReferencedObjects", it);
+          std::vector<ref_info> refs = collect_refs (st, m);
+          execute_task_with_overrides (run, parent, refs, 0, out);
+        }
+      run->resp = NULL;
+      resp_flush (run, &rm, out);
+      return;
+    }
+
+  std::vector<ref_info> refs = collect_refs (st, m);
   execute_task_with_overrides (run, parent, refs, 0, out);
 }
 
@@ -2663,6 +2919,7 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
   /* AddLocationToGroup / RemoveLocationFromGroup: later phases. */
 }
 
+
 /* ------------------------------------------------------------- run one task */
 
 /* Render a completion message and emit it as one response: trailing whitespace
@@ -2740,6 +2997,8 @@ emit_look (a5_run_t *run, sb_t *out)
         }
     }
 
+  if (run->resp != NULL)
+    { resp_add_text (run, result.c_str (), true); return; }
   sb_pspace (out);
   sb_puts (out, result.c_str ());
 }
@@ -2776,8 +3035,24 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       return;
     }
 
+  /* On the map path a "Before" message follows FrankenDrift's
+     sBeforeActionsMessage logic (clsUserSession.vb:1176-1205): it claims its
+     slot in the response order now, is rendered once before the actions, and
+     after the actions is either pinned to that pre-action text (if the actions
+     changed its rendering -- e.g. TakeObjectsFromOthersLazy's "(from
+     %objects%.Parent.Name)", whose parent flips to the player once the take
+     runs) or, for an unchanged AggregateOutput task, left deferred so a second
+     item merges into its %objects% list. */
+  char *resp_pre = NULL;
+  int   resp_pos = -1;
   if (before && comp != NULL)
-    emit_completion (run, comp, out);
+    {
+      if (run->resp != NULL)
+        { resp_pre = render_comp_test (run->st, comp);
+          resp_pos = (int) run->resp->ents.size (); }
+      else
+        emit_completion (run, comp, out);
+    }
 
   /* clsUserSession.vb:1193 sets `task.Completed = True` *before* ExecuteActions
      (vb:1194), so an action that runs or gates on this task's own completion sees
@@ -2794,8 +3069,23 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         run_action (run, c->name, c->text, depth, out);
     }
 
+  if (before && comp != NULL && run->resp != NULL)
+    {
+      char *post = render_comp_test (run->st, comp);
+      if (t->aggregate && resp_pre != NULL && post != NULL
+          && strcmp (resp_pre, post) == 0)
+        resp_add_comp (run, t, comp, true, resp_pos);      /* deferred + merge */
+      else if (resp_pre != NULL)
+        resp_add_text (run, resp_pre, true, resp_pos);     /* pinned pre-action */
+      free (post);
+    }
+  free (resp_pre);
+
   if (!before && comp != NULL)
-    emit_completion (run, comp, out);
+    {
+      if (run->resp != NULL) resp_add_comp (run, t, comp, true);
+      else                   emit_completion (run, comp, out);
+    }
 }
 
 /* ------------------------------------------------------------------- events */
