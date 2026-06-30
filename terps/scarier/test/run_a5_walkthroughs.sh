@@ -307,6 +307,38 @@ FILTER="${1:-}"
 #    (oneof index = Random(n-1)).  StoneOfWisdom is now a perfect MATCH (0) under
 #    FD_RNG=xoshiro; the vanilla residual 2 is only the troll OneOf drawing a different
 #    element from the unaligned System.Random stream (the documented RNG caveat).
+# (2026-06-30) JacarandaJim 271|261 -> 101|5 (the heavily-RNG game now byte-aligns
+# under xoshiro).  Five fixes made the RNG draw stream IDENTICAL to FD's (187==187
+# draws): (1) ev_init drew Length-then-StartDelay where FD draws StartDelay-then-
+# Length (VB evaluates `StartDelay.Value + Length.Value` left-to-right) -- swapped,
+# fixing every random event timer; (2) MoveCharacter lacked `ToSameLocationAs`
+# (Alan's follow task brings him on a teleport -> "Alan is with me") and
+# `ToLocationGroup` (the champagne `MoveCharacter %Player% ToLocationGroup Group7`
+# random-room pick, a Group7-of-21 RandomKey draw -- the single missing draw that
+# desynced the whole stream); (3) `Event.Position`/`Event.Length` OO-properties were
+# unresolved (a5expr_event_prop_hook + item_kind 'e' + a5text_eval_expression now
+# runs the bare-key ReplaceOO pass) -- the rain "still raining" message is gated on
+# `Event12.Position > 0`; (4) single-arg `RAND(8)` returned the literal instead of
+# `Random(0,8)` (no draw) -- the rain message's `<# If(RAND(8)=1,...) #>` never drew;
+# (5) `%LocationOf%`/`%DisplayLocation%` text functions (champagne teleport prose)
+# + nested-override specifics expansion (`give tape to pirate`: Task49[tape] overrides
+# Task48[any,pirate] -> effective specifics [tape,pirate]).  Vanilla 101 = the
+# documented System.Random caveat (its rain/Alan-remark text can't align to xoshiro);
+# the residual 5 under xoshiro are non-RNG: a pSpace gap, a darkness-group timing, a
+# climb message, an "I move east" echo.  Only JJ and Amazon moved.
+# (2026-06-30) TreasureHuntInTheAmazon 6 -> 54 (re-bless): the old 6 was an EARLY-DEATH
+# artifact -- `MoveCharacter Jaguar ToSameLocationAs %Player%` was a no-op, so the
+# jaguar never reached the player, `shoot jaguar` found no target, and the player
+# DIED at turn ~120 (the 355-line transcript's missing tail counted as one diff
+# block = 6 hunks).  The JJ ToSameLocationAs fix moves the jaguar -> the player shoots
+# it and plays the FULL game like FD (823->after the held-recursion fix below).  Then
+# `BeHeldByCharacter` was non-recursive, so the silver key INSIDE the carried jewelry
+# box wasn't "held" and `unlock door` failed (FD's clsCharacter.IsHoldingObject
+# recurses through held containers); fixed in a5restr (is_holding_object) -> the door
+# unlocks, the cave is traversed, 115->54.  The residual 54 is 53 P2b Date/Time-line
+# placement hunks (the `Beforeplay`/`Beforeplay1` BeforeTextAndActions overrides that
+# `SetTasks Execute ts_tasCheckTime` after each move/look -- FD shows it 99x, Scarier
+# 87x) + the title's leading spaces.  Tracked as the open P2b residual.
 # Two budgets per game: VANILLA (FD's stock System.Random) | XOSHIRO (FD patched
 # to draw Scarier's xoshiro128** stream, FD_RNG=xoshiro -- RAND-selected text then
 # aligns, so the diff is a full every-line check).  Tracking both separates
@@ -325,11 +357,11 @@ RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|5|5
 DieFeuerfaust|DieFeuerfaust.blorb|6|6
 LostChildren|TheLostChildren.blorb|4|4
 RunBronwynnRun|RunBronwynnRun.blorb|9|9
-RtC|RtC.blorb|142|142
-TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|6|6
+RtC|RtC.blorb|22|22
+TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|54|54
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|2|2
-JacarandaJim|JacarandaJim.blorb|271|256
+JacarandaJim|JacarandaJim.blorb|101|5
 EOF
 )
 

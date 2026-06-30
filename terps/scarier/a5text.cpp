@@ -258,6 +258,7 @@ a5text_object_name (const a5_object_t *o, a5_article_t art)
 /* ---------------------------------------------------- function replacement */
 
 static char *replace_functions (a5_state_t *st, const char *src, int as_arg = 0);
+static char *view_location_impl (a5_state_t *st, const char *lockey);
 
 /* Resolve a function argument (a key or display name) to an object key. */
 static const char *
@@ -711,6 +712,43 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       if (l != NULL)
         {
           char *s = a5text_eval_description (st, a5xml_child (l->node, "ShortDescription"));
+          return s;
+        }
+      return strdup ("");
+    }
+  if (ci_eq (name, "locationof"))
+    {
+      /* Global.vb:2237: the location KEY of a character (its LocationKey), or an
+         object's location root(s) joined by '|'.  Used by Jacaranda's champagne
+         teleport: %DisplayLocation[%LocationOf[%Player%]%]%. */
+      const char *key = args ? args : "";
+      int ci = a5state_character_index (st, key);
+      if (ci >= 0)
+        return strdup (st->char_loc[ci] ? st->char_loc[ci] : "");
+      {
+        int oi = a5state_object_index (st, key);
+        if (oi >= 0)
+          {
+            sb_t sb; sb_init (&sb);
+            for (i = 0; i < st->adv->n_locations; i++)
+              if (a5state_object_at_location (st, oi, st->adv->locations[i].key, 1))
+                { if (sb.len) sb_putc (&sb, '|');
+                  sb_puts (&sb, st->adv->locations[i].key); }
+            return sb_finish (&sb);
+          }
+      }
+      return strdup ("");
+    }
+  if (ci_eq (name, "displaylocation"))
+    {
+      /* Global.vb:2130: render the given location's ViewLocation (or "There is
+         nothing of interest here." when empty). */
+      const a5_location_t *l = (args && args[0]) ? a5model_location (st->adv, args) : NULL;
+      if (l != NULL)
+        {
+          char *s = view_location_impl (st, args);
+          if (s == NULL || s[0] == '\0')
+            { free (s); return strdup ("There is nothing of interest here."); }
           return s;
         }
       return strdup ("");
@@ -1581,6 +1619,15 @@ a5text_eval_expression (a5_state_t *st, const char *expr)
   if (expr == NULL)
     return strdup ("");
   sub = expr_substitute (st, expr);
+  /* Resolve any BARE OO-chain (no leading %), e.g. `Event12.Position` in a
+     rain-gate restriction -- expr_substitute only handles %ref%.Prop, so the
+     bare-key form needs the same ReplaceOO pass that process_inner runs on
+     display text (FD's EvaluateExpression -> ReplaceFunctions includes it). */
+  {
+    char *oo = a5expr_replace (st, sub);
+    free (sub);
+    sub = oo;
+  }
   val = a5_eval_sexpr (sub);
   free (sub);
   return val;   /* a5_eval_sexpr never returns NULL */
@@ -1882,15 +1929,19 @@ ci_replace_all (const std::string &s, const std::string &from, const std::string
   return out;
 }
 
-char *
-a5text_view_location (a5_state_t *st)
+/* Render a specific location's ViewLocation (clsLocation.ViewLocation).  lockey
+   NULL => the Player's current location (the common case; also the `%Player%`
+   look path).  Used directly for `%DisplayLocation[loc]%`. */
+static char *
+view_location_impl (a5_state_t *st, const char *lockey)
 {
-  const char *lockey = a5state_player_location (st);
   const a5_location_t *loc;
   sb_t sb;
   char *plain;
   int i, listed = 0;
 
+  if (lockey == NULL)
+    lockey = a5state_player_location (st);
   sb_init (&sb);
   if (lockey == NULL)
     return strdup ("");
@@ -2095,4 +2146,10 @@ a5text_view_location (a5_state_t *st)
   plain = a5text_render_plain (sb.p ? sb.p : "");
   free (sb.p);
   return plain;
+}
+
+char *
+a5text_view_location (a5_state_t *st)
+{
+  return view_location_impl (st, NULL);
 }

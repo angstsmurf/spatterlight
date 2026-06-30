@@ -45,4 +45,15 @@ extern char *a5expr_eval (a5_state_t *st, const char *firstkeys, const char *cha
  */
 extern char *a5expr_replace (a5_state_t *st, const char *text);
 
+/*
+ * Host hook for an event's OO-properties (Global.ReplaceOOProperty, evt branch):
+ *   Event.Position -> evt.TimerFromStartOfEvent
+ *   Event.Length   -> evt.Length.Value
+ * The event runtime lives in the run harness, not a5_state, so a5run wires this
+ * to read the live timers.  Returns 1 and sets *out when resolved, else 0 (NULL
+ * hook => the description-only a5text_dump build leaves the term unresolved).
+ */
+extern int (*a5expr_event_prop_hook) (const char *event_key, const char *prop,
+                                       long *out);
+
 #endif

@@ -317,7 +317,11 @@ apply_function (const std::string &lid, std::vector<Val> &a)
                                                   (long) val_of (a[1]))
                               : (long) val_of (a[0])));
   if ((f == "rand" || f == "urand") && n >= 1)
-    return mk_num (val_of (a[0]));
+    /* clsVariable.SetToExpression single-arg rand: Random(0, value) -- inclusive
+       0..value (e.g. RAND(8) draws 0..8), NOT the bare literal. */
+    return mk_num ((double) (a5sexpr_rng_hook
+                              ? a5sexpr_rng_hook (0, (long) val_of (a[0]))
+                              : (long) val_of (a[0])));
 
   /* unknown / wrong arity: empty string */
   return mk_str ("");

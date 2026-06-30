@@ -43,6 +43,10 @@ contains (const std::string &hay, const char *needle)
   return hay.find (needle) != std::string::npos;
 }
 
+/* Wired by the run harness to read the live event timers (NULL otherwise). */
+int (*a5expr_event_prop_hook) (const char *event_key, const char *prop,
+                               long *out) = NULL;
+
 /* ----------------------------------------------------- item-set navigation */
 
 /* A navigated item-set: a list of entity keys, plus an optional carried
@@ -53,7 +57,8 @@ struct Ctx {
   std::string prop_key;            /* sPropertyKey carried for Sum               */
   int is_list;                     /* lst path (vs a single resolved item)       */
   int is_dirs;                     /* the lstDirs path (a .Exits direction list) */
-  Ctx () : is_list (0), is_dirs (0) {}
+  int is_event;                    /* an event item (keys[0] = event key)        */
+  Ctx () : is_list (0), is_dirs (0), is_event (0) {}
 };
 
 /* The twelve directions in DirectionsEnum order (North=0 .. NorthWest=11);
@@ -221,6 +226,8 @@ item_kind (a5_state_t *st, const char *key)
   if (a5model_location (st->adv, key))  return 'l';
   for (int i = 0; i < st->adv->n_groups; i++)
     if (streq (st->adv->groups[i].key, key)) return 'g';
+  for (int i = 0; i < st->adv->n_events; i++)
+    if (streq (st->adv->events[i].key, key)) return 'e';   /* Event.Position/.Length */
   return 0;
 }
 
@@ -379,6 +386,12 @@ resolve_first (a5_state_t *st, const std::string &firstkeys)
     }
   if (parts.size () == 1)
     {
+      /* An event key (Global.ReplaceOOProperty's `evt` branch) -- carries no
+         entity kind; mark the Ctx so oo_prop reads Position/Length via the
+         host hook (clsEvent.TimerFromStartOfEvent / Length.Value). */
+      for (int i = 0; i < st->adv->n_events; i++)
+        if (streq (st->adv->events[i].key, parts[0].c_str ()))
+          { ctx.is_event = 1; ctx.keys.push_back (parts[0]); return ctx; }
       char kind = item_kind (st, parts[0].c_str ());
       if (kind == 'g')
         {
@@ -416,6 +429,23 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         return std::to_string (ctx.dirs.size ());
       if (fn == "List" || fn == "Name")
         return render_dirs (ctx.dirs, args);
+      return "";
+    }
+
+  /* ---- event item (Global.ReplaceOOProperty evt branch) ---- */
+  if (ctx.is_event)
+    {
+      if (fn.empty ())
+        return ctx.keys.empty () ? "" : ctx.keys[0];
+      if ((fn == "Position" || fn == "Length") && !ctx.keys.empty ())
+        {
+          long v = 0;
+          if (a5expr_event_prop_hook
+              && a5expr_event_prop_hook (ctx.keys[0].c_str (), fn.c_str (), &v))
+            return std::to_string (v);
+          *ok = 0;        /* no host hook (a5text_dump): unresolved */
+          return "";
+        }
       return "";
     }
 

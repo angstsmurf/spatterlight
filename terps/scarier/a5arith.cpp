@@ -3,8 +3,8 @@
  * ADRIFT 5 support for Scarier -- arithmetic expression evaluator.
  * See a5arith.h.  Recursive-descent over the grammar
  *
- *     expr  := term  (('+'|'-') term)*
- *     term  := power (('*'|'/'|'mod') power)*
+ *     expr  := term  (('+'|'-'|'mod') term)*  ; mod shares +/- precedence (FD run=2)
+ *     term  := power (('*'|'/') power)*
  *     power := atom  ('^' power)?            ; right-associative
  *     atom  := number | '(' expr ')' | ('+'|'-') atom
  *
@@ -24,6 +24,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <ctype.h>
 
 #include "a5arith.h"
 
@@ -114,10 +115,7 @@ arith_term (arith_p &p)
         { p.s++; double d = arith_power (p);
           /* FD: Math.Round(left / right, MidpointRounding.AwayFromZero). */
           v = (d != 0.0) ? round (v / d) : 0.0; }
-      else if ((p.s[0] == 'm' || p.s[0] == 'M') && (p.s[1] == 'o' || p.s[1] == 'O')
-               && (p.s[2] == 'd' || p.s[2] == 'D'))
-        { p.s += 3; double d = arith_power (p);
-          v = (d != 0.0) ? fmod (v, d) : 0.0; }  /* VB Mod == C fmod */
+      /* `mod` is handled in arith_expr (FD's +/- precedence), not here. */
       else break;
     }
   return v;
@@ -132,6 +130,16 @@ arith_expr (arith_p &p)
       arith_skip_ws (p);
       if (*p.s == '+') { p.s++; v += arith_term (p); }
       else if (*p.s == '-') { p.s++; v -= arith_term (p); }
+      /* FD's clsVariable.SetToExpression reduces `Mod` on the same pass (run=2)
+         as `+`/`-`, left-to-right -- so Mod has +/- precedence, NOT the tighter
+         `*`/`/` precedence of standard arithmetic.  `22+8 Mod 24` is thus
+         `(22+8) Mod 24` = 6, not `22+(8 Mod 24)` = 30 (Amazon's `%Hour%+8 Mod
+         24` sleep-skip).  `*`/`/` stay tighter (still reduced inside term). */
+      else if ((p.s[0] == 'm' || p.s[0] == 'M') && (p.s[1] == 'o' || p.s[1] == 'O')
+               && (p.s[2] == 'd' || p.s[2] == 'D')
+               && !(isalnum ((unsigned char) p.s[3]) || p.s[3] == '_'))
+        { p.s += 3; double d = arith_term (p);
+          v = (d != 0.0) ? fmod (v, d) : 0.0; }   /* VB Mod == C fmod */
       else break;
     }
   return v;

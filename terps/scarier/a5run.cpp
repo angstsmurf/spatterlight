@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "a5arith.h"
+#include "a5expr.h"
 #include "a5parse.h"
 #include "a5rand.h"
 #include "a5restr.h"
@@ -182,6 +183,29 @@ streq (const char *a, const char *b)
   return a != NULL && b != NULL && strcmp (a, b) == 0;
 }
 
+/* The live run, for the a5expr event-property hook (event timers live here, not
+   in a5_state).  Set in a5run_new; single-run headless harness, so a bare static
+   is sufficient (mirrors the single global a5sexpr_rng_hook). */
+static a5_run_t *g_event_hook_run = NULL;
+
+/* a5expr_event_prop_hook: Event.Position -> TimerFromStartOfEvent
+   (Length.Value - TimerToEndOfEvent), Event.Length -> Length.Value. */
+static int
+a5run_event_prop (const char *event_key, const char *prop, long *out)
+{
+  a5_run_t *run = g_event_hook_run;
+  if (run == NULL || event_key == NULL) return 0;
+  for (int i = 0; i < run->adv->n_events; i++)
+    if (streq (run->adv->events[i].key, event_key))
+      {
+        const a5_event_rt &rt = (*run->events)[i];
+        if (streq (prop, "Position")) { *out = rt.length_value - rt.timer_to_end; return 1; }
+        if (streq (prop, "Length"))   { *out = rt.length_value; return 1; }
+        return 0;
+      }
+  return 0;
+}
+
 a5_state_t *
 a5run_state (a5_run_t *run) { return run->st; }
 
@@ -203,6 +227,10 @@ a5run_new (const a5_adventure_t *adv)
   /* Let embedded <#...#> expressions (OneOf/Either/Rand) draw from the same RNG
      stream as the rest of the engine -- a5sexpr is otherwise RNG-less. */
   a5sexpr_rng_hook = a5rand_between;
+  /* Let `Event.Position`/`Event.Length` OO-expressions read the live event
+     timers (e.g. JacarandaJim's rain `<# If(RAND(8)=1, ...) #>` gated on
+     `Event12.Position > 0`). */
+  a5expr_event_prop_hook = a5run_event_prop;
   /* Install the game's localized direction synonyms (the localization
      subsystem); English when the <Direction*> fields are absent.  Resets the
      parser's direction table, so every game starts from a known state. */
@@ -263,6 +291,7 @@ a5run_new (const a5_adventure_t *adv)
                     [adv](int a, int b) {
                       return adv->tasks[a].priority < adv->tasks[b].priority;
                     });
+  g_event_hook_run = run;
   return run;
 }
 
@@ -1521,17 +1550,27 @@ specific_key (a5_state_t *st, const char *key)
   return key;
 }
 
-/* RefsMatchSpecifics: the child's Specifics must line up 1:1 with the resolved
-   references, each non-empty key matching its reference's resolved key. */
+/* A Specific that constrains nothing (no Key elems, or a single empty Key) --
+   FD's `Keys.Count = 0 OrElse (Keys.Count = 1 AndAlso Keys(0) = "")`. */
 static int
-refs_match_specifics (a5_state_t *st, const a5_task_t *child,
-                      const std::vector<ref_info> &refs)
+spec_is_any (a5_state_t *st, const a5_specific_t *sp)
 {
-  if (child->n_specifics != (int) refs.size ())
+  if (sp->n_keys == 0) return 1;
+  if (sp->n_keys == 1 && specific_key (st, sp->keys[0]) == NULL) return 1;
+  return 0;
+}
+
+/* Match a resolved-specifics vector 1:1 against the references (one Specific per
+   reference, each non-empty key matching its reference's resolved key). */
+static int
+match_specifics_vec (a5_state_t *st, const std::vector<const a5_specific_t *> &specs,
+                     const std::vector<ref_info> &refs)
+{
+  if (specs.size () != refs.size ())
     return 0;
-  for (int i = 0; i < child->n_specifics; i++)
+  for (size_t i = 0; i < specs.size (); i++)
     {
-      const a5_specific_t *sp = &child->specifics[i];
+      const a5_specific_t *sp = specs[i];
       int matched = (sp->n_keys == 0);            /* no Key elems = match any */
       for (int k = 0; k < sp->n_keys; k++)
         {
@@ -1552,6 +1591,42 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
         return 0;
     }
   return 1;
+}
+
+/* RefsMatchSpecifics: the child's Specifics must line up 1:1 with the resolved
+   references.  A *nested* override may carry FEWER specifics than the references
+   (it only re-constrains some of them) -- FD (clsUserSession.vb:1060-1071) then
+   expands the child against its parent: keep each parent specific that is itself
+   constrained, and fill the parent's "any" slots from the child's specifics in
+   order.  E.g. Jacaranda's `give tape to pirate`: Task49 (Object=tape) overrides
+   Task48 (Object=any, Character=pirate) -> effective specifics [tape, pirate]. */
+static int
+refs_match_specifics (a5_state_t *st, const a5_task_t *child,
+                      const a5_task_t *parent, const std::vector<ref_info> &refs)
+{
+  std::vector<const a5_specific_t *> specs;
+  if (child->n_specifics == (int) refs.size ())
+    {
+      for (int i = 0; i < child->n_specifics; i++)
+        specs.push_back (&child->specifics[i]);
+    }
+  else if (parent != NULL
+           && child->n_specifics < parent->n_specifics
+           && parent->n_specifics == (int) refs.size ())
+    {
+      int ichild = 0;
+      for (int i = 0; i < parent->n_specifics; i++)
+        {
+          const a5_specific_t *psp = &parent->specifics[i];
+          if (spec_is_any (st, psp) && ichild < child->n_specifics)
+            specs.push_back (&child->specifics[ichild++]);
+          else
+            specs.push_back (psp);
+        }
+    }
+  else
+    return 0;
+  return match_specifics_vec (st, specs, refs);
 }
 
 /*
@@ -1582,7 +1657,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
         const a5_task_t *child = &run->adv->tasks[cidx];
         if (!streq (child->type, "Specific")) continue;
         if (!streq (child->general_key, parent->key)) continue;
-        if (!refs_match_specifics (st, child, refs)) continue;
+        if (!refs_match_specifics (st, child, parent, refs)) continue;
         /* clsUserSession.AttemptToExecuteTask returns False at entry for an
            already-completed non-repeatable task (vb:730), so such a child does
            not fire as an override -- the parent (or a later child) runs. */
@@ -2258,11 +2333,35 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
         return;
 
       const std::string &to = tk[2];
+      /* ToLocationGroup: FD computes dest.Key = group.RandomKey ONCE per action
+         (clsUserSession.vb:1767), so the whole MoveCharacter draws a single
+         RandomKey and sends every affected character to the SAME room -- e.g.
+         Jacaranda's champagne `MoveCharacter %Player% ToLocationGroup Group7`. */
+      const char *group_dest = NULL;
+      if (to == "ToLocationGroup" && tk.size () >= 4)
+        {
+          const char *gk = act_key (st, tk[3].c_str ());
+          for (int g = 0; g < st->adv->n_groups; g++)
+            if (streq (st->adv->groups[g].key, gk)
+                && st->adv->groups[g].n_members > 0)
+              { group_dest = st->adv->groups[g].members
+                  [a5rand_between (0, st->adv->groups[g].n_members - 1)];
+                break; }
+        }
       for (size_t ix = 0; ix < cis.size (); ix++)
         {
           int ci = cis[ix];
           const char *k1 = st->adv->characters[ci].key;
-          if (to == "InDirection")
+          if (to == "ToLocationGroup")
+            {
+              if (streq (k1, "Player"))
+                enqueue_loc_trigger_tasks (run, st->char_loc[ci], group_dest);
+              st->char_loc[ci] = group_dest;
+              st->char_onobj[ci] = NULL;
+              if (streq (k1, "Player"))
+                clear_conv_if_partner_gone (run, out);
+            }
+          else if (to == "InDirection")
             {
               const char *dir = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
               const char *canon = a5parse_canonical_direction (dir);
@@ -2313,6 +2412,41 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                 st->char_onobj[ci] = NULL;
               else
                 { st->char_onobj[ci] = k2; st->char_in[ci] = 0; }
+            }
+          else if (to == "ToSameLocationAs")
+            {
+              /* Place the character in the same place as the target character or
+                 object (clsUserSession.vb:1777).  Character target: copy its
+                 ExistWhere/Key (location + on/in-furniture) -- this is how Alan's
+                 "follow" task `MoveCharacter Character8 ToSameLocationAs %Player%`
+                 brings him along on a teleport.  Object target: the object's
+                 containing location. */
+              const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+              int ti = k2 ? a5state_character_index (st, k2) : -1;
+              const char *old_loc = st->char_loc[ci];
+              if (ti >= 0)
+                {
+                  st->char_loc[ci]   = st->char_loc[ti];
+                  st->char_onobj[ci] = st->char_onobj[ti];
+                  st->char_in[ci]    = st->char_in[ti];
+                }
+              else
+                {
+                  int oj = k2 ? a5state_object_index (st, k2) : -1;
+                  const char *loc = NULL;
+                  if (oj >= 0)
+                    for (int li = 0; li < st->adv->n_locations; li++)
+                      if (a5state_object_at_location (st, oj,
+                                                      st->adv->locations[li].key, 1))
+                        { loc = st->adv->locations[li].key; break; }
+                  st->char_loc[ci] = loc;          /* NULL => Hidden */
+                  st->char_onobj[ci] = NULL;
+                }
+              if (streq (k1, "Player"))
+                {
+                  enqueue_loc_trigger_tasks (run, old_loc, st->char_loc[ci]);
+                  clear_conv_if_partner_gone (run, out);
+                }
             }
           /* ToParentLocation / others: best-effort no-op for Phase 3 */
         }
@@ -3015,10 +3149,15 @@ ev_init (a5_run_t *run, sb_t *out)
           break;
         case 2:                                  /* BetweenXandYTurns */
           rt.status = A5_EV_COUNTDOWN;
-          rt.length_value = a5rand_between (e->length_from, e->length_to);
-          ev_set_timer_to_end (run, ei,
-                               a5rand_between (e->start_from, e->start_to)
-                                 + rt.length_value, out);
+          /* FD: TimerToEndOfEvent = StartDelay.Value + Length.Value -- VB
+             evaluates left-to-right, so StartDelay draws BEFORE Length.  Draw in
+             that exact order or the two RNG values get swapped (desyncing the
+             whole stream and every random timer downstream). */
+          {
+            long delay = a5rand_between (e->start_from, e->start_to);
+            rt.length_value = a5rand_between (e->length_from, e->length_to);
+            ev_set_timer_to_end (run, ei, delay + rt.length_value, out);
+          }
           break;
         case 1:                                  /* Immediately */
           ev_lstart (run, ei, 0, out);

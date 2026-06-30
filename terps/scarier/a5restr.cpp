@@ -165,6 +165,27 @@ obj_prop (const a5_object_t *o, const char *key)
   return p ? p->value : NULL;
 }
 
+/* clsCharacter.IsHoldingObject (clsCharacter.vb:895): an object counts as held
+   by `charkey` (or ANYCHARACTER) when it is directly HeldByCharacter, OR is
+   inside/on an object that is (recursively) held.  So the silver key inside the
+   carried jewelry box is "held" and unlocks the door. */
+static int
+is_holding_object (a5_state_t *st, int oi, const char *charkey)
+{
+  if (oi < 0) return 0;
+  switch (st->obj[oi].where)
+    {
+    case A5_OWHERE_HELD_BY:
+      return streq (charkey, ANYCHARACTER) || streq (st->obj[oi].key, charkey);
+    case A5_OWHERE_IN_OBJECT:
+    case A5_OWHERE_ON_OBJECT:
+      return is_holding_object (st, a5state_object_index (st, st->obj[oi].key),
+                                charkey);
+    default:
+      return 0;
+    }
+}
+
 /* ------------------------------------------------------ object sub-evaluator */
 
 static int
@@ -216,6 +237,10 @@ pass_object (a5_state_t *st, a5_restr_t *r)
           return streq (k1, ANYOBJECT) ? any : !any;
         }
       if (oi < 0) return 0;
+      /* BeHeldByCharacter recurses through held containers (FD's
+         IsHoldingObject); BeWornByCharacter is a direct check. */
+      if (want == A5_OWHERE_HELD_BY)
+        return is_holding_object (st, oi, k2);
       if (streq (k2, ANYCHARACTER))
         return st->obj[oi].where == want;
       return st->obj[oi].where == want && streq (st->obj[oi].key, k2);

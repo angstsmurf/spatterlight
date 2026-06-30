@@ -161,12 +161,18 @@ a5_load_topics (a5_character_t *ch)
       if (t->parent_key == NULL) t->parent_key = "";
       t->keywords = a5xml_child_text (c, "Keywords");
       if (t->keywords == NULL) t->keywords = "";
-      s = a5xml_child_text (c, "IsIntro");    t->is_intro    = (s && strcmp (s, "1") == 0);
-      s = a5xml_child_text (c, "IsAsk");      t->is_ask      = (s && strcmp (s, "1") == 0);
-      s = a5xml_child_text (c, "IsTell");     t->is_tell     = (s && strcmp (s, "1") == 0);
-      s = a5xml_child_text (c, "IsCommand");  t->is_command  = (s && strcmp (s, "1") == 0);
-      s = a5xml_child_text (c, "IsFarewell"); t->is_farewell = (s && strcmp (s, "1") == 0);
-      s = a5xml_child_text (c, "StayInNode"); t->stay_in_node = (s && strcmp (s, "1") == 0);
+      /* Topic flags via FileIO.GetBool semantics (True/1/-1/Vrai), not a bare
+         "1": RtC serialises <IsIntro>True</IsIntro> etc., so a "1"-only test
+         left every topic flag false and the whole conversation system inert
+         (say/ask/tell/command always fell to "ignores you" / "doesn't appear
+         to understand you"). */
+      t->is_intro     = a5xml_bool (a5xml_child_text (c, "IsIntro"));
+      t->is_ask       = a5xml_bool (a5xml_child_text (c, "IsAsk"));
+      t->is_tell      = a5xml_bool (a5xml_child_text (c, "IsTell"));
+      t->is_command   = a5xml_bool (a5xml_child_text (c, "IsCommand"));
+      t->is_farewell  = a5xml_bool (a5xml_child_text (c, "IsFarewell"));
+      t->stay_in_node = a5xml_bool (a5xml_child_text (c, "StayInNode"));
+      (void) s;
       t->conversation = a5xml_child (c, "Description");
       t->restrictions = a5xml_child (c, "Restrictions");
       t->actions = a5xml_child (c, "Actions");
@@ -233,8 +239,14 @@ a5_load_tasks (a5_adventure_t *a)
         for (k = 0; k < t->n_commands; k++)
           ((char **) t->commands)[k] = a5_correct_command (t->commands[k]);
       }
+      /* clsTask.Repeatable via FileIO.GetBool (FileIO.vb:1604) -- accepts
+         True/1/-1/Vrai, not just the numeric "1".  RtC (and other Generator
+         versions) serialise <Repeatable>True</Repeatable>; reading only "1"
+         left every such task non-repeatable, so a general library task like
+         ExamineObjects was marked Completed after its first use and then
+         skipped (e.g. `x desk` failing once any object had been examined). */
       rep = a5xml_child_text (c, "Repeatable");
-      t->repeatable = (rep != NULL && strcmp (rep, "1") == 0);
+      t->repeatable = a5xml_bool (rep);
       {
         const char *cont = a5xml_child_text (c, "Continue");
         t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
@@ -410,8 +422,8 @@ a5_parse_walk (a5_walk_t *w, const char *char_key, const a5_xml_node_t *c)
 
   w->char_key = char_key;
   w->description = a5xml_child_text (c, "Description");
-  w->loops = (loops != NULL && strcmp (loops, "1") == 0);
-  w->start_active = (active != NULL && strcmp (active, "1") == 0);
+  w->loops = a5xml_bool (loops);            /* GetBool: True/1/-1/Vrai */
+  w->start_active = a5xml_bool (active);
 
   w->n_steps    = a5xml_count (c, "Step");
   w->n_controls = a5xml_count (c, "Control");
@@ -515,8 +527,8 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
     e->when_start = atoi (ws);
   a5_parse_range (a5xml_child_text (c, "StartDelay"), &e->start_from, &e->start_to);
   a5_parse_range (a5xml_child_text (c, "Length"),     &e->length_from, &e->length_to);
-  e->repeating       = (rep != NULL && strcmp (rep, "1") == 0);
-  e->repeat_countdown = (rc != NULL && strcmp (rc, "1") == 0);
+  e->repeating       = a5xml_bool (rep);    /* GetBool: True/1/-1/Vrai */
+  e->repeat_countdown = a5xml_bool (rc);    /* JJ ships RepeatCountdown=-1 */
 
   e->n_controls  = a5xml_count (c, "Control");
   e->n_subevents = a5xml_count (c, "SubEvent");
