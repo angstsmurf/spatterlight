@@ -735,6 +735,15 @@ restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restricti
       result = restr_pass_task_var (game, var1, var2, var3, var4);
       break;
 
+    case 5:                    /* Action type (Runner: Sub_20_3 type 5 / sentinel 0xEC). */
+      /* No known TAF file emits type 5; the TAF parser does not define it.
+       * Don't fatal — return FALSE so the restriction fails silently. */
+      scr_trace ("Restr: task %ld restriction %ld type 5"
+                 " (action-type) not implemented; returning FALSE\n",
+                 task, restriction);
+      result = FALSE;
+      break;
+
     default:
       scr_fatal ("restr_pass_task_restriction:"
                 " unknown restriction type %ld\n", type);

@@ -1741,9 +1741,9 @@ run_main_loop (scr_gameref_t game)
       /* Roll initial battle stamina if the Battle System is enabled. */
       battle_start (game);
 
-      /* Nudge events and NPCs. */
-      evt_tick_events (game);
+      /* Nudge NPCs then events (Runner: Sub_20_2 before Sub_20_32). */
       npc_tick_npcs (game);
+      evt_tick_events (game);
 
       /*
        * Notify the debugger that the game has started.  This is a chance to
@@ -1823,9 +1823,9 @@ run_main_loop (scr_gameref_t game)
 
           if (game->is_running)
             {
-              /* Nudge events and NPCs. */
-              evt_tick_events (game);
+              /* Nudge NPCs then events (Runner: Sub_20_2 before Sub_20_32). */
               npc_tick_npcs (game);
+              evt_tick_events (game);
 
               /* Resolve Battle System combat and recovery for the turn. */
               battle_tick (game);
