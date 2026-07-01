@@ -26,7 +26,21 @@
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "Preferences.h"
+#import <BlorbFramework/BlorbFramework.h>
 #include "glk.h"
+
+// Little helpers for hand-assembling Blorb test fixtures.
+static void blorbAppendFourCC(NSMutableData *data, const char *fourCC) {
+    [data appendBytes:fourCC length:4];
+}
+
+static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
+    uint8_t bytes[4] = {
+        (uint8_t)(value >> 24), (uint8_t)(value >> 16),
+        (uint8_t)(value >> 8),  (uint8_t)value
+    };
+    [data appendBytes:bytes length:4];
+}
 
 // Expose the private progressive-migration entry point for testing.
 @interface CoreDataManager (ProgressiveMigrationTesting)
@@ -1411,6 +1425,101 @@
     // Clean up the temp snapshot.
     [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel]
      destroyPersistentStoreAtURL:tmpStore withType:NSSQLiteStoreType options:nil error:NULL];
+}
+
+#pragma mark - Blorb parser hardening (corrupt / truncated files)
+
+// Build a minimal but structurally valid Blorb: FORM/IFRS wrapper + an RIdx
+// index containing a single Picture resource whose `start` offset points exactly
+// at the end of the data. Reading the 4-byte chunk type at that offset used to
+// walk off the end of the buffer and raise NSRangeException in
+// -[Blorb stringFromChunkWithPtr:] (Blorb.m:81 -> subdataWithRange:).
+- (NSData *)truncatedBlorbWithResourceStartAtEOF {
+    NSMutableData *data = [NSMutableData data];
+
+    // FORM header (12 bytes): 'FORM' + length + 'IFRS'.
+    blorbAppendFourCC(data, "FORM");
+    blorbAppendBE32(data, 0);            // form length is not consulted by the parser
+    blorbAppendFourCC(data, "IFRS");
+
+    // RIdx chunk header (8 bytes) + count (4) + one 12-byte entry.
+    blorbAppendFourCC(data, "RIdx");
+    blorbAppendBE32(data, 4 + 12);       // chunk length: count field + one entry
+    blorbAppendBE32(data, 1);            // resource count
+
+    // Single index entry: usage 'Pict', number 1, start == total length (EOF).
+    blorbAppendFourCC(data, "Pict");
+    blorbAppendBE32(data, 1);
+    blorbAppendBE32(data, 36);           // start offset == final data length
+
+    XCTAssertEqual(data.length, 36u, @"fixture layout changed; update the start offset");
+    return data;
+}
+
+// The reported crash: an RIdx entry whose start offset sits at the end of the
+// file. Parsing must succeed (degrading gracefully) instead of throwing.
+- (void)testTruncatedBlorbResourceStartAtEOFDoesNotCrash {
+    NSData *data = [self truncatedBlorbWithResourceStartAtEOF];
+
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertNotNil(blorb, @"parsing a truncated Blorb should not return nil for a valid-length buffer");
+    XCTAssertEqual(blorb.resources.count, 1u, @"the single index entry should still be recorded");
+
+    BlorbResource *res = blorb.resources.firstObject;
+    XCTAssertNil(res.chunkType, @"an out-of-range chunk type must be nil, not a crash");
+
+    // The readers that dereference `start` must also degrade to nil, not crash.
+    XCTAssertNil([blorb dataForResource:res], @"reading past EOF should return nil");
+    XCTAssertNil(blorb.coverImageData, @"cover extraction must tolerate a missing chunk");
+}
+
+// An RIdx that claims far more entries than the file actually contains must not
+// over-read past the buffer while walking the index.
+- (void)testBlorbWithOverlongResourceCountDoesNotOverread {
+    NSMutableData *data = [NSMutableData data];
+    blorbAppendFourCC(data, "FORM");
+    blorbAppendBE32(data, 0);
+    blorbAppendFourCC(data, "IFRS");
+    blorbAppendFourCC(data, "RIdx");
+    blorbAppendBE32(data, 4 + 12);
+    blorbAppendBE32(data, 1000);         // lies: claims 1000 entries...
+    blorbAppendFourCC(data, "Pict");     // ...but only one 12-byte entry follows
+    blorbAppendBE32(data, 1);
+    blorbAppendBE32(data, 36);
+
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertNotNil(blorb);
+    XCTAssertEqual(blorb.resources.count, 1u,
+                   @"only the entries that actually fit in the buffer should be read");
+}
+
+// A metadata (IFmd) chunk whose declared length runs past the end of the file
+// must be skipped rather than read out of bounds.
+- (void)testBlorbWithOverlongMetadataLengthDoesNotCrash {
+    NSMutableData *data = [NSMutableData data];
+    blorbAppendFourCC(data, "FORM");
+    blorbAppendBE32(data, 0);
+    blorbAppendFourCC(data, "IFRS");
+    // Empty RIdx (zero resources) so the parser moves on to the trailing chunks.
+    blorbAppendFourCC(data, "RIdx");
+    blorbAppendBE32(data, 4);
+    blorbAppendBE32(data, 0);
+    // IFmd chunk header claiming 10000 bytes of payload that isn't there.
+    blorbAppendFourCC(data, "IFmd");
+    blorbAppendBE32(data, 10000);
+
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertNotNil(blorb);
+    XCTAssertNil(blorb.metaData, @"an out-of-range IFmd chunk must not be extracted");
+}
+
+// isBlorbData: reads the first 12 bytes of the FORM header, so it must reject
+// buffers shorter than that instead of reading past the end.
+- (void)testIsBlorbDataRejectsShortBuffers {
+    XCTAssertFalse([Blorb isBlorbData:[NSData data]]);
+    XCTAssertFalse([Blorb isBlorbData:[@"FO" dataUsingEncoding:NSASCIIStringEncoding]]);
+    XCTAssertFalse([Blorb isBlorbData:[@"FORM????????" dataUsingEncoding:NSASCIIStringEncoding]],
+                   @"a 12-byte non-IFRS FORM is not a Blorb");
 }
 
 @end

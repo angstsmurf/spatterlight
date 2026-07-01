@@ -42,6 +42,9 @@
 }
 
 + (BOOL)isBlorbData:(nonnull NSData *)data {
+  // isForm reads the first 12 bytes of the FORM header.
+  if (data.length < 12)
+    return NO;
   const void *ptr = data.bytes;
   if (isForm(ptr, 'I', 'F', 'R', 'S'))
     return YES;
@@ -62,15 +65,23 @@
     NSArray *optionalChunksIDs = @[@"ANNO", @"AUTH", @"(c) ", @"SNam"];
     _optionalChunks = [NSMutableDictionary new];
 
-    const unsigned char *ptr = data.bytes;
-    ptr += 12;
+    const unsigned char *base = data.bytes;
+    const unsigned char *end = base + data.length;
+
+    const unsigned char *ptr = base + 12;
     FourCharCode chunkID;
+    // Need 8 bytes for the RIdx chunk header plus 4 bytes for the count.
+    if (ptr + 12 > end) {
+      _resources = resources;
+      return self;
+    }
     chunkIDAndLength(ptr, &chunkID);
     if (chunkID == IFFID('R', 'I', 'd', 'x')) {
       ptr += 8;
       unsigned int count = unpackLong(ptr);
       ptr += 4;
-      while (count--) {
+      // Each index entry is 12 bytes; stop if the file is truncated.
+      while (count-- && ptr + 12 <= end) {
         FourCharCode usage = unpackLong(ptr);
         unsigned int number = unpackLong(ptr + 4);
         unsigned int start = unpackLong(ptr + 8);
@@ -78,34 +89,35 @@
         [resources addObject:[[BlorbResource alloc] initWithUsage:usage
                                                            number:number
                                                             start:start]];
-        resources.lastObject.chunkType = [self stringFromChunkWithPtr:data.bytes + start];
+        resources.lastObject.chunkType = [self stringFromChunkWithPtr:base + start];
       }
 
-      // Look through the rest of the file
-      while (ptr < (const unsigned char *)data.bytes + data.length) {
+      // Look through the rest of the file. A chunk header is 8 bytes, so
+      // stop as soon as there is not a full header left to read.
+      while (ptr + 8 <= end) {
         unsigned int len = chunkIDAndLength(ptr, &chunkID);
         NSString *chunkString = [self stringFromChunkWithPtr:ptr];
+        NSUInteger chunkOffset = (NSUInteger)(ptr - base);
         if (chunkID == IFFID('I', 'F', 'm', 'd')) {
           // Treaty of Babel Metadata
-          NSRange range =
-          NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
-          metaData = [data subdataWithRange:range];
+          metaData = [self safeSubdataFromOffset:chunkOffset + 8 length:len];
         }
 
         else if (chunkID == IFFID('F', 's', 'p', 'c')) {
           // Frontispiece - Cover picture index
-          frontispiece  = unpackLong(ptr + 8);
+          if (ptr + 12 <= end)
+            frontispiece = unpackLong(ptr + 8);
         }
 
-        else if ([optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
-          NSRange range =
-          NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
+        else if (chunkString && [optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
+          NSData *chunkData = [self safeSubdataFromOffset:chunkOffset + 8 length:len];
+          if (chunkData) {
+            NSStringEncoding encoding = NSASCIIStringEncoding;
+            if ([chunkString isEqualToString:@"Snam"])
+              encoding = NSUTF16BigEndianStringEncoding;
 
-          NSStringEncoding encoding = NSASCIIStringEncoding;
-          if ([chunkString isEqualToString:@"Snam"])
-            encoding = NSUTF16BigEndianStringEncoding;
-
-          _optionalChunks[chunkString] = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:encoding];
+            _optionalChunks[chunkString] = [[NSString alloc] initWithData:chunkData encoding:encoding];
+          }
         }
         else if (chunkID == IFFID('I', 'F', 'h', 'd')) {
           // Game Identifier Chunk
@@ -114,7 +126,8 @@
           // Glulx uses the first 128 bytes of the file,
           // but we don't handle that here (yet.)
           BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
-          if (!resource || [resource.chunkType isEqualToString:@"ZCOD"]) {
+          if ((!resource || [resource.chunkType isEqualToString:@"ZCOD"]) &&
+              ptr + 18 <= end) {
             _releaseNumber  = unpackShort(ptr + 8);
             NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
             _serialNumber = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
@@ -125,15 +138,19 @@
         else if (chunkID == IFFID('R', 'D', 'e', 's')) {
           NSLog(@"Found Resource Description Chunk!");
           ptr += 8;
+          if (ptr + 4 > end)
+            break;
           count = unpackLong(ptr);
           ptr += 4;
-          while (count--) {
+          // Each description entry is a 12-byte header plus its text.
+          while (count-- && ptr + 12 <= end) {
             FourCharCode usage = unpackLong(ptr);
             unsigned int number = unpackLong(ptr + 4);
             unsigned int length = unpackLong(ptr + 8);
-            NSRange range =
-            NSMakeRange((NSUInteger)(ptr + 12 - (const unsigned char *)data.bytes), length);
-            NSString *description = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:NSUTF8StringEncoding];
+            NSData *descData = [self safeSubdataFromOffset:(NSUInteger)(ptr + 12 - base) length:length];
+            if (!descData)
+              break;
+            NSString *description = [[NSString alloc] initWithData:descData encoding:NSUTF8StringEncoding];
             ptr += 12 + length;
             BOOL found = NO;
             for (BlorbResource *resource in resources) {
@@ -156,20 +173,33 @@
   return self;
 }
 
-- (NSString *)stringFromChunkWithPtr:(const unsigned char *)ptr {
-  NSRange range =
-  NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes), 4);
-  NSData *subData = [data subdataWithRange:range];
+// Returns a subrange of the backing data, or nil if the range would fall
+// outside the file. Used to protect against corrupt or truncated Blorbs whose
+// index entries and chunk lengths point past the end of the data.
+- (nullable NSData *)safeSubdataFromOffset:(NSUInteger)offset length:(NSUInteger)len {
+  if (offset > data.length || len > data.length - offset)
+    return nil;
+  return [data subdataWithRange:NSMakeRange(offset, len)];
+}
+
+- (nullable NSString *)stringFromChunkWithPtr:(const unsigned char *)ptr {
+  NSData *subData =
+      [self safeSubdataFromOffset:(NSUInteger)(ptr - (const unsigned char *)data.bytes)
+                           length:4];
+  if (!subData)
+    return nil;
   return [[NSString alloc] initWithData:subData encoding:NSASCIIStringEncoding];
 }
 
 - (NSData *)dataForResource:(BlorbResource *)resource {
-  const unsigned char *ptr = data.bytes;
-  ptr += resource.start;
+  NSUInteger start = (NSUInteger)resource.start;
+  // Need room for the 8-byte chunk header before reading its length.
+  if (start + 8 > data.length)
+    return nil;
+  const unsigned char *ptr = (const unsigned char *)data.bytes + start;
   unsigned int chunkID;
   unsigned int len = chunkIDAndLength(ptr, &chunkID);
-  NSRange range = NSMakeRange(resource.start + 8, len);
-  return [data subdataWithRange:range];
+  return [self safeSubdataFromOffset:start + 8 length:len];
 }
 
 - (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage {
@@ -193,13 +223,14 @@
   // Look up the executable chunk
   BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
   if (resource) {
-    const unsigned char *ptr = data.bytes;
-    ptr += resource.start;
+    NSUInteger start = (NSUInteger)resource.start;
+    if (start + 8 > data.length)
+      return nil;
+    const unsigned char *ptr = (const unsigned char *)data.bytes + start;
     FourCharCode chunkID;
     unsigned int len = chunkIDAndLength(ptr, &chunkID);
     if (chunkID == IFFID('Z', 'C', 'O', 'D')) {
-      NSRange range = NSMakeRange(resource.start + 8, len);
-      return [data subdataWithRange:range];
+      return [self safeSubdataFromOffset:start + 8 length:len];
     }
   }
   return nil;
@@ -209,12 +240,13 @@
   // Look up the picture chunk
   BlorbResource *resource = [self findResourceOfUsage:PictureResource];
   if (resource) {
-    const unsigned char *ptr = data.bytes;
-    ptr += resource.start;
+    NSUInteger start = (NSUInteger)resource.start;
+    if (start + 8 > data.length)
+      return nil;
+    const unsigned char *ptr = (const unsigned char *)data.bytes + start;
     FourCharCode chunkID;
     unsigned int len = chunkIDAndLength(ptr, &chunkID);
-    NSRange range = NSMakeRange(resource.start + 8, len);
-    return [data subdataWithRange:range];
+    return [self safeSubdataFromOffset:start + 8 length:len];
   }
   return nil;
 }
