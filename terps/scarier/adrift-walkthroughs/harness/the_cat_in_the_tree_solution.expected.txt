@@ -1,0 +1,86 @@
+Loading game...
+
+Untitled
+
+The Cat in the Tree
+
+Interactive Fiction
+Copyright © 2004 Artemis;
+Version 1.0 / ADRIFT 4.00 Release 43 / Butcher Basic Pro 1.01b
+
+  Entry for the One hour Mini-comp.
+
+  You have ambled along a city sidewalk to find yourself looking at a very
+beautiful woman under a large old maple tree in front of one of the stores.
+She is standing under the tree, looking up into the broad, leafy branches.
+Hearing you, she lowers her head.
+  "Excuse me, kind sir," she says demurely. "There's a cat in the tree up
+there that can't get down. Would you please rescue it? I would be so
+indebted."
+  Not wanting to disappoint her, you rise to the challenge.
+
+(Please press any key)
+
+On a Sidewalk Under a Tree
+  You are beneath a large maple tree, standing on a sidewalk somewhere in the
+city. There is a woman - a very attractive woman - standing beside you
+looking up into the tree.
+
+>   "I hope you don't mind but I would like to borrow your ladder to rescue
+the cat in the tree," you say to Huey.
+  He allows you to take the ladder.
+
+Huey the Contractor walks by and stops
+.
+
+A young boy arrives under the tree
+.
+  A car drives by on the street, hitting a small puddle near the curb that
+splashes up, soaking your right foot.
+  The woman has dodged the waterfall, and giggles a little. As you take a
+couple of steps, she asks, "I hear a squeaking noise! Is that a mouse?"
+  "No," you reply with disdain, "it's my newly bathed foot."
+
+>  You stagger over to the tree, your 5'-4" tall 110 pound frame dragging the
+ladder behind you, and place it against the trunk up into the branches.
+
+>  You thank the little girl as you take the cup of milk.
+  "Your welcome. You owe me 25 cents!" she says, handing it to you.
+
+>  You tenuously climb the rungs up to the top. Reaching up, the cat is still
+out of reach.
+  It turns, looks at you and hisses. Then the cute little pussy saunters a
+few feet, and jumps up higher into the tree.
+
+>  Leaning over precariously, you grab onto a branch and carefully pull
+yourself up into the tree branches. Balancing carefully, you make your way to
+where the cat lies, watching you.
+
+>(Your score has increased by 50)
+  Offering the cupful of milk to the cat, it meows gently and approaches you.
+You wait, still as possible as the cat begins licking the milk. Reaching out
+gently, you grab the cat easily and bring it close to you.
+  The crowd below you renders a hearty cheer...
+  "Yay!"
+
+>  Offering the cupful of milk to the cat, it meows gently and approaches you.
+You wait, still as possible as the cat begins licking the milk. Reaching out
+gently, you grab the cat easily and bring it close to you.
+  The crowd below you renders a hearty cheer...
+  "Yay!"
+
+>  As you carefully begin to lower yourself down the shaky ladder, you lose
+your balance and end up sliding down the last few rungs to the sidewalk,
+bruising your shins.
+  "Ow!" you holler.
+  "Oh, marvelous!" the woman exclaims. "You rescued the cat!"
+  You stand and hobble over to the woman, presenting the cat to her. She
+looks at you and says, "That isn't my cat! Get that little beast away from
+me!" She turns and rushes off as the cat jumps down from your arms, hurries
+to the tree and climbs up into the branches!
+  "Oh, look, Mister," the little girl says. "There's a cat up in the tree!
+Where's my quarter?
+  "Hey, pal. I need my ladder!"
+  "Mister, you don't look so good," the little boy says.
+
+Congratulations!

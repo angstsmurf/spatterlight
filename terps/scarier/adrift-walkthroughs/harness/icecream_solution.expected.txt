@@ -1,0 +1,59 @@
+Loading game...
+
+Untitled
+
+Ice Cream!
+
+Interactive Fiction
+Copyright © 2004 Artemis;
+Version 1.0 / ADRIFT 4.00 Release 43 / Butcher Basic Pro 1.01b
+
+  Entry for the One hour Mini-comp.
+
+  You are a new employee in the Ice Cream Shoppe. Your job is to scoop the
+ice cream, put it onto a cone and give it to the customer. Simple, right?
+
+(Please press any key)
+
+Ice Cream Counter
+  You stand behind a small counter in the ice cream store. A long line of
+people extend away from the counter and out the front door. They all want ice
+cream.
+  A box of cones is nearby, and your boss Ronald watches you.
+  You have an ice cream scoop in one hand and a slightly sodden, chipped
+empty cone in the other.
+
+Ronald is here.
+  A customer stands before you, holding a mighty dollar and waiting for your
+attention. You look at him with vacant eyes, and as you wipe the drool from
+your lower lip, he says, "I'd like an ice cream cone, please."
+
+  A customer stands before you, holding a mighty dollar and waiting for your
+attention. You look at him with vacant eyes, and as you wipe the drool from
+your lower lip, he says, "I'd like an ice cream cone, please."
+
+>You reach down and get a scoop of ice cream.
+
+  A customer stands before you, holding a mighty dollar and waiting for your
+attention. You look at him with vacant eyes, and as you wipe the drool from
+your lower lip, he says, "I'd like an ice cream cone, please."
+
+>  Holding the cone in one hand, you place the scooped ice cream carefully on
+the top with the other.
+
+  A customer stands before you, holding a mighty dollar and waiting for your
+attention. You look at him with vacant eyes, and as you wipe the drool from
+your lower lip, he says, "I'd like an ice cream cone, please."
+
+  "What's taking so long up there? I've got to get to a funeral!" some guy
+shouts from the end of the line.
+
+>  You reach out to give the cone to the customer. Ronald takes the money from
+the counter with a grin.
+  You take a cone from the box.
+
+  A customer stands before you, holding a mighty dollar and waiting for your
+attention. You look at him with vacant eyes, and as you wipe the drool from
+your lower lip, he says, "I'd like an ice cream cone, please."
+
+>Do you really want to quit? [Y/N]
