@@ -1005,6 +1005,10 @@
 		CC9FC385F0D6751126B1C67D /* a5sexpr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */; };
 		D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87010291D59681D38B0F44C5 /* scprintf.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
+		A5B000000000000000000101 /* a5sb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000102 /* a5sb.cpp */; };
+		A5B000000000000000000103 /* a5run_ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000104 /* a5run_ref.cpp */; };
+		A5B000000000000000000105 /* a5run_events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000106 /* a5run_events.cpp */; };
+		A5B000000000000000000107 /* a5run_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000108 /* a5run_action.cpp */; };
 		F4E620D1D98ABB1032579FB0 /* sclibrar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7891237714D4C19104EE325 /* sclibrar.cpp */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
 /* End PBXBuildFile section */
@@ -3667,6 +3671,12 @@
 		FB5081C8D969BA9C6C4CFC46 /* a5model.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5model.cpp; sourceTree = "<group>"; };
 		FBDDF07BAE218674A9BF2815 /* a5xml.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5xml.cpp; sourceTree = "<group>"; };
 		FF22095E6A4182F0BA2C8C35 /* a5run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000102 /* a5sb.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5sb.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000104 /* a5run_ref.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_ref.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000106 /* a5run_events.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_events.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000108 /* a5run_action.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_action.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000109 /* a5sb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sb.h; sourceTree = "<group>"; };
+		A5B00000000000000000010A /* a5run_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run_internal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -4237,6 +4247,12 @@
 				10990E34B23D66921A762A58 /* a5rand.cpp */,
 				1A199C714C44BC6E78B9A0F5 /* a5arith.cpp */,
 				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
+				A5B000000000000000000102 /* a5sb.cpp */,
+				A5B000000000000000000104 /* a5run_ref.cpp */,
+				A5B000000000000000000106 /* a5run_events.cpp */,
+				A5B000000000000000000108 /* a5run_action.cpp */,
+				A5B000000000000000000109 /* a5sb.h */,
+				A5B00000000000000000010A /* a5run_internal.h */,
 			);
 			name = scarier;
 			path = scarier;
@@ -7999,6 +8015,10 @@
 				3B98519817A0F0691F423FD2 /* a5rand.cpp in Sources */,
 				A778F64B95C4175E7E40F988 /* a5arith.cpp in Sources */,
 				E010519EC9196D58BA837C92 /* a5run.cpp in Sources */,
+				A5B000000000000000000101 /* a5sb.cpp in Sources */,
+				A5B000000000000000000103 /* a5run_ref.cpp in Sources */,
+				A5B000000000000000000105 /* a5run_events.cpp in Sources */,
+				A5B000000000000000000107 /* a5run_action.cpp in Sources */,
 				08669A147249B2573251633E /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

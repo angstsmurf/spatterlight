@@ -76,10 +76,11 @@ A5_TEXT_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
                a5state.cpp a5restr.cpp a5expr.cpp a5sexpr.cpp a5text.cpp a5parse.cpp
 A5_RUN_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
               a5state.cpp a5restr.cpp a5expr.cpp a5sexpr.cpp a5text.cpp a5parse.cpp \
-              a5rand.cpp a5arith.cpp a5run.cpp
+              a5rand.cpp a5arith.cpp a5sb.cpp a5run_ref.cpp a5run_events.cpp \
+              a5run_action.cpp a5run.cpp
 A5_HDRS := a5blorb.h a5deobf.h a5xml.h a5model.h
 A5_TEXT_HDRS := $(A5_HDRS) a5state.h a5restr.h a5expr.h a5sexpr.h a5text.h a5parse.h
-A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5rand.h a5arith.h a5run.h
+A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5rand.h a5arith.h a5sb.h a5run.h a5run_internal.h
 A5DUMP_HARNESS := test/a5dump.cpp
 A5DUMP_BIN     := test/a5dump
 A5MODEL_HARNESS := test/a5model_dump.cpp
