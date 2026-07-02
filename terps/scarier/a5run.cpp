@@ -383,7 +383,8 @@ entity_def_name (a5_state_t *st, const std::string &key, char type)
 
 /* "Which <word>?  The a, the b or the c."  Mirrors DisplayAmbiguityQuestion:
    the candidate list uses definite names joined ", "/" or ", run through ToProper
-   (capitalise the first letter, lower-case the rest), with pSpace's two spaces. */
+   with its default bStrict=False (capitalise only the first letter, leave the
+   rest as-is so e.g. "PC door" keeps its casing), with pSpace's two spaces. */
 static std::string
 build_amb_prompt (a5_state_t *st, const std::string &word,
                   const std::vector<std::string> &keys, char type)
@@ -395,7 +396,8 @@ build_amb_prompt (a5_state_t *st, const std::string &word,
         list += (i + 1 == keys.size ()) ? " or " : ", ";
       list += entity_def_name (st, keys[i], type);
     }
-  for (char &c : list) c = (char) tolower ((unsigned char) c);   /* ToProper rest */
+  /* ToProper(bStrict=False): capitalise only the first character; the remainder
+     keeps its original casing (clsUserSession.ToProper, FrankenDrift). */
   if (!list.empty ()) list[0] = (char) toupper ((unsigned char) list[0]);
   return "Which " + word + "?  " + list + ".";
 }
