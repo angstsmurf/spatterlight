@@ -1,5 +1,60 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ TheEuripidesEnigma — identity-ALR exponential recursion hang fixed; 11|11 residual object-listing bugs  ✅ HANG DONE / ⏳ 11 OPEN (2026-07-02)
+
+Surfaced by wiring **TheEuripidesEnigma** (native `WLKTHRGH` solution, full
+400-pt win under FD; see `TODO_a5_walkthrough_wiring.md` for the two script
+corrections). The corrected script drove Scarier deep into the game, where it
+**wedged for >60 s of CPU** entering the north-end storeroom (`cl_Location51`).
+
+**Root cause — exponential ALR recursion on identity ALRs.** The game defines
+~25 `TextOverride`s whose `OldText` is a 25-asterisk banner line
+(`*************************`) and whose `NewText` is the *same* 25 asterisks
+(they exist only to stop ADRIFT mangling the banner rules). A per-turn event's
+completion message contains such a banner. Scarier's `replace_alrs`
+(`a5text.cpp`) computed `val = process_inner(raw, depth+1)` for every matching
+ALR **before** testing its self-reference guard (`!streq(cur, val)`), so
+processing "*****(25)" re-matched all ~25 identity ALRs, each recursing
+`process_inner` again — branching ~25-fold per level down to the depth-8 cap
+(≈25⁸ ≈ 10¹¹ calls). FrankenDrift never hangs because `ReplaceALRs`
+(Global.vb:532) does `If sText = sALR Then Exit For` — it bails out of the whole
+ALR loop *before* recursing when the entire current text already equals the
+(unprocessed) replacement. At the top level `cur` is the full message (≠ the
+asterisks) so nothing changes; one level down `cur` has been reduced to exactly
+"*****(25)" == `raw`, so the guard fires and terminates.
+
+**Fixed** by porting that guard: `replace_alrs` now computes `raw`
+(= `a5text_eval_description(new_text)`, FD's `alr.NewText.ToString`) and, if
+`streq(cur, raw)`, `break`s out of the ALR loop *before* the `process_inner`
+recursion. Scarier finishes the full win in ~1.8 s; ASan/UBSan-clean; **no corpus
+game moved** (all 20 other games hold their exact baselines in both RNG modes,
+all a5 unit tests pass incl. the Six Silver Bullets golden).
+
+**Residual (Euripides 11|11, identical in both RNG modes ⇒ RNG-independent real
+bugs; no vanilla golden while it diverges).** Three families:
+1. **A dropped object that the room's long description already names in prose is
+   *also* appended to the "Also here is …" auto-list** (7 of the 11 hunks). At
+   the creeper cave the boom box is set down and the room prose reads "The boom
+   box is on the floor of the cave…"; FD then does NOT re-list it, Scarier
+   appends "Also here is a boom box". Same with the "small drone" at the fissure
+   after it is put in the case (Scarier lists a loose drone; FD does not) — this
+   one is also/partly an object-containment state issue (drone should be inside
+   the aluminium case). FD suppresses from the auto-list any object whose
+   presence is already conveyed by the room/other prose; Scarier's room-view
+   object listing does not.
+2. **One doubled cliff-face description** (1 hunk, line ~896): Scarier prints
+   "The first 15 feet of the cliff face…chest height.  The first 15 feet…chest
+   height." — the same segment twice.
+3. **One movement-message wording variant** (1 hunk, line ~1953): Scarier "You
+   have to turn sideways but you squeeze through the crevice and emerge into the
+   cave beyond." vs FD "You turn sideways and squeeze through the crevice into
+   the cave beyond." (likely a different task/alternate matched for the squeeze).
+
+Needs runtime tracing of the room-view object-list filter (family 1 is the big
+one — it is the same "object referenced in prose shouldn't auto-list" class that
+recurs across the corpus). See `test/A5_WALKTHROUGH_FINDINGS.md` and the MAP
+comment in `test/run_a5_walkthroughs.sh`.
+
 ## ⭐ LostLabyrinthOfLazaitch 403|403 → 8|0 (xoshiro FULL MATCH): location seen-tracking + ReferencedObjects singular alias + CharHereDesc name-casing + FD's Look message dance  ✅ DONE (2026-07-02)
 
 The 403-hunk diverge collapsed to **vanilla 8 / xoshiro 0** — xoshiro mode (the

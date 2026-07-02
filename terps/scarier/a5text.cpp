@@ -1420,13 +1420,22 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
       if (strstr (cur, alr->old_text) != NULL)
         {
           char *raw = a5text_eval_description (st, alr->new_text);
-          char *val = process_inner (st, raw, depth + 1);
-          if (!streq (cur, val))     /* guard against self-referential ALRs */
+          /* Mirror FD's `If sText = sALR Then Exit For` (Global.vb:532): when the
+             whole current text already equals the (unprocessed) replacement, stop
+             processing ALRs entirely -- crucially BEFORE recursing.  This is what
+             terminates identity/self-referential ALRs (e.g. this game's ~25 copies
+             of a 25-asterisk banner line whose OldText == NewText): without it,
+             process_inner recurses on the replacement, which re-matches all the
+             identity ALRs, branching ~N-fold per level down to the depth-8 cap. */
+          if (streq (cur, raw))
             {
-              char *next = str_replace_all (cur, alr->old_text, val);
-              free (cur);
-              cur = next;
+              free (raw);
+              break;
             }
+          char *val = process_inner (st, raw, depth + 1);
+          char *next = str_replace_all (cur, alr->old_text, val);
+          free (cur);
+          cur = next;
           free (raw);
           free (val);
         }

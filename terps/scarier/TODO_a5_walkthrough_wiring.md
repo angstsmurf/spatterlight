@@ -32,7 +32,7 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 | **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (403\|403 → **8\|0, xoshiro FULL MATCH**) — full 520-pt win, ZERO corrections (see below) |
 | BugHuntOnMenelaus | WALKTHROUGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
 | DwarfOfDirewoodForest | WLKTHRGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
-| TheEuripidesEnigma | WLKTHRGH | ⚠️ derived; desyncs at a numeric conversation choice (`4`) — needs correction |
+| TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 DIVERGE, RNG-independent) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
 | FBA v.3c | WT | not yet extracted (has a `WALKTHROUGH (WT)` command) |
 | MagorInvestigates / XanixXixonResurgence / FinnsBigAdventure | none | only the email-on-request note |
 
@@ -94,6 +94,43 @@ name-casing ("White Stallion"), and FD's Look-message double-test-render dance
 System.Random-vs-xoshiro riding-variant picks (RNG-bound, like JacarandaJim /
 SixSilverBullets), so no vanilla golden. See `TODO_a5_walkthrough_bugs.md` (top
 entry, DONE) for the full write-up.
+
+### ⭐ TheEuripidesEnigma — native solution wired (11|11 DIVERGE); the `4` was a red herring + an exponential ALR-recursion hang fixed
+
+Extracted straight from the `cl_Walkthroug1` task, `o`/`b` prepended, annotations
+stripped. **TWO corrections** (both verified against FrankenDrift, which now
+replays the raw author commands to `*** CONGRATULATIONS! *** …in 426 turns,
+scoring the maximum 400 points!` with ZERO not-understood / no-route / ambiguity
+lines):
+
+1. **Dropped `hit fork on face` at "By Cliff In Canyon".** In this build the
+   round opening leading North is already resonated open, so striking the fork
+   there *closes* it ("the round hole disappears, leaving a smooth cliff face")
+   and every subsequent move fails ("no route to the north, only south and
+   southwest"). This ONE spurious line desynced the entire back half — the `4`
+   numeric-conversation-choice failure the TODO flagged was merely a downstream
+   symptom of being stuck in the canyon, not the root cause.
+2. **`put pistol in pistol holster` → `holster pistol`.** The raw phrasing is
+   ambiguous in this build ("pistol" matches both the pistol and the pistol
+   holster) → FD "Sorry, I'm not sure which object you're referring to."; the
+   game's own `holster pistol` verb (used later in the same script) holsters it
+   cleanly.
+
+**Surfaced + fixed a Scarier hang** (see `TODO_a5_walkthrough_bugs.md` top entry):
+the corrected script drove Scarier far enough to hit the north-end storeroom,
+where it wedged on ~25 **identity ALRs** (a 25-asterisk banner line whose
+`OldText` == `NewText`). Scarier's `replace_alrs` recursed `process_inner` on the
+replacement *before* its self-reference guard, branching ~25-fold per level to
+the depth-8 cap (~25⁸ calls). Ported FD's `If sText = sALR Then Exit For`
+(Global.vb:532) guard — bail before recursing when the whole text equals the
+(unprocessed) replacement. Scarier now finishes the full 400-pt win in ~1.8 s.
+
+The residual **11 hunks** (identical in both RNG modes ⇒ RNG-independent real
+bugs, no vanilla golden while it diverges) are three families of object-listing /
+render bugs: (a) a dropped object that the room's long description already names
+by prose ("boom box"/"small drone") is *also* appended to the "Also here is …"
+auto-list; (b) a one-off doubled cliff-face description; (c) one movement-message
+wording variant. Catalogued in `TODO_a5_walkthrough_bugs.md`.
 
 ## Have a full walkthrough, need conversion to a command script
 
@@ -184,7 +221,8 @@ task; the others are by Finn Rosenløv / Kenneth Pedersen.)
 
 `DwarfOfDirewoodForest`, `TheEuripidesEnigma` and `TheLostLabyrinthOfLazaitch`
 were moved OUT of this list on 2026-07-02 — they embed a built-in `WLKTHRGH`
-native solution (see the ⭐ section above; LostLabyrinth is now wired).
+native solution (see the ⭐ sections above; LostLabyrinth and TheEuripidesEnigma
+are now wired — only DwarfOfDirewoodForest remains, FD-blocked).
 
 ## Wiring checklist per game
 

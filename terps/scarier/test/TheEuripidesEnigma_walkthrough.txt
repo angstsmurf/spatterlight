@@ -1,0 +1,457 @@
+# The Euripides Enigma (Larry Horsfield, ADRIFT 5) -- winning script.
+#
+# Full max-score win: "*** CONGRATULATIONS! ***  ...in 426 turns, scoring the
+# maximum 400 points!" under FrankenDrift (the ground-truth reference runner,
+# FD_SEED=1234).  Single protagonist; the intro conversation delegates the
+# control-panel jury-rig to the marines (the "3" choice at the start).
+#
+# Derived from the game's OWN built-in walkthrough (the "native" ADRIFT
+# solution): Larry Horsfield's games embed the entire solution as a task -- type
+# WLKTHRGH and it prints the whole command list (cl_Walkthroug1 in the model).
+# The raw commands were pulled from that task's <Text>, annotations stripped, and
+# the start-menu handshake (o, b) prepended.
+#
+# TWO corrections vs. the raw built-in text (the walkthrough was authored against
+# a slightly earlier build; verified against FrankenDrift):
+#   * "hit fork on face" at "By Cliff In Canyon" was DROPPED -- in this build the
+#     round opening leading North is already resonated open, so striking the fork
+#     there CLOSES it ("the round hole disappears, leaving a smooth cliff face")
+#     and every subsequent move fails ("no route to the north, only south and
+#     southwest").  This single spurious line desynced the entire back half of
+#     the game (the "4"-choice symptom noted in TODO_a5_walkthrough_wiring.md was
+#     just a downstream artefact of being stuck in the canyon).
+#   * "put pistol in pistol holster" -> "holster pistol": the raw phrasing is
+#     ambiguous in this build ("pistol" matches both the pistol and the pistol
+#     holster) and FD answers "Sorry, I'm not sure which object you're referring
+#     to."; the game's own "holster pistol" verb (used later in the same script)
+#     holsters it cleanly.
+#
+# With those two fixes FrankenDrift replays the raw author commands to the
+# 400-point win with ZERO not-understood / no-route / ambiguity lines.
+o
+b
+sheath pistol
+in
+3
+press green
+n
+press green
+n
+x consoles
+look under console
+open compartment
+get switch
+search compartment
+get screwdriver
+replace switch
+drop screwdriver
+n
+x pcc
+x wall
+x box
+x relays
+w
+look in trays
+get relay
+e
+replace relay
+press button
+s
+turn switch on
+s
+get disruptor
+x disruptor
+remove power pack
+drop disruptor
+1
+2
+3
+w
+w
+w
+x dispenser
+move dispenser
+x hole
+look in hole
+get case
+e
+s
+e
+look under bed
+get rucksack
+loosen straps
+wear rucksack
+put power pack in rucksack
+w
+s
+s
+w
+open closet
+search closet
+search cupboards
+get rope and piton
+put rope and piton in rucksack
+e
+s
+get box
+look on bed
+get belt
+put belt in rucksack
+n
+n
+n
+n
+n
+n
+x chairs
+look behind cushions
+get hammer
+put hammer in rucksack
+s
+s
+e
+e
+e
+e
+n
+n
+x console
+switch ads on
+s
+w
+search shelves
+get gun
+x gun
+get power pack
+put power pack in gun
+n
+search shelves
+get can
+pour paint into container
+drop can
+s
+e
+s
+s
+w
+e
+e
+x desk
+open drawer
+look under papers
+get notebook
+read notebook
+drop notebook
+w
+n
+e
+press green
+e
+put boombox, can, case and gun in bed
+n
+x equipment
+get cable
+s
+recharge crawler
+n
+w
+x desk
+get key
+x key
+x walls
+x rack
+get token
+x com
+press 1
+press 2
+press 4
+e
+s
+in
+x cab
+put token in slot
+press on
+press white
+out
+e
+look in bed
+get pickaxe
+w
+put pickaxe in bed
+in
+get yellow
+put yellow in slot
+press white
+get yellow
+out
+w
+in
+press black button
+search cab
+get fork
+out
+x bed
+get spade from bed
+e
+put spade in bed
+n
+x cliff
+x marks
+hit fork on cliff
+put fork in sack
+n
+n
+x dirt
+search dirt
+get token
+x crevice
+x bodies
+s
+s
+s
+in
+put brown token in slot
+press white
+press white
+get brown
+drop brown
+out
+get case
+se
+drop case
+get rope, piton and hammer from sack
+look down
+x movement
+throw grenade into trees
+hammer piton into crack
+tie rope to piton
+x rope
+put all in rucksack
+open case
+get all from case
+drop drone
+turn drone on
+fly drone forward
+fly drone down
+fly drone down
+fly drone down
+fly drone forward
+get drone
+put drone and console in case
+close case
+get disc
+put disc in sack
+climb d rope
+w
+x rope
+w
+x wall
+x depression
+get disc
+put disc in depression
+e
+e
+d
+x crawler
+look in cab
+x bed
+get crate
+climb in cab
+search cab
+get red token
+put red token in sack
+tie rope around body
+climb out of cab
+climb up rope
+x rope
+pull rope
+nw
+x body
+get driver
+n
+drop driver
+s
+get spade and axe
+n
+search suit
+get card
+read card
+put card in rucksack
+remove suit
+dig grave
+bury body
+drop spade
+get suit
+s
+se
+get case
+nw
+put all in bed
+in
+get red token
+put red token in slot
+press on
+get red
+put red in rucksack
+out
+get suit
+w
+press green
+w
+drop suit
+draw pistol
+drop pistol
+remove rucksack
+drop rucksack
+remove helmet
+drop helmet
+remove armour
+get suit
+wear suit
+get belt, pistol and rucksack
+wear belt
+holster pistol
+tighten straps
+wear rucksack
+slide switch
+e
+press green
+e
+in
+get yellow
+put yellow in slot
+press on
+get yellow
+out
+put yellow in sack
+get box, case and gun
+push play
+n
+get fork
+n
+n
+x crevice
+drop case
+open it
+get all from it
+drop drone
+drone on
+fly drone into crevice
+put console in case
+get drone
+put drone in case
+press 7
+n
+x bodies
+x shimmer
+spray shimmer with paint
+drop gun
+n
+x creeper
+draw pistol
+cut creeper with pistol
+holster pistol
+get creeper
+x trunk
+n
+x liquid
+s
+s
+s
+s
+s
+s
+in
+get red
+put red in slot
+press white
+get red
+out
+n
+get cable
+s
+recharge crawler
+w
+press green
+w
+s
+w
+put creeper in analyser
+drop creeper
+get paper
+read paper
+drop paper
+s
+find csp
+get csp
+n
+e
+n
+n
+w
+find triclopyr
+get triclopyr
+e
+s
+e
+press green
+e
+in
+get yellow
+put yellow in slot
+press go
+out
+n
+n
+n
+n
+n
+n
+pour csp in bowl
+pour triclopyr in liquid
+wait
+e
+4
+n
+w
+get fork
+x walls
+x marks
+tap fork on wall
+drop fork
+e
+s
+n
+w
+s
+s
+s
+s
+in
+put red in slot
+press white
+get red
+put red and yellow in rucksack
+out
+w
+press green
+w
+n
+w
+n
+search shelves
+get crate
+s
+e
+s
+e
+press green
+e
+n
+e
+press green
+e
+s
+w
+s
+in

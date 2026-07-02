@@ -434,6 +434,7 @@ PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|8|8
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
+TheEuripidesEnigma|TheEuripidesEnigma.blorb|11|11
 EOF
 )
 
