@@ -4,10 +4,14 @@
 #   sh scproj_regress.sh           # build + run + diff against the golden file
 #   sh scproj_regress.sh --bless   # regenerate the golden file
 #
-# Builds scproj_test.c against the SCARE sources WITH seed.c (fixed RNG), so
-# combat outcomes are reproducible. For each game it arms the player with that
-# game's projectile weapon, co-locates an enemy, and resolves a fight through
-# the real battle_player_attack() pipeline.
+# Builds scproj_test.cpp against the SCARIER sources WITH seed.cpp (fixed RNG),
+# so combat outcomes are reproducible. For each game it arms the player with
+# that game's projectile weapon, co-locates an enemy, and resolves a fight
+# through the real battle_player_attack() pipeline.
+#
+# The 5 games below are third-party data and are NOT committed (same policy as
+# the walkthrough games): they are found in GAMES_DIR or the ALT_DIRS fallback.
+# If any is absent the run SKIPs (exit 0) rather than failing.
 #
 # Coverage:
 #   deaths.taf   v3.90  shoot (method 3 = replaces strength) + legacy hit model
@@ -20,8 +24,12 @@
 set -e
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
-SCARE="${SCARE_DIR:-/Users/administrator/spatterlight/terps/scare}"
+# The SCARE (v4) engine was merged into terps/scarier; harness/ is two levels
+# below it (terps/scarier/adrift-walkthroughs/harness).
+SCARE="${SCARE_DIR:-$(cd "$HERE/../.." && pwd)}"
 GAMES="${GAMES_DIR:-$HERE/../games}"
+# Extra dirs searched (by basename) when a game isn't in GAMES.
+ALT_DIRS="$HOME/adrift-battle/games"
 GOLDEN="$HERE/scproj_regress.golden"
 BIN="$HERE/scproj_det"
 
@@ -31,15 +39,37 @@ light_up_4summer_comp.taf
 Space Boy's First Adventure.taf
 cyber2.taf"
 
+find_game() {  # $1=basename -> prints path or nothing
+  if [ -f "$GAMES/$1" ]; then printf '%s\n' "$GAMES/$1"; return; fi
+  for d in $ALT_DIRS; do
+    [ -f "$d/$1" ] && { printf '%s\n' "$d/$1"; return; }
+  done
+}
+
+# Resolve all games up front; SKIP the whole run if any is missing (the golden
+# is a single concatenated transcript, so a partial run can't match it).
+missing=""
+while IFS= read -r g; do
+  [ -n "$g" ] || continue
+  [ -n "$(find_game "$g")" ] || missing="$missing $g"
+done <<EOF
+$GAME_LIST
+EOF
+if [ -n "$missing" ]; then
+  echo "SKIP: battle games not found (drop into $GAMES or \$HOME/adrift-battle/games):$missing" >&2
+  exit 0
+fi
+
 # Build the deterministic harness (sx* stubs supply the os-layer callbacks;
-# seed.c forces SCARE's portable RNG + fixed seed before main()).
-( cd "$SCARE" && clang -O2 -w -I. sc*.c sxstubs.c sxglob.c sxutils.c \
-    "$HERE/scproj_test.c" "$HERE/seed.c" -lz -o "$BIN" )
+# seed.cpp forces SCARIER's portable RNG + fixed seed before main()).  Engine
+# ported C->C++ (sc*.c -> sc*.cpp), so glob the .cpp sources and use clang++.
+( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. sc*.cpp sxstubs.cpp sxglob.cpp sxutils.cpp \
+    "$HERE/scproj_test.cpp" "$HERE/seed.cpp" -lz -o "$BIN" )
 
 run_all() {
   echo "$GAME_LIST" | while IFS= read -r g; do
     [ -n "$g" ] || continue
-    "$BIN" "$GAMES/$g"
+    "$BIN" "$(find_game "$g")"
   done
 }
 
