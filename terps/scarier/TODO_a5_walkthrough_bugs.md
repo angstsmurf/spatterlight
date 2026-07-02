@@ -1,58 +1,58 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## 📄 DwarfOfDirewoodForest: By Guard Room is passable by DRAGGING a corpse — the "unwinnable" claim below was WRONG  ⚠️ CORRECTED (2026-07-03)
+## 📄 DwarfOfDirewoodForest is UNWINNABLE on Version 9 — verified by drag-aware playthrough (north = death-trap OR `{*}`-blocked)  ✅ RESOLVED (2026-07-03)
 
-**CORRECTION — I was wrong; the game is NOT sealed.** A previous version of this
-note (kept below, struck through) "proved" Dwarf unwinnable because the `{*}`
-gate at By Guard Room (cl_Location11) blocks bare movement. That analysis missed
-a whole class of movement: **dragging a body**. Larry Horsfield tested it in the
-real ADRIFT 5 Runner on Windows and confirmed you leave By Guard Room by
-`drag <dead guard/dwarf> north` (Guard Room → By Guard Room) then `drag … west`
-(By Guard Room → Underground Tunnel cl_Location14 = the west/arsenal side).
+**Final, empirically-verified conclusion (after two wrong intermediate takes,
+both recorded below).** The game cannot be completed on the shipped Version 9,
+in any engine — but NOT because the map is "sealed" (it isn't: you *can* move by
+dragging a corpse). The real dead-end is that the only northward progress toward
+the win requires either a blocked bare move or a fatal drag:
 
-**Why it works (and why my reachability BFS was unreliable):** the general drag
-task `cl_DragCharac1` (`[drag/tug] %object% %direction%`, **priority 40485 <
-44074**) is evaluated *before* `cl_NullAtStar` in the real Runner's priority-
-ascending `GetGeneralTask`, so it beats the `{*}` gate. Its guard-specific
-override `cl_Guard2` runs `MoveCharacter Character Player InDirection
-ReferencedDirection` (+ `MoveObject cl_Guard2 ToSameLocationAs %Player%`), i.e. it
-**moves the player** in the dragged direction (gated only by
-`HaveRouteInDirection`, the normal map exit). So a corpse is effectively a
-"movement key" through the `{*}`-gated room, in any direction that has a real
-exit — including West to cl_Location14. My graph model only encoded `creep south`
-as a sub-`{*}` movement and treated every other exit as blocked; it never
-modelled task-based movement (drag), so its "sole bridge / unwinnable" conclusion
-was invalid.
+- The win (`cl_YouHaveWon`) needs `cl_ArsenalDes=1` (all four `cl_UnlockCell*`
+  triggers), set only in the arsenal, reachable only **NORTH** through
+  Bend-in-Tunnel `cl_Location12` (the author's own `WLKTHRGH` goes `n` from By
+  Guard Room, then to the arsenal via a wagon).
+- At By Guard Room (`cl_Location11`) the `{*}` gate (`cl_NullAtStar`, pri 44074,
+  PreventOverriding) eats **every** empty-handed command — verified in FD: `n`,
+  `north`, `go north`, `walk/run/creep/climb north`, `u`, even `look` all return
+  "Please press O then press Enter." Only two tasks beat it: `cl_CreepSouth`
+  (5173, → the dead-end Guard Room) and the general drag `cl_DragCharac1` (40485).
+- Drag is the ONLY thing that moves you (its guard override `cl_Guard2` runs
+  `MoveCharacter Player InDirection`; other objects just print "…will not help you
+  in this game."). But entering `cl_Location12` **or** the Dungeons
+  `cl_Location10` with the corpse visible fires an unconditional death — System
+  tasks `cl_WithGuardA` / `cl_WithGuardA1`: `Player BeAtLocation 12/10` **AND**
+  `cl_Guard2 Must BeVisibleToCharacter Player` → soldiers/officer "cut you down".
+  Verified in FD: `drag guard n` from By Guard Room → "You Have Lost" at
+  Bend-in-Tunnel.
+- So you can only shuffle the corpse **WEST** (11→14, away from the soldiers — no
+  death), a dead-end branch that does not reach the arsenal. North (bare) is
+  blocked; north (drag) is fatal; there is no `creep north` and no second corpse
+  before this point. ⇒ **Bend-in-Tunnel is unreachable alive ⇒ the arsenal is
+  unreachable ⇒ no win task can fire.**
 
-**This reproduces in FrankenDrift AND Scarier** — the corpus transcript already
-shows `> drag guard west` → "You drag the body of the guard west." with the
-player moving. So all three engines agree the drag works. The shipped
-`WLKTHRGH`/our replay only *looks* stuck because on a LATER return through By
-Guard Room it issues a **bare** `n` (with no corpse in hand) instead of dragging
-one — a walkthrough-script gap, not an engine or (as I wrongly claimed) a game
-seal.
+This is engine-independent (authored task priority + a location-triggered death),
+so it holds in Scarier, FrankenDrift AND the real ADRIFT 5 Runner. It is almost
+certainly a **shipped bug**: `cl_NullAtStar` is Larry Horsfield's disclaimer/menu
+null-task (its "Please press O" message only makes sense on a menu; the other
+three `{*}` copies are correctly on StartOptions/Prologue/Instructions). Mis-bound
+to `cl_Location11`, it breaks the author's own bare-move-north route. The corpus
+copy (SHA1 `bdc9422d…`) is byte-identical to the adrift.co "Version 9" download
+(game 1639), so there is no fixed public build. Corpus status unaffected: Dwarf
+stays `0|0` (all three engines agree, drag and death included).
 
-**Open (needs a real drag-based playthrough, not static analysis):** full
-winnability. The objective still needs `cl_ArsenalDes=1` (all four
-`cl_UnlockCell*` win triggers), set only by `cl_KnockedOve` in the arsenal area
-(`cl_InnerBlast`, rooms 29–59). The corpse must be kept and dragged BOTH ways
-through cl_Location11 (out to the arsenal, back to the dungeon cells). Whether the
-arsenal is reachable and the round-trip is corpse-supportable should be settled
-by actually playing it (drag-aware), since the static graph has already been
-proven wrong here twice. Corpus status is unaffected — Dwarf stays `0|0` (all
-three engines still agree, drag included); only its *win-derivability* is now
-"likely, TBD" rather than "impossible".
+<details><summary>Two superseded intermediate takes — kept for the record (I was wrong twice)</summary>
 
-<details><summary>Superseded (WRONG) "provably unwinnable" analysis — kept for the record</summary>
+**Take 1 (WRONG mechanism, right outcome):** ~~the `{*}` gate *seals* the map;
+the arsenal is reachable only via cl_Location11→West which is blocked.~~ Wrong —
+dragging a corpse (`cl_DragCharac1`, pri 40485) beats the gate and moves the
+player, so the room is not sealed; you can go west.
 
-~~The `{*}` gate seals the map; the win needs cl_ArsenalDes=1 (arsenal, west
-component) reachable only via cl_Location11→West which is `{*}`-blocked; only
-creep-south (a dead end) beats the gate, so unwinnable in all engines including
-the real Runner.~~ **Invalid — ignores drag-as-movement (`cl_DragCharac1`, pri
-40485), which beats the gate and provides directional player movement.** The
-byte-identity check still stands: the corpus copy (SHA1 `bdc9422d…`) equals the
-adrift.co "Version 9" download (game 1639), so this IS the current public build —
-but that build is passable via drag, not sealed.
+**Take 2 (WRONG outcome):** ~~since drag bypasses the gate, the game is "likely
+winnable, TBD".~~ Wrong — the drag-aware playthrough shows the NORTH route (the
+only path to the arsenal) is a death-trap: `drag guard n` kills you at
+Bend-in-Tunnel, and empty-handed north is `{*}`-blocked. Net result is the same
+as Take 1 (unwinnable) but for the correct reason above.
 
 </details>
 
