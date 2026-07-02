@@ -327,6 +327,9 @@ s
 e
 examine web
 burn web
+z
+z
+z
 u
 attack haraxis
 z
@@ -396,6 +399,16 @@ se
 s
 s
 s
+# TICK-ORDER RE-TUNE (NPCs now walk before events, faithful to Runner): Maretta's
+# walk charTask (T156 garlic save +5) no longer fires on the arrival turn itself;
+# wait at the entrance so her walk step meets us while the garlic is held (the
+# extra waits also re-tune the castle RNG stream; see main solution).
+z
+z
+z
+z
+z
+z
 throw bottle at maretta
 s
 s
@@ -415,6 +428,12 @@ take sword
 take shield
 take gold coin
 n
+# TICK-ORDER RE-TUNE: hoist the venison grab to BEFORE the Morac timer starts
+# (room 77 not yet entered with the sword), shaving one in-window turn so the
+# climb reaches room 104 exactly on the turn of the task-327 kill check.
+e
+take venison
+w
 w
 s
 s
@@ -424,7 +443,6 @@ n
 n
 e
 e
-take venison
 e
 d
 d
@@ -594,30 +612,36 @@ sw
 w
 w
 w
-attack fang
+# FANG RE-DERIVED for the tick-order fix: he is a ONE-hit kill (+5) but only
+# attackable when his patrol walk brings him here ('Fang darts into the area').
+# Under NPCs-first his patrol shifted; wait 25 turns at Shadow Forest (27) for
+# his arrival, then a single attack fells him.
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 z
 attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
-attack fang
-z
 nw
 n
 unlock double doors with triangular piece of metal
@@ -676,14 +700,22 @@ n
 n
 n
 press stone button
+# DAMASTUS chase RE-DERIVED for the tick-order fix + fang/wraith/garlic
+# re-tunes: greedy BFS from the stone button (157); attack when co-located,
+# else BFS-step toward him; then walk to the bronze button (151). Re-derive
+# with chase.py (SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if upstream turns change.
+s
 attack damastus
-attack damastus
-e
-attack damastus
-w
 attack damastus
 s
 attack damastus
+s
+attack damastus
+s
+attack damastus
+n
+n
+n
 n
 e
 e

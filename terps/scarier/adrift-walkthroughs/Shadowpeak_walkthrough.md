@@ -1,5 +1,40 @@
 # Shadowpeak — walkthrough (★ COMPLETE — WON @ 710/790, 0 deaths)
 
+## ✅ SESSION 22 (2026-07-02): re-derived for the NPC/event tick-order fix — parity restored (710/715/740)
+
+The faithful-to-Runner tick-order change (NPCs walk **before** events,
+`scrunner.cpp`, commit 68b83f93) broke all three solution files: the Morac
+climb arrived at room 101 — inside the `{65,69-103}` kill group — exactly on
+the task-327 check turn, one turn short of room 104. Re-derivation restored
+**exact score parity with the old-order transcripts** (score-event multisets
+identical): main **710**, allgargoyles **715**, killwraith **740**, all 0 deaths.
+
+Key mechanics discovered (full detail in
+`terps/scarier/TODO_restriction_type5_and_turn_order.md`):
+
+- **NPC-walk charTask/meetChar tasks now fire only when the NPC's own walk step
+  lands on the player**, not when the player walks into the NPC's room. This
+  cost three formerly-free triggers, each fixed with tuned `z` waits:
+  Maretta's garlic save (T156 +5, wait at room 63), killwraith's Fang one-hit
+  kill (+5, wait 25 at room 27 for "Fang darts into the area"), and
+  allgargoyles' Melvin meet (T295, gates the behead-teleport T333; 17 pre-window
+  waits at room 71 until he waddles in).
+- **The Morac window turn was recovered by hoisting `take venison` to before
+  the timer starts** — room 72 is reachable without entering room 77, and task
+  193 (timer start) needs the sword in 77, so the grab is clock-free.
+- The EVENT-92 duration draw (40–50) shifts with every upstream RNG change; the
+  garlic-z / pre-window-wait counts double as the re-tune knob.
+- Edna waits re-tuned; the Damastus chase is now re-derivable in one run with
+  `harness/shadowpeak_chase.py` (greedy BFS over the dumped EXIT graph,
+  `SCR_TRACE_PLAYER` + `SCR_TRACE_JUDY npc=35`). killwraith's Haraxis fight
+  needed 3 pre-fight waits to dodge a −29 mega-hit.
+
+All three rows are now in `harness/run_v4_walkthroughs.sh` with blessed goldens
+and the win marker `completed the adventure Shadowpeak` (regression 20/20 PASS).
+Fixed copies + a current `scare` binary synced to `~/adrift-battle/harness` and
+`~/scare/adrift-walkthroughs/harness`; the 36 other adrift-battle solutions were
+verified outcome-identical under the new binary.
+
 ## 🔬 SESSION 14 (2026-06-27): deep-dungeon entrance decoded (no new points banked — 355 held)
 
 Reconnaissance only — the deep dungeon (rooms 128–138, the next big scoring cluster) is

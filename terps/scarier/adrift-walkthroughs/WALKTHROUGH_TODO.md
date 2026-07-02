@@ -8,6 +8,19 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-07-02 — Shadowpeak re-derived for the tick-order fix — parity restored (710/715/740)
+
+The NPCs-before-events tick-order fix broke all three Shadowpeak solutions (one
+turn short vs the EVENT-92 Morac timer, plus three NPC-walk meet/charTask
+triggers that now fire only when the NPC steps onto the player). All three
+re-derived to exact old-order score parity, 0 deaths, and added to
+`run_v4_walkthroughs.sh` with blessed goldens (regression 20/20 PASS). Session
+writeup at the top of `Shadowpeak_walkthrough.md`; mechanism details in
+`terps/scarier/TODO_restriction_type5_and_turn_order.md`; the Damastus chase is
+re-derivable in one run with `harness/shadowpeak_chase.py`. Copies + fresh
+`scare` synced to `~/adrift-battle/harness` (36 other solutions verified
+unaffected by the binary refresh) and `~/scare/adrift-walkthroughs/harness`.
+
 ## 2026-06-28 — ALEXIS max-score — combat RE done, route mapped (banked still 23/65)
 
 Picked up the parked ALEXIS max-score pass. **Reverse-engineered the 3.9 Battle

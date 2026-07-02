@@ -417,6 +417,12 @@ se
 s
 s
 s
+# TICK-ORDER RE-TUNE (NPCs now walk before events, faithful to Runner): Maretta's
+# walk charTask (T156 garlic save +5) no longer fires on the arrival turn itself;
+# wait at the entrance so her walk step meets us while the garlic is held (the
+# extra waits also re-tune the castle RNG stream; see main solution).
+z
+z
 # Maretta the vampire wife arrives; the garlic bud already repels her (T156 +5).
 # Throw the holy water to destroy her and open the castle. T155 +10.
 throw bottle at maretta
@@ -457,6 +463,34 @@ take shield
 take gold coin
 # n->71 back to the main hall to begin the (timer-starting) lantern run.
 n
+# TICK-ORDER RE-TUNE: hoist the venison grab to BEFORE the Morac timer starts
+# (room 77 not yet entered with the sword), shaving one in-window turn so the
+# climb reaches room 104 exactly on the turn of the task-327 kill check.
+e
+take venison
+w
+# TICK-ORDER RE-TUNE: Melvin's walk meet task (T295 #Melvinmeetsplayer1sttime)
+# no longer fires when WE enter HIS room; it fires only when HIS walk step lands
+# on us. It gates the Melvin behead-teleport (task 333) used after the gargoyle
+# #1 kill. Wait at the main hall (71) pre-window (sword has not entered 77 yet,
+# so the Morac clock is not running) until he waddles in and greets us.
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 # ============================ SESSION 20 (+105) ============================
 # THE MORAC ENDGAME. The castle Morac death-timer (event 92, ~49 turns from
 # first entering room 77) fires task 326 'Morac arrives' then, 2 turns later,
@@ -480,7 +514,6 @@ e
 # heal). e->72 dining (venison), e->73, d->84, d->83, e->85 (rats; boots save
 # us), s->86 cellar, chisel on the rubble. Back n,w,u,u,w,w to room 71.
 e
-take venison
 e
 d
 d
@@ -794,32 +827,22 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED (session 21: the horn grab adds +2 turns, shifting
-# his RNG). Greedy BFS from the stone button (room 157): attack when co-located,
-# else BFS-step toward him. He dies at room 150 (+25). Re-derive with /tmp/chase.py
-# if upstream turns change (seeded scare + SC_TRACE_PLAYER + SC_TRACE_JUDY npc=35).
-# DAMASTUS chase RE-DERIVED for the alt route (greedy BFS, /tmp/chase.py). With no
-# trailing gargoyle the maze RNG differs: from the stone button (157) he now dies
-# at room 153. Then navigate to the bronze button (151).
+# DAMASTUS chase RE-DERIVED for the tick-order fix + garlic/venison/Melvin
+# re-tunes: greedy BFS from the stone button (157); attack when co-located,
+# else BFS-step toward him; then walk east to the bronze button (151).
+# Re-derive with chase.py (SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if
+# upstream turns change.
 s
-s
-s
-s
-attack damastus
 n
 attack damastus
-s
-attack damastus
-n
-attack damastus
-s
-attack damastus
-n
-n
-n
-n
 e
+attack damastus
+w
+attack damastus
 e
+attack damastus
+e
+attack damastus
 e
 e
 e

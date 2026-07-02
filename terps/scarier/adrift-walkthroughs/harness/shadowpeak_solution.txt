@@ -403,6 +403,13 @@ se
 s
 s
 s
+# TICK-ORDER RE-TUNE (NPCs now walk before events, faithful to Runner): Maretta's
+# walk charTask (T156 garlic save +5) no longer fires on the arrival turn itself;
+# wait one turn at the entrance so her walk step meets us while the garlic is held.
+z
+z
+z
+z
 # Maretta the vampire wife arrives; the garlic bud already repels her (T156 +5).
 # Throw the holy water to destroy her and open the castle. T155 +10.
 throw bottle at maretta
@@ -443,6 +450,14 @@ take shield
 take gold coin
 # n->71 back to the main hall to begin the (timer-starting) lantern run.
 n
+# TICK-ORDER RE-TUNE: the Morac window is one turn too long under NPCs-first
+# (unlock lands exactly at 'Morac arrives'+0; the climb reached 101, not 104, at
+# the kill check). Hoist the venison grab to BEFORE the timer starts (room 77 not
+# yet entered with the sword), shaving one in-window turn: 104 is reached ON the
+# turn-48 kill check -> safe.
+e
+take venison
+w
 # ============================ SESSION 20 (+105) ============================
 # THE MORAC ENDGAME. The castle Morac death-timer (event 92, ~49 turns from
 # first entering room 77) fires task 326 'Morac arrives' then, 2 turns later,
@@ -466,7 +481,6 @@ e
 # heal). e->72 dining (venison), e->73, d->84, d->83, e->85 (rats; boots save
 # us), s->86 cellar, chisel on the rubble. Back n,w,u,u,w,w to room 71.
 e
-take venison
 e
 d
 d
@@ -754,30 +768,33 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED (session 21: the horn grab adds +2 turns, shifting
-# his RNG). Greedy BFS from the stone button (room 157): attack when co-located,
-# else BFS-step toward him. He dies at room 150 (+25). Re-derive with /tmp/chase.py
-# if upstream turns change (seeded scare + SC_TRACE_PLAYER + SC_TRACE_JUDY npc=35).
+# DAMASTUS chase RE-DERIVED for the tick-order fix (NPCs walk before events) +
+# the garlic-z / venison-hoist re-tunes upstream. Greedy BFS from the stone
+# button (room 157): attack when co-located, else BFS-step toward him. He dies
+# at room 160; e,e,e -> 151 for the bronze button. Re-derive with chase.py
+# (seeded scare + SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if upstream turns
+# change.
 e
 e
 e
 e
 e
 e
-s
-s
+w
 attack damastus
+w
 attack damastus
-n
+w
 attack damastus
-s
+w
 attack damastus
-n
+e
 attack damastus
-# Bronze button (room 151), the 4th: from room 150 (where Damastus died) n->151.
-# All four buttons pressed AND Damastus dead fires the 'all buttons' task (+10),
-# unsealing 160<->163.
-n
+e
+e
+e
+# Bronze button (room 151), the 4th. All four buttons pressed AND Damastus dead
+# fires the 'all buttons' task (+10), unsealing 160<->163.
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required
