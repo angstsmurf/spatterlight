@@ -46,6 +46,15 @@ menu pseudo-rooms (StartOptions / Prologue / Instructions). This fourth copy was
 mistakenly given the location restriction `cl_Location11` (a real gameplay room),
 walling off the map. No faithful engine can complete it, and none should patch it.
 
+**Confirmed to be the current PUBLIC release:** the copy in the corpus
+(`test/adrift5-games/DwarfOfDirewoodForest.blorb`, SHA1
+`bdc9422de3662fea11cd8aa4f234049f48454e20`) is **byte-identical** to the
+adrift.co "Version 9" download (game 1639, the latest release; 244 downloads /
+150 online plays / just 1 rating). Version 9's `cl_NullAtStar` still carries the
+`BeAtLocation cl_Location11` restriction — so there is **no fixed public build**;
+the shipped game is unwinnable as released. (Only an unreleased/email-only `.taf`
+could change this.)
+
 ## ⭐ `MoveCharacter … InsideObject / OntoObject / ToParentLocation` were unhandled no-ops (FBA custodian-niche stealth never hides the player)  ✅ DONE (2026-07-02)
 
 Surfaced deriving FinnsBigAdventure's catacombs. To evade the custodian you
