@@ -460,6 +460,7 @@ CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
+DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 EOF
 )
 

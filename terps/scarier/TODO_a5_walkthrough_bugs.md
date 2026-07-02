@@ -1,5 +1,53 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ DwarfOfDirewoodForest → wired 0|0 MATCH: plural `%objects%` bind clobbered the singular `%object%` container reference  ✅ DONE (2026-07-02)
+
+The "hide-in-beard" bug from `TODO_a5_walkthrough_wiring.md`: `hide droppings,
+knife and key in beard` → Scarier "You can't hide anything in that!" where FD
+runs the beard-specific override ("Ok, you push the dire vulture droppings, the
+sheath knife and the metal key into your beard where it is hidden from
+sight."), and the whole cell escape cascaded from there (turn ~15 on). Single-
+object `hide knife in beard` worked; only the multi-object list failed.
+
+**Root cause — the plural bind aliased onto `ReferencedObject`.** Scarier's
+`bind_reference("objects", ...)` bound the item under BOTH `ReferencedObjects`
+AND the singular `ReferencedObject` alias (deliberately, for override-key
+matching on plural-only commands). But `cl_HideObject`'s command is
+`[hide/push] %objects% [in{side}/under/be{low/neath}] %object%` — TWO object
+references — and its restriction `ReferencedObject Must HaveProperty
+cl_CanBeHidde` names the *container* (`%object%`, the beard). During
+`resolve_plural`'s per-item Applicable/final probes, each `bind_reference
+("objects", item)` clobbered `ReferencedObject` (beard → droppings/knife/key),
+so the property restriction was tested against the ITEMS, every item failed,
+and the task returned RR_FAIL with restriction 7's message — the Specific
+overrides (`cl_HideObjInB1`/`B2`) never got a chance. FD keeps the two slots
+distinct: `GetReference("ReferencedObject")` resolves ONLY to the reference
+whose `ReferenceMatch` is `"object1"`, never to the `"objects"` plural
+(clsUserSession.vb:3990), while `"ReferencedObjects"` resolves to the first
+object-type reference.
+
+**Fixed** (`a5run_ref.cpp` + `a5state.{h,cpp}`): `resolve_refine` sets
+`st->ref_objects_suppress_singular` when the matched command carries BOTH a
+genuine plural `%objects%` and a separate singular `%object%`/`%object1%` (or
+`%item%`) reference; `bind_reference` then skips the singular aliasing for
+`"objects"` binds (and does not mark `ref_object1_plural`, so `%object%` text
+tokens correctly render the container, like FD). Plural-only commands (`take
+%objects%`) keep the old aliasing — conservative, and the whole corpus depends
+on it. Reset by `a5state_clear_refs` per match attempt.
+
+**Result:** the full 236-command native `WLKTHRGH` script is a **0|0 MATCH in
+both RNG modes** (golden `test/DwarfOfDirewoodForest_expected.txt`, MAP line
+added). NOTE this is *conformance*, not a win: FD (ground truth) still cannot
+leave "By Guard Room" on the return visit — the `{*}` catch-all
+(`cl_NullAtStar`, PreventOverriding) preempts the room's ordinary North
+movement, which the real ADRIFT runner evaluates first — so both engines spend
+the last ~166 commands identically answering "Please press O then press
+Enter.". The pre-trap first act (cell escape, guard kill/loot/drag, `creep
+south`) is real gameplay coverage. If FD or Scarier ever adopts the real
+runner's movement-before-`{*}` precedence, the golden must be re-derived (and
+should then reach the win). No corpus game moved (all baselines hold in both
+modes); all a5 unit tests pass.
+
 ## ⭐ TheEuripidesEnigma → full MATCH: identity-ALR hang + runtime ExplicitlyExclude listing filter + per-command pass-text dedup + map-path DisplayOnce retire  ✅ DONE (2026-07-02)
 
 Surfaced by wiring **TheEuripidesEnigma** (native `WLKTHRGH` solution, full

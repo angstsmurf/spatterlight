@@ -303,13 +303,23 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
     if (text != NULL)
       a5state_bind_ref (st, (alias + "$text").c_str (), text);
   };
-  bind ("Referenced" + stem + num);
-  /* The bare "Referenced<Stem>" is the *first* reference (%object% == %object1%);
-     a higher index (%object2%..) must not clobber it -- FD keeps ReferencedObject
-     pinned to ref 1 so 2-specific overrides (e.g. PutSomeDry: Gunpowder1 + Keg)
-     resolve per index. */
-  if (num.empty () || num == "1") bind ("Referenced" + stem);
-  if (num == "1") bind ("Referenced" + stem + "1");
+  /* When the command carries BOTH the plural %objects% and a separate singular
+     %object%, the plural's binds must not alias onto ReferencedObject: FD's
+     GetReference resolves ReferencedObject only to the "object1" reference
+     (clsUserSession.vb:3990), so a restriction on ReferencedObject keeps
+     testing the singular (the container) while the plural items iterate
+     (`hide %objects% in %object%`). */
+  int suppress = (base == "objects" && st->ref_objects_suppress_singular);
+  if (!suppress)
+    {
+      bind ("Referenced" + stem + num);
+      /* The bare "Referenced<Stem>" is the *first* reference (%object% ==
+         %object1%); a higher index (%object2%..) must not clobber it -- FD keeps
+         ReferencedObject pinned to ref 1 so 2-specific overrides (e.g.
+         PutSomeDry: Gunpowder1 + Keg) resolve per index. */
+      if (num.empty () || num == "1") bind ("Referenced" + stem);
+      if (num == "1") bind ("Referenced" + stem + "1");
+    }
   if (base == "objects")    bind ("ReferencedObjects");
   if (base == "characters") bind ("ReferencedCharacters");
 
@@ -325,7 +335,7 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
      the slot plural-derived so a5text suppresses the singular token. */
   if (base == "object" && (num.empty () || num == "1"))
     st->ref_object1_plural = 0;
-  else if (base == "objects")
+  else if (base == "objects" && !suppress)
     st->ref_object1_plural = 1;
   if (base == "character" && (num.empty () || num == "1"))
     st->ref_character1_plural = 0;
@@ -933,7 +943,26 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
              ("There is nothing worth taking here.") rather than the single-ref
              no-reference message. */
           if (ok && (items.size () > 1 || had_all))
-            { plural_idx = i; plural_text = r.text; continue; }   /* multi/all */
+            {
+              plural_idx = i; plural_text = r.text;
+              /* Does this command ALSO carry a singular %object%/%object1% (or
+                 %item%) reference?  Then the plural's per-item binds must not
+                 alias onto ReferencedObject (see bind_reference) -- FD keeps the
+                 two slots distinct, so `hide %objects% in %object%` restrictions
+                 on ReferencedObject test the container throughout the item
+                 iteration. */
+              for (int j = 0; j < m->n_refs; j++)
+                {
+                  if (j == i) continue;
+                  std::string b2 = m->ref_name[j];
+                  while (!b2.empty () && isdigit ((unsigned char) b2.back ()))
+                    b2.pop_back ();
+                  if ((b2 == "object" || b2 == "item")
+                      && (m->ref_name[j] == b2 || m->ref_name[j] == b2 + "1"))
+                    { st->ref_objects_suppress_singular = 1; break; }
+                }
+              continue;                                           /* multi/all */
+            }
           r.type = 'o';
           if (ok && items.size () == 1)
             r.orig = order_visible_first (st, items[0]);

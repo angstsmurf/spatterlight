@@ -31,22 +31,24 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 | ThingsThatGoBumpInTheNight | WALKTHROUGH | ✅ **WIRED** (8\|8) — 3 cut-scene corrections |
 | **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (403\|403 → **8\|0, xoshiro FULL MATCH**) — full 520-pt win, ZERO corrections (see below) |
 | BugHuntOnMenelaus | WALKTHROUGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
-| DwarfOfDirewoodForest | WLKTHRGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
+| DwarfOfDirewoodForest | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (0\|0 conformance MATCH — but FD-trapped, NOT a win; see below) |
 | TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 DIVERGE, RNG-independent) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
-| FBA v.3c | WT | not yet extracted (has a `WALKTHROUGH (WT)` command) |
-| MagorInvestigates / XanixXixonResurgence / FinnsBigAdventure | none | only the email-on-request note |
+| FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02).** The HELP/VOCAB text advertises "WALKTHROUGH (WT)" but **no task backs that command** — `a5dump` has no `cl_Walkthroug*` printer task (only an unrelated `cl_Walkthroug5` location-trigger System event) and no `[wt]`/`[walkthrough]` Command anywhere; typing `wt` in-game just loops the intro handshake. The same intro says "a walkthrough is available on request (type HELP)" → **email-only**. Blind-play like Magor/Xanix (see hints-only group below). |
+| MagorInvestigates / XanixXixonResurgence | none | only the email-on-request note |
 
 Caveat: the built-in text was authored against a slightly earlier build, so some
 moves get absorbed by this build's scripted cut-scenes and must be corrected
 against FrankenDrift (intro auto-walks and patrol/teleport cut-scenes are the
 usual culprits). LostLabyrinth is the exception — it replayed byte-clean.
 
-### ⚠️ Native-solution derivation: two Horsfield games are blocked in FrankenDrift itself
+### ⚠️ Native-solution derivation: FrankenDrift itself cannot finish these
 
 Both games' native walkthroughs were successfully extracted and the mis-transcribed
-moves corrected, but they cannot be wired because **FrankenDrift (our ground truth)
-cannot execute a key movement** — the real ADRIFT runner can (per the author's own
-walkthrough), so this is an FD reference-engine limitation, not a wrong command:
+moves corrected, but **FrankenDrift (our ground truth) cannot execute a key
+movement** — the real ADRIFT runner can (per the author's own walkthrough), so
+this is an FD reference-engine limitation, not a wrong command. (Dwarf is now
+nevertheless wired: Scarier reproduces FD's trapped behaviour byte-for-byte, so
+it's a 0|0 conformance MATCH even though neither engine reaches the win.)
 
 - **BugHuntOnMenelaus.** Native WALKTHROUGH extracted (6 marines, `BECOME`
   switching). Only transcription fix needed for this build: Captain Erlin enters
@@ -62,23 +64,33 @@ walkthrough), so this is an FD reference-engine limitation, not a wrong command:
   is dropped. So Davey can't kill his Meneltra; FD caps at 4/6 kills, 65/100, no
   win. (Scarier is worse here: `BECOME` doesn't relocate the player and `push 3`
   → "can't see any 3s".)
-- **DwarfOfDirewoodForest.** Native WLKTHRGH extracted (single protagonist). One
-  transcription fix: at "By Guard Room" the built-in's `s` must be **`creep south`**
+- ~~**DwarfOfDirewoodForest**~~ ✅ **WIRED 2026-07-02 as a 0|0 conformance MATCH
+  (both RNG modes, golden `test/DwarfOfDirewoodForest_expected.txt`) — but NOT a
+  win.** Native WLKTHRGH extracted (single protagonist). One transcription fix:
+  at "By Guard Room" the built-in's `s` must be **`creep south`**
   (`cl_CreepSouth`, `[creep/tiptoe] [s/south]`) — a plain `s` alerts the guard.
-  With that the entire guard-kill/loot/drag/lock sequence plays perfectly.
-  **Blocker:** "By Guard Room" (`cl_Location11`) carries a `{*}` catch-all General
-  task (`cl_NullAtStar`, priority 44074, PreventOverriding=1) that replies
-  "Please press O then press Enter." to every command. After the guard is killed
-  the room's ordinary North `<Movement>` should let you leave, but in FD the `{*}`
-  task preempts the movement, so **no command leaves the room** (`n`/`north`/`out`
-  all → "press O") and the player is trapped for the rest of the script. The real
-  runner evaluates the direction movement ahead of the `{*}` task; FD does not.
-  (Scarier is worse: it doesn't even parse the `creep south` specific task.)
+  The **hide-in-beard root cause is FIXED** (see the top entry in
+  `TODO_a5_walkthrough_bugs.md`): the plural `%objects%` per-item binds were
+  clobbering the singular `ReferencedObject` alias (the beard container), so
+  `hide droppings, knife and key in beard` failed the general task's
+  `cl_CanBeHidde` restriction against the *items* and the beard-specific
+  override never fired. With that fixed (and `creep south` parsing fine —
+  the earlier "Scarier doesn't parse it" note was just downstream fallout),
+  Scarier now matches FD **byte-for-byte over the full 236-command native
+  script**, including the trap: FD still cannot leave "By Guard Room" on the
+  return visit — the `{*}` catch-all (`cl_NullAtStar`, priority 44074,
+  PreventOverriding=1) preempts the room's ordinary North `<Movement>`, which
+  the real ADRIFT runner evaluates first — so both engines answer the last ~166
+  commands with "Please press O then press Enter." identically. The pre-trap
+  first act (cell escape, guard kill/loot/drag/lock) is real gameplay coverage.
+  If the movement-before-`{*}` precedence is ever adopted (in FD or Scarier),
+  the golden must be re-derived and the same script should then reach the win.
 
-Both are catalogued as engine-precedence findings — fixing Scarier's
-`{*}`-vs-movement and OR-restricted-movement handling would let it *diverge from
-FD in the correct direction*, but neither game can be a MATCH golden until FD (or a
-different ground truth) can complete them.
+BugHunt remains catalogued as an engine-precedence finding — fixing Scarier's
+OR-restricted-movement handling would let it *diverge from FD in the correct
+direction*, but it can't be a MATCH golden until FD (or a different ground
+truth) can complete it. (Dwarf's `{*}`-vs-movement trap is the same class, but
+there FD and Scarier now agree byte-for-byte, so it IS wired as a MATCH.)
 
 ### ⭐ LostLabyrinthOfLazaitch — native solution wired with zero corrections; FIXED to 8|0 (xoshiro FULL MATCH)
 
@@ -221,8 +233,9 @@ task; the others are by Finn Rosenløv / Kenneth Pedersen.)
 
 `DwarfOfDirewoodForest`, `TheEuripidesEnigma` and `TheLostLabyrinthOfLazaitch`
 were moved OUT of this list on 2026-07-02 — they embed a built-in `WLKTHRGH`
-native solution (see the ⭐ sections above; LostLabyrinth and TheEuripidesEnigma
-are now wired — only DwarfOfDirewoodForest remains, FD-blocked).
+native solution (see the ⭐ sections above; all three are now wired —
+LostLabyrinth and TheEuripidesEnigma as full wins, DwarfOfDirewoodForest as a
+0|0 conformance MATCH that ends FD-trapped at "By Guard Room").
 
 ## Wiring checklist per game
 

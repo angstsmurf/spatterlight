@@ -335,6 +335,7 @@ a5state_clear_refs (a5_state_t *st)
   st->ref_items_type = 'o';
   st->ref_object1_plural = 0;
   st->ref_character1_plural = 0;
+  st->ref_objects_suppress_singular = 0;
 }
 
 void

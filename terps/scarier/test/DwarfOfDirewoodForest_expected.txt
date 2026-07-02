@@ -1,0 +1,882 @@
+The Dwarf of Direwood Forest
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+THE DWARF OF DIREWOOD FOREST
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+You are highly advised to read the prologue and playing instructions, especially if you are starting this game for the first time. To do this press P and then Enter. You should also view the VOCAB list as there are a number of non-standard verbs used in this game.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+You can adjust these colours by clicking on VIEW in the taskbar above and selecting "Options"
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+DISCLAIMER:
+Please be advised that this game contains some content which some players might find offensive.
+
+Useful Commands After The Adventure Has Started:
+
+BUGS : COMMANDS : CREDITS : HELP : INSTRUCT: MACROS : MAP : SPEECH : STORY : VOCAB
+
+> b
+
+Forest Road
+You are on a North-South road in Direwood Forest, near the border with the Turdrock Clan lands, which are further south. Thick, impenetrable forest lies to east and west, the trees clustered closely together, their roots hidden amongst the tangled vegetation of the forest floor.
+
+> i
+You are wearing a leather jerkin, a red kilt, a war belt, a battle axe and a pair of boots, and are carrying nothing.  Attached to your belt is a pouch and a sheath in which sits your knife.
+
+> x me
+You are a dwarf of clan Wyldstone, about 4'6" in height with long auburn hair and a big bushy beard.
+
+> x beard
+Your beard, which hangs down to below your waist, is very bushy and quite dense. You've found it useful for hiding small objects in from time to time. You keep it bound up to stop it getting in your way.
+
+> s
+You move South.
+
+Forest Road
+You are on the forest road where, to the East, you see a trail leading through the tangled undergrowth between the trees.
+
+As you walk along, keeping a lookout ahead for any trouble approaching, you hear the sound of birds squabbling coming from the east.
+
+> e
+You move East.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.
+
+You are startled by the loud flutter of wings as several large birds take off from the far bank of the stream. You notice they are mainly scavengers and are horrified to see that they had been feeding on the dead body of a dwarf. One bird, however - a huge dire vulture - remains standing on the chest of the body, staring at you defiantly with fierce yellow eyes.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.  On the far bank lies the body of a dwarf which has a dire vulture standing on its chest.
+
+> x bank
+You look around and notice that the bank of the stream is strewn with pebbles, stones and small rocks.
+
+> get rock
+You select a small rock from the many lying nearby and pick it up.
+
+> throw rock at vulture
+You throw the rock as hard as you can at the dire vulture.
+
+As luck would have it, the rock hits the bird's left eye and the vulture screeches in shock. Shaking its head in pain it takes to the air with powerful beats of its wings and disappears from view beyond the treetops of the surrounding forest.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.  On the far bank lies the body of a dwarf.
+
+> e
+You move East.
+
+East Bank of Stream.
+You are standing on the east bank of the stream, where the dead body of a dwarf lies rotting on the ground. You can go West to the other side of the stream.  Also here is a small rock.
+
+> look under body
+Holding your breath to avoid the stench of the body you gingerly lift it up a bit so you can see under it. At first you see nothing but then you spot a metal key, which you pick up.
+
+> get droppings
+(from the dead dwarf)
+Ok, you take the dire vulture droppings from the dead dwarf.
+
+> get knife
+(from the leather sheath)
+You take your knife from its sheath.
+
+> hide droppings, knife and key in beard
+Ok, you push the dire vulture droppings, the sheath knife and the metal key into your beard where it is hidden from sight.
+
+> w
+You move West.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.  On the far bank lies the body of a dwarf.
+
+> w
+You move West.
+
+Forest Road
+You are on the forest road where, to the East, you see a trail leading through the tangled undergrowth between the trees.
+
+> s
+You move South.
+
+Forest Road
+You are at a bend in the forest road where, just around the corner, is the border of your clan's territory. You can go North or SE.
+
+> se
+You move SouthEast.
+
+Whyldstone Border
+You are on the road through the forest, at the border of your own clan's territory. This is marked by two totems on either side of the path. Lounging on either side of the path are three border guards, your clanmates Kennpedd, Kimmboon and Roosloov. The road leads NW and continues South across a short area of "No Man's Land" to the Turdrock border about 100 yards away.
+
+Squatting and sitting here are three of your clanmates, Kimmboon, Roosloov and Kennpedd, who are on sentry duty today.
+
+They greet you warmly and all wish you good luck on your quest. Before you carry on, you have some questions for them:
+
+1: "Do you have any food?"
+2: "Do you have anything to drink?"
+3: "Have you seen any activity at the Turdrock border?"
+
+> 1
+You ask the sentries if they have any food to spare?
+
+"Forget to bring some food with you?," Roosloov says, chuckling. "You'd forget yer head if it weren't screwed on!" he jests, making everyone laugh.
+
+Kennpedd rummages around in a backpack and takes out a small package which he hands to you.
+
+You thank him and Kimmboon says, "There, that'll keep you going for a few days if you take it easy."
+
+> 2
+You ask if the dwarves have they any water to spare.
+
+"Don't tell me you left without any water!" Kimmboon exclaims, incredulously. You sheepishly admit that you did, causing the three dwarves to shake their heads in disbelief.
+
+"Help 'im out Roos," he says to the blond-haired dwarf. Roosloov takes a leather flask from his warbelt and hands it to you.
+
+"Whatever you do don't lose it," Roos warns you. "It belongs to me dad, it'll never go empty and the water inside is always cold  - some sort of magic spell on it I think."
+
+You thank Roosloov and assure him that you will guard it with your life.
+
+> 3
+You ask the dwarves if they have seen any activity at the Turdrock border?
+
+"Well, there were several guards there earlier today and then we saw someone - he looked like an officer - arrive and talk to them," Kimmboon tells you.
+
+"They stood there arguing amongst themselves for a minute or two and then the officer bellowed at them and they all shut up," Roosloov continues.
+
+"Next thing ya know they all troops off south along the path, leaving the border unmanned," KennPedd concludes. "They've never done that before!"
+
+"You'd better get going before those guards come back," Roosloov tells you, and the other guards agree with him.
+
+"Yes, I'd better, hadn't I?" you reply.
+
+The three dwarves turn their attention to watching the border.
+
+> s
+You move South.
+
+Turdrock Border
+You are at the border of the Turdrock Clan, on a road that goes North and South through the forest. As with your clan's border, it is marked by two totems either side of the path.
+
+As you reach the border you stop and look around. As the Whyldstone sentries had told you, the border seems to be unmanned...but you get the uneasy feeling that you are being watched.
+
+> s
+You move South.
+
+You set off south but you have only gone a couple of yards when suddenly a weighted net is flung over you!
+
+You trip over and fall to the ground, becoming entangled in the net's folds. As you struggle to free yourself a hard heavy object hits your head and everything goes black...  You regain consciousness as you are being frogmarched in darkness and you realise that you are deep underground. Your eyes gradually adjust to the darkness and after a few minutes you stop outside a barred cell. Your captors, dwarves of the Turdrock clan, bind your hands and, having already taken your axe, start to search you, taking anything you are carrying.
+
+They find nothing in your pouch, much to their disgust, and so you are thrown into the cell and and the door closed with a loud echoing screech of rusty hinges behind you. A dwarf guard locks the door with another groan of metal and you are left on your own.
+
+Cell 1
+You are in a dark, dank underground cell somewhere in the Turdrock clan's territory. The walls are covered in a sheen of slimy green moisture and the floor is covered with stinking, rotting straw. The door leads Out to the tunnel beyond but it is closed and locked at the moment.
+
+> get all from beard
+Ok, you take the sheath knife, the metal key and the dire vulture droppings from out of your beard.
+
+> x wall
+The cell walls are solid rock and coated with slimy moisture. You notice in one wall, at about chest height to a dwarf, there is a narrow crack.
+
+> put knife in crack
+Holding the knife carefully by the blade you push the hilt into the crack as far as you can.
+
+> cut rope with knife
+You carefully rub the rope on the blade of your knife and within a few minutes you have sliced through it. As the remains of the rope fall to the floor you rub your wrists to restore circulation. You then take the knife out of the crack and put it back in its sheath.
+
+> x moisture
+It seem to issue from the very walls themselves, you've never seen the like before.
+
+> x door
+A door made up of thick, rusty steel bars with a lock, the hinges are also rusty and it is closed and locked.
+
+> x hinges
+The hinges of the cell door are heavily rusted.
+
+> rub slime on hinges
+You scrape some of the slimy moisture off the wall in one hand and rub it onto the hinges of the cell door. You notice it seems to dissolve the rust somewhat.
+
+> rub key in slime
+You rub the key in the slimy moisture off the wall. You notice it seems to dissolve the rust from the key and coat it with a layer of slime.
+
+> unlock door
+(using the metal key)
+You insert the key into the lock of the cell door and turn it.
+
+You do so very carefully and thankfully the slime you rubbed onto the key helps to lubricate it so that no noise is made as the tumblers fall.
+
+> open door
+You open the cell door.
+
+Fortunately the slime you put on the hinges helps the door to open a lot more quietly.
+
+> o
+You move Out.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.
+
+> e
+You move East.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.
+
+Suddenly a soldier comes out of the room to the east. You flatten yourself against the south wall of the tunnel as he strides away to the north.
+
+"See ya soon, I'm back on guard duty," he shouts over his shoulder to someone in the room he just left as the dwarf disappears from view around a corner.
+
+Maybe it would be a good idea to look around the corner to see who is in the room?
+
+> look around corner
+You peep around the corner of the opening and look at what is in there. You see a dwarf sitting on a chair at a table with his back to you.
+
+> e
+You move East.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.
+
+In the room to the south, only about 6 feet from you, a guard sits at a table, his back to you. You'd better hurry up and do something before he senses your presence!
+
+> creep south
+You creep as quietly as you can into the guard room.
+
+The Guard Room
+You are in a large guard room. There are benches around the walls of the room, which is hewn from solid rock, and in the middle a wooden table. The only exit is North to the tunnel outside.
+
+The guard hasn't realised you are behind him - you'd better act quickly!
+
+> get knife
+(from the leather sheath)
+You take your knife from its sheath.
+
+> kill dwarf with knife
+Before the guard can react, you plunge your knife into his spine just under the rim of his helmet, killing him instantly. The guard slumps face-first onto the table, his helmet rolling off of his head onto the table.
+
+The Guard Room
+You are in a large guard room. There are benches around the walls of the room, which is hewn from solid rock, and in the middle a wooden table. The only exit is North to the tunnel outside.  The dead guard is slumped across the table.
+
+> x guard
+The guard bears an uncanny resemblance to you, as he has long auburn hair and a bushy beard. A sword is in a scabbard at his waist. He is slumped on the table he is seated at. The knife that killed him protrudes from his back. He is wearing a similar kilt to you except that it is coloured blue.
+
+> get knife
+You pull your knife from the body of the dwarf.
+
+> put knife in sheath
+You put your knife inside its sheath.
+
+> look under bench
+You look under the benches and find, under one of them, an old kitbag, which you pick up and dust down.
+
+> wear bag
+You put the strap of the kitbag over your shoulder so as to leave your hands free.
+
+> x table
+A simple wooden table about 5 feet square, its surface is covered in gouges and all sorts of initials and words that have been carved into it, not to mention the stains from spilt drinks and other unmentionable liquids.  On top of the table you see a battle axe, some travel rations, a leather flask and a metal helmet.
+
+> get all from table
+Ok, you take the battle axe, the travel rations, the leather flask and the metal helmet from the wooden table.
+
+> wear helmet
+Ok, you put on the metal helmet.
+
+Fortunately it fits you almost perfectly and is very comfortable to wear. The cheek guards hide your face quite well.
+
+> wear axe
+You put the strap over your head and shoulder and wear the axe on your back.
+
+> put all in bag
+Ok, you put the metal key, the dire vulture droppings, the travel rations and the leather flask inside the kitbag.
+
+> search guard
+You search the dead guard and you find an identity badge, which you take. As you are doing this the body slides off the chair onto the floor of the guard room. You attach the badge to your jerkin where it can be seen clearly.
+
+> x badge
+The badge states that you are Torvik Bogdagsson, Senior Praefectus of the Turdrock Praetorian Guard.
+
+> search guard
+You search the dead guard again and this time you find a few coins in a pouch, which you take out and put into your own.
+
+> x coins
+Some Turdrock coins, they are silver, known as "grotz" and there are 7 in number.
+
+> get scabbard
+You unclip the scabbard from the guard's belt and clip it to your own warbelt.
+
+> drag guard n
+You drag the body of the guard north.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.   The dead guard is lying on the floor.
+
+> drag guard w
+You drag the body of the guard west.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.  The dead guard is lying on the floor.
+
+> drag guard w
+You drag the body of the guard west.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.  The dead guard is lying on the floor.
+
+> drag guard s
+You drag the body of the guard south.
+
+Cell 1
+You are in a dark, dank underground cell somewhere in the Turdrock clan's territory. The walls are covered in a sheen of slimy green moisture and the floor is covered with stinking, rotting straw. The open cell door leads Out to the tunnel beyond.   The dead guard is lying on the floor.  Also here is some pieces of rope.
+
+> remove kilt
+You quickly remove the blue kilt from the body of the dead guard by undoing it and rolling him out of it. You then take off your own kilt and replace it with the guard's kilt. Luckily, he is about the same size as you. You then lay your own kilt on the floor of the cell, roll his body onto it and do it up. Now you look like a dwarf of the Turdrock clan.
+
+> o
+You move Out.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.
+
+> get key
+(from the old kitbag)
+Ok, you take the metal key from the old kitbag.
+
+> close door
+You close the cell door.
+
+> lock door
+(using the metal key)
+You lock the cell door with the metal key.
+
+> e
+You move East.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.
+
+> e
+You move East.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.
+
+> n
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> x cell
+Please press O then press Enter.
+
+> x clanmates
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> x vegetation
+Please press O then press Enter.
+
+> get axe
+You remove the axe from your back.
+
+> hide axe in vegetation
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> se
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> x wagon
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> get on wagon
+Please press O then press Enter.
+
+> get off wagon
+Please press O then press Enter.
+
+> look n
+Please press O then press Enter.
+
+> x wall
+Please press O then press Enter.
+
+> x boards
+Please press O then press Enter.
+
+> move boards
+Please press O then press Enter.
+
+> out
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> look around corner
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> in
+Please press O then press Enter.
+
+> close boards
+Please press O then press Enter.
+
+> z
+Please press O then press Enter.
+
+> open boards
+Please press O then press Enter.
+
+> out
+Please press O then press Enter.
+
+> close boards
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> x wagon
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> climb on wagon
+Please press O then press Enter.
+
+> get fuse
+Please press O then press Enter.
+
+> climb off wagon
+Please press O then press Enter.
+
+> open boards
+Please press O then press Enter.
+
+> out
+Please press O then press Enter.
+
+> close boards
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> 1
+Please press O then press Enter.
+
+> 2
+Please press O then press Enter.
+
+> 4
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> u
+Please press O then press Enter.
+
+> in
+Please press O then press Enter.
+
+> 1
+Please press O then press Enter.
+
+> in
+Please press O then press Enter.
+
+> 2
+Please press O then press Enter.
+
+> 3
+Please press O then press Enter.
+
+> x bench
+Please press O then press Enter.
+
+> sit on bench
+Please press O then press Enter.
+
+> listen
+Please press O then press Enter.
+
+> put flagon on table
+Please press O then press Enter.
+
+> d
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> ne
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> search undergrowth
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> in
+Please press O then press Enter.
+
+> get droppings
+Please press O then press Enter.
+
+> 3
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> sw
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> in
+Please press O then press Enter.
+
+> 3
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> play cards
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> 1
+Please press O then press Enter.
+
+> 2
+Please press O then press Enter.
+
+> 3
+Please press O then press Enter.
+
+> move boards
+Please press O then press Enter.
+
+> in
+Please press O then press Enter.
+
+> put oil on crates
+Please press O then press Enter.
+
+> put fuse on oil
+Please press O then press Enter.
+
+> light fuse
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> w
+Please press O then press Enter.
+
+> nw
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> get axe
+You are already carrying your battleaxe.
+
+> s
+Please press O then press Enter.
+
+> sw
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> s
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> n
+Please press O then press Enter.
+
+> hit door with axe
+Please press O then press Enter.
+
+> e
+Please press O then press Enter.
+
+> 1
+Please press O then press Enter.
+
+> 2
+Please press O then press Enter.
+
+> 3
+Please press O then press Enter.
+
+> unlock doors
+Please press O then press Enter.

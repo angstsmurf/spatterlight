@@ -157,6 +157,18 @@ typedef struct a5_state_s {
   int   ref_object1_plural;
   int   ref_character1_plural;
 
+  /* The matched command carries BOTH a genuine plural %objects% reference and a
+     separate singular %object% reference (e.g. `hide %objects% in %object%`).
+     FD's GetReference (clsUserSession.vb:3990) resolves ReferencedObject only
+     to the reference whose ReferenceMatch is "object1" -- never to the plural
+     -- so the per-item plural binds (resolve_plural's restriction probes,
+     run_general's item loop) must NOT clobber the singular alias: a restriction
+     like `ReferencedObject Must HaveProperty ...` keeps testing the container,
+     not the item being iterated (Dwarf of Direwood's `hide X, Y and Z in
+     beard`).  Set by resolve_refine when it defers the plural, reset by
+     a5state_clear_refs; read by bind_reference. */
+  int   ref_objects_suppress_singular;
+
   /* SetLook event sub-event "look stack" (clsEvent.stackLookText): each SetLook
      pushes a (location/group gate, rendered text) entry; a5text_view_location
      appends the most-recent entry whose gate matches the player's location.

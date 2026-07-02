@@ -1,0 +1,257 @@
+# The Dwarf of Direwood Forest (Larry Horsfield, ADRIFT 5) -- NATIVE solution.
+#
+# Extracted verbatim from the game's own built-in walkthrough (type WLKTHRGH
+# in-game; text lives in the cl_Walkthroug model task), annotations stripped, the
+# "o"/"b" start-menu handshake prepended.  ONE correction for this build: at
+# "By Guard Room" the built-in's `s` is `creep south` (cl_CreepSouth) -- a plain
+# `s` is eaten by the room's {*} null-task and the guard kills you.
+#
+# WIRED 2026-07-02 as a 0|0 conformance MATCH -- but NOT a win.  FrankenDrift
+# (our ground truth) cannot leave "By Guard Room" after the kill: the {*}
+# catch-all task (cl_NullAtStar, PreventOverriding) preempts the room's ordinary
+# North movement, so from the return visit on, every command answers "Please
+# press O then press Enter." and the player is trapped for the rest of the
+# script.  Scarier now reproduces FD byte-for-byte all the way through that
+# trapped tail (the pre-trap first act -- cell escape with the multi-object
+# `hide ... in beard`, guard kill/loot/drag -- is real gameplay coverage).  The
+# real ADRIFT runner evaluates the direction movement ahead of the {*} task
+# (the author's own walkthrough uses plain `n` here); if FD or Scarier ever
+# adopts that precedence, this golden must be re-derived and should then reach
+# the win.  See TODO_a5_walkthrough_wiring.md.
+#
+o
+b
+i
+x me
+x beard
+s
+e
+x bank
+get rock
+throw rock at vulture
+e
+look under body
+get droppings
+get knife
+hide droppings, knife and key in beard
+w
+w
+s
+se
+1
+2
+3
+s
+s
+get all from beard
+x wall
+put knife in crack
+cut rope with knife
+x moisture
+x door
+x hinges
+rub slime on hinges
+rub key in slime
+unlock door
+open door
+o
+e
+look around corner
+e
+creep south
+get knife
+kill dwarf with knife
+x guard
+get knife
+put knife in sheath
+look under bench
+wear bag
+x table
+get all from table
+wear helmet
+wear axe
+put all in bag
+search guard
+x badge
+search guard
+x coins
+get scabbard
+drag guard n
+drag guard w
+drag guard w
+drag guard s
+remove kilt
+o
+get key
+close door
+lock door
+e
+e
+n
+e
+x cell
+x clanmates
+w
+s
+w
+w
+w
+n
+n
+n
+n
+n
+n
+x vegetation
+get axe
+hide axe in vegetation
+s
+se
+e
+e
+e
+e
+e
+e
+s
+s
+s
+n
+n
+w
+w
+w
+w
+w
+w
+x wagon
+e
+get on wagon
+get off wagon
+look n
+x wall
+x boards
+move boards
+out
+w
+look around corner
+e
+in
+close boards
+z
+open boards
+out
+close boards
+e
+e
+n
+n
+n
+w
+w
+w
+w
+w
+w
+w
+w
+x wagon
+e
+climb on wagon
+get fuse
+climb off wagon
+open boards
+out
+close boards
+e
+e
+n
+n
+n
+w
+1
+2
+4
+w
+n
+n
+u
+in
+1
+in
+2
+3
+x bench
+sit on bench
+listen
+put flagon on table
+d
+s
+s
+e
+e
+e
+ne
+n
+search undergrowth
+e
+in
+get droppings
+3
+w
+s
+sw
+w
+w
+w
+w
+in
+3
+w
+w
+n
+e
+play cards
+n
+n
+w
+1
+2
+3
+move boards
+in
+put oil on crates
+put fuse on oil
+light fuse
+e
+e
+n
+n
+n
+w
+w
+w
+w
+w
+w
+w
+w
+nw
+n
+get axe
+s
+sw
+s
+s
+s
+s
+e
+e
+e
+n
+hit door with axe
+e
+1
+2
+3
+unlock doors
