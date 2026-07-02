@@ -239,3 +239,42 @@ w
 w
 in
 get soldiers from rucksack
+e
+n
+n
+e
+se
+e
+in
+get key
+get napkin
+unlock door with key
+in
+n
+open oven
+put napkin in oven
+read napkin
+s
+put key on hook
+out
+sw
+w
+w
+s
+s
+e
+s
+s
+w
+w
+in
+go to sleep on sails
+out
+e
+s
+in
+put napkin in rucksack
+put costume in rucksack
+put book in rucksack
+put certificate in rucksack
+row se
