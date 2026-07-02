@@ -1647,17 +1647,24 @@ a5run_input (a5_run_t *run, const char *line)
 
 /* ============================================================ save / restore */
 
-/* Phase 5 save/restore (clsState / FileIO.SaveState|LoadState).  The v5 save is
-   an XML game-state snapshot.  We serialise the full mutable runtime to a
-   self-contained <SaveState> document and apply it back.  Entity arrays
-   (objects, characters, variables, events, walks) are written in model order and
-   restored positionally; the task/seen/override/displayed/look sets are sparse.
-   Holder/location keys are re-interned to the model's stable strings on restore
-   so they outlive the (freed) save buffer, mirroring how a5state computes them.
-
-   Unlike FrankenDrift's format we also record the RNG state, so a restored game
-   replays the identical deterministic sequence -- otherwise a fresh a5run would
-   re-seed to 1234 and diverge. */
+/* Phase 5 save/restore (clsState / FileIO.SaveState|LoadState).
+ *
+ * The on-disk save is FrankenDrift-compatible: a `<Game>` document keyed by
+ * entity <Key> (FileIO.SaveState / LoadState schema, TODO_a5_frankendrift_save_
+ * compat.md).  A FrankenDrift (or official ADRIFT 5 Runner) save restores into
+ * Scarier, and a Scarier save loads in FrankenDrift.
+ *
+ * To keep Scarier<->Scarier round-trips (single-level undo, deterministic
+ * replay) lossless -- FrankenDrift's schema omits the RNG state and the full
+ * event/walk internals -- every Scarier save also carries a <ScarierExt> child
+ * of <Game> holding the complete native snapshot (the old <SaveState> body).
+ * FrankenDrift's reader queries only the tags it knows via SelectNodes("/Game/
+ * <tag>") and silently ignores <ScarierExt>, so the extension is invisible to
+ * it.  On restore we prefer <ScarierExt> when present (lossless); a foreign save
+ * without it is read from the FrankenDrift fields (RNG then re-seeds to 1234).
+ *
+ * A pre-existing raw (uncompressed) `<SaveState>` file -- the format Scarier
+ * wrote before this change -- still restores through the legacy body path. */
 
 static void
 xml_esc (sb_t *b, const char *s)
@@ -1726,129 +1733,136 @@ intern_key (const a5_adventure_t *adv, const char *key)
   return NULL;
 }
 
-char *
-a5run_save (a5_run_t *run, size_t *out_len)
+/* ---------------------------------------------------------- Scarier body ----
+   The full-fidelity native snapshot: RNG, every entity's runtime fields, event
+   and walk internals, the sparse seen/override/displayed/look sets.  Emitted
+   verbatim inside <ScarierExt> (and historically as the bare <SaveState> root);
+   read back by restore_scarier_body.  Entity arrays are positional (model
+   order); the sparse sets are keyed.  This is what makes undo and Scarier<->
+   Scarier restore byte-for-byte deterministic despite FrankenDrift's lossier
+   schema. */
+static void
+save_scarier_body (sb_t *b, a5_run_t *run)
 {
-  sb_t b;
-  a5_state_t *st;
-  const a5_adventure_t *adv;
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+  std::vector<const a5_xml_node_t *> dom;
   int i, native;
   unsigned int rng[4];
-  std::vector<const a5_xml_node_t *> dom;
 
-  if (run == NULL)
-    return NULL;
-  st = run->st;
-  adv = run->adv;
-  sb_init (&b);
-  sb_puts (&b, "<SaveState>\n");
-  sb_elem_l (&b, "Version", 1);
+  sb_elem_l (b, "Version", 1);
 
   a5rand_get_state (&native, rng);
-  sb_elem_l (&b, "RngNative", native);
+  sb_elem_l (b, "RngNative", native);
   for (i = 0; i < 4; i++)
-    sb_elem_l (&b, "Rng", (long) rng[i]);
+    sb_elem_l (b, "Rng", (long) rng[i]);
 
-  sb_elem_l (&b, "EventsRunning", run->events_running);
-  sb_elem_l (&b, "GameOver", st->game_over);
-  sb_elem_l (&b, "Turns", st->turns);
-  sb_elem_l (&b, "EndDisplayed", st->end_displayed);
+  sb_elem_l (b, "EventsRunning", run->events_running);
+  sb_elem_l (b, "GameOver", st->game_over);
+  sb_elem_l (b, "Turns", st->turns);
+  sb_elem_l (b, "EndDisplayed", st->end_displayed);
   if (st->end_message != NULL)
-    sb_elem (&b, "EndMessage", st->end_message);
+    sb_elem (b, "EndMessage", st->end_message);
   if (st->conv_char != NULL && st->conv_char[0])
-    sb_elem (&b, "ConvChar", st->conv_char);
+    sb_elem (b, "ConvChar", st->conv_char);
   if (st->conv_node != NULL && st->conv_node[0])
-    sb_elem (&b, "ConvNode", st->conv_node);
+    sb_elem (b, "ConvNode", st->conv_node);
   if (st->s_it != NULL && st->s_it[0])
-    sb_elem (&b, "ItRef", st->s_it);
+    sb_elem (b, "ItRef", st->s_it);
   if (st->s_them != NULL && st->s_them[0])
-    sb_elem (&b, "ThemRef", st->s_them);
+    sb_elem (b, "ThemRef", st->s_them);
   if (st->s_him != NULL && st->s_him[0])
-    sb_elem (&b, "HimRef", st->s_him);
+    sb_elem (b, "HimRef", st->s_him);
   if (st->s_her != NULL && st->s_her[0])
-    sb_elem (&b, "HerRef", st->s_her);
+    sb_elem (b, "HerRef", st->s_her);
 
   /* Objects (model order). */
   for (i = 0; i < adv->n_objects; i++)
     {
-      sb_puts (&b, "<Object>\n");
-      sb_elem_l (&b, "Where", (long) st->obj[i].where);
+      sb_puts (b, "<Object>\n");
+      sb_elem_l (b, "Where", (long) st->obj[i].where);
+      sb_elem_l (b, "Static", st->obj[i].is_static);
       if (st->obj[i].key != NULL && st->obj[i].key[0])
-        sb_elem (&b, "Key", st->obj[i].key);
-      sb_puts (&b, "</Object>\n");
+        sb_elem (b, "Key", st->obj[i].key);
+      sb_puts (b, "</Object>\n");
     }
 
   /* Characters (model order). */
   for (i = 0; i < adv->n_characters; i++)
     {
-      sb_puts (&b, "<Character>\n");
+      sb_puts (b, "<Character>\n");
       if (st->char_loc[i] != NULL && st->char_loc[i][0])
-        sb_elem (&b, "Loc", st->char_loc[i]);
+        sb_elem (b, "Loc", st->char_loc[i]);
       if (st->char_position[i] != NULL)
-        sb_elem (&b, "Position", st->char_position[i]);
+        sb_elem (b, "Position", st->char_position[i]);
       if (st->char_onobj[i] != NULL && st->char_onobj[i][0])
-        sb_elem (&b, "OnObj", st->char_onobj[i]);
-      sb_elem_l (&b, "In", st->char_in ? st->char_in[i] : 0);
-      sb_puts (&b, "</Character>\n");
+        sb_elem (b, "OnObj", st->char_onobj[i]);
+      sb_elem_l (b, "In", st->char_in ? st->char_in[i] : 0);
+      sb_puts (b, "</Character>\n");
     }
+
+  /* Player character key (clsAdventure.Player.Key; a ToSwitchWith/BECOME
+     retargets it away from the literal "Player"). */
+  if (st->player_key != NULL && st->player_key[0])
+    sb_elem (b, "PlayerKey", st->player_key);
 
   /* Variables (model order). */
   for (i = 0; i < adv->n_variables; i++)
     {
-      sb_puts (&b, "<Variable>\n");
-      sb_elem_l (&b, "Num", st->var_num[i]);
+      sb_puts (b, "<Variable>\n");
+      sb_elem_l (b, "Num", st->var_num[i]);
       if (st->var_text[i] != NULL)
-        sb_elem (&b, "Text", st->var_text[i]);
-      sb_puts (&b, "</Variable>\n");
+        sb_elem (b, "Text", st->var_text[i]);
+      sb_puts (b, "</Variable>\n");
     }
 
   /* Completed tasks (sparse, by key). */
   for (i = 0; i < adv->n_tasks; i++)
     if (st->task_done[i])
-      sb_elem (&b, "TaskDone", adv->tasks[i].key);
+      sb_elem (b, "TaskDone", adv->tasks[i].key);
 
   /* Property overrides. */
   for (i = 0; i < st->n_ov; i++)
     {
-      sb_puts (&b, "<PropOv>\n");
-      sb_elem (&b, "Entity", st->ov[i].entity);
-      sb_elem (&b, "Prop", st->ov[i].prop);
-      sb_elem (&b, "Value", st->ov[i].value);
-      sb_puts (&b, "</PropOv>\n");
+      sb_puts (b, "<PropOv>\n");
+      sb_elem (b, "Entity", st->ov[i].entity);
+      sb_elem (b, "Prop", st->ov[i].prop);
+      sb_elem (b, "Value", st->ov[i].value);
+      sb_puts (b, "</PropOv>\n");
     }
 
   /* "Seen" sets (sparse, by key). */
   if (st->obj_seen != NULL)
     for (i = 0; i < adv->n_objects; i++)
       if (st->obj_seen[i])
-        sb_elem (&b, "ObjSeen", adv->objects[i].key);
+        sb_elem (b, "ObjSeen", adv->objects[i].key);
   if (st->char_seen != NULL)
     for (i = 0; i < adv->n_characters; i++)
       if (st->char_seen[i])
-        sb_elem (&b, "CharSeen", adv->characters[i].key);
+        sb_elem (b, "CharSeen", adv->characters[i].key);
   if (st->loc_seen != NULL)
     for (i = 0; i < adv->n_locations; i++)
       if (st->loc_seen[i])
-        sb_elem (&b, "LocSeen", adv->locations[i].key);
+        sb_elem (b, "LocSeen", adv->locations[i].key);
 
   /* Events (model order). */
   for (i = 0; i < (int) run->events->size (); i++)
     {
       a5_event_rt &e = (*run->events)[i];
       size_t s;
-      sb_puts (&b, "<Event>\n");
-      sb_elem_l (&b, "Status", e.status);
-      sb_elem_l (&b, "Length", e.length_value);
-      sb_elem_l (&b, "Timer", e.timer_to_end);
-      sb_elem_l (&b, "LastSeTime", e.last_se_time);
-      sb_elem_l (&b, "LastSeIndex", e.last_se_index);
-      sb_elem_l (&b, "JustStarted", e.just_started);
-      sb_elem_l (&b, "NextCommand", e.next_command);
-      sb_elem_l (&b, "WhenStart", e.when_start);
-      sb_elem (&b, "Trigger", e.triggering_task.c_str ());
+      sb_puts (b, "<Event>\n");
+      sb_elem_l (b, "Status", e.status);
+      sb_elem_l (b, "Length", e.length_value);
+      sb_elem_l (b, "Timer", e.timer_to_end);
+      sb_elem_l (b, "LastSeTime", e.last_se_time);
+      sb_elem_l (b, "LastSeIndex", e.last_se_index);
+      sb_elem_l (b, "JustStarted", e.just_started);
+      sb_elem_l (b, "NextCommand", e.next_command);
+      sb_elem_l (b, "WhenStart", e.when_start);
+      sb_elem (b, "Trigger", e.triggering_task.c_str ());
       for (s = 0; s < e.se_ft.size (); s++)
-        sb_elem_l (&b, "SeFt", e.se_ft[s]);
-      sb_puts (&b, "</Event>\n");
+        sb_elem_l (b, "SeFt", e.se_ft[s]);
+      sb_puts (b, "</Event>\n");
     }
 
   /* Walks (flattened order, as built by a5run_new). */
@@ -1856,22 +1870,22 @@ a5run_save (a5_run_t *run, size_t *out_len)
     {
       a5_walk_rt &w = (*run->walks)[i];
       size_t s;
-      sb_puts (&b, "<Walk>\n");
-      sb_elem_l (&b, "Status", w.status);
-      sb_elem_l (&b, "Length", w.length);
-      sb_elem_l (&b, "Timer", w.timer_to_end);
-      sb_elem_l (&b, "LastSwTime", w.last_sw_time);
-      sb_elem_l (&b, "LastSwIndex", w.last_sw_index);
-      sb_elem_l (&b, "JustStarted", w.just_started);
-      sb_elem_l (&b, "NextCommand", w.next_command);
-      sb_elem (&b, "Trigger", w.triggering_task.c_str ());
+      sb_puts (b, "<Walk>\n");
+      sb_elem_l (b, "Status", w.status);
+      sb_elem_l (b, "Length", w.length);
+      sb_elem_l (b, "Timer", w.timer_to_end);
+      sb_elem_l (b, "LastSwTime", w.last_sw_time);
+      sb_elem_l (b, "LastSwIndex", w.last_sw_index);
+      sb_elem_l (b, "JustStarted", w.just_started);
+      sb_elem_l (b, "NextCommand", w.next_command);
+      sb_elem (b, "Trigger", w.triggering_task.c_str ());
       for (s = 0; s < w.step_dur.size (); s++)
-        sb_elem_l (&b, "StepDur", w.step_dur[s]);
+        sb_elem_l (b, "StepDur", w.step_dur[s]);
       for (s = 0; s < w.sw_ft.size (); s++)
-        sb_elem_l (&b, "SwFt", w.sw_ft[s]);
+        sb_elem_l (b, "SwFt", w.sw_ft[s]);
       for (s = 0; s < w.came_across.size (); s++)
-        sb_elem_l (&b, "CameAcross", w.came_across[s]);
-      sb_puts (&b, "</Walk>\n");
+        sb_elem_l (b, "CameAcross", w.came_across[s]);
+      sb_puts (b, "</Walk>\n");
     }
 
   /* Displayed <DisplayOnce> segments (by DOM pre-order index). */
@@ -1884,20 +1898,339 @@ a5run_save (a5_run_t *run, size_t *out_len)
           size_t k;
           for (k = 0; k < dom.size (); k++)
             if (dom[k] == st->disp_once[j])
-              { sb_elem_l (&b, "Displayed", (long) k); break; }
+              { sb_elem_l (b, "Displayed", (long) k); break; }
         }
     }
 
   /* SetLook stack. */
   for (i = 0; i < st->n_looks; i++)
     {
-      sb_puts (&b, "<Look>\n");
-      sb_elem (&b, "LocKey", st->looks[i].loc_key);
-      sb_elem (&b, "Text", st->looks[i].text);
-      sb_puts (&b, "</Look>\n");
+      sb_puts (b, "<Look>\n");
+      sb_elem (b, "LocKey", st->looks[i].loc_key);
+      sb_elem (b, "Text", st->looks[i].text);
+      sb_puts (b, "</Look>\n");
+    }
+}
+
+/* ----------------------------------------------------- FrankenDrift <Game> ---
+   The interop schema.  Maps a5_state_t onto FrankenDrift's clsGameState fields,
+   keyed by entity <Key>, with the where-fields written as their .ToString enum
+   names.  See TODO_a5_frankendrift_save_compat.md for the full mapping. */
+
+/* Split a5_objloc_t onto FD's two where-enums + LocationKey (SaveState @83).
+   *dyn / *stat are NULL when at their default (Hidden / NoRooms, so FD omits
+   them); *lkey is "" when no key applies. */
+static void
+fd_object_location (const a5_objloc_t *l, const char **dyn, const char **stat,
+                    const char **lkey)
+{
+  *dyn = NULL;
+  *stat = NULL;
+  *lkey = "";
+  switch (l->where)
+    {
+    case A5_OWHERE_NONE:
+    case A5_OWHERE_HIDDEN:
+      break;
+    case A5_OWHERE_ALLROOMS:
+      *stat = "AllRooms";
+      break;
+    case A5_OWHERE_LOCATION:
+      if (l->is_static) *stat = "SingleLocation";
+      else              *dyn  = "InLocation";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_LOCGROUP:
+      *stat = "LocationGroup";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_ON_OBJECT:
+      *dyn = "OnObject";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_IN_OBJECT:
+      *dyn = "InObject";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_HELD_BY:
+      *dyn = "HeldByCharacter";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_WORN_BY:
+      *dyn = "WornByCharacter";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_PART_OBJECT:
+      *stat = "PartOfObject";
+      *lkey = l->key ? l->key : "";
+      break;
+    case A5_OWHERE_PART_CHAR:
+      *stat = "PartOfCharacter";
+      *lkey = l->key ? l->key : "";
+      break;
+    }
+}
+
+/* clsEvent.StatusEnum name for the runtime status int. */
+static const char *
+fd_event_status (int status)
+{
+  switch (status)
+    {
+    case A5_EV_NOTYET:    return "NotYetStarted";
+    case A5_EV_RUNNING:   return "Running";
+    case A5_EV_COUNTDOWN: return "CountingDownToStart";
+    case A5_EV_PAUSED:    return "Paused";
+    case A5_EV_FINISHED:  return "Finished";
+    default:              return "NotYetStarted";
+    }
+}
+
+/* clsWalk.StatusEnum name (no CountingDownToStart -- walks have no StartDelay). */
+static const char *
+fd_walk_status (int status)
+{
+  switch (status)
+    {
+    case A5_EV_NOTYET:   return "NotYetStarted";
+    case A5_EV_RUNNING:  return "Running";
+    case A5_EV_PAUSED:   return "Paused";
+    case A5_EV_FINISHED: return "Finished";
+    default:             return "NotYetStarted";
+    }
+}
+
+/* Emit <Property> children for an entity: its base (model) properties with the
+   runtime-effective value, plus any override that added a property not in the
+   base list.  FrankenDrift's RestoreState *removes* any current property absent
+   from the state, so a partial list would strip the entity -- we emit the full
+   effective set to be faithful. */
+static void
+fd_write_props (sb_t *b, a5_state_t *st, const char *entkey,
+                const a5_prop_t *props, int n_props)
+{
+  int i, j;
+
+  for (i = 0; i < n_props; i++)
+    {
+      const char *val = a5state_entity_prop (st, entkey, props[i].key);
+      if (val == NULL)
+        val = props[i].value;   /* rich <Value> block: no scalar -> "" */
+      sb_puts (b, "<Property>\n");
+      sb_elem (b, "Key", props[i].key);
+      sb_elem (b, "Value", val ? val : "");
+      sb_puts (b, "</Property>\n");
+    }
+  for (j = 0; j < st->n_ov; j++)
+    {
+      int is_base = 0;
+      if (!streq (st->ov[j].entity, entkey))
+        continue;
+      for (i = 0; i < n_props; i++)
+        if (streq (props[i].key, st->ov[j].prop)) { is_base = 1; break; }
+      if (is_base)
+        continue;
+      sb_puts (b, "<Property>\n");
+      sb_elem (b, "Key", st->ov[j].prop);
+      sb_elem (b, "Value", st->ov[j].value ? st->ov[j].value : "");
+      sb_puts (b, "</Property>\n");
+    }
+}
+
+static void
+save_fd_game (sb_t *b, a5_run_t *run)
+{
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+  const char *player = a5state_player_key (st);
+  int i, w;
+
+  /* Locations: property overrides only (base props are static; FD recomputes
+     inherited ones).  Emit a <Location> only when it has a runtime override so
+     FD does not strip its (unlisted) actual properties. */
+  for (i = 0; i < adv->n_locations; i++)
+    {
+      int has_ov = 0, j;
+      for (j = 0; j < st->n_ov; j++)
+        if (streq (st->ov[j].entity, adv->locations[i].key)) { has_ov = 1; break; }
+      if (!has_ov)
+        continue;
+      sb_puts (b, "<Location>\n");
+      sb_elem (b, "Key", adv->locations[i].key);
+      fd_write_props (b, st, adv->locations[i].key,
+                      adv->locations[i].props, adv->locations[i].n_props);
+      sb_puts (b, "</Location>\n");
     }
 
-  sb_puts (&b, "</SaveState>\n");
+  /* Objects. */
+  for (i = 0; i < adv->n_objects; i++)
+    {
+      const char *dyn, *stat, *lkey;
+      /* <Key> is the object's own identity; the holder/location it sits in is
+         the LocationKey (st->obj[i].key, resolved by fd_object_location). */
+      fd_object_location (&st->obj[i], &dyn, &stat, &lkey);
+      sb_puts (b, "<Object>\n");
+      sb_elem (b, "Key", adv->objects[i].key);
+      if (dyn != NULL)
+        sb_elem (b, "DynamicExistWhere", dyn);
+      if (stat != NULL)
+        sb_elem (b, "StaticExistWhere", stat);
+      sb_elem (b, "LocationKey", lkey);
+      fd_write_props (b, st, adv->objects[i].key,
+                      adv->objects[i].props, adv->objects[i].n_props);
+      sb_puts (b, "</Object>\n");
+    }
+
+  /* Tasks (Completed; Scarier has no per-task Scored flag -> FD defaults it
+     false).  Emitted for every task, matching FD's writer. */
+  for (i = 0; i < adv->n_tasks; i++)
+    {
+      sb_puts (b, "<Task>\n");
+      sb_elem (b, "Key", adv->tasks[i].key);
+      sb_elem (b, "Completed", st->task_done[i] ? "True" : "False");
+      sb_puts (b, "</Task>\n");
+    }
+
+  /* Events. */
+  for (i = 0; i < adv->n_events && i < (int) run->events->size (); i++)
+    {
+      a5_event_rt &e = (*run->events)[i];
+      /* Scarier's last_se_index is -1 for "no sub-event has run"; FrankenDrift
+         has no such sentinel and would do SubEvents(-1) (its only guard is
+         Length > index, which -1 passes) -> IndexOutOfRange.  Emit a value >=
+         the sub-event count so FD's guard fails and it leaves LastSubEvent as
+         Nothing, matching the -1 meaning. */
+      long sei = e.last_se_index < 0 ? adv->events[i].n_subevents
+                                     : e.last_se_index;
+      sb_puts (b, "<Event>\n");
+      sb_elem (b, "Key", adv->events[i].key);
+      sb_elem (b, "Status", fd_event_status (e.status));
+      sb_elem_l (b, "Timer", e.timer_to_end);
+      sb_elem_l (b, "SubEventTime", e.last_se_time);
+      sb_elem_l (b, "SubEventIndex", sei);
+      sb_puts (b, "</Event>\n");
+    }
+
+  /* Characters. */
+  for (i = 0; i < adv->n_characters; i++)
+    {
+      const char *key = adv->characters[i].key;
+      const char *where = NULL, *lkey = NULL;
+      const char *pos = st->char_position[i];
+      if (st->char_onobj[i] != NULL && st->char_onobj[i][0])
+        {
+          where = (st->char_in && st->char_in[i]) ? "InObject" : "OnObject";
+          lkey = st->char_onobj[i];
+        }
+      else if (st->char_loc[i] != NULL && st->char_loc[i][0])
+        {
+          where = "AtLocation";
+          lkey = st->char_loc[i];
+        }
+      /* else: Hidden -- FD omits ExistWhere/LocationKey. */
+
+      sb_puts (b, "<Character>\n");
+      sb_elem (b, "Key", key);
+      if (where != NULL)
+        sb_elem (b, "ExistWhere", where);
+      if (pos != NULL && !streq (pos, "Standing"))
+        sb_elem (b, "Position", pos);
+      if (lkey != NULL && lkey[0])
+        sb_elem (b, "LocationKey", lkey);
+
+      /* Walks owned by this character, in flattened order. */
+      for (w = 0; w < (int) run->walks->size (); w++)
+        {
+          a5_walk_rt &wk = (*run->walks)[w];
+          if (wk.char_index != i)
+            continue;
+          sb_puts (b, "<Walk>\n");
+          sb_elem (b, "Status", fd_walk_status (wk.status));
+          sb_elem_l (b, "Timer", wk.timer_to_end);
+          sb_puts (b, "</Walk>\n");
+        }
+
+      /* Seen keys: Scarier tracks only the player's, so emit them under the
+         player character (FD stores per-character; NPC seen-sets are untracked). */
+      if (streq (key, player))
+        {
+          int k;
+          if (st->obj_seen != NULL)
+            for (k = 0; k < adv->n_objects; k++)
+              if (st->obj_seen[k])
+                sb_elem (b, "Seen", adv->objects[k].key);
+          if (st->char_seen != NULL)
+            for (k = 0; k < adv->n_characters; k++)
+              if (st->char_seen[k])
+                sb_elem (b, "Seen", adv->characters[k].key);
+          if (st->loc_seen != NULL)
+            for (k = 0; k < adv->n_locations; k++)
+              if (st->loc_seen[k])
+                sb_elem (b, "Seen", adv->locations[k].key);
+        }
+
+      fd_write_props (b, st, key,
+                      adv->characters[i].props, adv->characters[i].n_props);
+      sb_puts (b, "</Character>\n");
+    }
+
+  /* Variables (single-valued -> Value_0). */
+  for (i = 0; i < adv->n_variables; i++)
+    {
+      int numeric = !streq (adv->variables[i].type, "Text");
+      sb_puts (b, "<Variable>\n");
+      sb_elem (b, "Key", adv->variables[i].key);
+      if (numeric)
+        {
+          if (st->var_num[i] != 0)
+            sb_elem_l (b, "Value_0", st->var_num[i]);
+        }
+      else if (st->var_text[i] != NULL && st->var_text[i][0])
+        sb_elem (b, "Value_0", st->var_text[i]);
+      sb_puts (b, "</Variable>\n");
+    }
+
+  /* Groups: effective membership.  For Objects groups the runtime override
+     layer can add/remove members; other group types are static (model list). */
+  for (i = 0; i < adv->n_groups; i++)
+    {
+      int j;
+      sb_puts (b, "<Group>\n");
+      sb_elem (b, "Key", adv->groups[i].key);
+      if (streq (adv->groups[i].type, "Objects"))
+        {
+          for (j = 0; j < adv->n_objects; j++)
+            if (a5state_object_in_group (st, adv->groups[i].key,
+                                         adv->objects[j].key))
+              sb_elem (b, "Member", adv->objects[j].key);
+        }
+      else
+        {
+          for (j = 0; j < adv->groups[i].n_members; j++)
+            sb_elem (b, "Member", adv->groups[i].members[j]);
+        }
+      sb_puts (b, "</Group>\n");
+    }
+
+  sb_elem_l (b, "Turns", st->turns);
+}
+
+char *
+a5run_save (a5_run_t *run, size_t *out_len)
+{
+  sb_t b;
+
+  if (run == NULL)
+    return NULL;
+  sb_init (&b);
+  sb_puts (&b, "<Game>\n");
+  save_fd_game (&b, run);
+  /* Scarier-private, full-fidelity snapshot; FrankenDrift's LoadState ignores
+     any <Game> child it does not query, so <ScarierExt> is invisible to it. */
+  sb_puts (&b, "<ScarierExt>\n");
+  save_scarier_body (&b, run);
+  sb_puts (&b, "</ScarierExt>\n");
+  sb_puts (&b, "</Game>\n");
   if (out_len != NULL)
     *out_len = b.len;
   return sb_take (&b);
@@ -1911,37 +2244,15 @@ child_long (const a5_xml_node_t *n, const char *name)
   return t != NULL ? strtol (t, NULL, 10) : 0;
 }
 
-int
-a5run_restore (a5_run_t *run, const char *data, size_t len)
+/* Zero/clear the accumulating + sparse state before applying a save (shared by
+   both the native and the FrankenDrift readers). */
+static void
+restore_reset (a5_run_t *run)
 {
-  a5_xml_doc_t *doc;
-  a5_xml_node_t *root, *n;
-  a5_state_t *st;
-  const a5_adventure_t *adv;
-  char *buf;
-  unsigned int rng[4] = { 0, 0, 0, 0 };
-  int native = 0, rng_i = 0, i;
-  int obj_i = 0, char_i = 0, var_i = 0, ev_i = 0, wk_i = 0;
-  std::vector<const a5_xml_node_t *> dom;
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+  int i;
 
-  if (run == NULL || data == NULL)
-    return 0;
-  buf = (char *) malloc (len + 1);
-  if (buf == NULL)
-    return 0;
-  memcpy (buf, data, len);
-  buf[len] = '\0';
-  doc = a5xml_parse (buf, (uint32_t) len);
-  if (doc == NULL)
-    { free (buf); return 0; }
-  root = a5xml_root (doc);
-  if (root == NULL || !streq (root->name, "SaveState"))
-    { a5xml_free (doc); return 0; }
-
-  st = run->st;
-  adv = run->adv;
-
-  /* Reset the accumulating / sparse fields before applying. */
   for (i = 0; i < adv->n_tasks; i++)
     st->task_done[i] = 0;
   for (i = 0; i < st->n_ov; i++)
@@ -1966,8 +2277,24 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
   free (st->s_them); st->s_them = strdup ("");
   free (st->s_him);  st->s_him  = strdup ("");
   free (st->s_her);  st->s_her  = strdup ("");
+}
 
-  for (n = root->first_child; n != NULL; n = n->next)
+/* Apply the full-fidelity Scarier snapshot from `container` (the <ScarierExt>
+   node of a <Game> save, or the root of a legacy raw <SaveState> file). */
+static void
+restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
+{
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+  const a5_xml_node_t *n;
+  unsigned int rng[4] = { 0, 0, 0, 0 };
+  int native = 0, rng_i = 0;
+  int obj_i = 0, char_i = 0, var_i = 0, ev_i = 0, wk_i = 0;
+  std::vector<const a5_xml_node_t *> dom;
+
+  restore_reset (run);
+
+  for (n = container->first_child; n != NULL; n = n->next)
     {
       const char *nm = n->name;
       if (streq (nm, "RngNative"))
@@ -1996,11 +2323,20 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
         { free (st->s_him);  st->s_him  = strdup (n->text ? n->text : ""); }
       else if (streq (nm, "HerRef"))
         { free (st->s_her);  st->s_her  = strdup (n->text ? n->text : ""); }
+      else if (streq (nm, "PlayerKey"))
+        {
+          const char *pk = intern_key (adv, n->text);
+          if (pk != NULL)
+            st->player_key = pk;
+        }
       else if (streq (nm, "Object"))
         {
           if (obj_i < adv->n_objects)
             {
+              const char *stat = a5xml_child_text (n, "Static");
               st->obj[obj_i].where = (a5_owhere_t) child_long (n, "Where");
+              if (stat != NULL)
+                st->obj[obj_i].is_static = (int) strtol (stat, NULL, 10);
               st->obj[obj_i].key = intern_key (adv, a5xml_child_text (n, "Key"));
               obj_i++;
             }
@@ -2127,6 +2463,306 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
     }
 
   a5rand_set_state (native, rng);
+}
+
+/* ------------------------------------------------ FrankenDrift <Game> reader ---
+   Applied only to a foreign save (a FrankenDrift / ADRIFT 5 Runner file with no
+   <ScarierExt>).  Keyed lookups, tolerant of missing/extra entities; the RNG
+   re-seeds to 1234 (FD saves carry none), so a game that draws randomness right
+   after such a restore diverges -- documented in the TODO. */
+
+static a5_owhere_t
+fd_decode_object_where (const char *dyn, const char *stat, int *is_static)
+{
+  *is_static = 0;
+  if (stat != NULL && !streq (stat, "NoRooms"))
+    {
+      *is_static = 1;
+      if (streq (stat, "SingleLocation"))  return A5_OWHERE_LOCATION;
+      if (streq (stat, "AllRooms"))        return A5_OWHERE_ALLROOMS;
+      if (streq (stat, "LocationGroup"))   return A5_OWHERE_LOCGROUP;
+      if (streq (stat, "PartOfObject"))    return A5_OWHERE_PART_OBJECT;
+      if (streq (stat, "PartOfCharacter")) return A5_OWHERE_PART_CHAR;
+      return A5_OWHERE_HIDDEN;
+    }
+  if (dyn != NULL)
+    {
+      if (streq (dyn, "InLocation"))       return A5_OWHERE_LOCATION;
+      if (streq (dyn, "OnObject"))         return A5_OWHERE_ON_OBJECT;
+      if (streq (dyn, "InObject"))         return A5_OWHERE_IN_OBJECT;
+      if (streq (dyn, "HeldByCharacter"))  return A5_OWHERE_HELD_BY;
+      if (streq (dyn, "WornByCharacter"))  return A5_OWHERE_WORN_BY;
+    }
+  return A5_OWHERE_HIDDEN;
+}
+
+static int
+fd_decode_event_status (const char *s)
+{
+  if (s == NULL)                            return A5_EV_NOTYET;
+  if (streq (s, "Running"))                 return A5_EV_RUNNING;
+  if (streq (s, "CountingDownToStart"))     return A5_EV_COUNTDOWN;
+  if (streq (s, "Paused"))                  return A5_EV_PAUSED;
+  if (streq (s, "Finished"))                return A5_EV_FINISHED;
+  return A5_EV_NOTYET;
+}
+
+static int
+fd_decode_walk_status (const char *s)
+{
+  if (s == NULL)              return A5_EV_NOTYET;
+  if (streq (s, "Running"))   return A5_EV_RUNNING;
+  if (streq (s, "Paused"))    return A5_EV_PAUSED;
+  if (streq (s, "Finished"))  return A5_EV_FINISHED;
+  return A5_EV_NOTYET;
+}
+
+static int
+fd_event_index (const a5_adventure_t *adv, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return -1;
+  for (i = 0; i < adv->n_events; i++)
+    if (streq (adv->events[i].key, key))
+      return i;
+  return -1;
+}
+
+static void
+restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
+{
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+  const char *player = a5state_player_key (st);
+  const a5_xml_node_t *n, *c;
+
+  restore_reset (run);
+
+  for (n = root->first_child; n != NULL; n = n->next)
+    {
+      const char *nm = n->name;
+      if (streq (nm, "Turns"))
+        st->turns = (int) strtol (n->text ? n->text : "0", NULL, 10);
+      else if (streq (nm, "Location"))
+        {
+          const char *lk = a5xml_child_text (n, "Key");
+          if (lk != NULL)
+            for (c = n->first_child; c != NULL; c = c->next)
+              if (streq (c->name, "Property"))
+                {
+                  const char *pk = a5xml_child_text (c, "Key");
+                  const char *pv = a5xml_child_text (c, "Value");
+                  if (pk != NULL)
+                    a5state_set_prop (st, lk, pk, pv ? pv : "");
+                }
+        }
+      else if (streq (nm, "Object"))
+        {
+          int oi = a5state_object_index (st, a5xml_child_text (n, "Key"));
+          if (oi >= 0)
+            {
+              int is_static = 0;
+              a5_owhere_t w = fd_decode_object_where (
+                  a5xml_child_text (n, "DynamicExistWhere"),
+                  a5xml_child_text (n, "StaticExistWhere"), &is_static);
+              st->obj[oi].where = w;
+              st->obj[oi].is_static = is_static;
+              if (w == A5_OWHERE_NONE || w == A5_OWHERE_HIDDEN
+                  || w == A5_OWHERE_ALLROOMS)
+                st->obj[oi].key = NULL;
+              else
+                st->obj[oi].key =
+                  intern_key (adv, a5xml_child_text (n, "LocationKey"));
+              for (c = n->first_child; c != NULL; c = c->next)
+                if (streq (c->name, "Property"))
+                  {
+                    const char *pk = a5xml_child_text (c, "Key");
+                    const char *pv = a5xml_child_text (c, "Value");
+                    if (pk != NULL)
+                      a5state_set_prop (st, adv->objects[oi].key, pk,
+                                        pv ? pv : "");
+                  }
+            }
+        }
+      else if (streq (nm, "Task"))
+        {
+          int ti = a5state_task_index (st, a5xml_child_text (n, "Key"));
+          if (ti >= 0)
+            st->task_done[ti] = a5xml_bool (a5xml_child_text (n, "Completed"));
+        }
+      else if (streq (nm, "Event"))
+        {
+          int ei = fd_event_index (adv, a5xml_child_text (n, "Key"));
+          if (ei >= 0 && ei < (int) run->events->size ())
+            {
+              a5_event_rt &e = (*run->events)[ei];
+              int sei = (int) child_long (n, "SubEventIndex");
+              e.status = fd_decode_event_status (a5xml_child_text (n, "Status"));
+              e.timer_to_end = child_long (n, "Timer");
+              e.last_se_time = child_long (n, "SubEventTime");
+              /* Our own writer emits count for "none"; also clamp any index at
+                 or past the sub-event list back to Scarier's -1 sentinel. */
+              e.last_se_index = (sei >= 0 && sei < adv->events[ei].n_subevents)
+                                  ? sei : -1;
+            }
+        }
+      else if (streq (nm, "Character"))
+        {
+          int ci = a5state_character_index (st, a5xml_child_text (n, "Key"));
+          if (ci >= 0)
+            {
+              const char *where = a5xml_child_text (n, "ExistWhere");
+              const char *pos   = a5xml_child_text (n, "Position");
+              const char *lkey  = a5xml_child_text (n, "LocationKey");
+              int wslot = 0;
+
+              st->char_loc[ci] = NULL;
+              st->char_onobj[ci] = NULL;
+              if (st->char_in != NULL)
+                st->char_in[ci] = 0;
+              if (where == NULL || streq (where, "Hidden")
+                  || streq (where, "Uninitialised"))
+                { /* hidden: no placement */ }
+              else if (streq (where, "AtLocation")
+                       || streq (where, "OnCharacter"))
+                st->char_loc[ci] = intern_key (adv, lkey);
+              else if (streq (where, "OnObject"))
+                st->char_onobj[ci] = intern_key (adv, lkey);
+              else if (streq (where, "InObject"))
+                {
+                  st->char_onobj[ci] = intern_key (adv, lkey);
+                  if (st->char_in != NULL)
+                    st->char_in[ci] = 1;
+                }
+              free (st->char_position[ci]);
+              st->char_position[ci] = strdup (pos ? pos : "Standing");
+
+              /* Walks: nested <Walk> in order map onto this character's slots. */
+              for (c = n->first_child; c != NULL; c = c->next)
+                if (streq (c->name, "Walk"))
+                  {
+                    int found = -1, count = 0, w;
+                    for (w = 0; w < (int) run->walks->size (); w++)
+                      if ((*run->walks)[w].char_index == ci)
+                        { if (count == wslot) { found = w; break; } count++; }
+                    if (found >= 0)
+                      {
+                        a5_walk_rt &wk = (*run->walks)[found];
+                        wk.status =
+                          fd_decode_walk_status (a5xml_child_text (c, "Status"));
+                        wk.timer_to_end = child_long (c, "Timer");
+                      }
+                    wslot++;
+                  }
+
+              /* Seen keys (player only -- Scarier tracks no NPC seen-sets). */
+              if (streq (adv->characters[ci].key, player))
+                for (c = n->first_child; c != NULL; c = c->next)
+                  if (streq (c->name, "Seen"))
+                    {
+                      const char *k = c->text ? c->text : "";
+                      int oi = a5state_object_index (st, k);
+                      int cc = a5state_character_index (st, k);
+                      if (oi >= 0 && st->obj_seen != NULL)
+                        st->obj_seen[oi] = 1;
+                      else if (cc >= 0 && st->char_seen != NULL)
+                        st->char_seen[cc] = 1;
+                      else
+                        a5state_mark_loc_seen (st, k);
+                    }
+
+              for (c = n->first_child; c != NULL; c = c->next)
+                if (streq (c->name, "Property"))
+                  {
+                    const char *pk = a5xml_child_text (c, "Key");
+                    const char *pv = a5xml_child_text (c, "Value");
+                    if (pk != NULL)
+                      a5state_set_prop (st, adv->characters[ci].key, pk,
+                                        pv ? pv : "");
+                  }
+            }
+        }
+      else if (streq (nm, "Variable"))
+        {
+          int vi = a5state_variable_index (st, a5xml_child_text (n, "Key"));
+          if (vi >= 0)
+            {
+              const char *v0 = a5xml_child_text (n, "Value_0");
+              if (!streq (adv->variables[vi].type, "Text"))
+                st->var_num[vi] = v0 != NULL ? strtol (v0, NULL, 10) : 0;
+              else
+                {
+                  free (st->var_text[vi]);
+                  st->var_text[vi] = strdup (v0 ? v0 : "");
+                }
+            }
+        }
+      else if (streq (nm, "Group"))
+        {
+          const char *gk = a5xml_child_text (n, "Key");
+          int gi;
+          for (gi = 0; gi < adv->n_groups; gi++)
+            if (streq (adv->groups[gi].key, gk))
+              break;
+          if (gi < adv->n_groups && streq (adv->groups[gi].type, "Objects"))
+            {
+              int j;
+              /* Effective membership = the listed <Member> set (add/remove vs
+                 the model list via the runtime override layer). */
+              for (j = 0; j < adv->n_objects; j++)
+                {
+                  const char *ok = adv->objects[j].key;
+                  int listed = 0;
+                  for (c = n->first_child; c != NULL; c = c->next)
+                    if (streq (c->name, "Member") && streq (c->text, ok))
+                      { listed = 1; break; }
+                  if (listed != a5state_object_in_group (st, gk, ok))
+                    a5state_set_object_in_group (st, gk, ok, listed);
+                }
+            }
+        }
+    }
+  /* No RNG in a FrankenDrift save: the run keeps its current (fresh: 1234) seed. */
+}
+
+int
+a5run_restore (a5_run_t *run, const char *data, size_t len)
+{
+  a5_xml_doc_t *doc;
+  a5_xml_node_t *root;
+  char *buf;
+
+  if (run == NULL || data == NULL)
+    return 0;
+  buf = (char *) malloc (len + 1);
+  if (buf == NULL)
+    return 0;
+  memcpy (buf, data, len);
+  buf[len] = '\0';
+  doc = a5xml_parse (buf, (uint32_t) len);
+  if (doc == NULL)
+    { free (buf); return 0; }
+  root = a5xml_root (doc);
+  if (root == NULL)
+    { a5xml_free (doc); return 0; }
+
+  if (streq (root->name, "SaveState"))
+    {
+      /* Legacy raw Scarier save (pre-FrankenDrift-interop). */
+      restore_scarier_body (run, root);
+    }
+  else if (streq (root->name, "Game"))
+    {
+      const a5_xml_node_t *ext = a5xml_child (root, "ScarierExt");
+      if (ext != NULL)
+        restore_scarier_body (run, ext);   /* our own save: full fidelity */
+      else
+        restore_fd_game (run, root);       /* a foreign FrankenDrift save */
+    }
+  else
+    { a5xml_free (doc); return 0; }
+
   a5xml_free (doc);
   return 1;
 }

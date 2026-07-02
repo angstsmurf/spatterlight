@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 
+#include "a5deobf.h"
 #include "a5model.h"
 #include "a5run.h"
 
@@ -140,7 +141,11 @@ main (void)
     free (a5run_input (runA, kPreSplit[i]));
 
   save = a5run_save (runA, &save_len);
-  if (save == NULL || save_len == 0 || strstr (save, "<SaveState>") == NULL)
+  /* The save is now a FrankenDrift-compatible <Game> document carrying the
+     full-fidelity Scarier snapshot in a <ScarierExt> child. */
+  if (save == NULL || save_len == 0
+      || strstr (save, "<Game>") == NULL
+      || strstr (save, "<ScarierExt>") == NULL)
     { printf ("FAIL: a5run_save produced no/invalid output\n"); failures++; }
 
   /* --- Run A continuation. --- */
@@ -163,6 +168,41 @@ main (void)
       outB.push_back (o ? o : "");
       free (o);
     }
+  /* --- FrankenDrift-interop framing checks (no external runner needed). --- */
+  {
+    /* (1) zlib deflate/inflate is byte-exact (the on-disk framing). */
+    uint32_t zlen = 0, xlen = 0;
+    uint8_t *z = a5_deflate ((const uint8_t *) save, (uint32_t) save_len, &zlen);
+    uint8_t *x = z ? a5_inflate (z, zlen, &xlen) : NULL;
+    if (!z || !x || xlen != save_len || memcmp (x, save, save_len) != 0)
+      { printf ("FAIL: zlib deflate/inflate not byte-exact\n"); failures++; }
+    if (z && (z[0] != 0x78))
+      { printf ("FAIL: save is not a zlib stream (magic %02x)\n", z[0]); failures++; }
+    free (z);
+    free (x);
+
+    /* (2) A foreign FrankenDrift save (our <Game> with the <ScarierExt> block
+       stripped) still restores from the FrankenDrift fields alone: the carried
+       coin must stay carried (out of the room view). */
+    std::string g (save, save_len);
+    size_t a = g.find ("<ScarierExt>"), b = g.find ("</ScarierExt>");
+    if (a == std::string::npos || b == std::string::npos)
+      { printf ("FAIL: save lacks the <ScarierExt> block\n"); failures++; }
+    else
+      {
+        std::string fd = g.substr (0, a)
+                       + g.substr (b + strlen ("</ScarierExt>"));
+        a5_run_t *runF = a5run_new (adv);
+        if (!a5run_restore (runF, fd.c_str (), fd.size ()))
+          { printf ("FAIL: foreign (no-ScarierExt) restore rejected\n"); failures++; }
+        char *look = a5run_input (runF, "look");
+        if (look && strstr (look, "coin"))
+          { printf ("FAIL: foreign restore put the carried coin back in the room\n"); failures++; }
+        free (look);
+        a5run_free (runF);
+      }
+  }
+
   free (save);
 
   /* --- Compare. --- */

@@ -33,6 +33,16 @@ Then diff against Scarier:
   the private `SharedModule.r` so runs are **reproducible**.
 - Does **not** pump real-time timer events, so runs are turn-deterministic and
   comparable to Scarier's turn loop.
+- Wires the engine's save/restore prompts to the environment so a script's bare
+  `save` / `restore` commands round-trip through a known `.tas` file:
+  `QuerySavePath()` returns `$FD_SAVE_PATH`, `QueryRestorePath()` returns
+  `$FD_RESTORE_PATH`. Used to cross-validate Scarier's FrankenDrift-compatible
+  save format (`TODO_a5_frankendrift_save_compat.md`):
+
+      # FD writes a .tas Scarier can read (FD -> Scarier)
+      FD_SAVE_PATH=/tmp/fd.tas dotnet .../fd-headless.dll game.blorb prefix_then_save.txt
+      # FD reads a .tas Scarier wrote (Scarier -> FD)
+      FD_RESTORE_PATH=/tmp/sc.tas dotnet .../fd-headless.dll game.blorb restore_then_look.txt
 
 ## RNG caveat (important)
 

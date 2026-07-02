@@ -167,3 +167,65 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
   inflateEnd (&stream);
   return out;
 }
+
+uint8_t *
+a5_deflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
+{
+  z_stream stream;
+  uint8_t *out;
+  uint32_t cap;
+  int status;
+
+  memset (&stream, 0, sizeof stream);
+  /* Default windowBits (15) => a plain zlib stream (0x78 header), matching
+     .NET's ZLibStream; CompressionLevel.Optimal maps to Z_BEST_COMPRESSION. */
+  if (deflateInit (&stream, Z_BEST_COMPRESSION) != Z_OK)
+    return NULL;
+
+  cap = length + (length >> 8) + 64;   /* deflateBound-ish generous guess */
+  out = (uint8_t *) malloc (cap);
+  if (out == NULL)
+    {
+      deflateEnd (&stream);
+      return NULL;
+    }
+
+  stream.next_in = (Bytef *) data;
+  stream.avail_in = length;
+  stream.next_out = out;
+  stream.avail_out = cap;
+
+  do
+    {
+      if (stream.avail_out == 0)
+        {
+          uint32_t used = cap;
+          uint8_t *grown;
+
+          cap *= 2;
+          grown = (uint8_t *) realloc (out, cap);
+          if (grown == NULL)
+            {
+              free (out);
+              deflateEnd (&stream);
+              return NULL;
+            }
+          out = grown;
+          stream.next_out = out + used;
+          stream.avail_out = cap - used;
+        }
+      status = deflate (&stream, Z_FINISH);
+    }
+  while (status == Z_OK);
+
+  if (status != Z_STREAM_END)
+    {
+      free (out);
+      deflateEnd (&stream);
+      return NULL;
+    }
+
+  *out_size = (uint32_t) stream.total_out;
+  deflateEnd (&stream);
+  return out;
+}

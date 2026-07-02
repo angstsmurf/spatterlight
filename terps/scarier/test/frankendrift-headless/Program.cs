@@ -60,8 +60,13 @@ namespace FrankenDrift.Headless
         public void SetGameName(string name) { }
         public void ScrollToEnd() { }
         public void ShowInfo(string info, string title = null) => EmitHtml((title is null ? "" : title + "\n") + info);
-        public string QuerySavePath() => "";
-        public string QueryRestorePath() => "";
+        // Save/restore paths come from the environment so a script's bare
+        // `save` / `restore` commands round-trip through a known .tas file --
+        // used to cross-validate Scarier's FrankenDrift-compatible save format.
+        public string QuerySavePath()
+            => Environment.GetEnvironmentVariable("FD_SAVE_PATH") ?? "";
+        public string QueryRestorePath()
+            => Environment.GetEnvironmentVariable("FD_RESTORE_PATH") ?? "";
         public QueryResult QuerySaveBeforeQuit() => QueryResult.NO;
         public void InitInput() { }
         public void ShowCoverArt(byte[] img) { }

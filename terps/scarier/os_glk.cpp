@@ -72,6 +72,7 @@ static const char *find_last_of(const char *str, const char *chars)
 
 /* ADRIFT 5 engine -- driven by the dedicated a5 Glk loop (gsc_a5_main) when
  * the game file is detected as ADRIFT 5 rather than ADRIFT <=4. */
+#include "a5deobf.h"         /* a5_deflate / a5_inflate save framing */
 #include "a5model.h"
 #include "a5run.h"
 #include "a5state.h"
@@ -4209,8 +4210,10 @@ gsc_a5_match_command (const char *input, const char *command)
 /*
  * gsc_a5_save()
  *
- * Serialise the a5 runtime state (a5run_save -> XML body) to a Glk-prompted
- * save file.
+ * Serialise the a5 runtime state (a5run_save -> FrankenDrift <Game> XML), then
+ * zlib-deflate it to the Glk-prompted save file.  The zlib framing (RFC 1950,
+ * no header/obfuscation) is exactly what FrankenDrift's FileIO.SaveState writes,
+ * so the file is interoperable with FrankenDrift and the ADRIFT 5 Runner.
  */
 static void
 gsc_a5_save (a5_run_t *run)
@@ -4218,7 +4221,9 @@ gsc_a5_save (a5_run_t *run)
   frefid_t fileref;
   strid_t stream;
   char *blob;
+  uint8_t *zblob;
   size_t length = 0;
+  uint32_t zlen = 0;
 
   fileref = glk_fileref_create_by_prompt (fileusage_SavedGame | fileusage_BinaryMode,
                                           filemode_Write, 0);
@@ -4236,26 +4241,37 @@ gsc_a5_save (a5_run_t *run)
       return;
     }
 
-  stream = glk_stream_open_file (fileref, filemode_Write, 0);
-  glk_fileref_destroy (fileref);
-  if (!stream)
+  zblob = a5_deflate ((const uint8_t *) blob, (uint32_t) length, &zlen);
+  free (blob);
+  if (!zblob)
     {
-      free (blob);
+      glk_fileref_destroy (fileref);
       gsc_a5_put_string ("Save failed.\n");
       return;
     }
 
-  glk_put_buffer_stream (stream, blob, (glui32) length);
+  stream = glk_stream_open_file (fileref, filemode_Write, 0);
+  glk_fileref_destroy (fileref);
+  if (!stream)
+    {
+      free (zblob);
+      gsc_a5_put_string ("Save failed.\n");
+      return;
+    }
+
+  glk_put_buffer_stream (stream, (char *) zblob, zlen);
   glk_stream_close (stream, NULL);
-  free (blob);
+  free (zblob);
   gsc_a5_put_string ("Game saved.\n");
 }
 
 /*
  * gsc_a5_restore()
  *
- * Read a Glk-prompted save file and apply it to the run with a5run_restore.
- * Returns TRUE on success.
+ * Read a Glk-prompted save file and apply it to the run.  Sniffs the framing: a
+ * zlib stream (0x78 header -- FrankenDrift / ADRIFT 5 Runner, or Scarier's own
+ * new saves) is inflated first; a raw '<' (a pre-interop uncompressed Scarier
+ * <SaveState> file) is handed to a5run_restore as-is.  Returns TRUE on success.
  */
 static int
 gsc_a5_restore (a5_run_t *run)
@@ -4289,6 +4305,22 @@ gsc_a5_restore (a5_run_t *run)
       buffer = (char *) gsc_realloc (buffer, capacity);
     }
   glk_stream_close (stream, NULL);
+
+  /* zlib stream? (0x78 0x01 / 0x9C / 0xDA).  Inflate to XML before restoring. */
+  if (total >= 2 && (unsigned char) buffer[0] == 0x78
+      && ((unsigned char) buffer[1] == 0x01
+          || (unsigned char) buffer[1] == 0x9c
+          || (unsigned char) buffer[1] == 0xda))
+    {
+      uint32_t xlen = 0;
+      uint8_t *xml = a5_inflate ((const uint8_t *) buffer, total, &xlen);
+      free (buffer);
+      if (!xml)
+        return FALSE;
+      ok = a5run_restore (run, (const char *) xml, xlen);
+      free (xml);
+      return ok;
+    }
 
   ok = a5run_restore (run, buffer, total);
   free (buffer);

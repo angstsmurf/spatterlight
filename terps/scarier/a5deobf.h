@@ -30,4 +30,14 @@ extern void a5_deobfuscate (uint8_t *data, uint32_t offset, uint32_t length);
 extern uint8_t *a5_inflate (const uint8_t *data, uint32_t length,
                             uint32_t *out_size);
 
+/*
+ * Deflate a buffer into a freshly malloc'd RFC-1950 zlib stream (0x78 header +
+ * DEFLATE + Adler-32 trailer), the framing FrankenDrift wraps its saved games in
+ * (FileIO.SaveState -> ZLibStream(CompressionLevel.Optimal)).  Returns the buffer
+ * and writes its length to *out_size, or NULL on error.  Caller frees with
+ * free().  Uses the best compression level so the output matches FD's Optimal.
+ */
+extern uint8_t *a5_deflate (const uint8_t *data, uint32_t length,
+                            uint32_t *out_size);
+
 #endif
