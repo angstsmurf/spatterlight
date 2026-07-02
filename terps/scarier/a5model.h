@@ -260,6 +260,17 @@ typedef struct a5_udf_s {
   const a5_xml_node_t *node;
 } a5_udf_t;
 
+/* <Synonym>: a global word/phrase substitution applied to the player's raw
+   input before task matching (clsUserSession.EvaluateInput's synonym loop).
+   Several <From> phrases (often duplicated in the XML) map to one <To>
+   replacement word. */
+typedef struct a5_synonym_s {
+  const char *key;
+  const char **from;  int n_from;    /* From                                   */
+  const char *to;                    /* To                                     */
+  const a5_xml_node_t *node;
+} a5_synonym_t;
+
 /* <FileMappings>/<Mapping>: maps an embedded-media resource number (the number
    used by <img src>/<audio src> references, via the original file path) to the
    Blorb resource number.  In ADRIFT 5 Blorbs the <Resource> number IS the Blorb
@@ -315,6 +326,7 @@ typedef struct a5_adventure_s {
   a5_alr_t       *alrs;       int n_alrs;
   a5_udf_t       *udfs;       int n_udfs;
   a5_filemap_t   *filemaps;   int n_filemaps;
+  a5_synonym_t   *synonyms;   int n_synonyms;
 } a5_adventure_t;
 
 /* Build the model from an already-parsed doc (takes ownership of doc). */

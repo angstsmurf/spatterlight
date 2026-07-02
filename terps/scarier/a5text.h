@@ -22,6 +22,16 @@
 #include "a5state.h"
 #include "a5xml.h"
 
+/* Sentinel byte relayed by a5text_render_plain when it renders a <cls> screen
+   clear.  FrankenDrift's Display accumulates a whole turn's text into one
+   sOutputText string and renders it once at end of turn, so a <cls> embedded
+   anywhere in the turn wipes EVERYTHING accumulated before it -- not just the
+   fragment it appears in.  The plain renderer can only wipe its own fragment,
+   so it also leaves this marker; the per-turn flush (a5run finish_turn) drops
+   everything up to and including the last marker.  \x01 (SOH) never occurs in
+   game text. */
+#define A5_CLS_MARK '\001'
+
 /*
  * Evaluate a description wrapper node (e.g. a location's <LongDescription>, an
  * object's <Description>, the <Introduction>) into raw source text with markup

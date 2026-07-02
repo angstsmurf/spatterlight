@@ -557,6 +557,22 @@ pass_character (a5_state_t *st, a5_restr_t *r)
 
   if (streq (r->op, "BeAtLocation"))
     return streq (cloc, k2);
+  if (streq (r->op, "BeOfGender"))
+    {
+      /* clsCharacter.Gender / clsRestriction.CharacterEnum.BeOfGender: an
+         exact match against the Mandatory StateList "Gender" property
+         (Male/Female/Unknown).  k2 is the literal state name (resolve_key is
+         a no-op on it -- no leading '%' and no matching per-turn ref
+         binding).  Without this case the operator fell through to the
+         best-effort `return 1`, so a gender-gated branch (e.g. Pathway to
+         Destruction's
+         `Player Must BeOfGender Female` swapping in an alternate character
+         name/pronoun set) always fired even when the player's Gender is still
+         its unset "Unknown" default -- headless runs never see the
+         PopUpChoice gender prompt that would otherwise set it. */
+      const char *g = a5state_entity_prop (st, k1, "Gender");
+      return g != NULL && strcasecmp (g, k2) == 0;
+    }
   if (streq (r->op, "BeHoldingObject"))
     {
       /* ANYOBJECT -> holding at least one object (clsCharacter.IsHoldingObject:

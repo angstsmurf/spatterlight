@@ -1224,7 +1224,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
           char *name, *args = NULL, *value = NULL;
           int ok = 0;
 
-          while (*q && (isalnum ((unsigned char) *q) || *q == '_'))
+          while (*q && (isalnum ((unsigned char) *q) || *q == '_' || *q == '-'))
             q++;
           if (q > name_start)
             {
@@ -1605,7 +1605,7 @@ expr_substitute (a5_state_t *st, const char *src)
         {
           const char *q = p + 1;
           const char *name_start = q;
-          while (*q && (isalnum ((unsigned char) *q) || *q == '_')) q++;
+          while (*q && (isalnum ((unsigned char) *q) || *q == '_' || *q == '-')) q++;
           if (q > name_start && *q == '%')
             {
               size_t nlen = (size_t) (q - name_start);
@@ -1923,12 +1923,17 @@ a5text_render_plain (const char *src)
             sb_putc (&sb, '\n');
           else if (strcmp (name, "cls") == 0)
             {
-              /* Screen clear: drop everything buffered so far, mirroring the
-                 GlkHtmlWin / FrankenDrift.Headless handling of <cls>.  An Anno
-                 1700-style intro ends with a <cls>, so its credits/preamble are
-                 wiped and only the post-clear text (here, none) survives. */
+              /* Screen clear: drop everything buffered so far in THIS fragment,
+                 mirroring the GlkHtmlWin / FrankenDrift.Headless handling of
+                 <cls>.  An Anno 1700-style intro ends with a <cls>, so its
+                 credits/preamble are wiped and only the post-clear text survives.
+                 But FD's Display accumulates the whole turn's text and renders it
+                 once, so a <cls> also wipes everything emitted EARLIER in the
+                 turn (other fragments already in `out`).  Leave a marker byte so
+                 the per-turn flush can drop that earlier text too. */
               sb.len = 0;
               if (sb.p != NULL) sb.p[0] = '\0';
+              sb_putc (&sb, A5_CLS_MARK);
             }
           else if (a5_media_sink != NULL
                    && (strcmp (name, "img") == 0 || strcmp (name, "audio") == 0))

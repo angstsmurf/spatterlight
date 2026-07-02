@@ -363,6 +363,7 @@ StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
 JacarandaJim|JacarandaJim.blorb|99|0
 SixSilverBullets|SixSilverBullets.blorb|18|0
+PathwayToDestruction|PathwayToDestruction.blorb|0|0
 EOF
 )
 

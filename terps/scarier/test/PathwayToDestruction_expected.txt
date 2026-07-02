@@ -1,0 +1,445 @@
+Pathway to Destruction
+Your last memory is of being in the test chamber, deep under the Research and Development building. Now you are here, but you have no recollection of leaving the test chamber or arriving at this place. It is almost as if you just appeared here.
+
+You can type 'intro', 'details' or 'credits' during the game.
+
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of stone rests upon its brow, a glittering jewel its centrepiece. About you lurk malevolent shadows, seeming to move with a life of their own, though these are glimpses seen from the corner of your eye that vanish the moment you look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> west
+You move west.
+
+Cage
+The centre of this circular chamber is a cage, sunken into the floor, in which the remains of some beast lie decomposing. Claw marks on the bars of the cage indicate the beast fought ferociously to escape its imprisonment, yet failed. And died.
+
+To the west there is a large chamber from which a humming sound emanates; to the east you can make out a statue.
+
+> get rib
+You pull the rib from the remains of the beast.
+
+> east
+You move east.
+
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of stone rests upon its brow, a glittering jewel its centrepiece. About you lurk malevolent shadows, seeming to move with a life of their own, though these are glimpses seen from the corner of your eye that vanish the moment you look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> get jewel
+Using the rib, you prise the jewel from its resting place.
+
+> north
+You move north.
+
+Ancient Gallery
+The walls about you are ancient and crumbling, yet modern looking portraits hang from them all the same. The faces depicted twist and writhe in torment. Is it your imagination or can you also hear their cries?  Against one wall lies a large crystal, as tall as a man and wide as a chariot, in which is imprisoned the form of… something.
+
+A passage lies away to the south and another to the northeast, at the end of which a light shines faintly.
+
+> northeast
+You move northeast.
+
+Passage
+The broken bones of tiny rodents crunch underfoot as you make your way along this passage. It is dark and shadowy for the most part, illuminated poorly by the pale daylight at the end.
+
+The passage extends northeast to the outside world and southwest to an ancient gallery.
+
+> northeast
+You move northeast.
+Rapid Sidewalk
+The Rapid Transit System, which is the size of a six lane freeway, stretches away to the north and south. When working all someone needed to do was step onto the roadway to be sped around the city, at hither to unknown speeds. Once the surface would have shimmered like quicksilver, now it is just a dull lifeless black colour. Far in the distance you can see the city, your home.
+
+The roadway extends to the north and south, southwest leads to the Temple of the Great David.
+
+> north
+You move north.
+
+Rapid Sidewalk Junction
+At one of the many junctions of the Rapid Transit System, when working you would just need to lean slightly to change direction. Away to the north is the city (your home), but you no longer recognise the outline. Only yesterday the horizon was filled with kilometre high buildings gleaming in the sunlight, now it looks like a set of broken jagged teeth. At the very edge of the walkway is a decaying body.
+
+The roadway continues north to the city and northeast to the government quarter.
+
+> exam body
+The body is actually little more than bones, and most of those are turning to dust. It seems to have been here for years. For a moment you wonder about this poor individual and how they died. Looking at the position of the body your best guess is that it happened when the roadway system failed. You hope it was quick and painless.
+
+Amongst the bones you spot something round and shiny, it is a news-disc which you pick up.
+
+> northeast
+You move northeast.
+
+Government Quarter
+With over ten square kilometres of structures, the government quarter should be building after building of steel, chrome and glass. Everything now is completely shattered; just barren and so bleak. Although difficult to see, you are in the main plaza which was a 500m square meeting place of seating areas, art work, gardens and picnic places. The only thing standing is a battered old lamp post, leaning over at a sharp angle.
+
+An ancient road to the southwest leads to the Rapid Transit System.  A path extends north to the ruins of the administration building and away east to the flattened research and development centre.
+
+> kick lamp
+The lamp post topples over and crashes to the ground. As it does, a length of metal falls from it which you grab.
+
+> north
+You move north.
+
+Administration Building
+Once a thousand golden floors high, now only a few low charred jagged walls remain. On your left, would have been the long counter behind which the many female receptionists stood. The whole area is now gone, completely open to the sky.  On the opposite side was row after row of view screens now all destroyed, nearThe viewer has no power and looks completely blank. You can see the slot into which a disc would be inserted, but with no power it is worthless.
+
+The path leads back to the south.
+
+> put jewel on screen
+Ok, you put the glittering jewel on top of the view screen.
+As you stand near the screen, the rib you are carrying becomes red hot. You drop it onto the ground.
+
+> insert news-disc in screen
+You insert the news-disc into the viewer, after a few seconds it begins to work.
+
+On the day of the Pathway project long distance test, the news appears to be pretty normal. It consists of the news, sports, weather, man eaten by killer hamster. The usual sort of stuff.
+
+It is the reports on the day following the test that you found particularly interesting. Stories started coming in from all over the city about large parts of the population who had simply vanished into thin air. Later in the day the 'problem' seemed to be spreading as cities all over the planet had reported mass disappearances.
+
+[Press ENTER to continue]
+
+Looking at the reports on the second day after the test, it seemed that nearly half the population of the planet was missing.  This was not just limited to the human population, but any carbon based life. The skies, seas and land had also emptied of animals and birds.
+
+On the third day, the location of the problem had been identified - it was the testing chamber. Something must have gone terribly wrong with the test, but no one in the research and development section could be contacted. The military decided to take drastic action and made three attempts to destroy the testing chamber. With the disappearances continuing, soon not enough airmen were left to carry out the airstrikes.
+
+[Press ENTER to continue]
+
+The last reports are about civil disturbances breaking out all over the planet. The populace started blaming science and technology for the catastrophe; centres of knowledge and learning were attacked and destroyed. Law and order had suffered a complete breakdown and the very last story is about a force of the local volunteer army being sent to 'restore' order at the temple.
+
+For a long time you can do nothing; you just stand unable to take it all in. How could this have happened? What could have gone wrong with the test?
+
+Well, the answer must lie in the test chamber under the research and development building.
+
+[Press ENTER to continue]
+
+Administration Building
+Once a thousand golden floors high, now only a few low charred jagged walls remain. On your left, would have been the long counter behind which the many female receptionists stood. The whole area is now gone, completely open to the sky.  On the opposite side was row after row of view screens now all destroyed, although amazingly one does seem to survive and appears to be in working order.
+
+The path leads back to the south.  You can also see the tarc rib.
+
+> south
+You move south.
+
+Government Quarter
+With over ten square kilometres of structures, the government quarter should be building after building of steel, chrome and glass. Everything now is completely shattered; just barren and so bleak. Although difficult to see, you are in the main plaza which was a 500m square meeting place of seating areas, art work, gardens and picnic places. A battered old lamp post lies on the ground nearby.
+
+An ancient road to the southwest leads to the Rapid Transit System.  A path extends north to the ruins of the administration building and away east to the flattened research and development centre.
+
+> east
+You move east.
+
+Research and Development Building
+The centre is, or should be, a towering dome of stainless steel and coloured glass. This place would echo with the voices and foot steps of all the people within, hidden fountains adding to the effect. The scene that greets you now is one of complete devastation, as if some giant foot has stamped on the place repeatedly. Unlike everywhere else you have seen today, here is destruction and not aging. Rubble is lying everywhere.
+
+The path leads back to the west.
+
+> move rubble with bar
+Using the metal bar you start moving the rubble, after a while you unearth what must be the elevator shaft to the test centre.
+
+> drop bar
+Ok, you put down the metal bar.
+
+> down
+You move down.
+
+Old Elevator Shaft
+Standing on a small ledge running around the inside of the shaft more destruction can be seen. Glancing up you can see the world above framed in the square of the shaft. Looking down is a blackness that seems to be reaching up and trying to draw you down. The test centre is a long way below you, something like 30 levels down. The old elevator cable is hanging in the centre of the shaft, just within reach.
+
+The shaft leads up into the bright daylight and down into the dark.
+
+> climb down cable
+You grab the cable and make your way down into the dark.
+Control Room
+The control is much as you remember it but more importantly it is light, so the power must still be on down here.  In front of you is the main control panel and the glass window through to the test chamber. During the climb down the cable the journal must have been knocked and just disintegrates anyway to nothing. You glance through the window and you can see someone strapped into the chair. That someone is you!
+
+You can go through the heavy metal door into the test chamber or back up the elevator cable.
+
+> exam panel
+The control panel is lit but doesn't seem to be working. On one side of the panel is a small lever and on the other side is a small screen displaying:
+
+Target: Alpha City, Europa Continent
+Beam Lock Status: BEAM UNLOCKED
+
+"Error 6192: Fatal Transmission Fault"
+"Error 8151: Critical Storage Media Failure"
+  A data-disc is on the control panel.
+
+> get data-disc
+(from the control panel)
+Ok, you take the data-disc from the control panel.
+
+> unlock door
+Using your id ring, you unlock the door.
+
+> north
+You move north.
+
+Testing Chamber
+The stillness of the chamber always surprises you, no sound from outside ever penetrates and any noise within is muffled. The only furniture is the test chair in the centre of the room. The other you is strapped into the chair. A glass window is in the wall behind you, through which you can see the control room. The ignition light on the wall is glowing red, the test is running. For a brief moment it sounded as if someone called your name. "John!" You turn round quickly, but no one is anywhere to be seen. Perhaps you are going slowly insane.
+
+You can leave the chamber through the heavy metal door to the south.  Your other self is here.
+
+> get journal
+You take the journal.
+
+> read journal
+The journal contains all your notes relating to the experiments.  In particular two entries catch your eye:
+
+"Error 6192: Fatal Transmission Fault"
+This means that the subject has not particled properly.
+
+"Error 8151: Critical Storage Media Failure"
+This is when the system suffers serious power loss. To protect the subject being particled the body can be stored externally in a storage crystal, until the system can retry again.
+"Crystal?" you mutter to yourself.
+
+> south
+You move south.
+Control Room
+The control is much as you remember it but more importantly it is light, so the power must still be on down here.  In front of you is the main control panel and the glass window through to the test chamber.
+
+You can go through the heavy metal door into the test chamber or back up the elevator cable.
+
+> up
+You move up.
+
+Old Elevator Shaft
+Standing on a small ledge running around the inside of the shaft more destruction can be seen. Glancing up you can see the world above framed in the square of the shaft. Looking down is a blackness that seems to be reaching up and trying to draw you down. The test centre is a long way below you, something like 30 levels down. The old elevator cable is hanging in the centre of the shaft, just within reach.
+
+The shaft leads up into the bright daylight and down into the dark.
+
+> up
+You move up.
+
+Research and Development Building
+The centre is, or should be, a towering dome of stainless steel and coloured glass. This place would echo with the voices and foot steps of all the people within, hidden fountains adding to the effect. The scene that greets you now is one of complete devastation, as if some giant foot has stamped on the place repeatedly. Unlike everywhere else you have seen today, here is destruction and not aging. A large hole is clearly visable amongst the rubble.
+
+The path leads back to the west and a dark hole amongst the rubble leads down.  You can also see a metal bar.
+
+> west
+You move west.
+
+Government Quarter
+With over ten square kilometres of structures, the government quarter should be building after building of steel, chrome and glass. Everything now is completely shattered; just barren and so bleak. Although difficult to see, you are in the main plaza which was a 500m square meeting place of seating areas, art work, gardens and picnic places. A battered old lamp post lies on the ground nearby.
+
+An ancient road to the southwest leads to the Rapid Transit System.  A path extends north to the ruins of the administration building and away east to the flattened research and development centre.
+
+> north
+You move north.
+
+Administration Building
+Once a thousand golden floors high, now only a few low charred jagged walls remain. On your left, would have been the long counter behind which the many female receptionists stood. The whole area is now gone, completely open to the sky.  On the opposite side was row after row of view screens now all destroyed, although amazingly one does seem to survive and appears to be in working order.
+
+The path leads back to the south.  You can also see the tarc rib.
+
+> insert data-disc in screen
+
+You remember spotting something in your journal about the power system. Opening the journal, after flicking through a few pages you spot a note you made to yourself:
+
+"A relay blew in the testing chamber today and needed changing, but no-one could find it. Eventually we tracked down the plans and to our amazement the power grid for the testing chamber runs through the temple! Behind a panel, hidden in the wall of the Great Meeting Hall is enough power to destroy a small planet."
+
+Administration Building
+Once a thousand golden floors high, now only a few low charred jagged walls remain. On your left, would have been the long counter behind which the many female receptionists stood. The whole area is now gone, completely open to the sky.  On the opposite side was row after row of view screens now all destroyed, although amazingly one does seem to survive and appears to be in working order.
+
+The path leads back to the south.  You can also see the tarc rib.  You insert the data-disc into the viewer, after a few seconds it begins to work.
+
+It is the day of the test and you can see yourself being strapped into the chair in the test chamber. Colin gives you a thumbs up from the Control Room and the ignition lights come on; the test begins.
+
+You can tell immediately that something is wrong, the technicians in the control room look worried. The beam which was locked onto Alpha City on the Europa Continent (the other side of the planet) has moved, but they cannot tell where. The system starts to draw more and more power as it automatically tries to lock on.
+
+Colin can be heard saying, "I think he has particled but we are not getting a confirmation signal. We must try to get him back." Someone off camera says, "I can't get the beam to lock, we can't get him back."
+
+Out loud you say, "Some how it threw me into the future, so no wonder they could not lock on. That is why I'm still in the chair, the system does not know that I arrived."  As a safety measure, if no confirmation is received, the system holds onto the person assuming they have not been particled.
+
+[Press ENTER to continue]
+
+Your attention is drawn back to the screen. Suddenly warning signals start to flash and it appears that the technicians are losing control of the beam. You hear one of them say, "We are losing confinement. My God! It is starting to scatter! Shut off the power! Shut off the power!" With no warning Colin and all the other technicians vanish.
+
+You shudder as if someone has just worked over your grave. With the system drawing that much power as they tried in vain to lock on the beam; if that beam scattered what would happen when it came into contact with people?
+
+You now have a very good idea of what has happened to the population of the planet; they have been particled into the past, the future, who knows.
+
+More importantly, the test is still running.
+
+[Press ENTER to continue]
+
+Over the next hour you watch the whole of the data-disc, several times.
+
+You now know that the staff at the testing centre tried, in vain, to shutdown the system. The very safety measures designed to protect had destroyed. The automatic systems would not let the test be stopped because it was still particling the test subject, i.e. You.
+
+With the test still running and the beam scattered over the planet any person it came into contact with would be beamed away. You have a working theory that the reason you are unaffected is that you are still 'technically' being particled.
+
+It is now very clear that you need to shutdown the test. You have no idea what this will do to you, both the one in the chair and this version of you, but the test must be stopped.
+
+You need to find a way of shutting off the power.
+
+[Press ENTER to continue]
+
+> get jewel
+(from the view screen)
+Ok, you take the glittering jewel from the view screen.
+
+> south
+You move south.
+
+Government Quarter
+With over ten square kilometres of structures, the government quarter should be building after building of steel, chrome and glass. Everything now is completely shattered; just barren and so bleak. Although difficult to see, you are in the main plaza which was a 500m square meeting place of seating areas, art work, gardens and picnic places. A battered old lamp post lies on the ground nearby.
+
+An ancient road to the southwest leads to the Rapid Transit System.  A path extends north to the ruins of the administration building and away east to the flattened research and development centre.
+
+> southwest
+You move southwest.
+
+Rapid Sidewalk Junction
+At one of the many junctions of the Rapid Transit System, when working you would just need to lean slightly to change direction. Away to the north is the city (your home), but you no longer recognise the outline. Only yesterday the horizon was filled with kilometre high buildings gleaming in the sunlight, now it looks like a set of broken jagged teeth. At the very edge of the walkway is the decaying body and for a moment you wonder if that is what will happen to you.
+
+The roadway continues north to the city and northeast to the government quarter.
+
+> south
+You move south.
+
+Rapid Sidewalk
+The Rapid Transit System, which is the size of a six lane freeway, stretches away to the north and south. When working all someone needed to do was step onto the roadway to be sped around the city, at hither to unknown speeds. Once the surface would have shimmered like quicksilver, now it is just a dull lifeless black colour. Far in the distance you can see the city, your home.
+
+The roadway extends to the north and south, southwest leads to the Temple of the Great David.
+
+> southwest
+You move southwest.
+Passage
+The broken bones of tiny rodents crunch underfoot as you make your way along this passage. It is dark and shadowy for the most part, illuminated poorly by the pale daylight at the end.
+
+The passage extends northeast to the outside world and southwest to an ancient gallery.
+
+> southwest
+You move southwest.
+
+Ancient Gallery
+The walls about you are ancient and crumbling, yet modern looking portraits hang from them all the same. The faces depicted twist and writhe in torment. Is it your imagination or can you also hear their cries?  Against one wall lies a large crystal, as tall as a man and wide as a chariot, in which is imprisoned the still form of your other self.
+
+A passage lies away to the south and another to the northeast, at the end of which a light shines faintly.
+
+> south
+You move south.
+
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of stone rests upon its brow, a large jagged hole as centrepiece. About you lurk malevolent shadows, seeming to move with a life of their own, though these are glimpses seen from the corner of your eye that vanish the moment you look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> west
+You move west.
+
+Cage
+The centre of this circular chamber is a cage, sunken into the floor, in which the remains of some beast lie decomposing. Claw marks on the bars of the cage indicate the beast fought ferociously to escape its imprisonment, yet failed. And died.
+
+To the west there is a large chamber from which a humming sound emanates; to the east you can make out a statue.
+
+> west
+You move west.
+
+Humming Chamber
+Once this was the great meeting hall. Rows of seats spiral outwards from a central podium where a speaker once stood to deliver speeches to a waiting audience. Most of the seats are smashed and little but splinters remain. Burn marks scar the floor; walls and a panel you haven't noticed before; in one place there is what appears to be a large quantity of books and scrolls which someone has attempted to burn but abandoned partway through. A faint humming sound can be heard, emanating from somewhere in the chamber.
+
+A passage extends northwest and another to the east.
+
+> unlock panel
+Using your id ring, you unlock the panel.
+
+> throw jewel at grid
+Taking cover behind the podium you throw the jewel at the power grid, which explodes in a shower of metal. The jewel is vapourised but the power goes off.
+
+Aloud you mutter, "I'd better get back to the testing chamber, to see if this worked."
+
+> east
+You move east.
+
+Cage
+The centre of this circular chamber is a cage, sunken into the floor, in which the remains of some beast lie decomposing. Claw marks on the bars of the cage indicate the beast fought ferociously to escape its imprisonment, yet failed. And died.
+
+To the west there is a large chamber; to the east you can make out a statue.
+
+> east
+You move east.
+
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of stone rests upon its brow, a large jagged hole as centrepiece. About you lurk shadows, seeming to be standing watching you, though these are glimpses seen from the corner of your eye that vanish the moment you look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> north
+You move north.
+
+Ancient Gallery
+The walls about you are ancient and crumbling, yet modern looking portraits hang from them all the same. The faces all seem to be watching you expectantly. Against one wall lies a large storage crystal glowing dark blue, as tall as a man and wide as a chariot, in which is imprisoned the still form of your other self.
+
+A passage lies away to the south and another to the northeast, at the end of which a light shines faintly.
+
+> northeast
+You move northeast.
+
+Passage
+The broken bones of tiny rodents crunch underfoot as you make your way along this passage. It is dark and shadowy for the most part, illuminated poorly by the pale daylight at the end.
+
+The passage extends northeast to the outside world and southwest to an ancient gallery.
+
+> northeast
+You move northeast.
+Rapid Sidewalk
+The Rapid Transit System, which is the size of a six lane freeway, stretches away to the north and south. When working all someone needed to do was step onto the roadway to be sped around the city, at hither to unknown speeds. Once the surface would have shimmered like quicksilver, now it is just a dull lifeless black colour. Far in the distance you can see the city, your home.
+
+The roadway extends to the north and south, southwest leads to the Temple of the Great David.
+
+> north
+You move north.
+
+Rapid Sidewalk Junction
+At one of the many junctions of the Rapid Transit System, when working you would just need to lean slightly to change direction. Away to the north is the city (your home), but you no longer recognise the outline. Only yesterday the horizon was filled with kilometre high buildings gleaming in the sunlight, now it looks like a set of broken jagged teeth. At the very edge of the walkway is a decaying body.
+
+The roadway continues north to the city and northeast to the government quarter.
+
+> northeast
+You move northeast.
+
+Government Quarter
+With over ten square kilometres of structures, the government quarter should be building after building of steel, chrome and glass. Everything now is completely shattered; just barren and so bleak. Although difficult to see, you are in the main plaza which was a 500m square meeting place of seating areas, art work, gardens and picnic places. A battered old lamp post lies on the ground nearby.
+
+An ancient road to the southwest leads to the Rapid Transit System.  A path extends north to the ruins of the administration building and away east to the flattened research and development centre.
+
+> east
+You move east.
+
+Research and Development Building
+The centre is, or should be, a towering dome of stainless steel and coloured glass. This place would echo with the voices and foot steps of all the people within, hidden fountains adding to the effect. The scene that greets you now is one of complete devastation, as if some giant foot has stamped on the place repeatedly. Unlike everywhere else you have seen today, here is destruction and not aging. A large hole is clearly visable amongst the rubble.
+
+The path leads back to the west and a dark hole amongst the rubble leads down.  You can also see a metal bar.
+
+> down
+You move down.
+
+Old Elevator Shaft
+Standing on a small ledge running around the inside of the shaft more destruction can be seen. Glancing up you can see the world above framed in the square of the shaft. Looking down is a blackness that seems to be reaching up and trying to draw you down. The test centre is a long way below you, something like 30 levels down. The old elevator cable is hanging in the centre of the shaft, just within reach.
+
+The shaft leads up into the bright daylight and down into the dark.
+
+> climb down cable
+You grab the cable and make your way down into the dark.
+Darken Control Room
+The control room is now in darkness as the power must be off down here. In front of you is the main control panel and the glass window through to the test chamber. Some emergency power must have kicked in, as the control panel is still lit.
+
+You can go through the heavy metal door into the test chamber or back up the elevator cable.
+
+> pull lever
+You pull the lever, but nothing happens.
+
+> north
+
+You open your eyes and you are in the testing chamber seated in the test chair. Through the window you can see into the control room; Colin and the other technicians look worried.
+
+Over the intercom Colin can be heard saying, "I think he has particled but we are not getting a confirmation signal. We must try to get him back." Someone out of sight says, "I can't get the beam to lock, we can't get him back."
+
+Suddenly warning signals start to flash and it appears that the technicians are losing control of the beam. You hear one of them say, "We are losing confinement. My God! It is starting to scatter! Shut off the power! Shut off the power!" With no warning Colin and all the other technicians vanish.
+
+For a few seconds you stare at the empty control room and then everything starts to blur.  The last thought you ever have is one of failure before you blink out of existence.
+
+*** You have won ***
+
+Would you like to restart, restore a saved game, quit or undo the last command?

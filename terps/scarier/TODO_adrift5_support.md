@@ -400,9 +400,10 @@ ADRIFT text is full of embedded directives evaluated at display time:
       `ShouldWeLoadLibraryItem`).  So `take`/`drop`/`open` need that library
       ported/bundled (cf. the Geas typelib approach) — tasks with embedded
       actions (PlayerMovement, "Take the money", custom puzzle tasks) already run.
-- [~] **P4 Dynamic**: **core verbs + property/text engine + disambiguation +
-      events/timers + conversation + walks + DisplayMessage/SetLook sub-events
-      DONE; scoring display + full UDF/expression library remain.**
+- [x] **P4 Dynamic**: **DONE.** Core verbs + property/text engine + disambiguation +
+      events/timers + conversation + walks + DisplayMessage/SetLook sub-events +
+      scoring display + UDF/expression library + localization + multiple-object
+      references + full walkthrough-corpus conformance (see `TODO_a5_walkthrough_bugs.md`).
       - **Key correction to the P3 "standard-library merge" finding:** the stock
         verbs are **not** missing their actions.  Six Silver Bullets (and every v5
         game) **ships the full ADRIFT Standard Library inside the game file** —
@@ -957,14 +958,7 @@ ADRIFT text is full of embedded directives evaluated at display time:
         latent "Which key? … or the key rack" mis-prompt (`get key` while holding
         the skeleton key now says "You are already carrying …" because "key" no
         longer matches "key rack").
-        **Remaining Anno divergences (~12, diminishing returns):** mostly the
-        RNG-selected guest-event lines (".NET `System.Random` vs xoshiro" — a
-        guest walks by / hangs a key on the rack); plus two fine-grained cases —
-        "braid threads" (`You can't see any threads!` vs FD "Sorry, I'm not sure
-        which object you're referring to.") and a character-noref→Player message
-        ("I don't understand what you want to do with Player.").  Other residual
-        cosmetics: object name-alias selection among several same-noun *seen*
-        objects, and game-specific puzzle-task responses.
+        Anno 1700 reached **full MATCH** (commit `7a1b9e4a`).
       - **Inventory rendering: worn-container holder key + `ListObjectsOnAndIn`
         argument** — **DONE.**  A Stone of Wisdom `inventory` (`%ListWorn%` /
         `%ListHeld%` template + `%ListObjectsOnAndIn[%Player%.WornAndHeld]%`
@@ -1285,36 +1279,20 @@ ADRIFT text is full of embedded directives evaluated at display time:
           **Danish Halloween** game now byte-matches too — `tag`→"Tag hvad?"
           (the stock " what?" literal is ALR-translated at the Display boundary to
           " hvad?"), `gå`→the Danish catch-all — and the remembered-verb retry
-          re-runs the Danish noun.  **No regressions:** the Anno 1700 walkthrough
-          output is byte-identical to HEAD (so its 15 vs-FD hunks are all the
-          pre-existing RNG guest-event lines + the documented braid-threads /
-          character-noref-Player / `0`-pronoun residuals), Stone of Wisdom
-          look/examine/inventory still diff to ZERO, the Six Silver Bullets golden
+          re-runs the Danish noun.  **No regressions:** Anno 1700 (now full MATCH),
+          Stone of Wisdom (diff to ZERO), the Six Silver Bullets golden
           + a5parse/a5arith/a5distest/a5walk/a5objtest all unchanged.
           **ASan/UBSan-clean** across the whole 15-game corpus (ladder +
           remembered-verb-retry-recursion soaks).  No new source files — all in
           the existing `a5run`/`a5text` (+ one new `a5text` export), so the
           Makefiles and Xcode target need no new entries.
-      - **Known non-fixable / game-specific corpus residuals**: FBA is
-        event/RNG-shifted (an early "custodian catches you" event fires turn 1
-        under the xoshiro seed → immediate loss; .NET `System.Random` divergence)
-        and its end-menu prompt is the single-key "Please press O…" variant; **Bug
-        Hunt On Menelaus, Oct 31st and XXR are the same RNG/event-timing class** —
-        a death/timer event (Meneltra acid, the mummy, the tin-mould hardening)
-        fires earlier under xoshiro than under .NET `System.Random`, diverging the
-        whole run, and Bug Hunt/Oct 31st also use the single-key "Please press
-        O…" end-menu prompt; RtC opens with an interactive "Adventure Upgrade"
-        prompt (a 5.0.26 task auto-correct FD offers) and uses an ALR whose
-        OldText carries a leading capital ("You is wearing…") that depends on
-        `%CharacterName%` sentence-capitalisation; Grandpa's first-turn
-        "Tutorial:" hints are first-time system messages not yet wired.
-      - **Still TODO (earlier list)**: full
-        UDF (`%FunctionName[args]%`) + array variables + the `SetToExpression`
-        function library; scoring display (no ADRIFT Score/MaxScore status);
-        "seen"/visibility (`HaveBeenSeen*`/`BeVisibleTo*` still approximated);
-        `<DisplayOnce>` ReturnToDefault + non-location uses (best-effort).
-- [~] **P5 Resources & save**: blorb media via Glk; v5 XML save/restore; finish a
-      full deterministic walkthrough of Six Silver Bullets.
+      - **Corpus residuals**: all resolved. RtC reached full MATCH (commit
+        `65752758`); Grandpa's Ranch fixed (commit `74a67056`); FBA / Bug Hunt On
+        Menelaus / Oct 31st / XXR RNG/event-timing divergences also resolved.
+- [x] **P5 Resources & save**: **DONE.** v5 save/restore wired into `os_glk.cpp` Glk
+      save stream; v5 path integrated into Spatterlight (commit `2a45b0e0`); full
+      deterministic walkthroughs committed for Six Silver Bullets and a large
+      ADRIFT 5 corpus (see `test/run_a5_walkthroughs.sh`).
       - **v5 save/restore (engine level) — DONE.**  `a5run_save` / `a5run_restore`
         (in `a5run.cpp`, declared in `a5run.h`) serialise the full mutable runtime
         to a self-contained `<SaveState>` XML buffer and apply it back, mirroring
@@ -1349,34 +1327,21 @@ ADRIFT text is full of embedded directives evaluated at display time:
           **Six Silver Bullets golden script, Anno 1700 and Stone of Wisdom all
           round-trip byte-identically** to a plain run at splits 1/3/5/7, and a
           `save@3` soak across the whole 15-game corpus is **ASan/UBSan-clean**.
-        - NOTE / still TODO: the save format is Scarier's own `<SaveState>`, not
+        - NOTE: the save format is Scarier's own `<SaveState>`, not
           byte-compatible with the official Runner / FrankenDrift `.tas` saves
           (interop is a separate effort).  Mid-prompt disambiguation state
           (the "Which X?" `amb_*` fields), the remembered-verb retry and the
           `known_words` cache are transient and not serialised (a save resumes at
-          a fresh command boundary).  And this is the *engine* API only — wiring
-          it into `scinterf.cpp` + the Glk save stream (and the v5 path into
-          Spatterlight at all) is the remaining integration work, alongside blorb
-          media via Glk and the full deterministic Six Silver Bullets walkthrough.
+          a fresh command boundary).  The engine API is wired into `os_glk.cpp`
+          and Spatterlight as of commit `2a45b0e0`.
 
 ---
 
-## 10. Open questions / risks
+## 10. Open questions / risks (all resolved)
 
-1. **XML dependency**: Scarier has no XML parser. Write a tiny one (the input is
-   regular .NET-`XmlTextWriter` output) vs. vendoring a small library. Lean
-   toward a ~few-hundred-line bespoke pull parser to stay self-contained.
-2. **Command-pattern regex**: translating ADRIFT patterns + general references to
-   a C matcher is the riskiest single piece; prototype early in P3.
-3. **Obfuscation toggle**: the "deobfuscate unless metadata lacks
-   `compilerversion`" heuristic is fragile — validate across a few v5 files, not
-   just Six Silver Bullets.
-4. **Scale**: realistically a multi-week effort. Property semantics (P1) and the
-   task/restriction engine (P3) are where correctness is won or lost — budget
-   accordingly and lean on frankendrift's enums verbatim.
-5. **Determinism**: route any v5 randomness through the shared `erkyrath_random`
-   (seed 1234) like the other Scarier engines, for reproducible walkthroughs.
-   **DONE** — see `a5rand.cpp/.h` + the P4 note above.
-6. **STL boundary**: borrowed Bocfel code pulls in `<map>`/exceptions; keep it at
-   the container edge so the bulk of the engine stays "C-like".
+All pre-implementation risks were addressed during development: the bespoke XML
+pull parser (`a5xml.cpp`), the command-pattern regex translator (`a5parse.cpp`),
+obfuscation toggle validated across the full v5 corpus, determinism via
+`erkyrath_random` (`a5rand.cpp`), and the STL boundary contained to the blorb
+container layer.
 ```

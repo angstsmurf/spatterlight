@@ -725,6 +725,28 @@ a5_load_alrs (a5_adventure_t *a)
 }
 
 static void
+a5_load_synonyms (a5_adventure_t *a)
+{
+  a5_xml_node_t *c;
+  int i = 0;
+  a->n_synonyms = a5xml_count (a->root, "Synonym");
+  if (a->n_synonyms == 0)
+    return;
+  a->synonyms = (a5_synonym_t *) calloc ((size_t) a->n_synonyms, sizeof *a->synonyms);
+  for (c = a->root->first_child; c != NULL; c = c->next)
+    {
+      a5_synonym_t *s;
+      if (strcmp (c->name, "Synonym") != 0)
+        continue;
+      s = &a->synonyms[i++];
+      s->node = c;
+      s->key = a5xml_child_text (c, "Key");
+      s->from = a5_collect_text (c, "From", &s->n_from);
+      s->to = a5xml_child_text (c, "To");
+    }
+}
+
+static void
 a5_load_udfs (a5_adventure_t *a)
 {
   a5_xml_node_t *c;
@@ -880,6 +902,7 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a5_apply_group_properties (a);
   a5_load_alrs (a);
   a5_load_udfs (a);
+  a5_load_synonyms (a);
   a5_load_filemappings (a);
   return a;
 }
@@ -1013,6 +1036,9 @@ a5model_free (a5_adventure_t *a)
   free (a->propdefs);
   free (a->alrs);
   free (a->udfs);
+  for (i = 0; i < a->n_synonyms; i++)
+    free ((void *) a->synonyms[i].from);
+  free (a->synonyms);
   free (a->filemaps);
   a5xml_free (a->doc);
   free (a);

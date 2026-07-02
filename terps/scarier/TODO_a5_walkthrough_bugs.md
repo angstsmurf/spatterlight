@@ -3075,3 +3075,112 @@ a5arithtest pass.
   window-counter/OneOf fixes); a **perfect MATCH (0)** under `FD_RNG=xoshiro`. The
   vanilla residual 2 is only the troll-approach `OneOf` drawing a different element
   from FD's unaligned System.Random stream — the documented RNG caveat, not a bug.
+
+## ⏸️ PARKED — Pathway to Destruction: `<cls>` is a whole-turn wipe, not per-fragment (root-caused, not yet fixed)
+
+> ✅ **DONE (2026-07-02) — PathwayToDestruction → full MATCH (both modes), now
+> wired into the MAP (`0|0`) with golden `test/PathwayToDestruction_expected.txt`.**
+> No corpus game moved (all 13 MATCH goldens hold 0/0; StoneOfWisdom 2/0,
+> JacarandaJim 99/0, SixSilverBullets 18/0 unchanged), all a5 unit tests pass
+> (`make -f Makefile.headless test`), and the Pathway + AchtungPanzer +
+> Amazon + SixSilverBullets pipelines are ASan/UBSan-clean.
+>
+> The parked plan below was **refined during implementation** after reading FD's
+> `FrankenDrift.Headless/Program.cs` `EmitHtml` (the real ground-truth renderer):
+> `<cls>` clears only the **current commit's** buffer (one `OutputHTML`/`EmitHtml`
+> call), NOT the whole turn.  A commit is one `Display(..., bCommit:=True)`
+> (`clsUserSession.vb:298`, `sOutputText` reset on commit).  A **command turn is a
+> single commit** (its output accumulates and flushes once, vb:3766), so a `<cls>`
+> there DOES wipe the whole turn's prior output — Pathway.  But the **intro is
+> several commits** (vb:226 RunImmediately+title, vb:227 Introduction, vb:229 room
+> view), so an Introduction that opens with `<cls>` must NOT wipe the already-
+> committed title — Achtung Panzer.  A naïve whole-turn truncation regressed every
+> intro; the fix is **commit-boundary-aware**.
+>
+> **Implemented (three pieces):**
+> 1. **`<cls>` relays a marker** (`A5_CLS_MARK`, `a5text.h`): `a5text_render_plain`
+>    still clears its own fragment on `<cls>` but also leaves an `\x01` sentinel so
+>    the flush can wipe earlier fragments.  `sb_pspace` treats a trailing marker
+>    like a trailing newline (no stranded join-spaces).
+> 2. **`sb_resolve_cls(out, floor)`** (`a5run.cpp`) drops everything from `floor`
+>    to the last marker in the range.  `finish_turn` calls it with `floor=0` (a
+>    command turn = one commit); **`a5run_intro` calls it at each commit boundary**
+>    (Adventure-Upgrade prompt, RunImmediately+title, Introduction, room view,
+>    start-of-game events), so each unit's `<cls>` clears only that unit.
+> 3. **Event-chain completion dedup** (`run->ev_seen`, installed per
+>    `attempt_event_task` = FD's per-`AttemptToExecuteTask` `htblResponsesPass`):
+>    a completion message emitted twice within one event via `SetTasks Execute`
+>    shows once, keeping the first position.  Task5's "The End" banner is executed
+>    by **both** Task33 (its own `Execute Task5`) and its parent Task30 (a 4th
+>    `Execute Task5` action); the dedup collapses them to one banner at the FIRST
+>    position — which is **before** Task33's `<cls>`, so the whole-turn clear wipes
+>    it.  Without the dedup the second banner (after the `<cls>`) would survive.
+>
+> Result on the final `north`: FD and Scarier both emit only the post-`<cls>` win
+> narrative ("You open your eyes … you blink out of existence.") then
+> `*** You have won ***` — the move message, "Testing Chamber" room view and both
+> "The End" banners are wiped.  Original parked analysis retained below.
+
+---
+
+**Symptom**: on the walkthrough's final `north` command, Scarier emits
+`[move msg][room desc][Task5 banner #1][Task33 win narrative][Task5 banner #2]`;
+FD emits **only** the tail of the win narrative that comes after an embedded
+`<waitkey><cls>` inside Task33's `CompletionMessage` — zero move message, zero
+room description, zero banners.
+
+**Root cause, confirmed by reading FD source (not guessed):**
+
+1. FD's `Display(sText, bCommit, ...)` (`clsUserSession.vb:298`) does **not**
+   render per call. It appends to a member field: `sOutputText =
+   pSpace(sOutputText) & sText`. Rendering (`Source2HTML` → the HTML tag pass
+   that actually clears on `<cls>`, mirrored by our headless `Program.cs`'s
+   `EmitHtml`) only happens when a caller passes `bCommit:=True` — which in
+   normal play is **once per whole turn** (see the `bCommit:=True` call sites,
+   `clsUserSession.vb:3766` etc., not one per message/task).
+2. So every `Display()` call for an entire turn — the movement command's own
+   "You move north."/room description, Task30→31/32/33/Task5's messages, all
+   of it — lands in the *same* `sOutputText` string, concatenated with
+   `pSpace`, and is rendered **as one HTML blob** at end of turn.
+3. `<cls>` embedded anywhere in that blob (here, deep inside Task33's
+   CompletionMessage) therefore wipes **everything accumulated so far in the
+   entire turn**, not just its own task's output — exactly matching the
+   observed FD transcript (only the post-`<cls>` tail survives).
+4. Separately, `AttemptToExecuteTask`'s `htblResponsesPass/Fail`
+   (`bChildTask=False` stash/clear/accumulate/`Display()`-loop/restore, see
+   `clsUserSession.vb:719-952`) dedups messages **by rendered text** within a
+   flush scope. Event5's `SubEvent What=ExecuteTask` dispatch
+   (`clsEvent.vb:384-391`) calls `AttemptToExecuteTask(se.sKey, True, , , , ,
+   , , True)` — 4th positional arg (`bChildTask`) is omitted, i.e. **False**
+   — so Task30 gets its own flush scope; Task33's nested `SetTasks Execute
+   Task5` and Task30's own direct `Execute Task5` both add the identical
+   banner text to the *same* `htblResponsesPass`, so it's stored once and
+   displayed once (not twice, as Scarier currently does).
+
+**What Scarier needs (two coordinated fixes, not yet implemented):**
+(a) `<cls>` must wipe the master per-turn `sb_t out` buffer (`a5run.cpp`),
+not just the local `sb` inside the single `a5text_render_plain` call
+currently rendering one fragment — e.g. relay a sentinel marker byte out of
+`a5text_render_plain` and have the ~14 `sb_puts(out, ...)` call sites that
+carry rendered game text (a5run.cpp: 2315, 2409, 2518-2519, 2539, 2701, 3595,
+3606, 3688, 3834, 4358, 4374, 4509, 4921, 5497) detect it and truncate `out`
+before appending the remainder. Must keep `msg_has_output`/`fd_has_output`
+treating a marker-only string as "no output".
+(b) Widen the existing `resp_map` dedup (currently only active for plural
+`%objects%` and movement commands, a5run.cpp:~2560-2615) to also cover
+event-triggered task chains (`ev_tick_all`'s TurnBased-event dispatch), so a
+task reached twice in one turn (once nested, once direct, as Task5 is here)
+only contributes its message once.
+
+Both are needed together — (a) alone still leaves a duplicate second banner
+(Task30's own direct `Execute Task5` produces a fragment with no `<cls>` of
+its own); (b) alone still leaves the earlier move-message/room-description/
+first-banner text un-wiped.
+
+**Status: parked at the user's request** before implementing — this is
+purely a documentation checkpoint so the RE work (which required reading
+`clsUserSession.vb`'s `Display`/`AttemptToExecuteTask` and `clsEvent.vb`'s
+`SubEvent` dispatch in FrankenDrift) isn't lost. Pathway to Destruction is
+**not yet wired into `run_a5_walkthroughs.sh`'s `MAP`** — do that once this
+fix lands (or with an honest non-zero budget documenting this exact gap if
+parked further).

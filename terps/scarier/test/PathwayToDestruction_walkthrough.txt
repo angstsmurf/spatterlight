@@ -1,0 +1,55 @@
+west
+get rib
+east
+get jewel
+north
+northeast
+northeast
+north
+exam body
+northeast
+kick lamp
+north
+put jewel on screen
+insert news-disc in screen
+south
+east
+move rubble with bar
+drop bar
+down
+climb down cable
+exam panel
+get data-disc
+unlock door
+north
+get journal
+read journal
+south
+up
+up
+west
+north
+insert data-disc in screen
+get jewel
+south
+southwest
+south
+southwest
+southwest
+south
+west
+west
+unlock panel
+throw jewel at grid
+east
+east
+north
+northeast
+northeast
+north
+northeast
+east
+down
+climb down cable
+pull lever
+north

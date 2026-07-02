@@ -55,6 +55,23 @@ sb_puts (sb_t *b, const char *s)
   b->p[b->len] = '\0';
 }
 static char *sb_take (sb_t *b) { return b->p ? b->p : strdup (""); }
+/* Resolve any <cls> markers (A5_CLS_MARK) within b->p[floor .. len).  FD's
+   Display renders per commit (bCommit=True flushes the accumulated sOutputText
+   through one EmitHtml call, where <cls> clears that call's buffer); so a <cls>
+   wipes everything back to the LAST commit boundary, not the whole turn.  `floor`
+   is the offset of the current commit's start.  Drops everything from `floor` up
+   to and including the last marker in the range, leaving the surviving tail. */
+static void
+sb_resolve_cls (sb_t *b, size_t floor)
+{
+  size_t last = (size_t) -1, i;
+  if (b->p == NULL || floor > b->len) return;
+  for (i = floor; i < b->len; i++)
+    if (b->p[i] == A5_CLS_MARK) last = i;
+  if (last == (size_t) -1) return;
+  memmove (b->p + floor, b->p + last + 1, b->len - (last + 1) + 1);
+  b->len -= (last + 1 - floor);
+}
 /* FrankenDrift's Global.pSpace: before appending the next Display() chunk, the
    accumulator gets two trailing spaces -- UNLESS it is empty or already ends in
    a newline (vbLf).  This is what joins a task's completion message and a
@@ -65,7 +82,10 @@ static char *sb_take (sb_t *b) { return b->p ? b->p : strdup (""); }
 static void
 sb_pspace (sb_t *b)
 {
-  if (b->len > 0 && b->p[b->len - 1] != '\n')
+  /* A trailing <cls> marker is treated like a trailing newline: the join spaces
+     would otherwise be stranded before the marker and reappear as spurious
+     leading whitespace once finish_turn drops everything up to the marker. */
+  if (b->len > 0 && b->p[b->len - 1] != '\n' && b->p[b->len - 1] != A5_CLS_MARK)
     sb_puts (b, "  ");
 }
 /* Splice `s` into the buffer at byte offset `pos`, shifting the tail right.
@@ -277,6 +297,17 @@ struct a5_run_s {
      trailing space to join onto the centred title.  Off everywhere else, so the
      per-turn completion-message emission is byte-identical to before. */
   int    immediate_emit;
+
+  /* clsUserSession htblResponsesPass dedup for an event-fired task chain.  FD
+     runs an event's ExecuteTask through AttemptToExecuteTask, which keys every
+     completion message by its rendered text and shows each once (vb:783/1295).
+     Non-NULL only while an outermost event task and its SetTasks-Execute subtree
+     run (installed in attempt_event_task), so a task reached twice within one
+     event contributes its message once -- e.g. Pathway to Destruction's Task5
+     "The End" banner, executed by both Task33 and its parent Task30.  On the
+     direct command path the plural/movement resp_map already covers this; on the
+     single-command path there is never a same-turn duplicate. */
+  std::set<std::string> *ev_seen;
 };
 
 static int
@@ -467,6 +498,7 @@ a5run_new (const a5_adventure_t *adv)
   run->amb_ref_type = 'o';
   run->known_words = NULL;
   run->resp = NULL;
+  run->ev_seen = NULL;
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;
@@ -3603,7 +3635,19 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
      bHasOutput) and is dropped; a real message keeps its own trailing newline so
      it forces a line/paragraph break before the next message, while one ending
      in text space-joins to the next. */
-  if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
+  if (msg_has_output (m))
+    {
+      /* Within an event-fired task chain, dedup identical completion messages
+         (FD's htblResponsesPass, keyed by text): show the first, drop repeats.
+         Keeps the first occurrence's position -- which, for a message emitted
+         before a later <cls>, means it is wiped by that clear (Pathway's banner). */
+      if (run->ev_seen != NULL)
+        {
+          if (run->ev_seen->count (m)) { free (m); return; }
+          run->ev_seen->insert (m);
+        }
+      sb_pspace (out); sb_puts (out, m);
+    }
   free (m);
 }
 
@@ -4058,7 +4102,7 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
 /* Run a task fired by an event (clsUserSession.AttemptToExecuteTask, bEvent):
    restriction-checked, silent on failure, and itself a control trigger. */
 static void
-attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
+attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
 {
   a5_state_t *st = run->st;
   const a5_task_t *t = a5model_task (st->adv, key);
@@ -4115,6 +4159,22 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
   if (ti >= 0)
     st->task_done[ti] = 1;
   ev_on_task_completed (run, key, out);
+}
+
+/* Each event-fired task is its own AttemptToExecuteTask in FD, with a fresh
+   htblResponsesPass -- so give each attempt_event_task its own dedup scope
+   (save/restore the previous one for a nested event task).  Within one scope a
+   completion message emitted twice via SetTasks-Execute (run_action, which shares
+   the current scope, not a new attempt_event_task) shows once -- e.g. Pathway's
+   Task5 "The End" banner, executed by both Task33 and its parent Task30. */
+static void
+attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
+{
+  std::set<std::string> seen;
+  std::set<std::string> *prev = run->ev_seen;
+  run->ev_seen = &seen;
+  attempt_event_task_impl (run, key, depth, out);
+  run->ev_seen = prev;
 }
 
 /* Drain clsAdventure.qTasksToRun: run each LocationTrigger-armed System task in
@@ -5078,6 +5138,14 @@ finish_turn (a5_run_t *run, sb_t *out)
   size_t n;
   if (run->st->game_over && !run->st->end_displayed)
     emit_endgame (run, out);
+  /* Honour any <cls> relayed by the plain renderer (A5_CLS_MARK).  A command
+     turn is a single FD commit (its output accumulates in sOutputText and flushes
+     once, clsUserSession.vb:3766), so a <cls> anywhere in the turn wipes the whole
+     turn's prior output -- e.g. Pathway to Destruction's win narrative, whose
+     embedded <cls> drops the move message, room view and "The End" banner.  (The
+     multi-commit intro resolves its own segments before calling finish_turn, so
+     no markers reach here from a5run_intro.) */
+  sb_resolve_cls (out, 0);
   raw = sb_take (out);
   fin = a5text_display_alr (run->st, raw);   /* may render ALR <img>/<audio> too */
   free (raw);
@@ -5136,6 +5204,13 @@ a5run_intro (a5_run_t *run)
 {
   sb_t out;
   char *intro, *look;
+  /* FD renders the intro as several separate commits (Adventure-Upgrade prompt,
+     the RunImmediately output + title at vb:226, the Introduction at vb:227, the
+     room view at vb:229), so a <cls> in one unit clears only that unit's buffer
+     -- e.g. an Introduction that opens with <cls> must NOT wipe the already-
+     committed title (Achtung Panzer).  Resolve each commit unit's markers before
+     the next is appended; `cf` is the current unit's start offset. */
+  size_t cf = 0;
   sb_init (&out);
   a5run_media_begin (run);
   /*
@@ -5173,6 +5248,7 @@ a5run_intro (a5_run_t *run)
   /* System <RunImmediately> tasks run before the title (FD clsUserSession init,
      vb:209-216); a title-music task's audio markup leaves a trailing space that
      joins onto the centred title. */
+  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: Adventure-Upgrade prompt */
   run_immediate_tasks (run, &out);
   /* The centred title: FD's Display("<c>" & Adventure.Title & "</c>" & vbCrLf)
      at vb:226, emitted through the same buffer so the RunImmediately output above
@@ -5182,9 +5258,11 @@ a5run_intro (a5_run_t *run)
      leading break follows. */
   if (run->adv->title != NULL && run->adv->title[0] != '\0')
     { sb_pspace (&out); sb_puts (&out, run->adv->title); sb_puts (&out, "\n"); }
+  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: RunImmediately + title */
   intro = a5text_describe (run->st, run->adv->introduction);
   if (intro[0]) { sb_puts (&out, intro); sb_puts (&out, "\n\n"); }
   free (intro);
+  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: Introduction (vb:227) */
   /* Show the start room only when <ShowFirstLocation> is set (the default);
      games like Six Silver Bullets clear it and reveal the room via a LOOK or
      the first move (clsUserSession game-start: gated on Adventure.ShowFirstRoom). */
@@ -5194,8 +5272,10 @@ a5run_intro (a5_run_t *run)
       sb_puts (&out, look);
       free (look);
     }
+  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: room view (vb:229) */
   /* Start the Immediately events (clsUserSession init loop, after intro). */
   ev_init (run, &out);
+  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: start-of-game events */
   update_seen (run->st);
   return finish_turn (run, &out);
 }
@@ -5675,6 +5755,33 @@ resolve_pronouns (a5_run_t *run, std::string &in, sb_t *out)
   grab_it (run, in);
 }
 
+/* <Synonym> word/phrase substitution (clsUserSession.EvaluateInput's synonym
+   loop, run right after GrabIt): for each synonym, for each of its <From>
+   phrases, if every word of the phrase appears in the input (ContainsWord),
+   replace the phrase with its <To> word (ReplaceWord).  Later synonyms see
+   earlier synonyms' replacements, exactly as FD's single `sInput` threaded
+   through the loop. */
+static void
+resolve_synonyms (a5_run_t *run, std::string &in)
+{
+  const a5_adventure_t *adv = run->adv;
+  int i, j;
+  for (i = 0; i < adv->n_synonyms; i++)
+    {
+      const a5_synonym_t *syn = &adv->synonyms[i];
+      if (syn->to == NULL)
+        continue;
+      for (j = 0; j < syn->n_from; j++)
+        {
+          if (syn->from[j] == NULL)
+            continue;
+          std::string from = lower (syn->from[j]);
+          if (conv_contains_word (in, from))
+            replace_word (in, from, lower (syn->to));
+        }
+    }
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
@@ -5723,7 +5830,10 @@ a5run_input (a5_run_t *run, const char *line)
      is parsed -- clsUserSession.EvaluateInput.  Skipped while resolving a pending
      disambiguation clarifier, which is not a fresh command. */
   if (!run->amb_active)
-    resolve_pronouns (run, in, &out);
+    {
+      resolve_pronouns (run, in, &out);
+      resolve_synonyms (run, in);
+    }
 
   /* Pending disambiguation (clsUserSession.ResolveAmbiguity): try `in` as a
      clarifier first -- if it narrows the remembered candidates to exactly one,
