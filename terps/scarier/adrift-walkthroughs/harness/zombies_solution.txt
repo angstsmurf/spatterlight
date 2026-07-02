@@ -1,0 +1,37 @@
+i
+x whistle
+x house
+x fence
+x path
+e
+x shed
+open shed
+x Stu
+x zombies
+ask stu about zombies
+ask stu about gun
+ask stu about whistle
+ask stu about house
+ask stu about shed
+e
+x zombie
+x chainsaw
+take chainsaw
+w
+n
+look
+x zombies
+kill zombies with chainsaw
+look
+x door
+x window
+x sidewalk
+x blood
+ask stu about pet shop
+ask stu about door
+open door
+cut boards with chainsaw
+in
+look
+x dog
+blow whistle

@@ -1,0 +1,43 @@
+
+dig
+dig
+dig
+x hole
+x petunias
+x house
+s
+x cooker
+x leg
+x sink
+x blood
+x pots
+x fridge
+x magnets
+open fridge
+x head
+take head
+e
+x tv
+u
+w
+e
+look
+x Bob
+give head to Bob
+w
+d
+w
+d
+x plinth
+x coffin
+open coffin
+x ghoul
+x knife
+u
+e
+get tv
+u
+e
+give tv to Bob
+w
+w

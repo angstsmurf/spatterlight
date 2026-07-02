@@ -1,0 +1,23 @@
+x mud
+x bushes
+x fields
+n
+x clouds
+x gold
+take gold
+z
+z
+z
+x glow
+w
+x sword
+take sword
+1
+1
+n
+x skeleton
+x silver ring
+talk to topaz
+take silver ring
+g
+wear ring

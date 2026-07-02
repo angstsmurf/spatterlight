@@ -1,0 +1,4 @@
+# Third-party game data (.taf) is never committed (§6 step 4 of
+# TODO_plover_walkthroughs.md). run_v4_walkthroughs.sh reads games from here by
+# basename; recreate with symlinks or set GAMES_DIR on another machine.
+/games/

@@ -1,0 +1,51 @@
+x me
+x cottage
+x sign
+x hill
+x tree
+x cave
+x boulders
+in
+x bed
+x fireplace
+x suitcase
+open suitcase
+look in suitcase
+take wallet
+x wallet
+out
+w
+x altar
+x monitor
+x door
+put coin in slot
+dance
+
+x meat
+drop all
+out
+u
+x wall
+x tree
+x bushes
+x axe
+take axe
+chop tree
+
+
+drop axe
+push tree
+roll down hill
+out
+x stick
+take stick
+x branches
+take branches
+in
+take meat
+put branches in fireplace
+take all
+out
+move boulders
+w
+w

@@ -1,0 +1,30 @@
+look
+x cars
+x gas
+x building
+x sign
+x cord
+x man
+n
+x cabinets
+search cabinets
+x sponge
+x jacket
+take it
+x coffee
+s
+d
+x matress
+sleep
+pray
+x tv
+x glass
+take glass
+x shard of glass
+x slime
+take slime
+u
+n
+put slime in coffee
+s
+cut cord

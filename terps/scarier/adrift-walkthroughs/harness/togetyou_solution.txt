@@ -1,0 +1,34 @@
+x me
+x relative
+s
+x tube
+x tonsils
+infect tonsils
+stomach
+x acid
+eat acid
+x walls
+x polyp
+infect polyp
+ear
+x wax
+spit acid
+x cut
+infect cut
+mouth
+x tongue
+x teeth
+x tooth
+x ulcer
+infect ulcer
+nose
+x adenoids
+x tissue
+x vessels
+infect vessels
+stomach
+eat acid
+nose
+spit acid
+infect vessels
+smash adenoids

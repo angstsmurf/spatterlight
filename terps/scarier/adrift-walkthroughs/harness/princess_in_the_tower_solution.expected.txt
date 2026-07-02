@@ -1,0 +1,454 @@
+Loading game...
+
+The Princess In The Tower
+"Three things you must find me for to prove your love," said the princess as
+she leant over the balcony of her tower. "Only then can we be together."
+
+"I don't suppose you'd settle for a quick peck on the lips, would you?" you
+called from down below.
+
+"No," called the princess. "First: the head of an orc. Second: the rib bone
+of a goblin. Third: a diamond the exact same size as a golf ball. Can you
+bring me all these things?"
+
+"Well, there's the supermarket back east-"
+
+But the princess shook her head. "No, you must find these items elsewhere
+than the supermarket. Scour the land, my brave prince, and find what I
+require. Then return here and enter my tower. Then, only then, can we be
+together."
+
+You considered all this (the head, the bone, the diamond) and expressed your
+opinion of the whole thing: out loud "it shall be my pleasure" and to
+yourself "aw, crap!"
+
+Outside the tower
+You're standing on a windswept at the base of a large tower which soars into
+the night sky above you. The tower appears made from a glowing substance
+which is quite eerie in the surroundings.
+
+East lies a forest, west a marsh, south a desert, north a plain where the
+wildebeests roam. And a door leads inside the tower itself.
+
+>It's a pretty big structure which towers into the sky above you in a very
+towering manner. A door leads inside.
+
+>"Don't you dare set foot inside this tower until you've got what I asked you
+for!" the voice of your beloved princess yells out at you.
+
+>I move north.
+The Most Boring Location In The Game
+You're at the far southern edge of a long, long plain which stretches to the
+north as far as the eye can see. You can't see a single interesting thing no
+matter how hard you look. The plain stretches north and northeast and south
+lies the tower.
+
+>I move north.
+A Very Tedious Location
+The plain stretches off further to the north and northwest but there doesn't
+look to be a whole lot in either of those directions. To add a little depth
+to this location, someone has erected a tent. The door to this most
+fascinating of locations lies west and the plain you've just walked along is
+to the east and south.
+
+>A voice from inside shouts out: "stop examining my damn tent!"
+
+>I move west.
+Tent
+It's quite dark inside the light due to the absence of lights and the
+pervading aroma of smoke (which might indicate the tent's on fire so don't
+delay here any longer than you have to). A strange fellow smoking a pipe is
+sitting in a lotus position on a table in the middle of the tent. The way out
+lies east.
+
+>A weird mystical figure, Yoshi is smoking a pipe and occasionally coughing
+his lungs up. He stares at you with ill-disguised loathing as you potter
+around his home.
+
+>A fairly garish table that was most likely purchased in a jumble sale by
+someone with more money than taste.  A throwing dagger is on the table.
+
+>Only three inches long, this dagger is nevertheless a pretty decent weapon as
+the blade is razor sharp.
+
+>I take the throwing dagger from the table.
+
+>"I'll talk to you when Grimbel is dead and not until."
+
+>I move east.
+A Very Tedious Location
+The plain stretches off further to the north and northwest but there doesn't
+look to be a whole lot in either of those directions. To add a little depth
+to this location, someone has erected a tent. The door to this most
+fascinating of locations lies west and the plain you've just walked along is
+to the east and south.
+
+>I move south.
+The Most Boring Location In The Game
+You're at the far southern edge of a long, long plain which stretches to the
+north as far as the eye can see. You can't see a single interesting thing no
+matter how hard you look. The plain stretches north and northeast and south
+lies the tower.
+
+>I move south.
+Outside the tower
+You're standing on a windswept at the base of a large tower which soars into
+the night sky above you. The tower appears made from a glowing substance
+which is quite eerie in the surroundings.
+
+East lies a forest, west a marsh, south a desert, north a plain where the
+wildebeests roam. And a door leads inside the tower itself.
+
+>I move west.
+Marsh
+You're staggering through a waterlogged marsh, undoubtedly the most
+unpleasant place you've ever been to in your life. Submerged trees make up a
+large amount of the scenery here, as do rotting bushes and the occasional
+subdued hedge. Grimy paths wind away to the west and southwest and the tower
+you started from is to the east.
+
+>The most unpleasant looking trees you've ever seen by a long shot.
+
+>Yep, rotting. As such, there's not a whole lot of interesting things to
+discover about them.
+
+>Subdued? Don't ask.
+
+>I move west.
+Marsh
+The marsh seems a little drier here. On the ground is a strange set of
+markings in the form of a demon's head. If you didn't know better, you'd
+swear you'd stumbled onto the site of a religious ceremony. A path leads
+east.
+
+>Unfortunately there wasn't enough time to do anything with the markings so
+you'll just have to use your imagination.
+
+>I move east.
+Marsh
+You're staggering through a waterlogged marsh, undoubtedly the most
+unpleasant place you've ever been to in your life. Submerged trees make up a
+large amount of the scenery here, as do rotting bushes and the occasional
+subdued hedge. Grimy paths wind away to the west and southwest and the tower
+you started from is to the east.
+
+>I move southwest.
+Outside a cave
+The ground gets even wetter here than it was before (if that's possible) and
+you find yourself up to your knees in foul, stinking marsh water. To the
+south you can just about make out the entrance to a cave whereas the way
+you've just come lies northeast.
+
+>The entrance looks dark and the interior even worse. Something tells you
+venturing inside would not be a good idea.
+
+>I move south.
+Cave
+The interior of the cave is dark and dank and your footsteps echo eerily
+about as you make your way around. In the middle of the cave is pit sunken
+into the floor in which are the roasted bodies of several unfortunate fellows
+who decided to wander around in a dank cave in the dark. The outside world is
+to the north.
+
+Grimbel is here.
+
+>Ugh! It's full of dead bodies!
+
+>Dead and roasted. They look like they've been here for quite some time.
+
+>Grimbel is either a goblin or a seriously ugly man. You're hoping the former
+because he looks like he could spare a rib or two. Although the club he's
+carrying tells you he isn't at all friendly.
+
+>"Grrrrrrraaaaaaagggghhhhhh!!!!!!!!"
+
+>The dagger takes Grimbel in the face and he collapses dead on the ground. As
+luck would have it, one of his ribs snaps off and you quickly swipe it.
+
+>I pick up the throwing dagger.
+
+>I see no such thing.
+
+>I move north.
+Outside a cave
+The ground gets even wetter here than it was before (if that's possible) and
+you find yourself up to your knees in foul, stinking marsh water. To the
+south you can just about make out the entrance to a cave whereas the way
+you've just come lies northeast.
+
+>I move northeast.
+Marsh
+You're staggering through a waterlogged marsh, undoubtedly the most
+unpleasant place you've ever been to in your life. Submerged trees make up a
+large amount of the scenery here, as do rotting bushes and the occasional
+subdued hedge. Grimy paths wind away to the west and southwest and the tower
+you started from is to the east.
+
+>I move east.
+Outside the tower
+You're standing on a windswept at the base of a large tower which soars into
+the night sky above you. The tower appears made from a glowing substance
+which is quite eerie in the surroundings.
+
+East lies a forest, west a marsh, south a desert, north a plain where the
+wildebeests roam. And a door leads inside the tower itself.
+
+>I move south.
+Desert
+All about are tall sand dunes which seem to shift and slide beneath your feet
+in a most alarming manner. Far to the south you can make out what appears to
+be a tower quite similar in appearance to the one you set out from to the
+north.
+
+>I move south.
+Deeper in the desert
+You stagger across some more sand dunes. Off to the west is what looks like
+an oasis whereas the tower you spotted before looms a little closer to the
+south. The tower you started from is just about visible to the north.
+
+>I move west.
+Oasis
+You're by a pleasant oasis in the middle of the desert. There is a pool here,
+occupied by a couple of alligators, and a tree from which hang a multitude of
+fruits. The horrors of the desert lie back east.
+
+>Situated in the middle of the pool is the dead body of an orc and, as luck
+would have it, floating next to it is the orc's severed head.
+
+>They don't look at all friendly and the way they're eyeing you up tells you
+they're pretty peckish for a nice bit of adventurer flesh.
+
+>Many fruits hang from the tree. Alas, they're all out of reach.
+
+>You find the surface of the tree to be so slippery you just can't seem to
+make any progress.
+
+>You give it a good shake and several of the fruits drop off into the pool,
+momentarily stunning the alligators. Before they can recover, you dive in and
+grab the orc's head. The alligators curse and swear at you in alligatorspeak
+afterwards but they don't follow you from the pool.
+
+>A pretty grisly thing all told, what with the fangs and the warts and the
+hideous visage. Whoever chopped this guy's head off was doing him a favour.
+
+>I move east.
+Deeper in the desert
+You stagger across some more sand dunes. Off to the west is what looks like
+an oasis whereas the tower you spotted before looms a little closer to the
+south. The tower you started from is just about visible to the north.
+
+>I move south.
+Outside another tower
+Though very similar in appearance to the tower you set off from, this one
+differs in that there is no door visible in its surface. There is, however, a
+rope ladder hanging down the side of the tower which might allow you to climb
+up it if you so decided.
+
+>It's almost as big of the tower of your princess and towers massively over
+you.
+
+>It hangs from an opening further up the tower. Quite convenient of someone to
+leave you an easy way of getting inside.
+
+>I can't climb the rope ladder.
+
+>You start doing so but a gust of wind blows out of nowhere and forces you
+back to the base of the tower. Is it your imagination or does a sandy voice
+shout at you: S...O... D... O... F... F...? Must be your imagination.
+
+>Using the dagger, you slice through some of the rope and gather it up.
+
+>I move north.
+Deeper in the desert
+You stagger across some more sand dunes. Off to the west is what looks like
+an oasis whereas the tower you spotted before looms a little closer to the
+south. The tower you started from is just about visible to the north.
+
+>I move north.
+Desert
+All about are tall sand dunes which seem to shift and slide beneath your feet
+in a most alarming manner. Far to the south you can make out what appears to
+be a tower quite similar in appearance to the one you set out from to the
+north.
+
+>I move north.
+Outside the tower
+You're standing on a windswept at the base of a large tower which soars into
+the night sky above you. The tower appears made from a glowing substance
+which is quite eerie in the surroundings.
+
+East lies a forest, west a marsh, south a desert, north a plain where the
+wildebeests roam. And a door leads inside the tower itself.
+
+>I move north.
+The Most Boring Location In The Game
+You're at the far southern edge of a long, long plain which stretches to the
+north as far as the eye can see. You can't see a single interesting thing no
+matter how hard you look. The plain stretches north and northeast and south
+lies the tower.
+
+>I move northeast.
+Another Boring Location
+You're standing on a very boring plain which is seriously lacking in
+description. It continues to the northeast, west and southwest
+
+>I move northeast.
+Yet Another Boring Location
+You've reached the northeast edge of the plain. Here, a large chasm bisects
+the land, its bottom lost in murky shadows. Aside from you and a solitary
+tree, this area is pretty sparse. The cries of winged predators drift to you
+on the breeze, quite setting your teeth on edge. The plain extends back to
+the southwest.
+
+>Fully a mile in depth and completely unclimbable. Partway down you see a
+clump of flowers but there's no way you'd ever be able to climb down there
+what with the sharpness of the chasm.
+
+>As far as trees go, this one just isn't very exciting at all. You're guessing
+it must serve some purpose in the game otherwise there just wouldn't be a
+reason to even have it here.
+
+>Inspiration striking you like a bolt from the blue (though not quite as
+painfully), you tie the rope around the tree and have the other end dangle
+out over the cliff.
+
+>You shimmy down the rope, swipe one of the flowers, and shimmy back up. All
+without breaking into a sweat.
+
+>Whether it's a dandelion or a rose you're not sure (flowers have never been
+your strong point), but you're sure that there's a woman somewhere in this
+game who'll appreciate it.
+
+>I move southwest.
+Another Boring Location
+You're standing on a very boring plain which is seriously lacking in
+description. It continues to the northeast, west and southwest
+
+>I move west.
+A Very Tedious Location
+The plain stretches off further to the north and northwest but there doesn't
+look to be a whole lot in either of those directions. To add a little depth
+to this location, someone has erected a tent. The door to this most
+fascinating of locations lies west and the plain you've just walked along is
+to the east and south.
+
+>I move west.
+Tent
+It's quite dark inside the light due to the absence of lights and the
+pervading aroma of smoke (which might indicate the tent's on fire so don't
+delay here any longer than you have to). A strange fellow smoking a pipe is
+sitting in a lotus position on a table in the middle of the tent. The way out
+lies east.
+
+>"I'm still not talking to you. That was just a clever ruse to get you to kill
+that poor schmuck! Ha! And you fell for it, too!"
+
+>I move east.
+A Very Tedious Location
+The plain stretches off further to the north and northwest but there doesn't
+look to be a whole lot in either of those directions. To add a little depth
+to this location, someone has erected a tent. The door to this most
+fascinating of locations lies west and the plain you've just walked along is
+to the east and south.
+
+>I move south.
+The Most Boring Location In The Game
+You're at the far southern edge of a long, long plain which stretches to the
+north as far as the eye can see. You can't see a single interesting thing no
+matter how hard you look. The plain stretches north and northeast and south
+lies the tower.
+
+>I move south.
+Outside the tower
+You're standing on a windswept at the base of a large tower which soars into
+the night sky above you. The tower appears made from a glowing substance
+which is quite eerie in the surroundings.
+
+East lies a forest, west a marsh, south a desert, north a plain where the
+wildebeests roam. And a door leads inside the tower itself.
+
+>I move east.
+Forest
+It's pretty dark and murky in the forest what with the tree branches meeting
+overhead. In the distance you hear the cries of ferocious animals (they sound
+somewhat like your mother-in-law after a few cases of bourbon). A path winds
+away to the southeast and the tower lies west.
+
+>I move southeast.
+Clearing
+You've reached a clearing in the forest, in the centre of which are a trio of
+standing stones. Each appears to be of immense age and they are covered with
+lichen and moss which give off a foul smelling odour. A path leads away to
+the northwest.
+
+Lorel is here.
+
+>They're each eight feet tall and must weight upwards of a tonne. They also
+look extremely old.
+
+>Either your dream girl in the flesh or a woodland's nymph, Lorel is
+impossible beautiful (actually not impossibly beautiful because that would be
+impossible but she's pretty damn hot). She regards you with the manner of all
+attractive women you come across: i.e. dismay, disgust and a yearning desire
+to keep you as far away as possible.
+
+>"Oh, how tedious! Conversation! I mean, you think I want to talk to the likes
+of you?"
+
+>Lorel looks taken aback by the gesture. "A flower?" she gasps. "For me?"
+
+"For the most beautiful girl I've met in this forest," you reply.
+
+She sneers. "Oh, please. What a sappy pick-up line! I mean, I've heard some
+naff ones in my time but that really takes the cake! Still..." She regards
+the flower. "It's an awfully nice flower and no doubt you went to a lot of
+trouble for it, so okay." She reaches into her blouse and pulls out a diamond
+the exact same size as a golf ball. "Now, I was going to have sex with you as
+a reward for the flower but I think the diamond sums it up so much better.
+Don't you?"
+
+"...sex..." you mutter.
+
+Lorel sighs. "Oh, don't slobber. It's most unbecoming. Now, I'm off to spend
+some time studying my flower. I suggest you go do with your diamond whatever
+it is you do with diamonds. Farewell."
+
+A brief second later, the beautiful nymph is gone.
+
+"...sex..." you mutter again.
+
+>Exactly the size of a golf ball, this diamond is worth roughly what you'd
+earn in twenty years.
+
+>I move northwest.
+Forest
+It's pretty dark and murky in the forest what with the tree branches meeting
+overhead. In the distance you hear the cries of ferocious animals (they sound
+somewhat like your mother-in-law after a few cases of bourbon). A path winds
+away to the southeast and the tower lies west.
+
+>I move west.
+Outside the tower
+You're standing on a windswept at the base of a large tower which soars into
+the night sky above you. The tower appears made from a glowing substance
+which is quite eerie in the surroundings.
+
+East lies a forest, west a marsh, south a desert, north a plain where the
+wildebeests roam. And a door leads inside the tower itself.
+
+>Congratulations!
+Inside the tower
+You're in the tower which is the final location in the game and, as time is
+pressing, pretty damn empty of things to examine.
+
+The Princess is here.
+"Ah," says the princess. "You made it after all."
+
+"You don't too pleased," you say.
+
+She sighs. "Well, I actually asked you to fetch me those items as a kind of
+joke. I didn't think you'd really go ahead and do it." The princess sighs
+again. "But I suppose a deal's a deal. Okay, prince char- er, prince okay,
+what say we go and get hitched and get the night of passion out of the way?"
+
+It seems you've won.

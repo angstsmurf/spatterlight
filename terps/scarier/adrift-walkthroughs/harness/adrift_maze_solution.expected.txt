@@ -1,0 +1,166 @@
+Loading game...
+
+ADRIFT Maze
+The ADRIFT Maze
+
+   Welcome to the ADRIFT Maze.  Your goal is to navigate your way through the
+maze and get the trophy at the end.  Be on the lookout for creatures that
+don't want you to succeed.  Be sure to LOOK after you run into one of these
+creatures.  It may just help you get your bearings.....or maybe not!
+
+GOOD LUCK!  You'll need it!
+Please enter your name:
+>
+Maze A
+You are in a twisty maze, Section A.
+
+There is an exit north.
+
+>You move north.
+Maze A
+You are in a twisty maze, Section A.
+
+There are exits north, east and south.
+
+>You move east.
+Maze A
+You are in a twisty maze, Section A.
+
+You can move north, east and west.
+
+>You move east.
+Maze A
+You are in a twisty maze, Section A.
+
+You can move north, east, south and west.
+
+>You move east.
+Maze D
+You are in a twisty maze, Section D.
+
+You can move north, south and west.
+
+>You move south.
+Maze D
+You are in a twisty maze, Section D
+
+You can move north and east.
+
+>You move east.
+Maze D
+You are in a twisty maze, Section D.
+
+You can move west and northeast.
+
+>You move northeast.
+Maze D
+You are in a twisty maze, Section D.
+
+You can move east, southwest and northwest.
+
+>You move east.
+Maze R
+You are in a twisty maze, Section R.
+
+You can move north, east, south and west.
+
+>You move east.
+Maze R
+You are in a twisty maze, Section R.
+
+You can move east and west.
+
+>You move east.
+Maze R
+You are in a twisty maze, Section R.
+
+You can move north, west and southeast.
+
+>You move southeast.
+Maze R
+You are in a twisty maze, Section R.
+
+You can move east and northwest.
+
+>You move east.
+Maze I
+You are in a twisty maze, Section I.
+
+You can move north and west.
+
+>You move north.
+Maze I
+You are in a twisty maze, Section I.
+
+You can move north and south.
+
+>You move north.
+Maze I
+You are in a twisty maze, Section I.
+
+You can move east and south.
+
+>You move east.
+Maze F
+You are in a twisty maze, Section F.
+A strange looking alien is here.
+
+You can move east, south and west.
+
+>You move east.
+Maze F
+You are in a twisty maze, Section F.
+
+You can move east and west.
+
+>You move east.
+Maze F
+You are in a twisty maze, Section F.
+
+You can move east and west.
+
+>You move east.
+Maze T
+You are in a twisty maze, Section T.
+
+You can move east and west.
+
+>You move east.
+Maze T
+You are in a twisty maze, Section T.
+
+You can move east, south and west.
+
+>You move south.
+Maze T
+You are in a twisty maze, Section T.
+
+You can move north and south.
+
+>You move south.
+Maze T
+You are in a twisty maze, Section T.
+
+You can move north and south.
+
+>You move south.
+Trophy Room
+You are in the ADRIFT Trophy Room.
+
+Also here is a trophy.
+
+You can only move north.
+
+>It is a very tropy with a golden cup and giant letters that spell out ADRIFT.
+ It look like there is some writing on it.
+
+>[read a trophy]
+It has the following engraved on it.
+
+adventurer
+
+>[take a trophy]
+You take the trophy and hold it up proudly.
+
+Congratulations!  You WIN!
+Congratulations!

@@ -1,0 +1,37 @@
+x blinds
+x table
+x pictures
+x bottle
+x door
+open door
+x lawyer
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z

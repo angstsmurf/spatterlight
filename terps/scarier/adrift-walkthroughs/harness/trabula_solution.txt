@@ -1,0 +1,77 @@
+i
+x sword
+x sign
+n
+x trabula
+s
+e
+e
+e
+x soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+attack soldier
+take all
+x silver key
+x rapier
+w
+w
+s
+ne
+e
+x troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+attack troll
+take all
+x rusty key
+x bar
+e
+se
+n
+e
+x hut
+unlock hut
+open hut
+s
+x steel chest
+x iron chest
+x wooden chest
+unlock steel chest
+unlock iron chest
+unlock wooden chest
+open steel chest
+open steel chest
+open iron chest
+open wooden chest
+take diamond ring
+take lead weight
+take gold
+n
+w
+w
+w
+w
+w
+w
+n
+give diamond ring to trabula
+give gold to trabula

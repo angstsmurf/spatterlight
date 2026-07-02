@@ -1,0 +1,78 @@
+x tower
+in
+n
+n
+x tent
+w
+x fellow
+x table
+x dagger
+take dagger
+ask Yoshi about ANYTHING
+e
+s
+s
+w
+x trees
+x bushes
+x hedge
+w
+x markings
+e
+sw
+x cave
+s
+x pit
+x bodies
+x Grimbel
+ask Grimbel about ANYTHING
+throw dagger at Grimbel
+take dagger
+x rib
+n
+ne
+e
+s
+s
+w
+x pool
+x alligators
+x tree
+climb tree
+shake tree
+x head
+e
+s
+x tower
+x ladder
+climb ladder
+climb rope
+cut rope
+n
+n
+n
+n
+ne
+ne
+x chasm
+x tree
+tie rope to tree
+climb rope
+x flower
+sw
+w
+w
+ask Yoshi about ANYTHING
+e
+s
+s
+e
+se
+x stones
+x Lorel
+ask Lorel about ANYTHING
+give flower to Lorel
+x diamond
+nw
+w
+in

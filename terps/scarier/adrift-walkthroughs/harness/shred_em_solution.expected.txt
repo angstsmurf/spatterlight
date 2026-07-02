@@ -1,0 +1,68 @@
+Loading game...
+
+Shred 'em
+Welcome to Shred'em!
+by David Good, written for the hour comp!
+
+You're the personal assistant of a powerful woman, the queen of home
+decorating.
+
+Office
+Your boss' office has a great view of Manhattan.  There is a desk here, a
+filing cabinet, and a paper shredder.
+The telephone rings.  You better answer it.
+
+>You pick up the phone.
+
+"Hello?"
+
+"June?" says your boss' voice on the other end. "It's me.  I need you to get
+the files and shred all of them right away!  Before the SEC investigators get
+there!"
+
+>This is a big metal filing cabinet with all kinds of important papers inside.
+ The filing cabinet is closed.
+
+>You open the filing cabinet.  Inside the filing cabinet are some files.
+
+>These are some important papers.  You wouldn't want the wrong hands to get
+ahold of them!
+
+>(Your score has increased by 5)
+You turn on the shredder.  It hums satisfyingly.
+
+>You take the files from the filing cabinet.
+
+>[shred some files]
+(Your score has increased by 10)
+You feed the pages into the shredder. Grind! Grind! Grind!  They are now
+confetti.
+
+>You take the files from the filing cabinet.
+
+>[shred some files]
+You feed the pages into the shredder. Grind! Grind! Grind!  They are now
+confetti.
+
+>You take the files from the filing cabinet.
+
+>[shred some files]
+You feed the pages into the shredder. Grind! Grind! Grind!  They are now
+confetti.
+
+>You take the files from the filing cabinet.
+
+>[shred some files]
+You feed the pages into the shredder. Grind! Grind! Grind!  They are now
+confetti.
+
+>You take the files from the filing cabinet.
+
+>[shred some files]
+(Your score has increased by 50)
+You feed the pages into the shredder. Grind! Grind! Grind!  They are now
+confetti.
+The SEC Investigator bursts into the room!  Luckily, you've shredded all of
+the incriminating evidence.  Whew!  That was close.
+Due to lack of evidence, the SEC is unable to prosecute your boss.  She gives
+you a promotion, and a raise!  Woohoo!

@@ -1,0 +1,230 @@
+Loading game...
+
+Veteran Experience
+Written by Robert Rafgon
+
+Tonight is going to be the biggest night in your long, long professional
+wrestling career. Your name is the Veteran and you have been entered into a
+four wrestler World title tournament. Maybe the World title is only
+recognised in this small town in the middle of nowhere but it it is a World
+title nevertheless. You have never won a World title but you know it is your
+destiny. It will be your reward for years of being hated by crowds who
+obviously did not understand you.
+
+You were not originally scheduled in the tournament. In fact you were not
+scheduled on the show at all but a last minute unfortunate car accident to
+the Brawler left an opening. With all the other matches set up already, you
+were a late call-up to the tournament and will face the Youth, the High Flyer
+and the Monster. Physically you are much older and weaker so you cannot match
+them. However, you know you are smarter and plan to take our your opponents
+before the matches even begin.
+
+Your locker room
+This room is empty apart from a bench along one wall. You can only head
+north.
+
+Also here is a bag.
+
+>A normal bench.
+
+>Your bag that you brought in for tonight.  The bag is closed.
+
+>[take bag]
+You pick up the bag.
+
+>[open bag]
+You open the bag.  A crowbar is inside the bag.
+
+>A crowbar
+
+>You take the crowbar from the bag.
+
+>You move north.
+Eastern corridor
+This corridor extends to the west. To the south is your locker room. To the
+north is the Youth's locker room.
+
+>You move north.
+The Youth's locker room
+The Youth is preening himself in front of a mirror. Near him are the gifts
+from some female admirers. It is a long time since you had any females after
+you. In fact you don't think they ever were. They all preferred the Star and
+for that the Youth is going to pay. You can only head south.
+
+Also here is a bunch of flowers and a teddy bear.
+
+The Youth is here.
+
+>A second generation wrestler who is the handsome son of the Star, a former
+World champion. He is the most popular wrestler right now and the favourite
+for the tournament tonight. You really want to win the tournament yourself
+but if you cannot manage it you would be happy just to take the Youth out.
+His father thwarted you from fame and fortune too many times to ever be
+forgiven.
+
+>This is a full-length mirror, specially brought in so the Youth can look his
+best. It is sickening to see a wrestler making himself pretty. Wrestling is
+supposed to be rough and brutal.
+
+>These flowers smell so nice you almost want to throw up.
+
+>A teddy bear given to the Youth.
+
+>You pick up the teddy bear.
+
+>You move south.
+Eastern corridor
+This corridor extends to the west. To the south is your locker room. To the
+north is the Youth's locker room.
+
+>You move west.
+Central corridor
+This corridor extends to locker rooms in the east and west. To the south is
+the ring.
+
+>You move south.
+The Ring
+The ring has been set up earlier and is surrounded by empty chairs, waiting
+for the fans to come in for the big show later in the night. You can only
+head north.
+
+>These chairs are empty.
+
+>This is where the action will occur tonight and you will finally achieve your
+destiny. This ring has been the home to many epic matches over the years,
+including your heartbreaking World title defeat to the Star, the father of
+the current wrestler the Youth. No matter how many weapons you pulled out
+from under the ring and used behind the referee's back you could not defeat
+him.
+
+>You see a bag of tacks and a ladder under the ring.
+
+>A bag filled with tacks.
+
+>You pick up the bag of tacks.
+
+>A ladder.
+
+>You pick up the ladder.
+
+>You move north.
+Central corridor
+This corridor extends to locker rooms in the east and west. To the south is
+the ring.
+
+>You move west.
+Western corridor
+This corridor extends to the east. To the north is the Monster's locker room.
+To the south is the High Flyer's locker room.
+
+>You move north.
+The Monster's locker room
+The Monster is here, sitting on the floor brooding, in preparation for his
+title challenge. The light is broken, leaving the room near-dark apart from a
+few candles on the floor. You can only head south.
+
+The Monster is here.
+
+>The Monster is a large fearsome beast who all the other wrestlers are wary
+of. He is unpredictable and the only wrestler in the federation who is hated
+by the fans more than you. The Monster has demolished you previously when you
+tried to interfere in one of his matches and you would be almost scared of
+him, but you are scared of no one. You think he must have a soft side because
+you once saw him being nice to some kids. Of course this could just be his
+childlike temperament.  The Monster is carrying a bottle of acid.
+
+>You see no such thing.
+
+>These are the only light source in the room.
+
+>The Monster grabs the teddy bear from you and hugs it to himself. Maybe he
+does have a soft side. However, by the way he bites into the bear and starts
+to tear it apart maybe not. Well, he is at least distracted now.
+
+>You take advantage of the distraction to hit the Monster over the head with
+the crowbar and knock him out. Now he cannot make the tournament so you have
+eliminated an opponent.
+
+>This is a bottle of acid.
+
+>You take the bottle of acid from the unconscious Monster.
+
+>You move south.
+Western corridor
+This corridor extends to the east. To the north is the Monster's locker room.
+To the south is the High Flyer's locker room.
+
+>You move south.
+The High Flyer's locker room
+The High Flyer is here practicing his aerial maneuvers before the tournament
+on a mattress on the floor. You don't see that there is a place in wrestling
+for these flashy stupid moves and would gladly outlaw them. You can only head
+north.
+
+The High Flyer is here.
+
+>The High Flyer is very popular and known for his tremendous jumping ability,
+able to execute a Shooting Star Press, Moonsault, Frog Splash or whatever
+else is possible from the top turnbuckle. No one has ever seen his face, as
+he wears a mask with a jet on it at all times. It is rumoured that the day
+the High Flyer is unmasked is the day he will retire.  The High Flyer is
+carrying a jet mask.
+
+>This is the jet mask worn by the High Flyer.
+
+>A mattress lies in the middle of the room.
+
+>The High Flyer thanks you because he can now practice his moves from higher
+up. He immediately begins to jump from the ladder.
+
+>The High Flyer lands on the tacks and screams out in agony as they tear into
+him. Luckily no one else notices. It does not look like he will be moving
+anywhere soon but he may recover in time for the matches tonight.
+
+>You walk over to the High Flyer and remove his mask. He screams out and tries
+to stop you but in his weakened state he is no match. You finally see the
+High Flyer's face and it is not much better looking than your own. He cries
+and tells you he will now have to retire. Oh well, there goes one opponent.
+
+>You put on the jet mask.
+
+>You move north.
+Western corridor
+This corridor extends to the east. To the north is the Monster's locker room.
+To the south is the High Flyer's locker room.
+
+>You move east.
+Central corridor
+This corridor extends to locker rooms in the east and west. To the south is
+the ring.
+
+>You move east.
+Eastern corridor
+This corridor extends to the west. To the south is your locker room. To the
+north is the Youth's locker room.
+
+>You move north.
+The Youth's locker room
+The Youth is preening himself in front of a mirror. Near him are the gifts
+from some female admirers. It is a long time since you had any females after
+you. In fact you don't think they ever were. They all preferred the Star and
+for that the Youth is going to pay. You can only head south.
+
+Also here is a bunch of flowers.
+
+The Youth is here.
+
+>The Youth soon recognises you are not the High Flyer but it is still too
+late. You take the acid and empty it on the Youth's face. He screams in agony
+as the acid burns and destroys his handsome face. That will teach him to be
+too proud of his appearance. You wonder if any of his fans will remain in his
+new state. The Youth's screams eventually bring help and he is carted off to
+hospital.
+
+Later in the night when the tournament is scheduled to begin the promoters
+are forced to make the announcement that as there is only one wrestler left
+healthy, the winner by default is the Veteran. Congratulations on finally
+fulfilling your destiny. No one else believed that you could but you knew
+fate would take a hand to help you.
+
+Congratulations!

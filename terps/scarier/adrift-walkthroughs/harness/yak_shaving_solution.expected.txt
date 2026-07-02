@@ -1,0 +1,629 @@
+Loading game...
+
+Yak Shaving for Kicks and Giggles!
+Interactive Short fiction by J. J. Guest
+
+Written with Adrift 4.00 Release 50
+Part of 'The Odd Competition' organised by Abbi Park, 2008
+
+------------------------------------------------------------------------------
+----------------------------
+
+yak shaving > noun (uncountable)
+
+   1. (idiomatic) Any apparently useless activity which, by allowing you to
+overcome intermediate difficulties, allows you to solve a larger problem.
+
+------------------------------------------------------------------------------
+----------------------------
+
+This is Steve Goodwin. He's an regular guy, young, successful, dynamic.
+Recently promoted to the post of junior marketing executive at the Funhouse
+Novelty Company, he's the one who comes up with all those zany items you can
+buy for a Dollar in the pages of Cosmic Comics.
+
+But something is missing in Steve's life. A nagging question gnaws at his
+soul, undermines his joy at his new-found success and interferes with the
+very business of living. But this is not a answer he can find in the pages of
+any book; for what Steve yearns to know is the very meaning of life itself!
+
+But then he learned about a man, a guru of great wisdom who could teach him
+the secrets of the universe. A six hundred year old hermit living at the top
+of a mountain in a kingdom most right-thinking people assume to be a myth. A
+man known as the Dada Lama!
+
+And this is why we find him now, after many months of journeying, of
+fruitless searching, beaten and battered by the uncaring elements, in this
+mysterious valley hidden deep within the mountains...
+
+...the mystical valley of Shangri-La!
+
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>The surface of the ice is covered with a thick layer of frost, which the
+light cannot penetrate.
+
+>You move west.
+Meadow
+Meadow
+Here, in the foothills of the mountains is a meadow of lush grass, strewn
+with boulders and dotted with tall wild flowers that frug and shimmy in the
+breeze. A pastoral idyll in other words, marred only by the fact that someone
+has erected a barn smack in the middle of it. A windowless wooden box, this
+barn, of no great architectural merit. A sign above the door bears the legend
+'Yak Shed'. To the east, a rugged path leads down into the valley.
+
+>You take a few steps inside the yak shed, but the smell is so overpowering
+that within moments you are outside again, gasping for air. If you've ever
+wondered how a hamster cage would smell to a bloodhound, now you know.
+
+>You move east.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move east.
+Mountaintop
+Mountaintop
+Here, at the peak of the mountain, perched beneath a snow-covered overhang,
+is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
+Mystic sigils have been daubed across its rotting sides. Colourful prayer
+flags flap from ropes tied to the awning poles.
+
+Could this really be the fabled Sanctum Sanctorum of the Dada Lama? A crudely
+painted sign leaves you in no doubt: "The Great and Terrible Dada Lama -
+Master of the Mystic Arts! Enlightenment While-U-Wait. All major credit cards
+accepted."
+
+A lowly acolyte stands guard outside the door to the caravan.
+
+The acolyte attempts to clap with one hand, cupping the other hand over his
+ear the better to hear the sound it makes.
+
+>[x the acolyte]
+A little dude with orange robes, horn-rimmed glasses and a flat-top. If he
+was any more square you could use him as a table.  The acolyte is carrying a
+pair of chopsticks.
+
+>[x chopsticks]
+You see nothing special about the pair of chopsticks.
+
+The acolyte attempts to catch a passing fly with his chopsticks. They say
+that a man who can catch a fly with chopsticks can do anything.
+
+>[ask the acolyte about lama]
+'His holiness the Lama will be able to answer all your questions.' says the
+acolyte dismissively.
+
+>Sanctum Sanctorum
+Sanctum Sanctorum
+After your long and arduous journey it's hard not to be disappointed by the
+famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
+and mandalas abound, but there's no getting away from the fact that this is
+nothing more than a shabby old trailer home with chipped Formica tables and
+seating that folds up to provide additional storage.
+His holiness the Dada Lama, Exalted Master of the Cerulean Mist, sits in the
+middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
+massages the old man's scalp whilst the blonde lovingly soaps his scanty
+beard.
+
+'I have been expecting you, oh faithful disciple!' says the Dada Lama as you
+enter.
+
+'You don't look like you were expecting anyone,' you reply, glancing at the
+blonde as she ladles hot water over his shiny dome.
+
+'Do not be deceived by appearances, my son.' says the Lama, 'In Shangri-La we
+live a life of simple austerity. This hot tub is merely an illusion. Candy
+and Mitzi here are neophytes who, like yourself, are taking their first
+faltering steps on the path to enlightenment. You seek the ancient wisdom of
+the exalted masters, yes?'
+
+'Something like that,' you reply.
+
+'Well wisdom must be earned. Take this jar of pickled eggs. If you can get
+the lid off, enlightenment will be yours. Now, go!'
+
+>Small, bald and wrinkled as last night's bedsheets, the Dada Lama is either
+very old or he's been in that hot tub too long.
+
+>You do your best not to look at them, but for a red-blooded male like you
+it's almost impossible.
+
+>A jar of eggs, pickled in vinegar.  The jar of pickled eggs is closed.
+
+>Though you grapple with the lid until your hands are red raw, you just can't
+open the jar.
+
+>You move out.
+Mountaintop
+Mountaintop
+Here, at the peak of the mountain, perched beneath a snow-covered overhang,
+is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
+Mystic sigils have been daubed across its rotting sides. Colourful prayer
+flags flap from ropes tied to the awning poles.
+
+Could this really be the fabled Sanctum Sanctorum of the Dada Lama? A crudely
+painted sign leaves you in no doubt: "The Great and Terrible Dada Lama -
+Master of the Mystic Arts! Enlightenment While-U-Wait. All major credit cards
+accepted."
+
+A lowly acolyte stands guard outside the door to the caravan.
+
+>[give eggs to the acolyte]
+You decide against giving the jar to the acolyte. You doubt that he'd be of
+any help in getting the lid off, and you'd probably never see it again.
+
+The acolyte attempts to catch a passing fly with his chopsticks. They say
+that a man who can catch a fly with chopsticks can do anything.
+
+>With one hand you clap the acolyte about the face with a sound that echoes
+throughout the valley like thunder. After a moment the look of shock on the
+acolyte's face is replaced with a look of beatific understanding.
+
+A moment later there is a rumble from the overhang above his head, and he is
+buried under twenty tonnes of snow.
+
+>
+Mountaintop
+Mountaintop
+Here, at the peak of the mountain, perched beneath a snow-covered overhang,
+is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
+Mystic sigils have been daubed across its rotting sides. Colourful prayer
+flags flap from ropes tied to the awning poles.
+
+Could this really be the fabled Sanctum Sanctorum of the Dada Lama? A crudely
+painted sign leaves you in no doubt: "The Great and Terrible Dada Lama -
+Master of the Mystic Arts! Enlightenment While-U-Wait. All major credit cards
+accepted."
+
+The spot once occupied by the acolyte is now home to a very large pile of
+snow.
+
+>A perfect, pristine pile of pure, pearly-white snow. You try to forget about
+the poor little dude buried underneath it. Ah, what the heck. He had it
+coming.  Inside the pile of snow is a pair of chopsticks.
+
+>[take chopsticks]
+You take the pair of chopsticks from the pile of snow.
+
+>[x clothes line]
+On second glance, the 'prayer flags' turn out to be the Dada Lama's laundry,
+attached to the ropes with clothes pegs.  You try not to look too closely at
+the Guru's undergarments with their dried-in stains, but your eye can't help
+being drawn to a single yak's wool sock also pegged to the line. The thing is
+simply enormous.
+
+>This sock is so big you could fit it over your head. You can't imagine what
+kind of creature could have such an abominably big foot. What happened to
+other sock is a riddle that will probably never be solved.
+
+>You take a yak's wool sock from the clothes line.
+
+>[x clothes line]
+On second glance, the 'prayer flags' turn out to be the Dada Lama's laundry,
+attached to the ropes with clothes pegs.  A clothes peg is on the clothes
+line.
+
+>A wooden clothes peg.
+
+>You take the clothes peg from the clothes line.
+
+>You move west.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move west.
+Meadow
+Meadow
+Here, in the foothills of the mountains is a meadow of lush grass, strewn
+with boulders and dotted with tall wild flowers that frug and shimmy in the
+breeze. A pastoral idyll in other words, marred only by the fact that someone
+has erected a barn smack in the middle of it. A windowless wooden box, this
+barn, of no great architectural merit. A sign above the door bears the legend
+'Yak Shed'. To the east, a rugged path leads down into the valley.
+
+>You place the clothes peg on your nose.
+
+>Clothes peg firmly in place, you step bravely into the yak shed.
+
+Yak Shed
+Yak Shed
+The yak shed is a gloomy wooden structure of rickety construction. Enormous
+piles of dung take up most of the available floorspace; shafts of light from
+cracks in the ceiling illuminating thousands of buzzing flies.
+A solitary yak stands in the middle of the shed, its shaggy pelt illuminated
+by a shaft of sunlight.
+
+>This has to be far and away the hairiest beast you have ever set eyes on. Oh
+what a head, body and legs of hair! Bangled, tangled, spangled, and
+spaghettied!
+
+>You'd need something to shave it with.
+
+>You move out.
+Meadow
+Meadow
+Here, in the foothills of the mountains is a meadow of lush grass, strewn
+with boulders and dotted with tall wild flowers that frug and shimmy in the
+breeze. A pastoral idyll in other words, marred only by the fact that someone
+has erected a barn smack in the middle of it. A windowless wooden box, this
+barn, of no great architectural merit. A sign above the door bears the legend
+'Yak Shed'. To the east, a rugged path leads down into the valley.
+
+>You move east.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move north.
+Glacier
+Glacier
+You are standing at the foot of the glacier, a sheer wall of ice that would
+dwarf the tallest skyscraper. For thousands of years it has followed this
+valley like the world's most dogged Slush Puppie. Scattered around are
+immense boulders deposited here by the glacier during its inexorable retreat.
+Who knows what else might have been swept up in this monstrous river of ice?
+
+Abandoned somewhat incongrously in a snow drift is a disposable razor,
+shocking pink.
+
+>An ordinary disposable razor, shocking pink.  The disposable razor is nice
+and sharp.
+
+>You pick up the disposable razor.
+
+>[x glacier]
+The surface of the ice is covered with a thick layer of frost, which the
+light cannot penetrate.
+
+>[rub glacier]
+You rub away the frost and gaze into the pure ice, clear as crystal. For the
+briefest of moments, you glimpse another face, leathery and ancient, staring
+back at you. Someone, or something, has been trapped in the ice, perhaps for
+aeons! Within seconds the ice has frosted over again.
+
+>You move south.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move west.
+Meadow
+Meadow
+Here, in the foothills of the mountains is a meadow of lush grass, strewn
+with boulders and dotted with tall wild flowers that frug and shimmy in the
+breeze. A pastoral idyll in other words, marred only by the fact that someone
+has erected a barn smack in the middle of it. A windowless wooden box, this
+barn, of no great architectural merit. A sign above the door bears the legend
+'Yak Shed'. To the east, a rugged path leads down into the valley.
+
+>Clothes peg firmly in place, you step bravely into the yak shed.
+
+Yak Shed
+Yak Shed
+The yak shed is a gloomy wooden structure of rickety construction. Enormous
+piles of dung take up most of the available floorspace; shafts of light from
+cracks in the ceiling illuminating thousands of buzzing flies.
+A solitary yak stands in the middle of the shed, its shaggy pelt illuminated
+by a shaft of sunlight.
+
+>It takes you three days of painstaking work to denude the yak of every last
+hair, during which time you subsist on the fleas, ticks and lice that infest
+the animal. Finally you stand back and admire your handiwork. It's a pretty
+scrawny looking beast without its wool.
+
+>It's a pretty scrawny looking beast without its wool.
+
+>You see nothing special about the heap of yak's wool.
+
+>Knit one, pearl one... Granny taught you well. After many patient hours you
+produce a sock that more or less exactly resembles the other one.
+
+>[x sock]
+The biggest socks you've ever seen. You can't imagine what kind of creature
+could have such abominably big feet.
+
+>You move out.
+Meadow
+Meadow
+Here, in the foothills of the mountains is a meadow of lush grass, strewn
+with boulders and dotted with tall wild flowers that frug and shimmy in the
+breeze. A pastoral idyll in other words, marred only by the fact that someone
+has erected a barn smack in the middle of it. A windowless wooden box, this
+barn, of no great architectural merit. A sign above the door bears the legend
+'Yak Shed'. To the east, a rugged path leads down into the valley.
+
+>You remove the clothes peg.
+
+>You move east.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move east.
+Mountaintop
+Mountaintop
+Here, at the peak of the mountain, perched beneath a snow-covered overhang,
+is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
+Mystic sigils have been daubed across its rotting sides. Colourful prayer
+flags flap from ropes tied to the awning poles.
+
+Could this really be the fabled Sanctum Sanctorum of the Dada Lama? A crudely
+painted sign leaves you in no doubt: "The Great and Terrible Dada Lama -
+Master of the Mystic Arts! Enlightenment While-U-Wait. All major credit cards
+accepted."
+
+The spot once occupied by the acolyte is now home to a very large pile of
+snow.
+
+>You move in.
+Sanctum Sanctorum
+Sanctum Sanctorum
+After your long and arduous journey it's hard not to be disappointed by the
+famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
+and mandalas abound, but there's no getting away from the fact that this is
+nothing more than a shabby old trailer home with chipped Formica tables and
+seating that folds up to provide additional storage.
+His holiness the Dada Lama, Exalted Master of the Cerulean Mist, sits in the
+middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
+massages the old man's scalp whilst the blonde lovingly soaps his scanty
+beard.
+
+>[x seat]
+A sort of sofa runs around all three sides of one end of the caravan. The
+seating is upholstered in foam rubber with a nylon cover of blue and orange
+mandalas. Trippy.  The seat is closed.
+
+>You open the seat.  Inside the seat is a hairdryer.
+
+>You take the hairdryer from the seat.
+
+>[x a hairdryer]
+Quite what the Dada Lama wants with a hairdryer is beyond you - the man is as
+bald as a coot. Perhaps it belongs to one of his 'disciples'. It appears to
+be powered by cosmic energy, which is handy as there doesn't seem to be
+anywhere to plug it in.  The hairdryer is on.
+
+>You move out.
+Mountaintop
+Mountaintop
+Here, at the peak of the mountain, perched beneath a snow-covered overhang,
+is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
+Mystic sigils have been daubed across its rotting sides. Colourful prayer
+flags flap from ropes tied to the awning poles.
+
+Could this really be the fabled Sanctum Sanctorum of the Dada Lama? A crudely
+painted sign leaves you in no doubt: "The Great and Terrible Dada Lama -
+Master of the Mystic Arts! Enlightenment While-U-Wait. All major credit cards
+accepted."
+
+The spot once occupied by the acolyte is now home to a very large pile of
+snow.
+
+>You move west.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move north.
+Glacier
+Glacier
+You are standing at the foot of the glacier, a sheer wall of ice that would
+dwarf the tallest skyscraper. For thousands of years it has followed this
+valley like the world's most dogged Slush Puppie. Scattered around are
+immense boulders deposited here by the glacier during its inexorable retreat.
+Who knows what else might have been swept up in this monstrous river of ice?
+
+>[melt glacier]
+After many, many hours of patient work, you manage to melt a hole in the ice
+big enough to  crawl through.
+
+>You move in.
+Ice Cave
+Ice Cave
+A vast, cathedral-like cavern bathed in an eerie blue glow. Through the walls
+you can make out the shapes of objects entombed in the ice; a woolly mammoth,
+a Viking longboat with full complement of oarsmen, and a 1948 Plymouth
+two-door sedan. The only exit is back out through the hole you made with the
+hairdryer.
+
+Slumped in the middle of the cavern is an extraordinary figure. The
+abominable snowman, once thought to be a myth, now a hulking four hundred
+pound fact with muscles like marshmallows! The yeti seems to thawing; his
+face and hands are a healthy pink but his gigantic feet are still blue with
+cold.
+
+>The abominable snowman, once thought to be a myth, now a hulking four hundred
+pound fact with muscles like marshmallows and incredibly large, incredibly
+cold feet.
+
+>[give sock to yeti]
+Gingerly you tug the socks over the yeti's enormous tootsies, and having lit
+the blue touchpaper, stand back. After a few moments, his eyelids flicker. A
+few moments after that, his eyes flick open, he jumps to his feet, does a
+little dance and gives you big, hairy, smelly bear-hug before tearing off
+into the open air.
+
+>You move out.
+Glacier
+Glacier
+You are standing at the foot of the glacier, a sheer wall of ice that would
+dwarf the tallest skyscraper. For thousands of years it has followed this
+valley like the world's most dogged Slush Puppie. Scattered around are
+immense boulders deposited here by the glacier during its inexorable retreat.
+Who knows what else might have been swept up in this monstrous river of ice?
+
+The small hole you have melted with the hairdryer connects with a natural
+fissure in the ice that seems to widen as it goes deeper. Wisps of icy vapour
+issue from within.
+The yeti is reclining against a rock, smoking a pipe containing a strange,
+aromatic weed.
+
+>'Say, you couldn't give a paw with this jar, could you, man?' you say, 'It's
+really been bugging me.'
+
+The yeti gives you a big, yellow, snaggle-toothed grin. He takes the jar in
+his huge gnarly hands and pops off the lid like it was nothing, and hands it
+back to you lidless. Far out.
+
+>A jar of eggs, pickled in vinegar.  The jar of pickled eggs is open.
+
+>You move south.
+Shangri-La
+Shangri-La
+You weren't sure what to expect from the mystical valley of Shangri-La. You'd
+heard tales of a Utopia, an earthly paradise where people lived together in
+peace and harmony. You certainly weren't expecting a large illuminated sign
+reading "Shangri-La Trailer Park --200 Spaces Available." Most of the spaces
+are empty at present, with just a few small caravans dotted about the
+campsite. The valley is bounded on either side by breathtaking mountains like
+rows of shark's teeth.
+
+To the east, a treacherous-looking path winds its way up into the mountains.
+To the west a rickety wooden structure nestles amongst tall grass. Far away
+to the north the valley is blocked by a sheer wall of ice; an enormous
+glacier!
+
+>You move east.
+Mountaintop
+Mountaintop
+Here, at the peak of the mountain, perched beneath a snow-covered overhang,
+is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
+Mystic sigils have been daubed across its rotting sides. Colourful prayer
+flags flap from ropes tied to the awning poles.
+
+Could this really be the fabled Sanctum Sanctorum of the Dada Lama? A crudely
+painted sign leaves you in no doubt: "The Great and Terrible Dada Lama -
+Master of the Mystic Arts! Enlightenment While-U-Wait. All major credit cards
+accepted."
+
+The spot once occupied by the acolyte is now home to a very large pile of
+snow.
+
+>You move in.
+Sanctum Sanctorum
+Sanctum Sanctorum
+After your long and arduous journey it's hard not to be disappointed by the
+famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
+and mandalas abound, but there's no getting away from the fact that this is
+nothing more than a shabby old trailer home with chipped Formica tables and
+seating that folds up to provide additional storage.
+His holiness the Dada Lama, Exalted Master of the Cerulean Mist, sits in the
+middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
+massages the old man's scalp whilst the blonde lovingly soaps his scanty
+beard.
+
+>'I have opened your jar of pickled eggs, oh exalted master,' you say, holding
+out the item in question.
+
+'Well, and what have you learned?' replies the ancient one.
+
+'Well,' you say, 'I had to do a load of stuff, and in order to do that I
+first had to do a load of other stuff, melt a glacier, knit a sock, shave a
+yak...'
+
+'That's it!' says the Lama, splashing excitedly, 'in order to do stuff, you
+had to do other stuff, and on and on. That is life. Life is yak shaving!'
+
+'And I guess,' you say, stroking your beard thoughtfully, 'that as long as
+you get a few kicks and have a few giggles along the way, it's okay.'
+
+'Behold!' cries the Lama, 'enlightenment, illumination! I'm afraid I can't
+offer you a cigar or a coconut, but please, help yourself to a pickled egg.'
+
+'Thanks, I'll pass.'
+
+'Please yourself.' says the Lama.
+
+'I will,' you say, grinning. 'I will.'
+Congratulations! You have completed the Odd Competition mini version of Yak
+Shaving for Kicks and Giggles!
+
+In the final version Shangri-La will include such exotic locations as:
+
+* The Hungry Ghost Bar and Grill
+* Zen Miniature Golf
+* The Shangri-La Washerette and Folk Art Museum
+
+Thanks for playing!

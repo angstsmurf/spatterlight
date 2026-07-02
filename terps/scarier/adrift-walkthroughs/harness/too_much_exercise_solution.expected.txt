@@ -1,0 +1,308 @@
+Loading game...
+
+Too Much Exercise
+by Robert Street
+
+The valley
+This is a quiet grassy valley, with a small cottage in the centre. The open
+door to the cottage is inviting you to walk inside and relax. You are not an
+outdoor person, no matter how peaceful everything looks. In front of the
+cottage is a sign labelled BUBBLE 3927. To the west, in the side of a hill,
+is a cave. Above the cave are several boulders, precariously balanced. They
+had better not fall down, or you will be in trouble. At the top of the hills,
+you can see a lone tree that you can walk up to. You don't really want to
+walk there though, as it is a long climb.
+
+You have just eaten a meal. However, as you are a big man who needs lots of
+food, you are already starting to feel hungry again.
+
+>You are a big person. Not big, as in tall, but big, as in wide. You have
+always been too fond of eating and not fond enough of exercise. This
+lifestyle isn't ideal for your current location.
+
+>A simple, small cottage is in the area, with a chimney poking out of the
+roof. This cottage is where you live at the moment.
+
+>The wooden sign reads BUBBLE 3927.
+
+>You are standing in a valley between some grassy hills.
+
+>There is a tree at the top of one hill.
+
+>The cave enters into the mountain to the west.
+
+>The boulders are above the cave entrance.
+
+>You move in.
+Inside the cottage
+The cottage is a small one-room building. The room is fairly empty, with a
+bed taking up most of the space. You don't get many luxuries whilst staying
+here. Not even the bed is luxurious, which is obviously designed to encourage
+you to not spend too much time sleeping. The only other item in here is a
+fireplace along one wall. The fireplace is currently empty, and the pile of
+firewood that was previously next to it, is also missing now. You can exit
+back outside to the valley.
+
+Next to the bed is a suitcase
+
+>This is a small room, and having a large bed means that there is little space
+for anything else in here. The bed is not particularly comfortable, but it is
+somewhere you can sleep.
+
+>The fireplace is where cooking takes place. It will automatically light up
+once it is filled with wood.
+
+>The suitcase is full of your belongings. Not many of the items will be of use
+to you at the moment.  The suitcase is closed.
+
+>You open the suitcase.
+
+>The suitcase is full of your belongings. Not many of the items will be of use
+to you at the moment.  The suitcase is open.  A wallet is inside the
+suitcase.
+
+>You take the wallet from the suitcase.
+
+>The wallet holds some money. You were trying to save your money, but you have
+never been good at saving.
+
+>You move out.
+The valley
+This is a quiet grassy valley, with a small cottage in the centre. The open
+door to the cottage is inviting you to walk inside and relax. You are not an
+outdoor person, no matter how peaceful everything looks. In front of the
+cottage is a sign labelled BUBBLE 3927. To the west, in the side of a hill,
+is a cave. Above the cave are several boulders, precariously balanced. They
+had better not fall down, or you will be in trouble. At the top of the hills,
+you can see a lone tree that you can walk up to. You don't really want to
+walk there though, as it is a long climb.
+
+You have just eaten a meal. However, as you are a big man who needs lots of
+food, you are already starting to feel hungry again.
+
+>You move west.
+Inside the cave
+The cave is not very long, and opens up into an unnaturally smooth chamber,
+shaped like a large room. The centrepiece of this room is an altar, sitting
+in the middle of the floor. On the altar is a coin slot next to a monitor,
+which has a flashing message of MAKE AN OFFERING TO GAIN FOOD. The rituals to
+get food delivered are continually changing. You wish that they could just
+make up their mind. A locked door is closed on the western wall.  You can
+exit the cave back to the valley in the east.
+
+>The altar is decorated with a monitor and a coin slot.
+
+>The monitor reads MAKE AN OFFERING TO GAIN FOOD.
+
+>The door is the exit to this place, but you cannot leave yet.  The door is
+locked.
+
+>You put a coin in the slot. Instead of food emerging from the altar, the
+message on the monitor changes to DANCE FOR FOOD. You hate it when people
+start playing with you.
+
+>It is humiliating that you have to dance in order to get food. If you weren't
+so hungry right now, you would never think of doing this. But you are hungry
+and there is no person watching. You hope.
+
+You don't know any fancy dance moves, but you begin to move around the altar.
+A strange music begins to play and you try to keep your jerky movements in
+time, often failing. Eventually the music stops and the altar is satisfied. A
+piece of uncooked meat appears on the altar. You grab the meat and stagger
+back to the cottage. You collapse on the bed, absolutely exhausted. You hate
+dancing.
+
+(Press a key)
+
+After a rest, you are fully awakened by a rumbling noise outside. You get up
+and look out to see that the boulders have blocked the cave entrance. You
+have obviously reached the food limit for now.
+
+You look at the meat and realise that you have to cook it. A fireplace is
+nearby, but you need wood for it to work.
+
+Inside the cottage
+The cottage is a small one-room building. The room is fairly empty, with a
+bed taking up most of the space. You don't get many luxuries whilst staying
+here. Not even the bed is luxurious, which is obviously designed to encourage
+you to not spend too much time sleeping. The only other item in here is a
+fireplace along one wall. The fireplace is currently empty, and the pile of
+firewood that was previously next to it, is also missing now. You can exit
+back outside to the valley.
+
+Next to the bed is a suitcase
+
+>The meat looks like it will be tasty, once it has been cooked.
+
+>You drop the wallet and the piece of meat.
+
+>You move out.
+The valley
+This is a quiet grassy valley, with a small cottage in the centre. The open
+door to the cottage is inviting you to walk inside and relax. You are not an
+outdoor person, no matter how peaceful everything looks. In front of the
+cottage is a sign labelled BUBBLE 3927. To the west, in the side of a hill,
+is a cave. The boulders have fallen down in front of the cave entrance,
+blocking the only way underground. At the top of the hills, you can see a
+lone tree that you can walk up to. You don't really want to walk there
+though, as it is a long climb.
+
+>You struggle up the hill. It doesn't look that far, but you are very unfit
+and it is a huge effort for you to reach the top. You take a quick break at
+the top to recover your breath.
+
+Top of a hill
+On one side, you can see back down into the valley you came from. On the
+other side, there is nothing but a blank sky-coloured wall. The view would be
+better if there was more to see from here. A grassy hill rolls smoothly
+downwards from this location back to the cottage. You are standing near the
+only full-size tree in the area, although now that you are closer, you can
+see a few bushes and baby trees sitting next to the large tree. These are too
+small to be useful.
+
+Embedded in the ground is an abandoned axe.
+
+>The wall is the boundary of this area, and it is coloured in as if it was
+part of the sky.
+
+>The tree is large and has plenty of wood on it. You wish it didn't need to be
+quite so large, as it will be hard work to chop down.
+
+>There are a few bushes and baby trees around, but these are too small to have
+sufficient wood for your needs.
+
+>The axe is new and looks sharp.
+
+>You pick up the axe.
+
+>You begin chopping at the base of the tree with the axe.
+
+(Press a key)
+
+A while later, you are still chopping.
+
+(Press a key)
+
+After a lot of exhausting work, you finally finish and the tree falls over.
+The tree is balanced precariously at the top of the slope leading downwards.
+
+>You drop the axe.
+
+>You push the tree and it begins rolling down the hill. It quickly reaches the
+bottom and  settles near the cottage. Seeing how fast the tree made it down
+gives you an idea of how you can get down quickly. You are too tired to walk
+much further at the moment.
+
+>You decide to try rolling down the hill. It looks faster and the tree seemed
+to get down intact. You lie on your side and begin rolling down. As you roll
+down and pick up speed, you wonder if you are moving a little too fast. Not
+that there is much you can do now apart from enjoy the ride. Or not enjoy it,
+as you come to a crashing halt at the bottom.
+
+You do not feel injured, which is good, but you do feel exhausted. You go
+back to the cottage and take a rest in the bed. Eventually you get back up
+when the hunger becomes unbearable.
+
+Inside the cottage
+The cottage is a small one-room building. The room is fairly empty, with a
+bed taking up most of the space. You don't get many luxuries whilst staying
+here. Not even the bed is luxurious, which is obviously designed to encourage
+you to not spend too much time sleeping. The only other item in here is a
+fireplace along one wall. The fireplace is currently empty, and the pile of
+firewood that was previously next to it, is also missing now. You can exit
+back outside to the valley.
+
+Next to the bed is a suitcase
+
+You can see a wallet and a piece of meat.
+
+>You move out.
+The valley
+This is a quiet grassy valley, with a small cottage in the centre. The open
+door to the cottage is inviting you to walk inside and relax. You are not an
+outdoor person, no matter how peaceful everything looks. In front of the
+cottage is a sign labelled BUBBLE 3927. To the west, in the side of a hill,
+is a cave. The boulders have fallen down in front of the cave entrance,
+blocking the only way underground. The remains of the lone tree are sitting
+next to the cottage.
+
+You can see a long sturdy stick and a bunch of small branches.
+
+>This stick is close to your height in length, and thick enough that it will
+not break easily.
+
+>You pick up the long sturdy stick.
+
+>This bunch of small branches looks like it would make good firewood.
+
+>You pick up the bunch of small branches.
+
+>You move in.
+Inside the cottage
+The cottage is a small one-room building. The room is fairly empty, with a
+bed taking up most of the space. You don't get many luxuries whilst staying
+here. Not even the bed is luxurious, which is obviously designed to encourage
+you to not spend too much time sleeping. The only other item in here is a
+fireplace along one wall. The fireplace is currently empty, and the pile of
+firewood that was previously next to it, is also missing now. You can exit
+back outside to the valley.
+
+Next to the bed is a suitcase
+
+You can see a wallet and a piece of meat.
+
+>You pick up the piece of meat.
+
+>You load all the branches into the fireplace. A fire automatically starts
+with a tray for cooking emerging out the back. You put the meat on the tray
+and wait for it to cook.
+
+It does not take long and soon you can enjoy your delicious meal. The fire
+soon stops, with the branches gone and the tray disappears. You feel relaxed
+and not hungry. It was hard work, but well worth it.
+
+A loud announcement can be heard throughout the area, "Passengers should go
+to the nearest exit and disembark. Don't forget to take all of your personal
+belongings."
+
+You hear a slight rumbling noise outside.
+
+>You pick up the suitcase and the wallet.
+
+>You move out.
+The valley
+This is a quiet grassy valley, with a small cottage in the centre. The open
+door to the cottage is inviting you to walk inside and relax. You are not an
+outdoor person, no matter how peaceful everything looks. In front of the
+cottage is a sign labelled BUBBLE 3927. To the west, in the side of a hill,
+is a cave.
+
+The boulders have shifted slightly, to leave a small gap between the boulders
+and the cave entrance. It would be enough for a skinny person to get through.
+You think it is meant as a hint that you have not lost enough weight here.
+The remains of the lone tree are sitting next to the cottage.
+
+>Now that the boulder has moved slightly, you can fit the sturdy stick behind
+it. You use the stick to lever the boulder away from the entrance. Being
+smart is better than being thin. The stick breaks in the effort, but you no
+longer need it.
+
+>You move west.
+Inside the cave
+The cave is not very long, and opens up into an unnaturally smooth chamber,
+shaped like a large room. The centrepiece of this room is an altar, sitting
+in the middle of the floor. On the altar is a coin slot next to a monitor,
+which has a flashing message of DANCE FOR FOOD. The rituals to get food
+delivered are continually changing. You wish that they could just make up
+their mind. The door on the western wall is now open. You can exit the cave
+back to the valley in the east.
+
+>You exit out of your prison of the last few weeks. As you walk into the
+hallway, you have a good view of the interstellar ship you have travelled
+upon. The ship is made up of thousands of bubbles, connected by tubes. It
+looks like a complicated chemical molecule.
+
+You will not choose this travel option again. Your wife pressured you into
+the Weight Loss option this time, but you will not be pressured again. You
+much prefer that Sweet Shop option one of your work colleagues took.
+Congratulations!

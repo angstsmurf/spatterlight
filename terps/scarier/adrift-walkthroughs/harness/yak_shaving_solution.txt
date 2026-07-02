@@ -1,0 +1,71 @@
+x me
+i
+x glacier
+w
+in
+e
+e
+x acolyte
+x chopsticks
+ask acolyte about lama
+in
+x lama
+x girls
+x eggs
+open eggs
+out
+give eggs to acolyte
+clap
+look
+x snow
+take chopsticks
+x flags
+x sock
+take sock
+x flags
+x peg
+take peg
+w
+w
+wear peg
+in
+x yak
+shave yak
+out
+e
+n
+x razor
+take razor
+x ice
+rub ice
+s
+w
+in
+shave yak
+x yak
+x wool
+knit sock
+x socks
+out
+remove peg
+e
+e
+in
+x seating
+open seat
+take hairdryer
+x it
+out
+w
+n
+melt ice
+in
+x yeti
+give socks to yeti
+out
+give eggs to yeti
+x eggs
+s
+e
+in
+give eggs to lama

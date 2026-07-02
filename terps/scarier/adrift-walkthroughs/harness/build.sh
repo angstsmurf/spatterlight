@@ -21,7 +21,14 @@ SCARE="${SCARE_DIR:-$(cd "$HERE/../.." && pwd)}"
 OUT="$HERE/scare"
 
 cd "$SCARE"
-clang++ -O2 -w -I. -DSCARE_DUMP_TOOLS \
+# NB: the dump/trace instrumentation (scdump.cpp, sctasks.cpp) is guarded by
+# SCARIER_DUMP_TOOLS -- the pre-rename name was SCARE_DUMP_TOOLS, which no longer
+# matches anything, so defining that left the tools compiled out (dead code).
+# The instrumentation is entirely env-var-gated (SCR_DUMP_TASKS, SCR_TRACE_*,
+# etc.), so with those vars unset the binary is behaviourally identical to a
+# build without it -- goldens are unaffected -- but SCR_DUMP_TASKS now works for
+# route debugging (e.g. finding a win task's command + restrictions).
+clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
   sc*.cpp os_ansi.cpp \
   "$HERE/seed.cpp" \
   -lz -o "$OUT"

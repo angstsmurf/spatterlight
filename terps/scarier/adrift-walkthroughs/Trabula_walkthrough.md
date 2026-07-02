@@ -23,5 +23,22 @@ by the **Troll** (Under the Bridge, room 11 — a rusty key + a bar) and the
 **Soldier** (Middle Bridge, room 1 — a silver key + a rapier). You start armed
 with a sword. Recover the keys, open the chests for the gold and the ring, carry
 them to **Trabula's** hut (room 14), and `give gold to Trabula` then `give ring
-to Trabula` for the full 125. (No deterministic turn-list is banked here — with
-no ending to verify against, the structural maximum is the meaningful result.)
+to Trabula` for the full 125.
+
+## Banked solution (added 2026-07-02)
+
+`harness/trabula_solution.txt` now banks a deterministic turn-list, wired into
+`run_v4_walkthroughs.sh` (golden `trabula_solution.expected.txt`, marker
+`given the gold coins to Trabula` — the +50 give, which with the +75 ring give
+is the full 125). Since the game has no `EndGame`, the marker is that winning
+give, not a victory string.
+
+**Derivation finding:** the Key & Compass walkthrough says `kill soldier` /
+`kill troll`, but SCARE's parser answers `kill X` with "Now that isn't very
+nice." The working combat verb is **`attack soldier`** / **`attack troll`**
+(auto-uses the sword). Combat is multi-round and RNG-driven; under the seeded
+`scare` binary a fixed number of attacks kills deterministically, so the
+solution issues a generous fixed count of `attack` commands (surplus attacks
+after death are harmless no-ops) then `take all`. This is the game the
+4th-1-Hour-Comp page calls *Get Treasure For Trabula* (David Good); its file is
+`Trabula.taf`.

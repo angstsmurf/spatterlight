@@ -1,0 +1,15 @@
+answer phone
+x cabinet
+open cabinet
+x files
+turn on shredder
+take files
+shred them
+take files
+shred them
+take files
+shred them
+take files
+shred them
+take files
+shred them

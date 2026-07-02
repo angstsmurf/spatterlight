@@ -1,0 +1,99 @@
+i
+x hat
+wear hat
+x bed
+x cupboard
+open it
+take all from cupboard
+x beard
+wear beard
+x log
+read log
+x poster
+take poster
+x window
+n
+x puddle
+n
+x calender
+x pin
+x bed
+x drawers
+open drawers
+s
+w
+x chef
+x hamburger
+ask chef about hamburger
+x wardrobe
+open it
+x chocolate
+take it
+x bulb
+take it
+x rubbish
+e
+e
+x table
+x map
+x pantry
+open it
+look under pantry
+x mouse
+x opener
+x radio
+listen to radio
+w
+d
+x boxes
+open boxes
+x silver key
+take it
+x first mate
+x bottle
+take bottle
+u
+n
+open drawers
+look in drawers
+take all from drawers
+x boat
+x handcuffs
+s
+u
+x container
+open it
+read note
+x bob
+ask bob about bob
+x sun
+x sea
+n
+x wheel
+x poo
+x instrument
+s
+u
+x rigging
+x mast
+x flag
+x toolbox
+open it
+x crowbar
+take crowbar
+d
+d
+e
+open pantry
+take all from pantry
+x red bull
+x foot pump
+w
+u
+w
+x plank
+x shark
+ask shark about shark
+inflate boat
+x raft
+w

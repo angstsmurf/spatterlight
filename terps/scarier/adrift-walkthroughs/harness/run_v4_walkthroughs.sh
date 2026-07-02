@@ -49,11 +49,21 @@ FILTER="${1:-}"
 MAP=$(cat <<'EOF'
 icecream_solution.txt|IceCream.taf|
 the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|Congratulations!
-man_overboard_solution.txt|man overboard.taf|
-pieces_of_eden_solution.txt|Pieces of eden.taf|
-princess_in_the_tower_solution.txt|princess1.taf|
-too_much_exercise_solution.txt|exercise.taf|
-yak_shaving_solution.txt|yak_shaving.taf|
+man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time
+pieces_of_eden_solution.txt|Pieces of eden.taf|END OF PART ONE
+princess_in_the_tower_solution.txt|princess1.taf|It seems you've won.
+too_much_exercise_solution.txt|exercise.taf|Congratulations!
+yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition
+buried_alive_solution.txt|buried.taf|Well done. You got to the end
+confession_solution.txt|Confession(1).taf|Striking a plea deal
+snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game
+veteran_solution.txt|veteran.taf|fulfilling your destiny
+togetyou_solution.txt|togetyou.taf|another flesh-sack
+zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies
+adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
+cruel_solution.txt|CAH.taf|destroyed our reality
+trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
+shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 EOF
 )
 

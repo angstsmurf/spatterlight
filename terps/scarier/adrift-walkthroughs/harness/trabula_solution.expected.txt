@@ -1,0 +1,275 @@
+Loading game...
+
+Get Treasure for Trabula
+
+West Road
+The dirt road is clear of debris, but muddy nonetheless.  To the west it
+continues into the dim forest, and a bridge crossing a dry creekbed is to the
+east.  Just to the north you can make out a wooden hut with a sign over the
+door.
+
+>You are carrying a sword.
+
+>You see nothing special about the sword.
+
+>The battered wooden sign reads "Trabula's Emporium".
+
+>You move north.
+Trabula's
+Trabula's Emporium is more than just an equipment store, it seems like they
+have everything you could want!
+
+Trabula is here.
+"Ah I'm so glad to see you," the man says.
+
+"There's some things across the bridge that were stolen from me.  A diamond
+ring, and a bag of antique gold coins.  If you can retrieve them for me I
+will reward you greatly!"
+
+>This old wizened man looks like he has everything for sale.
+
+>You move south.
+West Road
+The dirt road is clear of debris, but muddy nonetheless.  To the west it
+continues into the dim forest, and a bridge crossing a dry creekbed is to the
+east.  Just to the north you can make out a wooden hut with a sign over the
+door.
+
+>You move east.
+West of Bridge
+To the east you see a simple wooden bridge over a dry creekbed. You can go
+west on the road, and you see small clearings on either side of the bridge to
+the north and south.
+
+>You move east.
+West Bridge
+The west end of the bridge creaks with every step you take.  You hope your
+foot won't go through a board.  You can continue east on the bridge, or west
+to the road.
+
+>You move east.
+Middle Bridge
+The bridge is no more stable here.  It continues east and west.
+A soldier is here.
+
+>The old warrior looks like he's seen one too many battles.  Soldier is
+carrying a silver key and a rapier.
+You manage to avoid Soldier's attack.
+
+>You hit Soldier.
+
+>You hit Soldier.
+
+Soldier falls down, dead.
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>You pick up the silver key and the rapier.
+
+>This glimmering silver key has something engraved on it.  It's in another
+language, you can't read it.
+
+>You see nothing special about the rapier.
+
+>You move west.
+West Bridge
+The west end of the bridge creaks with every step you take.  You hope your
+foot won't go through a board.  You can continue east on the bridge, or west
+to the road.
+
+>You move west.
+West of Bridge
+To the east you see a simple wooden bridge over a dry creekbed. You can go
+west on the road, and you see small clearings on either side of the bridge to
+the north and south.
+
+>You move south.
+Southwest of Bridge
+From here you can see the dry creekbed pretty well.  It looks dark and damp,
+and many leaves are gathered along it.  You think you can make out a path you
+can scramble down, to the northeast.  The bridge itself is to the north.
+
+>You move northeast.
+The Slope
+It's very musty, cold and damp here.  Nearly slipping on the mud, you make it
+down the slope intact.  The other side of the dry creekbed is to the east.
+You can scramble up the slope to the northwest or southwest.
+
+>You move east.
+Under the Bridge
+Directly under the bridge is cold and muddy.  Your feet sink at least a
+couple of inches with each step, leading you to believe it's not so dry of a
+creek after all.  You can cross the creek to the east or west.
+A big fat ugly troll is here.
+
+>The Troll is uglier than most, and seems very nasty.  Troll is carrying a
+rusty key and a bar.
+You manage to avoid Troll's attack.
+
+>You hit Troll.
+
+Troll falls down, dead.
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>I don't understand what you mean!
+
+>You pick up the rusty key and the bar.
+
+>This rusty key looks like it will fall apart any second.
+
+>You see nothing special about the bar.
+
+>You move east.
+The Slope
+It's very musty, cold and damp here.  Nearly slipping on the mud, you make it
+down the slope intact.  The other side of the dry creekbed is to the west.
+You can scramble up the slope to the northeast or southeast.
+
+>You move southeast.
+Southeast of Bridge
+From here you can see the dry creekbed pretty well.  It looks dark and damp,
+and many leaves are gathered along it.  You think you can make out a path you
+can scramble down, to the northwest.  The bridge itself is to the west.
+
+>You move north.
+East of Bridge
+To the west you see a simple wooden bridge over a dry creekbed. You can go
+east on the road, and you see small clearings on either side of the bridge to
+the north and south.
+
+>You move east.
+East Road
+The number of leaves collected on this road indicate its disuse.  You see a
+bridge to the west, and it continues off into the woods to the east.  A small
+shabby hut catches your eye to the south.
+
+>The hut, to the south, is run down and shabby.    The shabby hut is locked.
+
+>You unlock the shabby hut with the bar.
+
+>You open the shabby hut.
+
+>You move south.
+A Shabby Hut
+The light here isn't very good, but you can make out three old chests; one
+made of wood, one made of iron and a third of steel.
+
+>This chest bears some signs of rust.  The steel chest is locked.
+
+>Obviously made to stand the test of time, it doesn't look like you could
+budge this chest.  The iron chest is locked.
+
+>It doesn't look like it's in very good condition. It's made of wood, and a
+little rotten.  The wooden chest is locked.
+
+>You unlock the steel chest with the rusty key.
+
+>You unlock the iron chest with the rusty key.
+
+>You unlock the wooden chest with the silver key.
+
+>The rusty key crumbles to dust.
+
+>You open the steel chest.  Inside the steel chest is a diamond ring.
+
+>You open the iron chest.  Inside the iron chest is a lead weight.
+
+>You open the wooden chest.  Inside the wooden chest is a bag of gold.
+
+>You take the diamond ring from the steel chest.
+
+>You take the lead weight from the iron chest.
+
+>You take the bag of gold from the wooden chest.
+
+>You move north.
+East Road
+The number of leaves collected on this road indicate its disuse.  You see a
+bridge to the west, and it continues off into the woods to the east.  A small
+shabby hut catches your eye to the south.
+
+>You move west.
+East of Bridge
+To the west you see a simple wooden bridge over a dry creekbed. You can go
+east on the road, and you see small clearings on either side of the bridge to
+the north and south.
+
+>You move west.
+East Bridge
+The eastern portion of the bridge creaks and sways over the dry creekbed.
+You can go east to the road, or west along the bridge.
+
+>You move west.
+Middle Bridge
+The bridge is no more stable here.  It continues east and west.
+
+>You move west.
+West Bridge
+The west end of the bridge creaks with every step you take.  You hope your
+foot won't go through a board.  You can continue east on the bridge, or west
+to the road.
+
+>You move west.
+West of Bridge
+To the east you see a simple wooden bridge over a dry creekbed. You can go
+west on the road, and you see small clearings on either side of the bridge to
+the north and south.
+
+>You move west.
+West Road
+The dirt road is clear of debris, but muddy nonetheless.  To the west it
+continues into the dim forest, and a bridge crossing a dry creekbed is to the
+east.  Just to the north you can make out a wooden hut with a sign over the
+door.
+
+>You move north.
+Trabula's
+Trabula's Emporium is more than just an equipment store, it seems like they
+have everything you could want!
+
+Trabula is here.
+
+>(Your score has increased by 75)
+You've given the diamond ring to Trabula!  He rewards you handsomly.
+
+>(Your score has increased by 50)
+You've given the gold coins to Trabula!  He rewards you handsomly.
+
+>Do you really want to quit? [Y/N]
