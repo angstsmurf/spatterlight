@@ -1,59 +1,60 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## 📄 DwarfOfDirewoodForest is PROVABLY unwinnable — in Scarier, FrankenDrift AND the real ADRIFT 5 Runner (shipped authoring bug, NOT an engine gap)  ✅ ANALYSED (2026-07-02)
+## 📄 DwarfOfDirewoodForest: By Guard Room is passable by DRAGGING a corpse — the "unwinnable" claim below was WRONG  ⚠️ CORRECTED (2026-07-03)
 
-Recorded so nobody re-investigates: Dwarf's `0|0 MATCH` "conformance, not a win"
-status is correct and permanent. The game **cannot be completed by any faithful
-engine** — the `{*}` "By Guard Room" wall is a mis-configured authored task, and
-it seals the map. This is the OPPOSITE of the BugHunt case below: BugHunt was
-FrankenDrift being wrong (an engine crash, since fixed); Dwarf is the *game*
-being wrong (reproduced identically by all three engines, and rightly so).
+**CORRECTION — I was wrong; the game is NOT sealed.** A previous version of this
+note (kept below, struck through) "proved" Dwarf unwinnable because the `{*}`
+gate at By Guard Room (cl_Location11) blocks bare movement. That analysis missed
+a whole class of movement: **dragging a body**. Larry Horsfield tested it in the
+real ADRIFT 5 Runner on Windows and confirmed you leave By Guard Room by
+`drag <dead guard/dwarf> north` (Guard Room → By Guard Room) then `drag … west`
+(By Guard Room → Underground Tunnel cl_Location14 = the west/arsenal side).
 
-**Proof chain (from the deobfuscated XML — `A5_DUMP_XML`):**
-1. The win (move Player → `cl_YouHaveWon`) has exactly FOUR triggers
-   (`cl_UnlockCell3/4/5/6` = unlock a cell door / "let clanmates out"), and **all
-   four** AND-require `cl_ArsenalDes Must BeEqualTo 1`.
-2. `cl_ArsenalDes = "1"` is set in **exactly one** place — the arsenal-explosion
-   System task `cl_KnockedOve`, which lives in the arsenal/town area
-   (`cl_InnerBlast` group, rooms 29–59).
-3. The location graph splits into two components joined by a single door:
-   the **dungeon component** (9 rooms: Dungeons 8/10/15, Cells 19/21/22, Bend-in-
-   Tunnel 12, By Guard Room 11, Guard Room 13 — where you start *and* where you
-   win) and the **town/arsenal component** (60+ rooms incl. all of `cl_InnerBlast`).
-   The ONLY crossing is `cl_Location11` (By Guard Room) `--West--> cl_Location14`.
-   (BFS: from the dungeon you reach 9 rooms; delete the `{*}` gate and it jumps to
-   19+, unlocking cl_Location14 and the whole west side — so the gate is the sole
-   bridge.)
-4. `cl_NullAtStar`'s only restriction is `Player Must BeAtLocation cl_Location11`
-   — no guard-dead flag, nothing that ever lifts it. The only non-blocked move
-   there is `cl_CreepSouth` (`creep south` → the dead-end Guard Room, whose sole
-   exit is back North). There is **no `creep west`/`creep north`**.
-5. ∴ `cl_ArsenalDes` can never become 1 → no win task can ever fire → **unwinnable**.
+**Why it works (and why my reachability BFS was unreliable):** the general drag
+task `cl_DragCharac1` (`[drag/tug] %object% %direction%`, **priority 40485 <
+44074**) is evaluated *before* `cl_NullAtStar` in the real Runner's priority-
+ascending `GetGeneralTask`, so it beats the `{*}` gate. Its guard-specific
+override `cl_Guard2` runs `MoveCharacter Character Player InDirection
+ReferencedDirection` (+ `MoveObject cl_Guard2 ToSameLocationAs %Player%`), i.e. it
+**moves the player** in the dragged direction (gated only by
+`HaveRouteInDirection`, the normal map exit). So a corpse is effectively a
+"movement key" through the `{*}`-gated room, in any direction that has a real
+exit — including West to cl_Location14. My graph model only encoded `creep south`
+as a sub-`{*}` movement and treated every other exit as blocked; it never
+modelled task-based movement (drag), so its "sole bridge / unwinnable" conclusion
+was invalid.
 
-**Holds in the real ADRIFT 5 Runner too** (this is topology + authored priority,
-not engine behaviour): `GetGeneralTask` iterates tasks priority-ascending, first
-match wins. Dwarf priorities — `cl_CreepSouth` 5173 < **`cl_NullAtStar` {*} 44074
-(PreventOverriding)** < `cl_PlayerMove` 50207 / `MovePlayer` 50235 /
-`PlayerMovement` 50242. So `{*}` out-prioritises every generic movement at
-cl_Location11 in the real Runner exactly as in FD/Scarier; only `creep south`
-(5173) beats it. (Same mechanism verified against the jcwild/ADRIFT-5 source in
-the DwarfOfDirewoodForest movement-precedence note below.)
+**This reproduces in FrankenDrift AND Scarier** — the corpus transcript already
+shows `> drag guard west` → "You drag the body of the guard west." with the
+player moving. So all three engines agree the drag works. The shipped
+`WLKTHRGH`/our replay only *looks* stuck because on a LATER return through By
+Guard Room it issues a **bare** `n` (with no corpse in hand) instead of dragging
+one — a walkthrough-script gap, not an engine or (as I wrongly claimed) a game
+seal.
 
-**Root cause:** `cl_NullAtStar` is Larry Horsfield's standard disclaimer/menu
-null-task — its message "Please press O then press Enter." only makes sense on a
-menu screen, and the game's *other three* `{*}` tasks are correctly bound to the
-menu pseudo-rooms (StartOptions / Prologue / Instructions). This fourth copy was
-mistakenly given the location restriction `cl_Location11` (a real gameplay room),
-walling off the map. No faithful engine can complete it, and none should patch it.
+**Open (needs a real drag-based playthrough, not static analysis):** full
+winnability. The objective still needs `cl_ArsenalDes=1` (all four
+`cl_UnlockCell*` win triggers), set only by `cl_KnockedOve` in the arsenal area
+(`cl_InnerBlast`, rooms 29–59). The corpse must be kept and dragged BOTH ways
+through cl_Location11 (out to the arsenal, back to the dungeon cells). Whether the
+arsenal is reachable and the round-trip is corpse-supportable should be settled
+by actually playing it (drag-aware), since the static graph has already been
+proven wrong here twice. Corpus status is unaffected — Dwarf stays `0|0` (all
+three engines still agree, drag included); only its *win-derivability* is now
+"likely, TBD" rather than "impossible".
 
-**Confirmed to be the current PUBLIC release:** the copy in the corpus
-(`test/adrift5-games/DwarfOfDirewoodForest.blorb`, SHA1
-`bdc9422de3662fea11cd8aa4f234049f48454e20`) is **byte-identical** to the
-adrift.co "Version 9" download (game 1639, the latest release; 244 downloads /
-150 online plays / just 1 rating). Version 9's `cl_NullAtStar` still carries the
-`BeAtLocation cl_Location11` restriction — so there is **no fixed public build**;
-the shipped game is unwinnable as released. (Only an unreleased/email-only `.taf`
-could change this.)
+<details><summary>Superseded (WRONG) "provably unwinnable" analysis — kept for the record</summary>
+
+~~The `{*}` gate seals the map; the win needs cl_ArsenalDes=1 (arsenal, west
+component) reachable only via cl_Location11→West which is `{*}`-blocked; only
+creep-south (a dead end) beats the gate, so unwinnable in all engines including
+the real Runner.~~ **Invalid — ignores drag-as-movement (`cl_DragCharac1`, pri
+40485), which beats the gate and provides directional player movement.** The
+byte-identity check still stands: the corpus copy (SHA1 `bdc9422d…`) equals the
+adrift.co "Version 9" download (game 1639), so this IS the current public build —
+but that build is passable via drag, not sealed.
+
+</details>
 
 ## ⭐ `MoveCharacter … InsideObject / OntoObject / ToParentLocation` were unhandled no-ops (FBA custodian-niche stealth never hides the player)  ✅ DONE (2026-07-02)
 
