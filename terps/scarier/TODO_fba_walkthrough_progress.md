@@ -7,7 +7,20 @@ blind play through `test/a5run_dump` replay scripts, guided by the game's
 **`WWDD`** ("What Would Dad Do?") per-location hint tasks and the model's
 scoring tasks.
 
-## Status: **100 / 500** (verified in BOTH Scarier and FrankenDrift), script = `test/FinnsBigAdventure_walkthrough.txt`
+## Status: **160 / 500** (byte-verified in BOTH Scarier and FrankenDrift), script = `test/FinnsBigAdventure_walkthrough.txt`
+
+> **UPDATE (session 2, 2026-07-02):** catacombs interior + Rock Island + Kong
+> recon now fully derived and FD-byte-clean (only residual = one pre-existing
+> intro blank line, `6a7`, unrelated to any move). Reached **160/500**, currently
+> **On Pier 2 at Pirate Island** (`cl_Location55`). Sections 9–12 below are NEW.
+> **Surfaced + FIXED a 2nd real Scarier engine bug** in the process (see
+> `TODO_a5_walkthrough_bugs.md`): the `MoveCharacter … InsideObject/OntoObject`
+> and `ToParentLocation` action forms were unhandled no-ops in
+> `a5run_action.cpp`, so FBA's `hide in niche` (custodian stealth) never put the
+> player inside `cl_Niche1` → the custodian "caught" you where FD plays
+> "custodian goes past" (+5). Added the 3 cases (in/on set `char_onobj`+`char_in`;
+> ToParentLocation clears them). **Corpus-clean** (all 25 games at baseline,
+> vanilla). Rebuild: `make -f Makefile.headless a5run`.
 
 > **Now derived against FrankenDrift (the reference runner).** Surfaced + FIXED a
 > real Scarier engine bug in the process: the handfire "winks out when you walk
@@ -86,24 +99,94 @@ into `run_a5_walkthroughs.sh` MAP. Re-run to confirm the checkpoint:
    do it the SAME/next turn, the fluff burns out in ~2 turns; approaching the web
    with the tinderbox directly fails — the spider drives you off). 100 pts.
 
-### Sections REMAINING (WWDD + scoring-task notes — not yet scripted)
+9. **Catacombs interior — custodian stealth + coffin scorpion** (SOLVED, 100→150).
+   Map (aisle `<N>` markers): 49`<0>`(W=27 stairway,E=39); 39`<2>` central aisle
+   (N=41,E=43,S=40 niche,W=49); 40`<3 Niche>`(N=39; **red-cross hiding niche**);
+   42`<4 Coffin>`(S=43); 43`<5>`(N=42,E=46,S=45,W=39); 46`<8>`(N=44,E=48,S=47,W=43);
+   47`<9 Bat>`(N=46); 48`<11>`(N=50,E=52,S=51,W=46); 50`<10>`(N=53,S=48);
+   52 By Metal Doors(W=48,Out=90 Rock Is); 53 Custodian's Chamber(S=50).
+   - **Custodian**: enter chamber 53 (`e e e n n` from 39) → he sees you
+     (`cl_CustodianC=1`) and chases. **Flee with `run` cmds** (a scripted chase:
+     `run south`×2, `run west`×3, `run south`) back to niche room 40, then
+     `hide in niche` → **`wait`×2** (custodian must shuffle up and pass;
+     `cl_CustodianG` +5, `cl_CoastIsCle=1`) → `out`. Fewer than 2 waits = the
+     `cl_CaughtByCu` fake-ending (mother sends you to your room = loss).
+   - **Chamber loot** (custodian now gone; re-enter `n e e e n n`): table has
+     napkin+meal+ale — `get napkin`,`wear napkin`,`eat meal`(+5),`drink ale`(+5);
+     `stand on chair`(+5, reveals gauntlet on shelf),`read ledgers`(business card
+     falls),`get gauntlet`(while ON chair),`get off chair`,`get card`,
+     `wear gauntlet`. `x diagram`(+5 map, red cross = niche 3). **`get napkin` +
+     `put napkin in rucksack` BEFORE leaving** — the S exit is gated on the napkin
+     (needed for the Pirate oven puzzle) else "something on the table you'll need".
+   - **Coffin scorpion** (room 42, `s s w w n` from 53): `search behind coffin`
+     (scorpion appears on coffin) → `knock scorpion off coffin`(+5, gauntlet
+     needed) → `stamp on scorpion`(+5) → `get scorpion`(auto-rucksacks) →
+     `search behind coffin` again (+5 lever) → `pull lever`(+5, `cl_LeverMoved=1`
+     unlocks the metal doors).
+   - **Bat** (room 47, `s e s`): entering auto-kicks something in the mist →
+     `search mist`(dead bat appears) → `get bat`(auto-rucksacks).
+   - **Leave**: `n e e` to 52 → `pull handle`(needs LeverMoved=1; doors open) →
+     `out` → **Rock Island** (Location90). The door-exit REQUIRES `cl_Bat1` +
+     `cl_Scorpion1` in the rucksack + gauntlet visible ("something left behind"
+     otherwise) — bat+scorpion are later given to the **herbalist** on Sankora
+     (`cl_GiveBatSco`, ingredients for a cure/powder).
+10. **Rock Island** (SOLVED, 150→155). Hub. `ne` to the boat, `get in boat`,
+    then **stow everything** (put tinderbox/card/gauntlet in rucksack; remove
+    gauntlet — worn gauntlet blocks rowing "both hands free"), `get telescope`,
+    `look SE through telescope`(+5 first-use `cl_TelescopeS`; the 4 dirs scout:
+    SE=Kong/gorillas, NE=Pirate/wharf, E=Sankora/houses, W blocked). Boat is
+    **beached**: on shore `push off` to float, then `row <dir>`. The E-side
+    **keypad device** (buttons 0-9) is the *return* door mechanism (code TBD).
+    Hint `cl_Island1` "Row SE first" → `row se` beaches on **Kong**.
+11. **Kong/Gorilla Island — recon** (SOLVED, 155→160; full puzzle DEFERRED, needs
+    the costume). Map: OnShore(E=124,In=boat); 124 Boundary(E=33,W=shore; has a
+    **sapling** = Sankora Paddy-tether later); 33 Forest`<1>`(N=32,W=124,NE=36);
+    32 Forest`<2>`(S=33,NE=34); 34 Small Clearing (**dung** appears after the
+    gorilla defecates; `cl_RollInDung`); 36 Forest`<3>`(N=34,E=37,SW=33);
+    37 Large Clearing (~12 gorillas + **rocky outcrop**, Up=54); 54 On Top of
+    Outcrop (the **glowing orange orb** `cl_Stone2` in a boulder-niche; Down=37).
+    - **Departure gate**: can't leave Kong until `cl_ObjectSeen=1` — at **room 36**
+      `look east through telescope` (see the outcrop/boulder/orb) then `x outcrop`
+      (+5 `cl_SeeStoneSc`). THEN back to shore, `push off`, `row n` → **Pirate**.
+    - REMAINING Kong (needs items from Pirate): wear **gorilla costume** +
+      `roll in dung`(+5 smell) to pass the gorillas; reach outcrop 54;
+      `take orb`(+5 `cl_TakeStone` — this **spawns the silverback at boundary 124**);
+      at 124 `burst bag`(+5, inflated paper bag scares it off — the "loud noise",
+      `cl_Gorillaisl10-12`; mirrors how Finn scared sister Polgara pre-dinner);
+      give the **wooden horse** to a mother gorilla → **ornament** (`cl_GiveHorseS`
+      +5). Then row on to Sankora with the orb.
+12. **Pirate Island — town** (IN PROGRESS from here, 160). Arrival = Pier 2 (55).
+    Town map: 55 Pier2(N=56); 56 Blubber Wharf(E=57,W=58); 57 East End Wharf
+    (N=59,S=61 Pier3); 58 West End Wharf(In=62 Warehouse); 59 Fisherman's Lane
+    (N=63); 61 Pier3 (**pull rope→box/metal case**, `cl_PullRope`+5,
+    `cl_OpenBoxSco`); 62 Warehouse (**newspaper**, `cl_ReadNewspa`+5); 63 Yardarm
+    St(E=67,W=64,In=81 Pie Place); 64 Yardarm St2(N=65,W=68,In=79 Bookshop);
+    65 Mansion House Rd(N=69); 66 Mannbroom's Academy (**learn to fight**,
+    `cl_LearnToFig1`; In from 68); 67 East End Yardarm(In=70 **Fancy Dress Shop**);
+    68(W=72,In=66); 69 By Large Mansion(E=74); 70 Fancy Dress Shop (**hire gorilla
+    costume, 120 gold**, `cl_HireCostum`+5); 72 Outside Davy Jones' Locker(In=73);
+    73 **Tavern** (menu/book, food ordering, **key** `cl_PutKeyOnHo`,
+    `cl_Attable*`); 74 Grand Drive(E=71 Portico,SE=75); 75 Path Around Mansion
+    (E=77); 76/78 **The Kitchen** (napkin-in-oven `cl_PutNapkinI`, `cl_Kitchen21`
+    "get the key"); 77 Back of Mansion(In=76); 79 **Bookshop** (`cl_BuyBookSco`);
+    81 Pie Place. **Economy**: gold starts 18 (from Your Room); need **120** for
+    the costume; **ring a bell** `cl_PullBellpu1` gives **+150 gold** (location
+    TBD, likely mansion); Sankora uses **goons** (money-change gold→goons,
+    `cl_ExchangeGo*` / `cl_MoneyChang` "don't exchange ALL your goons").
 
-- **Catacombs interior**: central aisle N=coffin room, S(cleared)=coffin niches
-  with one **empty niche (lowest)** = the custodian hiding spot (`cl_Niche12`
-  "hide beyond the spider"), E=toward the **Custodian's Chamber** (brighter
-  upright lights). WWDD: `cl_Coffin*` scorpion-on-a-coffin puzzle (knock it onto
-  the floor — protect your hand — then stamp/kill it before it escapes; something
-  behind the coffin); `cl_Cust*` custodian stealth (use the **telescope** to
-  watch him, hide in the empty niche, read the **ledgers** on his shelf → see a
-  **map** = `cl_SeeMapScor`/`cl_CustodianG`). Then a **boat** to the islands.
-- **Islands** (each a self-contained puzzle cluster; WWDD keys in parens):
-  Rock Island (`cl_Rockisland*`, row SE first), **Kong/Gorilla Island**
-  (`cl_Gorillaisl1-12`: gorilla-costume disguise + smell + paper-bag bang to scare
-  the gorilla, telescope, workbench/metal-case), **Pirate Island**
-  (`cl_Pier3*`, warehouse newspaper, book/menu/food-ordering at the tavern, key),
-  **Sankora Island** (`cl_BlankHint*`: disguise past guards, temple offering,
-  money-changing "don't exchange ALL your goons", feed the dog, rice-hat via
-  slingshot, farm/goat/dead-kid, herbalist). Win = `YouHaveWon` location.
+### Sections REMAINING to script
+
+- **Pirate Island** (12 above): buy/hire costume (need 120 gold → ring the bell
+  for +150), paper bag (from tavern food?), pull rope on Pier 3 → box, read
+  newspaper, tavern food+book+key, kitchen napkin-in-oven, learn to fight (?).
+- **Kong return** (11 above): costume+dung → outcrop → orb → burst-bag escape +
+  give-horse ornament.
+- **Sankora Island + endgame** (`cl_BlankHint*`): disguise past guards, temple
+  offering (flowers `cl_PutFlowers`), money-change, feed the dog (leash/collar,
+  `cl_FeedDogSco`/`cl_MakeLeash`), rice-hat via slingshot+stone (`cl_ThrowObjAt1`),
+  farm/goat/dead-kid, herbalist (give dead **bat**+**scorpion** → cure powder),
+  **temple orb swap** `cl_GetOrbInTe` (+25, `cl_StoneRepla=1`, Goons=500) →
+  `cl_ToEndgame` (+25 → **`YouHaveWon`**). Win marker TBD (grep `YouHaveWon`).
 
 ## Method / tooling (reuse for continuation)
 

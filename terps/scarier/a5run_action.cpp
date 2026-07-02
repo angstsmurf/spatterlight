@@ -1609,6 +1609,29 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               else
                 { st->char_onobj[ci] = k2; st->char_in[ci] = 0; }
             }
+          else if (to == "InsideObject" || to == "OntoObject")
+            {
+              /* clsUserSession MoveCharacterToEnum.InsideObject / OntoObject:
+                 the character stays at its current location but is now in/on the
+                 object (clsCharacterLocation.ExistsWhere InsideObject/OnObject).
+                 char_in distinguishes the two so BeInsideObject / BeOnObject
+                 read it back correctly -- e.g. FBA's `hide in niche`
+                 (MoveCharacter Player InsideObject cl_Niche1) which the custodian
+                 "goes past" check gates on. */
+              const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+              if (k2 != NULL)
+                { st->char_onobj[ci] = k2;
+                  st->char_in[ci] = (to == "InsideObject") ? 1 : 0; }
+            }
+          else if (to == "ToParentLocation")
+            {
+              /* clsUserSession MoveCharacterToEnum.ToParentLocation: drop out of
+                 the containing object back onto the floor of the SAME location
+                 (clsCharacter.Move ... the character's location is unchanged, only
+                 the on/in-object binding clears) -- FBA's `out` of the niche. */
+              st->char_onobj[ci] = NULL;
+              st->char_in[ci] = 0;
+            }
           else if (to == "ToSameLocationAs")
             {
               /* Place the character in the same place as the target character or
@@ -1683,7 +1706,7 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                   st->char_in[ci]    = tin;
                 }
             }
-          /* ToParentLocation / others: best-effort no-op for Phase 3 */
+          /* other MoveCharacterToEnum forms: best-effort no-op */
 
           /* clsCharacter.Move marks the destination location seen for the
              moving character; our set is player-centric (like obj_seen). */

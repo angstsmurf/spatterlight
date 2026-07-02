@@ -99,3 +99,78 @@ get fluff
 get tinderbox
 burn fluff with tinderbox
 throw fluff at web
+e
+e
+e
+n
+n
+run south
+run south
+run west
+run west
+run west
+run south
+hide in niche
+wait
+wait
+out
+n
+e
+e
+e
+n
+n
+x diagram
+get napkin
+wear napkin
+eat meal
+drink ale
+stand on chair
+read ledgers
+get gauntlet
+get off chair
+get card
+wear gauntlet
+get napkin
+put napkin in rucksack
+s
+s
+w
+w
+n
+search behind coffin
+knock scorpion off coffin
+stamp on scorpion
+get scorpion
+put scorpion in rucksack
+search behind coffin
+pull lever
+s
+e
+s
+search mist
+get bat
+n
+e
+e
+pull handle
+out
+ne
+get in boat
+put tinderbox in rucksack
+put card in rucksack
+remove gauntlet
+put gauntlet in rucksack
+row se
+e
+e
+ne
+get telescope
+look east through telescope
+x outcrop
+put telescope in rucksack
+sw
+w
+w
+push off
+row n
