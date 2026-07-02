@@ -11,18 +11,23 @@
 #     rendezvous already returns the player to the town centre as Erlin, from where
 #     North reaches the shuttle and triggers the win.
 #
-# *** SCARIER WINS WHERE FRANKENDRIFT (our ground truth) CANNOT. ***  Lance-Corporal
-# Davey's 3rd-floor office Meneltra sits past a pass-gated corridor whose <Movement>
-# carries an OR restriction (pass held OR worn, BracketSequence "(#O#)").  The real
-# ADRIFT Runner (per the author's own walkthrough) walks it once Davey holds the
-# pass -- and so does Scarier: it moves N, reaches the conference room, retracts the
-# screen and kills the 5th Meneltra.  FrankenDrift instead drops that movement
-# ("Sorry, I didn't understand that command.") once the pass restriction passes, so
-# FD caps at 4/6 kills, 65/100, and never reaches the win.  This script therefore
-# has NO FrankenDrift MATCH golden; it is validated by Scarier's own winning
-# transcript (test/BugHuntOnMenelaus_expected.txt) instead.  The engine change that
-# unlocked it is MoveCharacter ToSwitchWith / BECOME player-switching (previously a
-# no-op in Scarier, so every marine stayed stuck in the captain's basement).  See
+# Lance-Corporal Davey's 3rd-floor office Meneltra sits past a pass-gated corridor
+# whose <Movement> carries an OR restriction (pass held OR worn, BracketSequence
+# "(#O#)").  The real ADRIFT Runner (per the author's own walkthrough) walks it once
+# Davey holds the pass -- and so does Scarier: it moves N, reaches the conference
+# room, retracts the screen and kills the 5th Meneltra.
+#   FrankenDrift ORIGINALLY dropped that move ("Sorry, I didn't understand that
+# command.") after the elevator -- the known ADRIFT Runner v5.0.35 bug fixed in
+# v5.0.36 (game hint thread: intfiction.org/t/63289).  Root cause in FD:
+# cl_PlayerMove1's bracket sequence indexes past its restriction list, PassSingle-
+# Restriction got a Nothing, restx.Copy threw an NRE, and GetGeneralTask's catch
+# aborted the whole turn -> "didn't understand".  FIXED in FrankenDrift
+# (FrankenDrift.Adrift/clsUserSession.vb: guard `If restx Is Nothing Then Return
+# False`).  FD now walks the corridor and WINS 100/100, so this is an FD MATCH
+# (0 vanilla; 2 xoshiro = a minor `read sign` parser divergence).  The Scarier-side
+# engine change that first unlocked the game was MoveCharacter ToSwitchWith / BECOME
+# player-switching (previously a no-op, so every marine stayed stuck in the
+# captain's basement).  See
 # TODO_a5_walkthrough_wiring.md and TODO_a5_walkthrough_bugs.md.
 o
 n

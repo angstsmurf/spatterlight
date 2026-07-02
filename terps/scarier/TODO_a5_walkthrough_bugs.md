@@ -191,14 +191,30 @@ pass", not "Lance-Corporal Davey pick up the pass".
 
 **Result:** Scarier plays the full game to `*** CONGRATULATIONS! *** …the maximum
 100 points!` (all 6 Meneltra, 69 turns) — including Lance-Corporal Davey's
-3rd-floor Meneltra, which FrankenDrift can't reach (its pass-gated corridor OR
-restriction drops the movement once the pass is held; FD caps at 4/6, 65/100). So
-Scarier *surpasses* FD here: wired `0|23` against Scarier's own winning golden,
-the 23 xoshiro hunks being the documented FD gap (RNG-independent). All 20 golden
-games stay byte-identical — zero regressions. Files: `a5state.{h,cpp}`,
-`a5run_action.cpp`, `a5text.cpp`, `a5restr.cpp`, `a5run_events.cpp`. (Also added an
+3rd-floor Meneltra, past a pass-gated corridor. All 20 golden games stay
+byte-identical — zero regressions. Files: `a5state.{h,cpp}`, `a5run_action.cpp`,
+`a5text.cpp`, `a5restr.cpp`, `a5run_events.cpp`. (Also added an
 `A5_DUMP_XML=<path>` env in `a5model_load` that writes the deobfuscated/inflated
 game XML — handy for auditing task actions like this one.)
+
+**FrankenDrift fix (2026-07-02): FD originally could NOT finish this game — it was
+wired `0|23` as "Scarier surpasses FD".** After the elevator, Davey's N/S move
+into the pass-gated corridor died with "Sorry, I didn't understand that command.",
+capping FD at 4/6 kills / 65/100. This is the **known ADRIFT Runner v5.0.35 bug,
+fixed in v5.0.36** (the game's own hint thread, intfiction.org/t/63289, has a
+player hitting exactly this and being told to upgrade). Traced FD's headless
+engine: `cl_PlayerMove1`'s bracket sequence indexes past its loaded restriction
+list, so `EvaluateRestrictionBlock` hands `PassSingleRestriction` a `Nothing`;
+`restx.Copy` threw a `NullReferenceException`, and `GetGeneralTask`'s `Try/Catch`
+swallowed it and returned no task → "didn't understand" → movement silently
+failed. **Fixed in FrankenDrift** (`FrankenDrift.Adrift/clsUserSession.vb`,
+`PassSingleRestriction`): `If restx Is Nothing Then Return False` — a null
+restriction fails closed (exactly what the old catch fell through to), without the
+crash that aborted the whole task-selection pass. FD now walks the corridor and
+**wins 100/100** too. Corpus re-verified: every other game byte-identical at
+baseline; BugHunt xoshiro budget `23 → 2` (re-blessed in the MAP), the residual 2
+being a minor Scarier-vs-FD `read sign` parser divergence, newly reachable only
+because FD now completes the game.
 
 ## ⭐ DwarfOfDirewoodForest → wired 0|0 MATCH: plural `%objects%` bind clobbered the singular `%object%` container reference  ✅ DONE (2026-07-02)
 

@@ -451,15 +451,23 @@ FILTER="${1:-}"
 # not by name.  All 20 golden games stay byte-identical (player_key == "Player"
 # until a BECOME, and no other game uses BECOME) -- zero regressions.
 #   With that, Scarier plays the WHOLE game to "*** CONGRATULATIONS! *** ...the
-# maximum 100 points!" (all 6 Meneltra, 69 turns).  FrankenDrift CANNOT: Davey's
-# 3rd-floor Meneltra is past a pass-gated corridor whose <Movement> OR restriction
-# ("(#O#)") FD drops once the pass is held ("Sorry, I didn't understand that
-# command."), capping FD at 4/6 kills / 65/100.  So there is NO FD MATCH golden;
-# the vanilla column strict-diffs Scarier's own winning transcript
-# (test/BugHuntOnMenelaus_expected.txt, budget 0 = must stay a win), and the
-# xoshiro column carries the FD differential (23, RNG-independent) as the DOCUMENTED
-# FD gap -- it also guards the pre-Davey kills, which still match FD, so a rise
-# above 23 would flag a real Scarier regression there.  See
+# maximum 100 points!" (all 6 Meneltra, 69 turns).
+#   (UPDATE 2026-07-02) FrankenDrift originally could NOT: Davey's 3rd-floor
+# Meneltra is past a pass-gated corridor, and after taking the elevator any N/S
+# move died with "Sorry, I didn't understand that command." -- this is the known
+# ADRIFT Runner v5.0.35 bug that was fixed in v5.0.36 (see the game's hint thread,
+# intfiction.org/t/63289).  FD reproduced it because its GetGeneralTask aborted on
+# an NRE: cl_PlayerMove1's bracket sequence indexes past its loaded restriction
+# list and hands PassSingleRestriction a Nothing, and restx.Copy threw.  FIXED in
+# FrankenDrift (FrankenDrift.Adrift/clsUserSession.vb, PassSingleRestriction: guard
+# `If restx Is Nothing Then Return False` -- a null restriction fails closed, the
+# same result the old catch fell through to, without the crash that aborted task
+# selection).  FD now walks the corridor and WINS 100/100 too.  The xoshiro budget
+# dropped 23 -> 2; the residual 2 are a minor Scarier-vs-FD parser divergence on
+# `read sign` (Scarier "You can't see the sign." vs FD "Sorry, I'm not sure which
+# object you are trying to read."), newly reachable only because FD now completes
+# the game.  vanilla column strict-diffs Scarier's own winning transcript
+# (test/BugHuntOnMenelaus_expected.txt, budget 0 = must stay a win).  See
 # TODO_a5_walkthrough_wiring.md.
 #
 # (2026-07-02) MaroonedOnMazoomah (Larry Horsfield, 2010): the walkthrough script
@@ -500,7 +508,7 @@ LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
-BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|23
+BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
 Tribute|Tribute.blorb|0|0
 EOF
 )
