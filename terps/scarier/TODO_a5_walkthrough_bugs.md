@@ -1,5 +1,22 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+**STATUS (2026-07-02): no OPEN conformance bugs.** All 24 wired games are at
+their best-known state (see the MAP in `test/run_a5_walkthroughs.sh`): 19 are
+golden-backed **0|0 MATCH** in both RNG modes; the 5 DIVERGE rows are
+explained-and-bounded, not open bugs — StoneOfWisdom 2|0, JacarandaJim 99|0,
+SixSilverBullets 18|0 and LostLabyrinthOfLazaitch 8|0 are vanilla-only
+System.Random-vs-xoshiro RAND text picks (their xoshiro columns, the real
+conformance metric, are clean), and BugHuntOnMenelaus 0|23 is the documented
+FD gap (Scarier wins 100/100 where FD is blocked; the 23 hunks are FD falling
+short of Scarier's own winning golden, which backs its vanilla column). New
+work comes from wiring more games — see `TODO_a5_walkthrough_wiring.md`
+(FinnsBigAdventure derivation in progress, Magor/Xanix need blind
+play-to-win, 5 games have no walkthrough material).
+
+Entries below are a reverse-chronological log; each keeps the knowledge it was
+written with, so an older entry's "residual/deferred/OPEN" notes may be
+superseded by a newer entry above it.
+
 ## ⭐ Tribute → full MATCH: a game ALR that blanks a message must keep its paragraph slot (pre-ALR `bHasOutput`)  ✅ DONE (2026-07-02)
 
 **Tribute 2|2 → 0|0** (full MATCH both RNG modes, golden
@@ -729,10 +746,11 @@ runtime-override-precedence class as the earlier "Object `HaveProperty` ignored
 the runtime SetProperty layer" fix — `PropertyValue` was the remaining read site
 still on the static-only path.
 
-**Residual (Amazon 34): all `Date:`/time lines — deferred, fully diagnosed.** Two
+**Residual (Amazon 34): all `Date:`/time lines — deferred, fully diagnosed
+(since DONE 2026-06-30, see the two entries above; Amazon is 0|0).** Two
 coupled manifestations, both in the `ts_*` time subsystem; both need the
 high-risk per-turn response-aggregation work flagged below ("Per-command response
-aggregation … single/movement path OPEN"):
+aggregation … single/movement path"):
   1. **Missing extra `Date:` display lines** (startup `12:04`; the day-3 cut-thicket
      line; the totem carriers-flee re-look; etc.). FD's `Execute Look` runs the
      `Look` override `Beforeplay1` → `Execute ts_tasCheckTime`, emitting a `Date:`
@@ -1620,7 +1638,10 @@ standing up to do that." (gown peeled). **TreasureHuntInTheAmazon 47→42**,
 (arith/parse/dis/walk/**obj**/save + Six Silver Bullets golden); budgets
 re-blessed.
 
-**Still OPEN (the other half — the dedup-of-identical-messages mechanism #2):**
+**~~Still OPEN~~ → since DONE (the other half — the dedup-of-identical-messages
+mechanism #2): closed 2026-06-30 by the two entries above, "Per-turn response
+aggregation on the movement path" and "Event-fired task iterates the leftover
+plural reference"; Amazon is a 0|0 MATCH.** Original note as written:
 the Amazon residual 42 is now almost entirely **`Date:`/time lines** — the
 off-by-one-minute clock drift (day 5+, see sub-bug below) plus the **startup
 `Date:` lines FD shows and Scarier omits** (StartGame → Execute Look →

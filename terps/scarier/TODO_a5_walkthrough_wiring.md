@@ -28,11 +28,11 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 
 | game | built-in? | native solution status |
 |---|---|---|
-| ThingsThatGoBumpInTheNight | WALKTHROUGH | ✅ **WIRED** (8\|8) — 3 cut-scene corrections |
+| ThingsThatGoBumpInTheNight | WALKTHROUGH | ✅ **WIRED + FIXED 2026-07-02** (8\|8 → **0\|0 MATCH**, golden) — 3 cut-scene corrections |
 | **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (403\|403 → **8\|0, xoshiro FULL MATCH**) — full 520-pt win, ZERO corrections (see below) |
 | BugHuntOnMenelaus | WALKTHROUGH | ✅ **WIRED + FULL WIN 2026-07-02** (`0\|23`) — Scarier wins 100/100 where FD can't; see below |
 | DwarfOfDirewoodForest | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (0\|0 conformance MATCH — but FD-trapped, NOT a win; see below) |
-| TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 DIVERGE, RNG-independent) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
+| TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 → **0\|0 MATCH**, golden) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
 | FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02).** The HELP/VOCAB text advertises "WALKTHROUGH (WT)" but **no task backs that command** — `a5dump` has no `cl_Walkthroug*` printer task (only an unrelated `cl_Walkthroug5` location-trigger System event) and no `[wt]`/`[walkthrough]` Command anywhere; typing `wt` in-game just loops the intro handshake. The same intro says "a walkthrough is available on request (type HELP)" → **email-only**. Blind-play like Magor/Xanix (see hints-only group below). |
 | MagorInvestigates / XanixXixonResurgence | none | only the email-on-request note |
 
@@ -137,7 +137,7 @@ System.Random-vs-xoshiro riding-variant picks (RNG-bound, like JacarandaJim /
 SixSilverBullets), so no vanilla golden. See `TODO_a5_walkthrough_bugs.md` (top
 entry, DONE) for the full write-up.
 
-### ⭐ TheEuripidesEnigma — native solution wired (11|11 DIVERGE); the `4` was a red herring + an exponential ALR-recursion hang fixed
+### ⭐ TheEuripidesEnigma — native solution wired (11|11 → 0|0 MATCH); the `4` was a red herring + an exponential ALR-recursion hang fixed
 
 Extracted straight from the `cl_Walkthroug1` task, `o`/`b` prepended, annotations
 stripped. **TWO corrections** (both verified against FrankenDrift, which now
@@ -168,23 +168,26 @@ the depth-8 cap (~25⁸ calls). Ported FD's `If sText = sALR Then Exit For`
 (unprocessed) replacement. Scarier now finishes the full 400-pt win in ~1.8 s.
 
 The residual **11 hunks** (identical in both RNG modes ⇒ RNG-independent real
-bugs, no vanilla golden while it diverges) are three families of object-listing /
-render bugs: (a) a dropped object that the room's long description already names
-by prose ("boom box"/"small drone") is *also* appended to the "Also here is …"
-auto-list; (b) a one-off doubled cliff-face description; (c) one movement-message
-wording variant. Catalogued in `TODO_a5_walkthrough_bugs.md`.
+bugs) were three families of object-listing / render bugs: (a) a dropped object
+that the room's long description already names by prose ("boom box"/"small
+drone") *also* appended to the "Also here is …" auto-list; (b) a one-off doubled
+cliff-face description; (c) one movement-message wording variant. **All fixed
+same day → 0|0 MATCH, golden `test/TheEuripidesEnigma_expected.txt`** — see the
+⭐ Euripides entry in `TODO_a5_walkthrough_bugs.md` (runtime ExplicitlyExclude,
+pass-text dedup, map-path DisplayOnce retire).
 
 ## Have a full walkthrough, need conversion to a command script
 
-- ~~**CallOfTheShaman**~~ ✅ **WIRED (2026-07-02).** Full 265-point win
-  (`*** CONGRATULATIONS! ***`) in both RNG modes; `3|3` MAP line, DIVERGE.
+- ~~**CallOfTheShaman**~~ ✅ **WIRED + FIXED (2026-07-02), 0|0 MATCH** (golden
+  `test/CallOfTheShaman_expected.txt`). Full 265-point win
+  (`*** CONGRATULATIONS! ***`) in both RNG modes.
   The source file is a ROT1-encoded *hint sheet* (not a turn-by-turn
   walkthrough), so — like StoneOfWisdom — the win script
   (`test/CallOfTheShaman_walkthrough.txt`) was derived by actually playing the
-  game to a win using the decoded hints as a route guide. The 3 residual hunks
-  are RNG-independent endgame-banner bugs (BUG 15: `%Turns%` not substituted +
-  leading-cap URL mangling) — see `TODO_a5_walkthrough_bugs.md` /
-  `A5_WALKTHROUGH_FINDINGS.md`. No golden committed while it diverges.
+  game to a win using the decoded hints as a route guide. The 3 original hunks
+  (RNG-independent endgame-banner bugs: `%Turns%` not substituted +
+  leading-cap URL mangling) were fixed same day — see the ⭐ Shaman entry in
+  `TODO_a5_walkthrough_bugs.md`.
 - ❌ **LostCoastlines** → `Lost_Coastlines.taf` — **NOT a walkthrough.** The
   `walkthroughs/LostCoastlines_walkthrough.pdf` (8.6 MB) is an image-only PDF
   containing a hand-drawn **nautical map feelie** (green coastlines + blue
@@ -208,17 +211,15 @@ navigation that tested nothing; assume the same risk here. The unlock for two of
 these is the **built-in `WALKTHROUGH` command** (see the ⭐ section above) — that
 gives a real solution to correct against FD, no blind play needed.
 
-- ~~**ThingsThatGoBumpInTheNight**~~ ✅ **WIRED (2026-07-02).** DIVERGE 8|8 (see
-  the harness MAP + `A5_WALKTHROUGH_FINDINGS.md`). Full max-score win
-  (`*** CONGRATULATIONS! ***`, 250/250, 310 turns) under FD, derived from the
+- ~~**ThingsThatGoBumpInTheNight**~~ ✅ **WIRED + FIXED (2026-07-02), 0|0 MATCH**
+  (golden `test/ThingsThatGoBumpInTheNight_expected.txt`). Full max-score win
+  (`*** CONGRATULATIONS! ***`, 250/250, 310 turns), derived from the
   game's built-in `WALKTHROUGH` with three cut-scene corrections (spurious intro
   `n` dropped; `snuffio`+`s` added so the guard patrol carries you to the Treasury
-  door in the dark — the exact intfiction.org/t/77639 sticking point). The 8 hunks
-  (identical both RNG modes) are a real Scarier bug: `drop all` over-expands the
-  bare `all` to every seen object (incl. worn/scenery/the location object) and
-  kills the player at the ravine, plus one dark-room `get dirt` line. Catalogued
-  in `TODO_a5_walkthrough_bugs.md` (OPEN) — fixing it likely takes TBN to a near
-  MATCH.
+  door in the dark — the exact intfiction.org/t/77639 sticking point). The 8
+  original hunks (`drop all` over-expansion killing the player at the ravine +
+  the dark-room `get dirt` line) were the BeExactText/SetTasks-Execute response
+  model — fixed same day, see the ⭐ TBN entry in `TODO_a5_walkthrough_bugs.md`.
 - ~~**BugHuntOnMenelaus**~~ ✅ **WIRED 2026-07-02 as a FULL WIN (`0|23`).** Scarier
   now plays it to `*** CONGRATULATIONS! ***` (100/100) via the built-in
   `WALKTHROUGH` once BECOME player-switching was implemented — and wins where FD
