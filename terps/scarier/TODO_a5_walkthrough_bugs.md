@@ -1,5 +1,36 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ `MoveCharacter … InsideObject / OntoObject / ToParentLocation` were unhandled no-ops (FBA custodian-niche stealth never hides the player)  ✅ DONE (2026-07-02)
+
+Surfaced deriving FinnsBigAdventure's catacombs. To evade the custodian you
+`hide in niche` (task `cl_LayInNiche`, action `MoveCharacter Character Player
+InsideObject cl_Niche1`), then two `wait`s while he shuffles past: the System
+task `cl_CustodianG` (Player `BeAtLocation 40` **AND** `BeInsideObject cl_Niche1`)
+fires "…he passes the niche…" +5 and sets `cl_CoastIsCle=1`; the competing
+higher-priority `cl_CaughtByCu` (Player at 40 **and NOT** inside `cl_Niche1`)
+fires the fake-ending "Gotcha, you little git!" loss. In Scarier the player was
+never actually placed inside the niche, so `cl_CaughtByCu` always won → guaranteed
+loss where FrankenDrift plays "custodian goes past".
+
+**Root cause** (`a5run_action.cpp`, the `MoveCharacter` action): the handler had
+cases for `ToLocation` / `ToLocationGroup` / `InDirection` /
+`ToStandingOn|ToSittingOn|ToLyingOn` / `ToSameLocationAs` / `ToSwitchWith`, but
+**none for `InsideObject`, `OntoObject`, or `ToParentLocation`** — those
+`MoveCharacterToEnum` forms fell through to the "best-effort no-op" tail. So the
+niche-hide silently did nothing (the completion message still printed, masking
+it), the player's `char_onobj`/`char_in` stayed unset, and next turn
+`BeInsideObject cl_Niche1` read false.
+
+**Fix**: added `InsideObject`/`OntoObject` (set `char_onobj[ci]=k2`,
+`char_in[ci] = InsideObject?1:0` — the character stays at its current location,
+mirroring `clsCharacterLocation.ExistsWhere InsideObject/OnObject`) and
+`ToParentLocation` (clears `char_onobj`+`char_in` back to the floor, same
+location — FBA's `out` of the niche). `BeInsideObject`/`BeOnObject` in
+`a5restr.cpp` already read `char_onobj`+`char_in`, so they now round-trip.
+Verified byte-identical to FD across the whole hide→wait→wait→out→loot sequence.
+**Corpus-clean**: all 25 games at baseline (vanilla), no new source files.
+Rebuild `make -f Makefile.headless a5run`.
+
 ## ⭐ "Which X?" disambiguation prompt lower-cased the candidate list before capitalising (ToProper bStrict=False)  ✅ DONE (2026-07-02)
 
 Surfaced by Marooned On Mazoomah's ambiguous `cut door with laser` command,
@@ -208,14 +239,34 @@ on it. Reset by `a5state_clear_refs` per match attempt.
 both RNG modes** (golden `test/DwarfOfDirewoodForest_expected.txt`, MAP line
 added). NOTE this is *conformance*, not a win: FD (ground truth) still cannot
 leave "By Guard Room" on the return visit — the `{*}` catch-all
-(`cl_NullAtStar`, PreventOverriding) preempts the room's ordinary North
-movement, which the real ADRIFT runner evaluates first — so both engines spend
-the last ~166 commands identically answering "Please press O then press
-Enter.". The pre-trap first act (cell escape, guard kill/loot/drag, `creep
-south`) is real gameplay coverage. If FD or Scarier ever adopts the real
-runner's movement-before-`{*}` precedence, the golden must be re-derived (and
-should then reach the win). No corpus game moved (all baselines hold in both
-modes); all a5 unit tests pass.
+(`cl_NullAtStar`, PreventOverriding) preempts the room's ordinary movement, and
+so do FD and Scarier, spending the last ~166 commands identically answering
+"Please press O then press Enter.". The pre-trap first act (cell escape, guard
+kill/loot/drag, `creep south`) is real gameplay coverage.
+
+**Verified faithful against the real ADRIFT 5 runner (jcwild/ADRIFT-5,
+`clsUserSession.vb`).** An earlier version of this note guessed the real runner
+"evaluates movement first" and that adopting a movement-before-`{*}` precedence
+would reach the win — that is **wrong**. `GetGeneralTask` iterates tasks in
+**ascending `Priority`** (lower number first) and, under the default
+`HighestPriorityTask` mode, the first matching task that passes wins outright
+(`GoTo FoundTask`); movement is a plain library task with no special ordering.
+In this game the priorities are `cl_NullAtStar` **44074** (`{*}` → regex
+`(.*?)?`, restricted only to `Player Must BeAtLocation cl_Location11`) vs the
+movement tasks `MovePlayer`/`GetOffBeforeMoving`/`PlayerMovement`
+**50235/50240/50242** — so `{*}` sorts *before* movement and blocks it, in the
+real runner too. It is authored as an intentional gate: the room's specific
+tasks all have low priorities (kill guard 5108, get kilt 5169, look-at-guard
+4036, and the intended bypass **`cl_CreepSouth` = `creep/tiptoe south`, 5173**),
+all `< 44074`, so they beat `{*}`, while generic `go <dir>` (~50240) cannot —
+you must *creep* past the guards, not walk. The `{*}` restriction carries no
+"guards alive"/first-visit condition, so it blocks generic movement there
+forever (a faithful authoring quirk). Reaching the win is therefore a
+walkthrough-script matter (`creep south` on the return visit), **not** an engine
+precedence bug — no golden re-derivation is warranted.
+
+No corpus game moved (all baselines hold in both modes); all a5 unit tests
+pass.
 
 ## ⭐ TheEuripidesEnigma → full MATCH: identity-ALR hang + runtime ExplicitlyExclude listing filter + per-command pass-text dedup + map-path DisplayOnce retire  ✅ DONE (2026-07-02)
 
