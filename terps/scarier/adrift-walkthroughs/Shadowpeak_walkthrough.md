@@ -514,14 +514,25 @@ Three roaming threats make the early overworld a timing puzzle. **Keep the openi
 short and don't linger outdoors** until they're handled:
 
 - **DRAGON (Shade, the black dragon)** — a roaming outdoor threat driven by
-  EVENT 116 (`dragononthemove`, starts at game start, period 4). In an *exposed*
-  room (chasm edge room 4, the Trees 1 / Up-a-tree 2) it appears after ~13 exposed
-  turns, then *"goes into a dive"* and **kills you ~2 turns later**. Stonehenge (0)
-  is a safe haven (pure waiting there spawns no dragon). **`hide from dragon`**
-  = **+10 (one-time, T386)** and makes Shade *"move on"* — so bank it early. The
-  dragon threat ends permanently once task 348 `fire` is done (room 68, much later;
-  all the dragon tasks gate on `fire` NOT-done). `examine dragon` says "no such
-  thing" — the +10 "examine" path (T387) is NOT this verb (dragon = "Shade").
+  EVENT 116 (`dragononthemove`; mechanics fully decoded 2026-07-02): random start
+  delay **29–31 turns**, then a **4-turn flyover** ("spots you" / "goes into a
+  dive"), and at the event **finish** it runs death task **T385** if you stand in
+  T385's room group — **most of the outdoors, INCLUDING Stonehenge** (the old
+  "henge is a safe haven" note is wrong: pure waiting there dies ~turn 33; it only
+  looked safe because the banked route hides by turn ~6). The event **restarts**
+  (~every 30+4 turns), each finish another death check, until task 348 `fire` is
+  done (room 68, much later; all the dragon tasks gate on `fire` NOT-done).
+  **`hide from dragon`** = **+10 (one-time, T386)** and **pauses EVENT 116
+  permanently** (PauseTask 388 −2 = T386) — so bank it early.
+  **`examine dragon` (+10, T387) IS obtainable but is MUTUALLY EXCLUSIVE with
+  T386** (verified live 2026-07-02): T387 needs the invisible `#~dragon counter`
+  (obj138) **HIDDEN** + T386 never done; the counter's only transition is one-way
+  81→hidden at an EVENT-116 finish, and hiding pauses the event before it ever
+  finishes. To bank T387 instead: never hide, shelter outside T385's room group
+  during the flyover finish (basilisk cave 34 works; room 56 is the only T387
+  room not in T385's group), then `examine dragon` outside → +10 with the full
+  description. Score-neutral swap (+10 either way) that trades away the pause —
+  you then live under the recurring flyover death-timer until `fire`.
 - **ROSSI the muck dweller (NPC29)** — a **serial thief** on a **fixed turn-based
   walk** (starts at room 13; traced path lingers at room 14 turns ~3-12, sweeps the
   swamp 15-26, then parks at the **henge room 0 turns ~30-39**, then returns toward
@@ -1204,5 +1215,14 @@ optional/missable extras — three unused fortune cards (+15, mutually exclusive
 handful (Alam Nadeer kill +20, examine-dragon +10, wolfy/rex/Margo/woody +5/+5/+5/+10)
 that sit inside the RNG-tuned early/mid route and would risk destabilising the win to
 chase. A win at 710 was banked instead.
+
+**Ceiling correction (2026-07-02):** examine-dragon (+10, T387) is obtainable but
+**mutually exclusive with `hide from dragon` (+10, T386)** — see the DRAGON hazard
+bullet for the decoded mechanics and the verified recipe — so it is NOT additive to
+a route that hides. The true score ceiling is therefore **≈755, not 790**:
+790 − 15 (fortune-card exclusivity) − 10 (fet-on-flowers needs the −10 Fetlar kill)
+− 10 (hide/examine exclusivity). Against the best banked run (killwraith 740) the
+genuinely chaseable remainder is the Alam Nadeer kill (+20) and whichever of the
+wolfy/rex/Margo/woody cluster that variant misses — all inside the RNG-tuned route.
 
 No engine code changed this session — pure walkthrough extension.
