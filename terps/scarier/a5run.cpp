@@ -291,6 +291,7 @@ a5run_new (const a5_adventure_t *adv)
   run->known_words = NULL;
   run->resp = NULL;
   run->ev_seen = NULL;
+  run->exec_scope = NULL;
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;

@@ -14,6 +14,7 @@
 
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "a5parse.h"
@@ -163,6 +164,37 @@ struct a5_run_s {
      direct command path the plural/movement resp_map already covers this; on the
      single-command path there is never a same-turn duplicate. */
   std::set<std::string> *ev_seen;
+
+  /* clsUserSession htblResponsesFail for a SetTasks-Execute'd task whose
+     restrictions fail WITH a message.  FD's ExecuteTask is a full
+     AttemptToExecuteTask: the failing restriction's sRestrictionText is
+     AddResponse'd (bPass=False), deduped by text, and displayed at the
+     response flush ONLY when no pass response carries the same reference
+     items (the pass-cancels-fail rule, clsUserSession.vb:804-849) -- in
+     either order, since the cancellation happens at flush.  Examples (TBN):
+       * dark-room `get dirt`: cl_TakeCharac passes silently, both its
+         `Execute cl_TakeObject/TakeObjects (%objects%)` fail on the
+         LightSources restriction -> "It is too dark to find the dirt."
+         shown once (dedup);
+       * `get grapnel`: the take override passes for the hooked grapnel (and
+         hides it), the follow-up `Execute TakeObjects` fails Visible on the
+         SAME object -> cancelled (pass after fail: Grandpa's flashlight,
+         where TakeFromLazy fails "not on or inside another object!" BEFORE
+         the plain take passes).
+     So the direct path buffers Execute-fail messages here (with the object
+     keys they were evaluated against) and flushes the survivors at the end
+     of the scope (run_general / attempt_event_task).  When the plural/
+     movement resp_map is active it handles fail responses itself instead. */
+  struct exec_resp_scope *exec_scope;
+};
+
+/* One SetTasks-Execute response scope (see exec_scope above). */
+struct exec_resp_scope {
+  std::set<std::string> pass_refs;   /* object keys of pass responses w/ output */
+  std::set<std::string> fail_seen;   /* text dedup (htblResponsesFail keying)   */
+  /* buffered fail messages, in order: text + the object keys bound when the
+     restriction failed (empty = never cancelled, always shown) */
+  std::vector<std::pair<std::string, std::vector<std::string>>> fails;
 };
 
 static inline int
@@ -233,5 +265,6 @@ void run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
                   sb_t *out);
 void update_seen (a5_state_t *st);
 int  conv_contains_word (const std::string &sentence, const std::string &check);
+void exec_scope_flush (a5_run_t *run, struct exec_resp_scope *sc, sb_t *out);
 
 #endif

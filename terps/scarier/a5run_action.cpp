@@ -133,6 +133,7 @@ static void run_action (a5_run_t *run, const char *kind, const char *body,
 static void emit_look (a5_run_t *run, sb_t *out);
 static std::string render_look_string (a5_run_t *run);
 static void emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out);
+static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 
 /* Conversation type bits (clsAction.ConversationEnum). */
 enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
@@ -900,6 +901,14 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
   resp_map rm;
   if (use_map) run->resp = &rm;
 
+  /* Per-command response scope for SetTasks-Execute'd tasks (FD's
+     htblResponsesPass/Fail, live for the whole AttemptToExecuteTask): buffers
+     Execute'd-task restriction-fail messages and cancels the ones whose
+     objects also produced a pass response, at the flush below. */
+  exec_resp_scope escope;
+  exec_resp_scope *prev_escope = run->exec_scope;
+  run->exec_scope = &escope;
+
   if (plural)
     {
       std::vector<const char *> items (st->ref_items,
@@ -922,7 +931,29 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
       execute_task_with_overrides (run, parent, refs, 0, out);
     }
 
+  run->exec_scope = prev_escope;
   if (use_map) { run->resp = NULL; resp_flush (run, &rm, out); }
+  exec_scope_flush (run, &escope, out);
+}
+
+/* Flush a SetTasks-Execute response scope: emit each buffered fail message
+   (in order) unless every object it was evaluated against also produced a
+   pass response -- FD's flush loop, clsUserSession.vb:804-849, where a fail
+   whose reference items all match a pass's is dropped and the survivors are
+   Display'd after the pass responses. */
+void
+exec_scope_flush (a5_run_t *run, exec_resp_scope *sc, sb_t *out)
+{
+  (void) run;
+  for (auto &f : sc->fails)
+    {
+      bool cancelled = !f.second.empty ();
+      for (auto &k : f.second)
+        if (!sc->pass_refs.count (k)) { cancelled = false; break; }
+      if (!cancelled)
+        { sb_pspace (out); sb_puts (out, f.first.c_str ()); }
+    }
+  sc->fails.clear ();
 }
 
 /* ------------------------------------------------------------ conversation */
@@ -1727,8 +1758,38 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                   std::vector<std::string> rnames = command_refs (tt);
                   for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
                     {
+                      /* FD's SetTasks handler (clsUserSession.vb:2188) passes a
+                         parameter that names the target task's own reference
+                         (`sParam = sRef`) STRAIGHT THROUGH -- the live
+                         clsNewReference object, items and sCommandReference
+                         intact.  So `Execute cl_TakeObject (%objects%)` keeps
+                         each item's original typed text ("all" under a bare
+                         `get all`), which is what lets the executed task's
+                         `MustNot BeExactText All` restriction fail silently per
+                         item (ThingsThatGoBumpInTheNight's take chain).  Mirror
+                         that by leaving the existing binding (key AND $text)
+                         untouched.  A computed argument (%ParentOf[..]%, a
+                         literal key) instead builds FD's UserDefinedRef, whose
+                         fresh items carry NO sCommandReference -- bind an empty
+                         typed text, not the key. */
+                      std::string an = args[i];
+                      { size_t b1 = an.find_first_not_of (" \t");
+                        size_t e1 = an.find_last_not_of (" \t");
+                        an = (b1 == std::string::npos)
+                               ? "" : an.substr (b1, e1 - b1 + 1); }
+                      if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
+                        {
+                          std::string base = an.substr (1, an.size () - 2);
+                          if (base == "object")    base = "object1";
+                          if (base == "character") base = "character1";
+                          if (base == "direction") base = "direction1";
+                          if (base == "number")    base = "number1";
+                          if (base == "text")      base = "text1";
+                          if (base == rnames[i])
+                            continue;                     /* pass the ref through */
+                        }
                       char *val = eval_arg_to_key (st, args[i]);
-                      bind_reference (st, rnames[i].c_str (), val, val);
+                      bind_reference (st, rnames[i].c_str (), val, "");
                       free (val);
                     }
                 }
@@ -1741,7 +1802,45 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               if (tti >= 0 && st->task_done[tti] && !tt->repeatable)
                 return;
               if (!a5restr_pass (st, tt->restrictions))
-                return;
+                {
+                  /* FD's ExecuteTask is a full AttemptToExecuteTask: a
+                     restriction failure DISPLAYS the failing restriction's
+                     message (AttemptToExecuteSubTask, clsUserSession.vb:1246
+                     `sMessage = sRestrictionText` -> AddResponse bPass=False,
+                     deduped by text in htblResponsesFail).  a5restr_pass just
+                     left that node in st->restriction_text (NULL for a
+                     message-less failure, e.g. `MustNot BeExactText All` under
+                     a bare `get all` -- those stay silent).  TBN's dark-room
+                     `get dirt` needs the emission: cl_TakeCharac passes but
+                     both Execute'd take tasks fail on the LightSources
+                     restriction with "It is too dark to find the dirt.". */
+                  const a5_xml_node_t *fm = st->restriction_text;
+                  if (fm != NULL)
+                    {
+                      char *fmsg = a5text_describe (st, fm);
+                      if (msg_has_output (fmsg))
+                        {
+                          if (run->resp != NULL)
+                            resp_add_text (run, fmsg, false);
+                          else if (run->exec_scope != NULL)
+                            {
+                              /* Buffer for the end-of-scope flush, where FD's
+                                 pass-cancels-fail rule is applied (a pass for
+                                 the same objects can arrive before OR after
+                                 this fail); dedup by text (htblResponsesFail
+                                 keying). */
+                              if (run->exec_scope->fail_seen.insert (fmsg).second)
+                                run->exec_scope->fails.push_back
+                                  (std::make_pair (std::string (fmsg),
+                                                   current_obj_ref_keys (st)));
+                            }
+                          else
+                            { sb_pspace (out); sb_puts (out, fmsg); }
+                        }
+                      free (fmsg);
+                    }
+                  return;
+                }
               /* FD's ExecuteTask is a full AttemptToExecuteTask, so the executed
                  task's own Specific overrides apply too -- e.g. the lazy
                  take-from-others re-dispatch lets PutSomeDry (the "skull" override
@@ -1883,6 +1982,33 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
 
 /* ------------------------------------------------------------- run one task */
 
+/* The object keys currently bound as this task-chain's %objects%/%object%
+   reference -- the ReferencedObjects pipe list when present, else the singular
+   ReferencedObject1.  Used for FD's pass-cancels-fail response rule (see
+   exec_pass_refs in a5run_internal.h). */
+static std::vector<std::string>
+current_obj_ref_keys (a5_state_t *st)
+{
+  std::vector<std::string> v;
+  const char *p = a5state_lookup_ref (st, "ReferencedObjects");
+  if (p != NULL && p[0] != '\0')
+    {
+      std::string cur;
+      for (const char *q = p; ; q++)
+        {
+          if (*q == '|' || *q == '\0')
+            { if (!cur.empty ()) v.push_back (cur); cur.clear ();
+              if (*q == '\0') break; }
+          else cur += *q;
+        }
+      return v;
+    }
+  p = a5state_lookup_ref (st, "ReferencedObject1");
+  if (p != NULL && p[0] != '\0')
+    v.push_back (p);
+  return v;
+}
+
 /* Render a completion message and emit it as one response: trailing whitespace
    (the newline the XML <Text> carries before </Text>) is trimmed so a "Before"
    message followed by a sub-task's output is not separated by a spurious blank
@@ -1932,6 +2058,12 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
           if (run->ev_seen->count (m)) { free (m); return; }
           run->ev_seen->insert (m);
         }
+      /* A pass response with output: record its bound object references for
+         the pass-cancels-fail rule (FD keys every AddResponse with the
+         subtask's reference keys and drops a fail whose refs all passed). */
+      if (run->exec_scope != NULL)
+        for (auto &k : current_obj_ref_keys (run->st))
+          run->exec_scope->pass_refs.insert (k);
       sb_pspace (out); sb_puts (out, m);
     }
   free (m);

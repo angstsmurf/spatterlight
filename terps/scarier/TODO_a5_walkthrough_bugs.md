@@ -130,49 +130,94 @@ fine):
    with off-by-N OneOf picks in task completion text, port the same dance to
    run_task's ordinary comp paths.
 
-## 🐞 ThingsThatGoBumpInTheNight — `drop all` over-expands to every seen object (fatal); dark `get dirt` silent  ⏳ OPEN (2026-07-02)
+## ⭐ ThingsThatGoBumpInTheNight → full MATCH: BeExactText refine/final two-phase dance + SetTasks-Execute reference pass-through + Execute'd-task fail messages (pass-cancels-fail scope)  ✅ DONE (2026-07-02)
 
-Surfaced by wiring **ThingsThatGoBumpInTheNight** (DIVERGE 8|8, identical in both
-RNG modes ⇒ two RNG-independent logic bugs). FrankenDrift plays the game's own
-built-in walkthrough (see `test/ThingsThatGoBumpInTheNight_walkthrough.txt`) to
-`*** CONGRATULATIONS! ***` (310 turns, max 250 points); Scarier diverges on:
+**TBN 8|8 → 0|0** (full MATCH both modes, golden
+`test/ThingsThatGoBumpInTheNight_expected.txt`; budget re-blessed) — the game
+now plays its native 310-turn WALKTHROUGH byte-for-byte to
+`*** CONGRATULATIONS! ***`. No corpus game moved in either mode (all 14 other
+MATCH games hold 0/0 — incl. GrandpasRanch, whose golden was the specific
+regression the fail-message work had to clear; StoneOfWisdom 2/0, JacarandaJim
+99/0, SixSilverBullets 18/0, LostLabyrinth 8/0, Euripides 11/11 unchanged at
+their baselines), all a5 unit tests pass (run/arith/parse/dis/walk/obj/save +
+Six Silver Bullets golden), `make sanitize` clean, and the full TBN replay is
+ASan/UBSan-clean. Four faithful root causes, all in the `BeExactText` /
+`SetTasks Execute` response model:
 
-1. **`drop all` bare-`all` over-expansion (7 of 8 hunks; fatal).** At the ravine
-   (`End Of Ravine`) the walkthrough drops the loose held gear as bait before
-   climbing the rope. FD:
-   `Ok, you put down the sharp dagger, the bulb of garlic, the short thick stake,
-   the claw hammer, the wooden bucket and the triangular key.` — i.e. only the six
-   loose **held** items. Scarier instead:
-   `You are not holding the notebook, your pencil, your hiking boots, the travel
-   belt, ... the face, ... the wooden bucket, the cave and cl_Ravin.` — the bare
-   `all` expanded to **every seen object** (worn clothing, container contents, body
-   parts like "the face", scenery like "the cave", and even the *location* object
-   `cl_Ravin`), and the drop task then reports them all as not-held. Hands stay
-   full → `climb rope` → `Your hands need to be free if you want to do that.` (FD:
-   `You climb up the rope ...`) → the ravine beast kills the player: Scarier
-   `*** You have lost ***` (90/250, turn 184), so the entire remaining transcript
-   is missing.
+1. **The `drop all` fatal was FD's two-phase `BeExactText` dance, not the
+   narrowing tiers.** The library's `RemoveBeforeDrop` helper (P53773,
+   ContinueAlways) gates itself with `ReferencedObjects MustNot BeExactText All`
+   (restriction 5, NO message). FD's per-item Applicable refine binds a *fresh*
+   `clsSingleItem` whose `sCommandReference` is never set
+   (clsUserSession.vb:5766), so `BeExactText` always evaluates False there —
+   the MustNot PASSES during the refine (the worn/contained items survive) —
+   while the *final* post-refine `PassRestrictions` sees the surviving item's
+   original `"all"` command reference, fails restriction 5 **silently**
+   (`sRestrictionText = ""`), and GetGeneralTask falls through to the real
+   `DropObjects` task (P53781), whose `#A#A#A#A#` chain (exists / dynamic /
+   not-inside / not-on / held) narrows the bare `all` to exactly the six loose
+   held items. Scarier's `resolve_plural` bound the typed text (`$text` alias)
+   during the refine too, so **every** item failed restriction 5, the
+   none-passed reset blew the reference back up to all 25 seen objects, and the
+   fail-message re-evaluation (bound to the notebook, which is inside the bag)
+   short-circuited to restriction 4's "You are not holding %objects%.Name."
+   **Fixed** in `a5run_ref.cpp resolve_plural`: (a) the Applicable probe binds
+   an EMPTY typed text (FD's fresh item); (b) the final choose-and-check pass
+   iterates the **refined** item set (`cur`, FD's NewReferencesWorking) instead
+   of the original parse — identical for any task without BeExactText (the
+   probes re-derive the same set), so the blast radius is exactly the
+   BeExactText tasks.
 
-   This is *not* the already-fixed "Bare `all` narrowed by task restrictions"
-   item below — that narrows bare `all` per-item against the matched task's
-   restrictions (a5run_ref.cpp `resolve_plural`, Applicable/Visible/Seen tiers).
-   Here the narrowing does not exclude worn/scenery/location objects, so either
-   (a) the drop task Scarier matched carries no "held-by-player" restriction where
-   FD's does, or (b) the restriction evaluates as *passing* for non-held objects.
-   Needs runtime tracing of which task `drop all` binds and how its restrictions
-   evaluate per candidate; `expand_all_objects` seeding the candidate set from the
-   full `obj_seen` list is the entry point (a5run_ref.cpp:519). Regression risk is
-   real (18 games MATCH), so verify the whole corpus after any change.
+2. **`SetTasks Execute <task> (%objects%)` must pass a same-name reference
+   STRAIGHT THROUGH.** FD's SetTasks handler (clsUserSession.vb:2188
+   `sParam = sRef`) hands the live `clsNewReference` — items AND their
+   `sCommandReference` ("all") — to the executed task, and `ExecuteSubTasks`
+   threads each item's command text into the per-item restriction pass. So on
+   `get all`, the take chain's `cl_TakeObject` helper (first restriction
+   `MustNot BeExactText All`) is a silent per-item no-op, and `TakeObjects`'
+   `(#all A #not-inside A #not-on A #not-held A #not-worn) O #not-all` block
+   excludes the held bag's / worn jerkin's contents. Scarier's Execute
+   arg-binding did `bind_reference(rname, val, val)` — the `$text` became the
+   entity KEY — so the gates misfired and `get all` pulled the notebook/pencil/
+   fossy/coins OUT of carried containers (3 of the residual hunks, one root).
+   **Fixed** in `a5run_action.cpp`: an argument naming the target task's own
+   reference skips the rebind entirely (the live binding, key + `$text`, flows
+   through); a computed argument (`%ParentOf[..]%`, literal key) binds an
+   EMPTY typed text (FD's UserDefinedRef items carry no sCommandReference).
 
-2. **`get dirt` in the dark ringbolt room is a silent no-op (1 hunk).** In the
-   unlit block-passage the walkthrough feels its way (`feel blocks`, `rub dirt in
-   scratches`, `turn ... bolt ...` all work by touch). FD answers `get dirt` with
-   `It is too dark to find the dirt.`; Scarier prints nothing. A dark-scope `get`
-   of a non-held object should emit the too-dark message rather than succeed
-   silently / drop the line.
+3. **An Execute'd task whose restrictions fail WITH a message must show it.**
+   FD's `ExecuteTask` is a full `AttemptToExecuteTask`: the failing
+   restriction's `sRestrictionText` is AddResponse'd (bPass=False) into
+   `htblResponsesFail`. Scarier's `SetTasks Execute` gate returned silently, so
+   the dark ringbolt-room `get dirt` printed nothing where FD emits
+   `It is too dark to find the dirt.` (the LightSources restriction message in
+   the take chain — cl_TakeCharac passes with no output, both its Execute'd
+   take tasks fail on it). **Fixed** with a new per-command
+   `exec_resp_scope` (a5run_internal.h; installed in `run_general` and
+   `attempt_event_task`, mirroring htblResponsesPass/Fail's lifetime): the
+   Execute-fail message is taken from `st->restriction_text` (already set by
+   the failing `a5restr_pass` — NO re-evaluation, so no RNG re-draws), deduped
+   by text, and **buffered to an end-of-scope flush**.
 
-See `test/A5_WALKTHROUGH_FINDINGS.md` and the MAP comment in
-`test/run_a5_walkthroughs.sh`. No golden committed while it diverges.
+4. **The flush applies FD's pass-cancels-fail rule** (clsUserSession.vb:804-849:
+   a fail response is displayed only when NO pass response carries the same
+   reference items — in either order, since FD cancels at Display time). The
+   scope records the bound object keys of every completion message emitted with
+   output; a buffered fail whose objects all passed is dropped. This is what
+   keeps (a) TBN's `get grapnel` clean — the take override passes for the
+   hooked grapnel *and hides it*, then the follow-up `Execute TakeObjects`
+   fails Visible on that same object (fail after pass) — and (b) Grandpa's
+   Ranch `get flashlight` — `cl_TakeObject2` fails "The flashlight is not on
+   or inside another object!" BEFORE `TakeObjectFromLocation` passes (fail
+   before pass; this was the one corpus regression the eager first version
+   hit). When the plural/movement resp_map is active it handles fail entries
+   itself (same dedup + item-cancel machinery).
+
+**FOOTGUN kept for later:** FD's `BeExactText` reads the *per-item*
+`sCommandReference`, so `drop all except dagger` items still carry `"all"`;
+Scarier's `$text` holds the whole reference capture (`"all except dagger"`),
+which would evaluate differently. No corpus game exercises it; if one ever
+does, thread per-item command texts through `match_objects`.
 
 ## ⭐ CallOfTheShaman → full MATCH: `%turns%`/`%Turns%` built-in + markup-aware leading-cap (room-view cap on marked-up buffer; boundary re-cap drops line-start rules)  ✅ DONE (2026-07-02)
 

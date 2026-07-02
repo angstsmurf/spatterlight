@@ -364,26 +364,33 @@ FILTER="${1:-}"
 # RNG-independent logic bugs (same count in both columns) from RNG-stream noise
 # (xoshiro lower).  A xoshiro count BELOW vanilla means real RAND divergence
 # collapsed once the streams aligned -- the truer conformance number.
-# (2026-07-02) ThingsThatGoBumpInTheNight wired -> DIVERGE 8|8 (identical in both
-# RNG modes => two RNG-independent Scarier bugs, no RNG noise).  The winning
-# 310-turn / max-250-point script was derived from the game's OWN built-in
-# WALKTHROUGH command (type WALKTHROUGH at the start menu -- it prints the whole
-# solution as a " - "-list ending "GAME COMPLETED"), with three built-in moves
-# corrected for this build's scripted cut-scenes (see the script header comment).
-# FrankenDrift plays it to "*** CONGRATULATIONS! ***"; Scarier diverges on:
-#   (1) `drop all` over-expands the bare "all" to EVERY seen object -- worn
-#       clothing, containers, scenery ("the face", "the cave") and even the
-#       location object `cl_Ravin` -- and reports "You are not holding ..." instead
-#       of dropping only the loose held items (FD drops just the 6:  dagger,
-#       garlic, stake, hammer, bucket, key).  Hands stay full -> `climb rope`
-#       fails ("Your hands need to be free ...") -> the ravine beast kills the
-#       player (Scarier "*** You have lost ***", 90/250, turn 184), so the whole
-#       remaining transcript is missing = 7 of the 8 hunks.  Root cause lives in
-#       a5run_ref.cpp expand_all_objects / the drop-task restriction narrowing.
-#   (2) `get dirt` in the unlit ringbolt room is silently a no-op where FD prints
-#       "It is too dark to find the dirt." = the remaining 1 hunk.
-# Both catalogued in TODO_a5_walkthrough_bugs.md / A5_WALKTHROUGH_FINDINGS.md;
-# no golden committed while it diverges.
+# (2026-07-02) ThingsThatGoBumpInTheNight wired at DIVERGE 8|8, FIXED same day ->
+# MATCH 0|0 (golden committed).  The winning 310-turn / max-250-point script was
+# derived from the game's OWN built-in WALKTHROUGH command (type WALKTHROUGH at
+# the start menu -- it prints the whole solution as a " - "-list ending "GAME
+# COMPLETED"), with three built-in moves corrected for this build's scripted
+# cut-scenes (see the script header comment).  Both engines now play it
+# byte-identically to "*** CONGRATULATIONS! ***".  Four faithful fixes, all in
+# the BeExactText / SetTasks-Execute response model (see
+# TODO_a5_walkthrough_bugs.md for the full write-up):
+#   (1) resolve_plural's Applicable refine now probes with an EMPTY typed text
+#       (FD's fresh clsSingleItem has no sCommandReference), so `MustNot
+#       BeExactText All` passes during the refine and only fails afterwards --
+#       the library RemoveBeforeDrop helper then fails SILENTLY on `drop all`
+#       and the scan falls through to the real DropObjects task (which was the
+#       fatal every-seen-object over-expansion);
+#   (2) the final resolve_plural pass iterates the REFINED item set (FD's
+#       NewReferencesWorking), not the original parse;
+#   (3) `SetTasks Execute <task> (%objects%)` passes a same-name reference
+#       STRAIGHT THROUGH (key and typed text; FD vb:2188), and a computed arg
+#       binds an empty typed text -- so the Execute'd take-chain helpers see
+#       the original "all" and their BeExactText gates behave;
+#   (4) an Execute'd task whose restrictions fail WITH a message now shows it
+#       (FD's ExecuteTask is a full AttemptToExecuteTask) via a per-command
+#       response scope implementing htblResponsesFail's text dedup and the
+#       pass-cancels-fail flush rule -- fixes the dark-room `get dirt` ("It is
+#       too dark to find the dirt.") without leaking cancelled fails (Grandpa's
+#       flashlight "not on or inside another object!", TBN's taken grapnel).
 #
 # (2026-07-02) LostLabyrinthOfLazaitch wired -> initially DIVERGE 403|403.  The
 # full 520-point win script is the game's OWN built-in walkthrough (Larry
@@ -432,7 +439,7 @@ JacarandaJim|JacarandaJim.blorb|99|0
 SixSilverBullets|SixSilverBullets.blorb|18|0
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
-ThingsThatGoBumpInTheNight|TBN v.2.blorb|8|8
+ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|11|11
 EOF

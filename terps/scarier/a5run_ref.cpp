@@ -710,14 +710,24 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
      over the per-item candidate sets and, if an Item survives ambiguous, surface
      it here -- the resolved/none-passed machinery below only runs when every Item
      is unique. */
+  std::vector<std::vector<std::string>> cur = items;
   {
-    std::vector<std::vector<std::string>> cur = items;
-
     /* Applicable: keep, per Item, the candidates that pass the restrictions with
        that single key bound (a key already kept in an earlier Item is not added
        again -- FD's global lAdded).  Items with no surviving candidate are
        dropped; if *every* Item is dropped, the whole reference resets to its
-       original Items (so a Count>1 Item is preserved). */
+       original Items (so a Count>1 Item is preserved).
+
+       The per-candidate probe binds an EMPTY typed text: FD's refine builds a
+       fresh single-key clsSingleItem whose sCommandReference is never set
+       (clsUserSession.vb:5766 itmSingle0), so a `BeExactText` restriction always
+       evaluates False here -- `MustNot BeExactText All` PASSES during the refine
+       and only fails at the post-refine task evaluation, where the surviving
+       item's original "all" command reference is visible again.  That two-phase
+       dance is what keeps the library's RemoveBeforeDrop helper alive through
+       the refine on `drop all` (its worn/contained items survive) yet failing
+       silently afterwards (restriction 5 has no message), so the scan falls
+       through to the real DropObjects task (ThingsThatGoBumpInTheNight). */
     {
       std::vector<std::vector<std::string>> nr;
       std::vector<std::string> added;
@@ -726,7 +736,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
           std::vector<std::string> out;
           for (auto &k : item)
             {
-              bind_reference (st, "objects", k.c_str (), text.c_str ());
+              bind_reference (st, "objects", k.c_str (), "");
               if (a5restr_pass (st, t->restrictions)
                   && std::find (added.begin (), added.end (), k) == added.end ())
                 { out.push_back (k); added.push_back (k); }
@@ -769,9 +779,16 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
         }
   }
 
-  /* Choose one key per item; keep the items whose key passes the restrictions. */
+  /* Choose one key per item; keep the items whose key passes the restrictions.
+     Iterate the REFINED set (FD's NewReferencesWorking after the tiered refine),
+     not the original parse: when the Applicable tier kept a subset, FD's final
+     PassRestrictions only ever sees those survivors.  For a task without
+     BeExactText this is the same set the restrictions re-derive from the
+     original items (the probes are identical), so nothing moves; it only
+     matters when the refine's empty-typed-text probe diverges from the final
+     evaluation (RemoveBeforeDrop's `MustNot BeExactText All` above). */
   std::vector<std::string> chosen, all_keys;
-  for (auto &cand : items)
+  for (auto &cand : cur)
     {
       std::string pick = pick_item_key (st, cand);
       if (pick.empty ()) continue;

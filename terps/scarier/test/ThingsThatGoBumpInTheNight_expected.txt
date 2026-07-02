@@ -1,0 +1,2061 @@
+Things That Go Bump In The Night!
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it. There is also the possibility of sudden death.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+I do hope, however, that you will give it a try! A full walkthrough is available on request (type HELP).
+
+Many thanks.
+
+Larry Horsfield
+
+If you have already started the game, you can load a saved game
+By clicking on the blue folder in the toolbar above.
+Please type C then press Enter to continue.....
+
+> c
+THINGS THAT GO BUMP IN THE NIGHT!
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To read the Prologue, type P and press Enter.
+
+To Begin the game from the first location, type B and then Enter.
+
+You are highly advised to read the playing instructions, especially if you are starting this game for the first time. To do this, when you are playing the game type INST and then Enter.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. As ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the font colour to CYAN. You can adjust these colours by clicking on VIEW in the toolbar above and selecting "Options"
+
+Useful Commands After The Adventure Has Started:
+
+COMMANDS : CREDITS : HELP : MACROS : MAP : MISSION : VOCAB;
+
+> b
+
+Your Bedroom
+You are in your room in your family chambers within Domreil Castle. There is a chest at the foot of your bed and a square table sits opposite with a chair beside it. There is a fireplace in the west wall, while at the other end of the room is the door to the lounge, which leads Out. Your dressing room is to the North.  Also here are your slippers.
+
+Don't forget to use the LUMINO spell to light your way in the dark.
+
+You hear a frightened shout from Finn:
+
+"Mom! The monster's in the living room!"
+
+Maybe you should go Out into the living room to investigate?!
+
+> Out
+You move Out.
+
+Your Lounge
+You are in the lounge of your family chambers in Domreil Castle. The door to the corridor on the south side of the room, which leads Out, is closed. Your bedroom is to the west and you can go In to it.  Your children, Finn and Pol are here, Pol is hiding behind Finn - they both look terrified. Standing behind them is Tilly, your live-in maid, who stands there, her eyes wide in horror.
+
+As you enter your lounge you are just in time to see a tall, thin, black-clad figure go through the thick door to the corridor!
+
+Leaving Tilly to guard the children, you run to the door, pull it open and, dashing into the corridor, look around.
+
+The Castle Corridor
+You are in a corridor in Domreil castle, by the door to your family chambers which you can go In to. The corridor goes West, and to the East there is a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly. It's quite cold down here in the lower floors of the castle.
+
+As you look either way along the corridor you see the figure standing in the spiral stairway to the east. The figure looks directly at you and smiles, revealing extra long canine teeth, which sends a shiver of fear rippling down your spine.
+
+As you stand there, frozen in astonishment and fear, the figure nods, smiles again and then disappears down the spiral stairway.
+
+> in
+Opening the door, you go In and close the door behind you.
+
+Your Lounge
+You are in the lounge of your family chambers in Domreil Castle. The door to the corridor on the south side of the room, which leads Out, is closed. Your bedroom is to the west and you can go In to it.  Your children, Finn and Pol are here, Pol is hiding behind Finn - they both look terrified. Standing behind them is Tilly, your live-in maid, who stands there, her eyes wide in horror.
+
+"Did you see that?" squeals Tilly.
+
+"I told you I saw a figure!" Finn shouts excitedly.
+
+"Take them back to bed," you tell Tilly. "I'll deal with this!"
+
+You look at Paddy and say "Guard!", which he understands to mean guard the children.
+
+Tilly ushers the children and the dog into their rooms, closing the door behind her.
+
+Your Lounge
+You are in the lounge of your family chambers in Domreil Castle. The door to the corridor on the south side of the room, which leads Out, is closed. Your bedroom is to the west and you can go In to it.
+
+> in
+Opening the door, you go In and close the door behind you.
+
+Your Bedroom
+You are in your room in your family chambers within Domreil Castle. There is a chest at the foot of your bed and a square table sits opposite with a chair beside it. There is a fireplace in the west wall, while at the other end of the room is the door to the lounge, which leads Out. Your dressing room is to the North.  Also here are your slippers.
+
+Back in the sanctity of your bedroom, you stand for a few minutes, trying to make sense of what you have just witnessed.
+
+Finngor wasn't dreaming after all...is there really a vampire running around the castle, terrifying young children? You haven't heard any reports from anyone else about the creature.
+
+'What would Alaric do?' you ask yourself. He'd strap on a sword and go and investigate, that's what he'd do. But he's not here to do that, so I suppose it's up to me to investigate, you tell yourself.
+
+Taking a deep breath, you resolve to get kitted out and try to find out where the damned creature is hiding out. It seemed to be going down towards the dungeons, so you'd better start there.
+
+You walk into your dressing room in order to get some appropriate clothing on. It'll be cold down there so you'd better wear something warm.
+
+Dressing Room
+You are in your dressing room where there is a dressing table and a large walk-in wardrobe. Your bedroom is to the South.
+
+> in
+You move In.
+
+Entering your walk-in wardrobe, you go to your rail of informal clothes and select some clothes and boots suitable for a winter hike. Next, you open your shoe cupboard and look for your hiking boots. It takes you a minute or two as there are so many pairs of shoes in there.
+
+You then leave the wardrobe, closing the doors and go into your bedroom. Here you take some warm winter underwear from the chest at the foot of your bed. You remove your nightdress, leaving it on your bed, go into your dressing room and put all the winter clothes on.
+
+Dressing Room
+You are in your dressing room where there is a dressing table and a large walk-in wardrobe. Your bedroom is to the South.
+
+> open drawer
+Ok, you pull open the table drawer.  Inside you see all sorts of rubbish.
+
+> search drawer
+You search the drawer and find a small key, which you take.
+
+> s
+You move south.
+
+Your Bedroom
+You are in your room in your family chambers within Domreil Castle. There is a chest at the foot of your bed and a square table sits opposite with a chair beside it. There is a fireplace in the west wall, while at the other end of the room is the door to the lounge, which leads Out. Your dressing room is to the North.  Also here are your slippers.
+
+> x fireplace
+A fireplace made up of large oblong slabs of stone. One slab stands slightly proud of the rest. Above the fireplace is a mantelpiece.
+
+> look on mantelpiece
+You look on the mantelpiece and see a fossy.
+
+> get fossy
+Ok, you take the fossy from the mantelpiece.
+
+> put it in pocket
+(the fossy)
+Ok, you put the fossy in one of your pockets.
+
+> lift slab
+With a lot of effort you pull the heavy stone slab out from the fireplace, revealing a hole behind it. This used to be Finn's secret hiding place. You put the heavy slab on the floor.
+
+> get box
+Ok, you take the cash box from the hole.
+
+> unlock box
+(using the small key)
+Ok, using the small key, you unlock and open the cash box. Inside the box are some gold coins.
+
+> get coins
+Ok, you take the gold coins from the cash box.
+
+> put coins in pocket
+Ok, you put the gold coins in one of your pockets.
+
+> drop box and key
+Ok, you put down the cash box and the small key.
+
+> open chest
+Ok, you open the chest. In the chest you see a bottomless bag.
+
+> get bag
+Ok, you take the bag out of the chest.
+
+Under the bag you see a dagger at the bottom of the chest, so you take that as well.
+
+> wear bag
+Ok, you put the strap of the bag over your shoulder.
+
+> look under bed
+You look under your bed and find your travel belt, which you pick up.
+
+> wear belt
+Ok, you put on your travel belt.
+
+> out
+Opening the door, you go Out, closing the door behind you.
+
+Your Lounge
+You are in the lounge of your family chambers in Domreil Castle. The door to the corridor on the south side of the room, which leads Out, is closed. Your bedroom is to the west and you can go In to it.
+
+> out
+You move Out.
+
+The Castle Corridor
+You are in a corridor in Domreil castle, by the door to your family chambers which you can go In to. The corridor goes West, and to the East there is a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly.
+
+> e
+You move east.
+
+Spiral Stairway
+You are on a spiral stairway in Domreil Castle. The stairway goes Up to the upper floors and Down to the lower floors and the dungeons. There is a corridor to the West and on the wall of the stairway here is a metal sconce in which shines a resin torch.
+
+> d
+You move down.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, at the end of a corridor that goes West. On the wall of the stairway here is a metal sconce in which shines a resin torch.
+
+> w
+You move west.
+
+Deep Castle Corridor
+You are in a corridor in the depths of Domreil castle, by the door to a storage room on the south side, which leads In. The corridor goes West into the gloom and East towards a spiral stairway. There is just one resin torch in the corridor, providing just enough illumination to see where you are going.  It's quite cold down here in the lower floors of the castle.
+
+> in
+Opening the door, you go In and close the door behind you.
+
+The Storage Room
+This room, where the dungeon keeper once lived, is now a storage room where many items have been stored. You can go Out to the corridor. On the wall of the room is a metal sconce in which shines a resin torch.
+
+> search items
+You search through the items on the floor and find a short thick length of wood, which you take.
+
+> out
+Opening the door, you go Out, closing the door behind you.
+
+Deep Castle Corridor
+You are in a corridor in the depths of Domreil castle, by the door to a storage room on the south side, which leads In. The corridor goes West into the gloom and East towards a spiral stairway. There is just one resin torch in the corridor, providing just enough illumination to see where you are going.  It's quite cold down here in the lower floors of the castle.
+
+> w
+You move west.
+
+Deep Castle Corridor
+You are in a corridor in the depths of Domreil castle, by the passageway to the dungeons, which goes South. The corridor goes East into the gloom and West towards a spiral stairway. There is just one resin torch in the corridor, providing just enough illumination to see where you are going.
+
+> s
+You move south.
+
+Passageway to Dungeons
+You are in a passageway that leads to the former dungeons of Domreil castle. The once damp walls have been been painted in a light colour and a resin torch glows in a metal sconce on the wall. You can go North to the corridor or South into the dungeons. The former guardroom, which is being being renovated, is to the West. It is dark in there.
+
+> w
+You move west.
+
+It is too dark to make anything out clearly.
+
+> look behind door
+You look behind the door and see, on the floor, a hammer, which you take.
+
+> e
+You move east.
+
+Passageway to Dungeons
+You are in a passageway that leads to the former dungeons of Domreil castle. The once damp walls have been been painted in a light colour and a resin torch glows in a metal sconce on the wall. You can go North to the corridor or South into the dungeons. The former guardroom, which is being being renovated, is to the West. It is dark in there.
+
+> s
+You move south.
+
+It is too dark to make anything out clearly.
+
+> e
+You move east.
+
+It is too dark to make anything out clearly.
+
+> e
+You move east.
+
+It is too dark to make anything out clearly.
+
+> e
+You move east.
+
+It is too dark to make anything out clearly.
+
+> s
+You move south.
+
+It is too dark to make anything out clearly.
+
+> x walls
+It is too dark to make anything out clearly.
+
+> feel blocks
+You run your hands over the rough surface of a few of the stone blocks.
+
+On one of them you detect some faint scratches.
+
+> get dirt
+It is too dark to find the dirt.
+
+> rub dirt in scratches
+Ok, you rub the dirt onto the scratches on the stone block.
+
+As the dirt fills the scratches some words are made visible.
+
+> drop dirt
+You can't drop the dirt.
+
+> turn left bolt right
+You turn the left ringbolt to the right and you hear a soft click from within the wall, but otherwise nothing happens - maybe there's something else you need to do?
+
+> turn right bolt left
+You turn the right ringbolt to the left and hear a dull clank from within the wall, but otherwise nothing happens - maybe there's something else you need to do?
+
+> pull bolts
+You pull on the ringbolts.
+
+Nothing happens for a second or two but then a section of the wall slowly retracts into the wall for about a foot then it splits into two halves that move left and right to reveal a rock tunnel beyond...
+
+It is too dark to make anything out clearly.
+
+> out
+You move out.
+
+It is too dark to make anything out clearly.
+
+> s
+As you walk through the opaque barrier you get the sense that you have travelled a vast distance.
+
+In Small Cave
+You are in a small cave. The opaque barrier shimmers in the north wall here, opposite which is a opening leading Out of the cave. You can go in that direction or North through the barrier.
+
+> out
+You move out.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.
+
+> sw
+You move southwest.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> in
+Ok, you open the door and go in through it, closing it behind you.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> s
+You move south.
+
+North End of Main Street
+You are at the north end of the central street of the village. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.  As you look around you, a woman walks by.
+
+"Hello," she says pleasantly. "My name's Maisie. Haven't seen you here afore, you from round these parts?"
+
+You reply that you are just passing through and you can ask her:
+
+1: "What's the name of this village?"
+2: "Why is there a stockade around the village?"
+3: "Who lives in the castle on top of the crag?"
+
+> 1
+You ask Maisie what the name of the village is?
+
+"It's called Gormanhast," she tells you.
+
+2: "Why is there a stockade around the village?
+3: "Who lives in the castle on top of the crag?"
+
+> 2
+You ask Maisie why there is a stockade around the village?
+
+"At certain times of the year there is a great migration of deer which passes through this region," she tells you. "Predators follow them and the stockade keeps them out."
+
+3: "Who lives in the castle on top of the crag?"
+
+> 3
+You ask Maisie who lives in the castle on top of the crag?
+
+She shudders and crosses herself. "The Vampire Lord, Mordecai," she tells you. "He used to terrorise this village until we all started wearing these crucifixes that have been blessed by our priest."
+
+She takes a crucifix she wears around her neck and shows it to you.
+
+4: "Where can I get a crucifix from?"
+
+> 4
+You ask Maisie where you can get a crucifix?
+
+"Go see the priest, Father Foley, in the vicarage," she tells you. "He'll sell you a crucifix - he's trying to raise funds to get the church roof repaired. It leaks badly and we all get soaked if it rains."
+
+Maisie tells you she has errands to run, so you give her your thanks and bid her farewell. She waves goodbye and walks off.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> in
+You move In.
+
+As you walk into the shop, a bell tinkles to alert the proprietor that someone has entered.
+
+In Hardware Shop
+You are in the hardware shop, which sells all sorts of hardware. The proprietor stands behind his counter here. The door leads Out to the main street.
+
+"Good day to you madam," he says pleasantly. "Please feel free to browse, I have everything you can possibly need."
+
+> x hardware
+There is everything from awls to zip locks. Amongst them you see a grapnel with a rope tied to it.
+
+> x grapnel
+A three-hooked grapnel with a long length of rope attached to it.
+
+> buy it
+(the rope and grapnel)
+You buy the rope and grapnel.
+
+The proprietor charges you 3 gold coins, which you give him in exchange for the item.
+
+> out
+You move out.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> s
+You move south.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> s
+You move south.
+
+South End of Main Street
+You are at the south end of the main street. It runs North through the village and South to the south gate. On the east side of the street there is a greengrocer's shop you can go In to.
+
+> in
+You move in.
+
+In Greengrocer's Shop
+You are in the greengrocer's shop, which sells all sorts of foodstuff. The grocer himself stands behind a wooden counter, opposite the door on the west side which leads Out.  The greengrocer is here.
+
+> x food
+Everything from avocados to zucchinis via garlic.
+
+> buy garlic
+You buy a garlic bulb.
+
+The greengrocer charges you 1 gold coin, which you think is far too expensive, but you're not in a position to haggle.
+
+> out
+You move out.
+
+South End of Main Street
+You are at the south end of the main street. It runs North through the village and South to the south gate. On the east side of the street there is a greengrocer's shop you can go In to.
+
+> n
+You move north.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> e
+You move east.
+
+East Street
+You are on a street leading east from the well in the middle of the village. On one side of the street is the village church which you can go In to. The street leads East, and West to the well.
+
+> e
+You move east.
+
+End Of East Street
+You are at the end of East Street by the stockade. On one side of the street is the vicarage, while on the other is the village graveyard. You can go West along the street, In to the vicarage or South into the graveyard.
+
+> in
+You move in.
+
+In Vicarage
+You're in the living room of the vicarage, where Father Foley lives.   Father Foley is here, sitting at his desk.
+
+As you walk into the living room, father Foley rises to his feet and greets you.
+
+"Hello my dear," he says, shaking your hand. "You're new around these parts, what can I do for you?"
+
+1: "I'd like to buy a crucifix to protect me against the vampire please?"
+2: "What happened to your church roof?"
+3: "How much would it cost to repair your church roof?"
+
+> 1
+You ask Father Foley if you can buy a crucifix to protect you against the vampire lord?
+
+"Yes of course, my dear,"  he says to you, opening a drawer in his desk and taking out a wooden crucifix.
+
+He stands up from his desk and goes to his door.
+
+"We must bless the crucifix in the church," he tells you. "Please come with me."
+
+Politely allowing you to go through the door first, you both walk next door to the church.
+
+You enter the church and Father Foley leads you to the altar, being careful to walk around the various buckets dotted around the building.
+
+He bids you stand in front of the altar and he hangs the crucifix by its thong around your neck. Then follows a blessing of the crucifix that takes about 5 minutes and ends with the crucifix glowing briefly with a silver light.
+
+Father Foley then leads you back to his vicarage.
+
+In Vicarage
+You're in the living room of the vicarage, where Father Foley lives.   Father Foley is here, sitting at his desk.
+
+Father Foley sits back at his desk.
+
+"That'll be one gold coin please," he says. You get a gold coin out of your pocket and hand it to him. He gets a notepad from his drawer and makes an entry in it.
+
+"That's another step towards getting our church roof fixed," he tells you. "Thank you so much."
+
+2: "What happened to your church roof?"
+3: "How much would it cost to repair your church roof?"
+
+> 2
+You ask Father Foley what happened to the roof of the church?
+
+"Some thieves stole the lead from the roof,"  he tells you. "By the time the village beadle tracked them down they had sold the lead in Northfleet, the big town to the east. They will pay for their crime at the next assizes."
+
+3: "How much would it cost to repair your church roof?"
+
+> 3
+You ask Father Foley how much it would cost to repair the roof?
+
+"I got several quotes for the work from local roofers,"  he tells you. "The best quote was for 35 gold coins."
+
+4: "Can I please make a contribution to your church roof fund?"
+
+> 4
+You ask Father Foley if you can make a contribution to his church roof fund.
+
+"That's extremely generous of you, my dear," he replies. "How much can I put you down for?"
+
+"Well...the whole lot - 35 gold coins!" you tell him.
+
+His jaw drops open in astonishment and his eyes fill with tears.
+
+"Whaaa...really?" he asks you in awe.
+
+You decide to tell Father Foley who you really are, although you don't tell him that, to you, 35 Kels is small change!
+
+He bows to you awkwardly and tells you that he has never heard of the land of Hecate. You are puzzled by this but just tell him it is many miles away across the ocean.
+
+You tell the priest that you have come to stop the Vampire Lord to stop terrorising yor son, Finngor.
+
+"I wish you luck with that," he tells you. "Maybe our village warlock, Zarbo, can help you?"
+
+You ask Father Foley where he lives and the priest laughs.
+
+"You'll probably find him in the tavern," he tells you. "He spends most of his time there!"
+
+You thank father Foley for the crucifix and he thanks you in turn for your generous contribution to the church roof fund.
+
+You shake hands and you leave the vicarage.
+
+End Of East Street
+You are at the end of East Street by the stockade. On one side of the street is the vicarage, while on the other is the village graveyard. You can go West along the street, In to the vicarage or South into the graveyard.
+
+> s
+You move south.
+
+Village Graveyard
+You are in the village graveyard which, as the name suggests, is full of the graves of villagers who have been laid to rest over the centuries. The street is to the North.
+
+> x graves
+There are many of various ages. Some have gravestones.
+
+> x gravestones
+Some are ancient and covered in lichen and ivy.
+
+> clear ivy from gravestone
+You pull the ivy away from the gravestone, enabling you to read the inscription on it.
+
+> read inscription
+The inscription reads:
+RED = + | WHITE = ÷ | BLUE = x
+
+> n
+You move north.
+
+End Of East Street
+You are at the end of East Street by the stockade. On one side of the street is the vicarage, while on the other is the village graveyard. You can go West along the street, In to the vicarage or South into the graveyard.
+
+> w
+You move west.
+
+East Street
+You are on a street leading east from the well in the middle of the village. On one side of the street is the village church which you can go In to. The street leads East, and West to the well.
+
+> in
+You move in.
+
+In Church
+You are in the village church, which is like hundreds of churches all over Hecate. There are a few rows of pews either side of the central aisle, at the end of which is the altar. There are several buckets on the floor and pews which are there to catch drips from the ceiling when it rains. You can go Out to the street outside.
+
+> x buckets
+There are several. Most are half or threequarters full of water, but one or two have very little water in them.
+
+> get bucket
+You take one of the buckets that has very little water in it, emptying the water into another bucket.
+
+> out
+You move out.
+
+East Street
+You are on a street leading east from the well in the middle of the village. On one side of the street is the village church which you can go In to. The street leads East, and West to the well.
+
+> w
+You move west.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> w
+You move west.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> in
+You move in.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar or Out to the street.
+
+> w
+You move west.
+
+By Bar
+You are standing by the bar of the tavern, which takes up the whole of one side of the room. There are about half-a-dozen servers behind the bar, all supervised by the tavernkeeper. At the back of the bar there are several barrels on cradles.
+
+As you walk up to the bar, you feel many pairs of eyes watching you, a few of them with evil intent, so you keep your hand on the hilt of your dagger. With a glance, the tavernkeeper warns off the scum who have designs on your body and they back away.
+
+"Good day to you, madam," he says to you genially. "My name is Arnie. What can I get you?"
+
+1: "Can I please have a tankard of your finest ale?"
+2: "I'm looking for the wizard Zarbo. Could you please tell me where he is sitting?"
+
+> 1
+You ask the tavernkeeper for a tankard of his best ale.
+
+The huge man raises an eyebrow in surprise but, taking a tankard from under the bar, he goes to the barrel marked XXX and fills the tankard from it.
+
+"That'll be two golds, please," he says, putting the tankard on the bar in front of you.
+
+You take two gold coins from your pocket and hand them to him. He bites one of them to make sure it's genuine and then puts them in a box behind the bar.
+
+You pick up the tankard and take a sip - Wow, that's strong stuff! Nevertheless, you put the tankard to your lips and, to the astonishment of all watching you, drink the ale down in one go.
+
+There are some gasps of surprise as you slam the tankard down on the bar. Lucky for you that you spend at least one evening a week at the "Dwark's Revenge" tavern in Domreil drinking with your friends!
+
+As you wipe your mouth on the back of your hand, Arnie takes the tankard and asks "Another?"
+
+You sadly decline as you need to get on with your mission - that ale was very strong and you need to keep a clear head.
+
+2: "I'm looking for the wizard Zarbo. Could you please tell me where he is sitting?"
+
+> 2
+You ask the tavernkeeper where you can find Zarbo.
+
+"That's him, sitting at that bench over there," he tells you, pointing to a table to the southeast. "Although if you've got any sense, you'll keep well away from him!"
+
+You thank Arnie and walk over to the table and, trying to ignore the stink eminating from the man, sit down on one of the benches as far from him as you can.
+
+Sitting At Table
+You are sitting on a bench at a table in the tavern. The warlock Zarbo is sitting opposite you.
+
+As you take your seat at the table, Zarbo looks at you with great astonishment.
+
+"Wazza pretty gal like you doin' in a dump like this?" he questions you. Before you can answer, he asks, "More t'da point, whaddya doin' sittin' at MY table, I never invited ya?"
+
+1: "My name is Bronwynn and I need some advice please?"
+
+> 1
+You tell Zarbo your name and that you need some advice.
+
+"Well Bronny," he replies in a slurred voice. "My advice will cost you a tankard of Arnie's finest. Payment in advance!"
+
+> stand up
+Ok, you stand up.
+
+By Table
+You are standing by a table in the tavern. Seated at the table  is Zarbo, who stinks so much that nobody else in the tavern, apart from you, is within twenty feet of him. You can go North to the bar, NE to the main part of the tavern or you could sit down at the table.
+
+> n
+You move north.
+
+By Bar
+You are standing by the bar of the tavern, which takes up the whole of one side of the room. There are about half-a-dozen servers behind the bar, all supervised by the tavernkeeper. At the back of the bar there are several barrels on cradles.
+
+You buy a tankard of Arnie's best brew which costs you 2 gold coins.
+
+> s
+You move south.
+
+By Table
+You are standing by a table in the tavern. Seated at the table  is Zarbo, who stinks so much that nobody else in the tavern, apart from you, is within twenty feet of him. You can go North to the bar, NE to the main part of the tavern or you could sit down at the table.
+
+> sit
+Ok, you sit down on the bench at the table.
+
+Sitting At Table
+You are sitting on a bench at a table in the tavern. The warlock Zarbo is sitting opposite you.
+
+You slide the tankard across the table to Zarbo. He grabs the tankard and just pours the ale down his throat, emptying the tankard in one go. He then throws the tankard at a passing pot boy, who deftly catches it - he must be used to Zarbo doing that!
+
+2: "How can I stop the Vampire Lord from getting from here to my part of the world?"
+
+> 2
+You ask Zarbo how you can stop the Vampire Lord from getting to your part of the world?
+
+Zarbo asks you a couple of questions about how you got here and you tell him you came through the portal under the crag where the castle is.
+
+He thinks for a minute or two then replies:
+
+"Easy! Ya need t'destroy da portal," is his brief reply.
+
+3: "How do I destroy the portal?"
+
+> 3
+"How do I destroy the portal?" you ask Zarbo, gritting your teeth and thinking that getting a decent answer from this man is like getting blood from a stone!
+
+"You need some blasting powder," he tells you.
+
+4: "Where do I get some blasting powder from?"
+
+> 4
+You ask Zarbo where you can get some blasting powder from?
+
+"I kin make sum for ya," he replies, sounding even more drunk than he did when you started this long conversation. "Jus bring me da ingredients."
+
+5: "What are the ingredients I need?"
+
+> 5
+You ask Zarbo what these ingredients are?
+
+He thinks for a minute or two. "Ya need sulfur, saltpetre and charcoal," he replies.
+
+6: "Where do I get these ingredients from?"
+
+> 6
+"So," you ask Zarbo, wanting desperately to wring the man's neck! "Where do I find these ingredients?"
+
+The warlock's face screws up in an attempt to concentrate, then he replies,
+
+"Err...charcoal you can get from the burners in the forest," he tells you, looking as if he is going to fall asleep at any moment. "Beyond that is a hot geyser for da sulfur, and saltpetre...I forget...summink t'do wiv where animals live...but its a sort of white crystal...best I kin do."
+
+The bedraggled drunkard then falls forward onto the table and starts to snore - he is fast asleep!
+
+> stand up
+Ok, you stand up.
+
+By Table
+You are standing by a table in the tavern. Seated at the table  is Zarbo, who stinks so much that nobody else in the tavern, apart from you, is within twenty feet of him. You can go North to the bar, NE to the main part of the tavern or you could sit down at the table.
+
+> ne
+You move northeast.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> out
+You move out.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> e
+You move east.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> n
+You move north.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> n
+You move north.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> out
+Ok, you open the door and go out through it, closing it behind you.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> ne
+You move northeast.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.
+
+> se
+You move southeast.
+
+Edge Of Forest
+You are at the edge of the forest, which is to the southeast of the castle on the crag. You can go NW back to the crag or SE along a vague trail further into the forest.
+
+> se
+You move southeast.
+
+On Trail In Forest
+You are on a vague trail that meanders around the trees in the forest. The thick canopy overhead blocks most of the light from reaching the forest floor, which is devoid of any vegetation. You can go NW towards the edge of the forest, which extends into the dark distance in all other directions around you, or East along the trail.
+
+> e
+You move east.
+
+Clearing in Forest
+You're in a clearing in the forest which is dominated by a huge conical mound of earth - a charcoal kiln - from which white smoke emanates. A ladder rests against the mound with some long wooden poles beside it. Not far from the mound is a shabby hut. You can go West into the forest or East to the hut.
+
+> e
+You move east.
+
+By Hut
+You are by the hut to the east of the huge mound. The door is open and, sitting on a stool within the hut, is a grizzled man smoking a pipe. You can go West to the charcoal kiln or East along a well-trodden path which winds its way through the trees.  Approaching the hut, the man sitting smoking just inside looks up in surprise.
+
+"Hello, my name's Young Wat," he says pleasantly. "What's a pretty young thing like you doing in a deep, dark forest? There's all sorts of dangerous creatures around these parts."
+
+1: "My name is Bronwynn and I need some charcoal."
+
+> 1
+You tell Wat that you need some charcoal.
+
+"Well, we can certainly help you with that, young lass," he replies. "How much do you need?"
+
+2: "I'm not sure, enough to make some blasting powder."
+
+> 2
+You tell Wat that you need enough charcoal to make some blasting powder.
+
+"Mmmm," he replies, doing a quick calculation in his head. "I reckons you're gonna need about five pounds for that."
+
+You ask Wat how much that will cost you. He thinks for a moment or two, then says,
+
+"You do us a service and we'll call it quits," Young Wat suggests. You shake your head in exasperation - you knew there'd be a catch!
+
+3: "What is this service you want in return for some charcoal?"
+
+> 3
+You ask Young Wat about the service they want you to perform in return for some charcoal.
+
+"The Vampire Lord stole our mother's sapphire and diamond ring and we'd like you to recover it," he tells you. "We heard he keeps it in his treasury in his castle."
+
+You ask Young Wat where the Vampire Lord's treasury is?
+
+"We have no idea," he replies. "Usually, if you end up in his castle you never come out!"
+
+Young Wat looks up as you hear shuffling footsteps behind you and you turn to see a stooped figure approaching.
+
+"'Ow do, Da," Young Wat says to the ancient old man who has just turned up.
+
+"'Ow do, son," the old man replies. He turns to you and Young Wat introduces you.
+
+"This is Bronwynn, Da. After some charcoal to make blasting powder," he tells him. "I told her we'd give her some if she gets our mother's ring back off ol' Fangs."
+
+"That's kind 'ov 'er," Old Wat says to his son. "Come on, we've gotta tend to the charcoal pile or the charcoal'll burn!"
+
+Young Wat gets up off his chair and the two of them walk over to their charcoal pile and, scaling the ladder, get to work on the pile.
+
+By Hut
+You are by the hut to the east of the huge mound. The door is open and there is a stool within the hut, which you can go In to. You can go West to the charcoal kiln or East along a well-trodden path which winds its way through the trees.
+
+> in
+Ok, you go In to the hut.
+
+In Hut
+You are inside the hut, which has just enough room for one person sitting on the stool. The door is open and leads Out.
+
+> stand on stool
+Ok, you stand on the stool.
+
+Standing On Stool In Hut
+You are standing on the stool in the charcoal burner's hut. Above you is the roof of the hut. You can go Down or stand on the floor.
+
+> look on beam
+You look on one of the beams and find a small package, which you take.
+
+> d
+You move down.
+
+In Hut
+You are inside the hut, which has just enough room for one person sitting on the stool. The door is open and leads Out.
+
+> unfold package
+You unfold the small package.
+
+Inside is a small triangular key which you take.
+
+> drop oilcloth
+Ok, you put down the small square of oilcloth.
+
+> close door
+Ok, you close the hut door.
+
+In Hut
+You are inside the hut, which has just enough room for one person sitting on the stool. The hut door is closed and on the back of the door there is a leather jerkin hanging on a rusty nail.  Also here is a small square of oilcloth.
+
+> get jerkin
+Ok, you take the jerkin off the nail.
+
+As you do that the nail is pulled out of the door and falls to the floor to be lost amongst the detritus lying there.
+
+In Hut
+You are inside the hut, which has just enough room for one person sitting on the stool. The hut door is closed.  Also here is a small square of oilcloth.
+
+> put jerkin in bag
+Ok, you put the smelly leather jerkin inside the bag.
+
+> open door
+Ok, you open the hut door.
+
+In Hut
+You are inside the hut, which has just enough room for one person sitting on the stool. The door is open and leads Out.  Also here is a small square of oilcloth.
+
+> out
+You move out.
+
+By Hut
+You are by the hut to the east of the huge mound. The door is open and there is a stool within the hut, which you can go In to. You can go West to the charcoal kiln or East along a well-trodden path which winds its way through the trees.
+
+> e
+You move east.
+
+Path Through Forest
+You are on a well-trodden path that winds its way through the forest from East to West, with another branch going off to the South. The forest extends into the dark distance in all directions around you.
+
+> e
+You move east.
+
+Near Eastern Edge Of Forest
+You are near the eastern edge of the forest, Further East you see lots of daylight and the path goes back West into the gloomy depths.
+
+As you walk along the path you suddenly hear a roaring sound coming from further east beyond the edge of the forest. You've never heard anything like it before and it sends a shiver of fear down your spine!
+
+> e
+You move east.
+
+By Hot Springs
+You are by the forest on the edge of an area of hot springs. The path leads West into the forest and goes SE through the pools of hot water from which steam rises into the air. You feel a vibration through the soles of your feet - powerful forces are gathering underground!
+
+> se
+You move southeast.
+
+By Geyser
+You are in the centre of the area of hot springs where there is a hole in the ground which is surrounded by deposits of a yellow substance.
+
+The ground under your feet vibrates even more and you hear a rumbling sound that is getting louder.
+
+> get sulfur
+You quickly scoop some sulfur into the bucket. The bucket is not full yet, so maybe you should get some more?
+
+> nw
+You move northwest.
+
+By Hot Springs
+You are by the forest on the edge of an area of hot springs. The path leads West into the forest and goes SE through the pools of hot water from which steam rises into the air. You feel a vibration through the soles of your feet - powerful forces are gathering underground!
+
+A column of superheated water and steam erupts from the hole, soaring over thirty feet into the air. The column collapses within seconds, the water dissipating into the pools around the hole.
+
+> se
+You move southeast.
+
+By Geyser
+You are in the centre of the area of hot springs where there is a hole in the ground which is surrounded by deposits of a yellow substance.
+
+The ground under your feet vibrates even more and you hear a rumbling sound that is getting louder.
+
+> get sulfur
+You quickly scoop some sulfur into the bucket. The bucket is not full yet, so maybe you should get some more?
+
+> nw
+You move northwest.
+
+By Hot Springs
+You are by the forest on the edge of an area of hot springs. The path leads West into the forest and goes SE through the pools of hot water from which steam rises into the air. You feel a vibration through the soles of your feet - powerful forces are gathering underground!
+
+A column of superheated water and steam erupts from the hole, soaring over thirty feet into the air. The column collapses within seconds, the water dissipating into the pools around the hole.
+
+> se
+You move southeast.
+
+By Geyser
+You are in the centre of the area of hot springs where there is a hole in the ground which is surrounded by deposits of a yellow substance.
+
+The ground under your feet vibrates even more and you hear a rumbling sound that is getting louder.
+
+> get sulfur
+You quickly scoop some sulfur into the bucket. The bucket is full now.
+
+> nw
+You move northwest.
+
+By Hot Springs
+You are by the forest on the edge of an area of hot springs. The path leads West into the forest and goes SE through the pools of hot water from which steam rises into the air. You feel a vibration through the soles of your feet - powerful forces are gathering underground!
+
+A column of superheated water and steam erupts from the hole, soaring over thirty feet into the air. The column collapses within seconds, the water dissipating into the pools around the hole.
+
+> w
+You move west.
+
+Near Eastern Edge Of Forest
+You are near the eastern edge of the forest, Further East you see lots of daylight and the path goes back West into the gloomy depths.
+
+The ground under your feet vibrates even more and you hear a rumbling sound that is getting louder.
+
+> w
+You move west.
+
+Path Through Forest
+You are on a well-trodden path that winds its way through the forest from East to West, with another branch going off to the South. The forest extends into the dark distance in all directions around you.
+
+> w
+You move west.
+
+By Hut
+You are by the hut to the east of the huge mound. The door is open and there is a stool within the hut, which you can go In to. You can go West to the charcoal kiln or East along a well-trodden path which winds its way through the trees.
+
+> w
+You move west.
+
+Clearing in Forest
+You're in a clearing in the forest which is dominated by a huge conical mound of earth - a charcoal kiln - from which white smoke emanates. A ladder rests against the mound and not far from the mound is a shabby hut. You can go West into the forest or East to the hut. Young and Old Wat are on top of the charcoal kiln, tending to it with the long poles.
+
+> w
+You move west.
+
+On Trail In Forest
+You are on a vague trail that meanders around the trees in the forest. The thick canopy overhead blocks most of the light from reaching the forest floor, which is devoid of any vegetation. You can go NW towards the edge of the forest, which extends into the dark distance in all other directions around you, or East along the trail.
+
+> nw
+You move northwest.
+
+Edge Of Forest
+You are at the edge of the forest, which is to the southeast of the castle on the crag. You can go NW back to the crag or SE along a vague trail further into the forest.
+
+> nw
+You move northwest.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.
+
+> sw
+You move southwest.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> in
+Ok, you open the door and go in through it, closing it behind you.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> s
+You move south.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> s
+You move south.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> w
+You move west.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> in
+You move in.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> sw
+You move southwest.
+
+By Table
+You are standing by a table in the tavern. Seated at the table  is Zarbo, who stinks so much that nobody else in the tavern, apart from you, is within twenty feet of him. You can go North to the bar, NE to the main part of the tavern or you could sit down at the table.
+
+> give bucket
+You give the bucket of sulfur to Zarbo.
+
+He looks inside the bucket and takes it from you.
+
+"I guess that'll be enough," he tells you.
+
+> ne
+You move northeast.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> o
+You move out.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> e
+You move east.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> e
+You move east.
+
+East Street
+You are on a street leading east from the well in the middle of the village. On one side of the street is the village church which you can go In to. The street leads East, and West to the well.
+
+> in
+You move in.
+
+In Church
+You are in the village church, which is like hundreds of churches all over Hecate. There are a few rows of pews either side of the central aisle, at the end of which is the altar. There are several buckets on the floor and pews which are there to catch drips from the ceiling when it rains. You can go Out to the street outside.
+
+> get bucket
+You take another of the buckets that has very little water in it, emptying the water into another bucket.
+
+> o
+You move out.
+
+East Street
+You are on a street leading east from the well in the middle of the village. On one side of the street is the village church which you can go In to. The street leads East, and West to the well.
+
+> w
+You move west.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> n
+You move north.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> n
+You move north.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> o
+Ok, you open the door and go out through it, closing it behind you.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> ne
+You move northeast.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.
+
+> se
+You move southeast.
+
+Edge Of Forest
+You are at the edge of the forest, which is to the southeast of the castle on the crag. You can go NW back to the crag or SE along a vague trail further into the forest.
+
+> se
+You move southeast.
+
+On Trail In Forest
+You are on a vague trail that meanders around the trees in the forest. The thick canopy overhead blocks most of the light from reaching the forest floor, which is devoid of any vegetation. You can go NW towards the edge of the forest, which extends into the dark distance in all other directions around you, or East along the trail.
+
+> e
+You move east.
+
+Clearing in Forest
+You're in a clearing in the forest which is dominated by a huge conical mound of earth - a charcoal kiln - from which white smoke emanates. A ladder rests against the mound and not far from the mound is a shabby hut. You can go West into the forest or East to the hut. Young and Old Wat are on top of the charcoal kiln, tending to it with the long poles.
+
+> e
+You move east.
+
+By Hut
+You are by the hut to the east of the huge mound. The door is open and there is a stool within the hut, which you can go In to. You can go West to the charcoal kiln or East along a well-trodden path which winds its way through the trees.
+
+> e
+You move east.
+
+Path Through Forest
+You are on a well-trodden path that winds its way through the forest from East to West, with another branch going off to the South. The forest extends into the dark distance in all directions around you.
+
+> s
+You move south.
+
+North-South Path
+You are on a North-South path in the forest which winds its way meanderingly through the trees. The ground starts to rise to the south and the path enters a narrow ravine.
+
+> s
+You move south.
+
+Mouth of Ravine
+You are at the mouth of the ravine, which is about 10 - 12 feet wide at this point. You can go Southeast into the ravine or North along the path.
+
+> se
+You move southeast.
+
+End Of Ravine
+You are at the end of the ravine where the opening of a cave in the rock at ground level leads In. The walls of the ravine crowd high above you, with a narrow strip of light indicating where the top of the ravine walls are.
+
+As you reach the end of the ravine you smell a strong animal stench and hear a growl from inside the cave - there is some sort of creature in there!
+
+> look in cave
+You look into the cave - you detect movement within!
+
+> throw grapnel up
+Spinning the grapnel around a few times, you hurl it up the ravine above you.
+
+It takes you a couple of attempts but eventually the hooks of the grapnel dig into the rock high above. You give the rope a couple of tugs to bed the hooks in - the rope is now ready to climb.
+
+End Of Ravine
+You are at the end of the ravine where the opening of a cave in the rock at ground level leads In. The walls of the ravine crowd high above you, with a narrow strip of light indicating where the top of the ravine walls are.  The rope attached to your grapnel hangs down from the top of the ravine.
+
+> drop all
+Ok, you put down the sharp dagger, the bulb of garlic, the short thick stake, the claw hammer, the wooden bucket and the triangular key.
+
+You hear louder growling echo from the cave ahead of you - maybe the creature inside is coming out!
+
+> climb rope
+You climb up the rope to the top of the ravine.
+
+Top of Ravine
+You are above the ravine on a thickly wooded hillside. Your grapnel is wedged in the rock at the edge of the ravine with the rope hanging down below. You can only climb Down the rope as the undergrowth around you is too thick to get through.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+From below you hear a loud roar that echoes along the ravine. You look down to see the animal in the cave walking out from its lair. It is enormous and you are glad you were not within striking distance of its massive claws.
+
+The creature sniffs whatever you left on the ground in the ravine. It snarls in disappointment that "lunch on legs" has not arrived and it pads off along the ravine and out of sight.
+
+> climb rope
+You climb down the rope to the floor of the ravine below.
+
+End Of Ravine
+You are at the end of the ravine where the opening of a cave in the rock at ground level leads In. The walls of the ravine crowd high above you, with a narrow strip of light indicating where the top of the ravine walls are.  The rope attached to your grapnel hangs down from the top of the ravine.  Also here is a sharp dagger, a bulb of garlic, a short thick stake, a claw hammer, a wooden bucket and a triangular key.
+
+> flick rope
+You grab hold of the end of the hanging rope and give it a good flick.
+
+It takes you a couple of attempts but eventually the hooks of the grapnel come loose and the grapnel falls to the ground nearby. You pick it up and coil the rope ready to use again.
+
+> get all
+Ok, you pick up the sharp dagger, the bulb of garlic, the short thick stake, the claw hammer, the wooden bucket and the triangular key.
+
+> in
+You move in.
+
+In Animal Lair
+You are in a small cave at the end of the ravine that is obviously the lair of a carnivorous animal. The cave ceiling is quite high and you hear the chirps and squeaks of bats above you. The floor of the cave is covered in bat guano that has mixed with water to form a crystalline substance. You can go Out to the ravine.
+
+> x substance
+The substance must be saltpetre.
+
+In Animal Lair
+You are in a small cave at the end of the ravine that is obviously the lair of a carnivorous animal. The cave ceiling is quite high and you hear the chirps and squeaks of bats above you. The floor of the cave is covered in bat guano that has mixed with water to form a layer of saltpetre. You can go Out to the ravine.
+
+> collect saltpetre
+You scoop some saltpetre into the bucket until it is full.
+
+> out
+You move out.
+
+End Of Ravine
+You are at the end of the ravine where the opening of a cave in the rock at ground level leads In. The walls of the ravine crowd high above you, with a narrow strip of light indicating where the top of the ravine walls are.
+
+> nw
+You move northwest.
+
+Mouth of Ravine
+You are at the mouth of the ravine, which is about 10 - 12 feet wide at this point. You can go Southeast into the ravine or North along the path.
+
+> n
+You move north.
+
+North-South Path
+You are on a North-South path in the forest which winds its way meanderingly through the trees. The ground starts to rise to the south and the path enters a narrow ravine.
+
+> n
+You move north.
+
+Path Through Forest
+You are on a well-trodden path that winds its way through the forest from East to West, with another branch going off to the South. The forest extends into the dark distance in all directions around you.
+
+> w
+You move west.
+
+By Hut
+You are by the hut to the east of the huge mound. The door is open and there is a stool within the hut, which you can go In to. You can go West to the charcoal kiln or East along a well-trodden path which winds its way through the trees.
+
+> w
+You move west.
+
+Clearing in Forest
+You're in a clearing in the forest which is dominated by a huge conical mound of earth - a charcoal kiln - from which white smoke emanates. A ladder rests against the mound and not far from the mound is a shabby hut. You can go West into the forest or East to the hut. Young and Old Wat are on top of the charcoal kiln, tending to it with the long poles.
+
+> w
+You move west.
+
+On Trail In Forest
+You are on a vague trail that meanders around the trees in the forest. The thick canopy overhead blocks most of the light from reaching the forest floor, which is devoid of any vegetation. You can go NW towards the edge of the forest, which extends into the dark distance in all other directions around you, or East along the trail.
+
+> nw
+You move northwest.
+
+Edge Of Forest
+You are at the edge of the forest, which is to the southeast of the castle on the crag. You can go NW back to the crag or SE along a vague trail further into the forest.
+
+> nw
+You move northwest.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.
+
+> sw
+You move southwest.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> in
+Ok, you open the door and go in through it, closing it behind you.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> s
+You move south.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> s
+You move south.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> w
+You move west.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> in
+You move in.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> sw
+You move southwest.
+
+By Table
+You are standing by a table in the tavern. Seated at the table  is Zarbo, who stinks so much that nobody else in the tavern, apart from you, is within twenty feet of him. You can go North to the bar, NE to the main part of the tavern or you could sit down at the table.
+
+> give bucket to Zarbo
+You give the bucket of saltpetre to Zarbo.
+
+He looks inside the bucket and takes it from you.
+
+"That's more than enough," he tells you.
+
+> ne
+You move northeast.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> out
+You move out.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> e
+You move east.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> n
+You move north.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> n
+You move north.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> out
+Ok, you open the door and go out through it, closing it behind you.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> ne
+You move northeast.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.
+
+> polki
+The grapnel soars up the rock face and, clattering against some rocks high above you, its hooks catch on some rocks.
+
+You give the rope a couple of tugs to bed the grapnel in - it is ready to climb.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.  Hanging down from high above is the rope that is attached to your grapnel.
+
+> sheath dagger
+Ok, you sheath your dagger in its sheath.
+
+> put all in bag
+Ok, you put the bulb of garlic, the short thick stake, the claw hammer and the triangular key inside the bag.
+
+> climb rope
+You climb up the rope to where the grapnel is hooked on the rock.
+
+Halfway Up Crag
+You are clinging to the rock face halfway up the crag. The rest of the crag above you is easily climbable.  Your grapnel is hooked onto the rocky crag at your feet.
+
+> get grapnel
+You pick the grapnel up from where it is hooked onto the rock at your feet and coil the rope up.
+
+Halfway Up Crag
+You are clinging to the rock face halfway up the crag. The rest of the crag above you is easily climbable.
+
+> put grapnel in bag
+Ok, you put the rope and grapnel inside the bag.
+
+> u
+You climb up the crag to the base of the castle.
+
+Base of Castle
+You are at the top of the rocky crag where the wall of the castle sits on the rock. About twenty feet above you see an open window.  You can only go Down the easy part of the crag from here.
+
+> get grapnel
+Ok, you take the rope and grapnel from out of the bag.
+
+> qweds
+The grapnel soars up the side of the castle and into the open window.
+
+You give the rope a couple of tugs to bed the grapnel in - it is ready to climb.
+
+Base of Castle
+You are at the top of the rocky crag where the wall of the castle sits on the rock. About twenty feet above you see an open window.  You can go Down the easy part of the crag or climb Up the hanging rope to the window above.
+
+> climb rope
+You climb up the rope and in through the window.
+
+Room In Castle
+You are in a room in the castle. There is a window in the outside wall of the room which provides illumination and is open. The room doesn't appear to be used for anything other than storage. There are various chests and cupboards here, all covered in dust, and in the north wall there is a door which is closed.
+
+> feel on frame
+You feel on top of the door frame and find a key, which you take.
+
+> open door
+(First unlocking the room door with the door key)
+You open the room door.
+
+> drop key
+Ok, you put down the door key.
+
+> look in cupboard
+You open a couple of the cupboards and look inside them. In one of them you find a large black hooded cloak, which you take out.
+
+> wear cloak
+Ok, you put on the hooded cloak.
+
+> out
+You move out.
+
+It is too dark to make anything out clearly.
+
+As you enter the passageway you hear the tramp of many boots - there must be a guard patrol walking around the corridors of the castle! Maybe you should wait to see how long it takes the patrol to walk the corridors?
+
+> lumino
+You extend your right arm, palm upwards, and say the word "Lumino".
+
+A ball of handfire appears above your palm and floats up into the air above your head, illuminating your surroundings.
+
+You do not have to use the verb SAY, just type LUMINO.
+
+Short Passageway
+You are in a short passageway in the castle which leads North. The ball of handfire above your head illuminates a couple of yards either side of you, but what lies beyond is in utter darkness. The door to the room to the south is open and leads In.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> n
+You move north.
+
+Passageway In Castle
+You are in a long passageway in the castle which leads East and West.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> w
+You move west.
+
+West End Of Passageway 1
+You are at the west end of the passageway where, to the West, there are spiral stairs that go to other floors of the castle. You can also go East along the passageway.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> w
+You move west.
+
+Spiral Stairway (W1)
+You are on a spiral stairway that winds clockwise Up and Down the castle. A passageway leads East to the room where you entered the castle.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> d
+You move down.
+
+Bottom of Spiral Stairway (W)
+You are at the bottom of the spiral stairway, where a short passageway goes East. The stairway goes Up to the upper floors of the castle.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> e
+You move east.
+
+By Arsenal Door
+You are in the passageway between the spiral stairways, by a heavy metal door. You can go East and West along the passageway to the stairways.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> x door
+The door, which is painted black, is made of steel reinforced with large bolts. Apart from the two heavy hinges on one side there are three dials on the door in an inverted triangle.
+
+> x dials
+There are three of them in an inverted triangle. They are coloured red, white and blue and each one has the symbols + - ÷ = and x instead of numbers round the edge.
+
+> turn red to +
+You turn the red dial to the symbol +.
+
+You hear a metallic clunk from within the door, but otherwise nothing happens.
+
+> turn white to ÷
+You turn the white dial to the symbol ÷.
+
+You hear a metallic clunk from within the door, but otherwise nothing happens.
+
+> turn blue to x
+You turn the blue dial to the symbol x.
+
+You hear a metallic clunk from within the door, but otherwise nothing happens.
+
+> get key
+Ok, you take the triangular key from out of the bag.
+
+> push key in hole
+You push the triangular key into the hole in the door.
+
+There is a grinding of gears from within the door and it swings ponderously open.
+
+By Arsenal Door
+You are in the passageway between the spiral stairways, by a heavy metal door. You can go East and West along the passageway to the stairways or In through the open door.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> drop key
+Ok, you put down the triangular key.
+
+> in
+You move in.
+
+In Castle Arsenal
+You are in the castle arsenal where there are racks of various weapons on one side of the large room and piles of barrels on the other. The arsenal door is open and leads Out to the passageway outside.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> get sword
+Ok, you take one of the broadswords.
+
+> close door
+Ok, you close the metal door.
+
+In Castle Arsenal
+You are in the castle arsenal where there are racks of various weapons on one side of the large room and piles of barrels on the other. The arsenal door is closed and you can see the numbers 3, 5 6 and 9 scrawled in chalk on the back.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> open door
+Ok, you open the metal door.
+
+In Castle Arsenal
+You are in the castle arsenal where there are racks of various weapons on one side of the large room and piles of barrels on the other. The arsenal door is open and leads Out to the passageway outside.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> look behind barrels
+You look behind the barrels and find a coil of blasting powder fuse, which you put on top of one of them.
+
+In Castle Arsenal
+You are in the castle arsenal where there are racks of various weapons on one side of the large room and piles of barrels on the other. On one of the barrels is a coil of blasting fuse.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> cut coil
+Ok, using the sharp edge of your sword, you cut a length of fuse from the coil.
+
+As you do that the coil slips behind the barrels and is lost to sight.
+
+In Castle Arsenal
+You are in the castle arsenal where there are racks of various weapons on one side of the large room and piles of barrels on the other. The arsenal door is open and leads Out to the passageway outside.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> put fuse in bag
+Ok, you put the length of fuse inside the bag.
+
+> out
+You move out.
+
+By Arsenal Door
+You are in the passageway between the spiral stairways, by a heavy metal door. You can go East and West along the passageway to the stairways or In through the open door.  Also here is a triangular key.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> e
+You move east.
+
+Bottom of Spiral Stairway (E)
+You are at the bottom of the spiral stairway, where a short passageway goes West. The stairway goes Up to the upper floors of the castle.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> u
+You move up.
+
+Spiral Stairway (E1)
+You are on a spiral stairway that winds clockwise Up and Down the castle. A passageway leads West to the room where you entered the castle.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> w
+You move west.
+
+East End of Passageway 1
+You are at the east end of the passageway where, to the East, there are spiral stairs that go to other floors of the castle. You can also go West along the passageway.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> w
+You move west.
+
+Passageway In Castle
+You are in a long passageway in the castle which leads East and West.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> snuffio
+You say the word "snuffio" and the handfire winks out of existence with a 'pop', plunging you into darkness.
+
+You do not have to use the verb SAY, just type SNUFFIO.
+
+It is too dark to make anything out clearly.
+
+> s
+You move south.
+
+It is too dark to make anything out clearly.
+
+> wait
+You wait for a while and eventually you hear the echoing tramp of boots as the guard patrol comes marching along the castle corridors.
+
+You see the patrol leader, carrying a blazing torch, go west in the passageway to the north and as the last soldier marches past, you quickly join the patrol.
+
+The patrol marches along to the end of the passageway and turns up the spiral stairway. When it gets to the top it turns east into a well-lit passageway. You follow behind as the patrol enters the south end of a large hall which has a passageway to the south.
+
+You quickly dash into the passageway and hide in the shadows until the tramp of the patrol's boots fades away. You then conjure some handfire and examine your surroundings.
+
+By Treasury Door
+You are at the south end of a short passageway, standing in front of a large door which is closed. You can only go North to the passageway.
+
+> x door
+The door is made of a bronze-coloured metal that has strange swirls and circles on it. In the centre of the door are four numbered tumblers which have the letters A, B, C and D beside them.
+
+> x tumblers
+The tumblers can be turned and are numbered from 0 to 9. They are currently set to 1804.
+
+> set tumblers to 9653
+You set the tumblers to 9653 and you hear a load click from within the door.
+
+Suddenly there is a loud clunk from inside the door and it swings silently open on well-oiled hinges.
+
+By Treasury Door
+You are at the south end of a short passageway, standing in front of a large door which is open and leads In. You can also go North to the passageway.
+
+> in
+You move in.
+
+In Castle Treasury
+You are in the castle treasury, a room filled with crates containing jewels, money and other valuable objects. The treasury door is open and leads Out to the passageway outside.
+
+Lying on the floor of the room is a huge hound - as you walk in the room the hound gets to its feet and snarls at you. It doesn't attack but prevents you from approaching any closer.
+
+> get jerkin
+Ok, you take the smelly leather jerkin from out of the bag.
+
+> wear it
+(the smelly leather jerkin)
+Ok, you put on the smelly leather jerkin.
+
+> search crates
+The huge hound sniffs at the jerkin you are wearing and allows you to search through the crates and you eventually find a beautiful sapphire and diamond ring, which you take.
+
+> out
+You move out.
+
+By Treasury Door
+You are at the south end of a short passageway, standing in front of a large door which is open and leads In. You can also go North to the passageway.
+
+Now you have recovered the sapphire ring, you must wait for the patrol to go by again so you can return to the room on the floor below and escape from the castle!
+
+> n
+You move north.
+
+South End of Hall
+You are at the south end of a large hall which extends North. You can also go East and West along the passageway. Another short passageway leads South.
+
+> n
+You move north.
+
+North End of Hall
+You are at the north end of the large hall, where a sloping black catafalque supports a large open coffin. In the coffin lies a sleeping figure. You can go South to the other end of the hall.
+
+> get garlic
+Ok, you take the bulb of garlic from out of the bag.
+
+> show garlic to vampire
+You hold the bulb of garlic in front of the vampire's nose.
+
+The creature's nose twitches and it suddenly wakes up and takes the garlic from you.
+
+"Oh great!" he exclaims. "Just what I need to go with dinner tonight!" he says, dropping the garlic into his coffin.
+
+> s
+You move south.
+
+South End of Hall
+You are at the south end of a large hall which extends North. You can also go East and West along the passageway. Another short passageway leads South.
+
+> s
+You move south.
+
+By Treasury Door
+You are at the south end of a short passageway, standing in front of a large door which is open and leads In. You can also go North to the passageway.
+
+> wait
+Once again you wait for a while and eventually you hear the echoing tramp of boots as the guard patrol comes marching along the castle corridors.
+
+You extinguish the handfire above your head with a quick "Snuffio" and you see the patrol leader, carrying a blazing torch, go west in the passageway to the north. As the last soldier marches past, you quickly join the patrol.
+
+The patrol marches along the passageway, down the spiral stairway and along the passageway. You slip south along the short passageway to the door you came through earlier and into the room.
+
+The patrol marches along the passageway, down the spiral stairway and along the passageway. You slip south along the short passageway to the door you came through earlier and into the room.
+
+Room In Castle
+You are in a room in the castle. There is a window in the outside wall of the room which provides illumination and is open. The room doesn't appear to be used for anything other than storage. There are various chests and cupboards here, all covered in dust, and in the north wall there is a door which is open and leads Out to darkness.  Also here is a door key.
+
+> drop sword
+Ok, you put down the broadsword.
+
+> wear ring
+Ok, you put on the sapphire and diamond ring.
+
+> climb rope
+You climb out of the window and down the rope to the base of the castle.
+
+Base of Castle
+You are at the top of the rocky crag where the wall of the castle sits on the rock. About twenty feet above you see an open window.  You can go Down the easy part of the crag or climb Up the hanging rope to the window above.
+
+> flick rope
+You flick the hanging rope a couple of times and the grapnel disengages from where it is hooked over the window and falls down the crag. You pull it up and coil the rope.
+
+Base of Castle
+You are at the top of the rocky crag where the wall of the castle sits on the rock. About twenty feet above you see an open window.  You can go Down the easy part of the crag or climb Up the hanging rope to the window above.
+
+> d
+You move down.
+
+Halfway Up Crag
+You are clinging to the rock face halfway up the crag. The rest of the crag above you is easily climbable.
+
+> hook grapnel on rock
+You hook the grapnel on the rock by your feet and drop the rope to hang down to the ground.
+
+Halfway Up Crag
+You are clinging to the rock face halfway up the crag. The rest of the crag above you is easily climbable.  Your grapnel is hooked onto the rocky crag at your feet.
+
+> d
+You climb down the rope to the ground below.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.  Hanging down from high above is the rope that is attached to your grapnel.
+
+> se
+You move southeast.
+
+Edge Of Forest
+You are at the edge of the forest, which is to the southeast of the castle on the crag. You can go NW back to the crag or SE along a vague trail further into the forest.
+
+> se
+You move southeast.
+
+On Trail In Forest
+You are on a vague trail that meanders around the trees in the forest. The thick canopy overhead blocks most of the light from reaching the forest floor, which is devoid of any vegetation. You can go NW towards the edge of the forest, which extends into the dark distance in all other directions around you, or East along the trail.
+
+> e
+You move east.
+
+Clearing in Forest
+You're in a clearing in the forest which is dominated by a huge conical mound of earth - a charcoal kiln - from which white smoke emanates. A ladder rests against the mound and not far from the mound is a shabby hut. You can go West into the forest or East to the hut. Young and Old Wat are on top of the charcoal kiln, tending to it with the long poles.
+
+You call up to the charcoal burners that you have recovered their mother's ring. They are delighted and hurry down the ladder to take the ring from you.
+
+As promised, they give you a sack with some charcoal in it. They head for their hut and you walk into the forest back towards Gormanhast.
+
+On Trail In Forest
+You are on a vague trail that meanders around the trees in the forest. The thick canopy overhead blocks most of the light from reaching the forest floor, which is devoid of any vegetation. You can go NW towards the edge of the forest, which extends into the dark distance in all other directions around you, or East along the trail.
+
+> nw
+You move northwest.
+
+Edge Of Forest
+You are at the edge of the forest, which is to the southeast of the castle on the crag. You can go NW back to the crag or SE along a vague trail further into the forest.
+
+> nw
+You move northwest.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.  Hanging down from high above is the rope that is attached to your grapnel.
+
+> sw
+You move southwest.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> in
+Ok, you open the door and go in through it, closing it behind you.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> s
+You move south.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> s
+You move south.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> w
+You move west.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> in
+You move in.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> sw
+You move southwest.
+
+By Table
+You are standing by a table in the tavern. Seated at the table  is Zarbo, who stinks so much that nobody else in the tavern, apart from you, is within twenty feet of him. You can go North to the bar, NE to the main part of the tavern or you could sit down at the table.
+
+> give sack to zarbo
+You give the sack of charcoal to Zarbo.
+
+He looks inside the sack and takes it from you.
+
+"That's more than enough," he tells you.
+
+Zarbo gets unsteadily to his feet and, telling you that he will be back in a while, walks out of the tavern and is lost to view.
+
+You are tempted to go after him but you get a drink from the bar, sit at his table and wait.
+
+A good hour later, during which time you fend off approaches from several men and one woman, he returns carrying a wooden cask, which he gives to you.
+
+"You'll need a fuse about three feet long," he tells you. "Push one end of the fuse into the hole in the top of the cask, put the cask by the portal, light the fuse and then go through the portal to your own land and get as far away as you can,"
+
+> ne
+You move northeast.
+
+In Tavern
+You are in the tavern, a large room with a high ceiling. There is a dance area in the centre, surrounded by many tables and benches. The tavern is quite full and the patrons are all having a good time. You can go West to the bar, SW to where Zarbo is sitting or Out to the street.
+
+> out
+You move out.
+
+End of West Street
+You are at the end of West Street by the stockade. On the south side of the street is the tavern, which you can go In to.
+
+> e
+You move east.
+
+Middle Of Main Street
+You are in the middle of the main street of Gormanhast. Side streets head off East and West from here and the street continues South.
+
+> n
+You move north.
+
+North End of Main Street
+You are at the north end of the central street of Gormanhast. On one side of the street there are various sized cottages and houses while on the other side there is a hardware shop. You can go In or West to the shop and North or South along the main street.
+
+> n
+You move north.
+
+Inside North Gate
+You are inside the gate in the stockade that surrounds the village of Gormanhast. The central street of the village divides it in two, with a mix of residential and commercial buildings on both sides. It runs due South through the village to another gate in the stockade.
+
+> out
+Ok, you open the door and go out through it, closing it behind you.
+
+By Gate In Stockade
+You are standing by the gate in the village stockade. The gate is closed but there is a small postern door in it. You can go In to the village through the door. Surrounding the stockade are fields of wheat and other crops and there is a fenced field in which a few farm animals are grazing.
+
+> ne
+You move northeast.
+
+By Cave In Rocky Crag
+You are by the small cave in which there is the tunnel leading back to Domreil castle. The crag in which the cave exists looms above you. On the top of the crag stands a dark, turreted castle while a vague path leads SW towards a small village which sits within a wooden stockade. To the Southeast lies a forest and you can go In to the cave.  Hanging down from high above is the rope that is attached to your grapnel.
+
+> in
+You move in.
+
+In Small Cave
+You are in a small cave. The opaque barrier shimmers in the north wall here, opposite which is a opening leading Out of the cave. You can go in that direction or North through the barrier.
+
+> get fuse
+Ok, you take the length of fuse from out of the bag.
+
+> put fuse in hole
+You stick one end of the length of fuse into the tiny hole in the top of the cask of blasting powder.
+
+> drop cask
+Ok, you put down the cask of blasting powder.
+
+> get fossy
+Ok, you take the fossy from the deep pockets.
+
+> light fuse
+Using your fossy, you light the end of the fuse.
+
+The fuse starts fizzling and burning down - you'd better get out of here before the cask explodes!
+
+> n
+As you walk North back through the opaque barrier, you sense that you are back under Domreil castle.
+
+The Rock Tunnel
+You are in a short rock tunnel leading from the cell South towards daylight in an opening a few feet away. You cannot see what lies beyond the opening as there is an opaque barrier in it. You can go In to the cell.
+
+> in
+You move in.
+
+Cell 1
+You are in cell 1 of the former dungeons. The straw that once covered the floor has been removed but there is still a layer of dirt there.  You can only go North into the dungeons as the explosion has destroyed the portal and caused the rock tunnel, that previously lead south, to collapse.
+
+Suddenly there is a loud blast and you are blown out into the dungeons by a concussion wave amidst a cloud of dust which comes hurtling from the tunnel.
+
+East End Of Dungeons
+You are at the east end of the dungeons where cells 1 and 2 lie to the South and North respectively. The doors to both are open. On the wall here is a metal sconce.
+
+> w
+You move west.
+
+In Dungeons
+You are in the newly-refurbished dungeons in the depths of Domreil Castle. You can go West or East along the dungeon or North and South into the former cells 3 and 4.
+
+You dust yourself down and go up through the castle to your apartments, where you rejoin Finngor and Polgara.
+
+You assure Finngor that the land of Hecate will never again be be terrorised by the vampire lord.
+
+*** CONGRATULATIONS! ***
+
+You have at last solved...
+
+THINGS THAT GO BUMP IN THE NIGHT
+
+...in 310 turns, scoring the maximum 250 points!
+
+I do hope you have enjoyed playing this game.
+
+OTHER GAMES BY LARRY HORSFIELD:
+
+'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+Episode 9: XANIX - XIXON RESURGENCE
+
+Episode 10: THE BOOK OF JAX
+
+*****************************
+
+'Adventures In The World Of Alaric Blackmoon' Series:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+Chapter 3: FINN'S BIG ADVENTURE
+
+Chapter 4: MAGOR INVESTIGATES...
+
+****************************
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+Chapter 5: BUG HUNT ON MENELAUS
+
+****************************
+
+Coming soon: ALYAS OF STARHOLLOW
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games

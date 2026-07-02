@@ -380,10 +380,15 @@ static void
 attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
 {
   std::set<std::string> seen;
+  exec_resp_scope escope;
   std::set<std::string> *prev = run->ev_seen;
+  exec_resp_scope *prev_escope = run->exec_scope;
   run->ev_seen = &seen;
+  run->exec_scope = &escope;
   attempt_event_task_impl (run, key, depth, out);
   run->ev_seen = prev;
+  run->exec_scope = prev_escope;
+  exec_scope_flush (run, &escope, out);
 }
 
 /* Drain clsAdventure.qTasksToRun: run each LocationTrigger-armed System task in
