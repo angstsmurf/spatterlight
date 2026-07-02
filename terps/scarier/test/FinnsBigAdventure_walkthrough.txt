@@ -174,3 +174,215 @@ w
 w
 push off
 row n
+n
+w
+in
+look under workbench
+get screwdriver
+out
+e
+e
+s
+put screwdriver in rucksack
+pull rope
+untie rope
+get screwdriver
+force case open with screwdriver
+open case
+get bag
+look in bag
+put bag in rucksack
+put screwdriver in rucksack
+n
+n
+n
+in
+sit at table
+read menu
+call waitress
+1
+2
+wait
+wait
+wait
+eat meal
+eat dessert
+pay bill
+stand up
+out
+out
+w
+in
+read newspaper
+read article
+search shelves
+buy book
+read book
+out
+n
+n
+e
+e
+ring bell
+w
+w
+s
+s
+e
+e
+in
+2
+search racks
+hire suit
+w
+w
+w
+in
+get soldiers from rucksack
+e
+n
+n
+e
+se
+e
+in
+get key
+get napkin
+unlock door with key
+in
+n
+open oven
+put napkin in oven
+read napkin
+s
+put key on hook
+out
+sw
+w
+w
+s
+s
+e
+s
+s
+w
+w
+in
+go to sleep on sails
+out
+e
+s
+in
+put napkin in rucksack
+put costume in rucksack
+put book in rucksack
+put certificate in rucksack
+row se
+get slingshot from rucksack
+look for a stone
+fire stone at hat
+put slingshot in rucksack
+e
+n
+w
+get smock
+e
+s
+s
+e
+e
+remove rucksack
+wear smock
+wear hat
+e
+n
+n
+n
+n
+e
+e
+e
+exchange 40 gold
+e
+s
+buy flowers
+s
+remove boots
+in
+in
+x statue
+offer flowers
+talk to priest
+1
+2
+3
+4
+out
+n
+n
+w
+w
+s
+s
+get wooden horse
+give horse to crying baby
+s
+s
+listen to musicians
+n
+in
+give bat and scorpion to herbalist
+pay 50 goons to herbalist
+s
+e
+e
+e
+e
+e
+give powder to farmer
+w
+w
+w
+w
+w
+n
+n
+n
+n
+w
+w
+s
+in
+get gauntlet
+1
+2
+sell gauntlet to antiques dealer
+out
+s
+s
+s
+e
+e
+e
+e
+n
+buy flowers
+s
+w
+w
+w
+w
+w
+w
+offer flowers to goddess
+e
+e
+n
+n
+n
+n
+n
+get rope
+n
+feed stray dog with steak
+make a leash
