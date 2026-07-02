@@ -1,5 +1,43 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Event-fired task on the plural path fired its completion controls even when its restrictions FAILED (FBA handfire never re-extinguishes)  ✅ DONE (2026-07-02)
+
+Surfaced while deriving FinnsBigAdventure against FrankenDrift. In FBA the ball
+of handfire "winks out" whenever you walk into a lit area — driven by a Length-1
+repeating TurnBased event `cl_HandfireOu` (started by the `cl_Lumino` conjure
+task) whose SubEvent runs the System task `cl_HandfireOu1` each turn; that task
+hides the handfire when the player is NOT in a `DarkLocations`-group room, and
+the event's `Stop Completion cl_HandfireOu1` control stops it once it fires. FD
+re-extinguishes every time you re-conjure and step into light; Scarier
+extinguished only the FIRST time, so the handfire persisted into the dungeon.
+
+**Root cause** (`attempt_event_task_impl`, a5run_events.cpp): the plural path
+(`n_ref_items > 1`, taken when a `get X and Y` command leaves ≥2 leftover
+`%objects%` references — the same path that makes Amazon's `get ammo and rifle`
+tick `ts_tasIncrement` twice) called `ev_on_task_completed` **unconditionally**,
+even when the task's restrictions failed for every item and `run_task` never
+ran. The single-item path correctly `return`s on restriction failure (no
+completion, no controls). So when a plural equip command (`get toy soldiers and
+toy warriors`, etc.) coincided with the handfire event's SubEvent executing
+`cl_HandfireOu1` in the dark Your Room (restriction fails → no extinguish), the
+spurious "completion" fired the `Stop Completion cl_HandfireOu1` control and
+**stopped the handfire event mid-turn** (status → FINISHED with timer=1; the
+repeating-restart only fires on a natural timer==0 end, so it never restarted).
+From then on the handfire never re-extinguished. FD only fires EventControls on a
+genuine `bPass`, so its event kept ticking and extinguished at the lit "Near Door
+of Your Room".
+
+**Fix**: gate the plural path's `task_done`/`ev_on_task_completed` on an
+`any_ran` flag set only when an item actually passes restrictions and runs —
+mirroring the single-item path. No-restriction event tasks (`ts_tasIncrement`)
+keep `any_ran=1`, so Amazon's double-tick is unchanged. All 25 corpus games stay
+at baseline (Amazon still MATCH 0), unit tests pass. Diagnosed via `A5_TRACE_RUN`
+/ `A5_TRACE_RESTR` plus temporary `ev_lstart/ev_lstop/ev_increment` event-status
+instrumentation. Scarier now byte-matches FD's 3 "winks out" in the FBA
+walkthrough.
+
+
+
 **STATUS (2026-07-02): no OPEN conformance bugs.** All 24 wired games are at
 their best-known state (see the MAP in `test/run_a5_walkthroughs.sh`): 19 are
 golden-backed **0|0 MATCH** in both RNG modes; the 5 DIVERGE rows are

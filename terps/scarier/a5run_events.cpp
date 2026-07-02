@@ -341,6 +341,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
       const char *grp  = (tchar == 'c') ? "characters" : "objects";
       const char *rbnd = (tchar == 'c') ? "ReferencedCharacters" : "ReferencedObjects";
       std::vector<const char *> items (st->ref_items, st->ref_items + nleft);
+      int any_ran = 0;
       for (const char *it : items)
         {
           /* FD AttemptToExecuteSubTask ReDims NewReferences to this single item;
@@ -353,11 +354,24 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
           bind_reference (st, grp, it, it);
           a5state_bind_ref (st, rbnd, it);
           if (a5restr_pass (st, t->restrictions))
-            run_task (run, t, depth + 1, out);
+            { run_task (run, t, depth + 1, out); any_ran = 1; }
         }
-      if (ti >= 0)
-        st->task_done[ti] = 1;
-      ev_on_task_completed (run, key, out);
+      /* Only "complete" (mark done + fire EventControls) if the task actually
+         ran for at least one item -- a task whose restrictions fail for every
+         item never bPass'd in FD, so its completion controls must NOT fire.
+         Mirrors the single-item path below (which returns on restriction
+         failure).  Without this, a plural `get X and Y` command that happens to
+         coincide with a turn-based event executing a restriction-FAILING System
+         task (e.g. FBA's `cl_HandfireOu1` in a dark room) spuriously fires that
+         task's `Stop Completion` control -- killing the handfire event so it
+         never re-extinguishes.  ts_tasIncrement-style no-restriction event tasks
+         still complete (any_ran stays 1), so Amazon's double-tick is unchanged. */
+      if (any_ran)
+        {
+          if (ti >= 0)
+            st->task_done[ti] = 1;
+          ev_on_task_completed (run, key, out);
+        }
       return;
     }
 

@@ -7,7 +7,18 @@ blind play through `test/a5run_dump` replay scripts, guided by the game's
 **`WWDD`** ("What Would Dad Do?") per-location hint tasks and the model's
 scoring tasks.
 
-## Status: **100 / 500** (verified), script = `test/FinnsBigAdventure_walkthrough.txt` (100 commands)
+## Status: **100 / 500** (verified in BOTH Scarier and FrankenDrift), script = `test/FinnsBigAdventure_walkthrough.txt`
+
+> **Now derived against FrankenDrift (the reference runner).** Surfaced + FIXED a
+> real Scarier engine bug in the process: the handfire "winks out when you walk
+> into light" mechanic (a repeating TurnBased event → System task) stopped
+> working after the first extinguish, because a plural `get X and Y` command's
+> event-task path fired completion controls even on restriction failure, killing
+> the handfire event (full write-up in `TODO_a5_walkthrough_bugs.md`, top entry).
+> With that fixed, both engines behave identically. The script carries an extra
+> `lumino` at the West End of Dungeons — needed by BOTH engines now, since the
+> handfire correctly winks out during the lit-corridor sneak-out and the dungeon
+> is entered dark. Drive FD with: `dotnet <fd-headless.dll> "<game>" <script>`.
 
 The script is a WORK IN PROGRESS — it does NOT win yet, so it is **not** wired
 into `run_a5_walkthroughs.sh` MAP. Re-run to confirm the checkpoint:
