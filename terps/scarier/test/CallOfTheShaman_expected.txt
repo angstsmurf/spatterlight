@@ -1,0 +1,1157 @@
+The Call of the Shaman
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+THE CALL OF THE SHAMAN
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, or your text colour not set to cyan, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : MACROS : MAP : VOCAB;
+
+> b
+
+Secluded Beach
+You are standing on a secluded beach on the east coast of the continent of Americanus. To the east all you can see is a vast empty ocean. The beach extends to the North and South and the beach slopes Up to a grassy ridge to the West.
+
+> dig sand
+You dig in the sand with your hands and, at first, find nothing, but you try a different patch of sand and you dig up an old canteen, which you pick up.
+
+> w
+You move West.
+
+Grassy Ridge
+You are standing on a grassy ridge overlooking the beach, which is below you to the East. From this viewpoint to can see a small settlement to the West. The ridge extends North and South into the distance.
+
+> w
+You move West.
+
+You walk over to the settlement and around to the west side where you see an entrance. You walk through the gates and ask the first person that you see, a man about the same age as yourself, that you are looking for the head man of the settlement. He tells you to go to the chapel and then leaves you to go about his business.
+
+Inside Entrance
+You are just inside the entrance to the settlement. The centre of the settlement is to the East and you can also go North, South, NE & SE. The huge doors to the settlement are open. There are a number of townsfolk here, going about their daily business.
+
+> e
+You move East.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> e
+You move East.
+
+By Chapel
+You are by the chapel on the east side of the settlement. The doors to the chapel are open and lead East. In front of the chapel is a hitching rail. You can also go In or North, South, West, NW or SW.
+
+> in
+You move In.
+
+In Chapel
+You are in the chapel, which is very simply built. There are no pews or benches for the congregation to sit on and the only thing that indicates your are in a place of worship is the large wooden cross mounted on the east wall. The doors lead West.
+
+As you look around the gloomy chapel a figure gets up from where he was kneeling on the floor in front of the cross.
+
+"Hello my son," he greets you in a Dutch accent. "My name is Pieter van der Walt and I am the pastor here. You are obviously a stranger to these parts, may I ask who you are and where you have come from?"
+
+> talk to pastor
+You tell the pastor who you are, where you are from - saying that you were dropped here from a ship - and why you are here, telling him how Bronwynn came to be wounded.
+
+"It grieves me that your princess was wounded in such a way," he says sympathetically. "I will pray that you are able to find this shaman and secure an antidote."
+
+> ask pastor about cherokee
+You ask the pastor about the Cherokee tribe that Magor told you to seek out.
+
+"They roam the forests and plains to the west," Pieter tells you. "Their range is about three or four days travel from here."
+
+> out
+You move Out.
+
+You thank the pastor and leave the chapel.
+
+"God go with you my son," Pieter blesses you as you leave.
+
+By Chapel
+You are by the chapel on the east side of the settlement. The doors to the chapel are open and lead East. In front of the chapel is a hitching rail. You can also go In or North, South, West, NW or SW.
+
+You hear a commotion over by the centre of the settlement and look in that direction to see a scruffy man struggling with one of the townsfolk. The scruffy man is trying to wrest a small pouch from the grip of the other man, who is calling out for help.
+
+As you watch the scruffy man pulls out a knife and threatens the other man with it. He lets go of the canvas pouch and the thief runs off in triumph, the man he has just robbed shouting out "Stop thief!" at the top of his voice.
+
+You run after the thief in an attempt to catch him, but he is very swift of foot and has a head start on you.
+
+As you reach the settlement exit you see the man running in a northwesterly direction towards the woods that surround the settlement.
+
+Outside Entrance
+You are just outside the entrance to the settlement, which is to the East. There is an area about half a kilometre wide which has been cleared of trees all around the palisade, beyond which you see forest in all directions. You can go South back to the grassy ridge, NW to the edge of the woods on the far side of the cleared area and in all other directions except SE or NE. The huge doors to the settlement are open.
+
+You see the thief running across the cleared area, he is about halfway across.
+
+> follow thief
+You set off after the thief as fast as you can run.
+
+You are about 2/3 the way across the cleared area when you see him enter the forest. You temporarily lose sight of him behind the trees but as you reach the forest you spot him further ahead and realise that he hasn't seen you chasing him, as he has slowed to a trot.
+
+You follow him for quite a way through the forest, watching him change direction a couple of times and walk along a tiny stream for a couple of hundred metres so as not to leave a trail. As you proceed through the forest, you cut blazes on tree trunks that you pass so that you can find your way back easily.
+
+Eventually he reaches a rough shelter and he crawls inside. You hide behind a nearby oak tree to catch your breath.
+
+Behind Tree Near Shelter
+You are in the woods to the northwest of Daveytown, hiding behind the trunk of an oak tree. A few metres to the north you see a crude shelter has been made with branches and logs. The way back to Daveytown is roughly South from here.
+
+> n
+You move North.
+
+By Shelter
+You are standing by the shelter in the forest. There is a hole in the side of the shelter which you will have to crawl into if you want to go inside it. The oak tree you hid behind is South.
+
+> draw sword
+You draw your sword from its scabbard.
+
+> call thief
+You call out to the thief hiding in the shelter to come out and face you like a man.
+
+Nothing happens for a few seconds then suddenly the thief bursts out of the shelter, scattering branches and clods of turf everywhere! He is armed with a sword and dagger and attacks you without warning.
+
+You parry his first attack with ease and attack him with your sword. He puts up a good fight and, for a while, you are hard-pressed to defend yourself against this "main-gauche" style of fighting but eventually you wear him down and dispatch him with a thrust to the heart!
+
+By Shelter
+You are standing by the shelter in the forest. The side of the shelter is now more open and you can easily go In to it. The oak tree you hid behind is South.  Also here is a short sword and a dagger.  The dead thief is here.
+
+> search thief
+You search the body of the dead thief and find the canvas pouch that he stole from the man in the settlement. You realise that it is full of gold coins.
+
+The thought goes through your head that you could keep the pouch of coins and use them to hire a horse, but that would be dishonest so you decide to find the victim of the robbery and return the pouch to him.
+
+> get short sword
+Ok, you pick up the short sword.
+
+> get dagger
+Ok, you pick up the dagger.
+
+> in
+You get down on your hands and knees and crawl inside the shelter.
+
+In Shelter (lying on the floor)
+You are inside the shelter, where you have room to lay down but not stand up. A hole leads out.  On the ground are some old furs the thief had been sleeping on.
+
+> look under furs
+You look under the old furs and find the thief's booty.
+
+In Shelter (lying on the floor)
+You are inside the shelter, where you have room to lay down but not stand up. A hole leads out.  On the ground are some old furs the thief had been sleeping on.  Also here is a gold pocket watch and a silk handkerchief.
+
+> get watch
+Ok, you pick up the gold pocket watch.
+
+> get handkerchief
+Ok, you pick up the silk handkerchief.
+
+> out
+You crawl out of the shelter and stand up.
+
+By Shelter
+You are standing by the shelter in the forest. The side of the shelter is now more open and you can easily go In to it. The oak tree you hid behind is South.  The dead thief is here.
+
+> s
+You move South.
+
+Behind Tree Near Shelter
+You are in the woods to the northwest of Daveytown, hiding behind the trunk of an oak tree. A few metres to the north you see a crude shelter has been made with branches and logs. The way back to Daveytown is roughly South from here.
+
+> s
+You move South.
+
+You follow the blazes you cut on the trees in the forest, eventually reaching the edge of the woods.
+
+Edge of Woods
+You are at the edge of the woods on the far side of the cleared area around the settlement. You can go SE to the entrance, North, or NW to where the thief's shelter is.
+
+> se
+You move SouthEast.
+
+Outside Entrance
+You are just outside the entrance to the settlement, which is to the East. There is an area about half a kilometre wide which has been cleared of trees all around the palisade, beyond which you see forest in all directions. You can go South back to the grassy ridge, NW to the edge of the woods on the far side of the cleared area and in all other directions except SE or NE. The huge doors to the settlement are open.
+
+> e
+You move East.
+
+Inside Entrance
+You are just inside the entrance to the settlement. The centre of the settlement is to the East and you can also go North, South, NE & SE. The huge doors to the settlement are open. There are a number of townsfolk here, going about their daily business.
+
+> e
+You move East.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> find owner
+You go in search for the man who the thief stole the pouch from and find him after a few minutes of looking. You tell him that you found and punished the thief and have recovered his gold.
+
+"That vagabond has been plaguing us for a while now," he tells you, overjoyed. "We will rest easy in our beds now that you have dealt with him. Please keep the gold as a reward and for your honesty in returning it to me!"
+
+The man walks away and out of sight so you walk back to the centre of the settlement.
+
+> s
+You move South.
+
+Outside Forge
+You are outside a blacksmith's forge in the settlement. The forge itself is under a wooden awning that projects from the main building. You can go NW, NE or North. There are a number of townsfolk here, going about their daily business.   Working at his forge you see the blacksmith.
+
+As you approach the forge you notice something hanging on the wall of the forge.
+
+> x forge wall
+The wall of the forge is made of wood. Hanging from a nail on the wall of the forge is an old apron.
+
+Outside Forge
+You are outside a blacksmith's forge in the settlement. The forge itself is under a wooden awning that projects from the main building. You can go NW, NE or North. There are a number of townsfolk here, going about their daily business. Hanging from a nail on the side of the forge is a leather apron.  Working at his forge you see the blacksmith.
+
+> get apron
+You take the apron down off the nail. The nail comes out of the wall as you do and it is lost to view.
+
+As you do that, the blacksmith notices what you have done.
+
+"You can have that if you want it," he tells you. "I have a new one and no longer need it."
+
+You thank the blacksmith and he goes back to his work.
+
+> give watch to blacksmith
+You give the pocket watch to the blacksmith.
+
+The blacksmith looks at the watch and a huge grin appears on his face.
+
+"That's my pocket watch!" he exclaims. "A pickpocket stole it a couple of weeks ago, how did you manage to get it back?"
+
+You tell him about the thief and how you chased him into the forest and dealt with him.
+
+"That was very brave of you, my friend," he tells you and hands you some gold coins. "Please take this small reward as a token of my thanks!"   You add the money the blacksmith has given you to the gold coins in the pouch
+
+> n
+You move North.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> ne
+You move NorthEast.
+
+By Saddlers
+You are in front of a building in the settlement that has the words "Jann van Daalwijk - Saddler" painted on a board over the door. In front of the building is a hitching rail. You can go North into the building, SW, West or South. There are a number of townsfolk here, going about their daily business.
+
+> in
+You move In.
+
+In Saddlers
+You are in the saddlers, which smells strongly of leather and beeswax. There are various saddles and bridles on sale. The door is South.  Here you see the saddler standing behind the counter of his store.
+
+> give handkerchief to saddler
+You give the silk handkerchief you recovered from the thief's shelter to the saddler.
+
+The man's mouth drops open with surprise.
+
+"That's my wife's handkerchief!" he exclaims. "It was stolen from her by a pickpocket earlier this week, how did you get it back?"
+
+You tell him about the thief and how you chased him into the forest and dealt with him.
+
+"That was very brave of you, my friend," he tells you, impressed. "As a reward you can borrow any saddle and bridle from my stock free of charge, should you need them."
+
+> s
+You move South.
+
+By Saddlers
+You are in front of a building in the settlement that has the words "Jann van Daalwijk - Saddler" painted on a board over the door. In front of the building is a hitching rail. You can go North into the building, SW, West or South. There are a number of townsfolk here, going about their daily business.
+
+> sw
+You move SouthWest.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> sw
+You move SouthWest.
+
+By Trading Post
+You are by a building in the settlement which has TRADING POST painted on the front above the door that leads South. In front of the building is a hitching rail. You can also go East or North. There are a number of townsfolk here, going about their daily business.
+
+> s
+You move South.
+
+In Trading Post
+You are in the trading post, which is crammed with all sorts of objects which people have traded or sold here. Behind the counter stands the trader. The door leads North or Out of the building.
+
+As you walk in to the trading post you see that the trader has just finished dealing with a customer. The customer, a wild-looking man who looks as if he is a woodsman or similar, walks past you with a scowl on his face.
+
+The trader sees you standing there.
+
+"What kin I do fer ye, stranger?" he asks.
+
+> sell short sword
+You give the shortsword to the trader and ask how much he will give you for it.
+
+The trader examines the sword closely, looks at you with shifty eyes and offers you 5 dollars for it. You say that's not enough and go to take the sword from him.
+
+"Ok," he says, and offers you 8 dollars. You shake your head and go to take the sword from him again.
+
+"Dammit," he snaps and offers you 10 dollars - take it or leave it! You accept the offer and he reluctantly hands over the 10 dollars.
+
+You put the gold coins into the canvas pouch.
+
+> sell dagger
+You give the dagger to the trader and ask how much he will give you for it.
+
+He examines it closely, hefting in his hand and feeling the balance.
+
+"Hmmm," he says. "Nice dagger, give ya 5 bucks for it, no haggling, final offer!"
+
+You agree on the price and he gives you 5 dollars.
+
+You put the gold coins into the canvas pouch.
+
+> buy blanket
+You ask the trader if you could buy a blanket?
+
+He points to the blankets he has on display and invites you to chose one, which you do.
+
+"OK, that'll cost ye six bucks," he tells you.
+
+You haggle for a minute or so and beat him down to four dollars, which you hand over to him.
+
+> buy compass
+You ask the trader if he has a compass he can sell you.
+
+He thinks for moment and then starts to rummage around in his stock. After a few minutes of searching he finds a compass.
+
+"There ya go, y'kin have this one fer ten bucks," he tells you.
+
+You haggle for a couple of minutes and beat him down to five dollars. You hand over the dollar coins and he gives you the compass.
+
+> n
+You move North.
+
+As you leave the trading post, the trader calls out.
+
+"See ya, son, great doin' business wid'ya. Come back when you have something else to trade, y'hear!"
+
+By Trading Post
+You are by a building in the settlement which has TRADING POST painted on the front above the door that leads South. In front of the building is a hitching rail. You can also go East or North. There are a number of townsfolk here, going about their daily business.
+
+> ne
+You move NorthEast.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> nw
+You move NorthWest.
+
+By Provisions Store
+You are in front of a building in the settlement that has the word "Provisions" painted on a board over the door. In front of the building is a hitching rail. You can go North into the store, South, East or SE. There are a number of townsfolk here, going about their daily business.
+
+> n
+You move North.
+
+In Provisions Store
+You are in the provisions store. It is crammed with all kinds of provisions and the storekeeper is standing behind the counter. The door leads South.
+
+As you walk into the store you see that the storekeeper has just finished dealing with a customer.
+
+He bids the man farewell and the man walks past you, nodding a greeting. The storekeeper turns his attention to you.
+
+"Good day to you, sir" he says pleasantly. "What can I provide you with today?"
+
+> buy rations
+You buy a 5-day pack of travel rations from the shopkeeper for 5 dollars.
+
+> s
+You move South.
+
+By Provisions Store
+You are in front of a building in the settlement that has the word "Provisions" painted on a board over the door. In front of the building is a hitching rail. You can go North into the store, South, East or SE. There are a number of townsfolk here, going about their daily business.
+
+> se
+You move SouthEast.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> se
+You move SouthEast.
+
+By Livery Stable
+You are in front of a building in the settlement that has the word "Livery Stable" painted on a board over the door, which is closed. By the side of the door a brass bell hangs from a metal bracket and there is a hitching rail here. On the door you see a notice. There are a number of townsfolk here, going about their daily business. You can go North, West or NW. Behind the building you can just see a corral containing a couple of horses.
+
+> ring bell
+Holding onto the leather strap you ring the bell.  You wait a minute or two but there is no answer. Maybe you should try again?
+
+> ring bell
+Holding onto the leather strap you ring the bell.  You wait a bit longer but still nobody comes. Perhaps one more time?
+
+> ring bell
+Holding onto the leather strap you ring the bell.
+
+On the third ring, a young man comes walking around the corner of the livery stables, wiping his hands on a piece of rag.
+
+"Sorry to keep you, good sir," he apologises, "Bin tending t'ma horses! Now, what kin I do fer ye?"
+
+By Livery Stable
+You are in front of a building in the settlement that has the word "Livery Stable" painted on a board over the door, which is closed. By the side of the door a brass bell hangs from a metal bracket and there is a hitching rail here. On the door you see a notice. There are a number of townsfolk here, going about their daily business. You can go North, West or NW. Behind the building you can just see a corral containing a couple of horses.  The ostler is here.
+
+> hire horse
+You tell the ostler that you wish to hire a horse.
+
+"I kin hire you one for a week fer 50 bucks," he says to you. "How's dat sound?"
+
+> hire horse
+You say "Yes" to the ostler's offer and give him 50 dollars.
+
+He shakes you by the hand and goes around to the back of the livery stable.
+
+A few minutes later he returns leading a chestnut mare. He hands the halter to you.
+
+"This 'ere is Molly," he tells you. "She's a good, reliable mount and she'll git ya t'the Cherakee range no problems. I'm afraid I don't do any tack, so you'll have t'go t'Jann's over the other side of town fer that."
+
+You thank the ostler, who walks round the back of the livery stable to continue his work.
+
+By Livery Stable
+You are in front of a building in the settlement that has the word "Livery Stable" painted on a board over the door, which is closed. By the side of the door a brass bell hangs from a metal bracket and there is a hitching rail here. On the door you see a notice. There are a number of townsfolk here, going about their daily business. You can go North, West or NW. Behind the building you can just see a corral, but you cannot see the other horse which must have moved to another part of the corral you cannot see.  Your horse Molly is standing here.
+
+> nw
+You move northwest.
+
+Your horse follows quietly behind you.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.  Your horse Molly is standing here.
+
+> ne
+You move northeast.
+
+Your horse follows quietly behind you.
+
+By Saddlers
+You are in front of a building in the settlement that has the words "Jann van Daalwijk - Saddler" painted on a board over the door. In front of the building is a hitching rail. You can go North into the building, SW, West or South. There are a number of townsfolk here, going about their daily business.  Your horse Molly is standing here.
+
+> tie molly to rail
+You tie your horse's halter to the hitching rail.
+
+By Saddlers
+You are in front of a building in the settlement that has the words "Jann van Daalwijk - Saddler" painted on a board over the door. In front of the building is a hitching rail. You can go North into the building, SW, West or South. There are a number of townsfolk here, going about their daily business.  Your horse Molly is standing here, her halter tied to the hitching rail.
+
+> in
+You move In.
+
+In Saddlers
+You are in the saddlers, which smells strongly of leather and beeswax. There are various saddles and bridles on sale. The door is South.  Here you see the saddler standing behind the counter of his store.
+
+> ask saddler for saddle
+You ask the saddler for the saddle and bridle that he promised to lend you.
+
+"Yeah, sure thang!" the saddler says to you, with a smile.
+
+He goes out the back of his store and returns a few moment later with a saddle, saddle cloth and bridle, which he puts on the floor in front of you.
+
+"There y'go, you kin borra that lot fer as long as you need 'em!" he tells you, then he thinks for a moment.
+
+"Hang on, I fergot summut!" he says as he hurried out back again. He comes back carrying a saddlebag which he also drops on the floor.
+
+"Ya might find dat useful!" he says with a smile and a wink.
+
+You thank the saddler and shake him by the hand. He then walks back behind his counter, saying that he is going to close his shop for the day.
+
+You stagger out of the shop carrying all the gear he has lent you.
+
+By Saddlers
+You are in front of a building in the settlement that has the words "Jann van Daalwijk - Saddler" painted on a board over the door. In front of the building is a hitching rail. You can go North into the building, SW, West or South. There are a number of townsfolk here, going about their daily business.  Your horse Molly is standing here, her halter tied to the hitching rail.
+
+> saddle molly
+You first of all put the saddle cloth on Molly's back and then you put the saddle on top of it. You do up the girth strap tightly, then remove the halter from Molly's head and replace it with the bridle. Finally you strap the saddlebag behind the saddle. A passing stableman kindly stops to check that everything is in order and takes the halter from you, it being of no further use. Molly is now ready to ride!
+
+> s
+You move south.
+
+Your horse follows quietly behind you.
+
+By Chapel
+You are by the chapel on the east side of the settlement. The doors to the chapel are open and lead East. In front of the chapel is a hitching rail. You can also go In or North, South, West, NW or SW.  Your horse Molly is standing here.
+
+> sw
+You move southwest.
+
+Your horse follows quietly behind you.
+
+Outside Forge
+You are outside a blacksmith's forge in the settlement. The forge itself is under a wooden awning that projects from the main building. You can go NW, NE or North. There are a number of townsfolk here, going about their daily business.   Working at his forge you see the blacksmith.  Your horse Molly is standing here.
+
+> n
+You move north.
+
+Your horse follows quietly behind you.
+
+Centre of Settlement by Well
+You are at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.  Your horse Molly is standing here.
+
+A wild-looking man walks up to you. He carries a bow and arrow and is pulling a cart laden with animal pelts. As you draw near he holds his hand up in greeting.
+
+"Howdy stranger," the man says to you. "Ah hears that ye've bin lookin' fer me? Ma name is Henrik."
+
+You greet Henrik, shaking him by the hand, and introduce yourself. You explain why you are here and that you are looking for Grey Wolf, shaman of the Cherokee Indians.
+
+"Weel, Grey Wolf an' his folk roam the lands t'the east of the Savannah river and south of the Chattahoochee forest, about 75 miles from here," he tells you. "So if ya head doo west ya should run into them. Dey's a friendly folk but very wary of strangers, so ye'd better take this 'ere totem ta show that you mean them no harm."
+
+He reaches into the bag that he wears over his shoulder and takes out an object. Henrik hands you the totem, which is made from carved, painted wood.
+
+"If ya tell 'em I gave this t'ya, dey'll know you is a friend." he tells you.
+
+You thank Henrik, who wishes you good luck then continues on his way.
+
+> raise bucket
+You turn the windlass handle and raise the bucket up to the top of the well.
+
+> fill canteen
+You dip the canteen into the bucket and fill it with water.
+
+> w
+You move west.
+
+Your horse follows quietly behind you.
+
+Inside Entrance
+You are just inside the entrance to the settlement. The centre of the settlement is to the East and you can also go North, South, NE & SE. The huge doors to the settlement are open. There are a number of townsfolk here, going about their daily business.  Your horse Molly is standing here.
+
+> w
+You move west.
+
+Your horse follows quietly behind you.
+
+Outside Entrance
+You are just outside the entrance to the settlement, which is to the East. There is an area about half a kilometre wide which has been cleared of trees all around the palisade, beyond which you see forest in all directions. You can go South back to the grassy ridge, NW to the edge of the woods on the far side of the cleared area and in all other directions except SE or NE. The huge doors to the settlement are open.  Your horse Molly is standing here.
+
+> w
+It is too far to go on foot, maybe it would be easier to ride west on Molly?
+
+> sheath sword
+Ok, you put your sword back in its scabbard.
+
+> put all in saddlebag
+Ok, you put the canvas pouch, the travel rations, the woollen blanket, the Cherokee totem, the compass, the canteen and the old leather apron in the saddlebag.
+
+> mount molly
+Putting your left foot into the left-hand stirrup, you climb up and settle yourself on Molly's saddle.
+
+Outside Entrance
+You are riding your horse just outside the entrance to the settlement, which is to the East. There is an area about half a kilometre wide which has been cleared of trees all around the palisade, beyond which you see forest in all directions. You can go South back to the grassy ridge, NW to the edge of the woods on the far side of the cleared area and in all other directions except SE or NE. The huge doors to the settlement are open.
+
+> w
+You dig your heels into Molly's flanks and she canters off to the west.
+
+You ride west, checking your compass every hour to make sure that you are heading in the right direction. You stop to eat some of your travel rations by a stream from which you top up your canteen.
+
+You continue on until sundown, whereupon you find a sheltered spot where you can bed down for the night. You tie Molly to a convenient tree to stop her wandering off and, wrapping your blanket around yourself, you sleep until sun-up.
+
+Next day, after a meagre breakfast of travel rations, you head off west again and, after riding for some hours you enter a vast forest. Finding a well-defined trail through the forest, you follow it. Just as you reach the far edge of the forest you notice a strangely-shaped tree by the side of the trail.....
+
+Edge Of Forest
+You are riding your horse near the edge of a forest, on a trail that goes East back the way you came and West onto open land beyond the forest. By the side of the trail just here is an odd-shaped tree.
+
+> w
+You ride west.
+
+Near Cherokee Camp
+You are riding Molly about half a kilometre east of a Cherokee encampment. To the East is the vast forest through which you travelled to get here.
+
+Three natives ride up to you and stop a couple of metres away. They don't appear to be overtly hostile but you notice that the warriors either side of the one in the middle have arrows nocked to their bows.
+
+The native in the middle of the three addresses you.
+
+"Go no further stranger, my name is Black Fox," he tells to you. "Who are you and why do you travel through our lands?"
+
+> get totem from saddlebag
+Ok, you take the Cherokee totem out of the saddlebag.
+
+The native is starting to get impatient with you.
+
+"Why have you come to our lands, stranger?" he repeats.
+
+> show totem to black fox
+You show the totem to the native and tell him that Henrik gave it to you.
+
+"We know Henrik very well," the native tells you, "Any friend of his is a friend of ours. My name is Black Fox, now tell me why you have travelled here?" He makes a slight gesture and the other warriors un-nock the arrows from their bows and return the arrows to their quivers.
+
+You tell Black Fox about Bronwynn and your quest to find an antidote to the poison Heartsbane that will kill her if you fail. You tell Black Fox that Magor told you to seek out the tribe's shaman, Grey Wolf, in the hope that he will know where the antidote may be found.
+
+"That is a sorry tale, friend Alaric," Black Fox says to you. "Come to our camp and I will conduct you to Grey Wolf's tipi."
+
+As you ride towards the Cherokee encampment, your feel a tingle of excitement and send a prayer to the gods in thanks for making it this easy to have found Grey Wolf.
+
+As you ride Molly through the encampment, the natives going about their daily business look at you with curiosity. The two warriors accompanying you ride off and you and Black Fox dismount. A young warrior takes Molly from you and Black Fox leads you to a black tipi that is covered with all sorts of mystic symbols. You cannot help comparing it to the clothes that Magor wears. Black Fox draws aside the tipi flap and invites you inside.
+
+Inside tipi
+You are inside the tipi of Grey Wolf, shaman of the Cherokee. A fire burns on the ground in the centre. You can go Out to the camp.  Grey Wolf himself sits cross-legged before the fire, smoking a long-stemmed wooden pipe.
+
+As your eyes adjust to the gloom in here you see the shaman Grey Wolf sitting cross-legged by the fire, smoking a wooden pipe.
+
+Black Fox introduces you and tells Grey Wolf that you have travelled here from a far distant land and have need of his council.
+
+Grey Wolf regards you with his dark eyes for a few seconds then speaks.
+
+"How can I help you, friend Alaric, who sent you here?" he asks.
+
+> say magor
+You tell Grey Wolf that it was Magor who sent you here and why.
+
+Grey Wolf signals for Black Fox to leave, which he does. Grey Wolf ponders for a short while then replies.
+
+"The heartsbane poison is an evil concoction made from the juice of the berry of the silverthorn bush and the poison from a rattlesnake. You must find this bush, that is very rare and grows only on the banks of the Savannah river, which is a couple of hour's ride southwest of this camp, and pick a handful of the berries which you should put into this box to prevent them being crushed. You must then trap a rattlesnake alive and bring both back to me here."
+
+You take the box from Grey Wolf and then ask him to describe the silverthorn bush.
+
+"It grows to a height of about as high as your chest," he tells you. "The leaves are green with silvery veins and there are long sharp silver thorns on the branches. The berries are purple and poisonous to eat."
+
+You then ask Grey Wolf how you are going to trap a rattlesnake alive?
+
+"Ask Black Fox," Grey Wolf tells you, "He knows how to trap virtually anything!"
+
+Grey Wolf closes his eyes and seems to go into a trance. You take this as your cue that your audience with him is over and you leave the tipi to go to find Black Fox.
+
+By Tipi
+You are standing by Grey Wolf's tipi, which is on the south side of the Cherokee camp. The centre of the camp is to the North where a big fire has been built. You can go also go NW and NE to other tipis, or In to Grey Wolf's tipi. There are natives all around you going about their daily business.
+
+> find black fox
+You stop one of the natives and ask him where you can find Black Fox. He points over to the picket line in the NW corner of the camp. You thank him and head over there.
+
+By Picket Line
+You are standing at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here as well as your own horse Molly. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river.   Your horse Molly is standing here.  Black Fox is here.
+
+> ask black fox about rattlesnake
+You ask Black Fox how to trap a live rattlesnake. He looks a bit surprised at your question, but he stops what he was doing and replies.
+
+"You need to find one that is basking in the sun, as it will be sleepy," he tells you. "You then throw a dead mouse or, even better, a rat in front of the snake. The snake will then eat the rat and slowly digest it. This will make the rattler even more sleepy as it takes many hours for the rat to be digested."
+
+He tells you to wait here and then he goes off somewhere in the camp. He returns a few minutes later carrying a canvas sack and a length of rawhide, both of which he hands to you.
+
+"You have to put the sack on the ground near the snake with the opening uppermost, don't just drop the sack on the ground, OK? Now comes the tricky part," he tells you with a grin. "You must quickly grab the snake by its rattle, quickly lift the snake off the ground and put it in the sack head first. You then lift the sack up and tie it closed with the rawhide. The sack is thick enough to prevent the snake biting you through it."
+
+You ask Black Fox where you are most likely to find a rattlesnake?
+
+"You should look for a rocky outcrop about an hour's ride due west of the camp," he tells you. "There are lots there so watch out for yourself and try not to tread on one. They won't attack you if you leave them alone."
+
+You thank Black Fox for the information and he returns to tending to his pony. You commit his instructions to memory and hope that you can remember them.
+
+> ask black fox about rat
+You ask Black Fox how to trap a live rat. He laughs and replies.
+
+"You don't have to!" he tells you. "Find my son Red Eagle. He and that dog of his keep the camp free of vermin and we use the skins for all sorts of things. Our tipi is on the southeast side of the camp. Just go in and tell him I sent you."
+
+You thank Black Fox for the information and he returns to tending to his pony.
+
+> ask black fox about the savannah river
+You ask Black Fox how to get to the Savannah river?
+
+"You go southwest for about two hours ride from here," he tells you. "If, however, you are at the outcrop where I said you would find rattlesnakes, then you go south for about an hour and a half."
+
+You thank Black Fox for the information and he returns to tending to his pony.
+
+> se
+You move SouthEast.
+
+Centre Of Camp
+You are at the centre of the Cherokee camp, by the big fire which has been built here. Being daytime, the fire is not alight. You are surrounded by tipis in all directions except to the NW where there is a picket line of ponies. There are natives all around you going about their daily business.
+
+> se
+You move SouthEast.
+
+By Tipi
+You are standing by one of the tipis in the camp. You can go NW to the centre of the camp, North or West to other tipis, or In to the tipi here. There are natives all around you going about their daily business.
+
+> in
+You move In.
+
+In Tipi
+You are inside Black Fox's tipi. It is lit by three lanterns that are suspended from the lodge poles that support the outer skin of the tipi. You can go Out to the camp.  Sitting cross-legged on the floor is a young native about 13-14 years old. In his hand is a dead rat which he is expertly skinning and at his feet sits a large dog. As he finishes skinning the rat he tosses the skin on a pile nearby and feeds the skinned carcass to the dog, which wolfs it down in a couple of bites.
+
+As you enter the tipi the young man looks up as the dog growls at you and starts to rise to its feet. The young man tells the dog to sit and looks at you questionably.
+
+"You are the stranger Alaric that my father brought to talk to Grey Wolf," he says to you. "How can I help you, friend Alaric?"
+
+> ask red eagle for rat
+You tell Red Eagle that his father told you how to trap a rattlesnake and that you need a dead rat to help you do so.
+
+"You are lucky as I have just one left," he tells you.
+
+Red Eagle picks up a large dead rat from beside him and gives it to the dog, muttering something in its ear. The dog trots over to you and stands in front of you holding the rat in its jaw. You reach down and hold your hand under the rat, whereupon the dog opens its mouth and drops the rat into it. It then trots back and resumes its position by Red Eagle.
+
+"That rat should tempt any rattlesnake," Red Eagle tells you. "I wish you luck trapping a rattlesnake, I don't know if I would be brave enough to try!"
+
+You thank Red Eagle and leave the tipi.
+
+By Tipi
+You are standing by one of the tipis in the camp. You can go NW to the centre of the camp, North or West to other tipis, or In to the tipi here. There are natives all around you going about their daily business.
+
+> out
+There is no route to the out, only north, west, in and northwest.
+
+> nw
+You move NorthWest.
+
+Centre Of Camp
+You are at the centre of the Cherokee camp, by the big fire which has been built here. Being daytime, the fire is not alight. You are surrounded by tipis in all directions except to the NW where there is a picket line of ponies. There are natives all around you going about their daily business.
+
+> nw
+You move NorthWest.
+
+By Picket Line
+You are standing at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here as well as your own horse Molly. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river while riding West will bring you to the rocky outcrop that Black Fox told you about.   Your horse Molly is standing here.  Black Fox is here.
+
+> untie reins
+Ok, you untether Molly's reins from the picket line.
+
+> put all in saddlebag
+Ok, you put the Cherokee totem, the strong canvas sack, the length of rawhide, the dead rat and the small wooden box in the saddlebag.
+
+> mount molly
+Ok, you mount Molly.
+
+By Picket Line
+You are riding Molly at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river while riding West will bring you to the rocky outcrop that Black Fox told you about.   Black Fox is here.
+
+> w
+You dig your heels into Molly's flanks and she trots off to the west.
+
+After about an hour of easy riding you reach the rocky outcrop that Black Fox told you about.
+
+Near Rocky Outcrop
+You are riding Molly near the rocky outcrop that Black Fox told you about. The outcrop is to the North, the Cherokee camp is about an hour's ride to the East, the Savannah river is an hour and half's ride South and there is open countryside in all other directions.
+
+> look around
+You look around and see, a few metres away, a dead tree.
+
+Near Rocky Outcrop
+You are riding Molly near the rocky outcrop that Black Fox told you about. The outcrop is to the North, the Cherokee camp is about an hour's ride to the East, the Savannah river is an hour and half's ride South and there is open countryside in all other directions.  A few metres away is a dead tree.
+
+> dismount
+Ok, you dismount from Molly.
+
+Near Rocky Outcrop
+You are near the rocky outcrop that Black Fox told you about. The outcrop is to the North and there is open countryside in all other directions. A few metres away is a dead tree.  Your horse Molly is standing here.
+
+> tie reins to tree
+Ok, you tie Molly's reins to the tree to stop her wandering off.
+
+> get sack from saddlebag
+Ok, you take the strong canvas sack out of the saddlebag.
+
+> get rawhide from saddlebag
+Ok, you take the length of rawhide out of the saddlebag.
+
+> get rat from saddlebag
+Ok, you take the dead rat out of the saddlebag.
+
+> n
+You move North.
+
+On Rocky Outcrop
+You're on the rocky outcrop, which is quite large and is covered with several large rocks. The tree you tied Molly to is to the South.
+
+> look behind rocks
+You look behind the rocks and spot a rattlesnake basking in the sun.
+
+On Rocky Outcrop
+You're on the rocky outcrop, which is quite large and is covered with several large rocks. The tree you tied Molly to is to the South.  Also here is a rattlesnake.
+
+> throw rat at snake
+You throw the dead rat carefully towards the rattlesnake.
+
+Your first attempt leaves the rat too far from the snake's head, so you tiptoe around the rock, quickly retrieve the rat, drop it a short distance in front of the snake and retreat behind the rock to watch.
+
+The sleeping snake's tongue flickers out as it detects the rat. It wakes up and then slithers forward to grab the body in its jaw. You watch, fascinated, as the snake works its jaw around the body of the rat, slowly swallowing it whole. The rat forms a large bulge in the body of the snake which moves along the body to its stomach and then stops.
+
+The rattlesnake then coils its body and lays there in the sun to digest its meal.
+
+> prepare sack
+You carefully place the sack on the ground not far from the snake with the open end uppermost.
+
+On Rocky Outcrop
+You're on the rocky outcrop, which is quite large and is covered with several large rocks. The tree you tied Molly to is to the South.  Also here is a strong canvas sack and a rattlesnake.
+
+> grab snake
+You grab the snake by its rattle and lift it into the air at arms length. You then quickly drop it into the sack you prepared.
+
+> tie sack with rawhide
+You tie the open end of the sack closed with the rawhide.
+
+> get sack
+You quickly lift the sack off the ground. The snake inside squirms a bit but then settles down.
+
+> s
+You move South.
+
+Near Rocky Outcrop
+You are near the rocky outcrop that Black Fox told you about. The outcrop is to the North and there is open countryside in all other directions. A few metres away is a dead tree.  Your horse Molly is standing here, her reins tied to the dead tree.
+
+> put sack in saddlebag
+Ok, you put the strong canvas sack in the saddlebag.
+
+> untie reins
+You untie Molly's reins from the dead tree.
+
+> mount molly
+Ok, you mount Molly.
+
+Near Rocky Outcrop
+You are riding Molly near the rocky outcrop that Black Fox told you about. The outcrop is to the North, the Cherokee camp is about an hour's ride to the East, the Savannah river is an hour and half's ride South and there is open countryside in all other directions.  A few metres away is a dead tree.
+
+> s
+You ride south and eventually reach the Savannah river. You take your time and the journey takes you just over two hours.
+
+By Savannah River (N)
+You are riding your horse on the east bank of the Savannah river. There is much vegetation and lots of small trees around here. You can go North back to the rocky outcrop, South, SE or NE back to the Cherokee Camp.
+
+> dismount
+
+By Savannah River (N)
+You are standing on the east bank of the Savannah river. There is much vegetation and lots of small trees around here. You can go North back to the rocky outcrop, South, SE or NE back to the Cherokee Camp.  Your horse Molly is standing here.
+
+> tie reins to tree
+You tie Molly's reins to one of the small trees to stop her wandering off.
+
+> get apron from saddlebag
+Ok, you take the old leather apron out of the saddlebag.
+
+> get box from saddlebag
+Ok, you take the small wooden box out of the saddlebag.
+
+> wear apron
+Ok, you put on the old leather apron.
+
+> se
+You move Southeast.
+
+You look around as you walk and after a few minutes you see an area of bare earth in the middle of which stands a silverthorn bush.
+
+Edge of Bare Area
+You are on the edge of a wide circular patch of bare earth, some distance from the bank of the river, in the middle of which stands a silverthorn bush. The bush is to the East and going NW will take you back to the bank of the Savannah river where Molly is tethered.
+
+> look
+
+Edge of Bare Area
+You are on the edge of a wide circular patch of bare earth, some distance from the bank of the river, in the middle of which stands a silverthorn bush. The bush is to the East and going NW will take you back to the bank of the Savannah river where Molly is tethered.
+
+> e
+You walk east towards the bush and have to step on the roots of the bush.
+
+Suddenly a couple of the strange twigs on the bush whip forward and the thorns at the end of the twigs fly off and hurtle towards you!
+
+Fortunately, none of them penetrate through your jacket, boots or the apron that protects your thighs and you survive the attack.
+
+You continue walking and reach the bush.
+
+By Silverthorn Bush
+You are standing by the silverthorn bush in the middle of a circular area of bare earth. You can go West to the edge of the area.
+
+> look
+
+By Silverthorn Bush
+You are standing by the silverthorn bush in the middle of a circular area of bare earth. You can go West to the edge of the area.
+
+> x bush
+The silverthorn bush is about 1.5 metres high and has branches that grow from a central stem. Green leaves with silver veins grow on the branches and clusters of purple berries hang from them. You also notice strange thin twigs growing from the main branches. These are bent back towards the stem of the bush and have a cluster of silver thorns growing at the end.
+
+> pick berries
+You pluck a bunch of the purple berries from one of the branches of the bush.
+
+> put berries in box
+Ok, you open the lid, put the berries into the box and slide the lid so the box is shut.
+
+> wear apron backwards
+You take the leather apron off and put it on again backwards so that it covers your back.
+
+> w
+You walk west from the bush and have to step on the roots of the bush.
+
+As before, treading on the roots triggers the twigs to whip forward and hurl a cloud of the silver thorns towards you as you walk.
+
+Fortunately, none of them penetrate through your jacket, boots or the apron that you are wearing backwards that protects the back of your thighs and you survive the attack.
+
+You continue walking and reach the bush.
+
+Edge of Bare Area
+You are on the edge of a wide circular patch of bare earth, some distance from the bank of the river, in the middle of which stands a silverthorn bush. The bush is to the East and going NW will take you back to the bank of the Savannah river where Molly is tethered.
+
+> nw
+You move NW.
+
+You walk NW to where you left Molly tethered near the riverbank.
+
+By Savannah River (N)
+You are standing on the east bank of the Savannah river. There is much vegetation and lots of small trees around here. You can go North back to the rocky outcrop, South, SE or NE back to the Cherokee Camp.  Your horse Molly is standing here.
+
+> take off apron
+Ok, you remove the old leather apron.
+
+> put all in saddlebag
+Ok, you put the old leather apron and the small wooden box in the saddlebag.
+
+> untie reins
+You untie Molly's reins from the tree you tied them to.
+
+> mount molly
+Ok, you mount Molly.
+
+By Savannah River (N)
+You are riding your horse on the east bank of the Savannah river. There is much vegetation and lots of small trees around here. You can go North back to the rocky outcrop, South, SE or NE back to the Cherokee Camp.
+
+> ne
+You ride Northeast.
+
+The journey takes you about an hour and a quarter and eventually you arrive back at the Cherokee camp where you go to the picket line.
+
+By Picket Line
+You are riding Molly at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river while riding West will bring you to the rocky outcrop that Black Fox told you about.
+
+> dismount
+
+By Picket Line
+You are standing at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river while riding West will bring you to the rocky outcrop that Black Fox told you about.   Your horse Molly is standing here.
+
+> tie reins to picket line
+You tether Molly's reins to the picket line to stop her wandering off.
+
+> get sack from saddlebag
+Ok, you take the strong canvas sack out of the saddlebag.
+
+> get box from saddlebag
+Ok, you take the small wooden box out of the saddlebag.
+
+> se
+You move SouthEast.
+
+Centre Of Camp
+You are at the centre of the Cherokee camp, by the big fire which has been built here. Being daytime, the fire is not alight. You are surrounded by tipis in all directions except to the NW where there is a picket line of ponies. There are natives all around you going about their daily business.
+
+> s
+You move South.
+
+By Tipi
+You are standing by Grey Wolf's tipi, which is on the south side of the Cherokee camp. The centre of the camp is to the North where a big fire has been built. You can go also go NW and NE to other tipis, or In to Grey Wolf's tipi. There are natives all around you going about their daily business.
+
+> in
+You go In to Grey Wolf's tipi.
+
+Inside tipi
+You are inside the tipi of Grey Wolf, shaman of the Cherokee. A fire burns on the ground in the centre. You can go Out to the camp.  Grey Wolf himself sits cross-legged before the fire, smoking a long-stemmed wooden pipe.  Kneeling beside him is a Cherokee squaw.
+
+As you walk into the tipi, Grey Wolf looks up from what he was doing and sees you standing there carrying the sack and the box containing the berries.
+
+"So, Duke Alaric, you have succeeded in catching a rattlesnake and getting some berries from the silverthorn bush!" he says to you with a surprised expression on his lined face. "I did not expect you to, I remembered the carnivorous nature of the bush only after you had departed. I will be interested in how you managed to get the berries."
+
+He rises to his feet and takes the sack and box from you.
+
+"Little Fawn and I will require about an hour to milk the snake of its venom and prepare the antidote. If you would wait outside, she will summon you when we have finished."
+
+You thank Grey Wolf and leave the tipi.
+
+By Tipi
+You are standing by Grey Wolf's tipi, which is on the south side of the Cherokee camp. The centre of the camp is to the North where a big fire has been built. You can go also go NW and NE to other tipis, or In to Grey Wolf's tipi. There are natives all around you going about their daily business.
+
+> wait
+You wait patiently, kicking your heels and watching the Cherokee people go about their daily tasks.
+
+Eventually, after over an hour, Little Fawn comes out of Grey Wolf's tipi and beckons you over. You eagerly walk over and enter the tipi.
+
+Inside tipi
+You are inside the tipi of Grey Wolf, shaman of the Cherokee. A fire burns on the ground in the centre. You can go Out to the camp.  Grey Wolf himself sits cross-legged before the fire, smoking a long-stemmed wooden pipe.  Kneeling beside him is a Cherokee squaw.
+
+As you enter the tipi, Grey Wolf smiles and addresses you.
+
+"We are sorry you had to wait so long," Grey Wolf apologises. "The rattlesnake was somewhat reluctant to give up its venom and it took Little Fawn some time to milk enough for my purposes."
+
+He hands you a small clay bottle.
+
+"This is the antidote to the heartsbane poison," he tells you. "Now hurry back to your princess, Duke Alaric, time is of the essence!"
+
+You thank Grey Wolf and Little Fawn from the bottom of your heart, leave the tipi and hurry to the picket line where you left Molly.
+
+By Picket Line
+You are standing at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here as well as your own horse Molly. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river while riding West will bring you to the rocky outcrop that Black Fox told you about. To get to Daveytown you must ride NE out of the camp then East.   Your horse Molly is standing here.
+
+> put all in saddlebag
+Ok, you put the clay bottle in the saddlebag.
+
+> untie reins
+Ok, you untether Molly's reins from the picket line.
+
+> mount molly
+Ok, you mount Molly.
+
+By Picket Line
+You are riding Molly at the edge of the native camp where a picket line is strung between two trees. You can go East and South to tipis or SE to the centre of the camp. There are several ponies tied to the line here. There are a number of natives here, going about their daily business. Going SW will take you to the Savannah river while riding West will bring you to the rocky outcrop that Black Fox told you about. To get to Daveytown you must ride NE out of the camp then East.
+
+> ne
+You ride northeast from the picket line and then turn east.
+
+You ride as fast as you can on Molly, eating up the kilometres until sundown, whence you stop for the night. Continuing next morning you make it back to Daveytown in good time.
+
+Outside Entrance
+You are riding your horse just outside the entrance to the settlement, which is to the East. There is an area about half a kilometre wide which has been cleared of trees all around the palisade, beyond which you see forest in all directions. You can go South back to the grassy ridge, NW to the edge of the woods on the far side of the cleared area and in all other directions except SE or NE. The huge doors to the settlement are open.
+
+> e
+You ride east.
+
+Inside Entrance
+You are riding your horse just inside the entrance to the settlement. The centre of the settlement is to the East and you can also go North, South, NE & SE. The huge doors to the settlement are open. There are a number of townsfolk here, going about their daily business.
+
+> e
+You ride east.
+
+Centre of Settlement by Well
+You are riding your horse at the centre of the settlement where there is a well. Just to the north there are some stocks and a pillory. You can also go South, East, West, NE, SE, NW and SW.
+
+> se
+You ride southeast.
+
+By Livery Stable
+You are riding your horse in front of a building in the settlement that has the word "Livery Stable" painted on a board over the door, which is closed. By the side of the door a brass bell hangs from a metal bracket and there is a hitching rail here. On the door you see a notice. There are a number of townsfolk here, going about their daily business. You can go North, West or NW. Behind the building you can just see a corral, but you cannot see the other horse which must have moved to another part of the corral you cannot see.
+
+> dismount
+
+By Livery Stable
+You are in front of a building in the settlement that has the word "Livery Stable" painted on a board over the door, which is closed. By the side of the door a brass bell hangs from a metal bracket and there is a hitching rail here. On the door you see a notice. There are a number of townsfolk here, going about their daily business. You can go North, West or NW. Behind the building you can just see a corral, but you cannot see the other horse which must have moved to another part of the corral you cannot see.  Your horse Molly is standing here.
+
+> return molly
+You tie Molly's reins to the hitching rail and ring the livery stable bell.
+
+The ostler comes out and you thank him for the hire of Molly. He tells you that he will return the saddle and other bits of tack you borrowed from the saddler.  You take the clay bottle out of the saddlebag and the ostler leads Molly towards the corral.
+
+You walk out of the settlement, around the palisade and go east to the beach.
+
+The ostler then leads Molly towards the corral.
+
+You walk out of the settlement, around the palisade and go east to the beach.
+
+Secluded Beach
+You are standing on a secluded beach on the east coast of the continent of Americanus. To the east all you can see is a vast empty ocean. The beach extends to the North and South and the beach slopes Up to a grassy ridge to the West.
+
+> hold amulet
+Ok, you hold the amulet in both hands.
+
+> say redire domum
+You say the words "Redire Domum" and wait.
+
+Nothing happens for a few seconds and then a misty haze forms around you and there is a moment of utter cold and impenetrable darkness, then the haze swirls away and you see that you are back in Magor's chamber in Domreil Castle.
+
+You are in Magor's Chamber in Domreil Castle. The room is cluttered with all sorts of weird and wonderful objects and a fire burns in an enormous inglenook fireplace in one wall. Sitting in a deeply upholstered chair in front of the fire is Magor the Sorcerer, reading a scroll.
+
+Magor looks up as you materialise in the room and his mouth drops open in amazement.
+
+"Duke Alaric," he exclaims. "You have returned - do you have the antidote?!"
+
+You triumphantly hold up the clay bottle containing the antidote to the Heartsbane poison and grin broadly. Magor leaps to his feet, rushes over to you and snatches the bottle from your hand.
+
+"Come - quickly - there is no time to lose!" he cries as he dashes out of the room. You follow as he runs along the corridor to the bedroom where Princess Bronwynn lies in a magically-induced stasis. Throwing open the door he runs to the bedside with you close on his heels. He waves his hands above Bronwynn is a complicated pattern, muttering the incantation which lifts the stasis from her body. The mist surrounding her dissipates and suddenly she starts to gasp for breath.
+
+"Hurry man," he instructs you. "Lift her up so I can administer the antidote!"
+
+You put your arm under Bronwynn's back and raise her upright. Magor pulls the beeswax stopper out of the bottle and, holding it to her lips, tips it up so that she swallows some of the liquid. He waits a minute or so then gives her some more.
+
+As you watch she stops gasping and her breathing becomes normal. On Magor's command you lay her back on the bed, kneel down beside it and take hold of her hand.
+
+"She will sleep for an hour or two now as the antidote purges the poison from her body," Magor tells you. "I will leave you now and get some rest. Removing the stasis spell from Bronwynn quite exhausted me!"
+
+Magor leaves the bedroom and you settle down to wait for Bronwynn to wake up.
+
+Please Press Any Key to Continue.
+
+After a couple of hours Bronwynn's eyes flutter open and she looks around.
+
+"Where am I and what happened?!" she asks you in a confused voice.
+
+You gently tell her what occurred in Domreil Cathedral and her hand goes to her shoulder where the crossbow bolt had hit her.
+
+"Don't worry," you tell her. "The wound is healing nicely," and you proceed to tell you of your quest to find the antidote. Her eyes grow rounder as you tell her of your adventures on the continent of Americanus and how Grey wolf made the antidote to the poison from rattlesnake venom and the silverthorn berries.
+
+You talk for a while and then Bronwynn realises that the marriage ceremony hadn't finished when she was attacked by Prince Timothy and that you still weren't married.
+
+"Well," she says to you in a determined voice. "We'll just have to do something about that!"
+
+Three weeks later, when Bronwynn has completely recovered from her ordeal and is strong enough, the two of you are married without incident in Domreil Cathedral.
+
+And, as the saying goes, you all live happily ever after!
+
+Please Press Any Key to Continue.
+
+*** CONGRATULATIONS! ***
+
+You saved Bronwynn's life and have now completed...
+
+THE CALL OF THE SHAMAN
+
+...in 151 turns, scoring a total of 265 points!
+
+I do hope you have enjoyed playing this game.
+
+Also Available In The Alaric Blackmoon Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Coming Soon: Episode 8: RETURN TO CASTLE CORIS
+
+****************************
+
+Adventures in the World of Alaric Blackmoon:
+
+Episode 1: RUN, BRONWYNN, RUN
+
+Episode 2: THE DWARF OF DIREWOOD FOREST
+
+Coming Soon: Episode 3: FINN'S BIG ADVENTURE
+
+****************************
+
+The Intrepid Space Adventures Of Mike Erlin:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPEDES ENIGMA
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games

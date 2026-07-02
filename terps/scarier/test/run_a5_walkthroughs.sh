@@ -339,12 +339,71 @@ FILTER="${1:-}"
 # placement hunks (the `Beforeplay`/`Beforeplay1` BeforeTextAndActions overrides that
 # `SetTasks Execute ts_tasCheckTime` after each move/look -- FD shows it 99x, Scarier
 # 87x) + the title's leading spaces.  Tracked as the open P2b residual.
+# (2026-07-02) CallOfTheShaman -> full MATCH (0|0, golden).  Full 265-point
+# win ("*** CONGRATULATIONS! ***") derived by play from the bundled ROT1 hint
+# sheet.  The 3 residual hunks (identical in both RNG modes, all in the endgame
+# banner/credits) were all fixed:
+#   (1) `%turns%`/`%Turns%` built-in added to eval_function (a5text.cpp), matching
+#       FD's ReplaceIgnoreCase(sText,"%turns%",...) (Global.vb:1763) -- ci_eq folds
+#       case so the capital alias resolves too.  Value = st->turns-1 (FD bumps
+#       Adventure.Turns *after* Process() returns, so a task's own output sees the
+#       pre-command count), giving "151".
+#   (2)+(3) credits URLs "Https://.../Http://..." were wrongly leading-capped: the
+#       a5text_display_alr Display-boundary re-cap runs on PLAIN text, where the
+#       credits' `<del>` tag before the URL has been stripped, so `\n`+"https"
+#       looked like a line start (FD caps the MARKED-UP text, where the tag's '>'
+#       blocks it).  Fixed by (a) capping the room view on its still-marked-up
+#       buffer in view_location_impl (so genuine `\n`-start NPC "is here" lines
+#       still cap) and (b) suppressing the boundary re-cap's `^`/`\n` line-start
+#       rules (auto_capitalise_ex allow_line_start=0), keeping only real sentence
+#       punctuation there.  See A5_WALKTHROUGH_FINDINGS.md.
+#
 # Two budgets per game: VANILLA (FD's stock System.Random) | XOSHIRO (FD patched
 # to draw Scarier's xoshiro128** stream, FD_RNG=xoshiro -- RAND-selected text then
 # aligns, so the diff is a full every-line check).  Tracking both separates
 # RNG-independent logic bugs (same count in both columns) from RNG-stream noise
 # (xoshiro lower).  A xoshiro count BELOW vanilla means real RAND divergence
 # collapsed once the streams aligned -- the truer conformance number.
+# (2026-07-02) ThingsThatGoBumpInTheNight wired -> DIVERGE 8|8 (identical in both
+# RNG modes => two RNG-independent Scarier bugs, no RNG noise).  The winning
+# 310-turn / max-250-point script was derived from the game's OWN built-in
+# WALKTHROUGH command (type WALKTHROUGH at the start menu -- it prints the whole
+# solution as a " - "-list ending "GAME COMPLETED"), with three built-in moves
+# corrected for this build's scripted cut-scenes (see the script header comment).
+# FrankenDrift plays it to "*** CONGRATULATIONS! ***"; Scarier diverges on:
+#   (1) `drop all` over-expands the bare "all" to EVERY seen object -- worn
+#       clothing, containers, scenery ("the face", "the cave") and even the
+#       location object `cl_Ravin` -- and reports "You are not holding ..." instead
+#       of dropping only the loose held items (FD drops just the 6:  dagger,
+#       garlic, stake, hammer, bucket, key).  Hands stay full -> `climb rope`
+#       fails ("Your hands need to be free ...") -> the ravine beast kills the
+#       player (Scarier "*** You have lost ***", 90/250, turn 184), so the whole
+#       remaining transcript is missing = 7 of the 8 hunks.  Root cause lives in
+#       a5run_ref.cpp expand_all_objects / the drop-task restriction narrowing.
+#   (2) `get dirt` in the unlit ringbolt room is silently a no-op where FD prints
+#       "It is too dark to find the dirt." = the remaining 1 hunk.
+# Both catalogued in TODO_a5_walkthrough_bugs.md / A5_WALKTHROUGH_FINDINGS.md;
+# no golden committed while it diverges.
+#
+# (2026-07-02) LostLabyrinthOfLazaitch wired -> DIVERGE 403|403 (identical both RNG
+# modes => all RNG-independent Scarier bugs).  The full 520-point win script was
+# derived from the game's OWN built-in walkthrough (Larry Horsfield games embed the
+# whole solution -- type WLKTHRGH in-game; here it was extracted verbatim from the
+# cl_Walkthroug task text in the model, stripped of its parenthetical annotations,
+# with only the `o`/`b` start-menu handshake prepended).  FrankenDrift plays the
+# UNMODIFIED native commands straight through to "*** CONGRATULATIONS! ***" (451
+# turns, 520 pts, zero press-O/not-understood/can't-see lines) -- so the walkthrough
+# is a faithful native solution and every one of the 403 hunks is a Scarier bug.
+# The dominant one desyncs the whole back third: the "Fahren Layburn" teleport spell
+# fires in FD ("you say the magic words and are transported to the church in
+# Layburn...") but Scarier says "you say the words ... but nothing happens", so the
+# player never reaches Layburn and the entire village/endgame section diverges.
+# Smaller RNG-independent bugs it also surfaces: `sheath sword` -> "You can only put
+# your sword in the leather scabbard." (FD "Ok, you sheath your sword..."); and two
+# room-description segments Scarier fails to gate ("...a small cottage.", "...you see
+# a drawing.") that FD suppresses.  Catalogued in TODO_a5_walkthrough_bugs.md /
+# A5_WALKTHROUGH_FINDINGS.md; no golden committed while it diverges.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -364,6 +423,9 @@ GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
 JacarandaJim|JacarandaJim.blorb|99|0
 SixSilverBullets|SixSilverBullets.blorb|18|0
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
+CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
+ThingsThatGoBumpInTheNight|TBN v.2.blorb|8|8
+LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|403|403
 EOF
 )
 

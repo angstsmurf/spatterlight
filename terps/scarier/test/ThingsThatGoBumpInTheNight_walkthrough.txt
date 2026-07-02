@@ -1,0 +1,335 @@
+# Things That Go Bump in the Night (Larry Horsfield, ADRIFT 5) -- winning script.
+#
+# Full max-score win: "*** CONGRATULATIONS! ***  ...in 310 turns, scoring the
+# maximum 250 points!" under FrankenDrift (the ground-truth reference runner,
+# FD_SEED=1234).  Single protagonist (Bronwynn/Magor's world), no BECOME.
+#
+# Derived from the game's OWN built-in walkthrough: type WALKTHROUGH at the start
+# menu and it prints the whole solution as a " - "-separated line ending "GAME
+# COMPLETED".  That built-in text was authored against a slightly earlier build,
+# so three of its moves are absorbed by this version's scripted cut-scenes and
+# had to be corrected against FD:
+#   * Intro: Out/in/in/in auto-walks you Bedroom->Corridor->Bedroom->Dressing
+#     Room via cut-scenes, so the built-in's extra "n" (Bedroom->Dressing Room)
+#     is now spurious -- dropped.
+#   * Endgame tumbler door: the built-in "...w w wait x door..." lands in the
+#     Passageway In Castle, which has no door.  The Treasury door is reached by
+#     dispelling the handfire (SNUFFIO), going S into the Short Passageway, then
+#     WAITing so the guard patrol carries you (unseen, in the dark) to the
+#     Treasury door -- exactly the spot the intfiction.org/t/77639 hint thread
+#     got stuck on.  Added "snuffio" + "s" before the "wait".
+#
+# Intro handshake: C (continue past the note) then B (begin).  The three
+# "It is too dark ..." responses at the ringbolt puzzle are the game's own dark-
+# room flavour (you solve it by feel), identical in both engines -- not a desync.
+c
+b
+Out
+in
+in
+in
+open drawer
+search drawer
+s
+x fireplace
+look on mantelpiece
+get fossy
+put it in pocket
+lift slab
+get box
+unlock box
+get coins
+put coins in pocket
+drop box and key
+open chest
+get bag
+wear bag
+look under bed
+wear belt
+out
+out
+e
+d
+w
+in
+search items
+out
+w
+s
+w
+look behind door
+e
+s
+e
+e
+e
+s
+x walls
+feel blocks
+get dirt
+rub dirt in scratches
+drop dirt
+turn left bolt right
+turn right bolt left
+pull bolts
+out
+s
+out
+sw
+in
+s
+1
+2
+3
+4
+in
+x hardware
+x grapnel
+buy it
+out
+s
+s
+in
+x food
+buy garlic
+out
+n
+e
+e
+in
+1
+2
+3
+4
+s
+x graves
+x gravestones
+clear ivy from gravestone
+read inscription
+n
+w
+in
+x buckets
+get bucket
+out
+w
+w
+in
+w
+1
+2
+1
+stand up
+n
+s
+sit
+2
+3
+4
+5
+6
+stand up
+ne
+out
+e
+n
+n
+out
+ne
+se
+se
+e
+e
+1
+2
+3
+in
+stand on stool
+look on beam
+d
+unfold package
+drop oilcloth
+close door
+get jerkin
+put jerkin in bag
+open door
+out
+e
+e
+e
+se
+get sulfur
+nw
+se
+get sulfur
+nw
+se
+get sulfur
+nw
+w
+w
+w
+w
+w
+nw
+nw
+sw
+in
+s
+s
+w
+in
+sw
+give bucket
+ne
+o
+e
+e
+in
+get bucket
+o
+w
+n
+n
+o
+ne
+se
+se
+e
+e
+e
+s
+s
+se
+look in cave
+throw grapnel up
+drop all
+climb rope
+z
+z
+climb rope
+flick rope
+get all
+in
+x substance
+collect saltpetre
+out
+nw
+n
+n
+w
+w
+w
+nw
+nw
+sw
+in
+s
+s
+w
+in
+sw
+give bucket to Zarbo
+ne
+out
+e
+n
+n
+out
+ne
+polki
+sheath dagger
+put all in bag
+climb rope
+get grapnel
+put grapnel in bag
+u
+get grapnel
+qweds
+climb rope
+feel on frame
+open door
+drop key
+look in cupboard
+wear cloak
+out
+lumino
+n
+w
+w
+d
+e
+x door
+x dials
+turn red to +
+turn white to ÷
+turn blue to x
+get key
+push key in hole
+drop key
+in
+get sword
+close door
+open door
+look behind barrels
+cut coil
+put fuse in bag
+out
+e
+u
+w
+w
+snuffio
+s
+wait
+x door
+x tumblers
+set tumblers to 9653
+in
+get jerkin
+wear it
+search crates
+out
+n
+n
+get garlic
+show garlic to vampire
+s
+s
+wait
+drop sword
+wear ring
+climb rope
+flick rope
+d
+hook grapnel on rock
+d
+se
+se
+e
+nw
+nw
+sw
+in
+s
+s
+w
+in
+sw
+give sack to zarbo
+ne
+out
+e
+n
+n
+out
+ne
+in
+get fuse
+put fuse in hole
+drop cask
+get fossy
+light fuse
+n
+in
+w

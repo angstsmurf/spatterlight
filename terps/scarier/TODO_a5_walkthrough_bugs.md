@@ -1,5 +1,141 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## 🐞 LostLabyrinthOfLazaitch — `say fahren <place>` teleport spell never fires + `sheath` wording + un-gated room-desc segments  ⏳ OPEN (2026-07-02)
+
+Surfaced by wiring **LostLabyrinthOfLazaitch** (DIVERGE 403|403, identical both RNG
+modes ⇒ all RNG-independent logic bugs). The winning 520-point script is the game's
+**own built-in `WLKTHRGH`** replayed verbatim (FrankenDrift reaches
+`*** CONGRATULATIONS! ***` with zero corrections), so every hunk is Scarier's.
+
+1. **The "Fahren Layburn" magic-transport spell doesn't fire (dominant; desyncs the
+   whole back third).** Command `say fahren layburn` → Scarier "You say the words
+   … but nothing happens." (the generic `{say} %text%` fallback), FD "You say the
+   magic words and are transported to the church in Layburn…". The intended task is
+   **`SayFahren1`** (`{say} [fahren] %text%`, priority 50430) with restrictions
+   `Player BeWithinLocationGroup FahrenLoca` **AND** `Amulet1 BeWornByCharacter
+   Player` **AND** `(ReferencedText BeContain "'lubecker'" OR "'tower'" OR
+   "'layburn'")` — BracketSequence **`#A#A(#O#O#)`** (AND, AND, then a *nested*
+   OR-of-three). Scarier drops the task, so suspect either (a) the
+   **`ReferencedText Must BeContain "'…'"`** restriction (matching the `%text%`
+   reference the command captured against a single-quoted literal — same
+   quoted-literal handling as the SixSilverBullets `'RAND(1,16)'` fix, but on the
+   `ReferencedText`/BeContain path), or (b) the **nested `(#O#O#)` inside
+   `#A#A(…)`** evaluating wrong (the OR-after-AND / bracket-sequence family from the
+   RtC and restriction-type work). Once the player never reaches Layburn, the entire
+   village + endgame section diverges → the bulk of the 403 hunks. Fix + re-measure:
+   the hunk count should collapse dramatically.
+
+2. **`sheath sword` wording.** Scarier "You can only put your sword in the leather
+   scabbard." vs FD "Ok, you sheath your sword in the leather scabbard." — a
+   `sheath`/put-into-container task/override selection difference (1 early hunk).
+
+3. **Two room-description segments Scarier fails to gate.** Scarier appends
+   "…To the north there is a small cottage." and "…On the wall by the steel door you
+   see a drawing." where FD suppresses them — restricted/DisplayOnce description
+   segments whose gate Scarier isn't honouring (cf. the RtC `DisplayOnce`/
+   `StartDescriptionWithThis` work).
+
+Regression risk is real (18 games MATCH); verify the whole corpus after any change.
+See `test/A5_WALKTHROUGH_FINDINGS.md` and the MAP comment in
+`test/run_a5_walkthroughs.sh`. No golden committed while it diverges.
+
+## 🐞 ThingsThatGoBumpInTheNight — `drop all` over-expands to every seen object (fatal); dark `get dirt` silent  ⏳ OPEN (2026-07-02)
+
+Surfaced by wiring **ThingsThatGoBumpInTheNight** (DIVERGE 8|8, identical in both
+RNG modes ⇒ two RNG-independent logic bugs). FrankenDrift plays the game's own
+built-in walkthrough (see `test/ThingsThatGoBumpInTheNight_walkthrough.txt`) to
+`*** CONGRATULATIONS! ***` (310 turns, max 250 points); Scarier diverges on:
+
+1. **`drop all` bare-`all` over-expansion (7 of 8 hunks; fatal).** At the ravine
+   (`End Of Ravine`) the walkthrough drops the loose held gear as bait before
+   climbing the rope. FD:
+   `Ok, you put down the sharp dagger, the bulb of garlic, the short thick stake,
+   the claw hammer, the wooden bucket and the triangular key.` — i.e. only the six
+   loose **held** items. Scarier instead:
+   `You are not holding the notebook, your pencil, your hiking boots, the travel
+   belt, ... the face, ... the wooden bucket, the cave and cl_Ravin.` — the bare
+   `all` expanded to **every seen object** (worn clothing, container contents, body
+   parts like "the face", scenery like "the cave", and even the *location* object
+   `cl_Ravin`), and the drop task then reports them all as not-held. Hands stay
+   full → `climb rope` → `Your hands need to be free if you want to do that.` (FD:
+   `You climb up the rope ...`) → the ravine beast kills the player: Scarier
+   `*** You have lost ***` (90/250, turn 184), so the entire remaining transcript
+   is missing.
+
+   This is *not* the already-fixed "Bare `all` narrowed by task restrictions"
+   item below — that narrows bare `all` per-item against the matched task's
+   restrictions (a5run_ref.cpp `resolve_plural`, Applicable/Visible/Seen tiers).
+   Here the narrowing does not exclude worn/scenery/location objects, so either
+   (a) the drop task Scarier matched carries no "held-by-player" restriction where
+   FD's does, or (b) the restriction evaluates as *passing* for non-held objects.
+   Needs runtime tracing of which task `drop all` binds and how its restrictions
+   evaluate per candidate; `expand_all_objects` seeding the candidate set from the
+   full `obj_seen` list is the entry point (a5run_ref.cpp:519). Regression risk is
+   real (18 games MATCH), so verify the whole corpus after any change.
+
+2. **`get dirt` in the dark ringbolt room is a silent no-op (1 hunk).** In the
+   unlit block-passage the walkthrough feels its way (`feel blocks`, `rub dirt in
+   scratches`, `turn ... bolt ...` all work by touch). FD answers `get dirt` with
+   `It is too dark to find the dirt.`; Scarier prints nothing. A dark-scope `get`
+   of a non-held object should emit the too-dark message rather than succeed
+   silently / drop the line.
+
+See `test/A5_WALKTHROUGH_FINDINGS.md` and the MAP comment in
+`test/run_a5_walkthroughs.sh`. No golden committed while it diverges.
+
+## ⭐ CallOfTheShaman → full MATCH: `%turns%`/`%Turns%` built-in + markup-aware leading-cap (room-view cap on marked-up buffer; boundary re-cap drops line-start rules)  ✅ DONE (2026-07-02)
+
+**CallOfTheShaman 3→0** (full MATCH both RNG modes, golden
+`test/CallOfTheShaman_expected.txt`; budget re-blessed 3|3 → 0|0). No other corpus
+game moved in either mode (all 13 MATCH games hold 0/0, incl. anno1700 — the specific
+room-view-cap regression risk this fix had to clear; StoneOfWisdom 2/0, JacarandaJim
+99/0, SixSilverBullets 18/0 unchanged at their RNG-bound baselines), all a5 unit tests
+pass (run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden) and the Shaman
+run pipeline is ASan/UBSan-clean. The game plays byte-for-byte through the full
+265-point *** CONGRATULATIONS! *** win. The 3 residual hunks (identical in both RNG
+modes ⇒ RNG-independent real bugs) were all in the last command's banner/credits:
+
+1. **`%turns%`/`%Turns%` built-in was entirely unimplemented.** FD substitutes it via
+   `ReplaceIgnoreCase(sText, "%turns%", Adventure.Turns.ToString)` (Global.vb:1763), so
+   `%turns%`/`%Turns%`/`%TURNS%` all resolve. Scarier's `eval_function` (a5text.cpp) had
+   no `turns` case at all, so the CONGRATULATIONS text printed the literal `%Turns%`
+   where FD renders `151`. **Fixed** by adding a `ci_eq(name,"turns")` case (ci_eq folds
+   case, so the capital alias resolves for free). Value = **`st->turns - 1`**: FD's
+   Runner bumps `Adventure.Turns` *after* `UserSession.Process()` returns
+   (FrankenDrift.Headless/Program.cs:206), so a task's own output sees the pre-command
+   count; Scarier bumps `st->turns` at the *top* of `a5run_input`, so the matching value
+   is `turns-1` — the same offset `emit_endgame`'s score line already uses. (The
+   earlier TODO note guessed a "case-sensitive built-in lookup"; in fact there was no
+   built-in at all.)
+
+2. **The credits URLs `Https://.../Http://...` were wrongly leading-capped** (2 hunks).
+   The credits lines are `<del>https://lazzah.itch.io` etc. FD runs its
+   `CapAfterFullStop` regex `^(?<cap>[a-z])|\n(?<cap>[a-z])|[a-z][.!?] ( )?(?<cap>[a-z])`
+   on **still-marked-up** text (Global.vb:539, inside ReplaceALRs at Display), so the
+   `<del>` tag's `>` sits immediately before `https` and the `\n(?<cap>...)` alternative
+   does **not** fire. Scarier's `a5text_process` (per-fragment) already caps correctly
+   on marked-up text (it leaves `<del>https` alone), but Scarier's **Display-boundary
+   re-cap** `a5text_display_alr` (needed for ALR games — Shaman has 16 ALRs) runs on
+   **plain** text where `<del>` has been stripped, so `\n`+`https` looked like a line
+   start → `Https`. The boundary cap can't be dropped: its second ALR round needs
+   capitalised input (dropping it regressed anno1700/Amazon/JJ content via ALR
+   matching), and its `^`/`\n` line-start rule is what capitalises genuine room-view
+   NPC "is here" lines (anno's `The cook and the kitchen maid are here.`, built with
+   lowercase articles and joined after a `\n`). **Fixed** in two pieces:
+   - **`view_location_impl` (a5text.cpp)** now caps the assembled room view on its
+     **still-marked-up** buffer (before `a5text_render_plain`), exactly as FD's
+     Display-time cap runs over the whole marked-up turn text. This is where the NPC
+     list gets its genuine `\n`-start capital (no intervening tag ⇒ caps), so it no
+     longer depends on the boundary.
+   - **`a5text_display_alr`** now calls `auto_capitalise_ex(a1, /*allow_line_start=*/0)`
+     — the boundary re-cap keeps only the real sentence-punctuation rule (`. `/`! `/`? `,
+     which no tag can hide) and drops the `^`/`\n` line-start rules (already applied
+     per-fragment on marked-up text). So a stripped formatting tag can no longer expose
+     a line-leading word to a spurious cap. Non-ALR games always matched with their
+     room-view line starts already upper-cased, so the new room-view cap is a no-op for
+     them; the whole blast radius is "an ALR game whose plain-text Display boundary has a
+     line-leading lowercase word that FD left alone behind a stripped tag".
+
 ## ⭐ SixSilverBullets xoshiro → full MATCH: `RAND()` restriction RHS draws a random + runtime location-group membership + room-view `pSpace`  ✅ DONE (2026-06-30)
 
 **SixSilverBullets xoshiro 10→0** (full every-line MATCH under FD_RNG=xoshiro;

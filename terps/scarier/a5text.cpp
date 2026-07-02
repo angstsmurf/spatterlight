@@ -757,6 +757,19 @@ eval_function (a5_state_t *st, const char *name, const char *args)
   if (ci_eq (name, "convcharacter"))
     /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
     return strdup (st->conv_char ? st->conv_char : "");
+  if (ci_eq (name, "turns"))
+    {
+      /* Global.vb:1763 substitutes %turns% with Adventure.Turns.ToString via
+         ReplaceIgnoreCase, so %Turns%/%TURNS% resolve the same (ci_eq folds
+         case).  FD's Runner bumps Adventure.Turns *after* Process() returns, so
+         the value visible inside a command's own task output is the pre-command
+         count.  Scarier bumps st->turns at the top of a5run_input (a5run.cpp),
+         so the matching value is st->turns - 1 (the same offset emit_endgame's
+         score line uses); clamp to 0 for text rendered before any turn. */
+      char buf[32];
+      snprintf (buf, sizeof buf, "%d", st->turns > 0 ? st->turns - 1 : 0);
+      return strdup (buf);
+    }
   if (ci_eq (name, "alonewithchar"))
     {
       /* The single other character in the player's location, else NoCharacter
@@ -1431,12 +1444,26 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
 #define A5_IS_LOWER(c) ((c) >= 'a' && (c) <= 'z')
 
 static int
-is_sentence_start (const char *s, size_t i)
+is_sentence_start (const char *s, size_t i, int allow_line_start)
 {
-  if (i == 0)
-    return 1;
-  if (s[i - 1] == '\n')
-    return 1;
+  /* The `^` and `\n` alternatives (start-of-text / start-of-line).  FD applies
+     CapAfterFullStop to still-MARKED-UP text, where a formatting tag (<del>,
+     <c>, <b>, <font...>) between the line break and the letter blocks these two
+     alternatives (the regex sees the tag's '>' immediately before the letter,
+     not '^'/'\n').  Scarier's per-fragment a5text_process runs the full cap on
+     marked-up text too, so intra-fragment line starts are already handled there;
+     the Display-boundary re-cap (a5text_display_alr) runs on PLAIN text, where
+     those tags are gone, so honouring `^`/`\n` there wrongly capitalises a letter
+     FD left alone (e.g. Call of the Shaman's `<del>https://...` credits URLs).
+     The boundary therefore passes allow_line_start=0 -- only real sentence
+     punctuation (which no tag can hide) drives a cap in the second pass. */
+  if (allow_line_start)
+    {
+      if (i == 0)
+        return 1;
+      if (s[i - 1] == '\n')
+        return 1;
+    }
   /* "x. y" where x is a lowercase letter */
   if (i >= 3 && s[i - 1] == ' '
       && (s[i - 2] == '.' || s[i - 2] == '!' || s[i - 2] == '?')
@@ -1451,14 +1478,20 @@ is_sentence_start (const char *s, size_t i)
 }
 
 static char *
-auto_capitalise (const char *src)
+auto_capitalise_ex (const char *src, int allow_line_start)
 {
   char *s = strdup (src);
   size_t i;
   for (i = 0; s[i]; i++)
-    if (islower ((unsigned char) s[i]) && is_sentence_start (s, i))
+    if (islower ((unsigned char) s[i]) && is_sentence_start (s, i, allow_line_start))
       s[i] = toupper ((unsigned char) s[i]);
   return s;
+}
+
+static char *
+auto_capitalise (const char *src)
+{
+  return auto_capitalise_ex (src, 1);
 }
 
 /* --------------------------------------------------- perspective conjugation */
@@ -2008,7 +2041,11 @@ a5text_display_alr (a5_state_t *st, const char *plain)
      already plain and per-fragment-processed, so the function/expression passes
      have nothing left to expand). */
   a1 = boundary_alr_once (st, plain);
-  cap = auto_capitalise (a1);
+  /* Boundary re-cap runs on plain text: suppress the `^`/`\n` line-start rules
+     (a5text_process already applied them per-fragment on marked-up text) so a
+     stripped formatting tag cannot expose a line-leading word to a spurious cap;
+     only true sentence punctuation drives this pass (see is_sentence_start). */
+  cap = auto_capitalise_ex (a1, 0);
   a2 = boundary_alr_once (st, cap);
   free (a1);
   free (cap);
@@ -2342,7 +2379,22 @@ view_location_impl (a5_state_t *st, const char *lockey)
         }
     }
 
-  plain = a5text_render_plain (sb.p ? sb.p : "");
+  /* Capitalise the assembled room view on its still-MARKED-UP buffer, exactly
+     as FD's Display-time CapAfterFullStop runs over the whole (marked-up) turn
+     text.  This is where the room's NPC "is here" list (built here with lowercase
+     articles, e.g. "the cook and the kitchen maid are here.") gets its line-start
+     capital: FD caps it because the newline before it is followed directly by the
+     letter, with no intervening tag.  Doing it here (rather than only at the
+     a5text_display_alr boundary, which sees PLAIN text and must suppress the
+     `^`/`\n` rules to avoid capitalising a letter FD left alone behind a stripped
+     tag) keeps the room view correct for ALR games without the boundary needing
+     the tag-sensitive line-start rules.  Non-ALR games always matched with their
+     room views already upper-cased at line start, so this is a no-op for them. */
+  {
+    char *capped = auto_capitalise (sb.p ? sb.p : "");
+    plain = a5text_render_plain (capped);
+    free (capped);
+  }
   free (sb.p);
   return plain;
 }

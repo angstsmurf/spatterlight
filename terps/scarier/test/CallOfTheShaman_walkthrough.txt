@@ -1,0 +1,166 @@
+# The Call of the Shaman (Larry Horsfield, 2019) -- ADRIFT 5 winning walkthrough.
+#
+# Episode 6 of the Alaric Blackmoon series.  Derived by playing the game to a
+# 265-point win ("*** CONGRATULATIONS! ***") using the author's bundled ROT1
+# hint sheet (test/adrift5-games/walkthroughs/CallOfTheShaman_walkthrough.txt)
+# as a route guide; navigation, verbs and item handling were filled in by play.
+# One bare command per line (both harnesses skip blank and "#" lines).
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/TheCallOfTheShaman.blorb \
+#       test/CallOfTheShaman_walkthrough.txt
+#
+# The final SAY REDIRE DOMUM (holding the amulet, back at the beach) emits the
+# whole endgame including the CONGRATULATIONS banner -- no key-press needed.
+o
+b
+dig sand
+w
+w
+e
+e
+in
+talk to pastor
+ask pastor about cherokee
+out
+follow thief
+n
+draw sword
+call thief
+search thief
+get short sword
+get dagger
+in
+look under furs
+get watch
+get handkerchief
+out
+s
+s
+se
+e
+e
+find owner
+s
+x forge wall
+get apron
+give watch to blacksmith
+n
+ne
+in
+give handkerchief to saddler
+s
+sw
+sw
+s
+sell short sword
+sell dagger
+buy blanket
+buy compass
+n
+ne
+nw
+n
+buy rations
+s
+se
+se
+ring bell
+ring bell
+ring bell
+hire horse
+hire horse
+nw
+ne
+tie molly to rail
+in
+ask saddler for saddle
+saddle molly
+s
+sw
+n
+raise bucket
+fill canteen
+w
+w
+w
+sheath sword
+put all in saddlebag
+mount molly
+w
+w
+get totem from saddlebag
+show totem to black fox
+say magor
+find black fox
+ask black fox about rattlesnake
+ask black fox about rat
+ask black fox about the savannah river
+se
+se
+in
+ask red eagle for rat
+out
+nw
+nw
+untie reins
+put all in saddlebag
+mount molly
+w
+look around
+dismount
+tie reins to tree
+get sack from saddlebag
+get rawhide from saddlebag
+get rat from saddlebag
+n
+look behind rocks
+throw rat at snake
+prepare sack
+grab snake
+tie sack with rawhide
+get sack
+s
+put sack in saddlebag
+untie reins
+mount molly
+s
+dismount
+tie reins to tree
+get apron from saddlebag
+get box from saddlebag
+wear apron
+se
+look
+e
+look
+x bush
+pick berries
+put berries in box
+wear apron backwards
+w
+nw
+take off apron
+put all in saddlebag
+untie reins
+mount molly
+ne
+dismount
+tie reins to picket line
+get sack from saddlebag
+get box from saddlebag
+se
+s
+in
+wait
+put all in saddlebag
+untie reins
+mount molly
+ne
+e
+e
+se
+dismount
+return molly
+hold amulet
+say redire domum

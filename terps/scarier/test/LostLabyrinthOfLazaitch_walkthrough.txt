@@ -1,0 +1,470 @@
+# The Lost Labyrinth of Lazaitch (Larry Horsfield, ADRIFT 5) -- winning script.
+#
+# Full win: "*** CONGRATULATIONS! ***  ...in 451 turns, scoring a total of 520
+# points!" under FrankenDrift (the ground-truth reference runner, FD_SEED=1234).
+# Single protagonist (Sir Grimbold / Bronwynn's world), no BECOME.
+#
+# Derived from the game's OWN built-in walkthrough (the "native" ADRIFT solution):
+# Larry Horsfield's games embed the entire solution as a task -- type WLKTHRGH
+# in-game to print it.  This script is that text extracted verbatim from the
+# cl_Walkthroug task in the game model, stripped of its parenthetical annotations,
+# with only the two-key start-menu handshake ("o" then "b") prepended.  Unlike the
+# Bump-in-the-Night / Bug-Hunt built-ins, NOT ONE native command needed correcting:
+# FrankenDrift replays the raw author commands straight through to the win (zero
+# press-O / not-understood / can't-see lines), so this is a faithful native
+# solution and any Scarier divergence is a Scarier bug (currently DIVERGE 403|403;
+# see A5_WALKTHROUGH_FINDINGS.md -- dominant bug = the "Fahren Layburn" teleport
+# spell not firing in Scarier, desyncing the whole Layburn village endgame).
+#
+o
+b
+e
+sw
+w
+n
+s
+w
+w
+x thorns
+draw sword
+cut thorns with sword
+sheath sword
+s
+in
+get rags
+out
+n
+e
+e
+e
+ne
+e
+smell smoke
+n
+knock on door
+climb onto roof
+cover pot with rags
+d
+in
+search mantel
+get box
+put box in pack
+o
+s
+x gremlin
+x mark
+x tattoo
+talk to gremlin
+get specs
+get box
+x box
+x symbols
+press square
+press hexagon
+press circle
+press mobius
+press pentagon
+press triangle
+get key
+w
+sw
+w
+n
+unlock door
+s
+e
+ne
+e
+e
+e
+remove boots
+paddle in water
+w
+w
+w
+sw
+ne
+e
+e
+e
+look in water
+get key
+w
+w
+w
+sw
+s
+s
+climb onto stump
+unlock trapdoor
+open trapdoor
+d
+x dwarf
+search dwarf
+x tankard
+x stool
+look behind stool
+d
+x steps
+wear specs
+d
+e
+search rubble
+w
+nw
+w
+look west
+turn lever
+x bend
+x button
+throw rock at button
+w
+get rock
+s
+s
+se
+nw
+n
+n
+e
+look east
+x lever
+tie loop in rope
+throw rope around lever
+e
+se
+u
+u
+u
+close trap
+d
+n
+n
+ne
+e
+e
+look around
+s
+se
+se
+s
+i
+w
+n
+n
+e
+e
+x house
+lift doormat
+unlock door
+open door
+e
+x table
+x jigsaw
+u
+e
+open door
+e
+look under bed
+w
+w
+d
+finish jigsaw
+remember
+w
+e
+open door
+nw
+w
+x display
+x amulet
+in
+say hello
+ask mafra about layburn
+ask mafra about amulet
+give box
+wear amulet
+out
+w
+ne
+e
+e
+e
+fahren lubecker
+wear specs
+n
+n
+n
+say razgul
+get fist
+wear fist
+s
+s
+s
+fahren layburn
+w
+w
+w
+s
+s
+s
+s
+e
+in
+i
+nw
+nw
+n
+w
+w
+sw
+s
+s
+climb onto stump
+unlock trap
+open trap
+d
+d
+wear specs
+d
+nw
+w
+s
+s
+se
+turn dial to 6
+turn dial to 9
+turn dial to 0
+turn dial to 7
+e
+remove fist
+drop all except rock
+swap rock for horn
+get fist, key and rope
+wear fist
+w
+nw
+n
+n
+e
+se
+u
+u
+put key on stool
+u
+close trap
+d
+n
+n
+w
+w
+w
+draw sword
+cut thorns with sword
+sheath sword
+nw
+n
+replace horn
+blitzen bars
+z
+z
+blitzen cage
+s
+se
+e
+e
+e
+ne
+e
+e
+e
+ne
+e
+e
+x trolls
+x bowl
+x corral
+x animals
+x molly
+blow whistle
+x trolls
+d
+se
+s
+search loot
+get all
+n
+ne
+look east
+x tower
+x villages
+w
+x pit
+get meat
+eat meat
+get meat
+eat meat
+get meat
+put meat in pack
+ne
+saddle molly
+draw sword
+destroy corral
+sheath sword
+mount molly
+s
+e
+e
+e
+dismount
+hitch molly to rail
+n
+greet innkeeper
+ask innkeeper about inn
+ask innkeeper about maze
+ask innkeeper about tower
+ask innkeeper for jack
+greet jack
+ask jack about labyrinth
+get tankard
+sw
+w
+buy ale
+ask for job
+search fireplace
+get basket
+n
+x block
+get wire
+e
+pick lock with wire
+open door
+in
+search stuff
+get file
+put file in pack
+look behind door
+get sack
+get flour
+out
+w
+drop all
+chop wood
+chop logs
+get axe
+chop wood
+put wood in basket
+get all
+drop axe
+s
+stoke fire
+drop basket
+e
+ne
+give tankard
+ask jack about maze
+ask jack about tower
+sw
+w
+s
+untether molly
+mount molly
+e
+e
+e
+dismount
+tie reins to sapling
+w
+e
+x archway
+read words
+in
+look in pouch
+get parchment
+unfold parchment
+read spells
+x wall
+follow arrow
+blitzen troll
+search ashes
+x wall
+follow arrow
+cast wolke at sky
+cast regen at clouds
+get rod
+x wall
+follow arrow
+cast eizap at water
+cast stark at me
+draw sword
+smash ice with sword
+search ice
+get disc
+get file
+file edge of disc
+drop file
+x wall
+follow arrow
+cast sturm at man
+cast heile at me
+get gem
+x wall
+follow arrow
+say razgul
+in
+u
+u
+throw flour in air
+blitzen hand
+u
+x door
+x hole
+put cube in hole
+in
+search dust
+x phial
+read label
+get meat
+poison meat
+out
+up
+feed meat to dogs
+u
+u
+x door
+x door closely
+put rod in hole
+u
+u
+put gem in depression
+in
+e
+throw disc at sorcerer
+look down
+look behind chair
+get grimoire
+fahren lubecker
+wear specs
+n
+n
+n
+remove fist
+replace fist
+s
+s
+s
+fahren tower
+e
+open door
+out
+d
+out
+follow arrows
+say razgul
+follow arrow
+out
+w
+sheath sword
+untether molly
+mount molly
+return home
