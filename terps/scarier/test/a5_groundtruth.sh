@@ -6,8 +6,11 @@
 # This is the validation backbone for the v5 engine.  FrankenDrift is a separate
 # third-party checkout (github.com/awlck/frankendrift); we drive it through a
 # tiny headless console frontend, FrankenDrift.Headless, that lives in that tree
-# (FrankenDrift.Headless/Program.cs -- not part of upstream frankendrift, and
-# not committed here).  Build it once with:
+# (FrankenDrift.Headless/Program.cs -- not part of upstream frankendrift).  It is
+# version-controlled in our fork (github.com/angstsmurf/frankendrift, branch
+# scarier-headless) so it survives a clobbered checkout -- restore with
+# `git -C "$FD_ROOT" checkout scarier-headless` (or cherry-pick that commit) if it
+# ever goes missing again.  Build it once with:
 #
 #     dotnet build "$FD_ROOT/FrankenDrift.Headless/FrankenDrift.Headless.csproj" -c Release
 #

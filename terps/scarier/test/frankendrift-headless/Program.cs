@@ -144,6 +144,78 @@ namespace FrankenDrift.Headless
         public void SelectNode(string key) { }
     }
 
+    // A System.Random whose integer draws come from the SAME erkyrath xoshiro128**
+    // stream Scarier uses (terps/common_utils/randomness.c).  With FD_RNG=xoshiro
+    // this replaces SharedModule.r, so RAND-selected text (OneOf/Random tasks,
+    // combat rolls, dream variants) lines up byte-for-byte with the a5run harness
+    // instead of diverging on .NET's System.Random.
+    //
+    // The seeding (SplitMix32) and the generator are transcribed verbatim from
+    // randomness.c (xo_seed_random / xo_random).  The draw mapping mirrors
+    // a5rand_between: SharedModule.Random(iMin,iMax) calls r.Next(iMin,iMax+1),
+    // i.e. inclusive [iMin,iMax] with span = iMax-iMin+1; when that span is 1 no
+    // value is drawn (a fixed FromTo consumes no RNG, keeping the stream aligned),
+    // otherwise the value is iMin + next() % span.  Set FD_RNG_TRACE=1 to echo each
+    // draw as "RAND(lo,hi)=r" for diffing against Scarier's A5_TRACE_RAND output.
+    internal sealed class XoshiroRandom : Random
+    {
+        private readonly uint[] _s = new uint[4];
+        private static readonly bool _trace =
+            Environment.GetEnvironmentVariable("FD_RNG_TRACE") is not null;
+
+        public XoshiroRandom(uint seed)
+        {
+            // xo_seed_random: SplitMix32 expansion of a single 32-bit seed.
+            unchecked
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    seed += 0x9E3779B9u;
+                    uint z = seed;
+                    z ^= z >> 15; z *= 0x85EBCA6Bu;
+                    z ^= z >> 13; z *= 0xC2B2AE35u;
+                    z ^= z >> 16;
+                    _s[i] = z;
+                }
+            }
+        }
+
+        // xo_random: xoshiro128** next(), returning a full 32-bit word.
+        private uint NextRaw()
+        {
+            unchecked
+            {
+                uint t1x5 = _s[1] * 5u;
+                uint result = ((t1x5 << 7) | (t1x5 >> 25)) * 9u;
+                uint t1s9 = _s[1] << 9;
+                _s[2] ^= _s[0];
+                _s[3] ^= _s[1];
+                _s[1] ^= _s[2];
+                _s[0] ^= _s[3];
+                _s[2] ^= t1s9;
+                uint t3 = _s[3];
+                _s[3] = (t3 << 11) | (t3 >> 21);
+                return result;
+            }
+        }
+
+        // Global.Random(iMin,iMax) -> r.Next(iMin, iMax+1): inclusive [iMin,iMax].
+        public override int Next(int minValue, int maxValue)
+        {
+            long span = (long)maxValue - minValue;   // == hi - lo + 1
+            if (span <= 1) return minValue;          // FromTo hi==lo: no draw
+            int r = minValue + (int)(NextRaw() % (uint)span);
+            if (_trace) Console.Error.WriteLine($"RAND({minValue},{maxValue - 1})={r}");
+            return r;
+        }
+
+        // Global.Random(iMax) -> r.Next(iMax+1): inclusive [0, iMax].
+        public override int Next(int maxValue) => Next(0, maxValue);
+        public override int Next() => Next(0, int.MaxValue);
+        protected override double Sample() => NextRaw() / 4294967296.0;
+        public override double NextDouble() => Sample();
+    }
+
     public static class Program
     {
         public static int Main(string[] args)
@@ -171,17 +243,23 @@ namespace FrankenDrift.Headless
 
             // Make RAND reproducible run-to-run.  SharedModule.r is a private
             // static Random lazily seeded from Now.Ticks; force a fixed seed via
-            // reflection so transcripts are stable.  NOTE: .NET's Random is a
-            // different algorithm from Scarier's erkyrath xoshiro128**, so RAND-
-            // selected text (dream variants, combat rolls) will NOT match the
-            // a5run harness even though both are deterministic -- ground-truth
-            // diffing is meaningful on the (large) RAND-independent portion.
+            // reflection so transcripts are stable.
+            //
+            // FD_RNG=xoshiro swaps in XoshiroRandom, which draws from the SAME
+            // erkyrath xoshiro128** stream as Scarier -- so RAND-selected text
+            // (dream variants, combat rolls, OneOf picks) matches the a5run harness
+            // byte-for-byte.  Left unset, .NET's System.Random is used (a different
+            // algorithm), so RAND text will NOT match; ground-truth diffing is then
+            // meaningful only on the (large) RAND-independent portion.
             int seed = 1234;
             var sEnv = Environment.GetEnvironmentVariable("FD_SEED");
             if (sEnv != null && int.TryParse(sEnv, out var s)) seed = s;
+            Random rng = Environment.GetEnvironmentVariable("FD_RNG") == "xoshiro"
+                ? new XoshiroRandom((uint)seed)
+                : new Random(seed);
             var rField = typeof(Adrift.SharedModule).GetField("r",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            rField?.SetValue(null, new Random(seed));
+            rField?.SetValue(null, rng);
             Adrift.SharedModule.UserSession =
                 new Adrift.RunnerSession { Map = new GlonkMap(), bShowShortLocations = true };
 
