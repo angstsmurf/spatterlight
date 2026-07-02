@@ -7,7 +7,75 @@ blind play through `test/a5run_dump` replay scripts, guided by the game's
 **`WWDD`** ("What Would Dad Do?") per-location hint tasks and the model's
 scoring tasks.
 
-## Status: **285 / 500** (byte-verified in BOTH Scarier and FrankenDrift), script = `test/FinnsBigAdventure_walkthrough.txt`
+## Status: **330 / 500** (byte-verified in BOTH Scarier and FrankenDrift — identical 385 turns), script = `test/FinnsBigAdventure_walkthrough.txt`
+
+> **UPDATE (session 5, 2026-07-03): full SANKORA TOWN side-quest circuit solved,
+> 285→330 (+45), byte-identical in BOTH engines.** All of `cl_MeetDog`'s gates are
+> now satisfied, Paddy the dog is adopted, and the Kong paper bag is in hand. Nine
+> sub-quests banked, in this order (see the script for exact moves):
+> 1. **Give-horse — this is a TOWN quest, NOT Kong** (the old doc's "cl_GiveHorseS
+>    (Kong!)" annotation was WRONG). At **Secombe Avenue mid** (`cl_Location95`,
+>    the flower-bed room) a mother holds a **crying baby**: `get wooden horse` →
+>    `give horse to crying baby` (+5 `cl_GiveHorseS`, yields the unshatterable
+>    **glass ornament**). Temple→here = `out,n,n,w,w,s,s`.
+> 2. **Listen** (+5 `cl_ListenToSo1`): at **Seagoon Street** (musicians room, S of
+>    the herbalist) `listen to musicians`.
+> 3+4. **Herbalist** (Dr.Wu's, In from the herbalist room = south-end Secombe):
+>    `give bat and scorpion to herbalist` (+5 `cl_GiveIngred`) → `pay 50 goons to
+>    herbalist` (+5 `cl_PayHerbali`, yields the **powder packet**).
+> 5. **Farm** (In Farmyard `cl_Location114`, EAST out the SE gate along a dirt
+>    road; from the herbalist street = `s` to Seagoon then `e e e e e`):
+>    `give powder to farmer` (+5 `cl_GivePacket3`, yields the **goddess figurine**).
+> 6. **Antiques** (Milligan St, In): entry is gated on **BOTH the gauntlet AND the
+>    figurine being VISIBLE** (`cl_InToAntiqu`; in-rucksack counts as visible, so
+>    the figurine from step 5 is the real unlock — do farm BEFORE antiques). Inside:
+>    `get gauntlet` (only allowed at loc120 — `cl_Rucksack` blocks it elsewhere),
+>    `1`, `2` (sell figurine +100 goons), `sell gauntlet to antiques dealer`
+>    (+100 goons and +5 `cl_AntiquesTa3`).
+> 7. **Shrine** (+5 `cl_OfferFlowe`): OUTSIDE the SW gate — `buy flowers` at a
+>    Bentine stall first, then SW-gate `w` (Edge of Town, guards — disguise passes)
+>    `w` (Dirt Road To Town = the shrine), `offer flowers to goddess`. **Arriving
+>    here also fires the thieves-rob-a-man-with-a-dog cut-scene (`cl_MeetDog1`).**
+>    **DO NOT go further West (the quayside `cl_Location84` = instant thief death).**
+> 8. **Dog**: make the leash first — Outside NW Gate has a **length of rope**
+>    (`get rope`; this rope alone satisfies `cl_MeetDog`'s "`cl_Rope2` visible"
+>    gate — the leash need NOT be tied yet). `n` to **Amongst the Paddy Fields**
+>    (`cl_Location117`): `cl_MeetDog` fires (all gates met), the stray dog trots up
+>    → `feed stray dog with steak` (+5 `cl_FeedDogSco`, names him **Paddy**, who now
+>    follows). Then `make a leash` (+5 `cl_MakeLeash` — the command is only
+>    recognised WITH Paddy present).
+> 9. **Pet shop** (Petra's, In from Secombe-north — Paddy must be with you to be
+>    admitted): `1` (buy leather collar, 5 goons) → `2` (dog biscuits) → `5` (buy 5,
+>    min order) → yields the **strong paper bag** (the Kong silverback tool).
+>
+> **⚠ Scarier double-score BUG surfaced (NOT banked):** after `make a leash` (+5),
+> typing `tie rope to dog` re-fires a 2nd leash task and Scarier awards ANOTHER +5
+> (→335). **FrankenDrift does NOT re-score (stays 330)** — so this is a real Scarier
+> divergence (two overlapping tasks `cl_TieRopeToD1` "make a leash" / `cl_TieRopeToS`
+> "tie rope to dog"/"make leash" both complete). The committed script uses only the
+> single `make a leash` (the faithful 330). **TODO: fix in the engine** (log in
+> `TODO_a5_walkthrough_bugs.md`) — a completed task's alt-command sibling should not
+> re-complete/re-score.
+>
+> **Navigation note:** the dump's numeric `cl_LocationNN` exit indices do NOT match
+> the in-game compass labels for the town — navigate the town by PROSE. Real town
+> layout (by prose): W→E N-S streets = **Milligan** (antiques; NW gate top, SW gate
+> bottom), **Secombe** (pets/flowers-baby/herbalist), **Bentine** (temple, flower
+> stalls; SE gate bottom). E-W streets = **Sellars** (north wall), **Seagoon** (south
+> wall, musicians at the Secombe junction). The farm is East out the SE gate; the
+> shrine is West out the SW gate.
+>
+> **REMAINING to the win (next session):** the town circuit is DONE — only the
+> **Kong endgame** is left. Now standing at Secombe-north with Paddy on a leash,
+> the strong paper bag (biscuits), rope, glass ornament, gorilla costume (in
+> rucksack). Plan: **empty + inflate the paper bag** (`cl_BurstBag` tool) →
+> **Kong trip #2** (`row to kong`): wear gorilla costume, `roll in dung`
+> (`cl_RollInDung`, smell), pass the gorillas to the outcrop (54), `take orb`
+> = the REAL Stone1 (`cl_TakeStone5`, since `cl_SankoraIdD` was set by temple Q3;
+> this SPAWNS the silverback at the boundary), `burst bag` to scare it off
+> (`cl_BurstBag`) → `row to buddha` back to Sankora → Temple `give orb to priest`
+> (`cl_GetOrbInTe` +25 → `cl_ToEndgame` +25 → **`YouHaveWon`**). Junk-hire to ferry
+> Paddy to Kong for tether points is optional (not needed for the win).
 
 > **⚠ WORKTREE:** this work lives on the **`fba-walkthrough`** branch, checked out
 > in a SEPARATE git worktree at **`/Users/administrator/spatterlight-fba`** (NOT the

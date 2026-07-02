@@ -317,3 +317,72 @@ talk to priest
 2
 3
 4
+out
+n
+n
+w
+w
+s
+s
+get wooden horse
+give horse to crying baby
+s
+s
+listen to musicians
+n
+in
+give bat and scorpion to herbalist
+pay 50 goons to herbalist
+s
+e
+e
+e
+e
+e
+give powder to farmer
+w
+w
+w
+w
+w
+n
+n
+n
+n
+w
+w
+s
+in
+get gauntlet
+1
+2
+sell gauntlet to antiques dealer
+out
+s
+s
+s
+e
+e
+e
+e
+n
+buy flowers
+s
+w
+w
+w
+w
+w
+w
+offer flowers to goddess
+e
+e
+n
+n
+n
+n
+n
+get rope
+n
+feed stray dog with steak
+make a leash
