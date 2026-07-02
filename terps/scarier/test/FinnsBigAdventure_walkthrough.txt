@@ -278,3 +278,42 @@ put costume in rucksack
 put book in rucksack
 put certificate in rucksack
 row se
+get slingshot from rucksack
+look for a stone
+fire stone at hat
+put slingshot in rucksack
+e
+n
+w
+get smock
+e
+s
+s
+e
+e
+remove rucksack
+wear smock
+wear hat
+e
+n
+n
+n
+n
+e
+e
+e
+exchange 40 gold
+e
+s
+buy flowers
+s
+remove boots
+in
+in
+x statue
+offer flowers
+talk to priest
+1
+2
+3
+4
