@@ -1,0 +1,642 @@
+Marooned On Mazoomah
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it. There is also the possibility of sudden death.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+I do hope, however, that you will give it a try! A walkthrough is available on request. (type HELP).
+
+Many thanks.
+
+Larry Horsfield
+
+If you have already started the game, you can load a saved game
+By clicking on the blue folder in the toolbar above.
+Please type C then press Enter to continue.....
+
+> c
+MAROONED ON MAZOOMAH
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not yet support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+BUGS : COMM : CREDITS : HELP : HINTS : MACROS : MAP : SPEECH : SCRIPT : VOCAB;
+
+> b
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is closed. In between the couches is a water faucet. On the passenger couches you see a shoulder bag.
+
+> get bag
+Ok, you take the shoulder bag from the right side passenger couch.
+
+> wear bag
+Ok, you put on the shoulder bag.
+
+> drink water
+Ok, you drink some water from the faucet, it is cool and most refreshing.
+
+> sit on chair
+You sit down on the pilot's chair.
+
+In Pilot's Chair
+You are seated in the pilot's chair, which is upholstered with deep cushions. In front of you are the simple controls and about a foot above your head is the vision dome.  In one arm of the chair is a cup holder, in which there is a water flask. You can also see a storage bin which is closed.
+
+When you want to leave the chair, type STAND or STAND UP.
+
+> open bin
+Ok, you open the storage bin.
+
+In Pilot's Chair
+You are seated in the pilot's chair, which is upholstered with deep cushions. In front of you are the simple controls and about a foot above your head is the vision dome.  In one arm of the chair is a cup holder, in which there is a water flask. You can also see a storage bin which is open. Inside the bin you see a cassette tape player.
+
+> get player
+Ok, you take the cassette tape player from the storage bin.
+
+> look behind cushions
+You look behind the cushion and find a cassette tape, which you take.
+
+> put tape in player
+Ok, you insert the cassette tape into the player.
+
+> put player in bag
+Ok, you put the cassette tape player into the shoulder bag.
+
+> get flask
+Ok, you take the empty water flask from the cup holder.
+
+> x it
+(the empty water flask)
+A simple flask for carrying water, it is empty.
+
+> stand up
+Ok, you stand up from the pilot's chair.
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is closed. In between the couches is a water faucet.
+
+> fill flask with water
+Ok, you fill the flask with water from the faucet.
+
+> stand on right couch
+Ok, you stand on the couch on the right side of the shuttle.
+
+Standing On Right Couch
+You are standing on the right passenger couch. The ceiling of the shuttle is about a foot above your head.
+
+To get off of the couch type Down.
+
+> x roof
+The shuttle ceiling is made up of padded panels.
+
+> x panels
+Each panel is about 8" x 15" in size. You notice that one has a label attached to it.
+
+> read label
+It reads:SPARE BATTERIES - Push To Open
+
+> push panel
+You push the panel, which goes up with a click and drops open, revealing a locker with several batteries in it.
+
+Standing On Right Couch
+You are standing on the right passenger couch. The ceiling of the shuttle is about a foot above your head.  There is an open locker in the ceiling with several lithium batteries in it.
+
+> get battery
+Ok, you take one of the batteries out of the locker.
+
+> put battery in bag
+Ok, you put the lithium battery into the shoulder bag.
+
+> d
+You move down.
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is closed. In between the couches is a water faucet.
+
+> sit on left couch
+Ok, you sit down on the passenger couch on the left side.
+
+You feel something hard under the couch cushion.
+
+Sitting On Left Couch
+You are sitting on the left passenger couch in the shuttle.
+
+> look under cushion
+Which cushion?  The left side couch cushion or the right side couch cushion.
+
+> put fuse in bag
+Sorry, I'm not sure which object you're referring to.
+
+> stand
+Ok, you stand up from the couch.
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is closed. In between the couches is a water faucet.
+
+> o
+You move out.
+
+By Shuttlecraft
+You are standing by one of the Excelsior's shuttlecraft. All around you in every direction is a wide, open plain. You can go In to the shuttlecraft through the open entry door.
+
+> look w
+You look to the west and see, through the haze, some low hills in that direction.
+
+> w
+You move West.
+
+You walk steadily across the plain, grateful for the water, and reach the edge of the hills some time later.
+
+Edge of Low Hills
+You are about a mile from the shuttlecraft, at the edge of a range of low hills. The shuttle is to the East and you can go Up onto one of the hills.
+
+> u
+You move up.
+
+Top of Hill
+You are on top of a hill, from where you can see for miles in any direction. You can go Down the hill to level ground.
+
+It might help if you LOOK in a certain direction, e.g. LOOK WEST, etc.
+
+> look e
+You look East and see the shuttlecraft about a mile away. Beyond that, near the horizon, you see some shapes that might be buildings - maybe you should investigate?
+
+> d
+You move down.
+
+Edge of Low Hills
+You are about a mile from the shuttlecraft, at the edge of a range of low hills. The shuttle is to the East and you can go Up onto one of the hills.
+
+> e
+You move east.
+
+By Shuttlecraft
+You are standing by one of the Excelsior's shuttlecraft. All around you in every direction is a wide, open plain. You can go In to the shuttlecraft through the open entry door.
+
+> e
+You walk east.
+
+You cross the wide plain and, as you get nearer, the vague shapes coalesce into tall ruined buildings.
+
+Edge of Ruined City
+You are on the edge of the ruined city. The buildings of the city are very tall and soar into the sky high above you. The streets and pavements of the city are cracked and overgrown with thick vegetation. You can go West back to the shuttlecraft, or In to one of the nearest buildings. You cannot go in any other directions as the vegetation is too thick.
+
+> in
+You move in.
+
+In Foyer
+You are in the foyer of the building, which is choked with vegetation that has grown in from outside. The atrium is very tall and several trees grow in it. You can only go Out of the tower.
+
+> climb tree
+You climb up into one of the trees.
+
+As you are climbing, a branch snaps under your weight and you fall to the floor, injuring your left knee. It is very painful and won't bear your weight for very long.
+
+> climb tree
+You climb up into one of the trees.
+
+You knee is very painful and it takes you quite a while to climb up the branches.
+
+In Branches Of Tree
+You are high in the branches of the tree you have climbed up. You are level with one of the floors of the building, which you can see to the East. You can also climb back down the tree to the floor of the atrium.
+
+> e
+You move east.
+
+Room of Machines
+You are on a floor of the ruined building where there are several enigmatic machines, all in a state of decay. You can go West back into the tree you climbed up or East to the other end of the room.
+
+> x machines
+You have no idea what they were for but you suspect they could have had a medical use, as some of them have plastiglass covers. One of the machines is covered with a thick dust sheet.
+
+> uncover machine
+Ok, you remove the dust sheet from on top of the machine and put it on the floor.
+
+Room of Machines
+You are on a floor of the ruined building where there are several enigmatic machines, all in a state of decay. You can go West back into the tree you climbed up or East to the other end of the room.  An intact machine stands here.  Also here is a plastic dust sheet.
+
+> search machine
+You search the machine and find the door of a small compartment at the bottom of one side.
+
+> open door
+You open the door.
+
+Inside the compartment you see an old, dead battery.
+
+Your knee is getting very painful and won't bear your weight for much longer.
+
+> get battery
+Try REPLACE BATTERY.
+
+> replace battery
+You disconnect the dead battery and replace it with the new lithium battery. Lights come on as the machine comes to life and the plexiglass cover opens.
+
+> climb in machine
+You climb into the machine and lay down on the padded cushion.
+
+The plexiglass cover slowly closes over you and, after it seals with a click, you hear a hiss as some kind of gas is pumped into the compartment you are lying in. As you breath it in you start to fall asleep.
+
+You awaken an unknown amount of time later and immediately realise that your knee no longer hurts. In fact, you feel better than you have done for a long time.
+
+The cover slowly opens and you climb out of the machine, flexing your newly healed knee as you do so.
+
+> e
+You move east.
+
+East End of Room
+You are at the east end of the machine room, where there is an elevator, the door of which is closed, and a door that goes East. Next to the elevator there are two buttons. You can go back West to the other end of the room.
+
+> x room
+The room has all sorts of junk lying around.
+
+> search junk
+You search through the junk, most of which is utterly useless. However, you are rummaging in a pile of stuff when something falls out onto the floor.
+
+East End of Room
+You are at the east end of the machine room, where there is an elevator, the door of which is closed, and a door that goes East. Next to the elevator there are two buttons. You can go back West to the other end of the room.  Also here is a steel hanger.
+
+> get hanger
+Ok, you pick up the steel hanger.
+
+> in
+You move in.
+
+Emergency Stairs
+You are in an emergency stairwell. You can only go Up the stairwell as the stairs further down have collapsed.
+
+> u
+You move up.
+
+Top Of Stairwell
+You are at the top of the emergency stairwell, by a door which leads Out. You can also go Down the stairs.
+
+> out
+You move out.
+
+Roof of Tower (SW)
+You are on the southwest corner of the tower roof, by the entrance to the emergency stairwell, which leads In. You can go North, NE or East to other parts of the roof. A steel balustrade runs around the edge of the tower.
+
+> ne
+You move northeast.
+
+Roof of Tower (NE)
+You are in the NE corner of the tower roof. A steel balustrade runs around the edge of the roof, providing safety for anyone on the roof. You can go South, SW or West from here. Attached to the corner of the balustrade is a sturdy steel pole about 10 feet tall. Fixed to the top of the pole is a thick wire that slopes down towards the roof of a shorter tower some distance to the east.
+
+> put flask in bag
+Ok, you put the flask of water into the shoulder bag.
+
+> slide down wire
+You climb up onto the balustrade and hook the handle over the zipwire.
+
+Taking a deep breath, you launch yourself off the balustrade down the zipwire.
+
+You gather speed and hurtle down the zipwire. When you get near to the lower end, you raise your feet and clamp your boots around the wire in order to try and slow down. There is the smell of burning rubber as your speed decreases and by the time you reach the lower end of the wire you are able to let go of the hanger and jump down onto the roof of the other tower.
+
+Roof of Tower 2 (NW)
+You are in the NW corner of the tower roof. A steel balustrade runs around the edge of the roof, providing safety for anyone on the roof. You can go South, SE or East from here. Attached to the corner of the balustrade is a sturdy steel pole about 10 feet tall. Fixed to the top of the pole is a thick wire that slopes up towards the roof of the taller tower some distance to the west.
+
+> se
+You move southeast.
+
+Roof of Tower 2 (SE)
+You are on the SE corner of the tower roof, by the entrance to the emergency stairwell, which leads In. You can go North, NW or West to other parts of the roof.
+
+> in
+You move in.
+
+Top of Emergency Stairs
+You are at the top of the emergency stairwell, by a door which leads Out. You can also go Down the stairs.
+
+> d
+You move down.
+
+On Emergency Stairs
+You are on the emergency stairs in the tower. A doorway leads West. The stairs go Up and Down.
+
+> w
+You move west.
+
+East End of Sports Dept
+You are at the East end of a floor of a department store, which extends West. There is an elevator here with a door to a stairwell next to it. From the rubbish lying around, this would appear to have been the sports department.
+
+> search rubbish
+You search through the rubbish and find a climbing harness, which you drag out.
+
+East End of Sports Dept
+You are at the East end of a floor of a department store, which extends West. There is an elevator here with a door to a stairwell next to it. From the rubbish lying around, this would appear to have been the sports department.  Also here is a climbing harness.
+
+> get harness
+Ok, you pick up the climbing harness.
+
+> w
+You move west.
+
+West End of Sports Dept
+You are at the west end of the sports department, which extends East. There is a rack here with various bundles of climbing rope hanging from it.
+
+> get 100
+Ok, you take a 100 metre bundle of climbing rope from the rack.
+
+> e
+You move east.
+
+East End of Sports Dept
+You are at the East end of a floor of a department store, which extends West. There is an elevator here with a door to a stairwell next to it. From the rubbish lying around, this would appear to have been the sports department.
+
+> e
+You move east.
+
+On Emergency Stairs
+You are on the emergency stairs in the tower. A doorway leads West. The stairs go Up and Down.
+
+> d
+You move down.
+
+Bottom of Stairs
+You are at the bottom of the emergency stairway in the basement of the tower. You can go up the stairway and there is a door to the South that leads In.
+
+> in
+You move in.
+
+Elevator Motor Room
+You are in the elevator motor room of the tower. Here stands the massive electric motor that raises the elevator up and down the tower.
+
+> x motor
+This provides the power to raise and lower the elevator up and down the tower. In the side of the motor is the Yarbronite Crystal compartment.  Inside the compartment is a Yarbronite Crystal.
+
+> x crystal
+A crystal about 15" long and 6" in diameter, it is colored a dusky pink. The crystal is connected to the motor in several places.
+
+> get tool
+Ok, you take the multi-tool from the tool loop.
+
+> disconnect crystal
+Using your multi-tool, you disconnect the crystal from its connections and carefully take it out of the compartment.
+
+> put crystal in bag
+Ok, you put the Yarbronite crystal into the shoulder bag.
+
+> put tool in loop
+Ok, you put your multi-tool into the loop.
+
+> o
+You move out.
+
+Bottom of Stairs
+You are at the bottom of the emergency stairway in the basement of the tower. You can go up the stairway and there is a door to the South that leads In.
+
+> u
+You move up.
+
+On Emergency Stairs
+You are on the emergency stairs in the tower. A doorway leads West. The stairs go Up and Down.
+
+> u
+You move up.
+
+Top of Emergency Stairs
+You are at the top of the emergency stairwell, by a door which leads Out. You can also go Down the stairs.
+
+> out
+You move out.
+
+Roof of Tower 2 (SE)
+You are on the SE corner of the tower roof, by the entrance to the emergency stairwell, which leads In. You can go North, NW or West to other parts of the roof.
+
+> nw
+You move northwest.
+
+Roof of Tower 2 (NW)
+You are in the NW corner of the tower roof. A steel balustrade runs around the edge of the roof, providing safety for anyone on the roof. You can go South, SE or East from here. Attached to the corner of the balustrade is a sturdy steel pole about 10 feet tall. Fixed to the top of the pole is a thick wire that slopes up towards the roof of the taller tower some distance to the west.
+
+> tie rope to pole
+You tie one end of the length of rope securely to the steel pole and then throw the rest of the rope over the side of the tower to hang down to the ground 100 metres below.
+
+Roof of Tower 2 (NW)
+You are in the NW corner of the tower roof. A steel balustrade runs around the edge of the roof, providing safety for anyone on the roof. You can go South, SE or East from here. Attached to the corner of the balustrade is a sturdy steel pole about 10 feet tall. Fixed to the top of the pole is a thick wire that slopes up towards the roof of the taller tower some distance to the west. A length of yellow nylon climbing rope is tied to the steel pole here and hangs down the side of the tower to the ground 100 metres below.
+
+> wear harness
+Ok, you put on the climbing harness.
+
+> attach rope to harness
+You attach the climbing rope to the climbing harness.
+
+> rappel d
+You abseil down the side of the tower to the ground 100 metres below. When you reach the bottom, you detach the rope from your climbing harness.
+
+Foot of Tower
+You are at the foot of the tower you just abseiled down. You can go South or East around the tower. The rope you used hangs down from the top of the tower. The tower is surrounded by thick vegetation.
+
+> look around
+You look around you and, spot a break in the vegetation to the southwest of where you are standing.
+
+Foot of Tower
+You are at the foot of the tower you just abseiled down. You can go South or East around the tower. The rope you used hangs down from the top of the tower. The tower is surrounded by thick vegetation. To the southwest you see a break in the vegetation.
+
+> sw
+You move southwest.
+
+By Break
+You are standing by the break in the vegetation surrounding the tower. The break leads In to the vegetation or you can go NE or SE.
+
+> x break
+It might be a path through the vegetation.
+
+> get player
+Ok, you take the cassette tape player from the shoulder bag.
+
+> in
+You move in.
+
+Vague Path
+You are following a vague path in the thick vegetation which surrounds the towers. The vegetation is taller than you are and all you can see above it are the two towers. You can go SW further along the path or Out. You get the sense that the path opens out further SW.
+
+As you walk along the path, you hear voices coming from further along the path to the southwest.
+
+> listen
+You hear voices coming from the southwest, but you cannot understand the language.
+
+> sw
+You move southwest.
+
+Wide Clearing
+You are in a wide clearing in the mass of thick vegetation. The clearing is occupied by about a dozen humanoids of various sizes. You see an exit from the clearing to the NW.
+
+As you enter the clearing the humanoids stop whatever they are doing and stare at you in astonishment. However, they soon resume their humming and head-nodding.
+
+> press play
+Ok, you press the play button and music starts to play.
+
+The humanoids stop their humming and listen to the heavy metal music.
+
+They all start to nod their heads harder in time with the music, their hands playing imaginary guitars.
+
+This would be a good opportunity to escape from the clearing!
+
+> drop player
+You carefully leave the cassette player on the ground, still belting out "Paranoid".
+
+Wide Clearing
+You are in a wide clearing in the mass of thick vegetation. The clearing is occupied by about a dozen humanoids of various sizes. You see an exit from the clearing to the NW.  Also here is a cassette tape player.
+
+> nw
+You move northwest.
+
+Vague Path
+You are on a vague path to the northwest of the clearing where you left the humanoids listening to Black Sabbath. The path seems to head further NW although you will have to push your way through the vegetation.
+
+As you leave the clearing you glance back. You see the humanoids still headbanging to Paranoid, so you leave them to it and walk a bit further along the path until you are hidden from view.
+
+> nw
+You push your way through the thick vegetation and when you emerge into the open you realise you are once again on the outskirts of the city...
+
+Edge of Ruined City
+You are on the edge of the ruined city. The buildings of the city are very tall and soar into the sky high above you. The streets and pavements of the city are cracked and overgrown with thick vegetation. You can go West back to the shuttlecraft, or In to one of the nearest buildings. You cannot go in any other directions as the vegetation is too thick.
+
+> w
+You move west.
+
+By Shuttlecraft
+You are standing by one of the Excelsior's shuttlecraft. All around you in every direction is a wide, open plain. You can go In to the shuttlecraft through the open entry door.
+
+> in
+You move in.
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is closed. In between the couches is a water faucet.
+
+> get laser
+Ok, you draw your pistol from the holster.
+
+> cut pc door with laser
+Adjusting the nozzle of your laser to narrow beam, you cut round the lock of the door, allowing you to open the door so you can go In.
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is open and leads In. In between the couches is a water faucet.
+
+> in
+You move in.
+
+Power Compartment
+You are in the shuttlecraft's power compartment. Here, the door leads Out to the main compartment of the ship. Around you, there are various pieces of equipment vital to the smooth running of the ship, including the sub-space radio, and the main engine which is currently powered down.
+
+> sheath laser
+Ok, you put the laser pistol in the holster.
+
+> get tool
+Ok, you take the multi-tool from the tool loop.
+
+> get crystal
+Ok, you take the Yarbronite crystal from the shoulder bag.
+
+> connect crystal
+Using your multi-tool, you connect the crystal to the connections in the radio.
+
+> out
+You move out.
+
+In Shuttlecraft
+You are in the shuttlecraft by the entry door, which leads Out. There is a chair for the pilot and to the left and right are the couches for passengers. In the rear bulkhead is the door to the power compartment (PC door), which is open and leads In. In between the couches is a water faucet.
+
+> sit in chair
+You sit down on the pilot's chair.
+
+In Pilot's Chair
+You are seated in the pilot's chair, which is upholstered with deep cushions. In front of you are the simple controls and about a foot above your head is the vision dome.  In one arm of the chair is a cup holder, which is empty. You can also see a storage bin which is open.
+
+When you want to leave the chair, type STAND or STAND UP.
+
+> push power
+You push the power button and, at first, nothing happens. After a few seconds the main engine comes online and there is a deep, stuttering hum from the power compartment. That doesn't sound right - the engine must've been damaged when the shuttle crash-landed!
+
+> push radio
+You push the radio button and a channel opens.
+
+You send out a mayday call and are answered by a nearby FSP spaceship.
+
+A shuttlecraft is sent down to rescue you...
+
+*** CONGRATULATIONS! ***
+
+You have at last solved...
+
+MAROONED ON MAZOOMAH
+
+...in 106 turns, scoring 140 points out of 150.
+
+I do hope you have enjoyed playing this game.
+
+OTHER GAMES BY LARRY HORSFIELD:
+
+'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+Episode 9: XANIX - XIXON RESURGENCE
+
+Episode 10: THE BOOK OF JAX
+
+*****************************
+
+'Adventures In The World Of Alaric Blackmoon' Series:
+
+Episode 1: RUN, BRONWYNN, RUN
+
+Episode 2: THE DWARF OF DIREWOOD FOREST
+
+Episode 3: FINN'S BIG ADVENTURE
+
+Episode 4: MAGOR INVESTIGATES...
+
+COMING SOON: Chapter 5: THINGS THAT GO BUMP IN THE NIGHT
+
+****************************
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+Chapter 5: BUG HUNT ON MENELAUS
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games

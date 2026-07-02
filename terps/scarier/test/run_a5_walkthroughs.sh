@@ -462,6 +462,19 @@ FILTER="${1:-}"
 # above 23 would flag a real Scarier regression there.  See
 # TODO_a5_walkthrough_wiring.md.
 #
+# (2026-07-02) MaroonedOnMazoomah (Larry Horsfield, 2010): the walkthrough script
+# is the game's OWN built-in full solution, lifted verbatim from its FullSol task
+# ("FS"/"FULL SOLUTION"/"WALKTHROUGH" dumps the command list as the task
+# completion message), with a leading "c"/"b" prefix to clear the intro and
+# start-options screens.  The author's shipped list does NOT win under a faithful
+# engine, so THREE one-line repairs (all FD-verified) were added -- see the
+# walkthrough header: (1) "put flask in bag" before the zip-wire slide (needs
+# both hands free), (2) "get crystal" before "connect crystal" (must be Held By
+# Player), (3) "cut pc door with laser" instead of the ambiguous "cut door".
+# With those it reaches the real win ("*** CONGRATULATIONS! *** ... 135/150") and
+# Scarier is byte-identical to FrankenDrift in BOTH RNG modes (0/0 MATCH), so it
+# is golden-backed (MaroonedOnMazoomah_expected.txt, runs without dotnet).
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -484,6 +497,7 @@ PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
+MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|23

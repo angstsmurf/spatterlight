@@ -1,0 +1,135 @@
+# Marooned On Mazoomah (Larry Horsfield / P.R.M. Adventures, 2010) -- ADRIFT 5.
+#
+# WINNING walkthrough.  The backbone is the game's OWN built-in full solution,
+# extracted verbatim from the FullSol task (in-game "FS" / "FULL SOLUTION" /
+# "WALKTHROUGH" dumps the route as the task completion message), split one
+# command per line.  The leading "c"/"b" clear the intro and "Start Options"
+# screens.
+#
+# The author's shipped list does NOT actually win under a faithful engine (this
+# was confirmed against FrankenDrift, the reference ADRIFT 5 runner); THREE small
+# repairs make it reach the real ending.  Each was verified as a byte-for-byte
+# FrankenDrift match:
+#   1. "put flask in bag"  before "slide down wire": the zip-wire across to the
+#      far tower needs both hands free, but the author never stows the flask, so
+#      the slide -- and the whole far-tower leg after it -- silently fails.
+#   2. "get crystal"       before "connect crystal": the connect task requires the
+#      Yarbronite crystal Held By Player, but the author leaves it in the bag.
+#   3. "cut door with laser" -> "cut pc door with laser": the author's bare form
+#      is ambiguous (pc door vs entry door) and only raises a "Which door?" prompt
+#      without cutting; naming the PC door actually cuts the lock open.
+#
+# Result: "*** CONGRATULATIONS! *** ... scoring 135 points out of 150" (a full
+# win; 150 is the max, not the pass mark -- the mayday task needs only the
+# powered engine + the connected crystal).
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/MaroonedOnMazoomah.blorb \
+#       test/MaroonedOnMazoomah_walkthrough.txt
+c
+b
+get bag
+wear bag
+drink water
+sit on chair
+open bin
+get player
+look behind cushions
+put tape in player
+put player in bag
+get flask
+x it
+stand up
+fill flask with water
+stand on right couch
+x roof
+x panels
+read label
+push panel
+get battery
+put battery in bag
+d
+sit on left couch
+look under cushion
+put fuse in bag
+stand
+o
+look w
+w
+u
+look e
+d
+e
+e
+in
+climb tree
+climb tree
+e
+x machines
+uncover machine
+search machine
+open door
+get battery
+replace battery
+climb in machine
+e
+x room
+search junk
+get hanger
+in
+u
+out
+ne
+put flask in bag
+slide down wire
+se
+in
+d
+w
+search rubbish
+get harness
+w
+get 100
+e
+e
+d
+in
+x motor
+x crystal
+get tool
+disconnect crystal
+put crystal in bag
+put tool in loop
+o
+u
+u
+out
+nw
+tie rope to pole
+wear harness
+attach rope to harness
+rappel d
+look around
+sw
+x break
+get player
+in
+listen
+sw
+press play
+drop player
+nw
+nw
+w
+in
+get laser
+cut pc door with laser
+in
+sheath laser
+get tool
+get crystal
+connect crystal
+out
+sit in chair
+push power
+push radio
