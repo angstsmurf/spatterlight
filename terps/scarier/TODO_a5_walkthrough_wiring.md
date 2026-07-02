@@ -54,6 +54,16 @@ player to the town centre as Erlin). Golden = Scarier's own winning transcript
 (`test/BugHuntOnMenelaus_expected.txt`); the xoshiro column carries the FD
 differential (23, RNG-independent) as the *documented FD gap*.
 
+**Golden cleanup (later 2026-07-02): a double-render "By Shuttle" bug fixed.**
+The disembark cut-scene runs through `cl_ZMovePlaye`, which `Execute Look` twice
+in one command — once after the player moves and again after the marine squad
+follows — so Scarier emitted the "By Shuttle" room view twice per shuttle move
+(FD renders it once, keying stock Look's AggregateOutput on its response
+template). Mirrored the non-resp path's `pass_seen` dedup in `resp_flush`
+(`look_seen` set: collapse identical deferred `render_look_string` views within
+one command). Golden re-trimmed to the single-view output; all 22 other goldens
+stay byte-identical, FD gap unchanged at 23.
+
 The TODO had this catalogued as "FD-blocked … Scarier is worse here (BECOME
 doesn't relocate the player)". Both halves turned out to be one root cause:
 

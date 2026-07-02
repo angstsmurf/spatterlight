@@ -554,6 +554,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
 {
   a5_state_t *st = run->st;
   std::set<std::string> passed;
+  std::set<std::string> look_seen;
   for (auto &e : rm->ents)
     if (e.is_pass)
       {
@@ -575,6 +576,14 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
                function replacement is deferred to Display.  So a move whose After
                children relocated an NPC lists it at its new spot. */
             text = render_look_string (run);
+            /* FD keys the stock Look's AggregateOutput on its response template
+               (htblResponsesPass), so a command that Executes Look more than once
+               -- e.g. Bug Hunt's cl_ZMovePlaye, which runs Execute Look after the
+               player moves AND again after the marine squad follows -- shows a
+               single room view, not one per Execute.  Mirror the non-resp path's
+               pass_seen dedup: collapse identical deferred views. */
+            if (!look_seen.insert (text).second)
+              continue;
           }
         else if (e.aggregate)
           {
