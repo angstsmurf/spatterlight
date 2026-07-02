@@ -1,5 +1,51 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## 📄 DwarfOfDirewoodForest is PROVABLY unwinnable — in Scarier, FrankenDrift AND the real ADRIFT 5 Runner (shipped authoring bug, NOT an engine gap)  ✅ ANALYSED (2026-07-02)
+
+Recorded so nobody re-investigates: Dwarf's `0|0 MATCH` "conformance, not a win"
+status is correct and permanent. The game **cannot be completed by any faithful
+engine** — the `{*}` "By Guard Room" wall is a mis-configured authored task, and
+it seals the map. This is the OPPOSITE of the BugHunt case below: BugHunt was
+FrankenDrift being wrong (an engine crash, since fixed); Dwarf is the *game*
+being wrong (reproduced identically by all three engines, and rightly so).
+
+**Proof chain (from the deobfuscated XML — `A5_DUMP_XML`):**
+1. The win (move Player → `cl_YouHaveWon`) has exactly FOUR triggers
+   (`cl_UnlockCell3/4/5/6` = unlock a cell door / "let clanmates out"), and **all
+   four** AND-require `cl_ArsenalDes Must BeEqualTo 1`.
+2. `cl_ArsenalDes = "1"` is set in **exactly one** place — the arsenal-explosion
+   System task `cl_KnockedOve`, which lives in the arsenal/town area
+   (`cl_InnerBlast` group, rooms 29–59).
+3. The location graph splits into two components joined by a single door:
+   the **dungeon component** (9 rooms: Dungeons 8/10/15, Cells 19/21/22, Bend-in-
+   Tunnel 12, By Guard Room 11, Guard Room 13 — where you start *and* where you
+   win) and the **town/arsenal component** (60+ rooms incl. all of `cl_InnerBlast`).
+   The ONLY crossing is `cl_Location11` (By Guard Room) `--West--> cl_Location14`.
+   (BFS: from the dungeon you reach 9 rooms; delete the `{*}` gate and it jumps to
+   19+, unlocking cl_Location14 and the whole west side — so the gate is the sole
+   bridge.)
+4. `cl_NullAtStar`'s only restriction is `Player Must BeAtLocation cl_Location11`
+   — no guard-dead flag, nothing that ever lifts it. The only non-blocked move
+   there is `cl_CreepSouth` (`creep south` → the dead-end Guard Room, whose sole
+   exit is back North). There is **no `creep west`/`creep north`**.
+5. ∴ `cl_ArsenalDes` can never become 1 → no win task can ever fire → **unwinnable**.
+
+**Holds in the real ADRIFT 5 Runner too** (this is topology + authored priority,
+not engine behaviour): `GetGeneralTask` iterates tasks priority-ascending, first
+match wins. Dwarf priorities — `cl_CreepSouth` 5173 < **`cl_NullAtStar` {*} 44074
+(PreventOverriding)** < `cl_PlayerMove` 50207 / `MovePlayer` 50235 /
+`PlayerMovement` 50242. So `{*}` out-prioritises every generic movement at
+cl_Location11 in the real Runner exactly as in FD/Scarier; only `creep south`
+(5173) beats it. (Same mechanism verified against the jcwild/ADRIFT-5 source in
+the DwarfOfDirewoodForest movement-precedence note below.)
+
+**Root cause:** `cl_NullAtStar` is Larry Horsfield's standard disclaimer/menu
+null-task — its message "Please press O then press Enter." only makes sense on a
+menu screen, and the game's *other three* `{*}` tasks are correctly bound to the
+menu pseudo-rooms (StartOptions / Prologue / Instructions). This fourth copy was
+mistakenly given the location restriction `cl_Location11` (a real gameplay room),
+walling off the map. No faithful engine can complete it, and none should patch it.
+
 ## ⭐ `MoveCharacter … InsideObject / OntoObject / ToParentLocation` were unhandled no-ops (FBA custodian-niche stealth never hides the player)  ✅ DONE (2026-07-02)
 
 Surfaced deriving FinnsBigAdventure's catacombs. To evade the custodian you
