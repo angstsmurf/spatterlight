@@ -487,7 +487,7 @@ LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|23
-Tribute|Tribute.blorb|2|2
+Tribute|Tribute.blorb|0|0
 EOF
 )
 

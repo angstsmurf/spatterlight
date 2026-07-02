@@ -1,0 +1,1231 @@
+Tribute: Return to the City of Secrets
+
+You are comfortably seated in the very first carriage of the train going north to Valodsci, your hometown. Soon you will pass by the mysterious city where you experienced so much adventure. Right now it feels like a dream. But the letter from Evaine proves that everything was real. Once again you unfold the letter and read it:
+
+"Thank you for everything you have done.  More people are in your debt than will ever know it.  But you did not seem to be getting better in the City; even with the Crystal broken and the shards buried, it seemed that it was perhaps exerting a power over you.  As you asked, I've sent you on on the journey you meant to make at the start. I hope you find peace and a happy future; if you find yourself at loose ends after your other obligations are complete, you're welcome to come back here, if you think you can stand the City again.  We will be glad to see you."
+
+You put the letter back into your pocket. Everything is back to normal. Peter's wedding was amazing. And now you better get some sleep, before you reach Valodsci...
+
+Press a key to continue
+
+You must have slept since you are suddenly awake and completely disoriented. The train stands still and the other people in the carriage have left. Looking out the window you realize that you are back in the city of secrets. But why?
+
+You stand up, you leave the carriage and step down from the train onto solid ground.
+
+Tribute: Return to the City of Secrets
+ADRIFT version by Kenneth Pedersen
+Based on "City of secrets" by Emily Short
+Competition Release / Developed using ADRIFT 5.0.35.3 by Campbell Wild
+Beta-testing: Postcomp version will be beta-tested
+[If you are stuck, type HELP]
+
+City Train Station
+A spacious area but -- at least for you, at the moment -- leading nowhere of interest.  Despite its elegant appearance it lacks some of the usual accoutrements of a train station: there are no shops to buy food while you wait, and no board announcing arrival and departure times.  Information here is communicated by some methodology unknown to the mere tourist.
+
+The domed roof is attractive, though, in its high celestial blue.
+
+North are the doors to the street.
+
+You quickly realize that the train station is deserted.
+
+> n
+You move north.
+
+Outside Train Station
+The bottom of the hill, outside the train station, with its trolley tracks and the dulled statue of an ancient queen, hemmed on the east by the hotel and on the west by the health office.
+
+The carts of flower sellers have perhaps moved fractionally since the last time you were here, but it's hard to say.
+
+To the south, heavy doors lead into the train station.
+
+Exits lead north, south, east and west.
+
+The streets are completely deserted.
+
+Something around your neck burns cold. You touch your neck and realize that you are once again wearing the magical pendant from your last visit here in the city.
+
+But how? It shattered before you left the city!
+
+> x pendant
+You gaze into the pendant, and the darkness fills your sight...
+
+The darkness fades and you find yourself on a hilltop surrounded by fields as far as the eye can see.
+
+Evaine is here. She speaks.
+
+"Sorry for bringing you here without asking. But we really need your help. Evil is once again threatening our city. This time the enemy is in the form of dark magic. But there is hope. Most local sources of magical energy are yet to be harvested. We need a foreigner to collect the magical energy since our every move is being traced.
+
+"I have brought you to the soulless dimensions of the city. No one can trace your movements here and the magical energy will be accessible. The magical energy is contained inside shining gems which are well hidden all over the city. When you find them, the energy will be absorbed by the pendant you have been given. It is important that you find as many gems as you can since the outcome of our fight will depend on how magical energy is divided between good and evil.
+
+"It has been estimated that ten gems exist in this area. There are rumors about a super gem but I regard that as very unlikely.
+
+"when you believe that you cannot find anymore gems, you must squeeze the pendant. Hopefully, the magic you have harvested will be sufficient. Please go now and search carefully..."
+
+The vision fades.
+
+> e
+You move east.
+
+Hotel Lobby
+Nicely appointed, more so than anywhere you could afford to stay yourself. The room is mostly empty -- a broad open space with seating here and there -- but it is enlivened with cut flowers and a couple of paintings.  There is also the concierge desk.
+
+An elevator in the corner goes up to the rooms.
+
+You may go west or up.
+
+> u
+Without a key, you are not able to visit any of the rooms.
+
+> x desk
+Designed to stand between the concierge and you.  A key is on the concierge desk.
+
+> get key
+(from the concierge desk)
+Ok, you take the key from the concierge desk.
+
+> u
+You move up.
+
+Hotel Room
+The room is spacious but cozy, with low chairs, a table, a bed on squat legs.  People here live closer to the ground than you're used to, but other than that, you have no complaints.  Doors lead west to the corridor and south into the bathroom.
+
+And the view is spectacular.  The hill rises off to the north, and you can see across the tiled rooftops of shorter buildings, all the way up to the old center of the city: a wall crumbling with time, an ancient round fortress.
+
+The door back out to the hallway is closed.
+
+You may go south or down.
+
+> s
+You move south.
+
+Palatial Bathroom
+A huge room, by your standards, done up in polished marble tiles the color of sand, with all the usual fittings and then some in gleaming brass.
+
+The room is also typically reserved by raving narcissists: over the sink, an enormous mirror reflects your every movement, stage-lit by brilliant lights that seem to have no off-switch.
+
+In the middle of the polished marble expanse is a bathroom scale.
+
+You can leave by going north.
+
+The pendant burns cold around your neck.
+
+> x mirror
+Larger than any of the mirrors you have at home; you feel that it was made for someone important. This peculiarity is enhanced by the elaborate frame around it.
+
+> look in mirror
+You look small and out of place. You can tell yourself that it's the effect of your surroundings, and that there's no less of you now than there is at home - home is so drab that it makes you bigger than you are.
+
+In the reflection of the mirror you suddenly see a shining gem lying on the edge of the sink. It can only be seen in the reflection and not on the real sink in front of you!
+
+> get gem
+
+You reach for the shiny gem through the mirror. To your surprise, your hand continues through the surface of the mirror and you manage to get hold of the shining gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> n
+You move north.
+
+Hotel Room
+Chairs, table, low bed, an exit west, a bathroom south. All the pieces are where they were when you came in, pale wood and pale carpet.
+
+The whole room is washed out by the light of the window, even brighter than it was earlier, hot shimmering sky over the rooftops, a blaze of sun around the great fortress.
+
+The door back out to the hallway is closed.
+
+You may go south or down.
+
+> d
+You move down.
+
+Hotel Lobby
+Your eye takes it in again quickly: seating, vases, paintings on the walls. The street exit, west, is a pair of glass doors, and there are also windows, through which the sun bleeds into the coolness. No one else is here.
+
+An elevator in the corner goes up to the rooms.
+
+You may go west or up.
+
+> w
+You move west.
+
+Outside Train Station
+The bottom of the hill, outside the train station, with its trolley tracks and the dulled statue of an ancient queen, hemmed on the east by the hotel and on the west by the health office.
+
+The carts of flower sellers have perhaps moved fractionally since the last time you were here, but it's hard to say.
+
+To the south, heavy doors lead into the train station.
+
+Exits lead north, south, east and west.
+
+> n
+You move north.
+
+South May Street
+On the climbing curve of the street, among stately buildings painted in pale shades of gold and grey and pink, ornamented at the windows with metalwork and at the roofs with gargoyles and rain gutters; each floor taller than they customarily are at home, and the ground floors occupied by shops: ladies' clothing, spices, surveillance equipment, toys...  At the moment it appears that the clothing store and the toy store are the only ones open.
+
+Narrow alleys lead away east and west.  The main street itself continues south to the train station, and north up to the old town.
+
+Exits lead north, south, east, west, northeast, southeast and southwest.
+
+> se
+You move southeast.
+
+Spice Shop
+There's nothing like this at home, where everything comes premeasured in silver packets. Here is spice in bulk, more cinnamon in a single drawer than you could eat in a lifetime. Vanilla beans gathered and tied.  Saffron, in threads.  Dried things you don't recognize, in glass bulbs, ready for grinding.  Blue bottles stoppered to hold the pungency of essences.  A sparkling basin of ordinary salt.
+
+The exit is northwest of here.
+
+The pendant burns cold around your neck.
+
+> x bottles
+Tightly stopped and full of clear liquid, or in a few cases cloudly liquid, and labeled with various names you do not recognize.
+
+Among the bottles you notice a bottle containing a cloudy yellow liquid. It radiates a faint yellow light.
+
+> get yellow bottle
+Ok, you pick up the yellow bottle.
+
+> open it
+(the yellow bottle)
+You open the yellow bottle.
+
+> pour liquid on the ground
+If you want to EMPTY the yellow bottle, just say so.
+
+> empty bottle
+You pour the liquid all over the floor.
+
+The liquid flows into some cracks in the floor, leaving a shiny gem on the floor!
+
+You discard the empty bottle.
+
+> get gem
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> nw
+You move northwest.
+
+South May Street
+On the climbing curve of the street, among stately buildings painted in pale shades of gold and grey and pink, ornamented at the windows with metalwork and at the roofs with gargoyles and rain gutters; each floor taller than they customarily are at home, and the ground floors occupied by shops: ladies' clothing, spices, surveillance equipment, toys...  At the moment it appears that the clothing store and the toy store are the only ones open.
+
+Narrow alleys lead away east and west.  The main street itself continues south to the train station, and north up to the old town.
+
+Exits lead north, south, east, west, northeast, southeast and southwest.
+
+> w
+You move west.
+
+West Alley
+Narrow at the eastern end, but gradually widening to something like a street in its own, overlooked from the north and south by balconies.
+
+To the south is the only doorway in this alley, to an art gallery displaying works in mixed media: oil and holography, water-color and illusion.  It seems to be locked up, however.
+
+You may go east and west.
+
+> w
+You move west.
+
+Malta Square, North End
+The sort of area that ought to be empty during the day, packed at night.  Despite the lack of people, everything is open and the signs are on.
+
+The street leads away to the north, and an alley opens east between buildings.  There's an arcade parlor to the west; and, of course, the entire area continues some distance to the south.
+
+Exits lead north, south, east and west.
+
+> n
+You move north.
+
+Auriran Street
+A Y-shaped piece of street mostly going somewhere else -- entertainment spots, including a bar or nightspot called the Scheherazade, to the west; the entrance northwest to Fianaga Park, framed by a pair of trees and giving onto a vista of trees and grass; the ring road that runs around the Old City Wall, connecting with May Street to the east and, in the other direction, wending up north into a clutter of smaller buildings.
+
+Exits lead north, south, east, west and northwest.
+
+> n
+You move north.
+
+Ring Road, among Shops
+The treacherous road broadens as it descends into the city. The Old Town Wall stands to the east, and if you look up at the right times you can see over it to the Fortress itself, but for the most part the road is too far below the wall for anything to be visible but a bulk of bricks and the foliage of the trees that grow above.
+
+Small shops mark the beginning of the commercial district on Auriran Road, to the south.
+
+In a little shack-like structure that clings to the overhanging wall, a tiny shop advertises: "Used Tech. Parts. Cheap."
+
+Exits lead north, south and east.
+
+> n
+You move north.
+
+Ring Road, among Houses
+The houses here are old enough that the piping and wire-cables are retrofitted on the outside without proper shielding; everything is crowded together; the walls, orange and yellow and salmon-pink, are shedding plaster chunks.
+
+The road curves around from south to east, following the wall, while a street that is almost a staircase leads down the northwest.
+
+> e
+You move east.
+
+Deserted Plaza
+The Ring Road widens here into the approximation of an actual plaza, but empty and silent, without pedestrians or vehicles.  To the north there stands the remains of a burned and gutted storefront, which, presumably, you could walk into if you wished; it does not look as though anyone has been there recently, though, or even tried to clean up the mess inside.
+
+Across the street to the east is a gate of wood, supported on each side by a statue much taller than yourself and with the expression of an angel.
+
+You may also go back west.
+
+> open gate
+"What do you say?" says the one.
+
+" - he does not know the word key," the other replies, in a lilting voice.
+
+"Then will he be scanned?"
+
+"That is his choice. Let him touch us if he dares."
+
+> touch gate
+"He's not one of us," says the first statue.
+
+ "No, not from the City."
+
+"A foreigner."
+
+ "Clean."
+
+"We accept."
+
+ "Enter."
+
+"Come in."
+
+ "Be welcome, be at home!"
+
+And the gate creaks wide for you.
+
+> e
+You move east.
+
+Old Campus
+This was the heart of an academic campus, with cafeterias and classroom buildings and dormitories, but most of them have been sealed and grown over with ivy.  The doors along the north side seem still to be operational, however -- northeast to a low building with a pitched roof, northwest to a several-story structure with narrow windows.  Roughly to the south is an open building.
+
+The Ring Road leads away to the west.
+
+Partially defaced, an old map of the area stands here, carved in stone.
+
+Exits lead south, west, northwest and northeast.
+
+> ne
+That entryway is sealed with some kind of door taht slides into place.
+
+> s
+You move south.
+
+Lounge
+At some time or other this room seems to have been a lounge, where students might have gathered.  There is a tattered loveseat pushed to one side, and there is a broad sheet of corkboard on the west wall, covered with papers. To the north is the open doorway back to the campus, and there is a staircase climbing one wall.
+
+> u
+You move up.
+
+Dormitory Hallway
+A narrow, carpeted hallway, lit by skylights above; someone has taped up pieces of thick black paper to cover some of them, but the light is still quite bright.  The walls are made of painted cinderblock. There is a sign pasted to one wall, but otherwise they are fairly bare of decoration.
+
+Closed doorways lead off east and west, and the stairs return downward, while at the south end there is a utility closet.  To the north is the only room with a real door.
+
+Beside the north door there is a bell pull, attached to a bell mounted near the ceiling.
+
+> n
+You move north.
+
+Advisor's Room
+This room seems to have been functioning as both office and bedroom for someone quite recently, though it is empty of its inhabitant at the moment.  A cheap desk made of pressboard stands against one wall, with a bookshelf of similar material; there's a mattress on the ground, neatly covered in bedclothes.
+
+In spite of the tawdry furnishings, there is a kind of brisk and purposeful air about the room. It smells faintly tangy, as though someone has been over it with air freshener in the recent past.
+
+On one of the walls is an on-off switch labeled 'remote lock', and someone has pasted next to it a schedule of mealtimes.
+
+You may leave by going south.
+
+> press switch
+You switch off the on-off switch.
+
+> s
+You move south.
+
+Dormitory Hallway
+A narrow, carpeted hallway, lit by skylights above; someone has taped up pieces of thick black paper to cover some of them, but the light is still quite bright.  The walls are made of painted cinderblock. There is a sign pasted to one wall, but otherwise they are fairly bare of decoration.
+
+Closed doorways lead off east and west, and the stairs return downward, while at the south end there is a utility closet.  To the north is the only room with a real door.
+
+Beside the north door there is a bell pull, attached to a bell mounted near the ceiling.
+
+> s
+You move south.
+
+Utility Closet
+Presumably originally intended to contain janitorial supplies for the upkeep of the dormitory, but there is now very little of that left, and the door has been removed, to allow people to enter freely. There is a ladder up one wall, providing roof access.
+
+The hallway is back to the north.
+
+> u
+You move up.
+
+Rooftop of Dormitory
+The roof of the dormitory is flat and covered with a gravelly black paper, except for the raised glass skylights into the rooms below.
+
+A short wall runs around the edge of the roof, lined with a number of potted tomato plants, and there is a pleasant view in most directions, which makes the place seem much more welcoming than it otherwise might.
+
+The only way from here is down.
+
+Someone forgot a pair of gloves here.
+
+> get gloves
+Ok, you pick up the pair of gloves.
+
+> x gloves
+The pair of gloves seems ideal for working in a garden.
+
+> d
+You move down.
+
+Utility Closet
+Presumably originally intended to contain janitorial supplies for the upkeep of the dormitory, but there is now very little of that left, and the door has been removed, to allow people to enter freely. There is a ladder up one wall, providing roof access.
+
+The hallway is back to the north.
+
+> n
+You move north.
+
+Dormitory Hallway
+A narrow, carpeted hallway, lit by skylights above; someone has taped up pieces of thick black paper to cover some of them, but the light is still quite bright.  The walls are made of painted cinderblock. There is a sign pasted to one wall, but otherwise they are fairly bare of decoration.
+
+Closed doorways lead off east and west, and the stairs return downward, while at the south end there is a utility closet.  To the north is the only room with a real door.
+
+Beside the north door there is a bell pull, attached to a bell mounted near the ceiling.
+
+> d
+You move down.
+
+Lounge
+At some time or other this room seems to have been a lounge, where students might have gathered.  There is a tattered loveseat pushed to one side, and there is a broad sheet of corkboard on the west wall, covered with papers. To the north is the open doorway back to the campus, and there is a staircase climbing one wall.
+
+> n
+You move north.
+
+Old Campus
+This was the heart of an academic campus, with cafeterias and classroom buildings and dormitories, but most of them have been sealed and grown over with ivy.  The doors along the north side seem still to be operational, however -- northeast to a low building with a pitched roof, northwest to a several-story structure with narrow windows.  Roughly to the south is an open building.
+
+The Ring Road leads away to the west.
+
+Partially defaced, an old map of the area stands here, carved in stone.
+
+Exits lead south, west, northwest and northeast.
+
+> ne
+You move northeast.
+
+Old Cafeteria
+The room is huge, square, and mostly empty.  At intervals, octagonal columns support a beamed wooden ceiling, and the strangled remains of light fixtures hang from between the beams, no longer functional.  A filtered, shifting light, trembling with every movement of the ivy, comes in through the windows.
+
+The whole of the wall opposite the windows is covered with an enormous mural, whose paint is beginning to fade.
+
+The southwest doorway gapes open, and there are other, smaller passageways to the north and northeast.
+
+> ne
+You move northeast.
+
+Faculty Dining Room
+A smaller room than the main Cafeteria, and decorated with more restraint and a complete lack of wall-painting.
+
+Glass doors face out east onto an open courtyard; west is the doorway into the kitchen, and to the southwest the cafeteria.
+
+> open doors
+You open the glass doors in Dining Room.
+
+> e
+You move east.
+
+Three Sisters Courtyard
+A bare patch, older and rougher than most of the buildings in the main part of campus.  The ground is paved in flagstones that no longer sit quite properly, making walking a bit of a hazard, if you are not careful.
+
+The south side of the courtyard is taken up with a sculptured fountain, now dry.
+
+At the eastern side is a temple of some sort, with deep and shadowed doors or you can go west back to the Dining Room.
+
+An orange tree grows in the center of the square, in a plot where the flagstones have been left out.
+
+> e
+You move east.
+
+Gnostic Temple
+Here is the flamboyant style of architecture at its ultimate extent: not a surface undecorated, not a window that does not end in a peaked arch.  Everything leaps upward, into the height of the silvered roof.
+
+In the hollows gather intricate shadows, cast by the fine decoration, suggesting, in places, an eye, a hand, a gaping mouth.
+
+Attached with bolts to one wall, next to the door, is a brass incense-burner, from which there is a faint glow and a slight curl of smoke.
+
+Mounted on a tripod at the front is a lump of onyx, worn smooth by the touch of many hands.
+
+You may go west from here.
+
+> n
+You can only go west.
+
+> i
+You are wearing a pendant and a serpent ring, and are carrying a key and a pair of gloves.
+
+> x ring
+A bronze-toned ring of two serpents intertwined around a faceted ruby. There's some kind of character cut into the face of the gem itself, but you hardly know what to make of it. It is not from a syllabary you know.
+
+You remember that the ring helped you at least once, last time you were here. You touched a lump of onyx, first without the ring, and nothing happened. But when you did put on the ring and touched the onyx again, something happened.
+
+> touch onyx
+The ruby on your finger goes hot, and there is a crackling in the air like the discharge of lightning. Then a door in the northern wall swings open, giving onto a dark passage beyond.
+
+> n
+You move north.
+
+Moon Court
+A semicircle of stone, half black, half white.  A deep arcaded passageway runs along the northern crescent side, supported by slender columns in the shape of women. They are dressed in a very archaic style, and support the ceiling with their upraised arms.
+
+There are doors south and west.  The air lies still and calm.
+
+The curved north wall is entirely grown over with ivy.  Which, on consideration, seems odd: even in this climate, there's no sun on it.
+
+You can also see a dark door in the south wall here.
+
+> w
+You move west.
+
+Geometry Room
+What would seem once to have been a classroom: the walls are white plaster, but have been overlaid with drawings in an ink that has faded to sepia, showing various mathematical figures: circles, triangles, arcs; the globe of the world, and the lines that divide it into zones.
+
+The windows are framed in dark wood, and one is deep enough to sit in; there is also a doorway leading out to the east.
+
+An manhole leads down into a space under the floor.
+
+There is a small plaque hung on the north wall.
+
+> d
+You will need to open the manhole cover first.
+
+> open cover
+You open the manhole cover.
+
+> d
+You move down.
+
+Maintenance Tunnel, Northeast
+Instead of being bare concrete, as you would more or less expect, the tunnel is faced on both sides with stones, and pipes run the length of it, stapled to the walls and ceiling with heavy metal brackets.
+
+The tunnel continues southwest.
+
+An manhole leads up through stone flooring.
+
+> sw
+You move southwest.
+
+Maintenance Tunnel, Southwest
+Instead of being bare concrete, as you would more or less expect, the tunnel is faced on both sides with stones, and pipes run the length of it, stapled to the walls and ceiling with heavy metal brackets.  Piled against these walls are boxes of various foods, some still sealed.
+
+The tunnel continues northeast.
+
+There is a closed manhole cover in the ceiling, through which you might just be able to hoist yourself.
+
+The pendant burns cold around your neck.
+
+> x boxes
+Quite a selection, really: you make out dried fruits, rice, olive oil in jars, split peas. There's quite a lot of it, but the selection is haphazard: different sizes of container, different brands of the same thing.
+
+On closer inspection you see something radiating light underneath some dried fruits. You push the dried fruits to one side and reveal a shiny gem!
+
+> get gem
+
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> ne
+You move northeast.
+
+Maintenance Tunnel, Northeast
+Instead of being bare concrete, as you would more or less expect, the tunnel is faced on both sides with stones, and pipes run the length of it, stapled to the walls and ceiling with heavy metal brackets.
+
+The tunnel continues southwest.
+
+An manhole leads up through stone flooring.
+
+> u
+You move up.
+
+Geometry Room
+What would seem once to have been a classroom: the walls are white plaster, but have been overlaid with drawings in an ink that has faded to sepia, showing various mathematical figures: circles, triangles, arcs; the globe of the world, and the lines that divide it into zones.
+
+The windows are framed in dark wood, and one is deep enough to sit in; there is also a doorway leading out to the east.
+
+An manhole leads down into a space under the floor.
+
+There is a small plaque hung on the north wall.
+
+> e
+You move east.
+
+Moon Court
+A semicircle of stone, half black, half white.  A deep arcaded passageway runs along the northern crescent side, supported by slender columns in the shape of women. They are dressed in a very archaic style, and support the ceiling with their upraised arms.
+
+There are doors south and west.  The air lies still and calm.
+
+The curved north wall is entirely grown over with ivy.  Which, on consideration, seems odd: even in this climate, there's no sun on it.
+
+You can also see a dark door in the south wall here.
+
+> s
+You move south.
+
+Gnostic Temple
+Here is the flamboyant style of architecture at its ultimate extent: not a surface undecorated, not a window that does not end in a peaked arch.  Everything leaps upward, into the height of the silvered roof.
+
+In the hollows gather intricate shadows, cast by the fine decoration, suggesting, in places, an eye, a hand, a gaping mouth.
+
+Attached with bolts to one wall, next to the door, is a brass incense-burner, from which there is a faint glow and a slight curl of smoke.
+
+Mounted on a tripod at the front is a lump of onyx, worn smooth by the touch of many hands.
+
+You can also see a (formerly) hidden door leading north here. You may also go west.
+
+> w
+You move west.
+
+Three Sisters Courtyard
+A bare patch, older and rougher than most of the buildings in the main part of campus.  The ground is paved in flagstones that no longer sit quite properly, making walking a bit of a hazard, if you are not careful.
+
+The south side of the courtyard is taken up with a sculptured fountain, now dry.
+
+At the eastern side is a temple of some sort, with deep and shadowed doors or you can go west back to the Dining Room.
+
+An orange tree grows in the center of the square, in a plot where the flagstones have been left out.
+
+> w
+You move west.
+
+Faculty Dining Room
+A smaller room than the main Cafeteria, and decorated with more restraint and a complete lack of wall-painting.
+
+Glass doors face out east onto an open courtyard; west is the doorway into the kitchen, and to the southwest the cafeteria.
+
+> sw
+You move southwest.
+
+Old Cafeteria
+The room is huge, square, and mostly empty.  At intervals, octagonal columns support a beamed wooden ceiling, and the strangled remains of light fixtures hang from between the beams, no longer functional.  A filtered, shifting light, trembling with every movement of the ivy, comes in through the windows.
+
+The whole of the wall opposite the windows is covered with an enormous mural, whose paint is beginning to fade.
+
+The southwest doorway gapes open, and there are other, smaller passageways to the north and northeast.
+
+> sw
+You move southwest.
+
+Old Campus
+This was the heart of an academic campus, with cafeterias and classroom buildings and dormitories, but most of them have been sealed and grown over with ivy.  The doors along the north side seem still to be operational, however -- northeast to a low building with a pitched roof, northwest to a several-story structure with narrow windows.  Roughly to the south is an open building.
+
+The Ring Road leads away to the west.
+
+Partially defaced, an old map of the area stands here, carved in stone.
+
+Exits lead south, west, northwest and northeast.
+
+> w
+You move west.
+
+Deserted Plaza
+The Ring Road widens here into the approximation of an actual plaza, but empty and silent, without pedestrians or vehicles.  To the north there stands the remains of a burned and gutted storefront, which, presumably, you could walk into if you wished; it does not look as though anyone has been there recently, though, or even tried to clean up the mess inside.
+
+Across the street to the east is a gate of wood, supported on each side by a statue much taller than yourself and with the expression of an angel.
+
+You may also go back west.
+
+> w
+You move west.
+
+Ring Road, among Houses
+The houses here are old enough that the piping and wire-cables are retrofitted on the outside without proper shielding; everything is crowded together; the walls, orange and yellow and salmon-pink, are shedding plaster chunks.
+
+The road curves around from south to east, following the wall, while a street that is almost a staircase leads down the northwest.
+
+> nw
+You move northwest.
+
+Outside a School
+Here the street widens a bit, and instead of houses, there is a tall fence enclosing a schoolyard, labeled "Queen Rine Children's School." There is a deep silence about the place.
+
+A street made of deep stone steps leads back up to the southeast.
+
+On the north side of the street, a tiny door leads into an establishment calling itself Miss Wine's Millinery.  An explanatory note under the sign adds, "(HATS)".
+
+> n
+You move north.
+
+Hat Shop
+Well-lit but hazy with smoke or dust.  Long shelves stocked with out-of-fashion goods.  The place probably hasn't seen customers in a generation, or perhaps two. You may leave by going south.
+
+The pendant burns cold around your neck.
+
+> x goods
+Oh, it's quite the assortment, but it's all out of date. Roses and straw, dried carnations, wax fruit. Some bizarre metal cap with metal horns. A bonnet with a black veil attached. One after another, none alike, none sensible.
+
+> x wax fruit
+You've never understood why it was ever fashionable to look as though an orchard had landed on your head.
+
+Strangely, among the wax fruits is a real banana!
+
+You take it.
+
+> eat banana
+You begin to peel the banana and you find that inside the banana peel there is no banana. Instead there is a shiny gem, which falls to the ground. You discard the banana peel.
+
+> get gem
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> s
+You move south.
+
+Outside a School
+Here the street widens a bit, and instead of houses, there is a tall fence enclosing a schoolyard, labeled "Queen Rine Children's School." There is a deep silence about the place.
+
+A street made of deep stone steps leads back up to the southeast.
+
+On the north side of the street, a tiny door leads into an establishment calling itself Miss Wine's Millinery.  An explanatory note under the sign adds, "(HATS)".
+
+> se
+You move southeast.
+
+Ring Road, among Houses
+The houses here are old enough that the piping and wire-cables are retrofitted on the outside without proper shielding; everything is crowded together; the walls, orange and yellow and salmon-pink, are shedding plaster chunks.
+
+The road curves around from south to east, following the wall, while a street that is almost a staircase leads down the northwest.
+
+> s
+You move south.
+
+Ring Road, among Shops
+The treacherous road broadens as it descends into the city. The Old Town Wall stands to the east, and if you look up at the right times you can see over it to the Fortress itself, but for the most part the road is too far below the wall for anything to be visible but a bulk of bricks and the foliage of the trees that grow above.
+
+Small shops mark the beginning of the commercial district on Auriran Road, to the south.
+
+In a little shack-like structure that clings to the overhanging wall, a tiny shop advertises: "Used Tech. Parts. Cheap."
+
+Exits lead north, south and east.
+
+> s
+You move south.
+
+Auriran Street
+A Y-shaped piece of street mostly going somewhere else -- entertainment spots, including a bar or nightspot called the Scheherazade, to the west; the entrance northwest to Fianaga Park, framed by a pair of trees and giving onto a vista of trees and grass; the ring road that runs around the Old City Wall, connecting with May Street to the east and, in the other direction, wending up north into a clutter of smaller buildings.
+
+Exits lead north, south, east, west and northwest.
+
+> nw
+You move northwest.
+
+Fianaga Park
+An open expanse of grass, sloping down to the west, toward the river.  Scattered here and there are trash cans labeled with inspirational warnings such as 'LITTERING CARRIES A 2000 LUMINI FINE' and 'DO YOUR SHARE TO KEEP OUR CITY BEAUTIFUL.'
+
+Back southeast is the exit to Auriran Street.
+
+A large sundial on a pedestal sits nearby.
+
+You may go west and southeast.
+
+> w
+You move west.
+
+River Bank
+From this vantage point you can see up and down the river, a broad slow copper-green ribbon that gleams flatly.  The water level is some ten or fifteen feet below the embankment on which you stand, though from the markings on the opposite wall it would appear that it sometimes rises much higher.
+
+On the other side is the old business district, with its skyline of old office buildings partially demolished.  From here they look ragged and skeletal, like the surviving trees after a forest fire.
+
+South of here, a delicate peaked structure of wire and iron contains the Fianaga Park Aviary.
+
+You may go east and south.
+
+> s
+You move south.
+
+Aviary
+A small attractive building with paths and benches, for restful observation and contemplation.  Careful routine watering keeps the aviary green with abundant foliage.
+
+You may leave by going north.
+
+The pendant burns cold around your neck.
+
+> x foliage
+Not what would grow of its own in this environment; it is used to over-watered places, and it grows thick and fragrant.
+
+The most common one is a dark flowering bush, labeled as white verbene.
+
+> x verbene
+An accompanying sign warns against touching the poisonous bush so you don't.
+
+> wear gloves
+Ok, you put on the pair of gloves.
+
+> x verbene
+Now you are wearing the gloves, you can inspect the white verbene more carefully. By moving a few twigs, you get a closer look. You can now see a shiny gem inside the bush.
+
+> get gem
+(from the white verbene)
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> n
+You move north.
+
+River Bank
+From this vantage point you can see up and down the river, a broad slow copper-green ribbon that gleams flatly.  The water level is some ten or fifteen feet below the embankment on which you stand, though from the markings on the opposite wall it would appear that it sometimes rises much higher.
+
+On the other side is the old business district, with its skyline of old office buildings partially demolished.  From here they look ragged and skeletal, like the surviving trees after a forest fire.
+
+South of here, a delicate peaked structure of wire and iron contains the Fianaga Park Aviary.
+
+You may go east and south.
+
+> e
+You move east.
+
+Fianaga Park
+An open expanse of grass, sloping down to the west, toward the river.  Scattered here and there are trash cans labeled with inspirational warnings such as 'LITTERING CARRIES A 2000 LUMINI FINE' and 'DO YOUR SHARE TO KEEP OUR CITY BEAUTIFUL.'
+
+Back southeast is the exit to Auriran Street.
+
+A large sundial on a pedestal sits nearby.
+
+You may go west and southeast.
+
+> se
+You move southeast.
+
+Auriran Street
+A Y-shaped piece of street mostly going somewhere else -- entertainment spots, including a bar or nightspot called the Scheherazade, to the west; the entrance northwest to Fianaga Park, framed by a pair of trees and giving onto a vista of trees and grass; the ring road that runs around the Old City Wall, connecting with May Street to the east and, in the other direction, wending up north into a clutter of smaller buildings.
+
+Exits lead north, south, east, west and northwest.
+
+> w
+You move west.
+
+Scheherazade
+Despite the light that leaks in through the windows, the place seems to be trying for a dark and anonymous ambiance, with high-backed booths and wood paneling, a ceiling painted black, and hanging swatches of brocaded purple velvet.  The decorations are mostly allusions to the City's distant shady past as an outpost of thieves and smugglers on the Vuine.
+
+It seems smaller inside than outside, and it is completely deserted.
+
+Some stairs lead up and you can leave to the east.
+
+> u
+You move up.
+
+Scheherazade, Upstairs
+Heavy curtains have been drawn across the windows to mask the light; the ceiling is low and painted a deep color.  It feels like a square cave.
+
+At the center of the room is a box, where artists would stand while performing.
+
+Chairs are scattered around the room.  A small door leads west whereas a narrow staircase leads down.  Also here is a performance box.
+
+The pendant burns cold around your neck.
+
+> x box
+The black box in the center of the room is where artists would stand while performing. It looks heavy.
+
+> get box
+With some effort you manage to pick up the heavy box. You realize that the box is hollow and that it does not have a bottom. You see something shiny under the box, so you put down the box a few inches to the side.
+
+You have revealed a shiny gem!
+
+> get gem
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> d
+You move down.
+
+Scheherazade
+Despite the light that leaks in through the windows, the place seems to be trying for a dark and anonymous ambiance, with high-backed booths and wood paneling, a ceiling painted black, and hanging swatches of brocaded purple velvet.  The decorations are mostly allusions to the City's distant shady past as an outpost of thieves and smugglers on the Vuine.
+
+It seems smaller inside than outside, and it is completely deserted.
+
+Some stairs lead up and you can leave to the east.
+
+> e
+You move east.
+
+Auriran Street
+A Y-shaped piece of street mostly going somewhere else -- entertainment spots, including a bar or nightspot called the Scheherazade, to the west; the entrance northwest to Fianaga Park, framed by a pair of trees and giving onto a vista of trees and grass; the ring road that runs around the Old City Wall, connecting with May Street to the east and, in the other direction, wending up north into a clutter of smaller buildings.
+
+Exits lead north, south, east, west and northwest.
+
+> e
+You move east.
+
+North May Street
+Here along the crest of the hill, new buildings mingle with the historical houses of the old town: square, glassine boxes packed against the ornate yellow walls, reflections bouncing and redoubling so that the hard light is relentless and universal.  There are a few stores: to the southwest, a jewelry shop, which appears to be closed down for the moment, and to the southeast, in one of the older buildings, an antiquarian bookstore.
+
+A wall of baked brick, half-plastered but crumbling, stretches across the street to the north, with a single arched gate.  A narrow path leads off along this wall to the west.
+
+Exits lead north, south, west, southeast and southwest.
+
+> n
+You move north.
+
+Varro Street
+Close and crooked buildings, hanging over a narrow road that twists away northwest. Paint, beginning to peel away in spots.  Letters you cannot read, carved into the plaster of the walls with a sharp tip.  The air hums.  Something is impatiently waiting to happen.
+
+An arch crosses the southern extent of the street, opening onto May Street and heading down toward the train station.
+
+An ancient magic shop inhabits a building with windows like bottle glass, 650 years old.
+
+Exits lead northeast, northwest and south.
+
+> nw
+You move northwest.
+
+Outdoor Bazaar
+An area jammed with tables, smaller than it might at first appear.  There are booths for fruits and flowers and assorted random junk.  So much is on display that it is hard to find a single place for the eye to rest.
+
+Exits lead west, northeast and southeast.
+
+> w
+You move west.
+
+Olive Cafe
+A comfortable little enclave, tucked into a place where the old wall jogs outward, shaded by a single wizened olive tree.
+
+You may leave to the east.
+
+The pendant burns cold around your neck.
+
+> x tree
+About twice as tall as you, gnarled, heavy with unpicked fruit.
+
+> x fruit
+Your experience of olives is of the sliced kind that comes in cans. These are ripe and wizened, and those already past their prime have dropped, staining the ground underneath with pits.
+
+Suddenly you notice a shining gem high up in the tree, hanging from a branch.
+
+> get gem
+Unfortunately you cannot reach it. It is too high up in the tree.
+
+> climb tree
+The tree trunk is too thin to support your weight.
+
+> shake tree
+You shake the thin olive tree violently for a minute or so. To begin with, a lot of olives fall to the ground but finally the shiny gem falls too. It lands softly on the ground.
+
+> get gem
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> e
+You move east.
+
+Outdoor Bazaar
+An area jammed with tables, smaller than it might at first appear.  There are booths for fruits and flowers and assorted random junk.  So much is on display that it is hard to find a single place for the eye to rest.
+
+Exits lead west, northeast and southeast.
+
+> ne
+You move northeast.
+
+Fortress Forecourt
+Here part the twisting narrow streets of the old City to make room for the original fortress, an enormous round construction of pale bricks half plastered-over.  Its great weight and age are evident in its shape. Someone in more recent centuries added to its forbidding defensive door a pair of tremendous statues.
+
+A gap in the buildings southwest leads to other streets. You may also go north.
+
+> n
+You move north.
+
+Inside Fortress Walls
+Inside the heavy round of walls, many stories tall and broader than an amphitheater.  The ground is bare earth, packed so hard that nothing grows, and the light and air press everything.  Even with your eyes closed they pound at your eyelids.
+
+At the center of the area is the fortress' inner keep, a square tower of the same bleached brick, pierced by narrow slitted windows.  A sign outside the tower reads, "Entrance, 6 lumini."
+
+You have a brief image: when you breathe in, your lungs are filling with light as well, a brilliance that circulates in your blood and seeks every part of you from the inside.
+
+There is a small door set into the wall on the east side, which bears the symbol of a public toilet.  It stands open.  You may also go south.
+
+> e
+You move east.
+
+Public Latrine
+Little larger than a closet, a nook built into the width of the fortress walls.  It appears to have been serving its particular purpose for hundreds of years, since there is only a dark hole in the ground with a stone seat built over it.
+
+There is a high window over the door, stained blue, which gives the whole space an odd, underwater quality.  The walls beside the toilet are scrawled with generations of commentary.
+
+You may leave to the west.
+
+The pendant burns cold around your neck.
+
+> x hole
+A dark smelly hole, who knows how old, ringed with stone.
+
+Something shiny is levitating down in the hole! It is a shiny gem!
+
+> get gem
+(from the latrine hole)
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> w
+You move west.
+
+Inside Fortress Walls
+Inside the heavy round of walls, many stories tall and broader than an amphitheater.  The ground is bare earth, packed so hard that nothing grows, and the light and air press everything.  Even with your eyes closed they pound at your eyelids.
+
+At the center of the area is the fortress' inner keep, a square tower of the same bleached brick, pierced by narrow slitted windows.  A sign outside the tower reads, "Entrance, 6 lumini."
+
+You have a brief image: when you breathe in, your lungs are filling with light as well, a brilliance that circulates in your blood and seeks every part of you from the inside.
+
+There is a small door set into the wall on the east side, which bears the symbol of a public toilet.  It stands open.  You may also go south.
+
+> s
+You move south.
+
+Fortress Forecourt
+Here part the twisting narrow streets of the old City to make room for the original fortress, an enormous round construction of pale bricks half plastered-over.  Its great weight and age are evident in its shape. Someone in more recent centuries added to its forbidding defensive door a pair of tremendous statues.
+
+A gap in the buildings southwest leads to other streets. You may also go north.
+
+> sw
+You move southwest.
+
+Outdoor Bazaar
+An area jammed with tables, smaller than it might at first appear.  There are booths for fruits and flowers and assorted random junk.  So much is on display that it is hard to find a single place for the eye to rest.
+
+Exits lead west, northeast and southeast.
+
+> se
+You move southeast.
+
+Varro Street
+Close and crooked buildings, hanging over a narrow road that twists away northwest. Paint, beginning to peel away in spots.  Letters you cannot read, carved into the plaster of the walls with a sharp tip.  The air hums.  Something is impatiently waiting to happen.
+
+An arch crosses the southern extent of the street, opening onto May Street and heading down toward the train station.
+
+An ancient magic shop inhabits a building with windows like bottle glass, 650 years old.
+
+Exits lead northeast, northwest and south.
+
+> s
+You move south.
+
+North May Street
+Here along the crest of the hill, new buildings mingle with the historical houses of the old town: square, glassine boxes packed against the ornate yellow walls, reflections bouncing and redoubling so that the hard light is relentless and universal.  There are a few stores: to the southwest, a jewelry shop, which appears to be closed down for the moment, and to the southeast, in one of the older buildings, an antiquarian bookstore.
+
+A wall of baked brick, half-plastered but crumbling, stretches across the street to the north, with a single arched gate.  A narrow path leads off along this wall to the west.
+
+Exits lead north, south, west, southeast and southwest.
+
+> s
+You move south.
+
+South May Street
+On the climbing curve of the street, among stately buildings painted in pale shades of gold and grey and pink, ornamented at the windows with metalwork and at the roofs with gargoyles and rain gutters; each floor taller than they customarily are at home, and the ground floors occupied by shops: ladies' clothing, spices, surveillance equipment, toys...  At the moment it appears that the clothing store and the toy store are the only ones open.
+
+Narrow alleys lead away east and west.  The main street itself continues south to the train station, and north up to the old town.
+
+Exits lead north, south, east, west, northeast, southeast and southwest.
+
+> e
+You move east.
+
+East Alley
+Overhead the buildings slope together until they almost touch; in places bridges join them. But even in this narrowness there are no unpleasant smells.  The breeze sweeps through, and the light falls clean and illumining from straight above.
+
+The alley itself continues east and west. A bottle-green door opens into the building to your north.
+
+> e
+You move east.
+
+Sun Court
+The alley opens out onto a circular courtyard surrounded by buildings. The courtyard is paved in stone, and inlaid at the center with a wheeling gold sun. Streets lead out north and south, and a narrow alley west.
+
+On every side the buildings rear back, all metalwork and awnings at the lower levels, sheer plaster above. The most magnificent, however, is the white stone temple at the east side of the court, many stories high and faced with columns and statues.
+
+Exits lead north, east and west.
+
+> e
+You move east.
+
+Entryway to the Sanctuary of the Lamp
+The room is small and quiet; it reminds you of the entryways in the north, but those are built to keep the snow out of the buildings, and this one, you sense, is built to keep out noise and rush.  The walls are an egg-like white.
+
+An odd machine, perfectly white and streamlined and vaguely resembling a mushroom, sprouts next to the front door.
+
+You may leave to the west or go deeper into the building by going east.
+
+> e
+You move east.
+
+Sanctuary of the Lamp
+A long rectangular hall flanked by columns.  There is room on the broad floor for many hundreds or perhaps thousands of people to stand.  The stones underfoot are already worn with use, though the building itself seems paradoxically new.
+
+Stained glass turns the entering light topaz, and everything is suffused the rich color of oil fire.
+
+You may leave by going west.
+
+The pendant burns cold around your neck.
+
+> x columns
+Plain columns with wrought capitals.
+
+One of the columns seems to deviate from the others.
+
+Sanctuary of the Lamp
+A long rectangular hall flanked by columns.  There is room on the broad floor for many hundreds or perhaps thousands of people to stand.  The stones underfoot are already worn with use, though the building itself seems paradoxically new.
+
+Stained glass turns the entering light topaz, and everything is suffused the rich color of oil fire.
+
+You may leave by going west.
+
+There is a special column here.
+
+> x column
+A closer inspection reveals that this column is special. There is a hole in the side of the column.
+
+> x hole
+The hole is lit by something inside.
+
+You look into the hole and see a shiny gem!
+
+> get gem
+(from the column hole)
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> w
+You move west.
+
+Entryway to the Sanctuary of the Lamp
+The room is small and quiet; it reminds you of the entryways in the north, but those are built to keep the snow out of the buildings, and this one, you sense, is built to keep out noise and rush.  The walls are an egg-like white.
+
+An odd machine, perfectly white and streamlined and vaguely resembling a mushroom, sprouts next to the front door.
+
+You may leave to the west or go deeper into the building by going east.
+
+> w
+You move west.
+
+Sun Court
+The courtyard is paved in stone, and inlaid at the center with a wheeling gold sun.  Streets lead out north and south, and a narrow alley west.
+
+On every side the buildings rear back, all metalwork and awnings at the lower levels, sheer plaster above.  The most magnificent, however, is the white stone temple at the east side of the court, many stories high and faced with columns and statues.
+
+Exits lead north, east and west.
+
+> w
+You move west.
+
+East Alley
+Overhead the buildings slope together until they almost touch; in places bridges join them. But even in this narrowness there are no unpleasant smells.  The breeze sweeps through, and the light falls clean and illumining from straight above.
+
+The alley itself continues east and west. A bottle-green door opens into the building to your north.
+
+> w
+You move west.
+
+South May Street
+On the climbing curve of the street, among stately buildings painted in pale shades of gold and grey and pink, ornamented at the windows with metalwork and at the roofs with gargoyles and rain gutters; each floor taller than they customarily are at home, and the ground floors occupied by shops: ladies' clothing, spices, surveillance equipment, toys...  At the moment it appears that the clothing store and the toy store are the only ones open.
+
+Narrow alleys lead away east and west.  The main street itself continues south to the train station, and north up to the old town.
+
+Exits lead north, south, east, west, northeast, southeast and southwest.
+
+> w
+You move west.
+
+West Alley
+Narrow at the eastern end, but gradually widening to something like a street in its own, overlooked from the north and south by balconies.
+
+To the south is the only doorway in this alley, to an art gallery displaying works in mixed media: oil and holography, water-color and illusion.  It seems to be locked up, however.
+
+You may go east and west.
+
+> w
+You move west.
+
+Malta Square, North End
+The sort of area that ought to be empty during the day, packed at night.  Despite the lack of people, everything is open and the signs are on.
+
+The street leads away to the north, and an alley opens east between buildings.  There's an arcade parlor to the west; and, of course, the entire area continues some distance to the south.
+
+Exits lead north, south, east and west.
+
+> s
+You move south.
+
+Malta Square, South End
+The sort of area that ought to be empty during the day, packed at night.  Curiously, everything is open and the signs are on.  Neon blinks impotently in the daylight, inviting you to cabarets and comedy shows and drinks.  The entire area continues some distance to the north.
+
+To the southeast is a crumbling facade labeled "Old Vic", evidently a theater.
+
+The northeast corner is dominated by a music hall several stories tall.  An advertising poster on the front door says "Secret Secret LIVE TONIGHT!"
+
+Exits lead north, northeast and southeast.
+
+> se
+You move southeast.
+
+Inside the Old Vic
+From the vast old interior all chairs have been removed, leaving a broad bowl-shaped floor cracked and uneven underfoot; fixtures of light on the walls; and the stage east, curtained by scarlet brocade.  The musty smell of age is everywhere.
+
+You may go northwest or east.
+
+The pendant burns cold around your neck.
+
+> x fixtures
+The light fixtures are shaped like shells, and cast their light up the walls, leaving the floor mostly dark.
+
+One of the light fixtures radiates a different light.
+
+Inside the Old Vic
+From the vast old interior all chairs have been removed, leaving a broad bowl-shaped floor cracked and uneven underfoot; fixtures of light on the walls; and the stage east, curtained by scarlet brocade.  The musty smell of age is everywhere.
+
+You may go northwest or east.
+
+You notice a special light fixture that emits a different light than the other fixtures.
+
+> x fixture
+This fixture contains a shining gem!
+
+> get gem
+(from the special light fixture)
+You reach for the shiny gem. The gem is comfortably warm and as you hold it, it transmits a beam of light towards the pendant around your neck. The gem quickly shrinks in your hand until the beam of light and the gem is gone.
+
+You get the feeling that the magic contained in the pendant has been increased.
+
+> score
+Your score is 100 out of a maximum of 100. (100%)
+
+> squeeze pendant
+While you squeeze it, you can't help gazing into the pendant. Once again darkness fills your sight...
+
+The darkness fades and you find yourself back on the hilltop surrounded by fields as far as the eye can see.
+
+Evaine is still here. She speaks again.
+
+"I am so glad to see you again! You have succeeded in finding all the magical energy we believed existed in our area. I do not doubt that we can now withstand the evil forces who try to take over our City.
+
+"Still, to avoid that you are dragged further into our fight, I will bring you back to your journey home and I hope you will have a good life up north. Thanks for your efforts. We couldn't have done it without you!"
+
+Evaine sends you a big smile while you fade into unconsciousness.
+
+You wake up in the train, only a few kilometers from Valodsci.
+
+The following days everything is back to normal. But you are floating on a feeling of happiness, knowing that Evaine and the City are well. As days go by you mostly forget about the City though once in a while, you think about your adventures there.
+
+*** You have won ***
+In that game you scored 100 out of a possible 100, in 143 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?

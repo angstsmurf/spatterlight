@@ -266,19 +266,20 @@ the `a5dump` output for `walkthrou`/`wlkthrgh` and confirm it's backed by a real
 `<Command>[walkthrough…]` printer task (a `<Text>` full of `> cmd` lines), not a
 vestigial HELP mention like FinnsBigAdventure's dead `cl_Walkthroug5` event.
 
-### ⭐ Tribute — a built-in `WALKTHROUGH` was hiding here; wired as a FULL WIN (2\|2)
+### ⭐ Tribute — a built-in `WALKTHROUGH` was hiding here; wired as a FULL WIN (0\|0 MATCH)
 
-**WIRED 2026-07-02** (`2|2`, DIVERGE). Tribute ("Return to the City of Secrets,"
+**WIRED 2026-07-02, FIXED to 0\|0 MATCH same day** (golden
+`test/Tribute_expected.txt`). Tribute ("Return to the City of Secrets,"
 Kenneth Pedersen, based on Emily Short's *City of Secrets*) was mis-filed under
 "no walkthrough material" but ships a real built-in `WALKTHROUGH` command (a
 `Walkthroug` task, `[walkthrough/walkthru/walk through/walk thru]`, `<Text>` a
 143-line `> cmd` solution). Extracted verbatim with **zero corrections** — no
 start-menu handshake (the intro "Press a key to continue" is auto-advanced by
 the harness), no cut-scene fixes. Scarier plays it straight to
-`*** You have won ***`, 100/100, 143 turns. The 2 RNG-independent hunks are a
-cosmetic override-of-`TakeObjectsFromOthers` blank-line difference on two gem
-grabs; catalogued in `TODO_a5_walkthrough_bugs.md` (OPEN, not chased — see the
-regression-risk note there). No golden while it diverges.
+`*** You have won ***`, 100/100, 143 turns. The 2 residual hunks turned out to
+be an authored-ALR-blanks-a-message paragraph-slot bug (NOT the override
+theory) — fixed via the pre-ALR `bHasOutput` test; see
+`TODO_a5_walkthrough_bugs.md` (⭐ Tribute entry, DONE).
 
 `DwarfOfDirewoodForest`, `TheEuripidesEnigma`, `TheLostLabyrinthOfLazaitch` and
 `Tribute` were moved OUT of this list on 2026-07-02 — they embed a built-in

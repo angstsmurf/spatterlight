@@ -1843,7 +1843,7 @@ restore_exprs (const char *src, const std::vector<std::string> &saved)
 /* ------------------------------------------------------------- process core */
 
 static char *
-process_inner (a5_state_t *st, const char *src, int depth)
+process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
 {
   std::vector<std::string> saved;
   std::string prot = protect_exprs (src, saved);
@@ -1854,11 +1854,35 @@ process_inner (a5_state_t *st, const char *src, int depth)
   char *alrs;
   free (funcs);
   free (oo);
+  if (pre_alr_ink != NULL)
+    {
+      /* Did the text have visible content BEFORE the ALR pass?  FD stores task
+         responses at this stage (functions/expressions replaced, ALRs not yet
+         -- ReplaceALRs runs inside Display, vb:308) and its bHasOutput keeps
+         the message on this form.  A game ALR that maps a phrase to nothing
+         (Tribute's `(from the enormous mirror)` TextOverride) therefore blanks
+         the text only AFTER its response slot exists, leaving an empty
+         paragraph where Scarier's post-ALR whitespace test would drop the
+         whole message. */
+      char *pp = a5text_render_plain (exprs);
+      const char *q = pp;
+      *pre_alr_ink = 0;
+      for (; *q; q++)
+        if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t')
+          { *pre_alr_ink = 1; break; }
+      free (pp);
+    }
   if (depth > 8)
     return exprs;
   alrs = replace_alrs (st, exprs, depth);
   free (exprs);
   return alrs;
+}
+
+static char *
+process_inner (a5_state_t *st, const char *src, int depth)
+{
+  return process_inner_ex (st, src, depth, NULL);
 }
 
 char *
@@ -2075,6 +2099,28 @@ a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper)
   char *plain = a5text_render_plain (proc);
   free (raw);
   free (proc);
+  return plain;
+}
+
+/* a5text_describe, additionally reporting whether the text had visible content
+   before the ALR pass (FD's bHasOutput on the stored response -- see
+   process_inner_ex).  *pre_alr_ink = 1 with a whitespace-only result means a
+   game ALR blanked the message at Display time; the caller should keep the
+   whitespace remainder so the message's paragraph slot survives, as it does in
+   FD's output stream. */
+char *
+a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
+                    int *pre_alr_ink)
+{
+  char *raw = a5text_eval_description (st, wrapper);
+  char *inner = process_inner_ex (st, raw, 0, pre_alr_ink);
+  char *persp = resolve_perspective (st, inner);
+  char *capped = auto_capitalise (persp);
+  char *plain = a5text_render_plain (capped);
+  free (raw);
+  free (inner);
+  free (persp);
+  free (capped);
   return plain;
 }
 

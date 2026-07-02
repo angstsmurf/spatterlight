@@ -91,6 +91,12 @@ extern char *a5text_display_alr (a5_state_t *st, const char *plain);
  */
 extern char *a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper);
 
+/* a5text_describe + report whether the text had visible content BEFORE the ALR
+   pass (FD's bHasOutput runs pre-ALR; a game ALR mapping a phrase to nothing
+   still leaves the response's paragraph slot in FD's output). */
+extern char *a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
+                                 int *pre_alr_ink);
+
 /* The full "LOOK" view of the player's current location (plain text). */
 extern char *a5text_view_location (a5_state_t *st);
 

@@ -1,30 +1,51 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## Tribute → wired FULL WIN (2\|2 DIVERGE): override of a general "take from" task drops FD's vestigial `(from …)`-note blank line  ⚠️ OPEN (2026-07-02, cosmetic — not chased)
+## ⭐ Tribute → full MATCH: a game ALR that blanks a message must keep its paragraph slot (pre-ALR `bHasOutput`)  ✅ DONE (2026-07-02)
 
-Tribute (Kenneth Pedersen, "Return to the City of Secrets") is a full 100/100
-win from its **own built-in `WALKTHROUGH` command** (extracted verbatim, zero
-corrections). Residual = **2 RNG-independent hunks**, both the same shape:
+**Tribute 2|2 → 0|0** (full MATCH both RNG modes, golden
+`test/Tribute_expected.txt`; budget re-blessed). Tribute (Kenneth Pedersen,
+"Return to the City of Secrets") plays its built-in `WALKTHROUGH` (extracted
+verbatim, zero corrections) byte-for-byte to `*** You have won ***`, 100/100,
+143 turns. No corpus game moved in either mode (all 19 other MATCH games hold
+0/0; StoneOfWisdom 2/0, JacarandaJim 99/0, SixSilverBullets 18/0,
+LostLabyrinth 8/0, BugHunt 0/23 at their exact baselines), all a5 unit tests
+pass (run/arith/parse/dis/walk/obj/save + Six Silver Bullets golden), and
+`make sanitize` is clean.
 
-FD emits a single blank line between the `> get gem` command echo and the grab
-response for exactly two gems — the mirror gem (`TakeGemFro`) and the boxes gem
-(`TakeGemFro1`). Both are **Specific `Override` tasks of the general
-`TakeObjectsFromOthers`** ("take X from Y"), reached from a *bare* `get gem`
-whose parent container (Mirror / boxes) is inferred. For the four gems that use
-the *general* task unmodified, FD prints the auto-disambiguation note
-`(from the white verbene)` / `(from the latrine hole)` / … ; for gems taken off
-the floor it prints nothing. For these two overridden ones FD prints **a blank
-line** — the vestigial paragraph slot where that `(from the <parent>)` note
-would have gone, now empty because the override replaces the general output.
-Scarier collapses that empty slot, so it is one blank line short each.
+**The original "override drops the note's blank slot" theory was WRONG — the
+engine was never reserving anything.** The blank line FD emits between
+`> get gem` and the grab response (mirror gem / boxes gem) is **authored**: the
+game defines TextOverrides (ALRs) `FromTheEno` = OldText
+`(from the enormous mirror)` and `FromTheBox` = OldText
+`(from the boxes in the tunnel)`, both with **empty NewText** — the author
+deliberately suppresses the `TakeObjectsFromOthersLazy` auto-note
+`(from %objects%.Parent.Name)` for exactly these two gems (whose custom
+override text says "through the mirror" already). Confirmed by instrumenting
+FD's `AddResponse`/Display loop: the note IS stored and Display'd as
+`<c>(from the enormous mirror)</c><!--…-->`; `Display()` (clsUserSession.vb:308)
+runs `ReplaceALRs` which deletes the inner text, and the surviving
+markup/comment/newline skeleton pSpace-joins the output — leaving the empty
+paragraph = the blank line. The gems taken via *un*-blanked notes (latrine
+hole, column hole, …) print theirs normally — also through Specific overrides,
+which is what disproved the override theory.
 
-Not fixed: it is cosmetic (2 blank lines over a 143-turn win) and the obvious
-patch (always reserve a paragraph before an override of a note-printing general
-task) risks regressing the 22 currently-`MATCH` goldens, several of which
-exercise `TakeObjectsFromOthers` overrides without this blank. If revisited,
-scope the reserved-blank strictly to *bare-command → inferred-parent →
-override-of-general-with-auto-note* and re-run the full corpus. Wired as
-DIVERGE `2|2`; no golden while it diverges.
+**Root cause in Scarier — the "has output" test ran post-ALR.** Scarier applies
+ALRs per-fragment inside `a5text_process`, so `emit_completion`'s
+`msg_has_output` saw the already-blanked note (whitespace-only) and dropped the
+whole message, paragraph slot and all. FD's `bHasOutput` runs on the stored
+**pre-ALR** text (non-empty), and the ALR only blanks it inside `Display()`.
+
+**Fixed** (`a5text.{cpp,h}`, `a5run_action.cpp`): `process_inner` gained an
+optional out-param reporting whether the text had visible content BEFORE the
+ALR pass (`process_inner_ex`), surfaced as `a5text_describe_ex`.
+`emit_completion` (direct path) uses it: a message whose plain render is
+whitespace-only but which had pre-ALR ink is emitted verbatim (pSpace + the
+whitespace remainder), preserving the paragraph slot exactly as FD's output
+stream does. Blast radius = "a completion message with real text that a game
+ALR maps to nothing" — every other message has pre-ALR ink ⇔ post-ALR ink, and
+ALR-less games skip the branch entirely. (The resp-map/plural path keeps its
+old behaviour — no corpus game exercises an ALR-blanked note there; extend the
+same pre-ALR test to `resp_add_text`/`resp_flush` if one ever does.)
 
 ## ⭐ BugHuntOnMenelaus → wired as a FULL WIN: `MoveCharacter ToSwitchWith` / BECOME player-switching was a no-op  ✅ DONE (2026-07-02)
 

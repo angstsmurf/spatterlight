@@ -2090,7 +2090,8 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
       free (raw); free (proc); free (plain);
       return;
     }
-  char *m = a5text_describe (run->st, comp);
+  int pre_alr_ink = 0;
+  char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink);
   run->st->marking_display = prev_mark;
   /* Append exactly as FD Display() does: pSpace-join to the running output, then
      the rendered text verbatim.  A whitespace-only message has no output (FD's
@@ -2122,6 +2123,16 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
       if (run->exec_scope != NULL)
         for (auto &k : current_obj_ref_keys (run->st))
           run->exec_scope->pass_refs.insert (k);
+      sb_pspace (out); sb_puts (out, m);
+    }
+  else if (pre_alr_ink && m != NULL && m[0] != '\0')
+    {
+      /* The message had real text until a game ALR blanked it (Tribute maps
+         the auto-note "(from the enormous mirror)" to an empty TextOverride).
+         FD stores the response pre-ALR and only blanks it inside Display(),
+         so its markup/newline skeleton still pSpace-joins the output and
+         leaves an empty paragraph slot.  Emit the whitespace remainder
+         verbatim to keep that slot. */
       sb_pspace (out); sb_puts (out, m);
     }
   free (m);
