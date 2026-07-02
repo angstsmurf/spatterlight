@@ -251,15 +251,35 @@ gives a real solution to correct against FD, no blind play needed.
 These game files are staged in `test/adrift5-games/` but there's no
 walkthrough or hints for them anywhere in the corpus — finding/writing one is
 a separate task from "wiring up," so they're not listed above:
-Halloween, MuseumHeist, October31st, TheFortressOfFear, Tingalan, Tribute.
+Halloween, MuseumHeist, October31st, TheFortressOfFear, Tingalan.
 (TheFortressOfFear is Horsfield but has **no** built-in `WLKTHRGH`/`WALKTHROUGH`
-task; the others are by Finn Rosenløv / Kenneth Pedersen.)
+task; the others are by Finn Rosenløv.)
 
-`DwarfOfDirewoodForest`, `TheEuripidesEnigma` and `TheLostLabyrinthOfLazaitch`
-were moved OUT of this list on 2026-07-02 — they embed a built-in `WLKTHRGH`
-native solution (see the ⭐ sections above; all three are now wired —
-LostLabyrinth and TheEuripidesEnigma as full wins, DwarfOfDirewoodForest as a
-0|0 conformance MATCH that ends FD-trapped at "By Guard Room").
+**⚠️ Recheck each of these for a built-in `WALKTHROUGH`/`WLKTHRGH` task before
+assuming "no material"** — that is exactly how Tribute (below) was missed. Grep
+the `a5dump` output for `walkthrou`/`wlkthrgh` and confirm it's backed by a real
+`<Command>[walkthrough…]` printer task (a `<Text>` full of `> cmd` lines), not a
+vestigial HELP mention like FinnsBigAdventure's dead `cl_Walkthroug5` event.
+
+### ⭐ Tribute — a built-in `WALKTHROUGH` was hiding here; wired as a FULL WIN (2\|2)
+
+**WIRED 2026-07-02** (`2|2`, DIVERGE). Tribute ("Return to the City of Secrets,"
+Kenneth Pedersen, based on Emily Short's *City of Secrets*) was mis-filed under
+"no walkthrough material" but ships a real built-in `WALKTHROUGH` command (a
+`Walkthroug` task, `[walkthrough/walkthru/walk through/walk thru]`, `<Text>` a
+143-line `> cmd` solution). Extracted verbatim with **zero corrections** — no
+start-menu handshake (the intro "Press a key to continue" is auto-advanced by
+the harness), no cut-scene fixes. Scarier plays it straight to
+`*** You have won ***`, 100/100, 143 turns. The 2 RNG-independent hunks are a
+cosmetic override-of-`TakeObjectsFromOthers` blank-line difference on two gem
+grabs; catalogued in `TODO_a5_walkthrough_bugs.md` (OPEN, not chased — see the
+regression-risk note there). No golden while it diverges.
+
+`DwarfOfDirewoodForest`, `TheEuripidesEnigma`, `TheLostLabyrinthOfLazaitch` and
+`Tribute` were moved OUT of this list on 2026-07-02 — they embed a built-in
+`WLKTHRGH`/`WALKTHROUGH` native solution (see the ⭐ sections; LostLabyrinth,
+TheEuripidesEnigma and Tribute are wired as full wins, DwarfOfDirewoodForest as
+a 0|0 conformance MATCH that ends FD-trapped at "By Guard Room").
 
 ## Wiring checklist per game
 

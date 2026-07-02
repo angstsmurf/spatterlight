@@ -1,5 +1,31 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## Tribute → wired FULL WIN (2\|2 DIVERGE): override of a general "take from" task drops FD's vestigial `(from …)`-note blank line  ⚠️ OPEN (2026-07-02, cosmetic — not chased)
+
+Tribute (Kenneth Pedersen, "Return to the City of Secrets") is a full 100/100
+win from its **own built-in `WALKTHROUGH` command** (extracted verbatim, zero
+corrections). Residual = **2 RNG-independent hunks**, both the same shape:
+
+FD emits a single blank line between the `> get gem` command echo and the grab
+response for exactly two gems — the mirror gem (`TakeGemFro`) and the boxes gem
+(`TakeGemFro1`). Both are **Specific `Override` tasks of the general
+`TakeObjectsFromOthers`** ("take X from Y"), reached from a *bare* `get gem`
+whose parent container (Mirror / boxes) is inferred. For the four gems that use
+the *general* task unmodified, FD prints the auto-disambiguation note
+`(from the white verbene)` / `(from the latrine hole)` / … ; for gems taken off
+the floor it prints nothing. For these two overridden ones FD prints **a blank
+line** — the vestigial paragraph slot where that `(from the <parent>)` note
+would have gone, now empty because the override replaces the general output.
+Scarier collapses that empty slot, so it is one blank line short each.
+
+Not fixed: it is cosmetic (2 blank lines over a 143-turn win) and the obvious
+patch (always reserve a paragraph before an override of a note-printing general
+task) risks regressing the 22 currently-`MATCH` goldens, several of which
+exercise `TakeObjectsFromOthers` overrides without this blank. If revisited,
+scope the reserved-blank strictly to *bare-command → inferred-parent →
+override-of-general-with-auto-note* and re-run the full corpus. Wired as
+DIVERGE `2|2`; no golden while it diverges.
+
 ## ⭐ BugHuntOnMenelaus → wired as a FULL WIN: `MoveCharacter ToSwitchWith` / BECOME player-switching was a no-op  ✅ DONE (2026-07-02)
 
 `BECOME <character>` (ADRIFT's multi-protagonist mechanism) is a
