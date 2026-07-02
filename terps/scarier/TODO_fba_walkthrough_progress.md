@@ -7,7 +7,39 @@ blind play through `test/a5run_dump` replay scripts, guided by the game's
 **`WWDD`** ("What Would Dad Do?") per-location hint tasks and the model's
 scoring tasks.
 
-## Status: **160 / 500** (byte-verified in BOTH Scarier and FrankenDrift), script = `test/FinnsBigAdventure_walkthrough.txt`
+## Status: **245 / 500** (byte-verified in BOTH Scarier and FrankenDrift), script = `test/FinnsBigAdventure_walkthrough.txt`
+
+> **UPDATE (session 3, 2026-07-02):** Pirate Island town fully solved (160→245),
+> on the isolated **`fba-walkthrough`** worktree (`/Users/administrator/spatterlight-fba`;
+> commits `796b1a47`, `3c4bd579`). Now **On Stone Pier 4, Sankora Island**.
+> - **Valuables**: warehouse `look under workbench`→screwdriver; Pier 3 (61)
+>   `put screwdriver in rucksack`,`pull rope`,`untie rope`,`get screwdriver`,
+>   `force case open with screwdriver`,`open case`,`get bag`,`look in bag`,
+>   `put bag in rucksack` (bag must be stowed to walk).
+> - **Pie Place** (81→82, kid-friendly; the Davy Jones tavern is adults-only):
+>   `sit at table`,`read menu`,`call waitress`,`1`,`2` (main+dessert as convo
+>   numbers),`wait`×3,`eat meal`,`eat dessert`,`pay bill` (4 gold; opens the
+>   bookshop),`stand up`,`out`,`out`.
+> - **Bookshop** (79, opens only after the bill): `read newspaper` (see headline)
+>   then **`read article`** (+5, learns valuables' owner); `search shelves` (find
+>   Magor's book +5),`buy book` (+5),`read book` (+5, the oven-message clue).
+> - **Ring the bell** at Grand Portico (71): +5 and **+150 gold** for returning
+>   the valuables. **Hire costume**: Fancy Dress Shop (70) `2`,`search racks`,
+>   `hire suit` (120 gold, +10). **Learn to fight**: Academy (66)
+>   `get soldiers from rucksack` — Mannbroom trades a lesson+certificate for the
+>   toy soldiers/warriors (+5; the cert survives a scripted mugger-fight).
+> - **Kitchen** (77→In 76→N 78): `get key` (quick, unseen), `get napkin` (cook
+>   ejects you and leaves), `unlock door with key`,`in`,`n`,`put napkin in oven`
+>   (+5) → **`read napkin` = code 180452** (the Rock Island keypad, `press 180452`
+>   +5), `put key on hook` (+5).
+> - **Leave**: fight the mugger, `go to sleep on sails` in the warehouse (+5,
+>   clears the forced "exhaustion" event), board at Pier 2, stow loose items,
+>   **`row se`** → Sankora (the game's "sixth sense" redirects `row s`/Kong to
+>   "Buddha Island" first). Kong (orb) + Sankora temple orb-swap endgame still TODO.
+> - **Optional Pirate +5 skipped**: `cl_MbTalkScor` (ask Mannbroom all 3 Qs with
+>   the business card in the pouch — one Q gates on `cl_Card` in `cl_Pouch`).
+
+## Status (historical): **160 / 500**
 
 > **UPDATE (session 2, 2026-07-02):** catacombs interior + Rock Island + Kong
 > recon now fully derived and FD-byte-clean (only residual = one pre-existing
