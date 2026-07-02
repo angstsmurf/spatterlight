@@ -1,6 +1,6 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## ⭐ TheEuripidesEnigma — identity-ALR exponential recursion hang fixed; 11|11 residual object-listing bugs  ✅ HANG DONE / ⏳ 11 OPEN (2026-07-02)
+## ⭐ TheEuripidesEnigma → full MATCH: identity-ALR hang + runtime ExplicitlyExclude listing filter + per-command pass-text dedup + map-path DisplayOnce retire  ✅ DONE (2026-07-02)
 
 Surfaced by wiring **TheEuripidesEnigma** (native `WLKTHRGH` solution, full
 400-pt win under FD; see `TODO_a5_walkthrough_wiring.md` for the two script
@@ -30,30 +30,57 @@ recursion. Scarier finishes the full win in ~1.8 s; ASan/UBSan-clean; **no corpu
 game moved** (all 20 other games hold their exact baselines in both RNG modes,
 all a5 unit tests pass incl. the Six Silver Bullets golden).
 
-**Residual (Euripides 11|11, identical in both RNG modes ⇒ RNG-independent real
-bugs; no vanilla golden while it diverges).** Three families:
-1. **A dropped object that the room's long description already names in prose is
-   *also* appended to the "Also here is …" auto-list** (7 of the 11 hunks). At
-   the creeper cave the boom box is set down and the room prose reads "The boom
-   box is on the floor of the cave…"; FD then does NOT re-list it, Scarier
-   appends "Also here is a boom box". Same with the "small drone" at the fissure
-   after it is put in the case (Scarier lists a loose drone; FD does not) — this
-   one is also/partly an object-containment state issue (drone should be inside
-   the aluminium case). FD suppresses from the auto-list any object whose
-   presence is already conveyed by the room/other prose; Scarier's room-view
-   object listing does not.
-2. **One doubled cliff-face description** (1 hunk, line ~896): Scarier prints
-   "The first 15 feet of the cliff face…chest height.  The first 15 feet…chest
-   height." — the same segment twice.
-3. **One movement-message wording variant** (1 hunk, line ~1953): Scarier "You
-   have to turn sideways but you squeeze through the crevice and emerge into the
-   cave beyond." vs FD "You turn sideways and squeeze through the crevice into
-   the cave beyond." (likely a different task/alternate matched for the squeeze).
+**Residual 11|11 → 0|0 (full MATCH both modes, golden
+`test/TheEuripidesEnigma_expected.txt`; budget re-blessed).** No corpus game
+moved in either mode (all 15 other MATCH games hold 0/0; the RNG-bound DIVERGE
+games at their exact baselines), all a5 unit tests + `make sanitize` pass, and
+the full 400-pt replay is ASan/UBSan-clean to `*** CONGRATULATIONS! ***`.
+Three more root causes — and NONE of them was a "prose mentions the object"
+listing heuristic (the original guess); FD has no such thing:
 
-Needs runtime tracing of the room-view object-list filter (family 1 is the big
-one — it is the same "object referenced in prose shouldn't auto-list" class that
-recurs across the corpus). See `test/A5_WALKTHROUGH_FINDINGS.md` and the MAP
-comment in `test/run_a5_walkthroughs.sh`.
+1. **The room-view listing filters must read the RUNTIME SetProperty layer**
+   (7 of the 11 hunks — the whole "object in prose still auto-lists" family).
+   ADRIFT's per-object **`ExplicitlyExclude`** property ("explicitly exclude
+   from location descriptions", clsLocation.ObjectsInLocation: a dynamic object
+   is listed iff `Not ob.ExplicitlyExclude`; a static one iff
+   `ob.ExplicitlyList`) is what suppresses the boom box / drone: their tasks
+   run `SetProperty cl_Box1/cl_Drone ExplicitlyExclude <Selected>` exactly when
+   the room prose takes over describing them (and `<Unselected>` when it
+   stops). Scarier's `view_location_impl` checked the property with
+   `a5_prop_find` on the **static model only** — the same
+   runtime-override-precedence class as the Amazon `%PropertyValue%` fix.
+   **Fixed** (`a5text.cpp object_has_prop_rt`): the runtime `st->ov` override
+   wins (`<Unselected>` = removed), else static presence (`a5_prop_find !=
+   NULL` — NOT `a5state_entity_prop`'s value, which is NULL for a value-less
+   SelectionOnly prop and briefly regressed the #3-crawler listing).
+
+2. **Per-command pass-response TEXT dedup on the direct path** (the extra
+   crawler cut-scene block + the doubled cliff-face description). FD keys
+   every response of one `AttemptToExecuteTask` by its text
+   (htblResponsesPass), so `press on` — whose `cl_PressOnBut` Executes BOTH
+   `cl_ToCrawler11` and `cl_ToCrawler12` with *identical* journey paragraphs,
+   each ending in `Execute Look` — shows the journey once and the room view
+   once. **Fixed** by a `pass_seen` text set on the `exec_resp_scope` (the TBN
+   fail-response scope, same lifetime = run_general / attempt_event_task):
+   `emit_completion` and the direct-path Look render drop an exact-duplicate
+   text, keeping the first occurrence's position. (ev_seen already did this
+   for event chains; this extends it to the command path, where FD's response
+   map always applied.)
+
+3. **A non-aggregate "Before" completion on the response-map path never
+   retired its `<DisplayOnce>` segments** (the squeeze "wording variant" — it
+   was no variant: the crevice override's CompletionMessage has a DisplayOnce
+   first paragraph "You have to turn sideways but…" then the default "You turn
+   sideways and…", and Scarier re-showed the first-time text on every later
+   squeeze). FD renders `task.CompletionMessage.ToString` with
+   bTestingOutput=False BEFORE the actions (clsUserSession.vb:1167), marking
+   DisplayOnce segments even though the response text is pinned/re-rendered
+   later; Scarier's map path only rendered via `render_comp_test`
+   (marking off). **Fixed** in `run_task`: after the pre-action test render
+   (so `resp_pre` keeps the first-time segment), a non-aggregate comp gets a
+   marking `a5text_eval_description` pass — segment selection only, no
+   `%function%` replacement, so no RNG draws. An aggregate comp keeps the old
+   behaviour (its segment choice must stay live for the flush re-render).
 
 ## ⭐ LostLabyrinthOfLazaitch 403|403 → 8|0 (xoshiro FULL MATCH): location seen-tracking + ReferencedObjects singular alias + CharHereDesc name-casing + FD's Look message dance  ✅ DONE (2026-07-02)
 

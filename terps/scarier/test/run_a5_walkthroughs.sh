@@ -419,6 +419,24 @@ FILTER="${1:-}"
 # SixSilverBullets 18/0); xoshiro 0 = full conformance.  No vanilla golden while
 # the vanilla stream diverges (RNG-bound, like JacarandaJim).
 #
+# (2026-07-02) TheEuripidesEnigma 11|11 -> MATCH 0|0 (golden committed).  Three
+# more root causes on top of the identity-ALR hang fix (full write-up in
+# TODO_a5_walkthrough_bugs.md):
+#   (1) the room-view listing filters (ExplicitlyExclude / ExplicitlyList) now
+#       consult the RUNTIME SetProperty override layer, not just the static
+#       model -- the drone / boom box run `SetProperty <obj> ExplicitlyExclude
+#       <Selected>` to drop themselves from "Also here is ..." once prose
+#       conveys them (7 hunks: the whole "object in prose still auto-lists"
+#       family);
+#   (2) per-command pass-response TEXT dedup (htblResponsesPass keying) on the
+#       direct path -- `press on` Executes cl_ToCrawler11 AND cl_ToCrawler12
+#       (identical journey text), each ending in `Execute Look`, all shown once
+#       (the extra cut-scene block + the doubled cliff-face description);
+#   (3) a non-aggregate Before completion on the response-map path retires its
+#       <DisplayOnce> segments (FD's ToString at vb:1167 runs pre-actions with
+#       bTestingOutput=False) -- the crevice squeeze showed its first-time
+#       paragraph on every later pass (the wording "variant" hunk).
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -441,7 +459,7 @@ PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
-TheEuripidesEnigma|TheEuripidesEnigma.blorb|11|11
+TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 EOF
 )
 

@@ -1,0 +1,2356 @@
+The Euripides Enigma
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+The Euripides Enigma
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not yet support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+BUGS : COMM : CREDITS : HELP : HINTS : MACROS : MAP : SPEECH : SCRIPT : VOCAB;
+
+> b
+
+By Airlock
+You are by the main airlock which leads into Euripides Base. The door is hanging off its hinges and you can go In to the airlock. To the South is your space shuttle and you can go East and West around the outside of the base. Beyond the shuttle to the southwest and southeast the surface of the planet stretches away to the horizon.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+> sheath pistol
+Ok, you put the laser pistol in the holster.
+
+> in
+You move In.
+
+The marine squad follows you.
+
+In Main Airlock
+You are in the main airlock of Euripides Base. The outer door has been half torn off its hinges allowing you to go Out, but the inner door is closed. On the wall is a simple control panel with just one large button.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+Lieutenant Zen examines the control panel, presses the green button and then turns to you.
+
+"Maybe if we could jury-rig the control panel then we might be able to get the inner door open?"
+
+You think for a moment and consider three things to order him to do:
+
+1: "Fire your pulse rifle at the inner door."
+2: "Fire your laser pistol at the inner door."
+3: "Jury-rig the inner door so that it will open."
+
+> 3
+You tell Lieutenant Zen to jury-rig the control panel.
+
+The lieutenant nods and smiles. "Certainly Captain," he says, sketching a quick salute.
+
+He turns to Lance-Corporal Davey. "OK Kelly, do your stuff!"
+
+Lance-Corporal Davey attaches her pulse rifle to her space armour and pulls out a small toolkit. She unscrews the control panel, revealing the circuitry behind it. Switching over a couple of cables and doing a few other things you cannot see, she then screws the panel back in place and, putting her toolkit away, turns to face you.
+
+"There ya go, Skipper," she says in her cockney accent. "The door'll open now," she tells you. "We can close it once we're on the other side, but it won't open again."
+
+> press green
+You press the button and after a few seconds the inner airlock door slides open.
+
+Lieutenant Zen tests the atmosphere inside the base.
+
+"Seems like the breathable atmosphere inside has leaked away, sir, probably because the controls have been damaged," he informs you. "We'll have to find the atmospheric controls, fix them and switch them on again."
+
+In Main Airlock
+You are in the main airlock of Euripides Base. The outer door has been half torn off its hinges allowing you to go Out, but the inner door is open, and you can go North into a corridor. On the wall is a simple control panel with just one large button.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+> n
+You move North.
+
+The marine squad follows you.
+
+Long Corridor
+You are in a long corridor that leads North from the airlock. By the airlock door here there is a simple control panel with a green button on it. The airlock door is open and you can go South into the airlock. It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+> press green
+You press the button and after a few seconds the inner airlock door slides shut.
+
+Long Corridor
+You are in a long corridor that leads North from the airlock. By the airlock door here there is a simple control panel with a green button on it. The airlock door is closed and sealed. It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+> n
+You move North.
+
+The marine squad follows you.
+
+Main Corridor
+You are in a long corridor that goes East and West and there are double doors to the North.  It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+You catch a glimpse of a movement at the east end of the corridor so you order Lieutenant Zen to investigate.
+
+He takes two of his squad with him and orders the other two to stay with you. You push open the doors on the north side of the corridor and look inside. It appears to be the main control room of the base and looks to be empty. You instruct the two marines to stay outside the doors and tell them that you are going to investigate the control room.
+
+They salute and take up positions either side of the door. You push open the doors and enter the control room.
+
+South End of MCR
+You are at the south end of the main control room of Euripides Base. The scene is one of devastation, with damaged and smashed consoles everywhere. There is a large viewscreen on one wall of the room and there are more consoles to the North. The doors to the main corridor lead South. It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.
+
+> x consoles
+Some of the consoles have been smashed and broken, but the ESCC console seem to be relatively unscathed.
+
+> look under console
+You look under the ESCC console and see a small compartment.
+
+> open compartment
+Ok, you open the compartment. Inside you see a new ESCC main switch.
+
+> get switch
+Ok, you take the new ECSS switch from the compartment. You notice something else in there.
+
+> search compartment
+You search the compartment and see, right at the back, a screwdriver.
+
+> get screwdriver
+Ok, you take the screwdriver out of the compartment.
+
+> replace switch
+You unscrew the broken switch, replace it with the new one and then check that all the connections are complete.
+
+> drop screwdriver
+Ok, you put down the screwdriver.
+
+> n
+You move North.
+
+North End Of MCR
+You are at the north end of the main control room, where the main console is the PCC. A large window in the north wall overlooks the surface of the planet Euripides. You can go South to the other part of the control room or West through an open doorway. It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.
+
+> x pcc
+The PCC, or Power Control Console, controls the power for the research base. There are various dials and buttons on it but the one that is most important is the main On/Off button. The power is currently off.
+
+> x wall
+On the wall opposite the door leading west there is an open relay box.
+
+> x box
+An open box containing a series of isotronic relays.
+
+> x relays
+There are about a dozen relays, one of which is has burnt out.
+
+> w
+You move West.
+
+Electronics Storeroom
+You are in the electronics storeroom. A door leads East to the main control room. In here, on one wall, there are racks containing small open trays which in turn contain electronic components. It is quite dark in here as the main lights are offline and only the emergency lighting is providing light to see by.
+
+> look in trays
+You look in the trays and see some new isotronic relays in one of them.
+
+You hear a faint noise from outside, so you poke your head out of the storeroom door and listen. It seems to come from the corridor outside. You hear nothing more and receive no alert from any of the marines, so you decide to ignore it for now and turn back to the storeroom.
+
+> get relay
+Ok, you take one of the relays out of the tray.
+
+> e
+You move East.
+
+North End Of MCR
+You are at the north end of the main control room, where the main console is the PCC. A large window in the north wall overlooks the surface of the planet Euripides. You can go South to the other part of the control room or West through an open doorway into a storeroom. On one wall is a relay box. It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.
+
+> replace relay
+You remove the burnt-out relay and throw it away then you slot the new one in its place.
+
+> press button
+You press the button to turn the power on. For a couple of seconds nothing happens but then you hear a distant deep hum and feel a slight vibration in the floor.
+
+> s
+You move South.
+
+South End of MCR
+You are at the south end of the main control room of Euripides Base. The scene is one of devastation, with damaged and smashed consoles everywhere. There is a large viewscreen on one wall of the room and there are more consoles to the North. The doors to the main corridor lead South. It is quite dark here as the main lights are offline and only the emergency lighting is providing light to see by.   Also here is a screwdriver.
+
+> turn switch on
+You turn the switch on and after a couple of seconds the lights flicker a couple of times then come on fully.
+
+South End of MCR
+You are at the south end of the main control room of Euripides Base. The scene is one of devastation, with damaged and smashed consoles everywhere. There is a large viewscreen on one wall of the room and there are more consoles to the North. The doors to the main corridor lead South.   Also here is a screwdriver.
+
+> s
+You push open the control room doors and walk out to the corridor beyond.
+
+Main Corridor
+You are in a long corridor that goes East and West and there are double doors to the North.
+
+You expect to see Corporal Jones and Private Foley standing either side of the doors, but they are not there. Puzzled, you look up and down the corridor but there is nobody in sight. Then you look down and see a disruptor rifle lying on the floor.
+
+Main Corridor
+You are in a long corridor that goes East and West and there are double doors to the North.  Also here is a broken disruptor.
+
+You call Lieutenant Zen on your comm unit.
+
+"Zen here, captain," he answers promptly. "Any instructions, sir?"
+
+1: "What is your position?"
+2: "Did you find anything on your search?"
+3: "Jones and Foley are missing, I need you to return here immediately."
+
+> get disruptor
+Ok, you pick up the broken disruptor.
+
+> x disruptor
+The rifle-like disruptor has been bent out of shape by a powerful force. You wonder to yourself who - or what - would have had the strength to bend this weapon, which is made of impervium, out of shape in this way. You also notice that the disruptor's power pack has been partly dislodged from its housing.
+
+> remove power pack
+Ok, you remove the power pack from the disruptor. It takes bit of effort as the disruptor is bent, but eventually it comes out.
+
+> drop disruptor
+Ok, you put down the broken disruptor.
+
+> 1
+You ask Zen what his position is.
+
+"We're in the base's gymnasium, sir," he tells you. "Kelly here is itching to have a go on some of the exercise machines!" he chuckles.
+
+"Well tell her she can exercise all the time she wants to once we've solved this problem," you tell him and you hear Lance-Corporal Davey laugh.
+
+> 2
+You ask Zen if he found anything.
+
+"I'm afraid not, sir," he tells you. "We keep seeing fleeting movements but when we head in the direction we see them, there's nothing there."
+
+> 3
+You tell Lieutenant Zen that Corporal Jones and Private Foley are missing and that he and the other two marines should return to the Main Control Room immediately
+
+"Very good, sir," he tells you. You hear him tell Sergeant Boone and Lance-Corporal Davey of the situation.
+
+"We'll be back with you in a couple of minutes, Captain," the Lieutenant tells you, and then there is silence for a minute or two.
+
+Suddenly, you hear Lance-Corporal Davey exclaim, "Hey, what's that?!" You hear surprised cries and the buzz of a pulse rifle firing, a scream, strange musical noises that you are certain do not come from a human throat, and then silence.
+
+"Lieutenant! Report! What's going on?!" You shout into your comm device. There is silence but you hear the sound of something being dragged along the floor, then there is silence again.
+
+Obviously something has happened to the Lieutenant and the other marines. You wonder to yourself if you are now alone in this research base. What on earth has happened to the marine squad - are they dead?
+
+> w
+You move West.
+
+Main Corridor (W)
+You are in the west part of the main corridor. You can go East or West.
+
+> w
+You move West.
+
+T-Junction (W)
+You are at a T-junction where the main corridor meets another corridor going North-South. On the west side of the corridor there is a closed door.
+
+> w
+You open the door and go in, closing the door behind you.
+
+Manager's Office
+You are in the base manager's office. It is functionally furnished with a large desk, a chair and a drinks and snacks dispenser. The corridor is to the East and a door leads North into another room.
+
+> x dispenser
+A large, glass-fronted machine that is full of various drinks and snacks. You notice some faint scuff marks on the floor leading away from the base of the machine.
+
+> move dispenser
+You move the dispenser away from the wall, revealing a small square hole in the base of the wall that it was hiding.
+
+Manager's Office
+You are in the base manager's office. It is functionally furnished with a large desk, a chair and a drinks and snacks dispenser. The corridor is to the East and a door leads North into another room. The dispenser has been moved to reveal a small square hole at the base of the west wall.
+
+> x hole
+The hole is about two feet square.
+
+> look in hole
+You look into the hole and see an aluminium case inside.
+
+> get case
+(from the square hole)
+Ok, you take the case out of the hole.
+
+> e
+You push open the door and walk out to the corridor beyond.
+
+T-Junction (W)
+You are at a T-junction where the main corridor meets another corridor going North-South. On the west side of the corridor there is a closed door.
+
+> s
+You move South.
+
+West Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are two doors to East and West and you can also go North or South along the corridor.
+
+> e
+You move East.
+
+Living Quarters 2
+You are in one of the living quarters for the base staff. In here there are two beds and a couple of easy chairs and a table. One wall is a built-in closet. In a separate section there are toilet & shower facilities. The corridor is West.
+
+> look under bed
+You look under both beds and under one of them you find a rucksack.
+Living Quarters 2
+You are in one of the living quarters for the base staff. In here there are two beds and a couple of easy chairs and a table. One wall is a built-in closet. In a separate section there are toilet & shower facilities. The corridor is West.  Also here is a rucksack.
+
+> get rucksack
+Ok, you pick up the rucksack.
+
+> loosen straps
+You loosen the rucksack straps to their fullest extent.
+
+> wear rucksack
+Ok, you put the rucksack on over your space armour.
+
+> put power pack in rucksack
+Ok, you put the power pack inside the rucksack.
+
+> w
+You move West.
+
+West Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are two doors to East and West and you can also go North or South along the corridor.
+
+> s
+You move South.
+
+West Corridor (S)
+You are roughly in the middle of the North-South corridor where doors lead off East and West.
+
+> s
+You move South.
+
+West Corridor (S)
+You are at the end of the corridor, which only goes North. There are doors here which lead South, East and West.
+
+> w
+You move West.
+
+Living Quarters 5
+You are in one of the living quarters for the base staff. In here there are two beds and a couple of easy chairs and a table. One wall is a built-in closet. In a separate section there are toilet & shower facilities. The corridor is East.
+
+> open closet
+Ok, you open the closet. Inside you see a clothes rail with some clothes on it and some cupboards.
+
+> search closet
+You search the built-in closet and find a rappelling rope.
+
+Living Quarters 5
+You are in one of the living quarters for the base staff. In here there are two beds and a couple of easy chairs and a table. One wall is a built-in closet. In a separate section there are toilet & shower facilities. The corridor is East.  Also here is a rappelling rope.
+
+> search cupboards
+You search the cupboards and in one of them you see a tungsten climbing piton.
+
+Living Quarters 5
+You are in one of the living quarters for the base staff. In here there are two beds and a couple of easy chairs and a table. One wall is a built-in closet. In a separate section there are toilet & shower facilities. The corridor is East.  Also here is a rappelling rope and a tungsten piton.
+
+> get rope and piton
+Ok, you pick up the rappelling rope and the tungsten piton.
+
+> put rope and piton in rucksack
+Ok, you put the rappelling rope and the tungsten piton inside the rucksack.
+
+> e
+You move East.
+
+West Corridor (S)
+You are at the end of the corridor, which only goes North. There are doors here which lead South, East and West.
+
+> s
+You move South.
+
+Living Quarters 7
+You are in one of the living quarters for the base staff. In here there are two beds and a couple of easy chairs and a table. One wall is a built-in closet. In a separate section there are toilet & shower facilities. The corridor is North.  Also here is a boom box.
+
+> get box
+Ok, you pick up the boom box.
+
+> look on bed
+Under a sheet on one of the beds you see a leather belt and holster.
+
+> get belt
+(from the beds)
+Ok, you take the leather belt and holster from the beds.
+
+> put belt in rucksack
+Ok, you put the leather belt and holster inside the rucksack.
+
+> n
+You move North.
+
+West Corridor (S)
+You are at the end of the corridor, which only goes North. There are doors here which lead South, East and West.
+
+> n
+You move North.
+
+West Corridor (S)
+You are roughly in the middle of the North-South corridor where doors lead off East and West.
+
+> n
+You move North.
+
+West Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are two doors to East and West and you can also go North or South along the corridor.
+
+> n
+You move North.
+
+T-Junction (W)
+You are at a T-junction where the main corridor meets another corridor going North-South. On the west side of the corridor there is a closed door.
+
+> n
+You move North.
+
+West Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North or South.
+
+> n
+You move North.
+
+Recreational Facility
+You are in the recreational facility of the base. This large circular room, with a transparent domed roof, is where the staff of the base would have meals and spend their off-duty time. On one side are several large tables with benches and a couple of autochefs, while on the other side are a couple of large sofas and several easy chairs. On the wall facing these is a large screen. The corridor is South.
+
+> x chairs
+Easy chairs with comfortable cushions for relaxing on.
+
+> look behind cushions
+You put your hand down the back of the cushion of one of the easy chairs and find a climbing hammer. You wonder to yourself how it got there?
+
+Recreational Facility
+You are in the recreational facility of the base. This large circular room, with a transparent domed roof, is where the staff of the base would have meals and spend their off-duty time. On one side are several large tables with benches and a couple of autochefs, while on the other side are a couple of large sofas and several easy chairs. On the wall facing these is a large screen. The corridor is South.  Also here is a climbing hammer.
+
+> get hammer
+Ok, you pick up the climbing hammer.
+
+> put hammer in rucksack
+Ok, you put the climbing hammer inside the rucksack.
+
+> s
+You move South.
+
+West Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North or South.
+
+> s
+You move South.
+
+T-Junction (W)
+You are at a T-junction where the main corridor meets another corridor going North-South. On the west side of the corridor there is a closed door.
+
+> e
+You move East.
+
+Main Corridor (W)
+You are in the west part of the main corridor. You can go East or West.
+
+> e
+You move East.
+
+Main Corridor
+You are in a long corridor that goes East and West and there are double doors to the North.  Also here is a broken disruptor.
+
+> e
+You move East.
+
+Main Corridor (E)
+You're in the main corridor to the east of the control room doors. You can go East or West.
+
+> e
+You move East.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.
+
+> n
+You move North.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> n
+You move North.
+
+Hydroponics Facility
+This is the hydroponics facility where there are several huge glass-fronted tanks containing plants which supply oxygen to the base. A console stands in the centre of the room. You can only go South to the corridor.
+
+> x console
+The console is equipped with various controls that monitor the conditions within the tanks.  Due to the power outage the Air Distribution System (ADS) has gone into standby mode and needs to be switched on again.
+
+> switch ads on
+You switch on the ADS.
+
+An indicator starts to flash amber as the Air Distribution System begins to pump breathable air around the base. Once the indicator burns a steady green, same as the LED in your helmet, it will be safe to remove your bubble helmet, if not your space armour as well.
+
+> s
+You move South.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> w
+You move West.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.
+
+> search shelves
+You search the equipment on the shelves and on one of them you find a spray gun.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.  Also here is a spray gun.
+
+> get gun
+Ok, you pick up the spray gun.
+
+> x gun
+A spray gun used for painting large surfaces. It has a glass container for paint and a chamber for a power pack, which is missing.
+
+> get power pack
+(from the rucksack)
+Ok, you take the power pack from the rucksack.
+
+> put power pack in gun
+You insert the power pack into the chamber of the spray gun.
+
+> n
+You move North.
+
+General Storeroom
+You are at the north end of the storeroom, which is packed with all kinds of equipment stacked on the floor and on metal shelves.
+
+> search shelves
+You search the shelves and find a can of paint.
+
+General Storeroom
+You are at the north end of the storeroom, which is packed with all kinds of equipment stacked on the floor and on metal shelves.  Also here is a plastic can.
+
+> get can
+Ok, you pick up the plastic can.
+
+> pour paint into container
+You unscrew the container from the gun, put it on the floor. You then open the can of paint and pour all of it into the container, throwing away the lid. Afterwards you screw the container back onto the spray gun.
+
+When you want to use the spray gun type SPRAY PAINT AT 'target'.
+
+> drop can
+Ok, you put down the plastic can.
+
+> s
+You move South.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.
+
+> e
+You move East.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> s
+You move South.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.
+
+> s
+You move South.
+
+East Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are three large double doors here into which you can go East, West or South. The junction is North.
+
+> w
+You move West.
+
+Research Lab
+You are in one of the base's research laboratories. It is full of various items of equipment, most of which you have no idea what their purpose is. However, you do recognise one item which is a molecular analyser. The corridor is East and there is a storeroom to the South. On top of four trolleys, which have been pushed together, is the dead body of a huge creature.
+
+> e
+You move East.
+
+East Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are three large double doors here into which you can go East, West or South. The junction is North.
+
+> e
+You move East.
+
+Research Lab
+You are in one of the base's research laboratories. It is full of various items of equipment, most of which you have no idea what their purpose is. The corridor is West. Against one wall you see a desk.
+
+> x desk
+As desks go it is nothing out of the ordinary. It has a drawer.
+
+> open drawer
+Ok, you open the drawer and look inside where you see some papers.
+
+> look under papers
+You search under the papers and find a notebook, which you take out and put on the desk.
+
+> get notebook
+(from the desk)
+Ok, you take the notebook from the desk.
+
+> read notebook
+You open the notebook and read what is written inside.
+
+The notes are observations about the creature, which the writer has called a "Euripedean", in the other lab. The most important item of information you learn is that the Euripedean's iridescent scales enable the creature to become invisible at will.
+
+The notes also tell you that the scales are made of an organic material unknown to science which is impervious to most types of energy weapons - looks like your laser pistol and pulse rifle are going to be useless against these creatures.
+
+You realise that if you come across one or more of these Euripedeans, you are not only going to have to find a way to make them visible to you, you are also going to have to find a way of fighting them if necessary.
+
+> drop notebook
+Ok, you put down the notebook.
+
+> w
+You move West.
+
+East Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are three large double doors here into which you can go East, West or South. The junction is North.
+
+> n
+You move North.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.
+
+> e
+You move East.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.
+
+> press green
+You press the green button and after a few seconds the west airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the east door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.
+
+> e
+You move East.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+> put boombox, can, case and gun in bed
+Ok, you put the boom box, the aluminium case and the spray gun in the crawler's cargo bed.
+
+> n
+You move North.
+
+Vehicle Garage (N)
+You are at the north end of the vehicle garage. The north wall is in fact two doors which open to allow vehicles in and out of the garage. You can go South to the other end of the garage or West. On the east side of the garage is a small airlock, the door to which is open and leads East. Next to the door is a green button.
+
+> x equipment
+The pieces of equipment are for the maintenance of the cargo crawlers and their engines. Amongst them you notice a battery charge cable protruding from a hole in the east wall.
+
+Vehicle Garage (N)
+You are at the north end of the vehicle garage. The north wall is in fact two doors which open to allow vehicles in and out of the garage. You can go South to the other end of the garage or West. On the east side of the garage is a small airlock, the door to which is open and leads East. Next to the door is a green button.  Also here is a battery charge cable.
+
+> get cable
+Ok, you pick up the battery charge cable.
+
+> s
+You move South.
+
+You pull the battery charge cable out of the wall as you move.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The battery charge cable lies on the floor, stretching to the north end of the garage. The airlock door is open and leads West.
+
+> recharge crawler
+You plug the cable into the socket and wait.
+
+As you wait for the battery to charge, you think about what could have happened to the research base staff and your marines. It is obvious that they have been abducted, possibly by some species native to the planet. You hope that they are alive and have not been harmed.
+
+Suddenly you are jolted out of your thoughts by a loud buzz and you realise the the crawler's battery is now fully charged. It occurs to you that you should check the battery charge meter often in case the battery is low on charge.
+
+You pull the plug out of the socket and drop it. The cable promptly retracts back onto the reel at the north end of the garage.
+
+> n
+You move North.
+
+Vehicle Garage (N)
+You are at the north end of the vehicle garage. The north wall is in fact two doors which open to allow vehicles in and out of the garage. You can go South to the other end of the garage or West. On the east side of the garage is a small airlock, the door to which is open and leads East. Next to the door is a green button.  Also here is a battery charge cable.
+
+> w
+You move West.
+
+The Office
+You are in a small room which is probably an office for the vehicle manager. In here there is a small desk and chair. You can go East into the garage.
+
+> x desk
+It is only about 3 feet square.  On the desk is a crawler key and a com unit.
+
+> get key
+(from the small desk)
+Ok, you take the crawler key from the small desk.
+
+> x key
+A key for a crawler. You just need to have this on your person to be able to operate the crawler. On the side of the key is the number 3.
+
+A thought occurs to you: If the base has four cargo crawlers, and only one is in the garage, what has happened to the other three?
+
+> x walls
+The office is so small you can stretch your arms out and touch the opposite walls. On one of them you see a journey token rack.
+
+> x rack
+A small rack for journey tokens.  There is just one token in the rack.
+
+> get token
+(from the token rack)
+Ok, you take the yellow token from the token rack.
+
+> x com
+A short-range communications unit that you assume is used for communications with the cargo crawlers. There are four buttons on the unit, a microphone and a loudspeaker.
+
+> press 1
+You press and hold down the number 1 button and listen for a minute or so. All you hear is a carrier wave so you release it.
+
+> press 2
+You press and hold down the number 2 button and listen for a minute or so.
+
+You hear a crackle as if the connection is open and so you say "Crawler two come in please." a couple of times. You wait for a reply but there is no response. You are about to release the button when you hear a noise and a weak voice whisper, "Hjælpe mig...HIQaH...Aidez mo..." The voice trails off and you hear a thump as if the speaker has fallen to the floor - there's someone out there who is injured!
+
+> press 4
+You press and hold down the number 4 button and listen for a minute or so.
+
+You hear a crackle as if the connection is open and so you say "Crawler four come in please." a couple of times. You wait for a reply but there is no response, so you release the button.
+
+> e
+You move East.
+
+Vehicle Garage (N)
+You are at the north end of the vehicle garage. The north wall is in fact two doors which open to allow vehicles in and out of the garage. You can go South to the other end of the garage or West. On the east side of the garage is a small airlock, the door to which is open and leads East. Next to the door is a green button.  Also here is a battery charge cable.
+
+> s
+You move South.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+The atmosphere in the research base is now breathable.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the empty vehicle garage.
+
+> x cab
+This is quite small and only has room for two passengers wearing environmental suits, or one passenger wearing space armour.
+
+> put token in slot
+You put the yellow token into the slot.
+
+> press on
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler slowly moves forward until it is a few feet from the doors of the garage and stops. The doors slowly open wide enough to allow the crawler to move forward once again. The crawler rumbles across the plain towards the range of low hills to the north and picks up speed until it is moving at about 20 mph. It continues steadily at this speed for about 15 minutes until you see a low rise ahead.
+
+As the crawler crests the low rise you see another crawler standing motionless about half a mile ahead of you. As you get nearer to the crawler you see that it has the number 1 painted on the front of the cab. As you draw level with the crawler you see that the cab is unmanned and the area around it deserted.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are on a flat, open plain with the other crawler a few yards to the east.
+
+> press white
+You push the white button.
+
+The crawler slows and stops. You hear a short buzz then the yellow token pops out into the token cup.
+
+> out
+You climb out of the crawler cab.
+
+By Crawler #3 on Plain
+You are standing on a wide, flat plain, by the crawler you rode to get out here. You can go In to the cab. A few yards to the East is crawler #1.
+
+> e
+You move East.
+
+By Crawler #1 On Plain
+You are standing by crawler #1 in the middle of a wide, flat plain and you can go In to the cab. Crawler #3, which you rode in to get here, is a few yards to the West.
+
+> look in bed
+Stowed in the cargo bed you see a pickaxe.
+
+> get pickaxe
+(from the cargo bed)
+Ok, you take the pickaxe out of the cargo bed.
+
+> w
+You move West.
+
+By Crawler #3 on Plain
+You are standing on a wide, flat plain, by the crawler you rode to get out here. You can go In to the cab. A few yards to the East is crawler #1.
+
+> put pickaxe in bed
+Ok, you put the pickaxe in the crawler's cargo bed.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are on a flat, open plain with the other crawler a few yards to the east.
+
+> get yellow
+(from the token cup)
+Ok, you take the yellow token from the token cup.
+
+> put yellow in slot
+You put the yellow token into the slot.
+
+> press white
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler continues on its way and soon leaves the other crawler far behind. Eventually the crawler approaches the range of low hills that now extend out of sight to the east and west. As you approach a canyon in the hills you notice some crawler tracks leading into the canyon, coming from the east.
+
+The crawler enters the canyon and, after weaving its way along the meandering valley, it comes to a halt by a cliff face. As you expected, standing here is another crawler, again seemingly abandoned by its driver. The yellow token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are at the end of a narrow canyon in front of a vertical cliff. To the west is another crawler.
+
+> get yellow
+(from the token cup)
+Ok, you take the yellow token from the token cup.
+
+> out
+You climb out of the crawler cab.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.
+
+> w
+You move West.
+
+By Crawler #4 In Canyon
+You are standing by crawler #4. Immediately East is crawler #3 and to the NE is a vertical cliff.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #4
+You are sitting in the driver's cab of crawler #4. In front of you beneath the windscreen is a simple control dashboard. Through the windscreen all you can see is a cliff at the end of the canyon.
+
+> press black button
+You press the black button but nothing happens, there is no token in the slot.
+
+You wonder to yourself how the crawler got here if there is no journey token? Maybe if you search around in the immediate area you might find it?
+
+> search cab
+You search the crawler cab and on the floor you see a strange metal object. You realise that, of all things to find on an alien planet, it is a tuning fork!
+
+In Cab of Crawler #4
+You are sitting in the driver's cab of crawler #4. In front of you beneath the windscreen is a simple control dashboard. Through the windscreen all you can see is a cliff at the end of the canyon.  Also here is a tuning fork.
+
+> get fork
+Ok, you pick up the tuning fork.
+
+> out
+You climb out of the crawler cab.
+
+By Crawler #4 In Canyon
+You are standing by crawler #4. Immediately East is crawler #3 and to the NE is a vertical cliff.
+
+> x bed
+A rectangular, open-top box about 15 feet long, 6 feet wide and 4 feet deep. Stowed in the cargo bed you see a spade.
+
+> get spade from bed
+Ok, you take the spade from the cargo bed.
+
+> e
+You move East.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.
+
+> put spade in bed
+Ok, you put the spade in the crawler's cargo bed.
+
+> n
+You move North.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. To the SW is crawler #4 and crawler #3 is to the South.
+
+> x cliff
+The first 15 feet of the cliff face is perfectly vertical and completely flat. You notice some marks on the rock at about chest height.
+
+> x marks
+Some white marks on the dark surface of the flat cliff face which look as if someone has hit it with a metal tool.
+
+> hit fork on cliff
+You hit the tuning fork on the hard rock face.
+
+A pure note rings out from the prongs of the fork, which echoes off the walls of the canyon.
+
+As the note fades away you see the surface of the cliff face ripple and, to your amazement, a round opening appears in the rock.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. In this cliff face is a large opening which leads North. To the SW is crawler #4 and crawler #3 is to the South.
+
+> put fork in sack
+Ok, you put the tuning fork inside the rucksack.
+
+> n
+You move North.
+
+In Tunnel In Hillside
+You are several yards inside the tunnel inside the hillside. The walls are smooth as if cut with lasers and they glow faintly with a gentle blue light. The tunnel floor is covered with a thin layer of dirt and dust.  You can continue North along the tunnel or South out to the canyon.
+
+> n
+You move North.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. Otherwise, the only way you can go is South.
+
+As you are looking at the crevice you hear some loud musical voices which seem to be coming from beyond the crevice. You listen for a couple of minutes but cannot understand what is being said. The voices then fade away as if the speakers have moved away.
+
+> x dirt
+The layer of dirt and dust is about an inch deep.
+
+> search dirt
+You search through the dirt with your fingers and find a small, flat round object - it is a brown journey token.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. Otherwise, the only way you can go is South.  Also here is a brown token.
+
+> get token
+Ok, you pick up the brown token.
+
+> x crevice
+The crevice is about 10" wide and it is only about 3 or 4 feet deep. Beyond the crevice you can vaguely make out what appear to be some bodies lying on the floor of a cave.
+
+> x bodies
+You cannot see exactly who they are but they seem to be naked and covered in some sort of vegetation.
+
+> s
+You move South.
+
+In Tunnel In Hillside
+You are several yards inside the tunnel inside the hillside. The walls are smooth as if cut with lasers and they glow faintly with a gentle blue light. The tunnel floor is covered with a thin layer of dirt and dust.  You can continue North along the tunnel or South out to the canyon.
+
+> s
+You move South.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. In this cliff face is a large opening which leads North. To the SW is crawler #4 and crawler #3 is to the South.
+
+> s
+You move South.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are at the end of a narrow canyon in front of a vertical cliff. To the west is another crawler and in the cliff face you see a round opening leading North.
+
+> put brown token in slot
+You put the brown token into the slot.
+
+> press white
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler turns 180 degrees and sets off along the canyon. When it reaches the open plain it turns left and heads east. After several minutes it reaches a wide fissure that crosses the plain from north to south and turns to run alongside it.
+
+After a couple of minutes, you see some yards ahead of you that a part of the fissure has crumbled away at the edge.
+
+> press white
+You press the white button.
+
+The crawler slows and stops. You hear a short buzz then the brown token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the fissure to the east, stretching into the distance. You notice that part of the edge of the fissure has crumbled away.
+
+> get brown
+(from the token cup)
+Ok, you take the brown token from the token cup.
+
+> drop brown
+Ok, you put down the brown token.
+
+> out
+You climb out of the crawler cab.
+
+By Crawler #3 Near Fissure
+You are standing by your crawler which is parked several yards away from the edge of the fissure. To the SE is the edge of the fissure where it has crumbled away, and you can go in all other directions.
+
+> get case
+(from the cargo bed)
+Ok, you take the aluminium case out of the cargo bed.
+
+> se
+You move SouthEast.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.
+
+You catch a glimpse of a movement in the fissure below.
+
+> drop case
+Ok, you put down the aluminium case.
+
+> get rope, piton and hammer from sack
+Ok, you take the rappelling rope, the tungsten piton and the climbing hammer from the rucksack.
+
+> look down
+You look down into the fissure and see, lying precariously on top of the trees that fill the fissure from wall to wall, the crawler that fell into it. You also notice some movement in the trees not far from where the crawler lies.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure.   Also here is an aluminium case.
+
+> x movement
+Something large is moving about amongst the trees down below.
+
+> throw grenade into trees
+You detach a stun grenade from your space armour, twist the two halves to arm it and toss it into the trees below.
+
+You hear a sharp crack as the grenade goes off, see rapid movement in the trees below accompanied by angry growling. You throw another grenade and after the crack of the detonation you see whatever it is in the trees moving off along the fissure away from the annoying explosions.
+
+> hammer piton into crack
+Using the climbing hammer you hammer the piton into one of the cracks in the rock about a yard or so from the edge of the fissure.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure.   Also here is an aluminium case.
+
+> tie rope to piton
+You tie the end of the rope to the ring on the piton you hammered into the crack and throw the rest of the rope over the edge so that it hangs down into the fissure.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+> x rope
+It's tied to the piton and hangs down into the fissure.
+
+> put all in rucksack
+Ok, you put the crawler key, the yellow token and the climbing hammer inside the rucksack.
+
+> open case
+You open the aluminium case.
+
+> get all from case
+Ok, you take the small drone and the control console out of the case.
+
+> drop drone
+Ok, you put down the small drone.
+
+> turn drone on
+You push the orange button to switch the drone on, its jets start up and it floats into the air.
+
+The drone is hovering in the air about 5 feet above the ground.
+The drone is hovering directly above the edge of the fissure.
+
+> fly drone forward
+You toggle the lever and the drone flies a few feet away from you.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+The drone is hovering in the air about 5 feet above the ground.
+The drone is hovering about 5 feet away from the edge of the fissure.
+
+> fly drone down
+You toggle the lever and the drone flies down.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+The drone is hovering about a foot above the ground.
+The drone is hovering about 5 feet away from the edge of the fissure.
+
+> fly drone down
+You toggle the lever and the drone flies down.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+The drone is hovering about 35 feet below you.
+The drone is hovering about 5 feet away from the edge of the fissure.
+
+> fly drone down
+You toggle the lever and the drone flies down.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+The drone is hovering above the trees about 70 feet down in the fissure, the crawler cab is directly ahead.
+The drone is hovering about 5 feet away from the edge of the fissure.
+
+> fly drone forward
+You toggle the lever and the drone flies forward into the cab of the crawler.
+
+You switch on the drone's camera and see the body of the driver slumped in the well of the cab. Using the sensors built into the drone you discover that, sadly, he has died. You manoeuvre the drone to scan the interior of the cab and see, lying on the floor, a stone disc.
+
+Activating the drone's extendable arm you attempt to retrieve the disc with the grab and after a couple of tries you manage to pick it up. As you are about to back the drone out of the cab, you see a red journey token lying on the floor of the cab. It is lying under the legs of the driver and thus out of the reach of the drone's extendable arm, so if you want to retrieve it you are going to have to climb down to the crawler.
+
+You back the drone out of the cab and fly it up out of the fissure. You drop the stone disc on the ground, then land the drone on the ground next to it and switch off its engines.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  About 70 feet below you lies the crawler that fell into the fissure. A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is a small drone, an aluminium case and a stone disc.
+
+> get drone
+Ok, you pick up the small drone.
+
+> put drone and console in case
+Ok, you put the small drone and the control console into the case.
+
+> close case
+You close the aluminium case.
+
+> get disc
+Ok, you pick up the stone disc.
+
+> put disc in sack
+Ok, you put the stone disc inside the rucksack.
+
+> climb d rope
+You climb down the rope and are about halfway down when you come across a large cave entrance, so you stop climbing down in order to investigate.
+
+On Rope By Cave
+You are hanging on the rope right opposite a cave, which you can access by going West. Alternatively you can climb up or further down the rope.
+
+> w
+You move West.
+
+Cave Entrance
+You are standing in the cave entrance about 25 feet above the treetops in the fissure on top of which lies the fallen crawler. The cave goes further into the side of the fissure to the West and hanging down across the cave entrance to the East is your rappelling rope.
+
+> x rope
+It hangs down across the mouth of the cave into the fissure.
+
+> w
+You move West.
+
+Back of Cave
+You are at the back of the cave, about 20 feet from the entrance, where there is a large abandoned nest. Scattered in and around this nest are the bones of various small animals or birds. The back wall of the cave seems to be solid rock so you can only go East.
+
+> x wall
+The back wall of the cave appears to be solid rock. You notice two raised squares on the surface of the wall. In the middle of the wall, below the squares, you see a diamond-shaped depression.
+
+> x depression
+A diamond-shaped depression about three inches high, two wide and half an inch deep.
+
+> get disc
+(from the rucksack)
+Ok, you take the stone disc from the rucksack.
+
+> put disc in depression
+You insert the diamond on the stone disc into the diamond-shaped depression in the wall of the cave.
+
+You take your hand away and the disc stays against the wall. Nothing happens for a second or two then the disc glows a deep red in colour and sinks into the rock of the wall. The red glow then fades away, leaving a smooth rock wall.
+
+Suddenly the floor of the cave starts to shudder and to your astonishment you see the two raised squares on the back wall slowly move away from each other with a loud grinding sound.
+
+When they are about two inches apart the noise and the shuddering stops. You look around but nothing else has happened here, but you get a sense that something has happened far from here.
+
+> e
+You move East.
+
+Cave Entrance
+You are standing in the cave entrance about 25 feet above the treetops in the fissure on top of which lies the fallen crawler. The cave goes further into the side of the fissure to the West and hanging down across the cave entrance to the East is your rappelling rope.
+
+> e
+You move East.
+
+On Rope By Cave
+You are hanging on the rope right opposite the cave, which you can access by going West. Alternatively you can climb up or further down the rope.
+
+> d
+You climb down the rope until you are level with the crawler.
+
+On Rope In Treetops
+You are hanging on the rope just above the treetops in the fissure. The crawler is a few feet away. You can go East or In to climb into the cab of the crawler or you can climb back up the rope.
+
+> x crawler
+The crawler is lying at a 45 degree angle, only supported by the trees underneath it. The track is hanging off and the cargo bed has almost broken off.
+
+> look in cab
+You look into the crawler cab and see the dead driver lying inside.
+
+> x bed
+It has almost broken off.  Inside the cargo bed there is a heavy crate.
+
+> get crate
+(from the cargo bed)
+It requires a lot of effort but you manage to pull the crate out of the cargo bed and drop it over the side into the trees. This lightens the crawler considerably.
+
+> climb in cab
+You climb into the crawler cab.
+
+In Cab of Crawler #2
+You are in the cab of the crawler, which is tilted at a 45 degree angle. You can go West to climb out of the cab.  The dead driver lies slumped against the dashboard, his legs jammed into the well underneath.
+
+As you put your weight on the cab of the crawler, you feel it give a bit.
+
+> search cab
+You bend down as much as you can and feel around in the well of the cab under the driver's legs. You see a small, flat round object  - it is the red token you tried to get with the drone earlier.
+
+In Cab of Crawler #2
+You are in the cab of the crawler, which is tilted at a 45 degree angle. You can go West to climb out of the cab.  Also here is a red token.  The dead driver lies slumped against the dashboard, his legs jammed into the well underneath.
+
+> get red token
+Ok, you pick up the red token.
+
+Suddenly the crawler lurches and it drops a couple of feet further into the trees that are holding it up!
+
+> put red token in sack
+Ok, you put the red token inside the rucksack.
+
+> tie rope around body
+You pass the end of your rappelling rope under the body of the driver and tie it securely around him under his arms.
+
+> climb out of cab
+You climb out of the cab onto the rope.
+
+On Rope In Treetops
+You are hanging on the rope just above the treetops in the fissure. The crawler is a few feet away. You can go East or In to climb into the cab of the crawler or you can climb back up the rope.
+
+The crawler drops again, settles for a minute or so then falls down through the branches, plunging a couple of hundred feet to the floor of the fissure.
+
+Luckily, as you had tied the rope around the body of the driver, the body escapes falling to the bottom of the fissure with the crawler and remains tied to the end of the rope below you.
+
+On Rope In Treetops
+You are hanging on the rope just above the treetops in the fissure. The crawler has fallen down to the floor of the fissure but the body of the driver is still tied to the end of your rappelling rope a few feet below you. You can now only climb back up the rope.
+
+> climb up rope
+You climb all the way back up the rope to the top of the fissure.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+> x rope
+It's tied to the piton and hangs down into the fissure.
+
+> pull rope
+You pull the body of the driver up from the fissure and drag it over to near your crawler. When it is safely away from the edge, you untie the rope from around the body, walk over to the fissure and throw it back over.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+> nw
+You move NorthWest.
+
+By Crawler #3 Near Fissure
+You are standing by your crawler which is parked several yards away from the edge of the fissure. To the SE is the edge of the fissure where it has crumbled away, and you can go in all other directions.  The dead driver is lying on the ground here.
+
+> x body
+The dead driver is dressed in a lightweight environmental suit which normally would have a force field hood enclosing his head, but which has been turned off, probably as a result of the crawler's fall off the edge of the fissure.
+
+> get driver
+You pick up the body of the dead driver and hold it in your arms.
+
+> n
+You move North.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles.
+
+> drop driver
+You lay the body of the driver on the ground.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles.  The dead driver is lying on the ground here.
+
+> s
+You move South.
+
+By Crawler #3 Near Fissure
+You are standing by your crawler which is parked several yards away from the edge of the fissure. To the SE is the edge of the fissure where it has crumbled away, and you can go in all other directions.
+
+> get spade and axe
+(from the cargo bed)
+Ok, you take the spade and the pickaxe out of the cargo bed.
+
+> n
+You move North.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles.  The dead driver is lying on the ground here.
+
+> search suit
+You search the suit and find an identity card.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles.  Also here is an identity card.  The dead driver is lying on the ground here.
+
+> get card
+Ok, you pick up the identity card.
+
+> read card
+The card tells you that the dead man is Alaric Schwarzmond, a driver and mechanic.
+
+At last you have a name for the dead driver.
+
+> put card in rucksack
+Ok, you put the identity card inside the rucksack.
+
+> remove suit
+You carefully remove the environmental suit from the body of the dead driver and put it on the ground.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles.  Also here is an environmental suit.  Alaric Schwarzmond is lying on the ground here.
+
+> dig grave
+First of all you break through the rock with the pickaxe, piling the lumps to one side of the hole, to create a hole about six feet long and two feet wide.
+
+Switching to the spade, you dig the earth out of the hole to a depth of four feet, making a pile of earth on the other side of the grave.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles.  Here there is a grave dug by you using the pickaxe and spade. A pile of lumps of rock and a heap of earth dug from the grave lie either side of it.  Also here is an environmental suit, a pickaxe and a heap of soil.  Alaric Schwarzmond is lying on the ground here.
+
+> bury body
+You place the body of the dead driver in the grave and shovel the soil over him. You then pile the lumps of rock over the grave to finish it.
+
+North of Crawler
+You are standing several yards north of the crawler, The fissure is to the east and in every other direction the plain extends for miles. The grave of the dead driver is here.  Also here is an environmental suit and a pickaxe.
+
+> drop spade
+Ok, you put down the spade.
+
+> get suit
+Ok, you pick up the environmental suit.
+
+> s
+You move South.
+
+By Crawler #3 Near Fissure
+You are standing by your crawler which is parked several yards away from the edge of the fissure. To the SE is the edge of the fissure where it has crumbled away, and you can go in all other directions.
+
+> se
+You move SouthEast.
+
+By Fissure SE of Crawler
+You are standing by the fissure where part of the edge has crumbled away. Your crawler is several yards to the NW. You see some crawler tracks that run along the edge of the fissure from the south that end where the edge has crumbled. You also notice lots of cracks in the fissure near the edge.  A piton is hammered into one of the cracks in the rock near the edge of the fissure. Tied to the piton is a rope that goes over the edge and down into the fissure.  Also here is an aluminium case.
+
+> get case
+Ok, you pick up the aluminium case.
+
+> nw
+You move NorthWest.
+
+By Crawler #3 Near Fissure
+You are standing by your crawler which is parked several yards away from the edge of the fissure. To the SE is the edge of the fissure where it has crumbled away, and you can go in all other directions.
+
+> put all in bed
+Ok, you put the aluminium case and the environmental suit in the crawler's cargo bed.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the fissure to the east, stretching into the distance. You notice that part of the edge of the fissure has crumbled away.  Also here is a brown token.
+
+> get red token
+(from the rucksack)
+Ok, you take the red token from the rucksack.
+
+> put red token in slot
+You put the red token into the slot.
+
+> press on
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler sets off across the flat plain away from the fissure, reaches the base and enters it.
+
+It crawls to the south end of the garage, where it stops. The engine switches off, the red token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the empty vehicle garage.  Also here is a brown token.
+
+A loud buzz sounds and you see that the battery charge meter tells you that the battery has only 25% power left. You should recharge the battery as soon as you can.
+
+> get red
+(from the token cup)
+Ok, you take the red token from the token cup.
+
+> put red in rucksack
+Ok, you put the red token inside the rucksack.
+
+> out
+You climb out of the crawler cab.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+> get suit
+(from the cargo bed)
+Ok, you take the environmental suit out of the cargo bed.
+
+> w
+You move West.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.
+
+> press green
+You press the green button and after a few seconds the east airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the west door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.
+
+> w
+You move West.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.
+
+> drop suit
+Ok, you put down the environmental suit.
+
+> draw pistol
+Ok, you draw the laser pistol from the holster.
+
+> drop pistol
+Ok, you put down the laser pistol.
+
+> remove rucksack
+Ok, you remove the rucksack.
+
+> drop rucksack
+Ok, you put down the rucksack.
+
+> remove helmet
+Ok, you unseal and remove the bubble helmet.
+
+> drop helmet
+Ok, you put down the bubble helmet.
+
+> remove armour
+Ok, you release the seals of the various sections of the armour and step out of it.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is a laser pistol, some space armour, a rucksack, a bubble helmet and an environmental suit.
+
+> get suit
+Ok, you pick up the environmental suit.
+
+> wear suit
+Ok, you step into the suit and seal it up.
+
+> get belt, pistol and rucksack
+(from the rucksack)
+Ok, you take the leather belt and holster from the rucksack.  Ok, you pick up the laser pistol and the rucksack.
+
+> wear belt
+Ok, you wear the belt around your waist.
+
+> holster pistol
+Ok, you put the laser pistol in the holster.
+
+> tighten straps
+You tighten the rucksack straps back to their original setting.
+
+> wear rucksack
+Ok, you put the rucksack on over your environmental suit.
+
+> slide switch
+You slide the switch and the air in front of you face goes fuzzy for a couple of seconds, then clears. The hood is now in place.
+
+> e
+You move East.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.
+
+> press green
+You press the green button and after a few seconds the west airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the east door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.
+
+> e
+You move East.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the empty vehicle garage.  Also here is a brown token.
+
+> get yellow
+(from the rucksack)
+Ok, you take the yellow token from the rucksack.
+
+> put yellow in slot
+You put the yellow token into the slot.
+
+> press on
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler leaves the garage, trundles across the plain past crawler #1, eventually coming to a halt at the end of the canyon next to the other crawler.
+
+The engine powers down, the yellow token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are at the end of a narrow canyon in front of a vertical cliff. To the west is another crawler and in the cliff face you see a round opening leading North.  Also here is a brown token.
+
+> get yellow
+(from the token cup)
+Ok, you take the yellow token from the token cup.
+
+> out
+You climb out of the crawler cab.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.
+
+> put yellow in sack
+Ok, you put the yellow token inside the rucksack.
+
+> get box, case and gun
+(from the cargo bed)
+Ok, you take the boom box, the aluminium case and the spray gun out of the cargo bed.
+
+> push play
+You press the start button on the boombox and the box starts playing hip-hop music.
+
+> n
+You move North.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. In this cliff face is a large opening which leads North. To the SW is crawler #4 and crawler #3 is to the South.
+
+> get fork
+(from the rucksack)
+Ok, you take the tuning fork from the rucksack.
+
+> n
+You move North.
+
+In Tunnel In Hillside
+You are several yards inside the tunnel inside the hillside. The walls are smooth as if cut with lasers and they glow faintly with a gentle blue light. The tunnel floor is covered with a thin layer of dirt and dust.  You can continue North along the tunnel or South out to the canyon.
+
+> n
+You move North.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. Otherwise, the only way you can go is South.
+
+As you approach the boulders, you notice that the crevice between them is a bit wider than it was the first time you were here.
+
+> x crevice
+The crevice is about 15" wide and about 3 or 4 feet deep. Beyond you can see what appears to be a large cave in which you can see some bodies lying on the floor.
+
+> drop case
+Ok, you put down the aluminium case.
+
+> open it
+(the aluminium case)
+You open the aluminium case.
+
+> get all from it
+(the aluminium case)
+Ok, you take the small drone and the control console out of the case.
+
+> drop drone
+Ok, you put down the small drone.
+
+> drone on
+You press the orange button to switch the drone on, its jets start up and it floats into the air. A green LED comes on to indicate that the drone is operational.
+
+The drone is hovering in the air about 5 feet above the ground.
+The drone is hovering about 5 feet away from the crevice.
+The drone is hovering to the left of the crevice.
+
+> fly drone into crevice
+Toggling the control levers, you fly the drone into the crevice.
+
+The drone's lights come on and on the console viewscreen you see the sides of the crevice go past as the drone enters the cave beyond. You see bodies lying on the floor of the cave and slumped against the walls, which appear to be covered in a dense tangle of vine-like plants, which also cover each body.
+
+You move the drone closer to one of the bodies and recognise Corporal Jones - it's your marine squad! The other bodies must be the members of the research staff!
+
+You spot a movement in the corner of the viewscreen and you turn the drone to get a better look, but whatever was there vanishes from sight.
+
+Suddenly, the scene on the viewscreen skews violently as if something has hit the drone! You swiftly move it back and see a shimmer as if something has tried to hit it again.
+
+You quickly manoeuvre the drone through the crevice and press the blue button to land it and the engines switch off.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. Otherwise, the only way you can go is South.  Also here is a small drone and an aluminium case.
+
+> put console in case
+Ok, you put the control console into the case.
+
+> get drone
+Ok, you pick up the small drone.
+
+> put drone in case
+Ok, you put the small drone into the case.
+
+> press 7
+You press button 7  on the boombox and some soothing classical music starts to play.
+
+> n
+You have to turn sideways but you squeeze through the crevice and emerge into the cave beyond.
+
+South End of Large Cave
+You are at the south end of a large cave, the ceiling and walls of which are covered in a tangled mass of red creepers. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.
+
+As you enter the cave, the classical music starts to reverberate off the walls. You see the air shimmer in front of you and hear musical voices talking to each other. You get the sense of the presence of huge entities in the cave.
+
+The shimmering in the air in front of you stops moving and you hear the musical voices chatter for a few seconds then stop. You sense that whatever - or whoever - is in front of you is listening to the classical music coming from the boom box, so you put it on the floor in front of you and take a couple of steps back. The air shimmers over the boom box as if whatever is listening to it is standing right over it.
+
+South End of Large Cave
+You are at the south end of a large cave, the ceiling and walls of which are covered in a tangled mass of red creepers. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base. The boom box is on the floor of the cave with the shimmers hovering over it.
+
+> x bodies
+The naked bodies are cocooned in the creepers but they are all alive.
+
+As you are looking at the bodies it dawns on you that if they are alive they must be breathing - there must a breathable atmosphere in these caves!
+
+> x shimmer
+A vague shimmer in the air about 10 or so feet in front of you.
+
+> spray shimmer with paint
+You point the spray gun at the shimmer and press the trigger.
+
+The paint falls on where the shimmer is and it starts to reveal two huge figures that stand a short distance from you in the cave.
+
+Suddenly the two figures shimmer into full view, revealing them to be Euripedeans, and you take your finger off the trigger. The two giant creatures look at you for a second or two then return their attention to the music playing from the boom box. They are absolutely mesmerised by it.
+
+It occurs to you that maybe you should explore these caves while the attention of the Euripedeans is distracted by the music.
+
+South End of Large Cave
+You are at the south end of a large cave, the ceiling and walls of which are covered in a tangled mass of red creepers. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.   Standing over the boom box, listening intently to the classical music that is playing, are two huge Euripedeans.
+
+> drop gun
+Ok, you put down the spray gun.
+
+> n
+You move North.
+
+North End of Large Cave
+You are at the north end of a large cave, the ceiling and walls of which are covered with a tangled mass of red creepers. You notice that the creepers merge into a big root-like trunk that disappears into the dark tunnel that leads North from the main cave here. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.
+
+> x creeper
+The creepers vary from ones as thick as your wrist to tendril-like filaments, some of which penetrate the mouths, noses and ears of the people they surround.
+
+> draw pistol
+Ok, you draw the laser pistol from the holster.
+
+> cut creeper with pistol
+You switch the laser pistol to continuous beam and try to cut some of the red creepers around one of the bodies.
+
+However, the creeper is very resistant to the laser beam and you realise that you will harm the person it is wrapped around if you continue. You settle instead for cutting off the end of a creeper that hangs loose. It takes you a few minutes but eventually you cut all the way through and the creeper falls to the floor of the cave.
+
+North End of Large Cave
+You are at the north end of a large cave, the ceiling and walls of which are covered with a tangled mass of red creepers. You notice that the creepers merge into a big root-like trunk that disappears into the dark tunnel that leads North from the main cave here. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.   Also here is a piece of red creeper.
+
+> holster pistol
+Ok, you put the laser pistol in the holster.
+
+> get creeper
+Ok, you pick up the piece of red creeper.
+
+> x trunk
+It is as thick as your thigh and goes north into another cave.
+
+> n
+You move North.
+
+The Round Cave
+You are in a large round cave in the centre of which the creeper trunk has formed a wide bowl, underneath which the trunk disappears into the ground. The trunk goes into the main cave to the South, there are two other caves to East and West and a wide tunnel leads North.
+
+> x liquid
+The liquid is a clear amber colour and smells sweet.
+
+> s
+You move South.
+
+North End of Large Cave
+You are at the north end of a large cave, the ceiling and walls of which are covered with a tangled mass of red creepers. You notice that the creepers merge into a big root-like trunk that disappears into the dark tunnel that leads North from the main cave here. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.
+
+> s
+You move South.
+
+South End of Large Cave
+You are at the south end of a large cave, the ceiling and walls of which are covered in a tangled mass of red creepers. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.   Standing over the boom box, listening intently to the classical music that is playing, are two huge Euripedeans.  Also here is a spray gun.
+
+> s
+You turn sideways and squeeze through the crevice into the tunnel beyond.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. Otherwise, the only way you can go is South.  Also here is an aluminium case.
+
+> s
+You move South.
+
+In Tunnel In Hillside
+You are several yards inside the tunnel inside the hillside. The walls are smooth as if cut with lasers and they glow faintly with a gentle blue light. The tunnel floor is covered with a thin layer of dirt and dust.  You can continue North along the tunnel or South out to the canyon.
+
+> s
+You move South.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. In this cliff face is a large opening which leads North. To the SW is crawler #4 and crawler #3 is to the South.
+
+> s
+You move South.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are at the end of a narrow canyon in front of a vertical cliff. To the west is another crawler and in the cliff face you see a round opening leading North.  Also here is a brown token.
+
+> get red
+(from the rucksack)
+Ok, you take the red token from the rucksack.
+
+> put red in slot
+You put the red token into the slot.
+
+> press white
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler rumbles out of the canyon, drives across the plain passing crawler #1 on the way and, entering the garage, parks itself at the south end. The token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the empty vehicle garage.  Also here is a brown token.
+
+You hear a loud buzz which warns that the crawler's battery is flat.
+
+> get red
+(from the token cup)
+Ok, you take the red token from the token cup.
+
+> out
+You climb out of the crawler cab.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+> n
+You move North.
+
+Vehicle Garage (N)
+You are at the north end of the vehicle garage. The north wall is in fact two doors which open to allow vehicles in and out of the garage. You can go South to the other end of the garage or West. On the east side of the garage is a small airlock, the door to which is open and leads East. Next to the door is a green button.  Also here is a battery charge cable.
+
+> get cable
+Ok, you pick up the battery charge cable.
+
+> s
+You move South.
+
+You pull the battery charge cable out of the wall as you move.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The battery charge cable lies on the floor, stretching to the north end of the garage. The airlock door is open and leads West.
+
+> recharge crawler
+You plug the cable into the socket and several minutes later the buzzer sounds again to tell you that the battery is full.
+
+You pull the plug out of the socket and drop it. The cable promptly retracts back onto the reel at the north end of the garage.
+
+> w
+You move West.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.
+
+> press green
+You press the green button and after a few seconds the east airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the west door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.
+
+> w
+You move West.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is some space armour and a bubble helmet.
+
+> s
+You move South.
+
+East Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are three large double doors here into which you can go East, West or South. The junction is North.
+
+> w
+You move West.
+
+Research Lab
+You are in one of the base's research laboratories. It is full of various items of equipment, most of which you have no idea what their purpose is. However, you do recognise one item which is a molecular analyser. The corridor is East and there is a storeroom to the South. On top of four trolleys, which have been pushed together, is the dead body of a huge creature.
+
+> put creeper in analyser
+You place the piece of creeper inside the analyser and press the start button.
+
+A beam of blue light begins to track along the creeper, moving back and forward several times. The light changes to a flickering white light and does the same as the blue one. The light goes out and you hear clicks, whirls and buzzing coming from inside the machine. After a few seconds of this there is silence, then a sheet of paper issues from a thin slit in the side of the analyser. You then tear off the sheet and take the piece of creeper from out of the machine.
+
+> drop creeper
+Ok, you put down the piece of red creeper.
+
+> get paper
+Ok, you pick up the sheet of paper.
+
+> read paper
+The information on the printout gives the molecular composition of the creeper, but the most useful item of information that it gives you is that the creeper can be killed with a combination of copper sulfate pentahydrate (CSP) and triclopyr.
+
+> drop paper
+Ok, you put down the sheet of paper.
+
+> s
+You move South.
+
+Research Lab Storeroom
+This room is where all manner of equipment and chemicals used in the research laboratories is stored. The door leads North to the laboratory.
+
+> find csp
+You search through the chemicals until you find a packet of CSP.
+
+Research Lab Storeroom
+This room is where all manner of equipment and chemicals used in the research laboratories is stored. The door leads North to the laboratory.  Also here is a packet of CSP.
+
+> get csp
+Ok, you pick up the packet of CSP.
+
+> n
+You move North.
+
+Research Lab
+You are in one of the base's research laboratories. It is full of various items of equipment, most of which you have no idea what their purpose is. However, you do recognise one item which is a molecular analyser. The corridor is East and there is a storeroom to the South. On top of four trolleys, which have been pushed together, is the dead body of a huge creature.  Also here is a piece of red creeper and a sheet of paper.
+
+> e
+You move East.
+
+East Corridor (S)
+You are in the corridor south of the junction with the main corridor. There are three large double doors here into which you can go East, West or South. The junction is North.
+
+> n
+You move North.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is some space armour and a bubble helmet.
+
+> n
+You move North.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> w
+You move West.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.
+
+> find triclopyr
+You look amongst the chemicals and find a sachet of triclopyr.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.  Also here is a sachet of triclopyr.
+
+> get triclopyr
+Ok, you pick up the sachet of triclopyr.
+
+> e
+You move East.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> s
+You move South.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is some space armour and a bubble helmet.
+
+> e
+You move East.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.
+
+> press green
+You press the green button and after a few seconds the west airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the east door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.
+
+> e
+You move East.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+> in
+You climb into the cab of the crawler.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the empty vehicle garage.  Also here is a brown token.
+
+> get yellow
+(from the rucksack)
+Ok, you take the yellow token from the rucksack.
+
+> put yellow in slot
+You put the yellow token into the slot.
+
+> press go
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler leaves the garage, trundles across the plain past crawler #1, eventually coming to a halt at the end of the canyon next to the other crawler.
+
+The engine powers down, the yellow token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are at the end of a narrow canyon in front of a vertical cliff. To the west is another crawler and in the cliff face you see a round opening leading North.  Also here is a brown token.
+
+> out
+You climb out of the crawler cab.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.
+
+> n
+You move North.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. In this cliff face is a large opening which leads North. To the SW is crawler #4 and crawler #3 is to the South.
+
+> n
+You move North.
+
+In Tunnel In Hillside
+You are several yards inside the tunnel inside the hillside. The walls are smooth as if cut with lasers and they glow faintly with a gentle blue light. The tunnel floor is covered with a thin layer of dirt and dust.  You can continue North along the tunnel or South out to the canyon.
+
+> n
+You move North.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. Otherwise, the only way you can go is South.  Also here is an aluminium case.
+
+> n
+You turn sideways and squeeze through the crevice into the cave beyond.
+
+South End of Large Cave
+You are at the south end of a large cave, the ceiling and walls of which are covered in a tangled mass of red creepers. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.   Standing over the boom box, listening intently to the classical music that is playing, are two huge Euripedeans.  Also here is a spray gun.
+
+> n
+You move North.
+
+North End of Large Cave
+You are at the north end of a large cave, the ceiling and walls of which are covered with a tangled mass of red creepers. You notice that the creepers merge into a big root-like trunk that disappears into the dark tunnel that leads North from the main cave here. Lying amongst the creepers are the bodies of your missing marines and some other people who are probably the staff from the research base.
+
+> n
+You move North.
+
+The Round Cave
+You are in a large round cave in the centre of which the creeper trunk has formed a wide bowl, underneath which the trunk disappears into the ground. The trunk goes into the main cave to the South, there are two other caves to East and West and a wide tunnel leads North.
+
+> pour csp in bowl
+You pour all the CSP into the amber liquid in the bowl, throwing the empty packet away afterwards.
+
+> pour triclopyr in liquid
+You pour all of the Triclopyr into the amber liquid in the bowl, throwing away the empty sachet afterwards.
+
+The chemicals cloud the liquid slightly before dissolving. You now have to wait while the chemicals take effect.
+
+> wait
+You wait for a while in the cave.....
+
+You hear the music getting louder and look out into the large cave to see the two huge Euripedeans walking towards the cave you are standing in, one of them carrying the boom box in one of its smaller hands.
+
+The creatures are walking towards the cave where you are!
+
+> e
+You quickly go east into one of the small caves.
+
+You watch as the creatures enter the round cave and the one carrying the boom box puts it carefully on the floor of the cave. Both perform an elaborate ritual before they bend down and drink some of the amber liquid from the bowl.
+
+After, they perform the ritual again and, picking up the boom box, walk back into the large cave. You follow and see both start to stagger as the chemicals in the amber liquid start to take effect, and after a few more unsteady steps they collapse to the floor.
+
+You walk into the cave to see the Euripedeans lying unconscious on the floor, the boom box abandoned. You also notice that the creepers seem to have been affected by the chemicals you put into the liquid in the bowl and that they are falling off the marines and the research staff. You help to pull the creepers off and also to revive your marines, who are waking up and becoming aware of their surroundings.
+
+You tell the naked marines - who are looking somewhat self-conscious - that their space armour is in the cave to the east of the round cave and they run out to get their gear and suit up. You also tell the research staff where their clothes are and they rush out to get those and put them on.
+
+While they are out of the cave, you switch off the boom box and after a few minutes the marines and research staff return to the cave.
+
+North End of Large Cave
+You are at the north end of a large cave, the ceiling and walls of which are covered with the withered remains of the red creepers.  Lying on the floor of the cave here are two huge Euripedeans.  The research base staff are standing here.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+Lieutenant Zen comes up and salutes you.
+
+"I was unconscious when these creatures brought me in here," he tells you. "But I am sure we couldn't have come in that way," he says, pointing at the narrow crevice by which you had got in. "Maybe there is another entrance somewhere hereabouts?"
+
+You agree with the Lieutenant and, conferring with him for a minute or so, decide on four possible courses of action:
+
+1: Tell the marines to search for another exit.
+2: Ask the research base staff to search for another exit.
+3: Tell everyone to search for another exit.
+4: Tell everyone to stay here while you search for an exit.
+
+> 4
+You tell the marines and the research base staff to remain here while you search for another exit.
+
+> n
+You move North.
+
+The Round Cave
+You are in a large round cave in the centre of which the creeper trunk has formed a wide bowl, underneath which the trunk disappears into the ground. The trunk goes into the main cave to the South, there are two other caves to East and West and a wide tunnel leads North.
+
+> w
+You move West.
+
+A Small Cave
+You are in a small cave off the round one, it is irregular in shape but the walls are smooth. The round cave is to the East.
+
+> get fork
+You are already carrying the tuning fork!
+
+> x walls
+The walls of the cave are smooth but on closer examination you see some small marks on them.
+
+> x marks
+The marks are the same as those on the cliff at the end of the canyon.
+
+> tap fork on wall
+You tap the tuning fork on the wall and the A note reverberates around the small cave.
+
+Nothing happens for a second or two then the air in the opening shimmers and the wall becomes solid again.
+
+You tap the wall with the tuning fork and the A note reverberates around the small cave.
+
+Nothing happens for a second or two then the south wall of the cave shimmers and then disappears, revealing a tunnel leading South.
+
+You must report this to Lieutenant Zen as soon as possible.
+
+A Small Cave
+You are in a small cave off the round one, it is irregular in shape but the walls are smooth. The round cave is to the East and a wide tunnel leads South.
+
+> drop fork
+Ok, you put down the tuning fork.
+
+> e
+You move East.
+
+The Round Cave
+You are in a large round cave in the centre of which the creeper trunk has formed a wide bowl, underneath which the trunk disappears into the ground. The trunk goes into the main cave to the South, there are two other caves to East and West and a wide tunnel leads North.
+
+> s
+You move South.
+
+North End of Large Cave
+You are at the north end of a large cave, the ceiling and walls of which are covered with the withered remains of the red creepers.  Lying on the floor of the cave here are two huge Euripedeans.  The research base staff are standing here.  Lieutenant Zen, Sergeant Boone, Corporal Jones, Lance-Corporal Davey and Private Foley are here.
+
+You inform Lieutenant Zen that you have found the hidden exit from the caves. He suggests that you and Sergeant Boone go back to the base and fly back with the shuttle to collect all the research base staff and fly them back to the Excelsior.
+
+The Lieutenant reminds you that whereas you, he and the other marines will be able to breathe if you can all get out, the research base staff do not have any way to breathe. You ask amongst the research base staff and one of them, a Psian called Poprune, tells you that there is a crate of emergency respirators in the general storeroom at the base.
+
+You agree with Zen and he orders Sergeant Boone to accompany you. The sergeant joins you at your side and salutes. "Ready when you are, Sir,".
+
+The Lieutenant orders the rest of his squad to secure the two huge Euripedeans and they place improvised impervium shackles on their muscular limbs.
+
+> n
+You move North.
+
+Sergeant Boone follows you.
+
+The Round Cave
+You are in a large round cave in the centre of which the creeper trunk has formed a wide bowl, underneath which the trunk disappears into the ground. The trunk goes into the main cave to the South, there are two other caves to East and West and a wide tunnel leads North.  Sergeant Boone is here.
+
+> w
+You move West.
+
+Sergeant Boone follows you.
+
+A Small Cave
+You are in a small cave off the round one, it is irregular in shape but the walls are smooth. The round cave is to the East and a wide tunnel leads South.   Also here is a tuning fork.  Sergeant Boone is here.
+
+> s
+You walk South into the tunnel.
+
+You walk along the tunnel and after a few seconds it bends around to the east. Then you and the sergeant emerge into the tunnel near the crevice.
+
+End of Tunnel
+You are at the end of the tunnel, where there are two huge square-ish boulders protruding from the walls. Neither is touching the other and they form a narrow crevice which leads North. The tunnel floor is covered with a thin layer of dirt and dust. You can now go South or West through the tunnel that has opened on that side of this tunnel.  Also here is an aluminium case.  Sergeant Boone is here.
+
+> s
+You move South.
+
+Sergeant Boone follows you.
+
+In Tunnel In Hillside
+You are several yards inside the tunnel inside the hillside. The walls are smooth as if cut with lasers and they glow faintly with a gentle blue light. The tunnel floor is covered with a thin layer of dirt and dust.  You can continue North along the tunnel or South out to the canyon.  Sergeant Boone is here.
+
+> s
+You move South.
+
+Sergeant Boone follows you.
+
+By Cliff In Canyon
+You are standing at the end of a canyon, which winds away southwards through the hills, in front of a vertical cliff face which is about 30 feet high. In this cliff face is a large opening which leads North. To the SW is crawler #4 and crawler #3 is to the South.  Sergeant Boone is here.
+
+> s
+You move South.
+
+Sergeant Boone follows you.
+
+By Crawler #3 In Canyon
+You are standing by crawler #3 which has stopped at the end of a narrow canyon in a range of low hills. A few yards to the North is a sheer cliff face and over to the West side of the canyon is another crawler.  Sergeant Boone is here.
+
+> in
+You climb into the cab of the crawler followed by Sergeant Boone.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see you are at the end of a narrow canyon in front of a vertical cliff. To the west is another crawler and in the cliff face you see a round opening leading North.  Also here is a brown token.  Sergeant Boone is here.
+
+> put red in slot
+You put the red token into the slot.
+
+> press white
+You press the on button, you hear a brief buzz and the crawler's motor hums into life, causing a gentle vibration under your feet.
+
+The crawler rumbles out of the canyon, drives across the plain passing crawler #1 on the way and, entering the garage, parks itself at the south end. The token pops out into the token cup.
+
+In Cab of Crawler #3
+You are sitting in the driver's cab of crawler #3. In front of you beneath the windscreen is a simple control dashboard. Looking outside you see the empty vehicle garage.  Also here is a brown token.  Sergeant Boone is here.
+
+> get red
+(from the token cup)
+Ok, you take the red token from the token cup.
+
+> put red and yellow in rucksack
+Ok, you put the red token inside the rucksack.
+
+> out
+You climb out of the crawler cab, followed by Sergeant Boone.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.  Sergeant Boone is here.
+
+> w
+You move West.
+
+Sergeant Boone follows you.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.  Sergeant Boone is here.
+
+> press green
+You press the green button and after a few seconds the east airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the west door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.  Sergeant Boone is here.
+
+> w
+You move West.
+
+Sergeant Boone follows you.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is some space armour and a bubble helmet.  Sergeant Boone is here.
+
+You order Sergeant Boone to go to the shuttle and prepare it for launch.
+
+"I will join you as soon as I have found the box of respirators in the storeroom," you tell him.
+
+He salutes and moves off to comply with your order.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is some space armour and a bubble helmet.
+
+> n
+You move North.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> w
+You move West.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.
+
+> n
+You move North.
+
+General Storeroom
+You are at the north end of the storeroom, which is packed with all kinds of equipment stacked on the floor and on metal shelves.  Also here is a plastic can.
+
+> search shelves
+You search the shelves and find on them the crate that Poprune told you about.
+
+General Storeroom
+You are at the north end of the storeroom, which is packed with all kinds of equipment stacked on the floor and on metal shelves.  Also here is a plastic can and a large plastic crate.
+
+> get crate
+Ok, you pick up the crate in both hands.
+
+> s
+You move South.
+
+General Storeroom
+You are in a large storeroom which is home to all sorts of equipment, some of which is stacked on the floor or on metal shelves. The corridor is East and the storeroom extends North.
+
+> e
+You move East.
+
+East Corridor (N)
+You are in the corridor north of the junction with the main corridor. You can go North, South or West into another room.
+
+> s
+You move South.
+
+Junction (E)
+You have reached a junction where the main corridor joins another corridor leading North-South. The corridor goes West while to the east is an airlock. On the wall there is a green button beside the airlock door, which is open and leads East into an airlock.  Also here is some space armour and a bubble helmet.
+
+> e
+You move East.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The west door is open, leading West while the east door is closed.
+
+> press green
+You press the green button and after a few seconds the west airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the east door slides open.
+
+In East Airlock
+You are in an airlock where there is a green button on the wall. The east door is open, leading east, and the west door is closed.
+
+> e
+You move East.
+
+Vehicle Garage (S)
+You are in the vehicle garage, an open space with a concrete floor which extends to the North. Parked here is a cargo crawler. The airlock door is open and leads West.
+
+> n
+You move North.
+
+Vehicle Garage (N)
+You are at the north end of the vehicle garage. The north wall is in fact two doors which open to allow vehicles in and out of the garage. You can go South to the other end of the garage or West. On the east side of the garage is a small airlock, the door to which is open and leads East. Next to the door is a green button.  Also here is a battery charge cable.
+
+> e
+You move East.
+
+In Small Airlock
+You are in a small airlock, big enough for one man. There is a large green button on the wall, and the inner door is closed while the outer door is open, leading East.
+
+> press green
+You press the green button and after a few seconds the inner airlock door slides shut and seals. The air in the airlock is sucked out and a minute or so later the outer door slides open.
+
+In Small Airlock
+You are in a small airlock, big enough for one man. There is a large green button on the wall, and the inner door is closed while the outer door is open, leading East.
+
+> e
+You move East.
+
+East of Base
+You are on the east side of the base where there is a small airlock. Next to this, on the wall, is a green button. You can go North or South along the east side of the base or West into the small airlock.
+
+> s
+You move South.
+
+SE Of Base
+You are by the southeast corner of the base. You can go North, West or SW.
+
+> w
+You move West.
+
+By Airlock
+You are by the main airlock which leads into Euripides Base. The door is hanging off its hinges and you can go In to the airlock. To the South is your space shuttle and you can go East and West around the outside of the base. Beyond the shuttle to the southwest and southeast the surface of the planet stretches away to the horizon.
+
+> s
+You move South.
+
+By Shuttle
+You are standing by your space shuttle. You can use this to evacuate any staff from the research centre that you may find during your mission. You can go North to the base or In to the shuttle.
+
+> in
+You move In.
+
+Inside Shuttle
+You are inside the space shuttle, which has seats for 100 passengers plus the two-man crew. You can go Out through the shuttle door.  Sergeant Boone is here.
+
+As you enter the shuttle, Sergeant Boone greets you.
+
+"So you found it then sir," the sergeant says to you. "Shall I lift and go to the caves?" he asks.
+
+"You may indeed, sergeant," you tell him as you secure the box to the deck and strap yourself into a seat.
+
+The shuttle lifts off and, after a few minutes flight, lands at the entrance to the canyon leading to the caves. You and Boone carry the box into the cave, where the rest of the marines and the research staff are waiting.
+
+The respiration masks are distributed amongst the research staff and they are escorted out of the caves onto the shuttle on which, once everyone is on board and strapped in, you are flown back to the Excelsior.
+
+A couple of days later, some more research staff are flown to the base, complete with a platoon of space marines as security, to continue their research into the mysterious Euripedeans.
+
+Please Press Any Key to Continue.
+
+*** CONGRATULATIONS! ***
+
+You have at last solved...
+
+THE EURIPIDES ENIGMA
+
+...in 426 turns, scoring the maximum 400 points!
+
+I do hope you have enjoyed playing this game.
+
+Also Available in 'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+****************************
+
+Available In 'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+****************************
+
+Adventures In The World Of Alaric Blackmoon:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+Coming Soon: Chapter 3: FINN'S BIG ADVENTURE
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games

@@ -2087,6 +2087,25 @@ a5text_location_short_plain (a5_state_t *st, const char *lockey)
 
 /* ----------------------------------------------------------- LOOK / location */
 
+/* clsObject.HasProperty over the merged static + runtime property table: a
+   runtime SetProperty override wins (`<Unselected>` = the SelectionOnly
+   property was removed, clsUserSession.vb:2058), else the model's static prop
+   set.  The room-view listing filters must consult the runtime layer --
+   Euripides' drone / boom box run `SetProperty <obj> ExplicitlyExclude
+   <Selected>` to drop themselves from the "Also here is ..." auto-list once
+   their presence is conveyed by prose. */
+static int
+object_has_prop_rt (a5_state_t *st, const a5_object_t *o, const char *propkey)
+{
+  int i;
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, o->key) && streq (st->ov[i].prop, propkey))
+      return strstr (st->ov[i].value, "Unselected") == NULL;
+  /* Static presence: a SelectionOnly property carries no <Value>, so test the
+     prop's existence, not its (possibly NULL) value. */
+  return a5_prop_find (o->props, o->n_props, propkey) != NULL;
+}
+
 /* Get an object's "list description" text (static/dynamic), or NULL. */
 static char *
 object_list_desc (a5_state_t *st, const a5_object_t *o, int is_static)
@@ -2211,8 +2230,8 @@ view_location_impl (a5_state_t *st, const char *lockey)
       {
         const a5_object_t *o = &st->adv->objects[i];
         int is_static = st->obj[i].is_static;
-        int include = (!is_static && !a5_prop_find (o->props, o->n_props, "ExplicitlyExclude"))
-                    || (is_static && a5_prop_find (o->props, o->n_props, "ExplicitlyList"));
+        int include = (!is_static && !object_has_prop_rt (st, o, "ExplicitlyExclude"))
+                    || (is_static && object_has_prop_rt (st, o, "ExplicitlyList"));
         char *ld;
         if (!include || !a5state_object_at_location (st, i, lockey, 1))
           continue;
@@ -2247,8 +2266,8 @@ view_location_impl (a5_state_t *st, const char *lockey)
       {
         const a5_object_t *o = &st->adv->objects[i];
         int is_static = st->obj[i].is_static;
-        int include = (!is_static && !a5_prop_find (o->props, o->n_props, "ExplicitlyExclude"))
-                    || (is_static && a5_prop_find (o->props, o->n_props, "ExplicitlyList"));
+        int include = (!is_static && !object_has_prop_rt (st, o, "ExplicitlyExclude"))
+                    || (is_static && object_has_prop_rt (st, o, "ExplicitlyList"));
         char *ld;
         if (!include || !a5state_object_at_location (st, i, lockey, 1))
           continue;

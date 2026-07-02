@@ -2058,6 +2058,14 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
           if (run->ev_seen->count (m)) { free (m); return; }
           run->ev_seen->insert (m);
         }
+      /* Per-command pass-response text dedup (FD's htblResponsesPass keying):
+         a command that reaches the same completion text twice -- e.g. two
+         Execute'd tasks with identical messages (Euripides' `press on` runs
+         cl_ToCrawler11 AND cl_ToCrawler12, both the crawler journey) -- shows
+         it once, keeping the first occurrence's position. */
+      if (run->exec_scope != NULL
+          && !run->exec_scope->pass_seen.insert (m).second)
+        { free (m); return; }
       /* A pass response with output: record its bound object references for
          the pass-cancels-fail rule (FD keys every AddResponse with the
          subtask's reference keys and drops a fail whose refs all passed). */
@@ -2224,7 +2232,8 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                 { free (run->look_pinned);
                   run->look_pinned = strdup (e1.c_str ()); }
             }
-          else
+          else if (run->exec_scope == NULL
+                   || run->exec_scope->pass_seen.insert (e1).second)
             { sb_pspace (out); sb_puts (out, e1.c_str ()); }
         }
       else if (run->resp != NULL)
@@ -2235,8 +2244,15 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           resp_insert (run->resp, e, resp_pos);
         }
       else if (!run->defer_look)
-        { std::string v = render_look_string (run);
-          sb_pspace (out); sb_puts (out, v.c_str ()); }
+        {
+          /* The per-command response dedup applies to the room view too: FD
+             keys the Look task's raw AggregateOutput template, so a command
+             that Executes Look twice shows one view (Euripides `press on`). */
+          std::string v = render_look_string (run);
+          if (run->exec_scope == NULL
+              || run->exec_scope->pass_seen.insert (v).second)
+            { sb_pspace (out); sb_puts (out, v.c_str ()); }
+        }
       /* defer_look + unchanged: the pending slot claimed above is rendered at
          the enabling frame's final state, exactly as before. */
 
@@ -2258,8 +2274,29 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   if (before && comp != NULL)
     {
       if (run->resp != NULL)
-        { resp_pre = render_comp_test (run->st, comp);
-          resp_pos = (int) run->resp->ents.size (); }
+        {
+          resp_pre = render_comp_test (run->st, comp);
+          resp_pos = (int) run->resp->ents.size ();
+          /* FD renders task.CompletionMessage.ToString with bTestingOutput
+             False BEFORE the actions (clsUserSession.vb:1167), retiring any
+             <DisplayOnce> segment even though the response text itself is
+             pinned/re-rendered later.  Mirror the marking for a non-aggregate
+             task with a segment-selection eval AFTER the pre-action test
+             render (so resp_pre keeps the first-time segment) -- eval only,
+             no %function% replacement, so no RNG draws.  An aggregate comp is
+             re-rendered at flush, where Scarier's segment choice must stay
+             live, so it keeps the old behaviour.  Euripides' crevice squeeze
+             (a movement override with a DisplayOnce first paragraph) showed
+             the first-time text on every later squeeze without this. */
+          if (!t->aggregate)
+            {
+              int pm = run->st->marking_display;
+              run->st->marking_display = 1;
+              char *mark = a5text_eval_description (run->st, comp);
+              run->st->marking_display = pm;
+              free (mark);
+            }
+        }
       else
         emit_completion (run, comp, out);
     }

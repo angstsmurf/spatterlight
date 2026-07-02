@@ -192,6 +192,12 @@ struct a5_run_s {
 struct exec_resp_scope {
   std::set<std::string> pass_refs;   /* object keys of pass responses w/ output */
   std::set<std::string> fail_seen;   /* text dedup (htblResponsesFail keying)   */
+  /* Pass-response text dedup (htblResponsesPass keying): FD shows each
+     distinct response once per command, so a command that Executes two tasks
+     with the same completion text -- or `Execute Look` twice -- prints it
+     once.  Euripides' `press on` runs cl_ToCrawler11 AND cl_ToCrawler12
+     (identical journey paragraphs), each ending in `Execute Look`. */
+  std::set<std::string> pass_seen;
   /* buffered fail messages, in order: text + the object keys bound when the
      restriction failed (empty = never cancelled, always shown) */
   std::vector<std::pair<std::string, std::vector<std::string>>> fails;
