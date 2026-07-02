@@ -29,7 +29,7 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 | game | built-in? | native solution status |
 |---|---|---|
 | ThingsThatGoBumpInTheNight | WALKTHROUGH | ✅ **WIRED** (8\|8) — 3 cut-scene corrections |
-| **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED 2026-07-02** (403\|403) — **full 520-pt win, ZERO corrections** (see below) |
+| **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (403\|403 → **8\|0, xoshiro FULL MATCH**) — full 520-pt win, ZERO corrections (see below) |
 | BugHuntOnMenelaus | WALKTHROUGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
 | DwarfOfDirewoodForest | WLKTHRGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
 | TheEuripidesEnigma | WLKTHRGH | ⚠️ derived; desyncs at a numeric conversation choice (`4`) — needs correction |
@@ -80,14 +80,20 @@ Both are catalogued as engine-precedence findings — fixing Scarier's
 FD in the correct direction*, but neither game can be a MATCH golden until FD (or a
 different ground truth) can complete them.
 
-### ⭐ LostLabyrinthOfLazaitch — native solution wired with zero corrections (403|403)
+### ⭐ LostLabyrinthOfLazaitch — native solution wired with zero corrections; FIXED to 8|0 (xoshiro FULL MATCH)
 
 Extracted straight from the `cl_Walkthroug` task, `o`/`b` prepended, annotations
 stripped — nothing else. FrankenDrift replays the raw author commands to
 `*** CONGRATULATIONS! *** …in 451 turns, scoring a total of 520 points!` with no
 press-O / not-understood / can't-see lines, so it is a faithful native solution and
-all 403 hunks are Scarier bugs (dominant: the "Fahren Layburn" teleport spell not
-firing → the whole Layburn village endgame desyncs). See `TODO_a5_walkthrough_bugs.md`.
+all 403 original hunks were Scarier bugs. **All fixed same day (403|403 → 8|0):**
+location seen-tracking (`loc_seen`, the "Fahren Layburn" teleport), the
+`ReferencedObjects`-from-singular restriction alias (`sheath sword`), CharHereDesc
+name-casing ("White Stallion"), and FD's Look-message double-test-render dance
+(the riding `<# OneOf #>` draw stream). The residual vanilla 8 are pure
+System.Random-vs-xoshiro riding-variant picks (RNG-bound, like JacarandaJim /
+SixSilverBullets), so no vanilla golden. See `TODO_a5_walkthrough_bugs.md` (top
+entry, DONE) for the full write-up.
 
 ## Have a full walkthrough, need conversion to a command script
 

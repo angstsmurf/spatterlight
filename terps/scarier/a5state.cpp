@@ -144,6 +144,13 @@ a5state_new (const a5_adventure_t *adv)
       st->obj_seen = (char *) calloc ((size_t) adv->n_objects, 1);
     }
 
+  if (adv->n_locations > 0)
+    {
+      st->loc_seen = (char *) calloc ((size_t) adv->n_locations, 1);
+      /* The start location is seen from the outset (clsUserSession.vb:222). */
+      a5state_mark_loc_seen (st, a5state_player_location (st));
+    }
+
   st->conv_char = strdup ("");
   st->conv_node = strdup ("");
   st->ctx_char = NULL;
@@ -198,6 +205,7 @@ a5state_free (a5_state_t *st)
   free (st->char_position);
   free (st->char_seen);
   free (st->obj_seen);
+  free (st->loc_seen);
   free (st->conv_char);
   free (st->conv_node);
   free (st->s_it);
@@ -539,6 +547,26 @@ a5state_task_index (const a5_state_t *st, const char *key)
     if (streq (st->adv->tasks[i].key, key))
       return i;
   return -1;
+}
+
+int
+a5state_location_index (const a5_state_t *st, const char *key)
+{
+  int i;
+  if (key == NULL)
+    return -1;
+  for (i = 0; i < st->adv->n_locations; i++)
+    if (streq (st->adv->locations[i].key, key))
+      return i;
+  return -1;
+}
+
+void
+a5state_mark_loc_seen (a5_state_t *st, const char *lockey)
+{
+  int li = a5state_location_index (st, lockey);
+  if (li >= 0 && st->loc_seen != NULL)
+    st->loc_seen[li] = 1;
 }
 
 const char *

@@ -765,8 +765,10 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
   int prev_defer_look = run->defer_look;
   int prev_look_pending = run->look_pending;
   size_t prev_look_pos = run->look_pos;
+  char *prev_look_pinned = run->look_pinned;
   int enable_look_defer = run->resp == NULL && !defer_text && !after.empty ();
-  if (enable_look_defer) { run->defer_look = 1; run->look_pending = 0; }
+  if (enable_look_defer)
+    { run->defer_look = 1; run->look_pending = 0; run->look_pinned = NULL; }
 
   if (parent_text || parent_actions)
     {
@@ -789,11 +791,14 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
      its After children run.  The Look's offset is into the enabling frame's
      `out`, which is the same sink threaded through the nested calls. */
   int look_deferred = 0;
+  char *pinned_view = NULL;
   if (enable_look_defer)
     {
       if (run->look_pending) look_deferred = 1;
+      pinned_view = run->look_pinned;          /* consumed below (or freed) */
       run->look_pending = prev_look_pending;
       run->look_pos = prev_look_pos;
+      run->look_pinned = prev_look_pinned;
     }
 
   if (look_deferred)
@@ -815,7 +820,10 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
             if (ai >= 0) st->task_done[ai] = 1;
             ev_on_task_completed (run, child->key, &after_buf);
           }
-      std::string view = render_look_string (run);
+      /* A pinned view (the Look dance's two test renders differed -- a random
+         pick moved) is emitted verbatim; otherwise render at the final state. */
+      std::string view = pinned_view != NULL ? std::string (pinned_view)
+                                             : render_look_string (run);
       sb_pspace (out); sb_puts (out, view.c_str ());
       if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
       free (after_buf.p);
@@ -849,6 +857,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
           if (ai >= 0) st->task_done[ai] = 1;   /* task.Completed = True */
           ev_on_task_completed (run, child->key, out);   /* fire its controls too */
         }
+  free (pinned_view);
 }
 
 /* Run a matched General task (the directly command-matched parent), honouring
@@ -942,6 +951,9 @@ update_seen (a5_state_t *st)
     for (i = 0; i < st->adv->n_objects; i++)
       if (a5state_object_visible_at_location (st, i, ploc, 0))
         st->obj_seen[i] = 1;
+  /* Catch-all for player moves that bypass the MoveCharacter action (event
+     moves, walks): the location the player ends the turn in has been seen. */
+  a5state_mark_loc_seen (st, ploc);
 }
 
 /* ContainsWord (clsUserSession.vb:3885): every space-separated word of `check`
@@ -1591,6 +1603,11 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                 }
             }
           /* ToParentLocation / others: best-effort no-op for Phase 3 */
+
+          /* clsCharacter.Move marks the destination location seen for the
+             moving character; our set is player-centric (like obj_seen). */
+          if (streq (k1, "Player"))
+            a5state_mark_loc_seen (st, st->char_loc[ci]);
         }
       return;
     }
@@ -2025,11 +2042,74 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
      so a dark location shows the game's "too dark" line. */
   if (streq (t->key, "Look"))
     {
-      emit_look (run, out);
+      /* FD executes the stock Look like any Before + AggregateOutput task
+         (clsUserSession.vb:1164-1207): the message is test-rendered BEFORE and
+         AFTER its actions (bTestingOutput=True; each render re-draws any
+         <# OneOf #>/RAND in the room view), and when the two renders differ (a
+         random pick moved between them) the response is PINNED to the first
+         render.  Only when they agree does the raw aggregate message survive to
+         be re-rendered once more at final Display -- which is the defer_look /
+         is_look deferral emit_look implements.  Doing both test renders here
+         keeps the xoshiro draw stream aligned with FD for random room views
+         (LostLabyrinth's riding OneOf: 2 draws, first one shown); for the usual
+         static view the two renders draw nothing and agree, so this is
+         draw- and output-neutral. */
+      int pm = run->st->marking_display;
+      run->st->marking_display = 0;
+      std::string e1 = render_look_string (run);
+      run->st->marking_display = pm;
+
+      /* The response slot is reserved BEFORE the actions run (vb:1189
+         iResponsePosition), so any output the actions produce follows the
+         room view -- Grandpa's tutorial lines land after the view. */
+      int resp_pos = -1;
+      int claimed_pending = 0;
+      sb_t abuf; sb_init (&abuf);
+      if (run->resp != NULL)
+        resp_pos = (int) run->resp->ents.size ();
+      else if (run->defer_look && !run->look_pending)
+        { run->look_pending = 1; run->look_pos = out->len; claimed_pending = 1; }
+
       if (self_ti >= 0) run->st->task_done[self_ti] = 1;
       if (t->actions != NULL)
         for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
-          run_action (run, c->name, c->text, depth, out);
+          run_action (run, c->name, c->text, depth,
+                      (run->resp == NULL && !run->defer_look) ? &abuf : out);
+
+      pm = run->st->marking_display;
+      run->st->marking_display = 0;
+      std::string e2 = render_look_string (run);
+      run->st->marking_display = pm;
+
+      if (e1 != e2)
+        {
+          /* Pinned to the pre-actions render (vb:1200 sMessage = sBefore...). */
+          if (run->resp != NULL)
+            resp_add_text (run, e1.c_str (), true, resp_pos);
+          else if (run->defer_look)
+            {
+              if (claimed_pending)
+                { free (run->look_pinned);
+                  run->look_pinned = strdup (e1.c_str ()); }
+            }
+          else
+            { sb_pspace (out); sb_puts (out, e1.c_str ()); }
+        }
+      else if (run->resp != NULL)
+        {
+          resp_entry e;
+          e.is_pass = true; e.is_look = true;
+          e.item = run->resp->cur_item;
+          resp_insert (run->resp, e, resp_pos);
+        }
+      else if (!run->defer_look)
+        { std::string v = render_look_string (run);
+          sb_pspace (out); sb_puts (out, v.c_str ()); }
+      /* defer_look + unchanged: the pending slot claimed above is rendered at
+         the enabling frame's final state, exactly as before. */
+
+      if (abuf.len > 0) { sb_pspace (out); sb_puts (out, abuf.p); }
+      free (abuf.p);
       return;
     }
 

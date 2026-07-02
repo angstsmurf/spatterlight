@@ -294,6 +294,7 @@ a5run_new (const a5_adventure_t *adv)
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;
+  run->look_pinned = NULL;
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -312,6 +313,7 @@ a5run_free (a5_run_t *run)
   if (run == NULL)
     return;
   a5state_free (run->st);
+  free (run->look_pinned);
   delete run->media;
   delete run->order;
   delete run->events;
@@ -1823,6 +1825,10 @@ a5run_save (a5_run_t *run, size_t *out_len)
     for (i = 0; i < adv->n_characters; i++)
       if (st->char_seen[i])
         sb_elem (&b, "CharSeen", adv->characters[i].key);
+  if (st->loc_seen != NULL)
+    for (i = 0; i < adv->n_locations; i++)
+      if (st->loc_seen[i])
+        sb_elem (&b, "LocSeen", adv->locations[i].key);
 
   /* Events (model order). */
   for (i = 0; i < (int) run->events->size (); i++)
@@ -1944,6 +1950,8 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
     memset (st->obj_seen, 0, (size_t) adv->n_objects);
   if (st->char_seen != NULL)
     memset (st->char_seen, 0, (size_t) adv->n_characters);
+  if (st->loc_seen != NULL)
+    memset (st->loc_seen, 0, (size_t) adv->n_locations);
   st->n_disp_once = 0;
   for (i = 0; i < st->n_looks; i++)
     { free (st->looks[i].loc_key); free (st->looks[i].text); }
@@ -2049,6 +2057,8 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
           if (ci >= 0 && st->char_seen != NULL)
             st->char_seen[ci] = 1;
         }
+      else if (streq (nm, "LocSeen"))
+        a5state_mark_loc_seen (st, n->text ? n->text : "");
       else if (streq (nm, "Event"))
         {
           if (ev_i < (int) run->events->size ())

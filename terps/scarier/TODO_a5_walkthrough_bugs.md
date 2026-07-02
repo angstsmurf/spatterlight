@@ -1,43 +1,79 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## 🐞 LostLabyrinthOfLazaitch — `say fahren <place>` teleport spell never fires + `sheath` wording + un-gated room-desc segments  ⏳ OPEN (2026-07-02)
+## ⭐ LostLabyrinthOfLazaitch 403|403 → 8|0 (xoshiro FULL MATCH): location seen-tracking + ReferencedObjects singular alias + CharHereDesc name-casing + FD's Look message dance  ✅ DONE (2026-07-02)
 
-Surfaced by wiring **LostLabyrinthOfLazaitch** (DIVERGE 403|403, identical both RNG
-modes ⇒ all RNG-independent logic bugs). The winning 520-point script is the game's
-**own built-in `WLKTHRGH`** replayed verbatim (FrankenDrift reaches
-`*** CONGRATULATIONS! ***` with zero corrections), so every hunk is Scarier's.
+The 403-hunk diverge collapsed to **vanilla 8 / xoshiro 0** — xoshiro mode (the
+every-line conformance check) is now byte-exact through the full 520-point win.
+The residual 8 vanilla hunks are pure System.Random-vs-xoshiro `<# OneOf #>`
+picks in the riding-room views (the same RNG-bound class as SixSilverBullets
+18/0 and JacarandaJim 99/0), so no vanilla golden. Whole corpus re-verified
+(18 games MATCH 0/0 both modes incl. AxeOfKolt + GrandpasRanch, DIVERGE games
+at their exact baselines), all a5 unit tests + `make sanitize` pass, and the
+full walkthrough replays ASan/UBSan-clean to `*** CONGRATULATIONS! ***`.
+Four root causes, none of them the TODO's original suspects (the nested
+`#A#A(#O#O#)` bracket sequence and the quoted `BeContain` literal were both
+fine):
 
-1. **The "Fahren Layburn" magic-transport spell doesn't fire (dominant; desyncs the
-   whole back third).** Command `say fahren layburn` → Scarier "You say the words
-   … but nothing happens." (the generic `{say} %text%` fallback), FD "You say the
-   magic words and are transported to the church in Layburn…". The intended task is
-   **`SayFahren1`** (`{say} [fahren] %text%`, priority 50430) with restrictions
-   `Player BeWithinLocationGroup FahrenLoca` **AND** `Amulet1 BeWornByCharacter
-   Player` **AND** `(ReferencedText BeContain "'lubecker'" OR "'tower'" OR
-   "'layburn'")` — BracketSequence **`#A#A(#O#O#)`** (AND, AND, then a *nested*
-   OR-of-three). Scarier drops the task, so suspect either (a) the
-   **`ReferencedText Must BeContain "'…'"`** restriction (matching the `%text%`
-   reference the command captured against a single-quoted literal — same
-   quoted-literal handling as the SixSilverBullets `'RAND(1,16)'` fix, but on the
-   `ReferencedText`/BeContain path), or (b) the **nested `(#O#O#)` inside
-   `#A#A(…)`** evaluating wrong (the OR-after-AND / bracket-sequence family from the
-   RtC and restriction-type work). Once the player never reaches Layburn, the entire
-   village + endgame section diverges → the bulk of the 403 hunks. Fix + re-measure:
-   the hunk count should collapse dramatically.
+1. **Location seen-tracking was an always-true stub.** `pass_location`'s
+   `HaveBeenSeenByCharacter` returned 1 unconditionally, so the FahrenLayb
+   teleport child's `Location94 MustNot HaveBeenSeenByCharacter Player`
+   *always failed*, printing its restriction message ("You say the words
+   "Fahren Layburn" but nothing happens.") instead of teleporting — the whole
+   village endgame desynced from there. (The general `SayFahren1` task and its
+   bracket sequence had matched fine all along; the failure was inside the
+   specific child.) Ported FD's `clsCharacter.HasSeenLocation`: new
+   player-centric `st->loc_seen[n_locations]` (a5state), set for the start
+   location at init (clsUserSession.vb:222) and on every player move
+   (clsCharacter.Move) — MoveCharacter action paths + an update_seen catch-all
+   — plus save/restore (`LocSeen` sparse elements) and the real restriction
+   evaluation (non-player observer falls back to "seen", same compromise as the
+   object handler). This also fixed bug 3 below for free: the "small cottage" /
+   "you see a drawing" room-description segments were gated on
+   `HaveBeenSeenByCharacter` restrictions.
 
-2. **`sheath sword` wording.** Scarier "You can only put your sword in the leather
-   scabbard." vs FD "Ok, you sheath your sword in the leather scabbard." — a
-   `sheath`/put-into-container task/override selection difference (1 early hunk).
+2. **`sheath sword`: restriction key `ReferencedObjects` didn't resolve from a
+   singular `%object%` capture.** FD's `GetReference("ReferencedObjects")`
+   carries NO ReferenceMatch condition (clsUserSession.vb:3990): it answers from
+   the first Object-type reference whatever its slot, so PutObjInSc's
+   `ReferencedObjects Must BeObject Sword` passes on `sheath sword` (command
+   `[sheath] %object%`). Fixed in `resolve_key` (a5restr.cpp) as a lookup-time
+   fallback ReferencedObjects→ReferencedObject (and Characters analogue).
+   **FOOTGUN:** binding the alias at capture time in `bind_reference` instead
+   regressed AxeOfKolt (`drop chainmail` succeeded on an out-of-scope object) —
+   failed match attempts earlier in the turn leak a stale alias into a later
+   task's restrictions. Resolve at lookup, never bind.
 
-3. **Two room-description segments Scarier fails to gate.** Scarier appends
-   "…To the north there is a small cottage." and "…On the wall by the steel door you
-   see a drawing." where FD suppresses them — restricted/DisplayOnce description
-   segments whose gate Scarier isn't honouring (cf. the RtC `DisplayOnce`/
-   `StartDescriptionWithThis` work).
+3. **Un-gated room-desc segments** — same root cause as 1 (HaveBeenSeen gates).
 
-Regression risk is real (18 games MATCH); verify the whole corpus after any change.
-See `test/A5_WALKTHROUGH_FINDINGS.md` and the MAP comment in
-`test/run_a5_walkthroughs.sh`. No golden committed while it diverges.
+4. **`white stallion` vs `White Stallion` + the riding `<# OneOf #>` draw
+   stream.** Two ViewLocation conformance gaps (a5text/a5run_action):
+   - FD name-cases a character's `CharHereDesc` through the `##CHARNAME##`
+     round-trip for EVERY group, single characters included
+     (clsLocation.vb:160-171: `ReplaceIgnoreCase(desc, Name, "##CHARNAME##")`
+     then `.Replace("##CHARNAME##", .List)`), so authored lowercase "white
+     stallion" renders as the character Name "White Stallion". Scarier kept
+     single-character descriptions verbatim.
+   - **FD's Before + AggregateOutput message dance for the Look task**
+     (clsUserSession.vb:1164-1207): the message is test-rendered
+     (bTestingOutput=True) BEFORE and AFTER the task's actions — *each render
+     draws for any `<# OneOf #>`/RAND in the room view* — with the response slot
+     reserved before the actions; if the two renders differ (a random pick
+     moved) the response is PINNED to the first render, else the raw aggregate
+     message survives to be re-rendered once more at final Display (a third
+     draw). Scarier's Look bypass rendered once, so the xoshiro draw streams
+     desynced on every riding-room view (`OneOf("riding ","riding Molly ",…)`).
+     Ported the dance into run_task's Look branch (run->look_pinned carries a
+     pinned view to the defer_look splice; resp path reserves its entry index
+     pre-actions — that ordering is what keeps Grandpa's tutorial lines after
+     the room view). Static room views render draw- and output-identically, so
+     the rest of the corpus is untouched.
+   Diagnosed by instrumenting both RNGs (`A5_TRACE_RAND=1` in a5rand.cpp,
+   `FD_RNG_TRACE=1`/`FD_RNG_STACK=1` in FrankenDrift.Headless XoshiroRandom)
+   and diffing the draw streams; the general non-Look Before-dance draw parity
+   (random text in ordinary task messages) is NOT ported — no corpus game
+   exercises it (they'd already mismatch if one did). If a future game diverges
+   with off-by-N OneOf picks in task completion text, port the same dance to
+   run_task's ordinary comp paths.
 
 ## 🐞 ThingsThatGoBumpInTheNight — `drop all` over-expands to every seen object (fatal); dark `get dirt` silent  ⏳ OPEN (2026-07-02)
 

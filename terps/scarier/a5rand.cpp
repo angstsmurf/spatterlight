@@ -5,6 +5,8 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "a5rand.h"
 
@@ -44,7 +46,17 @@ a5rand_between (long lo, long hi)
     }
   if (hi < lo) { t = lo; lo = hi; hi = t; }
   span = (unsigned long) (hi - lo) + 1UL;
-  return lo + (long) (erkyrath_random () % span);
+  {
+    long r = lo + (long) (erkyrath_random () % span);
+    /* A5_TRACE_RAND=1: print every draw, for aligning the stream against an
+       equally-instrumented FrankenDrift XoshiroRandom (FD_RNG_TRACE=1). */
+    static int trace = -1;
+    if (trace < 0)
+      trace = getenv ("A5_TRACE_RAND") != NULL;
+    if (trace)
+      fprintf (stderr, "RAND(%ld,%ld)=%ld\n", lo, hi, r);
+    return r;
+  }
 }
 
 void

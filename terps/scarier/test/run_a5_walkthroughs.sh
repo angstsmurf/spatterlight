@@ -385,24 +385,32 @@ FILTER="${1:-}"
 # Both catalogued in TODO_a5_walkthrough_bugs.md / A5_WALKTHROUGH_FINDINGS.md;
 # no golden committed while it diverges.
 #
-# (2026-07-02) LostLabyrinthOfLazaitch wired -> DIVERGE 403|403 (identical both RNG
-# modes => all RNG-independent Scarier bugs).  The full 520-point win script was
-# derived from the game's OWN built-in walkthrough (Larry Horsfield games embed the
-# whole solution -- type WLKTHRGH in-game; here it was extracted verbatim from the
-# cl_Walkthroug task text in the model, stripped of its parenthetical annotations,
-# with only the `o`/`b` start-menu handshake prepended).  FrankenDrift plays the
-# UNMODIFIED native commands straight through to "*** CONGRATULATIONS! ***" (451
-# turns, 520 pts, zero press-O/not-understood/can't-see lines) -- so the walkthrough
-# is a faithful native solution and every one of the 403 hunks is a Scarier bug.
-# The dominant one desyncs the whole back third: the "Fahren Layburn" teleport spell
-# fires in FD ("you say the magic words and are transported to the church in
-# Layburn...") but Scarier says "you say the words ... but nothing happens", so the
-# player never reaches Layburn and the entire village/endgame section diverges.
-# Smaller RNG-independent bugs it also surfaces: `sheath sword` -> "You can only put
-# your sword in the leather scabbard." (FD "Ok, you sheath your sword..."); and two
-# room-description segments Scarier fails to gate ("...a small cottage.", "...you see
-# a drawing.") that FD suppresses.  Catalogued in TODO_a5_walkthrough_bugs.md /
-# A5_WALKTHROUGH_FINDINGS.md; no golden committed while it diverges.
+# (2026-07-02) LostLabyrinthOfLazaitch wired -> initially DIVERGE 403|403.  The
+# full 520-point win script is the game's OWN built-in walkthrough (Larry
+# Horsfield games embed the whole solution -- type WLKTHRGH in-game; extracted
+# verbatim from the cl_Walkthroug task text, annotations stripped, `o`/`b`
+# start-menu handshake prepended); FrankenDrift replays the UNMODIFIED native
+# commands to "*** CONGRATULATIONS! ***" (451 turns, 520 pts), so every hunk was
+# a Scarier bug.  FIXED same day, 403|403 -> 8|0: (1) location seen-tracking
+# (st->loc_seen, clsCharacter.HasSeenLocation) -- `Location94 MustNot
+# HaveBeenSeenByCharacter Player` on the FahrenLayb teleport child always failed
+# under the old always-"seen" stub, killing the "Fahren Layburn" spell and the
+# whole village endgame; (2) restriction key "ReferencedObjects" now falls back
+# to the singular ReferencedObject binding at lookup (FD GetReference has no
+# ReferenceMatch condition for it, clsUserSession.vb:3990) -- fixes `sheath
+# sword`; resolved at LOOKUP, not bound at capture, so failed match attempts
+# can't leak a stale alias (that variant regressed AxeOfKolt `drop chainmail`);
+# (3) FD ViewLocation name-cases CharHereDesc via the ##CHARNAME## round-trip for
+# single characters too ("white stallion" -> "White Stallion"); (4) the Look task
+# now runs FD's Before+AggregateOutput message dance (clsUserSession.vb:1164-1207):
+# two bTestingOutput renders around its actions -- each re-drawing any <# OneOf #>
+# in the room view -- response pinned to the FIRST render when they differ, else
+# the aggregate raw re-renders at final Display; response slot reserved BEFORE
+# actions (Grandpa's tutorial-after-view ordering).  This aligns the xoshiro draw
+# stream for random room views (the riding OneOf).  Residual vanilla 8 = pure
+# System.Random-vs-xoshiro OneOf picks in the riding rooms (same class as
+# SixSilverBullets 18/0); xoshiro 0 = full conformance.  No vanilla golden while
+# the vanilla stream diverges (RNG-bound, like JacarandaJim).
 #
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
@@ -425,7 +433,7 @@ SixSilverBullets|SixSilverBullets.blorb|18|0
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|8|8
-LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|403|403
+LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 EOF
 )
 

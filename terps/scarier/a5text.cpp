@@ -2328,23 +2328,25 @@ view_location_impl (a5_state_t *st, const char *lockey)
       {
         const std::vector<std::string> &nm = groups[g].names;
         std::string d;
-        /* A single character contributes its description verbatim (preserving
-           authored casing); identical descriptions from several characters merge
-           via the de-named form, pluralising the verb and listing the names. */
-        if (nm.size () <= 1)
-          d = groups[g].first_desc;
-        else
-          {
-            d = ci_replace_all (groups[g].keyd, " is ", " are ");
-            std::string list;
-            for (size_t j = 0; j < nm.size (); j++)
-              {
-                if (j > 0)
-                  list += (j == nm.size () - 1) ? " and " : ", ";
-                list += nm[j];
-              }
-            d = ci_replace_all (d, "##CHARNAME##", list);
-          }
+        /* FD substitutes the name back into the de-named form for EVERY group,
+           single characters included (vb:171 `sDesc.Replace("##CHARNAME##",
+           .List)`), so an authored lowercase name is case-normalised to the
+           character's Name -- LostLabyrinth's caged "white stallion" CharHereDesc
+           renders "White Stallion".  Only a shared description also pluralises
+           the verb. */
+        d = groups[g].keyd;
+        if (nm.size () > 1)
+          d = ci_replace_all (d, " is ", " are ");
+        {
+          std::string list;
+          for (size_t j = 0; j < nm.size (); j++)
+            {
+              if (j > 0)
+                list += (j == nm.size () - 1) ? " and " : ", ";
+              list += nm[j];
+            }
+          d = ci_replace_all (d, "##CHARNAME##", list);
+        }
         if (sb.len > 0 && sb.p[sb.len - 1] != '\n')   /* pSpace, vb:166 */
           sb_puts (&sb, "  ");
         sb_puts (&sb, d.c_str ());

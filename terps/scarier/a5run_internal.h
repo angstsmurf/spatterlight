@@ -139,6 +139,13 @@ struct a5_run_s {
   int    look_pending;
   size_t look_pos;
 
+  /* When the Look dance's two test renders differ (a random pick in the room
+     view moved between them -- clsUserSession.vb:1200), FD pins the response to
+     the FIRST render instead of deferring the raw aggregate message to Display.
+     This carries that pinned text to the deferred-splice site (owned; NULL =
+     not pinned, render at final state as usual). */
+  char  *look_pinned;
+
   /* Set only while the System <RunImmediately> startup tasks run (before the
      title).  emit_completion then uses FD's bHasOutput (markup-aware) instead of
      the plain whitespace test, so a title-music task's `<audio ...> ` keeps its

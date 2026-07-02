@@ -121,6 +121,18 @@ resolve_key (a5_state_t *st, const char *k)
     return "Player";
   /* A per-turn binding (ReferencedObject2, ReferencedDirection, ...) wins. */
   bound = a5state_lookup_ref (st, k);
+  /* FD's GetReference("ReferencedObjects") carries NO ReferenceMatch condition
+     (clsUserSession.vb:3990): it answers from the first Object-type reference
+     in the command whatever its slot, so a restriction keyed "ReferencedObjects"
+     also resolves when the command captured a singular %object% (LostLabyrinth's
+     "sheath sword" PutObjInSc: `ReferencedObjects Must BeObject Sword`).  Same
+     for ReferencedCharacters (vb:4019).  Resolved at lookup (not bound at
+     capture) so failed match attempts earlier in the turn can't leak a stale
+     alias into a later task's restrictions. */
+  if (bound == NULL && streq (k, "ReferencedObjects"))
+    bound = a5state_lookup_ref (st, "ReferencedObject");
+  if (bound == NULL && streq (k, "ReferencedCharacters"))
+    bound = a5state_lookup_ref (st, "ReferencedCharacter");
   if (bound != NULL)
     {
       /* A piped multi-object binding (ReferencedObjects = "k1|k2|...", set by
@@ -434,7 +446,17 @@ pass_location (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "Exist"))
     return 1;
   if (streq (r->op, "HaveBeenSeenByCharacter"))
-    return 1;
+    {
+      /* Player-centric seen set (clsCharacter.HasSeenLocation, set on every
+         player move + the start location); a non-player observer falls back
+         to "seen" -- the same compromise as the object handler above. */
+      const char *ch = resolve_key (st, r->key2);
+      int li;
+      if (ch != NULL && ch[0] != '\0' && !streq (ch, "Player"))
+        return 1;
+      li = a5state_location_index (st, loc);
+      return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
+    }
   return 1;
 }
 

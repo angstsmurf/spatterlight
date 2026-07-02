@@ -102,6 +102,13 @@ typedef struct a5_state_s {
      [n_objects] */
   char *obj_seen;
 
+  /* Player "seen" state for locations (clsCharacter.HasSeenLocation): FD sets
+     the flag inside clsCharacter.Move for every location a character moves to,
+     plus the player's start location at session init (clsUserSession.vb:222).
+     Player-centric like obj_seen/char_seen; Location HaveBeenSeenByCharacter
+     restrictions read it.  [n_locations] */
+  char *loc_seen;
+
   /* Last-referenced pronoun targets (clsUserSession.sIt/sThem/sHim/sHer), the
      full display name of the object/character most recently named by the player
      in each pronoun class.  GrabIt recomputes these each turn from the (already
@@ -194,6 +201,12 @@ extern int a5state_object_index    (const a5_state_t *st, const char *key);
 extern int a5state_character_index (const a5_state_t *st, const char *key);
 extern int a5state_variable_index  (const a5_state_t *st, const char *key);
 extern int a5state_task_index      (const a5_state_t *st, const char *key);
+extern int a5state_location_index  (const a5_state_t *st, const char *key);
+
+/* Mark a location as seen by the player (clsCharacter.HasSeenLocation = True,
+   set on every player move and for the start location).  NULL/unknown keys are
+   ignored. */
+extern void a5state_mark_loc_seen (a5_state_t *st, const char *lockey);
 
 /* The player's current location key (NULL if unknown). */
 extern const char *a5state_player_location (const a5_state_t *st);
