@@ -1,5 +1,21 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ "Which X?" disambiguation prompt lower-cased the candidate list before capitalising (ToProper bStrict=False)  ✅ DONE (2026-07-02)
+
+Surfaced by Marooned On Mazoomah's ambiguous `cut door with laser` command,
+which prompts `Which door?  The PC door or the entry door.`. Scarier rendered it
+`the pc door` — the ADRIFT 5 disambiguation prompt (`DisplayAmbiguityQuestion`)
+lower-cased the *entire* candidate list before upper-casing the first letter,
+mangling the object name's internal casing.
+
+**Root cause / fix** (`a5run.cpp`): FrankenDrift's `clsUserSession` builds the
+prompt through `ToProper`, which is called with its default `bStrict=False` —
+capitalise only the FIRST character and leave the rest of the string as-is.
+Scarier ran an extra lower-case-everything pass first. Dropped that pass so only
+the first character is upper-cased, matching the reference. RNG-independent; the
+walkthrough corpus stays green (a5 vanilla pass, all games at/below baseline; the
+self-contained a5 harnesses all pass).
+
 ## ⭐ Event-fired task on the plural path fired its completion controls even when its restrictions FAILED (FBA handfire never re-extinguishes)  ✅ DONE (2026-07-02)
 
 Surfaced while deriving FinnsBigAdventure against FrankenDrift. In FBA the ball
