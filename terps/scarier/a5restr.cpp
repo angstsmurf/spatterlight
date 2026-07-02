@@ -118,7 +118,7 @@ resolve_key (a5_state_t *st, const char *k)
 {
   const char *bound;
   if (streq (k, "%Player%"))
-    return "Player";
+    return a5state_player_key (st);
   /* A per-turn binding (ReferencedObject2, ReferencedDirection, ...) wins. */
   bound = a5state_lookup_ref (st, k);
   /* FD's GetReference("ReferencedObjects") carries NO ReferenceMatch condition
@@ -157,7 +157,7 @@ resolve_key (a5_state_t *st, const char *k)
       return bound;
     }
   if (streq (k, "ReferencedCharacter"))
-    return "Player";
+    return a5state_player_key (st);
   return k;
 }
 
@@ -404,7 +404,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
     {
       /* Player-centric seen set (clsCharacter.HasSeenObject); a non-player
          observer falls back to "seen" so its tasks aren't over-suppressed. */
-      if (k2 != NULL && !streq (k2, "Player"))
+      if (k2 != NULL && !streq (k2, a5state_player_key (st)))
         return 1;
       return oi >= 0 && st->obj_seen != NULL && st->obj_seen[oi];
     }
@@ -452,7 +452,7 @@ pass_location (a5_state_t *st, a5_restr_t *r)
          to "seen" -- the same compromise as the object handler above. */
       const char *ch = resolve_key (st, r->key2);
       int li;
-      if (ch != NULL && ch[0] != '\0' && !streq (ch, "Player"))
+      if (ch != NULL && ch[0] != '\0' && !streq (ch, a5state_player_key (st)))
         return 1;
       li = a5state_location_index (st, loc);
       return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
@@ -548,7 +548,8 @@ char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
   const char *k = st->obj[oi].key;
   if (w == A5_OWHERE_HELD_BY)
     return k != NULL && (streq (k, charkey)
-                         || (streq (k, "%Player%") && streq (charkey, "Player")));
+                         || (streq (k, "%Player%")
+                             && streq (charkey, a5state_player_key (st))));
   if (!directly && (w == A5_OWHERE_IN_OBJECT || w == A5_OWHERE_ON_OBJECT))
     return k != NULL && char_holds_object (st, charkey, k, 0);
   return 0;
@@ -714,7 +715,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          so e.g. Grandpa's `vnl_JustTalk` ("talk" near Molly) wrongly fired when
          Molly was elsewhere, swallowing the turn. */
       const char *obs_loc;
-      if (k2 == NULL || streq (k2, "Player"))
+      if (k2 == NULL || streq (k2, a5state_player_key (st)))
         obs_loc = a5state_player_location (st);
       else if (streq (k2, ANYCHARACTER))
         obs_loc = NULL;
@@ -779,7 +780,8 @@ pass_character (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "HaveRouteInDirection"))
     {
       const char *dir = a5parse_canonical_direction (k2);
-      const char *cl = streq (k1, "Player") ? a5state_player_location (st) : cloc;
+      const char *cl = streq (k1, a5state_player_key (st))
+                         ? a5state_player_location (st) : cloc;
       const a5_xml_node_t *blocked = NULL;
       const char *exit;
       if (dir == NULL)
@@ -836,7 +838,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       int c2 = a5state_character_index (st, k2);
       if (c2 < 0)
         return 0;
-      if (!streq (k1, "Player"))
+      if (!streq (k1, a5state_player_key (st)))
         return 1;
       return st->char_seen != NULL && st->char_seen[c2];
     }

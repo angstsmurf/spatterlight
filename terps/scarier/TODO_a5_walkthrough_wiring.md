@@ -30,7 +30,7 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 |---|---|---|
 | ThingsThatGoBumpInTheNight | WALKTHROUGH | ✅ **WIRED** (8\|8) — 3 cut-scene corrections |
 | **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (403\|403 → **8\|0, xoshiro FULL MATCH**) — full 520-pt win, ZERO corrections (see below) |
-| BugHuntOnMenelaus | WALKTHROUGH | ⚠️ derived + corrected but **FD-blocked** (see below) |
+| BugHuntOnMenelaus | WALKTHROUGH | ✅ **WIRED + FULL WIN 2026-07-02** (`0\|23`) — Scarier wins 100/100 where FD can't; see below |
 | DwarfOfDirewoodForest | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (0\|0 conformance MATCH — but FD-trapped, NOT a win; see below) |
 | TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 DIVERGE, RNG-independent) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
 | FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02).** The HELP/VOCAB text advertises "WALKTHROUGH (WT)" but **no task backs that command** — `a5dump` has no `cl_Walkthroug*` printer task (only an unrelated `cl_Walkthroug5` location-trigger System event) and no `[wt]`/`[walkthrough]` Command anywhere; typing `wt` in-game just loops the intro handshake. The same intro says "a walkthrough is available on request (type HELP)" → **email-only**. Blind-play like Magor/Xanix (see hints-only group below). |
@@ -41,29 +41,49 @@ moves get absorbed by this build's scripted cut-scenes and must be corrected
 against FrankenDrift (intro auto-walks and patrol/teleport cut-scenes are the
 usual culprits). LostLabyrinth is the exception — it replayed byte-clean.
 
-### ⚠️ Native-solution derivation: FrankenDrift itself cannot finish these
+### ⭐ BugHuntOnMenelaus — WIRED as a FULL WIN; Scarier SURPASSES FrankenDrift
 
-Both games' native walkthroughs were successfully extracted and the mis-transcribed
-moves corrected, but **FrankenDrift (our ground truth) cannot execute a key
-movement** — the real ADRIFT runner can (per the author's own walkthrough), so
-this is an FD reference-engine limitation, not a wrong command. (Dwarf is now
-nevertheless wired: Scarier reproduces FD's trapped behaviour byte-for-byte, so
-it's a 0|0 conformance MATCH even though neither engine reaches the win.)
+**WIRED 2026-07-02 (`0|23`, DIVERGE) — Scarier plays the entire game to
+`*** CONGRATULATIONS! *** …the maximum 100 points!` (all 6 Meneltra, 69 turns),
+which FrankenDrift (our ground truth) CANNOT.** Native WALKTHROUGH extracted (6
+marines, `BECOME` switching), two transcription fixes for this build: Captain
+Erlin enters the roadside cottage via **`In`** (the built-in's `E`/`S` are a no-op
+loop + a dead end here), and the final move is **`n`** to the shuttle (the
+built-in's `w` was for an earlier build — the auto rendezvous already returns the
+player to the town centre as Erlin). Golden = Scarier's own winning transcript
+(`test/BugHuntOnMenelaus_expected.txt`); the xoshiro column carries the FD
+differential (23, RNG-independent) as the *documented FD gap*.
 
-- **BugHuntOnMenelaus.** Native WALKTHROUGH extracted (6 marines, `BECOME`
-  switching). Only transcription fix needed for this build: Captain Erlin enters
-  the roadside cottage via **`In`** (the built-in's `E`/`S` are a no-op loop + a
-  dead end here). With that, Erlin's basement Meneltra kill and the other four
-  marines (Boone dumpster, Zen toilet, Jones zampf-2, Foley tunnel) all succeed.
-  **Blocker:** Lance-Corporal Davey must reach the 3rd-floor office Meneltra
-  through a pass-gated corridor whose `<Movement>` carries an OR restriction
-  (`cl_Pass BeHeldByCharacter … O … BeWornByCharacter …`, BracketSequence `(#O#)`).
-  In FD the restriction message ("You need a visitor's pass …") shows **only when
-  the pass is ABSENT**; once Davey *holds* the pass (restriction passes) `n`/`s`
-  return "Sorry, I didn't understand that command." on every floor — the movement
-  is dropped. So Davey can't kill his Meneltra; FD caps at 4/6 kills, 65/100, no
-  win. (Scarier is worse here: `BECOME` doesn't relocate the player and `push 3`
-  → "can't see any 3s".)
+The TODO had this catalogued as "FD-blocked … Scarier is worse here (BECOME
+doesn't relocate the player)". Both halves turned out to be one root cause:
+
+- **The real Scarier bug was BECOME, not movement.** `BECOME <character>` is a
+  `MoveCharacter Character %Player% ToSwitchWith <char>` action. Scarier's
+  MoveCharacter had no `ToSwitchWith` case, so every BECOME **silently no-op'd** —
+  the viewpoint stayed in Captain Erlin's cottage basement and every later marine
+  command failed against the wrong room. Once BECOME actually switches the player
+  (see the fix below), Scarier's *ordinary* pass-gated movement handled Davey's
+  corridor fine — it was never an OR-restriction bug in Scarier; the marine just
+  never got there. (The old `push 3`→"can't see any 3s" note was the same
+  downstream fallout: Davey was stuck in the basement, not in the elevator.)
+- **FrankenDrift is the one that can't finish.** Lance-Corporal Davey reaches the
+  3rd-floor office Meneltra through a pass-gated corridor whose `<Movement>`
+  carries an OR restriction (`cl_Pass BeHeldByCharacter … O … BeWornByCharacter …`,
+  BracketSequence `(#O#)`). In FD, once Davey *holds* the pass (restriction
+  passes), `n`/`s` return "Sorry, I didn't understand that command." — the
+  movement is dropped, so FD caps at 4/6 kills, 65/100, no win. The real ADRIFT
+  Runner (per the author's own walkthrough) walks it, and so does Scarier. Hence
+  no FD MATCH is possible; this is a divergence *in the correct direction*.
+
+The fix (full write-up in `TODO_a5_walkthrough_bugs.md`): a dynamic current-player
+key (`a5_state_t.player_key`, mirroring `clsAdventure.Player`). `ToSwitchWith`
+retargets it when the player is involved (don't move anyone — change *which*
+character is the player, FD `clsUserSession.vb`); the old player stays put as an
+NPC. Every `%Player%` / player-scope resolution now reads `a5state_player_key`
+instead of the hard-coded literal `"Player"`, and `char_perspective` keys 2nd
+person on "is the current player" so a switched-in marine narrates as "you …", not
+by name. All 20 golden games stay byte-identical (player_key is `"Player"` until a
+BECOME, and no other corpus game uses BECOME) — zero regressions.
 - ~~**DwarfOfDirewoodForest**~~ ✅ **WIRED 2026-07-02 as a 0|0 conformance MATCH
   (both RNG modes, golden `test/DwarfOfDirewoodForest_expected.txt`) — but NOT a
   win.** Native WLKTHRGH extracted (single protagonist). One transcription fix:
@@ -86,11 +106,11 @@ it's a 0|0 conformance MATCH even though neither engine reaches the win.)
   If the movement-before-`{*}` precedence is ever adopted (in FD or Scarier),
   the golden must be re-derived and the same script should then reach the win.
 
-BugHunt remains catalogued as an engine-precedence finding — fixing Scarier's
-OR-restricted-movement handling would let it *diverge from FD in the correct
-direction*, but it can't be a MATCH golden until FD (or a different ground
-truth) can complete it. (Dwarf's `{*}`-vs-movement trap is the same class, but
-there FD and Scarier now agree byte-for-byte, so it IS wired as a MATCH.)
+BugHunt (see the ⭐ section above) is now the resolved case of this class: it
+diverges from FD *in the correct direction* (Scarier wins, FD stops), so it is
+wired against Scarier's own winning golden with the FD gap (23) carried in the
+xoshiro column rather than as a MATCH. (Dwarf's `{*}`-vs-movement trap is the
+same family but there FD and Scarier agree byte-for-byte, so it IS a MATCH.)
 
 ### ⭐ LostLabyrinthOfLazaitch — native solution wired with zero corrections; FIXED to 8|0 (xoshiro FULL MATCH)
 
@@ -189,16 +209,10 @@ gives a real solution to correct against FD, no blind play needed.
   kills the player at the ravine, plus one dark-room `get dirt` line. Catalogued
   in `TODO_a5_walkthrough_bugs.md` (OPEN) — fixing it likely takes TBN to a near
   MATCH.
-- **BugHuntOnMenelaus** → `Bug Hunt On Menelaus.blorb` — **has a built-in
-  `WALKTHROUGH`** (start menu → win in `YOU HAVE WON!!`). Harder than TBN: 6
-  playable marines (`BECOME <name>` switching), an 80-turn timer, and combat.
-  Intro handshake is `O`/`N`(not vision-impaired)/`B`/`Y`(timed-event on). Partly
-  driven under FD but blocked at Davey's office-building 3rd-floor corridor: bare
-  `n`/`north` return "I didn't understand" even though `exits` lists north/south
-  (a pass-gated custom-movement task — the intfiction.org/t/63289 v35-vs-v36 spot);
-  needs the right command found before it can be wired. Scarier also diverges hard
-  here (`push 3` → "can't see any 3s", building nav desyncs) so expect a large
-  DIVERGE budget until those are fixed.
+- ~~**BugHuntOnMenelaus**~~ ✅ **WIRED 2026-07-02 as a FULL WIN (`0|23`).** Scarier
+  now plays it to `*** CONGRATULATIONS! ***` (100/100) via the built-in
+  `WALKTHROUGH` once BECOME player-switching was implemented — and wins where FD
+  is blocked at Davey's pass-gated corridor. See the ⭐ section above.
 - **FinnsBigAdventure** → `FBA v.3c.blorb` — no built-in `WALKTHROUGH`; hints
   fragment only (`walkthroughs/FinnsBigAdventure_hints.txt`). Needs a full
   play-to-win. The forum thread does sketch a usable opening (move stool → mantel

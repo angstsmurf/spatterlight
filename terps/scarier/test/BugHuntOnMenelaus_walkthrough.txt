@@ -1,0 +1,101 @@
+# Bug Hunt On Menelaus (Larry Horsfield, ADRIFT 5) -- full max-score WIN (100/100).
+#
+# Derived from the game's own built-in WALKTHROUGH (start menu lists it; it prints
+# the whole solution), annotations stripped, the start-menu handshake prepended
+# (o / vision-impairment n / begin b / timed-event y).  Six marines, BECOME
+# switching.  Two transcription fixes for this build:
+#   * Captain Erlin enters the roadside cottage with `In` (the built-in's `E`/`S`
+#     are a no-op loop + a dead end here); with that his basement Meneltra kill and
+#     the other four marines all work.
+#   * Final move is `n` (to the shuttle), not the built-in's `w` -- the auto
+#     rendezvous already returns the player to the town centre as Erlin, from where
+#     North reaches the shuttle and triggers the win.
+#
+# *** SCARIER WINS WHERE FRANKENDRIFT (our ground truth) CANNOT. ***  Lance-Corporal
+# Davey's 3rd-floor office Meneltra sits past a pass-gated corridor whose <Movement>
+# carries an OR restriction (pass held OR worn, BracketSequence "(#O#)").  The real
+# ADRIFT Runner (per the author's own walkthrough) walks it once Davey holds the
+# pass -- and so does Scarier: it moves N, reaches the conference room, retracts the
+# screen and kills the 5th Meneltra.  FrankenDrift instead drops that movement
+# ("Sorry, I didn't understand that command.") once the pass restriction passes, so
+# FD caps at 4/6 kills, 65/100, and never reaches the win.  This script therefore
+# has NO FrankenDrift MATCH golden; it is validated by Scarier's own winning
+# transcript (test/BugHuntOnMenelaus_expected.txt) instead.  The engine change that
+# unlocked it is MoveCharacter ToSwitchWith / BECOME player-switching (previously a
+# no-op in Scarier, so every marine stayed stuck in the captain's basement).  See
+# TODO_a5_walkthrough_wiring.md and TODO_a5_walkthrough_bugs.md.
+o
+n
+b
+y
+Out
+Access meneltra
+X counter
+I
+S
+In
+Move rug
+Open trapdoor
+D
+Open burner
+Fire rifle at meneltra
+Press green button
+Become boone
+Sw
+Open dumpster
+Fire rifle at dumpster
+Press green button
+Become zen
+E
+E
+Enter cubicle
+Lift lid
+Fire rifle at meneltra
+Press green button
+Become davey
+Se
+In
+Search desk
+Get pass
+Jump over barriers
+Sw
+Sw
+S
+D
+In
+Throw switch
+Out
+U
+N
+Ne
+In
+Push 3
+N
+N
+In
+X controls
+Push up
+Duck
+Fire rifle at meneltra
+Press green button
+Become jones
+Read sign
+S
+Read map
+S
+Z
+Z
+Z
+Z
+Fire rifle at zampf 2
+Press green button
+Become foley
+In
+Read map
+D
+W
+Look in tunnel
+Throw grenade into orifice
+Press green button
+become erlin
+n

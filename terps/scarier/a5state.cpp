@@ -104,6 +104,15 @@ a5state_new (const a5_adventure_t *adv)
     return NULL;
   st->adv = adv;
 
+  /* The current player: the character whose Type is "Player" (clsAdventure.Player
+     getter).  Its key is the literal "Player" in every corpus game, but decode it
+     dynamically so a game that renames the player character still works, and so a
+     later ToSwitchWith (BECOME) can retarget it. */
+  st->player_key = "Player";
+  for (i = 0; i < adv->n_characters; i++)
+    if (streq (adv->characters[i].type, "Player"))
+      { st->player_key = adv->characters[i].key; break; }
+
   if (adv->n_objects > 0)
     {
       st->obj = (a5_objloc_t *) calloc ((size_t) adv->n_objects, sizeof *st->obj);
@@ -234,7 +243,7 @@ a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
   int ci, i;
   if (key == NULL || key[0] == '\0')
     return 0;
-  ci = a5state_character_index (st, charkey ? charkey : "Player");
+  ci = a5state_character_index (st, charkey ? charkey : a5state_player_key (st));
   cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
   if (cloc == NULL)
     return 0;
@@ -277,7 +286,7 @@ a5state_player_look (const a5_state_t *st)
   int i;
   /* LIFO: the most recently pushed matching look text wins. */
   for (i = st->n_looks - 1; i >= 0; i--)
-    if (a5state_in_group_or_location (st, "Player", st->looks[i].loc_key))
+    if (a5state_in_group_or_location (st, a5state_player_key (st), st->looks[i].loc_key))
       return st->looks[i].text;
   return NULL;
 }
@@ -571,9 +580,15 @@ a5state_mark_loc_seen (a5_state_t *st, const char *lockey)
 }
 
 const char *
+a5state_player_key (const a5_state_t *st)
+{
+  return (st->player_key != NULL) ? st->player_key : "Player";
+}
+
+const char *
 a5state_player_location (const a5_state_t *st)
 {
-  int pi = a5state_character_index (st, "Player");
+  int pi = a5state_character_index (st, a5state_player_key (st));
   if (pi < 0)
     return NULL;
   return st->char_loc[pi];

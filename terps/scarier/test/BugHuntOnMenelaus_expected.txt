@@ -1,0 +1,588 @@
+Bug Hunt On Menelaus
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+I do hope, however, that you will give it a try! There are in-game hints provided, and a walkthrough is available on request (type HELP).
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+
+IF YOU SUFFER FROM ANY FORM OF VISUAL IMPAIRMENT
+
+THAT PREVENTS YOU FROM VIEWING GRAPHICS,
+
+PLEASE TYPE "Y" BELOW AND PRESS ENTER,
+
+OTHERWISE TYPE "N" AND PRESS ENTER.
+
+PLEASE NOTE: If you are visually impaired you can increase the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel forward.
+
+> n
+BUG HUNT ON MENELAUS
+
+Start Options:
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not yet support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+Useful Commands After The Adventure Has Started:
+
+ABOUT : BUGS : COMM : CREDITS : HELP : HINTS
+KEYS : MACROS : MAP : SCRIPT : VOCAB : WALKTHROUGH
+
+> b
+
+Inside Shuttle
+You are inside the space shuttle, which has seats for 100 passengers plus the two-man crew. You can go Out through the shuttle door.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+
+Do You Wish To Play With The Timed Event On? ("Y/N")
+
+> y
+Ok, you now have 60 minutes or 80 moves to complete this adventure.
+
+> Out
+You move out.
+
+The marine squad follows you.
+
+By Shuttle
+You are by your shuttle, which has landed on the outskirts of a large town. You can go South to the town or In to the shuttle.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+By Shuttle
+You are by your shuttle, which has landed on the outskirts of a large town. You can go South to the town or In to the shuttle.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+As you and your marines disembark from the shuttle, you are met by the commander of one of the decimated marine regiments which is being withdrawn from the planet.
+
+"There are about half a dozen of those bugs left in that town, they could be anywhere, absolutely anywhere," the Colonel tells you. "They are very quick to spray that gunk which burns like boiling water through ice," he says, indicating the deep gouges on his space armour. "We also found that the really big ones have hides that are impervious against our pulse rifles and laser pistols," he warns you.
+
+Taking a satchel from his shoulder, he reaches inside and hands each of you a small device. "This counter records the destruction of an adult Meneltra each time one is killed if you press the green button. The Meneltra are very close to spawning so you'll only have about an hour or so to find and kill them all, if even one is left alive it can spawn thousands of larvae. We have downloaded information about the Meneltra to your in-suit computers and you can view this with the command ACCESS MENELTRA."
+
+As you digest this information, the Colonel is summoned to the ship evacuating the remnants of his command. Before he goes, he issues one last request.
+
+"The Aquilian authorities have asked that we keep damage to property to a minimum, as hopefully the townspeople will be returning after we have eradicated the bugs."
+
+With that, he wishes you good luck and departs.
+
+"Looks like we got our work cut out, skipper," Lance-Corporal Davey tells you. "Better get on with it then," Lieutenant Zen says. "We only have short time to find all these Meneltra and deal with them!"
+
+> Access meneltra
+The Meneltra look like this:
+
+The info supplied tells you they range from two to three feet long right up to ten or twelve feet. They can spit a highly corrosive acid from the orifice at the front end.
+
+> X counter
+A small device with 6 indicators and a green button on it. It has a magnetic pad on it so you can wear the counter on the arm of your armour. So far none of the indicators are lit up.
+
+> I
+You are wearing some space armour, a bubble helmet and a digital counter on the arm of your space armour, and are carrying a pulse rifle. A strip of H.E. grenades is attached to your space armour and your laser pistol is in the holster at your side.
+
+> S
+You move South.
+
+The marine squad follows you and you all walk south to a large green area in the centre of the town.
+
+Town Centre
+You are in a wide, round grassy area which is in the centre of the town. Apart from the road leading North back to your shuttle, there are five other roads or lanes leading off from here. These lead West, SW, South, SE and East, plus on the northeast side there is a large structure which looks like a town hall or some sort of administrative building which you can go In to.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+
+You look around at the exits leading off of the green then you and Lieutenant Zen confer. You then give your orders:
+
+"Ok, here's what we are going to do," you tell your squad. "Zen, you check that building to the northeast, Boone, you go down the southwest exit and Jones the south one."
+
+You turn to Lance-Corporal Davey. "Davey, you take the southeast road, Foley, you can go west and I'll go along the east one."
+
+You address all the marines. "Your universal translators will have been updated with the local language, so you'll be able to understand anything you hear or read. Try to maintain radio silence and keep checking the counters. We'll meet back at the shuttle when all the Meneltra have been killed," you tell them. They signal their assent and all go down their designated routes.
+
+You yourself set off along the road that leads east from the centre of town.
+
+East Road
+You are in a road leading off East from the town centre, which is due West. There is a cottage at the side of the road you can go In to and the road continues East.
+
+IMPORTANT: You are currently playing as Captain Mike Erlin. From now on you can switch to playing as one of the other characters in order to complete this game. You do that by typing BECOME 'character', e.g. BECOME DAVEY. All the other characters have a part to play. You switch back to playing as Mike Erlin by typing BECOME ERLIN.
+
+PLEASE NOTE: If you are playing with the map displayed, when you change character you must click on the tab with the name of the character you are playing as in order to view the correct locations.
+
+> In
+You move in.
+
+Deserted Cottage
+You are in the living room of a cottage which is deserted but looks as if the occupants have just popped out. The room is almost indistinguishable from any cottage you have ever seen on your native Earth, with a sofa, a couple of easy chairs and a large entertainment console on one wall. On the floor is a large rug made from the skin of some native animal. One door leads Out of the cottage while one doorway goes East into a kitchen and another South into a bedroom.
+
+> Move rug
+You lift up the rug and move it to one side, revealing a trapdoor underneath.
+
+Deserted Cottage
+You are in the living room of a cottage which is deserted but looks as if the occupants have just popped out. The room is almost indistinguishable from any cottage you have ever seen on your native Earth, with a sofa, a couple of easy chairs and a large entertainment console on one wall. On the floor is a large rug made from the skin of some native animal. One door leads Out of the cottage while one doorway goes East into a kitchen and another South into a bedroom.  The rug has been moved aside to show a trapdoor.
+
+> Open trapdoor
+You open the trapdoor, which reveals some stairs going down.
+
+Deserted Cottage
+You are in the living room of a cottage which is deserted but looks as if the occupants have just popped out. The room is almost indistinguishable from any cottage you have ever seen on your native Earth, with a sofa, a couple of easy chairs and a large entertainment console on one wall. On the floor is a large rug made from the skin of some native animal. One door leads Out of the cottage while one doorway goes East into a kitchen and another South into a bedroom.  The rug has been moved aside to show a trapdoor which is open, revealing a flight of stairs that lead Down into a basement.
+
+> D
+You move down.
+
+Basement of Cottage
+You are in the basement of the cottage. In one corner there is a wood burner for a heating system and next to that a large stack of small logs. Some stairs lead Up through the trapdoor opening into the living room.
+
+> Open burner
+Ok, you open the door of the wood burner. You hear a sibilant hiss from the Meneltra hiding inside!
+
+> Fire rifle at meneltra
+You fire your pulse rifle at the Meneltra in the wood burner.
+
+The burner is blasted into pieces and the stack of wood next to it scattered across the floor. The Meneltra inside the burner is vapourized.
+
+Basement of Cottage
+You are in the basement of the cottage. The wood burner that once stood in the corner has been blasted into scrap and the floor is strewn with small logs. Some stairs lead Up through the trapdoor opening into the living room.
+
+> Press green button
+You press the green button on your counter and an indicator lights up.
+
+Now would be a good time to change character.
+
+Available characters are: Lieutenant Zen; Sergeant Boone; Corporal Jones; Lance-Corporal Davey; Private Foley;
+
+> Become boone
+You are now playing as Sergeant Boone.
+
+SW Road
+You are on the road leading southwest from the town centre. There are abandoned houses and shops either side of the road and there are plenty of places for the Meneltra to hide. You can go NE back to the town square or SW further along the road.
+
+> Sw
+You move southwest.
+
+SW Road
+You are on the road leading SW from the town centre. There are abandoned houses and shops either side of the road. At the side of the road here there is a large trash dumpster.
+
+> Open dumpster
+You lift the lid of the dumpster.
+
+There was a small Meneltra hiding in the dumpster. Before you can react the creature spits a gob of saliva at you, but luckily it misses.
+
+The replusive beast gathers itself to fire another gob of saliva at you.
+
+> Fire rifle at dumpster
+Taking quick aim you fire your pulse rifle at the dumpster.
+
+The dumpster and the Meneltra inside are blown to pieces by the plasma pulse, showering you with garbage. You wipe as much of the garbage off of your space armour as you can - boy, you're gonna stink in that shuttle!
+
+SW Road
+You are on the road leading SW from the town centre. There are abandoned houses and shops either side of the road. The wreckage of the destroyed dumpster and its contents lie all around.
+
+> Press green button
+You press the green button on your counter and an indicator lights up.
+
+Now would be a good time to change character.
+
+Available characters are: Lieutenant Zen; Corporal Jones; Lance-Corporal Davey; Private Foley;
+
+> Become zen
+You are now playing as Lieutenant Zen.
+
+In Town Hall
+You are in the foyer of what appears to be an administrative building - maybe the town hall? There is a reception desk here and some stairs that lead upper floors. Next to the stairs there is an elevator and a door leads East into another room. The exit is SW.
+
+> E
+You move east.
+
+Vestibule of Toilets
+You are in the vestibule of some toilets. A door with a stylised figure of a male on it leads North and the door marked with a woman leads East. The foyer is to the West.
+
+> E
+You move east.
+
+Female Toilets
+You are in the female toilets where there are cubicles lining one wall with wash basins and mirrors opposite, The exit is West and you can go In to any of the cubicles.
+
+> Enter cubicle
+You enter each of the cubicles in turn and check the toilet basins in each. You find nothing in most of them, but when you enter the last one, some sixth sense tells you there is something here.
+
+In Cubicle
+You are in one of the cubicles of the female toilets. The wash basins are to the South. There is a toilet basin here, the lid of which is closed.
+
+> Lift lid
+You lift the toilet lid... revealing a Meneltra squatting in the basin!
+
+In Cubicle
+You are in one of the cubicles of the female toilets. The wash basins are to the South. There is a toilet basin here, the lid of which is open, revealing a Meneltra hiding inside.
+
+> Fire rifle at meneltra
+You fire your pulse rifle at the Meneltra.
+
+The Meneltra that was hiding inside the toilet - and the toilet basin itself - is vapourized.
+
+In Cubicle
+You are in one of the cubicles of the female toilets. The wash basins are to the South. The toilet basin has been destroyed.
+
+> Press green button
+You press the green button on your counter and an indicator lights up.
+
+Now would be a good time to change character.
+
+Available characters are: Corporal Jones; Lance-Corporal Davey; Private Foley;
+
+> Become davey
+You are now playing as Lance-Corporal Davey.
+
+SE Road
+You are on a road leading SE from the town centre. Abandoned shops and office buildings line the street, which continues SE.
+
+> Se
+You move southeast.
+
+SE Road
+You are on the road which leads SE from the town centre. On the SW side of the road there is a large abandoned office building. You can go NW or SE along the road or In into the building.
+
+> In
+You move in.
+
+In Office Building
+You are on the ground floor of the office building. Over to one side there is a reception desk and stretching in a line from there to the opposite wall are a line of security barriers. Beyond those, to the SW, are some glass elevators at the far side of an atrium. The doors lead Out to the road outside.
+
+> Search desk
+You search the reception desk and find a visitor's pass.
+
+In Office Building
+You are on the ground floor of the office building. Over to one side there is a reception desk and stretching in a line from there to the opposite wall are a line of security barriers. Beyond those, to the SW, are some glass elevators at the far side of an atrium. The doors lead Out to the road outside.  Also here is a visitor's pass.
+
+> Get pass
+Ok, you pick up the visitor's pass.
+
+> Jump over barriers
+You easily jump over the barriers to the other side.
+
+The Atrium
+This is a large, open space which rises up to the glass roof of the building. There are four upper levels in this building which can be accessed via the twin elevators. They can be reached from the elevator lobby to the SW. The reception desk is to the NE on the other side of the security barriers.
+
+> Sw
+You move southwest.
+
+Ground Floor Elevator Lobby
+You are in the elevator lobby on the ground floor where there are two glass-sided elevators that provide access upper floors of the building. Their doors are open, but one of them has a sign, written in the local language, across the opening. However, you can go In to the other one. Opposite the elevators is a door that leads SW.
+
+> Sw
+You move southwest.
+
+Passageway
+You are in a passageway that leads NE through the door to the elevator lobby and South. It is completely featureless.
+
+> S
+You move south.
+
+Loading Bay Ramp
+You are on the ramp in the loading bay at the back of the building. Steps here lead Down to the loading bay, or you can go North along the passageway.
+
+> D
+You move down.
+
+In Loading Bay
+You are in the actual loading bay of the building. There is a wide, tall opening on the South side which leads to the service road behind the building and there is a door at the side of the bay on which are painted words in the local language. You can go South to the service road, Up to the ramp or In through the door.
+
+> In
+You move in.
+
+Emergency Generator Room
+In this large room there is an enormous emergency generator which provides power to the building if the main power grid fails. You can go Out through the door.
+
+> Throw switch
+You throw the on/off switch into the ON position and the generator starts to hum. It gets louder and louder until the generator is running at maximum output.
+
+> Out
+You move out.
+
+In Loading Bay
+You are in the actual loading bay of the building. There is a wide, tall opening on the South side which leads to the service road behind the building and there is a door at the side of the bay on which are painted words in the local language. You can go South to the service road, Up to the ramp or In through the door.
+
+> U
+You move up.
+
+Loading Bay Ramp
+You are on the ramp in the loading bay at the back of the building. Steps here lead Down to the loading bay, or you can go North along the passageway.
+
+> N
+You move north.
+
+Passageway
+You are in a passageway that leads NE through the door to the elevator lobby and South. It is completely featureless.
+
+> Ne
+You move northeast.
+
+Ground Floor Elevator Lobby
+You are in the elevator lobby on the ground floor where there are two glass-sided elevators that provide access upper floors of the building. Their doors are open, but one of them has a sign, written in the local language, across the opening. However, you can go In to the other one. Opposite the elevators is a door that leads SW.
+
+> In
+You move in.
+
+In Elevator
+You are in the glass-sided elevator, You have a grand view of the atrium of the building. On the wall of the elevator is a control panel.
+
+You have 40 moves left to complete your mission.
+
+> Push 3
+You press button 3.
+
+The door slides shut and the elevator goes to the 3rd floor. The door slides open and you step out of the elevator into the 3rd floor lobby.
+
+3rd Floor Elevator Lobby
+You are in the elevator lobby on the 3rd floor. The elevator is here and you can go In to it. Other doors lead North and South into the corridors of the offices.
+
+> N
+You move north.
+
+Office Corridor
+You are in a corridor, leading North and lined with other doors which lead into offices. The elevator lobby is South.
+
+> N
+You walk north along the corridor.
+
+You check each office as you go. You find no trace of any Meneltra until you reach one particular door. As you go to open the door you hear a noise inside. You pause and decide to enter the room with great caution.
+
+Office Corridor
+You are in an office corridor in the building which goes North and South. There are doors here leading to offices plus another door which has some writing on it in the local language. You can go In to this door.
+
+> In
+You move in.
+
+Conference Room
+You are in a large conference room on the third floor of the building. There are several rows of chairs in here facing a screen that hangs down from a cassette fixed to the ceiling. On the wall here is a small control panel for the screen. You can go Out to the corridor.
+
+> X controls
+The control panel is very simple, with just two buttons, UP and DOWN.
+
+> Push up
+You push the Up button.
+
+There is a loud click as the motor starts whirring and the screen starts to retract into its cassette fixed to the ceiling.
+
+As the screen retracts into its cassette, this reveals a Meneltra squatting on a table behind it.
+
+The Meneltra spits a gob of saliva directly at you!
+
+> Duck
+You duck down and the gob of saliva sails over you harmlessly.
+
+The Meneltra readies itself to spit another gob at you.
+
+> Fire rifle at meneltra
+You fire your pulse rifle at the Meneltra and blow it to pieces.
+
+> Press green button
+You press the green button on your counter and an indicator lights up.
+
+Now would be a good time to change character.
+
+Available characters are: Corporal Jones; Private Foley;
+
+> Become jones
+You are now playing as Corporal Jones.
+
+South Road
+You are on the road leading South from the town centre. There is a large area here surrounded by a high-security fence. A large archway leads South into the fenced area. On the archway are words inscribed in the local language.
+
+> Read sign
+You can't see the sign.
+
+> S
+You move south.
+
+Zoo Entrance
+You are in the entrance area of the zoo. Here stands a map of the zoo for visitors. The road back to the town centre is North under the archway and you can go East, West, SW, SE and South along paths through the zoo.
+
+> Read map
+
+> S
+You move south.
+
+Zampf Lake
+You are at the centre of the zoo in a huge circular area which contains a large lake. You can go North to the zoo entrance or East, West or South along the paths around the zoo.
+
+As you look at the creatures in the lake (which are called Zampfs), without changing its position one of them breaks the surface of the lake to breath in some air. Having taken in some air it sinks under the surface again.
+
+You mentally number this zampf number 1 and the others from 2 to 5.
+
+Maybe if you hang around for a while the creatures in the lake will reveal something about themselves which may be of use to you?
+
+> Z
+Time passes...
+
+> Z
+Time passes...
+
+The zampf you have assigned the number 3 to breaks the surface and takes a breath.
+
+> Z
+Time passes...
+
+> Z
+Time passes...
+
+The zampf you have assigned the number 5 to breaks the surface and takes a breath.
+
+> Fire rifle at zampf 2
+You take aim carefully and fire your pulse rifle at zampf number 2.
+
+The pulse bolt is slightly disappated by the water but the "zampf" is wounded by the bolt and reveals itself to be a Meneltra. You fire another bolt at the Meneltra, this time destroying it completely.
+
+The real zampfs in the lake, being carnivorous scavengers, rush in to gobble up the remains of the Meneltra!
+
+> Press green button
+You press the green button on your counter and an indicator lights up.
+
+Now would be a good time to change character.
+
+Available characters are: Private Foley;
+
+You have 20 moves left to complete your mission.
+
+> Become foley
+You are now playing as Private Foley.
+
+West Road
+You are on the road running west from the town centre, which is to the East. There is a large buildings at the end of the road which you can go In to. Above the entrance to the building are a couple of words in the local language which translate to BLOODNOK STATION.
+
+> In
+You move in.
+
+Inside Building
+You are inside the building, which you realise is the entrance hall of an underground railway system. On one wall there are several ticket machines and on another a large map of the underground railway system. The wide exit leads Out to the road outside. Beyond a row of entrance and exit barriers twin tunnels lead down into the station.
+
+> Read map
+The tube map shows all the stations on the Dyall Area Rapid Transit system. You are currently at Bloodnok station.
+
+> D
+You move down.
+
+Platform 1 (E)
+You are the east end of the platform in the town's underground station. This links Bloodnok to other towns on the network. There are no trains visible on the monorail, which disappears into dark round tunnels at either end. You can go West to the other end of the platform or Up to the entrance hall.
+
+> W
+You move west.
+
+Platform 1 (W)
+You are at the west end of the platform, where the monorail in the pit beside the platform disappears into the tunnel. You can go East along the platform or Up to the station entrance hall.
+
+> Look in tunnel
+You look into the tunnel and see, several feet inside, a large mass with a black hole at it's centre - it is a huge Meneltra! That marine colonel warned you about these!
+
+Platform 1 (W)
+You are at the west end of the platform, where the monorail in the pit beside the platform disappears into the tunnel. You can go East along the platform or Up to the station entrance hall. Inside the tunnel is a huge Meneltra.
+
+> Throw grenade into orifice
+You twist the two halves of the grenade to arm it and throw it at the Meneltra in the tunnel.
+
+Luckily the grenade flies straight into the orifice at the front of the creature and a second or two later it explodes, blowing the huge creature into pieces, which you are showered by.
+
+Platform 1 (W)
+You are at the west end of the platform, where the monorail in the pit beside the platform disappears into the tunnel. You can go East along the platform or Up to the station entrance hall.
+
+> Press green button
+You press the green button on your counter and an indicator lights up.
+
+All 6 indicators are now lit - all of the Meneltra have eradicated!
+
+You receive a call from Captain Erlin instructing the squad to rendezvous in the town centre, which you do immediately.
+
+You are now playing as Captain Mike Erlin.
+
+Town Centre
+You are in a wide, round grassy area which is in the centre of the town. Apart from the road leading North back to your shuttle, there are five other roads or lanes leading off from here. These lead West, SW, South, SE and East, plus on the northeast side there is a large structure which looks like a town hall or some sort of administrative building which you can go In to.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+
+As you all assemble in the town centre after destroying all the Meneltra, you address your squad.
+
+"Well done, guys and gal!" you tell them. "We can head back to the shuttle now."
+
+"That was fun, skip," Lance Corporal Davey tells you. "Makes a change from the missions that take forever!"
+
+The rest of the squad agrees and you all exchange high-fives.
+
+You should now go North to the shuttle.
+
+> become erlin
+You are already playing as Captain Mike Erlin.
+
+You must go North to the shuttle to complete the game.
+
+> n
+You move north.
+
+The marine squad follows you.
+
+By Shuttle
+You are by your shuttle, which has landed on the outskirts of a large town. You can go South to the town or In to the shuttle.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+By Shuttle
+You are by your shuttle, which has landed on the outskirts of a large town. You can go South to the town or In to the shuttle.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+
+Before you can embark on to your shuttle to return to the Excelsior, you are surrounded by the townspeople of Bloodnok, who express their gratitude to you for ridding their town and planet of the Meneltra which have plagued them for so long!
+*** CONGRATULATIONS! ***
+
+You have completed the...
+
+BUG HUNT ON MENELAUS
+
+...in 69 turns, scoring the maximum 100 points!
+
+I do hope you have enjoyed playing this game.
+
+More Adventures In The Intrepid Space Adventures of Mike Erlin Series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+****************************
+
+Available In 'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+*****************************
+
+Adventures in the World of Alaric Blackmoon series:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+Chapter 3: FINN'S BIG ADVENTURE
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games

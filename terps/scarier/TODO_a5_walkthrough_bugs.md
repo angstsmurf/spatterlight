@@ -1,5 +1,56 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ BugHuntOnMenelaus → wired as a FULL WIN: `MoveCharacter ToSwitchWith` / BECOME player-switching was a no-op  ✅ DONE (2026-07-02)
+
+`BECOME <character>` (ADRIFT's multi-protagonist mechanism) is a
+`MoveCharacter Character %Player% ToSwitchWith <char>` action. Scarier's
+MoveCharacter handled `ToLocation`/`InDirection`/`ToSameLocationAs`/… but had **no
+`ToSwitchWith` case**, so every BECOME silently did nothing. In Bug Hunt On
+Menelaus that meant the viewpoint never left Captain Erlin's cottage basement:
+`become boone` printed "You are now playing as Sergeant Boone." but left the
+player in the basement, and every subsequent marine command ("Sw", "open
+dumpster", …) failed against the wrong room. The game was unplayable past the
+first kill, and the whole transcript desynced from FrankenDrift.
+
+**FD's semantics (`clsUserSession.vb`, MoveCharacterToEnum.ToSwitchWith):** when
+either character in the swap is the current player, DON'T move anyone — change
+*which character IS the player* (`Adventure.Player = htblCharacters(target)`,
+flip CharacterType Player↔NonPlayer, preserve Perspective, transfer pronoun
+descriptors). Because each character keeps its own location, the player viewpoint,
+`%Player%` resolution and scope all follow the new character automatically; the
+old player stays put, now an NPC. (When neither is the player, the two characters
+actually exchange locations.)
+
+**Root obstacle:** Scarier hard-coded the player key as the literal string
+`"Player"` in ~30 sites (`a5state_player_location`, `act_key`, `resolve_key`, the
+text engine's `%Player%`/`%CharacterName%`, restriction character resolution,
+event/walk gates, the "X is here" present-list, …). FD's `Adventure.Player` is a
+*mutable* pointer, so faithfully supporting BECOME needs a dynamic current-player
+key.
+
+**Fix:** added `a5_state_t.player_key` (init = the Type=Player character's key,
+which is the literal `"Player"` in every corpus game) + `a5state_player_key()`.
+Every *semantic* "who is the player" resolution now routes through it; the literal
+model-key `"Player"` (referring to the player-slot character explicitly) and the
+seed-perspective read are left alone. `MoveCharacter` gained the `ToSwitchWith`
+branch that retargets `player_key` (and fires the player-move location triggers /
+conversation-clear / seen-marking). `char_perspective` now keys 2nd person on
+`c->key == a5state_player_key(st)` instead of the static `Type==NonPlayer` test —
+identical for every game without BECOME (the sole Type=Player char *is* the
+current player), but it makes a switched-in marine narrate as "you pick up the
+pass", not "Lance-Corporal Davey pick up the pass".
+
+**Result:** Scarier plays the full game to `*** CONGRATULATIONS! *** …the maximum
+100 points!` (all 6 Meneltra, 69 turns) — including Lance-Corporal Davey's
+3rd-floor Meneltra, which FrankenDrift can't reach (its pass-gated corridor OR
+restriction drops the movement once the pass is held; FD caps at 4/6, 65/100). So
+Scarier *surpasses* FD here: wired `0|23` against Scarier's own winning golden,
+the 23 xoshiro hunks being the documented FD gap (RNG-independent). All 20 golden
+games stay byte-identical — zero regressions. Files: `a5state.{h,cpp}`,
+`a5run_action.cpp`, `a5text.cpp`, `a5restr.cpp`, `a5run_events.cpp`. (Also added an
+`A5_DUMP_XML=<path>` env in `a5model_load` that writes the deobfuscated/inflated
+game XML — handy for auditing task actions like this one.)
+
 ## ⭐ DwarfOfDirewoodForest → wired 0|0 MATCH: plural `%objects%` bind clobbered the singular `%object%` container reference  ✅ DONE (2026-07-02)
 
 The "hide-in-beard" bug from `TODO_a5_walkthrough_wiring.md`: `hide droppings,

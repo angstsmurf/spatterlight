@@ -82,7 +82,7 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
       /* clsEvent.RunSubEvent DisplayMessage: show only if the OnlyApplyAt gate
          (se->key) is set and the player is in that location/group. */
       if (se->description != NULL && se->key != NULL && se->key[0] != '\0'
-          && a5state_in_group_or_location (run->st, "Player", se->key))
+          && a5state_in_group_or_location (run->st, a5state_player_key (run->st), se->key))
         { char *m = a5text_describe (run->st, se->description);
           if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
           free (m); }
@@ -557,15 +557,12 @@ loc_direction_to (a5_state_t *st, const char *fromkey, const char *destkey)
   return "nowhere";
 }
 
-/* The player character's key (Type=Player), or "Player". */
+/* The current player character's key (clsAdventure.Player.Key) -- the Type=Player
+   character at load, retargeted by a ToSwitchWith/BECOME. */
 static const char *
 walk_player_key (a5_state_t *st)
 {
-  int i;
-  for (i = 0; i < st->adv->n_characters; i++)
-    if (streq (st->adv->characters[i].type, "Player"))
-      return st->adv->characters[i].key;
-  return "Player";
+  return a5state_player_key (st);
 }
 
 /* clsCharacter.GetPropertyValue for a character property: runtime override if
@@ -778,7 +775,7 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
         case A5_SW_DISPLAY:
           if (sw->description != NULL && sw->only_apply_at != NULL
               && sw->only_apply_at[0] != '\0'
-              && a5state_in_group_or_location (st, "Player", sw->only_apply_at))
+              && a5state_in_group_or_location (st, a5state_player_key (st), sw->only_apply_at))
             { char *m = a5text_describe (st, sw->description);
               if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
               free (m); }

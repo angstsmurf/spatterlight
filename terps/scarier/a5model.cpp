@@ -966,6 +966,15 @@ a5model_load (const char *path)
   if (xml == NULL)
     return NULL;
 
+  {
+    const char *dp = getenv ("A5_DUMP_XML");
+    if (dp != NULL && dp[0] != '\0')
+      {
+        FILE *df = fopen (dp, "wb");
+        if (df != NULL) { fwrite (xml, 1, xml_len, df); fclose (df); }
+      }
+  }
+
   doc = a5xml_parse ((char *) xml, xml_len);
   if (doc == NULL)
     {

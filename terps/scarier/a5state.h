@@ -62,6 +62,13 @@ typedef struct a5_prop_ov_s {
 typedef struct a5_state_s {
   const a5_adventure_t *adv;
 
+  /* The current player character's key (clsAdventure.Player.Key).  Almost always
+     the literal "Player", but a `MoveCharacter ... ToSwitchWith` action that
+     involves the player (ADRIFT's BECOME <character> mechanism) retargets it to
+     another character's key -- the player viewpoint, %Player% resolution, and
+     scope then follow that character.  Points at a stable model key string. */
+  const char *player_key;
+
   a5_objloc_t *obj;       /* [adv->n_objects], parallel to adv->objects        */
   const char **char_loc;  /* [adv->n_characters] location key, or NULL         */
   char **char_position;   /* [adv->n_characters] Standing/Sitting/Lying, owned */
@@ -222,6 +229,10 @@ extern void a5state_mark_loc_seen (a5_state_t *st, const char *lockey);
 
 /* The player's current location key (NULL if unknown). */
 extern const char *a5state_player_location (const a5_state_t *st);
+
+/* The current player character's key (clsAdventure.Player.Key).  "Player" until a
+   ToSwitchWith/BECOME retargets it.  Never NULL. */
+extern const char *a5state_player_key (const a5_state_t *st);
 
 /* clsCharacter.IsInGroupOrLocation: is character `charkey` at location `key`, or
    at a location that is a member of group `key`?  charkey NULL => the Player. */

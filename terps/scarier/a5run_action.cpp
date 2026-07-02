@@ -61,8 +61,10 @@ act_key (a5_state_t *st, const char *tok)
 {
   const char *b, *resolved, *c;
   if (tok == NULL) return NULL;
-  if (streq (tok, "%Player%") || streq (tok, "Player"))
-    resolved = "Player";
+  if (streq (tok, "%Player%"))
+    resolved = a5state_player_key (st);  /* dynamic: whoever is the player now */
+  else if (streq (tok, "Player"))
+    resolved = "Player";                 /* literal model key of the player slot */
   else
     { b = a5state_lookup_ref (st, tok); resolved = b ? b : tok; }
   c = canon_key (st->adv, resolved);
@@ -252,7 +254,7 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
       && a.find ('[') == std::string::npos)
     {
       std::string nm = a.substr (1, a.size () - 2);
-      if (nm == "Player") return strdup ("Player");
+      if (nm == "Player") return strdup (a5state_player_key (st));
       std::string lname = lower (nm);
       const char *k = NULL;
       if (lname == "objects")          k = a5state_lookup_ref (st, "ReferencedObjects");
@@ -277,7 +279,7 @@ specific_key (a5_state_t *st, const char *key)
   if (key == NULL || key[0] == '\0')
     return NULL;                                  /* "" = match any */
   if (streq (key, "%Player%"))
-    return "Player";
+    return a5state_player_key (st);
   if (strchr (key, '%') != NULL)
     {
       const char *b = a5state_lookup_ref (st, key);   /* best-effort */
@@ -970,7 +972,7 @@ update_seen (a5_state_t *st)
     return;
   for (i = 0; i < st->adv->n_characters; i++)
     {
-      if (streq (st->adv->characters[i].key, "Player"))
+      if (streq (st->adv->characters[i].key, a5state_player_key (st)))
         { st->char_seen[i] = 1; continue; }
       if (ploc != NULL && streq (st->char_loc[i], ploc))
         st->char_seen[i] = 1;
@@ -1539,11 +1541,11 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
           const char *k1 = st->adv->characters[ci].key;
           if (to == "ToLocationGroup")
             {
-              if (streq (k1, "Player"))
+              if (streq (k1, a5state_player_key (st)))
                 enqueue_loc_trigger_tasks (run, st->char_loc[ci], group_dest);
               st->char_loc[ci] = group_dest;
               st->char_onobj[ci] = NULL;
-              if (streq (k1, "Player"))
+              if (streq (k1, a5state_player_key (st)))
                 clear_conv_if_partner_gone (run, out);
             }
           else if (to == "InDirection")
@@ -1564,11 +1566,11 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                             && st->adv->groups[g].n_members > 0)
                           { dest = st->adv->groups[g].members[0]; break; }
                     }
-                  if (streq (k1, "Player"))
+                  if (streq (k1, a5state_player_key (st)))
                     enqueue_loc_trigger_tasks (run, st->char_loc[ci], dest);
                   st->char_loc[ci] = dest;
                   st->char_onobj[ci] = NULL;   /* now "at location" */
-                  if (streq (k1, "Player"))
+                  if (streq (k1, a5state_player_key (st)))
                     clear_conv_if_partner_gone (run, out);
                 }
             }
@@ -1576,11 +1578,11 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
             {
               const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
               const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
-              if (streq (k1, "Player"))
+              if (streq (k1, a5state_player_key (st)))
                 enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
               st->char_loc[ci] = new_loc;
               st->char_onobj[ci] = NULL;       /* now "at location" */
-              if (streq (k1, "Player"))
+              if (streq (k1, a5state_player_key (st)))
                 clear_conv_if_partner_gone (run, out);
             }
           else if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
@@ -1627,17 +1629,56 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                   st->char_loc[ci] = loc;          /* NULL => Hidden */
                   st->char_onobj[ci] = NULL;
                 }
-              if (streq (k1, "Player"))
+              if (streq (k1, a5state_player_key (st)))
                 {
                   enqueue_loc_trigger_tasks (run, old_loc, st->char_loc[ci]);
                   clear_conv_if_partner_gone (run, out);
+                }
+            }
+          else if (to == "ToSwitchWith")
+            {
+              /* clsUserSession MoveCharacterToEnum.ToSwitchWith: swap character k1
+                 with k2.  When either is the current player, DON'T move anyone --
+                 change which character IS the player (ADRIFT's BECOME <character>
+                 mechanism).  The player viewpoint, %Player% resolution and scope
+                 then follow the new character; the old player stays put, now an
+                 NPC.  Otherwise, actually exchange the two characters' locations. */
+              const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+              const char *pk = a5state_player_key (st);
+              int bi = k2 ? a5state_character_index (st, k2) : -1;
+              if (k2 == NULL || bi < 0)
+                { /* unresolved target: no-op */ }
+              else if (streq (k1, pk) || streq (k2, pk))
+                {
+                  const char *old_loc = a5state_player_location (st);
+                  const char *new_player = streq (k1, pk)
+                                             ? st->adv->characters[bi].key
+                                             : st->adv->characters[ci].key;
+                  st->player_key = new_player;   /* stable model key pointer */
+                  enqueue_loc_trigger_tasks (run, old_loc,
+                                             a5state_player_location (st));
+                  clear_conv_if_partner_gone (run, out);
+                  a5state_mark_loc_seen (st, a5state_player_location (st));
+                }
+              else
+                {
+                  /* Neither is the player: exchange the two characters' places. */
+                  const char *tloc = st->char_loc[bi];
+                  const char *tonobj = st->char_onobj[bi];
+                  char tin = st->char_in[bi];
+                  st->char_loc[bi]   = st->char_loc[ci];
+                  st->char_onobj[bi] = st->char_onobj[ci];
+                  st->char_in[bi]    = st->char_in[ci];
+                  st->char_loc[ci]   = tloc;
+                  st->char_onobj[ci] = tonobj;
+                  st->char_in[ci]    = tin;
                 }
             }
           /* ToParentLocation / others: best-effort no-op for Phase 3 */
 
           /* clsCharacter.Move marks the destination location seen for the
              moving character; our set is player-centric (like obj_seen). */
-          if (streq (k1, "Player"))
+          if (streq (k1, a5state_player_key (st)))
             a5state_mark_loc_seen (st, st->char_loc[ci]);
         }
       return;

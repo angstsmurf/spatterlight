@@ -555,17 +555,23 @@ arg_object_keys (a5_state_t *st, const char *args)
   return keys;
 }
 
-/* A character's perspective (FirstPerson=1 / SecondPerson=2 / ThirdPerson=3). */
+/* A character's perspective (FirstPerson=1 / SecondPerson=2 / ThirdPerson=3).
+   Keyed on whether `c` is the CURRENT player, not its static Type: after a
+   ToSwitchWith/BECOME the new player is still typed NonPlayer, yet must narrate
+   in the player's perspective ("you pick up ...", not "Lance-Corporal Davey pick
+   up ...").  For every game without BECOME this is identical to the old type
+   test -- the sole Type=Player character is exactly the current player. */
 static int
-char_perspective (const a5_character_t *c)
+char_perspective (const a5_state_t *st, const a5_character_t *c)
 {
   if (c != NULL && c->perspective != NULL)
     {
       if (ci_eq (c->perspective, "FirstPerson"))  return 1;
       if (ci_eq (c->perspective, "ThirdPerson"))  return 3;
     }
-  /* NPCs default to third person; the player defaults to second. */
-  if (c != NULL && c->type != NULL && ci_eq (c->type, "NonPlayer"))
+  /* The current player defaults to second person; everyone else to third
+     (referred to by name). */
+  if (c != NULL && !streq (c->key, a5state_player_key (st)))
     return 3;
   return 2;
 }
@@ -623,7 +629,7 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite)
 static char *
 character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr)
 {
-  int persp = char_perspective (c);
+  int persp = char_perspective (st, c);
   if (persp == 1)
     return strdup (pr == A5_PRO_OBJ ? "me" : pr == A5_PRO_POSS ? "my"
                  : pr == A5_PRO_REFL ? "myself" : "I");
@@ -676,7 +682,7 @@ oo_firstkey (a5_state_t *st, const char *name)
 {
   const char *k = NULL;
   if (ci_eq (name, "player"))
-    return strdup ("Player");
+    return strdup (a5state_player_key (st));
   /* The singular %object%/%object1% (resp. %character%/%character1%) token
      resolves to nothing when the slot was filled by a *plural* %objects%/
      %characters% reference -- FD's GetReference requires ReferenceMatch="object1"
@@ -722,7 +728,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 
   if (ci_eq (name, "player"))
     {
-      const a5_character_t *p = a5model_character (st->adv, "Player");
+      const a5_character_t *p = a5model_character (st->adv, a5state_player_key (st));
       return character_name (st, p, A5_PRO_SUBJ);
     }
   if (ci_eq (name, "charactername"))
@@ -742,9 +748,9 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       /* A bare %CharacterName% (no key) resolves to the character whose text is
          being rendered (CharHereDesc / topic reply), else the Player -- v5
          rewrites char-scoped %CharacterName% to %CharacterName[Key]% at load. */
-      if (key.empty ()) key = st->ctx_char ? st->ctx_char : "Player";
+      if (key.empty ()) key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
       const a5_character_t *ch = a5model_character (st->adv, key.c_str ());
-      if (ch == NULL) ch = a5model_character (st->adv, "Player");
+      if (ch == NULL) ch = a5model_character (st->adv, a5state_player_key (st));
       a5_pronoun_t pr = A5_PRO_SUBJ;
       std::string pl = pron;
       for (char &c : pl) c = (char) tolower ((unsigned char) c);
@@ -779,7 +785,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       int count = 0, i;
       for (i = 0; ploc != NULL && i < st->adv->n_characters; i++)
         {
-          if (ci_eq (st->adv->characters[i].key, "Player"))
+          if (ci_eq (st->adv->characters[i].key, a5state_player_key (st)))
             continue;
           if (streq (st->char_loc[i], ploc))
             { count++; found = st->adv->characters[i].key; }
@@ -2330,7 +2336,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
       {
         const a5_character_t *c = &st->adv->characters[i];
         char *nmr, *descr;
-        if (ci_eq (c->key, "Player"))
+        if (ci_eq (c->key, a5state_player_key (st)))
           continue;
         if (!a5state_character_at_location (st, i, lockey))   /* incl. on/in furniture */
           continue;
@@ -2387,7 +2393,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
      => "An exit leads <dir>.", none => nothing. */
   if (st->adv->show_exits)
     {
-      char *cnt = a5expr_eval (st, "Player", ".Exits.Count");
+      char *cnt = a5expr_eval (st, a5state_player_key (st), ".Exits.Count");
       long n = cnt ? strtol (cnt, NULL, 10) : 0;
       free (cnt);
       /* clsLocation.ViewLocation calls pSpace(sView) *unconditionally* (vb:177)
@@ -2399,7 +2405,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
         sb_puts (&sb, "  ");
       if (n >= 1)
         {
-          char *lst = a5expr_eval (st, "Player", ".Exits.List");
+          char *lst = a5expr_eval (st, a5state_player_key (st), ".Exits.List");
           if (n > 1)
             { sb_puts (&sb, "Exits are "); sb_puts (&sb, lst ? lst : ""); }
           else

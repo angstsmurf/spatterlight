@@ -437,6 +437,31 @@ FILTER="${1:-}"
 #       bTestingOutput=False) -- the crevice squeeze showed its first-time
 #       paragraph on every later pass (the wording "variant" hunk).
 #
+# (2026-07-02) BugHuntOnMenelaus wired -- but as SCARIER-SURPASSES-FD, not an FD
+# MATCH.  The winning 100/100 script is the game's own built-in WALKTHROUGH (two
+# transcription fixes: Erlin enters the cottage via `In`; the final move is `n` to
+# the shuttle).  Root fix: MoveCharacter ToSwitchWith / BECOME player-switching --
+# previously a silent no-op in Scarier, so every marine BECOME left the viewpoint
+# stuck in Captain Erlin's basement and the game was unplayable past the first
+# kill.  Implemented via a dynamic current-player key (a5_state_t.player_key,
+# clsAdventure.Player): ToSwitchWith retargets it when the player is involved
+# (FD clsUserSession.vb), and every %Player%/player-scope resolution now reads it
+# instead of the hard-coded literal "Player".  char_perspective also keys 2nd
+# person on "is the current player" so a switched-in marine narrates as "you ...",
+# not by name.  All 20 golden games stay byte-identical (player_key == "Player"
+# until a BECOME, and no other game uses BECOME) -- zero regressions.
+#   With that, Scarier plays the WHOLE game to "*** CONGRATULATIONS! *** ...the
+# maximum 100 points!" (all 6 Meneltra, 69 turns).  FrankenDrift CANNOT: Davey's
+# 3rd-floor Meneltra is past a pass-gated corridor whose <Movement> OR restriction
+# ("(#O#)") FD drops once the pass is held ("Sorry, I didn't understand that
+# command."), capping FD at 4/6 kills / 65/100.  So there is NO FD MATCH golden;
+# the vanilla column strict-diffs Scarier's own winning transcript
+# (test/BugHuntOnMenelaus_expected.txt, budget 0 = must stay a win), and the
+# xoshiro column carries the FD differential (23, RNG-independent) as the DOCUMENTED
+# FD gap -- it also guards the pre-Davey kills, which still match FD, so a rise
+# above 23 would flag a real Scarier regression there.  See
+# TODO_a5_walkthrough_wiring.md.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -461,6 +486,7 @@ ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
+BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|23
 EOF
 )
 
