@@ -1,0 +1,100 @@
+o
+no
+b
+stand up
+move pouffe by the fireplace
+stand on pouffe
+get tinderbox and telescope
+step down from pouffe
+move pouffe
+read parchment
+e
+conjure handfire
+look under desk
+get paper
+read notepad
+x books
+get thinnest book
+write the key on the paper
+read thin book
+w
+out
+e
+in
+lumino
+open chest
+wear shirt
+wear trousers
+wear jacket
+get boots
+wear boots
+remove slab
+get gold coins
+replace slab
+get toy soldiers and toy warriors
+put all in rucksack
+get telescope and tinderbox
+put all in rucksack
+get parchment and paper
+put all in rucksack
+get wooden horse and slingshot
+put all in rucksack
+get dusty steak and fluff
+put all in rucksack
+e
+get warbelt
+wear warbelt
+put coins in pouch
+w
+wear rucksack
+e
+out
+out
+w
+w
+d
+e
+s
+s
+n
+in
+search detritus
+get rusty key
+get mug
+out
+s
+e
+fill mug with slime
+dip key in mug
+unlock south door with rusty key
+s
+smear left ringbolt with slime
+s
+turn left ringbolt to the right
+turn right ringbolt to the left
+n
+e
+s
+turn right ringbolt to the right
+n
+e
+pull sconce
+s
+turn left ringbolt to the right
+n
+n
+turn right ringbolt to the left
+s
+w
+w
+n
+count twenty bricks up and seven across
+press brick
+crawl into gap
+d
+e
+e
+get fluff
+get tinderbox
+burn fluff with tinderbox
+throw fluff at web

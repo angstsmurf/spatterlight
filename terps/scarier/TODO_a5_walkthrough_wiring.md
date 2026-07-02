@@ -225,10 +225,15 @@ gives a real solution to correct against FD, no blind play needed.
   is blocked at Davey's pass-gated corridor. See the ⭐ section above.
 - **FinnsBigAdventure** → `FBA v.3c.blorb` — no built-in `WALKTHROUGH`; hints
   fragment only (`walkthroughs/FinnsBigAdventure_hints.txt`). Needs a full
-  play-to-win. The forum thread does sketch a usable opening (move stool → mantel
-  items; copy the spell from the notepad onto the paper; find the rucksack for
-  carrying; keep the telescope, tinderbox, both toy-soldier sets and the warbelt
-  or you lock yourself out of the win).
+  play-to-win. **⏳ IN PROGRESS (2026-07-02): derivation started via blind play +
+  the game's `WWDD` per-location hint system + model scoring-task extraction.
+  Verified `test/FinnsBigAdventure_walkthrough.txt` reaches 100/500 (castle
+  opening + the full dungeon combination-lock puzzle + catacombs spider). See
+  `TODO_fba_walkthrough_progress.md` for the section-by-section status, the
+  reverse-engineered dungeon solution, and the resume method.** Not wired yet
+  (script does not win). The forum thread sketched the opening (move stool →
+  mantel items; copy the spell onto the paper; rucksack for carrying; keep the
+  telescope, tinderbox, both toy-soldier sets and the warbelt).
 - **MagorInvestigates** → `MI_v.1.blorb` — no built-in `WALKTHROUGH` (start-menu
   commands are HANDFIRE/INSTRUCTIONS/HELP/NAVIGATION/TASKS/VOCAB); hints fragment
   is one puzzle (make herbal tea — the kettle is in the mug's room). ~200-move
