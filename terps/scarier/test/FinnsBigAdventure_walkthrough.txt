@@ -174,3 +174,68 @@ w
 w
 push off
 row n
+n
+w
+in
+look under workbench
+get screwdriver
+out
+e
+e
+s
+put screwdriver in rucksack
+pull rope
+untie rope
+get screwdriver
+force case open with screwdriver
+open case
+get bag
+look in bag
+put bag in rucksack
+put screwdriver in rucksack
+n
+n
+n
+in
+sit at table
+read menu
+call waitress
+1
+2
+wait
+wait
+wait
+eat meal
+eat dessert
+pay bill
+stand up
+out
+out
+w
+in
+read newspaper
+read article
+search shelves
+buy book
+read book
+out
+n
+n
+e
+e
+ring bell
+w
+w
+s
+s
+e
+e
+in
+2
+search racks
+hire suit
+w
+w
+w
+in
+get soldiers from rucksack
