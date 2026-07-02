@@ -41,6 +41,21 @@ copy (SHA1 `bdc9422d…`) is byte-identical to the adrift.co "Version 9" downloa
 (game 1639), so there is no fixed public build. Corpus status unaffected: Dwarf
 stays `0|0` (all three engines agree, drag and death included).
 
+**REGRESSION PINNED (2026-07-03): the `{*}` gate was ADDED in the 2022-08-07
+update; an earlier build is un-broken.** A player-supplied older `.blorb`
+(`DDF.blorb`, SHA1 `2fb6f724…`, game date **2022-06-07**, 56 265 XML lines vs our
+56 374) has only the THREE correct menu `{*}` tasks — **`cl_NullAtStar` does not
+exist**, and nothing `{*}`-gates `cl_Location11`. Verified in FD on DDF: at By
+Guard Room `> n` → "You move North." into Bend-in-Tunnel, and entering the
+dungeons is safe (the blue-kilt/badge disguise → "assuming you are a Turdrock
+soldier, they ignore you"; no death because you're not dragging the corpse). So
+the shipped adrift.co **Version 9 (2022-08-07) is a regression** that broke a
+previously-completable game by mis-binding a disclaimer null-task to a gameplay
+room. (Not yet a clean end-to-end win on DDF: replaying the verbatim built-in
+`WLKTHRGH` under FD_SEED=1234 desyncs before the finale — the endgame player lands
+in the wrong room, almost certainly RNG/timing on the roaming dragon/thief, not a
+structural block. DDF is confirmed *un-broken*, full-win derivation TBD.)
+
 <details><summary>Two superseded intermediate takes — kept for the record (I was wrong twice)</summary>
 
 **Take 1 (WRONG mechanism, right outcome):** ~~the `{*}` gate *seals* the map;
