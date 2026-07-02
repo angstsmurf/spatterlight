@@ -8880,6 +8880,41 @@ lib_cmd_throw_npc_with (scr_gameref_t game)
   return lib_battle_attack_with (game, "throw", 5, FALSE);
 }
 
+/*
+ * lib_cmd_kill_npc(), lib_cmd_kill_npc_with()
+ * lib_cmd_fight_npc(), lib_cmd_fight_npc_with()
+ *
+ * The Adrift Runner lists "kill" and "fight" among the Battle System's generic
+ * attack verbs, so with the Battle System enabled they resolve a real blow like
+ * "attack".  They are not "legacy" verbs, though: with the Battle System off
+ * these fall through (return FALSE) to the later "kill *"/"fight *" grammar,
+ * preserving the traditional flavour responses lib_cmd_kill_other() and
+ * lib_cmd_fight() provide.
+ */
+scr_bool
+lib_cmd_kill_npc (scr_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "kill", -1, FALSE);
+}
+
+scr_bool
+lib_cmd_kill_npc_with (scr_gameref_t game)
+{
+  return lib_battle_attack_with (game, "kill", -1, FALSE);
+}
+
+scr_bool
+lib_cmd_fight_npc (scr_gameref_t game)
+{
+  return lib_battle_attack_bare (game, "fight", -1, FALSE);
+}
+
+scr_bool
+lib_cmd_fight_npc_with (scr_gameref_t game)
+{
+  return lib_battle_attack_with (game, "fight", -1, FALSE);
+}
+
 
 /*
  * lib_cmd_wield()

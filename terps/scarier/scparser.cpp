@@ -1902,7 +1902,17 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           npc = game->him_npc;
           extent = 3;
         }
+      else if (game->him_npc != -1 && scr_compare_word (current + offset, "he", 2))
+        {
+          npc = game->him_npc;
+          extent = 2;
+        }
       else if (game->her_npc != -1 && scr_compare_word (current + offset, "her", 3))
+        {
+          npc = game->her_npc;
+          extent = 3;
+        }
+      else if (game->her_npc != -1 && scr_compare_word (current + offset, "she", 3))
         {
           npc = game->her_npc;
           extent = 3;

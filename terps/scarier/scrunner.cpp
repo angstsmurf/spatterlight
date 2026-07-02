@@ -325,11 +325,15 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"shoot %character% with %object%", lib_cmd_shoot_npc_with},
   {"stab %character% with %object%", lib_cmd_stab_npc_with},
   {"throw %object% at %character%", lib_cmd_throw_npc_with},
-  {"[attack/kick] %character%", lib_cmd_attack_npc},
+  {"kill %character% with %object%", lib_cmd_kill_npc_with},
+  {"fight %character% with %object%", lib_cmd_fight_npc_with},
+  {"[attack/kick/slap] %character%", lib_cmd_attack_npc},
   {"chop %character%", lib_cmd_chop_npc},
   {"cut %character%", lib_cmd_cut_npc},
   {"shoot %character%", lib_cmd_shoot_npc},
   {"stab %character%", lib_cmd_stab_npc},
+  {"kill %character%", lib_cmd_kill_npc},
+  {"fight %character%", lib_cmd_fight_npc},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
   {"[goto/go {to}] %text%", lib_cmd_go_room},
