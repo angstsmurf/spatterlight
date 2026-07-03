@@ -664,6 +664,21 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
         for (auto &k : e.obj_keys) passed.insert (k);
       }
 
+  /* FD sets NewReferences = refs only for the messages it actually Displays
+     (htblResponses, which its AddResponse bHasOutput gate never adds an
+     empty-output response to).  So the leftover reference the post-command event
+     tasks iterate is the LAST *displayed* message's refs, NOT the last response
+     entry's.  Track the last output-producing aggregate entry's refs here and
+     re-apply them after the loop; an entry that renders to nothing (e.g. Book of
+     Jax's `put all in bag` re-putting items already inside the bag -- their
+     cl_PutObjInBa completions are empty) must not become the leftover set, or a
+     per-turn TurnBased event (cl_TurnsTaken1) would tick once per silently-moved
+     item instead of once. */
+  std::vector<std::string> lo_keys;   /* last displayed aggregate's obj_keys   */
+  std::string lo_obj2;
+  int lo_have = 0;                    /* any entry produced output this flush   */
+  int lo_multi = 0;                   /* last displayed entry was plural (>1)   */
+
   for (int phase = 0; phase < 2; phase++)
     for (auto &e : rm->ents)
       {
@@ -771,8 +786,49 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
           text = e.rendered;
 
         if (msg_has_output (text.c_str ()))
-          { sb_pspace (out); sb_puts (out, text.c_str ()); }
+          {
+            sb_pspace (out); sb_puts (out, text.c_str ());
+            /* This message is Displayed, so it is the running NewReferences (FD
+               reassigns per Displayed message).  An aggregate carrying a merged
+               %objects% set makes the leftover plural; any other displayed message
+               (a single-item completion, a movement line, a room view) leaves it
+               singular -- the event tasks then run once. */
+            lo_have = 1;
+            if (e.aggregate && e.obj_keys.size () > 1)
+              { lo_keys = e.obj_keys; lo_obj2 = e.obj2; lo_multi = 1; }
+            else
+              { lo_keys.clear (); lo_obj2.clear (); lo_multi = 0; }
+          }
       }
+
+  /* Re-apply the last Displayed message's references as FD's post-Display
+     NewReferences (see the note above the loop).  Only a plural leftover matters
+     to attempt_event_task's per-item iteration; a singular last message collapses
+     n_ref_items so the event runs once. */
+  if (lo_have)
+    {
+      if (lo_multi)
+        {
+          std::string pipe;
+          st->n_ref_items = 0;
+          st->ref_items_type = 'o';
+          for (auto &k : lo_keys)
+            {
+              const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+              if (o == NULL) continue;
+              if (st->n_ref_items < A5_MAX_ITEMS)
+                st->ref_items[st->n_ref_items++] = o->key;
+              if (!pipe.empty ()) pipe += "|";
+              pipe += o->key;
+            }
+          bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
+          a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+          if (!lo_obj2.empty ())
+            bind_reference (st, "object2", lo_obj2.c_str (), lo_obj2.c_str ());
+        }
+      else if (st->n_ref_items > 1)
+        st->n_ref_items = 1;
+    }
 }
 
 /* True when every Specific of a child override matches "any" (an empty key) --

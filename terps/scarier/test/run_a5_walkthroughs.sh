@@ -552,8 +552,19 @@ FILTER="${1:-}"
 #       pass because protect_exprs had hidden the body from process_inner's outer
 #       ReplaceOO.  It now runs a5expr_replace on the substituted body before
 #       a5_eval_sexpr, mirroring a5text_eval_expression.  53 of 55 hunks were this.
-#       The remaining 2 are a plough-message leading pSpace and its downstream
-#       score-line offset.  See A5_WALKTHROUGH_FINDINGS.md / TODO_a5_walkthrough_bugs.md.
+#   (3) FIXED (2->1): the game's custom %Turns_Taken% counter (per-turn TurnBased
+#       event cl_TurnsTaken1 -> cl_TurnsTaken2 IncVariable) over-counted by 6 (601
+#       vs FD 595).  FD's post-Display NewReferences (which the event-fired task
+#       iterates) is only the LAST *displayed* message's refs; its AddResponse
+#       bHasOutput gate never enters an empty-output response.  On `put all in bag`
+#       re-putting items already inside the bag (empty cl_PutObjInBa completions),
+#       Scarier left n_ref_items=7 (the silent moves) so the event ticked +7; FD
+#       left 1 (the one visible "...length of rope..." message) -> +1.  resp_flush
+#       (a5run_action.cpp) now re-applies the last OUTPUT-producing entry's refs as
+#       the leftover.  Amazon's `get ammo and rifle` +2 double-tick preserved (its
+#       two takes share one non-empty 2-ref message).  Whole corpus unchanged.
+#       The remaining 1 is the plough-message leading pSpace.
+#       See A5_WALKTHROUGH_FINDINGS.md / TODO_a5_walkthrough_bugs.md.
 #
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
@@ -592,7 +603,7 @@ October31st|October31st.blorb|0|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0
-BookOfJax|BoJ v.2.blorb|2|2
+BookOfJax|BoJ v.2.blorb|1|1
 EOF
 )
 
