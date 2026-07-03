@@ -135,6 +135,157 @@ modes, unit tests + `make sanitize` + a 45-turn ASan/UBSan run clean.
    not a quick script.  Once it wins byte-exact vs FD, replace the smoke
    `Tingalan_walkthrough.txt`/golden with the winning run and re-bless.
 
+### ▶ SESSION 2 (2026-07-03) — ✅ DONE: real winning walkthrough wired at MATCH 0|0 after fixing the Before-actions completion-message triple-evaluation bug.
+
+**★ RESULT.** `test/Tingalan_walkthrough.txt` is now a genuine 16-command WINNING
+run — `read book of ancient lore` (→ Lore 1), `search` Merch (→ encounter 208 THE
+VILLAGE), six no-op `look`s to align the per-turn Roller (`Randbetwee1==2` &
+`Loreroll>=1`), `visit the wagon` (→ encounter 209 THE SMILING SPIRIT), `leave at
+once` (decline the pearl, keep `Countermis=0`), `wait until dawn` → `WaitUntilD1` →
+`Scoring` → **"*** You have won ***"**.  Golden `Tingalan_expected.txt` re-blessed;
+**MATCH 0|0 both RNG modes**, whole corpus unchanged (JacarandaJim 99/0,
+SixSilverBullets 18/0, StoneOfWisdom 2/0, LostLabyrinth 8/0 all at baseline), a5
+unit tests + `make sanitize` + a direct ASan/UBSan Tingalan-walkthrough run all
+clean.  It exercises the Village search, the wagon, and the Smiling-Spirit mission
+encounter — real roguelike surface, not the degenerate turn-1 win.
+
+**★ THE FIX (general, corpus-safe) — Before-actions completion-message triple
+evaluation (a5run_action.cpp `run_task`, resp==NULL branch).**  FD (FileIO.vb:1618
+defaults a missing `<MessageBeforeOrAfter>` to **Before**) renders a Before
+completion message up to **3×** (clsUserSession.vb:1176-1205): a pre-action snapshot
+`sBeforeActionsMessage`, a post-action compare, and a finalize `sMessage =
+ReplaceExpressions(ReplaceFunctions(sMessage))`.  A message bearing a text-changing
+function (`RAND`, `<#OneOf#>`) draws on each render, so FD draws 3× (showing the
+finalize when the first two renders agree) or 2× (pinning the first when they
+differ).  Scarier's flat `run->resp==NULL` direct-emit path called `emit_completion`
+**once**, so `read book of ancient lore` (`This book contains
+%booksoflore[RAND(1,25)]%`) drew `RAND(1,25)` once (idx 1) where FD drew 3× (idx 3),
+desyncing the xoshiro stream and every downstream encounter branch (`visit the
+wagon` → Smiling Spirit in Scarier vs gypsies in FD).  **Fix:** in that branch do
+two throwaway `render_comp_test` renders, then — if they agree — `emit_completion`
+(the finalize draw+display), else `emit_message_body` on the pinned pre-action text
+(no 3rd draw).  Factored `emit_completion`'s tail into a reusable
+`emit_message_body(run, m, pre_alr_ink, out)`.  **Corpus-safe by construction:** a
+static completion (no `%function%`) renders identically and draws nothing on every
+render, so the two extra renders are inert for the corpus's plain messages; and a
+byte-exact (0/0) golden cannot contain a RAND/OneOf-bearing Before completion (it
+would already diverge), so none can move.  Verified: 1-command book repro
+byte-exact (Scarier now `RAND(1,25)`×3 + "Your **L**ore has increased!", matching
+FD), full corpus unchanged in both modes.  (Caveat left for a faithful follow-up:
+the compare/finalize renders are done *before* the actions run rather than around
+them — correct whenever the task's actions don't draw RNG between renders, which
+holds for these General completion tasks; a task whose actions draw between the
+Before renders would need the true pre/post split.)
+
+**★ Tooling: `test/run_a5_walkthroughs.sh -b|--bless`** (re)writes each matched
+game's golden through the same normalisation the comparison uses, and the golden
+comparison is now trailing-newline-tolerant (compares `$(...)`-captured content, not
+`diff -q` against a raw file) — kills the recurring "golden MISMATCH" false alarm
+from a `> file`-written golden's extra newline.
+
+**★ Remaining (optional, larger): the full PEARL win.**  Accepting the pearl
+(`Countermis=1`) forces the Derzelas debt at dawn (encounter 200), winnable only via
+`CheatDerze1` (`Couragerol/Loreroll/Witsroll` all ≥2) → needs stats ≥2 each.  Wits ≥2
+is unreachable at Merch (only the Folk-Tales book, consumed on read 1 this seed; the
+stat shop is deep-woods encounter 135 on firefly currency), so the pearl win requires
+a deep-woods survival run — the substantial roguelike playthrough.  The decline-pearl
+win above is the shipped deliverable; the pearl win is the stretch goal.
+
+---
+_Original SESSION-2 analysis (pre-fix), retained for the mechanics reference:_
+
+**★ A minimal WINNING walkthrough is confirmed byte-exact (0 hunks, BOTH RNG modes).**
+`take axe/knife/…` (any 5) then **`wait until dawn`** on turn 1 fires **`WaitUntilD1`**
+(the `Countermis=0, Counterwar=0` ending), which `Execute`s `Scoring` → `EndGame Win`
+("*** You have won ***", final score 1).  You already start at Merch (loc 25),
+`Depth=1`, `Counterwar=0`, `Countermis=0`, so the win is legal on turn 1.  Verified
+`FD_RNG=xoshiro test/a5_groundtruth.sh` = **0 hunks** and default mode = 0 hunks.
+This is a legitimate but degenerate win (skips the whole roguelike); it is the safe
+fallback golden if the rich win stays blocked.  Script:
+`printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\nwait until dawn\n'`.
+
+**★ Win-path CORRECTION — the TODO's pearl-win premise above was incomplete.**
+`WaitUntilD` (accepted-mission ending) does **not** score directly; it `Execute`s
+`EncounterT184`, which sets `Encountern=200` = **"THE END? — the Derzelas debt"**.
+At that encounter the ONLY winning response is **`CheatDerze1`** (`Cheat Derzelas`),
+gated on `Couragerol>=2 AND Loreroll>=2 AND Witsroll>=2` (→ `Execute Scoring`);
+every other outcome is `EndGame Neutral` (a non-win).  So the pearl path REQUIRES
+Lore/Courage/Wits **stats ≥2 each** at the dawn turn.  (`EncounterT132/134` fire the
+same 200 for the warlock ending `Counterwar=1`.)
+
+**★ The wagon/Smiling-Spirit mission is reachable ENTIRELY from Merch (no woods).**
+`Search12411` (`Search` at loc 25, `Depth=1`, once — stamps 25 into `SearchedLo`)
+`Execute`s `EncounterT182` = encounter **208 "THE VILLAGE"**.  While in 208 (Encounter=1
+blocks new rolls), burn turns with a no-op command (`look` → "…must take an action…";
+wounds/hunger/thirst stay 0 in Merch, safe indefinitely) until the per-turn `Roller`
+lands **`Randbetwee1==2` AND `Loreroll>=1`**, then **`visit the wagon`** → `VisitTheWa`
+sets `Encountern=209` (Smiling Spirit) → **`accept`** (`LeaveSmili1`: `Playerblac+=1`
+black pearl, `Countermis+=1`).  `Loreroll=rand(0,%playerlore%)`, so you first need
+`Playerlore>=1`: **`read book of ancient lore`** (`ReadBookOf1`, +1, needs a Campfire —
+Merch has one).  The command reads the *previous* turn's Roller values (dump line N-1),
+so navigate with `A5_DUMP_VARS='randbetween1and3,LoreRoll'` and pick the burn count that
+lands both.  **Fully verified functionally**: search→wait→visit wagon→accept sets
+`Countermis=1`+pearl, and search→wait→visit wagon→**leave at once** (decline) keeps
+`Countermis=0` and still wins via `WaitUntilD1`.
+
+**★ Why the rich (wagon) win is NOT YET byte-exact — the ROOT BLOCKER (a general
+engine bug):** any wagon win must `read book of ancient lore` (for Lore), whose
+CompletionMessage is `This book contains %booksoflore[RAND(1,25)]%`.  **FD evaluates
+this message THREE times (draws `RAND(1,25)` 3×), Scarier once — so the xoshiro streams
+desync at the book read and every later encounter branch diverges** (e.g. `visit the
+wagon` → Smiling Spirit in Scarier but gypsies in FD).  Minimal repro (1 command)
+isolates it cleanly: `printf 'take book of ancient lore\ntake axe\ntake bow\ntake matches\ntake candle\nread book of ancient lore\n'`
+→ Scarier `grep -c RAND(1,25)`=**1**, FD (`FD_RNG_TRACE=1`)=**3**; Scarier shows array
+idx 1, FD idx 3.  Trace tools: `A5_TRACE_RAND=1` (Scarier) vs `FD_RNG=xoshiro
+FD_SEED=1234 FD_RNG_TRACE=1 dotnet $FD_DLL` (FD); first divergent draw is #27.
+
+  * **Root cause (FD source):** `FileIO.vb:1618` defaults a **missing
+    `<MessageBeforeOrAfter>`** tag to **`Before`** (NOT the class default `After`), so
+    ReadBookOf1's completion is a *Before-actions* message.  The Before path in
+    `clsUserSession.AttemptToExecuteSubTask` (vb:~1164-1205) evaluates the message via
+    `ReplaceExpressions(ReplaceFunctions(sMessage))` up to **3×**: (1) `sBeforeActionsMessage`
+    snapshot (bTestingOutput=True), then after `ExecuteActions`: (2) a compare
+    `If sBeforeActionsMessage <> ReplaceExpressions(ReplaceFunctions(sMessage))`, then
+    (3) the finalize `sMessage = ReplaceExpressions(ReplaceFunctions(sMessage))`.  When
+    the message contains a text-changing function (RAND), each eval draws.  Net draws:
+    **3 if eval1==eval2 (display eval3), 2 if eval1!=eval2 (display eval1 = the
+    pre-action snapshot; eval3 is then a no-op replace of an already-plain string).**
+    The "Your **L**ore has increased!" vs "Your **l**ore has increased!" hunk is just a
+    downstream symptom (the desync selects a different lore-increase task text), not a
+    separate bug.
+  * **Scarier today** (a5run_action.cpp `run_task`): the `run->resp != NULL` Before path
+    already does the pre/post `render_comp_test` compare (2 evals) + optional flush
+    re-render, but the **`run->resp == NULL` direct-emit path just calls
+    `emit_completion` once** (1 eval, emitted before actions).  A top-level command like
+    `read book …` takes the resp==NULL path — hence 1 draw.
+  * **Fix design (for a fresh, corpus-validated session):** in `run_task`'s
+    `before && comp && run->resp==NULL` branch, replicate FD's 3-eval draw pattern —
+    eval1 `render_comp_test` (draw) → reserve the output position → run actions →
+    eval2 `render_comp_test` (draw, compare) → if changed emit the eval1 text (no eval3
+    draw), else `emit_completion` (eval3 draw + display idx-3, retires DisplayOnce),
+    spliced at the reserved position (actions rarely draw between evals, but be
+    faithful).  **HIGH CORPUS RISK**: this path is shared by every Execute'd/command
+    completion message, so it can shift the xoshiro stream in other games — but it may
+    also FIX the standing RNG-residual hunks (JacarandaJim 99/0, SixSilverBullets 18/0,
+    StoneOfWisdom 2/0 are the same "extra per-turn/per-message RAND" class).  Gate on
+    `test/run_a5_walkthroughs.sh` staying put in BOTH modes; the 0/0 goldens must not
+    move (they will only move if they have a Before completion message that newly
+    draws).  Once the book read is byte-exact, re-derive the wagon burn count (the
+    stream shifts) and choose the deliverable: **decline-pearl win** (reach Smiling
+    Spirit, `leave at once`, `wait until dawn` → WaitUntilD1 — woods-free, exercises the
+    Village/wagon/Spirit content) or the full **pearl-cheat win** (needs Lore/Courage/
+    Wits ≥2, which needs the deep woods — Wits ≥2 is unreachable at Merch: the only
+    Merch Wits source is the repeatable Folk-Tales book gamble, and on this seed it is
+    consumed on read 1; the stat shop `buy ring of razor wits` is encounter 135, deep,
+    costs firefly currency).
+
+**★ Tooling built this session** (in scratchpad, reusable): `parse.py`/`task.py`
+(dump any Task's cmds/restrictions/actions/messages by key), `enc.py` (maps every
+`Encountern==N` response task + which task sets each N — 203 encounters).  Var *Names*
+for the dump (lowercase): `PlayerLore`,`PlayerCourage`,`PlayerWits`,`LoreRoll`,
+`randbetween1and3`(=Randbetwee1),`encounternID`,`countermission2derzelas`,
+`counterwarlock`,`playerblackpearl`,`Playerbooklore`,`Playerbookfolktales`,`terrors`.
+
 ## ⭐ Text-array index expression `%var[RAND(1,6)]%` + reflexive self-examine fallback (`examine me` → "yourself") — surfaced smoke-testing 7 new corpus games  ✅ DONE (2026-07-03)
 
 **Two general engine gaps, both corpus-safe, found by opening-turn smoke-diffing

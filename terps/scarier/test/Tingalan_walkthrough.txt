@@ -1,4 +1,16 @@
+take a book of ancient lore
+take axe
+take bow
+take matches
+take candle
+read book of ancient lore
+search
 look
-examine me
-inventory
-wait
+look
+look
+look
+look
+look
+visit the wagon
+leave at once
+wait until dawn

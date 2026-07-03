@@ -153,6 +153,7 @@ static void run_action (a5_run_t *run, const char *kind, const char *body,
 static void emit_look (a5_run_t *run, sb_t *out);
 static std::string render_look_string (a5_run_t *run);
 static void emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out);
+static void emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out);
 static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 
 /* Conversation type bits (clsAction.ConversationEnum). */
@@ -2418,12 +2419,19 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
   int pre_alr_ink = 0;
   char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink);
   run->st->marking_display = prev_mark;
-  /* Append exactly as FD Display() does: pSpace-join to the running output, then
-     the rendered text verbatim.  `m` is already-plain, so msg_has_output is the
-     faithful bHasOutput here: it keeps a whitespace-only message (e.g. a
-     `<Text> </Text>` completion), which then space-joins to the next response --
-     that is how FD renders the leading indent before a search-triggered encounter
-     title (Tingalan's Search " " completion -> Execute encounter). */
+  emit_message_body (run, m, pre_alr_ink, out);
+}
+
+/* Append an already-rendered completion message `m` (ownership taken; freed here)
+   exactly as FD Display() does: pSpace-join to the running output, then the
+   rendered text verbatim.  `m` is already-plain, so msg_has_output is the faithful
+   bHasOutput here: it keeps a whitespace-only message (e.g. a `<Text> </Text>`
+   completion), which then space-joins to the next response -- that is how FD
+   renders the leading indent before a search-triggered encounter title (Tingalan's
+   Search " " completion -> Execute encounter). */
+static void
+emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out)
+{
   if (msg_has_output (m))
     {
       /* Within an event-fired task chain, dedup identical completion messages
@@ -2711,7 +2719,42 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
             }
         }
       else
-        emit_completion (run, comp, out);
+        {
+          /* FD (FileIO.vb:1618 defaults a missing <MessageBeforeOrAfter> to
+             Before) renders a Before completion message up to THREE times
+             (clsUserSession.vb:1176-1205): a pre-action snapshot
+             `sBeforeActionsMessage`, a post-action compare, and a finalize
+             `sMessage = ReplaceExpressions(ReplaceFunctions(sMessage))`.  A message
+             bearing a text-changing function (`RAND(..)`, `<#OneOf#>`) draws on
+             each render, so FD draws 3× and shows the finalize when the first two
+             renders agree, or draws 2× and pins the first when they differ.
+             Scarier's flat resp==NULL buffer emitted once -- desyncing the xoshiro
+             stream on e.g. Tingalan's `read book of ancient lore`, whose
+             CompletionMessage is `This book contains %booksoflore[RAND(1,25)]%`
+             (FD drew RAND(1,25) 3× and showed array index 3; Scarier drew once and
+             showed index 1, diverging every downstream encounter roll).  A static
+             completion (no `%function%`) renders identically every time and draws
+             nothing, so the two extra renders are inert for the corpus's plain
+             messages.  (These General completion tasks' actions don't draw between
+             renders, so evaluating the compare/finalize here -- before the actions,
+             which run below -- matches FD's stream.) */
+          char *e1 = render_comp_test (run->st, comp);
+          char *e2 = render_comp_test (run->st, comp);
+          if (e1 != NULL && e2 != NULL && strcmp (e1, e2) != 0)
+            {
+              /* First two renders differ: FD pins the pre-action snapshot and the
+                 finalize replace is a no-op on the already-plain text (no 3rd
+                 draw). */
+              free (e2);
+              emit_message_body (run, e1, 0, out);
+            }
+          else
+            {
+              free (e1);
+              free (e2);
+              emit_completion (run, comp, out);   /* finalize: 3rd render + display */
+            }
+        }
     }
 
   /* clsUserSession.vb:1193 sets `task.Completed = True` *before* ExecuteActions

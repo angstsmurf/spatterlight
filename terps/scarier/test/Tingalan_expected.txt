@@ -29,94 +29,146 @@ A Book of Folk Tales
 
 You have five items left to take.
 
+> take a book of ancient lore
+
+The book is an old and crumbling thing. It has been in this house as long as you remember. You never realized its value until now.
+
+You have four items left to take.
+
+> take axe
+You take an axe you have had since childhood. It is lovingly cared for, with no chips in the blade and only a few splinters along the handle. With the axe, you can CHOP WOOD in almost any location in Tingalan.
+
+You have three items left to take.
+
+> take bow
+You take a bow your mother made for you several years ago.
+You have two items left to take.
+
+> take matches
+You take a box of twelve matches.
+
+You have one items left to take.
+
+> take candle
+You grab a candle off the shelf.
+
+You have zero items left to take.
+You leave your house, closing the door carefully so as not to disturb the ones you love within...or alert anything terrible without. You stand in the streets of Merch-by-Night.
+
+> read book of ancient lore
+This book contains a rigorous accounting of the plants found in Tingalan, and the awful secret of their motility. Your Lore has increased!  You have finished this book.  Your studies have been strangely fruitful...you think you can cast a new spell.
+
+The spell you have learned is LIGHT. This consumes a charge of gunpowder, and provides as much light as a candle.
+
+> search
+
+ENCOUNTER: THE VILLAGE
+
+You have lived in this city your whole life. You know every part of it. It looks like a different place by night: Shop windows are as lonely and black as the eye-sockets on a skull. Doorframes seem taller, the doors behind them less inviting. Merch-by-Night is not Merch-by-Day. There is very little to find here, and what may hide in Merch-by-Night may be decidedly unpleasant. Still, if you wish to search the village, you can.
+
+LEAVE AT ONCE
+VISIT THE NORTHGATE DISTRICT (courage)
+VISIT THE ONLY SHOP STILL OPEN (wits)
+VISIT THE WAGON BY THE RIVER (lore)
+
 > look
 
-Your House
-You creep from your bed to the parlor of your family's country house. The woods beyond Merch are full of all imaginable terrors, and many that you cannot imagine. You have packed a few simple things in preparation for this foolish adventure.
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
 
-What do you bring with you into the woods? You can select five things from the list below
+> look
 
-An Axe
-A Knife
-A Rusty Sword
-A Bow
-A Musket
-A Quiver of Five Arrows
-A Horn with Five Charges of Powder
-A Box with Twelve Matches
-A Candle
-A Box of Crackers
-A Pound of Smoked Meat
-A Can of Coffee
-A Can of Coco
-A Jar of Water
-A Pair of Shears
-A Box of Fishing Gear
-An Adderstone
-A Magical Juju
-A Book of Horror Stories
-A Book of Ancient Lore
-A Book of Folk Tales
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
 
-You have five items left to take.
+> look
 
-> examine me
-You see nothing interesting about yourself.
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
 
-> inventory
+> look
 
-You have no axe
-You have no knife
-You have no sword
-You have no bow and zero arrows
-You have no musket and zero charges of powder.
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
 
-You have no juju
-You have no adderstone
-You have no shears
-You have no fishing tackle
-You have zero books of Ancient Lore
-You have zero books of Horror Stories
-You have zero books of Folk Tales
+> look
 
-BACKPACK
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
 
-FOOD
-Jars of water: 0
-Jars of honey: 0
-Berries: 0
-Morels: 0
-Boxes of crackers: 0
-Doses of coffee: 0
-Doses of coco: 0
-Pounds of smoked meat: 0
+> look
 
-LIGHT
-Matches: 0
-Candles: 0
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
 
-OTHER
-Logs: 0
-Sage: 0
-Stinkhorn: 0
-Emetic russulka: 0
-Crow feathers: 0
-Horseshoe nails: 0
-Deer bones: 0
-Pounds of raw meat: 0
-Fireflies: 0
+> visit the wagon
 
-LOOT
-Floating eyes: 0
-Shreds of darkness: 0
-Ounces of red vitriol: 0
-Wriggling things: 0
-Nightmare Pelts: 0
-Black pearls: 0
-Ounces of blue vitriol: 0
-Priceless treasures: 0
-Elfin artifacts: 0
-Terrible secrets: 0
+You recall that, this time of year, there are often wagons hitched near the river. The strange folk who come and go along the forest roads often know something of the wood, and they may be willing to talk to you this night.
 
-> wait
-You cannot bring yourself to do this.
+You head west, to the clearing near the bridge.
+
+There is only one wagon, gaily painted, with strange signs carved onto the planks at odd places. It is possible they are witch-warding signs, but they do not look like any signs you have seen before.
+
+There is a candle burning somewhere in the wagon, and a figure at work in the flickering shadows. It seems to be dancing.
+
+As you attempt to circle the wagon and find a way in, the light in the wagon goes out...
+
+...and the dancer stands before you, as if by magic!
+
+He stands slightly taller than you, with a wide-brimmed hat that obscures most of his face except a very, very broad smile. His teeth are immaculate, and he seems friendly, but makes no attempt to greet you.
+
+This is clearly a spirit, one of the true lords of Tingalan. You have read about them in books. You know they can make powerful friends or terrible enemies, and regardless of their nature, it is always wise to greet them properly.
+
+...and so you do. You trace the sign of Ysonde in the air, and the spirit does as well. In the distance, an owl hoots with unnatural delight.
+
+ENCOUNTER: THE SMILING SPIRIT
+
+It speaks. Its voice is low and dark and echoes evilly among the trees. You do not think it is a friendly spirit.
+
+"But of course, few spirits in Tingalan are friendly." It says!
+
+"That is right, you share your thoughts with me. In this proximity, the contours of your mind are as familiar to me as the streets of this little town are to you."
+
+Somehow, its grin grows even wider as it explains. "You are learning that this village is a different place by night. Yes. Wonderful. I am the Smiling Spirit, charged by the Fey Lord Derzelas with monitoring trade and mortal intrigues in this little patch of transient light. Your village has some small part to play in his dark machinations. You might as well...he has tasked me to make a proposition:
+
+You leave this night hunting for treasure, most likely, but know that there are things more valuable than treasure among the trees...for the trees also guard terrible secrets. My lord would dearly like for you to learn one. He offers you this reward if you swear, on all that is holy and unholy, to return to Merch with a terrible secret."
+
+The spirit holds out its hand. By the light of the moon, you see that its hand has no fingernails. In the palm of its hand, it holds a large black pearl. This would make you quite rich, if you were able to exchange it in the markets of Merch in the morning.
+
+"A very generous offer." The spirit says. "accept it, and you swear to learn a terrible secret before sunrise. What say you, mortal?"
+
+ACCEPT
+LEAVE AT ONCE
+
+> leave at once
+
+You reject the spirit's offer as politely as you can.
+
+It says nothing, but merely nods.
+
+The wind rises, and the spirit seems to blow away like fog.
+
+What a strange night this is.
+
+You have no choice but to continue your journey.
+
+> wait until dawn
+You wait until dawn.     The terrors of the forest subside, and after a little while, the sun rises dutifully in the East, as it has every day since the world was cobbled together from the table scraps of the Elder Gods.
+
+The next day, you go to market, and tell your story. You leave most of it out. The simple men and women of Merch need not learn the awful truth of the forests around them. Like anyone who has returned from Tingalan, you tell comforting lies.
+
+There is only one thing left to do...
+
+You found 0 morels, each sells for a single silver piece
+You found 0 wriggling things, each sells for two silver pieces
+You found 0 floating eyes, each sells for three silver pieces
+You found 0 shreds of pure darkness, each sells for four silver pieces
+You found 0 ounces of red vitriol, each sells for five silver pieces
+You found 0 nightmare pelts, each sells for six silver pieces
+You found 0 black pearls, each sells for seven silver pieces
+You found 0 ounces of blue vitriol, each sells for eight silver pieces
+You found 0 priceless treasures, which in fact find a price. Each is worth 9 silver pieces
+
+And you survived, that alone is worth something. We shall say, for the purpose of this story, that your life is worth a single silver piece.
+
+Your final accounting is 1 silver pieces
+
+Well done.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+
