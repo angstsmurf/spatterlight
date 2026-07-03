@@ -790,6 +790,17 @@ finish_turn (a5_run_t *run, sb_t *out)
      no markers reach here from a5run_intro.) */
   sb_resolve_cls (out, 0);
   raw = sb_take (out);
+  /* The pSpace markers (A5_PS_MARK) have already done their job during buffer
+     accumulation -- sb_pspace saw them as non-newline tails and inserted the join
+     spaces.  Strip them now, before the ALR match and the trailing-whitespace
+     trim, so they never reach the output. */
+  if (raw != NULL)
+    {
+      char *r, *w;
+      for (r = w = raw; *r != '\0'; r++)
+        if (*r != A5_PS_MARK) *w++ = *r;
+      *w = '\0';
+    }
   fin = a5text_display_alr (run->st, raw);   /* may render ALR <img>/<audio> too */
   free (raw);
   /* Normalise only the very end of the turn: FD's pSpace model leaves a message

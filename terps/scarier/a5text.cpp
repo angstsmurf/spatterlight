@@ -2129,12 +2129,33 @@ a5text_display_alr (a5_state_t *st, const char *plain)
   return a2;
 }
 
+/* FD applies pSpace to its RAW (markup-bearing) output buffer, so a message whose
+   raw text ends in something other than a real newline -- a stripped tag
+   (`...\n<font color=X>`), a trailing `<br>`, or an entity -- leaves the buffer
+   non-vbLf and the NEXT message space-joins with two leading spaces.  Scarier
+   strips markup per message, so its stripped text ends in the '\n' that preceded
+   the trailing tag and it would drop that join.  When the pre-strip text ends
+   non-'\n' but the stripped text ends in '\n', append A5_PS_MARK so sb_pspace
+   still treats this message as a non-newline tail (finish_turn strips the mark). */
+static char *
+ps_mark_trailing (const char *proc, char *plain)
+{
+  size_t pl = strlen (proc), tl = strlen (plain);
+  if (pl > 0 && proc[pl - 1] != '\n' && tl > 0 && plain[tl - 1] == '\n')
+    {
+      char *np = (char *) realloc (plain, tl + 2);
+      if (np != NULL) { np[tl] = A5_PS_MARK; np[tl + 1] = '\0'; return np; }
+    }
+  return plain;
+}
+
 char *
 a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper)
 {
   char *raw = a5text_eval_description (st, wrapper);
   char *proc = a5text_process (st, raw);
   char *plain = a5text_render_plain (proc);
+  plain = ps_mark_trailing (proc, plain);
   free (raw);
   free (proc);
   return plain;
@@ -2155,6 +2176,7 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
   char *persp = resolve_perspective (st, inner);
   char *capped = auto_capitalise (persp);
   char *plain = a5text_render_plain (capped);
+  plain = ps_mark_trailing (capped, plain);
   free (raw);
   free (inner);
   free (persp);

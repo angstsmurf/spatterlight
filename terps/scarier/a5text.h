@@ -32,6 +32,18 @@
    game text. */
 #define A5_CLS_MARK '\001'
 
+/* Sentinel byte marking "FrankenDrift's raw output buffer would end in a non-vbLf
+   character here" -- appended by the message renderers when a message's raw
+   (markup-bearing) text ends in a stripped tag / <br> / entity rather than a real
+   newline, but the stripped plain text ends in '\n'.  FD applies pSpace to the RAW
+   buffer, so such a message leaves the buffer non-newline and the NEXT message
+   space-joins with two spaces; Scarier strips markup per message, so its buffer
+   would end in the '\n' that preceded the trailing tag and it would NOT join.
+   sb_pspace treats this marker like any non-newline tail (adds the join spaces);
+   finish_turn strips it before the text is shown.  \x02 (STX) never occurs in
+   game text. */
+#define A5_PS_MARK '\002'
+
 /*
  * Evaluate a description wrapper node (e.g. a location's <LongDescription>, an
  * object's <Description>, the <Introduction>) into raw source text with markup

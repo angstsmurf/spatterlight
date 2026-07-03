@@ -603,7 +603,7 @@ October31st|October31st.blorb|0|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0
-BookOfJax|BoJ v.2.blorb|1|1
+BookOfJax|BoJ v.2.blorb|0|0
 EOF
 )
 
