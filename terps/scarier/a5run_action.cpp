@@ -1918,7 +1918,25 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       if (vi < 0) return;
       if (streq (st->adv->variables[vi].type, "Text") && streq (kind, "SetVariable"))
         {
-          char *proc = a5text_process (st, value.c_str ());
+          /* FD evaluates the RHS as an expression, so a bare string-literal value
+             unwraps to its contents.  ADRIFT writes such literals with their own
+             quotes inside the assignment's delimiters (Playeraxe = ""an"" or
+             = "'an'"); split_assignment stripped one outer layer, leaving "an" /
+             'an'.  Strip a remaining fully-surrounding matched quote pair so
+             %playeraxe% renders `an`, not `'an'`/`"an"` (Tingalan inventory).
+             Only when it is a lone literal (no interior same-quote), so a
+             concatenation like "a" & "b" is left for a5text_process untouched. */
+          std::string tv = value;
+          if (tv.size () >= 2 && (tv[0] == '"' || tv[0] == '\'')
+              && tv[tv.size () - 1] == tv[0]
+              && tv.find (tv[0], 1) == tv.size () - 1)
+            tv = tv.substr (1, tv.size () - 2);
+          /* Store WITHOUT the display-time auto-capitalisation: FD keeps the raw
+             evaluated value (Playeraxe = "an") and only capitalises when it is
+             rendered in sentence context.  a5text_process would cap the lone value
+             at position 0 ("an" -> "An"), so %playeraxe% mid-sentence wrongly
+             shows "You have An axe" instead of "an axe". */
+          char *proc = a5text_process_nocap (st, tv.c_str ());
           free (st->var_text[vi]);
           st->var_text[vi] = proc;
         }

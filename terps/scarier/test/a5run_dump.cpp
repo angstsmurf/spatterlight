@@ -124,6 +124,33 @@ main (int argc, char **argv)
         txt = a5run_input (run, line);
         printf ("%s\n", txt);
         free (txt);
+        /* A5_DUMP_VARS="Depth,Encountern,..." prints those vars + the player's
+           location to stderr after each command -- navigation aid for deriving a
+           deterministic walkthrough of a large map/encounter game (Tingalan). */
+        {
+          static const char *dv = (const char *) 1;
+          if (dv == (const char *) 1) dv = getenv ("A5_DUMP_VARS");
+          if (dv != NULL)
+            {
+              a5_state_t *st = a5run_state (run);
+              const char *pk = a5state_player_key (st);
+              int ci = pk ? a5state_character_index (st, pk) : -1;
+              fprintf (stderr, "[loc=%s", (ci >= 0 && st->char_loc[ci]) ? st->char_loc[ci] : "?");
+              const char *p = dv;
+              char nm[64];
+              while (*p)
+                {
+                  size_t k = 0;
+                  while (*p && *p != ',' && k < sizeof nm - 1) nm[k++] = *p++;
+                  nm[k] = '\0';
+                  if (*p == ',') p++;
+                  long val = 0;
+                  if (k && a5state_var_num_by_name (st, nm, &val))
+                    fprintf (stderr, " %s=%ld", nm, val);
+                }
+              fprintf (stderr, "]\n");
+            }
+        }
         if (a5run_is_over (run))
           /* The engine has already emitted the win/lose/score/restart block
              (clsUserSession.CheckEndOfGame); nothing more to print. */
