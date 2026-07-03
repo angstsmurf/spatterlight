@@ -65,6 +65,12 @@ extern char *a5text_process (a5_state_t *st, const char *src);
    applies auto-cap only at Display time, never when resolving a reference. */
 extern char *a5text_process_nocap (a5_state_t *st, const char *src);
 
+/* Like a5text_process_nocap but WITHOUT the ALR pass -- for evaluating ACTION
+   values (Set/Inc/DecVariable amounts).  FD evaluates those through
+   EvaluateExpression only; ReplaceALRs is Display-time, so a game's display
+   ALR (GFS "17000" -> "1.700.0") must not rewrite a stored number. */
+extern char *a5text_process_noalr (a5_state_t *st, const char *src);
+
 /* Evaluate a raw expression string (Global.EvaluateExpression): substitute its
    %references%/OO chains then reduce to a string value.  Heap; never NULL. */
 extern char *a5text_eval_expression (a5_state_t *st, const char *expr);

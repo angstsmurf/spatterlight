@@ -649,6 +649,28 @@ a5state_player_location (const a5_state_t *st)
   return st->char_loc[pi];
 }
 
+/* A character's EFFECTIVE location key: char_loc when set, else resolved
+   through the on/in-object carrier (a char whose model start is "On Object"
+   -- GFS's Grandpa on his rocking chair -- has char_loc NULL; FD derives
+   clsCharacterLocation.LocationKey from the furniture). */
+const char *
+a5state_character_location_key (const a5_state_t *st, int ci)
+{
+  if (ci < 0 || st->char_loc == NULL)
+    return NULL;
+  if (st->char_loc[ci] != NULL)
+    return st->char_loc[ci];
+  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+    {
+      int li;
+      for (li = 0; li < st->adv->n_locations; li++)
+        if (a5state_object_key_at_location (st, st->char_onobj[ci],
+                                            st->adv->locations[li].key, 0))
+          return st->adv->locations[li].key;
+    }
+  return NULL;
+}
+
 /* Does container object `parent` *hide* its In-Object contents from view?
    Mirrors clsObject.BoundVisible's InObject branch (clsObject.vb:804): the
    contents are visible when the container is `Not Openable OrElse IsOpen OrElse
@@ -710,20 +732,10 @@ exists_at (const a5_state_t *st, int oi, const char *lockey, int directly,
     case A5_OWHERE_LOCATION:
       return streq (loc->key, lockey);
     case A5_OWHERE_LOCGROUP:
-      {
-        const a5_group_t *g;
-        int i;
-        for (i = 0; i < st->adv->n_groups; i++)
-          if (streq (st->adv->groups[i].key, loc->key))
-            {
-              g = &st->adv->groups[i];
-              for (int m = 0; m < g->n_members; m++)
-                if (streq (g->members[m], lockey))
-                  return 1;
-              return 0;
-            }
-        return 0;
-      }
+      /* Runtime AddLocationToGroup counts (GFS's green button lives in a
+         statically-empty group the `x door` task populates), so go through
+         the override-aware membership test, not the static <Member>s. */
+      return a5state_object_in_group (st, loc->key, lockey);
     case A5_OWHERE_IN_OBJECT:
       if (directly)
         return 0;

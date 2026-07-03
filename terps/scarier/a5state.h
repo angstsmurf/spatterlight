@@ -297,6 +297,9 @@ extern int a5state_object_visible_at_location (const a5_state_t *st, int oi,
  * location renderer's "characters present" list, which includes characters
  * seated on / inside furniture in the room.
  */
+/* The character's effective location key (char_loc, or resolved through the
+   on/in-object carrier chain); NULL when hidden. */
+extern const char *a5state_character_location_key (const a5_state_t *st, int ci);
 extern int a5state_character_at_location (const a5_state_t *st, int ci,
                                           const char *lockey);
 

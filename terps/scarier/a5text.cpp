@@ -1573,35 +1573,29 @@ resolve_perspective (a5_state_t *st, const char *src)
     {
       if (*p == '[')
         {
+          /* FD's rePerspective regex is \[(first)/(second)/(third)\]: the
+             bracket must hold at least TWO slashes (split at the first two;
+             the third part is the rest, slashes and all) and lie on one line
+             ('.' doesn't span \n).  A one-slash bracket is NOT a perspective
+             group -- GFS's "[more (<u>more</u> means ...)]" and "[type ...
+             <b>E</b> to exit]" pass through literally (the tags render away
+             later). */
           const char *q = p + 1;
-          int has_slash = 0;
-          while (*q && *q != ']' && *q != '[')
-            { if (*q == '/') has_slash = 1; q++; }
-          if (*q == ']' && has_slash)
+          const char *s1 = NULL, *s2 = NULL;
+          while (*q && *q != ']' && *q != '[' && *q != '\n')
             {
-              /* split p+1..q by '/', pick option idx (clamp to last). */
-              const char *s = p + 1;
-              int opt = 0;
-              const char *opt_start = s;
-              const char *chosen_a = NULL, *chosen_b = NULL;
-              while (s <= q)
-                {
-                  if (s == q || *s == '/')
-                    {
-                      if (opt == idx) { chosen_a = opt_start; chosen_b = s; }
-                      opt++;
-                      opt_start = s + 1;
-                    }
-                  s++;
-                }
-              if (chosen_a == NULL)       /* fewer options than idx: take last */
-                { /* recompute last */
-                  const char *r = p + 1; const char *ls = r;
-                  while (r <= q) { if (r == q || *r == '/') { chosen_a = ls; chosen_b = r; ls = r + 1; } r++; }
-                }
-              if (chosen_a != NULL)
-                for (const char *c = chosen_a; c < chosen_b; c++)
-                  sb_putc (&sb, *c);
+              if (*q == '/')
+                { if (s1 == NULL) s1 = q; else if (s2 == NULL) s2 = q; }
+              q++;
+            }
+          if (*q == ']' && s2 != NULL)
+            {
+              const char *a, *b;
+              if (idx == 0)      { a = p + 1;  b = s1; }
+              else if (idx == 1) { a = s1 + 1; b = s2; }
+              else               { a = s2 + 1; b = q;  }
+              for (const char *c = a; c < b; c++)
+                sb_putc (&sb, *c);
               p = q + 1;
               continue;
             }
@@ -1941,6 +1935,27 @@ a5text_process_nocap (a5_state_t *st, const char *src)
   char *persp = resolve_perspective (st, inner);
   free (inner);
   return persp;
+}
+
+char *
+a5text_process_noalr (a5_state_t *st, const char *src)
+{
+  /* %functions%/OO/<#exprs#> WITHOUT the ALR pass: for evaluating ACTION
+     values.  FD's SetVariable path goes through EvaluateExpression
+     (ReplaceFunctions only) -- ReplaceALRs runs at Display time (vb:308)
+     and must not rewrite stored values.  GFS defines a display ALR
+     "17000" -> "1.700.0" that would otherwise corrupt
+     `IncVariable cl_Money = "1700000"` into 1.  No auto-capitalisation
+     either (that is Display-time too). */
+  std::vector<std::string> saved;
+  std::string prot = protect_exprs (src ? src : "", saved);
+  char *funcs = replace_functions (st, prot.c_str ());
+  char *oo = a5expr_replace (st, funcs);
+  std::string restored = restore_exprs (oo, saved);
+  char *exprs = replace_expressions (st, restored.c_str ());
+  free (funcs);
+  free (oo);
+  return exprs;
 }
 
 /* ------------------------------------------------------- media side channel */

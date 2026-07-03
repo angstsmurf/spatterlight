@@ -1,0 +1,1172 @@
+Grandma's Flying Saucer
+
+Grandma's Flying Saucer - TALP
+
+PROLOGUE
+You are nine years old and you are visiting your Grandpa's Ranch. It's morning and you are playing in the field behind the ranch when a flying saucer suddenly lands on the grass a few meters from you. The door opens and an old woman walks down the stairs. She walks towards you.
+
+What is your name?
+
+> Claude
+
+Inside the Flying Saucer
+The circular spaceship is pretty cramped but otherwise quite cosy as Grandma has hung paintings and trinkets on the wall.
+
+You can go:
+ - Nowhere until the door is opened
+
+You can see:
+- A control panel
+- A big viewscreen
+- A door
+- Grandma
+
+TUTORIAL: The spaceship will reach its destination once the first part of the tutorial has been completed (or you type TUTORIAL OFF). Try to type INVENTORY (or simply: I) to see what you are carrying.
+
+> i
+You are carrying a compass and a pen and paper.
+TUTORIAL: Try to drop the compass: DROP COMPASS
+
+> drop compass
+Ok, you put down the compass.
+TUTORIAL: Try to take the compass, e.g. GET COMPASS
+
+> get it
+(the compass)
+Ok, you pick up the compass.
+TUTORIAL: Now try to examine the compass: EXAMINE COMPASS (or just: X COMPASS)
+
+> x it
+(the compass)
+This is the compass Grandpa gave you. You remember Grandpa telling you that on a map, north is always at the top, south is down, east is to the right and west is to the left.
+
+You feel the saucer shake slightly, then Grandma says "We have just landed! Claude, see if you can open the door."
+
+TUTORIAL: This is your first puzzle. First step is always to examine(X) the relevant objects, i.e. X DOOR
+
+> x door
+The door has no handle but there is a green button on the wall right beside it.  The door is currently closed.
+
+TUTORIAL: Notice the button. Try PUSH GREEN BUTTON (or simply PUSH BUTTON if you haven't found any other buttons)
+
+> press button
+You press the green button and the door opens. You can now go OUT.
+
+One point for opening the door.
+
+TUTORIAL: Puzzle solved! Before you leave, you better TALK to Grandma.
+
+> talk to grandma
+"Claude, you must have a lot of questions! Let me start out by saying that you must be the one to tell Grandpa that I am alive..." [more (more means that the person has more to say so keep on talking)]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"If I just went up to Grandpa, he would have a heart attack, which is why you must tell him about me gently. But he will think it is your imagination unless you bring him an object that proves that I'm alive..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"You know, I used to be an archaeologist in my spare time and was trying to locate the so-called Horseshoe Diamond (which would belong to a Brazilian museum if I succeeded). Not many know that it exists but I told Grandpa about it..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"Rumor has it, that it was stolen by greedy aliens. When I was imprisoned in the zoo on the planet Zoo-Mba, I overheard a conversation that confirmed that the diamond is on the planet Fur-Rangi..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"If we can get it back, you can convince Grandpa that I am alive! This is why I have just landed on Fur-Rangi..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"The people of Fur-Rangi are used to visitors from other planets so they will not be suspicious if they meet us. However, they will probably try to sell us something..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"Fur-Rangi is a quite small planet and we have landed south of the capital, close to the museum which is said to hold the Horseshoe Diamond. Unlike museums on Earth, all exhibits are on sale..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+Note that the Furs (people from this planet) have translation chips implanted in their brains so you can talk to them in English. They will do anything for profit..." [more]
+
+TUTORIAL: I think Grandma has more to tell you. Keep TALKing...
+
+> talk to grandma
+"But we have to hurry so we can be back on the ranch later today, otherwise Grandpa will be worried. You better get started while I prepare some lunch for us."
+
+TUTORIAL: Now you know that your mission is to get hold of the Horseshoe Diamond, you should go outside and see if you can find it: OUT
+
+> out
+You move out.
+
+Clearing in the Woods
+You are standing in a beautiful clearing with lots of colorful flowers, quite different from the flowers on Earth.
+
+You can go:
+ - North (along a path)
+ - West (along another path)
+ - In (into Grandma's Flying Saucer)
+
+You can see:
+ - Grandma's flying saucer (landed)
+ - Beautiful flowers
+
+TUTORIAL: On a map, the left side is to the west. And your compass tells you that there is a path here leading west so let's try to go west: W
+
+> w
+You move west.
+
+By Tall Cliff
+The path ends here by a tall cliff. There is no way to get past it and it is much too steep to climb.
+
+You can go:
+ - East (back along the path)
+
+You can see:
+ - Nothing of importance
+
+TUTORIAL: There is nothing of interest here, so let's go back. The opposite of west is east so let's go east: E
+
+> x nothing
+You learn that there is nothing of interest in this location.
+
+One SECRET point for examining nothing of importance.
+
+> e
+You move east.
+
+Clearing in the Woods
+You are standing in a beautiful clearing with lots of colorful flowers, quite different from the flowers on Earth.
+
+You can go:
+ - North (along a path)
+ - West (along another path)
+ - In (into Grandma's Flying Saucer)
+
+You can see:
+ - Grandma's flying saucer (landed)
+ - Beautiful flowers
+
+TUTORIAL: The top of a map is to the north. And your compass tells you that there is a path here leading north so let's try to go north: N
+
+> n
+You move north.
+
+Path south of creek
+The path ends here, south of a creek. It is very peaceful here.
+
+You can go:
+ - South (along a path)
+
+You can see:
+ - A creek
+
+TUTORIAL: Before you proceed you should learn how to navigate with compass directions. You came here by going north and the opposite of north is south so let's go south: S
+
+> jump creek
+You take a few steps back, then you run as fast as you can and jump over the creek.
+
+Path north of creek
+You are now north of the creek you jumped over recently. It feels very peaceful here, though you sense a some traffic noise from the north.
+
+You can go:
+ - North (along a path)
+
+You can see:
+ - A creek
+
+One point for jumping over the creek.
+
+> n
+You move north.
+
+South of Road
+You are standing south of a road that leads east and west. Hovercars pass by once in a while.
+
+You can go:
+ - North (across the road)
+ - South (along a path)
+
+You can see:
+ - A road
+
+TUTORIAL: Before you proceed you should learn how to navigate with compass directions. You came here by going north and the opposite of north is south so let's go south: S
+
+> n
+You look carefully to both sides, then you cross the road.
+
+North of Road
+You are standing north of the road where hovercars pass by once in a while. You notice an interesting building further down the road to the east.
+
+You can go:
+ - North (towards the city center)
+ - South (across the road)
+ - East (towards a strange building)
+
+You can see:
+ - A road
+
+TUTORIAL: Before you proceed you should learn how to navigate with compass directions. You haven't walked south yet so let's try that: S
+
+> e
+You move east.
+
+By Museum Entrance
+You are standing by the entrance to a museum. You know this as there is a big sign written in five languages, including English.
+
+You can go:
+ - North (into the museum)
+ - West (along the road)
+
+You can see:
+ - A sign
+
+> n
+You move north.
+
+Entrance Hall
+You are standing in the entrance hall of the museum. A clerk is seated behind a desk.
+
+You can go:
+ - East (to the eastern section)
+ - West (to the western section)
+ - South (to leave the museum)
+
+You can see:
+ - A clerk
+
+TUTORIAL: Before you proceed you should learn how to navigate with compass directions. You haven't walked south yet so let's try that: S
+As you pass through the entrance hall the clerk shouts out: "Come and talk to me if you want to buy any of the exhibits."
+
+> e
+You move east.
+
+Foreign Arts Section
+According to a sign you are in the Foreign Arts Section of the museum. There are all kinds of fascinating stuff and some of it looks like it was made on Earth.
+
+You can go:
+ - West (back to the entrance hall)
+
+You can see:
+ - A sign
+ - Some exhibits
+
+> x exhibits
+There are many beautiful and facinating artifacts here. All the exhibits have a price tag. Especially one diamond catches your attention...
+
+> x diamond
+The diamond is fairly big and it is shaped like a horseshoe so it must be the Horseshoe Diamond! Unfortunately, the price tag says: #1.700.000,00
+
+> w
+You move west.
+
+Entrance Hall
+You are standing in the entrance hall of the museum. A clerk is seated behind a desk.
+
+You can go:
+ - East (to the eastern section)
+ - West (to the western section)
+ - South (to leave the museum)
+
+You can see:
+ - A clerk
+
+TUTORIAL: Before you proceed you should learn how to navigate with compass directions. You haven't walked south yet so let's try that: S
+As you pass through the entrance hall the clerk shouts out: "Come and talk to me if you want to buy any of the exhibits."
+
+> s
+You move south.
+
+By Museum Entrance
+You are standing by the entrance to a museum. You know this as there is a big sign written in five languages, including English.
+
+You can go:
+ - North (into the museum)
+ - West (along the road)
+
+You can see:
+ - A sign
+
+TUTORIAL: You have learned everything the tutorial could teach you, so it is now permanently disabled for the rest of the game. For additional hints type HINTS.
+
+> w
+You move west.
+
+North of Road
+You are standing north of the road where hovercars pass by once in a while. You notice an interesting building further down the road to the east.
+
+You can go:
+ - North (towards the city center)
+ - South (across the road)
+ - East (towards a strange building)
+
+You can see:
+ - A road
+
+> n
+You move north.
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+
+> x plate
+As you look at the green glass plate the picture of a Fur-Rangi alien appears on the screen and says: "Welcome to Fur-Rangi human. Let's get you started with an empty Life Card!"
+
+A plastic card pops out of an otherwise invisible slot in the glass plate. You pick it up.
+
+One point for getting a Life Card.
+
+> n
+You move north.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> w
+You move west.
+
+West Street
+You are at the end of West Street where a dirt track leads west to some hubbub and commotion.
+
+You can go:
+ - East (back to the city square)
+ - West (along the dirt track)
+
+You can see:
+ - A  dirt track
+
+> w
+You move west.
+
+Animal Show
+You have entered an animal show with all sorts of exotic animals, including some from Earth.
+
+You can go:
+ - East (to leave the animal show)
+
+You can see:
+ - Animal stalls
+ - Lots of animals
+ - Aliens who own or visit the stalls
+
+> x aliens
+You are trying to get an overview of the many alien species here when a small, blue female alien wearing plastic-like clothes starts talking to you: "Hi human, I'm Bolka!"
+
+> talk to bolka
+"You look new around here," Bolka says. "I have a job for you if you are interested..." [more]
+
+> talk to bolka
+"Tell me more," you say. "Okay, you just have to deliver this package..." [more]
+
+> talk to bolka
+"You must deliver this package to 221B Falcon Street." Bolka says and hands you the package. "Sure, I can do that," you say.
+
+> talk to bolka
+Bolka says: "If you can't find Falcon Street, try to consult the AI on the pedestrian street. Just talk to the green glass plate when you get there.
+
+> e
+You move east.
+
+West Street
+You are at the end of West Street where a dirt track leads west to some hubbub and commotion.
+
+You can go:
+ - East (back to the city square)
+ - West (along the dirt track)
+
+You can see:
+ - A  dirt track
+
+> e
+You move east.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> s
+You move south.
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> talk to plate
+The alien on the screen says: "Hi again, what can I do for you?
+
+1. Ask for directions
+2. Tourist guide
+3. Goodbye
+
+[type one of the numbers above]
+
+> 1
+"Where would you like to go?" the alien asks.
+
+[type the street name now or type E to exit]
+
+> falcon street
+"To reach Falcon Street from here, you must go north to the city square, then east to East Street where you will find Falcon Street which is a side street to East Street."
+
+"Got it," you say and turn away from the green glass plate.
+
+Press any key to continue
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> n
+You move north.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> e
+You move east.
+
+East Street
+You are standing on East Street which continues east out of town. There is a computer cafe called "The Uplink" on the south side of the street.
+
+You can go:
+ - North (to Falcon Street)
+ - South (into the computer cafe)
+ - West (back to the city square)
+
+You can see:
+ - Lots of apartment buildings without doors
+ - glowing signs on the walls of the buildings
+
+You have arrived on East Street where you quickly find Falcon Street north of here.
+
+> n
+You move north.
+
+By 221B Falcon Street
+You are walking along Falcon Street and are now outside 221B according to a sign on the wall. It continues further north but you see no reason to go any further.
+
+You can go:
+ - South (back to East Street)
+
+You can see:
+ - Building 221B
+ - A lit sign saying 221B Falcon Street
+
+> touch sign
+You hear the sound of a buzzer and shortly after, a so far invisible door opens up and a Fur sticks her head out of the door. You give her the package, she thanks you and closes the door again.
+
+One point for delivering the package.
+
+> s
+You move south.
+
+East Street
+You are standing on East Street which continues east out of town. There is a computer cafe called "The Uplink" on the south side of the street.
+
+You can go:
+ - North (to Falcon Street)
+ - South (into the computer cafe)
+ - West (back to the city square)
+
+You can see:
+ - Lots of apartment buildings without doors
+ - glowing signs on the walls of the buildings
+
+> w
+You move west.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> w
+You move west.
+
+West Street
+You are at the end of West Street where a dirt track leads west to some hubbub and commotion.
+
+You can go:
+ - East (back to the city square)
+ - West (along the dirt track)
+
+You can see:
+ - A  dirt track
+
+> w
+You move west.
+
+Animal Show
+You have entered an animal show with all sorts of exotic animals, including some from Earth.
+
+You can go:
+ - East (to leave the animal show)
+
+You can see:
+ - Animal stalls
+ - Lots of animals
+ - Aliens who own or visit the stalls
+ - Bolka is standing by a stall
+
+> talk to bolka
+"I heard you delivered the package so here are your earnings." Bolka touches your Life Card with hers and you hear a faint "Diing!"
+
+One point for getting paid.
+
+> e
+You move east.
+
+West Street
+You are at the end of West Street where a dirt track leads west to some hubbub and commotion.
+
+You can go:
+ - East (back to the city square)
+ - West (along the dirt track)
+
+You can see:
+ - A  dirt track
+
+> e
+You move east.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> s
+You move south.
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> w
+You move west.
+
+Sleazy Pub
+You are inside a sleazy pub which looks a lot like pubs on Earth except for all the aliens.
+
+You can go:
+ - East (out on the street)
+
+You can see:
+ - Several aliens
+ - A barman behind the bar
+ - A wrinkled alien who sits alone in one corner
+
+As you enter the pub, the barman shouts: "Hey Earthling, what would you like to drink?"
+
+You guess you must buy something if you want to stay here, so you buy a bottle of Earth Water.
+
+> talk to alien
+"Hello human, welcome. My name is Enfri..." [more]
+
+> talk to alien
+"I used to have a human friend but he stopped drinking. Good for him, not so good for me..." [more]
+
+> talk to alien
+"His name is John Boom. The best hacker I've ever met..." [more]
+
+> talk to alien
+"John could add lots of money to a Life Card if he wanted to. But he only did it when it was a matter of life and death..." [more]
+
+> talk to alien
+"Oh, those were good times when John Boom and I were touring the pubs of the city." Enfri seems to be daydreaming now...
+
+> e
+You move east.
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> n
+You move north.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> e
+You move east.
+
+East Street
+You are standing on East Street which continues east out of town. There is a computer cafe called "The Uplink" on the south side of the street.
+
+You can go:
+ - North (to Falcon Street)
+ - South (into the computer cafe)
+ - West (back to the city square)
+
+You can see:
+ - Lots of apartment buildings without doors
+ - glowing signs on the walls of the buildings
+
+> s
+You move south.
+
+The Uplink
+You are inside the computer cafe "The Uplink" consisting of several computer booths. Only one booth is occupied.
+
+You can go:
+ - North (out on the street)
+
+You can see:
+ - Several empty booths
+ - An occupied booth
+
+> x booth
+A young Fur-Rangi woman sits in the booth in front of a hologram, typing on some sort of keyboard. Apparently, keyboards are universal.
+
+> talk to woman
+You present yourself to the Fur-Rangi woman, then she starts talking: "Hi, I'm Adlia. I always wanted to meet an Earthling as they are very rare around here..." [more]
+
+> talk to woman
+"Are you a hacker?" you ask. "Sort of," Adlia says, "but please don't tell anyone..." [more]
+
+> talk to woman
+"Could you help me find someone?" you ask. "Sure, who are you seeking?" Adlia asks.
+[Now you must type who you are seeking or type E to exit]
+
+> john boom
+"I've heard about the super hacker John Boom," Adlia says, "but I am good too so I can find him..." Shortly after she gives you the address: 105 Flamingo Street
+
+One point for getting John Boom's address.
+
+Press any key to continue
+
+The Uplink
+You are inside the computer cafe "The Uplink" consisting of several computer booths. Only one booth is occupied.
+
+You can go:
+ - North (out on the street)
+
+You can see:
+ - Several empty booths
+ - An occupied booth
+ - Adlia is seated in a booth
+
+> n
+You move north.
+
+East Street
+You are standing on East Street which continues east out of town. There is a computer cafe called "The Uplink" on the south side of the street.
+
+You can go:
+ - North (to Falcon Street)
+ - South (into the computer cafe)
+ - West (back to the city square)
+
+You can see:
+ - Lots of apartment buildings without doors
+ - glowing signs on the walls of the buildings
+
+> w
+You move west.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> s
+You move south.
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> talk to plate
+The alien on the screen says: "Hi again, what can I do for you?
+
+1. Ask for directions
+2. Tourist guide
+3. Goodbye
+
+[type one of the numbers above]
+
+> 1
+"Where would you like to go?" the alien asks.
+
+[type the street name now or type E to exit]
+
+> flamingo street
+"Go north from here, until you reach North Street where you will find that Flamingo Street is a side street to North Street."
+
+"Got it," you say and turn away from the green glass plate.
+
+Press any key to continue
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> n
+You move north.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> n
+You move north.
+
+North Street
+You are walking along North Street. Flamingo Street is west of here.
+
+You can go:
+ - South (back to the city square)
+ - West (to Flamingo Street)
+
+You can see:
+ - Some signs on the buildings
+
+You have arrived on North Street where you quickly find that Flamingo Street is west of here.
+
+> w
+You move west.
+
+105 Flamingo Street
+You are standing on Flamingo Street outside house 105. Flamingo Street leads east and west but you see no reason to go further west.
+
+You can go:
+ - East (back to North Street)
+
+You can see:
+ - Building 105
+ - A sign saying 105 Flamingo Street
+
+> touch sign
+You touch the sign and shortly after, a so far invisible opening appears in the wall. A man, apparently human, stands in the opening and asks: "Who are you?"...[more]
+
+> talk to man
+You tell the man your name and he tells you that he is John Boom. "I am so glad to see another human being," John says... [more]
+
+> talk to man
+You tell John why you are here. He says it's an interesting story and invites you in.
+
+John Boom's Living Room
+You are seated in a chair in John Boom's living room. John sits on another chair in front of a very sci-fi looking computer.
+
+You can go:
+ - South (back onto the street)
+
+You can see:
+ - The chair you are seated in
+ - John sitting by his computer
+
+> talk to man
+You tell John about Grandpa and Grandma and that the Horseshoe Diamond was stolen from Earth.
+
+"Do you know where the Horseshoe Diamond is now?" John asks...[more]
+
+> talk to man
+You tell John that you have found the Horseshoe Diamond and that the price is #1.700.000,00. John says that it is quite a big amount but as this fundamentally is a question of life and death he is willing to help you... [more]
+
+> talk to man
+"One second," says John. He taps away on the keyboard and finally says: "Now I have transferred #1.700.000,00 to your Life Card!"
+
+You thank him and leave.
+
+One point for getting the required money.
+
+Press any key to continue
+
+105 Flamingo Street
+You are standing on Flamingo Street outside house 105. Flamingo Street leads east and west but you see no reason to go further west.
+
+You can go:
+ - East (back to North Street)
+
+You can see:
+ - Building 105
+ - A sign saying 105 Flamingo Street
+
+> e
+You move east.
+
+North Street
+You are walking along North Street. Flamingo Street is west of here.
+
+You can go:
+ - South (back to the city square)
+ - West (to Flamingo Street)
+
+You can see:
+ - Some signs on the buildings
+
+> s
+You move south.
+
+City Square
+You are standing in the city square, surrounded by all kinds of aliens who walk, hover or roll past you. There are streets in all directions.
+
+You can go:
+ - North (to North Street)
+ - South (back to the pedestrian street)
+ - East (to East Street)
+ - West (to West Street)
+
+You can see:
+ - Lots of aliens
+
+> s
+You move south.
+
+Pedestrian Street
+You are walking down a pedestrian street. All sorts of aliens pass you by but you cannot see any humans.
+
+You can go:
+ - North (to some sort of city square)
+ - South (back to the road)
+ - East (into a casino)
+ - West (into a pub)
+
+You can see:
+ - Several signs
+ - An upright green glass plate
+ - A depiction of an alien on the glass plate
+
+> s
+You move south.
+
+North of Road
+You are standing north of the road where hovercars pass by once in a while. You notice an interesting building further down the road to the east.
+
+You can go:
+ - North (towards the city center)
+ - South (across the road)
+ - East (towards a strange building)
+
+You can see:
+ - A road
+
+> e
+You move east.
+
+By Museum Entrance
+You are standing by the entrance to a museum. You know this as there is a big sign written in five languages, including English.
+
+You can go:
+ - North (into the museum)
+ - West (along the road)
+
+You can see:
+ - A sign
+
+> n
+You move north.
+
+Entrance Hall
+You are standing in the entrance hall of the museum. A clerk is seated behind a desk.
+
+You can go:
+ - East (to the eastern section)
+ - West (to the western section)
+ - South (to leave the museum)
+
+You can see:
+ - A clerk
+
+As you pass through the entrance hall the clerk shouts out: "Come and talk to me if you want to buy any of the exhibits."
+
+> talk to clerk
+The clerk smiles and asks if you want to buy anything so you nod. "What would you like to buy?" she asks.
+[Now you should type what you want to buy or E to exit]
+
+> horseshoe diamond
+You tell the clerk that you would like to buy the Horseshoe Diamond. The clerk walks east and returns shortly after with the Horseshoe Diamond. You pay with your Life Card and then you leave the museum.
+
+One point for obtaining the Horseshoe Diamond.
+Press any key to continue
+
+By Museum Entrance
+You are standing by the entrance to a museum. You know this as there is a big sign written in five languages, including English.
+
+You can go:
+ - North (into the museum)
+ - West (along the road)
+
+You can see:
+ - A sign
+
+> w
+You move west.
+
+North of Road
+You are standing north of the road where hovercars pass by once in a while. You notice an interesting building further down the road to the east.
+
+You can go:
+ - North (towards the city center)
+ - South (across the road)
+ - East (towards a strange building)
+
+You can see:
+ - A road
+
+> s
+You look carefully to both sides, then you cross the road.
+
+South of Road
+You are standing south of a road that leads east and west. Hovercars pass by once in a while.
+
+You can go:
+ - North (across the road)
+ - South (along a path)
+
+You can see:
+ - A road
+
+> s
+You move south.
+
+Path north of creek
+You are now north of the creek you jumped over recently. It feels very peaceful here, though you sense a some traffic noise from the north.
+
+You can go:
+ - North (along a path)
+
+You can see:
+ - A creek
+
+> jump creek
+You take a few steps back, then you run as fast as you can and jump over the creek.
+
+Path south of creek
+The path ends here, south of a creek. It is very peaceful here.
+
+You can go:
+ - South (along a path)
+
+You can see:
+ - A creek
+
+> s
+You move south.
+
+Clearing in the Woods
+You are standing in a beautiful clearing with lots of colorful flowers, quite different from the flowers on Earth.
+
+You can go:
+ - North (along a path)
+ - West (along another path)
+ - In (into Grandma's Flying Saucer)
+
+You can see:
+ - Grandma's flying saucer (landed)
+ - Beautiful flowers
+
+> in
+You move in.
+
+Inside the Flying Saucer
+The circular spaceship is pretty cramped but otherwise quite cosy as Grandma has hung paintings and trinkets on the wall.
+
+You can go:
+ - Out
+
+You can see:
+- A control panel
+- A big viewscreen
+- A door
+- A green button beside the door
+- Grandma
+
+Grandma sees that you have returned with the Horseshoe Diamond so she quickly serves your lunch and says: "I think we can be back at Grandpa's ranch before dinner!"
+
+A few hours later the saucer lands on the field behind the ranch. Grandma says "Go and talk to Grandpa. When he is ready you can give him the diamond".
+
+You enter Grandpa's living room.
+
+Grandpa's Living Room
+You are sitting on a chair in Grandpa's living room. Grandpa is sitting close to you in his rocking chair.
+
+You can see:
+ - Grandpa sitting in his rocking chair
+
+> talk to grandpa
+"Hi Grandpa, Grandma is alive and we have just visited another planet called Fur-rangi!" you tell Grandpa. "Ho ho, you have always had such a good imagination," Grandpa says... [more]
+
+> talk to grandpa
+"We went there to retrieve the Horseshoe diamond," you continue. Grandpa looks surprised but not convinced and says: "Oh, I wish it was true but Grandma would never have left me without telling me where she would go..." [more]
+
+> talk to grandpa
+"You're right, Grandma would never leave without saying goodbye but she was kidnapped by aliens for years until she managed to escape recently," you say.
+
+"You have always been such a good storyteller," Grandpa says with a hopeful smile on his face... [more]
+
+> talk to grandpa
+"I can prove it as I have the Horseshoe Diamond," you almost shout.
+
+"If you had I would certainly believe you my dear grandchild," Grandpa says with a wishful expression on his face.
+
+> give diamond to grandpa
+>Give diamond to Grandpa
+[1 point for convincing Grandpa]
+* * * * * * * * * * * * * * * * *
+* You feel that Grandpa is ready*
+* so you give him the Horseshoe *
+* Diamond. He looks astonished  *
+* and examines the diamond very *
+* thoroughly. "It's a real      *
+* diamond," Grandpa exclaims,   *
+* "it is the Horseshoe Diamond! *
+* Grandma must be alive!"       *
+*                               *
+* "Yes, I am still alive,"      *
+* Grandma says and walks into   *
+* the living room. Grandpa      *
+* stands up and approach her    *
+* while tears run down his      *
+* cheeks but they are tears of  *
+* joy. They hug each other and  *
+* hug you too.                  *
+*                               *
+* You have never seen Grandpa   *
+* so happy...                   *
+* * * * * * * * * * * * * * * * *
+THE END...And full score!!!
+
+In that game you scored 10 out of a possible 10, in 108 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

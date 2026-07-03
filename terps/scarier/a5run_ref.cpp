@@ -453,8 +453,11 @@ obj_seen_p (a5_state_t *st, const char *key)
 int
 char_visible (a5_state_t *st, const char *key)
 {
+  /* Through the on/in-object chain (a char seated on furniture has
+     char_loc == NULL) -- GFS's Grandpa starts On Object rocking chair. */
   int i = a5state_character_index (st, key);
-  return i >= 0 && streq (st->char_loc[i], a5state_player_location (st));
+  return i >= 0
+         && a5state_character_at_location (st, i, a5state_player_location (st));
 }
 
 int

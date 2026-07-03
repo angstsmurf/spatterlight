@@ -96,7 +96,11 @@ eval_num_value (a5_state_t *st, const char *raw)
       hi = (*p) ? strtol (p, NULL, 10) : lo;
       return a5rand_between (lo, hi);
     }
-  proc = a5text_process (st, raw ? raw : "0");
+  /* NO ALR pass here: FD evaluates action values via EvaluateExpression
+     (ReplaceFunctions only); ReplaceALRs is Display-time.  GFS's display ALR
+     "17000" -> "1.700.0" must not turn IncVariable cl_Money = "1700000"
+     into 1. */
+  proc = a5text_process_noalr (st, raw ? raw : "0");
   {
     bool ok = false;
     long e = a5_eval_arith (proc, &ok);
@@ -1250,7 +1254,11 @@ update_seen (a5_state_t *st)
     {
       if (streq (st->adv->characters[i].key, a5state_player_key (st)))
         { st->char_seen[i] = 1; continue; }
-      if (ploc != NULL && streq (st->char_loc[i], ploc))
+      /* Resolve through the on/in-object chain, not char_loc alone -- a
+         character whose model start is "On Object" (GFS's Grandpa on his
+         rocking chair) has char_loc == NULL and is located via the
+         furniture. */
+      if (ploc != NULL && a5state_character_at_location (st, i, ploc))
         st->char_seen[i] = 1;
     }
   /* Mark every object currently visible in the player's room as seen
@@ -1874,7 +1882,30 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               if (k2 == NULL || streq (k2, "TheFloor"))
                 st->char_onobj[ci] = NULL;
               else
-                { st->char_onobj[ci] = k2; st->char_in[ci] = 0; }
+                {
+                  st->char_onobj[ci] = k2; st->char_in[ci] = 0;
+                  /* FD keys the character's location off the furniture
+                     (ExistsWhere OnObject -> clsCharacterLocation.LocationKey
+                     follows the object), so seating someone on a chair in
+                     ANOTHER room moves them there -- GFS's John Boom "invites
+                     you in" seats the player on the living-room cosy chair.
+                     Scarier stores the room explicitly: sync it. */
+                  int oj = a5state_object_index (st, k2);
+                  const char *loc = NULL;
+                  if (oj >= 0)
+                    for (int li = 0; li < st->adv->n_locations; li++)
+                      if (a5state_object_at_location (st, oj,
+                                                      st->adv->locations[li].key, 1))
+                        { loc = st->adv->locations[li].key; break; }
+                  if (loc != NULL && !streq (loc, st->char_loc[ci]))
+                    {
+                      if (streq (k1, a5state_player_key (st)))
+                        enqueue_loc_trigger_tasks (run, st->char_loc[ci], loc);
+                      st->char_loc[ci] = loc;
+                      if (streq (k1, a5state_player_key (st)))
+                        clear_conv_if_partner_gone (run, out);
+                    }
+                }
             }
           else if (to == "InsideObject" || to == "OntoObject")
             {

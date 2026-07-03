@@ -434,7 +434,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       /* FD's CanSeeObject (clsCharacter.vb:772) compares BoundVisible keys, so
          an object inside a closed opaque container is not visible. */
       int ci = a5state_character_index (st, k2);
-      const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+      const char *cloc = a5state_character_location_key (st, ci);
       return oi >= 0 && cloc != NULL
              && a5state_object_visible_at_location (st, oi, cloc, 0);
     }
@@ -758,7 +758,9 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         obs_loc = NULL;
       else
         { int oc = a5state_character_index (st, k2);
-          obs_loc = (oc >= 0) ? st->char_loc[oc] : NULL; }
+          /* effective location: an observer seated ON furniture (Grandpa on
+             his rocking chair) has char_loc NULL. */
+          obs_loc = a5state_character_location_key (st, oc); }
       if (k2 != NULL && streq (k2, ANYCHARACTER))
         {
           /* any observer: the subject (or any subject) co-located with any *other*
