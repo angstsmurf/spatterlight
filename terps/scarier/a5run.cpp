@@ -295,6 +295,7 @@ a5run_new (const a5_adventure_t *adv)
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;
+  run->cur_score_ti = -1;
   run->look_pinned = NULL;
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
@@ -2090,6 +2091,7 @@ save_fd_game (sb_t *b, a5_run_t *run)
       sb_puts (b, "<Task>\n");
       sb_elem (b, "Key", adv->tasks[i].key);
       sb_elem (b, "Completed", st->task_done[i] ? "True" : "False");
+      sb_elem (b, "Scored", st->task_scored[i] ? "True" : "False");
       sb_puts (b, "</Task>\n");
     }
 
@@ -2256,7 +2258,7 @@ restore_reset (a5_run_t *run)
   int i;
 
   for (i = 0; i < adv->n_tasks; i++)
-    st->task_done[i] = 0;
+    { st->task_done[i] = 0; st->task_scored[i] = 0; }
   for (i = 0; i < st->n_ov; i++)
     { free (st->ov[i].entity); free (st->ov[i].prop); free (st->ov[i].value); }
   st->n_ov = 0;
@@ -2591,7 +2593,10 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
         {
           int ti = a5state_task_index (st, a5xml_child_text (n, "Key"));
           if (ti >= 0)
-            st->task_done[ti] = a5xml_bool (a5xml_child_text (n, "Completed"));
+            {
+              st->task_done[ti] = a5xml_bool (a5xml_child_text (n, "Completed"));
+              st->task_scored[ti] = a5xml_bool (a5xml_child_text (n, "Scored"));
+            }
         }
       else if (streq (nm, "Event"))
         {

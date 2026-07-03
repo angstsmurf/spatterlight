@@ -184,7 +184,10 @@ a5state_new (const a5_adventure_t *adv)
     }
 
   if (adv->n_tasks > 0)
-    st->task_done = (char *) calloc ((size_t) adv->n_tasks, 1);
+    {
+      st->task_done   = (char *) calloc ((size_t) adv->n_tasks, 1);
+      st->task_scored = (char *) calloc ((size_t) adv->n_tasks, 1);
+    }
 
   return st;
 }
@@ -226,6 +229,7 @@ a5state_free (a5_state_t *st)
   free (st->var_num);
   free (st->var_text);
   free (st->task_done);
+  free (st->task_scored);
   free (st->disp_once);
   for (i = 0; i < st->n_looks; i++)
     { free (st->looks[i].loc_key); free (st->looks[i].text); }

@@ -59,6 +59,44 @@ surfaces on a game that *doesn't* MATCH for another reason (i.e. where it would 
 unblock a win or a large hunk drop). One cosmetic line behind a game-specific author ALR
 does not justify the shared-path risk.
 
+## ⭐ A task could modify `Score` more than once (FBA leash re-scored via a second tie command)  ✅ DONE (2026-07-03)
+
+**Symptom (FBA, surfaced during the max-score derivation).** After `make a leash`
+(+5), typing `tie rope to dog` re-awarded **another +5** in Scarier (380 → 385) where
+FrankenDrift stays 380. Both engines show the identical "…you've made a leash!" text;
+only the score differs — so it is a pure scoring divergence, invisible in the transcript
+diff (and doubly hidden here by the game's `Score >= MaxScore` "maximum 500" win banner).
+
+**Root cause.** Two DISTINCT non-repeatable tasks both `SetTasks Execute cl_MakeLeash`
+(the Repeatable=1 System task that owns the `IncVariable Score = "5"`):
+`cl_TieRopeToD1` (commands `make a leash` / `tie rope to dog`) and `cl_TieDogWith`
+(the Specific override of `cl_TieObjectT2` `tie %object% to %character%`, rope→Paddy).
+`make a leash` runs the first; the later `tie rope to dog` — with `cl_TieRopeToD1`
+already complete — resolves to `cl_TieDogWith`, which Execute's `cl_MakeLeash` a second
+time. `cl_MakeLeash` being Repeatable=1, Scarier re-ran its `IncVariable Score` → +5.
+
+**What FD does (instrumented to confirm).** `clsUserSession.ExecuteSingleAction`
+(vb:2144) gates every `Score` change behind a per-task **`clsTask.Scored`** flag:
+`If var.Key <> "Score" OrElse (task IsNot Nothing AndAlso Not task.Scored) Then …
+If var.Key = "Score" Then task.Scored = True`. `Scored` is set on the first Score
+change, **never reset**, and persisted in the save (`<Scored>`, FileIO.vb:112/935). A
+temporary `Console.Error.WriteLine` at that gate printed, for the two `cl_MakeLeash`
+runs: `alreadyScored=False -> True` (first, applies) then `alreadyScored=True -> False`
+(second, suppressed). So a task adds to Score **at most once, ever** — real-ADRIFT
+anti-farming behaviour. Scarier had no such guard.
+
+**Fix.** Added `char *task_scored[n_tasks]` to `a5_state_t` (alloc/free in a5state.cpp,
+reset on restart, serialized as `<Scored>` in save/restore in a5run.cpp — mirroring
+FD's `<Completed>`). `run_task` records the task whose `<Actions>` are running in
+`run->cur_score_ti` (saved/restored around both its action loops, so a `SetTasks
+Execute` sub-task nests correctly — the owner of `cl_MakeLeash`'s action is
+`cl_MakeLeash` itself, matching FD's `task` param). In `run_action`'s Set/Inc/Dec
+handler, a change to the `Score` variable is suppressed when
+`st->task_scored[run->cur_score_ti]` is already set, and sets it otherwise; non-Score
+variables and the (rare) no-owner path (`cur_score_ti == -1`) are never gated. FBA leash
+now 380 like FD; **whole corpus unchanged / still at baseline** (no game relied on a
+task re-scoring), ASan/UBSan-clean, a5save test green.
+
 ## ⭐ Event/System/walk task swallowed its restriction-fail `<Message>` (FBA butcher's-stall leash → full MATCH)  ✅ DONE (2026-07-03)
 
 **FinnsBigAdventure 0|1 → 0|0.** FBA's only RNG-independent hunk: at loc-92 the

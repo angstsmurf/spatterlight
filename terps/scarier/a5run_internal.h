@@ -140,6 +140,11 @@ struct a5_run_s {
   int    look_pending;
   size_t look_pos;
 
+  /* Index of the task whose <Actions> are currently executing (clsUserSession
+     ExecuteSingleAction's `task` param), or -1.  Used to gate the Score variable
+     so a task can only modify Score once (clsTask.Scored, vb:2144). */
+  int    cur_score_ti;
+
   /* When the Look dance's two test renders differ (a random pick in the room
      view moved between them -- clsUserSession.vb:1200), FD pins the response to
      the FIRST render instead of deferring the raw aggregate message to Display.

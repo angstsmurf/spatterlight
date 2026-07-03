@@ -1784,6 +1784,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
         }
       else
         {
+          /* clsUserSession.vb:2144: a task modifies the built-in Score at most
+             once ever -- gated on clsTask.Scored, set on first Score change and
+             never reset (persisted across save/restore).  Without this a
+             repeatable scoring task, or one System scoring task Execute'd by two
+             distinct non-repeatable tasks (FBA's cl_MakeLeash, reached via both
+             `make a leash` cl_TieRopeToD1 and `tie rope to dog` cl_TieDogWith),
+             re-awards its points.  Non-Score variables are never gated. */
+          int is_score = streq (st->adv->variables[vi].key, "Score");
+          if (is_score && run->cur_score_ti >= 0)
+            {
+              if (st->task_scored[run->cur_score_ti])
+                return;                       /* already scored -- suppress */
+              st->task_scored[run->cur_score_ti] = 1;
+            }
           long delta = eval_num_value (st, value.c_str ());
           if (streq (kind, "SetVariable"))      st->var_num[vi] = delta;
           else if (streq (kind, "IncVariable")) st->var_num[vi] += delta;
@@ -2346,10 +2360,13 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         { run->look_pending = 1; run->look_pos = out->len; claimed_pending = 1; }
 
       if (self_ti >= 0) run->st->task_done[self_ti] = 1;
+      int saved_sti = run->cur_score_ti;
+      run->cur_score_ti = self_ti;
       if (t->actions != NULL)
         for (const a5_xml_node_t *c = t->actions->first_child; c; c = c->next)
           run_action (run, c->name, c->text, depth,
                       (run->resp == NULL && !run->defer_look) ? &abuf : out);
+      run->cur_score_ti = saved_sti;
 
       pm = run->st->marking_display;
       run->st->marking_display = 0;
@@ -2446,9 +2463,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
 
   if (act != NULL)
     {
+      int saved_sti = run->cur_score_ti;
+      run->cur_score_ti = self_ti;
       const a5_xml_node_t *c;
       for (c = act->first_child; c != NULL; c = c->next)
         run_action (run, c->name, c->text, depth, out);
+      run->cur_score_ti = saved_sti;
     }
 
   if (before && comp != NULL && run->resp != NULL)

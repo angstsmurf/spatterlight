@@ -270,14 +270,16 @@ scoring tasks.
 >    admitted): `1` (buy leather collar, 5 goons) → `2` (dog biscuits) → `5` (buy 5,
 >    min order) → yields the **strong paper bag** (the Kong silverback tool).
 >
-> **⚠ Scarier double-score BUG surfaced (NOT banked):** after `make a leash` (+5),
-> typing `tie rope to dog` re-fires a 2nd leash task and Scarier awards ANOTHER +5
-> (→335). **FrankenDrift does NOT re-score (stays 330)** — so this is a real Scarier
-> divergence (two overlapping tasks `cl_TieRopeToD1` "make a leash" / `cl_TieRopeToS`
-> "tie rope to dog"/"make leash" both complete). The committed script uses only the
-> single `make a leash` (the faithful 330). **TODO: fix in the engine** (log in
-> `TODO_a5_walkthrough_bugs.md`) — a completed task's alt-command sibling should not
-> re-complete/re-score.
+> **✅ Scarier double-score BUG (FIXED 2026-07-03):** after `make a leash` (+5), typing
+> `tie rope to dog` re-fired the score in Scarier (→335) where FrankenDrift stays 330.
+> Root cause was NOT the pair I first guessed: the 2nd command resolves to `cl_TieDogWith`
+> (Specific override of `tie %object% to %character%`, rope→Paddy), a DIFFERENT
+> non-repeatable task that also `Execute`s the shared Repeatable=1 System scorer
+> `cl_MakeLeash`. FD gates every `Score` change behind a per-task `clsTask.Scored` flag
+> (a task scores at most once, ever; vb:2144) — confirmed by instrumenting FD. Ported to
+> Scarier (`st->task_scored[]` + `run->cur_score_ti` set around `run_task`'s action loops,
+> gate in `run_action`); leash now 380 like FD, whole corpus still at baseline. Full
+> write-up in `TODO_a5_walkthrough_bugs.md` (DONE entry).
 >
 > **Navigation note:** the dump's numeric `cl_LocationNN` exit indices do NOT match
 > the in-game compass labels for the town — navigate the town by PROSE. Real town

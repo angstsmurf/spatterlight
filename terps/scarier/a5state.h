@@ -81,6 +81,9 @@ typedef struct a5_state_s {
   char **var_text;        /* [adv->n_variables] text value (owned), or NULL    */
 
   char  *task_done;       /* [adv->n_tasks] completed flag                     */
+  char  *task_scored;     /* [adv->n_tasks] this task has modified Score once
+                             (clsTask.Scored); gates its IncVariable Score so a
+                             repeatable/re-executed scoring task scores only once */
 
   a5_prop_ov_t *ov;       /* property overrides set at runtime                 */
   int n_ov, cap_ov;
