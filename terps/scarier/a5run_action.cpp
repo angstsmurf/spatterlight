@@ -102,6 +102,24 @@ eval_num_value (a5_state_t *st, const char *raw)
     long e = a5_eval_arith (proc, &ok);
     if (ok) { free (proc); return e; }   /* arithmetic expression */
   }
+  /* Not plain arithmetic: the value may be a function call the arith evaluator
+     doesn't know -- most importantly a *lowercase* rand(min,max) (the uppercase
+     RAND fast path above only matches "RAND...").  Tingalan's Roller sets
+     Randbetwee = "rand(1,9)", Witsroll = "rand(0,%playerwits%)" etc. every turn;
+     without this they all evaluate to 0 (no draw) and the whole encounter/combat
+     RNG is dead.  FD evaluates a SetVariable value through EvaluateExpression, so
+     defer to the s-expression engine, which draws for rand()/oneof() via the same
+     a5rand_between as the uppercase path.  %vars% are already substituted, so
+     rand(0,%playerwits%) is now rand(0,N).  Only used when it yields a number, so
+     a non-numeric junk value still falls through to the leading-integer strtol. */
+  {
+    char *sv = a5_eval_sexpr (proc);
+    char *end = NULL;
+    long e = strtol (sv, &end, 10);
+    int got = (sv != end);
+    free (sv);
+    if (got) { free (proc); return e; }
+  }
   v = strtol (proc, NULL, 10);           /* fall back: leading integer */
   free (proc);
   return v;
