@@ -42,19 +42,33 @@ copy (SHA1 `bdc9422d…`) is byte-identical to the adrift.co "Version 9" downloa
 stays `0|0` (all three engines agree, drag and death included).
 
 **REGRESSION PINNED (2026-07-03): the `{*}` gate was ADDED in the 2022-08-07
-update; an earlier build is un-broken.** A player-supplied older `.blorb`
-(`DDF.blorb`, SHA1 `2fb6f724…`, game date **2022-06-07**, 56 265 XML lines vs our
-56 374) has only the THREE correct menu `{*}` tasks — **`cl_NullAtStar` does not
-exist**, and nothing `{*}`-gates `cl_Location11`. Verified in FD on DDF: at By
-Guard Room `> n` → "You move North." into Bend-in-Tunnel, and entering the
-dungeons is safe (the blue-kilt/badge disguise → "assuming you are a Turdrock
-soldier, they ignore you"; no death because you're not dragging the corpse). So
-the shipped adrift.co **Version 9 (2022-08-07) is a regression** that broke a
-previously-completable game by mis-binding a disclaimer null-task to a gameplay
-room. (Not yet a clean end-to-end win on DDF: replaying the verbatim built-in
-`WLKTHRGH` under FD_SEED=1234 desyncs before the finale — the endgame player lands
-in the wrong room, almost certainly RNG/timing on the roaming dragon/thief, not a
-structural block. DDF is confirmed *un-broken*, full-win derivation TBD.)
+update; the older build clears By Guard Room but has ITS OWN endgame death-trap.**
+A player-supplied older `.blorb` (`DDF.blorb`, SHA1 `2fb6f724…`, game date
+**2022-06-07**, 56 265 XML lines vs our 56 374) has only the THREE correct menu
+`{*}` tasks — **`cl_NullAtStar` does not exist**, and nothing `{*}`-gates
+`cl_Location11`. Verified in FD on DDF: at By Guard Room `> n` → "You move North."
+into Bend-in-Tunnel, and entering the dungeons is safe (the blue-kilt/badge
+disguise → guards "ignore you"; no death). So the shipped adrift.co **Version 9
+(2022-08-07) is a regression** that broke the By-Guard-Room passage.
+
+**But DDF is NOT cleanly winnable either — different fatal bug.** Attempted a
+full drag-/version-aware derivation through FD. Two things surfaced: (1) the
+game's built-in `WLKTHRGH` matches NEITHER build — it says `get fuse`/`put fuse
+on oil` where both parsers only know the **rope** object (the "fuse" is the
+length of rope; `light fuse` works only because that verb-pattern lists "fuse").
+Fixing `get fuse`→`get rope`, `put fuse on oil`→`put rope in oil` reached
+**195/250**. (2) Then the **arsenal escape is a forced death**: after
+`light fuse` the boards can't be re-closed (`close boards` → "You should not
+replace the boards now you have poured the oil"), the game forces you East into
+the field, and **`cl_Location53` (West Side of Field) is an unconditional death
+while the boards are open** (`cl_Fdd017Syst1`, gated only on `cl_MoveBoards`
+complete; the explosion does NOT clear it). Every field route funnels through 53
+(SW-Corner's only forward exit is N→53; NE/E invalid, W blocked). So a clean win
+could not be derived on DDF. The built-in `WLKTHRGH`'s `e,e,n,n,n…` escape and
+its "fuse" wording mean it targets a THIRD/earlier build where the boards were
+closeable (or 53 wasn't lethal) — neither DDF nor V9 is that build. Net: **both
+public builds are unwinnable, in different places** (V9 at By Guard Room, DDF at
+the arsenal escape); best reached is 195/250 on DDF.
 
 <details><summary>Two superseded intermediate takes — kept for the record (I was wrong twice)</summary>
 
