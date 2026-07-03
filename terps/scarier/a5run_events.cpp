@@ -377,7 +377,31 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
 
   a5state_clear_refs (st);                 /* event tasks carry no command refs */
   if (!a5restr_pass (st, t->restrictions))
-    return;
+    {
+      /* FD's AttemptToExecuteTask evaluates responses even for a failing
+         event/System/walk task (bCalledFromEvent=True, bChildTask=False), so a
+         failing restriction that carries a <Message> is buffered in
+         htblResponsesFail and Displayed (clsUserSession.vb:1244-1259 sMessage =
+         sRestrictionText -> AddResponse -> the end-of-task Display loop).  The
+         AddResponse bHasOutput gate drops the messageless common case, so only a
+         restriction with real fail text surfaces -- e.g. FBA's cl_AtButcherS
+         LocationTrigger, whose "rope tied" restriction shows "you pull on his
+         leash to stop him" instead of the (passing) theft completion.
+
+         Read the failing restriction's Message from st->restriction_text, which
+         a5restr_pass just set as a side effect (FD's sRestrictionText) -- do NOT
+         re-run a5restr_fail_message, which would re-evaluate the restriction
+         block and draw any RAND()-valued restriction a SECOND time (e.g. SSB's
+         TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`), desyncing the RNG. */
+      const a5_xml_node_t *fm = st->restriction_text;
+      if (fm != NULL)
+        {
+          char *m = a5text_describe (st, fm);
+          if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
+          free (m);
+        }
+      return;
+    }
   run_task (run, t, depth + 1, out);
   if (ti >= 0)
     st->task_done[ti] = 1;

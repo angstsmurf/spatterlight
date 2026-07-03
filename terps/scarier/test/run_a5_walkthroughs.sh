@@ -483,6 +483,22 @@ FILTER="${1:-}"
 # Scarier is byte-identical to FrankenDrift in BOTH RNG modes (0/0 MATCH), so it
 # is golden-backed (MaroonedOnMazoomah_expected.txt, runs without dotnet).
 #
+# (2026-07-03) FinnsBigAdventure 0|1 -> 0|0: a failing event/System/walk task now
+# shows its deciding restriction's <Message>, mirroring FD's AttemptToExecuteTask
+# (bCalledFromEvent=True, bChildTask=False still evaluates responses -> sMessage =
+# sRestrictionText -> AddResponse -> Display).  attempt_event_task_impl
+# (a5run_events.cpp) had returned SILENTLY on any restriction failure, so FBA's
+# cl_AtButcherS LocationTrigger -- whose "rope tied" restriction carries "As you
+# walk past the butcher's stall, Paddy ... you pull on his leash to stop him ..."
+# -- printed nothing where FD shows the leash message.  The message is read from
+# st->restriction_text (the side effect a5restr_pass already set, == FD's
+# sRestrictionText); it is NOT re-derived via a5restr_fail_message, which would
+# re-evaluate the block and draw any RAND()-valued restriction a SECOND time (SSB
+# TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`) -- that double-draw was a
+# transient xoshiro 0->6 regression, fixed by reading the cached node.  The
+# msg_has_output gate drops the (overwhelmingly common) messageless failing
+# system task, so the corpus is otherwise unchanged.  FBA golden regenerated.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -511,7 +527,7 @@ DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
 Tribute|Tribute.blorb|0|0
 AoS|AoS v.4.blorb|1|1
-FinnsBigAdventure|FBA v.3c.blorb|0|1
+FinnsBigAdventure|FBA v.3c.blorb|0|0
 EOF
 )
 

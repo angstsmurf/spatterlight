@@ -59,6 +59,43 @@ surfaces on a game that *doesn't* MATCH for another reason (i.e. where it would 
 unblock a win or a large hunk drop). One cosmetic line behind a game-specific author ALR
 does not justify the shared-path risk.
 
+## ⭐ Event/System/walk task swallowed its restriction-fail `<Message>` (FBA butcher's-stall leash → full MATCH)  ✅ DONE (2026-07-03)
+
+**FinnsBigAdventure 0|1 → 0|0.** FBA's only RNG-independent hunk: at loc-92 the
+System task `cl_AtButcherS` (a `<LocationTrigger>`) fires as the player walks in.
+Its restrictions gate whether the dog steals meat (pass → the theft
+CompletionMessage that drags the player out the gate) — the fourth restriction
+`cl_RopeTiedPa Must BeEqualTo 0` carries a `<Message>` ("As you walk past the
+butcher's stall, Paddy — being very hungry — tries to rush over … You pull on his
+leash to stop him and he gives up the attempt."). When the rope is tied that
+restriction **fails**, and FD shows its leash message; Scarier showed nothing.
+
+**Root cause.** `attempt_event_task_impl` (a5run_events.cpp) returned **silently**
+on any restriction failure (`if (!a5restr_pass(...)) return;`). But FD's
+`AttemptToExecuteTask` for an event/System/walk task (`bCalledFromEvent=True,
+bChildTask=False` — the LocationTrigger drain at clsUserSession.vb:3423, the event
+`ExecuteTask` subevent at clsEvent.vb:389, and the walk task at clsCharacter.vb:1613
+all pass these) still **evaluates responses**: a failing restriction sets
+`sMessage = sRestrictionText` (vb:1246) → `AddResponse` buffers it in
+`htblResponsesFail` → the end-of-task Display loop shows it. The `AddResponse`
+`bHasOutput` gate drops the (overwhelmingly common) messageless failing System
+task, so only a restriction with real fail text surfaces.
+
+**Fix.** On restriction failure, emit `st->restriction_text` (the Message node
+`a5restr_pass` already set as a side effect — Scarier's exact analogue of FD's
+`sRestrictionText`), gated by `msg_has_output`, with a leading `sb_pspace`.
+
+**The RNG footgun (caught + fixed before it shipped).** The first attempt used
+`a5restr_fail_message`, which **re-evaluates the whole restriction block** to
+recover the failing node. That re-drew any `RAND()`-valued restriction a SECOND
+time — SixSilverBullets' per-turn `TimeTrapsT` System task has
+`Roller Must BeEqualTo 'RAND(1,16)'`, so the extra draw desynced the whole xoshiro
+stream (SSB xoshiro 0→6, and a cascade into a premature-death divergence). Reading
+the cached `st->restriction_text` (set during the single `a5restr_pass` call, just
+like FD sets `sRestrictionText` once inside `PassRestrictions`) avoids the second
+evaluation entirely. SSB back to 0, whole corpus otherwise byte-unchanged in both
+modes; FBA golden regenerated + xoshiro budget reblessed 1→0.
+
 ## ⭐ `put all in <container>` parent `<FailOverride>` on a single un-baggable item (AoS 3→1)  ✅ DONE (2026-07-03)
 
 **AoS `put all in bag` showed "makes a mess" where FD shows "You are not carrying

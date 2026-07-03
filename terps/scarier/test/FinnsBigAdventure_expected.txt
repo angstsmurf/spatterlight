@@ -2684,6 +2684,8 @@ Your dog Paddy walks by your side.
 By NW Gate
 You are by the NW gate of Yingtong Town, on Sellars Street which goes East. The gate leads out North toward open countryside. You notice the gate is unguarded, probably due to the lack of traffic. A butcher has set up a stall here.  Your dog Paddy is here.
 
+As you walk past the butcher's stall, Paddy - being very hungry - tries to rush over to the stall to steal some meat from it. You pull on his leash to stop him and he gives up the attempt.
+
 > e
 You move East.
 
