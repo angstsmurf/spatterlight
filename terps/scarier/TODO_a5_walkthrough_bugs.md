@@ -66,23 +66,24 @@ now-working Roller RNG + `%notallowed[RAND(1,6)]%`).  Whole corpus unchanged bot
 modes, unit tests + `make sanitize` + a 45-turn ASan/UBSan run clean.
 
 **🚧 NOT DONE — remaining blockers to a *winning* walkthrough.**
-1. **Thirst-wound *timing* divergence (RNG-stream, non-fatal — the fatal collapse is
-   FIXED).**  ✅ The catastrophic instakill is gone: the `Dysentaryk` `Wounds += 12`
-   mortal wound no longer fires spuriously (restriction-RHS `%reference%` fix above),
-   so the player survives the woods.  **Remaining:** with the repro below the diff is
-   now a *single* hunk — on the `south` (arrival-back-at-loc-18) turn FD appends
-   *"Thirst burns within you like a fire. You have been wounded!"* (the `HungerKill1`
-   "Lesser Thirst Kills" task: `Playeristh==1`, `Encounter==0`, `Randbetwee1==1`,
-   `Kindofthirst BeContain "'lesser'"`) but Scarier does **not** — at end of that turn
-   Scarier has `Encounter?=1` and `Randbetwee1(randbetween1and3)=3`, so both the
-   `Encounter==0` and the `Randbetwee1==1` gates fail.  FD evidently evaluates the
-   thirst-kill while `Encounter` is still 0 **and** with a different `Randbetwee1`
-   draw, i.e. the per-turn RNG draw *count/order* inside the `Tick` sub-event chain
-   diverges once you move (the `randbetween1and3` value differs turn-for-turn).  Next
-   step: instrument the `Tick` event's sub-event/System-task execution order and the
-   RAND draw sequence for the move turn and compare against FD (the Roller sets the 11
-   `rand()` vars; find which task draws out of order).  This is *cosmetic* for the win
-   (the player lives), but it must be byte-exact before a golden walkthrough is blessed.
+1. **Wound/thirst tick divergence — ✅ FIXED (both halves).**  The 13-command woods
+   repro below is now **byte-exact vs FD in both RNG modes** (0 hunks).  Two engine
+   bugs, both general:
+   * **(a) fatal — restriction RHS `%reference%` -> 0.**  `Poopcounte Must
+     BeGreaterThanOrEqualTo '%randbetween1and9%'` (Dysentaryk) evaluated to `0>=0` and
+     fired `Wounds += 12`, an instakill.  Fixed in `num_value` (routes `%`-bearing RHS
+     through `a5text_eval_expression`).
+   * **(b) missing thirst wound — Text restriction RHS not evaluated.**  The
+     greater-thirst kill `Kindofhung1 Must BeContain "'greater'"` compared the stored
+     value `greater` (SetVariable stores it unquoted) against the *raw* token
+     `"'greater'"` (quotes intact) and never matched, so the wound never landed.  Fixed
+     by evaluating the Text-branch RHS via `restr_text_value` (the same reduction FD's
+     EvaluateExpression does, and the twin of the ReferencedText path).  The RNG was
+     never desynced here — the 66-draw stream matches FD exactly; this was pure
+     quote/expression handling.
+   Diagnostics that nailed it: `A5_TRACE_RAND=1` (Scarier) vs `FD_RNG_TRACE=1` (FD)
+   proved the draw streams identical; `A5_TRACE_RESTR=1` showed the failing gate;
+   an `A5_DBG_TEXTCMP` probe showed `cur=<greater>` vs `rhs=<"'greater'">`.
    Repro (write the script to the **scratchpad**, not `/tmp` — a concurrent job clobbers
    `/tmp/p.txt`):
    `printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\nlook\nnorth\nleave at once\nnorth\nleave at once\nsouth\ninventory\nsearch\n' > "$SCRATCH/p.txt" ; FD_RNG=xoshiro test/a5_groundtruth.sh "test/adrift5-games/Tingalan.blorb" "$SCRATCH/p.txt"`.

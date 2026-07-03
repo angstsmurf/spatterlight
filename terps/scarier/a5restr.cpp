@@ -984,16 +984,25 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
   if (streq (v->type, "Text"))
     {
       const char *cur = st->var_text[vi] ? st->var_text[vi] : "";
-      int vj = a5state_variable_index (st, r->key2);
-      const char *rhs = (vj >= 0 && st->var_text[vj]) ? st->var_text[vj] : r->key2;
+      /* The RHS is an expression, not a raw token: FD compares against
+         EvaluateExpression(value).  A string-literal value like `"'greater'"`
+         reduces to `greater` (the SetVariable side already stores it unquoted via
+         a5text_process), and a %reference% is substituted.  restr_text_value does
+         exactly that reduction (same helper the ReferencedText path uses); using
+         the raw r->key2 here left the quotes/`%` in place, so e.g. Tingalan's
+         `Kindofhung1 BeContain "'greater'"` compared `greater` against the literal
+         `"'greater'"` and never matched -- the greater-thirst wound never landed. */
+      char *rhs = restr_text_value (st, r->key2);
       int cmp = strcmp (cur, rhs);
-      if (streq (r->op, "BeEqualTo"))            return cmp == 0;
-      if (streq (r->op, "BeGreaterThan"))        return cmp > 0;
-      if (streq (r->op, "BeGreaterThanOrEqualTo")) return cmp >= 0;
-      if (streq (r->op, "BeLessThan"))           return cmp < 0;
-      if (streq (r->op, "BeLessThanOrEqualTo"))  return cmp <= 0;
-      if (streq (r->op, "BeContain"))            return strstr (cur, rhs) != NULL;
-      return 1;
+      int res = 1;
+      if (streq (r->op, "BeEqualTo"))                 res = cmp == 0;
+      else if (streq (r->op, "BeGreaterThan"))        res = cmp > 0;
+      else if (streq (r->op, "BeGreaterThanOrEqualTo")) res = cmp >= 0;
+      else if (streq (r->op, "BeLessThan"))           res = cmp < 0;
+      else if (streq (r->op, "BeLessThanOrEqualTo"))  res = cmp <= 0;
+      else if (streq (r->op, "BeContain"))            res = strstr (cur, rhs) != NULL;
+      free (rhs);
+      return res;
     }
   else
     {
