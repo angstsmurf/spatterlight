@@ -7,9 +7,9 @@ script's `MAP`. `test/adrift5-games/walkthroughs/` already has raw
 walkthrough/hint material for several games whose game files are staged but
 that never got a command script or a MAP line. This is the backlog.
 
-**STATUS (2026-07-03): the wiring backlog is CLEARED — every staged game is
-wired.** The MAP now carries **36 games**: **32 golden-backed 0|0 MATCH in both
-RNG modes**, and the 4 DIVERGE rows (StoneOfWisdom 2|0, JacarandaJim 99|0,
+**STATUS (2026-07-03, evening): the wiring backlog is CLEARED — every staged
+game is wired.** The MAP now carries **38 games**: **34 golden-backed 0|0 MATCH
+in both RNG modes**, and the 4 DIVERGE rows (StoneOfWisdom 2|0, JacarandaJim 99|0,
 SixSilverBullets 18|0, LostLabyrinthOfLazaitch 8|0) are the explained
 vanilla-only System.Random-vs-xoshiro RAND text picks (their xoshiro columns,
 the real conformance metric, are clean). Changes since 2026-07-02:
