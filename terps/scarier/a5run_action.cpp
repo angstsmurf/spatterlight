@@ -437,14 +437,22 @@ ref_snap_restore (a5_state_t *st, const ref_snap *s)
 struct resp_map {
   std::vector<resp_entry> ents;
   std::string cur_item;           /* item currently being iterated              */
+  size_t nmut = 0;                /* count of real adds AND aggregate merges     */
 };
 
 /* The "did this produce a response" probe used by the override scan: with a map
-   active it is the entry count (out never grows), else the byte length of out. */
+   active it is the response-mutation count, else the byte length of out.  A count
+   (not ents.size()) is required because an AggregateOutput task's second+ item
+   MERGES into an existing entry (obj_keys grows, ents.size() does NOT): FD treats
+   such a merging AddResponse as output that claims the turn (clsUserSession
+   vb:1295), so the override scan must break on it too -- otherwise it falls
+   through to a lower-priority sibling (e.g. AoS `put all in bag`: the 2nd item's
+   merge into PutObjectI let the scan reach cl_PutAllInBa, whose `EverythingHeldBy
+   Player` action then dumped the food/money into the bag). */
 static size_t
 sink_len (a5_run_t *run, sb_t *out)
 {
-  return run->resp != NULL ? run->resp->ents.size () : out->len;
+  return run->resp != NULL ? run->resp->nmut : out->len;
 }
 
 /* Render a completion wrapper without retiring its DisplayOnce segments
@@ -469,6 +477,7 @@ resp_insert (resp_map *rm, resp_entry &e, int pos)
     rm->ents.insert (rm->ents.begin () + pos, e);
   else
     rm->ents.push_back (e);
+  rm->nmut++;                     /* a new response is output (see sink_len) */
 }
 
 /* Add a completion message (from task t) as a response.  An AggregateOutput
@@ -501,7 +510,7 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
             if (!item.empty ()
                 && std::find (e.obj_keys.begin (), e.obj_keys.end (), item)
                      == e.obj_keys.end ())
-              e.obj_keys.push_back (item);
+              { e.obj_keys.push_back (item); rm->nmut++; }  /* merge is output */
             return;
           }
       resp_entry e;

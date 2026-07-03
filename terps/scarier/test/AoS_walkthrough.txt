@@ -1,0 +1,628 @@
+# Alyas of Starhollow (AoS v.4), by Larry Horsfield -- ADRIFT 5 walkthrough
+# regression script.
+#
+# Author-supplied solution walkthrough (Downloads/AoS Walkthrough.txt), split
+# from its single-line ' - '-separated form into one command per line.  Two
+# transcription fixes applied while splitting: "w -unlock door" -> "w" + "unlock
+# door" (missing separator space) and a stray "- -" empty command dropped.
+#
+# The two leading commands drive Horsfield's start-up menu, which the raw
+# walkthrough omits: "c" clears the "type C to continue" title notice, then "b"
+# picks "Begin the game from the first location" (vs. P = read the Prologue).
+# The game proper opens "By Roundhouse".
+#
+# Run with:
+#   test/a5_groundtruth.sh test/adrift5-games/"AoS v.4.blorb" test/AoS_walkthrough.txt
+c
+b
+in
+search tiers
+out
+se
+in
+out
+n
+in
+x tables
+get food
+look under table
+out
+e
+in
+x table
+get flask
+get cloak
+wear cloak
+x firepit
+get ashes
+get blanket
+e
+get bag
+wear bag
+put blanket in bag
+get belt
+wear belt
+w
+out
+nw
+n
+get scythe
+make sling
+w
+w
+in
+out
+ne
+w
+scythe vegetation
+push vegetation in water
+w
+in
+get sack
+out
+e
+s
+se
+e
+in
+get ashes
+out
+sw
+in
+e
+pray
+x altar
+get lamp
+w
+out
+w
+get flask
+turn handle
+fill flask with water
+put flask in bag
+ne
+in
+w
+open pot
+put oil in lamp
+get lid
+cover pot
+look under table
+wrap food in towel
+e
+out
+nw
+n
+n
+nw
+w
+w
+n
+n
+n
+in
+w
+look under pallet
+x bottle
+smell bottle
+pull cork from bottle
+out
+search weeds
+scythe weeds
+get nest
+get nuts
+search weeds
+x parchment
+read writing
+wear scythe
+in
+e
+o
+s
+e
+in
+look behind timbers
+clear timbers
+in
+search cupboard
+o
+o
+w
+w
+in
+w
+search glass
+turn lamp on
+d
+pour scent on cloth
+wrap cloth around head
+w
+unlock door
+in
+get meat
+o
+e
+u
+turn lamp off
+e
+drop cloth
+o
+e
+n
+throw meat to dogs
+n
+n
+nw
+put all in bag
+climb tree
+feel in hole
+get nuts
+show nuts to squirrel
+drop nuts
+search drey
+i
+x ball
+d
+ne
+climb oak tree
+1
+2
+3
+4
+climb tree
+x nests
+look in nest
+wear ring
+d
+search tree
+knock twice
+knock thrice
+knock twice
+in
+get lamp
+turn lamp on
+d
+n
+n
+nw
+n
+turn lamp off
+put lamp in bag
+n
+e
+e
+1
+2
+3
+s
+in
+get hammer
+x table
+x shelf
+get nails
+x jetty
+board boat
+x jetty
+n
+put all in bag
+x dinghy
+pull dinghy
+listen
+look over ridge
+overturn dinghy
+hide under dinghy
+z
+z
+z
+u
+x structure
+n
+u
+knock on door
+get string
+tie string to column
+n
+feel floor
+follow string
+z
+z
+z
+z
+z
+z
+z
+z
+hide behind statue
+z
+open door
+e
+get alb
+remove cloak
+wear alb
+get headdress
+wear it
+drop scythe
+w
+get flask
+pour water in brazier
+u
+fill flask from spout
+sw
+se
+get incense
+ne
+nw
+d
+pour water on fire
+search brazier
+x skull
+e
+get scythe
+wear scythe
+w
+s
+search cast-offs
+put plank in bag
+n
+w
+w
+remove alb
+drop it
+remove headdress
+drop it
+wear cloak
+w
+s
+read signpost
+w
+w
+w
+1
+2
+3
+4
+get food
+give food
+w
+s
+in
+get blanket
+give blanket
+read recipe
+out
+n
+n
+n
+1
+2
+3
+4
+5
+s
+w
+in
+2
+3
+4
+x customers
+listen
+g
+g
+drink drink
+stand up
+give tankard to tom
+out
+e
+n
+n
+n
+s
+s
+w
+look around
+s
+s
+knock on door
+1
+2
+3
+open gate
+out
+n
+n
+n
+put all in bag
+mount muffin
+w
+w
+dm
+tie muffin to tree
+climb up tree
+look around
+d
+get scythe
+unfold blade
+scythe bushes
+wear scythe
+s
+get lamp
+light lamp
+in
+x table
+get machete
+get whetstone
+sharpen machete
+put whetstone in bag
+sleep
+lift mattress
+wear scabbard
+sheath machete
+get lamp
+put lamp in bag
+out
+n
+d
+sw
+climb d liana
+x plants
+pick leaf
+put leaf in bag
+in
+get lamp
+light lamp
+get bottle
+scrape algae into bottle
+lamp off
+put all in bag
+out
+u
+draw machete
+cut liana with machete
+sheath machete
+ne
+ne
+u
+nw
+tie liana to cable
+climb d liana
+pull lever
+climb u liana
+untie liana
+put liana in bag
+jump over gap
+nw
+d
+in
+x webs
+x boy
+get sack
+throw ashes at spiders
+draw machete
+free boy
+nw
+nw
+n
+n
+n
+drop all
+remove all
+dive in pool
+d
+w
+wear clothes
+get all
+wear cloak, bag and scythe
+s
+s
+s
+se
+se
+n
+n
+n
+ne
+e
+e
+in
+talk to soldier
+draw machete
+put machete on table
+draw dagger
+put dagger on table
+remove scythe
+put scythe on table
+look on table
+out
+e
+s
+search stall
+put chisel in bag
+n
+n
+x stall
+x pottery
+buy bowl
+get leaf
+put leaf in bowl
+put ashes in bowl
+get bottle
+put algae in bowl
+drop bottle
+se
+turn handle
+turn handle
+get flask
+fill flask with water
+pour water in bowl
+get gillidough from bowl
+drop bowl and mortar
+s
+w
+w
+w
+w
+sw
+s
+s
+s
+nw
+nw
+n
+n
+n
+eat gillidough
+remove bag
+remove cloak
+drop all
+remove clothes
+dive in pond
+d
+w
+w
+u
+get all
+i
+s
+s
+s
+se
+se
+n
+n
+n
+ne
+e
+e
+e
+n
+e
+in
+w
+look n
+n
+get uniform
+s
+e
+out
+out
+s
+in
+o
+n
+in
+in
+w
+n
+drug wine
+s
+wait
+n
+get uniform
+get halberd
+s
+w
+drop all
+remove all
+wear uniform
+get amulet
+wear amulet
+get halberd
+get bag
+wear bag
+get sheet
+put sheet in bag
+e
+e
+o
+o
+sw
+w
+s
+e
+e
+nw
+s
+get lamp
+light lamp
+d
+d
+s
+x south door
+x plate
+x etching
+get skull
+press teeth in holes
+in
+n
+u
+u
+extinguish lamp
+put lamp in bag
+n
+se
+qwerty
+search body
+put bag in bag
+drop all
+lower bucket
+climb d well
+get lamp
+light lamp
+feel wall
+x brick
+get chisel
+scrape mortar
+get brick
+search cavity
+wear sigil
+extinguish lamp
+put lamp in bag
+drop chisel
+climb up chain
+nw
+s
+get lamp
+light lamp
+d
+d
+s
+remove sigil
+press sigil on plate
+in
+give sigil to zagdor
+out
+pull lever
+n
+u
+u
+extinguish lamp
+put lamp in bag
+n
+se
+e
+u
+in
+in
+w
+get plank
+get hammer
+get nails
+repair hole
+drop hammer
+e
+e
+remove scythe
+unfold blade
+cut frame with scythe
+fold blade
+wear scythe
+get mast and yardarm
+w
+w
+turn dinghy over
+fit mast to dinghy
+get liana
+tie yardarm to mast
+get sheet
+tie sheet to yardarm
+push dinghy

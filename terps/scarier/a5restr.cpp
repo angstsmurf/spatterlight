@@ -447,13 +447,17 @@ pass_location (a5_state_t *st, a5_restr_t *r)
     return 1;
   if (streq (r->op, "HaveBeenSeenByCharacter"))
     {
-      /* Player-centric seen set (clsCharacter.HasSeenLocation, set on every
-         player move + the start location); a non-player observer falls back
-         to "seen" -- the same compromise as the object handler above. */
+      /* clsLocation.SeenBy(char) == Character.HasSeenLocation(loc).  In FD that
+         flag is set in exactly one place -- clsUserSession.vb:222, for the
+         PLAYER only, on every player move -- so an NPC observer has NEVER seen
+         any location and the restriction is always False for it.  (AoS gates the
+         Flour Store `Up` exit on `cl_Mission1 HaveBeenSeenByCharacter Finnjart`,
+         which stays blocked until the game explicitly advances it.)  Mirror that:
+         the player consults the seen set; any other character is unseen. */
       const char *ch = resolve_key (st, r->key2);
       int li;
       if (ch != NULL && ch[0] != '\0' && !streq (ch, a5state_player_key (st)))
-        return 1;
+        return 0;
       li = a5state_location_index (st, loc);
       return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
     }
