@@ -508,6 +508,18 @@ FILTER="${1:-}"
 # msg_has_output gate drops the (overwhelmingly common) messageless failing
 # system task, so the corpus is otherwise unchanged.  FBA golden regenerated.
 #
+# (2026-07-03) Six games wired at MATCH 0|0 from OPENING-TURN SMOKE PROBES, not
+# full walkthroughs: Halloween (Haven), MagorInvestigates (MI), MuseumHeist,
+# October31st, TheFortressOfFear, Xanix (XXR).  Their _walkthrough.txt is the
+# generic 4-command probe `look / examine me / inventory / wait`; the golden
+# guards intro + first-room render + basic-verb output byte-exact against FD
+# (all 6 were 0-hunk in both RNG modes when added).  These are conformance
+# guards for the opening turns, NOT max-score wins -- promote to a real
+# walkthrough if/when one is derived.  (Tingalan, the 7th new game, is NOT wired:
+# its `examine me`/array-index bugs were fixed -- see TODO_a5_walkthrough_bugs.md
+# -- but it has a deep per-turn RNG-event desync, ~15 draws/turn vs Scarier's 1,
+# so the `wait` probe can't reach a stable MATCH without a real walkthrough.)
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -538,6 +550,12 @@ BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|1
 Tribute|Tribute.blorb|0|0
 AoS|AoS v.4.blorb|0|0
 FinnsBigAdventure|FBA v.3c.blorb|0|0
+Halloween|Halloween.blorb|0|0
+MagorInvestigates|MI_v.1.blorb|0|0
+MuseumHeist|MuseumHeist.blorb|0|0
+October31st|October31st.blorb|0|0
+TheFortressOfFear|TheFortressOfFear.blorb|0|0
+Xanix|XXR v.4.blorb|0|0
 EOF
 )
 

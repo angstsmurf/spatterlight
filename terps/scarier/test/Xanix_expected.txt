@@ -1,0 +1,29 @@
+Xanix - Xixon Resurgence
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it. The game is also quite long and there is the possibility of sudden death.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+I do hope, however, that you will give it a try! There are in-game hints provided, and a walkthrough is available on request (type HELP).
+
+Many thanks.
+
+Larry Horsfield
+
+Please Type O then press Enter to continue or B to start the game from the first location.
+
+(You are strongly advised to read the playing instructions before playing the game)
+
+> look
+Please press O or B then press Enter.
+
+> examine me
+Please press O or B then press Enter.
+
+> inventory
+Please press O or B then press Enter.
+
+> wait
+Please press O or B then press Enter.

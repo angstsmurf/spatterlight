@@ -1,0 +1,29 @@
+Magor Investigates...
+Magor Investigates...
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not yet support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+Useful Commands After The Adventure Has Started:
+COMMANDS : HANDFIRE : INSTRUCTIONS : HELP : NAVIGATION : TASKS : VOCAB;
+
+> look
+Please press B or P then press Enter.
+
+> examine me
+Please press B or P then press Enter.
+
+> inventory
+Please press B or P then press Enter.
+
+> wait
+Please press B or P then press Enter.

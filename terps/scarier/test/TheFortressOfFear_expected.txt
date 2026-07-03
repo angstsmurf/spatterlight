@@ -1,0 +1,51 @@
+The Fortress of Fear
+
+THE FORTRESS OF FEAR: Start-Up Options:
+
+Press B (enter) to Begin the adventure from the First Location.
+
+Press P (enter) to read the Prologue and Playing Instructions.
+(Highly recommended if starting this adventure for the first time!)
+
+If you have already started the adventure and wish to start from a saved position, click on the Blue Folder Icon in the taskbar above.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's colour preferences, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+Before starting, please ensure that Autocomplete is unticked in the "Edit" tab in the taskbar above.
+
+Useful Commands When Playing The Adventure:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : MACROS : SPEECH : SPELLS : VOCAB
+
+> look
+THE FORTRESS OF FEAR: Start-Up Options:
+
+Press B (enter) to Begin the adventure from the First Location.
+
+Press P (enter) to read the Prologue and Playing Instructions.
+(Highly recommended if starting this adventure for the first time!)
+
+If you have already started the adventure and wish to start from a saved position, click on the Blue Folder Icon in the taskbar above.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's colour preferences, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+Before starting, please ensure that Autocomplete is unticked in the "Edit" tab in the taskbar above.
+
+Useful Commands When Playing The Adventure:
+
+ABOUT : BUGS : COMMANDS : CREDITS : HELP : MACROS : SPEECH : SPELLS : VOCAB
+
+> examine me
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+If it is unticked, please press B or P and then press Enter.
+
+> inventory
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+If it is unticked, please press B or P and then press Enter.
+
+> wait
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+If it is unticked, please press B or P and then press Enter.

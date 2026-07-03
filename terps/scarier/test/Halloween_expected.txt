@@ -1,0 +1,18 @@
+
+Haven
+Havegangen slynger sig, som en flod af sølv i det blege lys fra fuldmånen højt over dig. På hver side af den gror ukrudtet højt i det der engang var en smuk have. Intet har været rørt her i årevis. Ovre i et hjørne, nær huset, ligger noget der engang var en køkkenhave. Også her har ukrudtet taget over, og ikke efterladt megen plads til de få ting der har overlevet.
+
+Mod nord, tårnene sig op over dig, ligger det faldefærdige hus som en mørk, dyster silhuet mod månens lys.
+
+> look
+Jeg forstod ikke ordet "look".
+
+> examine me
+Jeg forstod ikke ordet "examine".
+
+> inventory
+Du har en T-shirt, et par cowboy bukser og dine sko på, og du bærer intet.
+
+> wait
+
+Tiden går...

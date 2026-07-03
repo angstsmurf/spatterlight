@@ -7,9 +7,13 @@ the 7 game files present in `test/adrift5-games/` but not yet in the walkthrough
 MAP** (Halloween, MI, MuseumHeist, October31st, TheFortressOfFear, Tingalan, XXR).
 A generic 4-command probe (`look`/`examine me`/`inventory`/`wait`) was diffed
 against FrankenDrift under `FD_RNG=xoshiro`. **6 of the 7 are byte-exact on the
-opening** (ready to wire in once walkthroughs exist); **Tingalan surfaced two real
-bugs** (2 hunks → 1 after the fixes; the last is a documented RNG-class residual,
-below).
+opening and are now wired into the MAP at `0|0`** as opening-turn smoke probes
+(committed `test/<name>_walkthrough.txt` = the 4-command probe + golden;
+`Halloween`, `MagorInvestigates`, `MuseumHeist`, `October31st`,
+`TheFortressOfFear`, `Xanix` — MATCH in both modes, guarding intro + first-room
+render + basic-verb output, promote to a real walkthrough if one is derived).
+**Tingalan (the 7th) surfaced two real bugs** (2 hunks → 1 after the fixes; the
+last is a documented RNG-class residual, below, so it is NOT wired in).
 
 **Fix 1 — array-variable index may be an expression, not just a literal
 (`a5text.cpp` `eval_function`).** Tingalan's blocked-command message is

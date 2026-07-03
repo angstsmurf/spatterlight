@@ -1,0 +1,39 @@
+   Museum Heist
+
+You are Gentleman Finn, the elegant art thief. You have never been caught and you are widely known among criminals. Today will be your hardest job so far. You will have to rappel down through a skylight into the sculpture collection of the finest art museum in the world. From there you must immediately go west, then north to the most valuable collection of paintings in the world. Here you must steal the Mon Alicia which was painted in 1512 by the Italian artist Leonardo Avicii. The alarm will go off. That is inevitable. Then you will have ten minutes to steal something more before the police arrives. To escape from the museum you must go back to the the sculpture collection, attach the dangling rope to yourself again and push the red button on your watch. Your apprentice Anna will then receive a signal and she will activate a mechanism which pulls the rope with you and your stolen treasures up through the skylight. Make sure that you have attached the rope to yourself before pushing the red button!
+
+Let's hope that everything goes as planned.
+
+It is time. You have just cut open the skylight with an advanced tool so that the alarm does not go off. It's a long way down but you quickly rappel down to the floor. You detach yourself from the rope and leave it hanging. You quickly make your way towards the Mon Alicia, which is protected by bulletproof glass. Still the museum staff needs access to the painting. The glass enclosure can be unlocked with a very special key, which you just happen to have a copy of (long story). You unlock the glass enclosure and the alarm goes off. You ignore the noise, knowing that you only have ten minutes before the police arrives. You cut the painting off the frame with your utility knife (part of your multi-tool), roll up the painting and put it in your lightweight tube carrier, which is attached to your big backpack. That was the most valuable treasure. Still, a lot of other valuable art exhibits can be found in the museum. You might as well go look for those which are both valuable and portable.
+
+Museum Heist
+An interactive story by Kenneth Pedersen
+Made with ADRIFT 5 by Campbell Wild
+Utilizing improved standard library by saabie
+Music by Eric Matyas
+www.soundimage.org
+Made for AdventureJam 2020
+(If you cannot see the map, click on Window->Show map)
+
+Collection of paintings
+The painting collection contains thousands of works, some of them dating back to the 13th century. The most important treasure was of course the Mon Alicia by the artist Leonardo Avicii. It is now lying safely inside a tube carrier which is attached to your backpack.  Exits are east and south.
+
+> look
+
+Collection of paintings
+The painting collection contains thousands of works, some of them dating back to the 13th century. The most important treasure was of course the Mon Alicia by the artist Leonardo Avicii. It is now lying safely inside a tube carrier which is attached to your backpack.  Exits are east and south.
+
+> examine me
+As always you are well dressed in your black tuxedo. As you plan to steal a lot of exhibits today, you are furthermore wearing a big backpack and your special watch.
+
+> inventory
+You are wearing a tuxedo and a large backpack with a tube carrier attached, and you are carrying nothing.
+
+> wait
+In this game all commands must start with one of the following verbs/commands:
+
+North(N)  South(S)  East(E)  West(E)  Look(L)  Inventory(I)
+Get/Take  Break/Hit  Attach/Tie  Detach/Untie  Drop  Empty  Open  Pick  Put  Push  Sit  Stand  Unlock  Cut  Examine(X)
+Save  Restore  Restart  Quit  Undo  Music
+
+Commands usually consist of a verb and noun (e.g. X ME) or a single command (e.g. SOUTH) but can sometimes be more advanced (e.g. PUT VASE ON TABLE or PUSH CRATE EAST).

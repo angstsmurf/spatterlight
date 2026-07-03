@@ -1,0 +1,4 @@
+look
+examine me
+inventory
+wait
