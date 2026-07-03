@@ -1,0 +1,3800 @@
+Finn's Big Adventure
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it. The game is also quite long.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+I do hope, however, that you will give it a try!
+There are hints and a walkthrough is available on request (type HELP).
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue.
+
+> o
+
+IF YOU SUFFER FROM ANY FORM OF VISUAL IMPAIRMENT
+
+THAT PREVENTS YOU FROM VIEWING GRAPHICS,
+
+PLEASE TYPE "Y" BELOW AND PRESS ENTER,
+
+OTHERWISE TYPE "NO" AND PRESS ENTER.
+
+PLEASE NOTE: If you are visually impaired you can increase the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel forward.
+
+> no
+Finn's Big Adventure
+
+or: "Wait 'til your father gets home!"
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+To read the prologue and playing instructions (highly recommended if you  are starting this game for the first time) press P and then Enter.
+
+PLEASE NOTE: This game was envisioned as being playable Cyan On Black. Since ADRIFT does not yet support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab above.
+
+Useful Commands After The Adventure Has Started:
+COMM : CREDITS : HELP : MACROS : MAP : SPEECH : SCRIPT : VOCAB;
+
+> b
+
+Magor's Chamber
+You are in Magor's chamber in Domreil Castle. It is a dark, gloomy place, illuminated only by the flickering light from the fire burning in the huge inglenook fireplace in the south wall. Magor himself is asleep in a large wing-back armchair to one side of the fireplace, next to the armchair is a small table. Magor's owl Ahkenaten is perched above his head on the back of the armchair, apparently asleep as well. You can see a door which leads Out to the corridor beyond and an open archway leads East into Magor's library. If there are any other exits they are lost in the shadows.  The leather pouffe you are sitting on sits next to Magor's armchair.
+
+> stand up
+You stand up.
+
+Magor's Chamber
+You are in Magor's chamber in Domreil Castle. It is a dark, gloomy place, illuminated only by the flickering light from the fire burning in the huge inglenook fireplace in the south wall. Magor himself is asleep in a large wing-back armchair to one side of the fireplace, next to the armchair is a small table. Magor's owl Ahkenaten is perched above his head on the back of the armchair, apparently asleep as well. You can see a door which leads Out to the corridor beyond and an open archway leads East into Magor's library. If there are any other exits they are lost in the shadows.  A leather pouffe sits next to Magor's armchair.
+
+> move pouffe by the fireplace
+You move the pouffe near to the fire so you can stand on it in order to reach the mantelpiece. You'd better hurry up coz the fire is very hot.
+
+> stand in pouffe
+You stand on the pouffe - now you can see there is a tinderbox and a small telescope on the mantelpiece.
+
+> x fireplace
+It is huge...well to a six-year-old boy it is...and has a stone mantelpiece which is about a foot or more above your head.
+
+> get tinderbox and telescope
+Ok, you take the tinder box from the mantelpiece.  Ok, you take the telescope from the mantelpiece.
+
+You smell burning and look down to see the leather pouffe smouldering in the heat from the fire!
+
+> step down from pouffe
+You step down off the pouffe onto the floor.
+
+> move pouffe
+You move the pouffe away from the fire to where it was next to Magor's armchair.
+
+> read parchment
+The notes on the parchment read:
+
+"Ekstend hand parm up, sey Lumino to konjur handfyre
+
+To ekstingish handfyre, sey Snuffio."
+
+> e
+You move East.
+
+It is too dark to make anything out clearly.
+
+> conjure handfire
+You extend your right arm, palm upwards, and say the word "Lumino". A ball of handfire appears above your palm and floats up into the air above your head, illuminating your surroundings.
+
+You do not have to use the verb SAY, just type LUMINO.
+
+Magor's Library
+You are in Magor's library, a roomy chamber with shelves on three walls. Two are stacked with hundreds of scrolls of all sizes, while one is home to about a dozen books. There is a small desk here with a chair in front of it. An archway leads West into Magor's chamber.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> look under desk
+Under the desk you see a scrap of paper.
+
+> get paper
+Ok, you pick up the scrap of paper.
+
+> read notepad
+You scan the pages of writing, most of which makes no sense to you. However, there is one page where the following is written:
+
+THE KEY!!!!
+
+1: Left to the right
+2: Right to the left
+3: Right to the right
+4: Leave alone
+5: Left to the right, right to the left
+Barred: From left count twenty up seven across - push
+East: Pull
+West: Leave alone
+
+You wonder to yourself what all that means, but a sixth sense (inherited from your father) tells you that if Magor has taken the time to write it down then it must be important! Maybe you should copy it onto something?
+
+> x books
+There are about a dozen books, a few of which look quite interesting. They are all chained to the shelves to prevent theft. The books are all quite thick and heavy-looking, but you notice one of them which is thinner than the rest.
+
+> get thinnest book
+Ok, you take the thinnest book off the shelf.
+
+> write the key on the paper
+You take Magor's quill, dip it into the ink pot and, in your best handwriting (Ha!), you copy the words of 'The Key' as carefully as you can onto the scrap of paper, putting the quill back on the desk when you have finished. Wow, you didn't make any blots!
+
+> read thin book
+You skip through the book, reading the most interesting bits.
+
+Some of the words are long and you don't know what they mean. Near the end of the book is the most interesting bit of all: it mentions that there are thought to be vast catacombs under the castle but it is not known how to find the entrance.
+
+Wow, these catacombs sound real cool, you just gotta find how to get into them! You think for a moment - if they are UNDER the castle then maybe you get to them from the deepest part of the castle? Where's that? The DUNGEONS!!
+
+You'd better go to your rooms and change outta these clothes. If you were to get them dirty while exploring then Mom would be very angry, and you don't wanna do that coz she'll just ground you, as usual.
+
+You replace the book on the shelf.
+
+> w
+You move West.
+
+Magor's Chamber
+You are in Magor's chamber in Domreil Castle. It is a dark, gloomy place, illuminated only by the flickering light from the fire burning in the huge inglenook fireplace in the south wall. Magor himself is asleep in a large wing-back armchair to one side of the fireplace, next to the armchair is a small table. Magor's owl Ahkenaten is perched above his head on the back of the armchair, apparently asleep as well. You can see a door which leads Out to the corridor beyond and an open archway leads East into Magor's library. If there are any other exits they are lost in the shadows.  A leather pouffe sits next to Magor's armchair.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+As you move into the light, the ball of handfire winks out with a 'pop'.
+
+> out
+You move Out.
+(Opening the door and closing it behind you.)
+
+Castle Corridor
+You are in a corridor in Domreil castle, by the door to Magor's chamber, which you can go In to. The corridor goes East towards your rooms and West towards a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly.
+
+> e
+You move East.
+
+Castle Corridor
+You are in a corridor in Domreil castle, by the door to your family chambers which you can go In to. The corridor goes West towards the door to Magor's chamber and East towards a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+Family Chambers
+You are in the main room of your family's chambers. The door to the corridor is to the south and you can go Out that way, your own room is to the west which you can go In to.  The room is brightly lit by a couple of resin torches in sconces fixed to two of the walls. Your mother is preparing dinner in the kitchen and your little sister Polgara is playing with her dolls on the carpeted floor.
+
+As you walk into the room, your sister Polgara is sitting with the maid, Tilly, at the table. She spots you and cries with pleasure.
+
+"Finny, we had a great day!" she yells happily. She leaps off her chair, skips over to you and throws her arms around you. Grabbing her hands you swing her around in a circle, the two of you giggling wildly.
+
+The two of you play for a while. At one point you make your sister jump by inflating an old paper bag and bursting it with your hand. She laughs uncontrollably when you do that.
+
+After a while your mother calls you to dinner. You eat as a family (although your father is away on a mission for King Kelson and is expected to return tonight) then Polgara is put to bed and you go to your room.....
+
+Your Room
+You are in your room in your family chambers within Domreil Castle. There is a chest at the foot of your bed and a square table sits opposite with a chair beside it. There is a fireplace in the west wall, but there is no fire burning in it, while to the East is the door to the main room. Affixed to the wall above the fireplace is a metal sconce in which there is a resin torch that is shining brightly. On the chair next to the table you see your canvas rucksack and there's something on the table.
+
+You rest on your bed while you wait for your mother to clear up after dinner - you would help her but you have an unfortunate habit of dropping plates. You take off your shoes and throw them under your bed (like everything else!), take off your clothes and toss them into the wicker basket (to please your mother...for a change) then get into bed. You lay there for a while, planning how you are going to sneak out after your mother has gone to sleep and make your way down to the dungeons in order to start your search for these catacombs.
+
+After an hour or so, your mother comes in to say goodnight She tucks you in (Pl-ease! I'm not a baby any more!) gives you a kiss on the cheek (urgh!) and, turning off the resin torch with the magic words "Tasch Losch", leaves you to go to her own room. As she goes out the door she spots your discarded clothes in the basket.
+
+"Good God," she exclaims. "You put your clothes in the basket!" She gives you a suspicious look. "Are you after something?" she asks with a smile on her face. "Who, me?!" you say in mock horror as she shuts the door.
+
+You wait for an hour to make sure she is asleep and then you get up, making the resin torch flare into life as you do with a quiet "Tasch zunde". You'll have to hurry as your father is expected home tonight!
+
+> lumino
+You say "Lumino" and a ball of handfire illuminates your surroundings.
+
+Your Room
+You are in your room in your family chambers within Domreil Castle. There is a chest at the foot of your bed and a square table sits opposite with a chair beside it. There is a fireplace in the west wall, but there is no fire burning in it, while to the East is the door to the main room. Affixed to the wall above the fireplace is a metal sconce in which there is a resin torch that is shining brightly. On the chair next to the table you see your canvas rucksack and there's something on the table.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> open chest
+You open the chest, revealing a leather jacket, some trousers and a linen shirt inside.
+
+> wear shirt
+(First taking the linen shirt)
+Ok, you take the linen shirt from the clothes chest.  Ok, you put on the linen shirt.
+
+> wear trousers
+(First taking the trousers)
+Ok, you take the trousers from the clothes chest.  Ok, you put on the trousers.
+
+> wear jacket
+(First taking the leather jacket)
+Ok, you take the leather jacket from the clothes chest.  Ok, you put on the leather jacket.
+
+> get boots
+Ok, you get down on your knees and take the sturdy boots from under the bed, standing up afterwards.
+
+> wear boots
+Ok, you put on the pair of boots.
+
+> remove slab
+With a lot of effort you pull the heavy stone slab out from the fireplace, revealing a hole behind it. This is your secret hiding place that your parents don't know about.
+
+> get gold coins
+Ok, you take the gold coins from the oblong hole.
+
+> replace slab
+Ok, you put the stone slab back into the hole.
+
+> get toy soldiers and toy warriors
+Ok, you take the toy hecatean soldiers and the toy Xixon warriors from the square table.
+
+> put all in rucksack
+Ok, you put the toy hecatean soldiers and the toy Xixon warriors into the rucksack.  Maybe it's not a good idea to put the gold coins in the rucksack. If somebody steals it from you all your money will be gone. Wait until you find something more appropriate to put the coins into.
+
+> get telescope and tinderbox
+Ok, you take the small telescope and the tinder box from the square table.
+
+> put all in rucksack
+Ok, you put the tinder box and the small telescope into the rucksack.  Maybe it's not a good idea to put the gold coins in the rucksack. If somebody steals it from you all your money will be gone. Wait until you find something more appropriate to put the coins into.
+
+> get parchment and paper
+Ok, you take the sheet of parchment and the scrap of paper from the square table.
+
+> put all in rucksack
+Ok, you put the sheet of parchment and the scrap of paper into the rucksack.  Maybe it's not a good idea to put the gold coins in the rucksack. If somebody steals it from you all your money will be gone. Wait until you find something more appropriate to put the coins into.
+
+> get wooden horse and slingshot
+Ok, you get down on your knees and take the wooden horse and the wooden slingshot from under the bed, standing up afterwards.
+
+> put all in rucksack
+Ok, you put the wooden horse and the wooden slingshot into the rucksack.  Maybe it's not a good idea to put the gold coins in the rucksack. If somebody steals it from you all your money will be gone. Wait until you find something more appropriate to put the coins into.
+
+> get dusty steak and fluff
+Ok, you get down on your knees and take the dusty pork steak from under the bed, standing up afterwards.  You get down on your knees and collect all the fluff from under your bed, standing up again afterwards.
+
+You then roll the fluff into a ball - a sixth sense tells you it might be useful.
+
+> put all in rucksack
+Ok, you put the dusty pork steak and the ball of fluff into the rucksack.  Maybe it's not a good idea to put the gold coins in the rucksack. If somebody steals it from you all your money will be gone. Wait until you find something more appropriate to put the coins into.
+
+> e
+You move East.
+
+Near Door of Your Room
+You are standing just inside the door to your room, where there is a wicker basket. You can go Out to the main family room or West to the rest of your room.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+As you move into the light, the ball of handfire winks out with a 'pop'.
+
+> get warbelt
+Ok, you take the war belt from the clothes hook.
+
+> wear warbelt
+Ok, you put on the war belt.
+
+> put coins in pouch
+Ok, you put the gold coins into the pouch.
+
+> w
+You move West.
+
+Your Room
+You are in your room in your family chambers within Domreil Castle. There is a chest at the foot of your bed and a square table sits opposite with a chair beside it. There is a fireplace in the west wall, but there is no fire burning in it, while to the East is the door to the main room. Affixed to the wall above the fireplace is a metal sconce in which there is a resin torch that is shining brightly. On the chair next to the table you see your canvas rucksack.
+
+> wear rucksack
+(First taking the large canvas rucksack)
+Ok, you take the rucksack from the chair.
+
+You think to yourself that you must put anything you want to take with you in the rucksack rather than carry it.  Ok, you wear the large canvas rucksack.
+
+> e
+You move East.
+
+Near Door of Your Room
+You are standing just inside the door to your room, where there is a wicker basket. You can go Out to the main family room or West to the rest of your room.
+
+> out
+You move East.
+(Opening the door and closing it behind you.)
+
+Family Chambers
+You are in the main room of your family's chambers. The door to the corridor is to the south and you can go Out that way, your own room is to the west which you can go In to.  The room is now dimly lit by a couple of resin nightlights, enabling you to see where you are going.
+
+> out
+You move Out.
+(Opening the door and closing it behind you.)
+
+Castle Corridor
+You are in a corridor in Domreil castle, by the door to your family chambers which you can go In to. The corridor goes West towards the door to Magor's chamber and East towards a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly.
+
+> w
+You move West.
+
+Castle Corridor
+You are in a corridor in Domreil castle, by the door to Magor's chamber, which you can go In to. The corridor goes East towards your rooms and West towards a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly.
+
+> w
+You move West.
+
+Spiral Stairway
+You are on a spiral stairway in Domreil Castle. The stairway goes Up to the upper floors and Down to lower floors and the dungeons, and there is a corridor to the East. On the wall of the stairway here is a metal sconce in which shines a resin torch.
+
+> d
+You move Down.
+(Passing all the lower floors until you get to the very deepest part of the castle)
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, at the end of a corridor that goes East. On the wall of the stairway here is a metal sconce in which shines a resin torch.
+
+> e
+You move East.
+
+Deep Castle Corridor
+You are in a corridor in the depths of Domreil castle, by the passageway to the dungeons, which goes South. The corridor goes East into the gloom and West towards a spiral stairway. There is just one resin torch in the corridor, providing just enough illumination to see where you are going.
+
+> s
+You move South.
+
+Passageway to Dungeons
+You are in a dark passageway that goes South into the darkness of the dungeons and North to the corridor. There is barely enough light to see where you are going. There is an opening In to utter darkness here.
+
+> s
+You move South.
+
+It is too dark to make anything out clearly.
+
+> lumino
+You say "Lumino" and a ball of handfire illuminates your surroundings.
+
+West End of Dungeons
+You are at the west end of the dungeons, which extend East. There are no cells here, just the passageway that leads North to the corridor. On the slimy wall here there is a sconce in which sits an old-fashioned rush torch.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> n
+You move North.
+
+Passageway to Dungeons
+You are in a dark passageway that goes South into the darkness of the dungeons and North to the corridor. There is an opening In to utter darkness here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> in
+You move In.
+
+The Guard Room
+This bare chamber is where the guards who were on duty would rest. It is long unused and deserted, the only occupants a brazier which is slowly rusting into pieces, the table and benches which are rotting away and the floor which is covered in detritus. On one wall is a key rack and on another a torch sconce. You can go Out to the stairway.  On the table you see an old ceramic mug.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> search detritus
+You crouch down and search through the detritus. At first you find nothing of any use but then your fingers touch something metal - it is a rusty key.
+
+The Guard Room
+This bare chamber is where the guards who were on duty would rest. It is long unused and deserted, the only occupants a brazier which is slowly rusting into pieces, the table and benches which are rotting away and the floor which is covered in detritus. On one wall is a key rack and on another a torch sconce. You can go Out to the stairway.  On the table you see an old ceramic mug.  Also here is a rusty key.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> get rusty key
+Ok, you pick up the rusty key.
+
+> get mug
+Ok, you take the old ceramic mug from the rotting table.
+
+> out
+You move Out.
+
+Passageway to Dungeons
+You are in a dark passageway that goes South into the darkness of the dungeons and North to the corridor. There is a dark opening In to the guard room here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> s
+You move South.
+
+West End of Dungeons
+You are at the west end of the dungeons, which extend East. There are no cells here, just the passageway that leads North to the corridor. On the slimy wall here there is a sconce in which sits an old-fashioned rush torch.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> e
+You move East.
+
+Near West End of Dungeons
+You are near the west end of the castle dungeons, which extend East and West. The walls are slick with damp and slime which ooze down them to collect in the drainage channel that runs the length of the floor. There are two dungeon cells to the North and South. The north cell is barred and its open door is hanging off its hinges, but the south door is wooden and it is shut and locked.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> fill mug with slime
+You scrape some slime from the wall of the dungeon into the mug.
+
+> dip key in mug
+You dip the key into the mug so that it is coated with slime.
+
+> unlock south door with rusty key
+You insert the key into the lock and turn it. Being rusty, it takes quite a bit of effort but because of the slime eventually it turns all the way and the door is unlocked. You open the door and try to take the key out of the door but it is stuck inside the lock.
+
+Near West End of Dungeons
+You are near the west end of the castle dungeons, which extend East and West. The walls are slick with damp and slime which ooze down them to collect in the drainage channel that runs the length of the floor. There are two dungeon cells to the North and South. The north cell is barred and its open door is hanging off its hinges, but the south door is wooden and is now open.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> s
+You move South.
+
+Cell 5
+You are in dungeon cell 5, where the floor is still covered in a layer of putrid, rotting straw and there is a latrine hole in the corner. A pair of manacles, attached to long chains which hang from two ringbolts set into the stone wall, lay rusting on the floor. The dungeon is to the North.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> smear left ringbolt with slime
+You smear some slime around each ringbolt so that it goes down between it and the wall. You do this in every cell with ringbolts and go outside to the dungeons when you are finished. As you get there the mug slips out of your clumsy hands and shatters to smithereens on the hard slabs of the floor.
+
+Near West End of Dungeons
+You are near the west end of the castle dungeons, which extend East and West. The walls are slick with damp and slime which ooze down them to collect in the drainage channel that runs the length of the floor. There are two dungeon cells to the North and South. The north cell is barred and its open door is hanging off its hinges, but the south door is wooden and is now open.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> s
+You move South.
+
+Cell 5
+You are in dungeon cell 5, where the floor is still covered in a layer of putrid, rotting straw and there is a latrine hole in the corner. A pair of manacles, attached to long chains which hang from two ringbolts set into the stone wall, lay rusting on the floor. The dungeon is to the North.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> turn left ringbolt to the right
+You turn the left ringbolt to the right and you hear a dull clank from somewhere nearby.
+
+> turn right ringbolt to the left
+You turn the right ringbolt to the left and you hear a dull clank from somewhere nearby.
+
+> n
+You move North.
+
+Near West End of Dungeons
+You are near the west end of the castle dungeons, which extend East and West. The walls are slick with damp and slime which ooze down them to collect in the drainage channel that runs the length of the floor. There are two dungeon cells to the North and South. The north cell is barred and its open door is hanging off its hinges, but the south door is wooden and is now open.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> e
+You move East.
+
+Near East End of Dungeons
+You are at near the east end of the dungeons, from where you can go East or West. There are two dungeon cells, to North and South, the doors to which are both open. The wetness and slime that flows slowly down the walls here is particularly heavy here and really stinks.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> s
+You move South.
+
+Cell 3
+You are in dungeon cell 3, where there is still a layer of rotting straw and there is a latrine hole in the corner. A pair of manacles, attached to long chains which hang from two ringbolts set into the rear wall, lay rusting on the floor. The dungeon is North.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> turn right ringbolt to the right
+You turn the right hand ringbolt to the right and you hear a dull clank from somewhere nearby.
+
+> n
+You move North.
+
+Near East End of Dungeons
+You are at near the east end of the dungeons, from where you can go East or West. There are two dungeon cells, to North and South, the doors to which are both open. The wetness and slime that flows slowly down the walls here is particularly heavy here and really stinks.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> e
+You move East.
+
+East End of Dungeons
+You are at the east end of the dungeons where cells 1 and 2 lie to the South and North respectively. The doors to both are open. On the wall here is a metal sconce.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> pull sconce
+You jump up and grab the sconce, which swivels down under your weight. You instantly let go of it and drop back to the floor of the dungeon.
+
+> s
+You move South.
+
+Cell 1
+You are in dungeon cell 1, where your father was incarcerated all those years ago. The floor is still covered in the same layer of putrid straw and there is a latrine hole in the corner. A pair of manacles, attached to long chains which hang from two ringbolts set into the stone wall, lay rusting on the floor. The dungeon is North.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> turn left ringbolt to the right
+You turn the left ringbolt to the right and you hear a dull clank from somewhere nearby.
+
+> n
+You move North.
+
+East End of Dungeons
+You are at the east end of the dungeons where cells 1 and 2 lie to the South and North respectively. The doors to both are open. On the wall here is a metal sconce.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> n
+You move North.
+
+Cell 2
+You are in dungeon cell 2, where the floor is still covered in a layer of putrid straw and there is a latrine hole in the corner. A pair of manacles, attached to long chains which hang from two ringbolts set into the stone wall, lay rusting on the floor. The dungeon is to the South.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> turn right ringbolt to the left
+You turn the right ringbolt to the left and you hear a dull clank from somewhere nearby.
+
+> s
+You move South.
+
+East End of Dungeons
+You are at the east end of the dungeons where cells 1 and 2 lie to the South and North respectively. The doors to both are open. On the wall here is a metal sconce.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> w
+You move West.
+
+Near East End of Dungeons
+You are at near the east end of the dungeons, from where you can go East or West. There are two dungeon cells, to North and South, the doors to which are both open. The wetness and slime that flows slowly down the walls here is particularly heavy here and really stinks.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> w
+You move West.
+
+Near West End of Dungeons
+You are near the west end of the castle dungeons, which extend East and West. The walls are slick with damp and slime which ooze down them to collect in the drainage channel that runs the length of the floor. There are two dungeon cells to the North and South. The north cell is barred and its open door is hanging off its hinges, but the south door is wooden and is now open.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> n
+You move North.
+
+The Barred Cell
+You are in a large cell which is barred. The door is hanging on just one hinge and the metal bars are thick with corrosion. One of the walls is brick-built. The dungeon is South.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> count twenty bricks up and seven across
+From the left of the wall you count twenty bricks up and seven across and identify the appropriate brick. You notice it stands proud of the other brick ever so slightly.
+
+> press brick
+You push the brick, which moves in slightly. You hear a load click and a square section of the bricks above the floor starts to move inwards jerkily. It moves so far then grinds to a halt leaving a small gap.
+
+The Barred Cell
+You are in a large cell which is barred. The door is hanging on just one hinge and the metal bars are thick with corrosion. One of the walls is brick-built. The dungeon is South.  A square section of bricks has moved back into the wall, but there is only a small gap open that you can go In to.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> crawl into gap
+You get down on your knees and crawl into the gap.
+
+The rucksack on your back makes it a bit difficult, but you manage to wriggle it through, and you stand up once you are through.
+
+A Small Chamber
+You are in a small chamber behind the wall of the dungeon cell. There is a section of the brick wall here that is wedged into the hole in the wall that you suppose was to have moved fully back to allow a man to crawl in here. A rusty metal mechanism here is what is supposed to have moved the wall back. In the floor is the opening to a spiral stairway that leads Down into utter darkness and you can go Out to the cell.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> d
+You move Down.
+
+With some trepidation you set off down the spiral stairway. You lose count of how many times you turn going down the steps and, after a couple of minutes you start to feel a little giddy, so you stop for a minute or two.
+
+After resting for a while you continue down and eventually reach the bottom.
+
+Bottom of Stairway
+You are at the bottom of the spiral stairway, where there is a dark opening. Above the opening are scrawled the words "Abandon Hope All Ye who Enter The Catacombs". You can either go East through the opening or Up the stairway to the chamber above.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> e
+You move East.
+
+The Catacombs
+You are just outside the opening that leads West to the spiral stairway, where a short passageway leads East into the catacombs. Either side of you on the wall are flickering sconces that provide enough illumination so you can see where you are going.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+As you move into the light, the ball of handfire winks out with a 'pop'.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South and East. Some distance in that direction you see some brighter lights. A short distance to the West is the entrance you came in. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. Blocking access to the catacomb to the south is a huge spider's web, in the middle of which sits a massive hairy spider.
+
+> get fluff
+Ok, you take the ball of fluff from the large canvas rucksack.
+
+> get tinderbox
+Ok, you take the tinder box from the large canvas rucksack.
+
+> burn fluff with tinderbox
+You depress the lever on the side of the tinderbox to make some sparks and set light to the ball of fluff, which starts to burn.
+
+The ball of fluff is burning steadily.
+
+> throw fluff at web
+You throw the burning ball of fluff at the spider web.
+
+The flaming ball hits the web and sticks to the globules of glue, which start to burn. Soon the whole web is burning and the spider, its body fur smoldering, scuttles off with a spine-chilling shriek into the darkness.
+
+The flames go out as the web is consumed and the way south is clear.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South and East. Some distance in that direction you see some brighter lights. A short distance to the West is the entrance you came in. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. Hanging from the walls of the catacombs here are the remains of the spider's web.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you can see what appear to be upright brighter lights. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some tall metal doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> n
+You move North.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, but in the North wall there is a curtained doorway. You can go South along the catacomb or North through the doorway.
+
+> n
+You move North.
+(Moving the curtain aside as you do.)
+
+The Custodian's Chamber
+This small chamber is where the custodian lives. It is sparsely furnished with a bed, table and chair. Shelves line one wall while on another there is a large diagram of the catacombs. Below the diagram is a large vivarium. The catacombs themselves are to the South beyond the curtained doorway.
+
+The Custodian is here.
+
+As you enter the chamber, you see a large man sitting at a table, eating a meal. He sees you and his mouth drops open in surprise.
+
+"What on earth are you doing wandering around down here?" he asks, putting his knife and fork down on the table.
+
+The man looks a bit closer at you. "Hang on, I know you, you're Duke Alaric's son," he exclaims. "I bet your parents don't know you've found your way down here, I'd better take you back upstairs, it's not safe for youngsters like you!"
+
+The custodian gets to his feet and waddles quickly towards you...
+
+> run south
+You run out of the chamber with the custodian in pursuit. For a man of his stature, he is remarkably quick on his feet!
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, but in the North wall there is a curtained doorway. You can go South along the catacomb or North through the doorway.
+
+The Custodian is chasing after you.
+
+> run south
+You run south along the catacombs with the custodian in pursuit.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some tall metal doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+The Custodian is chasing after you.
+
+> run west
+You run west along the catacombs with the custodian in pursuit.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+The Custodian is chasing after you.
+
+> run west
+You run west along the catacombs with the custodian in pursuit.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you can see what appear to be upright windows. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+The Custodian is chasing after you.
+
+> run west
+You run west along the catacombs with the custodian in pursuit.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South and East. Some distance in that direction you see some windows. A short distance to the West is the entrance you came in. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. Hanging from the walls of the catacombs here are the remains of the spider's web.
+
+The Custodian is chasing after you.
+
+You risk a glance behind you and see that the custodian is huffing and puffing in his exertions to catch you and he is starting to slow down.
+
+> run south
+You run south along the catacombs with the custodian in pursuit a bit further behind.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, although you notice one of the niches is empty. You can go North or South.
+
+> hide in niche
+You bend down, crawl into the niche and lie down in it as close to the back wall as you can.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+As you lay in the niche, holding your breath, you hear the custodian come shuffling along, huffing and puffing.
+
+"Where are ya, you little monster?" he mutters under his breath as he passes the niche in hot pursuit. You see his habit disappear to the south and you breathe a sigh of relief as his footsteps fade into the distance.
+
+> out
+You roll out of the niche and get to your feet.
+
+> n
+You move North.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South and East. Some distance in that direction you see some windows. A short distance to the West is the entrance you came in. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. Hanging from the walls of the catacombs here are the remains of the spider's web.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you can see what appear to be upright windows. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some tall metal doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> n
+You move North.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, but in the North wall there is a curtained doorway. You can go South along the catacomb or North through the doorway.
+
+> n
+You move North.
+(Moving the curtain aside as you do.)
+
+The Custodian's Chamber
+This small chamber is where the custodian lives. It is sparsely furnished with a bed, table and chair. Shelves line one wall while on another there is a large diagram of the catacombs. Below the diagram is a large vivarium. The catacombs themselves are to the South beyond the curtained doorway.
+
+> x diagram
+A rather crude diagram of the catacombs, you notice a red cross marked on aisle number 3.
+
+You wonder to yourself what this indicates?
+
+> get napkin
+Ok, you take the table napkin from the table.
+
+> wear napkin
+Ok, you put the napkin over your clothes to stop them getting messy when you eat - your mother would be proud of you!
+
+> eat meal
+As you are permanently hungry, you sit down at the table, pick up the knife and fork and eat the steak and chips on the plate. Seeing as your mother is nowhere in sight, you lick the plate clean, then you wipe your mouth with the napkin you are wearing, putting it on the table afterwards.
+
+The meal was very tasty and filling, and gives you some much-needed energy for whatever lies ahead.
+
+> drink ale
+You pick the tankard up and drink the ale, draining it. It is very refreshing but not as nice as the ale your mother buys. You put the tankard back on the table afterwards.
+
+> stand on chair
+You stand on the chair so you can reach the shelves on the wall. As you do so you are now able to see that on one of the shelves there is a metal gauntlet.
+
+> read ledgers
+You take down one of the ledgers. It is quite heavy and you wobble a bit as you take it. You open it to find that it is a list of the people interred in the catacombs. As that information is of no interest, you put it back on the shelf. As you do that something falls out of the ledger onto the floor of the chamber.
+
+> get gauntlet
+Ok, you reach out and take the gauntlet from the shelf.
+
+> get off chair
+You get off of the custodian's chair.
+
+> get card
+Ok, you pick up the business card.
+
+> wear gauntlet
+The gauntlet is far too big for your small hand but you put it on anyway.
+
+> get napkin
+Ok, you take the table napkin from the table.
+
+> put napkin in rucksack
+Ok, you put the table napkin into the rucksack.
+
+> s
+You move South.
+(Pushing the curtain aside as you do)
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, but in the North wall there is a curtained doorway. You can go South along the catacomb or North through the doorway.
+
+> s
+You move South.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some tall metal doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> w
+You move West.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> w
+You move West.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you can see what appear to be upright windows. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> n
+You move North.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, one of which, you notice, is made of metal. You can go North or South.
+
+> search behind coffin
+You go to search behind the coffin but quickly snatch your hand back as a large scorpion scuttles towards it along the top of the coffin.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, one of which, you notice, is made of metal. You can go North or South.  There is a large desert scorpion on top of the coffin.
+
+> knock scorpion off coffin
+You swipe at the scorpion with your gauntleted hand, knocking it onto the floor.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, one of which, you notice, is made of metal. You can go North or South.  Also here is a large desert scorpion.
+
+The scorpion has landed on its back and is scrabbling with its legs and pincers, trying to right itself.
+
+> stamp on scorpion
+Before the scorpion can right itself you stamp on it with your boot. You hear the chitin crunch and the scorpion's legs scrabble at your boot but stop after you apply more pressure.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin, one of which, you notice, is made of metal. You can go North or South.  Also here is a large dead desert scorpion.
+
+> get scorpion
+Ok, you pick up the dead scorpion - Urrgghh, it's all icky!
+
+You put the scorpion into your rucksack as you don't want to carry it around in your hand.
+
+> put scorpion in rucksack
+You are not carrying the large dead desert scorpion.
+
+> search behind coffin
+You search behind the coffin with your fingers and discover a lever set into the back of it.
+
+> pull lever
+You pull the lever, firstly one way whereupon nothing happens, and then the other way. This time the lever moves and you hear a "snick" sound.
+
+You wonder to yourself what has now happened - did moving the lever unlock something somewhere?
+
+> s
+You move South.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you can see what appear to be upright windows. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> s
+You move South.
+
+The Catacombs
+You are in the catacombs deep beneath Domreil castle. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. In the walls of the catacombs here are several niches, each containing a coffin. You can go North or South.
+
+As you walk along the catacombs you kick something on the floor but you cannot see what it is because of the mist.
+
+> search mist
+You search around in the mist and find a small object - Urrgghh! It's a dead bat.
+
+> get bat
+Ok, you pick up the dead bat.
+
+You put the bat into your rucksack as you don't want to carry it around in your hand.
+
+> n
+You move North.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some tall metal doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.
+
+> e
+You move East.
+
+By Metal Doors
+You are in the catacombs standing next to some tall metal doors that have upright arched windows in them. The windows are opaque but the light that comes through them looks like daylight. The catacombs extend to the West.
+
+> pull handle
+You pull on the metal handle.
+
+There is a faint click and the doors swing open. Your eyes are momentarily dazzled by the sunlight, but quickly adjust.
+
+By Metal Doors
+You are in the catacombs standing next to some tall metal doors that have upright arched windows in them. The windows are opaque but the light that comes through them looks like daylight. The catacombs extend to the West.  The doors are open and lead Out into bright sunlight.
+
+> out
+You pull open and walk through the doors into the bright sunlight.
+
+As you walk through the doors you feel a moment of disorientation, as if you have been moved somewhere else, and you are momentarily dazzled by the sunlight. When your eyes get used to the light your mouth drops open in astonishment - you are on an island in the centre of an ocean!
+
+By Metal Doors On Rock Island
+You are standing by the metal doors on a rock island in the middle of an ocean. The doors are set into the east side of a small hillock with nothing behind it but open ocean. The island extends to the NE and SE. On the side of the hillock by the doors is a strange device.
+
+> ne
+You move NorthEast.
+
+On Rock Island
+You are on a small rock island in the middle of of an ocean. The island is completely flat apart from the hillock in which the metal doors are sited. You can go SW or South across the island. Looking around beyond the island, you see land on the horizon to the west while about a mile or so to the east, southeast and northeast you see larger islands.
+
+> get in boat
+You climb aboard the rowing boat, untie the painter and put what you are carrying on the floor of the boat. You sit on the seat with your back to the bow, pick up the oars and place them into the rowlocks and take hold of the ends. You can now row the boat SE, East or NE.
+
+In Boat At Rock Island
+You are sitting on a seat in the rowing boat by rock island. Either side of you are two rowlocks, fitted into holes in the top of the side of the boat, in which the oars sit. You can ROW East, NE or SE.
+
+> put tinderbox in rucksack
+Ok, you put the tinder box into the rucksack.
+
+> put card in pouch
+Ok, you put the business card into the pouch.
+
+> remove gauntlet
+Ok, you remove the metal gauntlet.
+
+> put gauntlet in rucksack
+Ok, you put the metal gauntlet into the rucksack.
+
+> get telescope
+Ok, you take the small telescope from the large canvas rucksack.
+
+> look se through telescope
+You look southeast through the telescope and see the tree-covered island that lies in that direction. You see a couple of large figures walking about on all fours on the seashore there.
+
+> put telescope in rucksack
+Ok, you put the small telescope into the rucksack.
+
+> row se
+Pulling on the oars, you row the boat to the southeast.
+
+It is hard work for a six-year-old, but you slowly row to the southeast. After about half an hour, glancing behind you see a large tree-covered island only a few hundred yards away.
+
+You put your back to the oars and, after a few minutes of rowing, your boat beaches on the sandy shore of the island. Dropping the oars, you leap out and drag the boat a couple of yards beyond the waterline.
+
+On Shore of Kong Island
+You are on a sandy shore on the west side of Kong Island. Your boat is pulled up onto the sand just beyond the waterline. The trees that the island is covered in with start about 30 feet to the East and the shore extends to the North and SE. In the far distance to the NW you see some land and to the north across the water you see another island, and there is another to the northeast.
+
+As you look around at your surroundings you catch a glimpse of a movement in the trees beyond the shore. You get the impression of a large figure moving slowly away from you but when you try to look closer it has gone.
+
+> e
+You move East.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.
+
+> e
+You move East.
+
+Forest Path
+You are on a vague path that winds through the trees, heading North and NE. The trees around you are quite dense and the foliage overhead prevents most sunlight from reaching the undergrowth that grows on the floor. The seashore is to the West.
+
+> ne
+You move NorthEast.
+
+Forest Path
+You are on a well-beaten path in the forest which leads North, East to a larger clearing and SW along another path.  There is a lot of movement in the clearing to the east.
+
+You notice movement and hear noises coming from the clearing to the east. You crouch down behind a tree trunk and look in that direction to see a group of about a dozen or more gorillas in the clearing.
+
+> get telescope
+Ok, you take the small telescope from the large canvas rucksack.
+
+> look east through telescope
+You look east through the telescope and see a rocky outcrop at the far side of the clearing. You focus on the top of the outcrop and see there is a large boulder on top of the outcrop, inside which there is a glowing object.
+
+> look east through telescope
+You look east through the telescope and focus on the top of the outcrop. You see there is a glowing orange stone sitting in a niche which is in a large boulder that sits at the top of the outcrop.
+
+> x outcrop
+You see the boulder on top of the outcrop with the glowing object inside it.
+
+> put telescope in rucksack
+Ok, you put the small telescope into the rucksack.
+
+> sw
+You move SouthWest.
+
+Forest Path
+You are on a vague path that winds through the trees, heading North and NE. The trees around you are quite dense and the foliage overhead prevents most sunlight from reaching the undergrowth that grows on the floor. The seashore is to the West.
+
+> w
+You move West.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.
+
+> w
+You move West.
+
+On Shore of Kong Island
+You are on a sandy shore on the west side of Kong Island. Your boat is pulled up onto the sand just beyond the waterline. The trees that the island is covered in with start about 30 feet to the East and the shore extends to the North and SE. In the far distance to the NW you see some land and to the north across the water you see another island, and there is another to the northeast.
+
+> push off
+You push the rowing boat into the water then jump aboard and grab the oars.
+
+In Boat Off Kong Island
+You are sitting in the rowing boat which is floating in the water off the shore of Kong Island. You are ready to row to one of the islands to the North or the NE, or back to Rock Island to the NW.
+
+> row n
+Pulling on the oars, you row the boat to the North.
+
+It takes you a long time but eventually you reach the island and moor the boat to a bollard on a pier.
+
+You are exhausted so you lay down in the boat and have a rest for an hour or so to recover your strength, then you climb out of the boat onto the pier.
+
+On Pier 2 at Pirate Island
+You are on a wooden pier which juts out into the water from the edge of Pirate Island, which is to the North. In the water next to the pier your rowing boat is moored to a bollard on the pier. Painted on the wooden planks which make up the pier you see a large number 2.
+
+There is, luckily, nobody on this pier, so your rowing boat should be safe.
+
+> n
+You move North.
+
+Blubber Wharf
+You are on Blubber Wharf, so a sign on the wall of a nearby shop tells you. The wharf extends to the East and West along the shore of the island. Pier 2, where your boat is moored, is to the South. Various sailors and other citizens pass by without noticing you.
+
+> w
+You move West.
+
+West End of Wharf
+You are at the west end of the wharf where there is a large warehouse you can go In to. Sailors and citizens of the island move all around you. Pier 1 is to the south but there are no ships moored at it and it is empty of any people.
+
+> in
+You move In.
+
+In Warehouse
+The warehouse is crammed with all sorts of objects relating to sailing and fishing. On one side there is a large pile of fishing baskets and and next to those a stack of old sails. Opposite those is a small workbench. You can only go Out to the wharf.
+
+> look under workbench
+You look under the workbench and see an old rusty screwdriver.
+
+In Warehouse
+The warehouse is crammed with all sorts of objects relating to sailing and fishing. On one side there is a large pile of fishing baskets and and next to those a stack of old sails. Opposite those is a small workbench. You can only go Out to the wharf.  Also here is a rusty screwdriver.
+
+> get screwdriver
+Ok, you pick up the rusty screwdriver.
+
+> out
+You move Out.
+
+West End of Wharf
+You are at the west end of the wharf where there is a large warehouse you can go In to. Sailors and citizens of the island move all around you. Pier 1 is to the south but there are no ships moored at it and it is empty of any people.
+
+> e
+You move East.
+
+Blubber Wharf
+You are on Blubber Wharf, so a sign on the wall of a nearby shop tells you. The wharf extends to the East and West along the shore of the island. Pier 2, where your boat is moored, is to the South. Various sailors and other citizens pass by without noticing you.
+
+> e
+You move East.
+
+East End of Wharf
+You are at the east end of the wharf, which goes West. To the north there is a ship's chandler shop and pier 3 is directly South. By the side of the shop is a narrow lane going North. There are various islanders going about their business here.
+
+> s
+You move South.
+
+On Pier 3
+You are on a wooden pier which juts out into the water from the edge of Pirate Island, which is to the North. Painted on the wooden planks which make up the pier you see a large number 3. There is a bollard here with a rope tied to it.
+
+> put screwdriver in rucksack
+Ok, you put the rusty screwdriver into the rucksack.
+
+> pull rope
+You pull on the rope.
+
+You quickly discover that whatever is on the other end is quite heavy. You spit on your hands, grab the rope and, using all of your strength, pull. Eventually a metal case emerges from the water and you drag it up onto the pier.
+
+On Pier 3
+You are on a wooden pier which juts out into the water from the edge of Pirate Island, which is to the North. Painted on the wooden planks which make up the pier you see a large number 3. There is a bollard here with a rope tied to it.  Also here is a metal case.
+
+> untie rope
+You untie the rope from around the case then from around the bollard.
+
+On Pier 3
+You are on a wooden pier which juts out into the water from the edge of Pirate Island, which is to the North. Painted on the wooden planks which make up the pier you see a large number 3. There is a bollard here.  Also here is a length of rope and a metal case.
+
+> get screwdriver
+Ok, you take the rusty screwdriver from the large canvas rucksack.
+
+> force case open with screwdriver
+You force open the lock with the screwdriver.
+
+It takes you a few minutes and a lot of strength, but eventually you manage to force open the lock on the case.
+
+> open case
+You open the metal case.  Inside the metal case is a canvas bag.
+
+> get bag
+Ok, you take the canvas bag from the metal case.
+
+> look in bag
+You open the bag and look in - it is full of valuables!
+
+> put bag in rucksack
+Ok, you put the canvas bag into the rucksack.
+
+> put screwdriver in rucksack
+Ok, you put the rusty screwdriver into the rucksack.
+
+> n
+You move North.
+
+East End of Wharf
+You are at the east end of the wharf, which goes West. To the north there is a ship's chandler shop and pier 3 is directly South. By the side of the shop is a narrow lane going North. There are various islanders going about their business here.
+
+> n
+You move North.
+
+Fisherman's Lane
+You in Fisherman's Lane, which leads North from Blubber Wharf, which is to the South. There is a strong smell of urine here and many damp patches on the walls of the buildings either side of the lane. There are people walking along here on their way to and from Blubber Wharf.
+
+> n
+You move North.
+
+Yardarm Street
+You are in Yardarm Street, which is the main street of Pirate Island. It is lined with various shops and extends East and West. Fisherman's Lane goes South here to Blubber Wharf and on the opposite side of the street is The Pie Place which you can go In to. People move around you, going about their daily business.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+The Pie Place
+You are in the Pie Place, a place where you can get a meal. There are about a dozen tables with chairs in here, some of which are occupied by people having a meal. The smell of cooking wafts out from the kitchen at the back of the shop. On the wall is today's menu. You can go Out to Yardarm Street.
+
+> sit at table
+You pick a table and sit down on one of the chairs next to it.
+
+Sitting At A Table
+You are sitting at a table in the Pie Place. On the wall of the room you can see a menu. On the table you see a condiment tray and in the corner is a small sign.
+
+> read menu
+The menu on the wall reads:
+
+Urrgghh! Jellied Eels! They are one of your mother's favourite treats. The one and only time you tried some you swallowed the bone and nearly threw up!
+
+> call waitress
+You raise your hand a call for a waitress.
+
+As if by magic (maybe it was!) a waitress materialises beside your table. You swear she wasn't there a second ago.
+
+"Well, waddya want for mains?" she asks you in a bored voice, standing with a pencil poised over her little notepad.
+
+1: "I have the ham and mushroom pie please,"
+2: "I rather fancy the pie and mash!"
+3: "I'd better not have the jellied eels, I don't want to throw up all over your floor!"
+
+Sitting At A Table
+You are sitting at a table in the Pie Place. On the wall of the room you can see a menu. On the table you see a condiment tray and in the corner is a small sign.  The waitress is standing by your table, waiting for your order.
+
+> 1
+You tell the waitress you will have the ham and mushroom pie.
+
+"Ok," she tells you, noting that down then she asks, "And waddya want fer afters?
+
+1: "I'll have the jam roly-poly pudding please."
+2: "I would like the sticky toffee pudding, please."
+
+> 2
+You tell the waitress you will have the sticky toffee pudding please."
+
+"Ok, good choice - my fav," she tells you and writes that down on her notepad.
+
+Having taken your order, the waitress thanks you and promptly disappears, literally, into thin air - how did she do that?
+
+You settle down to wait for your main course to be cooked.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The waitress appears by your table, making you jump.
+
+"Will you stop doing that!" you snap, as she puts your meal on the table together with some cutlery.
+
+"Do ya want it or not?" she replies. "If ya do stop complaining - I'm only doin' me job!"
+
+"I'll back with ya afters when you've finished," she tells you. "I might not scare ya next time."
+
+With that she vanishes from view with a "pop!"
+
+> eat meal
+You eat the ham and mushroom pie, enjoying every bite. The gravy isn't as good as your mother's but it's not bad.
+
+When you are finished you glance around you and, seeing that nobody is paying you any attention, you lick the plate clean.
+
+As you sit there, licking your lips of any remaining morsels of food, the waitress reappears, this time walking up to you normally.
+
+She takes the plate and the cutlery and places a bowl containing your dessert in front of you and, raising one eyebrow in a gesture that means she saw you lick the plate clean, walks away again.
+
+Sitting At A Table
+You are sitting at a table in the Pie Place. On the wall of the room you can see a menu. On the table you see a condiment tray, a dessert bowl and a dessert spoon and in the corner is a small sign.
+
+> eat dessert
+You eat the dessert, enjoying every morsel. The custard isn't as good as your mother's but 'beggars can't be choosers'.
+
+When you are finished you glance around you and, seeing that a couple on an adjacent table are watching you, you refrain from licking the bowl clean.
+
+As you sit there, enjoying the sensation of a full belly, the waitress reappears out of thin air beside you.
+
+She takes the empty bowl and the spoon, places a receipt on the table in front of you and waits for you to pay her.
+
+Sitting At A Table
+You are sitting at a table in the Pie Place. On the wall of the room you can see a menu. On the table you see a pie place receipt and a condiment tray and in the corner is a small sign.  The waitress is standing by your table, waiting for you to pay the bill.
+
+> pay bill
+You take 4 gold coins from your pouch (3 plus 1 for a tip) and hand them to the waitress.
+
+"Why thank you, young sir," she says, delighted at your generosity. "If you ever come again, I'll make sure you get the best service!"
+
+"So...how do you do it," you ask her. "Y'know, the disappearing act?"
+
+"Ah, that's for me to know and you to find out!" she says enigmatically, before tapping your nose with one finger then disappearing with a 'pop'!
+
+> stand up
+Ok, you stand up from the table.
+
+The Pie Place
+You are in the Pie Place, a place where you can get a meal. There are about a dozen tables with chairs in here, some of which are occupied by people having a meal. The smell of cooking wafts out from the kitchen at the back of the shop. On the wall is today's menu. You can go Out to Yardarm Street.
+
+> out
+You move Out.
+(Opening the door and closing it behind you.)
+
+Yardarm Street
+You are in Yardarm Street, which is the main street of Pirate Island. It is lined with various shops and extends East and West. Fisherman's Lane goes South here to Blubber Wharf and on the opposite side of the street is The Pie Place which you can go In to. People move around you, going about their daily business.
+
+As you leave the Pie Place after your meal you see a man unlocking and opening the door of a shop further along the street and going in.
+
+> out
+There is no route out.
+
+> w
+You move West.
+
+Yardarm Street
+You are part way along Yardarm Street, where it joins Mansion House Road. There is a bookshop here. The street is filled with the citizens of the town going about their daily business. You can go North, East, West or In to the shop.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+The Bookshop
+You are in the bookshop, which has many shelves filled with all sorts of books on many subjects. Behind a counter sits a wizened old man reading a newspaper. You can go Out to the street via the door.  As you walk in, the bookseller looks over his spectacles at you.
+
+"Good day to you young sir," he says in a whispery voice that is hard to understand. "Are you looking for any particular book?" he asks.
+
+"No," you reply. "Just browsing."
+
+"Very well," the bookseller replies, and he returns to reading his newspaper.
+
+> read newspaper
+Without letting the bookseller see what you are doing, you have a look at the newspaper over his shoulder. There is an article on the page the bookseller is reading that catches your eye.
+
+> read article
+The article reads:
+
+So that's who the valuables you found in the metal case belong to!
+
+> search shelves
+You search through the books on the shelves.
+
+Nothing seems to be of any interest or use and then you see a book whose author you know - it is a book written by none other than Magor the Sorcerer!
+
+> buy book
+You tell the bookseller that you would like to buy the book. He takes it from you and peers at it through his spectacles.
+
+"Ah, a very interesting choice," he comments. "The sorcerer of legend, he lived in a place many leagues from here many years ago. That'll be one gold coin please. Would you like it wrapped?"
+
+"No thanks," you tell him as you take a coin from your pouch and hand it to him. He takes the coin and hands you the book. "Thank you, kind sir, I hope the book is of some use to you."
+
+The bookseller returns to reading his newspaper.
+
+> read book
+You read through the book, which is written in Magor's spidery script (luckily you are used to it!), concentrating on the chapter headings.
+
+Near the end of the book you see a heading which catches your eye:
+
+How To Write A Secret Message Using Lemon Juice.
+1: Squeeze the juice from a lemon into a suitable container.
+2: With a quill pen write your message on your paper, parchment or cloth, etc.
+3: Allow to dry naturally.
+4: The recipient must put the item into a hot oven for two minutes to reveal the message.
+
+> out
+You move Out.
+(Opening the door and closing it behind you.)
+
+Yardarm Street
+You are part way along Yardarm Street, where it joins Mansion House Road. There is a bookshop here. The street is filled with the citizens of the town going about their daily business. You can go North, East, West or In to the shop.
+
+> n
+You move North.
+
+Mansion House Road
+You are on a road that leads north from Yardarm Street, which is to the the South. Your surroundings are a bit better class than the main street, being lined with nice trees.
+
+> n
+You move North.
+
+By Large Mansion
+You are at the end of Mansion House Road, where to the east, at the end of an imposing drive, there lies a magnificent mansion. You can go South back toward Yardarm Street or East through the gates to the mansion.
+
+> e
+You move East.
+
+Grand Drive
+You are on a drive that leads East to the grand portico of the mansion. On either side of the drive are beautifully-kept lawns with various flowers, plants and shrubs in flowerbeds. At the side of the mansion you see a narrow path leading SE, or you can go West out of the gates to the road.
+
+> e
+You move East.
+
+Grand Portico
+You stand under the grand portico at the front of the mansion. There are two huge wooden doors here, by the side of which is an ornate brass bellpull. You can go West to the drive.  Also here is a brass bellpull.
+
+> ring bell
+You pull on the bellpull and hear a bell ring faintly beyond the doors.
+
+After a minute or two the door is opened by an impossibly-tall, cadaverous-looking butler who looks down at you with disdain.
+
+"Yeeesss?" he drawls in a fake posh voice. "What can I do for you, young sir?"
+
+You explain that you have found the govenor's stolen valuable and wish to claim the reward.
+
+His mouth falls open in astonishment and he mutters, "'Ow da bleedin' 'ell did ya find dem?!" before ushering you inside the mansion to the enormous hallway.
+
+"Wait here!" he scowls and, taking the bag of valuables from you, hurries away into the depths of the mansion. You stand there looking around at the sheer opulence of the hallway and then the butler returns.
+
+"My master sends his heartfelt thanks and instructs me to hand you the reward," he says, giving you some gold coins. "He has added a bit more for your honesty," he tells you.
+
+He ushers you out of the doors which are closed behind you. You transfer the coins into your pouch, which is becoming very full.
+
+Grand Portico
+You stand under the grand portico at the front of the mansion. There are two huge wooden doors here, by the side of which is an ornate brass bellpull. You can go West to the drive.  Also here is a brass bellpull.
+
+> w
+You move West.
+
+Grand Drive
+You are on a drive that leads East to the grand portico of the mansion. On either side of the drive are beautifully-kept lawns with various flowers, plants and shrubs in flowerbeds. At the side of the mansion you see a narrow path leading SE, or you can go West out of the gates to the road.
+
+> w
+You move West.
+
+By Large Mansion
+You are at the end of Mansion House Road, where to the east, at the end of an imposing drive, there lies a magnificent mansion. You can go South back toward Yardarm Street or East through the gates to the mansion.
+
+> s
+You move South.
+
+Mansion House Road
+You are on a road that leads north from Yardarm Street, which is to the the South. Your surroundings are a bit better class than the main street, being lined with nice trees.
+
+> s
+You move South.
+
+Yardarm Street
+You are part way along Yardarm Street, where it joins Mansion House Road. There is a bookshop here. The street is filled with the citizens of the town going about their daily business. You can go North, East, West or In to the shop.
+
+> e
+You move East.
+
+Yardarm Street
+You are in Yardarm Street, which is the main street of Pirate Island. It is lined with various shops and extends East and West. Fisherman's Lane goes South here to Blubber Wharf and on the opposite side of the street is The Pie Place which you can go In to. People move around you, going about their daily business.
+
+> e
+You move East.
+
+East End of Yardarm Street
+You are at the east end of Yardarm Street, where there is a fancy dress shop. An open door leads In to the shop and the street stretches away to the West.
+
+As you see the shop to the south you ask yourself why on earth there would be a fancy dress shop in a town full of pirates?
+
+> in
+You move In.
+
+In Fancy Dress Shop
+You are in the fancy dress shop, which is full of clothes racks with all sorts of costumes hanging from them. Behind a counter sits the proprietor, a woman. The open door leads Out to the street.
+
+You enter the shop and see a woman sitting behind the counter, filing her nails.
+
+"Hello son," she says pleasantly. "How can I help you?"
+
+1: "Why is there a fancy dress shop in a town full of pirates?"
+2: "I'm looking for a costume to wear to a masquerade ball."
+
+> 2
+"Ok, dearie," she tells you. "When you find something just bring it to me and I'll tell you how much it costs to hire."
+
+1: "Why is there a fancy dress shop in a town full of pirates?"
+
+> 1
+You ask the lady why there is a fancy dress shop on an island full of pirates?
+
+The lady laughs and answers your question:
+
+"If I had a gold coin for every time I got asked that, I'd be a rich woman!" she tells you. "Our esteemed Governor, Captain Jacques L'Moineau, loves to hold masquerade and fancy dress balls in his mansion. In order to stay in his graces, everyone in town attends the balls, without fail. I make a small fortune every time he holds one!" she tells you delightedly.
+
+She returns to filing her fingernails and ignores you.
+
+> search racks
+You search through the clothes racks and find a gorilla suit. A sixth sense tells you it might be useful.
+
+In Fancy Dress Shop
+You are in the fancy dress shop, which is full of clothes racks with all sorts of costumes hanging from them. Behind a counter sits the proprietor, a woman. The open door leads Out to the street.  Also here is a gorilla costume.
+
+> hire suit
+You tell the woman that you want to hire the gorilla costume and hand over 120 gold coins.
+
+"Thank you, young man," she tells you, handing you the gorilla costume. "Please bring it back within one week, I hope you'll have fun at the fancy dress ball!"
+
+You think to yourself, "Some ball - so do I!"
+
+You walk out of the shop to the street outside.
+
+East End of Yardarm Street
+You are at the east end of Yardarm Street, where there is a fancy dress shop. An open door leads In to the shop and the street stretches away to the West.
+
+> w
+You move West.
+
+Yardarm Street
+You are in Yardarm Street, which is the main street of Pirate Island. It is lined with various shops and extends East and West. Fisherman's Lane goes South here to Blubber Wharf and on the opposite side of the street is The Pie Place which you can go In to. People move around you, going about their daily business.
+
+> w
+You move West.
+
+Yardarm Street
+You are part way along Yardarm Street, where it joins Mansion House Road. There is a bookshop here. The street is filled with the citizens of the town going about their daily business. You can go North, East, West or In to the shop.
+
+> w
+You move West.
+
+Near West End of Yardarm Street
+You are near the west end of Yardarm Street, where there is a large building to the north. People walk along the street all around, going about their daily business. You can go East, West or In to the building through the doorway.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+Mannbroom's Academy
+You are in Mannbroom's Combat Academy, at a reception desk. Behind the desk is a large open space with a wooden parquet floor. At the side of the reception area you see a large glass display cabinet. On the wall next to it is a framed portrait of a man which is labelled "Aloysius Mannbroom M.S.K.". You can go Out to the street.  You see a man in fencing attire, probably Aloysius Mannbroom himself, giving a combat lesson to a young pirate.
+
+You watch them for a while as they spar with practice swords. After a few minutes the lesson ends and the young pirate shakes hands with his instructor and happily leaves the academy.
+
+The fencing instructor comes over to the reception desk.
+
+"Hello, young man, I am Herr Aloysius Mannbroom and how can I be of service today? He asks pleasantly, making sure that the cork on the point of the practise sword is secured properly.
+
+1: "What does M.S.K. stand for?
+2: "How long did it take you to learn?"
+3: "I would like a free combat lesson, please."
+
+> 1
+Herr Mannbroom glances at his portrait and smiles.
+
+"That stands for "Master of Swordplay and Knife-Throwing", I am an expert in both," he tells you proudly.
+
+> 2
+He looks at you seriously and says,
+
+"It took me ten years to become proficient with sword and knife," he tells you. "I have spent the rest of my life teaching my skills to hundreds of students."
+
+> 3
+You take the card out of your pouch and hand it to the instructor, who looks at it and then down at you.
+
+"Sorry," he says apologetically. "The minimum age for combat instruction is 12 years of age."
+
+He shows you the back of his business card where, in tiny letters, is printed: 'Minimum Age: 12 years old'.
+
+"Come back when you have reached that age and I will give you a free lesson."
+
+> get soldiers from rucksack
+You take the toy soldiers from your rucksack.
+
+When the instructor sees what you have taken out of the rucksack, he gasps in surprise.
+
+"Gott im Himmel - that's the Domreil set of Hecatean soldiers!" he exclaims. "They're incredibly rare! Would you consider selling them to me for my collection?"
+
+You consider this request and take out the Xixon warriors as well. The instructor gasps again and puts his hand to his head, staggering slightly.
+
+*Oh my word, I feel faint - you've got the matching Xixon set as well! PLEASE sell them to me!" he pleads.
+
+You think for a minute or two then make a suggestion:
+
+"How about you teach me how to fight with a sword and throw a knife properly?"
+
+The instructor instantly agrees and you give the soldiers and warriors to him. He gazes at them lovingly, then puts them into the display cabinet, arranging them to his satisfaction.
+
+You spend the next few hours undergoing an intensive course on how to fight with a sword and how to throw a knife properly by Herr Mannbroom. As your lessons progress a couple more students arrive for lessons and they stand by the wall watching.
+
+Eventually, he declares you to be proficient in both disciplines and he even gives you a signed certificate to prove it.
+
+He thanks you profusely for the soldiers and warriors and turns away to call his next student.
+
+You leave the academy now you have learnt your lesson.
+
+Near West End of Yardarm Street
+You are near the west end of Yardarm Street, where there is a large building to the north. People walk along the street all around, going about their daily business. You can go East, West or In to the building through the doorway.
+
+> e
+You move East.
+
+Yardarm Street
+You are part way along Yardarm Street, where it joins Mansion House Road. There is a bookshop here. The street is filled with the citizens of the town going about their daily business. You can go North, East, West or In to the shop.
+
+> n
+You move North.
+
+Mansion House Road
+You are on a road that leads north from Yardarm Street, which is to the the South. Your surroundings are a bit better class than the main street, being lined with nice trees.
+
+> n
+You move North.
+
+By Large Mansion
+You are at the end of Mansion House Road, where to the east, at the end of an imposing drive, there lies a magnificent mansion. You can go South back toward Yardarm Street or East through the gates to the mansion.
+
+> e
+You move East.
+
+Grand Drive
+You are on a drive that leads East to the grand portico of the mansion. On either side of the drive are beautifully-kept lawns with various flowers, plants and shrubs in flowerbeds. At the side of the mansion you see a narrow path leading SE, or you can go West out of the gates to the road.
+
+> se
+You move SouthEast.
+
+Path Around Mansion
+You are on a path that runs around the south side of the mansion. Here there is a large vegetable garden. The path leads East and West.
+
+> e
+You move East.
+
+Back of Mansion
+You are at the back of the mansion, by a small door. The mansion towers above you but you notice that the back is quite plain compared to the front. You can go In or SW along the path to the front of the building.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+The Kitchen
+You are in the kitchen of the mansion. It is L-shaped and is full of all kinds of equipment, tools and devices dedicated to the cooking and preparation of food. You can smell the wonderful aroma of baked bread. You can go North to the other part of the kitchen or Out to the back of the mansion. There is another door leading west but it is locked.  On a hook by the door hangs a key.  The cook is here, checking her inventory.
+
+As you walk into the room you see a woman, who you assume to be the cook. She is checking something written on a notepad. Not seeing you she closes the notepad, picks it up and proceeds to lock all the doors in the kitchen.
+
+> get key
+You quickly reach up, take the key from the hook and put it in the pouch on your warbelt before the cook can spot you.
+
+> get napkin
+Ok, you take the table napkin from the large canvas rucksack.
+
+The cook turns around sees you standing there.
+
+"Ooo the bleedin' 'ell are you?" she says, rushing towards you. "I ain't got time t'mess about wiv trespassing kids!"
+
+She grabs you by the scruff of your jacket and ushers you out of the door, locking it behind her.
+
+She rushes off along the path around the side of the mansion and disappears from view.
+
+Back of Mansion
+You are at the back of the mansion, by a small door. The mansion towers above you but you notice that the back is quite plain compared to the front. You can go In or SW along the path to the front of the building.
+
+> unlock door with key
+(First taking the spare key)
+Ok, you take the spare key from the leather pouch.  You unlock the kitchen door with the spare key.  You open the kitchen door.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+The Kitchen
+You are in the kitchen of the mansion. It is L-shaped and is full of all kinds of equipment, tools and devices dedicated to the cooking and preparation of food. You can smell the wonderful aroma of baked bread. You can go North to the other part of the kitchen or Out to the back of the mansion. There is another door leading west but it is locked.
+
+> n
+You move North.
+
+North Part of Kitchen
+You are in the north part of the kitchen where there is a large oven, the door of which is open. The smell of baked bread is stronger here. A door here leads north but it is locked.
+
+> open oven
+The large oven is already open.
+
+> put napkin in oven
+You put the napkin into the hot oven and close the door.
+
+You spend a couple of minutes wondering what your parents are doing and hoping they're not worried about you, then you open the oven again and take out the napkin.
+
+> read napkin
+You can read the numbers 180452 on the napkin.
+
+> s
+You move South.
+
+The Kitchen
+You are in the kitchen of the mansion. It is L-shaped and is full of all kinds of equipment, tools and devices dedicated to the cooking and preparation of food. You can smell the wonderful aroma of baked bread. You can go North to the other part of the kitchen or Out to the back of the mansion. There is another door leading west but it is locked.
+
+> put key on hook
+You put the spare key back onto the hook.
+
+> out
+You move Out.
+(Opening the door and closing it behind you.)
+
+Back of Mansion
+You are at the back of the mansion, by a small door. The mansion towers above you but you notice that the back is quite plain compared to the front. You can go In or SW along the path to the front of the building.
+
+> sw
+You move SouthWest.
+
+Path Around Mansion
+You are on a path that runs around the south side of the mansion. Here there is a large vegetable garden. The path leads East and West.
+
+> w
+You move West.
+
+Grand Drive
+You are on a drive that leads East to the grand portico of the mansion. On either side of the drive are beautifully-kept lawns with various flowers, plants and shrubs in flowerbeds. At the side of the mansion you see a narrow path leading SE, or you can go West out of the gates to the road.
+
+> w
+You move West.
+
+By Large Mansion
+You are at the end of Mansion House Road, where to the east, at the end of an imposing drive, there lies a magnificent mansion. You can go South back toward Yardarm Street or East through the gates to the mansion.
+
+> s
+You move South.
+
+Mansion House Road
+You are on a road that leads north from Yardarm Street, which is to the the South. Your surroundings are a bit better class than the main street, being lined with nice trees.
+
+> s
+You move South.
+
+Yardarm Street
+You are part way along Yardarm Street, where it joins Mansion House Road. There is a bookshop here. The street is filled with the citizens of the town going about their daily business. You can go North, East, West or In to the shop.
+
+> e
+You move East.
+
+Yardarm Street
+You are in Yardarm Street, which is the main street of Pirate Island. It is lined with various shops and extends East and West. Fisherman's Lane goes South here to Blubber Wharf and on the opposite side of the street is The Pie Place which you can go In to. People move around you, going about their daily business.
+
+> s
+You move South.
+
+Fisherman's Lane
+You in Fisherman's Lane, which leads North from Blubber Wharf, which is to the South. There is a strong smell of urine here and many damp patches on the walls of the buildings either side of the lane. There are people walking along here on their way to and from Blubber Wharf.
+
+Suddenly you are confronted with a boy not much older than yourself.
+
+The boy thrusts a dagger at you and says,
+
+"Hand it over, I know you got that reward money from L'Moineau," he demands. "Cough up or I'll slit ya gizzard frum ear t'ear!"
+
+You draw your own dagger and attack the boy with it.
+
+"Clear off!" you shout at him. "Or I'll slit YOUR gizzard!"
+
+He parries your thrust but, using a trick taught to you by Herr Mannbroom, you get past his defence and stab him in the shoulder.
+
+Clutching his wound, the boy runs off out of sight.
+
+> s
+You move South.
+
+East End of Wharf
+You are at the east end of the wharf, which goes West. To the north there is a ship's chandler shop and pier 3 is directly South. By the side of the shop is a narrow lane going North. There are various islanders going about their business here.
+
+> w
+You move West.
+
+Blubber Wharf
+You are on Blubber Wharf, so a sign on the wall of a nearby shop tells you. The wharf extends to the East and West along the shore of the island. Pier 2, where your boat is moored, is to the South. Various sailors and other citizens pass by without noticing you.
+
+Suddenly a wave of exhaustion sweeps over you and your legs feel wobbly. For second or two you also feel very homesick and want your mummy! Then you shake yourself and remember that you are a Blackmoon - and Blackmoon's don't get homesick!
+
+Still, maybe you ought to find somewhere to sleep for a while to regain your strength?
+
+> w
+You move West.
+
+West End of Wharf
+You are at the west end of the wharf where there is a large warehouse you can go In to. Sailors and citizens of the island move all around you. Pier 1 is to the south but there are no ships moored at it and it is empty of any people.
+
+> in
+You move In.
+
+In Warehouse
+The warehouse is crammed with all sorts of objects relating to sailing and fishing. On one side there is a large pile of fishing baskets and and next to those a stack of old sails. Opposite those is a small workbench. You can only go Out to the wharf.
+
+> go to sleep on sails
+You lay down on the stack of sails.
+
+As you are so very, very tired, as soon as your head hits the canvas you fall into a deep, exhausted sleep, and are totally oblivious of night falling.
+
+You sleep for hours, then the sounds of a new day outside the warehouse rouses you from your slumber.
+
+You get to your feet, stretch your arms above your head and yawn widely - you now feel very refreshed and ready to start the day.
+
+> out
+You move Out.
+
+West End of Wharf
+You are at the west end of the wharf where there is a large warehouse you can go In to. Sailors and citizens of the island move all around you. Pier 1 is to the south but there are no ships moored at it and it is empty of any people.
+
+> e
+You move East.
+
+Blubber Wharf
+You are on Blubber Wharf, so a sign on the wall of a nearby shop tells you. The wharf extends to the East and West along the shore of the island. Pier 2, where your boat is moored, is to the South. Various sailors and other citizens pass by without noticing you.
+
+> s
+You move South.
+
+On Pier 2 at Pirate Island
+You are on a wooden pier which juts out into the water from the edge of Pirate Island, which is to the North. In the water next to the pier your rowing boat is moored to a bollard on the pier. Painted on the wooden planks which make up the pier you see a large number 2.
+
+> in
+You climb aboard the rowing boat.
+
+In Boat at Pirate Island
+You are sitting in the rowing boat which is floating in the water by the pier at Pirate Island. You are ready to row to one of the islands to the South or SE, or towards the rock island in the SW.
+
+> put napkin in rucksack
+Ok, you put the table napkin into the rucksack.
+
+> put costume in rucksack
+You put the gorilla suit into the rucksack. It is a tight fit but you manage it.
+
+> put book in rucksack
+Ok, you put the book into the rucksack.
+
+> put certificate in rucksack
+Ok, you put the certificate into the rucksack.
+
+> row se
+Pulling on the oars, you row the boat to the southeast.
+
+It is hard work, but you slowly row towards the island. After about half an hour, glancing behind you see some stone piers jutting out from the island only a hundred yards away. There are lots of boats in the water here, large and small, so you will have to be careful to avoid them. The boats are of a peculiar design and you think they are called "junks".
+
+You negotiate your way between the junks, avoiding collisions a couple of times, and after a few minutes your boat bumps against the end one of the piers between the hulls of two huge junks. Dropping the oars, you leap out and moor the boat to a bollard.
+
+On Stone Pier 4
+You are on one of several stone piers that jut out from a quay on Sankora Island. A couple of junks are moored either side of the pier, with more of them crowding the other piers and there are still more out on the waters of a wide bay. There are bollards set into the stone pier. You can go East along the pier.  Your rowing boat is moored to a bollard here.
+
+As you stand up on the pier you see that the pier itself is deserted.
+
+> get slingshot from rucksack
+Ok, you take the wooden slingshot from the large canvas rucksack.
+
+> look for a stone
+You look around, spot a stone on the ground and pick it up.
+
+> fire stone at hat
+You fire the stone at the hat with the slingshot.
+
+Luckily the stone just nudges the hat enough to dislodge it as it flies over the junk and lands in the water on the far side.
+
+The hat falls down from the junk and you catch it in your hand.
+
+> put slingshot in rucksack
+Ok, you put the wooden slingshot into the rucksack.
+
+> e
+You move East.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.
+
+> n
+You move North.
+
+North End of Quay
+You are near the north end of the quay, where pier 2 juts out West into the bay. You can go further North along the quay or South. The quay is a hive of activity with people going in and out of the warehouses that line the quay opposite the piers.
+
+> w
+You move West.
+
+On Stone Pier 2
+You are on one of several stone piers that jut out from a quay on Sankora Island. A pair of junks are moored either side of the pier, with more of them moored at the other piers. There are bollards set into the stone pier. Above your head a washing line is strung between the two junks, hanging from which there are several items of clothing including a smock.
+
+> get smock
+Looking around first to see if anyone is watching, you reach up on tiptoe and pull the smock off the washing line.
+
+> e
+You move East.
+
+North End of Quay
+You are near the north end of the quay, where pier 2 juts out West into the bay. You can go further North along the quay or South. The quay is a hive of activity with people going in and out of the warehouses that line the quay opposite the piers.
+
+> s
+You move South.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.
+
+> s
+You move South.
+
+South End of Quay
+You are at the south end of the quay where it joins a road leading East. Islanders rush past you, many of them with loads on their backs or pulling handcarts laden with sacks and crates. You can go North along the quay or East along the road.
+
+Two boys a bit older than yourself come walking along towards you. They pick up some stones from the ground and throw them into the water, trying to see which one can throw the furthest. After a few minutes of competitive throwing they laugh and run off.
+
+> e
+You move East.
+
+Dirt Road To Town
+You are on a dirt road that leads West to the port and East to a town. The people walking along it, kicking up clouds of dust, ignore you as they rush past on their way to wherever they are going. By the side of the road here there is a small shrine.
+
+You notice that islanders have left offerings of flowers at the shrine. One woman leaves a flower and bows to the shrine as you watch and then leaves.
+
+> e
+You move East.
+
+Edge of Town
+You are at the edge of a town, which is surrounded by a high brick wall, where there is a gate which gives access to the town. Built into either side of this gate are guard posts, each manned by a guard. They are watching closely all who go into the town. Above the gate is the name of the town, which is called Yingtong Town. You can go East through the gate or West along the dirt road.
+
+> remove rucksack
+Ok, you remove the large canvas rucksack.
+
+> wear smock
+You put the smock on over your head.
+
+It is slightly big but it covers your boots from view.
+
+> wear hat
+Ok, you put the hat on your head.
+
+It covers your head so that your face cannot be seen.
+
+> e
+You move East.
+
+As you are dressed like most of the citizens of this island, the guards ignore you and you walk through unmolested.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.
+
+As you walk into the town, you notice a large street map on the town wall. "That's useful," you think to yourself and you study the map for a few minutes to familiarise yourself with the streets of the town - not that there are very many.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.
+
+> n
+You move North.
+
+Milligan Street
+You are at the south end of Milligan Street, where it joins Seagoon Street. There are shops and stalls either side of the street selling various goods, and above the shops you see apartments in which the citizens of the town live. One of the shops here is "The Chop Shop". Lots of citizens walk past or stop to buy something from a stall. You can go North, South or In to the shop.
+
+> n
+You move North.
+
+Milligan Street
+You are about halfway along Milligan Street. Citizens mill about you going into and out of the shops here and stopping at stalls to inspect their goods or buy something. The street goes North and South.
+
+> n
+You move North.
+
+Milligan Street
+You are near the north end of Milligan Street. There are shops here into which citizens go into and come out of, one of them is an antiques shop. You can go North to Sellars Street, South along Milligan Street or In to the shop.
+
+> n
+You move North.
+
+By NW Gate
+You are by the NW gate of Yingtong Town, on Sellars Street which goes East. The gate leads out North toward open countryside. You notice the gate is unguarded, probably due to the lack of traffic. A butcher has set up a stall here.
+
+> e
+You move East.
+
+Sellars Street
+You are at the west end of Sellars Street, which goes East. The NW gate is to the West. The houses of the town citizens hug the wall all the way along it and there are some shops and stalls here.
+
+> e
+You move East.
+
+Sellars Street
+You are walking along Sellars Street by the north wall of Yingtong Town. Against the wall there are some houses and there are a couple of shops and stalls as well. To the South you see Secombe Street.
+
+> e
+You move East.
+
+Sellars Street
+You are near the end of Sellars Street, which goes West alongside the town wall, near the NE Gate which is to the East.  At the side of the street opposite the town wall stands a suspicious-looking man with a large dog lying asleep at his feet. The sign on his stall says he is a money changer.
+
+> exchange 40 gold
+You tell the money-changer that you would like to exchange 40 gold coins.
+
+"Okay chum, that will get you 120 goons," he tells you. You exchange the gold coins for the goons, which you put straight into your pouch.
+
+> e
+You move East.
+
+At The NE Gate
+You are by the NE gate of the town where Sellars Street, to the West, meets Bentine Street to the South. There is a butcher's stall here. The gate is larger than the others and is open to the North and East. You can go along either street and North or East out of the town.
+
+> s
+You move South.
+
+Bentine Street
+You are at the north end of Bentine Street where there is a stall which sells flowers. To the North is the NE gate where this street joins Sellars Street and the street goes South towards Seagoon Street and the SE gate some distance away.
+
+> buy flowers
+You buy a bunch of flowers from the stall for 10 goons.
+
+> s
+You move South.
+
+Bentine Street
+You are halfway along Bentine Street by the entrance to a temple. A couple of priests stand each side of the entrance, watching visitors and bowing to them as they walk in. On the ground either side of the entrance you see many pairs of shoes.
+
+> remove boots
+Ok, you remove the sturdy boots.
+
+> in
+You go to enter the temple but a priest standing here stops you.
+
+"Please leave your boots out here," he requests politely, pointing to the many pairs of footwear lying around.
+
+You obediently put your boots down.
+
+> in
+You move In.
+
+Temple of Sankora
+You are in a magnificent temple which is dominated by a huge golden statue on the side opposite the entrance, which leads Out to Bentine Street. The temple is a mass of gold decoration which dazzles your eyes. In front of the statue are piles of flowers that have been left as offerings. Priests in yellow robes mingle with the visitors, ready to help them if required.  One of the priests is standing nearby.
+
+The temple is crowded with people, many worshipping but just as many visitors stand gawping in awe at the opulent decorations.
+
+> x statue
+The enormous statue depicts the god Sankora sitting cross-legged and with his left hand raised. In the statue's head, in the middle of his brow where the "third eye" would be, there is an empty niche.
+
+> offer flowers
+You walk up to the huge statue and place your offering onto the pile of flowers, bow respectfully and step back. You get the feeling that the statue approves of your gesture.
+
+> talk to priest
+You walk over to the priest and talk to him.
+
+1: "How tall is that statue?"
+2: "How many people can this temple accommodate?"
+3: "Why is there an empty niche in the statue's head?"
+
+> 1
+The priest bows to you over his hands and says,
+
+"The statue, which is of the god Sankora, is over 50 feet tall and weighs 3,000 tons,"he tells you. "It is made from solid gold and it is reputed to be over 1,000 years old."
+
+You thank him for the information and he asks if you have any other questions?
+
+2: "How many people can this temple accommodate?"
+3: "Why is there an empty niche in the buddha's head?"
+4: "I have no more questions, thank you."
+
+> 2
+The priest bows to you over his hands and says,
+
+"This temple can hold 200 worshippers on feast days, when casual visitors are not allowed in," he tells you. "On open days like today there can be up to 500 in here at any one time. We try to encourage casual visitors not to spend too long looking at Sankora in order to allow other people in."
+
+You thank him for the information and he asks if you have any other questions?
+
+3: "Why is there an empty niche in the statue's head?"
+4: "I have no more questions, thank you."
+
+> 3
+You ask the priest about the empty niche in the statue's head.
+
+The priest bows to you over his hands and says,
+
+"That empty niche should contain the Orb of Sankora," he tells you. "The orb was stolen many years ago and it has never been recovered."
+
+You ask him what the Orb of Sankora is?
+
+"The Orb was created by Sankora himself at the dawn of time," he tells you. "It has mystical healing powers and it glows with a gentle orange light. All who fall under its gaze would be cured of all ills. There is a reward of 500 goons for its safe return."
+
+You thank him for the information and he asks if you have any other questions?
+
+4: "I have no more questions, thank you."
+
+> 4
+You tell the priest that you have no more questions at the moment, thanks.
+
+The priest bows to you over his hands and backs away.
+
+> out
+You move Out.
+
+Bentine Street
+You are halfway along Bentine Street by the entrance to a temple. A couple of priests stand each side of the entrance, watching visitors and bowing to them as they walk in. On the ground either side of the entrance you see many pairs of shoes.   Also here is some sturdy boots.
+
+As you leave the temple, you suddenly realise that the glowing orb you saw in the clearing on Kong Island is the stolen Orb of Sankora the priest described! There's a 500 goon reward so you will have to try and recover it.
+
+As you leave the temple, you retrieve your boots and put them on.
+
+> n
+You move North.
+
+Bentine Street
+You are at the north end of Bentine Street where there is a stall which sells flowers. To the North is the NE gate where this street joins Sellars Street and the street goes South towards Seagoon Street and the SE gate some distance away.
+
+> n
+You move North.
+
+At The NE Gate
+You are by the NE gate of the town where Sellars Street, to the West, meets Bentine Street to the South. There is a butcher's stall here. The gate is larger than the others and is open to the North and East. You can go along either street and North or East out of the town.
+
+> w
+You move West.
+
+Sellars Street
+You are near the end of Sellars Street, which goes West alongside the town wall, near the NE Gate which is to the East.  At the side of the street opposite the town wall stands a suspicious-looking man with a large dog lying asleep at his feet. The sign on his stall says he is a money changer.
+
+> w
+You move West.
+
+Sellars Street
+You are walking along Sellars Street by the north wall of Yingtong Town. Against the wall there are some houses and there are a couple of shops and stalls as well. To the South you see Secombe Street.
+
+> s
+You move South.
+
+Secombe Avenue
+You are at the north end of Secombe Avenue, where it joins Sellars Street to the North. Just here there is a Pet Supplies Shop you can go In to. Above the shop a sign reads: "Petra's Pampered Pets", Secombe Avenue continues to the South.
+
+> s
+You move South.
+
+Secombe Avenue
+You are halfway along Secombe Avenue, where there is a circular area of flower beds and seats. The fragrance of the flowers is very pleasant and calming.  Sitting on one of the seats is a mother holding a baby whom she is trying to stop crying.
+
+> get wooden horse
+Ok, you take the wooden horse from the large canvas rucksack.
+
+> give horse to crying baby
+You offer the wooden horse to the baby.
+
+You explain to the lady that you and your sister used to chew on this when the both of you were teething.
+
+The woman is hesitant at first but, desperate to help her child's discomfort, she takes the horse from you and puts it in the baby's mouth.
+
+The baby stops crying instantly, grabs the horse in its tiny hands and starts chewing happily on the model.
+
+The lady smiles happily and sighs with relief.
+
+"Oh thank you so very much, young man," she tells you gratefully. She reaches into her shopping bag and takes out something. It is a small glass ornament.
+
+"I bought this for myself but I would like you to have it in gratitude for helping little Neddy here," she tells you, handing you the ornament. "It has a spell cast on it so that it will never shatter. I can now continue my shopping in peace!"
+
+With that she gets to her feet, bows to you and walks away.
+
+Secombe Avenue
+You are halfway along Secombe Avenue, where there is a circular area of flower beds and seats. The fragrance of the flowers is very pleasant and calming.
+
+> s
+You move South.
+
+Secombe Avenue
+You are at the south end of Secombe Avenue, which goes North past shops and stalls. Seagoon Street is just to the South. You can hear the sound of music and singing coming from the south but you cannot see who is making it because of the mass of people around you. There is a herbalist's shop on the east side of the street which is open and you can go In to it. On the fascia of the shop is written "Dr.Wu's Herbal Emporium".
+
+> s
+You move South.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.
+
+> listen to musicians
+You listen to the troop for a while.
+
+The song sounds extremely silly, but the citizens seem to love it, joining in with the chorus, the words to which sound like this:
+
+"Ying tong ying tong
+Ying tong ying tong
+Ying tong iddle I po
+Ying tong ying tong
+Ying tong iddle I po
+Iddle I po!"
+
+You giggle in amusement, and applaud enthusiastically.
+
+> n
+You move North.
+
+Secombe Avenue
+You are at the south end of Secombe Avenue, which goes North past shops and stalls. Seagoon Street is just to the South. You can hear the sound of music and singing coming from the south but you cannot see who is making it because of the mass of people around you. There is a herbalist's shop on the east side of the street which is open and you can go In to it. On the fascia of the shop is written "Dr.Wu's Herbal Emporium".
+
+> in
+You move In.
+
+In Herbalist's Shop
+You are in the herbalist's shop. Behind a counter, on which there is a set of scales, sits the herbalist.  The herbalist is here.
+
+As you walk into the shop, the herbalist gets to his feet and bows to you.
+
+"How may I be of service to you, young man?" he asks cheerfully.
+
+> give bat and scorpion to herbalist
+You hand the dead bat to the herbalist.
+
+"Ah, very good," he tells you happily, taking it from you. "I would have preferred it to be a bit fresher, but it will suffice."  You hand the dead scorpion to the herbalist.
+
+"Ah yes, just what I need for the remedy," he tells you happily, taking it from you.
+
+Now he has the two missing ingredients, the herbalist goes out to his preparation room at the back of his shop, taking one of the two books he looked at earlier with him. He is out there for quite some time, occasionally popping out to the front of the shop to collect some other ingredients from a box or sack.
+
+After about half an hour, during which time you amused yourself by "sampling" a few of the herbs and other things on sale (some were quite tasty while others you spat out quickly), the herbalist comes out from the back room holding a small packet.
+
+"This powder should do the trick, he tells you. "That'll be 50 goons please."
+
+> pay 50 goons to herbalist
+You pay the herbalist 50 goons and he thanks you.
+
+"I have written instructions for administering the powder on the label," he says, handing you the packet. "Thank you so much for your custom, you are a very thoughtful and generous young man."
+
+You thank him and leave the shop.
+
+Secombe Avenue
+You are at the south end of Secombe Avenue, which goes North past shops and stalls. Seagoon Street is just to the South. You can hear the sound of music and singing coming from the south but you cannot see who is making it because of the mass of people around you. There is a herbalist's shop on the east side of the street which is open and you can go In to it. On the fascia of the shop is written "Dr.Wu's Herbal Emporium".
+
+> s
+You move South.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.
+
+> e
+You move East.
+
+Seagoon Street
+You are at the eastern end of Seagoon Street, a little way from the SE gate, which is to the East. You can go back along Seagoon Street to the West. You can hear the sound of music and singing coming from the west but you cannot see who is making it because of the mass of people around you.
+
+> e
+You move East.
+
+Inside SE Gate
+You are inside the SE gate. Bentine Street goes North past the Buddhist Temple and Seagoon Street goes West along the town wall. By the gate here there is a butcher's stall. Houses hug the wall to the north and west and there are apartments above the shops on the west side of Bentine Street. You can also go East through the gate.
+
+> e
+You move East.
+
+Outside SE Gate
+You are outside the SE gate of Yingtong Town, which you can access by going West. The land to the east is mainly other types of farm. Dirt roads lead off East towards the farms and North alongside the wall of the town.
+
+> e
+You move East.
+
+Dirt Road To Farm
+You are on a dirt road that goes East towards farmland. The town is back towards the West.
+
+> e
+You move East.
+
+In Farmyard
+You are in the main yard of a farm east of Yingtong Town. There are several buildings around three sides of the yard and you can go West back towards town, In to a barn or North to a field.  The farmer is sitting on a bale of hay here. He doesn't look very happy.
+
+The farmer looks up as you approach him.
+
+"Hello son, what are you doing here?" he asks you.
+
+"I was just having a tour round the island, having never been here before, and I saw your farm," you reply. "I hope you don't mind me having a look around?"
+
+"No, please go ahead," he tells you. "Although you might not want to go into the barn."
+
+When you ask why he wrings his hands and looks worried.
+
+"My flock of miniature goats have some sort of infection and keep aborting foetuses and giving birth to dead kids," he tells you sadly. "I don't have the money to pay a herbalist for a cure."
+
+1: "That's too bad, I hope you find a cure soon."
+2: "Will you accept some money to pay for the cure?"
+
+> offer money to farmer
+You offer some money to the farmer, saying,
+
+"Can I please donate some money to help you buy a cure?" you offer. "I have plenty of gold."
+
+The farmer looks at you in surprise.
+
+"I really couldn't accept money from a child," he tells you. "It's really kind of you to offer but I have my pride."
+
+> give powder to farmer
+You hand the packet of powder to the farmer.
+
+The farmer takes the packet from you and asks, "What's this then?"
+
+You explain that you went to the herbalist in town and got him to make up this powder to cure the goats of their infection.
+
+The farmer is astounded by your generosity.
+
+"I don't know what to say," he tells you. "I am flabbergasted by this."
+
+He gets up from the bale of hay and goes into his farmhouse. He is gone for a few minutes and then he comes out and hands you something. It is a small figurine of a goddess.
+
+"I found this when when I ploughing a field," he tells you. "My wife doesn't like it and it's kept in a drawer. I was told by my father that it's very old and could be worth some money. I have nothing else to give you in return for getting the powder, so I would be honoured if you would accept it."
+
+You accept the figurine and the farmer shakes you by the hand. He turns and hurries into his farmhouse to prepare the powder to give to his goats.
+
+In Farmyard
+You are in the main yard of a farm east of Yingtong Town. There are several buildings around three sides of the yard and you can go West back towards town, In to a barn or North to a field.
+
+> w
+You move West.
+
+Dirt Road To Farm
+You are on a dirt road that goes East towards farmland. The town is back towards the West.
+
+> w
+You move West.
+
+Outside SE Gate
+You are outside the SE gate of Yingtong Town, which you can access by going West. The land to the east is mainly other types of farm. Dirt roads lead off East towards the farms and North alongside the wall of the town.
+
+> w
+You move West.
+
+Inside SE Gate
+You are inside the SE gate. Bentine Street goes North past the Buddhist Temple and Seagoon Street goes West along the town wall. By the gate here there is a butcher's stall. Houses hug the wall to the north and west and there are apartments above the shops on the west side of Bentine Street. You can also go East through the gate.
+
+> w
+You move West.
+
+Seagoon Street
+You are at the eastern end of Seagoon Street, a little way from the SE gate, which is to the East. You can go back along Seagoon Street to the West. You can hear the sound of music and singing coming from the west but you cannot see who is making it because of the mass of people around you.
+
+> w
+You move West.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.
+
+> n
+You move North.
+
+Secombe Avenue
+You are at the south end of Secombe Avenue, which goes North past shops and stalls. Seagoon Street is just to the South. You can hear the sound of music and singing coming from the south but you cannot see who is making it because of the mass of people around you. There is a herbalist's shop on the east side of the street which is open and you can go In to it. On the fascia of the shop is written "Dr.Wu's Herbal Emporium".
+
+> n
+You move North.
+
+Secombe Avenue
+You are halfway along Secombe Avenue, where there is a circular area of flower beds and seats. The fragrance of the flowers is very pleasant and calming.
+
+> n
+You move North.
+
+Secombe Avenue
+You are at the north end of Secombe Avenue, where it joins Sellars Street to the North. Just here there is a Pet Supplies Shop you can go In to. Above the shop a sign reads: "Petra's Pampered Pets", Secombe Avenue continues to the South.
+
+> n
+You move North.
+
+Sellars Street
+You are walking along Sellars Street by the north wall of Yingtong Town. Against the wall there are some houses and there are a couple of shops and stalls as well. To the South you see Secombe Street.
+
+> w
+You move West.
+
+Sellars Street
+You are at the west end of Sellars Street, which goes East. The NW gate is to the West. The houses of the town citizens hug the wall all the way along it and there are some shops and stalls here.
+
+> w
+You move West.
+
+By NW Gate
+You are by the NW gate of Yingtong Town, on Sellars Street which goes East. The gate leads out North toward open countryside. You notice the gate is unguarded, probably due to the lack of traffic. A butcher has set up a stall here.
+
+> s
+You move South.
+
+Milligan Street
+You are near the north end of Milligan Street. There are shops here into which citizens go into and come out of, one of them is an antiques shop. You can go North to Sellars Street, South along Milligan Street or In to the shop.
+
+> in
+You move In.
+
+The Antiques Shop
+You are in the antiques shop. It is full of old furniture and all sorts of other old objects. Against one wall stands a huge suit of armour. The door leads Out to Milligan Street.  The antiques dealer is here, dusting his antiques display.
+
+As you walk into the shop, your attention is drawn straight away to a huge suit of armour on one side. You notice it is missing the right hand gauntlet.
+
+The dealer sees you and speaks.
+
+"Hello son, we don't usually get youngsters like you in here," he says pleasantly. "What can I interest you in?
+
+1: "Why is that armour missing one of its gauntlets?"
+2: "Would you like to buy this figurine?"
+
+> get gauntlet
+Ok, you take the metal gauntlet from the large canvas rucksack.
+
+> 1
+You ask the dealer why the suit of armour is missing one of its gauntlets?
+
+"I bought the suit from a sailor from Pirate Island who bought it back from a raid on a distant land," he tells you. "He told me the gauntlet dropped off when he was carrying the armour with another sailor back to their ship."
+
+2: "Would you like to buy this figurine?"
+
+> 2
+You show the figurine to the dealer and ask,
+
+"Would you like to buy this figurine?"
+
+The dealer takes the figurine from you and examines it.
+
+"This is a figurine of Saraswati, the goddess of knowledge," he tells you. "It's about 500 years old and very nice indeed."
+
+He considers for a moment or two, turning the figurine over in his hands, then makes you an offer.
+
+"I'll give you 50 goons for it," he tells you. You consider the offer and, taking a chance, say "No thanks."
+
+"Very well, I'll double the offer - 100 goons." You think about it and say "Yes".
+
+The dealer gives you 100 goons, which you put into your pouch.
+
+> sell gauntlet to antiques dealer
+You offer to sell the gauntlet to the dealer, who takes it from you.
+
+"Good grief!", he exclaims. "It's the missing gauntlet from my suit of armour! How did you come to find it?"
+
+You tell him you discovered it in a deep, dark place in the land you come from, far away.
+
+"Well, I'll give you 75 goons for it, how about that?" he offers.
+
+When you look a bit doubtful he raises his offer to 100 goons. You accept and he gives you the money.
+
+> out
+You move Out.
+(Opening the door and closing it behind you.)
+
+Milligan Street
+You are near the north end of Milligan Street. There are shops here into which citizens go into and come out of, one of them is an antiques shop. You can go North to Sellars Street, South along Milligan Street or In to the shop.
+
+> s
+You move South.
+
+Milligan Street
+You are about halfway along Milligan Street. Citizens mill about you going into and out of the shops here and stopping at stalls to inspect their goods or buy something. The street goes North and South.
+
+> s
+You move South.
+
+Milligan Street
+You are at the south end of Milligan Street, where it joins Seagoon Street. There are shops and stalls either side of the street selling various goods, and above the shops you see apartments in which the citizens of the town live. One of the shops here is "The Chop Shop". Lots of citizens walk past or stop to buy something from a stall. You can go North, South or In to the shop.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+The Chop Shop
+You are in The Chop Shop, where food can be purchased and eaten. There are several long tables here, with benches either side, where diners sit eating their meals. At the back of the shop is a busy kitchen and on the wall is a notice. You can go Out to Milligan Street or sit down at a table.
+
+> sit at table
+You pick a table and sit down on one of the benches next to it.
+
+Sitting At Long Table
+You are sitting on a bench at one of the long tables in "The Chop Shop". On the table you see a condiment tray and a menu.
+
+> read menu
+You read the menu, which offers a nice variety of dishes:
+
+As you are reading the menu, a waiter walks up to you.
+
+"Hello son, my name is Jim," he says pleasantly, "What would you like to eat. Today's specials are numbers 3 and 7."
+
+> say 1
+You tell tell the waiter that you will have dish 1.
+
+"Very well, sir," he tells you. "It'll be ready very soon." He bows politely and walks towards the kitchen.
+
+Sitting At Long Table
+You are sitting on a bench at one of the long tables in "The Chop Shop". On the table you see a condiment tray and a menu.
+
+> turn menu over
+You turn the menu over. You can now see the desserts menu.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The waiter arrives with your meal.
+
+He places the plate on the table in front of you, then he puts a knife and fork, wrapped in a tissue, on the table beside the plate.
+
+With a cheery "Bon appetite!" he walks away to take an order from another diner.
+
+> eat meal
+You eat your meal which is very nice indeed.
+
+The waiter returns to collect your empty plate.
+
+"Which dessert would you like, sir?" he asks you.
+
+You pick up the menu and look at it so you can chose your dessert.
+
+> read menu
+You read the other side of the menu, which offers a variety of desserts:
+
+> say 1
+You tell tell the waiter that you will have dessert 1.
+
+"Very well, sir," he tells you. "It'll be ready very soon." He bows politely and walks towards the kitchen.
+
+Sitting At Long Table
+You are sitting on a bench at one of the long tables in "The Chop Shop". On the table you see a condiment tray, a menu and a paper tissue.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The waiter arrives with your dessert and places the bowl on the table in front of you and a dessert spoon beside it.
+
+"I hope you enjoy your dessert sir," he tells you. "It's one of my favourites."
+
+He then walks away to deal with another diner.
+
+> eat dessert
+You eat the dessert, enjoying it very much.
+
+The waiter arrives not very long after and, writing out a receipt, puts it on the table.
+
+He takes your empty dessert bowl and spoon and asks you if your meal was to your satisfaction.
+
+You say it with a "burp!" and the waiter, shaking his head at your rudeness, waits for you to pay the bill.
+
+Sitting At Long Table
+You are sitting on a bench at one of the long tables in "The Chop Shop". On the table you see a condiment tray, a menu, a paper tissue and the chop house receipt.  A waiter is standing behind you, waiting for you to pay the bill.
+
+> pay bill
+You take 18 goons from your pouch and add another one for a tip, and hand them to the waiter.
+
+"Thank you, sir," he says, somewhat sarcastically due to the paucity of your tip. "Please come again."
+
+With that he marches off towards the kitchen.
+
+Sitting At Long Table
+You are sitting on a bench at one of the long tables in "The Chop Shop". On the table you see a condiment tray, a menu, a paper tissue and the chop house receipt.
+
+> stand up
+Ok, you stand up from the table.
+
+The Chop Shop
+You are in The Chop Shop, where food can be purchased and eaten. There are several long tables here, with benches either side, where diners sit eating their meals. At the back of the shop is a busy kitchen and on the wall is a notice. You can go Out to Milligan Street or sit down at a table.
+
+> out
+You move Out.
+
+Milligan Street
+You are at the south end of Milligan Street, where it joins Seagoon Street. There are shops and stalls either side of the street selling various goods, and above the shops you see apartments in which the citizens of the town live. One of the shops here is "The Chop Shop". Lots of citizens walk past or stop to buy something from a stall. You can go North, South or In to the shop.
+
+> s
+You move South.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.
+
+> e
+You move East.
+
+Seagoon Street
+You are at the west end of Seagoon Street, which is not far from the SW gate, which is to the West. The street runs East along the town wall, which towers above you. There are houses lining the wall all the way along the street and there are a couple of shops and stalls also. You can hear the sound of music and singing coming from the east but you cannot see who is making it because of the mass of people around you.
+
+> e
+You move East.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.
+
+> e
+You move East.
+
+Seagoon Street
+You are at the eastern end of Seagoon Street, a little way from the SE gate, which is to the East. You can go back along Seagoon Street to the West. You can hear the sound of music and singing coming from the west but you cannot see who is making it because of the mass of people around you.
+
+> e
+You move East.
+
+Inside SE Gate
+You are inside the SE gate. Bentine Street goes North past the Buddhist Temple and Seagoon Street goes West along the town wall. By the gate here there is a butcher's stall. Houses hug the wall to the north and west and there are apartments above the shops on the west side of Bentine Street. You can also go East through the gate.
+
+> n
+You move North.
+
+Bentine Street
+You are at the south end of Bentine Street, where it joins Sellars Street, which is to the South. There is a stall here which is bedecked with all kinds of flowers.
+
+> buy flowers
+You buy a bunch of flowers from the stall for 12 goons.
+
+> s
+You move South.
+
+Inside SE Gate
+You are inside the SE gate. Bentine Street goes North past the Buddhist Temple and Seagoon Street goes West along the town wall. By the gate here there is a butcher's stall. Houses hug the wall to the north and west and there are apartments above the shops on the west side of Bentine Street. You can also go East through the gate.
+
+> w
+You move West.
+
+Seagoon Street
+You are at the eastern end of Seagoon Street, a little way from the SE gate, which is to the East. You can go back along Seagoon Street to the West. You can hear the sound of music and singing coming from the west but you cannot see who is making it because of the mass of people around you.
+
+> w
+You move West.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.
+
+> w
+You move West.
+
+Seagoon Street
+You are at the west end of Seagoon Street, which is not far from the SW gate, which is to the West. The street runs East along the town wall, which towers above you. There are houses lining the wall all the way along the street and there are a couple of shops and stalls also. You can hear the sound of music and singing coming from the east but you cannot see who is making it because of the mass of people around you.
+
+> w
+You move West.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.
+
+> w
+You move West.
+
+Edge of Town
+You are at the edge of a town, which is surrounded by a high brick wall, where there is a gate which gives access to the town. Built into either side of this gate are guard posts, each manned by a guard. They are watching closely all who go into the town. Above the gate is the name of the town, which is called Yingtong Town. You can go East through the gate or West along the dirt road.
+
+> w
+You move West.
+
+Dirt Road To Town
+You are on a dirt road that leads West to the port and East to a town. The people walking along it, kicking up clouds of dust, ignore you as they rush past on their way to wherever they are going. By the side of the road here there is a small shrine.
+
+Suddenly you hear shouting and see a group of four youths, all holding knives, surrounding a man further along the road towards the quayside. It is clear they are trying to rob him.
+
+The man has a dog on a leash with him and the dog attacks the youths, defending his master.
+
+The dog bites a couple of the youths and they run away towards the quayside.
+
+The man praises his dog, who wags his tail in triumph, then they too walk towards the quayside.
+
+> offer flowers to goddess
+You lay the bunch of flowers in front of the shrine, bow reverently and then step back. You get the feeling that the God approves of your offering.
+
+> e
+You move East.
+
+Edge of Town
+You are at the edge of a town, which is surrounded by a high brick wall, where there is a gate which gives access to the town. Built into either side of this gate are guard posts, each manned by a guard. They are watching closely all who go into the town. Above the gate is the name of the town, which is called Yingtong Town. You can go East through the gate or West along the dirt road.
+
+> e
+You move East.
+
+As you are dressed like most of the citizens of this island, the guards ignore you and you walk through unmolested.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.
+
+> n
+You move North.
+
+Milligan Street
+You are at the south end of Milligan Street, where it joins Seagoon Street. There are shops and stalls either side of the street selling various goods, and above the shops you see apartments in which the citizens of the town live. One of the shops here is "The Chop Shop". Lots of citizens walk past or stop to buy something from a stall. You can go North, South or In to the shop.
+
+> n
+You move North.
+
+Milligan Street
+You are about halfway along Milligan Street. Citizens mill about you going into and out of the shops here and stopping at stalls to inspect their goods or buy something. The street goes North and South.
+
+> n
+You move North.
+
+Milligan Street
+You are near the north end of Milligan Street. There are shops here into which citizens go into and come out of, one of them is an antiques shop. You can go North to Sellars Street, South along Milligan Street or In to the shop.
+
+> n
+You move North.
+
+By NW Gate
+You are by the NW gate of Yingtong Town, on Sellars Street which goes East. The gate leads out North toward open countryside. You notice the gate is unguarded, probably due to the lack of traffic. A butcher has set up a stall here.
+
+> n
+You move North.
+
+Outside NW Gate
+You are outside the NW gate of Yingtong Town, which you can access by going South. The land to the north is entirely given over to paddy fields as far as the eye can see. Dirt roads lead off North and East.  Also here is a length of rope.
+
+> get rope
+Ok, you pick up the length of rope.
+
+> n
+You move North.
+
+Amongst the Paddy Fields
+You are on a dirt road north of the town amongst paddy fields which stretch to the edge of the island in all directions. You can see lots of rice farmers tending their fields. The road back to town goes South.
+
+As you stand there looking around at your surroundings, you hear a bark and turn to see a dog come trotting up to you.
+
+The dog sits down a couple of yards away and looks up at you pleadingly.
+
+> feed stray dog with steak
+You give the pork steak to the stray dog.
+
+The dog wolfs down the steak - he is obviously very hungry. He looks up at you with adoration in his eyes - you've made a friend! You decide to name him 'Paddy' as you met him amongst the paddy fields.
+
+> make a leash
+You tie one end of the rope around Paddy's neck. It is a bit too long so you cut 7 feet off the rope and make a loop in the end for you to hold on to - you've made a leash!
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Outside NW Gate
+You are outside the NW gate of Yingtong Town, which you can access by going South. The land to the north is entirely given over to paddy fields as far as the eye can see. Dirt roads lead off North and East.  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+By NW Gate
+You are by the NW gate of Yingtong Town, on Sellars Street which goes East. The gate leads out North toward open countryside. You notice the gate is unguarded, probably due to the lack of traffic. A butcher has set up a stall here.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Sellars Street
+You are at the west end of Sellars Street, which goes East. The NW gate is to the West. The houses of the town citizens hug the wall all the way along it and there are some shops and stalls here.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Sellars Street
+You are walking along Sellars Street by the north wall of Yingtong Town. Against the wall there are some houses and there are a couple of shops and stalls as well. To the South you see Secombe Street.  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Secombe Avenue
+You are at the north end of Secombe Avenue, where it joins Sellars Street to the North. Just here there is a Pet Supplies Shop you can go In to. Above the shop a sign reads: "Petra's Pampered Pets", Secombe Avenue continues to the South.  Your dog Paddy is here.
+
+> in
+You move In.
+(Opening the door and closing it behind you.)
+
+Your dog Paddy walks by your side.
+
+The Pet Supplies Shop
+You are in a shop which sells food and supplies for all kinds of pampered pets owned by the citizens of Yingtong Town and Sankora Island. There is all kinds of food available as well as all sorts of goods for making the lives of the pets comfortable. You can go Out to Secombe Avenue.  Your dog Paddy is here.
+
+As you walk into the shop with Paddy in tow, the shopkeeper, whom you assume is Petra, sees him and makes a fuss of him. The dog loves the attention and jumps up at her, licking her face.
+
+Once the excitement dies down, she looks at his makeshift leash and says,
+
+"That dog can't go around with a rope around his neck," she tells you. Going to a display rack she takes down a leather collar and leash and shows it to you.
+
+"That'll last him years, only 5 goons to you," she tells you. "Are you interested?"
+
+1: "Thank you, that is just what we need."
+2: "We need some dog biscuits, please."
+
+> 2
+2: "We need some dog biscuits, please." you tell Petra.
+
+"Ok, she tells you." She gets a paper bag from her stock and goes over to a sack of dog biscuits.
+
+"They cost 1 goon each," she tells you. "How many would you like? Minimum order 5 biscuits."
+
+Just type the number you would like.
+
+> 5
+You tell Petra that you would like 5 biscuits, please.
+
+She counts out 5 biscuits and puts them in the bag. She takes an extra one and offers it to Paddy, making him sit first. He does so and she gives him the biscuit, which he eats happily.
+
+"That'll be 5 goons please," she tells you. You get 5 goons from your pouch, hand them to her and she gives you the bag. "Anything else you need?"
+
+1: "I'll take that collar and leash you showed me."
+
+> 1
+"I'll take that collar and leash you showed me," you tell Petra.
+
+She unties the rope from around Paddy's neck and throws it to the back of her shop. She then buckles the collar around his neck and hands you the leash. You hand her the 5 goons.
+
+"There ya go," she tells you. "That looks much better! Anything else I can get you?"
+
+Having got all you came for, you thank Petra, who makes a fuss of Paddy again, and you both leave the shop.
+
+Secombe Avenue
+You are at the north end of Secombe Avenue, where it joins Sellars Street to the North. Just here there is a Pet Supplies Shop you can go In to. Above the shop a sign reads: "Petra's Pampered Pets", Secombe Avenue continues to the South.  Your dog Paddy is here.
+
+> empty paper bag
+You empty everything in the paper bag onto the ground beside you.
+
+Secombe Avenue
+You are at the north end of Secombe Avenue, where it joins Sellars Street to the North. Just here there is a Pet Supplies Shop you can go In to. Above the shop a sign reads: "Petra's Pampered Pets", Secombe Avenue continues to the South.  Also here are some dog biscuits.  Your dog Paddy is here.
+
+> inflate paper bag
+Screwing the open end together in your hand, you blow into the paper bag and inflate it like a balloon. When it is inflated you screw the end tighter to keep the air in.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Secombe Avenue
+You are halfway along Secombe Avenue, where there is a circular area of flower beds and seats. The fragrance of the flowers is very pleasant and calming.  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Secombe Avenue
+You are at the south end of Secombe Avenue, which goes North past shops and stalls. Seagoon Street is just to the South. You can hear the sound of music and singing coming from the south but you cannot see who is making it because of the mass of people around you. There is a herbalist's shop on the east side of the street which is open and you can go In to it. On the fascia of the shop is written "Dr.Wu's Herbal Emporium".  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are at the west end of Seagoon Street, which is not far from the SW gate, which is to the West. The street runs East along the town wall, which towers above you. There are houses lining the wall all the way along the street and there are a couple of shops and stalls also. You can hear the sound of music and singing coming from the east but you cannot see who is making it because of the mass of people around you.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Edge of Town
+You are at the edge of a town, which is surrounded by a high brick wall, where there is a gate which gives access to the town. Built into either side of this gate are guard posts, each manned by a guard. They are watching closely all who go into the town. Above the gate is the name of the town, which is called Yingtong Town. You can go East through the gate or West along the dirt road.   Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Dirt Road To Town
+You are on a dirt road that leads West to the port and East to a town. The people walking along it, kicking up clouds of dust, ignore you as they rush past on their way to wherever they are going. By the side of the road here there is a small shrine.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+South End of Quay
+You are at the south end of the quay where it joins a road leading East. Islanders rush past you, many of them with loads on their backs or pulling handcarts laden with sacks and crates. You can go North along the quay or East along the road.  Your dog Paddy is here.
+
+Suddenly you are surrounded by four youths armed with knives. They obviously intend to attack you and rob you of all you possess.
+
+Paddy growls and barks ferociously. One of the youths tries to stab him but the dog grabs his wrist in his jaws and bites down. The youth screams in pain and runs off. The other three youths stand there gesturing with their knives, unsure what to do.
+
+Paddy leaps at another youth, biting his leg. All three take to their heels and disappear from sight.
+
+You kneel down and hug Paddy, praising him deservedly. You look around for the youths but they have gone.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+On Stone Pier 4
+You are on one of several stone piers that jut out from a quay on Sankora Island. A couple of junks are moored either side of the pier, with more of them crowding the other piers and there are still more out on the waters of a wide bay. There are bollards set into the stone pier. You can go East along the pier.  Your rowing boat is moored to a bollard here.  Your dog Paddy is here.
+
+> board boat
+You tell Paddy to jump on first, which he does. You then climb aboard the rowing boat, undo the painter mooring the boat to the bollard and take up the oars.
+
+In Boat At Sankora Island
+You are in the rowing boat, which is floating next to the stone pier on Sankora Island, ready to row the boat West to Rock Island, NW to Pirate Island or SW to Kong Island.  Your dog Paddy is here.
+
+> remove hat
+Ok, you remove the rice hat.
+
+> remove smock
+Ok, you take off the linen smock.
+
+> put all in rucksack
+Ok, you put the length of rope, the linen smock, the rice hat, the glass ornament and the inflated paper bag into the rucksack.  The oars is too big to fit in the rucksack.
+
+> wear rucksack
+Ok, you wear the large canvas rucksack.
+
+> row sw
+Pulling on the oars, you row the boat to the southwest.
+
+Your boat eventually beaches on the sandy shore of the island. Dropping the oars, you tell Paddy to jump out first, which he does, then you leap out and drag the boat a couple of yards beyond the waterline.
+
+On Shore of Kong Island
+You are on a sandy shore on the west side of Kong Island. Your boat is pulled up onto the sand just beyond the waterline. The trees that the island is covered in with start about 30 feet to the East and the shore extends to the North and SE. In the far distance to the NW you see some land and to the north across the water you see another island, and there is another to the northeast.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.  Your dog Paddy is here.
+
+> tie dog to sapling
+You tie Paddy's leash to the sapling.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.  Paddy sits patiently here, his leash tied to the sapling.
+
+> remove rucksack
+Ok, you remove the large canvas rucksack.
+
+> remove jacket
+Ok, you take off the leather jacket.
+
+> put jacket in rucksack
+Ok, you put the leather jacket into the rucksack.
+
+> remove war belt
+Ok, you remove the war belt.
+
+> put war belt in rucksack
+Ok, you put the war belt into the rucksack.
+
+> remove boots
+Ok, you remove the sturdy boots.
+
+> put boots in rucksack
+Ok, you put the sturdy boots into the rucksack.
+
+> get costume
+Ok, you take the gorilla costume from the large canvas rucksack.
+
+> drop rucksack
+Ok, you put down the large canvas rucksack.
+
+> wear costume
+Ok, you put on the gorilla costume.
+
+> get rucksack
+Ok, you pick up the large canvas rucksack.
+
+> get telescope
+Ok, you take the small telescope from the large canvas rucksack.
+
+> e
+You move East.
+
+Forest Path
+You are on a vague path that winds through the trees, heading North and NE. The trees around you are quite dense and the foliage overhead prevents most sunlight from reaching the undergrowth that grows on the floor. The seashore is to the West.
+
+> n
+You move North.
+
+Forest Path
+You are on the forest path north of where you first stumbled on to it. The path leads NE to a small clearing and South back along the path. You can see the seashore through the trees to the west but the undergrowth is too thick to allow you to go that way.
+
+> ne
+You are about to move northeast into the clearing when you see a movement on the east edge of the clearing.
+
+You quickly crouch down behind a fallen tree trunk to see what is approaching the clearing. To your astonishment, a huge silverback gorilla comes walking slowly into the clearing on all fours. The beast proceeds to walk over one side of the clearing and then turns to face in your direction. It squats down and you hear a loud "Fffaaarrrt!" sound as the creature does a dump.
+
+The gorilla picks something from its fur, looks at it closely and then puts it into its mouth. It then walks out of the clearing to the east. The coast is clear if you want to proceed NE into the clearing.
+
+> ne
+You move NorthEast.
+
+Small Clearing
+You are in a small clearing in the forest where there is a rotting pile of dung. Various beetles and other bugs swarm all over the pile, breaking it down to fertiliser which feeds the soil. The vague path goes SW while another more well-defined paths leads off South.
+
+> roll in dung
+You roll in the dung so that you smell like a gorilla.
+
+> wait
+You wait around for a while.
+
+The sun rises high in the sky and the day gets warmer. It is even hotter in this gorilla costume and you start to doze off.
+
+You jerk awake as a thought enters your head - if you feel sleepy maybe the gorillas will be as well?
+
+> s
+You move South.
+
+Forest Path
+You are on a well-beaten path in the forest which leads North, East to a larger clearing and SW along another path.  In the clearing to the east there are lots of gorillas.
+
+You look into the clearing and notice that a couple of the adult gorillas have settled down for an afternoon sleep. You think to yourself that maybe if you hang around for a while they might all eventually go to sleep?
+
+> e
+You move East.
+
+In Large Clearing
+You are in a large clearing in the forest where about a dozen or more gorillas lie sleeping on the floor and in nests in trees around the clearing. Over to one side is a rocky outcrop. You can go West or climb Up to the top of the outcrop.  There are two gorilla babies here, play wrestling with each other.
+
+As you enter the clearing, you see that all of the adult gorillas are asleep. There are, however two baby gorillas here who are awake and play-wrestling with each other.
+
+As they see you they stop wrestling and walk over to greet you. One of them comes right up to you and smells the costume.
+
+As it smells like an adult gorilla, the baby accepts you and goes back to wrestling with its sibling.
+
+One of them picks up a stick and starts playing with it. As soon as it does that, the other gorilla tries to get it off its sibling. The stick breaks and the gorillas stop squabbling.
+
+> give telescope to baby
+You give the telescope to one of the baby gorillas.
+
+The little ape is fascinated by it. It quickly works out how to collapse and extend the telescope and when it looks through the lens it jumps back in surprise.
+
+The other baby gorilla comes over and tries to take the telescope from its sibling. The owner of the telescope shrieks in anger and dashes over to a tree and within seconds is high in its branches with the other gorilla in hot pursuit.
+
+They disappear into the dense canopy and their shrieks fade away.
+
+In Large Clearing
+You are in a large clearing in the forest where about a dozen or more gorillas lie sleeping on the floor and in nests in trees around the clearing. Over to one side is a rocky outcrop. You can go West or climb Up to the top of the outcrop.
+
+> up
+You climb up the outcrop, avoiding the flowers on it.
+
+On Top of Outcrop
+You are standing on top of the outcrop where there is a boulder with a niche in it. Within the niche sits a glowing Orb of Sankora. You can only go Down the outcrop to the clearing.
+
+> take orb
+You take the glowing orange Orb out of the niche.
+
+As you do so, a warm sensation travels up your arms and you feel better than you have ever done in your entire life.
+
+> put orb in rucksack
+Ok, you put the Orb into the rucksack.
+
+> down
+You climb down the outcrop, avoiding the flowers on it.
+
+In Large Clearing
+You are in a large clearing in the forest where about a dozen or more gorillas lie sleeping on the floor and in nests in trees around the clearing. Over to one side is a rocky outcrop. You can go West or climb Up to the top of the outcrop.
+
+> w
+You move West.
+
+Forest Path
+You are on a well-beaten path in the forest which leads North, East to a larger clearing and SW along another path.  In the clearing to the east there are lots of gorillas.
+
+> sw
+You move SouthWest.
+
+Forest Path
+You are on a vague path that winds through the trees, heading North and NE. The trees around you are quite dense and the foliage overhead prevents most sunlight from reaching the undergrowth that grows on the floor. The seashore is to the West.
+
+As you walk along the path you hear Paddy barking at something. You look through the trees and can see the silverback gorilla sitting on the sand in front of your rowing boat!
+
+> remove costume
+You take off the gorilla costume - phew, it was getting a bit warm in there!
+
+> put costume in rucksack
+You put the gorilla suit into the rucksack. It is a tight fit but you manage it.
+
+> get paper bag
+Ok, you take the inflated paper bag from the large canvas rucksack.
+
+> w
+You move West.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.  To the west the silverback gorilla is squatting on the sand, demanding the return of the Orb of Sankora.  Paddy is tied to the sapling and he is growling and snarling at the silverback gorilla.
+
+You realise that you will never get past the huge silverback gorilla without returning the orb to him. Maybe you can find a way to scare him away?
+
+> burst bag
+You hit the inflated paper bag as hard as you can with your hand.
+
+POP! The bag bursts with a loud sound that startles the gorilla, which doesn't like loud noises.
+
+The beast runs off along the shore on all fours and disappears into the trees.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.  Paddy sits patiently here, his leash tied to the sapling.
+
+> put paper bag in rucksack
+Ok, you put the torn paper bag into the rucksack.
+
+> untie leash from sapling
+You untie Paddy's leash from around the sapling.
+
+Boundary of Shore and Forest
+You're at the boundary where the shore of the island meets the trees that cover the island. The trees are quite thick and the canopy lets little light through to the undergrowth that blankets the forest. Just here a young sapling is struggling to grow. You can go East into the forest or West back towards your rowing boat.  Your dog Paddy is here.
+
+> get boots
+Ok, you take the sturdy boots from the large canvas rucksack.
+
+> wear boots
+Ok, you put on the pair of boots.
+
+> get war belt
+Ok, you take the war belt from the large canvas rucksack.
+
+> wear war belt
+You should put your jacket on first.
+
+> get jacket
+Ok, you take the leather jacket from the large canvas rucksack.
+
+> wear jacket
+Ok, you put on the leather jacket.
+
+> wear rucksack
+Ok, you wear the large canvas rucksack.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+On Shore of Kong Island
+You are on a sandy shore on the west side of Kong Island. Your boat is pulled up onto the sand just beyond the waterline. The trees that the island is covered in with start about 30 feet to the East and the shore extends to the North and SE. In the far distance to the NW you see some land and to the north across the water you see another island, and there is another to the northeast.  Your dog Paddy is here.
+
+> wear war belt
+Ok, you put on the war belt.
+
+> remove rucksack
+Ok, you remove the large canvas rucksack.
+
+> put rucksack in boat
+Ok, you throw the large canvas rucksack into the rowing boat.
+
+> board boat
+You tell Paddy to jump in first, which he does, then you climb aboard the rowing boat.
+
+In Boat At Kong Island
+You are in the rowing boat which has been pulled up onto the shore of Kong Island.  Also here is a large canvas rucksack and some oars.  Your dog Paddy is here.
+
+> disembark boat
+You tell Paddy to jump out first, which he does, then you jump out of the boat onto the shore.
+
+On Shore of Kong Island
+You are on a sandy shore on the west side of Kong Island. Your boat is pulled up onto the sand just beyond the waterline. The trees that the island is covered in with start about 30 feet to the East and the shore extends to the North and SE. In the far distance to the NW you see some land and to the north across the water you see another island, and there is another to the northeast.  Your dog Paddy is here.
+
+> push off
+You tell Paddy to jump in first, which he does. You then push the rowing boat into the water then jump aboard and grab the oars.
+
+In Boat Off Kong Island
+You are sitting in the rowing boat which is floating in the water off the shore of Kong Island. You are ready to row to one of the islands to the North or the NE, or back to Rock Island to the NW.  Also here is a large canvas rucksack.  Your dog Paddy is here.
+
+> row ne
+Pulling on the oars, you row the boat to the northeast.
+
+You slowly row towards the island. Reaching the stone pier, Paddy jumps out first then you leap out and moor the boat to a bollard.
+
+On Stone Pier 4
+You are on one of several stone piers that jut out from a quay on Sankora Island. A couple of junks are moored either side of the pier, with more of them crowding the other piers and there are still more out on the waters of a wide bay. There are bollards set into the stone pier. You can go East along the pier.  Your rowing boat is moored to a bollard here.  Your dog Paddy is here.
+
+> board boat
+You tell Paddy to jump on first, which he does. You then climb aboard the rowing boat, undo the painter mooring the boat to the bollard and take up the oars.
+
+In Boat At Sankora Island
+You are in the rowing boat, which is floating next to the stone pier on Sankora Island, ready to row the boat West to Rock Island, NW to Pirate Island or SW to Kong Island.  Also here is a large canvas rucksack.  Your dog Paddy is here.
+
+> get rucksack
+Ok, you pick up the large canvas rucksack.
+
+> wear rucksack
+Ok, you wear the large canvas rucksack.
+
+> disembark boat
+You tell Paddy to jump out first, which he does. You drop the oars then climb out of the boat onto the pier and grab hold of Paddy's leash.
+
+On Stone Pier 4
+You are on one of several stone piers that jut out from a quay on Sankora Island. A couple of junks are moored either side of the pier, with more of them crowding the other piers and there are still more out on the waters of a wide bay. There are bollards set into the stone pier. You can go East along the pier.  Your rowing boat is moored to a bollard here.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+South End of Quay
+You are at the south end of the quay where it joins a road leading East. Islanders rush past you, many of them with loads on their backs or pulling handcarts laden with sacks and crates. You can go North along the quay or East along the road.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Dirt Road To Town
+You are on a dirt road that leads West to the port and East to a town. The people walking along it, kicking up clouds of dust, ignore you as they rush past on their way to wherever they are going. By the side of the road here there is a small shrine.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Edge of Town
+You are at the edge of a town, which is surrounded by a high brick wall, where there is a gate which gives access to the town. Built into either side of this gate are guard posts, each manned by a guard. They are watching closely all who go into the town. Above the gate is the name of the town, which is called Yingtong Town. You can go East through the gate or West along the dirt road.   Your dog Paddy is here.
+
+> remove rucksack
+Ok, you remove the large canvas rucksack.
+
+> wear smock
+(First taking the linen smock)
+Ok, you take the linen smock from the large canvas rucksack.  You put the smock on over your head.
+
+> wear hat
+(First taking the rice hat)
+Ok, you take the rice hat from the large canvas rucksack.  Ok, you put the hat on your head.
+
+> e
+You move East.
+
+As you are dressed like most of the citizens of this island, the guards ignore you and you walk through unmolested.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.
+
+> e
+You move East.
+
+Seagoon Street
+You are at the west end of Seagoon Street, which is not far from the SW gate, which is to the West. The street runs East along the town wall, which towers above you. There are houses lining the wall all the way along the street and there are a couple of shops and stalls also. You can hear the sound of music and singing coming from the east but you cannot see who is making it because of the mass of people around you.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are at the eastern end of Seagoon Street, a little way from the SE gate, which is to the East. You can go back along Seagoon Street to the West. You can hear the sound of music and singing coming from the west but you cannot see who is making it because of the mass of people around you.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Inside SE Gate
+You are inside the SE gate. Bentine Street goes North past the Buddhist Temple and Seagoon Street goes West along the town wall. By the gate here there is a butcher's stall. Houses hug the wall to the north and west and there are apartments above the shops on the west side of Bentine Street. You can also go East through the gate.  Your dog Paddy is here.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Bentine Street
+You are at the south end of Bentine Street, where it joins Sellars Street, which is to the South. There is a stall here which is bedecked with all kinds of flowers.  Your dog Paddy is here.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Bentine Street
+You are halfway along Bentine Street by the entrance to a temple. A couple of priests stand each side of the entrance, watching visitors and bowing to them as they walk in. On the ground either side of the entrance you see many pairs of shoes.   Your dog Paddy is here.
+
+> in
+You go to enter the temple with Paddy but a priest standing here stops you.
+
+"Sorry, no dogs allowed, tie him up over there," he tells you, pointing to a nearby post.
+
+Bentine Street
+You are halfway along Bentine Street by the entrance to a temple. A couple of priests stand each side of the entrance, watching visitors and bowing to them as they walk in. On the ground either side of the entrance you see many pairs of shoes. Just here there is tethering post.  Your dog Paddy is here.
+
+> tie dog to post
+You put the loop of Paddy's leash on the hook on the tether post. You pat him on the head and say "Stay boy!". He sits down and obediently waits for you to return.
+
+> s
+You move South.
+
+Bentine Street
+You are at the south end of Bentine Street, where it joins Sellars Street, which is to the South. There is a stall here which is bedecked with all kinds of flowers.
+
+> buy flowers
+You buy a bunch of flowers from the stall for 12 goons.
+
+> n
+You move North.
+
+Bentine Street
+You are halfway along Bentine Street by the entrance to a temple. A couple of priests stand each side of the entrance, watching visitors and bowing to them as they walk in. On the ground either side of the entrance you see many pairs of shoes. Just here there is tethering post.  Your dog Paddy is here.
+
+> remove boots
+Ok, you remove the sturdy boots.
+
+> in
+You go to enter the temple but a priest standing here stops you.
+
+"Please leave your boots out here," he requests politely, pointing to the many pairs of footwear lying around.
+
+You obediently put your boots down.
+
+> in
+You move In.
+
+Temple of Sankora
+You are in a magnificent temple which is dominated by a huge golden statue on the side opposite the entrance, which leads Out to Bentine Street. The temple is a mass of gold decoration which dazzles your eyes. In front of the statue are piles of flowers that have been left as offerings. Priests in yellow robes mingle with the visitors, ready to help them if required.  One of the priests is standing nearby.
+
+> give orb to priest
+You reach into your rucksack and take the Orb out, intending to give it to one of the priests.
+
+There is a collective gasp from the people standing around you and a few of them shout, "It's the Orb of Sankora!" as the warm glow from the orb in your hand spreads out around the temple.
+
+You are immediately surrounded by priests and you find yourself being whisked away to an ornately decorated room, where you are brought before the High Priest of the temple, who introduces himself as 'Gen-La' Kolsang Dekyong. (Wow! What a mouthful, you think to yourself!)
+
+He thanks you profusely for returning the stolen Orb and asks who you are and where you found it.
+
+You tell the High Priest that you are Finngor, son of Duke Alaric Blackmoon of Charlton and Hecate, a far away land.
+
+To your surprise, the Gen-La tells you that they have heard of the exploits of your father and that they were considering asking for his aid in finding the Orb of Sankora. How fitting, the Gen-La tells you, that the son of the legendary Duke is the one to have found the Orb.
+
+You relate how you found the Orb on Kong island and retrieved it wearing a gorilla costume. The priests are amazed at your story and commend you for your bravery in someone so young.
+
+The High Priest gives you the 500 goon reward and he accompanies you to the main temple, where you watch with pride as the Orb is replaced in the niche in the brow of the statue.
+
+As the priests and worshippers in the temple give thanks for the return of the Orb of Sankora, you quietly slip out, retrieve your boots and Paddy, and think about what you are going to do next.
+
+Bentine Street
+You are halfway along Bentine Street by the entrance to a temple. A couple of priests stand each side of the entrance, watching visitors and bowing to them as they walk in. On the ground either side of the entrance you see many pairs of shoes. Just here there is tethering post.  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Bentine Street
+You are at the south end of Bentine Street, where it joins Sellars Street, which is to the South. There is a stall here which is bedecked with all kinds of flowers.  Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+Inside SE Gate
+You are inside the SE gate. Bentine Street goes North past the Buddhist Temple and Seagoon Street goes West along the town wall. By the gate here there is a butcher's stall. Houses hug the wall to the north and west and there are apartments above the shops on the west side of Bentine Street. You can also go East through the gate.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are at the eastern end of Seagoon Street, a little way from the SE gate, which is to the East. You can go back along Seagoon Street to the West. You can hear the sound of music and singing coming from the west but you cannot see who is making it because of the mass of people around you.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are on Seagoon Street, which runs from West to East along the southern wall of the town. Secombe Street runs North from here. Here a troop of musicians and singers are entertaining the citizens, some of whom are singing along with them.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Seagoon Street
+You are at the west end of Seagoon Street, which is not far from the SW gate, which is to the West. The street runs East along the town wall, which towers above you. There are houses lining the wall all the way along the street and there are a couple of shops and stalls also. You can hear the sound of music and singing coming from the east but you cannot see who is making it because of the mass of people around you.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Inside SW Gate
+You are inside the SW gate of Yingtong Town, where the dirt road goes West. From here Milligan Street goes North and Seagoon Street goes East. On the wall of the gate here is a map of the town.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Edge of Town
+You are at the edge of a town, which is surrounded by a high brick wall, where there is a gate which gives access to the town. Built into either side of this gate are guard posts, each manned by a guard. They are watching closely all who go into the town. Above the gate is the name of the town, which is called Yingtong Town. You can go East through the gate or West along the dirt road.   Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Dirt Road To Town
+You are on a dirt road that leads West to the port and East to a town. The people walking along it, kicking up clouds of dust, ignore you as they rush past on their way to wherever they are going. By the side of the road here there is a small shrine.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+South End of Quay
+You are at the south end of the quay where it joins a road leading East. Islanders rush past you, many of them with loads on their backs or pulling handcarts laden with sacks and crates. You can go North along the quay or East along the road.  Your dog Paddy is here.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+On Stone Pier 4
+You are on one of several stone piers that jut out from a quay on Sankora Island. A couple of junks are moored either side of the pier, with more of them crowding the other piers and there are still more out on the waters of a wide bay. There are bollards set into the stone pier. You can go East along the pier.  Your dog Paddy is here.
+
+As you reach the end of the pier, you realise your boat has gone! You bet it was that gang of youths getting their revenge for you thwarting their robbery earlier on.
+
+How on earth are you going to get home now?!
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.  Your dog Paddy is here.
+
+> in
+You move In.
+
+Your dog Paddy walks by your side.
+
+The Junk Hire Office
+This is the office of a junk hire company. A notice on the wall lists their hire prices. Behind a desk sits a girl. You can go Out to the quayside.  Your dog Paddy is here.
+
+> read notice
+It lists the charges for the various size junks for hire and the prices for crew hire, if required:
+
+> hire junk
+You talk to the girl, saying,
+
+1: "I'd like to hire a small junk, please."
+2: "I'd like to hire a medium junk, please."
+3: "I'd like to hire a junkernaut, please."
+
+> 1
+You tell the girl you would like to hire a small junk.
+
+"You're a bit young to be hiring junks, ain'tcha?" she tells you.
+
+You reply saying that you are hiring one on behalf of your parents, who are disabled.
+
+"Oh, alright then," she says. "I s'pose that's OK. How long d'ya wanna hire it for?" she asks you.
+
+1: "One day please."
+2: "One week please."
+
+> 1
+You tell the girl you would like to hire the junk for one day.
+
+"Ok matey,"she tells you, noting that down. "Last question: Do you need any crew?"
+
+1: "Yes please."
+2: "No thanks."
+
+> 1
+You tell the girl "Yes I do need some crew."
+
+"Ok chum,"she tells you, noting that down. She adds up the total charges, getting it wrong twice.
+
+"That'll be 650 goons please... 'ang on, I fink that's right...yeah, 650 goons for the hire of a small junk for one day with a crew of 2," she tells you triumphantly. "Payment in advance, please."
+
+> pay 650 goons
+You pay the girl 650 goons, she writes out a ticket for your hire and she hands it to you.
+
+"Ya boat'll be on pier 2," she tells you. "Just give the ticket to the sailor on watch and he'll take care of you."
+
+You thank her and leave the office.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.
+
+> s
+You move South.
+
+South End of Quay
+You are at the south end of the quay where it joins a road leading East. Islanders rush past you, many of them with loads on their backs or pulling handcarts laden with sacks and crates. You can go North along the quay or East along the road.  Your dog Paddy is here.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Sankora Island Quayside
+You are on the quayside on Sankora Island. It is made from stone and has several piers poking out into the boat-covered bay. Lots of people scurry around you going about their business. You can go West to pier 4 and North or South along the quay. Opposite the pier here is a boat hire company office you can go In to.  Your dog Paddy is here.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+North End of Quay
+You are near the north end of the quay, where pier 2 juts out West into the bay. You can go further North along the quay or South. The quay is a hive of activity with people going in and out of the warehouses that line the quay opposite the piers.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+On Stone Pier 2
+You are on one of several stone piers that jut out from a quay on Sankora Island. There is a junk moored here, being watched by a sailor wearing a rice hat and smoking a pipe.  Your dog Paddy is here.
+
+> give ticket to sailor
+You hand the ticket to the sailor who looks at it closely.
+
+"SKIPPER!" he yells out, making you jump. "We gotta job!"
+
+He opens an entry port in the side of the junk's gunwale and invites you on board. You and Paddy board the junk, and the sailor closes the entry port behind him.
+
+"Find somewhere to sit," he tells you. You chose a comfortable- looking coil of rope and sit down on it. The master of the junk introduces himself and asks which direction you wish to sail in?
+
+On Junk at Sankora Island
+You are sitting on a coil of rope on the deck of the small junk you have hired for the day. The master of the junk is waiting for your instruction and you can tell him to SAIL NW to Pirate Island, SAIL W to Rock Island or SAIL SW to Kong Island...although there isn't any need to go back there again.  Your dog Paddy is here.  The junk master is here.
+
+> sail w
+You tell the master you wish to sail to Rock Island.
+
+"Ok young sir," he says and he instructs his coxwain to lower the sail and the junk moves out of the bay, manoeuvring around the myriad other junks with ease.
+
+The voyage only takes a few minutes before you moor beside Rock Island.
+
+Before you embark onto the island the master asks, "Will you be needing us again, young sir?"
+
+1: "Yes please, wait for me here."
+2: "No thanks, you can go back to Sankora Island."
+
+> 2
+You tell the master that you do not his services any more.
+
+"Ok, he says, shaking your hand, "We'll be off then, thank you for your custom." he says, handing you back the 500 goons deposit you paid, which you put into your pouch.
+
+You and Paddy disembark onto the island and the junk sets sail for Sankora Island.
+
+On Rock Island
+You are on a small rock island in the middle of of an ocean. The island is completely flat apart from the hillock in which the metal doors are sited. You can go SW or South across the island.   Your dog Paddy is here.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+On Rock Island
+You are on a small rock island in the middle of an ocean. Standing here is a short stone pillar. You can go North and the entrance to the catacombs is to the NW. You see land on the horizon to the west while about a mile or so to the east, southeast and northeast you see larger islands.  Your dog Paddy is here.
+
+> read words
+The words on the pillar read:
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+On Rock Island
+You are on a small rock island in the middle of of an ocean. The island is completely flat apart from the hillock in which the metal doors are sited. You can go SW or South across the island.   Your dog Paddy is here.
+
+> sw
+You move SouthWest.
+
+Your dog Paddy walks by your side.
+
+By Metal Doors On Rock Island
+You are standing by the metal doors on a rock island in the middle of an ocean. The doors are set into the east side of a small hillock with nothing behind it but open ocean. The island extends to the NE and SE. On the side of the hillock by the doors is a strange device.   Your dog Paddy is here.
+
+> press 180452
+You press 180452 and there is a loud click from the doors as they are unlocked.
+
+> open doors
+You open the metal doors.
+
+> in
+You go through the doors followed by Paddy, experiencing the same feeling of disorientation as before. Your eyes take a minute or so to adjust to the gloom. Paddy whines as he experiences the same sensation.
+
+By Metal Doors
+You are in the catacombs standing next to some tall metal doors that have upright arched windows in them. The windows are opaque but the light that comes through them looks like daylight. The catacombs extend to the West.  Your dog Paddy is here.
+
+> lumino
+There's no need to conjure handfire if you can see around you.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some tall metal doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you see some doors with long narrow, brightly lit windows in them. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South, East and West. To the east you can see what appear to be upright windows. The darkness is dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+The Catacombs
+You are in the central aisle of the catacombs deep beneath Domreil castle. The vaulted corridors stretch away into the distance to the North, South and East. Some distance in that direction you see some windows. A short distance to the West is the entrance you came in. The catacombs are dimly lit by flickering sconces fixed to the walls, the floor is veiled with drifting tendrils of thick mist and bats flutter about under the cobweb-draped ceiling. Hanging from the walls of the catacombs here are the remains of the spider's web.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+The Catacombs
+You are just outside the opening that leads West to the spiral stairway, where a short passageway leads East into the catacombs. Either side of you on the wall are flickering sconces that provide enough illumination so you can see where you are going.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+It is too dark to make anything out clearly.
+
+> up
+You move Up.
+
+Your dog Paddy walks by your side.
+
+It is too dark to make anything out clearly.
+
+> out
+You move Out.
+
+Your dog Paddy walks by your side.
+
+It is too dark to make anything out clearly.
+
+> s
+You move South.
+
+Your dog Paddy walks by your side.
+
+It is too dark to make anything out clearly.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+It is too dark to make anything out clearly.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Passageway to Dungeons
+You are in a dark passageway that goes South into the darkness of the dungeons and North to the corridor. There is barely enough light to see where you are going. There is a dark opening In to the guard room here.  Your dog Paddy is here.
+
+> n
+You move North.
+
+Your dog Paddy walks by your side.
+
+Deep Castle Corridor
+You are in a corridor in the depths of Domreil castle, by the passageway to the dungeons, which goes South. The corridor goes East into the gloom and West towards a spiral stairway. There is just one resin torch in the corridor, providing just enough illumination to see where you are going.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Deep Castle Corridor
+You are in a corridor in the depths of Domreil castle, by the door to the dungeon keeper's room, which leads In. The corridor goes West into the gloom and East towards a spiral stairway. There is just one resin torch in the corridor, providing just enough illumination to see where you are going.  Your dog Paddy is here.
+
+> e
+You move East.
+
+Your dog Paddy walks by your side.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, at the end of a corridor that goes West. On the wall of the stairway here is a metal sconce in which shines a resin torch.  Your dog Paddy is here.
+
+> up
+You move Up.
+
+Your dog Paddy walks by your side.
+
+Spiral Stairway
+You are on a spiral stairway in Domreil Castle. The stairway goes Up to the upper floors and Down to lower floors and the dungeons. There is a corridor to the West and on the wall of the stairway here is a metal sconce in which shines a resin torch.  Your dog Paddy is here.
+
+> w
+You move West.
+
+Your dog Paddy walks by your side.
+
+Castle Corridor
+You are in a corridor in Domreil castle, by the door to your family chambers which you can go In to. The corridor goes West towards the door to Magor's chamber and East towards a spiral stairway. There are resin torches in sconces all along the corridor illuminating it brightly.  Your dog Paddy is here.
+
+> remove hat
+Ok, you remove the rice hat.
+
+> remove smock
+Ok, you take off the linen smock.
+
+> in
+You take a deep breath, open the door to your family chambers and go in.....
+
+Family Chambers
+You are in the main room of your family's chambers. The door to the corridor is to the south and you can go Out that way, your own room is to the west which you can go In to.  Your family are all seated around the dining table with Tilly serving up beef stew and dumplings - one of your favourites, the smell is wonderful!  Your dog Paddy is here.
+
+As you walk into the room, the chatter at the table ceases as if switched off and everyone stares at you with open mouths.
+
+Your mother is first to react to your presence. Leaping to her feet she screams,
+
+"And where do you think YOU'VE been for the last couple of days?!"
+
+She runs over to you and gathers you into her arms. "We were so worried, where on earth have you been?!"
+
+Then she registers the presence of Paddy and, pointing at the hapless dog, shouts, "And what the hell is THAT?!"
+
+Your father comes over and, giving you a hug and patting Paddy on the head, says, "I think you should give the boy a chance to tell his story, Bronwynn, don't you?"
+
+Please Press Any Key to Continue.
+
+You spend the next hour or so telling your parents all what has happened to you since you set off to find the entrance to the catacombs.
+
+You tell your parents you helped a young mother pacify her teething baby and you give her the glass bird that the lady gave to you. Your mother is delighted with it!
+
+While you are doing this, Polgara makes friends with Paddy and the two of them are playing like long lost friends.
+
+When you have finished, your parents walk away and confer for a few minutes. Your mother points to Paddy and shakes her head but your father puts his hands on her shoulders and tells her something. She reluctantly nods and then your father says,
+
+"That is quite some story, Finn, you certainly have had a big adventure", he says to you. "You may keep the dog as he saved you from those thieves," he tells you. ("Yee-ess!") "As I just said to your mother, I was going to get you and Pol a dog or cat anyway." ("Really, a CAT? You can't take cats on adventures!")
+
+You smile and give Paddy a big hug. He licks your face, seemingly knowing that he has been accepted into the family. Then you see the stern look on your parents faces. ("Uh oh, here it comes!")
+
+"However, we are quite annoyed with you for going off without telling anyone so you are grounded for the next month! ("Could've been worse, I suppose? I was expecting 6 months!") Now you can go to your room without any dinner ("Aw dad!") and take that mutt ("His name is Paddy!") with you!"
+
+You go to your room, get undressed throwing your clothes on the floor, and lay on your bed with Paddy by your side. You fall into a deep sleep and dream of custodians, gorillas and pirates!
+
+*** CONGRATULATIONS! ***
+
+You have at last solved...
+
+FINN'S BIG ADVENTURE
+
+...in 572 turns, scoring the maximum 500 points!
+
+I do hope you have enjoyed playing this game.
+
+More Adventures In The World Of Alaric Blackmoon Series:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+****************************
+
+Available In 'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+Coming Soon: Episode 8: XANIX - XIXON RESURGENCE
+
+*****************************
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+Coming Soon: Chapter 5: BUG HUNT ON MENELAUS
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games

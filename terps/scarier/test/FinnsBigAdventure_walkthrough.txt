@@ -3,7 +3,8 @@ no
 b
 stand up
 move pouffe by the fireplace
-stand on pouffe
+stand in pouffe
+x fireplace
 get tinderbox and telescope
 step down from pouffe
 move pouffe
@@ -158,14 +159,18 @@ out
 ne
 get in boat
 put tinderbox in rucksack
-put card in rucksack
+put card in pouch
 remove gauntlet
 put gauntlet in rucksack
+get telescope
+look se through telescope
+put telescope in rucksack
 row se
 e
 e
 ne
 get telescope
+look east through telescope
 look east through telescope
 x outcrop
 put telescope in rucksack
@@ -232,12 +237,16 @@ e
 e
 in
 2
+1
 search racks
 hire suit
 w
 w
 w
 in
+1
+2
+3
 get soldiers from rucksack
 e
 n
@@ -339,6 +348,7 @@ e
 e
 e
 e
+offer money to farmer
 give powder to farmer
 w
 w
@@ -360,6 +370,23 @@ sell gauntlet to antiques dealer
 out
 s
 s
+in
+sit at table
+read menu
+say 1
+turn menu over
+wait
+wait
+wait
+eat meal
+read menu
+say 1
+wait
+wait
+eat dessert
+pay bill
+stand up
+out
 s
 e
 e
@@ -386,3 +413,161 @@ get rope
 n
 feed stray dog with steak
 make a leash
+s
+s
+e
+e
+s
+in
+2
+5
+1
+empty paper bag
+inflate paper bag
+s
+s
+s
+w
+w
+w
+w
+w
+n
+w
+board boat
+remove hat
+remove smock
+put all in rucksack
+wear rucksack
+row sw
+e
+tie dog to sapling
+remove rucksack
+remove jacket
+put jacket in rucksack
+remove war belt
+put war belt in rucksack
+remove boots
+put boots in rucksack
+get costume
+drop rucksack
+wear costume
+get rucksack
+get telescope
+e
+n
+ne
+ne
+roll in dung
+wait
+s
+e
+give telescope to baby
+up
+take orb
+put orb in rucksack
+down
+w
+sw
+remove costume
+put costume in rucksack
+get paper bag
+w
+burst bag
+put paper bag in rucksack
+untie leash from sapling
+get boots
+wear boots
+get war belt
+wear war belt
+get jacket
+wear jacket
+wear rucksack
+w
+wear war belt
+remove rucksack
+put rucksack in boat
+board boat
+disembark boat
+push off
+row ne
+board boat
+get rucksack
+wear rucksack
+disembark boat
+e
+s
+e
+e
+remove rucksack
+wear smock
+wear hat
+e
+e
+e
+e
+e
+n
+n
+in
+tie dog to post
+s
+buy flowers
+n
+remove boots
+in
+in
+give orb to priest
+s
+s
+w
+w
+w
+w
+w
+w
+w
+n
+w
+e
+in
+read notice
+hire junk
+1
+1
+1
+pay 650 goons
+s
+n
+n
+w
+give ticket to sailor
+sail w
+2
+s
+read words
+n
+sw
+press 180452
+open doors
+in
+lumino
+w
+w
+w
+w
+w
+w
+up
+out
+s
+w
+n
+n
+e
+e
+up
+w
+remove hat
+remove smock
+in

@@ -511,6 +511,7 @@ DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
 Tribute|Tribute.blorb|0|0
 AoS|AoS v.4.blorb|1|1
+FinnsBigAdventure|FBA v.3c.blorb|0|1
 EOF
 )
 

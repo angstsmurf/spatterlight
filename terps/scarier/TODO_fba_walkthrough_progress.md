@@ -7,7 +7,229 @@ blind play through `test/a5run_dump` replay scripts, guided by the game's
 **`WWDD`** ("What Would Dad Do?") per-location hint tasks and the model's
 scoring tasks.
 
-## Status: **330 / 500** (byte-verified in BOTH Scarier and FrankenDrift — identical 385 turns), script = `test/FinnsBigAdventure_walkthrough.txt`
+## Status: **★★ MAX SCORE — 500 / 500, full deterministic win** ("scoring the maximum 500 points!" + credits), byte-verified in BOTH Scarier and FrankenDrift (both 572 turns), script = `test/FinnsBigAdventure_walkthrough.txt`
+
+> **MAX SCORE REACHED (session 7, 2026-07-03): 450 → 500 (+50).** Full deterministic
+> max-score win, verified identical in Scarier AND FrankenDrift (both "…in 572 turns,
+> scoring the maximum 500 points!"). Only FD-vs-Scarier delta = the one pre-existing
+> cosmetic butcher's-stall Paddy event (8× Scarier / 9× FD, a one-turn alignment shift).
+> **Internal Score overshoots to 510** (the Chop Shop meal banks +20 when only +10 was
+> needed) but the game's win message keys on `Score >= MaxScore` so both engines print
+> "the maximum 500 points!" — a legitimate max win. The +50 came from EIGHT additions:
+> 1. **Orb chain (+10)** — see the detailed writeup just below (real Orb take + burst bag).
+> 2. **Magor's Chamber stand-on-stool (+5, `cl_StepUpOnSt`):** `stand on pouffe` matches
+>    the higher-priority no-score `cl_StandOnSto1` (pri 4314 > StepUpOnSt 4241). Use
+>    **`stand in pouffe`** — `StandOnObject`'s grammar allows `[on/in]`, but StandOnSto1
+>    only allows `[on{to}/upon]`, so "in" dodges it and hits `cl_StepUpOnSt`. (Sibling
+>    `cl_XFireplace` "x mantel" +5 is a DEAD task: it needs `OnStool==1 & ObjectsSee==0`
+>    but every stand sets ObjectsSee=1 — unreachable, like the mis-located `cl_TieLeashTo`
+>    rings whose object lives at loc101 while the task gate is `cl_MilliganSt`.)
+> 3. **Read words at Rock Island 2 (+5, `cl_ReadWords`/`51`):** Location30 is S of the
+>    junk-disembark room (29); added `s`,`read words`,`n` detour before `sw` to loc90.
+> 4. **Mannbroom's 3 questions (+5, `cl_MbTalkScor`):** at the Academy (66, entering runs
+>    `cl_InMca` which opens the convo), ask **`1`,`2`,`3`** — but Q3 (`cl_Q1Mb3`) needs the
+>    business card INSIDE the pouch, so store it with **`put card in pouch`** (not rucksack).
+> 5. **Telescope recon score (+5, `cl_TelescopeS`):** we rowed RI→Kong without ever using
+>    the telescope at Rock Island. Added `get telescope`,`look se through telescope`
+>    (`cl_LookWestTS2`, gated only on `BeWithinLocationGroup cl_RiBoat` — the boat loc31
+>    is in it),`put telescope in rucksack` in the RI boat before `row se`.
+> 6. **Fancy Dress Shop questions (+5, `cl_FdsScore`):** we already asked `2` (`cl_Q1Fds`)
+>    at the FDS (loc70); added **`1`** (`cl_Q1FdsAsked`) so both `FdsQ1Asked`/`1` are set.
+> 7. **Offer money to farmer (+5, `cl_Task1`):** at the farm (114), **`offer money to
+>    farmer`** BEFORE `give powder to farmer` (the farmer leaves after taking the powder).
+> 8. **The Chop Shop — a SEPARATE Sankora restaurant (+20, `cl_TurnMenuOv`+`cl_ReadMenuDe1`
+>    +`cl_EatDessert`+`cl_PayTheBill1`):** entered `in` from `cl_MilliganSt` (loc121 →
+>    `sit at table` → loc123), distinct from our Pirate Pie Place (loc82). Inserted mid
+>    town-circuit after the antiques sale (we pass `cl_MilliganSt`, have goons, no Paddy
+>    yet). Meal flow (timers: main served 4 turns after order via `cl_UnnamedEve`, dessert
+>    2 turns via `cl_DessertSer`): `read menu`,`say 1` (main),**`turn menu over`** (+5 —
+>    MUST be before eating: `cl_WaiterRetu2` only brings the waiter for the dessert order
+>    if `MenuTurned==1`),`wait`×3,`eat meal`,`read menu` (dessert +5),`say 1` (dessert),
+>    `wait`×2,`eat dessert` (+5),`pay bill` (+5),`stand up`,`out`.
+> **UNREACHABLE / dead-or-exclusive tasks (confirmed, NOT chased):** `cl_XFireplace`,
+> `cl_TieLeashTo` (both unreachable data bugs), `cl_BuyCollar` (mutually exclusive with the
+> required paper-bag biscuits, `cl_BiscuitsBo==0`), `cl_RowNeFromR` (RI→PI NE crossing —
+> the "sixth sense" forces RI→Kong (SE) then Kong→PI (N), so the NE crossing never happens),
+> `cl_SankoraSee1` (no executor), and a swarm of alternate-phrasing siblings of points we
+> already bank (`cl_GiveTelesc6` tinderbox = mutually-exclusive alt of the telescope gift,
+> the loc-123 X/graphics-on menu variants, etc.).
+>
+> ### The orb chain (+10), in detail
+> **450 → 460:** the real Orb of Sankora is now recovered instead of the decoy.
+> Three-part fix in the script:
+> 1. **Recon (loc 36, Kong trip #1):** the first `look east through telescope`
+>    (`cl_LookEastTS`) only sets `cl_OutcropSee/cl_ObjectSeen`. Added a SECOND
+>    `look east through telescope` → `cl_LookEastFp3` fires (gated on `cl_OutcropSee==1
+>    & cl_StoneSeen==0`) and sets **`cl_StoneSeen=1`**. (Any of the repeat-look variants
+>    — `look at outcrop/boulder/object through telescope` — would also set it.)
+> 2. **The swap (automatic):** with `cl_StoneSeen==1` AND `cl_SankoraIdD==1` (temple Q3)
+>    AND `cl_StoneTaken==0`, leaving the temple (entering **loc 98**) fires the
+>    LocationTrigger `cl_SankoraRea`, which moves the REAL `cl_Stone1` onto the outcrop
+>    niche (`ToSameLocationAs cl_Stone2`) and hides the decoy `cl_Stone2`. No script
+>    change needed — our town circuit already re-enters 98 after answering Q3.
+> 3. **Take + burst (Kong trip #2, loc 54 → 124):** `take orb` now grabs `cl_Stone1` →
+>    **`cl_TakeStone5` +5** (gated: at 54, `cl_SankoraIdD==1`, `cl_StoneTaken==0`,
+>    `%Player%.Held(False).Count<5`); this MOVES the silverback to boundary 124.
+>    **FOOTGUN — instant death:** entering 124 while the **suit is WORN** with the leash
+>    tied to the sapling fires `cl_InCostumeK` (`EndGame Lose`, "…roar of rage…killing
+>    you instantly"). So **remove + stow the costume at loc 33 BEFORE stepping W into
+>    124**, and pre-`get paper bag` (retrieve the inflated `cl_Bag1` to HAND — `cl_BurstBag`
+>    needs `cl_Bag1 BeHeldByCharacter`, not in the rucksack). At 124: **`burst bag`** →
+>    **`cl_BurstBag` +5**, silverback flees (→Hidden), and it yields the burst remnant
+>    `cl_Bag3` to your HAND — **`put paper bag in rucksack`** immediately or the later
+>    `push off` fails ("both hands free"). The slow death timer (`cl_Silverback1` event,
+>    length 5, started by `cl_WToSapling` on entering 124 suit-OFF/leash-tied) is
+>    out-run by bursting on the very next turn (the event's Stop control = `cl_BurstBag`).
+> The single remaining FD-vs-Scarier hunk is cosmetic: the repeatable loc-98
+> Paddy-vs-butcher's-stall flavor event fires 8× in Scarier / 9× in FD (a one-turn
+> alignment shift from the +1 recon command); identical score + turn count otherwise.
+>
+> (This note was written at the 460 checkpoint; the remaining ≈40 were then all banked
+> except the confirmed dead/exclusive tasks — see the MAX SCORE summary above.)
+
+> **MAX-SCORE PUSH (session 6): 440 → 450 so far; roadmap to 500 below.** Used
+> `A5_TRACE_RUN=1` (dump `[run task <key>]`) intersected with the game's 116 Score
+> tasks to see exactly which scoring objectives fired. Added two clean +5s to the
+> winning script: **`x fireplace`** (after `stand on pouffe`, `cl_XMantelpie`) and
+> **`read notice`** (before `hire junk` at the Junk Office, `cl_ReadNotice1`). Both
+> verified no-regression on v.3c AND v.7 (win credits intact).
+>
+> **Remaining ≈50 pts (distinct objectives still unscored, by cluster):**
+> - **Orb chain (~+20, biggest):** `cl_SankoraSee1` (see the Orb) + `cl_TelescopeS`
+>   (look at Kong through the telescope during recon — our `look east through
+>   telescope` @line 169 doesn't fire it; needs the right spot/direction so
+>   `cl_StoneSeen=1`) → that makes **`cl_SankoraRea`** fire on temple-exit (loc 98),
+>   swapping the REAL `cl_Stone1` into the niche → then `take orb` scores
+>   `cl_TakeStone5` (+5) AND spawns the silverback → **`burst bag`** `cl_BurstBag`
+>   (+5). We currently take the decoy generically (no +5) and never burst.
+> - **Opening Magor's Chamber:** `cl_XFireplace` "X Mantel" (needs `cl_OnStool==1`;
+>   `x mantel` while on the pouffe didn't match — try other nouns) + `cl_StepUpOnSt`
+>   "Stand On Stool" (our `stand on pouffe` fires a *chair* task, not this). ~+10.
+> - **Magor's Library:** `cl_TakeBook` (a SECOND book beyond the thin one; `take
+>   book` after `x books` didn't fire — needs `cl_BookSeen`). +5.
+> - **Mannbroom (Pirate academy):** `cl_MbTalkScor` — ask all 3 Qs (`1/2/3`) with the
+>   business card in the pouch (`cl_Q1MbAsked/1/2` all ==1). +5. (doc's old "skipped".)
+> - **Tie leash to ring (Milligan St 1 `cl_MilliganSt`):** `cl_TieLeashTo` — a 3rd
+>   tether spot (needs Paddy + a ring there). +5.
+> - **Read words (Rock Island 2, `cl_Location30`):** `cl_ReadWords`. +5.
+> - **Collar (`cl_BuyCollar` +5):** mutually exclusive with the paper bag (needs
+>   `cl_BiscuitsBo==0`), so probably NOT co-bankable with the Kong bag.
+> - Note the loc-123 "turn menu over / dessert" tasks are a SEPARATE restaurant from
+>   our loc-82 Pie Place (whose meal+dessert we already scored) — likely an
+>   alternative, not additive.
+> **FOOTGUN:** giving the tinderbox to a baby *before* the telescope derails the
+> gorilla-siesta sequence (score crashed to 365) — don't.
+
+> **CORRECTION (session 6, later): the game is WINNABLE — my earlier "unwinnable"
+> claim was a PARSER BUG on my end, not a game bug.** `cl_Location14` (Passageway to
+> Dungeons) **already has an ungated `North -> cl_Location12` exit** (plus `South ->
+> 25`, `In -> 15`). My connectivity analysis had truncated that Location block,
+> because loc 14's LongDescription contains a *nested* `<Location>cl_Location15
+> MustNot HaveBeenSeenByCharacter Player</Location>` restriction, and my naive
+> `index('</Location>')` stopped at that inner tag — so I never saw loc 14's
+> Movements and wrongly concluded the castle was sealed. The game's own `exits`
+> command lists "north, south and in" at loc 14; typing **`north`** there climbs
+> straight back to the castle. **No patch is needed** (a patched `.taf` was built and
+> also wins, but it merely duplicates the exit that already exists).
+>
+> **The home leg (415 -> 440, appended to the script):** from the catacombs (By Metal
+> Doors), `lumino` then **`w,w,w,w,w,w`** (to Bottom of Stairway) → **`up`** (A Small
+> Chamber) → **`out`** (Barred Cell) → **`s`** (Near West End of Dungeons) → **`w`**
+> (West End of Dungeons) → **`n`** (Passageway 14) → **`n`** (Deep Castle Corridor —
+> the exit I thought was missing) → **`e,e`** → **`up`** → **`w`** (Castle Corridor 3)
+> → **`remove hat`,`remove smock`** (temple disguise blocks entry) → **`in`** = enter
+> Family Chambers → `cl_ToEndgame` **+25 → 440**, homecoming cut-scene ("Finny, we had
+> a great day!" + paper-bag callback) + end-credits (lazzah.itch.io). Verified
+> identical on **v.3c AND the newer v.7** (2023-09-21). Remaining 60 pts = optional
+> island side-tasks (e.g. Pirate-Island costume return) not needed for the win.
+
+> **UPDATE (session 6, 2026-07-03): full KONG ENDGAME + ORB RETURN solved
+> (330→415), then hit a hard wall — the game cannot be *won*.** The script now
+> plays the entire climax deterministically. New sequence, all confirmed in
+> `test/a5run_dump` (script = 519 lines, 520 turns, 415 pts):
+>
+> ### The Kong endgame (330→405), in order
+> 1. **Pet shop paper bag** (Secombe-north 102, `in`): the doc's `1,2,5` order is
+>    WRONG — buying the collar first sets `cl_Unnamedvar=1` which blocks the biscuit
+>    number entry (`cl_StateNumbe` needs `cl_Unnamedvar==0`). Correct: **`2`** (ask
+>    biscuits) → **`5`** (min order → yields `cl_Bag2` strong paper bag w/ `cl_Bone`
+>    biscuits inside) → optional **`1`** (collar, now via `cl_BuyCollar11` = **no
+>    points**; the +5 collar `cl_BuyCollar` is forfeited once biscuits are bought).
+> 2. **Empty + inflate bag**: `empty paper bag` (drops biscuits) then **`inflate
+>    paper bag`** (NOT `blow paper bag` — a generic "blow" handler eats that; the
+>    `[in/up]` particle is effectively required). +5 `cl_BlowPaperB` → `cl_Bag1`.
+> 3. **To the pier** (route `s,s,w×7,n,w` from 102 to Stone Pier 4): passing **South
+>    End of Quay 84 WITH Paddy following** fires `cl_RobbedByTh1` = Paddy fights the
+>    thieves, **+5** (the death `cl_RobbedByTh` only fires if Paddy is *absent*).
+> 4. **Row to Kong**: `board boat`; **`row sw`** (NOT `row to kong` — unparsed). Must
+>    first `remove hat`+`remove smock` ("shouldn't wear the hat off the island"),
+>    `put all in rucksack`, **`wear rucksack`** (rowing needs both hands free).
+> 5. **Kong costume**: at the Boundary (124, the sapling) **`tie dog to sapling`**
+>    (+5 `cl_TiePaddyTo`, frees the leash hand — you CANNOT drop the leash without a
+>    tether). Then strip: `remove rucksack/jacket/war belt/boots` (stow them in the
+>    carried rucksack), `get costume`, `drop rucksack`, `wear costume` (needs BOTH
+>    hands empty), `get rucksack`, `get telescope`. (+5 more here — first-visit.)
+> 6. **Dung**: to Small Clearing 34 = `e,n,ne` (cut-scene: gorilla craps),`ne`
+>    (enter),**`roll in dung`** +5 `cl_RollInDung` (needs suit worn, at loc 34).
+> 7. **Gorillas asleep**: **`wait`** (+5 `cl_WaitForSie`, sets `cl_GorillasAs=1`);
+>    without it, entering the Large Clearing 37 gets you chased out (`cl_InClearing`
+>    needs `GorillasAs==0` to eject; `cl_InClearing1` needs dung-smell `CostumeSme`).
+> 8. **Babies**: 34 `s,e` to Large Clearing 37; **`give telescope to baby`** (+5
+>    `cl_GiveTelesc`→`3`, babies flee); **`up`** to outcrop 54.
+> 9. **Orb**: **`take orb`** grabs the DECOY `cl_Stone2` generically (no +5, no
+>    silverback) — the real `cl_TakeStone5` never fires because the REAL orb
+>    `cl_Stone1` starts Hidden and is only swapped into the niche by `cl_SankoraRea`,
+>    a loc-98 trigger needing `cl_StoneSeen==1 & cl_SankoraIdD==1 & StoneTaken==0`
+>    *on leaving the temple* — which our run never satisfied (StoneSeen unset). **BUT
+>    the decoy WINS anyway**: `cl_GiveOrbToP` accepts Stone1 OR Stone2 (`#A(#A#O#A#)`)
+>    and there is NO fake-orb loss task. `put orb in rucksack`.
+> 10. **Leave Kong**: `down,w,sw,w` to 124; **`untie leash from sapling`** (silverback
+>    never spawned, so ungated); re-dress (costume off→stow, boots/belt/jacket on,
+>    wear rucksack); at the shore the boat is BEACHED — `put rucksack in boat`,
+>    board+`disembark boat` to leave Paddy aboard, then **`push off`** (needs both
+>    hands free, Paddy aboard). **`row ne`** back to Sankora. `board boat`,`get
+>    rucksack`,`wear rucksack`,`disembark boat`.
+> 11. **Town→temple** (route `e,s,e,e` + don smock+hat at Edge-of-Town, `e` gate,
+>     then `e,e,e,e,n,n` to Bentine-mid 98): **`in`** (priest reveals tether post) →
+>     **`tie dog to post`** (+5 `cl_TetherPadd`) → **`s,buy flowers,n`** (temple
+>     needs a floral tribute) → **`remove boots`,`in`** (drops boots),**`in`** (enter
+>     104) → **`give orb to priest`** = *"It's the Orb of Sankora!"*, **500-goon
+>     reward**, `cl_GetOrbInTe` **+25 → 400**.
+>
+> ### The home-journey (405→415) and the WALL
+> After the orb: boat hidden, sailor moved to Pier 2 (88), player at 98.
+> - Route out to Stone Pier 4 (`s,s,w×7,n,w`) fires **`cl_BoatStolen`** (`StoneRepla==1`
+>   trigger): boat nicked → unlocks the **junk-hire office** (`cl_EnterShop1` needs
+>   `BoatNicked==1`).
+> - Quayside 83 `in` → office 125: **`hire junk`,`1`,`1`,`1`,`pay 650 goons`** (+5
+>   `cl_PayGirl650`, yields the `cl_Ticket`; we had 731 goons; **500 is a refundable
+>   deposit** — net 150). Collect Paddy (moved to 84): `s,n,n,w` to Pier 2 88.
+> - **`give ticket to sailor`** → board junk; **`sail w`** to Rock Island; **`2`**
+>   (dismiss junk, 500-goon deposit refunded) → disembark on Rock Island 29.
+> - Metal doors (90): `sw`,**`press 180452`** (napkin keypad code),`open doors`,`in`
+>   → catacombs 52. **+10 here → 415.**
+>
+> **⛔ (RETRACTED — see the CORRECTION at the top; this was my parser bug, the game
+> IS winnable via `north` at loc 14. Original erroneous note kept below for context.)**
+> **~~WALL — `FBA v.3c.blorb` is PROVABLY UNWINNABLE from here (shipped bug).~~**
+> The one and only win trigger is **`cl_ToEndgame`**, which fires *solely* on entering
+> the **Family Chambers `cl_Location9`**. A full connectivity analysis of the game
+> data (movement exits + every task's `Player Must BeAtLocation`/`LocationTrigger` →
+> `ToLocation` edge + all 32 events, **ignoring every gate**) shows the castle cluster
+> {`9,3,2,10,80,12,13,5,7,4,8`, Magor's} is a **disconnected component** — only
+> **64/140** rooms are reachable from the catacombs, and **none** of them is a castle
+> room. Every Castle→dungeon link is **one-way downward** (`12→14`, `3→2`, `7→13`,
+> `12→5`), each also sealed by a `StoneRepla==0` gate post-orb, and there is **no
+> return edge of any kind** (movement, task, or event) back up. So once you descend
+> to fetch the orb you can never return home to trigger the ending. Confirmed the
+> parser is sound: from the game START the Family Chambers IS reachable; from the
+> catacombs it is NOT. Same class as the repo's `DwarfOfDirewoodForest` (shipped
+> unwinnable). **Effective max ≈ 415 + a few island side-points (e.g. costume
+> return on Pirate Island `cl_InFds11`); the +25 `cl_ToEndgame` win and full 500 are
+> unobtainable.** Independent of engine (pure `.blorb` data) — would fail identically
+> in FrankenDrift. *Recommend: confirm with the author / treat 415 as the ceiling.*
+
+## (superseded) Status: **330 / 500** (byte-verified in BOTH Scarier and FrankenDrift — identical 385 turns), script = `test/FinnsBigAdventure_walkthrough.txt`
 
 > **UPDATE (session 5, 2026-07-03): full SANKORA TOWN side-quest circuit solved,
 > 285→330 (+45), byte-identical in BOTH engines.** All of `cl_MeetDog`'s gates are
