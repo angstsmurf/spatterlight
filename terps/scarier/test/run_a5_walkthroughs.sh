@@ -528,6 +528,29 @@ FILTER="${1:-}"
 # woods) still diverges in the hunger/thirst/wound tick timing -- see the Tingalan
 # derivation entry in TODO_a5_walkthrough_bugs.md.
 #
+# (2026-07-03) BookOfJax (Larry Horsfield) wired -- DIVERGE 55|55.  The script is
+# a derived, deterministic MAXIMUM-score win ("...scoring the maximum 500 points!",
+# 652 turns); FrankenDrift and Scarier BOTH play it to that win, so every hunk is a
+# Scarier text divergence, not a stuck/dead run.  Wiring it surfaced two bugs:
+#   (1) FIXED same day (503->55): the stock Look task's AggregateOutput
+#       CompletionMessage segments were rendered WITHOUT honouring <DisplayOnce>,
+#       so BoJ's first-turn "(Don't forget ... use the LUMINO spell.)" hint (a
+#       DisplayOnce segment gated on "prow seen") reprinted on EVERY room view
+#       where FD shows it once.  render_look_string (a5run_action.cpp) now mirrors
+#       eval_desc_into / clsDescription.ToString: a shown DisplayOnce segment is
+#       suppressed thereafter, and retired on real output (marking_display=1 at the
+#       three real render sites; the two pre/post-action test renders stay =0).
+#       Whole 34-game corpus stays byte-identical in both RNG modes -- zero
+#       regressions (no other golden game's Look aggregate carries a DisplayOnce).
+#   (2) OPEN (the 55|55 residual, RNG-independent -- same count in both modes): a
+#       bare object-key OO-property inside a room-description <# #> expression
+#       (e.g. the potting shed's "...a cupboard which is <#LCASE(cl_Door1.Open
+#       Status)#>.", and the farm gates/half-doors cl_gate1/2, cl_door3/4/6,
+#       cl_hatch) is NOT resolved -- Scarier leaves the literal key ("...which is
+#       cl_door1." vs FD's "...which is locked.").  53 of the 55 hunks are this one
+#       bug; the other two are a plough-message leading pSpace and its downstream
+#       score-line offset.  See A5_WALKTHROUGH_FINDINGS.md / TODO_a5_walkthrough_bugs.md.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -565,6 +588,7 @@ October31st|October31st.blorb|0|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0
+BookOfJax|BoJ v.2.blorb|55|55
 EOF
 )
 

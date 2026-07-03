@@ -978,9 +978,18 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
             ev_on_task_completed (run, child->key, &after_buf);
           }
       /* A pinned view (the Look dance's two test renders differed -- a random
-         pick moved) is emitted verbatim; otherwise render at the final state. */
-      std::string view = pinned_view != NULL ? std::string (pinned_view)
-                                             : render_look_string (run);
+         pick moved) is emitted verbatim; otherwise render at the final state
+         (real output, so <DisplayOnce> segments retire). */
+      std::string view;
+      if (pinned_view != NULL)
+        view = std::string (pinned_view);
+      else
+        {
+          int pm = st->marking_display;
+          st->marking_display = 1;
+          view = render_look_string (run);
+          st->marking_display = pm;
+        }
       sb_pspace (out); sb_puts (out, view.c_str ());
       if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
       free (after_buf.p);
@@ -2413,13 +2422,28 @@ render_look_string (a5_run_t *run)
           const a5_xml_node_t *restr;
           const char *when, *raw;
           char *proc, *plain;
+          int once;
           if (strcmp (c->name, "Description") != 0)
             continue;
           if (idx++ == 0)
             continue;                          /* the room-view default */
+          /* A <DisplayOnce> segment already shown is suppressed (mirrors
+             eval_desc_into / clsDescription.ToString: "If Not sd.DisplayOnce
+             OrElse Not sd.Displayed").  Without this the Look aggregate's
+             first-time hints -- e.g. Book of Jax's "(Don't forget ... use the
+             LUMINO spell.)" -- reappeared on every room view where FD shows them
+             once. */
+          once = a5xml_bool (a5xml_child_text (c, "DisplayOnce"));
+          if (once && a5state_disp_once_seen (st, c))
+            continue;
           restr = a5xml_child (c, "Restrictions");
           if (restr != NULL && !a5restr_pass (st, restr))
             continue;
+          /* Retire the segment only on real output, not a bTestingOutput peek
+             (the two pre/post-action test renders set marking_display=0; the
+             final Display render sets it to 1). */
+          if (once && st->marking_display)
+            a5state_disp_once_mark (st, c);
           when = a5xml_child_text (c, "DisplayWhen");
           raw  = a5xml_child_text (c, "Text");
           proc = a5text_process (st, raw ? raw : "");
@@ -2460,7 +2484,11 @@ emit_look (a5_run_t *run, sb_t *out)
       resp_insert (run->resp, e, -1);
       return;
     }
+  /* Real output: retire any <DisplayOnce> completion segments this view shows. */
+  int pm = run->st->marking_display;
+  run->st->marking_display = 1;
   std::string result = render_look_string (run);
+  run->st->marking_display = pm;
   sb_pspace (out);
   sb_puts (out, result.c_str ());
 }
@@ -2557,8 +2585,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         {
           /* The per-command response dedup applies to the room view too: FD
              keys the Look task's raw AggregateOutput template, so a command
-             that Executes Look twice shows one view (Euripides `press on`). */
+             that Executes Look twice shows one view (Euripides `press on`).
+             Real output: retire any <DisplayOnce> completion segments. */
+          pm = run->st->marking_display;
+          run->st->marking_display = 1;
           std::string v = render_look_string (run);
+          run->st->marking_display = pm;
           if (run->exec_scope == NULL
               || run->exec_scope->pass_seen.insert (v).second)
             { sb_pspace (out); sb_puts (out, v.c_str ()); }

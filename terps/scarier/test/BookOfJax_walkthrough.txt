@@ -1,0 +1,669 @@
+# The Book of Jax (Larry Horsfield / P.R.M. Adventures) -- ADRIFT 5.
+#
+# WINNING walkthrough, deterministic, reaching the MAXIMUM score:
+#   "*** CONGRATULATIONS! ***  ...scoring the maximum 500 points!" (652 turns)
+# under FrankenDrift (the ground-truth reference runner, FD_SEED=1234).
+# Single protagonist (Duke Alaric), no BECOME.
+#
+# Derived by play (guided by the game's decoded hint sheet), NOT the built-in
+# solution: the whole Panel-4 castle arc (portcullis rope-climb + arrow-slit +
+# marlin-spike, guard password "phoenix", Ranulf's key via "jump over well",
+# well-shaft door, the colour-dial safe = flag colours green/yellow/red/indigo,
+# the metal pin, gatehouse pin-exit), the bee endgame (Jax's jar-cart -> Whitty
+# overgrown garden -> bee-keeper's hat+gloves -> clear vegetation -> open jars ->
+# cart back -> cure -> ride to Aggarwal -> board the ship = win) and every
+# optional examine/flavour point to hit the full 500.  The leading "c"/"no"/"b"
+# clear the intro, the "played before?" prompt and the Start Options screen.
+c
+no
+b
+search hole
+forward
+draw sword
+cut halyard with sword
+aft
+port
+up
+get telescope
+chop bush branches
+plug gap
+put all in bag
+sheath sword
+tether merlin to tree
+stand on merlins saddle
+up
+north
+take rope from bag
+east
+tie rope to branch
+jump down
+get longbow
+search body
+wear longbow
+climb up rope
+untie rope
+run west
+northwest
+northeast
+fire arrow at outlaw
+southwest
+southwest
+tie rope to branch
+down
+north
+fire arrow at outlaws
+south
+wear longbow
+climb up rope
+untie rope
+northeast
+southeast
+south
+down
+dismount
+clear gap
+untie merlin
+put all in bag
+mount merlin
+south
+north
+north
+north
+north
+examine pigsty
+examine pig
+examine shelter
+examine branch
+south
+south
+south
+south
+in
+northeast
+look
+talk to elsie
+look behind bar
+look under bar
+talk to elsie
+4
+show needle to elsie
+5
+southwest
+out
+north
+north
+north
+look
+in
+look
+in
+look
+north
+in
+look
+feel on top of cupboard
+unlock cupboard with key
+open cupboard
+look in cupboard
+examine workbench
+look under workbench
+examine shelf
+search shelf
+examine tools
+examine ceramic pot
+examine length of wire
+get rag
+get wire
+get ceramic pot
+i
+dip rag in grease
+out
+cut hops
+south
+out
+south
+south
+south
+examine pole
+replace hops
+in
+northeast
+look under bar
+i
+wait
+take large key from pouch
+unlock door with large key
+in
+northeast
+say lumino
+look
+northeast
+look under table
+take bucket
+i
+southwest
+out
+north
+north
+north
+north
+empty bucket into trough
+in
+look
+get branch
+look under shelter
+wrap greasy rag around branch
+out
+south
+south
+south
+in
+examine crucifix
+examine font
+examine walls
+look
+lumino
+read crucifix
+read font
+examine walls
+look
+take fossy from pouch
+light candles with fossy
+read name
+read inscription
+out
+south
+south
+untie merlin
+put all in bag
+mount merlin
+north
+north
+north
+north
+north
+north
+drop bucket
+put all in bag
+mount merlin
+north
+dismount
+take branch from bag
+take fossy from bag
+light branch
+put fossy in bag
+mount merlin
+northeast
+dismount
+tether merlin to tree
+north
+look
+northeast
+look
+examine monolith
+examine stump
+take panel from bag
+put panel on stump
+examine monolith
+examine square
+take panel from stump
+put panel in square
+southwest
+examine trees
+look
+follow blazes
+untie merlin
+put all in bag
+mount merlin
+southwest
+southwest
+dismount
+south
+south
+south
+south
+south
+south
+south
+west
+west
+look
+north
+look
+tie merlin to rail
+in
+look
+1
+2
+3
+untie merlin
+northeast
+look
+in
+look
+out
+examine broken plough
+examine yoke
+examine plough share
+get yoke
+get plough share
+examine mavis
+southwest
+open gate
+east
+look
+west
+south
+west
+look
+east
+north
+west
+west
+open gate
+west
+examine mavis
+tie halter to mavis
+east
+east
+east
+northeast
+look
+put yoke on mavis
+tie traces to yoke
+southwest
+south
+east
+look
+in
+look
+take fossy from bag
+get hammer
+light forge
+pump bellows
+mend plough
+get gloves
+wear gloves
+mend plough
+steer ox
+out
+west
+north
+east
+plough field
+get seal
+examine seal
+west
+northeast
+unhitch mavis
+southwest
+in
+west
+open gate
+in
+sweep floor
+undo bolt
+out
+open gate
+east
+south
+east
+east
+north
+north
+north
+north
+west
+look
+west
+north
+in
+look
+examine door
+put seal in indentation
+in
+look
+lumino
+look
+examine coffin
+examine catafalque
+put seal in depression
+look
+down
+look
+tap walls with hammer
+examine south wall
+push south wall
+south
+look
+clear cobwebs
+examine floor
+examine footprints
+crawl west
+look
+north
+look
+northeast
+look
+look at mirror
+say grinding gibbon
+say quoniam and terram
+take panel
+look
+southwest
+south
+east
+south
+push hatch
+up
+out
+look
+open gate
+east
+northeast
+in
+saddle merlin
+put all in bag
+mount merlin
+out
+look
+southwest
+south
+east
+east
+north
+dismount
+north
+north
+north
+north
+north
+north
+mount merlin
+look
+north
+northeast
+dismount
+tether merlin to tree
+north
+northeast
+look
+take panel from bag
+put panel in square
+northwest
+west
+northwest
+in
+look
+1
+2
+3
+southeast
+east
+southeast
+southwest
+follow blazes
+untie merlin
+put all in bag
+mount merlin
+southwest
+southwest
+look
+i
+dismount
+south
+south
+look
+south
+south
+south
+south
+south
+west
+in
+search tools
+i
+out
+west
+west
+draw sword
+look around
+chop adder head off
+take head
+remove gloves
+extract fang with pliers
+i
+sheath sword
+east
+examine post
+east
+east
+north
+north
+north
+north
+north
+north
+north
+look
+put all in bag
+mount merlin
+north
+look
+dismount
+tether merlin to tree
+north
+northeast
+look
+east
+take male gnome
+upend male gnome
+drop male gnome
+say 8
+say wellie
+east
+look
+northeast
+northeast
+read words
+say open sesame
+push door
+in
+look
+in
+west
+south
+look
+take head from bag
+throw head at dragon
+in
+search pen
+look
+north
+east
+in
+out
+southwest
+southwest
+west
+west
+look
+northwest
+west
+northwest
+in
+look
+southeast
+east
+southeast
+look
+examine square
+put panel in square
+look
+take telescope from bag
+northwest
+north
+northwest
+northwest
+north
+look at flag through telescope
+look at phoenix through telescope
+look at stripes through telescope
+north
+draw sword
+cut ropes
+sheath sword
+put telescope in bag
+climb up the left rope
+take hammer from bag
+widen arrow slit with hammer
+climb into gatehouse
+lumino
+take spike from bag
+turn wheel
+out
+north
+north
+north
+north
+take telescope from bag
+look at guard through telescope
+look at escutcheon through telescope
+look at surcoat through telescope
+say phoenix
+put telescope in bag
+north
+jump over well
+i
+southeast
+take rope from bag
+tie rope to eyebolt
+put metal key in bag
+climb down rope
+take metal key from bag
+unlock door with metal key
+pull handle
+put metal key in bag
+lumino
+in
+north
+north
+turn dial 1 to green
+turn dial 2 to yellow
+turn dial 3 to red
+turn dial 4 to indigo
+look
+in
+search safe
+take hammer from bag
+take pliers from bag
+put hammer on shelf
+put pliers on shelf
+take panel from shelf
+take hammer from shelf
+take pliers from shelf
+put hammer in bag
+put pliers in bag
+i
+out
+look
+up
+south
+look
+south
+southeast
+south
+south
+take metal key from bag
+unlock door with metal key
+put panel in bag
+put pin in bag
+in
+up
+unbar door
+open door
+in
+lumino
+take pin from bag
+south
+turn wheel
+north
+out
+down
+out
+south
+south
+south
+south
+south
+southeast
+southeast
+south
+southeast
+look
+examine square
+take panel from bag
+put panel in square
+look
+score
+north
+north
+north
+north
+north
+in
+take harness
+wear harness
+south
+south
+south
+south
+south
+east
+east
+look around
+south
+south
+east
+east
+south
+south
+take gloves from bag
+remove harness
+south
+in
+search creepers
+wear hat
+wear gloves
+out
+north
+look under humps
+draw sword
+draw knife
+clear vegetation
+open jars
+sheath sword
+sheath knife
+take harness
+wear harness
+north
+north
+west
+west
+north
+north
+west
+west
+north
+north
+north
+north
+north
+untether merlin
+put metal key in bag
+mount merlin
+southwest
+southwest
+south
+south
+up
