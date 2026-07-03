@@ -535,21 +535,26 @@ a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir,
 /* -------------------------------------------------- character sub-evaluator */
 
 /* AloneWithChar (clsCharacter.AloneWithChar): the single other character in the
-   same location as `charkey`, or NULL if there are zero or more than one. */
+   same location as `charkey`, or NULL if there are zero or more than one.
+   FD compares resolved Location.LocationKey values, so a character seated on /
+   inside furniture counts as present (Lost Children's Anne rocks in her chair
+   while the player says hello). */
 static const char *
 alone_with_char (a5_state_t *st, const char *charkey)
 {
   int ci = a5state_character_index (st, charkey);
-  const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
+  const char *cloc = (ci >= 0) ? a5state_character_location_key (st, ci) : NULL;
   const char *found = NULL;
   int count = 0, i;
   if (cloc == NULL)
     return NULL;
   for (i = 0; i < st->adv->n_characters; i++)
     {
+      const char *oloc;
       if (i == ci)
         continue;
-      if (streq (st->char_loc[i], cloc))
+      oloc = a5state_character_location_key (st, i);
+      if (oloc != NULL && streq (oloc, cloc))
         { count++; found = st->adv->characters[i].key; }
       if (count > 1)
         return NULL;
@@ -890,12 +895,22 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "BeAlone"))
     {
+      /* clsCharacter.IsAlone: resolved Location.LocationKey compare, so a
+         character on/in furniture still breaks solitude. */
       int i;
-      if (cloc == NULL)
+      const char *rloc = (ci >= 0) ? a5state_character_location_key (st, ci)
+                                   : NULL;
+      if (rloc == NULL)
         return 1;
       for (i = 0; i < st->adv->n_characters; i++)
-        if (i != ci && streq (st->char_loc[i], cloc))
-          return 0;
+        {
+          const char *oloc;
+          if (i == ci)
+            continue;
+          oloc = a5state_character_location_key (st, i);
+          if (oloc != NULL && streq (oloc, rloc))
+            return 0;
+        }
       return 1;
     }
   if (streq (r->op, "BeOnCharacter"))

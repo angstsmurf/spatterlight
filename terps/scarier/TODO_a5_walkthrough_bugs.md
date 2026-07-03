@@ -1,5 +1,47 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ The Lost Children: NATIVE walkthrough wired as a FULL WIN 0|0 (3 general engine fixes) — ✅ DONE (2026-07-03)
+
+> **✅ DONE.** User report: "most of the commands in the walkthrough are not
+> understood — is it for a different version?"  Confirmed: the old
+> `LostChildren_walkthrough.txt` was Terri Sheehan's CASA solution for the
+> ORIGINAL **Spectrum 128** release, replayed as a best-effort differential —
+> 191 no-route + 133 other soft failures out of 417 commands against the
+> ADRIFT 5 port (it only looked healthy because FD derailed identically,
+> hence MATCH 0|0).  **The port ships its own complete solution in-game** —
+> a `WLKTHRGH` task, missed by the 2026-07-02 Horsfield audit exactly like
+> Tribute was.  Extracted verbatim (comma-split, multi-object lists kept
+> whole, `o`/`b` prepended, ZERO route corrections): plays to the full
+> rescue ending, now golden-backed **0|0 in BOTH RNG modes** over 411
+> commands.  Three general engine fixes fell out (suite otherwise 0|0):
+>
+> 1. **`BeAloneWith`/`BeAlone`/`%AloneWithChar%` must compare resolved
+>    Location.LocationKey** (a5restr.cpp `alone_with_char` + `BeAlone`,
+>    a5text.cpp `alonewithchar`), so a character seated ON/IN furniture
+>    counts as present (FD clsCharacter.AloneWithChar / IsAlone).  Anne
+>    rocks in her chair, so `say hello` ("SayLazy" → %AloneWithChar%) found
+>    nobody, the greet never fired, and every later `ask anne about …`
+>    failed its gate — the "commands not understood" cascade.
+> 2. **The `Time` action (`Skip "N" turns`) was unimplemented**
+>    (a5run_action.cpp): FD flushes the pending pass-responses, then runs
+>    TurnBasedStuff N times (clsUserSession.vb:2357).  The game's WaitZ task
+>    (`z`) skips 3 turns; without it the 15-turn Flight-1 countdown (the
+>    horn/children ceremony behind the boulder) never fired inside the
+>    scripted `z z z`, and the tower trolls killed the run at 300/400.
+> 3. **Special-listed objects render their ListDescription TWICE per room
+>    view** (a5text.cpp view loop, mirroring clsLocation.vb:232): FD's
+>    ObjectsInLocation(AllSpecialListedObjects) *selection test*
+>    `ob.ListDescription <> ""` is a real Description render that retires
+>    `<DisplayOnce>` segments, and the append then renders again.  The
+>    ravine rabbit's DisplayOnce lead-in ("Several metres … you see ")
+>    terminates the first render; the second rebuilds it as the
+>    StartAfterDefaultDescription default prefix + "a large rabbit
+>    nibbling …".  Scarier's single render printed the truncated lead-in.
+>    (Verified by instrumenting FD's Description.ToString: one real
+>    scan render with Displayed=False, then the append renders with
+>    Displayed=True — 3 real renders per view incl. the general-listed
+>    scan.)
+
 ## ⭐ October 31st: FULL 100/100 WIN wired, xoshiro FULL MATCH 106|0 (2 general engine fixes) — ✅ DONE (2026-07-03)
 
 > **✅ DONE.** October 31st (Finn Rosenløv, 2022) upgraded from the 4-command

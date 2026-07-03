@@ -42,444 +42,32 @@ As you look around to get your bearings you notice that you are no longer carryi
 
 It also occurs to you that it might help if you found a bag or something to put things into.
 
-> info
-I did not understand the word "info".
-
-> vocab
-Here are some verbs and other words that you will need to use in this adventure:
-
-ABOUT, AGAINST, AROUND, ASK, AT, BUY, CHISEL, CLIMB, COUNT, CUT, DEMOLISH, DRAW, DRINK, EMPTY, EXCEPT, EXTINGUISH, FIND, FOLLOW, GIVE, HIT, IN, INSERT, INTO, JUMP, KNOCK, LEVER, LIGHT, LISTEN, LOCK, MAKE, ON, ONTO, OPEN, OVER, PROP, PULL, PUSH, REPLACE, READ, RUN, SAY, SHUT, SLIDE, SLING, SMASH, SPEAK, STEP, TALK, THROW, TIE, TURN, UNBOLT, UNDO, UNLOCK, UNTIE, USING, WAIT.
-
-> speech
-
-In this adventure, you will find that some characters will speak to you first when you first meet them. You can either SAY HELLO or reply to whatever they have said to you. If you are going to use the command INTRODUCE MYSELF you must specific the name of the character you are talking to, e.g. INTRODUCE MYSELF TO ANNE.
-
-Obtaining information from the characters can be very useful, so you should them questions, e.g. ASK BERNIE ABOUT SPECTRE, etc. On the other hand, you may need to tell them things that they need to know, for example TELL PEOPLE ABOUT SORCEROR. NOTE: Do not use a 'definite article' (e.g. "the" or "a") before any noun when questioning characters.
-
-If you want to purchase any items you should simply input BUY ITEM. There is no need to tell the vendor you want to buy it, i.e. SAY TO PEDLAR BUY LINCTUS. You do not need to physically remove coins from whatever they are in, the appropriate number will be deducted from the total whenever you buy anything.
-
-NOTE: If there is only ONE character present, you can simply input, e.g., ASK ABOUT WARES or just SAY HELLO. However, if there are two or more characters present (an animal or bird, etc, may count as a character), you must specify which character you wish to speak to, e.g. SAY HELLO TO BILL. This is very important - it may save your life!
-
-> inventory
-You are wearing, apart from your clothes, nothing, and are carrying some travel rations.
-
-> examine amulet
-You see no such thing.
-
-> examine food
-A week's supply of ordinary soldier's hard tack rations - not very tasty but highly nutritious.
-
-> examine dolmen
-You see no such thing.
-
-> sw
-There is no route to the southwest, only north, east, south, west and in.
-
-> sw
-There is no route to the southwest, only north, east, south, west and in.
-
-> sw
-There is no route to the southwest, only north, east, south, west and in.
-
-> sw
-There is no route to the southwest, only north, east, south, west and in.
-
-> w
-You walk West.
-
-West Edge of Moorland
-This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
-
-> examine woman
-You can't see any woman!
-
-> examine cigarette
-You see no such thing.
-
-> anne "give cigarette"
-I did not understand the word ""give".
-
-> anne "dolmen"
-I did not understand the word ""dolmen"".
-
-> anne "children"
-I did not understand the word ""children"".
-
-> anne "trolls"
-I did not understand the word ""trolls"".
-
-> anne "woods"
-I did not understand the word ""woods"".
-
-> anne "tobacco"
-I did not understand the word ""tobacco"".
-
-> buy tobacco
-Sorry, I'm not sure which object you are trying to buy.
-
-> anne "hillside"
-I did not understand the word ""hillside"".
-
-> e
-You walk East.
-
-By The Megalith
-You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
-
-> e
-You walk East.
-
-East Side of Moors
-You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
-
-> e
-You walk East.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> e
-You walk East.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> examine field
-You see no such thing.
-
-> pick buttercups
-You can't see any buttercups!
-
-> e
-You walk East.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> n
-There is no route to the north, only east, west, northeast and southeast.
-
-> n
-There is no route to the north, only east, west, northeast and southeast.
-
-> ne
-You walk NorthEast.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> e
-You walk East.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> s
-There is no route to the south, only east, west, northeast and southeast.
-
-> e
-You walk East.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> s
-There is no route to the south, only east, west, northeast and southeast.
-
-> w
-You walk West.
-
-East Side of Moors
-You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
-
-> search hut
-You can't see any huts!
-
-> examine nails
-You can't see any nails!
-
-> e
-You walk East.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> se
-You walk Southeast.
-
-After a couple of minutes walking you hear the roar of a mountain lion up ahead, so you decide not to go any further. You retrace your steps back to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> examine basket
-You see no such thing.
-
-> search ashes
-Sorry, I'm not sure which object you are trying to search.
-
-> down
-There is no route down, only east, west, northeast and southeast.
-
-> e
-You walk East.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> se
-You already went that way once and heard a mountain lion. You had better not go that way again until it has gone away.
-
-> se
-You already went that way once and heard a mountain lion. You had better not go that way again until it has gone away.
-
-> examine boy
-You can't see any boy!
-
-> examine bowl
-You can't see any bowls!
-
-> read notice
-You can't see any notices!
-
-> drop food in bowl
-Sorry, I'm not sure which object you're referring to.
-
-> follow boy
-You can't see any boy!
-
-> n
-There is no route to the north, only east, west, northeast and southeast.
-
-> jenny "roof"
-I did not understand the word "jenny".
-
-> jenny "children"
-I did not understand the word "jenny".
-
-> jenny "tom"
-I did not understand the word "jenny".
-
-> jenny "anne"
-I did not understand the word "jenny".
-
-> w
-You walk West.
-
-East Side of Moors
-You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
-
-> e
-You walk East.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> pet cat
-I did not understand the word "pet".
-
-> s
-There is no route to the south, only east, west, northeast and southeast.
-
-> se
-You already went that way once and heard a mountain lion. You had better not go that way again until it has gone away.
-
-> e
-You walk East.
-
-After several minutes walking you find yourself completely lost, so you retrace your steps to where you started from.
-
-The Foothills
-You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
-
-> read blackboard
-You can't see any blackboards!
-
-> w
-You walk West.
-
-East Side of Moors
-You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
-
-> sw
-You walk SouthWest.
-
-South Edge of Moor
-You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
-
-> se
-You walk SouthEast.
-
-Woods East of Cottage
-You are in woodland to the southeast of the moors. Through the trees you can just see a cottage some distance to the west. The ground between the trees is carpeted with flowers.
-
-> take crowbar
-Sorry, I'm not sure which object you are trying to take.
-
-> examine crowbar
-You see no such thing.
-
-> s
-There is no route to the south, only west and northwest.
-
-> ne
-There is no route to the northeast, only west and northwest.
-
-> read sign
-You can't see the old signpost.
-
-> s
-There is no route to the south, only west and northwest.
-
-> down
-There is no route down, only west and northwest.
-
-> look around
-You look all around but see nothing of any particular interest.
-
-> examine jetty
-You can't see any jetties!
-
-> search rocks
-You can't see any rocks!
-
-> examine net
-You see no such thing.
-
-> up
-There is no route up, only west and northwest.
-
-> n
-There is no route to the north, only west and northwest.
-
-> up
-There is no route up, only west and northwest.
-
-> se
-There is no route to the southeast, only west and northwest.
-
-> se
-There is no route to the southeast, only west and northwest.
-
-> e
-There is no route to the east, only west and northwest.
-
-> e
-There is no route to the east, only west and northwest.
-
-> e
-There is no route to the east, only west and northwest.
-
-> se
-There is no route to the southeast, only west and northwest.
-
-> s
-There is no route to the south, only west and northwest.
-
-> s
-There is no route to the south, only west and northwest.
-
-> e
-There is no route to the east, only west and northwest.
-
-> s
-There is no route to the south, only west and northwest.
-
-> hit hut
-You can't see any huts!
-
-> search wood
-Sorry, I'm not sure which object you are trying to search.
-
-> take felt
-You can't see any felt!
-
-> examine felt
-You can't see any felt!
-
-> examine quarry
-You see no such thing.
-
-> n
-There is no route to the north, only west and northwest.
-
-> w
-You walk West.
-
-By Cottage
-You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
-
-> n
-You walk North.
-
-South Edge of Moor
-You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
-
-> n
-You walk North.
-
-By The Megalith
-You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
-
 > n
 You walk North.
 
 Edge of Forest
 You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
 
-> nw
-There is no route to the northwest, only north, south, southeast and southwest.
-
 > n
 You walk North.
 
 In Forest
 You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
 
-> n
-You wander off in that direction but after a couple of minutes find yourself lost. You manage to make your way back to where you started.
+> w
+You walk West.
 
-In Forest
-You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+By Stream
+You are standing by a narrow stream which runs in a northeast-southwest direction through the forest. All round the stream you see many green plants growing.
 
-> ne
-You wander off in that direction but after a couple of minutes find yourself lost. You manage to make your way back to where you started.
+> x plants
+The plants, of which there are many growing here, have straight green stems surmounted by a cluster of red berries. The shrivelled remains of the flower's petals can be seen underneath the berries.
 
-In Forest
-You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+> pick plants
+You pick some of the plants in the growing by the stream.
 
-> examine floor
-The floor or ground is whatever surface is under your feet. If you are sitting or laying on something, or on a ladder for example, the floor will be further away.
-
-> lever floor
-You cannot lever that!
-
-> take bag
-You can't see any bags!
-
-> take floorboard
-You can't see any floorboards!
-
-> examine floorboard
-You can't see any floorboards!
-
-> examine bag
-You can't see any bags!
-
-> sw
-You wander off in that direction but after a couple of minutes find yourself lost. You manage to make your way back to where you started.
+> e
+You walk East.
 
 In Forest
 You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
@@ -502,74 +90,8 @@ You walk South.
 South Edge of Moor
 You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
 
-> se
-You walk SouthEast.
-
-Woods East of Cottage
-You are in woodland to the southeast of the moors. Through the trees you can just see a cottage some distance to the west. The ground between the trees is carpeted with flowers.
-
 > s
-There is no route to the south, only west and northwest.
-
-> s
-There is no route to the south, only west and northwest.
-
-> e
-There is no route to the east, only west and northwest.
-
-> s
-There is no route to the south, only west and northwest.
-
-> se
-There is no route to the southeast, only west and northwest.
-
-> down
-There is no route down, only west and northwest.
-
-> e
-There is no route to the east, only west and northwest.
-
-> se
-There is no route to the southeast, only west and northwest.
-
-> se
-There is no route to the southeast, only west and northwest.
-
-> s
-There is no route to the south, only west and northwest.
-
-> w
-You walk West.
-
-By Cottage
-You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
-
-> w
-You walk West.
-
-Woods West of Cottage
-You are in woodland to the southwest of the moors. Through the trees you can just see a cottage some distance to the east. The ground between the trees is carpeted with flowers.
-
-> s
-There is no route to the south, only east and northeast.
-
-> read list
-You can't see any lists!
-
-> buy lantern
-Sorry, I'm not sure which object you are trying to buy.
-
-> buy rope
-You can't see any ropes!
-
-> buy tinderbox
-You can't see any tinderboxes!
-
-> n
-There is no route to the north, only east and northeast.
-
-> e
-You walk East.
+You walk South.
 
 By Cottage
 You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
@@ -584,839 +106,2614 @@ The woman smiles as you enter and you notice the tips of pointed ears sticking o
 
 "Hello dearie," she says pleasantly. "Nice of you to visit, my name is Anne. We don't get many people in this neck of the woods these days. What's your name and how did you come to be here?"
 
-> s
-There is no route to the south, only north and out.
+> say hello
+(to Anne)
+You say "Hello" to Anne, telling her who you are, where you are from, how you got here, and that you have come here to find out what happened to the children who were being kidnapped from Hecate.
 
-> e
-There is no route to the east, only north and out.
+"Oh my goodness," she exclaims when you have finished. "So children have been taken from the part of the world where you live as well here in Mythgar?"
 
-> look through wndow
-Sorry, I'm not sure which object you are trying to look through.
+You ask Anne to explain and she tells you.
 
-> examine display
-You see no such thing.
+"The towns and villages around Mythgar have also had children taken from them." she tells you. "We know none of them are dead as we elves would know instantly if any of our children were hurt, let alone dead, as we have a telepathic link to our offspring. Sadly we think the children have been taken many leagues away beyond the Fireheart mountains."
 
-> n
-You cannot leave without saying "Hello" to Anne!
+> ask anne about children
+You ask Anne about the missing children.
 
-> n
-You cannot leave without saying "Hello" to Anne!
+"I really miss the children," she tells you. "They used to bring me seashells they would collect from the seashore. I would glue them onto boxes I make and sell them in the local towns."
 
-> e
-There is no route to the east, only north and out.
+> ask anne about town
+You ask Anne about the nearest town.
 
-> s
-There is no route to the south, only north and out.
+"The nearest town is Torham Bay," she tells you. "You get to it through the hills west of the moor. Look out for a burnt oak tree at a junction of paths and take the path leading north keeping the burnt oak to your left. Don't go any other way, you'll just get lost. This path will lead you to the coast road and you will see Torham Bay below you."
 
-> examine inkeeper
-You see no such thing.
+> ask anne about tree
+You ask Anne about the burnt oak tree.
 
-> buy ale
-You can't see any ale!
+"It got hit by lightening during a storm many years ago," she tells you. "It makes a handy waymarker for people walking around the hills."
 
-> inkeeper "find pawnbroker"
-I did not understand the word "inkeeper".
+> ask anne about plants
+You ask Anne about the plants you picked by the stream in the forest, showing them to her.
 
-> buy ale
-You can't see any ale!
+"They are called Cuckoo Pint," she tells you. "They are very poisonous, but can be made into a powerful sleeping potion."
 
-> n
-You cannot leave without saying "Hello" to Anne!
+> ask anne about megalith
+You ask Anne about the megalith on the moors.
 
-> w
-There is no route to the west, only north and out.
+"It's been there for thousands of years," she tells you. "I've seen weird lights coming from it and trolls have been seen walking to and from it from the foothills."
 
-> s
-There is no route to the south, only north and out.
+> ask anne about trolls
+You ask Anne about the trolls.
 
-> s
-There is no route to the south, only north and out.
+"I used to trade with them for jewels and gemstones they dug up from deep under the mountains," she tells you. "They were always very friendly and peaceful, but they stopped coming just before the children started to go missing. They are the ones who took the children, but we don't know why."
 
-> e
-There is no route to the east, only north and out.
+> ask anne about hills
+You ask Anne about the hills to the west of the moor.
 
-> buy tinderbox
-You can't see any tinderboxes!
+"They are quite extensive," she tells you. "It is easy to get lost. There is an old abandoned silver mine in the middle of them and Torham Bay is beyond them."
 
-> w
-There is no route to the west, only north and out.
+> ask anne about tree
+You have already asked Anne about the burnt oak tree and she has told you it got hit by lightening.
 
-> n
-You cannot leave without saying "Hello" to Anne!
+> ask anne about mine
+You ask Anne about the mine in the hills.
 
-> n
-You cannot leave without saying "Hello" to Anne!
+"It was a silver mine but it is now worked out and abandoned," she tells you. "If you wanted to find it you go southwest from the junction of paths just west of the moors, then take the first path south and the second path east."
 
-> e
-There is no route to the east, only north and out.
+> ask anne about mountains
+You ask Anne about the mountains.
 
-> ne
-There is no route to the northeast, only north and out.
+"They lie to the east and are so high they are virtually impassable," she tells you. "However, there is an underground route via the troll tunnels to the other side, my brother Bob knows the way."
 
-> up
-There is no route up, only north and out.
+> ask anne about bob
+You ask Anne about her brother Bob.
 
-> se
-There is no route to the southeast, only north and out.
+"He lives in a cave somewhere in the foothills of the mountains" she tells you. "He usually pops over once a month to get his medicine from me."
 
-> se
-There is no route to the southeast, only north and out.
+> ask anne about box
+You ask Anne about the boxes she makes.
 
-> s
-There is no route to the south, only north and out.
+"I stick seashells on them to make them look pretty," she tells you. "The children of Torham Bay would bring me seashells in return for sweets, but that has stopped since they started disappearing."
 
-> w
-There is no route to the west, only north and out.
+> ask anne to make draught
+You ask Anne if she will prepare a sleeping potion for you.
 
-> look around
-You look all around but see nothing of any particular interest.
+"Very well," she tells you. " But first of all you must bring me some seashells from the coast. The children no longer come to bring me them and I have none to cover my boxes with."
+
+> ask anne about seashells
+You ask Anne about the seashells she puts on her boxes.
+
+"I have no seashells left to make any boxes with," she tells you sadly. "The children who used to bring them to me are not allowed to leave Torham Bay any more."
+
+> drop plants
+Ok, you put down the plants.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
 
-> light lantern
-Sorry, I'm not sure which object you are trying to switch/turn/flick.
-
-> n
-You cannot leave without saying "Hello" to Anne!
-
-> n
-You cannot leave without saying "Hello" to Anne!
-
-> extinguish lantern
-Sorry, I'm not sure which object you are trying to switch/turn/flick.
-
-> s
-There is no route to the south, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> se
-There is no route to the southeast, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> chisel slates
-You can't see any slates!
-
-> take slates
-Sorry, I'm not sure which object you are trying to take.
-
-> examine slates
-You can't see any slates!
-
-> se
-There is no route to the southeast, only north and out.
-
-> lever ladder
-You can't see any ladders!
-
-> take ladder
-You can't see any ladders!
-
-> e
-There is no route to the east, only north and out.
-
-> examine carpenter
-You see no such thing.
-
-> carpenter "lend saw"
-I did not understand the word "carpenter".
-
-> se
-There is no route to the southeast, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
 
 > nw
-There is no route to the northwest, only north and out.
+You walk NorthWest.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> w
+You walk West.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East.
+
+> look around
+You look around and you spot the burnt oak tree that Anne told you to look for.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You move North...
+
+...following Anne's instruction to keep the burnt oak tree to your left. The path winds out of the hills and after about a kilometre you find yourself at the coast road.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
 
 > w
-There is no route to the west, only north and out.
+You move west.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.  Sitting here cross-legged, his back against a wall, sits a young boy playing a trumpet. On the ground in front of him is a small wooden bowl and propped up against his knees is a hand-written sign.
+
+As you approach, the boy plays the trumpet a bit louder. Above his puffed-out cheeks, his eyes watch you pleadingly.
+
+> give rations to boy
+You offer your travel rations to the boy.
+
+The boy stops playing his trumpet and his face breaks into a grin.
+
+"Wow, thanks mister!" he says happily, taking the rations from you and looking at them hungrily. "I'll take these home to me mum right away."
+
+Grabbing his begging bowl and the notice, he gets to his feet and scampers off along the quayside. After he has gone you notice something lying on the floor at the base of the wall he was sitting in front of...
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.  Also here is a rusty crowbar.  The boy walks off to the north.
+
+> get crowbar
+Ok, you pick up the rusty crowbar.
+
+> follow boy
+You quickly go after the boy, who walks north up the quay, pausing to say hello to a female friend. He continues on his way and turns NE into a narrow gap between two buildings. You follow him through to a courtyard where he enters another alleyway and then enters a house at the east end.
+
+By House
+You are standing by the front of a house at the end of the alley, which goes West. The front door, which leads East, is closed.
+
+> knock on door
+You knock on the door with your knuckles.
+
+After a minute or two the door is opened and a woman stands there looking out at you. Standing behind her is the boy trumpeter you gave your rations to.
+
+"That's him, mum, he's the bloke who gave me the food," he says to the woman, who is obviously the boy's mother.
+
+You introduce yourself to the woman, who tells you her name is Jennet and that her son is called Tomas. You tell her you are a stranger in this land and have come to investigate the disappearance of children from your own country. At these words her eyes go wide and she invites you into her house.
+
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.  Here you see Jennet.  Tomas sits beside her.
+
+Jennet tells you that her other son, Marcus, was taken by the trolls a couple of months ago. At mention of his brother, Tomas gets upset and Jennet tells him to go up to his room, which he does.
+
+"It was bad enough us losing my husband Fred a year ago, but now Marcus has been kidnapped Tomas is all I have left. I know Marcus is still alive and unharmed because of the link all us Elves have with our siblings and children," Jennet tells you. "As far as I am aware he is somewhere beyond the Fireheart Mountains to the east of here. My uncle Bob has tried to go through the troll tunnels under the mountains, but he has been unable to get through."
+
+> ask about tomas
+(Jennet)
+You ask Jennet about her son Tomas.
+
+"He has been a really good son to me, especially after Marcus was kidnapped," she tells you. "He spends hours out in all weathers doing odd jobs and busking with his trumpet for some money to buy food and other things with."
+
+> ask about mountains
+(Jennet)
+You ask Jennet about the mountains.
+
+"They lie to the east and are virtually impassable," she tells you. "However, there are some underground passages which lead to the other side, my uncle Bob knows the route through them."
+
+> ask about bob
+(Jennet)
+You ask Jennet about her uncle Bob.
+
+"He lives in a cave somewhere in the foothills of the mountains" she tells you. "He visits us and my aunt Anne once a month."
+
+> ask about bag
+(Jennet)
+You ask Jennet if she has a bag you can use.
+
+She has a think and then she goes upstairs. She returns a minute or two later carrying a bag, which she hands to you.
+
+"This belonged to my husband Fred," she tells you. "I don't use it myself."
+
+> wear bag
+You put the strap of the bag over your shoulder.
+
+> ask about cave
+(Jennet)
+You ask Jennet about the cave where Bob lives. She seems about to tell you, but she stops and then a calculating look crosses her face.
+
+"Tell you what," she says to you. "You fix my leaking roof for me and I will tell you how to find Bob's cave. How about that - you scratch my back and I'll scratch yours?"
+
+You are a bit surprised by this, as you thought that she would want you start looking for the children as soon as possible, and you tell her so.
+
+"Well, I know Marcus is alive and unharmed, and he's been missing for weeks," she tells you, with a sneaky grin. "So another few hours won't make much difference, and I would be very grateful to you."
+
+You sigh and think to yourself that people are always getting you to do things for them - it must be your helpful nature!
+
+You reluctantly agree to her demand, at which she claps her hands with glee.
+
+"Oh thank you, Duke Alaric," she says happily, planting a kiss on your cheek. "I'll leave you to it then, Tomas and I will get out from underneath your feet. Here's a spare key to my front door, don't lose it!"
+
+Giving you the key, she calls Tomas down from his room and they head off out of the house. As the two of them go out the door she calls out to you.
+
+"Please don't go upstairs, it's a right mess up there! I'll be back when you've repaired my roof," and she shuts and locks the front door behind her.
+
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.
+
+> e
+You walk East.
+
+The Kitchen
+You're in the kitchen, which is in an extension built at the back of the house. The main room is West and the garden East. There is a hole in the kitchen ceiling due to missing roof tiles and damaged roofing felt.
+
+> e
+You walk East.
+
+The Garden
+You're in the garden, which is divided into an area of grass and a cultivated vegetable plot. At the east end of the garden stands a large tree. The door to the kitchen is West.
+
+> search garden
+You have a look around the garden and find, half-buried in the soil at the edge of the vegetable plot, an old spanner. You pick it up and brush off the dirt clinging to it.
 
 > w
-There is no route to the west, only north and out.
+You walk West.
 
-> prop ladder
-You can't see any ladders!
+The Kitchen
+You're in the kitchen, which is in an extension built at the back of the house. The main room is West and the garden East. There is a hole in the kitchen ceiling due to missing roof tiles and damaged roofing felt.
 
-> climb ladder
-You can't see any ladders!
+> w
+You walk West.
 
-> examine hole
-You can't see any holes!
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.
 
-> fix roof
-You can't see the thatched roof!
+> w
+You unlock the door, open it and walk out of the house, closing and locking the door behind you.
 
-> down
-There is no route down, only north and out.
+By House
+You are standing by the front of a house at the end of the alley, which goes West. The front door, which leads East, is closed.
 
-> e
-There is no route to the east, only north and out.
+You will be able to just go East or West through the locked door so long as you have the house key in the pocket of your trousers.
 
-> e
-There is no route to the east, only north and out.
+> w
+You walk West.
 
-> s
-There is no route to the south, only north and out.
-
-> se
-There is no route to the southeast, only north and out.
+A Wide Courtyard
+You are in a wide courtyard behind the quayside buildings of the town, formed by the fences of the back yards of the houses that surround you. At the centre of the courtyard stands a communal water pump. Alleys lead off North, NE and SE between the houses, while the way back to the quay is SW. Heading East is a wider alley which leads to a better part of the town.
 
 > sw
-There is no route to the southwest, only north and out.
+You walk SouthWest.
 
-> nw
-There is no route to the northwest, only north and out.
-
-> return saw
-I did not understand the word "return".
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. A cacophony of sound is coming from the forge to the north. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
 
 > se
-There is no route to the southeast, only north and out.
+You walk SouthEast.
 
-> se
-There is no route to the southeast, only north and out.
+Outside Armourer's Forge
+You're on the quay where ships and boats dock. The quay continues South and NW. In the buildings that line the quay to the east there is a armourer's forge. The sound of hammering coming from the forge is very loud. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
 
 > s
-There is no route to the south, only north and out.
+You walk South.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
 
 > se
-There is no route to the southeast, only north and out.
+You walk SouthEast.
+
+By Chapel
+You're outside the tiny chapel of St.Celia. The chapel door is East and the lane leads NW.
 
 > e
-There is no route to the east, only north and out.
+You walk East.
 
-> search pews
-Sorry, I'm not sure which object you are trying to search.
+In Chapel
+You're inside the tiny chapel. There is only room for two rows of pews in front of the altar. The door leads West.
 
-> examine carnation
-You see no such thing.
+> x altar
+The "altar" is simply a wooden table covered with a white cloth.
 
-> remove pin
-You are not wearing the pins.
+> x pews
+The "pews" are little more than wooden benches, they are not even fixed to the floor.
 
-> examine pin
-You see no such thing.
+> look under pews
+You look under the pews but see nothing of interest.
 
 > w
-There is no route to the west, only north and out.
+You walk West.
+
+By Chapel
+You're outside the tiny chapel of St.Celia. The chapel door is East and the lane leads NW.
 
 > nw
-There is no route to the northwest, only north and out.
+You walk NorthWest.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
+
+> e
+You move east.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> e
+You walk East.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> e
+You walk East.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> ne
+You walk NorthEast.
+
+Edge of Forest
+You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
 
-> nw
-There is no route to the northwest, only north and out.
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
 
-> look around
-You look all around but see nothing of any particular interest.
+> e
+You walk East.
 
-> examine boat
-You see no such thing.
+By Forester's Hut
+You are in the forest, standing by the open doorway into an old forester's hut. The door which once filled the doorway is long gone and you can go In to the hut quite easily. Paths lead in all directions between the trees of the forest.
 
-> board boat
-Sorry, I didn't understand that command.
+> in
+You walk In.
 
-> examine fisherman
-You see no such thing.
+In Forester's Hut
+You are inside the hut, which was abandoned long ago. It is completely empty apart from a layer of leaves which have blown in from outside, covering the floor.
 
-> fisherman "boat"
-I did not understand the word "fisherman".
+> x floor
+You cannot see any floorboards because of the layer of leaves on the floor.
 
-> up
-There is no route up, only north and out.
+> clear leaves
+Using your hands, you sweep the leaves covering the floor out of the hut through the doorway.
 
-> se
-There is no route to the southeast, only north and out.
+In Forester's Hut
+You are inside the hut, which was abandoned long ago. It is completely empty now you have swept the leaves and rotting vegetation out of the doorway to reveal the floor.
 
-> s
-There is no route to the south, only north and out.
+> lever floorboard
+Inserting the flattened end of the crowbar in the gap between the floorboards, you lever up the short section of floorboard and put it to one side. You see a space between the joists.
+
+In Forester's Hut
+You are inside the hut, which was abandoned long ago. It is completely empty now you have swept the leaves and rotting vegetation out of the doorway to reveal the floor. A short section of floorboard has been removed to reveal a space between the joists.  Also here is a short length of floorboard.
+
+> look under floorboards
+You search the space between the joists under the floorboards. In there, covered in dust and cobwebs, you find a small canvas pouch, which you take out.
+
+> look in pouch
+You search the pouch and see that it contains some gold coins and an ancient scarab.
+
+> count coins
+There are 100 gold coins in the pouch.
+
+> get scarab
+You take the scarab out of the pouch.
+
+Examining the scarab you sense that it is very old and might have magical qualities, so you put it around your neck for safe keeping.
+
+> out
+You walk Out.
+
+By Forester's Hut
+You are in the forest, standing by the open doorway into an old forester's hut. The door which once filled the doorway is long gone and you can go In to the hut quite easily. Paths lead in all directions between the trees of the forest.
 
 > w
-There is no route to the west, only north and out.
+You walk West.
 
-> w
-There is no route to the west, only north and out.
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
 
 > s
-There is no route to the south, only north and out.
+You walk South.
+
+Edge of Forest
+You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
+
+> sw
+You walk SouthWest.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> w
+You walk West.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> n
+You walk North.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> w
+You move west.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
+
+> w
+You walk West.
+
+Halfway along Quay
+You're halfway along the quay, from where you can go East, West or South down a narrow alleyway.  Moored alongside the quay is a small sailing boat. In the boat sits a sailor.
+
+> say hello
+You say hello to Old Tom.
+
+He nods in greeting but doesn't reply.
+
+> get saw
+(from the sailing boat)
+You go to take the saw from the boat, but are stopped by an angry shout from Old Tom.
+
+"Oii! Who said you could take my saw without asking!?" he growls at you. You apologise and step back from the boat.
+
+> ask about fish
+What fish?
+
+> ask for saw
+You ask Tom if you can borrow his saw.
+
+He thinks for a minute or so and then replies.
+
+"Certainly, you can have the saw, I don't need it any more, but first you must buy me a sailmaker's kit from the chandler," he tells you. "I need to repair this sail so I can go fishing and all my needles are blunt."
+
+> w
+You walk West.
+
+End of Quay
+You're at the end of the quay. Here there is a ship's chandler shop, the door leading south.
+
+> s
+You walk South.
+
+In Chandler's Shop
+You're in the chandler's shop, which is stocked with every conceivable item a sailor could want. The chandler himself stands behind his counter, behind him a price list hangs on the wall and beside that is a notice. The door is North.
+
+As you walk into the shop, the proprietor, a small, white-haired old man, looks up at you from behind his counter where he is writing things down in a ledger book.
+
+"Hello sir," he says, pausing in his writing. "How may I help you?"
+
+> say hello
+(to Wally)
+You say hello to Wally and tell him who you are.
+
+"Good day to you too, sir," he replies in a tired voice. "I am rather busy with this stock-take, so if you want to buy something I would be grateful if you would tell me what it is?"
 
 > read list
-You can't see any lists!
+The price list reads:
+
+Oil Lamps:         6 Gold Coins
+
+Tinderbox:         4 Gold Coins
+
+Sextant:           30 Gold Coins
+
+Compass:           10 Gold Coins
+
+Oilskins:          15 Gold Coins
+
+Rope (10 metres)   10 Gold Coins
+
+Sailmaker's Kit:   5 Gold Coins
+
+TODAY'S SPECIAL OFFER - FREE OIL WITH ALL LAMPS!
+
+> buy lamp
+You buy an oil lamp from Wally, which costs you 6 gold coins.
+
+"I've a special offer today, free oil!" he tells you, filling the reservoir of the lamp with oil. "There you go, that should last you a good while."
+
+> put lamp in bag
+OK, you put the unlit oil lamp into the bag.
+
+> buy tinderbox
+You ask Wally for a tinderbox.
+
+He looks under his counter and then he checks his stock list.
+
+"I'm sorry sir," he says apologetically. "I'm out of stock of tinderboxes, I am expecting a fresh supply soon."
+
+You ask Wally if there is anywhere else where you might buy one.
+
+"Well, you could try the pawnbroker, I'm sure he'll have some old ones people have pawned," he tells you. "But be warned - he'll try to rip you off."
+
+> ask wally about pawnbroker
+You ask Wally about the pawnbroker.
+
+"That slimy little toad," he tells you with a sneer. "If his shop is shut he will be in the tavern, just ask someone to point him out."
 
 > buy kit
-You can't see any kits!
+You buy a sailmaker's kit from Wally for 6 gold coins.
+
+> buy rope
+You buy a length of rope from Wally for 10 gold coins.
+
+> put rope in bag
+OK, you put the length of rope into the bag.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
+
+End of Quay
+You're at the end of the quay. Here there is a ship's chandler shop, the door leading south.
 
 > e
-There is no route to the east, only north and out.
+You walk East.
+
+Halfway along Quay
+You're halfway along the quay, from where you can go East, West or South down a narrow alleyway.  Moored alongside the quay is a small sailing boat. In the boat sits a sailor.
+
+> ask tom about sail
+You ask Tom about his torn sail.
+
+"It got ripped in a big blow yesterday," he tells you. "I need to repair it so I can go fishing and all my needles are blunt."
+
+> give kit to tom
+You give the sailmaker's kit to Old Tom.
+
+His weather-beaten face breaks into a huge grin.
+
+"Thank you so much, young man," he tells you gratefully as he hands you the saw. "I can get this sail repaired now!"
+
+He selects a needle from the kit, threads it with some thick thread and starts sewing the rip in the sail together.
+
+You stand and watch as Tom competently repairs the sail. It doesn't take very long before he gets up and bends the sail to the mast and jib boom. He casts off from the quay, raises the sail and, with a wave of thanks, sails out of the harbour into the distance and is soon out of sight.
+
+Halfway along Quay
+You're halfway along the quay, from where you can go East, West or South down a narrow alleyway.
+
+> put saw in bag
+OK, you put the hand saw into the bag.
 
 > e
-There is no route to the east, only north and out.
+You walk East.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
+
+> s
+You walk South.
+
+Inside Tavern
+The interior of the tavern is no different from any other. The customers are few and far between and consist of a mixture of humans, orcs and elves. The tavernkeeper stands behind the bar waiting for orders. The door leads out North to the main street. Mounted on the wall behind the bar is a large case in which there is a stuffed fish.
+
+As you walk into the tavern, the slight hubbub of conversation ceases as the customers eye you up. Sensing no threat, the few people here resume their chatter as you walk up to the bar.
+
+Standing behind the counter is a large orc. He smiles as you approach, revealing a fearsome set of fanged teeth. He is, however, quite friendly.
+
+"Hello sir, my name is Relg," he says in a slightly lisping voice. "We've not seen you in here before, what can I get you?"
+
+> buy ale
+You buy a tankard of ale from Relg, which costs you one gold coin, and drink it. It is quite strong but very refreshing. When you have finished it you hand the tankard back to Relg.
+
+> ask about pawnbroker
+(Relg)
+You ask Relg where the pawnbroker sits.
+
+He points over to a dark corner of the tavern to the southeast.
+
+"That's him over there," he tells you. "If you want him to open his shop, I'd buy him a tankard of ale."
+
+Inside Tavern
+The interior of the tavern is no different from any other. The customers are few and far between and consist of a mixture of humans, orcs and elves. The tavernkeeper stands behind the bar waiting for orders. The door leads out North to the main street. Mounted on the wall behind the bar is a large case in which there is a stuffed fish. In a dark corner over to the SE the pawnbroker sits at a table on his own.
+
+> buy ale
+You buy some more ale from Relg, handing him one gold coin. He hands you the tankard.
+
+> se
+You walk SouthEast.
+
+Dark Corner of Tavern
+You are in a dark corner of the tavern, where a man - presumably the pawnbroker - sits at a table on his own, sullenly glaring at you. The counter is to the NW.  You approach the pawnbroker, who scowls at you.
+
+You ask the man to open his shop, handing him the tankard of ale. He literally pours the ale straight down his throat, slams the tankard down onto the table and stands up abruptly.
+
+"Well come on then!" he says to you irritably.
+
+He barges past you and heads for the door. You quickly follow, saying a hasty "Thank you!" to Relg, who bears his formidable fangs in an amused grin.
+
+You hurry out of the tavern in time to see the pawnbroker disappear down the alleyway next to the tavern and you follow him. By the time you have reached the end of the alleyway, the pawnbroker has unlocked the door of his shop and stormed inside, slamming the door behind himself.
+
+You open the door and venture into the dingy establishment.
+
+Inside Pawnbrokers
+You're inside the pawnbroker's shop, a decidedly dingy affair, dimly lit by a guttering lantern. The pawnbroker stands at his counter behind a glass screen, eying you warily. Inside the shop window you see a display of pawned items. The door leads North to the alleyway.
+
+As you walk into his shop, the pawnbroker scowls at you.
+
+"Well, now you've dragged me away from my drinking," he snaps at you irritably. "What d'ya want?"
+
+> buy tinderbox
+You tell the pawnbroker that you want to buy a tinderbox.
+
+He walks round from behind his counter and takes the tinderbox from the window display, then he walks back to his safe position behind his counter.
+
+"This might be old but it's in full working order," he tells you. "Yours for 10 gold coins."
+
+You tell him that you didn't come here to be robbed and offer him 4 gold coins, telling him that is what the chandler charges for a brand new one.
+
+He counters by saying that you wouldn't have come here if the chandler had any and drops his price to 8 gold coins. You laugh and offer him 5, he asks for 7 and you offer 6. He considers for a second or two and then accepts your offer.
+
+You hand over the 6 gold coins and he gives you the tinderbox.
+
+The pawnbroker comes out from behind his counter, walks to the door of his shop and opens it.
+
+"OK, out you go," he tells you brusquely. "I wanna get back to the tavern - although I think I'll go somewhere else where you can't find me!"
+
+Somewhat surprised at his manner, you walk slowly out of the shop into the alley outside. You have barely got out of the door before the pawnbroker slams it shut, locks it and then storms up the alleyway, barging past you in his haste to get back to the tavern.
+
+Outside Pawnbroker's Shop
+You're at the south end of the alleyway, outside a shop which has a triple-balled pawnbroker's sign hanging drunkenly above the window. The door leads South inside the shop.
+
+> say thank you
+I'm not sure who you are referring to.
+
+> put tinderbox in bag
+OK, you put the old tinderbox into the bag.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
+
+Long Narrow Alley
+You're in long narrow alley between two buildings which leads North and South. The buildings either side of you lean outwards precariously and their upper floors almost touch high above you.
+
+> n
+You walk North.
+
+Halfway along Quay
+You're halfway along the quay, from where you can go East, West or South down a narrow alleyway.
+
+> e
+You walk East.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
+
+> n
+You walk North.
+
+Outside Armourer's Forge
+You're on the quay where ships and boats dock. The quay continues South and NW. In the buildings that line the quay to the east there is a armourer's forge. The sound of hammering coming from the forge is very loud. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
 
 > nw
-There is no route to the northwest, only north and out.
+You walk NorthWest.
 
-> board boat
-Sorry, I didn't understand that command.
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. A cacophony of sound is coming from the forge to the north. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
 
-> give kit
-You can't see any kits!
+> n
+You walk North.
 
-> examine beeswax
-You see no such thing.
-
-> up
-There is no route up, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> buy helmet
-Sorry, I'm not sure which object you are trying to buy.
-
-> buy shield
-You can't see any shields!
+The Weaponsmith's Forge
+You are in the weaponsmith's forge. The weaponsmith is supervising a couple of journeymen and several apprentices who are busy making weapons, making a terrific din as they do so. The quay is South through the open doors. On the wall is a large notice.
 
 > buy sword
-Sorry, I'm not sure which object you are trying to buy.
+You indicate to the armourer that you want to buy a sword.
 
-> examine shield
-You can't see any shields!
+He nods happily and gestures to you to select one. You heft a few in your hand until you find one that feels nicely balanced.
 
-> examine sword
-You see no such thing.
+You shake the armourer's hand to seal the deal and give him 40 gold coins from your pouch. He throws in a leather scabbard to keep the sword in for free, which you attach to your belt and slide the sword in.
 
-> examine helmet
-You see no such thing.
+The armourer bobs his head in thanks and goes back to supervising his workers.
+
+> s
+You walk South.
+
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. A cacophony of sound is coming from the forge to the north. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
 
 > w
-There is no route to the west, only north and out.
+You walk West.
 
-> sw
-There is no route to the southwest, only north and out.
+Lookout Point
+You're at the end of the quay, on top of a low cliff known locally as Lookout Point. Here stands the beacon that was once used to warn ships of the dangerous rocks just offshore. Just off the tip of the headland further out along the coast there is a rocky island on which a proper lighthouse has been built. You can only go East from here, but you could climb up the ladder that is attached to the beacon.
 
-> se
-There is no route to the southeast, only north and out.
+> drop all except spanner
+Ok, you put down the rusty crowbar, the canvas pouch, the sailmaker's kit and the house key.
 
-> s
-There is no route to the south, only north and out.
+> u
+You climb up the ladder as far as you can go.
 
-> ne
-There is no route to the northeast, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> down
-There is no route down, only north and out.
-
-> up
-There is no route up, only north and out.
-
-> drop shield
-You can't see any shields!
-
-> sit on shield
-Right idea - wrong location!
-
-> drop all
-Ok, you put down the travel rations.
-
-> sit on shield
-Right idea - wrong location!
-
-> slide down
-Sorry, I didn't understand that command.
-
-> examine seashells
-You can't see any seashells!
-
-> take seashells
-Sorry, I'm not sure which object you are trying to take.
-
-> take shield
-You can't see any shields!
-
-> examine roof
-You can't see the thatched roof.
-
-> up
-There is no route up, only north and out.
-
-> up
-There is no route up, only north and out.
-
-> up
-There is no route up, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> up
-There is no route up, only north and out.
-
-> take all
-Ok, you pick up the travel rations.
-
-> n
-You cannot leave without saying "Hello" to Anne!
-
-> up
-There is no route up, only north and out.
-
-> se
-There is no route to the southeast, only north and out.
-
-> se
-There is no route to the southeast, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> nw
-There is no route to the northwest, only north and out.
-
-> n
-You cannot leave without saying "Hello" to Anne!
-
-> examine plant
-You see no such thing.
-
-> pick plant
-Sorry, I'm not sure which object you are trying to pick.
-
-> s
-There is no route to the south, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> se
-There is no route to the southeast, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> sw
-There is no route to the southwest, only north and out.
-
-> sw
-There is no route to the southwest, only north and out.
-
-> sw
-There is no route to the southwest, only north and out.
-
-> w
-There is no route to the west, only north and out.
-
-> give shells
-You have no seashells to give to Anne!
-
-> show plant
-Sorry, I'm not sure which object you are trying to show.
-
-> anne "potion"
-I did not understand the word ""potion"".
-
-> anne "make potion"
-I did not understand the word ""make".
-
-> give carnation
-Sorry, I'm not sure which object you are trying to show.
-
-> give buttercup
-You can't see the buttercups!
-
-> give beeswax
-Sorry, I'm not sure which object you are trying to show.
-
-> e
-There is no route to the east, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> look around
-You look all around but see nothing of any particular interest.
-
-> ne
-There is no route to the northeast, only north and out.
-
-> n
-You cannot leave without saying "Hello" to Anne!
-
-> ne
-There is no route to the northeast, only north and out.
-
-> search vegetation
-You can't see any vegetation!
-
-> e
-There is no route to the east, only north and out.
-
-> examine bob
-You see no such thing.
-
-> examine pipe
-A simple metal pipe that takes the smoke from the stove out through the thatched roof.
-
-> bob "tom"
-I did not understand the word ""tom"".
-
-> bob "maze"
-I did not understand the word ""maze"".
-
-> bob "trolls"
-I did not understand the word ""trolls"".
-
-> bob "children"
-I did not understand the word ""children"".
-
-> show amulet
-Sorry, I'm not sure which object you are trying to show.
-
-> bob "find children"
-I did not understand the word ""find".
-
-> give tobacco
-Sorry, I'm not sure which object you are trying to show.
-
-> light lantern
-Sorry, I'm not sure which object you are trying to switch/turn/flick.
-
-> s
-There is no route to the south, only north and out.
-
-> up
-There is no route up, only north and out.
-
-> n
-You cannot leave without saying "Hello" to Anne!
-
-> down
-There is no route down, only north and out.
-
-> e
-There is no route to the east, only north and out.
-
-> w
-There is no route to the west, only north and out.
-
-> s
-There is no route to the south, only north and out.
-
-> examine box
-You see no such thing.
-
-> read letters
-Sorry, I'm not sure which object you are trying to read.
+Top of Ladder by Basket
+You are standing near the top of the ladder attached to the beacon. Above you is the large metal basket in which the beacon fire would have been lit. You are about three metres above the ground and have a good view out to sea and of Torham Bay itself.
 
 > climb in
-Sorry, I'm not sure which object you are trying to climb down.
+You climb into the beacon basket.
 
-> s
-There is no route to the south, only north and out.
+Standing In Basket
+You are standing in the metal basket on top of the beacon. There is a thick layer of ashes under your feet. You have a splendid view out to sea and of Torham Bay itself below you. The only way you can go is to climb out of the basket onto the ladder.
 
-> w
-There is no route to the west, only north and out.
+> search ashes
+You search through the ashes in the bottom of the basket and you fingers find a metal object. You pick it up and find that it is an old chisel - you wonder how on earth it got in here?!
+
+> climb out
+You climb out of the beacon basket.
+
+Top of Ladder by Basket
+You are standing near the top of the ladder attached to the beacon. Above you is the large metal basket in which the beacon fire would have been lit. You are about three metres above the ground and have a good view out to sea and of Torham Bay itself.
+
+> put chisel in bag
+OK, you put the old chisel into the bag.
+
+> unbolt nuts
+Using the spanner, you unbolt the nuts and bolts from the top of the ladder. You drop the bolts onto the ground below and then you carefully climb down the ladder to ground level, where you unbolt the bottom set of bolts, again dropping them on the ground. You then pull the ladder free of the beacon and lay it on the ground.
+
+Lookout Point
+You're at the end of the quay, on top of a low cliff known locally as Lookout Point. Here stands the beacon that was once used to warn ships of the dangerous rocks just offshore. Just off the tip of the headland further out along the coast there is a rocky island on which a proper lighthouse has been built. You can only go East from here.  Also here is a rusty crowbar, a canvas pouch, an old wooden ladder, a sailmaker's kit, a house key and some nuts and bolts.
+
+> unbolt nuts
+You have already unbolted the bolts.
+
+> put spanner in bag
+OK, you put the old spanner into the bag.
+
+> get crowbar, pouch and key
+Ok, you pick up the rusty crowbar, the canvas pouch and the house key.
+
+> put crowbar, pouch and key in bag
+OK, you put the rusty crowbar, the canvas pouch and the house key into the bag.
+
+> get ladder
+OK, you pick up the ladder in both hands and carry it over your shoulder.
 
 > e
-There is no route to the east, only north and out.
+You walk East.
+
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. A cacophony of sound is coming from the forge to the north. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
+
+> ne
+You walk NorthEast.
+
+A Wide Courtyard
+You are in a wide courtyard behind the quayside buildings of the town, formed by the fences of the back yards of the houses that surround you. At the centre of the courtyard stands a communal water pump. Alleys lead off North, NE and SE between the houses, while the way back to the quay is SW. Heading East is a wider alley which leads to a better part of the town.
+
+> e
+You walk East.
+
+By House
+You are standing by the front of a house at the end of the alley, which goes West. The front door, which leads East, is closed.
+
+> get key
+(from the sturdy bag)
+OK, you take the house key from the bag.
+
+> e
+You unlock the door, open it and walk into the house, closing and locking the door behind you.
+
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.
+
+> e
+You walk East.
+
+The Kitchen
+You're in the kitchen, which is in an extension built at the back of the house. The main room is West and the garden East. There is a hole in the kitchen ceiling due to missing roof tiles and damaged roofing felt.
+
+> e
+You walk East.
+
+The Garden
+You're in the garden, which is divided into an area of grass and a cultivated vegetable plot. At the east end of the garden stands a large tree. The door to the kitchen is West.
+
+> prop ladder against wall
+You prop the ladder against the extension so that you can climb up it onto the roof.
+
+The Garden
+You're in the garden, which is divided into an area of grass and a cultivated vegetable plot. At the east end of the garden stands a large tree. The door to the kitchen is West. Propped against the extension is the wooden ladder.
+
+> w
+You walk West.
+
+The Kitchen
+You're in the kitchen, which is in an extension built at the back of the house. The main room is West and the garden East. There is a hole in the kitchen ceiling due to missing roof tiles and damaged roofing felt.
+
+> w
+You walk West.
+
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.
+
+> w
+You unlock the door, open it and walk out of the house, closing and locking the door behind you.
+
+By House
+You are standing by the front of a house at the end of the alley, which goes West. The front door, which leads East, is closed.
+
+> w
+You walk West.
+
+A Wide Courtyard
+You are in a wide courtyard behind the quayside buildings of the town, formed by the fences of the back yards of the houses that surround you. At the centre of the courtyard stands a communal water pump. Alleys lead off North, NE and SE between the houses, while the way back to the quay is SW. Heading East is a wider alley which leads to a better part of the town.
+
+> sw
+You walk SouthWest.
+
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. A cacophony of sound is coming from the forge to the north. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
+
+> se
+You walk SouthEast.
+
+Outside Armourer's Forge
+You're on the quay where ships and boats dock. The quay continues South and NW. In the buildings that line the quay to the east there is a armourer's forge. The sound of hammering coming from the forge is very loud. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
+
+> e
+You walk East.
+
+The Armourer's Forge
+You are inside the armourer's forge, where the armourer, together with several journeymen and apprentices, are hammering away. The noise is deafening. The open doors lead West to the quay outside. On the wall is a notice.
+
+> buy shield
+You will need to take the pouch containing the gold coins out of the bag before you can buy anything.
+
+> get pouch
+(from the sturdy bag)
+OK, you take the canvas pouch from the bag.
+
+> buy shield
+You indicate to the armourer that you would like to buy a shield.
+
+He gestures for you to select one from his stock and you chose one that is a good size and feels good on your arm.
+
+You shake him by the hand to seal the sale and count out 15 gold coins from your pouch, which you hand to him.
+
+He nods in thanks and returns to supervising his workers.
+
+> buy helmet
+You indicate to the armourer that you would like to buy a helmet.
+
+He gestures for you to select one from his stock and you chose one that provides sufficient protection for your face and neck and is a comfortable fit.
+
+You shake him by the hand to seal the sale and count out 15 gold coins from your pouch, which you hand to him.
+
+He nods in thanks and returns to supervising his workers.
+
+> wear helmet
+Ok, you put on the helmet.
+
+> w
+You walk West.
+
+Outside Armourer's Forge
+You're on the quay where ships and boats dock. The quay continues South and NW. In the buildings that line the quay to the east there is a armourer's forge. The sound of hammering coming from the forge is very loud. On a blackboard fixed to one of the open doors of the forge is chalked a price list.
+
+> s
+You walk South.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
+
+> e
+You move east.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> sw
+You walk SouthWest.
+
+Top of Steep Track
+You're some distance southwest of the main road, where a long, straight track slopes steeply Down to Fisherman's Cove. You can see and hear seabirds soaring around on the air currents above you.
 
 > d
-There is no route down, only north and out.
+You walk Down.
+
+Fisherman's Cove
+You're at the foot of the slope in Fisherman's Cove. Here, a short wooden jetty juts out South between jumbles of wave-smoothed rocks. In the sky above you see seabirds flying around, their raucous calls echoing off the walls of the cove.
+
+As you reach the bottom of the track, you see two young boys standing on the end of the jetty. They are "skipping" flat stones across the calm waters of the cove, trying to get them into the cave in the rocky outcrop. You stand, quietly watching them for a couple of minutes, admiring their skill at skipping the stones across the water. You notice with some surprise that the boys seem to be dressed in their best clothes.
+
+They are laughing their heads off as they try to outdo each other with the number of times they can skip a stone into the cave, but eventually they run out of flat stones. One of the boys says to the other, "Come on, we'll be late for the wedding!", and they turn around and run towards you. With a cheery "Hello mister, nice helmet!" as they pass you, laughing at your headgear, they run up the steep track, over the brow of the hill and are lost to view.
+
+> follow boys
+You run up the slope after the boys.
+
+As you get to the top you seen them turn west and head towards Torham Bay. They are running quite fast and you have to jog quickly to keep them in sight.
+
+They are quite a way ahead of you, but as they reach the main street you see them turn southeast and you guess that they are heading for the chapel. You slow down and walk the rest of the way to the main street.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
+
+> se
+You walk SouthEast.
+
+By Chapel
+You're outside the tiny chapel of St.Celia. The chapel door is East and the lane leads NW.
+
+You see a crowd of people outside the chapel, all dressed in their finest clothes. You realise after a moment that a wedding is taking place in the chapel.
+
+Not wishing to intrude, you make your way back to the main street...
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is open.
 
 > e
-There is no route to the east, only north and out.
+You move east.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> sw
+You walk SouthWest.
+
+Top of Steep Track
+You're some distance southwest of the main road, where a long, straight track slopes steeply Down to Fisherman's Cove. You can see and hear seabirds soaring around on the air currents above you.
+
+> d
+You walk Down.
+
+Fisherman's Cove
+You're at the foot of the slope in Fisherman's Cove. Here, a short wooden jetty juts out South between jumbles of wave-smoothed rocks. In the sky above you see seabirds flying around, their raucous calls echoing off the walls of the cove.
+
+> search rocks
+You search amongst the rocks and come across an old fishing net, which you pick up.
+
+> put net in bag
+OK, you put the old fishing net into the bag.
+
+> s
+You walk South.
+
+On Old Jetty
+You are standing on the old jetty, which juts out about 5 metres into the waters of the cove, which itself is about 50 metres in diameter. The rocky cliff around the cove ends in an outcrop and you can see the dark opening of a cave just above sea level, directly south opposite the jetty. In the waters of the cove you see the dark shapes of large fish swimming lazily around below the surface.
+
+> find stones
+You look around you for some flat stones and you pick up several.
+
+> skip stones
+You throw the flat stones underarm across the water, attempting to "skip" them as many times as you can.
+
+You have varied success, one stone you manage to skip six times. One stone even ends up in the cave opposite.
+
+Eventually you run out of stones.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
 
-> n
-You cannot leave without saying "Hello" to Anne!
+Fisherman's Cove
+You're at the foot of the slope in Fisherman's Cove. Here, a short wooden jetty juts out South between jumbles of wave-smoothed rocks. In the sky above you see seabirds flying around, their raucous calls echoing off the walls of the cove.
 
-> look n
-You look to the North, but see nothing that is of any interest to you.
+> u
+You walk Up.
 
-> look w
-You look to the West, but see nothing that is of any interest to you.
+Top of Steep Track
+You're some distance southwest of the main road, where a long, straight track slopes steeply Down to Fisherman's Cove. You can see and hear seabirds soaring around on the air currents above you.
 
-> w
-There is no route to the west, only north and out.
+> put pouch and key in bag
+OK, you put the canvas pouch and the house key into the bag.
 
-> look n
-You look to the North, but see nothing that is of any interest to you.
+> drop shield
+Ok, you put down the round shield.
 
-> look e
-You look to the East, but see nothing that is of any interest to you.
+> sit on shield
+Turning the shield so that the rounded side is bottom-most, you sit down on the shield.
 
-> e
-There is no route to the east, only north and out.
+Sitting On Shield
+You are sitting cross-legged on the shield, at the top of the track above Fisherman's Cove.
 
-> look e
-You look to the East, but see nothing that is of any interest to you.
+> push off
+You push off and the shield starts sliding down the long, steep slope.
 
-> e
-There is no route to the east, only north and out.
+You cling on for dear life as you gather speed, the shield bouncing off the ground and threatening to dislodge you from your perch.
 
-> examine boulder
-You see no such thing.
+You career past the mass of rocks at the bottom of the slope, onto the jetty and zoom off the end...
 
-> climb boulder
-Sorry, I'm not sure which object you are trying to climb.
+SKIP - you hit the water and skip off the surface like a flat stone...
 
-> examine wall
-There are walls in a lot of places, holding things up or in. If you are outside there may not be any walls within sight.
+SKIP - you hit the water again and bounce off...
 
-> jump on ledge
-Sorry, I'm not sure which object you are trying to climb down.
+SKIP - you hit the water a third time and see that you are heading straight towards the cave in the outcrop...
 
-> n
-You cannot leave without saying "Hello" to Anne!
+The shield, with you on it, hurtles into the cave and you are thrown against the far wall...
 
-> n
-You cannot leave without saying "Hello" to Anne!
+CRASH - you hit the far wall of the cave, bashing your head against the rock.
 
-> down
-There is no route down, only north and out.
+You see stars and are temporarily stunned, but your helmet has saved you from dashing your brains out and after a few minutes you recover your senses.
 
-> examine tower
-You see no such thing.
+You groggily get to your feet and look around you.
+
+Cave in Outcrop
+You're in a tiny cave inside the rocky outcrop. The walls are worn smooth from the action of the waves and underfoot there are hundreds of seashells. The cave entrance faces north towards Fisherman's Cove.   Also here is a round shield.
+
+> x cave
+The cave is only a couple of metres across and the opening looks out across the waters of the cove to the old jetty, which is due north.
+
+Back at the chapel, the wedding ceremony is over and the happy couple and all their guests have have retired to the tavern for the wedding reception.
 
 > look up
-You look up, but see nothing that is of any interest to you.
+You look up and see that there is a rock funnel above you that you might be able to climb up.
 
-> examine opening
-You can't see any openings!
+Cave in Outcrop
+You're in a tiny cave inside the rocky outcrop. The walls are worn smooth from the action of the waves and underfoot there are hundreds of seashells. The cave entrance faces north towards Fisherman's Cove. Above you there is a rock funnel which you can probably climb up.  Also here is a round shield.
 
-> climb opening
-You can't see any openings!
+> fill bag with shells
+You fill the bag with lots of seashells.
 
-> tie rope to crowbar
-You can't see any ropes!
+> get rope
+(from the sturdy bag)
+OK, you take the length of rope from the bag.
 
-> throw crowbar at opening
-You can't see any openings!
+> tie rope to shield
+You tie one end of the rope to the straps on the back of the shield.
 
-> climb rope
-You can't see any ropes!
+> tie rope around waist
+You tie the other end of the rope around your waist.
+
+> climb up funnel
+Bracing your arms and legs against the sides of the rock funnel, you work your way slowly up until you can climb out of the funnel at the top of the outcrop above the cove.
+
+Top of Outcrop Above Cove
+You're standing on top of the rocky outcrop. Below to the north are the waters of Fisherman's Cove, while to the south is the open sea. You reckon you could go NE around the top of the outcrop then down to the cove, but there would be no coming back. The only other way you can go would be to climb back down the rock funnel into the cave.
+
+> pull rope
+Untying the rope from around your waist first, you pull the shield up through the rock funnel. You then untie the rope from around the straps of the shield.
+
+Top of Outcrop Above Cove
+You're standing on top of the rocky outcrop. Below to the north are the waters of Fisherman's Cove, while to the south is the open sea. You reckon you could go NE around the top of the outcrop then down to the cove, but there would be no coming back. The only other way you can go would be to climb back down the rock funnel into the cave.  Also here is a round shield.
+
+> get shield
+Ok, you pick up the round shield.
+
+> ne
+You clamber NE along the top of the outcrop, almost slipping a couple of times on the slippery rocks, and then descend to the shore of the cove by the jetty.
+
+Fisherman's Cove
+You're at the foot of the slope in Fisherman's Cove. Here, a short wooden jetty juts out South between jumbles of wave-smoothed rocks. In the sky above you see seabirds flying around, their raucous calls echoing off the walls of the cove.
+
+> u
+You walk Up.
+
+Top of Steep Track
+You're some distance southwest of the main road, where a long, straight track slopes steeply Down to Fisherman's Cove. You can see and hear seabirds soaring around on the air currents above you.
+
+> ne
+You walk NorthEast.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> e
+You walk East.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
 
 > sw
-There is no route to the southwest, only north and out.
+You move Southwest...
 
-> down
-There is no route down, only north and out.
+...following Anne's directions you turn south at the next junction of paths and then east at the next. Eventually you arrive at the entrance to the old silver mine.
 
-> down
-There is no route down, only north and out.
+Outside Mine
+You are standing outside the entrance to an abandoned mine, which leads South into the hillside. It is low and narrow, and also very dark inside. The path leads West from here.  A wooden board propped up next to the mine entrance has the following painted on it: KEEP OUT - DANGER OF ROCKFALLS.
 
-> examine table
-A simple wooden table for eating at.
+> get lamp and tinderbox
+(from the sturdy bag)
+OK, you take the unlit oil lamp and the old tinderbox from the bag.
 
-> examine tankards
-You see no such thing.
+> light lamp
+Using your tinderbox, you light the lamp, which shines with a bright light.
 
-> examine barrel
-You see no such thing.
+> s
+You walk South.
 
-> drop potion in barrel
-Sorry, I'm not sure which object you're referring to.
+Inside Mine
+You are inside the mine. The mine entrance is a small oblong of light about 50 metres North, but the light from your lantern penetrates the darkness ahead and behind you. Lying on the floor of the mine tunnel at the edge of the pool of light thrown out by the lantern, a few metres further south, you see a hammer. You can go North out of the mine tunnel or South further into the mine.
 
-> up
-There is no route up, only north and out.
+As you move into the mine you feel small stones fall upon your head and shoulders from the roof of the tunnel. It is unsafe in here and you had better not go any further.
 
-> wait
+> run s
+You quickly dash south further into the mine and grab the hammer from where it lies on the floor.
+
+Suddenly there is a groaning sound and large lumps of rock start to fall from the roof of the mine tunnel. You turn around and run for your life towards the tunnel opening with the tunnel collapsing behind you.
+
+As you get to the tunnel entrance you throw yourself forward and land on the ground outside as a cloud of dust from the collapsing tunnel billows over you, covering you with a layer of dust and small stones.
+
+You get to your feet and, dusting yourself down, breathe a sigh of relief at your narrow escape.
+
+Outside Mine
+You are standing outside the former entrance to the abandoned mine, which is now completely blocked by tons of rock. The only way you can go now is West through the hills.  A wooden board propped up next to the mine entrance has the following painted on it: KEEP OUT - DANGER OF ROCKFALLS.
+
+> extinguish lamp
+You extinguish the lamp.
+
+> put lamp and tinderbox in bag
+OK, you put the unlit oil lamp and the old tinderbox into the bag.
+
+> w
+You walk West.
+
+Path Through Hills
+You are on a dirt path that winds through the low hills. It branches off North, Southwest, Southeast, East and West here.
+
+> n
+You walk North.
+
+Path Through Hills
+You are on a dirt path that winds through the low hills. It branches off NE, South and East here.
+
+> ne
+You walk NorthEast.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> e
+You walk East.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> se
+You walk SouthEast.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> s
+You walk South.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> s
+You walk South.
+
+In Cottage
+You are in the single room of the cottage, which is much larger than it would appear to be from outside. It is light, airy and very tidy. Against one wall is a bed and there is a table and chair by the opposite wall. Under the window in the south wall is a sink and in the middle of the room a wood-burning stove with a chimney pipe that goes up through the ceiling.  Also here is some plants.  Here you see an elderly lady, rocking in her chair.
+
+> get seashells
+(from the sturdy bag)
+OK, you take the seashells from the bag.
+
+> give seashells
+You give the seashells to Anne, who is absolutely delighted to get them.
+
+"Oh thank you, Duke Alaric," she says happily, putting the seashells carefully away. "These will cover several of my boxes."
+
+"Now, I said I would make you a sleeping potion, didn't I?" she says to you. "Well, I will need the Cuckoo Pint you showed me, plus some cobwebs, a fresh carnation and a bunch of buttercups. The flowers must not be crushed as they will lose their potency."
+
+> get plants
+Ok, you pick up the plants.
+
+> give plants
+You give the plants to Anne.
+
+"That's one of the ingredients for the sleeping potion," Anne tells you, taking the plants from you.
+
+> n
+You walk North.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> e
+You walk East.
+
+Woods East of Cottage
+You are in woodland to the southeast of the moors. Through the trees you can just see a cottage some distance to the west. The ground between the trees is carpeted with flowers.
+
+> pick buttercups
+You pick a bunch of buttercups.
+
+> nw
+You walk NorthWest.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> n
+You walk North.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+> n
+You walk North.
+
+Edge of Forest
+You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
+
+> n
+You walk North.
+
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+
+> e
+You walk East.
+
+By Forester's Hut
+You are in the forest, standing by the open doorway into an old forester's hut. The door which once filled the doorway is long gone and you can go In to the hut quite easily. Paths lead in all directions between the trees of the forest.
+
+> in
+You walk In.
+
+In Forester's Hut
+You are inside the hut, which was abandoned long ago. It is completely empty now you have swept the leaves and rotting vegetation out of the doorway to reveal the floor. A short section of floorboard has been removed to reveal a space between the joists.  Also here is a short length of floorboard.
+
+> feel between joists
+You search between the joists again but all that remains under there are cobwebs and dust.
+
+> get cobwebs
+You collect as many of the cobwebs from the space in between the joists as you can.
+
+It occurs to you that you should put the cobwebs into something, they are so light if you put them down anywhere they will probably blow away!
+
+> out
+You walk Out.
+
+By Forester's Hut
+You are in the forest, standing by the open doorway into an old forester's hut. The door which once filled the doorway is long gone and you can go In to the hut quite easily. Paths lead in all directions between the trees of the forest.
+
+> w
+You walk West.
+
+In Forest
+You are in a vast forest where paths lead off in all directions. From the West you can hear the sound of running water and a little way to the East you see what appears to be a forester's hut. The moor is to the South.
+
+> s
+You walk South.
+
+Edge of Forest
+You are to the north of the moorland at the southern edge of a vast forest. You can go North into the forest or South, SE or SW cross the moor. The megalith stands alone on the low hilltop on the horizon a couple of kilometres to the South.
+
+> sw
+You walk SouthWest.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> w
+You walk West.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> n
+You walk North.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> w
+You move west.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is closed and there is a notice pinned to it.
+
+> se
+You walk SouthEast.
+
+By Chapel
+You're outside the tiny chapel of St.Celia. The chapel door is East and the lane leads NW.
+
+> e
+You walk East.
+
+In Chapel
+You're inside the tiny chapel. There is only room for two rows of pews in front of the altar. The door leads West.
+
+> look under pews
+You look under the pews and see on the floor a white carnation, which you pick up.
+
+> w
+You walk West.
+
+By Chapel
+You're outside the tiny chapel of St.Celia. The chapel door is East and the lane leads NW.
+
+> nw
+You walk NorthWest.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is closed and there is a notice pinned to it.
+
+> e
+You move east.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> e
+You walk East.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> e
+You walk East.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> se
+You walk SouthEast.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> s
+You walk South.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> s
+You walk South.
+
+In Cottage
+You are in the single room of the cottage, which is much larger than it would appear to be from outside. It is light, airy and very tidy. Against one wall is a bed and there is a table and chair by the opposite wall. Under the window in the south wall is a sink and in the middle of the room a wood-burning stove with a chimney pipe that goes up through the ceiling.  Here you see an elderly lady, rocking in her chair.
+
+> give cobwebs
+You give the cobwebs to Anne.
+
+"That's another of the ingredients for the sleeping potion," Anne tells you, taking the cobwebs from you.
+
+> give carnation
+You give the carnation to Anne.
+
+"That's another of the ingredients for the sleeping potion," Anne tells you, taking the carnation from you.
+
+> give buttercups
+You give the buttercups to Anne.
+
+"That's the last of the ingredients for the sleeping potion," Anne tells you, taking the buttercups from you. "Let's make this potion for you."
+
+Anne gets up from her chair and walks over to a table, putting the ingredients you gave her on it. She takes a pestle and mortar from a cupboard and proceeds to mix the ingredients of the sleeping potion. She adds a few things from her own stocks and when she finishes, hands you a small waxy ball.
+
+"There you are," she says. "This must be dissolved in a liquid. Use it wisely, it's powerful stuff!"
+
+Anne stands up and gestures towards her door.
+
+"I have to go and visit my friend Bella," she tells you. "I'll be back in an hour or so."
+
+You take that as your cue to leave, so you walk out of her cottage. She follows you out and, after locking the door, walks off into the woods and is lost to view.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is closed. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> n
+You walk North.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> ne
+You walk NorthEast.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> se
+You walk SouthEast.
+
+Path to Slate Quarry
+You are on a path which leads South to the old slate quarry and NW back to the moors.
+
+> s
+You walk South.
+
+The Old Slate Quarry
+You are at the end of the path in an old slate quarry. The slate seems to have all been quarried out as the place is long-abandoned. On the east side of the quarry there is a small ramshackle hut.
+
+> e
+You walk East.
+
+Inside Hut
+You are crouched inside the hut which is so small it was probably just used to store tools and other supplies, now long gone. You can only go West to the quarry from here.  It is long-empty except for some rusty roofing tacks which have fallen onto the floor of the hut.
+
+> get tacks
+You pick up all the roofing tacks from the floor of the hut.
+
+Inside Hut
+You are crouched inside the hut which is so small it was probably just used to store tools and other supplies, now long gone. You can only go West to the quarry from here.
+
+> w
+You walk West.
+
+The Old Slate Quarry
+You are at the end of the path in an old slate quarry. The slate seems to have all been quarried out as the place is long-abandoned. On the east side of the quarry there is a small ramshackle hut.
+
+> demolish hut
+With a few kicks and some pushes, you demolish the ramshackle hut, leaving a pile of wood on the floor of the quarry.
+
+The Old Slate Quarry
+You are at the end of the path in an old slate quarry. The slate seems to have all been quarried out as the place is long-abandoned. On the east side of the quarry is a pile of wood that is all that remains of the old hut.
+
+> search wood
+You search amongst the pile of planks and find a square of roofing felt, which you pull out.
+
+> get chisel
+(from the sturdy bag)
+OK, you take the old chisel from the bag.
+
+> search quarry
+The slate has largely been quarried out but you see one large lump which might just be useful.
+
+The Old Slate Quarry
+You are at the end of the path in an old slate quarry. The slate seems to have all been quarried out as the place is long-abandoned. On the east side of the quarry is a pile of wood that is all that remains of the old hut.  Also here is a lump of slate.
+
+> chisel slate
+Using the hammer and chisel, you split some slates from the remaining lump, trimming them square until you have enough slates to fix Jennet's roof. As you split the last slate, the rest of the lump disintegrates into pieces.
+
+The Old Slate Quarry
+You are at the end of the path in an old slate quarry. The slate seems to have all been quarried out as the place is long-abandoned. On the east side of the quarry is a pile of wood that is all that remains of the old hut.  Also here is some slates.
+
+> get slates
+Ok, you pick up the slates.
+
+> put slates, hammer, rope, felt, tacks and potion in bag
+OK, you put the slates, the miner's hammer, the length of rope, the roofing tacks and the sleeping potion into the bag.  The roofing felt is too big to fit inside the bag.
+
+> drop chisel
+Ok, you put down the old chisel.
+
+> n
+You walk North.
+
+Path to Slate Quarry
+You are on a path which leads South to the old slate quarry and NW back to the moors.
+
+> nw
+You walk NorthWest.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> w
+You walk West.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+> w
+You walk West.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> w
+You walk West.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> n
+You walk North.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> w
+You move west.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is closed and there is a notice pinned to it.
+
+> n
+You walk North.
+
+Outside Armourer's Forge
+You're on the quay where ships and boats dock. The quay continues South and NW. In the buildings that line the quay to the east there is a armourer's forge.
+
+> nw
+You walk NorthWest.
+
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. The forge is now closed and locked.
+
+> ne
+You walk NorthEast.
+
+A Wide Courtyard
+You are in a wide courtyard behind the quayside buildings of the town, formed by the fences of the back yards of the houses that surround you. At the centre of the courtyard stands a communal water pump. Alleys lead off North, NE and SE between the houses, while the way back to the quay is SW. Heading East is a wider alley which leads to a better part of the town.
+
+> e
+You walk East.
+
+By House
+You are standing by the front of a house at the end of the alley, which goes West. The front door, which leads East, is closed.
+
+> get key
+(from the sturdy bag)
+OK, you take the house key from the bag.
+
+> e
+You unlock the door, open it and walk into the house, closing and locking the door behind you.
+
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.
+
+> e
+You walk East.
+
+The Kitchen
+You're in the kitchen, which is in an extension built at the back of the house. The main room is West and the garden East. There is a hole in the kitchen ceiling due to missing roof tiles and damaged roofing felt.
+
+> e
+You walk East.
+
+The Garden
+You're in the garden, which is divided into an area of grass and a cultivated vegetable plot. At the east end of the garden stands a large tree. The door to the kitchen is West. Propped against the extension is the wooden ladder.
+
+> drop shield and key
+Ok, you put down the round shield and the house key.
+
+> u
+You climb up the ladder onto the kitchen roof.
+
+On Kitchen Roof
+You're on the kitchen roof. A ladder is propped against the edge of the roof here which you can climb down. There are some roof tiles missing from the corner of the roof and the roofing felt is damaged, causing a leak.
+
+> get saw, hammer, slates, felt and tacks from bag
+OK, you take the hand saw, the miner's hammer, the slates and the roofing tacks from the bag.
+
+> mend roof
+You first of all replace the roofing felt, securing it to the rafters of the roof with a few of the tacks. You then remove the remaining broken tiles and replace them all with the ones you got from the quarry, nailing them down using the rest of the tacks.
+
+On Kitchen Roof
+You're on the kitchen roof. A ladder is propped against the edge of the roof here which you can climb down. The roofing felt has been repaired and the missing tiles replaced, stopping the roof from leaking.
+
+> put hammer in bag
+OK, you put the miner's hammer into the bag.
+
+> d
+You climb down the ladder into the garden.
+
+The Garden
+You're in the garden, which is divided into an area of grass and a cultivated vegetable plot. At the east end of the garden stands a large tree. The door to the kitchen is West. Propped against the extension is the wooden ladder.  Also here is a round shield and a house key.
+
+> e
+You walk East.
+
+East End of Garden
+You are at the east end of the garden, standing under the branches of a large tree. You can go West to the other end of the garden, or you could climb Up the tree into the branches.
+
+> drop all
+Ok, you put down the hand saw.
+
+> climb into tree
+You climb up into the tree as far as you can safely go.
+
+In Branches of Tree
+You are standing on a thick branch of the tree, having climbed up it as far as you can safely go. You can only climb back Down from here.
+
+> search branches
+You look up into the branches of the tree and see what appears to be a slingshot, hanging from a branch about two metres from you.
+
+In Branches of Tree
+You are standing on a thick branch of the tree, having climbed up it as far as you can safely go. You can only climb back Down from here.  About three metres above you, hanging from a branch, you see a slingshot.
+
+> draw sword
+OK, you draw your sword from its scabbard in one movement with a satisfying swish.
+
+> get slingshot with sword
+You reach out and try to get the slingshot with the sword but the slingshot is too far away.
+
+> sheath sword
+You sheath your sword in the scabbard.
+
+> get crowbar
+(from the sturdy bag)
+OK, you take the rusty crowbar from the bag.
+
+> throw crowbar at slingshot
+You toss the rusty crowbar up at the slingshot. It dislodges it and falls to the ground at the base of the tree. The slingshot drops right into your waiting hand.
+
+In Branches of Tree
+You are standing on a thick branch of the tree, having climbed up it as far as you can safely go. You can only climb back Down from here.
+
+> put slingshot in bag
+OK, you put the slingshot into the bag.
+
+> d
+You climb back down the tree to the ground.
+
+East End of Garden
+You are at the east end of the garden, standing under the branches of a large tree. You can go West to the other end of the garden, or you could climb Up the tree into the branches.  Also here is a rusty crowbar and a hand saw.
+
+> get all
+Ok, you pick up the rusty crowbar and the hand saw.
+
+> w
+You walk West.
+
+The Garden
+You're in the garden, which is divided into an area of grass and a cultivated vegetable plot. At the east end of the garden stands a large tree. The door to the kitchen is West. Propped against the extension is the wooden ladder.  Also here is a round shield and a house key.
+
+> get shield and key
+Ok, you pick up the round shield and the house key.
+
+> w
+You walk West.
+
+The Kitchen
+You're in the kitchen, which is in an extension built at the back of the house. The main room is West and the garden East. The hole in the ceiling has now been repaired.
+
+> w
+You walk West.
+
+Main Room
+You're in the main room of the house, which is simply but neatly furnished. The door to the courtyard is West, a kitchen is to the East and stairs lead Up.  As you walk into Jennet's main room, you see her and Tomas come through the front door.
+
+You tell her that you have fixed the leak in her roof and she is delighted.
+
+"Oh thank you so much, Duke Alaric," she says, giving you a hug and a kiss.
+
+You remind Jennet that she would tell you about the cave where Bob lives.
+
+"You must head for the foothills of the mountains and when you get to a junction of many paths, look for a cairn of stones," she tells you. "Take the path immediately southeast of the cairn and as long as you stay on that path and do not turn off it will lead you to Bob's cave.
+
+"Don't take any other path, otherwise you will get lost," she warns you. "There are some dangerous wild animals in the foothills and many people have ventured into the warren of paths and never returned."
+
+You thank Jennet and tell her you will set off immediately to go to Bob's cave. She tells you to be careful and wishes you luck.
+
+"I do hope you are able to find the children and bring Marcus home," she tells you. You give Jennet back her house key and leave the house.
+
+By House
+You are standing by the front of a house at the end of the alley, which goes West. The front door, which leads East, is closed.
+
+> w
+You walk West.
+
+A Wide Courtyard
+You are in a wide courtyard behind the quayside buildings of the town, formed by the fences of the back yards of the houses that surround you. At the centre of the courtyard stands a communal water pump. Alleys lead off North, NE and SE between the houses, while the way back to the quay is SW. Heading East is a wider alley which leads to a better part of the town.
+
+> sw
+You walk SouthWest.
+
+Outside Weaponsmith's Forge
+The quay bends SE and West here, the latter direction leading to Lookout Point. On the North side of the quay you see a weaponsmith's forge and an alleyway leads NE between the buildings here. The forge is now closed and locked.
+
+> se
+You walk SouthEast.
+
+Outside Armourer's Forge
+You're on the quay where ships and boats dock. The quay continues South and NW. In the buildings that line the quay to the east there is a armourer's forge.
+
+> s
+You walk South.
+
+Main Street
+You're on the main street of the coastal town of Torham Bay, which is on a wide bay with quays that run North and West along the waterfront. The street leads out of town to the East and you also see a lane leading SE. To the South lies a tavern called "The Zark's Revenge", the door to which is closed and there is a notice pinned to it.
+
+> e
+You move east.
+
+The Coast Road
+You are on the coast road that leads North and South. One path goes East back to the low hills while another leads West. A narrow track also heads off to the SW. By the roadside here is a signpost.
+
+> e
+You walk East.
+
+The Low Hills
+You are in an area of low, grassy hillsides with trees dotted around. Paths lead off through the hills to the North and SW. The moors lie to the East. Amongst the trees just here you see the burnt oak tree that Anne told you about.
+
+> e
+You walk East.
+
+West Edge of Moorland
+This is the western edge of the moor where it joins undulating hillsides. The megalith lies directly East, moorland NE & SE and a path leads West into the hillsides.
+
+> e
+You walk East.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.
+
+> e
+You walk East.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> e
+You walk East.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.
+
+As you reach the junction of paths, you see the cairn that Jennet told you to look out for.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.  Here stands a cairn of stones next to the southeastern path.
+
+> se
+You walk SouthEast.
+
+Narrow Ravine
+The path runs through a narrow ravine here and you notice lots of rabbit holes in the ground amongst the vegetation hereabouts. You can go NW back to the cairn or SE along the ravine.
+
+You spot a movement further along the ravine and you stop dead. Several metres ahead of you a large rabbit is nibbling on the succulent vegetation at the side of the ravine, oblivious to your approach.
+
+Narrow Ravine
+The path runs through a narrow ravine here and you notice lots of rabbit holes in the ground amongst the vegetation hereabouts. You can go NW back to the cairn or SE along the ravine.  Several metres further along the ravine you see a large rabbit nibbling at the vegetation growing at the side of the ravine.
+
+> get hammer
+(from the sturdy bag)
+OK, you take the miner's hammer from the bag.
+
+> throw hammer at rabbit
+You hurl the hammer as hard as you can at the rabbit.
+
+CRACK! You score a direct hit - more by luck than judgement - on the animal's head, killing it instantly! The rabbit collapses to the ground, its body twitches a couple of times, then it lies still.
+
+You run over to where it lies, ready to pick it up.
+
+Narrow Ravine
+The path runs through a narrow ravine here and you notice lots of rabbit holes in the ground amongst the vegetation hereabouts. You can go NW back to the cairn or SE along the ravine.  Also here is a miner's hammer and a large, dead rabbit.
+
+> get all
+Ok, you pick up the miner's hammer and the large, dead rabbit.
+
+> se
+You walk SouthEast.
+
+SE End of Ravine
+You are at the southeast end of the ravine where it widens out into a more open part of the foothills. The path bends East here and starts to rise as the foothills merge into the mountains which form a massive wall further east.
+
+> e
+You walk East.
+
+On Path In Foothills
+You are on the path which runs up the foothills of the mountains. It is fairly straight here, running West to East. Some distance East you see the entrance to a cave in the hillside.
+
+Suddenly you hear a low growl and are horrified to see a large mountain lion pad silently from behind a large boulder onto the path a few metres ahead of you!
+
+The hungry beast stands there on the path, sniffing the air - it must smell the carcass of the rabbit you are carrying - obviously deciding to itself whether to attack you!
+
+On Path In Foothills
+You are on the path which runs up the foothills of the mountains. It is fairly straight here, running West to East. Some distance East you see the entrance to a cave in the hillside. A few metres in front of you stands a huge mountain lion.
+
+> throw rabbit to lion
+You throw the dead rabbit to the mountain lion, and it lands at its feet.
+
+The lion still looks as if it is going to leap at you and you brace yourself, but then the beast catches the scent of the dead rabbit and it looks down at it.
+
+You hold your breathe as the lion sniffs the carcass of the rabbit then looks up at you. An eternity seems to go by as the huge animal seems to be deciding which is the easier option.
+
+Suddenly it reaches down and snatches up the rabbit in its jaws and you let your breath out in an explosive "Phew!" as the mountain lion lopes off to its lair to consume the rabbit.
+
+On Path In Foothills
+You are on the path which runs up the foothills of the mountains. It is fairly straight here, running West to East. Some distance East you see the entrance to a cave in the hillside.
+
+> e
+You walk East.
+
+By Cave Entrance
+You stand by the entrance to a cave in the foothills. The path continues east into the foothills and leads west back to the ravine where you caught the rabbit. In the side of the hill here is a cave entrance, which leads South. Next to it stands a large, round, flat slab of rock which presumably would be rolled across the entrance to seal it off.
+
+> s
+You walk South.
+
+In Cave
+You are in a rock cave in the foothills. The cave is quite large and there are openings to the South and West leading to other caves. The cave exit is to the North.  Here you see Bob the tracker.
+
+As you enter the cave you see an elderly man standing rubbing his left knee with his hand.
+
+"Hello there," he says to you cheerfully, taking the weight off his leg by sitting on the edge of the single table in the cave. "I'm Bob. Who are you and why are you visiting today?"
+
+You tell Bob who you are and why you are here. You also tell him that you have met both Anne and Jennet, and that you need to get through the troll tunnels in order to rescue the children.
+
+"I was just thinking about setting off for Anne's cottage myself actually," he tells you with a frown. "Trouble is that the arthritis in my left knee is playing up and I'm not sure if I can make it. If you will fetch my medicine from Anne I will be able to show you the way through the troll tunnels as far as I can take you. There is some kind of spell on the tunnels which prevents me going all the way through."
+
+> ask about knee
+(the tracker)
+You ask Bob about the arthritis in his knee.
+
+"It's been getting worse as I get older," Bob tells you. "The medicine I get from Anne helps relieve the pain so I can walk easily.
+
+> show scarab to bob
+You show the scarab you found to Bob.
+
+He holds it in his hand and closes his eyes.
+
+"This scarab is very, very old," Bob tells you after a few minutes of silence. "I am sure that I can detect some sort of magical properties in it, but what I am not sure."
+
+He hands the scarab back to you and then his eyes go wide and he whispers, "I wonder..."
+
+> n
+You walk north.
+
+As you leave the cave, Bob speaks to you.
+
+"I hope you'll be back with my medicine soon," he tells you. "I'll be able to take you through the tunnels once I have taken it."
+
+By Cave Entrance
+You stand by the entrance to a cave in the foothills. The path continues east into the foothills and leads west back to the ravine where you caught the rabbit. In the side of the hill here is a cave entrance, which leads South. Next to it stands a large, round, flat slab of rock which presumably would be rolled across the entrance to seal it off.
+
+> w
+You walk West.
+
+On Path In Foothills
+You are on the path which runs up the foothills of the mountains. It is fairly straight here, running West to East. Some distance East you see the entrance to a cave in the hillside.
+
+> w
+You walk West.
+
+SE End of Ravine
+You are at the southeast end of the ravine where it widens out into a more open part of the foothills. The path bends East here and starts to rise as the foothills merge into the mountains which form a massive wall further east.
+
+> nw
+You walk NorthWest.
+
+Narrow Ravine
+The path runs through a narrow ravine here and you notice lots of rabbit holes in the ground amongst the vegetation hereabouts. You can go NW back to the cairn or SE along the ravine.
+
+> nw
+You walk NorthWest.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.  Here stands a cairn of stones next to the southeastern path.
+
+> w
+You walk West.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> sw
+You walk SouthWest.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> s
+You walk South.
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> s
+You walk South.
+
+In Cottage
+You are in the single room of the cottage, which is much larger than it would appear to be from outside. It is light, airy and very tidy. Against one wall is a bed and there is a table and chair by the opposite wall. Under the window in the south wall is a sink and in the middle of the room a wood-burning stove with a chimney pipe that goes up through the ceiling.  Here you see an elderly lady, rocking in her chair.
+
+> ask anne for medicine
+You ask Anne for Bob's medicine.
+
+"That's very kind of you, dear," she replies. "But I'm expecting him to call for it today, he always comes over himself."
+
+You tell Anne that you have visited Bob's cave and that he has asked you to collect it as the arthritis in his knee is causing him a lot of pain.
+
+"Oh well, in that case you'd better take it." she says to you, getting up and going to fetch the medicine.
+
+"I think I will add a little more Tumeric and Ginger to the mixture," she tells you, unstoppering the large bottle full of light green liquid she has fetched and adding some more powder from small containers. She puts the stopper firmly back into the bottle, gives it a good shake and then hands it to you.
+
+"There you go," she says jovially. "Now be careful with it and whatever you do don't drop it! It'll take me hours to make up a new batch and I really haven't the time at the moment."
+
+Anne ushers you out of her cottage, telling you, "You'd better get that medicine over to Bob, he'll be pleased to take some to relieve the pain in his knee."
+
+By Cottage
+You are in the woodland by a tiny thatched cottage, the door of which is open and leads South. The cottage is in a very picturesque setting, surrounded by carpets of flowers.
+
+> n
+You walk North.
+
+South Edge of Moor
+You are at the southern boundary of the moorland where it merges into pleasant woodland. The megalith is visible in the middle of the moor in the distance to the North and you can go NW and NE across the moor. To the South, SE and SW are fields and meadows interspersed with small woods. Some distance to the south a small thatched cottage is just visible through the trees.
+
+> ne
+You walk NorthEast.
+
+East Side of Moors
+You are on the eastern side of the moors where, further East, the foothills of the mountains start to rise up, getting ever-higher until they merge into the mountains themselves. You can go East into the foothills themselves, West back to the centre of the moor where the megalith stands or NW and SW across the moor. Another path leads off SE here, by the side of which is an old weather-beaten signpost which reads: TO THE SLATE QUARRY.
+
+> e
+You walk East.
+
+The Foothills
+You are in mountain foothills to the east of the moors. The mountains rise up for a couple of thousand metres, forming a barrier to the lands further east. Various paths lead off East, NE and SE through the foothills and you can also go West back to the moor.  Here stands a cairn of stones next to the southeastern path.
+
+> se
+You walk SouthEast.
+
+Narrow Ravine
+The path runs through a narrow ravine here and you notice lots of rabbit holes in the ground amongst the vegetation hereabouts. You can go NW back to the cairn or SE along the ravine.
+
+> se
+You walk SouthEast.
+
+SE End of Ravine
+You are at the southeast end of the ravine where it widens out into a more open part of the foothills. The path bends East here and starts to rise as the foothills merge into the mountains which form a massive wall further east.
+
+> e
+You walk East.
+
+On Path In Foothills
+You are on the path which runs up the foothills of the mountains. It is fairly straight here, running West to East. Some distance East you see the entrance to a cave in the hillside.
+
+> e
+You walk East.
+
+By Cave Entrance
+You stand by the entrance to a cave in the foothills. The path continues east into the foothills and leads west back to the ravine where you caught the rabbit. In the side of the hill here is a cave entrance, which leads South. Next to it stands a large, round, flat slab of rock which presumably would be rolled across the entrance to seal it off.
+
+> get lamp
+(from the sturdy bag)
+OK, you take the unlit oil lamp from the bag.
+
+> s
+You walk South.
+
+In Cave
+You are in a rock cave in the foothills. The cave is quite large and there are openings to the South and West leading to other caves. The cave exit is to the North.  Here you see Bob the tracker.
+
+As you enter the cave Bob sees the bottle in your hand and he takes it from you.
+
+"Oh great, thanks for getting the medicine for me," he tells you, pulling the stopper from the bottle and drinking a swig from it.
+
+A look of relief appears on his face as the medicine takes effect almost immediately.
+
+"Boy, that stuff works quickly!" he exclaims, putting the stopper back into the bottle and securing it with the flat of his hand. Putting the bottle onto a shelf on the wall of the cave, Bob then flexes his knee a few times and does a couple of squats.
+
+"Right then!" he says to you, picking up a backpack and slinging it onto his back. "I promised I would show you the way through the troll tunnels, so let's get on with it!"
+
+Bob leads you outside, whereupon he mutters a spell and the rock slab rolls across to seal off the entrance to his cave.
+
+Press Any Key To Continue.....
+Trek
+
+You follow Bob into the foothills. He leads you through narrow ravines and defiles, ascending all the time. After a couple of hours trekking you are in the Fireheart Mountains themselves and, lighting the lamp he brought with him and your one, Bob leads you into a cave from where you plunge deep underground.
+
+Bob warns you to be as quiet as you can, as dangerous animals have been known to inhabit these tunnels. You walk through the tunnels in Stygian darkness, your lamps illuminating a small area ahead and behind you only. Several times you enter large caves and once, judging by the echoes, a vast cavern.
+
+As you descend, the temperature rises considerably, making you sweat profusely. Bob explains that this is because the Firehearts were once volcanoes and the molten lava is not that far below where you walk. Several times echoes reach you from other parts of the tunnels, and Bob calls a halt to listen. The echoes could be animals moving towards you, but luckily they fade away and the danger passes.
+
+Your nerves almost fail you when you have to edge along a narrow ledge high above a subterranean river. The ledge is only 30 cm wide at one point and it seems to take hours, rather than minutes, to traverse it.
+
+Eventually the tunnels you are walking through start to slope upwards and you feel the temperature starting to fall. Soon you come to a large round cave with several exits.
+
+Press Any Key To Continue.....
+
+A Junction of Tunnels
+You are deep under the Fireheart mountains in a large, round cave which has exits leading from it in all directions.  Here you see Bob the tracker.
+
+"This is as far as we go together," Bob tells you.
+
+He points to the exit leading East from the cave. "That tunnel there should  lead you out of here," he tells you. "It is quite long but it will eventually bring you out at the head of a long barren valley. Beware that there are lots of smaller tunnels branching off from the main one. Whatever happens DO NOT turn off from the main tunnel, you will almost certainly get lost and die!"
+
+Bob points to the scarab you are wearing.
+
+"I am certain that scarab has magical powers," he tells you. "Some instinct in me tells me that it will help you counteract the enchantment that I am sure has been put on the tunnel by someone."
+
+Bob takes some furs out of the backpack he brought with him and throws them down on the floor against the wall opposite the tunnel he pointed to.
+
+"I will wait here for 48 hours," he tells you, making himself comfortable on the furs. "If you are not back by then to report on what you have found, I will assume you have perished and I will return to my cave."
+
+With those chilling last words he closes his eyes and goes to sleep.
+
+> e
+You walk East.
+
+The tunnel, as Bob described, is long and twisty, and other smaller tunnels branch off at intervals, but you follow Bob's instructions not to deviate from the main tunnel.
+
+After what seems like an eternity of following the tunnel you emerge into a cave which has just one exit other than the one you just walked through.
+
+A Small Cave
+You are in a small cave deep underground. It is entirely featureless apart from the two exits leading West and NE.
+
+> ne
+You walk through the northeast entrance and along the tunnel.
+
+After a few seconds you experience a slight dizziness and wonder to yourself if that was the enchantment that has been placed on the tunnel that Bob told you about. You seem to be unaffected in any way so you shrug your shoulders and carry on walking. After a while the tunnel starts to slope upwards and as you turn a slight bend you see daylight ahead of you.
+
+You emerge from the tunnel and look around you.
+
+West End Of Valley
+You are standing by the entrance to a tunnel which is at the base of a near-vertical cliff. To the east you see a large, elongated valley, strewn with rocks and huge boulders, about a kilometre long and half a kilometre wide which is enclosed by steep cliffs on three sides. Just here you see a dilapidated signpost with two arms, each pointing along the trails that lead off from this point. You can go North or South along these trails, or East into the valley.  At the far end of the valley a slender, impossibly-high pinnacle soars into the sky.
+
+As you look around your eyes are drawn to the impossibly-tall, slender pinnacle that stands near the far end of the valley - you recall Bob telling you that this valley was completely empty and barren, so where has the tower come from?
+
+> e
+You walk East.
+
+Near West End of Valley
+You are about halfway between the west end of the valley and a large boulder, which is as big as a house, further to the east.  You can go East, West, NE or SE.
+
+> e
+You walk East.
+
+Behind Boulder
+You're standing behind a large boulder in the middle of the valley, nearer to the tower. You are hidden from the sight of anyone to the east. You can go North, South and West, or NE and SE around the boulder.
+
+As you get near to the boulder you spot a movement on the south side of the valley beyond the boulder. You quickly run and crouch behind the boulder to avoid being spotted by whoever - or whatever - it is.
+
+> look se
+You look around the boulder and see, about twenty metres to the SE, a large ogre standing near the south side of the valley floor.
+
+> x ogre
+The ogre is about two metres in height and has long muscular arms that reach down past it's knees. It is covered from head to foot in long, course hair and in one huge hand it wields an enormous stone club. You get the sense that it is guarding something, but what you do not know.
+
+> get slingshot
+(from the sturdy bag)
+OK, you take the slingshot from the bag.
+
+> find a stone
+You look on the ground around you and find a round stone, which you pick up.
+
+> sling stone at ogre
+Putting the stone in the cup of the slingshot, you whirl it around your head a couple of times and then you release one of the strings to send the stone hurtling towards the ogre.
+
+The stone hits the ogre with full force on the side of its head with a load "Crack!" The ogre reaches up with one hand and touches the side of its head where the stone hit it and just stands there with a look of astonishment on its ugly face. Then the club falls out of the ogre's lifeless fingers as the beast falls to its knees and then topples forwards like a felled tree onto the ground where it lays still.
+
+> drop all
+Ok, you put down the lit oil lamp, the miner's hammer, the rusty crowbar, the round shield, the slingshot and the hand saw.
+
+> se
+You walk SouthEast.
+
+South Side of Valley 2
+You are about halfway along the valley on the south side where a large opening in the side of the valley leads South into darkness. To the north there is a large area in front of the entrance to the tower which has been cleared of rocks and boulders. You can go North, South, East, West or NW from here.  The body of the ogre you killed with your slingshot lies on the ground here.  Also here is a stone club.
+
+> hide ogre behind boulder
+You grab hold of the long arms of the dead ogre and, exerting all of your strength, drag the body along the ground to the far side of the boulder, where you lay it down so it cannot be seen from the other side.
+
+Behind Boulder
+You're standing behind a large boulder in the middle of the valley, nearer to the tower. You are hidden from the sight of anyone to the east. You can go North, South and West, or NE and SE around the boulder.  Also here is a lit oil lamp, a miner's hammer, a rusty crowbar, a round shield, a slingshot and a hand saw.  Here lies the body of an ogre.
+
+> se
+You walk SouthEast.
+
+South Side of Valley 2
+You are about halfway along the valley on the south side where a large opening in the side of the valley leads South into darkness. To the north there is a large area in front of the entrance to the tower which has been cleared of rocks and boulders. You can go North, South, East, West or NW from here.  Also here is a stone club.
+
+> hide club behind boulder
+You grab hold of the narrow end of the stone club and drag it to the far side of the boulder.
+
+Behind Boulder
+You're standing behind a large boulder in the middle of the valley, nearer to the tower. You are hidden from the sight of anyone to the east. You can go North, South and West, or NE and SE around the boulder.  Also here is a lit oil lamp, a miner's hammer, a rusty crowbar, a round shield, a slingshot, a stone club and a hand saw.  Here lies the body of an ogre.
+
+> get shield
+Ok, you pick up the round shield.
+
+> z
 You wait for a while and a few minutes of time elapses.
 
-> up
-There is no route up, only north and out.
+> z
+You wait for a while and a few minutes of time elapses.
 
-> up
-There is no route up, only north and out.
+> z
+You wait for a while and a few minutes of time elapses.
 
-> up
-There is no route up, only north and out.
+Suddenly you hear, from the other side of the boulder, a horn blast out a long note that echoes around the valley. You crouch down and peep around the boulder so you can see the area in front of the tower entrance.
 
-> e
-There is no route to the east, only north and out.
+Standing there holding a horn is a huge troll facing the cave on the south side of the valley wall. It raises the horn to its lips and blows another long, echoing note. You see some movement in the cave and look in that direction.
 
-> examine glider
-You see no such thing.
+Press Any Key To Continue.....
 
-> examine straps
-You see no such thing.
+You press yourself against the boulder as you see a procession of small figures, flanked by huge trolls, start to walk out of the cave. Your eyes widen as you realise that they are children - the lost children of Corwyn and Torham Bay!
 
-> cut straps
-Sorry, I'm not sure which object you are trying to cut.
+Herded by the troll guards they form neat semi-circular lines some distance out from the foot of the tower. They stand in silence and your mind seethes with questions as to what on earth could be happening.
 
-> w
-There is no route to the west, only north and out.
+Your questions are soon answered by another blast from the horn and you see everyone's heads tilt back, including the trolls', as they raise their eyes to look up at the top of the tower. You follow suit and look up as well.
 
-> down
-There is no route down, only north and out.
+You then hear the children and the trolls start to chant - it sounds like "Hail Rondio" - and then your jaw drops open in astonishment as what looks like a huge bird with bright orange wings launches itself from the very top of the tower.
 
-> down
-There is no route down, only north and out.
+The "bird" soars into the blue sky, carried aloft by air currents, and, watched by the chanting children and trolls, glides effortlessly around the lower mountain peaks either side of the valley.
 
-> down
-There is no route down, only north and out.
+At one point the "bird" swoops low enough for you to realise that it is in fact a man! He is suspended underneath a winged contraption and is controlling its direction by moving his body from side to side!
 
-> down
-There is no route down, only north and out.
+Then, as quickly as it started, the show is over. The glider lands back on top of the pinnacle, the horn blasts out again, and the children stop chanting and are marched back into the tunnel, followed by all of the trolls.
 
-> s
-There is no route to the south, only north and out.
+Now you know where the children are being held and you must get in there to get them out!
 
-> sw
-There is no route to the southwest, only north and out.
+> se
+You walk SouthEast.
 
-> search rondio
-Sorry, I'm not sure which object you are trying to search.
+South Side of Valley 2
+You are about halfway along the valley on the south side where a large opening in the side of the valley leads South into darkness. To the north there is a large area in front of the entrance to the tower which has been cleared of rocks and boulders. You can go North, South, East, West or NW from here.
 
-> ne
-There is no route to the northeast, only north and out.
+As you enter the area on the south side of the valley, you are confronted by another creature that has emerged from the tunnel - this time it is a troll.
 
-> climb boulder
-Sorry, I'm not sure which object you are trying to climb.
+The troll, which is armed with a battleaxe, sees you and charges towards you with a roar - there is no time to run away so it looks as if you are going to have to fight it!
 
-> jump on ledge
-Sorry, I'm not sure which object you are trying to climb down.
+You quickly draw your sword attack the oncoming troll with it. The creature is very powerful and wields its battleaxe with amazing dexterity.
+
+You are able to deflect the savage blows from the troll's axe with your shield and it eventually makes a basic error which enables you to dart in and stab the troll with your sword, weakening it. After a few more minutes of fighting, the troll lies dead at your feet.
+
+South Side of Valley 2
+You are about halfway along the valley on the south side where a large opening in the side of the valley leads South into darkness. To the north there is a large area in front of the entrance to the tower which has been cleared of rocks and boulders. You can go North, South, East, West or NW from here.  Also here is a double-headed Battleaxe.  Here lies the body of the troll you have just fought and killed.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
+
+By Entrance to Tower
+You're standing directly west of the tower. This close you notice that it is rather crudely made. A wide opening leads East into the base of the tower, and you can also go North, South, NE or SE.
 
 > e
-There is no route to the east, only north and out.
+You walk East.
+
+Inside Base of Tower
+You're inside the base of the tower, a semi-circular vestible with a spiral stairway leading up into the tower. By the side of the wide entrance you see a table with several large tankards and a barrel on it. You can go Up or West.
+
+> get potion
+(from the sturdy bag)
+OK, you take the sleeping potion from the bag.
+
+> drug ale
+You put the sleeping potion that Anne made for you into the ale in the barrel. You see it fizz and dissolve rapidly.
+
+> u
+You walk Up.
+
+Bottom of Spiral Stairway
+You're at the bottom of a spiral stairway that winds clockwise Up the tower. The chamber at the bottom can be reached by going Down.
+
+You are just thinking about the long climb you have ahead of you when you hear movement in the chamber below.
+
+You peep around the wall of the stairway to see one of the trolls which has just come in from outside. It walks over to the table and starts to fill the tankards with the drugged ale from the barrel.
+
+Having filled all the tankards, it takes a horn which it is wearing by a strap over its shoulder, walks outside and blows a long undulating blast on it.
+
+As the troll walks back into the chamber, it is followed by several others. The trolls each pick up a tankard and start drinking from it, chatting away in their gravelly voices.
+
+You watch, with fingers crossed, as the trolls drink the ale, some of them refilling their tankards once or even twice.
+
+Suddenly one of the trolls starts to stagger about, as if very drunk, and then it crashes to the ground, out cold. The other trolls start to laugh at it, a noise that sounds like rocks being ground together, but then another troll collapses, and then another.
+
+Soon, all the trolls are lying on the floor of the chamber, completely unconscious. Anne's sleeping potion sure was powerful stuff!
+
+You cautiously walk down into the chamber.
+
+Inside Base of Tower
+You're inside the base of the tower, a semi-circular vestible with a spiral stairway leading up into the tower. By the side of the wide entrance you see a table with several large tankards and a barrel on it. You can go Up or West.  Lying on the floor are several large trolls, all fast asleep.
+
+> u
+You walk Up.
+
+Bottom of Spiral Stairway
+You're at the bottom of a spiral stairway that winds clockwise Up the tower. The chamber at the bottom can be reached by going Down.
+
+> u
+You walk up the stairway, which winds clockwise around the outer wall of the tower.
+
+You count the steps as you go up, but after the first 450 you give up. Eventually you reach a wider step where there is a round hole in the wall that you can look out of.
+
+On Spiral Stairway
+You are on a wider step on the spiral stairway that winds clockwise Up and Down the tower. In the outside wall here there is a round aperture which you can look out of.
+
+> look through aperture
+You look through the aperture and see that you are about a hundred metres above the valley floor.
+
+> u
+You continue trudging up the steps of the stairway, going around and around in a spiral until you start to feel dizzy.
+
+As you get higher you start to hear a noise coming from above which gets louder and louder the higher you climb. As you near the source of the noise you realise that it is in fact music and singing... but music and singing such as you have never heard before!
+
+It consists of a loud heavy beat accompanied by what sounds like a very loud harp twanging away - it is so loud you can feel the beat through the wall of the tower. You listen incredulously to the words of the "song" the singer is singing and make out the words "A light in the black" or words to that effect. After listening to the music as you walk up the stairs, you realise that you quite enjoy it!
+
+You eventually reach the top of this part of the stairway and stop just below what appears to be the chamber where the music is coming from.
+
+Near Top of Spiral Stairway
+You are near the top of the spiral stairway, just below what appears to be a chamber in the tower. Your eyes are level with the floor of the chamber and you can look over the top stair to see into it. The stairway spirals anti-clockwise Down the tower and you can go Up into the chamber.
+
+You see a movement in the chamber to the south and realise that there is someone in there!
+
+> look south
+You look south over the top stair into the room.
+
+At the far end, to the south, there is a large worktable on which stands a complicated thaumaturgical apparatus. To the right of this is a smaller table on which you see the source of the loud music you can hear, a flat box with a horn standing above it. On top of the box is a round flat disc that is spinning rapidly.
+
+In front of the worktable, his back towards you, stands a wizard.
+
+> x wizard
+He is quite short and has long black hair that reaches to his shoulders. He is wearing a black sleeveless vest, baggy trousers of a patchy dark blue colour and on his feet he has strange white shoes. As he stands there, swaying to the music, you can see the name "Rondio" which is printed on the back of his vest across his shoulders in yellow.
+
+> x floor
+You notice that one of the floorboards, between here and where the stairs continue up, stands proud of the others. You wonder to yourself if the floorboard is protruding by accident or on purpose?
+
+> x floorboard
+The floorboard stands about 5 millimetres proud of the ones either side.
+
+> x box
+The box is about half a metre square and is quite low. On top of it is a thin, flat, round disc which is spinning rapidly. A strange mechanism is just above the disc, one end touching it. Above the disc, attached to the mechanism, is a large funny-shaped horn.
+
+> x disc
+The disc is sitting on top of the flat box and it is spinning rapidly.
+
+> x mechanism
+The mechanism is a short arm attached at one end to the base of the large horn, the other end, which ends in a round section with a sharp point underneath which actually rests on the flat disc. The mechanism is rising and falling very slightly as the disc rotates.
+
+> x horn
+The horn is like a huge open flower, the other end tapering to a tube which is fixed to the back of the flat box. The strange mechanism is attached to the tube of the horn. You realise that the loud music is issuing from the mouth of the horn.
+
+> hop across floorboard
+You quietly climb up the last couple of steps into the wizard's chamber, making sure that you hop over the loose floorboard.
+
+The Wizard's Workroom
+You are standing by the outer wall of the tower in a circular room which is about 10 metres in diameter. To one side of you is the stairway going Down the tower, while to the East is an open doorway that leads to the bottom of another section of stairway that goes further up the tower. The main part of the room is to the South.
+
+The wizard is standing with his back to you over by the work table. He is nodding his head up and down in time to the music as he works!
 
 > e
-There is no route to the east, only north and out.
+You walk East.
 
-> throw net
-Sorry, I'm not sure which object you are trying to throw/toss/lob/pitch.
+Bottom of Spiral Stairway
+You are at the bottom of another section of spiral stairway that runs clockwise Up the tower. You can also go West into the Wizard's chamber, from which you are hidden from view.
 
-> kill troll
-Sorry, I'm not sure which object you are trying to attack/kill.
+> u
+You walk Up.
 
-> e
-There is no route to the east, only north and out.
+On Spiral Stairway
+You are on a spiral stairway that winds clockwise Up and Down the tower. In the outside wall here there is a small round aperture which you can look out of.
 
-> ne
-There is no route to the northeast, only north and out.
+> u
+You walk Up.
+
+The Storeroom
+You are in what appears to be some storeroom in the tower. There are all manner of objects in here whose purpose is unknown to you. A ramp leads Up through a wide opening onto the roof of the tower. You can hear and feel the wind howling across the top of the tower above you.  Also here is a winged device.
+
+As you look around at the objects you can see in here, you realise that you can still feel the beat of the music the sorcerer is playing in his chamber many metres below.
+
+> x device
+The winged device is made from bamboo canes with linen, which has been dyed a vivid orange colour, stretched over them. Under the centre section is a leather harness. The device has a wingspan of about 4 metres but due to the materials it is constructed from it is very light.
+
+> get device
+You go to pick up the winged device but suddenly you spot a length of thin wire attached to one wing, the other end of which goes down through a hole in the floor. You guess that if you pick up the device it will set off an alarm which will alert the sorcerer, so you decide to leave the device where it is.
+
+> draw sword
+You have already drawn your sword from its leather scabbard.
+
+> cut harness with sword
+You make some cuts on the inside of the harness with the sword. You don't cut all the way through but just enough to weaken the harness.
+
+You suddenly realise that you can no longer feel the beat of the music the sorcerer was playing. The thought crosses your mind that he might be on his way up to this storeroom - maybe you should get out of the tower while you are still able to!
+
+> d
+You walk Down.
+
+On Spiral Stairway
+You are on a spiral stairway that winds clockwise Up and Down the tower. In the outside wall here there is a small round aperture which you can look out of.
+
+You suddenly realised that you can no longer feel the beat of the music the sorcerer was playing. The thought crosses your mind that he might be on his way up to this storeroom! Maybe you should get out of the tower while you are still able to!
+
+> d
+You walk Down.
+
+Bottom of Spiral Stairway
+You are at the bottom of another section of spiral stairway that runs clockwise Up the tower. You can also go West into the Wizard's chamber, from which you are hidden from view.
+
+> w
+You walk West.
+
+The Wizard's Workroom
+You are standing by the outer wall of the tower in a circular room which is about 10 metres in diameter. To one side of you is the stairway going Down the tower, while to the East is an open doorway that leads to the bottom of another section of stairway that goes further up the tower. The main part of the room is to the South.
+
+> d
+You walk Down.
+
+On Spiral Stairway
+You are on a wider step on the spiral stairway that winds clockwise Up and Down the tower. In the outside wall here there is a round aperture which you can look out of.
+
+> d
+You walk Down.
+
+Bottom of Spiral Stairway
+You're at the bottom of a spiral stairway that winds clockwise Up the tower. The chamber at the bottom can be reached by going Down.
+
+> d
+You walk Down.
+
+Inside Base of Tower
+You're inside the base of the tower, a semi-circular vestible with a spiral stairway leading up into the tower. By the side of the wide entrance you see a table with several large tankards and a barrel on it. You can go Up or West.  Lying on the floor are several large trolls, all fast asleep.
+
+> w
+You walk West.
+
+By Entrance to Tower
+You're standing directly west of the tower. This close you notice that it is rather crudely made. A wide opening leads East into the base of the tower, and you can also go North, South, NE or SE.
+
+As you reach the area between the tower and the boulder to the west, you catch a movement in the cave to the south and you quickly run and hide behind the boulder again.
+
+Press Any Key To Continue.....
+
+Behind Boulder
+You're standing behind a large boulder in the middle of the valley, nearer to the tower. You are hidden from the sight of anyone to the east. You can go North, South and West, or NE and SE around the boulder.  Also here is a lit oil lamp, a miner's hammer, a rusty crowbar, a slingshot, a stone club and a hand saw.  Here lies the body of an ogre.
+
+As before, the troll comes out and blows two long blasts on his horn. The children are herded out of the cave, this time by only one troll - the rest of their guards are of course lying in a drugged sleep inside the tower.
+
+They form their lines and, after the troll blows the horn, start to chant "Rondio, Rondio," again.
+
+You look up to see the wizard, with his wings strapped to his back, soar off the top of the tower many hundreds of metres above you. He flies around the tower once and heads out west over the valley floor.
+
+Then suddenly, the harness that you weakened gives way and the wizard parts company with the wings. The children and trolls stop chanting and watch in silence as the wizard, arms and legs flailing, plunges downwards towards the valley floor. He lands with an audible, bone-crunching thud in a cloud of dust a couple of hundred metres away and lies still. There is a stunned silence and then pandemonium reigns.
+
+The trolls start to stagger around shaking their heads and the children mill around in confusion and some of the younger ones start to cry. As they gather their wits, the trolls look around in bewilderment as if they have awakened from a trance. One of them barks something at the other one and they herd the frightened children back into the cave.
+
+Behind Boulder
+You're standing behind a large boulder in the middle of the valley, nearer to the tower. You are hidden from the sight of anyone to the east. You can go North, South and West, or NE and SE around the boulder.  Also here is a lit oil lamp, a miner's hammer, a rusty crowbar, a slingshot, a stone club and a hand saw.  Here lies the body of an ogre.
+
+As the children and trolls disappear from view inside the tunnel, you hear a noise and turn to see all of the trolls, whom you drugged with Anne's potion, come staggering out of the base of the tower, shaking their heads. They look around in bewilderment and start to talk amongst themselves. Then, one of the trolls spots the body of Rondio lying on the ground some distance to the west and they all run over to it.
+
+They stand around the body, talking animatedly, gesticulating at the body and pointing to the tower. Then, to your amazement, they all run off west into the tunnel into the caves through which you got here.
+
+> se
+You walk SouthEast.
+
+South Side of Valley 2
+You are about halfway along the valley on the south side where a large opening in the side of the valley leads South into darkness. To the north there is a large area in front of the entrance to the tower which has been cleared of rocks and boulders. You can go North, South, East, West or NW from here.  Also here is a double-headed Battleaxe.  Here lies the body of the troll you have just fought and killed.
+
+> s
+You walk South.
+
+Inside Tunnel
+You are just inside a large tunnel in the side of the valley which leads South into the depths. Going North will take you out to the valley floor. Attached to the walls and ceiling of the tunnel you see elliptical lumps of a strange material which gives off soft green glow which is just bright enough to see by.
+
+> s
+You walk South.
+
+At Bend in Tunnel
+You are at a bend in the tunnel, where it goes North and Southwest.
+
+As you reach the bend and are about to turn SW, you hear a roar from that direction and see one of the trolls, wielding a massive scimitar which it is holding aloft, running towards you!
+
+> get net
+(from the sturdy bag)
+OK, you take the old fishing net from the bag.
+
+The troll is almost upon you!
+
+> throw net at troll
+You throw the fishing net at the attacking troll.
+
+In the confined space in the tunnel the net doesn't unfold fully, but it hits the troll's legs and they become entangled in the mesh and the creature crashes to the floor in front of you, momentarily stunning the troll and causing its scimitar to fall out of its hand.
+
+At Bend in Tunnel
+You are at a bend in the tunnel, where it goes North and Southwest.  Also here is a large scimitar.  An unconscious troll is here.
+
+> stab troll with sword
+You quickly kill the troll with a stab to the neck. The creature twitches a couple of times and then lies still.
+
+At Bend in Tunnel
+You are at a bend in the tunnel, where it goes North and Southwest.  Also here is a large scimitar.  A dead troll is here.
+
+> sw
+You walk SouthWest.
+
+Round Cave
+You are in a round cave at the end of the tunnel. To the south there is another, larger, cave separated from this one by a barred door. Several large bunk beds plus a couple of large tables and benches line the walls of the cave. You can go NE towards the tunnel exit or South to the barred door.  A frightened troll is here.
+
+The troll is terrified, looking from you to its dead comrade further along the tunnel with horror-filled eyes. Behind the troll you can see a barred gate behind which at least a couple of dozen children are watching you in awed silence.
+
+"Please don't kill me!" the creature pleads in its deep, gravelly voice. "The wizard enthralled us all, made us kidnap the children and do things that are totally against our nature!"
+
+It kneels in front of you, its clenched hands raised in supplication.
+
+> get key from troll
+You search through the pockets of the troll's clothing and find in one of the pockets a metal key, which you take out.
+
+You assume the key fits the lock of the barred gate. You search the troll again but find nothing. Taking pity on the wretched creature, you stand to one side and point towards the tunnel exit.
+
+"Go back to your underground caverns and stay there!" you tell the troll. "I never want to hear that you and your kind have ventured above ground ever again unless you have permission!"
+
+The troll scrambles to its feet and runs off along the tunnel then around the bend out of sight.
+
+Round Cave
+You are in a round cave at the end of the tunnel. To the south there is another, larger, cave separated from this one by a barred door. Several large bunk beds plus a couple of large tables and benches line the walls of the cave. You can go NE towards the tunnel exit or South to the barred door.
+
+> s
+You walk South.
+
+By Barred Door
+You are standing on the south side of the cave which has been blocked off from the cave further south by metal bars, in which there is a barred door leading South. The main part of the cave is to the North.
+
+As you approach the children start to shout, scream and cry with relief, calling out to you to open the gate and let them out. The noise is deafening in the confined space, so you hold your hands up and call for quiet. In the end you have to take a deep breath and shout "BE QUIET!!!" at the top of your voice before the noise from the children subsides.
 
 > unlock door
-You can't unlock the cottage door as it is not locked!
+(using the iron key)
+You unlock the barred door and tell the children to come out into the round cave.
 
-> sw
-There is no route to the southwest, only north and out.
+The children come filing out of their prison and gradually fill the cave. You tell them to sort themselves into the ones who come from this area and the ones that come from Hecate, which they do.
 
-> w
-There is no route to the west, only north and out.
+You pick the oldest child from each group and tell them to take charge of the others in their group.
 
-> w
-There is no route to the west, only north and out.
+The children wait for you to tell them what to do next.
 
-> w
-There is no route to the west, only north and out.
-
-> sw
-There is no route to the southwest, only north and out.
+Round Cave
+You are in a round cave at the end of the tunnel. To the south there is another, larger, cave separated from this one by a barred door. Several large bunk beds plus a couple of large tables and benches line the walls of the cave. You can go NE towards the tunnel exit or South to the barred door.  The children of Hecate and the children of Mythgar are here.
 
 > s
-There is no route to the south, only north and out.
+You walk South.
+
+By Barred Door
+You are standing on the south side of the cave which has been blocked off from the cave further south by metal bars, in which there is a barred door leading South. The main part of the cave is to the North.
 
 > s
-There is no route to the south, only north and out.
+You walk South.
 
-> s
-There is no route to the south, only north and out.
+Large Oblong Cave
+You are in a large oblong cave which is filled with bunk beds, there must be more than 50 of them. To the north is an open barred door which leads to a smaller round cave.
 
-> w
-There is no route to the west, only north and out.
+> lie on bed
+You haven't got time for that - you need to get the children to safety!
 
-> up
-There is no route up, only north and out.
-
-> w
-There is no route to the west, only north and out.
-
-> e
-There is no route to the east, only north and out.
+> sit on bed
+You haven't got time for that - you need to get the children to safety!
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
+
+By Barred Door
+You are standing on the south side of the cave which has been blocked off from the cave further south by metal bars, in which there is a barred door leading South. The main part of the cave is to the North.
 
 > n
-You cannot leave without saying "Hello" to Anne!
+You walk North.
 
-> e
-There is no route to the east, only north and out.
+Round Cave
+You are in a round cave at the end of the tunnel. To the south there is another, larger, cave separated from this one by a barred door. Several large bunk beds plus a couple of large tables and benches line the walls of the cave. You can go NE towards the tunnel exit or South to the barred door.  The children of Hecate and the children of Mythgar are here.
+
+> say follow me
+You tell each of the group leaders to find a lantern, which they do, and then you tell the children to follow you.
+
+> ne
+You walk NorthEast and the children follow behind you.
+
+At Bend in Tunnel
+You are at a bend in the tunnel, where it goes North and Southwest.  Also here is a large scimitar.  A dead troll, the children of Hecate and the children of Mythgar are here.
+
+As the children walk past the body of the troll you killed earlier, one or two of them kick the body. You tell them to stop.
+
+"That troll was really nasty to us," one little boy tells you. "The other one you let go was much nicer."
+
+> n
+You walk North and the children follow behind you.
+
+Inside Tunnel
+You are just inside a large tunnel in the side of the valley which leads South into the depths. Going North will take you out to the valley floor. Attached to the walls and ceiling of the tunnel you see elliptical lumps of a strange material which gives off soft green glow which is just bright enough to see by.  The children of Hecate and the children of Mythgar are here.
+
+As you and the children are walking along the tunnel towards the entrance, you hear a rumbling sound from outside and the ground beneath your feet begins to shake.
+
+You tell the children to stop as you realise that the tower, the stones of which were only held together by a magic spell cast by Rondio, has started to fall apart as the magic spell starts to dissipate following the death of the wizard.
+
+Suddenly there is an almighty crash from outside and the ground convulses under your feet as the tower collapses. Small stones and thick dust come billowing along the tunnel, causing you and the children to cover your faces until it subsides.
+
+After a few moments, the dust settles and everything is eerily quiet.
+
+> n
+You walk North and the children follow behind you.
+
+South Side of Valley 2
+You are about halfway along the valley on the south side where a large opening in the side of the valley leads South into darkness. The area to the north is now filled with the rubble of the tower and you can now only go West from here.  Also here is a double-headed Battleaxe.  Here lies the body of the troll you have just fought and killed.  The children of Hecate and the children of Mythgar are here.
+
+> nw
+You cannot go that way as rubble blocks your path.
 
 > w
-There is no route to the west, only north and out.
+You walk West and the children follow behind you.
 
-> up
-There is no route up, only north and out.
+South Side of Valley 1
+You are on the south side of the valley, near the west end.  You can only go NW or East as the pile of rubble blocks your path to the north.  The children of Hecate and the children of Mythgar are here.
 
-> s
-There is no route to the south, only north and out.
+> nw
+You walk NorthWest and the children follow behind you.
 
-> s
-There is no route to the south, only north and out.
+Near West End of Valley
+You are about halfway between the west end of the valley and a large boulder, which is as big as a house, further to the east.  You can only go West, NE or SE as the pile of rubble that was once the towering pinnacle blocks your way east.  Lying here on the ground is the body of the wizard Rondio.  The children of Hecate and the children of Mythgar are here.
 
-> s
-There is no route to the south, only north and out.
+As you near the body of the wizard, the children cry out and run over to the body. They start to scream and kick at it in rage and you have to pull them away from it quite roughly.
+
+You tell them to stand away from the body and then you take stones from the pile which is all that remains of the tower and start to cover the body with them. The children all join in and soon the dead body is covered with a grave of stones.
+
+Near West End of Valley
+You are about halfway between the west end of the valley and a large boulder, which is as big as a house, further to the east.  You can only go West, NE or SE as the pile of rubble that was once the towering pinnacle blocks your way east.  On the ground here is a grave of stones.  The children of Hecate and the children of Mythgar are here.
+
+> w
+You walk West and the children follow behind you.
+
+West End Of Valley
+You are standing by the entrance to a tunnel which is at the base of a near-vertical cliff. To the east you see a large, elongated valley, strewn with rocks and huge boulders, about a kilometre long and half a kilometre wide which is enclosed by steep cliffs on three sides. Just here you see a dilapidated signpost with two arms, each pointing along the trails that lead off from this point. You can go North or South along these trails, or East into the valley.  All that remains of the pinnacle is a pile of rubble where it collapsed.  The children of Hecate and the children of Mythgar are here.
+
+> w
+You walk West and the children follow behind you.
+
+A Small Cave
+You are in a small cave deep underground. It is entirely featureless apart from the two exits leading West and NE.  the children of Hecate and the children of Mythgar are here.
+
+As you walk into the cave with the children you realise that you have forgotten to bring your oil lamp with you, so you ask one of the children for the one you told him to bring, which he gives to you.
+
+> get tinderbox
+(from the sturdy bag)
+OK, you take the old tinderbox from the bag.
+
+> light lamp
+The lit oil lamp is already on!
+
+> w
+You walk West and the children follow behind you.
+
+A Junction of Tunnels
+You are deep under the Fireheart mountains in a large, round cave which has exits leading from it in all directions.  Here you see Bob the tracker.  The children of Hecate and the children of Mythgar are here.
+
+As you walk into the cave with the children marching behind you, Bob wakes up and his eyes go wide when he sees the children behind you.
+
+"I don't believe it," he exclaims. "You rescued the children, its incredible!"
+
+A boy dashes out of the crowd of youngsters, crying "Uncle Bob, its me - Marcus!"
+
+You realise that the boy is Jennet's son and you wait while they greet each other. You then agree with Bob that the children must be returned to their homes as quickly as possible.
+
+You all set off for the arduous journey through the caves under the Fireheart mountains back to the moor and Corwyn Bay. On the way you tell Bob about the Tower and Rondio and all what occurred there.
+
+Eventually you all emerge from the caves in the foothills and upon reaching the edge of the moorland where the ancient megalith stands you part company with Bob, who is taking the children of Mythgar on to Corwyn Bay.
+
+You lead the children across the moor to where the megalith stands.
+
+By The Megalith
+You stand on a low mound in the middle of a desolate moor. To the North lies a forest, to the East a range of mountains, South is mostly woodland, while West you see a range of low, steep hills. Above you rears the megalith, and you can go In to the gateway through the glowing sheet of light.  The children of Hecate are here.
+
+> in
+You tell the children to wait while you see who is on the other side of the gateway and then you walk in.....
+
+The sight that greets you is astounding. While you were far away beyond the Fireheart mountains, word had got around Hecate that you had ventured through the gateway and the parents who had lost children had journeyed to the moor and camped around the mound where the megalith stands, to await your return.
+
+You go back through the gateway and usher each child through, following through yourself after the last one.
+
+All around you joyful parents are reunited with their children and there is much crying and tears of happiness. The families start to return home and you yourself are reunited with your men and your friend, the sorcerer Magor.
+
+After the last happy family has left, Magor instructs you and your men to withdraw to a safe distance from the mound as he intends to destroy the gateway.
+
+This you do and shortly after there is a bright flash and a loud bang from the mound. You rush over to look and see Magor come staggering down, his face and hands blackened and his robes torn to shreds!
+
+"Oops!" he says cheerfully, for he is otherwise unharmed. "A bit too heavy on the sulphur there! I must remember that in the future."
+
+You start for home, the children rescued and now the gateway destroyed!
+
+* * * * * * * * * *
+
+*** CONGRATULATIONS! ***
+
+You have Completed the Quest to Find...
+
+THE LOST CHILDREN
+
+...in 410 turns, scoring a total of 371 points!
+
+Thank you for playing this adventure, I hope you enjoyed solving it.
+
+Also Available In The Alaric Blackmoon Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: THE FORTRESS OF FEAR
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+****************************
+
+Adventures in the World of Alaric Blackmoon:
+
+Episode 1: RUN, BRONWYNN, RUN
+
+Episode 2: THE DWARF OF DIREWOOD FOREST
+
+Coming Soon: Episode 3: FINN'S BIG ADVENTURE
+
+****************************
+
+The Intrepid Space Adventures Of Mike Erlin:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPEDES ENIGMA
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+

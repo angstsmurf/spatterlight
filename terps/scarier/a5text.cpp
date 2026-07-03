@@ -779,15 +779,19 @@ eval_function (a5_state_t *st, const char *name, const char *args)
   if (ci_eq (name, "alonewithchar"))
     {
       /* The single other character in the player's location, else NoCharacter
-         (clsCharacter.AloneWithChar / Global.vb:1768). */
+         (clsCharacter.AloneWithChar / Global.vb:1768).  Resolved-location
+         compare, so a character seated on furniture counts (Lost Children's
+         Anne in her rocking chair). */
       const char *ploc = a5state_player_location (st);
       const char *found = NULL;
       int count = 0, i;
       for (i = 0; ploc != NULL && i < st->adv->n_characters; i++)
         {
+          const char *oloc;
           if (ci_eq (st->adv->characters[i].key, a5state_player_key (st)))
             continue;
-          if (streq (st->char_loc[i], ploc))
+          oloc = a5state_character_location_key (st, i);
+          if (oloc != NULL && streq (oloc, ploc))
             { count++; found = st->adv->characters[i].key; }
         }
       return strdup ((count == 1) ? found : "NoCharacter");
@@ -2352,32 +2356,52 @@ view_location_impl (a5_state_t *st, const char *lockey)
     st->marking_display = prev_mark;
     proc = a5text_process (st, raw);
     free (raw);
-    /* Special-listed objects directly here. */
-    for (i = 0; i < st->adv->n_objects; i++)
-      {
-        const a5_object_t *o = &st->adv->objects[i];
-        int is_static = st->obj[i].is_static;
-        int include = (!is_static && !object_has_prop_rt (st, o, "ExplicitlyExclude"))
-                    || (is_static && object_has_prop_rt (st, o, "ExplicitlyList"));
-        char *ld;
-        if (!include || !a5state_object_at_location (st, i, lockey, 1))
-          continue;
-        ld = object_list_desc (st, o, is_static);
-        if (ld != NULL && ld[0] != '\0')
-          {
-            char *p = process_inner (st, ld, 0);
-            size_t plen = strlen (proc);
-            /* pSpace: two spaces unless the previous text ends with a newline. */
-            const char *sep = (plen == 0 || proc[plen - 1] == '\n') ? "" : "  ";
-            size_t need = plen + 2 + strlen (p) + 1;
-            char *joined = (char *) malloc (need);
-            snprintf (joined, need, "%s%s%s", proc, sep, p);
-            free (proc);
-            proc = joined;
-            free (p);
-          }
-        free (ld);
-      }
+    /* Special-listed objects directly here.  FD's ViewLocation SELECTS them
+       via ObjectsInLocation(AllSpecialListedObjects), whose `ob.ListDescription
+       <> ""` test is a REAL Description render (clsLocation.vb:232) -- it
+       retires <DisplayOnce> segments -- and the append loop then renders the
+       property AGAIN.  Mirror the two-pass shape: scan every candidate first
+       (render + discard), then re-render the non-empty ones for output.  Lost
+       Children's rabbit needs this: its DisplayOnce lead-in "Several metres
+       ... you see " terminates the scan render, and the appended second render
+       rebuilds it as the StartAfterDefaultDescription default prefix + "a
+       large rabbit nibbling ...". */
+    {
+      std::vector<int> specials;
+      for (i = 0; i < st->adv->n_objects; i++)
+        {
+          const a5_object_t *o = &st->adv->objects[i];
+          int is_static = st->obj[i].is_static;
+          int include = (!is_static && !object_has_prop_rt (st, o, "ExplicitlyExclude"))
+                      || (is_static && object_has_prop_rt (st, o, "ExplicitlyList"));
+          char *ld;
+          if (!include || !a5state_object_at_location (st, i, lockey, 1))
+            continue;
+          ld = object_list_desc (st, o, is_static);          /* scan render */
+          if (ld != NULL && ld[0] != '\0')
+            specials.push_back (i);
+          free (ld);
+        }
+      for (int si : specials)
+        {
+          const a5_object_t *o = &st->adv->objects[si];
+          char *ld = object_list_desc (st, o, st->obj[si].is_static);
+          if (ld != NULL && ld[0] != '\0')
+            {
+              char *p = process_inner (st, ld, 0);
+              size_t plen = strlen (proc);
+              /* pSpace: two spaces unless the previous text ends with a newline. */
+              const char *sep = (plen == 0 || proc[plen - 1] == '\n') ? "" : "  ";
+              size_t need = plen + 2 + strlen (p) + 1;
+              char *joined = (char *) malloc (need);
+              snprintf (joined, need, "%s%s%s", proc, sep, p);
+              free (proc);
+              proc = joined;
+              free (p);
+            }
+          free (ld);
+        }
+    }
     sb_puts (&sb, proc);
     free (proc);
   }

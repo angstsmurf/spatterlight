@@ -2112,6 +2112,39 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       return;
     }
 
+  if (streq (kind, "Time"))
+    {
+      /* clsUserSession Time action (`Skip "N" turns`, vb:2357): Display the
+         buffered pass responses, then run TurnBasedStuff N times, then clear
+         the response buffer.  Lost Children's WaitZ task advances the
+         Flight-1 countdown 3 extra turns per `z`. */
+      long n = 0;
+      if (tk.size () >= 2)
+        {
+          std::string sv = tk[1];
+          if (sv.size () >= 2 && sv.front () == '"' && sv.back () == '"')
+            sv = sv.substr (1, sv.size () - 2);
+          char *endp = NULL;
+          n = strtol (sv.c_str (), &endp, 10);
+          if (endp == sv.c_str ())        /* not a literal: EvaluateExpression */
+            {
+              char *ev = a5text_eval_expression (st, sv.c_str ());
+              if (ev != NULL) { n = strtol (ev, NULL, 10); free (ev); }
+            }
+        }
+      if (run->resp != NULL)
+        {
+          /* FD flushes htblResponsesPass before the ticks so the command's own
+             message precedes any event output, then Clear()s it (keep nmut --
+             it is the "did the task produce output" history probe). */
+          resp_flush (run, run->resp, out);
+          run->resp->ents.clear ();
+        }
+      for (long i = 0; i < n && !st->game_over; i++)
+        ev_tick_all (run, out);
+      return;
+    }
+
   if (streq (kind, "SetTasks"))
     {
       if (tk.empty ()) return;
