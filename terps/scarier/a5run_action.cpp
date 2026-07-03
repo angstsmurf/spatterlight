@@ -916,7 +916,21 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
      shares whichever map is active (it does not flush). */
   bool plural = (objidx >= 0 && st->n_ref_items > 1);
   bool movement = (diridx >= 0);
-  bool use_map = plural || movement;
+  /* An "all" command whose %objects% resolved to items of which NONE pass shows
+     the general task's <FailOverride> ("You are not carrying anything."),
+     discarding the per-item override fail messages -- FD's AttemptToExecuteTask
+     finalize (clsUserSession.vb:789: htblResponsesPass.Count=0 AndAlso
+     FailOverride<>"" AndAlso ContainsWord(sInput,"all") -> Display(FailOverride)).
+     This must fire even when "all" collapses to a SINGLE surviving item: a
+     genuine singular command (no "all") stays on the direct path and keeps its
+     object-specific fail message (`put food in bag` -> "makes a mess"), but `put
+     all in bag` with only the un-baggable food held must show the FailOverride,
+     not the food's "makes a mess" (AoS `put all in bag` after the pouch/whetstone
+     are already bagged).  Route it through the response map so the child fail
+     messages buffer and can be replaced by the FailOverride at flush. */
+  bool all_failover = (objidx >= 0 && parent->fail_override != NULL
+                       && conv_contains_word (m->ref_text[objidx], "all"));
+  bool use_map = plural || movement || all_failover;
 
   resp_map rm;
   if (use_map) run->resp = &rm;
@@ -952,7 +966,35 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
     }
 
   run->exec_scope = prev_escope;
-  if (use_map) { run->resp = NULL; resp_flush (run, &rm, out); }
+  if (use_map)
+    {
+      run->resp = NULL;
+      /* No child override passed for an "all" command: replace the buffered
+         per-item fail messages with the general task's FailOverride (FD's
+         htblResponsesPass.Count=0 branch). */
+      if (all_failover)
+        {
+          bool any_pass = false;
+          for (auto &e : rm.ents)
+            if (e.is_pass) { any_pass = true; break; }
+          if (!any_pass)
+            {
+              char *fo = a5text_describe (st, parent->fail_override);
+              rm.ents.clear ();
+              rm.nmut = 0;
+              if (msg_has_output (fo))
+                {
+                  resp_entry e;
+                  e.is_pass = true;
+                  e.rendered = fo ? fo : "";
+                  rm.ents.push_back (e);
+                  rm.nmut = 1;
+                }
+              free (fo);
+            }
+        }
+      resp_flush (run, &rm, out);
+    }
   exec_scope_flush (run, &escope, out);
 }
 

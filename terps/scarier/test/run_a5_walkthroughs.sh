@@ -510,7 +510,7 @@ TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
 Tribute|Tribute.blorb|0|0
-AoS|AoS v.4.blorb|3|3
+AoS|AoS v.4.blorb|1|1
 EOF
 )
 

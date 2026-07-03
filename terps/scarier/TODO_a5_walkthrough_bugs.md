@@ -1,5 +1,42 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ `put all in <container>` parent `<FailOverride>` on a single un-baggable item (AoS 3→1)  ✅ DONE (2026-07-03)
+
+**AoS `put all in bag` showed "makes a mess" where FD shows "You are not carrying
+anything." (2 hunks, transcript 1001/1775).** The earlier note filed this as a
+"downstream `give food` NPC food-location divergence" — **that was wrong**. Proven by
+probing: `give food` (transcript ~1340) fails *identically* in both engines and never
+moves the food; the food's location is byte-identical throughout (`i` + `search bag`
+after each `put all in bag` match FD exactly). It is a pure **message-selection**
+divergence.
+
+**Mechanism.** On the 2nd/3rd `put all in bag` the pouch/whetstone are already in the
+bag, so the only held-loose item is the wrapped `cl_Food`, which fails `PutObjectI`'s
+`MustNot BeObject cl_Food` gate. Both engines route the command through the general
+`PutObjectsInOther` (Scarier's main scan only considers General tasks; the `PutObjectI`
+/ `cl_PutAllInBa` specifics are its Override children). FD's `AttemptToExecuteTask`
+finalize (clsUserSession.vb:789) shows the parent's `<FailOverride>` whenever
+`htblResponsesPass.Count=0 AndAlso FailOverride<>"" AndAlso ContainsWord(sInput,"all")`,
+discarding the child overrides' per-item fail messages. AoS's `PutObjectsInOther`
+FailOverride *is* "You are not carrying anything." (XML — coincidentally the same text
+`cl_PutAllInBa`'s restriction uses; the message comes from the parent, not that child).
+
+**Why Scarier missed it.** `run_general`'s response-map path is gated on
+`n_ref_items>1`. An `all` that collapses to a **single** surviving item (only the food)
+fell to the *direct* path, where the child override's fail message went straight to
+`out` and no FailOverride was ever consulted. A genuine singular `put food in bag` (no
+"all") also uses the direct path and *correctly* keeps "makes a mess".
+
+**Fix** (`a5run_action.cpp run_general`): an `all` command (`%objects%` ref text
+contains the word "all") whose matched parent has a non-NULL `fail_override` now routes
+through the response map even for one item, so the child fail messages buffer; after
+`execute_task_with_overrides`, if **no** child override recorded a pass, the buffered
+fail entries are cleared and replaced with the parent's rendered FailOverride. The
+`>1`-item and non-`all` paths are untouched. Whole corpus unchanged in both modes
+(AxeOfKolt/TBN/LostLabyrinth/Dwarf/Amazon/StoneOfWisdom all still 0/baseline);
+**AoS 3→1** (MAP re-blessed). Remaining AoS hunk is the unrelated nested-pouch coin
+iteration-ordering cosmetic (see A5_WALKTHROUGH_FINDINGS.md, not chased).
+
 ## 📄 DwarfOfDirewoodForest is UNWINNABLE on Version 9 — verified by drag-aware playthrough (north = death-trap OR `{*}`-blocked)  ✅ RESOLVED (2026-07-03)
 
 **Final, empirically-verified conclusion (after two wrong intermediate takes,
