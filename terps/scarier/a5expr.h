@@ -51,6 +51,11 @@ extern char *a5expr_eval (a5_state_t *st, const char *firstkeys,
  */
 extern char *a5expr_replace (a5_state_t *st, const char *text);
 
+/* a5expr_replace in EXPRESSION mode (FD ReplaceOO bExpression=True,
+   Global.vb:645): non-integer OO values are emitted as quoted string
+   literals so a `X.Prop & %text%` concatenation parses. */
+extern char *a5expr_replace_expr (a5_state_t *st, const char *text);
+
 /*
  * Host hook for an event's OO-properties (Global.ReplaceOOProperty, evt branch):
  *   Event.Position -> evt.TimerFromStartOfEvent

@@ -573,6 +573,12 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         if (pr != NULL && pr->value_node != NULL)
           { char *d = a5text_eval_description (st, pr->value_node);
             std::string r = d ? d : ""; free (d); return r; }
+        /* A property that EXISTS but is empty is "" (clsProperty.Value ->
+           StringData.ToString of a blank Description), not the missing-
+           property "0" -- Magnetic Moon's blank Lid.ReadText concatenates
+           `Lid.ReadText & %text%` into "mike", not "0". */
+        if (pr != NULL)
+          return "";
         if (!rem.empty ()) { *ok = 0; return ""; }
         return "0";
       }
@@ -671,6 +677,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         if (pr != NULL && pr->value_node != NULL)
           { char *d = a5text_eval_description (st, pr->value_node);
             std::string r = d ? d : ""; free (d); return r; }
+        if (pr != NULL)
+          return "";                     /* exists but empty (see object branch) */
         if (!rem.empty ()) { *ok = 0; return ""; }
         return "0";
       }
@@ -712,6 +720,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         if (pr != NULL && pr->value_node != NULL)
           { char *d = a5text_eval_description (st, pr->value_node);
             std::string r = d ? d : ""; free (d); return r; }
+        if (pr != NULL)
+          return "";                     /* exists but empty (see object branch) */
         if (!rem.empty ()) { *ok = 0; return ""; }
         return "0";
       }
@@ -786,8 +796,8 @@ scan_chain (const char *dot)
   return r;
 }
 
-char *
-a5expr_replace (a5_state_t *st, const char *text)
+static char *
+expr_replace_impl (a5_state_t *st, const char *text, int expression)
 {
   std::string out;
   const char *p = text ? text : "";
@@ -817,7 +827,25 @@ a5expr_replace (a5_state_t *st, const char *text)
                       std::string chain (k, (size_t) (chain_end - k));
                       char *v = a5expr_eval (st, firstkeys.c_str (), chain.c_str ());
                       if (v != NULL)
-                        { out += v; free (v); p = chain_end; continue; }
+                        {
+                          /* Expression mode (Global.vb:645): a non-integer OO
+                             value becomes a quoted string literal -- unless the
+                             source already quotes the match ("Lid.ReadText") or
+                             we are inside a quoted run.  Magnetic Moon's
+                             `SetProperty Lid ReadText Lid.ReadText & %text%`
+                             needs `"" & "mike"`, not ` & "mike"`. */
+                          int quote = 0;
+                          if (expression && (p == text || p[-1] != '"'))
+                            {
+                              char *endp = NULL;
+                              (void) strtol (v, &endp, 10);
+                              quote = (v[0] == '\0' || (endp != NULL && *endp != '\0'));
+                            }
+                          if (quote) out += '"';
+                          out += v;
+                          if (quote) out += '"';
+                          free (v); p = chain_end; continue;
+                        }
                     }
                 }
             }
@@ -829,4 +857,16 @@ a5expr_replace (a5_state_t *st, const char *text)
       out += *p++;
     }
   return strdup (out.c_str ());
+}
+
+char *
+a5expr_replace (a5_state_t *st, const char *text)
+{
+  return expr_replace_impl (st, text, 0);
+}
+
+char *
+a5expr_replace_expr (a5_state_t *st, const char *text)
+{
+  return expr_replace_impl (st, text, 1);
 }

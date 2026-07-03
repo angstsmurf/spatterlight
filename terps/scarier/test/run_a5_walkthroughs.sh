@@ -597,6 +597,22 @@ FILTER="${1:-}"
 # topic keywords must go through CorrectCommand) -- see the October 31st
 # entry in TODO_a5_walkthrough_bugs.md.
 #
+# (2026-07-03) LostChildren and MagneticMoon REWIRED to their NATIVE built-in
+# WLKTHRGH walkthroughs (user report: the old CASA/Spectrum-original
+# differential scripts derailed -- hundreds of soft failures that only looked
+# like MATCHes because FD derailed identically).  LostChildren: full rescue-
+# ending win, ZERO corrections, 0|0 golden-backed (3 engine fixes: resolved-
+# location AloneWith/BeAlone, the Time "Skip N turns" action, double-render
+# ListDescription selection scan).  MagneticMoon: 795/800 win (9 corrections
+# vs the earlier-build text, see the script header; 6 engine fixes: per-item
+# execution-time restriction re-eval on plural commands, empty-Text-property
+# "" vs "0", expression-mode OO string quoting, clsVariable expr-AND-expr
+# string concat, empty ObjectHashTable.List -> "nothing", bChanged-gated
+# second boundary ALR round).  MagneticMoon budget 2|2 = two OPEN one-char
+# divergences: "The medic are wearing" ([am/are/is] needs FD's PronounKeys
+# nearest-name perspective) and one extra "." on the tied electrical cable's
+# inventory suffix -- see TODO_a5_walkthrough_bugs.md.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -604,7 +620,7 @@ anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|0|0
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
-MagneticMoon|MagneticMoon.blorb|0|0
+MagneticMoon|MagneticMoon.blorb|2|2
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0

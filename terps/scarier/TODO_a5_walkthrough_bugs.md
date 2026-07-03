@@ -1,5 +1,49 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Magnetic Moon: NATIVE walkthrough wired as a 795/800 WIN, 2|2 (6 engine fixes; 2 OPEN one-char hunks) — mostly DONE (2026-07-03)
+
+> Same user report and same root cause as Lost Children: the old script was
+> Doreen Bardon's CASA solution for the Spectrum ORIGINAL (~130 soft
+> failures, MATCH-by-identical-derailment).  The port ships a full `WLKTHRGH`
+> solution; extracted + 9 build-drift corrections (each verified against FD;
+> list in the script header) it wins 795/800 in 725 turns.  The missing 5
+> points are an earlier-build scoring artifact — FD replays this script to
+> the same 795.  Budget 2|2 (identical both modes, no golden).  Six general
+> engine fixes (suite otherwise unchanged):
+>
+> 1. **Plural commands re-evaluate the parent task's restrictions per item at
+>    EXECUTION time** (a5run_action.cpp execute_task_with_overrides, plural
+>    map path only): `put all in box` moves the backpack into the box first,
+>    so the items nested in the pack must then FAIL BeHeldByCharacter with
+>    the merged "You are not carrying X, Y and Z!" response, exactly like
+>    FD's ExecuteSubTasks — they stay in the pack (the native script's
+>    later `get tape and pack` depends on it).
+> 2. **A Text property that EXISTS but is empty evaluates to ""**, not the
+>    missing-property "0" (a5expr.cpp, all three entity branches).
+> 3. **Expression-mode OO replacement quotes string values**
+>    (a5expr_replace_expr, mirroring Global.vb:645), so
+>    `SetProperty Lid ReadText Lid.ReadText & %text%` parses.
+> 4. **`expr & expr` on non-comparison operands CONCATENATES**
+>    (a5sexpr.cpp: clsVariable tokenises `&` as AND, but its
+>    `expr AND expr` rule at vb:919 is VB string concat; only
+>    `test AND test` — comparison results — is logical).  The crate lid
+>    now reads "mike", not "0".
+> 5. **An empty %ListObjectsOn/In% renders "nothing"**
+>    (ObjectHashTable.List, StronglyTypedCollections.vb:196).
+> 6. **The Display-boundary second ALR round runs only when auto-capitalise
+>    changed the text** (FD's bChanged gate, Global.vb:550) — an ALR whose
+>    NewText contains its own OldText (the suits disambiguation
+>    "(type X EVA SUITS …)" suffix) no longer doubles.
+>
+> **OPEN (the 2|2 budget):** (a) `[am/are/is]` conjugation uses the player's
+> perspective globally; FD's GetPerspective picks the perspective of the
+> NEAREST preceding rendered character name (PronounKeys w/ text offsets) —
+> "The medic **are** wearing a stethoscope."  Needs a rendered-name offset
+> ledger.  (b) the tied-up electrical cable's inventory suffix gains one
+> extra "." vs FD ("cable.." vs "cable.") — some suffix render runs once
+> more than FD's; related to the dynamic ListDescription/name suffix path.
+
+
 ## ⭐ The Lost Children: NATIVE walkthrough wired as a FULL WIN 0|0 (3 general engine fixes) — ✅ DONE (2026-07-03)
 
 > **✅ DONE.** User report: "most of the commands in the walkthrough are not

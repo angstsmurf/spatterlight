@@ -30,6 +30,8 @@ struct Val {
   std::string s;        /* the string form (always populated)            */
   bool isnum;           /* true when this was produced as a number       */
   double n;             /* the numeric value when isnum                  */
+  bool is_test = false; /* produced by a comparison ("test" token) --
+                           drives AND's logical-vs-concat split          */
 };
 
 /* Format a double the way ADRIFT's CStr/.ToString does for our cases: as a
@@ -443,7 +445,9 @@ parse_cmp (Parser &p)
       else if (op == "LT") res = val_of (left) < val_of (right);
       else if (op == "GE") res = val_of (left) >= val_of (right);
       else if (op == "LE") res = val_of (left) <= val_of (right);
-      return mk_num (res ? 1.0 : 0.0);
+      Val t = mk_num (res ? 1.0 : 0.0);
+      t.is_test = true;                  /* clsVariable "test" token */
+      return t;
     }
   return left;
 }
@@ -457,7 +461,15 @@ parse_logic (Parser &p)
     {
       if (p.is_op ("AND"))
         { p.adv (); Val r = parse_cmp (p);
-          left = mk_num ((val_of (left) > 0 && val_of (r) > 0) ? 1.0 : 0.0); }
+          /* clsVariable: `test AND test` (comparison results) is logical
+             (vb:833); `expr AND expr` (plain values) CONCATENATES (vb:919) --
+             VB's `&`.  Magnetic Moon's `Lid.ReadText & %text%` is
+             `"" & "mike"` -> "mike". */
+          if (!left.is_test && !r.is_test)
+            left = mk_str (left.s + r.s);
+          else
+            { left = mk_num ((val_of (left) > 0 && val_of (r) > 0) ? 1.0 : 0.0);
+              left.is_test = true; } }
       else if (p.is_op ("OR"))
         { p.adv (); Val r = parse_cmp (p);
           left = mk_num ((val_of (left) > 0 || val_of (r) > 0) ? 1.0 : 0.0); }

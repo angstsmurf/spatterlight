@@ -988,6 +988,27 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
   if (enable_look_defer)
     { run->defer_look = 1; run->look_pending = 0; run->look_pinned = NULL; }
 
+  /* FD's per-item AttemptToExecuteTask evaluates the task's restrictions at
+     EXECUTION time (ExecuteSubTasks leaf), so an earlier item's actions can
+     fail a later item of the same plural command -- Magnetic Moon's `put all
+     in box`: once the (worn-then-held) backpack has been moved inside the
+     box, the grapnel/cable/glue/camera nested in it are no longer
+     BeHeldByCharacter and FD refuses them ("You are not carrying ...!",
+     items merged into one fail response).  Scarier's match phase refined the
+     item set against the PRE-command state, so re-check the parent's
+     restrictions here, on the plural per-item path only (cur_item set) --
+     the singular/movement paths keep their single match-time evaluation and
+     draw stream. */
+  if ((parent_text || parent_actions) && depth == 0 && run->resp != NULL
+      && !run->resp->cur_item.empty ()
+      && !a5restr_pass (st, parent->restrictions))
+    {
+      const a5_xml_node_t *fm = st->restriction_text;
+      if (fm != NULL)
+        resp_add_fail (run, fm);
+      parent_text = parent_actions = 0;
+    }
+
   if (parent_text || parent_actions)
     {
       /* run_task emits both text and actions; gate via temporary copies. */

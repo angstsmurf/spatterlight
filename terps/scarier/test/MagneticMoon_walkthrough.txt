@@ -1,486 +1,748 @@
-# Magnetic Moon -- ground-truth walkthrough script (ADRIFT 5).
+# Magnetic Moon -- NATIVE built-in walkthrough (ADRIFT 5), full win 795/800.
 #
-# Source: Solution by Doreen Bardon (Spectrum), Larry Horsfield / FSF Adventures.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
-# Verbs kept exactly as written, including the original walkthrough's typos
-# (e.g. "et grapnel", "cur grill", "put ... n crate", "put re cylinder").
-# NOTE: CASA solution is for the original; ADRIFT 5 remake is a faithful port.
+# Source: the game's own WLKTHRGH command (task `Walkthroug`) -- extracted from
+# the a5dump <Text>, dash-split, start handshake (o, b, n) prepended.  This
+# REPLACES the old CASA/Spectrum differential script (Doreen Bardon's solution
+# for the original release), which soft-failed on ~130 commands.
+#
+# Corrections vs the built-in text (authored on an earlier build, each verified
+# against FrankenDrift): extra `po` past Ensign Giordano (walk-past is 2 moves
+# now); `throw box into hold` -> `throw cable into hold` (no box in this
+# build); `fix torch to epaulette` -> `attach ...`; glue/replace grille order
+# (glue on the crate, then climb in, `get grille` reaches through, `put grille
+# in hole`); `tuck sleeve` single space; `x  - cameras` typo joined to
+# `x cameras`; `insert batteries in compartment` -> `put batteries in camera`
+# (film-compartment ambiguity); `throw rope at grill` -> `throw grapnel up`
+# (the game's own hint; plain `throw grapnel` feeds it to the cleaning droid);
+# `pak` -> `rations` (ration tube naming).  Ends 795/800 in 725 turns -- the
+# missing 5 is an earlier-build scoring artifact (FrankenDrift replays this
+# script byte-identically except the 2|2 budget hunks).
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/MagneticMoon.blorb test/MagneticMoon_walkthrough.txt
-#
-# Start-options preamble (not in the prose walkthrough): the game gates play
-# behind a Start Options page -- type O to continue, B to begin from the first
-# location, then N to decline the "explore the ship first?" tour.
 o
 b
 n
-wait
-wait
+look in pockets
+get note
+read note
+drop note
+x nav console
+get pen
+put pen in pocket
+check atmosphere
+z
+z
+stand up
 aft
-starboard
+st
+po
+x suits
+x racks
+st
 aft
+aft
+po
+search hold
+st
+u
 search flitter
-get backpack
-wear backpack
+put grapnel in backpack
+d
 aft
 search tools
-get headshield
-wear headshield
+et shield
+wear shield
+wear backpack
 aft
 listen
-wait
-port
-port
-forward
-starboard
-search shelves
-search racks
+look around bend
+aft
+po
+po
+fo
+st
 open cupboard
-search cupboard
-get flashlight
-get rope
-get laser
-get forcer
-put all in backpack
-port
+x cupboard
+look in cupboard
+x screwer readout
+get cutter from cupboard
+put cutter in backpack
+get torch from cupboard
+put torch in backpack
+look on racks
+get axe from rack
+put axe in loop
+look on shelf
+po
 aft
-starboard
-starboard
-f
-f
-f
-f
-port
-get grapnel
-get axe
-starboard
-f
-f
-port
+st
+st
+fo
+remove shield
+drop shield
+fo
+fo
+fo
+po
+x suits
+find ringshaw suit
+search ringshaw pockets
+replace ringshaw suit on rack
+find spare suit
+x spare suit
+drop all
+st
 aft
-starboard
-search sick bay
-get bottle
-port
-f
-exam panel
-press hand on panel
-say erlin in microphone
-port
-f
-u
-f
-exam couch
-search compartment
+po
+find oxygen bottle
+st
+fo
+po
+remove backpack
+drop all
+get spare suit
+wear spare suit
+x suit
+get all
 get helmet
-fit bottle to helmet
+wear helmet
+fit bottle to suit
+get grapnel from pack
+po
+press hand on panel
+po
+fo
+u
 aft
+search compartments
+tie rope to grapnel
+put grapnel in pack
+fo
 d
 aft
-aft
-port
-press red button
-enter airlock
-wear helmet
-press green button
-leave airlock
-jump down
+po
+put screwer in backpack
+wear backpack
+press button
+po
+push button
+po
+push button
+z
+z
+z
+z
+z
+d
 w
 w
 w
-get flashlight from backpack
-switch on flashlight
+x stars
+x colours
+get torch, screwer, laser and grapnel from pack
+put screwer and laser in pocket
+shake torch
+switch torch on
+attach torch to shoulder
 w
 s
 w
+w
 n
-n
-get rope from backpack
-get grapnel from backpack
-tie ropes together
-look up
-throw grapnel
-climb rope
-climb into port
+read hud
+s
+s
+x nose
+throw grapnel at porthole
+climb up rope
 get grapnel
-port
+st
+fo
+st
+st
+look up
+throw grapnel into doorway
+climb up rope
+x doorway
+x hole
+st
 aft
-port
-port
+po
+search junk
+st
+fo
+po
+tie cable to bolthole
+throw cable into hold
+d
+abseil d rope
 aft
 search wreckage
-get laser from backpack
-cut girder with laser
-put laser in backpack
-get girder
-f
-drop girder
-look up
-jump to handrail
-u
-throw grapnel
-climb rope
-u
-u
-port
-aft
-port
-search junk
-get wire
-starboard
-f
-starboard
-exam door
-tie wire to boltholes
-throw wire into hold
-d
-d
-d
-climb down rope
-d
-jump down
-girder
-tie wire to girder
-drop girder
-jump to handrail
-u
-climb rope
-et grapnel
-u
-u
-pull wire up
-get girder
-untie wire
-port
-aft
-prop girder under plates
-run aft
-aft
-port
-exam glass
-get laser from backpack
-cut glass with laser
-put laser in backpack
-break glass with axe
-exam port
-hook grapnel onto port
-drop wire
-climb out of port
-climb down rope
-flick rope
-follow tracks
-exam cliff
-exam niche
-push/pull/turn button
-enter tunnel
-s
-s
-s
-exam alcove
-search rubbish
-get glue
-push crate hard
-s
-get wire
-n
-open crate
-put helmet and axe n crate
-close crate
-climb onto crate
-get paper
-exam grill
-cur grill with laser
-put laser in backpack
-climb into hole
-get grill
-glue grill
-n
-exam paper
-n
-exam paper
-e
-exam paper
-w
-exam paper
-n
-exam paper
-s
-exam paper
-n
-exam paper
-look up
-exam shaft
-throw grapnel
-get forcer from backpack
+get cutter
+cut beam with cutter
+put cutter in pocket
+get beam
+fo
+drop beam
+detach torch from shoulder
+shake torch
+switch torch on
+attach torch to epaulette
+tie cable around beam
 climb up rope
-exam grill
-unscrew grill with forcer
-climb into hole
+pull beam into doorway
+get cable
 get grapnel
-get grill
-screw grill with forcer
-press button
+put grapnel and cable in pack
+get beam
+st
+aft
+prop beam under plates
+aft
+aft
+x porthole
+get cutter
+score glass with cutter
+get axe
+break porthole with axe
+get grapnel from pack
+hook grapnel onto rim
+put axe in loop
+climb d rope
+get rope
+flick rope
+put grapnel in pack
+x tracks
+follow tracks
+x cliff
+look around door
+open flap
+push flap
+turn knob
+w
+d
+w
+search rubbish
+w
+look behind crate
+push crate
+w
+x rack
+bend wire
+e
+open crate
+remove helmet
+put helmet in crate
+remove backpack
+get all from pockets
+get torch
+drop all
+remove suit
+hide suit in crate
+get axe
+put axe in crate
+x crate
+tuck sleeve in crate
+get all
+close lid
+get pen
+write mike on crate lid
+read writing
+put pen, glue, wire and screwer in pocket
+climb on crate
+x grille
+get paper
+wear pack
+cut grille with laser
+put laser in pocket
+get glue
+apply glue to grille
+climb in hole
+get grille
+put grille in hole
+remove pack
+put all except paper in pack
+get torch from pack
+wear pack
+shake torch
+switch torch on
+attach torch to shoulder
+n
+x paper
+n
+x ceiling
+x paper
+e
+x walls
+x paper
+w
+x floor
+x paper
+s
+x paper
+n
+x paper
+e
+x paper
+w
+x paper
+s
+x paper
+look up
+stand up
+get grapnel from pack
+throw grapnel up
+climb up rope
+get grapnel
+put grapnel in pack
+get screwer
+wear pack
+unscrew bolts with screwer
+climb through hole
+get all from bed
+get screwer
+replace grille in hole
+x cameras
+get instamatic
+x instamatic
+x chest
+open middle drawer
+look in middle drawer
+look under vests
+put batteries in camera
+close middle drawer
+look under bed
+open box
+x items
+x flashcubes
+find flashcube
+fit flashcube in socket
+close box
+look under bed
+look in bag
+find 126 cassette
+open back of camera
+put cassette in instamatic
+put box under bed
+put bag into space
 n
 w
-pick lock with wire
+get wire
+pick lock
+open door
+s
+close door
+search lockers
+get laser
+get torch
+remove pack
+put instamatic in pack
+drop pack
+wear overalls
+search pockets
+search locker
+wear hat
 open door
 n
-wait
-drop all
-s
 w
 w
-n
-search lockers
-get overalls
-wear overalls
+w
+go to 5
+e
 s
-e
-enter shaft
-d
-d
-d
-leave shaft
-e
-search table
+x table
+x tools
 get wrench
-w
-enter shaft
-u
-u
-leave shaft
-w
-s
-wait
 n
-e
-enter shaft
-d
-leave shaft
-look west
-quietly west
-hit medic with wrench
-search desk
-get dictaphone
-e
-enter shaft
-u
-leave shaft
 w
+goto 2
+e
+e
+n
+n
+look through window
+x man
 s
-wait
-press record
-drop dictaphone
-drop wrench
+s
+e
+s
+close door
+lock door
+stand in corner
+get pack
+listen
+hit benny with wrench
+search benny
+open door
+n
+shut door
+w
+w
+w
+d
+e
+e
+unlock door
+open door
+s
+x box
+search room
+repair box with tape
+put all in box
 get box
-get all from box
-drop all but box
+n
+w
+w
+u
+e
+e
+e
+open door
+s
+drop all
+get tape
+tape benny up
+put tape in box
+get wrench
+hit benny with wrench
+get pack
+put pack in box
+get box
+n
+shut door
+w
+n
+n
 n
 e
-enter shaft
-d
-leave shaft
+listen
 w
-search medic
-get key
-search sickbay
-unlock locker
-open locker
-drop key
-get red cylinder
-get green cylinder
-e
-enter shaft
+s
+s
+s
+w
+w
 d
-leave shaft
 e
-get cutter from backpack
-exam pump
-cut pipe with cutter
-drop cutter
-wear box on head
-open valve on green cylinder
-open valve on red cylinder
-put re cylinder into hole
+e
+s
+follow xixon
+d
+w
+n
+hit medic with wrench
+search medic
+search medic
+s
+e
+u
+e
+e
+s
+x recorder
+press play
+press erase
+press record
+n
+w
+w
+d
+w
+n
+search medic
+x medic
+remove stethoscope
+look under desk
+put kit and sethoscope in pocket
+s
+w
+w
+x rack
+unlock bar
+drop key
+get black cylinder
+look under table
+get white cylinder
+x white cylinder
+read warning
+e
+e
+e
+d
+e
+s
+cut hole in pipe
+empty box
+put box on head
+open black valve
+open white valve
+put white valve in hole
+shut black valve
+drop white cylinder
 remove box
 drop box
-w
-enter shaft
-u
-u
-leave shaft
-e
-exam pirates
-pull ryrzq west
-pull ryrzq west
-s
-get dictaphone
+get tape and pack
 n
-press ryrzq hand onto door
-press play
-s
-drop dictaphone
-get plunger
-get cloth
-get tin
-put tin and cloth into backpack
-stick plunger into doorway
 w
-search man
-get card
-search table
+goto 1
+n
+w
+drop all but tape
+tape ryrzq up
+get laser
+cut xixon's hand off
+get all
+remove overalls and hat
+drop overalls and hat
+wear pack
+e
+n
+s
+s
+goto 3
+e
+e
+e
+press hand on panel
+press play
+look under laptop
+get laptop
+get papers
+put laptop and papers in pack
+x desk
+find button
+press button
 get notebook
 read notebook
-drop notebook
-e
-e
-enter shaft
-u
-u
-leave shaft
-exam reader
-insert card into slot
-exam console
-get pad
-exam pad
-read pad
-drop pad
+read notebook
+read notebook
+read notebook
+remember
+press hand on panel
+press play
+drop hand and recorder
 w
-enter shaft
-d
-d
-leave shaft
+w
+w
+goto 5
 e
-n
-get flashlight
-get glue
-get grapnel
-put all in backpack
 s
+get cleaner, polish and cloth
+put notebook, cleaner, polish and cloth in pack
+get torch
+n
 w
-enter shaft
+goto 1
+n
+n
+swipe card
+key 7135
+n
+lift pirate
+read clipboard
+drop clipboard
+e
+hold down ctrl+r
+type open eae
+smash console with wrench
+w
+w
+hold down ctrl+shift+f3
+type betelgeuse
+smash console with wrench
+e
+swipe card
+key 7135
+s
+s
+goto 5
+e
+e
+swipe card
+key 9653
+drop pass
+e
+hold down ctrl+alt+f7
+type betelgeuse
+smash console with wrench
+drop wrench
+w
+w
+w
+u
+u
+u
+u
+n
+n
+get blaster
+remove belt from guard
+holster blaster
+n
+n
 d
-d
-leave shaft
-insert card into slot
-exam keyboard
-exam vdu
-type 'shutdown all except ls'
-exam vdu
-type 'shutdown sequence commence'
-exam vdu
-type 'rigel'
-exam vdu
-type 'code delta'
-exam vdu
-e
-enter shaft
-d
-leave shaft
-e
-insert card into slot
-drop card
-e
-e
-exam crawler
+drop all
+s
+find my crate
 open crate
-get helmet from crate
+get all from crate
+remove pack
+drop all except suit
+wear suit
+get all
 wear helmet
-w
-s
-turn wheel
-s
-d
-search nest
-get diamond
-put diamond in backpack
-d
+wear pack
 n
-search rubbish
-get pole
-s
-get cylinder
-se
-open valve on green cylinder
-s
-look up
-throw pole up
-throw grapnel over pole
-hold rope
-drop cylinder
-hold rope
-swing across hole
-get flashlight from backpack
-switch on flashlight
-s
+get all
+put torch on shoulder
+put laser in pocket
+put axe in loops
+put all in pack
+wear belt
+nw
+nw
+press button
+nw
+press button
+nw
+press green button
+head 310
+w
+throw cylinder across ravine
+jump across ravine
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+search nest
+put diamond in pocket
 d
+get cylinder
+e
+x monster
+spray oxygen at monster
+e
+e
+n
+x carvings
+touch carvings
+get stones
 d
 remove helmet
-d
+clip helmet to pack
+ne
+throw stone into hole
+sw
+e
+throw stone into hole
+w
+se
+throw stone into hole
+drop stones
+jump into hole
+x beach
+get rock
 n
-nw
 n
 e
-se
-exam moss
+x moss
 get berries
-exam berries
-nw
-ne
-se
-ne junction
-exam flower
-eat berry
-spit into flower
-ne
+eat berries
 n
-ne
+nw
+n
+throw rock at scorpion
+get camera from pack
+press shutter
+drop camera
+x humanoid
+get kit from pack
+treat wounds
+talk to humanoid
+follow queex
+spit into flower
+n
+spit in flower
+put camera and kit in pack
+get stethoscope from pack
+wear stethoscope
+listen
+get axe
+smash wall with axe
+e
 d
 e
-exam statue
-throw grapnel
-climb rope
-exam socket
-get diamond from backpack
-get glue from backpack
-stick diamond into socket
+put axe in loop
+get grapnel from pack
+throw grapnel over arm
+climb up rope
+get diamond and glue
+glue diamond into cavity
+drop glue
 d
-look ne
-ne
 u
-exam statue
-exam mirror
-get tin and cloth from backpack
-clean mirror with cloth
-d
-sw
-e
-look into port
-e
-exam ship
+bend dish
+look in backpack
+get cleaner, cloth and polish
+clean dish
+polish dish
+drop all
 pull lever
-u
-exam body
-roll body
-get blaster
-cut hole in door with blaster
-starboard
-forward
-get all
-aft
-port
-d
-w
+put discs in pocket
+e
+search bodies
+put rations in pocket
+x door
+x lever
+pull lever
+stand clear
+e
+n
+draw blaster
+cut door with blaster
+holster blaster
+st
+fo
+get laser
+cut door with laser
+fo
+x crewman
+look around
+open locker
+get all from locker
+put mask on davey
+carry commander davey
+af
+af
+po
+po
 w
 nw
 ne
-exam commander
-exam beacon
-switch on beacon
+z
 sw
 se
 e
 e
-ne
+follow tracks
+se
+x spacecraft
+hide under wing
+n
+nw
+put commander davey down
+get rations
+eat rations
+carry commander davey
+follow tracks
+draw blaster
+fire blaster at launcher
+drop blaster
+carry commander davey
+call queen
+fo
+fo
+fo
+fo
 report to captain

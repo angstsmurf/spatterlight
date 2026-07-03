@@ -960,6 +960,20 @@ eval_function (a5_state_t *st, const char *name, const char *args)
             if (o != NULL) break; }
       if (o != NULL)
         { char *pp = a5expr_eval (st, o->key, ".Parent"); if (pp) return pp; k = ""; }
+      /* Characters too: %ParentOf[%Player%]% is the seat/container the
+         character is on/in (clsCharacter.Parent) -- the stock
+         MoveOffCurrentObject passes it to MoveOffObject (Magnetic Moon's
+         `stand up` from the nav-console chair). */
+      {
+        const a5_character_t *c = a5model_character (st->adv, args);
+        if (c == NULL)
+          for (i = 0; i < st->adv->n_characters; i++)
+            if (st->adv->characters[i].name != NULL
+                && ci_eq (st->adv->characters[i].name, args))
+              { c = &st->adv->characters[i]; break; }
+        if (c != NULL)
+          { char *pp = a5expr_eval (st, c->key, ".Parent"); if (pp) return pp; }
+      }
       return strdup (k ? k : "");
     }
   if (args != NULL
@@ -972,6 +986,11 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                                                        : A5_OWHERE_IN_OBJECT;
       std::vector<const char *> v;
       if (k != NULL) v = objects_on_in (st, k, want);
+      if (v.empty ())
+        return strdup ("nothing");      /* ObjectHashTable.List of an empty set
+                                           (StronglyTypedCollections.vb:196) --
+                                           Magnetic Moon's "On the desk are
+                                           nothing." */
       return list_objects (st, v);
     }
   if (args != NULL && ci_eq (name, "listobjectsonandin"))
@@ -1811,9 +1830,10 @@ a5text_eval_expression (a5_state_t *st, const char *expr)
   /* Resolve any BARE OO-chain (no leading %), e.g. `Event12.Position` in a
      rain-gate restriction -- expr_substitute only handles %ref%.Prop, so the
      bare-key form needs the same ReplaceOO pass that process_inner runs on
-     display text (FD's EvaluateExpression -> ReplaceFunctions includes it). */
+     display text (FD's EvaluateExpression -> ReplaceFunctions includes it).
+     Expression mode: string values are quoted (Global.vb:645). */
   {
-    char *oo = a5expr_replace (st, sub);
+    char *oo = a5expr_replace_expr (st, sub);
     free (sub);
     sub = oo;
   }
@@ -2142,7 +2162,14 @@ a5text_display_alr (a5_state_t *st, const char *plain)
      stripped formatting tag cannot expose a line-leading word to a spurious cap;
      only true sentence punctuation drives this pass (see is_sentence_start). */
   cap = auto_capitalise_ex (a1, 0);
-  a2 = boundary_alr_once (st, cap);
+  /* FD's second ALR round runs ONLY `If bChanged` -- when the auto-cap
+     actually rewrote something (Global.vb:550).  Unconditionally re-running
+     it doubles any ALR whose NewText still contains its OldText (Magnetic
+     Moon's suits disambiguation "(type X EVA SUITS ...)" suffix). */
+  if (streq (cap, a1))
+    a2 = strdup (cap);
+  else
+    a2 = boundary_alr_once (st, cap);
   free (a1);
   free (cap);
   return a2;
