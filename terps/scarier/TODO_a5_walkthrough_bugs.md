@@ -1,8 +1,20 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## ⭐ Tingalan: engine now byte-exact for 45 turns of woods play (5 general fixes) — remaining = the WINNING-walkthrough derivation itself  🟡 IN PROGRESS (2026-07-03)
+## ⭐ Tingalan: real WINNING walkthrough wired MATCH 0|0 (6 general engine fixes) — ✅ DONE / committed (2026-07-03); optional stretch goal = the deep-woods PEARL win
 
-> **RESUMED** (2026-07-03).  Blocker #1 is **fully fixed** and five general engine
+> **✅ DONE (2026-07-03, SESSION 2 below).**  A genuine 16-command winning
+> walkthrough is committed and wired at **MATCH 0|0** (`test/Tingalan_walkthrough.txt`
+> + golden): read the lore book → search Merch → wagon → Smiling Spirit → decline the
+> pearl → wait until dawn → "*** You have won ***".  The last blocker was a **6th
+> general engine fix** — FD renders a *Before-actions* completion message 3× (RAND
+> draws 3×), Scarier drew once, desyncing the book-read RNG stream (details in the
+> SESSION 2 write-up below).  Committed on `scarier`: `f42218d9` (engine fix +
+> walkthrough), `9f985548` (harness `-b/--bless` + newline-tolerant golden compare).
+> Whole corpus unchanged both RNG modes; a5 unit tests pass.  **Remaining is an
+> OPTIONAL stretch goal only:** the *accept-the-pearl* win needs a deep-woods survival
+> run (Courage/Lore/Wits ≥2 for `CheatDerze1`; Wits ≥2 is unreachable at Merch).
+>
+> _(Historical, SESSION 1:)_  Blocker #1 is **fully fixed** and five general engine
 > bugs are committed (all corpus-safe both RNG modes, unit tests + ASan/UBSan clean).
 > A 45-turn deterministic woods-exploration script now diffs to FD with **zero hunks
 > in both RNG modes** — the engine is byte-exact that far into the woods.  The five
@@ -104,7 +116,7 @@ the generic `look/examine me/inventory/wait`; the `wait` turn exercises the
 now-working Roller RNG + `%notallowed[RAND(1,6)]%`).  Whole corpus unchanged both
 modes, unit tests + `make sanitize` + a 45-turn ASan/UBSan run clean.
 
-**🚧 NOT DONE — remaining blockers to a *winning* walkthrough.**
+**✅ ALL BLOCKERS RESOLVED (both now fixed; see SESSION 2 below for the win).**
 1. **Wound/thirst tick divergence — ✅ FIXED (both halves).**  The 13-command woods
    repro below is now **byte-exact vs FD in both RNG modes** (0 hunks).  Two engine
    bugs, both general:
@@ -127,13 +139,13 @@ modes, unit tests + `make sanitize` + a 45-turn ASan/UBSan run clean.
    `/tmp/p.txt`):
    `printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\nlook\nnorth\nleave at once\nnorth\nleave at once\nsouth\ninventory\nsearch\n' > "$SCRATCH/p.txt" ; FD_RNG=xoshiro test/a5_groundtruth.sh "test/adrift5-games/Tingalan.blorb" "$SCRATCH/p.txt"`.
    Var trace: `A5_DUMP_VARS='wounds,encounter?,playeristhirsty,randbetween1and3,depth' test/a5run_dump <game> "$SCRATCH/p.txt"`.
-2. **The gameplay derivation itself.** With the wound tick fixed (byte-exact deeper
-   play), derive the deterministic (seed-1234 / xoshiro) command sequence that reaches
-   the wagon, ACCEPTs, grabs a terrible secret, and returns alive — using
-   `A5_DUMP_VARS` to navigate.  This is a substantial roguelike playthrough (resource
-   economy: chop wood→fire/light, forage berries/morels/meat, avoid lethal fights),
-   not a quick script.  Once it wins byte-exact vs FD, replace the smoke
-   `Tingalan_walkthrough.txt`/golden with the winning run and re-bless.
+2. **The gameplay derivation itself — ✅ DONE (SESSION 2 below).** The deterministic
+   winning sequence was derived (a woods-free wagon/Smiling-Spirit win, declining the
+   pearl) after fixing a 6th general engine bug (the Before-actions completion-message
+   triple-evaluation that desynced the lore-book read).  `Tingalan_walkthrough.txt` and
+   its golden are the winning run, wired MATCH 0|0.  (The *accept-the-pearl* variant,
+   which needs the deep-woods resource economy above, remains an optional stretch goal
+   — see SESSION 2.)
 
 ### ▶ SESSION 2 (2026-07-03) — ✅ DONE: real winning walkthrough wired at MATCH 0|0 after fixing the Before-actions completion-message triple-evaluation bug.
 

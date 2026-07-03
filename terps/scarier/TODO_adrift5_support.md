@@ -895,6 +895,35 @@ ADRIFT text is full of embedded directives evaluated at display time:
         "...step into the reception." thereafter, matching FrankenDrift.  Anno diff
         54 → 52 hunks; full headless suite green; Stone of Wisdom clean;
         ASan/UBSan-clean across the corpus.
+      - **Before-actions completion message re-rendered 3× (FD RAND-stream parity)**
+        — **DONE** (`scarier` `f42218d9`).  `FileIO.Load` defaults a missing
+        `<MessageBeforeOrAfter>` to **Before**, and FrankenDrift's Before path
+        renders the completion message up to *three* times
+        (clsUserSession.vb:1176-1205): a pre-action snapshot `sBeforeActionsMessage`,
+        a post-action compare, and a finalize
+        `sMessage = ReplaceExpressions(ReplaceFunctions(sMessage))`.  A message
+        bearing a text-changing function (`RAND`, `<#OneOf#>`) draws on every render,
+        so FD draws 3× (showing the finalize when the first two renders agree) or 2×
+        (pinning the first when they differ).  Scarier's flat `run->resp==NULL`
+        direct-emit path called `emit_completion` **once**, so Tingalan's
+        `read book of ancient lore` (`This book contains %booksoflore[RAND(1,25)]%`)
+        drew `RAND(1,25)` once (array idx 1) where FD drew 3× (idx 3) — desyncing the
+        xoshiro stream and every downstream encounter roll, which is what blocked a
+        real Tingalan walkthrough.  Now `run_task`'s resp==NULL branch renders twice
+        via `render_comp_test`, then — if they agree — `emit_completion` (the
+        finalize draw + display), else `emit_message_body` on the pinned pre-action
+        text (no 3rd draw); factored `emit_completion`'s tail into a reusable
+        `emit_message_body(run, m, pre_alr_ink, out)`.  Corpus-safe by construction: a
+        static completion (no `%function%`) renders identically and draws nothing on
+        every render, and a byte-exact (0/0) golden cannot contain a RAND/OneOf-bearing
+        Before completion (it would already diverge), so none can move.  Whole
+        walkthrough corpus unchanged both RNG modes; a real winning
+        `Tingalan_walkthrough.txt` is now wired MATCH 0|0.  (Caveat: the compare/
+        finalize renders run *before* the actions rather than around them — faithful
+        whenever the task's actions don't draw between renders, which holds for these
+        General completion tasks; a Before task whose actions draw RNG mid-message
+        would need the true pre/post split.)  See TODO_a5_walkthrough_bugs.md
+        (Tingalan SESSION 2).
       - **Blocked-exit message (sRouteError) overrides the generic "no route"**
         — **DONE.**  A movement task's `Player Must HaveRouteInDirection
         %direction%` restriction carries a generic `There is no route to the
