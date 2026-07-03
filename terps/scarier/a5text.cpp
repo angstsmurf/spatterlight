@@ -1778,9 +1778,16 @@ replace_expressions (a5_state_t *st, const char *src)
             {
               char *inner = strndup (p + 2, (size_t) (end - (p + 2)));
               char *sub = expr_substitute (st, inner);
-              char *val = a5_eval_sexpr (sub);
+              /* Resolve any BARE OO-chain (no leading %) left in the body, e.g.
+                 `<#LCASE(cl_Door1.OpenStatus)#>` in a room description --
+                 expr_substitute only handles %ref%.Prop, and the outer
+                 a5expr_replace pass skipped this body because protect_exprs hid
+                 it.  Mirrors a5text_eval_expression's second pass (FD's
+                 EvaluateExpression -> ReplaceFunctions includes ReplaceOO). */
+              char *oo = a5expr_replace (st, sub);
+              char *val = a5_eval_sexpr (oo);
               sb_puts (&sb, val);
-              free (inner); free (sub); free (val);
+              free (inner); free (sub); free (oo); free (val);
               p = end + 2;
               continue;
             }

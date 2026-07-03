@@ -542,13 +542,17 @@ FILTER="${1:-}"
 #       three real render sites; the two pre/post-action test renders stay =0).
 #       Whole 34-game corpus stays byte-identical in both RNG modes -- zero
 #       regressions (no other golden game's Look aggregate carries a DisplayOnce).
-#   (2) OPEN (the 55|55 residual, RNG-independent -- same count in both modes): a
-#       bare object-key OO-property inside a room-description <# #> expression
-#       (e.g. the potting shed's "...a cupboard which is <#LCASE(cl_Door1.Open
-#       Status)#>.", and the farm gates/half-doors cl_gate1/2, cl_door3/4/6,
-#       cl_hatch) is NOT resolved -- Scarier leaves the literal key ("...which is
-#       cl_door1." vs FD's "...which is locked.").  53 of the 55 hunks are this one
-#       bug; the other two are a plough-message leading pSpace and its downstream
+#   (2) FIXED (55->2): a bare object-key OO-property inside a room-description
+#       <# #> expression (e.g. the potting shed's "...a cupboard which is
+#       <#LCASE(cl_Door1.OpenStatus)#>.", and the farm gates/half-doors
+#       cl_gate1/2, cl_door3/4/6, cl_hatch) was NOT resolved -- Scarier left the
+#       literal key ("...which is cl_door1." vs FD's "...which is locked.").
+#       replace_expressions (a5text.cpp) only ran expr_substitute (%ref%.Prop +
+#       %func%) on each <#...#> body; the bare key never got the a5expr_replace
+#       pass because protect_exprs had hidden the body from process_inner's outer
+#       ReplaceOO.  It now runs a5expr_replace on the substituted body before
+#       a5_eval_sexpr, mirroring a5text_eval_expression.  53 of 55 hunks were this.
+#       The remaining 2 are a plough-message leading pSpace and its downstream
 #       score-line offset.  See A5_WALKTHROUGH_FINDINGS.md / TODO_a5_walkthrough_bugs.md.
 #
 #   name | game file | vanilla budget | xoshiro budget
@@ -588,7 +592,7 @@ October31st|October31st.blorb|0|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0
-BookOfJax|BoJ v.2.blorb|55|55
+BookOfJax|BoJ v.2.blorb|2|2
 EOF
 )
 
