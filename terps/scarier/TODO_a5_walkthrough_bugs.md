@@ -70,6 +70,30 @@ closeable (or 53 wasn't lethal) — neither DDF nor V9 is that build. Net: **bot
 public builds are unwinnable, in different places** (V9 at By Guard Room, DDF at
 the arsenal escape); best reached is 195/250 on DDF.
 
+**EXHAUSTIVE DDF↔V9 DATA DIFF (2026-07-03) — the regression is ONE mis-typed
+location key.** Full `diff` of the two deobfuscated XMLs is just 17 hunks; every
+one is accounted for:
+- **The break:** the 2022-08-07 update added a disclaimer/start-options screen —
+  new location **`cl_Disclaimer`** ("A Note For The Player… press O to Continue to
+  the Start Options Page"), new task **`cl_PAtStartOp`** (`[o/0]`, correctly
+  `BeAtLocation cl_Disclaimer`), and new task **`cl_NullAtStar`** (`{*}`, pri
+  44074, PreventOverriding, description "Null At **Disclaimer**", message "Please
+  press O then press Enter."). The `[o/0]` handler was bound right; the `{*}`
+  catch-all was **copy-paste-bound to `cl_Location11` (By Guard Room) instead of
+  `cl_Disclaimer`.** That single wrong key is the entire regression. Player start
+  also moved `StartOptio`→`cl_Disclaimer`, plus the group/visibility wiring for
+  the three new elements. **The fix is literally `cl_Location11` → `cl_Disclaimer`
+  on `cl_NullAtStar`'s one restriction.**
+- **Cosmetic:** intro/ending credits (`cl_Task4`, `cl_EndgameLes`) added "Coming
+  Soon: Episode 3: FINN'S BIG ADVENTURE" and de-"Coming Soon"-ed the Euripides
+  line; `LastUpdated`/`Elapsed`/timestamps bumped.
+- **NOT in the diff:** the arsenal / boards / `cl_Location53` / fuse code is
+  **byte-identical** in both builds — so the arsenal-escape death-trap exists
+  unchanged in V9 too (just unreachable there), and it predates both builds. The
+  built-in `WLKTHRGH` (also byte-identical across builds, SHA1 `1b0ee578…`) still
+  says "fuse" (renamed to the "rope" object before DDF) and uses the 53-lethal
+  escape, so it was authored for a version older than DDF and never updated.
+
 <details><summary>Two superseded intermediate takes — kept for the record (I was wrong twice)</summary>
 
 **Take 1 (WRONG mechanism, right outcome):** ~~the `{*}` gate *seals* the map;
