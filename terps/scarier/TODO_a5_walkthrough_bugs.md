@@ -1,6 +1,12 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## ⭐ Tingalan: lowercase `rand()` in SetVariable was dead (whole encounter engine) + Text string-literal/cap fixes; wired 0|0 as a smoke probe — a full WINNING walkthrough is a large remaining gameplay effort (root-caused, partly unblocked)  🚧 IN PROGRESS (2026-07-03)
+## ⭐ Tingalan: lowercase `rand()` in SetVariable was dead (whole encounter engine) + Text string-literal/cap fixes; wired 0|0 as a smoke probe — a full WINNING walkthrough is a large remaining gameplay effort (root-caused, partly unblocked)  ⏸️ PARKED (2026-07-03)
+
+> **PARKED** at the user's request.  All engine fixes + tooling + the 0|0 smoke-probe
+> wire-in are **committed and green** (whole corpus unchanged both modes).  Resume
+> from the two "🚧 NOT DONE" blockers below — start with the wound/thirst/hunger tick
+> divergence (the repro is in blocker #1), then the gameplay derivation.
+
 
 **Goal: derive a winning walkthrough for Tingalan** (William Dooling, 2017 — a
 62-location, ~3564-task **RNG survival roguelike**: hunt by night, forage/manage a
