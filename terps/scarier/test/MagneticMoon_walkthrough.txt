@@ -1,4 +1,4 @@
-# Magnetic Moon -- NATIVE built-in walkthrough (ADRIFT 5), full win 795/800.
+# Magnetic Moon -- NATIVE built-in walkthrough (ADRIFT 5), PERFECT win 800/800.
 #
 # Source: the game's own WLKTHRGH command (task `Walkthroug`) -- extracted from
 # the a5dump <Text>, dash-split, start handshake (o, b, n) prepended.  This
@@ -14,9 +14,11 @@
 # `x cameras`; `insert batteries in compartment` -> `put batteries in camera`
 # (film-compartment ambiguity); `throw rope at grill` -> `throw grapnel up`
 # (the game's own hint; plain `throw grapnel` feeds it to the cleaning droid);
-# `pak` -> `rations` (ration tube naming).  Ends 795/800 in 725 turns -- the
-# missing 5 is an earlier-build scoring artifact (FrankenDrift replays this
-# script byte-identically except the 2|2 budget hunks).
+# `pak` -> `rations` (ration tube naming); ADDED `knock on wall` before the
+# stethoscope listen in the temple (KnockOnWal +5, an achievement the built-in
+# text never performs -- the last 5 points).  Ends 800/800 ("scoring the
+# maximum 800 points!") in 726 turns; FrankenDrift replays it byte-identically
+# in both RNG modes.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/MagneticMoon.blorb test/MagneticMoon_walkthrough.txt
@@ -667,6 +669,7 @@ spit in flower
 put camera and kit in pack
 get stethoscope from pack
 wear stethoscope
+knock on wall
 listen
 get axe
 smash wall with axe

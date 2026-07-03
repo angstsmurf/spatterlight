@@ -210,6 +210,23 @@ typedef struct a5_state_s {
   int n_disp_once, cap_disp_once;
   int marking_display;
 
+  /* FD UserSession.PronounKeys: each rendered %CharacterName[...]% records the
+     named character's perspective and its text offset (Global.vb:2108); a
+     [1st/2nd/3rd] conjugation bracket then resolves in the perspective of the
+     nearest PRECEDING rendered name -- GetPerspective (Global.vb:2481) picks
+     the entry with the highest offset <= the bracket's, falling back to the
+     player ("The medic [am/are/is] wearing ..." -> "is").  Offsets are
+     positions within the message being rendered (FD's iMatchLoc; an entry at
+     offset 0 can never win, mirroring iHighest starting at 0).  Cleared once
+     per processed command (PrepareForNextTurn, vb:3823).  Transient: not
+     saved, not copied (FD's States don't record PronounKeys either). */
+#define A5_MAX_PRON 64
+  int  pron_persp[A5_MAX_PRON];  /* 1=FirstPerson / 2=Second / 3=Third      */
+  long pron_off[A5_MAX_PRON];
+  int  n_pron;
+  int  pron_pending;             /* set by the CharacterName eval, captured
+                                    with its output offset at the emit site */
+
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is
      restriction-gated -- frankendrift's sRouteError, which overrides the

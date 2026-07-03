@@ -2089,6 +2089,11 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               st->task_scored[run->cur_score_ti] = 1;
             }
           long delta = eval_num_value (st, value.c_str ());
+          if (is_score && getenv ("A5_DEBUG_SCORE"))
+            fprintf (stderr, "[score] turn=%d task=%s %s %ld (now %ld)\n",
+                     st->turns,
+                     run->cur_score_ti >= 0 ? st->adv->tasks[run->cur_score_ti].key : "?",
+                     kind, delta, st->var_num[vi] + (streq (kind, "IncVariable") ? delta : 0));
           if (streq (kind, "SetVariable"))      st->var_num[vi] = delta;
           else if (streq (kind, "IncVariable")) st->var_num[vi] += delta;
           else                                  st->var_num[vi] -= delta;

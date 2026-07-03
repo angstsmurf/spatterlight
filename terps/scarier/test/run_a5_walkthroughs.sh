@@ -608,10 +608,18 @@ FILTER="${1:-}"
 # execution-time restriction re-eval on plural commands, empty-Text-property
 # "" vs "0", expression-mode OO string quoting, clsVariable expr-AND-expr
 # string concat, empty ObjectHashTable.List -> "nothing", bChanged-gated
-# second boundary ALR round).  MagneticMoon budget 2|2 = two OPEN one-char
-# divergences: "The medic are wearing" ([am/are/is] needs FD's PronounKeys
-# nearest-name perspective) and one extra "." on the tied electrical cable's
-# inventory suffix -- see TODO_a5_walkthrough_bugs.md.
+# second boundary ALR round).
+#
+# (2026-07-04) MagneticMoon upgraded to a PERFECT 800/800 win, MATCH 0|0
+# golden-backed.  The "missing 5" was NOT a build artifact: the built-in
+# walkthrough simply never knocks on the temple wall (KnockOnWal +5) --
+# `knock on wall` added before the stethoscope listen.  The two 2|2 budget
+# hunks became engine fixes: (a) [am/are/is] conjugation now uses FD's
+# PronounKeys nearest-preceding-rendered-name perspective ("The medic IS
+# wearing a stethoscope"), (b) the Display-boundary first ALR round skips
+# already-applied occurrences of a self-containing ALR (the tied cable's
+# "some electrical cable[.]" suffix no longer doubles its ".") -- see
+# TODO_a5_walkthrough_bugs.md.
 #
 # (2026-07-03) Illumina WIRED as a FULL WIN (new corpus game, Finn Rosenløv;
 # user-supplied blorb + the author's CASA solution).  13 commands, one
@@ -629,7 +637,7 @@ anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|0|0
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
-MagneticMoon|MagneticMoon.blorb|2|2
+MagneticMoon|MagneticMoon.blorb|0|0
 Illumina|Illumina.blorb|0|5
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0

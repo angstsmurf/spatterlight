@@ -750,7 +750,13 @@ eval_function (a5_state_t *st, const char *name, const char *args)
          rewrites char-scoped %CharacterName% to %CharacterName[Key]% at load. */
       if (key.empty ()) key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
       const a5_character_t *ch = a5model_character (st->adv, key.c_str ());
-      if (ch == NULL) ch = a5model_character (st->adv, a5state_player_key (st));
+      /* A resolved key records a PronounKeys entry (Global.vb:2108, gating on
+         htblCharacters.ContainsKey) -- the emit site in replace_functions
+         captures the pending perspective with the name's output offset. */
+      if (ch != NULL)
+        st->pron_pending = char_perspective (st, ch);
+      else
+        ch = a5model_character (st->adv, a5state_player_key (st));
       a5_pronoun_t pr = A5_PRO_SUBJ;
       std::string pl = pron;
       for (char &c : pl) c = (char) tolower ((unsigned char) c);
@@ -1281,6 +1287,23 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 }
 
 /* Replace %function%/%variable% tokens in src (single pass; args recurse). */
+/* Capture a pending CharacterName render as a PronounKeys entry at output
+   offset `off` -- the ledger half of FD's Global.vb:2108 (the eval side sets
+   st->pron_pending; ReplaceFunctions adds in expression mode too). */
+static void
+pron_capture (a5_state_t *st, long off)
+{
+  if (!st->pron_pending)
+    return;
+  if (st->n_pron < A5_MAX_PRON)
+    {
+      st->pron_persp[st->n_pron] = st->pron_pending;
+      st->pron_off[st->n_pron] = off;
+      st->n_pron++;
+    }
+  st->pron_pending = 0;
+}
+
 static char *
 replace_functions (a5_state_t *st, const char *src, int as_arg)
 {
@@ -1412,6 +1435,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
             {
               if (value != NULL)
                 {
+                  pron_capture (st, (long) sb.len);
                   sb_puts (&sb, value);
                   free (value);
                 }
@@ -1578,18 +1602,39 @@ perspective_index (a5_state_t *st)
   return 1;                       /* SecondPerson (ADRIFT default) */
 }
 
+/* FD GetPerspective (Global.vb:2481): the PronounKeys entry with the highest
+   offset at or before `pos` decides the perspective of a conjugation bracket
+   there; iHighest starts at 0, so an entry at offset 0 can never win.  0 =
+   no preceding rendered name (caller falls back to the player). */
+static int
+perspective_at (const a5_state_t *st, long pos)
+{
+  int persp = 0;
+  long highest = 0;
+  for (int i = 0; i < st->n_pron; i++)
+    if (pos >= st->pron_off[i] && st->pron_off[i] > highest)
+      {
+        persp = st->pron_persp[i];
+        highest = st->pron_off[i];
+      }
+  return persp;
+}
+
 /*
  * Resolve ADRIFT verb-conjugation brackets: "move[//s]" -> "move"/"moves" by the
- * player's perspective.  Only a "[a/b/c]" group (slash-separated, no nested
- * markup) is touched; everything else passes through.  Mirrors the perspective
- * half of frankendrift Global.ReplaceFunctions / _FrankenDrift_Pronouns.
+ * perspective of the nearest preceding rendered character name (PronounKeys),
+ * defaulting to the player's ("The medic [am/are/is] wearing ..." -> "is", but
+ * "you [am/are/is] carrying" with no name before it -> "are").  Only a "[a/b/c]"
+ * group (slash-separated, no nested markup) is touched; everything else passes
+ * through.  Mirrors the perspective half of frankendrift Global.ReplaceFunctions
+ * / _FrankenDrift_Pronouns.
  */
 static char *
 resolve_perspective (a5_state_t *st, const char *src)
 {
   sb_t sb;
   const char *p = src;
-  int idx = perspective_index (st);
+  int pidx = perspective_index (st);
 
   sb_init (&sb);
   while (*p != '\0')
@@ -1614,6 +1659,8 @@ resolve_perspective (a5_state_t *st, const char *src)
           if (*q == ']' && s2 != NULL)
             {
               const char *a, *b;
+              int np = perspective_at (st, (long) (p - src));
+              int idx = np ? np - 1 : pidx;
               if (idx == 0)      { a = p + 1;  b = s1; }
               else if (idx == 1) { a = s1 + 1; b = s2; }
               else               { a = s2 + 1; b = q;  }
@@ -1728,7 +1775,8 @@ expr_substitute (a5_state_t *st, const char *src)
                 char *val = eval_function (st, name, NULL);
                 free (name);
                 if (val != NULL)
-                  { sb_quote_val (&sb, val, in_quote); free (val); p = q + 1; continue; }
+                  { pron_capture (st, (long) sb.len);
+                    sb_quote_val (&sb, val, in_quote); free (val); p = q + 1; continue; }
               }
               /* unresolved: leave the %name% token verbatim */
               sb_need (&sb, (size_t) (q + 1 - p));
@@ -1753,7 +1801,8 @@ expr_substitute (a5_state_t *st, const char *src)
                   char *val = eval_function (st, name, args);
                   free (rawargs); free (args); free (name);
                   if (val != NULL)
-                    { sb_quote_val (&sb, val, in_quote); free (val); p = a + 2; continue; }
+                    { pron_capture (st, (long) sb.len);
+                      sb_quote_val (&sb, val, in_quote); free (val); p = a + 2; continue; }
                   /* unresolved: leave verbatim */
                   sb_need (&sb, (size_t) (a + 2 - p));
                   memcpy (sb.p + sb.len, p, (size_t) (a + 2 - p));
@@ -2107,14 +2156,63 @@ a5text_render_plain (const char *src)
   return sb_finish (&sb);
 }
 
+/* str_replace_all, except an occurrence of `find` that is part of an ALREADY-
+   PRESENT copy of `repl` is left as it is.  The Display-boundary first ALR
+   round runs over text whose per-fragment ALR pass has already applied every
+   override, whereas FD's single Display round (Global.vb:530) sees
+   unprocessed text -- so an ALR whose NewText CONTAINS its own OldText
+   (Magnetic Moon's "some electrical cable" -> "some electrical cable[.]"
+   tied-state suffix) must not expand a second time here.  Only a NewText
+   that contains the OldText leaves applied sites still matching `find`, so
+   the skip triggers solely on that shape, aligned at the contained offset --
+   a mere shared prefix (GFS's "You are wearing nothing, and" -> "You") is an
+   UNAPPLIED site and replaces as usual, as does any occurrence the fragment
+   passes never saw whole (e.g. text assembled across fragments). */
+static char *
+str_replace_unapplied (const char *src, const char *find, const char *repl)
+{
+  sb_t sb;
+  size_t flen = strlen (find), rlen = strlen (repl);
+  const char *inner = strstr (repl, find);  /* OldText inside NewText? */
+  long k = inner != NULL ? (long) (inner - repl) : -1;
+  const char *p = src;
+  sb_init (&sb);
+  while (*p != '\0')
+    {
+      if (strncmp (p, find, flen) == 0)
+        {
+          if (k >= 0 && (long) (p - src) >= k
+              && strncmp (p - k, repl, rlen) == 0)
+            {
+              /* already applied: keep the old text verbatim */
+              sb_need (&sb, flen);
+              memcpy (sb.p + sb.len, p, flen);
+              sb.len += flen;
+              sb.p[sb.len] = '\0';
+            }
+          else
+            sb_puts (&sb, repl);
+          p += flen;
+          continue;
+        }
+      sb_putc (&sb, *p);
+      p++;
+    }
+  return sb_finish (&sb);
+}
+
 /* One ALR pass for the Display boundary: like replace_alrs, but the input and
    output are PLAIN text -- each NewText is fully rendered (functions/expr/ALR +
    markup -> plain) before substitution, so an override that carries markup (e.g.
    "<br>Tiden gaar...<br>") lands as plain text rather than leaking literal tags.
    The whole-output markup renderer is deliberately not used (it would eat a
-   literal '<' the descriptions legitimately carry). */
+   literal '<' the descriptions legitimately carry).  `skip_applied` selects the
+   already-applied-occurrence skip (str_replace_unapplied): the FIRST boundary
+   round mirrors FD's single Display round over per-fragment-processed text, so
+   it must skip; the bChanged-gated SECOND round runs over ALREADY-substituted
+   text in FD too, so it re-expands exactly like FD (plain replace). */
 static char *
-boundary_alr_once (a5_state_t *st, const char *src)
+boundary_alr_once (a5_state_t *st, const char *src, int skip_applied)
 {
   char *cur = strdup (src);
   int i;
@@ -2130,7 +2228,9 @@ boundary_alr_once (a5_state_t *st, const char *src)
           char *val = a5text_render_plain (proc);
           if (!streq (cur, val))     /* guard against self-referential ALRs */
             {
-              char *next = str_replace_all (cur, alr->old_text, val);
+              char *next = skip_applied
+                             ? str_replace_unapplied (cur, alr->old_text, val)
+                             : str_replace_all (cur, alr->old_text, val);
               free (cur);
               cur = next;
             }
@@ -2156,7 +2256,7 @@ a5text_display_alr (a5_state_t *st, const char *plain)
   /* ReplaceALRs: ALR loop -> auto-capitalise -> a second ALR round (the input is
      already plain and per-fragment-processed, so the function/expression passes
      have nothing left to expand). */
-  a1 = boundary_alr_once (st, plain);
+  a1 = boundary_alr_once (st, plain, 1);
   /* Boundary re-cap runs on plain text: suppress the `^`/`\n` line-start rules
      (a5text_process already applied them per-fragment on marked-up text) so a
      stripped formatting tag cannot expose a line-leading word to a spurious cap;
@@ -2169,7 +2269,7 @@ a5text_display_alr (a5_state_t *st, const char *plain)
   if (streq (cap, a1))
     a2 = strdup (cap);
   else
-    a2 = boundary_alr_once (st, cap);
+    a2 = boundary_alr_once (st, cap, 0);
   free (a1);
   free (cap);
   return a2;

@@ -1488,6 +1488,18 @@ a5run_input (a5_run_t *run, const char *line)
      must be seen" gates reflect everyone visible by now. */
   update_seen (st);
 
+  /* PrepareForNextTurn also clears the rendered-character-name ledger
+     (PronounKeys.Clear, vb:3823).  FD clears at the END of each processed
+     command (vb:504) -- nothing renders between that and the next input, so
+     clearing here is equivalent, EXCEPT that FD's intro entries survive into
+     the first command (its init-time PrepareForNextTurn runs before the intro
+     renders); skip the clear on the first command to match. */
+  if (st->turns > 1)
+    {
+      st->n_pron = 0;
+      st->pron_pending = 0;
+    }
+
   /* Resolve "it"/"them"/"him"/"her" to the last-referenced entity (echoing the
      "(name)" line) and recompute the referents for next turn, before the input
      is parsed -- clsUserSession.EvaluateInput.  Skipped while resolving a pending

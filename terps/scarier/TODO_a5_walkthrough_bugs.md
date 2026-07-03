@@ -45,16 +45,23 @@ StartDescriptionWithThis override *before* a StartAfterDefault segment (the
 common single-append case is unchanged, `result == default_view` there); whole
 suite otherwise byte-identical (34 goldens unchanged, all unit tests pass).
 
-## ⭐ Magnetic Moon: NATIVE walkthrough wired as a 795/800 WIN, 2|2 (6 engine fixes; 2 OPEN one-char hunks) — mostly DONE (2026-07-03)
+## ⭐ Magnetic Moon: NATIVE walkthrough wired as a PERFECT 800/800 WIN, MATCH 0|0 (8 engine fixes) — ✅ DONE (2026-07-04)
 
 > Same user report and same root cause as Lost Children: the old script was
 > Doreen Bardon's CASA solution for the Spectrum ORIGINAL (~130 soft
 > failures, MATCH-by-identical-derailment).  The port ships a full `WLKTHRGH`
 > solution; extracted + 9 build-drift corrections (each verified against FD;
-> list in the script header) it wins 795/800 in 725 turns.  The missing 5
-> points are an earlier-build scoring artifact — FD replays this script to
-> the same 795.  Budget 2|2 (identical both modes, no golden).  Six general
-> engine fixes (suite otherwise unchanged):
+> list in the script header) it wins in 726 turns.  **800/800 — the "missing
+> 5 points are an earlier-build scoring artifact" theory was WRONG.**  A
+> score-event audit (A5_DEBUG_SCORE=1 logs every Score `IncVariable` with its
+> task key; diff the fired keys against the model's 255 scoring tasks and
+> bucket the 98 unfired ones into alternate-phrasing families) showed the
+> built-in text simply never performs the KnockOnWal achievement: `knock on
+> wall` at the temple's hollow wall is +5 and independent of the
+> listen-with-stethoscope/smash chain it precedes.  Added to the script →
+> "You completed the game in 726 turns, scoring the maximum 800 points!";
+> FrankenDrift replays it identically in BOTH RNG modes → MATCH 0|0, golden
+> blessed.  Eight general engine fixes (suite otherwise unchanged):
 >
 > 1. **Plural commands re-evaluate the parent task's restrictions per item at
 >    EXECUTION time** (a5run_action.cpp execute_task_with_overrides, plural
@@ -79,14 +86,40 @@ suite otherwise byte-identical (34 goldens unchanged, all unit tests pass).
 >    changed the text** (FD's bChanged gate, Global.vb:550) — an ALR whose
 >    NewText contains its own OldText (the suits disambiguation
 >    "(type X EVA SUITS …)" suffix) no longer doubles.
+> 7. **`[am/are/is]` conjugation uses the perspective of the nearest
+>    PRECEDING rendered character name** (was: the player's, globally).
+>    Ported FD's PronounKeys ledger: every rendered `%CharacterName[...]%`
+>    records (perspective, text offset) — the eval side sets
+>    `st->pron_pending` (a5text.cpp charactername branch), the emit sites in
+>    replace_functions/expr_substitute capture it at the name's output offset
+>    (`pron_capture`, mirroring Global.vb:2108's
+>    `sOutputText.Length + iMatchLoc` adds, which fire during the
+>    bDisplaying "testing" render at AddResponse time) — and each bracket
+>    resolves via `perspective_at` = FD GetPerspective (Global.vb:2481: the
+>    highest offset ≤ the bracket's wins; iHighest starts at 0 so an entry at
+>    offset 0 can never win; no entry → the player).  Cleared once per
+>    processed command (PronounKeys.Clear in PrepareForNextTurn, vb:3823) —
+>    skipped on the first command so intro entries survive into turn 1 as in
+>    FD.  "The medic **is** wearing a stethoscope."
+> 8. **The Display-boundary FIRST ALR round must not re-expand a
+>    self-containing ALR** (a5text.cpp str_replace_unapplied).  The game
+>    defines ALR "some electrical cable" → "some electrical cable[.]"
+>    (a conditional tied-state suffix); Scarier's per-fragment ALR pass
+>    already applied it, and the boundary pass — which exists for OldText
+>    that only materialises in the assembled plain text, e.g. resolved
+>    [am/are/is] brackets — expanded it AGAIN ("cable..").  FD's single
+>    Display round sees each commit's text exactly once.  The skip triggers
+>    ONLY where the (unique) shape that survives application matches:
+>    NewText contains OldText and the full NewText already stands at the
+>    contained offset.  A mere shared prefix (GFS's "You are wearing
+>    nothing, and" → "You") is an unapplied site and replaces normally — the
+>    first suite run caught exactly that regression.  The bChanged-gated
+>    SECOND round keeps plain replacement: FD's own second round runs over
+>    already-substituted text and re-expands, faithfully.
 >
-> **OPEN (the 2|2 budget):** (a) `[am/are/is]` conjugation uses the player's
-> perspective globally; FD's GetPerspective picks the perspective of the
-> NEAREST preceding rendered character name (PronounKeys w/ text offsets) —
-> "The medic **are** wearing a stethoscope."  Needs a rendered-name offset
-> ledger.  (b) the tied-up electrical cable's inventory suffix gains one
-> extra "." vs FD ("cable.." vs "cable.") — some suffix render runs once
-> more than FD's; related to the dynamic ListDescription/name suffix path.
+> Bonus tooling: `A5_DEBUG_SCORE=1` (a5run_action.cpp) logs every Score
+> change as `[score] turn=N task=Key IncVariable D (now T)` — the audit tool
+> that found the 800th-point task; reusable for any score-chasing rewire.
 
 
 ## ⭐ The Lost Children: NATIVE walkthrough wired as a FULL WIN 0|0 (3 general engine fixes) — ✅ DONE (2026-07-03)
