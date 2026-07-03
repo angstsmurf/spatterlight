@@ -1,0 +1,192 @@
+The Garden Party
+THE GARDEN PARTY
+
+By Larry Horsfield
+
+Created for P.O. Prune's Mini-Competition in which it attained 2nd place.
+
+You are pottering around admiring your newly-landscaped garden when your partner Prudence - affectionately known as Pru - comes up to you.
+
+"Chris and Bert are coming around later to have a look at the garden," she tells you, with a smile on her face. "So the firepit needs the gas cylinder attached and the fire lit, the waterfall must be filled with water and switched on and I'd like the wind chimes hung on the middle post of the garden feature."
+
+"Is that all?" you jokingly reply.
+
+"Yes...for now," she replies with a grin. "But I'll probably think of something else before they get here!"
+
+"Ok, I'll get started on that right away," you tell her.
+
+"Thanks. The wind chimes are in that box on the wooden bench and you should know where the gas cylinder is as you put it there," she instructs you. "I'll be in the kitchen preparing some sandwiches."
+
+As she walks away, you try to remember where you put the gas cylinder.....
+
+For playing instructions type HELP.
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.
+
+> x igloo
+This is a dome-shaped object about 3 metres in diameter and 2 metres high. It consists of a frame of plastic rods connected in interlocking triangular sections with a clear plastic canopy over it. A zipped entranceway in the canopy allows you to enter and leave it.
+
+> look behind igloo
+You look behind the igloo and find, in the gap between the igloo and the garden fence, a plastic bucket, which you pick up.
+
+> x bungalow
+Your home in Clacton-on-Sea. The back of the bungalow that you can see has been extended with a conservatory. On the side of the bungalow you see a water tap.
+
+> x tap
+A tap from which you can fill buckets with water or attach the garden hose to.
+
+> fill bucket
+You turn on the tap, fill the bucket with water then close it again.
+
+> x conservatory
+An extension at the back of the bungalow. It is actually a lean-to but "conservatory" sounds posher. In between the two sliding doors there is a wooden bench.
+
+> x bench
+A wooden, two-seater garden bench that you have recently applied a fresh coat of varnish to.  On the bench you see a cardboard box.
+
+> open box
+You open the box, carefully unpack the wind chimes and lay them on the bench.
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Also here is a cardboard box.
+
+> get chimes
+(from the wooden bench)
+Ok, you take the wind chimes from the wooden bench.
+
+> x feature
+The garden "feature", built by the landscaper who designed the garden, are three wooden posts, each about 7 feet high with a horizontal beam 4 feet long at the top, supported by a diagonal beam - exactly like a "gallows". The middle one points west with the other two pointing SW and NW.
+
+> hang chimes on feature
+First of all you screw a sturdy hook into the underside of the horizontal beam of the middle post, then you hang the wind chimes from the hook.
+
+The breeze makes the wind sail flutter and thus the clapper strikes the tubes, producing a pleasant chiming sound.
+
+As you are standing listening to the chimes, Prudence comes out of the bungalow, walks over and stands by your side.
+
+"Oh very nice," she says happily. "Those chimes are so soothing, I could stand here for hours listening to them!"
+
+1: "Knowing you, you probably will!"
+2: "Is there anything else that you'd like me to do?"
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Also here is a cardboard box.  Pru is standing by your side, listening to the wind chimes.
+
+> 1
+
+"Knowing you, you probably will!" you say to her.
+
+"Too right!" she replies with a broad grin. "In the summer I'll be able to lay on a lounger on the lawn with the sound of the waterfall on one side and the chimes on the other - sheer heaven!"
+
+> talk to pru
+
+2: "Is there anything else that you'd like me to do?"
+
+> 2
+
+"Is there anything else that you'd like me to do?" you ask Prudence.
+
+She thinks for a second, then replies.
+
+"Oh yes, that was it," Pru says to you. "I haven't had time to feed my birdies so can you please fill up the bird feeders? I'll get the nuts and seeds out for you."
+
+She walks over to the garden shed, opens the door and goes inside. After a second or two she comes out again carrying two plastic tubs, which she puts on the ground by the bird feeder.
+
+"Chris and Bert will be here soon, so you need to get cracking!" she says as she walks past the igloo and goes into the bungalow.
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Also here is a cardboard box, a tub of nuts and a tub of seeds.
+
+> x tubs
+One is full of birdseed, the other of peanuts.
+
+> get tubs
+Ok, you pick up the tub of nuts and the tub of seeds.
+
+> x feeding post
+This is actually an old estate agent signpost, minus the advertising board, similar to the "gallows" garden feature but without the diagonal support beam. Hung from the horizontal beam are a couple of bird feeder cages.
+
+> fill cages
+First of all you take both feeders down from where they hang from the post, open them and put both on the ground. You then fill one with nuts, the other with seeds and close the tops. You next open the shed, put the tubs back in the shed and close the door. Finally you hang the feeders from their hooks on the feeder post.
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Also here is a cardboard box.
+
+> x waterfall
+A large plastic waterfall, set within a rockery. It has six contoured steps which the water can flow down.  The reservoir at the bottom of the waterfall is empty at the moment and not working.
+
+> pour water in reservoir
+You pour the water from the bucket into the reservoir of the waterfall, emptying the bucket completely.
+
+> look under bench
+You look under the bench and see, on the ground right at the back near the wall of the conservatory, the starter mechanism from the firepit. You remember that you had to repair it as it was broken. You reach under the bench and pick the starter up.
+
+> x firepit
+The firepit has a waterproof cover on it.
+
+> remove cover
+Ok, you remove the PVC cover from the firepit.
+
+> x firepit
+A round firepit about 4 feet in diameter and 1.5 feet high, it is made of simulated stone (in reality, fibre glass). In the centre is a metal dish filled with small lumps of lava rock.  Attached to the firepit is a long rubber hose with a valve on one end. In the side of the firepit is a square hole.
+
+> x starter
+The starting mechanism for the firepit, on the outer face is a black button.
+
+> fit starter in hole
+Ok, you carefully insert the starter into the square hole in the side of the firepit.
+
+> push black button
+The valve on the hose must be connected to a butane gas cylinder before you can light the fire.
+
+> x shed
+A 10ft by 6ft wooden garden shed on the side of which is a weather-proof electric socket. In between the shed and the waterfall is a wooden trellis. On the path between the shed and the flower bed to the east there is a pile of tarpaulins.
+
+> look under tarpaulins
+You look under the tarpaulins and see underneath the gas cylinder you bought for the firepit. You drag it out.
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Also here is a cardboard box and a gas cylinder.
+
+> connect hose to cylinder
+You connect the valve at the end of the firepit hose to the nozzle on top of the gas cylinder. As you do so you hear a brief hiss of gas as it is fed into the hose.
+
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Also here is a cardboard box.
+
+> push black button
+You push the button and, with a quiet whoosh, the fire starts to burn in the central bowl.
+
+> x igloo patio
+A round area of sandstone paving slabs approximately 3 metres across.
+
+> x slabs
+The slabs are a lovely pale yellow colour. You notice that a few of the slabs in front of the conservatory have a dark pattern in them.
+
+> x pattern
+You look closely at the dark patterns and you realise that they are actually fossilised plants - they must be millions of years old!
+
+> look behind waterfall
+You look behind the waterfall and find an electrical cable, which you pull out.
+Your Garden
+You are standing on the lawn in the garden of your bungalow, which is to the north. In the southwest corner of the garden is the garden shed, to the east is the "garden feature", in the southeast corner is the firepit patio and northwest sits the garden igloo. On one side of the shed is the waterfall and on the other side, due south, is the bird feeding post.  Attached to the waterfall is a power cable.  Also here is a cardboard box.
+
+> plug cable in socket
+You plug the plug at the end of the cable into one of the power sockets.
+
+> turn on waterfall
+You press the switch next to the plug in the socket and there is a short hum as the pump inside the waterfall comes on. Soon water starts to flow from the top of the waterfall and makes a soothing tinkle as it flows down the steps of the feature.
+You Have Won!
+
+Just as you complete your last task, Pru calls you to help her put out the food for your garden party. You get the folding table from the shed, set it up and Pru brings out a pristine white table cloth and lays it over the table while you get plates of sandwiches from the kitchen and lay them out on it. Pru brings out bowls of nibbles and cutlery, and you fetch the drinks from the fridge.
+
+A few minutes after you are finished, your friends from around the corner, Chris and Bert (a.k.a. Christine and Albert), arrive and you greet them warmly. You spend some time showing off your new garden, then you all sit down and start to eat, drink and chat, and thoroughly enjoy your...
+
+GARDEN PARTY
+
+*** You have won ***
+In that game you scored 100 out of a possible 100, in 36 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

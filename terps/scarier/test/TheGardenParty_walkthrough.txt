@@ -1,0 +1,37 @@
+x igloo
+look behind igloo
+x bungalow
+x tap
+fill bucket
+x conservatory
+x bench
+open box
+get chimes
+x feature
+hang chimes on feature
+1
+talk to pru
+2
+x tubs
+get tubs
+x feeding post
+fill cages
+x waterfall
+pour water in reservoir
+look under bench
+x firepit
+remove cover
+x firepit
+x starter
+fit starter in hole
+push black button
+x shed
+look under tarpaulins
+connect hose to cylinder
+push black button
+x igloo patio
+x slabs
+x pattern
+look behind waterfall
+plug cable in socket
+turn on waterfall

@@ -49,6 +49,21 @@ the real conformance metric, are clean). Changes since 2026-07-02:
   in/on-chain recursion, Unicode keys in OO expressions, bare-DirectionsEnum
   `.Name`) — see the ⭐ Museum Heist entry in `TODO_a5_walkthrough_bugs.md`.
 
+- **GrandmasFlyingSaucer WIRED as a FULL WIN 10/10, 0|0 (2026-07-03)** — new
+  corpus game (Kenneth Pedersen, TALP 2022, `GFS_Frankendrift.blorb` +
+  Garry Francis's solution, both supplied by the user).  Conversion notes:
+  `G`/AGAIN is not understood by FrankenDrift (nor Scarier) — every `G` is
+  spelled out as the repeated command; the solution under-counts the grandma
+  intro conversation by one (needs 8 talks).  Surfaced **5 general engine
+  fixes** (runtime location-group statics, furniture-seat location sync,
+  ALR-free action values, two-slash perspective brackets, on-furniture
+  effective character location) — see commit 051fdab8.
+- **TheGardenParty WIRED as a FULL WIN 100/100, 0|0 (2026-07-03)** — new
+  corpus game (Larry Horsfield mini-comp entry, user-supplied blorb +
+  walkthrough).  Converted verbatim (no start-menu handshake in this one,
+  unlike the big Horsfield games); replayed 0|0 clean on the first try, no
+  engine changes needed.
+
 **Remaining backlog = upgrading the other 5 smoke probes to real wins**, all
 blocked on walkthrough material (per-game notes below): Halloween,
 October31st (Finn Rosenløv — no material anywhere), TheFortressOfFear
