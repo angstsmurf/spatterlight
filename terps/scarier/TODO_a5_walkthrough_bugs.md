@@ -34,8 +34,20 @@ through the response map even for one item, so the child fail messages buffer; a
 fail entries are cleared and replaced with the parent's rendered FailOverride. The
 `>1`-item and non-`all` paths are untouched. Whole corpus unchanged in both modes
 (AxeOfKolt/TBN/LostLabyrinth/Dwarf/Amazon/StoneOfWisdom all still 0/baseline);
-**AoS 3→1** (MAP re-blessed). Remaining AoS hunk is the unrelated nested-pouch coin
-iteration-ordering cosmetic (see A5_WALKTHROUGH_FINDINGS.md, not chased).
+**AoS 3→1** (MAP re-blessed). Remaining AoS hunk is the nested-pouch coin `put all in
+bag` cosmetic — **root-caused 2026-07-03 as an author-ALR suppression, not an
+iteration-ordering/refine bug** (the earlier note was wrong). Both engines include the
+nested coins in the `all` set and both re-fail them (`cl_Pouch` bagged first un-holds
+the coins → general `PutObjectsInOther` `BeHeldByCharacter` fails). FD merges the two
+fails by message template (`AggregateOutput`) into "You are not carrying the gold gonks
+and the silver ginks.", which the AoS author's suppression ALR `cl_YouAreNotC1`
+(TextOverride, empty NewText) blanks; Scarier emits two *singular* fails ("…the gold
+gonks." / "…the silver ginks.") that don't contain the merged ALR OldText, so its ALR
+pass (`replace_alrs`) can't match. Verified by FD instrumentation + `A5_DUMP_XML`.
+Fix would need Scarier's plural fail path to aggregate same-template per-item fails into
+the merged `%TheObjects[%objects%]%` form before ALR/Display — shared plural response
+path (run_general/resolve_plural), too much regression risk for one cosmetic hunk.
+See A5_WALKTHROUGH_FINDINGS.md (AoS row), not chased.
 
 ## 📄 DwarfOfDirewoodForest is UNWINNABLE on Version 9 — verified by drag-aware playthrough (north = death-trap OR `{*}`-blocked)  ✅ RESOLVED (2026-07-03)
 
