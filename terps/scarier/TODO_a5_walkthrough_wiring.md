@@ -82,6 +82,22 @@ the real conformance metric, are clean). Changes since 2026-07-02:
   command-topic keywords CorrectCommand) — see the ⭐ October 31st entry in
   `TODO_a5_walkthrough_bugs.md`.
 
+- **Illumina WIRED as a FULL WIN (2026-07-03)** — new corpus game (Finn
+  Rosenløv, user-supplied blorb + the author's CASA solution).  13 commands,
+  one correction ("open guard room door" → the first "open southern door").
+  **Scarier wins; FrankenDrift cannot parse `open southern door` ("Open
+  what?") — a real FD reference-resolution gap**, so it is wired
+  BugHunt-style: golden = Scarier's winning transcript (vanilla 0), xoshiro
+  budget 5 = the documented FD gap.  Root-causing/fixing the FD parser gap
+  (and then re-blessing to 0|0) is an open follow-up.
+- **LostChildren + MagneticMoon REWIRED to their NATIVE built-in WLKTHRGH
+  solutions (2026-07-03)** — the old scripts were CASA solutions for the
+  Spectrum ORIGINALS and derailed against the ADRIFT 5 ports (user report);
+  both games were missed by the 2026-07-02 Horsfield audit exactly like
+  Tribute.  LostChildren: full rescue-ending win, zero corrections, 0|0.
+  MagneticMoon: 795/800 win, 2|2 (two open one-char hunks).  9 engine fixes
+  between them — see `TODO_a5_walkthrough_bugs.md`.
+
 **Remaining backlog = upgrading the other 3 smoke probes to real wins**, all
 blocked on walkthrough material (per-game notes below): TheFortressOfFear
 (Horsfield but no built-in WLKTHRGH), MagorInvestigates + Xanix (email-only

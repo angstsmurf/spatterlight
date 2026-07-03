@@ -1,0 +1,18 @@
+# Illumina (Finn Rosenløv) -- full win, from the author's CASA solution
+# (user-supplied, Illumina_english.txt).  One correction: "open guard room
+# door" is this build's first "open southern door" (the sign over the
+# southern door reads GUARD ROOM; opening walks you through into the dark
+# guard room, where saying her name blinds the night-goggled guards).
+x door
+x padlock
+x stream
+x knife
+get clay pot
+x clay pot
+fill pot from stream
+pour acid onto lock
+up
+read sign
+open southern door
+say illumina
+open southern door

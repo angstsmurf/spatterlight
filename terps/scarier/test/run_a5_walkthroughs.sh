@@ -613,6 +613,15 @@ FILTER="${1:-}"
 # nearest-name perspective) and one extra "." on the tied electrical cable's
 # inventory suffix -- see TODO_a5_walkthrough_bugs.md.
 #
+# (2026-07-03) Illumina WIRED as a FULL WIN (new corpus game, Finn Rosenløv;
+# user-supplied blorb + the author's CASA solution).  13 commands, one
+# correction ("open guard room door" -> the first "open southern door").
+# Scarier plays it to *** You have won ***; FrankenDrift CANNOT — its parser
+# answers "Open what?" to `open southern door` (a real FD reference-
+# resolution gap, BugHunt-class divergence in the correct direction).
+# Golden = Scarier's winning transcript (vanilla 0); the xoshiro column
+# carries the FD differential (5, RNG-independent) as the documented FD gap.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -621,6 +630,7 @@ AxeOfKolt|TheAxeOfKolt.blorb|0|0
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|2|2
+Illumina|Illumina.blorb|0|5
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0

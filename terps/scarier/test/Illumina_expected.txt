@@ -1,0 +1,73 @@
+
+OK, this is it!
+After having spent uncountable hours roaming the castle, or at least so it feels, trying to avoid being caught by the guards, who are now hot on your heels, you have finally arrived at the damp dungeon where the beautiful Princess Illumina is held captive. Catching your breath, you allow yourself a few moments to reflect upon your mission. First of all, you still haven't figured out how the citizens managed to talk you into taking on this task. Yes, the Princess is the hope and inspiration of the people, and without her to lead them they would never have built up the courage to revolt against the evil knight who has taken over the country, yada yada yada. But doing this for free doesn't quite go with your trade as a travelling warrior (your words). Most people would just call you a mercenary.
+
+Nevertheless, you have entered the dark castle and after overcoming all sorts of dangers, some of which you could have done without, you are now standing in a dimly lit dungeon. The air is quite acrid and makes it hard to breathe. Princess Illumina is held captive behind the prison door. You are close, so close that you can almost taste the sweet taste of victory, another feather in your cap, another tale to be told around the fireplace at night.
+
+The Dungeon
+
+The dungeon gives you a sinister feeling of despair. The atmosphere is gloomy and moisture runs down the stone walls ending in a small stream on the floor. There are a couple of exits from here: to the north you can see a heavy iron door with a small barred window and a narrow staircase leads up to the entrance hall where you just came from. Over in the corner lies the sad remains of a small clay pot.
+
+> x door
+The door is securely embedded in the wall and held in place by two solid hinges. There is no handle and only a small barred opening allows you to see the cell behind it. A huge padlock keeps it securely locked.
+
+> x padlock
+It is made of solid iron and, although it is crudely made, it is very strong.
+
+> x stream
+It runs through the uneven cracks and indentations of the stone floor, disappearing somewhere in the darkness. What appears to be some kind of knife lies nearby and some partly dissolved bones lay half-submerged in the liquid. A sharp acid like smell emits from the surface of the stream, making breathing hard and hurtful.
+
+> x knife
+Although the wooden handle looks almost brand new, the blade is nothing but a blunt stump. Most of the metal has melted away, making the knife completely useless.
+
+> get clay pot
+You pick up the broken clay pot.
+
+> x clay pot
+There isn't much left of it. Only about an inch upwards from the bottom.
+
+> fill pot from stream
+Holding the clay pot between your fingertips you carefully scoop up some of the liquid from the stream.
+
+> pour acid onto lock
+You pour the liquid onto the padlock and watch it slowly seep into the mechanism. It takes only a few moments before the padlock lies on the floor, transformed into scrap iron. One powerful kick from your boot is all it takes to open the door. With the door now open, Princess Illumina runs from her dark and damp cell and into the dungeon.
+
+The Dungeon
+The dungeon gives you a sinister feeling of despair. The atmosphere is gloomy and moisture runs down the stone walls ending in a small stream on the floor. There are a couple of exits from here: to the north you can see a heavy iron door with a small barred window and a narrow staircase leads up to the entrance hall where you just came from.  Illumina is standing beside you.
+
+The noise from when you kicked in the door must have alerted the guards. You hear footsteps approaching you. The Princess looks scared. "Hurry!" she whispers. "We need to get away from here before the guards find us. I dare not think what they will do to you."
+
+> up
+You and the princess go up the stairs.
+
+The Entrance Hall
+You are standing at the top of a stairway leading down. In front of you are two doors. On the wall above the one embedded in the southern wall, hangs a sign. The other, embedded in the eastern wall has no significant markings. Somehow you just know that if you chose to open either door, you will have to walk through it, facing whatever is on the other side.
+
+> read sign
+GUARD ROOM
+
+You hear the footsteps from the approaching guards coming closer.  The princess looks nervously over her shoulder, urging you to hurry.
+
+> open southern door
+
+The Guard's Room
+With no light available you realize that you are in deep trouble. The room is completely dark and in the deep shadows you can hear movements, the sound of hobnailed boots coming ever closer to you.
+In the total darkness all you hear is the movements of the guards coming closer towards you.
+
+> say illumina
+As soon as you speak her name, her golden hair lights up, sending a bright light through the room. The guards, still wearing their night vision goggles, scream in agony as the light burns their eyes. They desperately reach for their goggles trying to tear them off. This is your chance, your one and only chance.
+
+> open southern door
+You grab Illumina's hand and drag her across the table, kicking aside a chair, not to mention the unfortunate guard who is blocking your way. You fling the door open and literally throw the Princess through the opening out into the courtyard, following her quickly.
+
+At the sight of their beautiful Princess Illumina, the prisoners, gathered in the courtyard renew their courage. They cry out in joy and gather around her, cheering loudly and calling out her name.
+
+At the sound of her name, a blinding light emerges, engulfing the entire castle. The walls start to crumble, the drawbridge comes down with a thundering crash and the hundreds of people who have been waiting restlessly outside rush into the courtyard and start fighting the guards.
+
+The battle is soon over. The few guards who aren't dead, or managed to escape are brought before the Princess along with the evil Lord of the castle.
+
+Another feather in your cap, a story you can tell around the bonfire. Not to mention the gratitude of the beautiful Princess Illumina.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+
