@@ -1,0 +1,122 @@
+Tingalan
+
+Your House
+You creep from your bed to the parlor of your family's country house. The woods beyond Merch are full of all imaginable terrors, and many that you cannot imagine. You have packed a few simple things in preparation for this foolish adventure.
+
+What do you bring with you into the woods? You can select five things from the list below
+
+An Axe
+A Knife
+A Rusty Sword
+A Bow
+A Musket
+A Quiver of Five Arrows
+A Horn with Five Charges of Powder
+A Box with Twelve Matches
+A Candle
+A Box of Crackers
+A Pound of Smoked Meat
+A Can of Coffee
+A Can of Coco
+A Jar of Water
+A Pair of Shears
+A Box of Fishing Gear
+An Adderstone
+A Magical Juju
+A Book of Horror Stories
+A Book of Ancient Lore
+A Book of Folk Tales
+
+You have five items left to take.
+
+> look
+
+Your House
+You creep from your bed to the parlor of your family's country house. The woods beyond Merch are full of all imaginable terrors, and many that you cannot imagine. You have packed a few simple things in preparation for this foolish adventure.
+
+What do you bring with you into the woods? You can select five things from the list below
+
+An Axe
+A Knife
+A Rusty Sword
+A Bow
+A Musket
+A Quiver of Five Arrows
+A Horn with Five Charges of Powder
+A Box with Twelve Matches
+A Candle
+A Box of Crackers
+A Pound of Smoked Meat
+A Can of Coffee
+A Can of Coco
+A Jar of Water
+A Pair of Shears
+A Box of Fishing Gear
+An Adderstone
+A Magical Juju
+A Book of Horror Stories
+A Book of Ancient Lore
+A Book of Folk Tales
+
+You have five items left to take.
+
+> examine me
+You see nothing interesting about yourself.
+
+> inventory
+
+You have no axe
+You have no knife
+You have no sword
+You have no bow and zero arrows
+You have no musket and zero charges of powder.
+
+You have no juju
+You have no adderstone
+You have no shears
+You have no fishing tackle
+You have zero books of Ancient Lore
+You have zero books of Horror Stories
+You have zero books of Folk Tales
+
+BACKPACK
+
+FOOD
+Jars of water: 0
+Jars of honey: 0
+Berries: 0
+Morels: 0
+Boxes of crackers: 0
+Doses of coffee: 0
+Doses of coco: 0
+Pounds of smoked meat: 0
+
+LIGHT
+Matches: 0
+Candles: 0
+
+OTHER
+Logs: 0
+Sage: 0
+Stinkhorn: 0
+Emetic russulka: 0
+Crow feathers: 0
+Horseshoe nails: 0
+Deer bones: 0
+Pounds of raw meat: 0
+Fireflies: 0
+
+LOOT
+Floating eyes: 0
+Shreds of darkness: 0
+Ounces of red vitriol: 0
+Wriggling things: 0
+Nightmare Pelts: 0
+Black pearls: 0
+Ounces of blue vitriol: 0
+Priceless treasures: 0
+Elfin artifacts: 0
+Terrible secrets: 0
+
+> wait
+You cannot bring yourself to do this.

@@ -1,5 +1,79 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Tingalan: lowercase `rand()` in SetVariable was dead (whole encounter engine) + Text string-literal/cap fixes; wired 0|0 as a smoke probe — a full WINNING walkthrough is a large remaining gameplay effort (root-caused, partly unblocked)  🚧 IN PROGRESS (2026-07-03)
+
+**Goal: derive a winning walkthrough for Tingalan** (William Dooling, 2017 — a
+62-location, ~3564-task **RNG survival roguelike**: hunt by night, forage/manage a
+hunger+thirst+wound clock, survive lethal random encounters, complete a mission,
+return to Merch and *Wait Until Dawn*).  Big progress on the **engine** (it was
+fundamentally broken for this game); the **playthrough itself is not done**.
+
+**★ Root cause of "Tingalan doesn't work": lowercase `rand()` in a numeric
+SetVariable evaluated to 0, so the entire encounter/combat/depth RNG was DEAD.
+✅ FIXED + committed.** Every turn a System task `Roller` (in the `Tick` event's
+sub-event chain) sets 11 variables to `rand(...)` expressions
+(`Randbetwee = "rand(1,9)"`, `Witsroll = "rand(0,%playerwits%)"`, …).
+`eval_num_value` (a5run_action.cpp) only recognised an **uppercase** `RAND` prefix;
+lowercase `rand(...)` fell to `a5_eval_arith` (no `rand` builtin) → 0, **no draw**.
+So Scarier drew 0–1 RNG/turn vs FD's ~5, every encounter roll was 0, and the game's
+core loop was inert.  Fix: a non-arithmetic numeric value now defers to the
+s-expression engine (FD's `EvaluateExpression`), which draws via the same
+`a5rand_between`; uppercase-RAND fast path untouched (SixSilverBullets byte-exact).
+Tingalan's per-turn RNG now matches FD **byte-exact for 45+ turns** (item selection
++ standing exploration).
+
+**★ Two Text-SetVariable fixes (also general). ✅ FIXED + committed.** Tingalan's
+inventory (`You have %playeraxe% axe`) exposed: (1) a string-literal RHS
+(`Playeraxe = ""an""` / `= "'an'"`) is an expression FD evaluates to `an`; Scarier
+kept the inner quotes → `You have "a" bow`.  Now a lone surrounding matched quote
+pair is stripped.  (2) The value was stored through `a5text_process`, whose
+display-time auto-cap capitalised the lone value at position 0 (`an`→`An`) → `You
+have An axe` mid-sentence; store via `a5text_process_nocap` (FD caps only in
+sentence context at display).
+
+**★ Tooling: `A5_DUMP_VARS` harness option** (a5run_dump.cpp) prints the player's
+location + named numeric vars to stderr per turn — the navigation aid for deriving
+a deterministic walkthrough.  Tingalan var names: `depth`, `encounternID`,
+`PlayerLore`, `PlayerTerriblesecrets`, `countermission2derzelas` (mission accepted),
+`counterwarlock`.
+
+**★ Win path (reverse-engineered).** Win = task `Scoring` (`EndGame Win`, tallies
+loot into the final score), fired by **`WaitUntilD` ("Wait until dawn")** which
+requires: Player at **Merch (loc 25)**, **Depth = 1**, **Countermis = 1**,
+**Counterwar = 0**.  `Countermis = 1` comes from the **Smiling Spirit** (agent of the
+Fey Lord Derzelas) at the **wagon by the river** (encounter 208→209): greet it, then
+**ACCEPT** its proposition to "return to Merch with a terrible secret" (reward: a
+black pearl).  A terrible secret = `Playerterr` (many `IncVariable Playerterr = "1"`
+sources across the forest).  So: get Lore ≥ 1 (needed for the Smiling-Spirit
+encounter roll), find the wagon, ACCEPT, obtain a terrible secret, survive back to
+Merch (Depth 1, hunger/wounds < 7 — wounds ≥ 7 = death, and single encounters can
+deal `rand(1,150)+9`!), then WAIT UNTIL DAWN.
+
+**★ Now wired 0|0 as a golden-backed smoke probe** (`Tingalan_walkthrough.txt` =
+the generic `look/examine me/inventory/wait`; the `wait` turn exercises the
+now-working Roller RNG + `%notallowed[RAND(1,6)]%`).  Whole corpus unchanged both
+modes, unit tests + `make sanitize` + a 45-turn ASan/UBSan run clean.
+
+**🚧 NOT DONE — remaining blockers to a *winning* walkthrough.**
+1. **Wound/thirst/hunger tick divergence (engine bug).** Once you actually move into
+   the woods, Scarier over-accumulates wounds and *kills the player at 7 wounds
+   where FD survives*.  The `HungerKill1`/"Lesser Thirst Kills" System tasks
+   (a5run gated on `Playeristh==1`, `Encounter==0`, `Kindofhung Must BeContain
+   "'lesser'"`, `Randbetwee1==1`) fire at a different turn/count than FD — the thirst
+   wound lands on the arrival turn in FD but a turn later + with an extra
+   collapse/mortal-wound in Scarier.  Suspects: the `Encounter==0` gate timing in the
+   Tick chain, and a **quoted `BeContain "'lesser'"` restriction comparison** (the
+   restriction-side twin of the Text string-literal fix above — verify Scarier strips
+   the `'lesser'` quotes before the Contains test).  Repro:
+   `printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\nlook\nnorth\nleave at once\nnorth\nleave at once\nsouth\ninventory\nsearch\n' > /tmp/p.txt ; FD_RNG=xoshiro test/a5_groundtruth.sh "test/adrift5-games/Tingalan.blorb" /tmp/p.txt`.
+2. **The gameplay derivation itself.** With the wound tick fixed (byte-exact deeper
+   play), derive the deterministic (seed-1234 / xoshiro) command sequence that reaches
+   the wagon, ACCEPTs, grabs a terrible secret, and returns alive — using
+   `A5_DUMP_VARS` to navigate.  This is a substantial roguelike playthrough (resource
+   economy: chop wood→fire/light, forage berries/morels/meat, avoid lethal fights),
+   not a quick script.  Once it wins byte-exact vs FD, replace the smoke
+   `Tingalan_walkthrough.txt`/golden with the winning run and re-bless.
+
 ## ⭐ Text-array index expression `%var[RAND(1,6)]%` + reflexive self-examine fallback (`examine me` → "yourself") — surfaced smoke-testing 7 new corpus games  ✅ DONE (2026-07-03)
 
 **Two general engine gaps, both corpus-safe, found by opening-turn smoke-diffing

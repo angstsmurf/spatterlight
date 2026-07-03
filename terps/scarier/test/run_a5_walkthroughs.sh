@@ -516,9 +516,17 @@ FILTER="${1:-}"
 # (all 6 were 0-hunk in both RNG modes when added).  These are conformance
 # guards for the opening turns, NOT max-score wins -- promote to a real
 # walkthrough if/when one is derived.  (Tingalan, the 7th new game, is NOT wired:
-# its `examine me`/array-index bugs were fixed -- see TODO_a5_walkthrough_bugs.md
-# -- but it has a deep per-turn RNG-event desync, ~15 draws/turn vs Scarier's 1,
-# so the `wait` probe can't reach a stable MATCH without a real walkthrough.)
+# its `examine me`/array-index bugs were fixed -- see TODO_a5_walkthrough_bugs.md.)
+#
+# (2026-07-03) Tingalan NOW wired at 0|0 (golden-backed) after the lowercase-rand()
+# engine fix resurrected its (previously dead) per-turn encounter RNG -- Roller's
+# 11 rand(...) SetVariables were all evaluating to 0.  Opening is byte-exact vs FD
+# in both modes (the vanilla golden diff is 0; a direct FD-diff would show 1, the
+# %notallowed[RAND(1,6)]% array pick differing from FD's System.Random -- pure RNG
+# noise like JacarandaJim/SSB, which the committed golden pins).  This is still the
+# generic smoke probe, NOT a winning walkthrough: deeper play (movement into the
+# woods) still diverges in the hunger/thirst/wound tick timing -- see the Tingalan
+# derivation entry in TODO_a5_walkthrough_bugs.md.
 #
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
@@ -556,6 +564,7 @@ MuseumHeist|MuseumHeist.blorb|0|0
 October31st|October31st.blorb|0|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
+Tingalan|Tingalan.blorb|0|0
 EOF
 )
 
