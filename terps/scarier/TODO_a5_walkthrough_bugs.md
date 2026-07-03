@@ -59,6 +59,63 @@ surfaces on a game that *doesn't* MATCH for another reason (i.e. where it would 
 unblock a win or a large hunk drop). One cosmetic line behind a game-specific author ALR
 does not justify the shared-path risk.
 
+## ⭐ `HasSeenObject` must be per-character across a BECOME viewpoint switch (BugHunt `read sign` → "not sure which object", 2→1)  ✅ DONE (2026-07-03)
+
+**BugHuntOnMenelaus `read sign` at South Road: Scarier "You can't see the sign."
+where FD shows "Sorry, I'm not sure which object you are trying to read." (xoshiro
+residual, transcript line 397).** The `ReadObjects` general task gates on, in order,
+`ReferencedObject Must Exist` → `Must HaveBeenSeenByCharacter %Player%` (both →
+"not sure which object") → `Must BeVisibleToCharacter %Player%` (→ "can't see the
+%object%"). Both engines bind "sign" → the static `cl_Sign1` (the only object named
+"sign", off in the elevator lobby `cl_Location28`). FD fails at `HaveBeenSeen`
+(the *current* viewpoint never saw it) → "not sure"; Scarier passed `HaveBeenSeen`
+and fell to `BeVisible` → "can't see".
+
+**Root cause — a single global player-centric seen set leaked across BECOME.** In
+FD `HasSeenObject/-Location/-Character` are **per-character** (clsCharacter);
+`PrepareForNextTurn` marks, for every character, the objects *it* can currently
+see. The `read sign` command runs as **Corporal Jones** (`Become jones`), but the
+sign was seen earlier by **Davey**, who explored the building while *he* was the
+player. Scarier had one `obj_seen`/`char_seen`/`loc_seen` array that a
+`ToSwitchWith`/BECOME never swapped, so Davey's sighting persisted into Jones's
+turn and `HaveBeenSeenByCharacter %Player%` wrongly passed. (BugHunt is the only
+corpus game that switches player, which is why this never surfaced before.)
+
+**Fix.** Added per-character snapshot stashes `seen_stash_obj/char/loc`
+(`[n_characters]`) + `seen_active_ci` to `a5_state_t` (a5state.cpp). `a5state_switch_seen`
+copies the outgoing player's active arrays into its slot and swaps the incoming
+player's slot in (a NULL slot = a character that has never been the player → empty
+set, then the normal per-turn `update_seen` marks its current surroundings). Wired
+into the `ToSwitchWith` BECOME handler (a5run_action.cpp) right after `player_key`
+retargets. The active arrays and all call sites are **unchanged** — a lone-"Player"
+game leaves every stash slot NULL, so the corpus stays byte-identical. **Save/restore
+is now per-character too** (answering the review question): the native writer emits a
+`<SeenChar>` block (Key + sparse ObjSeen/CharSeen/LocSeen) for each non-active
+viewpoint's stash, the reader repopulates it, and `restore_reset` frees the stash +
+re-homes the active arrays on the restored player (mirrors FD's
+per-`clsCharacterState.lSeenKeys`). Verified: whole corpus unchanged in both modes;
+BugHunt xoshiro 2→1 and golden regenerated; ASan/UBSan-clean over the BECOME run;
+`A5_SAVE_AT` save/restore self-check byte-identical at save-points 20/35/60 (incl.
+saving mid-Davey while his set holds the sign, then confirming Jones's later read
+still diverges correctly) and on non-BECOME games (AoS/FBA/AxeOfKolt).
+
+**Remaining BugHunt xoshiro 1 (cosmetic, NOT fixed — shared room-view path risk).**
+The last residual is a mid-transcript **blank line** (diff `65a66`): on arrival at
+the shuttle FD emits a paragraph break between the `SetTasks Execute Look` room view
+and the `cl_AqulianSpe` `LocationTrigger` System task's completion message ("As you
+and your marines disembark…"), where Scarier space-joins (`pSpace`). Pinned to a
+FrankenDrift chunk trace: FD's buffer reads `…Foley are here.\n<font color =
+FDD017>\nAs you…` — i.e. the Execute-Look room view is followed by a `\n` **separator**
+before the drained System task's message (the message itself starts `<font>\n`, giving
+the doubled newline once `<font>` is stripped). Scarier's room view ends `are here.`
+so `emit_completion`'s `sb_pspace` inserts two spaces, not a newline. This is NOT a
+universal room-view trailing newline (cf. the JJ police-cell "…out of the cell.    Alan
+appears…" case, which space-joins byte-exact in both engines) — it is specific to the
+`qTasksToRun` drain emitting a PASS completion after an Execute-Look view. A fix would
+have to change when the shared room-view / drain path inserts a paragraph break vs a
+pSpace, with real regression risk across every game's movement turn, for one cosmetic
+blank line. Same judgment as the AoS coin hunk above: not worth the shared-path risk.
+
 ## ⭐ A task could modify `Score` more than once (FBA leash re-scored via a second tie command)  ✅ DONE (2026-07-03)
 
 **Symptom (FBA, surfaced during the max-score derivation).** After `make a leash`

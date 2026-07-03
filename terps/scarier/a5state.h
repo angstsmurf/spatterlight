@@ -119,6 +119,21 @@ typedef struct a5_state_s {
      restrictions read it.  [n_locations] */
   char *loc_seen;
 
+  /* Per-character snapshot stash for the three player-centric seen sets above,
+     across an ADRIFT BECOME viewpoint switch.  In FD HasSeenObject/-Location/
+     -Character are per-character (clsCharacter), so when the player changes the
+     old viewpoint's sightings must NOT carry over to the new one.  On a switch
+     the active obj_seen/char_seen/loc_seen are copied into the OLD player's slot
+     and the NEW player's slot copied back (a NULL slot = a character that has
+     never been the player, i.e. an empty seen set).  Only ever populated for a
+     game that switches player (only BugHuntOnMenelaus in the corpus); a lone-
+     "Player" game leaves every slot NULL and the active arrays untouched, so it
+     is byte-identical to the single-array model.  [n_characters] slots each. */
+  char **seen_stash_obj;
+  char **seen_stash_char;
+  char **seen_stash_loc;
+  int    seen_active_ci;   /* character index the active seen arrays hold */
+
   /* Last-referenced pronoun targets (clsUserSession.sIt/sThem/sHim/sHer), the
      full display name of the object/character most recently named by the player
      in each pronoun class.  GrabIt recomputes these each turn from the (already
@@ -229,6 +244,12 @@ extern int a5state_location_index  (const a5_state_t *st, const char *key);
    set on every player move and for the start location).  NULL/unknown keys are
    ignored. */
 extern void a5state_mark_loc_seen (a5_state_t *st, const char *lockey);
+
+/* Switch the active player-centric "seen" arrays (obj_seen/char_seen/loc_seen)
+   to those of character index `new_ci`, snapshotting the outgoing player's set
+   into its stash slot first (ADRIFT BECOME viewpoint switch).  A no-op when the
+   target is already active.  See seen_stash_* in a5state.h. */
+extern void a5state_switch_seen (a5_state_t *st, int new_ci);
 
 /* The player's current location key (NULL if unknown). */
 extern const char *a5state_player_location (const a5_state_t *st);

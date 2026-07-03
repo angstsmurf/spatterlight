@@ -1857,6 +1857,33 @@ save_scarier_body (sb_t *b, a5_run_t *run)
       if (st->loc_seen[i])
         sb_elem (b, "LocSeen", adv->locations[i].key);
 
+  /* Per-character seen sets for any OTHER viewpoint a BECOME game has switched
+     away from (the active player's set is the top-level ObjSeen/CharSeen/LocSeen
+     above).  Mirrors FD's per-character clsCharacterState.lSeenKeys so a saved
+     BugHunt restores each marine's own sightings.  Empty for a lone-"Player"
+     game. */
+  for (i = 0; i < adv->n_characters; i++)
+    {
+      int j;
+      char *os = st->seen_stash_obj  ? st->seen_stash_obj[i]  : NULL;
+      char *cs = st->seen_stash_char ? st->seen_stash_char[i] : NULL;
+      char *ls = st->seen_stash_loc  ? st->seen_stash_loc[i]  : NULL;
+      if (i == st->seen_active_ci || (os == NULL && cs == NULL && ls == NULL))
+        continue;
+      sb_puts (b, "<SeenChar>\n");
+      sb_elem (b, "Key", adv->characters[i].key);
+      if (os != NULL)
+        for (j = 0; j < adv->n_objects; j++)
+          if (os[j]) sb_elem (b, "ObjSeen", adv->objects[j].key);
+      if (cs != NULL)
+        for (j = 0; j < adv->n_characters; j++)
+          if (cs[j]) sb_elem (b, "CharSeen", adv->characters[j].key);
+      if (ls != NULL)
+        for (j = 0; j < adv->n_locations; j++)
+          if (ls[j]) sb_elem (b, "LocSeen", adv->locations[j].key);
+      sb_puts (b, "</SeenChar>\n");
+    }
+
   /* Events (model order). */
   for (i = 0; i < (int) run->events->size (); i++)
     {
@@ -2277,6 +2304,15 @@ restore_reset (a5_run_t *run)
     memset (st->char_seen, 0, (size_t) adv->n_characters);
   if (st->loc_seen != NULL)
     memset (st->loc_seen, 0, (size_t) adv->n_locations);
+  /* Drop the per-character BECOME seen-stash and re-home the active arrays on
+     the starting player (restore/restart rebuilds the player-centric set). */
+  for (i = 0; i < adv->n_characters; i++)
+    {
+      if (st->seen_stash_obj  != NULL) { free (st->seen_stash_obj[i]);  st->seen_stash_obj[i]  = NULL; }
+      if (st->seen_stash_char != NULL) { free (st->seen_stash_char[i]); st->seen_stash_char[i] = NULL; }
+      if (st->seen_stash_loc  != NULL) { free (st->seen_stash_loc[i]);  st->seen_stash_loc[i]  = NULL; }
+    }
+  st->seen_active_ci = a5state_character_index (st, a5state_player_key (st));
   st->n_disp_once = 0;
   for (i = 0; i < st->n_looks; i++)
     { free (st->looks[i].loc_key); free (st->looks[i].text); }
@@ -2340,7 +2376,10 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
         {
           const char *pk = intern_key (adv, n->text);
           if (pk != NULL)
-            st->player_key = pk;
+            {
+              st->player_key = pk;
+              st->seen_active_ci = a5state_character_index (st, pk);
+            }
         }
       else if (streq (nm, "Object"))
         {
@@ -2409,6 +2448,35 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
         }
       else if (streq (nm, "LocSeen"))
         a5state_mark_loc_seen (st, n->text ? n->text : "");
+      else if (streq (nm, "SeenChar"))
+        {
+          /* A non-active viewpoint's per-character seen set (BECOME games).
+             Populate its stash slot, or the active arrays if it is (unexpectedly)
+             the current player. */
+          int ci = a5state_character_index (st, a5xml_child_text (n, "Key"));
+          if (ci >= 0)
+            {
+              const a5_xml_node_t *c;
+              int active = (ci == st->seen_active_ci);
+              char *os = st->obj_seen, *cs = st->char_seen, *ls = st->loc_seen;
+              if (!active)
+                {
+                  if (st->seen_stash_obj[ci]  == NULL) st->seen_stash_obj[ci]  = (char *) calloc ((size_t) adv->n_objects, 1);
+                  if (st->seen_stash_char[ci] == NULL) st->seen_stash_char[ci] = (char *) calloc ((size_t) adv->n_characters, 1);
+                  if (st->seen_stash_loc[ci]  == NULL) st->seen_stash_loc[ci]  = (char *) calloc ((size_t) adv->n_locations, 1);
+                  os = st->seen_stash_obj[ci]; cs = st->seen_stash_char[ci]; ls = st->seen_stash_loc[ci];
+                }
+              for (c = n->first_child; c != NULL; c = c->next)
+                {
+                  if (streq (c->name, "ObjSeen"))
+                    { int oi = a5state_object_index (st, c->text ? c->text : ""); if (oi >= 0 && os) os[oi] = 1; }
+                  else if (streq (c->name, "CharSeen"))
+                    { int xi = a5state_character_index (st, c->text ? c->text : ""); if (xi >= 0 && cs) cs[xi] = 1; }
+                  else if (streq (c->name, "LocSeen"))
+                    { int li = a5state_location_index (st, c->text ? c->text : ""); if (li >= 0 && ls) ls[li] = 1; }
+                }
+            }
+        }
       else if (streq (nm, "Event"))
         {
           if (ev_i < (int) run->events->size ())

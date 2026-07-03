@@ -151,7 +151,13 @@ a5state_new (const a5_adventure_t *adv)
         }
       st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
       st->obj_seen = (char *) calloc ((size_t) adv->n_objects, 1);
+      /* Per-character stash for the BECOME viewpoint switch (see a5state.h).
+         The active arrays above belong to the starting player. */
+      st->seen_stash_obj  = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
+      st->seen_stash_char = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
+      st->seen_stash_loc  = (char **) calloc ((size_t) adv->n_characters, sizeof (char *));
     }
+  st->seen_active_ci = a5state_character_index (st, st->player_key);
 
   if (adv->n_locations > 0)
     {
@@ -218,6 +224,16 @@ a5state_free (a5_state_t *st)
   free (st->char_seen);
   free (st->obj_seen);
   free (st->loc_seen);
+  if (st->adv != NULL)
+    for (i = 0; i < st->adv->n_characters; i++)
+      {
+        if (st->seen_stash_obj  != NULL) free (st->seen_stash_obj[i]);
+        if (st->seen_stash_char != NULL) free (st->seen_stash_char[i]);
+        if (st->seen_stash_loc  != NULL) free (st->seen_stash_loc[i]);
+      }
+  free (st->seen_stash_obj);
+  free (st->seen_stash_char);
+  free (st->seen_stash_loc);
   free (st->conv_char);
   free (st->conv_node);
   free (st->s_it);
@@ -581,6 +597,41 @@ a5state_mark_loc_seen (a5_state_t *st, const char *lockey)
   int li = a5state_location_index (st, lockey);
   if (li >= 0 && st->loc_seen != NULL)
     st->loc_seen[li] = 1;
+}
+
+/* Snapshot one active seen array into its stash slot, then load the incoming
+   slot back (allocating a zeroed slot the first time a character is switched
+   to). */
+static void
+swap_seen_array (char *active, char ***stash, int old_ci, int new_ci, size_t n)
+{
+  if (active == NULL || *stash == NULL || n == 0)
+    return;
+  if (old_ci >= 0)
+    {
+      if ((*stash)[old_ci] == NULL)
+        (*stash)[old_ci] = (char *) malloc (n);
+      memcpy ((*stash)[old_ci], active, n);
+    }
+  if (new_ci >= 0 && (*stash)[new_ci] != NULL)
+    memcpy (active, (*stash)[new_ci], n);
+  else
+    memset (active, 0, n);
+}
+
+void
+a5state_switch_seen (a5_state_t *st, int new_ci)
+{
+  int old_ci = st->seen_active_ci;
+  if (new_ci == old_ci)
+    return;
+  swap_seen_array (st->obj_seen,  &st->seen_stash_obj,  old_ci, new_ci,
+                   (size_t) st->adv->n_objects);
+  swap_seen_array (st->char_seen, &st->seen_stash_char, old_ci, new_ci,
+                   (size_t) st->adv->n_characters);
+  swap_seen_array (st->loc_seen,  &st->seen_stash_loc,  old_ci, new_ci,
+                   (size_t) st->adv->n_locations);
+  st->seen_active_ci = new_ci;
 }
 
 const char *

@@ -1760,10 +1760,14 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               else if (streq (k1, pk) || streq (k2, pk))
                 {
                   const char *old_loc = a5state_player_location (st);
-                  const char *new_player = streq (k1, pk)
-                                             ? st->adv->characters[bi].key
-                                             : st->adv->characters[ci].key;
+                  int new_ci = streq (k1, pk) ? bi : ci;
+                  const char *new_player = st->adv->characters[new_ci].key;
                   st->player_key = new_player;   /* stable model key pointer */
+                  /* HasSeenObject/-Location/-Character are per-character in FD:
+                     the new viewpoint must not inherit the old player's
+                     sightings (BugHunt: Jones must not "have seen" the elevator
+                     sign that Davey saw). */
+                  a5state_switch_seen (st, new_ci);
                   enqueue_loc_trigger_tasks (run, old_loc,
                                              a5state_player_location (st));
                   clear_conv_if_partner_gone (run, out);

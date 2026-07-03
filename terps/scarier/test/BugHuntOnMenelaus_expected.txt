@@ -394,7 +394,7 @@ South Road
 You are on the road leading South from the town centre. There is a large area here surrounded by a high-security fence. A large archway leads South into the fenced area. On the archway are words inscribed in the local language.
 
 > Read sign
-You can't see the sign.
+Sorry, I'm not sure which object you are trying to read.
 
 > S
 You move south.

@@ -463,12 +463,21 @@ FILTER="${1:-}"
 # `If restx Is Nothing Then Return False` -- a null restriction fails closed, the
 # same result the old catch fell through to, without the crash that aborted task
 # selection).  FD now walks the corridor and WINS 100/100 too.  The xoshiro budget
-# dropped 23 -> 2; the residual 2 are a minor Scarier-vs-FD parser divergence on
-# `read sign` (Scarier "You can't see the sign." vs FD "Sorry, I'm not sure which
-# object you are trying to read."), newly reachable only because FD now completes
-# the game.  vanilla column strict-diffs Scarier's own winning transcript
-# (test/BugHuntOnMenelaus_expected.txt, budget 0 = must stay a win).  See
-# TODO_a5_walkthrough_wiring.md.
+# dropped 23 -> 2 -> 1.  The `read sign` divergence (Scarier "You can't see the
+# sign." vs FD "Sorry, I'm not sure which object you are trying to read.") is FIXED
+# (2026-07-03): HasSeenObject is per-character in FD, so after a BECOME the new
+# viewpoint must not inherit the old player's sightings -- Jones must NOT "have
+# seen" the elevator-lobby sign that Davey saw.  Scarier had one global player-
+# centric obj_seen/char_seen/loc_seen that leaked across a viewpoint switch; now
+# these are snapshotted per character on ToSwitchWith (a5state_switch_seen), so
+# `read sign` fails the ReadObjects `HaveBeenSeenByCharacter` gate like FD.  The
+# remaining xoshiro 1 is the disembark blank line: FD emits a paragraph break
+# between the Execute-Look room view and the cl_AqulianSpe LocationTrigger System
+# task's completion message (the drain-path room-view separator), which Scarier
+# space-joins -- a cosmetic mid-transcript blank line on a shared room-view path
+# (see TODO_a5_walkthrough_bugs.md).  vanilla column strict-diffs Scarier's own
+# winning transcript (test/BugHuntOnMenelaus_expected.txt, budget 0 = must stay a
+# win).  See TODO_a5_walkthrough_wiring.md.
 #
 # (2026-07-02) MaroonedOnMazoomah (Larry Horsfield, 2010): the walkthrough script
 # is the game's OWN built-in full solution, lifted verbatim from its FullSol task
@@ -525,7 +534,7 @@ MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 DwarfOfDirewoodForestDDF|DDF.blorb|0|0
-BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
+BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|1
 Tribute|Tribute.blorb|0|0
 AoS|AoS v.4.blorb|1|1
 FinnsBigAdventure|FBA v.3c.blorb|0|0
