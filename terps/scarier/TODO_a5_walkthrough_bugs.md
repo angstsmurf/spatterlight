@@ -183,7 +183,44 @@ the merged `%TheObjects[%objects%]%` form before ALR/Display — shared plural r
 path (run_general/resolve_plural), too much regression risk for one cosmetic hunk.
 See A5_WALKTHROUGH_FINDINGS.md (AoS row), not chased.
 
-## 📄 DwarfOfDirewoodForest is UNWINNABLE on Version 9 — verified by drag-aware playthrough (north = death-trap OR `{*}`-blocked)  ✅ RESOLVED (2026-07-03)
+## 📄 DwarfOfDirewoodForest: UNWINNABLE on Version 9; the older DDF build **WINS 250/250** (`light rope`, not `light fuse`)  ✅ RESOLVED (2026-07-03)
+
+**FINAL UPDATE (2026-07-03, same day, third take): the DDF build IS winnable —
+maximum 250/250 in 237 turns, verified in BOTH FrankenDrift and Scarier
+(byte-identical under FD_RNG=xoshiro).** The earlier "arsenal escape is a
+forced death" conclusion below was wrong: `cl_Fdd017Syst1` (the West-Side-of-
+Field capture) has FOUR restrictions, and the fourth is **`cl_LightFuse MustNot
+BeComplete`** — the death is explicitly DISARMED once the fuse-lighting
+*specific task* has completed. The trap is that the game has THREE ways to
+light the fuse and only ONE of them is that task:
+
+- `light rope`  → General `LightObjec` + Specific override **`cl_LightFuse`**
+  (keyed on the laid-rope object `cl_FuseO`) → completes `cl_LightFuse` →
+  death disarmed. **This is the only safe phrasing.**
+- `light fuse` / `light oil` → the separate General **`cl_StartFire`**
+  (`[light] {the} [oil/fuse]` — this is why "fuse" parses at all; the object
+  is only named "rope").
+- `press lever` → Specific **`cl_LightFuse1`** on the tinderbox lever.
+
+All three run `Execute cl_StartFireS` and start the identical 12-turn
+`cl_FuseBurnin1` explosion event, but the latter two leave `cl_LightFuse`
+incomplete, so walking the author's own escape route (e,e,n,n,n through
+`cl_Location53`) into the field is a guaranteed capture — an **author bug**
+(the death task should have keyed on the burning-fuse variable, not one of
+three sibling tasks). The prior derivation used `light fuse` and concluded
+"forced death"; with `light rope` the built-in `WLKTHRGH` escape works as
+written, the blast fires `cl_KnockedOve` (outside `cl_InnerBlast`) on turn 12,
+`cl_ArsenalDes=1`, and the endgame (retrieve axe from the vegetation, smash
+the beer-store door, dismiss the lone guard 1/2/3, `unlock doors`) wins.
+
+Wired as `test/DwarfOfDirewoodForestDDF_walkthrough.txt` + golden vs
+`test/adrift5-games/DDF.blorb` (MAP `0|0`; the built-in walkthrough needed
+exactly three corrections: `get rope`, `put rope in oil`, `light rope`).
+Two Scarier bugs surfaced and fixed on the way (see the ⭐ entries dated
+2026-07-03: plural-slot specific-override matching, walk-message expression
+processing) plus the intro-trailing-`<cls>` paragraph-break fix. V9 remains
+unwinnable (the `{*}` mis-bind below still gates By Guard Room).
+
 
 **Final, empirically-verified conclusion (after two wrong intermediate takes,
 both recorded below).** The game cannot be completed on the shipped Version 9,
@@ -234,6 +271,8 @@ into Bend-in-Tunnel, and entering the dungeons is safe (the blue-kilt/badge
 disguise → guards "ignore you"; no death). So the shipped adrift.co **Version 9
 (2022-08-07) is a regression** that broke the By-Guard-Room passage.
 
+<details><summary>Superseded 2026-07-03 second take — "DDF dies at the arsenal escape" (WRONG: misread cl_Fdd017Syst1's restrictions — it also requires `cl_LightFuse MustNot BeComplete`; see the FINAL UPDATE above)</summary>
+
 **But DDF is NOT cleanly winnable either — different fatal bug.** Attempted a
 full drag-/version-aware derivation through FD. Two things surfaced: (1) the
 game's built-in `WLKTHRGH` matches NEITHER build — it says `get fuse`/`put fuse
@@ -252,6 +291,8 @@ its "fuse" wording mean it targets a THIRD/earlier build where the boards were
 closeable (or 53 wasn't lethal) — neither DDF nor V9 is that build. Net: **both
 public builds are unwinnable, in different places** (V9 at By Guard Room, DDF at
 the arsenal escape); best reached is 195/250 on DDF.
+
+</details>
 
 **EXHAUSTIVE DDF↔V9 DATA DIFF (2026-07-03) — the regression is ONE mis-typed
 location key.** Full `diff` of the two deobfuscated XMLs is just 17 hunks; every

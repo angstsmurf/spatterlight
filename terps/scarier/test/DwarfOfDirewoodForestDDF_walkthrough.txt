@@ -1,0 +1,261 @@
+# The Dwarf of Direwood Forest (Larry Horsfield, ADRIFT 5) -- WINNING solution
+# for the ORIGINAL 2022-06-07 release (DDF.blorb, SHA1 2fb6f724...), the build
+# WITHOUT the mis-bound {*} disclaimer task that makes the adrift.co
+# "Version 9" (2022-08-07) unwinnable at By Guard Room (see
+# DwarfOfDirewoodForest_walkthrough.txt for that build's conformance golden).
+#
+# Wins with the MAXIMUM 250/250 in 237 turns, in both Scarier and FrankenDrift
+# (byte-identical under FD_RNG=xoshiro; the 2 vanilla hunks are the wagon's
+# <# OneOf(...) #> exit phrase drawn from different RNG streams).
+#
+# Derived from the game's own built-in walkthrough (WLKTHRGH) with THREE
+# corrections -- the built-in was written for a pre-release object naming and
+# never updated ("fuse" was renamed to the "rope"):
+#   get fuse       -> get rope        (cl_Rope1 under the 2nd wagon's tarpaulin)
+#   put fuse on oil-> put rope in oil (cl_PlaceFuse; moves you outside to 47)
+#   light fuse     -> light rope      (CRITICAL: only `light rope` runs the
+#     LightObjec specific override cl_LightFuse.  `light fuse`/`light oil`
+#     match the separate General cl_StartFire and `press lever` matches
+#     cl_LightFuse1 -- all three start the 12-turn fuse event, but the
+#     West-Side-of-Field death cl_Fdd017Syst1 is only disarmed by
+#     `cl_LightFuse MustNot BeComplete`, so any of those three ends the
+#     escape in a forced capture.  An author bug this walkthrough routes
+#     around.)
+o
+b
+i
+x me
+x beard
+s
+e
+x bank
+get rock
+throw rock at vulture
+e
+look under body
+get droppings
+get knife
+hide droppings, knife and key in beard
+w
+w
+s
+se
+1
+2
+3
+s
+s
+get all from beard
+x wall
+put knife in crack
+cut rope with knife
+x moisture
+x door
+x hinges
+rub slime on hinges
+rub key in slime
+unlock door
+open door
+o
+e
+look around corner
+e
+o
+s
+get knife
+kill dwarf with knife
+x guard
+get knife
+put knife in sheath
+look under bench
+wear bag
+x table
+get all from table
+wear helmet
+wear axe
+put all in bag
+search guard
+x badge
+search guard
+x coins
+get scabbard
+drag guard n
+drag guard w
+drag guard w
+drag guard s
+remove kilt
+o
+get key
+close door
+lock door
+e
+e
+n
+e
+x cell
+x clanmates
+w
+s
+w
+w
+w
+n
+n
+n
+n
+n
+n
+x vegetation
+get axe
+hide axe in vegetation
+s
+se
+e
+e
+e
+e
+e
+e
+s
+s
+s
+n
+n
+w
+w
+w
+w
+w
+w
+x wagon
+e
+get on wagon
+get off wagon
+look n
+x wall
+x boards
+move boards
+out
+w
+look around corner
+e
+o
+in
+close boards
+z
+open boards
+out
+close boards
+e
+e
+n
+n
+n
+w
+w
+w
+w
+w
+w
+w
+w
+x wagon
+e
+climb on wagon
+get rope
+climb off wagon
+open boards
+out
+close boards
+e
+e
+n
+n
+n
+w
+1
+2
+4
+w
+n
+n
+u
+in
+1
+in
+2
+3
+x bench
+sit on bench
+listen
+put flagon on table
+d
+s
+s
+e
+e
+e
+ne
+n
+search undergrowth
+e
+in
+get droppings
+3
+w
+s
+sw
+w
+w
+w
+w
+in
+3
+w
+w
+n
+e
+play cards
+n
+n
+w
+1
+2
+3
+move boards
+in
+put oil on crates
+put rope in oil
+light rope
+e
+e
+n
+n
+n
+w
+w
+w
+w
+w
+w
+w
+w
+nw
+n
+get axe
+s
+sw
+s
+s
+s
+s
+e
+e
+e
+n
+hit door with axe
+e
+1
+2
+3
+unlock doors

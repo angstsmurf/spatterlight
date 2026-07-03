@@ -524,6 +524,7 @@ LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
 MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
+DwarfOfDirewoodForestDDF|DDF.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
 Tribute|Tribute.blorb|0|0
 AoS|AoS v.4.blorb|1|1

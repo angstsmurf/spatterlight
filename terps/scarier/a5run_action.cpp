@@ -169,7 +169,20 @@ ref_info_for_name (a5_state_t *st, const std::string &name)
   else if (base == "location")  { stem = "Location"; ri.type = 'l'; }
   else if (base == "text")      { stem = "Text"; ri.type = 't'; }
   else return ri;
-  if (!num.empty () && num != "1")
+  /* The plural %objects%/%characters% slot resolves through its OWN alias.
+     When the command also carries a singular %object% (`hide %objects% in
+     %object%`), bind_reference deliberately does NOT alias the plural onto
+     ReferencedObject (FD's GetReference keys ReferencedObject to the "object1"
+     reference only, clsUserSession.vb:3990), so reading ReferencedObject here
+     would yield the singular container -- Dwarf's `hide axe in vegetation`
+     matched cl_HideObjInV1's [Sword, cl_Vegetation] specifics against
+     [vegetation, vegetation] and missed.  ReferencedObjects holds the current
+     item on both the per-item plural loop and the single-item direct path. */
+  if (base == "objects")
+    ri.key = a5state_lookup_ref (st, "ReferencedObjects");
+  else if (base == "characters")
+    ri.key = a5state_lookup_ref (st, "ReferencedCharacters");
+  if (ri.key == NULL && !num.empty () && num != "1")
     ri.key = a5state_lookup_ref (st, ("Referenced" + stem + num).c_str ());
   if (ri.key == NULL)
     ri.key = a5state_lookup_ref (st, ("Referenced" + stem).c_str ());
@@ -364,7 +377,20 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
     }
   else
     return 0;
-  return match_specifics_vec (st, specs, refs);
+  int r = match_specifics_vec (st, specs, refs);
+  if (getenv ("A5DBG_SPEC") != NULL)
+    {
+      fprintf (stderr, "[spec] child=%s parent=%s r=%d refs:", child->key,
+               parent ? parent->key : "-", r);
+      for (auto &ri : refs)
+        fprintf (stderr, " (%c,%s)", ri.type, ri.key ? ri.key : "NULL");
+      fprintf (stderr, " specs:");
+      for (auto *sp : specs)
+        for (int k = 0; k < sp->n_keys; k++)
+          fprintf (stderr, " [%s]", sp->keys[k]);
+      fprintf (stderr, "\n");
+    }
+  return r;
 }
 
 /* ----------------------------------------- per-command response aggregation */

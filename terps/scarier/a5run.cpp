@@ -897,7 +897,16 @@ a5run_intro (a5_run_t *run)
     { sb_pspace (&out); sb_puts (&out, run->adv->title); sb_puts (&out, "\n"); }
   sb_resolve_cls (&out, cf); cf = out.len;   /* commit: RunImmediately + title */
   intro = a5text_describe (run->st, run->adv->introduction);
-  if (intro[0]) { sb_puts (&out, intro); sb_puts (&out, "\n\n"); }
+  /* No paragraph break after an intro whose last visible act is a <cls> (DDF's
+     multi-page intro ends "...<waitkey><cls>"): the break would land AFTER the
+     wipe marker and survive the resolve below as two stray blank lines at the
+     top of the cleared screen, which FD never shows. */
+  if (intro[0])
+    {
+      sb_puts (&out, intro);
+      if (intro[strlen (intro) - 1] != A5_CLS_MARK)
+        sb_puts (&out, "\n\n");
+    }
   free (intro);
   sb_resolve_cls (&out, cf); cf = out.len;   /* commit: Introduction (vb:227) */
   /* Show the start room only when <ShowFirstLocation> is set (the default);

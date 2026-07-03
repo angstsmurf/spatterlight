@@ -664,7 +664,13 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             }
         }
       s += ".";
-      sb_pspace (out); sb_puts (out, s.c_str ());
+      /* Process the composed message like any response FD Displays -- a
+         CharExits/CharEnters property may embed <#...#> expressions (DDF's
+         wagon `<# OneOf("trundles away", ...) #>`). */
+      char *proc = a5text_process (st, s.c_str ());
+      char *plain = a5text_render_plain (proc);
+      sb_pspace (out); sb_puts (out, plain);
+      free (proc); free (plain);
     }
   else if (streq (dest, ploc))                 /* entering the player's room */
     {
@@ -680,7 +686,10 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             s += " from " + dir;
         }
       s += ".";
-      sb_pspace (out); sb_puts (out, s.c_str ());
+      char *proc = a5text_process (st, s.c_str ());
+      char *plain = a5text_render_plain (proc);
+      sb_pspace (out); sb_puts (out, plain);
+      free (proc); free (plain);
     }
 }
 

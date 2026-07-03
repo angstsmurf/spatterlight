@@ -1,0 +1,1650 @@
+The Dwarf of Direwood Forest
+THE DWARF OF DIREWOOD FOREST
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+You are highly advised to read the prologue and playing instructions, especially if you are starting this game for the first time. To do this press P and then Enter. You should also view the VOCAB list as there are a number of non-standard verbs used in this game.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+You can adjust these colours by clicking on VIEW in the taskbar above and selecting "Options"
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+DISCLAIMER:
+Please be advised that this game contains some content which some players might find offensive.
+
+Useful Commands After The Adventure Has Started:
+
+BUGS : COMMANDS : CREDITS : HELP : INSTRUCT: MACROS : MAP : SPEECH : STORY : VOCAB
+
+> o
+Please press B or P then press Enter.
+
+> b
+
+Forest Road
+You are on a North-South road in Direwood Forest, near the border with the Turdrock Clan lands, which are further south. Thick, impenetrable forest lies to east and west, the trees clustered closely together, their roots hidden amongst the tangled vegetation of the forest floor.
+
+> i
+You are wearing a leather jerkin, a red kilt, a war belt, a battle axe and a pair of boots, and are carrying nothing.  Attached to your belt is a pouch and a sheath in which sits your knife.
+
+> x me
+You are a dwarf of clan Wyldstone, about 4'6" in height with long auburn hair and a big bushy beard.
+
+> x beard
+Your beard, which hangs down to below your waist, is very bushy and quite dense. You've found it useful for hiding small objects in from time to time. You keep it bound up to stop it getting in your way.
+
+> s
+You move South.
+
+Forest Road
+You are on the forest road where, to the East, you see a trail leading through the tangled undergrowth between the trees.
+
+As you walk along, keeping a lookout ahead for any trouble approaching, you hear the sound of birds squabbling coming from the east.
+
+> e
+You move East.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.
+
+You are startled by the loud flutter of wings as several large birds take off from the far bank of the stream. You notice they are mainly scavengers and are horrified to see that they had been feeding on the dead body of a dwarf. One bird, however - a huge dire vulture - remains standing on the chest of the body, staring at you defiantly with fierce yellow eyes.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.  On the far bank lies the body of a dwarf which has a dire vulture standing on its chest.
+
+> x bank
+You look around and notice that the bank of the stream is strewn with pebbles, stones and small rocks.
+
+> get rock
+You select a small rock from the many lying nearby and pick it up.
+
+> throw rock at vulture
+You throw the rock as hard as you can at the dire vulture.
+
+As luck would have it, the rock hits the bird's left eye and the vulture screeches in shock. Shaking its head in pain it takes to the air with powerful beats of its wings and disappears from view beyond the treetops of the surrounding forest.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.  On the far bank lies the body of a dwarf.
+
+> e
+You move East.
+
+East Bank of Stream.
+You are standing on the east bank of the stream, where the dead body of a dwarf lies rotting on the ground. You can go West to the other side of the stream.  Also here is a small rock.
+
+> look under body
+Holding your breath to avoid the stench of the body you gingerly lift it up a bit so you can see under it. At first you see nothing but then you spot a metal key, which you pick up.
+
+> get droppings
+(from the dead dwarf)
+Ok, you take the dire vulture droppings from the dead dwarf.
+
+> get knife
+(from the leather sheath)
+You take your knife from its sheath.
+
+> hide droppings, knife and key in beard
+Ok, you push the dire vulture droppings, the sheath knife and the metal key into your beard where it is hidden from sight.
+
+> w
+You move West.
+
+West Bank of Stream
+You stand on the west bank of a shallow stream that trickles from north to south, parallel to the path that you were walking along.  On the far bank lies the body of a dwarf.
+
+> w
+You move West.
+
+Forest Road
+You are on the forest road where, to the East, you see a trail leading through the tangled undergrowth between the trees.
+
+> s
+You move South.
+
+Forest Road
+You are at a bend in the forest road where, just around the corner, is the border of your clan's territory. You can go North or SE.
+
+> se
+You move SouthEast.
+
+Whyldstone Border
+You are on the road through the forest, at the border of your own clan's territory. This is marked by two totems on either side of the path. Lounging on either side of the path are three border guards, your clanmates Kennpedd, Kimmboon and Roosloov. The road leads NW and continues South across a short area of "No Man's Land" to the Turdrock border about 100 yards away.
+
+Squatting and sitting here are three of your clanmates, Kimmboon, Roosloov and Kennpedd, who are on sentry duty today.
+
+They greet you warmly and all wish you good luck on your quest. Before you carry on, you have some questions for them:
+
+1: "Do you have any food?"
+2: "Do you have anything to drink?"
+3: "Have you seen any activity at the Turdrock border?"
+
+> 1
+You ask the sentries if they have any food to spare?
+
+"Forget to bring some food with you?," Roosloov says, chuckling. "You'd forget yer head if it weren't screwed on!" he jests, making everyone laugh.
+
+Kennpedd rummages around in a backpack and takes out a small package which he hands to you.
+
+You thank him and Kimmboon says, "There, that'll keep you going for a few days if you take it easy."
+
+> 2
+You ask if the dwarves have they any water to spare.
+
+"Don't tell me you left without any water!" Kimmboon exclaims, incredulously. You sheepishly admit that you did, causing the three dwarves to shake their heads in disbelief.
+
+"Help 'im out Roos," he says to the blond-haired dwarf. Roosloov takes a leather flask from his warbelt and hands it to you.
+
+"Whatever you do don't lose it," Roos warns you. "It belongs to me dad, it'll never go empty and the water inside is always cold  - some sort of magic spell on it I think."
+
+You thank Roosloov and assure him that you will guard it with your life.
+
+> 3
+You ask the dwarves if they have seen any activity at the Turdrock border?
+
+"Well, there were several guards there earlier today and then we saw someone - he looked like an officer - arrive and talk to them," Kimmboon tells you.
+
+"They stood there arguing amongst themselves for a minute or two and then the officer bellowed at them and they all shut up," Roosloov continues.
+
+"Next thing ya know they all troops off south along the path, leaving the border unmanned," KennPedd concludes. "They've never done that before!"
+
+"You'd better get going before those guards come back," Roosloov tells you, and the other guards agree with him.
+
+"Yes, I'd better, hadn't I?" you reply.
+
+The three dwarves turn their attention to watching the border.
+
+> s
+You move South.
+
+Turdrock Border
+You are at the border of the Turdrock Clan, on a road that goes North and South through the forest. As with your clan's border, it is marked by two totems either side of the path.
+
+As you reach the border you stop and look around. As the Whyldstone sentries had told you, the border seems to be unmanned...but you get the uneasy feeling that you are being watched.
+
+> s
+You move South.
+
+You set off south but you have only gone a couple of yards when suddenly a weighted net is flung over you!
+
+You trip over and fall to the ground, becoming entangled in the net's folds. As you struggle to free yourself a hard heavy object hits your head and everything goes black...  You regain consciousness as you are being frogmarched in darkness and you realise that you are deep underground. Your eyes gradually adjust to the darkness and after a few minutes you stop outside a barred cell. Your captors, dwarves of the Turdrock clan, bind your hands and, having already taken your axe, start to search you, taking anything you are carrying.
+
+They find nothing in your pouch, much to their disgust, and so you are thrown into the cell and and the door closed with a loud echoing screech of rusty hinges behind you. A dwarf guard locks the door with another groan of metal and you are left on your own.
+
+Cell 1
+You are in a dark, dank underground cell somewhere in the Turdrock clan's territory. The walls are covered in a sheen of slimy green moisture and the floor is covered with stinking, rotting straw. The door leads Out to the tunnel beyond but it is closed and locked at the moment.
+
+> get all from beard
+Ok, you take the sheath knife, the metal key and the dire vulture droppings from out of your beard.
+
+> x wall
+The cell walls are solid rock and coated with slimy moisture. You notice in one wall, at about chest height to a dwarf, there is a narrow crack.
+
+> put knife in crack
+Holding the knife carefully by the blade you push the hilt into the crack as far as you can.
+
+> cut rope with knife
+You carefully rub the rope on the blade of your knife and within a few minutes you have sliced through it. As the remains of the rope fall to the floor you rub your wrists to restore circulation. You then take the knife out of the crack and put it back in its sheath.
+
+> x moisture
+It seem to issue from the very walls themselves, you've never seen the like before.
+
+> x door
+A door made up of thick, rusty steel bars with a lock, the hinges are also rusty and it is closed and locked.
+
+> x hinges
+The hinges of the cell door are heavily rusted.
+
+> rub slime on hinges
+You scrape some of the slimy moisture off the wall in one hand and rub it onto the hinges of the cell door. You notice it seems to dissolve the rust somewhat.
+
+> rub key in slime
+You rub the key in the slimy moisture off the wall. You notice it seems to dissolve the rust from the key and coat it with a layer of slime.
+
+> unlock door
+(using the metal key)
+You insert the key into the lock of the cell door and turn it.
+
+You do so very carefully and thankfully the slime you rubbed onto the key helps to lubricate it so that no noise is made as the tumblers fall.
+
+> open door
+You open the cell door.
+
+Fortunately the slime you put on the hinges helps the door to open a lot more quietly.
+
+> o
+You move Out.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.
+
+> e
+You move East.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.
+
+Suddenly a soldier comes out of the room to the east. You flatten yourself against the south wall of the tunnel as he strides away to the north.
+
+"See ya soon, I'm back on guard duty," he shouts over his shoulder to someone in the room he just left as the dwarf disappears from view around a corner.
+
+Maybe it would be a good idea to look around the corner to see who is in the room?
+
+> look around corner
+You peep around the corner of the opening and look at what is in there. You see a dwarf sitting on a chair at a table with his back to you.
+
+> e
+You move East.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.
+
+In the room to the south, only about 6 feet from you, a guard sits at a table, his back to you. You'd better hurry up and do something before he senses your presence!
+
+> o
+There is no route out, only north, south and west.
+
+> s
+You move South.
+
+The Guard Room
+You are in a large guard room. There are benches around the walls of the room, which is hewn from solid rock, and in the middle a wooden table. The only exit is North to the tunnel outside.
+
+The guard hasn't realised you are behind him - you'd better act quickly!
+
+> get knife
+(from the leather sheath)
+You take your knife from its sheath.
+
+> kill dwarf with knife
+Before the guard can react, you plunge your knife into his spine just under the rim of his helmet, killing him instantly. The guard slumps face-first onto the table, his helmet rolling off of his head onto the table.
+
+The Guard Room
+You are in a large guard room. There are benches around the walls of the room, which is hewn from solid rock, and in the middle a wooden table. The only exit is North to the tunnel outside.  The dead guard is slumped across the table.
+
+> x guard
+The guard bears an uncanny resemblance to you, as he has long auburn hair and a bushy beard. A sword is in a scabbard at his waist. He is slumped on the table he is seated at. The knife that killed him protrudes from his back. He is wearing a similar kilt to you except that it is coloured blue.
+
+> get knife
+You pull your knife from the body of the dwarf.
+
+> put knife in sheath
+You put your knife inside its sheath.
+
+> look under bench
+You look under the benches and find, under one of them, an old kitbag, which you pick up and dust down.
+
+> wear bag
+You put the strap of the kitbag over your shoulder so as to leave your hands free.
+
+> x table
+A simple wooden table about 5 feet square, its surface is covered in gouges and all sorts of initials and words that have been carved into it, not to mention the stains from spilt drinks and other unmentionable liquids.  On top of the table you see a battle axe, some travel rations, a leather flask and a metal helmet.
+
+> get all from table
+Ok, you take the battle axe, the travel rations, the leather flask and the metal helmet from the wooden table.
+
+> wear helmet
+Ok, you put on the metal helmet.
+
+Fortunately it fits you almost perfectly and is very comfortable to wear. The cheek guards hide your face quite well.
+
+> wear axe
+You put the strap over your head and shoulder and wear the axe on your back.
+
+> put all in bag
+Ok, you put the metal key, the dire vulture droppings, the travel rations and the leather flask inside the kitbag.
+
+> search guard
+You search the dead guard and you find an identity badge, which you take. As you are doing this the body slides off the chair onto the floor of the guard room. You attach the badge to your jerkin where it can be seen clearly.
+
+> x badge
+The badge states that you are Torvik Bogdagsson, Senior Praefectus of the Turdrock Praetorian Guard.
+
+> search guard
+You search the dead guard again and this time you find a few coins in a pouch, which you take out and put into your own.
+
+> x coins
+Some Turdrock coins, they are silver, known as "grotz" and there are 7 in number.
+
+> get scabbard
+You unclip the scabbard from the guard's belt and clip it to your own warbelt.
+
+> drag guard n
+You drag the body of the guard north.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.   The dead guard is lying on the floor.
+
+> drag guard w
+You drag the body of the guard west.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.  The dead guard is lying on the floor.
+
+> drag guard w
+You drag the body of the guard west.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.  The dead guard is lying on the floor.
+
+> drag guard s
+You drag the body of the guard south.
+
+Cell 1
+You are in a dark, dank underground cell somewhere in the Turdrock clan's territory. The walls are covered in a sheen of slimy green moisture and the floor is covered with stinking, rotting straw. The open cell door leads Out to the tunnel beyond.   The dead guard is lying on the floor.  Also here is some pieces of rope.
+
+> remove kilt
+You quickly remove the blue kilt from the body of the dead guard by undoing it and rolling him out of it. You then take off your own kilt and replace it with the guard's kilt. Luckily, he is about the same size as you. You then lay your own kilt on the floor of the cell, roll his body onto it and do it up. Now you look like a dwarf of the Turdrock clan.
+
+> o
+You move Out.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.
+
+> get key
+(from the old kitbag)
+Ok, you take the metal key from the old kitbag.
+
+> close door
+You close the cell door.
+
+> lock door
+(using the metal key)
+You lock the cell door with the metal key.
+
+> e
+You move East.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.
+
+> e
+You move East.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.
+
+> n
+You move North.
+
+Bend In Tunnel
+You are in a rock tunnel deep underground. Here it bends to the South and East. In the north wall of the tunnel here there is a cupboard door which is closed and locked. On the door is written "Beer Store".  There are three soldiers in the dungeons around the corner.
+
+> e
+You move East.
+
+The Dungeons
+You are in the dungeons, which extend from North to South. There is a cell to the east with the number 4 next to the door, which is closed and locked.  There are three soldiers walking around on guard here.
+
+As you enter the dungeons the guards there see you and, assuming that you are a Turdrock soldier, they ignore you.
+
+> x cell
+You look into the cell and see two of your clanmates lying on the floor.
+
+You're going to have to think of a way to get them out - you won't be able to do that with these guards here.
+
+> x clanmates
+They seem to be uninjured but look rather miserable - not surprising really.
+
+> w
+You move West.
+
+Bend In Tunnel
+You are in a rock tunnel deep underground. Here it bends to the South and East. In the north wall of the tunnel here there is a cupboard door which is closed and locked. On the door is written "Beer Store".  There are three soldiers in the dungeons around the corner.
+
+> s
+You move South.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.
+
+> w
+You move West.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.
+
+> w
+You move West.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is closed and locked. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.
+
+> w
+You move West.
+
+Bend In Tunnel
+You are at a bend in the tunnel, which goes East and North. It also rises in the latter direction.
+
+> n
+You move North.
+
+Long Sloping Tunnel
+You are in a long, steeply sloping tunnel which descends to the South and rises to the North where you can see daylight at the end of the tunnel.
+
+> n
+You move North.
+
+Near Tunnel Exit
+You are near the exit to the tunnel, which is to the North. The slope of the tunnel starts to lessen here but gets steeper further South.
+
+> n
+You move North.
+
+Tunnel Exit
+You are at the tunnel exit where there are two sentry boxes, one at either side. The exit is set into the base of a steep hill. You can go South into the tunnel or North along a narrow cutting in the hillside.  Each sentry box has a Turdrock soldier in it.
+
+> n
+You move North.
+
+With a quick glance at your identity badge one of the sentries waves you through.
+
+By Tunnel Entrance
+You are a few metres past the tunnel entrance where you can go North or South. Further along the cutting it bends to the NE. There are two sentry boxes either side of the entrance to the dungeons, with a sentry in each.
+
+> n
+You move North.
+
+Road Through Forest
+You are on a road which goes North and SE through the forest, with a narrow cutting in the hillside to the SW that leads back to the dungeons.
+
+> n
+You move North.
+
+North-South Road
+You are on a straight North-South road in the forest. About a quarter of a mile further north you can see the border of the Turdrock clan lands where several soldier stand guard. The vegetation either side of the road here is particularly dense.
+
+> x vegetation
+It is quite thick and impenetrable here.  If you put anything into the vegetation it'd never be seen by anyone passing.
+
+> get axe
+You remove the axe from your back.
+
+> hide axe in vegetation
+You hide your axe in the vegetation by the roadside.
+
+> s
+You move South.
+
+Road Through Forest
+You are on a road which goes North and SE through the forest, with a narrow cutting in the hillside to the SW that leads back to the dungeons.
+
+> se
+You move SouthEast.
+
+Fork In Road
+You are at a fork in the road where it goes NW and South, while another road leads off to the East. The forest either side of the road is very thick and impenetrable. A signpost here points in three directions.
+
+> e
+You move East.
+
+Outskirts of Camp
+You are on the outskirts of what appears to be a permanent military camp, almost like a small town, where the forest gives way to a wide area of buildings and training areas. The road through the forest goes West and you can enter the camp by going East.
+
+> e
+You move East.
+
+Central Avenue
+You are at the west end of a long avenue that runs from West to East past wooden buildings. The one to the north looks like a barracks and the one to the south looks like a storehouse. Both have soldiers standing guard either side of the doors leading in. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking. Just here, hammered into the ground, is a crude sign that reads "Central Avenue".
+
+> e
+You move East.
+
+Central Avenue
+You are on central avenue where to the North you see a narrow alleyway between the buildings. You can go East or West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> e
+You move East.
+
+Central Avenue
+You are on Central Avenue which runs East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> e
+You move East.
+
+Central Avenue
+You are on central avenue where on the south side of the avenue you see a provisions shop, the door of which is open and you can go In through this. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> e
+You move East.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+You look around as you enter the junction and notice a large building at the end of the street leading south. It appears to be heavily guarded and it occurs to you that it could be of importance. Maybe you should go that way first?
+
+> s
+You move South.
+
+South Street
+You are on South Street, which goes North to the junction with Central Avenue and South to a large building which is heavily guarded by dwarf soldiers. There are a few soldiers and civilians here, but not many.
+
+> s
+You move South.
+
+Outside the Arsenal
+You are outside a large building which has 'ARSENAL' written above the double doors that lead inside. It is guarded by several Turdrock soldiers under the command of an officer. You can go North along South Street or South into the Arsenal.
+
+> s
+You go to walk south past the officer into the arsenal, but he stops you.
+
+"Oii!" he growls at you. "You ain't got the necessary security clearance! Bugger orf!"
+
+As you walk away you hear the officer say to one of the soldiers, "We're expecting a delivery from Saabieland, two wagon-loads, they should be here within the next half an hour."
+
+You think to yourself that it might be a good idea to wait for these wagons outside the camp as soon as you can.
+
+> n
+You move North.
+
+South Street
+You are on South Street, which goes North to the junction with Central Avenue and South to a large building which is heavily guarded by dwarf soldiers. There are a few soldiers and civilians here, but not many.
+
+> n
+You move North.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where on the south side of the avenue you see a provisions shop, the door of which is open and you can go In through this. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on Central Avenue which runs East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where to the North you see a narrow alleyway between the buildings. You can go East or West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are at the west end of a long avenue that runs from West to East past wooden buildings. The one to the north looks like a barracks and the one to the south looks like a storehouse. Both have soldiers standing guard either side of the doors leading in. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking. Just here, hammered into the ground, is a crude sign that reads "Central Avenue".
+
+> w
+You move West.
+
+Outskirts of Camp
+You are on the outskirts of what appears to be a permanent military camp, almost like a small town, where the forest gives way to a wide area of buildings and training areas. The road through the forest goes West and you can enter the camp by going East.
+
+> w
+You move West.
+
+Fork In Road
+You are at a fork in the road where it goes NW and South, while another road leads off to the East. The forest either side of the road is very thick and impenetrable. A signpost here points in three directions.
+
+You hear the clip-clop of some horses and the rumble of wheels coming from the road to the south. You look in that direction and see a large wagon pulled by four large horses coming towards you.
+
+> x wagon
+The wagon is a large heavy-duty cargo wagon, with solid wood wheels. A load of what look like barrels are in the cargo bed, covered with a large canvas tarpaulin.  The large wagon rolls steadily to the east.
+
+> e
+You move East.
+
+Outskirts of Camp
+You are on the outskirts of what appears to be a permanent military camp, almost like a small town, where the forest gives way to a wide area of buildings and training areas. The road through the forest goes West and you can enter the camp by going East.  Here you see a large wagon pulled by four horses.
+
+The driver halts the horses and the wagon comes to a stop.
+
+"I gotta go! Can't wait til I get to the arsenal!" he says, apparently to the horses who are suitably unimpressed.
+
+He leaps down from the wagon, runs over to the side of the road and proceeds to urinate into the roadside vegetation.
+
+> get on wagon
+While the driver's back is turned you sneak over to the wagon, jump up onto the back and crawl under the tarpaulin covering the wagon's cargo.
+
+Hiding Under Tarpaulin
+You are lying on the cargo bed of the wagon underneath the tarpaulin, squeezed up against the barrels that are the wagon's cargo.
+
+You lay there not daring to move, hardly breathing, listening as the wagon driver finishes his business and walks back to the wagon. You feel the wagon lurch as he climbs up onto his seat and hear him urge the horses forward. The wagon sets off along the road and as it enters the camp you hear the hubbub of many people and soldiers around you.
+
+The wagon makes a right turn and after a minute it is brought to a halt. You hear the driver call out, "Load of gunpowder for the arsenal!" to someone, probably the officer. You hear a stern voice demand "Papers!" followed by the rustle of paperwork being handed over.
+
+"We were expecting two wagons, where's the other one?" the officer asks the driver.
+
+"Da driver 'ad a problem wiv 'is wagon," the driver tells the officer. "'Eld 'im up a bit, he should be 'ere soon."
+
+You steel yourself for the lifting of the tarpaulin and the discovery by the soldiers as they inspect the load, but - to your great relief - that doesn't happen. Instead you hear the officer order "OK, open the doors and let 'im in!"
+
+The wagon rolls forward and the light dims as it enters a building, coming to a halt seconds later. The driver jumps down from the wagon and you hear him walk away, then there is silence.
+
+You think to yourself that maybe you should get back to the fork in the road to await this second wagon and find out what it is carrying?
+
+> get off wagon
+You crawl under the tarpaulin to the back of the wagon and, poking your head from under it, have a look around.
+
+You cannot see anyone but you can hear voices talking. The building is full of stacks of crates and barrels and, over by the south wall you see two stacks with a narrow gap between them.
+
+As quietly as possible you climb down off the back of the wagon and, hunkering down, you creep over to the stacks and slip between them. As luck would have it there is a narrow gap between the stacks and the south wall which makes an excellent hiding place.
+
+You conceal yourself just in time, as several soldiers go over to the wagon, pull the tarpaulin off and start to unload the barrels.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates.
+
+> look n
+You look north between the two stacks of crates and see that the arsenal is huge and packed with boxes, crates and barrels.
+
+It dawns on you that the Turdrocks must be arming for a major offensive against the Whyldstone clan and maybe even the other two dwarven clans that dwell in Direwood Forest!
+
+You sit and think for a while and an idea springs into your head - if you could start a fire in here, the whole place would go up in flames and not only will you have thwarted the Turdrocks' plans for domination, you might distract them long enough to rescue your clanmates from the dungeons. So, how are you going to achieve that?!
+
+> x wall
+The wall is made up of sturdy wooden boards.
+
+> x boards
+The boards are about one foot in width and made of thick wood. You notice that a couple of the boards seem to be a bit loose.
+
+> move boards
+You move the loose wooden boards aside to form an opening in the wall.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the wooden boards that make up the wall have been moved aside to form a narrow opening that you can go Out through.
+
+> out
+You move Out.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow. Here you see the opening leading In into the building where some boards have been moved aside.
+
+As you stand up and look around, you hear someone around the corner further west whistling as they walk towards you.
+
+> w
+You move West.
+
+Muddy Path
+You are on the muddy path that runs alongside the back of the arsenal building. The path leads East back to the field and turns North around the corner of the building.
+
+> look around corner
+You risk a peep around the corner of the building.
+
+To your horror you see a Turdrock soldier walking south down the muddy path towards you. You guess he is on patrol so you must hide until he has passed by!
+
+> e
+You move East.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow. Here you see the opening leading In into the building where some boards have been moved aside.
+
+> o
+There is no route out, only east, west and in.
+
+> in
+You move In.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the wooden boards that make up the wall have been moved aside to form a narrow opening that you can go Out through.
+
+> close boards
+You replace the boards in the opening. They fit so well that you wouldn't know there had been an opening there.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the boards in the wall are loose.
+
+Through the wall you hear the muted sound of whistling as outside the building the soldier you saw on patrol comes walking around the corner. He walks past where the boards are loose but, seeing nothing untoward, continues on his way.
+
+> z
+Time passes...
+
+> open boards
+You move the loose wooden boards aside to form an opening in the wall.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the wooden boards that make up the wall have been moved aside to form a narrow opening that you can go Out through.
+
+> out
+You move Out.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow. Here you see the opening leading In into the building where some boards have been moved aside.
+
+> close boards
+You replace the boards in the opening. They fit so well that you wouldn't know there had been an opening there.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow.
+
+> e
+You move East.
+
+Muddy Path
+You are on the muddy path which runs West towards the arsenal and East over a fence to the field in which there are some cows, pigs and sheep.
+
+> e
+You climb over the fence to the field on the other side.
+
+SW Corner of Field
+You are in the SW corner of the field, which is home to some farm animals. The fence goes North and East and the rest of the field is to the NE. The muddy path in the field ends here, but continues on the other side of the fence to the West.
+
+> n
+You move North.
+
+West Side of Field
+You are about halfway along the muddy path on the west side of the field. The animals in the field stand or lay looking at you impassively. The path goes North and South and the field extends to the NE, East and SE.
+
+> n
+You move North.
+
+NW Corner of Field
+You are in the field in the NW corner. All you have for company are some farm animals, cows, sheep and pigs. The muddy path goes South alongside the fence which also goes East and the rest of the field is to the SE. Over the fence to the North is the road into the camp.
+
+> n
+You climb over the fence to the road on the other side.
+
+East Edge of Camp
+You are at the east edge of the camp where there are two fields either side of the road. The one on the south side is enclosed by a fence and there are cows, sheep and pigs in it. The other looks like a drill/exercise area. The road goes West to central avenue and East into the forest.
+
+> w
+You move West.
+
+End of Central Avenue
+You are at the end of Central Avenue where the buildings end and there is just one on the north side of the street. Further East is more open and going West takes you to the main part of the avenue.
+
+A scantily-clad female dwarf is leaning against the side of the building to the north of the avenue. Seeing you approaching, she sidles up to you and flutters her eyelashes at you alluringly.
+
+"Hi there, soldier boy," she says in a husky voice. "My name's Mimi, you looking for a good time?"
+
+1: "No thanks, I'm married!"
+2: "How much do you charge?"
+3: "No thanks, I'm gay!"
+4: "Where can I get a drink in this place?"
+
+> w
+You move West.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where on the south side of the avenue you see a provisions shop, the door of which is open and you can go In through this. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on Central Avenue which runs East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where to the North you see a narrow alleyway between the buildings. You can go East or West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are at the west end of a long avenue that runs from West to East past wooden buildings. The one to the north looks like a barracks and the one to the south looks like a storehouse. Both have soldiers standing guard either side of the doors leading in. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking. Just here, hammered into the ground, is a crude sign that reads "Central Avenue".
+
+> w
+You move West.
+
+Outskirts of Camp
+You are on the outskirts of what appears to be a permanent military camp, almost like a small town, where the forest gives way to a wide area of buildings and training areas. The road through the forest goes West and you can enter the camp by going East.
+
+> w
+You move West.
+
+Fork In Road
+You are at a fork in the road where it goes NW and South, while another road leads off to the East. The forest either side of the road is very thick and impenetrable. A signpost here points in three directions.
+
+You hear the clip-clop of some horses and the rumble of wheels coming from the road to the south. You look in that direction and see a large wagon pulled by four large horses coming towards you.
+
+As the wagon reaches the bend the driver turns the horses east and gives you a cheery wave and you return the greeting. As the horses trot past you notice that one of them is limping and you guess that it has picked up a stone in its hoof.
+
+> x wagon
+The wagon is a large heavy-duty cargo wagon, with solid wood wheels. A load of crates make up the wagon's load in the cargo bed, and these are covered with a large canvas tarpaulin.  The large wagon rolls steadily to the east.
+
+> e
+You move East.
+
+Outskirts of Camp
+You are on the outskirts of what appears to be a permanent military camp, almost like a small town, where the forest gives way to a wide area of buildings and training areas. The road through the forest goes West and you can enter the camp by going East.  Here you see a large wagon pulled by four horses.
+
+The driver halts the horses and the wagon comes to a stop. He gets down off the wagon and goes to the horse with the lame foot.
+
+Lifting the massive hoof between his knees, the driver examines it and, taking a hoofpick from a pocket, proceeds to clear the hoof of any stones. The horse, a gentle giant, stands there docilely, occasionally looking around at the driver and quietly snickering.
+
+> climb on wagon
+While the driver is concentrating on the horse's hoof you sneak over to the wagon, jump up onto the back and crawl under the tarpaulin covering the wagon's cargo.
+
+Hiding Under Tarpaulin
+You are lying on the cargo bed of the wagon underneath the tarpaulin, squeezed up against the crates that are the wagon's cargo.  Also here is a length of thin rope.
+
+You lay there, listening as the wagon driver finishes checking the horses hooves and walks back to the wagon. You feel the wagon lurch as he climbs up onto his seat and hear him urge the horses forward. The wagon set off along the road and as it enters the camp you once again hear the hubbub around you.
+
+The wagon turns right into South Street and after a minute it is brought to a halt outside the arsenal. You hear the driver call out, "Loada weapons and fuses fer da arsenal!" to the officer. You hear him demand "Papers!" followed by the rustle of paperwork being handed over.
+
+You steel yourself for the lifting of the tarpaulin and the discovery by the soldiers as they inspect the load, but - to your great relief -  again that doesn't happen. Instead you hear the officer order "OK, open the doors and let 'im in!"
+
+The wagon rolls forward and the light dims as it enters a building, coming to a halt seconds later. The driver jumps down from the wagon and you hear him walk away, then there is silence.
+
+> get rope
+Ok, you pick up the length of thin rope.
+
+> climb off wagon
+You crawl under the tarpaulin to the back of the wagon, jump off and run to the gap behind the crates.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the boards in the wall are loose.
+
+> open boards
+You move the loose wooden boards aside to form an opening in the wall.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the wooden boards that make up the wall have been moved aside to form a narrow opening that you can go Out through.
+
+> out
+You move Out.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow. Here you see the opening leading In into the building where some boards have been moved aside.
+
+> close boards
+You replace the boards in the opening. They fit so well that you wouldn't know there had been an opening there.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow.
+
+> e
+You move East.
+
+Muddy Path
+You are on the muddy path which runs West towards the arsenal and East over a fence to the field in which there are some cows, pigs and sheep.
+
+> e
+You climb over the fence to the field on the other side.
+
+SW Corner of Field
+You are in the SW corner of the field, which is home to some farm animals. The fence goes North and East and the rest of the field is to the NE. The muddy path in the field ends here, but continues on the other side of the fence to the West.
+
+> n
+You move North.
+
+West Side of Field
+You are about halfway along the muddy path on the west side of the field. The animals in the field stand or lay looking at you impassively. The path goes North and South and the field extends to the NE, East and SE.
+
+> n
+You move North.
+
+NW Corner of Field
+You are in the field in the NW corner. All you have for company are some farm animals, cows, sheep and pigs. The muddy path goes South alongside the fence which also goes East and the rest of the field is to the SE. Over the fence to the North is the road into the camp.
+
+> n
+You climb over the fence to the road on the other side.
+
+East Edge of Camp
+You are at the east edge of the camp where there are two fields either side of the road. The one on the south side is enclosed by a fence and there are cows, sheep and pigs in it. The other looks like a drill/exercise area. The road goes West to central avenue and East into the forest.
+
+> w
+You move West.
+
+End of Central Avenue
+You are at the end of Central Avenue where the buildings end and there is just one on the north side of the street. Further East is more open and going West takes you to the main part of the avenue.  Mimi is standing here, waiting for a potential client.
+
+The scantily-clad female dwarfess sees you approaching and tries again to entice you with her charms.
+
+"Hi there, big boy," she says in a husky voice. "My name's Mimi, you looking for a good time?"
+
+1: "No thanks, I'm married!"
+2: "How much do you charge?"
+3: "No thanks, I'm gay!"
+4: "Where can I get a drink in this place?"
+
+> 1
+
+"No thank you," you tell her, somewhat embarrassingly. "I'm a happily married man." (You're not, but she ain't to know that!)
+
+She pouts and says, "Your loss, sweetie, you don't know what you're missing!"
+
+She then resumes watching for a likely customer.
+
+> 2
+
+"How much?" you ask her.
+
+"I start at 50 G's and the more you pay, the better it gets," she says with a sly wink.
+
+"Sorry," you tell her, "I can't afford you."
+
+She pouts and says, "Your loss, sweetie, you don't know what you're missing!"
+
+She then resumes watching for a likely customer.
+
+> 4
+
+"Where can I get a drink in this place?" you ask her.
+
+She sighs disappointedly and says, "Try Cempball's in North Street," she tells you. "Tell the barkeep that Florrizelda sent you and you'll get a discount."
+
+When you look a bit puzzled, she grimaces and says, "That's my real name, OK? I didn't choose it!"
+
+She then resumes watching for a likely customer.
+
+Mimi sees a young soldier come walking along and she propositions him. He is obviously looking for some company and the two of them walk up to the door on the north side of the avenue and the door bouncer lets them inside.
+
+End of Central Avenue
+You are at the end of Central Avenue where the buildings end and there is just one on the north side of the street. Further East is more open and going West takes you to the main part of the avenue.
+
+> w
+You move West.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> n
+You move North.
+
+North Street
+You are in a street north of the junction which known as, not surprisingly, as North Street. There are wooden buildings on either side of the street, which goes North and South. Some soldiers and civilians pass by, going about their duties or business.
+
+> n
+You move North.
+
+End of North Street
+You are at the end of North Street, where there is a large wooden building with a veranda at the front. Above the veranda is a huge sign that reads "CEMPBALL'S BAR AND HOTEL - Open All Day, Every Day". You can go South along North Street or Up some wooden stairs to the veranda. There are a few soldiers and civilians here.
+
+> u
+You move Up.
+
+On The Veranda
+You are on the veranda at the front of Cempball's. It extends to the West and East, there are tables and chairs and a couple of benches, and there is an archway here that leads In to the bar. The steps lead Down to the end of North Street. On either side of the steps is a notice.
+
+> in
+You move In.
+
+Cempball's Bar
+You are in Cempball's standing at the bar. The room is a large, dark smoky place that smells of ale, wine, perfume and sweat. A grizzled old dwarf stands behind the bar, which extends almost the entire width of the room. At either end of the bar, to left and right, are two doors and you can go Out to the veranda through the archway. On the wall behind the bar is a price list. Against the east wall are some booths for customers to drink in privacy.
+
+As you approach the bar, the bartender looks at you through hooded eyes.
+
+"What'll it be, officer?" he asks in a gruff voice.
+
+The bartender waits for your order.
+
+1: "Nothing thanks, I'm teetotal!"
+2: "Are you Cempball?"
+3: "I'll have some of your Best Bitter please."
+
+> 1
+You tell the bartender you don't want anything because you are teetotal.
+
+"Oh jeez!" he says, looking exasperated. "Not anudder of yoo Extinction Rebellion nuts! Get outta here before I boot cha out!"
+
+You quickly leave the bar as you don't want to cause a scene and draw attention to yourself.
+
+On The Veranda
+You are on the veranda at the front of Cempball's. It extends to the West and East, there are tables and chairs and a couple of benches, and there is an archway here that leads In to the bar. The steps lead Down to the end of North Street. On either side of the steps is a notice.
+
+> in
+You move In.
+
+Cempball's Bar
+You are in Cempball's standing at the bar. The room is a large, dark smoky place that smells of ale, wine, perfume and sweat. A grizzled old dwarf stands behind the bar, which extends almost the entire width of the room. At either end of the bar, to left and right, are two doors and you can go Out to the veranda through the archway. On the wall behind the bar is a price list. Against the east wall are some booths for customers to drink in privacy.
+
+You walk up to the bar and the bartender turns to serve you.
+
+"You agin?" he says in his nasally voice. "Ya gonna have someting dis time?"
+
+2: "Are you Cempball?"
+3: "I'll have some of your Best Bitter please."
+
+> 2
+You ask the bartender if he is Cempball, the owner of the bar?
+
+"Me!" he says, looking slightly insulted. "Do I look like a Celtannach?!" he asks you. The dwarf continues.
+
+"Nah, he's rarely 'ere dees days," he tells you, unhappily. "Pops in now 'n' agin to check we're all doin' our jobs and den we don't see him agin fer months. Is'a god-damn noisance coz dere's still loadsa work to do on the joint and there ain't no-one else ta do it!"
+
+You mutter a few words of sympathy and the bartender just looks miserable.
+
+> 3
+You ask the bartender for a flagon of Best Bitter.
+
+Taking a leather flagon from a shelf he fills it with ale.
+
+"Dat'll be 7 G's," he says, holding out a tobacco-stained hand.
+
+"Florrizelda sent me," you tell him, remembering the prostitute's words.
+
+The dwarf's face breaks into a huge grin. "Betcha had a good time wid her," he says, wriggling his eyebrows suggestively. "She's one'a the best! OK den, dat'll be 6 grotz!"
+
+You take 6 of the silver coins from your pouch and hand them to the bartender. He hands you the flagon and turns away to serve another customer. You look around to find an empty table at which to drink, but they are all occupied, so you wander out to the veranda.
+
+On The Veranda
+You are on the veranda at the front of Cempball's. It extends to the West and East, there are tables and chairs and a couple of benches, and there is an archway here that leads In to the bar. The steps lead Down to the end of North Street. On either side of the steps is a notice.
+
+> x bench
+The benches are either side of the doors that lead into the bar. One of them is unoccupied.
+
+> sit on bench
+You find a space on the bench at the side of the door and sit down on it.
+
+One of the soldiers sitting nearby smiles and raises his flagon of ale to you. You do the same to him, but refrain from speaking.
+
+The soldier, sensing that you do not want to talk, turns back to his companions and joins in their conversation.
+
+> listen
+You listen to the conversation taking part on the table nearby.
+
+They are talking about an old alchemist who lives in the forest outside the camp. Apparently the soldiers visit him for love potions and the women of the camp visit him for, ahem, "other reasons".
+
+You ears prick up when one of the soldiers mentions that this alchemist will pay a good price for dire vulture droppings.
+
+You decide to take a risk and you interrupt their conversation:
+
+"Excuse me," you say to them. "I couldn't help overhearing your conversation. I've just been posted here and I haven't heard about this alchemist, could you tell me how to find him?"
+
+The soldier who raised his flagon to you earlier speaks:
+
+"Sure, you go east out of the camp into the forest and when you come to a fork in the path you take the northeast path," he tells you. "When it dips into a dark hollow you should look for a trail heading east and that will lead you to his dwelling."
+
+You thank the soldier and he returns to the conversation.
+
+> put flagon on table
+Ok, you put the flagon down on one of the tables.
+
+> d
+(getting off the wooden benches first)
+You move Down.
+
+End of North Street
+You are at the end of North Street, where there is a large wooden building with a veranda at the front. Above the veranda is a huge sign that reads "CEMPBALL'S BAR AND HOTEL - Open All Day, Every Day". You can go South along North Street or Up some wooden stairs to the veranda. There are a few soldiers and civilians here.
+
+> s
+You move South.
+
+North Street
+You are in a street north of the junction which known as, not surprisingly, as North Street. There are wooden buildings on either side of the street, which goes North and South. Some soldiers and civilians pass by, going about their duties or business.
+
+> s
+You move South.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> e
+You move East.
+
+End of Central Avenue
+You are at the end of Central Avenue where the buildings end and there is just one on the north side of the street. Further East is more open and going West takes you to the main part of the avenue.
+
+> e
+You move East.
+
+East Edge of Camp
+You are at the east edge of the camp where there are two fields either side of the road. The one on the south side is enclosed by a fence and there are cows, sheep and pigs in it. The other looks like a drill/exercise area. The road goes West to central avenue and East into the forest.
+
+> e
+You move East.
+
+Path In Forest
+The road has narrowed to a path that winds NE and SE through the trees, which are densely clustered all around you. Further into the forest it gets quite dark but West it is open and quite light.
+
+> ne
+You move NorthEast.
+
+Path In Forest
+The path continues to wind through the forest to the North and SW. It is very dark and spooky here, hardly any light penetrates the dense canopy high above. The path dips into a hollow further north.
+
+> n
+You move North.
+
+Dark Hollow
+You're at the bottom of a dark hollow in the forest. It is very damp here and the undergrowth beside the path is wet and muddy. The path rises up to the North and South.
+
+> search undergrowth
+You search the undergrowth and, leading off to the east, you see the trail that the soldier told you about.
+
+Dark Hollow
+You're at the bottom of a dark hollow in the forest. It is very damp here and the undergrowth beside the path is wet and muddy. The path rises up to the North and South, and a vague trail heads east through the undergrowth.
+
+> e
+You move East.
+
+Small Clearing
+You are in a small clearing in the forest where a strange-looking mound stands surrounded by four tall trees. There is a door-like opening in the mound leading In and the vague trail goes West through the trees back to the forest path.
+
+> in
+You move In.
+
+The Alchemist's Lair
+You are in a gloomy room in the mound that smells of smoke and other unidentifiable aromas. A fire burns in a central pit, the smoke from it drifting up and escaping through a central hole. Over the fire, suspended from a hook at the end of a chain hanging from the ceiling, is a small cauldron. On one side is a earthen 'table' on which stand various small pots and packets, and the alchemist himself stands next to it, mixing something in a bowl. The opening in the side of the room leads Out.
+
+As you enter the room, the alchemist looks up from what he is doing and he greets you.
+
+"Hello officer," he says, recognising the insignia on your helmet. "What can I do for you? Love potion? Something to keep your pecker up?" He laughs at his own joke and continues stirring the potion in the bowl.
+
+1: "Can you make me a love potion?"
+2: "I need something which will cause a big fire."
+3: "Would you like to buy some dire vulture droppings?"
+
+> get droppings
+(from the old kitbag)
+Ok, you take the dire vulture droppings from the old kitbag.
+
+> 3
+You ask the alchemist if he wants to buy some dire vulture droppings.
+
+"Oh yes," he tells you. "I can never have enough of those, how much have you got?"
+
+You show him the droppings that you have and he considers for a minute or two.
+
+"I'll give you 50 grotz for that amount, it isn't very much after all."
+
+As you have no idea of the value of dire vulture droppings, you decide to accept his offer.
+
+He goes to a little strongbox, takes out 50 coins and hands them to you. You put the coins in your pouch, give him the droppings and he thanks you.
+
+"Now, if you'll excuse me I have a potion to mix." he says. You take that as as a cue to leave and you walk out of the room. As you go you hear the alchemist chuckle to himself and you cannot help wondering if he has cheated you over the price of the droppings?
+
+Small Clearing
+You are in a small clearing in the forest where a strange-looking mound stands surrounded by four tall trees. There is a door-like opening in the mound leading In and the vague trail goes West through the trees back to the forest path.
+
+> w
+You move West.
+
+Dark Hollow
+You're at the bottom of a dark hollow in the forest. It is very damp here and the undergrowth beside the path is wet and muddy. The path rises up to the North and South, and a vague trail heads east through the undergrowth.
+
+> s
+You move South.
+
+Path In Forest
+The path continues to wind through the forest to the North and SW. It is very dark and spooky here, hardly any light penetrates the dense canopy high above. The path dips into a hollow further north.
+
+> sw
+You move SouthWest.
+
+Path In Forest
+The road has narrowed to a path that winds NE and SE through the trees, which are densely clustered all around you. Further into the forest it gets quite dark but West it is open and quite light.
+
+> w
+You move West.
+
+East Edge of Camp
+You are at the east edge of the camp where there are two fields either side of the road. The one on the south side is enclosed by a fence and there are cows, sheep and pigs in it. The other looks like a drill/exercise area. The road goes West to central avenue and East into the forest.
+
+> w
+You move West.
+
+End of Central Avenue
+You are at the end of Central Avenue where the buildings end and there is just one on the north side of the street. Further East is more open and going West takes you to the main part of the avenue.
+
+> w
+You move West.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where on the south side of the avenue you see a provisions shop, the door of which is open and you can go In through this. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> in
+You move In.
+
+In Provisions Shop
+You are in the provisions shop, which sells everything imaginable, the shelves laden down with all sorts of goods. There are barrels filled with various foodstuffs and a large stack of various cheeses takes centre stage in front of the barrels. The shopkeeper stands behind a counter opposite the open door which leads Out.  As you look around the shop, the shopkeeper greets you.
+
+"Good day to you, Praefectus," he says pleasantly. "How can I serve you today?
+
+1: "I'd like one of those cheeses, please."
+2: "I would like a bag of mixed cereals, please."
+3: "I would like a good tinderbox, please."
+
+> 3
+You tell the shopkeeper that you would like to buy a good tinderbox.
+
+He takes a small tinderbox made from bronze from under his counter.
+
+"This is a new type of tinderbox made by a bronzesmith in Corwyn Town," he tells you. "You just press the lever at the end to strike some sparks, which will come out the hole in the other end. It's quite expensive at 45 Grotz, but it's the latest technology and it will never let you down. Not only that but it is guaranteed for 5 years!"
+
+You hand over the 45 Grotz and he gives you the tinderbox.
+
+As you have spent most of your money, you leave the shop with the shopkeeper's farewell "Come again soon!" ringing in your ears.
+
+Central Avenue
+You are on central avenue where on the south side of the avenue you see a provisions shop, the door of which is open and you can go In through this. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on Central Avenue which runs East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+Some soldiers are playing a game of cards outside a bar on the south side of the avenue and the chatter coming from them is loud and bawdy.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where to the North you see a narrow alleyway between the buildings. You can go East or West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> n
+You go to walk North into the alleyway, but are spotted by one of the guards to the west.
+
+"Hey you," he shouts out. You feign ignorance and gesture with your arms, "Who me?"
+
+"Yes you," he snarls threateningly. "No-one is allowed up there, even officers! So begging yer pardon, Praefectus - Bugger Orf!"
+
+Throwing a mock salute you walk away from the alleyway.
+
+If you want to find out what's up that alleyway, you're going to have to think of a way to distract the guards.
+
+> e
+You move East.
+
+Central Avenue
+You are on Central Avenue which runs East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+Some soldiers are playing a game of cards outside a bar on the south side of the avenue and the chatter coming from them is loud and bawdy.
+
+> play cards
+You take a big risk and join the game of Joomtoom. Luckily none of the soldiers questions who you are and it is not long before you have won a couple of hands but lost even more.
+
+You then accuse one of the players of cheating and he throws a punch at you. You hit him back and the other soldiers join in. Soon other passing soldiers wade in and a mass brawl ensues.
+
+You manage to avoid serious injury and worm your way out of the melee of fighting just in time to see the soldiers who were on guard duty to the west arrive with some others to break up the fighting. You move further along the avenue.
+
+Central Avenue
+You are on central avenue where to the North you see a narrow alleyway between the buildings. You can go East or West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> n
+You move North.
+
+While the guard's attention is on his comrades stopping the fight, you quickly slip into the alleyway between the buildings.
+
+Narrow Alleyway
+You are in a narrow alleyway between the buildings on the north side of Central Avenue. The walls of the buildings tower above you to east and west. You can go South to the avenue or further North along the alleyway.
+
+> n
+You move North.
+
+Corner in Alleyway
+You are at the corner of the alleyway where it runs west along the back of the building. You can go West or South.
+
+> w
+You move West.
+
+Back of Building
+You are about halfway along the alleyway at the back of the building on the north side of Central Avenue. You can go further West along the alleyway or East to the corner. Here you see a crude lean-to which has been built against the wall of the building to the north and sitting or crouching under the lean-to are several children.
+
+As you approach the children, one of them - the oldest boy by the look of him - stands up and confronts you.
+
+"We ain't doing no harm here mate," he pleads. "Please don't turf us out!"
+
+You reassure the boy that you have no intention of evicting them from their lean-to and they all breathe a sigh of relief. One of the girls pipes up "Wot you doin' 'ere then?"
+
+1: "Do your parents know you live here?"
+2: "How did you come to live here?"
+3: "I need something to make a big fire, can you help?"
+
+> 1
+You ask the children if they know what is in the buildings around them?
+
+"They've been stockpiling all sorts of stuff in 'em," the oldest boy tells you. "Won't let anyone into the alleyways behind 'em in case anyfink is nicked."
+
+That confirms your suspicions that the Turdrocks are stockpioling for war.
+
+> 2
+You ask the children how they came to live here?
+
+"We're nearly all orphans and its'a sheltered spot 'ere," one of the girls tells you. "Da soldiers don't bovver us and we kin get into sum'a of da buildings here and nick food and uvver stuff ta survive on."
+
+Out in Central Avenue, the brawl has been broken up and everyone sent on their way, so the guards return to their positions.
+
+> 3
+You ask the children if they can get you something to make a big fire?
+
+"Wot you want dat fer?" the oldest boy asks you.
+
+You decide to be truthful and tell the children you want to rescue your clanmates from the dungeons and need to create a diversion.
+
+"Wow!" they say in unison. "We'll 'ave summa dat!" they say excitedly.
+
+Then the biggest boy says, "'Ang on! Wot's in it fer us?"
+
+You take the 6 Grotz coins from your pouch and show them to him.
+
+"This is all I have," you say to him. "It's yours if you do this for me."
+
+"Awright!" he says happily, and turns to his friends. They confer for a minute or two and then he says, "'Ang on 'ere fer a while, we'll be back in'a bit!
+
+The ringleader and three of his friends run off along the alleyway and disappear from view. You are left kicking your heels and attempt to talk to the remaining children, but they are too frightened of you to talk.
+
+After about 20 minutes the boy and his cohorts return, carrying a large can.
+
+"We nicked da oil frum da camp canteen," he tells you.
+
+You give the coins to the boy and tell them that very soon the arsenal is going to blow up so they must go somewhere safe.
+
+"We know somewhere we kin watch frum," the boy tells you.
+
+You pick up the can and are about to walk away when the boy stops you.
+
+"If ya go inta da avenue carrying dat lot da guards are gonna smell a rat," he tells you. "Cum wiv me an' I'll take you ta the back o'da arsenal building."
+
+The children, led by the oldest girl, go off in one direction while the boy leads you through a maze of alleyways and across a deserted side street to the back of the arsenal building. He wishes you good luck and runs off.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow.
+
+> move boards
+You move the loose wooden boards aside to form an opening in the wall.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow. Here you see the opening leading In into the building where some boards have been moved aside.
+
+> in
+You move In.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the wooden boards that make up the wall have been moved aside to form a narrow opening that you can go Out through.
+
+> put oil on crates
+You walk to the end of the stack of crates and pour the cooking oil over them, walking backwards to where you started from. When you have emptied the can you put it down.
+
+Hiding Behind Crates
+You are hiding in a gap between a stack of large crates and the back wall of the arsenal. The main part of the arsenal is to the North on the other side of the crates. A couple of the wooden boards that make up the wall have been moved aside to form a narrow opening that you can go Out through. The crates and floor of the building are covered in the cooking oil that you poured from the can.  Also here is an empty can.
+
+> put rope in oil
+You lay the rope on the floor so that one end is in the cooking oil and, climbing through the hole in the wall, lay the rest so it leads outside.
+
+Muddy Path
+You are on the muddy path where it goes past the back of the arsenal building. The path leads East back to the field and continues West to the corner of the building. It is quite dark here as the back of the arsenal is in shadow. Here you see the opening leading In into the building where some boards have been moved aside.  The rope lies on the muddy path, leading out of the hole in the arsenal wall.
+
+> light rope
+Pressing the lever at one end of the tinderbox, you create some sparks which set light to the end of the rope.
+
+Now you'd better get clear because once this lot goes up the area will be swarming with Turdrock soldiers!
+
+> e
+You move East.
+
+Muddy Path
+You are on the muddy path which runs West towards the arsenal and East over a fence to the field in which there are some cows, pigs and sheep.
+
+> e
+You climb over the fence to the field on the other side.
+
+SW Corner of Field
+You are in the SW corner of the field, which is home to some farm animals. The fence goes North and East and the rest of the field is to the NE. The muddy path in the field ends here, but continues on the other side of the fence to the West.
+
+> n
+You move North.
+
+West Side of Field
+You are about halfway along the muddy path on the west side of the field. The animals in the field stand or lay looking at you impassively. The path goes North and South and the field extends to the NE, East and SE.
+
+> n
+You move North.
+
+NW Corner of Field
+You are in the field in the NW corner. All you have for company are some farm animals, cows, sheep and pigs. The muddy path goes South alongside the fence which also goes East and the rest of the field is to the SE. Over the fence to the North is the road into the camp.
+
+> n
+You climb over the fence to the road on the other side.
+
+East Edge of Camp
+You are at the east edge of the camp where there are two fields either side of the road. The one on the south side is enclosed by a fence and there are cows, sheep and pigs in it. The other looks like a drill/exercise area. The road goes West to central avenue and East into the forest.
+
+> w
+You move West.
+
+End of Central Avenue
+You are at the end of Central Avenue where the buildings end and there is just one on the north side of the street. Further East is more open and going West takes you to the main part of the avenue.
+
+> w
+You move West.
+
+Central Avenue Junction
+You are at a junction in Central Avenue where it is crossed by another North-South street. You can go North, South, East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where on the south side of the avenue you see a provisions shop, the door of which is open and you can go In through this. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on Central Avenue which runs East and West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are on central avenue where to the North you see a narrow alleyway between the buildings. You can go East or West. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking.
+
+> w
+You move West.
+
+Central Avenue
+You are at the west end of a long avenue that runs from West to East past wooden buildings. The one to the north looks like a barracks and the one to the south looks like a storehouse. Both have soldiers standing guard either side of the doors leading in. Various soldiers and civilians march or walk along the avenue going about their duties or business and there are others standing around talking. Just here, hammered into the ground, is a crude sign that reads "Central Avenue".
+
+> w
+You move West.
+
+Outskirts of Camp
+You are on the outskirts of what appears to be a permanent military camp, almost like a small town, where the forest gives way to a wide area of buildings and training areas. The road through the forest goes West and you can enter the camp by going East.
+
+Suddenly there is a deafening boom as the crates and barrels in the arsenal explode in a huge blast. A shockwave hurtles out from the epicentre, knocking you off your feet and sending you rolling along the road for several yards. You are then showered with debris which comes falling out of the sky, one large burning piece missing you by inches.
+
+A mushroom cloud of flame and smoke rises into the air from the destroyed arsenal and you are aware of civilians running away from the area while soldiers rush towards it. You pick yourself up and dust yourself down.
+
+> w
+You move West.
+
+Fork In Road
+You are at a fork in the road where it goes NW and South, while another road leads off to the East. The forest either side of the road is very thick and impenetrable. A signpost here points in three directions.
+
+As you reach the fork in the road a group of soldiers you recognise as being guards from the dungeons go running past you towards the camp.
+
+> nw
+You move NorthWest.
+
+Road Through Forest
+You are on a road which goes North and SE through the forest, with a narrow cutting in the hillside to the SW that leads back to the dungeons.
+
+> n
+You move North.
+
+North-South Road
+You are on a straight North-South road in the forest. About a quarter of a mile further north you can see the border of the Turdrock clan lands where several soldier stand guard. The vegetation either side of the road here is particularly dense.
+
+> get axe
+(from the dense vegetation)
+Ok, you take the battle axe from the dense vegetation.
+
+> s
+You move South.
+
+Road Through Forest
+You are on a road which goes North and SE through the forest, with a narrow cutting in the hillside to the SW that leads back to the dungeons.
+
+> sw
+You move Southwest.
+
+By Tunnel Entrance
+You are a few metres past the tunnel entrance where you can go North or South. Further along the cutting it bends to the NE. There are two sentry boxes either side of the entrance to the but both are unmanned.
+
+As you approach the tunnel into the dungeons, it occurs to you that the guards in there will undoubtedly found the body of the guard you killed. Therefore, in case there are any guards still inside the dungeons, you take off Torvik's ID badge and throw it away.
+
+> s
+You move South.
+
+Tunnel Exit
+You are at the tunnel exit where there are two sentry boxes, one at either side. The exit is set into the base of a steep hill. You can go South into the tunnel or North along a narrow cutting in the hillside.
+
+> s
+You move South.
+
+Near Tunnel Exit
+You are near the exit to the tunnel, which is to the North. The slope of the tunnel starts to lessen here but gets steeper further South.
+
+> s
+You move South.
+
+Long Sloping Tunnel
+You are in a long, steeply sloping tunnel which descends to the South and rises to the North where you can see daylight at the end of the tunnel.
+
+> s
+You move South.
+
+Bend In Tunnel
+You are at a bend in the tunnel, which goes East and North. It also rises in the latter direction.
+
+> e
+You move East.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West. To the south there is the dark cell that you escaped from, the door to which is open and leads In to the cell. On the wall next to the cell door is the number 1. You notice the tunnel starts to rise slightly to the West.
+
+As you reach the cell you were originally incarcerated in, you notice that the door is open. You stop and peer inside and note that the body of Torvik, the guard that you killed, is missing. The body must have been found and removed by the guards after you had escaped.
+
+> e
+You move East.
+
+Underground Tunnel
+You are in a tunnel deep underground which leads East and West, by a cell similar to the one you were held in. The door is closed and locked. On the wall next to the cell door is the number 2. Just a little further to the east there is an opening leading south.
+
+> e
+You move East.
+
+By Guard Room
+The tunnel from the West bends around to the North here, and there is a guard room to the South.
+
+> n
+You move North.
+
+Bend In Tunnel
+You are in a rock tunnel deep underground. Here it bends to the South and East. In the north wall of the tunnel here there is a cupboard door which is closed and locked. On the door is written "Beer Store".
+
+> hit door with axe
+You smash the cupboard door open with a couple of blows from your axe.
+
+Bend In Tunnel
+You are in a rock tunnel deep underground. Here it bends to the South and East. In the north wall of the tunnel here there is a cupboard door which has been smashed open. The cupboard is empty except for several Whyldstone battleaxes.
+
+> e
+You move East.
+
+The Dungeons
+You are in the dungeons, which extend from North to South. There is a cell to the east with the number 4 next to the door, which is closed and locked.  Here you see a single guard.
+
+The young soldier looks relieved that someone of authority has arrived.
+
+"What's going on sir?" he asks nervously. "A while ago we all felt everything shake and then everyone else ran out, telling me to stay behind and watch the prisoners.
+
+1: "Could you please unlock the cells."
+2: "What happened to Torvik?"
+3: "The arsenal has been blown up! Go to the camp and help out in any way you can."
+
+> 1
+You ask the guard if he could open the cell doors.
+
+"I'm sorry, sir," he tells you nervously. "I can't do that because I don't have a key for them."
+
+> 2
+You ask the guard what happened to the body of Torvik.
+
+"It's been taken to his family in Saabieland Village, sir," he tells you. "Zenob was particularly upset coz Torvik was his brother."
+
+> 3
+"The arsenal has been blown up! Go to the camp and help out in any way you can." you order the guard.
+
+His mouth drops open at this news. "Wow, so that's what caused everything to shake. I thought it was an earthquake!" He stands there, shaking his head until you cough to remind him of your order.
+"Yessir! Sorry sir! On my way sir!" he exclaims as he runs out of the dungeons, leaving you free to release your clanmates.
+
+> unlock doors
+You unlock the cell doors one after the other and your clanmates all rush out to greet you.
+
+You Have Won!
+
+After much back-slapping, hugs of relief and profuse thanks, you manage to tear yourself away and open the other two cells. The celebrations are repeated again and your clanmates are calling you a hero!
+
+You all walk along to the cupboard you smashed open, where your comrades retrieve their weapons and then you all march out of the dungeons into the forest, heading for the Turdrock border. There are a few guards at the border but when they see you coming they run for their lives into the forest.
+
+You reach the Whyldstone border where the guards there jump for joy when they see that you have rescued their clanmates and escort you back to Wild Otter village.
+
+When you reach the village there is much jubilation as your clanmates are reunited with their loved ones and families. You are hailed as a hero by your fellow dwarves and given many accolades by the grateful population.
+
+The crowning moment is when your girlfriend Molka greets you. You grab hold of her and throw her feet first over your shoulder, the traditional dwarven way of taking a wife. Your clanchief presents you with a new home, a magically-enlarged oak tree house in which you and Molka can live and the celebrations continue well into the night!
+
+Please Press Any Key to Continue.
+
+*** CONGRATULATIONS! ***
+
+You have rescued your clanmates from captivity and completed...
+
+THE DWARF OF DIREWOOD FOREST
+
+...in 237 turns, scoring the maximum 250 points!
+
+I do hope you have enjoyed playing this game.
+
+Also Available in the Adventures in the World of Alaric Blackmoon series:
+
+Episode 1: RUN, BRONWYNN, RUN!
+
+****************************
+
+The Adventures of Alaric Blackmoon:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: THE FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+****************************
+
+The Intrepid Space Adventures Of Mike Erlin:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Coming Soon: Chapter 4: THE EURIPEDES ENIGMA
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
