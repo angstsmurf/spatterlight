@@ -1,5 +1,64 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## 📌 OPEN — aggregate same-template per-item *fail* messages on the plural path (so author ALRs can match)  — AoS `put all in bag` coin hunk, high regression risk
+
+**The one remaining AoS hunk (`put all in bag` → "You are not carrying the gold
+gonks. … the silver ginks.").** Root cause is fully pinned (see
+A5_WALKTHROUGH_FINDINGS.md AoS row + the DONE FailOverride entry below): it is an
+**author suppression ALR that only matches FrankenDrift's *merged aggregate* fail
+string**, which Scarier never produces.
+
+**What FD does (and Scarier doesn't).** Both engines put `cl_Pouch` in the worn bag
+first, which un-holds the nested coins (`cl_Coins` gold gonks, `cl_Ginks1` silver
+ginks); both then re-fail the coins on the general `PutObjectsInOther`
+`Must BeHeldByCharacter %Player%` restriction. FD buffers *fail* responses in
+`htblResponsesFail` **keyed by the raw message template**
+(`%CharacterName% [am/are/is] not carrying %TheObjects[%objects%]%.`), so the two coin
+fails **merge into one entry** whose `%objects%` refs aggregate to {cl_Coins,cl_Ginks1}.
+At flush it renders the single string **"You are not carrying the gold gonks and the
+silver ginks."**, and the AoS author's `TextOverride` ALR `cl_YouAreNotC1` (that exact
+OldText, empty NewText) blanks it in `Display`→`ReplaceALRs`. Scarier instead emits the
+two coin fails as **separate singular** messages ("…the gold gonks." / "…the silver
+ginks."); it *does* run ALRs (`replace_alrs`, a5text.cpp), but neither singular string
+`strstr`-contains the merged-form OldText, so nothing is suppressed.
+
+**The fix (what would make this hunk go to 0).** Scarier's plural fail path must mirror
+FD's `htblResponsesFail` **template-keyed aggregation**: buffer each failing item's fail
+message by its *unrendered* template + reference-name, folding same-template siblings
+into one entry (accumulating their `%objects%` items), then render the merged template
+**once** through `%TheObjects[%objects%]%` (so the aggregate list "the gold gonks and
+the silver ginks" is produced) and run it through `replace_alrs`/Display. This is the
+fail-side twin of the pass-side `AggregateOutput` merge already implemented on the
+plural path (the `resp_map` `%objects%` merge in `run_general`).
+
+**Where it lives / why it's risky.** `run_general` (a5run_action.cpp) +
+`resolve_plural`/`resp_map` — the **shared** plural refine/execute/response path that
+every plural-`%objects%` command in the corpus flows through. The passing goldens
+`AxeOfKolt`, `ThingsThatGoBumpInTheNight`, `LostLabyrinthOfLazaitch`,
+`DwarfOfDirewoodForest`, and `TreasureHuntInTheAmazon` all exercise this path
+(`drop all`, `get all`, multi-object puts) and are **byte-exact/xoshiro-0 today**.
+Merging fail messages changes when a per-item fail message is shown, how many blank
+lines/paragraph slots it reserves (cf. the Tribute pre-ALR `bHasOutput` paragraph-slot
+rule, DONE entry), and interacts with the pass-cancels-fail flush scope (TBN DONE
+entry) and the FailOverride-on-collapse-to-one rule (AoS DONE entry below). Any of
+those could regress a golden.
+
+**Prereqs before attempting.**
+- Read the AoS-FailOverride DONE entry (below) and the TBN pass-cancels-fail scope +
+  Tribute empty-ALR-paragraph-slot DONE entries first — they constrain the flush order.
+- Reproduce with `FD_RNG=xoshiro test/a5_groundtruth.sh "test/adrift5-games/AoS v.4.blorb" test/AoS_walkthrough.txt`
+  (single hunk at transcript line ~600). Dump the module with `A5_DUMP_XML=/tmp/aos.xml`
+  and grep `cl_YouAreNotC1` / the three coin `<TextOverride>`s.
+- Gate the change so a *singular* command (`put gonks in bag`, no "all") is untouched
+  and keeps its own singular fail message (only the `all`/multi path aggregates).
+- **Acceptance = whole corpus unchanged in BOTH modes** (`test/run_a5_walkthroughs.sh`)
+  AND AoS 1→0. If any other game moves off baseline, revert — this is one cosmetic hunk.
+
+**Recommendation.** Not worth chasing until/unless the same fail-aggregation gap
+surfaces on a game that *doesn't* MATCH for another reason (i.e. where it would actually
+unblock a win or a large hunk drop). One cosmetic line behind a game-specific author ALR
+does not justify the shared-path risk.
+
 ## ⭐ `put all in <container>` parent `<FailOverride>` on a single un-baggable item (AoS 3→1)  ✅ DONE (2026-07-03)
 
 **AoS `put all in bag` showed "makes a mess" where FD shows "You are not carrying
