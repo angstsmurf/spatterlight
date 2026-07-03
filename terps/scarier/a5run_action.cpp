@@ -1154,9 +1154,23 @@ exec_scope_flush (a5_run_t *run, exec_resp_scope *sc, sb_t *out)
   (void) run;
   for (auto &f : sc->fails)
     {
-      bool cancelled = !f.second.empty ();
-      for (auto &k : f.second)
-        if (!sc->pass_refs.count (k)) { cancelled = false; break; }
+      bool cancelled;
+      if (f.second.empty ())
+        /* No bound references: FD's pass-cancels-fail loop (clsUserSession.vb:804)
+           leaves bAllMatch True against the first pass message, because its per-ref
+           check `For iRef = 0 To refsFail.Length-1` iterates 0 To -1 and never runs.
+           So a ref-less Execute'd-task fail is cancelled by the mere presence of ANY
+           pass response this command -- yet shown when there were none.  Tingalan's
+           Search task passes with "You find nothing here", which cancels the
+           Execute'd encounter's ref-less "...something follows..." restriction fail;
+           FD stays silent where Scarier used to leak the extra paragraph. */
+        cancelled = !sc->pass_seen.empty ();
+      else
+        {
+          cancelled = true;
+          for (auto &k : f.second)
+            if (!sc->pass_refs.count (k)) { cancelled = false; break; }
+        }
       if (!cancelled)
         { sb_pspace (out); sb_puts (out, f.first.c_str ()); }
     }

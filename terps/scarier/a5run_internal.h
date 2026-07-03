@@ -212,7 +212,9 @@ struct exec_resp_scope {
      (identical journey paragraphs), each ending in `Execute Look`. */
   std::set<std::string> pass_seen;
   /* buffered fail messages, in order: text + the object keys bound when the
-     restriction failed (empty = never cancelled, always shown) */
+     restriction failed.  Empty key set = a ref-less fail: cancelled iff any pass
+     response occurred this command (FD's bAllMatch stays True vs the first pass),
+     else shown. */
   std::vector<std::pair<std::string, std::vector<std::string>>> fails;
 };
 
