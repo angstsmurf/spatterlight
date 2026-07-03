@@ -1,5 +1,67 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Text-array index expression `%var[RAND(1,6)]%` + reflexive self-examine fallback (`examine me` → "yourself") — surfaced smoke-testing 7 new corpus games  ✅ DONE (2026-07-03)
+
+**Two general engine gaps, both corpus-safe, found by opening-turn smoke-diffing
+the 7 game files present in `test/adrift5-games/` but not yet in the walkthrough
+MAP** (Halloween, MI, MuseumHeist, October31st, TheFortressOfFear, Tingalan, XXR).
+A generic 4-command probe (`look`/`examine me`/`inventory`/`wait`) was diffed
+against FrankenDrift under `FD_RNG=xoshiro`. **6 of the 7 are byte-exact on the
+opening** (ready to wire in once walkthroughs exist); **Tingalan surfaced two real
+bugs** (2 hunks → 1 after the fixes; the last is a documented RNG-class residual,
+below).
+
+**Fix 1 — array-variable index may be an expression, not just a literal
+(`a5text.cpp` `eval_function`).** Tingalan's blocked-command message is
+`%notallowed[RAND(1,6)]%`, where `notallowed` is a **Text variable with
+`ArrayLength=6`** (6 newline-separated elements). Scarier's `%VariableName[index]%`
+branch parsed `index` with `strtol` only and, when that didn't consume the whole
+arg (here `RAND(1,6)`), `break`'d and left the raw `%notallowed[RAND(1,6)]%` token
+in the output. FD runs the bracket contents through `EvaluateExpression`. Fix: when
+the index isn't exactly an integer literal, evaluate it via the existing
+`a5text_eval_expression` (`RAND(1,6)` → `a5_eval_sexpr` `rand` draw → an index),
+then index the array. The plain-literal fast path (`%var[3]%`) is preserved
+untouched, so every corpus game that indexes by a constant is byte-identical.
+
+**Fix 2 — the empty-description examine fallback is reflexive when you examine
+yourself (`a5text.cpp` DisplayCharacter fallback).** `examine me` on a player with
+no `<Description>` renders the canned `%CharacterName% see[//s] nothing interesting
+about %CharacterName[key, target]%.`. Scarier showed "…about **you**."; FD shows
+"…about **yourself**.". Root cause (FD `clsCharacter.Name`, clsCharacter.vb:351-354):
+FD upgrades **Objective → Reflective** when the same character key was already
+rendered **Subjective** earlier this turn (its `PronounKeys` list). The leading bare
+`%CharacterName%` renders the viewpoint subjectively ("You"), so when the examined
+character *is* that viewpoint the target form becomes reflexive. Scarier has no
+turn-wide `PronounKeys`, so instead of that broad machinery the fallback now emits a
+**`reflective` qualifier** (→ "yourself") in exactly the subject==object case
+(examined key == the bare `%CharacterName%`'s resolved subject = `ctx_char`/player);
+every other target stays Objective. This is strictly narrower than FD (it only fixes
+the one subject/object collision the fallback itself produces) so it can't regress
+any other character-name render.
+
+**Why corpus-safe / verified.** Whole corpus unchanged in **both** RNG modes
+(`test/run_a5_walkthroughs.sh`: 24 goldens still byte-exact, StoneOfWisdom 2/0,
+JacarandaJim 99/0, SixSilverBullets 18/0, LostLabyrinthOfLazaitch 8/0, BugHunt 0/1 —
+all at baseline). All a5 unit tests pass (`run/arith/parse/dis/walk/obj/save` + Six
+Silver Bullets golden), `make sanitize` is clean, and a direct ASan/UBSan Tingalan
+run (exercising both fixes) is clean. No golden examines the player at an
+empty-description object, and no golden indexes a text array by a non-literal, which
+is why both new paths were dormant on the corpus.
+
+**Remaining Tingalan residual (NOT a bug in these fixes — deep per-turn RNG-event
+desync, documented-class).** The last smoke hunk is the specific array element
+picked: Scarier's `RAND(1,6)` for the `wait` block draws index 3, FD index 5.
+Under `FD_RNG=xoshiro` FD makes ~15 RNG draws **per turn** (a repeating
+`RAND(1,9)/RAND(1,3)/RAND(1,150)/RAND(1,6)/RAND(1,2)` batch — a per-turn random
+atmosphere/event subsystem) where Scarier draws once, so the shared xoshiro stream
+is desynced by the time the visible draw happens. The opening text is nonetheless
+byte-identical because those extra draws don't surface as visible text. This is the
+same RNG-stream-alignment class as JacarandaJim/SixSilverBullets and is not worth
+chasing for a **scriptless** game (no walkthrough, can't reach a full MATCH anyway);
+recorded here so the finding isn't lost. If Tingalan ever gets a walkthrough, the
+per-turn event RAND batch is the thing to align (instrument `a5rand_between`
+`A5_TRACE_RAND=1` vs FD `FD_RNG_TRACE=1`).
+
 ## ⭐ Aggregate same-restriction per-item *fail* messages on the plural path (so author ALRs can match) — AoS `put all in bag` coin hunk → full MATCH (1|1 → 0|0)  ✅ DONE (2026-07-03)
 
 **AoS 1|1 → 0|0 (byte-exact vs FrankenDrift in BOTH RNG modes; golden

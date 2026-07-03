@@ -1064,7 +1064,23 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           free (d);
           std::string fb = "%CharacterName% see[//s] nothing interesting about ";
           if (is_char)
-            { fb += "%CharacterName["; fb += key; fb += ", target]%."; }
+            {
+              /* FD's clsCharacter.Name upgrades Objective->Reflective when the
+                 same character key was already rendered Subjective earlier this
+                 turn (PronounKeys).  The leading bare %CharacterName% renders the
+                 viewpoint character subjectively ("You"), so when the examined
+                 character IS that viewpoint (examine yourself) the target form
+                 becomes reflexive -- "yourself", not "you".  Emit the reflective
+                 qualifier in exactly that case; every other target stays Objective
+                 (Scarier has no turn-wide PronounKeys, but this is the only
+                 subject==object collision the fallback can produce). */
+              const char *subj = st->ctx_char ? st->ctx_char
+                                              : a5state_player_key (st);
+              const char *qual = (subj != NULL && streq (subj, key))
+                                   ? "reflective" : "target";
+              fb += "%CharacterName["; fb += key; fb += ", "; fb += qual;
+              fb += "]%.";
+            }
           else
             { const a5_object_t *o = a5model_object (st->adv, key);
               char *dn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (key);
@@ -1196,8 +1212,23 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           {
             char *end = NULL;
             long idx = strtol (args, &end, 10);
-            if (end == args)        /* not a numeric index -> not our case */
-              break;
+            while (end != NULL && (*end == ' ' || *end == '\t'))
+              end++;
+            /* A non-literal index (e.g. %notallowed[RAND(1,6)]%) must be
+               evaluated as an expression -- FD's clsVariable indexing runs the
+               bracket contents through EvaluateExpression.  Only fall through to
+               the plain-literal fast path when args is exactly an integer. */
+            if (end == args || (end != NULL && *end != '\0'))
+              {
+                char *ev = a5text_eval_expression (st, args);
+                char *e2 = NULL;
+                long v = strtol (ev, &e2, 10);
+                int oknum = (e2 != ev);
+                free (ev);
+                if (!oknum)
+                  break;            /* still not numeric -> leave verbatim */
+                idx = v;
+              }
             if (streq (st->adv->variables[i].type, "Text"))
               {
                 const char *s = st->var_text[i] ? st->var_text[i] : "";
