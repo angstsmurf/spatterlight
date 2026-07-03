@@ -430,13 +430,14 @@ struct resp_entry {
   bool is_look;                   /* deferred room view: render_look_string()   */
   bool has_snap;                  /* snap holds the refs to restore at flush    */
   const a5_xml_node_t *comp;      /* aggregate: re-rendered at flush            */
+  const a5_xml_node_t *fail_comp; /* fail: the restriction <Message> node       */
   std::string rendered;           /* non-aggregate / fail: final text           */
   std::vector<std::string> obj_keys;  /* merged %objects% items (aggregate)     */
   std::string obj2;               /* %object2% snapshot (first occurrence)      */
   std::string item;               /* the single item this entry was made for    */
   ref_snap snap;
   resp_entry () : is_pass (false), aggregate (false), is_look (false),
-                  has_snap (false), comp (NULL) {}
+                  has_snap (false), comp (NULL), fail_comp (NULL) {}
 };
 
 /* Capture / restore the live reference-binding table (a5state_bind_ref store +
@@ -581,6 +582,54 @@ resp_add_text (a5_run_t *run, const char *text, bool is_pass, int pos = -1)
   resp_insert (rm, e, pos);
 }
 
+/* Add a restriction-fail message (the restriction's <Message> node `fm`) as a
+   fail response, mirroring FrankenDrift's htblResponsesFail keyed by the raw
+   message template (clsUserSession AddResponse, vb:1301-1307): a second item that
+   fails the SAME restriction node merges its %objects% item into the existing
+   entry instead of emitting a separate message, so at flush the template renders
+   ONCE over the merged set.  AoS `put all in bag` re-fails the two nested coins on
+   the general `Must BeHeldByCharacter %Player%`; FD produces the single "You are
+   not carrying the gold gonks and the silver ginks." (which the game's
+   cl_YouAreNotC1 ALR then blanks), where Scarier used to show two singular fails
+   that no ALR could match.  A single-item fail (the common case) keeps its
+   eagerly-rendered singular text, so every non-aggregating fail stays byte-
+   identical to the old resp_add_text path. */
+static void
+resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
+{
+  resp_map *rm = run->resp;
+  a5_state_t *st = run->st;
+  const std::string &item = rm->cur_item;
+
+  /* Second+ item failing the SAME restriction node: merge its %objects% key
+     (htblResponsesFail's ContainsKey branch, vb:1303-1307). */
+  if (!item.empty ())
+    for (auto &e : rm->ents)
+      if (!e.is_pass && e.fail_comp == fm)
+        {
+          if (std::find (e.obj_keys.begin (), e.obj_keys.end (), item)
+                == e.obj_keys.end ())
+            { e.obj_keys.push_back (item); rm->nmut++; }   /* merge is output */
+          return;
+        }
+
+  /* First occurrence: render eagerly at the failing item's state (identical to
+     the old path) and text-dedup against the existing fails, so two DIFFERENT
+     restrictions that render the same string still collapse. */
+  char *f = a5text_describe (st, fm);
+  if (!msg_has_output (f)) { free (f); return; }
+  std::string r = f;
+  free (f);
+  for (auto &e : rm->ents)
+    if (!e.aggregate && !e.is_pass && e.rendered == r) return;
+  resp_entry e;
+  e.is_pass = false; e.aggregate = false; e.comp = NULL; e.fail_comp = fm;
+  e.rendered = r; e.item = item;
+  if (!item.empty ()) e.obj_keys.push_back (item);
+  ref_snap_take (st, &e.snap); e.has_snap = true;
+  resp_insert (rm, e, -1);
+}
+
 /* Flush the map to `out`: pass responses first in insertion order (aggregate
    entries re-rendered over their merged %objects% set), then any fail response
    whose item was not covered by a pass (clsUserSession.vb:804-855). */
@@ -601,7 +650,23 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
     for (auto &e : rm->ents)
       {
         if (e.is_pass != (phase == 0)) continue;
-        if (!e.is_pass && !e.item.empty () && passed.count (e.item)) continue;
+        /* FD drops a fail whose every reference item also produced a pass
+           (clsUserSession.vb:812-834).  A merged fail (obj_keys accumulated by
+           resp_add_fail) is dropped only when ALL its items passed; a fail with no
+           merged set falls back to the single-item check (the old resp_add_text
+           path -- movement fails, SetTasks-Execute fails). */
+        if (!e.is_pass)
+          {
+            if (!e.obj_keys.empty ())
+              {
+                bool all_passed = true;
+                for (auto &k : e.obj_keys)
+                  if (!passed.count (k)) { all_passed = false; break; }
+                if (all_passed) continue;
+              }
+            else if (!e.item.empty () && passed.count (e.item))
+              continue;
+          }
 
         std::string text;
         if (e.is_look)
@@ -653,6 +718,34 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
             int pm = st->marking_display; st->marking_display = 1;
             char *m = a5text_describe (st, e.comp);
             st->marking_display = pm;
+            if (m != NULL) text = m;
+            free (m);
+          }
+        else if (e.fail_comp != NULL && e.obj_keys.size () > 1)
+          {
+            /* A merged fail: re-render the restriction template ONCE over the
+               combined %objects% set, so %TheObjects[%objects%]% lists every
+               failing item (FD Display over the accumulated htblResponsesFail
+               NewReferences).  The aggregate string is what a game ALR can match
+               at the display boundary -- AoS "You are not carrying the gold gonks
+               and the silver ginks." blanked by cl_YouAreNotC1.  A single-item
+               fail (obj_keys.size()==1) keeps its eager render below, byte-exact. */
+            if (e.has_snap) ref_snap_restore (st, &e.snap);
+            std::string pipe;
+            st->n_ref_items = 0;
+            st->ref_items_type = 'o';
+            for (auto &k : e.obj_keys)
+              {
+                const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+                if (o == NULL) continue;
+                if (st->n_ref_items < A5_MAX_ITEMS)
+                  st->ref_items[st->n_ref_items++] = o->key;
+                if (!pipe.empty ()) pipe += "|";
+                pipe += o->key;
+              }
+            bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
+            a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+            char *m = a5text_describe (st, e.fail_comp);
             if (m != NULL) text = m;
             free (m);
           }
@@ -750,8 +843,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
             if (fm != NULL)
               {
                 if (run->resp != NULL)
-                  { char *f = a5text_describe (st, fm);
-                    resp_add_text (run, f, false); free (f); }
+                  resp_add_fail (run, fm);
                 else
                   { char *fmsg = a5text_describe (st, fm);
                     sb_pspace (out); sb_puts (out, fmsg); free (fmsg); }

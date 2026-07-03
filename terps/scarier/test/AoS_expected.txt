@@ -1,0 +1,2225 @@
+Alyas of Starhollow
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it. The game is also quite long and there is the possibility of sudden death. There is also some mild adult content.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+I do hope, however, that you will give it a try! A walkthrough is available on request (type HELP).
+
+Many thanks.
+
+Larry Horsfield
+
+If you have already started the game, you can load a saved game
+By clicking on the blue folder in the toolbar above.
+Please type C then press Enter to continue.....
+
+> c
+ALYAS OF STARHOLLOW
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To read the Prologue, type P and press Enter.
+
+To Begin the game from the first location, type B and then Enter.
+
+You are strongly advised to read the playing instructions, especially if you are starting this game for the first time. To do this, when you are playing the game type INST and then Enter.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. As ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the font colour to CYAN. You can adjust these colours by clicking on VIEW in the toolbar above and selecting "Options"
+
+Useful Commands After The Adventure Has Started:
+
+COMMANDS : CREDITS : HELP : MACROS : MAP : MISSION : VOCAB;
+
+> b
+
+By Roundhouse
+You are on the path through the village by the roundhouse, the building in which the whole village can meet to discuss important matters. Double doors lead In to the roundhouse, next to which, hanging from a bracket, is the alarm bell. River Lane is to the North and NE, the village longhouse to the East, and the village well to the South. To the SE is the village church. There are villagers here going about their business.
+
+> in
+You move In.
+
+In Roundhouse
+You are in the village roundhouse, surrounded by tiers of seats for the villagers to sit on. In the centre of the chamber is a round dais on which the speaker addressing the people would stand. Double doors in a wide gap in the tiers of seats lead Out and you can step Up onto the dais.  Also here is a thin book.
+
+> search tiers
+You search the tiers and find, behind one of the cushions, a whetstone, which you take. It probably fell out of the owner's pocket when he or she was sitting on the tiers during the recent meeting.
+
+> out
+You move Out.
+
+By Roundhouse
+You are on the path through the village by the roundhouse, the building in which the whole village can meet to discuss important matters. Double doors lead In to the roundhouse, next to which, hanging from a bracket, is the alarm bell. River Lane is to the North and NE, the village longhouse to the East, and the village well to the South. To the SE is the village church. There are villagers here going about their business.
+
+> se
+You move SouthEast.
+
+By Village Church
+You are standing by the village church, a simple building topped by a short spire on which stands the sun emblem of your God Solstus. You can go In to the church, North to the longhouse, NW to the roundhouse, NE to your yort or West to the village well. There are gold-tinted windows in the sides of the church. Some of your fellow villagers are here, going about their business. In the distance you see some hills which form the southern horizon.
+
+> in
+You move In.
+
+In Church
+You are in the village church, standing between rows of pews for all the villagers. To the East is the main altar and you can go Out to the path. The whole church is bathed in a golden light from the sun which shines through the gold-tinted windows in the church walls.
+
+> out
+You move Out.
+
+By Village Church
+You are standing by the village church, a simple building topped by a short spire on which stands the sun emblem of your God Solstus. You can go In to the church, North to the longhouse, NW to the roundhouse, NE to your yort or West to the village well. There are gold-tinted windows in the sides of the church. Some of your fellow villagers are here, going about their business. In the distance you see some hills which form the southern horizon.
+
+> n
+You move North.
+
+By Longhouse
+You are on a path by the double doors that lead In to the village longhouse. River Lane runs from East to West in front of the building, beyond which lies your field and your yort is to the East. The village well is to the SW. Some of your fellow villagers are here, going about their usual daily business.
+
+> in
+You move In.
+
+In Longhouse
+You are in the village longhouse, where the people of Starhollow gather for socialising. There are lots of tables, chairs and benches for people to sit on. Double doors lead Out to the lane outside and the kitchen is to the West.
+
+> x tables
+What villagers sit at when eating meals or playing games, etc. On one of the tables you see some food.
+
+> get food
+(from the tables)
+Ok, you take the food from the table.
+
+> look under table
+You look under one of the tables and find a length of thin rope, which you pick up.
+
+> out
+You move Out.
+
+By Longhouse
+You are on a path by the double doors that lead In to the village longhouse. River Lane runs from East to West in front of the building, beyond which lies your field and your yort is to the East. The village well is to the SW. Some of your fellow villagers are here, going about their usual daily business.
+
+> e
+You move East.
+
+By Your Yort
+You are by the door that leads In to your yort, one of many such in the village. Further West is the village longhouse and your field is beyond River Lane, which is to the North and NW. Some of your fellow villagers are here, going about their daily business.
+
+> in
+You move In.
+
+Your Salaan
+You're in the salaan, or living area, of your yort. It is very spartan, with a firepit in the middle and just a crude table and chair as the only furniture. The door leads Out to the lane and your dormo is to the East, beyond a woollen blanket that hangs from the ceiling to divide your dwelling in two.  Hanging on a hook behind your front door is your travel cloak.
+
+> x table
+A crude wooden table you knocked together from scraps of wood.  On the table you see a water flask.
+
+> get flask
+(from the wooden table)
+Ok, you take the flask from the table.
+
+> get cloak
+(from the metal hook)
+Ok, you take the travel cloak from the metal hook.
+
+> wear cloak
+Ok, you put on the travel cloak.
+
+> x firepit
+A circle of blackened stones on the floor of your dwelling. It being summer, you only light a fire when you need to cook something. Inside the firepit you see some ashes.
+
+> get ashes
+(from the firepit)
+You have nothing suitable to carry the ashes in.
+
+> get blanket
+You take down the blanket from where it hangs from the ceiling.
+
+Your Salaan
+You're in the salaan, or living area, of your yort. It is very spartan, with a firepit in the middle and just a crude table and chair as the only furniture. The door leads Out to the lane and your dormo is to the East.
+
+> e
+You move East.
+
+Your Dormo
+You are in your dormo, or sleeping area, where lies the straw pallet that you sleep on. There is a small pillow at the head of the pallet and it is covered by a burlap sheet. Your main room is to the West.  Hanging from a peg on one wall is a leather belt.
+
+> get bag
+(from the straw pallet)
+Ok, you take the bag from the pallet.
+
+> wear bag
+Ok, you put the leather strap and bag over your shoulder.
+
+> put blanket in bag
+Ok, you put the woollen blanket in the bag.
+
+> get belt
+(from the wooden peg)
+Ok, you take your belt down from the peg.
+
+> wear belt
+Ok, you put on the leather belt.
+
+> w
+You move West.
+
+Your Salaan
+You're in the salaan, or living area, of your yort. It is very spartan, with a firepit in the middle and just a crude table and chair as the only furniture. The door leads Out to the lane and your dormo is to the East.
+
+> out
+You move Out.
+
+By Your Yort
+You are by the door that leads In to your yort, one of many such in the village. Further West is the village longhouse and your field is beyond River Lane, which is to the North and NW. Some of your fellow villagers are here, going about their daily business.
+
+> nw
+You move NorthWest.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> n
+You move North.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.  Also here is a scythe.
+
+> get scythe
+Ok, you pick up the scythe.
+
+> make sling
+You tie the thin rope to the snath of the scythe to fashion a sling so you can carry the scythe over your shoulder, thus leaving your hands free.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+Here you see Dusty Miller, who is tying up the bags of flour that are being filled from the millstones on the floor above. He sees you and, shouting over the sound of the millstones, greets you. You greet him back and ask him if he has a flour sack to spare.
+
+"Sorry," he replies. "I need them all to fill with flour," he apologises.
+
+> out
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> ne
+You move NorthEast.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> w
+You move West.
+
+By Mill Race
+You are on the north side of the watermill, standing by the mill race that channels river water towards the waterwheel that powers the mechanism inside the mill. There is lots of vegetation growing here. You can go East along the mill building to River Lane.  The water is flowing swiftly along the mill race, making the water wheel revolve.
+
+> scythe vegetation
+Using the scythe, you cut a large pile of vegetation from around you.
+
+By Mill Race
+You are on the north side of the watermill, standing by the mill race that channels river water towards the waterwheel that powers the mechanism inside the mill. There is lots of vegetation growing here. You can go East along the mill building to River Lane.  The water is flowing swiftly along the mill race, making the water wheel revolve.  Also here is a large pile of vegetation.
+
+> push vegetation in water
+Ok, you push the large pile of vegetation onto the river water.
+
+> w
+There is no route to the west, only east.
+
+> in
+There is no route in, only east.
+
+> get sack
+Sorry, I'm not sure which object you are trying to take.
+
+> out
+There is no route out, only east.
+
+> e
+You move East.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> s
+You move South.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> se
+There is no route to the southeast, only north, east, south and west.
+
+> e
+You move East.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> in
+There is no route in, only south, west, southeast and southwest.
+
+> get ashes
+You can't see the ashes.
+
+> out
+There is no route out, only south, west, southeast and southwest.
+
+> sw
+You move SouthWest.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> in
+There is no route in, only north, east, south, northeast, southeast and northwest.
+
+> e
+You move East.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> pray
+You utter a short prayer for success with your mission.
+
+> x altar
+You can't see the altar.
+
+> get lamp
+You can't see any lamps!
+
+> w
+You move West.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> out
+There is no route out, only north, east, south, northeast, southeast and northwest.
+
+> w
+There is no route to the west, only north, east, south, northeast, southeast and northwest.
+
+> get flask
+You are already carrying the water flask.
+
+> turn handle
+You can't see any handle!
+
+> fill flask with water
+Filling the water flask with the river water will not help you in this game.
+
+> put flask in bag
+Ok, you put the water flask in the bag.
+
+> ne
+You move NorthEast.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> in
+There is no route in, only south, west, southeast and southwest.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> open pot
+Open what?
+
+> put oil in lamp
+You can't see any lamps!
+
+> get lid
+Sorry, I'm not sure which object you are trying to take.
+
+> cover pot
+Sorry, I'm not sure which object you are trying to cover.
+
+> look under table
+You can't see any table!
+
+> wrap food in towel
+You can't see any towel!
+
+> e
+You move East.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> out
+There is no route out, only south, west, southeast and southwest.
+
+> nw
+There is no route to the northwest, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> nw
+There is no route to the northwest, only south, west, southeast and southwest.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> w
+There is no route to the west, only out.
+
+> look under pallet
+You can't see the straw pallet.
+
+> x bottle
+You can't see the small glass bottle.
+
+> smell bottle
+Sorry, I'm not sure which object you are trying to smell.
+
+> pull cork from bottle
+Sorry, I'm not sure which object you are trying to pull.
+
+> out
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> search weeds
+You can't see any weeds!
+
+> scythe weeds
+You can't see any weeds!
+
+> get nest
+You can't see any nest!
+
+> get nuts
+Sorry, I'm not sure which object you are trying to take.
+
+> search weeds
+You can't see any weeds!
+
+> x parchment
+You can't see the small scrap of parchment.
+
+> read writing
+You can't see the writing.
+
+> wear scythe
+Ok, folding the blade of the scythe first, you wear the sling tied to your scythe over your shoulder.
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> e
+There is no route to the east, only out.
+
+> o
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> e
+You move East.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> in
+There is no route in, only north, east, south and west.
+
+> look behind timbers
+You can't see any timbers!
+
+> clear timbers
+You can't see any timbers!
+
+> in
+There is no route in, only north, east, south and west.
+
+> search cupboard
+Sorry, I'm not sure which object you are trying to search.
+
+> o
+There is no route out, only north, east, south and west.
+
+> o
+There is no route out, only north, east, south and west.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> w
+There is no route to the west, only out.
+
+> search glass
+You can't see any glasses!
+
+> turn lamp on
+You can't see any lamps!
+
+> d
+There is no route down, only out.
+
+> pour scent on cloth
+You can't see any cloths!
+
+> wrap cloth around head
+Sorry, I'm not sure which object you are trying to wrap.
+
+> w
+There is no route to the west, only out.
+
+> unlock door
+The mill door cannot be locked or unlocked.
+
+> in
+There is no route in, only out.
+
+> get meat
+Sorry, I'm not sure which object you are trying to take.
+
+> o
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> e
+You move East.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> u
+There is no route up, only north, east, south and west.
+
+> turn lamp off
+You can't see any lamps!
+
+> e
+You move East.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> drop cloth
+You can't see any cloths!
+
+> o
+There is no route out, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> throw meat to dogs
+Sorry, I'm not sure which object you are trying to shoot.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> nw
+There is no route to the northwest, only south, west, southeast and southwest.
+
+> put all in bag
+Ok, you put the leather pouch and the whetstone in the bag.  If you put the food in the bag unwrapped it will make a mess over anything else in the bag.
+
+> climb tree
+You can't see any tree!
+
+> feel in hole
+You can't see any holes!
+
+> get nuts
+Sorry, I'm not sure which object you are trying to take.
+
+> show nuts to squirrel
+Sorry, I'm not sure which object you are trying to show.
+
+> drop nuts
+You are not carrying the hazelnuts.
+
+> search drey
+Sorry, I'm not sure which object you are trying to search.
+
+> i
+You are wearing a travel cloak, a leather belt, a pair of boots, a large leather bag, a cotton work tunic, some britches and a scythe, and are carrying some food.  Attached to your belt is a sheath for your dagger.
+
+> x ball
+You can't see the ball of thin string.
+
+> d
+There is no route down, only south, west, southeast and southwest.
+
+> ne
+There is no route to the northeast, only south, west, southeast and southwest.
+
+> climb oak tree
+You can't see any trees!
+
+> 1
+Sorry, I didn't understand that command.
+
+> 2
+Sorry, I didn't understand that command.
+
+> 3
+Sorry, I didn't understand that command.
+
+> 4
+Sorry, I didn't understand that command.
+
+> climb tree
+You can't see any tree!
+
+> x nests
+You can't see the bird's nests.
+
+> look in nest
+You can't see any nest!
+
+> wear ring
+You can't see any ring!
+
+> d
+There is no route down, only south, west, southeast and southwest.
+
+> search tree
+You can't see any tree!
+
+> knock twice
+Sorry, I didn't understand that command.
+
+> knock thrice
+Sorry, I didn't understand that command.
+
+> knock twice
+Sorry, I didn't understand that command.
+
+> in
+There is no route in, only south, west, southeast and southwest.
+
+> get lamp
+You can't see any lamps!
+
+> turn lamp on
+You can't see any lamps!
+
+> d
+There is no route down, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> nw
+There is no route to the northwest, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> turn lamp off
+You can't see any lamps!
+
+> put lamp in bag
+You can't see any lamps!
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> 1
+Sorry, I didn't understand that command.
+
+> 2
+Sorry, I didn't understand that command.
+
+> 3
+Sorry, I didn't understand that command.
+
+> s
+You move South.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> in
+There is no route in, only north, east, south, west, southeast and southwest.
+
+> get hammer
+You can't see any hammers!
+
+> x table
+You can't see any table!
+
+> x shelf
+You can't see the shelf.
+
+> get nails
+Sorry, I'm not sure which object you are trying to take.
+
+> x jetty
+You can't see any jetties!
+
+> board boat
+Sorry, I didn't understand that command.
+
+> x jetty
+You can't see any jetties!
+
+> n
+You move North.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> put all in bag
+You are not carrying anything.
+
+> x dinghy
+You can't see any dinghies!
+
+> pull dinghy
+You can't see any dinghies!
+
+> listen
+You hear nothing out of the ordinary.
+
+> look over ridge
+You can't see any ridges!
+
+> overturn dinghy
+You can't see any dinghies!
+
+> hide under dinghy
+You can't see any dinghies!
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> u
+There is no route up, only south, west, southeast and southwest.
+
+> x structure
+You can't see the huge building.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> u
+There is no route up, only south, west, southeast and southwest.
+
+> knock on door
+You can't see any doors!
+
+> get string
+Sorry, I'm not sure which object you are trying to take.
+
+> tie string to column
+Sorry, I'm not sure which object you are trying to tie.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> feel floor
+You feel the ground but detect nothing unusual about it.
+
+> follow string
+Sorry, I didn't understand that command.
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> z
+A few minutes of time elapses...
+
+> hide behind statue
+You can't see any statues!
+
+> z
+A few minutes of time elapses...
+
+> open door
+You can't see any doors!
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> get alb
+You can't see any albs!
+
+> remove cloak
+Ok, you take off your travel cloak.
+
+> wear alb
+You can't see any albs!
+
+> get headdress
+You can't see any headdresses!
+
+> wear it
+(the travel cloak)
+Ok, you put on the travel cloak.
+
+> drop scythe
+Ok, taking the scythe off your shoulder, you put it down.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> get flask
+(from the large leather bag)
+Ok, you take the water flask out of the bag.
+
+> pour water in brazier
+You can't see any braziers!
+
+> u
+There is no route up, only north, east, south and west.
+
+> fill flask from spout
+Filling the water flask from the fountain spout will not help you in this game.
+
+> sw
+There is no route to the southwest, only north, east, south and west.
+
+> se
+There is no route to the southeast, only north, east, south and west.
+
+> get incense
+Sorry, I'm not sure which object you are trying to take.
+
+> ne
+There is no route to the northeast, only north, east, south and west.
+
+> nw
+There is no route to the northwest, only north, east, south and west.
+
+> d
+There is no route down, only north, east, south and west.
+
+> pour water on fire
+You can't see any fires!
+
+> search brazier
+You can't see any braziers!
+
+> x skull
+You can't see the stenric crawler skull.
+
+> e
+You move East.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.  Also here is a scythe.
+
+> get scythe
+Ok, you pick up the scythe.
+
+> wear scythe
+Ok, you wear the sling tied to your scythe over your shoulder.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> s
+You move South.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> search cast-offs
+Sorry, I'm not sure which object you are trying to search.
+
+> put plank in bag
+You can't see any planks!
+
+> n
+You move North.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> remove alb
+You can't see any albs!
+
+> drop it
+(the large leather bag)
+You are not carrying the large leather bag.
+
+> remove headdress
+You can't see any headdresses!
+
+> drop it
+(the large leather bag)
+You are not carrying the large leather bag.
+
+> wear cloak
+You are already wearing the travel cloak.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> read signpost
+You can't see the sign post.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> 1
+Sorry, I didn't understand that command.
+
+> 2
+Sorry, I didn't understand that command.
+
+> 3
+Sorry, I didn't understand that command.
+
+> 4
+Sorry, I didn't understand that command.
+
+> get food
+You are already carrying the food.
+
+> give food
+I don't understand what you want to do with the food.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> get blanket
+(from the large leather bag)
+Ok, you take the woollen blanket out of the bag.
+
+> give blanket
+The person you're offering the woollen blanket to is not interested in it.
+
+> read recipe
+You can't see the recipe.
+
+> out
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> 1
+Sorry, I didn't understand that command.
+
+> 2
+Sorry, I didn't understand that command.
+
+> 3
+Sorry, I didn't understand that command.
+
+> 4
+Sorry, I didn't understand that command.
+
+> 5
+Sorry, I didn't understand that command.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> 2
+Sorry, I didn't understand that command.
+
+> 3
+Sorry, I didn't understand that command.
+
+> 4
+Sorry, I didn't understand that command.
+
+> x customers
+You can't see Customers!
+
+> listen
+You hear the deafening sound of the mill machinery operating on the floor above.
+
+> g
+I did not understand the word "g".
+
+> g
+I did not understand the word "g".
+
+> drink drink
+Sorry, I'm not sure which object you are trying to drink.
+
+> stand up
+Sorry, I didn't understand that command.
+
+> give tankard to tom
+Sorry, I'm not sure which character you're referring to.
+
+> out
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> e
+You move East.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> n
+You move North.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> n
+There is no route to the north, only south, west, southwest and northwest.
+
+> n
+There is no route to the north, only south, west, southwest and northwest.
+
+> s
+You move South.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> s
+You move South.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> w
+There is no route to the west, only north, east, south, northeast, southeast and northwest.
+
+> look around
+You look around but see nothing of any interest in any direction.
+
+> s
+You move South.
+
+By Roundhouse
+You are on the path through the village by the roundhouse, the building in which the whole village can meet to discuss important matters. Double doors lead In to the roundhouse, next to which, hanging from a bracket, is the alarm bell. River Lane is to the North and NE, the village longhouse to the East, and the village well to the South. To the SE is the village church. There are villagers here going about their business.
+
+> s
+You move South.
+
+By Village Well
+You are standing by the village well. It has a simple windlass with a handle and a rope going down into the well. Some of your fellow villagers are here, going about their usual business. The church is to the East, the roundhouse North and the village longhouse to the NE. In the distance you see some hills which form the southern horizon.
+
+> knock on door
+You can't see any doors!
+
+> 1
+Sorry, I didn't understand that command.
+
+> 2
+Sorry, I didn't understand that command.
+
+> 3
+Sorry, I didn't understand that command.
+
+> open gate
+Open what?
+
+> out
+There is no route out, only north, east and northeast.
+
+> n
+You move North.
+
+By Roundhouse
+You are on the path through the village by the roundhouse, the building in which the whole village can meet to discuss important matters. Double doors lead In to the roundhouse, next to which, hanging from a bracket, is the alarm bell. River Lane is to the North and NE, the village longhouse to the East, and the village well to the South. To the SE is the village church. There are villagers here going about their business.
+
+> n
+You move North.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> n
+You move North.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> put all in bag
+Ok, you put the woollen blanket and the water flask in the bag.  If you put the food in the bag unwrapped it will make a mess over anything else in the bag.
+
+> mount muffin
+Sorry, I didn't understand that command.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> dm
+Sorry, I didn't understand that command.
+
+> tie muffin to tree
+Sorry, I'm not sure which object you are trying to tie.
+
+> climb up tree
+You can't see any tree!
+
+> look around
+You look around but see nothing of any interest in any direction.
+
+> d
+There is no route down, only east, in, northeast and southeast.
+
+> get scythe
+Ok, you take the scythe off your shoulder and unfold the blade.
+
+> unfold blade
+The blade is already unfolded.
+
+> scythe bushes
+You can't see any bushes!
+
+> wear scythe
+Ok, folding the blade of the scythe first, you wear the sling tied to your scythe over your shoulder.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> get lamp
+You can't see any lamps!
+
+> light lamp
+You can't see any lamps!
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> x table
+You can't see any table!
+
+> get machete
+You can't see any machetes!
+
+> get whetstone
+(from the large leather bag)
+Ok, you take the whetstone out of the bag.
+
+> sharpen machete
+You can't see any machetes!
+
+> put whetstone in bag
+Ok, you put the whetstone in the bag.
+
+> sleep
+You aren't feeling tired at the moment.
+
+> lift mattress
+Sorry, I'm not sure which object you are trying to raise.
+
+> wear scabbard
+You can't see any scabbards!
+
+> sheath machete
+You can't see any machetes!
+
+> get lamp
+You can't see any lamps!
+
+> put lamp in bag
+You can't see any lamps!
+
+> out
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> d
+There is no route down, only east, in, northeast and southeast.
+
+> sw
+There is no route to the southwest, only east, in, northeast and southeast.
+
+> climb d liana
+You can't see any lianas!
+
+> x plants
+You can't see the small plants.
+
+> pick leaf
+You can't see any leaves!
+
+> put leaf in bag
+You can't see any leaves!
+
+> in
+You move In.
+
+In Flour Store
+You're in the flour store on the ground floor of the watermill. Here, wooden chutes angle down from the floor above. Sacks hang under these chutes, to be filled as the ground flour slides down the chutes from the millstones. You can go Up some wooden stairs or Out through the door.  The noise of the mill mechanism above you is deafening.  There is a pile of empty flour sacks here.  Dusty Miller is here, tying up sacks of flour for transport to the bakery.
+
+> get lamp
+You can't see any lamps!
+
+> light lamp
+You can't see any lamps!
+
+> get bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> scrape algae into bottle
+You can't see any algae!
+
+> lamp off
+You can't see any lamps!
+
+> put all in bag
+You are not carrying anything.
+
+> out
+You move Out.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> u
+There is no route up, only east, in, northeast and southeast.
+
+> draw machete
+You can't see any machetes!
+
+> cut liana with machete
+You can't see any lianas!
+
+> sheath machete
+You can't see any machetes!
+
+> ne
+You move NorthEast.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> ne
+There is no route to the northeast, only south, west, southwest and northwest.
+
+> u
+There is no route up, only south, west, southwest and northwest.
+
+> nw
+You move NorthWest.
+
+End Of River Lane
+You are at the northern end of River Lane, which ends at the bank of the river Worfle. In the river are three large stepping stones which you can cross to get to the far side. You can go West across the stones or SE back along River Lane.
+
+> tie liana to cable
+You can't see any lianas!
+
+> climb d liana
+You can't see any lianas!
+
+> pull lever
+You can't see any levers!
+
+> climb u liana
+You can't see any lianas!
+
+> untie liana
+You can't see any lianas!
+
+> put liana in bag
+You can't see any lianas!
+
+> jump over gap
+You can't see the wide gap.
+
+> nw
+There is no route to the northwest, only west and southeast.
+
+> d
+There is no route down, only west and southeast.
+
+> in
+There is no route in, only west and southeast.
+
+> x webs
+You can't see the spider webs.
+
+> x boy
+You can't see the young boy.
+
+> get sack
+Sorry, I'm not sure which object you are trying to take.
+
+> throw ashes at spiders
+You can't see the ashes!
+
+> draw machete
+You can't see any machetes!
+
+> free boy
+Sorry, I didn't understand that command.
+
+> nw
+There is no route to the northwest, only west and southeast.
+
+> nw
+There is no route to the northwest, only west and southeast.
+
+> n
+There is no route to the north, only west and southeast.
+
+> n
+There is no route to the north, only west and southeast.
+
+> n
+There is no route to the north, only west and southeast.
+
+> drop all
+Ok, you put down the food.
+
+> remove all
+Ok, you take off everything you are wearing and put it on the ground beside you.
+
+End Of River Lane
+You are at the northern end of River Lane, which ends at the bank of the river Worfle. In the river are three large stepping stones which you can cross to get to the far side. You can go West across the stones or SE back along River Lane.  Also here is a travel cloak, a leather belt, a pair of boots, a large leather bag, a cotton work tunic, some britches, a scythe and some food.
+
+> dive in pool
+Sorry, I didn't understand that command.
+
+> d
+There is no route down, only west and southeast.
+
+> w
+You move West.
+
+On Stepping Stone
+You are standing on a stepping stone in the middle of the river Worfle. The river flows swiftly from the north past the watermill to the south. You can go East or West to either bank of the river.
+
+> wear clothes
+Not all of your clothes are here.
+
+> get all
+There is nothing worth taking here.
+
+> wear cloak, bag and scythe
+You can't see the travel cloak, the large leather bag and the scythe!
+
+> s
+There is no route to the south, only east and west.
+
+> s
+There is no route to the south, only east and west.
+
+> s
+There is no route to the south, only east and west.
+
+> se
+There is no route to the southeast, only east and west.
+
+> se
+There is no route to the southeast, only east and west.
+
+> n
+There is no route to the north, only east and west.
+
+> n
+There is no route to the north, only east and west.
+
+> n
+There is no route to the north, only east and west.
+
+> ne
+There is no route to the northeast, only east and west.
+
+> e
+You move East.
+
+End Of River Lane
+You are at the northern end of River Lane, which ends at the bank of the river Worfle. In the river are three large stepping stones which you can cross to get to the far side. You can go West across the stones or SE back along River Lane.  Also here is a travel cloak, a leather belt, a pair of boots, a large leather bag, a cotton work tunic, some britches, a scythe and some food.
+
+> e
+There is no route to the east, only west and southeast.
+
+> in
+There is no route in, only west and southeast.
+
+> talk to soldier
+You can't see any soldier!
+
+> draw machete
+You can't see any machetes!
+
+> put machete on table
+You can't see any machetes!
+
+> draw dagger
+You draw your dagger from its sheath.
+
+> put dagger on table
+You can't see any table!
+
+> remove scythe
+You are not wearing the scythe.
+
+> put scythe on table
+You can't see any table!
+
+> look on table
+You can't see any table!
+
+> out
+There is no route out, only west and southeast.
+
+> e
+There is no route to the east, only west and southeast.
+
+> s
+There is no route to the south, only west and southeast.
+
+> search stall
+You can't see any stalls!
+
+> put chisel in bag
+Sorry, I'm not sure which object you're referring to.
+
+> n
+There is no route to the north, only west and southeast.
+
+> n
+There is no route to the north, only west and southeast.
+
+> x stall
+You can't see any stalls!
+
+> x pottery
+You can't see the pottery.
+
+> buy bowl
+You can't see any bowls!
+
+> get leaf
+You can't see any leaves!
+
+> put leaf in bowl
+You can't see any leaves!
+
+> put ashes in bowl
+You are not carrying the sack.
+
+> get bottle
+Sorry, I'm not sure which object you are trying to take.
+
+> put algae in bowl
+You can't see any algae!
+
+> drop bottle
+You are not carrying the small glass bottle.
+
+> se
+You move SouthEast.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> turn handle
+You can't see the windlass handle!
+
+> turn handle
+You can't see the windlass handle!
+
+> get flask
+You can't see the water flask.
+
+> fill flask with water
+You can't see any waters!
+
+> pour water in bowl
+You can't see any waters!
+
+> get gillidough from bowl
+You can't see any bowls!
+
+> drop bowl and mortar
+You can't see any bowls!
+
+> s
+You move South.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> sw
+There is no route to the southwest, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> nw
+There is no route to the northwest, only east, in, northeast and southeast.
+
+> nw
+There is no route to the northwest, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> n
+There is no route to the north, only east, in, northeast and southeast.
+
+> eat gillidough
+Sorry, I'm not sure which object you are trying to eat.
+
+> remove bag
+You are not wearing the large leather bag.
+
+> remove cloak
+You are not wearing the travel cloak.
+
+> drop all
+Ok, you put down the sharp dagger.
+
+> remove clothes
+You cannot do that here.
+
+> dive in pond
+Sorry, I didn't understand that command.
+
+> d
+There is no route down, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> w
+There is no route to the west, only east, in, northeast and southeast.
+
+> u
+There is no route up, only east, in, northeast and southeast.
+
+> get all
+Ok, you pick up the sharp dagger.
+
+> i
+You are wearing nothing, and are carrying a sharp dagger.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> s
+There is no route to the south, only east, in, northeast and southeast.
+
+> se
+You move SouthEast.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> se
+You move SouthEast.
+
+By Longhouse
+You are on a path by the double doors that lead In to the village longhouse. River Lane runs from East to West in front of the building, beyond which lies your field and your yort is to the East. The village well is to the SW. Some of your fellow villagers are here, going about their usual daily business.
+
+> n
+You move North.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> n
+You move North.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> ne
+There is no route to the northeast, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> n
+There is no route to the north, only south, west, southeast and southwest.
+
+> e
+There is no route to the east, only south, west, southeast and southwest.
+
+> in
+There is no route in, only south, west, southeast and southwest.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> look n
+You look to the North but see nothing of any interest.
+
+> n
+You move North.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> get uniform
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+You move South.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> e
+You move East.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> out
+There is no route out, only south, west, southeast and southwest.
+
+> out
+There is no route out, only south, west, southeast and southwest.
+
+> s
+You move South.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> in
+There is no route in, only north, east, south, west, southeast and southwest.
+
+> o
+There is no route out, only north, east, south, west, southeast and southwest.
+
+> n
+You move North.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> in
+There is no route in, only south, west, southeast and southwest.
+
+> in
+There is no route in, only south, west, southeast and southwest.
+
+> w
+You move West.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> n
+You move North.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> drug wine
+Sorry, I didn't understand that command.
+
+> s
+You move South.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> wait
+A few minutes of time elapses...
+
+> n
+You move North.
+
+River Lane
+You are on River Lane, just north of the watermill. The lane goes NW and South, and a path leads West along the side of the mill to the river bank. On the other side of the lane are fields belonging to your fellow peons.
+
+> get uniform
+Sorry, I'm not sure which object you are trying to take.
+
+> get halberd
+Sorry, I'm not sure which object you are trying to take.
+
+> s
+You move South.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> w
+You move West.
+
+By Village Watermill
+You are standing by the village watermill, a solidly-built building that stands by the river that flows from north to south through Starhollow. A door leads In to the mill here, and River Lane lies to the East, SE and NE.  You can hear the sound of the waterwheel revolving on the far side of the building.
+
+> drop all
+Ok, you put down the sharp dagger.
+
+> remove all
+You are not wearing anything.
+
+> wear uniform
+Sorry, I'm not sure which object you're referring to.
+
+> get amulet
+Sorry, I'm not sure which object you are trying to take.
+
+> wear amulet
+Sorry, I'm not sure which object you're referring to.
+
+> get halberd
+Sorry, I'm not sure which object you are trying to take.
+
+> get bag
+You can't see the large leather bag.
+
+> wear bag
+You can't see the large leather bag!
+
+> get sheet
+You can't see the burlap sheet.
+
+> put sheet in bag
+You cannot see the large leather bag.
+
+> e
+You move East.
+
+River Lane
+You are on River Lane, which goes North past other fields and South to a bend. Your own field is due East. To the West is the village watermill. Some fellow peons are here having delivered their wheat to the mill.
+
+> e
+You move East.
+
+Your Field
+You are standing in your field in the village of Starhollow, around it are fields belonging to other peons. Beyond the fields in the distance are some orchards and pastures for livestock. To the South, West, SW and SE is River Lane, beyond which are the village watermill, longhouse, roundhouse and your yort.
+
+> o
+There is no route out, only south, west, southeast and southwest.
+
+> o
+There is no route out, only south, west, southeast and southwest.
+
+> sw
+You move SouthWest.
+
+Bend in River Lane
+You are on river lane where it bends East and North. Your field is to the NE, the village watermill NW and the village longhouse SE. A few villagers are here, talking amongst themselves.
+
+> w
+There is no route to the west, only north, east, south, northeast, southeast and northwest.
+
+> s
+You move South.
+
+By Roundhouse
+You are on the path through the village by the roundhouse, the building in which the whole village can meet to discuss important matters. Double doors lead In to the roundhouse, next to which, hanging from a bracket, is the alarm bell. River Lane is to the North and NE, the village longhouse to the East, and the village well to the South. To the SE is the village church. There are villagers here going about their business.
+
+> e
+You move East.
+
+By Longhouse
+You are on a path by the double doors that lead In to the village longhouse. River Lane runs from East to West in front of the building, beyond which lies your field and your yort is to the East. The village well is to the SW. Some of your fellow villagers are here, going about their usual daily business.
+
+> e
+You move East.
+
+By Your Yort
+You are by the door that leads In to your yort, one of many such in the village. Further West is the village longhouse and your field is beyond River Lane, which is to the North and NW. Some of your fellow villagers are here, going about their daily business.
+
+> nw
+You move NorthWest.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> s
+You move South.
+
+By Longhouse
+You are on a path by the double doors that lead In to the village longhouse. River Lane runs from East to West in front of the building, beyond which lies your field and your yort is to the East. The village well is to the SW. Some of your fellow villagers are here, going about their usual daily business.
+
+> get lamp
+You can't see any lamps!
+
+> light lamp
+You can't see any lamps!
+
+> d
+There is no route down, only north, east, south, west, in, northeast, southwest and northwest.
+
+> d
+There is no route down, only north, east, south, west, in, northeast, southwest and northwest.
+
+> s
+You move South.
+
+By Village Church
+You are standing by the village church, a simple building topped by a short spire on which stands the sun emblem of your God Solstus. You can go In to the church, North to the longhouse, NW to the roundhouse, NE to your yort or West to the village well. There are gold-tinted windows in the sides of the church. Some of your fellow villagers are here, going about their business. In the distance you see some hills which form the southern horizon.
+
+> x south door
+You can't see the south ebony door.
+
+> x plate
+You can't see any plates!
+
+> x etching
+You can't see the small etching.
+
+> get skull
+Sorry, I'm not sure which object you are trying to take.
+
+> press teeth in holes
+You can't see any teeths!
+
+> in
+You move In.
+
+In Church
+You are in the village church, standing between rows of pews for all the villagers. To the East is the main altar and you can go Out to the path. The whole church is bathed in a golden light from the sun which shines through the gold-tinted windows in the church walls.
+
+> n
+There is no route to the north, only east and out.
+
+> u
+There is no route up, only east and out.
+
+> u
+There is no route up, only east and out.
+
+> extinguish lamp
+You can't see any lamps!
+
+> put lamp in bag
+You can't see any lamps!
+
+> n
+There is no route to the north, only east and out.
+
+> se
+There is no route to the southeast, only east and out.
+
+> qwerty
+
+In Church
+You are in the village church, standing between rows of pews for all the villagers. To the East is the main altar and you can go Out to the path. The whole church is bathed in a golden light from the sun which shines through the gold-tinted windows in the church walls.
+
+> search body
+Sorry, I'm not sure which object you are trying to search.
+
+> put bag in bag
+You cannot see the large leather bag.
+
+> drop all
+You have nothing to drop.
+
+> lower bucket
+You can't see any buckets!
+
+> climb d well
+You can't see any wells!
+
+> get lamp
+You can't see any lamps!
+
+> light lamp
+You can't see any lamps!
+
+> feel wall
+You feel the church walls but detect nothing unusual about it.
+
+> x brick
+You can't see any bricks!
+
+> get chisel
+Sorry, I'm not sure which object you are trying to take.
+
+> scrape mortar
+You can't see the mortar!
+
+> get brick
+You can't see any bricks!
+
+> search cavity
+Sorry, I'm not sure which object you are trying to search.
+
+> wear sigil
+Sorry, I'm not sure which object you're referring to.
+
+> extinguish lamp
+You can't see any lamps!
+
+> put lamp in bag
+You can't see any lamps!
+
+> drop chisel
+You are not carrying the metal chisel.
+
+> climb up chain
+You can't see any chains!
+
+> nw
+There is no route to the northwest, only east and out.
+
+> s
+There is no route to the south, only east and out.
+
+> get lamp
+You can't see any lamps!
+
+> light lamp
+You can't see any lamps!
+
+> d
+There is no route down, only east and out.
+
+> d
+There is no route down, only east and out.
+
+> s
+There is no route to the south, only east and out.
+
+> remove sigil
+You are not wearing the Sigil of Tarkyod.
+
+> press sigil on plate
+You can't see any plates!
+
+> in
+There is no route in, only east and out.
+
+> give sigil to zagdor
+Sorry, I'm not sure which character you're referring to.
+
+> out
+You move Out.
+
+By Village Church
+You are standing by the village church, a simple building topped by a short spire on which stands the sun emblem of your God Solstus. You can go In to the church, North to the longhouse, NW to the roundhouse, NE to your yort or West to the village well. There are gold-tinted windows in the sides of the church. Some of your fellow villagers are here, going about their business. In the distance you see some hills which form the southern horizon.
+
+> pull lever
+You can't see any levers!
+
+> n
+You move North.
+
+By Longhouse
+You are on a path by the double doors that lead In to the village longhouse. River Lane runs from East to West in front of the building, beyond which lies your field and your yort is to the East. The village well is to the SW. Some of your fellow villagers are here, going about their usual daily business.
+
+> u
+There is no route up, only north, east, south, west, in, northeast, southwest and northwest.
+
+> u
+There is no route up, only north, east, south, west, in, northeast, southwest and northwest.
+
+> extinguish lamp
+You can't see any lamps!
+
+> put lamp in bag
+You can't see any lamps!
+
+> n
+You move North.
+
+River Lane
+You are on river lane, which runs from East to West between the fields and the buildings of the village. You can go North into your field, South to the village longhouse or West to a bend in the lane. Villagers are coming and going, about their daily business.
+
+> se
+You move SouthEast.
+
+By Your Yort
+You are by the door that leads In to your yort, one of many such in the village. Further West is the village longhouse and your field is beyond River Lane, which is to the North and NW. Some of your fellow villagers are here, going about their daily business.
+
+> e
+There is no route to the east, only north, west, in, southwest and northwest.
+
+> u
+There is no route up, only north, west, in, southwest and northwest.
+
+> in
+You move In.
+
+Your Salaan
+You're in the salaan, or living area, of your yort. It is very spartan, with a firepit in the middle and just a crude table and chair as the only furniture. The door leads Out to the lane and your dormo is to the East.
+
+> in
+There is no route in, only east and out.
+
+> w
+There is no route to the west, only east and out.
+
+> get plank
+You can't see any planks!
+
+> get hammer
+You can't see any hammers!
+
+> get nails
+Sorry, I'm not sure which object you are trying to take.
+
+> repair hole
+You can't see the village well!
+
+> drop hammer
+You can't see any hammers!
+
+> e
+You move East.
+
+Your Dormo
+You are in your dormo, or sleeping area, where lies the straw pallet that you sleep on. There is a small pillow at the head of the pallet and it is covered by a burlap sheet. Your main room is to the West.
+
+> e
+There is no route to the east, only west.
+
+> remove scythe
+You are not wearing the scythe.
+
+> unfold blade
+Sorry, I didn't understand that command.
+
+> cut frame with scythe
+Sorry, I'm not sure which object you are trying to cut.
+
+> fold blade
+Sorry, I didn't understand that command.
+
+> wear scythe
+You can't see the scythe!
+
+> get mast and yardarm
+You can't see any masts!
+
+> w
+You move West.
+
+Your Salaan
+You're in the salaan, or living area, of your yort. It is very spartan, with a firepit in the middle and just a crude table and chair as the only furniture. The door leads Out to the lane and your dormo is to the East.
+
+> w
+There is no route to the west, only east and out.
+
+> turn dinghy over
+You can't see any dinghies!
+
+> fit mast to dinghy
+You can't see any masts!
+
+> get liana
+You can't see any lianas!
+
+> tie yardarm to mast
+You can't see any yardarms!
+
+> get sheet
+You can't see the burlap sheet.
+
+> tie sheet to yardarm
+You can't see any yardarms!
+
+> push dinghy
+You can't see any dinghies!

@@ -1,9 +1,43 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## 📌 OPEN — aggregate same-template per-item *fail* messages on the plural path (so author ALRs can match)  — AoS `put all in bag` coin hunk, high regression risk
+## ⭐ Aggregate same-restriction per-item *fail* messages on the plural path (so author ALRs can match) — AoS `put all in bag` coin hunk → full MATCH (1|1 → 0|0)  ✅ DONE (2026-07-03)
 
-**The one remaining AoS hunk (`put all in bag` → "You are not carrying the gold
-gonks. … the silver ginks.").** Root cause is fully pinned (see
+**AoS 1|1 → 0|0 (byte-exact vs FrankenDrift in BOTH RNG modes; golden
+`test/AoS_expected.txt` committed).** The `put all in bag` coin hunk is gone and
+no other corpus game moved off baseline in either mode; a5 unit tests
+(`run/arith/parse/dis/walk/obj/save` + Six Silver Bullets golden) pass and
+`make sanitize` + a direct ASan/UBSan AoS/AxeOfKolt/DDF/TBN run are clean.
+
+**What was implemented (matching FD's `htblResponsesFail` template keying).** The
+restriction-fail path now aggregates same-restriction siblings instead of emitting
+a separate singular message per item. `resp_add_fail` (a5run_action.cpp) keys fail
+entries by the failing restriction's `<Message>` **node pointer** (the stable twin
+of FD keying `htblResponsesFail` on `sRestrictionText = restx.oMessage.ToString`,
+the raw template — clsUserSession.vb:5182/1301-1307): a second item failing the
+SAME restriction node merges its `%objects%` key into the existing entry
+(`obj_keys` grows, `nmut++`) rather than adding a new one. At `resp_flush`, an entry
+with `obj_keys.size() > 1` re-renders its template ONCE over the merged set (rebind
+`%objects%` to the pipe, like the pass-side `AggregateOutput` merge), so
+`%TheObjects[%objects%]%` produces the aggregate list — AoS renders the single
+`"You are not carrying the gold gonks and the silver ginks."`, which the game's
+`cl_YouAreNotC1` `TextOverride` (that exact OldText, empty NewText) blanks via the
+existing per-fragment `replace_alrs`, leaving no output and no stray pSpace. The
+pass-cancels-fail check was generalised to drop a merged fail only when **every**
+merged item also passed (FD's vb:812-834 all-refs-match loop).
+
+**Why it's corpus-safe (the shared-path risk did not materialise).** A single-item
+fail (`obj_keys.size() == 1`, the overwhelming common case) keeps its
+eagerly-rendered singular text and the old text-dedup, so every non-aggregating
+fail is byte-identical to the previous `resp_add_text` path. Node-pointer keying is
+strictly *tighter* than FD's string keying (it never over-merges two distinct
+restrictions that happen to share template text). The only behavioural change is
+when ≥2 items fail the *same* restriction node in one plural command — and any such
+case that FD merges but Scarier used to split would already have been a divergence,
+so the byte-exact corpus proved none existed outside AoS. Confirmed: full corpus
+(`test/run_a5_walkthroughs.sh`) unchanged in both modes, AoS 1|1→0|0.
+
+**Historical root-cause notes (pre-fix), retained for context.** Root cause was
+fully pinned (see
 A5_WALKTHROUGH_FINDINGS.md AoS row + the DONE FailOverride entry below): it is an
 **author suppression ALR that only matches FrankenDrift's *merged aggregate* fail
 string**, which Scarier never produces.
