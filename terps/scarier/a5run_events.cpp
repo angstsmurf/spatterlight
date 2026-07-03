@@ -83,7 +83,10 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
          (se->key) is set and the player is in that location/group. */
       if (se->description != NULL && se->key != NULL && se->key[0] != '\0'
           && a5state_in_group_or_location (run->st, a5state_player_key (run->st), se->key))
-        { char *m = a5text_describe (run->st, se->description);
+        { /* Real output: retire <DisplayOnce> segments, like the walk path. */
+          int pm = run->st->marking_display; run->st->marking_display = 1;
+          char *m = a5text_describe (run->st, se->description);
+          run->st->marking_display = pm;
           if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
           free (m); }
       break;
@@ -823,7 +826,11 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
           if (sw->description != NULL && sw->only_apply_at != NULL
               && sw->only_apply_at[0] != '\0'
               && a5state_in_group_or_location (st, a5state_player_key (st), sw->only_apply_at))
-            { char *m = a5text_describe (st, sw->description);
+            { /* Real output: retire <DisplayOnce> segments (October 31st's
+                 werewolf howl fires once, not every loop of the 1-step walk). */
+              int pm = st->marking_display; st->marking_display = 1;
+              char *m = a5text_describe (st, sw->description);
+              st->marking_display = pm;
               if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
               free (m); }
           break;

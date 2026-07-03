@@ -585,6 +585,18 @@ FILTER="${1:-}"
 # (%character%.dk_BestemtKar).  See the Halloween entry in
 # TODO_a5_walkthrough_bugs.md.
 #
+# (2026-07-03) October31st UPGRADED from the 4-command smoke probe to a FULL
+# 100/100 WIN (153 turns, all four monsters: witch->oven, skeleton->gap,
+# werewolf->poisoned meatball, mummy->holy-water vial, then Dracula staked),
+# converted from the author's PDF walkthrough (user-supplied).  xoshiro = 0
+# = full every-line conformance; the vanilla column (106) is inherent
+# System.Random-vs-xoshiro divergence in the werewolf/mummy RANDOM WALKS
+# (FD-vanilla's werewolf crosses the player elsewhere and that run dies), so
+# NO golden -- same class as JacarandaJim/SixSilverBullets.  Surfaced 2
+# general engine fixes (walk/event sub-display <DisplayOnce> retire; command-
+# topic keywords must go through CorrectCommand) -- see the October 31st
+# entry in TODO_a5_walkthrough_bugs.md.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -618,7 +630,7 @@ FinnsBigAdventure|FBA v.3c.blorb|0|0
 Halloween|Halloween.blorb|0|0
 MagorInvestigates|MI_v.1.blorb|0|0
 MuseumHeist|MuseumHeist.blorb|0|0
-October31st|October31st.blorb|0|0
+October31st|October31st.blorb|106|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0

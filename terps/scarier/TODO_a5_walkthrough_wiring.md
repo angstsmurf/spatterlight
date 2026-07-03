@@ -73,9 +73,17 @@ the real conformance metric, are clean). Changes since 2026-07-02:
   value_node rendering on characters/locations) — see the ⭐ Halloween entry
   in `TODO_a5_walkthrough_bugs.md`.
 
-**Remaining backlog = upgrading the other 4 smoke probes to real wins**, all
-blocked on walkthrough material (per-game notes below):
-October31st (Finn Rosenløv — no material anywhere), TheFortressOfFear
+- **October31st UPGRADED to a FULL 100/100 WIN (2026-07-03)** — converted
+  from the author's PDF walkthrough (user-supplied).  **xoshiro 0 = full
+  every-line conformance MATCH**; vanilla 106 = inherent System.Random
+  walk divergence (werewolf/mummy random walks; FD-vanilla even dies), so
+  it is a DIVERGE row with no golden, JacarandaJim-class.  Surfaced **2
+  general engine fixes** (walk/event sub-display `<DisplayOnce>` retire;
+  command-topic keywords CorrectCommand) — see the ⭐ October 31st entry in
+  `TODO_a5_walkthrough_bugs.md`.
+
+**Remaining backlog = upgrading the other 3 smoke probes to real wins**, all
+blocked on walkthrough material (per-game notes below): TheFortressOfFear
 (Horsfield but no built-in WLKTHRGH), MagorInvestigates + Xanix (email-only
 walkthroughs → blind play-to-win; Xanix likely xoshiro-only, randomised
 endgame). Plus the two deprioritised non-walkthrough `.taf`s below

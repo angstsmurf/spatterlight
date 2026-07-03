@@ -172,6 +172,13 @@ a5_load_topics (a5_character_t *ch)
       t->is_command   = a5xml_bool (a5xml_child_text (c, "IsCommand"));
       t->is_farewell  = a5xml_bool (a5xml_child_text (c, "IsFarewell"));
       t->stay_in_node = a5xml_bool (a5xml_child_text (c, "StayInNode"));
+      /* clsUserSession game-start init (vb:259): command-topic keywords go
+         through CorrectCommand exactly like task commands, so an optional
+         leading group absorbs its adjacent space (`{say} [hello]` ->
+         `{say }[hello]`) and the bare form matches (October 31st's gardener
+         explicit intro `say hello to ghost` -> subject "hello"). */
+      if (t->is_command)
+        t->keywords = a5_correct_command (t->keywords);
       (void) s;
       t->conversation = a5xml_child (c, "Description");
       t->restrictions = a5xml_child (c, "Restrictions");
@@ -1006,6 +1013,9 @@ a5model_free (a5_adventure_t *a)
       int w;
       free ((void *) a->characters[i].descriptors);
       free (a->characters[i].props);
+      for (w = 0; w < a->characters[i].n_topics; w++)
+        if (a->characters[i].topics[w].is_command)
+          free ((void *) a->characters[i].topics[w].keywords);  /* owned (a5_correct_command) */
       free (a->characters[i].topics);
       for (w = 0; w < a->characters[i].n_walks; w++)
         {

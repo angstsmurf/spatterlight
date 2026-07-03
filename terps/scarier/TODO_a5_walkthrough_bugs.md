@@ -1,5 +1,49 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ October 31st: FULL 100/100 WIN wired, xoshiro FULL MATCH 106|0 (2 general engine fixes) — ✅ DONE (2026-07-03)
+
+> **✅ DONE.** October 31st (Finn Rosenløv, 2022) upgraded from the 4-command
+> smoke probe to a FULL 100/100 win (153 turns), converted from the author's
+> own PDF walkthrough (user-supplied, `Oct_31st_Walk-through.pdf`).  All four
+> monsters + Dracula: pickaxe/grave/stake dig-up, ghost gardener conversation
+> (garlic + wolfsbane petals), attic-stairs fall onto the werewolf cage,
+> poisonous meatball, newspaper-under-door key trick, witch trapped-in-cage
+> sequence (gnarled twig fools her, lock-pick escape, `push witch into oven`
+> +20), 16-turn ghost-library timer, hieroglyph hand-imprint → holy-water
+> vial, mummy summoned by the scribble and dissolved with the vial (+20),
+> butler's ring from the mouse (cleaned cheese), skeleton assembled then
+> dropped through the stair gap (+20), ring-crest crypt door, `kill dracula`
+> (garlic in hand — the no-garlic variant is a death).  **The
+> werewolf/mummy encounters are RANDOM WALKS** (1-turn steps into a location
+> group, ComesAcross → 5/8-turn kill chases): under the xoshiro-aligned RNG
+> both engines walk identically and the script answers each encounter at its
+> deterministic spot (werewolf crosses us in the butler's chamber right after
+> `examine ring`; the mummy at `open chamber door`).  **xoshiro = 0 hunks, a
+> full every-line conformance MATCH; vanilla = 106 is the inherent
+> System.Random-vs-xoshiro walk divergence** (FD-vanilla's werewolf meets the
+> player in the cellar and that run dies) — carried as the vanilla budget, no
+> golden, same class as JacarandaJim/SixSilverBullets.  Two general engine
+> fixes (both corpus-clean, suite otherwise 0|0):
+>
+> 1. **Walk and event sub-display messages must retire `<DisplayOnce>`
+>    segments** (a5run_events.cpp `wk_do_subwalks` A5_SW_DISPLAY +
+>    `A5_SE_DISPLAY`, now rendered under `marking_display`).  FD's
+>    UserSession.Display marks Displayed=True on any real output; Scarier's
+>    walk path didn't, so the werewolf wandering walk's howl Activity
+>    (`1 FromStartOfWalk`, DisplayOnce, on a 1-step looping walk that
+>    restarts every 2 turns) printed EVERY loop — 80 howls vs FD's single
+>    one.
+> 2. **Command-topic keywords must go through CorrectCommand at load**
+>    (a5model.cpp topic parse, mirroring clsUserSession.vb:259 `If t.bCommand
+>    Then t.Keywords = CorrectCommand(t.Keywords)`).  Scarier corrected only
+>    task commands, so the gardener's explicit-intro pattern
+>    `{say} [hello/hi/hi there]` never matched the bare subject "hello"
+>    (`say hello to ghost` → Say 'hello' To char): the optional group's
+>    adjacent space needs the `{say} [x]` → `{say }[x]` restructuring.  The
+>    failed greet left `cl_TalkingToG` unset, cascading into every ask topic
+>    ("You know he hears you… Were you impolite?") — the whole gardener
+>    conversation (and the garlic/wolfsbane exposition) was unreachable.
+
 ## ⭐ Halloween: blind-derived FULL WIN wired MATCH 0|0 (2 general engine fixes) — ✅ DONE (2026-07-03)
 
 > **✅ DONE.** Halloween (Finn Rosenløv, 2020 — entirely in DANISH, on saabie's
