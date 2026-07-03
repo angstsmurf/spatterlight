@@ -440,19 +440,14 @@ pass_location (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "BeLocation"))
     return streq (loc, r->key2);
   if (streq (r->op, "BeInGroup"))
-    {
-      int i;
-      for (i = 0; i < st->adv->n_groups; i++)
-        if (streq (st->adv->groups[i].key, r->key2))
-          {
-            int m;
-            for (m = 0; m < st->adv->groups[i].n_members; m++)
-              if (streq (st->adv->groups[i].members[m], loc))
-                return 1;
-            return 0;
-          }
-      return 0;
-    }
+    /* Effective membership = runtime override (AddLocationToGroup /
+       RemoveLocationFromGroup, e.g. Tingalan's Search tasks stamping the current
+       location into SearchedLo, or Jacaranda's dusk/dawn DarkLocations toggles)
+       layered over the static <Member> list -- exactly what a5state_object_in_group
+       computes and what the object BeInGroup handler already uses.  The old
+       static-only scan here missed every runtime AddLocationToGroup, so e.g.
+       `Location MustNot BeInGroup SearchedLo` never blocked a re-search. */
+    return loc != NULL && a5state_object_in_group (st, r->key2, loc);
   if (streq (r->op, "HaveProperty"))
     {
       const a5_location_t *l;
