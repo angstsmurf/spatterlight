@@ -1,5 +1,42 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Museum Heist: PERFECT-SCORE walkthrough wired MATCH 0|0 (3 general engine fixes) — ✅ DONE (2026-07-03)
+
+> **✅ DONE.** Museum Heist (Kenneth Pedersen, AdventureJam 2020) upgraded from a
+> 4-command smoke probe to a real blind-derived **perfect-score run**: 36 commands,
+> TOTAL SALES **940 million Euro** — the game's own top Feedback tier
+> ("Unbelievable! … truly perfect!"), which requires every treasure except the
+> papyrus scroll (the tube carrier holds only Mon Alicia + one flat item, and the
+> Monéy painting outvalues the scroll 70:5).  The route packs the backpack's 3
+> LIFO slots [Borgen(+Venus nested), porphyry(+Wolf nested), Pixi(+stele nested,
+> fragile → top)], smashes the glass case with the held Capital Wolf, carries the
+> Virgin in one hand (sitting on the stone allows ≤1 held), and ferries the 100 kg
+> Corvette Stone by wheelbarrow (janitor's-closet lock picked with the pocket
+> multi-tool) to the rope: tie → sit → push red button, on turn 36 of the
+> 40-turn (15 s/turn) police timer.  Verified 0|0 vs FD in BOTH RNG modes; golden
+> blessed.  Three general engine fixes fell out (all corpus-clean, suite 0|0):
+>
+> 1. **`BeInsideObject`/`BeOnObject` (object) must recurse the in/on chain**
+>    (a5restr.cpp `object_is_in_or_on`, mirroring `clsObject.IsInside/IsOn`,
+>    clsObject.vb:255/240).  Scarier compared the direct parent only, so the
+>    endgame loot tally skipped every treasure nested inside a packed container
+>    (Venus in the Borgen Vase in the backpack) — 751 vs FD's 820 on the probe
+>    run.  The specific-key case now walks the chain; the ANY/NO-object and
+>    k2=ANYOBJECT variants stay direct, exactly like FD.
+> 2. **OO-expression keys are Unicode** (a5expr.cpp `is_key_char`/`scan_chain`).
+>    FD's key regex uses .NET `\w` (Unicode-aware); Scarier's ASCII `isalnum`
+>    stopped at the é in `ClaudeMoné`, so `%objects%.Name` printed the literal
+>    `ClaudeMoné.Name`.  UTF-8 bytes ≥ 0x80 now count as key chars.
+> 3. **A bare `DirectionsEnum` name resolves as an OO first-key**
+>    (a5expr.cpp `resolve_first` + the `a5expr_replace` gate + `a5expr_eval`'s
+>    empty-ctx bail, mirroring Global.vb:1608's fallthrough).  The stock-library
+>    `push %object% %direction%` completion says `… to %direction%.Name.`; after
+>    `%direction%`→`South` substitution FD matches `South.Name` to the enum and
+>    renders the lowercase display name ("south"); Scarier left `South.Name`
+>    verbatim.  Now a non-entity first token equal to a canonical direction
+>    yields a one-element dirs context (rendering via the custom-name-aware
+>    `dir_display`, i.e. `LCase(DirectionName(d))`).
+
 ## ⭐ Tingalan: real WINNING walkthrough wired MATCH 0|0 (6 general engine fixes) — ✅ DONE / committed (2026-07-03); optional stretch goal = the deep-woods PEARL win
 
 > **✅ DONE (2026-07-03, SESSION 2 below).**  A genuine 16-command winning

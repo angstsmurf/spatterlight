@@ -7,6 +7,56 @@ script's `MAP`. `test/adrift5-games/walkthroughs/` already has raw
 walkthrough/hint material for several games whose game files are staged but
 that never got a command script or a MAP line. This is the backlog.
 
+**STATUS (2026-07-03): the wiring backlog is CLEARED — every staged game is
+wired.** The MAP now carries **36 games**: **32 golden-backed 0|0 MATCH in both
+RNG modes**, and the 4 DIVERGE rows (StoneOfWisdom 2|0, JacarandaJim 99|0,
+SixSilverBullets 18|0, LostLabyrinthOfLazaitch 8|0) are the explained
+vanilla-only System.Random-vs-xoshiro RAND text picks (their xoshiro columns,
+the real conformance metric, are clean). Changes since 2026-07-02:
+
+- **BugHuntOnMenelaus 0|23 → 0|0 full MATCH.** The "documented FD gap" is gone:
+  the corridor blocker was a **FrankenDrift crash** (cl_PlayerMove1's bracket
+  sequence indexes past its restriction list → PassSingleRestriction got
+  Nothing → NRE swallowed by GetGeneralTask; the known ADRIFT Runner v5.0.35
+  bug, fixed upstream in v5.0.36) — **fixed in FD** (null-guard, commit
+  25c4e3ea), so FD now wins 100/100 too. The residual `read sign` divergence
+  (2) fell to the per-character `HasSeenObject` + `msg_has_output`/bHasOutput
+  fixes (see `TODO_a5_walkthrough_bugs.md`).
+- **FinnsBigAdventure WIRED at MAX SCORE 500/500** (572 turns, deterministic,
+  golden, 0|0) — derivation log in `TODO_fba_walkthrough_progress.md`.
+- **DwarfOfDirewoodForestDDF (the older DDF build) WIRED as a real WIN
+  250/250, 0|0** (`light rope`, not `light fuse`, disarms the field capture);
+  Version 9 is confirmed UNWINNABLE (game-data bug) and stays wired as the
+  FD-trapped conformance MATCH (see `TODO_a5_walkthrough_bugs.md` 📄 DDF entry).
+- **AoS (Alyas of Starhollow) WIRED 0|0** — new corpus game (`AoS v.4.blorb`),
+  full MATCH after the put-all fail-aggregation / `FailOverride` fixes.
+- **TheBookOfJax WIRED as a full 500-point WIN, 0|0** (652 turns, `BoJ
+  v.2.blorb`) after the markup-aware pSpace fix. Golden
+  `test/BookOfJax_expected.txt` blessed 2026-07-03 (verified 0|0 live vs FD in
+  both modes immediately before blessing) — every MATCH game is now
+  golden-backed.
+- **Tingalan WIRED as a real 16-command WIN, 0|0** (lore book → Village search
+  → wagon → Smiling Spirit → decline the pearl → wait until dawn). The
+  accept-the-pearl deep-woods survival run remains an optional stretch goal
+  (see `TODO_a5_walkthrough_bugs.md` ⭐ Tingalan).
+- **Halloween, MagorInvestigates, MuseumHeist, October31st, TheFortressOfFear,
+  Xanix WIRED 0|0 as 4-command opening-turn smoke probes**
+  (look / examine me / inventory / wait) — conformance guards for the intro +
+  first-room render, NOT wins.
+- **MuseumHeist UPGRADED to a PERFECT-SCORE run 0|0 (2026-07-03)**: blind-derived
+  36-command route, TOTAL SALES 940M = the game's own top Feedback tier ("truly
+  perfect!").  Surfaced + fixed 3 general engine bugs (BeInsideObject/BeOnObject
+  in/on-chain recursion, Unicode keys in OO expressions, bare-DirectionsEnum
+  `.Name`) — see the ⭐ Museum Heist entry in `TODO_a5_walkthrough_bugs.md`.
+
+**Remaining backlog = upgrading the other 5 smoke probes to real wins**, all
+blocked on walkthrough material (per-game notes below): Halloween,
+October31st (Finn Rosenløv — no material anywhere), TheFortressOfFear
+(Horsfield but no built-in WLKTHRGH), MagorInvestigates + Xanix (email-only
+walkthroughs → blind play-to-win; Xanix likely xoshiro-only, randomised
+endgame). Plus the two deprioritised non-walkthrough `.taf`s below
+(LostCoastlines, Skybreak).
+
 ## Ready to wire (script + game file already staged — just needs a MAP line)
 
 - ~~**PathwayToDestruction**~~ ✅ **WIRED (2026-07-02).** Full MATCH in both RNG
@@ -30,18 +80,33 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 |---|---|---|
 | ThingsThatGoBumpInTheNight | WALKTHROUGH | ✅ **WIRED + FIXED 2026-07-02** (8\|8 → **0\|0 MATCH**, golden) — 3 cut-scene corrections |
 | **LostLabyrinthOfLazaitch** | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (403\|403 → **8\|0, xoshiro FULL MATCH**) — full 520-pt win, ZERO corrections (see below) |
-| BugHuntOnMenelaus | WALKTHROUGH | ✅ **WIRED + FULL WIN 2026-07-02** (`0\|23`) — Scarier wins 100/100 where FD can't; see below |
-| DwarfOfDirewoodForest | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (0\|0 conformance MATCH — but FD-trapped, NOT a win; see below) |
+| BugHuntOnMenelaus | WALKTHROUGH | ✅ **WIRED + FULL WIN 2026-07-02**, then **0\|23 → 0\|0 full MATCH 2026-07-03** — the gap was an FD crash, fixed in FD; see below |
+| DwarfOfDirewoodForest | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (0\|0 conformance MATCH — v9 confirmed UNWINNABLE, FD-trapped; see below). **The older DDF build WINS 250/250** — wired separately as `DwarfOfDirewoodForestDDF` (0\|0) on 2026-07-03 |
 | TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 → **0\|0 MATCH**, golden) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
-| FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02).** The HELP/VOCAB text advertises "WALKTHROUGH (WT)" but **no task backs that command** — `a5dump` has no `cl_Walkthroug*` printer task (only an unrelated `cl_Walkthroug5` location-trigger System event) and no `[wt]`/`[walkthrough]` Command anywhere; typing `wt` in-game just loops the intro handshake. The same intro says "a walkthrough is available on request (type HELP)" → **email-only**. Blind-play like Magor/Xanix (see hints-only group below). |
-| MagorInvestigates / XanixXixonResurgence | none | only the email-on-request note |
+| FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02)** — email-only. ✅ **Blind play paid off: WIRED 2026-07-03 at MAX SCORE 500/500 (0\|0, golden)**; see the hints-only group below + `TODO_fba_walkthrough_progress.md` |
+| MagorInvestigates / XanixXixonResurgence | none | only the email-on-request note. **Smoke probes wired 0\|0 (2026-07-03)**; wins still open |
 
 Caveat: the built-in text was authored against a slightly earlier build, so some
 moves get absorbed by this build's scripted cut-scenes and must be corrected
 against FrankenDrift (intro auto-walks and patrol/teleport cut-scenes are the
 usual culprits). LostLabyrinth is the exception — it replayed byte-clean.
 
-### ⭐ BugHuntOnMenelaus — WIRED as a FULL WIN; Scarier SURPASSES FrankenDrift
+### ⭐ BugHuntOnMenelaus — WIRED as a FULL WIN; now 0|0 MATCH (the "FD gap" was an FD crash, fixed in FD)
+
+> **UPDATE 2026-07-03: 0|23 → 0|0 full MATCH both modes.** The corridor
+> blocker described below was root-caused as a **FrankenDrift NRE**, not an
+> engine-model divergence: `cl_PlayerMove1`'s bracket sequence indexes past its
+> restriction list, `PassSingleRestriction` receives Nothing, `restx.Copy`
+> throws, and `GetGeneralTask` swallows it → no task selected → "Sorry, I
+> didn't understand that command." (This is the known ADRIFT Runner v5.0.35
+> bug, fixed upstream in v5.0.36; game hint thread intfiction.org/t/63289.)
+> Fixed in FrankenDrift with a `PassSingleRestriction` null-guard (commit
+> 25c4e3ea) — FD now walks the corridor and wins 100/100, matching Scarier.
+> The 2 residual `read sign` hunks then fell to the per-character
+> `HasSeenObject`-across-BECOME fix and the `msg_has_output`/bHasOutput fix
+> (both in `TODO_a5_walkthrough_bugs.md`). Golden re-blessed; MAP row now
+> `0|0`. The historical analysis below is retained — its Scarier-side BECOME
+> findings all stand; only the "FD cannot finish" conclusion is superseded.
 
 **WIRED 2026-07-02 (`0|23`, DIVERGE) — Scarier plays the entire game to
 `*** CONGRATULATIONS! *** …the maximum 100 points!` (all 6 Meneltra, 69 turns),
@@ -116,11 +181,14 @@ BECOME, and no other corpus game uses BECOME) — zero regressions.
   If the movement-before-`{*}` precedence is ever adopted (in FD or Scarier),
   the golden must be re-derived and the same script should then reach the win.
 
-BugHunt (see the ⭐ section above) is now the resolved case of this class: it
-diverges from FD *in the correct direction* (Scarier wins, FD stops), so it is
-wired against Scarier's own winning golden with the FD gap (23) carried in the
-xoshiro column rather than as a MATCH. (Dwarf's `{*}`-vs-movement trap is the
-same family but there FD and Scarier agree byte-for-byte, so it IS a MATCH.)
+BugHunt (see the ⭐ section above) was briefly the "diverges in the correct
+direction" case of this class (Scarier wins, FD stops, FD gap 23 carried in
+the xoshiro column) — until 2026-07-03, when the FD-side blocker turned out to
+be a fixable FD crash; it is now an ordinary 0|0 MATCH. Dwarf's
+`{*}`-vs-movement trap is different: there FD and Scarier agree byte-for-byte
+(both engines trap identically), so it always was a MATCH — and the older DDF
+build sidesteps the trap entirely and is wired as a real 250/250 win
+(`DwarfOfDirewoodForestDDF`).
 
 ### ⭐ LostLabyrinthOfLazaitch — native solution wired with zero corrections; FIXED to 8|0 (xoshiro FULL MATCH)
 
@@ -224,21 +292,25 @@ gives a real solution to correct against FD, no blind play needed.
   now plays it to `*** CONGRATULATIONS! ***` (100/100) via the built-in
   `WALKTHROUGH` once BECOME player-switching was implemented — and wins where FD
   is blocked at Davey's pass-gated corridor. See the ⭐ section above.
-- **FinnsBigAdventure** → `FBA v.3c.blorb` — no built-in `WALKTHROUGH`; hints
-  fragment only (`walkthroughs/FinnsBigAdventure_hints.txt`). Needs a full
-  play-to-win. **⏳ IN PROGRESS (2026-07-02): derivation started via blind play +
-  the game's `WWDD` per-location hint system + model scoring-task extraction.
-  Verified `test/FinnsBigAdventure_walkthrough.txt` reaches 100/500 (castle
-  opening + the full dungeon combination-lock puzzle + catacombs spider). See
-  `TODO_fba_walkthrough_progress.md` for the section-by-section status, the
-  reverse-engineered dungeon solution, and the resume method.** Not wired yet
-  (script does not win). The forum thread sketched the opening (move stool →
-  mantel items; copy the spell onto the paper; rucksack for carrying; keep the
-  telescope, tinderbox, both toy-soldier sets and the warbelt).
+- ~~**FinnsBigAdventure**~~ ✅ **WIRED 2026-07-03 at MAX SCORE 500/500 (0|0
+  MATCH both modes, golden `test/FinnsBigAdventure_expected.txt`).** The blind
+  play-to-win succeeded: derived via the game's `WWDD` per-location hint system
+  + model scoring-task extraction, section by section (100 → 160 → 230 → 245 →
+  285 → 330 → 450 → 500), full deterministic win in 572 turns, byte-verified
+  against FD. The last +50 was the orb chain, `stand in pouffe`, `read words`,
+  Mannbroom's questions, telescope recon, the Fancy Dress question, the farmer
+  offer, and the Chop Shop meal; several unscored tasks are confirmed
+  dead/unreachable data bugs (`cl_XFireplace`, `cl_TieLeashTo`, `cl_RowNeFromR`,
+  `cl_SankoraSee1`). Full derivation log: `TODO_fba_walkthrough_progress.md`.
+  Also surfaced 4 general engine fixes along the way (MoveCharacter
+  InsideObject/OntoObject/ToParentLocation, plural-path event-task completion,
+  restriction-fail `<Message>` on event/System/walk tasks, custodian-niche
+  stealth — see `TODO_a5_walkthrough_bugs.md`).
 - **MagorInvestigates** → `MI_v.1.blorb` — no built-in `WALKTHROUGH` (start-menu
   commands are HANDFIRE/INSTRUCTIONS/HELP/NAVIGATION/TASKS/VOCAB); hints fragment
   is one puzzle (make herbal tea — the kettle is in the mug's room). ~200-move
-  wizard puzzle game; needs a full blind play-to-win.
+  wizard puzzle game; needs a full blind play-to-win. **Smoke probe wired 0|0
+  (2026-07-03) — opening-turn conformance covered; the win is the open item.**
 - **XanixXixonResurgence** → `XXR v.4.blorb` — no built-in `WALKTHROUGH` (the
   author removed the in-game one per intfiction.org/t/63142); hints fragment only.
   **An earlier build with the built-in walkthrough is NOT publicly obtainable
@@ -250,16 +322,32 @@ gives a real solution to correct against FD, no blind play needed.
   so v1–v3 aren't hosted anywhere. Only route to a walkthrough is emailing the
   author (in-game `HELP` gives the address). Even then, weak candidate: the endgame
   giant-hybrid fight is **randomised** ("keep hitting it with the axe") → won't
-  vanilla-align; xoshiro-only at best.
+  vanilla-align; xoshiro-only at best. **Smoke probe wired 0|0 (2026-07-03,
+  MAP name `Xanix`) — opening-turn conformance covered; the win is the open
+  item.**
 
-## Not in scope here: no walkthrough material at all yet
+## No walkthrough material at all yet — now smoke-probed; real wins still open
 
-These game files are staged in `test/adrift5-games/` but there's no
-walkthrough or hints for them anywhere in the corpus — finding/writing one is
-a separate task from "wiring up," so they're not listed above:
-Halloween, MuseumHeist, October31st, TheFortressOfFear, Tingalan.
-(TheFortressOfFear is Horsfield but has **no** built-in `WLKTHRGH`/`WALKTHROUGH`
-task; the others are by Finn Rosenløv.)
+These game files were staged in `test/adrift5-games/` with no walkthrough or
+hints anywhere in the corpus: Halloween, MuseumHeist, October31st,
+TheFortressOfFear, Tingalan. (TheFortressOfFear is Horsfield but has **no**
+built-in `WLKTHRGH`/`WALKTHROUGH` task; the others are by Finn Rosenløv.)
+
+**Update 2026-07-03:** all five are now in the MAP at 0|0. **Tingalan** got a
+real derived 16-command winning walkthrough (see the ⭐ Tingalan entry in
+`TODO_a5_walkthrough_bugs.md` — engine RNG loop fixed, win path
+reverse-engineered from the model). **MuseumHeist** was then upgraded the same
+way (later 2026-07-03) to a blind-derived PERFECT-SCORE 940M run (36 commands,
+3 engine fixes — see the ⭐ Museum Heist entry in `TODO_a5_walkthrough_bugs.md`;
+the whole derivation ran off `a5dump`'s model XML + iterative `a5run_dump`
+probing, no `A5_DUMP_VARS` needed). The other three (Halloween, October31st,
+TheFortressOfFear) still carry 4-command opening-turn **smoke probes**
+(look / examine me / inventory / wait) — finding/writing a real solution for
+them (and for Magor/Xanix above) is the remaining backlog. Tingalan's and
+MuseumHeist's derivations are the template for blind-deriving the rest.
+All six were re-checked 2026-07-03 for hidden built-in walkthrough tasks
+(`a5dump | grep -i 'walkthrou\|wlkthrgh'`): none — Magor/Xanix only carry the
+email-the-author blurb.
 
 **⚠️ Recheck each of these for a built-in `WALKTHROUGH`/`WLKTHRGH` task before
 assuming "no material"** — that is exactly how Tribute (below) was missed. Grep

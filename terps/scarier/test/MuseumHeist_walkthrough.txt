@@ -1,4 +1,36 @@
-look
-examine me
-inventory
-wait
+x exhibits
+cut claude money
+put water lilies in tube carrier
+s
+get porphyry vase
+s
+get borgen vase
+e
+e
+get venus
+put venus in borgen vase
+w
+get wolf
+n
+put borgen vase in backpack
+n
+break glass case with wolf
+put wolf in porphyry vase
+put porphyry vase in backpack
+e
+get stele
+put stele in pixi
+put pixi in backpack
+s
+e
+pick small door
+n
+push wheelbarrow south
+push wheelbarrow west
+put corvette in wheelbarrow
+push wheelbarrow west
+empty wheelbarrow
+attach rope to corvette stone
+get virgin
+sit on corvette
+push red button

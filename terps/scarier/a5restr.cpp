@@ -247,6 +247,25 @@ is_holding_object (a5_state_t *st, int oi, const char *charkey)
     }
 }
 
+/* clsObject.IsInside / IsOn (clsObject.vb:255 / 240): an object is "inside"
+   (resp. "on") k2 when it is directly in (on) it, or when it sits anywhere in
+   the in/on parent chain whose link to k2 is of the wanted kind.  So the Venus
+   inside the Borgen Vase inside the backpack IS inside the backpack -- Museum
+   Heist's endgame loot tally scores nested treasure through exactly this
+   restriction. */
+static int
+object_is_in_or_on (a5_state_t *st, int oi, const char *k2, a5_owhere_t want)
+{
+  if (oi < 0) return 0;
+  if (st->obj[oi].where != A5_OWHERE_IN_OBJECT
+      && st->obj[oi].where != A5_OWHERE_ON_OBJECT)
+    return 0;
+  if (st->obj[oi].where == want && streq (st->obj[oi].key, k2))
+    return 1;
+  return object_is_in_or_on (st, a5state_object_index (st, st->obj[oi].key),
+                             k2, want);
+}
+
 /* ------------------------------------------------------ object sub-evaluator */
 
 /* Does an object "have" a property, mirroring clsObject.HasProperty over the
@@ -303,7 +322,9 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       if (oi < 0) return 0;
       if (streq (k2, ANYOBJECT))
         return st->obj[oi].where == want;
-      return st->obj[oi].where == want && streq (st->obj[oi].key, k2);
+      /* Specific target: recursive through the in/on chain (clsObject.IsInside
+         / IsOn), NOT a direct-parent compare. */
+      return object_is_in_or_on (st, oi, k2, want);
     }
   if (streq (r->op, "BeHeldByCharacter") || streq (r->op, "BeWornByCharacter"))
     {

@@ -404,6 +404,12 @@ resolve_first (a5_state_t *st, const std::string &firstkeys)
         }
       if (kind != 0)
         { ctx.keys.push_back (parts[0]); ctx.is_list = 0; return ctx; }
+      /* Not an item key: a bare DirectionsEnum name resolves to a one-element
+         direction list (Global.vb:1608's fallthrough) -- "South.Name" from a
+         substituted %direction% renders as the lowercase display name. */
+      for (int i = 0; i < 12; i++)
+        if (parts[0] == kEnumDirs[i])
+          { ctx.is_dirs = 1; ctx.dirs.push_back (parts[0]); return ctx; }
     }
   return ctx;   /* empty: unresolved */
 }
@@ -708,7 +714,7 @@ a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain,
   if (firstkeys == NULL || chain == NULL)
     return NULL;
   Ctx ctx = resolve_first (st, firstkeys);
-  if (ctx.keys.empty () && !ctx.is_list)
+  if (ctx.keys.empty () && !ctx.is_list && !ctx.is_dirs)
     return NULL;
   /* A plural reference (%objects%/%characters%) is a collection even when it
      bound a single object, so list aggregators (.Sum/.Count/.List) and the
@@ -735,7 +741,10 @@ a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain,
 static int
 is_key_char (char c)
 {
-  return isalnum ((unsigned char) c) || c == '_' || c == '|';
+  /* FD's key regex uses \w, which is Unicode-aware in .NET -- accept UTF-8
+     continuation/lead bytes so keys like "ClaudeMoné" scan whole. */
+  return isalnum ((unsigned char) c) || c == '_' || c == '|'
+         || (unsigned char) c >= 0x80;
 }
 
 /* The byte just past a ".step(args)?..." chain that begins at `dot`. */
@@ -749,7 +758,8 @@ scan_chain (const char *dot)
       if (!isalpha ((unsigned char) *seg))
         break;
       r = seg;
-      while (isalnum ((unsigned char) *r) || *r == '_' || *r == '|')
+      while (isalnum ((unsigned char) *r) || *r == '_' || *r == '|'
+             || (unsigned char) *r >= 0x80)
         r++;
       if (*r == '(')
         {
@@ -778,9 +788,14 @@ a5expr_replace (a5_state_t *st, const char *text)
           if (*k == '.')
             {
               std::string firstkeys (p, (size_t) (k - p));
-              /* require the first pipe-segment to be a real entity key */
+              /* require the first pipe-segment to be a real entity key --
+                 or a bare DirectionsEnum name ("South.Name", Global.vb:1608) */
               std::string first = firstkeys.substr (0, firstkeys.find ('|'));
-              if (item_kind (st, first.c_str ()) != 0)
+              int resolvable = item_kind (st, first.c_str ()) != 0;
+              for (int i = 0; !resolvable && i < 12; i++)
+                if (first == kEnumDirs[i])
+                  resolvable = 1;
+              if (resolvable)
                 {
                   const char *chain_end = scan_chain (k);
                   if (chain_end > k)        /* at least one valid ".step" */

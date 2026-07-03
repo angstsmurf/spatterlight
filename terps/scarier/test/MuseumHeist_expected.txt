@@ -18,22 +18,213 @@ Made for AdventureJam 2020
 Collection of paintings
 The painting collection contains thousands of works, some of them dating back to the 13th century. The most important treasure was of course the Mon Alicia by the artist Leonardo Avicii. It is now lying safely inside a tube carrier which is attached to your backpack.  Exits are east and south.
 
-> look
+> x exhibits
+There are many interesting paintings here. You already took the most valuable one, i.e. The Mon Alicia.
 
-Collection of paintings
-The painting collection contains thousands of works, some of them dating back to the 13th century. The most important treasure was of course the Mon Alicia by the artist Leonardo Avicii. It is now lying safely inside a tube carrier which is attached to your backpack.  Exits are east and south.
+On further inspection you notice a very valuable painting: Seven Water Lilies by Claude Monéy.
 
-> examine me
-As always you are well dressed in your black tuxedo. As you plan to steal a lot of exhibits today, you are furthermore wearing a big backpack and your special watch.
+> cut claude money
+Using your utility knife (part of your multi-tool) you cut the Claude Monéy painting off the frame. You roll it up so it is more practical to carry. Finally, you put your multi-tool back in your pocket.
 
-> inventory
-You are wearing a tuxedo and a large backpack with a tube carrier attached, and you are carrying nothing.
+> put water lilies in tube carrier
+You put the Claude Monéy painting inside the tube carrier.
 
-> wait
-In this game all commands must start with one of the following verbs/commands:
+> s
+You move south.
 
-North(N)  South(S)  East(E)  West(E)  Look(L)  Inventory(I)
-Get/Take  Break/Hit  Attach/Tie  Detach/Untie  Drop  Empty  Open  Pick  Put  Push  Sit  Stand  Unlock  Cut  Examine(X)
-Save  Restore  Restart  Quit  Undo  Music
+Decorative Arts Collection
+This collection holds all sorts of decorative arts from the Middle Ages to the mid-19th century. Here is everything from vases to tapestries.
 
-Commands usually consist of a verb and noun (e.g. X ME) or a single command (e.g. SOUTH) but can sometimes be more advanced (e.g. PUT VASE ON TABLE or PUSH CRATE EAST).
+The highlight of this collection is a porphyry vase from the 12th century.  Exits are north, east and south.
+
+> get porphyry vase
+Ok, you pick up the porphyry vase.
+
+> s
+You move south.
+
+Roman Collection
+The Roman collection contains many impressive sculptures, many too big for you to handle. Once again, you must focus on the works that are portable. Still, if you can find something very old in almost perfect condition, it may still be worth a fortune.
+
+The highlight of this collection is the Borgen vase.  Exits are north and east.
+
+> get borgen vase
+Ok, you pick up the Borgen Vase.
+
+> e
+You move east.
+
+Etruscan Collection
+The Etruscan civilization was a civilization of ancient Italy, which developed about 900 BC until its assimilation into the Roman society about 400 BC. Though Etruscan sculptures in cast bronze were widely exported at that time, only few large examples exist today as the material was too valuable and was therefore recycled. Thus the surviving examples are of great value.
+
+The highlight of this collection is the Capital Wolf, a bronze sculpture which isn't very big but very well-kept.  Exits are north, east and west.
+
+> e
+You move east.
+
+Greek Collection
+The Greek collection contains many exhibits from ancient Greece. There are a few huge statues, too huge to get away with. However, another marble statue, known as The Venus, is sufficiently small. It is highly valuable since it dates back to around 100 BC and since it is in perfect condition. It stands on a shelf under a window in the south wall.  Exits are north and west.
+
+> get venus
+(from the shelf)
+Ok, you take the Venus from the shelf.
+
+> put venus in borgen vase
+You put the Venus inside the Borgen Vase.
+
+> w
+You move west.
+
+Etruscan Collection
+The Etruscan civilization was a civilization of ancient Italy, which developed about 900 BC until its assimilation into the Roman society about 400 BC. Though Etruscan sculptures in cast bronze were widely exported at that time, only few large examples exist today as the material was too valuable and was therefore recycled. Thus the surviving examples are of great value.
+
+The highlight of this collection is the Capital Wolf, a bronze sculpture which isn't very big but very well-kept.  Exits are north, east and west.
+
+> get wolf
+Ok, you pick up the Capital Wolf.
+
+> n
+You move north.
+
+Sculpture Collection
+This collection holds work created before 1850, except those works that belong to the Etruscan, Greek and Roman collection.
+
+The sculpture "Virgin in the Lions' Den" is the highlight of the sculpture collection.
+
+The rope is dangling down through the skylight high above.  Exits are north, east, south and west.
+
+> put borgen vase in backpack
+You put the Borgen Vase inside the backpack.
+
+> n
+You move north.
+
+Islamic Art Collection
+These exhibits span thirteen centuries and consist of a wide variety of metalware, ceramics, glass etc. Most of these are highly interesting but today your focus is on a glass case placed on a table in the middle of this large room. The glass case contains an ivory carved container known as "The Pixi" among art enthusiasts.  Exits are east, south and west.
+
+> break glass case with wolf
+The Capital Wolf is made of bronze so you think it won't break if you use it to break the glass case. You hit the glass case with the Capital Wolf using all your strength and the glass case shatters. You take The Pixi.
+
+> put wolf in porphyry vase
+You put the Capital Wolf inside the porphyry vase.
+
+> put porphyry vase in backpack
+You put the porphyry vase inside the backpack.
+
+> e
+You move east.
+
+Near Eastern Collection
+The Near Eastern antiquities dates back to 1881 and covers three geographic areas before the arrival of Islam: the Levant, Mesopotamia (Iraq) and Persia (Iran).
+
+Surely, there are many interesting artifacts here, but you will have to focus on the most valuable in each collection. In here is the stone stele with the Epilogue of Hammurabi. It stands on a pedestal in the middle of the room.  Exits are south and west.
+
+> get stele
+(from the pedestal)
+Ok, you take the stone stele from the pedestal.
+
+> put stele in pixi
+You put the stone stele inside the Pixi.
+
+> put pixi in backpack
+You put the Pixi inside the backpack.
+
+> s
+You move south.
+
+Egyptian Collection
+You are walking among many thousand Egyptian antiquities dating from 4000 BC to the 4th century AD. Normally you would enjoy looking at these objects for several hours, but today you are in a hurry.
+
+In the center of this huge room is the impressive Corvette Stone with both hieroglyphic and Demotic scripts. Luckily it isn't as big as the more famous Rosetta Stone - you feel that you have a chance of stealing this heavy artifact. You estimate the stone to weigh about hundred kilograms.  Exits are north, east, south and west.
+
+> e
+You move east.
+
+By the Front Door
+You are standing by the huge front door, which leads east into the entrance area when it is open during the day. It is locked from the outside and there is no way to open it from the inside. Luckily that won't be necessary. There is a plant against the southern wall and there is a small door in the north wall, probably leading into the janitor's closet.  An exit leads west.
+
+> pick small door
+The simple lock in the small door leading north is no problem for an experienced thief like you. It only takes a few seconds for you to pick the lock. You open the door and as you do so, the light turns on inside what is obviously the janitor's closet.
+
+> n
+You move north.
+
+Janitor's Closet
+You are inside the Janitor's Closet. The closet is quite cramped. Luckily the light turns on automatically  when the door is open. You look behind the door which opens inwards. There is nothing behind the door. There are a few rather empty shelves, a broom and a wheelbarrow.      An exit leads south.
+
+> push wheelbarrow south
+You push the wheelbarrow to south.
+
+By the Front Door
+You are standing by the huge front door, which leads east into the entrance area when it is open during the day. It is locked from the outside and there is no way to open it from the inside. Luckily that won't be necessary. There is a plant against the southern wall and there is a small door in the north wall, probably leading into the janitor's closet.
+
+The wheelbarrow is here.  Exits are north and west.
+
+> push wheelbarrow west
+You push the wheelbarrow to west.
+
+Egyptian Collection
+You are walking among many thousand Egyptian antiquities dating from 4000 BC to the 4th century AD. Normally you would enjoy looking at these objects for several hours, but today you are in a hurry.
+
+The wheelbarrow is here.
+
+In the center of this huge room is the impressive Corvette Stone with both hieroglyphic and Demotic scripts. Luckily it isn't as big as the more famous Rosetta Stone - you feel that you have a chance of stealing this heavy artifact. You estimate the stone to weigh about hundred kilograms.  Exits are north, east, south and west.
+
+> put corvette in wheelbarrow
+With some effort you manage to push the the Corvette Stone into the wheelbarrow.
+
+> push wheelbarrow west
+You push the wheelbarrow to west.
+
+Sculpture Collection
+This collection holds work created before 1850, except those works that belong to the Etruscan, Greek and Roman collection.
+
+The sculpture "Virgin in the Lions' Den" is the highlight of the sculpture collection.
+
+The wheelbarrow is here.
+
+The rope is dangling down through the skylight high above.  Exits are north, east, south and west.
+
+> empty wheelbarrow
+Carefully, you pour the contents of the wheelbarrow out on the floor.
+
+> attach rope to corvette stone
+With some effort you manage to tie the rope securely around the heavy Corvette Stone.
+
+> get virgin
+Ok, you pick up the Virgin in the lions Den.
+
+> sit on corvette
+You sit on the Corvette Stone and hold on to the rope. This should be okay, you think to yourself. Time to push the red button...
+
+> push red button
+You push the red button...
+
+Shortly after you are pulled up through the skylight. You continue towards the dark night sky as the super silent helicopter you are hanging beneath flies away from the museum towards your secret base location. Luckily you were never afraid of heights.
+.
+.
+.
+14 days later you have sold all the goods you stole from the museum. You sit down in your favorite couch and calculate your surplus:
+
+* Mon Alicia (Leonardo Avicii): 700 million Euro
+* Seven Water Lilies (Claude Monéy): 70 million Euro
+* The Corvette Stone: 50 million Euro
+* The Pixi: 10 million Euro
+* The Venus: 12 million Euro
+* The Epilogue of Hammurabi: 25 million Euro
+* The Capital Wolf: 32 million Euro
+* The Borgen Vase: 15 million Euro
+* Virgin in the Lions' Den: 17 million Euro
+* Ancient porphyry vase: 9 million Euro
+
+TOTAL SALES: 940 million Euro
+20% to apprentice: 188 million Euro
+---------------------------------------------
+SURPLUS: 752 million Euro
+---------------------------------------------
+
+Unbelievable! They say that nobody's perfect but this was truly perfect! You are certain that no one could have done it better than this!
+[If you are satisfied with your surplus you may want to e-mail it to kennethvpedersen@yahoo.dk who will add you to the high score list.]
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+
