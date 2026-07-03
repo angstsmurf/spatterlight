@@ -1,4 +1,65 @@
-look
-examine me
-inventory
+b
+lumino
+examine mantelpiece
+out
+out
+west
+down
+east
+in
+down
+east
+east
+north
+west
+west
+up
+out
+west
+up
+east
+in
+east
+search books
+read herbal
+west
+out
+west
+down
+west
+west
+pick chamomile
+west
+pick peppermint
+east
+east
+east
+east
+in
+down
+east
+east
+examine fireplace
+put leaves in mug
+get kettle
+south
+hold kettle spout under tap
+north
+hang kettle on arm
 wait
+get towel
+get kettle
+pour hot water over leaves
+wait
+get mug
+north
+open scroll on table
+trace the king's lineage
+roll up scroll
+south
+east
+up
+out
+west
+up
+up

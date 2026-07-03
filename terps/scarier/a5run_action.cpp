@@ -2576,6 +2576,15 @@ render_look_string (a5_run_t *run)
       look != NULL ? a5xml_child (look->node, "CompletionMessage") : NULL;
   char *view = a5text_view_location (st);
   std::string result = view ? view : "";
+  /* The room view IS the CompletionMessage's default (Me(0) ==
+     "%Player%.Location.Description").  A StartAfterDefaultDescription segment
+     rebuilds from this default (FD clsDescription.ToString / eval_desc_into),
+     discarding any StartDescriptionWithThis override that fired before it -- so
+     Magor's fire-lit main chamber/library keep the room view even though the
+     Look task's restricted "It is too dark..." override passes (its restrictions
+     do pass; the following "Remember ... LUMINO" StartAfterDefault segment resets
+     the buffer to default+hint). */
+  std::string default_view = result;
   free (view);
 
   if (comp != NULL)
@@ -2615,7 +2624,13 @@ render_look_string (a5_run_t *run)
           free (proc);
           if (streq (when, "StartDescriptionWithThis"))
             result = plain;
-          else                                  /* Append / StartAfterDefault */
+          else if (streq (when, "StartAfterDefaultDescription"))
+            {                                   /* rebuild from the default view */
+              result = default_view;
+              if (!result.empty ()) result += "  ";
+              result += plain;
+            }
+          else                                  /* AppendToPreviousDescription */
             { if (!result.empty ()) result += "  "; result += plain; }
           free (plain);
         }

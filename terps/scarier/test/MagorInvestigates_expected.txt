@@ -16,14 +16,562 @@ Please ensure that Autocomplete is unticked in the "Edit" tab above.
 Useful Commands After The Adventure Has Started:
 COMMANDS : HANDFIRE : INSTRUCTIONS : HELP : NAVIGATION : TASKS : VOCAB;
 
-> look
-Please press B or P then press Enter.
+> b
 
-> examine me
-Please press B or P then press Enter.
+Your Main Chamber
+You are in your chamber in Domreil Castle. It is a dark, gloomy place, illuminated only by the flickering light from the fire burning in the huge inglenook fireplace in the south wall. Beside the fireplace is your high-backed armchair, on the back of which your familiar, the owl Ahkenaten, is perched, apparently asleep. In front of the chair is a pouffe on which you rest your feet and beside it is a small side table on which you usually put your glass of whisky. Against another wall is a large sofa. A door leads Out to the corridor beyond and an open archway leads East into your library.  Also here is an earthenware pot with an aspidistra plant in it.
 
-> inventory
-Please press B or P then press Enter.
+Remember: You can see in dark or gloomy places by typing LUMINO.
+
+> lumino
+You extend your right arm, palm upwards, and say the word "Lumino".
+
+A ball of handfire appears above your palm and floats up into the air above your head, illuminating your surroundings. This casts light into the deep shadows around the chamber, revealing an archway leading South.
+
+"Ah, there you are," you say to the archway. "I was wondering when you were going to put in an appearance. I need to check on my whisky production." The archway says nothing in return but manages somehow to look embarrassed.
+
+(The archway accidentally acquired limited sentient capabilities after an experiment went wrong. It often disappears for days on end. Heaven knows where it goes? An archway convention maybe?)
+
+You have just completed task number 1: Finding the Hidden Archway
+
+Your Main Chamber
+You are in your chamber in Domreil Castle. It is illuminated by the handfire above your head which is much brighter than the flickering light from the fire burning in the huge inglenook fireplace in the south wall. Beside the fireplace is your high-backed armchair, on the back of which your familiar, the owl Ahkenaten, is perched, apparently asleep. In front of the chair is a pouffe on which you rest your feet and beside it is a small side table on which you usually put your glass of whisky. Against another wall is a large sofa. A door leads Out to the corridor beyond, one open archway leads East into your library and another South into your laboratory.  Also here is an earthenware pot with an aspidistra plant in it.
+
+A ball of handfire hovers above your head, illuminating your surroundings.
+
+> examine mantelpiece
+It juts out from the wall above the fireplace. On the mantelpiece you see some spectacles.
+
+"Ah, there they are," you mutter to yourself as you take the spectacles off the mantelpiece and put them on the end of your nose. "I was wondering where I'd put them!"
+
+> out
+
+As you go to leave your chambers, there is a knock upon the door.
+
+Opening it, you see King Kelson and Duke Alaric Blackmoon standing there, both grinning like Cheshire Cats. After they walk in, you greet them enthusiastically and invite them to sit down, which they do on the sofa, with you sitting in your armchair.
+
+"So, did you find any Xixons?" you ask, fully expecting them to say no.
+
+The king gestures for Duke Alaric to start and he tells you of their recent journey across the Great Sand Sea and beyond, and how they eliminated the Xixon warriors in Xanix city and the huge hybrid in the forest. You are extremely shocked to hear this.
+
+"I never imagined that the Xixon were capable of such things," you tell them. "I wonder if they had help from anyone?"
+
+Then Alaric tells you that he was able to invoke the power of the Axe of Kolt when Kelson was knocked out by the hybrid and he eventually decapitated the beast. Your mouth drops open at this news and you look from the king to Alaric and back again, as realisation dawns.
+
+"Yes, indeed," Kelson says. "That means that Alaric must have Haldane blood in him and we must be related in some way."
+
+"The problem is," Alaric chips in. "I have no knowledge whatsoever of any connection between the Blackmoon and Haldane families," he tells you.
+
+"That's where you come in," Kelson tells you. "We want you to research my family history to find out where the connection is. Alaric wasn't born in Hecate, and that's what the puzzle is."
+
+"Phew!" you say, very surprised, and reply, "Well, I will certainly do my best. The records in the castle archives go back many generations, I am sure I can find out something."
+
+With that, the men leave the room, thanking you profusely, the king reminding you about his order for another case of your whisky. After they are gone you sit back in your chair and, scratching your head, you think to yourself, "Well, as the magician said: 'Izzy whizzy, let's get busy!'"
+
+Your first step must be to go see "Stinker", the castle archivist. He lives in the castle archives, which are down in the deepest part of the castle near the dungeons.
+
+Your Main Chamber
+You are in your chamber in Domreil Castle. It is illuminated by the handfire above your head which is much brighter than the flickering light from the fire burning in the huge inglenook fireplace in the south wall. Beside the fireplace is your high-backed armchair, on the back of which your familiar, the owl Ahkenaten, is perched, apparently asleep. In front of the chair is a pouffe on which you rest your feet and beside it is a small side table on which you usually put your glass of whisky. Against another wall is a large sofa. A door leads Out to the corridor beyond, one open archway leads East into your library and another South into your laboratory.  Also here is an earthenware pot with an aspidistra plant in it.
+
+A ball of handfire hovers above your head, illuminating your surroundings.
+
+> out
+You move Out.
+(getting off the high-backed armchair first)
+
+Castle Corridor
+You are outside the door to your chambers in a corridor on the third floor of the castle that goes East past a number of doors to a spiral stairway at the other end, and immediately West to another spiral stairway. On the wall is one of the new magic wall lights that provide bright illumination without any smoke. Your door is unlocked, but closed, and you can go In to it.
+
+A ball of handfire hovers above your head, illuminating your surroundings.
+
+As you move into the light, the ball of handfire winks out with a 'pop'.
+
+> west
+You move West.
+
+On Spiral Stairway (3rd Floor)
+You are on the spiral stairway that gives you access to the upper and lower floors of the castle. A small magic light on the wall shines brightly. The stairway leads Up an Down or you can go East to the corridor outside the door to your chambers.
+
+> down
+You move Down.
+
+You walk down the spiral stairway, ignoring all the corridors you pass on the way, until you get to the bottom of the stairway.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, You can go back Up the stairway, East into a dimly-lit corridor or West along a narrow passageway which leads to your herb garden. A rush light burns smokily in a metal sconce on the wall here.
+
+> east
+You move East.
+
+Dark, Dank Corridor
+You are at the west end of a dark, dank corridor in the bowels of Domreil Castle. To the West is the bottom of the spiral stairway you came down, while the corridor itself goes East to another spiral stairway at the far end. The corridor is dimly lit by a rush light which sits in a rusty sconce fixed to one wall. There is a closed door here that you can go In to.
+
+> in
+You move In.
+(Opening the door and closing it behind you)
+
+Top of Steps
+You are at the top of a flight of stone steps that go down to the castle archives. They are worn hollow from the boots and shoes of the multitude of people who have descended and ascended the steps over the centuries since the castle was built. You can go Down the steps into the archives or Out through the doorway to the corridor outside. The door is closed.
+
+> down
+You move Down.
+
+Bottom of Steps
+You are at the bottom of the flight of steps, in a large hall filled with row upon row of shelves, groaning with thousands of scrolls, ledgers and other books. You can go West along the hall or East to an office.
+
+> east
+You move East.
+
+The Archivist's Office
+You are in a small room which serves as the office used by the archivist in charge of the archives. The only furniture is a desk in front of which there is a chair but shelves on the walls are piled with scrolls and ledgers of various sizes. You can go West out to the archives hall or East into the archivist's private chambers.
+
+> east
+You move East.
+
+The Archivist's Chamber
+You are in the archivist's main chamber which in contrast to the chaos of his office, is remarkably spick and span. A comfortable sofa sits against one wall while nearby is a table and chair. In one wall is a fireplace in which a fire burns and archways leads West to the office and North into the archivist's bedchamber. To the South there is a small alcove. On the table you see a ceramic mug and a small towel. There is a swinging metal arm in the fireplace.
+
+> north
+You move North.
+
+The Archivist's Bedchamber
+You are in the archivist's bedchamber. It, like the room to the south, is very tidy and clean.   Against one wall is a large single bed in which the archivist lies.
+
+As you walk into the chamber, you see 'Stinker', the archivist, laying on his bed holding his stomach. When he sees you, he groans and speaks:
+
+"Blimey Magor, you psychic or what!?" he exclaims. "I was just thinking of sending for you!"
+
+"What's wrong with you this time? 'Been' overdoing it with the beans again?" you ask him, chuckling because of your subtle pun.
+
+"I don't, mate," he replies. "I haven't been overdoing the beans too much, must have been something else that disagreed with me."
+
+He clutches his stomach and groans again...and a rather pungent odour starts to fill the room. You quickly mutter a spell and the smell turns to one of roses - much better!
+
+"I'll make you up an infusion of something," you tell him. "I need you well to help me with some research."
+
+You turn and walk out of the room as another gaseous outburst threatens to overwhelm the aroma of roses...
+
+The Archivist's Chamber
+You are in the archivist's main chamber which in contrast to the chaos of his office, is remarkably spick and span. A comfortable sofa sits against one wall while nearby is a table and chair. In one wall is a fireplace in which a fire burns and archways leads West to the office and North into the archivist's bedchamber. To the South there is a small alcove. On the table you see a ceramic mug and a small towel. There is a swinging metal arm in the fireplace.
+
+You have just completed task number 2 - Meeting "Stinker"
+
+You'd better have a look in your library for a remedy for Stinker's stomach ache.
+
+> west
+You move West.
+
+The Archivist's Office
+You are in a small room which serves as the office used by the archivist in charge of the archives. The only furniture is a desk in front of which there is a chair but shelves on the walls are piled with scrolls and ledgers of various sizes. You can go West out to the archives hall or East into the archivist's private chambers.
+
+> west
+You move West.
+
+Bottom of Steps
+You are at the bottom of the flight of steps, in a large hall filled with row upon row of shelves, groaning with thousands of scrolls, ledgers and other books. You can go West along the hall or East to an office.
+
+> up
+You move Up.
+
+Top of Steps
+You are at the top of a flight of stone steps that go down to the castle archives. They are worn hollow from the boots and shoes of the multitude of people who have descended and ascended the steps over the centuries since the castle was built. You can go Down the steps into the archives or Out through the doorway to the corridor outside. The door is closed.
+
+> out
+You move Out.
+(Opening the door and closing it behind you)
+
+Dark, Dank Corridor
+You are at the west end of a dark, dank corridor in the bowels of Domreil Castle. To the West is the bottom of the spiral stairway you came down, while the corridor itself goes East to another spiral stairway at the far end. The corridor is dimly lit by a rush light which sits in a rusty sconce fixed to one wall. There is a closed door here that you can go In to.
+
+> west
+You move West.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, You can go back Up the stairway, East into a dimly-lit corridor or West along a narrow passageway which leads to your herb garden. A rush light burns smokily in a metal sconce on the wall here.
+
+> up
+You move Up.
+
+On Spiral Stairway (3rd Floor)
+You are on the spiral stairway that gives you access to the upper and lower floors of the castle. A small magic light on the wall shines brightly. The stairway leads Up an Down or you can go East to the corridor outside the door to your chambers.
+
+> east
+You move East.
+
+Castle Corridor
+You are outside the door to your chambers in a corridor on the third floor of the castle that goes East past a number of doors to a spiral stairway at the other end, and immediately West to another spiral stairway. On the wall is one of the new magic wall lights that provide bright illumination without any smoke. Your door is unlocked, but closed, and you can go In to it.
+
+> in
+You move In.
+(Opening the door and closing it behind you)
+
+It is too dark to make anything out clearly.
+
+> east
+You move East.
+
+It is too dark to make anything out clearly.
+
+> search books
+You search through the books and find your book of herbal remedies, which you take down.
+
+> read herbal
+You look up remedies for stomach ache. The best one seems to be an infusion of chamomile and peppermint. You close the herbal and put it back on the shelf.
+Task number 3 is now complete - Reading the Herbal
+
+> west
+You move West.
+
+It is too dark to make anything out clearly.
+
+> out
+You move Out.
+(Opening the door and closing it behind you)
+
+Castle Corridor
+You are outside the door to your chambers in a corridor on the third floor of the castle that goes East past a number of doors to a spiral stairway at the other end, and immediately West to another spiral stairway. On the wall is one of the new magic wall lights that provide bright illumination without any smoke. Your door is unlocked, but closed, and you can go In to it.
+
+> west
+You move West.
+
+On Spiral Stairway (3rd Floor)
+You are on the spiral stairway that gives you access to the upper and lower floors of the castle. A small magic light on the wall shines brightly. The stairway leads Up an Down or you can go East to the corridor outside the door to your chambers.
+
+> down
+You move Down.
+
+You walk down the spiral stairway, ignoring all the corridors you pass on the way, until you get to the bottom of the stairway.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, You can go back Up the stairway, East into a dimly-lit corridor or West along a narrow passageway which leads to your herb garden. A rush light burns smokily in a metal sconce on the wall here.
+
+> west
+You move West.
+
+Your Herb Garden
+You are in a small courtyard outside the main castle in which is your herb garden. There are four herb beds in the courtyard, a bit further to the west, which grow various herbs and other plants that you use in your potions and spells. You can go East into the passageway or West along a path between the herb beds.
+
+> west
+You move West.
+
+Path Between Herb Beds
+You are on the dirt path between two of the herb beds in your herb garden, which lie to the north and south of the path. You can go East or West along the path.  Also here is the feverfew plant, the chamomile plant, the gingko plant and the goldenseal plant.
+
+> pick chamomile
+You pick some leaves from the chamomile plant.
+
+> west
+You move West.
+
+End Of Dirt Path
+You are at the east end of the dirt path between the herb beds. There are beds to the north and south of the path. The wall of the courtyard looms up above you. You can only go East.  Also here is the echinacea plant, the belladonna plant, the garlic plant and the peppermint plant.
+
+> pick peppermint
+You pick some leaves from the peppermint plant.
+You have just completed task number 4 - Picking the Herbs
+
+> east
+You move East.
+
+Path Between Herb Beds
+You are on the dirt path between two of the herb beds in your herb garden, which lie to the north and south of the path. You can go East or West along the path.  Also here is the feverfew plant, the chamomile plant, the gingko plant and the goldenseal plant.
+
+> east
+You move East.
+
+Your Herb Garden
+You are in a small courtyard outside the main castle in which is your herb garden. There are four herb beds in the courtyard, a bit further to the west, which grow various herbs and other plants that you use in your potions and spells. You can go East into the passageway or West along a path between the herb beds.
+
+> east
+You move East.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, You can go back Up the stairway, East into a dimly-lit corridor or West along a narrow passageway which leads to your herb garden. A rush light burns smokily in a metal sconce on the wall here.
+
+> east
+You move East.
+
+Dark, Dank Corridor
+You are at the west end of a dark, dank corridor in the bowels of Domreil Castle. To the West is the bottom of the spiral stairway you came down, while the corridor itself goes East to another spiral stairway at the far end. The corridor is dimly lit by a rush light which sits in a rusty sconce fixed to one wall. There is a closed door here that you can go In to.
+
+> in
+You move In.
+(Opening the door and closing it behind you)
+
+Top of Steps
+You are at the top of a flight of stone steps that go down to the castle archives. They are worn hollow from the boots and shoes of the multitude of people who have descended and ascended the steps over the centuries since the castle was built. You can go Down the steps into the archives or Out through the doorway to the corridor outside. The door is closed.
+
+> down
+You move Down.
+
+Bottom of Steps
+You are at the bottom of the flight of steps, in a large hall filled with row upon row of shelves, groaning with thousands of scrolls, ledgers and other books. You can go West along the hall or East to an office.
+
+> east
+You move East.
+
+The Archivist's Office
+You are in a small room which serves as the office used by the archivist in charge of the archives. The only furniture is a desk in front of which there is a chair but shelves on the walls are piled with scrolls and ledgers of various sizes. You can go West out to the archives hall or East into the archivist's private chambers.
+
+> east
+You move East.
+
+The Archivist's Chamber
+You are in the archivist's main chamber which in contrast to the chaos of his office, is remarkably spick and span. A comfortable sofa sits against one wall while nearby is a table and chair. In one wall is a fireplace in which a fire burns and archways leads West to the office and North into the archivist's bedchamber. To the South there is a small alcove. On the table you see a ceramic mug and a small towel. There is a swinging metal arm in the fireplace.
+
+> examine fireplace
+An ordinary fireplace, like many others in the castle. There is a swinging metal arm attached to one side from which a kettle hangs.
+
+> put leaves in mug
+You put the chamomile and peppermint leaves into the mug.
+
+> get kettle
+Ok, you take the kettle off the swinging arm.
+
+> south
+You move South.
+
+The Small Alcove
+You are in the small alcove off the main chamber. In here there is a ceramic sink with a faucet above it. The main chamber is north.
+
+> hold kettle spout under tap
+Holding the spout of the kettle under the faucet, you open the faucet and fill the kettle with water.
+
+> north
+You move North.
+
+The Archivist's Chamber
+You are in the archivist's main chamber which in contrast to the chaos of his office, is remarkably spick and span. A comfortable sofa sits against one wall while nearby is a table and chair. In one wall is a fireplace in which a fire burns and archways leads West to the office and North into the archivist's bedchamber. To the South there is a small alcove. On the table you see a ceramic mug and a small towel. There is a swinging metal arm in the fireplace.
+
+> hang kettle on arm
+Ok, you hang the kettle on the swinging arm and swing it so that the kettle is over the fire.
+
+You must now wait until the kettle boils.
 
 > wait
-Please press B or P then press Enter.
+You obviously never heard the expression 'A watched kettle never boils'. It seems to take ages but eventually the kettle does boil.
+
+> get towel
+(from the archivist's table)
+Ok, you take the small towel from the archivist's table.
+
+> get kettle
+Ok, you wrap the tea towel around the handle of the kettle and you take it off the swinging arm.
+
+> pour hot water over leaves
+Ok, you pour some hot water over the leaves in the mug. You must now wait until the goodness from the leaves infuses into the water.
+
+> wait
+You wait while the chemicals in the leaves infuse into the hot water. Eventually, you judge that the infusion is ready for Stinker to drink.
+You have just completed task 5 - Brewing the Infusion
+
+> get mug
+(from the archivist's table)
+Ok, you take the ceramic mug from the archivist's table.
+
+> north
+You move North.
+
+The Archivist's Bedchamber
+You are in the archivist's bedchamber. It, like the room to the south, is very tidy and clean.   Against one wall is a large single bed in which the archivist lies.
+
+You give the mug containing the infusion to Stinker.
+
+"Just sip it slowly," you tell him, and he does as instructed. After a couple of minutes he drains the mug and licks his lips.
+
+"That was quite pleasant actually," he says to you. "I can feel my stomach getting better already. Now, what can I do for you, me old mate?!"
+
+You tell Stinker about the task the king has set you.
+
+"Blimey, doesn't ask much, does he?!" Stinker exclaims. "Righty-o, follow me and we can see what we've got."
+
+Stinker leads you out into the archives hall and into the maze of shelves. Eventually he stops at one section.
+
+"How far do you want go back?" he asks you.
+
+"It's 2916 now, I think we need to go back at least 10 generations," you tell him, and he selects a scroll which he hands to you,
+
+"This lists the Haldane family for five generations around 250 years ago. Have a look and see if it helps you."
+
+He leads you back to where you entered the archives and goes north to a long table.
+
+"You can unroll the scroll on here and weigh it down with the wooden blocks," he tells you. "Be very careful with it as it is centuries old. Let me know if you find anything!"
+
+With that he leaves you and goes into his office.
+
+By The Long Table
+You are in the archives standing next to a long table. Around you everything is shrouded in shadows, but you can see the shelves of archives all around you. You can go South to the bottom of the steps.
+You have just completed task number 6 - Give Infusion To "Stinker"
+
+> open scroll on table
+You lay the scroll at one end of the table, unroll it partially and put a couple of wooden blocks on each corner. You then walk along the table, carefully unrolling the fragile parchment until it is completely open, then you put two more wooden blocks on the ends to hold it down.
+
+> trace the king's lineage
+You carefully trace the lineage of the Haldane kings back along the various stems - and then you find it!
+
+In 2525 Kelson's six times great grandfather, Severus Haldane, had three sons, one of whom married a Minerva Blackmoon. She must have been Alaric's ancestor and one of the children of this couple provided the link which gave Alaric the Haldane powers to invoke the power of the Axe of Kolt.
+
+You must now return to Stinker to let him know what you found, and then report to King Kelson and Duke Alaric.
+Task 7 has just been completed - Tracing King Kelson's Lineage
+
+> roll up scroll
+Taking the wooden blocks off one end of the scroll, you slowly walk alongside the table, carefully rolling the scroll around the spindle. Eventually you get to the end and pick up the scroll from the table.
+
+> south
+You move South.
+
+Bottom of Steps
+You are at the bottom of the flight of steps, in a large hall filled with row upon row of shelves, groaning with thousands of scrolls, ledgers and other books. You can go West along the hall, East into the archivist's office or North to the long table.
+
+> east
+You move East.
+
+The Archivist's Office
+You are in a small room which serves as the office used by the archivist in charge of the archives. The only furniture is a desk in front of which there is a chair but shelves on the walls are piled with scrolls and ledgers of various sizes. You can go West out to the archives hall or East into the archivist's private chambers.
+
+As you walk into the archivist's office, he turns around in his chair to face you.
+
+"Well?" he asks enquiringly, "Did you discover anything?"
+
+You grin broadly, saying:
+
+"Naturally! It turns out that Alaric's 6 times great- grandmother, Minerva Blackmoon, was married to Kelson's 6 times great-grandfather, Severus Haldane!"
+
+"Good heavens, so the Duke really is royalty," he exclaims. "So that makes them..." - he pauses for a moment or two as he works out the relationship - "Sixth cousins! I bet Bronwynn will be pleased, although she is already a princess."
+
+"I need to show the king and Duke Alaric this scroll and break the good news to them," you tell him. "I'll return it later."
+
+As you walk out of the room, Stinker calls after you.
+
+"Be careful with it, it's very fragile!"
+
+Bottom of Steps
+You are at the bottom of the flight of steps, in a large hall filled with row upon row of shelves, groaning with thousands of scrolls, ledgers and other books. You can go West along the hall, East into the archivist's office or North to the long table.
+
+Task number 8 Completed - Tell "Stinker" What You Discovered
+
+> up
+You move Up.
+
+Top of Steps
+You are at the top of a flight of stone steps that go down to the castle archives. They are worn hollow from the boots and shoes of the multitude of people who have descended and ascended the steps over the centuries since the castle was built. You can go Down the steps into the archives or Out through the doorway to the corridor outside. The door is closed.
+
+> out
+You move Out.
+(Opening the door and closing it behind you)
+
+Dark, Dank Corridor
+You are at the west end of a dark, dank corridor in the bowels of Domreil Castle. To the West is the bottom of the spiral stairway you came down, while the corridor itself goes East to another spiral stairway at the far end. The corridor is dimly lit by a rush light which sits in a rusty sconce fixed to one wall. There is a closed door here that you can go In to.
+
+> west
+You move West.
+
+Bottom of Spiral Stairway
+You are at the bottom of the spiral stairway, You can go back Up the stairway, East into a dimly-lit corridor or West along a narrow passageway which leads to your herb garden. A rush light burns smokily in a metal sconce on the wall here.
+
+> up
+You move Up.
+
+On Spiral Stairway (3rd Floor)
+You are on the spiral stairway that gives you access to the upper and lower floors of the castle. A small magic light on the wall shines brightly. The stairway leads Up an Down or you can go East to the corridor outside the door to your chambers.
+
+> up
+You continue up the spiral stairway, puffing and blowing until you reach the upper levels where the king resides and runs the kingdom from with his advisors.
+
+You hurry through the corridors until you arrive at the king's audience chamber...
+
+Outside The King's Audience Chamber
+You are standing in front of the doors to the King's audience chamber. Two soldiers in ceremonial uniforms stand guard outside the doors, their halberds crossed to prevent unauthorised entry.
+
+As you approach them, the two soldiers move their halberds upright to allow you access to the chamber.
+
+With a slight gesture, you open the doors, something the soldiers are used to. You wink at them and they grin broadly. You walk past them into the chamber and along the carpet leading to the rostrum on which sits the King's throne.
+
+King Kelson himself is talking with his advisors, including Duke Alaric. When he sees you approaching he dismisses his advisors, except the duke. When you reach the king you bow and, when the king extends his hand towards you, kiss the royal signet ring. You nod to Duke Alaric and the king sits on his throne. Chairs are bought for you and Alaric and you take both take your seats. The two of them are eager to hear what you have discovered. Without further ado, you put them out of their misery.
+
+"Your six times great-grandfather," you say, pointing at the king, "was one Severus Haldane, eighteenth king of Hecate."
+
+"Never heard of him," the king replies. "I never was any good at my history lessons!"
+
+Pointing at Duke Alaric, you continue.
+
+"And your six times great grandmother was a certain Minerva Blackmoon," you say to Duke Alaric. He smiles and says, "Now that name I DO know," he tells you. "I remember my father mentioning it to me when I was a child."
+
+"They married in the year 2525 and had three sons, one of whom was your ancestor. Therefore, by my reckoning that makes the two of you sixth cousins!"
+
+The two men look at you then at one other and then burst into laughter. They both stand up and, having a man-hug and slapping each other on the back, exclaim, "Hello cousin!"
+
+As the three of you discuss the ramifications of the news, the king makes an announcement.
+
+"We must celebrate this wonderful news," he declares. "We will have three days of festivities in one week's time!"
+
+You have completed the most important task - Telling King Kelson What You Discovered
+
+Please Press Any Key to Continue.
+
+You Have Won!
+
+*** CONGRATULATIONS! ***
+
+You have successfully solved...
+
+MAGOR INVESTIGATES...
+
+...in 64 turns and completing 9 tasks.
+
+I do hope you have enjoyed playing this game.
+
+More Adventures In The World Of Alaric Blackmoon Series:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+Chapter 3: FINN'S BIG ADVENTURE
+
+****************************
+
+Available In 'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+Episode 9: XANIX - XIXON RESURGENCE
+
+*****************************
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+Chapter 5: BUG HUNT ON MENELAUS
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+
+Would you like to RESTART, RESTORE a saved game, QUIT or UNDO the last command?
+

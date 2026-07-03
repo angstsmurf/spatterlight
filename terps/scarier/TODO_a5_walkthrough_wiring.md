@@ -98,12 +98,22 @@ the real conformance metric, are clean). Changes since 2026-07-02:
   MagneticMoon: 795/800 win, 2|2 (two open one-char hunks).  9 engine fixes
   between them — see `TODO_a5_walkthrough_bugs.md`.
 
-**Remaining backlog = upgrading the other 3 smoke probes to real wins**, all
+- **MagorInvestigates UPGRADED to a blind-derived FULL WIN 0|0 (2026-07-03)** —
+  `*** CONGRATULATIONS! ***`, 64 turns, 9 tasks, golden
+  `test/MagorInvestigates_expected.txt`.  Derived entirely from the `a5dump`
+  model XML (win = set `cl_LineageTra` then `Up` to King Kelson; the whole game
+  is the herbal-tea-cure-the-archivist → trace-the-lineage chain the hints
+  fragment pointed at).  Surfaced **1 general engine fix** (the
+  `render_look_string` StartAfterDefaultDescription rebuild-from-default, so the
+  fire-lit chamber's opening auto-look keeps the room view instead of Scarier's
+  spurious "It is too dark…" override) — see the ⭐ Magor entry in
+  `TODO_a5_walkthrough_bugs.md`.
+
+**Remaining backlog = upgrading the other 2 smoke probes to real wins**, both
 blocked on walkthrough material (per-game notes below): TheFortressOfFear
-(Horsfield but no built-in WLKTHRGH), MagorInvestigates + Xanix (email-only
-walkthroughs → blind play-to-win; Xanix likely xoshiro-only, randomised
-endgame). Plus the two deprioritised non-walkthrough `.taf`s below
-(LostCoastlines, Skybreak).
+(Horsfield but no built-in WLKTHRGH) and Xanix (email-only walkthrough → blind
+play-to-win; likely xoshiro-only, randomised endgame). Plus the two
+deprioritised non-walkthrough `.taf`s below (LostCoastlines, Skybreak).
 
 ## Ready to wire (script + game file already staged — just needs a MAP line)
 
@@ -132,7 +142,8 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 | DwarfOfDirewoodForest | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (0\|0 conformance MATCH — v9 confirmed UNWINNABLE, FD-trapped; see below). **The older DDF build WINS 250/250** — wired separately as `DwarfOfDirewoodForestDDF` (0\|0) on 2026-07-03 |
 | TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 → **0\|0 MATCH**, golden) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
 | FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02)** — email-only. ✅ **Blind play paid off: WIRED 2026-07-03 at MAX SCORE 500/500 (0\|0, golden)**; see the hints-only group below + `TODO_fba_walkthrough_progress.md` |
-| MagorInvestigates / XanixXixonResurgence | none | only the email-on-request note. **Smoke probes wired 0\|0 (2026-07-03)**; wins still open |
+| MagorInvestigates | none (email-only) | ✅ **BLIND-DERIVED FULL WIN 0\|0 (2026-07-03)** from the `a5dump` model — golden, +1 engine fix (see ⭐ Magor in the bugs TODO) |
+| XanixXixonResurgence | none | only the email-on-request note. **Smoke probe wired 0\|0 (2026-07-03)**; win still open (randomised endgame, likely xoshiro-only) |
 
 Caveat: the built-in text was authored against a slightly earlier build, so some
 moves get absorbed by this build's scripted cut-scenes and must be corrected
@@ -354,11 +365,15 @@ gives a real solution to correct against FD, no blind play needed.
   InsideObject/OntoObject/ToParentLocation, plural-path event-task completion,
   restriction-fail `<Message>` on event/System/walk tasks, custodian-niche
   stealth — see `TODO_a5_walkthrough_bugs.md`).
-- **MagorInvestigates** → `MI_v.1.blorb` — no built-in `WALKTHROUGH` (start-menu
-  commands are HANDFIRE/INSTRUCTIONS/HELP/NAVIGATION/TASKS/VOCAB); hints fragment
-  is one puzzle (make herbal tea — the kettle is in the mug's room). ~200-move
-  wizard puzzle game; needs a full blind play-to-win. **Smoke probe wired 0|0
-  (2026-07-03) — opening-turn conformance covered; the win is the open item.**
+- ~~**MagorInvestigates**~~ ✅ **BLIND-DERIVED FULL WIN 0|0 (2026-07-03)** →
+  `MI_v.1.blorb`.  No built-in `WALKTHROUGH`; the whole win was reconstructed
+  from the `a5dump` model XML (the hints fragment — herbal tea, kettle in the
+  mug's room — was just the one puzzle it pointed at).  Turned out to be a
+  ~64-turn linear investigation, not a ~200-move maze: LUMINO → specs → meet
+  Stinker → herbal → pick chamomile+peppermint → brew (kettle/tap/arm/towel) →
+  cure Stinker → trace the lineage at the long table → report → up to the King.
+  Golden `test/MagorInvestigates_expected.txt`; +1 engine fix (⭐ Magor in
+  `TODO_a5_walkthrough_bugs.md`).
 - **XanixXixonResurgence** → `XXR v.4.blorb` — no built-in `WALKTHROUGH` (the
   author removed the in-game one per intfiction.org/t/63142); hints fragment only.
   **An earlier build with the built-in walkthrough is NOT publicly obtainable

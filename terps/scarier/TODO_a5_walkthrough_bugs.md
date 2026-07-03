@@ -1,5 +1,50 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Magor Investigates: blind-derived FULL WIN 0|0 + a StartAfterDefault look-render fix — DONE (2026-07-03)
+
+Magor Investigates (Larry Horsfield's wizard investigation; smallest corpus
+game, no built-in `WALKTHROUGH`, only a hints-fragment about the herbal tea)
+was blind-derived to its win from the `a5dump` model XML alone (Tingalan /
+MuseumHeist / Halloween template).  The win hinges on ONE variable
+(`cl_LineageTra == 1`) then `Up` from the 3rd-floor stairway (`cl_Location5`).
+Route: LUMINO (light) → take spectacles off the mantelpiece → go down to the
+archivist "Stinker" (bedchamber `cl_Location110`, sets `cl_RemedyNeed`) →
+back up, `search books` (specs worn) → `read herbal` (learn chamomile +
+peppermint) → herb garden, `pick chamomile` (`cl_Location15`) + `pick
+peppermint` (`cl_Location16`) → archivist's chamber: `examine fireplace`
+(reveals the copper kettle), `put leaves in mug`, fill the kettle at the small
+alcove tap (`hold kettle spout under tap`), `hang kettle on arm`, `wait`,
+`get towel`, `get kettle`, `pour hot water over leaves`, `wait` → `get mug`,
+give the infusion to Stinker (he hands over the scroll, walks you to the long
+table) → `open scroll on table`, `trace the king's lineage`, `roll up scroll`
+→ report to Stinker (office `cl_Location18`) → up to King Kelson = `***
+CONGRATULATIONS! ***`, 64 turns, 9 tasks.  64-command golden
+`test/MagorInvestigates_expected.txt` (blessed after a live 0|0 vs FD check in
+both modes).
+
+**One general engine fix surfaced (`render_look_string`, a5run_action.cpp).**
+The opening auto-look at the fire-lit main chamber diverged: Scarier printed
+the Look task's restricted `It is too dark to make anything out clearly.`
+override, FD printed the room view.  The restrictions genuinely PASS in both
+engines (verified with FD's own `PassSingleRestriction` trace — the "too dark"
+segment's `(#O#)A#A#` = `(NOT-at-library OR NOT-at-chamber) AND in-DarkLocations
+AND no-LightSources` is TRUE at the chamber).  The real difference is the
+**description-segment merge**: FD's `clsDescription.ToString`
+(Global.vb:3897-3904) treats a `StartAfterDefaultDescription` segment as a
+*rebuild from the default* (`sb = New StringBuilder(Me(0).Description &
+sd.Description)`), NOT an append — so the following `Remember ... LUMINO`
+StartAfterDefault segment RESETS the buffer to `default-room-view + hint`,
+silently discarding the `StartDescriptionWithThis` "too dark" override that
+fired just before it.  Scarier's `render_look_string` (the special-case Look
+room-view path) was appending StartAfterDefault instead of rebuilding — so the
+"too dark" override survived.  The general text pipeline (`eval_desc_into`,
+a5text.cpp:206) already rebuilt correctly; the fix mirrors it in
+`render_look_string` (track `default_view`, split StartAfterDefault from
+AppendToPrevious).  Only affects Look CompletionMessages that carry a
+StartDescriptionWithThis override *before* a StartAfterDefault segment (the
+common single-append case is unchanged, `result == default_view` there); whole
+suite otherwise byte-identical (34 goldens unchanged, all unit tests pass).
+
 ## ⭐ Magnetic Moon: NATIVE walkthrough wired as a 795/800 WIN, 2|2 (6 engine fixes; 2 OPEN one-char hunks) — mostly DONE (2026-07-03)
 
 > Same user report and same root cause as Lost Children: the old script was
