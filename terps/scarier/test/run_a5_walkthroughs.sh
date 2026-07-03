@@ -44,7 +44,14 @@ GAMES="$HERE/test/adrift5-games"
 A5RUN="$HERE/test/a5run_dump"
 
 VERBOSE=0
-[ "${1:-}" = "-v" ] && { VERBOSE=1; shift; }
+BLESS=0
+while :; do
+    case "${1:-}" in
+        -v) VERBOSE=1; shift ;;
+        -b|--bless) BLESS=1; shift ;;   # (re)write each matched game's golden
+        *) break ;;
+    esac
+done
 FILTER="${1:-}"
 [ "$VERBOSE" = 1 ] && mkdir -p /tmp/a5wt
 
@@ -646,9 +653,20 @@ echo "$MAP" | while IFS='|' read -r name game vbudget xbudget; do
     # --- vanilla -------------------------------------------------------------
     # Fast strict golden diff when a golden exists (vanilla transcript, no dotnet).
     golden="$HERE/test/${name}_expected.txt"
+    if [ "$BLESS" = 1 ] && [ -x "$A5RUN" ]; then
+        # (Re)write the golden through the SAME normalisation the comparison uses,
+        # so blessing is canonical and never trips the trailing-newline artifact.
+        "$A5RUN" "$gf" "$script" 2>/dev/null | sed 's/[[:space:]]*$//' | cat -s > "$golden"
+        printf "%-24s %-9s %s\n" "$name" "BLESSED" "$golden"
+        continue
+    fi
     if [ -f "$golden" ] && [ -x "$A5RUN" ]; then
         got=$("$A5RUN" "$gf" "$script" 2>/dev/null | sed 's/[[:space:]]*$//' | cat -s)
-        if printf '%s\n' "$got" | diff -q "$golden" - >/dev/null 2>&1; then hv=0; else hv=999; fi
+        # Compare content only: both sides are captured via $(...), which strips
+        # trailing newlines identically, so a golden written by a plain `> file`
+        # redirect (one extra newline) still matches -- no diff -q newline artifact.
+        want=$(cat "$golden")
+        if [ "$got" = "$want" ]; then hv=0; else hv=999; fi
     else
         vout=$("$GT" "$gf" "$script" 2>/dev/null)
         [ "$VERBOSE" = 1 ] && printf '%s\n' "$vout" > "/tmp/a5wt/${name}.diff"
