@@ -4,15 +4,191 @@ Havegangen slynger sig, som en flod af sølv i det blege lys fra fuldmånen høj
 
 Mod nord, tårnene sig op over dig, ligger det faldefærdige hus som en mørk, dyster silhuet mod månens lys.
 
-> look
-Jeg forstod ikke ordet "look".
+> undersøg køkkenhaven
+Også her har ukrudtet mere eller mindre taget over og kun efterladt små bare pletter. Helt ovre i det fjerneste hjørne stikker de forkrøblede blade af et hvidløg op af jorden.
 
-> examine me
-Jeg forstod ikke ordet "examine".
+> tag hvidløget
+En ram lugt af hvidløg rammer dig da du bøjer dig ned og hiver hvidløget op af jorden.
 
-> inventory
-Du har en T-shirt, et par cowboy bukser og dine sko på, og du bærer intet.
+> nord
+Gruset knaser sagte under dine fødder mens du fortsætter op ad havegangen. Et par trin fører op til en veranda, og det er kun tøvende at du fortsætter op. Snart står du på den mørke veranda.
+Verandaen
+Ude af månens lys står du nu i næsten totalt mørke. Enkelte steder formår månen at kaste lidt lys ned over verandaen igennem hullerne i taget, hvilket kun får mørket til at virke endnu dybere.
 
-> wait
+Bag ved dig, fører et par trin ned til den grusbelagte havegang, og foran dig, badet i de få stråler fra månen, er døren og en dørmåtte. Ved siden af døren er der et vindue, hvor gardinerne er trukket for. En verandabænk står for enden af verandaen. Den gynger sagte, næsten umærkeligt, frem og tilbage i brisen.  Desuden er her en bunke tøj.
 
-Tiden går...
+> bank på hoveddøren
+Forsigtig løfter du dørhammeren, og lader den falde.
+Lyden af slaget sender et rungende ekko gennem huset...
+
+Intet svar, ikke en lyd høres inde fra det mørke hus.
+
+> se under måtten
+Du løfter dørmåtten og kigger under den. Men finder ikke andet et verandagulvet.
+
+> tag tøjet
+Du samler bunken af tøj op. Det er det kostume du og Vickie havde aftalt at du skulle have på i aften.
+
+> undersøg skyggerne
+Du går tøvende tættere på de dybe skygger. Helt ovre i det ene hjørne, tæt ved væggen, ligger der en mobiltelefon.
+
+> tag mobilen
+Du samler mobilen op.
+
+> ring på mobilen
+Jeg forstår ikke hvad du vil gøre ved en mobil.
+
+> åbn vinduet
+Du kan lige få fingrene ind under det rådne træværk, og begynder at skubbe vinduet op. Der lyder et sagte suk, da et pust af muggen, indelukket luft undslipper gennem det nu halvåbne vindue.
+
+> kravl ind ad vinduet
+Med lidt besvær lykkedes det dig at kravle over karmen og ind gennem vinduet.
+Stuen
+Den smule af fuldmånens blege lys der skinner diffust gennem det snavsede vindue, får stuen til at virke sært spøgelsesagtig. Tapetet der hænger i laser på væggene blafrer lagsomt i brisen fra vinduet og får skyggerne på gulv og vægge til at fremstå som sorte væsener.
+
+Vinduet du kom ind igennem er bag dig, og fører ud til verandaen, og en dør fører vest mod ...
+
+> åbn stuedøren
+Med fingeren i hullet, trækker du prøvende i døren. Med en jamrende lyd åbner den.
+
+> vest
+Du træder ud gennem døren.
+Sydlig ende af entrén
+I den smule lys der kommer ind fra verandaen kan du se at du befinder dig i en lang smal entré. Nede i den anden ende af entréen er der to døre. Desværre er der også et stort hul i gulvet der forhindrer dig i at komme derhen.
+
+Bag ved dig er hoveddøren der fører ud til verandaen, og til højre, mod øst, er døren der fører ind til stuen.
+
+> fjern affaldet
+Med noget besvær lykkes det dig at fjerne bunken af affald fra hoveddøren.
+
+> åbn hoveddøren
+Du åbner hoveddøren, og træder ud på verandaen.
+Verandaen
+Ude af månens lys står du nu i næsten totalt mørke. Enkelte steder formår månen at kaste lidt lys ned over verandaen igennem hullerne i taget, hvilket kun får mørket til at virke endnu dybere.
+
+Bag ved dig, fører et par trin ned til den grusbelagte havegang, og foran dig, badet i de få stråler fra månen, er døren og en dørmåtte. Ved siden af døren er der et vindue, hvor gardinerne er trukket for. En verandabænk står for enden af verandaen. Den gynger sagte, næsten umærkeligt, frem og tilbage i brisen.
+
+> tag brættet
+(fra bænken)  Med lidt besvær lykkes det dig at få brættet løs fra bænken.
+
+> nord
+Med begge hænder på døren skubber du til. Med en skrigende lyd af rustne hænsler, høj nok til at vække selv de døde, åbner døren sig, og du træder ind i den mørke entré.
+Sydlig ende af entrén
+I den smule lys der kommer ind fra verandaen kan du se at du befinder dig i en lang smal entré. Nede i den anden ende af entréen er der to døre. Desværre er der også et stort hul i gulvet der forhindrer dig i at komme derhen.
+
+Bag ved dig er hoveddøren der fører ud til verandaen, og til højre, mod øst, er døren der fører ind til stuen.
+
+> læg brættet over hullet
+Forsigtigt bevæger du dig mod kanten, og lægger brættet hen over hullet i gulvet. Heldigvis er det så langt at det ligger godt og sikkert på begge sider.
+
+> nord
+Du sætter forsigtigt din fod på brættet ... Jo, det kan godt holde til din vægt. Lettet fortsætter du over hullet, mens du prøver ikke at kigge ned i det bundløse mørke.
+Efter nogle nervepirrende minutter står du sikkert på den anden side.
+
+Nordlige ende af entréen
+I denne ende af entréen er der, om muligt endnu mørkere og skummelt end i den anden. Her er en muggen lugt af mad, selv efter så mange år hvor huset har stået tomt. (eller er der nogen der bor her, trods alt?) Her er to døre. En dør mod vest, og en dør mod nord.
+
+Bag dig, i den anden ende af entréen kan du svagt skimte hoveddøren, og døren ind til stuen. Men de ser ud til at være uendelig langt væk.
+
+> åbn køkkendøren
+Du sætter skulderen mod døren og skubber til, alt hvad du kan. En fæl stank af rådden mad rammer dig som et knytnæveslag i det døren glider op med en fæl skurren. Køkkendøren er nu så meget åben at du kan klemme dig igennem åbningen.
+
+> nord
+Du klemmer dig igennem den smalle åbning, og står så i det der må have været køkkenet.
+Køkkenet
+Stanken herinde er forfærdelig. En blanding af råddenskab, mug og sur mælk. I lyset fra en gadelygte uden for kan du se omridsene af et par skabe, et køkkenbord, og et køleskab.
+
+Bagved dig er køkkendøren der fører ud til entréen.
+
+> åbn skabet
+Idet du åbner køkkenskabet, giver hængslerne efter og lågen falder af.
+
+Overrasket over den pludselige vægt, slipper du grebet og lader lågen falde på gulvet med et brag, der kunne vække de døde, hvor den brækker i stykker. Idet lågen falder ser du et eller andet mat skinnende objekt flyve gennem luften og lande et eller andet sted på gulvet.
+
+> tag træstaven
+Du samler træstaven op fra gulvet. Den er på længde med din underarm og sylespids.
+
+> undersøg snavset
+Du lægger dig på knæ og begynder at undersøge bunkerne af snavs på gulvet. Det er en skønsom blanding af mug, råd og efterladenskaber fra rotter og andre dyr der har søgt ly herinde.
+
+Pludselig støder dine fingre mod noget. En nøgle af en eller anden art. Den må have hængt på indersiden af skabslågen, og er faldet af da du åbnede skabet.
+
+> tag nøglen
+Du samler nøglen op fra gulvet.
+
+> ud
+Du klemmer dig igen, igennem den smalle sprække mellem døren og dørkarmen. Efter noget besvær befinder du dig igen i den nordlige ende af entréen.
+Nordlige ende af entréen
+I denne ende af entréen er der, om muligt endnu mørkere og skummelt end i den anden. Her er en muggen lugt af mad, selv efter så mange år hvor huset har stået tomt. (eller er der nogen der bor her, trods alt?) Her er to døre. En dør mod vest, og en dør mod nord.
+
+Bag dig, i den anden ende af entréen kan du svagt skimte hoveddøren, og døren ind til stuen. Men de ser ud til at være uendelig langt væk.
+
+> lås kælderdøren op med nøglen
+Du stikker nøglen i døren og drejer den. Den drejer kun et lille stykke før den sidder uhjælpeligt fast. Du lægger alle dine kræfter i, og det lykkes dig at få den drejet så meget at du hører et klik da låsen går op. Men desværre holder nøglen ikke. Den brækker inde i låsen.
+
+> åbn kælderdøren
+Underligt ... Dørhåndtaget føles varmt i din hånd, og det bevæger sig med en lethed som om det har været brugt regelmæssigt. Du skubber døren op og ser ned i totalt mørke. Du kan lige skimte den øverste del af en trappe der fører nedad.
+
+> ned
+Du famler dig vej ned af trappen. Det er som om du hører en hvisken fra mørket, og blege skygger glider lydløst forbi dig. En pludselig lyd af baskene læderagtige vinger får dig til at fare sammen og du er lige ved at skrige da noget blødt og låddent stryger forbi dit ansigt og berører din kind.
+
+Halvvejs nede af trappen hører du et smæk som fra en dør der lukkes. Du vender om, og styrter op af trappen igen, kun for at opdage at kælderdøren nu er lukket og låst.
+
+Kælderen
+Det første du lægger mærke til i kælderen er det granitalter som, dækket af en snehvid dug, står midt i rummet. To lys, et på hver side, kaster et svagt lys over det, og den skikkelse der ligger på det. Væggene er bygget af kampesten, og trappen du kom ned af er bag dig, og fører op til entréen oven på.
+
+> undersøg skikkelsen
+Du træder nærmere og i det flakkende skær fra de to alterlys genkender du skikkelsen på alteret. Det er din kæreste, Vickie! Hun ligger som livløs på den hvide dug, og kun en svag bevægelse af hendes bryst røber at hun trækker vejret.
+
+> væk vickie
+Du bøjer dig over hende og prøver blidt at vække hende. Uden resultat. Hun er i en dyb, dyb søvn.
+
+> læg hvidløget på vickie
+Du lægger hvidløget fra haven mellem Vickies foldede hænder.
+Du hører en sagte kradsen fra et sted inde bag kælderens vægge.
+
+> drej korset
+Med begge hænder tager du fat i korset og begynder at dreje det. Det giver sig ikke lige med det samme, men ved at lægge alle kræfter i får du det langsomt drejet rundt. Idet du når 180 grader, så det hænger omvendt, er det som om det låser. Du hører et svagt klik og en af de mindre sten skydes lidt ud fra væggen.
+
+> skub stenen
+Du lægger hånden på den løse sten og skubber forstigtigt til. Den glider let og ubesværet ind i væggen og efterlader et hul.
+
+> undersøg hullet
+Et godt stykke inde i hullet kan du lige skimte noget der ligner en krog.
+Der bliver langsomt koldere i kælderen. Et af lysene blafrer kraftigt, går så ud, og efterlader kælderen i et ubehageligt tusmørke.
+
+> træk i krogen
+Du kan lige få en finger omkring krogen. Når du har godt fat, trækker du til. Hele væggen giver pldselig efter og svinger langsomt indad. Foran dig ligger en dyb krypt.
+
+> ind
+Ved første øjekast virker krypten mørk og tom, men i det du træder ind i mørket begynder fire store lys langsomt at tændes. Efterhånden som flammerne vokser, spredes et søvnigt gult lys i rummet og du kan nu orientere dig her inde.
+
+Krypten
+Du står inde i en stor krypt. Højt oppe, over dit hoved, forsvinder de hvælvede vægge i mørket, og midt på gulvet, stående på en forhøjning af granit, står en kiste med fire lys i store tunge messingstager.
+
+Bagved dig er udgangen til kælderen hvor du kom ind fra.
+
+> undersøg kisten
+Kisten er stor og prangende. Med snørklede graveringer og dekorationer. Den er lavet af poleret egetræ og lysene skinner i den blanke overflade.  Kisten er i øjeblikket lukket.
+
+> åbn kisten
+Med besvær får du løftet det tunge kistelåg.
+Skæret fra stearinlysene kaster flakkende skygger hen over ansigtet på skikkelsen i kisten: DRACULA Klædt i kjole og hvidt ligger han i dyb søvn.
+
+> undersøg dracula
+Han er iklædt kjole og hvidt, og har en kappe med blodrødt foer slået om sig. Selv med munden lukket kana man ane de sylespidse hugtænder, der igennem århundredene har drukket så meget blod.  Dracula ligger inde i kisten.
+
+> væk dracula
+Du rækker ud for at vække Dracula. Men du kommer til at tænke på hans trang til frisk blod, og har ikke lyst til at bidrage med noget af dit eget. Så du lader være.
+
+> dræb dracula
+Med rystende hænder sætter du træpælen mod Draculas bryst. Du løfter den tunge lysestage og lader den falde med stor kraft på pælen. Idet spidsen borer sig ind i hans bryst, slår Dracula øjnene op. Hans iskolde blik sender bølger af ukontrolleret frygt igennem dig og du står som frosset til stedet mens han rækker ud efter dig med sine krogede hænder. Hænderne griber om din hals og du bliver trukket nærmere og nærmere ned mod ham.
+
+Han åbner sin mund med de syleskarpe hugtænder, men netop som du tror at alt er forbi, bliver hans øjne matte. Din vægt har endelig presset træstaven igennem hans hjerte. Rystende af rædsel rejser du dig op, og for dine øjne begynder Dracula langsomt at smuldre til støv. Snart er der intet tilbage i kisten andet end et tyndt lag støv.
+Mareridtet er forbi.
+
+Du løber ud af krypten, ud i kælderen, hvor du ser Vickie fortumlet sætte sig op efter hendes dybe søvn. Hun slår armene om dig, og kysser dig. Du tager hendes hånd, og sammen går i op af kældertrappen og ud af huset, som pludselig har mistet al sin uhygge.
+
+*** Du har vundet ***
+Vil du genstarte, indlæse et gemt spil, afslutte eller fortryde den sidste kommando?
+

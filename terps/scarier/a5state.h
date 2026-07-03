@@ -304,6 +304,17 @@ extern int a5state_character_at_location (const a5_state_t *st, int ci,
                                           const char *lockey);
 
 /*
+ * Is character `ci` *visible* at `lockey`?  Mirrors clsCharacter.BoundVisible /
+ * IsVisibleAtLocation: like a5state_character_at_location, but a character
+ * inside an openable closed opaque container binds to the container key and is
+ * visible nowhere, and an on/in-object carrier is resolved with the object
+ * BoundVisible rules.  Used where FD uses CharactersVisibleAtLocation (the
+ * ViewLocation "is here" list).
+ */
+extern int a5state_character_visible_at_location (const a5_state_t *st, int ci,
+                                                  const char *lockey);
+
+/*
  * Property access with the runtime override layer.  Returns the overridden
  * value if SetProperty has changed it, else the model's value, else NULL.
  * `kind` is informational only (overrides are keyed by entity key, which is

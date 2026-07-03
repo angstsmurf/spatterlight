@@ -1,5 +1,47 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Halloween: blind-derived FULL WIN wired MATCH 0|0 (2 general engine fixes) — ✅ DONE (2026-07-03)
+
+> **✅ DONE.** Halloween (Finn Rosenløv, 2020 — entirely in DANISH, on saabie's
+> Danish standard library, `dk_` key prefix) upgraded from the 4-command smoke
+> probe to a real blind-derived **winning walkthrough**: 42 Danish commands,
+> `dræb dracula` → `*** Du har vundet ***`.  Derived from the `a5dump` model
+> XML alone (the Tingalan/MuseumHeist template; no walkthrough material exists
+> anywhere for this game).  Route: dig up the garlic (`undersøg køkkenhaven` →
+> `tag hvidløget`), enter via the living-room window (the front door is blocked
+> by rubbish INSIDE — window crawl refuses while holding the swing-bench board,
+> so the board comes later through the opened front door), clear the rubbish,
+> bridge the gaping entré hole with the board, kitchen: intact cupboard →
+> pointed cupboard-door shard (`træstaven` = the stake), `undersøg snavset` →
+> half-buried cellar key (which SNAPS in the lock, one-use), and go Down
+> holding stake+garlic — that `dk_GåModNed1` locks the door behind you and
+> starts the ONE event in the game, a 32-turn Dracula kill timer (kill fires at
+> cellar-turn 16; crypt entry is refused from turn 15 via `dk_DraculaEve`;
+> the timer SUSPENDS inside the crypt).  Cellar in 8 turns: find Vickie on the
+> altar, lay the garlic on her, turn the wooden cross → loose brick → wall
+> hole → pull the iron hook → crypt.  `åbn kisten`, `dræb dracula` (needs only
+> the stake held + coffin open) = win.  Verified 0|0 vs FD in BOTH RNG modes;
+> golden blessed; suite otherwise unchanged.  Two general engine fixes:
+>
+> 1. **Characters inside a closed opaque container must not get an "is here"
+>    line** (a5state.cpp new `a5state_character_visible_at_location`, used by
+>    the ViewLocation present-NPC loop in a5text.cpp).  FD's room view keys on
+>    `CharactersVisibleAtLocation` → `clsCharacter.BoundVisible`, whose
+>    InObject branch binds a character inside an openable+closed+opaque
+>    container to the container key (visible at no room, clsCharacter.vb:711).
+>    Scarier's loop used the raw at-location test (the old comment even said
+>    the nuance was "unused by the corpus"), so sleeping Dracula in the closed
+>    coffin leaked a "Dracula er her." line into the crypt view.  Restriction
+>    checks (`BeInSameLocationAsCharacter` etc.) deliberately keep the raw
+>    at-location semantics — only the room-view listing changed.
+> 2. **Rich-Text property values on CHARACTERS and LOCATIONS render their
+>    `<Description>` node in OO chains** (a5expr.cpp).  The object branch
+>    already fell back to `value_node` rendering (clsItemWithProperties), but
+>    the character/location branches returned the "0" default, so the Danish
+>    library's name-declension properties — `%character%.dk_BestemtKar` in the
+>    examine-character "In Obj" tab — printed `0 ligger inde i kisten.` instead
+>    of `Dracula ligger inde i kisten.`.
+
 ## ⭐ Museum Heist: PERFECT-SCORE walkthrough wired MATCH 0|0 (3 general engine fixes) — ✅ DONE (2026-07-03)
 
 > **✅ DONE.** Museum Heist (Kenneth Pedersen, AdventureJam 2020) upgraded from a

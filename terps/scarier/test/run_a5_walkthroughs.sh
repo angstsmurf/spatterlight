@@ -517,7 +517,9 @@ FILTER="${1:-}"
 #
 # (2026-07-03) Six games wired at MATCH 0|0 from OPENING-TURN SMOKE PROBES, not
 # full walkthroughs: Halloween (Haven), MagorInvestigates (MI), MuseumHeist,
-# October31st, TheFortressOfFear, Xanix (XXR).  Their _walkthrough.txt is the
+# October31st, TheFortressOfFear, Xanix (XXR).  [Halloween since UPGRADED to a
+# blind-derived FULL WIN, and MuseumHeist to a perfect-score run -- see below.]
+# Their _walkthrough.txt is the
 # generic 4-command probe `look / examine me / inventory / wait`; the golden
 # guards intro + first-room render + basic-verb output byte-exact against FD
 # (all 6 were 0-hunk in both RNG modes when added).  These are conformance
@@ -572,6 +574,16 @@ FILTER="${1:-}"
 #       two takes share one non-empty 2-ref message).  Whole corpus unchanged.
 #       The remaining 1 is the plough-message leading pSpace.
 #       See A5_WALKTHROUGH_FINDINGS.md / TODO_a5_walkthrough_bugs.md.
+#
+# (2026-07-03) Halloween UPGRADED from the 4-command smoke probe to a
+# blind-derived FULL WIN (Finn Rosenløv, DANISH; 42 commands, `dræb dracula`
+# -> "*** Du har vundet ***"), 0|0 both modes, golden re-blessed.  Derived
+# from the a5dump model XML alone (Tingalan/MuseumHeist template).  Surfaced
+# 2 general engine fixes: character-in-closed-container visibility in the
+# room view (Dracula in the coffin got an "is here" line) and rich-Text
+# property values on characters/locations evaluating to "0" in OO chains
+# (%character%.dk_BestemtKar).  See the Halloween entry in
+# TODO_a5_walkthrough_bugs.md.
 #
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'

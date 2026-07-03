@@ -663,6 +663,14 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
               { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
             return v;
           }
+        /* A Text property's value is a rich <Description> (value_node) --
+           same clsItemWithProperties path as the object branch above; the
+           Danish library's %character%.dk_BestemtKar name properties are
+           this shape ("0" broke Halloween's "Dracula ligger inde i kisten."). */
+        const a5_prop_t *pr = a5_prop_find (c->props, c->n_props, fn.c_str ());
+        if (pr != NULL && pr->value_node != NULL)
+          { char *d = a5text_eval_description (st, pr->value_node);
+            std::string r = d ? d : ""; free (d); return r; }
         if (!rem.empty ()) { *ok = 0; return ""; }
         return "0";
       }
@@ -698,6 +706,12 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
               { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
             return v;
           }
+        /* Rich <Description> Text property, as in the object/character
+           branches (clsItemWithProperties string value). */
+        const a5_prop_t *pr = a5_prop_find (l->props, l->n_props, fn.c_str ());
+        if (pr != NULL && pr->value_node != NULL)
+          { char *d = a5text_eval_description (st, pr->value_node);
+            std::string r = d ? d : ""; free (d); return r; }
         if (!rem.empty ()) { *ok = 0; return ""; }
         return "0";
       }

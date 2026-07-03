@@ -1,4 +1,42 @@
-look
-examine me
-inventory
-wait
+undersøg køkkenhaven
+tag hvidløget
+nord
+bank på hoveddøren
+se under måtten
+tag tøjet
+undersøg skyggerne
+tag mobilen
+ring på mobilen
+åbn vinduet
+kravl ind ad vinduet
+åbn stuedøren
+vest
+fjern affaldet
+åbn hoveddøren
+tag brættet
+nord
+læg brættet over hullet
+nord
+åbn køkkendøren
+nord
+åbn skabet
+tag træstaven
+undersøg snavset
+tag nøglen
+ud
+lås kælderdøren op med nøglen
+åbn kælderdøren
+ned
+undersøg skikkelsen
+væk vickie
+læg hvidløget på vickie
+drej korset
+skub stenen
+undersøg hullet
+træk i krogen
+ind
+undersøg kisten
+åbn kisten
+undersøg dracula
+væk dracula
+dræb dracula

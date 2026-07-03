@@ -64,8 +64,17 @@ the real conformance metric, are clean). Changes since 2026-07-02:
   unlike the big Horsfield games); replayed 0|0 clean on the first try, no
   engine changes needed.
 
-**Remaining backlog = upgrading the other 5 smoke probes to real wins**, all
-blocked on walkthrough material (per-game notes below): Halloween,
+- **Halloween UPGRADED to a blind-derived FULL WIN 0|0 (2026-07-03)** — Finn
+  Rosenløv's Danish-language haunted-house game, no walkthrough material
+  exists anywhere; the 42-command win (`dræb dracula` → `*** Du har
+  vundet ***`) was derived purely from the `a5dump` model XML
+  (Tingalan/MuseumHeist template).  Surfaced **2 general engine fixes**
+  (character-in-closed-container "is here" visibility; rich-Text property
+  value_node rendering on characters/locations) — see the ⭐ Halloween entry
+  in `TODO_a5_walkthrough_bugs.md`.
+
+**Remaining backlog = upgrading the other 4 smoke probes to real wins**, all
+blocked on walkthrough material (per-game notes below):
 October31st (Finn Rosenløv — no material anywhere), TheFortressOfFear
 (Horsfield but no built-in WLKTHRGH), MagorInvestigates + Xanix (email-only
 walkthroughs → blind play-to-win; Xanix likely xoshiro-only, randomised
@@ -355,11 +364,14 @@ reverse-engineered from the model). **MuseumHeist** was then upgraded the same
 way (later 2026-07-03) to a blind-derived PERFECT-SCORE 940M run (36 commands,
 3 engine fixes — see the ⭐ Museum Heist entry in `TODO_a5_walkthrough_bugs.md`;
 the whole derivation ran off `a5dump`'s model XML + iterative `a5run_dump`
-probing, no `A5_DUMP_VARS` needed). The other three (Halloween, October31st,
+probing, no `A5_DUMP_VARS` needed). **Halloween followed (2026-07-03 evening):
+blind-derived FULL WIN 0|0, 2 engine fixes — see the ⭐ Halloween entry in
+`TODO_a5_walkthrough_bugs.md`.** The other two (October31st,
 TheFortressOfFear) still carry 4-command opening-turn **smoke probes**
 (look / examine me / inventory / wait) — finding/writing a real solution for
-them (and for Magor/Xanix above) is the remaining backlog. Tingalan's and
-MuseumHeist's derivations are the template for blind-deriving the rest.
+them (and for Magor/Xanix above) is the remaining backlog. Tingalan's,
+MuseumHeist's and Halloween's derivations are the template for blind-deriving
+the rest.
 All six were re-checked 2026-07-03 for hidden built-in walkthrough tasks
 (`a5dump | grep -i 'walkthrou\|wlkthrgh'`): none — Magor/Xanix only carry the
 email-the-author blurb.

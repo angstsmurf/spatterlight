@@ -2459,8 +2459,10 @@ view_location_impl (a5_state_t *st, const char *lockey)
         char *nmr, *descr;
         if (ci_eq (c->key, a5state_player_key (st)))
           continue;
-        if (!a5state_character_at_location (st, i, lockey))   /* incl. on/in furniture */
-          continue;
+        if (!a5state_character_visible_at_location (st, i, lockey))
+          continue;                          /* incl. on/in furniture, but not
+                                                inside a closed opaque container
+                                                (CharactersVisibleAtLocation) */
         nmr = character_display_name (st, c, 0);
         descr = char_here_desc (st, c);
         std::string sName = nmr ? nmr : "";

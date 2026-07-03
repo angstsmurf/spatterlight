@@ -797,10 +797,33 @@ a5state_character_at_location (const a5_state_t *st, int ci, const char *lockey)
   if (st->char_loc[ci] != NULL)
     return streq (st->char_loc[ci], lockey);
   /* "On Object"/"In Object": present wherever the carrier object is (its
-     container chain reaches lockey).  clsObject.BoundVisible would hide a char
-     inside a closed opaque container; that nuance is unused by the corpus. */
+     container chain reaches lockey).  Visibility (the closed-opaque-container
+     hiding) is a5state_character_visible_at_location's job. */
   if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
     return a5state_object_key_at_location (st, st->char_onobj[ci], lockey, 0);
+  return 0;
+}
+
+int
+a5state_character_visible_at_location (const a5_state_t *st, int ci,
+                                       const char *lockey)
+{
+  if (ci < 0 || lockey == NULL || st->char_loc == NULL)
+    return 0;
+  if (st->char_loc[ci] != NULL)
+    return streq (st->char_loc[ci], lockey);
+  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+    {
+      int oi = a5state_object_index (st, st->char_onobj[ci]);
+      /* clsCharacter.BoundVisible's InObject branch (clsCharacter.vb:711): a
+         character inside an openable, closed, opaque container binds to the
+         container's own key, so it is visible at no room (Halloween's Dracula
+         asleep in the closed coffin gets no "is here" line).  On-object
+         characters inherit the carrier's BoundVisible unconditionally. */
+      if (st->char_in != NULL && st->char_in[ci] && obj_hides_contents (st, oi))
+        return 0;
+      return exists_at (st, oi, lockey, 0, 1, 0);
+    }
   return 0;
 }
 
