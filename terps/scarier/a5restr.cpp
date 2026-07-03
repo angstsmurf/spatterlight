@@ -199,6 +199,23 @@ num_value (a5_state_t *st, const char *k)
   vi = a5state_variable_index (st, s);
   if (vi >= 0)
     return st->var_num[vi];
+  /* Not a RAND literal and not a bare variable key: the value may be an
+     expression carrying %references% and/or arithmetic (e.g. Tingalan's
+     `'%randbetween1and9%'` or `'%randbetween1and9%+%randbetween1and2%'`).  FD
+     resolves the RHS via EvaluateExpression (substitute %vars%, reduce); strtol
+     alone left a leading `%` as 0, so an *unmet* survival restriction such as
+     Dysentaryk's `Poopcounte Must BeGreaterThanOrEqualTo '%randbetween1and9%'`
+     fired as 0>=0 -- inflicting a spurious `Wounds += 12` mortal wound.  When the
+     value contains a %reference%, evaluate it through the same expression engine
+     the action side uses (a5text_eval_expression) and read back the number.  The
+     `%`-only trigger keeps every non-reference RHS byte-identical to before. */
+  if (s != NULL && strchr (s, '%') != NULL)
+    {
+      char *ev = a5text_eval_expression (st, s);
+      long e = strtol (ev, NULL, 10);
+      free (ev);
+      return e;
+    }
   return strtol (s != NULL ? s : "0", NULL, 10);
 }
 

@@ -2,10 +2,15 @@
 
 ## ⭐ Tingalan: lowercase `rand()` in SetVariable was dead (whole encounter engine) + Text string-literal/cap fixes; wired 0|0 as a smoke probe — a full WINNING walkthrough is a large remaining gameplay effort (root-caused, partly unblocked)  ⏸️ PARKED (2026-07-03)
 
-> **PARKED** at the user's request.  All engine fixes + tooling + the 0|0 smoke-probe
-> wire-in are **committed and green** (whole corpus unchanged both modes).  Resume
-> from the two "🚧 NOT DONE" blockers below — start with the wound/thirst/hunger tick
-> divergence (the repro is in blocker #1), then the gameplay derivation.
+> **RESUMED** (2026-07-03): fixed the fatal half of blocker #1 — a restriction RHS
+> that carries a `%reference%` (e.g. `Poopcounte Must BeGreaterThanOrEqualTo
+> '%randbetween1and9%'`) was evaluated to **0** by `num_value` (a5restr.cpp), so an
+> *unmet* dysentary/thirst gate passed as `0>=0` and fired `IncVariable Wounds = "12"`
+> — a spurious mortal wound that killed the player on the arrival turn where FD lives.
+> Now `num_value` routes any `%`-bearing RHS through `a5text_eval_expression` (FD's
+> EvaluateExpression), the restriction twin of the action-side `eval_num_value`.
+> Whole corpus unchanged both modes; unit tests + ASan/UBSan clean.  See the updated
+> blocker #1 below for the remaining (non-fatal) thirst-wound *timing* divergence.
 
 
 **Goal: derive a winning walkthrough for Tingalan** (William Dooling, 2017 — a
@@ -61,17 +66,27 @@ now-working Roller RNG + `%notallowed[RAND(1,6)]%`).  Whole corpus unchanged bot
 modes, unit tests + `make sanitize` + a 45-turn ASan/UBSan run clean.
 
 **🚧 NOT DONE — remaining blockers to a *winning* walkthrough.**
-1. **Wound/thirst/hunger tick divergence (engine bug).** Once you actually move into
-   the woods, Scarier over-accumulates wounds and *kills the player at 7 wounds
-   where FD survives*.  The `HungerKill1`/"Lesser Thirst Kills" System tasks
-   (a5run gated on `Playeristh==1`, `Encounter==0`, `Kindofhung Must BeContain
-   "'lesser'"`, `Randbetwee1==1`) fire at a different turn/count than FD — the thirst
-   wound lands on the arrival turn in FD but a turn later + with an extra
-   collapse/mortal-wound in Scarier.  Suspects: the `Encounter==0` gate timing in the
-   Tick chain, and a **quoted `BeContain "'lesser'"` restriction comparison** (the
-   restriction-side twin of the Text string-literal fix above — verify Scarier strips
-   the `'lesser'` quotes before the Contains test).  Repro:
-   `printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\nlook\nnorth\nleave at once\nnorth\nleave at once\nsouth\ninventory\nsearch\n' > /tmp/p.txt ; FD_RNG=xoshiro test/a5_groundtruth.sh "test/adrift5-games/Tingalan.blorb" /tmp/p.txt`.
+1. **Thirst-wound *timing* divergence (RNG-stream, non-fatal — the fatal collapse is
+   FIXED).**  ✅ The catastrophic instakill is gone: the `Dysentaryk` `Wounds += 12`
+   mortal wound no longer fires spuriously (restriction-RHS `%reference%` fix above),
+   so the player survives the woods.  **Remaining:** with the repro below the diff is
+   now a *single* hunk — on the `south` (arrival-back-at-loc-18) turn FD appends
+   *"Thirst burns within you like a fire. You have been wounded!"* (the `HungerKill1`
+   "Lesser Thirst Kills" task: `Playeristh==1`, `Encounter==0`, `Randbetwee1==1`,
+   `Kindofthirst BeContain "'lesser'"`) but Scarier does **not** — at end of that turn
+   Scarier has `Encounter?=1` and `Randbetwee1(randbetween1and3)=3`, so both the
+   `Encounter==0` and the `Randbetwee1==1` gates fail.  FD evidently evaluates the
+   thirst-kill while `Encounter` is still 0 **and** with a different `Randbetwee1`
+   draw, i.e. the per-turn RNG draw *count/order* inside the `Tick` sub-event chain
+   diverges once you move (the `randbetween1and3` value differs turn-for-turn).  Next
+   step: instrument the `Tick` event's sub-event/System-task execution order and the
+   RAND draw sequence for the move turn and compare against FD (the Roller sets the 11
+   `rand()` vars; find which task draws out of order).  This is *cosmetic* for the win
+   (the player lives), but it must be byte-exact before a golden walkthrough is blessed.
+   Repro (write the script to the **scratchpad**, not `/tmp` — a concurrent job clobbers
+   `/tmp/p.txt`):
+   `printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\nlook\nnorth\nleave at once\nnorth\nleave at once\nsouth\ninventory\nsearch\n' > "$SCRATCH/p.txt" ; FD_RNG=xoshiro test/a5_groundtruth.sh "test/adrift5-games/Tingalan.blorb" "$SCRATCH/p.txt"`.
+   Var trace: `A5_DUMP_VARS='wounds,encounter?,playeristhirsty,randbetween1and3,depth' test/a5run_dump <game> "$SCRATCH/p.txt"`.
 2. **The gameplay derivation itself.** With the wound tick fixed (byte-exact deeper
    play), derive the deterministic (seed-1234 / xoshiro) command sequence that reaches
    the wagon, ACCEPTs, grabs a terrible secret, and returns alive — using
