@@ -43,19 +43,22 @@ int a5run_trace = 0;
 
 /* -------------------------------------------------------------- message tests */
 
-/* True when `m` has visible content (FD's bHasOutput, approximated): a message
-   that renders to nothing but whitespace produces no output and is skipped (the
-   stock cl_PAtStartOp "page" task has an empty Before message, for instance).
-   Messages with real text are emitted verbatim -- their own trailing newline,
-   if any, drives the pSpace line/paragraph break before the next message. */
+/* FD's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
+   (the form Scarier holds at every response/emit site, after markup has been
+   converted to plain).  FD keeps a message unless StripCarats leaves the empty
+   string AND it is not a known formatting tag / ALR key.  On plain text the tags
+   are already gone, so the faithful test is simply "non-empty" -- and crucially
+   WHITESPACE COUNTS: a `<Text> </Text>` completion renders to " ", which FD keeps
+   (StripCarats(" ")=" " != "") and space-joins to the next response.  The old
+   version dropped whitespace-only messages, which swallowed the leading indent FD
+   renders before search-triggered encounter titles (Tingalan) and blank-line
+   separators FD emits between responses (Bug Hunt).  For a message still carrying
+   MARKUP (what FD's Display sees pre-render), use fd_has_output, which runs the
+   actual StripCarats + known-tag + ALR fallback. */
 int
 msg_has_output (const char *m)
 {
-  if (m == NULL) return 0;
-  for (; *m; m++)
-    if (*m != '\n' && *m != '\r' && *m != ' ' && *m != '\t')
-      return 1;
-  return 0;
+  return m != NULL && m[0] != '\0';
 }
 
 /* A faithful port of clsUserSession.bHasOutput (vb:1272), applied to a message

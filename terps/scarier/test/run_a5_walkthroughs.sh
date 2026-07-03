@@ -581,7 +581,7 @@ MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|0
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 DwarfOfDirewoodForestDDF|DDF.blorb|0|0
-BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|1
+BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|0
 Tribute|Tribute.blorb|0|0
 AoS|AoS v.4.blorb|0|0
 FinnsBigAdventure|FBA v.3c.blorb|0|0

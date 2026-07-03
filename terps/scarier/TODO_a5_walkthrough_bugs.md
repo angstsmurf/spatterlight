@@ -1,16 +1,55 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-## ⭐ Tingalan: lowercase `rand()` in SetVariable was dead (whole encounter engine) + Text string-literal/cap fixes; wired 0|0 as a smoke probe — a full WINNING walkthrough is a large remaining gameplay effort (root-caused, partly unblocked)  ⏸️ PARKED (2026-07-03)
+## ⭐ Tingalan: engine now byte-exact for 45 turns of woods play (5 general fixes) — remaining = the WINNING-walkthrough derivation itself  🟡 IN PROGRESS (2026-07-03)
 
-> **RESUMED** (2026-07-03): fixed the fatal half of blocker #1 — a restriction RHS
-> that carries a `%reference%` (e.g. `Poopcounte Must BeGreaterThanOrEqualTo
-> '%randbetween1and9%'`) was evaluated to **0** by `num_value` (a5restr.cpp), so an
-> *unmet* dysentary/thirst gate passed as `0>=0` and fired `IncVariable Wounds = "12"`
-> — a spurious mortal wound that killed the player on the arrival turn where FD lives.
-> Now `num_value` routes any `%`-bearing RHS through `a5text_eval_expression` (FD's
-> EvaluateExpression), the restriction twin of the action-side `eval_num_value`.
-> Whole corpus unchanged both modes; unit tests + ASan/UBSan clean.  See the updated
-> blocker #1 below for the remaining (non-fatal) thirst-wound *timing* divergence.
+> **RESUMED** (2026-07-03).  Blocker #1 is **fully fixed** and five general engine
+> bugs are committed (all corpus-safe both RNG modes, unit tests + ASan/UBSan clean).
+> A 45-turn deterministic woods-exploration script now diffs to FD with **zero hunks
+> in both RNG modes** — the engine is byte-exact that far into the woods.  The five
+> fixes, in commit order:
+>
+> 1. **`num_value` restriction RHS evaluates a `%reference%`** (a5restr.cpp).  A quoted
+>    RHS like `Poopcounte Must BeGreaterThanOrEqualTo '%randbetween1and9%'` evaluated to
+>    **0**, so an *unmet* dysentary gate passed as `0>=0` and fired `Wounds += 12` — an
+>    instakill on the arrival turn where FD lives.  Now routes `%`-bearing RHS through
+>    `a5text_eval_expression`.
+> 2. **Text restriction RHS is an expression, not a raw token** (a5restr.cpp).
+>    `Kindofhung1 Must BeContain "'greater'"` compared the stored `greater` against the
+>    literal `"'greater'"` (quotes intact) and never matched, so the greater-thirst
+>    wound never landed.  Now the Text branch resolves the RHS via `restr_text_value`.
+> 3. **Location `BeInGroup` honours runtime `AddLocationToGroup`** (a5restr.cpp).
+>    `pass_location` scanned only static `<Member>`s, so a location stamped into
+>    `SearchedLo` by a Search task never counted as searched → a re-search re-fired a
+>    fresh random encounter (THE DEER) where FD says "find nothing".  Now delegates to
+>    `a5state_object_in_group` like the object handler.
+> 4. **Ref-less Execute'd-task restriction fail is cancelled by any pass response**
+>    (a5run_action.cpp `exec_scope_flush`).  FD's pass-cancels-fail loop leaves
+>    bAllMatch True for a ref-less fail, so it drops when any pass happened this
+>    command.  Tingalan's Search passes ("find nothing here") and then Execute's an
+>    encounter whose adderstone restriction fails with a ref-less "...something follows
+>    ..."; FD stays silent, Scarier leaked the paragraph.  Now cancels iff `pass_seen`.
+> 5. **`msg_has_output` keeps whitespace-only messages (FD's bHasOutput)** (a5run.cpp).
+>    A Search task with a single-space `<Text> </Text>` completion that `SetTasks
+>    Execute`s an encounter renders `   ENCOUNTER: THE TREEHOUSE` in FD (the `" "`
+>    completion + a pSpace `"  "` join = 3 leading spaces) but `ENCOUNTER: ...` in
+>    Scarier.  Root: `msg_has_output(" ")` returned 0 (it treated all-whitespace as no
+>    output) so Scarier *dropped* the `" "` that FD keeps.  FD's `bHasOutput`
+>    (clsUserSession.vb:1272) keeps a message unless `StripCarats` leaves `""`; on the
+>    already-plain text these sites hold, that is simply "non-empty" (whitespace
+>    counts).  Redefined `msg_has_output` to `m && m[0]` — faithful for every
+>    plain-text response/emit site.  This ALSO made **Bug Hunt on Menelaus fully
+>    byte-exact** (its two blank-line separators FD emits were being dropped) → its
+>    golden was re-blessed to MATCH 0|0.  `fd_has_output` remains for the one
+>    markup-input site (title-music path).  Diagnostics confirmed the RNG stream stayed
+>    byte-identical throughout (see below) — this was purely text.
+>
+> Diagnostics proved the RNG stream is byte-identical to FD throughout (66 draws for
+> the 13-cmd repro, 1014 for the 45-turn run) — every divergence was pure logic/text.
+> `A5_TRACE_RAND=1` (Scarier) vs `FD_RNG_TRACE=1` (FD) diff the draw streams;
+> `A5_TRACE_RESTR=1`/`A5_TRACE_RUN=1` trace task+restriction eval; `A5_DUMP_VARS=...`
+> (internal var *Name*, lowercase — e.g. `wounds,encounter?,playeristhirsty,depth`)
+> dumps state per turn.  45-turn repro (scratchpad, not /tmp — a concurrent job
+> clobbers `/tmp/p.txt`): `{ printf 'take axe\ntake bow\ntake a quiver of five arrows\ntake matches\ntake candle\n'; for i in $(seq 1 45); do printf 'north\nleave at once\ncontinue\nsearch\n'; done; }` → `FD_RNG=xoshiro test/a5_groundtruth.sh <blorb> <script>` = 0 hunks.
 
 
 **Goal: derive a winning walkthrough for Tingalan** (William Dooling, 2017 — a

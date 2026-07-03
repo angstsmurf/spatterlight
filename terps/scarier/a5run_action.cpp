@@ -2363,10 +2363,11 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
   char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink);
   run->st->marking_display = prev_mark;
   /* Append exactly as FD Display() does: pSpace-join to the running output, then
-     the rendered text verbatim.  A whitespace-only message has no output (FD's
-     bHasOutput) and is dropped; a real message keeps its own trailing newline so
-     it forces a line/paragraph break before the next message, while one ending
-     in text space-joins to the next. */
+     the rendered text verbatim.  `m` is already-plain, so msg_has_output is the
+     faithful bHasOutput here: it keeps a whitespace-only message (e.g. a
+     `<Text> </Text>` completion), which then space-joins to the next response --
+     that is how FD renders the leading indent before a search-triggered encounter
+     title (Tingalan's Search " " completion -> Execute encounter). */
   if (msg_has_output (m))
     {
       /* Within an event-fired task chain, dedup identical completion messages

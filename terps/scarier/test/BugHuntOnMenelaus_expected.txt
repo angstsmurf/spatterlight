@@ -63,6 +63,7 @@ The marine squad follows you.
 
 By Shuttle
 You are by your shuttle, which has landed on the outskirts of a large town. You can go South to the town or In to the shuttle.  Lieutenant Zen, Sergeant Boone, Lance-Corporal Davey, Corporal Jones and Private Foley are here.
+
 As you and your marines disembark from the shuttle, you are met by the commander of one of the decimated marine regiments which is being withdrawn from the planet.
 
 "There are about half a dozen of those bugs left in that town, they could be anywhere, absolutely anywhere," the Colonel tells you. "They are very quick to spray that gunk which burns like boiling water through ice," he says, indicating the deep gouges on his space armour. "We also found that the really big ones have hides that are impervious against our pulse rifles and laser pistols," he warns you.
