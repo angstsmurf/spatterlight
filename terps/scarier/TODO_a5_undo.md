@@ -1,4 +1,40 @@
-# TODO: Add undo support to the ADRIFT 5 engine
+# TODO: Add undo support to the ADRIFT 5 engine  ✅ DONE (2026-07-03)
+
+**Implemented (Option A — opaque API).** Single-level undo built on the existing
+save/restore layer:
+
+- `a5_run_s` (a5run_internal.h) gained `char *undo_blob; size_t undo_len;`,
+  init NULL/0 in `a5run_new`, freed in `a5run_free`.
+- Three opaque API calls in a5run.cpp / a5run.h:
+  - `a5run_snapshot(run)` — `a5run_save` into the run's own slot (discarding any
+    prior snapshot; one-deep).
+  - `a5run_undo(run)` — restore the snapshot and consume it (a second consecutive
+    undo returns 0); also clears the cross-turn parser transients that predate the
+    restored turn (`amb_*` disambiguation, `remembered_verb`, `pending_failover`)
+    so the restored state is clean. Detaches the blob pointer before calling
+    `a5run_restore` so the restore never reads through the slot it frees.
+  - `a5run_undo_forget(run)` — drop the snapshot without restoring (used after a
+    RESTORE-from-file so undo can't jump back across the restore boundary).
+- os_glk.cpp `gsc_a5_main`: calls `a5run_snapshot` immediately before each
+  `a5run_input` (NOT inside it — `a5run_input` bumps `st->turns` on entry);
+  intercepts `undo` before `a5run_input`; calls `a5run_undo_forget` after a
+  successful RESTORE. The end-game loop now honours **RESTART / RESTORE / UNDO /
+  QUIT** (was RESTART/QUIT only) — UNDO and RESTORE revert to a running state and
+  `continue` the outer turn loop; the prompt text was updated to match the
+  engine's own banner.
+
+**Verification.** New `A5_UNDO_AT=N` self-check in the headless harness
+(test/a5run_dump.cpp): at command N it snapshots, runs the command (captured),
+undoes, asserts a second undo fails, re-runs the same command, and requires the
+two outputs byte-identical — so undo provably reverts state AND the RNG stream.
+Passed on AoS, FBA, BugHunt (across BECOME viewpoint switches → per-character seen
+sets revert), and SixSilverBullets (per-turn RAND events → stream reverts), at
+command 1 and mid-game; the printed transcript stays identical to a plain run.
+Whole corpus unchanged in both RNG modes; ASan/UBSan-clean over the per-turn
+snapshot alloc/free; os_glk.cpp compiles against both cheapglk and glkimp headers.
+
+The limitations note below still applies (single-level; disambiguation cleared on
+undo). Original plan retained for reference.
 
 ## Background
 

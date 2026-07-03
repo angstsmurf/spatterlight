@@ -77,6 +77,18 @@ extern const a5_media_event_t *a5run_media_get   (a5_run_t *run, int i);
 extern char *a5run_save    (a5_run_t *run, size_t *out_len);
 extern int   a5run_restore (a5_run_t *run, const char *data, size_t len);
 
+/* Single-level undo (mirrors the ADRIFT 4 game->undo slot; built on save/restore).
+   a5run_snapshot captures the current state as the undo point -- call it from the
+   frontend just BEFORE a5run_input each turn (a5run_input increments the turn
+   counter on entry, so snapshotting inside it would capture mid-turn state).
+   a5run_undo restores the last snapshot and consumes it (a second consecutive
+   undo returns 0); it returns 1 on success, 0 when nothing is snapshotted.
+   a5run_undo_forget drops the undo point without restoring (call after a RESTORE
+   from file so undo does not jump back across the restore). */
+extern void a5run_snapshot    (a5_run_t *run);
+extern int  a5run_undo        (a5_run_t *run);
+extern void a5run_undo_forget (a5_run_t *run);
+
 /* Trace task matching / action execution to stderr. */
 extern int a5run_trace;
 

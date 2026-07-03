@@ -297,6 +297,8 @@ a5run_new (const a5_adventure_t *adv)
   run->look_pos = 0;
   run->cur_score_ti = -1;
   run->look_pinned = NULL;
+  run->undo_blob = NULL;
+  run->undo_len = 0;
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -316,6 +318,7 @@ a5run_free (a5_run_t *run)
     return;
   a5state_free (run->st);
   free (run->look_pinned);
+  free (run->undo_blob);
   delete run->media;
   delete run->order;
   delete run->events;
@@ -2848,5 +2851,68 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
     { a5xml_free (doc); return 0; }
 
   a5xml_free (doc);
+  return 1;
+}
+
+/* ------------------------------------------------------------------- undo */
+
+/* Capture the current runtime as the single-level undo point (a5run_save into
+   the run's own slot).  Call from the frontend just BEFORE a5run_input, so the
+   snapshot is the pre-turn state (a5run_input increments st->turns on entry).
+   A prior snapshot is discarded -- this is one-deep undo. */
+void
+a5run_snapshot (a5_run_t *run)
+{
+  if (run == NULL)
+    return;
+  free (run->undo_blob);
+  run->undo_blob = a5run_save (run, &run->undo_len);
+}
+
+/* Discard the undo point without restoring (e.g. after a RESTORE from file, so
+   UNDO does not silently jump back across the restore boundary). */
+void
+a5run_undo_forget (a5_run_t *run)
+{
+  if (run == NULL)
+    return;
+  free (run->undo_blob);
+  run->undo_blob = NULL;
+  run->undo_len = 0;
+}
+
+/* Restore the last snapshot (undo the last turn).  Returns 1 on success, 0 when
+   no undo point exists or the restore failed.  The snapshot is consumed on a
+   successful undo, so a second consecutive UNDO reports "no undo available"
+   (matching FrankenDrift's one-deep model).  Cross-turn parser transients that
+   predate the restored turn (a pending disambiguation, a remembered verb, a
+   pending FailOverride) are cleared so the restored state is clean. */
+int
+a5run_undo (a5_run_t *run)
+{
+  char *blob;
+  size_t len;
+  int ok;
+
+  if (run == NULL || run->undo_blob == NULL)
+    return 0;
+  /* a5run_restore copies its input before mutating state, but detach the slot
+     first so we never read through a pointer the restore might touch. */
+  blob = run->undo_blob;
+  len = run->undo_len;
+  run->undo_blob = NULL;
+  run->undo_len = 0;
+  ok = a5run_restore (run, blob, len);
+  free (blob);
+  if (!ok)
+    return 0;
+  run->amb_active = 0;
+  run->amb_task_index = run->amb_command_index = -1;
+  run->amb_keys.clear ();
+  run->amb_input.clear ();
+  run->amb_ref_name.clear ();
+  run->amb_word.clear ();
+  run->remembered_verb.clear ();
+  run->pending_failover = NULL;
   return 1;
 }

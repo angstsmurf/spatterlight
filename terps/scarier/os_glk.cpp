@@ -4629,11 +4629,31 @@ gsc_a5_main (void)
       if (gsc_a5_match_command (input, "restore"))
         {
           if (gsc_a5_restore (run))
-            gsc_a5_put_string ("Game restored.\n");
+            {
+              /* Don't let a later UNDO jump back across the restore boundary. */
+              a5run_undo_forget (run);
+              gsc_a5_put_string ("Game restored.\n");
+            }
           else
             gsc_a5_put_string ("Restore failed.\n");
           continue;
         }
+
+      if (gsc_a5_match_command (input, "undo"))
+        {
+          if (a5run_undo (run))
+            {
+              gsc_a5_put_string ("The previous turn has been undone.\n");
+              gsc_a5_status (run);
+            }
+          else
+            gsc_a5_put_string ("You can't undo what hasn't been done.\n");
+          continue;
+        }
+
+      /* Snapshot the pre-turn state for single-level undo (before a5run_input,
+         which increments the turn counter on entry). */
+      a5run_snapshot (run);
 
       text = a5run_input (run, input);
       gsc_a5_put_string (text);
@@ -4642,12 +4662,15 @@ gsc_a5_main (void)
       gsc_a5_status (run);
 
       if (a5run_is_over (run))
-        /* The engine has already emitted the win/lose/score block; let the
-           player read it, then accept only quit/restart on the next line. */
+        /* The engine has already emitted the win/lose/score block (whose banner
+           offers restart / restore / quit / undo); honour all four here.  UNDO
+           and RESTORE revert to a running state and resume play; RESTART rebuilds
+           the game. */
         {
+          int resumed = 0;
           for (;;)
             {
-              gsc_a5_put_string ("\nPlease enter RESTART or QUIT.\n> ");
+              gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
               if (gsc_a5_read_line (input, sizeof input) == 0)
                 continue;
               if (gsc_a5_match_command (input, "quit")
@@ -4658,7 +4681,33 @@ gsc_a5_main (void)
                 }
               if (gsc_a5_match_command (input, "restart"))
                 break;
+              if (gsc_a5_match_command (input, "undo"))
+                {
+                  if (a5run_undo (run))
+                    {
+                      gsc_a5_put_string ("The previous turn has been undone.\n");
+                      gsc_a5_status (run);
+                      resumed = 1;
+                      break;
+                    }
+                  gsc_a5_put_string ("Sorry, no undo is available.\n");
+                  continue;
+                }
+              if (gsc_a5_match_command (input, "restore"))
+                {
+                  if (gsc_a5_restore (run))
+                    {
+                      a5run_undo_forget (run);
+                      gsc_a5_put_string ("Game restored.\n");
+                      resumed = 1;
+                      break;
+                    }
+                  gsc_a5_put_string ("Restore failed.\n");
+                  continue;
+                }
             }
+          if (resumed)
+            continue;   /* the run is running again; resume the outer turn loop */
           a5run_free (run);
           run = a5run_new (gsc_a5_adv);
           if (!run)

@@ -15,6 +15,11 @@
  *                  build a fresh run, a5run_restore it, and continue from there
  *                  -- a save/restore self-check: the transcript must be identical
  *                  to a plain run (Phase 5).
+ * A5_UNDO_AT=N     at the Nth command, a5run_snapshot, run it (captured), then
+ *                  a5run_undo and re-run the SAME command -- an undo self-check:
+ *                  the two runs must be byte-identical (undo fully reverts state
+ *                  AND the RNG) and a second consecutive undo must fail; the
+ *                  printed transcript stays identical to a plain run.
  */
 
 #include <stdio.h>
@@ -80,6 +85,8 @@ main (int argc, char **argv)
   {
     const char *sa = getenv ("A5_SAVE_AT");
     long save_at = sa != NULL ? strtol (sa, NULL, 10) : -1;
+    const char *ua = getenv ("A5_UNDO_AT");
+    long undo_at = ua != NULL ? strtol (ua, NULL, 10) : -1;
     long cmd_no = 0;
 
     while (fgets (line, sizeof line, script) != NULL)
@@ -90,6 +97,30 @@ main (int argc, char **argv)
         if (n == 0 || line[0] == '#')
           continue;
         printf ("\n> %s\n", line);
+        if (cmd_no + 1 == undo_at)
+          {
+            /* Undo self-check: snapshot, run the command, undo it, re-run the
+               SAME command; the two outputs must match byte-for-byte (undo also
+               reverts the RNG), and a second undo must now fail. */
+            char *first;
+            a5run_snapshot (run);
+            first = a5run_input (run, line);
+            if (!a5run_undo (run))
+              { fprintf (stderr, "a5run_dump: undo returned no snapshot\n"); free (first); break; }
+            if (a5run_undo (run))
+              { fprintf (stderr, "a5run_dump: second consecutive undo unexpectedly succeeded\n"); free (first); break; }
+            txt = a5run_input (run, line);
+            if (strcmp (first, txt) != 0)
+              { fprintf (stderr, "a5run_dump: undo re-run diverged from first run\n"); free (first); free (txt); break; }
+            free (first);
+            fprintf (stderr, "[undo self-check ok at command %ld]\n", undo_at);
+            printf ("%s\n", txt);
+            free (txt);
+            if (a5run_is_over (run))
+              break;
+            ++cmd_no;
+            continue;
+          }
         txt = a5run_input (run, line);
         printf ("%s\n", txt);
         free (txt);

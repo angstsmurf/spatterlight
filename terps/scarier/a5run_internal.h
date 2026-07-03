@@ -191,6 +191,14 @@ struct a5_run_s {
      of the scope (run_general / attempt_event_task).  When the plural/
      movement resp_map is active it handles fail responses itself instead. */
   struct exec_resp_scope *exec_scope;
+
+  /* Single-level undo: a serialised a5run_save snapshot of the state as it stood
+     BEFORE the last processed turn (NULL until the first turn is snapshotted, and
+     consumed on undo so a double-undo fails).  Taken by a5run_snapshot from the
+     frontend just before a5run_input; a5run_undo restores it.  Mirrors the ADRIFT
+     4 game->undo slot and FrankenDrift's one-deep undo. */
+  char  *undo_blob;
+  size_t undo_len;
 };
 
 /* One SetTasks-Execute response scope (see exec_scope above). */

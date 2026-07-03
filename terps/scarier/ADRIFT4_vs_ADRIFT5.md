@@ -76,7 +76,7 @@ Two distinct layers — immutable model and mutable runtime state.
 - `a5_looktext_t looks[]` — SetLook event text stack.
 - `disp_once[]` — `<DisplayOnce>` DOM nodes already shown.
 - `route_error`, `restriction_text` — last restriction message node.
-- No battle system fields. No undo.
+- No battle system fields. Undo lives on `a5_run_t` (the `undo_blob` snapshot), not in `a5_state_t`.
 
 ---
 
@@ -156,7 +156,7 @@ Actions are DOM nodes with a `<ActionType>` string — ~25 types: `MoveObject`, 
 
 Additional task flags: `continue_lower` (keep scanning after a passing task), `low_priority` (skip once a failing-with-output task has been seen), `aggregate`/`AggregateOutput` (defer room-view rendering to post-action state). Game-level `adv->hp_passing` (`HighestPriorityPassingTask`) controls how failing tasks with output are handled.
 
-System tasks with `run_immediately = TRUE` run before the title. No undo.
+System tasks with `run_immediately = TRUE` run before the title. Single-level undo is provided by the frontend snapshotting the pre-turn state (`a5run_snapshot`) and restoring it (`a5run_undo`).
 
 ---
 
@@ -188,7 +188,7 @@ Text lines, one field per line, in fixed positional order matching the TAF schem
 
 ### ADRIFT 5 (`a5run.cpp` — `a5run_save` / `a5run_restore`)
 
-XML text (`<SaveState>…</SaveState>`), not engine-compressed. Written/read as a binary blob via `glk_stream_open_file`. Contents (in order): version, RNG state (`<RngNative>` + four `<Rng>` words via `a5rand_get/set_state()`), game flags, conversation state, pronouns, per-object `<Object>` blocks (where + key), per-character `<Character>` blocks (location, position, onobj, in), per-variable `<Variable>` blocks, sparse `<TaskDone>` elements, sparse `<PropOv>` overrides (entity + prop + value), sparse `<ObjSeen>` / `<CharSeen>`, per-event `<Event>` blocks (status, length, timer, subevent fingerprints), per-walk `<Walk>` blocks, `<DisplayOnce>` nodes by DOM fingerprint, `<GroupOv>` runtime membership changes. No undo.
+XML text (`<SaveState>…</SaveState>`), not engine-compressed. Written/read as a binary blob via `glk_stream_open_file`. Contents (in order): version, RNG state (`<RngNative>` + four `<Rng>` words via `a5rand_get/set_state()`), game flags, conversation state, pronouns, per-object `<Object>` blocks (where + key), per-character `<Character>` blocks (location, position, onobj, in), per-variable `<Variable>` blocks, sparse `<TaskDone>` elements, sparse `<PropOv>` overrides (entity + prop + value), sparse `<ObjSeen>` / `<CharSeen>`, per-event `<Event>` blocks (status, length, timer, subevent fingerprints), per-walk `<Walk>` blocks, `<DisplayOnce>` nodes by DOM fingerprint, `<GroupOv>` runtime membership changes, plus per-non-active-viewpoint `<SeenChar>` blocks (per-character seen sets across a BECOME switch). Single-level undo (`a5run_snapshot`/`a5run_undo`) reuses this same serialisation: the frontend snapshots the pre-turn blob before each `a5run_input`, and undo restores it.
 
 The RNG state is saved — a Scarier-specific extension beyond FrankenDrift's format, so restored games replay the identical deterministic sequence.
 
@@ -233,7 +233,7 @@ Both engines use the same `erkyrath_random()` / `set_erkyrath_random()` from `te
 | `scarier.h` OS callbacks | Used by engine | Bypassed entirely |
 | `sclocale.cpp` (codepage) | Used | Not used (native UTF-8) |
 | Debug/trace | `scr_set_trace_flags()`, 10 `SCR_TRACE_*` bits, `scdebug.cpp` | `a5run_trace` / `a5restr_trace` (stderr) |
-| Undo | `game->undo` deep copy (1 level) | None |
+| Undo | `game->undo` deep copy (1 level) | 1 level via `a5run_snapshot`/`a5run_undo` (save/restore snapshot taken before each turn) |
 | Conversation system | Separate `ask … about` library verbs | Full topic/keyword engine in `a5run.cpp` `exec_conversation()` |
 | UDFs | None | `a5_udf_t[]`, `%FunctionName%` in text |
 | Property definitions | Hardcoded schema in parse tables | `a5_propdef_t[]` (typed, author-defined) |
