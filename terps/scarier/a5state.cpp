@@ -534,61 +534,31 @@ a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
 int
 a5state_object_index (const a5_state_t *st, const char *key)
 {
-  int i;
-  if (key == NULL)
-    return -1;
-  for (i = 0; i < st->adv->n_objects; i++)
-    if (streq (st->adv->objects[i].key, key))
-      return i;
-  return -1;
+  return a5model_key_index (st->adv, 'O', key);
 }
 
 int
 a5state_character_index (const a5_state_t *st, const char *key)
 {
-  int i;
-  if (key == NULL)
-    return -1;
-  for (i = 0; i < st->adv->n_characters; i++)
-    if (streq (st->adv->characters[i].key, key))
-      return i;
-  return -1;
+  return a5model_key_index (st->adv, 'C', key);
 }
 
 int
 a5state_variable_index (const a5_state_t *st, const char *key)
 {
-  int i;
-  if (key == NULL)
-    return -1;
-  for (i = 0; i < st->adv->n_variables; i++)
-    if (streq (st->adv->variables[i].key, key))
-      return i;
-  return -1;
+  return a5model_key_index (st->adv, 'V', key);
 }
 
 int
 a5state_task_index (const a5_state_t *st, const char *key)
 {
-  int i;
-  if (key == NULL)
-    return -1;
-  for (i = 0; i < st->adv->n_tasks; i++)
-    if (streq (st->adv->tasks[i].key, key))
-      return i;
-  return -1;
+  return a5model_key_index (st->adv, 'T', key);
 }
 
 int
 a5state_location_index (const a5_state_t *st, const char *key)
 {
-  int i;
-  if (key == NULL)
-    return -1;
-  for (i = 0; i < st->adv->n_locations; i++)
-    if (streq (st->adv->locations[i].key, key))
-      return i;
-  return -1;
+  return a5model_key_index (st->adv, 'L', key);
 }
 
 void

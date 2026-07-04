@@ -327,10 +327,20 @@ typedef struct a5_adventure_s {
   a5_udf_t       *udfs;       int n_udfs;
   a5_filemap_t   *filemaps;   int n_filemaps;
   a5_synonym_t   *synonyms;   int n_synonyms;
+
+  void *key_index;            /* opaque key->array-index hashes (a5model.cpp),
+                                 built once at load: the corpus replays spend
+                                 most of their time in key lookups otherwise
+                                 (linear strcmp scans over ~2000 tasks etc.) */
 } a5_adventure_t;
 
 /* Build the model from an already-parsed doc (takes ownership of doc). */
 extern a5_adventure_t *a5model_from_doc (a5_xml_doc_t *doc);
+
+/* key -> array index via the load-time hash (kind: 'O' objects, 'L' locations,
+   'C' characters, 'T' tasks, 'V' variables); -1 when absent.  Falls back to
+   the linear scan when the index is not built (hand-assembled test models). */
+extern int a5model_key_index (const a5_adventure_t *a, int kind, const char *key);
 
 /* Full pipeline: read a Blorb/.taf file, deobfuscate, inflate, parse, model. */
 extern a5_adventure_t *a5model_load (const char *path);

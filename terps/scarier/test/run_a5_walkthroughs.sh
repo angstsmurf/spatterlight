@@ -30,8 +30,9 @@
 # Exit status: non-zero iff any game regressed in either mode.
 #
 # Usage:
-#   test/run_a5_walkthroughs.sh [-v] [substring]
+#   test/run_a5_walkthroughs.sh [-v] [-j N] [substring]
 #     -v          dump each diff to /tmp/a5wt/<Game>{,.xoshiro}.diff
+#     -j N        run N games concurrently (default: hw.ncpu; 1 = serial)
 #     substring   only run scripts whose name contains <substring>
 #
 # Env: FD_ROOT (default ~/frankendrift), FD_SEED (default 1234) -- see
@@ -45,13 +46,16 @@ A5RUN="$HERE/test/a5run_dump"
 
 VERBOSE=0
 BLESS=0
+JOBS="${A5WT_JOBS:-$(sysctl -n hw.ncpu 2>/dev/null || echo 4)}"
 while :; do
     case "${1:-}" in
         -v) VERBOSE=1; shift ;;
         -b|--bless) BLESS=1; shift ;;   # (re)write each matched game's golden
+        -j) JOBS="$2"; shift 2 ;;
         *) break ;;
     esac
 done
+[ "$JOBS" -ge 1 ] 2>/dev/null || JOBS=1
 FILTER="${1:-}"
 [ "$VERBOSE" = 1 ] && mkdir -p /tmp/a5wt
 
@@ -693,42 +697,51 @@ verdict() {  # $1=count $2=budget
     fi
 }
 
-REGFILE=$(mktemp)
-trap 'rm -f "$REGFILE"' EXIT
+WORKDIR=$(mktemp -d)
+trap 'rm -rf "$WORKDIR"' EXIT
 
-printf "%-24s %-9s %-12s %-12s\n" "GAME" "STATUS" "vanilla" "xoshiro"
-printf "%-24s %-9s %-12s %-12s\n" "----" "------" "-------" "-------"
-
-echo "$MAP" | while IFS='|' read -r name game vbudget xbudget; do
-    [ -z "$name" ] && continue
-    case "$name" in *"$FILTER"*) : ;; *) continue ;; esac
+# One game, start to finish; writes its table row to $WORKDIR/<idx>.row and,
+# on a regression, its name to $WORKDIR/<idx>.reg.  Runs in the background
+# (up to $JOBS at once) -- rows are printed in MAP order once all are done.
+run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
+    local idx name game vbudget xbudget script gf golden stxt row
+    local got want vout xout hv hx vv xv vtag xtag vcell xcell status
+    idx=$1 name=$2 game=$3 vbudget=$4 xbudget=$5
+    row="$WORKDIR/$idx.row"
     script="$HERE/test/${name}_walkthrough.txt"
     gf="$GAMES/$game"
-    [ -f "$script" ] || { printf "%-24s %-9s\n" "$name" "NOSCRIPT"; continue; }
+    [ -f "$script" ] || { printf "%-24s %-9s\n" "$name" "NOSCRIPT" > "$row"; return; }
     if [ ! -f "$gf" ]; then
-        printf "%-24s %-9s (game file absent: %s)\n" "$name" "SKIP" "$game"
-        continue
+        printf "%-24s %-9s (game file absent: %s)\n" "$name" "SKIP" "$game" > "$row"
+        return
     fi
+
+    # ONE Scarier replay per game, shared by the golden compare/bless AND both
+    # RNG-mode ground-truth diffs (via SCARIER_TXT): Scarier's transcript is
+    # RNG-mode-independent -- only FrankenDrift's generator changes between the
+    # vanilla and xoshiro passes, so replaying Scarier per mode was pure waste.
+    stxt="$WORKDIR/$idx.scarier"
+    "$A5RUN" "$gf" "$script" 2>/dev/null > "$stxt" || true
 
     # --- vanilla -------------------------------------------------------------
     # Fast strict golden diff when a golden exists (vanilla transcript, no dotnet).
     golden="$HERE/test/${name}_expected.txt"
-    if [ "$BLESS" = 1 ] && [ -x "$A5RUN" ]; then
+    if [ "$BLESS" = 1 ]; then
         # (Re)write the golden through the SAME normalisation the comparison uses,
         # so blessing is canonical and never trips the trailing-newline artifact.
-        "$A5RUN" "$gf" "$script" 2>/dev/null | sed 's/[[:space:]]*$//' | cat -s > "$golden"
-        printf "%-24s %-9s %s\n" "$name" "BLESSED" "$golden"
-        continue
+        sed 's/[[:space:]]*$//' "$stxt" | cat -s > "$golden"
+        printf "%-24s %-9s %s\n" "$name" "BLESSED" "$golden" > "$row"
+        return
     fi
-    if [ -f "$golden" ] && [ -x "$A5RUN" ]; then
-        got=$("$A5RUN" "$gf" "$script" 2>/dev/null | sed 's/[[:space:]]*$//' | cat -s)
+    if [ -f "$golden" ]; then
+        got=$(sed 's/[[:space:]]*$//' "$stxt" | cat -s)
         # Compare content only: both sides are captured via $(...), which strips
         # trailing newlines identically, so a golden written by a plain `> file`
         # redirect (one extra newline) still matches -- no diff -q newline artifact.
         want=$(cat "$golden")
         if [ "$got" = "$want" ]; then hv=0; else hv=999; fi
     else
-        vout=$("$GT" "$gf" "$script" 2>/dev/null)
+        vout=$(SCARIER_TXT="$stxt" "$GT" "$gf" "$script" 2>/dev/null)
         [ "$VERBOSE" = 1 ] && printf '%s\n' "$vout" > "/tmp/a5wt/${name}.diff"
         hv=$(printf '%s\n' "$vout" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
     fi
@@ -740,7 +753,7 @@ echo "$MAP" | while IFS='|' read -r name game vbudget xbudget; do
 
     # --- xoshiro -------------------------------------------------------------
     if [ "$RUN_XOSHIRO" = 1 ]; then
-        xout=$(FD_RNG=xoshiro "$GT" "$gf" "$script" 2>/dev/null)
+        xout=$(SCARIER_TXT="$stxt" FD_RNG=xoshiro "$GT" "$gf" "$script" 2>/dev/null)
         [ "$VERBOSE" = 1 ] && printf '%s\n' "$xout" > "/tmp/a5wt/${name}.xoshiro.diff"
         hx=$(printf '%s\n' "$xout" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
         xv=$(verdict "$hx" "$xbudget"); xtag=${xv#* }
@@ -750,10 +763,11 @@ echo "$MAP" | while IFS='|' read -r name game vbudget xbudget; do
     else
         hx=$xbudget; xtag=ok; xcell="(skipped)"
     fi
+    rm -f "$stxt"
 
     # --- combined status -----------------------------------------------------
     if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ]; then
-        status=FAIL; echo "$name" >> "$REGFILE"
+        status=FAIL; echo "$name" > "$WORKDIR/$idx.reg"
     elif [ "$vtag" = better ] || [ "$xtag" = better ]; then
         status=OKbetter
     elif [ "$hv" = 0 ] && [ "$hx" = 0 ]; then
@@ -761,7 +775,34 @@ echo "$MAP" | while IFS='|' read -r name game vbudget xbudget; do
     else
         status=DIVERGE
     fi
-    printf "%-24s %-9s %-12s %-12s\n" "$name" "$status" "$vcell" "$xcell"
+    printf "%-24s %-9s %-12s %-12s\n" "$name" "$status" "$vcell" "$xcell" > "$row"
+}
+
+if [ ! -x "$A5RUN" ]; then
+    echo "build the Scarier harness first: make -f Makefile.headless a5run" >&2
+    exit 1
+fi
+
+printf "%-24s %-9s %-12s %-12s\n" "GAME" "STATUS" "vanilla" "xoshiro"
+printf "%-24s %-9s %-12s %-12s\n" "----" "------" "-------" "-------"
+
+# Fan the games out $JOBS at a time (simple batch throttle), then print the
+# collected rows in MAP order.  The pipeline's subshell owns the jobs, so the
+# trailing `wait` must stay inside the braces.
+echo "$MAP" | {
+    n=0
+    while IFS='|' read -r name game vbudget xbudget; do
+        [ -z "$name" ] && continue
+        case "$name" in *"$FILTER"*) : ;; *) continue ;; esac
+        n=$((n+1))
+        run_one "$(printf '%03d' "$n")" "$name" "$game" "$vbudget" "$xbudget" &
+        [ $((n % JOBS)) -eq 0 ] && wait
+    done
+    wait
+}
+
+for row in "$WORKDIR"/*.row; do
+    [ -f "$row" ] && cat "$row"
 done
 
 echo
@@ -771,9 +812,9 @@ echo "(re-bless the MAP); FAIL = exceeded a budget (regression).  vanilla = FD's
 echo "stock System.Random; xoshiro = FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips)."
 
 # Non-zero exit if any game regressed in either mode (the documented contract).
-if [ -s "$REGFILE" ]; then
+if ls "$WORKDIR"/*.reg >/dev/null 2>&1; then
     echo
-    echo "REGRESSIONS: $(tr '\n' ' ' < "$REGFILE")"
+    echo "REGRESSIONS: $(cat "$WORKDIR"/*.reg | tr '\n' ' ')"
     exit 1
 fi
 exit 0

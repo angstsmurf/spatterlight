@@ -70,7 +70,15 @@ fi
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-"$A5RUN" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/scarier.txt" || true
+# SCARIER_TXT: a pre-captured Scarier transcript for this exact (game, script)
+# pair -- the suite runner replays Scarier ONCE per game and shares the result
+# between the golden compare and both RNG-mode diffs (Scarier's own output is
+# RNG-mode-independent; only FrankenDrift's generator changes between modes).
+if [ -n "${SCARIER_TXT:-}" ] && [ -s "${SCARIER_TXT}" ]; then
+    cp "$SCARIER_TXT" "$TMP/scarier.txt"
+else
+    "$A5RUN" "$GAME" "$SCRIPT" 2>/dev/null > "$TMP/scarier.txt" || true
+fi
 
 # FrankenDrift is deterministic given (game, script, FD_SEED, FD_RNG, FD build),
 # so cache its transcript under a content hash of exactly those inputs and reuse

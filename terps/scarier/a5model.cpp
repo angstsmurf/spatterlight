@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <string>
+#include <unordered_map>
 
 #include "a5blorb.h"
 #include "a5deobf.h"
@@ -831,6 +833,107 @@ a5model_resource_for_file (const a5_adventure_t *a, const char *src)
   return -1;
 }
 
+/* ------------------------------------------------------------- key index */
+
+/* One hash per entity family, key -> array index.  Built once after load and
+   consulted by every a5model_* / a5state_*_index lookup: the corpus replays
+   otherwise spend the bulk of their time in linear strcmp scans (Starship
+   Quest alone holds ~2000 tasks and every OO read walks them). */
+struct a5_key_index
+{
+  std::unordered_map<std::string, int> objects, locations, characters,
+                                       tasks, variables;
+};
+
+static void
+index_family (std::unordered_map<std::string, int> &m, const char *const *keys,
+              size_t stride, int n)
+{
+  int i;
+  m.reserve ((size_t) n * 2);
+  for (i = 0; i < n; i++)
+    {
+      const char *k = *(const char *const *)
+        ((const char *) keys + (size_t) i * stride);
+      /* emplace keeps the FIRST occurrence, matching the linear scans'
+         first-match semantics on a duplicate key. */
+      if (k != NULL)
+        m.emplace (k, i);
+    }
+}
+
+static void
+a5model_build_key_index (a5_adventure_t *a)
+{
+  a5_key_index *ix = new a5_key_index;
+  /* the &arr[0].key form is UB on an absent (NULL) family, hence the guards */
+  if (a->objects)
+    index_family (ix->objects,    &a->objects[0].key,    sizeof a->objects[0],    a->n_objects);
+  if (a->locations)
+    index_family (ix->locations,  &a->locations[0].key,  sizeof a->locations[0],  a->n_locations);
+  if (a->characters)
+    index_family (ix->characters, &a->characters[0].key, sizeof a->characters[0], a->n_characters);
+  if (a->tasks)
+    index_family (ix->tasks,      &a->tasks[0].key,      sizeof a->tasks[0],      a->n_tasks);
+  if (a->variables)
+    index_family (ix->variables,  &a->variables[0].key,  sizeof a->variables[0],  a->n_variables);
+  a->key_index = ix;
+}
+
+int
+a5model_key_index (const a5_adventure_t *a, int kind, const char *key)
+{
+  const a5_key_index *ix = (const a5_key_index *) a->key_index;
+  if (key == NULL)
+    return -1;
+  if (ix == NULL)
+    {
+      /* hand-assembled model (unit-test fixtures): keep the linear scan */
+      int i;
+      switch (kind)
+        {
+        case 'O':
+          for (i = 0; i < a->n_objects; i++)
+            if (a->objects[i].key && strcmp (a->objects[i].key, key) == 0)
+              return i;
+          return -1;
+        case 'L':
+          for (i = 0; i < a->n_locations; i++)
+            if (a->locations[i].key && strcmp (a->locations[i].key, key) == 0)
+              return i;
+          return -1;
+        case 'C':
+          for (i = 0; i < a->n_characters; i++)
+            if (a->characters[i].key && strcmp (a->characters[i].key, key) == 0)
+              return i;
+          return -1;
+        case 'T':
+          for (i = 0; i < a->n_tasks; i++)
+            if (a->tasks[i].key && strcmp (a->tasks[i].key, key) == 0)
+              return i;
+          return -1;
+        case 'V':
+          for (i = 0; i < a->n_variables; i++)
+            if (a->variables[i].key && strcmp (a->variables[i].key, key) == 0)
+              return i;
+          return -1;
+        }
+      return -1;
+    }
+  const std::unordered_map<std::string, int> *m = NULL;
+  switch (kind)
+    {
+    case 'O': m = &ix->objects;    break;
+    case 'L': m = &ix->locations;  break;
+    case 'C': m = &ix->characters; break;
+    case 'T': m = &ix->tasks;      break;
+    case 'V': m = &ix->variables;  break;
+    default:  return -1;
+    }
+  std::unordered_map<std::string, int>::const_iterator it = m->find (key);
+  return it == m->end () ? -1 : it->second;
+}
+
 a5_adventure_t *
 a5model_from_doc (a5_xml_doc_t *doc)
 {
@@ -911,6 +1014,7 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a5_load_udfs (a);
   a5_load_synonyms (a);
   a5_load_filemappings (a);
+  a5model_build_key_index (a);
   return a;
 }
 
@@ -1001,6 +1105,8 @@ a5model_free (a5_adventure_t *a)
   int i;
   if (a == NULL)
     return;
+  delete (a5_key_index *) a->key_index;
+  a->key_index = NULL;
   for (i = 0; i < a->n_objects; i++)
     {
       free ((void *) a->objects[i].names);
@@ -1068,51 +1174,36 @@ a5model_free (a5_adventure_t *a)
 const a5_object_t *
 a5model_object (const a5_adventure_t *a, const char *key)
 {
-  int i;
-  for (i = 0; i < a->n_objects; i++)
-    if (a->objects[i].key != NULL && strcmp (a->objects[i].key, key) == 0)
-      return &a->objects[i];
-  return NULL;
+  int i = a5model_key_index (a, 'O', key);
+  return i >= 0 ? &a->objects[i] : NULL;
 }
 
 const a5_location_t *
 a5model_location (const a5_adventure_t *a, const char *key)
 {
-  int i;
-  for (i = 0; i < a->n_locations; i++)
-    if (a->locations[i].key != NULL && strcmp (a->locations[i].key, key) == 0)
-      return &a->locations[i];
-  return NULL;
+  int i = a5model_key_index (a, 'L', key);
+  return i >= 0 ? &a->locations[i] : NULL;
 }
 
 const a5_character_t *
 a5model_character (const a5_adventure_t *a, const char *key)
 {
-  int i;
-  for (i = 0; i < a->n_characters; i++)
-    if (a->characters[i].key != NULL && strcmp (a->characters[i].key, key) == 0)
-      return &a->characters[i];
-  return NULL;
+  int i = a5model_key_index (a, 'C', key);
+  return i >= 0 ? &a->characters[i] : NULL;
 }
 
 const a5_task_t *
 a5model_task (const a5_adventure_t *a, const char *key)
 {
-  int i;
-  for (i = 0; i < a->n_tasks; i++)
-    if (a->tasks[i].key != NULL && strcmp (a->tasks[i].key, key) == 0)
-      return &a->tasks[i];
-  return NULL;
+  int i = a5model_key_index (a, 'T', key);
+  return i >= 0 ? &a->tasks[i] : NULL;
 }
 
 const a5_variable_t *
 a5model_variable (const a5_adventure_t *a, const char *key)
 {
-  int i;
-  for (i = 0; i < a->n_variables; i++)
-    if (a->variables[i].key != NULL && strcmp (a->variables[i].key, key) == 0)
-      return &a->variables[i];
-  return NULL;
+  int i = a5model_key_index (a, 'V', key);
+  return i >= 0 ? &a->variables[i] : NULL;
 }
 
 const a5_propdef_t *
