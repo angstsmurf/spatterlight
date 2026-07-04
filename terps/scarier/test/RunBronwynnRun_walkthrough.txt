@@ -1,60 +1,135 @@
-# Run, Bronwynn, Run! -- ground-truth walkthrough script (ADRIFT 5).
+# Run, Bronwynn, Run! -- ADRIFT 5 walkthrough regression script.  ** FULL WIN **
 #
-# Source: Solution by Phoebe M. Fuentes (July 2000, rev. Nov 2018),
-# Classic Adventures Solution Archive http://solutionarchive.com.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
-# NOTE: CASA solution is for the original release; the ADRIFT 5 version is a
-# faithful port. Best-effort differential script.
+# Route derived from the CASA solution (Phoebe M. Fuentes, July 2000 /
+# rev. 2018, http://solutionarchive.com -- see walkthroughs/) and rebuilt with
+# port-accurate verbs from the game's OWN in-game WALKTHROUGH command
+# (task 'Walkthroug', command [wlkthrgh]).  Reaches the game's victory endgame
+# (Duke Alaric Blackmoon / YouHaveWon, score 600/600) in BOTH Scarier and
+# FrankenDrift.
+#
+# ENDGAME NOTE: the ambush finale is a strict timing puzzle.  You must be in the
+# SOUTH tree (InTreeS4) and fire when the rider countdown var Riders1 is 1 or 2
+# (task RightSideG: BeAtLocation InTreeS4 + Riders1<3 -> +15, move to YouHaveWon).
+# Firing at Riders1>=4 loses (RightSideT); Riders1==3 is a silent no-op; letting
+# Riders1 reach 0 loses (RidersKill).  So the tail is exactly 5 waits then one
+# `fire arrow at outlaws` -- do NOT add or remove a wait or it wins/loses/no-ops.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/RunBronwynnRun.blorb test/RunBronwynnRun_walkthrough.txt
 o
 b
+stand up
+n
+look on table
+get diary
 search fireplace
+unfold paper
 read paper
-look under cushions
+look behind armchair
+look under table
+get bag
+put paper in bag
 s
-look under bed
-open chest
-search clothes
 x table
-search drawers
-cut hair
-get hair
-remove tiara, gown and shoes
-wear leathers and boots
-drop gown
+get all from table
+put all in bag
+open drawer
+search belongings
+sit on stool
+remove tiara
+put tiara in bag
+cut hair with scissors
+get ginger hair
+put ginger hair in bag
+cut nails with scissors
+put scissors in bag
+rub polish into your hair
+stand up
+open wardrobe
+get leathers
+look under bed
+get boots
+remove shoes and ballgown
+put ballgown in bag
+put shoes in bag
+wear leathers
+wear boots
+n
+look behind cushions
+look through window
+wait for darkness
+stand up
 n
 open window
-climb out
+climb through window
 n
-jump ne
+jump to steps
 d
-se
-s
-x horse
-search straw
-e
-get fleetwind saddle and fleetwind bridle
+sw
+nw
+get pot from bag
+rub polish on hinges
+put pot in bag
+open doors
 w
-u
-search hay
-get dummy
-d
-remove uniform from dummy
-remove leathers
-wear uniform
-put leathers on dummy
-tie hair to dummy
-saddle horse
+w
+open cupboard
+get boots
+find fleetwind's blanket
+find fleetwinds bridle
+search cupboard
+get cord
+e
+n
+put blanket on horse
+remove halter from horse
 put bridle on horse
-feed horse
-put dummy on horse
-smack horse
-wait
+drop all
+s
+w
+find your saddle
+e
 n
+saddle horse
+get bag
+fit bag to saddle
+search rack
+feed carrot to horse
+get reins
+s
+let go of reins
+u
+search behind bales
+get dummy
+drop dummy through opening
+d
+take uniform off dummy
+drop uniform
 n
-n
+get all
+s
+drop all
+remove boots
+remove leathers
+put leathers on dummy
+put riding boots on dummy
+get hair
+get cord
+get string
+tie ginger hair to head
+get uniform and black boots
+wear uniform
+wear black boots
+get dummy
+sit dummy on horse
+tie feet to stirrups
+get tiara
+put tiara in pocket
+tell horse to run
+z
+z
+e
+ne
 n
 n
 n
@@ -63,74 +138,135 @@ e
 se
 sw
 nw
-give tiara to boy
-ask about bridget
+get tiara
+give tiara
+say bridget to mother
+n
 n
 e
 e
+x bin
+hide in bin
+look through hole
+climb out of bin
+e
 n
+hide in shadows
+z
 n
-n
-w
-w
-n
-search shadow
-climb into bin
-wait
-search bin
-climb out
-n
-read nameplates
-pick lock
-u
-search washstand quietly
-d
-w
-unlock door
 n
 look n
-whistle
+w
+w
+search alley
+climb in bin
+search bin
+out
+w
 n
+n
+read nameplate
+pick lock with wire
+open door
+w
+close door
+x door
+get key
+lock door
+u
+carefully search washstand
+d
+w
+search kitchen
+unlock door
+open door
+w
+close door
+lock door
+post keys through letterbox
+s
+s
+untie feet
+remove dummy from horse
+remove ginger hair from dummy
+drop ginger hair
+drop dummy
+remove boots from dummy
+remove leathers from dummy
+remove black boots
+remove uniform
+drop uniform
+wear leathers
+wear riding boots
+put all in bag
+get reins
+n
+n
+n
+mount horse
+ride n
+n
+x bed
+get bag
 look under bed
 s
-w
-s
+x path
+follow hoofprints
+look through window
+x woman
+knock on door
+open door
 e
-say to woman "where horse"
-say to woman "return horse"
+ask woman where is horse
+ask woman where is place
+say to woman return horse
+ask about knitting
+x wool
+ask about wool
+ask about book
+read book
 x curtains
-get cotton
+pull thread
 w
-nw
+n
 w
 d
-n
-x line
-get dress
-s
 w
+read notice
+s
+s
+x scarecrow
+get hat
+get coat
+wear coat
+remove boots
+drop boots
+get black boots from bag
+wear black boots
+wear hat
 n
+n
+remove notice
+n
+remove notice
 e
+sit on chair
 search sawdust
+stand up
+buy ale
+sit on chair
+search sawdust
+stand up
 w
 n
 w
 sit on bench
+thread needle
+sew button to coat
+do coat up
 e
 s
 s
-s
-s
-x scarecrow
-get coat and hat
-thread needle
-sew button to coat
-wear coat and hat
-fasten coat
-n
-n
-w
-w
 w
 s
 d
@@ -138,72 +274,117 @@ search vegetation
 u
 n
 w
-w
+remove notice
 s
 search tables
-x patrons
+put tinderbox in bag
 start fight
 get knife
 w
 w
 s
+x sheds
 e
-get wool
+x shearer
 w
-n
-e
-e
-e
-e
-e
-e
-e
-s
-e
-talk to sue
-x sue
-wash sue
-say to sue "follow me"
-n
-w
-w
-w
-w
-w
+x spinning shed
+sw
+look through window
+ne
 w
 s
+x women
+x supervisor
 e
+s
+open window
+search equipment
+e
+follow molly
+e
+greet molly
+wash molly
 get wool
 w
-se
-search shed
+sw
+climb in window
+search equipment
+card wool
 spin wool
-search shed
-get crate
-nw
+climb out of window
+ne
 n
 e
 n
-drop crate
-climb fence
-look in opening
-sharpen stick
-put wool on stick
-dip wool in dye
-climb fence
-get crate
 e
-se
-e
-e
+drop all
 e
 e
 s
 s
+d
+wait
+get crate
+get crate
+u
+n
+n
+w
+w
 drop crate
-light crate
-hold wool by fire
-separate wool from stick
+get all
+sharpen twig
+put twig and ball in bag
+throw bag over fence
+drop all
+stand on crate
+climb over fence
+get bag
+look into building
+get ball and twig from bag
+poke twig into ball
+dip ball into blue dye
+soak ball in green vat
+dip wool in red dye
+climb up crates
+get all
+e
+e
+s
+e
+s
+s
+get straw
+look around
+s
+push twig into ground
+drop all
+n
+n
+n
+w
+n
+w
+w
+get crate
+e
+e
+s
+e
+s
+s
+s
+drop crate
+get tinderbox
+make fire
+light fire
+z
+z
+z
+get all
+pull twig from ball
+drop twig
+n
 n
 n
 e
@@ -211,39 +392,41 @@ u
 e
 s
 e
-give wool to woman
-say to woman "return horse"
-threaten woman
+give wool
+ask about horse
+threaten woman with knife
 crawl out
 no
-w
-w
-w
-w
+run nw
+run nw
+run nw
+run n
+run n
 nw
-nw
-nw
-w
 wait
+run sw
+run sw
+run sw
+run sw
+run sw
+run n
+run n
+run n
+run n
+run n
+run n
+run sw
+run sw
+run sw
+run sw
+s
 w
-sw
-sw
-sw
-sw
-n
-n
-n
-n
-w
-sw
-s
-s
-s
-s
-w
-free horses
+x horses
+untether horses
+scare horses
+untether fleetwind
 mount fleetwind
-yell
+ride w
 x hummock
 get pebbles
 throw pebble sw
@@ -254,56 +437,94 @@ throw pebble s
 s
 throw pebble se
 se
+throw pebble w
+w
+throw pebble w
+w
+throw pebble n
+n
+throw pebble nw
+nw
+throw pebble sw
 sw
 throw pebble w
 w
 throw pebble w
 w
-throw pebble sw
-sw
-throw pebble sw
-sw
+throw pebble w
 w
-dismount
-x soldier
-talk to soldier
-pull bolt
+x man
+talk to man
+listen
 search body
+open packet
+get bowstring from packet
+put bowstring in packet
+close flap
+put packet in pocket
+get bolt
+put bolt in pocket
+close eyes
 mount fleetwind
 w
-x milestone
-w
-dismount
-n
-tether fleetwind to tree
-w
-search undergrowth
-search soldiers
-s
-s
 e
-search undergrowth
-search horse
+dismount
+tether fleetwind to signpost
+w
+s
+sw
 w
 w
-w
-climb tree
-look down
 x outlaws
+climb up tree
+x outlaws
+x riders
 d
 e
 e
+ne
+nw
+w
+w
+x outlaws
+climb into tree
+x outlaws
+d
+x marks
+search undergrowth
+search bodies
+cover bodies
+e
+x outlaw
+get bolt from pocket
+cock crossbow
+load crossbow
 fire crossbow at outlaw
+drop crossbow
 w
-move outlaw
+search outlaw
+get bolt
+put bolt in pocket
+wear quiver
+roll outlaw over
 get longbow
-fit bowstring on longbow
+get packet from pocket
+open packet
+get bowstring from packet
+drop packet
+restring longbow
+e
+e
+se
+sw
 w
-climb tree
-wait
-wait
-wait
-wait
-wait
-wait
-fire longbow at outlaws
+w
+wear longbow
+climb up tree
+remove longbow
+z
+z
+z
+z
+z
+fire arrow at outlaws

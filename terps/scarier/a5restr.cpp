@@ -904,6 +904,24 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         return 1;
       return st->char_seen != NULL && st->char_seen[c2];
     }
+  if (streq (r->op, "HaveSeenLocation"))
+    {
+      /* key1 is the observer (typically Player), key2 the target location.
+         FD sets clsCharacter.HasSeenLocation only for the Player
+         (clsUserSession.vb:222, on every player move), so a non-player observer
+         has never seen any location -- mirror the location-subject
+         HaveBeenSeenByCharacter handler.  Without this case the operator fell
+         through to the best-effort `return 1`, so RunBronwynn's Caught121
+         (`Player Must HaveSeenLocation BridgetSLi`) fired the moment the player
+         reached the cathedral-square street -- BEFORE ever entering Bridget's
+         house -- ending the game prematurely (FD plays on). */
+      int li = a5state_location_index (st, k2);
+      if (li < 0)
+        return 0;
+      if (!streq (k1, a5state_player_key (st)))
+        return 0;
+      return st->loc_seen != NULL && st->loc_seen[li];
+    }
   if (streq (r->op, "BeAloneWith"))
     {
       const char *aw = alone_with_char (st, k1);

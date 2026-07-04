@@ -38,893 +38,2842 @@ ABOUT : BUGS : COMMANDS : CREDITS : HALL : HELP : MACROS : MAP : VOCAB;
 Your Bedroom
 You are sitting on your bed in your bedroom, which is situated on the first floor of the castle. It is a huge room, far too big for one person, but your father insisted that anything smaller would be unsuitable for a princess. The furnishings consist of a bed, a dressing table with a stool and a built-in wardrobe. A doorway leads North to your sitting room and there is a fireplace in the south wall.
 
+> stand up
+You stand up.
+
+> n
+You walk north.
+
+Your Sitting Room
+You are in your sitting room, another huge room in which you have managed to keep the furnishings to a minimum. There is a sofa in the centre of the room, two armchairs either side of a large fireplace and a large table with a dozen chairs around it. A door leads East to the corridor outside, the doorway to your bedroom is South, and on the west side of the room there is a large window overlooking the castle courtyard which is closed.
+
+> look on table
+On the table you see your diary.
+
+> get diary
+(from the large dining table)
+Ok, you take the diary from the large dining table.
+
 > search fireplace
-You cannot do that while you are sitting down.
+You search the fireplace and find, thrown into a corner, a folded sheet of paper, which you pick up.
+
+> unfold paper
+You unfold the sheet of paper.
 
 > read paper
-You can't see any papers!
+It is the timetable for your brother's wedding:
 
-> look under cushions
-Sorry, I'm not sure which object you are trying to look under.
+2.10, arrive at cathedral for marriage service;
+3.15, leave cathedral for ride through streets to castle;
+4.20, arrive at castle for wedding banquet;
+8.40, reception for guests;
+10.50, Bride & Groom leave for the wedding suite in the castle.
+
+Written in pencil under this is: "In The Poor Quarter, Chronology = Orientation?"
+
+> look behind armchair
+You look behind the armchairs and see something behind one of them. You pick it up and find that it is the pot of boot polish you were using yesterday when you were polishing your riding boots.
+
+> look under table
+You look under the dining table and spot your saddle bag. You threw it under there yesterday after you returned from riding your horse, Fleetwind.
+
+Your Sitting Room
+You are in your sitting room, another huge room in which you have managed to keep the furnishings to a minimum. There is a sofa in the centre of the room, two armchairs either side of a large fireplace and a large table with a dozen chairs around it. A door leads East to the corridor outside, the doorway to your bedroom is South, and on the west side of the room there is a large window overlooking the castle courtyard which is closed.  Also here is a leather saddlebag.
+
+> get bag
+Ok, you pick up the leather saddlebag.
+
+> put paper in bag
+OK, you put the sheet of paper inside the saddle bag.
 
 > s
-There is no route to the south, only north.
+You walk south.
 
-> look under bed
-Maybe you should get up off the bed first?
-
-> open chest
-Open what?
-
-> search clothes
-You search the clothes but find nothing of interest or use.
+Your Bedroom
+You are in your bedroom, which is situated on the first floor of the castle. It is a huge room, far too big for one person, but your father insisted that anything smaller would be unsuitable for a princess. The furnishings consist of a bed, a dressing table with a stool and a built-in wardrobe. A doorway leads North to your sitting room and there is a fireplace in the south wall.
 
 > x table
 A wide, deep, dressing table finished in white satinwood with gold trimmings, it has a large oval mirror. The table contains one large drawer. On the dressing table you see an onyx hairbrush, an ivory comb, some nail varnish, some mascara, some blue eyeliner, some face powder, some lip paint, some blusher, a pair of tweezers and a nail file.
 
-> search drawers
-Sorry, I'm not sure which object you are trying to search.
+> get all from table
+Ok, you take everything off of the dressing table.
 
-> cut hair
-CUT THE HAIR WITH what?
+> put all in bag
+You put the onyx hairbrush, the ivory comb, the wooden pot, the nail varnish, the mascara, the blue eyeliner, the face powder, the lip paint, the blusher, the pair of tweezers, the nail file and the diary inside the leather saddlebag.  The black boot polish is already inside the leather saddlebag.
 
-> get hair
-You can't take your hair!
+> open drawer
+You open the drawer.  Inside the drawer are your belongings.
 
-> remove tiara, gown and shoes
-Ok, you remove the diamond tiara and the high-heel shoes.  You need to be standing up to do that.
+> search belongings
+You search through your belongings and find your dressmaking scissors, which you take out of the drawer.
 
-> wear leathers and boots
-You can't see any leathers!
+> sit on stool
+You sit on the wooden stool.
 
-> drop gown
-You are not carrying the blue ballgown.
+> remove tiara
+Ok, you remove the diamond tiara.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
+> put tiara in bag
+OK, you put the diamond tiara inside the saddle bag.
 
-> open window
-You can't see any windows!
+> cut hair with scissors
+Taking a deep breath, you very reluctantly snip off all of your long hair, which falls onto your dressing table, until you are left with a head of short, spiky hair.
 
-> climb out
-Sorry, I'm not sure which object you are trying to climb.
+> get ginger hair
+(from the dressing table)
+You gather up all your hair you cut off your head and tie it into a loop so that you do not lose any.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
+> put ginger hair in bag
+OK, you put the long bright ginger hair inside the saddle bag.
 
-> jump ne
-You cannot jump that way.
+> cut nails with scissors
+You sigh as you think of all the hours you have spent lovingly manicuring your long fingernails. However, needs must, so you cut them all off so that they look like a man's nails.
 
-> d
-There is no route going down, only north.
+> put scissors in bag
+OK, you put the pair of scissors inside the saddle bag.
 
-> se
-There is no route to the southeast, only north.
+> rub polish into your hair
+You scoop some polish out of the pot and rub it into your hair and eyebrows. It is a very messy business but eventually your bright ginger hair is now black.
 
-> s
-There is no route to the south, only north.
+> stand up
+You stand up.
 
-> x horse
-You see no such thing.
+> open wardrobe
+OK, you open the wardrobe.
 
-> search straw
-You can't see any straw!
-
-> e
-There is no route to the east, only north.
-
-> get fleetwind saddle and fleetwind bridle
-Sorry, I didn't understand that command.
-
-> w
-There is no route to the west, only north.
-
-> u
-There is no route going up, only north.
-
-> search hay
-You can't see any hays!
-
-> get dummy
-Sorry, I'm not sure which object you are trying to take.
-
-> d
-There is no route going down, only north.
-
-> remove uniform from dummy
-Sorry, I'm not sure which object you're referring to.
-
-> remove leathers
-You are not wearing the riding leathers and the riding leathers.
-
-> wear uniform
-You can't see any uniforms!
-
-> put leathers on dummy
-Sorry, I didn't understand that command.
-
-> tie hair to dummy
-Sorry, I'm not sure which object you are trying to tie something to.
-
-> saddle horse
-Sorry, I didn't understand that command.
-
-> put bridle on horse
-You can't see any bridles!
-
-> feed horse
-Sorry, I'm not sure which character you are referring to.
-
-> put dummy on horse
-You are not carrying the dummy.
-
-> smack horse
-You should lead Fleetwind out of the stall first.
-
-> wait
-You wait for a while and a few minutes of time elapses.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> ne
-There is no route to the northeast, only north.
-
-> e
-There is no route to the east, only north.
-
-> se
-There is no route to the southeast, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> nw
-There is no route to the northwest, only north.
-
-> give tiara to boy
-You can't see any boy!
-
-> ask about bridget
-You must specify which character who you wish to speak to.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> e
-There is no route to the east, only north.
-
-> e
-There is no route to the east, only north.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> search shadow
-You can't see any shadows!
-
-> climb into bin
-You can't see any bins!
-
-> wait
-You wait for a while and a few minutes of time elapses.
-
-> search bin
-You can't see any bins!
-
-> climb out
-Sorry, I'm not sure which object you are trying to climb.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> read nameplates
-Sorry, I'm not sure which object you are trying to read.
-
-> pick lock
-You can't see any locks!
-
-> u
-There is no route going up, only north.
-
-> search washstand quietly
-Sorry, I'm not sure which object you are trying to carefully/quietly/gently search.
-
-> d
-There is no route going down, only north.
-
-> w
-There is no route to the west, only north.
-
-> unlock door
-You can't see any doors!
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> look n
-You look to the North, but see nothing of any interest or use.
-
-> whistle
-There is no need to do that here - you might draw attention to yourself!
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
+> get leathers
+(from the wardrobe)
+Ok, you take the riding leathers from the wardrobe.
 
 > look under bed
-Maybe you should get up off the bed first?
+You bend down, look under your bed and find your riding boots.
 
-> s
-There is no route to the south, only north.
+Your Bedroom
+You are in your bedroom, which is situated on the first floor of the castle. It is a huge room, far too big for one person, but your father insisted that anything smaller would be unsuitable for a princess. The furnishings consist of a bed, a dressing table with a stool and a built-in wardrobe. A doorway leads North to your sitting room and there is a fireplace in the south wall.  Also here are some riding boots.
+
+> get boots
+Ok, you pick up the riding boots.
+
+> remove shoes and ballgown
+Ok, you remove the high-heel shoes.  OK, you remove the blue ballgown.
+
+> put ballgown in bag
+You put the blue ballgown inside the leather saddlebag.
+
+> put shoes in bag
+You put the high-heel shoes inside the leather saddlebag.
+
+> wear leathers
+OK, you put on your riding leathers.
+
+> wear boots
+OK, you put on the riding boots.
+
+> n
+You walk north.
+
+Your Sitting Room
+You are in your sitting room, another huge room in which you have managed to keep the furnishings to a minimum. There is a sofa in the centre of the room, two armchairs either side of a large fireplace and a large table with a dozen chairs around it. A door leads East to the corridor outside, the doorway to your bedroom is South, and on the west side of the room there is a large window overlooking the castle courtyard which is closed.
+
+> look behind cushions
+You look behind the cushions of the sofa and find a length of string, which you pick up. It must have fallen down there after you were amusing your cat with it the other day.
+
+> look through window
+You look through the window and see a wide ledge outside, beyond which you can see the castle courtyard. At this time of day it is busy with people and soldiers everywhere.
+
+Maybe you should wait until the sun goes down before you try to escape?
+
+> wait for darkness
+You settle down and wait until darkness falls.
+
+You watch through the window as the wedding breakfast guests leave. You guess that your brother's wedding will go ahead without you. Still, better that than having to endure Prince Timothy leering at you all the time.
+
+You then walk into your bedroom, lay down on your bed and snooze until it grows dark.
+
+> stand up
+You stand up.
+
+> n
+You walk north.
+
+Your Sitting Room
+You are in your sitting room, another huge room in which you have managed to keep the furnishings to a minimum. There is a sofa in the centre of the room, two armchairs either side of a large fireplace and a large table with a dozen chairs around it. A door leads East to the corridor outside, the doorway to your bedroom is South, and on the west side of the room there is a large window overlooking the castle courtyard which is closed.
+
+> open window
+You lift the window so it is open.
+
+Your Sitting Room
+You are in your sitting room, another huge room in which you have managed to keep the furnishings to a minimum. There is a sofa in the centre of the room, two armchairs either side of a large fireplace and a large table with a dozen chairs around it. A door leads East to the corridor outside, the doorway to your bedroom is South, and on the west side of the room there is a large window overlooking the castle courtyard which is open.
+
+> climb through window
+You climb through the window onto the ledge.
+
+On Wide Ledge
+You're on the wide ledge outside the window of your chamber, at the south end. The ledge extends north a few yards, and overlooks the main castle courtyard, which is about 5 metres below you. The window is open and you can climb through it into your apartment.
+
+> n
+You walk north.
+
+On Wide Ledge
+You're at the north end of the ledge, where it stops at a buttress supporting the castle wall. Beyond the buttress, about 3 metres to the northwest, you see a flight of steps.
+
+> jump to steps
+You take a few steps backwards then run and jump across the gap onto the steps.
+
+On Stone Steps
+You're halfway up a long flight of stone steps that leads Up to the entrance to the castle, and Down to the main castle courtyard.
+
+> d
+You walk down.
+
+East Side of Courtyard
+You're at the foot of the steps, which are on the east side of the castle courtyard. On the North side, to the NW, is the main castle gatehouse and the stables are to the West. You can also go Southwest around the castle buildings.
+
+> sw
+You walk southwest.
+
+South Side of Courtyard
+You are on the south side of the castle courtyard, which extends North, NW to the stables and NE to the steps leading up to the entrance. It is quite shadowy here but you can see a door here which leads South into the castle. However, it has been closed and locked for the night.
+
+> nw
+You walk northwest.
+
+Outside Castle Stables
+You are on the west side of the courtyard, outside the stables, which are accessible through two large doors, which are currently closed.  You can go East, NE and SE to other parts of the courtyard.
+
+> get pot from bag
+OK, you take the wooden pot out of the saddle bag.
+
+> rub polish on hinges
+You rub some of the greasy polish onto the door hinges.
+
+> put pot in bag
+OK, you put the wooden pot inside the saddle bag.
+
+> open doors
+You open one of the doors, the hinges working smoothly without a sound. Then you open the other one.
+
+Outside Castle Stables
+You are on the west side of the courtyard, outside the stables, which are accessible through two large doors, which are currently open, leading West into the stables.  You can go East, NE and SE to other parts of the courtyard.
 
 > w
-There is no route to the west, only north.
+You walk west.
 
-> s
-There is no route to the south, only north.
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.
+
+> w
+You walk west.
+
+The Tack Room
+You're in the tack room. This place smells of old leather, and there are several saddles on racks and lots of bridles hanging from hooks on the walls. Against one wall is a cupboard. The stables are East.
+
+> open cupboard
+You open the cupboard.  Inside the cupboard are some saddle blankets and a pair of black boots.
+
+> get boots
+(from the cupboard)
+Ok, you take the pair of black boots from the cupboard.
+
+> find fleetwind's blanket
+You find Fleetwind's blanket and take it out of the pile.
+
+> find fleetwinds bridle
+You find Fleetwind's bridle and take it off the hook.
+
+> search cupboard
+You search the cupboard and find a length of cord.
+
+> get cord
+(from the cupboard)
+Ok, you take the short length of cord from the cupboard.
 
 > e
-There is no route to the east, only north.
+You walk east.
 
-> say to woman "where horse"
-You must specify which character you wish to speak to when there is more than one character present.
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.
 
-> say to woman "return horse"
-You must specify which character you wish to speak to when there is more than one character present.
+> n
+You walk north.
+
+In Horse Stall
+You are in the stall where your horse Fleetwind is housed. It is about 5 metres long and 4 wide, enough room for him to lay down when sleeping. A rack fixed to the back wall contains hay for him to eat. The stables are to the South.   Here you see your horse, Fleetwind.
+
+> put blanket on horse
+You put the blanket onto Fleetwind's back.
+
+> remove halter from horse
+You take the halter off of Fleetwind's head and hang it over the hay rack where you usually leave it.
+
+> put bridle on horse
+You put the bridle over Fleetwind's head, slipping the bit into his mouth, and secure it in place.
+
+> drop all
+Ok, you put down the leather saddlebag, the length of string, the pair of black boots and the short length of cord.
+
+> s
+You walk south.
+
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.
+
+> w
+You walk west.
+
+The Tack Room
+You're in the tack room. This place smells of old leather, and there are several saddles on racks and lots of bridles hanging from hooks on the walls. Against one wall is a cupboard. The stables are East.
+
+> find your saddle
+You find Fleetwind's saddle and take it off the rack.
+
+> e
+You walk east.
+
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.
+
+> n
+You walk north.
+
+In Horse Stall
+You are in the stall where your horse Fleetwind is housed. It is about 5 metres long and 4 wide, enough room for him to lay down when sleeping. A rack fixed to the back wall contains hay for him to eat. The stables are to the South. Hanging over the hayrack is the halter you took off of Fleetwind.  Also here is a leather saddlebag, a length of string, a pair of black boots and a short length of cord.  Here you see your horse, Fleetwind.
+
+> saddle horse
+You put the saddle onto Fleetwind's settling it onto the blanket. You then do up the girth strap. Fleetwind performs his usual trick of distending his stomach so you knee him hard in the belly to make him expel the air and you tighten the girth strap as much as you can.
+
+> get bag
+Ok, you pick up the leather saddlebag.
+
+> fit bag to saddle
+You strap the saddlebag to Fleetwind's saddle.
+
+> search rack
+You rummage through the hay in the rack and your fingers close on a hard object. It is a carrot.
+
+> feed carrot to horse
+You hold the carrot in the flat of your hand and give it to Fleetwind. The horse eats it with relish and snickers in thanks.
+
+> get reins
+You take hold of Fleetwind's reins.
+
+> s
+You walk south.
+
+Fleetwind follows quietly behind you.
+
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.  Here you see your horse, Fleetwind.
+
+> let go of reins
+Ok, you let go of the reins.
+
+> u
+You climb up the ladder into the hayloft.
+
+The Hayloft
+You're in the hayloft which, as the name suggests, is used for storing hay. A ladder leads Down through a wide opening to the stables below. There are many stacks of hay bales in here.
+
+> search behind bales
+You climb onto the bales and look behind them. Stuffed down behind the bales you find an old dummy soldier, which you drag out.
+
+The Hayloft
+You're in the hayloft which, as the name suggests, is used for storing hay. A ladder leads Down through a wide opening to the stables below. There are many stacks of hay bales in here.  Also here is a dummy soldier.
+
+> get dummy
+Ok, you pick up the dummy soldier.
+
+> drop dummy through opening
+You drop the dummy soldier through the opening into the stables below.
+
+> d
+You climb down the ladder into the stables.
+
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.  Also here is a dummy soldier.  Here you see your horse, Fleetwind.
+
+> take uniform off dummy
+You take the uniform off the dummy soldier.
+
+> drop uniform
+Ok, you put down the old soldier's uniform.
+
+> n
+You walk north.
+
+In Horse Stall
+You are in the stall where your horse Fleetwind is housed. It is about 5 metres long and 4 wide, enough room for him to lay down when sleeping. A rack fixed to the back wall contains hay for him to eat. The stables are to the South. Hanging over the hayrack is the halter you took off of Fleetwind.  Also here is a length of string, a pair of black boots and a short length of cord.
+
+> get all
+Ok, you pick up the length of string, the pair of black boots and the short length of cord.
+
+> s
+You walk south.
+
+The Stables
+You're in the stables, a place you spend a lot of time in when getting ready to ride your horse. A ladder in one corner leads Up to the hayloft and another doorway leads West in between two of the stalls into the tack room. Fleetwind's stall is the one immediately North from here. The stable doors are open and lead East to the courtyard.  Also here is a dummy soldier and an old soldier's uniform.  Here you see your horse, Fleetwind.
+
+> drop all
+Ok, you put down the length of string, the pair of black boots and the short length of cord.
+
+> remove boots
+Ok, you remove the riding boots.
+
+> remove leathers
+OK, you remove the riding leathers.
+
+> put leathers on dummy
+You dress the dummy in your riding leathers. It could be mistaken for you from a distance in the dark, but the head needs some hair.
+
+> put riding boots on dummy
+You put the riding boots on the dummy's feet.
+
+> get hair
+(from the leather saddlebag)
+OK, you take the long bright ginger hair out of the saddle bag.
+
+> get cord
+Ok, you pick up the short length of cord.
+
+> get string
+Ok, you pick up the length of string.
+
+> tie ginger hair to head
+Using the length of string you found in your apartment, you tie the bright ginger hair you cut off your head around the head of the dummy.
+
+> get uniform and black boots
+Ok, you pick up the old soldier's uniform and the pair of black boots.
+
+> wear uniform
+Ok, you put on the old soldier's uniform.
+
+As you put on the uniform, Fleetwind tosses his head, neighs loudly and stamps his front hooves on the floor. You remember that, for some reason, he doesn't like red clothing. After a couple of minutes he calms down, but his eyes still look at you warily.
+
+> wear black boots
+OK, you put on the black boots.
+
+> get dummy
+Ok, you pick up the dummy soldier.
+
+> sit dummy on horse
+You sit the dummy soldier on Fleetwind's saddle, tying the reins around the dummy's hands and putting the feet into the stirrups.
+
+> tie feet to stirrups
+Using the cord you found in the cupboard, you tie the dummy's left foot to the stirrup then you duck under Fleetwind's belly and, pulling the cord tight, tie the other foot to the right hand stirrup.
+
+> get tiara
+(from the leather saddlebag)
+OK, you take the diamond tiara out of the saddle bag.
+
+> put tiara in pocket
+OK, you put the diamond tiara in one of the uniform pockets.
+
+> tell horse to run
+You slap Fleetwind hard on the rump and say "Run, Fleetwind, Run!", the command you use when you want him to gallop very fast.
+
+Fleetwind neighs and gallops out into the courtyard, his hooves making a loud clattering noise that echoes around the empty space.
+
+You hear the guards outside the castle entrance yell out "Halt! Who goes there!" and they run after Fleetwind who is heading for the gatehouse.
+
+You hear a soldier shout, "Look, it's Princess Bronwynn! Stop her!" You peep around the door and watch as the soldiers run down the steps and try to catch Fleetwind. He eludes them and then gallops through the gatehouse archway, and into the city beyond. The soldiers alert an officer, Major Small, who tells the men to return to their posts. He then runs north through the gateway, apparently in pursuit of Fleetwind and the "princess"....
+
+> z
+You wait for a while and a few minutes of time elapses.
+
+> z
+You wait for a while and a few minutes of time elapses.
+
+You hear footsteps echoing in the courtyard and look out to see Major Small, who ran after Fleetwind, come running back into the courtyard. He yells for help, runs up the steps and into the castle - he's obviously going to organise search parties to look for you!
+
+Soldiers start coming out of various doors into the courtyard.
+
+> e
+You walk east.
+
+Outside Castle Stables
+You are on the west side of the courtyard, outside the stables, which are accessible through two large doors, which are currently open, leading West into the stables.  You can go East, NE and SE to other parts of the courtyard.  There are a couple of dozen soldiers and a few officers here.
+
+As you emerge from the stables you see that the courtyard is starting to fill with soldiers and officers coming out of the castle. One of the officers spots you coming out of the stables.
+
+"You there!" he shouts at you. "Is there anyone in the stables?"
+
+You shake your head and, in the deepest voice you can manage, reply "No sir, there's nobody in there."
+
+The officer nods curtly and runs off towards the gatehouse.
+
+> ne
+You walk northeast.
+
+North Side of Courtyard
+You're standing by the gatehouse on the north side of the castle courtyard. The main archway leading north out of the castle looms above you in the darkness. You can also go South, SE and SW.  There are a couple of dozen soldiers and a few officers here.
+
+The area around the gatehouse is full of soldiers and officers who have been roused from their beds to search for you. Thankfully, in the darkness none of them recognise you and you keep your head down as they mill around you.
+
+> n
+You walk north.
+
+Under Gatehouse
+You're halfway along the arched passage under the gatehouse. The damp stone walls and ceiling of the passage are pierced with arrow slots and "murder holes" through which defenders could fire arrows and pour boiling oil onto attackers... although from the look of them they have never ever been used for this purpose. You can go North out of the castle or South into the courtyard.   There are a couple of dozen soldiers and a few officers here.
+
+> n
+You walk north.
+
+Front of Gatehouse
+You're at the front of the gatehouse, where the streets and alleyways of the city fan out in all directions before you. The archway leads South, and you can go North, Northwest and Northeast into the city itself.  There are a couple of dozen soldiers and a few officers here.
+
+> n
+You walk North.
+
+You walk around the alleyways of the poor part of the city, and soon become lost. As you are walking around you suddenly remember that the woman who was your nanny when you were a child, Bridget Allyn, lives near the cathedral. You are sure that she will give you refuge. But the cathedral is in the rich part of the city. You must get there before the soldiers find you.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.
+
+> ne
+You walk northeast.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.
+
+> e
+You walk east.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.
+
+> se
+You walk southeast.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.
+
+> sw
+You walk southwest.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.
+
+> nw
+You walk northwest.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.
+
+As you wonder which way to go next, a young boy comes running around the corner. He skids to a halt when he sees you.
+
+In The Poor Quarter
+You're in a maze of alleyways in the poor quarter of the city. Old houses and shops crowd together either side of you, cloaked in deep shadows. Alleyways lead off in all directions.   A young boy stands before you.
+
+The boy looks you up and down and his mouth drops open. When he has recovered from his surprise, he speaks to you in a whisper.
+
+"I bet you're the one all these soldiers are after!" he says. "You've stirred up a right hornets' nest tonight, there's soldiers everywhere!" Hearing some soldiers nearby he asks, "What's it worth to get you to a safe place before they catch you?"
+
+> get tiara
+(from the deep pockets)
+OK, you take the diamond tiara out of the pocket.
+
+> give tiara
+The boy's eyes nearly pop out of their sockets when he sees what you are offering him! He takes the tiara, then leads you through the alleyways to a house.
+
+"This is where Mother Shauma lives," he tells you. "She'll look after you!"
+
+He knocks on the door, mutters something to someone inside, who opens the door. The boy thrusts you inside, then skips away joyfully.
+
+Mother Shauma's House
+You're in the living room of a small, neatly furnished house. Mother Shauma is sitting in a rocking chair, while behind you, a young man peeps through the curtains, watching for the soldiers.
+
+The woman says to the young man, "Burnard! Keep watch out of the window!" and then she speaks to you.
+
+"Well, young lady, it seems that your father has the entire garrison out searching for you. I heard that you'd been betrothed to Prince Timothy - I can imagine that you'd rather not marry that philanderer! The thing is, what are we to do with you now? Where were you hoping to get to, Princess?"
+
+> say bridget to mother
+You tell Mother Shauma that you are trying to get to your old nanny, Bridget, who lives somewhere near the cathedral in the wealthy part of town.
+
+"Do you know exactly where Bridget lives?" Mother Shauma asks you. You tell her that you don't, but that you know it is very close to the cathedral.
+
+"Burnard will take you to the wealthy quarter," she tells you. "Once you are there it will be up to yourself to find Bridget's house, we do not know her."
+
+The young man leads you out the back door and through the back alleys, dodging the soldiers that are searching for you, to the rich part of the city.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the tall spire of the cathedral above the rooftops, some distance to the north. The street runs North and South.  Burnard is here beside you.
+
+> n
+You walk North with Burnard.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the tall spire of the cathedral above the rooftops, some distance to the north. The street runs North and South.  Burnard is here beside you.
+
+As you are creeping through the streets you spot a search party some distance further north along the street leading to the cathedral.
+
+"Damn!" whispers Burnard. "The search parties must've finished searching the poor quarter and moved to this part of the city."
+
+Not wanting Burnard to get into trouble for giving you help, you tell him to go back to his grandmother. He is reluctant to do so but you say that you will be OK as you now remember where Bridget lives. He creeps off back to Mother Shauma's house and you are left alone in the dark - apart from all the search parties looking for you!
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the tall spire of the cathedral above the rooftops, some distance to the north. The street runs North and South.
+
+> n
+You walk north.
+
+In The Wealthy Quarter
+You're at a junction, where two streets cross each other, one North-South, the other East-West. The buildings on the east side of the crossroads are in deep shadow. You can see the tall spire of the cathedral some distance to the north. In the street to the north you see some soldiers standing around talking and smoking.
+
+> e
+You walk east.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.
+
+> e
+You walk east.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.  Standing by the door of one of the houses here you see a dustbin.
+
+A search party is approaching you from the east!
+
+> x bin
+An old metal dustbin with a lid. It is pitted with rust and has several holes in it.
+
+The search party is getting nearer!
+
+> hide in bin
+Lifting the lid of the dustbin, you climb inside and close the lid over you. The dustbin has been emptied recently but it still stinks to high heaven and you nearly choke on the fumes.
+
+Hidden In Bin
+You are hiding inside the dustbin with the lid closed over you. There is a rust hole near the top of the bin which is big enough for you to peep out of.
+
+You listen as the search party tries the door on the other side of the street. You hold your breath and stay as still as you can as they then cross to your side of the street and try the door on your side. Finding it locked and secured they move along the street to the next one and repeat the process.
+
+You wait in the bin until they have moved further along the street and judge that it is safe to move.
+
+> look through hole
+You look through the rust and see the search party has passed by and moved further along the street to the west.
+
+> climb out of bin
+You push open the lid of the dustbin and, after a quick look around to check that the coast is clear, climb out of the bin, closing the lid quietly afterwards.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.  Standing by the door of one of the houses here you see a dustbin.
+
+> e
+You walk east.
+
+In The Wealthy Quarter
+You're at a junction, where two streets cross each other, one North-South, the other East-West. The buildings on the east side of the crossroads are in deep shadow. You can see the tall spire of the cathedral, dark against the moonlit sky above the rooftops, some distance to the northwest.
+
+> n
+You walk north.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the tall spire of the cathedral above the rooftops, some distance to the north. The street runs North and South.
+
+A search party is approaching you from the north!
+
+> hide in shadows
+You hide yourself in the shadows over on the east side of the street.
+
+The search party is getting nearer!
+
+> z
+You wait for a while and a few minutes of time elapses.
+
+You watch from the shadows as the search party tries the door on the other side of the street. You hold your breath and stand as still as you can as they then cross to your side of the street and try the door on your side. Finding it locked and secured they move along the street to the next one and repeat the process.
+
+You wait in the shadows until they have moved further along the street and judge that it is safe to move.
+
+> n
+You walk north.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the tall spire of the cathedral some distance to the northwest. The street runs Northwest and South.
+
+> n
+You walk north.
+
+In The Wealthy Quarter
+You're at a junction, where two streets cross each other, one North-South, the other East-West. The buildings on the east side of the crossroads are in deep shadow. You can see the tall spire of the cathedral, dark against the moonlit sky above the rooftops, some distance to the northwest.
+
+Up ahead in the street to the north you see movement.
+
+> look n
+You look north along the street and see a soldier going into a house on the west side. Maybe it would be a good idea if you didn't go that way.
+
+> w
+You walk west.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.
+
+> w
+You walk west.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.
+
+A search party comes walking around the corner at the crossroads ahead and is approaching you from the west!
+
+> search alley
+You search around in the alleyway between the houses on the north side of the street and find a dustbin.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.  In the shadowed alleyway to the north there is a dustbin.
+
+The search party is getting nearer!
+
+> climb in bin
+Lifting the lid of the dustbin, you climb inside and close the lid over you. The dustbin has been emptied recently but it still stinks to high heaven and you nearly choke on the fumes.
+
+Hidden In Bin
+You are hiding inside the dustbin with the lid closed over you.
+
+Outside the bin in the street, the search party is just along the street from where you are hiding!
+
+> search bin
+You feel around on the bottom of the bin in the dark and your fingers close on an object. You pick it up and, on examining it with your fingers, discover it is a length of stiff wire.
+
+You listen as the search party tries the door on the other side of the street. You hold your breath and stay as still as you can as they then cross to your side of the street and try the door on your side. Finding it locked and secured they move along the street to the next one and repeat the process.
+
+You wait in the bin until they have moved further along the street and judge that it is safe to move.
+
+> out
+You push open the lid of the dustbin and, after a quick look around to check that the coast is clear, climb out of the bin, closing the lid quietly afterwards.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops either side of you are bathed in the light from the full moon. You can see the tall spire of the cathedral some distance to the north. The street runs East and West.  In the shadowed alleyway to the north there is a dustbin.
+
+> w
+You walk west.
+
+In The Wealthy Quarter
+You're at a junction, where two streets cross each other, one North-South,  the other East-West. The buildings on the east side of the crossroads are in deep shadow. You can see the tall spire of the cathedral above the rooftops, a short distance to the north. In the street to the south you see some soldiers standing around talking and smoking.
+
+> n
+You walk north.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the tall spire of the cathedral above the rooftops, some distance to the north. The street runs North and South.
+
+> n
+You walk north.
+
+In The Wealthy Quarter
+You're in a long street in the rich part of the city. The fine houses and shops on the west side are bathed in the light from the full moon, but the ones on the east side of the street are in deep shadow. You can see the white mass of the cathedral in the moonlight to the north. The street runs North into the cathedral square and South.
+
+> read nameplate
+The nameplate on the door on the west side of the street reads: "Bridget Allen"
+
+> pick lock with wire
+You insert the wire into the lock and try to pick it. You haven't had much practise at this (apart from your father's wine cabinet!) but after a bit of fiddling around you hear the tumbler click and the door is unlocked.
+
+> open door
+You open the front door.
+
+> w
+You walk west.
+
+Bridget's Living Room
+You're in a large, dark room, probably Nanny Bridget's living room. You can vaguely make out items of furniture, and you see a stairway leading Up. The front door is East, with another room West.
+
+> close door
+You close the front door.
+
+> x door
+You examine the front door and see, hanging on a hook, the door key.
+
+Bridget's Living Room
+You're in a large, dark room, probably Nanny Bridget's living room. You can vaguely make out items of furniture, and you see a stairway leading Up. The front door is East, with another room West.
+
+> get key
+(from the hook)
+Ok, you take the front door key from the hook.
+
+> lock door
+(using the front door key)
+You lock the front door with the front door key.
+
+> u
+You walk up.
+
+Bridget's Bedroom
+You're in Nanny Bridget's bedroom. The woman herself lies asleep in a bed here, and you can see a washstand beside the bed. Stairs lead down into the living room.
+
+> carefully search washstand
+You search the washstand, being careful not to knock anything off it. Your questing fingers find a key, which you carefully pick up.
+
+> d
+You walk down.
+
+Bridget's Living Room
+You're in a large, dark room, probably Nanny Bridget's living room. You can vaguely make out items of furniture, and you see a stairway leading Up. The front door is East, with another room West.
+
+> w
+You walk west.
+
+Bridget's Kitchen
+You're in Bridget's kitchen. A door here is the back exit from the house, leading West. The living room is East.
+
+> search kitchen
+You search the kitchen but find nothing of interest or use.
+
+> unlock door
+(using the kitchen door key)
+You unlock the kitchen door with the kitchen door key.
+
+> open door
+You open the kitchen door.
+
+> w
+You walk west.
+
+The Alleyway
+You're in a dark alleyway behind Bridget's house. It runs North towards cathedral square and south into darkness. The door to Bridget's kitchen is open.
+
+> close door
+You close the kitchen door.
+
+> lock door
+(using the kitchen door key)
+You lock the kitchen door with the kitchen door key.
+
+> post keys through letterbox
+You post the front door and kitchen door keys through the letterbox.
+
+> s
+You walk south.
+
+A Dark Alleyway
+You are in a dark alleyway between buildings which leads North and South, where it opens out into a small square.
+
+> s
+You walk south.
+
+A Small Square
+You are in a small square behind the houses and shops of the wealthy quarter. Narrow alleyways lead off to the South and East while a wider one goes North. In the centre of the square is a small, round grassy area with a flowerbed in the middle.
+
+As you walk into the square, you hear a horse snicker and, to your utter astonishment, your horse Fleetwind comes walking out of the shadows at the side of the square. He still has the dummy wearing your riding leathers and boots on his saddle!
+
+You go to throw your arms around his neck and greet him with joy, but Fleetwind tosses his head and shies away from you - he doesn't like the uniform you are wearing! You talk to him gently and he calms down, but you think to yourself that you had better get out of this smelly old uniform and put your riding leathers on.
+
+A Small Square
+You are in a small square behind the houses and shops of the wealthy quarter. Narrow alleyways lead off to the South and East while a wider one goes North. In the centre of the square is a small, round grassy area with a flowerbed in the middle.  Here you see your horse, Fleetwind.
+
+> untie feet
+You untie the dummy's left foot from the stirrup then you duck under Fleetwind's belly and untie the other foot from the right hand stirrup. As you are doing this the cord, which was already quite old, breaks into a couple of pieces, so you throw it away.
+
+> remove dummy from horse
+You take the dummy down off of Fleetwind's saddle.
+
+> remove ginger hair from dummy
+You untie the string from around the dummy's head and gather up your hair.
+
+> drop ginger hair
+Ok, you put down the long bright ginger hair.
+
+> drop dummy
+Ok, you put down the dummy soldier.
+
+> remove boots from dummy
+You take the riding boots off the dummy soldier.
+
+> remove leathers from dummy
+You take the riding leathers off the dummy soldier.
+
+> remove black boots
+Ok, you remove the pair of black boots.
+
+> remove uniform
+OK, you remove the soldier's uniform.
+
+> drop uniform
+Ok, you put down the old soldier's uniform.
+
+> wear leathers
+OK, you put on your riding leathers.
+
+> wear riding boots
+OK, you put on the riding boots.
+
+> put all in bag
+You put the length of string, the pair of black boots and the length of stiff wire inside the leather saddlebag.
+
+> get reins
+You take hold of Fleetwind's reins.
+
+> n
+You walk north.
+
+Fleetwind follows quietly behind you.
+
+A Dark Alleyway
+You are in a dark alleyway between buildings which leads North and South, where it opens out into a small square.  Here you see your horse, Fleetwind.
+
+> n
+You walk north.
+
+Fleetwind follows quietly behind you.
+
+The Alleyway
+You're in a dark alleyway behind Bridget's house. It runs North towards cathedral square and south into darkness. The door to Bridget's kitchen is closed and locked.  Here you see your horse, Fleetwind.
+
+> n
+You walk north.
+
+Fleetwind follows quietly behind you.
+
+End of Alleyway
+You are at the north end of the alleyway, where it leads into the southwestern corner of Cathedral Square. About 50 metres north is the road that leads West towards the west gate of the city. The square is full of soldiers being formed into search parties.  Here you see your horse, Fleetwind.
+
+> mount horse
+Putting your left foot into the stirrup, you mount Fleetwind, settling yourself into the saddle and taking hold of the reins.
+
+End of Alleyway
+You are riding Fleetwind at the north end of the alleyway, where it leads into the southwestern corner of Cathedral Square. About 50 metres north is the road that leads West towards the west gate of the city. The square is full of soldiers being formed into search parties.
+
+> ride n
+Digging your heels into Fleetwind's flanks, you urge him forward with your usual cry of "Run, Fleetwind, Run!"
+
+You gallop north into the square, urging Fleetwind to go as fast as he can. The nearest soldiers see you and run to head you off but they are too slow and Fleetwind races past their flailing arms as they try to grab you.
+
+You turn Fleetwind around the corner into the road that leads toward the western gate of the city and, glancing behind you, see many soldiers running futilely after you.
+
+As the western gate looms ever closer you see the soldiers manning the gate dragging a barricade across the road leading under the gatehouse and also see that the portcullis is being lowered.
+
+Determined not to be caught after getting so far, you drive Fleetwind on, yelling "Fly, Fleetwind, fly!" into his ears. On reaching the barricade, the soldiers scatter out of your path and Fleetwind jumps it easily, but you have to duck under the portcullis which is almost halfway lowered.
+
+You hurtle under the gatehouse and out onto the road that leads west from the city. Fleetwind gallops on and on, and after riding for about an hour you see, in the moonlight, the dark, foreboding edge of a forest that covers the land for several square kilometres ahead of you just beyond which is the border between Alizon and Xabia.
+
+You know of an old woodcutters hut deep in the forest where you often sleep, in which you have stashed a few supplies, so you head there.
+
+You ride Fleetwind a few kilometres into the forest, which is called Skiddaw forest and you know it very well. After a while you slow to a trot so as not to tire Fleetwind and pick your way through the trees, making your horse walk on the undergrowth to prevent hoofprints in the dirt of the tracks. You find a stream or two in which you walk Fleetwind in order not to leave a scent trail.
+
+Eventually you reach the hut you remembered and dismount from Fleetwind. Tying his reins to a small tree to stop him wandering off and removing the saddle bag, you enter the hut and find it unoccupied. It is extremely spartan, having just an old camp bed to sleep on.
+
+You recall that when you were last here you stashed some travel rations under a loose floorboard and when you lift out the floorboard you are pleased to see that they are still there, wrapped in brown paper. You take the rations out, unwrap them and eat them all. They are tough and tasteless, but they restore your energy. You then settle down on the camp bed and, using your saddle bag as a pillow, fall fast asleep.
+
+You awake next morning to the sound of birdsong. You get up off the camp bed and do a few stretches to ease the stiffness in your body. You then walk out of the hut and look around - and immediately see that Fleetwind is gone!
+
+Please Press Any Key to Continue.
+
+By Hut In Forest
+You're by the woodcutter's hut in the forest. The door into the hut is North, and a path goes winding through the trees to the West.
+
+> n
+You walk north.
+
+Inside Hut
+You're in the woodcutter's hut. This is very spartan, the only furnishing being an old camp bed. The door leads south.
+
+> x bed
+An old camp bed which has been in here for as long as you can remember. On the bed you see a leather saddlebag
+
+> get bag
+(from the camp bed)
+Ok, you take the leather saddlebag from the camp bed.
+
+> look under bed
+You look underneath the camp bed and find a twig, which you pick up.
+
+> s
+You walk south.
+
+By Hut In Forest
+You're by the woodcutter's hut in the forest. The door into the hut is North, and a path goes winding through the trees to the West.
+
+> x path
+The path meanders west through the forest until it is hidden from view by the tree trunks. You see hoofprints leading along the path in that direction.
+
+> follow hoofprints
+You follow Fleetwind's hoofprints.
+
+They lead you along the path for quite some distance from the hut until they suddenly disappear. You search the undergrowth either side of the path and discover a vague path leading south. You follow this path, which leads you to a glade in the forest where there is a small cottage.
+
+Glade in Forest
+You're in a small forest glade, where there is a tiny cottage. The path is North and going East will take you inside the cottage.
+
+> look through window
+You look through the window of the cottage and see an old lady sitting on a chair inside.
+
+> x woman
+She is sitting in the chair reading a book.
+
+> knock on door
+You knock on the cottage door.
+
+A voice from inside the cottage calls out.
+
+"Come in, the door's not locked!"
+
+> open door
+You open the cottage door.
+
+> e
+You walk east.
+
+Inside Cottage
+You're inside the tiny cottage. It is neatly furnished, with pretty curtains at each window.  On a comfy chair sits an old woman.  Leaning against the wall by the door, his arms folded in front of him, is a young man.
+
+As you enter the cottage, the old woman sitting in the chair looks up from her book and, at first, seems surprised to see you. She quickly adopts a stern expression.
+
+"Who are you and what do you want?" she says gruffly.
+
+> ask woman where is horse
+You ask the old woman where your horse is.
+
+"My grandson Jethro here found him in the forest," she tells you, with a cunning look in her eye. "Don't worry, he's in a safe place."
+
+> ask woman where is place
+You ask the old woman where this "safe place" is?
+
+"That's for me to know and you to find out," she says to you. "I'll tell you when you bring me the wool so I can finish my knitting."
+
+> say to woman return horse
+The old woman ignores you.
+
+> ask about knitting
+You must specify which character who you wish to speak to.
+
+> x wool
+The wool the woman has been knitting with is black in colour.
+
+> ask about wool
+You must specify which character who you wish to speak to.
+
+> ask about book
+You must specify which character who you wish to speak to.
+
+> read book
+You try to read the title of the book that the woman is reading, but she hides it from you.
+
+"Oii!" she says grumpily. "Mind your own business!"
+
+However, you had managed to catch a glimpse of the title, which was something about "Fifty Shades..." or something similar.
 
 > x curtains
-You can't see any curtains!
+The curtains are in a pretty floral design which matches exactly the pattern on the chair the old lady is sitting in. Hanging from the bottom of one of the curtains you see a short length of black thread.
 
-> get cotton
-You can't see any cottons!
+> pull thread
+You pull the length of cotton out of the curtain.
 
-> w
-There is no route to the west, only north.
-
-> nw
-There is no route to the northwest, only north.
+"Hey, be careful with my curtains!" the old woman admonishes you.  You ignore the old woman - 'You've got my horse, so I'll take whatever I want!' you think to yourself.
 
 > w
-There is no route to the west, only north.
+You walk west.
+
+As you leave the cottage, you hear the old woman say something.
+
+"Good riddance," she mutters to herself. "Now I can get on with my reading in peace!"
+
+Glade in Forest
+You're in a small forest glade, where there is a tiny cottage. The path is North and going East will take you inside the cottage.
+
+> n
+You walk north.
+
+Path in Forest
+You're on a long east-west path that meanders through the trees behind and ahead of you.  A track hidden by the undergrowth leads South here.
+
+> w
+You walk west.
+
+Edge Of Forest
+You're standing at the edge of the forest, looking down a sloping meadow towards a small village that nestles either side of a river in a wide valley. The path leads East into the forest, and you see a road at the edge of the meadow, Down below.
+
+As you reach the edge of the forest you see a rider emerge from the forest on the road below you to the left. The rider is an Alizonian cavalryman and he gallops up to two soldiers who are standing guard at the bridge over the river - which is also the border between Alizon and Xabia.
+
+Jumping off of his horse he speaks to the soldiers, giving them some sheets of paper - you realise to your horror that he is obviously telling them about you!
+
+The rider leads his horse over the bridge and gives the two Xabian soldiers the same sheets of paper. He then remounts and gallops back along the road, scattering the people walking along it, and disappears into the forest once again.
+
+You have got to be very careful when approaching the soldiers - maybe you should get a different disguise?
 
 > d
-There is no route going down, only north.
+You walk down.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> x line
-You can't see any lines!
-
-> get dress
-You are already carrying the blue ballgown!
-
-> s
-There is no route to the south, only north.
+On Wide Road
+You're on a wide road that goes SE into the forest and West into the village of East Nyeford. You can also go back Up across the meadow to the edge of the forest. There are a few people moving in either direction along the road.
 
 > w
-There is no route to the west, only north.
+You walk west.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost, to which is nailed a notice.
 
-> e
-There is no route to the east, only north.
+As you reach the crossroads, you see a soldier nailing a notice to the signpost. He then walks north along the lane away from you without looking back and he doesn't see you.
 
-> search sawdust
-Sorry, I'm not sure which object you are trying to search.
+> read notice
+The notice reads:
 
-> w
-There is no route to the west, only north.
+1,000 CROWNS REWARD
+Is offered for Information leading
+To the Return of Princess Bronwynn
+To Alizon Castle.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> w
-There is no route to the west, only north.
-
-> sit on bench
-You can't see any benches!
-
-> e
-There is no route to the east, only north.
+The notice then goes on to give a description of you wearing either a soldier's uniform, or riding boots and leathers, and having ginger hair.
 
 > s
-There is no route to the south, only north.
+You walk south.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is closed.
 
 > s
-There is no route to the south, only north.
+You walk South.
 
-> s
-There is no route to the south, only north.
-
-> s
-There is no route to the south, only north.
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  In the middle of the field stands an old scarecrow.
 
 > x scarecrow
-You see no such thing.
+An old scarecrow made from wood and straw, it seems to be held together by the black coat that it is "wearing".  On its head is an old hat.
 
-> get coat and hat
-Sorry, I'm not sure which object you are trying to take.
+> get hat
+You remove the hat from the scarecrow.
+
+> get coat
+You remove the coat from the scarecrow. As the coat was holding the scarecrow together, as you remove it the scarecrow collapses into a pile of wood and straw.
+
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  Also here is some straw and wood.
+
+> wear coat
+Ok, you put on the black coat.
+
+It is big enough to fit over your riding leathers and makes you look bigger, more like a man.
+
+> remove boots
+Ok, you remove the riding boots.
+
+> drop boots
+Ok, you put down the riding boots.
+
+> get black boots from bag
+OK, you take the pair of black boots out of the saddle bag.
+
+> wear black boots
+OK, you put on the black boots.
+
+> wear hat
+Ok, you put on the old hat.
+
+> n
+You walk north.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is closed.
+
+> n
+You walk north.
+
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost, to which is nailed a notice.
+
+> remove notice
+You take the notice off the signpost, screw it into a ball and throw it away.
+
+> n
+You walk north.
+
+Puddle Lane by Tavern
+You're north of the crossroads in Puddle Lane, on the East side of which is a tavern called "The Farmer's Arms". The lane leads North and South.  A notice is pinned to the side of the tavern door.
+
+> remove notice
+You take down the notice, screw it into a ball and throw it away.
+
+> e
+You walk east.
+
+In Tavern
+You're in the small tavern, a smoky but clean place with a warm, friendly atmosphere to it and sawdust on the floor. A few customers sit at the chairs around the tables while more prop up the bar, behind which the landlord stands. The lane is West.
+
+As you enter the tavern you see there are quite a few people in here. Fortunately, nobody takes any notice of you.
+
+> sit on chair
+You sit on the chairs.
+
+> search sawdust
+You bend down as if to tie your shoe lace and search the sawdust around where you are sitting. You find a penny coin, which you pick up.
+
+> stand up
+You stand up.
+
+> buy ale
+You buy a tankard of the tavern's cheapest ale, costing one penny, and drink it. It doesn't taste very nice but at least it quenches your thirst. You put the empty tankard down and a passing potboy takes it away.
+
+> sit on chair
+You sit on the chairs.
+
+> search sawdust
+You bend down again as if to tie your other shoe lace and search the sawdust around where you are sitting. You find a button, which you pick up.
+
+> stand up
+You stand up.
+
+> w
+You walk west.
+
+Puddle Lane by Tavern
+You're north of the crossroads in Puddle Lane, on the East side of which is a tavern called "The Farmer's Arms". The lane leads North and South.
+
+> n
+You walk north.
+
+North End of Puddle Lane
+You're near the north end of Puddle Lane, where it ends in open fields. On the West side is a small cottage at the end of a short path.
+
+> w
+You walk west.
+
+By Cottage
+You're by the door of the small cottage. By the side of the door sits a wooden bench. The lane is East along the short path.
+
+> sit on bench
+You sit down on the wooden bench. You feel a sharp pain in your buttock and immediately stand up again! You have sat on a needle and it is sticking painfully in your behind. You quickly reach down and pull it out - Ouch, that hurt!
 
 > thread needle
-You are not carrying the needle.
+You thread the cotton through the eye of the needle and knot the two ends together.
 
 > sew button to coat
-Sorry, I'm not sure which object you are trying to sew/stitch.
+Using the needle & thread, you quickly sew the button onto the coat.
 
-> wear coat and hat
-Sorry, I'm not sure which object you're referring to.
+> do coat up
+You fasten the coat so that it won't come open.
 
-> fasten coat
-You should be wearing the coat if you want to do that.
+> e
+You walk east.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
+North End of Puddle Lane
+You're near the north end of Puddle Lane, where it ends in open fields. On the West side is a small cottage at the end of a short path.
 
 > s
-There is no route to the south, only north.
+You walk south.
+
+Puddle Lane by Tavern
+You're north of the crossroads in Puddle Lane, on the East side of which is a tavern called "The Farmer's Arms". The lane leads North and South.
+
+> s
+You walk south.
+
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost.
+
+> w
+You walk west.
+
+East Side of River Nye
+You're standing by the bridge on the east bank of the river Nye. One of the stone uprights of the bridge parapet has the name "ALIZON" carved into it. The wind is very gusty here. You can go East or West over the bridge. People and carts go by, heading in both directions.  Standing guard here are Two Alizonian soldiers.
+
+As you approach the soldiers you see that they are stopping everyone crossing the bridge.
+
+When it is your turn, you keep your hat brim down when they start to speak to you and you talk in a gruff voice. Luckily for you they don't see or hear anything suspicious so they wave you through. You quickly walk over the bridge to the other side and hurry past the guards into the main street of West Nyeford.
+
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
+
+> s
+You walk south.
+
+Riverside Track
+You're on a riverbank track, which continues South into wilderness. The main street is North. A gap in the thick vegetation leads Down to the river's edge here.
 
 > d
-There is no route going down, only north.
+You walk down.
+
+By River
+You're at the river's edge, where there is a pool of still water surrounded by several large, rounded stones, and bounded on two sides by thick vegetation. The track is a few metres Up the bank from here.
+
+As you look around you realise that this quite a nice little spot - if you had the time, you wouldn't mind hanging around for a while here, it is very peaceful.
 
 > search vegetation
-You can't see any vegetations!
+You search the vegetation around you and find an old cake of soap buried under the soil. You pick it up and brush the dirt off.
 
 > u
-There is no route going up, only north.
+You walk up.
+
+Riverside Track
+You're on a riverbank track, which continues South into wilderness. The main street is North. A gap in the thick vegetation leads Down to the river's edge here.
 
 > n
-Perhaps it would be a good idea if you were to get off the bed first?
+You walk north.
+
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
 
 > w
-There is no route to the west, only north.
+You walk west.
 
-> w
-There is no route to the west, only north.
+Main Street By Inn
+You're by the "Sheep-shearer's Arms" inn, which is on the South side of Main Street, which still runs due East and West. You see many villagers coming and going around you.  Nailed to the side of the door into the inn is a notice.
+
+> remove notice
+You take the notice down, screw it into a ball and throw it away.
 
 > s
-There is no route to the south, only north.
+You walk south.
+
+Sheep Shearer's Arms
+You're in the main taproom of the "Sheep-shearer's Arms" inn. The place is dirty and the smell of lanolin is heavy in the air, mingling with the smoke from the pipes of the patrons sitting at the tables. These are mainly farm workers, many of them itinerant shearers from all parts of the kingdom. The exit is North.
 
 > search tables
-You can't see any tables!
+You search the tables and on one of them you spot a tinderbox. You glance around to see if anyone is watching you and then quickly snatch the tinderbox from the table.
 
-> x patrons
-You see no such thing.
+> put tinderbox in bag
+OK, you put the tinderbox inside the saddle bag.
 
 > start fight
-Sorry, I didn't understand that command.
+You walk over to a table where some men are playing cards, watched by several others standing around them and you push your way past the onlookers, a couple of them muttering to you as you do.
+
+Making sure you are standing in front of one of the men, you pick up a tankard of ale from the table and pour it over the head of the nearest one sitting at the table. He jumps to his feet with a roar of rage and throws a punch at you. You duck and the man who you were standing in front of gets it straight in the face. He reacts by throwing a punch back and within seconds a brawl has broken out.
+
+You drop to the floor and, as other men join in the fight, you wriggle your way through the feet of the brawlers and out into the street outside. As you get to your feet and dust yourself down a knife, thrown by someone inside the inn, comes flying out of the doorway and lands nearby.
+
+Main Street By Inn
+You're by the "Sheep-shearer's Arms" inn, which is on the South side of Main Street, which still runs due East and West. You see many villagers coming and going around you.  Also here is a sharp knife.
 
 > get knife
-Sorry, I'm not sure which object you are trying to take.
+Ok, you pick up the sharp knife.
 
 > w
-There is no route to the west, only north.
+You walk west.
+
+Main Street West
+You're near the west end of Main Street, where it leaves the village to head out West past farms and outlying cottages. To the North is Dyer's Lane. There are fewer people around here, mostly either leaving or entering the village.
 
 > w
-There is no route to the west, only north.
+You walk west.
+
+West of Nyeford
+You're on the road that runs due west from West Nyeford. By the side of the road is a kilometre stone and, beyond an open farm gate, a track leads south to a sheep farm. People and carts pass you by, on their way in and out of the village.
 
 > s
-There is no route to the south, only north.
+You walk south.
+
+Sheep Farm
+You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
+
+> x sheds
+The one to the east is the shearing shed and the shed to the west is the spinning shed.
 
 > e
-There is no route to the east, only north.
+You walk east.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  There are several sheep-shearers in here, all shearing sheep as fast as they can.  The sheep-shearer is here, shearing sheep.
+
+> x shearer
+The sheep-shearer is a bronzed hunk of a man, with muscular arms and a brawny chest. He is busy shearing sheep as fast as he can.
+
+You stand watching the sheep-shearer working away, admiring the way he deftly handles the sheep as his shears fly over the sheep's skin, cutting the fleece away. You cannot help thinking to yourself that he is a most handsome and attractive man, and you start to daydream about him enclosing you in those muscular arms.
+
+You are startled out of your amourous thoughts by a deep sigh near you and you turn to see a scruffy young woman standing by your side, gazing dreamily at the sheep-shearer.
+
+"Gorgeous, isn't he," she says, half to you and mostly to herself. You realise instantly that this unkempt woman is in love with the handsome sheep-shearer, but that perhaps the emotion is not returned, mainly because she is so untidy.
+
+You hear someone call out "Molly!" and the woman is startled out of her reverie and she turns and runs towards the spinning shed where an older woman is standing, arms akimbo, glaring at the young woman running towards her.
+
+"How many times must I tell you to stop gawping at Shane," she barks unkindly as Molly runs past her into the shed. "He's far too good-looking to be interested in a scruffy urchin like you!". The two of them disappear into the spinning shed, where you guess Molly works.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  There are several sheep-shearers in here, all shearing sheep as fast as they can.  Shane the sheep-shearer is here, shearing sheep.
+
+> w
+You walk west.
+
+Sheep Farm
+You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
+
+> x spinning shed
+
+> sw
+You walk southwest.
+
+By Small Building
+You are standing by the small building, which is attached to the rear of the spinning shed. In the side of the building is a window.
+
+> look through window
+You look through the window and see the room beyond is a storeroom for old equipment.
+
+> ne
+You walk northeast.
+
+Sheep Farm
+You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
+
+> w
+You walk west.
+
+The Spinning Shed
+You're standing in the doorway into the spinning shed, where the wool is carded and spun. The shed is filled with large machines which you recognise as being of the "Spinning Mule" type. The machines are being operated by workers and the noise is deafening. The farmyard is East and in the corner of the shed you see a doorway leading South. You see Molly working away at one of the machines and the supervisor is walking around making sure the workers are doing their jobs properly.
+
+> s
+You go to walk south towards the doorway but are stopped by the commanding voice of the supervisor.
+
+"Hey, you there!" she barks at you. "Unauthorised members of the public are not allowed in here!"
+
+You sheepishly walk back to the main door.
+
+> x women
+The workers in here are all female.
+
+> x supervisor
+The supervisor is a tough-looking woman in her 40's.
+
+> e
+You think about leaving the shed, but a sixth sense tells you that something is about to happen, so you stay where you are.
+
+You are startled out of your wits by a loud whistle and see all the workers stop whatever they were doing and stand away from their machines. There is another blast on the whistle - you now see that it is the supervisor who blew it the first time - and the workers all head for the door you are standing in.
+
+You step back to let them out and see that there is another group of workers behind you waiting to go in. You realise that the workers are changing shift. The whole place becomes chaotic as one lot of workers go out and the others go in. Molly walks past you and you watch as she walks over to the shearing shed.
+
+The Spinning Shed
+You're standing in the doorway into the spinning shed, where the wool is carded and spun. The shed is filled with large machines which you recognise as being of the "Spinning Mule" type. The machines are being operated by workers and the noise is deafening. The farmyard is East and in the corner of the shed you see a doorway leading South. The place is full of workers walking to and from their machines.
+
+> s
+Taking advantage of the change-over of workers, you quickly go south into the doorway.
+
+The Storeroom
+You are in a storeroom which is full of old equipment. The shed is North and there is a window looking out over the farmyard.
+
+> open window
+You unlatch and push the window open as wide as you can.
+
+> search equipment
+You search through the old equipment until you find a spinning wheel which is intact.
+
+The Storeroom
+You are in a storeroom which is full of old equipment. The shed is North and there is a window looking out over the farmyard.  Also here is a spinning wheel.
+
+Outside in the shed the new shift of workers are now standing by their machines, so the supervisor blows the whistle and they all start work.
+
+The supervisor happens to be passing the doorway into the storeroom and she spots you in there.
+
+"Hey, you there!" she yells over the sound of the machinery. "Members of the public are not allowed in there!"
+
+She enters the storeroom, grabs you by the scruff of your neck, frogmarches you through the spinning shed and throws you out into the farmyard.
+
+"Get out and stay out!" she orders you before going back inside the shed to get on with her supervising.
+
+Sheep Farm
+You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
+
+> e
+You walk east.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  There are several sheep-shearers in here, all shearing sheep as fast as they can.  Shane the sheep-shearer is here, shearing sheep, while Molly stares adoringly at him.
+
+As you stand watching Molly gazing dreamily at Shane, you look at her closely and see that, under all the scruffiness, she is actually quite a pretty girl. If only something could be done about her appearance.....
+
+The besotted young woman sighs deeply, then turns around and walks dejectedly out of the shed. You see her walk north out of the farmyard and you guess that she is going home.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  There are several sheep-shearers in here, all shearing sheep as fast as they can.  Shane the sheep-shearer is here, shearing sheep.
+
+> follow molly
+You follow Molly out of the sheep farm.
+
+She turns east along the road and walks through the village, saying hello to people she knows on the way. She goes over the river bridge, past the soldiers - who completely ignore her - and turns south into South Lane, where she enters the cottage on the east side.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is open.
+
+> e
+You walk east.
+
+In Molly's Cottage
+You're in the main room of the cottage, which is sparsely furnished with a table and chair and not much else. On the wall there is a large mirror with a small sink underneath. The lane is West. Molly is here, gazing into the mirror.
+
+> greet molly
+You tell Molly who you really are, how and why you escaped from your father's castle and how you ended up in Nyeford. Molly is a bit awestruck but sighs dreamily at the sheer romance of it all.
+
+> wash molly
+You lead Molly over to her sink and, ignoring her protests, strip the rags off her body and then give her a thorough wash-down. You then wash her filthy hair, drying it and trimming it with your scissors. You then comb and brush it until it glows.
+
+You then use your makeup on her face, eyes and lips, applying some blusher, mascara and eyeliner to good effect.
+
+Last of all you get her to put on your blue ballgown, which fits her perfectly, and slip her feet into your high-heel shoes, which luckily are the right size.
+
+The transformation is nothing short of miraculous!
+
+You lead her over to her mirror and when she sees her reflection she gasps in shock. "That can't be me," she says in an awestruck voice. "I'm beautiful!!!"
+
+In Molly's Cottage
+You're in the main room of the cottage, which is sparsely furnished with a table and chair and not much else. On the wall there is a large mirror with a small sink underneath. The lane is West. Molly is here, gazing into the mirror.
+
+After staring at herself in the mirror, Molly turns towards you. She gives you a hug and a kiss on the cheek and tells you to come with her.
+
+As you go to leave, Molly stops and stands there as if thinking. She asks you to wait, goes to a chest of drawers and fetches out an old box in which there is a beautiful pearl necklace.
+
+"This is the only thing I have that belonged to my mother, I will wear it in her honour," she tells you, putting the necklace around her neck.
+
+You leave the cottage and walk over the bridge to the main street. Molly is a bit bashful at first, but after getting lots of admiring looks and comments from passers-by, she holds herself up higher and starts to enjoy herself more with every step.
+
+Eventually the two of you arrive back at the sheep farm and Molly giggles as she realises what you are up to. You walk up to the door of the shearing shed but Molly is reluctant to go in. You walk over and, grabbing her hand, lead her into the shed.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  There are several sheep-shearers in here, all shearing sheep as fast as they can.  Shane the sheep-shearer is here, shearing sheep, while Molly stares adoringly at him.
+
+As you walk into the shearing shed, one by one the men busy shearing sheep become aware of your presence and stop shearing to stare in amazement at the radiantly lovely Molly standing by your side.
+
+The last one to notice is Shane, who has become aware that all the other shearers have stopped working. He follows their gaze and, as his eyes alight on Molly, his mouth drops open in astonishment.
+
+"Hello Shane," Molly says to him, demurely. "It's me - Molly!"
+
+Shane walks up to Molly, the look of astonishment plain on his face. He takes her hands in his and, gazing into her eyes, whispers something to her. Molly's face breaks into a huge grin and she nods her head. He reaches down with his brawny arms and sweeps her off her feet. He turns to his fellow workers.
+
+"Take over Jonty," he says to one of them. "I'm off to get married!" As all the sheep shearers cheer and raise their caps in farewell, Shane carries Molly past you out of the shearing shed, the happy girl squealing with delight.
+
+"Thank you!" she shouts to you as they head for the village. "I hope you reach Hecate safely!"
+
+You turn back and look at the shearers and see that they are laughing and joking amongst themselves at Shane's good fortune.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  The sheep-shearers are laughing and talking amongst themselves.
 
 > get wool
-You can't see any wool!
+(from the canvas sacks)
+While the shearers' backs are turned you quickly walk over to the pile of canvas bags, take some wool out of one of them, and then walk back to where you were standing.
+
+"OK lads, back to work," calls out one of the shearers, whom you assume is Jonty. "These 'ere sheep won't shear 'emselves and we're one man short now!"
+
+The shearers resume their work, shearing the fleeces from the sheep with even more speed and dexterity.
+
+The Shearing Shed
+You're in the shearing shed, a large, open building where the sheep are sheared of their fleeces. The floor is very greasy and the shed reeks of sheep and lanolin. In the far corner you see some bags of wool. The exit is West.  There are several sheep-shearers in here, all shearing sheep as fast as they can.
 
 > w
-There is no route to the west, only north.
+You walk west.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
+Sheep Farm
+You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
 
-> e
-There is no route to the east, only north.
+> sw
+You walk southwest.
 
-> e
-There is no route to the east, only north.
+By Small Building
+You are standing by the small building, which is attached to the rear of the spinning shed. In the side of the building is a window.
 
-> e
-There is no route to the east, only north.
+> climb in window
+You climb into the window.
 
-> e
-There is no route to the east, only north.
+The Storeroom
+You are in a storeroom which is full of old equipment. The shed is North and there is a window looking out over the farmyard.  Also here is a spinning wheel.
 
-> e
-There is no route to the east, only north.
+> search equipment
+You search through the old equipment again and this time you find an old carding machine.
 
-> e
-There is no route to the east, only north.
+The Storeroom
+You are in a storeroom which is full of old equipment. The shed is North and there is a window looking out over the farmyard.  Also here is a spinning wheel and a carding machine.
 
-> e
-There is no route to the east, only north.
-
-> s
-There is no route to the south, only north.
-
-> e
-There is no route to the east, only north.
-
-> talk to sue
-I did not understand the word "sue".
-
-> x sue
-You see no such thing.
-
-> wash sue
-I did not understand the word "sue".
-
-> say to sue "follow me"
-You must specify which character you wish to speak to when there is more than one character present.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> s
-There is no route to the south, only north.
-
-> e
-There is no route to the east, only north.
-
-> get wool
-You can't see any wool!
-
-> w
-There is no route to the west, only north.
-
-> se
-There is no route to the southeast, only north.
-
-> search shed
-You can't see any sheds!
+> card wool
+You card the wool using the carding machine, so that it is ready for spinning.
 
 > spin wool
-You can't see any wool!
+You spin the wool on the spinning wheel, leaving you with a ball of wool.
 
-> search shed
-You can't see any sheds!
+> climb out of window
+You climb out of the window.
 
-> get crate
-You can't see any crates!
+By Small Building
+You are standing by the small building, which is attached to the rear of the spinning shed. In the side of the building is a window.
 
-> nw
-There is no route to the northwest, only north.
+> ne
+You walk northeast.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> e
-There is no route to the east, only north.
+Sheep Farm
+You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
 
 > n
-Perhaps it would be a good idea if you were to get off the bed first?
+You walk north.
 
-> drop crate
-You can't see any crates!
-
-> climb fence
-Sorry, I'm not sure which object you are trying to climb.
-
-> look in opening
-Sorry, I'm not sure which object you are trying to look in.
-
-> sharpen stick
-Sorry, I'm not sure which object you are trying to sharpen.
-
-> put wool on stick
-You can't see any wool!
-
-> dip wool in dye
-You can't see any wool!
-
-> climb fence
-Sorry, I'm not sure which object you are trying to climb.
-
-> get crate
-You can't see any crates!
+West of Nyeford
+You're on the road that runs due west from West Nyeford. By the side of the road is a kilometre stone and, beyond an open farm gate, a track leads south to a sheep farm. People and carts pass you by, on their way in and out of the village.
 
 > e
-There is no route to the east, only north.
+You walk east.
 
-> se
-There is no route to the southeast, only north.
-
-> e
-There is no route to the east, only north.
-
-> e
-There is no route to the east, only north.
-
-> e
-There is no route to the east, only north.
-
-> e
-There is no route to the east, only north.
-
-> s
-There is no route to the south, only north.
-
-> s
-There is no route to the south, only north.
-
-> drop crate
-You can't see any crates!
-
-> light crate
-You can't see any crates!
-
-> hold wool by fire
-Sorry, I didn't understand that command.
-
-> separate wool from stick
-I did not understand the word "separate".
+Main Street West
+You're near the west end of Main Street, where it leaves the village to head out West past farms and outlying cottages. To the North is Dyer's Lane. There are fewer people around here, mostly either leaving or entering the village.
 
 > n
-Perhaps it would be a good idea if you were to get off the bed first?
+You walk north.
 
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> e
-There is no route to the east, only north.
-
-> u
-There is no route going up, only north.
+Dyer's Lane (W)
+You are in Dyer's Lane where it bends East towards the dye works and South towards the village, which is about half a kilometre distant.
 
 > e
-There is no route to the east, only north.
+You walk east.
 
-> s
-There is no route to the south, only north.
+By Tall Fence
+You're in Dyer's Lane, to the west of the dyeworks, where a tall fence stands adjoining the building. The lane continues East and West.
+
+> drop all
+Ok, you put down the leather saddlebag, the long twig, the ball of wool, the sewing needle and the sharp knife.
 
 > e
-There is no route to the east, only north.
+You walk east.
 
-> give wool to woman
-You can't see any wool!
-
-> say to woman "return horse"
-You must specify which character you wish to speak to when there is more than one character present.
-
-> threaten woman
-You can't see any woman!
-
-> crawl out
-You cannot crawl in that direction.
-
-> no
-Sorry, I didn't understand that command.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> w
-There is no route to the west, only north.
-
-> nw
-There is no route to the northwest, only north.
-
-> nw
-There is no route to the northwest, only north.
-
-> nw
-There is no route to the northwest, only north.
-
-> w
-There is no route to the west, only north.
-
-> wait
-You wait for a while and a few minutes of time elapses.
-
-> w
-There is no route to the west, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> w
-There is no route to the west, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> s
-There is no route to the south, only north.
-
-> s
-There is no route to the south, only north.
-
-> s
-There is no route to the south, only north.
-
-> s
-There is no route to the south, only north.
-
-> w
-There is no route to the west, only north.
-
-> free horses
-I did not understand the word "free".
-
-> mount fleetwind
-Fleetwind isn't here!
-
-> yell
-Sorry, I didn't understand that command.
-
-> x hummock
-You see no such thing.
-
-> get pebbles
-Sorry, I'm not sure which object you are trying to take.
-
-> throw pebble sw
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> sw
-There is no route to the southwest, only north.
-
-> throw pebble w
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> w
-There is no route to the west, only north.
-
-> throw pebble s
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> s
-There is no route to the south, only north.
-
-> throw pebble se
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> se
-There is no route to the southeast, only north.
-
-> sw
-There is no route to the southwest, only north.
-
-> throw pebble w
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> w
-There is no route to the west, only north.
-
-> throw pebble w
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> w
-There is no route to the west, only north.
-
-> throw pebble sw
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> sw
-There is no route to the southwest, only north.
-
-> throw pebble sw
-Sorry, I'm not sure which object you are trying to throw/toss/pitch/chuck/lob.
-
-> sw
-There is no route to the southwest, only north.
-
-> w
-There is no route to the west, only north.
-
-> dismount
-Sorry, I didn't understand that command.
-
-> x soldier
-You can't see any soldier!
-
-> talk to soldier
-You can't see any soldier!
-
-> pull bolt
-You can't see any bolts!
-
-> search body
-You can't see any body!
-
-> mount fleetwind
-Fleetwind isn't here!
-
-> w
-There is no route to the west, only north.
-
-> x milestone
-You see no such thing.
-
-> w
-There is no route to the west, only north.
-
-> dismount
-Sorry, I didn't understand that command.
-
-> n
-Perhaps it would be a good idea if you were to get off the bed first?
-
-> tether fleetwind to tree
-You can't see any tree!
-
-> w
-There is no route to the west, only north.
-
-> search undergrowth
-You can't see any undergrowths!
-
-> search soldiers
-You can't see any soldiers!
-
-> s
-There is no route to the south, only north.
-
-> s
-There is no route to the south, only north.
+The Dye Works
+You are by the entrance to the dye works on the North side of the lane. Dyer's Lane runs East and West from here. In the yard of the dyeworks you can see a couple of large dogs.
 
 > e
-There is no route to the east, only north.
+You walk east.
 
-> search undergrowth
-You can't see any undergrowths!
+Dyer's Lane (E)
+You are in Dyer's Lane where it bends West towards the dye works and South towards the village, which is about half a kilometre away.
 
-> search horse
-Sorry, I'm not sure which character you are referring to.
+> s
+You walk south.
 
-> w
-There is no route to the west, only north.
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
 
-> w
-There is no route to the west, only north.
+> s
+You walk south.
 
-> w
-There is no route to the west, only north.
-
-> climb tree
-You can't see any tree!
-
-> look down
-You look Down, but see nothing of any interest or use.
-
-> x outlaws
-You see no such thing.
+Riverside Track
+You're on a riverbank track, which continues South into wilderness. The main street is North. A gap in the thick vegetation leads Down to the river's edge here.
 
 > d
-There is no route going down, only north.
+You walk down.
+
+By River
+You're at the river's edge, where there is a pool of still water surrounded by several large, rounded stones, and bounded on two sides by thick vegetation. The track is a few metres Up the bank from here.
+
+> wait
+You wait around by the river's edge, enjoying the peace and tranquillity.
+
+As you are watching the river flow gently by, something comes into view in the water not far from the riverbank - it is an old crate. The crate is swept into the round pool by the current, where it lies bobbing in the water.
+
+By River
+You're at the river's edge, where there is a pool of still water surrounded by several large, rounded stones, and bounded on two sides by thick vegetation. The track is a few metres Up the bank from here.  An old wooden crate is floating in the water just at the edge of the round pool.
+
+> get crate
+You wade into the pool and drag the crate out of the water onto dry land.
+
+By River
+You're at the river's edge, where there is a pool of still water surrounded by several large, rounded stones, and bounded on two sides by thick vegetation. The track is a few metres Up the bank from here.  Also here is an old wooden crate.
+
+> get crate
+Ok, you pick up the old wooden crate.
+
+> u
+You walk up.
+
+Riverside Track
+You're on a riverbank track, which continues South into wilderness. The main street is North. A gap in the thick vegetation leads Down to the river's edge here.
+
+> n
+You walk north.
+
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
+
+> n
+You walk north.
+
+Dyer's Lane (E)
+You are in Dyer's Lane where it bends West towards the dye works and South towards the village, which is about half a kilometre away.
+
+> w
+You walk west.
+
+The Dye Works
+You are by the entrance to the dye works on the North side of the lane. Dyer's Lane runs East and West from here. In the yard of the dyeworks you can see a couple of large dogs.
+
+> w
+You walk west.
+
+By Tall Fence
+You're in Dyer's Lane, to the west of the dyeworks, where a tall fence stands adjoining the building. The lane continues East and West.  Also here is a leather saddlebag, a long twig, a ball of wool, a sewing needle and a sharp knife.
+
+> drop crate
+Ok, you put down the old wooden crate.
+
+> get all
+Ok, you pick up the leather saddlebag, the long twig, the ball of wool, the sewing needle and the sharp knife.  Your hands will need to be empty if you want to do that.
+
+> sharpen twig
+You sharpen one end of the twig into a point using the knife.
+
+> put twig and ball in bag
+OK, you put the long twig and the ball of wool inside the saddle bag.
+
+> throw bag over fence
+You throw the leather saddlebag over the fence and it lands on the other side.
+
+> drop all
+Ok, you put down the sewing needle and the sharp knife.
+
+> stand on crate
+Ok, you climb up onto the crate. It wobbles a bit as you do so but you put your hand against the fence to steady yourself.
+
+Standing On Crate
+You are standing on the crate by the tall fence in Dyer's Lane. Even though you are now about a metre higher than you were, the top of the fence is still over half a metre above your head.
+
+> climb over fence
+You jump up, grab the top of the fence and haul yourself up and over t. Luckily, on the other side there are some crates stacked against the wall that you can step on to reach the ground.
+
+The Drying Yard
+You're in the drying yard behind the dyeworks. This is surrounded on three sides by the high fence, the fourth being the back wall of the dyeworks itself. There are racks and lines hung with all manner of materials that have been dyed and hung out to dry. In the wall of the dyeworks is a large doorway. Some crates stacked against the fence will enable you to climb back over it to the lane.  Also here is a leather saddlebag.
+
+> get bag
+Ok, you pick up the leather saddlebag.
+
+> look into building
+You look into the doorway of the dyeworks and see, just inside, some vats of dye.
+
+The Drying Yard
+You're in the drying yard behind the dyeworks. This is surrounded on three sides by the high fence, the fourth being the back wall of the dyeworks itself. There are racks and lines hung with all manner of materials that have been dyed and hung out to dry. In the wall of the dyeworks is a large doorway. Some crates stacked against the fence will enable you to climb back over it to the lane.  Just inside the doorway into the dyeworks are three vats of dye.
+
+> get ball and twig from bag
+OK, you take the ball of wool and the long twig out of the saddle bag.
+
+> poke twig into ball
+You push the sharpened twig gently into the ball of wool until it is almost all the way through.
+
+> dip ball into blue dye
+Holding the very end of the twig, you dip the ball of wool into the vat of blue dye. The wool soaks up the dye and changes colour.
+
+> soak ball in green vat
+Holding the very end of the twig, you dip the ball of wool into the vat of green dye. The wool soaks up the dye and changes colour.
+
+The ball of wool turns turquoise in colour, so you take it out of the vat of dye and let the excess liquid run off it for a few minutes until it stops dripping.
+
+> dip wool in red dye
+Holding the very end of the twig, you dip the ball of wool into the vat of red dye. The wool soaks up the dye and changes colour.
+
+The ball of wool turns black in colour, so you take it out of the vat of dye and let the excess liquid run off it for a few minutes until it stops dripping.
+
+> climb up crates
+You climb up the pile of crates and over the fence to the other side.
+
+By Tall Fence
+You're in Dyer's Lane, to the west of the dyeworks, where a tall fence stands adjoining the building. The lane continues East and West.  Also here is a sewing needle, a sharp knife and an old wooden crate.
+
+> get all
+Ok, you pick up the sewing needle and the sharp knife.  Your hands will need to be empty if you want to do that.
 
 > e
-There is no route to the east, only north.
+You walk east.
+
+The Dye Works
+You are by the entrance to the dye works on the North side of the lane. Dyer's Lane runs East and West from here. In the yard of the dyeworks you can see a couple of large dogs.
 
 > e
-There is no route to the east, only north.
+You walk east.
+
+Dyer's Lane (E)
+You are in Dyer's Lane where it bends West towards the dye works and South towards the village, which is about half a kilometre away.
+
+> s
+You walk south.
+
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
+
+> e
+You walk east.
+
+West Nyeford by Bridge
+You're on the west bank of the river, in the village of West Nyeford. An inscription on the bridge parapet proclaims that you are now in the kingdom of Xabia. A gusty wind blows down the river from the north. You can go West or East across the bridge.  Standing guard here are two Xabian soldiers.
+
+As you approach the soldiers you see that, like the guards on the other side, they are stopping people crossing the bridge.
+
+When it is your turn, you keep your hat brim down when they start to speak to you and you talk in a gruff voice. Luckily for you they don't see or hear anything suspicious so they wave you through. You quickly walk over the bridge to the other side and hurry past the guards on the other side into the main street of East Nyeford.
+
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost.
+
+> s
+You walk south.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is open.
+
+> s
+You walk South.
+
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  Also here are some riding boots and some straw and wood.
+
+As you walk into the field, a mass of birds that were feeding on the wheat fly up into the air in a cloud of beating wings.
+
+> get straw
+Ok, you pick up the straw and wood.
+
+> look around
+You look around you and spot a small tree beyond the wheat at the south end of the field.
+
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  At the South end of the field there is a small tree.  Also here are some riding boots.
+
+> s
+You walk south.
+
+By Tree in Field
+You're standing on the south side of the field, underneath a small tree. The lowest branch is about half a metre above your head.  On the ground here is a blackened area where somebody has lit a fire in the past.
+
+> push twig into ground
+You push the end of the twig into the ground so that it and the ball of wool are standing upright.
+
+By Tree in Field
+You're standing on the south side of the field, underneath a small tree. The lowest branch is about half a metre above your head.  On the ground here is a blackened area where somebody has lit a fire in the past.  Also here is a ball of wool with a twig stuck into it.
+
+> drop all
+Ok, you put down the leather saddlebag, the sewing needle, the straw and wood and the sharp knife.
+
+> n
+You walk north.
+
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  At the South end of the field there is a small tree.  Also here are some riding boots.
+
+> n
+You walk north.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is open.
+
+> n
+You walk north.
+
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost.
+
+> w
+You walk west.
+
+East Side of River Nye
+You're standing by the bridge on the east bank of the river Nye. One of the stone uprights of the bridge parapet has the name "ALIZON" carved into it. The wind is very gusty here. You can go East or West over the bridge. People and carts go by, heading in both directions.  Standing guard here are Two Alizonian soldiers.
+
+You hurry past the guards and over the bridge to the other side.
+
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
+
+> n
+You walk north.
+
+Dyer's Lane (E)
+You are in Dyer's Lane where it bends West towards the dye works and South towards the village, which is about half a kilometre away.
+
+> w
+You walk west.
+
+The Dye Works
+You are by the entrance to the dye works on the North side of the lane. Dyer's Lane runs East and West from here. In the yard of the dyeworks you can see a couple of large dogs.
+
+> w
+You walk west.
+
+By Tall Fence
+You're in Dyer's Lane, to the west of the dyeworks, where a tall fence stands adjoining the building. The lane continues East and West.  Also here is an old wooden crate.
+
+> get crate
+Ok, you pick up the old wooden crate.
+
+> e
+You walk east.
+
+The Dye Works
+You are by the entrance to the dye works on the North side of the lane. Dyer's Lane runs East and West from here. In the yard of the dyeworks you can see a couple of large dogs.
+
+> e
+You walk east.
+
+Dyer's Lane (E)
+You are in Dyer's Lane where it bends West towards the dye works and South towards the village, which is about half a kilometre away.
+
+> s
+You walk south.
+
+Main Street
+You're in the main street of West Nyeford, where brightly painted houses and shops line the street on both sides. Main Street leads East and West, a narrow lane goes North, and you also see a well-worn track leading south. There are villagers walking around, going about their daily business.
+
+> e
+You walk east.
+
+West Nyeford by Bridge
+You're on the west bank of the river, in the village of West Nyeford. An inscription on the bridge parapet proclaims that you are now in the kingdom of Xabia. A gusty wind blows down the river from the north. You can go West or East across the bridge.  Standing guard here are two Xabian soldiers.
+
+You hurry past the guards and over the bridge to the other side.
+
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost.
+
+> s
+You walk south.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is open.
+
+> s
+You walk South.
+
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  At the South end of the field there is a small tree.  Also here are some riding boots.
+
+As you walk into the field, a couple of rooks that were feeding on the wheat fly up into the air, cawing in alarm.
+
+> s
+You walk south.
+
+By Tree in Field
+You're standing on the south side of the field, underneath a small tree. The lowest branch is about half a metre above your head.  On the ground here is a blackened area where somebody has lit a fire in the past.  Also here is a leather saddlebag, a sewing needle, some straw and wood, a sharp knife and a ball of wool with a twig stuck into it.
+
+> drop crate
+Ok, you put down the old wooden crate.
+
+> get tinderbox
+(from the leather saddlebag)
+OK, you take the tinderbox out of the saddle bag.
+
+> make fire
+You lay the bits of wood on the ground like the spokes of a wheel and then cover them with the straw. You then lay the wooden crate on top.
+
+> light fire
+Using the tinderbox, you strike some sparks from it and after a couple of attempts get the straw to catch light. You blow on the straw a bit and the wood and crate also start to burn.
+
+By Tree in Field
+You're standing on the south side of the field, underneath a small tree. The lowest branch is about half a metre above your head.  A fire is burning on the ground just here.  Also here is a leather saddlebag, a sewing needle, a sharp knife and a ball of wool with a twig stuck into it.
+
+> z
+You wait for a while and a few minutes of time elapses.
+
+The fire is burning nicely.
+
+> z
+You wait for a while and a few minutes of time elapses.
+
+The straw, wood and crate are nearly all consumed and the fire is starting to die down.
+
+> z
+You wait for a while and a few minutes of time elapses.
+
+The fire burns out and all that's left are some hot ashes.
+
+By Tree in Field
+You're standing on the south side of the field, underneath a small tree. The lowest branch is about half a metre above your head.  Also here is a leather saddlebag, a sewing needle, a sharp knife, a ball of wool with a twig stuck into it and a pile of ashes.
+
+> get all
+Ok, you pick up the leather saddlebag, the sewing needle, the sharp knife and the ball of wool with a twig stuck into it.  You cannot just pick the ashes up in your hand, you'll need something to put them in.
+
+> pull twig from ball
+You pull the twig out of the ball of wool.
+
+> drop twig
+Ok, you put down the long twig.
+
+> n
+You walk north.
+
+In Field
+You're in a small field in which some wheat is growing. South Lane is due North.  At the South end of the field there is a small tree.  Also here are some riding boots.
+
+> n
+You walk north.
+
+In South Lane
+You're in South Lane which, as its name suggests, runs south from the crossroads, continuing in that direction into a field. On the east side is a little cottage, the door of which is open.
+
+> n
+You walk north.
+
+East Nyeford
+You are on the main street of the tiny village of East Nyeford. The main street is really just a lane that leads off North and South, but the main road runs West to the river bridge and East out of the village. There are a few villagers about, coming and going in all directions.  By the side of the road is a signpost.
+
+> e
+You walk east.
+
+On Wide Road
+You're on a wide road that goes SE into the forest and West into the village of East Nyeford. You can also go back Up across the meadow to the edge of the forest. There are a few people moving in either direction along the road.
+
+> u
+You walk up.
+
+Edge Of Forest
+You're standing at the edge of the forest, looking down a sloping meadow towards a small village that nestles either side of a river in a wide valley. The path leads East into the forest, and you see a road at the edge of the meadow, Down below.
+
+> e
+You walk east.
+
+Path in Forest
+You're on a long east-west path that meanders through the trees behind and ahead of you.  A track hidden by the undergrowth leads South here.
+
+> s
+You walk south.
+
+Glade in Forest
+You're in a small forest glade, where there is a tiny cottage. The path is North and going East will take you inside the cottage.
+
+> e
+You walk east.
+
+Inside Cottage
+You're inside the tiny cottage. It is neatly furnished, with pretty curtains at each window.  On a comfy chair sits an old woman.
+
+As you enter the cottage, the old woman looks up from her book and scowls at you.
+
+"What do you want this time?" she says in an annoyed voice.
+
+> give wool
+You hand the ball of wool to the old woman.
+
+"About time too!" the woman says to you. "Now I can get on with this jumper!" She snatches the wool from your hand, casts on and resumes knitting.
+
+Inside Cottage
+You're inside the tiny cottage. It is neatly furnished, with pretty curtains at each window.  On a comfy chair sits an old woman.
+
+> ask about horse
+(the old woman)
+You ask the old lady about your horse.
+
+"Hee, hee, hee!" she chuckles. "You didn't seriously think I was going to tell you where your horse is, do you? A fine thoroughbred like that!" she says maliciously. "My grandson has probably sold him to the gypsies by now!"
+
+She laughs again and resumes knitting.
+
+> threaten woman with knife
+You forget for a minute the fact that you are a princess and threaten the woman with the knife.
+
+"I want my horse back - NOW!" you snarl at the woman in your most menacing voice, pressing the blade of your knife on her cheek underneath her eye.
+
+"If you don't tell me where he is, I will gouge out your eyes and cut your fingers off!" To add emphasis to your threat you press the knife hard enough to draw a bead of blood from the skin under her eye.
+
+She goes as white as a sheet and quails, "Please, we only stole it to get money for food! My grandson has already spent what we got for your horse!" The woman starts to sob, but you get the feeling she is lying.
+
+You consider for a minute then say, "If you can't return my horse, at least show me where the gypsies are!" The woman thinks for a moment and says, "Very well. I'll get my grandson to take you there."
+
+She turns and calls out, "Jethro!", and the man you saw in here earlier comes in.
+
+"Take this person to the gypsies you sold the horse to." she instructs him.
+
+Jethro starts to move towards you but as quick as a flash you move away from the old woman and have the knife at his throat.
+
+"Alright, alright!" he says nervously. "I'll take you there - we've got the money anyway!"
+
+Please Press Any Key to Continue.
+
+Jethro bids you to follow him and you both leave the cottage.
+
+He leads you towards the river, avoiding the soldiers who are searching for you, and crosses it via an ancient clapper bridge about a kilometre north of the twin villages. He takes you through thick forest for some distance roughly west of the river.
+
+You are beginning to tire when Jethro says, "The gypsy camp is just up ahead." As the two of you creep towards it, you stumble on a root and fall over, your hat falling from your head. As Jethro pulls you to your feet, your coat comes open, revealing the riding leathers.
+
+Jethro's eyes widen and his mouth drops open as he realises who you are. "Blimey, you're Princess Bronwynn! You're who all those soldiers are searching for! I recognise you from the posters they're putting up everywhere - there's a big reward out for you!"
+
+Before you can stop him, Jethro runs off the way you came, obviously going to inform the nearest soldiers that he's found you in order to claim the reward money.
+
+You decide to try and get Fleetwind back and set off in the direction of the gypsy camp.
+
+Please Press Any Key to Continue.
+
+You reach the gypsy camp, only to find it empty - the gypsies have moved on! You look around and see that their tracks lead west from the clearing. As that is in the direction of Hecate anyway, you decide to follow them.
+
+After about half an hour of following the tracks, you hear the sound of dogs behind you in the distance - Jethro must have found some soldiers and they have brought in bloodhounds to track you down! Suddenly you start to panic and, ignoring the tracks left by the gypsies, start to run through the forest in a roughly westerly direction, intent on keeping a good distance between yourself and the dogs!
+
+You run and run, dropping everything you are carrying and casting off the coat which slows you down by snagging on branches. Your plight gives you extra strength and you manage to keep going until dusk starts to fall.
+
+You stop running and, after you regain your breath, listen for the dogs. To your delight, you hear only normal forest sounds! You guess that the soldiers have called off the chase for the night...but will certainly resume it at first light!
+
+In the rapidly failing light, you look around for somewhere to shelter, but see only tree trunks in all directions. Then you spot an old fallen tree and walk over to it. You discover it is hollow and that you can crawl inside. This you do and, ignoring the insects that live inside it, lie down on the layer of dead leaves that have accumulated inside and fall into a deep, dreamless sleep.
+
+Please Press Any Key to Continue.
+
+In Tree Trunk
+You're lying on a layer of dead leaves inside a hollow tree trunk. You can easily crawl out.
+
+> crawl out
+You wriggle and crawl your way out of the hollow tree trunk, then stand up. After brushing yourself down and stretching to banish the stiffness from your body, you look around at your surroundings.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction. Just here is the hollow tree trunk you slept in last night.
+
+Would you like to explore the forest? (Yes/No?)
+
+> no
+
+OK - The action starts - NOW!
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction. Just here is the hollow tree trunk you slept in last night.
+
+As you look around at your surroundings, you become aware of the sound of dogs barking coming from the east - the bloodhounds are on your trail!
+
+> run nw
+You run NorthWest through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+From the north you hear the faint sound of wood being chopped.
+
+> run nw
+You run NorthWest through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+You can hear the barking of the bloodhounds from the east who are not far behind you! They will be upon you in seconds!
+
+> run nw
+You run NorthWest through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+The dogs are getting closer, you can hear their barking from the east - you had better hurry!
+
+> run n
+You run North through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+You hear the barking of the bloodhounds and the shouts of the soldiers urging them on - they are getting closer, you'd better get a move on!
+
+> run n
+You run North through the trees as fast as you can.
+
+South Side of Clearing
+You're on the south side of a large forest clearing. Forest lies in any southerly direction, and you can go north, northeast or northwest further into the clearing.  Several felled trees lay all around you and there are a corresponding number of tree stumps which could impede your progress. On the northern side of the clearing there are some woodcutters, chopping down a tree.
+
+As you look around the clearing you see some woodcutters on the north side chopping away at a tree trunk.
+
+> nw
+You walk northwest.
+
+West Side of Clearing
+You're on the west side of the clearing. Forest lies all around you to the west, the clearing to the east, NE & SE. Several felled trees lay all around you and there are a corresponding number of tree stumps which could impede your progress. On the northern side of the clearing there are some woodcutters, chopping down a tree.
+
+The woodcutters must be nearly all the way through as the tree is beginning to fall.
+
+> wait
+You wait for a while and a few minutes of time elapses.
+
+One of the woodcutters yells out "TIM-BERRRR!" and the tree starts to topple over. At the same moment you see the first of the bloodhounds appear in the clearing on the east side. They hurtle across the clearing towards you, leaping over the fallen tree trunks and dodging around the stumps. They are followed closely by soldiers and more dogs on leashes.
+
+As the lead dogs and soldiers reach the centre of the clearing the huge tree falls upon them, trapping the beasts and the men under the branches. You hear frightened yelps and yells as the dogs and men try to extricate themselves from the tangle of branches.
+
+This gives you a vital few minutes to flee before the main body of soldiers arrive to extricate the dogs and their comrades.
+
+> run sw
+You run southwest.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+> run sw
+You run SouthWest through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+> run sw
+You run SouthWest through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+You can hear the bloodhounds in the distance, they are chasing you again!
+
+> run sw
+You run SouthWest through the trees as fast as you can.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction. Through the trees to the west you can see a stream.
+
+You can hear the bloodhounds chasing you again!
+
+> run sw
+You run SouthWest through the trees as fast as you can.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South.
+
+You can hear the bloodhounds chasing you again!
+
+> run n
+You run North along the stream.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South.
+
+> run n
+You run North along the stream.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South.
+
+> run n
+You run North along the stream.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South.
+
+> run n
+You run North along the stream.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South.
+
+> run n
+You run North along the stream.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South.
+
+> run n
+You run North along the stream.
+
+In Stream
+You are standing in the middle of a small stream that flows from south to north through the forest. There is forest in all directions except North and South. Further north, you see that the stream empties into a large lake.
+
+From the south end of the stream you hear the faint sound of the bloodhounds and soldiers splashing about in the stream, trying to find your scent.
+
+> run sw
+You run southwest.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction. To the north, you can see the waters of a lake through the trees, and to the east you can see a stream.
+
+> run sw
+You run southwest.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+> run sw
+You run southwest.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.
+
+> run sw
+You run southwest.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.  Through the trees to the west you can see a clearing where there is a gypsy encampment.
+
+> s
+You walk South.
+
+In Dense Forest
+You are in a vast forest with trees all around you. The canopy above you is so dense that little light penetrates to the forest floor. You can go in any direction.  To the west you can see some horses.
+
+> w
+You walk West.
+
+South of Encampment
+You are in a forest clearing, about 15 metres south of the gypsy encampment, where the gypsy's horses are tethered. You are on the south side of the horses, so are shielded from the gypsy's view by them.
+
+> x horses
+The horses are a mixed bunch, a couple are fine beasts, but the rest have seen better days. At the end of the line you see your horse, Fleetwind!
+
+South of Encampment
+You are in a forest clearing, about 15 metres south of the gypsy encampment, where the gypsy's horses are tethered. You are on the south side of the horses, so are shielded from the gypsy's view by them.  Here you see your horse, Fleetwind.
+
+> untether horses
+You move along the line of horses, untying their halters from the tether line, leaving Fleetwind tethered. Luckily the horses stay still as they are trained to do.
+
+South of Encampment
+You are in a forest clearing, about 15 metres south of the gypsy encampment, where the gypsy's horses are now standing untethered. You are on the south side of the horses, so are shielded from the gypsy's view by them.  Here you see your horse, Fleetwind.
+
+> scare horses
+You wave your arms and shout at the horses.
+
+They neigh loudly and then gallop off into the forest in all directions. The gypsies leap to their feet and chase after the horses, trying to recapture them. Within seconds they have disappeared through the trees and you are left alone.
+
+South of Encampment
+You are in a forest clearing where there is a picket line tied between two saplings, to which your horse is tethered.  Here you see your horse, Fleetwind.
+
+> untether fleetwind
+You untether Fleetwind from the picket line.
+
+> mount fleetwind
+Putting your left foot into the stirrup, you mount Fleetwind, settling yourself into the saddle and taking hold of the reins.
+
+South of Encampment
+You are riding Fleetwind in a forest clearing where there is a picket line tied between two saplings. Apart from yourself and your horse, the clearing is deserted.
+
+From the east you hear the sound of barking - the bloodhounds must've found your trail!
+
+> ride w
+
+You gallop through the forest in a roughly westerly direction, hoping fervently that you are heading towards Hecate. After a few kilometres, you ride out of the forest into more open woodland.
+
+Then you enter an area shrouded in mist, which becomes thicker the further you go. Fleetwind's hooves start kicking up spray and you look down to see that the ground is wet and muddy.
+
+Suddenly, Fleetwind sinks up to his hocks in mud and you are almost thrown from the saddle. Fortunately, Fleetwind manages to gain firm footing and he scrambles out of the mud onto a grassy hummock. Breathing a sigh of relief, you realise that you can ride no further, so you dismount.
+
+Misty Bog
+You're standing on a grassy hummock in the middle of a eerie, mist-shrouded bog. You can only see a few metres in any direction, and all around you is wet mud.  Here you see your horse, Fleetwind.
+
+> x hummock
+You notice lots of small pebbles amongst the grass on the hummock.
+
+Misty Bog
+You're standing on a grassy hummock in the middle of a eerie, mist-shrouded bog. You can only see a few metres in any direction, and all around you is wet mud.  There are pebbles scattered all over the hummock.  Here you see your horse, Fleetwind.
+
+> get pebbles
+You pick up a handful of pebbles from the many scattered all over the hummock.
+
+> throw pebble sw
+You throw a couple of pebbles to the southwest. They land in the water with a "Splash"!
+
+> sw
+You walk southwest, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 20 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble w
+You throw a couple of pebbles to the west. They land in the water with a "Splash"!
+
+> w
+You walk west, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 15 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble s
+You throw a couple of pebbles to the southwest. They land in the water with a "Splash"!
+
+> s
+You walk south, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 20 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounds you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble se
+You throw a couple of pebbles to the southeast. They land in the water with a "Splash"!
+
+> se
+You walk southeast, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 25 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble w
+You throw a couple of pebbles to the west. They land in the water with a "Splash"!
+
+> w
+You walk west, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 30 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble w
+You throw a couple of pebbles to the west. They land in the water with a "Splash"!
+
+> w
+You walk west, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 30 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble n
+You throw a couple of pebbles to the north. They land in the water with a "Splash"!
+
+> n
+You walk north, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 20 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble nw
+You throw a couple of pebbles to the northwest. They land in the water with a "Splash"!
+
+> nw
+You walk northwest, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 15 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing on a grassy hummock, similar to the one where you found the pebbles, in the middle of a eerie, mist-shrouded bog. You can only see about 3 or 4 metres in any direction, and all you can see around you is wet mud.  Here you see your horse, Fleetwind.
+
+> throw pebble sw
+You throw a couple of pebbles to the southwest. They land in the water with a "Splash"!
+
+> sw
+You walk southwest, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 35 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble w
+You throw a couple of pebbles to the west. They land in the water with a "Splash"!
+
+> w
+You walk west, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 15 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble w
+You throw a couple of pebbles to the west. They land in the water with a "Splash"!
+
+> w
+You walk west, taking care to step where the pebbles landed with a splash. The ground is firm and you are able to move about 15 metres before you have to stop.
+
+Fleetwind follows quietly behind you.
+
+Misty Bog
+You're standing ankle deep in muddy water in a mist-shrouded bog, the water surrounding you in all directions.  Here you see your horse, Fleetwind.
+
+> throw pebble w
+You throw a couple of pebbles to the west. They land in the water with a "Splash"!
+
+> w
+You walk carefully west, leading Fleetwind behind you, and find that the firm ground under the water extends for quite a way in that direction. Then, the water gives way to dry soil. The mist gets thinner the further you go, and you eventually emerge into clear air. You see woodland and forest to the south and west so, throwing away the remaining pebbles, you remount Fleetwind and ride in that direction.
+
+After a short while, you come upon an east-west road which, by reading an ancient milestone, you discover it is the road to Hecate!
+
+You see no sign of pursuit or, indeed, any travellers at all, so you ride west on Fleetwind, hopefully all the way to Hecate and sanctuary.
+
+As you are cantering along a stretch of the road which runs through yet another forest, you spot something lying by the side of the road ahead of you. As you draw near, you see that it is a person - a soldier - who is lying there seemingly dead with a crossbow bolt in his chest. You stop Fleetwind, leap down to have a closer look and notice that the poor man is still alive - just!
+
+King's Highway
+You are on the King's Highway between Xabia and Hecate, which is bounded on either side by thick forest.  Here you see your horse, Fleetwind.  Lying by the side of the road is a wounded soldier.
+
+> x man
+It is a young Hecatian soldier, about the same age as you, who still breathes despite the crossbow bolt embedded in his chest.
+
+> talk to man
+You talk gently to the dying soldier but he doesn't seem to hear you. He moves his lips as if trying to say something to you.
+
+> listen
+You put your face close to the young soldier's so you can hear what he is saying.
+
+"Outlaws..." he croaks. "At the border...ambushed us...left me for dead...managed to crawl this far...warn people...they thought we were the Duke's party..." he coughs, a tendril of blood escaping from his lips, and he goes limp as he breathes his last.
+
+King's Highway
+You are on the King's Highway between Xabia and Hecate, which is bounded on either side by thick forest.  Here you see your horse, Fleetwind.  Lying by the side of the road is the body of the dead soldier.
+
+> search body
+You search the dead soldier and find a small packet.
+
+> open packet
+You open the waxed packet and look inside. It contains a bowstring.
+
+> get bowstring from packet
+Ok, you take the longbow string from the small waxed packet.
+
+> put bowstring in packet
+OK, you put the longbow string back into the waxed packet.
+
+> close flap
+OK, you close the flap of the packet, tucking it inside.
+
+> put packet in pocket
+OK, you put the small waxed packet in one of the riding tunic pockets.
+
+> get bolt
+You pull hard at the crossbow bolt, which comes out of the soldier's chest with a sickening noise.
+
+> put bolt in pocket
+OK, you put the crossbow bolt in one of the riding tunic pockets.
+
+> close eyes
+You gently close the young soldier's eyes, whispering a prayer for his soul as you do.
+
+> mount fleetwind
+Putting your left foot into the stirrup, you mount Fleetwind, settling yourself into the saddle and taking hold of the reins.
+
+King's Highway
+You are riding Fleetwind along the King's Highway between Xabia and Hecate, which is bounded on either side by thick forest.  Lying by the side of the road is the body of the dead soldier.
+
+> w
+You ride off towards the west, leaving the dead soldier behind. You must tell someone in authority about him so his body can be recovered and given a decent burial.
+
+After a short while of riding you pass a signpost which points the way west to the border with Hecate. With renewed vigour you spur Fleetwind on.
+
+The King's Highway takes you through the forest and around a slight bend until you reach the actual border itself.
+
+The Border
+You are riding Fleetwind at the border between Xabia and Hecate, which is marked by two huge boulders either side of the King's Highway. The road runs East to West through thick forest.
+
+As you near the border itself, an arrow comes whizzing out of the trees and buzzes past your head. You instantly wheel Fleetwind around and gallop away in the opposite direction, more arrows chasing you.
+
+You ride back to the bend from where you cannot be seen from the border and pull Fleetwind to a halt.
+
+The arrow must have been fired by the outlaws who the dying soldier told you about. You cannot get through to Hecate while the outlaws are there but you must try to stop them ambushing this party that will be coming through.
+
+King's Highway
+You are riding your horse at a slight bend in the King's Highway between Xabia and Hecate, which is bounded on either side by thick forest. You can go SW or East.
+
+> e
+You ride east.
+
+King's Highway
+You are riding Fleetwind along the King's Highway between Hecate and Xabia, which is bounded on either side by thick forest. By the side of the road just here there is a signpost.
+
+> dismount
+You dismount off of Fleetwind, keeping hold of his reins.
+
+King's Highway
+You are on the King's Highway between Hecate and Xabia, which is bounded on either side by thick forest. By the side of the road just here there is a signpost.  Here you see your horse, Fleetwind.
+
+> tether fleetwind to signpost
+You tether Fleetwind's reins to the signpost so that he won't wander off.
+
+> w
+You walk west.
+
+King's Highway
+You are at a slight bend in the King's Highway between Xabia and Hecate, which is bounded on either side by thick forest. You can go SW or East.
+
+> s
+You walk south.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North and West. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> sw
+You walk southwest.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North and West. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> w
+You walk west.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North. There is thick undergrowth to the south, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.
+
+> w
+You walk west.
+
+At Edge of Forest
+You are at the edge of the forest south of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub.
+
+You see a movement on the highway some distance west and you look in that direction to see a small party of riders coming slowly towards you. You also notice figures either side of the highway furtively hiding behind whatever cover they can, about 30 metres from where you are. It must be the outlaws the dying soldier told you about - you must stop them before they can ambush the riders!
+
+At Edge of Forest
+You are at the edge of the forest south of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> x outlaws
+You can only see the tops of their heads from where you are standing.
+
+> climb up tree
+You climb up into a tree.
+
+In Tree
+You are standing in the branches of a tree at the edge of the forest. You cannot climb any higher as the branches will not support your weight. You have a good view of the open countryside to the west.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> x outlaws
+You can see just a few of them from up here, the rest are hidden by bushes, etc.
+
+> x riders
+The riders are coming slowly along the highway towards you, they are about a kilometre away and do not seem to be in any hurry.
+
+> d
+You walk down.
+
+At Edge of Forest
+You are at the edge of the forest south of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> e
+You walk east.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North. There is thick undergrowth to the south, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.
+
+> e
+You walk east.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North and West. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> ne
+You walk northeast.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North and West. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> nw
+You walk Northwest out of the forest, across the highway and into the forest on the other side.
+
+In Forest
+You are in the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> w
+You walk west.
+
+In Forest
+You are in the forest north of the King's Highway, near the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.
+
+> w
+You walk west.
+
+At Edge of Forest
+You are at the edge of the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub. On the ground you see drag marks leading from the road towards the undergrowth.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+As you enter this area of the forest, you become aware of a terrible stench in the air - you realise to your horror that it is the stench of death!
+
+As you could see from the south side of the highway, you see the outlaws hiding behind cover, waiting for the riders on the highway to draw level with them.
+
+> x outlaws
+You can only see the tops of their heads from where you are standing.
+
+> climb into tree
+You climb up into a tree.
+
+In Tree
+You are perched in the branches of a tree at the edge of the forest. You cannot climb any higher as the branches will not support your weight. You have a good view of the open countryside to the west.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> x outlaws
+You can see more than a dozen from up here in this tree - and they can probably see you!
+
+> d
+You walk down.
+
+At Edge of Forest
+You are at the edge of the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub. On the ground you see drag marks leading from the road towards the undergrowth.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> x marks
+The marks look like something - or several things - have been dragged from off the road towards the undergrowth. You see reddish smears amongst the marks that might be blood.
+
+> search undergrowth
+You search the undergrowth and find that leafy branches have been thrown over something which has been concealed in the undergrowth. You remove the branches and, to your horror, uncover several dead bodies.
+
+At Edge of Forest
+You are at the edge of the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub. On the ground you see drag marks leading from the road towards the undergrowth where there are several dead bodies.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> search bodies
+Holding your nose against the stench of death, you search the bodies and find a crossbow, which you pick up.
+
+> cover bodies
+You re-cover the dead bodies with the branches so that they cannot be seen.
+
+At Edge of Forest
+You are at the edge of the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub. On the ground you see drag marks leading from the road towards the undergrowth.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> e
+You walk east.
+
+In Forest
+You are in the forest north of the King's Highway, near the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.
+
+You hear a noise behind you. Turning around, through the trees you see someone walking towards you a short distance west and you hide yourself behind a large tree to the east of where the bodies lay concealed under the branches. Peeking around the tree you see it is an outlaw, armed with a longbow. He walks up to the tree just to the west and, propping his longbow against it, stands next to it with his back towards you. He reaches down in front of his body and starts to fumble about - you stifle a giggle as you realise that he is about to relieve himself against the tree!
+
+In Forest
+You are in the forest north of the King's Highway, near the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.  About 10 metres to the west an outlaw is relieving himself against a tree, his back towards you.
+
+> x outlaw
+He is standing with his back to you about 10 metres to the west of you, relieving himself against a tree.
+
+> get bolt from pocket
+Ok, you take the crossbow bolt out of the pocket.
+
+> cock crossbow
+Resting the stand on the ground, you put your foot in it and pull back on the lever until the bowstring engages with the trigger catch.
+
+> load crossbow
+You lay the crossbow bolt into the groove on top of the stock so that the bolt is against the bowstring.
 
 > fire crossbow at outlaw
-You can't see any outlaws!
+You take aim at the outlaw's back and pull the trigger. The bolt hits the outlaw, slamming him against the tree from where he falls in a heap - stone dead!
+
+In Forest
+You are in the forest north of the King's Highway, near the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.  Lying at the foot of a tree about 10 metres to the west is the body of the outlaw you just killed.
+
+> drop crossbow
+Ok, you put down the crossbow.
 
 > w
-There is no route to the west, only north.
+You walk west.
 
-> move outlaw
-Sorry, I'm not sure which character you are referring to.
+At Edge of Forest
+You are at the edge of the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub. On the ground you see drag marks leading from the road towards the undergrowth.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.  Lying at the foot of a tree here is the outlaw you killed with your crossbow.
+
+> search outlaw
+You search the dead outlaw and find a quiver of arrows, which you take.
+
+> get bolt
+You pull hard at the crossbow bolt and it comes out with a sound that makes you shudder again. You wipe the blood off of it on the outlaw's clothes.
+
+> put bolt in pocket
+OK, you put the crossbow bolt in one of the riding tunic pockets.
+
+> wear quiver
+Ok, you put on the quiver.
+
+> roll outlaw over
+You roll the body over to reveal that he had fallen on top of his longbow.
+
+At Edge of Forest
+You are at the edge of the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub. On the ground you see drag marks leading from the road towards the undergrowth.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.  Also here is a longbow.  Lying at the foot of a tree here is the outlaw you killed with your crossbow.
 
 > get longbow
-Sorry, I'm not sure which object you are trying to take.
+Ok, you pick up the longbow.
 
-> fit bowstring on longbow
-Sorry, I'm not sure which object you are trying to attach.
+> get packet from pocket
+Ok, you take the small waxed packet out of the pocket.
+
+> open packet
+You open the waxed packet and look inside. It contains a bowstring.
+
+> get bowstring from packet
+Ok, you take the longbow string from the small waxed packet.
+
+> drop packet
+Ok, you put down the small waxed packet.
+
+> restring longbow
+Removing the broken string from either end of the longbow, you attach one end of the new string to the bottom end of the longbow, brace the lower end against your left leg and, pulling down with all your strength on the upper end of the bow, slip the other end of the string over it.
+
+> e
+You walk east.
+
+In Forest
+You are in the forest north of the King's Highway, near the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.  Lying at the foot of a tree about 10 metres to the west is the body of the outlaw you just killed.  Also here is a crossbow.
+
+> e
+You walk east.
+
+In Forest
+You are in the forest north of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> se
+You walk Southeast out of the forest, across the highway and into the forest on the other side.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North and West. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
+
+> sw
+You walk southwest.
+
+In Forest
+You are in the forest south of the King's Highway, which lies to the North and West. There is thick undergrowth all around you, making access to other parts of the forest very difficult.
 
 > w
-There is no route to the west, only north.
+You walk west.
 
-> climb tree
-You can't see any tree!
+In Forest
+You are in the forest south of the King's Highway, which lies to the North. There is thick undergrowth to the south, making access to other parts of the forest very difficult. You see that you will be at the edge of the forest if you proceed further west.
 
-> wait
+> w
+You walk west.
+
+At Edge of Forest
+You are at the edge of the forest south of the King's Highway, at the border between Xabia and Hecate. There is thick undergrowth all around you, making access to other parts of the forest very difficult, but to the west is more open countryside, dotted with trees, bushes and scrub.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> wear longbow
+You slip your arm and your head between the longbow and the string so that you are carrying the longbow on your back.
+
+> climb up tree
+You climb up into a tree.
+
+In Tree
+You are standing in the branches of a tree at the edge of the forest. You cannot climb any higher as the branches will not support your weight. You have a good view of the open countryside to the west.  Also to the west you can see a gang of outlaws concealed behind whatever cover they can find either side of the highway. Further to the west, on the highway, you see a group of riders headed this way.
+
+> remove longbow
+Ok, you remove the longbow.
+
+> z
 You wait for a while and a few minutes of time elapses.
 
-> wait
+> z
 You wait for a while and a few minutes of time elapses.
 
-> wait
+> z
 You wait for a while and a few minutes of time elapses.
 
-> wait
+> z
 You wait for a while and a few minutes of time elapses.
 
-> wait
+> z
 You wait for a while and a few minutes of time elapses.
 
-> wait
-You wait for a while and a few minutes of time elapses.
+> fire arrow at outlaws
+You take an arrow from the quiver, nock it onto the bowstring and, drawing the arrow back as far as your strength allows, let fly at the back of one of the outlaws who is nearest to the approaching riders.
 
-> fire longbow at outlaws
-Sorry, I'm not sure which object you are trying to light/ignite.
+You Have Won!
+The outlaw screams in pain and falls dead. His fellow outlaws stare at his body in shock for a few seconds then they realise that somebody must have shot him from the cover of the forest, so they start to shoot arrows in your direction.
+
+You start to fire more arrows at the outlaws, picking them off one by one. The riders forgotten, the outlaws all turn in your direction and start to loose arrows wildly into the forest. One or two of them come quite close, but the rest are wide of the mark.
+
+The riders see what is happening and use their own bows and swords to attack the outlaws and after a few minutes of fierce fighting only a few of the outlaws are left standing and they surrender to the soldiers.
+
+You climb down out of the tree and walk along the road towards the scene of the battle, where the soldiers have already ordered the remaining outlaws to move the bodies of their fallen comrades to the side of the road. The leader of the soldiers, a tall, rugged, good-looking man with dark shoulder-length hair, sees you coming towards them and walks toward you.
+
+"So, you're the one who thwarted their ambush," he says to you. "I am Duke Alaric Blackmoon, and you have my thanks, young man, your timely intervention prevented a massacre."
+
+You laugh and tell the duke who you really are and how you happened to chance upon the ambush. The duke listens to your tale in amazement and on learning that you are in fact a princess, the duke bows graciously and offers you his horse to ride. You refuse, telling him that your own horse, Fleetwind, is tethered further along the road. The duke walks with you along the road and after helping you mount Fleetwind, the two of you return to where he left his own horse. He offers to escort you to the city of Domreil and you accept with pleasure.
+
+As you ride with Duke Alaric to your cousin King Kelson and sanctuary, you cannot help thinking that the gallant - and handsome - duke would make a far better husband than the loathsome Prince Timothy. However, you really must do something about your hair first!
+
+* * * * * * * * * *
+*** CONGRATULATIONS! ***
+
+You have reached sanctuary with your cousin King Kelson and will no longer have to...
+
+RUN, BRONWYNN, RUN!
+
+...in 511 turns, scoring the maximum of 600 points!
+
+Thank you for playing this adventure, I hope you enjoyed solving it.
+
+Also Available: The Alaric Blackmoon Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: THE FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+*************
+
+Adventures in the World of Alaric Blackmoon:
+
+Episode 2: THE DWARF OF DIREWOOD FOREST
+
+Coming Soon: Episode 3: FINN'S BIG ADVENTURE
+
+*************
+
+The Intrepid Space Adventures Of Mike Erlin:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPEDES ENIGMA
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+
