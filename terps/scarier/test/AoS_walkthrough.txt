@@ -1,15 +1,68 @@
 # Alyas of Starhollow (AoS v.4), by Larry Horsfield -- ADRIFT 5 walkthrough
 # regression script.
 #
-# Author-supplied solution walkthrough (Downloads/AoS Walkthrough.txt), split
-# from its single-line ' - '-separated form into one command per line.  Two
-# transcription fixes applied while splitting: "w -unlock door" -> "w" + "unlock
-# door" (missing separator space) and a stray "- -" empty command dropped.
+# The game ships an embedded author walkthrough (type WALKTHROUGH or HELP in
+# game) as a single ' - '-separated line.  That built-in solution, however, is
+# for an OLDER map and DESYNCS on this v.4 build -- replayed verbatim it never
+# wins, ending stuck in the starting yort.  This script is a re-derivation that
+# plays this build to a MAXIMUM-SCORE "You Have Won!" (650/650 -- the game
+# prints its special "scoring the maximum 650 points!" finale line), verified
+# byte-exact against FrankenDrift.  Divergences from the embedded walkthrough
+# (all confirmed in-engine) include:
 #
-# The two leading commands drive Horsfield's start-up menu, which the raw
-# walkthrough omits: "c" clears the "type C to continue" title notice, then "b"
-# picks "Begin the game from the first location" (vs. P = read the Prologue).
-# The game proper opens "By Roundhouse".
+#   * mill race: "put vegetation in race" (not "push vegetation in water") to
+#     block the wheel, lure out the miller and grab a flour sack.
+#   * "get book" + "read book" in the roundhouse -- the North@West-Bank mission
+#     gate (cl_BookRead) requires the spider book read while held.
+#   * "climb up tree" (bare "climb tree"/"climb oak tree" only prompt for a
+#     direction); the talking oak needs 1/2/3/4 answered then hands free.
+#   * temple: "in" (not "n") into the dark room of deception; follow-string works
+#     only after "tie string to column".
+#   * inn: choose "1" (buy a round) after 2/3; "g" (again) is unsupported.
+#   * Wormwold: keep the tea towel the beggar drops and wrap the farmer's
+#     sandwiches in it so hands are free to mount Muffin.
+#   * mermaid pond: stow the (undroppable) cloak in the bag before stripping to
+#     dive.
+#   * castle: the whole bailey/keep/brothel map was rebuilt.  Route to the
+#     red-lantern brothel (NE corner), see Room 3, buy sleeping powder at the
+#     apothecary (SE corner, gated on having seen Room 3), drug the wine, take
+#     the guard uniform.  The keep guards jail you if you carry the travel cloak,
+#     which cannot be dropped -- stash it inside the flour sack and leave the
+#     sack at the drawbridge, keeping the quest bag.
+#   * keep: descend the central well (climb down chain) only AFTER pulling
+#     Zagdor's dungeon lever (which reveals the wall brick -> Sigil of Tarkyod);
+#     "qwerty" despatches the ambushing thief; give the Sigil to Zagdor and walk
+#     him into the King's Audience Chamber to vanquish Xarkzis and recover the
+#     Pipe.  The endgame (repair dinghy, cut a mast from the yort frame, rig the
+#     bed sheet as a sail, push off) then sails home to win.
+#
+# The last 30 points (620 -> the maximum 650) are six easily-missed 5-point
+# "content find" bonuses, located by dumping every IncVariable-Score task and
+# diffing against an A5_DEBUG_SCORE trace of the winning run:
+#
+#   * "read notice" in the Priests' Dressing Room (no weapons on the balcony).
+#   * "x table" while sitting in the Wormwold inn (the Torak graffiti;
+#     "read graffiti" is the same 5, guarded by cl_GraffitiSe).
+#   * "read sign" at By Paddock -- MUST be read BEFORE knocking on Yosser's
+#     door: the sign task teleports Muffin ToSameLocationAs the mule, so read
+#     while the mule is still in the paddock (later, with Muffin following and
+#     the mule Hidden, it would teleport Muffin into Hidden and strand you).
+#   * "rub ring" (the onyx ring from the crow's nest, worn) anywhere except the
+#     tree locations 152/158/197 -- an annoyed genie confiscates it, +5.
+#   * "read labels" in the Apothecary's Dispensary.
+#   * "open case" + "x pipe" after the King's-Audience-Chamber finale hands you
+#     the Pipe of Rummkub inside a CLOSED wooden case.
+#
+# NOT counted in the author's 650 (verified over-max alternates, all still
+# reachable): waiting in the flour store with the sack bagged for Dusty's
+# return (+5, cl_NoSack2), "rig dinghy" instead of the three manual fit/tie
+# steps (25 vs 15, +10), and dodging the -15 cl_NoPlank/NoNails/NoNails2
+# penalties by cutting the yort-frame mast BEFORE consuming the repair tools
+# (the author's own solution eats those penalties, and the 650 max assumes
+# them).  Playing all of them yields 680/650.
+#
+# The two leading commands drive Horsfield's start-up menu: "c" clears the title
+# notice, "b" begins from the first location.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/"AoS v.4.blorb" test/AoS_walkthrough.txt
@@ -17,6 +70,8 @@ c
 b
 in
 search tiers
+get book
+read book
 out
 se
 in
@@ -55,7 +110,7 @@ out
 ne
 w
 scythe vegetation
-push vegetation in water
+put vegetation in race
 w
 in
 get sack
@@ -154,22 +209,22 @@ n
 n
 nw
 put all in bag
-climb tree
+climb up tree
 feel in hole
 get nuts
 show nuts to squirrel
 drop nuts
 search drey
-i
 x ball
 d
 ne
-climb oak tree
+climb up tree
 1
 2
 3
 4
-climb tree
+put all in bag
+climb up tree
 x nests
 look in nest
 wear ring
@@ -221,7 +276,7 @@ u
 knock on door
 get string
 tie string to column
-n
+in
 feel floor
 follow string
 z
@@ -236,6 +291,7 @@ hide behind statue
 z
 open door
 e
+read notice
 get alb
 remove cloak
 wear alb
@@ -283,6 +339,7 @@ w
 4
 get food
 give food
+get towel
 w
 s
 in
@@ -303,11 +360,12 @@ w
 in
 2
 3
-4
+1
+x table
 x customers
 listen
-g
-g
+listen
+listen
 drink drink
 stand up
 give tankard to tom
@@ -322,6 +380,9 @@ w
 look around
 s
 s
+s
+read sign
+n
 knock on door
 1
 2
@@ -331,12 +392,14 @@ out
 n
 n
 n
+wrap sandwiches in towel
 put all in bag
 mount muffin
 w
 w
 dm
 tie muffin to tree
+rub ring
 climb up tree
 look around
 d
@@ -471,8 +534,9 @@ n
 n
 n
 eat gillidough
-remove bag
 remove cloak
+put cloak in bag
+remove bag
 drop all
 remove clothes
 dive in pond
@@ -481,7 +545,6 @@ w
 w
 u
 get all
-i
 s
 s
 s
@@ -496,20 +559,20 @@ e
 e
 n
 e
+e
 in
 w
-look n
 n
-get uniform
 s
-e
+sw
 out
-out
+se
 s
+se
 in
-o
+read labels
+out
 n
-in
 in
 w
 n
@@ -518,28 +581,36 @@ s
 wait
 n
 get uniform
+get helmet
+get boots
 get halberd
 s
 w
-drop all
-remove all
+remove tunic
+remove britches
+remove belt
+remove boots
 wear uniform
-get amulet
-wear amulet
-get halberd
-get bag
-wear bag
 get sheet
 put sheet in bag
-e
-e
-o
-o
+drop belt
+drop tunic
+drop britches
+drop boots
+out
 sw
-w
+out
+sw
 s
+get cloak
+put cloak in sack
+drop sack
 e
+drop sack
 e
+drop halberd
+put all in bag
+wear bag
 nw
 s
 get lamp
@@ -553,31 +624,28 @@ x etching
 get skull
 press teeth in holes
 in
+pull lever
 n
 u
 u
-extinguish lamp
-put lamp in bag
 n
 se
 qwerty
 search body
-put bag in bag
-drop all
+extinguish lamp
+put all in leather bag
 lower bucket
-climb d well
+climb down chain
 get lamp
 light lamp
 feel wall
-x brick
 get chisel
 scrape mortar
 get brick
 search cavity
 wear sigil
 extinguish lamp
-put lamp in bag
-drop chisel
+put all in leather bag
 climb up chain
 nw
 s
@@ -591,19 +659,20 @@ press sigil on plate
 in
 give sigil to zagdor
 out
-pull lever
 n
 u
 u
-extinguish lamp
-put lamp in bag
 n
 se
+extinguish lamp
+put lamp in leather bag
 e
 u
 in
-in
+open case
+x pipe
 w
+x dinghy
 get plank
 get hammer
 get nails
@@ -611,12 +680,14 @@ repair hole
 drop hammer
 e
 e
+in
 remove scythe
 unfold blade
 cut frame with scythe
 fold blade
 wear scythe
 get mast and yardarm
+out
 w
 w
 turn dinghy over

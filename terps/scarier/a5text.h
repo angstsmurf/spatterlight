@@ -44,6 +44,20 @@
    game text. */
 #define A5_PS_MARK '\002'
 
+/* Sentinel byte marking "a formatting tag was stripped here" in plain-rendered
+   text.  FD's ReplaceALRs runs at Display time over the still-MARKED-UP text,
+   so a tag EMBEDDED INSIDE an ALR OldText span blocks the match (AoS names its
+   Known guard "The guard<Halberd>", whose <Halberd> defeats the game's own
+   "The guard comes marching from above" override; the real Runner shows the
+   unreplaced text with the tag stripped).  Scarier's per-fragment ALR pass sees
+   the markup too and blocks identically, but the display-boundary ALR pass
+   (a5text_display_alr) re-runs over the accumulated PLAIN text, where the
+   stripped tag would otherwise leave the two halves adjacent and let the match
+   succeed.  The plain renderer therefore drops this marker where a tag vanished,
+   so boundary matching is blocked exactly where FD's is; finish_turn strips the
+   markers after the boundary pass.  \x03 (ETX) never occurs in game text. */
+#define A5_ALR_MARK '\003'
+
 /*
  * Evaluate a description wrapper node (e.g. a location's <LongDescription>, an
  * object's <Description>, the <Introduction>) into raw source text with markup

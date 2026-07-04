@@ -2075,7 +2075,8 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
       const char *q = pp;
       *pre_alr_ink = 0;
       for (; *q; q++)
-        if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t')
+        if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t'
+            && *q != A5_ALR_MARK)
           { *pre_alr_ink = 1; break; }
       free (pp);
     }
@@ -2238,10 +2239,18 @@ a5text_render_plain (const char *src)
             }
           else if (a5_media_sink != NULL
                    && (strcmp (name, "img") == 0 || strcmp (name, "audio") == 0))
-            /* Embedded media: report it out of band; it still drops from the
-               plain text (so the text output is unchanged). */
-            a5_emit_media (std::string (p + 1, tagend), strcmp (name, "img") == 0);
-          /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...) drops */
+            {
+              /* Embedded media: report it out of band; it still drops from the
+                 plain text (so the text output is unchanged). */
+              a5_emit_media (std::string (p + 1, tagend), strcmp (name, "img") == 0);
+              sb_putc (&sb, A5_ALR_MARK);
+            }
+          else
+            /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...)
+               drops -- but leave A5_ALR_MARK so the display-boundary ALR pass
+               cannot match an OldText ACROSS the stripped tag (FD's ALR sees the
+               tag and is blocked; see a5text.h).  finish_turn strips the mark. */
+            sb_putc (&sb, A5_ALR_MARK);
           p = q;
           continue;
         }

@@ -650,6 +650,21 @@ FILTER="${1:-}"
 # winning transcript (vanilla 0); the xoshiro column carries that FD
 # differential (13, RNG-independent) as the documented FD gap.
 #
+# (2026-07-04) AoS upgraded 620/650 -> the MAXIMUM 650/650 ("scoring the
+# maximum 650 points!" finale), MATCH 0|0 golden-backed.  The missing 30 =
+# six 5-point content finds (read notice / x table graffiti / read sign at the
+# paddock BEFORE knocking -- it teleports Muffin / rub the onyx ring / read
+# labels / open case + x pipe); composition notes in AoS_walkthrough.txt,
+# including the verified over-max alternates (NoSack2, rig dinghy, dodging
+# the -15 tool penalties) that reach 680/650.  One engine fix fell out: the
+# Display-boundary ALR pass ran over PLAIN text, so it matched an OldText
+# ACROSS a stripped formatting tag that blocks FD's Display-time ReplaceALRs
+# (AoS names its Known guard "The guard<Halberd>", defeating the game's own
+# "comes marching from above" override).  a5text_render_plain now drops an
+# A5_ALR_MARK sentinel where a tag is stripped; boundary matching is blocked
+# exactly where FD's is and finish_turn strips the marks (a5text.h).  All
+# other goldens byte-identical.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0

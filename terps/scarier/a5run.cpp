@@ -58,7 +58,15 @@ int a5run_trace = 0;
 int
 msg_has_output (const char *m)
 {
-  return m != NULL && m[0] != '\0';
+  /* A5_ALR_MARK bytes are stripped-tag sentinels, not output: a message whose
+     plain rendering is only stripped tags (e.g. "<font color=X>") was empty in
+     FD's stripped view too. */
+  if (m == NULL)
+    return 0;
+  for (; *m != '\0'; m++)
+    if (*m != A5_ALR_MARK)
+      return 1;
+  return 0;
 }
 
 /* A faithful port of clsUserSession.bHasOutput (vb:1272), applied to a message
@@ -813,6 +821,16 @@ finish_turn (a5_run_t *run, sb_t *out)
     }
   fin = a5text_display_alr (run->st, raw);   /* may render ALR <img>/<audio> too */
   free (raw);
+  /* The stripped-tag sentinels (A5_ALR_MARK) have done their job: the boundary
+     ALR pass above could not match an OldText across a stripped tag, exactly
+     like FD's Display-time ReplaceALRs over the still-marked-up buffer.  Drop
+     them before the output is shown. */
+  {
+    char *r, *w;
+    for (r = w = fin; *r != '\0'; r++)
+      if (*r != A5_ALR_MARK) *w++ = *r;
+    *w = '\0';
+  }
   /* Normalise only the very end of the turn: FD's pSpace model leaves a message
      ending in trailing spaces or a paragraph break, and FD then appends its own
      end-of-turn vbCrLf pair.  The interior pSpace joins are what matter for
