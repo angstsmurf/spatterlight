@@ -1,512 +1,647 @@
-# Die Feuerfaust -- The Fist of Fire -- ground-truth walkthrough script (ADRIFT 5).
+# Die Feuerfaust -- The Fist of Fire -- ADRIFT 5 walkthrough regression script.
 #
-# Source: Solution by Terri Sheehan (2007-02-18),
-# Classic Adventures Solution Archive http://solutionarchive.com.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
-# NOTE: CASA solution is for the original Spectrum 128 release; the ADRIFT 5
-# version is a faithful port. Best-effort differential script.
-# CAVEAT: the iron-door dial numbers (Part 2) are dynamic in-game readings, so
-# the TURN ... DIAL TO lines have no fixed argument and will diverge.
+# Source: the game's OWN in-game WALKTHROUGH command (task 'wlkthrgh'), which is
+# port-accurate (correct verbs, the KATZY dial-cheat), unlike the old Spectrum
+# CASA solution.  Adapted here to route around the handful of commands the ADRIFT
+# 5 parser rejects and the item-timing traps the author's list mis-orders.
+#
+# MAXIMUM SCORE: reaches the Score>=800 "scoring the maximum 800 points!" banner
+# (Endgame11; internal 804 -- the author awards >800 total, exactly-800 is not a
+# reachable sum).  Beyond the built-in solution's 791, this script adds: `listen
+# to traders` (+2 Task146), `search beams` at the Lubeck cathedral porch (+3
+# Task380, independent of `look under beams`), `look around corner of tent`
+# behind the storage tent (+3 LookAround8), and the SPLIT casts at the barricade
+# -- heile/stark at militiamen and captain separately (Task367+Task369+
+# CastHeileA5+CastHeileA7 = +20) instead of `at all` (Task370+CastHeileA8 = +10).
+# The split costs 2 extra turns inside the Barbarians4 attack window (15 turns
+# from the attack to KilledByNa death, disarmed only by reaching the burning
+# house, Location48), so the two optional square examines `climb onto barricade`
+# and `x wagon` are dropped to restore the margin.  NOT obtainable (verified
+# author bugs, FD ground-truth agrees): `x cottages` (+3, the cottages are Part
+# of the Hamlet object but invisible in both engines), `ask willy about the
+# men's plot` (+3 Task82, shadowed by the higher-priority AskLandlor1 catch-all),
+# `x street` at the SE corner (+3 Task415, unresolvable "street" ambiguity),
+# `show amulet to gundred` (+5 ShowAmulet3, general show preempts in both
+# engines), `look out of slit` in the red tent (+3 LookOutOfS1, no executor).
+# The chieftain's-tent slit (+5 CTentSlitS) is a trap: the chieftain spots it on
+# your exit and you are captured (forfeits ReturnOuts +5 and the game).
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/DieFeuerfaust.blorb test/DieFeuerfaust_walkthrough.txt
 o
 b
-inventory
-examine pouch
-examine leatherwork
+i
+x pouch
 read words
-look in pouch
-examine flotsam
-search flotsam
-examine cliffs
-climb steps
+x cliff
+u
 s
-examine milestone
-examine cottages
+read stone
+look around
+knock on door
+x porch
 w
-examine cottage
-examine porch
-knock on door
-fix porch
-knock on door
+n
+d
 e
-sw
+dig sand
+search driftwood
+get case
+get all
+w
+u
+s
+e
+prop porch with planks
+mend porch with planks
+knock on door
+w
 wait
 look around
-examine inn
 se
-examine willy
-look around
-listen
+e
 buy ale
-willy "tomb"
+say hello to landlord
+look around
+sit at table
+talk to man
+talk to men
+ask klaus about men
+x men
+listen
+ask klaus about men
+ask klaus about griefswald
+ask klaus about sassnitz
+ask klaus about business
+ask klaus about stralsund
+ask klaus about fist
+ask klaus about causeway
+ask klaus about bribe
+ask klaus about guards
+ask klaus about stiggy
+x traders
+talk to traders
+listen
+listen to traders
+stand up
+listen
+ask willy about tomb
+put flagon on counter
+w
+nw
+w
+e
+se
+e
+ask willy for lamp
+ask willy about stiggy
+w
 nw
 n
-examine tomb
-n
-s
-s
-se
-willy "light"
-examine customers
-examine table
-sit down
-listen
-up
-willy "hermit"
-willy "fist"
-nw
-e
-examine stiggy
-stiggy "thieves"
-stiggy "light"
-down
-n
-n
-torch "zunde"
-search debris
-examine shirt
-take shirt
-examine rings
-search bones
-examine talisman
-take lid
-move lid
-take tome
-examine tome
-s
-torch "losch"
-s
-e
-show talisman
-stiggy "fist"
-show tome
-down
-se
-willy "bergen"
-examine soldiers
-soldiers "market"
-smell
-examine men
-men "fist"
-find kurt
-listen
-listen
-wait
-kurt "margo"
-haggle
-examine horse
-ride horse
-e
-e
-examine max
-buy tack
-haggle
 w
-sw
-ride horse
-sw
-sw
-give pouch
-pouch "ruckk"
-sw
-se
-wait
-examine klaus
-klaus "city"
-klaus "go city"
-buy badge
-examine badge
-wear badge
-tether horse to tree
-dismount
-nw
-sw
-sw
-w
-w
-s
-sw
+talk to assistant
+ask assistant about boy
+buy rations
+e
 knock on door
-show talisman
-examine crucifix
-examine number
-wait
-oberin "stiggy"
-show talisman
-oberin "churches"
-oberin "thank you"
-ne
-n
-n
-examine floor
-examine pattern
-wear talisman
+e
+say hello to stiggy
+ask stiggy about boy
+tell stiggy about robbery
+ask stiggy for light
+w
 s
+w
+tasch zunde
+w
+look in coffin
+get chainmail
+search barrow
+get tome
+search clothing
+x amulet
+e
+tasch losch
+e
+n
+e
+show amulet to stiggy
+ask stiggy about house
+ask stiggy about tomb
+ask stiggy about warrior
+ask stiggy about wizard
+ask stiggy about grimoire
+ask stiggy about fist
+ask stiggy about word
+give tome to stiggy
+read parchment
+s
+se
+e
+x beadles
+ask beadles about market
+follow your nose
+ask farmers where is kurt
+x kurt
+x horses
+pick stallion
+offer less
+tell kurt about margo
+ask kurt about tack
+e
+n
+ask max about tack
+offer less
+s
+sw
+stroke horse
+slap horse
+mount horse
+sw
+remove pouch
+give pouch to officer
+mount horse
+slap horse
+sw
+say ruckk
+sw
+sw
+ne
+se
+dismount
+tie horse to tree
+x track
+wait
+wait
+wait
+ask gerdy about papers
+give pouch to gerdy
+wear pouch
+nw
+sw
+sw
+w
+w
+wait
+ask nun for directions
+sw
+w
+s
+pull bellpull
+show amulet to novice
+x cross
+read number
+wait
+say stiggy to oberin
+show amulet to oberin
+n
+e
+ne
+s
+s
+s
+x floor
+x symbol
+fahren lubeck
+draw curtain
+look around curtain
+fahren rostock
+move curtain
+n
+n
+e
+x clock
+read number
+w
+w
+s
+x facade
+x coin
+read number
+n
+n
+ne
+ne
+s
+s
+tasch zunde
+d
+cast stark at me
+drop all
+clear rubble
+get all
+s
+katzy
+s
+get all from ledge
+wear ring
+n
+n
+u
+n
+tasch losch
+n
+sw
+w
+n
+x zampf
+x saddle
+x ears
+stroke zampf
+slap zampf
+x bag
+look in bag
+s
+e
+s
+s
+s
+s
+fahren stralsund
+n
+n
+n
+e
 e
 e
 ne
 ne
 se
-undo reins
+drop bottle
+untie reins
+turn opal
+let go of reins
+turn opal
+get bottle
 nw
 sw
-cast unsic at horse
 sw
 w
 w
-n
+s
+s
+s
 fahren rostock
-look down
 n
-e
-examine clock
-examine number
+n
+n
+n
 w
 w
-s
-wait
-boy "stable horse"
-examine token
-examine facade
-examine coin
-examine number
-n
-n
-ne
-e
-s
-torch "zunde"
-down
-cast stark at me
-clear rubble
-s
-examine dials
-turn red dial to
-turn black dial to
-turn gold dial to
-s
-examine bottle
-take bottle
-take ring
-examine ring
-wear ring
-examine open
-turn opal
+w
+w
+read stone
 drop bottle
 turn opal
+get reins
 turn opal
-take bottle
-n
-n
-up
-w
-sw
-w
-n
-examine zampf
-examine ears
-separate rings
-examine rings
-s
-w
-w
-w
-sw
-drop bottle
-e
-e
-e
-e
-s
-w
-s
-give token
+get bottle
 mount horse
-turn opal
-turn opal
-dismount
-take bottle
 sw
 s
-cast wahne at soldiers
-examine soldiers
-look under soldiers
-examine halberd
-take sword
-examine sword
+get all
+s
+cast wahne spell at soldiers
+get sword
+search bodies
+look under bodies
+get shaft
 s
 s
-search stalls
-take turnips
-examine turnips
-s
-w
-s
-sw
-w
-look west
-throw bottle to boy
-turn opal
-turn opal
-take bottle
-call woman
-throw bottle to woman
-children "hold me"
-turn opal
-children "hold me"
-turn opal
-take bottle
-s
-e
-n
-up
-take dagger
-look through window
-examine plunder
-wait
-examine cart
-drop bottle on cushion
-wait
-down
-s
-w
-n
-ne
-n
+x rathaus
 look up
+cast sturm at smoke
 cast wolke at sky
-cast regen at clouds
-w
-look west
-take string
-take string with halberd
-examine string
+cast regen at dark clouds
 e
-e
-e
-wait
 cast heile at people
 w
 s
-s
-s
-s
-cast eizap at river
+cast heile at militiamen
+cast heile at captain
+cast stark at militiamen
+cast stark at captain
+x women
+x chieftain
+nw
+n
+tasch zunde
+look under beams
+search beams
+drop all except halberd
+get rope with halberd
+get all
+tasch losch
 s
 s
 sw
+s
+s
+cast heile at woman
 w
-examine saplings
-cut saplings
-take poles
-take branches
+drop all except bottle
+say to boy catch bottle
+throw bottle to boy
+turn opal
+turn opal
+get bottle
+throw bottle to woman
+cast heile at boys
+say to boys hold hands
+turn opal
+turn opal
+get all
+w
+e
 s
-s
+e
 n
-dig pit
+u
+search furniture
+get knapsack
+wear knapsack
+put torch and rations in knapsack
+look through window
+x barbarians
+x cart
+x loot
+drop bottle on cushion
+get dagger
+x cage
+x women
+x woman
+x chieftain
+x fist
+climb into street
+x street
+n
+n
+w
+search stalls
+get turnips
+put turnips in knapsack
+e
+s
+s
+s
+s
+s
+drink water
+cast eizap at water
+drink water
+s
+chop leaves with halberd
+chop leaves with sword
+get leaves
+s
+sw
+sw
+s
+sw
+drop leaves
+ne
+w
+chop saplings with dagger
+chop saplings with halberd
+drop halberd
+chop saplings with sword
+e
+drop all except sword
+w
+get poles
+s
+drop poles
 cast stark at me
-dig pit
-lay poles across pit
-lay branches on poles
+dig pit with sword
+put sword in scabbard
+cover pit with poles
+cover pit with leaves
 s
-lay turnips on grass
-ne
-sw
-attach reins to zampf
-jump on zampf
+lay trail of turnips
+n
+e
+get all
+wait
+wait
+wait
+w
+s
+pierce zampf's ears
+make reins
+put all in knapsack
+mount zampf
 cast stark at zampf
-inventory
 s
+draw sword
+cut sapling with sword
+put sword in scabbard
 sw
-sw
-examine heads
 search vegetation
-examine wineskin
-ne
-s
-look around
-cut sapling
-n
 ne
 se
 e
-examine tree
-up
-examine nest
-take twigs
-down
-e
-search rags
-read label
-w
+drop all
+climb up tree
+get twigs
+climb d tree
+get all
+make besom
 n
-tie twigs to staff
-move debris
-move leaves
-examine floor
-examine pattern
+drop all
+clear debris from chapel
+get besom
+sweep leaves from chapel
+get all
+x symbol
 s
-se
-e
-e
-examine chest
-w
-examine wall
-examine hole
+s
+x wall
+x hole
+look through hole
+push twig into hole
+drop twig
+s
+drop all
+clear debris
+get besom
+sweep glass with besom
+get all
+n
+n
 w
 nw
-w
-w
 sw
 s
 s
 se
-examine web
-examine bushes
+x web
+x bushes
 hide in bushes
 wait
-examine boar
-ne
-examine trail
-nw
-examine trail
-ne
-jump in pool
-fill wineskin
+w
+follow track
+drop all
+swim in pool
+get all
+fill wineskin with liquid
 sw
 se
-se
 s
-examine waterfall
-enter waterfall
+sw
+x waterfall
+look into waterfall
+drop all
+w
 search rocks
-examine tile
-out
-climb cliff
-pour oil on me
+x tile
+e
+get wineskin
+pour liquid over me
+fill wineskin from pool
+put wineskin in knapsack
+ne
 n
 nw
-nw
-ne
-fill wineskin
-sw
 n
 n
 ne
 se
 e
 n
-put tile in pattern
-examine pattern
+replace tile in symbol
+x symbol
 turn opal
 turn opal
-take bottle
-search boxes
-take bellows
-examine bellows
-cut hole in tent
-look north
+look through flap
+search loot
+search loot
+get bellows
+x bellows
+put bellows in knapsack
+search loot
+x lighter
+put lighter in knapsack
+get dagger
+cut slit in tent
 s
-e
-cut hole in tent
-look north
+look around corner of tent
+look n
+s
+w
+search burrow
+n
 listen
+wait until dark
+cut slit in tent
+put dagger in knapsack
+n
+get candle
+put candle in knapsack
+s
 drop bottle
 s
+search burrow
+x tile
+put tile in knapsack
 e
-search mud
-examine tile
 e
-down
-n
-nw
-nw
+climb d cliff
+get torch
+tasch zunde
 ne
-fill wineskin
-sw
 n
-n
-ne
-se
-e
-n
-put tile in pattern
-examine pattern
-turn opal
-turn opal
-take bottle
-listen
-n
-show talisman
-examine candles
-drop bottle
-women "hold me"
-turn opal
-turn opal
-s
-s
-e
-e
-down
-enter waterfall
-out
-turn opal
-turn opal
-fill hole with wax
-s
-s
-e
-e
-pour oil over me
-down
-n
-nw
 nw
 n
 n
 ne
 se
 e
-se
-e
-insert bellows in hole
-e
-take key
+x buildings
+x sign
+read sign
+n
+get tile
+replace tile in symbol
+x symbol
+s
+s
+s
+get wineskin
+pour water over me
+get candle, lighter and bellows
+light candle
+mend tear with wax
+drop all
+get bellows
+put nozzle in hole
+work bellows
+drop bellows
+get torch
+n
+get roll
+unroll paper
+drop paper
+s
 unlock chest
-search chest
-examine phial
-turn opal
-turn opal
+drop key
+open chest
+get phial
+x phial
+read label
+get wineskin
+n
+n
+w
+nw
+sw
 s
-look east
-crawl east
-cut tent
+s
+ne
+fill wineskin with liquid
+turn opal
+tasch losch
+turn opal
+get bottle
+n
+drop bottle
+x women
+wake woman
+say wake the women to gundred
+tell women join hands and hold on
+turn opal
+get bottle
+s
+w
+drop bottle
 listen
 wait
-n
-examine table
+crawl n
+look n
 poison wine
+crawl s
+crawl n
 look under bed
-s
-wait
-wait
 n
-examine chieftain
-take gauntlet
-examine gauntlet
-s
-crawl west
-n
-take bottle
+get die feuerfaust
+turn opal
+turn opal
+drop phial
+get bottle
+look north
 s
 s
 e
-e
-d
+put torch, wineskin, tile, bottle and fist in knapsack
+climb d cliff
+get torch
+tasch zunde
+ne
+get wineskin
+pour liquid over me
+sw
+fill wineskin with water
+ne
 n
-nw
 nw
 n
 n
@@ -514,27 +649,33 @@ ne
 se
 e
 n
-insert tile in pattern
-examine pattern
+get tile
+x tile
+put tile in symbol
+x symbol
 fahren schwerin
+e
+s
+get bottle
 drop bottle
 turn opal
-women "hold me"
+tell women join hands and hold on
 turn opal
-fahren lubeck
 n
-examine priest
-show talisman
+w
+fahren lubeck
 s
+s
+e
+talk to priest
+tell priest about amulet
 w
 n
 n
-turn opal
-turn opal
-take bottle
-fahren marienkirche
-s
-se
-e
-e
-put gauntlet on pedestal
+fahren lubecker
+n
+n
+x crucifix
+n
+score
+put fist on pedestal

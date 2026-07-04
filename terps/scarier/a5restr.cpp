@@ -621,7 +621,25 @@ pass_character (a5_state_t *st, a5_restr_t *r)
   const char *cloc = (ci >= 0) ? st->char_loc[ci] : NULL;
 
   if (streq (r->op, "BeAtLocation"))
-    return streq (cloc, k2);
+    {
+      /* clsRestriction.CharacterEnum.BeAtLocation (clsUserSession.vb:4571):
+         ANYCHARACTER = true when ANY character's Location.LocationKey equals
+         k2 (DieFeuerfaust's look-through-flap segment is gated on
+         `AnyCharacter Must BeAtLocation ChieftainS` after the chieftain and
+         his wife are bulk-moved into the main chamber; this case previously
+         fell through to the ci<0 NULL compare and always failed).  Both
+         branches compare FD's *resolved* LocationKey -- the root room through
+         an on/in-object carrier (clsCharacter.vb:1773) -- not the raw
+         char_loc, which is NULL for a character seated on furniture. */
+      if (streq (k1, ANYCHARACTER))
+        {
+          for (int s = 0; s < st->adv->n_characters; s++)
+            if (streq (a5state_character_location_key (st, s), k2))
+              return 1;
+          return 0;
+        }
+      return streq (a5state_character_location_key (st, ci), k2);
+    }
   if (streq (r->op, "BeOfGender"))
     {
       /* clsCharacter.Gender / clsRestriction.CharacterEnum.BeOfGender: an

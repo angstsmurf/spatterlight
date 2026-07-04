@@ -219,13 +219,22 @@ typedef struct a5_state_s {
      positions within the message being rendered (FD's iMatchLoc; an entry at
      offset 0 can never win, mirroring iHighest starting at 0).  Cleared once
      per processed command (PrepareForNextTurn, vb:3823).  Transient: not
-     saved, not copied (FD's States don't record PronounKeys either). */
+     saved, not copied (FD's States don't record PronounKeys either).
+     Each entry also records the character KEY and the mention's requested
+     pronoun: clsCharacter.Name (clsCharacter.vb:340) pronoun-replaces a later
+     %CharacterName[key]% of an already-mentioned character ("He ignores
+     you."), upgrading a requested Objective to Reflective when the previous
+     mention was Subjective. */
 #define A5_MAX_PRON 64
   int  pron_persp[A5_MAX_PRON];  /* 1=FirstPerson / 2=Second / 3=Third      */
   long pron_off[A5_MAX_PRON];
+  const char *pron_key[A5_MAX_PRON];  /* character key (model-owned)        */
+  int  pron_pron[A5_MAX_PRON];   /* mention's a5_pronoun_t (-1 = "none")    */
   int  n_pron;
   int  pron_pending;             /* set by the CharacterName eval, captured
                                     with its output offset at the emit site */
+  const char *pron_pending_key;  /* character key of the pending mention    */
+  int  pron_pending_pron;        /* its requested pronoun (-1 = "none")     */
 
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is

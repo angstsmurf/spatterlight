@@ -1,5 +1,83 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Die Feuerfaust: MAX-SCORE WIN, MATCH 0|0 — 3 engine fixes (pronoun ledger, AnyCharacter BeAtLocation, AddSpace contains-test) — ✅ DONE (2026-07-04)
+
+**DieFeuerfaust 3→0 in xoshiro (MATCH 0|0, golden re-blessed), and the built-in
+walkthrough's 791/800 chased to the `Score>=800` "scoring the maximum 800
+points!" banner (Endgame11; internal 804 — the author awards >800 in total and
+an exactly-800 sum is unreachable, FBA-style overshoot).**  Whole 39-game
+corpus byte-identical in BOTH RNG modes after all three engine fixes (only the
+DieFeuerfaust golden changed, by the fixes themselves); all a5 unit tests pass.
+
+**Score chase (A5_DEBUG_SCORE audit, the Magnetic Moon method).**  Bucketing
+the 129 unfired scoring tasks into alternate-phrasing families (shared guard
+flags) left these real, independently-scoring additions: `listen to traders`
+(+2 Task146 — the bare `listen` matches a lower general), `search beams` at the
+Lubeck cathedral porch (+3 Task380 — sets Variable60, independent of the fired
+`look under beams` Task378), `look around corner of tent` behind the storage
+tent (+3 LookAround8, once across all tents), and the **split barricade
+casts** — `cast heile at militiamen`/`at captain` then `cast stark at
+militiamen`/`at captain` (Task367+Task369+CastHeileA5+CastHeileA7 = +20)
+instead of the built-in `at all` pair (Task370+CastHeileA8 = +10).  The split
+costs 2 extra turns inside the `Barbarians4` window (event arms on the attack
+task, `KilledByNa` death at +15 turns, disarmed ONLY by reaching the burning
+house Location48 — the original route had a 2-turn margin), reclaimed by
+dropping the side-effect-free `climb onto barricade` + `x wagon` examines.
+Chased and rejected (FD ground-truth agrees byte-for-byte, so conformant
+author bugs): `x cottages` (cottages are Part-of the Hamlet object yet
+invisible in both engines), `ask willy about the men's plot` (+3 Task82 is
+shadowed by the higher-priority AskLandlor1 "too busy serving drinks"
+catch-all), `x street` at the SE corner (+3 Task415 — two objects both named
+bare "street", unresolvable disambiguation in both engines), `show amulet to
+gundred` (+5 ShowAmulet3 — the general show preempts in both engines even with
+the amulet held), `look out of slit` (+3 LookOutOfS1 — no executor anywhere in
+the model), and the chieftain's-tent slit (+5 CTentSlitS — a trap: the
+chieftain spots the slit when you crawl out and you are captured, forfeiting
+ReturnOuts +5 and the game).
+
+**Fix 1 — `%CharacterName[key]%` pronoun replacement via the PronounKeys
+ledger (a5text.cpp, a5state.h).**  Scarier printed "The landlord ignores you."
+where FD prints "He ignores you." (the conversation fallback emits
+`%CharacterName[<key>]% ignores you.` in BOTH engines — the delta is in
+rendering).  FD's `clsCharacter.Name` (clsCharacter.vb:340) scans
+UserSession.PronounKeys backward for a same-key entry and, when found, renders
+the gendered pronoun instead of the name, upgrading a requested Objective to
+Reflective when the previous mention was Subjective (vb:352); `[key, none]`
+suppresses replacement (vb:358).  The ledger half was already ported (the
+Magnetic Moon `[am/are/is]` fix); each entry now also records the character
+KEY and the mention's requested pronoun, and `character_name` consults the
+ledger — ONLY on the `%CharacterName%` eval path (FD's other Name() call sites
+pass bAllowPronouns:=False or don't run under bDisplaying).  Zero corpus
+ripple: no other golden renders the same character's `%CharacterName%` twice
+in one command.
+
+**Fix 2 — character `BeAtLocation` ANYCHARACTER + resolved LocationKey
+(a5restr.cpp pass_character).**  The chieftain's-tent `look n` was missing "In
+the chamber you see the chieftain talking to another warrior while his woman
+stands listening." — the segment is gated on `AnyCharacter Must BeAtLocation
+ChieftainS` (the `wait` scene bulk-moves `EveryoneAtLocation InsideChie
+ToLocation ChieftainS`), and Scarier's character BeAtLocation had NO
+ANYCHARACTER branch (ci=-1 → NULL compare → always false).  Now mirrors
+clsUserSession.vb:4571 (any character whose Location.LocationKey equals k2),
+and BOTH branches compare FD's *resolved* LocationKey (clsCharacter.vb:1773 —
+the root room through an on/in-object carrier) instead of the raw char_loc,
+which is NULL for a character seated on furniture.
+
+**Fix 3 — FD's AddSpace is an unanchored CONTAINS-test whose identifier runs
+admit no spaces (a5text.cpp).**  The chieftain's-chamber room description
+rendered "lid closed   and" (three spaces; FD one).  The description's default
+segment ends "…has its lid closed" and the StartAfterDefault segment supplies
+its own leading space; FD's AddSpace regex (Global.vb:3873,
+`.*?(%?[A-Za-z][\w\|_-]*%?)(\.%?[A-Za-z][\w\|_-]*%?(\([A-Za-z ,_]+?\))?)+`,
+an unanchored IsMatch) does NOT fire — spaces are only legal inside a
+parenthesised argument list.  Scarier's old `ends_with_oo_expr` walked
+backward from the end ALLOWING spaces, so a plain sentence tail sailed back
+through whole sentences to an earlier full stop ("jewellery."), broke at the
+apostrophe in "chieftain's", saw a letter, and wrongly matched — adding FD's
+two-space join where FD adds none.  Replaced with `contains_oo_expr`: some '.'
+whose left neighbour run `[\w|-]*%?` contains a letter and whose right side is
+`%?[A-Za-z]` — FD's regex reduced to a scan, contains-not-ends-with.
+
 ## ⭐ Magor Investigates: blind-derived FULL WIN 0|0 + a StartAfterDefault look-render fix — DONE (2026-07-03)
 
 Magor Investigates (Larry Horsfield's wizard investigation; smallest corpus

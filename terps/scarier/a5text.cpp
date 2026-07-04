@@ -85,26 +85,54 @@ ci_eq (const char *a, const char *b)
   return *a == *b;
 }
 
-/* Does the trailing run of s look like an OO property expression "X.Prop..."? */
+/* Does s contain an OO property expression "X.Prop..."?  FD's AddSpace regex
+   `.*?(%?[A-Za-z][\w\|_-]*%?)(\.%?[A-Za-z][\w\|_-]*%?(\([A-Za-z ,_]+?\))?)+`
+   is an UNANCHORED IsMatch -- a contains test, not an ends-with test -- and
+   spaces are only legal inside a parenthesised argument list, never in the
+   identifiers themselves.  A match reduces to: some '.' whose left neighbour
+   run `[\w|-]*%?` (walked over identifier chars, one optional '%' adjacent to
+   the dot) contains a letter, and whose right side is `%?[A-Za-z]`.  (The old
+   backward walk here allowed spaces in the run, so a plain sentence tail like
+   "...has its lid closed" walked back through whole sentences to an earlier
+   full stop and matched -- adding a two-space join where FD adds none:
+   DieFeuerfaust's chieftain's-tent chest.) */
 static int
-ends_with_oo_expr (const char *s, size_t len)
+contains_oo_expr (const char *s, size_t len)
 {
-  size_t i = len;
-  int saw_dot = 0;
-  /* walk back over an OO-expression tail: word chars, '.', '%', '|', '-', '(),' */
-  while (i > 0)
+  size_t i;
+  for (i = 1; i + 1 < len; i++)
     {
-      char c = s[i - 1];
-      if (isalnum ((unsigned char) c) || c == '_' || c == '%' || c == '|'
-          || c == '-' || c == '(' || c == ')' || c == ',' || c == ' ')
-        { i--; continue; }
-      if (c == '.') { saw_dot = 1; i--; continue; }
-      break;
+      size_t j, k;
+      int saw_alpha = 0;
+      if (s[i] != '.')
+        continue;
+      /* right side: optional '%', then a letter */
+      k = i + 1;
+      if (s[k] == '%' && k + 1 < len)
+        k++;
+      if (!isalpha ((unsigned char) s[k]))
+        continue;
+      /* left side: optional '%' adjacent to the dot, then identifier chars
+         [A-Za-z0-9_|-]; the run must contain a letter */
+      j = i;
+      if (s[j - 1] == '%' && j > 1)
+        j--;
+      while (j > 0)
+        {
+          char c = s[j - 1];
+          if (isalnum ((unsigned char) c) || c == '_' || c == '|' || c == '-')
+            {
+              if (isalpha ((unsigned char) c))
+                saw_alpha = 1;
+              j--;
+              continue;
+            }
+          break;
+        }
+      if (saw_alpha)
+        return 1;
     }
-  if (!saw_dot || i >= len)
-    return 0;
-  /* the run must start with a letter or % (a key / reference) */
-  return isalpha ((unsigned char) s[i]) || s[i] == '%';
+  return 0;
 }
 
 /* Does s end with text that warrants a double space before the next segment? */
@@ -119,9 +147,9 @@ add_space (const char *s, size_t len)
     return 0;
   if (c == '.' || c == '!' || c == '?' || c == '%')
     return 1;
-  /* a trailing OO expression (which will expand at display time) -- frankendrift
-     AddSpace's regex rule (Global.vb:3873). */
-  return ends_with_oo_expr (s, len);
+  /* an OO expression anywhere in the text (FD's unanchored regex IsMatch,
+     Global.vb:3873) -- it will expand at display time. */
+  return contains_oo_expr (s, len);
 }
 
 /* ----------------------------------------------------- description -> source */
@@ -627,7 +655,8 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite)
  * mention tracking, which is the safe default).
  */
 static char *
-character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr)
+character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr,
+                int consult_ledger = 0)
 {
   int persp = char_perspective (st, c);
   if (persp == 1)
@@ -636,6 +665,32 @@ character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr)
   if (persp == 2)
     return strdup (pr == A5_PRO_POSS ? "your" : pr == A5_PRO_REFL ? "yourself"
                  : "you");
+  /* Third person: a previous PronounKeys mention of this SAME character in the
+     current command's output pronoun-replaces the name -- clsCharacter.Name
+     (clsCharacter.vb:340) scans the ledger backward for a same-key entry;
+     when found, the name renders as a gendered pronoun ("%CharacterName[
+     Landlord]% ignores you." -> "He ignores you.", DieFeuerfaust's
+     conversation fallback), and a requested Objective upgrades to Reflective
+     when the previous mention was Subjective (vb:352).  Only the
+     %CharacterName% function path consults (FD's other Name() call sites pass
+     bAllowPronouns:=False or don't run under bDisplaying). */
+  if (consult_ledger && c != NULL)
+    for (int i = st->n_pron - 1; i >= 0; i--)
+      if (st->pron_key[i] != NULL && streq (st->pron_key[i], c->key))
+        {
+          const char *g = a5state_entity_prop (st, c->key, "Gender");
+          int male   = g != NULL && strcasecmp (g, "Male") == 0;
+          int female = g != NULL && strcasecmp (g, "Female") == 0;
+          a5_pronoun_t want = pr;
+          if (st->pron_pron[i] == (int) A5_PRO_SUBJ && pr == A5_PRO_OBJ)
+            want = A5_PRO_REFL;
+          return strdup (
+              want == A5_PRO_OBJ  ? (male ? "him" : female ? "her" : "it")
+            : want == A5_PRO_POSS ? (male ? "his" : female ? "her" : "its")
+            : want == A5_PRO_REFL ? (male ? "himself" : female ? "herself"
+                                                               : "itself")
+            :                       (male ? "he" : female ? "she" : "it"));
+        }
   /* third person: the display name (possessive adds 's) */
   {
     char *nm = character_display_name (st, c, 0);
@@ -750,21 +805,30 @@ eval_function (a5_state_t *st, const char *name, const char *args)
          rewrites char-scoped %CharacterName% to %CharacterName[Key]% at load. */
       if (key.empty ()) key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
       const a5_character_t *ch = a5model_character (st->adv, key.c_str ());
-      /* A resolved key records a PronounKeys entry (Global.vb:2108, gating on
-         htblCharacters.ContainsKey) -- the emit site in replace_functions
-         captures the pending perspective with the name's output offset. */
-      if (ch != NULL)
-        st->pron_pending = char_perspective (st, ch);
-      else
-        ch = a5model_character (st->adv, a5state_player_key (st));
       a5_pronoun_t pr = A5_PRO_SUBJ;
+      int pron_none = 0;
       std::string pl = pron;
       for (char &c : pl) c = (char) tolower ((unsigned char) c);
       if (pl.find ("object") != std::string::npos || pl.find ("target") != std::string::npos)
         pr = A5_PRO_OBJ;
       else if (pl.find ("possess") != std::string::npos) pr = A5_PRO_POSS;
       else if (pl.find ("reflect") != std::string::npos) pr = A5_PRO_REFL;
-      return character_name (st, ch, pr);
+      else if (pl.find ("none") != std::string::npos)
+        /* PronounEnum.None: never pronoun-replace (clsCharacter.vb:358). */
+        pron_none = 1;
+      /* A resolved key records a PronounKeys entry (Global.vb:2108, gating on
+         htblCharacters.ContainsKey) -- the emit site in replace_functions
+         captures the pending (perspective, key, pronoun) with the name's
+         output offset. */
+      if (ch != NULL)
+        {
+          st->pron_pending = char_perspective (st, ch);
+          st->pron_pending_key = ch->key;
+          st->pron_pending_pron = pron_none ? -1 : (int) pr;
+        }
+      else
+        ch = a5model_character (st->adv, a5state_player_key (st));
+      return character_name (st, ch, pr, /*consult_ledger=*/!pron_none);
     }
   if (ci_eq (name, "convcharacter"))
     /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
@@ -1299,9 +1363,13 @@ pron_capture (a5_state_t *st, long off)
     {
       st->pron_persp[st->n_pron] = st->pron_pending;
       st->pron_off[st->n_pron] = off;
+      st->pron_key[st->n_pron] = st->pron_pending_key;
+      st->pron_pron[st->n_pron] = st->pron_pending_pron;
       st->n_pron++;
     }
   st->pron_pending = 0;
+  st->pron_pending_key = NULL;
+  st->pron_pending_pron = 0;
 }
 
 static char *
