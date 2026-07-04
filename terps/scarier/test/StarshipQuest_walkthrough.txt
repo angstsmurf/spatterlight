@@ -1,341 +1,913 @@
-# Starship Quest -- ground-truth walkthrough script (ADRIFT 5).
+# Starship Quest -- ADRIFT 5 walkthrough regression script.
 #
-# Source: Solution by Barbara Gibb, http://www.stairwaytohell.com ; displayed on
-# the Classic Adventures Solution Archive: http://solutionarchive.com.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
-# NOTE: CASA solution is for the original; ADRIFT 5 remake is a faithful port.
+# Source: the game's OWN in-game WALKTHROUGH command (task 'Walkthroui',
+# command [wlkthrgh], Larry Horsfield), extracted verbatim and split one command
+# per line, then ADAPTED to route around the stale 2019 snapshot's drift (the
+# game was revised after the built-in walkthrough was written, so it desyncs --
+# it also fails identically in FrankenDrift).  Port-accurate ship dirs
+# (po/st/fo/af), unlike the old CASA original-release solution (26 unparsed cmds,
+# ended at turn ~53).
+#
+# Start-options preamble: O to continue to the Start Options page, B to begin
+# from the first location.  The walkthrough's first command `n` answers the
+# "Do You Wish To Explore The Ship First? (Y/N)" prompt with No.
+#
+# ADAPTATIONS (route around stale drift; all verified vs FrankenDrift):
+#  - Both mid-game shuttle "test" launches: `remove backpack`+`drop backpack`
+#    before `sit in chair`, `get backpack`+`wear backpack` after `stand up`
+#    (the "can't sit wearing/carrying the backpack" restriction post-dates the
+#    built-in walkthrough).
+#  - Bearion chase rebuilt: you must first SEE the bearion (so `SeeBearion`
+#    completes), THEN tame the Rhinopine at End Of Path with nuts and
+#    `lay trail of nuts` to lure it to Bend By Tree, so climbing the tree lures
+#    the bearion into the clearing (`ReachTree`, not the death `ReachTreeY`);
+#    then `dodge bearion` at In Wide Clearing.
+#  - Stone-hut sacrifice: after `climb on beam`, ONE `z` (wait for the native to
+#    enter and pick up the dropped amulet), THEN `d` (drop onto him) -- the
+#    built-in "climb on beam - d" climbed straight back down.
+#  - Tigerilla skin: `get skin` (the built-in typed `get skin and tail` -- the
+#    word "tail" is unknown in this build, so the whole command errored and the
+#    skin was never picked up, leaving `wrap vegetation in skin` with the skin
+#    out of reach -> "will not help you in this game").  The wrap now completes.
+#  - Endgame shuttle launch: `get gold disc` (out of the backpack) BEFORE
+#    `remove backpack`/`drop backpack` -- the built-in dropped the backpack (with
+#    the discs inside) first, so `put gold disc in slot` failed ("not carrying")
+#    and the launch buzzed "INSERT COURSE TAPE!".  With the disc in hand the whole
+#    Galaxis docking / matrix / dome / engage-drive endgame plays through.
+#
+# RESULT: deathless *** CONGRATULATIONS! *** at 795/800.  Both Scarier and
+# FrankenDrift reach exactly 795 via this route (the built-in's own solution
+# claims 800 but does not achieve it in either engine): the last 5 points are the
+# rhinopine `feed rhinopine` +5, which this build makes mutually exclusive with
+# the `lay trail of nuts` lure needed to survive the bearion (both consume the
+# one-shot brown nuts).  So 795 is a conformant full win, not a Scarier gap.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/StarshipQuest.blorb test/StarshipQuest_walkthrough.txt
-#
-# Start-options preamble (not in the prose walkthrough): the game gates play
-# behind a Start Options page -- type O to continue, B to begin from the first
-# location, then N to decline the "explore the ship first?" tour.
 o
 b
 n
-s
-s
-e
-exam locker
-take flashlight
-exam rack
-take mask
-w
-n
-press hand
-say mike erlin
-enter door
-press button
-climb steps
-press button
-sit down
+x nav console
+get torch
+stand up
+aft
+po
+open door
+po
+fo
+u
+get kit
+put torch in pocket
+d
+af
+st
+af
+st
+get mask
+po
+af
+st
+get charger
+st
+u
+get backpack
+d
+fo
+fo
+open door
+st
+fo
+u
+drop all
+fo
+sit in seat
 wear harness
-press a
-i
-drop stungun
-exam rack
-take blaster
-remove harness
-get up
+push automatic launch
+af
+af
+search seats
+x dispenser
+fo
+get all
+wear backpack
+put kit in pack
+d
+e
+n
+x fence
+read sign
+w
+x ledge
+clean ledge with hand
+get coins
+e
+n
+w
+dig in sand
+look under bushes
+look into hole
+e
+nw
+look behind bench
+dig up worm
+dig up worm
+dig up worm
+dig up worm
+se
+w
+throw worm into burrow
+throw worm into burrow
+throw worm into burrow
+x animal
+get badgeroo
+e
+nw
+ne
+nw
+x tree
+x nuts
+pick nuts
+put nuts in pocket
+se
+ne
+e
+put coins in pocket
+put spade and mask in pack
+drop all
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+look d shaft
+d
+d
+look around shaft
+climb around shaft
+d
+d
+search vegetation
+u
+put hook in pocket
+jump u
+get hook
+tie hook to rope
+hook hook to charger
+get dispenser
+lower charger into shaft
+put dispenser in pack
+d
+d
+get charger
+u
+se
+read map
+e
+search car
+open compartment
+look in compartment
+look behind motor
+put rag in pocket
+detach cell from motor
+get cell
+drop cell and charger
+charge cell
+get cell
+put cell in compartment
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+connect cell to motor
+n
 press button
-enter door
+e
+e
+jump u
+o
+e
+nw
+n
+search store
+get basket
+s
 s
 in
-flashlight on
-look down
-exam shaft
-climb rail
+drop basket
+get dispenser
+hook hook to handle
+lower basket down shaft
+clip dispenser to pack
 d
-s
-exam map
-enter car
-enter cubicle
-exam dead cell
-disconnect wires
-take dead cell
-out
-out
-enter door
-exam junk
-drop dead cell
-take charged cell
-out
-enter car
-enter cubicle
-drop charged cell
-connect wires
-out
-press button
-out
-exam platform
-take key
-enter car
-enter cubicle
-reverse wires
-out
-press button
-press button
-out
-s
-exam shaft
-look up
-jump
-up
-out
-flashlight off
-w
-take helmet
-e
-s
-look under
-take bottle
-exam bottle
-e
-s
-exam ground
-push knob
-exam pillar
-insert key
-turn key
-drop key
-oil lever
-pull lever
-take tube
-exam tube
-exam jeep
-open flap
-screw valve
-turn lever
+d
+get basket
 u
-enter airlock
+sw
+w
+reverse cables
+n
 press button
-exit airlock
+w
+w
+drop basket
+get dispenser
+hook hook to handle
+clip dispenser to pack
+jump u
+get dispenser
+raise basket up shaft
+get badgeroo
+open basket
+put badgeroo in basket
+hook hook to basket
+lower basket d shaft
+clip dispenser to pack
+d
+d
+get basket
+u
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+se
+e
+reverse cables
+n
 press button
-sit down
-wear helmet
-exam panel
-insert disc
+e
+e
+drop basket
+get dispenser
+hook hook to handle
+clip dispenser to pack
+x basket
+jump u
+get dispenser
+raise basket up shaft
+open basket
+get badgeroo
+out
+e
+e
+search shelves
+get cutters
+w
+w
+in
+put badgeroo in basket
+out
+w
+w
+u
+e
+n
+x booths
+in
+get headset
+x cartridges
+push cartridge
+x cartridge
+read label
+wear headset
+put cartridge in horizontal slot
+put cartridge and cutters on ledge
+look under ledge
+x cables
+remove headset
+put headset on ledge
+out
+s
+w
+d
+e
+e
+in
+hook hook to basket
+lower basket down shaft
+clip dispenser to pack
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+d
+d
+get basket
+u
+sw
+w
+drop basket
+detach cell from motor
+get cell
+e
+e
+drop cell
+get dispenser
+hook hook to cell
+clip dispenser to pack
+jump u
+get dispenser
+raise cell up shaft
+drop dispenser
+get cell
+out
+w
+w
+u
+e
+n
+in
+drop cell
+get cutters
+cut cables with cutters
+strip ends of cables
+put cutters in pocket
+connect cables to cell
+get headset
+wear headset
+get cartridge
+get coins
+put coins in vertical slot
+insert cartridge in horizontal slot
+get cartridge
+put cartridge in rack
+get discs
+x silver disc
+x gold disc
+put discs in pocket
+remove headset
+put headset on peg
+get discs
+x gold disc
+x silver disc
+put discs in pocket
+disconnect cables from cell
+get cell
+o
+s
+w
+d
+e
+e
+se
+sw
+e
+look around
+x plinth
+x statue
+get nuts
+drop nuts
+w
+ne
+sw
+e
+get bottle
+x bottle
+put bottle in pack
+w
+ne
+nw
+read sign
+in
+drop cell
+get dispenser
+hook hook to handle
+lower cell down shaft
+clip dispenser to pack
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+d
+d
+get cell
+u
+sw
+read words
+w
+put cell in compartment
+connect power cables in reverse
+n
+press button
+s
+get basket
+w
+w
+drop basket
+get dispenser
+hook hook to basket
+clip dispenser to pack
+jump u
+get dispenser
+raise basket up shaft
+clip dispenser to pack
+get basket
+w
+sw
+sw
+se
+w
+drop basket
+open basket
+get badgeroo
+drop badgeroo
+e
+s
+read sign
+n
+nw
+ne
+ne
+read sign
+e
+d
+ne
+e
+press button
+e
+e
+u
+e
+s
+s
+x shuttle
+n
+w
+w
+nw
+read sign
+se
+search junk
+x droid
+get rag and bottle
+clean droid with rag
+open flap
+oil hinge
+open flap
+pour oil in hole
+switch droid on
+talk to droid
+ask droid about shuttle
+search android
+get discs
+ask droid about discs
+ask droid about fathnar
+ask droid about galaxis
+ask droid about doona
+ask droid to refuel shuttle
+u
+remove backpack
+drop backpack
+sit in chair
 press power
+put gold disc in slot
+get gold disc
+put silver disc in slot
 press launch
-get up
-press button
-enter airlock
-press button
-exit airlock
+stand up
+get backpack
+wear backpack
 d
-i
+n
+put disc, bottle and rag in pack
 w
-climb rubble
-enter window
-exam debris
-take clip
-exam clip
-out
+x rubble
+get brick
+e
+e
+throw brick at smooth trunk
+w
+w
+get brick
+put brick in pack
+u
+w
+search rubble
+w
+x ceiling
+get tiles
+put tiles in pack
+e
+n
+search rubble
+clear rubble from desk
+open drawer
+get opener
+search drawer
+put opener and string in pack
+s
+get plank
+e
 d
+e
+e
+lay plank across moat
+e
+get plank
+lay plank east
+e
+se
 s
+climb into tree
+pick nuts
+drop nuts
+d
+get nuts
+se
 e
-exam ditch
-look across
-fire blaster
-e
-cross tree
-s
-e
+w
+nw
 n
 n
+ne
+lay trail of nuts
+se
 e
+get brick
+throw brick at bearion
+run w
+run nw
+climb into tree
+d
+se
+e
+e
+se
+e
+ne
+e
+s
+sw
 dodge bearion
-fire blaster
-drop blaster
-e
-i
-exam door
-look up
-wait
-wait
-wait
-wait
-wait
-jump
-jump
-take spear
-enter door
-n
-look around
-throw clip
-w
-take flashlight
-take mask
-take bottle
-take torch
-e
-e
-e
+x body
+get amulet
+se
+get cutters
+drop cutters
 s
+remove amulet
+drop amulet
+x hut
+x door
+look through opening
+x beam
+z
+z
+look through opening
+z
+z
+z
+z
+z
+z
+look through opening
+z
+z
+climb on beam
+z
+d
+get amulet
+throw amulet in fire
+n
+n
+n
+get all
+wear pack
+shake torch
+turn on torch
+s
+run e
+run e
+run s
+run se
+run s
+get tiles, string and opener
+make mudshoes
+wear mudshoes
+s
+get mask
 wear mask
-e
-e
-climb bank
-throw torch
-remove mask
-drop mask
+sw
+w
+nw
+w
+nw
 n
-flashlight on
-e
-e
+turn off torch
+nw
 n
-enter gap
-sleep
-i
-get up
-out
+ne
+e
+turn on torch
+search path
+turn off torch
+w
+sw
 s
-look around
+se
+s
+turn on torch
+se
 e
+se
+s
+sw
+x monolith
+x hole
+put pole in hole
+crawl into hole
+turn off torch
+sleep
+get pole and torch
+put torch on shoulder
+put pole in hole
+crawl out of cave
+get pole
+s
+s
+e
+ne
+n
+e
+jump s
+se
+x man
+x tool
+get spade from pack
+give spade to man
+get arm
+get rag
+clean arm with rag
+put rag in pack
+nw
+jump n
+e
+e
+se
+se
+ne
+n
+e
+search rushes
+get fish with pole
+w
+s
+sw
+sw
+sw
+w
+d
+throw fish to frog
+d
+se
+e
+listen
+se
+hit girl
+lever roots with pole
+get kit
+treat foot
+search roots
+se
+s
+x vegetation
+w
+w
+x shrine
+look behind shrine
+get bottle from pack
+fill bottle with oil
+put bottle in pack
+put mask in pack
+pray to jaelaine
+wait
+e
+e
+s
+e
+sheath machete
 n
 duck
-look down
 s
 s
-pick flowers
-exam flowers
-s
-exam river
-w
-exam path
-take paddle
-e
+sw
 jump s
-jump s
+wear basket
 vault river
-w
-rub flowers
-w
-u
-u
-w
-n
-u
-enter veil
-e
-d
-d
-e
-e
+x trees
+pull lianas
+tie lianas together
+remove basket
+drop basket
 vault river
 jump n
-jump n
+ne
 n
 n
+x cliff
+x stump
+tie liana to stump
+drop all
+climb down cliff
+search rocks
+put flints in pocket
+climb up cliff
+get pole
+s
+s
+sw
 w
-look around
-enter bushes
-exam clearing
-take machete
-enter bushes
-cut bushes
-take brushwood
+x bush
+pick berries
+rub berries on fatigues
 e
-n
-exam tree
-cut vines
-take vines
-knot vines
-tie vines
-climb vines
-skin tiger
-take skin
-wrap brushwood
-enter waterfall
-d
-flashlight on
-s
-exam skeletons
-take rope
-e
-exam boulder
-exam ground
-take flint
-unwrap brushwood
-spread brushwood
-light brush
-throw bottle
-drop flint
-exam boulder
-take skin
-w
-n
-u
-enter waterfall
-climb vines
-s
-w
-n
-cut bushes
-drop machete
-take brushwood
-wrap brushwood
-s
-e
-n
-climb vines
-enter waterfall
-d
-s
-e
-unwrap brushwood
-spread brushwood
-wait
-exam fragments
-take crystal
-s
-s
-tie rope
-throw spear
-climb rope
-u
-w
-s
-s
-place crystal
-say jaeline
-take matrix
-n
-e
-n
-out
-jump
-n
-n
-w
-n
-u
-enter waterfall
-climb vines
-s
-s
-pick flowers
-s
-jump
 jump s
 vault river
-drop paddle
-w
-rub flowers
 w
 u
+n
+w
+say jaelaine
+w
+s
+d
+e
+vault river
+n
+ne
+n
+w
+draw machete
+cut vegetation with machete
+sheath machete
+get vegetation
+e
+n
+drop all
+climb d cliff
+draw machete
+skin tigerilla
+sheath machete
+get skin
+put all in pack
+climb up lianas
+get skin
+get vegetation
+wrap vegetation in skin
+get skin
+throw skin over cliff
+get torch
+shake torch
+put torch on shoulder
+climb d cliff
+get skin
+e
+switch torch on
+s
+d
+se
+search cave
+x skeleton
+move skeleton
+put rope in pack
+e
+drop skin
+unwrap skin
+get vegetation
+spread veg under boulder
+get flints
+get bottle
+light fire
+drop flints
+w
+throw bottle into fire
+e
+s
+sw
+w
+take a deep breath
+dive in pool
+sw
+nw
+get spear
+se
+ne
 u
+hold breath
+d
+sw
+nw
+w
+sw
+w
+u
+w
+u
+w
+look across cavern
+look up
+get rope
+tie rope to spear
+throw spear in hole
+get torch
+shake torch
+switch torch on
+put torch on epaulette
+swing across cavern
+x rope
+climb up rope
+u
+get crystal
+put crystal on column
+d
+d
+jump north
+w
+x wall
+feel wall
+touch matrix against wall
+put matrix in pack
+x wall
+feel wall
 w
 n
+w
+nw
 u
-enter veil
-give matrix
+n
+w
+climb up cliff
+get all
+s
+s
+sw
+w
+pick berries
+rub berries on me
+e
+jump s
+vault river
 w
 u
+n
+w
+sw
+s
+drop all
+get concrete
+n
+e
+e
+e
+drop concrete
+get all from hopper
+wear gloves
+cut hole in fence
+get screwdriver
+w
+w
+w
+s
+get arm
+n
+ne
+n
+replace damaged arm with metal arm
+se
+z
+z
+z
+z
+w
 u
-insert matrix
-sit down
-pull bowl
-exam chair
-insert disc
+get gold disc
+remove backpack
+drop backpack
+sit in chair
+press power
+put gold disc in slot
+press launch
+stand up
+get backpack
+wear backpack
+aft
+aft
+press button
+po
+say power
+po
+aft
+get matrix
+put matrix in column
+starboard
+say control
+fo
+po
+pick a disc
+st
+remove backpack
+drop all except blue disc
+fo
+sit in chair
+lower dome
+put disc in slot
+press engage drive
