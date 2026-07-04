@@ -859,7 +859,37 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
       return RR_NOMATCH;
     }
 
+  int is_list = text.find (" and ") != std::string::npos
+                || text.find (',') != std::string::npos;
+  int any_visible = 0, any_seen = 0;
+  for (auto &k : all_keys)
+    {
+      if (obj_visible (st, k.c_str ())) any_visible = 1;
+      if (obj_seen_p  (st, k.c_str ())) any_seen = 1;
+    }
   int none_passed = chosen.empty ();
+  if (none_passed && items.size () > 1 && !had_all && !is_list
+      && any_seen && !any_visible)
+    {
+      /* A single NOUN (not "all", not an explicit "X and Y" list) that name-
+         matched several objects, none of which pass the restrictions, is
+         ambiguous: FrankenDrift prefixes the task's failure with its
+         "ReferencedObject(s) Must Exist" message ("Sorry, I'm not sure which
+         object you are trying to take.").  The count is the ORIGINAL match set
+         (a plural noun like "keys" that matches ten key objects but narrows to
+         one still shows the prefix).  When the failing restriction is itself the
+         Exist / HaveBeenSeen one (a never-seen match), that message already IS
+         the failure text, so the RR_FAIL consumer suppresses the duplicate; it
+         only prepends when a *later* restriction (not visible / not held)
+         supplies a different message. */
+      const a5_xml_node_t *em = a5restr_exist_message (t->restrictions);
+      if (em != NULL)
+        {
+          char *p = a5text_describe (st, em);
+          run->plural_amb_prefix = (p != NULL) ? p : "";
+          free (p);
+        }
+    }
   if (none_passed)
     {
       /* No item passed.  A "get all"-style command shows the FailOverride.
@@ -948,6 +978,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
 
   a5state_clear_refs (st);
   run->pending_failover = NULL;
+  run->plural_amb_prefix.clear ();
 
   /* Pass 1: gather full any-scope candidate sets; bind the default of each. */
   for (int i = 0; i < m->n_refs; i++)

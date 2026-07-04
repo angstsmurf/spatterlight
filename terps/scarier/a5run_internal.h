@@ -121,6 +121,14 @@ struct a5_run_s {
      each resolve. */
   const a5_xml_node_t *pending_failover;
 
+  /* Set by resolve_plural when a %objects% NOUN matched more than one object and
+     none passed the restrictions: FrankenDrift then treats the multi-match as
+     ambiguous and prefixes the task's failure with its "ReferencedObjects Must
+     Exist" message ("Sorry, I'm not sure which object you are trying to take.").
+     The RR_FAIL consumer prepends this ahead of the restriction message and
+     clears it.  Empty when there is no such ambiguity. */
+  std::string plural_amb_prefix;
+
   /* clsAdventure.qTasksToRun: System tasks armed by a Player move into their
      <LocationTrigger> (clsCharacter.Move); drained after the turn's task runs,
      before TurnBasedStuff (clsUserSession.vb:3421). */

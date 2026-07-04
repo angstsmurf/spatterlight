@@ -656,6 +656,16 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               if (fm != NULL)
                 {
                   char *fmsg = a5text_describe (st, fm);
+                  /* Prefix a failing multi-match %objects% noun with FD's
+                     "Sorry, I'm not sure which object ..." ambiguity message
+                     (set by resolve_plural).  Skip when the failure message is
+                     already that text (a never-seen match fails the Exist /
+                     HaveBeenSeen restriction, whose message IS the prefix). */
+                  std::string fcombined = fmsg;
+                  if (fmsg[0] && !run->plural_amb_prefix.empty ()
+                      && strncmp (fmsg, run->plural_amb_prefix.c_str (),
+                                  run->plural_amb_prefix.size ()) != 0)
+                    fcombined = run->plural_amb_prefix + "  " + fmsg;
                   if (fmsg[0])
                     {
                       /* Record the first (lowest-Priority, since run->order is
@@ -679,7 +689,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                          priority is reached, so keeping the first within the band
                          is correct there. */
                       if (!*have_fail || st->adv->hp_passing)
-                        { *have_fail = 1; *fail_text = fmsg; fail_priority = t->priority; }
+                        { *have_fail = 1; *fail_text = fcombined; fail_priority = t->priority; }
                     }
                   free (fmsg);
                 }

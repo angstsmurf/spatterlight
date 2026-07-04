@@ -5128,3 +5128,32 @@ carrying …" / "You can't see …" line):
 regressing the suite with a non-winning, still-diverging script. The improved
 built-in-based script and the solver are committed as the basis for a future
 full derivation. NOT yet wired into `run_a5_walkthroughs.sh`'s MAP.
+
+## (2026-07-04) FIXED: multi-match `%objects%` noun missing FD's "not sure which object" prefix — the 3 Spectre engine bugs
+
+The 3 conformance bugs surfaced by the deep Spectre of Castle Coris run (see the
+entry above) are FIXED.  Root cause: when a single NOUN in a `%objects%` slot
+name-matches MORE THAN ONE object, none of which pass the task's restrictions,
+FrankenDrift prefixes the specific failure with the task's "ReferencedObject(s)
+Must Exist" message — its ambiguity indicator ("Sorry, I'm not sure which object
+you are trying to take.  You can't see the swimming goldfish and the stone
+fish.").  Scarier collapsed the plural to a single pipe binding and emitted only
+the one restriction message, dropping the prefix.
+
+Fix (`resolve_plural` in a5run_ref.cpp + the RR_FAIL consumer in a5run.cpp,
+new `a5restr_exist_message` in a5restr.cpp): when a plural resolves with
+`none_passed`, the ORIGINAL match set is >1 (a plural noun like "keys" that
+matches ten keys but narrows to one still qualifies), it is NOT an explicit
+"X and Y" list, and the matched objects are SEEN but NOT VISIBLE (out of scope
+but known), stash the task's ReferencedObjects-Exist `<Message>` in
+`run->plural_amb_prefix`; the RR_FAIL path prepends it ahead of the failure
+(skipping when the failure message already IS that text — a never-seen match
+fails the Exist/HaveBeenSeen restriction, whose message equals the prefix).
+
+The seen-but-not-visible gate is what discriminates FD's real behaviour, learned
+from the corpus: `get candlestick` (already held → visible) gets NO prefix,
+`drop bones` (never seen) gets NO prefix (that message already IS the Exist
+text), `give domino`/`show X` (recipient-scope failure, objects never seen) get
+NO prefix — only genuinely out-of-scope-but-known multi-matches (the two fish,
+the ten keys) do.  Whole committed corpus stays byte-identical (34 golden games
+MATCH); the deep Spectre run's three "not sure which" hunks are gone.

@@ -36,6 +36,11 @@ extern int a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions);
  */
 extern int a5restr_has_exist (const a5_xml_node_t *restrictions, char type);
 
+/* The <Message> node of the task's first "ReferencedObject(s) Must Exist" Object
+ * restriction, or NULL.  Used to prefix a failing multi-match %objects% noun with
+ * FrankenDrift's "Sorry, I'm not sure which object ..." ambiguity indicator. */
+extern const a5_xml_node_t *a5restr_exist_message (const a5_xml_node_t *restrictions);
+
 /*
  * Does a `<ref_alias> Must Exist` restriction (e.g. "ReferencedObject2") fall
  * within the task's *evaluated* BracketSequence (the first M restrictions, M =

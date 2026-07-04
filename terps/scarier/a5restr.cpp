@@ -1577,3 +1577,37 @@ a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
     }
   return 0;
 }
+
+/* The <Message> node of the first Object restriction "<ReferencedObject...> Must
+ * Exist" in the task.  FrankenDrift surfaces this as the ambiguity indicator when
+ * a %objects% NOUN matches more than one object (e.g. `get fish` -> two fish ->
+ * "Sorry, I'm not sure which object you are trying to take."): the multi-match is
+ * inherently ambiguous, so the task's own reference-existence message is shown as
+ * a prefix ahead of the specific failure.  Returns NULL if the task has no such
+ * restriction. */
+const a5_xml_node_t *
+a5restr_exist_message (const a5_xml_node_t *restrictions)
+{
+  const a5_xml_node_t *c;
+
+  if (restrictions == NULL)
+    return NULL;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    {
+      const a5_xml_node_t *tn;
+      a5_restr_t r;
+      int hit;
+      if (strcmp (c->name, "Restriction") != 0)
+        continue;
+      tn = restr_type_node (c);
+      if (tn == NULL || strcmp (tn->name, "Object") != 0)
+        continue;
+      parse_spec (&r, tn->text);
+      hit = streq (r.op, "Exist")
+            && r.key1 != NULL && strncmp (r.key1, "ReferencedObject", 16) == 0;
+      free (r.buf);
+      if (hit)
+        return a5xml_child (c, "Message");
+    }
+  return NULL;
+}
