@@ -7,9 +7,10 @@
 # screens.
 #
 # The author's shipped list does NOT actually win under a faithful engine (this
-# was confirmed against FrankenDrift, the reference ADRIFT 5 runner); THREE small
-# repairs make it reach the real ending.  Each was verified as a byte-for-byte
-# FrankenDrift match:
+# was confirmed against FrankenDrift, the reference ADRIFT 5 runner), and even
+# fixed up it leaves 10 of the 150 points on the table.  FIVE small repairs make
+# it reach the real ending AND collect the MAXIMUM score.  Each was verified as a
+# byte-for-byte FrankenDrift match (0|0 in both RNG modes):
 #   1. "put flask in bag"  before "slide down wire": the zip-wire across to the
 #      far tower needs both hands free, but the author never stows the flask, so
 #      the slide -- and the whole far-tower leg after it -- silently fails.
@@ -18,10 +19,19 @@
 #   3. "cut door with laser" -> "cut pc door with laser": the author's bare form
 #      is ambiguous (pc door vs entry door) and only raises a "Which door?" prompt
 #      without cutting; naming the PC door actually cuts the lock open.
+#   4. "look under cushion" -> "feel under left cushion": the author's line is
+#      doubly broken -- "look under cushion" only raises "Which cushion?" and the
+#      following "put fuse in bag" then fails ("not sure which object"), so the
+#      fuse is never even picked up.  Only the FEEL verb fires the scoring task
+#      (cl_SearchUnde -> cl_FindDriver, +5, "Find Fuse Score"), and naming the
+#      LEFT couch cushion resolves the ambiguity; the fuse is now taken and bagged.
+#   5. "listen"            before "press play": on entering the Wide Clearing the
+#      humanoids are still humming (not yet head-banging).  Listening then scores
+#      the "Listen To Humming" task (cl_ListenToHu1, +5); once the music plays
+#      they head-bang and the window closes, so it must come before "press play".
 #
-# Result: "*** CONGRATULATIONS! *** ... scoring 135 points out of 150" (a full
-# win; 150 is the max, not the pass mark -- the mayday task needs only the
-# powered engine + the connected crystal).
+# Result: "*** CONGRATULATIONS! *** ... scoring the maximum 150 points!" -- a full
+# 150/150 win (the two extra +5 scoring tasks the author's own solution skips).
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/MaroonedOnMazoomah.blorb \
@@ -50,7 +60,7 @@ get battery
 put battery in bag
 d
 sit on left couch
-look under cushion
+feel under left cushion
 put fuse in bag
 stand
 o
@@ -116,6 +126,7 @@ get player
 in
 listen
 sw
+listen
 press play
 drop player
 nw

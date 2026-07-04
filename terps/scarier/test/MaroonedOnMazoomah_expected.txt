@@ -136,11 +136,11 @@ You feel something hard under the couch cushion.
 Sitting On Left Couch
 You are sitting on the left passenger couch in the shuttle.
 
-> look under cushion
-Which cushion?  The left side couch cushion or the right side couch cushion.
+> feel under left cushion
+You feel under the cushion and find a 30 amp fuse, which you take.
 
 > put fuse in bag
-Sorry, I'm not sure which object you're referring to.
+Ok, you put the 30 amp fuse into the shoulder bag.
 
 > stand
 Ok, you stand up from the couch.
@@ -479,6 +479,11 @@ You are in a wide clearing in the mass of thick vegetation. The clearing is occu
 
 As you enter the clearing the humanoids stop whatever they are doing and stare at you in astonishment. However, they soon resume their humming and head-nodding.
 
+> listen
+You listen to what the humanoids are humming. It is vaguely familiar and has a strong beat. They seem to be nodding their heads in time with the beat.
+
+You get the feeling they are not pleased to see you!
+
 > press play
 Ok, you press the play button and music starts to play.
 
@@ -577,7 +582,83 @@ You have at last solved...
 
 MAROONED ON MAZOOMAH
 
-...in 106 turns, scoring 140 points out of 150.
+...in 107 turns, scoring the maximum 150 points!
+
+I do hope you have enjoyed playing this game.
+
+OTHER GAMES BY LARRY HORSFIELD:
+
+'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+Episode 9: XANIX - XIXON RESURGENCE
+
+Episode 10: THE BOOK OF JAX
+
+*****************************
+
+'Adventures In The World Of Alaric Blackmoon' Series:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+Chapter 3: FINN'S BIG ADVENTURE
+
+Chapter 4: MAGOR INVESTIGATES...
+
+COMING SOON: Chapter 5: THINGS THAT GO BUMP IN THE NIGHT
+
+****************************
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+Chapter 5: BUG HUNT ON MENELAUS
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+
+You push the radio button and a channel opens.
+
+You send out a mayday call and are answered by a nearby FSP spaceship.
+
+A shuttlecraft is sent down to rescue you...
+
+*** CONGRATULATIONS! ***
+
+You have at last solved...
+
+MAROONED ON MAZOOMAH
+
+...in 107 turns, scoring 150 points out of 150.
 
 I do hope you have enjoyed playing this game.
 
@@ -640,3 +721,4 @@ All the above games can all be downloaded from the following websites:
 https://lazzah.itch.io
 
 http://www.adrift.co/games
+
