@@ -209,7 +209,7 @@ With a sigh he closes his eyes and dies in your arms.
 The door looks like the rest of the doors in the corridor except for the engraved crest indicating that this is the entry to Queen Guinevere's chamber
 
 > open queen's door
-The queen's door cannot be opened or closed!
+The door leading into Guinevere's chamber is securely locked. You can hear her angry voice through the door telling someone off pretty good... (Actually you would never have suspected that a woman of her rank would even know words like that!)
 
 > w
 You move west.
@@ -256,22 +256,34 @@ Guard #2; “You're right, and what's more, we can't leave this post before our 
 Guard #1; “If you hear thunder, don't worry, it's just my stomach. I'm so hungry I'd do anything for a piece of bread.“
 
 > ask guard about key
-"I don't feel like giving you anything! I'm so hungry my stomach hurts."
+The castle guards doesn't appear to understand you.
 
 > ask guard about food
 ”Where do you think we get food from? Think boy, think!”
 
-> d
-There is no route to the down, only north, east, south, west and in.
+> s
+You move south.
+
+The Kitchen
+The kitchen looks a whole lot better than the last time you visited. Still a bit messy, but not as busy as before.
+There's a long table in the middle of the kitchen, on it is a bread, a few vegetables and a bowl with dried apples. The fireplace in the western end of the kitchen holds a cauldron which is attended to by a boy who constantly stirs the contents.
+Standing at a counter, right next to the door in the northern wall, is a kitchen maid. She's busy forming and cutting some indefinable substance in to little squares. In the east wall between two tall shelves is an opening and a passage sloping slightly downwards.
+The straw on the floor is fresh, and the tables, pots and pans have all been scrubbed to a shine.
 
 > x maid
-Sorry, I'm not sure which object or character you are trying to examine.
+Her name is Rose, and she's a typical sturdy peasant girl, probably in her early twenties, with broad shoulders and hips. You can clearly see her muscles through the thin woven blouse she's wearing under her heavy vest. Her hair is long and tied in a knot at the back of her head, and her cheeks are blushing from the heat from the fireplace.
 
 > ask maid for food
-Sorry, I didn't understand that command.
+"It's not dinner time yet" she says. "If you want a snack, bring me one of the flowers from the rosegarden."
 
-> up
-There is no route to the up, only north, east, south, west and in.
+> n
+You move north.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
 
 > w
 You move west.
@@ -421,29 +433,42 @@ Straws from a huge haystack in the corner of the courtyard covers the cobbleston
 A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
 Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
 
-> d
-There is no route to the down, only north, east, south, west and in.
+> s
+You move south.
+
+The Kitchen
+There's a long table in the middle of the kitchen, on it is a bread, a few vegetables and a bowl with dried apples. The fireplace in the western end of the kitchen holds a cauldron which is attended to by a boy who constantly stirs the contents.
+Standing at a counter, right next to the door in the northern wall, is a kitchen maid. She's busy forming and cutting some indefinable substance in to little squares. In the east wall between two tall shelves is an opening and a passage sloping slightly downwards.
+The straw on the floor is fresh, and the tables, pots and pans have all been scrubbed to a shine.
 
 > give rose to maid
-Which rose?  The roses or the beautiful rose.
+You give the rose to the maid. At first she looks worried but soon she is overtaken by the scent and beauty of the rose and her face glows with happiness. "What can I do for you?" she asks.
 
 > ask rose for food
-Sorry, that does not clarify the ambiguity.
+Still overwhelmed by the smell of the beautiful rose, Rose quickly grab the bread and cut a couple of slices. A thick layer of freshly made butter and some slices of meat and a few minutes later she hands you a delicious looking sandwich.
+(Yes, I know. You thought it was the Earl of Sandwich" that invented it, but now you know.)
 
 > i
-You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a leather pouch and a beautiful rose.
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a sandwich and a leather pouch.
 
-> up
-There is no route to the up, only north, east, south, west and in.
+> n
+You move north.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
 
 > give sandwich to guard
-I don't understand what you want to do with the castle guards.
+One of the guards eagerly grab the sandwich and with his knife he quickly cuts it in half offering a piece to his friend.
+With their stomachs full the guards become much friendlier.
 
 > i
-You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a leather pouch and a beautiful rose.
+You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring and a leather pouch.
 
 > ask guard about key
-"I don't feel like giving you anything! I'm so hungry my stomach hurts."
+The guard, being much friendlier now his stomach is full, hands you the key to the armoury.
 
 > n
 You move north.
@@ -456,7 +481,7 @@ Behind the shields is the hidden passage from the King's chamber, now completely
 A knight is here, desperately trying to squeeze into a suit of armour.
 
 > x knight
-Sorry, I'm not sure which object or character you are trying to examine.
+The knight is not very tall but very wide. He reminds you of your aunt Rosie when she tries to squeeze into a size 6 before the annual dance in the village. He turns and wiggles and cuss worse than anything you've heard before, and you are actually amazed that he's capable of getting his arms in some of those positions.
 
 > help knight
 You manage to squeeze the Knight into the armour, tying all the straps and buckles. Apparently satisfied he tosses you a couple of coins and waddles out of the stable with an appropriate amount of noise.
@@ -477,13 +502,15 @@ It's probably the most dented and rusty piece or armoury you've ever seen. But i
 You can only move the suit or armour an inch or two. The heavy chain is holding it in place against the rack.
 
 > unlock chain
-The heavy chain cannot be locked or unlocked.
+The key fits perfectly in the lock, and within seconds the chain is unlocked.
 
 > get armour
-You can only move the suit or armour an inch or two. The heavy chain is holding it in place against the rack.
+You carefully pick the suit of armor that looks the most like your size and doesn't have too many dents and holes in it... (Those crossbows are murder!)
 
-> wear armour
-Which armour?  The battered suit of armour or the suits of armor.
+> wear battered suit of armour
+Realizing you can't fit into the suit of armor while wearing your clothes, you quickly strip down.
+Putting on a suit of armor is usually a two man job, but somehow you manage to do it by yourself, an achievement that leaves you rather pleased with yourself.
+If you were cold when you stripped down, it's nothing compared to when you put on the suit of armor! Yikees! Why couldn't Merlin have summoned you in the summer time?
 
 > out
 You move out.
@@ -526,17 +553,29 @@ Straws from a huge haystack in the corner of the courtyard covers the cobbleston
 A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
 Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
 
-> d
-There is no route to the down, only north, east, south, west and in.
+> s
+You move south.
+
+The Kitchen
+There's a long table in the middle of the kitchen, on it is a bread, a few vegetables and a bowl with dried apples. The fireplace in the western end of the kitchen holds a cauldron which is attended to by a boy who constantly stirs the contents.
+Standing at a counter, right next to the door in the northern wall, is a kitchen maid. She's busy forming and cutting some indefinable substance in to little squares. In the east wall between two tall shelves is an opening and a passage sloping slightly downwards.
+The straw on the floor is fresh, and the tables, pots and pans have all been scrubbed to a shine.
 
 > ask maid about substance
-Sorry, I'm not sure which character you're referring to. (characters must be seen)
+She hardly gives you a second glance being busy with her job. She merely grunts a “hello”
+She turns and looks at you: “It's a recipe Merlin picked up on one of his many journeys. It's sweet and rather tasty. We usually make it around this time of year." She hands you a sample and then begins to giggle. "Merlin once had a piece and it was so sticky in his mouth no one could understand a word he was saying."
 
 > i
-You are wearing your shoulder holster and a squire's outfit.  Inside the shoulder holster is a .45 cal colt, and are carrying a silver ring, a two pieces of copper, a leather pouch and a beautiful rose.
+You are wearing your shoulder holster and a battered suit of armour.  Inside the shoulder holster is a .45 cal colt, and are carrying a piece of sticky candy, a silver ring, a two pieces of copper, a key and a leather pouch.
 
-> up
-There is no route to the up, only north, east, south, west and in.
+> n
+You move north.
+
+The Courtyard
+The courtyard is surrounded on all sides by tall walls which towers above you. The magnificent towers of Camelot can be seen, reaching up so high that they almost disappear in the clouds.
+Straws from a huge haystack in the corner of the courtyard covers the cobblestones and helps deafen the sound of the horses hoofs. Beside the haystack, in the north wall, is the entrance to the stables from where the sound of whinnying can be heard from time to time.
+A multi colored tent is raised close to a huge catapult, and behind them lies the entrance to a rose garden, which you can enter through a stone arc to the west. To the east lies the entrance to the castle, and behind you, to the south, are the stairs leading back down into the kitchen.
+Finally, to the northwest, a heavy drawbridge, guarded by two heavily armed soldiers, is spanning the moat. The two soldiers are relaxed but alert leaning against their long spears. A winch with a chain allows the guards to rise and lower the heavy portcullis embedded in the castle wall just above the entrance.
 
 > enter tent
 A quick glance around… OK, no one's there. You quickly untie the string and pull the flap aside stepping into the tent pulling the flap close behind you. No sooner have you entered the tent before a terrible squawking and a flutter of wings is breaking loose. In a cage a huge parrot is making the most infernal noise you've ever heard.
@@ -549,14 +588,11 @@ A couple of small leather balls are placed on the table.
 A set of juggler's clubs are thrown in the corner.
 
 > give candy to parrot
-What piece of candy? You're not holding a piece of candy.
+You reach out the piece of candy towards the parrot whom eyes you suspiciously. This is a Norwegian Blue, you know, he's no dummy. Unfortunately his sweet tooth takes over his common sense and he quickly turns his head and grabs the piece of candy from your fingers.
+Soon his beak is glued helplessly together and all that comes from him is a muffled squawk.
 
 > get magnifying glass
-As soon as the watch parrot sees you steal from the table, he immediately begins to flapper his wings and scream from the top of his lungs.
-You hastily pull back and to your relief the parrot calms down a bit, but still keeps a watchful eye at you.
-
-The parrot may very well be a “Norwegian Blue” but he is also a rare type of the species, namely a watch parrot.
-Apparently he has now made his mind up that you are not a “friendly” and begins to squawk loudly, fluttering around inside its cage.
+You reach out and grab the magnifying glass in its holder.
 
 > out
 You quickly peak out and as no one is looking, you swiftly leave the tent and are once again in the courtyard.
@@ -583,16 +619,45 @@ The rope is very tight, currently holding the catapult sling pulled back to a fi
 Not the easiest thing, but you manage to push and pull the catapult around until it's aimed at, what you believe is, Guinevere's window.
 
 > climb catapult
-Aha! I see what you're doing.. Clever, very clever... and yet! Getting onto the catapult without wearing some kind of protective gear isn't one of your brightest ideas. I mean, you wouldn't go into space without a suitable suit, would you?
+With an elegance that leaves something to be desired, you manage to climb up on the catapult and squeeze your butt into the sling. Although mid-December, the sun is still warm and powerful and you enjoy the view from up here. People are beginning to notice your weird behavior. Now what?
 
 > burn rope
-Not a bad idea at all, and absolutely doable. You may even want to try that later.
+You twist and turn trying to angle the magnifying glass so it catches the wintery sunlight. After a short while you have the satisfaction of watching a faint wisp of smoke coming from the rope, and you wait patiently while the smoke gets thicker as a tiny flame eats its way through the rope.
+You are suddenly thrown backwards, your knees flying up past your ears, and with a loud 'Twaaang!' ringing in your ears you are hurled skywards while all your possessions are flying left, right and center.
+You watch as the gray castle wall quickly fills your vision, and you silently hope that your aim is better than at the shooting range at home.
+With a thundering crash, and surprisingly little damage to yourself thanks to the armor, you tear through the window like a cannonball. You continue to fly through the room, knocking over a couple men before sliding to a halt against the wall in a shower of sparks.
+A bit shaken, but unhurt you leap to your feet and try to assess the situation.
+
+Guinevere's chamber
+Although quite luxurious the thing that occupies your mind right now is, where's the Queen, and how in the hell do you get out of here.
+The first question is easily answered; Guinevere, seemingly unharmed, is sitting on her bed. With the composure of a true Queen she only slightly raises an eyebrow at your sudden appearance. The next question is a bit more difficult. Although there is a door to the south, it's blocked by one of the kidnappers. He's approximately twice your size and holds a nasty looking sword in his hand. Next to a closet which, at this time, is occupied by another of the kidnappers who crashed into it upon your journey across the floor, is a full size painting of Merlin.
+By the time it's taken you to read all this, the kidnappers have gathered themselves and they start to slowly move in on you.  You realize that's it's only a matter of time before you end up as a human ornament at the tip of their swords, so you quickly have to find a way out of here.
 
 > grab guinevere
-Sorry, I didn't understand that command.
+You have to act fast, and you know it... You reach out and grab Guinevere's hand, holding it tight.
 
 > wear ring
 No sooner has the ring slid over your finger before it begins to shrink until it sits nice and tight on your finger. You feel a light tingling sensation and your surroundings become slightly blurred.
+After the initial shock of your sudden appearance, the kidnappers are beginning to close in on you. The firm sound of a crossbow bolt hitting the wall right next to your head tells you that they mean business.
 
 > enter merlin's painting
-I don't understand what you want to do with Player.
+To everyone's surprise you run through the room, clutching Guinevere's hand as tight as you can, heading straight for the painting. Guinevere hesitates as you get closer to the picture, but you turn your head, look her straight in the eyes. “Trust me” you whisper, before you leap into the painting...
+The sound around you is suddenly muffled as the painting softly embraces you. A few seconds later you step out into Merlin's chamber...
+
+Winning
+“I knew you could do it!” Merlin greets you, and his admiration sends a warm feeling of pride through you, or is it the fact that the beautiful Guinevere is frantically clinging on to your neck.
+In the meantime King Arthur and his men have broken down the door to the Queen's chamber and captured the kidnappers. They are quickly brought to the dungeons and locked in the cells to await their trial.
+That evening a huge party is held in your honor in the Knight's Hall. Everyone wants to shake your hand and be seen with you. Keg after keg of the finest wine and mead is brought in and you see no reason why you should hold back.
+Your biggest moment is when King Arthur makes you kneel and Knights you as the “Thirteen Knight of the Round Table” You are Christened “Son of Camelot” and the honorable title will be held by your family forever.
+
+In the early hours of the morning you sink down into a chair in a corner of the hall, happy to get some rest. Your eyes slowly close and you gently drift away...
+When you open your eyes again you are back in your office, slumped over your desk. Your eyes are heavy, your body feels as if it's been through a meat grinder and you have the most incredible hangover. With difficulty you raise your head, was this a dream? One look at your office gives you the answer. Everywhere you look are piles of gold and jewels, loosely scattered through the room.
+Merlin sure kept his promise... Right next to you on the desk lies a piece of ancient parchment announcing that the holder is the “Son of Camelot”
+
+Congratulations!
+You have won the game. I hope you enjoyed playing it.
+
+*** You have won ***
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

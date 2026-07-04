@@ -5,6 +5,19 @@
 # Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped
 # (both harnesses skip blank and "#"-prefixed lines).
 #
+# Deviations from the .doc, needed to actually win in the engine (the doc's exact
+# wording was written against a different parser state):
+#   * courtyard<->kitchen stairs: the doc's "d"/"up" are custom-task synonyms the
+#     Runner's built-in movement pre-empts; use the real compass exits "s"/"n".
+#   * "wear armour" is ambiguous (battered suit vs. the racked suits) -> spell out
+#     "wear battered suit of armour".
+# This game (Version 5.000020, pre-5.0.22) predates the <TaskExecution> element and
+# runs under HighestPriorityPassingTask ("v4 logic"): its "unlock chain" puzzle only
+# fires as a lower-priority passing task after the stock "cannot be unlocked"
+# fallback.  Scarier version-gates that default (a5model.cpp), so unlike
+# FrankenDrift -- which hardcodes HighestPriorityTask and cannot win this game -- the
+# walkthrough reaches "*** You have won ***".  See A5_WALKTHROUGH_FINDINGS.md.
+#
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/RtC.blorb test/RtC_walkthrough.txt
 open top drawer
@@ -56,10 +69,10 @@ tell guards about queen
 x guard
 ask guard about key
 ask guard about food
-d
+s
 x maid
 ask maid for food
-up
+n
 w
 x rose
 get rose
@@ -84,11 +97,11 @@ w
 use freeze on rose
 get rose
 e
-d
+s
 give rose to maid
 ask rose for food
 i
-up
+n
 give sandwich to guard
 i
 ask guard about key
@@ -102,16 +115,16 @@ x battered suit of armour
 get armour
 unlock chain
 get armour
-wear armour
+wear battered suit of armour
 out
 enter tent
 x table
 x props
 get magnifying glass
-d
+s
 ask maid about substance
 i
-up
+n
 enter tent
 give candy to parrot
 get magnifying glass

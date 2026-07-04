@@ -974,14 +974,33 @@ a5model_from_doc (a5_xml_doc_t *doc)
     a->wait_turns = (wt != NULL) ? (int) strtol (wt, NULL, 10) : 3;
     if (a->wait_turns < 0) a->wait_turns = 0;
   }
-  /* <TaskExecution>: HighestPriorityTask (the clsAdventure default, when the
-     element is absent) vs HighestPriorityPassingTask.  Under the latter a task
-     that matches the command but fails its restrictions with output does not
-     claim the turn -- the scan keeps looking for a lower-priority passing task,
-     and the recorded fail message is shown only if none is found. */
+  /* <TaskExecution>: HighestPriorityTask vs HighestPriorityPassingTask.  Under
+     the latter (the "v4 logic" mode) a task that matches the command but fails
+     its restrictions with output does not claim the turn -- the scan keeps
+     looking for a lower-priority passing task, and the recorded fail message is
+     shown only if none is found.
+
+     The <TaskExecution> element and the HighestPriorityTask default arrived in
+     ADRIFT 5.0.22; games saved before that (and re-serialising without the
+     element) predate the setting and ran with the v4-compatible
+     HighestPriorityPassingTask behaviour in Campbell's Runner.  FrankenDrift
+     hardcodes HighestPriorityTask for element-less files regardless of version,
+     which makes genuinely pre-5.0.22 games (e.g. Return to Camelot, v5.000020,
+     whose central "unlock chain" puzzle only fires as a lower-priority passing
+     task after the stock library "cannot be unlocked" fallback) unwinnable.  So
+     when the element is absent, fall back on the file version: below 5.000022 =>
+     HighestPriorityPassingTask, at/after => HighestPriorityTask.  (This is the
+     one point where Scarier deliberately diverges from FrankenDrift, which lacks
+     the version gate -- see A5_WALKTHROUGH_FINDINGS.md.) */
   {
     const char *te = a5xml_child_text (root, "TaskExecution");
-    a->hp_passing = (te != NULL && strcmp (te, "HighestPriorityPassingTask") == 0);
+    if (te != NULL)
+      a->hp_passing = (strcmp (te, "HighestPriorityPassingTask") == 0);
+    else
+      {
+        double fv = (a->version != NULL) ? strtod (a->version, NULL) : 0.0;
+        a->hp_passing = (fv > 0.0 && fv < 5.000022);
+      }
   }
   /* <Direction*>: per-direction synonym specs for non-English games (the
      localization subsystem, FileIO.vb:1254-1265 overriding clsAdventure's

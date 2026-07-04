@@ -634,6 +634,22 @@ FILTER="${1:-}"
 # Golden = Scarier's winning transcript (vanilla 0); the xoshiro column
 # carries the FD differential (5, RNG-independent) as the documented FD gap.
 #
+# (2026-07-04) RtC (Return to Camelot, Finn Rosenløv, IF Comp 2011) rewired
+# from a stuck non-win to a FULL WIN.  The author's .doc walkthrough needed
+# only trivial command fixes (courtyard<->kitchen stairs "d"/"up" -> the real
+# compass exits "s"/"n"; "wear armour" -> "wear battered suit of armour"), but
+# the true blocker was engine-level: RtC is Version 5.000020, which predates
+# ADRIFT 5.0.22's <TaskExecution> element and ran under the v4-compatible
+# HighestPriorityPassingTask mode.  Its central "unlock chain" puzzle only
+# fires as a lower-priority *passing* task after the stock library "cannot be
+# unlocked" fallback -- impossible under HighestPriorityTask.  Scarier now
+# version-gates that default (a5model.cpp: element-less files below 5.000022 =>
+# HighestPriorityPassingTask), so it reaches *** You have won ***.  FrankenDrift
+# hardcodes HighestPriorityTask regardless of version and therefore CANNOT win
+# this game -- the one deliberate Scarier/FD divergence.  Golden = Scarier's
+# winning transcript (vanilla 0); the xoshiro column carries that FD
+# differential (13, RNG-independent) as the documented FD gap.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -647,7 +663,7 @@ RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
 RunBronwynnRun|RunBronwynnRun.blorb|0|0
-RtC|RtC.blorb|0|0
+RtC|RtC.blorb|0|13
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|0|0
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
