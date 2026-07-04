@@ -108,6 +108,7 @@ extern char *a5text_display_alr (a5_state_t *st, const char *plain);
  * plain text for a description wrapper.
  */
 extern char *a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper);
+extern char *a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrapper);
 
 /* a5text_describe + report whether the text had visible content BEFORE the ALR
    pass (FD's bHasOutput runs pre-ALR; a game ALR mapping a phrase to nothing

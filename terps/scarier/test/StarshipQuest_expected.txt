@@ -2384,6 +2384,34 @@ The Rhinopine eats the nuts and follows you along the path. You run out of nuts 
 Bend By Tree
 You're at a bend on the dirt path. It is bordered by a mat of thick, tangled vegetation that would be very difficult to negotiate. You can go North and SE. By the side of the path stands a tree.  Here you see a Rhinopine.
 
+> climb into tree
+You quickly shimmy up the trunk of the tree and sit on the lowest branch.
+
+Sitting On Branch
+You're sitting on the lowest branch of the tree, about 4 metres above the ground. Growing from the branches of the tree are lots of nuts. You can only go Down. On the ground underneath you, the rhinopine is quietly browsing on the pathside vegetation.
+
+> get nuts
+You reach up and pick some of the nuts from the tree.
+
+> put nuts in pocket
+Ok, you put the brown nuts into one of your pockets of your fatigues.
+
+> d
+You move Down.
+
+Bend By Tree
+You're at a bend on the dirt path. It is bordered by a mat of thick, tangled vegetation that would be very difficult to negotiate. You can go North and SE. By the side of the path stands a tree.  Here you see a Rhinopine.
+
+> get nuts
+(from the fatigue pockets)
+Ok, you take the brown nuts out of your pocket.
+
+The rhinopine immediately starts to sniff the air, then the hand you are holding the nuts in. The creature whines plaintively and starts to butt that hand with its snout - it must like to eat the brown nuts!
+
+> feed rhinopine
+You feed the nuts to the rhinopine. The animal quickly gobbles them up, eating the nuts with relish. It then continues browsing on the vegetation beside the path.
+Your score has just reached 400 points - well done indeed!
+
 > se
 You move SouthEast.
 
@@ -2438,7 +2466,6 @@ Unable to stop itself, the bearion collides with the rhinopine and several of th
 The bearion, crying in pain, runs off to the southeast and you can hear it crashing through the undergrowth in that direction.
 
 You stay on the branch for a few minutes more, just to make sure that the coast is clear and it is safe to come down.
-Your score has just reached 400 points - well done indeed!
 
 > d
 You move Down.
@@ -2517,7 +2544,7 @@ In Wide Clearing
 You're in the middle of a wide clearing in the woodland. The trees and vegetation border an area of hard-packed dirt about 10 metres across. Two wide paths lead SW and NE from the clearing.  There is now a trail leading SE which has been torn in the vegetation by the fleeing Bearion.  Lying here is the body of a native, he has been killed by the bearion.
 
 > x body
-The body is that of a short biped humanoid whose body has several deep slashes in it, including one that ripped open its heart. The humanoid is covered in short fur from head to foot. Native's only clothing is a loincloth around his hips, but around his neck you see an amulet.
+The body is that of a short biped humanoid whose body has several deep slashes in it, including one that ripped open its heart. The humanoid is covered in short fur from head to foot. native's only clothing is a loincloth around his hips, but around his neck you see an amulet.
 
 > get amulet
 Ok, you remove the amulet from the dead native.
@@ -3218,6 +3245,7 @@ You're on a wide dirt path in thick woodland. By the side of the path is a tree 
 
 > search roots
 You search the tree roots and find a wicker basket which Leesti must have dropped.
+Your score has just reached 500 points - Congratulations!
 
 > se
 You move SouthEast.
@@ -3236,7 +3264,6 @@ You examine the vegetation by the side of the path and see, on the west side, a 
 
 On Wide Dirt Path
 You're on a wide dirt path that goes North and South through dense woodland. By both sides of the path, thick vegetation grows in abundance. Continuing south will set you on the route to the silver mountain that Leesti told you about. There is a gap in the vegetation just here that leads West.
-Your score has just reached 500 points - Congratulations!
 
 > w
 You move West.
@@ -3739,6 +3766,7 @@ The skeleton is that of a human and has been here a long time.
 
 > move skeleton
 You move the skeleton and find underneath it a plaited rope which you pick up.
+Your score has just reached 600 points - you are doing very well!
 
 > put rope in pack
 OK, you put the plaited rope inside the backpack.
@@ -3757,7 +3785,6 @@ You unwrap the skin from around the dry vegetation and put it all on the floor o
 
 East End Of Cave
 You're at the east end of the cave. There is another circular opening here in the south wall which is blocked by a large round boulder.  Also here is a tigerilla skin and some dry vegetation.
-Your score has just reached 600 points - you are doing very well!
 
 > get vegetation
 Ok, you pick up the dry vegetation.
@@ -4584,11 +4611,11 @@ Over the next few years, a fleet of Starships exactly like the Galaxis are const
 
 *** CONGRATULATIONS! ***
 
-You battled through unbelievable odds to finally complete your...
+You battled through unbelieveable odds to finally complete your...
 
 STARSHIP QUEST
 
-...in 866 turns, scoring a total of 795 points out of 800!
+...in 872 turns, scoring the maximum 800 points!
 
 Thank you for playing this adventure, I hope you enjoyed solving it!
 

@@ -1,5 +1,48 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Starship Quest: PERFECT MAXIMUM 800/800, MATCH 0|0 — feed-vs-lure "exclusivity" refuted + 2 engine fixes (`.Description` markup, boundary-cap gate) — ✅ DONE (2026-07-04)
+
+**StarshipQuest 795 (0|1) → the game's own maximum-800 banner, MATCH 0|0**
+(golden re-blessed, xoshiro budget 1→0), whole 38-game corpus byte-identical
+in both RNG modes.
+
+**The last 5 points.**  The earlier claim that the rhinopine feed (+5) and the
+`lay trail of nuts` bearion lure were *mutually exclusive* ("both consume the
+one-shot brown nuts") was WRONG — the same class of error as Magnetic Moon's
+"earlier-build scoring artifact" theory.  `LayTrailOf` does not consume the
+nuts: its actions move `Nuts1` **onto the tree branch at the bend**
+(`MoveObject Nuts1 ToLocation SittingOnB`) and reset `BrownNutsP=0`, which is
+exactly the pre-condition for `GetNuts2` to allow a RE-PICK up the tree.  So
+after the lure: `climb into tree` → `get nuts` (re-pick; the repeatable
+`PickNutsSc` +5 does **not** re-award — verified identical in FD) → `put nuts
+in pocket` (both hands must be free to climb) → `d` → `get nuts` (`GetNutsFro`:
+the RP sniffs them) → `feed rhinopine` (`DropNutsRp1` **+5 → 800**).  The RP
+keeps browsing under the tree, so the brick-throw chase and the quill-collision
+rescue play out unchanged.  "…scoring the maximum 800 points!" in 872 turns.
+
+**Engine fix 1 — OO `.Description` reads return MARKED-UP text**
+(a5expr.cpp `item_description` → new `a5text_describe_marked`).  FD's
+`Description.ToString` hands back the still-marked-up composition — formatting
+tags and the `<>` segment-join markers survive into whatever embeds the value,
+and the UI strips them once at the very end.  Scarier rendered the value PLAIN,
+so when the dead native's examine (base text + author-lowercase
+`AppendToPreviousDescription` "native's only clothing …") was re-embedded in
+the response, the later `auto_capitalise` pass saw `foot. native's` with the
+`<>` blocker gone and capitalised it — FD's cap (which runs on the marked-up
+buffer, regex blocked by any tag between the stop and the letter) leaves it
+lowercase.  This was the "Native's" residual hunk, previously written off as
+unfixable-without-risk; it was a real, isolated engine bug.
+
+**Engine fix 2 — the display-boundary re-cap only runs when ALR round 1
+rewrote something** (a5text.cpp `a5text_display_alr`).  FD's Display-time
+`CapAfterFullStop` operates on the still-marked-up turn buffer, where a `<>`
+join or any formatting tag blocks new caps; Scarier's per-fragment cap (which
+also sees the markup) has already adjudicated those positions identically, so
+the only *faithful* new caps at the plain-text boundary are on text an ALR
+substitution just changed.  Gating on `a1 != plain` removes a latent class of
+spurious caps behind stripped tags in ALR games (SSQ has 70 TextOverrides) —
+suite otherwise byte-identical, all unit tests pass.
+
 ## ⭐ Illumina: NOT an FD bug — the `_ObjectNoun` mandatory-property rename, now implemented; author's verbatim solution MATCH 0|0 — ✅ DONE (2026-07-04)
 
 **Illumina 0|5 → MATCH 0|0** (golden re-blessed, budget 5→0), whole 40-game

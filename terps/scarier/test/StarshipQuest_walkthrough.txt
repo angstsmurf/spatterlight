@@ -22,6 +22,15 @@
 #    `lay trail of nuts` to lure it to Bend By Tree, so climbing the tree lures
 #    the bearion into the clearing (`ReachTree`, not the death `ReachTreeY`);
 #    then `dodge bearion` at In Wide Clearing.
+#  - Rhinopine feed grafted back in for the LAST 5 POINTS: `lay trail of nuts`
+#    does not consume the brown nuts -- it moves them onto the tree branch at
+#    the bend (`MoveObject Nuts1 ToLocation SittingOnB`).  So after the lure:
+#    climb into tree / get nuts (re-pick; the repeatable PickNutsSc +5 does NOT
+#    re-award -- confirmed identical in FrankenDrift) / put nuts in pocket
+#    (hands must be free to climb) / d / get nuts (GetNutsFro: the rhinopine
+#    sniffs them) / feed rhinopine (DropNutsRp1 +5).  The RP stays under the
+#    tree for the collision rescue, so the feed and the lure are NOT mutually
+#    exclusive after all.
 #  - Stone-hut sacrifice: after `climb on beam`, ONE `z` (wait for the native to
 #    enter and pick up the dropped amulet), THEN `d` (drop onto him) -- the
 #    built-in "climb on beam - d" climbed straight back down.
@@ -35,12 +44,9 @@
 #    and the launch buzzed "INSERT COURSE TAPE!".  With the disc in hand the whole
 #    Galaxis docking / matrix / dome / engage-drive endgame plays through.
 #
-# RESULT: deathless *** CONGRATULATIONS! *** at 795/800.  Both Scarier and
-# FrankenDrift reach exactly 795 via this route (the built-in's own solution
-# claims 800 but does not achieve it in either engine): the last 5 points are the
-# rhinopine `feed rhinopine` +5, which this build makes mutually exclusive with
-# the `lay trail of nuts` lure needed to survive the bearion (both consume the
-# one-shot brown nuts).  So 795 is a conformant full win, not a Scarier gap.
+# RESULT: deathless *** CONGRATULATIONS! *** -- "scoring the maximum 800
+# points!" in 872 turns.  FrankenDrift replays it byte-identically in BOTH RNG
+# modes (MATCH 0|0).
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/StarshipQuest.blorb test/StarshipQuest_walkthrough.txt
@@ -520,6 +526,12 @@ n
 n
 ne
 lay trail of nuts
+climb into tree
+get nuts
+put nuts in pocket
+d
+get nuts
+feed rhinopine
 se
 e
 get brick

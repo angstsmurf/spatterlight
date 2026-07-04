@@ -7,12 +7,22 @@ script's `MAP`. `test/adrift5-games/walkthroughs/` already has raw
 walkthrough/hint material for several games whose game files are staged but
 that never got a command script or a MAP line. This is the backlog.
 
-**STATUS (2026-07-03, evening): the wiring backlog is CLEARED — every staged
-game is wired.** The MAP now carries **38 games**: **34 golden-backed 0|0 MATCH
-in both RNG modes**, and the 4 DIVERGE rows (StoneOfWisdom 2|0, JacarandaJim 99|0,
-SixSilverBullets 18|0, LostLabyrinthOfLazaitch 8|0) are the explained
-vanilla-only System.Random-vs-xoshiro RAND text picks (their xoshiro columns,
-the real conformance metric, are clean). Changes since 2026-07-02:
+**STATUS (2026-07-04): the wiring backlog is CLEARED — every staged game is
+wired.** The MAP now carries **38 games**: **33 golden-backed 0|0 MATCH in both
+RNG modes**, and the 5 DIVERGE rows (StoneOfWisdom 2|0, JacarandaJim 99|0,
+SixSilverBullets 18|0, LostLabyrinthOfLazaitch 8|0, October31st 106|0) are the
+explained vanilla-only System.Random-vs-xoshiro RAND text picks (their xoshiro
+columns, the real conformance metric, are clean). Changes since 2026-07-02:
+
+- **StarshipQuest UPGRADED to the PERFECT MAXIMUM 800/800, MATCH 0|0
+  (2026-07-04)** — the native built-in walkthrough re-derived route now grafts
+  the rhinopine feed (+5) back in after the `lay trail of nuts` bearion lure
+  (the "mutually exclusive" theory was wrong: the lure moves the nuts onto the
+  bend tree's branch, where they can be re-picked).  The old residual
+  "Native's" hunk was a REAL engine bug, now fixed (OO `.Description` reads
+  return marked-up text like FD's `Description.ToString`; display-boundary
+  re-cap gated on an actual ALR rewrite) — see the ⭐ Starship Quest entry in
+  `TODO_a5_walkthrough_bugs.md`.
 
 - **BugHuntOnMenelaus 0|23 → 0|0 full MATCH.** The "documented FD gap" is gone:
   the corridor blocker was a **FrankenDrift crash** (cl_PlayerMove1's bracket

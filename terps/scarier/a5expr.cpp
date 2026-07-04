@@ -345,13 +345,18 @@ split_property (const std::string &p, std::string &fn, std::string &args,
 static std::string
 item_description (a5_state_t *st, const std::string &key)
 {
+  /* FD's Description.ToString returns the still-marked-up composition (tags
+     and "<>" segment-join markers intact); the display pipeline strips them
+     once, at the end.  Returning plain text here let a later re-embedding cap
+     capitalise across a stripped "<>" join that FD leaves alone (Starship
+     Quest's DeadNative lowercase "native's ..." append). */
   const a5_object_t *o = a5model_object (st->adv, key.c_str ());
   if (o != NULL)
-    { char *d = a5text_describe (st, a5xml_child (o->node, "Description"));
+    { char *d = a5text_describe_marked (st, a5xml_child (o->node, "Description"));
       std::string r = d ? d : ""; free (d); return r; }
   const a5_character_t *c = a5model_character (st->adv, key.c_str ());
   if (c != NULL)
-    { char *d = a5text_describe (st, a5xml_child (c->node, "Description"));
+    { char *d = a5text_describe_marked (st, a5xml_child (c->node, "Description"));
       std::string r = d ? d : ""; free (d); return r; }
   const a5_location_t *l = a5model_location (st->adv, key.c_str ());
   if (l != NULL)

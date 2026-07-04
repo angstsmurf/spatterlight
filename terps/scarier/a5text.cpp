@@ -2074,6 +2074,7 @@ process_inner (a5_state_t *st, const char *src, int depth)
   return process_inner_ex (st, src, depth, NULL);
 }
 
+
 char *
 a5text_process (a5_state_t *st, const char *src)
 {
@@ -2344,8 +2345,19 @@ a5text_display_alr (a5_state_t *st, const char *plain)
   /* Boundary re-cap runs on plain text: suppress the `^`/`\n` line-start rules
      (a5text_process already applied them per-fragment on marked-up text) so a
      stripped formatting tag cannot expose a line-leading word to a spurious cap;
-     only true sentence punctuation drives this pass (see is_sentence_start). */
-  cap = auto_capitalise_ex (a1, 0);
+     only true sentence punctuation drives this pass (see is_sentence_start).
+     And run it ONLY when ALR round 1 actually rewrote something: FD's display
+     cap operates on the still-MARKED-UP buffer, where a description-segment
+     "<>" join or any formatting tag sits between the full stop and the next
+     letter and blocks the regex -- Scarier's per-fragment cap (which also sees
+     the markup) has already adjudicated those positions identically, so the
+     only faithful NEW caps here are on text an ALR substitution just changed
+     (Starship Quest's appended lowercase "native's ..." examine segment must
+     stay lowercase, as in FD). */
+  if (streq (a1, plain))
+    cap = strdup (a1);
+  else
+    cap = auto_capitalise_ex (a1, 0);
   /* FD's second ALR round runs ONLY `If bChanged` -- when the auto-cap
      actually rewrote something (Global.vb:550).  Unconditionally re-running
      it doubles any ALR whose NewText still contains its OldText (Magnetic
@@ -2389,6 +2401,25 @@ a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper)
   free (raw);
   free (proc);
   return plain;
+}
+
+/* a5text_describe WITHOUT the final markup strip: the processed text keeps its
+   formatting tags and the "<>" description-segment join markers.  This is what
+   an OO `.Description` read must return -- FD's Description.ToString hands the
+   still-MARKED-UP composition to the caller (tags survive comparisons and
+   re-embedding; the UI strips them once, at the very end).  When the value is
+   re-embedded in a task response, the later a5text_process cap sees the "<>"
+   between a full stop and a lowercase segment start and leaves it alone,
+   exactly like FD's Display-time CapAfterFullStop (Starship Quest's DeadNative
+   "native's only clothing ..." append stays lowercase); the response's own
+   final render_plain drops the markers from the display text. */
+char *
+a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrapper)
+{
+  char *raw = a5text_eval_description (st, wrapper);
+  char *proc = a5text_process (st, raw);
+  free (raw);
+  return proc;
 }
 
 /* a5text_describe, additionally reporting whether the text had visible content

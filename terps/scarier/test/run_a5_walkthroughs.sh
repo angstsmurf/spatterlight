@@ -636,7 +636,7 @@ AchtungPanzer|AchtungPanzer.blorb|0|0
 anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|0|0
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
-StarshipQuest|StarshipQuest.blorb|0|1
+StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|0|0
 Illumina|Illumina.blorb|0|0
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
