@@ -312,11 +312,27 @@ a5text_location_short (a5_state_t *st, const char *lockey)
 /* --------------------------------------------------------- object naming */
 
 char *
-a5text_object_name (const a5_object_t *o, a5_article_t art)
+a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art)
 {
   sb_t sb;
   const char *noun = (o->n_names > 0) ? o->names[0] : o->key;
   const char *prefix = o->prefix;
+  const char *article = o->article;
+
+  /* The _ObjectArticle/_ObjectPrefix/_ObjectNoun mandatory-property overrides
+     (clsUserSession.vb:1972-1982) feed clsObject.FullName too: a renamed
+     object displays -- and lists, and %TheObject%s -- under its new noun.
+     st may be NULL in naming-only contexts (no runtime state). */
+  if (st != NULL)
+    {
+      const char *ov;
+      if ((ov = a5state_entity_prop (st, o->key, "_ObjectNoun")) != NULL)
+        noun = ov;
+      if ((ov = a5state_entity_prop (st, o->key, "_ObjectPrefix")) != NULL)
+        prefix = ov;
+      if ((ov = a5state_entity_prop (st, o->key, "_ObjectArticle")) != NULL)
+        article = ov;
+    }
 
   sb_init (&sb);
   if (art == A5_ART_DEFINITE)
@@ -327,8 +343,8 @@ a5text_object_name (const a5_object_t *o, a5_article_t art)
          i.e. the space is appended even when the article is empty, so an
          empty-article object renders with a leading space (e.g. the worn
          "your clothes" -> " your clothes" in an inventory list). */
-      if (o->article != NULL && o->article[0] != '\0')
-        sb_puts (&sb, o->article);
+      if (article != NULL && article[0] != '\0')
+        sb_puts (&sb, article);
       sb_putc (&sb, ' ');
     }
   if (prefix != NULL && prefix[0] != '\0')
@@ -378,7 +394,7 @@ list_objects_art (a5_state_t *st, const std::vector<const char *> &keys,
   for (int i = 0; i < n; i++)
     {
       const a5_object_t *o = a5model_object (st->adv, keys[i]);
-      char *nm = o ? a5text_object_name (o, art) : strdup (keys[i]);
+      char *nm = o ? a5text_object_name (st, o, art) : strdup (keys[i]);
       if (i > 0) sb_puts (&sb, (i == n - 1) ? " and " : ", ");
       sb_puts (&sb, nm);
       free (nm);
@@ -463,7 +479,7 @@ display_object_children (a5_state_t *st, const char *objkey)
     }
 
   std::string s;
-  char *defn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (objkey);
+  char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (objkey);
   if (!on.empty ())
     {
       char *lst = list_objects (st, on);
@@ -518,7 +534,7 @@ list_objects_subobj (a5_state_t *st, const std::vector<const char *> &keys)
       if (openable)
         { const char *os = a5state_entity_prop (st, ok, "OpenStatus");
           if (os == NULL || !streq (os, "Open")) in.clear (); }
-      char *defn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (ok);
+      char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (ok);
       if (!on.empty ())
         {
           if (!out.empty ()) out += ".  ";
@@ -950,7 +966,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
             o = a5model_object (st->adv, k);
         }
       if (o != NULL)
-        return a5text_object_name (o, art);
+        return a5text_object_name (st, o, art);
       /* No object resolved.  frankendrift builds an ObjectHashTable from the key
          arg and renders htblObjects.List, which returns "nothing" for an empty
          set (Global.vb:804) -- so %TheObject[]% / %ObjectName[]% with an empty
@@ -1100,7 +1116,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         return strdup ("");
       /* DisplayCharacterChildren: "X is on/inside the <object>." */
       std::string out;
-      char *defn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (k ? k : "");
+      char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (k ? k : "");
       auto names = [&](std::vector<const a5_character_t *> &cs) {
         std::string s; int n = (int) cs.size ();
         for (int i = 0; i < n; i++)
@@ -1176,7 +1192,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
             }
           else
             { const a5_object_t *o = a5model_object (st->adv, key);
-              char *dn = o ? a5text_object_name (o, A5_ART_DEFINITE) : strdup (key);
+              char *dn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (key);
               fb += dn; fb += "."; free (dn); }
           char *proc = a5text_process (st, fb.c_str ());
           char *plain = a5text_render_plain (proc);
@@ -1249,7 +1265,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
               for (int i = 0; i < st->n_ref_items; i++)
                 {
                   const a5_object_t *o = a5model_object (st->adv, st->ref_items[i]);
-                  char *nm = o ? a5text_object_name (o, A5_ART_NONE)
+                  char *nm = o ? a5text_object_name (st, o, A5_ART_NONE)
                                : strdup (st->ref_items[i]);
                   if (i > 0)
                     sb_puts (&sb, (i == st->n_ref_items - 1) ? " and " : ", ");
@@ -1264,7 +1280,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           const char *key = a5state_lookup_ref (st, ref);
           const a5_object_t *o = key ? a5model_object (st->adv, key) : NULL;
           if (o != NULL)
-            return a5text_object_name (o, A5_ART_NONE);
+            return a5text_object_name (st, o, A5_ART_NONE);
         }
       else if (ci_eq (name, "character") || ci_eq (name, "characters")
                || ci_eq (name, "character1"))
@@ -2620,7 +2636,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
         ld = object_list_desc (st, o, is_static);
         if (ld != NULL && ld[0] != '\0') { free (ld); continue; } /* special-listed */
         free (ld);
-        owned[n] = a5text_object_name (o, A5_ART_INDEFINITE);
+        owned[n] = a5text_object_name (st, o, A5_ART_INDEFINITE);
         names[n] = owned[n];
         n++;
       }

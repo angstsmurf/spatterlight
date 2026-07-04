@@ -48,7 +48,7 @@ GUARD ROOM
 
 You hear the footsteps from the approaching guards coming closer.  The princess looks nervously over her shoulder, urging you to hurry.
 
-> open southern door
+> open guard room door
 
 The Guard's Room
 With no light available you realize that you are in deep trouble. The room is completely dark and in the deep shadows you can hear movements, the sound of hobnailed boots coming ever closer to you.

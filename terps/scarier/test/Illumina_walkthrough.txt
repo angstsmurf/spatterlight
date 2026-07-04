@@ -1,8 +1,11 @@
 # Illumina (Finn Rosenløv) -- full win, from the author's CASA solution
-# (user-supplied, Illumina_english.txt).  One correction: "open guard room
-# door" is this build's first "open southern door" (the sign over the
-# southern door reads GUARD ROOM; opening walks you through into the dark
-# guard room, where saying her name blinds the night-goggled guards).
+# (user-supplied, Illumina_english.txt), VERBATIM.  "open guard room door"
+# works because `read sign` runs `SetProperty cl_Door _ObjectNoun Guard room
+# door` -- the ADRIFT 5 mandatory-property rename replaces the door's first
+# noun, so the door answers to "guard room door" (and no longer to "door" /
+# "southern door").  Opening walks you through into the dark guard room,
+# where saying her name blinds the night-goggled guards; the second door
+# (cl_Door1) natively aliases "southern door".
 x door
 x padlock
 x stream
@@ -13,6 +16,6 @@ fill pot from stream
 pour acid onto lock
 up
 read sign
-open southern door
+open guard room door
 say illumina
 open southern door

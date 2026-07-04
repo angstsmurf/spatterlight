@@ -42,7 +42,7 @@ describe_object (a5_state_t *st, const char *key)
       printf ("  (no object '%s')\n", key);
       return;
     }
-  name = a5text_object_name (o, A5_ART_NONE);
+  name = a5text_object_name (st, o, A5_ART_NONE);
   desc = a5text_describe (st, a5xml_child (o->node, "Description"));
   printf ("  [%s] \"%s\"\n%s\n", key, name, desc);
   free (name);
@@ -128,7 +128,7 @@ main (int argc, char **argv)
           && st->obj[i].key != NULL
           && strcmp (st->obj[i].key, a->characters[pi].key) == 0)
         {
-          char *name = a5text_object_name (&a->objects[i], A5_ART_INDEFINITE);
+          char *name = a5text_object_name (st, &a->objects[i], A5_ART_INDEFINITE);
           printf ("  %s\n", name);
           free (name);
           held++;

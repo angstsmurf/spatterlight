@@ -1,5 +1,49 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Illumina: NOT an FD bug — the `_ObjectNoun` mandatory-property rename, now implemented; author's verbatim solution MATCH 0|0 — ✅ DONE (2026-07-04)
+
+**Illumina 0|5 → MATCH 0|0** (golden re-blessed, budget 5→0), whole 40-game
+corpus byte-identical in both RNG modes, unit tests + sanitize clean.
+
+**The record corrected.**  Illumina was wired (commit e3268395) with the
+author's `open guard room door` "corrected" to `open southern door`, and FD's
+resulting "Open what?" filed as *"a real FD reference-resolution gap"*.  That
+was WRONG.  Instrumenting FD's matcher (per-object regex dump) showed
+cl_Door's runtime pattern is `^(the )?(southern )?(Guard room door|doors|
+south door)$` — because the immediately-preceding `read sign` task runs
+**`SetProperty cl_Door _ObjectNoun Guard room door`**.  `_ObjectArticle` /
+`_ObjectPrefix` / `_ObjectNoun` are ADRIFT 5 **mandatory properties**
+(FileIO.CreateMandatoryProperties); FD's SetProperties handler
+(clsUserSession.vb:1972-1982) maps them to `ob.Article` / `ob.Prefix` /
+`ob.arlNames(0) = value` — the rename replaces the FIRST name ONLY, so the
+door answers to "guard room door" (plus its surviving aliases "doors"/"south
+door") and no longer to "door" or prefix+"door" ("southern door").  The
+author's own CASA solution uses the renamed phrase — the rename is intended
+Runner behaviour.  Scarier ignored the overrides entirely, so its `open
+southern door` success was ACCIDENTAL (stale pre-rename name), and the
+author's real phrasing failed ("Open what?").  Proven symmetrically: FD wins
+the game with `open guard room door` and fails `open southern door`; Scarier
+the exact mirror.
+
+**Fix — the `_Object*` overrides now feed both matching and display.**
+SetProperty already lands them in the runtime override layer
+(a5state_set_prop); the gap was consultation:
+
+- **Matching** (a5run_ref.cpp): new `effective_naming(st, o)` — article/prefix
+  swapped for their overrides, `names[0]` replaced by `_ObjectNoun` — used by
+  `object_words` (clarifier word-set), `resolve_object_candidates`,
+  `name_match_plural` (plural guessed from the effective noun; NB FD caches
+  `arlPlurals` lazily so a post-cache rename keeps the OLD plural there — not
+  reproduced, no corpus game renames after plural use), and
+  `match_object_one`.
+- **Display** (a5text.cpp): `a5text_object_name` gained the `a5_state_t *`
+  param (all 15 call sites) and renders the overridden article/prefix/noun —
+  FD's clsObject.FullName reads the same mutated fields, so `%TheObject%`,
+  inventory/room lists and disambiguation echoes all show the new name.
+
+Illumina's walkthrough reverted to the author's VERBATIM solution (header
+documents the rename); with the fix it wins identically in both engines.
+
 ## ⭐ Die Feuerfaust: MAX-SCORE WIN, MATCH 0|0 — 3 engine fixes (pronoun ledger, AnyCharacter BeAtLocation, AddSpace contains-test) — ✅ DONE (2026-07-04)
 
 **DieFeuerfaust 3→0 in xoshiro (MATCH 0|0, golden re-blessed), and the built-in

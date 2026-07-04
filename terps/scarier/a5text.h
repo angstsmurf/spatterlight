@@ -120,7 +120,8 @@ extern char *a5text_view_location (a5_state_t *st);
 
 /* An object's display name with an article ("a"/"the"/none). */
 typedef enum { A5_ART_NONE, A5_ART_INDEFINITE, A5_ART_DEFINITE } a5_article_t;
-extern char *a5text_object_name (const a5_object_t *o, a5_article_t art);
+extern char *a5text_object_name (const a5_state_t *st, const a5_object_t *o,
+                                 a5_article_t art);
 
 /*
  * A character's displayed name honouring perspective: first/second person render

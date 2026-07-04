@@ -119,13 +119,48 @@ name_match (const char *article, const char *prefix,
   return 0;
 }
 
+/* An object's EFFECTIVE naming under the _ObjectArticle/_ObjectPrefix/
+   _ObjectNoun mandatory-property overrides (clsUserSession.vb:1972-1982):
+   `SetProperty <obj> _ObjectNoun <text>` replaces arlNames(0) ONLY -- the
+   other names and the prefix survive -- so after Illumina's `read sign` runs
+   `SetProperty cl_Door _ObjectNoun Guard room door`, the door answers to
+   "guard room door" (and its remaining aliases) but no longer to "door" or
+   prefix+"door" ("southern door").  The overrides live in the SetProperty
+   runtime layer (a5state_entity_prop). */
+struct obj_naming
+{
+  const char *article, *prefix;
+  std::vector<const char *> names;
+};
+static obj_naming
+effective_naming (a5_state_t *st, const a5_object_t *o)
+{
+  obj_naming n;
+  const char *a  = a5state_entity_prop (st, o->key, "_ObjectArticle");
+  const char *p  = a5state_entity_prop (st, o->key, "_ObjectPrefix");
+  const char *n0 = a5state_entity_prop (st, o->key, "_ObjectNoun");
+  n.article = a != NULL ? a : o->article;
+  n.prefix  = p != NULL ? p : o->prefix;
+  for (int i = 0; i < o->n_names; i++)
+    n.names.push_back (o->names[i]);
+  if (n0 != NULL)
+    {
+      if (!n.names.empty ()) n.names[0] = n0;
+      else n.names.push_back (n0);
+    }
+  return n;
+}
+
 /* Collect the matchable words of an object / character key, so the same
    word-set drives both the initial match and the cross-turn clarifier. */
 static void
-object_words (const a5_object_t *o,
+object_words (a5_state_t *st, const a5_object_t *o,
               std::vector<std::string> &allowed, std::vector<std::string> &nouns)
 {
-  collect_words (o->article, o->prefix, o->names, o->n_names, allowed, nouns);
+  obj_naming n = effective_naming (st, o);
+  collect_words (n.article, n.prefix,
+                 n.names.empty () ? NULL : &n.names[0], (int) n.names.size (),
+                 allowed, nouns);
 }
 /* Is the character's *proper name* usable as a reference word yet?  Mirrors
    clsCharacter.sRegularExpressionString: the proper name is excluded once the
@@ -178,7 +213,10 @@ resolve_object_candidates (a5_state_t *st, const std::string &text)
   for (int i = 0; i < st->adv->n_objects; i++)
     {
       const a5_object_t *o = &st->adv->objects[i];
-      if (!name_match (o->article, o->prefix, o->names, o->n_names, text))
+      obj_naming n = effective_naming (st, o);
+      if (!name_match (n.article, n.prefix,
+                       n.names.empty () ? NULL : &n.names[0],
+                       (int) n.names.size (), text))
         continue;
       if (ploc != NULL && a5state_object_visible_at_location (st, i, ploc, 0))
         vis.push_back (o->key);
@@ -201,14 +239,15 @@ resolve_object_candidates (a5_state_t *st, const std::string &text)
    pluralises to it (clsObject.sRegularExpressionString(bPlural:=True), whose arl
    is arlPlurals).  Article + prefix stay as for the singular. */
 static int
-name_match_plural (const a5_object_t *o, const std::string &text)
+name_match_plural (a5_state_t *st, const a5_object_t *o, const std::string &text)
 {
+  obj_naming n = effective_naming (st, o);
   std::vector<std::string> plurals;
   std::vector<const char *> pp;
-  for (int i = 0; i < o->n_names; i++)
-    plurals.push_back (guess_plural_from_noun (lower (o->names[i])));
+  for (size_t i = 0; i < n.names.size (); i++)
+    plurals.push_back (guess_plural_from_noun (lower (n.names[i])));
   for (auto &s : plurals) pp.push_back (s.c_str ());
-  return name_match (o->article, o->prefix,
+  return name_match (n.article, n.prefix,
                      pp.empty () ? NULL : &pp[0], (int) pp.size (), text);
 }
 
@@ -258,7 +297,7 @@ possible_keys (a5_state_t *st, const std::vector<std::string> &keys,
       if (type == 'o')
         { int oi = a5state_object_index (st, k.c_str ());
           if (oi < 0) continue;
-          object_words (&st->adv->objects[oi], allowed, nouns); }
+          object_words (st, &st->adv->objects[oi], allowed, nouns); }
       else
         { int ci = a5state_character_index (st, k.c_str ());
           if (ci < 0) continue;
@@ -498,9 +537,11 @@ match_object_one (a5_state_t *st, const std::string &input,
   for (int i = 0; i < st->adv->n_objects; i++)
     {
       const a5_object_t *o = &st->adv->objects[i];
-      int hit = plural ? name_match_plural (o, input)
-                       : name_match (o->article, o->prefix, o->names,
-                                     o->n_names, input);
+      obj_naming n = effective_naming (st, o);
+      int hit = plural ? name_match_plural (st, o, input)
+                       : name_match (n.article, n.prefix,
+                                     n.names.empty () ? NULL : &n.names[0],
+                                     (int) n.names.size (), input);
       if (!hit)
         continue;
       result = true;

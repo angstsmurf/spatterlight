@@ -241,7 +241,7 @@ item_name (a5_state_t *st, const std::string &key, a5_article_t art)
   const a5_object_t *o = a5model_object (st->adv, key.c_str ());
   if (o != NULL)
     {
-      char *n = a5text_object_name (o, art);
+      char *n = a5text_object_name (st, o, art);
       std::string r = n ? n : "";
       free (n);
       return r;

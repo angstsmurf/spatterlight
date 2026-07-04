@@ -376,7 +376,7 @@ entity_def_name (a5_state_t *st, const std::string &key, char type)
     {
       int oi = a5state_object_index (st, key.c_str ());
       if (oi >= 0)
-        { char *n = a5text_object_name (&st->adv->objects[oi], A5_ART_DEFINITE);
+        { char *n = a5text_object_name (st, &st->adv->objects[oi], A5_ART_DEFINITE);
           std::string s = n ? n : ""; free (n); return s; }
     }
   else
@@ -1155,7 +1155,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         int hit = (o->n_names == 0) ? 1 : noun_substr (nouns);
         if (hit)
           {
-            char *nm = a5text_object_name (o, A5_ART_DEFINITE);
+            char *nm = a5text_object_name (st, o, A5_ART_DEFINITE);
             sb_puts (out, "I don't understand what you want to do with ");
             sb_puts (out, nm);
             sb_puts (out, ".");
@@ -1373,7 +1373,7 @@ grab_it (a5_run_t *run, const std::string &in)
             {
               const a5_object_t *o = a5model_object (st->adv, chosen);
               const a5_character_t *c = a5model_character (st->adv, chosen);
-              char *nm = o ? a5text_object_name (o, A5_ART_DEFINITE)
+              char *nm = o ? a5text_object_name (st, o, A5_ART_DEFINITE)
                            : (c ? a5text_character_known_name (st, c, cl.definite)
                                 : strdup (chosen));
               *cl.out = nm ? nm : "";

@@ -638,7 +638,7 @@ AxeOfKolt|TheAxeOfKolt.blorb|0|0
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|0|0
-Illumina|Illumina.blorb|0|5
+Illumina|Illumina.blorb|0|0
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
