@@ -354,6 +354,18 @@ a5state_disp_once_mark (a5_state_t *st, const void *node)
   st->disp_once[st->n_disp_once++] = node;
 }
 
+void
+a5state_disp_once_unmark (a5_state_t *st, const void *node)
+{
+  int i;
+  for (i = 0; i < st->n_disp_once; i++)
+    if (st->disp_once[i] == node)
+      {
+        st->disp_once[i] = st->disp_once[--st->n_disp_once];
+        return;
+      }
+}
+
 /* ------------------------------------------------------- reference bindings */
 
 void

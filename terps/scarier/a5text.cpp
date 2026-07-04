@@ -222,7 +222,25 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
       /* Retire the segment only when this is real output, not a value peek
          (Displayed is set unless UserSession.bTestingOutput). */
       if (once && st->marking_display)
-        a5state_disp_once_mark (st, c);
+        {
+          a5state_disp_once_mark (st, c);
+          /* <ReturnToDefault>: after this segment displays, clsDescription.
+             ToString resets Displayed on every segment up to AND INCLUDING
+             itself (`sd2.Displayed = False : If sd2 Is sd Then Exit For`), so
+             the DisplayOnce sequence cycles back to the first segment on the
+             next render.  RunBronwynn's Task12 "Run Count" atmosphere rotates
+             4 such lines (woodcutter / 3 bloodhound urgency variants) through
+             exactly this mechanism. */
+          if (a5xml_bool (a5xml_child_text (c, "ReturnToDefault")))
+            for (const a5_xml_node_t *r = wrapper->first_child; r != NULL;
+                 r = r->next)
+              {
+                if (strcmp (r->name, "Description") == 0)
+                  a5state_disp_once_unmark (st, r);
+                if (r == c)
+                  break;
+              }
+        }
 
       when = a5xml_child_text (c, "DisplayWhen");
       if (streq (when, "StartDescriptionWithThis"))

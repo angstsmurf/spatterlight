@@ -353,7 +353,18 @@ item_description (a5_state_t *st, const std::string &key)
   const a5_object_t *o = a5model_object (st->adv, key.c_str ());
   if (o != NULL)
     { char *d = a5text_describe_marked (st, a5xml_child (o->node, "Description"));
-      std::string r = d ? d : ""; free (d); return r; }
+      std::string r = d ? d : ""; free (d);
+      /* clsObject.Description getter (clsObject.vb:448): an object whose
+         composed description renders empty reads as "There is nothing special
+         about <the object>."  This is the source of FD's default examine text
+         (ExamineObjects' %object%.Description) AND why Global.DisplayObject's
+         own "sees nothing interesting" branch is dead code for objects. */
+      if (r.empty ())
+        { char *dn = a5text_object_name (st, o, A5_ART_DEFINITE);
+          r = std::string ("There is nothing special about ")
+              + (dn ? dn : key.c_str ()) + ".";
+          free (dn); }
+      return r; }
   const a5_character_t *c = a5model_character (st->adv, key.c_str ());
   if (c != NULL)
     { char *d = a5text_describe_marked (st, a5xml_child (c->node, "Description"));

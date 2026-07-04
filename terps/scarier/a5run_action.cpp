@@ -258,6 +258,37 @@ command_refs (const a5_task_t *t)
   return v;
 }
 
+/* clsUserSession.RefsMatchSpecifics / GetAlternateRef: a Specific child's
+   Specifics are always defined in the order of the parent's FIRST command, but
+   the input may have matched a later command whose references appear in a
+   different order (SayToCharacter: `say %text% to %character%` vs `say to
+   %character% %text%`).  Reorder the resolved refs into first-command order --
+   a no-op when the first command matched -- so the 1:1 Specific matching in
+   refs_match_specifics lines up.  When the matched command's reference names
+   are not a permutation of the first command's (FD's GetAlternateRef falls
+   back to the unmapped index there), keep the matched order. */
+static std::vector<ref_info>
+collect_refs_ordered (a5_state_t *st, const a5_match_t *m, const a5_task_t *t)
+{
+  std::vector<ref_info> v = collect_refs (st, m);
+  std::vector<std::string> first = command_refs (t);
+  if ((int) first.size () != m->n_refs)
+    return v;
+  std::vector<ref_info> w;
+  std::vector<char> used ((size_t) m->n_refs, 0);
+  for (const std::string &nm : first)
+    {
+      int found = -1;
+      for (int i = 0; i < m->n_refs; i++)
+        if (!used[i] && nm == m->ref_name[i]) { found = i; break; }
+      if (found < 0)
+        return v;
+      used[found] = 1;
+      w.push_back (v[found]);
+    }
+  return w;
+}
+
 /* Build the resolved references for TASK from its first command's reference
    names and this turn's bindings -- used when re-dispatching a task via
    SetTasks Execute, where there is no a5_match_t to derive them from. */
@@ -1182,13 +1213,13 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
           st->n_ref_items = 1;
           bind_reference (st, "objects", it, rtext);
           a5state_bind_ref (st, "ReferencedObjects", it);
-          std::vector<ref_info> refs = collect_refs (st, m);
+          std::vector<ref_info> refs = collect_refs_ordered (st, m, parent);
           execute_task_with_overrides (run, parent, refs, 0, out);
         }
     }
   else
     {
-      std::vector<ref_info> refs = collect_refs (st, m);
+      std::vector<ref_info> refs = collect_refs_ordered (st, m, parent);
       execute_task_with_overrides (run, parent, refs, 0, out);
     }
 

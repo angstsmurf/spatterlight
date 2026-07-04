@@ -1,5 +1,54 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Run Bronwynn Run: the 3 residual xoshiro hunks → FULL MATCH 0|0 — 3 general engine fixes (alternate-command ref order, empty-Description default, ReturnToDefault cycle)  ✅ DONE (2026-07-04)
+
+**RunBronwynnRun xoshiro 3→0** (now MATCH 0|0; golden re-blessed — exactly the 3
+fixed lines; xoshiro budget 3→0 in the MAP).  These were the hunks the 07-04 win
+entry left unchased as "shared-path regression risk"; all three turned out to be
+clean general fixes, and the whole 39-game corpus is unmoved in both RNG modes.
+
+1. **Specific-override refs must be in FIRST-command order**
+   (`collect_refs_ordered`, a5run_action.cpp).  FD's RefsMatchSpecifics:
+   "Specifics are always defined in the order of the first command in the task"
+   — when the input matches a LATER command whose references appear in a
+   different order, GetAlternateRef remaps each specific index through the
+   first command's reference list (clsUserSession.vb:580-650).  Scarier built
+   the refs vector in *matched-command* order, so `say to woman return horse`
+   (SayToCharacter command 2: `say to %character% %text%` → [char, text])
+   never lined up with `TellLadyTo1`'s Specifics ([text, char] — first-command
+   order), the child was skipped, and the general Conversation action fell
+   through to "The old woman ignores you."  Now the resolved refs are
+   reordered to the first command's reference-name order (a no-op when the
+   first command matched; matched order kept when the name multisets differ,
+   mirroring GetAlternateRef's fallback), so the child fires and its
+   `HorseAsked1 Must BeEqualTo 0` restriction message ("You have already told
+   the old lady…she wants some wool…") surfaces.  This is the
+   restriction-message-selection hunk previously misfiled as the
+   HighestPriorityPassingTask area.
+
+2. **Empty object description reads as "There is nothing special about
+   <the object>."** (item_description, a5expr.cpp).  FD's clsObject.Description
+   *getter* (clsObject.vb:448) substitutes the default whenever the composed
+   description renders empty — this is the source of the stock examine text
+   (ExamineObjects' completion message is just `%object%.Description`), and it
+   also makes Global.DisplayObject's own "sees nothing interesting" branch
+   dead code for objects.  `x spinning shed` resolves to `Shed1` (the farmyard
+   scenery object, which has NO Description element at all); Scarier rendered
+   an empty completion message and printed nothing.
+
+3. **`<ReturnToDefault>` restarts a DisplayOnce sequence** (eval_desc_into,
+   a5text.cpp + a5state_disp_once_unmark).  clsDescription.ToString: after a
+   DisplayOnce segment with ReturnToDefault displays, every segment up to AND
+   INCLUDING itself gets `Displayed = False`, so the next render starts the
+   cycle over at segment 1.  Task12 ("Run Count") rotates 4 DisplayOnce
+   atmosphere lines this way (woodcutter + 3 bloodhound-urgency variants, the
+   4th flagged ReturnToDefault); Scarier retired each segment permanently, so
+   the second pass of the cycle (the woodcutter line on reaching the South
+   Side of Clearing) never fired.
+
+All a5 unit tests pass; full corpus vanilla+xoshiro sweep: only RunBronwynnRun
+moved (3→0 xoshiro, golden re-blessed).
+
 ## ⭐ Starship Quest: PERFECT MAXIMUM 800/800, MATCH 0|0 — feed-vs-lure "exclusivity" refuted + 2 engine fixes (`.Description` markup, boundary-cap gate) — ✅ DONE (2026-07-04)
 
 **StarshipQuest 795 (0|1) → the game's own maximum-800 banner, MATCH 0|0**

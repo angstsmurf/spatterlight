@@ -371,6 +371,7 @@ extern void a5state_set_conv_node (a5_state_t *st, const char *key);
    and (when marking) record that it has. */
 extern int  a5state_disp_once_seen (const a5_state_t *st, const void *node);
 extern void a5state_disp_once_mark (a5_state_t *st, const void *node);
+extern void a5state_disp_once_unmark (a5_state_t *st, const void *node);
 
 /* Per-turn reference bindings. */
 extern void        a5state_clear_refs  (a5_state_t *st);

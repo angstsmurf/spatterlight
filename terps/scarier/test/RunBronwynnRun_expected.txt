@@ -1029,7 +1029,7 @@ You ask the old woman where this "safe place" is?
 "That's for me to know and you to find out," she says to you. "I'll tell you when you bring me the wool so I can finish my knitting."
 
 > say to woman return horse
-The old woman ignores you.
+You have already told the old lady to return your horse, but she wants some wool to finish her knitting first.
 
 > ask about knitting
 You must specify which character who you wish to speak to.
@@ -1383,6 +1383,7 @@ Sheep Farm
 You're in the main yard of the sheep farm. There are two large sheds East and West, fields full of sheep lie beyond a gate to the South and the track to the road is North. To the southwest, attached to the main spinning shed, there is a smaller building.
 
 > x spinning shed
+There is nothing special about the spinning shed.
 
 > sw
 You walk southwest.
@@ -2137,6 +2138,8 @@ You run North through the trees as fast as you can.
 
 South Side of Clearing
 You're on the south side of a large forest clearing. Forest lies in any southerly direction, and you can go north, northeast or northwest further into the clearing.  Several felled trees lay all around you and there are a corresponding number of tree stumps which could impede your progress. On the northern side of the clearing there are some woodcutters, chopping down a tree.
+
+From the north you hear the faint sound of wood being chopped.
 
 As you look around the clearing you see some woodcutters on the north side chopping away at a tree trunk.
 
