@@ -5060,3 +5060,71 @@ purely a documentation checkpoint so the RE work (which required reading
 **not yet wired into `run_a5_walkthroughs.sh`'s `MAP`** — do that once this
 fix lands (or with an honest non-zero budget documenting this exact gap if
 parked further).
+
+## The Spectre of Castle Coris: built-in WLKTHRGH is garbled — deep-but-not-winning best-effort + 3 engine bugs surfaced — ⏳ PARTIAL (2026-07-04)
+
+**User question: does the game have a WALKTHROUGH command with a more accurate
+walkthrough?** Yes — the `WLKTHRGH` command (task `Walkthroug`) dumps the
+author's own full solution, ~880 commands ending "YOU HAVE WON!". It is far more
+complete than the shipped `SpectreOfCastleCoris_walkthrough.txt` (a CASA /
+solutionarchive script for the *original* release, which desyncs almost
+immediately and flails in the **town** for 400 commands — it never reaches the
+castle). Extracted verbatim to `test/SpectreOfCastleCoris_builtin_walkthrough.txt`
+(dashed inline annotations stripped, `o`/`b` handshake prepended).
+
+**But the built-in walkthrough does NOT win under a faithful engine**, and
+FrankenDrift (the reference runner) fails it at the IDENTICAL point Scarier does
+(turn 160, 93/700) — so the fault is the walkthrough text, not the engine. Two
+independent problems:
+
+1. **Garbled navigation** — written against an earlier map revision. The
+   castle-grounds leg even contains a literal stray-comma typo `w, ,sw`. At
+   "Inside Main Gates" the only exit is NW, but the text says `w`. Fixed that one
+   segment (`w,sw,w,w,e,s` → `nw,sw,w,s`, reaching By Woodpile via By Fountain →
+   By Cottage Garden → In Cottage Garden) — this alone advanced the run from the
+   town gate to the castle interior. There are MORE such desyncs downstream
+   (gatehouse, courtyard, interior): the map differs pervasively.
+
+2. **The Spectre is a repeating turn-based killer** (event keys `SpectreApp`,
+   `Event1`..`Event4`, `SpectreApp1`; region-varying `Length` 10/15/20/25/30/35;
+   `SubEvent` warning at +26, `KilledBySp` death at +30). It is banished ONLY
+   while the prayer book is **held in hand** — book-in-a-worn-bag fails ("You are
+   not carrying the prayer book!"; `a5restr.cpp` `char_holds_object` correctly
+   terminates the held-recursion at a worn parent). The robust banish command is
+   **`read prayer`** (`ReadObjects` override `ReadTheLor` on the `Prayer`
+   object); plain `say prayer` routes to `say <x> to <NPC>` whenever a character
+   is present (e.g. deaf Cissy Green in the kennels), so it silently fails to
+   banish there. Every two-handed action (get wood, climb rope, dig) forces the
+   book DOWN for a turn — a death window if the timer fires. Because navigation
+   fixes shift turn counts, the entire prayer cadence has to be re-derived.
+
+**Tooling** (`test/spectre_prayer_solver.py`): an adaptive re-run driver that
+replays the list, finds the first un-banished Spectre encounter, injects
+`read prayer` (wrapped in `get book`/`drop book` when the book is down), and
+iterates. It converges the Spectre timing and drove the run all the way to the
+castle **gatehouse/courtyard** before hitting a *cascading* nav desync — the
+windlass/portcullis puzzle had itself desynced (an earlier nav divergence), so
+"n" under the gatehouse is refused ("you cannot enter the castle courtyard until
+you have raised the portcullis"). Completing the win needs a full region-by-
+region navigation re-derivation against this build's map.
+
+**3 real engine conformance bugs surfaced** (FD_RNG=xoshiro diff of the deep
+run, all the same class — a failed **multi-object reference** omits FD's leading
+"Sorry, I'm not sure which object you're referring to." before the "You are not
+carrying …" / "You can't see …" line):
+  - `> put fish in bag` (goldfish + stone fish) — Scarier "You are not carrying
+    the swimming goldfish and the stone fish!"; FD prefixes "Sorry, I'm not sure
+    which object you're referring to.  …".
+  - `> drop key` (large rusty key, not held) — same missing prefix.
+  - `> get fish` (goldfish + stone fish, not present) — FD prefixes "Sorry, I'm
+    not sure which object you are trying to take.  …".
+  These are worth fixing independently (mirror FD's `GetGeneralTask`
+  multi-object no-ref path emitting the "not sure which object" message before
+  the have/see failure), but risk corpus-wide message changes, so left for a
+  dedicated pass.
+
+**Status: PARTIAL, timeboxed per user request.** The shipped wired test/golden
+(`SpectreOfCastleCoris_walkthrough.txt`, MAP `0|0`) is left UNCHANGED to avoid
+regressing the suite with a non-winning, still-diverging script. The improved
+built-in-based script and the solver are committed as the basis for a future
+full derivation. NOT yet wired into `run_a5_walkthroughs.sh`'s MAP.
