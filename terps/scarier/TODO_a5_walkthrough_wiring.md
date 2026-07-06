@@ -7,12 +7,16 @@ script's `MAP`. `test/adrift5-games/walkthroughs/` already has raw
 walkthrough/hint material for several games whose game files are staged but
 that never got a command script or a MAP line. This is the backlog.
 
-**STATUS (2026-07-04): the wiring backlog is CLEARED — every staged game is
-wired.** The MAP now carries **38 games**: **33 golden-backed 0|0 MATCH in both
-RNG modes**, and the 5 DIVERGE rows (StoneOfWisdom 2|0, JacarandaJim 99|0,
-SixSilverBullets 18|0, LostLabyrinthOfLazaitch 8|0, October31st 106|0) are the
-explained vanilla-only System.Random-vs-xoshiro RAND text picks (their xoshiro
-columns, the real conformance metric, are clean). Changes since 2026-07-02:
+**STATUS (2026-07-06): the wiring backlog is CLEARED — every staged game is
+wired.** The MAP now carries **41 games**: **33 golden-backed 0|0 MATCH in both
+RNG modes** (TheFortressOfFear joined this tier 2026-07-06 — its 0|38 baseline
+was driven all the way to a clean 0|0 FULL MATCH, see below), plus **RtC (0|13)**
+— golden-backed vanilla MATCH whose xoshiro-13 gap is an explained FD-side bug
+with Scarier on the correct side (`TODO_a5_walkthrough_bugs.md`) — and **7
+vanilla-only System.Random-vs-xoshiro DIVERGE rows** (StoneOfWisdom 2|0,
+JacarandaJim 99|0, SixSilverBullets 18|0, LostLabyrinthOfLazaitch 8|0,
+October31st 106|0, LostCoastlines 1|0, Skybreak 2|0) whose xoshiro columns — the
+real conformance metric — are all clean (0). Changes since 2026-07-02:
 
 - **StarshipQuest UPGRADED to the PERFECT MAXIMUM 800/800, MATCH 0|0
   (2026-07-04)** — the native built-in walkthrough re-derived route now grafts
@@ -121,9 +125,10 @@ columns, the real conformance metric, are clean). Changes since 2026-07-02:
 
 **Backlog CLEARED (2026-07-06).** Xanix WON 2026-07-05, and the last holdout
 **TheFortressOfFear** is now a blind-derived FULL MAX-SCORE WIN 1500/1500
-(see the ⭐ TheFortressOfFear entry below; golden-backed, 0\|38 at baseline —
-the 38 xoshiro hunks are pre-existing NPC-timing/convo/score-drift classes
-catalogued in `TODO_a5_walkthrough_bugs.md`). Every game with any usable
+(see the ⭐ TheFortressOfFear entry below; golden-backed **0\|0 FULL MATCH** —
+the 0\|38 baseline was fully closed 2026-07-06 through the xoshiro-driven fixes
+in commits d987cdf2 (38→2), 5fa31363 (2→1) and afc50a88 (1→0), all catalogued in
+`TODO_a5_walkthrough_bugs.md`). Every game with any usable
 walkthrough source is now wired as a real win or conformance MATCH.
 LostCoastlines and Skybreak are smoke-wired into the MAP (2026-07-06,
 DIVERGE-at-baseline, see below) but stay smoke probes permanently — no usable
@@ -330,7 +335,7 @@ pass-text dedup, map-path DisplayOnce retire).
   (RNG-independent endgame-banner bugs: `%Turns%` not substituted +
   leading-cap URL mangling) were fixed same day — see the ⭐ Shaman entry in
   `TODO_a5_walkthrough_bugs.md`.
-- ~~**LostCoastlines**~~ ✅ **SMOKE-WIRED (2026-07-06), DIVERGE 1|1 (at
+- ~~**LostCoastlines**~~ ✅ **SMOKE-WIRED (2026-07-06), DIVERGE 1|0 (at
   baseline).** No real walkthrough exists (`walkthroughs/LostCoastlines_walkthrough.pdf`,
   8.6 MB, is an image-only hand-drawn nautical map feelie — no text layer, no
   commands) and Lost Coastlines is a procedural/random sailing-exploration game
@@ -338,10 +343,11 @@ pass-text dedup, map-path DisplayOnce retire).
   probe (`test/LostCoastlines_walkthrough.txt`), not a real win. Getting the
   `.taf` to load at all surfaced a general engine fix — see the ⭐
   LostCoastlines/Skybreak entry in `TODO_a5_walkthrough_bugs.md`. The 1 residual
-  hunk in both RNG modes is believed to be a genuine RNG-draw-order mismatch in
-  the randomised starting-outfit text (`%defaultshirt[Rand(1,10)]%`), not
-  root-caused further — no golden blessed (same class as JacarandaJim/
-  SixSilverBullets/StoneOfWisdom/LostLabyrinthOfLazaitch/October31st).
+  vanilla hunk (xoshiro is clean, `0`) is the randomised starting-outfit text
+  (`%defaultshirt[Rand(1,10)]%`): a System.Random-vs-xoshiro draw-order pick, not
+  a bug — it vanishes under the aligned stream, so no golden blessed (same class
+  as JacarandaJim/SixSilverBullets/StoneOfWisdom/LostLabyrinthOfLazaitch/
+  October31st/Skybreak).
 - ~~**Skybreak**~~ ✅ **SMOKE-WIRED (2026-07-06), DIVERGE 2|0 (at baseline).**
   No real walkthrough exists (`walkthroughs/Skybreak_walkthrough.pdf`, 16 pp, is
   the in-game manual/lore, not a command sequence) and Skybreak is a class-based
@@ -459,7 +465,7 @@ above). **TheFortressOfFear** was the last of the five, upgraded 2026-07-06
 from the 4-command smoke probe to a blind-derived FULL MAX-SCORE WIN
 1500/1500 (see the ⭐ TheFortressOfFear entry below) — the backlog is clear.
 
-### ⭐ TheFortressOfFear — ✅ WON 2026-07-06: blind-derived FULL MAX-SCORE WIN 1500/1500, golden-backed (0\|38 at baseline)
+### ⭐ TheFortressOfFear — ✅ WON 2026-07-06: blind-derived FULL MAX-SCORE WIN 1500/1500, golden-backed 0\|0 FULL MATCH (from a 0\|38 baseline)
 
 No built-in `WLKTHRGH`/`WALKTHROUGH` and no external walkthrough exists (Horsfield
 sends these by email only, per the ⭐ section above; none turned up for this
@@ -506,8 +512,11 @@ without it Task1420 never fires and Loc123 is an unwinnable dead end;
 (2) the 256-byte `ref_value` binding buffer truncated big drop-all/get-all
 `ReferencedObjects` pipe-lists ("…the large hammer and Objec"/"and O"/
 phantom "the secret door", items silently missing from aggregate lists).
-The remaining 38 xoshiro hunks are catalogued there too (NPC-timing /
-convo-repeat / +3-score-drift classes, all pre-existing).
+The 0\|38 baseline (NPC-timing / convo-repeat / +3-score-drift classes) was then
+closed OUT completely — a fourth run of xoshiro-driven fixes (commits d987cdf2
+38→2, 5fa31363 2→1, afc50a88 1→0; the last being the endgame "answers above" on
+the silent winning task) took it to a **0\|0 FULL MATCH**, golden re-blessed
+2026-07-06. See `TODO_a5_walkthrough_bugs.md` for each fix.
 All six were re-checked 2026-07-03 for hidden built-in walkthrough tasks
 (`a5dump | grep -i 'walkthrou\|wlkthrgh'`): none — Magor/Xanix only carry the
 email-the-author blurb.
