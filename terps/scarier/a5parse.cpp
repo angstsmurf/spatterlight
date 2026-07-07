@@ -15,6 +15,7 @@
 
 #include <regex>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "a5parse.h"
@@ -78,6 +79,20 @@ ensure_dirs_default ()
 
 static std::string cached_dirs_re;   /* invalidated by a5parse_set_directions */
 
+/* Compiled-regex cache for match_one_pattern, keyed by the (variant-expanded)
+   command pattern.  convert_to_re + std::regex compilation measured ~8-10% of
+   run time -- it recompiled the same pattern on every task-command probe, every
+   turn -- yet a pattern always yields the same regex and ref names.  Compile
+   each once and reuse.  Invalidated alongside cached_dirs_re when the direction
+   table changes, since a %direction% group embeds directions_re() output. */
+struct a5_compiled_pattern
+{
+  bool ok = false;
+  std::regex re;
+  std::vector<std::string> refs;
+};
+static std::unordered_map<std::string, a5_compiled_pattern> cached_patterns;
+
 void
 a5parse_set_directions (const char *const *raw_by_enum)
 {
@@ -87,6 +102,7 @@ a5parse_set_directions (const char *const *raw_by_enum)
   g_dirs_init = false;
   ensure_dirs_default ();
   cached_dirs_re.clear ();
+  cached_patterns.clear ();
   if (raw_by_enum == NULL)
     return;
   for (e = 0; e < 12; e++)
@@ -134,9 +150,11 @@ a5parse_direction_name (const char *canonical)
 static std::string
 directions_re ()
 {
+  ensure_dirs_default ();
+  if (!cached_dirs_re.empty ())
+    return cached_dirs_re;
   std::string s;
   const int n = 12;
-  ensure_dirs_default ();
   for (int i = 0; i < n; i++)
     {
       for (int j = 0; j < kNumDirs; j++)
@@ -145,7 +163,8 @@ directions_re ()
       if (i != n - 1)
         s += "|";
     }
-  return s;
+  cached_dirs_re = s;
+  return cached_dirs_re;
 }
 
 /* The full lowercased direction alternation ("north|n|...|down|d"), exposed so
@@ -514,43 +533,60 @@ trim (const std::string &s)
 static int
 match_one_pattern (const std::string &pattern, const char *input, a5_match_t *m)
 {
-  std::string re_str;
-  std::vector<std::string> refs;
-
   if (m != NULL)
     m->n_refs = 0;
-  if (!convert_to_re (pattern.c_str (), re_str, refs))
+
+  /* Compile (or reuse) the regex for this pattern.  convert_to_re + the
+     std::regex ctor are the expensive part and depend only on `pattern` (plus
+     the direction table, which invalidates the cache when it changes), so both
+     the compiled regex and the ref-name list are memoized per pattern. */
+  auto it = cached_patterns.find (pattern);
+  if (it == cached_patterns.end ())
+    {
+      a5_compiled_pattern cp;
+      std::string re_str;
+      std::vector<std::string> refs;
+      if (convert_to_re (pattern.c_str (), re_str, refs))
+        {
+          try
+            {
+              cp.re = std::regex (re_str,
+                                  std::regex::ECMAScript | std::regex::icase);
+              cp.refs = std::move (refs);
+              cp.ok = true;
+            }
+          catch (const std::regex_error &)
+            {
+              cp.ok = false;
+            }
+        }
+      it = cached_patterns.emplace (pattern, std::move (cp)).first;
+    }
+  const a5_compiled_pattern &cp = it->second;
+  if (!cp.ok)
     return 0;
 
-  try
+  std::smatch mt;
+  std::string in = input ? input : "";
+  if (!std::regex_match (in, mt, cp.re))
+    return 0;
+  if (m != NULL)
     {
-      std::regex re (re_str, std::regex::ECMAScript | std::regex::icase);
-      std::smatch mt;
-      std::string in = input ? input : "";
-      if (!std::regex_match (in, mt, re))
-        return 0;
-      if (m != NULL)
+      int n = 0;
+      for (size_t g = 1; g < mt.size () && n < A5_MAX_REFS; g++)
         {
-          int n = 0;
-          for (size_t g = 1; g < mt.size () && n < A5_MAX_REFS; g++)
-            {
-              /* capture group g corresponds to refs[g-1] (refs are the only
-                 capturing groups, in order). */
-              if (g - 1 >= refs.size ())
-                break;
-              std::string val = trim (mt[g].str ());
-              snprintf (m->ref_name[n], A5_REF_NAMELEN, "%s", refs[g - 1].c_str ());
-              snprintf (m->ref_text[n], A5_REF_TEXTLEN, "%s", val.c_str ());
-              n++;
-            }
-          m->n_refs = n;
+          /* capture group g corresponds to refs[g-1] (refs are the only
+             capturing groups, in order). */
+          if (g - 1 >= cp.refs.size ())
+            break;
+          std::string val = trim (mt[g].str ());
+          snprintf (m->ref_name[n], A5_REF_NAMELEN, "%s", cp.refs[g - 1].c_str ());
+          snprintf (m->ref_text[n], A5_REF_TEXTLEN, "%s", val.c_str ());
+          n++;
         }
-      return 1;
+      m->n_refs = n;
     }
-  catch (const std::regex_error &)
-    {
-      return 0;
-    }
+  return 1;
 }
 
 /*
