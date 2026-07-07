@@ -20,6 +20,14 @@
  *                  the two runs must be byte-identical (undo fully reverts state
  *                  AND the RNG) and a second consecutive undo must fail; the
  *                  printed transcript stays identical to a plain run.
+ * A5_CKPT_SAVE=F   after the whole (prefix) script has run, a5run_save the state
+ *                  to file F.  A5_CKPT_RESTORE=F restores that blob instead of
+ *                  starting fresh (the intro/opening LOOK is skipped) and then
+ *                  feeds the given (tail) script from the checkpoint.  Since the
+ *                  save preserves the RNG byte-for-byte (see A5_SAVE_AT), this
+ *                  turns an O(n^2) "replay the whole growing script every align
+ *                  attempt" search into O(prefix) once + O(tail) per attempt --
+ *                  the speedup needed to align the weather-gated Tingalan windows.
  */
 
 #include <stdio.h>
@@ -103,13 +111,40 @@ main (int argc, char **argv)
      script line, so they are scriptable and reproducible. */
   a5text_set_popup_cb (popup_from_script, script);
 
-  /* a5run_intro now emits the centred title itself (mirroring FD's
-     Display("<c>" & Adventure.Title & "</c>") at clsUserSession init), so that
-     any System <RunImmediately> title-music task's output can join onto it via
-     pSpace -- the harness no longer prints the title separately. */
-  txt = a5run_intro (run);
-  printf ("%s\n", txt);
-  free (txt);
+  /* Checkpoint restore: load a saved blob (from a prior A5_CKPT_SAVE run) and
+     continue from there, skipping the intro.  Mirrors the A5_SAVE_AT self-check's
+     free/new/restore, but the blob comes from a file, so a fixed prefix can be
+     replayed once and many alignment tails fed cheaply. */
+  const char *ckpt_restore = getenv ("A5_CKPT_RESTORE");
+  if (ckpt_restore != NULL)
+    {
+      FILE *cf = fopen (ckpt_restore, "rb");
+      if (cf == NULL)
+        { fprintf (stderr, "a5run_dump: cannot open checkpoint %s\n", ckpt_restore);
+          a5run_free (run); a5model_free (a); return 1; }
+      fseek (cf, 0, SEEK_END);
+      long clen = ftell (cf);
+      fseek (cf, 0, SEEK_SET);
+      char *blob = (char *) malloc (clen > 0 ? (size_t) clen : 1);
+      size_t got = clen > 0 ? fread (blob, 1, (size_t) clen, cf) : 0;
+      fclose (cf);
+      if (!a5run_restore (run, blob, got))
+        { fprintf (stderr, "a5run_dump: checkpoint restore failed\n");
+          free (blob); a5run_free (run); a5model_free (a); return 1; }
+      free (blob);
+      a5run_undo_forget (run);
+      fprintf (stderr, "[checkpoint restored from %s]\n", ckpt_restore);
+    }
+  else
+    {
+      /* a5run_intro now emits the centred title itself (mirroring FD's
+         Display("<c>" & Adventure.Title & "</c>") at clsUserSession init), so that
+         any System <RunImmediately> title-music task's output can join onto it via
+         pSpace -- the harness no longer prints the title separately. */
+      txt = a5run_intro (run);
+      printf ("%s\n", txt);
+      free (txt);
+    }
 
   {
     const char *sa = getenv ("A5_SAVE_AT");
@@ -218,6 +253,25 @@ main (int argc, char **argv)
             free (blob);
             fprintf (stderr, "[restored after command %ld]\n", cmd_no);
           }
+      }
+  }
+
+  /* A5_CKPT_SAVE: after the whole (prefix) script has run, serialise the state
+     to a file so a later A5_CKPT_RESTORE run can continue from here without
+     replaying the prefix. */
+  {
+    const char *ckpt_save = getenv ("A5_CKPT_SAVE");
+    if (ckpt_save != NULL && !a5run_is_over (run))
+      {
+        size_t len = 0;
+        char *blob = a5run_save (run, &len);
+        FILE *cf = blob != NULL ? fopen (ckpt_save, "wb") : NULL;
+        if (cf == NULL || fwrite (blob, 1, len, cf) != len)
+          fprintf (stderr, "a5run_dump: checkpoint save to %s failed\n", ckpt_save);
+        else
+          fprintf (stderr, "[checkpoint saved to %s (%zu bytes)]\n", ckpt_save, len);
+        if (cf != NULL) fclose (cf);
+        free (blob);
       }
   }
 

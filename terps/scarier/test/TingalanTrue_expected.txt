@@ -1,0 +1,1884 @@
+Tingalan
+
+Your House
+You creep from your bed to the parlor of your family's country house. The woods beyond Merch are full of all imaginable terrors, and many that you cannot imagine. You have packed a few simple things in preparation for this foolish adventure.
+
+What do you bring with you into the woods? You can select five things from the list below
+
+An Axe
+A Knife
+A Rusty Sword
+A Bow
+A Musket
+A Quiver of Five Arrows
+A Horn with Five Charges of Powder
+A Box with Twelve Matches
+A Candle
+A Box of Crackers
+A Pound of Smoked Meat
+A Can of Coffee
+A Can of Coco
+A Jar of Water
+A Pair of Shears
+A Box of Fishing Gear
+An Adderstone
+A Magical Juju
+A Book of Horror Stories
+A Book of Ancient Lore
+A Book of Folk Tales
+
+You have five items left to take.
+
+> take a book of ancient lore
+
+The book is an old and crumbling thing. It has been in this house as long as you remember. You never realized its value until now.
+
+You have four items left to take.
+
+> take a book of horror stories
+
+Why take this? You are not sure, but perhaps the things in this book will scare away the things beyond the village.
+
+You have three items left to take.
+
+> take a box of crackers
+You take a box of crackers.
+
+You have two items left to take.
+
+> take a pound of smoked meat
+You take a pound of smoked meat. It will be sorely missed, but if night last as long as you've heard, you may need it.
+
+You have one items left to take.
+
+> take a jar of water
+The water in the deep wood can be as deceitful as the trees. You take a jar of good spring water from the shallow wood.
+
+You have zero items left to take.
+You leave your house, closing the door carefully so as not to disturb the ones you love within...or alert anything terrible without. You stand in the streets of Merch-by-Night.
+
+> read book of ancient lore
+This book contains a rigorous accounting of the plants found in Tingalan, and the awful secret of their motility. Your Lore has increased!  You have finished this book.  Your studies have been strangely fruitful...you think you can cast a new spell.
+
+The spell you have learned is LIGHT. This consumes a charge of gunpowder, and provides as much light as a candle.
+
+> read book of horror stories
+You read the book. One tale is a gruesome account of an innkeeper, driven mad, who plucked out the eyes of a hundred guests in a single night. You have gained a terror! You have become more courageous!  You have finished this book.
+
+> search
+
+ENCOUNTER: THE VILLAGE
+
+You have lived in this city your whole life. You know every part of it. It looks like a different place by night: Shop windows are as lonely and black as the eye-sockets on a skull. Doorframes seem taller, the doors behind them less inviting. Merch-by-Night is not Merch-by-Day. There is very little to find here, and what may hide in Merch-by-Night may be decidedly unpleasant. Still, if you wish to search the village, you can.
+
+LEAVE AT ONCE
+VISIT THE NORTHGATE DISTRICT (courage)
+VISIT THE ONLY SHOP STILL OPEN (wits)
+VISIT THE WAGON BY THE RIVER (lore)
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> visit the wagon
+
+You recall that, this time of year, there are often wagons hitched near the river. The strange folk who come and go along the forest roads often know something of the wood, and they may be willing to talk to you this night.
+
+You head west, to the clearing near the bridge.
+
+There is only one wagon, gaily painted, with strange signs carved onto the planks at odd places. It is possible they are witch-warding signs, but they do not look like any signs you have seen before.
+
+There is a candle burning somewhere in the wagon, and a figure at work in the flickering shadows. It seems to be dancing.
+
+As you attempt to circle the wagon and find a way in, the light in the wagon goes out...
+
+...and the dancer stands before you, as if by magic!
+
+He stands slightly taller than you, with a wide-brimmed hat that obscures most of his face except a very, very broad smile. His teeth are immaculate, and he seems friendly, but makes no attempt to greet you.
+
+This is clearly a spirit, one of the true lords of Tingalan. You have read about them in books. You know they can make powerful friends or terrible enemies, and regardless of their nature, it is always wise to greet them properly.
+
+...and so you do. You trace the sign of Ysonde in the air, and the spirit does as well. In the distance, an owl hoots with unnatural delight.
+
+ENCOUNTER: THE SMILING SPIRIT
+
+It speaks. Its voice is low and dark and echoes evilly among the trees. You do not think it is a friendly spirit.
+
+"But of course, few spirits in Tingalan are friendly." It says!
+
+"That is right, you share your thoughts with me. In this proximity, the contours of your mind are as familiar to me as the streets of this little town are to you."
+
+Somehow, its grin grows even wider as it explains. "You are learning that this village is a different place by night. Yes. Wonderful. I am the Smiling Spirit, charged by the Fey Lord Derzelas with monitoring trade and mortal intrigues in this little patch of transient light. Your village has some small part to play in his dark machinations. You might as well...he has tasked me to make a proposition:
+
+You leave this night hunting for treasure, most likely, but know that there are things more valuable than treasure among the trees...for the trees also guard terrible secrets. My lord would dearly like for you to learn one. He offers you this reward if you swear, on all that is holy and unholy, to return to Merch with a terrible secret."
+
+The spirit holds out its hand. By the light of the moon, you see that its hand has no fingernails. In the palm of its hand, it holds a large black pearl. This would make you quite rich, if you were able to exchange it in the markets of Merch in the morning.
+
+"A very generous offer." The spirit says. "accept it, and you swear to learn a terrible secret before sunrise. What say you, mortal?"
+
+ACCEPT
+LEAVE AT ONCE
+
+> accept
+
+You accept the spirit's offer as politely as you can.
+
+It upends its hand into yours. The black pearl is heavier than you expected. You have taken on quite a burden.
+
+"If you find my master, in one of the places where the trees howl and hollow, I am sure he would be pleased to teach you a terrible secret himself." The spirit says.
+
+It bows politely, and returns to its wagon.
+
+You have struck a dark bargain with a power beyond your comprehension. It is time to carry it out.
+
+Stowing the pearl in your back pocket, you set out to find a terrible secret among the trees.
+
+> look
+
+You are in Merch, a peaceful trading town by a river. Forests surround Merch for leagues and leagues, so far that no Man of Merch knows where the forest ends. By day, Merch is pleasant and bright, but Merch-by-Night is a different city entirely. The more mystically inclined Men of Merch say that night here lasts a hundred years. It is still night. Perhaps they are right.
+
+You can SEARCH here, but you may not like what you find.
+
+Here, and only here, the wood is safe enough to WAIT UNTIL DAWN.
+There is a fire burning here. You can read by its light. You might even be able to cook something.
+
+> east
+You move east.
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+ENCOUNTER: THE MEMORY
+
+Something here reminds you of a memory from your youth...yes...it's coming back now, over distant years. God it has been so long...
+
+REMEMBER
+TRY TO FORGET (Courage)
+
+> remember
+
+The night was bitter cold, perhaps colder than it is now.
+But you did not suffer that night...you relished the cold.
+You were perhaps seven or eight years old.
+
+Your father had prepared an iron tub, placed near the porch of your house, and heated by a pit of low coals below it...a bath of hot water, but out of doors, in the snow.
+
+You would leap out of the tub, and charge barely clothed into the snow. The cold was a shock to be sure. You screamed and shook as the snow sapped the warmth from your skin. Then, shivering, you would climb back into the tub, and feel the sweet warmth of the water flow through you. It was pure bliss, surely the best feeling in the world. You soaked, watching the stars through the steam rising from the tub. After a few moments, you leapt back into the snow once more.
+
+The night is growing colder by the hour, but you see now that warmth means nothing without cold. It is entirely possible you will freeze out here, but maybe, just maybe, you will return home at the end of this terrible night...and there will be low coals, and hot water, and joyful warmth once more. You can nearly feel it now.
+
+Your courage has increased!
+
+A light dies at the edge of your vision. You know that the watchfires of Merch have gone out. Will you ever see them again?
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> look
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> east
+You move east.
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+ENCOUNTER: THE MEMORY
+
+Something here reminds you of a memory from your youth...yes...it's coming back now, over distant years. God it has been so long...
+
+REMEMBER
+TRY TO FORGET (Courage)
+
+> remember
+The air was dry and close, as it was now. Twigs snapped underfoot, grass rustled, and against the advice of nearly everyone, you and your grandfather resolved to camp on the banks of the river near Merch.
+
+It was there, in a circle of stones and rotten logs, that you built your first fire. You pulled up rattling leaves and pine needles, twigs and branches. Your grandfather dutifully separated what would burn from what wouldn't, and taught you a thing or two about tree sap and birch bark. You built the entire fire around a single pussywillow head, which nearly went out. Your grandfather carefully tended to the failing flames, and your fire was saved.
+
+That night, you learned many stories:
+
+Your grandfather told you of the trickster Daelio, the only person in the whole of creation who sold his soul to the devil and somehow got it back.
+
+He told you the three perplexing riddles of Arktos, and their ultimate (and simple!) solution.
+
+He told you the Red Legend of Alkandar and the Green Legend of Lunakeid, and revealed that they were actually the same story told from two different perspectives.
+
+He told you the story of how the pommelstone on Aenarleoch's sword was lost, and how the great hero Lugarsphi got it back again.
+
+He told you a little, only a little, about the Night that existed beyond this world.
+
+He told you that to the night, your life was nothing special...but here, now, in this world, your life was quite special indeed.
+
+You have built many fires since then, but you swear that fire burned hotter and brighter than any you have built since. Perhaps one day you will build a fire like that again.
+
+Your wits have increased!
+Your lore has increased!
+Your studies have been strangely fruitful...you think you can cast a new spell.
+
+The spell you have learned is the SIGN OF DANTOR. This consumes a stalk of stinkhorn, and curses an enemy in combat.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> look
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> east
+You move east.
+
+You are in Tingalan, where the trees cannot be trusted.  A cobbled road runs to the West and East, curving around three trees the men of Merch did not have the courage to cut down. You think you see a low stone fence off to the East, but it could be a trick of the light.
+
+ENCOUNTER: THE MEMORY
+
+Something here reminds you of a memory from your youth...yes...it's coming back now, over distant years. God it has been so long...
+
+REMEMBER
+TRY TO FORGET (Courage)
+
+> remember
+It was a cold winter night, just like this one.
+
+You could see your breath like a vengeful ghost on the night wind. The sun had just set, and you were far from home. You, and your cousin, were willing to try almost anything to get home before the darkness took you.
+
+And so, despite the fact that the first frost had fallen only a few weeks ago, you resolved the cross the river near Merch. The river was covered by ice, but you knew it would be quite thin.
+
+Your cousin was a brilliant fellow, and taught you a few tricks as night fell: you were to carry a stout stick, and proceed slowly, using your staff as a third leg. At the first sign of creaking ice, you were to slowly drop, and spread your weight out as widely as possible.
+
+And it worked! At least at first. You nearly made it across, though the ice groaned like a primeval beast and the wind picked up and knocked mighty branches from the trees.
+
+Perhaps ten feet from the river bank, the ice gave way underfoot, much too quickly for you to react. You fell through the ice. The strange thing was: you do not remember fear. You do not even remember cold, for it set on so suddenly and so quickly that it was instantly a part of you. Color and light faded from your vision, and you figured yourself for dead, until you realized you still held your stick firmly in your hands. Holding it from the freezing water, you relied on your cousin to lift you up. Your next memory is huddling around a fire, back at the family home.
+
+You learned an important lesson that day: a little preparation can go a long way.
+You learned something else: dying might not be so bad, after all.
+
+Perhaps these lessons will help you survive another cold night in Tingalan.
+
+Your wits have increased!
+Your courage has increased!
+
+> west
+You move west.
+
+You are in Tingalan, where the trees haunt and harrow.  There is a cobbled road running to the East and West. A lonely stone mile marker stands here, but the numbers carved on its surface have long ago weathered away. Still...Merch must be close.
+
+> west
+You move west.
+
+You are in Tingalan, where the trees twist and tangle.  The cobbled road to the East of Merch is wide and well-maintained, but by night, the trees seem to reach down to the air just above your head. The gutters along the side of the road are overgrown with weeds and brambles. The road continues to the East, and back West to Merch itself.
+
+> west
+You move west.
+
+You are in Merch, a peaceful trading town by a river. Forests surround Merch for leagues and leagues, so far that no Man of Merch knows where the forest ends. By day, Merch is pleasant and bright, but Merch-by-Night is a different city entirely. The more mystically inclined Men of Merch say that night here lasts a hundred years. It is still night. Perhaps they are right.
+
+You can SEARCH here, but you may not like what you find.
+
+Here, and only here, the wood is safe enough to WAIT UNTIL DAWN.
+
+> wait until dawn
+You wait until dawn.
+ENCOUNTER: THE END
+
+Elation! Incomparable joy!
+The light! The light!
+You see the light of the sun on the Western Horizon!
+
+A feeling of dread follows shortly thereafter. There is something you have forgotten...some terrible deed left undone.
+
+From your pack, you hear a low, gentle laugh, from the pocket where you have stashed the black pearl, given to you by the smiling spirit at the beginning of your quest.
+
+No, the night is not over. There is still one thing left to do...
+
+CHEAT DERZELAS (Courage, Lore, Wits)
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> look
+
+You are in the midst of an encounter. You must take an action that resolves the encounter before continuing on your journey.
+
+> cheat derzelas
+   The terrors of the forest subside, and after a little while, the sun rises dutifully in the East, as it has every day since the world was cobbled together from the table scraps of the Elder Gods.
+
+The next day, you go to market, and tell your story. You leave most of it out. The simple men and women of Merch need not learn the awful truth of the forests around them. Like anyone who has returned from Tingalan, you tell comforting lies.
+
+There is only one thing left to do...
+
+You found 0 morels, each sells for a single silver piece
+You found 0 wriggling things, each sells for two silver pieces
+You found 0 floating eyes, each sells for three silver pieces
+You found 0 shreds of pure darkness, each sells for four silver pieces
+You found 0 ounces of red vitriol, each sells for five silver pieces
+You found 0 nightmare pelts, each sells for six silver pieces
+You found 1 black pearls, each sells for seven silver pieces
+You found 0 ounces of blue vitriol, each sells for eight silver pieces
+You found 0 priceless treasures, which in fact find a price. Each is worth 9 silver pieces
+
+And you survived, that alone is worth something. We shall say, for the purpose of this story, that your life is worth a single silver piece.
+
+Your final accounting is 8 silver pieces
+
+Well done.
+The lord of the Crepuscular Halls is a wiley spirit indeed, but you'll get the better of him, you know it!
+
+You resolve to cheat Derzelas.
+
+You draw a witch-warding sign on your head in dirt, and another on your left shoulder in ash. You walk clockwise, six times, around the nearest tree, so that the spirits that follow you are hopelessly tangled and spun about.
+
+Then, as the light grows in the East and the last of the fireflies dims its lambent fire, you turn, triumphant, toward Merch, singing a merry song as you go.
+
+Just outside of town, you gather up some water from a roadside gutter. You take care to wash the signs from your skin, and the last of the dust from the terrible forest is gone.
+
+Somehow, against all odds, you have succeeded!
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+
