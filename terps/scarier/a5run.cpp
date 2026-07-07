@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <set>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "a5arith.h"
@@ -1433,13 +1434,16 @@ grab_it (a5_run_t *run, const std::string &in)
 {
   a5_state_t *st = run->st;
   std::vector<std::string> words = split_ws (lower (in).c_str ());
+  std::unordered_set<std::string> wordset (words.begin (), words.end ());
   std::string new_it, new_them, new_him, new_her;
   std::vector<const char *> it_keys, them_keys, him_keys, her_keys;
   int scope;
 
+  /* Whole-word test against the (already lowercased) input words.  Using a
+     hash set turns this from an O(n_words) linear scan -- repeated for every
+     object name and character descriptor, twice per turn -- into O(1). */
   auto has_word = [&] (const std::string &w) {
-    for (auto &x : words) if (x == w) return 1;
-    return 0;
+    return wordset.count (w) ? 1 : 0;
   };
   auto add_uniq = [] (std::vector<const char *> &v, const char *k) {
     for (auto *e : v) if (streq (e, k)) return;
