@@ -2106,6 +2106,9 @@ static void find_arthur_globals(void) {
             }
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, entrypoint.found_at_address, 300);
+            if (start == -1) {
+                fprintf(stderr, "seen_hints_table_addr not found!\n");
+            }
         } else if (entrypoint.fn == RT_SEE_QST && entrypoint.found_at_address != 0) {
             ar.RT_SEE_QST = entrypoint.found_at_address - 1;
             entrypoint.found_at_address = 0;
@@ -2453,6 +2456,9 @@ static void find_shogun_globals(void) {
                 start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
                 if (start != -1) {
                     start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
+                    if (start == -1) {
+                        fprintf(stderr, "seen_hints_table_addr not found!\n");
+                    }
                 } else {
                     fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
                 }

@@ -657,20 +657,6 @@ static void z0_resize_status_windows(void) {
             win_maketransparent(z0_left_status_window->peer);
     }
 
-    // CURRENT_BORDER is only used for the diagnostic below, but resolve it the
-    // same way the original does: from the cached global if present, else by
-    // calling SET-BORDER. Both can be *undetected* in the pre-release revisions
-    // -- r296 does have a SET-BORDER routine and a CURRENT-BORDER global, but
-    // the release-tuned entrypoint patterns don't match them there, so zr.SET_BORDER
-    // and zg.CURRENT_BORDER stay 0. Calling pack_routine(0) then packs to a 16-bit
-    // address that unpacks to a garbage routine (0x40000 in r296 -> "too many (79)
-    // locals" abort), so guard on having a real target first.
-    int16_t CURRENT_BORDER = 0;
-    if (zg.CURRENT_BORDER != 0)
-        CURRENT_BORDER = get_global(zg.CURRENT_BORDER);
-    else if (zr.SET_BORDER != 0)
-        CURRENT_BORDER = internal_call(pack_routine(zr.SET_BORDER));
-
     int x, y, width, height;
 
     V6_STATUS_WINDOW.x = 1;
@@ -705,12 +691,6 @@ static void z0_resize_status_windows(void) {
         z0_right_status_width = (gscreenw - 2 * ggridmarginx) / gcellw;
         return;
     }
-
-//    if (z0_right_status_window == nullptr) {
-//        z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
-//        fprintf(stderr, "z0_resize_status_windows: creating a new right status window with peer %d\n", z0_right_status_window->peer);
-//        win_maketransparent(z0_right_status_window->peer);
-//    }
 
     uint16_t HERE = get_global(zg.HERE);
     int stringlength = count_characters_in_object(HERE);
