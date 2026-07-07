@@ -2058,6 +2058,15 @@ save_scarier_body (sb_t *b, a5_run_t *run)
     if (st->task_done[i])
       sb_elem (b, "TaskDone", adv->tasks[i].key);
 
+  /* Tasks that have already scored (clsTask.Scored), sparse by key.  This lives
+     in <ScarierExt> because our own restore walks only ScarierExt: the full
+     <Task><Scored> in the FD body is read solely for foreign saves
+     (restore_fd_game).  Without it a repeatable scoring task re-awards its
+     points once after restore (inflating the score). */
+  for (i = 0; i < adv->n_tasks; i++)
+    if (st->task_scored[i])
+      sb_elem (b, "TaskScored", adv->tasks[i].key);
+
   /* Property overrides. */
   for (i = 0; i < st->n_ov; i++)
     {
@@ -2650,6 +2659,12 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
           int ti = a5state_task_index (st, n->text ? n->text : "");
           if (ti >= 0)
             st->task_done[ti] = 1;
+        }
+      else if (streq (nm, "TaskScored"))
+        {
+          int ti = a5state_task_index (st, n->text ? n->text : "");
+          if (ti >= 0)
+            st->task_scored[ti] = 1;
         }
       else if (streq (nm, "PropOv"))
         {
