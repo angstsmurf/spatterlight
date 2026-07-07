@@ -739,7 +739,7 @@ scr_load_game_from_filename (scr_game game, const scr_char *filename)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
   FILE *stream;
-  scr_bool status;
+  scr_bool status = FALSE;   /* default when run_restore throws scr_fatal_error */
 
   if (if_game_error (game_, "scr_load_game_from_filename"))
     return FALSE;
@@ -757,7 +757,6 @@ scr_load_game_from_filename (scr_game game, const scr_char *filename)
       return FALSE;
     }
 
-  status = FALSE;
   try
     {
       status = run_restore (game_, if_file_read_callback, stream);

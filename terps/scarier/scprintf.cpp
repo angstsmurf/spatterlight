@@ -1467,7 +1467,6 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
           if (!modified)
             {
               buffer = string;
-              current = buffer.c_str ();
               modified = TRUE;
             }
 

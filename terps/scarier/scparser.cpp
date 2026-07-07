@@ -1959,7 +1959,6 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           if (!modified)
             {
               buffer = string;
-              current = buffer.c_str ();
               modified = TRUE;
             }
 
