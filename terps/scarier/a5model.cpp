@@ -154,7 +154,6 @@ a5_load_topics (a5_character_t *ch)
   for (c = ch->node->first_child; c != NULL; c = c->next)
     {
       a5_topic_t *t;
-      const char *s;
       if (strcmp (c->name, "Topic") != 0)
         continue;
       t = &ch->topics[i++];
@@ -181,7 +180,6 @@ a5_load_topics (a5_character_t *ch)
          explicit intro `say hello to ghost` -> subject "hello"). */
       if (t->is_command)
         t->keywords = a5_correct_command (t->keywords);
-      (void) s;
       t->conversation = a5xml_child (c, "Description");
       t->restrictions = a5xml_child (c, "Restrictions");
       t->actions = a5xml_child (c, "Actions");
@@ -395,16 +393,6 @@ a5_parse_control_text (const char *text, a5_eventctrl_t *cc)
     cc->task_key = toks[2];
 }
 
-/* EnumParseSubEventWhat: the <What> override on an event SubEvent. */
-static a5_se_what_t
-a5_parse_se_what_elem (const char *s)
-{
-  if (s != NULL && strcmp (s, "SetLook") == 0)     return A5_SE_SETLOOK;
-  if (s != NULL && strcmp (s, "ExecuteTask") == 0) return A5_SE_EXECTASK;
-  if (s != NULL && strcmp (s, "UnsetTask") == 0)   return A5_SE_UNSETTASK;
-  return A5_SE_DISPLAY;
-}
-
 static a5_sw_when_t
 a5_parse_sw_when (const char *s)
 {
@@ -447,7 +435,7 @@ a5_parse_walk (a5_walk_t *w, const char *char_key, const a5_xml_node_t *c)
 
   for (ch = c->first_child; ch != NULL; ch = ch->next)
     {
-      if (strcmp (ch->name, "Step") == 0)
+      if (strcmp (ch->name, "Step") == 0 && w->steps != NULL)
         {
           /* "Player 1" or "cl_Foo 1 To 3" -> destination key, duration range.
              The key is the first space-delimited token; parse the duration from
@@ -460,9 +448,9 @@ a5_parse_walk (a5_walk_t *w, const char *char_key, const a5_xml_node_t *c)
           if (sp != NULL) *sp = '\0';
           st->location = t;
         }
-      else if (strcmp (ch->name, "Control") == 0)
+      else if (strcmp (ch->name, "Control") == 0 && w->controls != NULL)
         a5_parse_control_text (ch->text, &w->controls[ki++]);
-      else if (strcmp (ch->name, "Activity") == 0)
+      else if (strcmp (ch->name, "Activity") == 0 && w->subwalks != NULL)
         {
           a5_subwalk_t *sw = &w->subwalks[si++];
           const char *when = a5xml_child_text (ch, "When");
@@ -551,9 +539,9 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
 
   for (ch = c->first_child; ch != NULL; ch = ch->next)
     {
-      if (strcmp (ch->name, "Control") == 0)
+      if (strcmp (ch->name, "Control") == 0 && e->controls != NULL)
         a5_parse_control_text (ch->text, &e->controls[ki++]);
-      else if (strcmp (ch->name, "SubEvent") == 0)
+      else if (strcmp (ch->name, "SubEvent") == 0 && e->subevents != NULL)
         {
           a5_subevent_t *se = &e->subevents[si++];
           const char *when = a5xml_child_text (ch, "When");
@@ -584,7 +572,7 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
              DisplayMessage/SetLook the location/group gate is <OnlyApplyAt>
              (FileIO.vb:1722-1723: se.eWhat / se.sKey). */
           if (what_elem != NULL)
-            se->what = a5_parse_se_what_elem (what_elem);
+            se->what = a5_parse_se_what (what_elem);   /* EnumParseSubEventWhat */
           if (only != NULL)
             se->key = only;
         }
@@ -862,6 +850,23 @@ index_family (std::unordered_map<std::string, int> &m, const char *const *keys,
     }
 }
 
+/* First-match linear scan over a key-bearing record array, mirroring
+   index_family's stride addressing.  Used only for hand-assembled models
+   (unit-test fixtures) that carry no key_index. */
+static int
+linear_scan (const char *const *keys, size_t stride, int n, const char *key)
+{
+  int i;
+  for (i = 0; i < n; i++)
+    {
+      const char *k = *(const char *const *)
+        ((const char *) keys + (size_t) i * stride);
+      if (k != NULL && strcmp (k, key) == 0)
+        return i;
+    }
+  return -1;
+}
+
 static void
 a5model_build_key_index (a5_adventure_t *a)
 {
@@ -888,35 +893,26 @@ a5model_key_index (const a5_adventure_t *a, int kind, const char *key)
     return -1;
   if (ix == NULL)
     {
-      /* hand-assembled model (unit-test fixtures): keep the linear scan */
-      int i;
+      /* hand-assembled model (unit-test fixtures): fall back to a linear scan.
+         The &arr[0].key form is UB on an absent (NULL) family, hence the
+         guards. */
       switch (kind)
         {
         case 'O':
-          for (i = 0; i < a->n_objects; i++)
-            if (a->objects[i].key && strcmp (a->objects[i].key, key) == 0)
-              return i;
-          return -1;
+          return a->objects ? linear_scan (&a->objects[0].key,
+                                           sizeof a->objects[0], a->n_objects, key) : -1;
         case 'L':
-          for (i = 0; i < a->n_locations; i++)
-            if (a->locations[i].key && strcmp (a->locations[i].key, key) == 0)
-              return i;
-          return -1;
+          return a->locations ? linear_scan (&a->locations[0].key,
+                                             sizeof a->locations[0], a->n_locations, key) : -1;
         case 'C':
-          for (i = 0; i < a->n_characters; i++)
-            if (a->characters[i].key && strcmp (a->characters[i].key, key) == 0)
-              return i;
-          return -1;
+          return a->characters ? linear_scan (&a->characters[0].key,
+                                              sizeof a->characters[0], a->n_characters, key) : -1;
         case 'T':
-          for (i = 0; i < a->n_tasks; i++)
-            if (a->tasks[i].key && strcmp (a->tasks[i].key, key) == 0)
-              return i;
-          return -1;
+          return a->tasks ? linear_scan (&a->tasks[0].key,
+                                         sizeof a->tasks[0], a->n_tasks, key) : -1;
         case 'V':
-          for (i = 0; i < a->n_variables; i++)
-            if (a->variables[i].key && strcmp (a->variables[i].key, key) == 0)
-              return i;
-          return -1;
+          return a->variables ? linear_scan (&a->variables[0].key,
+                                             sizeof a->variables[0], a->n_variables, key) : -1;
         }
       return -1;
     }

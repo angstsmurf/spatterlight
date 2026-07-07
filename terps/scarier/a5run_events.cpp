@@ -234,7 +234,6 @@ static void
 ev_control (a5_run_t *run, int ei, int cmd, const char *task_key, sb_t *out)
 {
   a5_event_rt &rt = (*run->events)[ei];
-  int force = (cmd == A5_CMD_START) ? 0 : 0;  /* control triggers never force */
   if (run->events_running)
     {
       switch (cmd)
@@ -247,7 +246,6 @@ ev_control (a5_run_t *run, int ei, int cmd, const char *task_key, sb_t *out)
     }
   else
     rt.next_command = cmd;
-  (void) force;
   rt.triggering_task = task_key ? task_key : "";
 }
 

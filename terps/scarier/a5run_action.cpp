@@ -814,6 +814,28 @@ resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
   resp_insert (rm, e, -1);
 }
 
+/* Rebind %objects%/ReferencedObjects to KEYS (skipping unknown keys, capped at
+   A5_MAX_ITEMS).  Shared by the three resp_flush re-render sites that render a
+   merged completion or fail over a plural %objects% set. */
+static void
+rebind_objects (a5_state_t *st, const std::vector<std::string> &keys)
+{
+  std::string pipe;
+  st->n_ref_items = 0;
+  st->ref_items_type = 'o';
+  for (auto &k : keys)
+    {
+      const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+      if (o == NULL) continue;
+      if (st->n_ref_items < A5_MAX_ITEMS)
+        st->ref_items[st->n_ref_items++] = o->key;
+      if (!pipe.empty ()) pipe += "|";
+      pipe += o->key;
+    }
+  bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
+  a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+}
+
 /* Flush the map to `out`: pass responses first in insertion order (aggregate
    entries re-rendered over their merged %objects% set), then any fail response
    whose item was not covered by a pass (clsUserSession.vb:804-855). */
@@ -897,20 +919,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
                keeps the restored snapshot's singular binding untouched. */
             if (!e.obj_keys.empty ())
               {
-                std::string pipe;
-                st->n_ref_items = 0;
-                st->ref_items_type = 'o';
-                for (auto &k : e.obj_keys)
-                  {
-                    const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-                    if (o == NULL) continue;
-                    if (st->n_ref_items < A5_MAX_ITEMS)
-                      st->ref_items[st->n_ref_items++] = o->key;
-                    if (!pipe.empty ()) pipe += "|";
-                    pipe += o->key;
-                  }
-                bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
-                a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+                rebind_objects (st, e.obj_keys);
                 if (!e.obj2.empty ())
                   bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
               }
@@ -930,20 +939,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
                and the silver ginks." blanked by cl_YouAreNotC1.  A single-item
                fail (obj_keys.size()==1) keeps its eager render below, byte-exact. */
             if (e.has_snap) ref_snap_restore (st, &e.snap);
-            std::string pipe;
-            st->n_ref_items = 0;
-            st->ref_items_type = 'o';
-            for (auto &k : e.obj_keys)
-              {
-                const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-                if (o == NULL) continue;
-                if (st->n_ref_items < A5_MAX_ITEMS)
-                  st->ref_items[st->n_ref_items++] = o->key;
-                if (!pipe.empty ()) pipe += "|";
-                pipe += o->key;
-              }
-            bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
-            a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+            rebind_objects (st, e.obj_keys);
             char *m = a5text_describe (st, e.fail_comp);
             if (m != NULL) text = m;
             free (m);
@@ -975,20 +971,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
     {
       if (lo_multi)
         {
-          std::string pipe;
-          st->n_ref_items = 0;
-          st->ref_items_type = 'o';
-          for (auto &k : lo_keys)
-            {
-              const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-              if (o == NULL) continue;
-              if (st->n_ref_items < A5_MAX_ITEMS)
-                st->ref_items[st->n_ref_items++] = o->key;
-              if (!pipe.empty ()) pipe += "|";
-              pipe += o->key;
-            }
-          bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
-          a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
+          rebind_objects (st, lo_keys);
           if (!lo_obj2.empty ())
             bind_reference (st, "object2", lo_obj2.c_str (), lo_obj2.c_str ());
         }
@@ -1834,7 +1817,7 @@ find_conv_node (a5_run_t *run, const a5_character_t *ch, int conv_type,
   if (t >= A5_CONV_COMMAND)  { b_command  = 1; t -= A5_CONV_COMMAND; }
   if (t >= A5_CONV_TELL)     { b_tell     = 1; t -= A5_CONV_TELL; }
   if (t >= A5_CONV_ASK)      { b_ask      = 1; t -= A5_CONV_ASK; }
-  if (t >= A5_CONV_GREET)    { b_intro    = 1; t -= A5_CONV_GREET; }
+  if (t >= A5_CONV_GREET)    b_intro    = 1;   /* last bit: no further t use */
 
   for (i = 0; i < ch->n_topics; i++)
     {

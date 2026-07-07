@@ -41,7 +41,7 @@ collect_words (const char *article, const char *prefix,
     allowed.push_back (lower (article));
   for (auto &w : split_ws (prefix))
     allowed.push_back (lower (w));
-  for (int i = 0; i < n_names; i++)
+  for (int i = 0; names != NULL && i < n_names; i++)
     for (auto &w : split_ws (names[i]))
       { allowed.push_back (lower (w)); nouns.push_back (lower (w)); }
 }
@@ -506,6 +506,19 @@ char_seen_p (a5_state_t *st, const char *key)
   return i >= 0 && st->char_seen != NULL && st->char_seen[i];
 }
 
+/* Is at least one candidate key currently visible?  Gates the "Which X?" prompt
+   vs "You can't see any <plural>!" (DisplayAmbiguityQuestion bCanSeeAny). */
+static int
+any_candidate_visible (a5_state_t *st, const std::vector<std::string> &keys,
+                       char type)
+{
+  for (auto &k : keys)
+    if (type == 'o' ? obj_visible (st, k.c_str ())
+                    : char_visible (st, k.c_str ()))
+      return 1;
+  return 0;
+}
+
 /* -------------------------------------------- multiple-object references */
 
 static std::string
@@ -822,9 +835,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
     for (auto &item : cur)
       if (item.size () > 1)
         {
-          int any_vis = 0;
-          for (auto &k : item)
-            if (obj_visible (st, k.c_str ())) { any_vis = 1; break; }
+          int any_vis = any_candidate_visible (st, item, 'o');
           if (amb != NULL)
             { amb->ref_name = "objects"; amb->type = 'o';
               amb->ref_text = text; amb->keys = item;
@@ -1230,11 +1241,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       for (auto &r : refs)
         if (r.keys.size () > 1)
           {
-            int any_vis = 0;
-            for (auto &k : r.keys)
-              if (r.type == 'o' ? obj_visible (st, k.c_str ())
-                                : char_visible (st, k.c_str ()))
-                { any_vis = 1; break; }
+            int any_vis = any_candidate_visible (st, r.keys, r.type);
             if (amb != NULL)
               { amb->ref_name = r.name; amb->type = r.type;
                 amb->ref_text = r.text; amb->keys = r.keys;
@@ -1255,11 +1262,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
   for (auto &r : refs)
     if (r.keys.size () > 1)
       {
-        int any_vis = 0;
-        for (auto &k : r.keys)
-          if (r.type == 'o' ? obj_visible (st, k.c_str ())
-                            : char_visible (st, k.c_str ()))
-            { any_vis = 1; break; }
+        int any_vis = any_candidate_visible (st, r.keys, r.type);
         if (amb != NULL)
           { amb->ref_name = r.name; amb->type = r.type;
             amb->ref_text = r.text; amb->keys = r.keys;

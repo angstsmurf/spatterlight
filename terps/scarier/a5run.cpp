@@ -1061,7 +1061,7 @@ a5run_intro (a5_run_t *run)
   sb_resolve_cls (&out, cf); cf = out.len;   /* commit: room view (vb:229) */
   /* Start the Immediately events (clsUserSession init loop, after intro). */
   ev_init (run, &out);
-  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: start-of-game events */
+  sb_resolve_cls (&out, cf);                 /* commit: start-of-game events */
   update_seen (run->st);
   return finish_turn (run, &out);
 }
@@ -1602,6 +1602,26 @@ resolve_synonyms (a5_run_t *run, std::string &in)
     }
 }
 
+/* Remember the pending ambiguity on `run`, emit its "Which ...?" prompt, and
+   finish the turn.  Shared by the first-pass and second-chance ambiguity arms
+   of a5run_input, which set up identical state before re-prompting. */
+static char *
+remember_amb_and_prompt (a5_run_t *run, a5_state_t *st, const std::string &in,
+                         const amb_info &amb, int amb_ti, int amb_ci, sb_t *out)
+{
+  run->amb_active = 1;
+  run->amb_task_index = amb_ti;
+  run->amb_command_index = amb_ci;
+  run->amb_input = in;
+  run->amb_ref_name = amb.ref_name;
+  run->amb_ref_type = amb.type;
+  run->amb_word = amb_word (st, amb.keys, amb.ref_text, amb.type);
+  run->amb_keys = amb.keys;
+  sb_puts (out,
+           build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
+  return finish_turn (run, out);
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
@@ -1804,17 +1824,7 @@ a5run_input (a5_run_t *run, const char *line)
          cantsee above, a first-pass ambiguity preempts the second-chance
          sNoRefTask below (FD enters the exist pass only when sAmbTask Is
          Nothing). */
-      run->amb_active = 1;
-      run->amb_task_index = amb_ti;
-      run->amb_command_index = amb_ci;
-      run->amb_input = in;
-      run->amb_ref_name = amb.ref_name;
-      run->amb_ref_type = amb.type;
-      run->amb_word = amb_word (st, amb.keys, amb.ref_text, amb.type);
-      run->amb_keys = amb.keys;
-      sb_puts (&out,
-               build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
-      return finish_turn (run, &out);
+      return remember_amb_and_prompt (run, st, in, amb, amb_ti, amb_ci, &out);
     }
 
   if (have_noref && run_noref (run, noref_ti, noref_ci, in, &out))
@@ -1844,17 +1854,7 @@ a5run_input (a5_run_t *run, const char *line)
           emit_cantsee (st, &amb, &out);
           return finish_turn (run, &out);
         }
-      run->amb_active = 1;
-      run->amb_task_index = amb_ti;
-      run->amb_command_index = amb_ci;
-      run->amb_input = in;
-      run->amb_ref_name = amb.ref_name;
-      run->amb_ref_type = amb.type;
-      run->amb_word = amb_word (st, amb.keys, amb.ref_text, amb.type);
-      run->amb_keys = amb.keys;
-      sb_puts (&out,
-               build_amb_prompt (st, run->amb_word, amb.keys, amb.type).c_str ());
-      return finish_turn (run, &out);
+      return remember_amb_and_prompt (run, st, in, amb, amb_ti, amb_ci, &out);
     }
 
   if (run->amb_active)

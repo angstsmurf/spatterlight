@@ -720,7 +720,7 @@ const char *
 a5state_player_location (const a5_state_t *st)
 {
   int pi = a5state_character_index (st, a5state_player_key (st));
-  if (pi < 0)
+  if (pi < 0 || st->char_loc == NULL)
     return NULL;
   return st->char_loc[pi];
 }

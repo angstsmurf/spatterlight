@@ -58,6 +58,22 @@ sb_puts (sb_t *b, const char *s)
   b->p[b->len] = '\0';
 }
 
+/* Append the n-byte span [s, s+n) verbatim (a length-delimited sb_puts).  The
+   explicit NULL guard after sb_need covers the realloc-failure (OOM) path, which
+   the sb.p + sb.len arithmetic would otherwise dereference. */
+static void
+sb_putn (sb_t *b, const char *s, size_t n)
+{
+  if (n == 0)
+    return;
+  sb_need (b, n);
+  if (b->p == NULL)
+    return;
+  memcpy (b->p + b->len, s, n);
+  b->len += n;
+  b->p[b->len] = '\0';
+}
+
 static char *
 sb_finish (sb_t *b)
 {
@@ -1729,10 +1745,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
               else
                 {
                   /* leave the original token verbatim */
-                  sb_need (&sb, (size_t) (q - p));
-                  memcpy (sb.p + sb.len, p, (size_t) (q - p));
-                  sb.len += (size_t) (q - p);
-                  sb.p[sb.len] = '\0';
+                  sb_putn (&sb, p, (size_t) (q - p));
                 }
               p = q;
               continue;
@@ -1767,10 +1780,7 @@ str_replace_all (const char *src, const char *find, const char *repl)
           sb_puts (&sb, p);
           break;
         }
-      sb_need (&sb, (size_t) (hit - p));
-      memcpy (sb.p + sb.len, p, (size_t) (hit - p));
-      sb.len += (size_t) (hit - p);
-      sb.p[sb.len] = '\0';
+      sb_putn (&sb, p, (size_t) (hit - p));
       sb_puts (&sb, repl);
       p = hit + flen;
     }
@@ -2067,10 +2077,7 @@ expr_substitute (a5_state_t *st, const char *src)
                     sb_quote_val (&sb, val, in_quote); free (val); p = q + 1; continue; }
               }
               /* unresolved: leave the %name% token verbatim */
-              sb_need (&sb, (size_t) (q + 1 - p));
-              memcpy (sb.p + sb.len, p, (size_t) (q + 1 - p));
-              sb.len += (size_t) (q + 1 - p);
-              sb.p[sb.len] = '\0';
+              sb_putn (&sb, p, (size_t) (q + 1 - p));
               p = q + 1;
               continue;
             }
@@ -2092,10 +2099,7 @@ expr_substitute (a5_state_t *st, const char *src)
                     { pron_capture (st, (long) sb.len);
                       sb_quote_val (&sb, val, in_quote); free (val); p = a + 2; continue; }
                   /* unresolved: leave verbatim */
-                  sb_need (&sb, (size_t) (a + 2 - p));
-                  memcpy (sb.p + sb.len, p, (size_t) (a + 2 - p));
-                  sb.len += (size_t) (a + 2 - p);
-                  sb.p[sb.len] = '\0';
+                  sb_putn (&sb, p, (size_t) (a + 2 - p));
                   p = a + 2;
                   continue;
                 }
@@ -2586,10 +2590,7 @@ str_replace_unapplied (const char *src, const char *find, const char *repl)
               && strncmp (p - k, repl, rlen) == 0)
             {
               /* already applied: keep the old text verbatim */
-              sb_need (&sb, flen);
-              memcpy (sb.p + sb.len, p, flen);
-              sb.len += flen;
-              sb.p[sb.len] = '\0';
+              sb_putn (&sb, p, flen);
             }
           else
             sb_puts (&sb, repl);
