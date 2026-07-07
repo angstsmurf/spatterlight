@@ -160,7 +160,14 @@
 
 @end
 
-@implementation ImageHandler
+@implementation ImageHandler {
+    // Signals when the initial background caching of Blorb images (kicked off by
+    // cacheImagesFromBlorbURL:) has finished. Main-thread readers wait on this
+    // before touching _resources/_imageDescriptions so they never race the
+    // caching queue. A group that was never entered returns from wait
+    // immediately, so the decoded-from-autosave case needs no special handling.
+    dispatch_group_t _cacheGroup;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -170,6 +177,7 @@
         _lastimageresno = -1;
         _imageCache = [NSCache new];
         _imageDescriptions = [NSMutableDictionary new];
+        _cacheGroup = dispatch_group_create();
     }
     return self;
 }
@@ -188,6 +196,7 @@
             res.imageFile = _files[res.filename];
         }
     _lastimageresno = [decoder decodeIntForKey:@"lastimageresno"];
+    _cacheGroup = dispatch_group_create();
     }
     return self;
 }
@@ -233,7 +242,20 @@
     }
 }
 
+// Parse and cache the game's images off the main thread. Blorb parsing plus the
+// per-picture data extraction is proportional to the number and size of images
+// in the game file and used to block the launch critical path. It now runs on a
+// background queue while the window is laid out and the interpreter boots; the
+// group lets image-request handlers wait for it if a request somehow beats it.
 - (void)cacheImagesFromBlorbURL:(NSURL *)file withData:(NSData *)blorbData {
+    dispatch_group_enter(_cacheGroup);
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [self performCacheImagesFromBlorbURL:file withData:blorbData];
+        dispatch_group_leave(self->_cacheGroup);
+    });
+}
+
+- (void)performCacheImagesFromBlorbURL:(NSURL *)file withData:(NSData *)blorbData {
     if (![Blorb isBlorbURL:file]) {
         NSString *newPath = [[file.path stringByDeletingPathExtension] stringByAppendingPathExtension:@"blb"];
         file = [NSURL fileURLWithPath:newPath isDirectory:NO];
@@ -250,9 +272,18 @@
     }
 }
 
+// Block until the background caching started by cacheImagesFromBlorbURL: has
+// finished, so callers on the main thread see a fully populated _resources and
+// never mutate it concurrently with the caching queue. Returns immediately once
+// caching is done (or was never started, as after autosave restore).
+- (void)waitForCaching {
+    dispatch_group_wait(_cacheGroup, DISPATCH_TIME_FOREVER);
+}
+
 #pragma mark Glk request calls from GlkController
 
 - (BOOL)handleFindImageNumber:(NSInteger)resno {
+    [self waitForCaching];
     BOOL result = [self imageIsLoaded:resno];
 
     if (!result) {
@@ -271,6 +302,7 @@
                        offset:(NSUInteger)offset
                        size:(NSUInteger)size {
 
+    [self waitForCaching];
     if ([self imageIsLoaded:resno])
         return;
 
@@ -328,6 +360,8 @@
 - (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)replacementPath size:(NSUInteger)replacementSize {
     if (resno < 0)
         return;
+
+    [self waitForCaching];
 
     [_imageCache removeObjectForKey:@(resno)];
     ImageResource *resource = _resources[@(resno)];
