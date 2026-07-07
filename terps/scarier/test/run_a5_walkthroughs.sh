@@ -37,6 +37,8 @@
 #
 # Env: FD_ROOT (default ~/frankendrift), FD_SEED (default 1234) -- see
 #      a5_groundtruth.sh.  XOSHIRO=0 skips the (dotnet-heavy) xoshiro pass.
+#      SAVERESTORE=0 skips the per-game save/restore self-check (a5run_dump
+#      only; on by default, adds one extra replay per game).
 
 set -u
 HERE=$(cd "$(dirname "$0")/.." && pwd)
@@ -829,6 +831,14 @@ EOF
 # Set XOSHIRO=0 to skip the (dotnet-heavy) xoshiro pass and check vanilla only.
 RUN_XOSHIRO="${XOSHIRO:-1}"
 
+# Save/restore self-check (a5run_dump only, no dotnet): SAVERESTORE=0 skips it.
+# Replays each game a second time with A5_SAVE_AT set to the script midpoint,
+# which makes a5run_dump serialize the full state, free the run, rebuild it from
+# the blob, and continue -- the transcript must stay byte-identical.  A mismatch
+# is a FAIL: it means the save format dropped some state (how the task_scored
+# score-inflation bug in TheFortressOfFear was caught).
+RUN_SAVERESTORE="${SAVERESTORE:-1}"
+
 # Hunk count for one (game, script) under a given RNG mode.  $3="" = vanilla,
 # $3="xoshiro" = aligned stream.  Diff hunk headers look like 12c12 / 5a6 / 10,14d9.
 count_hunks() {  # $1=gamefile $2=script $3=rngmode
@@ -854,6 +864,7 @@ trap 'rm -rf "$WORKDIR"' EXIT
 run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     local idx name game vbudget xbudget script gf golden stxt row
     local got want vout xout hv hx vv xv vtag xtag vcell xcell status
+    local srfail srcell ncmd mid srtxt
     idx=$1 name=$2 game=$3 vbudget=$4 xbudget=$5
     row="$WORKDIR/$idx.row"
     script="$HERE/test/${name}_walkthrough.txt"
@@ -881,6 +892,21 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
         printf "%-24s %-9s %s\n" "$name" "BLESSED" "$golden" > "$row"
         return
     fi
+
+    # --- save/restore self-check (a5run_dump only; SAVERESTORE=0 skips) -------
+    # Save+restore the full state at the script midpoint; the transcript must
+    # stay byte-identical to the plain replay ($stxt), or the save format lost
+    # state.  A mismatch is folded into STATUS=FAIL below.
+    srfail=0; srcell="(skipped)"
+    if [ "$RUN_SAVERESTORE" = 1 ]; then
+        ncmd=$(grep -c . "$script")
+        mid=$(( ncmd / 2 )); [ "$mid" -lt 1 ] && mid=1
+        srtxt="$WORKDIR/$idx.sr"
+        A5_SAVE_AT="$mid" "$A5RUN" "$gf" "$script" 2>/dev/null > "$srtxt" || true
+        if diff -q "$stxt" "$srtxt" >/dev/null 2>&1; then srcell="OK"; else srcell="DIFF"; srfail=1; fi
+        rm -f "$srtxt"
+    fi
+
     if [ -f "$golden" ]; then
         got=$(sed 's/[[:space:]]*$//' "$stxt" | cat -s)
         # Compare content only: both sides are captured via $(...), which strips
@@ -914,7 +940,7 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     rm -f "$stxt"
 
     # --- combined status -----------------------------------------------------
-    if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ]; then
+    if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ] || [ "$srfail" = 1 ]; then
         status=FAIL; echo "$name" > "$WORKDIR/$idx.reg"
     elif [ "$vtag" = better ] || [ "$xtag" = better ]; then
         status=OKbetter
@@ -923,7 +949,7 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     else
         status=DIVERGE
     fi
-    printf "%-24s %-9s %-12s %-12s\n" "$name" "$status" "$vcell" "$xcell" > "$row"
+    printf "%-24s %-9s %-12s %-12s %-11s\n" "$name" "$status" "$vcell" "$xcell" "$srcell" > "$row"
 }
 
 if [ ! -x "$A5RUN" ]; then
@@ -931,8 +957,8 @@ if [ ! -x "$A5RUN" ]; then
     exit 1
 fi
 
-printf "%-24s %-9s %-12s %-12s\n" "GAME" "STATUS" "vanilla" "xoshiro"
-printf "%-24s %-9s %-12s %-12s\n" "----" "------" "-------" "-------"
+printf "%-24s %-9s %-12s %-12s %-11s\n" "GAME" "STATUS" "vanilla" "xoshiro" "saverestore"
+printf "%-24s %-9s %-12s %-12s %-11s\n" "----" "------" "-------" "-------" "-----------"
 
 # Fan the games out $JOBS at a time (simple batch throttle), then print the
 # collected rows in MAP order.  The pipeline's subshell owns the jobs, so the
@@ -956,8 +982,10 @@ done
 echo
 echo "MATCH = 0 in both modes; DIVERGE = at baseline (see"
 echo "test/A5_WALKTHROUGH_FINDINGS.md); OKbetter = below baseline in some mode"
-echo "(re-bless the MAP); FAIL = exceeded a budget (regression).  vanilla = FD's"
-echo "stock System.Random; xoshiro = FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips)."
+echo "(re-bless the MAP); FAIL = exceeded a budget OR the save/restore self-check"
+echo "diverged (regression).  vanilla = FD's stock System.Random; xoshiro ="
+echo "FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips).  saverestore = mid-script"
+echo "A5_SAVE_AT round-trip must be byte-identical (SAVERESTORE=0 skips)."
 
 # Non-zero exit if any game regressed in either mode (the documented contract).
 if ls "$WORKDIR"/*.reg >/dev/null 2>&1; then
