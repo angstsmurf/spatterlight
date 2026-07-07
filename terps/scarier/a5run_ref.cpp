@@ -46,22 +46,23 @@ collect_words (const char *article, const char *prefix,
       { allowed.push_back (lower (w)); nouns.push_back (lower (w)); }
 }
 
-/* The input words from index `i` onward must equal exactly one whole name. */
+/* The input words from index `i` onward must equal exactly one whole name.
+   Both `in` and each entry of `names` are pre-lowercased by name_match, so the
+   compare is a plain string equality with no per-node allocation. */
 static int
 name_match_tail (const std::vector<std::string> &in, size_t i,
-                 const char **names, int n_names)
+                 const std::vector<std::vector<std::string>> &names)
 {
-  std::vector<std::string> rest (in.begin () + i, in.end ());
-  if (rest.empty ())
+  size_t rest = in.size () - i;
+  if (rest == 0)
     return 0;
-  for (int n = 0; n < n_names; n++)
+  for (auto &nw : names)
     {
-      std::vector<std::string> nw = split_ws (names[n]);
-      if (nw.size () != rest.size ())
+      if (nw.size () != rest)
         continue;
       int eq = 1;
       for (size_t k = 0; k < nw.size (); k++)
-        if (lower (nw[k]) != lower (rest[k])) { eq = 0; break; }
+        if (nw[k] != in[i + k]) { eq = 0; break; }
       if (eq)
         return 1;
     }
@@ -77,16 +78,16 @@ name_match_tail (const std::vector<std::string> &in, size_t i,
 static int
 name_match_prefix (const std::vector<std::string> &in, size_t i,
                    const std::vector<std::string> &pfx, size_t pi,
-                   const char **names, int n_names)
+                   const std::vector<std::vector<std::string>> &names)
 {
   if (pi == pfx.size ())
-    return name_match_tail (in, i, names, n_names);
+    return name_match_tail (in, i, names);
   /* option 1: skip this prefix word. */
-  if (name_match_prefix (in, i, pfx, pi + 1, names, n_names))
+  if (name_match_prefix (in, i, pfx, pi + 1, names))
     return 1;
-  /* option 2: consume it if the next input word matches. */
-  if (i < in.size () && lower (in[i]) == lower (pfx[pi]))
-    if (name_match_prefix (in, i + 1, pfx, pi + 1, names, n_names))
+  /* option 2: consume it if the next input word matches (both pre-lowered). */
+  if (i < in.size () && in[i] == pfx[pi])
+    if (name_match_prefix (in, i + 1, pfx, pi + 1, names))
       return 1;
   return 0;
 }
@@ -104,16 +105,30 @@ name_match (const char *article, const char *prefix,
   std::vector<std::string> in = split_ws (text.c_str ());
   if (in.empty ())
     return 0;
+  /* Lowercase the input, prefix and every candidate name ONCE up front, so the
+     backtracking match (name_match_prefix/_tail) is pure string comparison --
+     the old code re-lowered both operands at every recursion node and re-split
+     each name on every tail probe. */
+  for (auto &w : in) w = lower (w);
   std::vector<std::string> pfx = split_ws (prefix);
+  for (auto &w : pfx) w = lower (w);
+  std::vector<std::vector<std::string>> names_lc;
+  names_lc.reserve ((size_t) n_names);
+  for (int n = 0; n < n_names; n++)
+    {
+      std::vector<std::string> nw = split_ws (names[n]);
+      for (auto &w : nw) w = lower (w);
+      names_lc.push_back (std::move (nw));
+    }
   /* without the optional leading article. */
-  if (name_match_prefix (in, 0, pfx, 0, names, n_names))
+  if (name_match_prefix (in, 0, pfx, 0, names_lc))
     return 1;
   /* with the optional leading article (the entity's own, or "the") consumed. */
   {
-    std::string w = lower (in[0]);
+    const std::string &w = in[0];
     std::string art = article ? lower (article) : "";
     if (w == "the" || (!art.empty () && w == art))
-      if (name_match_prefix (in, 1, pfx, 0, names, n_names))
+      if (name_match_prefix (in, 1, pfx, 0, names_lc))
         return 1;
   }
   return 0;
