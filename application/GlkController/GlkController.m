@@ -751,9 +751,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self adjustContentView];
     }
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
-    if (![self runWindowsRestorationHandler])
-        [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
+        // The cover image is drawn into the window's contentView, so the window
+        // must be on screen before we present it.
+        if (![self runWindowsRestorationHandler])
+            [self showWindow:nil];
         [self deleteAutosaveFiles];
         _gameView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
@@ -761,7 +763,13 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         _coverController = [[CoverImageHandler alloc] initWithController:self];
         [_coverController showLogoWindow];
     } else {
+        // Launch the interpreter subprocess before presenting the window so its
+        // exec/dyld cold-start overlaps with AppKit's window display and first
+        // draw. forkInterpreterTask needs no on-screen window: it sizes the
+        // arrange event from _gameView.frame, already set above.
         [self forkInterpreterTask];
+        if (![self runWindowsRestorationHandler])
+            [self showWindow:nil];
     }
 }
 
