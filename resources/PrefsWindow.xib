@@ -1080,7 +1080,7 @@
                     </connections>
                 </textField>
                 <stepper toolTip="Step down to 0 for unlimited scrollback (no trimming)." horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc3-St-ep3">
-                    <rect key="frame" x="276" y="37" width="19" height="26"/>
+                    <rect key="frame" x="276" y="36" width="19" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" increment="5000" maxValue="2000000" doubleValue="30000" id="Sc3-St-cel"/>
                     <connections>
