@@ -1122,8 +1122,20 @@ a5model_load (const char *path)
     const char *dp = getenv ("A5_DUMP_XML");
     if (dp != NULL && dp[0] != '\0')
       {
+        /* Convenience: A5_DUMP_XML is a FILE PATH.  As a shorthand, a bare
+           "1" / "y" / "-" (i.e. someone treating it like a boolean flag) is
+           mapped to a stable default path so the common "=1" mistake still
+           produces a usable dump instead of a file literally named "1". */
+        if ((dp[1] == '\0' && (dp[0] == '1' || dp[0] == 'y' || dp[0] == '-')))
+          dp = "/tmp/a5dump.xml";
         FILE *df = fopen (dp, "wb");
-        if (df != NULL) { fwrite (xml, 1, xml_len, df); fclose (df); }
+        if (df != NULL)
+          {
+            fwrite (xml, 1, xml_len, df);
+            fclose (df);
+            fprintf (stderr, "[A5_DUMP_XML] wrote %lu bytes to %s\n",
+                     (unsigned long) xml_len, dp);
+          }
       }
   }
 
