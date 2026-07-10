@@ -1,0 +1,136 @@
+in
+up
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+search
+west
+east
+west
+down
+out
+west
+west
+use half-eaten sandwich
+use samurai sword
+east
+east
+northeast
+northeast
+in
+use pub club card
+out
+northeast
+northeast
+northeast
+use iron key
+in
+south
+south
+use flashlight
+west
+southwest
+southwest
+north
+get silver ring
+south
+southwest
+down
+down
+down
+east
+south
+southeast
+east
+east
+northeast
+get golden idol
+southeast
+north
+north
+west
+southwest
+get treasure chest
+northeast
+east
+north
+north
+west
+west
+get devilish idol
+east
+southwest
+west
+southwest
+southwest
+north
+west
+northeast
+northeast
+northeast
+north
+crawl through
+southeast
+use light jacket
+southeast
+east
+east
+north
+get emerald talisman
+south
+west
+west
+northwest
+northwest
+runic doorway
+east
+east
+east
+northeast
+in
+sit down
+out
+northeast
+northeast
+northeast
+northeast
+north
+travel to skybreak
+southwest
+use cell phone
+northeast
+southeast
+use coffee
+score
+go to sleep

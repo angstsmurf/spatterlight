@@ -85,15 +85,23 @@ eval_num_value (a5_state_t *st, const char *raw)
     {
       /* RAND (min, max): inclusive random in [min, max] via the shared
          erkyrath_random (frankendrift Global.Random(iMin, iMax)).  The data
-         writes it as "RAND (1, 4)" (spaces optional). */
+         writes it as "RAND (1, 4)" (spaces optional).  A bound may itself be a
+         %variable% (LostCoastlines' item valuation writes `RAND (0, %valuator%)`);
+         FD resolves it via ReplaceFunctions before Global.Random, so substitute
+         %tokens% first -- otherwise the bound parses as 0 and the whole
+         age/decoration/aura draw collapses to a no-op RAND(0,0). */
       long lo = 0, hi = 0;
       char *end;
-      const char *p = raw + 4;
+      char *sub = (strchr (raw, '%') != NULL)
+                    ? a5text_process_noalr (st, raw) : NULL;
+      const char *rr = sub ? sub : raw;
+      const char *p = rr + 4;
       while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
       lo = strtol (p, &end, 10);
       p = end;
       while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
       hi = (*p) ? strtol (p, NULL, 10) : lo;
+      free (sub);
       return a5rand_between (lo, hi);
     }
   /* NO ALR pass here: FD evaluates action values via EvaluateExpression
@@ -170,9 +178,14 @@ a5_bare_function_call (const std::string &v, std::string &name)
   while (i < n && isspace ((unsigned char) v[i])) i++;
   size_t start = i;
   while (i < n && (isalpha ((unsigned char) v[i]) || v[i] == '_')) i++;
-  if (i == start || i >= n || v[i] != '(')
+  size_t name_end = i;
+  /* FD's tokenizer strips redundant spaces before parsing, so "RAND (a, b)"
+     (LostCoastlines writes its RAND assignments with a space) is the same call
+     as "RAND(a,b)".  Skip any gap between the identifier and its '('. */
+  while (i < n && isspace ((unsigned char) v[i])) i++;
+  if (name_end == start || i >= n || v[i] != '(')
     return false;
-  name = v.substr (start, i - start);
+  name = v.substr (start, name_end - start);
   size_t j = n;
   while (j > start && isspace ((unsigned char) v[j - 1])) j--;
   if (j == 0 || v[j - 1] != ')')
@@ -371,6 +384,68 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
      would turn "s_SkeletonKe" into "S_SkeletonKe" and break the case-sensitive
      lookup (same class of bug as the bare-key `vnl_Dial` case above). */
   return a5text_process_nocap (st, a.c_str ());
+}
+
+/* A bare `Group.<Property>` SetTasks-Execute argument is an OO reference that
+   FrankenDrift resolves (ReplaceOO -> ReplaceOOProperty, Global.vb:1597/930) to
+   the group's ordered member LIST filtered to members that carry <Property> --
+   e.g. `Objects1.StaticOrDynamic`, where the mandatory StateList property is on
+   every object, yields all 125 member keys.  FD packs those keys as the Items of
+   a single reference so AttemptToExecuteTask -> ExecuteSubTasks runs the executed
+   General task once per member, binding its reference to each key in turn (this
+   is how the world-generation creation tasks value every object/secret/story).
+
+   Fill OUT with the member keys in arlMembers order and return true when ARG is
+   such a reference; return false (OUT untouched by the caller) otherwise so the
+   argument falls back to the ordinary single-key resolution. */
+static bool
+group_prop_member_keys (a5_state_t *st, const std::string &arg,
+                        std::vector<std::string> &out)
+{
+  out.clear ();
+  size_t b = arg.find_first_not_of (" \t");
+  if (b == std::string::npos) return false;
+  size_t e = arg.find_last_not_of (" \t");
+  std::string a = arg.substr (b, e - b + 1);
+  /* A bare OO reference carries no %tokens% (those go through the text engine)
+     and is a single-level `Group.Property`. */
+  if (a.find ('%') != std::string::npos) return false;
+  size_t dot = a.find ('.');
+  if (dot == std::string::npos || dot == 0 || dot + 1 >= a.size ())
+    return false;
+  std::string grp = a.substr (0, dot);
+  std::string prop = a.substr (dot + 1);
+  if (prop.find ('.') != std::string::npos) return false;
+
+  const a5_adventure_t *adv = st->adv;
+  int gi;
+  for (gi = 0; gi < adv->n_groups; gi++)
+    if (streq (adv->groups[gi].key, grp.c_str ())) break;
+  if (gi >= adv->n_groups) return false;
+
+  const a5_propdef_t *pd = a5model_propdef (adv, prop.c_str ());
+  if (pd == NULL) return false;
+  /* A mandatory property (FD's clsProperty.Mandatory) is added to every
+     applicable item at load, so clsItem.HasProperty is always true for it --
+     StaticOrDynamic is the canonical case.  Otherwise keep only the members
+     that actually carry a value for the property. */
+  const char *mnd = pd->node ? a5xml_child_text (pd->node, "Mandatory") : NULL;
+  int mandatory = (mnd != NULL && strcmp (mnd, "0") != 0);
+
+  int n = a5state_group_count (st, grp.c_str ());
+  for (int i = 0; i < n; i++)
+    {
+      const char *mk = a5state_group_member_at (st, grp.c_str (), i);
+      if (mk == NULL) continue;
+      if (mandatory || a5state_entity_prop (st, mk, prop.c_str ()) != NULL)
+        out.push_back (mk);
+    }
+  /* FD still builds one (empty-keyed) Item for an empty resolution, so the
+     executed task runs once with an unbound reference (its BeInGroup restriction
+     then fails silently).  Preserve that single no-op run. */
+  if (out.empty ())
+    out.push_back ("");
+  return true;
 }
 
 /* Resolve a Specific's key to a concrete key (handles %Player%/references). */
@@ -1089,6 +1164,9 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
                              sb_t *out)
 {
   a5_state_t *st = run->st;
+  if (getenv ("A5_TRACE_TASK"))
+    fprintf (stderr, "TASK %-14s @draw %ld depth=%d\n",
+             parent->key ? parent->key : "?", a5rand_draw_count, depth);
   int parent_text = 1, parent_actions = 1;
   int any_child_fail_output = 0;    /* FD's bAnyChildHasOutput (vb:1053/1141) */
   std::vector<const a5_task_t *> after;
@@ -1466,6 +1544,16 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
   exec_resp_scope *prev_escope = run->exec_scope;
   run->exec_scope = &escope;
 
+  /* Deferred-completion sink for this command: an AggregateOutput completion's
+     random draw (a `<#..#>` expression or a `%var[rand]%` index) is held in the
+     run-level display_defers sink and drawn at end-of-turn Display
+     (a5run_flush_display_defers), after the command's task, the LocationTrigger
+     drain and the event tick -- matching FD's Display-time ReplaceExpressions.
+     Only armed on the single-reference (resp==NULL) path; the plural/movement map
+     re-renders aggregate completions at its own flush. */
+  std::vector<std::string> *prev_defers = run->comp_defers;
+  run->comp_defers = use_map ? prev_defers : run->display_defers;
+
   if (plural)
     {
       std::vector<const char *> items (st->ref_items,
@@ -1519,6 +1607,50 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
       resp_flush (run, &rm, out);
     }
   exec_scope_flush (run, &escope, out);
+
+  /* Deferred completion draws accumulated in run->display_defers are NOT flushed
+     here: FD holds them to the final Display loop, after the LocationTrigger
+     drain and event tick.  a5run_flush_display_defers (called from finish_turn)
+     draws + splices them then. */
+  run->comp_defers = prev_defers;
+}
+
+/* End-of-turn Display flush (FD's ReplaceALRs->ReplaceExpressions loop): draw
+   each deferred AggregateOutput-completion body in emit order (== FD htblResponses
+   order) and splice the value into its `\004<idx>\004` sentinel slot in `out`.
+   A body tagged with a leading \001 is a raw `%var[rand()]%` token re-resolved
+   through the text pipeline (drawing its index); an untagged body is a frozen
+   `<#..#>` sexpr reduced by a5_eval_sexpr (drawing its OneOf/Rand). */
+void
+a5run_flush_display_defers (a5_run_t *run, sb_t *out)
+{
+  std::vector<std::string> *sink = run->display_defers;
+  if (sink == NULL || sink->empty ())
+    return;
+  void *prev_ed = run->st->expr_defer;
+  run->st->expr_defer = NULL;                 /* no re-deferral during the draw */
+  for (size_t k = 0; k < sink->size (); k++)
+    {
+      const std::string &body = (*sink)[k];
+      char *val = (!body.empty () && body[0] == '\001')
+                    ? a5text_process_noalr (run->st, body.c_str () + 1)
+                    : a5_eval_sexpr (body.c_str ());
+      char mark[24];
+      int ml = snprintf (mark, sizeof mark, "\004%d\004", (int) k);
+      char *at = out->p != NULL ? strstr (out->p, mark) : NULL;
+      if (at != NULL)
+        {
+          size_t pos = (size_t) (at - out->p);
+          std::string tail (out->p + pos + ml, out->len - pos - (size_t) ml);
+          out->len = pos;
+          out->p[pos] = '\0';
+          sb_puts (out, val ? val : "");
+          sb_puts (out, tail.c_str ());
+        }
+      free (val);
+    }
+  run->st->expr_defer = prev_ed;
+  sink->clear ();
 }
 
 /* Flush a SetTasks-Execute response scope: emit each buffered fail message
@@ -2122,12 +2254,11 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
         }
       else if (who == "EveryoneInGroup")
         {
-          for (int g = 0; g < st->adv->n_groups; g++)
-            if (streq (st->adv->groups[g].key, whok))
-              { for (int m = 0; m < st->adv->groups[g].n_members; m++)
-                  { int ci = a5state_character_index (st, st->adv->groups[g].members[m]);
-                    if (ci >= 0) cis.push_back (ci); }
-                break; }
+          int n = a5state_group_count (st, whok);
+          for (int m = 0; m < n; m++)
+            { int ci = a5state_character_index (st,
+                          a5state_group_member_at (st, whok, m));
+              if (ci >= 0) cis.push_back (ci); }
         }
       else if (who == "EveryoneInside" || who == "EveryoneOn")
         {
@@ -2157,13 +2288,23 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       const char *group_dest = NULL;
       if (to == "ToLocationGroup" && tk.size () >= 4)
         {
+          /* Read the group's LIVE membership (FD arlMembers), not the static
+             <Member> list: procedural games (Skybreak) populate the destination
+             group at runtime via AddLocationToGroup right before the jump, so a
+             static read finds 0 members and the player lands nowhere. */
           const char *gk = act_key (st, tk[3].c_str ());
-          for (int g = 0; g < st->adv->n_groups; g++)
-            if (streq (st->adv->groups[g].key, gk)
-                && st->adv->groups[g].n_members > 0)
-              { group_dest = st->adv->groups[g].members
-                  [a5rand_between (0, st->adv->groups[g].n_members - 1)];
-                break; }
+          int n = a5state_group_count (st, gk);
+          if (n > 0)
+            {
+              const char *m = a5state_group_member_at (st, gk,
+                                                       a5rand_between (0, n - 1));
+              /* Canonicalise to the stable model location key: the gm entry is
+                 an owned copy that is freed when the group is cleared later this
+                 turn (the post-jump EverywhereInGroup sweep), so storing it in
+                 char_loc would dangle. */
+              const a5_location_t *ld = a5model_location (st->adv, m);
+              group_dest = ld ? ld->key : m;
+            }
         }
       for (size_t ix = 0; ix < cis.size (); ix++)
         {
@@ -2452,6 +2593,31 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               st->var_text[vi] = ev;
               return;
             }
+          /* A string-concatenation expression -- a `+` operator outside any
+             quoted literal, joining %functions%/%vars%/"literals" (FD's
+             SetToExpression is uniform: `+` on non-numeric operands concatenates,
+             and its bExpression ReplaceFunctions drops the quotes around each
+             substituted value).  LostCoastlines builds every generated place name
+             this way: `%names[%pointer%]%+%space%+%types[%locationtype%]%`
+             (%space% = " ") -> "cabal plain", and `"The"+%space%+...+"of"+...`.
+             The plain %ref%-substitution path below would leave the literal `+`
+             and the quote-stripped " " as `cabal+ +plain`. */
+          {
+            int in_q = 0;  char qc = 0;  int has_plus = 0;
+            for (char c : tv)
+              {
+                if (in_q) { if (c == qc) in_q = 0; }
+                else if (c == '"' || c == '\'') { in_q = 1; qc = c; }
+                else if (c == '+') { has_plus = 1; break; }
+              }
+            if (has_plus)
+              {
+                char *ev = a5text_eval_expression (st, tv.c_str ());
+                free (st->var_text[vi]);
+                st->var_text[vi] = ev;
+                return;
+              }
+          }
           if (tv.size () >= 2 && (tv[0] == '"' || tv[0] == '\'')
               && tv[tv.size () - 1] == tv[0]
               && tv.find (tv[0], 1) == tv.size () - 1)
@@ -2502,11 +2668,29 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       for (size_t i = 2; i < tk.size (); i++)
         { if (i > 2) val += " "; val += tk[i]; }
       /* clsUserSession SetProperties: an Integer/Text/StateList/ValueList
-         property value is an expression (EvaluateExpression), e.g.
-         "PCASE(%text%)" for the player's typed name.  Evaluate it when it
-         carries a %reference% (a plain key/state value has none and is stored
-         verbatim, matching FD's Nothing->raw fallback). */
-      if (val.find ('%') != std::string::npos)
+         property value is an expression run through EvaluateExpression
+         (clsUserSession.vb:2010) -- e.g. "PCASE(%text%)" for the player's typed
+         name, or "RAND (25, 50)" for a randomised item Value.  Key-typed
+         properties (Object/Character/LocationKey) and SelectionOnly are stored
+         verbatim (FD's non-evaluating branches).
+
+         FD only reaches that EvaluateExpression on the branch where the property
+         ALREADY EXISTS on the entity (`prop IsNot Nothing`); when a property is
+         being freshly ADDED, only SelectionOnly/ObjectKey are handled and an
+         Integer/Text/... value is left at its clone default -- never evaluated.
+         So gate the value-type evaluation on current presence: force it for a
+         present value-typed property (this is what draws the RNG for
+         LostCoastlines' `SetProperty <obj> Value RAND(a,b)` world-gen block),
+         and otherwise fall back to the %reference% heuristic so a bare
+         key/state value -- or a value on a not-yet-present property (Illumina) --
+         is stored raw (FD's add-branch / Nothing->raw behaviour). */
+      const a5_propdef_t *pd = a5model_propdef (st->adv, tk[1].c_str ());
+      const char *pt = pd ? pd->type : NULL;
+      int value_type = pt != NULL
+                       && (streq (pt, "Integer") || streq (pt, "Text")
+                           || streq (pt, "StateList") || streq (pt, "ValueList"));
+      int has_prop = a5state_entity_prop (st, k1, tk[1].c_str ()) != NULL;
+      if ((value_type && has_prop) || val.find ('%') != std::string::npos)
         {
           char *ev = a5text_eval_expression (st, val.c_str ());
           if (ev != NULL && ev[0] != '\0') val = ev;
@@ -2605,112 +2789,173 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                  ExecuteTask's parameter substitution (used by the stock
                  "take from others lazy" -> "take from others" re-dispatch). */
               std::string b = body ? body : "";
-              size_t lp = b.find ('(');
-              if (lp != std::string::npos && b.rfind (')') != std::string::npos)
-                {
-                  std::string argstr = b.substr (lp + 1, b.rfind (')') - lp - 1);
-                  std::vector<std::string> args;
-                  { std::string cur; for (char c : argstr)
+              std::vector<std::string> args;
+              bool have_args = false;
+              {
+                size_t lp = b.find ('(');
+                size_t rp = b.rfind (')');
+                if (lp != std::string::npos && rp != std::string::npos && rp > lp)
+                  {
+                    have_args = true;
+                    std::string argstr = b.substr (lp + 1, rp - lp - 1);
+                    std::string cur;
+                    for (char c : argstr)
                       { if (c == '|') { args.push_back (cur); cur.clear (); }
                         else cur += c; }
-                    args.push_back (cur); }
-                  std::vector<std::string> rnames = command_refs (tt);
-                  for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
-                    {
-                      /* FD's SetTasks handler (clsUserSession.vb:2188) passes a
-                         parameter that names the target task's own reference
-                         (`sParam = sRef`) STRAIGHT THROUGH -- the live
-                         clsNewReference object, items and sCommandReference
-                         intact.  So `Execute cl_TakeObject (%objects%)` keeps
-                         each item's original typed text ("all" under a bare
-                         `get all`), which is what lets the executed task's
-                         `MustNot BeExactText All` restriction fail silently per
-                         item (ThingsThatGoBumpInTheNight's take chain).  Mirror
-                         that by leaving the existing binding (key AND $text)
-                         untouched.  A computed argument (%ParentOf[..]%, a
-                         literal key) instead builds FD's UserDefinedRef, whose
-                         fresh items carry NO sCommandReference -- bind an empty
-                         typed text, not the key. */
-                      std::string an = args[i];
-                      { size_t b1 = an.find_first_not_of (" \t");
-                        size_t e1 = an.find_last_not_of (" \t");
-                        an = (b1 == std::string::npos)
-                               ? "" : an.substr (b1, e1 - b1 + 1); }
-                      if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
-                        {
-                          std::string base = an.substr (1, an.size () - 2);
-                          if (base == "object")    base = "object1";
-                          if (base == "character") base = "character1";
-                          if (base == "direction") base = "direction1";
-                          if (base == "number")    base = "number1";
-                          if (base == "text")      base = "text1";
-                          if (base == rnames[i])
-                            continue;                     /* pass the ref through */
-                        }
-                      char *val = eval_arg_to_key (st, args[i]);
-                      bind_reference (st, rnames[i].c_str (), val, "");
-                      free (val);
-                    }
-                }
-              /* AttemptToExecuteTask: gate on Completed/Repeatable and the
-                 task's own restrictions (with any refs just bound above) -- the
-                 stock list-runner tasks (e.g. the bomb cascade) execute a list
-                 of candidate tasks and rely on each one's restrictions to pick
-                 the one that fires. */
+                    args.push_back (cur);
+                  }
+              }
+              std::vector<std::string> rnames = command_refs (tt);
+
+              /* A bare `Group.<Property>` argument (e.g. `Objects1.StaticOrDynamic`)
+                 is an OO reference that FD expands to the group's member LIST and
+                 runs the executed task once per member (ExecuteSubTasks iterating
+                 the reference's items).  Detect it and iterate; a plain argument
+                 leaves giter < 0 and runs the task exactly once, as before. */
+              int giter = -1;
+              std::vector<std::string> gmembers;
+              for (size_t i = 0; i < args.size (); i++)
+                if (group_prop_member_keys (st, args[i], gmembers))
+                  { giter = (int) i; break; }
+
               int tti = a5state_task_index (st, key.c_str ());
-              if (tti >= 0 && st->task_done[tti] && !tt->repeatable)
-                return;
-              if (!a5restr_pass (st, tt->restrictions))
-                {
-                  /* FD's ExecuteTask is a full AttemptToExecuteTask: a
-                     restriction failure DISPLAYS the failing restriction's
-                     message (AttemptToExecuteSubTask, clsUserSession.vb:1246
-                     `sMessage = sRestrictionText` -> AddResponse bPass=False,
-                     deduped by text in htblResponsesFail).  a5restr_pass just
-                     left that node in st->restriction_text (NULL for a
-                     message-less failure, e.g. `MustNot BeExactText All` under
-                     a bare `get all` -- those stay silent).  TBN's dark-room
-                     `get dirt` needs the emission: cl_TakeCharac passes but
-                     both Execute'd take tasks fail on the LightSources
-                     restriction with "It is too dark to find the dirt.". */
-                  const a5_xml_node_t *fm = st->restriction_text;
-                  if (fm != NULL)
+              bool ran_any = false;
+
+              /* One execution of the target task with the references bound from
+                 the current `args` (the group member substituted into args[giter]
+                 on each pass).  Returns via early-out on a Completed/Repeatable or
+                 restriction gate -- FD's AttemptToExecuteSubTask per item. */
+              auto run_one = [&] (void) {
+                  if (have_args)
+                    for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
+                      {
+                        /* FD's SetTasks handler (clsUserSession.vb:2188) passes a
+                           parameter that names the target task's own reference
+                           (`sParam = sRef`) STRAIGHT THROUGH -- the live
+                           clsNewReference object, items and sCommandReference
+                           intact.  So `Execute cl_TakeObject (%objects%)` keeps
+                           each item's original typed text ("all" under a bare
+                           `get all`), which is what lets the executed task's
+                           `MustNot BeExactText All` restriction fail silently per
+                           item (ThingsThatGoBumpInTheNight's take chain).  Mirror
+                           that by leaving the existing binding (key AND $text)
+                           untouched.  A computed argument (%ParentOf[..]%, a
+                           literal key, or an expanded group member) instead builds
+                           FD's UserDefinedRef, whose fresh items carry NO
+                           sCommandReference -- bind an empty typed text. */
+                        std::string an = args[i];
+                        { size_t b1 = an.find_first_not_of (" \t");
+                          size_t e1 = an.find_last_not_of (" \t");
+                          an = (b1 == std::string::npos)
+                                 ? "" : an.substr (b1, e1 - b1 + 1); }
+                        if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
+                          {
+                            std::string base = an.substr (1, an.size () - 2);
+                            if (base == "object")    base = "object1";
+                            if (base == "character") base = "character1";
+                            if (base == "direction") base = "direction1";
+                            if (base == "number")    base = "number1";
+                            if (base == "text")      base = "text1";
+                            if (base == rnames[i])
+                              continue;                 /* pass the ref through */
+                          }
+                        char *val = eval_arg_to_key (st, args[i]);
+                        bind_reference (st, rnames[i].c_str (), val, "");
+                        free (val);
+                      }
+                  /* AttemptToExecuteTask: gate on Completed/Repeatable and the
+                     task's own restrictions (with any refs just bound above) --
+                     the stock list-runner tasks (e.g. the bomb cascade) execute a
+                     list of candidate tasks and rely on each one's restrictions to
+                     pick the one that fires. */
+                  if (tti >= 0 && st->task_done[tti] && !tt->repeatable)
+                    return;
+                  if (!a5restr_pass (st, tt->restrictions))
                     {
-                      char *fmsg = a5text_describe (st, fm);
-                      if (msg_has_output (fmsg))
+                      /* FD's ExecuteTask is a full AttemptToExecuteTask: a
+                         restriction failure DISPLAYS the failing restriction's
+                         message (AttemptToExecuteSubTask, clsUserSession.vb:1246
+                         `sMessage = sRestrictionText` -> AddResponse bPass=False,
+                         deduped by text in htblResponsesFail).  a5restr_pass just
+                         left that node in st->restriction_text (NULL for a
+                         message-less failure, e.g. `MustNot BeExactText All` under
+                         a bare `get all` -- those stay silent).  TBN's dark-room
+                         `get dirt` needs the emission: cl_TakeCharac passes but
+                         both Execute'd take tasks fail on the LightSources
+                         restriction with "It is too dark to find the dirt.". */
+                      const a5_xml_node_t *fm = st->restriction_text;
+                      if (fm != NULL)
                         {
-                          if (run->resp != NULL)
-                            resp_add_text (run, fmsg, false);
-                          else if (run->exec_scope != NULL)
+                          char *fmsg = a5text_describe (st, fm);
+                          if (msg_has_output (fmsg))
                             {
-                              /* Buffer for the end-of-scope flush, where FD's
-                                 pass-cancels-fail rule is applied (a pass for
-                                 the same objects can arrive before OR after
-                                 this fail); dedup by text (htblResponsesFail
-                                 keying). */
-                              if (run->exec_scope->fail_seen.insert (fmsg).second)
-                                run->exec_scope->fails.push_back
-                                  (std::make_pair (std::string (fmsg),
-                                                   current_obj_ref_keys (st)));
+                              if (run->resp != NULL)
+                                resp_add_text (run, fmsg, false);
+                              else if (run->exec_scope != NULL)
+                                {
+                                  /* Buffer for the end-of-scope flush, where FD's
+                                     pass-cancels-fail rule is applied (a pass for
+                                     the same objects can arrive before OR after
+                                     this fail); dedup by text (htblResponsesFail
+                                     keying). */
+                                  if (run->exec_scope->fail_seen.insert (fmsg).second)
+                                    run->exec_scope->fails.push_back
+                                      (std::make_pair (std::string (fmsg),
+                                                       current_obj_ref_keys (st)));
+                                }
+                              else
+                                { sb_pspace (out); sb_puts (out, fmsg); }
                             }
-                          else
-                            { sb_pspace (out); sb_puts (out, fmsg); }
+                          free (fmsg);
                         }
-                      free (fmsg);
+                      return;
                     }
-                  return;
+                  /* FD's ExecuteTask is a full AttemptToExecuteTask, so the
+                     executed task's own Specific overrides apply too -- e.g. the
+                     lazy take-from-others re-dispatch lets PutSomeDry (the "skull"
+                     override of TakeObjectsFromOthers) fire, moving Anno's
+                     gunpowder into the held skull.  The downstream cannon puzzle
+                     reads it via the now recursive BeHoldingObject. */
+                  std::vector<ref_info> refs = refs_from_bindings (st, tt);
+                  execute_task_with_overrides (run, tt, refs, 0, out);
+                  ran_any = true;
+              };
+
+              if (giter >= 0)
+                {
+                  /* Iterate the executed task once per resolved group member,
+                     substituting each member key into the group argument slot.
+                     A prior action in this same task may have already ended the
+                     game (e.g. I Summon Thee's win task runs `EndGame Win`
+                     BEFORE `Execute CheckEscap (Everything.StaticOrDynamic)`,
+                     which tallies Objects Destroyed): FD keeps iterating every
+                     member of a sub-task regardless -- game-over is only checked
+                     back in the main loop.  So break only on a game-over NEWLY
+                     triggered by a member's own execution, not one inherited
+                     from before the loop, or the tally stops after member 0. */
+                  bool was_over = st->game_over;
+                  std::string saved = args[giter];
+                  for (const std::string &mk : gmembers)
+                    {
+                      args[giter] = mk;
+                      run_one ();
+                      if (st->game_over && !was_over)
+                        break;
+                    }
+                  args[giter] = saved;
                 }
-              /* FD's ExecuteTask is a full AttemptToExecuteTask, so the executed
-                 task's own Specific overrides apply too -- e.g. the lazy
-                 take-from-others re-dispatch lets PutSomeDry (the "skull" override
-                 of TakeObjectsFromOthers) fire, moving Anno's gunpowder into the
-                 held skull.  The downstream cannon puzzle reads it via the now
-                 recursive BeHoldingObject (a5restr char_holds_object). */
-              std::vector<ref_info> refs = refs_from_bindings (st, tt);
-              execute_task_with_overrides (run, tt, refs, 0, out);
-              if (tti >= 0)
-                st->task_done[tti] = 1;
-              ev_on_task_completed (run, key.c_str (), out);
+              else
+                run_one ();
+
+              /* Mark done + fire completion controls once per AttemptToExecuteTask
+                 (FD flips task.Completed once), and only when the task actually
+                 ran -- a wholly-failing Execute leaves it uncompleted, as before. */
+              if (ran_any)
+                {
+                  if (tti >= 0)
+                    st->task_done[tti] = 1;
+                  ev_on_task_completed (run, key.c_str (), out);
+                }
             }
         }
       else if (tk[0] == "Unset" || tk[0] == "Clear")
@@ -2817,11 +3062,13 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
         }
       else if (what == "EverywhereInGroup")
         {
-          for (int g = 0; g < st->adv->n_groups; g++)
-            if (streq (st->adv->groups[g].key, k1))
-              { for (int m = 0; m < st->adv->groups[g].n_members; m++)
-                  locs.push_back (st->adv->groups[g].members[m]);
-                break; }
+          /* Live members (FD arlMembers): the group-clear that follows each
+             Skybreak jump is `RemoveLocationFromGroup EverywhereInGroup G
+             FromGroup G`, which must see the runtime-added members to empty the
+             group -- a static read leaves them and the group accretes forever. */
+          int n = a5state_group_count (st, k1);
+          for (int m = 0; m < n; m++)
+            locs.push_back (a5state_group_member_at (st, k1, m));
         }
       else if (what == "EverywhereWithProperty")
         {
@@ -3408,8 +3655,27 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
 
   if (!before && comp != NULL)
     {
-      if (run->resp != NULL) resp_add_comp (run, t, comp, true);
-      else                   emit_completion (run, comp, out);
+      if (run->resp != NULL)
+        resp_add_comp (run, t, comp, true);
+      else if (run->comp_defers != NULL && t->aggregate)
+        {
+          /* AggregateOutput completion on the eager command path: render the
+             static skeleton now (so its position and pSpace separators match),
+             but hold any random `<#..#>` draw to the end-of-command flush --
+             FD's AggregateOutput responses run ReplaceExpressions at Display,
+             after the following actions' draws.  If the message renders empty
+             (or is deduped away), roll back any recorded expressions so no
+             orphan draw fires at flush. */
+          size_t sink0 = run->comp_defers->size ();
+          size_t out0 = out->len;
+          run->st->expr_defer = run->comp_defers;
+          emit_completion (run, comp, out);
+          run->st->expr_defer = NULL;
+          if (out->len == out0)
+            run->comp_defers->resize (sink0);
+        }
+      else
+        emit_completion (run, comp, out);
     }
 }
 

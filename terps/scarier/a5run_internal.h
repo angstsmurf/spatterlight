@@ -200,6 +200,27 @@ struct a5_run_s {
      movement resp_map is active it handles fail responses itself instead. */
   struct exec_resp_scope *exec_scope;
 
+  /* Deferred-completion sink pointer for the currently running command.  On the
+     single-reference path this points at `display_defers` (below); a random draw
+     inside an AggregateOutput completion message -- either a `<#OneOf/Rand#>`
+     expression or a `%var[rand()]%` model-variable index -- is rendered as a
+     `\004<idx>\004` sentinel and its body pushed to the sink, then drawn + spliced
+     back at end-of-turn Display (a5run_flush_display_defers).  NULL on the
+     plural/movement (resp map) path and outside a command. */
+  std::vector<std::string> *comp_defers;
+
+  /* Persistent per-turn Display-deferral sink (owned; cleared each finish_turn).
+     Holds AggregateOutput-completion draws whose evaluation FD defers to the
+     final Display loop -- i.e. AFTER the command's task, the LocationTrigger
+     drain (drain_tasks_to_run) and the event tick.  Skybreak's dock: StorylineL1's
+     `After` completion ends in %DisplayLocation% (the `%flavorskybreak[rand]%`
+     draws); FD holds those to Display so the Skybreak location-trigger task's
+     `SidequestE = RAND(1,10)` draws first.  Flushing here (not at run_general's
+     end) reproduces that interleave.  Each body is either a frozen `<#..#>` sexpr
+     or, tagged with a leading \001, a raw `%var[rand()]%` token re-resolved at
+     flush. */
+  std::vector<std::string> *display_defers;
+
   /* Single-level undo: a serialised a5run_save snapshot of the state as it stood
      BEFORE the last processed turn (NULL until the first turn is snapshotted, and
      consumed on undo so a double-undo fails).  Taken by a5run_snapshot from the
@@ -277,6 +298,7 @@ std::string lower (const std::string &s);
 void ev_init          (a5_run_t *run, sb_t *out);
 void ev_tick_all      (a5_run_t *run, sb_t *out);
 void drain_tasks_to_run (a5_run_t *run, sb_t *out);
+void a5run_flush_display_defers (a5_run_t *run, sb_t *out);
 void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 
 /* a5run_ref.cpp (reference resolution + multiple-object references) */

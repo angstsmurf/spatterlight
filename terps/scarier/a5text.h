@@ -107,6 +107,22 @@ typedef void (*a5_media_cb) (void *ctx, int kind, const char *src,
 extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
 
 /*
+ * Scripted-input side channel for the %PopUpInput[prompt, default]% text
+ * function (ADRIFT's clsFunction PopUpInput -> VB InputBox).  Interactively the
+ * engine would pop a modal text box; headless, a host may instead feed the next
+ * line of the command script so naming puzzles (e.g. Six Silver Bullets' "name
+ * the agent") are scriptable and reproducible.  The callback is handed the
+ * prompt and the author's default and returns a heap-allocated answer the
+ * engine takes ownership of (frees), or NULL to fall back to the default.  With
+ * no callback installed (the default) PopUpInput evaluates to its default,
+ * matching FrankenDrift's InputBox returning the default when unattended.  The
+ * FrankenDrift.Headless frontend consumes exactly one script line per popup the
+ * same way, so ground-truth transcripts stay byte-aligned.
+ */
+typedef char *(*a5_popup_cb) (void *ctx, const char *prompt, const char *dflt);
+extern void a5text_set_popup_cb (a5_popup_cb cb, void *ctx);
+
+/*
  * The Display() ALR boundary (clsUserSession.Display -> Global.ReplaceALRs):
  * apply the game's ALR ("Text Override") substitutions + auto-capitalisation to
  * an already-assembled, already-plain turn output, then render any markup an ALR

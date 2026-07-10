@@ -196,6 +196,24 @@ num_value (a5_state_t *st, const char *k)
       hi = (*p) ? strtol (p, NULL, 10) : lo;
       return a5rand_between (lo, hi);
     }
+  /* A bare numeric restriction value is an integer LITERAL, never a variable
+     key: FD's FileIO.LoadRestrictions stores `IntValue = CInt(sElements(3))`
+     when `sElements.Length = 4 AndAlso IsNumeric(sElements(3))`, and only takes
+     the "key to a variable" branch for a NON-numeric token.  LostCoastlines has
+     a Text variable literally keyed "511", so a variable-key lookup on the RHS
+     of `Encounter Must BeEqualTo 511` wrongly read that (0-valued) variable and
+     made every `Encounter == <n>` where a variable happens to be keyed <n> pass
+     spuriously.  Test for the integer form before the variable lookup. */
+  {
+    const char *d = s;
+    if (d != NULL && (*d == '-' || *d == '+')) d++;
+    if (d != NULL && *d != '\0')
+      {
+        const char *q = d;
+        while (*q >= '0' && *q <= '9') q++;
+        if (*q == '\0') return strtol (s, NULL, 10);
+      }
+  }
   vi = a5state_variable_index (st, s);
   if (vi >= 0)
     return st->var_num[vi];

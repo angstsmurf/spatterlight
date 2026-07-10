@@ -145,19 +145,90 @@ objs_worn_by (a5_state_t *st, const char *charkey)
   return v;
 }
 
-/* Objects directly inside (in_only) or inside+on a container object. */
+/* Child-set filter for objs_children, mirroring FD's WhereChildrenEnum
+   (clsObject.Children): the `.Children(...)` / `.Contents` arg selects which of
+   an object's inside/on children to return. */
+enum { A5_CH_BOTH = 0, A5_CH_IN = 1, A5_CH_ON = 2 };
+
+/* Objects directly inside and/or on a container object, filtered by MODE.
+   FD (clsObject.Children) filters strictly: `,On` yields ONLY OnObject
+   children, `,In`/Contents ONLY InsideObject, plain/`OnAndIn` yields both --
+   so a supporter query must not pick up an object that is merely inside. */
 static std::vector<std::string>
-objs_children (a5_state_t *st, const char *objkey, int in_only)
+objs_children (a5_state_t *st, const char *objkey, int mode)
 {
   std::vector<std::string> v;
   for (int i = 0; i < st->adv->n_objects; i++)
     {
       a5_owhere_t w = st->obj[i].where;
-      int hit = (w == A5_OWHERE_IN_OBJECT)
-              || (!in_only && w == A5_OWHERE_ON_OBJECT);
+      int hit = (mode != A5_CH_ON && w == A5_OWHERE_IN_OBJECT)
+              || (mode != A5_CH_IN && w == A5_OWHERE_ON_OBJECT);
       if (hit && streq (st->obj[i].key, objkey))
         v.push_back (st->adv->objects[i].key);
     }
+  return v;
+}
+
+/* Characters directly inside and/or on an object, filtered by MODE (same
+   In/On/Both semantics as objs_children).  A character sits on/in an object via
+   char_onobj[i] (the object key) + char_in[i] (1=inside, 0=on surface). */
+static std::vector<std::string>
+chars_children (a5_state_t *st, const char *objkey, int mode)
+{
+  std::vector<std::string> v;
+  for (int i = 0; i < st->adv->n_characters; i++)
+    {
+      const char *on = st->char_onobj ? st->char_onobj[i] : NULL;
+      if (on == NULL || !streq (on, objkey))
+        continue;
+      int inside = st->char_in ? st->char_in[i] : 0;
+      int hit = (mode != A5_CH_ON && inside)
+              || (mode != A5_CH_IN && !inside);
+      if (hit)
+        v.push_back (st->adv->characters[i].key);
+    }
+  return v;
+}
+
+/* Resolve a `.Children(<args>)` / `.Contents(<args>)` reference for one container
+   object KEY into its child set, faithfully mirroring FD's ReplaceOOProperty
+   dispatch (Global.vb:826-911).  BOTH the entity type (Objects/Characters/Both)
+   AND the where (In/On/OnAndIn) come from the arg, objects are listed before
+   characters, and -- crucially -- an unrecognised combination (a bare `On`, or a
+   `Characters,On` on a container with no characters) yields the EMPTY set exactly
+   as FD's Select Case falls through.  A `.Children(Characters,In)` must therefore
+   return CHARACTERS, not the objects merely inside -- so Halloween's hole (a
+   hook Inside it, no characters) fails dk_ListFirstL1's `.Count>0` gate. */
+static std::vector<std::string>
+oo_children_set (a5_state_t *st, const char *key, const std::string &fn,
+                 const std::string &args)
+{
+  std::string a = lower (args);
+  std::vector<std::string> v;
+  if (fn == "Contents")
+    {
+      /* FD lowercases but does NOT space-strip Contents' arg; always InsideObject. */
+      bool objs = (a == "" || a == "all" || a == "objects");
+      bool chrs = (a == "" || a == "all" || a == "characters");
+      if (objs) for (auto &c : objs_children (st, key, A5_CH_IN)) v.push_back (c);
+      if (chrs) for (auto &c : chars_children (st, key, A5_CH_IN)) v.push_back (c);
+      return v;
+    }
+  std::string b;                       /* Children: space-stripped + lowercased */
+  for (char c : a) if (c != ' ') b += c;
+  int obj_mode = -1, chr_mode = -1;    /* -1 = type not included */
+  if (b == "" || b == "all" || b == "onandin" || b == "all,onandin")
+    { obj_mode = A5_CH_BOTH; chr_mode = A5_CH_BOTH; }
+  else if (b == "characters,in")                       chr_mode = A5_CH_IN;
+  else if (b == "characters,on")                       chr_mode = A5_CH_ON;
+  else if (b == "characters,onandin" || b == "characters") chr_mode = A5_CH_BOTH;
+  else if (b == "in")             { obj_mode = A5_CH_IN; chr_mode = A5_CH_IN; }
+  else if (b == "objects,in")                          obj_mode = A5_CH_IN;
+  else if (b == "objects,on")                          obj_mode = A5_CH_ON;
+  else if (b == "objects,onandin" || b == "objects")   obj_mode = A5_CH_BOTH;
+  /* else: no FD Select Case matches -> empty set. */
+  if (obj_mode >= 0) for (auto &c : objs_children (st, key, obj_mode)) v.push_back (c);
+  if (chr_mode >= 0) for (auto &c : chars_children (st, key, chr_mode)) v.push_back (c);
   return v;
 }
 
@@ -411,11 +482,13 @@ resolve_first (a5_state_t *st, const std::string &firstkeys)
       char kind = item_kind (st, parts[0].c_str ());
       if (kind == 'g')
         {
+          /* Live members (FD arlMembers) so a group expression reflects runtime
+             Add/Remove*ToGroup, not just the static <Member> list. */
+          const char *gk = parts[0].c_str ();
+          int n = a5state_group_count (st, gk);
           ctx.is_list = 1;
-          for (int i = 0; i < st->adv->n_groups; i++)
-            if (streq (st->adv->groups[i].key, parts[0].c_str ()))
-              for (int m = 0; m < st->adv->groups[i].n_members; m++)
-                ctx.keys.push_back (st->adv->groups[i].members[m]);
+          for (int m = 0; m < n; m++)
+            ctx.keys.push_back (a5state_group_member_at (st, gk, m));
           return ctx;
         }
       if (kind != 0)
@@ -504,10 +577,9 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       if (fn == "Children" || fn == "Contents")
         {
-          int in_only = (fn == "Contents") || contains (lower (args), "in");
           Ctx nc; nc.is_list = 1;
           for (auto &k : ctx.keys)
-            for (auto &c : objs_children (st, k.c_str (), in_only))
+            for (auto &c : oo_children_set (st, k.c_str (), fn, args))
               nc.keys.push_back (c);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
@@ -568,8 +640,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       if (fn == "Children" || fn == "Contents")
         {
-          int in_only = (fn == "Contents") || contains (lower (args), "in");
-          Ctx nc; nc.is_list = 1; nc.keys = objs_children (st, key.c_str (), in_only);
+          Ctx nc; nc.is_list = 1;
+          nc.keys = oo_children_set (st, key.c_str (), fn, args);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       /* a property key on the object */

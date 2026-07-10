@@ -73,8 +73,15 @@ static NSString *AGTIfidForPath(NSString *path) {
 
     NSMutableArray *select = nil;
 
-    //Don't select every game after import if we start with no games
-    if (_tableViewController.gameTableModel.count)
+    //Don't select every game after import if we start with no games.
+    //Check the whole library, not gameTableModel.count: the latter is the
+    //search-filtered view, so an active search that matches nothing would
+    //otherwise leave select nil and skip selectGamesWithHashes: entirely
+    //(which is also what clears a search bar hiding the imported game).
+    NSFetchRequest *countRequest = [NSFetchRequest fetchRequestWithEntityName:@"Game"];
+    countRequest.predicate = [NSPredicate predicateWithFormat:@"hidden == NO"];
+    NSUInteger libraryCount = [_tableViewController.managedObjectContext countForFetchRequest:countRequest error:NULL];
+    if (libraryCount != NSNotFound && libraryCount > 0)
         select = [NSMutableArray arrayWithCapacity:urls.count];
 
     BOOL reportFailure = NO;
@@ -470,7 +477,16 @@ void freeContext(void **ctx) {
         }
 
         if (blorb.metaData) {
+            // ADRIFT (5) blorbs frequently carry a placeholder
+            // <title>Untitled</title> in their embedded iFiction metadata.
+            // Don't let that clobber the filename-derived (or previously
+            // stored) title.
+            NSString *titleBeforeXML = metadata.title;
             [GameImporter importInfoFromXML:blorb.metaData intoMetadata:metadata];
+            if ([formatStr isEqualToString:@"adrift"] &&
+                [metadata.title caseInsensitiveCompare:@"Untitled"] == NSOrderedSame) {
+                metadata.title = titleBeforeXML;
+            }
             metadata.source = @(kInternal);
             metadata.lastModified = [NSDate date];
         }

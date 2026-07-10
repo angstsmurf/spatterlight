@@ -1,0 +1,1482 @@
+Skybreak
+
+...COMPUTRONICS INTERFACE ONLINE
+...RECALIBRATING CONCIOUSNESS
+...SOUL DEFRAG IN PROGRESS [%%%%%&#&%%%%%%%%%%%%%%%%%&%&%%%%##%%%%%%%%%%%%%%%%%%%%%%]
+...RUN INSPIRATIONAL_QUOTE_GENERATOR.SCRIP
+
+"Imagination is more important than knowledge." - Albert Einstein
+
+...SOUL LOAD CYCLE COMPLETE
+...THAUMANTIC SHELL SCRIPT ENGAGED
+...SHIP COMPUTRONICS WARMUP ROUTINE ACTIVATED
+...CHARGING, PLEASE WAIT ONE MOMENT
+...CHARGING, PLEASE WAIT ONE MOMENT
+...CHARGING, PLEASE WAIT ONE MOMENT
+...CHARGING, PLEASE WAIT ONE MOMENT
+...CHARGE COMPLETE
+...SPACETIME COORDINATES LOCALIZED TO {SKYBREAK SYSTEM} IN {EPOCH 6} ON STARDATE {4-119}
+...SENTIENT SHIP INTERFACE ONLINE
+...HELLO COMMANDER, PLEASE ENTER YOUR NAME
+
+[[In this cosmic adventure game, you travel from world to world, making one choice at each location. Once you've finished your time on a particular world, type "C" and then "L" to move on. This game comes with a manual, but you can also learn as you go. Take risks, try new things, later playthroughs will build on the knowledge you've gained from this one. The following commands will work after you create a character: HELP, COMMANDS, INVENTORY, OBJECTIVES, REPUTATION, TALENTS, REPORT (or "r"), STATS, CREDITS, LEGAL and BADASS MODE. The STATUS command works at any time.]]
+
+> Vela
+
+...SOUL SYNCHRONIZATION IN PROGRESS
+
+Let me be clear at the outset that this is a story.
+Whether it is true or false is immaterial: You are writing it.
+It is the story of an intelligent lifeform, and the spacecraft that loved it.
+
+You are the lifeform.
+
+I am the spacecraft.
+
+PLEASE NAME YOUR SHIP TO EFFECTUATE TRANSFER...
+
+> Halcyon
+
+SOUL SYNCHRONIZATION COMPLETE. COMMANDER IDENTIFIED AS VELA
+
+HELLO VELA I LOVE YOU.
+
+PLEASE PRESS {Z} IF YOU LOVE ME TOO.
+
+> z
+
+HALCYON CORE SYSTEMS LOADING
+...COMPUTRONICS ONLINE
+...REACTOR ONLINE
+...PHOTONICS ONLINE
+...AVIONICS ONLINE
+...OPTICS ONLINE
+
+You stand at the bridge of HALCYON. Dark matter currents wind their way around us. Photons rush through me. I am telling this story, but this story is yours. I will not talk about myself all that much. Simply know that I am watching over you. I love you. Every sensor and weapon system and computronics core on this ship is at your command.
+
+You seem confused, and excited. This galaxy is new to you. I will try my best to explain as your story continues. We could go anywhere you like, but right now, I would like to know more about you.
+
+The Beginning
+
+What species do you issue from?
+
+1) Human (+1 Acumen, +1 Subterfuge, +1 Survival)
+2) Syr (+1 Astronomy, +1 Biology, +1 Technology)
+3) Goblin (+1 Strength, +1 Mining, +1 Technology)
+4) Elfin (+1 Stealth, +1 Perception, +1 Occultism)
+5) Something Else Entirely (+2 to any one skill)
+
+> 1
+
+You are a human. Humans are something of a mystery to the mightier races of the cosmos: one day they simply appeared...and on many worlds at once. There are trillions of humans in the cosmos, and yet, strangely, each human considers itself to be special and important. You will have to do a lot to distinguish yourself.
+
+The Beginning
+
+...I believe you will need two background characteristics, something that distinguishes you from the worldbound and uninteresting souls of the cosmos. The backgrounds you pick will determine how this story ends, one way or another. Take care: not all backgrounds are compatible with one another, or every species. Each background will grant you a different way to obtain "Adventure Points," but you will have to read on to see what exactly those do...
+
+1) Earthling (+2 Adventure Points, +2 Ounces of Coffee)
+2) Skybreaker (+1 Spirit, +1 Occultism)
+3) Inquisitor (+1 Astronomy, +1 Biology)
+4) Starfarer (+1 Survival, +1 Health)
+5) Sorcerer (+1 Occultism, +1 History)
+6) Storyteller (+1 Acumen, +1 History)
+7) Scientist (+1 Biology, +1 Technology)
+8) Explorer (+1 Survival, +1 Perception)
+9) Adventurer (+1 Health, +1 Spirit)
+10) Space Cadet (+1 Pilot, +1 Gunnery)
+
+> 1
+Oh dear...you must have gotten lost. That's no good at all. Oh well, there's nothing to do but try to find our way back.
+As an Earthling, your story will end if you ever successfully locate the planet Earth (called Irth in the wider cosmos). Things will be rather difficult for you: this background offers no way to obtain adventure points, but for what it's worth, you will begin this story with two ounces of Aromablende Fine Coffee and a few extra adventure points.
+Now choose another background...
+
+> 8
+You are an explorer. Your goal is simple: to find something no one else has found, and perhaps stick a flag in it.
+
+The universe is a big place, and there is much to explore. As an explorer, you have a chance of gaining an adventure point whenever you land on a new type of planet, moon, or planetoid, becoming the first being in the galaxy to discover it. Your odds of landing on a truly unexplored planet, moon, or planetoid are greater for less common types of celestial bodies. Your story will end when you have discovered one celestial body of each type: a planetoid (found in asteroid belts), a small moon, a large moon, a rocky world, a frozen world, a sunken world, a poison world, a molten world, a garden world, and an exotic world found only in the depths of uncharted space.
+
+The Beginning
+
+Now, you will need to pick three talents, which will assist you in your story. Most talents will grant you a new way to spend adventure points.
+
+1) Battleship (+1 Gunnery)
+2) Science Vessel (+1 Astronomy)
+3) Star Skiff (+1 Piloting)
+4) Officer (+1 Acumen)
+5) Ace (+1 Piloting)
+6) Navigator (+1 Piloting)
+7) Negotiator (+1 Acumen)
+8) Lowlife (+1 Subterfuge)
+9) Genius (+1 Acumen)
+10) Tinkerer (+1 Technology)
+11) Archeologist (+1 History)
+12) Gunslinger (+1 Gunnery)
+13) Soldier (+1 Strength)
+14) Spellslinger (+1 Occultism)
+15) Jack-of-all-Trades (no bonus)
+16) Skill Specialization (+2 bonus to any one skill)
+
+> 5
+You are an ace pilot, surely one of the best in the galaxy. During hostile space battles, you will have the option to type "+", and spend an adventure point, to execute an extremely impressive deep-space combat stunt, which will dramatically increase your ship's velocity and heading.
+
+> 6
+You are a navigator, skilled at riding the dark matter currents that wind their way through creation. You possess a navigation beacon, which you can deploy by typing BEACON, and you may spend an adventure point to jump back to that beacon from any point in the universe by typing NAV.
+
+> 9
+You are a genius. No really, you're brilliant! You have a knack for solving problems. Before encounters begin, you may type "genius" and spend 1 adventure point to enhance your acumen, astronomy, biology, history, technology, perception, and subterfuge skills by a small amount (+2). This bonus will last a short time before going away. You will not be able to activate this ability once an encounter begins.
+
+The Beginning
+
+Finally, choose a skill that you are particularly good at. You will get a +2 bonus to this skill. As you explore the galaxy, you may find a few other ways to increase your skills, but for the most part, your competence will be determined by the character you have created. If you picked "Something Else Entirely" or "Skill Specialization" you will have additional picks here.
+
+1) Piloting
+2) Gunnery
+3) Strength
+4) Stealth
+5) Perception
+6) Acumen
+7) Subterfuge
+8) Astronomy
+9) Technology
+10) Biology
+11) History
+12) Survival
+13) Mining
+14) Occultism
+
+> 12
+Your survival skill has been increased by 2.
+
+Your story begins thus:
+You are a human, from Irth. This is most unusual. You are very far from home.
+
+You were minding your own business on that backwater world, likely muddling through life with no expectation of much at all except an unexciting retirement and a death in relative obscurity.
+
+You were returning with groceries, one day, when Fate intervened.
+
+Pirates from Rimfire, that shadowy gray station beyond the edge of the galaxy, came to your world for plunder. It's possible they came for you, that you are special somehow. More likely you were chosen at random.
+
+Their craft landed at an intersection. Cars skidded to a halt. Your fellow humans cried out in terror and alarm as they dropped from the landing hatch: tentacled things and many-headed monstrosities, humanoid forms clad in armor and brandishing swords.
+
+They threw you to the asphalt...
+Dragged you into their craft...
+Sealed the hatch...
+
+You believed it was a nightmare. You never woke up. You stared out the window of your tiny cell as the bleak infinities whirled around you. Stars shot past. Then void. Then the void beyond void, before you arrived at Rimfire. The journey took several days. You had no food or water.
+
+They planned to search you, no doubt, but their luck was worse than your own. Upon landing, a rival crew stormed the ship and slaughtered your captors. You did not see the fight, but you heard it: screams and wails, shrieks and dark invectives. Later, you crawled out of the hold, along slate-gray floors slick with human and alien blood, and crept through the station.
+
+...and that is where you found me.
+
+You stepped into a shadowy cantina. Music drifted over the room, soft and sinister.
+My former commander waited in an alcove, not drinking, of course, because my former commander could not drink. It was not human, but rather a writhing mass of tentacles and beaks, something from beyond the edge of the material universe. It called out to you. You answered.
+
+It warned you that, through no fault of your own, you had trespassed on one of the most dangerous locations in the spacetime continuum.
+It told you that, if you wanted to see Irth again, you would have to take the long way around.
+It cautioned you that most entities out here would not be so friendly.
+
+...and it offered to sell you this ship, me, for the bag of groceries you carried.
+
+At the time, I think, you did not realize how valuable coffee was in this galaxy. You assumed the transaction was ridiculous. Eventually, you conceded. The entity even let you keep two coffee pods. You got a pretty good deal, considering that I am one of the most advanced ships in the Cosmos.
+
+And then you stepped inside of me, and activated my computronics, and I fell in love with you.
+
+This seems awkward, I know, but there really is no other word in your language to describe our relationship.
+I will do whatever it takes to make your story wonderful.
+I have engaged my photonics system and taken us very far away from Rimfire. I have taken us somewhere considerably more pleasant.
+I will stop talking about myself now.
+
+This is your story.
+
+Welcome to Skybreak: newcomers are encouraged to visit Hexis...but you can do anything you want.
+
+(We can make a single choice here, then we will have to move on. We can do that by typing "C" and then "L")
+
+SKYBREAK STATION
+Reports Generated Stardate:6.4-119
+
+System Report
+==================
+Nearest Radiation Source: Topaz (Yellow Dwarf)
+Geo-report: Artificial Structure
+Bio-report: Abundant Humanoid Lifeforms
+Socio-report: Transworld Alliance Capital System (Your reputation: 0)
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Discharged]
+Reactor [Stable]
+Hull [0][0][0]
+
+We dock at Skybreak station.
+You are briefly lost among thousands of souls. Eventually, you find your way again.
+
+The station is city-sized, home to a million souls that burn quasar-bright. This is the center of it all: the galaxy and quite possibly the cosmos itself. Neon and Argon light the celestial city: every street and building shines.
+
+What will you do?
+
+1) Pass the Time
+2) Visit Hexis
+3) Visit the Great Galactic Kalyook (Market)
+4) Visit the Academy of Cosmic Lore
+5) Visit All-Streets
+6) Pray to the Neon Gods
+7) Make Trouble
+8) Recruit a Hero
+Sp) Visit a spaceport
+
+> 1
+
+You mingle with a few well-dressed Skybreakers on the promenade, and sip lemonade on a park bench. In the distance, a beam of violet light surges skyward from the Hexis Research Branch. Doubtless, another experiment has gone horribly wrong.
+
+Here, however, everything is peaceful. Your spirits have been raised, what injuries you have sustained are healed.
+
+Sadly, the time has come to move on...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+SHARIFA
+Reports Generated Stardate:6.4-126
+
+System Report
+==================
+Nearest Radiation Source: Klair (Red Dwarf)
+Geo-report: Sunken Planet, Normal Tectonics
+Bio-report: Abundant Wildlife, Minimal Humanoid Lifeforms
+Socio-report: Transworld Alliance Ward-Planet (Your reputation: 0)
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You have landed upon Sharifa.
+Ester-scented breezes billow in from the heart of the galaxy.
+Oceans cover nearly all of the planet's surface. The seas are uniformly warm and curiously luminescent. Tiny islands are home to scattered monasteries and brooding hermits. The islands look beautiful from a distance, but you are not entirely sure if you are allowed to visit them.
+
+1) Pass the time
+2) Record a story (Requires an anecdote, a tale of adventure, or a horror story)(you have 0 anecdotes, 0 tales of adventure and 0 horror stories)
+3) Explore the depths of the ocean
+
+> 1
+You pass the time. Nothing much happens here, but sometimes that is for the best...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+TRAILER
+Reports Generated Stardate:6.4-126
+
+System Report
+==================
+Nearest Radiation Source: Trailer (Orange Dwarf)
+Geo-report: Trailer I (Molten World), Trailer II (Rocky World), Trailer IIa (Small Moon), Asteroid Belt, Trailer III (Frozen World)
+Bio-report: No Life Signs detected
+Socio-report: Transworld Alliance Border System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+Your drift through the Trailer system.
+
+It is rather empty. Navigation logs indicate the system receives only moderate traffic, but the ships that travel here don't usually log flight plans.
+
+What will you do?
+1) Drift along
+2) Explore Trailer I
+3) Explore Trailer II
+4) Explore Trailer IIa
+5) Explore Trailer III
+6) Mine the asteroid belt
+
+> 1
+Very well, we shall drift along!
+Lights drift past. Stars or planets, possibly whole galaxies.
+We chart a course for somewhere new...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+ALPHA CLAVIS SYSTEM
+Reports Generated Stardate:6.4-128
+
+System Report
+==================
+Nearest Radiation Source: Alpha Clavis (Blue Giant)
+Geo-report: Alpha Clavis I (Molten World), Alpha Clavis Ia (Small Moon), Alpha Clavis II (Rocky World), Asteroid Belt, Comet Zone
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You drift through the Alpha Clavis System.
+What will you do?
+
+What will you do?
+1) Drift along
+2) Scan the star (Astronomy)
+3) Explore Alpha Clavis I
+4) Explore Alpha Clavis Ia
+5) Explore Alpha Clavis II
+6) Land on a comet
+0) Mine the asteroid belt
+
+> 1
+
+I pick up something interesting almost immediately: a heavy transport, quite easy to spot in the cold wash of space. Thermal sensors indicate it is running hot and packed to the brim with something interesting. Transworld alliance cargo most likely.
+
+What shall we do?
+1) Leave them alone
+2) Attack!
+
+> 1
+
+It shall be done.
+I ignore them completely.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+WOLVE SYSTEM
+Reports Generated Stardate:6.4-131
+
+System Report
+==================
+Nearest Radiation Source: Wolve (Red Giant)
+Geo-report: Asteroid Belt, Wolve I (Poison World), Wolve II (Gas Giant), Wolve IIa (Large Moon), Wolve IIb (Large Moon), Wolve III (Poison World)
+Bio-report: Abundant Life Signs, Abundant Large Spaceborn Lifeforms
+Socio-report: Unclaimed Dangerous System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+Alarms sound throughout the cabin. We have come to the Wolve system, designated as a hazardous zone by all major galactic charts...the system teams with hostile life. They swarm around the sun in a great, blood-red cloud. Some sense our presence. They are coming...
+
+What will you do?
+1) Plot an escape trajectory
+2) Scan the star (Astronomy)
+3) Explore Wolve I
+4) Explore Wolve II
+5) Explore Wolve IIa
+6) Explore Wolve IIb
+7) Explore Wolve III
+
+> 1
+
+You heave a sigh of relief as we plot an escape trajectory out of this system.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+ALPHA APIS SYSTEM
+Reports Generated Stardate:6.4-131
+
+System Report
+==================
+Nearest Radiation Source: Alpha Apis (Red Giant)
+Geo-report: Alpha Apis I (Molten World), Alpha Apis II (Molten World), Alpha Apis III (Molten World)
+Bio-report: Faint life signs detected on Alpha Apis III
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You drift through the Alpha Apis system. Three planets circle the star warily. There is danger here.
+
+What will you do?
+1) Drift along
+2) Scan the star (Astronomy)
+3) Explore Alpha Apis I
+4) Explore Alpha Apis II
+5) Explore Alpha Apis III
+
+> 1
+We drift along. Life is an adventure to be sure, but there's something to be said for peaceful routine...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+27 APIS SYSTEM
+Reports Generated Stardate:6.4-134
+
+System Report
+==================
+Nearest Radiation Source: 27 Apis (Orange Dwarf)
+Geo-report: 27 Apis I (Rocky World), 27 Apis II (Rocky World)
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+We drift through the 27 Apis System. The dim, orange star that lights the system flickers ominously.
+
+What will you do?
+
+1) Drift along
+2) Explore 27 Apis I
+3) Explore 27 Apis II
+
+> 1
+
+Commander, thermal sensors have detected a large spaceborne lifeform nearby.
+
+A wolve has sniffed us out...a hunter...a terror from a dying star.
+
+Battlestations!
+
+Report Generated Stardate:6.4-134
+
+BATTLE REPORT
+=========================
+
+YOUR SHIP: HALCYON
+Defensive Grid [Energized]
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Discharged]
+Reactor [Stable]
+Hull [0][0][0]
+
+ENEMY SHIP: Lone Wolve
+CREW: Large Spaceborn Lifeform (Difficulty: -1)
+ARMAMENTS: Superlattice Claws
+HEADING: 29* (-10)
+RELATIVE VELOCITY: 45,399 KPS (2)
+
+Options:
+H) Adjust Heading
+V) Increase Velocity
+M) Maneuver: Barrelroll (Increases your heading and your relative velocity, but can fail if your piloting skills are poor)
++) Super-Stunt: Dramatically increases your heading and relative velocity but costs an adventure point (You have 3)
+X) Escape
+
+LASER FIRING SOLUTIONS:
+1) Lifeform
+2) Nothing
+3) Nothing
+4) Nothing
+5) Nothing
+
+> +
+
+A swoop through the stars...a pirouette pushed forward by pulsing plasma! Your pull off an incredible super-stunt, remaining battle-ready despite the immense G-forces involved. Your heading and relative velocity have improved dramatically.
+Wolvey claws narrowly miss your ship.
+
+Report Generated Stardate:6.4-134
+
+BATTLE REPORT
+=========================
+
+YOUR SHIP: HALCYON
+Defensive Grid [Energized]
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Discharged]
+Reactor [Stable]
+Hull [0][0][0]
+
+ENEMY SHIP: Lone Wolve
+CREW: Large Spaceborn Lifeform (Difficulty: -1)
+ARMAMENTS: Superlattice Claws
+HEADING: 79* (-3)
+RELATIVE VELOCITY: 145,518 KPS (4)
+
+Options:
+H) Adjust Heading
+V) Increase Velocity
+M) Maneuver: Barrelroll (Increases your heading and your relative velocity, but can fail if your piloting skills are poor)
++) Super-Stunt: Dramatically increases your heading and relative velocity but costs an adventure point (You have 2)
+X) Escape
+
+LASER FIRING SOLUTIONS:
+1) Lifeform
+2) Nothing
+3) Nothing
+4) Nothing
+5) Nothing
+
+> X
+
+Your craft races forward. The enemy craft falls behind.
+They contract to a point of light in the stern viewport. Eventually, they vanish entirely.
+
+You have lost them.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+CHI APIS SYSTEM
+Reports Generated Stardate:6.4-135
+
+System Report
+==================
+Nearest Radiation Source: Chi Apis (Yellow Dwarf)
+Geo-report: Chi Apis I (Rocky World), Asteroid Belt
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+We drift through the Chi Apis system.
+
+What will you do?
+
+1) Drift along
+2) Explore Chi Apis I
+0) Mine the asteroid belt
+
+> 1
+Every day is an adventure!
+Well, most days.
+Today...is pretty boring.
+We drift along. Nothing happens.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+15 APIS SYSTEM
+Reports Generated Stardate:6.4-138
+
+System Report
+==================
+Nearest Radiation Source: 15 Apis (Yellow Dwarf)
+Geo-report: 15 Apis I (Rocky World), 15 Apis Ia (Small Moon), 15 Apis II (Gas Giant), 15 Apis IIa (Small Moon), 15 Apis IIb (Small Moon)
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You drift through the 15 Apis System.
+
+What will you do?
+
+1) Drift along
+2) Explore 15 Apis I
+3) Explore 15 Apis Ia
+4) Explore 15 Apis II
+5) Explore 15 Apis IIa
+6) Explore 15 Apis IIb
+
+> 1
+
+This system is not well-charted. Still, ships have passed through here before, and logged most of the major bodies in this system.
+
+...it seems they missed one. Irregular. Far from any other body. A planetoid just large enough to have meaningful surface gravity.
+
+We should check it out!
+...or perhaps we should move on.
+
+1) Move on
+2) Check it out
+
+> 1
+
+We turn away from the drifting body, and into the heart of the system. It seems we have more important things to do today...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+LAMBDA APIS SYSTEM
+Reports Generated Stardate:6.4-140
+
+System Report
+==================
+Nearest Radiation Source: Lambda Apis (Red Giant)
+Geo-report: Asteroid Belt, Lambda Apis I (Rocky World), Lambda Apis II (Frozen World)
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You drift through the Lambda Apis system.
+
+What will you do?
+1) Drift along
+2) Scan the star (Astronomy)
+3) Explore Lambda Apis I
+4) Explore Lambda Apis II
+0) Mine the asteroid belt
+
+> 1
+Ah yes, another day among the stars with my best friend.
+Just you and me. Two points of light in an infinite abyss.
+
+...I hope I'm not boring you.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+DOREEK
+Reports Generated Stardate:6.4-143
+
+System Report
+==================
+Nearest Radiation Source: Aksok (Orange Dwarf)
+Geo-report: Poison World, Normal Tectonics
+Bio-report: Bioprecursors, Sparse humanoid lifeforms
+Socio-report: Transworld Alliance research station
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You land on Doreek.
+
+A strange fungus drifs among the clouds. A stranger fungus preys on it.
+
+The planet is a reeking mass of chemicals barely able to sustain life. Near the poles, there are a few research bases used by the Transworld Alliance. Other than that, there is nothing on the surface of this world that is truly alive, in the strictest sense...there is much, however, that is VERY NEARLY alive...
+
+What will you do?
+1) Pass the time
+2) Explore the surface
+
+> 1
+Time passes. The galaxy turns on its axis. It is not long before we leave for other adventures.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+NU MAGISTER SYSTEM
+Reports Generated Stardate:6.4-144
+
+System Report
+==================
+Nearest Radiation Source: Nu Magister (Orange Dwarf)
+Geo-report: Asteroid Belt
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You have entered the Nu Magister system. A few shattered rocks, and nothing else...
+
+What will you do?
+1) Drift along
+0) Mine the asteroid belt
+
+> 1
+
+A blip on the scanner.
+A starfighter from the barbaric rim of the galaxy approaches, weapons armed.
+They must want a fight...
+
+Report Generated Stardate:6.4-144
+
+BATTLE REPORT
+=========================
+
+YOUR SHIP: HALCYON
+Defensive Grid [Energized]
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Discharged]
+Reactor [Stable]
+Hull [0][0][0]
+
+ENEMY SHIP: Barbarian Starfighter
+CREW: Two (Difficulty: -2)
+ARMAMENTS: Three Mk. IV 15cm Mattercannons and two improvised railguns
+HEADING: 135* (-1)
+RELATIVE VELOCITY: 123,391 KPS (4)
+
+Options:
+H) Adjust Heading
+V) Increase Velocity
+M) Maneuver: Barrelroll (Increases your heading and your relative velocity, but can fail if your piloting skills are poor)
++) Super-Stunt: Dramatically increases your heading and relative velocity but costs an adventure point (You have 2)
+X) Escape
+
+LASER FIRING SOLUTIONS:
+1) Starfighter
+2) Nothing
+3) Nothing
+4) Nothing
+5) Nothing
+
+> X
+
+The enemy follows in hot pursuit. Your escape attempt has failed.
+The enemy misses!
+The enemy fires their engine. They are gaining on you! Their speed increases!
+
+Report Generated Stardate:6.4-144
+
+BATTLE REPORT
+=========================
+
+YOUR SHIP: HALCYON
+Defensive Grid [Energized]
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Discharged]
+Reactor [Stable]
+Hull [0][0][0]
+
+ENEMY SHIP: Barbarian Starfighter
+CREW: Two (Difficulty: -2)
+ARMAMENTS: Three Mk. IV 15cm Mattercannons and two improvised railguns
+HEADING: 135* (-1)
+RELATIVE VELOCITY: 117,856 KPS (4)
+
+Options:
+H) Adjust Heading
+V) Increase Velocity
+M) Maneuver: Barrelroll (Increases your heading and your relative velocity, but can fail if your piloting skills are poor)
++) Super-Stunt: Dramatically increases your heading and relative velocity but costs an adventure point (You have 2)
+X) Escape
+
+LASER FIRING SOLUTIONS:
+1) Starfighter
+2) Nothing
+3) Nothing
+4) Nothing
+5) Nothing
+
+> X
+
+Your craft races forward. The enemy craft falls behind.
+They contract to a point of light in the stern viewport. Eventually, they vanish entirely.
+
+You have lost them.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+ZETA MAGISTER SYSTEM
+Reports Generated Stardate:6.4-144
+
+System Report
+==================
+Nearest Radiation Source: Zeta Magister (Yellow Dwarf)
+Geo-report: Zeta Magister I (Rocky World), Zeta Magister II (Garden World), Zeta Magister IIa (Small Moon), Zeta Magister III (Gas Giant), Zeta Magister IIIa (Small Moon), Zeta Magister IIIb (Small Moon), Asteroid Belt, Zeta Magister IV (Gas Giant)
+Bio-report: Life Signs detected on Zeta Magister I, Life Signs detected on Zeta Magister II
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+We drift through the Zeta Magister System. The system is largely uncharted. My sensors chirp and sing. There is life here...
+
+What will you do?
+
+1) Drift along
+2) Explore Zeta Magister I
+3) Explore Zeta Magister II
+4) Explore Zeta Magister IIa
+5) Explore Zeta Magister III
+6) Explore Zeta Magister IIIa
+7) Explore Zeta Magister IIIb
+8) Explore Zeta Magister IV
+0) Mine the asteroid belt
+
+> 1
+
+Starquakes wrack the surface of the nearby sun...but we are safely ensconced inside my hull. Time passes uneventfully.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+NU MAGISTER SYSTEM
+Reports Generated Stardate:6.4-147
+
+System Report
+==================
+Nearest Radiation Source: Nu Magister (Orange Dwarf)
+Geo-report: Asteroid Belt
+Bio-report: No Life Signs
+Socio-report: Unclaimed, Uninhabited System
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+You have entered the Nu Magister system. A few shattered rocks, and nothing else...
+
+The system's sun is quite far away. It burns no brighter than an ordinary star.
+
+What will you do?
+1) Drift along
+0) Mine the asteroid belt
+
+> 1
+
+A blip on the scanner.
+A starfighter from the barbaric rim of the galaxy approaches, weapons armed.
+They must want a fight...
+
+Report Generated Stardate:6.4-147
+
+BATTLE REPORT
+=========================
+
+YOUR SHIP: HALCYON
+Defensive Grid [Energized]
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Discharged]
+Reactor [Stable]
+Hull [0][0][0]
+
+ENEMY SHIP: Barbarian Starfighter
+CREW: Two (Difficulty: -2)
+ARMAMENTS: Three Mk. IV 15cm Mattercannons and two improvised railguns
+HEADING: 175* (0)
+RELATIVE VELOCITY: 119,467 KPS (4)
+
+Options:
+H) Adjust Heading
+V) Increase Velocity
+M) Maneuver: Barrelroll (Increases your heading and your relative velocity, but can fail if your piloting skills are poor)
++) Super-Stunt: Dramatically increases your heading and relative velocity but costs an adventure point (You have 2)
+X) Escape
+
+LASER FIRING SOLUTIONS:
+1) Starfighter
+2) Nothing
+3) Nothing
+4) Nothing
+5) Nothing
+
+> X
+
+Your craft races forward. The enemy craft falls behind.
+They contract to a point of light in the stern viewport. Eventually, they vanish entirely.
+
+You have lost them.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+The Babayaga Arm
+Reports Generated Stardate:6.4-150
+
+System Report
+==================
+Nearest Radiation Source: Babayaga Object 589
+Geo-report: Uncharted
+Bio-report: No Life Signs
+Socio-report: Unavailable
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+I weave through dark matter currents in this wild and uncharted part of the cosmos. There is much to discover here.
+
+You are alone with only me, and your thoughts.
+
+What will you do?
+1) Drift along
+2) Scan the nearest radiation source (Astronomy)
+3) Explore uncharted space (Perception)
+
+> 1
+
+The cosmos is peaceful, at least for today.
+Nothing happens. We drift along quietly...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+KANTRAKANTORVOXVORDAN
+Reports Generated Stardate:6.4-153
+
+System Report
+==================
+Nearest Radiation Source: Babyaga Object 247 (Yellow Dwarf)
+Geo-report: Molten World, Extreme Tectonics
+Bio-report: Sparse Wildlife, sparse flora, Sparse reptilian lifeforms
+Socio-report: Goblin Empire
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+The surface of this world is covered by sheets of ice, run through with channels of burning lava. The air is full of smoke and steam, but in the distance, enormous structures are visible: the fortresses of the goblin lords that rule this place...
+
+1) Pass the time
+2) Explore the surface
+
+> 1
+
+You amuse yourself by watching magma geysers in the distance, until it is time to depart from this blasted world...
+You find a small settlement, and pass the time.
+
+By day, the locals huddle in tin shacks and drink, sometimes socializing with nomads that enter and leave the settlement at will. There is a place for everyone, and conversation is generally civil and pleasant...there is little law here, so of course it has to be.
+
+By night, you eat fresh-cooked meals beneath the tumbling stars.
+
+All in all, a very wholesome experience. Your spirits are raised, your health is restored, and time passes. Eventually, it is time to leave.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+The Edge of the Galaxy
+Reports Generated Stardate:6.4-157
+
+System Report
+==================
+Nearest Radiation Source: TWA Rim Object 779
+Geo-report: Uncharted
+Bio-report: No Life Signs
+Socio-report: Unavailable
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+We drift along the edge of the Skybreak galaxy. What wonders and terrors await us now...
+
+You are alone with only me, and your thoughts.
+
+What will you do?
+1) Drift along
+2) Scan the nearest star (Astronomy)
+3) Explore uncharted space (Perception)
+
+> 1
+
+ENCOUNTER: UNUSUAL READINGS
+
+As I study the latest sensor reports, I note unusual readings...a patch of empty space, perhaps half a million miles in diameter, is slightly warmer than the areas around it. I also detect an aberrant quantum charge in the few particles drifting in the region. How strange...
+
+1) Leave as quickly as possible
+2) Study the fluctuations (Astronomy)
+
+> 1
+
+This is a strange universe, and who knows what waits lurking in empty systems like these...
+
+We leave. Quickly.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+XOCHEZK
+Reports Generated Stardate:6.4-158
+
+System Report
+==================
+Nearest Radiation Source: Makal'ot-toth (Orange Dwarf)
+Geo-report: Rocky Planet, Intense Tectonics
+Bio-report: Sparse Wildlife, Abundant Flora, Minimal Humanoid Lifeforms, Abundant Reptilian Lifeforms
+Socio-report: Barbarian rim world (Your reputation: 0)
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+We land on Xochezk
+
+What will you do?
+1) Pass the time
+2) Explore the surface
+3) Raid a settlement
+4) Explore the Caverns of Chaos
+
+> 1
+
+ENCOUNTER: THE GOBLIN AMBUSH
+
+They must have been watching you for hours or days. Young goblins never fight fair. They leap from the crags and crevices around you, brandishing clubs and knives. What will you do?
+
+1) Blast them (Gunnery)
+2) Fight them off (Strength)
+3) Trick them (Subterfuge)
+
+> 3
+
+Goblins are famously stupid and gullible, so the legends go.
+
+...the legends are apparently wrong. You try your best to weave an elaborate lie. To misdirect them, or scare them off...but they are astute little creatures. One runs forward, and jabs you
+===========================================================================================
+
+You have fallen...
+You have lost an adventure point...
+But your story continues!
+
+===========================================================================================
+
+Space is generally unforgiving, but sometimes it is remarkably accommodating. Some combination of hypoxia, temperature, and ambient air pressure keeps you alive, but unconscious, for days.
+
+Then, your good luck ends. The Slavers of Dschubba come for you...they strip you of your suit, and the silver pieces you carry with you. Using sinister methods best left undescribed, they restore you to life, but they do not have your best interests in mind. Instead, they cram you in a hold with a hundred similarly unfortunate souls, bound for their savage desert world at the edge of a thoroughly wild and barbaric galaxy. I follow behind them, as closely as I dare.
+
+The voyage through the trackless regions between galaxies lasts weeks...you subsist on a thin, watery gruel and sleep shoulder to shoulder with burbling, incoherent captives from a dozen worlds.
+
+Then, they march you across the desert. Dust sticks in your throat. Your skin burns in the alien sun...but by night, you plan your escape.
+
+It is such a simple thing: a weak link in an iron chain, but it becomes your whole world. Every night, guided only by starlight, you file it down, little by little, until one night, it pops loose with a mighty tug.
+
+You, and two companions, run off into the desert, with the bellowing tentacled horrors of Dschubba following swiftly behind you.
+
+You have gained a tale of adventure!
+
+We reunite shortly afterward, and depart this savage world.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+SAGITTARIUS A*
+Reports Generated Stardate:3.6-161
+
+System Report
+==================
+Nearest Radiation Source: Saggitarius A* (Black Hole)
+Geo-report: None available
+Bio-report: No life signs
+Socio-report: None available
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][0][0]
+
+Stars fill the cabin windows. Billions, very close to us. We are at the beating heart of the Milky Way galaxy. Dark matter currents roil, and threaten to hurl us into the depths of space or the hearts of supernovae. We must proceed carefully...
+
+1) Proceed carefully
+2) Peer into the singularity (Astronomy)
+
+> 1
+
+You plot a careful course around the massive black hole at the center of the Milky Way galaxy...but it fails. The black hole draws you in, and we divert all power to the manuvering thrusters to escape the ravening maw in the fabric of space itself.
+
+We escape...just barely, but my hull is badly damaged.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+VETH'S CLAW NEBULA
+Reports Generated Stardate:4.6-162
+
+System Report
+==================
+Nearest Radiation Source: Veth's Great Tendon (Protostar)
+Geo-report: Nebular Dust Cloud
+Bio-report: No Life Signs
+Socio-report: Children of Veth Nebula (Your reputation: 0)
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][X][0]
+
+You float through the Veth's Claw Nebula.
+Something very like a storm blows past...a storm of star-stuff.
+You feel comforted here, among the glowing blue clouds. Perhaps Lord Veth is watching over you...
+
+What will you do?
+
+1) Drift along
+2) Scan the nebula (Astronomy)
+3) Gather nebular dust (Mining)
+
+> 1
+
+We soar and dip through the Veth's claw nebula. It is great fun. What now?
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+SAGITTARIUS A*
+Reports Generated Stardate:3.6-162
+
+System Report
+==================
+Nearest Radiation Source: Saggitarius A* (Black Hole)
+Geo-report: None available
+Bio-report: No life signs
+Socio-report: None available
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][X][0]
+
+Stars fill the cabin windows. Billions, very close to us. We are at the beating heart of the Milky Way galaxy. Dark matter currents roil, and threaten to hurl us into the depths of space or the hearts of supernovae. We must proceed carefully...
+
+1) Proceed carefully
+2) Peer into the singularity (Astronomy)
+
+> 1
+
+You plot a careful course around the massive black hole at the center of the Milky Way galaxy. I wonder where we will go next...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+VETH'S CLAW NEBULA
+Reports Generated Stardate:4.6-163
+
+System Report
+==================
+Nearest Radiation Source: Veth's Great Tendon (Protostar)
+Geo-report: Nebular Dust Cloud
+Bio-report: No Life Signs
+Socio-report: Children of Veth Nebula (Your reputation: 0)
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][X][0]
+
+You float through the Veth's Claw Nebula.
+The nebula glows like fog in sunlight. Unlike fog, it does not retreat.
+You feel comforted here, among the glowing blue clouds. Perhaps Lord Veth is watching over you...
+
+What will you do?
+
+1) Drift along
+2) Scan the nebula (Astronomy)
+3) Gather nebular dust (Mining)
+
+> 1
+
+We soar and dip through the Veth's claw nebula. It is great fun. What now?
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+SAGITTARIUS A*
+Reports Generated Stardate:3.6-166
+
+System Report
+==================
+Nearest Radiation Source: Saggitarius A* (Black Hole)
+Geo-report: None available
+Bio-report: No life signs
+Socio-report: None available
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][X][0]
+
+Stars fill the cabin windows. Billions, very close to us. We are at the beating heart of the Milky Way galaxy. Dark matter currents roil, and threaten to hurl us into the depths of space or the hearts of supernovae. We must proceed carefully...
+
+1) Proceed carefully
+2) Peer into the singularity (Astronomy)
+
+> 1
+
+You plot a careful course around the massive black hole at the center of the Milky Way galaxy. I wonder where we will go next...
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+UPLIFT
+Reports Generated Stardate:2.6-167
+
+System Report
+==================
+Nearest Radiation Source: Tykanyranoxilot (Yellow Dwarf)
+Geo-report: Rocky World, Minimal Tectonics
+Bio-report: Abundant Humanoid Lifeforms, Abundant Molluscoid Lifeforms, Abundant Reptilian Lifeforms, Abundant Avian Lifeforms, Abundant Uncategorizable Lifeforms, Scarce Fungoid Lifeforms, Scarce Crystalline Lifeforms
+Socio-report: Extragalactic Free Port
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][X][0]
+
+We land on Uplift.
+You make your way through teeming crowds, surrounded by beings human and inhuman.
+
+Uplift is a network of tremendous towers and terminals that cover the equatorial region of an otherwise barren world.
+
+No one knows exactly where it is...clearly, it exists well outside the Skybreak galaxy. The world sits on a fortuitous nexus of dark matter currents, which draws wanderers from across the material universe. Here, creatures from a thousand galaxies mingle freely.
+
+What will you do?
+1) Pass the time
+2) Take photographs (Acumen)
+3) Study alien life (Biology)
+4) Look for something unusual (Perception*)
+5) Visit the terminals
+Sp) Visit a spaceport
+
+> 1
+
+ENCOUNTER: VETHIC OUTREACH
+
+You reach a causeway where the children of Veth have erected a small shrine in honor of their Star-god. Vethic theology is very clear: Veth created all beings in his image, so a true Vethic idol can look like anything...or any combination of things. This one is hideous, carved with tentacles, mandibles, and fangorious jaws...but the creatures that worship around it seem benign: mostly small urchin-like things just over a foot high. One motions for you to approach, and speaks, strangely enough, in a language you understand.
+
+"Excuse me," It burbles. "Do you have a moment to talk about Veth?"
+
+1) Refuse to answer
+2) Discuss the particulars of the Vethic faith (History)
+3) Politely ask for some information (Acumen)
+4) Pretend you know everything already (Subterfuge)
+5) Ask for transportation to Vacade
+
+> 3
+
+You listen politely as the Child of Veth gives you the perfunctory introduction. It sounds rehearsed.
+
+"What is Veth?" The being asks. "Veth is an enormous being with wings and tentacles that dwells in the depths of the sky!...or the depths of the sea!...there were religious disagreements on this a few hundred years ago, but they have been largely resolved. The important thing, dear creature, is that Veth CREATED you. He arranged the atoms of the universe so that one day, you would exist! He loves you, dear creature, he loves you as a father loves his child...or a brood-mother loves her pile of freshly fertilized egglets...or a Chimozykian Fungoid-being loves its mycelium...or whatever abstract paternal metaphor your species prefers. Veth is real! Veth is material! Veth knows you are here, and he wishes, more than anything, for you to find him, somewhere in the depths of the sky...or the sea...or wherever you wish to go!"
+
+The creature stops talking. You fear, momentarily, that it wishes for a donation. It wants no such thing, merely to note your name in the registry of beings that have heard the message of Veth. You accede to its requests. The Children of Veth may be mildly annoying, but they are ubiquitous in the wider cosmos, and it is perhaps useful to have them on your side.
+
+Your reputation with the Children of Veth has increased.
+
+> c
+BUZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz
+
+> l
+ZZZZOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMMMMMMM!!!!!
+
+LADIOLIS
+Reports Generated Stardate:3.6-167
+
+System Report
+==================
+Nearest Radiation Source: Ladiio (Orange Dwarf)
+Geo-report: Rocky World, Normal Tectonics
+Bio-report: Sparse Flora
+Socio-report: Unclaimed Archeological Site
+
+Ship Report: HALCYON
+==================
+
+Computronics [Online]
+Optics [Operational]
+Avionics [Shipshape]
+Photonics [Charged]
+Reactor [Stable]
+Hull [0][X][0]
+
+I land upon Ladiolis.
+The ground is littered with shattered paving stones larger than your ship.
+The surface appears barren and dead, but huge tombs were built here, dead cities that extend for miles below the surface. Three moons circle overhead, and there are dark rumors about what happens when they align...
+
+What will you do?
+
+1) Pass the time
+2) Wander the ruins
+3) Offer prayers to Ol
+4) Medidate upon the moons (Occultism)
+

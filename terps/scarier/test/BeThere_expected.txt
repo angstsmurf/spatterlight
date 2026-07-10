@@ -1,0 +1,950 @@
+Be There!
+The message on your phone is clear enough:
+"I will be honest: I am disappointed by how this was handled. There is still some chance to fix this, we have a meeting with the client at 1:45 today, in the Starbucks at the IDS center. BE THERE!"
+
+...your phone dies a quarter-second after you finish reading the message.
+
+Well, your mission is simple enough: get to the IDS Center, and don't be late. It's not that far: basically due Northeast of here. Better not get distracted...
+
+Cold winds roll through downtown Minneapolis as you tuck your phone away, you might need a light jacket from your apartment upstairs (you can get to your apartment by going "in")...but do you have enough time?
+
+Goddamn it, today is terrible.
+
+(Move by typing cardinal directions, and up, down, in, and out). You can LOOK, GET, and USE various objects, but you can't DROP them...why would you? You'll never need to USE an object "on" another object...just type "USE object" at various locations to solve puzzles...or don't, because you really should be getting to that meeting.)
+
+Your Neighborhood
+The time is 1:30
+
+A cold wind whips through your neighborhood. Leaves clatter on the freezing concrete. You are briefly unsure of where to go...  Exits are north, west, in and northeast.
+
+> in
+You move in.
+
+The Lobby
+The time is 1:30
+
+Your apartment lobby. Ordinarily, there are cookies here, but someone has taken them all.  Exits are up and out.
+
+> up
+You move up.
+
+Your Apartment
+The time is 1:30
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:31
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find a light jacket.
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:33
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:34
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find a samurai sword
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:36
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:37
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find a flashlight
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:39
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:40
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find nothing. You'll have to leave the room and return to try again...
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:41
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:42
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find a pub club card.
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:44
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:45
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find nothing. You'll have to leave the room and return to try again...
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:46
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:47
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find nothing. You'll have to leave the room and return to try again...
+
+> west
+You move west.
+
+Your Apartment
+The time is 1:48
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is 1:49
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find a bag of coffee beans.
+
+> west
+You move west.
+
+Your Apartment
+The time is probably 1:55
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is probably 1:55
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find a rusty hatchet.
+
+> west
+You move west.
+
+Your Apartment
+The time is probably 1:55
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is probably 1:55
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find nothing. You'll have to leave the room and return to try again...
+
+> west
+You move west.
+
+Your Apartment
+The time is probably 2:00
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is probably 2:00
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find an iron key.
+
+> west
+You move west.
+
+Your Apartment
+The time is probably 2:00
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+The time is probably 2:00
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> search
+You search and find an half-eaten sandwich
+
+> west
+You move west.
+
+Your Apartment
+The time is probably 2:00
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> east
+You move east.
+
+Your Bedroom
+You have definitely missed the meeting
+
+A mess, an absolute mess. This place looks like a teenagers apartment...were you raised in a barn? Piles of clothes, sheets, and underwear cover all furniture and the bed. You can SEARCH your bedroom but it will take some time.
+
+You could GO TO SLEEP here and end the game, but maybe it's not time for that yet.  An exit leads west.
+
+> west
+You move west.
+
+Your Apartment
+You have definitely missed the meeting
+
+The place still smells like barbecue from the night before...which isn't a bad thing. You're quite proud of that dish. The place needs a bit more light.   Exits are east and down.
+
+> down
+You move down.
+
+The Lobby
+You have definitely missed the meeting
+
+Your apartment lobby. Ordinarily, there are cookies here, but someone has taken them all.  Exits are up and out.
+
+> out
+You move out.
+
+Your Neighborhood
+You have definitely missed the meeting
+
+A cold wind whips through your neighborhood. Leaves clatter on the freezing concrete. You are briefly unsure of where to go...  Exits are north, west, in and northeast.
+
+> west
+You move west.
+
+Loring Park
+You have definitely missed the meeting
+
+Geese waddle in formation beneath autumnal trees. Squirrels approach you with pleading eyes. You have nothing for them.
+There is a small shed here, with a boarded up door.  Exits are east and west.
+
+> west
+You move west.
+
+Loring Park (West)
+You have definitely missed the meeting
+
+There is a pond here with tall reeds. Ducks sleep along the muddy shoreline, but none dare to go out any farther...  something moves with sinister purpose beneath the shadowy surface of the pond...  Exits are east, west and northeast.
+
+> use half-eaten sandwich
+You throw your sandwich into the lake.
+Something terrible emerges from the depths....
+
+> use samurai sword
+With one mighty stroke, you lop off the monster's head!
+You have done something wonderful!
+
+You have gained 10 points.
+
+> east
+You move east.
+
+Loring Park
+You have definitely missed the meeting
+
+Geese waddle in formation beneath autumnal trees. Squirrels approach you with pleading eyes. You have nothing for them.
+There is a small shed here, with a boarded up door.  Exits are east and west.
+
+> east
+You move east.
+
+Your Neighborhood
+You have definitely missed the meeting
+
+A cold wind whips through your neighborhood. Leaves clatter on the freezing concrete. You are briefly unsure of where to go...  Exits are north, west, in and northeast.
+
+> northeast
+You move northeast.
+
+Nicolette Mall
+You have definitely missed the meeting
+
+There is a large courtyard here filled with bubbling fountains. This is an ideal spot to beg for change, but no one seems to be in a generous mood today.
+
+They've built a new bar here..."The Devil's Advocate". You've heard they have pretty good pizza, but the drinks are sub-par at best.  Exits are west, in, northeast and southwest.
+
+> northeast
+You move northeast.
+
+9th and Nicolette
+You have definitely missed the meeting
+
+There are several fairly anonymous stores here, including the headquarters of Target, for what it's worth. The only place on the block you give a damn about is "the Local", your favorite bar.   Exits are west, in, northeast and southwest.
+
+> in
+You move in.
+
+The Local
+You have definitely missed the meeting
+
+Everything inside is made of wood. This place used to be a bank. The decor is sophisticated and unpretentious, a combination you rarely encounter these days. You have no money for a drink.  An exit leads out.
+
+> use pub club card
+Why the hell not?
+You trade in your pub card for a pint of your favorite beer.
+
+It's not long before someone sits down next to you...
+
+He's a red-headed fellow, attractive if a little lanky, and he's dressed in a rumpled flannel shirt and jeans.
+
+"Welll, Welll, Welll, fancy meeting you here." He says slyly. His voice is heavily accented, he's not from around here. "We had an arrangement if you recalll. Not too llate to carry it out. My vessell willl be at the stone arch bridge. Bring me the idoll of Kingdu, and I'lll get you out of this miserablle place."
+
+Without a word, the fellow rises, and departs.
+
+> out
+You move out.
+
+9th and Nicolette
+You have definitely missed the meeting
+
+There are several fairly anonymous stores here, including the headquarters of Target, for what it's worth. The only place on the block you give a damn about is "the Local", your favorite bar.   Exits are west, in, northeast and southwest.
+
+> northeast
+You move northeast.
+
+Nicolette Mall (Northeast)
+You have definitely missed the meeting
+
+Skyscrapers tower overhead, bearing marks of corporate idolatry: US Bank here, and Wells Fargo there. When the sun is out, the shower of reflected light can be overwhelming, but there is no sunlight today...each building simply scowls down at you, reflecting the gray sky above.
+
+You've reached the IDS center.   Exits are in, northeast and southwest.
+
+> northeast
+You move northeast.
+
+Washington Avenue (Northeast)
+You have definitely missed the meeting
+
+This is one of the busiest streets in the world with no traffic lights...just stop signs. What moron designed this traffic grid?   Exits are west, northeast and southwest.
+
+> northeast
+You move northeast.
+
+Mill Ruins Park
+You have definitely missed the meeting
+
+You are on the shoreline of the Mississippi river.
+
+There is a vast parkland here, build on the crumbling remains of the first flour mills built on the mighty Mississippi. The ruins extend deep underground...there is even an entrance to the old ruins, behind an iron gate, right at the water's edge.
+The iron gate has a heavy padlock.  Exits are north and southwest.
+
+> use iron key
+So THAT's what the key is for.
+You go down to the water's edge, and unlock the gate.
+
+> in
+You move in.
+
+Inside the Mill Ruins
+Water pools around your ankles. The walls around you are made of crude stone, held together at this point by mold and moss. The air smells terrible.  Exits are south, west and out.
+
+> south
+You move south.
+
+The Mill Ruins (South)
+Water pools around your shins. The only light here is from the North. Water droplets echo from deeper in the ruins...how deep do they go?  Exits are north, east and south.
+
+> south
+You move south.
+
+The Mill Ruins (Farther South)
+Water pools around your waist. There is no light here, but there are clearly multiple routes you could take. The gloom to the North and West looks distinctly darker that what lies to the East...  You cannot go to the east, it is far too dark.  Exits are north and west.
+
+> use flashlight
+You flick on your flashlight,and the darkness is driven away!
+
+> west
+You move west.
+
+The Sewers
+Water pools around your waist. The only light is from the odd hole to the street overhead. Water here runs from street level directly to the Mississippi...in theory, the water you are wading through should not contain any garbage or human filth...but it sure smells like it does.  Exits are east, south and southwest.
+
+> southwest
+You move southwest.
+
+The Big Stink
+Sewer pipelines join together here, spewing filth and slime at odd intervals. Most are too small to travel through. All smell equally awful. Why did you come here again?  Exits are northeast and southwest.
+
+> southwest
+You move southwest.
+
+The Sewers
+Water pools around your shins. The only light is from the odd hole to the street overhead. Water here runs from street level directly to the Mississippi...in theory, the water you are wading through should not contain any garbage or human filth...but it sure smells like it does.  Exits are north, northeast and southwest.
+
+> north
+You move north.
+
+A dead end
+Water pools around your shins. The sewers end abruptly here.  Also here is A Silver Ring.  An exit leads south.
+
+> get silver ring
+Ok, you pick up the Silver Ring.
+
+> south
+You move south.
+
+The Sewers
+Water pools around your shins. The only light is from the odd hole to the street overhead. Water here runs from street level directly to the Mississippi...in theory, the water you are wading through should not contain any garbage or human filth...but it sure smells like it does.  Exits are north, northeast and southwest.
+
+You found a silver ring! Awesome! Today is looking up. You've gained 5 points.
+
+> southwest
+You move southwest.
+
+Below Loring Park
+Water pools around your ankles. Someone has build a sub-basement here that taps directly into the city sewer system..and even darker places below the sewers.
+
+At the center of the stone floor, a rickety ladder descends deep into the earth, far deeper than anything natural should go...  Exits are up, down and northeast.
+
+> down
+You move down.
+
+Farther Below Loring Park
+A rickety ladder descends deep into the earth, far deeper than anything natural should go...  Exits are up and down.
+
+> down
+You move down.
+
+Still Farther Below Loring Park
+A rickety ladder descends deep into the earth, far deeper than anything natural should go...  Exits are up and down.
+
+> down
+You move down.
+
+The Bottom of the Ladder
+The ladder ends here, in stony darkness...  The gloom here is oppressive and deep...but fortunately, you have your flashlight.  Exits are east, up and northeast.
+
+> east
+You move east.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are south and west.
+
+> south
+You move south.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are north, west, northeast and southeast.
+
+> southeast
+You move southeast.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east, west and northwest.
+
+> east
+You move east.
+
+The Unfinished Tunnel
+The catacombs here seem unfinished. A tunnel drops off abruptly into still deeper darkness. A rickety wooden bridge leads Northwest, into the void...  Exits are east, west and northwest.
+
+> east
+You move east.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are west and northeast.
+
+> northeast
+You move northeast.
+
+The Shrine of the Nineteen Lives of Lapshae Dur
+There are eighteen stone coffers here, atop each, an enormous leaden weight has been set, as if to keep the thing within sealed away...you do not have the courage to lift these weights. That's probably for the best.  Also here is A Golden Idol.  Exits are south, southeast and southwest.
+
+> get golden idol
+Ok, you pick up the Golden Idol.
+
+> southeast
+You move southeast.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are north and northwest.
+
+You found a golden idol! Awesome! That's worth 10 points.
+
+> north
+You move north.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are north and south.
+
+> north
+You move north.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are north, south and west.
+
+> west
+You move west.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east, west and southwest.
+
+> southwest
+You move southwest.
+
+The Shrine of the Treasure in the House of Eons
+This is a simple stone room, but what waits at its silent heart is no simple thing...  Also here is A Treasure Chest.  An exit leads northeast.
+
+> get treasure chest
+Ok, you pick up the Treasure Chest.
+
+> northeast
+You move northeast.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east, west and southwest.
+
+You found a treasure chest! Awesome! That's worth 15 points!
+
+> east
+You move east.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are north, south and west.
+
+> north
+You move north.
+
+The Shrine of the Chourus of Lapshae Dur
+The walls of the catacombs are set with holes that run even deeper into the earth. From each, you hear the dreadful wails of subterranean creatures. Perhaps it was a mistake to come here...  Exits are north and south.
+
+> north
+You move north.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are south and west.
+
+> west
+You move west.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east, west and southwest.
+
+> west
+You move west.
+
+The Shrine of the Light of Lapshae-Dur
+You find yourself in a crystal cavern of incomparable beauty. Lights dance in the subterranean air, no doubt the ghosts of miners that died digging to this wondrous place.  Also here is A Devilish Idol.  An exit leads east.
+
+> get devilish idol
+Ok, you pick up the Devilish Idol.
+
+> east
+You move east.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east, west and southwest.
+
+> southwest
+You move southwest.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east, west and northeast.
+
+> west
+You move west.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are east and southwest.
+
+> southwest
+You move southwest.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are northeast and southwest.
+
+> southwest
+You move southwest.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are north, west, northeast and southeast.
+
+> north
+You move north.
+
+The Catacombs of Lapshae Dur
+Long ago, the Mole-people dug tunnels through the depths of the ancient earth. You have found them...have you found what waits at the heart of the maze?  Exits are south and west.
+
+> west
+You move west.
+
+The Bottom of the Ladder
+The ladder ends here, in stony darkness...  The gloom here is oppressive and deep...but fortunately, you have your flashlight.  Exits are east, up and northeast.
+
+> northeast
+You move northeast.
+
+The Daro Stair
+Exits are northeast and southwest.
+
+> northeast
+You move northeast.
+
+The Daro Stair
+A stone stairway rises from the depths of the earth. Alcoves carved into the walls are set with wads of glowing slime. Where does this stairway lead?  Exits are northeast and southwest.
+
+> northeast
+You move northeast.
+
+The Daro Stair
+A stone stairway rises from the depths of the earth. Alcoves carved into the walls are set with wads of glowing slime. Where does this stairway lead?  Exits are north and southwest.
+
+> north
+You move north.
+
+The Great Adderstone
+Water pools around your ankles. You have come to an enormous stone chamber. A milllstone sits at the center...or something very like a millstone: a great gray thing, with no toolmark carved upon it: a natural ring of stone, just large enough for someone to CRAWL THROUGH...
+
+There is a moldering wooden door that leads to the south.  Exits are south and west.
+
+> crawl through
+You crawl through the great stone, and find yourself somewhere new...
+
+> southeast
+You move southeast.
+
+The Windswept Cliffs
+Freezing wind whips across these cliffs from the endless ice sheets to the East. It may be too cold to travel much farther...  An exit leads northwest.
+
+> use light jacket
+You wrap your light jacket tight around you, and the cold becomes bearable.
+
+> southeast
+You move southeast.
+
+The Perilous Paths
+Here, a path down the cliff face branches in two. To the east, the path leads down to endless ice sheets, stretching well beyond the horizon. To the Southwest, the paths enter icy caves full of strange music...  Exits are east, southwest and northwest.
+
+> east
+You move east.
+
+The Endless Ice
+Endless ice stretches well beyond the horizon...  Exits are east, south and west.
+
+> east
+You move east.
+
+The Ice-Houses
+Here, fishermen from some place beyond the ice have erected ice-houses. The air is redolent with the smell of fried fish and hot coco. You can JOIN THE FISHERMEN for a while, if you wish.  Exits are north and west.
+
+> north
+You move north.
+
+The Bones of Skakreth-Klor
+There is a massive pile of bones here, and a grinning skull larger than the skyscrapers of downtown Minneapolis. You know that these are the bones of Skakreth-Klor, but was Skakreth-Klor the monster...or the hero that slew the monster?
+
+Also here is An Emerald Talisman.  An exit leads south.
+
+> get emerald talisman
+Ok, you pick up the Emerald Talisman.
+
+> south
+You move south.
+
+The Ice-Houses
+Here, fishermen from some place beyond the ice have erected ice-houses. The air is redolent with the smell of fried fish and hot coco. You can JOIN THE FISHERMEN for a while, if you wish.  Exits are north and west.
+
+You found an emerald talisman! Awesome! That's worth 20 points.
+
+> west
+You move west.
+
+The Endless Ice
+Endless ice stretches well beyond the horizon...  Exits are east, south and west.
+
+> west
+You move west.
+
+The Perilous Paths
+Here, a path down the cliff face branches in two. To the east, the path leads down to endless ice sheets, stretching well beyond the horizon. To the Southwest, the paths enter icy caves full of strange music...  Exits are east, southwest and northwest.
+
+> northwest
+You move northwest.
+
+The Windswept Cliffs
+Freezing wind whips across these cliffs from the endless ice sheets to the East. It may be too cold to travel much farther...  Exits are southeast and northwest.
+
+> northwest
+You move northwest.
+
+Davast
+You stand in a great snowy expanse. How you got here is plain enough, even if it makes very little sense. There is a great RUNIC DOORWAY at your back...there is nothing but endless ice in all other directions.   An exit leads southeast.
+
+> runic doorway
+You step through the doorway, and find yourself somewhere new...
+
+> east
+You move east.
+
+Loring Park (West)
+You have definitely missed the meeting
+
+There is a pond here with tall reeds. Ducks sleep along the muddy shoreline, but none dare to go out any farther...  Exits are east, west and northeast.
+
+> east
+You move east.
+
+Loring Park
+You have definitely missed the meeting
+
+Geese waddle in formation beneath autumnal trees. Squirrels approach you with pleading eyes. You have nothing for them.
+There is a small shed here, with a boarded up door.  Exits are east and west.
+
+> east
+You move east.
+
+Your Neighborhood
+You have definitely missed the meeting
+
+A cold wind whips through your neighborhood. Leaves clatter on the freezing concrete. You are briefly unsure of where to go...  Exits are north, west, in and northeast.
+
+> northeast
+You move northeast.
+
+Nicolette Mall
+You have definitely missed the meeting
+
+There is a large courtyard here filled with bubbling fountains. This is an ideal spot to beg for change, but no one seems to be in a generous mood today.
+
+They've built a new bar here..."The Devil's Advocate". You've heard they have pretty good pizza, but the drinks are sub-par at best.  Exits are west, in, northeast and southwest.
+
+> in
+You move in.
+
+The Devil's Advocate
+
+You have definitely missed the meeting
+
+It's a trendy bar, everything inside is made of glass. There is a faux fire burning in a glass container in the corner. You could SIT DOWN here, but you have no money for a drink, so you will have to rely on the charity of strangers...  An exit leads out.
+
+> sit down
+You sit down, and a man with firey eyes sits down beside you.
+You only have to meet his gaze for a moment to know that this is the devilish one. What is he doing here?
+
+He buys you a drink, whisky neat, and says nothing more. He has a playful smile on his face. You must have done something right for once.
+
+"We had a deal." He says happily. "I'm pleased to see that, unlike most mortals, you've actually held up your end. Now, you give me the Idol of Kingdu, and you will recieve my blessing."
+
+It seems wise to accede to his demands. You pass him the idol, and he traces a strange and secret sign in the air. You have gained 20 points.
+
+Then he rises, and departs. Hopefully you will never see him again.
+
+> out
+You move out.
+
+Nicolette Mall
+You have definitely missed the meeting
+
+There is a large courtyard here filled with bubbling fountains. This is an ideal spot to beg for change, but no one seems to be in a generous mood today.
+
+They've built a new bar here..."The Devil's Advocate". You've heard they have pretty good pizza, but the drinks are sub-par at best.  Exits are west, in, northeast and southwest.
+
+> northeast
+You move northeast.
+
+9th and Nicolette
+You have definitely missed the meeting
+
+There are several fairly anonymous stores here, including the headquarters of Target, for what it's worth. The only place on the block you give a damn about is "the Local", your favorite bar.   Exits are west, in, northeast and southwest.
+
+> northeast
+You move northeast.
+
+Nicolette Mall (Northeast)
+You have definitely missed the meeting
+
+Skyscrapers tower overhead, bearing marks of corporate idolatry: US Bank here, and Wells Fargo there. When the sun is out, the shower of reflected light can be overwhelming, but there is no sunlight today...each building simply scowls down at you, reflecting the gray sky above.
+
+You've reached the IDS center.   Exits are in, northeast and southwest.
+
+> northeast
+You move northeast.
+
+Washington Avenue (Northeast)
+You have definitely missed the meeting
+
+This is one of the busiest streets in the world with no traffic lights...just stop signs. What moron designed this traffic grid?   Exits are west, northeast and southwest.
+
+> northeast
+You move northeast.
+
+Mill Ruins Park
+You have definitely missed the meeting
+
+You are on the shoreline of the Mississippi river.
+
+There is a vast parkland here, build on the crumbling remains of the first flour mills built on the mighty Mississippi. The ruins extend deep underground...there is even an entrance to the old ruins, behind an iron gate, right at the water's edge.
+You've unlocked the gate.  Exits are north, in and southwest.
+
+> north
+You move north.
+
+The Stone Arch Bridge
+You have definitely missed the meeting
+
+The Stone Arch Bridge crosses the Mississippi here. The water thunders below, and nearby falls kick clouds of spray and foam high in the air. You can feel the river on your face.
+A strange vehicle sits on the far bank. You can TRAVEL TO SKYBREAK if you have the idol of Kingdu.  An exit leads south.
+
+> travel to skybreak
+
+"Happy to obllige!" The red-headed stranger says, as he takes the idol of Kingdu. "I'm happy you managed to return allive." He says.
+
+He presses two buttons on the console of his vehicle, and with a lurch and a roar, you find yourself somewhere new...
+
+> southwest
+You move southwest.
+
+The Witch's Quarter
+The Witches Quarter is like no other part of the sacred city. Here, no light shines, and dark forces gather.
+
+Cold whispers sound in your ear. "Here dead things from across the universe are gathered. Give us something that is dead, and we shall give you life."
+
+Do you dare do as the voices command?  An exit leads northeast.
+
+> use cell phone
+You offer up your phone to the forces of darkness. It is useless now.
+
+"We thank you mortal. We shall leave you alone...for a time." The voices whisper in your ear.
+
+You have gained 20 points.
+
+> northeast
+You move northeast.
+
+The Stardocks
+You are somewhere very far from earth. Silver ships come and go across the gulfs of night. Before you, a city shines with lavender light. You have come to Skybreak...all is right with the world...and all others.
+
+Here you can RETURN TO EARTH.  Exits are south, southeast and southwest.
+
+> southeast
+You move southeast.
+
+The Great Galactic Kalyook
+This is a bustling intergalactic market. Treasures from the farthest corners of space and time are traded here...but you have nothing that could possibly interest them.
+
+...except maybe, perhaps, one item that is only found on Earth.  An exit leads northwest.
+
+> use coffee
+You trade your bag of coffee beans for wonders and treasures like none on earth. You have gained 30 points.
+
+> score
+Your score is 130 out of a maximum of %maxscore%. (∞%)
+
+> go to sleep
+You crawl into bed. It has been such a long day already. What adventures await you tomorrow?
+
+Your final score is 130
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

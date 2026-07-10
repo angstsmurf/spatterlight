@@ -9,6 +9,13 @@
 
 #include "a5state.h"
 
+/* Live group-membership mutators, defined further down but used by a5state_new
+   to seed each group's static <Member> list into the ordered list. */
+void a5state_group_add_member (a5_state_t *st, const char *grpkey,
+                               const char *key);
+void a5state_group_remove_member (a5_state_t *st, const char *grpkey,
+                                  const char *key);
+
 /* ----------------------------------------------------------------- helpers */
 
 static const char *
@@ -195,6 +202,17 @@ a5state_new (const a5_adventure_t *adv)
       st->task_scored = (char *) calloc ((size_t) adv->n_tasks, 1);
     }
 
+  /* Seed the live group-membership list (FD clsGroup.arlMembers) from each
+     group's static <Member>s, in model order, so runtime Add/Remove*ToGroup
+     layers on top of it and RandomKey/EverywhereInGroup enumerate correctly. */
+  for (i = 0; i < adv->n_groups; i++)
+    {
+      int m;
+      for (m = 0; m < adv->groups[i].n_members; m++)
+        a5state_group_add_member (st, adv->groups[i].key,
+                                  adv->groups[i].members[m]);
+    }
+
   return st;
 }
 
@@ -217,6 +235,9 @@ a5state_free (a5_state_t *st)
       free (st->ov[i].value);
     }
   free (st->ov);
+  for (i = 0; i < st->n_gm; i++)
+    { free (st->gm[i].grp); free (st->gm[i].key); }
+  free (st->gm);
   free (st->end_message);
   free (st->obj);
   free ((void *) st->char_loc);
@@ -477,6 +498,73 @@ a5state_object_in_group (const a5_state_t *st, const char *grpkey,
   return 0;
 }
 
+/* --- Live group membership (FD clsGroup.arlMembers): ordered + distinct. --- */
+
+static int
+gm_find (const a5_state_t *st, const char *grpkey, const char *key)
+{
+  int i;
+  for (i = 0; i < st->n_gm; i++)
+    if (streq (st->gm[i].grp, grpkey) && streq (st->gm[i].key, key))
+      return i;
+  return -1;
+}
+
+/* Distinct append (FD: `If Not arlMembers.Contains(k) Then arlMembers.Add(k)`). */
+void
+a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
+{
+  if (grpkey == NULL || key == NULL || gm_find (st, grpkey, key) >= 0)
+    return;
+  if (st->n_gm >= st->cap_gm)
+    {
+      int nc = st->cap_gm ? st->cap_gm * 2 : 16;
+      st->gm = (a5_grpmem_t *) realloc (st->gm, (size_t) nc * sizeof *st->gm);
+      st->cap_gm = nc;
+    }
+  st->gm[st->n_gm].grp = strdup (grpkey);
+  st->gm[st->n_gm].key = strdup (key);
+  st->n_gm++;
+}
+
+/* Remove (FD: `If Contains Then Remove`), preserving the order of the rest. */
+void
+a5state_group_remove_member (a5_state_t *st, const char *grpkey, const char *key)
+{
+  int i = gm_find (st, grpkey, key);
+  if (i < 0)
+    return;
+  free (st->gm[i].grp);
+  free (st->gm[i].key);
+  memmove (&st->gm[i], &st->gm[i + 1],
+           (size_t) (st->n_gm - i - 1) * sizeof *st->gm);
+  st->n_gm--;
+}
+
+int
+a5state_group_count (const a5_state_t *st, const char *grpkey)
+{
+  int i, n = 0;
+  if (grpkey == NULL)
+    return 0;
+  for (i = 0; i < st->n_gm; i++)
+    if (streq (st->gm[i].grp, grpkey))
+      n++;
+  return n;
+}
+
+const char *
+a5state_group_member_at (const a5_state_t *st, const char *grpkey, int idx)
+{
+  int i, n = 0;
+  if (grpkey == NULL)
+    return NULL;
+  for (i = 0; i < st->n_gm; i++)
+    if (streq (st->gm[i].grp, grpkey))
+      { if (n == idx) return st->gm[i].key; n++; }
+  return NULL;
+}
+
 void
 a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
                              const char *objkey, int present)
@@ -486,6 +574,12 @@ a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
     return;
   group_prop_key (key, sizeof key, grpkey);
   a5state_set_prop (st, objkey, key, present ? "1" : "0");
+  /* Keep the live insertion-ordered member list (FD arlMembers) in sync so
+     RandomKey / EverywhereInGroup see runtime add/remove in the right order. */
+  if (present)
+    a5state_group_add_member (st, grpkey, objkey);
+  else
+    a5state_group_remove_member (st, grpkey, objkey);
 }
 
 /* A location's inherited group property (clsItem.htblInheritedProperties layered

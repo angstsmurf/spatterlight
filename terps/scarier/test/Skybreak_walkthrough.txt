@@ -1,4 +1,140 @@
-look
-examine me
-inventory
-wait
+# Skybreak! by Colton Douglas Olds (ADRIFT 5) -- regression playthrough script.
+#
+# Skybreak is a class-based cosmic roguelike: you create a character, then your
+# ship carries you on a SEMI-RANDOM path from world to world (charge photonics
+# with "C", engage the light reactor with "L", which jumps you to a RANDOM new
+# system).  On each world you get a single activity, occasionally a multi-turn
+# space-combat minigame.  Charging is only possible in orbit/space; from a
+# planet SURFACE you must first survive an activity encounter before you can
+# leave, so pure travel means DRIFTING ("1") through each system, not landing.
+#
+# Character: Vela, a Human / Earthling+Explorer (Ace, Navigator, Genius talents,
+# +2 Survival).  This is a deep, real MODEST playthrough of the whole travel
+# loop -- 24 hyperspace jumps end to end -- exercising a wide swath of the engine
+# byte-for-byte against FrankenDrift: two distinct space battles (a Lone Wolve,
+# escaped with a super-stunt "+" then Escape "X"; and Barbarian Starfighters,
+# escaped by riding out velocity to "X"), drift-arrivals at normal systems,
+# single-world UncommonLo locations you touch down on directly (Doreek, Xochezk,
+# Uplift), resource/story encounters (Goblin Ambush, Vethic Outreach, Unusual
+# Readings, Running Low), and the eerie Veth's Claw Nebula homeworld region.
+# Ends docked, mid-voyage, at the Ladiolis system.
+#
+# WHY NOT A FULL WIN (documented follow-up).  Both of this build's win paths are
+# long RNG-gated grinds through bespoke, build-unfriendly content:
+#   * Earthling win = the random hyperspace jump must land you at Irth (in the
+#     UncommonLo jump pool), then pick "5) Return Home" (task EarthRetur ->
+#     EndGame Win).  But the route to Irth threads bespoke "rare location" traps
+#     -- e.g. Kaddax, a horror moonlet in the "night" region that holds you until
+#     you clear a Psychic-Vampires boss gated on Occultism/Strength/Gunnery, none
+#     of which a Survival/Piloting Explorer has.
+#   * Explorer win = discover all ten celestial-body types (Explorerti>=10), each
+#     landing rolling Explorerpe=RAND(1,100) against a per-type threshold (rocky
+#     >90 hardest ... sunken/poison >25 easiest; garden/exotic auto), AND every
+#     landing forces a survival encounter you must pass.  See the derivation
+#     tooling notes in TODO_a5_walkthrough_bugs.md.
+#
+# Ground truth vs FrankenDrift: MATCH 0|0 in xoshiro-aligned mode (full every-
+# line conformance across all 24 jumps).  Golden-backed (vanilla column, which
+# carries the expected System.Random travel/combat residual).  The dock's
+# "%flavorskybreak[rand(1,25)]%%flavorcrowded[rand(1,25)]%" once diverged by a
+# single flavour line -- NOT the flavor pair's order (Scarier and FD both draw
+# those two in model/enumeration order), but the interleave with a THIRD draw:
+# StorylineL1's AggregateOutput "After" completion ends in %DisplayLocation% (the
+# flavor), so FD holds those draws to end-of-turn Display, letting the Skybreak
+# LocationTrigger task's "SidequestE = RAND(1,10)" draw FIRST.  Fixed by deferring
+# AggregateOutput-completion random draws (both <#..#> and %var[rand]% indices) to
+# the true Display point -- after the LocationTrigger drain and event tick
+# (a5run_flush_display_defers).
+
+Vela
+Halcyon
+z
+1
+1
+8
+5
+6
+9
+12
+1
+c
+l
+1
+c
+l
+1
+c
+l
+1
+1
+c
+l
+1
+c
+l
+1
+c
+l
+1
++
+X
+c
+l
+1
+c
+l
+1
+1
+c
+l
+1
+c
+l
+1
+c
+l
+1
+X
+X
+c
+l
+1
+c
+l
+1
+X
+c
+l
+1
+c
+l
+1
+c
+l
+1
+1
+c
+l
+1
+3
+c
+l
+1
+c
+l
+1
+c
+l
+1
+c
+l
+1
+c
+l
+1
+c
+l
+1
+3
+c
+l

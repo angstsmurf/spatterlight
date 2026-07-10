@@ -1,4 +1,120 @@
+# Lost Coastlines by William Dooling (ADRIFT 5) -- regression playthrough script.
+#
+# Lost Coastlines is a procedurally-generated open-world sailing RPG played
+# inside a dream: there is no fixed solution and "no way to lose" -- you WAKE UP
+# when you like for a final score.  The opening is a deterministic four-question
+# character creation (where you fell asleep / an item from the waking world /
+# who you were / who you want to be), each choice adding situation and stat
+# bonuses, followed by LET THE DREAM BEGIN, which silently generates an entire
+# world (thousands of RNG draws) before dropping you into it.
+#
+# This is the FEATURE-TOUR walkthrough: a single coherent voyage (a Scantish
+# pirate who fell asleep on a boat, telescope in hand, an explorer in the waking
+# world) that exercises essentially every game system reachable along one dream.
+# Every line is byte-identical to FrankenDrift under the aligned xoshiro stream
+# (golden-backed, xoshiro MAP 0|0).  Because the ENTIRE world is RNG-generated,
+# the vanilla (FD System.Random) column necessarily draws a different world and
+# is checked against the committed Scarier golden, not against FD -- same as the
+# original short script.  See TODO_a5_walkthrough_bugs.md / lostcoastlines-worldgen
+# for the world-gen RNG-alignment and the ship-combat draw-order deferral fixes
+# that make this byte-exact.
+#
+# Features exercised, in order:
+#   * general/meta commands: LOOK, EXAMINE ME, EXAMINE <object>, INVENTORY,
+#     COMMANDS, STATUS, CARGO, DIFFICULTY, ODDS, HELP, CREDITS
+#   * item system: EQUIP/WEAR (equipping the telescope boosts Seacraft)
+#   * four-stage character creation + LET THE DREAM BEGIN world-gen + SWIM TO SHIP
+#   * the pirate class ability SCOWL (bypass travel obstacles for a little Fury)
+#   * HUNT FOR DIAMONDS on the Condign Archipelago -> the diamond-field FIND
+#   * an island location-trigger: VISIT THE LOCALS (the boat-tag SHIP ROCKS -> HOLD)
+#   * the Port of Thrones building suite: VISIT ENTHAM'S (the rare-antiquities
+#     shop, BUY/SELL/LEAVE), ENTER THE SHRINE -> RENOUNCE (the once-per-game
+#     possession-renouncing at a holy shrine)
+#   * PLUNDER THE SEA LANE -> INTERCEPT -> a full ship-combat battle (a Whaler:
+#     POSITION/FIRE/ENDURE/DUCK/RUN/RAM), lost, marooned, and set back in Zapirtaz
+#   * the city trade economy: VISIT THE MARKET (BUY/SELL commodities + EXPLORE ->
+#     a market sub-encounter) and VISIT THE HARBOR (BUY sailing goods)
+#   * LOOK FOR TROUBLE in the alleys -> the LARCENY back-alley encounter (NOTICE)
+#   * a companion monster-hunt quest: VISIT THE WARRIOR -> THE SEA WITCH (HELP)
+#   * a scenic location-trigger (ENJOY THE VIEW) and, throughout, the sailing /
+#     food-and-supply hold / one-action-per-location / dream-instability systems
+#   * WAKE UP -> the final Pleasance/Unpleasance score
 look
 examine me
 inventory
-wait
+commands
+# --- character creation: asleep on a boat, telescope in hand, explorer -> pirate ---
+go to sleep
+boat
+telescope
+explorer
+pirate
+# --- world generation, then break the surface onto the sea ---
+let the dream begin
+swim to your ship
+# --- the status / cargo / rules info commands, then equip the telescope ---
+status
+cargo
+difficulty
+odds
+help
+credits
+examine telescope
+equip telescope
+# --- the pirate SCOWL ability, then hunt the Condign diamond fields ---
+scowl
+hunt for diamonds
+find
+# --- an inhabited island: lounge with the locals (a boat-tag encounter) ---
+southwest
+visit the locals
+hold
+# --- the Port of Thrones: browse Entham's antiquities, then renounce at the shrine ---
+north
+visit entham's
+buy the atlas
+leave
+enter the shrine
+renounce
+leave
+# --- plunder the sea lane; the pirate INTERCEPTs and gives battle to a Whaler.
+#     The enemy out-rolls us (seed 1234) and the crew is lost, but we are fished
+#     out and set back in Zapirtaz harbour with a fresh ship -- every line
+#     byte-identical to FrankenDrift ---
+plunder the sea lane
+intercept
+position
+fire
+endure
+duck
+endure
+run
+ram
+duck
+# --- back in Zapirtaz: trade at the market (buy + sell commodities + explore) ---
+visit the market
+1
+4
+2
+3
+explore
+leave
+# --- the harbor (buy sundry sailing goods) ---
+set sail
+dock
+visit the harbor
+buy
+# --- the alleys: LOOK FOR TROUBLE turns up a LARCENY encounter ---
+set sail
+dock
+look for trouble
+notice
+# --- sail out to a warrior's isle and join his monster hunt for the Sea Witch ---
+set sail
+northwest
+visit the warrior
+help
+# --- a last quiet island, then end the dream for a final score ---
+north
+enjoy the view
+wake up

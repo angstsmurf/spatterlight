@@ -30,6 +30,31 @@
 #include "a5restr.h"
 #include "a5run.h"
 #include "a5state.h"
+#include "a5text.h"
+
+/* %PopUpInput% side channel: feed the next meaningful line of the command
+   script as the answer to a naming prompt (skipping blank/# lines exactly like
+   the main command loop, so the two never fight over a line).  Returns a
+   heap-allocated answer the engine takes ownership of, or NULL at EOF (the
+   engine then falls back to the prompt's default).  FrankenDrift.Headless
+   consumes one script line per popup the same way, keeping transcripts aligned. */
+static char *
+popup_from_script (void *ctx, const char *prompt, const char *dflt)
+{
+  (void) prompt; (void) dflt;
+  FILE *f = (FILE *) ctx;
+  char buf[1024];
+  while (fgets (buf, sizeof buf, f) != NULL)
+    {
+      size_t n = strlen (buf);
+      while (n > 0 && (buf[n - 1] == '\n' || buf[n - 1] == '\r'))
+        buf[--n] = '\0';
+      if (n == 0 || buf[0] == '#')
+        continue;
+      return strdup (buf);
+    }
+  return NULL;
+}
 
 int
 main (int argc, char **argv)
@@ -73,6 +98,10 @@ main (int argc, char **argv)
           return 1;
         }
     }
+
+  /* Let %PopUpInput% prompts (naming puzzles) pull their answer from the next
+     script line, so they are scriptable and reproducible. */
+  a5text_set_popup_cb (popup_from_script, script);
 
   /* a5run_intro now emits the centred title itself (mirroring FD's
      Display("<c>" & Adventure.Title & "</c>") at clsUserSession init), so that
@@ -147,6 +176,27 @@ main (int argc, char **argv)
                   long val = 0;
                   if (k && a5state_var_num_by_name (st, nm, &val))
                     fprintf (stderr, " %s=%ld", nm, val);
+                }
+              fprintf (stderr, "]\n");
+            }
+        }
+        /* A5_DUMP_CHARS=1 prints every character's current location to stderr
+           after each command (walkthrough-derivation aid for tracking
+           patrolling NPCs in Six Silver Bullets). */
+        {
+          static const char *dc = (const char *) 1;
+          if (dc == (const char *) 1) dc = getenv ("A5_DUMP_CHARS");
+          if (dc != NULL)
+            {
+              a5_state_t *st = a5run_state (run);
+              const a5_adventure_t *a2 = st->adv;
+              fprintf (stderr, "[chars");
+              for (int i = 0; i < a2->n_characters; i++)
+                {
+                  const char *ck = a2->characters[i].key;
+                  int ci = a5state_character_index (st, ck);
+                  const char *cl = (ci >= 0 && st->char_loc[ci]) ? st->char_loc[ci] : "?";
+                  fprintf (stderr, " %s@%s", ck, cl);
                 }
               fprintf (stderr, "]\n");
             }

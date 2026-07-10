@@ -149,8 +149,13 @@ main (void)
   check_exact (run, "examine key",
                "Which key?  The brass key or the iron key.");
 
-  /* 2. A clarifier narrows to one candidate and runs the remembered task. */
-  check (run, "brass", "Examined: brass key", 1);
+  /* 2. A clarifier narrows to one candidate and runs the remembered task.
+        A bare %object1% in the completion renders the entity KEY, mirroring FD's
+        ReplaceFunctions (itm.MatchingPossibilities(0) = the object key,
+        Global.vb:1792 / PossibleKeys clsUserSession.vb:3931) -- ReplaceOO only
+        rewrites `key.Property` tokens, so a standalone key survives verbatim.
+        The probe still discriminates which candidate was picked (Key1 vs Key2). */
+  check (run, "brass", "Examined: Key1", 1);
 
   /* 3. Re-ask, then interrupt with a fresh command: the command wins, the
         pending prompt is dropped. */
@@ -165,8 +170,8 @@ main (void)
         out the held brass key, leaving the iron key as the unique match
         (clsUserSession.RefineMatchingPossibilitesUsingRestrictions Applicable
         tier narrows the pair to one). */
-  check (run, "take brass key", "Taken: brass key", 1);     /* now held */
-  check (run, "take key", "Taken: iron key", 1);            /* refined unique */
+  check (run, "take brass key", "Taken: Key1", 1);     /* now held (brass=Key1) */
+  check (run, "take key", "Taken: Key2", 1);           /* refined unique (iron=Key2) */
 
   /* 5. With *both* keys held, the Applicable tier eliminates both (each fails
         "MustNot be held"), so the refine resets the reference to the full pair

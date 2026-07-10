@@ -461,6 +461,13 @@ ev_tick_all (a5_run_t *run, sb_t *out)
      before TurnBasedStuff; do the same here (ev_tick_all is the turn's only
      TurnBasedStuff entry). */
   drain_tasks_to_run (run, out);
+  /* The command's AggregateOutput-completion random draws (held in display_defers)
+     resolve at the end of FD's command-task AttemptToExecuteTask -- i.e. after the
+     LocationTrigger drain (so a drained task's draw lands first, Skybreak's
+     SidequestE) but BEFORE TurnBasedStuff (so the completion's own draw precedes
+     the per-turn walk/event draws, I Summon Thee's `annihilate` Annihilateflavor
+     index).  Flush here rather than at finish_turn, which is past the event tick. */
+  a5run_flush_display_defers (run, out);
   if (run->st->game_over)
     return;
   /* TurnBasedStuff: tick the walks first, then the turn-based events. */
@@ -721,34 +728,38 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
           const char *destkey = wk->steps[si].location;
           const char *cloc = st->char_loc[ci];
           const char *dest = NULL;                  /* sDestination */
-          const a5_group_t *grp = NULL;
+          int is_group = 0, gn = 0;
           int g, c2;
           if (streq (destkey, "%Player%"))
             destkey = walk_player_key (st);
           for (g = 0; g < st->adv->n_groups; g++)
             if (streq (st->adv->groups[g].key, destkey))
-              { grp = &st->adv->groups[g]; break; }
+              { is_group = 1; break; }
+          if (is_group)
+            gn = a5state_group_count (st, destkey);  /* live members (arlMembers) */
 
-          if (grp != NULL && grp->n_members > 0)
+          if (is_group && gn > 0)
             {
               int has_adj = 0, m;
               if (cloc != NULL)
-                for (m = 0; m < grp->n_members; m++)
-                  if (loc_is_adjacent (st, cloc, grp->members[m]))
+                for (m = 0; m < gn; m++)
+                  if (loc_is_adjacent (st, cloc,
+                                       a5state_group_member_at (st, destkey, m)))
                     { has_adj = 1; break; }
               if (has_adj)
                 {
                   int guard = 0;
                   while (dest == NULL && guard++ < 10000)
                     {
-                      const char *poss =
-                        grp->members[a5rand_between (0, grp->n_members - 1)];
+                      const char *poss = a5state_group_member_at (st, destkey,
+                                             a5rand_between (0, gn - 1));
                       if (cloc == NULL || loc_is_adjacent (st, cloc, poss))
                         dest = poss;
                     }
                 }
               else
-                dest = grp->members[a5rand_between (0, grp->n_members - 1)];
+                dest = a5state_group_member_at (st, destkey,
+                                                a5rand_between (0, gn - 1));
             }
           else if ((c2 = a5state_character_index (st, destkey)) >= 0)
             {

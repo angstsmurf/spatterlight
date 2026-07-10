@@ -1,0 +1,312 @@
+Untitled
+"First comes a terrible king, crowned but veiled
+He makes war upon good and evil alike
+His punishment is unfailing
+His judgment absolute
+None can name the king
+And none can number the dead"
+
+- The Great Prophecy of the 64th History of the Guilden Book, Second Traveller Harmonized Translation,
+
+***
+
+You are Kanto. You are the son of a fisherman and a fisherwoman. You barely remember your parents. The Orithoqui made sure of that: Long ago, they took you far from your home on the coast, Nebra, the lands you knew from childhood.
+
+They took you North, along the cracked road, to a Fort at the edge of their empire. They called it an act of charity. They named you. They taught you the ways of their people, the worship of their gods...four of them anyway, the four that seemed the most reasonable to you.
+
+...and so they gave you half a life, barely learning their language, barely learning the language of the half-drozen tribes that lay between their fort and the home you hail from.
+
+...and so you know very little of the war that is consuming the North. The people of Orithon, the colonists, the imperial, are the mightiest force on the world, but they are overextended, here, in Thoska, they are the tip of a finger of an extended arm.
+
+Long have they ruled this part of the world, but of late, beyond the walls of the fort, tribes long-shattered have been drawn together by one called Lagga-Daash in the language of the Svirrians, who lie somewhere to the West. His name means ill-fortune, the colonists call him Trouble. Some say he commands an army of a million men. Some say he is a living god. You would not presume to know.
+
+When the airships came from Alkavia, a nation perhaps loyal to Trouble, they shattered the sky and blasted the fort to its foundations. You were fishing, and returned to smoke and spilled blood and numberless dead. Raiders had killed them, one by one, and looted the remains...looking for something.
+
+They did not find it. You did. There, far from the fort, you found a priest of Floret, the kindest god, dying in the snow. He raised you. He supplied something close to kindness. His dying act was to thrust a message into your hand. He whispered through lips cracked and bleeding:
+
+"Kanto. You must do what is right. The contents of this message could end the war, and you must see it safely Southward, to a city still within Orithonqui control. They have taken Thoska. The road to the South is not safe. Across the cracks of Thosk, to the West, then across the disputed ground to the far South, there is the city of Geddonstaun, still under our control. It is a holy place. Trouble would not dare attack it...The gods will see you through...I hope."
+
+Then, he died in your arms.
+
+You waited through howling night, clutching your prayer book. Now, the sun has risen. Day sees you alone in the fort (such as it is). Many dangers rise in your mind: Savage armies on all sides, old tribal rivalries set aflame, desperate refugees flowing from the cities. Above all, The lack of food and warmth in the dead of winter.
+
+There are three ways to see the winter through:
+
+The first: carry the message to the Orithonqui, in Geddonstaun.
+
+The second: deliver the message to Trouble, and his army of a million men. His army marches along the coast to the South, but where he will ultimately make camp, you do not know.
+
+The third: return to the village of your birth, which is to the South and East, and ride out the horrors to come. This is not a certain victory.
+
+There are so many ways to die...but you are alive, for the moment. What will you do next?
+
+(Type RULES for rules, type STATUS for status, type INVENTORY for inventory)
+
+the fort (such as it is)
+
+You see flurries on the wind.
+
+You are the only part of this fort that is still standing.
+To the South, a road runs to a mountain barely visible through the mist. Another jagged line of mountains blocks the sky to the North.
+You are surrounded by the shattered ruins of the fort. You can LOOT them, but it looks like much has already been destroyed or taken.  Exits are east, south, west, southeast and southwest.
+
+> loot
+
+It is grim work, but you set about looting the fort, and the bodies within it.
+You find the wreckage of a cart, which you scrap for firewood
+As you scrabble among the ruins, you find a book of Rostrandi chants.
+As you scrabble among the ruins, you find a book of Alkavian poetry.
+
+> south
+
+the cracked road
+
+You see flurries on the wind.
+
+The cracked road winds its way Southward through broken mountains and long-abandoned exploratory mines. Before the foreigners came here, there were no roads here...because there was no one who wanted to travel through this frozen hell. Smaller roads periodically run off the cracked road to the East, The road makes a long curve to the South.  Exits are north, east, south and northeast.
+
+> rest
+You rest. You are no longer tired.  The weather shows signs of getting better...
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+
+> south
+
+the long curve
+
+You see flurries on the wind.
+
+Here, the cracked road makes a long curve from the North to the West. There is a footpath that continues South, to a mountain wreathed in mist.   Exits are north, south and west.
+
+> rest
+You rest. You are no longer tired.
+
+> south
+
+the mountain seen through mist
+
+Wind blows.
+
+This is a great mountain. You have seen it for more than a decade, looming to the South of the fort where you were raised...if only you learned its name? A pass goes over the mountain to the South. Another leads to more mountains to the Southeast.  Exits are north, south and southeast.
+You have already moved today. Weariness takes you. You have become tired.
+
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+Your stomach gurgles. You are hungry.
+
+> rest
+You rest. You are no longer tired.
+
+> rest
+You rest. You are no longer tired.
+
+> south
+
+The Rostrandi/Thoskan Demilitarized Zone
+
+The sky is dark.
+
+Here lies the disputed lands between the colonists and the Eastern powers of Rostrand and Bahjul. For decades, this border has been the site of skirmishes and murders, even a battle or two. Colonial Thoska lies to the South, the heart of the war that has consumed the continent.
+A line of Thoskan Refugees marches from the West. Where are they going? Surely to their deaths in the lands of Rostrand or Bahjul...but death waits for them here as well. There are too many to fight, but you can TALK with them if you wish.  Exits are north, east, south, west, northeast, southwest and northwest.
+
+Night falls, and soldiers are on the move!
+
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+
+> south
+
+colonial thoska
+
+The weather is clear and cold.
+
+You have entered Colonial Thoska. Thick pine forests cover gentle hills. The land is idyllic, its history less so. The colonists took it, and now, it is being taken back. Much blood has been spilled here.
+
+There are many trees here, and many plants. You can GATHER in this location.  Exits are north, south and southeast.
+
+> hide
+You are hidden for the remainder of the day.
+
+> south
+
+colonial thoska
+
+The weather is clear and cold.
+
+Thick pine forests cover gentle hills. The land is idyllic, its history less so. The colonists took it, and now, it is being taken back. Much blood has been spilled here.  Exits are north, east, south and northwest.
+You have already moved today. Weariness takes you. You have become tired.
+
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+
+> rest
+You rest. You are no longer tired.
+
+> south
+
+the ice
+
+The weather is clear and still.
+
+You stand on the ice. It cracks and sings merrily, happy you have come. Why does it love you so? Perhaps it is hungry. The sea is very close here, you can hear sea winds to the South.
+
+There is a deep body of water here, frozen, but promising. You can FISH in this location.  Exits are north, east, south, west and northwest.
+Your hunger overwhelms you. Your gut feels as though it is eating itself. You have traveled far, despite your hunger, and have grown tired.
+
+> rest
+You rest. You are no longer tired.
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+
+> west
+
+the contested ground
+
+The sun shines at the southern horizon.
+
+The contested ground is a cursed place, where for more than a thousand years, great powers have fought in vain. The ground is contested between Svirria, to the North, Rostrand, to the West, and the colonial powers to the South and East. Truly, the master of this place is the cold, for these plains are wide and clear and scoured by terrible winds even in the summer months.
+A Battalion of mighty Larlick warriors is on the march. Their shields are broken and their spears are bloody...they have killed many men, but they are surely looking to kill more. You can TALK to the Larlick battalion or HIDE.  Exits are east, south, west and southwest.
+You have not fed the fire inside you. It dims, and may die. You have grown cold due to hunger.
+Snowdrifts lie over the land, as imposing as castle walls. You plod through snow you were never meant to travel on, and grow tired.
+
+> fire
+
+You resolve to build a fire. You have wood, of course...but what will you use for tinder?
+A PRAYER BOOK
+A BOOK OF ALKAVIAN POETRY
+A BOOK OF ROSTRANDI CHANTS
+A MESSAGE
+REFRAIN FROM BUILDING A FIRE
+
+> a book of rostrandi chants
+
+You build a fire, propping the logs up around a book of Rostrandi chants. It emits great coils of oily smoke as the fire blazes to life, and you are warm for what feels like the first time in an age of the earth.
+
+> hide
+You are hidden for the remainder of the day.
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+
+> rest
+You rest. You are no longer tired.
+
+> south
+
+the thoskan border
+
+The sun warms everything.
+
+This is the border between Thosk and the lands of the Skarm. Even one year ago, this would have meant something. Now, pure anarchy has come to this part of the world. The border means nothing really, it is merely a landmark. The coast should be just to the South.  Exits are north, south and northwest.
+
+> south
+
+the coast strewn with corpses
+
+The sun warms everything.
+
+You have come to a rocky coastline. As far as the eye can see, corpses drape the rocks, most naked and stripped of anything valuable. Horrible deeds were done here. In whose name were they done? Does it matter?
+
+A sea road runs to the Southwest.   Blood on the snow. A corpse, here, facedown in the snow. You can LOOT the corpse.  Exits are north, west and southwest.
+You have already moved today. Weariness takes you. You have become tired.
+
+Your friends and family are surely among the dead. What horrors have come to this continent.
+
+Worse than this, you can see no way that this war ends soon. Both sides are determined to fight it out to the last man. Millions might die.
+
+Your spirit is broken.
+
+You find a place to rest among the rocks and snow, and bed down for the night.
+
+**
+
+A new day dawns, yet the world seems to grow a little darker...
+
+> rest
+
+You feel a stirring sense of hope. Your broken spirits are mended.  You rest. You are no longer tired.
+
+> southwest
+
+geddonstaun
+
+This is the holy city of Geddonstaun: cedar lodges by the roaring sea. The whole place smells of incense, and is staffed by soldiers who watch the north with paranoid fascination. You can TURN YOURSELF IN if you still have the message.  Exits are north and northeast.
+
+> turn yourself in
+
+You walk into town, with the message held high. You are not certain this is the right decision, but it is the only one possible.
+
+Guards surround you, and pin you to the ground. They point crossbows at your head, and demand information you cannot give. Eventually, they drag you through mud, and shove you in a prison cell.
+
+You spend many hours in darkness, before a high-ranking officer with a candle and a few black-robed attendants come to you.
+
+"You are the one called Kanto?" One of the attendants asks in Nebran. He is clearly a translator. You did not know the Orithonqui even employed translators of your obscure language. You nod.
+
+You are escorted through the stately upper rooms of the fort you are quartered. The floor is sanded pine, and covered in sumptious carpet. You can smell food being prepared in a nearby room. Perhaps you will be allowed to eat some.
+
+You are shown to an office where a man with ice-blue eyes sits. He is carefully appraising the documents you have brought him. The high-ranking officer bows. He must be an agent of the scholar's council himself. He speaks, and the translator translates:
+
+"Kanto, I am sorry that this trouble has befallen you. This was someone else's burden to bear, for you are safe now. Well...almost safe. I have one final question: Do you understand the contents of this message?"
+
+You sit there, still surrounded by soldiers, deep in a fort of a global power that is hardly your friend. You consider your response carefully:
+
+SAY YOU UNDERSTAND
+SAY YOU DO NOT UNDERSTAND
+
+> say you understand
+
+You say you understand. The man with ice-blue eyes scrutinizes you carefully, then discusses matters with the General and one official in a language you do not understand.
+
+He speaks, and the translator translates.
+
+"If what you say is true, you are one of the most sensitive military assets on the continent, and we will have to deport you to the mainland immediately, the contents of this message are..."
+
+The translator struggles to find a word. After a moment, he continues.
+
+"dispositive. The war is over, if this message is true. But this is a secret that we must keep close. We will transfer you to a Haveni military facility on the headlands of Aenaria, far from this war...for a year or two at least. I trust there will be little objection on your part. You'll want to be as far away from this struggle as possible."
+
+The man with ice-blue eyes shuffles the papers before him into a neat stack. It seems your business has concluded.
+
+"Do you have any questions?" He asks, through the translator.
+
+ASK ABOUT THE CONTENTS OF THE MESSAGE
+ASK ABOUT THE FATE OF YOUR PEOPLE
+
+> ask about the contents of the message
+
+The man with ice-blue eyes considers this question, and speaks through his translator.
+
+"I had rather suspected you were lying earlier. Now I know the truth. You are curious, yes? I cannot imagine what it felt like, carrying this message without knowing its contents. I'm sorry to tell you that its contents might be difficult to explain to someone of your...limited...education. I will do my best."
+
+The Man with Ice-blue eyes thinks for a moment, then speaks again through his translator.
+
+"This is an archeological report from the Toll-Grandiverth dig site to the far north, past the cracks of Shunduun. The expedition was presumed lost but a few must have made it back to your fort. The report supplies a new translation of the so-called 'Great Prophecy', specifically one that de-links that crowned-and-veiled king motif from a later figure who is prophesied to become a god, rule the world, and settle the Oldest Disputes. The de-linking is accomplished through a more accurate translation of the verb 'aklash' which previous expeditions financed by Lagga-Daash have reported as 'daklash...'"
+
+The man wiht ice-blue eyes stops speaking. He notes your confusion.
+
+"I had feared you would not understand. The message will harm the Skarmate, and Lagga-Daash. That is all you need to know. Think on this no more. You are not a hero or a god. You are a fisherman. Be glad you are alive."
+
+You are lead from the fort without another word. You take his words to heart, as you return to the village of your birth to ride out the war.
+
+You are Kanto. You are not a god or a hero, you are a fisherman and the son of a fisherman. You are alive, and that is all you ever hoped to be.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

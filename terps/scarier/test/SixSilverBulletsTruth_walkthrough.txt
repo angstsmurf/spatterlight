@@ -1,0 +1,141 @@
+# Six Silver Bullets (William Dooling, 2018) -- the LONG game, "other" ending.
+#
+# The committed SixSilverBullets_walkthrough.txt takes the SHORT road: burn the
+# clock, sneak to the docks, hurl the Silver Dossier into the sea and LEAVE THE
+# CITY ("*** You have won ***", blissful ignorance).  This script instead plays
+# the game the author actually wrote -- it COMPLETES the assigned mission and
+# then, at the dock, READS the dossier to LEARN THE TRUTH: the deep "you have
+# lost" ending in which the Silver Agent discovers she is a dying old writer and
+# the Gold Agent is the demiurge of the dream.  Same seed (FD_SEED=1234 /
+# Scarier erkyrath-1234); full xoshiro conformance with FrankenDrift.
+#
+# This run also exercises the naming puzzles: it feeds "Thomas Flint" to the
+# Black Agent's PopUpInput prompt (scriptable %PopUpInput% -- see a5run_dump's
+# popup_from_script hook and FrankenDrift.Headless's TryGetScriptedInput).
+#
+# Mission (from the yellow note, this seed): KILL THE WHITE AGENT, KILL THE
+# INDIGO AGENT, PROTECT THE GREEN AGENT, ASSASSINATE THE GOVERNOR.  Completing
+# it (Missionacc>=2: Mission2==3 white+indigo dead & green alive, Mission3==1
+# governor dead) with Suspicion(threatlevel)<=5 lets you WALK RIGHT IN at the
+# docks -- the mission-accomplished showdown, not the sneak-through-a-trap one.
+#
+# Key mechanics threaded here:
+#  * The sniper is the Black Agent on the Clocktower (only 4 rooms are exposed).
+#    Name him "Thomas Flint" and he trusts you and leaves -- sniper disabled,
+#    no bullet spent, the whole city becomes safe to cross.
+#  * threatlevel starts at 2.  Sneak past the Widow (keep-walking = +1) to stay
+#    at 2; the CEO kill (+1) and the Governor kill (+2) then land it at exactly
+#    5, so no "lie low" is needed.
+#  * The Indigo Agent only appears (as "the well-dressed gentleman") once
+#    threatlevel>=4 AND Time<12, in a street location -- so he is killed last,
+#    after the Governor pushes threat to the required level.
+#  * The Governor is only reachable in the ballroom once Time<=5 (the party
+#    "opens soon"); the Yellow Agent interrupts at nightfall (Time 6) -- nod
+#    and leave.  Reaching her needs the ID badge taken from the Skyscraper CEO.
+#  * Bullets (6): named Black (0), White (1), the three Enemies of Freedom (3),
+#    CEO (1), Governor (0, needs>=1 but does not consume), Indigo (1) = 6.  The
+#    dock dilemma is resolved with the bullet-free "keep walking".
+
+# --- Wake, arm, read the mission (the yellow note is on the table) ---
+wake up
+take gun
+take bullets
+
+# --- The Hotel: trust the Green Agent (keeps her alive = "protected"), take her
+#     cloak (Sneakbonus: makes every SNEAK check reliable), and leave. ---
+se
+trust the green agent
+answer yes
+take the cloak
+leave
+
+# --- The Clocktower: climb it and confront the Black Agent (the sniper).
+#     Threaten him, then NAME him -- "Thomas Flint" (the name on his passport).
+#     He trusts you and leaves; the sniper threat is gone for good. ---
+se
+se
+climb the clocktower
+threaten the black agent
+name the black agent
+Thomas Flint
+leave
+
+# --- Intercept the White Agent on her patrol at the Church and kill her ---
+n
+n
+n
+e
+kill the white agent
+
+# --- Back through the college district; SNEAK past the Widow at the Hamlet so
+#     she never notices you (keeps threatlevel at 2). ---
+w
+s
+s
+sneak past the widow
+
+# --- The Skyscraper: infiltrate the lobby, ride to floor fifty, cut through the
+#     Enemies of Freedom, and kill the CEO to take his ID badge. ---
+s
+e
+go inside
+infiltrate
+sneak past the guard
+floor fifty
+kill the enemies of freedom
+kill the ceo
+
+# --- The Governor's Mansion: present the stolen ID badge to get in, then wait
+#     in the conservatory for nightfall.  The Yellow Agent stops you -- nod and
+#     leave.  Once Time<=5 the ballroom opens; search it, find the Governor,
+#     and assassinate her.  You escape down the cliff to the shore. ---
+w
+n
+e
+ne
+infiltrate
+present identification
+ne
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+nod and leave
+wait
+e
+search
+kill the governor
+
+# --- The Indigo Agent now stalks you (threatlevel is high enough).  Cross back
+#     to the Hamlet; he appears as "the well-dressed gentleman".  Kill him. ---
+n
+n
+sw
+w
+kill the gentleman
+
+# --- Run for the docks.  The city is hunting you now: slip past the goons and
+#     the blue agent (the cloak makes it easy). ---
+s
+s
+sneak past the goons
+e
+sneak past the blue agent
+e
+
+# --- The showdown.  Mission accomplished, so WALK RIGHT IN.  The Blue Agents
+#     let you pass; at the dilemma, keep walking to the end of the pier, where
+#     the Gold Agent waits and throws you the Silver Dossier. ---
+end your mission
+walk
+keep walking
+
+# --- The other ending: do NOT leave in blissful ignorance.  READ THE DOSSIER,
+#     and LEARN THE TRUTH. ---
+read the dossier
+learn the truth

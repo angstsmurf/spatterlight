@@ -303,6 +303,8 @@ a5run_new (const a5_adventure_t *adv)
   run->resp = NULL;
   run->ev_seen = NULL;
   run->exec_scope = NULL;
+  run->comp_defers = NULL;
+  run->display_defers = new std::vector<std::string>;
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;
@@ -336,6 +338,7 @@ a5run_free (a5_run_t *run)
   delete run->walks;
   delete run->known_words;
   delete run->tasks_to_run;
+  delete run->display_defers;
   delete run;
 }
 
@@ -883,6 +886,11 @@ finish_turn (a5_run_t *run, sb_t *out)
 {
   char *raw, *fin;
   size_t n;
+  /* FD's Display loop: draw every AggregateOutput completion whose evaluation was
+     held during the command, now that the LocationTrigger drain and event tick
+     have run (their draws come first).  Splices each drawn value into its
+     `\004<idx>\004` sentinel slot left in `out`. */
+  a5run_flush_display_defers (run, out);
   if (run->st->game_over && !run->st->end_displayed)
     emit_endgame (run, out);
   /* Honour any <cls> relayed by the plain renderer (A5_CLS_MARK).  A command

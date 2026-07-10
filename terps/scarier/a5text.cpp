@@ -377,6 +377,10 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
 /* ---------------------------------------------------- function replacement */
 
 static char *replace_functions (a5_state_t *st, const char *src, int as_arg = 0);
+
+/* %PopUpInput% host callback (a5text_set_popup_cb); NULL => use the default. */
+static a5_popup_cb a5_popup = NULL;
+static void *a5_popup_ctx = NULL;
 static char *view_location_impl (a5_state_t *st, const char *lockey);
 
 /* Resolve a function argument (a key or display name) to an object key. */
@@ -815,10 +819,40 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 {
   int i;
 
+  st->name_cap_eligible = 0;      /* only a resolved CharacterName sets it */
+
   if (ci_eq (name, "player"))
     {
       const a5_character_t *p = a5model_character (st->adv, a5state_player_key (st));
       return character_name (st, p, A5_PRO_SUBJ);
+    }
+  if (ci_eq (name, "popupinput"))
+    {
+      /* clsFunction PopUpInput[prompt, default] -> VB InputBox (Global.vb:2296).
+         FD splits sArgs on the single comma, evaluates arg[1] as the default,
+         and returns InputBox(prompt, default) wrapped in quotes.  Headless we
+         defer to an installed input callback (the host feeds the next script
+         line); with none, we evaluate to the default -- matching FrankenDrift's
+         InputBox returning its default when unattended.  args are already
+         function-expanded; each part may carry surrounding "double quotes". */
+      std::string a = args ? args : "";
+      std::string prompt = a, dflt;
+      size_t comma = a.find (',');
+      if (comma != std::string::npos)
+        { prompt = a.substr (0, comma); dflt = a.substr (comma + 1); }
+      auto unquote = [](std::string &s){
+        size_t b = s.find_first_not_of (" \t");
+        size_t e = s.find_last_not_of (" \t");
+        s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
+        if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
+          s = s.substr (1, s.size () - 2); };
+      unquote (prompt); unquote (dflt);
+      if (a5_popup != NULL)
+        {
+          char *ans = a5_popup (a5_popup_ctx, prompt.c_str (), dflt.c_str ());
+          if (ans != NULL) return ans;
+        }
+      return strdup (dflt.c_str ());
     }
   if (ci_eq (name, "charactername"))
     {
@@ -859,6 +893,12 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           st->pron_pending = char_perspective (st, ch);
           st->pron_pending_key = ch->key;
           st->pron_pending_pron = pron_none ? -1 : (int) pr;
+          /* FD's "slight fudge" (Global.vb:2102-2107): a resolved %CharacterName%
+             whose two immediately-preceding chars are "  " or CRLF is PCase'd at
+             the emit site (the name starts a sentence -- e.g. the ExamineCharacter
+             message "%DisplayCharacter%  %CharacterName% ... carrying ..." where
+             the second-person name "you" must render "You"). */
+          st->name_cap_eligible = 1;
         }
       else
         ch = a5model_character (st->adv, a5state_player_key (st));
@@ -1292,13 +1332,19 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                 }
               return sb_finish (&sb);
             }
-          /* the bound object('s display name) */
+          /* A bare %objectN% renders the entity KEY, mirroring FD's
+             ReplaceFunctions (nr.Items(0).MatchingPossibilities(0), Global.vb:
+             1795): ReplaceOO only rewrites `key.Property` tokens, so a standalone
+             key survives verbatim.  For an ADRIFT-default noun-key that is the
+             noun WITHOUT its adjective/prefix (`Nymphs`, not `Comely Nymphs`),
+             and -- crucially -- it lets an OO reference-list argument whose head
+             is `%object%.Children(...)` chain from the real key. */
           const char *ref = ci_eq (name, "object2") ? "ReferencedObject2"
                                                      : "ReferencedObject";
           const char *key = a5state_lookup_ref (st, ref);
           const a5_object_t *o = key ? a5model_object (st->adv, key) : NULL;
           if (o != NULL)
-            return a5text_object_name (st, o, A5_ART_NONE);
+            return strdup (o->key);
         }
       else if (ci_eq (name, "character") || ci_eq (name, "characters")
                || ci_eq (name, "character1"))
@@ -1409,6 +1455,7 @@ pron_capture (a5_state_t *st, long off)
 static char *replace_functions (a5_state_t *st, const char *src, int as_arg);
 static char *str_replace_all (const char *src, const char *find,
                               const char *repl);
+static int expr_bears_random (const char *body);
 
 /* FD's ReplaceFunctions resolves model-variable tokens (%name% and %name[idx]%)
    in variable-declaration order, in a pass (Global.vb:1972-2019, a
@@ -1485,14 +1532,36 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
                 { free (name); break; }  /* unterminated -> leave for main loop */
               tok_end = (char *) a + 2;
               rawargs = strndup (astart, (size_t) (a - astart));
-              args = replace_functions (st, rawargs, 1);
-              if (strchr (args, '.') != NULL)
+              /* Deferred draw: inside an AggregateOutput completion (st->expr_defer
+                 armed), a random array index (`%flavorskybreak[rand(1,25)]%`) has
+                 its draw held to end-of-turn Display, just like a `<#Rand#>`
+                 expression -- FD skips this substitution now (AggregateOutput ->
+                 ReplaceFunctions runs at Display).  Emit a `\004<idx>\004` sentinel
+                 and push the raw token (tagged \001) to the sink; the flush
+                 re-resolves it, drawing the index then.  So Skybreak's dock flavor
+                 draws AFTER the location-trigger task's `SidequestE = RAND(1,10)`. */
+              if (st->expr_defer != NULL && expr_bears_random (rawargs))
                 {
-                  char *ooargs = a5expr_replace (st, args);
-                  free (args); args = ooargs;
+                  std::vector<std::string> *sink =
+                      (std::vector<std::string> *) st->expr_defer;
+                  char mark[24];
+                  snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
+                  std::string tok = "\001%";
+                  tok += name; tok += "["; tok += rawargs; tok += "]%";
+                  sink->push_back (tok);
+                  value = strdup (mark);
                 }
-              value = eval_function (st, name, args);
-              free (args);
+              else
+                {
+                  args = replace_functions (st, rawargs, 1);
+                  if (strchr (args, '.') != NULL)
+                    {
+                      char *ooargs = a5expr_replace (st, args);
+                      free (args); args = ooargs;
+                    }
+                  value = eval_function (st, name, args);
+                  free (args);
+                }
             }
 
           if (value == NULL)             /* not resolvable here */
@@ -1644,6 +1713,15 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
             {
               if (value != NULL)
                 {
+                  /* CharacterName sentence-start fudge (FD Global.vb:2103): when
+                     the resolved name is immediately preceded by two spaces or a
+                     CRLF, capitalise its first character.  iMatchLoc>3 there means
+                     at least 3 chars precede the token (sb.len >= 3 here). */
+                  if (st->name_cap_eligible && sb.len >= 3 && value[0] != '\0'
+                      && ((sb.p[sb.len - 2] == ' ' && sb.p[sb.len - 1] == ' ')
+                          || (sb.p[sb.len - 2] == '\r' && sb.p[sb.len - 1] == '\n')))
+                    value[0] = (char) toupper ((unsigned char) value[0]);
+                  st->name_cap_eligible = 0;
                   pron_capture (st, (long) sb.len);
                   sb_puts (&sb, value);
                   free (value);
@@ -2033,6 +2111,34 @@ expr_substitute (a5_state_t *st, const char *src)
   return sb_finish (&sb);
 }
 
+/* Does this `<#...#>` body invoke one of the RNG-drawing reducer functions
+   (either/oneof/rand/urand)?  Matched as a call: the function name (case-
+   insensitive), then optional spaces, then '(' -- so a bare word "random" in a
+   string literal does not falsely trigger.  Used to gate the deferred-draw
+   sentinel: only a body that actually draws needs its evaluation held to
+   end-of-command (a non-random `<#IF(..)#>` must keep resolving inline, at its
+   emit-time state). */
+static int
+expr_bears_random (const char *body)
+{
+  static const char *const fns[] = { "oneof", "either", "urand", "rand" };
+  for (const char *p = body; *p != '\0'; p++)
+    {
+      for (size_t f = 0; f < sizeof fns / sizeof fns[0]; f++)
+        {
+          size_t n = strlen (fns[f]);
+          if (strncasecmp (p, fns[f], n) != 0)
+            continue;
+          const char *q = p + n;
+          while (*q == ' ' || *q == '\t')
+            q++;
+          if (*q == '(')
+            return 1;
+        }
+    }
+  return 0;
+}
+
 /* Evaluate every `<#...#>` expression in `src` (frankendrift ReplaceExpressions:
    substitute the body, then reduce it to its string value). */
 static char *
@@ -2061,6 +2167,26 @@ replace_expressions (a5_state_t *st, const char *src)
                  it.  Mirrors a5text_eval_expression's second pass (FD's
                  EvaluateExpression -> ReplaceFunctions includes ReplaceOO). */
               char *oo = a5expr_replace (st, sub);
+              /* Deferred draw: an AggregateOutput completion message renders its
+                 static skeleton NOW (correct position and separators) but holds
+                 the RNG draw of a random `<#..#>` to end-of-command, matching
+                 FD's Display-time ReplaceExpressions (so Lost Coastlines'
+                 `Execute EnemyIsMer` ship-name OneOf draws AFTER the following
+                 `Execute ShipCombat` action draws, not inline before them).  The
+                 operands are frozen here (oo is self-contained) so only the
+                 reduce moves; a `\004<idx>\004` sentinel marks the value slot. */
+              if (st->expr_defer != NULL && expr_bears_random (oo))
+                {
+                  std::vector<std::string> *sink =
+                      (std::vector<std::string> *) st->expr_defer;
+                  char mark[24];
+                  snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
+                  sink->push_back (oo);
+                  sb_puts (&sb, mark);
+                  free (inner); free (sub); free (oo);
+                  p = end + 2;
+                  continue;
+                }
               char *val = a5_eval_sexpr (oo);
               sb_puts (&sb, val);
               free (inner); free (sub); free (oo); free (val);
@@ -2299,6 +2425,15 @@ a5text_set_media_sink (a5_media_cb cb, void *ctx)
 {
   a5_media_sink = cb;
   a5_media_sink_ctx = ctx;
+}
+
+/* ---------------------------------------------------- PopUpInput side channel */
+
+void
+a5text_set_popup_cb (a5_popup_cb cb, void *ctx)
+{
+  a5_popup = cb;
+  a5_popup_ctx = ctx;
 }
 
 /* Parse an <img>/<audio> tag body (without the angle brackets) and report it to
@@ -2802,11 +2937,25 @@ view_location_impl (a5_state_t *st, const char *lockey)
      & sView"), so after a "> look" echo the room name has a paragraph break. */
   sb_putc (&sb, '\n');
 
-  /* Room name (bold), then the long description. */
+  /* Room name (bold), then the long description.  FD embeds the raw
+     ShortDescription (still bearing its %functions%) inside "<b>...</b>" on the
+     marked-up view (clsLocation.vb:188) and only its ONE Display-time
+     ReplaceFunctions + ReplaceALRs + CapAfterFullStop runs over the whole sView;
+     the '\n' before the name is followed by the '<' of the tag, so the
+     line-start cap rule never fires on the name.  So process the name WITHOUT
+     the per-piece cap (a5text_process_nocap keeps markup + resolves
+     functions/OO/ALR), wrap it in the bold tags, and let the room-view
+     replace_alrs + auto_capitalise pass below adjudicate it exactly as FD does.
+     A genuinely lowercase generated name -- LostCoastlines' "cabal plain",
+     "flock sea" -- is thus left lowercase like FD, while an already-capitalised
+     name (its case baked into the source) is unaffected. */
   {
-    char *name = a5text_location_short_plain (st, lockey);
+    char *raw = a5text_location_short (st, lockey);
+    char *name = a5text_process_nocap (st, raw);
+    sb_puts (&sb, "<b>");
     sb_puts (&sb, name);
-    sb_putc (&sb, '\n');
+    sb_puts (&sb, "</b>\n");
+    free (raw);
     free (name);
   }
   {

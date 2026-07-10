@@ -558,6 +558,10 @@
         [@(buf) substringToIndex:(NSUInteger)len - 1];
     if (str == nil || str.length < 2)
         return;
+    // ADRIFT games with no author-set name report the placeholder "Untitled"
+    // (scarier's scr_get_game_name). Don't overwrite a sensible title with it.
+    if ([str caseInsensitiveCompare:@"Untitled"] == NSOrderedSame)
+        return;
     if ([self.game.metadata.title.lowercaseString isEqualToString:
          self.gamefile.lastPathComponent.lowercaseString]) {
         self.window.title = str;

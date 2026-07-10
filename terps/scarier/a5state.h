@@ -59,6 +59,17 @@ typedef struct a5_prop_ov_s {
   char *value;            /* new value (owned)                                 */
 } a5_prop_ov_t;
 
+/* One live group-membership entry (FD clsGroup.arlMembers): an ordered,
+   distinct list per group, seeded from the model's static <Member>s and then
+   mutated by Add/Remove*ToGroup at runtime.  Keys alias the model DOM (not
+   owned).  RandomKey selection and EverywhereInGroup enumeration read this so
+   procedural games (e.g. Skybreak's random-jump world groups) select and clear
+   the correct live members in FD's insertion order. */
+typedef struct a5_grpmem_s {
+  char *grp;              /* group key (owned)                                 */
+  char *key;              /* member key -- location/object/character (owned)   */
+} a5_grpmem_t;
+
 typedef struct a5_state_s {
   const a5_adventure_t *adv;
 
@@ -87,6 +98,9 @@ typedef struct a5_state_s {
 
   a5_prop_ov_t *ov;       /* property overrides set at runtime                 */
   int n_ov, cap_ov;
+
+  a5_grpmem_t *gm;        /* live group membership (FD arlMembers), ordered    */
+  int n_gm, cap_gm;
 
   int   game_over;        /* set by EndGame: 0 running, else 1                 */
   char *end_message;      /* EndGame enum "Win"/"Lose"/"Neutral" (owned), NULL */
@@ -240,6 +254,10 @@ typedef struct a5_state_s {
                                     with its output offset at the emit site */
   const char *pron_pending_key;  /* character key of the pending mention    */
   int  pron_pending_pron;        /* its requested pronoun (-1 = "none")     */
+  int  name_cap_eligible;        /* set by a resolved CharacterName eval:
+                                    FD's PCase "slight fudge" (Global.vb:2103)
+                                    capitalises the rendered name when it is
+                                    immediately preceded by two spaces / CRLF */
 
   /* Adventure.sReferencedText(0..4): the TURN-GLOBAL %text% capture slots.
      During the GetGeneralTask scan every command-matched candidate's %textN%
@@ -281,6 +299,18 @@ typedef struct a5_state_s {
      previous command's leftover -- e.g. Anno 1700's reference-free OpeningHid
      ("##A#"), which thereby fails *with output* and ticks the turn.  NULL == "". */
   const a5_xml_node_t *restriction_text;
+
+  /* Deferred-completion sink (see a5run_action.cpp run_general).  When non-NULL
+     during a completion-message render, a random `<# OneOf/Either/Rand #>`
+     expression is FROZEN (its operands substituted) and replaced by a
+     `\004<idx>\004` sentinel instead of being drawn -- the frozen body is
+     appended to *expr_defer (a std::vector<std::string>*), and the owning
+     command evaluates it (drawing) at end-of-command Display, mirroring FD's
+     AggregateOutput responses whose ReplaceExpressions runs at flush
+     (clsUserSession.vb:1211 skips the draw when AggregateOutput; Display's
+     ReplaceALRs->ReplaceExpressions draws it after every action).  Transient:
+     set synchronously around one emit, never live across a save. */
+  void *expr_defer;
 } a5_state_t;
 
 extern a5_state_t *a5state_new  (const a5_adventure_t *adv);
@@ -384,6 +414,14 @@ extern int  a5state_object_in_group (const a5_state_t *st, const char *grpkey,
                                      const char *objkey);
 extern void a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
                                          const char *objkey, int present);
+
+/* Live, insertion-ordered membership of a group (FD clsGroup.arlMembers): the
+   count and the i-th member key.  Reflects runtime Add/Remove*ToGroup on top of
+   the static <Member> list -- unlike adv->groups[g].members which is static.
+   Used for RandomKey selection and EverywhereInGroup enumeration. */
+extern int  a5state_group_count (const a5_state_t *st, const char *grpkey);
+extern const char *a5state_group_member_at (const a5_state_t *st,
+                                            const char *grpkey, int i);
 
 /* A location's inherited Locations-group property (e.g. the dynamic
    ShortLocationDescription darkness property), or NULL. */

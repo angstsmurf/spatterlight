@@ -759,6 +759,22 @@ FILTER="${1:-}"
 # and the command-chair launch with `input 4361 9622`).  See
 # A5_WALKTHROUGH_FINDINGS.md for the full route notes.
 #
+# (2026-07-07) SixSilverBulletsTruth: a SECOND walkthrough of Six Silver Bullets
+# that plays the LONG game to the OTHER ending.  The original
+# SixSilverBullets_walkthrough.txt burns the clock and LEAVES THE CITY (a win,
+# blissful ignorance); this one COMPLETES the assigned mission -- name the Black
+# Agent "Thomas Flint" so the clocktower sniper leaves, kill the White Agent on
+# her patrol, take the Skyscraper CEO's ID badge (through the Enemies of
+# Freedom), infiltrate the mansion and assassinate the Governor, then kill the
+# Indigo Agent once suspicion is high enough -- and so WALKS RIGHT IN at the
+# docks (Missionacc==2) to READ THE DOSSIER and LEARN THE TRUTH ("*** You have
+# lost ***", the game's real ending).  DIVERGE 111|0: xoshiro 0 = full
+# conformance; vanilla 111 = pure System.Random-vs-xoshiro RNG text (epigraph /
+# dream / OneOf picks over a much longer run), same class as the 18|0 short one.
+# It also exercises scriptable %PopUpInput% (the "Thomas Flint" naming prompt):
+# a5run_dump's popup_from_script feeds the next script line, and FrankenDrift's
+# HeadlessRunner.TryGetScriptedInput does the same, so both stay byte-aligned.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -778,6 +794,7 @@ StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
 JacarandaJim|JacarandaJim.blorb|99|0
 SixSilverBullets|SixSilverBullets.blorb|18|0
+SixSilverBulletsTruth|SixSilverBullets.blorb|111|0
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
@@ -800,8 +817,11 @@ Tingalan|Tingalan.blorb|0|0
 BookOfJax|BoJ v.2.blorb|0|0
 GrandmasFlyingSaucer|GFS_Frankendrift.blorb|0|0
 TheGardenParty|TheGardenParty.blorb|0|0
-LostCoastlines|Lost_Coastlines.taf|1|0
-Skybreak|Skybreak.taf|2|0
+TheDeadOfWinter|TheDeadOfWinter.blorb|0|0
+LostCoastlines|Lost_Coastlines.taf|0|0
+Skybreak|Skybreak.taf|0|0
+ISummonThee|ISummonThee.taf|5|0
+BeThere|BeThere.taf|0|0
 EOF
 )
 

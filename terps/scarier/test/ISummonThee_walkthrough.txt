@@ -1,0 +1,25 @@
+# I Summon Thee! (Theodidactus, 2020) -- winning walkthrough
+# You are an eons-old demon summoned by the occultist Clark and bound in a
+# warding circle in the Upper Tower.  Clark's circle wards off cosmodemons,
+# gods, djinns and undead -- but NOT nymphs.  Conjure the Comely Nymphs and
+# they erase the circle for you.  Then race down to the vault, tear open the
+# iron door, recover your talisman (this both re-powers you and removes the
+# cultists' ability to destroy you by burning it), and make for the great
+# black gate at the Drive, where you BREAK THE SEAL and escape.
+#
+# The first line is the demon's true name, typed at the summoning prompt.
+Xarthok
+conjure nymphs
+down
+south
+west
+down
+down
+annihilate vault door
+north
+take talisman
+south
+up
+south
+south
+break the seal

@@ -181,9 +181,11 @@ main (void)
     expect ("take all except lamp", out, "gold coin", 1);
     free (out);
 
-    /* The lamp really was left behind: a plain "take all" now takes just it. */
+    /* The lamp really was left behind: a plain "take all" now takes just it.
+       A single-item %objects% renders the entity KEY (FD ReplaceFunctions,
+       MatchingPossibilities(0)); the synthetic lamp's key is "Lamp1". */
     out = a5run_input (run, "take all");
-    expect ("take all", out, "You take lamp.", 1);
+    expect ("take all", out, "You take Lamp1.", 1);
     free (out);
 
     a5run_free (run);
@@ -211,8 +213,11 @@ main (void)
     a5_run_t *run = fresh (adv);
 
     out = a5run_input (run, "take coin");
-    expect ("take coin", out, "You take gold coin.", 1);
-    expect ("take coin", out, "gold coin and", 0);   /* not a list for one item */
+    /* Single item: bare %objects% renders the key "Coin1" (FD-faithful), not a
+       "a and b" list.  The point of this scenario is that one typed noun still
+       routes through the %objects% (plural) grammar as a single reference. */
+    expect ("take coin", out, "You take Coin1.", 1);
+    expect ("take coin", out, " and ", 0);           /* not a list for one item */
     free (out);
 
     a5run_free (run);

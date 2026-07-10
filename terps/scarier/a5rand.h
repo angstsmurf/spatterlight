@@ -26,6 +26,9 @@ extern void a5rand_seed (unsigned int seed);
    bounds if hi < lo, exactly like frankendrift. */
 extern long a5rand_between (long lo, long hi);
 
+/* Diagnostic: total draws since process start (A5_TRACE_TASK correlation). */
+extern long a5rand_draw_count;
+
 /* Save/restore the full generator state, so a saved game replays the same RNG
    sequence after restore (the v5 save format records it).  `state` holds the
    four xoshiro128** words; `native` is the platform-native-RNG flag.  Mirrors

@@ -1,5 +1,86 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ⭐ Skybreak: AggregateOutput completion draws deferred to the *true* Display point — xoshiro 1 → 0, MATCH 0|0 — ✅ DONE (2026-07-06)
+
+Skybreak's last aligned-RNG hunk was a single flavour line at the opening dock:
+Scarier drew `flavorcrowded[10]` ("There are a million things to do…"), FD
+`flavorcrowded[3]` ("You are briefly lost among thousands of souls…").  The
+xoshiro **stream was byte-identical** — the divergence was *draw order*, and NOT
+the flavor pair itself (`%flavorskybreak[rand]%%flavorcrowded[rand]%` draws in
+model/enumeration order in **both** engines).  It was the interleave with a
+**third** draw:
+
+* `StorylineL1` (the char-creation → dock task) is **AggregateOutput** (FD
+  default `True`) and its `MessageBeforeOrAfter=After` completion ends in
+  `%DisplayLocation[%LocationOf[%Player%]%]%` — i.e. the Skybreak room view, which
+  contains the two `%flavor[rand]%` draws.
+* FD holds an AggregateOutput completion's `ReplaceFunctions`/`ReplaceExpressions`
+  (all its RNG draws) to the **final Display loop** (clsUserSession.vb:1211 skips
+  the eval when `AggregateOutput`; Display runs it later).  So the Skybreak
+  `LocationTrigger` task's `SetVariable SidequestE = RAND(1,10)` — enqueued by the
+  MoveCharacter and drained *after* the command's task — draws **first**, then the
+  flavor.  Order `[1-10, 1-25, 1-25]`.
+* Scarier rendered `StorylineL1`'s completion inline (right after its actions),
+  so the flavor drew *before* the `SidequestE` drain.  Order `[1-25, 1-25, 1-10]`.
+
+**Fix (general, `a5run.cpp` + `a5run_action.cpp` + `a5text.cpp` + header):** a
+run-level `display_defers` sink now holds AggregateOutput-completion random draws
+until the *true* Display point — `a5run_flush_display_defers`, called from
+`finish_turn`, i.e. **after** `drain_tasks_to_run` (the LocationTrigger drain) and
+`ev_tick_all` (the event tick).  This generalises the LostCoastlines ship-combat
+`<#..#>` deferral in two ways: (1) it also defers `%var[rand()]%` model-variable
+**index** draws (rendered as a `\004idx\004` sentinel + a `\001`-tagged raw token,
+re-resolved through `a5text_process_noalr` at flush), and (2) it flushes at Display
+rather than at `run_general`'s end, so draws in the drain/tick land first.  The
+deferral path only fires for AggregateOutput completions containing RNG, so blast
+radius is tiny — full 41-game sweep stays MATCH/at-baseline in both modes, and
+this also pulled Skybreak's *raw* whitespace fidelity vs FD from 138→24 hunks
+(all pre-existing trailing-space/blank-line tolerance the harness normalises).
+Golden re-blessed; MAP `0|1 → 0|0`.
+
+### Deeper playthrough (2026-07-06): 9 → 24 jumps, still MATCH 0|0
+
+`Skybreak_walkthrough.txt` was extended from ~9 to **24 hyperspace jumps** end to
+end (golden re-blessed, xoshiro 0, vanilla golden 0).  The longer route exercises
+a far wider swath of the engine byte-for-byte: **two** distinct space battles
+(Lone Wolve — super-stunt `+` then Escape `X`; Barbarian Starfighters — ride
+velocity to `X`), direct touch-downs on single-world `UncommonLo` locations
+(Doreek, Xochezk, Uplift), several activity/story encounters (Goblin Ambush,
+Vethic Outreach, Unusual Readings, Running Low), and the Veth's Claw Nebula
+homeworld region — all with **zero** divergences from FrankenDrift.  Derived with
+a greedy auto-player (`seek.py`, kept out of tree) that drives `a5run_dump` with
+`A5_DUMP_VARS` (per-command `[loc=…]` on stderr = clean state read-out + delimiter)
+and a small state machine (drift `1` / charge `c` / engage `l` / combat / smart
+menu-pick that skips unmet `Requires…(You have 0)` options and prefers our
+Survival/Piloting skills).
+
+### Why still not a full WIN (build-vs-content mismatch — remains a follow-up)
+
+Both of this Human/**Earthling+Explorer** build's win paths are long RNG-gated
+grinds through bespoke, build-unfriendly content:
+
+* **Earthling win** = the random jump (`MoveCharacter ToLocationGroup`, dest group
+  chosen by `Darkmatter=RAND(1,100)`: ATestGroup common / UncommonLo / RareLocati)
+  must land you **at Irth** (added to UncommonLo on every charge), then pick
+  `5) Return Home` → task `EarthRetur` (`Player BeAtLocation Irth` + `Playereart=1`)
+  → `EndGame Win`.  Irth is reachable, but the path threads **rare-location traps**:
+  e.g. **Kaddax**, a horror moonlet in the "night" region that holds you ("dark
+  matter currents are stagnant… something terrible wants us to remain") until you
+  clear its central-facility **Psychic-Vampires** boss, gated on
+  Occultism/Strength/Gunnery — none of which a Survival/Piloting Explorer has.
+  The auto-player's deterministic drift route hit Kaddax around jump ~28.
+* **Explorer win** = discover all ten body types (`Explorerti≥10`); each landing
+  rolls `Explorerpe=RAND(1,100)` at jump-time vs a per-type threshold — rocky `>90`
+  (hardest) … molten/frozen/planetoid `>50` … sunken/poison `>25`; small/large
+  moon `>75`; **garden/exotic auto** (no roll).  AND every landing **forces** a
+  survival-skill encounter you must pass to re-charge (you cannot charge from a
+  planet surface).  So it is land-on-rarest-needed-each-jump + survive, repeated.
+
+A deterministic WIN is therefore either (a) a much longer, trap-solving grind with
+this build, or (b) a build actually suited to a win path (e.g. Sorcerer/+Occultism
+for Kaddax + the forbidden/foretold/forgotten-lore Sorcerer ending).  Left as a
+documented follow-up.
+
 ## ✅ Corpus status (2026-07-06): NO open aligned-RNG conformance bugs
 
 Full 41-game sweep is clean.  Every game is `0` in the **xoshiro** (aligned-RNG)
@@ -22,10 +103,11 @@ column — a full every-line conformance MATCH vs FrankenDrift — with a single
   cases.  Committed `de7d7f6d`.
 
 The remaining non-zero **vanilla** budgets (JacarandaJim 99, October31st 106,
-SixSilverBullets 18, LostLabyrinthOfLazaitch 8, StoneOfWisdom 2, Skybreak 2,
-LostCoastlines 1) are the inherent FD-`System.Random`-vs-xoshiro walk on games
-without a golden — expected, documented, not conformance bugs.  Every game with a
-golden is `vanilla 0` by construction (Scarier vs its own blessed transcript).
+SixSilverBullets 18, LostLabyrinthOfLazaitch 8, StoneOfWisdom 2) are the inherent
+FD-`System.Random`-vs-xoshiro walk on games without a golden — expected,
+documented, not conformance bugs.  Every game with a golden is `vanilla 0` by
+construction (Scarier vs its own blessed transcript).  (Skybreak and
+LostCoastlines are now golden-backed **MATCH 0|0** — see their entries below.)
 
 ## ⭐ Lost Coastlines: model-variable tokens must resolve in variable-declaration order (RNG-index draw order) — FULL MATCH, xoshiro 1 → 0 — ✅ DONE (2026-07-06)
 
@@ -5481,6 +5563,184 @@ that wasn't root-caused further since no real walkthrough source exists to
 justify the investment). Full 40-game suite re-run clean: the other 38 games'
 MATCH/DIVERGE status and hunk counts are all unchanged.
 
+## ⭐ LostCoastlines: world generation byte-faithful — `Group.StaticOrDynamic` reference-passing + `RAND (0, %var%)` variable bound — ✅ DONE (2026-07-06)
+
+**DONE.** The blocker below is resolved with TWO general engine fixes, and
+LostCoastlines' walkthrough now runs through LET THE DREAM BEGIN + SWIM TO YOUR
+SHIP + LOOK **byte-identical to FrankenDrift** (golden-backed MAP `0|0`; FD makes
+3442 world-gen RNG draws and Scarier now matches all 3442 draw-for-draw). Full
+42-game suite clean.
+
+**Fix C (general, `a5run_action.cpp` SetTasks-Execute): a bare `Group.<Property>`
+argument now expands to the group's member list and the executed task runs once
+per member.** `group_prop_member_keys` detects an argument that is a single-level
+`Group.Property` with no `%tokens%`, where `Group` is a real group key and
+`Property` a defined propdef; it enumerates the live member list
+(`a5state_group_member_at`, FD `clsGroup.arlMembers` order) filtered to members
+that carry the property (mandatory props like `StaticOrDynamic` are on every
+object, so all members qualify). The Execute handler was refactored to run its
+per-arg bind + restriction-gate + `execute_task_with_overrides` as a `run_one`
+lambda, invoked once per resolved member (substituting the member key into the
+group-argument slot) — mirroring FD's `ReplaceOO`→`ReplaceOOProperty`
+(Global.vb:1597/930, returning a `|`-joined key list) packed into one reference's
+Items, which `AttemptToExecuteTask`→`ExecuteSubTasks` iterates one item at a time.
+`task_done` + `ev_on_task_completed` fire once per Execute (only if ≥1 member
+ran), matching FD flipping `task.Completed` once. So `Execute CreateRuby
+(Objects1.StaticOrDynamic)` values every one of Objects1's 125 members (and the 8
+sibling creation tasks over Secrets/Stories/Places/Questions1) instead of failing
+`ReferencedObject Must BeInGroup Objects1` and skipping the whole valuation
+subsystem.
+
+**Fix D (general, `a5run_action.cpp` `eval_num_value` RAND fast path): a `RAND`
+bound that is a `%variable%` is now substituted before parsing.** `RAND (0,
+%valuator%)` (the age/decoration/aura draws in every ValuateAge/ValuateAge2/
+ValuateAge1 pass) previously parsed with the `%valuator%` intact, so the upper
+bound read as 0 → `RAND(0,0)` → `a5rand_between` returns without drawing → the
+entire item-age valuation collapsed to a no-op and desynced the stream. The fast
+path now runs `a5text_process_noalr` on the raw value first when it contains a
+`%`, so the bound resolves to its number (FD evaluates the value through
+ReplaceFunctions before `Global.Random`). This surfaced ONLY once Fix C let
+CreateRuby actually run.
+
+**Remaining (unrelated text-rendering follow-ups, deeper play only):** (1)
+fragment-boundary sentence capitalisation — the EXAMINE ME / INVENTORY status
+line renders `…0+0+0+0+0+0+0+0  you are carrying…` where FD capitalises `You`
+(FD caps each display fragment's start before joining; Scarier caps the joined
+string, so a leading numeric tag-sum fragment leaves the next fragment
+lower-case). (2) generated city / region names render join tokens literally
+(`Liu+ +tower`, `"the"+ +"vantasner"+ +land`) where FD collapses `X+ +Y`→`X Y`
+and drops the quotes. Both are in the procedurally-named content past the first
+sea view; the world DATA is byte-faithful, only its name/status rendering differs.
+
+---
+
+*(original blocker analysis, now resolved:)*
+
+## LostCoastlines: full-game attempt — 2 more RNG-draw bugs fixed; world-gen blocked on `Group.StaticOrDynamic` reference-passing — ⏳ IN PROGRESS (2026-07-06)
+
+Goal: extend the smoke probe into a real playthrough (character creation → LET
+THE DREAM BEGIN → sail/trade → WAKE UP). The whole game hinges on one silent
+world-generation turn; getting *anything* past it byte-faithful requires the
+generation's thousands of RNG draws to align with FD. Diagnosed by draw-stream
+diffing (`A5_TRACE_RAND` vs FD `FD_RNG_TRACE`, both now carrying a shared draw
+counter + interleaved task trace: Scarier `A5_TRACE_TASK` at
+`execute_task_with_overrides`, FrankenDrift `FD_TASK_TRACE` at
+`AttemptToExecuteTask`). Streams were walked to the FIRST divergent draw, the
+owning task/action identified, fixed, and the walk repeated.
+
+**Fix A (general, `a5run_action.cpp` SetProperty): a `SetProperty <ent> <prop>
+<expr>` on a value-typed property (Integer/Text/StateList/ValueList) was only
+run through the evaluator when the raw value carried a `%reference%` — so
+`SetProperty CollarOfCo Value RAND (25, 50)` stored the *literal* string and drew
+no RNG.** FD's `SetProperties` (`clsUserSession.vb:2010`) calls
+`EvaluateExpression` for those four types, but ONLY on the branch where the
+property ALREADY EXISTS on the entity (`prop IsNot Nothing`); a freshly-*added*
+property leaves an Integer/Text value at its clone default, un-evaluated. Fix
+mirrors both halves: evaluate when the propdef type is value-typed AND the entity
+currently has the property (`a5model_propdef` + `a5state_entity_prop`), else fall
+back to the old `%`-heuristic. The has-property gate is load-bearing — evaluating
+unconditionally regressed **Illumina** (a `SetProperty` on a not-yet-present
+Text/StateList value got mangled through the evaluator; golden MISMATCH + the
+princess-rescue endgame never fired). Moved LostCoastlines' first divergence from
+draw 1689 → 1722.
+
+**Fix B (general, `a5run_action.cpp` `a5_bare_function_call`): the bare-function
+detector required `(` immediately after the identifier, so `RAND (600, 1000)`
+(LostCoastlines writes every RAND with a space) was NOT recognized as a call and
+a `Text`-var assignment like `Lostcity = "RAND (600, 1000)"` stored the literal
+instead of drawing.** FD's tokenizer strips redundant spaces first. Fix skips
+whitespace between the identifier and its `(`. Moved the divergence 1722 → 1800.
+
+**BLOCKER (world-gen object/secret/story/question creation): `Execute
+<GeneralTask> (<Group>.StaticOrDynamic)` is not handled.** At draw 1800 the
+streams split structurally: FD runs `CreateRuby` then `SometimesT`/`ValuateMat`
+~116× (valuing every generated item), Scarier runs neither and jumps to
+`PopulateEn`. Root cause: the master chain calls `Execute CreateRuby
+(Objects1.StaticOrDynamic)` (and 8 siblings — `CreateObje (Secrets…)`, `CreateObje1
+(Places…)`, `CreateSecr (Stories…)`, `CreateSecr1 (Questions1…)`, …). The bare
+`Group.StaticOrDynamic` argument is an OO reference that FD resolves (via
+`ReplaceFunctions`) to the group's member **list**, so `ExecuteSubTasks` iterates
+the General creation task once per object. Scarier's `eval_arg_to_key` sees no
+`%…%`, treats `"Objects1.StaticOrDynamic"` as a *literal object key*, binds it,
+and `CreateRuby`'s `ReferencedObject Must BeInGroup Objects1` restriction fails —
+so the entire item-valuation subsystem is skipped and every generated Value / Age
+/ Material / map route then diverges. (`StaticOrDynamic` is FD's auto-created
+GroupOnly StateList property, `FileIO.vb:2444`.) A faithful fix needs (1) OO
+evaluation of a bare `Group.property` to a `|`-list of keys and (2) multi-item
+Execute iteration binding the ref per key — a real feature, deferred.
+
+Net: `test/LostCoastlines_walkthrough.txt` extended from a 4-command smoke probe
+to the full four-question character-creation sequence (boat / telescope /
+explorer / pirate), which stays byte-identical to FD (MAP unchanged at `1|0`; the
+residual vanilla 1 is still the `%defaultshirt[Rand]%` outfit pick). Everything
+from LET THE DREAM BEGIN onward awaits the `Group.StaticOrDynamic` work. Full
+42-game suite re-run clean in both modes (Illumina back to MATCH after the
+has-property gate).
+
+## ⭐ Skybreak: random hyperspace jump now works — live group membership (`clsGroup.arlMembers`) + real modest playthrough — ✅ DONE (2026-07-06)
+
+Playing Skybreak past the *first* activity was impossible: the moment you charge
+(`C`) and engage the light reactor (`L`), the game jumps you to a RANDOM new
+system via `MoveCharacter %Player% ToLocationGroup <group>`, where `<group>`
+(`UncommonLo`/`CommonLo`/`RareLocati`/...) is a scratch group **populated at
+runtime that same turn** by a chain of `AddLocationToGroup Location <world>
+ToGroup <group>` actions, then cleared afterwards. Scarier's `ToLocationGroup`
+destination picker (and `EverywhereInGroup` enumeration, and the group-member
+expression/NPC-walk paths) only ever read a group's **static** `<Member>` list —
+which for these scratch groups is empty — so `RandomKey` found 0 members, the
+player was moved to a NULL location, and the new world rendered as the literal
+unresolved token `Player.Location.Description` with no report and no menu. FD
+(which keeps a live `clsGroup.arlMembers` list) instead lands you on the real
+world (e.g. Sharifa, a sunken world) with its full system report.
+
+**Engine fix 3 (general, `a5state.cpp/.h` + `a5run_action.cpp` + `a5run_events.cpp`
++ `a5expr.cpp`): added an FD-faithful live, insertion-ordered, distinct group
+membership list (`gm`, mirroring `clsGroup.arlMembers`).** It is seeded from each
+group's static `<Member>`s in model order at `a5state_new`, then
+`a5state_set_object_in_group` keeps it in sync with runtime `Add/Remove*ToGroup`
+(distinct-append / remove-preserving-order, exactly as FD's `If Not Contains Then
+Add` / `If Contains Then Remove`). `RandomKey` selection (`ToLocationGroup`),
+`EverywhereInGroup` enumeration (both the `MoveCharacter EveryoneInGroup` source
+and the `AddLocationToGroup EverywhereInGroup` clear-the-group sweep), the group
+NPC-walk destination, and `%group%` list expressions now read `gm` via
+`a5state_group_count`/`a5state_group_member_at` instead of the static `members`
+array. The existing flag-based membership *tests* (`a5state_object_in_group`,
+used by restrictions) are unchanged, so no passing game shifts. **Footgun:** the
+`gm` entries own their key strings, so `ToLocationGroup` must canonicalise the
+chosen member back to the stable model location key before storing it in
+`char_loc` — the scratch group is cleared (freeing the `gm` copy) later the same
+turn, so storing the copy would dangle. Full 42-game suite stays clean in BOTH
+modes (JacarandaJim/SixSilverBullets, which *do* mutate location groups at
+runtime for day/night `DarkLocations` and `TimeTraps`, are byte-identical).
+
+**Modest real playthrough wired (`test/Skybreak_walkthrough.txt`, golden-backed,
+MAP `Skybreak|Skybreak.taf|0|1`, DIVERGE 0|1).** Replaces the 4-command smoke
+probe with a genuine session: create *Vela*, a Human Earthling+Explorer (Ace /
+Navigator / Genius, +2 Survival), then ten hyperspace jumps through the seed-1234
+world sequence (Sharifa → Trailer → Alpha Clavis → Alpha Apis → 27 Apis → ...),
+surviving one space-combat minigame vs a Lone Wolve (super-stunt `+` to build
+velocity, then Escape `X`, since this build has 0 gunnery), ending docked at
+Lambda Apis. **Xoshiro residual = 1 hunk:** the initial dock's flavour line
+`%flavorskybreak[rand(1,25)]%%flavorcrowded[rand(1,25)]%` — two adjacent
+Rand-indexed text arrays that FD resolves in `htblVariables` **hash order**
+(crowded-before-skybreak, opposite to both model and text order), so the two
+draws land on the opposite tokens and pick a different array element. This is the
+same documented draw-order class as LostCoastlines' `%defaultshirt[Rand]%`; total
+draw count matches (everything after re-syncs, including the RNG jump
+destinations), so it is an RNG residual, not an engine bug. Replicating VB.NET
+`Hashtable` iteration order was judged out of scope.
+
+**FOLLOW-UP (a full deterministic WIN):** Skybreak is a roguelike with two win
+conditions per character, both RNG-gated grinds over many jumps — Earthling =
+randomly land on `Irth` then charge (each world's `ChargePhotXX` task seeds the
+next-hop groups; `Irth` is reachable when launching from Aldebaran / Gamma
+Microscopii / Polaris / Tiwanaku / Apok / ... or via the `TerminalTr18`/`7474`
+direct-jump quest tasks); Explorer = discover one of each of the 10 celestial
+types (`ExplorerDi1..10`, each gated on a rarity roll `Explorerpe > N`), win
+firing when `Encounter == 495`. Deriving one is comparable in effort to the big
+★WON games — left as documented future work; the engine can now play the whole
+game, so it is purely a (long) derivation, not blocked on any bug.
+
 ## ⭐ TheFortressOfFear: blind-derived FULL MAX-SCORE WIN 1500/1500 + two general engine fixes — ✅ DONE (2026-07-06)
 
 Final leg of the blind derivation (checkpoints 1-6 in the wiring TODO). The
@@ -5557,3 +5817,106 @@ classes, in transcript order:
 Still open from the WIP notes: Task2365 (falconer rat) never lands in
 inventory (the `ask custodian for rat` fallback works, so the win doesn't
 need it); Task956/954 both being +5-repeatable-flagged.
+
+## ⭐ LostCoastlines deeper play: numeric-keyed-variable restriction literal fix + full-playthrough walkthrough (WAKE UP win) — ✅ DONE (2026-07-06)
+
+Extended the LostCoastlines walkthrough from the first sea view into a full
+sailing playthrough that ends by WAKING UP for a final score, and fixed one
+general engine bug it surfaced. Golden re-blessed, MATCH `0|0` both modes; full
+42-game suite clean.
+
+**Engine fix (general, `a5restr.cpp` `num_value`): a bare numeric restriction
+value is an integer LITERAL, never a variable key.** FD's
+`FileIO.LoadRestrictions` stores `rest.IntValue = CInt(sElements(3))` when the
+Variable restriction is `key1 Must Op value` with a *numeric* value
+(`sElements.Length = 4 AndAlso IsNumeric(sElements(3))`); only a NON-numeric
+token takes the "key to a variable" branch (`rest.IntValue = Integer.MinValue`,
+looked up via `htblVariables`). Scarier's `num_value` tried the variable-key
+lookup FIRST, and LostCoastlines has a **Text variable literally keyed `511`**
+(Name `52`, an auto-generated key). So the harbour/village SELL chain's
+`Encounter Must BeEqualTo 511` read that (0-valued) variable as the RHS instead
+of the integer 511 -> `Encounter(0) == var511(0)` passed spuriously, and the
+generic `sell` (Encounter=0 after the one-shot harbour sale) matched the village
+iron-sell task ("You do not have any iron.") where FD, finding NO sell task
+whose Encounter gate held, fell through to "Sell what?". Fixed by testing the
+(optionally-signed) all-digits integer form before the variable lookup. No other
+game changed (numeric RHS values that aren't also variable keys already fell
+through to `strtol`; the fix only redirects the ones that collide with a numeric
+variable key -- LostCoastlines is the sole corpus case).
+
+**Walkthrough (`test/LostCoastlines_walkthrough.txt`, golden-backed, MAP
+`LostCoastlines|Lost_Coastlines.taf|0|0`):** char-creation -> world-gen ->
+sailing, DOCK at Zapirtaz + harbour fruit trade, the diamond cartel's back-alley
+black market, sail to a new archipelago + VISIT THE LOCALS, north to the Port of
+Thrones, PLUNDER THE SEA LANE, then INTERCEPT the merchant and fight the **full
+ship-combat battle** (PRAY / FIRE / RUN / RAM / DUCK / ENDURE the volleys /
+broadside; seed 1234 loses the ship, we are fished out to Zapirtaz), then WAKE UP
+-> `*** You have won ***`. Byte-identical to FD every line.
+
+### ✅ FIXED (2026-07-06): ship-combat `<#OneOf#>` draw-order deferral
+
+INTERCEPTing a sea-lane merchant used to desync the RNG stream at enemy
+generation and cascade through the whole battle. **Now byte-exact** — the
+walkthrough INTERCEPTs and plays the entire battle out matching FD.
+
+**Mechanism (confirmed by instrumenting FD).** The intercept-success task
+Executes `EnemyIsMer` then `ShipCombat`. `EnemyIsMer`'s completion message is
+`The ship is a Merchant: The <#OneOf("Tattersall", ... 29 names ...)#>` (a
+`Roller`-gated, `AppendToPreviousDescription` segment). FD collects every command
+response into `htblResponses` RAW and only runs
+`ReplaceExpressions(ReplaceFunctions(...))` over them at **Display** -- so the
+`<#OneOf#>` name draw (`RAND(0,28)`) fires LAST, after `ShipCombat`'s action-side
+draws (`Roller=RAND(1,4)`, `Dice=RAND(1,100)`, `Rarenaval=RAND(1,4)`). An
+instrumented FD trace shows exactly this order:
+`[TASK EnemyIsMer] RAND(1,6) RAND(30,70) [TASK ShipCombat] RAND(1,4) RAND(1,100)
+[TASK 217FullBro] RAND(1,4) [REXPR The ship is a Merchant...] RAND(0,28)`.
+Scarier draws `RAND(0,28)` immediately after `EnemyIsMer`'s actions (before
+`ShipCombat`), so the name differs (`Azura` vs `Edmund Fitzgerald`) AND the
+shifted stream picks a different battle sub-encounter (`INCOMING!` vs `A PRAYER
+BEFORE BATTLE`). Same total draw count -- pure order.
+
+**Why the existing deferral infra doesn't catch it.** Scarier already defers
+function-bearing completion messages to flush for `AggregateOutput` tasks and
+for the response-map path (`run->resp != NULL`, set by `run_general` only for
+plural/movement/failover commands). But `intercept` is a *single-reference*
+command -> `use_map=false` -> `run->resp==NULL` for the whole command, so every
+completion emits eagerly via `emit_completion` (which renders + draws inline).
+A `resp_add_comp` defer flag was prototyped and reverted: it correctly defers on
+the response-map path but never fires for the eager single-reference path, so it
+did not fix combat and only added untested surface.
+
+**The fix (implemented).** FD's GUID approach, applied to the eager
+(`run->resp==NULL`) command path, and scoped to exactly the divergent construct —
+a **random** `<#..#>` (`oneof`/`either`/`rand`/`urand`) inside an
+**AggregateOutput** completion message:
+
+* `a5run_action.cpp run_general` arms a per-command deferral sink
+  (`run->comp_defers`, a `std::vector<std::string>`) on the single-reference
+  path. At the After-completion emit site it sets `st->expr_defer = comp_defers`
+  around `emit_completion`, so the message's **static skeleton renders and emits
+  now** — correct position, `sb_pspace` separators, auto-cap and ALR all computed
+  against the invariant surrounding text — with only the random-expression *value*
+  held back. (The name is always a proper noun spliced mid-message, so the
+  message's trailing whitespace, which drives the next separator, is identical for
+  every pick; emitting the skeleton eagerly keeps every separator byte-exact.)
+* `a5text.cpp replace_expressions`: when `st->expr_defer` is set and a `<#..#>`
+  body `expr_bears_random`, it **freezes** the body (operands substituted via
+  `expr_substitute`+`a5expr_replace`, so only the reduce/draw moves), pushes the
+  frozen expression to the sink, and emits a `\004<idx>\004` value sentinel
+  instead of drawing. Non-random `<#IF(..)#>` and every other text still evaluate
+  inline (their draw-neutral, so deferral would only risk perturbing ref timing).
+* At the end of `run_general` (FD's Display flush, after every action in the
+  command has drawn) each frozen expression is `a5_eval_sexpr`'d **in emit order**
+  — the draws land last, exactly where FD's `htblResponses` Display loop puts them
+  — and each value is spliced into its sentinel slot. A message that renders empty
+  or is deduped rolls its recorded expressions back (no orphan draw).
+
+Result: `RAND(0,28)` (the ship name) draws AFTER `ShipCombat`'s
+`RAND(1,4)`/`RAND(1,100)`/`RAND(1,4)`, the draw stream is byte-identical to FD,
+and the whole battle matches (`Edmund Fitzgerald`, `A PRAYER BEFORE BATTLE`, ...).
+Full 41-game sweep clean in both RNG modes; all a5 unit tests pass. The
+`%array[RAND]%` completion variants (`%PCase[%Drinksandships[RAND]%]%` for other
+`Roller` values) are a separate, un-hit-by-the-seed construct — a `%function%`
+draw rather than a `<#..#>` draw — and are left inline; if a future seed reaches
+one with subsequent same-command draws, extend the sink to the `%name[RAND]%`
+value site the same way.

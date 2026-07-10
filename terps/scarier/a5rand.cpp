@@ -29,6 +29,8 @@ a5rand_seed (unsigned int seed)
   a5rand_seeded = 1;
 }
 
+long a5rand_draw_count = 0;   /* diagnostic: draws since process start */
+
 long
 a5rand_between (long lo, long hi)
 {
@@ -51,6 +53,7 @@ a5rand_between (long lo, long hi)
     /* A5_TRACE_RAND=1: print every draw, for aligning the stream against an
        equally-instrumented FrankenDrift XoshiroRandom (FD_RNG_TRACE=1). */
     static int trace = -1;
+    a5rand_draw_count++;
     if (trace < 0)
       trace = getenv ("A5_TRACE_RAND") != NULL;
     if (trace)

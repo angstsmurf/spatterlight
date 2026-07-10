@@ -1,0 +1,874 @@
+Lost Coastlines
+
+You are Falling Asleep...
+
+You drift along the sublime, and slightly terrifying border between this world and another...perhaps you should GO TO SLEEP
+
+(Type commands that appear in all caps)
+(Type COMMANDS for a list of general commands)
+(Type HELP for a description of the game)
+
+> look
+
+You are Falling Asleep...
+
+You drift along the sublime, and slightly terrifying border between this world and another...perhaps you should GO TO SLEEP
+
+(Type commands that appear in all caps)
+(Type COMMANDS for a list of general commands)
+(Type HELP for a description of the game)
+
+> examine me
+0+0+0+0+0+0+0+0
+
+> inventory
+
+Your inventory is as follows:
+
+Head:
+Neck:
+Hands:
+Weapon:
+Body:   a light jacket and a pair of cargo pants
+Shoes:
+Socks:
+Other:
+
+Additionally, you are carrying nothing.
+
+> commands
+* ANSWER: Answers all your questions, can only be done once, and only inside academies
+* CARGO: Displays a list of what is in your ship’s cargo hold.
+* CREDITS: Displays a list of credits
+* COMMANDS: Displays this list of commands
+* DIFFICULTY or ODDS: Displays a list of the summaries output by game’s difficulty calculator
+* EQUIP or WEAR: allows you to equip an item in your inventory
+* HELP: Displays a short explainer on how to play the game
+* INVENTORY: Displays a list of what items you possess and are wearing
+* LOOK or EXAMINE (or L or X): Displays a description of your current location
+* LOOK [OBJECT] or EXAMINE [OBJECT] displays a description of an object in your inventory
+* RECORD: Records all your secrets, can only be done once, and only inside libraries
+* RENOUNCE: Renounces all your possessions, can only be done once, and only inside holy shrines
+* SAVE: Saves a copy of your game. Map locations will not be preserved from one save to another.
+* SHARE: Shares all your stories, can only be done once, and only inside taverns
+* STATUS: Displays relevant character information
+* UNDO: Allows you to UNDO the last action you made
+* UNDO LOCK (or IRONMAN): disables the undo function (warning, this can’t be undone)
+* WAKE UP: Ends the game, and gives you a final score
+
+> go to sleep
+
+But Where...
+
+Where did you fall asleep? (This choice will make certain types of encounters more common, and give you a bonus on those encounters)
+
+* On a BOAT, rocking peacefully in the waves (~)
+* In a TENT, surrounded by the sounds of the wilderness (^)
+* Somewhere dark and slightly SPOOKY (#)
+* The night before a very important INTERVIEW (&)
+* Safe and warm beside the person you LOVE (=)
+* On a cold WINTER's night (*)
+* In CLASS (%)
+* While watching a MOVIE (!)
+
+> boat
+
+Sea breezes sing lullabies, you shall dream of wide open seas and rolling depths...
+(+10 to all encounters with the [~] tag, these encounters are twice as common)
+
+Drifting off...
+
+As is customary, you are permitted to bring one thing into the dream with you, from the waking world. What shall it be?
+
+* A deck of tarot CARDS
+* An old-fashioned sleeping BAG
+* A TELESCOPE that has been in your closet for years
+* A stuffed ANIMAL that protects you from nightmares
+* A MASK that has caused more than a few nightmares
+* A LOCKET from a lover lost long ago
+* A BOOK you read in childhood
+* Your lucky rabbit's FOOT
+* Your father's TIE
+* Your mother's Pocket KNIFE
+* Your grandfather's walking STICK
+* Your grandmother's stamp COLLECTION
+* A vague feeling of DREAD and unease
+* A RING from your husband
+* A PEN from your wife
+* A pair of good SOCKS
+
+> telescope
+
+You take your telescope with you, from this world into another...
+
+Dreaming...
+"I must go down to the seas again, to the lonely sea and the sky,
+And all I ask is a tall ship and a star to steer her by;
+And the wheel’s kick and the wind’s song and the white sail’s shaking,
+And a grey mist on the sea’s face, and a grey dawn breaking."
+
+- John Masefield
+
+These lines occupy your mind as you drift off to sleep. You are dreaming now. At any time, absolutely any time, you can end the dream by typing WAKE UP.
+
+You drift through a sparkling void, a realm of formless light and shadow. It will take shape soon, before it does, it's worth asking...
+
+...who were you, in the other world? (Type the capitalized word to make a choice).
+
+* A FIGHTER for justice, and lost causes
+* An INTELLECTUAL, with a nimble mind and many talents
+* An EXPLORER, a lover of nature, and the outdoors
+* A SCOUNDREL, who cannot be trusted
+* A DREAMER, always distracted by idle thoughts and fancies
+
+> explorer
+
+You are an explorer in life. Sleep well and rest easy: you will find much that is wild and untamed within the dream...
+(+10 Seacraft)
+
+Deciding...
+
+The more interesting question is, of course, what role you will play within the dream.
+
+Who do you want to be?
+
+* A PIRATE, who hunts the sea-lanes for treasure and adventure
+* A HERO, destined for mighty deeds and glorious triumphs
+* A MAGNATE, who pursues schemes for power and profit
+* A THIEF, who pursues a life of crime and crooked dealings
+* A SCIENTIST, who studies facts and philosophy
+* A MYSTIC, who practices secret and forbidden arts
+
+> pirate
+
+You sail on into the dream, to loot and plunder to your dark heart's content!
+(+20 Seacraft, +10 Might, +10 Shadowcraft)
+(You have the ability to "SCOWL" and avoid storms, sea monsters, and other pirates without an encounter. Unlike other special abilities, this one does NOT consume magic)
+
+Floating...
+
+For a long time...a very long time...you float on tumbling seas of slumber, utter darkness surrounds you.
+
+...and then, a shaft of light.
+
+...and then, another.
+
+You are underwater. Rising fast. There is no hurry. This a dream. You will not drown. When you are ready you can break the surface and LET THE DREAM BEGIN
+
+(this action may take some time, as it will create a whole world)
+
+> let the dream begin
+
+The Sea
+
+You bob on the surface of the sea, somewhere out past the breakers. Water is cool on your naked skin. The sun is warm upon your face. This place is real...so very real...for now anyway.
+
+You are now dreaming. You can end the dream at any time by typing WAKE UP. When you do that, this world will end.
+
+But why do that now, when there is so much to see and do?
+
+Out upon the sea. You see your ship. Yes, of course you have a ship. You can SWIM TO YOUR SHIP and begin the game right away.
+
+...or you can SWIM TO SHORE and play through a tutorial that will explain the dream and your role within it.
+
+> swim to your ship
+
+You swim toward your ship, crewed by figment-men, who throw you a silvery rope as you approach. Climbing aboard, they clothe you in the robes of a Scantish sea-captain, and ask where the next port of call shall be...
+
+(You set out into the dream with 10 Pleasance, two figment fruits, and two crates full of goods)
+
+The Condign Archipelago
+
+The largest island of the archipelago is home to the mighty trading city of Zapirtaz. You may DOCK there if you wish.
+
+The rare, violent vulcanism of the Condign Archipelago causes occasional rains of diamond, which settle into the sand like shards of heaven. Here, and only here, you can HUNT FOR DIAMONDS, but the Condign diamond cartel will make them very difficult to sell anywhere local.
+Routes are north, south, southwest and northwest.
+
+> status
+You are a Pirate
+Your special ability is: SCOWL (bypass all travel obstacles, such as storms and sea monsters, in exchange for a small amount of fury)
+
+Pleasance:10| Sadness:0| Madness:0| Fury:0| Worry:0|
+
+............Might:10
+...........Talent:0
+.........Seacraft:30
+......Shadowcraft:10
+.......Dreamcraft:0
+
+=======================
+Situational Advantages:
+=======================
+[~]: 10
+[^]: 0
+[=]: 0
+[!]: 0
+[%]: 0
+[#]: 0
+[&]: 0
+[*]: 0
+
+> cargo
+Your hold contains all of the following:
+* 0 Fragments of knowledge
+* 0 Red Fish
+* 0 Blue Fish
+* 0 Green Fish
+* 2 Bowls of Figment Fruits
+* 0 Sides of Smoked Meat
+* 2 Crates of Goods
+* 0 Casks of Whale Oil
+* 0 Pelts of Fur
+* 0 Pounds of Sugar
+* 0 Ounces of Spice
+* 0 Flasks of Liquor
+* 0 Spools of Silk
+* 0 Diamonds
+* 0 Rubies
+* 0 Sapphires
+* 0 Pearls
+* 0 Barrels of Nightmare Fuel
+* 0 Ingots of Dream-Iron
+* 0 Ingots of Dream-Silver
+* 0 boxes of Magic
+
+> difficulty
+The following list displays the mathematical definitions of the summaries rendered by the game during encounters. The percentages are your chance of success.
+
+TRIVIAL: 100% (You are certain to succeed)
+EASY: 75%-99% (You are very likely to succeed)
+CHANCEY: 55%-74% (You are likely to succeed but there's a significant chance of failure)
+DIFFICULT: 36%-54% (You are about as likely to fail as to succeed)
+DAUNTING: 6%-36% (You are much more likely to fail than to succeed)
+ALMOST IMPOSSIBLE: 1%-5% (You are nearly certain to fail)
+IMPOSSIBLE: 0% (You are certain to fail)
+NIGHTMARISH:  less than -50% (You would fail this encounter even if you were significantly better)
+
+> odds
+The following list displays the mathematical definitions of the summaries rendered by the game during encounters. The percentages are your chance of success.
+
+TRIVIAL: 100% (You are certain to succeed)
+EASY: 75%-99% (You are very likely to succeed)
+CHANCEY: 55%-74% (You are likely to succeed but there's a significant chance of failure)
+DIFFICULT: 36%-54% (You are about as likely to fail as to succeed)
+DAUNTING: 6%-36% (You are much more likely to fail than to succeed)
+ALMOST IMPOSSIBLE: 1%-5% (You are nearly certain to fail)
+IMPOSSIBLE: 0% (You are certain to fail)
+NIGHTMARISH:  less than -50% (You would fail this encounter even if you were significantly better)
+
+> help
+Lost Coastlines is a procedurally-generated, text-based, open-world role-playing game set in a dream that you, the player, are having.
+You can interact with the world by text that you see in ALL CAPS. Additionally, this list of commands will work anywhere:
+
+CARGO: Displays a list of what is in your ship’s cargo hold.
+COMMANDS: Displays this list of commands
+DIFFICULTY or ODDS: Displays a list of the summaries output by game’s difficulty calculator
+EQUIP or WEAR: allows you to equip an item in your inventory
+INVENTORY: Displays a list of what items you possess and are wearing
+LOOK or EXAMINE (or L or X): Displays a description of your current location
+LOOK [OBJECT] or EXAMINE [OBJECT] displays a description of an object in your inventory
+SAVE: Saves a copy of your game. Map locations will not be preserved from one save to another.
+STATUS: Displays relevant character information
+UNDO: Allows you to UNDO the last action you made
+UNDO LOCK (or IRONMAN): disables the undo function (warning, this can’t be undone)
+WAKE UP: Ends the game, and gives you a final score
+
+Once you finish building your character, you will be placed in a dream-world that is randomly generated by the game. You can move around the world by typing a cardinal direction or its abbreviation: NORTH or N, or Northwest or NW, and so on.
+
+Most locations in the world will be open ocean, but when you arrive at an interesting destination, places of interest will appear... Options will be displayed in location descriptions as ALL CAPS text. At each location, you can choose to do one thing before moving on. Once you make this choice, you will not be able to do anything else at that location until the map resets (you will get an alert in yellow text when this happens).
+
+Periodically, you will be presented with encounters, based on your choices at a particular location. These encounters will present your character with further choices, often with odds of success or failure represented in colored text. You can see the exact percentile meaning of these summaries by typing DIFFICULTY or ODDS...but the summary is pretty self explanatory. Options which are EASY have a high chance of success, Options which are DIFFICULT have a low chance of success, and so on.  You cannot end an encounter until you make one of the choices presented.
+
+Your odds of success or failure will be based on your character's abilities, and situation bonuses, which you can see by typing STATUS. Your abilities: Might, Talent, Seacraft, Shadowcraft, and Dreamcraft, represent skills your character possesses. Situation bonuses, represented by symbols on your status screen, give you bonuses to encounters of a certain genre or type. For example, a +10 bonus to [!] will give your character a greater chance of success for all options in encouners marked with the [!] symbol, which tend to be encounters representing action or adventure scenarios: traps, dragons, explosions, and the like.
+
+Your character's ability scores or situation bonuses are determined by the options you select at the start of the game, and by the items you choose to EQUIP or WEAR as the game goes on.
+
+Unlike most role playing games, you have no health, no hit points, and no lives. You cannot die. Instead, failures will give you Unpleasance (which decreases your final score), while success will generally give you pleasance, items, cargo, or other rewards.
+
+As an open world game, there is no final goal or overarching story: do whatever you want! You can end the game at any time by typing WAKE UP.
+
+There is much more to the game, which you can discover if you read the manual, or play the tutorial.
+
+> credits
+Lost Coastlines was created over 4 years, with generous help Testing, Editing, and Imagining by:
+* Anthony
+* Ben
+* Cricket
+* Katherine
+* Louis
+* Mizal
+* Peng
+
+Lost Coastlines was inspired by all of the following Literary Luminaries, who helped Shape My Dreams and My Reality:
+* Margaret Atwood
+* L. Frank Baum
+* Samuel Taylor Coleridge
+* Richard Dooling
+* Neil Gaiman
+* Robert E. Howard
+* H.P. Lovecraft
+* Scheherazade
+
+> examine telescope
+
+A useful object for spotting distant ships, distant stars, distant shores, distant spouses...anything really, so long as it is distant.
+
+Value: 5
+Bonuses: +5 [~], +5 [&]
+
+> equip telescope
+You carry the Old Telescope with you, always...
+
+> scowl
+
+You spit, and scowl at the horizon.
+Whatever waits out there, just over the edge, it's not half as scary as you.
+
+...no storms or sea monsters, no berg or buccaneer, will harass you this day.
+
+(You have gained 5 Fury)
+
+> hunt for diamonds
+[^] ENCOUNTER: THE DIAMOND FIELDS
+
+The volcanic beaches of Zapirtaz are littered with diamonds, hurled up from the depths of the dream by tectonic forces. Most of the archipelago's beaches are claimed by the Condign Cartel, but here and there, they have set aside places for people to hunt their own (the cartel, of course, is the only buyer of diamonds within a thousand miles.)
+
+The cartel charges a criminally high fee to hunt the diamond fields, but their baliffs appear to be away at the moment. Now would be a great time to FIND a diamond (Talent)(CHANCEY)
+
+> find
+
+You scoop one glittering shard out of the sand, and return to your ship before the baliffs of the cartel can charge you.
+You have obtained a diamond
+
+> southwest
+You move southwest.
+
+You have 2 supplies and 2 food in your hold.
+
+the vantasner sea
+
+Huts on the shore. Ruins in the hills. This island is inhabited. You can VISIT THE LOCALS.
+Routes are north, northeast, southeast and southwest.
+
+> visit the locals
+
+[~] ENCOUNTER: THE SHIP ROCKS
+
+You fell alseep on a ship, of course...and now it pitches in the night. The dream shifts violently to the left, then the right. You'll need to HOLD on to something (Talent)(CHANCEY)
+
+> hold
+
+You steady yourself, and the dream ceases rocking quite so badly. It is probably best to move on to some new, more stable port of call...
+
+> north
+You move north.
+
+You have 2 supplies and 2 food in your hold.
+
+The Port of Thrones
+
+There is one building, at the end of a long pier, that all explorers know. This is Entham's, a market for particularly discriminating customers, ladies and gentlemen interested in only the finest things the dream can provide...and the strangest. Entham deals in things no one else has the genius, and the courage, to buy and sell. You can VISIT ENTHAM'S.
+
+The Port of Thrones is a peaceful and glorious city. Old, and respectable...but boring. Perhaps you could use a little boredom. Perhaps there are adventures, mundane and domestic, that are worth having. You can choose to REMAIN HERE if you like, and temporarily forsake life upon the sea.
+
+The cliffs swarm with monks and nuns in white and gray, robes aflutter. Occasionally, you see the golden robes of a bishop or high dreamer. The four godheads reside here, in the mighty cathedrals that ring the cliffs. There are four cathedrals: one to Bajbuk, the widest-awake. One to Cosia, the happiest dreamer. One to Moslimbo, the deepest-sleeper. One to the great goddest Vatiya, the slayer of nightmares. You can ENTER THE SHRINE that connects each cathedral.
+
+Dozens of sails in the distance. Strangely-colored. Exotic. A sea lane, and it looks to be a well-traveled one. You can PLUNDER THE SEA LANE.
+Here, you see a the port of thrones.  Routes are south and northeast.
+
+> visit entham's
+
+Entham's Antiquities
+
+A shop for the discerning collector, Entham's Antiquities is open at all hours. Outrageously expensive items from across the world sit under glass, on sumptuous pillowcases of green and purple velvet.
+
+"Only the best here at Entham's!" the fastidious shopkeeper says. "Feel free to browse but don't touch anything."
+
+You can BUY any item here for twice its listed value. You can also SELL any item in your inventory here for its listed value.
+
+You can LEAVE at any time.
+
+Currently, the shop contains The Diamond Diamond Necklace, The Atlas, The Arquebus, The Dapper Tuxedo and The Expensive Watch.
+
+> buy the atlas
+You cannot afford that
+
+> leave
+
+You leave Entham's
+
+> enter the shrine
+
+The Shrine
+
+You stand within an cathedral carved into the cliffs. There is a reason they call it the Port of Thrones, after all. Here, in an audience chamber big enough to seat thousands in reverent prayer, four thrones the size of small hills sit, one for each of the four Dream-Gods: Cosia, Vataya, Bajbuk, and Moslimbo. It has been an age of the earth or maybe more since all four held court here, in these ancient halls...and even then, Moslimbo left after mere moments. From time to time, the figment-folk say, a god returns.
+
+The shrine full of multitudes from every nation, cross-legged, with heads bowed in deep thought, or dreams-within-dreams.
+
+Today, they pray to Saint Zernberg, the patron saint of weavers
+
+You can PRAY here if you would like. Eventually, something good is bound to happen.
+
+Here you can RENOUNCE all your possessions.
+
+(You can only do this once, in every game. Choose your time wisely. You will lose all your possessions and receive an amount of Pleasance equal to three times the value of your possessions)
+
+Here you can also heal your BODY (100 Pleasance) (you have 10 Pleasance) (You will lose all your Worry)
+Or heal your SOUL (100 Pleasance) (you have 10 Pleasance) (You will lose 100 Madness)
+
+Or you can simply LEAVE
+
+> renounce
+
+You place all your possessions in a pile before an altar. Without a word...a thought...a second glance backwards, you walk away. You no longer covet these material things...you would not, even if they were real (and of course, they are not). You leave them for some priest or prophetess to make use of.
+
+You have renounced all your possessions.
+
+You can never do this again.
+
+You have gained 96 Pleasance.
+
+> leave
+You leave the shrine.
+
+> plunder the sea lane
+
+(Look too closely, and the dream will come apart at the seams. The dream is unstable here, probably because you have lingered too long at a small group of locations. You must move on after an encounter, or risk destroying the entire world)
+
+[~] ENCOUNTER: BLUE SAILS
+
+"Blue sails!"  comes a call from the crow's nest. "Blue sails on the horizon!"
+
+The decision falls to you, now...
+
+Do you INTERCEPT the ship (Seacraft)(EASY)
+Or do you RETREAT (Seacraft)(EASY)
+
+> intercept
+
+The ship flees, but you outmaneuver her. Battle is joined!  The ship is a Whaler: The St. Sternberg
+Your Ship: Shipshape
+Your Crew: Ready for Action
+
+[~] ENCOUNTER: WHO HOLDS THE GAGE?
+
+Winds are high today, white foam appears on the tops of the wave. Whoever holds the weather gage, upwind of the enemy craft, will have an advantage in the battle to come...that advantage could even be decisive.
+
+You must POSITION your ship accordingly (Seacraft)(CHANCEY)
+
+> position
+
+They hold the gage! For the remainder of the battle, rolls against your enemy will be more difficult.
+Your Ship: Shipshape
+Your Crew: Ready for Action
+
+[!] ENCOUNTER: FULL BROADSIDE!
+
+Your crew scrambles to load powder and shot. Fuses are primed and cannons are ready. For one brief second, the ship is silent, before you give the order...
+
+FIRE! (Seacraft)(DIFFICULT)
+
+> fire
+
+Their ship is made of stronger stuff than you expected! Cannonballs clatter against a hull like iron. Minimal damage. Curses!
+
+(You have gained 3 Fury)
+Your Ship: Shipshape
+Your Crew: Ready for Action
+
+[!] ENCOUNTER: INCOMING!
+
+The enemy's cannons flash and thunder. Cannonballs incoming! Will your ship ENDURE the onslaught? (Seacraft)(DIFFICULT)
+
+> endure
+
+Cannonballs punch through your fragile hull. Your ship has been damaged!
+Your Ship: Damaged
+Your Crew: Ready for Action
+
+[!] ENCOUNTER: HIT THE DECK!
+
+The enemy is close now. Their cannons are loaded with grapeshot. They mean to take you and your crew out with a single decisive volley of metal and nails. Their captain cries out the order...there is only one thing to do...
+
+DUCK! (Talent)(DAUNTING)
+
+> duck
+
+Hot shards of death rip past. Many of your crew do not get up again. Your crew has been injured.
+Your Ship: Damaged
+Your Crew: Injured
+
+[!] ENCOUNTER: INCOMING!
+
+The enemy's cannons flash and thunder. Cannonballs incoming! Will your ship ENDURE the onslaught? (Seacraft)(DIFFICULT)
+
+> endure
+
+Cannonballs clatter against the mighty hull of your ship. It will take more than that to sink you!
+Your Ship: Damaged
+Your Crew: Injured
+
+[~] ENCOUNTER: GIVING CHASE
+
+The enemy ship suddenly breaks combat, and swings wide out onto the open ocean. They're running! You will have to RUN them down...(Seacraft)(DIFFICULT)
+
+> run
+
+You've caught the bastards! There's no running now. It's time to commence boarding!
+Your Ship: Damaged
+Your Crew: Injured
+
+[!] ENCOUNTER: RAMMING SPEED!
+
+You make ready to strike the enemy head-on. If you can pull this manuever off, boarding will commence immediately, and the enemy will be badly disoriented.
+
+You issue the order to RAM them! (Seacraft)(DIFFICULT)
+
+> ram
+
+Damn! You've missed them!
+
+(You have gained 3 Fury)
+Your Ship: Damaged
+Your Crew: Injured
+
+[!] ENCOUNTER: HIT THE DECK!
+
+The enemy is close now. Their cannons are loaded with grapeshot. They mean to take you and your crew out with a single decisive volley of metal and nails. Their captain cries out the order...there is only one thing to do...
+
+DUCK! (Talent)(DAUNTING)
+
+> duck
+
+Hot shards of death rip past. Many of your crew do not get up again. Your crew has been injured.
+Your crew is dead, you have no choice but to throw down your weapons and surrender.
+
+Your enemies take your cargo, and your ship, and leave you marooned on the nearest island they can find.
+Your many weeks, you stare longingly out to see, hoping for some ship to pick you up.
+
+(You have gained 20 Worry and 20 Sadness).
+
+...and after a time, you are discovered by a ship bound for Zapirtaz. After many more days, you stand in the harbor with a new ship, and a new crew, ready to begin your adventures again. Perhaps you will be more careful this time...perhaps not.
+
+Zapirtaz
+
+Your ship bobs in the harbor. You can SET SAIL at any time...
+
+There is a dense knot of dark buildings here, whose only purpose seems to be to horde shadow and filth. Alleys. Poorly maintained. You can LOOK FOR TROUBLE in the alleys, but why would you want to?
+
+The market district of Zapirtaz is one of the largest in the world. Languages of all nations echo among the close, red-brick buildings. Beautiful women, and swarthy men, tempt strangers with their wares. Enormous, sweet-scented caravans load and unload exotic cargo. You can VISIT THE MARKET.
+
+There is a harbor here, a place where ships can be mended and goods and figments may be traded. You can VISIT THE HARBOR if you wish.
+
+> visit the market
+There are plenty of deals to be made in the dense, sand-strewn markets of Zapirtaz. What will you buy (or sell) today?
+
+The Market
+
+(Enter a number to carry out that trade, you can only BUY 25 more items)
+
+1) BUY Goods (8 Pleasance) (You have 106 Pleasance)
+2) BUY Fruit (6 Pleasance) (You have 106 Pleasance)
+3) BUY Diamonds (20 Pleasance) (You have 106 Pleasance)
+4) SELL Goods (8 Pleasance) (You have 0 Crates of Goods)
+5) SELL Silk (14 Pleasance) (You have 0 Bolts of Silk)
+6) SELL Spices (11 Pleasance) (You have 0 Ounces of Spice)
+7) SELL Diamonds (10 Pleasance) (You have 0 Diamonds)
+
+You can also LEAVE the market
+Or EXPLORE it
+
+> 1
+
+You purchase a crate of goods.
+
+The Market
+
+(Enter a number to carry out that trade, you can only BUY 24 more items)
+
+1) BUY Goods (8 Pleasance) (You have 98 Pleasance)
+2) BUY Fruit (6 Pleasance) (You have 98 Pleasance)
+3) BUY Diamonds (20 Pleasance) (You have 98 Pleasance)
+4) SELL Goods (8 Pleasance) (You have 1 Crates of Goods)
+5) SELL Silk (14 Pleasance) (You have 0 Bolts of Silk)
+6) SELL Spices (11 Pleasance) (You have 0 Ounces of Spice)
+7) SELL Diamonds (10 Pleasance) (You have 0 Diamonds)
+
+You can also LEAVE the market
+Or EXPLORE it
+
+> 4
+
+You sell a crate of goods.
+
+The Market
+
+(Enter a number to carry out that trade, you can only BUY 23 more items)
+
+1) BUY Goods (8 Pleasance) (You have 106 Pleasance)
+2) BUY Fruit (6 Pleasance) (You have 106 Pleasance)
+3) BUY Diamonds (20 Pleasance) (You have 106 Pleasance)
+4) SELL Goods (8 Pleasance) (You have 0 Crates of Goods)
+5) SELL Silk (14 Pleasance) (You have 0 Bolts of Silk)
+6) SELL Spices (11 Pleasance) (You have 0 Ounces of Spice)
+7) SELL Diamonds (10 Pleasance) (You have 0 Diamonds)
+
+You can also LEAVE the market
+Or EXPLORE it
+
+> 2
+
+You purchase a bowl of figment fruit.
+
+The Market
+
+(Enter a number to carry out that trade, you can only BUY 22 more items)
+
+1) BUY Goods (8 Pleasance) (You have 100 Pleasance)
+2) BUY Fruit (6 Pleasance) (You have 100 Pleasance)
+3) BUY Diamonds (20 Pleasance) (You have 100 Pleasance)
+4) SELL Goods (8 Pleasance) (You have 0 Crates of Goods)
+5) SELL Silk (14 Pleasance) (You have 0 Bolts of Silk)
+6) SELL Spices (11 Pleasance) (You have 0 Ounces of Spice)
+7) SELL Diamonds (10 Pleasance) (You have 0 Diamonds)
+
+You can also LEAVE the market
+Or EXPLORE it
+
+> 3
+
+You purchase a diamond from the vast warehouses of the cartel.
+
+The Market
+
+(Enter a number to carry out that trade, you can only BUY 21 more items)
+
+1) BUY Goods (8 Pleasance) (You have 80 Pleasance)
+2) BUY Fruit (6 Pleasance) (You have 80 Pleasance)
+3) BUY Diamonds (20 Pleasance) (You have 80 Pleasance)
+4) SELL Goods (8 Pleasance) (You have 0 Crates of Goods)
+5) SELL Silk (14 Pleasance) (You have 0 Bolts of Silk)
+6) SELL Spices (11 Pleasance) (You have 0 Ounces of Spice)
+7) SELL Diamonds (10 Pleasance) (You have 1 Diamonds)
+
+You can also LEAVE the market
+Or EXPLORE it
+
+> explore
+
+[&] ENCOUNTER: THE HEIST
+
+Your criminal contacts pass you a message: they know of a facility, just a little ways up the coast, which stores treasures beyond belief. If you wish, you could carry out a heist...
+
+Success would mean considerable wealth. Failure, of course, would make you a powerful enemy.
+
+You can STEAL the treasure (Shadowcraft)(IMPOSSIBLE)
+Or find some subtler way to FOOL the guards (Talent)(IMPOSSIBLE)
+
+It would be safer to simply LEAVE
+
+> leave
+
+You leave the market.
+
+Zapirtaz
+
+Your ship bobs in the harbor. You can SET SAIL at any time...
+
+There is a dense knot of dark buildings here, whose only purpose seems to be to horde shadow and filth. Alleys. Poorly maintained. You can LOOK FOR TROUBLE in the alleys, but why would you want to?
+
+The market district of Zapirtaz is one of the largest in the world. Languages of all nations echo among the close, red-brick buildings. Beautiful women, and swarthy men, tempt strangers with their wares. Enormous, sweet-scented caravans load and unload exotic cargo. You can VISIT THE MARKET.
+
+There is a harbor here, a place where ships can be mended and goods and figments may be traded. You can VISIT THE HARBOR if you wish.
+
+> set sail
+
+You set sail from Zapirtaz...
+
+The Condign Archipelago
+
+The largest island of the archipelago is home to the mighty trading city of Zapirtaz. You may DOCK there if you wish.
+
+The rare, violent vulcanism of the Condign Archipelago causes occasional rains of diamond, which settle into the sand like shards of heaven. Here, and only here, you can HUNT FOR DIAMONDS, but the Condign diamond cartel will make them very difficult to sell anywhere local.
+Routes are north, south, southwest and northwest.
+
+> dock
+
+You dock at the great city of Zapirtaz...
+
+Zapirtaz
+
+Your ship bobs in the harbor. You can SET SAIL at any time...
+
+There is a dense knot of dark buildings here, whose only purpose seems to be to horde shadow and filth. Alleys. Poorly maintained. You can LOOK FOR TROUBLE in the alleys, but why would you want to?
+
+The market district of Zapirtaz is one of the largest in the world. Languages of all nations echo among the close, red-brick buildings. Beautiful women, and swarthy men, tempt strangers with their wares. Enormous, sweet-scented caravans load and unload exotic cargo. You can VISIT THE MARKET.
+
+There is a harbor here, a place where ships can be mended and goods and figments may be traded. You can VISIT THE HARBOR if you wish.
+
+> visit the harbor
+
+(Look too closely, and the dream will come apart at the seams. The dream is unstable here, probably because you have lingered too long at a small group of locations. You must move on after an encounter, or risk destroying the entire world)
+
+[~] ENCOUNTER: THE HARBOR
+
+The harbor here sees great ships from the world over. It is alive with activity: crates being loaded and unloaded. Sails being furled and unfurled. The salty air echoes with the cries of chantymen and seagulls.
+
+You can BUY sundry sailing goods here for 5 Pleasance (You have 80 Pleasance)
+Or you can SELL fruit to the hungry settlements beyond the harbor for 10 Pleasance. (You have 1 bowls of Figment Fruit)
+Or you can LEAVE
+
+> buy
+
+You buy a crate of goods from a merchant ship.
+
+> set sail
+
+You set sail from Zapirtaz...
+
+The Condign Archipelago
+
+The largest island of the archipelago is home to the mighty trading city of Zapirtaz. You may DOCK there if you wish.
+
+The rare, violent vulcanism of the Condign Archipelago causes occasional rains of diamond, which settle into the sand like shards of heaven. Here, and only here, you can HUNT FOR DIAMONDS, but the Condign diamond cartel will make them very difficult to sell anywhere local.
+Routes are north, south, southwest and northwest.
+
+> dock
+
+You dock at the great city of Zapirtaz...
+
+Zapirtaz
+
+Your ship bobs in the harbor. You can SET SAIL at any time...
+
+There is a dense knot of dark buildings here, whose only purpose seems to be to horde shadow and filth. Alleys. Poorly maintained. You can LOOK FOR TROUBLE in the alleys, but why would you want to?
+
+The market district of Zapirtaz is one of the largest in the world. Languages of all nations echo among the close, red-brick buildings. Beautiful women, and swarthy men, tempt strangers with their wares. Enormous, sweet-scented caravans load and unload exotic cargo. You can VISIT THE MARKET.
+
+There is a harbor here, a place where ships can be mended and goods and figments may be traded. You can VISIT THE HARBOR if you wish.
+
+> look for trouble
+
+(Look too closely, and the dream will come apart at the seams. The dream is unstable here, probably because you have lingered too long at a small group of locations. You must move on after an encounter, or risk destroying the entire world)
+
+[!] ENCOUNTER: LARCENY
+
+Crime abounds in the alleyways, far from the eyes of nosy townsfolk and diligent nightwatchmen (and the occasional nightwatchwoman). Some is overt, and quite dangerous. Some is safer, but decidedly more subtle. You might not even know you were victimized until long after you leave.
+
+As you walk down one close and noisome courtyard between buildings, a crowd of vagrants shuffles past. One among them sticks a filthy hand into your pocket. Do you even NOTICE? (Talent)(DIFFICULT)
+
+> notice
+
+You don't notice a think until much later, when you thrust your hand into your pocket and find four coins missing. The brief twinge of worry will surely pass, but the loss of the coins is sore indeed (You have lost 4 pleasance and gained 1 worry).
+
+> set sail
+
+You set sail from Zapirtaz...
+
+The Condign Archipelago
+
+The largest island of the archipelago is home to the mighty trading city of Zapirtaz. You may DOCK there if you wish.
+
+The rare, violent vulcanism of the Condign Archipelago causes occasional rains of diamond, which settle into the sand like shards of heaven. Here, and only here, you can HUNT FOR DIAMONDS, but the Condign diamond cartel will make them very difficult to sell anywhere local.
+Routes are north, south, southwest and northwest.
+
+> northwest
+You move northwest.
+
+You have 1 supplies and 1 food in your hold.
+
+plundercult land
+
+Here lives a great warrior, as hale and hardy as any in the dream. There is much you can learn from him. You can VISIT THE WARRIOR.
+Routes are north, west and southeast.
+
+> visit the warrior
+
+[~] ENCOUNTER: THE SEA WITCH
+
+The warrior waits in the center of town, an impossibly tall man, with impossibly broad shoulders. He leans on a sheathed sword that is somehow taller and broader than he is.
+
+Age has weathered his mighty frame only a little. His flowing beard has a few specks of red. His face is a mass of scars and tattoos of a thousand scattered tribes.
+
+He hails you as you approach. Somehow, he was expecting you.
+
+"Hark dreamer!" He calls. "I am perhaps the greatest warrior in the whole of the Dream. There is little upon the world, or under the sea, that I could not kill...but old age has fallen upon me. The time has come to hang up this mighty sword, but there are still a handful of horrors I have not dared to face on my own. With your help, I can slay a few more monsters, and rest. You will come with me, of course."
+
+...and he speaks the truth, for how could you refuse such a challenge. He squats in the dirt, and draws out a map to your first challenge.
+
+"In the Wild Blue Yonder beyond the Tropic of Zael, there waits a fearsome-sea witch, the terror of the darker oceans of the dream. Many men have sailed forth to chop off her sea-green head, but none have succeeded...we shall be the first. At dawn, we shall sail for her haunt, and you will assist me in laying her low. A word of caution: keep your wits about you! The legends say she is so beautiful to look upon that many brave souls fall instantly under her spell, only to be eaten alive...so I guess we'll have to fight blindfolded. No biggie!"
+
+He slaps you on the shoulder, and indeed, the two of you depart at dawn.
+
+Your voyage North is fraught with peril, of course, but the thousand lesser terrors you face along the way are scarecely worth mentioning. One day, out there in the Wild Blue Yonder, a call from the crows nest rings out: "Sea witch sighted!"
+
+With a mighty yalwp, the warrior dons his blindfold, takes up his sword, and leaps (fully armored) into the sea.
+
+...and the sea witch rises from the waves. The legends were completely false, for she is hideous to look upon: ten thousand tentacles erupt from her bulbous body. Her hands are ragged claws the size of your sails. Her hair is stringy and kinked with kelp and cockle-shells.
+
+The warrior swims out to meet her, as you contemplate the actions available to you:
+
+You can swim out and HELP the warrior (Might)(CHANCEY)
+...or you can SHELL the Sea-witch with your cannons (Seacraft)(CHANCEY)
+
+> help
+
+You swim out to help the warrior, but are quickly overwhelmed by the Witch's mass of tentacles...and so you get to chopping, cutting them down one after another as they seek to wrap you up.
+
+...the warrior does the bulk of the fighting, leaping upon the Witch, stabbing and slashing her vile body until the waters darken with her black blood. After an hour, she slumps below the waves with a single soul-rending scream.
+
+Then, and only then, does the warrior remove his blindfold.
+"YES!" he says, slapping the water with his sword. "Well done. I appreciate the assistance."
+
+He passes you a handful of glittering coins as your reward.
+(You have gained 10 pleasance).
+
+"I'll swim home." The warrior says. "When next we meet, I have an even more heroic task. Hurry back!"
+
+Without another word, he paddles off.
+
+Your crew pulls you out of the water, and you continue on your way, a little stronger than before.
+
+Your Might skill has increased by 1!
+
+The Wild Blue Yonder
+Routes are north, east, south, west, northeast and northwest.
+
+> north
+You move north.
+
+You have 1 supplies and 1 food in your hold.
+
+sophood atoll
+
+The sun on the sea! The wind in the trees! This place is beautiful. Perhaps you can just ENJOY THE VIEW and that will be enough.
+Routes are north and south.
+
+> enjoy the view
+
+An afternoon well spent, to be sure!
+
+(You have gained 2 Pleasance)
+
+> wake up
+
+It is said that over the high pass of Gishood, beyond the Limpid Lakes of Abbendai, there waits a snowy expanse of a thousand miles or more. It is said that whoever crosses it comes upon a mountain range higher than any in the dream...and beyond that one higher than that...and beyond that one higher than that...and beyond that a valley of ice and dreadful shadow, where the nights are filled with strange wailing songs and the days are hardly days at all...and beyond that, there is starlight...and beyond that, there is darkness...and beyond that, there is a lake with rose-colored cliffs where a traveller might be blessed to see the most beautiful sight in the cosmos: a single simple sunset, pristine and pure, perfect in every way.
+
+...but you will never see that sunset, and you will never see those cliffs, for the dream ends here and now. Is that enough? That is for you to decide.
+
+===================
+YOUR FINAL SCORE
+===================
+
+PLEASANCE: 83
+[-]
+SADNESS: 20
+MADNESS: 0
+FURY: 11
+WORRY: 21
+[=]
+31
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

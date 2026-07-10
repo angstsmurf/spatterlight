@@ -1,0 +1,56 @@
+# The Dead of Winter (ADRIFT 5, "Untitled"/Anonymous, 2019) -- winning regression
+# playthrough.  Deterministic MAX result: *** You have won *** at Geddonstaun.
+#
+# The game is a survival journey: you are Kanto, carrying a priest's message that
+# must reach the Orithonqui city of Geddonstaun (Location103) at the far south of
+# a 104-room hex map.  You get three actions per day; the day-end (Time1 reaches
+# 4) runs a death check that kills you only if you hold TWO of {hungry, cold,
+# injured} (each combo gated on that day-end's die roll).  A SINGLE affliction is
+# always survivable -- so hunger alone never kills, and food is optional.
+#
+# The winning idea (all deterministic under the fixed seed):
+#   * COLD is the real enemy.  Moving makes you cold when weather < 15 (roll < 4);
+#     that source vanishes entirely once weather >= 15.  Weather normally worsens,
+#     but `weatherstate` flips to +1 (warming) on a day-end roll of 6, after which
+#     weather climbs to its cap (29) and moving becomes cold-free for the rest of
+#     the run.  An early natural flip here does exactly that.
+#   * INJURY only comes from exerting (move/gather) while already cold, so we never
+#     move while cold; the one unavoidable cold (entering the DeepSnow Loc91) is
+#     cleared with a FIRE (wood from looting the fort + a book of Rostrandi chants
+#     as tinder) before that day ends.
+#   * BATTALIONS block the road (Loc57 DMZ, Loc69, the Loc97/101 siege camps); we
+#     slip through the DMZ in a single day (no lingering = no capture) and HIDE
+#     where we must pause.
+#
+# Route: fort(1) -> 16 -> 28 -> 45 -> 57 -> 69 -> 81 -> 92 -> 91 -> 97 -> 101 ->
+# Geddonstaun(103), the 11-move shortest path.  At the city the endgame is a fixed
+# dialogue: turn yourself in -> say you understand -> ask about the contents of the
+# message, which reveals the message (a retranslation of the Great Prophecy) and
+# wins.  Scarier matches FrankenDrift byte-for-byte in xoshiro mode (0 hunks).
+loot
+south
+rest
+south
+rest
+south
+rest
+rest
+south
+south
+hide
+south
+rest
+south
+rest
+west
+fire
+a book of rostrandi chants
+hide
+rest
+south
+south
+rest
+southwest
+turn yourself in
+say you understand
+ask about the contents of the message

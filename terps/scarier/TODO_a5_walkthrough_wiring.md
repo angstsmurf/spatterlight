@@ -348,17 +348,24 @@ pass-text dedup, map-path DisplayOnce retire).
   a bug — it vanishes under the aligned stream, so no golden blessed (same class
   as JacarandaJim/SixSilverBullets/StoneOfWisdom/LostLabyrinthOfLazaitch/
   October31st/Skybreak).
-- ~~**Skybreak**~~ ✅ **SMOKE-WIRED (2026-07-06), DIVERGE 2|0 (at baseline).**
-  No real walkthrough exists (`walkthroughs/Skybreak_walkthrough.pdf`, 16 pp, is
-  the in-game manual/lore, not a command sequence) and Skybreak is a class-based
-  RPG with randomised combat and multiple win conditions, so this stays a
-  4-command smoke probe (`test/Skybreak_walkthrough.txt`). Surfaced a real
-  engine bug along the way — a bare-function-call Text `SetVariable`
-  (`UCASE(%text%)`) was stored as the literal string instead of being evaluated
-  — fixed generally, see the ⭐ LostCoastlines/Skybreak entry in
-  `TODO_a5_walkthrough_bugs.md`. The 2 residual vanilla hunks (a quote-of-the-day
-  pick + a starting silver-piece count) both vanish under xoshiro, confirming
-  System.Random-vs-xoshiro noise, not a bug — no golden blessed.
+- ~~**Skybreak**~~ ✅ **REAL MODEST PLAYTHROUGH WIRED (2026-07-06), golden-backed
+  DIVERGE 0|1 (at baseline; was a 4-command smoke probe at 2|0).**
+  No published walkthrough exists (`walkthroughs/Skybreak_walkthrough.pdf`, 16 pp,
+  is the obfuscated in-game manual/lore, not a command sequence) and Skybreak is a
+  class-based cosmic roguelike with a semi-random travel path, RNG-gated grind
+  wins, and space-combat minigames — so a full deterministic WIN is a long
+  derivation (left as documented follow-up). The probe was replaced with a
+  genuine, correctly-handled session: create a Human Earthling+Explorer, then ten
+  hyperspace jumps surviving one Lone Wolve space battle, ending docked at Lambda
+  Apis. This was previously IMPOSSIBLE — the random jump landed the player nowhere
+  (`MoveCharacter ToLocationGroup` read only static group members, but the
+  destination group is runtime-populated each jump), rendering the world as the
+  literal `Player.Location.Description`. Fixed generally with an FD-faithful live
+  group-membership list (`clsGroup.arlMembers`); see the ⭐ Skybreak random-jump
+  entry in `TODO_a5_walkthrough_bugs.md`. The 1 residual xoshiro hunk is the
+  initial dock's flavour-line draw-order pick (two adjacent `%var[rand(1,25)]%`
+  arrays resolved in FD's `htblVariables` hash order) — the documented
+  `%defaultshirt[Rand]%` RNG class, not a bug. Vanilla golden-backed (0).
 
 ## Have hints only (not a full walkthrough) — treat with the StoneOfWisdom caution
 
