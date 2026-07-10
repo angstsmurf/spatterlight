@@ -1,0 +1,12 @@
+# Monster Age: Trials of Dustorn (Moonheart Games; ADRIFT 5.0000353) -- an
+# abandoned one-room shell (Monster_Age_I.taf).  No custom tasks, no events,
+# no EndGame, no exits; the only content is Elbrium Grove and two NPCs
+# (Gustorn, descriptor "serious, brave", who ignores you with the broken
+# greeting template "Hello! My name is he!", and Barnin, placed nowhere).
+# This tour simply documents that state; there is nothing to win.
+look
+x me
+i
+say hi to gustorn
+say hi to gustorn
+n

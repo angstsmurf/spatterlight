@@ -1,0 +1,124 @@
+Snowdrift
+
+For a list of controls, input the word 'controls' or the letter 'c.'
+
+A cold place
+You're in a blizzard and it's hard to see. Hard arcing snow obscures your vision. But if you squint, you can make out a fuzzy brown outline on the horizon. However, the storm has made you loose your sense of direction, so you are unsure of what direction it is in.
+
+> north
+You move north.
+
+A cold place
+Your compass seems to stabilize. It assures you that you are headed north, in the direction of the brown outline. It's closer now and you can make out more of its shape. Out of the way, there is a pine tree to the east. It seems the tree would make a good shelter in this storm.
+
+> east
+You move east.
+
+Pine tree
+However large, the tree's needles are too low to lie under. Upon a second glance, you realize that you were stupid to think that this would make even an adequate shelter. Although the needles are too low for you, there is an shovel hidden under the tree. It seems quite comfortable there, lodged in the snow.
+
+> take shovel
+Ok, you pick up the shovel.
+
+> west
+You move west.
+
+A cold place
+Your compass seems to stabilize. It assures you that you are headed north, in the direction of the brown outline. It's closer now and you can make out more of its shape. Out of the way, there is a pine tree to the east. It seems the tree would make a good shelter in this storm.
+
+> north
+You move north.
+
+Shamble
+Jagged planks cut through the snow here. The woody brown of the planks juxtaposes the violent white hailing of snow. It is a shelter that collapsed here, presumably in this very storm. Boards are scattered and it is hard to tell what might be under the snow here. In every direction there is hard, arcing snow.
+
+Your body is growing numb. It would be in your best interest to find a shelter of some sort.
+
+> dig with shovel
+After shoveling out much of the snow, you find a framed photograph, a mangled baseball, an entire mouse skeleton and a trap door. Although it is locked, the door's wood was so damaged by the snow that it would hardly take any effort to pry it open.
+
+> open trap door
+The door falls apart with minimal resistance, revealing a wooden ladder that leads downwards.
+
+> down
+You move down.
+
+Cellar entrance
+A narrow room, it has a hole in the ceiling where the ladder sits. The east leads to a larger room.
+
+> east
+You move east.
+
+Large room
+A large room with a large ceiling. Poorly kept, dusty chairs surround an upturned table. A hallway stretches to the east. To the north, a balcony overlooks the room you're in. To the south, a closed door.
+
+> open southern door
+The door creaks open, begging entry to a room that gives off a pulsing red glow.
+
+> south
+You move south.
+
+Library
+Lopsided bookshelves surround the library in a semi-circle. A fireplace rests in the center of the room. On a circular table next to a circular chair, there is an oddly shaped phone.
+
+> x phone
+A red phone. It is odd because it is one of those old dial phones. So, if you wanted to use this phone, you would have to enter in one digit at a time. It is also odd because it doesn't have all the keys a phone should. It only has numbers one through four on its dial. If you were to use this telephone, you would have to dial only numbers one through four, one digit at a time.
+
+> enter 3
+You input the number 3.
+
+> enter 1
+You input the number 1.
+
+> enter 4
+You input the number 4.
+
+> enter 1
+The bookshelf on the east wall steps aside to reveal a hallway.
+
+> east
+You move east.
+
+Hallway
+A narrow hallway that curves to the north.
+
+> north
+You move north.
+
+Elevator room
+A small room with an elevator door to the north. The elevator has an 'up' button by its door.
+
+> press up button
+
+You press the 'up' button. The elevator door begins to open.
+
+> z
+I did not understand the word "z".
+
+> z
+I did not understand the word "z".
+
+> north
+You move north.
+
+Elevator
+A cramped elevator. The doors close behind you as you enter.
+
+The elevator begins its ascent.
+
+> z
+I did not understand the word "z".
+
+> z
+I did not understand the word "z".
+
+> west
+You move west.
+
+To be continued...
+
+Congratulations, you have received a score of 50 out of 50.
+
+> score
+Your score is 50 out of a maximum of 50. (1%)
+

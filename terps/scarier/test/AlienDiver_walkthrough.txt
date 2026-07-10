@@ -1,0 +1,106 @@
+# ALIEN DIVER - deterministic winning walkthrough (Scarier determinism / seed 1234)
+# Start: Ocean M005 (Loc33). Crashed ship: Ocean M053 (Loc17). Avoid the Rip rooms (currents).
+# =========== GREEN FRAGMENT ===========
+# roll dice on the G6 cube here until it unlocks, then extract a blank card
+rd
+rd
+rd
+ec
+# craft a card on the G6 cube (cc, then pick card 1)
+ne
+ne
+e
+cc
+1
+# play the crafted card on another G6 cube to extract the fragment
+w
+s
+sw
+sw
+sw
+s
+w
+pc
+1
+# =========== YELLOW FRAGMENT ===========
+# roll dice on the B4 cube here until it unlocks, then extract a blank card
+e
+rd
+ec
+# roll dice on the R2 cube here until it unlocks, then extract a blank card
+w
+nw
+rd
+rd
+rd
+rd
+ec
+# craft a card on the Y1 cube (cc, then pick card 1)
+nw
+cc
+1
+# play the crafted card on another Y1 cube to extract the fragment
+n
+n
+ne
+pc
+1
+# =========== BLUE FRAGMENT ===========
+# roll dice on the Y3 cube here until it unlocks, then extract a blank card
+e
+e
+rd
+rd
+rd
+ec
+# craft a card on the B4 cube (cc, then pick card 1)
+n
+n
+cc
+1
+# play the crafted card on another B4 cube to extract the fragment
+se
+ne
+pc
+1
+# =========== RED FRAGMENT ===========
+# roll dice on the R2 cube here until it unlocks, then extract a blank card
+ne
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+ec
+# craft a card on the R5 cube (cc, then pick card 1)
+ne
+n
+cc
+1
+# play the crafted card on another R5 cube to extract the fragment
+sw
+w
+s
+sw
+pc
+1
+# =========== REPAIR & TAKE OFF ===========
+w
+s
+s
+sw
+s
+se
+s
+w
+# enter the ship, repair it (needs all 4 fragments), go to the cockpit, sit, take off
+enter ship
+fix ship
+w
+w
+s
+sit on seat
+take off

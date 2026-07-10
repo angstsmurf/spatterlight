@@ -1,0 +1,97 @@
+# The Mysterious Spaceship (Kenneth Pedersen, ADRIFT 5, Release 1) -- full
+# winning walkthrough.  Out of fuel and oxygen, you board a mysterious ship
+# orbiting Karpath -- crewed only by the sleeping vampire Vlad Nosferatu, whose
+# access card you need to reach the engine room.  No score (pure win/lose).
+# Blind-derived from the game XML; 66 commands, 0 hints, fully deterministic
+# (no RAND draws -- the mousetrap is a fixed 3-turn event, the chase is
+# scripted).
+#
+# Puzzle spine: the encyclopedia says a vampire must be weakened by a sacred
+# symbol OF ITS OWN former faith; the Koran's dedication reveals Vlad was
+# Muslim, so the cockpit crucifix is a red herring -- the CRESCENT MOON of
+# Karpath is the weapon.  Rotate the ship 180 degrees (6 x right button, 30
+# degrees each) and open the shutters so the moon shows, break a bookcase pole
+# into a stake (hammer) and whittle it pointy (knife) -- an uncut stake fails
+# against his ribs.  Waking him directly, picking his pocket, or putting
+# anything in the coffin is instant death.  Instead set the mousetrap (rat
+# springs it after exactly 3 turns) and kill the rat: the blood summons the
+# vampire, and while Hunted you must keep fleeing FORWARD every turn (each
+# move resets the one-turn Delay; stalling or fleeing aft is death).  He
+# follows you into the cockpit, sees the moon, and freezes -- do NOT close the
+# shutters or touch the rotation buttons while he is paralyzed.  Stake him,
+# take the card from the corpse's breast pocket, swipe it aft to open the
+# engine room, swap the blown fuse for the new one from the saloon table, and
+# press the yellow button to land.
+#
+# === Saloon: read up on vampires, gather tools, sharpen the stake ===
+x table
+x bookcase
+x encyclopedia
+read encyclopedia
+x koran
+read koran
+take hammer
+take knife
+take fuse
+take mousetrap
+x hammer
+x knife
+x fuse
+x mousetrap
+break bookcase
+x stake
+cut stake with knife
+x stake
+# === Sleeping quarters: meet the sleeping menace (look, don't touch) ===
+aft
+x coffin
+open coffin
+x vampire
+x door
+x card reader
+# === Cockpit: aim the crescent moon at the window ===
+forward
+forward
+x dashboard
+x yellow button
+x window
+x shutters
+open shutters
+x crucifix
+press right button
+press right button
+press right button
+press right button
+press right button
+press right button
+x moon
+# === Saloon: bait the vampire with rat blood, flee to the moonlit cockpit ===
+aft
+set mousetrap
+z
+z
+z
+x mousetrap
+x rat
+kill rat
+forward
+kill vampire
+x vampire
+x pocket
+take access card from pocket
+x access card
+# === Engine room: swipe card, replace the blown fuse ===
+aft
+aft
+swipe card
+open door
+aft
+x main engine
+x fuse socket
+replace blown fuse
+i
+# === Cockpit: land on Karpath -> WIN ===
+forward
+forward
+forward
+press yellow button

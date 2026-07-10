@@ -1,0 +1,25 @@
+Don't Go
+
+Don't Go
+A bedroom. On the right is a bed, and a bookcase behind it. From the window across, beams of light are gliding inside. You can see a part of a building through the window.
+
+Walls are white. A picture of a flower is on the wall. A red rose with a black background. The bed with white sheets is undone.
+
+A man with straggly hair in pajamas with dark blue stripes, is walking to left. He has fuzzy slippers. He's scratching his butt.
+
+The reaching big white hand of the bed is about to hold the man from behind.
+
+> x picture
+A red rose with a black background.
+
+> take slippers
+You can't reach anything from where you are. But it'd be great.
+
+> talk to man
+You can't talk. It would be weird.
+
+> north
+You leave the painting alone and decide to go on to the next painting. Man, you love to lose yourself in a well done picture!
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

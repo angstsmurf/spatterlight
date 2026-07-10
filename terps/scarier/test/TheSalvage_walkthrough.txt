@@ -1,0 +1,57 @@
+# The Salvage (GameJam2019 build v35) -- Daza (Darian Haines), ADRIFT 5.0.0353.
+# WINNING walkthrough under the deterministic seed (1234): find the missing
+# freighter Maria Serra, salvage her black box + the MK40Z crate, then open the
+# crate (the jam-version ending; the journal's "DO NOT open" is the tease).
+#
+# Space-sim: local star-system moves need `roll dice` movement points (1 fuel
+# per tile); jumpgates hop to the galaxy map (free).  Under seed 1234 the Maria
+# Serra spawns AT the Aristaeus jumpgate tile, two systems from the start.
+# Random events fire when movement points hit 0: this route sees the distress
+# beacon (decline: 2) and space debris hitting the comm tower (defer: 3).
+# The win fires 5 TimeBased ticks (= turns) after the crate is opened.
+board avadora
+# skip the McKinney boarding cutscene
+3
+take off
+roll dice
+w
+w
+s
+# random event: distress beacon signal -- don't risk it
+2
+roll dice
+s
+w
+s
+s
+yes
+# galaxy map: south into Aristaeus; the Maria Serra sits on its jumpgate tile
+s
+s
+salvage maria serra
+# enter the Aristaeus gate, hop north back into MPQ 449 local space
+y
+n
+roll dice
+n
+# random event: space debris damages the comm tower -- repair at next dock
+3
+roll dice
+e
+n
+roll dice
+n
+e
+e
+request docking
+# docked: walk the ship interior to Salvage Storage and open the crate
+w
+w
+w
+n
+open crate
+z
+z
+z
+z
+z

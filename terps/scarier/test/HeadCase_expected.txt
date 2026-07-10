@@ -1,0 +1,299 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.Adventure Upgrade
+7 tasks have been updated.Head Case
+
+"Dr Harris are you up for this?" said the balding man with an FBI badge pinned to his belt.
+"Yes of course. This is new territory, cutting edge technology so don't get your hopes up."
+They both turn to look through the large one way looking glass, bullet proof strength.
+Dr Harris's intern assistant spoke up, "Is he violent? Dangerous?"
+"He can be. But as you can see he's restrained to the chair, you would think he's about to see the dentist." No one laughed.
+"Now remember Rebecca it may seem a little disturbing when he flips between okay. We talked this through earlier. You are to focus on my instructions when to give dosages and monitor his vitals. That's what you are there for. I am going to focus on what he says and what i will say."
+"Will it really just be us in there alone with him?" Rebecca ask sounding a little unsure.
+"Yes. A full staff setup seems to unsettle the patient, so minimal is what we have today."
+"I'm sorry we made you setup here at the FBI center but with this own going case he may be targeted. This facility seems best suited to the task least to say safe."
+"However the boss is still skeptical this will work given the circumstances, are you sure his words will be reliable?"
+"Yes i am sure. As sure you believe you are who you are. It may not hold in court but his memories might give you more clues." She replied.
+"That's what we hope for. We sure need them. You helped us tremendously in a case six months ago."
+"That i did, but this is a step up wouldn't you say. But i'm confident."
+The agent merely nodded.
+
+"Okay lets begin." Dr Harris said calmly looking down the corridor where five of her orderlies
+Remain seated ready at her command to enter and subdue the patient if needed. Her assistant followed her.
+There were come plainclothes policeman and so uniform ones milling about too.
+This was critical. The pressure on Dr Harris was great, but she covered her nervousness well.
+
+"Hello Dan?" Dr Harris spoke warmly.
+Dan who is reclined back on a chair that looks similar to a dentist chair looks up at her.
+He is dressed in a blue hospital gown and isn't wearing any shoes. His arms and legs are restrained to the chair by large straps.
+"Hello Dr Harris. I still don't know why you have me restrained to this chair. I'm not going to hurt anyone." sounding a little hurtful.
+"I know that. But.."
+"But its for my well being when the drugs take affect right?" Dan said.
+"Yes that's right."
+The assistant came up to the Dr and spoke into her ear,"Does he know? That he's.."
+"No. But he doesn't need to know that. I want you to focus at your station over there okay.
+Whatever i do or say or what he says you must never leave the control station okay.
+I hand picked you for this. Don't let me down." Dr Harris said sternly but quietly.
+"What are you two talking about, me?" Dan said a little uneasy.
+"I am just giving her instructions for her role, i want her to stay focus on the instruments. So just pretend its me and you in this room."
+"Okay."
+"Now we will begin. I want you to lay back and relax, take some easy breaths. You will feel a little funny sensation like before. Nothing to worry about, its to induce you into a deeper and calmer state. Infact you will almost be asleep. Sort of a REM state."
+"Yeah, i remember."
+"Only this time it should go smoother for you. If you feel severally agitated we will pull you out. However with the results from last time i think we have ironed out the rough edges in the system."
+"Thats good."
+"Okay, Rebecca administer the first and second stage please."
+"It will take affect rapidly no need to be alarmed Dan."
+
+A few minutes passes in silence.
+"He's ready Dr." Rebecca said.
+"Good. Okay Dan. Do you hear me clearly?"
+"Yes, clearly." Dan replied. His eyes are shut but the instrument panel is alive with activity reflecting off the glasses of the assistant.
+"Okay lets start at your most vivid memory. At the motel the morning it seemed to all start for you."
+
+***********
+
+You stir a little as the dull pain edges into your consciousness, slowly your eyelids open revealing a ceiling in the dim morning light.
+
+Still staring at the ceiling flat on your back on a bed you are a loss as to where you are. The mind fumbling through possibilities but this place you do not know how or why you came to be here.
+
+As your brain begins to wake up gradually as other things come to your senses, a quiet drone of traffic can be heard, a busy day is once again starting.  A weight on your right hand feels heavy. You head feels like a bowling ball meaning you must of had a heavy night on the booze again.
+Your throat parched for water. The smell of booze still lingers on your clothing and breath.
+
+Some weird smell is in the room.
+
+You turn your head towards the window, the curtains are shut but you can see the bright morning light illuminating the edges.
+
+Motel Room
+A king size bed sits relatively in the middle of the room up against the left side wall.  Which you are currently are laying upon.  A bedside cabinet sits on the left side of the king size bed.
+
+A two mirror door wardrobe is against the wall opposite the bed. The wardrobe doors are currently closed.  The main motel door faces east to the far right of the bed.   An arm chair sits left of the bed against the back wall near the bedside cabinet, directly opposite that on the other side of the room is a wide-screen television.  The window with closed curtains is to the right of the main door.  Also here is a bathroom door.  Exits are east and west.
+
+> get up
+(the king size bed)
+You get off of the king size bed.
+
+You look down and find yourself reeling in shock. You see before you, a dead female body on the floor.
+Something weighing heavy in your hand draws your attention to it. Your eyes widen with disbelief seeing what looks like a pistol in your right hand. You glance again at the body and then back at the gun connecting the dots. Your mouth opens but no sound comes out. You step back a little almost toppling back onto the bed.
+
+> x body
+The dead woman is tall, has brunette hair, wearing a dress that you guess is pretty expensive. She looks around her late twenties and has makeup on. She looks like she is just laying there sleeping if it weren't for a neat bullet hole in her forehead and her vacant eyes staring up at the ceiling.
+
+She isn't wearing shoes and you do not see a purse anywhere either.
+
+You have never seen this woman before, you're sure of it.  However you can't recall a thing from last night, especially with a mega headache raging behind your eyes.
+
+> check pulse of body
+You kneel down and check her pulse at the base of her jaw and neck, nothing. He skin is slightly bluish and cold to touch. You can be safe to say she is dead as much as your thought, but it didn't hurt to be exactly sure.
+
+> x pistol
+The pistol is heavy meaning it must have bullets left in the magazine, how you knew that you don't know. There is a silencer attachment on the end of it. Perhaps you have seen too many spy movies.
+It smells well oiled and a hint of cordite from the barrel still lingers.
+
+Strangely you don't feel repulsed or frightened by it, yet swear you have never seen one up close before let alone
+Hold a real pistol before.
+
+> tuck pistol into jeans
+You tuck the pistol into the back of your jeans then cover it with back of your shirt.
+
+> x cabinet
+A generic bedside cabinet with three draws,   The bedside cabinet is currently closed.  A brown leather wallet, a half empty bottle of jack daniels, an empty bottle of wine, a black cellfone and a generic motel telephone are on the bedside cabinet.
+
+> x wallet
+You recognize this wallet as yours, well used and stuffed with money, receipts, business cards and your driver's license.  The brown leather wallet is currently closed.
+
+> open wardrobe
+You open the mirror wardrobe door.  Inside the mirror wardrobe door you find a metal coat hanger and a large duffel bag.
+
+> open bag
+You open the large duffel bag.  Inside the large duffel bag you find stacks of money.  You take out the duffle bag and move it to the bed, whilst being careful not to trip over the body on the floor.
+
+Then a familiar tune began to play. At first in your bewildered state you couldn't work out what an earth it was, then your remembered.
+
+It's your cell phone ringing with a familiar melody.
+
+> x money
+The money is in bundles of hundred dollar bills. You rummage inside, they all look to be the same. Must be almost a million dollars in there.
+
+A sudden knock sounds at the door.
+"Mr Green? Are you awake? I am today's cleaner. Your friend rang to say you have vomited all over the floor last night. I have to come inside to clean it up." a woman's voice could be heard beyond the door.  Your cellfone continues to play the ring tune.
+
+> get cellfone
+You retrieve your cell fone from the (the bedside cabinet) and hit the green button to take the call.
+
+"Hell..hello?" you stammer not quite sure what's going on.
+"Dan. Not a word. Listen. There is going to be a knock at the door."
+"How did you know who i am. Is this some sick prank? Is the girl pretending to be.." you say angrily.
+"dead? No. She is dead. But that is the least of your problems right now."
+"Is it?" you reply trying to clear your foggy head by sheer will power.
+"The motel maid."
+"What?"
+
+Knock. Knock. You turn towards the sound, the closed front door.
+
+"Tell her your friend is being silly."
+"What? This is craziness. Who the hell are you?"
+"Right now that doesn't matter, the motel maid is fetching her keys from her pocket hurry."
+
+> tell maid to go away
+"There is no vomit. Please leave me in peace."
+"But sir i have my job to do. Owner doesn't like messy floor of vomit!"
+"I told you there IS NO VOMIT." you yell back.
+
+"Are you still there sonny?" the mysterious voice asks.
+You hear the voice remembered you are still in a call, putting the cellfone back to your ear.
+"Yeah, the maid has left me alone. For now."
+"Yup that she has. Now listen time ain't on your side so here's what you gotta do.
+First of all you got to hide the body, for temporary measures if you will.
+Then you have to santize the place of your prints. That's number one."
+"What's number two?" you ask.
+"Are you out of your dang mind? What do you think that one will be. Must i do all the thinking for ya."
+"Now away you go, i gotta take care of the security cameras here. Cleaning up after you i am. Someone is gotta do it."
+"Who are you?"
+"Doesn't matter right now. Call me back when your done."
+The call disconnects abruptly.
+
+You think about what you have to do, what have you touched in the room?
+How and with what will you wipe your prints?
+
+> hang up cellfone
+You are already using the cellfone.
+
+> drop cellfone
+Ok, you put down the black cellfone.
+
+> get coat hanger
+(from the mirror wardrobe door)
+Ok, you take the metal coat hanger from the mirror wardrobe door.
+
+> drop coat hanger
+Ok, you put down the metal coat hanger.
+
+> pick up body
+You squat down and pick up the body with both arms. She is heavy but you can manage to lift the body without much
+Difficulty.
+
+> put body in wardrobe
+You put the female dead body inside the mirror wardrobe door.
+
+> close wardrobe
+You close the mirror wardrobe door.
+
+> tasks
+
+Hide Body then Santise motel room of any finger prints.
+
+Objective Status: Uncompleted
+
+Move body to Van without being seen.
+
+Objective Status: Uncompleted
+
+> look through spy hole
+You close one eye and place the other to the spyhole and see
+Car Park
+The cleaners trolley cart is right outside your motel door.  Also here is a black van.  Exits are south and west..
+
+> open main door
+You open the motel room main front door.
+
+> e
+You move east.
+
+Car Park
+The cleaners trolley cart is right outside your motel door.  Also here is a black van.  Exits are south and west.
+
+> x cart
+There is nothing special about the motel cleaners cart.  A spray bottle of bleech, a old short rag, a old long rag, a roll of paper towels, a industrial craft knife, a bottle of methylated spirits, a pair of rubber latex gloves and an empty box of gloves are on the motel cleaners cart, and inside is a roll of duct tape.
+
+> x black van
+The van's first noticeable feature is that it seems to be a commercial vehicle, with a bright logo Anvil Security Systems on the side. It windows are tinted and seems unoccupied.   The van passenger door, the van drivers door and the van rear doors are on the black van.  Mysterious Voice is inside the black van.
+
+> open rear doors
+You open the van rear doors.  They are already open.
+
+> bring cart inside
+You push the motel cleaners cart inside the motel room.
+
+> get rubber gloves
+(from the motel cleaners cart)
+Ok, you take the pair of rubber latex gloves from the motel cleaners cart.
+
+> wear rubber gloves
+Ok, you put on the pair of rubber latex gloves.
+
+> open wardrobe
+You open the mirror wardrobe door.  Inside the mirror wardrobe door you find a female dead body.
+
+> pick up body
+You squat down and pick up the body with both arms. She is heavy but you can manage to lift the body without much
+Difficulty.
+
+> e
+You move east.
+
+Car Park
+There is a black van here.  Exits are south and west.
+
+> put body in black van
+You put the female dead body inside the black van.
+
+> close rear doors
+You close the van rear doors.
+
+> w
+You move west.
+
+Motel Room
+A king size bed sits relatively in the middle of the room up against the left side wall.  A bedside cabinet sits on the left side of the king size bed.
+
+A two mirror door wardrobe is against the wall opposite the bed. The wardrobe doors are currently open showing closed.  The main motel door faces east to the far right of the bed.   An arm chair sits left of the bed against the back wall near the bedside cabinet, directly opposite that on the other side of the room is a wide-screen television.  The cleaners trolley cart is right outside your motel door.  The window with closed curtains is to the right of the main door.  Also here is a metal coat hanger, a bathroom door and a black cellfone.  Exits are east and west.
+
+> w
+You move west.
+
+MotelBathroom
+On the back wall of the bathroom directly in front of you is a mounted mirror above a sink, to the right of that is a generic toilet.
+
+To the left is a bathtub and shower in one, with a shower curtain rigged up to a ceiling rail. A little old fashion, this must be a cheap motel alright.   A toilet paper roll holder is mounted on the wall beside the toilet.  A wall mounted towel rack is level next to the sink and there is a bathroom towel on it.  The bathroom mirror cupboard is directly above the sink at head level.  Also here is a bathroom door.  An exit leads east.
+
+> x toilet
+It looks old, not that you care so long as it does the job.  The shock of seeing the dead woman is making you feel a little woozy as you stand there. You're pretty sure you didn't kill her, and you that you have never seen her before.   A toilet tank is on the generic white china toilet.
+
+> x tank
+The tank has two large push buttons on top of the lid for half and full flush.   The toilet tank is currently closed.
+
+> open tank
+You open the toilet tank.  Inside the toilet tank you find a wet face towel.
+
+> get face towel
+(from the toilet tank)
+Ok, you take the wet face towel from the toilet tank.
+
+> unfold face towel
+You unfold a wet face towel.  What was wrapped in it follows, a cell fone simcard, a womans watch and a small usb stick.
+
+> wash hands in sink
+You turn on the tap and thoroughly wash your hands using the soap.
+
+> dry hands with hand towel
+You dry your hands with a white bathroom hand towel.
+
+> e
+You move east.
+
+Motel Room
+A king size bed sits relatively in the middle of the room up against the left side wall.  A bedside cabinet sits on the left side of the king size bed.
+
+A two mirror door wardrobe is against the wall opposite the bed. The wardrobe doors are currently open showing closed.  The main motel door faces east to the far right of the bed.   An arm chair sits left of the bed against the back wall near the bedside cabinet, directly opposite that on the other side of the room is a wide-screen television.  The cleaners trolley cart is right outside your motel door.  The window with closed curtains is to the right of the main door.  Also here is a metal coat hanger, a bathroom door and a black cellfone.  Exits are east and west.
+
+> tasks
+
+Hide Body then Santise motel room of any finger prints.
+
+Objective Status: Uncompleted
+
+Move body to Van without being seen.
+
+Objective Status: Uncompleted
+

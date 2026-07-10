@@ -1,0 +1,96 @@
+# All Through the Night (Daniel Saults, ADRIFT 5) — Ending C: Salvation
+# Survive the home invasion: seal the house, call 911, hold out for the police.
+# --- Fetch the boards, nails and hammer from the garage, grab the phone ---
+open garage door
+n
+n
+take wooden boards
+take hammer
+take box of nails
+s
+take phone
+# --- Lock both exterior doors (stops the intruder simply opening them) ---
+lock front door
+d
+lock back door
+u
+# --- Wait for the intrusion to begin (nothing can be sealed until then) ---
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+# --- Under siege: call the police, then board every window and barricade both doors ---
+call 911
+board up window
+barricade front door with couch
+d
+board up window
+barricade back door with futon
+u
+s
+s
+board up window
+n
+e
+board up window
+w
+# --- Hold out in the hallway until the police arrive (Ending C: Salvation) ---
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z

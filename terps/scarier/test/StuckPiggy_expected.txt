@@ -1,0 +1,132 @@
+Untitled
+Stuck Piggy
+By
+Mike Desert
+
+Adrift Ectocomp 2011
+(3 hour time limit).
+
+You sit...and wait...and wait.  You know what you want.
+
+Brambly Hedge
+You are in a tall, brambly hedge. The sharp branches poke your skin, but you dare not exit just yet.  Your slow, steady breathing gently ruffles the small leaves that surround you. The sounds and smells of small, playful children waft in from down the street as you WAIT eagerly for one little piggy in particular...
+
+> take branch
+You manage to pry off a large pointy branch.
+
+> get bag
+Using the long branch, you grab the bag from Sally as she runs off screaming: "A creepy, skeleton arm just stole my candy!!"
+
+> empty bag
+You pour the candy out onto the ground.
+
+> get candy
+It's cheap crap, but the wax teeth look kinda cool. You pick them up and pop 'em into your pocket.
+
+> get billy
+You can't just go ahead and do that! At least not without somewhere to put the body.
+
+> grab billy
+Leaping from the bushes, you put the Halloween sack over Billy. It's large enough that it goes all the way to his feet.  His muffled screams might sound an alarm though!
+
+> hit bag
+After several whacks with the thorny branch, you manage to quiet the pig. You drag Billy back to your house.  Luckily your parents have left you alone for the weekend (again).
+
+> e
+I move east.
+
+Your House (Kitchen)
+Unlike the rest of the house, your kitchen is brightly lit. A Frigidaire hums away while your faucet drips steadily.  The noises are maddening and you know that more than a few minutes of the cacophony will drive you past the brink of insanity. A toaster, a drawer and electric carving knife immediately interest you. Your pantry is to the East.  Also here is a silver toaster and the kitchen drawer.
+
+> move fridge
+You push it away from the wall - Jesus, it's dusty back here. Doesn't Mom ever clean? Dad should hit her more. The fridge is plugged in to an extension that leads to the head high outlet.
+
+> x cord
+It's a short extension cord.
+
+> get cord
+Ok, I pick up the short extension cord.
+
+> get toaster
+Ok, I pick up the silver toaster.
+
+> get knife
+Ok, I pick up the electric carving knife.
+
+> get grater
+(from the kitchen drawer)
+Ok, I take the metal cheese grater from the kitchen drawer.
+
+> get ice pick
+(from the kitchen drawer)
+Ok, I take the pointy ice pick from the kitchen drawer.
+
+> e
+I move east.
+
+Your House (Pantry)
+Why do adults need so much baking soda, cans of slimy looking vegetables and artificial sweeteners?  Large bags of flour, bottles of water and jars of preserves sit waiting for the apocalypse. There isn't anything that looks useful in here. The kitchen is back to the West.
+
+> get flour
+Crammed just under a bag of flour you find a clock key!
+
+> get key
+Ok, I pick up the old key.
+
+> w
+I move west.
+
+Your House (Kitchen)
+Unlike the rest of the house, your kitchen is brightly lit. A Frigidaire hums away while your faucet drips steadily.  The noises are maddening and you know that more than a few minutes of the cacophony will drive you past the brink of insanity. A toaster, a drawer and electric carving knife immediately interest you. Your pantry is to the East.  Also here is the kitchen drawer.
+
+> w
+I move west.
+
+Your House (Living Room)
+There's nothing spectacular about your living room.  A large grandfather clock ticks methodically in the South corner, your mom's antique stained glass window lets in the moonlight and the candles you set up flicker on the circular table to your right.  The kitchen is to the East. Billy is bound and gagged whimpering continuously just in front of you.
+
+> open clock
+You can't open the old grandfather clock as it is locked!
+
+> unlock clock with key
+I unlock the old grandfather clock with the old key.
+
+> open clock
+I open the old grandfather clock.  Inside the old grandfather clock is some old dentist tools.
+
+> get dentist tools
+(from the old grandfather clock)
+Ok, I take the old dentist tools from the old grandfather clock.
+
+> plug in knife
+A snug fit. You in turn plug the extension to the wall and power the sucker on!
+
+> hit billy with toaster
+Billy begins choking on a mouthful of blood and broken teeth.  A warm feeling overwhelms you as you realize you've peed your pants from excitement.
+
+> grate nose
+Sllllliiiiiice! You scrape off layers and layers of Billy's pink nose flesh 'till he looks like a gruesome skeleton. Or possible Michael Jackson.
+
+> use ice pick on eyes
+The ice pick goes into Billy's eye like butter.  Clear ooze drips down Billy's face as you smile.
+
+> use dentist tools
+Is it safe??? You scram at Billy as you drive the ancient dentist tools into his orange, candy tainted gums.
+
+> carve body
+You thrust the carving knife into his tubby tummy. Pink skin and blood fly onto the walls.
+
+> carve arm
+Bzzzzzzzzzz! You love that sound, but Billy doesn't.  He struggles as you peel his flesh back with the electric knife.
+
+> slice leg
+Flesh peels off in thin strips as you slice into Billy's legs.  He wimpers in agony.
+
+> kiss billy
+You realize that all this rage you had against Billy was actually a deep love for him but an inner hatred toward yourself for conservative values your parents poisoned you with.  As you pull away from his mouth, you sadly slit his throat and cover his head with the potato sack.  You slowly walk upstairs to your bedroom where you know you have a length of rope and step ladder.
+The End.
+
+*** You have won ***
+Hurray! You are dead! You've won the game. This was the 3 hour version; I'm going to expand eventually for the hellofit. Aren't you lucky?
+Would you like to restart, restore a saved game, quit or undo the last command?
+

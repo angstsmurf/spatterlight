@@ -1,0 +1,44 @@
+x me
+x melinda
+x door
+x recess
+x book
+t book
+r book
+w
+x message
+n
+e
+x painting
+s
+x poster
+w
+n
+e
+s
+r book
+say vupti
+w
+n
+e
+s
+w
+s
+e
+n
+e
+r book
+say bonka
+n
+e
+n
+e
+n
+w
+n
+e
+r book
+say kapow
+n
+i
+u door

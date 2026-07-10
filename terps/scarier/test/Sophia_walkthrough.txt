@@ -1,0 +1,35 @@
+look
+north
+north
+WLKTR
+shakespeare
+north
+WLKTR
+kiss princess
+no
+take key
+unlock door with key
+open door
+north
+WLKTR
+say hello to boethius
+say yes to boethius
+say virtue to boethius
+WLKTR
+east
+take bread
+eat bread
+take wine
+drink wine
+wait
+wait
+wait
+take knife
+northwest
+holy trinity
+southwest
+kill my image
+east
+south
+take rusty sword
+attack demon

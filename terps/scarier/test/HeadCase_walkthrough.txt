@@ -1,0 +1,71 @@
+# Head Case (Dazakiwi, 2012 IntroComp; ADRIFT 5.000024) -- content tour of
+# the unfinished demo (Intro_compVB1.taf).  There is NO EndGame task at all
+# (one location is literally named "To Do"), so this script plays the intro's
+# implemented story to its natural end and simply stops; the "Sanitise"
+# objective can never flip to Completed (no object carries the wipeable
+# property the wipe task requires) -- both objectives staying "Uncompleted"
+# is the faithful data state.
+#
+# The frame story: Dan, restrained in an FBI facility, relives the motel
+# morning under Dr Harris's drug-induced regression.  In the memory: wake up
+# holding a silenced pistol next to a dead woman, a duffel bag of money in
+# the wardrobe, a Mysterious Voice on the phone coaching you, and the motel
+# maid at the door.
+#
+# Key beats: `get up` (the body+gun reveal), tuck the pistol away, open the
+# wardrobe/bag (the maid-knock countdown and the ringing phone both start),
+# `get cellfone` auto-answers the call, ANY tell stops the knock countdown
+# (`tell maid to go away`), the voice then dictates the objectives (`tasks`).
+# Hands must be EMPTY to `pick up body`; the wardrobe must be empty to hide
+# it.  `bring cart inside` auto-returns you to the room.  The toilet tank
+# hides a wet face towel wrapped around a simcard, a woman's watch and a USB
+# stick (`unfold face towel`).
+#
+# First input line answers the Adventure-Upgrade prompt (5.0.26 OR-after-AND
+# auto-correction) with yes, like the other pre-5.0.26 corpus games.
+yes
+get up
+x body
+check pulse of body
+x pistol
+tuck pistol into jeans
+x cabinet
+x wallet
+open wardrobe
+open bag
+x money
+get cellfone
+tell maid to go away
+hang up cellfone
+drop cellfone
+get coat hanger
+drop coat hanger
+pick up body
+put body in wardrobe
+close wardrobe
+tasks
+look through spy hole
+open main door
+e
+x cart
+x black van
+open rear doors
+bring cart inside
+get rubber gloves
+wear rubber gloves
+open wardrobe
+pick up body
+e
+put body in black van
+close rear doors
+w
+w
+x toilet
+x tank
+open tank
+get face towel
+unfold face towel
+wash hands in sink
+dry hands with hand towel
+e
+tasks

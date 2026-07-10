@@ -1,0 +1,389 @@
+A Difficult Puzzle
+
+- - - - - - - - - - - - - - - - - - - -
+A Difficult Puzzle Version 2 (Limited Parser Edition)
+By Kenneth Pedersen
+An entry for P/o Prune's Mini Competition 2021
+
+Thanks to Larry Horsfield for testing and the
+Authors of Junior Arithmancer and the Hard
+Puzzle series for their inspiring games
+- - - - - - - - - - - - - - - - - - - -
+
+You have passed all the exams in your first year studying to become a wizard. One test remains though. It isn't a test you have been prepared for. The purpose is to test your wits when you encounter something you are NOT prepared for.
+
+You are led down some stairs to the basement and shoved into a small room. The door closes and locks behind you. From somewhere you hear the voice of your teacher:
+
+"So my friend, it is time to test your wits! You have until tomorrow to escape this puzzle if you want to continue your studies. Good luck!"
+
+You take a good look around...     [Type HELP for instructions on how to play]
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> x me
+You are Alex, a first year student at Brue University of Magic. Hopefully, you will soon be a second year student if you manage to get out of here before 24 hours have passed.
+
+> x melinda
+The fairy Melinda is flying a few centimetres above your head.
+
+> x door
+The big iron door is locked with three padlocks. One of bronze, one of silver and one of gold.
+
+> x recess
+It is a small recess in the wall. On further inspection, you notice, that the recess is connected to other locations as well beyond the wall.  Inside the recess is a book.
+
+> x book
+The cover is brown and worn. You should pick it up if you want to examine it more thoroughly.
+
+> t book
+Ok, you take the book from the recess.
+
+> r book
+There is only one line of text in the book and it says:
+
+"This page is intentionally left blank."
+
+> w
+You walk through the western doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+Western Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "125" has been written with white paint. There is a small recess in the eastern wall.
+
+A message is written on the western wall with black paint.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> x message
+The message is written with black paint. You could read it.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> x painting
+The painting is very simple. It has three vertical stripes. From left to right they are purple, yellow and pink.
+
+> s
+You walk through the southern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Southern Room
+You are in an almost featureless room with concrete walls. There are passages that lead east and west. At the centre of the concrete floor, the number "25" has been written with white paint. There is a small recess in the western wall.
+
+A poster with a rhyme is hanging on the south wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> x poster
+The poster is attached to the south wall. There is a rhyme written on it.
+
+> w
+You walk through the western doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Western Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "125" has been written with white paint. There is a small recess in the eastern wall.
+
+A message is written on the western wall with black paint.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> s
+You walk through the southern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Southern Room
+You are in an almost featureless room with concrete walls. There are passages that lead east and west. At the centre of the concrete floor, the number "25" has been written with white paint. There is a small recess in the western wall.
+
+A poster with a rhyme is hanging on the south wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> r book
+On this page there are two lines of text:
+
+"A local spell holds the gold key."
+"To break the spell you must speak the magic word Vupti."
+
+> say vupti
+As you say the magic word, a big, heavy gold key appears in your hand.
+
+> w
+You walk through the western doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Western Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "125" has been written with white paint. There is a small recess in the eastern wall.
+
+A message is written on the western wall with black paint.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> s
+You walk through the southern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Southern Room
+You are in an almost featureless room with concrete walls. There are passages that lead east and west. At the centre of the concrete floor, the number "25" has been written with white paint. There is a small recess in the western wall.
+
+A poster with a rhyme is hanging on the south wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> w
+You walk through the western doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Western Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "125" has been written with white paint. There is a small recess in the eastern wall.
+
+A message is written on the western wall with black paint.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> s
+You walk through the southern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Southern Room
+You are in an almost featureless room with concrete walls. There are passages that lead east and west. At the centre of the concrete floor, the number "25" has been written with white paint. There is a small recess in the western wall.
+
+A poster with a rhyme is hanging on the south wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> r book
+On this page there are two lines of text:
+
+"A local spell holds the bronze key."
+"To break the spell you must speak the magic word Bonka."
+
+> say bonka
+As you say the magic word, a big, solid bronze key appears in your hand.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> w
+You walk through the western doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Western Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "125" has been written with white paint. There is a small recess in the eastern wall.
+
+A message is written on the western wall with black paint.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> e
+You walk through the eastern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Eastern Room
+You are in an almost featureless room with concrete walls. There are passages that lead north and south. At the centre of the concrete floor, the number "5" has been written with white paint. There is a small recess in the western wall.
+
+On the eastern wall hangs a simple painting.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> r book
+On this page there are two lines of text:
+
+"A local spell holds the silver key."
+"To break the spell you must speak the magic word Kapow."
+
+> say kapow
+As you say the magic word, a big, shiny silver key appears in your hand.
+
+> n
+You walk through the northern doorway and pass through a small curving tunnel until you arrive in another room. Melinda follows right behind you.
+
+As you enter the room, you sense that something has happened to the book.
+
+Northern Room
+You are in an almost featureless room with concrete walls. The door out of here is in the north wall but it is locked with three different padlocks. There are passages that lead east and west. At the centre of the concrete floor, the number "1" has been written with white paint. There is a small recess in the southern wall.
+
+The fairy Melinda is hovering a few centimeters above your head.
+
+> i
+You are carrying a book, a bronze key, a silver key and a gold key.
+
+> u door
+Finally, you unlock the three padlocks and open the door. You proceed through the door with Melinda right behind you. You walk up the stairs and into the big meeting room where all your fellow students and teachers are waiting to congratulate you.
+
+Well done - you are ready for a well-deserved summer vacation and your second year as a wizard's apprentice!
+
+[WOW!!! You solved the game without help from Melinda! You took 43 turns.]
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

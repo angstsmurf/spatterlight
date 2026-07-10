@@ -1,0 +1,30 @@
+# The Dark Hour (Alexandra Koslowska, 2017; ADRIFT 5.0000353) -- full
+# walkthrough to the EndGame Neutral ending.  A short surreal three-round
+# riddle game: an eerie figure walks you through three computer rooms; each
+# riddle answer is typed directly as a command, each correct answer puts a
+# key in your pocket, and `use <n> key` opens that room's cupboard (an
+# origami prize + the next door).  After the third round, `x white door`
+# (the game's own "go through" phrasing) ends the game with the real answer.
+#
+# Quirks: the game overrides the direction synonyms to the FULL WORDS only
+# ("east"/"south" -- a bare "e"/"s" is not understood), and the room short
+# names are just "0"/"1"/"2"/"3".  The riddle answers (hangman-style, the
+# `guess <letter>` tasks are the intended slow path):
+#   round 1 (computer):  nothing matters
+#   round 2 (pot plant): no one cares
+#   round 3 (tiles):     never good enough
+east
+x computer
+x cupboard
+nothing matters
+i
+use first key
+x paper plane
+south
+no one cares
+use second key
+x origami crane
+east
+never good enough
+use third key
+x white door

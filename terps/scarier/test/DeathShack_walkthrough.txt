@@ -1,0 +1,31 @@
+# Death Shack -- Mel S., ADRIFT 5 (v5.000021 taf), Ectocomp 2011 (3-hour
+# speed-IF) -- full walkthrough to the game's single ending (EndGame Neutral:
+# '"I AM DEATH SHACK(tm)!!!!" THE END').  Blind-derived from the game XML.
+#
+# A parody slasher in four "sequels": climb the oak to the shack roof, slide
+# the rusty object (a key) from under the plank, climb down, unlock the door
+# (-> DEATH SHACK II: THE SHACK IS BACK), open the door and walk in (-> DEATH
+# SHACK IV: JUDGEMENT SHACK, a Hawaiian hotel room), pick up and read the
+# note by the door ("SIT COUCH"), and sit on the couch -- which turns out to
+# BE Death Shack(tm).  Task9 (`sit on couch`) has no restrictions, so the
+# ending fires from anywhere; this route plays the intended full arc.
+#
+# SCARIER-SURPASSES-FD (RtC-class version gate): the file is version
+# 5.000021 with no <TaskExecution> element, so Scarier runs it in the
+# v4-compatible HighestPriorityPassingTask mode the pre-5.0.22 Runner used --
+# part II's `open door` falls through Task2's failing "You can't do that
+# here!" (a Location1-only task) to the stock OpenObjects task, the door
+# opens, and `in` reaches part IV and the note.  FrankenDrift hardcodes
+# HighestPriorityTask, so ITS `open door` dies on Task2's message and the
+# note is unreachable.  The committed golden pins Scarier's full-arc
+# transcript (vanilla 0); the xoshiro budget (6, identical in both RNG modes
+# = RNG-independent) carries that documented FD gap, exactly like RtC.
+climb tree
+get object
+climb down
+unlock door
+open door
+in
+get note
+read note
+sit on couch

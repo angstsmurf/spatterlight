@@ -1,0 +1,11 @@
+look
+ask bartley about car
+look city
+out
+order wormwood
+drink wormwood
+eat fargi
+order fuzziness
+shoot fuzziness
+eat crackers
+look kenners

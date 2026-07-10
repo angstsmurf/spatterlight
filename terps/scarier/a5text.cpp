@@ -462,16 +462,22 @@ objects_on_in (a5_state_t *st, const char *objkey, a5_owhere_t want)
 static std::vector<const a5_character_t *>
 chars_on_in (a5_state_t *st, const char *objkey, int on)
 {
+  /* The live on/in state is the char_onobj/char_in arrays (kept by both the
+     model load -- "On Object"/"In Object" CharacterLocation -- and the runtime
+     ToSittingOn/ToLyingOn/ToStandingOn and inside moves), NOT the property
+     override table: Head Case's Mysterious Voice starts CharacterLocation
+     "In Object"/CharInsideWhat, which the old prop probe ("Inside Object"/
+     "InsideWhat" vocabulary) never matched. */
   std::vector<const a5_character_t *> v;
   for (int i = 0; i < st->adv->n_characters; i++)
     {
-      const a5_character_t *c = &st->adv->characters[i];
-      const char *cl = a5state_entity_prop (st, c->key, "CharacterLocation");
-      const char *want = on ? "On Object" : "Inside Object";
-      const char *whatprop = on ? "OnWhat" : "InsideWhat";
-      const char *what = a5state_entity_prop (st, c->key, whatprop);
-      if (streq (cl, want) && streq (what, objkey))
-        v.push_back (c);
+      if (st->char_onobj == NULL || st->char_onobj[i] == NULL)
+        continue;
+      if (!streq (st->char_onobj[i], objkey))
+        continue;
+      int in = st->char_in != NULL && st->char_in[i];
+      if ((on && !in) || (!on && in))
+        v.push_back (&st->adv->characters[i]);
     }
   return v;
 }
@@ -646,16 +652,39 @@ arg_object_keys (a5_state_t *st, const char *args)
 static int
 char_perspective (const a5_state_t *st, const a5_character_t *c)
 {
-  if (c != NULL && c->perspective != NULL)
-    {
-      if (ci_eq (c->perspective, "FirstPerson"))  return 1;
-      if (ci_eq (c->perspective, "ThirdPerson"))  return 3;
-    }
-  /* The current player defaults to second person; everyone else to third
-     (referred to by name). */
-  if (c != NULL && !streq (c->key, a5state_player_key (st)))
+  /* clsCharacter.Perspective's getter: NonPlayer-TYPE characters are ALWAYS
+     third person; the Player-type one uses its stored perspective.  A BECOME
+     (MoveCharacter ToSwitchWith the player, clsUserSession.vb:1837) flips the
+     types AND copies the old player's perspective onto the new player -- so
+     the CURRENT player always renders with the ORIGINAL Player character's
+     load-time perspective (Xanix's King Kelson stays "you"; The Salvage's
+     Captain Pearson renders by name, because its Player char has no
+     <Perspective>), and everyone else renders third person. */
+  if (c == NULL)
+    return 2;
+  if (st == NULL || !streq (c->key, a5state_player_key (st)))
     return 3;
-  return 2;
+  {
+    const a5_character_t *orig = NULL;
+    for (int i = 0; i < st->adv->n_characters; i++)
+      if (st->adv->characters[i].type != NULL
+          && ci_eq (st->adv->characters[i].type, "Player"))
+        { orig = &st->adv->characters[i]; break; }
+    if (orig == NULL)
+      orig = c;
+    if (orig->perspective != NULL)
+      {
+        if (ci_eq (orig->perspective, "FirstPerson"))  return 1;
+        if (ci_eq (orig->perspective, "SecondPerson")) return 2;
+        if (ci_eq (orig->perspective, "ThirdPerson"))  return 3;
+      }
+    /* No stored <Perspective>: FD's loader records ThirdPerson for files
+       >= 5.00002 and forces SecondPerson for older ones (FileIO.vb:1776-7). */
+    if (st->adv->version != NULL
+        && strtod (st->adv->version, NULL) < 5.00002)
+      return 2;
+    return 3;
+  }
 }
 
 typedef enum { A5_PRO_SUBJ, A5_PRO_OBJ, A5_PRO_POSS, A5_PRO_REFL } a5_pronoun_t;
@@ -669,8 +698,27 @@ typedef enum { A5_PRO_SUBJ, A5_PRO_OBJ, A5_PRO_POSS, A5_PRO_REFL } a5_pronoun_t;
  * the override layer too.
  */
 static char *
-character_display_name (a5_state_t *st, const a5_character_t *c, int definite)
+character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
+                        int displaying = 1)
 {
+  /* clsCharacter.Name's Introduced dance (clsCharacter.vb:331-334), which only
+     runs under UserSession.bDisplaying: once a character's name has rendered
+     in displayed output, later Indefinite descriptor renders upgrade to the
+     Definite article ("a tall guillermo" -> "the tall guillermo"), and the
+     render itself marks the character Introduced.  In FD the only renders
+     that happen under bDisplaying are of text still carrying its %functions%
+     when it reaches Display() -- see a5state.h's intro_active. */
+  if (displaying && st->intro_active
+      && c != NULL && st->char_introduced != NULL)
+    {
+      int intro_ci = a5state_character_index (st, c->key);
+      if (intro_ci >= 0)
+        {
+          if (st->char_introduced[intro_ci])
+            definite = 1;
+          st->char_introduced[intro_ci] = 1;
+        }
+    }
   const char *known = c ? a5state_entity_prop (st, c->key, "Known") : NULL;
   int model_known = c != NULL
                     && a5_prop_find (c->props, c->n_props, "Known") != NULL;
@@ -732,6 +780,17 @@ character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr,
     for (int i = st->n_pron - 1; i >= 0; i--)
       if (st->pron_key[i] != NULL && streq (st->pron_key[i], c->key))
         {
+          /* clsCharacter.Name marks Introduced (vb:333) BEFORE the pronoun
+             branch, so a reply that pronoun-replaces the name ("He looks up
+             at ye") still introduces the character -- the next descriptor
+             render is definite.  Same intro_active gate as
+             character_display_name. */
+          if (st->intro_active && st->char_introduced != NULL)
+            {
+              int intro_ci = a5state_character_index (st, c->key);
+              if (intro_ci >= 0)
+                st->char_introduced[intro_ci] = 1;
+            }
           const char *g = a5state_entity_prop (st, c->key, "Gender");
           int male   = g != NULL && strcasecmp (g, "Male") == 0;
           int female = g != NULL && strcasecmp (g, "Female") == 0;
@@ -766,7 +825,12 @@ char *
 a5text_char_proper_name (a5_state_t *st, const char *charkey)
 {
   int ci = a5state_character_index (st, charkey);
-  char *nm = character_display_name (st, ci >= 0 ? &st->adv->characters[ci] : NULL, 0);
+  /* The walk enter/exit announcements build ToProper(.Name) OUTSIDE
+     bDisplaying (clsCharacter.vb:1558/1576 -- Display gets the composed
+     string later), so no Introduced article upgrade ("Your double enters",
+     not "The double enters") and no marking. */
+  char *nm = character_display_name (st, ci >= 0 ? &st->adv->characters[ci] : NULL, 0,
+                                     /*displaying*/ 0);
   /* ToProper(.Name, bForceRestLower:=False): upper-case the first char only. */
   if (nm[0])
     nm[0] = (char) toupper ((unsigned char) nm[0]);
@@ -836,6 +900,66 @@ eval_function (a5_state_t *st, const char *name, const char *args)
   int i;
 
   st->name_cap_eligible = 0;      /* only a resolved CharacterName sets it */
+
+  /* User-defined <Function>s (clsUserFunction): FD's ReplaceFunctions runs
+     EvaluateUDF over every UDF FIRST (Global.vb:1748), matching the exact
+     case-sensitive name with an optional [args] block.  The Output is a
+     restriction-gated description whose declared <Argument> names are
+     substituted with the (already function-expanded) argument values -- The
+     Last Expedition's %Lantern[]% renders "with his free gloved hand" while
+     the lantern is held, and its %Red[text]%-style wrappers colour the arg. */
+  {
+    static int udf_depth = 0;
+    for (i = 0; i < st->adv->n_udfs; i++)
+      {
+        const a5_udf_t *u = &st->adv->udfs[i];
+        if (u->name == NULL || strcmp (u->name, name) != 0)
+          continue;
+        const a5_xml_node_t *outp = a5xml_child (u->node, "Output");
+        if (outp == NULL || udf_depth > 8)   /* FD: recursive UDF = error */
+          return strdup ("");
+        udf_depth++;
+        char *r = a5text_describe (st, outp);
+        udf_depth--;
+        if (r != NULL && args != NULL && args[0] != '\0')
+          {
+            /* Split the [.] block on top-level commas (FD SplitArgs) and
+               replace each declared argument's %Name% token in the render. */
+            std::vector<std::string> vals;
+            {
+              std::string cur;
+              int q = 0;
+              for (const char *p = args; *p != '\0'; p++)
+                {
+                  if (*p == '"') q = !q;
+                  if (*p == ',' && !q) { vals.push_back (cur); cur.clear (); }
+                  else cur += *p;
+                }
+              vals.push_back (cur);
+            }
+            std::string out = r;
+            size_t vi = 0;
+            for (const a5_xml_node_t *an = u->node->first_child;
+                 an != NULL; an = an->next)
+              {
+                if (strcmp (an->name, "Argument") != 0)
+                  continue;
+                const char *anm = a5xml_child_text (an, "Name");
+                if (anm != NULL && vi < vals.size ())
+                  {
+                    std::string tok = std::string ("%") + anm + "%";
+                    size_t at;
+                    while ((at = out.find (tok)) != std::string::npos)
+                      out.replace (at, tok.size (), vals[vi]);
+                  }
+                vi++;
+              }
+            free (r);
+            r = strdup (out.c_str ());
+          }
+        return r;
+      }
+  }
 
   if (ci_eq (name, "player"))
     {
@@ -996,6 +1120,27 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           char *s = view_location_impl (st, args);
           if (s == NULL || s[0] == '\0')
             { free (s); return strdup ("There is nothing of interest here."); }
+          /* The view is already fully adjudicated (its own ALR + cap ran on the
+             marked-up buffer, mirroring FD's single Display pass), and it is
+             PLAIN -- its <br>s are now bare '\n's.  The enclosing fragment's
+             auto-capitalise must not treat those as line starts: in FD the
+             substituted sView still carries its <br> tags, which sit between
+             the newline-to-be and the letter and block the cap regex (the
+             virtual human's lowercase "the virtual human is here." literal
+             must NOT re-cap into the "The virtual human is here." ALR-killed
+             form).  Leave the stripped-tag sentinel after each newline, exactly
+             like a5text_render_plain does for every other dropped tag. */
+          {
+            sb_t mb; sb_init (&mb);
+            for (const char *p = s; *p != '\0'; p++)
+              {
+                sb_putc (&mb, *p);
+                if (*p == '\n')
+                  sb_putc (&mb, A5_ALR_MARK);
+              }
+            free (s);
+            s = sb_finish (&mb);
+          }
           return s;
         }
       return strdup ("");
@@ -1012,7 +1157,12 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       const a5_object_t *o = a5model_object (st->adv, args);
       a5_article_t art = (ci_eq (name, "theobject") || ci_eq (name, "theobjects"))
                            ? A5_ART_DEFINITE
-                       : (ci_eq (name, "aobject") || ci_eq (name, "aobjects"))
+                       : (ci_eq (name, "aobject") || ci_eq (name, "aobjects")
+                          /* FD: Case "ObjectName" -> htblObjects.List(,,
+                             ArticleTypeEnum.Indefinite) (Global.vb:2252) --
+                             "You unfold a wet face towel.", not "...wet face
+                             towel." (Head Case %ObjectName[%object%]%). */
+                          || ci_eq (name, "objectname"))
                            ? A5_ART_INDEFINITE
                            : A5_ART_NONE;
       /* A piped multi-object arg (%TheObjects[%objects%]% with a "k1|k2|..."
@@ -1186,6 +1336,16 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       std::vector<const a5_character_t *> on, in;
       if (k != NULL && !ci_eq (name, "listcharactersin")) on = chars_on_in (st, k, 1);
       if (k != NULL && !ci_eq (name, "listcharacterson")) in = chars_on_in (st, k, 0);
+      /* DisplayCharacterChildren lists inside-characters only when the object
+         is `Not Openable OrElse IsOpen` (clsObject.vb:383) -- same gate as the
+         object children above. */
+      if (!in.empty () && o != NULL
+          && a5_prop_find (o->props, o->n_props, "Openable") != NULL)
+        {
+          const char *os = a5state_entity_prop (st, k, "OpenStatus");
+          if (os == NULL || !streq (os, "Open"))
+            in.clear ();
+        }
       if (on.empty () && in.empty ())
         return strdup ("");
       /* DisplayCharacterChildren: "X is on/inside the <object>." */
@@ -1355,6 +1515,14 @@ eval_function (a5_state_t *st, const char *name, const char *args)
              noun WITHOUT its adjective/prefix (`Nymphs`, not `Comely Nymphs`),
              and -- crucially -- it lets an OO reference-list argument whose head
              is `%object%.Children(...)` chain from the real key. */
+          /* The singular %object%/%object1% never resolves off a plural
+             %objects% binding here either (FD GetReference needs
+             ReferenceMatch "object1", clsUserSession.vb:3990) -- so the
+             Blender's "You put %object1%.Name on the Table." on a `put
+             %objects% on %object2%` command stays VERBATIM like FD. */
+          if ((ci_eq (name, "object") || ci_eq (name, "object1"))
+              && st->ref_object1_plural)
+            return NULL;
           const char *ref = ci_eq (name, "object2") ? "ReferencedObject2"
                                                      : "ReferencedObject";
           const char *key = a5state_lookup_ref (st, ref);
@@ -1380,6 +1548,19 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       for (i = 0; i < st->adv->n_variables; i++)
         if (ci_eq (st->adv->variables[i].name, name))
           {
+            /* Inside an ALR NewText the value must be the END-OF-TURN one
+               (FD expands ALRs only at Display): emit a deferred sentinel,
+               resolved by a5text_expand_var_defers in finish_turn. */
+            if (st->alr_defer_vars)
+              {
+                size_t nl = strlen (st->adv->variables[i].name);
+                char *s = (char *) malloc (nl + 3);
+                s[0] = A5_VARDEF_MARK;
+                memcpy (s + 1, st->adv->variables[i].name, nl);
+                s[nl + 1] = A5_VARDEF_MARK;
+                s[nl + 2] = '\0';
+                return s;
+              }
             if (streq (st->adv->variables[i].type, "Text"))
               return strdup (st->var_text[i] ? st->var_text[i] : "");
             else
@@ -1434,10 +1615,12 @@ eval_function (a5_state_t *st, const char *name, const char *args)
               }
             else
               {
-                /* Numeric arrays aren't exercised by the corpus; fall back to
-                   the scalar value. */
+                /* Numeric array element (clsVariable.IntValue(idx), 1-based;
+                   out-of-range -> ErrMsg + 0).  A scalar Numeric with a stray
+                   [index] falls back to its value (index defaults to 1). */
                 char buf[32];
-                snprintf (buf, sizeof buf, "%ld", st->var_num[i]);
+                snprintf (buf, sizeof buf, "%ld",
+                          a5state_var_get_elem (st, i, idx));
                 return strdup (buf);
               }
           }
@@ -1744,8 +1927,16 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                 }
               else
                 {
-                  /* leave the original token verbatim */
-                  sb_putn (&sb, p, (size_t) (q - p));
+                  /* leave the original token verbatim -- but FD rewrites the
+                     bare %object% alias to %object1% BEFORE resolving
+                     (ReplaceIgnoreCase, Global.vb:1754), so an unresolved
+                     singular on a plural %objects% command surfaces as
+                     "%object1%..." (the Blender's "You put %object%.Name on
+                     the table." task text). */
+                  if ((size_t) (q - p) == 8 && strncmp (p, "%object%", 8) == 0)
+                    sb_puts (&sb, "%object1%");
+                  else
+                    sb_putn (&sb, p, (size_t) (q - p));
                 }
               p = q;
               continue;
@@ -1801,6 +1992,15 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
         continue;
       if (strstr (cur, alr->old_text) != NULL)
         {
+          if (getenv ("A5_TRACE_ALR"))
+            fprintf (stderr, "[ALR fragment] hit old=\"%s\" in \"%.60s\"\n",
+                     alr->old_text, cur);
+          /* Defer bare %variable% tokens inside the NewText to the Display
+             boundary (A5_VARDEF_MARK): FD only expands ALRs at Display time,
+             so their variables read the end-of-turn state.  The boundary pass
+             (a5text_display_alr) expands eagerly -- it IS the boundary. */
+          int prev_defer = st->alr_defer_vars;
+          st->alr_defer_vars = 1;
           char *raw = a5text_eval_description (st, alr->new_text);
           /* Mirror FD's `If sText = sALR Then Exit For` (Global.vb:532): when the
              whole current text already equals the (unprocessed) replacement, stop
@@ -1812,9 +2012,11 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
           if (streq (cur, raw))
             {
               free (raw);
+              st->alr_defer_vars = prev_defer;
               break;
             }
           char *val = process_inner (st, raw, depth + 1);
+          st->alr_defer_vars = prev_defer;
           char *next = str_replace_all (cur, alr->old_text, val);
           free (cur);
           cur = next;
@@ -1887,17 +2089,16 @@ auto_capitalise (const char *src)
 
 /* --------------------------------------------------- perspective conjugation */
 
-/* Player perspective -> index into a [1st/2nd/3rd] verb-ending bracket. */
+/* Player perspective -> index into a [1st/2nd/3rd] verb-ending bracket.
+   The CURRENT player (BECOME retargets it) through the same clsCharacter
+   .Perspective getter char_perspective mirrors -- The Salvage's NonPlayer
+   captain conjugates third person ("Captain Pearson opens the Crate"). */
 static int
 perspective_index (a5_state_t *st)
 {
-  const a5_character_t *p = a5model_character (st->adv, "Player");
-  if (p != NULL && p->perspective != NULL)
-    {
-      if (ci_eq (p->perspective, "FirstPerson"))  return 0;
-      if (ci_eq (p->perspective, "ThirdPerson"))  return 2;
-    }
-  return 1;                       /* SecondPerson (ADRIFT default) */
+  const a5_character_t *p = a5model_character (st->adv,
+                                               a5state_player_key (st));
+  return char_perspective (st, p) - 1;
 }
 
 /* FD GetPerspective (Global.vb:2481): the PronounKeys entry with the highest
@@ -2169,8 +2370,15 @@ replace_expressions (a5_state_t *st, const char *src)
                  expr_substitute only handles %ref%.Prop, and the outer
                  a5expr_replace pass skipped this body because protect_exprs hid
                  it.  Mirrors a5text_eval_expression's second pass (FD's
-                 EvaluateExpression -> ReplaceFunctions includes ReplaceOO). */
-              char *oo = a5expr_replace (st, sub);
+                 EvaluateExpression -> ReplaceFunctions includes ReplaceOO).  A
+                 `<#..#>` body IS an expression, so use the EXPRESSION-mode
+                 replace (bExpression=True): a multi-word OO value like
+                 `CrashedShi.Location.Name` ("Ocean M053") must be emitted as a
+                 quoted string literal, or the sexpr tokeniser splits it at the
+                 space and drops the tail -- and a bare concat argument to
+                 `if(..)` then reduces to nothing, blanking AlienDiver's "Crashed
+                 Ship Location:" status line. */
+              char *oo = a5expr_replace_expr (st, sub);
               /* Deferred draw: an AggregateOutput completion message renders its
                  static skeleton NOW (correct position and separators) but holds
                  the RNG draw of a random `<#..#>` to end-of-command, matching
@@ -2625,6 +2833,9 @@ boundary_alr_once (a5_state_t *st, const char *src, int skip_applied)
         continue;
       if (strstr (cur, alr->old_text) != NULL)
         {
+          if (getenv ("A5_TRACE_ALR"))
+            fprintf (stderr, "[ALR boundary skip=%d] hit old=\"%s\"\n",
+                     skip_applied, alr->old_text);
           char *raw = a5text_eval_description (st, alr->new_text);
           char *proc = process_inner (st, raw, 1);
           char *val = a5text_render_plain (proc);
@@ -2688,6 +2899,51 @@ a5text_display_alr (a5_state_t *st, const char *plain)
   return a2;
 }
 
+/* Expand the A5_VARDEF_MARK deferred-variable sentinels (a bare %variable%
+   inside an eagerly-applied ALR NewText, see a5text.h) with the variable's
+   CURRENT -- i.e. end-of-turn -- value.  finish_turn runs this on the
+   assembled turn output before the boundary ALR pass, mirroring FD Display's
+   ReplaceFunctions-before-ReplaceALRs order, and once more after it for any
+   sentinel a boundary-applied ALR introduced. */
+char *
+a5text_expand_var_defers (a5_state_t *st, const char *text)
+{
+  sb_t sb;
+  const char *p = text != NULL ? text : "";
+  if (strchr (p, A5_VARDEF_MARK) == NULL)
+    return strdup (p);
+  sb_init (&sb);
+  while (*p != '\0')
+    {
+      const char *e;
+      if (*p == A5_VARDEF_MARK && (e = strchr (p + 1, A5_VARDEF_MARK)) != NULL)
+        {
+          std::string name (p + 1, (size_t) (e - (p + 1)));
+          int i, done = 0;
+          for (i = 0; i < st->adv->n_variables; i++)
+            if (ci_eq (st->adv->variables[i].name, name.c_str ()))
+              {
+                if (streq (st->adv->variables[i].type, "Text"))
+                  sb_puts (&sb, st->var_text[i] ? st->var_text[i] : "");
+                else
+                  {
+                    char buf[32];
+                    snprintf (buf, sizeof buf, "%ld", st->var_num[i]);
+                    sb_puts (&sb, buf);
+                  }
+                done = 1;
+                break;
+              }
+          if (!done)
+            sb_puts (&sb, name.c_str ());
+          p = e + 1;
+          continue;
+        }
+      sb_putc (&sb, *p++);
+    }
+  return sb_finish (&sb);
+}
+
 /* FD applies pSpace to its RAW (markup-bearing) output buffer, so a message whose
    raw text ends in something other than a real newline -- a stripped tag
    (`...\n<font color=X>`), a trailing `<br>`, or an entity -- leaves the buffer
@@ -2709,9 +2965,11 @@ ps_mark_trailing (const char *proc, char *plain)
 }
 
 char *
-a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper)
+a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper, int *raw_nonblank)
 {
   char *raw = a5text_eval_description (st, wrapper);
+  if (raw_nonblank != NULL)
+    *raw_nonblank = (raw != NULL && raw[0] != '\0');
   char *proc = a5text_process (st, raw);
   char *plain = a5text_render_plain (proc);
   plain = ps_mark_trailing (proc, plain);
@@ -2761,9 +3019,11 @@ note_marked_output (a5_state_t *st, const char *marked)
 
 char *
 a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
-                    int *pre_alr_ink)
+                    int *pre_alr_ink, int *raw_nonblank)
 {
   char *raw = a5text_eval_description (st, wrapper);
+  if (raw_nonblank != NULL)
+    *raw_nonblank = (raw != NULL && raw[0] != '\0');
   char *inner = process_inner_ex (st, raw, 0, pre_alr_ink);
   char *persp = resolve_perspective (st, inner);
   char *capped = auto_capitalise (persp);
@@ -2883,7 +3143,7 @@ char_here_desc (a5_state_t *st, const a5_character_t *c)
     }
   else
     {
-      char *nm = character_display_name (st, c, 0);
+      char *nm = character_display_name (st, c, 0, /*displaying*/ 0);
       size_t need = strlen (nm) + 11;
       result = (char *) malloc (need);
       snprintf (result, need, "%s is here.", nm);
@@ -2922,7 +3182,8 @@ view_location_impl (a5_state_t *st, const char *lockey)
   const a5_location_t *loc;
   sb_t sb;
   char *plain;
-  int i, listed = 0;
+  int i, listed = 0, body_empty = 1;
+  size_t body_start = 0;
 
   if (lockey == NULL)
     lockey = a5state_player_location (st);
@@ -2959,14 +3220,21 @@ view_location_impl (a5_state_t *st, const char *lockey)
     free (raw);
     free (name);
   }
+  body_start = sb.len;
   {
-    /* The location view is real output: retire any <DisplayOnce> segments it
-       shows so they do not reappear on a later LOOK. */
-    int prev_mark = st->marking_display;
+    /* Whether this render retires <DisplayOnce> segments follows the CALLER's
+       marking_display, mirroring FD's ambient bTestingOutput: the Look dance's
+       two pre/post-action TEST renders (run_task, marking 0) must NOT retire a
+       first-visit segment -- FD's bTestingOutput=True renders both as the
+       segment, they compare EQUAL, and the single Display render is what
+       retires it.  Forcing 1 here made the test renders unequal (e1 kept the
+       DisplayOnce text, e2 lost it), which pinned the view as plain text and
+       let a movement task's own "%Player%.Location.Description" completion
+       re-render the post-retire variant as a SECOND room view (Murder Most
+       Foul's Slave Holdings / east-wing rooms).  Real-output call sites
+       (emit_look, resp_flush, the game-start view) set marking_display=1. */
     char *raw, *proc;
-    st->marking_display = 1;
     raw = a5text_eval_description (st, a5xml_child (loc->node, "LongDescription"));
-    st->marking_display = prev_mark;
     proc = a5text_process (st, raw);
     free (raw);
     /* Special-listed objects directly here.  FD's ViewLocation SELECTS them
@@ -3015,11 +3283,17 @@ view_location_impl (a5_state_t *st, const char *lockey)
           free (ld);
         }
     }
+    /* FD's ViewLocation sView at the general-listed test = LongDescription +
+       special objects (the room NAME is NOT part of it): a v5 room whose body is
+       empty lists its general objects as "There is X here." instead of the
+       trailing "Also here is X." -- clsLocation.vb:132-139. */
+    body_empty = (proc[0] == '\0');
     sb_puts (&sb, proc);
     free (proc);
   }
 
-  /* General listed objects ("Also here is ..."). */
+  /* General listed objects ("Also here is ..." / v5-empty-room "There is ...
+     here."). */
   {
     const char **names = (const char **) malloc (sizeof (char *)
                           * (size_t) (st->adv->n_objects + 1));
@@ -3044,18 +3318,22 @@ view_location_impl (a5_state_t *st, const char *lockey)
       }
     if (n > 0)
       {
-        /* pSpace(sView) before the list (clsLocation.ViewLocation:134): two
-           spaces unless the buffer is empty or already ends in a newline. */
-        if (sb.len > 0 && sb.p[sb.len - 1] != '\n')
+        /* v5 empty-body room: "There is <list> here." with no leading pSpace
+           (clsLocation.vb:138).  Otherwise the trailing "Also here is <list>.",
+           prefixed by pSpace(sView) -- two spaces unless the buffer is empty or
+           already ends in a newline (clsLocation.vb:134). */
+        int as_there_is = body_empty
+          && (st->adv->version == NULL || atof (st->adv->version) >= 5.0);
+        if (!as_there_is && sb.len > 0 && sb.p[sb.len - 1] != '\n')
           sb_puts (&sb, "  ");
-        sb_puts (&sb, "Also here is ");
+        sb_puts (&sb, as_there_is ? "There is " : "Also here is ");
         for (i = 0; i < n; i++)
           {
             if (i > 0)
               sb_puts (&sb, (i == n - 1) ? " and " : ", ");
             sb_puts (&sb, names[i]);
           }
-        sb_putc (&sb, '.');
+        sb_puts (&sb, as_there_is ? " here." : ".");
         listed = 1;
       }
     for (i = 0; i < n; i++)
@@ -3100,7 +3378,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
           continue;                          /* incl. on/in furniture, but not
                                                 inside a closed opaque container
                                                 (CharactersVisibleAtLocation) */
-        nmr = character_display_name (st, c, 0);
+        nmr = character_display_name (st, c, 0, /*displaying*/ 0);
         descr = char_here_desc (st, c);
         std::string sName = nmr ? nmr : "";
         std::string sDesc = descr ? descr : "";
@@ -3153,9 +3431,11 @@ view_location_impl (a5_state_t *st, const char *lockey)
      => "An exit leads <dir>.", none => nothing. */
   if (st->adv->show_exits)
     {
-      char *cnt = a5expr_eval (st, a5state_player_key (st), ".Exits.Count");
-      long n = cnt ? strtol (cnt, NULL, 10) : 0;
-      free (cnt);
+      /* FD: Adventure.Player.ListExits(Me.Key) -- the player's routes FROM
+         THE VIEWED LOCATION (Me.Key), so a %DisplayLocation[other]% view
+         (Head Case's spyhole) lists the other room's exits. */
+      long n = 0;
+      char *lst = a5expr_list_exits (st, a5state_player_key (st), lockey, &n);
       /* clsLocation.ViewLocation calls pSpace(sView) *unconditionally* (vb:177)
          before the iExitCount check, so a room with NO exits ends with two
          dangling trailing spaces -- which a following same-turn event message
@@ -3165,15 +3445,23 @@ view_location_impl (a5_state_t *st, const char *lockey)
         sb_puts (&sb, "  ");
       if (n >= 1)
         {
-          char *lst = a5expr_eval (st, a5state_player_key (st), ".Exits.List");
           if (n > 1)
             { sb_puts (&sb, "Exits are "); sb_puts (&sb, lst ? lst : ""); }
           else
             { sb_puts (&sb, "An exit leads "); sb_puts (&sb, lst ? lst : ""); }
           sb_putc (&sb, '.');
-          free (lst);
         }
+      free (lst);
     }
+
+  /* Empty-view fallback (clsLocation.ViewLocation vb:185: `If sView = "" Then
+     sView = "Nothing special."`).  FD's sView at this point is only the BODY
+     (long description + listed objects + event look text + NPC lines + exits);
+     the bold room name is prepended after the check.  Scarier builds the name
+     into the same buffer up-front, so compare against the post-header mark
+     (canyoustandup's "Beginning" start room: no description at all). */
+  if (sb.len == body_start)
+    sb_puts (&sb, "Nothing special.");
 
   /* Capitalise the assembled room view on its still-MARKED-UP buffer, exactly
      as FD's Display-time CapAfterFullStop runs over the whole (marked-up) turn

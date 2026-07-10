@@ -535,6 +535,17 @@ ADRIFT text is full of embedded directives evaluated at display time:
           disappears).  Golden transcript regenerated; deterministic; a 40-turn
           soak is stable.  Anno 1700 + Stone of Wisdom still clean.  **ASan/
           UBSan-clean** on all.
+        - **TimeBased events** — DONE (deterministically).  The real Runner
+          ticks them off a wall-clock 1-second timer (`tmrEvents_Tick` →
+          `TimeBasedStuff`); this engine has no real-time clock, so BOTH sides
+          now tick every TimeBased event exactly once per processed input line
+          (one turn == one second): Scarier in the `a5run_input` wrapper
+          (`ev_time_tick_all`, its output a separate commit appended after the
+          command's, banner un-separated — FD's `Display("", True)` flush +
+          `CheckEndOfGame`, see `in_time_tick`), and FrankenDrift.Headless via
+          a `TimeBasedStuff()` call after each `Process(cmd)`.  Real-time games
+          (The Salvage's refuel/repair/end-game events) become playable AND
+          turn-deterministic; games without TimeBased events are unaffected.
       - **Integer arithmetic expression evaluation** — DONE.  New
         `a5arith.cpp/.h` (`a5_eval_arith`): a recursive-descent integer
         evaluator (`+ - * / mod ^`, unary minus, parentheses, right-associative

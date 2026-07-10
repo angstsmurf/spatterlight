@@ -1,0 +1,660 @@
+Race against time
+
+ Options Page
+
+"Race Against Time"
+
+DO YOU WISH TO READ THE INTRO
+
+OR
+
+WOULD YOU RATHER GET ON WITH THE GAME?
+
+Press I for Intro or B To Get On with The Game.
+
+P.s.Should you find yourself stuck while playing the game, you can type HELP and access the hint section. Also, keep in mind that you can >Look Under, and I distinguish between >Examine and >Search.
+Enjoy.
+
+> b
+
+ Airlock
+Airlock.
+
+The airlock is shrouded in a dim reddish light. You are facing a heavy pressure bulkhead in which a sealed door is embedded, and next to it is an electronic keypad fixed to the wall. Behind you is the shuttle that brought you up here.
+
+> press 11275622
+You insert the today's date, plus the total. A hissing sound is heard and the door slides aside allowing you to go east into a dimly-lit corridor.
+
+> e
+You walk through the door and find yourself standing in a long corridor. The door closes behind you as soon as you have gone through it.
+
+ Corridor to Airlock
+
+Corridor to Airlock.
+The long corridor is dimly lit from an unseen light source. It widens further up into the arrivals reception area, as mentioned on a illuminated sign on the wall. Behind you, to the west, is the closed door leading to the airlock, and beside it an electronic keypad.
+
+> e
+You move east.
+
+ Reception area
+
+Reception Area.
+The reception area is circular with passage ways leading to the various laboratories, research facilities and the living quarters for the scientists. They are located to the nw, ne, e, and s. Over by a crescent-shaped counter the receptionist is slumped over a computer keyboard, still clutching a microphone in her hand. Behind her, on the wall, is a rack of pigeonholes where the scientists can deposit outgoing mail or collect incoming mail. Dead people are everywhere, sitting or lying in grotesque positions.
+
+> x pigeon holes
+There are three rows of "pigeonholes", most of them are empty though.
+
+> search pigeon holes
+You quickly search the pigeonholes. Most of them are empty, a few contain a few sheets of paper, which you find of no use. In one of them, however, you find a small fob key, tucked in between the side and the bottom of the pigeonhole.
+
+> get fob
+Ok, you take the green fob key from the row of pigeon-holes.
+
+> x fob
+It's a black fob with a green stripe. A name is printed on it in Chinese that reads:  麥同修
+
+> ne
+You move northeast.
+
+ Engineering corridor
+
+Engineering Corridor.
+This is just a short corridor. There are only a few doors and all of them open. The corridor is littered with tools and equipment, not to mention quite a few dead engineers. The reception area lies to the southwest of here. There's an exit leading east into the engineers quarters.
+
+> x engineers
+They are all wearing light-blue coloured jump suits with an engineering patch sewn on the left shoulder. They are all dead and are all marked with the same purple stains as you have seen before.
+
+> search engineers
+One by one you search the engineers and find nothing of interest until you discover that one of them has an access card in his pocket. This you take.
+
+> e
+You move east.
+
+ Engineering quarters
+
+Engineering Quarters.
+The engineering quarters clearly shows how automated everything has become. There are only seven bunks situated against the wall on each side of a narrow aisle. A small closet containing uniforms, shirts etc. Is positioned beside each bunk, and standing at the end of each bunk is a personal chest.
+
+To the east, at the end of the aisle is a door. A sign informs you that this room belongs to the chief engineer.
+
+> x chests
+They are placed at the end of the bunks and probably contains the private belongings of the owner.
+
+> open chest
+Some of them are locked with a signature lock, while others aren't. You open the unlocked chests one by one, not quite sure what you're looking for. They are filled with personal items.
+
+> look in chest
+Sifting through the things in the chests, you come across a pair of pliers.
+
+> get pliers
+Thinking they may come in handy at some point, you take the pliers from the chest.
+
+> e
+The door is closed.
+
+> open door
+You try to open the door, but something is blocking it on the other side.
+
+> push door
+Placing your shoulder firmly against the door, you try to push it open. It gives a little and you push even harder. Then, almost reluctantly, the door begins to open, pushing whatever is blocking it away. Finally you have managed to make a big enough gap to allow you to go east into the room.
+
+> e
+You move east.
+
+ Chief Engineer's Quarters
+
+Chief Engineer's Quarters.
+Quite clearly the chief engineer has some privileges that the engineers don't enjoy. Not only is his bunk more comfortable, but the room is also better furnished with a desk and a comfortable chair and there's even a couple of old photographs on the wall. He's lying in a grotesque position against the wall, his arm reaching towards the door.
+
+To the west is the entrance to the engineer's quarters, and through that you can go out to the corridor.
+
+> x chief engineer
+No wonder it took quite a lot to get the door open. Although, quite small, the chief engineer is heavily built. Apparently he was trying to go somewhere when he succumbed to the deadly virus. Like all the other people on the ISL, he too bears the markings of the virus attack.
+
+> search chief engineer
+Kneeling by his side, you slowly run your hands over his body. At first, nothing. Then you notice a leather thong he's wearing around his neck.
+
+> get thong
+(from Chief engineer)  You take the thong with the cylinder from the dead chief engineer.
+
+> x cylinder
+It's a small silvery metal cylinder with a screw top. It is hanging from a chain which was attached to the engineer's lapel.
+
+> open cylinder
+You open the cylinder by pulling the top off of it. Then you turn it upside down and lightly knock it a few times against the palm of your hand. A small metal pin falls out into your hand.
+
+> x table
+The desk is perhaps a little too big for the room, but still fits in nicely. There are no drawers and only a few papers lay scattered on the surface.
+
+> move papers
+Picking up the papers, you discover that a button was hidden underneath them. Since the papers don't help  you much, you just leave them on the table.
+
+> push button
+Not knowing what will happen, you hesitantly reach out and push the button. A small section of the table slides aside and a projector rises from a compartment within the table. A quiet humming is heard as it comes to life and soon an image is projected on the wall.
+
+> x image
+The image pictures a schematic of the lower part of the ISL. You notice that someone has stuck a map pin in what appears to be the storage room. Could this be just a coincidence?
+
+> get pin
+The pin is hard to get out of the wall, but after some wiggling back and forth you manage to pull it out. The faded picture flutters to the floor.
+
+> x map pin
+It's a plain map pin. It is about one and a half centimeters long and used to mark an important feature on a map or something equivalent.
+
+> w
+You move west.
+
+ Engineering quarters
+
+Engineering Quarters.
+The engineering quarters clearly shows how automated everything has become. There are only seven bunks situated against the wall on each side of a narrow aisle. A small closet containing uniforms, shirts etc. Is positioned beside each bunk, and standing at the end of each bunk is a personal chest.
+
+To the east, at the end of the aisle is a door. A sign informs you that this room belongs to the chief engineer.
+
+> w
+You move west.
+
+ Engineering corridor
+
+Engineering Corridor.
+This is just a short corridor. There are only a few doors and all of them open. The corridor is littered with tools and equipment, not to mention quite a few dead engineers. The reception area lies to the southwest of here. There's an exit leading east into the engineers quarters.
+
+> sw
+You move southwest.
+
+ Reception area
+
+Reception Area.
+The reception area is circular with passage ways leading to the various laboratories, research facilities and the living quarters for the scientists. They are located to the nw, ne, e, and s. Over by a crescent-shaped counter the receptionist is slumped over a computer keyboard, still clutching a microphone in her hand. Behind her, on the wall, is a rack of pigeonholes where the scientists can deposit outgoing mail or collect incoming mail. Dead people are everywhere, sitting or lying in grotesque positions.
+
+> e
+You move east.
+
+ Living quarters SCI-staff
+
+Living Quarters SCI-Staff.
+There's an eerie atmosphere here, and the silence is only broken by the soft constant humming of the ventilation system. The soft thud of a door opening and closing repeatedly draws your attention, and you see the body of a dead scientist lying on the threshold to one of the rooms, preventing the door from closing. There are doors on both sides of the corridor, leading east and south. Each with the name of the occupant printed on it and a fob reader mounted on the wall next to it. Dead people are lying in the corridor, all of them with the same purple stains covering their exposed skin. The aisle leads back west to the reception area.
+
+> x eastern door
+The door looks like all the other doors in the corridor.
+The name: 麥同修 is painted on it. There's a fob key reader embedded in the wall right next to it.
+
+> hold green fob against east reader
+You hold the fob key against the reader. A soft hissing sound is heard as the door slides aside and disappears in a slot in the wall.
+
+> e
+You move east through the opening and are soon standing inside the room.
+
+ Mài Tóng Xiū's quarters
+
+麥同修's Quarters.
+This room has a certain feminine touch to it. The bunk is neatly made, and there are a few tasteful pictures and personal photos on the wall. The plastic desk is neat and clean and the chair next to it is decorated with a homemade cover in bright colours.
+
+There's a door embedded in the western wall, leading out to the corridor.
+
+> hold green fob against reader
+You hold the fob key against the reader, and the door quietly slides aside allowing you to leave the room to the west.
+
+> drop green fob key
+Ok, you put down the green fob key.
+
+> w
+You walk through the opening and out into the corridor. Behind you the door quietly slides back and locks with a silent "click"
+
+ Living quarters SCI-staff
+
+Living Quarters SCI-Staff.
+There's an eerie atmosphere here, and the silence is only broken by the soft constant humming of the ventilation system. The body of a dead scientist is lying on the threshold to one of the rooms, preventing the door from closing. There are doors on both sides of the corridor, leading east and south. Each with the name of the occupant printed on it and a fob reader mounted on the wall next to it. Dead people are lying in the corridor, all of them with the same purple stains covering their exposed skin. The aisle leads back west to the reception area.
+
+> s
+You step over the dead body of the scientist and enter his quarters.
+
+Mao's quarters
+
+毛澤東's Quarters.
+It is obvious that this room is only sparsely used. There's only the absolute minimum of furniture, such as a bunk against one wall, a desk with a chair against the other. On the northern wall beside the door is another fob reader.
+
+> move scientist
+You grab his feet and pull him into the room. With the obstruction now gone, the otherwise silent door closes with a scraping sound and a silent click.
+
+> x space
+It's hard to see anything in the narrow space. But it appears that a fob key is stuck between the door and the wall.
+
+> get fob key
+Even with the pliers it's not easy to get hold of the fob, but after a few attempts you triumphantly manage to take it from the small space between the door and the entrance wall.
+
+> x fob key
+It's a black fob with a blue stripe. A name is printed on it in Chinese that reads:  毛澤東
+
+> hold blue fob against south reader
+You hold the fob key against the reader. A soft hissing sound is heard and the door slides aside and disappears in a slot in the wall, leaving you with an exit out of the room.
+
+> out
+You carefully step over the dead body and enter the corridor.
+
+ Living quarters SCI-staff
+
+Living Quarters SCI-Staff.
+There's an eerie atmosphere here, and the silence is only broken by the soft constant humming of the ventilation system. There are doors on both sides of the corridor, leading east and south. Each with the name of the occupant printed on it and a fob reader mounted on the wall next to it. Dead people are lying in the corridor, all of them with the same purple stains covering their exposed skin. The aisle leads back west to the reception area.
+
+> x south door
+This is an automatic door like almost all other doors at the ISL. There is nothing special about it. The name: 毛澤東 is painted on it.
+
+> w
+You move west.
+
+ Reception area
+
+Reception Area.
+The reception area is circular with passage ways leading to the various laboratories, research facilities and the living quarters for the scientists. They are located to the nw, ne, e, and s. Over by a crescent-shaped counter the receptionist is slumped over a computer keyboard, still clutching a microphone in her hand. Behind her, on the wall, is a rack of pigeonholes where the scientists can deposit outgoing mail or collect incoming mail. Dead people are everywhere, sitting or lying in grotesque positions.
+
+> s
+You walk south through a narrow passageway and are soon standing in a small lobby. As you enter the lobby an elevator in front you automatically opens, allowing you to enter.
+
+ Mid elevator lobby
+
+Mid Elevator Lobby.
+You are standing in the mid elevator lobby, in front of an elevator. Behind you, to the north is the reception area.  The elevator is on another floor at the moment.
+
+> press call button
+You press the call button. You hear the elevator motor start and a second or two later the elevator arrives and the door opens.
+
+ Mid elevator lobby
+
+Mid Elevator Lobby.
+You are standing in the mid elevator lobby, in front of an elevator. Behind you, to the north is the reception area.  The elevator is here and the door is open allowing you to go in to it.
+
+> in
+You move in.
+
+ Elevator
+Inside The Elevator.
+The elevator is a cylinder, with room enough to hold three to five people. There's a panel with three buttons on the left side of the door, and a dimly lit area right next to it.
+
+> press top button
+You press the top button. The elevator starts moving up and stops after a few moments. The door opens and you step out of the elevator.
+
+ Upper elevator lobby
+
+Upper Elevator Lobby.
+It's quite clear that this is not like the other lobbies, but it must be a high ranking officer's domain. The floor is covered with a soft carpet and pictures decorate the walls. The light is dimmed here and leaves the lobby in a soft, comfortable light.
+
+To the east of here is one of the usual sliding doors, and behind you is the entrance to the elevator that brought you here.
+
+> e
+You move east.
+
+ ISL Commander's Quarters
+
+Commander's Quarters.
+The station commander's quarters is quite a sight. Not only is it where he lives, with a comfortable looking bunk and nice furniture, but also his office.
+
+In the opposite side from the entrance door, facing a rather big panoramic window, stands a large desk with a comfortable swivel chair. The commander himself is lying beside his desk like a grotesque statue.
+
+> x commander
+The commander was once quite a handsome man. Now his face is twisted with an expression of the utmost agony. He's lying close to the door, his arms reached out and his hands clawed deep into the carpet.
+
+> search commander
+Kneeling beside the commander you do a thorough search of the lifeless body. The clothes reveal nothing of interest, but under the collar of his tunic, you find a thin metallic chain with a key attached to it.
+
+> get chain
+(from the ISL commander)  With a little difficulty, you manage to take the chain from around the commander's neck.
+
+> x desk
+This is the ISL commanders' working desk. A set of drawers are mounted on the right side, fastened to the underside of it.
+
+> open drawers
+You open the drawers, one by one.
+
+> look in drawers
+You look into the drawers one by one and at the bottom one, you see there is a small box.
+
+> x box
+It's just a small insignificant-looking box, stuck way in the corner of one of the drawers. There's a small keyhole at the end of it, and a very slim groove that runs the entire length of the top of the box.
+
+> x groove
+The groove is about two millimeters deep and runs along the top of the box.
+
+> x titanium chain
+It's a thin, but incredibly strong chain, about two millimeters thick, and made of titanium. Attached to it is a small titanium key.
+
+> place titanium chain in groove
+The titanium chain fits perfectly into the groove as you place it on the top of the box. You feel a slight vibration and hear a faint click. When you look closer the lid of the box is now slightly ajar.
+
+> open box
+You open the box by turning the lid to one side. Inside you find a small silver pin, which you take.
+
+> x silver pin
+It's a beautiful piece of jewellery, about four and a half centimeters long with a number 1 engraved on it. The commander probably only wore it on special occasions.
+
+> w
+You move west.
+
+ Upper elevator lobby
+
+Upper Elevator Lobby.
+You have once again entered the upper elevator lobby. The floor is covered with a soft carpet and pictures decorate the walls. The light is dimmed here and leaves the lobby in a soft, comfortable light.
+
+To the east of here is one of the usual sliding doors, and behind you is the entrance to the elevator that brought you here.  The elevator is here and the door is open allowing you to go in to it.
+
+> in
+You move in.
+
+ Elevator
+Inside The Elevator.
+The elevator is a cylinder, with room enough to hold three to five people. There's a panel with three buttons on the left side of the door, and a dimly lit area right next to it.
+
+> push lower button
+You press the lower button. The elevator starts moving down and stops after a few moments. The door opens and you step out of the elevator.
+
+ Lower elevator lobby
+
+Lower Elevator Lobby.
+
+You are in the research facility rotunda. This is the hub where the scientists can access their assigned laboratories. You can enter the elevator, which is located behind you, and to the south is the sterilisation chamber that leads to the Chinese research laboratory. Also in the west wall is an opening leading in to a very dimly lit tunnel.
+
+> w
+You move west.
+
+ Tunnel
+
+A Dimly Lit Tunnel.
+You are standing at the end of a dimly lit tunnel that leads east back to the elevator lobby. Ahead of you to the west is an ordinary door with the word Storage painted on it. Everything is deadly quiet, except for the continued humming from some invisible machinery.
+
+> open door
+You open the door and walk through, closing it behind you as you do so.
+
+ Storage room
+
+The Storage Room.
+This is a rather sorry-looking storage room. There is nothing much in here, except a lot of shelves standing against the surrounding walls. Most of them are empty, but a few have boxes and various kinds of tools lying upon them. From somewhere behind the walls you can hear the humming of machinery.
+
+> x shelves
+The shelves cover most of the walls in the storage room. They are made from an alloy that makes them both incredibly strong, but at the same time very lightweight. Only a few of them are occupied by plastic storage boxes. As you take a closer look, you notice that one of the shelves isn't attached properly to the wall.
+
+> pull loose shelf
+With both hands you grab the railing of the loose shelf and give it a good yank. To your surprise it gives in easily and swings out, taking a small section of the wall with it, leaving a hand-sized compartment.
+
+> x compartment
+Looking into the compartment you see that there's a handle mounted on the wall.
+
+> x handle
+It's a insignificant-looking handle, mounted on the wall in the back of the compartment. Upon closer inspection, you notice that there's a tiny hole drilled into each side of it.
+
+> x holes
+There's a hole on each side of the handle (right and left) They are quite tiny and you would surely have overlooked them, if you hadn't examined the handle thoroughly.
+
+> insert map pin in right hole
+You insert the map pin you took from the office into the hole on the right side of the handle. It fits perfectly and slides smoothly all the way in to the bottom of the hole.
+
+> insert silver pin in left hole
+You insert the pin you took from the box into the hole on the left side of the handle. It fits perfectly and smoothly slides all the way in to the bottom of the hole.  A faint click is heard and the handle moves ever so slightly outwards.
+
+> pull handle
+With the security lock disabled, the handle moves down smoothly. You hear a faint click and part of the wall slides aside, revealing a room to the west.
+
+> w
+As you step into the adjacent room, the door behind you leading to the tunnel closes and you find yourself in a closet-sized room. The humming sound you heard earlier begins to fade and soon everything is quiet and after a moment the door ahead of you slides aside allowing you to enter. Once inside, you realize that the humming sound you heard earlier must have come from an artificial gravity field generator. You also realize that the generator, for whatever reason, has now stopped and you are now in a zero gravity environment. Luckily your suit is equipped with a personal gravity field generator allowing you stay just a few inches above the floor and thus move about normally.
+
+The door in front of you has now slid aside and you walk into a brightly lit room. As you do so, that door too closes behind you and locks with a metallic "click".
+
+ Last resort chamber
+
+Last Resort Chamber.
+The room appears to be completely empty. The light reflecting from naked bright white walls is almost blinding.
+
+> x walls
+They are bright white, almost blinding, illuminated from behind by a hidden light source. On one of the opposite walls, you notice a man sized panel. It's incredibly hard to see and if you hadn't discovered the hairline crack outlining it, you would never have thought it was there.
+
+> x panel
+It appears to be a segment of the wall that is movable.
+
+> push panel
+The panel gives in slightly as you push against it. Then it pops back out from the wall and slowly disappears down into a slot that opens in the floor. Once the panel is gone the slot closes and a small metal table begins to slide into view, but is abruptly stopped, blocked by something.
+
+> x table
+The table is blocked by something, but you can't quite make out what it is, and it has only extended partly from the wall.
+
+> x blockage
+You try to see what blocks the table. But the space is too dark and too narrow for you to get a good look.
+
+> pull table
+You reach in, grab hold of the table and give it a good pull. There is a crunching sound and then the table begins to move again until it is fully extended. The panel rises from the slot in the floor and moves into place again and locks.
+
+> x table
+It looks quite fragile, but the material from which it's made makes it strong and sturdy enough to support the contraption that is mounted upon it.
+
+> x contraption
+You recognize it as the ISL self-destruct mechanism, also known as an "SDM" for short, from the briefing you attended before the mission. It appears to be an integral part of the table that came out of the wall when you pressed the panel earlier. It consists of two square boxes, one on top of the other. A set of electrical wires runs from the lower box, through the table, and disappears somewhere behind the wall. The top box is somewhat smaller than the lower, and has a black circular spring-loaded pressure switch embedded on the top. A deformed tube is mounted over the pressure switch.
+
+At the base of the mechanism, next to an on/off push switch, you see some indicator lights, each of them labeled. They are all out at the moment. On the side of the lower box, almost out of sight, is a guarded switch.
+
+> x wires
+They are ordinary wires, applying power and data to the self-destruct mechanism. Only a short length of them are visible as they are lead through the table.
+
+> x boxes
+The two boxes are fastened to the table, one upon the other. Their surfaces are completely smooth with no markings whatsoever. A set of wires protrudes from the lower box and disappears into the table, out of view.
+
+> x deformed tube
+The tube is mounted on the spring-loaded plate. There's a deep dent in the middle of it like it has been squeezed.
+
+> get deformed tube
+You grab the tube and turn it forty five degrees, unlocking it from the mechanism.
+
+> look inside deformed tube
+Looking down inside the tube you notice that a metal ball is stuck in there, held in place by the deformed walls of the tube.
+
+> get ball
+It takes a  bit of doing. But you manage to get the metal ball out of the tube.
+
+> drop deformed tube
+You let go of the deformed tube and watch it as it slowly floats away towards a corner of the room.
+
+> e
+You push off from the wall opposite the door leading out. As you get closer to the door it opens automatically and you gracefully float through it into the adjacent room. The door closes behind you and again you hear the sound of air filling the room. Slowly normal gravity resumes and you sink slowly to the floor.
+
+You quickly get up and continue into the storage room.
+
+ Storage room
+
+The Storage Room.
+This is a rather sorry-looking storage room. There is nothing much in here, except a lot of shelves standing against the surrounding walls. Most of them are empty, but a few have boxes and various kinds of tools lying upon them. From somewhere behind the walls you can hear the humming of machinery.
+
+A small compartment, containing a handle, is visible in the wall.
+
+> x boxes
+The few boxes there you see are all securely locked and sealed with magnetic strips.
+
+> open boxes
+You try to open the boxes one by one. But it's not possible due to the magnetic locks. Just as you're about to give up, a worn-out cardboard box on one of the lower shelves catches your attention.
+
+> x cardboard box
+This box is obviously used for garbage and other unnecessary stuff that awaits disposal of some kind.
+
+> look inside cardboard box
+More out of curiosity than anything else, you sift through the various items in the box. None of them seem to be of any use to you until you notice a plastic tube tucked away in the corner.
+
+> get plastic tube
+You take the plastic tube from the box.
+
+> w
+As you step into the adjacent room, the door behind you leading to the tunnel closes and you find yourself in a closet-sized room. The humming sound you heard earlier begins to fade and soon everything is quiet and after a moment the door ahead of you slides aside allowing you to enter.
+
+As earlier, the personal gravity field generator, built into your suit, keeps you from floating around uncontrollable, and as before you can move about as normal. The door in front of you has now slid aside and you walk into a brightly lit room. As you do so, that door too closes behind you and locks with a metallic "click".
+
+ Last resort chamber
+
+Last Resort Chamber.
+The room appears to be completely empty. The light reflecting from naked bright white walls is almost blinding.  A hidden metal table with the self-destruction mechanism has extended from the wall.
+
+> place plastic tube on mechanism
+You place the plastic tube on top of the self destruct mechanism, making sure that the tabs are aligned with the recess. You turn it forty five degrees and are rewarded with a satisfying "click" as it locks into place.
+
+> put metal ball in plastic tube
+With the plastic tube securely locked in place, you place the metal ball at the top of it. The zero gravity environment makes it hover steadily at the top of the tube.
+
+> push activation switch
+You push the switch to the "on" position. It takes a little doing, but it finally gives in and moves. The three lights at the base of the mechanism light up in quick succession and then go out.
+
+> x light
+They are situated next to one another, and each has a small label glued onto it. The "Execute" indicator light is now lit.
+
+> x guarded switch
+The guarded switch is located on the side of the mechanism. The guard is now released and the switch can be operated.
+
+> push guarded switch
+You push the switch. A violent jolt is felt through the ISL and for a short while the light dims to an almost unnoticeable glow before returning to its previous glare.
+
+"Self-destruction program activated. Please abandon the Space Station."
+
+> e
+You push off from the wall opposite the door leading out. As you get closer to the door it opens automatically and you gracefully float through it into the adjacent room. The door closes behind you and again you hear the sound of air filling the room. Slowly normal gravity resumes and you sink slowly to the floor.
+
+You quickly get up and continue into the storage room.
+
+ Storage room
+
+The Storage Room.
+This is a rather sorry-looking storage room. There is nothing much in here, except a lot of shelves standing against the surrounding walls. Most of them are empty, but a few have boxes and various kinds of tools lying upon them. From somewhere behind the walls you can hear the humming of machinery.
+
+A small compartment, containing a handle, is visible in the wall.
+
+A soft female voice sounds through the ISL:
+"Self-destruction program activated. Please abandon the Space Station."
+
+> e
+You move east.
+
+ Tunnel
+
+A Dimly Lit Tunnel.
+You are standing at the end of a dimly lit tunnel that leads east back to the elevator lobby. Ahead of you to the west is an ordinary door with the word Storage painted on it. Everything is deadly quiet, except for the continued humming from some invisible machinery.
+
+> e
+You move east.
+
+ Lower elevator lobby
+
+Lower Elevator Lobby.
+
+You are in the research facility rotunda. This is the hub where the scientists can access their assigned laboratories. You can enter the elevator, which is located behind you, and to the south is the sterilisation chamber that leads to the Chinese research laboratory. Also in the west wall is an opening leading in to a very dimly lit tunnel.
+
+> in
+You move in.
+
+ Elevator
+Inside The Elevator.
+The elevator is a cylinder, with room enough to hold three to five people. There's a panel with three buttons on the left side of the door, and a dimly lit area right next to it.
+
+> push middle button
+You push the middle button, but nothing happens. As the panic begins to overwhelm you, you feverishly tap the button several times, but to no avail. Something must have gone terribly wrong when you started the self-destruct sequence. Then it dawns on you that, with the self-destruct mechanism activated, you only have a limited amount of time to get away from the space station.
+
+"Self-destruction program activated. Please abandon the Space Station."
+
+> push top button
+You press the top button. The elevator starts moving up and stops after a few moments. The door opens and you step out of the elevator.
+
+ Upper elevator lobby
+
+Upper Elevator Lobby.
+You have once again entered the upper elevator lobby. The floor is covered with a soft carpet and pictures decorate the walls. The light is dimmed here and leaves the lobby in a soft, comfortable light.
+
+To the east of here is one of the usual sliding doors, and behind you is the entrance to the elevator that brought you here.  The elevator is here and the door is open allowing you to go in to it.
+
+> e
+You move east.
+
+ ISL Commander's Quarters
+
+Commander's Quarters.
+The station commander's quarters is quite a sight. Not only is it where he lives, with a comfortable looking bunk and nice furniture, but also his office.
+
+In the opposite side from the entrance door, facing a rather big panoramic window, stands a large desk with a comfortable swivel chair. The commander himself is lying beside his desk like a grotesque statue.
+
+> look under desk
+Kneeling beside the commander's desk, you notice a small rectangular plate embedded near the edge.
+
+> x plate
+It's hardly noticeable as it follows the surface of the desk. It has a small indentation, the size of a fingertip.
+
+> push plate
+As you push the plate a section of the southern wall slides aside revealing an exit.
+"Self-destruction program activated. Please abandon the Space Station."
+
+> s
+As soon as you enter the exit, a dim light turns on along the floor, disappearing down a winding slide. The wall behind you closes leaving you with only one direction to go.
+
+ Emergency escape route
+
+Emergency Escape Route.
+You are standing on a ledge at the top of a narrow shaft. A dim light illuminates your nearest surroundings allowing you to see an escape slide that leads down.
+
+> d
+You sit yourself down and start a wild ride downwards until you end on a narrow ledge. A little shaken after the ride, you get back up on your feet.
+
+ Mid level escape route
+Mid Level Emergency Escape Route.
+There's not much room on the narrow ledge you're standing on. In the dim light you can see the slide continuing down to the lower level and behind you, leading up is the slide that brought you here. A illuminated sign on the east wall informs you that you are on the mid level.
+
+> push panel
+You push the hinged section with all your might. It suddenly gives and falls down the slide to the lower section of the ISL disappearing out of sight, leaving an exit to the east.
+
+> e
+After having gotten rid of the panel, you step through the opening and into the elevator lobby.
+
+ Mid elevator lobby
+
+Mid Elevator Lobby.
+You are standing in the mid elevator lobby, in front of an elevator. Behind you, to the north is the reception area.  The elevator is on another floor at the moment.  There's an opening in the wall to the west where you emerged from earlier.
+
+> n
+You move north.
+
+ Reception area
+
+Reception Area.
+The reception area is circular with passage ways leading to the various laboratories, research facilities and the living quarters for the scientists. They are located to the nw, ne, e, and s. Over by a crescent-shaped counter the receptionist is slumped over a computer keyboard, still clutching a microphone in her hand. Behind her, on the wall, is a rack of pigeonholes where the scientists can deposit outgoing mail or collect incoming mail. Dead people are everywhere, sitting or lying in grotesque positions.
+The tone of the voice becomes more urgent:
+"Self-destruction program activated. Please abandon the Space Station."
+
+> w
+You move west.
+
+ Corridor to Airlock
+
+Corridor to Airlock.
+The long corridor is dimly lit from an unseen light source. It widens further up into the arrivals reception area, as mentioned on a illuminated sign on the wall. Behind you, to the west, is the closed door leading to the airlock, and beside it an electronic keypad.
+
+> push 27115694
+You insert the correct code. A hissing sound is heard and the door slides aside allowing you to go west into the airlock.
+
+> w
+You walk through the door and find yourself inside the airlock. The door closes behind you as soon as you have gone through it.
+
+ Airlock
+
+Airlock.
+
+The airlock is shrouded in a dim reddish light. You are facing the open entrance door to the shuttle. Behind you is a heavy pressure bulkhead in which a sealed door is embedded. The pilot is standing in the doorway, blocking your entrance to the shuttle. He stands there in silence. In one hand he holds an instrument which scans for any sign of virus upon your person. In the other he holds an ugly-looking phaser, its muzzle pointing right at you. You know that this is the moment of truth. The look in his eyes leaves no doubt that he won't hesitate to pull the trigger should there be the slightest indication that you have been infected.
+
+> x pilot
+He's a tower of a man blocking the entrance to  the shuttle, as he stands there before you without a sign of expression on his face.
+
+> talk to pilot
+After, what feels like an eternity, you decide to break the silence.
+
+"Ok! What's it going to be?"  you ask, embracing yourself for the blinding flash that'll end your life. Finally he smiles and steps aside.
+
+"Ok. You're clean. You can go in."  He holster his phaser, turns and disappears into the shuttle.
+"Self-destruction program activated. Please abandon the Space Station."
+
+> in
+With a deep sigh of relief, you step forward and enter the shuttle. No sooner are you inside than the pilot firmly leads you into the on board sterilization chamber. Once in there, you strap yourself tightly onto the built-in support bar and push the activation button. The chamber is quickly filled with compressed air, and a few moments later it feels as if you are being ripped apart as the hatch to the outside opens abruptly, cleaning out the chamber completely.
+
+After the door has closed again, you remove the spacesuit, leave the sterilization chamber and walk into the cabin, taking your seat.
+
+The metallic sound of the Space Station's holding arms as they release their grip of the shuttle is sweet music to your ears. You lean back in your seat and close your eyes as the pilot turns the shuttle and set course for Earth. You don't even look back as a bright light momentarily fills the cabin as the Space Station blows up in a silent explosion behind you.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

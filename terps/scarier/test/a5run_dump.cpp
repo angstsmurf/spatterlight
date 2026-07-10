@@ -40,6 +40,26 @@
 #include "a5state.h"
 #include "a5text.h"
 
+/* One-line pushback over the command script: the Adventure-Upgrade question
+   below peeks at the next meaningful line and puts it back when it is not a
+   literal yes/no answer.  Every script reader (the main loop, %PopUpInput%,
+   the upgrade question) goes through script_gets so they never fight over a
+   line. */
+static char script_pushback[1024];
+static int have_pushback = 0;
+
+static char *
+script_gets (char *buf, size_t sz, FILE *f)
+{
+  if (have_pushback)
+    {
+      snprintf (buf, sz, "%s", script_pushback);
+      have_pushback = 0;
+      return buf;
+    }
+  return fgets (buf, (int) sz, f);
+}
+
 /* %PopUpInput% side channel: feed the next meaningful line of the command
    script as the answer to a naming prompt (skipping blank/# lines exactly like
    the main command loop, so the two never fight over a line).  Returns a
@@ -52,7 +72,7 @@ popup_from_script (void *ctx, const char *prompt, const char *dflt)
   (void) prompt; (void) dflt;
   FILE *f = (FILE *) ctx;
   char buf[1024];
-  while (fgets (buf, sizeof buf, f) != NULL)
+  while (script_gets (buf, sizeof buf, f) != NULL)
     {
       size_t n = strlen (buf);
       while (n > 0 && (buf[n - 1] == '\n' || buf[n - 1] == '\r'))
@@ -62,6 +82,54 @@ popup_from_script (void *ctx, const char *prompt, const char *dflt)
       return strdup (buf);
     }
   return NULL;
+}
+
+/* The "Adventure Upgrade" bracket-correction question, answered through the
+   ordinary command script exactly like FrankenDrift.Headless AskYesNoQuestion:
+   print the question, then consume the next meaningful script line only when
+   it is literally yes/y/no/n (trimmed, case-insensitive); anything else is
+   pushed back for the main loop and the answer defaults to no.  On yes, echo
+   FD's Glue.ShowInfo "N tasks have been updated." -- both writes are raw
+   (no trailing break), so the game title abuts them just as in FD. */
+static void
+ask_upgrade_question (a5_adventure_t *a, FILE *script)
+{
+  char buf[1024];
+  int yes = 0, n;
+  if (!a5model_upgrade_pending (a))
+    return;
+  fputs ("Adventure Upgrade\n", stdout);
+  fputs (a5model_upgrade_question (), stdout);
+  while (script_gets (buf, sizeof buf, script) != NULL)
+    {
+      size_t len = strlen (buf);
+      char *p = buf;
+      while (len > 0 && (buf[len - 1] == '\n' || buf[len - 1] == '\r'))
+        buf[--len] = '\0';
+      if (len == 0 || buf[0] == '#')
+        continue;
+      while (*p == ' ' || *p == '\t')
+        p++;
+      {
+        char *e = p + strlen (p);
+        while (e > p && (e[-1] == ' ' || e[-1] == '\t'))
+          *--e = '\0';
+      }
+      if (strcasecmp (p, "yes") == 0 || strcasecmp (p, "y") == 0)
+        yes = 1;
+      else if (strcasecmp (p, "no") == 0 || strcasecmp (p, "n") == 0)
+        yes = 0;
+      else
+        {
+          /* Not an answer: push the line back and answer no (FD peeks). */
+          snprintf (script_pushback, sizeof script_pushback, "%s", buf);
+          have_pushback = 1;
+        }
+      break;
+    }
+  n = a5model_upgrade_answer (a, yes);
+  if (yes)
+    printf ("Adventure Upgrade\n%d tasks have been updated.", n);
 }
 
 int
@@ -87,13 +155,6 @@ main (int argc, char **argv)
       fprintf (stderr, "a5run_dump: failed to load %s\n", argv[1]);
       return 1;
     }
-  run = a5run_new (a);
-  if (run == NULL)
-    {
-      fprintf (stderr, "a5run_dump: out of memory\n");
-      a5model_free (a);
-      return 1;
-    }
 
   if (argc >= 3)
     {
@@ -101,10 +162,22 @@ main (int argc, char **argv)
       if (script == NULL)
         {
           fprintf (stderr, "a5run_dump: cannot open %s\n", argv[2]);
-          a5run_free (run);
           a5model_free (a);
           return 1;
         }
+    }
+
+  /* The Adventure-Upgrade bracket-correction question is answered from the
+     command script (a literal leading yes/no line), before the run is built,
+     mirroring FD's ask-at-load. */
+  ask_upgrade_question (a, script);
+
+  run = a5run_new (a);
+  if (run == NULL)
+    {
+      fprintf (stderr, "a5run_dump: out of memory\n");
+      a5model_free (a);
+      return 1;
     }
 
   /* Let %PopUpInput% prompts (naming puzzles) pull their answer from the next
@@ -153,7 +226,7 @@ main (int argc, char **argv)
     long undo_at = ua != NULL ? strtol (ua, NULL, 10) : -1;
     long cmd_no = 0;
 
-    while (fgets (line, sizeof line, script) != NULL)
+    while (script_gets (line, sizeof line, script) != NULL)
       {
         size_t n = strlen (line);
         while (n > 0 && (line[n - 1] == '\n' || line[n - 1] == '\r'))
@@ -232,6 +305,37 @@ main (int argc, char **argv)
                   int ci = a5state_character_index (st, ck);
                   const char *cl = (ci >= 0 && st->char_loc[ci]) ? st->char_loc[ci] : "?";
                   fprintf (stderr, " %s@%s", ck, cl);
+                }
+              fprintf (stderr, "]\n");
+            }
+        }
+        /* A5_DUMP_OBJS=1 prints every non-hidden object's location to stderr
+           after each command; A5_DUMP_OBJS=key1,key2 restricts to those object
+           keys (walkthrough-derivation aid for randomly-placed objects, e.g.
+           The Salvage's derelicts). */
+        {
+          static const char *dobj = (const char *) 1;
+          if (dobj == (const char *) 1) dobj = getenv ("A5_DUMP_OBJS");
+          if (dobj != NULL)
+            {
+              a5_state_t *st = a5run_state (run);
+              const a5_adventure_t *a2 = st->adv;
+              int filter = strcmp (dobj, "1") != 0;
+              fprintf (stderr, "[objs");
+              for (int i = 0; i < a2->n_objects; i++)
+                {
+                  const char *ok = a2->objects[i].key;
+                  if (filter)
+                    {
+                      const char *hit = strstr (dobj, ok);
+                      if (hit == NULL)
+                        continue;
+                    }
+                  else if (st->obj[i].where == A5_OWHERE_HIDDEN
+                           || st->obj[i].where == A5_OWHERE_NONE)
+                    continue;
+                  fprintf (stderr, " %s@%d:%s", ok, (int) st->obj[i].where,
+                           st->obj[i].key != NULL ? st->obj[i].key : "-");
                 }
               fprintf (stderr, "]\n");
             }

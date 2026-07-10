@@ -1,0 +1,6 @@
+up
+up
+north
+north
+north
+crawl

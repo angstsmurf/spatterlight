@@ -1,0 +1,152 @@
+# Temperamentum (Matthew Sawchuk, 2017; ADRIFT 5.0000353) -- full winning
+# walkthrough, adapted from the author's own "Temperamentum Walkthrough and
+# notes.txt" (shipped alongside the blorb).  Unscored (no Score variable) --
+# the goal is the EndGame Neutral ending (`look at footprint` in Noah's room).
+#
+# Dolores, wracked by grief, works through the four temperaments/humors in
+# four dreams; each dream ends in a Dark Room where she pours that dream's
+# vial (red/blue/yellow/black liquid = sanguine/phlegm/yellow bile/black
+# bile) into the hole in the stone table.  After the fourth pour she can
+# finally enter Noah's room.
+#
+# The author's txt needed several corrections to actually replay:
+#  - the game's library only knows [get/take/pick up] via its own general
+#    tasks; "take mirror" hits the AttackObje-style fallbacks -- use `get`.
+#  - Village exit is SE (author wrote NE); the mud is on the Rainforest Path.
+#  - Dream 2's Feeding Chamber -> Shark Hole legs are E,E (author wrote W,W).
+#  - "put net in hole" resolves NewNet into the SharkHoleF joke task ("That
+#    doesn't belong in there."); the author's alternative phrasing `get
+#    hammer and chisel with net` (GetObjectW general) is the one that works.
+#  - Dream 4 is missing the fourth pour in the txt: the other Dolores hands
+#    over the black vial at `open door`, and the coffin Dark Room still needs
+#    `open vial` + `pour liquid in hole` before the final wake-up.
+#
+# Desert (dream 3): the WanderingT TurnBased event runs 14 turns of inner
+# monologue while every exit loops back to Barren Desert; after the "He
+# wouldn't want you to torture yourself." beat the oasis opens to the north.
+read magazine article
+north
+east
+look at girl
+talk to girl
+get mirror
+west
+nw
+look at women
+talk to women
+look at man
+say hi to man
+ask man about molimo
+ask man about vial
+se
+get mud
+e
+throw mud on mirror
+get mirror
+n
+wash mirror in pond
+s
+w
+sw
+put mirror on table
+w
+up
+get horn
+d
+e
+ne
+nw
+give horn to man
+look at table
+look at hole
+look at object
+open vial
+pour liquid in hole
+n
+e
+e
+say hi to guard
+n
+w
+look at cracks
+get fish bone
+get net
+attach net to trident
+put bone in crack
+e
+e
+look in hole
+get hammer and chisel with net
+n
+poke monster eye with trident
+u
+w
+look at floor
+look at brain
+look at stalactite
+hit stalactite with hammer and chisel
+e
+down
+poke eye with trident
+s
+w
+s
+tell guard about monster
+look at block
+open vial
+pour liquid in hole
+n
+e
+e
+look at pictures
+e
+n
+e
+s
+w
+n
+e
+s
+w
+n
+e
+s
+w
+n
+e
+n
+look at lake
+get vial
+look at plants
+look at bush
+get flare gun
+look at gun
+fire gun
+look at box
+open vial
+pour liquid in hole
+n
+e
+e
+e
+e
+n
+e
+e
+e
+look at woman
+say hi to woman
+sit
+say hi to woman
+tell woman everything is alright
+open door
+look at coffin
+open vial
+pour liquid in hole
+n
+e
+e
+e
+e
+look at crib
+look at footprint

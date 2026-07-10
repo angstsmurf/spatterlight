@@ -1,0 +1,20 @@
+# Beagle 2 (2017; ADRIFT 5.0000321) -- full walkthrough to the EndGame
+# Neutral ending.  A one-room joke game about the real Beagle 2 Mars lander
+# (found in 2015 with two solar panels stuck): you are the "outside
+# intervention".  Percussive maintenance is the whole puzzle:
+#
+#   hit panels   -> "maybe you need to use a bit more force"
+#   kick panels  -> the panels pop open, and you wake at home to the news
+#                   that Beagle 2 has started transmitting.
+#
+# (The game's Autorun %PopUpChoice% gender prompt resolves silently in both
+# headless engines; everything before the kick is optional flavour.)
+x lander
+x panels
+x rocks
+knock on lander
+shake lander
+hit panels
+open panels
+deploy panels
+kick panels

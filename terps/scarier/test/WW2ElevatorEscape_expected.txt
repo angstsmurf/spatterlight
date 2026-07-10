@@ -1,0 +1,234 @@
+WWII Elevator Escape (v3)
+
+Prologue
+The German Resistance consisted of small, isolated groups that were unable to mobilize widespread political opposition. Still, successful disclosure of information regarding Nazi armaments factories to the Allies occurred.
+
+You are such a brave soul and you have managed to come very close to Hitler's inner circle. During a meeting in Berlin, Spring 1942, you will have the opportunity to get some crucial information. The meeting is held on the ground floor of a nine-storey building.
+
+However, it is believed that your secret affiliation has just been compromised and that this news will soon reach Hitler and his most trusted men around him. But the meeting is too important to skip.
+
+Thus, the German Resistance has an escape plan for you: As soon as you have received the much needed information, you will leave the meeting room. However, the front door is heavily guarded so you will have to take the elevator to the roof, where a parachute has been hidden. You must then parachute down to the nearby park where the Resistance will have a car waiting for you...
+
+So here you are at the meeting, and you have just received the crucial information that the Allies need. You stand up, put your right hand on your stomach as if you are sick and say: "Sorry! I will be back in a minute.." Very quickly you walk out the door and as you do so, you hear Hitler's voice: "Stop him! He must not leave the building!".
+
+You jump into the elevator and hit the button for the top floor. A guard almost manages to reach the elevator before the door is fully closed and the elevator starts moving. Luckily, this elevator is too fast for the guards to catch up. Let's just hope that no one upstairs pushes the call button...
+
+Click on the command field and hit Enter....
+(you may be able to press any key to proceed on some systems)
+WWII Elevator Escape (v3)
+Created with ADRIFT 5 by Campbell Wild and Combi-Lib 4.3
+Tested by Larry Horsfield and Olaf Nowacki (thanks!)
+Special commands: HELP, VOCAB, HINTS, ABOUT
+
+In the elevator
+You are in a cramped elevator lit from a lamp in the ceiling. But in 1942, this is state of the art. There is a panel with buttons left of you. When the elevator stops, you can leave by going south.
+
+The elevator moves upwards.
+
+> push 7
+You press button 7 and the button lights up.
+
+The elevator reaches the first floor.
+
+Somebody just pushed the call button on the sixth floor!
+
+> push 5
+You press button 5 and the button lights up.
+
+The elevator moves upwards.
+
+> push 4
+You press button 4 and the button lights up.
+
+The elevator reaches the second floor.
+
+> push lamp
+Nothing prevents the lamp from being pushed up through the ceiling as it is simply resting on the sides of the hole in the ceiling. Thus, you manage to push the lamp up and to the side. There is now a big hole in the ceiling which you can GO UP through.
+
+The elevator moves upwards.
+
+> up
+You move up.
+
+On top of the elevator
+You are on top of the elevator.  The lamp is lying here beside the hole you came up through. As long as the lamp hasn't been replaced, you can see most of the elevator.
+
+The elevator reaches the third floor.
+
+The walls are whizzing by as the elevator moves.
+
+> move lamp
+You move the lamp back into the hole, so the lamp rests on the sides of the hole. Now the lamp is in place, you notice light coming from a narrow crack between the lamp and the floor. You can see most of the elevator through the crack and hear if something is being said too.
+
+The elevator moves upwards.
+
+The walls are whizzing by as the elevator moves.
+
+> sit
+You sit down.
+
+The elevator reaches the 4th floor.  The elevator stops and the doors open. You hear shouting from the stairwell.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The elevator closes again and starts moving up.
+
+> wait
+Time passes...
+
+The elevator reaches the 5th floor.  The elevator stops and the doors open. You hear shouting from the stairwell.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The elevator closes again and starts moving up.
+
+> wait
+Time passes...
+
+The elevator reaches the 6th floor.  The elevator stops and the doors open. You hear shouting from the stairwell.
+
+An old lady enters the elevator. She takes a look at the buttons and mutters to herself: "Oh, someone pushed the button for the eighth floor. That's where I am going too."
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The elevator closes again and starts moving up.
+
+> wait
+Time passes...
+
+The elevator reaches the 7th floor.  The elevator stops and the doors open. You hear shouting from the stairwell.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+A guard enters the elevator. He begins to question the old lady who politely answers. "I entered at the sixth floor and I haven't seen anyone else in the elevator today." she says.
+
+"Hmm," the guard mutters to himself, "the traitor must have left the elevator before you entered..."
+
+> wait
+Time passes...
+
+The elevator closes again and starts moving up.
+
+> wait
+Time passes...
+
+The elevator reaches the 8th floor.  The elevator stops and the doors open. You hear shouting from the stairwell.
+
+"Thank you for your cooperation!" the guard says to the old lady. Then he exits the elevator. Outside the elevator he teams up with some guards and tells them: "The old lady here hasn't seen him so he must be downstairs somewhere. Otherwise, we would have caught him on the stairs."
+
+One of the other guards says: "Well, he could have been on the roof but we have just checked that too, so he must either be downstairs or in some of the apartments. So let's check the apartments on all floors. Get to work!"
+
+Some guards disappear down the hallway to check out the apartments, while others take the stairs. This might be your chance to reach the roof!
+
+The old lady leaves the elevator and disappears down the hallway.
+
+"Most buttons have just been pressed! It must be the guards downstairs who did it.
+
+> move lamp
+You pull the lamp up through the hole and move it to the side, so you can climb down through the hole.
+
+> d
+  You move down.
+
+In the elevator
+You are in a cramped elevator lit from a lamp in the ceiling. But in 1942, this is state of the art. There is a panel with buttons left of you. When the elevator stops, you can leave by going south.
+
+> s
+First, you take a look outside the elevator. The guards are busy checking the apartments on the floors, so you quickly pass the stairwell to the last short flight of stairs leading up to the roof. Slowly (because of your knee injury), you climb the stairs to the roof. You reach the top of the stairs and you open the door to the roof slowly as you know there is a guard up here with binoculars, looking for threats in the distance.
+
+You walk through the door onto the roof and close it silently.
+
+You remember that a Resistance member has hidden a parachute on top of the shed and that you should look out for footholds.
+
+On the roof
+You are standing on the roof by the shed which holds the stairs to the eighth floor. Hopefully, the Resistance managed to place a parachute on top of the shed as planned. The door on the west side of the shed that you came through, is currently closed. The entire roof is surrounded by a low wall which is no more than 80 cm tall.
+
+As you knew, there is a guard up here with a set of binoculars, watching for threats against Hitler and his men. At the moment he is on the east side of the roof, looking east through his binoculars. Thus you are hiding on the west side of the small shed.
+
+A firm wind is blowing from the west.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The guard with the binoculars moves to the north side of the roof. You carefully move around the corner of the shed, so now you are south of the shed. The guard still hasn't seen you.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The guard with the binoculars moves to the west side of the roof. You carefully move around the corner of the shed, so now you are east of the shed. The guard still hasn't seen you.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The guard with the binoculars moves to the south side of the roof. You carefully move around the corner of the shed, so now you are north of the shed. The guard still hasn't seen you.
+
+There are some footholds in the wall of the shed here!
+
+> up
+You climb up the footholes and see the parachute lying on top of the shed. You grab it and climb down quickly.
+
+> wear parachute
+Ok, you put on the parachute.
+
+You remember the escape plan: You must parachute down from this building and land in the park lake somewhere north of here. The Resistance is keeping a close eye on the lake and will come to your rescue.
+
+The guard with the binoculars moves to the east side of the roof. You carefully move around the corner of the shed, so now you are west of the shed by the door. The guard still hasn't seen you.
+
+> run nw
+You run northwest as fast as you can until you reach the corner of the low wall, which you step upon and jump as far as you can before pulling the ripcord. The parachute unfolds as intended.
+
+Hanging From a Parachute
+You are floating peacefully northwest of the building, above one of the main roads leading north. Luckily, there are no buildings on the east side of the road, where the park is. The wind comes from the west and it is pretty firm here. You can't avoid being pushed further east while continuing north. As a consequence, you are now moving northeast.
+
+> wait
+Time passes...
+
+Hanging From a Parachute
+You are getting closer to ground but it is still a long fall if something goes wrong. It is a good thing that the wind is blowing from the west, so you are now hanging over the park, more precisely above the big lake.
+
+> wait
+Time passes...
+
+Hanging From a Parachute
+You are getting pretty close to the ground but also dangerously close to the eastern edge of the lake, where another main road leads north. As the wind keeps blowing firmly from the west, you will crash land on the busy road and collide with a car, unless you do something now!
+
+> release parachute
+You activate the mechanism which releases the canopy from the harness. The canopy continues east while you drop vertically into the lake. You quickly get ashore where a car from the Resistance quickly reaches you, as they have been waiting nearby for a parachute. That has given them a headstart compared to the Nazis. Quickly you reach a safe house not known by the Nazis. The intel gained turns out to be crucial to the Allies. This operation was a huge success!
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

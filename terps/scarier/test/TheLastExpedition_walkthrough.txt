@@ -1,0 +1,57 @@
+# The Last Expedition (Daza, 2017; ADRIFT 5.0000353) -- full *** You have
+# won *** walkthrough.  A 1921 tomb-crawl: archaeologist Harry Finley (with
+# long-suffering assistant Edmund "Edward" McIntosh) opens a four-room tomb
+# that turns out to be a sedated patient's vivid delusion.
+#
+# Chain: wipe the cobwebs, place the loose SINGLE tile in the wall's empty
+# square (the uneven tile is a decoy), stand on the platform and turn the
+# ship carving TWICE (south then back north) to open the north door.  At the
+# water chamber `walk across` poses a 1-4 bridge menu backed by a RAND(1,100)
+# roll; under the xoshiro seed choice 1 rolls <50 and Harry falls in -- the
+# dramatic branch: pull the chain up from the bottom (drains the water),
+# climb down, push the walled door.  In the tomb take the warrior's flaming
+# torch (choice 1), open the backpack, get the crowbar, clear the pyre logs
+# with it, push the lid, then `use crowbar on lid` -- the lid slides,
+# treasure gleams, and the frame story bleeds through.  Victory fires from a
+# 10-second TimeBased event after the crowbar task (the z's).  Do NOT smash
+# the clay jars (instant loss).
+#
+# RNG: OneOf dialogue variants + the bridge roll make the vanilla-FD diff
+# branch-divergent (FD-vanilla's Harry crosses safely); the xoshiro-aligned
+# run is byte-exact, and the golden pins the vanilla column.
+wipe away cobwebs
+get single tile
+put single tile in square hole
+e
+stand on platform
+x carving
+turn carving
+turn carving
+n
+walk across
+1
+swim up to cube
+pull chain up
+climb down chain
+x door
+push door
+x pyre
+x warrior
+1
+open backpack
+get crowbar
+remove logs with crowbar
+push lid
+use crowbar on lid
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z

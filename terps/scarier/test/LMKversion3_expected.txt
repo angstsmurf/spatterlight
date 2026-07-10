@@ -1,0 +1,725 @@
+Land of the Mountain King
+
+You, the mighty Viking warrior Kral, are walking in the woods looking for prey, when you are suddenly shrouded in a cloud of white smoke. The smoke is too dense to see through, but eventually the smoke clears and you find yourself on a barren plain.
+
+As you turn around, you see an old witch stand before you.
+"Listen carefully, Kral!" the witch whispers with a hoarse voice.
+
+"I have summoned you here to help me clear this land from the evil mountain king, who lives in his castle up north. The mountain king terrorizes this land, and must die so that peace can be restored around here. If you succeed you will be significantly rewarded.
+
+"You will meet various of his evil guardians on your quest, so take care. Unfortunately I could not bring you here with your weapons, so you will have to make do with what you find around here.
+
+"Good luck!"
+
+With those words, the witch disappears in a puff of white smoke.
+
+Land of the Mountain King - An interactive fantasy
+Written by Kenneth Pedersen
+Release 3 / ADRIFT 5
+Music by Eric Matyas
+www.soundimage.org
+Beta-testing: Mathbrush, Heartless Zombie & Saabie (Thanks!)
+
+On a plain
+You are standing on a barren plain. It is evening and the sky is filled with dark clouds, blocking most of the final beams of the sun. You can go in all directions.
+
+[New players, type: ABOUT]
+
+> sw
+You move southwest.
+
+By cave entrance
+You are standing in front of a dark cave, built into a tall cliff. The entrance is to the southwest.  A gigantic bat is hovering slightly above the ground in front of the cave entrance, blocking your way.
+
+> kill bat
+You quickly throw your right fist forward, landing a hard punch in the face of the giant bat. The bat takes 2 points of damage.
+
+The bat swings one of its clawed wings against you throat, but you easily avoid the attack by stepping backwards.
+
+> kill bat
+You attempt a boxing combination but all you do is hitting big holes in the air. The giant bat chuckles.
+
+The bat attempts a double attack, first trying to slice you with its left claw, then the right claw. You just manage to avoid the attack by rolling to one side.
+
+> kill bat
+You quickly throw your right fist forward, landing a hard punch in the face of the giant bat. The bat takes 2 points of damage.
+
+The bat shoots forwards and hammers its sharp teeth into your shoulder! You receive 2 points of damage.
+
+> kill bat
+You attempt a boxing combination but all you do is hitting big holes in the air. The giant bat chuckles.
+
+The bat swings one of its clawed wings against you throat, but you easily avoid the attack by stepping backwards.
+
+> kill bat
+You quickly throw your right fist forward, landing a hard punch in the face of the giant bat. The bat takes 3 points of damage.
+
+The bat shoots forwards and hammers its sharp teeth into your shoulder! You receive one point of damage.
+
+> kill bat
+You quickly throw your right fist forward, landing a hard punch in the face of the giant bat. The bat takes 2 points of damage.
+
+It seems as if your last blow was too much for the giant bat. It collapses to the ground, dead as a doornail.
+
+[Your score has just gone up by ten points.]
+
+> sw
+You move southwest.
+It is too dark to make anything out clearly.
+
+However, you do notice a faint diffuse light coming in from an opening far up the eastern wall. Unfortunately the light is too faint to provide any useful light. Perhaps during the day the light from the outside will be strong enough to light up this cave.
+
+> ne
+You move northeast.
+
+By cave entrance
+You are standing in front of a dark cave, built into a tall cliff. The entrance is to the southwest.  A dead bat is here.
+
+> ne
+You move northeast.
+
+On a plain
+You are standing on a barren plain. It is evening and the sky is filled with dark clouds, blocking most of the final beams of the sun. You can go in all directions.
+
+> e
+You move east.
+
+By cottage
+You are outside a ramshackle cottage, which entrance lies to the east. Northeastern and southeastern directions are blocked by cliffs, but you can go in all other directions.
+
+> e
+You move east.
+
+In cottage
+You are inside the small ramshackle cottage. The collection of furniture is sparse. There is a cupboard leaning against the north wall and a dining table in the center of the room.  There is an empty stool in front of the table.
+
+The mysterious woman is seated by the table.  You may sit on the stool on the other side of the table.
+
+As you enter the cottage, the woman says "Feel free to take a seat."
+
+> sit on stool
+You sit on the stool.
+
+"Greetings traveler!" the woman says.
+
+"I have been expecting you. I believe you are the only one who can help me. I need to know what happened to my friend Damian. I haven't seem him in a long time. If you can help me, I will reward you! I may also know a thing or two about things around here. Just ask."
+
+> ask about damian
+You ask the woman about her friend Damian.
+
+The woman answers: "We have been friends for a very long time. I once gave him a gold necklace with a locket containing a hair. If you can find this necklace, you are on the right track."
+
+The woman starts knitting.
+
+> w
+(getting off the stool first)
+You move west.
+
+By cottage
+You are outside a ramshackle cottage, which entrance lies to the east. Northeastern and southeastern directions are blocked by cliffs, but you can go in all other directions.
+
+> sw
+You move southwest.
+
+By lighthouse
+You are standing on the southern edge of the mainland. The way south is blocked by rocks. Among the rocks stands a huge lighthouse looming threateningly under the dark sky. The open doorway into the lighthouse lies south of here. You can also go west, northwest, north, northeast and east from here.
+
+> s
+You move south.
+
+Inside lighthouse
+You are just inside the lighthouse. Some old creaky stairs lead upwards.
+
+> up
+You move up.
+
+Top of lighthouse
+You are at the top of the lighthouse. You have a magnificent view from here: In all southerly directions all you can see is the sea. To the east, you see a cosy beach and to the west the view is blocked by tall cliffs. To the north you can barely make out a big castle on the other side of a wide ravine. And beyond the castle you see lots of mountains.
+
+Here, at the top of the lighthouse, there is a big lamp, currently pointing southeast.  The lamp is currently turned off.
+
+> push left button
+As you push the button, the lamp turns 45 degrees clockwise.  The lamp is now pointing towards south.
+
+> push left button
+As you push the button, the lamp turns 45 degrees clockwise.  The lamp is now pointing towards southwest.
+
+> push left button
+As you push the button, the lamp turns 45 degrees clockwise.  The lamp is now pointing towards west.
+
+> push right button
+As you push the button, the lamp turns on, emitting a very strong beam of light in the direction it is facing.
+
+> down
+You move down.
+
+Inside lighthouse
+You are just inside the lighthouse. Some old creaky stairs lead upwards.
+
+> n
+You move north.
+
+By lighthouse
+You are standing on the southern edge of the mainland. The way south is blocked by rocks. Among the rocks stands a huge lighthouse looming threateningly under the dark sky. The open doorway into the lighthouse lies south of here. You can also go west, northwest, north, northeast and east from here.
+
+> w
+You move west.
+
+By cave entrance
+You are standing in front of a dark cave, built into a tall cliff. The entrance is to the southwest.  A dead bat is here.
+
+> sw
+You move southwest.
+
+In cave
+You are standing in a big cave. High above you is the domed ceiling and far up the eastern wall, a strong light is coming in through an opening. The strong light is reflected by crystals in the ceiling, casting a cosy light around the cave.  Also here is a sharp dagger.
+
+> take dagger
+Ok, you pick up the sharp dagger and put it in your backpack.
+
+[Your score has just gone up by ten points.]
+
+> equip dagger
+You equip the sharp dagger.
+
+> ne
+You move northeast.
+
+By cave entrance
+You are standing in front of a dark cave, built into a tall cliff. The entrance is to the southwest.  A dead bat is here.
+
+> ne
+You move northeast.
+
+On a plain
+You are standing on a barren plain. It is evening and the sky is filled with dark clouds, blocking most of the final beams of the sun. You can go in all directions.
+
+> se
+You move southeast.
+
+Beach
+You are standing on an empty beach bordered to the east by tall cliffs. You can proceed into the water by going south. You can also go west, northwest and north.
+
+> s
+You move south.
+
+In water
+You are standing in water up to your waist. Since you never learned to swim, you dare not go any further. Thus the only way from here is back north to the beach.
+
+Suddenly a terrible creature rises from the water! It is a giant squid! The squid is holding a shield in one of its tentacles. It seems like it is preparing an attack...
+
+> kill squid
+You try to stab the squid in the head but it tries to move away. However, you were faster this time around, so you manage to give the squid a small wound. The squid receives 4 points of damage.
+
+The giant squid lashes out for you with one of its tentacles, but you quickly step aside.
+
+> kill squid
+You swing your dagger towards the squid and the dagger cuts deep into the flesh of the creature. The squid receives 6 points of damage.
+
+The squid manages to give you a significant blow at the side of your head, with one of its tentacles. You receive 6 points of damage.
+
+> kill squid
+You swing your dagger towards the squid and the dagger cuts deep into the flesh of the creature. The squid receives 7 points of damage.
+
+The squid swings its shield towards your head, but you just manage to duck.
+
+> kill squid
+You try to stab the squid in the head but it tries to move away. However, you were faster this time around, so you manage to give the squid a small wound. The squid receives 4 points of damage.
+
+The squid swings its shield violently against your head and hits spot on! You receive 8 points of damage!
+
+> kill squid
+You try to stab the squid in the head, but it manages to parry with its shield.
+
+The squid swings its shield towards your head, but you just manage to duck.
+
+> kill squid
+You swing the dagger against the squid, but the squid quickly moves back, avoiding your attack.
+
+The squid swings its shield towards your head, but you just manage to duck.
+
+> kill squid
+You try to stab the squid in the head, but it manages to parry with its shield.
+
+The squid tries to hit you with its tentacles, but misses you completely.
+
+> kill squid
+You swing your dagger towards the squid and the dagger cuts deep into the flesh of the creature. The squid receives 7 points of damage.  It seems as if your last blow was too much for the giant squid, so it collapses in front of you, dropping the shield it was holding. You pick up the shield, while the waves drag the body of the giant squid out to sea. You put on the shield, so that you are now less vulnerable.
+
+You decide to stay in the nice hot water for some time to recover from the tough fight. After a while you are fully recovered.
+
+[Your score has just gone up by ten points.]
+
+> n
+You move north.
+
+Beach
+You are standing on an empty beach bordered to the east by tall cliffs. You can proceed into the water by going south. You can also go west, northwest and north.
+
+> n
+You move north.
+
+By cottage
+You are outside a ramshackle cottage, which entrance lies to the east. Northeastern and southeastern directions are blocked by cliffs, but you can go in all other directions.
+
+> n
+You move north.
+
+By large tree
+You are standing beside a very tall and wide oak. Far up amongst the branches you notice a platform. Northern directions are blocked by a deep ravine, whereas cliffs block any progress in eastern directions. Visible exits are thus west, southwest and south.
+
+> x tree
+Further inspection of the tree reveals some steps carved into the northeast-side of the tree, leading up to the platform. You can now go up.
+
+> up
+You move up.
+
+Platform
+You are standing on a platform high above the ground. The tree trunk is in the middle of the platform together with the hole you came up through. The tree trunk has no branches within reach from here, so you cannot go up any further. The only way from here is down.
+
+A tall warrior wearing chainmail armor is standing here, looking over the land. He appears unarmed.
+
+"Ahh - a Viking! Perhaps you could be a challenge after all. Come on and fight you little piece of scum!" shouts the warrior and turns to you.
+
+"Fight me, you coward!" chuckles the warrior.
+
+> kill warrior
+You swing your dagger towards your opponent's neck and the dagger cuts deep into his flesh. The warrior receives 6 points of damage.
+
+You are stunned by a perfect roundhouse kick, making you all dizzy. You receive 7 points of damage!
+
+> kill warrior
+You swing your dagger against the warrior, but he is too fast for you, easily dodging your attack.  Wow - This guy is really fast! He appears to be a master of unarmed combat.
+
+The warrior makes a roundhouse kick, but just misses your chin by an inch.
+
+> kill warrior
+You try to stab your enemy in the face with your dagger and you almost make it, but the warrior just manages to move out of the way.
+
+The warrior punches you in the stomach. You receive 2 points of damage.
+
+> kill warrior
+You swing your dagger towards your opponent's neck and the dagger cuts deep into his flesh. The warrior receives 7 points of damage.
+
+The warrior makes a roundhouse kick, but just misses your chin by an inch.
+
+> kill warrior
+You swing your dagger towards your opponent's neck and the dagger cuts deep into his flesh. The warrior receives 7 points of damage.
+
+The warrior tries a hard punch towards your stomach, but you manage to parry.
+
+> kill warrior
+You swing your dagger against the warrior, but he is too fast for you, easily dodging your attack.
+
+The warrior makes a roundhouse kick, but just misses your chin by an inch.
+
+> kill warrior
+You swing your dagger towards your opponent's neck and the dagger cuts deep into his flesh. The warrior receives 5 points of damage.
+
+The warrior sends you flying across the platform with a flying kick. You receive 6 points of damage.
+
+> kill warrior
+You swing your dagger against the warrior, but he is too fast for you, easily dodging your attack.
+
+The warrior punches you in the stomach. You receive 2 points of damage.
+
+> kill warrior
+You swing your dagger against the warrior, but he is too fast for you, easily dodging your attack.
+
+You are stunned by a perfect roundhouse kick, making you all dizzy. You receive 8 points of damage!
+
+> kill warrior
+You swing your dagger towards your opponent's neck and the dagger cuts deep into his flesh. The warrior receives 5 points of damage.  It seems as if the fight is over. The warrior falls to his knees, then he goes over the edge of the platform, landing on the ground far below a few seconds later with a big thud.
+
+You take a rest at the platform, enjoying the harmony up here, until you are fully recovered.
+
+[Your score has just gone up by ten points.]
+
+> down
+You move down.
+
+By large tree
+You are standing beside a very tall and wide oak. Far up amongst the branches you notice a platform. Northern directions are blocked by a deep ravine, whereas cliffs block any progress in eastern directions. Visible exits are thus west, southwest and south.
+
+The body of the dead warrior lies sprawled on the ground in front of you.
+
+You search the body of the fallen warrior but the only thing of interest is his chainmail armor which seems to fit you well. You take it and put it on, making you even less vulnerable.
+
+> sw
+You move southwest.
+
+On a plain
+You are standing on a barren plain. It is evening and the sky is filled with dark clouds, blocking most of the final beams of the sun. You can go in all directions.
+
+> w
+You move west.
+
+Swamp
+You are in a dark swamp with bubbling mud all around and few small sick trees scattered about. You feel like sinking, so you make sure to move around once in a while. On the other hand you look carefully around before taking your next step, to avoid getting sucked down in a pit of liquid mud. Western directions will take you further into the swamp, whereas other directions take you away from the swamp.
+
+There is something sticking out of the mud. It seems to be some sort of handle.
+
+> take handle
+You approach the handle, but as you do so, a horrible swamp monster materializes in front of you!
+
+The monster gives you a hard blow in the stomach with its paw. You receive 4 points of damage.
+
+> kill monster
+You quickly thrust the dagger forward and you manage to stab the monster in its stomach. The monster receives 4 points of damage.
+
+The monster thrusts its clawed paw towards your legs and manages to inflict a deep cut in your left thigh. You receive 5 points of damage.
+
+> kill monster
+You quickly thrust the dagger forward and you manage to stab the monster in its stomach. The monster receives 4 points of damage.
+
+The monster thrusts its clawed paw towards your legs and manages to inflict a deep cut in your left thigh. You receive 6 points of damage.
+
+> kill monster
+You try to stab the monster in the eye with your dagger and you almost make it, but the monster just manages to move out of the way.
+
+The monster gives you a hard blow in the stomach with its paw. You receive 3 points of damage.
+
+> kill monster
+You swing your dagger against the monster, but the monster is too fast, easily dodging your attack.
+
+The monster lashes out for you with its massive clawed paw, but you just manage to step aside.
+
+> kill monster
+You swing your dagger towards the monster's neck and the dagger cuts deep into its flesh. The monster receives 5 points of damage.
+
+The monster lashes out for you with its massive clawed paw, but you just manage to step aside.
+
+> kill monster
+You swing your dagger towards the monster's neck and the dagger cuts deep into its flesh. The monster receives 5 points of damage.
+
+The monster sends its huge jaw forward trying to bite off your arm, but you quickly move away.
+
+> kill monster
+You swing your dagger towards the monster's neck and the dagger cuts deep into its flesh. The monster receives 7 points of damage.
+
+The huge monster jumps towards you, but you just manage to roll under it, so you are quickly onto your feet again.
+
+> kill monster
+You swing your dagger towards the monster's neck and the dagger cuts deep into its flesh. The monster receives 5 points of damage.
+
+The monster thrusts its jaw forward, biting you severely in the arm. You receive 8 points of damage!
+
+> kill monster
+You swing your dagger towards the monster's neck and the dagger cuts deep into its flesh. The monster receives 6 points of damage.
+
+The monster sends its huge jaw forward trying to bite off your arm, but you quickly move away.
+
+> kill monster
+You swing your dagger towards the monster's neck and the dagger cuts deep into its flesh. The monster receives 6 points of damage.  Your last blow was too much for the monster, and so it falls over, stone dead.
+
+You sit down and rest. After you have recovered, you get back on your feet again.
+
+[Your score has just gone up by ten points.]
+
+> take handle
+You take a good grip of the handle and pull it out of the mud. You are now holding a sword, but it is covered in mud, so you wipe it clean. To your amazement you realize that it is a silver sword. It appears very sharp and thus useful, so you carefully put it in your backpack.
+
+> equip sword
+You equip the silver sword.
+
+> n
+You move north.
+
+Forest
+You are in a dense forest, with only a limited light coming down through the tree branches from the cloudy sky. Northern directions are blocked by a large ravine, which apparently can be crossed by a bridge some distance to the east. You may go east, southeast and south.
+
+You sense evil nearby but find it difficult to locate it exactly...
+
+Suddenly a huge werewolf jumps out in front of you! It growls as it approaches you slowly...
+
+> kill werewolf
+You try to stab the werewolf in the throat but it tries to move away. However, you were faster this time around, so you manage to give the werewolf a small wound. It appears as if a fire is burning inside the wound! The werewolf receives 8 points of damage.
+
+The werewolf jumps for your throat, but you duck and roll to one side. You are quickly on your feet again.
+
+> kill werewolf
+You swing your sword against the body of the werewolf and it cuts deep into the flesh of the creature. A flame bursts from the wound and the huge creature howls in pain. The werewolf receives 12 points of damage.
+
+The huge werewolf lashes out for you with one of its big paws, but you quickly jump one step away.
+
+> kill werewolf
+You swing your sword against the body of the werewolf and it cuts deep into the flesh of the creature. A flame bursts from the wound and the huge creature howls in pain. The werewolf receives 13 points of damage.
+
+It seems as if your last blow was too much for the werewolf, since it falls over and lies still. You decide to stay until you are fully recovered from your wounds.
+
+Something is happening! The werewolf shrinks and its fur vanishes. It also goes through some sort of shape transformation. After a while the process is over. Now lies a dead man in front of you!
+
+[Your score has just gone up by ten points.]
+
+> x man
+It is the body of a dead man, who ended his days as a werewolf.  Around the young man's neck you find a necklace, which you take.
+
+> se
+You move southeast.
+
+On a plain
+You are standing on a barren plain. It is evening and the sky is filled with dark clouds, blocking most of the final beams of the sun. You can go in all directions.
+
+> e
+You move east.
+
+By cottage
+You are outside a ramshackle cottage, which entrance lies to the east. Northeastern and southeastern directions are blocked by cliffs, but you can go in all other directions.
+
+> e
+You move east.
+
+In cottage
+You are inside the small ramshackle cottage. The collection of furniture is sparse. There is a cupboard leaning against the north wall and a dining table in the center of the room.  There is an empty stool in front of the table.
+
+The mysterious woman is seated by the table.  You may sit on the stool on the other side of the table.
+
+As you enter the cottage, the woman says "Feel free to take a seat."
+
+> give necklace to woman
+You hand the necklace to the woman and her eyes open wide.
+
+"You found it! You found Damian's necklace!" she exclaims. "Where did you find it?"
+
+You tell her that you found it around the neck of the man who appeared after you killed the werewolf.
+
+Her eyes goes sad. "That means he had become a werewolf. What a horrible destiny..." A tear runs down her cheek. "But I am happy you put an end to his misery." she says. "I want to thank you, but the only thing I can do for you is cast a spell on you, which will increase your stamina. The spell will wear off in a couple of days, though."
+
+You agree and the woman waves her hand at you while she mumbles some strange words. You suddenly feel stronger!
+
+[Your score has just gone up by ten points.]
+
+> w
+You move west.
+
+By cottage
+You are outside a ramshackle cottage, which entrance lies to the east. Northeastern and southeastern directions are blocked by cliffs, but you can go in all other directions.
+
+> w
+You move west.
+
+On a plain
+You are standing on a barren plain. It is evening and the sky is filled with dark clouds, blocking most of the final beams of the sun. You can go in all directions.
+
+> n
+You move north.
+
+By bridge
+You are at the edge of a deep ravine, by a long wooden bridge which spans the ravine. Far out on the middle of the bridge stands a huge creature - it looks like an ogre from here, but you need to get closer to make out the details. You can go north onto the bridge, you can go in all southern directions and you can go east and west.
+
+> n
+You move north.
+
+Middle of bridge
+You are on the middle of the wooden bridge, which spans the deep ravine. You get dizzy as you look over the edge - dealing with heights was never one of your strengths.
+
+There is a big ogre standing here at the middle of the bridge.
+
+"Go away human! Or die!" roars the ogre.
+
+> kill ogre
+You swing your sword against the body of the ogre and it cuts deep into the flesh of the creature. Blood is running from the wound. The ogre receives 12 points of damage.
+
+The huge ogre swings its club against your head, but you manage to duck just in time.
+
+> kill ogre
+You try to stab the ogre in the throat but it tries to move away. However, you were faster this time around, so you manage to give the ogre a small wound. The ogre receives 9 points of damage.
+
+The ogre swings its club against you. You partly manage to dodge the attack but the heavy club hits your shoulder. You receive 7 points of damage.
+
+> kill ogre
+You swing your sword against the ogre but it just manages to dodge your attack.
+
+The huge ogre swings its club against your head, but you manage to duck just in time.
+
+> kill ogre
+You swing your sword against the body of the ogre and it cuts deep into the flesh of the creature. Blood is running from the wound. The ogre receives 14 points of damage.
+
+The ogre swings its club against you. You partly manage to dodge the attack but the heavy club hits your shoulder. You receive 9 points of damage.
+
+> kill ogre
+You swing your sword against the ogre but it just manages to dodge your attack.
+
+The huge ogre swings its club against your head, but you manage to duck just in time.
+
+> kill ogre
+You swing your sword against the body of the ogre and it cuts deep into the flesh of the creature. Blood is running from the wound. The ogre receives 15 points of damage.
+
+The ogre swings its club against you. You partly manage to dodge the attack but the heavy club hits your shoulder. You receive 7 points of damage.
+
+> kill ogre
+You swing your sword against the ogre but it just manages to dodge your attack.
+
+The ogre swings the club towards your legs and manages to hit your left thigh. You receive 11 points of damage.
+
+> kill ogre
+You swing your sword against the body of the ogre and it cuts deep into the flesh of the creature. Blood is running from the wound. The ogre receives 13 points of damage.
+
+The ogre swings the club towards your legs and manages to hit your left thigh. You receive 12 points of damage.
+
+> kill ogre
+You swing your sword against the body of the ogre and it cuts deep into the flesh of the creature. Blood is running from the wound. The ogre receives 14 points of damage.
+
+It seems as if your last blow was too much for the ogre. The ogre pauses for a second, then it falls over the railing and into the ravine. Finally you can cross the bridge.
+
+[Your score has just gone up by ten points.]
+
+> n
+You move north.
+
+Castle garden
+You are in a lovely garden in front of a castle. Along the castle wall grows beautiful bushes with flowers in many colors and red berries. Some stairs lead up into the castle. You can also go south onto the bridge.
+
+[You have reached the castle. It is now highly recommended to save your position before you proceed.]
+
+> look
+
+Castle garden
+You are in a lovely garden in front of a castle. Along the castle wall grows beautiful bushes with flowers in many colors and red berries. Some stairs lead up into the castle. You can also go south onto the bridge.
+
+> x berries
+The red berries look very delicious!
+
+> eat berries
+You pick a handful of berries from the bushes and eat them. Your stamina is replenished!
+
+> get berries
+You pick a handful of berries and put them in your backpack.
+
+[Your score has just gone up by ten points.]
+
+> up
+You begin to walk up the stairs. As you reach the top of the stairs, you stare into a dark hall lit by torches on the walls and at the far end you see the mountain king sitting on his throne. You enter the hall through the castle doors and approach the mountain king.
+
+A few meters into the hall, the doors slam shut behind you! You are trapped! Hopefully you are well prepared for what awaits you...
+
+Hall of the Mountain King
+You are in a long hall, brightly lit by torches on the walls. The room is fairly empty except from statues placed along the walls underneath the torches.
+
+And there, at the end of the room, he sits, the mountain king on his throne. You approach him and he stands up.
+
+"You fool!" the mountain king says. "Do you really think that you stand a chance against me? You have annoyed me. Killed many of my servants. Thus I will make sure that you die painfully!"
+
+> kill king
+You try to stab the king in the throat but he tries to move away. However, you were faster this time around, so you manage to give the king a small wound. The mountain king receives 8 points of damage.
+
+The mountain king swings his battle-axe towards your stomach and manages to cut deep into your flesh! You receive 14 points of damage!
+
+> kill king
+You swing your sword towards the king but he just manages to dodge your attack.
+
+The mountain king swings his battle-axe towards your legs and manages to hit your left thigh. You receive 10 points of damage.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 14 points of damage.
+
+The mountain king swings his battle-axe towards your stomach and manages to cut deep into your flesh! You receive 14 points of damage!
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 12 points of damage.
+
+The mountain king swings his huge battle-axe towards your knees but you just manage to jump over it.
+
+> kill king
+You try to stab the king in the throat but he tries to move away. However, you were faster this time around, so you manage to give the king a small wound. The mountain king receives 7 points of damage.
+
+The mountain king swings his battle-axe towards your legs and manages to hit your right thigh. You receive 11 points of damage.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 12 points of damage.
+
+The mountain king swings his battle-axe towards your legs and manages to hit your left thigh. You receive 12 points of damage.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 12 points of damage.
+
+The mountain king swings his battle-axe towards you. You partly manage to dodge the attack but the heavy battle-axe hits your shoulder. You receive 7 points of damage.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 14 points of damage.
+
+The mountain king swings his huge battle-axe against your head, but you manage to duck just in time.
+
+> eat berries
+You take the handful of berries from your backpack and eat them. Your stamina is replenished!
+
+The mountain king swings his battle-axe towards your legs and manages to hit your right thigh. You receive 11 points of damage.
+
+> kill king
+You try to stab the king in the throat but he tries to move away. However, you were faster this time around, so you manage to give the king a small wound. The mountain king receives 8 points of damage.
+
+The mountain king swings his battle-axe towards you. You partly manage to dodge the attack but the heavy battle-axe hits your shoulder. You receive 7 points of damage.
+
+> kill king
+You swing your sword against the legs of the king, but he just manages parry with his axe.
+
+The mountain king swings his battle-axe towards you. You partly manage to dodge the attack but the heavy battle-axe hits your shoulder. You receive 7 points of damage.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 15 points of damage.
+
+The mountain king swings his battle-axe towards your legs and manages to hit your right thigh. You receive 12 points of damage.
+
+> kill king
+You swing your sword towards the king but he just manages to dodge your attack.
+
+The mountain king swings his battle-axe towards you. You partly manage to dodge the attack but the heavy battle-axe hits your shoulder. You receive 7 points of damage.
+
+> kill king
+You try to stab the king in the throat but he tries to move away. However, you were faster this time around, so you manage to give the king a small wound. The mountain king receives 7 points of damage.
+
+The mountain king swings his battle-axe towards you. You partly manage to dodge the attack but the heavy battle-axe hits your shoulder. You receive 9 points of damage.
+
+> kill king
+You try to stab the king in the throat but he tries to move away. However, you were faster this time around, so you manage to give the king a small wound. The mountain king receives 7 points of damage.
+
+The mountain king swings his battle-axe against your hip, but you manage to take a step back, just in time.
+
+> kill king
+You swing your sword against the legs of the king, but he just manages parry with his axe.
+
+The mountain king swings his huge battle-axe against your head, but you manage to duck just in time.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 12 points of damage.
+
+The mountain king swings his huge battle-axe towards your knees but you just manage to jump over it.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 11 points of damage.
+
+The mountain king swings his battle-axe towards your legs and manages to hit your left thigh. You receive 12 points of damage.
+
+> kill king
+You swing your sword against the legs of the king, but he just manages parry with his axe.
+
+The mountain king swings his huge battle-axe towards your knees but you just manage to jump over it.
+
+> kill king
+You swing your sword towards the king but he just manages to dodge your attack.
+
+The mountain king swings his huge battle-axe towards your knees but you just manage to jump over it.
+
+> kill king
+You try to stab the king in the throat but he tries to move away. However, you were faster this time around, so you manage to give the king a small wound. The mountain king receives 8 points of damage.
+
+The mountain king swings his huge battle-axe towards your knees but you just manage to jump over it.
+
+> kill king
+You swing your sword against the body of the king and it cuts deep into his flesh. Blood is running from the wound. The mountain king receives 14 points of damage.
+
+It seems as though victory is finally yours. The mountain king stumbles backwards and falls onto his throne, dead. You hardly can believe it - you have defeated the mighty mountain king!
+
+[Your score has just gone up by ten points.]
+
+You sit down for a moment to recover. Suddenly you hear a faint whistling sound and the dust on the floor begins whirling around in the room. There is a puff and once again the witch, which brought you to this world, stands before you.
+
+"Kral, well done!" the witch says. "I wasn't sure that you would succeed but you were our only hope. Now that you have succeeded, I owe you a reward. The reward, if you want it, is to reign this land - to be the new king. You will be rich and powerful. However, do not abuse your power, because if you do, I will send a new warrior to go looking for you."
+
+You accept the reward and start your new life as king of the mountains, where you reign for the rest of your life. But you never forget the words of the witch: "...do not abuse your power...." and so you make sure that you rule with justice.
+
+*** You have won ***
+In that game you scored 100 out of a possible 100, in 120 turns, earning you the rank of Ultimate King Slayer.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,87 @@
+# The Blank Wall Intro (Richard Otter, 2012; ADRIFT 5.000024) -- full
+# maximum-score walkthrough: 20/22 points and the "story continues" ending.
+#
+# An IntroComp-style teaser: a paranormal investigator shadows "him" to the
+# derelict Coltby railway station.  Custom scoring (game-score variable);
+# the in-game maximum-score variable says 22, but the data holds only 18
+# distinct +1 score actions plus one +2 (Task17), so 20 IS the max -- every
+# scoring flag below fires exactly once (and the three -1 window-smashing
+# tasks are avoided).
+#
+# Key beats:
+#  - x weeds (roof tile), x/read the timetable from the wire trash can OUT
+#    FRONT (needed later for the clock text and the ritual), move sack
+#    (pentagram), x pentagram, x its little white powder, hit tile (broken).
+#  - The PICTURE state-machine (var23) is turn-driven: x picture (state 1),
+#    a turn in the ticket hall bumps it to 2 (must be before the cafe), a
+#    turn after entering the cafe bumps 2->3 (requires the hair NOT yet
+#    examined), x hair bumps 3->4, and stepping onto the platform jumps to
+#    5 (LocationTrigger Task115); x picture there scores (state 6).
+#  - Ritual: put broken tile + timetable + gum (from the cafe table) on the
+#    pentagram, then say grantby / portal / offer ("find clay, spit and
+#    time" -- the scrap of paper on the counter is the recipe).  The ticket
+#    seller materialises (+2); x the word in the white powder, buy ticket
+#    to grantby.
+#  - get panties (holdall) drops the single business card back into the
+#    holdall; x it, and x the NEW business card in the platform bin (+1 for
+#    the pair via Task174).
+#  - On the platform arrival the picture and a blond hair appear on the
+#    bench: retake both (both held = +2 at the end), x hair again, x clock.
+#  - The train arrives 4-6 turns after you reach the platform (Event2 RAND);
+#    enter train = +1 and the EndGame.
+#
+# RNG: the hall/cafe descriptions roll random adjectives every turn
+# (%rand-text%, Task4 RAND(0,4)) and the platform bin holds one random piece
+# of rubbish -- so the vanilla-FD diff keeps a small word-choice residual
+# (4 hunks); the xoshiro-aligned run is byte-exact.
+x picture
+x sign
+x weeds
+x trash can
+get timetable
+read timetable
+n
+move sack
+x pentagram
+x powder
+hit tile
+open holdall
+x counter
+read paper
+x picture
+w
+x hexagram
+open urn
+x pipe
+get gum
+get chalk
+x picture
+e
+x hair
+x picture
+put tile on pentagram
+put timetable on pentagram
+put gum on pentagram
+say grantby
+say portal
+say offer
+x powder
+talk to seller
+buy ticket to grantby
+get panties
+look in holdall
+x single business card
+n
+get picture
+x picture
+x bench
+x hair
+get hair
+x clock
+x bin
+x new business card
+z
+z
+listen to train
+score
+enter train

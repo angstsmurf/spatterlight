@@ -1,0 +1,230 @@
+Thy Dunjohnman
+
+ THY DUNJOHNMAN
+          ______
+  /    /              \\       \
+ |\_ |    o o o    ||   _/|
+ \__|_________||__/
+      /     ____      .\
+      /     ▼   ▼     .\
+      /       U       ..\
+      /     ,---.     ..\
+      / \/ \ / \ / \ /..\
+
+Welcometh to Thy Dunjohnman!
+Ye hath been trapped (and perhaps crapped) in a dungeon, and must escape at all costs!
+
+Currently ye beist in a dungeon. Better look at it.
+
+> x door
+T'beist a large, immovable iron door.  The iron door is currently locked.
+
+> chamber pot
+I did not understand the word "pot".
+
+> chamber pot
+You move east.
+
+Chamber Pot
+
+It reeketh in here. Large lumps of who-knoweth-what lieth in schlorps upon the bottom of thy pot.
+A key lieth in the muck.  An exit leads west.
+
+> look
+
+Chamber Pot
+
+It reeketh in here. Large lumps of who-knoweth-what lieth in schlorps upon the bottom of thy pot.
+A key lieth in the muck.  An exit leads west.
+
+> x key
+'Tis a brass, coppery key made from iron.
+
+> get key
+Ok, you pick up the metallic key.
+
+> x key
+'Tis a brass, coppery key made from iron.
+
+> west
+You move west.
+
+Dungeon
+
+Ye seeist a dank dungeon. An iron door lieth to the north.  An exit leads chamber pot.
+
+> unlock door with key
+You unlock the iron door with the metallic key.  It sqealeth as yon rusty hinges operate! A way north has appeared.
+
+> open door
+You open the iron door.
+
+> north
+You move north.
+
+Office
+
+Ye seeist a quaint office with usual office things therein.
+
+A platform, floating near thy wall.  An exit leads south.
+
+> look
+
+Office
+
+Ye seeist a quaint office with usual office things therein.
+
+A platform, floating near thy wall.  An exit leads south.
+
+> x platform
+'Tis a platform. Yethinks ye canst see a glimmer on top of it.
+
+> x glimmer
+Yon glimmer is too high to reach, or seeith clearly. Mayhaps ye should lower the platform.
+
+> get glimmer
+You can't take the glimmer!
+
+> lower platform
+Hah! Ye cannotst lower yon platfrom from here! Ye best goeth elsewhere!
+
+> south
+You move south.
+
+Dungeon
+
+Ye seeist a dank dungeon. An iron door lieth to the north.  Exits are north, chamber pot and southeast.
+
+> southeast
+You move southeast.
+
+Machinations Room
+
+Various machenations lyeth about thy room, with a dismal light about them.
+There beith a lever on the ground.  An exit leads northwest.
+
+> look
+
+Machinations Room
+
+Various machenations lyeth about thy room, with a dismal light about them.
+There beith a lever on the ground.  An exit leads northwest.
+
+> x lever
+'Tis a leevuh. Can beith pulled or pushed.
+
+> push lever
+Ye lever already beist pushed! Give it a pull, why don't ye?
+
+> pull lever
+Ye pullest yon lever. Ye hearest a grating sound, as though something hath moved in another room.
+
+> pull lever
+Thy lever ist already pulled. Givest it a push, mayhaps?
+
+> northwest
+You move northwest.
+
+Dungeon
+
+Ye seeist a dank dungeon. An iron door lieth to the north.  Exits are north, chamber pot and southeast.
+
+> north
+You move north.
+
+Office
+
+Ye seeist a quaint office with usual office things therein.
+
+Ye platform ist lowered! Some coins rest upon  a platform, floating near thy wall.  An exit leads south.
+
+> look
+
+Office
+
+Ye seeist a quaint office with usual office things therein.
+
+Ye platform ist lowered! Some coins rest upon  a platform, floating near thy wall.  An exit leads south.
+
+> x platform
+'Tis a platform. Yethinks ye canst see a glimmer on top of it.  Some golden coins is on the platform.
+
+> x coins
+Golden coins clinketh as they shimmer in their own light. Upon them, an inscription readeth:
+                       "Ye beist yon secret passage to ye###
+                                                             ##
+                        northeast in the room called m##
+                                                            ###
+                        Methinketh that there be a way to###"
+
+(a chunk hath been bitten out of them)
+
+> get coins
+(from the platform)
+Ye takest the coins. How they shimmereth! There appeareth to be an incription upon them..
+
+> x coins
+Golden coins clinketh as they shimmer in their own light. Upon them, an inscription readeth:
+                       "Ye beist yon secret passage to ye###
+                                                             ##
+                        northeast in the room called m##
+                                                            ###
+                        Methinketh that there be a way to###"
+
+(a chunk hath been bitten out of them)
+
+> score
+Your score is 15 out of a maximum of 30. (1%)
+
+> south
+You move south.
+
+Dungeon
+
+Ye seeist a dank dungeon. An iron door lieth to the north.  Exits are north, chamber pot and southeast.
+
+> southeast
+You move southeast.
+
+Machinations Room
+
+Various machenations lyeth about thy room, with a dismal light about them.  Yon lever ist pushed.
+There beith a lever on the ground.  An exit leads northwest.
+
+> northeast
+Ye scramble past machinery, through a previously unseen hole in yon wall. Yowsers! Ye moveth to an elaborate room!
+
+> look
+
+Winner Room
+Ye see an elaborately decorated room with two pedastals, one on thy left and one on thy right. There ist a leftbutton and a rightbutton on the pedastals. Yon buttons looketh slightly like grey mickey d's burgers (for the smashedness).
+
+> x pedastal
+They looketh olde and careworn from all the Dunjohnmen through the years who hath looketh at them.
+
+> x leftbutton
+Just press a button, it doth'nt be rocket science!
+
+> x rightbutton
+Just presseth a button, times' a ticking!
+
+> push rightbutton
+Ye pushest the Right button. Suddenly, ye feel elated! Ye hast won the game!
+
+*** You have won ***
+End of Game                                                                  End of Game
+End of Game                                                                  End of Game
+End of Game                                                                  End of Game
+End of Game          This beith the end of                     End of Game
+End of Game                       my game.                          End of Game
+End of Game                                                                   End of Game
+End of Game Enjoyeth this slew of "end of game"s!  End of Game
+End of Game                                                                   End of Game
+End of Game                                                                  End of Game
+End of Game                                                                  End of Game
+End of Game                                                                  End of Game
+
+In that game you scored 15 out of a possible 30, in 38 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

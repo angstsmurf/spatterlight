@@ -1,0 +1,1261 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.Son of Camelot
+
+The Courtyard
+This is the reason why you are now slowly driving up a narrow track towards the ruin in the distance.
+The monotonous sound of your wiper's feeble attempt to swipe away the moisture from the ghostly fog is making you drowsy. Then, slowly appearing through the hazy mist, the dark silhouette of the ruin comes into view. Situated on top of a hill, the dark towers of Camelot reach into the low hanging clouds like a sinister finger pointing towards the sky.
+There's a rumble as you drive across the drawbridge and swing into the courtyard, which is now a parking lot. You turn off the ignition and step out of the car, curiously looking around and then it strikes you: You have no idea whatsoever regarding what you're looking for.
+After a few moments of thoughtfulness you come to the conclusion that you might as well look around a bit now that you're here anyway. After all, this place apparently meant a great deal to your father, and then there's the parchment.
+
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty. Small groups of tourists have gathered around the single tour guide who, in a professional manner, describes the castle and points out the various points of interest.
+
+To the North is the entrance to a souvenir shop, erected in the old armoury and stables, and to the Northwest through the gates, across the drawbridge, you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+From the West, through an impressive archway, comes a cacophony of noise. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+The tour guide is here with a tour party.
+
+> w
+You head west through arc and into what was once Guinevere's rose garden.
+
+The Rose garden
+The Rose garden must have been a wonderful place in former days. Even now, when turned into a picnic area, it can't quite conceal its former beauty. Ahead of you lies a huge green lawn with picnic tables here and there. In the far corner, close to the castle and away from the stone wall edging the garden someone has built a playground with swings, see-saws and even a “jungle gym.”
+An iron railing, looking strangely out of place, has been mounted along the garden wall preventing people from falling out, and nearby is an old marble bench standing beneath a withered almond tree. A knight, obviously unnoticed by everyone, is sitting on the bench, his eyes studying everyone closely.
+Behind you, to the East is the arch you passed through when entering, and through it you can see the courtyard.
+
+> say hi
+(to the knight)
+The knight slowly turns his head towards you, an expression of surprise covering his face. “You can see me? You must be "the chosen" The one who I, Sir Galahad, have been waiting for, so long.”
+
+> ask galahad about bracelet
+“This?” The knight folds back his glove and study the braided bracelet. “I tamed and rode a Unicorn. These are hairs from its mane. The proof that I'm worthy to be a knight.”
+
+> ask galahad about unicorn
+"The Unicorn is the purest of all creatures. Centuries ago when Camelot still stood in all its glory they roamed the deep forest nearby. To see one meant good fortune would come to you and your quest and only the fairest virgin or bravest knight could get near them."
+
+> ask galahad about merlin
+"Merlin has been gone many centuries. Meeting Nimue (the Lady of the Lake) led to his downfall. He fell so deeply in love with her that he agreed to teach her all his mystical powers. She became Merlin's scribe, who recorded his prophecies, as well as his lover.
+Unfortunately however, over the years, she became so powerful that her magical skills outshone even her teacher. Merlin fell incurable in love with her and despite foreseeing his fate, he was unable to prevent being captivated and captured by her. The legend says she imprisoned him in a crystal cage and left him to stay there forever.
+I believe it was Merlin’s hope that you would come to his aid and help him, and that is why I was chosen to wait here for your arrival. But that's too late now I'm afraid. So many years have passed and things have changed." He buries his face in his hands and mutter ”Had he only been here Morgane would have been defeated.”
+
+> ask galahad about morgane
+No sooner have you mentioned Morgane before Sir Galahad reach out and grabs your arm ”This is neither the time nor the place to talk about this person." He whispers "Seek me where I rest, below the walls of Camelot, there we can talk.”He gets up and leaves and you watch him, mouth agape, as he disappears through the castle wall.
+Just then the tour guide walks through the arc from the courtyard. She eyes you suspiciously for a long time but says nothing. One last glance at you and she turns around and leave the rose garden.
+
+> e
+You move east.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+The tour guide is here with a tour party.
+
+> d
+You move down.
+
+The Kitchen
+The light coming in from the window above the counter, and from the open door leading up to the courtyard, provide the only illumination for this enormous kitchen, most of which is engulfed in a dusky shade. There's a fireplace built into the west wall and a narrow stairway leading Down to the east. A couple of long tables with benches attached, placed near the stairway leading Up to the courtyard, somewhat ruins the impression of what a medieval castle kitchen should look like.
+
+> take sugar
+You reach out and grab a couple of the lumps from the bowl.
+
+> u
+You move up.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+The tour guide is here with a tour party.
+
+> take pebbles
+You kneel down and pick up a couple of the pebbles.
+
+> take butt
+(from the clay jar)
+You discreetly reach into the jar and grab the cigarette butt.
+You realize that this cigarette butt won't stay lit forever. Unfortunately there's no telling how long it will stay lit.
+
+> n
+You walk through the opening and are soon engulfed in the general confusion which is the souvenir shop.
+
+The Souvenir shop
+It's hard to see what's up and down in here. People are milling around, picking up things putting them down again and the noise easily matches that of a medium sized airport. Although the stables have been turned into a souvenir shop, whoever changed it went a long way to keep it as close to its original form as possible. A wide wooden aisle runs through the shop, leading from the exit leading Out to the courtyard and to the back of the shop. On each side the old stalls have been kept as they were, with fresh hay on the floor and a piece of rope strung across preventing people from entering.
+
+At the far end you can see the clerk and right next to the cash register you can see the faint outline of a door. Most of the walls are covered with shelves holding all kinds of souvenirs and all over the floor are racks with colourful postcards of the castle and the landscape.
+A huge sign above the entrance says: No Smoking in flaming red letters.
+
+> put butt in hay
+As you secretly reach into the stall you have the feeling that everyone's eyes are glued upon you. Looking around innocently, you casually drop the cigarette onto the hay covered floor.
+You stay around for a few moments and soon you see a faint column of white smoke rise from the hay.
+
+> s
+You leave the souvenir shop and once again step out into the courtyard.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+The tour guide is here with a tour party.
+You hear the guide call out that the tour starts in a few minutes.
+
+> e
+You move east.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> e
+You move east.
+
+The Stairway to Corridor
+The stairway winds its way upwards towards a corridor above. A rope has been fastened to the wall for support for people walking up and down and little electrical lights are mounted high above your head giving the stairway a gloomy appearance. Up ahead you can see the entrance to the corridor and further Down lies the Knight's hall.
+
+> u
+You move up.
+
+The West end of Corridor
+A light breeze gently caresses your face as you marvel at the view laid out before you. Standing at the west end of the corridor you have an incredible view over the valley far below. The mist is moving back and forth across the meadow, like an enormous prehistoric animal. The top of the forest reaches up from the fog here and there and even farther away the view of a lake, lying silent and sinister.
+
+As for your close surroundings, the entire wall on your left side is missing, crumbled under the merciless teeth of time, leaving only a few feet of stone wall to prevent you from tumbling into a certain death. To the South there's a door leading into a chamber once occupied by a member of the Royal Court. Further down the corridor to the East you can see another door and at the very end is a small anteroom. To the west a stairway leads Down to the Knight's hall.
+
+> e
+You move east.
+
+The East end of Corridor
+The corridor continues east and west, ending in a small anteroom further to the East and at a staircase to the West. The floorboards are wet and slippery from the mist and moisture drips from the stone walls like drops of tears.
+A metal railing has been embedded in the remains where the stone wall has crumbled, keeping tourists from accidentally falling to their certain death far below.
+In the Southern wall a door leads into what is said to be King Arthur's chamber.  A custodian is here keeping a watchful eye on things.
+
+> in
+You walk through the opening and enter what was supposedly King Arthur's chamber.
+
+King Arthur's chamber
+This is what is supposed to have been King Arthur's chamber. It's quite big and well lit from the light shining through a big window in the wall. A big four poster bed is placed on an elevated platform allowing the light from the window to shine on it. Most of the walls are covered with tapestries except near the door where a full size closet is leaning against the wall. Between the door and the closet, mounted on the wall you see a torch securely mounted in a metal holder.
+There are a few people in here, walking around silently.
+The door leads North back out into the corridor.
+A custodian is standing near the wall keeping a watchful eye on things.
+
+> pull rope
+Discreetly reaching out your fingertips touch the end of the rope. You wait till the custodian looks away and then you pull. One good yank is all it takes. The canopy falls onto the bed in a cloud of dust.
+What the H***!!” The custodian comes storming from the other end of the room trying to assess the damage. He fumbles with the canopy trying to put it back up again.
+
+> turn torch
+You need both hands to turn the torch in its holder. But as it slowly moves you hear a faint rumbling from within the walls.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+The boy is finally quieted down and the custodian is returning to his post by the door.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+Megan enters with the tour party. From the north.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+Megan escorts the tour party off. To the north.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+Suddenly the screaming sound of an alarm bell sounds through the castle. All the custodians leave their posts and run towards the courtyard. People are nervously following them and soon you are all by yourself.
+You must react quickly. There's no telling how long it will take for them to put the fire out.
+
+> z
+You gently tap your foot while time passes.
+
+> enter closet
+With the custodian out of the way, you can freely walk into the closet.
+
+The Closet
+There's quite a lot of space in here. The walls of the closet is so far apart that you can easily reach out your arms and still not touch the sides. The light from the room behind you lets you see clearly that the closet is completely empty. You are facing the back wall, and behind you is the open door leading Out of the closet.
+With the doors closed you can see a faint light shining from somewhere down along the passage.
+
+> down
+You head down the narrow passage.
+
+Arthur's passage
+You have reached the end of the narrow passage filled with sticky cobwebs and layers of dust. The few rays of light that shines through the wooden wall illuminates the skeleton of a knight, still wearing his armour, shield and sword, lying across the steps. Behind you, the steps lead Upwards to where you came from.
+
+> move shield
+Carefully pushing the shield aside the bundle turns out to be a brown leather pouch.
+
+> take pouch
+You reach down and pick up the brown leather pouch. It feels quite heavy.
+
+> open pouch
+You open the leather pouch.  Inside the leather pouch is many pieces of gold.
+
+> up
+You move up.
+
+The Closet
+There's quite a lot of space in here. The walls of the closet is so far apart that you can easily reach out your arms and still not touch the sides. The light from the room behind you lets you see clearly that the closet is completely empty. You are facing the back wall, and behind you is the open door leading Out of the closet.
+With the doors closed you can see a faint light shining from somewhere down along the passage.
+
+> open door
+As you open the closet door the back wall of the closet quietly slides back into place.
+
+> out
+You discreetly walk out from the closet. Luckily no one seems to have noticed you.
+
+King Arthur's chamber
+This is what is supposed to have been King Arthur's chamber. It's quite big and well lit from the light shining through a big window in the wall. A big four poster bed is placed on an elevated platform allowing the light from the window to shine on it. Most of the walls are covered with tapestries except near the door where a full size closet is leaning against the wall. Between the door and the closet, mounted on the wall you see a torch securely mounted in a metal holder.
+There are a few people in here, walking around silently.
+The door leads North back out into the corridor.
+
+> n
+You move north.
+
+The East end of Corridor
+The corridor continues east and west, ending in a small anteroom further to the East and at a staircase to the West. The floorboards are wet and slippery from the mist and moisture drips from the stone walls like drops of tears.
+A metal railing has been embedded in the remains where the stone wall has crumbled, keeping tourists from accidentally falling to their certain death far below.
+In the Southern wall a door leads into what is said to be King Arthur's chamber.
+
+> w
+You move west.
+
+The West end of Corridor
+A light breeze gently caresses your face as you marvel at the view laid out before you. Standing at the west end of the corridor you have an incredible view over the valley far below. The mist is moving back and forth across the meadow, like an enormous prehistoric animal. The top of the forest reaches up from the fog here and there and even farther away the view of a lake, lying silent and sinister.
+
+As for your close surroundings, the entire wall on your left side is missing, crumbled under the merciless teeth of time, leaving only a few feet of stone wall to prevent you from tumbling into a certain death. To the South there's a door leading into a chamber once occupied by a member of the Royal Court. Further down the corridor to the East you can see another door and at the very end is a small anteroom. To the west a stairway leads Down to the Knight's hall.
+Megan enters with the tour party. From below.
+
+> d
+You move down.
+
+The Stairway to Corridor
+The stairway winds its way upwards towards a corridor above. A rope has been fastened to the wall for support for people walking up and down and little electrical lights are mounted high above your head giving the stairway a gloomy appearance. Up ahead you can see the entrance to the corridor and further Down lies the Knight's hall.
+
+> d
+You move down.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> w
+You move west.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+The custodians are busy putting out the fire in the souvenir shop.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+You hear the guide call out that the tour starts in a few minutes.
+
+> take button
+Ok, you pick up the shiny button.
+
+> e
+You move east.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> e
+You move east.
+
+The Stairway to Corridor
+The stairway winds its way upwards towards a corridor above. A rope has been fastened to the wall for support for people walking up and down and little electrical lights are mounted high above your head giving the stairway a gloomy appearance. Up ahead you can see the entrance to the corridor and further Down lies the Knight's hall.
+
+> u
+You move up.
+
+The West end of Corridor
+A light breeze gently caresses your face as you marvel at the view laid out before you. Standing at the west end of the corridor you have an incredible view over the valley far below. The mist is moving back and forth across the meadow, like an enormous prehistoric animal. The top of the forest reaches up from the fog here and there and even farther away the view of a lake, lying silent and sinister.
+
+As for your close surroundings, the entire wall on your left side is missing, crumbled under the merciless teeth of time, leaving only a few feet of stone wall to prevent you from tumbling into a certain death. To the South there's a door leading into a chamber once occupied by a member of the Royal Court. Further down the corridor to the East you can see another door and at the very end is a small anteroom. To the west a stairway leads Down to the Knight's hall.
+
+> e
+You move east.
+
+The East end of Corridor
+The corridor continues east and west, ending in a small anteroom further to the East and at a staircase to the West. The floorboards are wet and slippery from the mist and moisture drips from the stone walls like drops of tears.
+A metal railing has been embedded in the remains where the stone wall has crumbled, keeping tourists from accidentally falling to their certain death far below.
+In the Southern wall a door leads into what is said to be King Arthur's chamber.  A custodian is here keeping a watchful eye on things.
+
+> give button to custodian
+”Ah! There it is.” Henry takes the button. ”I'd better go get this sewn back on immediately. They are pretty strict about the way we look.”
+Thanking you once again he disappears down the corridor.
+
+> e
+You move east.
+
+The Anteroom
+The only light penetrating this little room is what manages to seep in from the east end of the corridor. The room is completely bare and the monotony of the stone wall is only broken by an opening with a granite stairway winding its way Upwards.
+A rope across the opening is blocking any further access to the stairway.
+
+> cross rope
+With the custodian gone the coast is clear and you quickly slip under the rope and into the stairway.
+
+Top of Winding stairway
+Standing in total darkness on a narrow landing you find your way blocked by a solid stone wall. The only visible exit is back Down the stairway.
+The parchment in your pocket starts feeling slightly warmer.
+
+> feel wall
+Running your fingers over the roughness of the wall you feel a pattern, too accurate to be a natural part of the stone. Tracing the pattern with your fingertips, you realize that it's the outline of a handprint, carved into the wall before you.
+
+> touch handprint
+You firmly press your hand against the engraved handprint. At first nothing happens, then slowly the handprint shrinks embracing your hand. The outline begins to glow vaguely and a low rumble is heard as a section of the wall moves aside exposing an entrance North into a chamber.
+
+> n
+You carefully step through the opening into the hidden chamber.
+Merlin's lost chamber
+The chamber lies before you, untouched by the passing centuries. A dim light shines through the window giving the dust covered room a gloomy appearance. A long working table is dominating the room along with rows of bookshelves lining the walls.
+A light draft from the opening in the wall behind you to the South disturbs the air and makes the many cobwebs sway gently.
+
+> brush dust
+Impatiently you brush away some of the dust from the table. Under it you find a few sheets of paper and a little further down the shape of what appears to be a tuning fork.
+
+> take fork
+(from the long table)
+Ok, you take the tuning fork from the long table.
+
+> take paper
+(from the long table)
+Ok, you take the Merlin's notes from the long table.
+
+> turn paper
+On the back of the paper is filled with numbers and equations. You weren't a shiny beacon in your physics class but you recognise this as the calculation of the frequency of crystal and its breaking point.
+
+> out
+As you walk through the secret entrance, the wall closes behind you once again sealing Merlin's chamber.
+
+Top of Winding stairway
+Standing in total darkness on a narrow landing you find your way blocked by a solid stone wall. The only visible exit is back Down the stairway.
+The parchment in your pocket starts feeling slightly warmer.
+
+> down
+You move down.
+
+Bottom of winding stairway
+Hidden in the shadows at the bottom of the stairway you feel safe from unwanted eyes. Before you, leading Up into darkness lies a winding stairway and across the rope you can see the anteroom.
+
+> s
+You move south.
+
+The Anteroom
+The only light penetrating this little room is what manages to seep in from the east end of the corridor. The room is completely bare and the monotony of the stone wall is only broken by an opening with a granite stairway winding its way Upwards.
+A rope across the opening is blocking any further access to the stairway.
+
+> w
+You move west.
+
+The East end of Corridor
+The corridor continues east and west, ending in a small anteroom further to the East and at a staircase to the West. The floorboards are wet and slippery from the mist and moisture drips from the stone walls like drops of tears.
+A metal railing has been embedded in the remains where the stone wall has crumbled, keeping tourists from accidentally falling to their certain death far below.
+In the Southern wall a door leads into what is said to be King Arthur's chamber.
+The tour guide is here with a tour party.
+Megan escorts the tour party off..
+
+> w
+You move west.
+
+The West end of Corridor
+A light breeze gently caresses your face as you marvel at the view laid out before you. Standing at the west end of the corridor you have an incredible view over the valley far below. The mist is moving back and forth across the meadow, like an enormous prehistoric animal. The top of the forest reaches up from the fog here and there and even farther away the view of a lake, lying silent and sinister.
+
+As for your close surroundings, the entire wall on your left side is missing, crumbled under the merciless teeth of time, leaving only a few feet of stone wall to prevent you from tumbling into a certain death. To the South there's a door leading into a chamber once occupied by a member of the Royal Court. Further down the corridor to the East you can see another door and at the very end is a small anteroom. To the west a stairway leads Down to the Knight's hall.
+
+> d
+You move down.
+
+The Stairway to Corridor
+The stairway winds its way upwards towards a corridor above. A rope has been fastened to the wall for support for people walking up and down and little electrical lights are mounted high above your head giving the stairway a gloomy appearance. Up ahead you can see the entrance to the corridor and further Down lies the Knight's hall.
+
+> d
+You move down.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> s
+You go south, down a narrow passage and soon enters a cave.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+The tour guide is here with a tour party.
+Megan escorts the tour party off. To below.
+
+> d
+You move down.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+
+The tour guide is here with a tour party.
+
+> d
+You move down.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+A Custodian is standing near the wall, his watchful eyes sweeping the area.
+Megan enters with the tour party. From above.
+
+> e
+You walk into the cell feeling a little claustrophobic as the walls seem to close in on you.
+
+Cell
+The only light in the cell comes from whatever light that manages to seep through the cell door leading Out to the dungeon outside. It leaves the far end of the cell in a dusky shade and gives the atmosphere an authentic touch of what it must have been like to be locked up in here.
+
+> x shackle
+It doesn't take much to imagine what it must have been like to be locked up in here. Even though it's been hundreds and hundreds of years since the cell was last used, a certain mouldy stench still lingers in the air, as if it's been absorbed by the wall, and not even the fresh hay on the floor can cover it up.
+The shackles used to narrow the movement of the prisoners are still here, embedded in the wall and a heavy chain is strung out across the cell at the farthest end.
+
+> turn shackle
+Remembering your dad's stories about Camelot you grab the shackle, and with all your might you turn it. Slowly it turns and a part of the wall at the farthest end of the cell opens revealing a dark narrow stairway going down.
+
+> d
+You move down.
+
+Dragon's cave
+An enormous cave lies before you, so big that you can't even begin to comprehend the size. Along one of the curved wall lies a bunch of pale bones, the remains of the monster that once lived here. Behind you a narrow path leads Up to the passage you came through.
+
+> x jaw
+Although it's just a skull the dragons head looks terrifying. Its mouth is half open and a line of razor sharp pointed teeth can be seen. Even the empty eye sockets seem to stare blindly at you.
+
+> take tooth
+It doesn't take much to wrench the tooth from its socket in the jaw.
+
+> x wall
+They are like most other cave walls you've experienced. The only thing different is the insignificant flower embedded in the rock.
+
+> x flower
+You recognize the flower as “Dragon's tooth” so named because of its ability to sink its roots into the smallest crevice in even the hardest ground.
+
+> take flower
+You grab the tiny flower and pull it from the rock. It's amazing how well the roots have fastened in the almost microscopic cracks and crevices. Finally you hold the flower in your hand.
+
+> climb wall
+You only manage to climb a few feet before the wall gets too unstable and threatens to collapse upon you. However, you notice scratch marks on some of the rocks as if the dragon has tried to claw its way out.
+
+> u
+You move up.
+
+Cell
+The only light in the cell comes from whatever light that manages to seep through the cell door leading Out to the dungeon outside. It leaves the far end of the cell in a dusky shade and gives the atmosphere an authentic touch of what it must have been like to be locked up in here.
+
+> w
+You leave the cell and are once again in the dungeons.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+A Custodian is standing near the wall, his watchful eyes sweeping the area.
+
+> u
+You move up.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+
+> u
+You move up.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+> n
+You move north.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> w
+You move west.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+> nw
+As soon as you leave the drawbridge behind you and head down the slope of the hill the fog engulfs you after having walked for a short while you realise that you have no idea where you are.
+
+The Meadow
+The meadow lies stretched out before you to the North, North-east and South encircled by the outskirts of the forest in the horizon. The tall grass reaches your hips and tufts of fog drifts silently across the vast area. To the West and South the forest is much closer and in the distance, and up the hill to the East you can see the ruin of the castle like a ghostly silhouette in the fog.
+Although the forest somehow draws you towards it, you fear that if you move in there you may get lost.
+
+> nw
+You stagger through the fog quickly losing any sense of direction. Finally you see a dark shadow through the fog and steer towards it. Soon after you are out of the fog, and in amongst some trees. Although the fog is not as dense here, it still obstructs your vision allowing you to see only a few feet ahead.
+
+Enchanted forest
+There's a small clearing here, allowing the pale light to penetrate the canopies of the trees. Across it there are passages between the trees leading North, North-east and South.
+Is that a human shadow you see disappearing into the fog as you enter the clearing? You're not sure...
+
+> ne
+Almost blind in the heavy fog you head off in what you believe is a north easterly direction.
+
+Enchanted forest
+The forest is less dense here allowing the fog to disperse a little. There is adequate space between the trees allowing you to travel in all directions except north-east, south-east and northwest.
+
+> e
+You walk east through the forest.
+
+Enchanted forest
+The old trees stand close making any passage difficult yet manageable. The dense fog makes it hard to see but the trees seem to be farther apart towards the North, West and South. In any other direction the thick undergrowth makes any movement impossible.
+A unicorn, the most beautiful creature you've ever seen stands only a few feet away.
+
+> give sugar to unicorn
+You reach out your hand holding the lumps of sugar. At first the unicorn looks at you suspiciously, then is reluctantly comes closer until it is finally close enough to pick the sugar from your hand.
+
+> ride unicorn
+Still munching on the sugar lumps the unicorn allows you to come close. But no sooner have you got hold of its mane and swung yourself up on its back before all hell breaks loose.
+The once so calm creature suddenly turns into a killing machine bucking and rearing making all kinds of sudden moves and turns. You desperately hold on to the mane for dear life, but a few seconds later you fly, face down, through the air landing with a bone cracking thud near a tree.
+The unicorn snorts disdainfully and disappears amongst the trees leaving you with a sore butt and a handful of hairs from its mane.
+
+> weave hair
+With clumsy fingers you manage to weave a bracelet of the hairs from the Unicorn. There's just enough to make a rather crude bracelet. You proudly slip it over your wrist.
+
+> n
+You walk through the forest, heading north.
+
+Enchanted forest
+Surrounded by trees the only passages visible to you through the fog lead East, South or South-west. All other directions are blocked by the dense and impregnable undergrowth. The sound of wings flapping and the lonesome scream of an unseen bird reach you through the fog from the west.
+Huge grey shadows move silently amongst the trees.
+
+> s
+You head south walking as fast as possible in the dense fog. Although you can't see them, the sound of their breathing lets you know that the wolves are not far behind.
+
+Enchanted forest
+The forest is less dense here allowing the fog to disperse a little. There is adequate space between the trees allowing you to travel in all directions except north-east, south-east and northwest.
+Huge grey shadows move silently amongst the trees.
+
+> s
+As you start heading south the wolves starts following you.
+
+Enchanted forest
+Have you moved deeper into the forest or are the trees just closer? There's no telling but it's harder to move around and quite often a branch catch your clothes and you have to stop to untangle yourself.
+Through the fog you can see passages leading North, North-east and West amongst the trees.
+Huge grey shadows move silently amongst the trees.
+
+> w
+The wolves follow you silently as you walk westward amongst the trees. It seems they make sure you're not trying to escape... Are they just toying with you?
+
+Enchanted forest
+There's a small clearing here, allowing the pale light to penetrate the canopies of the trees. Across it there are passages between the trees leading North, North-east and South.
+Is that a human shadow you see disappearing into the fog as you enter the clearing? You're not sure...
+Huge grey shadows move silently amongst the trees.
+
+> n
+Pushing branches aside, ducking under others, you head off to the north the wolves close at your heels.
+
+Enchanted forest
+The fog seems more dense to the north completely blocking your view in that direction. To the North-east, East and South other paths disappear in the fog.
+Huge grey shadows move silently amongst the trees.
+
+> n
+With the sweat of panic pouring down your face you fight your way through the dense undergrowth. The pack is getting closer every minute and the fright gives you strength you weren't even aware that you had. Suddenly you break through the foliage and onto the sandy bank of a beautiful deep blue lake.
+
+Shore of the lake
+Standing on the bank you have the most beautiful lake stretched before your eyes. Encircled by the forest this lake could be here forever, unseen by man. Somehow the lake is clear of the fog and the pale winter sun sparkles in the smooth surface.
+Behind you to the South lies the forest.
+The shadows have emerged from between the trees.  Wolves, the size of which you've never seen before, are now standing at the tree line, blocking your way back into the forest.
+Huge grey shadows move silently amongst the trees.
+
+> n
+Realizing that this is your only way to escape the wolves you head out into the lake.
+The ice cold water feels like a thousand pins penetrating your skin and soon your feet and the lower part of your legs are completely numb. The wolves come down to the edge of the lake, their eyes watching every move you make.
+
+Lake
+The lake stretches out before you. Behind you to the South lies the shore where the wolves are now patiently pacing back and forth. There's nothing at the other side of the lake except more trees which seems to be a hundred miles away.
+
+There's not a ripple on the surface but you can feel the icy temperature slowly draining your strength.
+
+> swim
+
+An impressive vaulted hall stretches North leading into a long corridor. At the end of that corridor you can vaguely see an even bigger hall lit up by a pale light.
+
+> n
+You move north.
+
+Throne
+The sunlight from far above filters through the water and creates patterns of light and shadow that plays across the throne room floor and walls. Right before you, raised upon a small platform, stands a throne carved out of the rock wall and upon it sits Nimue, the Lady of the Lake. Beside the throne is a marble column with a shiny glass dome on the top.
+
+> bow
+You show your respect for the Lady of the Lake and humbly kneel before her. Apparently satisfied with your servility, she motions you to stand up with a elegant twist of her hand.
+“A mortal,” she sneers... ”My subjects on the surface told me you were coming. To what divine do we owe our gratitude that you have honoured us with your visit?”
+
+> ask nimue about tooth
+Turning her head towards the glass dome holding the tooth, you see an expression of evil joy flash across her face. ”That tooth is none of your business she says, it holds the key to what I am: The greatest sorceress of all times.”
+
+> ask nimue about merlin
+Why would I tell you about him? She says, looking at you scornfully. ”You're no threat to me. He's mine, and he will forever be mine!” She raises her hand and a mermaid appears. ”Now, be gone... You bore me, mortal.”
+Without a word the mermaid takes you by your arm and quickly swims up through the water. You break the surface near the shore and while gasping for air you make it to the shore of the lake.
+
+Shore of the lake
+The shore looks the same and yet you feel that something has changed. The eerie feeling of evil and mystery has disappeared and this is now just any other piece of shoreline.
+To the East and South of you the deep forest stands like a green wall.
+
+> s
+You head south and are soon in amongst the trees.
+
+Enchanted forest
+You have a feeling that you are in the middle of the forest. Although the skies are still grey above you, every now and then a lonely beam of sunlight filters through the canopy and light up the forest floor. Towards the North you can see the suns reflections in the lake between the trees, and towards the North-east, East and South passages lead in amongst the trees.
+
+> ne
+Not quite knowing where you're going you head off in what you believe is a north easterly direction.
+
+Enchanted forest
+Through the trees you can vaguely see a meadow to your East. To the South another path leads further into the forest as does the path leading South-west.
+
+> e
+You start moving east and soon the trees begin to thin out. After a while you can see the meadow ahead of you and further away in the distance the torn towers of Camelot.
+
+The Meadow
+The meadow lies stretched out before you to the North, North-east and South encircled by the outskirts of the forest in the horizon. The tall grass reaches your hips and tufts of fog drifts silently across the vast area. To the West and South the forest is much closer and in the distance, and up the hill to the East you can see the ruin of the castle like a ghostly silhouette in the fog.
+Although the forest somehow draws you towards it, you fear that if you move in there you may get lost.
+
+> e
+With your eyes glued to the dark silhouette of the castle you fumble your way through the fog. The sight of the castle ever so often disappears in the fog, and each time you feel the panic slowly creeping up on you.
+
+But finally you feel the road under you and walk hastily up towards the castle and are soon back inside the courtyard.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+> e
+You move east.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> s
+You go south, down a narrow passage and soon enters a cave.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+> d
+You move down.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+
+> d
+You move down.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+A Custodian is standing near the wall, his watchful eyes sweeping the area.
+
+> say hi
+(to a Custodian)
+The custodian smiles back at you. ”Hello there, my name is Joe, I hope you're enjoying your stay here.”
+
+> tell joe about secret passage
+The custodian listens politely to you nodding his head in all the right places. HE then disappears into the cell to return a few moments later.  ”Interesting, very interesting” he says. ”I wouldn’t go down there if I were you, at least not until it has been properly examined. I’d better go and tell the supervisor so we can close off the cell for the time being.” He disappears up the passage and you hear his steps faced away.
+
+> say eight grains
+No sooner has the last word left your lips before a low rumble is heard deep below your feet. Slowly a part of the wall starts to slide aside and an entrance appears in the west wall.
+
+> w
+You walk through the opening in the wall.
+
+Tomb
+A single beam of pale light shines down from a hole high above your head, giving the room a ghostly appearance. As your eyes slowly adjust to the dim light you discover that you are in what must be a hidden tomb. Almost invisible in the dark shadows of the beam you can vaguely see the silhouette of a stone sarcophagus placed against the wall.
+Sir Galahad sits at the foot of the sarcophagus.
+
+> take sword
+(from the sarcophagus)
+As you reach for the sword on top of the lid the knight gets up pulling his sword half from the scabbard. Upon seeing your bracelet he holster his sword, nods in approval "Now you have a weapon that even Nimue will fear. I can help you no more, my job is done." and with a sigh of relief he slowly vanishes.
+You take the sword from the lid.
+
+> out
+You once walk through the opening in the wall and as you enter the dungeon the passage behind you closes leaving not a trace on the wall.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+
+The tour guide is here with a tour party.
+
+> u
+You move up.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+
+> u
+You move up.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+> n
+You move north.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+Megan enters with the tour party. From the west.
+
+> w
+You move west.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+> nw
+Once again you head down the hill and into the heavy fog. And as before the drifting tufts of grey makes it extremely difficult to pinpoint your whereabouts.
+
+The Meadow
+The meadow lies stretched out before you to the North, North-east and South encircled by the outskirts of the forest in the horizon. The tall grass reaches your hips and tufts of fog drifts silently across the vast area. To the West and South the forest is much closer and in the distance, and up the hill to the East you can see the ruin of the castle like a ghostly silhouette in the fog.
+Although the forest somehow draws you towards it, you fear that if you move in there you may get lost.
+
+> nw
+You stagger through the fog quickly losing any sense of direction. Finally you see a dark shadow through the fog and steer towards it. Soon after you are out of the fog, and in amongst some trees. Although the fog is not as dense here, it still obstructs your vision allowing you to see only a few feet ahead.
+
+Enchanted forest
+You have a feeling that you are in the middle of the forest. Although the skies are still grey above you, every now and then a lonely beam of sunlight filters through the canopy and light up the forest floor. Towards the North you can see the suns reflections in the lake between the trees, and towards the North-east, East and South passages lead in amongst the trees.
+
+> n
+Having been here before you follow the passage you made through the dense undergrowth and are soon standing on the shore of the lake.
+
+Shore of the lake
+The shore looks the same and yet you feel that something has changed. The eerie feeling of evil and mystery has disappeared and this is now just any other piece of shoreline.
+To the East and South of you the deep forest stands like a green wall.
+
+> n
+Once again you head out into the lake, and once again the icy water immediately starts to drain your strength as you walk deeper into the water.
+
+Lake
+The lake stretches out before you. Behind you to the South lies the shore where the wolves are now patiently pacing back and forth. There's nothing at the other side of the lake except more trees which seems to be a hundred miles away.
+
+There's not a ripple on the surface but you can feel the icy temperature slowly draining your strength.
+
+> swim
+You begin to swim the best you know how and for a while the movement of your arms and legs actually give you your strength back. But all too soon, you feel your strength slowly disappear and it get harder and harder to keep your head above the water.
+An overwhelming feeling of exhaustion overpowers you and although every cell in your brain scream for you to keep moving your arms and legs you simply hasn't got the strength.
+It feels like the water is almost caressing you as you slowly sink down, down, down towards the bottom.
+
+Underwater castle
+An impressive vaulted hall stretches North leading into a long corridor. At the end of that corridor you can vaguely see an even bigger hall lit up by a pale light.
+
+> n
+You move north.
+
+Throne
+The sunlight from far above filters through the water and creates patterns of light and shadow that plays across the throne room floor and walls. Right before you, raised upon a small platform, stands a throne carved out of the rock wall and upon it sits Nimue, the Lady of the Lake. Beside the throne is a marble column with a shiny glass dome on the top.
+
+> ask nimue about merlin
+With eyes glued to the sword in your hand Nimue says: ”Merlin is trapped deep under Camelot. The only place I knew no one would look for him. Even if you find him your quest would fail because not even I have the power to release him from the crystal cage in which I trapped him.” She studies you intensely for a short while. ”You should have killed me when you had the chance,” she snarls. ”I still have a trick or two up my sleeve for the likes of you.”
+She points two fingers at you and mumbles a few words. Then she quickly gets up and leaves the room followed by her court.
+
+> swap tooth
+You quickly lift the glass dome and swap the tooth in there with the one you took from the cave.  No sooner has Nimue waved her hand before you swallow a huge gulp of water. Panic-stricken you realize that whatever spell it was that allowed you to breathe under the water, it has now been lifted and you will die soon if you don’t get some air.
+
+> s
+You slowly move south through the water.
+
+Underwater castle
+An impressive vaulted hall stretches North leading into a long corridor. At the end of that corridor you can vaguely see an even bigger hall lit up by a pale light.
+
+> u
+You take off from the bottom of the lake heading for the surface high above you. With lungs almost bursting, hungry for air, you finally break the surface and quickly swim towards the shore. You reach it and climb up on the bank, gasping for air.
+
+Shore of the lake
+The shore looks the same and yet you feel that something has changed. The eerie feeling of evil and mystery has disappeared and this is now just any other piece of shoreline.
+To the East and South of you the deep forest stands like a green wall.
+
+> s
+You head south and are soon in amongst the trees.
+
+Enchanted forest
+You have a feeling that you are in the middle of the forest. Although the skies are still grey above you, every now and then a lonely beam of sunlight filters through the canopy and light up the forest floor. Towards the North you can see the suns reflections in the lake between the trees, and towards the North-east, East and South passages lead in amongst the trees.
+
+> ne
+Not quite knowing where you're going you head off in what you believe is a north easterly direction.
+
+Enchanted forest
+Through the trees you can vaguely see a meadow to your East. To the South another path leads further into the forest as does the path leading South-west.
+
+> e
+You start moving east and soon the trees begin to thin out. After a while you can see the meadow ahead of you and further away in the distance the torn towers of Camelot.
+
+The Meadow
+The meadow lies stretched out before you to the North, North-east and South encircled by the outskirts of the forest in the horizon. The tall grass reaches your hips and tufts of fog drifts silently across the vast area. To the West and South the forest is much closer and in the distance, and up the hill to the East you can see the ruin of the castle like a ghostly silhouette in the fog.
+Although the forest somehow draws you towards it, you fear that if you move in there you may get lost.
+
+> e
+With your eyes glued to the dark silhouette of the castle you fumble your way through the fog. The sight of the castle ever so often disappears in the fog, and each time you feel the panic slowly creeping up on you.
+
+But finally you feel the road under you and walk hastily up towards the castle and are soon back inside the courtyard.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+> e
+You move east.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> s
+You go south, down a narrow passage and soon enters a cave.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+The tour guide is here with a tour party.
+
+> d
+You move down.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+Megan enters with the tour party. From above.
+
+> d
+You move down.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+
+> e
+You walk into the cell feeling a little claustrophobic as the walls seem to close in on you.
+
+Cell
+The only light in the cell comes from whatever light that manages to seep through the cell door leading Out to the dungeon outside. It leaves the far end of the cell in a dusky shade and gives the atmosphere an authentic touch of what it must have been like to be locked up in here.
+
+> d
+You move down.
+
+Dragon's cave
+An enormous cave lies before you, so big that you can't even begin to comprehend the size. Along one of the curved wall lies a bunch of pale bones, the remains of the monster that once lived here. Behind you a narrow path leads Up to the passage you came through.
+
+> insert tooth in crack
+You insert the tip of the tooth into the small L shaped crack and slowly begin to pull... Slowly this part of the wall begins to move and a narrow entrance, leading east, appears where the wall has slid into the rock.
+
+> e
+You move east.
+
+Merlin's grave
+Dead silence is the first impression that strikes you, then darkness. This is like nothing you've ever seen before. It's impossible to estimate the size of the cave as you cannot see the walls nor the ceiling.
+Right before you is a lit box, the only source of light in here, and in the box you see a figure resting. To the West is the hole in the wall through which you came in.
+
+> put fork on box
+Carefully holding the stem you place the end of the tuning fork against the crystal surface.
+
+> hit fork
+A clear single tone sounds through the cave. At first nothing happens, then a microscopic crack starts on the surface of the box. You hit the tuning fork again and the cracks get bigger and quickly spread soon covering the entire box. A few moments later the entire box crumbles with a tingling sound.
+
+> take crystal
+Ok, you pick up the single piece of crystal.
+
+> wake merlin
+As you reach out to wake Merlin, he feels presence. His eyelids move slightly and he slowly turns his head towards you. Suddenly he opens his eyes and stares at you.
+”You came” he exclaims, rather stating the obvious...”But you are not he, although you look like him.”
+
+As Merlin slowly composes himself you tell him what has happened. ”Blessed be Sir Galahad.” he says, ”He truly is the most gallant knight. May he find peace now and rest as he deserves.” A silent sigh is heard and for a brief moment the vision of Sir Galahad stand before you. He raises his hand and smiles, then he slowly fades away.
+
+"When Nimue trapped me here to sleep forever, she created this crystal casket. The power from the crystal has kept me alive all these years. Now tell me what has happened."
+
+Upon hearing about Morgane, Merlin's face changes, his expression turning dark and sinister.
+”The only way to free Megan from Morgane, is to kill her. Bring me the horn of a Unicorn, for that is the only thing that can kill her.  Do not attempt to kill her yourself... her magic is far too powerful. Meet me in my chamber when you have the horn.”
+
+Merlin staggers to his feet, with movements a bit insecure he raises his hands. A short blinding flash and he is gone.
+
+> w
+You move west.
+
+Dragon's cave
+An enormous cave lies before you, so big that you can't even begin to comprehend the size. Along one of the curved wall lies a bunch of pale bones, the remains of the monster that once lived here. Behind you a narrow path leads Up to the passage you came through.
+
+> u
+You move up.
+
+Cell
+The only light in the cell comes from whatever light that manages to seep through the cell door leading Out to the dungeon outside. It leaves the far end of the cell in a dusky shade and gives the atmosphere an authentic touch of what it must have been like to be locked up in here.
+
+> w
+You leave the cell and are once again in the dungeons.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+
+> u
+You move up.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+
+> u
+You move up.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+> n
+You move north.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> w
+You move west.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+> nw
+Once again you head down the hill and into the heavy fog. And as before the drifting tufts of grey makes it extremely difficult to pinpoint your whereabouts.
+
+The Meadow
+The meadow lies stretched out before you to the North, North-east and South encircled by the outskirts of the forest in the horizon. The tall grass reaches your hips and tufts of fog drifts silently across the vast area. To the West and South the forest is much closer and in the distance, and up the hill to the East you can see the ruin of the castle like a ghostly silhouette in the fog.
+Although the forest somehow draws you towards it, you fear that if you move in there you may get lost.
+
+> nw
+As you walk across the meadow a terrible scream from within the forest rips the silence. Icy chills run down your spine as the scream fades in a death rattle.
+
+Enchanted forest
+The forest is less dense here. There is adequate space between the trees allowing you to travel North, East, South, South-west or West.
+
+> sw
+You head off in a south westerly direction amongst the trees.
+
+Enchanted forest
+There's a small clearing here, allowing the pale light to penetrate the canopy of the trees. Across the clearing there are passages between the trees leading North, South, and North-East.
+A mortally wounded unicorn lies before you.
+
+> cut horn
+Using Sir Galahad's sword it takes you only a few moments to cut off the horn.
+No sooner has the Unicorn lost its horn before it slowly begins to fade away before your eyes. You respectfully bow your head and thank it for the horn. When you look up again, the place where it lay is empty...
+
+> n
+You push a few branches aside and head off to the north..
+
+Enchanted forest
+You have a feeling that you are in the middle of the forest. Although the skies are still grey above you, every now and then a lonely beam of sunlight filters through the canopy and light up the forest floor. Towards the North you can see the suns reflections in the lake between the trees, and towards the North-east, East and South passages lead in amongst the trees.
+
+> ne
+Not quite knowing where you're going you head off in what you believe is a north easterly direction.
+
+Enchanted forest
+Through the trees you can vaguely see a meadow to your East. To the South another path leads further into the forest as does the path leading South-west.
+
+> e
+You start moving east and soon the trees begin to thin out. After a while you can see the meadow ahead of you and further away in the distance the torn towers of Camelot.
+
+The Meadow
+The meadow lies stretched out before you to the North, North-east and South encircled by the outskirts of the forest in the horizon. The tall grass reaches your hips and tufts of fog drifts silently across the vast area. To the West and South the forest is much closer and in the distance, and up the hill to the East you can see the ruin of the castle like a ghostly silhouette in the fog.
+Although the forest somehow draws you towards it, you fear that if you move in there you may get lost.
+
+> e
+With your eyes glued to the dark silhouette of the castle you fumble your way through the fog. The sight of the castle ever so often disappears in the fog, and each time you feel the panic slowly creeping up on you.
+
+But finally you feel the road under you and walk hastily up towards the castle and are soon back inside the courtyard.
+
+The Courtyard
+Only a few tour buses have defied the weather and taken the trip up here and the courtyard is almost empty.
+
+To the North is the entrance to a souvenir store, erected in the old armoury and stables, and to the Northwest through the gates across the drawbridge you can see the road that brought you here winding its way through a foggy meadow. Further away, a forest stands like a dark wall against the grey mist.
+Turning to the East you see the huge oak doors leading in to the castle and behind you, to the south a few steps leads Down through a narrow opening to the castle kitchen.
+To the West, through what was once an impressive arch you can see part of a huge lawn with tables and benches. A sign on the entrance tells you that this is Guinevere's Rose garden.
+
+> e
+You move east.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> e
+You move east.
+
+The Stairway to Corridor
+The stairway winds its way upwards towards a corridor above. A rope has been fastened to the wall for support for people walking up and down and little electrical lights are mounted high above your head giving the stairway a gloomy appearance. Up ahead you can see the entrance to the corridor and further Down lies the Knight's hall.
+
+> u
+You move up.
+
+The West end of Corridor
+A light breeze gently caresses your face as you marvel at the view laid out before you. Standing at the west end of the corridor you have an incredible view over the valley far below. The mist is moving back and forth across the meadow, like an enormous prehistoric animal. The top of the forest reaches up from the fog here and there and even farther away the view of a lake, lying silent and sinister.
+
+As for your close surroundings, the entire wall on your left side is missing, crumbled under the merciless teeth of time, leaving only a few feet of stone wall to prevent you from tumbling into a certain death. To the South there's a door leading into a chamber once occupied by a member of the Royal Court. Further down the corridor to the East you can see another door and at the very end is a small anteroom. To the west a stairway leads Down to the Knight's hall.
+
+> e
+You move east.
+
+The East end of Corridor
+The corridor continues east and west, ending in a small anteroom further to the East and at a staircase to the West. The floorboards are wet and slippery from the mist and moisture drips from the stone walls like drops of tears.
+A metal railing has been embedded in the remains where the stone wall has crumbled, keeping tourists from accidentally falling to their certain death far below.
+In the Southern wall a door leads into what is said to be King Arthur's chamber.
+
+> e
+You move east.
+
+The Anteroom
+The only light penetrating this little room is what manages to seep in from the east end of the corridor. The room is completely bare and the monotony of the stone wall is only broken by an opening with a granite stairway winding its way Upwards.
+A rope across the opening is blocking any further access to the stairway.
+
+> cross rope
+With the custodian gone the coast is clear and you quickly slip under the rope and into the stairway.
+
+Top of Winding stairway
+Standing in total darkness on a narrow landing you find your way blocked by a solid stone wall. The only visible exit is back Down the stairway.
+The parchment in your pocket starts feeling slightly warmer.
+
+> touch handprint
+You firmly press your hand against the engraved handprint. At first nothing happens, then slowly the handprint shrinks embracing your hand. The outline begins to glow vaguely and a low rumble is heard as a section of the wall moves aside exposing an entrance North into a chamber.
+
+> n
+You carefully step through the opening into the hidden chamber.
+Merlin's lost chamber
+The chamber lies before you, untouched by the passing centuries. A dim light shines through the window giving the dust covered room a gloomy appearance. A long working table is dominating the room along with rows of bookshelves lining the walls.
+A light draft from the opening in the wall behind you to the South disturbs the air and makes the many cobwebs sway gently.
+Merlin stands here looking around.
+
+> give horn to merlin
+Merlin takes the horn, he then looks at you. ”Go and find this guide, Megan. Tell her that you've found me. If she is truly Morgane she will not be able to resist the chance to finish me off once and for all. I am the only thing standing between her and her complete domination of Camelot.” He pause to think for a while. ”Lead her to my tomb. That will be an appropriate place for the final battle. Either she or I die there.”
+He turns and leaves the chamber...
+
+> out
+As you walk through the secret entrance, the wall closes behind you once again sealing Merlin's chamber.
+
+Top of Winding stairway
+Standing in total darkness on a narrow landing you find your way blocked by a solid stone wall. The only visible exit is back Down the stairway.
+The parchment in your pocket starts feeling slightly warmer.
+
+> down
+You move down.
+
+Bottom of winding stairway
+Hidden in the shadows at the bottom of the stairway you feel safe from unwanted eyes. Before you, leading Up into darkness lies a winding stairway and across the rope you can see the anteroom.
+
+> s
+You move south.
+
+The Anteroom
+The only light penetrating this little room is what manages to seep in from the east end of the corridor. The room is completely bare and the monotony of the stone wall is only broken by an opening with a granite stairway winding its way Upwards.
+A rope across the opening is blocking any further access to the stairway.
+
+> w
+You move west.
+
+The East end of Corridor
+The corridor continues east and west, ending in a small anteroom further to the East and at a staircase to the West. The floorboards are wet and slippery from the mist and moisture drips from the stone walls like drops of tears.
+A metal railing has been embedded in the remains where the stone wall has crumbled, keeping tourists from accidentally falling to their certain death far below.
+In the Southern wall a door leads into what is said to be King Arthur's chamber.
+
+> w
+You move west.
+
+The West end of Corridor
+A light breeze gently caresses your face as you marvel at the view laid out before you. Standing at the west end of the corridor you have an incredible view over the valley far below. The mist is moving back and forth across the meadow, like an enormous prehistoric animal. The top of the forest reaches up from the fog here and there and even farther away the view of a lake, lying silent and sinister.
+
+As for your close surroundings, the entire wall on your left side is missing, crumbled under the merciless teeth of time, leaving only a few feet of stone wall to prevent you from tumbling into a certain death. To the South there's a door leading into a chamber once occupied by a member of the Royal Court. Further down the corridor to the East you can see another door and at the very end is a small anteroom. To the west a stairway leads Down to the Knight's hall.
+Megan enters with the tour party. From the south.
+
+> d
+You move down.
+
+The Stairway to Corridor
+The stairway winds its way upwards towards a corridor above. A rope has been fastened to the wall for support for people walking up and down and little electrical lights are mounted high above your head giving the stairway a gloomy appearance. Up ahead you can see the entrance to the corridor and further Down lies the Knight's hall.
+
+> d
+You move down.
+
+The Knight's hall
+Your footsteps echo hollow as you walk across the floor in the Knight's hall. A replica of what supposedly the round table would look like stands at the far end of the hall; a single tall window places high above allows coloured rays of sun to shine down on the middle of the table adding to the atmosphere. Ancient tapestries cover the walls and in the north-eastern corner a fireplace is built into the wall. In front of the round table a circle shaped indentation, scorched from years of use, shows where food was prepared during the banquets.
+Through an opening in the Eastern wall you can see the first few steps of a stairway leading up, and to the South through another opening a few steps leads down. Behind you, to the West, are the doors leading out to the courtyard.
+
+> s
+You go south, down a narrow passage and soon enters a cave.
+
+The Cave
+The cave is a natural part of the bedrock upon which the castle has been built. The overarching ceiling is hidden in the darkness high above you and the few lamps mounted on the walls are far from enough to light up this vast area. Behind you a passage leads Up and across the floor another leads Down while a third leads North.
+
+> d
+You move down.
+
+Dark stairway
+The lamps on the wall are far apart, giving only a dim light. A rope which runs through loops embedded into the wall is your only support on this dark, rather steep stairway which leads Up and Down.
+
+> d
+You move down.
+
+The Dungeon
+The towering walls seem to fade away in darkness as they reach towards the ceiling of the dungeon. The lamps on the walls struggle to penetrate the darkness engulfing most of the area here. To the East lie the prison cells, three of which are locked, leaving one open for the tourists to explore. The entrance to a dark stairway leading Up is almost invisible in the darkness.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+
+> z
+You gently tap your foot while time passes.
+Megan enters with the tour party. From above.
+
+> tell megan about merlin
+You tell Megan about Merlin and what you have discovered in the deep cave. At first she listens politely, but as you tell the story she slowly change. Her eyes begin to glow and she grabs your arm, sinking her nails painfully into your skin. Her voice changes, getting deeper, hoarser... ”There's no time to waste” she says. ”If what you say is true this is truly an amazing discovery and we must help him at once. Show me the way!” She almost pushes you in front of her. ”Hurry... hurry!!”
+
+> e
+You walk into the cell feeling a little claustrophobic as the walls seem to close in on you.
+
+Cell
+The only light in the cell comes from whatever light that manages to seep through the cell door leading Out to the dungeon outside. It leaves the far end of the cell in a dusky shade and gives the atmosphere an authentic touch of what it must have been like to be locked up in here.
+Megan enters right after you. From the west.
+
+> d
+You move down.
+
+Dragon's cave
+An enormous cave lies before you, so big that you can't even begin to comprehend the size. Along one of the curved wall lies a bunch of pale bones, the remains of the monster that once lived here. Behind you a narrow path leads Up to the passage you came through.
+
+Megan enters right after you. From above.
+
+> e
+You move east.
+
+Merlin's grave
+It's impossible to estimate the size of the cave as you can not see the walls nor the ceiling. The crystal box has turned into myriads of tiny pieces of crystal lying around the stone slab. To the West of you is the hole in the wall through which you came in. The stone slap is now empty.
+The floor is covered with tiny pieces of crystal.
+   Megan enters right after you. From the west.  No sooner has Megan entered the cave before she sees Merlin. She violently pushes you aside sending you tumbling across the cave floor. In a smooth catlike move she turns towards Merlin “YOU!” She hisses. “You helped my brother steal my rightful heritage. Too long have I waited for this, now you will die and Camelot will forever be MINE!”
+As she raise her arms her appearance changes before your eyes. Megan, the girl you've come to love slowly turns into Morgane, Arthur's half sister.
+
+A lightning bolt shoots out from her hands, spinning wildly towards Merlin who swiftly dodges, and then the battle has begun.
+
+Hiding behind a large boulder you try your best to avoid the flying rocks and falling stalactites as the two fight their deadly duel. Soon the cave stinks of burnt ozone and smoke blurs your vision. Suddenly you hear a triumphant scream of scornful joy. As you look over the rim of the boulder you see Merlin lying on the ground, his face grey with dust and his frock nailed to the cave floor by a huge piece of rock. The horn from the Unicorn lies just out of his reach.
+Morgane gets ready for the final blow. If you don't act, and act fast Merlin is sure to be killed.
+
+> take horn
+You don't know where you get the courage from, but you throw yourself across the floor towards Merlin. As you pick up the horn you see, for the first time, something resembling fear in Megan/Morgane's eyes. Her eyes lock on the horn in your hand and the flaming aura around her turns from golden red to blinding white.
+
+> throw horn at morgane
+You desperately throw the horn at Megan / Morgane. Too late she realises the danger and with a thud the horn penetrates her chest. The force is so powerful that she is lifted off the floor and nailed to the rock wall. A terrible scream fills the cave. She claws at the horn sticking out from her body, her head flailing wildly from side to side. Finally her scream fades and she hangs still on the wall. A dirty white shadow floats from her lifeless body and disappears through the cave walls.
+
+Assisted by Merlin you manage to lift the lifeless body from the wall and gently place it on the cave floor. With Morgane gone, Megan looks peaceful as she lays there on the cave floor the broken tip of the horn sticking out from her chest.
+“Is she dead?” You ask feeling an incredible sadness overwhelm you. Merlin looks at you. "I’m afraid she hasn’t got long to live, unless you can find a way to close the wound. This will be your final, but most important task my friend," he says. "Only you can bring her back. Even I can't help you here."
+
+> pull horn
+You gently pull the tip of the horn from Megans chest. As the tip is removed she gives a silent sigh and her eyelids flutter for a brief moment.
+"Hurry," Merlin says. "You don't have much time.
+
+> put crystal in wound
+Carefully holding the crystal piece between your fingers, you let it fall into the gaping wound. At first nothing happens, then it's like the crystal starts to glow brighter and warmer. A golden white light emerges from it and slowly as you watch the wound begin to close.
+After a few minutes there's not a trace of the wound except the torn blouse. Megan suddenly gasp, she opens her eyes and look into your eyes. Then she suddenly put her arms around you and kisses you passionately.
+You hear Merlin chuckle in the background, but you really don't care.
+Holding Megan's hand you walk back up through the passage and up through the dungeon until finally you step out into the courtyard. Just as you do, the grey skies part and a lonely beam of bright sunlight hits you and Megan as you, once again, kiss.
+
+You suddenly notice that Merlin is slowly walking towards the drawbridge. ”Where are you going?” you ask.
+”I believe it's time to pay a long overdue visit to a friend of mine who lives in a lake nearby, Merlin says as he walks out the castle gate.” With your arm around Megan you watch him slowly walk down the road until he disappears into the mist.
+Although you have saved Camelot and found the love of your life you can’t help think that if you had only found the treasure rumoured to be hidden somewhere in the castle this would have been a true fairytale ending.
+
+With the gold you found in the secret passage yours and Megan future and happiness is secured.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

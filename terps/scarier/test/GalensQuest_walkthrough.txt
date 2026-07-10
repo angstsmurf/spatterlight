@@ -1,0 +1,196 @@
+# Galen's Quest (Nick Gauthier, ADRIFT 5) -- full-win walkthrough, score 45/48.
+# Your master the wizard Galen is missing; you wake in a nightmare courtyard and
+# must work your way through four dream-landscapes -- courtyard, river/forest,
+# a solar machine, and a miniature model world -- to reach and free him.  The
+# whole game runs on four spells cast from the spell book (OPEN / TRANSFORM /
+# GROW) plus SHRINK from a scroll.  (The 48-point maximum is unreachable: the
+# bridge troll and the ogre are the same obstacle -- transforming the troll just
+# makes an ogre -- so only one of that +3 pair can ever score.  45 is the true
+# max.)
+#
+# === Courtyard: spectacles, orb, silver key, spell book ===
+sw
+# A loose flagstone in the shaft of moonlight hides spectacles (they cut the
+# dreamlike haze so you can see keyholes) and a sack.
+x floor
+move flagstone
+take spectacles
+wear spectacles
+# Fetch the meteorite and drop it in the cloud-fountain atop the oak; the nymph
+# trades it for a crystal orb.
+e
+e
+take meteorite
+w
+u
+ne
+put meteorite in fountain
+sw
+d
+# Give the orb to the grinning gargoyle: it grips it and the blood stops (+3).
+ne
+give orb to gargoyle
+# Silver key off the statue -- it opens the shack AND, later, the silver gate.
+s
+sw
+take silver key
+# To the wizard's shack on the plain; unlock it (spectacles let you find the
+# keyhole) and take the spell book from the table.
+n
+n
+n
+e
+unlock door with silver key
+open door
+in
+take book
+out
+# === The plain: open the canyon, pay the boatman ===
+# Cast OPEN on the rock wall (+2); in the canyon a bag of 30 silver coins pays
+# the skeletal boatman for passage across the river of the dead (+5).
+cast open on wall
+e
+search pines
+take bag
+open bag
+w
+w
+n
+pay boatman
+enter boat
+# === Sunlit forest: staff, scroll, cross the troll bridge, gems, silver gate ===
+# Cast OPEN on the hillock to open the barrow; TRANSFORM the guardian snake into
+# a harmless lungfish (+2) and take the long staff.
+n
+w
+cast open on hillock
+in
+cast transform on snake
+take staff
+out
+# At the waterfall, TRANSFORM the rainbow into a solid bridge (+2, needs the
+# staff); climb down to the sandbar for the shrink scroll and a long bone.
+e
+e
+cast transform on rainbow
+d
+d
+take scroll case
+open scroll case
+take bone
+up
+up
+# North over the bridge: SHRINK the toll troll out of the way (+3).
+w
+w
+n
+n
+cast shrink on troll
+n
+# The tree stump in the clearing hides a case of three gems (blue/yellow/green).
+x hole
+open case
+take blue gem
+take yellow gem
+take green gem
+# GROW the lone tree by the bluff (+2) and climb it to the cave; the silver key
+# opens the silver gate into the machine world (+6).
+n
+w
+cast grow on tree
+climb tree
+w
+unlock gate with silver key
+open gate
+out
+# === The solar machine: build the miniature landscape ===
+# Charge the yellow gem: set it in the collector's focal point and aim the dish
+# at the sun (southeast); wait for it to fill with light (+2).
+n
+w
+turn dish southeast
+put yellow gem in focal point
+z
+z
+take yellow gem
+# The blue gem is full of water: seat it in the machine's receptacle and cast
+# OPEN so the water floods the pump (+2).
+e
+n
+e
+put blue gem in receptacle
+cast open on blue gem
+# In the domed chamber: TRANSFORM the bone into a plank and slot it as a lever
+# (+2); set the green gem in the floor receptacle, then work the lever to flood
+# the depression (+2).
+w
+s
+e
+cast transform on bone
+put plank in socket
+put green gem in receptacle
+move lever down
+z
+move lever up
+# Climb up and set the charged yellow gem in the ceiling receptacle: an energy
+# lattice forms over the flooded floor (+2).  GROW the green gem in the lattice
+# and the whole miniature castle-and-moat landscape blooms in the depression
+# (+2).
+u
+put yellow gem in receptacle
+d
+cast grow on green gem
+# SHRINK yourself down and step into the model world.
+cast shrink on me
+in
+# === Miniature world: monument, beehive, castle, jail ===
+# Through the hedge maze to the dead-end monument.  Press its four coloured
+# squares in count blue-1, yellow-2, green-3, red-4 to roll it aside (+3),
+# opening the path to the flower garden and its beekeeper's suit.
+e
+s
+e
+e
+e
+s
+press blue square
+press yellow square
+press yellow square
+press green square
+press green square
+press green square
+press red square
+press red square
+press red square
+press red square
+s
+take suit
+wear suit
+# Back through the maze to the beehive; the suit lets you rob it of a honeycomb.
+n
+n
+w
+w
+w
+n
+e
+n
+open box
+take honeycomb
+# To the castle: hide behind the bushes and cast OPEN to drop the drawbridge
+# (+2) while the mounted knight rides out none the wiser, then cross.
+s
+e
+hide behind bush
+cast open on drawbridge
+e
+e
+e
+# The grizzly bear guards the iron key; feed it the honeycomb, take the key,
+# unlock the jail cell -- and free Galen.
+feed honeycomb to bear
+take iron key
+unlock jail cell door with iron key
+open jail cell door
+e
+talk to galen

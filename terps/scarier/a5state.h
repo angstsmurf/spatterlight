@@ -90,6 +90,12 @@ typedef struct a5_state_s {
 
   long  *var_num;         /* [adv->n_variables] numeric value                  */
   char **var_text;        /* [adv->n_variables] text value (owned), or NULL    */
+  long **var_arr;         /* [adv->n_variables] numeric ARRAY elements (owned;
+                             [array_length], 0-based storage of ADRIFT's 1-based
+                             indices), non-NULL only for a Numeric variable with
+                             <ArrayLength> > 1.  var_num[i] mirrors element 1
+                             (FD's scalar %name% read of an array = IntValue(1)),
+                             kept in sync by a5state_var_set_elem.              */
 
   char  *task_done;       /* [adv->n_tasks] completed flag                     */
   char  *task_scored;     /* [adv->n_tasks] this task has modified Score once
@@ -118,6 +124,14 @@ typedef struct a5_state_s {
      end of turn for every character the player can see, so HaveSeenCharacter
      and the conversation "characters must be seen" gates work.  [n_characters] */
   char *char_seen;
+
+  /* clsCharacter.Introduced: set the first time the character's Name renders
+     in displayed output (clsCharacter.vb:333, bMarkAsSeen defaulted True);
+     from then on an Indefinite-article descriptor render upgrades to Definite
+     ("a tall guillermo" -> "the tall guillermo", vb:331).  The room-view
+     character listing reads the name with bMarkAsSeen:=False
+     (clsLocation.vb:151) so it upgrades but never introduces.  [n_characters] */
+  char *char_introduced;
 
   /* Player "seen" state for objects (clsCharacter.HasSeenObject): set each turn
      for every object the player can currently see, so a later out-of-scope
@@ -229,6 +243,25 @@ typedef struct a5_state_s {
   int n_disp_once, cap_disp_once;
   int marking_display;
 
+  /* Set while rendering text that FD hands to Display() with its %functions%
+     still UNREPLACED -- conversation topic replies (ExecuteConversation
+     AddResponses the raw Description; Display -> ReplaceALRs -> ReplaceFunctions
+     then renders it under bDisplaying=True).  Only such renders run
+     clsCharacter.Name's Introduced dance (definite-article upgrade + marking).
+     Task completion messages are pre-replaced OUTSIDE bDisplaying
+     (clsUserSession.vb:1186), the room view builds its names programmatically
+     (clsLocation.vb:151), and the NPC walk announcements compose with .Name
+     before Display (clsCharacter.vb:1558) -- none of those upgrade or mark.
+     Transient render state, not saved. */
+  int intro_active;
+
+  /* Set while evaluating an ALR (TextOverride) NewText: a bare %variable%
+     token is emitted as an A5_VARDEF_MARK sentinel instead of its value, so
+     it resolves at the Display boundary with the end-of-turn value -- FD
+     expands ALRs (and the functions inside them) only in Display's
+     ReplaceALRs (see A5_VARDEF_MARK, a5text.h). */
+  int alr_defer_vars;
+
   /* FD UserSession.PronounKeys: each rendered %CharacterName[...]% records the
      named character's perspective and its text offset (Global.vb:2108); a
      [1st/2nd/3rd] conjugation bracket then resolves in the perspective of the
@@ -280,6 +313,12 @@ typedef struct a5_state_s {
      real (non-test) render produced a non-blank marked-up string.  Reset once
      per processed command by a5run_input. */
   int turn_out_nonempty;
+
+  /* Per-turn route-restriction memo (frankendrift's per-character
+     dictHasRouteCache/dictRouteErrors) -- owned and typed by a5restr.cpp,
+     cleared once per processed command (PrepareForNextTurn, vb:3792) via
+     a5restr_route_cache_clear.  Transient: not saved, not copied. */
+  void *route_cache;
 
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is
@@ -408,12 +447,24 @@ extern const char *a5state_entity_prop (const a5_state_t *st, const char *entkey
 extern void a5state_set_prop (a5_state_t *st, const char *entkey,
                               const char *propkey, const char *value);
 
+/* Does an entity (object/character/location) HAVE a property, regardless of
+   value?  Mirrors clsItem.HasProperty over the merged (runtime override +
+   static model) table -- a runtime `<Unselected>` override removes it.  Unlike
+   a5state_entity_prop this distinguishes a present-but-valueless SelectionOnly
+   marker (returns 1, value NULL) from an absent property (returns 0). */
+extern int a5state_entity_has_prop (const a5_state_t *st, const char *entkey,
+                                    const char *propkey);
+
 /* Runtime object-group membership (AddObjectToGroup/RemoveObjectFromGroup):
    effective membership = runtime override else the model <Member> list. */
 extern int  a5state_object_in_group (const a5_state_t *st, const char *grpkey,
                                      const char *objkey);
 extern void a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
                                          const char *objkey, int present);
+
+/* Reconstruct the live insertion-ordered arlMembers list after a restore, from
+   the @InGroup property overrides (which are what the save actually stores). */
+extern void a5state_rebuild_live_groups (a5_state_t *st);
 
 /* Live, insertion-ordered membership of a group (FD clsGroup.arlMembers): the
    count and the i-th member key.  Reflects runtime Add/Remove*ToGroup on top of
@@ -446,5 +497,12 @@ extern const char *a5state_lookup_ref  (const a5_state_t *st, const char *name);
 /* Variable lookup by Name (text engine) or Key (restrictions). */
 extern int         a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out);
 extern const char *a5state_var_text_by_name (const a5_state_t *st, const char *name);
+
+/* Numeric array-variable element access (idx is ADRIFT's 1-based index).
+   Out-of-range reads return 0 and writes are dropped (clsVariable's ErrMsg
+   paths).  On a scalar variable idx is ignored (FD SetVariable: the [index]
+   suffix on a Length-1 variable is meaningless and IntValue defaults to 1). */
+extern long a5state_var_get_elem (const a5_state_t *st, int vi, long idx);
+extern void a5state_var_set_elem (a5_state_t *st, int vi, long idx, long value);
 
 #endif

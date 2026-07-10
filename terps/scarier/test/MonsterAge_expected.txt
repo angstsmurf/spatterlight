@@ -1,0 +1,27 @@
+Monster Age
+Welcome to Monster Age: Trials of Dustorn!
+
+Elbrium Grove
+You are in Elbrium Grove. North you see a line of Elbrium trees.  Serious, brave is here.
+
+> look
+
+Elbrium Grove
+You are in Elbrium Grove. North you see a line of Elbrium trees.  Serious, brave is here.
+
+> x me
+You see nothing interesting about yourself.
+
+> i
+You are wearing nothing, and are carrying nothing.
+
+> say hi to gustorn
+(to serious, brave)
+Hello! My name is he!   He ignores you.
+
+> say hi to gustorn
+Serious, brave ignores you.
+
+> n
+There is no route to the north.
+

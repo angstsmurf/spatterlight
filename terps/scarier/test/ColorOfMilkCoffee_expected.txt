@@ -1,0 +1,23 @@
+Color of Milk Coffee
+
+The Balcony
+You are sitting. Sitting on your usual chair at the balcony. You are drinking milk coffee. You are waiting, but nothing ever changes. You don't know what you expect to change. But you are waiting. Something has to change, you know it. If you wait enough, something will change, you know it. You feel it.
+
+> north
+If you wait enough, something will change, you know it. You feel it.
+
+> wait
+Two cats flirt. Even cats are in couples. You get bored of sitting, but you have to wait. Something will happen. Something will change. What is going to happen? What is going to change? You don't know. But you don't want to stand up from that chair before some magic happens.
+
+> wait
+It's almost dark. It's one of those dim afternoons of March. You are so sure that something will happen, you are in labor pain. Will somebody climb the balcony? Will somebody call you from below? Will your phone ring? Maybe a long lost friend will call. But something will happen. You know it. You should wait.
+
+> wait
+Then suddenly something happens. A girl daydreams about you. You feel it. Somewhere, far away, a girl daydreams about you. She's drinking milk coffee. Her hair is color of milk coffee. Her sweater is color of milk coffee. Her love is color of milk coffee.
+
+She was waiting for a long time too. She knew something would happen. You were both waiting for centuries. Now it happened. Something happened.
+
+You stand up. There's no point in waiting anymore. You are going to make another milk coffee for yourself and write this down. It was worth the wait.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

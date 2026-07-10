@@ -1,0 +1,135 @@
+# The Dragon Diamond (Kenneth Pedersen, 2016; ADRIFT 5.0000341) -- full
+# maximum-score winning walkthrough: 70/70 in 102 turns.  Bash the Barbarian
+# must fetch the Dragon Diamond (the dragon's one eye) from the Forest of
+# Fear for the evil Queen Drana.  Originally a 1987 C64 game, later ported to
+# ADRIFT and Inform; the Key & Compass solution (drago17b, for the Inform
+# port, 101 pts) provided the skeleton, but this ADRIFT version differs:
+#
+#   body carry   The player MaxWeight is 81 and Leon's body weighs exactly
+#                81, so you must hold NOTHING else (drop the sword!) to
+#                shoulder the body, lug it to the lake alone, and come back
+#                for sword + rope.
+#   blade        "x basket" only hints; the blade is only visible/takeable
+#                from INSIDE the basket (enter basket / take blade / out).
+#   volcano      Down to the ledge needs birch chopped OR rope tied to the
+#                birch (#O#) -- with the axe we chop and keep the rope.
+#   axe          two routes: dip hands in mud + take axe (used here), or
+#                "cut bush with sword".
+#   endgame      "put twigs in chimney" starts the s_Smoke event: turn+3
+#                roar (lose if still at By the Devil Mountain), turn+6
+#                s_ToDarkHole (must be Down in a hole -> auto-moved to Dark
+#                hole, +5) else s_DragonKill loses, turn+8 s_FoundInHol
+#                loses unconditionally -- so kill dragon on the very next
+#                turn after the auto-move.  Route: ring / nw / e / enter
+#                hole / z / z / kill dragon.
+#
+# Scoring (Score var, MaxScore 70): +5 each for kill Leon, x mud (branch),
+# swim to north shore, talk to dwarf (ring), make spade, reach platform,
+# look under bed (spear), throw spear at archer, throw rope at branch, jump
+# onto rope, reach mountain top, twigs in chimney, enter Dark hole, kill
+# dragon.  (s_OffsetMaxS +10 is never triggered.)  After "fight leon" the
+# next command MUST be "kill leon": any other input matches the wildcard
+# s_KilledByLe1 task (LeonHit1==1) and Leon kills you.
+x me
+i
+x sword
+x leon
+x rope
+take rope
+fight leon
+kill leon
+x body
+drop sword
+take body
+n
+n
+drop body
+s
+s
+take sword
+take rope
+n
+w
+x bush
+w
+x mud
+dip hands in mud
+e
+take axe
+e
+n
+x lake
+throw body in lake
+swim north
+n
+x birch
+x volcano
+chop birch
+d
+s
+x dwarf
+talk to dwarf
+x ring
+n
+u
+s
+x canoe
+paddle south
+s
+e
+x string
+n
+x basket
+enter basket
+x blade
+take blade
+out
+make spade
+look under basket
+tie rope to hook
+s
+pull string
+tie string to tree
+n
+climb rope
+untie rope
+in
+x window
+x trapdoor
+open trapdoor
+d
+sw
+x bed
+look under bed
+x spear
+ne
+s
+x archer
+throw spear at archer
+s
+x twigs
+take twigs
+n
+n
+e
+x pool
+s
+throw rope at branch
+jump onto rope
+e
+e
+dig
+w
+se
+x den
+x mountain
+wear ring
+x chimney
+put twigs in chimney
+wear ring
+nw
+e
+enter hole
+z
+z
+kill dragon

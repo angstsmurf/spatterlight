@@ -1,0 +1,168 @@
+Ignis Fatuus
+For an October afternoon it's actually quite nice.  You'd always expected a grey sky and freezing sleet for your Jester's Licensure performance, but today the grey sky is as dry as a wizard's wit.
+
+It's time to go to the verandah.  Your Flaming Juggler act is sure to impress without much risk of laughter, but you'll need to gather your props first.
+
+your quarters
+Your room is a small, austere chamber of stone.  Cold radiates from the walls in the winter, but the chamberlain has given you enough rugs and tapestries to make the place comfortable.
+
+Your pallet is in the corner atop a fur rug and your footlocker sits near it.
+
+The only exit is to north to the Fourth Hall of Quarters.
+
+> open footlocker
+You open the footlocker.  Inside the footlocker is the flint & steel and the juggling pins.
+
+> get pins
+(from the footlocker)
+Ok, you take the juggling pins from the footlocker.
+
+> get flint
+(from the footlocker)
+Ok, you take the flint & steel from the footlocker.
+
+> n
+The court gossip says this Jester's Licensure is stacked against you.  A Jester forbidden from causing laughter is a doomed Jester by anyone's estimation.
+
+If only your thoughts were so easily gathered as your props.  You remind yourself: light the pins, juggle, bow.  No jokes, no puppets, no slapstick, no smiles.  The room behind has memories for you, however...
+
+"Time to go, FancyPants."
+
+Father had always insisted on using your Jester's name outisde of private words.
+
+"You're gonna make us late for the King's birthday! They'll have my head for it, and then I won't be able to juggle so well you know!"
+
+> e
+You move east.
+
+First Hall of Acceptance
+This hall is the last in a maze leading to the Glorious Verandah.  This is the hall by which all outsiders and castle staff get to the Royal Keep, so it's beautifully adorned and heavily guarded.
+
+Tapestries of the Royal history line the walls between the arrow loops.  Under each loop is a knight, and King's Guard men stand at the gate to the Glorious Verandah.
+
+From here you can exit North to the Glorious Verandah, East to the Fifth Hall of Quarters, South to the Second Hall of Acceptance, or West to the Fourth Hall of Quarters.  A King's Guard and Knight are here.
+
+> n
+You cross beneath the arch onto the Verandah.  You had imagined it would be like any other day at court; quiet pity from the nobles and wary glances from wizards and knights.  Smiles and laughter from no one.  This is worse.
+
+The nobility are silent, some frozen mid-speech or mid-drinking.  One of the knights actually has his hand on his weapon.  Flatherik is here, almost glaring at you, surrounded by his wizard underlings.  The herald starts to announce you, but the sight of Flatherik in his full robes is enough to make you vomit... worse, it's enough to take you back...
+
+[more]
+
+The Glorious Verandah was bright with Autumn sun.  You stood by your father attending King Harold's court.  He was to teach you handstands today but when Harold summoned him, he brought you along.
+
+"Our great king is in rare form today, Jinglebottom," said the squire.  "He's been hearing petitioners all morning, but they're tiring!  He's called for prisoners to sentence and the jokes of a jester to cheer him."
+
+"Why needs the good King jokes of a jester when he's got the loquaciousness of a lackey for to make him laugh!?"
+
+The Squire ignored your father and you all walked out to the Verandah.
+
+> z
+Time passes...
+"Three witches of the wood, awaiting Your Highness' Judgment!" the herald shouted.
+"Why have you brought me these devils, Sir Hackus?" asked the King.
+
+"Your Highness, these are the very witches responsible for curses on the Valley farms.  This one here even wears the mark of Heatherthorn."
+
+"It's not true!" Shouted a wood witch, "We cursed no..."
+
+"SILENCE!" Sir Hackus slapped the witch across her mouth and she shut it.
+
+The King sat and stroked his beard.
+"Very well, witches, you will lift your curse." The King's pronouncement brought silent attention from the gathered court.
+
+"There is no curse!" shouted a second witch.
+
+"Sir Hackus, take that witch to the wall.  Show him the valley he has cursed and see if it will remind him."
+
+Hackus did so.
+
+[more]
+
+"We never cursed your farms!" cried the first witch and the King gave the sign to toss her companion over the wall.
+
+There was a moment of silence and then the two remaining withces began to shake and wiggle.  I saw my father mimic them in understated pantomimes, perhaps studying their movements, but even he stopped to listen when they spoke as with many voices:
+
+[more]
+"There is no curse upon your land,
+But now you're cursed by your own hand.
+Never again will your words take a life,
+Nor those of your guards, your subjects, your wife.
+Your vicious kingdom consumed by peace,
+But your reign of that land on a tenuous lease.
+This curse protects all, even you it defends,
+Neither sword nor disease may signal your end.
+Wicked king, you will live in the sadness of sin,
+'til your reign be undone by a foolish grin."
+
+Were the words not enough, the lightning and clouds terrified the court.  King Harold was steaming mad.
+
+[more]
+"THROW THEM ALL OVER THE WALL!" he screamed, but the Wizard Flatherik stopped him.
+
+"No, sir.  The curse is real.  You may not take their lives.  It would be your end I'm sure."
+
+"What to do then, wizard?"
+
+"Banish them, Highness.  Banish them to a place of life, but from which they may never return."
+
+"Make it so," said the king and rose from his throne to leave.
+
+"Highness, why not simply bring them to bed,
+Show them a good time and they'll forgive you instead!"
+It was a Jester's job, usually, to make the worst jokes possible at the worst times possible, but this was bad timing on my father's part.
+
+The King wheeled on his heels and pointed at my father.  "Flatherik! Banish Jinglebottom as well.  We can't afford his grins around here anymore."
+
+At that, the King left for his keep and never returned.  My father disappeared in a puff of wizard smoke, and I remember the smell of it even as I stand on the Verandah today.  "Fancy Pants.  Hello.  We're waiting." The Queen is tapping her fingers together impatiently.  You've daydreamed through the herald's announcement.  Time to start juggling.
+
+> juggle
+You toss the pins, one after the other, into the air.  Everyone has seen juggling before, but you will wow them with the next part of your act.  After you've gotten their attention with dips and spins, syncopated throws, and even foot juggling, it's time to light the pins on fire.
+
+> light pins
+You strike the flint and steel together, producing a spark.  The wicks are easy enough to light, and you disrupt your juggling for a brief moment only.  The crowd emits oooohs and ahhhhs at the fire, and you resume juggling.
+
+You throw the flaming pins into the air and behind you, under your codpiece and around your shoulders.  The crowd is wide-eyed and stunned, but not laughing.  Though it's exactly what you'd hoped, it still feels wrong.
+
+[more]
+Is it their stern faces that feel wrong though?  No, it's something else.  It's your crotch!  That last pass under the codpiece was too close!  "That what you get for dropping your focus!" you can almost hear your father saying as your jester's kit begins to smolder!
+
+You drop the pins and roll around on the ground but the fire will not go out!  You must swat your crotch to put it out!
+
+> swat crotch
+You stop rolling around and screaming just long enough to raise your hand high and smack it down upon your flaming crotches, stifling the fire, if singing your hand a bit.  Fortunately, the fire is out, and your parts protected by your codpiece and your by your namesake, the fancy pants under your jester's kit.  Unfortunately, the scene is hilarious...
+
+[more]
+A few quiet snickers rise up from the court, nobles, knights, it doesn't matter.  Their are too many of them to punish each privately.  The Queen stands, points at you, and shouts "Grand Wizard Flatherik! Fancy Pants seeks to end Harold's reign with his foolish grins! Banish the treasonous jester!"
+
+There is a cloud of smoke, that old familiar smell, and then darkness.
+
+> use flint
+You strike the flint and steel together, producing a spark.  And the room lights up.  There is some orangish gloop and glop hanging from the ceiling above you, and it catches, creating a small fire, just bright enough to see your prison by.
+
+> x gloop
+As you examine the gloop and glop, watching the fire consume it, you realize the nature of your prison.  The Queen's word will not have killed those banished, for no one can starve to death in a pumpkin!  As you are working out the logic (magic?) of your predicament, it dawns on you that your father is not here in this pumpkin with you, and even now, banished 5 years later, you will never find him.
+
+While you contemplate your predicament, a small seed drops from the burning gloop & glop.
+
+> get sharp seed
+Ok, you pick up the small sharp seed.
+
+> dig
+You begin to scrape away at the pumpkin's guts, carving a tunnel through which you will escape your vegetable prison.
+
+[more]
+As the time passes, you grow weary, but your laughter, giddy and incessant, keeps you awake.
+
+[more]
+The digging is slow, and after a few hours, you've watched the fire consume much of the pumpkins pulp.  You yourself have eaten it too.
+
+[more]
+When you finally break through the pumpkin's tough outer skin, you can see through to the night sky outside.  You can see the Glorious Verandah to the Southwest.  You are in a pumpkin of the Hallowed Garden.  The garden was built not long after the Witches' Curse, and now as its sinister purpose is revealed, you cannot help but laugh.  You will never escape this banishment.  Flatherik is an excellent wizard to have shrunk you into this horrible prison, but he can't save the Queen from your digging.
+
+[more]
+A few hours later, you've cut two eyes and a huge, grinning gash into the wall of the pumpkin.  The fire has consumed almost the entire inside of the pumpkin, but if you climb from your perch, you will die.  So you sit and stare across the Hallowed Garden at the Queen on her Verandah.  Even as the flames consume you, you can see her peer out at the Garden, turn in horror, and throw herself over the wall.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

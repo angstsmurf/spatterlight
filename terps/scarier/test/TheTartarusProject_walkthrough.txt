@@ -1,0 +1,103 @@
+answer phone
+n
+sit on chair
+talk to double
+e
+x reader
+put card on reader
+e
+s
+x buttons
+push 1
+n
+w
+open window
+throw card out of window
+e
+hide in cubicle
+n
+put card on reader
+n
+s
+s
+in
+open laptop
+type tartarus16
+put usb key in usb port
+open tartarus
+type b
+out
+n
+n
+push activate
+s
+s
+in
+open tartarus
+type c
+out
+n
+n
+push trolley
+sit in chair
+push activate
+sw
+w
+w
+n
+w
+knock on door
+tell michael about tartarus
+show usb key to michael
+z
+z
+z
+z
+open door
+e
+n
+n
+w
+e
+s
+s
+s
+open linda's door
+e
+get coin
+w
+n
+n
+n
+w
+z
+z
+z
+z
+ask peter for a cigarette
+give coin to peter
+give cigarette to tom
+w
+open tom's door
+n
+close door
+break window
+e
+put blue card on reader
+e
+push call button
+s
+push -1
+n
+look
+z
+z
+z
+z
+z
+z
+z
+push call button
+s
+push 1
+n

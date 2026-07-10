@@ -4579,6 +4579,40 @@ gsc_a5_main (void)
       glk_exit ();
     }
 
+  /* The "Adventure Upgrade" bracket-correction question (pre-5.0.26 file with
+     AND-then-OR restriction sequences): ask the player through normal line
+     input, like the ADRIFT 4 name/gender prompts, before building the run. */
+  if (a5model_upgrade_pending (gsc_a5_adv))
+    {
+      int yes = -1, n;
+      gsc_a5_put_string ("Adventure Upgrade\n");
+      gsc_a5_put_string (a5model_upgrade_question ());
+      gsc_a5_put_string ("\n");
+      while (yes < 0)
+        {
+          const char *reply;
+          gsc_a5_put_string ("\n> ");
+          if (gsc_a5_read_line (input, sizeof input) == 0)
+            continue;
+          for (reply = input; *reply == ' ' || *reply == '\t'; reply++)
+            ;
+          if (*reply == 'y' || *reply == 'Y')
+            yes = 1;
+          else if (*reply == 'n' || *reply == 'N')
+            yes = 0;
+          else
+            gsc_a5_put_string ("Please answer yes or no.\n");
+        }
+      n = a5model_upgrade_answer (gsc_a5_adv, yes);
+      if (yes)
+        {
+          char info[64];
+          snprintf (info, sizeof info,
+                    "Adventure Upgrade\n%d tasks have been updated.\n\n", n);
+          gsc_a5_put_string (info);
+        }
+    }
+
   run = a5run_new (gsc_a5_adv);
   if (!run)
     {

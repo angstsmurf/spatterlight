@@ -606,6 +606,15 @@ suite otherwise byte-identical (34 goldens unchanged, all unit tests pass).
 
 ## ⭐ October 31st: FULL 100/100 WIN wired, xoshiro FULL MATCH 106|0 (2 general engine fixes) — ✅ DONE (2026-07-03)
 
+> **(2026-07-11) October31stComp also wired.**  `October31stComp.blorb` is the
+> earlier COMP-RELEASE build of the same game (taf 2022-07-16 vs the post-comp
+> 2022-08-01 wired above; only the intro title line, a hints paragraph and the
+> witch-death wording differ).  The identical 153-turn walkthrough
+> (`October31stComp_walkthrough.txt`, straight copy) wins 100/100 first try:
+> **xoshiro 0 hunks, vanilla 106 — the same werewolf/mummy random-walk RNG
+> class**, so a DIVERGE row with no golden, like October31st itself.  No
+> engine changes needed.
+
 > **✅ DONE.** October 31st (Finn Rosenløv, 2022) upgraded from the 4-command
 > smoke probe to a FULL 100/100 win (153 turns), converted from the author's
 > own PDF walkthrough (user-supplied, `Oct_31st_Walk-through.pdf`).  All four

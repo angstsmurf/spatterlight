@@ -1,0 +1,131 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.Adventure Upgrade
+3 tasks have been updated.the House
+"the HOUSE"
+by Po. Prune, using the V.5 developer created by Campbell Wild.
+Notice: Do NOT use the restore function as it will not reset any task previously executed in the game, and the game may become unsolvable
+
+The sound of the iron gate slamming shut behind you still ring in your ears as you reluctantly walk up towards the house that lies silent in the pale moonlight.
+It has become a tradition that you and your friends give each other dares at Halloween. This year is no different and you are to spend the night with your girlfriend Vickie at the old deserted house on the outskirts of town.
+But now you are a bit worried. It's been three hours since you last heard from her, and that was only a brief text message telling you that she was waiting for you at the house.
+Well, here you are, but there are no sign of her, and she hasn't answered any of your many calls.
+
+Lawn
+A gravelled path winds its way through the lawn like a silvery river in the pale light form the full moon high above. On each side of it lies the wilderness that was once a beautiful garden. Nothing has been done here for ages and patches of weed has overtaken most of the lawn. To the north, towering above you lies the house, a dark silhouette against the beams of the moon.
+
+> n
+The sound of your steps along the path sounds like gunshots in the quiet night and you take a breath of relief when you finally step up on the porch.
+
+Porch
+You are engulfed almost in complete darkness. Only here and there does the moon manage to light up part of the porch making the shadows seem even deeper.
+Behind you, a few wooden steps leads down to the gravelled path and the lawn, and in front of you, bathed in the few rays from the moon is the front door and a doormat.
+Right next to the door is a window with the curtains closed.
+
+> look under mat
+Aha, how ingenious, the key lies under the door mat
+
+> get key
+(from the welcome mat)
+Ok, you take the skeleton key from the welcome mat.
+
+> unlock door
+(using the skeleton key)
+The key fits perfect into the door. A quick turn and the door slowly swings open.
+
+> x shadows
+The shadows are deep and scary. There's no telling what might hide in there and your imagination threatens to run wild. Then you notice a bundle of clothes lying against the wall.
+
+> x clothes
+Picking up the clothes you discover that it's your Halloween costume that Vickie promised to bring.
+
+> wear costume
+Ok, you put on the dracula costume.
+
+> in
+As you walk through the door a hollow voice greets you: “Welcome Count. We hope you will find your stay and the dinner satisfactory.
+Oh, and please mind the gap in the floor, an intruder visited us earlier this evening... She's in the basement now. I do believe that she's just your “type”
+A shrilly laughter echoes through the corridor.
+
+Corridor
+Everything is dark in here. With the image of the gaping hole in the floor still before your eyes, you dare not move in any direction.
+
+> open curtains
+Much better! Although much of the corridor is still covered in darkness, the little light that seeps through the dirty windows allows you to see the big gap in the floor and a single door at the end of the corridor.
+
+> open window
+You fight the window for a short while but slowly it gives in and with an eerie sound slides open.
+
+> out
+You move out.
+
+Porch
+You are engulfed almost in complete darkness. Only here and there does the moon manage to light up part of the porch making the shadows seem even deeper.
+Behind you, a few wooden steps leads down to the gravelled path and the lawn, and in front of you, bathed in the few rays from the moon is the front door and a doormat.
+Right next to the door is a window with the curtains closed.
+
+> x swing
+It looks rickety as it stands there. A mournful sound coming from it as it gently moves in the breeze. The cushions are long gone and all that's left is a wooden board where the springs ought to have been.
+
+> get board
+Ok, you pick up the wooden board.
+
+> climb through window
+You climb through the window.
+Corridor
+The little light that manages to filter through the window reveals a rather long narrow corridor. On the other side of the nasty looking hole in the floor you can see three doors. One at the far end of the corridor to the north, and one to the east and one to the west. Behind you, to the south is the front door leading out to the porch.
+
+> cover hole with board
+You manage to slide the board across the floor to the other side of the gab. It is now safe to proceed.
+
+> open western door
+You reach out and open the door.
+
+> w
+You walk into what must be the kitchen.
+
+Kitchen
+There isn't much in here, only a counter and a kitchen cabinet which shines ghostly white in the moonlight. An mouldy smell penetrates every inch of the kitchen, like no one has been here for a very long time.
+
+> open cabinet
+You open the kitchen cabinet.  Inside the kitchen cabinet is a wooden shelf.
+
+> get shelf
+(from the kitchen cabinet)
+Ok, you take the wooden shelf from the kitchen cabinet.
+
+> break shelf
+In one quick move slam the shelf down across your knee. It breaks with a dry crack leaving a sharply pointed stake.
+
+> out
+You move out.
+
+Corridor
+The little light that manages to filter through the window reveals a rather long narrow corridor. On the other side of the nasty looking hole in the floor you can see three doors. One at the far end of the corridor to the north, and one to the east and one to the west. Behind you, to the south is the front door leading out to the porch.
+
+> n
+You slowly walk down the dark stairway into the cellar.
+
+Cellar
+The cellar is quite big and extremely warm. A table, covered with a snow white table cloth and lit up by three large golden candelabras is placed in the middle of the room. Behind you is the stairs leading up to the corridor above.
+Vickie is sitting pale at the end of the table, a decanter filled with a deep red coloured liquid and two crystal glasses are placed near her.
+Vickie is here.
+
+> untie vickie
+No sooner have you begun freeing your girlfriend before a shadow appears out of the darkness. A black Tuxedo, a dark cape with a red lining, the pale complexion … The real Count Dracula has arrived.
+The two of you stare at each other, locked in a deathly silence. Then a hollow voice sounds through the cellar:
+“Which one of you are the real Count, I wonder” what feels like ages pass as you feel yourself being studied by the invisible spirit. “I cannot tell!” the voice sounds surprised and puzzled.
+Dracula smiles scornful, “Let us fight to the death, then. Only the true Count Dracula will survive”
+
+> kill dracula
+As Dracula throws himself at you in a vicious attack, you move backwards. You reach for the stake and hold it in front of you closing your eyes from what must come.
+You feel the stake penetrating flesh and a mournful scream of a thousand lost souls fills the room. You slowly look and find yourself staring into the eyes of Dracula, so close that you can feel his last breath. He slowly sinks down ending in a dark bundle on the floor. As you watch he starts to disintegrate, slowly turning to dust before your eyes and soon there's nothing left but a pile of grey dust on the floor.
+
+You quickly run to the table and with trembling hands you untie Vickie who jumps into your arms kissing you passionately. Hand in hand you leave the cellar where the pile of dust is, grain by grain, being swept away by a light breeze. You walk up the stairs and out into the night leaving the house behind you.
+
+Congratulations you have won the game.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -67,7 +67,7 @@ main (int argc, char **argv)
   uint8_t *file_buf, *payload, *xml;
   uint32_t file_len, payload_len, header, trailer, region_len, xml_len;
   a5_blorb_chunk_t chunk;
-  int is_v5;
+  int is_v5, from_blorb = 0;
 
   if (argc != 2)
     {
@@ -87,6 +87,7 @@ main (int argc, char **argv)
       fprintf (stderr, "', %u bytes\n", chunk.size);
       payload = (uint8_t *) chunk.data; /* aliases into our own buffer */
       payload_len = chunk.size;
+      from_blorb = 1;
       if (chunk.type != A5_CHUNK_ADRI)
         fprintf (stderr, "blorb: warning: Exec chunk is not 'ADRI'\n");
     }
@@ -151,8 +152,12 @@ main (int argc, char **argv)
     }
   region_len = payload_len - header - trailer;
 
-  /* De-obfuscate the zlib region in place, then inflate. */
-  a5_deobfuscate (payload, header, region_len);
+  /* De-obfuscate the zlib region in place, then inflate.  A pre-5.0.20-layout
+     BARE .taf (no Babel size field) is stored as plain deflate, not obfuscated
+     (FrankenDrift FileIO.vb:816); a Blorb Exec chunk is obfuscated regardless
+     of layout (FileIO.vb:753, bDeObfuscate) -- mirror a5model.cpp's loader. */
+  if (is_v5 || from_blorb)
+    a5_deobfuscate (payload, header, region_len);
   fprintf (stderr, "zlib region: offset %u, length %u; first bytes %02x %02x\n",
            header, region_len, payload[header], payload[header + 1]);
 

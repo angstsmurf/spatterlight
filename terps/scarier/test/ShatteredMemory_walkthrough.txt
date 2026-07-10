@@ -1,0 +1,52 @@
+# Shattered Memory - Concept Demo (Jin Sane; ADRIFT 5.000024) -- full-points
+# walkthrough to the End Demo (Neutral) ending.  A first-person amnesia
+# vignette: come home to your apartment, poke through your life, answer the
+# knocking, and walk out on the memory.  Custom Points variable; this route
+# collects all 10: unlock the apartment door, open the front door after the
+# knocking starts (5 turns after entering the living room), take the
+# newspaper, drink the scotch, take the pendant from the bathtub, close the
+# (opened) bathroom cabinet, smoke a cigarette (cigarettes from the kitchen
+# cupboard BEFORE the lighter -- the take-task refuses while the lighter is
+# held -- lighter from the wardrobe), read the journal from the bedside
+# drawer (unlocked by the bronze key hidden in the pills box), lie on the bed, and the final menu choice.
+#
+# Ending variants key off what you carry south from the bedroom: with both
+# the newspaper and the pendant held the fullest variant (Task29) plays;
+# choose "1" at the prompt.
+x moon
+x building
+unlock door
+x sofa
+x coffee table
+take newspaper
+read newspaper
+open cupboard
+take cigarettes
+x tv
+turn on tv
+watch tv
+drink scotch
+open front door
+e
+x bathtub
+take pendant
+open cabinet
+x pills
+open pills
+take bronze key
+close cabinet
+w
+n
+x wardrobe
+open wardrobe
+take lighter
+smoke cigarettes
+x bedside table
+x photograph
+unlock drawer with bronze key
+open drawer
+take journal
+read journal
+lie on bed
+s
+1

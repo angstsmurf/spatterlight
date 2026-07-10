@@ -1,0 +1,224 @@
+Untitled
+The holiday season and luxury hotel. What could be more great... for master thief such as yourself!
+
+The lobby
+It is really luxurious.  Also here is a counter.  Exits are north, east, south, west and southeast.
+
+> x counter
+It is as roomy as poor man's billiard table.  A key is on the counter.
+
+> west
+You move west.
+
+A toilet
+It is roomy toilet that has tiles and marble.  Also here is a sink, a hook, a toilet bowl and a toilet paper.  An exit leads east.
+
+> take towel
+(from the hook)
+Ok, you take the towel from the hook.
+
+> east
+You move east.
+
+The lobby
+It is really luxurious.  Also here is a counter.  Exits are north, east, south, west and southeast.
+
+> east
+You move east.
+
+Your room
+It isn't biggest room in the hotel. Sure, it isn't quite a cupboard under the stairs. Still...  Also here is a sink.  An exit leads west.
+
+> take soap
+(from the sink)
+Ok, you take the soap from the sink.
+
+> put soap in sink
+You do that. Now you got nice wet soap.
+
+> dry soap
+You do that. Towels are great. (And my, aren't your life complicated?).
+
+> west
+You move west.
+
+The lobby
+It is really luxurious.  Also here is a counter.  Exits are north, east, south, west and southeast.
+
+> take key
+(from the counter)
+Ok, you take the key from the counter.
+
+> x key
+It has number 107 on it.
+
+> put key in soap
+You do that. Now you got nice impression of the key in the soap.
+
+> put key on counter
+Ok, you put the key on top of the counter.
+
+> south
+You move south.
+
+The front yard
+The bushes are as well sculpted as statues at poor man's art gallery. (Seeing all this luxury makes you think about tour relative poverty alot.)  Also here is a ashtray.  A man is here.  Exits are north and south.
+
+> x ashtray
+It stands next to the stairs. How posh -resort where you still can smoke publicly.  Inside the ashtray is a lottery ticket.
+
+> take ticket
+(from the ashtray)
+Ok, you take the lottery ticket from the ashtray.
+
+> south
+You move south.
+
+The main gate
+You are on inner side of the main gate. The bars of the gate shine and have yellow hue.  Also here is a sign holder.  A man is here.  Exits are north and south.
+
+> take sign
+(from the sign holder)
+Ok, you take the sign from the sign holder.
+
+> give ticket to man
+Trying to keep your face serious, you give him the ticket. As it appears, one of the guests in yard begins to watch drawing of the lottery numbers on his tablet and has to do it with loudest volume possible on a most expensive tablet. The numbers drawn are exactly the same as ones on the ticket. You pass out. When you wake up in your room, doctor tells you that you should be ok in few moments and leaves.
+
+> take bag
+Ok, you pick up the doctor's bag.
+
+> west
+You move west.
+
+The lobby
+It is really luxurious.  Also here is a counter.  Exits are north, east, south, west and southeast.
+
+> north
+You move north.
+
+A hallway
+It is full of doors.  Also here is a random door.  Exits are south and west.
+
+> west
+You move west.
+
+The restaurant
+The restaurant has clashing styles and is decorated with the elements from different cultures.  A Chinese chef is here.  An exit leads east.
+
+> buy spaghetti
+"Put it on my credit," you say and the chef brings you a plate of spaghetti. The whole experience is quite surreal.
+
+> east
+You move east.
+
+A hallway
+It is full of doors.  Also here is a random door.  Exits are south and west.
+
+> south
+You move south.
+
+The lobby
+It is really luxurious.  Also here is a counter.  Exits are north, east, south, west and southeast.
+
+> west
+You move west.
+
+A toilet
+It is roomy toilet that has tiles and marble.  Also here is a sink, a hook, a toilet bowl and a toilet paper.  An exit leads east.
+
+> put spaghetti in bowl
+You flush down the spaghetti. Even all of the money paid for water pressure in those pipes can't save the toilet bowl now. You use smartphone of the man from the next cubicle to call the plumber (and you conviniently keep the phone).
+
+> drop bag
+Ok, you put down the doctor's bag.
+
+> take plumber's bag
+You get the plumber's bag and sneak out.  Man comes from the restaurant and leans on you. Maybe he had one drink too many in the restaurant's bar or maybe he tried cuisine in the restaurant itself. Anyhow, he vomits on your outfit and then moves on. At least you got his key, that he dropped on your feet out of all this.
+
+> open bag
+You open the plumber's bag.  Inside the plumber's bag is a file.
+
+> take file
+You are already carrying the file!
+
+> file key
+You make yourself duplicate key out of the key slightly smelling of vomit, using the impression in the soap as pattern. To shape the key you use the file from the plumber files. Ta-ta-dah.
+
+> north
+You move north.
+
+A hallway
+It is full of doors.  Also here is a random door.  Exits are south and west.
+
+> unlock door with duplicate key
+You unlock the random door with the duplicate key.
+
+> open door
+You open the random door.
+
+> north
+You move north.
+
+A luxurious room
+It is big and impressive.  An exit leads south.  You didn't take into account that the man outside could have rented that large room with someone else. (You probably thought he would fill every corner of the luxurious room with his big ego.) You meet the man's wife here. Trying every trick out of that pathetic series about Playboy fantasies you saw as teenager on the television, you find out to your surprise that gods love cliches. Later you wake up between her arms to find her husband staring at you two. More cliches abound and you find yourself in hallway with aching head and little table that adorned the luxurious suite, lying next to your feet.
+
+> south
+You move south.
+
+The lobby
+It is really luxurious.  Also here is a counter.  A crowd is here.  Exits are north, east, south and southeast.
+
+> ask crowd about rats
+It seems their rooms are plagued with rats. Uh, oh, when the guests would leave, you would be out of a loot. Do something about it.
+
+> southeast
+You move southeast.
+
+A cupboard under the stairs
+It is another cupboard... i mean a cupboard under the stairs.  Also here is a circus sign.  An exit leads northwest.
+
+> take circus sign
+Ok, you pick up the circus sign.
+
+> northwest
+You move northwest.
+
+The lobby
+It is really luxurious.  Also here is a counter.  A crowd is here.  Exits are north, east, south and southeast.
+
+> south
+You move south.
+
+The front yard
+The bushes are as well sculpted as statues at poor man's art gallery. (Seeing all this luxury makes you think about tour relative poverty alot.)  Also here is a ashtray.  A man is here.  Exits are north and south.
+
+> south
+You move south.
+
+The main gate
+You are on inner side of the main gate. The bars of the gate shine and have yellow hue.  Also here is a sign holder.  A man is here.  Exits are north and south.
+
+> put circus sign in holder
+You do that. People leaving the hotel give glances to the circus sign. Some of them move back into the hotel. One woman stops next to you and says: "A circus or not, but those rats smell bad."
+
+> south
+You move south.
+
+A small shop
+You can really tell this isn't part of the hotel -every kind of good is selled in same place.  Also here is a quality perfume and a tin can.  A clerk is here.  An exit leads north.
+
+> take perfume
+Ok, you pick up the quality perfume.
+
+> take can
+Ok, you pick up the tin can.
+
+> give can to clerk
+He takes it and you cleverly exit the shop before the clerk turns the alarm off.
+
+> give perfume to woman
+She takes it and goes back to hotel. The hotel's night porter walks up to you and says: "Thank you for convincing the customers to stay." When he is about to walk off then you ask him, isn't there anything more in it for you. "But there is," the clerk says winking, "I close eye to all the monkey business you carried on in the hotel and oh, also in that little shop near the hotel."
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

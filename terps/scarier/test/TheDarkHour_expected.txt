@@ -1,0 +1,201 @@
+The Dark Hour
+A text-based game by Alexandra Koslowska
+
+A short surreal game.
+
+Controls:
+Examine or x [object]
+Use key
+Go to [direction]
+Inventory or i
+
+0
+They called it the "Dark Hour".
+
+They said, if you pass the tests, one question will be answered - but only one, and you cannot come back.
+
+They said, if you don't pass the test, you'll have to pay - but they didn't say how. (You don't think you need to know anyway. If it happens, it happens.)
+
+Still.
+
+You have to try.
+
+An exit leads east.
+
+> east
+You move east.
+
+1
+You stand in a room.
+
+There's a computer, oldschool-looking, sitting on a wooden desk a few meters ahead of you. The keyboard looks ancient, the keys standing out. You could swear this stuff is coming straight from the 90s.
+
+No windows. No doors.
+
+It, the Dark Hour, was supposed to start at 2 am. Back at home you looked at the clock at 01:59.
+
+Now the watch on your wrist says 00:00.
+
+"Welcome."
+
+Your head shoots up - no one mentioned anybody else would be here with you.
+
+The figure in front of you is smiling brightly, despite being dressed in all black clothes. They seem to fit rather tight, even on their lanky body. The stranger keeps their hands behind their back. They're probably about your height but for some reason seem way taller. The emptiness in their eyes is unnerving.
+
+You'd like to take a step back, but there's only the wall. Your hands search frantically through your pockets, but you have nothing on you. Nothing to defend yourself.
+
+What did they say online? Only the ones worthy could make it this far?
+
+Are you really worthy?
+
+The person takes a step forward and you hold your breath.
+
+"Come on", they say rather cheerfully. "Let's start the first round."
+
+"Fi-first round?" The words stumble out of your mouth.
+
+"Yes", the person answers, simultaneously patient and annoyed, as if they're unsuccessfully trying to explain something way too easy to a child, that they should have known already. "Twenty minutes for each round. So let's not waste any more time." They reveal one hand from behind their back and gesture it towards the computer. "Now, please."
+
+> x computer
+You sit down on the chair in front of the desk. The pattern on its fabric is offputting. Like those cheesy, colorful patterns in public buses.
+
+The desk the computer sits on is bleak and has a cupboard. Neither the desk nor the keyboard provide any hints on what to do. The computer has an on/off button.
+
+There is a cursor in the middle of the screen. As you move it lightly, you notice it was blocking a single pixel; and as you move it back onto the pixel a small explanatory window appears, titled "game description".
+
+> x cupboard
+You rattle the handle of the cupboard.
+
+The person behind you giggles.
+
+  The cupboard is currently locked.
+
+> nothing matters
+The computer makes a "ding" sound out of somewhere - you don't know where it's got its speakers but you realize you don't need to know.
+
+You feel the person's gaze on your neck.
+
+Your hand brushes over your sweater - there's something which wasn't there before.
+
+> i
+You are wearing nothing, and are carrying a first key.
+
+> use first key
+The key fits perfectly for the cupboard.
+
+Inside is a paper plane.
+
+Someone, the person, lays a hand on your shoulder. You shudder. The cold seems to seep through the fabric of your shirt.
+
+"Congratulations", they say as you stand up and they lead you to a red door that hasn't been there before. "Now it's time for the second round."
+
+The door leads south.
+
+> x paper plane
+A simple paper plane. Could have been folded better.
+
+> south
+You move south.
+
+2
+"You made it just in time", the figure sing-songs and it sends shivers down your spine. If you could you would never turn your back to them. They have an ... aura to them that you can't quite place. Probably because you seem to be in some sort of realm out of your own dimension in space-time. It would be strange if nothing felt off.
+
+Still, you can't help but wonder why whoever created this thinks people who come here need someone to look over their shoulder like this.
+
+The door handle just short of resists as you push it down. Something inside it makes a scratching sound. It's rustier than it looks.
+
+A wall of warm air meets you as the door falls open. For a moment you think there might be an electrical fan, pushing the air in your direction, but there isn't. It feels like this room hasn't been opened in months and that the sun has been shining inside through the non-existent windows.
+
+You soon figure it's because there's three heaters on each of three walls. The one wall where you come in is an exception.
+
+There's another desk with a computer on it but it seems like you've got a tech upgrade. The materials of both the machine and the furniture are rather shiny, even expensive if you think about it longer. You imagine how smooth it must be to touch it.
+
+Your creepy companion steps in the way as you lean forward and you almost flinch because it's so sudden. They make no sound when they move. "Nah, that's not it." They point to the pot plant sitting on top of the desk. "That's it."
+
+> no one cares
+You look at the pot plant as it nods in agreement.
+
+Again, something seems to appear in the pocket of your sweater.
+
+> use second key
+The key fits perfectly for the cupboard.
+
+Inside is an origami crane.
+
+It reminds you of something but you can't quite grasp it.
+
+"Congratulations", the figure behind you says again, as you stand up and they lead you to a blue door that hasn't been there before. "Now it's time for the third round."
+
+> x origami crane
+It has a flaw in one of its wings and its beak is slightly dented. You still sort of like it. Maybe even more because of the flaws.
+
+> east
+You move east.
+
+3
+As you have already expected the theme for the last room seems to be "cold". A sharp but thankfully short pain shoots through your hand as you press the icy door handle.
+
+A gush of arctic wind blows through you and involuntarily you start to shiver. But there's nothing inside here that could cause this temperature drop, at least, nothing you'd know of.
+
+Again you find yourself standing in front of a computer, sitting on a desk. No plants this time.
+
+Instead, a wall of tiles straight ahead of you.
+
+Somehow the room seems smaller than the previous ones. Tighter. Everything is too close, especially the stranger beside you. You feel like they're breathing in your neck; as you turn around though, the figure just stands in the corner, closely examining their fingernails.
+
+Of course they don't have any interest in you. You're not the first and you won't be the last.
+
+More and more questions about this place start burning up in your mind - you keep them to yourself. You know they won't be answered anyway.
+
+You only need one answer, and just one easy riddle is separating you from it.
+
+> never good enough
+All the tiles light up as if to cheer you on. You're not sure how to feel about all the answers so far.
+
+But they weren't answers to your own question anyway, were they?
+
+You're sure something new has appeared in your pocket.
+
+> use third key
+The key fits perfectly for the cupboard.
+
+Inside is an old "heaven and hell" game.
+
+"Congratulations", the figure behind you says once again, like they're just in an endless loop, as you stand up. They lead you to a white door that hasn't been there before.
+
+"You can go."
+
+> x white door
+You leave.
+
+You're alone.
+
+You're back home.
+
+You take out the paper plane, origami crane and "heaven and hell" game you got after every correct answer.
+
+You fold them open, one after another, to find your own answer.
+
+"How can I become happy?"
+
+.
+
+.
+
+.
+
+---------------------------
+
+Don't let
+
+Fear
+
+Stop you
+
+---------------------------
+
+______________________________________________________________________
+
+Thank you for playing!
+Would you like to restart, restore a saved game, quit or undo the last command?
+

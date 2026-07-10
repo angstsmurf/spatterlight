@@ -1,0 +1,268 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.
+
+what colour should the virtual room be?  the virtual human
+
+ virtual room
+this is the virtual room.
+it will house the virtual human.
+it is an empty room.
+see, the room is empty.
+there are only these words.
+these words, in this font,
+    saying these things.
+the virtual room has no boundaries
+    and is uncoloured.
+
+what colour should the virtual room be?
+
+> black & white
+
+ virtual room
+this is the virtual room.
+it will house the virtual human.
+it is an empty room.
+see, the room is empty.
+there are only these words.
+these words, in this font,
+    saying these things.
+the virtual room has no boundaries
+    and is uncoloured.
+
+what colour should the virtual room be?
+
+how does it feel to be
+    in the black & white-coloured
+    room with no boundaries?
+
+the black & white room feels...
+
+> calm, warm
+
+now the virtual human is in the room.
+this is the virtual human
+    in the calm, warm-feeling room.
+look at the virtual human.
+look at the ear, eyes, and mouth.
+yes, those are parts of the virtual human.
+what are some other parts of the human?
+
+is the virtual human male, female, both, or none?
+
+> look
+indeed.
+but should i refer to the virtual human as
+    male, female, both, or neither?
+
+> male
+
+ virtual room
+this is the virtual room.
+it has no boundaries and is
+    black & white-coloured.
+it feels calm, warm.
+
+what is it like to be the virtual human?
+how must it feel?
+look at him.
+
+does the virtual human have feelings?
+
+> yes
+how does the virtual human feel?
+
+> lonely & proud
+
+ virtual room
+
+the calm, warm room has not changed.
+it is black & white-coloured.
+the virtual human is here.
+
+how long has the virtual human lived?
+is he old or is he young?
+
+what is the age of the virtual human?
+
+> old
+can you refer to that as a word
+    or numerical value under eleven digits?
+
+> yes
+what number is it?
+
+> 33
+
+move in a room
+jump up & down
+shave
+eat
+speak
+
+these are some things
+    the virtual human
+    can do
+    in the virtual room.
+
+what is another verb
+    or verb phrase that also describes
+    what the virtual human can do?
+
+the virtual human can...
+
+> dance & sing
+
+ virtual room
+
+yes, there he is:
+the virtual human in the boundless,
+    black & white-coloured, calm, warm room.
+look at him dance & sing.
+
+who is the human?
+why is he there?
+what does he want?  the virtual human is here.
+
+what does the virtual human want?
+
+> happiness
+yes, that must be it.
+the virtual human wants .
+
+and the virtual human is most likely
+    to shave his...?
+
+> beard
+
+ virtual room
+
+now we have the beard in the virtual room
+    with the virtual human.
+there, the virtual beard.
+the virtual beard of the virtual human.
+the virtual human shaves his beard.
+see, the virtual human is shaving
+    his beard
+    in a boundless, black & white-coloured,
+    calm, warm room.
+of what is this human thinking as he
+    shaves his beard?
+
+is he thinking of the room he is in?
+
+> no
+is the virtual human thinking of his beard?
+
+> no
+of happiness?
+
+> no
+love?
+
+> no
+death?
+
+> no
+of a dream he has had?
+
+> yes
+
+around his right hand was shining a ring of hazy white flames.
+
+he considered carefully the left side of his own dark coat.
+
+in the middle of his heart there was a small white spot.
+
+does he know what it is supposed to mean?
+
+> yes
+yes, he must.
+
+what does it mean?
+
+> that he is not alone
+
+ virtual room
+now there is a table, too, in the room;
+    a table and chairs and the human
+    and the words (in their font).
+the virtual human is going to eat
+    and to drink.
+we will see a meal.
+how does the virtual human eat?
+what does he eat?
+
+what is the virtual human's main course?
+
+> bread & wine
+it goes without saying, the virtual human should eat .
+
+he wants to eat  because he wants happiness, right?
+
+> no
+is it because he is thinking about ?
+
+> no
+because he feels lonely & proud?
+
+> no
+has his age induced his longing
+    for bread & wine?
+
+> yes
+ah, yes.
+when the virtual human is 33,
+    he would want bread & wine.
+33 is the age for
+    bread & wine.
+
+  and with his bread & wine,
+    what should the virtual human drink?
+
+> red wine
+
+ virtual room
+
+the virtual room is black & white-coloured
+    and completely boundless.
+the virtual human is here, sitting
+    on a chair at a table.
+the room feels calm, warm.
+the human feels lonely & proud
+    and wants happiness.
+on the table: bread & wine and red wine.
+the meal is served.
+
+now the virtual human will eat.
+he will eat while he thinks about
+    .
+he puts bread & wine into his
+    mouth and swallows.
+he drinks red wine.
+now the drink is gone, too.
+
+this is a meal.
+
+is it tasty?
+
+> maybe
+the virtual human shrugs.
+
+soon the words will be gone.
+no words anymore.
+
+now there must be questions.
+
+the virtual human asks you:
+
+"why is fortune so capricious?
+and why so quickly done?"
+
+what is your answer?
+
+> because happiness is brief
+
+would you like to restart, restore a saved game, quit or undo the last command?
+

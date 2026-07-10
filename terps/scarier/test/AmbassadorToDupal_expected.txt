@@ -1,0 +1,77 @@
+Ambassador to Dupal
+Here you are, with Bartley and Kenners, on your way to Hannerby's, officer Bartley's favorite bar.  Who knows why the Glorious Leader sent you to this planet, but they seem to want you to have a good time.  Sit back and enjoy yourself; it's your first time in a car, and it's a hell of a lot nicer than a landing can!
+
+Bartley leans over the central console to tap something in and smiles at you.  "I hope you're over the entry fatigue, I'm ready for a drink."
+
+The car
+You've heard about cars before, but there's no need for them Station-side.  Apparently this is one of the nicer models; Bartley's a Level 4 Soldier.
+
+> look
+
+The car
+You've heard about cars before, but there's no need for them Station-side.  Apparently this is one of the nicer models; Bartley's a Level 4 Soldier.  The car ride is smooth.  Actually, it beats walking all over the place to get to porters.
+
+> ask bartley about car
+"Pretty nice right?  Usually they have a sunroof too.  Oh well."  Kenners smiles and says, "We should be there pretty soon.  Anyway, have a look at the capital city on your way!"
+
+> look city
+Through the windows you can see Liconaz, Dupal's captial city.  You've never seen a city before, but it's not too different from the P.E.U. games.  Tall buildings, huge roadways, lots of lights.  "Here we are" says Bartley as the car stops moving and the door opens.
+
+> out
+You step out of the car and a doorman greets you as the car closes up and drives itself away.
+
+Inside the restaurant, Hannerby's, there is an assortment of citizens, mostly level 3 through 5.
+
+The host seems to recognize Bartley and ushers you to a lift.  "Tower 3 has the best view of Liconaz you can get out here," Bartley assures you as you ride the lift up.
+
+Tower 3 is a small circular room with a private bar at the center and 360 degrees of windows and couches.  An attendant stands inside the bar, hands folded and waiting.  "Have a seat," she says.  "How are you tonight, Frednick?"
+
+Bartley nods at her and says to you "Welcome to the best restaurant in Liconaz, the best city on Dupal!  It's on me tonight."
+
+The attendant nods and says "If you're a newcomer to Dupal, might I suggest a Wormwood Shooter or perhaps... a jugger to get the night started?"  She waits for your order.
+
+> order wormwood
+"Very good sir," says the attendant and reaches under the bar.  She pulls up three small plastic guns with tubular barrels and lays one in front of each of you.  "May I suggest a bowl of our traditional Fargi Stew to accompany the shooters?"
+
+Bartley nods and the attendant serves up the soup.
+
+You take your shooter, and grasp it in your hand like a pistol, finger on the trigger.  To your right, Kenners has the barrel of hers in her mouth, pointed straight at the back of her throat.  On your left, Bartley is raising his to his mouth.  The barrel is full of a cloudy liquid, something floating in it.
+
+> drink wormwood
+You all fire your shooters and yours hits your palate with a SPLAT!  First a thick liquid with the familiar bite of Farthus and the consistency of cough syrup.  Less than a second later, however, there is another SPLAT! as the worm in the wormwood shooter meets your palate, exploding in a soft gush of ... do people planet-side eat trees?  Whatever it is, you're already drunk.
+
+Even fargi stew sounds great right now.
+
+> eat fargi
+Fargi never tasted so good.  The fungus is blended into the broth, and brings an earthy flavor to your palate along with a dry mouthfeel that helps you deal with whatever just exploded back there.  It's delicious so you finish the bowl.  The attendant says "well, I hope you're enjoying your first night on Dupal.  Might I make another suggestion?  The Steamcar and Happy Apple Fuzziness are our two most popular items recently."
+
+Steamcar is a mystery but of course you've had Happy Apple Fuzziness a million times; it's the favorite drink of the famed Emperor Heroes, and perfect for Green Celebration Day.  A Happy Apple Fuzziness would do nicely right now.
+
+> order fuzziness
+The attendant smiles and says "It's my favorite" as she pours you a double shot of Happy Apple Fuzziness.  The sweet familiar smell relaxes you and you think you might be able to cope with the culture shock after all.  The attendant places a few fargi crackers on the bar as well, but you know they're barely worth eating.
+
+You watch as Bartley sniffs his Steamcar and Kenners smiles at her Fuzziness.  Sip it or shoot it, you know either way is acceptable, one's just faster.
+
+> shoot fuzziness
+It's a simple drink, smooth and sweet, coating your throat.  Compared to the intensity of that wormwood shooter, it's a refreshing break.  Still, it does the trick, and once the shot's down, all that's left is fargi crackers.  You smile at a good first night on Dupal.
+
+> eat crackers
+Nah.  Why bother?
+
+> look kenners
+Kenners is Lvl 3 and carries herself like she's always ready to pull that pistol out.  Reminds you of the folks back home a little more than Bartley does.    "Fargi crackers not your style, huh?" says Kenners.  She isn't eating hers either.
+The attendant clears the table and begins "May I suggest a ..." but Bartley cuts her off.
+
+"We're headed out to the country I think!  Thanks for your help tonight Hannah."
+
+Bartley slaps you on the back "I hope you had a good time tonight ambassador.  You tell the Glorious Leader we are all ready for Green Celebration Day down here on Dupal!  Now lets go hunting.  You ever shot down a flapping hofferbyp?"
+
+Press any key to continue
+
+Congratulations, you've successfully gotten drunk in the company of superior officers on a brand new planet.  The Glorious Leader would be proud of you.
+
+Your score: drunk.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

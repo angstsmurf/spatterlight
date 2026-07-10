@@ -1,0 +1,26 @@
+# The Day Program V1 (Anonymous, "Untitled"; ADRIFT 5.0000353) -- a shitpost
+# CYOA maze told entirely through room descriptions: every room is a numbered
+# choice, most wrong picks land in an instant-death room, and there is NO
+# EndGame task at all -- even the five named "Ending" rooms off McDonalds
+# just sit there.  This route survives the full gauntlet (poop, mugging,
+# arrest, beard flattery, the hamster-assassin contract, ninja pebble,
+# Michael Jackson fight, bomb-clock sandwich) and stops in "You Got The
+# Savior of Mankind Ending" (northwest at the McDonalds counter).
+x room
+ne
+ne
+se
+s
+n
+n
+e
+n
+w
+ne
+n
+nw
+n
+w
+n
+w
+nw

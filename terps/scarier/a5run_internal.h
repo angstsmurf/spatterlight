@@ -167,6 +167,22 @@ struct a5_run_s {
      per-turn completion-message emission is byte-identical to before. */
   int    immediate_emit;
 
+  /* Sticky per-After-children-scan flag: some completion message evaluated
+     since the caller cleared it had a NON-BLANK raw template -- FD's
+     AddResponse bHasOutput test, which counts a whitespace-only "\n" template
+     as task output even though the rendered plain text trims to nothing.  The
+     After-children stop rule reads it alongside buffer growth (The Salvage's
+     station-known "\n" child must stop the scan before the fuel task). */
+  int    task_raw_output;
+
+  /* Set while the once-per-input TimeBased tick (ev_time_tick_all) and its
+     finish_turn run.  FD's TimeBasedStuff FLUSHES the tick's own output
+     (Display("", True)) before CheckEndOfGame emits the banner as a fresh
+     commit, so no pSpace/blank-line top-up separates them -- The Salvage's
+     "Daza.\n*** You have won ***".  emit_endgame skips its separator top-up
+     under this flag. */
+  int    in_time_tick;
+
   /* clsUserSession htblResponsesPass dedup for an event-fired task chain.  FD
      runs an event's ExecuteTask through AttemptToExecuteTask, which keys every
      completion message by its rendered text and shows each once (vb:783/1295).
@@ -257,6 +273,16 @@ struct exec_resp_scope {
   /* Positional ref signatures of every task frame that produced pass output on
      the direct path (execute_task_with_overrides), for the ov_fails rule. */
   std::vector<std::vector<std::string>> pass_sigs;
+  /* The single aggregate room-view response slot (FD htblResponsesPass keyed
+     on the stock Look's RAW template): where this command's first direct-path
+     `Execute Look` view landed in its sink.  A LATER Execute Look whose view
+     text differs (the player moved between them -- The Salvage's request
+     docking runs Look at the docked pad, then again on the bridge) REPLACES
+     those bytes in place: one view, first slot's position, last render's text,
+     exactly FD's one-key-per-raw-template response map. */
+  sb_t  *look_sink = NULL;
+  long   look_off = -1;
+  size_t look_len = 0;
 };
 
 static inline int
@@ -297,6 +323,7 @@ std::string lower (const std::string &s);
 /* a5run_events.cpp (events + walks runtime) */
 void ev_init          (a5_run_t *run, sb_t *out);
 void ev_tick_all      (a5_run_t *run, sb_t *out);
+void ev_time_tick_all (a5_run_t *run, sb_t *out);
 void drain_tasks_to_run (a5_run_t *run, sb_t *out);
 void a5run_flush_display_defers (a5_run_t *run, sb_t *out);
 void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
@@ -328,6 +355,7 @@ void run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out);
 void run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
                   sb_t *out);
 void update_seen (a5_state_t *st);
+void mark_player_arrival_seen (a5_state_t *st, const char *loc);
 int  conv_contains_word (const std::string &sentence, const std::string &check);
 void exec_scope_flush (a5_run_t *run, struct exec_resp_scope *sc, sb_t *out);
 

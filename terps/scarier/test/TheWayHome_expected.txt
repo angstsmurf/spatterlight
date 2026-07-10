@@ -1,0 +1,833 @@
+The Way Home (part 2 of The Bash Saga)
+
+INTRODUCTION
+
+Your name is Bash, a famous warrior, who has just obtained the fabled Dragon Diamond from the Forest of Fear [1]. You are now on your way to deliver the diamond to queen Drana, who ordered you to find the diamond in the first place.
+
+You left the Forest of Fear a few hours ago with the carriage that brought you here. However, the home trip is only for you and the horse as the queen's chauffeur Leon didn't make it [1]. You know you have to go through the desert to get back but first you need to drive to the ice valley in order to have enough water for the return trip.
+
+[1: See the first game "The Dragon Diamond" in The Bash Saga series]
+
+You roll in on the road to the ice valley. Suddenly something hard hits your head and everything becomes black..
+
+You slowly wake up and look around. You find yourself tied to a tree. Your adventure begins here.
+
+Special in-game commands:
+VOCAB - HELP - SCORE - CREDITS
+
+South end of garden (tied to a tree)
+You are sitting in a snowy garden surrounded by a fence made of solid ice. Several ice statues are scattered around the garden. To the east is the wall of a large ice cabin. You are currently tied to a tree with a rope. You have managed to get the lower part of your left arm free enough to move. In the northern part of the garden, two ice trolls sit around a fire. Two vicious looking dogs sit beside them. Right next to the trolls stands your carriage.  A meter or so away from you lies a sharp stone on the ground.
+
+> ask trolls for help
+You talk to the trolls and one of them comes over to you. "So you are awake huh? I guess we have to thank you for bringing us the Dragon Diamond - ha ha. Your quest was rumored around the country, so we just had to wait for you to come by. Tomorrow we will be gone in your carriage with the diamond." The troll grins and goes back to his troll buddy.
+
+> ask trolls for mercy
+"Shut up!" shouts one of the trolls. The other troll whispers: "He might be freezing! He hasn't got fur like we have". "Well I do not see him SHAKE so I am sure he is allright." says the first troll.
+
+> shake
+You shake to emphasize that you are freezing. The ice trolls see it. "Look, he IS shaking" says one of the trolls and points in your direction. "Okay, okay, I will get him a blanket then" says the other troll. He wanders around the cabin and soon returns with a blanket. The troll walks up to you and says: "I see you got one of your arms free. However, it is not gonna help you untie the hard knots on the back of the tree. Here, help yourself." He drops the blanket over your knees where you can reach it with your one arm. You grab hold of the blanket with your free hand.
+
+> get stone with blanket
+By repeatedly throwing the blanket at the stone and carefully dragging the blanket along the ground, you manage to bring the stone close enough to your free arm so that you can pick it up with your hand. You now have the sharp stone.
+
+> cut rope with stone
+With the sharp stone, you slowly cut your way through the rope, freeing first your right arm, then your entire body. As the trolls look away you sneak your way out of the garden to the south. Once out, you run west to make sure you are not caught again.
+
+T-junction
+You are at a T-junction. The road leads west out of the ice valley and further east back into the valley. Another road leads south to a lake.
+
+> east
+You move east.
+
+South of garden
+You are south of the garden from where you escaped recently. You can go east and west along the road, or north into the garden.  The garden is surrounded by a fence of solid ice. There is a wooden door in the fence.
+
+> east
+You move east.
+
+Ice cabin - by door
+You are south of the ice cabin. A wooden door is set in the wall. The door is closed and locked.  You can go east and west along the road.
+
+> east
+You move east.
+
+Ice cabin - beneath window
+You are south of the ice cabin. Two meters above ground there is an open window set in the wall.  You can go east and west along the road.
+
+> east
+You move east.
+
+Outside shed
+You are south of a small tool shed which is built against the back of the ice cabin. The road, which ends here, leads west.
+
+> north
+You move north.
+
+Inside shed
+You are inside the small tool shed. A couple of shelves line one wall. You can leave the shed to the south.
+
+> x shelves
+The shelves are old but sturdy.  You find something!
+
+Inside shed
+You are inside the small tool shed. A couple of shelves line one wall. You can leave the shed to the south.  Also here are two long boards, a pile of sticks, a box of nails, a hammer and an ice saw.
+
+> take hammer
+Ok, you pick up the hammer.
+
+> take saw
+Ok, you pick up the ice saw.
+
+> take nails
+Ok, you pick up the box of nails.
+
+> take boards
+Ok, you pick up the long boards.
+
+> take sticks
+Ok, you pick up the pile of sticks.
+
+> make ladder
+Out of the board, sticks and nails, and using the hammer, you build a two meter long ladder. You discard the empty box which contained the nails.
+
+> take ladder
+Ok, you pick up the long ladder.
+
+> south
+You move south.
+
+Outside shed
+You are south of a small tool shed which is built against the back of the ice cabin. The road, which ends here, leads west.
+
+> west
+You move west.
+
+Ice cabin - beneath window
+You are south of the ice cabin. Two meters above ground there is an open window set in the wall.  You can go east and west along the road.
+
+> west
+You move west.
+
+Ice cabin - by door
+You are south of the ice cabin. A wooden door is set in the wall. The door is closed and locked.  You can go east and west along the road.
+
+> west
+You move west.
+
+South of garden
+You are south of the garden from where you escaped recently. You can go east and west along the road, or north into the garden.  The garden is surrounded by a fence of solid ice. There is a wooden door in the fence.
+
+> west
+You move west.
+
+T-junction
+You are at a T-junction. The road leads west out of the ice valley and further east back into the valley. Another road leads south to a lake.
+
+> south
+You move south.
+
+North of lake
+You are north of a frozen-over lake.  A road leads north.
+
+> south
+You step onto the frozen lake and try to walk to the middle. However, your boots cannot grip the slick surface and you find yourself sliding across the entire lake all the way to the other side.
+
+Maybe if there was something on the soles of your boots it would prevent you slipping on the ice.
+
+South of lake
+You are south of a frozen-over lake.  A path leads south to the top of a big hill.
+
+> south
+You move south.
+
+Big hill
+You are on top of a great snowy hill overlooking the snow-covered countryside. You can go down the hill to the east or north to the lake.
+
+> sit on ladder
+You sit on the ladder as if it was a sledge. The ladder slowly starts to accelerate down the hill. The speed keeps increasing and as you reach the bottom of the hill there is a small bump near the end of the hill. The ladder flies through the air and crashes into the wall a meter or so above the ground. Luckily the wall at this exact point is made of soft snow and so you fly through the wall.
+
+East of wall
+You are east of the wall, through which you came here. There is a hole in the wall leading west. A trail leads south to a monastery.  Also here is a long ladder.
+
+> take ladder
+Ok, you pick up the long ladder.
+
+> south
+You move south.
+
+By Monastery
+You are by the entrance to an abandoned ruin of a monastery. You can go north along a path or south into the monastery.
+
+> south
+You move south.
+
+Main hall
+You are in the main hall of the monastery. The room is empty apart from some debris, which has fallen from the ceiling and a layer of snow in those parts where the ceiling is not intact. In addition, in one corner of the room, is a heap of sand. You can leave the monastery to the north, go east to a dormitory or south to the chapel.
+
+> stand on sand
+You stand in the moist sand, getting your boots smeared into the moist sand.
+
+> south
+You move south.
+
+Chapel
+You are in the chapel. There is a large idol leaning against the wall. Rows of pews line the floor. You can go north to the main hall.
+
+> x idol
+The large idol depicts some sort of god. The one eye of the idol is hollow.
+
+> north
+You move north.
+
+Main hall
+You are in the main hall of the monastery. The room is empty apart from some debris, which has fallen from the ceiling and a layer of snow in those parts where the ceiling is not intact. In addition, in one corner of the room, is a heap of sand. You can leave the monastery to the north, go east to a dormitory or south to the chapel.
+
+> north
+You move north.
+
+By Monastery
+You are by the entrance to an abandoned ruin of a monastery. You can go north along a path or south into the monastery.
+
+> north
+You move north.
+
+East of wall
+You are east of the wall, through which you came here. There is a hole in the wall leading west. A trail leads south to a monastery.
+
+> west
+You move west.
+
+By wall
+You are on the foot of the hill by a large wide wall surrounding the area. You can go up the hill to the west.  The wall appears to be made of solid ice, perhaps with a metal foundation.  There is a hole in the wall leading east.
+
+> up
+You move up.
+
+Big hill
+You are on top of a great snowy hill overlooking the snow-covered countryside. You can go down the hill to the east or north to the lake.
+
+> north
+You move north.
+
+South of lake
+You are south of a frozen-over lake.  A path leads south to the top of a big hill.
+
+> north
+With your boots smeared in the moist sand, you can walk around on the ice as you like.
+
+On icy lake
+You are on the middle of the frozen-over lake. A thin layer of snow lies all over the ice. You can go north and south to the lake shores.
+
+> saw hole
+You saw a big hole in the ice with the ice saw.
+
+> x hole
+The hole you sawed is approximately circular with a diameter of about two meters.
+
+> north
+You move north.
+
+North of lake
+You are north of a frozen-over lake.  A road leads north.
+
+> north
+You move north.
+
+T-junction
+You are at a T-junction. The road leads west out of the ice valley and further east back into the valley. Another road leads south to a lake.
+
+> east
+You move east.
+
+South of garden
+You are south of the garden from where you escaped recently. You can go east and west along the road, or north into the garden.  The garden is surrounded by a fence of solid ice. There is a wooden door in the fence.
+
+> east
+You move east.
+
+Ice cabin - by door
+You are south of the ice cabin. A wooden door is set in the wall. The door is closed and locked.  You can go east and west along the road.
+
+> east
+You move east.
+
+Ice cabin - beneath window
+You are south of the ice cabin. Two meters above ground there is an open window set in the wall.  You can go east and west along the road.
+
+> drop ladder
+You put the ladder against the wall, leading up to the open window.
+
+> climb ladder
+You climb up the ladder and enter the open window.
+
+Small room
+You are in a small room in the ice cabin. There is an open window, outside which is the ladder you climbed up. Just beside the window stands a big vase. To the north is an open doorway. The floor is covered with a fine pattern. You can go down the ladder.
+
+> x pattern
+The beautiful pattern seems to hide the individual tiles. Looking closer at the pattern, you find a hatch.
+
+> x hatch
+There is nothing special about the hatch.  The hatch is currently closed.
+
+> open hatch
+You open the hatch.  Inside the hatch is the Dragon Diamond.
+
+> take diamond
+(from the hatch)
+Ok, you take the Dragon Diamond from the hatch.
+
+> score
+Your score is 45 out of a maximum of 115. (39%)
+
+> down
+
+When you climb back out of the window, you accidentally overturn the vase, which noisily breaks into a thousand pieces. From inside the cabin you hear one of the trolls shout "Burglary! Let go of the dogs!"
+You move down.
+
+Ice cabin - beneath window
+You are south of the ice cabin. Two meters above ground there is an open window set in the wall.  You can go east and west along the road.  The ladder leans against the wall, leading up to the open window.
+
+You hear barking nearby.
+
+> west
+You move west.
+
+Ice cabin - by door
+You are south of the ice cabin. A wooden door is set in the wall. The door is closed and locked.  You can go east and west along the road.
+
+You hear barking nearby.
+
+> west
+You move west.
+
+South of garden
+You are south of the garden from where you escaped recently. You can go east and west along the road, or north into the garden.  The garden is surrounded by a fence of solid ice. There is a wooden door in the fence.
+
+You hear barking nearby.
+
+> west
+You move west.
+
+T-junction
+You are at a T-junction. The road leads west out of the ice valley and further east back into the valley. Another road leads south to a lake.
+
+You hear barking nearby.
+
+> south
+You move south.
+
+North of lake
+You are north of a frozen-over lake.  A road leads north.
+
+You hear barking nearby.
+
+> south
+With your boots smeared in the moist sand, you can walk around on the ice as you like.
+
+On icy lake
+You are on the middle of the frozen-over lake. A thin layer of snow lies all over the ice. You can go north and south to the lake shores.  There is a big hole in the ice.
+
+You hear barking nearby.
+
+> z
+Time passes...
+
+You hear barking nearby.
+
+> z
+Time passes...  You hear barking right behind you! You see the two vicious looking dogs run against you across the ice. However, their paws were not designed for ice skating so they slide across the ice and into the big hole in the ice where they quickly die from cold.
+
+> look
+
+On icy lake
+You are on the middle of the frozen-over lake. A thin layer of snow lies all over the ice. You can go north and south to the lake shores.  There is a big hole in the ice.
+
+> score
+Your score is 45 out of a maximum of 115. (39%)
+
+> south
+You move south.
+
+South of lake
+You are south of a frozen-over lake.  A path leads south to the top of a big hill.
+
+> south
+You move south.
+
+Big hill
+You are on top of a great snowy hill overlooking the snow-covered countryside. You can go down the hill to the east or north to the lake.
+
+> east
+You move east.
+
+By wall
+You are on the foot of the hill by a large wide wall surrounding the area. You can go up the hill to the west.  The wall appears to be made of solid ice, perhaps with a metal foundation.  There is a hole in the wall leading east.
+
+> east
+You move east.
+
+East of wall
+You are east of the wall, through which you came here. There is a hole in the wall leading west. A trail leads south to a monastery.
+
+> south
+You move south.
+
+By Monastery
+You are by the entrance to an abandoned ruin of a monastery. You can go north along a path or south into the monastery.
+
+> south
+You move south.
+
+Main hall
+You are in the main hall of the monastery. The room is empty apart from some debris, which has fallen from the ceiling and a layer of snow in those parts where the ceiling is not intact. In addition, in one corner of the room, is a heap of sand. You can leave the monastery to the north, go east to a dormitory or south to the chapel.
+
+> south
+You move south.
+
+Chapel
+You are in the chapel. There is a large idol leaning against the wall. Rows of pews line the floor. You can go north to the main hall.
+
+> put diamond in hollow
+You put the Dragon Diamond inside the hollow.  It fits perfectly. You feel a burst of warmth from the diamond that rapidly spreads all around you.
+
+> score
+Your score is 50 out of a maximum of 115. (43%)
+
+> look
+
+Chapel
+You are in the chapel. There is a large idol leaning against the wall. Rows of pews line the floor. You can go north to the main hall.
+
+> take diamond
+(from the hollow)
+Ok, you take the Dragon Diamond from the hollow.  The burst of warmth from the diamond disappears and it is now cold again.
+
+> look
+
+Chapel
+You are in the chapel. There is a large idol leaning against the wall. Rows of pews line the floor. You can go north to the main hall.
+
+> north
+You move north.
+
+Main hall
+You are in the main hall of the monastery. The room is empty apart from some debris, which has fallen from the ceiling and a layer of snow in those parts where the ceiling is not intact. In addition, in one corner of the room, is a heap of sand. You can leave the monastery to the north, go east to a dormitory or south to the chapel.
+
+> north
+You move north.
+
+By Monastery
+You are by the entrance to an abandoned ruin of a monastery. You can go north along a path or south into the monastery.
+
+> north
+You move north.
+
+East of wall
+You are east of the wall, through which you came here. There is a hole in the wall leading west. A trail leads south to a monastery.  The metal skeleton of the wall can now be seen after most of the snow has melted.
+
+> west
+You move west.
+
+By wall
+You are on the foot of the hill by a large wide wall surrounding the area. You can go up the hill to the west.  The metal skeleton of the wall can now be seen after most of the snow has melted.  There is a hole in the wall leading east.
+
+> up
+You move up.
+
+Big hill
+You are on top of a great hill overlooking the countryside. You can go down the hill to the east or north to the lake.
+
+> north
+You move north.
+
+South of lake
+You are south of a frozen-over lake.  A path leads south to the top of a big hill.
+
+> north
+With your boots smeared in the moist sand, you can walk around on the ice as you like.
+
+On icy lake
+You are on the middle of the frozen-over lake. The ice is somewhat thinner now, but still appears safe to walk on. You can go north and south to the lake shores.
+
+> north
+You move north.
+
+North of lake
+You are north of a frozen-over lake.  A road leads north.
+
+> north
+You move north.
+
+T-junction
+You are at a T-junction. The road leads west out of the ice valley and further east back into the valley. Another road leads south to a lake.
+
+> east
+You move east.
+
+South of garden
+You are south of the garden from where you escaped recently. You can go east and west along the road, or north into the garden.  The fence of solid ice has melted. All that is left is a snowdrift surrounding the garden.
+
+> north
+You move north.
+
+South end of garden
+You are in a garden surrounded by a snowdrift, which once was a fence made of solid ice. The ice statues are all gone. There is still a sole birch tree in the center of the garden. To the east lies a huge snowdrift which once was the ice cabin belonging to the ice trolls. They have probably suffocated under all the snow and ice. You can go south out of the garden or north to the north end of the garden.
+
+> look
+
+South end of garden
+You are in a garden surrounded by a snowdrift, which once was a fence made of solid ice. The ice statues are all gone. There is still a sole birch tree in the center of the garden. To the east lies a huge snowdrift which once was the ice cabin belonging to the ice trolls. They have probably suffocated under all the snow and ice. You can go south out of the garden or north to the north end of the garden.
+
+> north
+You move north.
+
+North end of garden
+You are in the north end of the garden beside your carriage. The horse waits patiently for you to take the reins and get out of here. You can go up into the carriage or south to the other end of the garden.
+
+> look
+
+North end of garden
+You are in the north end of the garden beside your carriage. The horse waits patiently for you to take the reins and get out of here. You can go up into the carriage or south to the other end of the garden.
+
+> up
+You move up.
+
+Seated in the carriage
+You are seated in the carriage. You can take the reins or go down again.  Also here are some reins.
+
+> look
+
+Seated in the carriage
+You are seated in the carriage. You can take the reins or go down again.  Also here are some reins.
+
+> take reins
+You pick up the reins and prepare to leave the ice valley. First you pass the lake where you and your horse get a lot of water. You then drive back to the crossroad and leave the valley.
+
+You quickly reach the desert where you drive for half a day before reaching Ravine City. Ravine City spans the ravine blocking your way home. Thus you must go through Ravine City to get back home. As you get nearer to Ravine City, the city gates open.
+
+Once inside the city gates, the gates are closed. Several soldiers surround you and you are taken to prison.
+
+While in prison, the mayor of Ravine City comes and talks to you: "Bash, when you inserted the Dragon Diamond in the idol, you broke the winter spell in the Ice Valley. At the same time you released the fire worm, which was frozen as an ice statue. The fire worm has now killed several of our men. It is your duty to free us from the fire worm before we can let you move on. Bring me the head of the fire worm and we will set you free. We will also confiscate your belongings until then." With those words you are let out back onto the street.
+
+Press any key to continue.
+
+Outside prison
+You are outside the prison on the dirty main street of Ravine City, which runs east to west. The prison lies to the north. Rats run around in the dirt.
+
+> score
+Your score is 50 out of a maximum of 115. (43%)
+
+> look
+
+Outside prison
+You are outside the prison on the dirty main street of Ravine City, which runs east to west. The prison lies to the north. Rats run around in the dirt.
+
+> x prison
+The prison is a grim, foreboding place.
+
+> west
+You move west.
+
+Street
+You are on the main street of Ravine city. The street continues east and west and a small alley lies to the south. The entrance to a tavern lies north.
+
+> south
+You move south.
+
+Alley
+You are in the back of a dirty alley. There is a garbage can here. You can go north back to the main street.
+
+> x garbage can
+The garbage can is filled with useless litter. However, on top of the garbage lies a crumpled poster, which you take.
+
+> score
+Your score is 55 out of a maximum of 115. (48%)
+
+> x poster
+The poster is a wanted poster:
+
+"Wanted: The keymaster.
+ Big reward given to those who find him."
+
+> north
+You move north.
+
+Street
+You are on the main street of Ravine city. The street continues east and west and a small alley lies to the south. The entrance to a tavern lies north.
+
+> north
+You move north.
+
+Tavern
+You are in a smoke-filled tavern where there are lots of people. Specifically you notice the innkeeper, an old man sitting by the bar and a lonely guy seated in the corner. Further more a group of four people sits around a table in the center of the tavern. You can leave the tavern to the south.
+
+> listen to group
+You overhear a conversation between the group around the table: "Louniss is the only one who has the power to win against the fire worm, and we have not seen him for weeks!" says a man. A woman says: "Perhaps he is ill?". Another man says: "Nah - Louniss could just drink one of his own potions and he would be well again."
+
+> talk to old man
+The old man presents himself as Tome. "I am the oldest guy in town. If anybody knows anything about anyone in this town, it is me." he says. "just ask me."
+
+> ask about keymaster
+Tome says: "The keymaster used to be the locksmith of this city. However, he tended to help people with criminal intent so he is currently wanted. Mind you, do not expect a big reward - rewards tend to be a bunch of rotten apples or similar these days. The rumor says that the keymaster is hiding under the name "Da Mon" these days."
+
+> talk to guy
+The lonely guy presents himself as Brian. He tells you that you saved him from the ice valley, where he by magic was frozen into an ice statue the first time the diamond was stolen from the Ice Valley. "Thank you for saving me! Luckily I got away before the fire worm woke up!" he says.
+
+> ask about gloves
+"These gloves have often kept me warm, but since it is warm around here, and seeing how you freed me from the ice valley, I will give them to you as a gift."
+
+Brian hands you the gloves.
+
+> wear gloves
+Ok, you put on the pair of gloves.
+
+> south
+You move south.
+
+Street
+You are on the main street of Ravine city. The street continues east and west and a small alley lies to the south. The entrance to a tavern lies north.
+
+> east
+You move east.
+
+Outside prison
+You are outside the prison on the dirty main street of Ravine City, which runs east to west. The prison lies to the north. Rats run around in the dirt.
+
+> catch rat
+You manage to catch one of the rats with your hands. The rat tries to bite you of course, but the gloves protect you from being bitten.
+
+> score
+Your score is 75 out of a maximum of 115. (65%)
+
+> west
+You move west.
+
+Street
+You are on the main street of Ravine city. The street continues east and west and a small alley lies to the south. The entrance to a tavern lies north.
+
+> west
+You move west.
+
+Street
+You are on the main street of Ravine city. The main street continues east and west. Baker Street lies south and Merchant Street lies north.
+
+> north
+You move north.
+
+Merchant Street
+You are walking along Merchant Street. Many shops lie on this street. You can go south to the main street.
+
+> find da mon
+After some time you manage to find Da Mons shop on the west side of the street.
+
+> score
+Your score is 80 out of a maximum of 115. (70%)
+
+> west
+You move west.
+
+Da Mons shop
+You are inside Da Mons shop. Groceries line the walls. A counter is on the west side of the room blocking customers path to the back room. You can go east back onto the street.  Da Mon is here.
+
+> look
+
+Da Mons shop
+You are inside Da Mons shop. Groceries line the walls. A counter is on the west side of the room blocking customers path to the back room. You can go east back onto the street.  Da Mon is here.
+
+> talk to da mon
+Da Mon presents himself as Da Mon but you both know that Da Mon is the keymaster. You quickly get into the topic of keys, locks and lock picks. Da Mon says: "Currently I have a very good offer: A magical lock pick which can be used only once, but the price is only 2 gold coins. The advantage of a magical lock pick is that it is guaranteed to work." Da Mon points at the magical lock pick on the counter in front of you.
+
+> ask about lock pick
+"The price is two gold coins." says Da Mon when you ask him about the lock pick.
+
+> drop rat
+As you let go of the rat, it runs behind the counter and into the back room. Da Mon sees it and chases after it into the back room while shouting "Come here you little beast!"
+
+> score
+Your score is 85 out of a maximum of 115. (74%)
+
+> take lock pick
+(from the counter)
+Ok, you take the magical lock pick from the counter.
+
+> look
+
+Da Mons shop
+You are inside Da Mons shop. Groceries line the walls. A counter is on the west side of the room blocking customers path to the back room. You can go east back onto the street.
+
+> east
+You move east.
+
+Merchant Street
+You are walking along Merchant Street. Many shops lie on this street. You can go south to the main street.  Some steps lead down to Da Mons shop on the west side of the street.
+
+> south
+You move south.
+
+Street
+You are on the main street of Ravine city. The main street continues east and west. Baker Street lies south and Merchant Street lies north.
+
+> south
+You move south.
+
+Baker Street
+You are walking along Baker Street. The street is mainly lined with houses, no shops are to be seen at all. You can go north back to the main street.
+
+> find louniss
+After some time you manage to find Louniss' house on the west side of the street.
+
+> score
+Your score is 90 out of a maximum of 115. (78%)
+
+> look
+
+Baker Street
+You are walking along Baker Street. The street is mainly lined with houses, no shops are to be seen at all. You can go north back to the main street.  You have found Louniss' house to the west.
+
+> pick lock
+You pick the lock on Louniss' door with the magical lock pick. The door springs open and the magical lock pick turns into a useless piece of iron, which you discard.
+
+> score
+Your score is 95 out of a maximum of 115. (83%)
+
+> west
+You move west.
+
+Louniss' living room
+You are inside Louniss' living room. A big sturdy table stands in the middle of the room while shelves line the walls. The house seems to be quite small. Some stairs lead up. The front door is east.
+
+> up
+You move up.
+
+Upstairs
+You are in Louniss' bedroom. Louniss lies in his bed, sweating, mumbling in his sleep. He does not look good, he is probably ill. Some stairs lead down.
+
+> x louniss
+Louniss looks old and sick as he lies there sweating, shaking and mumbling in his sleep.
+
+> listen
+Louniss mumbles in his sleep.. "PSKLOM4", "PSKLOM4"..
+
+> down
+You move down.
+
+Louniss' living room
+You are inside Louniss' living room. A big sturdy table stands in the middle of the room while shelves line the walls. The house seems to be quite small. Some stairs lead up. The front door is east.
+
+> find psklom4
+You look for "PSKLOM4" among the vials and finally you find it and take it with you.
+
+> score
+Your score is 100 out of a maximum of 115. (87%)
+
+> x vial
+It is a transparent vial with a label saying "PSKLOM4". The potion inside is yellow.
+
+> up
+You move up.
+
+Upstairs
+You are in Louniss' bedroom. Louniss lies in his bed, sweating, mumbling in his sleep. He does not look good, he is probably ill. Some stairs lead down.
+
+> pour potion into louniss
+You pour the potion into the mouth of the unconscious man. Louniss begins to breath deeper and slower and suddenly he opens his eyes. As he sees you he smiles. "Thank you my friend. You saved my life!" Louniss says.
+
+Louniss sits up and you sit down beside him on the bed. You tell him your story and Louniss listens carefully. "I know exactly how to get rid of the fire worm." Louniss says. From the bed drawer Louniss takes an apple. "Here" he says. "This is an apple of force. Just eat the apple when the fire worm is about to appear and you will be guided by the force."
+
+Louniss sees you out, and locks the door.
+
+Baker Street
+You are walking along Baker Street. The street is mainly lined with houses, no shops are to be seen at all. You can go north back to the main street.  You have found Louniss' house to the west.
+
+> score
+Your score is 105 out of a maximum of 115. (91%)
+
+> x apple
+This is the apple of force you were given by Louniss.
+
+> look
+
+Baker Street
+You are walking along Baker Street. The street is mainly lined with houses, no shops are to be seen at all. You can go north back to the main street.  You have found Louniss' house to the west.
+
+> north
+You move north.
+
+Street
+You are on the main street of Ravine city. The main street continues east and west. Baker Street lies south and Merchant Street lies north.
+
+> east
+You move east.
+
+Street
+You are on the main street of Ravine city. The street continues east and west and a small alley lies to the south. The entrance to a tavern lies north.
+
+> east
+You move east.
+
+Outside prison
+You are outside the prison on the dirty main street of Ravine City, which runs east to west. The prison lies to the north. Rats run around in the dirt.
+
+> east
+You move east.
+
+By east gate
+You are just west of the east gate. You can go west along the main street.  A guard is standing by the east gate.
+
+> look
+
+By east gate
+You are just west of the east gate. You can go west along the main street.  A guard is standing by the east gate.
+
+> x guard
+The guard is tall and well equipped.
+
+> talk to guard
+"Oh, it is you Bash" the guard says. "If you are ready to face the fire worm, just SAY READY and I will let you out."
+
+> say ready to guard
+"okay, so you are ready." says the guard. "I will let you out then."
+
+The guard unlocks and opens the large gate. She tells you to hurry so she can close the gate again. Once you are outside, the guard hurries to close and lock the gate. "Good luck!" is the last thing you hear, before the gate is closed.
+
+Outside east gate
+You are outside the east gate. The tall gate lies to the west of you. In all other directions you just see sand.
+
+> look
+
+Outside east gate
+You are outside the east gate. The tall gate lies to the west of you. In all other directions you just see sand.
+
+You hear a faint rumbling...
+
+> eat apple
+You eat the tasty apple. Afterwards you feel a strange sensation in your entire body.
+
+The rumbling gets higher, and you feel the earth shake slightly...
+
+> score
+Your score is 110 out of a maximum of 115. (96%)
+
+The rumbling gets noisy and the earth shakes significantly. In the distance you see something which is just under the surface of the sand moving towards you!
+
+> z
+Time passes...
+
+Suddenly a terrible creature rises up from the sand in front of you - the fire worm is here!
+
+> z
+Time passes...
+
+Suddenly you hear the sound of an enormous explosion and everything around you is shrouded by a blinding light. Then everything becomes dark.
+
+You wake up in the tavern surrounded by people. You are told that the city guard found you unconscious beside the dead fire worm. The mayor is here as well. "Thank you Bash for freeing us for that monster!" says the mayor. "We forgive you for what you have done so you can now freely leave the city."
+
+You decide to have a good nights sleep at the inn so you are ready for the last part of your journey home.
+
+The next day you go up in your carriage, take the reins and set off into the sunset. Half a day later you arrive at queen Drana who rewards you well for having brought her the Dragon Diamond.
+
+*** You have won ***
+In that game you scored 115 out of a possible 115, in 159 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

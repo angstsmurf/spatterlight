@@ -1,0 +1,142 @@
+The Evil Chicken of Doom 3D
+
+They say horror is having to stare into your own face as its being ripped off by something sharp. Or at least that's how dictionaries define it. But true horror isn't about a face being ripped off or the act of staring, it's about something dark growing in the pit of your soul, a fear that keeps eating and getting bigger and bigger until it envelops you and suddenly you're more terror than human. Also it's scary.
+
+You and Steve had heard about the farm from an old man in the tavern. You said you were looking for a place you could hide low, to keep away from the military police who were after you for dodging the draft, and he replied by talking. He told you about an old farmyard that had been closed down before the war after its owner went crazy and murdered his own family with an axe. At first you assumed he had murdered them in self-defense, which would've been perfectly reasonable, but the old man continued to explain how the townsfolk believed an ancient supernatural chicken had enslaved his mind and forced him to do his evil bidding. "Yeah right," you said to him, "the idea of some sort of Evil Chicken of Doom roaming around enslaving people's minds sounds like the plot of some sort of highly creative and deeply terrifying video game, not something you might come across in real life!!!!"
+
+You and Steve spit in the old man's face and ran through the night to the farm, dodging the military helicopters and speedboats that lept across the countryside searching for you. It was night by the time you reached the farm and all was quiet, too quiet, an ominous silence hushing the wind and insects from making a sound. You waited until night to make a break for the chicken coop so the darkness would mask your very loud and obvious movements and you managed to get inside the shelter making only a few alarming screams to give away your position.
+
+"Oh.
+
+My.
+
+God.
+
+Does that chicken have two noses?"
+
+You looked to where Steve was pointed and your mouth drooped in shock. It was a chicken. It had two noses. It was clearly evil and clearly had evil magical powers.
+
+"We need to do something about it," you replied. "And then maybe go back to that tavern and spit on that old man some more for not telling us that there was an evil chicken here!"
+
+"I know! Let's throw a brick at it!"
+
+"No, no. That wouldn't work..we'd have to do something fiendishly clever, something he wouldn't expect because if we just start hucking things at him, he might use his evil powers to kill us."
+
+"Yeah, you're right...so maybe we should throw two bricks at him?"
+
+"You know what Steve, maybe I'll find a way to kill the chicken."
+
+"Yeah, I'll stay here and look for a brick."
+
+Chicken Coop
+Despite the building being made entirely of wood, Steve digs furiously through the hay scattered around the chicken coop to find a brick to throw at the chicken, accomplishing nothing but strewing hay all over the chicken wire wrapped around the room.
+
+Standing in the opposite corner is the Evil Chicken of Doom itself, a sinister and feathery menace with two noses adorning its terrifying face.
+
+> x evil chicken
+Judging by the two noses on its face, the evil chicken was most likely fathered in the pits of hell by the devil himself where he was raised to be malicious towards mankind. Then he probably went to an evil school like Dartmouth where he majored in cruelty and was probably also on the rowing team. How he got to this farm is unknown -- maybe by bus -- but his evilness is indisputable and he must be killed.
+
+> get spade
+Ok, you pick up the spade.
+
+> get chicken wire
+Ok, you pick up the roll of chicken wire.
+
+> north
+You move north.
+
+Yard
+The main yard of the abandoned farm is as quiet as it is completely silent. Long unruly weeds sprouting out from every possible patch of grass let you know that nature has reclaimed what man has forgotten with a weathered unpainted shed proving definitively that humanity has given up on this place.
+
+To the north is the house, to the east is a garden and back south is the coop where the chicken plans his evil deeds.
+
+> north
+You move north.
+
+Ruined House
+What seemed to be a perfectly fine and sturdy farmhouse on the outside has in fact turned out to be nothing but a pile of charred rubble behind a single still-standing wall.
+
+> get axe
+Ok, you pick up the axe.
+
+> south
+You move south.
+
+Yard
+The main yard of the abandoned farm is as quiet as it is completely silent. Long unruly weeds sprouting out from every possible patch of grass let you know that nature has reclaimed what man has forgotten with a weathered unpainted shed proving definitively that humanity has given up on this place.
+
+To the north is the house, to the east is a garden and back south is the coop where the chicken plans his evil deeds.
+
+> east
+You move east.
+
+Garden
+This once-flourshing garden is now a dead and dusty mound of dirt which can no longer sustain any life. Clearly the chicken and his two noses had something to do with its death as its grudge against vegetation has been very apparent in the few minutes you've known it.
+
+> dig dirt
+Using the spade like a spade, you dig through the dirt until you come across a large metallic hook a few feet under the surface. "That's odd, I thought I'd find a chainsaw buried here" you mumble to yourself and then wink at the player sitting at the computer playing this.
+
+> attach hook to the wire
+You bend the end of the chicken wire around the metal hook and make a makeshift wire ladder ready to be climbed.
+
+> west
+You move west.
+
+Yard
+The main yard of the abandoned farm is as quiet as it is completely silent. Long unruly weeds sprouting out from every possible patch of grass let you know that nature has reclaimed what man has forgotten with a weathered unpainted shed proving definitively that humanity has given up on this place.
+
+To the north is the house, to the east is a garden and back south is the coop where the chicken plans his evil deeds.
+
+> use ladder on the shed
+You fling the chicken wire onto the roof of the shed and pull down hard to lock the hook in place. Congratulations, you've now found a way to climb up to the top of the shed, the most useful place in the world when trying to find ways to stop evil chickens. "Where do I go to stop an evil chicken?" people ask all the time and the inevitable response is always "the top of a shed."
+
+> up
+You move up.
+
+Top of Shed
+You've been on top of a lot of sheds in your life -- two, counting this one -- but even with that extensive shed-climbing history, you find it difficult to keep your composure atop this small, rickety little shack. The fact that you're standing on some wobbly wooden boards covering a massive hole in the metal facade of the roof doesn't help.
+
+> break boards with axe
+You murder some of the boards with the axe. Wait, that sounds a bit harsh -- you brutally euthanize some of the boards with an axe and can now go into the shed.
+
+> in
+You move in.
+
+Inside Shed
+You've been inside a lot of sheds in your life -- two, counting this one -- but this is easily the sparsest of the few, a tiny little space completely except for a wooden table jammed against the wall.
+
+> get shotgun
+Ok, you pick up the shotgun.
+
+> out
+You move out.
+
+Top of Shed
+You've been on top of a lot of sheds in your life -- two, counting this one -- but even with that extensive shed-climbing history, you find it difficult to keep your composure atop this small, rickety little shack. The fact that you're standing on some wobbly wooden boards covering a massive hole in the metal facade of the roof doesn't help.
+
+> down
+You move down.
+
+Yard
+The main yard of the abandoned farm is as quiet as it is completely silent. Long unruly weeds sprouting out from every possible patch of grass let you know that nature has reclaimed what man has forgotten with a weathered unpainted shed proving definitively that humanity has given up on this place.
+
+To the north is the house, to the east is a garden and back south is the coop where the chicken plans his evil deeds.
+
+> south
+You move south.
+
+Chicken Coop
+Despite the building being made entirely of wood, Steve digs furiously through the hay scattered around the chicken coop to find a brick to throw at the chicken, accomplishing nothing but strewing hay all over the chicken wire wrapped around the room.
+
+Standing in the opposite corner is the Evil Chicken of Doom itself, a sinister and feathery menace with two noses adorning its terrifying face.
+
+> shoot chicken
+
+COMING SOON:
+
+THE LOST MINES: THE 10TH ANNIVERSARY DIRECTOR'S CUT
+
+The seminal Adrift classic will finally see a release in its original uncensored form featuring all of the graphic hardcore sex and uncompromising brutality excised from the original cut of the game.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

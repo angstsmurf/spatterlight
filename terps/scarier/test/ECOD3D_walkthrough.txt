@@ -1,0 +1,39 @@
+# The Evil Chicken of Doom 3D -- Mel S., ADRIFT 5 (v5.000026 taf), Ectocomp
+# 2012 (3-hour speed-IF) -- full walkthrough to the single ending (EndGame
+# Neutral: shoot the two-nosed chicken, "Three years later..." tavern coda).
+# Blind-derived from the game XML.
+#
+# Sequel to the classic Evil Chicken of Doom: a draft-dodger and his friend
+# Steve hide at an abandoned farm whose coop hosts a chicken with two noses.
+# Take the spade and chicken wire from the coop, the axe from the ruined
+# house, dig the garden dirt with the spade (uncovers a hook), attach the
+# hook to the wire (makeshift ladder), throw it onto the shed in the yard
+# (Task5 gates the Up exit), climb up, chop the boards with the axe (Task6
+# gates In), grab the shotgun inside, and shoot the chicken (Task9, only
+# needs the gun held).
+#
+# ENGINE NOTE: the game defines NO Player-typed character -- only the
+# NonPlayer "Steve".  clsAdventure.Player's getter falls back to the first
+# character in the table, so Steve IS the viewpoint character; Scarier
+# mirrors that fallback in a5state_new (player_key), without which the
+# player starts nowhere and every exit is "only nowhere".
+x evil chicken
+get spade
+get chicken wire
+north
+north
+get axe
+south
+east
+dig dirt
+attach hook to the wire
+west
+use ladder on the shed
+up
+break boards with axe
+in
+get shotgun
+out
+down
+south
+shoot chicken

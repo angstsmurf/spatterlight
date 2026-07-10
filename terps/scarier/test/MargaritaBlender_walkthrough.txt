@@ -1,0 +1,116 @@
+# Makers Local and the Trans Dimensional Margarita Blender (Omegix / Jeff
+# Cotten, 2012; ADRIFT 5.000022) -- full *** You have won *** walkthrough.
+# A self-mocking joke game set in the real Makers Local 256 hackerspace
+# (Huntsville, AL): Tim's margarita blender vanished everyone into another
+# dimension; rebuild it from shop junk and turn it on.
+#
+# Entry: the keypad code 80085 (email #2) -- the USB key alternative burns
+# up.  The assemble step (at the work table) needs ALL of: clean blender +
+# circuit board + motor + flux capacitor ON the table, and the socket set,
+# SONIC screwdriver and Dremel held.  So the Dalek easter egg is mandatory
+# (wear dalek -> sonic screwdriver) and the Dremel hides under the library
+# couch cushion.  Win = turn on contraption while holding the auth token
+# (climb member storage with ladder; the ladder is welded from the bike-shed
+# scrap; the padlock picks with the lockpick from `look under table`).
+#
+# HEAT: a repeating 20-turn event overheats you (RANDOM 15-20 subevent) and
+# teleports you to the air-conditioned Office; a Tab soda (search couch ->
+# 50 cents -> soda machine, repeatable -- the change crawls back into the
+# couch) suspends it 20 turns.  This route drinks two Tabs and rides the one
+# remaining overheat as its trip to the Office.  The vanilla-FD diff shifts
+# on those RANDOM timers; the xoshiro-aligned run is byte-exact.
+#
+# Data quirks: `enter 330` (Tim's computer password, from scanning the blue
+# resistor) NEVER unlocks the computer -- the task carries a second Object
+# specific its single-%text% command can never bind, in FrankenDrift too --
+# so the schematic is unobtainable flavor and this route skips it.  Several
+# tasks (weld/climb/use-screwdriver) check no location and work anywhere.
+x slot
+get letter
+read letter
+read email 1
+read email 2
+enter 80085 on keypad
+s
+e
+search couch
+w
+s
+s
+put change in soda machine
+drink tab
+take projector parts
+drop projector parts
+take hard drives
+drop hard drives
+take soda cans
+drop soda cans
+look under table
+s
+pick padlock with lockpick
+in
+get scrap metal
+out
+weld scrap metal with welder
+climb member storage with ladder
+n
+w
+s
+s
+w
+open fridge
+get blender
+n
+move lightbulb container
+get security screwdriver
+s
+e
+e
+open cabinet
+get socket set
+w
+s
+w
+get dalek
+wear dalek
+get sonic screwdriver
+e
+up
+use security screwdriver on router
+get flux capacitor
+s
+move cushion
+get dremel
+s
+get circuit board
+n
+n
+d
+search couch
+w
+s
+s
+put change in soda machine
+drink tab
+push white button
+e
+use socket set on lawnmower
+get motor
+w
+n
+n
+e
+in
+x stall
+get solvent
+clean blender with solvent
+out
+w
+s
+s
+put blender on table
+put circuit board on table
+put motor on table
+put flux capacitor on table
+assemble blender
+turn on contraption

@@ -1,0 +1,45 @@
+# Beythilda the Night Witch -- A. Hazard, ADRIFT 5 (v5.000026 taf), Ectocomp
+# 2012 (3-hour speed-IF) -- full WINNING walkthrough (EndGame Win: steal
+# Tissues' cage from the Thornwood dungeon and fly away).  The game carries
+# its own solution (`walkthrough`, Task21); this script follows it with the
+# timing worked out from the events.
+#
+# An all-verse witch vignette: your familiar Tissues is missing and the
+# Epping Forest mob is coming.  Open the window (starts Event2, the mob's
+# arrival, random length 5-12 turns), speak to the stars (Task2, needs the
+# window open; prerequisite for flying), take the broom, and slip into your
+# shadow before the door breaks.  When Event2 ends it executes Task10 (Lose)
+# if inShadow==0, else Task9 (the mob searches the parlor and leaves).
+# Event3 (started by the slip-in) executes Task19 (Lose, "shadow crazy")
+# after 10 turns in the shadow, so the script slips in as LATE as the
+# earliest possible mob arrival allows (turn 4 after the window; earliest
+# break-in is turn 5) and pads with wait/listen up to the LATEST (turn 12)
+# before slipping out on turn 13 -- one turn inside the crazy deadline of
+# slip+10 = 14, so the route survives every possible Event2 length roll in
+# both engines.  Then fly (needs Task2 + broom held), whisper a lullaby (the
+# specific Task6 puts the dungeon archer to sleep), and go in (Task14,
+# EndGame Win).
+#
+# Golden-backed MATCH 0|0: Event2's "5 to 12" length is an RNG draw, so the
+# vanilla column pins Scarier's own golden; a direct FD-vanilla diff shows 2
+# (the CRACK/Task9 block lands against a different wait command on FD's
+# stock System.Random -- pure RNG-stream noise).  The xoshiro column is a
+# byte-exact FD diff at 0.
+stand
+open window
+speak to stars
+get broom
+x cauldron
+slip into my shadow
+listen
+wait
+listen
+wait
+listen
+wait
+wait
+wait
+slip out of my shadow
+fly
+whisper a lullaby
+go in

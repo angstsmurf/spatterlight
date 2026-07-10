@@ -1,0 +1,32 @@
+# Ignis Fatuus -- DCBSupafly, ADRIFT 5 (v5.000021 taf), Ectocomp 2011
+# (3-hour speed-IF) -- full winning walkthrough (no score; *** You have won ***).
+# Blind-derived from the game XML; fully deterministic.
+#
+# Story: a jester whose father Jinglebottom was banished by King Harold five
+# years ago performs his own Jester's Licensure before the Queen -- under the
+# wood witches' curse, the reign ends "by a foolish grin", so laughter is
+# treason.  Gather the props (flint & steel + juggling pins from the
+# footlocker), walk N/E/N to the Verandah (each hall move plays a memory;
+# the arrival triggers the witches'-trial flashback, advanced with a wait),
+# then juggle and light the pins -- the flaming-crotch pratfall makes the
+# court snicker and the Queen banishes you.  Like the witches, you wake
+# SHRUNK INSIDE A PUMPKIN in the Hallowed Garden: strike the flint (the
+# gloop & glop catches, lighting the prison), examine the burning gloop (a
+# small sharp seed drops -- and the realisation your father was never in
+# this pumpkin), take the seed and dig: you carve a huge grinning
+# jack-o'-lantern face, the Queen sees it from her Verandah and throws
+# herself over the wall.  The wisp-fire in a carved pumpkin = ignis fatuus.
+open footlocker
+get pins
+get flint
+n
+e
+n
+z
+juggle
+light pins
+swat crotch
+use flint
+x gloop
+get sharp seed
+dig

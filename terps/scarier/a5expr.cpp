@@ -72,6 +72,29 @@ static const char *kEnumDirs[12] = {
    with a non-empty Destination -- frankendrift's location `.Exits` checks
    arlDirections(d).LocationKey <> "" and does NOT apply the route's
    restrictions (unlike a character's HasRouteInDirection). */
+static const char *
+loc_exit_dest (a5_state_t *st, const char *lockey, const char *dir)
+{
+  /* The raw <Movement> Destination key in `dir`, or NULL (FD arlDirections
+     LocationKey read -- no exit-restriction evaluation). */
+  const a5_location_t *l = a5model_location (st->adv, lockey);
+  const a5_xml_node_t *c;
+  if (l == NULL)
+    return NULL;
+  for (c = l->node->first_child; c != NULL; c = c->next)
+    {
+      const char *d, *dest;
+      if (strcmp (c->name, "Movement") != 0)
+        continue;
+      d = a5xml_child_text (c, "Direction");
+      if (!streq (d, dir))
+        continue;
+      dest = a5xml_child_text (c, "Destination");
+      return (dest != NULL && dest[0] != '\0') ? dest : NULL;
+    }
+  return NULL;
+}
+
 static int
 loc_has_exit (a5_state_t *st, const char *lockey, const char *dir)
 {
@@ -120,6 +143,26 @@ render_dirs (const std::vector<std::string> &dirs, const std::string &args)
       out += dir_display (dirs[i]);
     }
   return out;
+}
+
+/* clsCharacter.ListExits(sFromLocation, iExitCount): the character's routes
+   evaluated FROM a given location (clsLocation.ViewLocation passes Me.Key, so
+   a %DisplayLocation[other]% view lists the OTHER room's exits, not the
+   player's -- Head Case's through-the-spyhole Car Park view).  Rendered like
+   render_dirs; *count receives the exit count. */
+char *
+a5expr_list_exits (a5_state_t *st, const char *charkey, const char *lockey,
+                   long *count)
+{
+  std::vector<std::string> dirs;
+  if (lockey != NULL)
+    for (int i = 0; i < 12; i++)
+      if (a5restr_exit_in_direction (st, charkey, lockey, kEnumDirs[i], NULL)
+          != NULL)
+        dirs.push_back (kEnumDirs[i]);
+  if (count != NULL)
+    *count = (long) dirs.size ();
+  return strdup (render_dirs (dirs, "").c_str ());
 }
 
 static char item_kind (a5_state_t *st, const char *key);   /* 'o'/'c'/'l'/'g'/0 */
@@ -438,7 +481,17 @@ item_description (a5_state_t *st, const std::string &key)
       return r; }
   const a5_character_t *c = a5model_character (st->adv, key.c_str ());
   if (c != NULL)
-    { char *d = a5text_describe_marked (st, a5xml_child (c->node, "Description"));
+    { /* v5 rewrites char-scoped bare functions to the keyed form at load
+         (FileIO.vb:1897: SearchAndReplace "%CharacterName%" ->
+         "%CharacterName[Key]%" over each character's texts), so a bare
+         %CharacterName% inside a character's own Description names THAT
+         character ("Leon is a tall warrior...", Dragon Diamond), not the
+         viewpoint Player.  Scarier's equivalent is the transient ctx_char. */
+      const char *prev_ctx = st->ctx_char;
+      char *d;
+      st->ctx_char = c->key;
+      d = a5text_describe_marked (st, a5xml_child (c->node, "Description"));
+      st->ctx_char = prev_ctx;
       std::string r = d ? d : ""; free (d); return r; }
   const a5_location_t *l = a5model_location (st->adv, key.c_str ());
   if (l != NULL)
@@ -594,6 +647,29 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       /* else: a property key -> filter / aggregate.  Carry it for .Sum. */
       {
+        /* A SelectionOnly (valueless marker) property applied to a list is a
+           FILTER, not a value: FD's ReplaceOOProperty (Global.vb:931-1082) keeps
+           the members that carry the marker and yields those member KEYS (a
+           reference / sub-collection), because a SelectionOnly prop has no value
+           to render.  So `%Player%.Location.Objects.ObjectIsAT` -> the cube's
+           key (AlienDiver binds this to set the cube's target number / craft /
+           extract), and `...ObjectIsAT.Count` counts only the cubes.  Any other
+           property type (Integer/ValueList/StateList/Text/entity-key) keeps the
+           long-standing carry-for-.Sum / terminal-first-value behaviour. */
+        const a5_propdef_t *pd = a5model_propdef (st->adv, fn.c_str ());
+        if (pd != NULL && streq (pd->type, "SelectionOnly"))
+          {
+            Ctx nc; nc.is_list = 1;
+            for (auto &k : ctx.keys)
+              if (a5state_entity_has_prop (st, k.c_str (), fn.c_str ()))
+                nc.keys.push_back (k);
+            if (!rem.empty ())
+              return oo_prop (st, nc, rem, depth + 1, ok);
+            std::string r;
+            for (size_t i = 0; i < nc.keys.size (); i++)
+              { if (i) r += "|"; r += nc.keys[i]; }
+            return r;
+          }
         Ctx nc; nc.is_list = 1; nc.keys = ctx.keys; nc.prop_key = fn;
         if (!rem.empty ())
           return oo_prop (st, nc, rem, depth + 1, ok);
@@ -635,7 +711,14 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       if (fn == "Location")
         {
-          Ctx nc; nc.is_list = 1; nc.keys = location_roots (st, key.c_str ());
+          /* FD's object .Location resolves to a SINGLE clsLocation when the
+             object has one root (ReplaceOOProperty collapses a 1-item list),
+             which matters for terminal rich-Text properties: the single-item
+             branch renders their <Value><Description> node (The Salvage's
+             `%Player%.daz7Ship1.Location.daz7StationNam` station name) where
+             the list branch has no value_node fallback. */
+          Ctx nc; nc.keys = location_roots (st, key.c_str ());
+          if (nc.keys.size () != 1) nc.is_list = 1;
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       if (fn == "Children" || fn == "Contents")
@@ -699,7 +782,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           Ctx nc; nc.is_dirs = 1;
           if (cl != NULL)
             for (int i = 0; i < 12; i++)
-              if (a5restr_exit_in_direction (st, cl, kEnumDirs[i], NULL) != NULL)
+              if (a5restr_exit_in_direction (st, st->adv->characters[ci].key,
+                                             cl, kEnumDirs[i], NULL) != NULL)
                 nc.dirs.push_back (kEnumDirs[i]);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
@@ -792,6 +876,36 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
       if (fn == "Objects")
         {
           Ctx nc; nc.is_list = 1; nc.keys = objs_in_location (st, key.c_str ());
+          return oo_prop (st, nc, rem, depth + 1, ok);
+        }
+      if (fn == "LocationTo")
+        {
+          /* Global.ReplaceOOProperty "LocationTo" (Global.vb:1475): the raw
+             destination key(s) of the location's exit(s) in the given
+             direction(s) -- arlDirections lookup, NO exit-restriction check.
+             The Salvage's ship-walk message ends
+             `%Player%.Location.LocationTo(%direction%).Name`. */
+          Ctx nc;
+          std::vector<std::string> dests;
+          std::string dl = lower (args), cur;
+          for (size_t i = 0; i <= dl.size (); i++)
+            {
+              if (i < dl.size () && dl[i] != '|') { cur += dl[i]; continue; }
+              for (int d = 0; d < 12; d++)
+                if (cur == lower (kEnumDirs[d]))
+                  {
+                    const char *dest = loc_exit_dest (st, key.c_str (),
+                                                      kEnumDirs[d]);
+                    if (dest != NULL)
+                      dests.push_back (dest);
+                    break;
+                  }
+              cur.clear ();
+            }
+          if (dests.size () == 1)
+            nc.keys = dests;
+          else
+            { nc.is_list = 1; nc.keys = dests; }
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       {

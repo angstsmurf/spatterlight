@@ -1,0 +1,887 @@
+Temperamentum
+Poor Dolores.  You just woke up from another nightmare.  Maybe a quick walk will calm you down.
+
+Your Bedroom
+It is late at night and your husband, Peter, is sleeping soundly. A small night stand sits next to your bed.  On the night stand rests a torn out magazine article. The upstairs hallway is to the north.   Peter is here.
+
+> read magazine article
+The article reads, "The Four Temperaments and You by: Dr. John Scenedama
+
+"The four temperaments, deriving from the Latin temperamentum or "proper mixture," refers to a person's basic dispositions.  Each temperament has been traditionally associated with a "humor" or liquid produced in the body.  During the time of Hippocrates, "the Father of Medicine," it was believed that a unbalance of the four humors brought on illness.
+
+"Sanguine, the humor of blood, is the hot and moist element.  An abundance of Sanguine leads to a love of company and amusements, a love of looking at oneself in the mirror, and a lack of perseverance.
+
+"Phlegm is the humor associated with the cold and moist element.  The negative aspects of a phlegmatic person is laziness and a neglectfulness of duties.
+
+"Choleric people are full of the humor of Yellow Bile, the hot and dry element, and are often prideful and angry.
+
+"The humor of Black Bile is predominate in Melancholic people.  It is associated with the cold and dry element and these people tend toward sorrow and grief and are suspicious of others."
+
+The article continues on but you are too tired to read it.
+
+> north
+
+Top of the Stairs
+The top of the stairs creak when you step on them.  The stairs lead down into darkness and a dimmed hallway lies to the east.  Your bedroom is just a step away to the south.
+
+The grandfather clock downstairs in the living room strikes 9:00 PM.
+
+> east
+You take one step down the hallway but panic kicks in.  You run back to your bedroom, pull the covers over your head, and drift off into dreamland.
+
+                                                                 Sanguine
+
+If Sanguine humor does too much abound,
+These signs will be thereof appearing chief,
+The face will swell, the cheeks grow red and round,
+With staring eyes, the pulse beat soft and brief,
+The veins exceed, the belly will be bound,
+The temples, and the forehead full of grief,
+Unquiet sleeps, that so strange dreams will make
+To cause one blush to tell when he doth wake.
+
+       - 11th c. "Regimen Sanitatis Salernitanum"
+
+Edge of the Rainforest
+You are standing at the entrance of a massive rainforest.  A tree as ancient as the rainforest streches high into the sky.  A path leads through the thick canopy of trees to the west.  You think you could hear water moving to the north.  A large mirror rests up against the ancient tree.  A little girl is standing here, looking into a large mirror and brushing her hair.
+
+> look at girl
+The little girl just stares into the mirror and brushes her hair.  She seems to be unaware of anything around her.
+
+> talk to girl
+(to a little girl)
+The girl doesn't want to talk.
+
+She never wants to talk.
+
+She just keeps to herself.
+
+The girl doesn't want to talk.
+
+> get mirror
+You can't get at the mirror while the little girl is standing there.
+
+> west
+
+Rainforest Path
+The path through the forest is covered with mud, lots of mud.  The path continues east and southwest.  Footprints, human footprints, lead to the northwest.
+
+> nw
+
+Village
+Huts line the outskirts of the encampment.  In the center is a small bonfire.  The forest opens up to the southeast.  Standing next to the bonfire is a older but distinguished looking man.  Outside the huts, there are some women holding their babies.
+
+> look at women
+The women look happy holding their babies.
+
+Why should they be happy and not me?
+
+> talk to women
+I'm not sure who you are referring to.
+
+> look at man
+The man is old but strong.  He looks like he's deep in thought.  The chief is carrying a red vial.
+
+> say hi to man
+"Molimo.  Need molimo."
+
+> ask man about molimo
+"Need molimo.  Elder has died.  That means forest is asleep.  Need to wake up forest with molimo.  Molimo is high up, very high.  Need molimo."
+
+> ask man about vial
+"Will trade red vial for molimo.  Need molimo."
+
+> se
+
+Rainforest Path
+The path through the forest is covered with mud, lots of mud.  The path continues east and southwest.  Footprints, human footprints, lead to the northwest.
+
+> get mud
+Ok, you pick up the mud.
+
+> e
+
+Edge of the Rainforest
+You are standing at the entrance of a massive rainforest.  A tree as ancient as the rainforest streches high into the sky.  A path leads through the thick canopy of trees to the west.  You think you could hear water moving to the north.  A large mirror rests up against the ancient tree.  A little girl is standing here, looking into a large mirror and brushing her hair.
+
+> throw mud on mirror
+You fling the mud onto the mirror making it impossible to see anything in the mirror.
+
+The little girl, not being able to see herself anymore, wanders off.
+
+You hear a voice inside of your head.
+
+It's normal to feel sad.
+
+   It's normal to feel sad.
+
+   It's normal to feel sad.
+
+> get mirror
+Ok, you pick up the dirty mirror.
+
+> n
+
+Pond
+A small pond has formed here.  The water is cool to the touch.  A large ancient tree lies to the south.
+
+> wash mirror in pond
+You gently wash the mud off of the mirror.  It looks as good as new!  You decide to carry the newly cleaned mirror with you.
+
+> s
+
+Edge of the Rainforest
+You are standing at the entrance of a massive rainforest.  A tree as ancient as the rainforest streches high into the sky.  A path leads through the thick canopy of trees to the west.  You think you could hear water moving to the north.
+
+> w
+
+Rainforest Path
+The path through the forest continues east and southwest.  Footprints, human footprints, lead to the northwest.
+
+> sw
+
+Clearing
+The foliage of the trees are thinner here.  A beam of sunlight shines in from the east and hits the center of the clearing.  The path ends west from here but continues northeast.  A stone table is in the direct center of the clearing.
+
+> put mirror on table
+You put the mirror on the stone table.  The sunlight is reflected off of the mirror and into the mountains, dispelling the mist.
+
+> w
+
+Base of Mountain
+A large rock formation extends up in the sky, rivaling the height of the Ancient Tree.  A narrow trail leads up the mountain and a path to the forest leads east.
+
+> up
+
+Top of Mountain
+Finally reaching the top of the mountain, you look out and can see the whole rainforest.  Wow! What a view!  A wooden instrument is laying on top of the mountain.
+
+> get horn
+Ok, you pick up the horn.
+
+> d
+
+Base of Mountain
+A large rock formation extends up in the sky, rivaling the height of the Ancient Tree.  A narrow trail leads up the mountain and a path to the forest leads east.
+
+> e
+
+Clearing
+The foliage of the trees are thinner here.  A beam of sunlight shines in from the east and hits the center of the clearing.  The path ends west from here but continues northeast.  A stone table is in the direct center of the clearing.
+
+> ne
+
+Rainforest Path
+The path through the forest continues east and southwest.  Footprints, human footprints, lead to the northwest.
+
+> nw
+
+Village
+Huts line the outskirts of the encampment.  In the center is a small bonfire.  The forest opens up to the southeast.  Standing next to the bonfire is a older but distinguished looking man.  Outside the huts, there are some women holding their babies.
+
+> give horn to man
+The chief is happy to see molimo.  He gratefully gives you the red vial.
+
+The chief calls for the other men in the tribe to gather around the bonfire.  They begin to sing and dance as the chief blows the horn to awaken the forest.
+
+You feel yourself fading away.
+
+You are in a dark room.  The room is bare except for a circular stone table in the center.
+
+Floating above the table is a small black object.
+
+> look at table
+The table has a hole in the middle, as if it's meant to hold something.
+
+> look at hole
+The hole looks like it could hold something... wet.
+
+> look at object
+You don't know what to make of it.  It's just looks like a small black... thing.
+
+> open vial
+You open the red vial.  Inside the red vial is a red liquid.
+
+> pour liquid in hole
+(removing the red liquid from the red vial first)
+You pour the red liquid into the hole in the table.
+
+You feel a little better.
+
+Honey, wake up.  It's time.  He's coming.
+
+   It's time to wake up.
+
+   It's time to wake up.
+
+   It's time to wake up.
+
+It is late at night and your husband, Peter, is sleeping soundly. A small night stand sits next to your bed.  On the night stand rests a torn out magazine article. The upstairs hallway is to the north.
+
+> n
+
+Top of the Stairs
+The top of the stairs creak when you step on them.  The stairs lead down into darkness and a dimmed hallway lies to the east.  Your bedroom is just a step away to the south.
+
+The grandfather clock downstairs in the living room strikes 10:00 PM.
+
+> e
+
+Beginning of Hallway
+With the lack of light you can barely see the room at the end of the hallway.  The top of the stairs are to the west and the hallway continues east.
+
+> e
+You try to make it down the hallway but your emotions overwhelm you again.  You run back to your bedroom, pull the covers over your head, and drift off into dreamland.
+
+Phlegm
+
+If Phlegm abundance you due limits past,
+These signs are here set down will plainly show,
+The mouth will seem to you quite out of taste,
+And apt with moisture still to overflow,
+Your sides will seem all sore down to the waist,
+Your meat wax loathsome, your digestion slow,
+Your head and stomach both in so ill taking,
+One seeming your griping tooth aching:
+With empty veins, the pulse beat slow and soft,
+In sleep, of seas and rivers dreaming oft.
+
+          - 11th c. Regimen Sanitatis Salernitanum
+
+Entrance to Cave
+You are floating at the entrance to an underwater cave.  Remarkably you have no problem breathing underwater.  A mer-guard floats nearby.  The cave continues to the north.  The mer-guard is here.
+
+> say hi to guard
+"Oh, hi there.  Yeah, just so you know there's a sea-monster in there and we ran out of food to offer it.  So it'll probably destroy our town soon.  But hey, it happens."
+
+ Why are they saying, 'It happens?' Don't they care what happened to me?
+
+"Anyway, if you get rid of the monster for us come back and TELL me about it and I'll give you this blue vial if you want.  And here, take this trident.  It might be useful.  Or maybe not."
+
+> n
+
+Twilight Zone
+The light is very dim in this portion of the cave and is bound to get only dimmer as you move further in.  Passages lead to the east and to the west.
+
+> w
+
+Feeding Chamber
+This is where the mer-people leave food for the sea monster in hopes that the creature will be satisfied with the offering and leave their town alone.  The light is very dim here, except for a faint glow in a couple of cracks in the wall.  The floor is littered with fish bones, the scraps of the sea-monster's dinner.  The cave leads back out to the east.   Also here is a net.
+
+> look at cracks
+Taking a peek through the cracks you see millions of plankton squirting globs of glowing goo in the water.  Inside the crack are the plankton and the goo.
+
+> get fish bone
+Ok, you pick up the fish bone.
+
+> get net
+Ok, you pick up the net.
+
+> attach net to trident
+You attach the net to the trident creating a, well, a net attached to a trident.
+
+> put bone in crack
+You stick the fish bone into the crack in the wall.  You give the bone a swirl and upon retrieving the bone you notice that some of the glowing goo is sticking to the bone, in effect giving you a nifty underwater torch.
+
+> e
+
+Twilight Zone
+The light is very dim in this portion of the cave and is bound to get only dimmer as you move further in.  Passages lead to the east and to the west.
+
+> e
+
+Small Antechamber
+The light is very dim here.  There is not much to see except for a small hole, just large enough for an arm to pass through, in the eastern wall.  The cave leads to the west and north.
+
+> look in hole
+Peering into the small hole you discover that inside is a chamber that is filled with sharks.  You sure don't want to put your hands in there!  Inside the shark hole are the sharks and a hammer and chisel.
+
+> get hammer and chisel with net
+You push the trident net contraption through the hole and scoop up the hammer and chisel.  Taking the hammer and chisel, you discard the net.
+
+> n
+
+Dark Zone
+No natural light can reach this part of the cave.  Most of the western wall is missing and in its place rests a giant eye.  You realize that the sea-monster is just on the other side of that wall!  The cave continues south and a passage leads up.
+
+> poke monster eye with trident
+You poke the giant monster eye with the trident.  The monster jumps upwards in pain and hits his head on the ceiling.  It comes back down a little dazed but still alive.
+
+> u
+
+Upper Chamber
+The water here is deathly still.  The cave bends to the west and a passage leads down into darkness.
+
+> w
+
+Lair Entrance
+This is it.  The entrance, a small hole, to the monster's lair is directly below you.  Above you hangs a sharp stalactite.  The cave continues to the east.
+
+> look at floor
+Looking in the hole you can see the top of the monster's brain.
+
+> look at brain
+The brain is exposed and very vulnerable.
+
+> look at stalactite
+The end of the stalactite comes to a hard, sharp point.
+
+> hit stalactite with hammer and chisel
+You hit the stalactite with the hammer and chisel.  Eventually the stalactite gives way and falls becoming wedged in the hole in the ground.
+
+> e
+
+Upper Chamber
+The water here is deathly still.  The cave bends to the west and a passage leads down into darkness.
+
+> down
+
+Dark Zone
+No natural light can reach this part of the cave.  Most of the western wall is missing and in its place rests a giant eye.  You realize that the sea-monster is just on the other side of that wall!  The cave continues south and a passage leads up.
+
+> poke eye with trident
+You poke the giant monster eye with the trident.  The monster jumps upwards in pain and drives his brain through the stalactite.
+
+There's a giant roar.  Then silence.
+
+The monster does not come back down.
+
+> s
+
+Small Antechamber
+The light is very dim here.  There is not much to see except for a small hole, just large enough for an arm to pass through, in the eastern wall.  The cave leads to the west and north.
+
+> w
+
+Twilight Zone
+The light is very dim in this portion of the cave and is bound to get only dimmer as you move further in.  Passages lead to the east and to the west.
+
+> s
+
+Entrance to Cave
+You are floating at the entrance to an underwater cave.  A mer-guard floats nearby.  The cave continues to the north.  The mer-guard is here.
+
+> tell guard about monster
+"You killed the monster?!  Great!  I'll take the trident back and anything else you might have found and you can have the vial just like I promised."
+
+You feel yourself fading away.
+
+You are in a dark room.  The room is bare except for a circular stone table in the center.
+
+With greater clarity, you see a small black block floating above the table.
+
+> look at block
+It's just looks like a small black children's block
+
+> open vial
+You open the blue vial.  Inside the blue vial is a blue liquid.
+
+> pour liquid in hole
+(removing the blue liquid from the blue vial first)
+You pour the blue liquid into the hole in the table.
+
+You feel even better than before.
+
+Everything is going to be okay Dolores.  The doctor will do everything he can for you and for Noah.
+
+   Just stay awake.
+
+   Just stay awake.
+
+   Just stay awake.
+
+It is late at night and your husband, Peter, is sleeping soundly. A small night stand sits next to your bed.  On the night stand rests a torn out magazine article. The upstairs hallway is to the north.
+
+> n
+
+Top of the Stairs
+The top of the stairs creak when you step on them.  The stairs lead down into darkness and a dimmed hallway lies to the east.  Your bedroom is just a step away to the south.
+
+The grandfather clock downstairs in the living room strikes 11:00 PM.
+
+> e
+
+Beginning of Hallway
+With the lack of light you can barely see the room at the end of the hallway.  The top of the stairs are to the west and the hallway continues east.
+
+> e
+
+Middle of Hallway
+A couple of pictures hang on the wall.  Framed memories from your past.  The hallway continues to the east and west.
+
+> look at pictures
+You can see three picture frames here.  The first has a picture of you and Peter on your wedding day.  You look so happy together.  (Well, you did marry your best friend after all. )
+
+The second frame has a picture from about a year ago.  A full body profile of you pregnant with your son, Noah.
+
+The third frame is empty.
+
+> e
+You're making progress, but still don't feel ready.  You run back to your bedroom, pull the covers over your head, and drift off into dreamland.
+
+Choleric
+
+If Choleric do exceed, as may sometime,
+Your ears will ring, and make you to be wakeful,
+Your tongue will seem all rough, and oftentimes
+Cause vomits, unaccustomed and hateful,
+Great thirst, your excrement are full of slime,
+The stomach squeamish, sustenance ungrateful,
+Your appetite will seem in nought delighting,
+Your heart still greeted with continual biting,
+The pulse beat hard and swift, all hot, extreme,
+Your spittle sour, of fire-work oft you dream.
+
+          - 11th c. Regimen Sanitatis Salernitanum
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+> n
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+It's just all barren.
+
+> e
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+It's just all barren.
+
+> s
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+It's barren.
+
+> w
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+It's barren.
+
+> n
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+Barren
+
+> e
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+Barren
+
+> s
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+Barren
+
+> w
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+Failure
+
+> n
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+How could I fail him?
+
+> e
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+You didn't.  There was nothing you could do.
+
+> s
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+But I let him down!
+
+> w
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+No.  You can't keep blaming yourself for this.
+
+> n
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+SHUT UP!  Leave me alone!
+
+> e
+
+Barren Desert
+You're in the middle of a barren desert.
+
+You must keep walking.
+
+Must keep going.
+
+He wouldn't want you to torture yourself.
+
+You see an oasis to the north.
+
+> n
+
+Oasis
+You have come to the edge of an oasis.  A small lake with desert plants surrounding it beckons invitingly.
+
+> look at lake
+The water is clear and refreshing.    Inside the small lake is a yellow vial.
+
+> get vial
+(from the small lake)
+Ok, you take the yellow vial from the small lake.
+
+> look at plants
+Surrounding the oasis are a number of desert plants, none of them which interest you.  Well, there is that one bush...
+
+> look at bush
+Searching through the bush you notice a small flare gun used for signaling help.  Inside the bush is a flare gun.
+
+> get flare gun
+(from the bush)
+Ok, you take the flare gun from the bush.
+
+> look at gun
+It looks like it only has one flare left.
+
+> fire gun
+You point the flare gun up in the air and squeeze the trigger.  A flare shoots out high into the sky.
+
+You feel yourself fading away.
+
+You are in a dark room.  The room is bare except for a circular stone table in the center.
+
+With even greater clarity than before, you see a small black box floating above the table.
+
+> look at box
+It's starting to take shape.  You think you know what the box is.
+
+> open vial
+You open the yellow vial.  Inside the yellow vial is a yellow liquid.
+
+> pour liquid in hole
+(removing the yellow liquid from the yellow vial first)
+You pour the yellow liquid into the hole in the table.
+
+You feel almost like your old self again.  Almost.
+
+That's right.  You're doing fine.  He's almost here.
+
+   Must keep going.
+
+   Must keep going.
+
+   Must keep going.
+
+It is late at night and your husband, Peter, is sleeping soundly. A small night stand sits next to your bed.  On the night stand rests a torn out magazine article. The upstairs hallway is to the north.
+
+> n
+
+Top of the Stairs
+The top of the stairs creak when you step on them.  The stairs lead down into darkness and a dimmed hallway lies to the east.  Your bedroom is just a step away to the south.
+
+The grandfather clock downstairs in the living room strikes 11:30 PM.
+
+> e
+
+Beginning of Hallway
+With the lack of light you can barely see the room at the end of the hallway.  The top of the stairs are to the west and the hallway continues east.
+
+> e
+
+Middle of Hallway
+A couple of pictures hang on the wall.  Framed memories from your past.  The hallway continues to the east and west.
+
+> e
+
+End of Hallway
+To the west is the dark hallway.  To the east  is where you keep your sorrows.
+
+> e
+You put your hand to the door, but you just can't bring yourself to cross the threshold.  You run back to your bedroom, pull the covers over your head, and drift off into dreamland.
+
+Melancholy
+
+But if that dangerous humor over reign,
+Of Melancholy, sometime making mad,
+These tokens then will be appearing plain,
+The pulse beat hard, the color dark and bad:
+The water thin, a weak fantastic brain,
+False-grounded joy, or else perpetually sad,
+Affright oftentimes with dreams like visions,
+Presenting to the thought ill apparitions,
+Of bitter belches from the stomach coming,
+His ear (the left especially) ever humming.
+
+          - 11th c. Regimen Sanitatis Salernitanum
+
+Your Bedroom
+It looks just like your bedroom, but something isn't right.  The door to the hallway is still north.
+
+You hear a baby's cry coming from down the hall.
+
+> n
+
+Top of the Stairs
+The stairs in your dream also creak when you step on them.  Your bedroom is to the south and the hallway leads east.
+
+You hear a baby's cry coming from down the hall.
+
+> e
+
+Beginning of the Hallway
+You think you see a shadow down the hall.  The hallway continues east and west.
+
+> e
+
+Middle of the Hallway
+It's not your imagination.  There is someone sitting in front of the door at the end of the hallway to the east.  The hallway continues to the west and east.
+
+You hear a baby crying at the end of the hall.
+
+> e
+
+End of the Hallway
+At the end of the hallway lies a despondent looking figure, a woman, sitting in front of a closed door.  She LOOKS familiar.  The hallway leads to the west.
+
+You hear a baby's cry coming from behind the door.  A woman is here.
+
+> look at woman
+It's... It's you.  You see yourself sitting with your back up against the front of the door at the end of the hallway.  Your... her knees are bent up against her chest.  She rests her head on her knees and hugs her legs.
+
+> say hi to woman
+The girl doesn't want to talk.
+
+She never wants to talk.
+
+She just keeps to herself.
+
+The girl doesn't want to talk.
+
+She doesn't want to be talked down to.
+
+> sit
+You sit down.
+
+> say hi to woman
+"Hello Dolores."
+
+Your other self lifts her head up to meet you.  Her eyes are swollen and tears run down her cheeks.  She could use some comforting words right about now to TELL her everything is alright.
+
+> tell woman everything is alright
+You take a deep breath.
+
+"Dolores, everything is going to be alright.  It's normal to be sad.  You're not a failure."
+
+You take another deep breath.
+
+"I know that you don't like to hear this from people, but it's true.  Things happen... bad things happen, and this wasn't your fault."
+
+You begin to tear up and choke on your words.
+
+"Dolores... listen to me.  Do not blame yourself for this anymore."
+
+You wipe away a tear from your eye.
+
+"Noah, your son, would not want this for you.  Come on."
+
+You stand up taking yourself by the hand and face the closed door.
+
+> open door
+You push open the door to Noah's bedroom.  The other Dolores looks at you, gives you a small smile and hands you a black vial.
+
+She enters the room and the crying stops.
+
+You feel yourself fading away.
+
+Dark Room
+You are in a dark room.  The room is bare except for a circular stone table in the center.
+
+With the greatest clarity you've had all year, you see a small black coffin floating above the table.
+
+> look at coffin
+You didn't want to admit it at first, but yes, it is a small coffin.  Accepting reality is the first step to recovery.
+
+> open vial
+You open the black vial.  Inside the black vial is a black liquid.
+
+> pour liquid in hole
+(removing the black liquid from the black vial first)
+You pour the black liquid into the hole in the table.
+
+You feel a sense of calmness penetrate you.  Peace even.
+
+"I'm so sorry Mr. And Mrs. Worth.  We did everything we could to save your son.  Did you have a name for him?"
+
+After a short pause, Peter spoke up, "Noah.  His name is Noah."
+
+His name is Noah.
+
+His name is Noah.
+
+His name is Noah."
+
+It is late at night and your husband, Peter, is sleeping soundly. A small night stand sits next to your bed.  On the night stand rests a torn out magazine article. The upstairs hallway is to the north.
+
+You know what you must do.
+
+> n
+
+Top of the Stairs
+The top of the stairs creak when you step on them.  The stairs lead down into darkness and a dimmed hallway lies to the east.  Your bedroom is just a step away to the south.
+
+> e
+
+Beginning of the Hallway
+With the lack of light you can barely see the room at the end of the hallway.  The top of the stairs are to the west and the hallway continues east.
+
+> e
+
+Middle of the Hallway
+A couple of pictures hang on the wall.  Framed memories from your past.  The hallway continues to the east and west.
+
+> e
+
+End of the Hallway
+To the west is the dark hallway.  The room of sorrows is to the east
+
+You're ready now.
+
+> e
+
+Noah's Bedroom
+You finally make your way up to Noah's room that was once lost in the mist of your sorrows.  You see an unused crib here.
+
+> look at crib
+The crib has never been used.  Well, at least not yet.  Inside the crib is a little footprint.
+
+> look at footprint
+It is Noah's little footprint.
+
+On the back is a note:
+
+Noah Worth
+10/1/16, 12:00 AM - 10/1/17, 1:00 AM
+
+You hold the footprint close to your heart.
+
+Peter walks into Noah's bedroom.
+
+"Dolores?  I kept hearing noise, like someone was walking around.  Was it you?  What are you doing in here?"
+
+You turn to Peter.  "I couldn't sleep.  You know how hard this past year has been for both of us.  But I think I'm ready to move on.  Noah wouldn't want this for me.  I don't want this for me."
+
+Peter comes closer to you and puts his arms around you.  As you hug your husband, the clock in the living room chimes.  12:00 AM.
+
+You smile.  "Happy Birthday Noah."
+
+The End of the Beginning ;)
+
+Credits
+
+Temperamentum
+
+Written by Matthew Sawchuk
+
+Playtested: Julianne Sawchuk
+
+Music
+
+"Evening Fall (Piano)" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+Http://creativecommons.org/licenses/by/3.0/
+
+"Time Passes" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+Http://creativecommons.org/licenses/by/3.0/
+
+"Heavy Heart" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+Http://creativecommons.org/licenses/by/3.0/
+
+"Anguish" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+Http://creativecommons.org/licenses/by/3.0/
+
+Thank you for playing!
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

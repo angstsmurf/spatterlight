@@ -28,6 +28,10 @@ char *sb_take  (sb_t *b);
    to and including the last marker in the range, leaving the surviving tail. */
 void  sb_resolve_cls (sb_t *b, size_t floor);
 
+/* Replace the oldn-byte span at `off` with the NUL-terminated `s` (grows or
+   shrinks the buffer).  Out-of-range arguments are ignored. */
+void  sb_splice (sb_t *b, size_t off, size_t oldn, const char *s);
+
 /* FrankenDrift's Global.pSpace: before appending the next Display() chunk, the
    accumulator gets two trailing spaces -- UNLESS it is empty or already ends in
    a newline (vbLf).  This is what joins a task's completion message and a

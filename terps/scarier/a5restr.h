@@ -61,19 +61,28 @@ extern const a5_xml_node_t *a5restr_fail_message (a5_state_t *st,
                                                   const a5_xml_node_t *restrictions);
 
 /*
- * The destination key for moving out of `lockey` in the canonical direction
- * `dir` ("SouthEast", "Up", ...), honouring the exit's own restrictions, or
- * NULL if there is no (passable) route.  The result may be a location key or a
- * location-group key (the caller resolves a group to a concrete room).
+ * The destination key for `charkey` moving out of `lockey` in the canonical
+ * direction `dir` ("SouthEast", "Up", ...), honouring the exit's own
+ * restrictions, or NULL if there is no (passable) route.  The result may be a
+ * location key or a location-group key (the caller resolves a group to a
+ * concrete room).
  *
  * When `blocked_msg` is non-NULL it is set to the blocking exit-restriction's
  * <Message> node if the exit exists but its restriction fails (left untouched
  * otherwise) -- frankendrift's sRouteError, which overrides the movement task's
  * generic "There is no route..." message.
+ *
+ * The evaluation is memoised per (charkey, lockey, dir) for the current turn,
+ * mirroring clsCharacter.dictHasRouteCache: the first check in a turn decides,
+ * even if a later action changes the gating state.  a5restr_route_cache_clear
+ * is the PrepareForNextTurn clear (clsUserSession.vb:3792); _free releases the
+ * storage with the state.
  */
-extern const char *a5restr_exit_in_direction (a5_state_t *st, const char *lockey,
-                                              const char *dir,
+extern const char *a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
+                                              const char *lockey, const char *dir,
                                               const a5_xml_node_t **blocked_msg);
+extern void a5restr_route_cache_clear (a5_state_t *st);
+extern void a5restr_route_cache_free (a5_state_t *st);
 
 /* Trace restriction evaluation to stderr (driven by the harness/A5_TRACE). */
 extern int a5restr_trace;

@@ -1,0 +1,52 @@
+# the House -- Po. Prune (Finn Rosenlov), ADRIFT 5 (v5.0.000023 taf),
+# Ectocomp 2011 (3-hour speed-IF) -- full winning walkthrough (no score;
+# "Congratulations you have won the game." -> *** You have won ***).
+# Transcribed from the author's bundled "The House walk-through.doc" with two
+# repairs: the costume is found by EXAMINING the clothes bundle (x shadows
+# reveals it, x clothes auto-takes costume + clothes), and the stake left by
+# BREAK SHELF is auto-held (get stake is a no-op) -- the doc's order works
+# otherwise verbatim.
+#
+# The leading "yes" answers the "Adventure Upgrade" bracket-correction
+# question (the file predates 5.0.26 and three restriction blocks carry an
+# AND-then-OR "#A#O#" BracketSequence).  Answering YES is REQUIRED to win:
+# left verbatim, the losing "kill dracula" task (Task29, priority 12,
+# "#A#A#O#" = ...holding-no-stake AND Task27 OR Task33) passes via the
+# trailing OR once Vickie is untied (Task33), and it outranks the winning
+# Task28 (priority 30) even when you hold the stake.  Corrected
+# ("#A#A(#O#)"), it fails when the stake is held and Task28 wins.  Both
+# FrankenDrift.Headless and a5run_dump consume this line at load through the
+# normal script channel.
+#
+# Story: Halloween dare gone wrong -- your girlfriend Vickie waits at the
+# deserted house, where a spirit doorman admits only "one of us".  Find the
+# key under the mat, wear the Dracula costume hidden in the porch shadows to
+# get past the door, bridge the hall gap with the porch swing's board
+# (fetched via the window), break the kitchen cabinet shelf into a stake,
+# and stake the real Count in the cellar as he duels you over who is the
+# true Dracula.
+yes
+n
+look under mat
+get key
+unlock door
+x shadows
+x clothes
+wear costume
+in
+open curtains
+open window
+out
+x swing
+get board
+climb through window
+cover hole with board
+open western door
+w
+open cabinet
+get shelf
+break shelf
+out
+n
+untie vickie
+kill dracula

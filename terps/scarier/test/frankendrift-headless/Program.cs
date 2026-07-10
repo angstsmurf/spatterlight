@@ -80,16 +80,54 @@ namespace FrankenDrift.Headless
         {
             EmitHtml((title is null ? "" : title + "\n") + question);
             // Honour scripted answers so confirmation prompts are deterministic.
-            if (_scriptedAnswers.Count > 0)
+            // Peek past blank/'#'-comment lines (dropping them, like every other
+            // script reader) so a commented walkthrough can still lead with its
+            // yes/no answer; a non-answer line stays queued for the command loop.
+            while (_scriptedAnswers.Count > 0)
             {
-                var a = _scriptedAnswers.Peek().Trim().ToLower();
+                var raw = _scriptedAnswers.Peek().Trim();
+                if (raw.Length == 0 || raw.StartsWith("#"))
+                {
+                    _scriptedAnswers.Dequeue();
+                    continue;
+                }
+                var a = raw.ToLower();
                 if (a == "yes" || a == "y" || a == "no" || a == "n")
                 {
                     _scriptedAnswers.Dequeue();
                     return a.StartsWith("y");
                 }
+                break;
             }
             return false;
+        }
+
+        // Pull the next command/answer line, skipping blank and '#'-comment
+        // lines exactly like the a5run_dump harness, so the outer command loop
+        // and a mid-command PopUpInput never disagree about which line is next.
+        public bool TryNextMeaningfulLine(out string line)
+        {
+            while (_scriptedAnswers.Count > 0)
+            {
+                var raw = _scriptedAnswers.Dequeue().Trim();
+                if (raw.Length == 0 || raw.StartsWith("#")) continue;
+                line = raw;
+                return true;
+            }
+            line = "";
+            return false;
+        }
+
+        // Answer a PopUpInput prompt from the same script stream the command
+        // loop reads, so naming puzzles are scriptable.  Headless never blocks on
+        // a modal InputBox: it returns the next scripted line, or the author's
+        // default once the script is exhausted (matching a5run_dump, whose
+        // PopUpInput callback likewise falls back to the default at EOF).
+        public bool TryGetScriptedInput(string prompt, string dflt, out string response)
+        {
+            if (TryNextMeaningfulLine(out var l)) { response = l; return true; }
+            response = dflt;
+            return true;
         }
 
         public void OutputHTML(string source) => EmitHtml(source);
@@ -269,16 +307,26 @@ namespace FrankenDrift.Headless
                 return 2;
             }
 
-            foreach (var raw in lines)
+            // Drive the loop from the SAME queue PopUpInput answers pull from, so
+            // a naming prompt consumes its line and the loop resumes after it.
+            // (Comments/blank lines are skipped inside TryNextMeaningfulLine,
+            // mirroring Scarier's a5run script handling.)
+            while (runner.TryNextMeaningfulLine(out var cmd))
             {
-                string cmd = raw.Trim();
-                // Comments/blank lines mirror Scarier's a5run script handling.
-                if (cmd.Length == 0 || cmd.StartsWith("#")) continue;
                 Console.Out.Write("\n> " + cmd + "\n");
                 runner.txtInput.Text = cmd;
                 Adrift.SharedModule.UserSession.Process(cmd);
                 if (Adrift.SharedModule.Adventure != null)
                     Adrift.SharedModule.Adventure.Turns += 1;
+                // The real Runner's 1-second tmrEvents timer, deterministically:
+                // tick every TimeBased event exactly once per processed input
+                // line (one turn == one second), matching Scarier's
+                // ev_time_tick_all.  Real-time games (The Salvage's mission /
+                // refuel / end-game events) stay playable and turn-deterministic.
+                if (Adrift.SharedModule.Adventure != null &&
+                    Adrift.SharedModule.Adventure.eGameState ==
+                        Adrift.clsAction.EndGameEnum.Running)
+                    Adrift.SharedModule.UserSession.TimeBasedStuff();
                 if (Adrift.SharedModule.Adventure == null ||
                     Adrift.SharedModule.Adventure.eGameState !=
                         Adrift.clsAction.EndGameEnum.Running)

@@ -1,0 +1,34 @@
+# Algernon's Conundrum (David Whyld?, ADRIFT 5) -- full winning walkthrough.
+#
+# You are at a dead end in a hedge maze with Algernon, who needs royal jelly
+# from a beehive (the white box) but is afraid of the bees.  A beekeeper's suit
+# lies in the Secret Garden, sealed off behind a monument.  The monument slides
+# aside once the colour-square combination lock on Lord Harrington's plaque is
+# set correctly; the stones bordering the reflecting pool spell out the combo:
+#   "four red stones, one blue stone, two yellow stones and three green stones"
+# So press red x4, blue x1, yellow x2, green x3 (any interleaving works -- each
+# press just increments that colour's counter).  Then fetch the suit and give
+# it to Algernon: he suits up, opens the box himself, and wins.
+#
+# --- read the clues ---
+x monument
+x pedestal
+x plaque
+x squares
+x stones
+# --- set the combination: red 4, blue 1, yellow 2, green 3 ---
+press red square
+press red square
+press red square
+press red square
+press blue square
+press yellow square
+press yellow square
+press green square
+press green square
+press green square
+# --- monument has slid aside; go get the suit ---
+s
+take suit
+n
+give suit to algernon

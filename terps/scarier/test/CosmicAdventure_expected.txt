@@ -1,0 +1,175 @@
+An Unspecified Cosmic Adventure That Doesn't Have Words Quest and Space in the Name
+You are a low level worker, who definitely is not a janitor. Let's say you work at a burger joint. Yes, you are a burger joint clerk and it is your shift.
+
+Behind the Counter
+There is of course the counter itself. Then there is a refrigerator and a cooker.
+Also here is a messy sink.  A customer is here.  An exit leads south.
+
+> talk to customer
+He says: "I want one standard burger."
+
+> take buns
+(from the counter)
+Ok, you take the pair of buns from the counter.
+
+> take patty
+(from the cooker)
+Ok, you take the patty from the cooker.
+
+> put patty in buns
+You put the patty inside the pair of buns.
+
+> open refrigerator
+You open the refrigerator.  Inside the refrigerator is a bottle of secret sauce.
+
+> take sauce
+(from the refrigerator)
+Ok, you take the bottle of secret sauce from the refrigerator.
+
+> put sauce in buns
+You add some sauce to the burger. Oh boy, what a mess.
+
+> give burger to customer
+He pays for the burger and leaves without saying a word. Talk about rude.
+
+> s
+You move south.
+
+In front of the Counter
+There are several tables here, one of which is closer to you than others. Actually it is quite close to the exit in east.  The room is filthy.  A strangely acting customer is here.  An exit leads north.
+
+> talk to customer
+You try to tell her to not to drink here and she begins to lecture you about her rights to drink everywhere.
+
+> take whiskey
+(from the table)
+You pick it up. After awhile the customer notices that her bottle is missing and searches for it awhile. While doing so, she drops a business card. When she can't find her bottle she begins to lecture you about the need for a better security system.
+
+> take card
+Ok, you pick up the business card.
+
+> call taxi
+You order a cab for drunk customer and after some convincing she rides away with it.
+
+> n
+You move north.
+
+Behind the Counter
+There is of course the counter itself. Then there is a refrigerator and a cooker.
+Also here is a messy sink.  An exit leads south.
+
+> turn on sink
+You turn on the water and let water flow on the cloth. Then you turn the water off again.
+
+> take cloth
+(from the messy sink)
+Ok, you take the wet cloth from the messy sink.
+
+> s
+You move south.
+
+In front of the Counter
+There are several tables here, one of which is closer to you than others. Actually it is quite close to the exit in east.  The room is filthy.  An exit leads north.
+
+> clean filth with cloth
+You clean the room.
+
+> e
+You move east.
+
+Your Spacechip
+An exit leads west.  You finally have finished your chores for tonight and hop in your spaceship. (I told you are working on a small space station acting as a burger joint, right?) You fly towards your home planet that also happens to be the administrative planet of this little galaxy when you notice a big spaceship that wasn't there ten hours ago. Suddenly tractor beam pulls your ship aboard of the mysterious spaceship. Tough looking guards escort you to a prison cell, take your cell phone, remove sim card from it and leave it on table in the hallway outside of cells. Then they leave. After few minutes a rich looking guy walks up to your cell. In a snotty voice he tells you that he has built a new super weapon and is going to blow up a half of the administrative planet. (A villain's monologue is a convenient plot device, isn't it?) The guy walks away twirling his fingers in front of his face without realizing that he doesn't have moustache.
+A Prison Cell
+The cell looks quite ordinary. Same can't be said for a cell next to yours that has laser beams instead of iron bars. Also there is a piece of meat. A beast in the next cell is here.
+
+> take meat
+Ok, you pick up the piece of meat.
+
+> show meat to beast
+The beast stares at the meat and then runs through beams. Beams cut him into pieces and a half of its head slides next to your cell.
+
+> take head
+Carefully you pick the piece of the head up and use the acid to cut through bars. Then you leave the cell to never return.
+
+A Hallway Next to Cells
+This part of the hallway is empty except a table next to one wall. Exits are in east and west.
+
+> take phone
+(from the sturdy table)
+Ok, you take the simless cell phone from the sturdy table.
+
+> e
+You move east.
+
+A Sleeping Quarters
+All bunk beds are vacant except one.  Also here is a messy bed.  A sleeping man is here.
+
+> take sheet
+(from the messy bed)
+Ok, you take the sheet from the messy bed.
+
+> tie up guard
+You try to tie his hand and legs with strips torn from the sheet. Despite his deep sleep he wakes up. After some struggle you succeed tying him up and he begins to yell nasty things at you. You realize that his laser gun has dropped to the floor as the result of your struggle.
+
+> take gun
+Ok, you pick up the laser gun.
+
+> record guard
+You record some of juicier things that the guard yells at you.
+
+> w
+You move west.
+
+A Hallway Next to Cells
+This part of the hallway is empty except a table next to one wall.  Exits are east and west.
+
+> w
+You move west.
+
+Further Along the Hallway
+The hallway continues here.  Even further along the hallway stand some guards in their positions.  An exit leads east.
+
+> shoot guards
+The laser gun turned out to be more powerful than you thought -it rips guards into shreds and breaks their weapons. Its battery runs out of juice.
+
+> search remains for eye
+You find one intact eye and reluctantly pick it up.
+
+> take battery
+(from the broken gun)
+Ok, you take the battery from the broken gun.
+
+> put battery in laser
+You put the battery inside the laser gun.
+
+> w
+You move west.
+
+In Front of a Door
+There is sophisticated security system here.  An exit leads east.
+
+> use eye
+You use the eye to fool the security system. The door in west opens with hiss.
+
+> w
+You move west.
+
+In Front of an Another Door
+This door also has a security system -there is a voice scanning mechanism here.  An exit leads east.
+
+> play file
+You play the voice file to the voice scanner and voila, the passage in north opens up.
+
+> n
+You move north.
+
+On Top of the Stairs
+Down below you see people gathered around the super weapon that is charging up.  An exit leads south.
+
+> shoot weapon
+You shoot at the super weapon until the battery of your laser is exhausted. Different parts of weapon begin to throw out sparks and people begin to run around.
+
+*** You have won ***
+Before anyone reaches you or manages to shoot you down, the dastardly contraption really blows up. It begins chain of explosions inside of the ship but before you could wonder would it really turn out this way in the life real, you are pulled away by somebody who leads you to a escape pod. Inside the pod your savior tells you that she is agent who has been investigating that devilish billionaire for years. At head quarters of the agency she works for you meet her boss who is very impressed by the work you did saving a half of the planet and he hands you a first class burger as a reward.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

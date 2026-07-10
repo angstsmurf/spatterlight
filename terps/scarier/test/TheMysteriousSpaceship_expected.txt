@@ -1,0 +1,298 @@
+   The Mysterious Spaceship
+
+Ouch! Not again! Your one-man spaceship is out of fuel and this time it is more critical than ever. You are orbiting the planet Karpath and you are about to run out of oxygen too. Your only chance of survival is to reach another spaceship, which is also orbiting Karpath.
+
+You leave your spaceship and float in your spacesuit through the empty space towards the foreign spaceship. The last thing you see before you float into the airlock is the moon of Karpath. The airlock closes just in time, as you run out of oxygen. Luckily there is oxygen aboard the ship. If you can get this spaceship started, you can land on Karpath.
+
+The Mysterious Spaceship
+An interactive Space Adventure
+Release 1 / ADRIFT 5.0.35.3
+Special commands: SETTINGS, WORDS, HELP
+
+You leave the airlock and take a look around...
+
+Saloon
+You are in the saloon, just outside the airlock. There is an old bookcase against one wall and a small table in the middle of the saloon. A few objects are scattered all over the table.
+
+You can go forward and aft.
+
+> x table
+It is a small wooden table.  A mousetrap, a heavy hammer, a sharp knife and a new fuse are on the small table.
+
+> x bookcase
+Basically the bookcase consists of four wooden poles, attached to a series of shelves.  An encyclopedia and a koran are on the old bookcase.
+
+> x encyclopedia
+It is a pretty heavy book with lots of pages. You may read it.  The encyclopedia is currently closed.
+
+> read encyclopedia
+On the subject of vampires is written:
+
+“To kill a vampire you must drive a wooden stake through its heart. However, as vampires have superhuman strength, it is necessary to weaken the vampire first with a sacred symbol, such as a crucifix, the star of David etc. depending on which religion the vampire believed in, before he became a servant of evil.”
+
+Hmmm, it seems as if a crucifix is not effective against a vampire unless the vampire is a former Christian. But then another symbol will be effective, but which symbol depends on the vampire's former religion...
+
+> x koran
+It is old and worn. You may read it.  The Koran is currently closed.
+
+> read koran
+On the first page a message has been written to the owner of this Koran:
+
+“This book is given to you, our beloved son, Vlad Nosferatu, here on your tenth birthday so that you can read the words of Allah. May the curse of the sacred crescent moon be put on anyone who has been seduced by evil.”
+
+Hmmm, it seems that a crescent moon is a holy symbol for Muslims...
+
+> take hammer
+(from the small table)
+Ok, you take the heavy hammer from the small table.
+
+> take knife
+(from the small table)
+Ok, you take the sharp knife from the small table.
+
+> take fuse
+(from the small table)
+Ok, you take the new fuse from the small table.
+
+> take mousetrap
+(from the small table)
+Ok, you take the mousetrap from the small table.
+
+> x hammer
+It is a standard hammer with a wooden handle an a metallic head.
+
+> x knife
+It is a sharp knife. Careful now!
+
+> x fuse
+It is a standard spaceship fuse. It seems to be brand new.
+
+> x mousetrap
+It is an old-fashioned mousetrap. Once set, the trap will trigger when someone or something touches it.
+
+> break bookcase
+You break off the top of one of the poles of the bookcase using the hammer. You pick up the resulting stake and examine it more closely. One end of the stake is a bit pointy, though not as pointy as you would prefer.
+
+> x stake
+The wooden stake is about 40 centimeters and one end of the stake is a bit pointy, though not as pointy as you could wish for.
+
+> cut stake with knife
+You cut the wooden stake until it is very pointy.
+
+> x stake
+The wooden stake is about 40 centimeters and one end of the stake is very pointy.
+
+> aft
+You move aft.
+
+Sleeping Quarters
+You are in the sleeping quarters of the mysterious spaceship. In the middle of the room lies a coffin. There is a metal door set in the bulkhead, blocking the way aft.
+
+You may go forward.
+
+> x coffin
+It is a beautifully carved black coffin.  The black coffin is currently closed.
+
+> open coffin
+You open the black coffin.
+
+> x vampire
+The man has fangs! You realize that this is a vampire. His bite is deadly. Luckily he is asleep. He has an access card in his pocket.
+
+> x door
+It is a solid metal door. Right next to the door is a card reader.  The metal door is currently locked.
+
+> x card reader
+It is a card reader used to unlock the door. If you have the right access card you should simply SWIPE CARD to unlock the door.
+
+> forward
+You move forward.
+
+Saloon
+You are in the saloon, just outside the airlock. There is an old bookcase against one wall and a small table in the middle of the saloon.
+
+You can go forward and aft.
+
+> forward
+You move forward.
+
+Cockpit
+You are in the cockpit of the mysterious spaceship. The dashboard is right in front of you. Right next to the dashboard is a window with shutters. A crucifix is hanging on one wall.
+
+You can go aft.
+
+> x dashboard
+It is a standard dashboard for a one-man spaceship. It shouldn't be a problem to land safely on Karpath with this dashboard. Well, except from the fact that the warning light for the main engine fuse is shining brightly. You will need to replace the fuse before you can land on Karpath.  On the dashboard are several buttons. The most important ones are the yellow button, which lands the spaceship automatically, and the left and right buttons controlling the nozzles which rotates the ship around its own axis.
+
+> x yellow button
+This is the button you need to press, to start the automatic landing sequence.
+
+> x window
+You can't see the window when the window shutters are closed.
+
+> x shutters
+It is a pair of metallic window shutters.  The window shutters are currently closed.
+
+> open shutters
+You open the window shutters.
+
+> x crucifix
+It is a beautiful crucifix made of gold and the size of a hand.
+
+> press right button
+You push the right button and the spaceship rotates 30 degrees clockwise around its own axis.
+
+> press right button
+You push the right button and the spaceship rotates 30 degrees clockwise around its own axis.
+
+> press right button
+You push the right button and the spaceship rotates 30 degrees clockwise around its own axis.
+
+> press right button
+You push the right button and the spaceship rotates 30 degrees clockwise around its own axis.
+
+> press right button
+You push the right button and the spaceship rotates 30 degrees clockwise around its own axis.
+
+> press right button
+You push the right button and the spaceship rotates 30 degrees clockwise around its own axis.
+
+The crescent moon is now visible through the window.
+
+> x moon
+Through the window you see the crescent moon shining brightly.
+
+> aft
+You move aft.
+
+Saloon
+You are in the saloon, just outside the airlock. There is an old bookcase against one wall and a small table in the middle of the saloon.
+
+You can go forward and aft.
+
+> set mousetrap
+You prepare the mousetrap and put it on the floor. Now all you have to do is wait and hope that you will catch a rodent.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> x mousetrap
+It is an old-fashioned mousetrap. A big rat is stuck in the trap. The rat is still alive.
+
+> x rat
+It is a big fat rat. It is still alive.
+
+> kill rat
+You kill the rat with the sharp knife. Blood pours out of from the wound. Somehow the smell of blood must have reached the sleeping quarters, because the vampire comes running towards you! When the vampire sees you he focuses on you instead of the rat. He has a mean expression on his face as he approaches you.
+
+> forward
+You flee forward.
+
+Cockpit
+You are in the cockpit of the mysterious spaceship. The dashboard is right in front of you. Right next to the dashboard is a window with shutters. A crucifix is hanging on one wall.
+
+You can go aft.
+
+The vampire is right behind you! You have to act fast!
+
+As the vampire enters the cockpit, the vampire goes pale, even more pale than he already is. He stares paralyzed at the crescent moon, unable to move.
+
+> kill vampire
+With the vampire paralyzed you take the chance and hammer the stake through the vampire's heart. The vampire falls to the floor, dead.
+
+> x vampire
+The dead vampire lies sprawled on the floor with a wooden stake through its heart.  You notice an access card in the dead vampire's breast pocket.
+
+> x pocket
+It is a standard breast pocket.  Inside the breast pocket is an access card.
+
+> take access card from pocket
+Ok, you take the access card from the breast pocket.
+
+> x access card
+It is an access card, probably to a locked door.
+
+> aft
+You move aft.
+
+Saloon
+You are in the saloon, just outside the airlock. There is an old bookcase against one wall and a small table in the middle of the saloon.
+
+You can go forward and aft.  Also here is a mousetrap.
+
+> aft
+You move aft.
+
+Sleeping Quarters
+You are in the sleeping quarters of the mysterious spaceship. In the middle of the room lies a coffin. There is a metal door set in the bulkhead, blocking the way aft.
+
+You may go forward.
+
+> swipe card
+You swipe the access card through the card reader. You hear a click from the door. It is now unlocked.
+
+> open door
+You open the metal door.
+
+> aft
+You move aft.
+
+Engine Room
+You are in the engine room. There isn't much noise here, since the main engine is not running.
+
+> x main engine
+This is the main engine, which must be working if you are to go anywhere.  There's a blown fuse in the fuse socket.
+
+> x fuse socket
+It is a standard spaceship engine fuse socket.  Inside the fuse socket is a blown fuse.
+
+> replace blown fuse
+You take the blown fuse out of the socket and replace it with the new fuse.
+
+The main engine noisily comes to life and starts spinning.
+
+> i
+You are wearing a spacesuit, and are carrying a heavy hammer, a sharp knife, an access card and a blown fuse.
+
+> forward
+You move forward.
+
+Sleeping Quarters
+You are in the sleeping quarters of the mysterious spaceship. In the middle of the room lies a coffin. There is an open metal door set in the bulkhead leading aft.
+
+You may go forward and aft.
+
+> forward
+You move forward.
+
+Saloon
+You are in the saloon, just outside the airlock. There is an old bookcase against one wall and a small table in the middle of the saloon.
+
+You can go forward and aft.  Also here is a mousetrap.
+
+> forward
+You move forward.
+
+Cockpit
+You are in the cockpit of the mysterious spaceship. The dashboard is right in front of you. Right next to the dashboard is a window with shutters. A crucifix is hanging on one wall.
+
+You can go aft.
+
+The dead vampire lies sprawled on the floor with a wooden stake through its heart.
+
+> press yellow button
+You push the yellow button. The landing procedure begins and you sit back and enjoy the landing. Once you are down on Karpath you hand over the body of the vampire to the police. The police buries the vampire in cement to ensure that he will never rise again and you receive a huge bounty for catching the dangerous vampire Vlad Nosferatu!
+
+CONGRATULATIONS!
+
+You completed the game using 0 hints
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,359 @@
+All Through the Night
+It's time to settle in for a peaceful, early winter evening at home. You're off work tomorrow, but with all your friends being busy, it's probably just going to be you and the television tonight. For the moment, the best you've found is the last segment of a nature documentary about burrowing animals. It's at least held your attention thus far.
+
+[Press any key to continue.]
+
+Your Living Room
+Your living room is an open space, well-lit by day by the large front windows next to the front door along the east wall. The walls are painted a cheerful, relaxing shade of green. A recliner  and couch  attend the carpeted shrine to the TV and entertainment center. Off to the side is the tiny table where you eat your meals and read the newspaper, and on which your telephone sits. The corner of the room is devoted to the carpetted stairs to the basement, at the top of which stands the door to the garage along the north wall. The main hallway opens to the south. A corner to the southwest is devoted to your small kitchen. The front door is in the east wall.
+
+> open garage door
+You open the garage door.
+After its customary introduction, the nature documentary idly rolling by on the TV resumes from its commercial break. A very soft, calm voice chimes in over the footage of twilit burrows.
+"Unfortunately, we are not the only ones privy to the young gopher's nocturnal grazing. A gopher snake has secretly followed her home to her den."
+
+> n
+(getting off the couch first)
+
+The TV documentary calmly prattles on.
+"With no time to expand a 'pop hole' from her den, the gopher has left herself vulnerable to the predator's invasion. Positioning itself between herself and the burrow exit, the snake has left her nowhere to go."
+
+> n
+You move north.
+
+Your Garage
+The cluttered garage serves mainly as a storage space for everything you don't need but can't yet part with. The walls of this dusty room are lined with cheap metal shelves, holding rows of hand-marked cardboard boxes. It's just as well that you've never kept your car in here; the automatic door that makes up the east wall has been jammed for years. The door back into your living room is along the south wall.  A group of wooden boards are propped against the wall.  A hammer lies discarded on the floor.  A small box of nails sits open.
+
+> take wooden boards
+Ok, you pick up the wooden boards.
+
+> take hammer
+Ok, you pick up the hammer.
+
+> take box of nails
+Ok, you pick up the box of nails.
+
+> s
+You move south.
+
+Your Living Room
+Your living room is an open space, well-lit by day by the large front windows next to the front door along the east wall. The walls are painted a cheerful, relaxing shade of green. A recliner  and couch  attend the carpeted shrine to the TV and entertainment center. Off to the side is the tiny table where you eat your meals and read the newspaper, and on which your telephone sits. The corner of the room is devoted to the carpetted stairs to the basement, at the top of which stands the door to the garage along the north wall. The main hallway opens to the south. A corner to the southwest is devoted to your small kitchen. The front door is in the east wall.
+
+> take phone
+(from the dining table)
+You pluck the portable phone from its handset.
+
+> lock front door
+The front door's deadbolt thunks heavily into place, now locked.
+
+> d
+You move down.
+
+Your Basement
+This half-finished basement is one you've been meaning to convert to a social space, eventually. For now, it's mostly barren, sporting only an ancient carpet, and a disused futon. A door into the back yard is set off in the corner of the west wall. A wide window yawns across the wall beside it.
+
+> lock back door
+The back door's deadbolt thunks heavily into place, now locked.
+
+> u
+You move up.
+
+Your Living Room
+Your living room is an open space, well-lit by day by the large front windows next to the front door along the east wall. The walls are painted a cheerful, relaxing shade of green. A recliner  and couch  attend the carpeted shrine to the TV and entertainment center. Off to the side is the tiny table where you eat your meals and read the newspaper, and on which your telephone sits. The corner of the room is devoted to the carpetted stairs to the basement, at the top of which stands the door to the garage along the north wall. The main hallway opens to the south. A corner to the southwest is devoted to your small kitchen. The front door is in the east wall.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+You happen to glance out the window. Your gaze falls on a long stripe of shadow near the edge of where the street lights fade into the darkness of your front yard. That vague shape suddenly contorts, twitches, and slides away from the light, like a limp body being dragged along. It's instantly lost to sight in the murk.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+A pale flicker of motion at the window catches your eye. Instinctively, you turn your head to look.
+The face looking back at you, inches from the glass, could almost, vaguely, pass for that of a person. But it's much too wide for that, much too pale. Its rough facsimile of a mouth suckles at the windowpane with pulsing rasps, like that of an abyssal bottom-feeder that has somehow crawled its way into your front yard.
+You have perhaps a second or so to take it in before it recoils with a jerk, flailing out of view. It just flopped towards your front door.
+
+> z
+Time passes...
+
+> call 911
+"911, what is your emergency?"
+
+Your response comes before you really have time to process it. "There's this... thing trying to get into my house!"
+
+"What do you mean?"
+
+You recover your mental footing enough to present a more plausible story, rapidly explaining that someone is trying to enter your home. The dispatcher quickly confirms your address. Once they have affirmed (repeatedly) that the police are on their way, you hang up, reluctant to make any additional noise.
+
+> board up window
+You nail boards across the front window, having to leave some gaps due to its size.  You estimate you could board up three more windows.
+The knob of the front door twitches audibly for a few moments.
+
+> barricade front door with couch
+You carefully push the couch against the the front door, forming a barricade.
+The front door handle jiggles, but the lock holds.
+
+> d
+You move down.
+
+Your Basement
+This half-finished basement is one you've been meaning to convert to a social space, eventually. For now, it's mostly barren, sporting only an ancient carpet, and a disused futon. A door into the back yard is set off in the corner of the west wall. A wide window yawns across the wall beside it.
+
+> board up window
+You nail boards across the basement window, leaving only thin slivers of moonlight peering between the gaps.  You estimate you could board up two more windows.
+
+> barricade back door with futon
+You carefully push the futon against the the basement door, forming a barricade.
+
+> u
+You move up.
+
+Your Living Room
+Your living room is an open space, well-lit by day by the large front windows next to the front door along the east wall. The walls are painted a cheerful, relaxing shade of green. A recliner  and couch (which you have pushed against the front door attend the carpeted shrine to the TV and entertainment center. Off to the side is the tiny table where you eat your meals and read the newspaper, and on which your telephone sits. The corner of the room is devoted to the carpetted stairs to the basement, at the top of which stands the door to the garage along the north wall. The main hallway opens to the south. A corner to the southwest is devoted to your small kitchen. The front door is in the east wall.  The front window is crisscrossed with nailed-on boards.
+
+> s
+You move south.
+
+The Hallway
+This short hallway, its walls painted the living room's same soothing green, connects most of the main rooms of your house. Aside from a tiny closet, its only real distinguishing features are a few pictures on the wall. The bathroom is to the west, and the spare bedroom opposite it, to the east. The southern end terminates at the door to your bedroom.
+
+> s
+You move south.
+
+Your Bedroom
+The bedroom's a bit of a mess. A small pile of unattended laundry is next to the bed, which sits unfortunately directly across from the east-facing window, catching a blast of sunrise each morning. The door back to the hallway is along the north wall, slightly recessed from the rest of the room by a few feet.
+Through the window, you spy a sinuous shape just as it jerks out of sight with a twitch, in the direction of the back door.
+
+> board up window
+Pushing the curtains out of the way, you carefully tack down the boards across the bedroom window.  You estimate you could board up one more window.
+
+> n
+You move north.
+
+The Hallway
+This short hallway, its walls painted the living room's same soothing green, connects most of the main rooms of your house. Aside from a tiny closet, its only real distinguishing features are a few pictures on the wall. The bathroom is to the west, and the spare bedroom opposite it, to the east. The southern end terminates at the door to your bedroom.
+
+> e
+You move east.
+
+The Spare Bedroom
+This tiny spare room has served you as an ostensible spare bedroom - or more often, storage space. Almost the whole room is occupied by a simply made bed on a cheap metal frame and an empty dresser, with an open closet completely occupied by boxes of old books. A single window in the east wall looks out into your front yard, and the only door is set in the west wall, opening back into the hallway.
+
+> board up window
+You've used the last of your boards.  You nail boards across the window, stabilizing it.
+A soft, metallic jostling sound drifts up from the basement, followed by silence.
+
+> w
+You move west.
+
+The Hallway
+This short hallway, its walls painted the living room's same soothing green, connects most of the main rooms of your house. Aside from a tiny closet, its only real distinguishing features are a few pictures on the wall. The bathroom is to the west, and the spare bedroom opposite it, to the east. The southern end terminates at the door to your bedroom.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+From downstairs, you hear the sharp, ominous report of something thudding heavily against a window.
+
+> z
+Time passes...
+Something slams violently against your basement window. Glass audibly cracks, but that sounds like the only thing that's broken.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+From the direction of your bedroom, you hear a sharp, meaty smack, and the subsequent, threatening chorus of glass starting to splinter.
+
+> z
+Time passes...
+A hefty thud emanates from your bedroom - thankfully without any accompanying sound of splintering wood.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+From the direction of the spare bedroom, you hear the sound of repeated impacts and fragmenting glass.
+
+> z
+Time passes...
+From the spare bedroom, you can hear something smack harshly, but it's followed by quiet.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+From the living room, you hear a sickening thump, and the noise of glass splintering.
+
+> z
+Time passes...
+From the living room comes a sound of shattering window glass, but the boards give no audible indication of yielding.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+A sudden cacophony of thudding blows begins to pound against your front door, which audibly jolts in its frame. As the beating intensifies, the frame starts to loudly split, the door mechanism starting to tear through the wood.
+
+> z
+Time passes...
+You can hear the front door under relentless assault. However, the sound of it actually breaking inward never comes.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+A fresh din of brutality begins to echo from the basement door, a dam against a veritable animalistic frenzy. You can hear the shriek of the door's mechanism starting to tear free of its moorings.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+
+You finally unblock your doors when the police come knocking. A long conversation follows, during which, after a moment's consideration, you opt to give a vague description of an "intruder" rather than risk the consequences of revealing the entire event as it transpired. Though it seems likely at least one of them must have seen the invader, whoever they are, they similarly remain discreet.
+
+The report goes in the newspaper as a mere footnote, a short block of text about an "attempted home invasion". As for yourself, you spend your evenings much the same as you did before - but with a chair shoved under the doorknob and the windows still boarded. You'll probably need to remove those when the house finally sells. So far, there have been no takers.
+
+[Press any key to continue.]
+
+Ending C: Salvation
+
+"Hark, a solemn bell is ringing
+Clear through the night
+Thou, my love, art heavenward winging
+Home through the night
+Earthly dust from off thee shaken
+Soul immortal shalt thou awaken
+With thy last dim journey taken
+Home through the night."
+
+ - Sir Harold Bolton, 1884
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

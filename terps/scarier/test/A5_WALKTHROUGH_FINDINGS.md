@@ -54,6 +54,8 @@ strict-diffed against Scarier with no dotnet dependency.
 | Finn's Big Adventure (FBA v.3c) | 572 | **MATCH 0\|0** | 0 (xo 0) | **WIRED 2026-07-03 — MAX-SCORE WIN** (`*** CONGRATULATIONS! ***`, "scoring the maximum 500 points!", 572 turns), golden-backed (vanilla byte-exact, dotnet-free). Larry Horsfield; no public walkthrough — derived by blind play over sessions 1–7 (see `TODO_fba_walkthrough_progress.md`). **FULL MATCH as of 2026-07-03**: the one RNG-independent hunk was the loc-92 `cl_AtButcherS` LocationTrigger — its "rope tied" restriction (`cl_RopeTiedPa Must BeEqualTo 0`) carries the "you pull on his leash to stop him" `<Message>`, which FD shows on the failing System task but Scarier's `attempt_event_task_impl` swallowed (returned silently on any restriction failure). Fixed by emitting `st->restriction_text` (FD's `sMessage = sRestrictionText`) — see the TODO "event/System/walk restriction-fail `<Message>`" DONE entry. Internal Score overshoots to 510 (the second-restaurant "Chop Shop" meal banks +20 when +10 sufficed) but both engines print the `Score>=MaxScore` "maximum 500" win message. |
 | The Book of Jax | 650 | **MATCH** ✅ | 0 (xo 0) | **WIRED 2026-07-03 as a MAX-SCORE WIN** (`*** CONGRATULATIONS! ***`, "scoring the maximum 500 points!", 652 turns) — Larry Horsfield; derived by play (decoded hint sheet), not the built-in solution. Both engines reach the win, so all hunks are Scarier text divergences. Wiring surfaced+FIXED **BUG 16** (503→55): the stock `Look` task's `AggregateOutput` `CompletionMessage` segments were rendered *without* honouring `<DisplayOnce>`, so the first-turn "(Don't forget … use the LUMINO spell.)" hint (a DisplayOnce segment gated on "prow seen") reprinted on **every** room view where FD shows it once. `render_look_string` (a5run_action.cpp) now mirrors `eval_desc_into` — a shown DisplayOnce segment is suppressed thereafter and retired on real output (`marking_display=1` at the three real render sites; the two pre/post-action test renders stay `=0`). Whole 34-game corpus stays byte-identical in both RNG modes (no other golden's Look aggregate carries a DisplayOnce). Wiring also surfaced+FIXED **BUG 17** (55→2): a bare object-key OO-property inside a room-description `<# #>` expression (potting-shed `<#LCASE(cl_Door1.OpenStatus)#>`; farm gates/half-doors `cl_gate1/2`, `cl_door3/4/6`, `cl_hatch`) was not resolved — Scarier left the literal key ("…which is cl_door1." vs FD "…which is locked."). `replace_expressions` (a5text.cpp) only ran `expr_substitute` (`%ref%.Prop` + `%func%`) on each `<#…#>` body; the bare key never got the `a5expr_replace` pass because `protect_exprs` had hidden the body from `process_inner`'s outer ReplaceOO. It now runs `a5expr_replace` on the substituted body before `a5_eval_sexpr`, mirroring `a5text_eval_expression`. 53 of 55 hunks were this. Wiring also surfaced+FIXED **BUG 18** (2→1): the game's custom `%Turns_Taken%` counter (a per-turn `TurnBased` event `cl_TurnsTaken1`→`cl_TurnsTaken2` `IncVariable`) over-counted by 6 (601 vs FD 595) — Scarier's event-fired task iterated the command's **whole** leftover `%objects%` set, but FD's post-Display `NewReferences` is only the LAST *displayed* message's refs (its `AddResponse` `bHasOutput` gate never enters an empty-output response). On `put all in bag` re-putting items already inside the bag (their `cl_PutObjInBa` completions render empty), Scarier left `n_ref_items`=7 (the silent moves) so the per-turn event ticked +7; FD left 1 (the one visible "…the length of rope…" message) → +1. `resp_flush` (a5run_action.cpp) now re-applies the last **output-producing** entry's refs as the leftover, collapsing to singular when that message was single-ref. Whole corpus unchanged (Amazon's `get ammo and rifle` +2 double-tick preserved — those two takes DO share one non-empty 2-ref message). Wiring also surfaced+FIXED **BUG 19** (1→0, **FULL MATCH**): the plough-message leading pSpace, a **markup-strip-timing difference**. The `cl_EndConvo` "…plough his field…" completion is preceded by a conversation message whose *raw* text ends `…\n<font color = #01ffff>` (a trailing colour-reset tag after the newline). FD keeps markup in `sOutputText` and applies `pSpace` to the RAW buffer, so it sees the trailing `>` (non-`vbLf`) and prepends `"  "`; Scarier strips `<font>` during `a5text_process` (a5text.cpp:2053) *before* `sb_pspace`, which then saw the `\n` and added nothing. The message renderers (`a5text_describe`/`a5text_describe_ex`) now append a sentinel `A5_PS_MARK` when the *pre-strip* text ends non-`\n` but the *stripped* text ends in `\n` (i.e. FD's buffer would end in a tag/`<br>`/entity, not a real newline); `sb_pspace` treats the marker as a non-newline tail (adds the join spaces) and `finish_turn` strips it. Faithfully replicates FD's raw-buffer pSpace without deferring the whole tag-strip. **Whole 34-game corpus byte-identical in both RNG modes — zero ripple** (the marker only fires on the exact `\n`+trailing-tag shape); unit tests + `make sanitize` clean. See TODO_a5_walkthrough_bugs.md. |
 | I Summon Thee! | 15 | diverge | 6 (xo **1**) | **WIRED 2026-07-07 as a FULL WIN** (`*** You have won ***`, `ISummonThee.taf`, Theodidactus 2020). No public walkthrough — solved by RE. You are a demon bound in a warding circle in the Upper Tower; the circle wards cosmodemons/gods/djinns/undead but **not nymphs**, so a first-turn `conjure nymphs` erases it (task `CheckNymph`), skipping Clark's entire forced intro and leaving power at exactly 25 (`InitialValue` 28 − conjure 3), the "Beyond all mortal comprehension" tier the win needs. Then race to the vault (`annihilate vault door` — the iron door is just a General flavor-only "open" task; annihilate moves it `ToLocation60`), `take talisman` (+`RAND(5,10)` and defuses the `CheckDead` loss where the 4 cultists burn it), and `break the seal` at the Drive (`Location1`, needs `Power1>=25`). Both engines win. **Objects-Destroyed gap FIXED 2026-07-07** (vanilla 8→6, xoshiro 4→2): the win task runs `EndGame Win` as its FIRST action and only THEN `SetTasks Execute CheckEscap (Everything.StaticOrDynamic)` (the per-object tally, +1 per member at `Location60`). The group-member loop in `a5run_action.cpp`'s SetTasks-Execute handler broke on `st->game_over`, which the earlier `EndGame` had already set, so it ran only member 0 (Talisman, not at Location60) → `Objects Destroyed` 0 vs FD's 2 (Circle+Door) → Final Score 39 vs 41. FD checks game-over only in the main loop, so a sub-task iterates every member regardless; fixed by capturing `was_over` before the loop and breaking only on a game-over NEWLY triggered by a member's own run (preserves the defensive break for a member that itself ends the game; LostCoastlines world-gen still MATCHes 0\|0). Now `Objects Destroyed: 2`, `Final Score: 41`. **Hunk (1) FIXED 2026-07-07 (xoshiro 2→1):** the **`%object%`→key** fix (a5text.cpp `eval_function` now returns `MatchingPossibilities(0)` = the entity KEY, Global.vb:1792) closed the nymph + "The Door" names — the author keys `Nymphs`/`Door` equal their nouns. It regressed Halloween as feared, but the cause was NOT the `.Children` On/In filter alone: the garbage line came from `dk_ListFirstL1`'s `.Children(Characters, In)` returning the *object* hook instead of *characters*. Fixed by making `.Children`/`.Contents` honour the entity-TYPE arg too (see engine-fix #15). Zero corpus blast radius; Halloween holds MATCH 0\|0. **Hunk (2) FIXED 2026-07-07 (xoshiro 1→0, vanilla 6→5):** **completion-message `Rand` draw ORDER.** `Annihilate2`'s message `The %object% %Annihilateflavor[Rand(1,10)]%` drew its flavor at the wrong stream position: with `FD_RNG_TRACE`/`A5_TRACE_RAND` aligned, FD draws the `RAND(1,10)` for the flavor right at the command task's `AttemptToExecuteTask` finalize — BEFORE the turn's NPC `RAND(1,6)` event draws (flavor=5, "swallowed up by roaring flames") — while Scarier flushed the deferred AggregateOutput completion at `finish_turn`, i.e. AFTER `ev_tick_all` (flavor=4, "quite simply explodes"). Root cause: `a5run_flush_display_defers` ran only at `finish_turn`, past the event tick; the Skybreak deferral genuinely only needed to be past the **LocationTrigger drain** (SidequestE), not past the events. Fix: also flush inside `ev_tick_all`, right after `drain_tasks_to_run` and before `wk_tick_all` — the command's held draws now resolve after the drain but before TurnBasedStuff, matching FD for both games (Skybreak/LostCoastlines hold MATCH 0\|0; the `finish_turn` flush stays as the fallback for turns that never tick events). The stream realigns immediately after (talisman `RAND(5,10)`=6 in both). Remaining vanilla 5 = the documented System.Random-vs-xoshiro flavor caveat, not a bug; xoshiro-aligned mode is a clean **0**. |
+| Race Against Time | 130 | **FULL WIN, MATCH** ✅ | 0 (xo 0) | **WIRED 2026-07-10 as a FULL WIN** (`*** You have won ***`) with **MATCH 0\|0 in both RNG modes + save/restore OK on the first replay — zero engine changes**. Escape-the-exploding-space-station game (ADRIFT 5.0.366, 26 rooms / 3 elevator levels): a virus has wiped out the ISL crew; you repair the sabotaged self-destruct trigger (map pin from the Chief Engineer's projected photo + silver pin from the commander's chain-opened box unlock the storage handle; plastic tube + metal ball from the deformed tube rebuild the mechanism in the last resort chamber), fire it, and outrun the 49-turn evacuation timer (`cl_WarningThr`) back to the shuttle. Airlock codes: 11275622 in / 27115694 out ("today's date" 11-27-56 + digit-sum 22, then pair-sum 94; both engines also accept the D-M-Y/Y-M-D orderings). The elevator dies in the post-activation power surge, so the escape goes through the hidden plate under the commander's desk (S, D, push panel). Script = the author's `Walk-Through RaT.doc` converted 1:1 (129 steps + `b` at the options page). The pliers step 15 marked "not absolutely necessary" IS required on this route: `cl_TakingMaos` needs them held to fish the blue fob from the door gap, and that fob is the only exit from Mao's quarters once the body is moved (the hint system says as much). Removing your helmet is a 15-turn scripted death (`cl_PlayerRemo`); the vial under Mao's desk is optional flavor that only re-skins the win text. Golden committed at the win. |
+| Algernon's Conundrum | 19 | **FULL WIN, MATCH** ✅ | 0 (xo 0) | **WIRED 2026-07-09 as a FULL WIN** (`*** You have won ***`), MATCH 0\|0 both modes, golden-backed. Tiny 2-room puzzle: help Algernon get royal jelly from an angry beehive. **Surfaced + FIXED an engine bug (empty player start location):** the module leaves the Player's `CharacterAtLocation` **blank** (`<Value />`), so Scarier started the player at location "" — every command hit "You see no such thing." / unresolved `Player.Location.Exits.List`. FrankenDrift's loader (FileIO.vb:851-862) re-homes a Player whose location is Hidden or has an empty key to the **first** location in the adventure; Scarier now mirrors this in `a5state_new` (a5state.cpp) — player-only, only when `char_onobj==NULL` and the location key is null/empty. Whole 48-game corpus unmoved in both RNG modes. **Puzzle:** the pool's stones spell the combination (`four red, one blue, two yellow, three green`) — press each colour square that many times (each press just increments its counter; MoveMonume fires at red=4/blue=1/yellow=2/green=3) to slide the monument aside, then take the beekeeper's suit from the Secret Garden and `give suit to algernon` (he suits up and fetches the jelly himself). No scoring (Score/MaxScore unused → 0/0). Alt win: wear suit, open box, take jelly, `give jelly to algernon`. |
 | Tribute: Return to the City of Secrets | 143 | diverge | 2 (xo 2) | **WIRED 2026-07-02 as a FULL WIN** (`*** You have won ***`, 100/100, 143 turns) from the game's **own built-in `WALKTHROUGH` command** (Kenneth Pedersen's `Walkthroug` task, extracted verbatim, **zero corrections** — the intro "Press a key" is auto-advanced by the harness). Kenneth Pedersen / Emily Short, previously mis-filed under "no walkthrough material." The 2 RNG-independent hunks: FD renders a Specific **Override** of the `TakeObjectsFromOthers` general task (`TakeGemFro` mirror gem, `TakeGemFro1` boxes gem — both grabbed via a bare `get gem` whose parent container is inferred) with a leading blank line — the vestigial paragraph slot where the general task's `(from the <parent>)` auto-note would print — which Scarier collapses. Other gems either print the real `(from the …)` note or take from the floor (no note); Scarier matches those. Cosmetic; not chased (regression risk to the 22 passing goldens for 2 blank lines). See TODO_a5_walkthrough_bugs.md. |
 
 Anno 1700 predates this batch; it was long mis-diagnosed as having an
@@ -200,3 +202,124 @@ not counted as Scarier bugs).
 - These scripts are **best-effort**: CASA walkthroughs target the original
   releases, and some commands differ in the ADRIFT 5 remakes.
 - Source walkthroughs and provenance: `test/adrift5-games/walkthroughs/`.
+
+## Alien Diver (Daza, ADRIFT 5) — WON (repair ship + take off)
+
+`test/AlienDiver_walkthrough.txt` (85 commands) reaches `*** You have won ***`
+in **both** Scarier and FrankenDrift (`FD_RNG=xoshiro`) — the ship repairs and
+takes off. Deterministic under Scarier's seed-1234 mode.
+
+The game was **100% unwinnable** in Scarier before four engine fixes (commit
+"make Alien Diver's core mechanics work"): the cube dice → blank-card →
+craft-card → extract-fragment loop never fired, and the crashed ship (which is
+placed in one *random* ocean room) landed nowhere. Root causes were all the
+"apply a SelectionOnly marker property as a reference" pattern
+(`%X.Objects.ObjectIsAT%` → the cube, `BlankCards.ObjectIsAC` → the blank cards)
+plus `MoveObject ToLocationGroup` on a *dynamic* object needing one random room.
+
+**Route (seed 1234):** you awake at a random room — **Ocean M005 (Loc33)** — and
+the ship is at **Ocean M053 (Loc17)**. Get one fragment of each colour by the
+core loop (roll to unlock a cube → `ec` blank card → `cc` craft on a colour cube
+→ `pc` play on a *same colour+power* cube), refilling oxygen at the ship
+(`enter ship`/`exit ship`) and **avoiding the four Rip rooms** (99-102) whose
+currents sweep you off course. Then `enter ship`, `fix ship`, go to the cockpit,
+`sit on seat`, `take off`.
+
+**Wired into the strict suite at MATCH 0|0** (`AlienDiver|AlienDiver.blorb|0|0`).
+Reaching a byte-exact `FD_RNG=xoshiro` diff took a chain of engine fixes tracked
+in `TODO_aliendiver_divergences.md` (BUG 1 fragment over-count, BUG 2 save/restore
+round-trip, BUG 3 crafting-bind, the `<#…#>` status expression, the EndGameText
+`<cls>` floor, and finally BUG 4 seen-timing + the v5 empty-room listing grammar):
+
+* **BUG 4 — move-time seen-marking.** FD's `clsCharacter.Move` marks the arrival
+  location, its objects and its visible characters seen the *moment* the player
+  moves (before the room render and before the movement's `AfterTextAndActions`
+  overrides), so a same-turn `Must HaveBeenSeenByCharacter %Player%` gate already
+  sees the arrival — e.g. walking onto the crashed ship immediately satisfies
+  `ResetRollC → CheckIfPla1` and sets `Shipfound`. Scarier only refreshed at turn
+  boundaries, lagging the ship-location status by three commands and blanking the
+  opening cube-status block. Fix: `mark_player_arrival_seen` in the MoveCharacter
+  action handler (a5run_action.cpp).
+* **v5 empty-room listing grammar.** A v5 room whose body (long description +
+  special-listed objects) is empty lists its general objects as `There is X here.`,
+  not the trailing `Also here is X.` (clsLocation.vb:132-139). Fix in
+  view_location_impl (a5text.cpp).
+
+Whole a5 golden suite stays green in both RNG modes + save/restore. The vanilla
+column is a Scarier self-golden (`AlienDiver_expected.txt`) because vanilla FD
+(System.Random) lands the ship in a different room; the game is only FD-diffable
+under `FD_RNG=xoshiro`. Verify by direct replay:
+`./test/a5run_dump test/adrift5-games/AlienDiver.blorb test/AlienDiver_walkthrough.txt | grep "Well Done"`.
+
+
+## All Through the Night (Daniel Saults, 2013) — Ending C: Salvation, MATCH 0|0
+
+A short Bogleech-jam horror piece: a burrowing-thing "intruder" lays siege to
+your house over a fixed ~57-turn timeline and you pick one of four endings
+(A: Intrusion = swarmed/death, B: Abdication = flee out front/back yard,
+C: Salvation = call 911 and survive behind a sealed house, D: Retribution =
+topple the wobbly entertainment centre onto it in the living room). No scoring;
+the "win" is a good ending. The walkthrough plays **C: Salvation**, the designed
+hero route, because it exercises the most engine surface (garage inventory,
+lock/barricade/board verbs, the whole event scheduler, and the police countdown).
+
+**Route & mechanics (no engine change — clean MATCH 0|0 both RNG modes on first
+try).** The intrusion runs on an absolute turn clock (TV-news event → `NewsOver`
+→ `IntruderPr`/`InitiateIn` sets `Intruderal`≥1 at ~turn 30 → the 57-turn
+`Intrusion` event). Nothing may be barricaded/boarded/called before the siege
+(`Intruderal`≥1), but **locking works immediately**. The intruder's entry
+sub-events each check one seal:
+
+* `IntruderOp`/`IntruderOp1` (front/back door *open & walk in*, ~turn 33/43) are
+  gated only by `Frontdoorl`/`Backdoorlo` — i.e. **the door being LOCKED**, not
+  barricaded. Locking one door but only barricading the other lets the intruder
+  in the unlocked side (early bug in derivation: back door barricaded-but-unlocked
+  → intruder enters the basement, wanders up, swarms you = Ending A).
+* `emIntruderBr..Br3` (windows → basement/bedroom/spare/living) are stopped by
+  **boarding** `Window2`/`Window1`/`Window`/`Window3`. The kitchen (`Window4`) and
+  bathroom (`emWindow`) windows are never used — only those four matter, and the
+  `Boards` object covers exactly four windows.
+* `emIntruderBr4`/`Br5` (late door *breach*) are stopped by **barricading** Door1
+  (couch/recliner) and Door5 (futon).
+
+So the full seal is **lock + barricade both doors AND board all four windows**.
+Call 911 any time after the siege starts (`Call` SetTasks-executes `emCavalry`,
+which only fires once `emIntrusionF` completes near the end of the `Intrusion`
+event → `emCavalryCou` 3-turn countdown → Ending C). Then simply outlast the
+battering: 45 waits land the police on the exact turn the ending fires. Golden
+`AllThroughTheNight_expected.txt`, wired `AllThroughTheNight|...|0|0`.
+
+## An Adventurer's Backyard (Nick Gauthier, 2015) — WON 25/25 MAX, MATCH 0|0
+
+A minimal treasure-hunt (22 rooms, no NPCs/deaths/timers). All 25 points come
+from ten scored deeds: chop the treehouse floor with the axe (+2) and take the
+locket in the hollow beneath (+3); fish the coin out of the fountain (+3); bait
+the kitchen fly with the sugar+flypaper (+2, flypaper is hidden under the porch
+welcome mat, sugar in the lower kitchen cabinet's bowl); feed that fly to the
+hallway spider so it leaves the rose (+1) and only THEN lift the diamond ring
+from the vase (+3 — taking it while the spider guards the rose just backs you
+away); open the envelope hidden in the bathroom toilet tank (+3); take the
+collar off the cat on the master-bed (+3); set the stepladder against the roof
+from the balcony (+2) and grab the meteorite on the roof (+3); then `score`.
+
+**Surfaced + fixed a real Scarier conformance bug — carry-capacity was never
+enforced.** The ADRIFT library Take/Put tasks carry the bulk/weight limit as a
+Property restriction with an *arithmetic-expression* RHS, e.g.
+`MaxBulk %Player% Must GreaterThanOrEqualTo %Player%.Held.Size.Sum+%objects%.Size.Sum`.
+`a5restr.cpp pass_property` evaluated integer-RHS inequalities but fell through
+to a lenient always-pass for any non-integer RHS, so Scarier let the player
+over-carry where FrankenDrift refuses ("The stepladder is too bulky to carry at
+the moment."). The stepladder is bulk 81 of the player's 90 limit, so the real
+Runner will not pick it up unless you first drop the axe and the early
+treasures — the walkthrough does exactly that, and without the fix Scarier
+"won" a route the authentic Runner stalls at 20/25.
+
+Fix: `pass_property`'s numeric-inequality branch now evaluates a `%reference%`
+RHS through `a5text_eval_expression` (which already handles `.Held`/`.Size.Sum`
+aggregation) and compares numerically. It is deliberately gated on
+`is_clean_int(value) || strchr(value,'%')` so a bare non-integer state word
+(PathwayToDestruction has an oddly-authored `OpenStatus Obj Must LessThan Open`
+that must keep the lenient pass) is left untouched — narrowing that guard was
+needed to avoid regressing PathwayToDestruction's metal-door move. Full suite
+stays green (43 MATCH incl. this game + 8 pre-existing DIVERGE, 0 regressions).
+Golden `AnAdventurersBackyard_expected.txt`, wired `AnAdventurersBackyard|...|0|0`.

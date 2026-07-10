@@ -1,0 +1,66 @@
+Untitled
+“Sir? Sir? Can you stand up?”
+
+The glow in your eyes is bright making you nearly blind, but you can still make out two figures standing at the foot of your bed. The smell of antiseptic fills your nose and you can’t hear anything but sirens and people shouting. It’s all distorted and blurry as your sight stresses to recover under the light.
+
+“Sir? Can you get up?”
+
+Beginning
+Nothing special.
+
+> up
+You slowly shift your legs to the left and place them on the ground, sitting up straight. You feel tired from the small amount of movement already, but the shapes in front of you seem to have their own agenda to getting you out of bed.
+
+“Sir, stand up please.”
+
+> up
+You bend your knees and slowly allow them to take the weight of your frail, old body. They shake as you attempt to pull yourself up, but they seem to hold your weight. Someone outside the room yells something you barely catch.
+
+“We’re … of time! Get them…”
+
+The other figure finally spoke up. It’s a female voice that you barely recognize. It sounds familiar but you just don’t recognize it.
+
+“Come on, Dad, we have to go! Walk towards me!”
+
+> north
+You move your left leg forward and place it down on the ground, taking the first step you have in years that you can remember…not much comes back clearly. You can’t see anything beyond the two of them, you can’t even see the bed out of the corner of your eye anymore.
+
+“Dad, come on, come here!”
+
+> north
+You raise your right leg and take yet another step, and fall to the right, simply resting on the bed. Your vision clears up a bit and you can see a small door on the wall has swung right open and has several black shapes going back and forward past it. The sound of people yelling flood in through the door:
+
+“We need to go!”
+
+“It’s close!”
+
+“They’re coming through…”
+
+The girl pipes up again, with a somewhat high and scared voice.
+
+“Come on, we need to go, Dad!”
+
+She runs up next to you and tries to heave you to your feet. You don’t even remember having a daughter, who is this crazy lady? She eventually succeeds at it though, and she’s got your arm around her shoulder.
+
+“Come on! Walk with me!”
+
+> north
+
+...
+
+You open your eyes again.
+
+It’s dark, very dark, but you can at least open your eyes without them stinging. You’re still face-down on the bed, and lifting your head reveals a door. You’re still in the hospital room, but a gentle breeze blows from the left.
+
+You look to the left and see…sky. You try to stand up but your legs simply refuse to respond. Your only option is to pull yourself along on your hands.
+
+> crawl
+
+...
+
+...
+
+"Sir? Sir? Can you stand up?"
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,332 @@
+Thy Balconyman
+Welcome to:
+
+        THY
+
+      ___
+    /         \      -----------------------------------------
+   /    O   /
+  /    _     \     A   L   C   O   N   Y   M   A   N
+ /    /_/      \
+/_______/   -----------------------------------------
+
+With new, never-before-seen graphics!
+
+ Press any key to continue...
+
+HOW TO PLAY:
+You must type commands in the parser box to control your character. Commands such as "go north," "get balloon," "look," and "say hello" are accepted. Other examples are "ask about item", "say hi", "give item to person," etc.
+
+ Press any key to play...
+
+You are trapped in a maze of locals, the first being thy balcony. You dostn't remember much, and seeketh advice.
+
+Balcony
+A balcony of grayish composure stretcheth before ye.    a beautiful blond woman standeth in the corner.  Exits are east, south and west.
+
+> say hi
+(to a beautiful blond woman)
+They turn and speaketh.
+
+           "Beist ye thy balconyman? Yes? Well then, yon quest ist to find ye flask and escapeth this place! Ach! Me back!"
+
+They slouchest something awful and grope for a cane
+(it turneth out he beith a crotchety old man).
+You should ask this guy about something...
+
+> ask about back
+He procedeth to bore you about his aching back pains that started up way back in the 18♫§s and have carried on to bringeth considerable pain every single day despite whatever cream or ointment he tries, the only thing that relieveth the pain somewhat is a cane.
+
+> ask about cane
+"my cane? Ah yes! My cane! I left it around here somewhere, if only someone could help me find it!"
+
+> west
+You move west.
+
+Glade
+A lush glade openeth up before thyself. It smelleth fresh.  A Gat sitteth here.  An exit leads east.
+
+> say hi
+(to el gat)
+Ye talkest to yon Gat.
+    "hullo." he speaketh. Ye startleth so badly, ye almost runneth yon head through on a carlessly misplaced steak!
+    "my name is it, and i am kinda sad. I gots like a item for you if you're up for it. You have to asks for it though."
+Ye beist intrigued...
+
+> x steak
+Upon closer inspection, ye realizeth that it be a stake of steak! 'Tsmelleth medium rare.
+
+> get steak
+Ye probably wishest ye could take ye  steak!
+
+> ask about lips
+    "okay, well, i guess your're're up for it. Here ya go"
+
+Yuck. Ye recieveth something squishey and worb. It looketh like some... hot lips?
+
+> eat lips
+Why? Why woulds't thou doest that???
+
+You gobbleth the warm lips down. There, do ya feelest better?? Have some points.
+
+> score
+Your score is 3 out of a maximum of 40. (0%)
+
+> east
+You move east.
+
+Balcony
+A balcony of grayish composure stretcheth before ye.    a beautiful blond woman standeth in the corner.  Exits are east, south and west.
+
+> south
+You move south.
+
+Youth Group Basement
+Ye seeist a stereotypical youth group basement, filled with various paraphernalia (band posters, various tools, a treadmill, a cat, etc.)  There is a cupboard against the wall.  A tall, dark, moody guy standeth in yon corner.  An exit leads north.
+
+> say hi
+(to a tall guillermo)
+He looks up at ye with a start.
+   "Hoi there, friend! How's it going? I am doing just swell, except for the fact that my pants have lots of holes in them and are getting quite raggedy." Ye notice a sword sticking out of his back pocket.
+
+> ask about pants
+"they're ragged and torn!" he shouteth. "I needest new ones!"
+
+> ask about sword
+The tall guillermo telleth ye about his sword, which he inheriteth from a tree when it wast choppeth'd down. "'Tis called Meowmere!" he sayeth.
+
+> get lime jello
+(from the cupboard)
+Welp, you tooketh the bowl of lime jello from the cupboard.
+
+> north
+You move north.
+
+Balcony
+A balcony of grayish composure stretcheth before ye.    a beautiful blond woman standeth in the corner.  Exits are east, south and west.
+
+> east
+You move east.
+
+A Dimly Lit Hallway
+Tis a long, dismal hallway with horrid mustard-colored walls and annoying, buzzing lights above ye.  Exits are north, west, northeast and northwest.
+
+> northeast
+You move northeast.
+
+Drab Hallway
+For someth reason, this hallway striketh ye as too drab for common taste. Suddenly, a sound soundest. Alas! Yon way back hast crumbled into nothingness!  An old cane is here.  An exit leads north.
+
+> get cane
+Ye, you pickest up the old cane.
+
+> sit on chair
+Ye slideth onto yon mangled office chair. Who hath sat here before you? And what became of them? Wait- was that a noise? You'd better get out of here...
+
+> north
+You move north.
+
+Antechamber
+A long antechamber antechambers a well-lit room with lots of fancy things in it. (the Way Back hath disappeared again.)  Lo and behold! You seeith ye flask!
+
+> get flask
+Ye reachest for ye flask, hope glimmeringeth in yon eye sockets...
+Suddenly:
+VRAP!!
+
+Press any key to continue...
+
+Balcony
+A balcony of grayish composure stretcheth before ye.    a beautiful blond woman standeth in the corner.  Exits are east, south and west.
+
+> give cane to woman
+Ye handest the cane to the .. person.
+    "Thankee, young chap! My back feeleth much better already!"
+He startest to walk around, but his fingers slippeth on yon slimy cane, and he rolls out the door, never to be seeneth again.
+
+> east
+You move east.
+
+A Dimly Lit Hallway
+Tis a long, dismal hallway with horrid mustard-colored walls and annoying, buzzing lights above ye.  Exits are north, west, northeast and northwest.
+
+> north
+You move north.
+
+Dreary Hallway
+Ye stumblest upon another hallway, slightly more dreary than the first. Yon buzzing lights begin to drive thyself batty.  Exits are north and south.
+
+> north
+You move north.
+
+Barber Shop
+'Tis the shop of a barber. Old chairs with suction-cup looking things lay around, and an old counter lieth next to the wall.  A barber standeth behind yon counter, whistling a tune that goeth like this: bum ba bum baaaaam, bump ba bummmmm, bump ba bum bAAAAAAM bum ba dum da dum (repeat). He smelleth faintly of lavender.  An exit leads south.
+
+> say hi
+(to barber)
+Ye broacheth the silience and talketh to the barber.
+   "Hello. My name is..."
+He leaneth over and look at an imaginary calendar.
+   "Haircut. Haircut, the Barber. Would you like a cut of hair? I give you good price!"
+
+> say yes
+Ye agreeith.
+_______________________
+| Twenty Minutes Lateuh |
+-------------------------
+
+Yon lambchops hath received a good cutting, yet ye feel somewhat anxious. The barber, also known as HTB, walkest in from The Backroom.
+   "Here is your right sideburn!" HTC yelleth, and giveth ye a lump of hair, which ye stickest on yon face.
+
+> x sideburn
+'Tused to be attached to thy cheek firmly, but alas! Now it beith severed.
+
+> ask about lavender
+Ye asketh about yon lavender smell.
+    "Well, I routinely chomp lavender, and as i leik the smeil, i have some smells on me lots of times dont blame me for this im tired ok
+
+> south
+You move south.
+
+Dreary Hallway
+Ye stumblest upon another hallway, slightly more dreary than the first. Yon buzzing lights begin to drive thyself batty.  Exits are north and south.
+
+> south
+You move south.
+
+A Dimly Lit Hallway
+Tis a long, dismal hallway with horrid mustard-colored walls and annoying, buzzing lights above ye.  Exits are north, west, northeast and northwest.
+
+> northwest
+You move northwest.
+
+Dank Hallway
+Ye seeist a dank hallway, eerily similar to the first one. Dost the word "liminal" cometh to mind?  There beist a jello box here.  Exits are west and southeast.
+
+> put lime jello in box
+Ye sloppest the lime jello into the jello-depraved box, fulfilling some great need in nature. Suddenly, a junimo appearest! It repaireth the way north!
+
+> north
+You move north.
+
+Locker Room
+Blank metal walls stare at you. You are remindedest of yon bullied youth, when older balconymen wouldst shoveth you into ye locker.    Some Coke Pants lieth on yon ground.  An exit leads south.
+
+> get pants
+Ye, you pickest up the coke pants.
+
+> south
+You move south.
+
+Dank Hallway
+Ye seeist a dank hallway, eerily similar to the first one. Dost the word "liminal" cometh to mind?  There beist a jello box here.  Exits are north, west and southeast.
+
+> southeast
+You move southeast.
+
+A Dimly Lit Hallway
+Tis a long, dismal hallway with horrid mustard-colored walls and annoying, buzzing lights above ye.  Exits are north, west, northeast and northwest.
+
+> west
+You move west.
+
+Balcony
+A balcony of grayish composure stretcheth before ye.    Exits are east, south and west.
+
+> south
+You move south.
+
+Youth Group Basement
+Ye seeist a stereotypical youth group basement, filled with various paraphernalia (band posters, various tools, a treadmill, a cat, etc.)  There is a cupboard against the wall.  A beautiful blond woman standeth in the corner.     a tall guillermo huncheth next to ye wall.  An exit leads north.
+
+> give pants to guillermo
+Ye givest yon Coke Pants to Guillermo. He thanketh thee, and after putting yon pantalones on, he tosseth Meowmere toward thy sandaled feet.
+
+> get meowmere
+Ye, you pickest up the meowmere.
+
+> score
+Your score is 27 out of a maximum of 40. (1%)
+
+> north
+You move north.
+
+Balcony
+A balcony of grayish composure stretcheth before ye.    Exits are east, south and west.
+
+> east
+You move east.
+
+A Dimly Lit Hallway
+Tis a long, dismal hallway with horrid mustard-colored walls and annoying, buzzing lights above ye.  Exits are north, west, northeast and northwest.
+
+> northwest
+You move northwest.
+
+Dank Hallway
+Ye seeist a dank hallway, eerily similar to the first one. Dost the word "liminal" cometh to mind?  There beist a jello box here.  Exits are north, west and southeast.
+
+> west
+You move west.
+
+Stone hut
+Ye suddenly wanderest into a stone hut!    A rabid the cheat blocketh a door to the North.  An exit leads east.
+
+> hit
+You size up the cheat, to determine if he is worth giving a beating. Aha! You remembereth the sword, Meowmere, and you give that cheat a great overhead slice! Bullseye! The two halves of the cheat floppest to the ground. The way north is open!
+
+> north
+You move north.
+
+Forest
+Ah, the sweet smell of rotted logs! Ye rememberest the odors of yon youth in this forest.  Ye suddenly rememberest: ye left ye flask-getting pliers in this very forest three or so years ago!   An exit leads south.
+
+> get pliers
+Ye, you pickest up the flask-getting pliers.
+
+> score
+Your score is 38 out of a maximum of 40. (1%)
+
+> south
+You move south.
+
+Stone hut
+Ye suddenly wanderest into a stone hut!    A rabid the cheat blocketh a door to the North.  Exits are north and east.
+
+> east
+You move east.
+
+Dank Hallway
+Ye seeist a dank hallway, eerily similar to the first one. Dost the word "liminal" cometh to mind?  There beist a jello box here.  Exits are north, west and southeast.
+
+> southeast
+You move southeast.
+
+A Dimly Lit Hallway
+Tis a long, dismal hallway with horrid mustard-colored walls and annoying, buzzing lights above ye.  Exits are north, west, northeast and northwest.
+
+> northeast
+You move northeast.
+
+Drab Hallway
+For someth reason, this hallway striketh ye as too drab for common taste. Suddenly, a sound soundest. Alas! Yon way back hast crumbled into nothingness!  An exit leads north.
+
+> north
+You move north.
+
+Antechamber
+A long antechamber antechambers a well-lit room with lots of fancy things in it. (the Way Back hath disappeared again.)  Lo and behold! You seeith ye flask!
+
+> get flask
+At last! You have gottenest ye flask (once again)! You continue through the antechamber to Thy Balcony, where ye liveth a long and happy life. Ye never loosest thy flask again, and useth it continually.
+
+*** You have won ***
+The end!  Congratulatoins!
+Coins
+Coins
+Coins...
+You got them!
+In that game you scored 38 out of a possible 40, in 57 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

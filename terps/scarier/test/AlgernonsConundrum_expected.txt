@@ -1,0 +1,96 @@
+Algernon's Conundrum
+ You have wandered through a hedge maze, finding nothing at all interesting in any part of it, save for a dead end at the very end of the maze. A man stands here, looking exasperated. Talk to this man, named Algernon, and see if you can help him!"
+
+By The Monument
+You are at a dead end in a hedge maze, having explored the entire maze to find this one interesting place. A large white box on four wooden legs stands here, bees flying in and out. A reflecting pool stands in one corner, bordered by colored stones. Against the hedge you can see a monument.
+
+You can smell the scent of flowers from somewhere nearby.
+
+A shortish man in tweed stands here, looking exasperated.
+
+> x monument
+This monument shows a figure on a rearing horse. The figure holds a sword in his left hand. The pedestal has a plaque with some writing on it. Surrounding the plaque are four colored squares.
+
+> x pedestal
+The pedestal has a plaque attached to it. There are four colored squares at the corner of the plaque.
+
+> x plaque
+The plaque reads "In memory of Lord Harrington III." There are four colored squares at the corners of the plaque.
+
+> x squares
+There is a red square, and blue square, a yellow square and a green square. The squares are raised slightly from the plaque, like buttons.
+
+> x stones
+There are four red stones, one blue stone, two yellow stones and three green stones.
+
+> press red square
+You hear a soft click.
+
+> press red square
+You hear a soft click.
+
+> press red square
+You hear a soft click.
+
+> press red square
+You hear a loud click.
+
+> press blue square
+You hear a loud click.
+
+> press yellow square
+You hear a soft click.
+
+> press yellow square
+You hear a loud click.
+
+> press green square
+You hear a soft click.
+
+> press green square
+You hear a soft click.
+
+> press green square
+You hear a loud click.
+ With a grating sound, the monument moves aside, exposing a secret passage through the hedge to the south.
+
+By The Monument
+You are at a dead end in a hedge maze, having explored the entire maze to find this one interesting place. A large white box on four wooden legs stands here, bees flying in and out. A reflecting pool stands in one corner, bordered by colored stones. Against the hedge you can see a monument.
+
+You can smell the scent of flowers from somewhere nearby.
+
+A shortish man in tweed stands here, looking exasperated.
+
+An exit leads south.
+
+> s
+You move south.
+
+Secret Garden
+This is a garden with lots of beautiful flowers. They have a lovely fragrance. A white painted iron bench sits against a small tree.
+
+Also here is a beekeeper's suit.  An exit leads north.
+
+> take suit
+Ok, you pick up the beekeeper's suit.
+
+> n
+You move north.
+
+By The Monument
+You are at a dead end in a hedge maze, having explored the entire maze to find this one interesting place. A large white box on four wooden legs stands here, bees flying in and out. A reflecting pool stands in one corner, bordered by colored stones. Against the hedge you can see a monument.
+
+You can smell the scent of flowers from somewhere nearby.
+
+A shortish man in tweed stands here, looking exasperated.
+
+An exit leads south.
+
+> give suit to algernon
+ "Thank you! That will do nicely!"
+
+Algernon dons the beekeepers suit, then carefully opens the white box. He retrieves the royal jelly, then dashes off through the hedge maze to give it to the Queen.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

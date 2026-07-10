@@ -1,0 +1,255 @@
+# Son of Camelot -- FULL WINNING walkthrough (ADRIFT 5, Finn Rosenloev, 2012).
+#
+# Ends with "*** You have won ***" (the good ending: Megan saved + the gold
+# found, so "yours and Megan future and happiness is secured").  There is no
+# numeric score in this game -- the win is reaching the EndGame Win task (Task145).
+#
+# Verified against FrankenDrift (FD_RNG=xoshiro): 2 residual hunks (see the MAP
+# comment in run_a5_walkthroughs.sh) -- the Adventure-Upgrade prompt/title spacing
+# and one "put fork on box" message (Scarier matches the generic put task, FD the
+# game's specific Task133).  Vanilla FD diverges heavily: the enchanted forest is
+# entered via MoveCharacter ToLocationGroup = a random room, so FD's System.Random
+# lands you elsewhere and the whole forest/lake navigation is RNG-dependent.
+#
+# Two engine fixes were needed to make this game winnable (both faithful ADRIFT
+# bug fixes, applied to Scarier AND FrankenDrift):
+#   * RunImmediately System tasks now fire event/walk Start controls, so the
+#     repeating guided-tour Event7 (Start Completion Task60) actually starts and
+#     Megan patrols (a5run.cpp run_immediate_tasks);
+#   * a zero-length "follow the player" walk (Megan's `Player 0` follow-to-Merlin
+#     walk) now steps each turn even once Finished (a5run_events.cpp wk_do_steps /
+#     FrankenDrift clsCharacter.vb DoAnySteps) -- otherwise Megan never follows
+#     you down to Merlin's grave and the final battle can't trigger.
+#
+# Route notes:
+#   * Rose garden: `say hi` FIRST (completes the Galahad intro Task152) so `ask
+#     about morgane` sends him to the tomb; ask about bracelet/unicorn/merlin to
+#     unlock the forest (Var27) and move the unicorn there.
+#   * The fire (cigarette butt -> hay) draws Simon out of Arthur's chamber (~20
+#     turns of `z` after lighting), letting you loot the secret passage; a
+#     custodian then drops the button in the courtyard (~12 `z`) -> give it to
+#     Henry to open the winding stairway to Merlin's lost chamber.
+#   * Forest trip 1 = tame the unicorn (sugar -> ride -> hair -> bracelet) then
+#     flee the wolves into the lake (26->22->25->24->23->shore) and bow+ask Nimue
+#     about Merlin (kicked back to shore).
+#   * Sword needs the bracelet worn + Galahad at the tomb; magic tooth needs the
+#     sword (ask Nimue about Merlin WHILE holding it, then swap teeth fast before
+#     you drown); the tooth opens the grave passage.
+#   * Endgame: free+wake Merlin (tuning fork on box + strike), cut the dead
+#     unicorn's horn, give it to Merlin, then INTERCEPT Megan on her tour at the
+#     dungeon (Location18: 7 `z` after arriving) and lead her the 3 rooms down to
+#     the grave for the final battle.
+#
+w
+say hi
+ask galahad about bracelet
+ask galahad about unicorn
+ask galahad about merlin
+ask galahad about morgane
+e
+d
+take sugar
+u
+take pebbles
+take butt
+n
+put butt in hay
+s
+e
+e
+u
+e
+in
+pull rope
+turn torch
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+enter closet
+down
+move shield
+take pouch
+open pouch
+up
+open door
+out
+n
+w
+d
+d
+w
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+take button
+e
+e
+u
+e
+give button to custodian
+e
+cross rope
+feel wall
+touch handprint
+n
+brush dust
+take fork
+take paper
+turn paper
+out
+down
+s
+w
+w
+d
+d
+s
+d
+d
+e
+x shackle
+turn shackle
+d
+x jaw
+take tooth
+x wall
+x flower
+take flower
+climb wall
+u
+w
+u
+u
+n
+w
+nw
+nw
+ne
+e
+give sugar to unicorn
+ride unicorn
+weave hair
+n
+s
+s
+w
+n
+n
+n
+swim
+n
+bow
+ask nimue about tooth
+ask nimue about merlin
+s
+ne
+e
+e
+e
+s
+d
+d
+say hi
+tell joe about secret passage
+say eight grains
+w
+take sword
+out
+u
+u
+n
+w
+nw
+nw
+n
+n
+swim
+n
+ask nimue about merlin
+swap tooth
+s
+u
+s
+ne
+e
+e
+e
+s
+d
+d
+e
+d
+insert tooth in crack
+e
+put fork on box
+hit fork
+take crystal
+wake merlin
+w
+u
+w
+u
+u
+n
+w
+nw
+nw
+sw
+cut horn
+n
+ne
+e
+e
+e
+e
+u
+e
+e
+cross rope
+touch handprint
+n
+give horn to merlin
+out
+down
+s
+w
+w
+d
+d
+s
+d
+d
+z
+z
+z
+z
+z
+z
+z
+tell megan about merlin
+e
+d
+e
+take horn
+throw horn at morgane
+pull horn
+put crystal in wound

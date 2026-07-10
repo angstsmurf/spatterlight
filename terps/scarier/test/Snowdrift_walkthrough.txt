@@ -1,0 +1,78 @@
+# Snowdrift (Anonymous, ADRIFT 5.0000353, "Snowdrift V1") -- full winning
+# walkthrough, score 50/50, reaching the "To be continued..." ending.  This is a
+# short, unfinished demo: you are caught in a blizzard and must find shelter
+# before you freeze, then descend into a buried building, solve a phone-dial
+# code, and ride an elevator up to where the (never-written) rest of the game
+# would begin.  It MATCHES FrankenDrift 0|0 in BOTH RNG modes.
+#
+# Two mechanics worth knowing before the route:
+#
+#  * The FREEZE timer (a turn-based event) kills you 15 turns into the storm,
+#    with warnings at turns 5 and 10.  You only freeze while OUTDOORS; once you
+#    climb down the trap door you are safe.  The route below is 8 commands to
+#    get underground, so the timer is never a threat -- but don't dawdle in the
+#    snow.
+#
+#  * The ELEVATOR.  The author built the two elevator doors as *real-time*
+#    events (5 seconds, then 56 seconds), and made the tasks that actually open
+#    them (ElevatorDo1 / ElevatorDo2) triggerable by the one-character command
+#    ".".  In play you press the button and then "wait" -- and because the ADRIFT
+#    wait verb "z" is a single character, typing "z" is exactly what fires those
+#    tasks and slides the doors open.  So the two "z" lines below are the
+#    walkthrough's "wait for the elevator" beats; FrankenDrift opens the doors on
+#    the very same inputs (verified 0|0).
+
+# === The blizzard: reach the collapsed shelter (the "Shamble") ===
+# You start lost in the snow.  Heading north toward the brown outline on the
+# horizon straightens your compass (+5); the outline is a wrecked wooden shelter.
+# First, though, detour east one room to the lone pine tree -- an old plastic
+# snow shovel is buried under it, and you cannot dig without it.
+north
+east
+take shovel
+west
+north
+
+# === The Shamble: dig out the trap door and descend ===
+# Shovelling clears the snow to reveal a photograph, a baseball, a mouse
+# skeleton, and -- crucially -- a snow-rotted wooden trap door (+10).  Pry it
+# open (+5) and climb down out of the killing cold.
+dig with shovel
+open trap door
+down
+
+# === The buried building: open the library and enter ===
+# The cellar entrance leads east to a large room; a closed door to its south
+# glows red.  Open it and step through into the library.
+east
+open southern door
+south
+
+# === The library: dial pi on the odd phone ===
+# The red dial phone only has the digits 1-4.  Examine it first, then dial the
+# code 3-1-4-1 (the digits of pi).  The correct final "1" slides the east
+# bookshelf aside to reveal a hallway (+15 for the whole code).
+x phone
+enter 3
+enter 1
+enter 4
+enter 1
+
+# === Out to the elevator ===
+# East into the hallway, then north to the elevator room.  (The library door
+# seals behind you -- there is no going back.)
+east
+north
+
+# === Ride the elevator up (+15 at the top) ===
+# Press the up button; the door "begins to open".  Wait one beat ("z") for it to
+# finish, then step in.  The car ascends; wait one more beat for the western
+# door, then step west into the unfinished frontier: "To be continued..."  50/50.
+press up button
+z
+z
+north
+z
+z
+west
+score

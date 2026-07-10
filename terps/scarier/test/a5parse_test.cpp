@@ -76,6 +76,21 @@ main (void)
   expect ("[examine/exam/ex/x/look {at/in{side}/under}] %object%",
           "look inside box", 1, "object1", "box");
 
+  /* A *bare* (un-bracketed) word alternation connector, e.g. Son of Camelot's
+     "[fork] on/against [box]".  ADRIFT's ConvertToRE does a GLOBAL '/'->'|', so
+     the connector stays unscoped ("...(fork) on|against (box)$") where '|' binds
+     '^' to the left branch and '$' to the right.  FrankenDrift (and real ADRIFT)
+     test with .NET Regex.IsMatch (a SEARCH), which still matches the left branch
+     "^...(fork) on" against the input's prefix, so both connectors accept -- we
+     mirror that with std::regex_search (not regex_match).  Regression guard for
+     SoC "put fork on box" matching the game's own task, not the generic put. */
+  expect ("[place/hold/put] {the {crystal}} [fork] on/against {the {crystal}} [box]",
+          "put fork on box", 1, NULL, NULL);
+  expect ("[place/hold/put] {the {crystal}} [fork] on/against {the {crystal}} [box]",
+          "put fork against box", 1, NULL, NULL);
+  expect ("[place/hold/put] {the {crystal}} [fork] on/against {the {crystal}} [box]",
+          "place fork on box", 1, NULL, NULL);
+
   /* The bare-direction edge case (optional prefix collapses to empty). */
   expect ("{[go/walk/move/run] {to {the}}} %direction%", "se", 1, "direction1", "se");
   expect ("{[go/walk/move/run] {to {the}}} %direction%",

@@ -1,0 +1,223 @@
+Beythilda the Night Witch
+
+You have almost become accustomed
+To waking ahead of the dusk
+Since the town of Epping Forest
+Has forbidden flying at night
+
+So with sleep in your eyes like teardrops
+You have waited for hours alone
+For Tissues the rat, your familiar
+To come scurrying out of his hole
+
+But he is not here.
+
+> stand
+You stand up.
+
+> open window
+You have shut your windows and drapes each day
+Keeping noises and eyes of the townsfolk away
+
+You open them now and the hinges groan
+The wind races in and you feel less alone
+As the voice of a friend rides the breeze to your ears
+And whispers a song to bring life to your fears
+
+listen...
+
+Beythilda our neighbors have gathered up flames
+And stolen familiars for most of the day
+
+The song is from Esselbeth
+Calling your name
+She's a witch who won't whisper
+With nothing to say...
+
+listen...
+
+Beythilda we need you.  Help us, we urge
+You to speak to the stars, to cancel this purge!
+
+The whispers are frantic and the song brings a serge
+To your fears; these poor tidings are set to a dirge.
+
+> speak to stars
+The stars can hear your whispered prayers
+And answer with their lights.
+The bear stand up on his hind legs
+And the archer fires arrows off into the night.
+
+The path is clear, the arrow's the way
+To what? You hope Tissues, but cannot say
+The stars are not beholden to you
+But what else can you do?  There is a raucous noise outside.
+Voices of townsfolk, quiet but many
+They're climbing the hill to your doorstep
+
+> get broom
+Now you are ready to fly from this doom.
+
+> x cauldron
+Iron and copper
+Drinks it brews
+It's filled with leftovers
+Almost food
+
+You can eat its contents
+If you dare
+But who knows what you left in there...
+  Inside the your cauldron is some leftovers.  The people of Epping
+Are now at the door
+Murmuring and clamoring
+And prying
+And wrenching
+And trying
+But none of them knocks.
+It is time to slip into your shadow.
+It is time to be glad of your locks.
+
+> slip into my shadow
+You slip into your shadow
+The darkness fills your eyes
+It also fills up those of any
+Who might now wish to spy
+
+You are hidden here
+As long as you're still
+If you move
+Your shadow also will
+
+> listen
+The shadow is dark
+But you hear just the same
+The dark is for bats
+You are playing their game
+You can hear the mob at your door
+
+> wait
+The shadow is dark and creeps under your eyes.
+You will be fine.
+You will be fine.
+
+> listen
+The shadow is dark
+But you hear just the same
+The dark is for bats
+You are playing their game
+You can hear the mob at your door
+
+> wait
+The shadow is dark and creeps under your eyes.
+You will be fine.
+You will be fine.
+
+> listen
+The shadow is dark
+But you hear just the same
+The dark is for bats
+You are playing their game
+You can hear the mob at your door
+
+> wait
+The shadow is dark and creeps under your eyes.
+You will be fine.
+You will be fine.
+
+> wait
+The shadow is dark and creeps under your eyes.
+You will be fine.
+You will be fine.  ***CCRAACCKK***
+
+The wood of this house is much too thin
+The door has exploded, the mob spills in
+Your shadow is cool and darker than night
+The townsfolk spill into your home
+The air stirs around you and gives you a fright
+But you're still and so no one will know.
+
+"She's upstairs!"
+"She's a witch"
+"So the basement?"
+They shout, one on top of the other
+Their words spilling out
+Of their mouths like wine from a drunkard's mouth
+"If you find her don't kill her!  She's headed down South,
+To the trials!"
+
+Wait in your shadow...
+
+In time they are done and file out through the door
+You are lonely and tired and shivering and sore
+
+Even a witch cannot stand in her shadow too long
+And it's time to find Tissues, and time to move on
+
+> wait
+The shadow is dark and creeps under your eyes.
+You will be fine.
+You will be fine.
+
+> slip out of my shadow
+You slip out of your shadow and
+It follows you once more
+There is no need to worry, witch;
+You both can still remember
+Who you are.
+
+> fly
+The air of the night whips at your hair
+But a night witch's hair whip back at the air
+
+You have not flown for quite some time
+You have not forgotten either
+
+follow the archer's arrow...
+
+Over hamlets and hedges
+You pierce the night's air
+And come down over Thornwood
+The dungeon is there
+
+You circle and spy
+And the minutes drag on
+A solitary archer
+By the door
+Stands tall
+You think of your songs
+As you land nearby
+If he's sleepy enough
+He may not have to die
+
+You step down from the broom
+
+> whisper a lullaby
+To make way, your lips part,
+For the song of your heart  soldier's cloak for peasant's brew
+At the table, overdue
+Fill the belly, beer and stew
+Rest your head upon the table
+
+Even as the song is finishing
+The soldier's feeling sleepy
+Command of his eyelids, now heavy, diminishing
+He lies down on the ground and goes to bed.
+
+You should go in.
+
+> go in
+Men spend so many hours
+Piling up rocks
+To build such awful towers
+That they need to add locks.
+
+This is one of those,
+But you are a clever witch and it does not take long
+To find your friend
+And steal his cage
+And fly away
+And bring this night to an end.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

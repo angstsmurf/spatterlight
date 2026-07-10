@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <map>
+#include <string>
+#include <vector>
+
 #include "a5rand.h"
 
 /* The shared generator, defined in terps/common_utils/randomness.c.  Declared
@@ -22,11 +26,19 @@ extern "C" {
 
 static int a5rand_seeded = 0;
 
+/* urand()'s no-repeat pools (FD clsVariable.NoRepeatRandom /
+   Adventure.dictRandValues): one shuffled value list per "min-max" range,
+   consumed without repeats and rebuilt when exhausted.  Adventure-lifetime in
+   FD (not part of the save state, survives undo/restore in-session), so a
+   plain static map cleared on a5rand_seed (== new game) mirrors it. */
+static std::map<std::string, std::vector<long> > a5rand_pools;
+
 void
 a5rand_seed (unsigned int seed)
 {
   set_erkyrath_random ((uint32_t) seed);
   a5rand_seeded = 1;
+  a5rand_pools.clear ();
 }
 
 long a5rand_draw_count = 0;   /* diagnostic: draws since process start */
@@ -60,6 +72,32 @@ a5rand_between (long lo, long hi)
       fprintf (stderr, "RAND(%ld,%ld)=%ld\n", lo, hi, r);
     return r;
   }
+}
+
+long
+a5rand_norepeat (long lo, long hi)
+{
+  /* FD clsVariable.NoRepeatRandom, verbatim: the pool for "lo-hi" is (re)built
+     empty->full by inserting each value at Random(count) -- a Fisher-Yates-like
+     shuffle whose draws MUST hit the shared stream in the same order -- then one
+     random element is picked and removed.  (Bounds are NOT swapped: FD builds
+     `For i = iMin To iMax`, which is empty when min > max and then picks from
+     an empty list; no shipped game does that.) */
+  char keybuf[48];
+  snprintf (keybuf, sizeof keybuf, "%ld-%ld", lo, hi);
+  std::vector<long> &pool = a5rand_pools[keybuf];
+  if (pool.empty ())
+    for (long i = lo; i <= hi; i++)
+      {
+        long pos = a5rand_between (0, (long) pool.size ());
+        pool.insert (pool.begin () + (size_t) pos, i);
+      }
+  if (pool.empty ())
+    return lo;
+  long idx = a5rand_between (0, (long) pool.size () - 1);
+  long val = pool[(size_t) idx];
+  pool.erase (pool.begin () + (size_t) idx);
+  return val;
 }
 
 void

@@ -1,0 +1,276 @@
+Shattered Memory - Concept Demo
+
+Street
+Stumbling home again. It's the same every night. The moon in the sky is a valuable guiding light as my feet hit the pavement. Turning left, I arrive on a narrow road. A row of houses leads westwards on both sides, atop a pavement lined with tall lamp posts. Various parked cars sit motionless by the roadside. I'm almost sure this is my street, but it's hard to be sure of anything you see through drunken eyes.
+
+Directly in front of me stands a large white building, reaching into the night sky.
+
+> x moon
+The moon glows brightly in an abyss of otherwise black space.
+
+> x building
+A large brick building stands before me. Originally painted white, the colour has faded with time. Directly center of the building is a black wooden door.
+
+> unlock door
+
+Living Room
+Stepping through the doorway, I find myself in a rather small lounge room. My living room. It's nothing special, really. In fact it's the opposite of special. Whatever that is.
+
+It's quite a small room. Or perhaps "cosy" is the word, if you're more of an optimist. Not more than three steps from the doorway is a blue sofa. Many nights I've fallen asleep in that very spot playing video games on my television, which happens to be situated directly beyond the sofa, cut off by a glass coffee table. The smell of cigarette smoke lingers in the air and the carpet is littered with tiny specs of ash in random places.
+
+To the left is the miniature kitchen area. It's populated by a long counter top, a gas oven and a fridge. There's also a cupboard under the counter.
+
+My bedroom is to the North of this room. Just a few more steps and I can finally rest my tired head. Also, the bathroom is in the East.
+
+> x sofa
+An old two-seater sofa, dark blue in colour. The fabric on the back of the base is ripped and torn. The cushions atop the sofa are lumpy and askew. There is an empty cider can stuffed down the right side.
+
+> x coffee table
+A coffee table made of clear glass. Its surface is scratched and stained, with a few coffee rings dotted about. I never could be bothered with coasters.  An old newspaper is on the glass coffee table.
+
+> take newspaper
+(from the glass coffee table)
+I grab the newspaper from the table and stuff it in my back pocket. Perhaps it will make good reading material when I can't get to sleep.
+
+> read newspaper
+That's odd. This newspaper is dated from the 12th of December 2010.
+
+Worst day of my life.
+
+> open cupboard
+I open the kitchen cupboard.  Inside the kitchen cupboard is a Pack of Cigarettes.
+
+A startling sound echoes through the house, nearly causing me to leap out of my skin. It's coming from outside the apartment. I think somebody's knocking on the front door.
+
+> take cigarettes
+(from the kitchen cupboard)
+I pick up nothing. I was wondering where I'd left these. Perhaps I'll have a smoke before going to bed. Now where did I put my lighter?...
+
+> x tv
+A small television sits facing the sofa, its back to the wall. It's an old model. In fact, it's the first and only TV I've ever bought.
+
+There's that knocking sound again. It's probably one of the neighbours, looking to bite my head off over the racket downstairs. Silly place to put a vase, really.
+
+> turn on tv
+After a slight pause, the television comes to life.
+
+> watch tv
+Some slimy suit is requesting that viewers phone in for a chance to win "amazing prizes".
+
+Nothing but garbage on TV at this time of night.
+
+Again, I hear a knock at the door. Much louder now; urgent.
+
+> drink scotch
+Seems a shame to waste it. But as I press my lips to the bottle and drink the lasts drops of scotch, that's exactly what I feel. Shame. To be trapped in my addictions is not an ideal circumstance. I'd get some kind of help... but the idea of a life without alcohol gives me shivers.
+
+At last, the knocking has stopped. Whoever it was, they've given up.
+
+> open front door
+I'd rather stay inside.
+
+> e
+I move east.
+
+Bathroom
+I step into a cramped closet of a room, knocking my knee on the porcelain bathtub which dominates most of the space. To my left is the bathroom sink, standing beneath a cabinet with a mirror door, which is fixed tight to the wall. The toilet is to my right. I feel an edgy wave of claustrophobia wash over me. It feels as though the tiled walls are closing in. A light flickers above my head.
+
+The living room is to the West.
+
+> x bathtub
+It's quite small. So small in fact that I can barely fit in it. What's this?.... There appears to be something small in the plughole. Is that?... It can't be! That's Alice's Pendant!
+
+> take pendant
+(from the bathtub)
+I take the pendant and carefully place it in my pocket.
+
+> open cabinet
+I open the bathroom cabinet.  Inside the bathroom cabinet is a Box of Pills.
+
+> x pills
+A white cardboard box. The label signifies that it once housed medication for anxiety and depression. There are no pills left.  Inside the Box of Pills is a Bronze Key.
+
+> open pills
+The Box of Pills cannot be opened or closed!
+
+> take bronze key
+(from the Box of Pills)
+Ok, I take the Bronze Key from the Box of Pills.
+
+> close cabinet
+A sudden chill fills the room as I reach for the cabinet door. It is an eerie feeling... as if somebody is in the bathroom with me.
+
+What am I saying? I really need to get some sleep before I go insane. Sweeping the paranoia from my mind, I reach out once more and shut the cabinet door all at once.
+
+WHAT THE...?!
+
+Jumping back from the sink, I bring my hands to my face in a moment of shock; only regaining the confidence to peek out through my fingers after a moment of recollection. I... I could have sworn I saw somebody standing behind me when I closed that cabinet door. It... it looked like.....
+
+> w
+I move west.
+
+Living Room
+My living room. It's a small, cramped room. Not more than three steps from the front door is a blue sofa. Many nights I've fallen asleep in that very spot playing video games on my television, which happens to be situated directly beyond the sofa, cut off by a glass coffee table.
+
+To the left is the kitchen area. It's populated by a long counter top, a gas oven and a fridge. There's also a cupboard under the counter.
+
+My bedroom is to the North of this room. Just a few more steps and I can finally rest my tired head. Also, the bathroom is in the East.
+
+> n
+I move north.
+
+Bedroom
+The first sight to greet me upon entering this haven is the small unmade bed against the right wall; Its white cotton sheets inviting me in. It's an invite I'll gladly accept. Situated next to it is a bedside table. The walls of this room are decorated with patterned paper. Or rather, mostly decorated, as it's peeling in various places. A magnificently tall wardrobe stands against the left wall, casting a large shadow across the floor.
+
+The living room is South of here.
+
+> x wardrobe
+A large wardrobe formed from unpainted wood. Various items of clothing are hanging inside.  The tall wardrobe is currently closed.
+
+> open wardrobe
+I open the tall wardrobe.  Inside the tall wardrobe is a Cigarette Lighter.
+
+> take lighter
+(from the tall wardrobe)
+Ok, I take the Cigarette Lighter from the tall wardrobe.
+
+> smoke cigarettes
+Upon meeting the open flame, the cigarette begins to burn brightly. Blue smoke dances as I inhale the toxic fumes. Nothing like a smoke before bedtime.
+
+> x bedside table
+A three-legged table, made of wood. There is a drawer underneath.  The bedside table is currently locked.  A framed photograph is on the bedside table.
+
+> x photograph
+It's a photo of Alice and myself, smiling contently. Happier times...
+
+> unlock drawer with bronze key
+I unlock the bedside table with the Bronze Key.
+
+> open drawer
+I open the bedside table.  Inside the bedside table is a Journal.
+
+> take journal
+(from the bedside table)
+Ok, I take the Journal from the bedside table.
+
+> read journal
+It's dated 13th December 2010.
+
+"I can't bear the pain
+She kept me sane
+From the vice I did refrain
+It's over now
+Alone somehow
+My life will never be the same."
+
+> lie on bed
+
+Bedroom
+I awake in quite a panic, and find myself somehow relieved to see the filthy ceiling of my bedroom. Sitting upright, I glance worriedly around the dark room in an attempt to to re-familiarise myself with normality. I can't remember ever having such a vivid dream. The image of that glowing light still burns behind my eyes.
+
+It takes a great deal of willpower to pull myself off the bed. Moments ago I was falling upon those soft sheets, welcoming sleep's embrace. A night of rest was what I'd planned. Alas, I'm on my feet once again, in the harsh reality of consciousness. Just as my beating heart has slowed to a healthy pace, my gaze is drawn to the far corner of the room. What... what is that? A sort of shadowy figure appears to be lurking silently. Just standing there by the wardrobe in a cloak of darkness...
+
+[[Press any key]]
+
+"H... hello?", I call out in nothing more than a hesitant whisper.
+
+A dreadful feeling of intense anxiety tightens my chest as the mysterious figure exhales deeply. An unnerving noise. It doesn't sound human. Reluctantly, I open my mouth to speak again... but fear seems to have frozen my vocal chords.
+
+As I find myself frozen in place and unable to speak, a loud noise rings out from the living room. In an instant, the mysterious figure is gone.
+
+[[Press any key]]
+
+What did I just see?...
+
+I suppose I should be relieved that the mysterious... entity in the corner of the room has disappeared into darkness. But now an an all-together different anomaly keeps me on edge. The sound of footsteps on the living room carpet. Somebody's out there.
+
+> s
+
+Living Room
+Swallowing my fear in a painful gulp, I step out into the living room. A peculiar ambiance exists on the other side of the door. Everything in sight appears just a little out of focus; blurred somehow. It is as if a layer of frosted glass has been fitted between my iris and the world around me. Upon adjusting to this dreamlike perspective, I notice somebody standing on the far side of the room, leaning against the kitchen counter.
+
+Quite a skinny woman. Her back is turned toward me and I cannot see her face. But I recognise those clothes. Her blonde hair hangs down in a ponytail, slightly obscuring the angel picture stitched into the back of her red leather jacket. Black skinny jeans extend from her waist down to the yellow canvas shoes on her feet. This can't be real...
+
+[[Press any key]]
+
+"A... Alice?"
+
+She turns around and smiles warmly at me. It's her. It's actually her.
+
+"Luke! Gosh, it's great to see you again", she beams as she approaches, arms outstretched, "Gimme' a hug. It's been too long."
+
+"Alice!.. I don't understand..", my mind is racing, searching for an explanation. Am I dreaming? Maybe it's the booze. Perhaps I'm more inebriated than I'd thought.
+
+"I can imagine you're pretty confused right now", she sympathises as she pulls me into an embrace. All at once, every ounce of fear and pain and uncertainty is washed away. Whether this moment is truly fixed in reality or some fantastical delusion, it seems not to matter now.
+
+[[Press any key]]
+
+Alice turns away for a moment, folding her arms across her chest. After a brief pause, she rotates her head to face me, a half-smile partially masking the disappointment in her eyes.
+
+"You stink of booze, bro.", she begins, "Seriously, I can't imagine Charlie Sheen himself smelling much different. How much have you had to drink?"
+
+An awkward laugh escapes as I shrug my shoulders, "Uhh.. good question actually. I'm pretty sure the number's somewhere between one and... ten?"
+
+Alice shakes her head disapprovingly, "You're killing yourself, Luke. What happened to 'never going back', huh? You were doing so well."
+
+"I tried, Alice. You think I didn't try damn hard to stay sober?", I retort, a twinge of defensiveness lingering in my voice, "Life just doesn't work without you, sis. You kept me together. Kept me sane..."
+
+Alice places her right hand on my shoulder and stares straight into my bloodsshot eyes, as if to further prove her presence, "I'm here now, Luke. Don't you See? I'm really here."
+
+But how? How could this be? There's no logical reason for Alice to be standing before me right now; talking to me as if she were alive and well. As if all is as it should be. In my restless dreams, I see her face. Could it be.. I'm not dreaming this time?
+
+[[Press any key]]
+
+As the gravity of the situation begins to set in, it brings doubt to the front of my mind. I break away from her grasp and think aloud, "You can't be here, Alice! You died! In that horrible accident!"
+
+"Oh, but that's exactly why I am here, Luke", she starts with a serious tone, "My death... was no accident." Her words hit me with the full force of a speeding train.
+
+"What... what does that even mean? What are you trying to say, Alice?"
+
+Alice looks down at her feet and breathes a depressing sigh before making eye contact again, "I was murdered, Luke. Murdered. And until I know what really happened to me that night... I'm not sure I'll ever be at peace."
+
+Choose a number:
+1) Ask about newspaper
+2) Ask about pendant
+
+> 1
+That word hangs on my lobes like a pair of lead earrings. Murdered. My dead sister is standing before my eyes and exclaiming that was was murdered. A light switches on in my head as I remember that mysterious publication that had somehow appeared in my apartment. The old newspaper. I reach around and remove it from my back pocket to show Alice.
+
+"This newspaper... it's dated twelfth of December, two thousand and ten. This is your doing, isn't it? You put it there."
+
+Alice nods, "It's about time you started to notice my little signs. Perhaps that's why you can finally see me now. You're finally ready."
+
+[[Press any key]]
+
+This is all becoming too much to process. I can't deny that since returning home I've felt a kind of eerie atmosphere lingering in the air. I had initially put it down to fatigue or drunkeness. Is it possible that the odd occurrences in my apartment could be attributed to something less tangible? I must be losing my mind to even consider such a notion.
+
+"Ready? Ready for what, exactly? A mental breakdown?", I quip breathlessly as my heart begins to race.
+
+[[Press any key]]
+
+Alice grabs my hands and brings them up to her face. Her skin feels warm; positively alive.
+
+"Hear me, Luke. Whether you believe it or not, this is happening. I'm here because you're finally ready to help me find peace. After all I did you for you... you look me in the eyes and tell me you don't give a damn."
+
+There is a sincere hint of pain embedded within her voice; something I had never noticed during her living years. Either it was not there to be heard, or I had just never bothered to properly listen. But I hear it now.
+
+[[Press any key]]
+
+"Alice, I'm sorry. I've missed you every day... I just can't believe you're stood here in front of me. Besides, even if this isn't some delusion, how could I possibly help you? I can't even help myself. It should've been me who died that night. Not you."
+
+Just hearing myself speak these words is enough to drown my broken heart in guilt and anguish. Trying to fight back tears, my guilt is converted to utter shock as Alice's right hand comes crashing across my face.
+
+"Nonsense, Luke!", she exclaims as I hold my sore cheek, "You're much stronger than you give yourself credit for. I know you can do this, bro. Just try and think back. Try to remember any crucial details. Anything odd you saw or heard that night? Did you notice anything suspicious before the car flipped over? Come on, Luke. I need you to help me out here."
+
+[[Press any key]]
+
+My self-doubt is only strengthened as I realise I truly can't be of any help. So many times I've tried to recall the details of that tragic evening. It is as if my memories have been hidden away behind a wall of fog.
+
+"Alice I... I wish I could tell you that everything was clear as day. The truth is my memory just hasn't been the same since that night. I remember the car, the conversation... that awful sound as we spun out of control. That moment revisits me each and every night, over and over. But everything else surrounding those few minutes... it's a blur."
+
+Alice seems unphased by this, her youthful face still painted with a focused expression, "It seems we've got some work to do, Luke. But I have faith. I know you'll find my killer."
+
+[[Press any key]]
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

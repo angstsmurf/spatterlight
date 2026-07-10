@@ -1,0 +1,163 @@
+Untitled
+
+empty room
+You have to poop. Do you -
+1.Head to the bathroom and poop (move northeast)
+2.Not poop (move southeast)
+
+Note-This game contains some language and very morbid details. Do not read if you have a weak heart or are easily offended  Exits are northeast and southeast.
+
+> x room
+
+empty room
+You have to poop. Do you -
+1.Head to the bathroom and poop (move northeast)
+2.Not poop (move southeast)
+
+Note-This game contains some language and very morbid details. Do not read if you have a weak heart or are easily offended  Exits are northeast and southeast.
+
+> ne
+You move northeast.
+
+Bathroom
+After taking the biggest dump of your life do you -
+1.Head to the Kitchen and eat the turkey sub in the fridge (West)
+2.Go outside and mug someone (Northeast)  Exits are west and northeast.
+
+> ne
+You move northeast.
+
+Outdoors
+Well that was fun, you managed to get away with $57 and a stylish flip-phone. However, the cops are on your tail. Do you -
+1.Try running downtown (South)
+2. Turn yourself in (Southeast)  Exits are south and southeast.
+
+> se
+You move southeast.
+
+Police Car
+The police handcuff you and place you in the back of a police car. The policeman who is watching you decides to use the bathroom and leaves you unattended in the car. Do you -
+
+1.Stay in the car (south)
+2. Try to escape (northwest)  Exits are south and northwest.
+
+> s
+You move south.
+
+police station
+You are taken to the police station and locked in a cell. The guard leaves to eat a microwave burrito. Do you -
+1.Investigate the cell (north)
+2.jump out the window (West)  Exits are north and west.
+
+> n
+You move north.
+
+In the cell
+You look around and find a menacing rusty spoon on the ground surrounded by mounds of rotting corpses and depressing suicide notes, aside from that everything seems pretty normal. The guard returns to his post. Do you -
+1. Complement the guard (north)
+2. Try to bribe the guard with what you stole before (head east)  Exits are north and east.
+
+> n
+You move north.
+
+Outside police station
+You tell the guard his beard looks sexy. He is so flattered that he lets you go. Outside the police station a flamboyant black man asks you to join his fraternity of hamster assassins. Do you -
+1.Accept (East)
+2.Deny (northwest)  Exits are east and northwest.
+
+> e
+You move east.
+
+KFC
+The man gives you a contract to kill his neighbor who he believes is trying to take over the world with a Russian dwarf army. You are outside his base of operations. Do you -
+1.Knock on the door (North)
+2.Enter through the Chimney (northeast)  An exit leads north.
+
+> n
+You move north.
+
+Doorway
+The man opens the door. He looks totally normal and stands there waiting for you to do something. Do you -
+1.Run away (West)
+2.Stare him in the eyes (East)  Exits are east and west.
+
+> w
+You move west.
+
+The ground
+Turns out the dude was a frikkin ninja and he throws a pebble at your face at lightning speed. Your left cheek is crippled and you fall to floor. Do you -
+1.Cry like bitch (northeast)
+2.Wake up (northwest)  Exits are east, northeast and northwest.
+
+> ne
+You move northeast.
+
+Sidewalk
+You cry and collect your tears in a test tube. You then use your emotion filled tears to fuel your cowardice propelled mace. The mace blinds the attacker and he thinks it's night-time since his vision is now all black. He falls into a peaceful slumber. Do you -
+1.Investigate the home (East)
+2. Head back to base (North)  Exits are north and east.
+
+> n
+You move north.
+
+Sidewalk
+As you walk along the sidewalk you notice Senpai sitting on a swing.It's a beautiful day and you feel confidence swell inside you. Do you -
+1.Talk to Senpai (northeast)
+2.Continue back to base (northwest)  Exits are northeast and northwest.
+
+> nw
+You move northwest.
+
+Fight Time
+As you continue along the path a wild Michael Jackson appears and provokes you with his fiesty dance moves. Do you -
+1.F*** him up (North)
+2. Run away cuz that's Michael Jackson, the guy who they made a game about on like Dreamcast or something where he turns into like a super dance robot and saves the world, so like he must be tough right? (West)  Exits are north and west.
+
+> n
+You move north.
+
+Fatality
+You look Micahel Jackson straight in the face and tell him Thriller wasn't very thrilling. Michael falls into spiraling depression and falls pathetically into the fetal position. You then proceed to steal his clothing, adorn them, become the new paradigm of society, and curb stomp Michael until his Appendix bursts. He spends two weeks in the hospital and isn't allowed to eat anything but aspic. After your triumph Do you -
+1.Head home (West)
+2.Become a K-pop star (Northwest)  Exits are west and northwest.
+
+> w
+You move west.
+
+Kokujin base
+You finally arrive back at the mysterious black guys base of operations. The man congratulates you on a successful contract. He offers to pay you in either two sticks of gum or a turkey sandwich. Do you -
+1.Take the gum (Northeast)
+2.Take the sandwich (North)
+3.Ignore him and go investigate his house (Northwest)
+4.Demand real payment (West)
+5.Offer him a once in a lifetime opportunity to lower his auto insurance deductible up to ten percent in less than three days! (southwest)  Exits are north, west, northeast, southwest and northwest.
+
+> n
+You move north.
+
+McRonalds
+The sandwich doesn't have any Turkey in it. You mention this and the black man says nothing, instead running into the adjacent room screaming ALLAHU AKBAR!!! You look down and notice that the sandwich is not in fact a sandwich but a bomb shaped alarm clock ticking down. Before the clock strikes one it freezes up. Being the kind person you are you take the clock to the nearest mechanic and have him take a look at it. He says he can't repair the clock so you thank him for his time and leave. You decide to go out and eat a real lunch. Do you -
+1.McDonalds (West)
+2.KFC (northwest)
+3.Arby's (North)
+4.Subway (northeast)
+5.The soul train Xpress (East)  Exits are north, east, west, northeast and northwest.
+
+> w
+You move west.
+
+McDonalds
+You approach the counter and are faced with the most difficult decisions of your life. What do you order?
+1.Extra Large fries (South)
+2.Rocks (Southwest)
+3.Obama (West)
+4.Innocence, my brother. (NorthWest)
+5.A Baconator (North)
+Exits are north, south, west, southwest and northwest.
+
+> nw
+You move northwest.
+
+You Got The Savior of Mankind Ending
+The Dark Brotherhood welcomes you with open arms and trains you to become a master assassin. You take up a contract to kill all the world's hipsters, anti-renewable energy advocates, and anti-gays. To the world's surprise, majority of African's, Republican's, and terror threats miraculously disappear. The world becomes a much safer place and mankind evolves into an advanced and unified race. You save the world from overpopulation, pollution, dumb trends, and Donald Trump.
+

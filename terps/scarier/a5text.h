@@ -58,6 +58,23 @@
    markers after the boundary pass.  \x03 (ETX) never occurs in game text. */
 #define A5_ALR_MARK '\003'
 
+/* Sentinel pair wrapping a variable NAME whose expansion was deferred to the
+   Display boundary.  FrankenDrift applies ALRs only inside Display()
+   (ReplaceALRs, Global.vb:519), whose leading ReplaceFunctions call expands any
+   %variable% the ALR NewText carries with the END-OF-TURN value -- so a game
+   ALR like Murder Most Foul's `<s1>` -> "Your score has increased ... to
+   %scor%." reports the total AFTER the awarding task's IncVariable ran.
+   Scarier applies ALRs eagerly at message render time; a bare %var% inside an
+   ALR replacement is therefore emitted as \005name\005 and resolved by
+   a5text_expand_var_defers (called from finish_turn, before the boundary ALR
+   pass -- FD's functions-before-ALRs Display order).  \x05 (ENQ) never occurs
+   in game text. */
+#define A5_VARDEF_MARK '\005'
+
+/* Expand any \005name\005 deferred-variable sentinels in `text` with the
+   variable's CURRENT value (see A5_VARDEF_MARK).  Heap; never NULL. */
+extern char *a5text_expand_var_defers (a5_state_t *st, const char *text);
+
 /*
  * Evaluate a description wrapper node (e.g. a location's <LongDescription>, an
  * object's <Description>, the <Introduction>) into raw source text with markup
@@ -137,14 +154,21 @@ extern char *a5text_display_alr (a5_state_t *st, const char *plain);
  * Convenience: eval_description -> process -> render_plain, i.e. the finished
  * plain text for a description wrapper.
  */
-extern char *a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper);
+extern char *a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper,
+                              int *raw_nonblank = 0);
 extern char *a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrapper);
 
 /* a5text_describe + report whether the text had visible content BEFORE the ALR
    pass (FD's bHasOutput runs pre-ALR; a game ALR mapping a phrase to nothing
-   still leaves the response's paragraph slot in FD's output). */
+   still leaves the response's paragraph slot in FD's output).
+   `raw_nonblank`, when non-NULL, receives whether the segment-evaluated RAW
+   template held ANY character at all -- FD's AddResponse output test
+   (bHasOutput) sees that raw text, so even a whitespace-only "\n" completion
+   counts as task output there (it stops an After-children scan) although the
+   rendered plain text trims to nothing (The Salvage's per-move station-known
+   task suppresses the fuel-consumption child that way). */
 extern char *a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
-                                 int *pre_alr_ink);
+                                 int *pre_alr_ink, int *raw_nonblank = 0);
 
 /* a5text_describe_ex on a PRE-FROZEN raw template from a5text_eval_description:
    function/OO/expression/ALR passes only, segment selection NOT re-evaluated

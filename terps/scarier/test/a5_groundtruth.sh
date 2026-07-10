@@ -114,6 +114,15 @@ fd_is_complete() {  # $1 = transcript file, $2 = dotnet exit code
     [ -s "$1" ]  || return 1
     local echoed
     echoed=$(grep -cE '^> ' "$1" 2>/dev/null || echo 0)
+    # The Adventure-Upgrade prompt consumes one leading yes/no script line
+    # WITHOUT echoing it (FrankenDrift.Headless answers the prompt out of
+    # band), so a game that never reaches an end banner would look one short
+    # forever (Head Case).  Credit that line back.
+    if grep -q 'Adventure Upgrade' "$1" 2>/dev/null; then
+        case "$(grep -vE '^[[:space:]]*($|#)' "$SCRIPT" | head -1 | tr '[:upper:]' '[:lower:]')" in
+            yes|no) echoed=$((echoed+1)) ;;
+        esac
+    fi
     [ "$echoed" -ge "$script_cmds" ] && return 0
     grep -qE '\*\*\* You have (won|lost) \*\*\*|Would you like to .*(restart|restore)' "$1" \
         && return 0

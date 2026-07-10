@@ -1,0 +1,231 @@
+Sophia or Wisdom Defined
+
+Welcome to SOPHIA or Wisdom Defined
+You are here to learn the truth about true wisdom...
+
+A couple of words of caution:
+
+1. Do not be afraid to answer rhetorical or any other kind of questions.
+2. When speaking to people use command "say"
+3. Use command "WLKTR" to get help when lost (it doesn't work at the end)
+4. When no description of location is present, use command "look"
+
+Now, you are in the first location, called 1... use the last command I talked about to begin the game.
+
+> look
+
+1
+I am stranded. Really, who am I though? Why my thoughts flow in a language that I do understand? What is language really? I see nothing but a door...
+
+Everything starts with a door, right? After it, probably a corridor should span, leading to another door, and so on and so forth.
+
+An exit leads north.
+
+> north
+I move north.
+
+2
+I see nothing but an empty space filled with the pure essence of my breath. This is no corridor to direct my steps, but there is a door in front of me.  An exit leads north.
+
+> north
+I move north.
+
+2.1
+The door is locked it seems. What kind of secret lies behind it, and if there is one, how could I access it? Should I have to pay the entrance with my life? Oh, I am so tired, I'd rather not walk; A horse, A horse. My Kingdom for a horse! What master of words am I quoting now?
+
+> WLKTR
+Remember Romeo and Juliet? Who wrote that?
+
+> shakespeare
+Oh, wonder, the door is open, I can pass!
+
+I see literature has power in this world.
+
+> north
+I move north.
+
+3
+This is a bedroom, it is royally fashioned, except from some thorned branches growing around the bed. There is also a door at its end, but is locked. I see a bed, and in it, a beautiful lady is sleeping, tasting the sweetness of partial death. Oh, why is death so sweet and it isn't at it's fullest of forms? I should wake her up, force her out of dream's sweet embrace. She doesn't seem to wake, what should I be doing?  Also here is a thorned door.
+
+> WLKTR
+Remember the fairy tale? There is even a Disney movie...
+
+> kiss princess
+I kiss her, not feeling a thing and she is risen now!
+
+She speaks:  T'is a new world I am risen in! Oh, my love, my saviour, you have risen me from my eternal slumber. Please, let us be married, be happy and prosper, multiply our species and rule the entire globe. I am yours now and my love, like a thousand birds in the sky, cannot reach the ground!
+
+Please answer me, I shall take any answer of you as the best one!
+
+> no
+This is my choice now, I understand the way of the world, but my quest is not finished, I have to learn the ways of life and wisdom.
+
+The girl says:
+You have virtue, a sweet thing, immovable by fortune's harsh will. Take this key, then, my pure love, and don't forget, from now on, I am in wait for you. You are my chosen one and if thy will be to wed, I will remain chaste as goddess Diana herself till the end of time and me.
+
+Take this key, and open the thorned door and God have mercy upon your quest!
+
+> take key
+Ok, I pick up the shining key.
+
+> unlock door with key
+I unlock the thorned door with the shining key.
+
+> open door
+I open the thorned door.
+
+> north
+I move north.
+
+4
+I see a prison cell and a poor man clothed indistinctly and beaten violently. His blood paints the walls most like a painter of forecoming images.
+
+> WLKTR
+You are what you search for, and do not forget what the princess told you that you have!
+
+> say hello to boethius
+Are thou most Holy Sophia? I had been waiting for you to console me in this hour of mental darkness?
+
+> say yes to boethius
+Tell me, oh pure Sophia, what is that the man has? I am imprisoned and my sweet and precious tomes have been taken from me and my wisdom has no value now! What do I have now? Fortune has been cruel with me! Tell me, tell me please!
+
+> say virtue to boethius
+Oh, truly! I see... Virtue comes from oneself, it shines like the light of a thousand suns, burning the entirety of space. Virtue is one thing that I can realize in any circumstance, regardless of the sick movement of Fortune.
+
+Most importantly, it is my choice to be virtuous. I, Boethius, have a choice, even here, in this dreadful and wretched cell! Oh, now I see the true nature of God, he is here, he cannot be condemned for the ugliness of the world. The state of the world depends on our virtue!
+
+Oh I shall write this down, oh Sweet Sophia, you have consoled me so sweet, oh godsent words you have spoken!  _________________________________________________________________
+***************                          *************************
+***************                          *************************
+               I AM TAKEN BY WINGS UNSEEN
+               TAKEN TO PLACES THAT I HAVE NEVER KNOWN
+               BUT FEEL AT HOME
+***************                          *************************
+***************                          *************************
+_________________________________________________________________
+
+> WLKTR
+1. You better take communion
+2. name the famous icon of artist Rubliev
+3. kill on the cross
+
+> east
+I move east.
+
+5.3
+A room of eating, a great table stands in its center, filled with thousands of delicious foods. What should I eat from it?  Exits are west and northwest.
+
+> take bread
+(from the great table)
+Ok, I take the piece of bread from the great table.
+
+> eat bread
+You feel like new.
+
+> take wine
+(from the great table)
+Ok, I take the glass of wine from the great table.
+
+> drink wine
+You feel anew.  I see a holy and sharp light, it makes my eyes go blind but, unlike the fires that burn, it is a pleasant feeling.
+
+I see a man, a person, angel or human I do not know, it looks like the son of man...
+
+He speaks:
+I see you have consumed my flesh and blood, keep in your mind that these are the signs of the true singular sacrifice. It doesn't mean you are not to sacrifice yourself, a good life cannot be attained if love for your neighbor is not present. Keep in mind that the true realization of this love is sacrifice.
+Then I say:
+
+I want to attain true wisdom, how should I be capable of that?  Type "wait" to continue
+
+> wait
+He answered:
+
+You are incapable of wisdom when love doesn't live in you. Search for love first!  Type "wait" to continue  A turn passes  I said, not knowing what to ask more of Him:
+
+How can I search for love? How can I sacrifice myself for others when I am incapable of sacrificing myself for my own true good? I am weak, I cannot do anything but wait in the way of evil to consume my flesh and my only soul...  Type "wait" to continue
+
+> wait
+He embraces me and says:
+
+Start with an attainable sacrifice, here and now. Do not worry for now, concentrate on this fixed time.  A turn passes
+
+> wait
+A turn passes
+
+> take knife
+(from the great table)
+Ok, I take the sharp knife from the great table.
+
+> northwest
+I move northwest.
+
+5.2
+There is a poor lit room. I see an icon, of russian making, there are three persons depicted, with wings. They look like angels, perhaps Gods! I wonder, what is it representing. If I answer to my question out-loud, should something happen lie the door that had opened before?  Exits are southeast and southwest.
+
+> holy trinity
+I see the beautiful icon transforming into nothing at all, it is getting teared apart, and from behind it a person appears...
+
+It is me!
+It walks parallel from me, even ignoring me, even though I have many a feeling it knows me. He goes southwest.
+
+> southwest
+I move southwest.
+
+5.1
+The first hall of thought. I see a cross on the floor, of our saviour's apostle, Andrew. A small artificial light shines above it, making it look like an altar to a strange and unfamiliar God.  Image of Myself is here.  Exits are east and northeast.
+
+> kill my image
+He dies into a pool of blood that spills on the symbolic cross. The sound it makes, a shake of the earth...
+There goes courage, Oh my lord, please do not kill me...
+I did it, I sacrificed myself... Isn't it enough?
+
+The door that was closed, opens...
+
+> east
+I move east.
+
+5
+No I see the 4 places of thought. I sit now in the first of them, south from me a door. I shall open it, but how? There should be a key, or at least a word that I shall learn for it to open.  Exits are east, south and west.
+
+> south
+I move south.
+
+6 (or the end of times)
+It is here, that I stand, with no intent but to hear wisdom's words.
+
+The door locks behind me, I am trapped into eternal bliss...
+But I feel there is still things to do... A last challenge...
+
+There are 2 objects here, 2 swords.
+
+First sword is made of pure gold, it feels heavy and hits with power!
+
+The Second one is rusty, old, and feels like it is going to undo itself in a case of usage.
+
+A voice says:
+"You will have to fight a demon for my sake... arm yourself well!"  Also here is a golden Sword and a rusty Sword.
+
+> take rusty sword
+I take the sword,
+Now a demon shows up armed to the teeth.
+
+It's a frail weapon that which I have, but I do have faith in God almighty, he knows the cause of all things...
+
+> attack demon
+The sword hits on the demon's head, it explodes into a thousand pieces of blood and flesh...
+
+One that shows his power through means that meet the eye's desire, does not posses any real might. It is weak and dependent on one's own image.
+
+I learned now the true meaning of wisdom!
+
+Be virtuous, because virtue doesn't go when times are cruel
+
+Have love for the other. You can't love your neighbor when you value your life too much.
+
+True power and might is invisible, it never is how one should expect to be.
+
+This is the path of godliness....
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

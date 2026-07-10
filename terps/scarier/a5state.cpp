@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "a5restr.h"
 #include "a5state.h"
 
 /* Live group-membership mutators, defined further down but used by a5state_new
@@ -119,6 +120,11 @@ a5state_new (const a5_adventure_t *adv)
   for (i = 0; i < adv->n_characters; i++)
     if (streq (adv->characters[i].type, "Player"))
       { st->player_key = adv->characters[i].key; break; }
+  /* clsAdventure.Player getter fallback: a game with no Player-typed
+     character promotes the FIRST character in the table to player (ECOD3D
+     defines only the NonPlayer "Steve", who becomes the viewpoint). */
+  if (i == adv->n_characters && adv->n_characters > 0)
+    st->player_key = adv->characters[0].key;
 
   if (adv->n_objects > 0)
     {
@@ -156,7 +162,33 @@ a5state_new (const a5_adventure_t *adv)
               if (st->char_in != NULL) st->char_in[i] = 1; }
           st->char_position[i] = strdup (pos ? pos : "Standing");
         }
+      /* FileIO.vb:851-862: after load, if the Player's location is Hidden or has
+         an empty key (some modules leave CharacterAtLocation blank), move the
+         player to the FIRST location in the adventure.  Only the player is
+         re-homed; other characters may legitimately start Hidden. */
+      {
+        int pi = a5state_character_index (st, st->player_key);
+        if (pi >= 0 && adv->n_locations > 0
+            && st->char_onobj[pi] == NULL
+            && (st->char_loc[pi] == NULL || st->char_loc[pi][0] == '\0'))
+          st->char_loc[pi] = adv->locations[0].key;
+        /* A player who STARTS on/in furniture (JACD's Timmy lying on Bed1:
+           CharacterLocation "On Object") has char_loc NULL here; the runtime
+           ToStandingOn/ToSittingOn path keeps char_loc synced to the
+           furniture's room (FD derives clsCharacterLocation.LocationKey from
+           the object), so establish the same invariant at load. */
+        if (pi >= 0 && st->char_loc[pi] == NULL
+            && st->char_onobj[pi] != NULL)
+          {
+            int li;
+            for (li = 0; li < adv->n_locations; li++)
+              if (a5state_object_key_at_location (st, st->char_onobj[pi],
+                                                  adv->locations[li].key, 0))
+                { st->char_loc[pi] = adv->locations[li].key; break; }
+          }
+      }
       st->char_seen = (char *) calloc ((size_t) adv->n_characters, 1);
+      st->char_introduced = (char *) calloc ((size_t) adv->n_characters, 1);
       st->obj_seen = (char *) calloc ((size_t) adv->n_objects, 1);
       /* Per-character stash for the BECOME viewpoint switch (see a5state.h).
          The active arrays above belong to the starting player. */
@@ -186,11 +218,37 @@ a5state_new (const a5_adventure_t *adv)
     {
       st->var_num = (long *) calloc ((size_t) adv->n_variables, sizeof *st->var_num);
       st->var_text = (char **) calloc ((size_t) adv->n_variables, sizeof *st->var_text);
+      st->var_arr = (long **) calloc ((size_t) adv->n_variables, sizeof *st->var_arr);
       for (i = 0; i < adv->n_variables; i++)
         {
           const a5_variable_t *v = &adv->variables[i];
           if (streq (v->type, "Text"))
             st->var_text[i] = v->initial ? strdup (v->initial) : strdup ("");
+          else if (v->array_length > 1)
+            {
+              /* A Numeric array (FileIO.vb:1944): a comma-separated
+                 InitialValue fills elements 1..n via SafeInt; a plain value
+                 is copied into EVERY element. */
+              int n = v->array_length, e;
+              st->var_arr[i] = (long *) calloc ((size_t) n, sizeof (long));
+              if (v->initial != NULL && strchr (v->initial, ',') != NULL)
+                {
+                  const char *p = v->initial;
+                  for (e = 0; e < n && p != NULL; e++)
+                    {
+                      st->var_arr[i][e] = strtol (p, NULL, 10);
+                      p = strchr (p, ',');
+                      if (p != NULL) p++;
+                    }
+                }
+              else
+                {
+                  long val = v->initial ? strtol (v->initial, NULL, 10) : 0;
+                  for (e = 0; e < n; e++)
+                    st->var_arr[i][e] = val;
+                }
+              st->var_num[i] = st->var_arr[i][0];   /* element-1 mirror */
+            }
           else
             st->var_num[i] = v->initial ? strtol (v->initial, NULL, 10) : 0;
         }
@@ -243,6 +301,7 @@ a5state_free (a5_state_t *st)
   free ((void *) st->char_loc);
   free (st->char_position);
   free (st->char_seen);
+  free (st->char_introduced);
   free (st->obj_seen);
   free (st->loc_seen);
   if (st->adv != NULL)
@@ -263,6 +322,10 @@ a5state_free (a5_state_t *st)
   free (st->s_her);
   free ((void *) st->char_onobj);
   free (st->char_in);
+  if (st->var_arr != NULL && st->adv != NULL)
+    for (i = 0; i < st->adv->n_variables; i++)
+      free (st->var_arr[i]);
+  free (st->var_arr);
   free (st->var_num);
   free (st->var_text);
   free (st->task_done);
@@ -271,6 +334,7 @@ a5state_free (a5_state_t *st)
   for (i = 0; i < st->n_looks; i++)
     { free (st->looks[i].loc_key); free (st->looks[i].text); }
   free (st->looks);
+  a5restr_route_cache_free (st);
   free (st);
 }
 
@@ -456,9 +520,52 @@ a5state_entity_prop (const a5_state_t *st, const char *entkey, const char *propk
   if (c != NULL && (p = a5_prop_find (c->props, c->n_props, propkey)) != NULL)
     return p->value;
   l = a5model_location (st->adv, entkey);
-  if (l != NULL && (p = a5_prop_find (l->props, l->n_props, propkey)) != NULL)
-    return p->value;
+  if (l != NULL)
+    {
+      if ((p = a5_prop_find (l->props, l->n_props, propkey)) != NULL)
+        return p->value;
+      /* Group-inherited location property (clsItem.htblInheritedProperties):
+         e.g. The Salvage's "Planet Tiles" group carries daz7LocationIs1 +
+         daz7PlanetId, so its member tiles HAVE those properties. */
+      if ((p = a5state_location_group_prop (st, entkey, propkey)) != NULL)
+        return p->value;
+    }
   return NULL;
+}
+
+int
+a5state_entity_has_prop (const a5_state_t *st, const char *entkey,
+                         const char *propkey)
+{
+  int i;
+  const a5_object_t *o;
+  const a5_character_t *c;
+  const a5_location_t *l;
+
+  if (entkey == NULL || propkey == NULL)
+    return 0;
+  /* A runtime SetProperty override wins; an `<Unselected>` value means the
+     SelectionOnly property was removed (clsUserSession.vb:2058). */
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
+      return st->ov[i].value == NULL
+               || strstr (st->ov[i].value, "Unselected") == NULL;
+  o = a5model_object (st->adv, entkey);
+  if (o != NULL && a5_prop_find (o->props, o->n_props, propkey) != NULL)
+    return 1;
+  c = a5model_character (st->adv, entkey);
+  if (c != NULL && a5_prop_find (c->props, c->n_props, propkey) != NULL)
+    return 1;
+  l = a5model_location (st->adv, entkey);
+  if (l != NULL)
+    {
+      if (a5_prop_find (l->props, l->n_props, propkey) != NULL)
+        return 1;
+      /* Group-inherited location property (see a5state_entity_prop above). */
+      if (a5state_location_group_prop (st, entkey, propkey) != NULL)
+        return 1;
+    }
+  return 0;
 }
 
 /* Runtime object-group membership (clsGroup add/remove at runtime: the
@@ -580,6 +687,38 @@ a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
     a5state_group_add_member (st, grpkey, objkey);
   else
     a5state_group_remove_member (st, grpkey, objkey);
+}
+
+/* Rebuild the live insertion-ordered group-membership list (gm / FD arlMembers)
+   from the restored effective membership.  Our save serialises runtime group
+   membership only as the @InGroup:<grp> property overrides (PropOv); the ordered
+   arlMembers list that RandomKey / EverywhereInGroup enumerate is NOT stored, so
+   after a restore it must be reconstructed or those actions see stale (static-
+   only) membership.  Seed each group's still-effective static members in model
+   order, then append runtime-added members in the order their override was
+   created (st->ov append order approximates FD's arlMembers insertion order). */
+void
+a5state_rebuild_live_groups (a5_state_t *st)
+{
+  int i, m;
+  if (st == NULL)
+    return;
+  for (i = 0; i < st->n_gm; i++)
+    { free (st->gm[i].grp); free (st->gm[i].key); }
+  st->n_gm = 0;
+  for (i = 0; i < st->adv->n_groups; i++)
+    {
+      const a5_group_t *g = &st->adv->groups[i];
+      for (m = 0; m < g->n_members; m++)
+        if (a5state_object_in_group (st, g->key, g->members[m]))
+          a5state_group_add_member (st, g->key, g->members[m]);
+    }
+  for (i = 0; i < st->n_ov; i++)
+    {
+      const char *p = st->ov[i].prop;
+      if (strncmp (p, "@InGroup:", 9) == 0 && streq (st->ov[i].value, "1"))
+        a5state_group_add_member (st, p + 9, st->ov[i].entity);
+    }
 }
 
 /* A location's inherited group property (clsItem.htblInheritedProperties layered
@@ -901,6 +1040,32 @@ a5state_character_visible_at_location (const a5_state_t *st, int ci,
       return exists_at (st, oi, lockey, 0, 1, 0);
     }
   return 0;
+}
+
+long
+a5state_var_get_elem (const a5_state_t *st, int vi, long idx)
+{
+  if (vi < 0 || vi >= st->adv->n_variables)
+    return 0;
+  if (st->var_arr == NULL || st->var_arr[vi] == NULL)
+    return st->var_num[vi];                    /* scalar: index ignored */
+  if (idx < 1 || idx > st->adv->variables[vi].array_length)
+    return 0;                                  /* clsVariable ErrMsg -> 0 */
+  return st->var_arr[vi][idx - 1];
+}
+
+void
+a5state_var_set_elem (a5_state_t *st, int vi, long idx, long value)
+{
+  if (vi < 0 || vi >= st->adv->n_variables)
+    return;
+  if (st->var_arr == NULL || st->var_arr[vi] == NULL)
+    { st->var_num[vi] = value; return; }       /* scalar: index ignored */
+  if (idx < 1 || idx > st->adv->variables[vi].array_length)
+    return;                                    /* clsVariable ErrMsg -> drop */
+  st->var_arr[vi][idx - 1] = value;
+  if (idx == 1)
+    st->var_num[vi] = value;                   /* element-1 mirror */
 }
 
 int

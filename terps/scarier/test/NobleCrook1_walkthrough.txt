@@ -1,0 +1,50 @@
+x counter
+west
+take towel
+east
+east
+take soap
+put soap in sink
+dry soap
+west
+take key
+x key
+put key in soap
+put key on counter
+south
+x ashtray
+take ticket
+south
+take sign
+give ticket to man
+take bag
+west
+north
+west
+buy spaghetti
+east
+south
+west
+put spaghetti in bowl
+drop bag
+take plumber's bag
+open bag
+take file
+file key
+north
+unlock door with duplicate key
+open door
+north
+south
+ask crowd about rats
+southeast
+take circus sign
+northwest
+south
+south
+put circus sign in holder
+south
+take perfume
+take can
+give can to clerk
+give perfume to woman

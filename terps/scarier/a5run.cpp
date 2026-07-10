@@ -244,6 +244,7 @@ a5run_new (const a5_adventure_t *adv)
   /* Let embedded <#...#> expressions (OneOf/Either/Rand) draw from the same RNG
      stream as the rest of the engine -- a5sexpr is otherwise RNG-less. */
   a5sexpr_rng_hook = a5rand_between;
+  a5sexpr_urand_hook = a5rand_norepeat;
   /* Let `Event.Position`/`Event.Length` OO-expressions read the live event
      timers (e.g. JacarandaJim's rain `<# If(RAND(8)=1, ...) #>` gated on
      `Event12.Position > 0`). */
@@ -309,6 +310,8 @@ a5run_new (const a5_adventure_t *adv)
   run->defer_look = 0;
   run->look_pending = 0;
   run->look_pos = 0;
+  run->task_raw_output = 0;
+  run->in_time_tick = 0;
   run->cur_score_ti = -1;
   run->look_pinned = NULL;
   run->undo_blob = NULL;
@@ -655,6 +658,16 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                      guard.  A second ContinueAlways task raises the floor. */
                   if (!cont_active || t->priority > cont_floor)
                     { cont_active = 1; cont_floor = t->priority; }
+                  /* The claiming task supersedes every candidate recorded so
+                     far: FD's continuation is a FRESH EvaluateInput whose
+                     GetGeneralTask starts with empty sAmbTask/sNoRefTask/
+                     sRestrictionText -- a pre-continue "which?"/noref/fail
+                     message must not resurface if the continuation itself
+                     finds nothing.  (Candidates recorded AFTER this point are
+                     the continuation's own and DO surface -- see the
+                     cont_active return below.) */
+                  *have_fail = 0; fail_text->clear ();
+                  *have_amb = 0; *have_noref = 0;
                   break;          /* stop trying this task's commands; keep scanning */
                 }
               return 1;
@@ -795,13 +808,18 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
           /* command matched but did not resolve to a unique pass: keep scanning */
         }
     }
-  /* A <Continue>ContinueAlways task already ran and claimed this turn; the
-     continuation (FD's EvaluateInput at iMinimumPriority>0) found no further
-     task, but unlike a first-pass empty result it must NOT print "I didn't
-     understand" (that path is gated on iMinimumPriority=0).  So report the
-     turn as handled. */
+  /* A <Continue>ContinueAlways (or passing-but-silent) task already ran and
+     claimed this turn; the continuation (FD's EvaluateInput at
+     iMinimumPriority>0) is a full task-selection pass of its own, so a
+     failing-with-output / ambiguity / noref candidate it recorded surfaces
+     exactly as on a first pass (e.g. Stuck Piggy's empty `open clock` stub
+     passes silently and the continuation must still show OpenObjects' "You
+     can't open the old grandfather clock as it is locked!").  Only when the
+     continuation found nothing at all is the difference: it must NOT print
+     "I didn't understand" (that path is gated on iMinimumPriority=0), so
+     report the turn as handled. */
   if (cont_active)
-    return 1;
+    return (*have_fail || *have_amb || *have_noref) ? 0 : 1;
   return 0;
 }
 
@@ -831,7 +849,7 @@ emit_endgame (a5_run_t *run, sb_t *out)
      single trailing newline -- without this the banner would abut it, whereas a
      command-ending game's last response already ends in a blank line.  Top up
      the trailing newlines to a blank-line separator. */
-  if (out->len > 0)
+  if (out->len > 0 && !run->in_time_tick)
     {
       size_t k = out->len;
       int nl = 0;
@@ -853,9 +871,21 @@ emit_endgame (a5_run_t *run, sb_t *out)
 
   if (run->adv->end_game_text != NULL)
     {
+      /* FD's CheckEndOfGame Displays the win/lose banner with bCommit=True
+         (clsUserSession.vb:515) BEFORE the WinningText (vb:528), so each is a
+         separate Display commit and the headless renderer clears only within a
+         commit (Program.cs EmitHtml's per-call StringBuilder).  A <cls> embedded
+         in the EndGameText therefore wipes only the EndGameText's own commit, NOT
+         the already-emitted banner and turn output.  Alien Diver's winning text
+         opens with <cls>: resolve it here against a floor pinned right after the
+         banner so it can't reach back and swallow the "*** You have won ***"
+         line and the take-off narrative (finish_turn's later floor-0 pass then
+         has no EndGameText <cls> left to over-wipe). */
+      size_t after_banner = out->len;
       char *wt = a5text_describe (st, run->adv->end_game_text);
       if (wt[0]) { sb_puts (out, wt); sb_puts (out, "\n"); }
       free (wt);
+      sb_resolve_cls (out, after_banner);
     }
 
   /* FD reads Adventure.Score / MaxScore = htblVariables("Score"/"MaxScore"),
@@ -877,9 +907,51 @@ emit_endgame (a5_run_t *run, sb_t *out)
       sb_puts (out, line);
     }
 
-  sb_puts (out, "Would you like to restart, restore a saved game, quit or "
-                "undo the last command?\n\n");
+  /* The restart prompt is the Runner UI's modal question in FD, not part of
+     the CheckEndOfGame Display -- so a game ALR TextOverride must never
+     rewrite it (Shattered Memory blanks the whole "Would you like to
+     restart..." sentence with an Override meant for the post-restore replay).
+     Interleave A5_ALR_MARK sentinels so the boundary ALR pass cannot match
+     any OldText across it; finish_turn's existing mark strip removes them
+     before the text is shown. */
+  {
+    /* FD: Display("Would you like to <c>restart</c>, <c>restore</c> a saved
+       game, <c>quit</c> or <c>undo</c> the last command?").  The <c> tags sit
+       in the buffer during ReplaceALRs, so an OldText can match any contiguous
+       run BETWEEN tags (Halloween translates the prompt piecewise: "restart"
+       -> "genstarte") but never ACROSS one (Shattered Memory's full-sentence
+       blanking Override does not fire in FD).  A5_ALR_MARK is Scarier's
+       stripped-tag stand-in: emit one at each tag position. */
+    static const char *kPromptSegs[] = {
+      "Would you like to ", "restart", ", ", "restore", " a saved game, ",
+      "quit", " or ", "undo", " the last command?", NULL
+    };
+    for (int si = 0; kPromptSegs[si] != NULL; si++)
+      {
+        if (si > 0)
+          sb_putc_ (out, A5_ALR_MARK);
+        sb_puts (out, kPromptSegs[si]);
+      }
+    sb_puts (out, "\n\n");
+  }
   st->end_displayed = 1;
+}
+
+/* Expand any deferred-variable sentinels (A5_VARDEF_MARK, a5text.h) currently
+   in the turn buffer with the variables' CURRENT values.  Called at the
+   Scarier equivalents of FD's Display commits (see the claimed-command path)
+   so an ALR-borne %scor% reads the state of ITS commit, not end-of-turn. */
+static void
+expand_var_defers_sb (a5_run_t *run, sb_t *out)
+{
+  if (out->p == NULL || out->len == 0
+      || memchr (out->p, A5_VARDEF_MARK, out->len) == NULL)
+    return;
+  char *xp = a5text_expand_var_defers (run->st, out->p);
+  out->len = 0;
+  out->p[0] = '\0';
+  sb_puts (out, xp);
+  free (xp);
 }
 
 static char *
@@ -914,8 +986,23 @@ finish_turn (a5_run_t *run, sb_t *out)
         if (*r != A5_PS_MARK) *w++ = *r;
       *w = '\0';
     }
+  /* Deferred-variable sentinels (a bare %var% inside an eagerly-applied ALR
+     NewText) resolve here with the end-of-turn value -- FD Display's
+     ReplaceFunctions runs before its ReplaceALRs (Global.vb:523).  A second
+     pass after the boundary ALR catches sentinels a boundary-applied ALR
+     itself introduced. */
+  {
+    char *xp = a5text_expand_var_defers (run->st, raw);
+    free (raw);
+    raw = xp;
+  }
   fin = a5text_display_alr (run->st, raw);   /* may render ALR <img>/<audio> too */
   free (raw);
+  {
+    char *xp = a5text_expand_var_defers (run->st, fin);
+    free (fin);
+    fin = xp;
+  }
   /* The stripped-tag sentinels (A5_ALR_MARK) have done their job: the boundary
      ALR pass above could not match an OldText across a stripped tag, exactly
      like FD's Display-time ReplaceALRs over the still-marked-up buffer.  Drop
@@ -972,6 +1059,7 @@ run_immediate_tasks (a5_run_t *run, sb_t *out)
       if (!a5restr_pass (st, t->restrictions))
         continue;
       run_task (run, t, 0, out);
+      ev_on_task_completed (run, t->key, out);
     }
   run->immediate_emit = 0;
 }
@@ -988,40 +1076,39 @@ a5run_intro (a5_run_t *run)
      committed title (Achtung Panzer).  Resolve each commit unit's markers before
      the next is appended; `cf` is the current unit's start offset. */
   size_t cf = 0;
+  int had_prompt = 0;
   sb_init (&out);
   a5run_media_begin (run);
   /*
    * "Adventure Upgrade" auto-correct prompt (FileIO.vb:634).  When the file
-   * format version is older than 5.0.26 and any task carries an "#A#O#"
-   * (AND-then-OR) BracketSequence, FD asks once at load whether to auto-correct
-   * those tasks.  Our headless ground truth (FrankenDrift.Headless) answers the
-   * question only when the next script line is literally yes/no; RtC's first
-   * script line is a real command, so FD answers NO -- the correction is NOT
-   * applied (and Scarier, like FD-no, reads the BracketSequence verbatim, so the
-   * restriction logic already matches).  But FD still EMITS the question prose
-   * before the intro, so we must too.  We never apply CorrectBracketSequence
-   * (matching FD's NO answer for this corpus).
+   * format version is older than 5.0.26 and any restriction block carries an
+   * "#A#O#" (AND-then-OR) BracketSequence, FD asks once at load whether to
+   * auto-correct those tasks (a5model_upgrade_pending).  The host frontend
+   * asks the question through its NORMAL input channel -- the next command-
+   * script line headless (FrankenDrift.Headless consumes a literal yes/no
+   * only, else answers no without consuming), a typed line in the Glk
+   * frontend, like the ADRIFT 4 gender prompt -- and calls
+   * a5model_upgrade_answer BEFORE building the run.  In that case the
+   * question (and, on yes, the "N tasks have been updated." info) has already
+   * been shown out-of-band, so here we only mirror the joins: FD emits both
+   * via raw writes that never touch the Display/pSpace accumulator, so the
+   * first real Display of game-start (the centred title, vb:226) runs with an
+   * empty accumulator and a non-empty title concatenates directly onto them
+   * ("...restrictions.Son of Camelot", "...updated.the House").
+   *
+   * With a frontend that never asks (upgrade still pending here), FD's
+   * unattended behaviour holds: the question prose is still EMITTED before
+   * the intro with an implicit NO answer -- the correction is NOT applied and
+   * the BracketSequence is read verbatim.  That legacy path prepends the
+   * question verbatim after finish_turn (had_prompt == 2): being out-of-band,
+   * it must never meet ReplaceALRs or CapAfterFullStop -- a game whose ALRs
+   * rewrite ordinary output (the virtual human's lowercasing single-letter
+   * overrides) must NOT touch it.
    */
-  if (run->adv->version != NULL && atof (run->adv->version) < 5.000026)
-    {
-      int ti;
-      for (ti = 0; ti < run->adv->n_tasks; ti++)
-        {
-          const a5_xml_node_t *r = run->adv->tasks[ti].restrictions;
-          const char *bs = r ? a5xml_child_text (r, "BracketSequence") : NULL;
-          if (bs != NULL && strstr (bs, "#A#O#") != NULL)
-            {
-              sb_puts (&out,
-                "Adventure Upgrade\n"
-                "There was a logic correction in version 5.0.26 which means OR "
-                "restrictions after AND restrictions were not evaluated.  Would "
-                "you like to auto-correct these tasks?\n\n"
-                "You may not wish to do so if you have already used brackets "
-                "around any OR restrictions following AND restrictions.\n\n");
-              break;
-            }
-        }
-    }
+  if (a5model_upgrade_pending (run->adv))
+    had_prompt = 2;                     /* unasked: prepend question, imply NO */
+  else if (run->adv->upgrade_prompted)
+    had_prompt = 1;                     /* host asked: only mirror the joins */
   /* System <RunImmediately> tasks run before the title (FD clsUserSession init,
      vb:209-216); a title-music task's audio markup leaves a trailing space that
      joins onto the centred title. */
@@ -1034,7 +1121,32 @@ a5run_intro (a5_run_t *run)
      one space-joins to any preceding RunImmediately output, then the intro's own
      leading break follows. */
   if (run->adv->title != NULL && run->adv->title[0] != '\0')
-    { sb_pspace (&out); sb_puts (&out, run->adv->title); sb_puts (&out, "\n"); }
+    {
+      /* After the out-of-band Adventure-Upgrade prompt FD's pSpace accumulator is
+         empty (the prompt was a raw Console.Write), so a non-empty title joins
+         with NO separator -- unless real Display output (RunImmediately) already
+         sits after the prompt commit, in which case it pSpace-joins to that. */
+      if (!had_prompt || out.len != cf)
+        sb_pspace (&out);
+      /* FD's title Display goes through the same HTML rendering as any other
+         text, so markup INSIDE Adventure.Title is stripped -- Trapped's title
+         is "<centre><b>'Trapped'  by Driftwood</b></centre>". */
+      {
+        char *tp = a5text_render_plain (run->adv->title);
+        sb_puts (&out, tp);
+        free (tp);
+      }
+      sb_puts (&out, "\n");
+    }
+  else if (had_prompt)
+    {
+      /* Prompt with an empty title (RtC): FD's empty "<c></c>" Display still
+         emits a line break and the room view that follows carries its own leading
+         vbCrLf (vb:229), so the prompt is separated from the intro/room by a blank
+         line.  Scarier's room path has no leading break, so restore the paragraph
+         break the prompt's dropped "\n\n" used to provide. */
+      sb_puts (&out, "\n\n");
+    }
   sb_resolve_cls (&out, cf); cf = out.len;   /* commit: RunImmediately + title */
   intro = a5text_describe (run->st, run->adv->introduction);
   /* No paragraph break after an intro whose last visible act is a <cls> (DDF's
@@ -1054,7 +1166,12 @@ a5run_intro (a5_run_t *run)
      the first move (clsUserSession game-start: gated on Adventure.ShowFirstRoom). */
   if (run->adv->show_first_location)
     {
+      /* Real output: retire DisplayOnce segments (view_location_impl honours
+         the ambient marking flag; see a5text.cpp). */
+      int pm = run->st->marking_display;
+      run->st->marking_display = 1;
       look = a5text_view_location (run->st);
+      run->st->marking_display = pm;
       sb_puts (&out, look);
       free (look);
     }
@@ -1063,7 +1180,22 @@ a5run_intro (a5_run_t *run)
   ev_init (run, &out);
   sb_resolve_cls (&out, cf);                 /* commit: start-of-game events */
   update_seen (run->st);
-  return finish_turn (run, &out);
+  {
+    char *turn = finish_turn (run, &out);
+    if (had_prompt != 2)
+      return turn;
+    /* Legacy unasked path: prepend the out-of-band Adventure-Upgrade prompt
+       verbatim: FD wrote it raw to the console before the engine's first
+       Display, so it reaches the player un-ALR'd and un-capitalised, directly
+       abutting the first real output (see the had_prompt joins above). */
+    sb_t pb;
+    sb_init (&pb);
+    sb_puts (&pb, "Adventure Upgrade\n");
+    sb_puts (&pb, a5model_upgrade_question ());
+    sb_puts (&pb, turn);
+    free (turn);
+    return sb_take (&pb);
+  }
 }
 
 /* Seed the known-words list exactly as clsUserSession.NotUnderstood does, lazily
@@ -1479,8 +1611,13 @@ grab_it (a5_run_t *run, const std::string &in)
           int matched = 0;
           if (c->name != NULL && has_word (lower (c->name)))
             matched = 1;
+          /* FD compares descriptors CASE-SENSITIVELY against the lowercased
+             input (GrabIt: `If sWord = sName` -- only ProperName gets a
+             .ToLower).  So a capitalised descriptor ("Talia") never matches
+             and the pronoun keeps its previous referent; lowercasing here
+             wrongly updated `her` to Talia Swayne where FD keeps Sophia. */
           for (int d = 0; !matched && d < c->n_descriptors; d++)
-            if (has_word (lower (c->descriptors[d])))
+            if (has_word (c->descriptors[d]))
               matched = 1;
           if (!matched)
             continue;
@@ -1622,8 +1759,8 @@ remember_amb_and_prompt (a5_run_t *run, a5_state_t *st, const std::string &in,
   return finish_turn (run, out);
 }
 
-char *
-a5run_input (a5_run_t *run, const char *line)
+static char *
+a5run_input_inner (a5_run_t *run, const char *line)
 {
   a5_state_t *st = run->st;
   sb_t out;
@@ -1664,6 +1801,11 @@ a5run_input (a5_run_t *run, const char *line)
      (clsUserSession.PrepareForNextTurn), so HaveSeenCharacter / "characters
      must be seen" gates reflect everyone visible by now. */
   update_seen (st);
+
+  /* PrepareForNextTurn also empties every character's per-turn route memo
+     (dictHasRouteCache/dictRouteErrors, vb:3792) -- see
+     a5restr_exit_in_direction. */
+  a5restr_route_cache_clear (st);
 
   /* PrepareForNextTurn also clears the rendered-character-name ledger
      (PronounKeys.Clear, vb:3823).  FD clears at the END of each processed
@@ -1748,12 +1890,21 @@ a5run_input (a5_run_t *run, const char *line)
          (turn_out_nonempty; Bug Hunt's cl_ReadMap `<img>` map).  A won/lost
          game skips the fallback outright -- FD's endgame turns always
          displayed something. */
+      /* FD expands ALR-borne %variable% tokens at each Display COMMIT, not
+         once per turn: the command's own responses Display before the
+         LocationTrigger drain runs (so a drain task's IncVariable must not
+         retro-date the room header's %scor%), and the drain's output
+         Displays before the event tick.  Expand the deferred-variable
+         sentinels accumulated so far at each of those boundaries;
+         finish_turn catches whatever the event tick emits. */
+      expand_var_defers_sb (run, &out);
       drain_tasks_to_run (run, &out);
       if (out.len == 0 && !st->turn_out_nonempty && !st->game_over)
         {
           not_understood (run, in, &out);
           return finish_turn (run, &out);
         }
+      expand_var_defers_sb (run, &out);
       ev_tick_all (run, &out);
       return finish_turn (run, &out);
     }
@@ -1875,11 +2026,53 @@ a5run_input (a5_run_t *run, const char *line)
       run->amb_active = 0;
       free (out.p);
       st->turns--;            /* the retry re-bumps it; one user command == one turn */
-      return a5run_input (run, (rverb + " " + in).c_str ());
+      return a5run_input_inner (run, (rverb + " " + in).c_str ());
     }
   else
     not_understood (run, in, &out);
   return finish_turn (run, &out);
+}
+
+char *
+a5run_input (a5_run_t *run, const char *line)
+{
+  char *txt = a5run_input_inner (run, line);
+  /* The real Runner's 1-second tmrEvents timer, deterministically: tick every
+     TimeBased event once per processed input line (see ev_time_tick_all).  The
+     tick's output flushes as its own commit AFTER the command's (FD's
+     TimeBasedStuff -> Display("", True) -> CheckEndOfGame), so it gets its own
+     finish_turn pass and is appended to the command's text. */
+  if (!run->st->game_over)
+    {
+      sb_t tout;
+      sb_init (&tout);
+      run->in_time_tick = 1;
+      ev_time_tick_all (run, &tout);
+      if (tout.len != 0 || (run->st->game_over && !run->st->end_displayed))
+        {
+          char *extra = finish_turn (run, &tout);
+          if (extra != NULL && extra[0] != '\0')
+            {
+              size_t tn = txt != NULL ? strlen (txt) : 0;
+              char *joined = (char *) malloc (tn + strlen (extra) + 2);
+              if (joined != NULL)
+                {
+                  memcpy (joined, txt != NULL ? txt : "", tn);
+                  joined[tn] = '\n';
+                  strcpy (joined + tn + 1, extra);
+                  free (txt);
+                  txt = joined;
+                }
+              free (extra);
+            }
+          else
+            free (extra);
+        }
+      else
+        free (tout.p);
+      run->in_time_tick = 0;
+    }
+  return txt;
 }
 
 /* ============================================================ save / restore */
@@ -2050,6 +2243,22 @@ save_scarier_body (sb_t *b, a5_run_t *run)
       sb_elem_l (b, "Num", st->var_num[i]);
       if (st->var_text[i] != NULL)
         sb_elem (b, "Text", st->var_text[i]);
+      if (st->var_arr != NULL && st->var_arr[i] != NULL)
+        {
+          /* Numeric array elements, comma-joined (ScarierExt-only). */
+          sb_t ab; sb_init (&ab);
+          int e;
+          for (e = 0; e < adv->variables[i].array_length; e++)
+            {
+              char nb[32];
+              snprintf (nb, sizeof nb, "%s%ld", e > 0 ? "," : "",
+                        st->var_arr[i][e]);
+              sb_puts (&ab, nb);
+            }
+          char *joined = sb_take (&ab);
+          sb_elem (b, "Arr", joined);
+          free (joined);
+        }
       sb_puts (b, "</Variable>\n");
     }
 
@@ -2086,6 +2295,10 @@ save_scarier_body (sb_t *b, a5_run_t *run)
     for (i = 0; i < adv->n_characters; i++)
       if (st->char_seen[i])
         sb_elem (b, "CharSeen", adv->characters[i].key);
+  if (st->char_introduced != NULL)
+    for (i = 0; i < adv->n_characters; i++)
+      if (st->char_introduced[i])
+        sb_elem (b, "CharIntroduced", adv->characters[i].key);
   if (st->loc_seen != NULL)
     for (i = 0; i < adv->n_locations; i++)
       if (st->loc_seen[i])
@@ -2310,6 +2523,26 @@ fd_write_props (sb_t *b, a5_state_t *st, const char *entkey,
     }
 }
 
+/* Candidate member key space for a group by its type.  Runtime membership
+   (AddObjectToGroup / AddLocationToGroup / AddCharacterToGroup) layers into the
+   same override store keyed by the member's own key, so save/restore reconcile
+   the effective membership against the whole matching entity space. */
+static int
+group_candidate_count (const a5_adventure_t *adv, const a5_group_t *g)
+{
+  if (streq (g->type, "Locations"))  return adv->n_locations;
+  if (streq (g->type, "Characters")) return adv->n_characters;
+  return adv->n_objects;
+}
+
+static const char *
+group_candidate_key (const a5_adventure_t *adv, const a5_group_t *g, int j)
+{
+  if (streq (g->type, "Locations"))  return adv->locations[j].key;
+  if (streq (g->type, "Characters")) return adv->characters[j].key;
+  return adv->objects[j].key;
+}
+
 static void
 save_fd_game (sb_t *b, a5_run_t *run)
 {
@@ -2464,24 +2697,22 @@ save_fd_game (sb_t *b, a5_run_t *run)
       sb_puts (b, "</Variable>\n");
     }
 
-  /* Groups: effective membership.  For Objects groups the runtime override
-     layer can add/remove members; other group types are static (model list). */
+  /* Groups: effective runtime membership for every group type.  Objects,
+     Locations and Characters groups all mutate at runtime (AddObjectToGroup /
+     AddLocationToGroup) through the override store, so iterate the matching
+     entity space and emit whatever is live now (captures adds AND removals vs
+     the static model list). */
   for (i = 0; i < adv->n_groups; i++)
     {
-      int j;
+      const a5_group_t *g = &adv->groups[i];
+      int j, ncand = group_candidate_count (adv, g);
       sb_puts (b, "<Group>\n");
-      sb_elem (b, "Key", adv->groups[i].key);
-      if (streq (adv->groups[i].type, "Objects"))
+      sb_elem (b, "Key", g->key);
+      for (j = 0; j < ncand; j++)
         {
-          for (j = 0; j < adv->n_objects; j++)
-            if (a5state_object_in_group (st, adv->groups[i].key,
-                                         adv->objects[j].key))
-              sb_elem (b, "Member", adv->objects[j].key);
-        }
-      else
-        {
-          for (j = 0; j < adv->groups[i].n_members; j++)
-            sb_elem (b, "Member", adv->groups[i].members[j]);
+          const char *ck = group_candidate_key (adv, g, j);
+          if (a5state_object_in_group (st, g->key, ck))
+            sb_elem (b, "Member", ck);
         }
       sb_puts (b, "</Group>\n");
     }
@@ -2536,6 +2767,8 @@ restore_reset (a5_run_t *run)
     memset (st->obj_seen, 0, (size_t) adv->n_objects);
   if (st->char_seen != NULL)
     memset (st->char_seen, 0, (size_t) adv->n_characters);
+  if (st->char_introduced != NULL)
+    memset (st->char_introduced, 0, (size_t) adv->n_characters);
   if (st->loc_seen != NULL)
     memset (st->loc_seen, 0, (size_t) adv->n_locations);
   /* Drop the per-character BECOME seen-stash and re-home the active arrays on
@@ -2648,9 +2881,23 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
           if (var_i < adv->n_variables)
             {
               const char *txt = a5xml_child_text (n, "Text");
+              const char *arr = a5xml_child_text (n, "Arr");
               st->var_num[var_i] = child_long (n, "Num");
               free (st->var_text[var_i]);
               st->var_text[var_i] = txt != NULL ? strdup (txt) : NULL;
+              if (arr != NULL && st->var_arr != NULL
+                  && st->var_arr[var_i] != NULL)
+                {
+                  const char *p = arr;
+                  int e;
+                  for (e = 0; e < adv->variables[var_i].array_length
+                              && p != NULL; e++)
+                    {
+                      st->var_arr[var_i][e] = strtol (p, NULL, 10);
+                      p = strchr (p, ',');
+                      if (p != NULL) p++;
+                    }
+                }
               var_i++;
             }
         }
@@ -2685,6 +2932,12 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
           int ci = a5state_character_index (st, n->text ? n->text : "");
           if (ci >= 0 && st->char_seen != NULL)
             st->char_seen[ci] = 1;
+        }
+      else if (streq (nm, "CharIntroduced"))
+        {
+          int ci = a5state_character_index (st, n->text ? n->text : "");
+          if (ci >= 0 && st->char_introduced != NULL)
+            st->char_introduced[ci] = 1;
         }
       else if (streq (nm, "LocSeen"))
         a5state_mark_loc_seen (st, n->text ? n->text : "");
@@ -2782,6 +3035,10 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
                              a5xml_child_text (n, "Text"));
         }
     }
+
+  /* PropOv restored the @InGroup overrides but not the ordered arlMembers list;
+     rebuild it so RandomKey / EverywhereInGroup enumerate runtime membership. */
+  a5state_rebuild_live_groups (st);
 
   a5rand_set_state (native, rng);
 }
@@ -3014,7 +3271,20 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
             {
               const char *v0 = a5xml_child_text (n, "Value_0");
               if (!streq (adv->variables[vi].type, "Text"))
-                st->var_num[vi] = v0 != NULL ? strtol (v0, NULL, 10) : 0;
+                {
+                  st->var_num[vi] = v0 != NULL ? strtol (v0, NULL, 10) : 0;
+                  /* An array variable saves each element as Value_0..
+                     Value_(n-1) (FileIO.vb:174; zero-valued elements are
+                     omitted from the save, so default to 0). */
+                  if (st->var_arr != NULL && st->var_arr[vi] != NULL)
+                    for (int e = 0; e < adv->variables[vi].array_length; e++)
+                      {
+                        char tag[24];
+                        snprintf (tag, sizeof tag, "Value_%d", e);
+                        const char *ve = a5xml_child_text (n, tag);
+                        st->var_arr[vi][e] = ve != NULL ? strtol (ve, NULL, 10) : 0;
+                      }
+                }
               else
                 {
                   free (st->var_text[vi]);
@@ -3029,20 +3299,23 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
           for (gi = 0; gi < adv->n_groups; gi++)
             if (streq (adv->groups[gi].key, gk))
               break;
-          if (gi < adv->n_groups && streq (adv->groups[gi].type, "Objects"))
+          if (gi < adv->n_groups)
             {
-              int j;
+              const a5_group_t *g = &adv->groups[gi];
+              int j, ncand = group_candidate_count (adv, g);
               /* Effective membership = the listed <Member> set (add/remove vs
-                 the model list via the runtime override layer). */
-              for (j = 0; j < adv->n_objects; j++)
+                 the model list via the runtime override layer).  Reconcile
+                 across the whole candidate space so runtime removals are also
+                 restored, for Objects, Locations and Characters groups alike. */
+              for (j = 0; j < ncand; j++)
                 {
-                  const char *ok = adv->objects[j].key;
+                  const char *ck = group_candidate_key (adv, g, j);
                   int listed = 0;
                   for (c = n->first_child; c != NULL; c = c->next)
-                    if (streq (c->name, "Member") && streq (c->text, ok))
+                    if (streq (c->name, "Member") && streq (c->text, ck))
                       { listed = 1; break; }
-                  if (listed != a5state_object_in_group (st, gk, ok))
-                    a5state_set_object_in_group (st, gk, ok, listed);
+                  if (listed != a5state_object_in_group (st, gk, ck))
+                    a5state_set_object_in_group (st, gk, ck, listed);
                 }
             }
         }

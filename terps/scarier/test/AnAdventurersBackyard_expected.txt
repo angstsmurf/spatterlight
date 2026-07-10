@@ -1,0 +1,320 @@
+An Adventurer's Backyard
+
+You are in an adventurer's backyard. You must find treasures and perform certain tasks to score points. When you have collected all 25 points, say "Score" to end the game!
+
+And don't forget to say "Help" if you are stuck!
+
+Yard
+This yard is covered with soft, green grass. It looks like it has been freshly mown. A garden lies west while the patio lies to the east. You can see an old, decrepit shed to the south. A tree to the southwest towers over the yard. To the southeast is a burbling fountain.
+
+Exits are east, south, west, southeast and southwest.
+
+> s
+You move south.
+
+Shed
+This old shed has seen better days. Cobwebs hang from the ceiling and dead leaves litter the floor.
+
+Also here is a stepladder and an axe.  An exit leads north.
+
+> take axe
+Ok, you pick up the axe.
+
+> n
+You move north.
+
+Yard
+This yard is covered with soft, green grass. It looks like it has been freshly mown. A garden lies west while the patio lies to the east. You can see an old, decrepit shed to the south. A tree to the southwest towers over the yard. To the southeast is a burbling fountain.
+
+Exits are east, south, west, southeast and southwest.
+
+> sw
+You move southwest.
+
+By The Oak Tree
+A majestic oak tree grows in this corner of the yard, next to the shed. A treehouse can be seen about a third of the way up. The high branches of the tree wave in the summer breeze.
+
+Exits are north, up and northeast.
+
+> u
+You move up.
+
+Treehouse
+The treehouse commands a view of the entire yard. The floor is made of wooden planks. It looks like you could climb up still higher into the tree.
+
+Exits are up and down.
+
+> chop floor with axe
+You chop a hole in the floor of the treehouse, revealing a way in to the hollow beneath (2 points).
+
+Treehouse
+The treehouse commands a view of the entire yard. The floor is made of wooden planks. It looks like you could climb up still higher into the tree.
+
+Exits are up, down and in.
+
+> in
+You move in.
+
+Inside The Tree Hollow
+It is dark and musty in here. Light filters down through the remaining planks in the treehouse floor.
+
+Also here is a golden locket.  Exits are up and out.
+
+> take locket
+Ok, you pick up the golden locket.  (3 points)
+
+> out
+You move out.
+
+Treehouse
+The treehouse commands a view of the entire yard. The floor is made of wooden planks. It looks like you could climb up still higher into the tree.
+
+Exits are up, down and in.
+
+> drop axe
+Ok, you put down the axe.
+
+> d
+You move down.
+
+By The Oak Tree
+A majestic oak tree grows in this corner of the yard, next to the shed. A treehouse can be seen about a third of the way up. The high branches of the tree wave in the summer breeze.
+
+Exits are north, up and northeast.
+
+> ne
+You move northeast.
+
+Yard
+This yard is covered with soft, green grass. It looks like it has been freshly mown. A garden lies west while the patio lies to the east. You can see an old, decrepit shed to the south. A tree to the southwest towers over the yard. To the southeast is a burbling fountain.
+
+Exits are east, south, west, southeast and southwest.
+
+> se
+You move southeast.
+
+Fountain
+A sparkling fountain sits in this corner of the yard, next to the shed. Above you, you can see a balcony.
+
+Exits are north and northwest.
+
+> get coin from fountain
+Ok, you take the rare coin from the sparkling fountain.  (3 points)
+
+> drop locket
+Ok, you put down the golden locket.
+
+> drop coin
+Ok, you put down the rare coin.
+
+> nw
+You move northwest.
+
+Yard
+This yard is covered with soft, green grass. It looks like it has been freshly mown. A garden lies west while the patio lies to the east. You can see an old, decrepit shed to the south. A tree to the southwest towers over the yard. To the southeast is a burbling fountain.
+
+Exits are east, south, west, southeast and southwest.
+
+> s
+You move south.
+
+Shed
+This old shed has seen better days. Cobwebs hang from the ceiling and dead leaves litter the floor.
+
+Also here is a stepladder.  An exit leads north.
+
+> take ladder
+Ok, you pick up the stepladder.
+
+> n
+You move north.
+
+Yard
+This yard is covered with soft, green grass. It looks like it has been freshly mown. A garden lies west while the patio lies to the east. You can see an old, decrepit shed to the south. A tree to the southwest towers over the yard. To the southeast is a burbling fountain.
+
+Exits are east, south, west, southeast and southwest.
+
+> e
+You move east.
+
+Patio
+A slate patio sits next to a sliding glass door, which grants access to the house. Inside you can see a living room. You can see a sparkling fountain to the south.
+
+Also here is a lawn chair.  Exits are south and west.
+
+> open door
+You open the sliding glass door.
+
+Patio
+A slate patio sits next to a sliding glass door, which grants access to the house. Inside you can see a living room. You can see a sparkling fountain to the south.
+
+Also here is a lawn chair.  Exits are east, south and west.
+
+> e
+You move east.
+
+Living Room
+A comfy sofa sits against one wall. There is also a television set opposite. Outside, through the door, you can see the patio. To the south is the dining room and to the north is the foyer. East is a hallway.
+
+Exits are north, east, south and west.
+
+> n
+You move north.
+
+Foyer
+A chair sits in the foyer. The front door leads outside.
+
+An exit leads south.
+
+> open front door
+You open the front door.
+
+Foyer
+A chair sits in the foyer. The front door leads outside.
+
+Exits are north, south and out.
+
+> out
+You move out.
+
+Front Porch
+The wooden porch invites visitors into the house. From here you can look out at your neighborhood.
+
+Also here is a welcome mat.  Exits are south and in.
+
+> look under mat
+Moving the welcome mat reveals a strand of flypaper, which you peel of the floor.
+
+> in
+You move in.
+
+Foyer
+A chair sits in the foyer. The front door leads outside.
+
+Exits are north, south and out.
+
+> s
+You move south.
+
+Living Room
+A comfy sofa sits against one wall. There is also a television set opposite. Outside, through the door, you can see the patio. To the south is the dining room and to the north is the foyer. East is a hallway.
+
+Exits are north, east, south and west.
+
+> e
+You move east.
+
+Hallway
+This hallway leads west to the living room, north to the bathroom and east to the kitchen. You can see a small table here. On the table is a vase, and in the vase sits a red rose.
+
+A deadly spider is here.  Exits are north, south, west and up.
+
+> s
+You move south.
+
+Kitchen
+There is a refrigerator against one wall. Next to that is the counter, with some cabinets. At the far end of the counter is a stove with an oven beneath. There is also a sink here.
+
+A fly buzzes around the room.  Exits are north and west.
+
+> open lower cabinet
+You open the lower cabinet.  Inside the lower cabinet is a blue bowl.
+
+> open bowl
+You open the blue bowl.  Inside the blue bowl is some sugar.
+
+> take sugar
+(from the blue bowl)
+Ok, you take the sugar from the blue bowl.
+
+> catch fly with flypaper
+You put the sugar on the flypaper. The fly lands on the flypaper to eat the sugar and becomes stuck (2 points).
+
+> n
+You move north.
+
+Hallway
+This hallway leads west to the living room, north to the bathroom and east to the kitchen. You can see a small table here. On the table is a vase, and in the vase sits a red rose.
+
+A deadly spider is here.  Exits are north, south, west and up.
+
+> feed fly to spider
+You feed the housefly to the spider, which takes its prize and scuttles off into a crack in the baseboard (1 point).
+
+> drop flypaper
+Ok, you put down the flypaper.
+
+> get ring from vase
+Ok, you take the diamond ring from the vase.  (3 points)
+
+> n
+You move north.
+
+Bathroom
+Flowery wallpaper gives this bathroom a cheery feel. There is a sink and a toilet here.
+
+An exit leads south.
+
+> open tank
+You open the bathroom tank.  Inside the bathroom tank is a waterproof envelope and the bathroom tank water.
+
+> open envelope
+You open the waterproof envelope.  Inside the waterproof envelope is a hundred dollar bill.  (3 points)
+
+> s
+You move south.
+
+Hallway
+This hallway leads west to the living room, north to the bathroom and east to the kitchen. You can see a small table here. On the table is a vase, and in the vase sits a red rose.
+
+Also here is the flypaper.  Exits are north, south, west and up.
+
+> u
+You move up.
+
+Upstairs Landing
+This is a nice airy hallway with two bedrooms off of it.
+
+Exits are north, south and down.
+
+> s
+You move south.
+
+Master Bedroom
+This is the master bedroom of the house. There is a balcony leading outside and a master bathroom opposite. A queen-size bed and a dresser furnish the room.
+
+You see a fluffy cat here.  Exits are north, east and west.
+
+> get collar from cat
+You remove the collar from the cat (3 points).
+
+> w
+You move west.
+
+Balcony
+The balcony commands a view of the entire yard. Below you can see the fountain, and beyond that, the shed. The oak tree stands at the far corner of the yard, the treehouse visible in its branches.
+
+An exit leads east.
+
+> drop ladder
+You set the ladder against the roof of the house (2 points).
+
+> u
+You move up.
+
+Roof
+You have a view of the entire neighborhood. Below you is the balcony and below that, the yard.
+
+Also here is a tiny meteorite and a red frisbee.  An exit leads down.
+
+> take meteorite
+Ok, you pick up the tiny meteorite.  (3 points)
+
+> score
+You have scored all 25 points and you have won the game!
+
+*** You have won ***
+In that game you scored 25 out of a possible 25, in 50 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

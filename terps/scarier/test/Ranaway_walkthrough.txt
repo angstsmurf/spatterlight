@@ -1,0 +1,31 @@
+# Ranaway -- TrexandDrago Development, ADRIFT 5 (v5.0000366), Single Choice
+# Jam 2023 -- full playthrough to the story's end ("To be continued / In the
+# next year").  No EndGame action exists in the file; the narrative simply
+# concludes after the last authored task.
+#
+# EXE-EXTRACTED game: Ranaway.exe is a .NET Runner bundle whose last 7 bytes
+# are '\0' + the ASCII hex payload offset ("50B548"); the payload there is a
+# blorb (RIdx/Exec/Pict/ADRI) whose FORM length UNDERCOUNTS and must be
+# patched to filesize-8 (same recipe as CosmicAdventure.blorb -- see that
+# walkthrough's header).  Carved copy = test/adrift5-games/Ranaway.blorb.
+#
+# A keypress-menu escape vignette: Nathan Smith flees his abusive uncle's
+# house.  Twelve authored tasks in a fixed chain, each naming the next key:
+# S (start, stand up) -> C (get up) -> L (lift sleeve; the specific
+# A001004Cov covers the wound) -> C (backpack from behind the door, worn) ->
+# B (pack; requires the backpack worn) -> C (box in the corner: the dinosaur
+# toys go into the backpack) -> L (under the mattress: the Romance of the
+# Three Kingdoms novel; requires the toys packed) -> N (think) -> C (check
+# the window, teleports to the Backyard) -> N (meet Anthony Fitzgerald) ->
+# R (run; "Tomorrow is when your adventure begin").  MATCH 0|0 first try.
+s
+c
+l
+c
+b
+c
+l
+n
+c
+n
+r

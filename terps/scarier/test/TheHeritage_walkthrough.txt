@@ -1,0 +1,52 @@
+# The Heritage (Finn Rosenløv, 2016; ADRIFT 5.0000341) -- full winning
+# walkthrough.  A one-room mystery from the "In the mood for a comp.?" 2015
+# competition, re-released with the unwinnability bug fixed.  Your uncle has
+# died and left you his library; find his secret "retirement fund" room.
+# There is no scoring (Score/MaxScore both 0) -- the goal is the WIN ending.
+#
+# The whole game is one puzzle chain in the library:
+#
+#   search ashes      -> reveals the sooted brick wall inside the fireplace
+#   move brick        -> loose brick comes out, revealing a hole (hands sooty)
+#   search hole       -> a small iron key ("look IN hole" only shows it; the
+#                        take-task needs search/feel/"look inside")
+#   open cabinet      -> the key unlocks the wine cabinet: wine bottle,
+#                        corkscrew and crystal glass inside
+#   open bottle       -> needs BOTH the bottle and the corkscrew in hand
+#   x mantelpiece     -> reveals the faint RING mark (the painting shows uncle's
+#                        wine bottle standing exactly there -- that's the clue)
+#   drink wine  (x2)  -> the Wine variable starts at 4 and each drink pours one
+#                        glass: 4 -> 3 -> 2.  The pressure plate under the ring
+#                        needs the bottle at EXACTLY half weight (Wine == 2).
+#   put bottle on ring-> faint click; the wine cabinet swings from the wall
+#   in                -> squeeze past the cabinet into the secret room = WIN
+#
+# THE UNWINNABLE TRAP the intro warns about is the wine: "put bottle on ring"
+# with Wine != 2 just sets the bottle down (no click), and the only way to
+# change Wine is drinking -- so 3 drinks (Wine 1) makes the game unwinnable,
+# and a 4th drink on Wine == 1 is an outright LOSE ending ("one glass too
+# many").  Drink exactly twice.
+#
+# Flavor along the way: examining the painting (repeatable-off task) adds the
+# painted bottle detail that hints at the mantelpiece; "clean hands" wipes off
+# the soot after handling the brick.  Drinking seats you in the leather chair;
+# no need to stand -- placing the bottle works while seated.
+x letter
+x fireplace
+x painting
+search ashes
+move brick
+search hole
+i
+clean hands
+open cabinet
+x cabinet
+take bottle
+take corkscrew
+open bottle
+x mantelpiece
+x ring
+drink wine
+drink wine
+put bottle on ring
+in

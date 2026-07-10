@@ -371,6 +371,87 @@ FILTER="${1:-}"
 #       rules (auto_capitalise_ex allow_line_start=0), keeping only real sentence
 #       punctuation there.  See A5_WALKTHROUGH_FINDINGS.md.
 #
+# (2026-07-09) JustAnotherFairyTale (Finn Rosenløv, IFComp 2020) wired at MATCH
+# 0|0, golden-backed.  Full 131-command win (`give compass to wizard` ->
+# "*** You have won ***"); no score (pure win/lose).  Route transcribed from the
+# author's official hint sheet and verified move-by-move; Scarier is byte-
+# identical to FrankenDrift in BOTH RNG modes with NO engine changes -- the game
+# was already fully conformant.  Puzzle spine: painting-compass (wizard link),
+# Polish-troll "poles" raft, magic-rope bank-roof gold heist, compass-guided
+# hedge maze (NW/N), Father Time clock repair (ask his NAME topic sets DragonName
+# so `call puff` isn't "cheating"), willow/wind "Puff the Magic Dragon" summon,
+# sleeping-potion dungeon guard.
+#
+# (2026-07-10) TheMysteriousSpaceship (Kenneth Pedersen, Release 1) wired at
+# MATCH 0|0 first try, golden-backed, NO engine changes.  Full 66-command win
+# (`press yellow button` -> "*** You have won ***"); no score (pure win/lose).
+# Blind-derived from the game XML.  Puzzle spine: the vampire Vlad Nosferatu
+# was Muslim (Koran dedication), so the crucifix is a red herring -- rotate
+# the ship 180deg (6 x right button) and open the shutters so Karpath's
+# CRESCENT MOON shows, hammer a bookcase pole into a stake and knife-whittle
+# it pointy, trap + kill a rat so the blood lures the vampire, flee forward
+# into the moonlit cockpit (he paralyzes on entry), stake him, take his access
+# card, swipe into the engine room, replace the blown fuse, press yellow.
+# Fully deterministic: no RAND draws (3-turn mousetrap event, scripted chase).
+#
+# (2026-07-10) TheTartarusProject (Kenneth Pedersen, Release 1 "competition
+# release") wired at MATCH 0|0 first try, golden-backed.  Full 103-command win
+# (no score, pure win/lose); blind-derived from the game XML.  Needed ONE engine
+# fix: the per-turn route-restriction memo (clsCharacter.dictHasRouteCache) --
+# `e` through the security door passes PlayerMovement's HaveRouteInDirection
+# while the door is open, the BeforeActionsOnly override s_GoToTheEas slams it
+# shut, and FD still moves the player on the turn's cached first verdict.
+# Puzzle spine: phone -> cafe (your DOUBLE from parallel world B) -> Fu-Tech at
+# night, card out the window to smuggle him in, hide in cubicle from the guard,
+# laptop `tartarus16` + USB core-code update, type B + activate = double home;
+# type C + push trolley + sit in chair = YOU to world C, where you are DEAD --
+# Michael Peters gets the USB proof, you wake committed in the psychiatric
+# hospital: coin from Linda's room (she couch-sits when you linger in the living
+# room), buy Peter's cigarette, gift it to Tom (he leaves for the garden), break
+# Tom's old window (door closed) -> Michael drives you to Fu-Tech C.  Endgame
+# elevator dance vs Jack: ride to the basement and WAIT ~7 turns -- the
+# JackAndThe event (10 turns) has him call the elevator; empty car ferries up,
+# he rides down to the counter; then call the car back, ride to 1, N = win.
+# All Jack tasks' "%Player% Must BeAtLocation" clauses are COMPLETION-MESSAGE
+# gates (you only see what happens where you are), not task restrictions.
+#
+# (2026-07-10) MurderMostFoul (David Whyld, 2023) wired at MATCH 0|0,
+# golden-backed: FULL MAXIMUM-SCORE WIN "283 out of 283", all 33/33 former
+# professions + 14/14 footnotes, 1364 commands.  Route = the author's own
+# bundled "basic walkthrough" PDF transcribed 1:1 + 3 repairs (2nd greenhouse
+# Whistle -- it RE-LOCKS; extra NW after the fake-vase give -- Pinkerton's
+# cut-scene eats the move; Open panel on the lair return) + the max-score
+# additions (ask Joves about the burnt letter, read Pinkerton's journal,
+# paint-LAST + z for the Given3Item event, give fake vase).  The vanilla
+# column pins Scarier's own golden; a direct FD-vanilla diff shows 5, all
+# RAND-picked overheard-gossip lines (the System.Random caveat).  FIVE engine
+# fixes fell out (whole corpus stays at baseline in both modes):
+#   (1) AggregateOutput raw-template response merging (resp_add_comp): FD keys
+#       AddResponse by the UNexpanded completion (OO chains resolve only at
+#       Display), so the game's custom PlayerMovement1 -- MoveCharacter +
+#       Execute Look + its own "%Player%.Location.Description" After message --
+#       collapses into the Look response instead of printing every room TWICE.
+#   (2) view_location_impl honours the ambient marking_display (FD's
+#       bTestingOutput) instead of forcing retire-on-render, so the Look
+#       dance's test renders no longer eat a first-visit <DisplayOnce> segment
+#       (which un-pinned the view and let the movement completion re-render
+#       the post-retire variant as a second copy); the real-output call sites
+#       (resp_flush is_look, emit_look, game-start view) set marking=1.
+#   (3) ALR-borne %variable% deferral (A5_VARDEF_MARK): FD expands ALRs only
+#       inside Display, so the game's <s1>/<s2>/<s3> "Your score has increased
+#       by N points to %scor%." overrides read the POST-IncVariable value;
+#       Scarier's eager ALR pass now emits a sentinel resolved at the
+#       Display-commit boundaries (before the LocationTrigger drain / event
+#       tick / finish_turn), fixing both the off-by-one score lines and the
+#       room-header SCORE/professions counters mid-turn.
+#   (4) GrabIt character-descriptor matching is CASE-SENSITIVE against the
+#       lowercased input (FD only .ToLower's ProperName), so "talk to talia"
+#       does not retarget `her` (descriptor "Talia" never matches) and the
+#       later "ask talia about her plans" echoes FD's "(Sophia)".
+#   (5) run_task's Look branch renders a genuinely NON-aggregate stock Look
+#       (a game that sets <Aggregate>False</Aggregate>) eagerly at Execute
+#       time, matching FD's rendered-text AddResponse (inert for the corpus).
+#
 # Two budgets per game: VANILLA (FD's stock System.Random) | XOSHIRO (FD patched
 # to draw Scarier's xoshiro128** stream, FD_RNG=xoshiro -- RAND-selected text then
 # aligns, so the diff is a full every-line check).  Tracking both separates
@@ -605,6 +686,11 @@ FILTER="${1:-}"
 # general engine fixes (walk/event sub-display <DisplayOnce> retire; command-
 # topic keywords must go through CorrectCommand) -- see the October 31st
 # entry in TODO_a5_walkthrough_bugs.md.
+# (2026-07-11) October31stComp wired: the earlier COMP-RELEASE build of the
+# same game (2022-07-16 vs the post-comp 2022-08-01; intro/hint/witch-death
+# text differ slightly).  The same 153-turn walkthrough wins 100/100
+# unchanged, xoshiro 0 first try; vanilla 106 is the identical werewolf/
+# mummy random-walk RNG class as October31st, so DIVERGE row, no golden.
 #
 # (2026-07-03) LostChildren and MagneticMoon REWIRED to their NATIVE built-in
 # WLKTHRGH walkthroughs (user report: the old CASA/Spectrum-original
@@ -777,6 +863,224 @@ FILTER="${1:-}"
 # a5run_dump's popup_from_script feeds the next script line, and FrankenDrift's
 # HeadlessRunner.TryGetScriptedInput does the same, so both stay byte-aligned.
 #
+# Son of Camelot (Finn Rosenloev, ADRIFT 5) -- DIVERGE 0|2.  Full winning
+# walkthrough; needed two faithful engine bug fixes (Scarier AND FrankenDrift):
+#   * RunImmediately System tasks now fire their event/walk Start controls
+#     (a5run.cpp run_immediate_tasks + FD clsUserSession.vb:214 already did this),
+#     so the repeating guided-tour Event7 (Start Completion Task60) starts and
+#     Megan patrols -- without it Scarier left her parked at the courtyard;
+#   * a *structurally* zero-length looping "follow the player" walk (Megan's/the
+#     wolves' `Player 0` step) now steps each turn even once Finished
+#     (a5run_events.cpp wk_do_steps / FD clsCharacter.vb DoAnySteps).  The check
+#     is structural (all steps have turn count 0), NOT the runtime length, so a
+#     normal patrol walk stopped before it ever started (Fortress of Fear's
+#     Custodian is Finished with length 0) is not caught.
+# The xoshiro residual is 2 cosmetic hunks: the Adventure-Upgrade prompt/title
+# spacing and one "put fork on box" message (Scarier matches the generic put
+# task, FD the game's specific Task133).  The vanilla column uses the golden
+# (0); the raw FD-vanilla differential is huge because the enchanted forest is
+# entered via MoveCharacter ToLocationGroup = a random room.
+#
+# (2026-07-10) LandOfTheMountainKing (LMKversion3, Kenneth Pedersen, ADRIFT5) ->
+# WON 100/100 ("Ultimate King Slayer"), MATCH 0|0, golden-backed.  A turn-by-turn
+# RPG: nine RNG combats (bat/squid/warrior/swamp-monster/werewolf/ogre + king)
+# fought in weapon-acquisition order (fists->dagger->silver sword) plus the
+# lighthouse-lamp cave-lighting puzzle.  Engine fix: a key-typed property
+# (ObjectKey/CharacterKey/LocationKey) SetProperty whose value is a bare
+# reference sentinel ("ReferencedObject") was stored verbatim instead of resolved
+# to the bound key -- so `equip dagger`'s `SetProperty %Player% EquippedWe
+# ReferencedObject` left EquippedWe = the literal word, and NO combat hit/miss
+# subtask (all gated on EquippedWe == Knife/s_Sword/Nothing) ever fired, making
+# every armed enemy unkillable (`kill squid` -> NotUnderstood).  a5run_action.cpp
+# now resolves such sentinels at set time (matches FD's key branch).  Combat is
+# all RAND text, so the raw FD-vanilla differential is huge (~342); the vanilla
+# column uses the golden (0).  One free LOOK in the garden aligns the xoshiro
+# combat stream so the king falls to a single mid-battle berry heal.
+#
+# (2026-07-10) Snowdrift (Anonymous, "Snowdrift V1", ADRIFT5) -> reaches the
+# "To be continued..." ending at 50/50 (its full max), MATCH 0|0, golden-backed.
+# A short unfinished demo: survive a blizzard (a 15-turn turn-based FREEZE event,
+# escaped by getting underground), shovel out a buried trap door, descend, open
+# the red library, dial pi (3-1-4-1) on a 1-4-only dial phone, and ride an
+# elevator up.  No engine change: the two elevator doors are the author's
+# real-time (seconds) events, and the tasks that open them (ElevatorDo1/2) carry
+# the one-character command ".", so the ADRIFT wait verb "z" (a single char) is
+# exactly what fires them -- FrankenDrift opens the doors on the identical inputs
+# (0|0 both modes).  The orphaned DigScore (+15) never fires; 50 IS the max.
+#
+# (2026-07-10) TheHeritage (Finn Rosenløv, 2016) wired at MATCH 0|0 in both
+# modes, golden-backed, first try -- no engine change.  A one-room mystery
+# (the author's fixed re-release of his unwinnable 2015 comp entry): fireplace
+# ashes -> loose brick -> key -> wine cabinet -> drink EXACTLY two glasses
+# (Wine variable 4 -> 2; the ring pressure plate needs Wine == 2, a third
+# drink is unwinnable and a fourth is a LOSE ending) -> bottle on the
+# mantelpiece ring -> secret room = WIN.  No scoring, no events, no RAND text.
+#
+# (2026-07-10) TheWayHome (Kenneth Pedersen, part 2 of The Bash Saga, v3) wired
+# at MATCH 0|0 in both modes, golden-backed, first try -- no engine change.
+# MAX-SCORE WIN 115/115 (23 x 5 pts), fully deterministic (no RAND draws).
+# Ice-valley escape (blanket->stone->rope, ladder sled through the wall, sand
+# on boots, saw hole, diamond from the floor hatch, 7-turn dog chase into the
+# ice hole, diamond in the idol's hollow eye melts the valley) then Ravine
+# City (poster->Tome->keymaster, Brian's gloves->catch rat->lure Da Mon, lock
+# pick -> Louniss' PSKLOM4 potion -> apple of force -> SAY READY TO GUARD ->
+# eat apple as the fire worm surfaces = WIN).
+#
+# (2026-07-10) TheRoyalPuzzle (Kenneth Pedersen 2017/2023 v3, ADRIFT5 port of
+# the Zork/Dungeon Royal Puzzle via Ethan Dicks' zdungeon.z5) wired at MATCH
+# 0|0 in both modes, golden-backed, first try -- no engine change.  WON in 41
+# game moves; fully deterministic (no RAND draws).  The whole game is the
+# classic 6x6 sliding-sandstone grid, implemented via dynamic location-group
+# membership (Sandstones/s_Eastladder/s_Westladder) mutated by
+# AddLocationToGroup/RemoveLocationFromGroup, with Dummy-character probe moves
+# standing in for cell queries -- good coverage of those engine paths.  Route
+# was machine-solved: BFS over the exact extracted rules (push = wall cell ->
+# free cell beyond, player follows; diagonals blocked when both flanking
+# orthogonals are walls; pushing the (6,3) wall west is specially forbidden).
+# Get the gold card from under the wall at <4,4>, walk the east-ladder wall
+# from <2,5> around the south of the grid and up column 2 to <1,2>, then climb
+# the ladder at <1,1> holding the card = WIN.  The steel-door slit exit is the
+# LOSE ending (card confiscated).
+#
+# (2026-07-10) CosmicAdventure ("An Unspecified Cosmic Adventure That Doesn't
+# Have Words Quest and Space in the Name", Karmo Talts 2019, v5.0000353,
+# extracted from its exe-wrapped build like TheVirtualHuman -- but here the
+# trailing-marker payload is a full blorb whose FORM length field undercounts
+# and must be patched to cover the real RIdx/ADRI/IFmd/TEXT chunk stream)
+# wired at MATCH 0|0 in both modes, golden-backed, first try -- no engine
+# change.  Unscored comedy; WON in 39 commands: serve the burger (patty +
+# secret sauce IN the buns while holding them; "put X between Y" is a decoy
+# task), whiskey->card->cab for the drunk, wet the sink cloth and clean the
+# filth, then east = abducted; show meat to beast, take head (acid cuts the
+# bars), simless phone from the hallway table, sheet->tie guard->his gun +
+# record his yelling, shoot guards (gun breaks, battery is inside the DROPPED
+# broken gun -- take it, put in laser), eye from remains fools the retinal
+# scanner, voice file fools the mike, then shoot weapon on top = WIN.
+#
+# (2026-07-10) NobleCrook1 (Noble Crook, episode 1, kaemi 2016) wired at MATCH
+# 0|0 in both modes, golden-backed, first try -- no engine change.  Unscored
+# hotel-heist comedy; WON in 49 commands.  Chain: towel FIRST (wet soap blocks
+# leaving your room -- every lobby exit is also gated on not holding the
+# counter key, so wet+dry the soap, then take key 107, impress it in the soft
+# soap at the counter and put it straight back), lottery ticket from the yard
+# ashtray to the poor man at the gate (he wins on YOUR numbers; you pass out
+# and inherit the doctor's bag), buy spaghetti on hotel credit, flush it to
+# summon the plumber, swap bags (drop doctor's, take plumber's = auto-sneak to
+# the lobby where a drunk vomits on you and drops his key), file the blank
+# into a duplicate via the soap impression, unlock room 107 (wife scene throws
+# you out; do NOT speak to the man in 107 afterwards -- any topic is an
+# instant LOSE), circus sign from the cupboard into the gate holder (take the
+# hotel sign out first) to stop the rat exodus, then shoplift: take perfume +
+# tin can, give the CAN to the clerk while holding the perfume (he resets the
+# alarm as you walk out), give perfume to the woman = WIN.
+#
+# (2026-07-10) Sophia ("Sophia or Wisdom Defined", 2021, v5.0000364) wired at
+# MATCH 0|0 in both modes, golden-backed, first try -- no engine change.
+# Unscored allegorical mini-quest (11 rooms) with a built-in per-room WLKTR
+# hint command; WON in 34 commands with the TRUE ending.  Route: say
+# "shakespeare" at the quote door ("richard iii" is a secret bonus that opens
+# a side room east), kiss the sleeping princess and answer NO to her proposal
+# (YES = alternate early "married" Win via EndGame; NO drops the key to the
+# thorned door), console Boethius with "say virtue to boethius" (hello/yes
+# first for the full consolation-of-philosophy exchange; teleports you to the
+# halls of thought), take communion in 5.3 (eat bread THEN drink wine -- wine
+# is gated on the bread; 3 waits step the Son of Man dialogue), take the
+# knife, name Rubliev's icon ("holy trinity" in 5.2, which spawns your Image
+# walking to the cross room), "kill my image" on St Andrew's cross holding
+# the knife (opens the south door in 5), then in the end room take the RUSTY
+# sword and "attack demon" = WIN.  The golden sword is the LOSE trap (it
+# shatters, EndGame Lose), and "hit"/"kill demon" while holding it hits the
+# higher-priority Hit task -- "attack demon" with the rusty sword is safe.
+#
+# (2026-07-10) Thy Balconyman (burninatedPeasant, 2024, v5.0000366) wired at
+# MATCH 0|0 in both modes, golden-backed.  Tiny meme-medieval quest (18 rooms,
+# MaxScore 40, real max 38): GetSteak's +2 is unreachable (Steak is Static so
+# the library take-task's StaticOrDynamic restriction fails before the
+# specific fires -- FD-identical), and the topic IncVariables (intro +5, lips
+# +5, haircut +15) never land because ADRIFT only lets a TASK change Score.
+# Route: chat the woman up, Mat el Gato gives the lips (ask about lips; eat
+# for +3), fetch cane + sit office chair in the one-way Drab Hallway, escape
+# the Antechamber by grabbing the flask WITHOUT pliers (VRAP -> Balcony),
+# give cane (+5), say hi + "say yes" at the barber (sideburn), jello from the
+# basement cupboard into the Dank Hallway box (+7, opens N), coke pants from
+# the Locker Room to Guillermo (+10, drops Meowmere), bare "hit" kills The
+# Cheat (+11, opens N), pliers from the Forest, then flask WITH pliers = WIN.
+# Surfaced 3 engine fixes: (1) Score changes are dropped when no task is
+# executing (FD ExecuteSingleAction's `task IsNot Nothing` gate) -- topics
+# and events can't score; (2) topic actions run with NO owning task (their
+# Score IncVariables are no-ops even mid-Say-task); (3) clsCharacter
+# Introduced: a %CharacterName% render in a conversation reply upgrades later
+# indefinite descriptor renders to "the X" and pronoun-replaced renders still
+# mark -- but task messages / room listings / walk announcements are built
+# outside bDisplaying and never upgrade or mark.
+#
+# (2026-07-10) Thy Dunjohnman (burninatedPeasant, 2024, v5.0000366) wired at
+# MATCH 0|0 in both modes, golden-backed.  Six-room joke dungeon by the
+# Balconyman author: key from the Chamber Pot, unlock the iron door (+10),
+# see the platform in the Office, pull the lever in the Machinations Room
+# (platform down, coins land on it), take coins (+5), NE from Machinations
+# (gated on having SEEN the coins) to the Winner Room, push RIGHTbutton = WIN
+# (leftbutton = boulder death).  Final score 15/30: the game renames East to
+# "chamber pot" AND hangs a one-shot silent Override specific (SetPtsNoTo,
+# MaxScore=30) off PlayerMovement East, so the FIRST east attempt is consumed
+# without moving (falls through to NotUnderstood) and the max can never be
+# scored -- FD-identical.  Surfaced 2 engine fixes: (1) the character-subject
+# HaveSeenObject restriction op was missing (fell through to pass, opening
+# the gated SE/NE exits from turn one); (2) a5parse_canonical_direction never
+# matched multi-word localized direction synonyms ("chamber pot"), because
+# only the input side was space-stripped.
+#
+# (2026-07-10) Ectocomp 2011 four-pack (all v5.000021 3-hour speed-IF tafs):
+#  - TheHouse (Po. Prune) MATCH 0|0: author's .doc walkthrough.  The win
+#    REQUIRES answering YES to the "Adventure Upgrade" bracket-correction
+#    question (Task29's verbatim "#A#A#O#" lose-task otherwise passes via the
+#    trailing OR once Vickie is untied and outranks the winning Task28).  The
+#    question is now a real host prompt answered through NORMAL input (like
+#    the ADRIFT 4 gender prompt): a5model_upgrade_pending/question/answer +
+#    FD's CorrectBracketSequence ("#A#O#..." -> "#A(#O#...)"); a5run_dump
+#    consumes a literal leading yes/y/no/n script line (anything else is
+#    pushed back and answers no, exactly FrankenDrift.Headless's peek), and
+#    os_glk asks interactively.  A host that never asks keeps the legacy
+#    prepend-question-imply-NO path, so RtC / SonOfCamelot / TheVirtualHuman
+#    goldens are byte-identical.  FD.Headless fix: AskYesNoQuestion now peeks
+#    past blank/#-comment lines (a commented script can lead with its answer).
+#  - DeathShack (Mel S.) DIVERGE 0|6 golden-backed, RtC-class FD gap: part
+#    II's `open door` needs the version-gated HighestPriorityPassingTask mode
+#    to fall through Task2's Location1-only "You can't do that here!" to the
+#    stock OpenObjects; FD hardcodes HighestPriorityTask and never reaches
+#    part IV / the note.  The 6 hunks are identical in both RNG modes.
+#  - IgnisFatuus (DCBSupafly) MATCH 0|0 first try, blind-derived full win
+#    (the jester carves the jack-o'-lantern he is banished into).
+#  - StuckPiggy (Mike Desert) MATCH 0|0: author's txt walkthrough (win =
+#    `kiss billy`, reversed in the txt).  Surfaced the scan-end continuation
+#    fix (a5run.cpp scan_tasks): a passing-but-silent task (the empty `open
+#    clock` stub) starts FD's EvaluateInput(Priority+1) continuation, which
+#    is a FRESH pass -- candidates recorded before it are cleared, and a
+#    failing-with-output / amb / noref candidate the continuation itself
+#    records now surfaces (OpenObjects' "You can't open the old grandfather
+#    clock as it is locked!") instead of being swallowed by the cont_active
+#    return.
+#
+# (2026-07-10) Ectocomp 2012 pair (both v5.000026 3-hour speed-IF tafs):
+#  - Beythilda (A. Hazard) MATCH 0|0 golden-backed: all-verse witch vignette,
+#    full WIN (EndGame Win) via the game's own `walkthrough` route.  The mob
+#    event's "5 to 12" length is an RNG draw, so the vanilla golden diff is 0
+#    but a direct FD-vanilla diff shows 2 (the ***CCRAACCKK*** break-in lands
+#    one `wait` later on FD's System.Random -- pure RNG-stream noise; the
+#    script's wait padding survives every roll).  Byte-exact under xoshiro.
+#  - ECOD3D (Mel S.) MATCH 0|0 first try, blind-derived: The Evil Chicken of
+#    Doom 3D, full route to the single EndGame Neutral (shotgun the two-nosed
+#    chicken).  Surfaced the no-Player-character fallback: the game defines
+#    only the NonPlayer "Steve", and clsAdventure.Player's getter promotes
+#    the first character in the table to viewpoint (a5state_new player_key).
+#
+# (2026-07-10) Ranaway (TrexandDrago Development, Single Choice Jam 2023,
+#    v5.0000366) MATCH 0|0 first try: keypress-menu escape vignette played to
+#    its narrative end (no EndGame action in the file).  EXE-EXTRACTED --
+#    Ranaway.exe stores the payload offset as a '\0'+hex trailer and the
+#    carved blorb's FORM length undercounts (patched to filesize-8), the
+#    CosmicAdventure recipe; carved copy = adrift5-games/Ranaway.blorb.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -813,6 +1117,7 @@ Halloween|Halloween.blorb|0|0
 MagorInvestigates|MI_v.1.blorb|0|0
 MuseumHeist|MuseumHeist.blorb|0|0
 October31st|October31st.blorb|106|0
+October31stComp|October31stComp.blorb|106|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0
@@ -825,6 +1130,59 @@ LostCoastlines|Lost_Coastlines.taf|0|0
 Skybreak|Skybreak.taf|0|0
 ISummonThee|ISummonThee.taf|5|0
 BeThere|BeThere.taf|0|0
+SonOfCamelot|SoC.blorb|0|0
+AlienDiver|AlienDiver.blorb|0|0
+AlgernonsConundrum|AlgernonsConundrum.blorb|0|0
+AllThroughTheNight|AllThroughTheNight.blorb|0|0
+AnAdventurersBackyard|AnAdventurersBackyard.blorb|0|0
+GalensQuest|GalensQuest.blorb|0|0
+JustAnotherFairyTale|JustAnotherFairyTale.blorb|0|0
+LMKversion3|LMKversion3.blorb|0|0
+Snowdrift|SnowdriftV1.taf|0|0
+TheMysteriousSpaceship|TMSr2.blorb|0|0
+TheTartarusProject|TTP.blorb|0|0
+MurderMostFoul|MurderMostFoul.taf|0|0
+TheHeritage|TheHeritage.blorb|0|0
+TheWayHome|TheWayHome.blorb|0|0
+TheRoyalPuzzle|TheRoyalPuzzleV3.blorb|0|0
+TheDragonDiamond|DragonDiamond_V2.blorb|0|0
+TheVirtualHuman|TheVirtualHuman.taf|0|0
+CosmicAdventure|CosmicAdventure.blorb|0|0
+NobleCrook1|NobleCrook1.blorb|0|0
+RaceAgainstTime|RaceAgainstTime.blorb|0|0
+Sophia|Sophia.blorb|0|0
+ThyBalconyman|ThyBalconyman.blorb|0|0
+ThyDunjohnman|ThyDunjohnman.blorb|0|0
+TheSalvage|TheSalvage.blorb|0|0
+AmbassadorToDupal|AmbassadorToDupal.taf|0|0
+Bariscebik|bariscebik.taf|0|0
+CanYouStandUp|canyoustandup.taf|0|0
+ColorOfMilkCoffee|coloromc.taf|0|0
+DontGo|dontgo.taf|0|0
+WhatTheMurdererHadLeft|murderer.taf|0|0
+AReadingInMay|reading.taf|0|0
+TheHouse|The House.taf|0|0
+DeathShack|DeathShack.taf|0|6
+IgnisFatuus|Ignis Fatuus.taf|0|0
+StuckPiggy|Stuck Piggy2_0.taf|0|0
+Beythilda|Beythilda.taf|0|0
+ECOD3D|ECOD3D.taf|0|0
+Ranaway|Ranaway.blorb|0|0
+Temperamentum|Temperamentum v5.blorb|0|0
+Trapped|Trapped.taf|0|0
+BlankWallIntro|blankwall.taf|0|0
+TheDarkHour|darkhour.blorb|0|0
+Beagle2|Beagle2.blorb|0|0
+JustAnotherChristmasDay|JACD.blorb|0|0
+HeadCase|Intro_compVB1.taf|0|0
+MargaritaBlender|ML256_Blender.taf|0|0
+MonsterAge|Monster_Age_I.taf|0|0
+Organic|Organic vA0.0.5b.taf|0|0
+ShatteredMemory|Shattered Memory - Concept Demo.taf|0|0
+TheDayProgram|The Day Program V1.taf|0|0
+TheLastExpedition|TheLastExpedition_Final.taf|0|0
+WW2ElevatorEscape|WW2 Elevator Escape R3.blorb|0|0
+ADifficultPuzzle|A_Difficult_Puzzle_v2(LimitedParserEdition).blorb|0|0
 EOF
 )
 

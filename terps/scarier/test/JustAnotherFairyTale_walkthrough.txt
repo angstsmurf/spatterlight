@@ -1,0 +1,163 @@
+# Just a Fairy Tale (Finn Rosenløv, ADRIFT 5, IFComp 2020) -- full winning
+# walkthrough.  A 10-year-old boy is pulled into a fairy-tale kingdom by a
+# wizard's ghost; the evil queen (Mrs. Hacksaw, your dreaded maths teacher!)
+# has imprisoned the wizard and stopped time.  You must reach the castle
+# dungeon and hand the wizard the golden compass to break her power.  There is
+# no score -- this is a pure win/lose game; the win is `give compass to wizard`.
+# Route derived with the author's official hint sheet
+# (test/adrift5-games/Hints_for_Just_another_Fairy_Tale.pdf) verified move by
+# move.  131 commands; MATCH 0|0 vs FrankenDrift in both RNG modes.
+#
+# === Cabin: backpack, rope, pants, compass, cheese, wineskin ===
+# The magic rope, the painting-compass (your link to the wizard -- keep it!),
+# and the cabinet's cheese + wineskin are the tools for the whole game.
+look under bed
+get rope
+get pants
+wear pants
+e
+x painting
+get compass
+e
+open cabinet
+get cheese
+get wineskin
+put cheese in backpack
+w
+out
+n
+n
+w
+w
+# === Mirkwood forest: fisherman, pebbles, Polish trolls, raft ===
+# Give the smelly cheese to the fisherman for a slingshot; grab river pebbles
+# for ammo.  The trolls are POLISH forest trolls -- shoot the bees' nest above
+# the cave and the fleeing trolls petrify into wooden "poles" in the sunlight.
+give cheese to fisherman
+x river bank
+get pebbles
+e
+e
+s
+e
+listen
+x cave
+shoot nest
+n
+# Tie the poles into a raft with the magic rope, cross, then reclaim the rope.
+make raft
+n
+get rope
+w
+n
+# === Village: bank (knock to enter), pharmacy sleeping-powder ===
+w
+knock on building
+enter
+out
+n
+climb shelves
+get bottle
+d
+open bottle
+smell dust
+out
+# === Rusty's Inn + bank-roof gold heist (magic rope) ===
+# Learn the word "Lazaitch" from Rusty; fill the wineskin with beer.  The magic
+# rope stretches on command: span it to the bank roof, then down into the vault.
+w
+say hi to rusty
+ask rusty about lazaitch
+get tankards
+pour beer into wineskin
+up
+n
+tie rope to balcony
+throw rope at chimney
+climb across rope
+untie rope
+open window
+tie rope to hook
+climb down rope
+get gold
+climb up rope
+untie rope
+tie rope to chimney
+throw rope at balcony
+climb rope
+untie rope
+# === The hedge maze (compass-guided): NW then N to the exit door ===
+s
+d
+out
+e
+push door
+nw
+n
+open door
+# === Dark Road: wake Father Time, repair the clock, learn the dragon's name ===
+# Pull the nail (sign) to free Father Time; say "Lazaitch" to open his hatch;
+# a sprig of thyme from under the hedge is the missing gear.  Ask him the
+# dragon's NAME -- that flags you to seek it from the wind at the moat.
+x clock
+x sign
+remove sign
+say hello to father time
+ask about time
+ask about word
+say lazaitch
+open hatch
+look under hedge
+get sprig
+repair mechanism
+ask about dragon
+ask about name
+ask about wind
+w
+# === The Moat: hide from the riders, wake the dragon (Puff), fly to the castle ===
+# The willow's wind plays the song -- "Puff the Magic Dragon" (Peter, Paul &
+# Mary).  Summon Puff by name and ride him to the tower balcony.
+climb tree
+d
+ask willow about dragon
+listen
+call puff
+climb puff
+# === Castle: tower descent to the hall for firewood ===
+# Mix the pharmacy powder into the beer wineskin for a sleeping potion.  Wait
+# for the queen to leave the throne room, then take the fireplace's wood.
+put powder in wineskin
+open door
+close door
+d
+d
+d
+d
+d
+x figure
+wait
+d
+x fireplace
+get wood
+# === Secret passage down to the dungeon ===
+# Back up to the tower landing; a warm spot in the wall opens the passage east.
+u
+u
+u
+x spot
+push spot
+e
+feel passage
+feel stairs
+d
+x shape
+say lazaitch
+out
+# === Dungeon: drug the guard, free the wizard, WIN ===
+# Stoke the fire so the guard is desperate for a drink, give him the drugged
+# wineskin, take his keys, unlock the cell and hand the wizard the compass.
+throw wood in fire
+give wineskin to guard
+search guard
+unlock cell door
+give compass to wizard

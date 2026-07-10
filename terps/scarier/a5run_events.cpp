@@ -481,6 +481,32 @@ ev_tick_all (a5_run_t *run, sb_t *out)
   run->events_running = 0;
 }
 
+/* clsUserSession.TimeBasedStuff, made deterministic: the real ADRIFT Runner
+   ticks TimeBased events off a wall-clock 1-second timer (tmrEvents_Tick);
+   this port has no real-time clock, so both it and the FrankenDrift.Headless
+   reference tick TimeBased events exactly ONCE at the end of every processed
+   input line (one turn == one second).  Real-time games (The Salvage's
+   mission/refuel/end-game events) stay playable AND turn-deterministic.
+   Mirrors FD's TimeBasedStuff: events only (no walk tick, no qTasksToRun
+   drain), and only TimeBased events' just_started flags are cleared. */
+void
+ev_time_tick_all (a5_run_t *run, sb_t *out)
+{
+  int ei;
+  if (run->st->game_over)
+    return;
+  run->events_running = 1;
+  for (ei = 0; ei < run->adv->n_events && !run->st->game_over; ei++)
+    if (run->adv->events[ei].type != NULL
+        && streq (run->adv->events[ei].type, "TimeBased"))
+      ev_increment (run, ei, out);
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    if (run->adv->events[ei].type != NULL
+        && streq (run->adv->events[ei].type, "TimeBased"))
+      (*run->events)[ei].just_started = 0;
+  run->events_running = 0;
+}
+
 /* Game start: set each event's initial status (clsUserSession init loop). */
 void
 ev_init (a5_run_t *run, sb_t *out)
@@ -717,7 +743,27 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
   int ci = rt.char_index;
   long step_len = 0;
   int si;
-  if (rt.status != A5_EV_RUNNING)
+  /* A *structurally* zero-length looping walk -- the standard "follow the player"
+     walk (a lone `Player 0` step, Loops; every step's turn count is exactly 0) --
+     can never restart: wk_lstop's `length > 0` guard (a faithful port of FD's,
+     which avoids the infinite lStart<->lStop recursion a 0-length restart would
+     cause) leaves it Finished immediately after its lStart.  But the real ADRIFT
+     Runner still steps the walker toward the player every turn: IncrementTimer
+     calls DoAnySteps each tick and, with length 0, from_start stays 0 so the step
+     re-fires.  FrankenDrift's DoAnySteps `Status = Running` gate silently broke
+     this (Son of Camelot's Megan never follows to Merlin's grave, so the game is
+     unwinnable).  Let a Finished structural-0 loop through so its follow step
+     fires each turn.  Test the *model* step counts, not the runtime rt.length: a
+     normal patrol walk STOPPED before it ever started (e.g. Fortress of Fear's
+     Custodian, whose control stops one of three alternative patrols at init) is
+     also Finished with rt.length still 0 (never lStart'd), but its steps carry
+     real durations -- it must stay stuck, not teleport to its first step. */
+  int struct_zero = wk->n_steps > 0;
+  for (si = 0; si < wk->n_steps; si++)
+    if (wk->steps[si].ft_from != 0 || wk->steps[si].ft_to != 0)
+      { struct_zero = 0; break; }
+  if (rt.status != A5_EV_RUNNING
+      && !(rt.status == A5_EV_FINISHED && wk->loops && struct_zero))
     return;
   for (si = 0; si < wk->n_steps; si++)
     {

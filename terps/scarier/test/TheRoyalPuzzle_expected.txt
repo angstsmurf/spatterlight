@@ -1,0 +1,350 @@
+The Royal  Puzzle
+The Royal Puzzle (v3)
+-----------------------------------------------------------------------------------------------
+ADRIFT 5 port by Kenneth Pedersen using ADRIFT 5 by Campbell Wild
+Beta-testing by Finn Rosenløv
+Based on the Inform 6 port of ZORK by Ethan Dicks (zdungeon.z5)
+Original MDL version by Tim Anderson, Marc Blank, Bruce Daniels, and Dave Lebling
+-----------------------------------------------------------------------------------------------
+[DISCLAIMER: Please allow text fonts to be modified by games or use a mono-spaced font, otherwise the diagrams in the game will not display properly.]
+Note: Type SCORE to see the high score list. Type ABOUT for more information about this game.
+
+Finally you have arrived at the Royal Zork Puzzle Museum. According to the rumour there should be at least one treasure down there.
+
+Small Square Room
+This is a small square room, in the middle of which is a recently created hole through which you can barely discern the floor some ten feet below. It doesn't seem likely you could climb back up. There are exits to the west and south.
+There is a piece of paper on the ground here.
+
+> read note
+The paper is rather worn; although the writing is barely legible (the author probably had only a used pencil), it is a very elegant copperplate.
+
+To Whom It May Concern:
+
+       I regret to report that the rumours regarding treasure contained in the chamber to which this passage leads have no basis in fact.
+Should you nevertheless be sufficiently foolhardy to enter, it will be quite impossible for you to exit.
+
+                    Sincerely yours,
+                    The Thief
+
+> x hole
+I see nothing special about the hole.
+
+> down
+
+Room in a Puzzle
+You are in a small square room bounded to the north and west with marble walls and to the east and south with sandstone walls.
+
+It appears the thief was correct.
+
+> push south wall
+The wall slides forward and you follow it....
+The architecture of this region is getting complex, so that further descriptions will be diagrams of the immediate vicinity in a 3x3 grid. The walls here are rock, but of two different types - sandstone and marble.
+The following notations will be used:
+
+  .. = your position (middle of grid)
+  MM = marble wall
+  SS = sandstone wall
+  ?? = unknown (blocked by walls)
+
+Room in a Puzzle
+      |MM    SS|
+West  |MM ..   |  East
+      |?? SS   |
+
+> n
+
+Room in a Puzzle
+      |?? MM ??|
+West  |MM .. SS|  East
+      |MM      |
+
+In the ceiling above you is a large circular opening.
+
+> push east wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |MM MM ??|
+West  |   .. SS|  East
+      |      MM|
+
+> s
+
+Room in a Puzzle
+      |      SS|
+West  |   .. MM|  East
+      |SS      |
+
+> se
+
+Room in a Puzzle
+      |   MM   |
+West  |   ..   |  East
+      |      SS|
+
+> ne
+
+Room in a Puzzle
+      |SS    SS|
+West  |MM .. SS|  East
+      |      MM|
+There is a ladder here, firmly attached to the east wall.
+
+> n
+
+Room in a Puzzle
+      |?? MM ??|
+West  |SS .. SS|  East
+      |MM    SS|
+
+> push east wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |MM MM ??|
+West  |   .. SS|  East
+      |   SS ??|
+
+> sw
+
+Room in a Puzzle
+      |SS      |
+West  |MM .. SS|  East
+      |      MM|
+There is a ladder here, firmly attached to the east wall.
+
+> s
+
+Room in a Puzzle
+      |MM    SS|
+West  |   .. MM|  East
+      |   SS ??|
+
+> push south wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |      MM|
+West  |   .. SS|  East
+      |SS SS ??|
+The center of the floor here is noticeably depressed.
+Nestled inside the niche is an engraved gold card.
+
+> take card
+Ok, I pick up the gold card.
+
+> x card
+ ____________________________________________________________
+|                                                            |
+|              FROBOZZ MAGIC SECURITY SYSTEMS                |
+|    Door Pass                  Royal Zork Puzzle Museum     |
+|                                                            |
+|                     #632-988-496-XTHF                      |
+|                                                            |
+|                                                            |
+|     USE OF THIS PASS BY UNAUTHORIZED PERSONS OR AFTER      |
+|   EXPIRATION DATE WILL RESULT IN IMMEDIATE CONFISCATION    |
+|                                                            |
+|                                                            |
+|                              (approved)                    |
+|                              Will Weng                     |
+|                               789 G.U.E.                   |
+|                                                            |
+|                                        Expires 792 G.U.E.  |
+|____________________________________________________________|
+
+> push south wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |      SS|
+West  |SS ..   |  East
+      |?? SS   |
+
+> e
+
+Room in a Puzzle
+      |   SS   |
+West  |   ..   |  East
+      |SS    MM|
+
+> ne
+
+Room in a Puzzle
+      |MM    MM|
+West  |SS .. MM|  East
+      |      MM|
+
+> n
+
+Room in a Puzzle
+      |SS    MM|
+West  |MM .. MM|  East
+      |SS    MM|
+
+> n
+
+Room in a Puzzle
+      |?? SS ??|
+West  |SS .. MM|  East
+      |MM    MM|
+
+> push west wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |      SS|
+West  |SS ..   |  East
+      |?? MM   |
+
+> nw
+
+Room in a Puzzle
+      |?? MM MM|
+West  |SS ..   |  East
+      |?? SS   |
+
+> push south wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |SS      |
+West  |MM ..   |  East
+      |?? SS MM|
+
+> push south wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |MM      |
+West  |   .. MM|  East
+      |   SS ??|
+
+> push south wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |      MM|
+West  |   .. SS|  East
+      |SS SS ??|
+The center of the floor here is noticeably depressed.
+
+> push east wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |   MM ??|
+West  |   .. SS|  East
+      |SS      |
+
+> s
+
+Room in a Puzzle
+      |      SS|
+West  |SS ..   |  East
+      |SS    MM|
+
+> s
+
+Room in a Puzzle
+      |SS      |
+West  |SS .. MM|  East
+      |?? MM ??|
+
+> push west wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |?? SS   |
+West  |SS ..   |  East
+      |?? MM MM|
+
+> push north wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |?? SS   |
+West  |SS ..   |  East
+      |SS      |
+
+> ne
+
+Room in a Puzzle
+      |?? MM ??|
+West  |SS .. SS|  East
+      |        |
+
+> push west wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |      MM|
+West  |SS ..   |  East
+      |SS      |
+The center of the floor here is noticeably depressed.
+
+> push west wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |        |
+West  |SS ..   |  East
+      |?? SS   |
+
+> se
+
+Room in a Puzzle
+      |        |
+West  |SS ..   |  East
+      |SS      |
+
+> push west wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |SS      |
+West  |SS ..   |  East
+      |?? SS   |
+
+> push west wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |?? SS   |
+West  |SS ..   |  East
+      |?? MM SS|
+
+> push north wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |?? SS   |
+West  |SS ..   |  East
+      |SS      |
+There is a ladder here, firmly attached to the west wall.
+
+> push north wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |?? SS MM|
+West  |SS ..   |  East
+      |SS      |
+
+> push north wall
+The wall slides forward and you follow it to this position:
+Room in a Puzzle
+      |   SS ??|
+West  |   .. MM|  East
+      |SS      |
+
+> nw
+
+Room in a Puzzle
+      |?? MM ??|
+West  |MM .. SS|  East
+      |MM      |
+There is a ladder here, firmly attached to the east wall.
+
+In the ceiling above you is a large circular opening.
+
+> climb ladder
+
+Small Square Room
+This is a small square room, in the middle of which is a recently created hole through which you can barely discern the floor some ten feet below. It doesn't seem likely you could climb back up. There are exits to the west and south.
+There is a piece of paper on the ground here.
+
+As you leave the royal puzzle with the solid gold card in your hands, you heave a sigh of relief and know that you have succeeded in your quest!
+
+CONGRATULATIONS!
+You have completed The Royal Puzzle in 41 moves.
+
+I encourage you to e-mail a screenshot with this message to kennethvpedersen@yahoo.dk so I can include you in the high score list at:
+Ifdb.org/search?searchfor="royal puzzle"
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,46 @@
+
+The Martian Surface
+You are on the surface of Mars, in the flat basin known as the "Isidis Planitia". Around you, all the way to the horizon, lies a bleak landscape, strewn with stones, rocks and boulders.   Here you see Beagle 2, the Mars Lander.
+
+> x lander
+Beagle 2 is an incredible piece of engineering. The lander has the shape of a shallow bowl about a meter across, with the main body in two parts. Two of the solar cell panels have deployed but two are stuck in their travelling position on top of the main body.  The Mars lander is currently closed.
+
+> x panels
+Solar panels are disk-shaped, about one metre in diameter. Two of them deployed on landing but the other two failed to open.
+
+> x rocks
+The rocks are quite ordinary, although their colour is predominantly red.
+
+> knock on lander
+You knock on the Lander but nothing happens. What did you expect? A little green man to answer?
+
+> shake lander
+You had better not shake the lander, you might damage the scientific equipment inside.
+
+> hit panels
+You hit the undeployed solar panels with your clenched fist but nothing happens. Maybe you need to use a bit more force.
+
+> open panels
+You try to open the two solar panels that had failed to deploy after the spacecraft landed, but they are stuck fast.
+
+> deploy panels
+You try to open the two solar panels that had failed to deploy after the spacecraft landed, but they are stuck fast.
+
+> kick panels
+
+You are woken by the buzzing of your mobile phone on the table beside your bed. Putting on your spectacles, you pick it up and see that it is a text from your friend Finn in Denmark. It reads:
+
+"Turn the TV on NOW - Beagle 2 has started transmitting!!!!"
+
+You leap out of bed, dash down the stairs so fast that you nearly fall and break your neck, and run into your lounge. You switch the TV on, turn to the 24 hour news channel and sit there listening in utter astonishment.
+
+"...scientists at the European Space Agency are mystified by the sudden commencement of signals from the Beagle 2 spacecraft, which has recently been discovered on Mars.
+
+The spacecraft was thought to have crashed on Mars in 2003, but earlier this week the Mars Reconnaissance Orbiter discovered that the spacecraft had indeed landed successfully a few miles from its intended landing area. However, two of its four solar panels had failed to deploy and thus the lander was unable to generate enough electricity to power its systems.
+
+Exactly how the two other panels have suddenly deployed after 12 years sitting on the surface of Mars is the subject of intense speculation, but some of the scientists are saying that this could only have happened by outside intervention - are there really "Little Green Men" on Mars?"
+
+Perhaps it wasn't a dream after all?
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

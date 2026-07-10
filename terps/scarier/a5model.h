@@ -187,6 +187,7 @@ typedef struct a5_variable_s {
   const char *name;
   const char *type;                 /* Numeric / Text                        */
   const char *initial;              /* InitialValue text                     */
+  int         array_length;         /* <ArrayLength> (clsVariable.Length); 1 = scalar */
   const a5_xml_node_t *node;
 } a5_variable_t;
 
@@ -332,6 +333,19 @@ typedef struct a5_adventure_s {
                                  built once at load: the corpus replays spend
                                  most of their time in key lookups otherwise
                                  (linear strcmp scans over ~2000 tasks etc.) */
+
+  /* "Adventure Upgrade" bracket auto-correction (FileIO.vb:634): a file saved
+     before 5.0.26 whose restriction blocks contain an AND-then-OR
+     BracketSequence ("#A#O#") gets a one-time question at load; answering yes
+     rewrites each "#A#O#..." into "#A(#O#...)" (FD CorrectBracketSequence).
+     See a5model_upgrade_pending / a5model_upgrade_answer below. */
+  int upgrade_scanned;        /* pending-condition memoised                  */
+  int upgrade_wanted;         /* version < 5.0.26 and some block has #A#O#   */
+  int upgrade_prompted;       /* the host asked the question (either answer) */
+  int upgrade_applied;        /* answered yes; sequences corrected           */
+  int upgrade_count;          /* FD iCorrectedTasks (one per Replace call)   */
+  char **upgrade_owned;       /* corrected BracketSequence copies (owned)    */
+  int n_upgrade_owned;
 } a5_adventure_t;
 
 /* Build the model from an already-parsed doc (takes ownership of doc). */
@@ -344,6 +358,23 @@ extern int a5model_key_index (const a5_adventure_t *a, int kind, const char *key
 
 /* Full pipeline: read a Blorb/.taf file, deobfuscate, inflate, parse, model. */
 extern a5_adventure_t *a5model_load (const char *path);
+
+/*
+ * The "Adventure Upgrade" question (FileIO.vb:634, headless answer semantics in
+ * FrankenDrift.Headless AskYesNoQuestion): when a5model_upgrade_pending returns
+ * non-zero the host should show a5model_upgrade_question (title "Adventure
+ * Upgrade") and read the player's yes/no through its NORMAL input channel (the
+ * next command-script line headless, a typed line in the Glk frontend -- like
+ * the ADRIFT 4 gender prompt), then call a5model_upgrade_answer.  On yes the
+ * BracketSequence nodes are corrected in place and the call returns the number
+ * of Replace passes (FD's "N tasks have been updated." count); on no it returns
+ * 0 and the sequences stay verbatim.  A host that never asks leaves the model
+ * unchanged, and a5run_intro then renders the question itself with an implicit
+ * "no" (the pre-existing behaviour, matching an unattended FD).
+ */
+extern int a5model_upgrade_pending (const a5_adventure_t *a);
+extern const char *a5model_upgrade_question (void);
+extern int a5model_upgrade_answer (a5_adventure_t *a, int yes);
 
 extern void a5model_free (a5_adventure_t *adv);
 

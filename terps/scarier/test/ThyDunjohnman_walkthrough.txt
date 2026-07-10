@@ -1,0 +1,39 @@
+x door
+chamber pot
+chamber pot
+look
+x key
+get key
+x key
+west
+unlock door with key
+open door
+north
+look
+x platform
+x glimmer
+get glimmer
+lower platform
+south
+southeast
+look
+x lever
+push lever
+pull lever
+pull lever
+northwest
+north
+look
+x platform
+x coins
+get coins
+x coins
+score
+south
+southeast
+northeast
+look
+x pedastal
+x leftbutton
+x rightbutton
+push rightbutton

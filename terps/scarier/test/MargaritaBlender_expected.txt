@@ -1,0 +1,590 @@
+Makers Local and the Trans Dimensional Margarita Blender
+Welcome to "Makers Local and the Trans Dimensional Margarita Blender!"  No money is being made off this shittily written game, so if you enjoy any part of it, likely from mocking it, feel free to drop a buck or two in the donation bucket.
+Paypal:  donations@makerslocal.org
+
+If you need a hint on how to play the game, type "hint".
+
+~Omegix
+
+You check your INVENTORY ( I ) and see that you are wearing a cog t-shirt, carrying a smartphone,  and a usb key.
+
+Outside Front Door
+You are standing outside the Front Door to the Makers Local 256 (aka, "The Make Shop").  There are paths to the East, and you can enter the Make Shop to the South.
+The Front Door to the make shop is here.  On the door there is a keypad.  There is a mail slot here.   Also here is a USB Port.  An exit leads east.
+
+> x slot
+There is nothing special about the mail slot.  Inside the mail slot is a Letter.
+
+> get letter
+(from the mail slot)
+Ok, I take the Letter from the mail slot.
+
+> read letter
+Welcome to Makers Local 256, Huntsville, Alabama's 501c3 Hackerspace!  You may have seen us and our mad science online at http://makerslocal.org !
+
+We do stuff! Ourselves!  Awesome!  Screw with computers, solder electronics, make THINGS!  We even have a member named Jeff Cotten that wrote a really shitty Interactive Fiction game about us once.
+
+And by shitty I mean amazingly wonderful and you should hire him for all your coding needs.  I hear he's pretty hungry these days.
+
+So come by and check us out!
+
+Makers Local 256
+414 Stevens Ave
+Huntsville, AL
+
+> read email 1
+Attached to the email is a video.  You remember watching this video this morning, it's the reason you're here. You hit play and the following story unfolds before your eyes:
+
+One of your inventor cohorts, Tim, is standing before the craziest contraption you have ever seen.  "Hey there all!  This is a test of the Trans Dimensional Flux Agitator and Margarita Blending Apparatus.  We've tested this device before, and it is capable of pulling objects from alternate dimensions into our own.  I'm not sure why... but so far it only works on objects containing tequila.  Using a new set of equations I believe I have increased the alcohol intake enough to bring in at least three drinks from an alternate universe to this location.  Let's give it a go!"
+
+In the video you see several shop members gather around, eagerly anticipating their drinks.  Tim walks to the machine and throws a gigantic black electrical switch. The room becomes bathed in a white light.  When the light fades Tim, the machine, and everyone in the video... have vanished.
+
+Footage of the empty room rolls in the video for a few seconds before it was auto-sent to the e-mail distribution list.
+
+You remember the $20 that Tim owes you, and know you must get him-
+
+-them!
+
+All back!
+
+> read email 2
+USE YOUR USB KEY TO ENTER THE SHOP.  STOP USING THE CODE TO GET IN.  WE REALLY MEAN IT THIS TIME.
+
+But... just in case your USB key doesn't work, the code to get in is 80085.
+
+> enter 80085 on keypad
+When you enter in the code you hear the whirring of an electro-mechanical servo turning the deadbolt in the door.
+
+> s
+I move south.
+
+Entrance
+
+The air is mixed with hopes and dreams of building something, mixed with the pungent odor of gamer funk.    The Front Door to the make shop is here.  On the door there is a keypad.  Exits are north, east and south.
+
+> e
+I move east.
+
+Office
+
+You have arrived at the office, the place where dreams are born.  This is where the minds of makers local choose to congregate, knowing that it is the best room for brainstorming and collaboration.
+
+It has nothing to do with being the only air conditioned room in the facility.
+
+You can smell an Office Bathroom from here that you can go Inside of.    Also here is a Tim's Computer and a well used couch.  Exits are west and in.
+
+> search couch
+
+You search the couch and come up with some couch change.
+
+> w
+I move west.
+
+Entrance
+
+The air is mixed with hopes and dreams of building something, mixed with the pungent odor of gamer funk.    The Front Door to the make shop is here.  On the door there is a keypad.  Exits are north, east and south.
+
+> s
+I move south.
+
+Hallway
+Exits are north, east, south and west.
+
+> s
+I move south.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is a Trash Can, a soda machine and the member storage.  Exits are north, west, up and northwest.
+
+> put change in soda machine
+
+You feed the soda machine 50 cents and excitedly await the testy beverage of your choosing.
+
+Instead you get a cold can of Tab soda.
+
+> drink tab
+
+The cool refreshing the Soda cools you down.  The heat shouldn't bother you for a while now.
+
+> take projector parts
+(from the work Table)
+You manage to pick out what projector parts look like they belong together.
+
+> drop projector parts
+Ok, I put down the projector parts.
+
+> take hard drives
+(from the work Table)
+As you pick up the parts of the hard drive two of the magnets snap together pinching the skin on your hand, in your painful reaction you whip you hand sending the magnets flying where they land on one of the roof's I-beams to stay forever.  You now have a nice blood blister on your hand.
+
+> drop hard drives
+Ok, I put down the hard drives.
+
+> take soda cans
+(from the work Table)
+You gather up all the soda cans.
+
+> drop soda cans
+Ok, I put down the soda cans.
+
+> look under table
+
+"When you look into the abyss, the abyss also looks back into you."
+
+Nietzsche's words ring in your ears as you stare into the eternal tangle of abandoned crap under the Table.  You start to think of better ways to organize it, where you could put it, and... then you fall into a deep despair.
+
+You wander outside and down to the gas station and purchase yourself a 12 pack of PBR, don a bowler hat, and try your hardest to grow out a mustache.
+
+The last thing you remember is running away from a hobo, the entire time reminding yourself to run uphill so they can't get to you.
+
+You wake up face down in the maker's local garden, and feel something new in your pocket.
+
+> s
+I move south.
+
+Outside Bay Door
+
+You are outside the large bay door that leads into the make shop.
+
+There is a Bike Shed that you can go INSIDE of, but it is secured with a padlock, and prevents you from going INSIDE.
+The bay door lays to the WEST, but it appears to be closed and blocking the path.    Also here is a lawnmower.  An exit leads north.
+
+> pick padlock with lockpick
+
+You pick the padlock and it opens.
+
+And then explodes.
+
+> in
+I move in.
+
+Bike Shed
+
+The Bike Shed is made of a shoddily constructed wooden fence, which is an ugly shade of brown.
+
+You were going to replace the fencing with something sturdier, but when you heard what color it was going to paint it afterwards you lost all interest.  Also here is a scrap metal.  An exit leads out.
+
+> get scrap metal
+Ok, I pick up the scrap metal.
+
+> out
+I move out.
+
+Outside Bay Door
+
+You are outside the large bay door that leads into the make shop.
+
+The bay door lays to the WEST, but it appears to be closed and blocking the path.
+
+The path INSIDE to the Bike Shed is now unobscured by the previously locked gate.  Also here is a lawnmower.  Exits are north and in.
+
+> weld scrap metal with welder
+
+Like a hot glue gun, the liquid metal seems to come forth from the welder as you use it.  Using your knowledge of the dark making arts, you produce a ladder.
+
+> climb member storage with ladder
+
+You climb to the top of member storage and look inside the box marked "Tim's Margarita Blender Project."
+
+Inside is an authentication token, which you take.
+
+> n
+I move north.
+
+Garden
+
+The garden is filled with weird plants of various colors.  Some of it looks like it was meant for a salad, but the carrots are mutated looking and the squash is the size of peanuts.  Nothing here is edible, and is doomed for the composter.
+
+As you start mumbling about the possibility of selling compost a patchouli smelling hippie rides by on its fixed wheel bicycle, throws coffee at you (you believe a Grande Cafe Mocha lite, no whip), yells "CAPITALIST!"  and cycles away.
+Also here is a lamp.  Exits are south and west.
+
+> w
+I move west.
+
+Outside Front Door
+You are standing outside the Front Door to the Makers Local 256 (aka, "The Make Shop").  There are paths to the East, and you can enter the Make Shop to the South.
+The Front Door to the make shop is here.  On the door there is a keypad.  There is a mail slot here.   Also here is a USB Port.  Exits are east and south.
+
+> s
+I move south.
+
+Entrance
+
+The air is mixed with hopes and dreams of building something, mixed with the pungent odor of gamer funk.    The Front Door to the make shop is here.  On the door there is a keypad.  Exits are north, east and south.
+
+> s
+I move south.
+
+Hallway
+Exits are north, east, south and west.
+
+> w
+I move west.
+
+Kitchen
+There is a fridge and a dish soap here.  Exits are north and east.
+
+> open fridge
+I open the fridge.  Inside the fridge is a blender.
+
+> get blender
+(from the fridge)
+Ok, I take the blender from the fridge.
+
+> n
+I move north.
+
+Champaigne Room
+There is a lightbulb container here.  An exit leads south.
+
+> move lightbulb container
+You move the lightbulb container, and find a security screwdriver under it.
+
+> get security screwdriver
+Ok, I pick up the security screwdriver.
+Champaigne Room
+There is a lightbulb container here.  An exit leads south.
+
+> s
+I move south.
+
+Kitchen
+There is a fridge and a dish soap here.  Exits are north and east.
+
+> e
+I move east.
+
+Hallway
+Exits are north, east, south and west.
+
+> e
+I move east.
+
+Bathroom
+There is a sink cabinet and a hand soap here.  An exit leads west.
+
+> open cabinet
+I open the sink cabinet.  Inside the sink cabinet is a socket set.
+
+> get socket set
+(from the sink cabinet)
+Ok, I take the socket set from the sink cabinet.
+
+> w
+I move west.
+
+Hallway
+Exits are north, east, south and west.
+
+> s
+I move south.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is  projector parts, broken hard drives, a Trash Can,  soda cans, a soda machine and the member storage.  Exits are north, west, up and northwest.
+
+> w
+I move west.
+
+Tool Room
+There is a Dalek and a welder here.  An exit leads east.
+
+> get dalek
+Ok, I pick up the Dalek.
+
+> wear dalek
+Ok, I put on the Dalek.
+As you slip into the Dalek costume, an object slips out and hits the floor.
+
+> get sonic screwdriver
+Ok, I pick up the Sonic Screwdriver.
+
+> e
+I move east.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is  projector parts, broken hard drives, a Trash Can,  soda cans, a soda machine and the member storage.  Exits are north, west, up and northwest.
+The heat of the building has started to get to you.
+
+> up
+I move up.
+
+Parts Storage
+
+The walls of this room are lined with wooden shelves, all holding various resources to build the project of your dreams.
+Every item a precious snowflake that a make shop simply could not live without.    Also here is a motors box and a digiumbrand router.  Exits are east, south and down.
+
+> use security screwdriver on router
+The router comes apart nicely, and you can now see the guts and circuitry inside of it.
+
+> get flux capacitor
+(from the digiumbrand router)
+Ok, I take the Flux Capacitor from the digiumbrand router.
+
+> s
+I move south.
+
+Library
+
+The Library appears to be a small sectioned off area where people sent their magazines and books to die.   Also here is a dirty Couch.  Exits are north and south.
+
+> move cushion
+
+When you move the couch cushion, you discover something stuffed in between the cushions.
+
+The couch cushion inexplicably explodes.
+
+> get dremel
+Ok, I pick up the Dremel.
+
+> s
+I move south.
+
+A/V Room
+
+The A/V room holds lots of recording and sound equipment.   Also here is a Circuit Board.  An exit leads north.
+
+> get circuit board
+Ok, I pick up the Circuit Board.
+
+> n
+I move north.
+
+Library
+
+The Library appears to be a small sectioned off area where people sent their magazines and books to die.   Also here is a dirty Couch.  Exits are north and south.
+
+> n
+I move north.
+
+Parts Storage
+
+The walls of this room are lined with wooden shelves, all holding various resources to build the project of your dreams.
+Every item a precious snowflake that a make shop simply could not live without.    Also here is a motors box and a digiumbrand router.  Exits are east, south and down.
+
+> d
+I move down.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is  projector parts, broken hard drives, a Trash Can,  soda cans, a soda machine and the member storage.  Exits are north, west, up and northwest.
+*AUGH*
+
+It's too hot, you have to cool down before you can continue.
+You retreat back to the only air conditioned room in the building.
+Office
+
+You have arrived at the office, the place where dreams are born.  This is where the minds of makers local choose to congregate, knowing that it is the best room for brainstorming and collaboration.
+
+It has nothing to do with being the only air conditioned room in the facility.
+
+You can smell an Office Bathroom from here that you can go Inside of.    Also here is a Tim's Computer and a well used couch.  Exits are west and in.
+
+> search couch
+
+You search the couch and come up with some couch change.
+
+> w
+I move west.
+
+Entrance
+
+The air is mixed with hopes and dreams of building something, mixed with the pungent odor of gamer funk.    The Front Door to the make shop is here.  On the door there is a keypad.  Exits are north, east and south.
+
+> s
+I move south.
+
+Hallway
+Exits are north, east, south and west.
+
+> s
+I move south.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is  projector parts, broken hard drives, a Trash Can,  soda cans, a soda machine and the member storage.  Exits are north, west, up and northwest.
+
+> put change in soda machine
+
+You feed the soda machine 50 cents and excitedly await the testy beverage of your choosing.
+
+Instead you get a cold can of Tab soda.
+
+> drink tab
+
+The cool refreshing the Soda cools you down.  The heat shouldn't bother you for a while now.
+
+> push white button
+
+You press the white button,
+And the large bay door slowly rises up, revealing the outside to the east.
+
+> e
+I move east.
+
+Outside Bay Door
+
+You are outside the large bay door that leads into the make shop.
+
+The path INSIDE to the Bike Shed is now unobscured by the previously locked gate.  Also here is a lawnmower.  Exits are north, west and in.
+
+> use socket set on lawnmower
+One man's trash is another man's treasure.  You wield your socket set magnificently turning a once beautiful dream into a pile of parts.
+
+> get motor
+Ok, I pick up the motor.
+
+> w
+I move west.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is  projector parts, broken hard drives, a Trash Can,  soda cans, a soda machine and the member storage.  Exits are north, east, west, up and northwest.
+
+> n
+I move north.
+
+Hallway
+Exits are north, east, south and west.
+
+> n
+I move north.
+
+Entrance
+
+The air is mixed with hopes and dreams of building something, mixed with the pungent odor of gamer funk.    The Front Door to the make shop is here.  On the door there is a keypad.  Exits are north, east and south.
+
+> e
+I move east.
+
+Office
+
+You have arrived at the office, the place where dreams are born.  This is where the minds of makers local choose to congregate, knowing that it is the best room for brainstorming and collaboration.
+
+It has nothing to do with being the only air conditioned room in the facility.
+
+You can smell an Office Bathroom from here that you can go Inside of.    Also here is a Tim's Computer and a well used couch.  Exits are west and in.
+
+> in
+I move in.
+
+Office Bathroom
+
+You have found the stinky office bathroom.  Here is where people that are not the size of twigs wish they could do things like shower comforTably.  But it's a make shop, not a gym, so can you really complain?
+
+Oh.  I see you can.  Please, tell me more.  Also here is a Stall.  An exit leads out.
+
+> x stall
+It appears to be a tiny ass shower stall.  There's christmas lights shoved up in the opaque ceiling tiles to provide light, and give off festive cheer.  Inside the Stall is an industrial solvent.
+
+> get solvent
+(from the Stall)
+Ok, I take the industrial solvent from the Stall.
+
+> clean blender with solvent
+
+You use the industrial solvent on the Blender and after a little bit of elbow grease all that nasty crap finally comes off of it.  Good job!
+
+> out
+I move out.
+
+Office
+
+You have arrived at the office, the place where dreams are born.  This is where the minds of makers local choose to congregate, knowing that it is the best room for brainstorming and collaboration.
+
+It has nothing to do with being the only air conditioned room in the facility.
+
+You can smell an Office Bathroom from here that you can go Inside of.    Also here is a Tim's Computer and a well used couch.  Exits are west and in.
+
+> w
+I move west.
+
+Entrance
+
+The air is mixed with hopes and dreams of building something, mixed with the pungent odor of gamer funk.    The Front Door to the make shop is here.  On the door there is a keypad.  Exits are north, east and south.
+
+> s
+I move south.
+
+Hallway
+Exits are north, east, south and west.
+
+> s
+I move south.
+
+Main Shop Floor
+
+Here is where makers come to create.  You see around you several Tables, all but one looks unusable.  From down here you can see the upstairs and the themed rooms above.
+
+Against one wall is Member Storage which is a set of very tall home made wooden shelves.  At the top is a cardboard box labeled "Tim's Margarita Blender Project"
+There is a white button mounted next to the large roll up Bay Door on the East wall.  Also here is  projector parts, broken hard drives, a Trash Can,  soda cans, a soda machine and the member storage.  Exits are north, east, west, up and northwest.
+
+> put blender on table
+You put %object1%.Name on the Table.
+
+> put circuit board on table
+You put %object1%.Name on the Table.
+
+> put motor on table
+You put %object1%.Name on the Table.
+
+> put flux capacitor on table
+You put %object1%.Name on the Table.
+
+> assemble blender
+
+You assemble a great infernal contraption, known to some as the Trans Dimensional Margharita Blender.
+
+It now sits before you on the Table.
+
+> turn on contraption
+
+The machine starts to spin, motors whirring, blades spinning, capacitors glowing.  There's no telling what that circuit board is telling it to do, the madness it must be channeling to rip a hole in space and time.
+
+Seemingly from nowhere, the trans dimensional margharita blender fills with a frozen tequila concotion.  Delicious!
+
+A portal opens and you can see through to the other side.  It's all the people that got sucked into the other dimension!  It looks like they all have drink in their hands, and they're in a magical parallel dimension make shop where everything is clean!
+
+Someone on the other side sees you and starts mouthing words.... he looks panicked... like he's saying "don't bring us back, don't!"
+
+The image gets clearer and you can see the man's front pocket.  There it is! There's your twenty dollars!!!
+
+You look down on the machine and see a recall button you don't even remember building.  You press it, the room flashes in white.  Your stomach lurches, the room gets all wibbly, then wobbly, and timey wimey.
+
+When you come to, you realize you're now in the alternate dimension, looking through the shrinking portal back at everyone who has been returned safely home.
+
+Tim looks back at you from the other side, clutching your twenty dollars... it looks like he's yelling "whyyyyyyyyyy?!"
+
+The time stream snaps shut and you find yourself in a spectacularly clean make shop.  There's blackjack being played in the corner, and women of questionable ethics.  Someone walks by and hands you a free bottle of Jose Cuervo.
+
+It won't fill the emptiness of your wallet.  But it's a start.
+
+*** You have won ***
+
+I hope you have enjoyed plaything this game.
+
+If you did, please consider making a negligible donation to donations@makerslocal.org  via paypal.
+
+If you hated the game, please make a larger donation.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,38 @@
+push 7
+push 5
+push 4
+push lamp
+up
+move lamp
+sit
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+move lamp
+d
+s
+wait
+wait
+wait
+wait
+wait
+wait
+up
+wear parachute
+run nw
+wait
+wait
+release parachute

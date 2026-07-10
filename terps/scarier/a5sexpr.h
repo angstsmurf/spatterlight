@@ -59,4 +59,9 @@ bool a5sexpr_is_function (const std::string &lid);
    back to the deterministic first operand / lower bound. */
 extern long (*a5sexpr_rng_hook) (long lo, long hi);
 
+/* urand()'s no-repeat draw (FD clsVariable.NoRepeatRandom); the run harness
+   sets this to a5rand_norepeat.  Left NULL, urand falls back to a plain
+   a5sexpr_rng_hook draw. */
+extern long (*a5sexpr_urand_hook) (long lo, long hi);
+
 #endif /* A5SEXPR_H */

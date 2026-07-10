@@ -1,0 +1,23 @@
+# 'Trapped' by Driftwood (2012; ADRIFT 5.000024) -- full winning walkthrough.
+# A four-room joke vignette: sheltering from a storm you walk into a cave
+# room that seals shut (Task2), and the only way out is to PAY -- the printed
+# notice and the payment instruction sheet spell it out.  Unscored (Score/
+# MaxScore 0); the goal is the EndGame Win.
+#
+#   put card in reader   -> "beeps to confirm the transaction" (Task5)
+#   take card from reader-> door slides open, *** You have won *** (Task3)
+#
+# You start holding the credit card (and a walking stick, wearing outdoor
+# clothes); the scribbled note outside foreshadows ("you are expected").
+x note
+read note
+in
+east
+north
+read notice
+x table
+x reader
+x sheet
+read sheet
+put card in reader
+take card from reader

@@ -1,0 +1,57 @@
+# Just Another Christmas Day (2014; ADRIFT 5.0000321) -- full walkthrough to
+# the real *** You have won *** ending (task Fin: read the strange note).
+# A crude slapstick Christmas-morning game with several joke endings (the
+# fireplace, hell, and literal `win`/`lose`/`end` debug commands).
+#
+# The winning chain: read Santa's note, discard it in the trash can and eat
+# the candy cane (both per the note), wake the parents (ask parents about
+# christmas -- brother Jake is sent to "Hell", i.e. toast), then in the
+# living room USE all five presents' gifts -- the east exit to the kitchen
+# has a Must-BeComplete restriction for each: wear the bunny costume (pink),
+# wear the underwear (orange), play with the toy car (red), play with the
+# NES (needs the TV on), and shoot the loaded BB gun (put bb's in bb gun --
+# the guard's colour labels are scrambled, Redrider is "blue") -- plus read
+# the stocking leaflet.  In the kitchen, x the purple box (self-opening) and
+# `read strange note` (the stocking leaflet also answers to "note").
+#
+# The player starts LYING ON his bed (CharacterLocation "On Object"), which
+# is what exercised the a5state player-on-furniture start-location fix.
+x note
+read note
+get note
+put note in trash can
+get candy
+eat candy
+open door
+e
+e
+open door
+n
+x parents
+ask parents about christmas
+s
+e
+x green present
+get bb gun
+get case
+put bb's in bb gun
+shoot bb gun
+x red present
+get toy car
+play with red car
+x blue present
+get nes
+turn on tv
+play with nes
+x orange present
+get underwear
+wear underwear
+x pink present
+get bunny costume
+wear bunny costume
+x stocking
+get leaflet
+read leaflet
+e
+x box
+read strange note

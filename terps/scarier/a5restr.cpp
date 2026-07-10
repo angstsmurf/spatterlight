@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <map>
+#include <string>
+
 #include "a5parse.h"
 #include "a5rand.h"
 #include "a5restr.h"
@@ -474,7 +477,11 @@ pass_location (a5_state_t *st, a5_restr_t *r)
 {
   const char *k1 = r->key1;
   const char *here = a5state_player_location (st);
-  const char *loc = streq (k1, PLAYERLOCATION) ? here : k1;
+  /* "ReferencedLocation" (a %location% command reference, e.g. The Salvage's
+     `# %location%` group fan-out tasks) resolves through the per-turn bindings
+     exactly like ReferencedObject does in pass_object; a literal location key
+     passes through resolve_key untouched. */
+  const char *loc = streq (k1, PLAYERLOCATION) ? here : resolve_key (st, k1);
 
   if (streq (r->op, "BeLocation"))
     return streq (loc, r->key2);
@@ -489,10 +496,11 @@ pass_location (a5_state_t *st, a5_restr_t *r)
     return loc != NULL && a5state_object_in_group (st, r->key2, loc);
   if (streq (r->op, "HaveProperty"))
     {
-      const a5_location_t *l;
-      if (loc == NULL) return 0;
-      l = a5model_location (st->adv, loc);
-      return l != NULL && a5_prop_find (l->props, l->n_props, r->key2) != NULL;
+      /* Through the state accessor so SetProperty overrides AND group-inherited
+         location properties (clsItem.htblInheritedProperties, e.g. The Salvage's
+         "Planet Tiles" group carrying daz7LocationIs1) both count. */
+      if (loc == NULL || a5model_location (st->adv, loc) == NULL) return 0;
+      return a5state_entity_has_prop (st, loc, r->key2);
     }
   if (streq (r->op, "Exist"))
     return 1;
@@ -517,14 +525,69 @@ pass_location (a5_state_t *st, a5_restr_t *r)
 
 /* ------------------------------------------------------------ exit lookup */
 
+/* Per-turn route memo, frankendrift's clsCharacter.dictHasRouteCache /
+   dictRouteErrors: each character's route-restriction evaluation for a
+   (location, direction) is performed at most once per turn, and every later
+   check that turn reuses the verdict even if an action has since changed the
+   gating state.  TTP's security door depends on it: `e`'s PlayerMovement
+   restriction passes while the door is open, the BeforeActionsOnly override
+   `s_GoToTheEas` then slams it shut, and the MoveCharacter action still moves
+   the player on the cached pass.  Cleared once per processed command
+   (PrepareForNextTurn, vb:3792); transient, never saved. */
+struct a5_route_entry {
+  const char *dest;                /* scan result (model-owned key or NULL)  */
+  const a5_xml_node_t *blocked;    /* blocking exit-restriction's <Message>  */
+};
+typedef std::map<std::string, a5_route_entry> a5_route_cache_t;
+
+static a5_route_cache_t *
+route_cache (a5_state_t *st)
+{
+  if (st->route_cache == NULL)
+    st->route_cache = new a5_route_cache_t;
+  return (a5_route_cache_t *) st->route_cache;
+}
+
+void
+a5restr_route_cache_clear (a5_state_t *st)
+{
+  if (st->route_cache != NULL)
+    ((a5_route_cache_t *) st->route_cache)->clear ();
+}
+
+void
+a5restr_route_cache_free (a5_state_t *st)
+{
+  delete (a5_route_cache_t *) st->route_cache;
+  st->route_cache = NULL;
+}
+
 const char *
-a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir,
+a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
+                           const char *lockey, const char *dir,
                            const a5_xml_node_t **blocked_msg)
 {
   const a5_location_t *l;
   const a5_xml_node_t *c;
+  const a5_xml_node_t *bl = NULL;
+  const char *result = NULL;
+  a5_route_cache_t *rc = NULL;
+  std::string ck;
   if (lockey == NULL || dir == NULL)
     return NULL;
+  if (charkey != NULL)
+    {
+      rc = route_cache (st);
+      ck.assign (charkey).append (1, '\001')
+        .append (lockey).append (1, '\001').append (dir);
+      a5_route_cache_t::const_iterator it = rc->find (ck);
+      if (it != rc->end ())
+        {
+          if (blocked_msg != NULL && it->second.blocked != NULL)
+            *blocked_msg = it->second.blocked;
+          return it->second.dest;
+        }
+    }
   l = a5model_location (st->adv, lockey);
   if (l == NULL)
     return NULL;
@@ -540,14 +603,26 @@ a5restr_exit_in_direction (a5_state_t *st, const char *lockey, const char *dir,
       mr = a5xml_child (c, "Restrictions");
       if (mr != NULL && !a5restr_pass (st, mr))
         {                               /* route blocked by its restriction */
+          /* Capture the blocking message unconditionally (FD stores
+             sErrorMessage in dictRouteErrors on every miss), so a same-turn
+             re-check that DOES want it replays it without re-evaluating. */
+          bl = a5restr_fail_message (st, mr);
           if (blocked_msg != NULL)
-            *blocked_msg = a5restr_fail_message (st, mr);
+            *blocked_msg = bl;
           continue;
         }
       dest = a5xml_child_text (c, "Destination");
-      return (dest != NULL && dest[0] != '\0') ? dest : NULL;
+      result = (dest != NULL && dest[0] != '\0') ? dest : NULL;
+      break;
     }
-  return NULL;
+  if (rc != NULL)
+    {
+      a5_route_entry e;
+      e.dest = result;
+      e.blocked = bl;
+      (*rc)[ck] = e;
+    }
+  return result;
 }
 
 /* -------------------------------------------------- character sub-evaluator */
@@ -870,7 +945,8 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          exit exists but is restriction-gated) so the deciding fail message
          override below can prefer it over the generic "no route" text. */
       st->route_error = NULL;
-      exit = (cl != NULL) ? a5restr_exit_in_direction (st, cl, dir, &blocked) : NULL;
+      exit = (cl != NULL) ? a5restr_exit_in_direction (st, k1, cl, dir, &blocked)
+                          : NULL;
       if (exit == NULL && blocked != NULL)
         st->route_error = blocked;
       return exit != NULL;
@@ -895,6 +971,32 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         : streq (r->op, "BeLyingOnObject")    ? "Lying" : NULL;
       int want_in = streq (r->op, "BeInsideObject");
       const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
+      /* Subject ANYCHARACTER: FD's clsUserSession CharacterOnObject/InObject
+         AnyCharacter case counts the object's ChildrenCharacters (vb:4930/
+         4952) -- true when ANY character is on/in the (specific) object.  Head
+         Case's examine template gates %ListCharactersOnAndIn[%object%]% on
+         "AnyCharacter Must BeInsideObject ReferencedObject" (the Mysterious
+         Voice sitting inside the black van). */
+      if (streq (k1, ANYCHARACTER))
+        {
+          if (streq (k2, ANYOBJECT))
+            return 0;                     /* not a shipped combination */
+          for (int i = 0; i < st->adv->n_characters; i++)
+            {
+              if (st->char_onobj == NULL || st->char_onobj[i] == NULL
+                  || !streq (st->char_onobj[i], k2))
+                continue;
+              int in_i = st->char_in != NULL && st->char_in[i];
+              if ((in_i ? 1 : 0) != want_in)
+                continue;
+              if (want_pos != NULL
+                  && !streq (st->char_position ? st->char_position[i] : NULL,
+                             want_pos))
+                continue;
+              return 1;
+            }
+          return 0;
+        }
       if (ci < 0) return 0;
       if (want_pos != NULL && !streq (pos, want_pos))
         return 0;
@@ -921,6 +1023,23 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       if (!streq (k1, a5state_player_key (st)))
         return 1;
       return st->char_seen != NULL && st->char_seen[c2];
+    }
+  if (streq (r->op, "HaveSeenObject"))
+    {
+      /* key1 is the observer, key2 the target object.  FD funnels this and the
+         object-subject HaveBeenSeenByCharacter to the same per-character
+         clsCharacter.HasSeenObject table (clsUserSession.vb:4677 / :4341), so
+         mirror the object-side handler exactly: the player consults the tracked
+         seen set; a non-player observer falls back to "seen" (best-effort).
+         Without this case the operator fell through to `return 1`, so Thy
+         Dunjohnman's gated exits (`%Player% Must HaveSeenObject Platform` /
+         Coins) were open from turn one (FD keeps them shut). */
+      int o2 = a5state_object_index (st, k2);
+      if (o2 < 0)
+        return 0;
+      if (!streq (k1, a5state_player_key (st)))
+        return 1;
+      return st->obj_seen != NULL && st->obj_seen[o2];
     }
   if (streq (r->op, "HaveSeenLocation"))
     {
@@ -1122,6 +1241,15 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
 /* --------------------------------------------------- property sub-evaluator */
 
 static int
+is_op_numeric_inequality (const char *op)
+{
+  return strcmp (op, "GreaterThanOrEqualTo") == 0
+      || strcmp (op, "GreaterThan") == 0
+      || strcmp (op, "LessThanOrEqualTo") == 0
+      || strcmp (op, "LessThan") == 0;
+}
+
+static int
 is_clean_int (const char *s)
 {
   if (s == NULL || *s == '\0') return 0;
@@ -1171,24 +1299,53 @@ pass_property (a5_state_t *st, a5_restr_t *r)
   if (strcmp (op, "EqualTo") == 0)
     {
       const char *rhs = resolve_key (st, value);
+      char *rhs_sub = NULL;
+      /* resolve_key handles per-turn bindings (%object%) and entity keys but
+         returns a bare %variable% unchanged.  A variable RHS -- AlienDiver's
+         `CardId ReferencedObject EqualTo %RollForBlankCard%` (match the drawn
+         blank card) -- must be substituted to its value or the compare never
+         matches.  Only when resolve_key left it untouched AND it still holds a
+         '%' (so an object binding is not re-rendered as a display name). */
+      if (rhs == value && strchr (value, '%') != NULL)
+        { rhs_sub = restr_text_value (st, value); rhs = rhs_sub; }
       pv = a5state_entity_prop (st, itemkey, propkey);
       if (pv == NULL && strcmp (propkey, "StaticOrDynamic") == 0)
         pv = "Static";          /* the StaticOrDynamic default for an object */
       rr = (pv != NULL) && streq (pv, rhs);
+      free (rhs_sub);
     }
-  else if (is_clean_int (value))
+  else if (is_op_numeric_inequality (op)
+           && (is_clean_int (value) || strchr (value, '%') != NULL))
     {
-      long lv, rv = strtol (value, NULL, 10);
+      /* A numeric inequality against an integer or a %reference% expression.
+         The ADRIFT library carry-capacity restrictions on Take/Put pass a
+         %Player%-relative arithmetic expression, e.g.
+           MaxBulk %Player% Must GreaterThanOrEqualTo
+                                 %Player%.Held.Size.Sum+%objects%.Size.Sum
+         Evaluate such an RHS through the OO expression engine (which handles
+         .Held/.Size.Sum aggregation) and compare numerically -- previously this
+         branch fell through to the lenient always-pass stub, so Scarier never
+         enforced the bulk/weight limits FrankenDrift does.  A bare non-integer
+         RHS with no reference (e.g. a state word like "Open" in an oddly
+         authored `OpenStatus Obj Must LessThan Open`) is not arithmetic, so it
+         keeps the lenient pass in the final else. */
+      long lv, rv;
+      char *rhs_ev = NULL;
       pv = a5state_entity_prop (st, itemkey, propkey);
       lv = pv ? strtol (pv, NULL, 10) : 0;
+      if (is_clean_int (value))
+        rv = strtol (value, NULL, 10);
+      else
+        { rhs_ev = a5text_eval_expression (st, value);
+          rv = rhs_ev ? strtol (rhs_ev, NULL, 10) : 0; }
       if (strcmp (op, "GreaterThanOrEqualTo") == 0)      rr = lv >= rv;
       else if (strcmp (op, "GreaterThan") == 0)          rr = lv > rv;
       else if (strcmp (op, "LessThanOrEqualTo") == 0)    rr = lv <= rv;
-      else if (strcmp (op, "LessThan") == 0)             rr = lv < rv;
-      else                                               rr = 1;
+      else                                               rr = lv < rv;
+      free (rhs_ev);
     }
   else
-    rr = 1;                     /* expression value not yet evaluated: pass */
+    rr = 1;                     /* non-numeric, non-reference value: pass */
 
   if (a5restr_trace)
     fprintf (stderr, "    [restr Property: %s %s %s%s %s] -> %d\n", propkey,

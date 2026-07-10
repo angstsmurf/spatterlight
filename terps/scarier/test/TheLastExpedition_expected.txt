@@ -1,0 +1,317 @@
+The Last Expedition
+
+THE LAST EXPEDITION
+May 20th 1921
+A Desert plain in the middle of nowhere
+
+Harry Finley dabs his spare kerchief across his sweaty brow. He feels both exhausted and elated at the same time despite standing in a deep sandy trench twenty feet below ground level. After painstaking nine months of careful planning and hard work since first finding new evidence that pointed to this new dig site he is sure this will be his career defining moment. Everything leads to here and now, this moment for Harry Wally being the lead Archeologist now stands before an entranceway that presumably has not seen light of day for five long centuries. Right up to now the last final bit had been the stone door which the excavation team had finished pulling apart with a little bit of force which couldn't be helped. Harry quietly quells within his mind the guilt of having to destroy the door. But it cannot be helped.
+
+Now it's time, Harry gives his crew a cheerful glance as they look on silently- sincerely hoping this is the last and final dig. Harry turned and stared at the entrance way for a moment before once again pulling up his red kerchief to cover his lower face before picking up his lit lantern and carefully steps through the doorway slightly bending his head to clear the entranceway arch. The musty and dank air is strong enough that Harry gives a cough despite wearing the kerchief.
+
+The sunlight poured in behind him through the gaps of the onlookers peering in from outside their shifting shadows moving on the wall to his right.
+Harry: "So here we are. Where is McIntosh? He's late..again."
+Crew member: "No sign of him sir."
+Harry: "His loss. He's probably on some fools errand."
+Crew member: "Ah sir you ordered him to go and get some more oil for the lamps about an hour ago."
+Harry: "Oh I did? Hmm I don't recall. This...is amazing.." his voice echoing in the chamber.
+
+ Press any key to start
+
+Entrance Room
+The room is a perfect square 12 foot wide and 12 foot high. Two statues stand to Harry's right and left by a wall. Their heads almost touch the ceiling, they are some kind of warriors looking respectively downwards to the floor each with their hands clasp on the hilt of a sword which its tips are touch the ground as they seem to lean on them. The floor he notices is covered in small square tiles, many with different symbols he discovers as he brushes away some layers of sand and dust with his foot,"Such beauty. I wager these were once painted with brilliant colours," he said out loud as he usually does.
+
+You can see the something is part of the back wall.
+Also here is an uneven tile.
+
+> wipe away cobwebs
+Carefully with his free gloved hand Harry wipes away all of the old dusty cobwebs.
+
+> get single tile
+Harry Finley picks up the single tile.
+
+> put single tile in square hole
+Harry carefully places the tile with wavy symbols into the square hole between the other two. He steps back bracing himself for the unexpected. Nothing happens. Perhaps which ever mechanism that surely was hidden behind the wall has long broken down through the ages. But then he begins to feel a low rumble in the soles of his feet, dust falls from the ceiling edge above the wall. Then suddenly in an instant a complete outline of a door forms as air from behind the wall shoots out sending dust into his eyes. He blinked rapidly and wiped his eyes before gazing at the new stone door embedded in the wall, the three squares he had cleared the cobwebs from being in the middle of it.
+"Fascinating", Harry exclaims joyfully.
+
+Before Harry could utter another word the newly discovered door began to slowly move backwards with profound scraping that filled the room and his head, he grimaced. Once it reached far back enough where he could see through tiny gaps into the room behind it, the door began to travel to the right allowing Harry passage. Harry now beaming with a wide smile gave a glance back at the entranceway whence he came through and saw several faces of his diggers and aides glancing in inquisitively but daring not to enter. "Superstitious lot", he thought to himself, but you wouldn't want them bumbling around setting off potentially deadly traps now would he? Although that would be one way to ensure coming out alive he thought to himself with a chuckle.
+
+> e
+Harry Finley moves east.
+
+Inner Room
+If it weren't for the lantern this room would be pitch dark. Like the other room it has a dank musty smell, particles of dust float around the room as Harry pans about the shining bright glow of his lantern. The walls are the same stone brick pattern. He looks down at the floor and immediately sees it isn't tiled like the first room. It seems to be solid stone, it appears to be very smooth as he sweeps his foot smearing a boot print in the dust.
+
+This room is slightly bigger than the first room but still feels a little cramped due to a large round circle in the center, it looks like a circular seat or two tier circular platform shaped like a top-hat. He also notices another piece up on top which he cannot quite see properly. He then begins to walk around confirming all the sides are continual, also he notices there are two doors one to the north and one to the south made of solid stone.
+Also here is a circular platform.  An exit leads west.
+
+> stand on platform
+Harry approached it and carefully stepped up onto the outer ring that might be seating that goes right the way around the dome shape. At his upper chest level he discovered the top to be very flat and then he saw what was in the center, "Oh an artifact" he exclaimed. He brushed a hand over the flat surface at the base of the carving causing a plume of dust to rise in which he briefly looked away until it settled a little.
+
+The carving sat fixed to a low stone circular base, "Magnificent, such craftsmanship!" he said as he stood higher on the tips of his toes and began carefully to wipe away the thick layer of dust upon it, "the wood is so well preserved, it must of been well treated to be so," his hushed and surprised voice echoing around the chamber.
+
+Then he heard bumbling footsteps and turned to the entranceway he came through moments before.
+A familiar figure came into view in the door way.
+Harry: "Ah Edward so good of you to arrive did your alarm clock break unexpectedly again or did you get lost?"
+Edmund looking up replied, "It's Edmund not Edward sir and sorry I am late. I was putting finishing touches to my written report from yesterday I thought i would have enough time," he said before clamping a crumbled kerchief to his mouth trying not to gag on the thick dust hovering about him the in the air.
+
+Harry: "I'm obliged to your father financing this expedition, it was rather smashing he did so at the last minute; least it had to be called off entirely."
+Edmund: "I'm sorry sir, i didn't quite catch all of that," he said as he clambered up onto the circular platform to see what Harry was doing. Harry repeated himself adding a sigh at the end. Each day with this man was wearing his patience thin.
+Edmund: "Yes quite. If it wasn't for my father.." he let his voice hang there hoping to elect a smile from his employer but it never came. He then brought his attention to the carving and marveled at it in the dim glow of the lamp light,"A sight to see sir."
+Harry: "Yes, don't touch it. Here make yourself useful and hold the lantern will you please."
+
+> x carving
+With only the lantern as your source of light it was at first hard to make out what it looked like, but moving the lantern around and looking up close you finally conclude it looks like a ship with masts but no sails. It still looks like pristine and intricately carved, the little details takes your breath away.
+
+The front of the ship, the bow points to the door to the north and naturally its stern points to the door of the south.
+
+> turn carving
+At first Harry tested to see how brittle the carving was and found its still fairly solid. He got a firm grip and attempt to turn it applying force slowly, it wasn't budging. A little more force and finally it swivels around so the bow of the ship carving faced the southern door.
+
+> turn carving
+He repeats and swivels it around back to its original position facing the northward door.
+
+A low rumbling is felt and heard. Harry turned and grinned at Edmund who looked a little jumpy at the sound of the rumbling,"Don't worry I just opened the door to the next room, nothing to fear."
+As with the first door getting into this room, a blast of air blows away dust from the sides of the northern door outline and the same slow and noisy process of it opening begins. It seemed a long time until it was finished with a empty doorway ready for him to pass through.
+
+Harry beamed with satisfaction and dusted off his hands noisily before getting down from the platform, Edmund followed suit.
+
+"The lantern if you please," Harry waved him to tarry not.
+
+> n
+Harry Finley moves north.
+
+Water Chamber
+The room is here is much larger. Harry looks down and sees the floor ends abruptly with but a step inside the room. Just below it by half a foot is water, smelly, dark, murky water. He briefly pulled down his kerchief to his neck, to let his sensitive nose get a whiff of the foul smelling water to detect anything untoward, such as a deadly odor. But nothing tingled his danger senses, he quickly covered his face again.
+
+"It smells terrible in here Edmund. Stay back," Harry said without a glance, he knew Edmund would be close by.
+
+The body of water covers the whole room except for what was in the very center, a large flat top stone square cube which to his eye looks to be about 6 x 6 metres. How big the cube was beneath the water was anyone's guess only the top half was just above the water almost level with the ledge he was standing on with the gap being the murky water that was still and flat. Then as if on cue a set of wide stone squares appears next to the cube from below the waters surface side by side in rows of two causing little ripples to break the smooth water possibly for the first time in centuries. Half a second apart more sets appear one after another coming closer and closer until it stopped next to the ledge. Harry had thought it was prudent to take a step back, and there stood and stared.
+
+Nothing happened. The newly formed bridge just remained there as if beckoning him to cross.
+"Remarkable," he merely said after breaking the spell of dumbfound silence.
+
+Edmund peered over Harry's shoulder to look at the new found sight,"How did you...er?"
+"A pressure pad beneath this ledge no doubt Edward," Harry remarked casually.
+
+Harry then let his eyes wonder around the room taking in details he missed on the first pass, such as the taunt rusty chain that hangs and runs from the ceiling down to the middle of the cube the bridge lead to. Edmund then steps up to the side leaning against the inner doorway wall and points to the far left corner, "Look Sir another statue, it looks like the one i saw on the way in."
+
+In the corner a pair of unblinking eyes peers above the water line directly at them, a head of a helmet can be seen in the shadows cresting the water. Harry looked at the opposite corner and saw another one seemly peering at him also. A quick look left and right around the edge confirmed his suspicions there were four of them in the room.
+"These must be guardians, crouching or standing in the corners watching the door for intruders."
+"They won't come alive will they?" Edmund said suddenly full of fear.
+Harry just gave him in return a look of contempt and disgust before turning back to look at them once more.
+"Their eyes could be made of rubies or something I wouldn't be surprised," Harry spoke quietly.
+
+"I don't like this place one bit Sir, it gives me the willies," Edmund whispered back.
+"This place is ancient, not a soul has been here for centuries except until today of course. Something must be hidden here or close by of great worth and value. Those warriors probably were placed here to frighten tomb raiders or they believed would help protect who ever was buried here from this world and the next," Harry said with excitement building in his words this find wasn't like the others.
+
+"How deep is the water i wonder Sir?" Edmund asked daring to lean and peer into it.
+"We seem to be at ground level when we came in, but i wager there is a deep drop below us. Perhaps once crocodiles lurked in this water or man eating fish, but these would be long gone by now," Harry thought aloud to himself.
+"Are you sure?"
+"Shall I throw you in to find out? Of course they are gone don't be daft."
+Also here is the rusted chain and a large stone cube.  Exits are east and south.
+
+> walk across
+Harry stared hard at the stone bridge lost in thought..
+
+Which one do i cross over he wonders to himself? (type a choice number then press enter)
+
+1) The left side?
+2) The right side?
+
+Or perhaps Harry could Order Edmund to go first instead, after all Harry is the most important and experienced member of this team. It would be a greater loss if he himself perished, where Edmund was well..just an assistant. And that is what assistants do, assist.
+
+3) Order Edmund to go across left side
+4) Order Edmund to go across right side
+
+> 1
+The left side just feels right.
+
+"Edmund wait here. I am going to attempt to cross on the left side, if its safe you can follow once i am across."
+"Understood sir, do be careful."
+Everything happened in a blur, a splashy blur at that. He had stepped one boot onto solid stone and then splash. He found himself under the murky water, he could see the dim light above him barely. What was strange to him was the fact he was sinking rather fast to the bottom. He suddenly in a burst of panic trying to swim upwards but found he was merely floundering like a dancing puppet on strings. Some air escaped his lips racing up to the surface as he tried harder.
+
+Then he soon reached the bottom. He found that his lantern still worked as he held it up to his face, but strangely he could still see further out no thanks to his lantern but some other strange dim light source that seemed to be everywhere in the water around him. How that was possible he didn't care to know right then.
+His lungs began to burn for air reminding him he better do something. He frantically looked about quickly assessing his dire situation. He saw no immediate danger. A minor victory. He glanced upwards once more and could make out ahead of him to his right part of the stone cube structure he saw earlier when on the surface, only it didn't reach the bottom where he was now. His keen eye notices bottom of the cube does not appear closed off or have a bottom side at all. A glimmer of hope.
+
+Water Chamber
+Harry finds himself standing on the bottom weightless in the water and running out of air.
+
+Also here is the rusted chain and a large stone cube.  Exits are east and south.
+
+> swim up to cube
+Harry tried to swim but wasn't getting anywhere, it was like gravity was holding him in place.
+
+> pull chain up
+Harry grips the chain and begins to strain as he attempts to pull the chain upwards. But after many attempts nothing seems to happen. With nothing to lose he tries once more and it slowly gives way a little more each time as he continues to pull the chain and run it upwards into the ceiling of the inner chamber.
+
+The water just below him begins to recede rapidly as if a bath. He stopped moving the chain upwards now that water disappears. He watches below as he sees the water continues to drain away until eventually he sees the bare floor of the room below.
+
+Then something peculiar occurred above him around the base of where the chain disappeared inside the floor of the cube ceiling where above Edmund stood somewhere above him. The round hole suddenly grew in size as bits of stone crumbled away revealing a manhole size widening around the chain itself.
+
+"My word!" Harry said with his jaw dropping.
+"Sir are you all right?" Edmund said peering down through the newly formed hole.
+"Of course. We need to get a move on, we need to get down to the bottom i have feeling there is something to find below."
+"I'm more afraid of heights than water," Edmund remarked fearfully.
+"I'm sure you didn't have that box ticked on your resume," Harry's voice echoed in the chamber.
+"It was."
+"My oversight. Never mind you are here now aren't you, we must get down to the bottom," Harry said with utter certainty.
+Edmund's mouth tightened into a thin line.
+"Come on then climb down to me, no time to waste."
+
+Edmund with some further prompting and threats finally wrapped himself around the chain and awkwardly climbed down it until he reached where Harry was inside.
+"You may as well keep going, i don't want you falling down on top of me if you make a slip."
+Edmund dared himself to look down and instantly regretted it.
+"Go on boy! I am paying you a lot of money by the minute I must add."
+And so Edmund gritted his teeth and continued downwards on the chain eventually passing an impatient Harry.
+
+> climb down chain
+Harry grabbed the rusty chain firmly and with a slight hesitation clings to it with all his weight on his grip.
+
+It seemed a long time to reach the bottom and after clambering off the thick bronze grating bars that criss-crossed over the chasm hole where the water disappeared down. Harry was glad to finally set foot on solid ground again as he watched Edmund who was still yet to make it down to the ground.
+
+Whilst Edmund was trying to extradite himself off the grating he slipped and fell onto his face in a heap.
+"Could of been worse," Harry said unamused as he watched on while wiping the rusty grime sludge on the back of his pants which wasn't overly comforting to him.
+
+Edmund collected himself off the ground which he just learned was still a wet sludge. Harry could all but scrounge up his face at the sight of him, "If you make it back alive, i suggest you burn your clothes. You will never get that stink out of them."
+"You would be surprised sir, at what my mother's cooking can lift."
+"Right so here we are lets continue the adventure."
+
+> x door
+Harry walked towards it across the soggy ground which his boots made a suction sound echoing around the chamber with every step until he reached the door. When I say door it is more of a door outline as were the others previously only this one has a more visible outline. Again there is no handles or any kind of artwork or indication it is of any importance here in this room. Harry walked to the other side and peered around seeing no other doorway outlines including at the base of the statue warriors themselves. He motioned Edmund to check the other side whence they came to be doubly sure. By the time that was completed both of them were on visibly on edge from the noisy suction sounds constantly echoing in their heads from their boots in the mud. Harry almost biting his tongue twice.
+  The wall door is currently closed.
+
+> push door
+
+Harry places both hands on the door and pushes straining.
+"Need any help sir?"
+"Maybe your head might make a good battering ram."
+"I'm sorry, are you saying you need my help?"
+"Come on then, on the count to three push.."
+After a few minutes of heaving and pushing the door finally gave away but instead this time it swiveled inwards like a rotating door.
+Edmund suddenly lurched forwards and ended up sprawled on the floor face first.
+Harry stood over him looking down holding the lantern out,"I honestly don't know how you made it to the top of the assistant list Edward."
+Edmund with shame collected himself from the floor, his clothing in a worst state with dry dirt and dust joining the mud already present on his clothes,"it's Edmund sir."
+Harry navigated down a few steps into ankle deep sludgy water in the dark room.
+"Watch it Edward, there is water in this room too, perhaps not all of it properly drained away?"
+"Perhaps so sir, and it's Edmund," he whispered back wondering why he was whispering.
+"Hmm? I know," Harry said absentmindedly as he took in the strange sight before him, he could see fog in the center of the room and nearby it thin trees. Then he began to hear frogs croaking lazily and crickets too,"how odd," he said looking puzzled.
+"Look there is a dim light in that fog," Harry said, his whisper barely audible.
+"What fog Sir?"
+
+  ( Press any key to continue )
+
+Harry began to squint at something beyond the lantern light and started to move towards it.
+"There is something over here Edward, this might be what we have been looking for."
+Edmund followed behind the sound of his boots sloshing in the shallow water.
+"Fog? A pyre?" Harry's baffled voice echoed around in what sounded like a much smaller room.
+Edmund peered around Harry to see and saw what looked like a wooden Pyre just ahead that was surrounded by an eerie light fog and a small flame present in the midst of.
+
+Harry turned his lantern around and startled,"wooh."
+Four warriors are barely made out in the light fog and dim light. They are standing behind the pyre, each just a little taller than Harry. They looked real, their eyes peering through their shiny helmet slits locked onto his. One that was the closest to Harry had an outstretched hand resting on the base of the pyre and in the other he held a flaming torch which seemed to brighten on its own accord. They look like the warrior statues seen in the other rooms.
+
+And it was silent for a moment, just the sound of the burning torch. Then four wall torches in each corner came to life
+Giving even more light into the small room causing the fog to begin to evaporate for some reason.
+
+The warrior nearest to Harry turned his head towards the adventurer and gave a short nod as if expecting him, giving Harry another start. Harry quickly composed himself least Edmund saw or heard his fear,"How do you do?" was all he could come up with.
+
+Harry stood rooted to the spot starring back at the warrior who then shifted his vacant gaze back to the lit torch he was holding and he slowly moved the torch towards Harry as if it was a practiced and timed ritual.
+
+1) Harry takes the torch and approaches Pyre
+2) Harry backs away
+
+> x pyre
+Logs make up a pyre which rests upon a stone sarcophagus, the thick short pieces of wooden logs crisscrossed along it in neat rows, three up..
+
+> x warrior
+He stands tall his eyes peering intelligently through the shiny helmet slits. His left hand hidden behind the shield held tight to his chest and the other holding a flaming torch.  A warrior is carrying a flaming torch.
+
+> 1
+Harry blinked a few times not quite believing what he was seeing it all seemed surreal, it didn't occur to him to ask himself why was these warriors still alive. He carefully reached out and took the flaming torch the warrior took a step back as Harry stepped closer to the pyre. He could see it more clearly in the yellow light of the flame, upon the stone platform was thick logs crisscrossed neatly with black patches tar around and on the short logs, how he knew that he didn't ponder. Above is platform about head height and seem to have many clay jars arrayed upon it, no body. It was like nothing he has seen before in his previous adventures in tombs.
+
+The warrior looks expectantly at Harry who stood hesitating..
+
+> open backpack
+Harry Finley opens the khaki backpack.  Inside the khaki backpack is a small crowbar.
+
+> get crowbar
+(from the khaki backpack)
+Harry Finley takes the small crowbar from the khaki backpack.
+
+> remove logs with crowbar
+Harry puts the lantern ring through the finger tips of the statue warrior with the outstretched hand.
+"Back away Edward. I'm amazed these haven't rotted out of existence," Harry said examining a log in the lamp light before throwing it into the watery floor with a splash.
+"Thank you sir, you just got me wet," Edmund said unhappily.
+"You were already wet from your ungraceful tumble in the previous chamber remember?"
+"Oh yeah. Sorry sir, all the excitement from this wondrous discovery had muddled my mind."
+"I think it was muddled long before that Edward."
+Harry then began to clear off the logs with the crowbar randomly, sending them over the edge with more splashes which Edmund had backed away further into the shadows until Harry was finished.
+"There. Done," Harry declared.
+
+> push lid
+"Help me here will you," Harry places the holding ring of the lantern over on if the warrior's raised hands close by. They both position themselves carefully not to knock over any jars and push the lid with all their strength, the sound of Edmund straining echoed in their ears.
+"That's enough just as I thought, it won't budge."
+"I was only pretending to push it sir," Edmund said sheepishly.
+"What do you mean?"
+"Well i didn't think we would be able to move it either and it would be wasted effort on my part."
+"Why didn't you speak up before we tried?"
+"You would tell me to shut up and push anyway."
+"No i wouldn't."
+"Yes you would," Edmund murmured back a moment later.
+"I got it, i know just the thing to use.." Harry said almost completely forgetting..he clicked his fingers.
+
+> use crowbar on lid
+"Here, make yourself useful and hold this," Harry said dryly handing Edmund the flaming torch, "I need two hands for this.
+"I should be more than happy, you got my name right this time."
+Holding the crowbar Harry approaches the lid up close.
+
+Help me here. Harry places the holding ring of the lantern over on one of the warrior's nearest raised hand close by. They both position themselves carefully not to knock over any jars and push the lid with all their strength. The sound of it moving finally echoes in the chamber.
+
+"Right, its time push for real Edward."
+"I don't suppose when the article gets written about this find my name Edmund is going to be in it?"
+"We don't have time to worry about little things like that, come on get on to it, put your back into it man."
+
+After much pushing finally the lid was moved half way across with the other half remaining over the sarcophagus.
+
+Lots of gold and silver sparkling light emerged from inside it.
+"Behold treasure Edward!" Harry blurted overwhelmed with joy.
+
+"Doctor shall i give him another shot? The first one doesn't seem to be kicking in."
+"Edmund? What are you doing?" Harry suddenly asked.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Congratulations you have completed the game!
+
+I hope you have enjoyed this little adventure.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

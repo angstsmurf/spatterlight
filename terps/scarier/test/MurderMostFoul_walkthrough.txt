@@ -1,0 +1,1393 @@
+# Murder Most Foul (David Whyld, 2023; ADRIFT 5, Version 5) -- FULL MAXIMUM-
+# SCORE WIN: "a total score of 283 out of 283", all 33/33 former professions,
+# all 14/14 footnotes.  Base route = the author's own "basic walkthrough" PDF
+# command list (bundled with the game), transcribed 1:1, plus the repairs and
+# max-score additions below.  The leading "3" answers the start menu
+# ("Without further ado, start the game").
+#
+# Repairs to the author's PDF list (it derails as shipped):
+#   * "Whistle" before the second greenhouse entry -- the greenhouse RE-LOCKS
+#     after the first visit; without Talia's second lock-pick the dance/tunnel
+#     finale (footnotes 6/7/8, mine cart, Kristina) silently never happens.
+#   * "NW" after "Give fake vase to Carver" -- handing the vase over triggers
+#     Pinkerton's vase-viewing cut-scene on the next move out of the gallery,
+#     which consumes the turn without moving.
+#   * "Open panel" before the final return into Silas's lair (the dusty-
+#     bedroom panel is closed again on the second visit).
+# Max-score additions vs the PDF list (274 -> 283):
+#   * "Get letter" + "Ask Joves about letter" (+2, the partially-burnt letter)
+#   * "Read journal" in Pinkerton's office (+2, before waking him)
+#   * chamberpot/glue/paint gives REORDERED paint-last + "z" (+3: the
+#     Given3Item event fires GivenGlueP one turn after the PAINT give and
+#     requires the player still at Micawber's spot)
+#   * "Give fake vase to Carver" (+1) and "Get mosaics" (a former-professions
+#     reveal; the +2 scoring variant is priority-shadowed, ExamineAMo's +2
+#     fires on the following examine either way)
+# A handful of the PDF's own moves fail harmlessly ("S" at the Front Steps,
+# the pre-"Climb hook" shuffle) and self-resync one command later; they are
+# kept verbatim so the route stays 1:1 with the author's list.
+3
+Talk to guests
+Footnote 9
+NW
+SE
+E
+Examine table
+N
+Examine counter
+Ask chef about buns
+NE
+SW
+E
+E
+NE
+Examine bed
+Examine tie rack
+Get tie
+Wear cravat
+Examine table
+Examine missive
+Pour vinegar onto missive
+Examine missive
+Examine suit stand
+Get Prada suit
+Examine book
+Wear glasses
+Examine window
+SW
+W
+W
+S
+W
+S
+Footnote 1
+Get mosaics
+Examine mosaics
+NW
+Talk to Emma
+Ask Emma about Pinkerton
+Ask Emma about her family
+Footnote 13
+N
+Examine bench
+S
+SE
+SE
+U
+NE
+Footnote 3
+Examine the bear
+Get moustache
+Wear moustache
+Footnote 4
+Examine rocking chair
+SW
+W
+Slap maid
+W
+Examine bed
+Footnote 2
+Get knife
+Examine window
+Examine art
+E
+E
+Talk to Evan
+Examine wardrobe
+Get uniform
+Examine bed
+W
+W
+D
+NW
+N
+E
+N
+NW
+Examine desk
+Examine drinks cabinet
+Get smelling salts
+Ring bell
+Ask Joves about missive
+Ask Joves about Silas
+SE
+S
+Ask Hogg about rocking chair
+W
+S
+SE
+U
+E
+E
+Give smelling salts to Evan
+W
+NE
+Talk to Sophia
+SW
+SE
+Talk to Carver
+Ask Carver about a great day
+Examine desk
+Examine something
+NW
+W
+D
+Hang banners
+S
+SE
+SW
+Talk to Talia
+Ask Talia about her plans
+Ask Talia about help
+Ask Talia about alliance
+NE
+N
+U
+E
+SE
+Talk to Carver
+Ask Carver about door
+Ask Carver about vase
+NW
+W
+D
+E
+Talk to Carmichael
+Ask Carmichael about fight
+Ask Carmichael about Tarquin
+Knock on door
+D
+Examine shelves
+U
+W
+S
+SW
+S
+SW
+S
+SE
+Ask Old Man Micawber about vase
+NW
+S
+Talk to Abrams
+Give wine to Abrams
+Give chocolate to Abrams
+Ask Abrams about woodwork
+Ask Abrams about heavy duty glue
+Give bow tie to Abrams
+Examine a burnt table
+Ask Abrams about gloves
+Wear gloves
+Ask Abrams about oil
+N
+SW
+SE
+E
+E
+SW
+Ask Sally about Abrams
+NE
+W
+W
+S
+SW
+Smash trapdoor
+D
+U
+NE
+N
+NW
+NE
+S
+Ask Abrams about Sally
+Give suit to Abrams
+N
+N
+NE
+N
+NE
+N
+NW
+N
+Talk to Whatever
+Ask Whatever about himself
+E
+N
+NW
+Ask Joves about fire
+Ask Joves about reporter
+SE
+E
+NE
+Ask Perkins about east wing
+SW
+W
+S
+W
+S
+SE
+S
+SW
+S
+SW
+S
+SE
+Ask Micawber about grappling hook
+NW
+N
+NE
+N
+NE
+N
+NW
+N
+E
+E
+Examine desk
+Examine manuscript
+Examine fire
+Get ashes
+Examine letter
+Get painting
+Examine painting
+Fold painting
+W
+W
+S
+SE
+S
+SW
+S
+SW
+S
+SE
+Give painting to Micawber
+NW
+N
+NE
+N
+NE
+SE
+E
+Wear uniform
+E
+Talk to cops
+W
+Remove uniform
+NW
+N
+NW
+N
+E
+N
+E
+NE
+Give grappling hook to Perkins
+SW
+W
+S
+W
+S
+SE
+U
+E
+NE
+Talk to Sophia
+SW
+E
+Give wooden toy frog to Evan
+W
+SE
+Give snack to Perkins
+Give bourbon to Perkins
+climb hook
+open door
+E
+NW
+Examine bed
+get chamberpot
+SE
+SE
+Examine table
+Examine table
+Examine locket
+Examine Brubaker's finest
+E
+Examine statue
+Read guest book
+Get guest book
+E
+Examine podium
+Stand on podium
+Examine gramophone
+Footnote 12
+Play piano
+Examine guillotine
+Open door
+W
+W
+W
+S
+W
+S
+SE
+S
+SW
+S
+SW
+S
+SE
+Give chamberpot to Micawber
+Give glue to Micawber
+Give paint to Micawber
+z
+NW
+N
+NE
+N
+NE
+N
+U
+E
+N
+Talk to guard
+Ask guard about himself
+Give cream buns to guard
+N
+Open wardrobe
+Get nightgown
+Wear nightgown
+Talk to Lady Montrose
+Ask Lady Montrose about herself
+Footnote 10
+Ask Lady Montrose about statue
+Examine Lady Montrose
+Ask Lady Montrose about ring
+Remove nightgown
+S
+S
+W
+D
+NW
+N
+E
+E
+Examine box
+Examine impression
+Touch ring to impression
+Get old documents
+Examine old documents
+W
+N
+NW
+Ask Joves about letter
+Ask Joves about statue
+Ask Joves about slave holdings
+Ask Joves about old documents
+Footnote 11
+SE
+S
+W
+S
+SW
+Examine books
+Ask Bombur about slave holdings
+Ask Bombur about problems
+Ask Bombur about ruined
+Ask Bombur about wife
+Ask Bombur about Constance
+Give red button to Tarquin
+NE
+SE
+U
+E
+N
+N
+Ask Lady Montrose about Constance
+S
+S
+W
+D
+NW
+N
+E
+N
+NW
+Ask Joves about Constance
+Ask Joves about why
+Ask Joves about affair
+Ask Joves about rumours
+SE
+S
+Ask Hogg about Joves
+Ask Hogg about jewel
+Ask Hogg about dig
+W
+S
+SE
+S
+S
+SW
+S
+SW
+S
+S
+Ask Abrams about jewel
+N
+N
+NE
+N
+NE
+N
+U
+E
+E
+Ask Evan about jewel
+W
+W
+D
+S
+SW
+S
+SW
+S
+SE
+Ask Micawber about jewel
+Ask Micawber about cake
+NW
+N
+NE
+N
+NE
+N
+NW
+N
+E
+N
+Ask chef about cake
+S
+W
+S
+SE
+U
+E
+N
+N
+Ask Lady Montrose about cake
+S
+S
+E
+Ask Evan about cake
+W
+W
+D
+S
+SW
+SE
+NW
+S
+S
+E
+W
+N
+SE
+SE
+S
+W
+W
+NW
+NE
+SE
+NW
+N
+NE
+N
+NE
+N
+U
+E
+E
+Ask Evan about cake
+W
+W
+D
+NW
+N
+E
+N
+Ask chef about cake
+S
+W
+S
+SE
+S
+SW
+S
+SW
+S
+SE
+Give cake to Micawber
+NW
+N
+NE
+N
+NE
+N
+U
+E
+E
+Ask Evan about jewel
+W
+NE
+Ask Sophia about jewel
+SW
+W
+D
+S
+SE
+Wear uniform
+E
+SE
+Examine pizza boxes
+Get pizza boxes
+Read journal
+Examine desk
+Get ID card
+Remove uniform
+NW
+N
+NW
+N
+E
+Give jewel to Hogg
+N
+NW
+Talk to Joves
+Ask Joves about necklace
+SE
+S
+W
+S
+SE
+S
+SW
+Give necklace to Talia
+NE
+N
+U
+Show ID card to Grogan
+Examine bed
+Reach into the space
+D
+U
+Talk to Grogan
+Ask Grogan about Lord Montrose
+Ask Grogan about Lady Montrose
+Give nightgown to Grogan
+Get beer
+Examine TV
+Connect TV
+E
+D
+U
+D
+NW
+N
+E
+Talk to Anton
+Ask Anton about the murder
+Ask Anton about his suspicions
+W
+S
+SE
+S
+SW
+S
+S
+E
+NE
+Wait
+SE
+Sit on sofa
+NW
+SW
+W
+N
+N
+NE
+N
+U
+E
+N
+N
+Ask Lady Montrose about Anton
+S
+S
+W
+D
+S
+SW
+S
+S
+E
+NE
+SE
+Talk to Anton
+NW
+SW
+W
+N
+N
+NE
+N
+U
+E
+SE
+Talk to Carver
+Ask Carver about favour
+Give fake vase to Carver
+NW
+NW
+W
+D
+NW
+N
+E
+N
+Ask chef about knife
+S
+W
+S
+SE
+U
+E
+E
+Ask Evan about knife
+W
+W
+D
+S
+SW
+W
+Examine trash
+E
+NE
+N
+U
+E
+SE
+Give knife to Carver
+NW
+W
+D
+NW
+N
+Wait
+S
+SE
+S
+SW
+S
+S
+E
+NE
+SE
+NW
+SW
+W
+N
+N
+NE
+N
+U
+E
+N
+N
+Ask Lady Montrose about Anton
+S
+S
+W
+D
+S
+SW
+S
+S
+E
+NE
+SE
+Get weights
+NW
+SW
+W
+N
+SE
+SE
+Whistle
+E
+Examine weeds
+Examine smell
+W
+NW
+NW
+SW
+S
+S
+Give weights to Abrams
+Give flowers to Abrams
+N
+SW
+SE
+E
+E
+SW
+NE
+W
+W
+NW
+NE
+S
+N
+N
+NE
+N
+NE
+N
+U
+NE
+Give oil to Hogg
+Sit in rocking chair
+SW
+D
+NW
+N
+N
+Approach
+S
+SE
+NW
+N
+Ask Lord Whatever about break-in
+E
+N
+NW
+Ask Joves about break-in
+SE
+S
+W
+S
+SE
+U
+E
+NE
+Ask Sophia about break-in
+Ask Sophia about Satan
+SW
+W
+D
+S
+SW
+S
+SE
+SE
+S
+SW
+Ask Sally about Satan
+NE
+N
+NW
+NW
+N
+NE
+SE
+wear uniform
+E
+W
+Remove uniform
+NW
+N
+NW
+N
+E
+N
+E
+NE
+Ask Perkins about deed
+SW
+W
+S
+W
+Ask Talia about Perkins
+S
+SE
+U
+E
+NE
+Ask Sophia about Perkins
+SW
+W
+D
+NW
+N
+NW
+Ask Jessica about Perkins
+Give red diode to Jessica
+SE
+E
+N
+E
+NE
+SW
+W
+S
+W
+S
+SE
+S
+SW
+S
+S
+E
+NE
+SW
+W
+N
+N
+NE
+N
+NW
+N
+E
+N
+E
+NE
+Talk to Satan
+Ask Satan about himself
+Ask Satan about servant
+Ask Satan about Emma
+Ask Satan about Emma
+Ask Satan about plan
+Give form to Satan
+SW
+W
+NW
+Give form to Joves
+SE
+E
+NE
+Give form to Satan
+SW
+W
+S
+W
+S
+NW
+SE
+N
+E
+N
+E
+NE
+Ask Satan about Silas
+SW
+W
+S
+W
+SE
+U
+E
+SE
+Climb hook
+E
+NW
+Examine trapdoor
+Examine sticker
+Force trapdoor with screwdriver
+Examine sticker
+Utter XYZZY
+Examine fireplace
+Open panel
+NW
+Get mask
+Look
+Get seal
+Examine seal
+Examine crack
+Smoke crack
+SE
+SE
+SE
+E
+E
+Stand on podium
+W
+W
+W
+NW
+Ask Joves about seal
+SE
+S
+W
+S
+SE
+S
+SW
+S
+SW
+S
+SE
+Ask Micawber about seal
+NW
+N
+NE
+N
+NE
+SE
+SE
+Examine graveyard
+Examine mist
+Examine open grave
+Ask Rufus about Old Man Watson
+NW
+NW
+N
+NW
+N
+E
+N
+NW
+Ask Joves about legal pad
+SE
+E
+NE
+Ask Satan about legal pad
+SW
+W
+S
+W
+N
+W
+Examine magazine
+Ask Evan about evidence
+E
+S
+S
+SE
+S
+SE
+Wear uniform
+E
+SE
+Examine files
+Stay
+NW
+W
+Remove uniform
+NW
+SW
+S
+S
+E
+NE
+SE
+Give Brubaker's Finest to Bribeasy
+Ask Bribeasy about Pinkerton
+NW
+SW
+W
+N
+SE
+SW
+Ask Micawber about Pinkerton
+NE
+NW
+N
+NE
+SE
+Wear uniform
+E
+SE
+Give pendant to Pinkerton
+NW
+W
+Remove uniform
+NW
+SW
+S
+SE
+SW
+Ask Micawber about Pinkerton
+NE
+NW
+S
+E
+NE
+SE
+Talk to Bribeasy
+Whisper Carmichael
+NW
+SW
+W
+N
+N
+NE
+N
+E
+W
+NW
+N
+N
+W
+E
+S
+E
+N
+E
+NE
+Ask Satan about Joves
+Ask Satan about mother
+SW
+W
+NW
+Ask Joves about Froghilda
+Ask Joves about troubles
+Ask Joves about killing
+Ask Joves about peace
+SE
+E
+NE
+Ask Satan about reconciliation
+SW
+W
+NW
+Ask Joves about Emma
+SE
+S
+W
+N
+W
+E
+S
+S
+SE
+S
+SE
+Wear uniform
+E
+Ask Bribeasy about Emma
+SE
+W
+Remove uniform
+NW
+SW
+S
+SE
+SE
+S
+SW
+Talk to Emma
+NE
+N
+NW
+NW
+N
+NE
+N
+NW
+N
+E
+N
+E
+E
+E
+Examine muddy footprints
+W
+W
+W
+S
+W
+S
+SE
+S
+SW
+S
+SW
+S
+S
+Ask Abrams about gramophone
+Wait
+Wait
+Wait
+N
+N
+NE
+N
+NE
+N
+NW
+SW
+Ask Tarquin about gramophone
+NE
+SE
+S
+SW
+S
+S
+E
+NE
+SE
+NW
+SW
+W
+N
+SW
+S
+S
+Ask Abrams about gramophone
+N
+SE
+Ask Micawber about gramophone
+NE
+NW
+N
+NE
+N
+NW
+N
+E
+N
+NW
+Ask Joves about riddle book
+SE
+S
+W
+S
+SE
+S
+SW
+S
+SE
+SW
+Give riddle book to Micawber
+NE
+SE
+S
+SW
+Give gramophone to Emma
+NE
+N
+NW
+NW
+N
+NE
+N
+NW
+N
+E
+N
+E
+NE
+SW
+W
+NW
+Ask Joves about Galina
+Ask Joves about murdered
+SE
+S
+W
+S
+SE
+U
+E
+N
+N
+Ask Lady Montrose about Galina
+S
+S
+W
+D
+NW
+N
+E
+N
+NW
+Ask Joves about message
+SE
+S
+Give message to Kristina
+W
+S
+SE
+U
+E
+SE
+Climb hook
+E
+SE
+E
+E
+Wait
+Stand on podium
+W
+W
+W
+NW
+Ask Joves about handkerchief
+SE
+S
+W
+S
+SE
+S
+SW
+S
+SE
+SE
+S
+W
+W
+S
+SW
+NE
+N
+E
+E
+N
+NW
+NW
+N
+NE
+N
+U
+E
+N
+Give contract to Whimsy
+N
+NW
+W
+E
+SE
+S
+S
+W
+D
+S
+SW
+S
+SE
+SW
+Ask Micawber about waterfall
+NE
+NW
+N
+NE
+N
+NW
+N
+E
+N
+Ask chef about French cheese
+S
+W
+S
+SE
+U
+E
+N
+N
+Ask Joves about French cheese
+S
+S
+W
+D
+NW
+N
+E
+N
+Ask chef about cheese
+S
+W
+S
+SW
+Ask Tarquin about French aftershave
+NE
+SE
+U
+E
+N
+N
+Give cheese to Joves
+Give French aftershave to Joves
+S
+S
+W
+D
+S
+SW
+S
+SE
+SW
+Give French cheese to Micawber
+Footnote 5
+NE
+SE
+Whistle
+E
+Dance
+Close panel
+Footnote 6
+D
+W
+D
+Footnote 7
+Examine old mine cart
+Footnote 8
+N
+Talk to Kristina
+Get crowbar
+Get bread
+Eat bread
+Wake Kristina
+Ask Kristina about Silas
+Ask Kristina about plan
+Read notebook
+S
+Footnote 14
+U
+E
+U
+W
+NW
+NW
+N
+NE
+N
+U
+E
+SE
+Climb hook
+E
+NW
+Open panel
+NW
+Kick scaffolding
+Examine Silas
+Examine tickets
+SE
+SE
+SE
+E
+E
+Stand on podium
+W
+W
+W
+NW
+Ask Joves about tickets
+SE
+S
+W
+S
+SE
+S
+SE
+Examine cars

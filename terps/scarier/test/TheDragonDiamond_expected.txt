@@ -1,0 +1,483 @@
+The Dragon Diamond
+
+INTRODUCTION
+
+Your name is Bash, a famous warrior, ordered by the evil Queen Drana to obtain the fabled Dragon Diamond from the Forest of Fear. The queens chauffeur Leon drives you to the outskirts of the forest in a carriage. You arrive and you both leave the carriage. Your adventure starts here!
+
+Special in-game commands:
+VOCAB - HELP - SCORE - CREDITS
+
+Outskirts
+You stand in the outskirts of the Forest of Fear. An intense feeling of evil emanates from within the forest. You can go north into the forest or up into the carriage, which brought you here in the first place.  Leon is here.
+
+> x me
+You see nothing interesting about yourself.  You are wearing your clothes, and are carrying your sword.
+
+> i
+You are wearing your clothes, and are carrying your sword.
+
+> x sword
+Its a long sharp sword.
+
+> x leon
+Leon is a tall warrior, much like yourself. He is carrying a long rope.
+
+> x rope
+The rope that Leon is carrying looks like a strong long rope.
+
+> take rope
+Leon says: "If you want the rope you will have to fight me. Come on if you dare!"
+
+> fight leon
+You hit Leon right in the solar plexus. He is stunned for a moment, but then he screams "I kill you!" and draws his sword. You better run or fight!  Leon runs against you with his sword raised!
+
+> kill leon
+You raise your sword and enter into a long sword battle with Leon. After a long and exhausting battle, you finally manage to swing your sword against Leons neck before he can react. His head flies in a big curve into the thick vegetation, while his body, and the rope Leon was holding, fall to the ground.
+
+> x body
+Leon's headless body lies lifelessly on the ground.
+
+> drop sword
+Ok, you put down the sword.
+
+> take body
+Ok, you pick up the dead body.
+
+> n
+You move north.
+
+Inside Forest of Fear
+This is where you first entered the forest. The feeling of malignity is overwhelming. It is very quiet here. Not a single insect. Trails lead off to north, south, east and west.
+
+> n
+You move north.
+
+South of lake
+You are south of a wide crocodile infested lake. It is hard to see anything through the mist coming up from the water. A trail leads south.
+
+> drop body
+Ok, you put down the dead body.
+
+> s
+You move south.
+
+Inside Forest of Fear
+This is where you first entered the forest. The feeling of malignity is overwhelming. It is very quiet here. Not a single insect. Trails lead off to north, south, east and west.
+
+> s
+You move south.
+
+Outskirts
+You stand in the outskirts of the Forest of Fear. An intense feeling of evil emanates from within the forest. You can go north into the forest or up into the carriage, which brought you here in the first place.  Also here is a long rope and your sword.
+
+> take sword
+Ok, you pick up the sword.
+
+> take rope
+Ok, you pick up the long rope.
+
+> n
+You move north.
+
+Inside Forest of Fear
+This is where you first entered the forest. The feeling of malignity is overwhelming. It is very quiet here. Not a single insect. Trails lead off to north, south, east and west.
+
+> w
+You move west.
+
+Glade
+You are in a little glade surrounded by little bushes. A trail continues east to west.
+
+> x bush
+Green with little leaves.  But especially one bush catches your attention. Under it is an axe. Unfortunately the thorns are in the way.
+
+> w
+You move west.
+
+In mud
+You are in mud to your knees. Many saplings are scattered around the mud. An Exit leads east.
+
+> x mud
+You find a branch. You take it with you.
+
+> dip hands in mud
+You dip your hands into the mud. The mud hardens quickly.
+
+> e
+You move east.
+
+Glade
+You are in a little glade surrounded by little bushes. A trail continues east to west.
+
+> take axe
+Due to the protective layer of hardened mud on your hands, you safely take the axe.
+
+> e
+You move east.
+
+Inside Forest of Fear
+This is where you first entered the forest. The feeling of malignity is overwhelming. It is very quiet here. Not a single insect. Trails lead off to north, south, east and west.
+
+> n
+You move north.
+
+South of lake
+You are south of a wide crocodile infested lake. It is hard to see anything through the mist coming up from the water. A trail leads south.  Also here is a dead body.
+
+> x lake
+Through the mist you see the dangerous crocodiles.  The crocodiles look very hungry!
+
+> throw body in lake
+You manage to throw Leons heavy body into the lake. The crocodiles fight about their new meal, but in the end there is enough to satisfy everyone.
+
+> swim north
+You begin to cross the lake. To begin with the satisfied crocodiles seem to ignore you. However, as you begin to reach to opposite shore, the crocodiles get nearer, as if your smell has made them hungry again. Luckily, you manage to get ashore before the crocodiles can catch you.
+
+North of lake
+You are north of a wide crocodile infested lake. It is hard to see anything through the mist coming up from the water. You can go north to the edge of a volcano.  Also here is a wooden canoe.
+
+> n
+You move north.
+
+Edge of volcano
+You are standing on the edge of a deep volcano.  A birch stands close to the edge.  You can go south back to the lake.
+
+> x birch
+It is an ordinary birch.
+
+> x volcano
+You stare over the edge into the extinct volcano. You notice a small ledge some meters down. The ledge is lit by light emanating from a cave carved into the volcano wall.
+
+> chop birch
+You manage to chop the birch in a few strokes with the sharp axe. The birch falls into the volcano. No, it is stopped by something! Looking into the volcano you see that the lower end of the birch is stopped by the ledge. It should now be safe to climb down..
+
+> d
+You move down.
+
+Ledge
+You are standing on a ledge in front of a cave carved into the volcano wall. Light emanates from the cave to the south.  The birch leads up to the edge of the volcano.
+
+> s
+You move south.
+
+A small cave
+You are in a small cave inhabited by a small dwarf. Sparse furniture is placed appropriately around the cave. Torches mounted on the walls light up the place in a cosy manner.  The small dwarf is here.
+
+> x dwarf
+The dwarf is well dressed and has a long white beard.
+
+> talk to dwarf
+
+You greet the dwarf and he offers you a seat in his humble home. You quickly engage in a long interesting conversation. The dwarf, whose name is Toke, knows a lot about the forest and he warns you of the dangers ahead. Specifically he mentions that the Dragon Diamond is the eye of the dragon and that you need to kill the dragon in order to obtain the fabled Dragon Diamond. Toke hands you a ring while he says: "This ring will allow you to fly high but not wide. If you need to reach a high place, just wear this ring."
+
+You thank Toke and prepare to leave.
+
+> x ring
+The magical ring has beautiful engravings all over.
+
+> n
+You move north.
+
+Ledge
+You are standing on a ledge in front of a cave carved into the volcano wall. Light emanates from the cave to the south.  The birch leads up to the edge of the volcano.
+
+> u
+You move up.
+
+Edge of volcano
+You are standing on the edge of a deep volcano.  The top of the chopped birch can be seen sticking up over the edge of the volcano.  You can go south back to the lake.
+
+> s
+You move south.
+
+North of lake
+You are north of a wide crocodile infested lake. It is hard to see anything through the mist coming up from the water. You can go north to the edge of a volcano.  Also here is a wooden canoe.
+
+> x canoe
+The wooden canoe seems functional and there is a single-bladed paddle in it.
+
+> paddle south
+You push the canoe out into the water and get in. You paddle slowly across the water trying not to catch the attention of the crocodiles. Finally you reach the opposite shore, where you drag the canoe onto land.
+
+South of lake
+You are south of a wide crocodile infested lake. It is hard to see anything through the mist coming up from the water. A trail leads south.  Also here is a wooden canoe.
+
+> s
+You move south.
+
+Inside Forest of Fear
+This is where you first entered the forest. The feeling of malignity is overwhelming. It is very quiet here. Not a single insect. Trails lead off to north, south, east and west.
+
+> e
+You move east.
+
+Dense forest
+In this part of the forest the trees stand very close making it impossible to deviate from the forest trail, which curves from the west towards north.  Also here is a dangling string.
+
+> x string
+The string dangles down from somewhere high up in the tree tops. The string has a certain magical aura. Magical strings tend to be strong as rope and cannot be cut.
+
+> n
+You move north.
+
+By large tree
+You are in front of a very tall and wide tree. High up among the branches of the tree you notice a wooden platform. A trail leads south.  Also here is a very big basket.
+
+> x basket
+The basket is huge, huge enough to enter. A string extends from the basket and stretches far up into the tree tops above the platform. The basket is tilted slightly, as if something is underneath it.  Also, there seems to be an object inside it. If you enter the basket you should get a clearer view.
+
+> enter basket
+You enter the basket.
+
+In basket
+You are inside the very big basket. A string is tied to the bottom of the basket and stretches far up into the tree tops above the platform.  Also here is a spade blade.
+
+> x blade
+It should be possible to make a decent spade with this blade, if an appropriate branch is found.
+
+> take blade
+Ok, you pick up the spade blade.
+
+> out
+You move out.
+
+By large tree
+You are in front of a very tall and wide tree. High up among the branches of the tree you notice a wooden platform. A trail leads south.  Also here is a very big basket.
+
+> make spade
+You manage to attach the blade of a spade decently to the branch and voila,  you have now a spade!
+
+> look under basket
+You tilt the basket some more and discover a hook stuck to the bottom of the basket.
+
+> tie rope to hook
+You tie the rope to the hook.
+
+> s
+You leave the tied rope behind you.  You move south.
+
+Dense forest
+In this part of the forest the trees stand very close making it impossible to deviate from the forest trail, which curves from the west towards north.  Also here is a dangling string.
+
+> pull string
+As you pull the string, it feels like you are raising something heavy somewhere else. You pull the string as much as you can. Whatever you are raising must now be lifted many meters above the ground.
+
+> tie string to tree
+You tie the string to a nearby tree.
+
+> n
+You move north.
+
+By large tree
+You are in front of a very tall and wide tree. High up among the branches of the tree you notice a wooden platform. A trail leads south.  Also here is a dangling rope.
+
+> climb rope
+You climb up the rope.
+
+On platform
+You are standing on a wooden platform high above the ground. A doorway leads into a cottage carved out of the trunk of the large tree.  A rope dangles down to the ground from the basket, which is suspended right above your head.
+
+> untie rope
+You untie the rope from the hook and take it with you.
+
+> in
+You move in.
+
+Inside cottage
+You are inside a cottage carved into the trunk of the tree. A large opening in the north wall serves as a window overlooking the misty lake below. There is a trapdoor in the floor in the middle of the room. An exit leads out.
+
+> x window
+From the window the crocodile infested lake far below can be seen. The northern shore is not so far from here, and it makes you wonder if you could jump out of the window and into the lake in order to reach the northern shore before the crocodiles reach you.
+
+> x trapdoor
+At first sight the trapdoor appears normal.  The trapdoor is currently closed.
+
+> open trapdoor
+You open the trapdoor.
+
+> d
+You move down.
+
+On a lawn
+You are standing on a large green lawn filled with grass and yellow flowers. Here, at the middle of the lawn, there is the magical trapdoor from which you came. There is a bamboo hut to the southwest, a small wood to the south and a quicksand pool to the east.
+
+> sw
+You move southwest.
+
+Bamboo hut
+You are inside a small bamboo hut. The furniture is quite sparse, consisting of a chair, a table and a bed.
+
+> x bed
+The bed is made from heavy wood.
+
+> look under bed
+Under the bed you find a long spear. You take it with you.
+
+> x spear
+It is a long strong spear. An effective weapon.
+
+> ne
+You move northeast.
+
+On a lawn
+You are standing on a large green lawn filled with grass and yellow flowers. Here, at the middle of the lawn, there is the magical trapdoor from which you came. There is a bamboo hut to the southwest, a small wood to the south and a quicksand pool to the east.
+
+> s
+You move south.
+
+Little wood
+You are in a little wood. Footprints can be noticed on the overgrown trail, indicating the presence of humans. Trails lead north and south.
+
+You hear a whistling sound as an arrow hits the ground right in front of your feet. "One step closer and you are dead!" shouts the archer from a tree in the south direction.
+
+> x archer
+The archer is well hidden up in a tree to the south.
+
+You hear a whistling sound as an arrow hits the ground right in front of your feet. "One step closer and you are dead!" shouts the archer from a tree in the south direction.
+
+> throw spear at archer
+With a strong throw you plant the spear right in the archers chest. He screams and falls down from the tree into the forest.
+
+> s
+You move south.
+
+Clearing
+You are in a clearing within the little wood.  Also here are some twigs.
+
+> x twigs
+Just a pile of twigs.
+
+> take twigs
+Ok, you pick up the twigs.
+
+> n
+You move north.
+
+Little wood
+You are in a little wood. Footprints can be noticed on the overgrown trail, indicating the presence of humans. Trails lead north and south.
+
+> n
+You move north.
+
+On a lawn
+You are standing on a large green lawn filled with grass and yellow flowers. Here, at the middle of the lawn, there is the magical trapdoor from which you came. There is a bamboo hut to the southwest, a small wood to the south and a quicksand pool to the east.
+
+> e
+You move east.
+
+West bank of quicksand
+You are on the west bank of a large quicksand pool. You can walk north and south along the bank, or go west to the lawn.
+
+> x pool
+A 5 meter wide quicksand pool.
+
+> s
+You move south.
+
+South end of west bank
+You are on the southern end of the bank of a large quicksand pool. Thick vegetation blocks your way further south. On the other side of the pool, a tree with long branches stand. One branch is projected over the quicksand pool. You can go back north along the bank.
+
+> throw rope at branch
+Before throwing the rope you tie a loop. You manage to catch the branch with the loop and you let the rope dangle over the quicksand pool.
+
+> jump onto rope
+You take a few steps back, then you run and take a big leap across the quicksand pool, where you manage to catch the dangling rope and swing the last meters across the pool and land safely on the other side.
+
+East bank of quicksand
+You are on the east bank of a large quicksand pool. You can go east into the forest. A rope is dangling over the quicksand pool.
+
+> e
+You move east.
+
+Deep forest
+You are deep inside the magical part of forest of fear. Trails lead east, west and southeast.
+
+> e
+You move east.
+
+Beach
+You are on a cosy beach. The sound of the waves add to the nice atmosphere.
+
+> dig
+You dig a hole large enough for you to go down in.
+
+> w
+You move west.
+
+Deep forest
+You are deep inside the magical part of forest of fear. Trails lead east, west and southeast.
+
+> se
+You move southeast.
+
+By the Devil Mountain
+You are in front of the Devil Mountain, the residence of the dragon. A path leads northwest into the forest and the entrance to the Dragons den lies south.
+
+> x den
+In front of you the big Devil Mountain rises. The mountain consists of a steep cliff wall and in the middle of it there is a huge entrance into the dragons den.  High above, there is smoke coming up from the Devil Mountain. You wonder if the mountain contains some sort of fireplace, leading smoke up through the mountain.
+
+> x mountain
+In front of you the big Devil Mountain rises. The mountain consists of a steep cliff wall and in the middle of it there is a huge entrance into the dragons den.  High above, there is smoke coming up from the Devil Mountain. You wonder if the mountain contains some sort of fireplace, leading smoke up through the mountain.
+
+> wear ring
+You put on the ring and fly up to the top of the Devil Mountain. You safely land on its top and put the ring back in your pocket.
+
+On top of Devil Mountain
+You are standing on top of the Devil Mountain. There is a chimney here.  Smoke is coming up from the chimney.
+
+> x chimney
+The chimney is round and made of stone.  Smoke is coming up from the chimney.
+
+> put twigs in chimney
+You throw the twigs in the chimney. No more smoke is coming up from the chimney now. It seems as you are trying to smoke out the dragon! So you better get away from the Devil Mountain immediately before the dragon finds you!
+
+> wear ring
+You put on the ring and fly down from the Devil Mountain. You safely land on the ground and put the ring back in your pocket.
+
+By the Devil Mountain
+You are in front of the Devil Mountain, the residence of the dragon. A path leads northwest into the forest and the entrance to the Dragons den lies south.
+
+> nw
+You move northwest.
+
+Deep forest
+You are deep inside the magical part of forest of fear. Trails lead east, west and southeast.
+
+> e
+You move east.
+
+Beach
+You are on a cosy beach. The sound of the waves add to the nice atmosphere.  A large hole has been dug here.
+
+The sound of a massive roar fills the air all over the forest! The dragon has come out of its den!
+
+> enter hole
+You go down in the hole.
+
+Down in a hole
+You are down in the hole that you have dug on the beach.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+From down the hole, you see the huge dragon come flying high up in the air, circling around as if looking for something. You hear a crash as it lands somewhere on the beach. You hear the sound of the dragon crawling nearer and nearer your hole! Suddenly the dragon passes over the hole and lies down, forcing all light out from the hole. You are trapped in darkness beneath the dragon!
+
+Dark hole
+You cannot see anything. It is pitch black. You hear the sound of a beating dragon heart.
+
+> kill dragon
+
+You stab the dragon with your sword closest to the sound of the beating heart. A massive roar is heard and the dragon throws itself around on the beach. But after some seconds it is all over. The dragon is dead! You climb back up onto the beach. As a trophy, and to fulfill your quest, you cut out the dragons one eye, the Dragon Diamond!
+
+You have gotten what you came for so you return to the carriage with the diamond. Without Leon to assist you, you get up in the carriage, take the reins and set off into the sunset where you will experience more adventure.
+
+Congratulations! You have completed The Dragon Diamond!!!
+
+*** You have won ***
+In that game you scored 70 out of a possible 70, in 102 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

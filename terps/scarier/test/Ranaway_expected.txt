@@ -1,0 +1,83 @@
+Ranaway
+An interactive fiction game made for single choice jam.
+
+Press S to start
+
+> s
+You are now Nathan Smith.
+Right now, you are inside your bedroom which is more like a prison, while you are laying on your mattress without blanket and pillow.
+Your body is heavily injured, with bruises and the bloods in your arms and legs has been dried.
+
+Press C to continue.
+
+> c
+Despite the pain and the dried bloods all over your body, you tried to get up.
+You might be know that the outside world are cruel and tough, but these are nothing compared to what your abusive uncle have done to you.
+
+Lift your right sleeve and look at unusual wound by pressing L.
+
+> l
+You lifted your right sleeve and noticed the wound on the upper part of your right arm.
+You lost your arm tissue on the upper part of your right arm. It was your uncle who did it to you.  You found a used clothes.
+You ripped it to pieces so you can use it to cover your wound.
+
+Press C to the next thing to do.
+
+> c
+After covering your wound, the next thing was looking for your backpack. It was placed behind the door, so your uncle never noticed it.
+
+Press B to continue.
+
+> b
+You are equipped with backpack!
+The next thing is to pack your stuffs.
+You look around the room to see if there's something you have.
+
+Check the box in the corner by pressing C or type "Check".
+
+> c
+You checked the box in the corner of your room.
+You found your dinosaur toys: two Tyrannosaurus Rex, a Triceratops, a Ceratosaurus, two Deinonychus, an Archaeopteryx, a Liupleurodon, a Spinosaurus, a Dimetrodon, an Iguanodon, a Megalosaurus and a Brontosaurus.
+You named your dinosaur toys after the historical figures from the historical fiction novel, "Romance of the Three Kingdom". One of your Deinonychus toy which you named after Xiahou Dun lost his eye because of your mean cousin.
+You decided to pack all of them inside your backpack.
+
+Look under your mattress (Press L)
+
+> l
+You look under your mattress by lifting it with your only strenght.
+You found a historical fictional novel titled "Romance of the Three Kingdom".
+You put it inside your backpack.
+
+Now think about the next step (N)
+
+> n
+Since you don't have any foods, you didn't pack any foods for yourself.
+Now about the next step...
+You already pack your stuffs, but how would you leave your uncle's house?
+You even don't have a rope.
+While you are thinking about your next plan, suddenly you heard someone put a ladder right in front of your window.
+
+Press C to check the window
+
+> c
+You opened the window, then you looked down.
+You see a teenager, around 17 years old. He gestured you to hurry up and use the ladder.
+You nodded and immediately use the ladder to leave your bedroom.
+
+Press N to continue.
+
+> n
+You are now outside your evil uncle's house, feeling the cold air touchs your skin. You looked at the teenager and wanted to thanked him. He said that his name was Anthony Fitzgerald and he helped you after his friend told him about something suspicious about your uncle and the thing he hide under it.
+You asked about your uncle's secret and who is Anthony's friend, but he refuse to told you about your uncle's secret and his friend is not familiar with the stranger and he prefer to hides under the shadow.
+You are kinda confused with Anthony's friend and his weird behaviour, but he reminded you to leave and don't let your uncle to find you.
+
+Ran as far as you can (R)
+
+> r
+You've been running for hours. After you think you're already quite a distance from your uncle's house, you slowed down and stoppped to took your breath.
+But you can't stop now. You need to keep moving or else, your uncle will find you again.
+Tomorrow is when your adventure begin.
+
+To be continued
+In the next year
+

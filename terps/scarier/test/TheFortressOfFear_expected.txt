@@ -11447,6 +11447,8 @@ You are in the bell ringing room, where the bell ropes hang down through two squ
 
 The mercenary is outside trying to break down the door!
 
+The mercenary is outside trying to break down the door!
+
 > drop shield
 Ok, you put down the large shield.
 

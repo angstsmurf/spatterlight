@@ -1,0 +1,209 @@
+# The Way Home (part 2 of The Bash Saga) -- Kenneth Pedersen, ADRIFT 5,
+# v3 blorb -- full MAX-SCORE winning walkthrough: 115/115 (23 x 5 points).
+# Blind-derived from the game XML; fully deterministic (no RAND draws).
+#
+# Story: Bash is hauling the Dragon Diamond home to queen Drana when ice
+# trolls ambush him and tie him to a tree in their garden.  Act 1 (ice
+# valley): shiver until the trolls toss you a blanket, fish the sharp stone
+# over with it, cut the rope.  Build a ladder from the shed tools, sled it
+# down the big hill through the snow-soft spot in the wall (one-way!), smear
+# moist monastery sand on your boots so you can walk on the frozen lake, and
+# saw an escape hole in the ice on the way back.  Ladder up to the cabin
+# window, take the diamond from the hatch under the floor pattern; climbing
+# down breaks the vase and starts a 7-turn dog chase -- run to the ice hole
+# (5 moves) and wait: the dogs skid in and drown.  Put the diamond in the
+# chapel idol's hollow eye: its heat melts the whole valley (cabin becomes a
+# snowdrift, trolls suffocate), then take it back (the lake refreezes) and
+# drive the carriage out (up at the north end of the garden needs the
+# diamond in hand).
+#
+# Act 2 (Ravine City): you arrive outside the prison you once occupied --
+# the city releases you on condition you kill the fire worm your melting of
+# the valley woke up.  Tavern: LISTEN TO GROUP (+5, Louniss can beat the
+# worm), Tome knows everyone -- with the wanted poster from the alley
+# garbage can (+5) ask him about the keymaster (+5: it's "Da Mon" on
+# Merchant Street).  Brian (a garden ice statue you thawed) gives his gloves
+# (+5); wear them to catch a rat outside the prison (+5).  FIND DA MON on
+# Merchant Street (+5), drop the rat in his shop so he chases it (+5), and
+# steal the one-use magical lock pick from the counter (he returns after 4
+# turns).  FIND LOUNISS on Baker Street (+5), pick the lock (+5), listen to
+# him mumble "PSKLOM4" upstairs, FIND PSKLOM4 among the living-room vials
+# (+5), pour the potion into him (+5) -- he wakes and hands you the apple of
+# force.  At the east gate SAY READY TO GUARD; outside, eat the apple (+5)
+# while the worm burrows closer and the force blows it up: WIN (+5).
+#
+# === Act 1: tied to a tree -- blanket, stone, rope ===
+ask trolls for help
+ask trolls for mercy
+shake
+get stone with blanket
+cut rope with stone
+# === Shed: tools and the ladder ===
+east
+east
+east
+east
+north
+x shelves
+take hammer
+take saw
+take nails
+take boards
+take sticks
+make ladder
+take ladder
+south
+west
+west
+west
+west
+south
+south
+south
+# === Sled through the wall; sand on boots; scout the idol ===
+sit on ladder
+take ladder
+south
+south
+stand on sand
+south
+x idol
+north
+north
+north
+west
+up
+north
+north
+# === Saw the escape hole while crossing the lake ===
+saw hole
+x hole
+north
+north
+east
+east
+east
+# === Window, hatch, diamond -- then outrun the dogs to the hole ===
+drop ladder
+climb ladder
+x pattern
+x hatch
+open hatch
+take diamond
+score
+down
+west
+west
+west
+south
+south
+z
+z
+look
+score
+# === Melt the valley with the diamond, retrieve it, take the carriage ===
+south
+south
+east
+east
+south
+south
+south
+put diamond in hollow
+score
+look
+take diamond
+look
+north
+north
+north
+west
+up
+north
+north
+north
+north
+east
+north
+look
+north
+look
+up
+look
+take reins
+score
+# === Act 2, Ravine City: poster, tavern gossip, gloves ===
+look
+x prison
+west
+south
+x garbage can
+score
+x poster
+north
+north
+listen to group
+talk to old man
+ask about keymaster
+talk to guy
+ask about gloves
+wear gloves
+# === Catch a rat, swindle the keymaster ===
+south
+east
+catch rat
+score
+west
+west
+north
+find da mon
+score
+west
+look
+talk to da mon
+ask about lock pick
+drop rat
+score
+take lock pick
+look
+east
+south
+south
+# === Louniss: lock pick, PSKLOM4, the apple of force ===
+find louniss
+score
+look
+pick lock
+score
+west
+up
+x louniss
+listen
+down
+find psklom4
+score
+x vial
+up
+pour potion into louniss
+score
+x apple
+look
+# === East gate: face the fire worm ===
+north
+east
+east
+east
+look
+x guard
+talk to guard
+say ready to guard
+look
+eat apple
+score
+z
+z
+z
+z
+z
+look
+score

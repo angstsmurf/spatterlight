@@ -56,6 +56,12 @@ extern char *a5expr_replace (a5_state_t *st, const char *text);
    literals so a `X.Prop & %text%` concatenation parses. */
 extern char *a5expr_replace_expr (a5_state_t *st, const char *text);
 
+/* clsCharacter.ListExits(sFromLocation, iExitCount): the character's exit list
+   evaluated from `lockey` (the room-view exit line; a %DisplayLocation[loc]%
+   view lists THAT location's exits).  Caller frees. */
+extern char *a5expr_list_exits (a5_state_t *st, const char *charkey,
+                                const char *lockey, long *count);
+
 /*
  * Host hook for an event's OO-properties (Global.ReplaceOOProperty, evt branch):
  *   Event.Position -> evt.TimerFromStartOfEvent

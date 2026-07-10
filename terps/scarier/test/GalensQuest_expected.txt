@@ -1,0 +1,937 @@
+Galen's Quest
+ Your master, the wizard Galen, has gone missing. You had no clue to his whereabouts, and you drifted off to sleep, wondering where you could begin your search for your master. He might, after all, be in trouble!
+
+Your dreams that night are vivid and disturbing. You see glimpses of your master in strange landscapes among even stranger beings. You have a terrible sensation of movement over vast distances.
+
+You awaken in a world gone mad. No longer in your master's home, you find yourself in a massive courtyard. Blood cascades from the top of an archway before you, and darkness is all around. Could this be where your master has gone? You will have to use your wits to find your way out of this situation, and to hopefully find out what happened to Galen.
+
+Before The Blood-stained Arch
+You stand before a blood-stained arch in a vast courtyard. The archway sits in the center of a long stone wall to the north. The wall surrounds the square courtyard, continuing east and west and then turning south on both sides. The floor of the courtyard is covered in flagstones. Above you, the night sky reels.  By some perversion of the miraculous, blood pours from the top of the stone archway, cascading downward and disappearing into the earth.
+
+Exits are north, east, south, west, southeast and southwest.
+
+> sw
+You move southwest.
+
+Shaft Of Moonlight
+There is a break in the clouds above, showing the night sky. Stars sprinkle the heavens while a half-moon sheds its light.
+
+A shaft of moonlight alights upon a particular spot on the flagstone floor. You can also see a tree to the east.
+
+Exits are north, east, south, northeast and southeast.
+
+> x floor
+You notice that one of the flagstones is loose.
+
+> move flagstone
+When you remove the flagstone from the floor, you can see a large sack and some spectacles that were underneath it.
+
+> take spectacles
+Ok, you pick up the spectacles.
+
+> wear spectacles
+Ok, you put on the spectacles.
+
+> e
+You move east.
+
+Near The Oak Tree
+A tall oak tree, very thick around the base, stands here, growing out of the the floor of the courtyard.  The low-hanging cloud obscures the top of the tree from your view. It looks like you could climb it, as it has low-hanging branches.
+
+An arch lies to the north, and to the south you can see a statue. To the west is a shaft of light, and a gargoyle bas relief is embedded in the wall to the northeast.  Exits are north, east, south, west, up, northeast, southeast, southwest and northwest.
+
+> e
+You move east.
+
+Eastern End of Courtyard
+The night sky glitters above you like a sea of jewels. The wall to the courtyard lies east and runs north and south. A tree stands to the west and you can see a gargoyle bas-relief on the wall to the north.
+
+Also here is a glowing meteorite.  Exits are north, south, west, southwest and northwest.
+
+> take meteorite
+Ok, you pick up the glowing meteorite.
+
+> w
+You move west.
+
+Near The Oak Tree
+A tall oak tree, very thick around the base, stands here, growing out of the the floor of the courtyard.  The low-hanging cloud obscures the top of the tree from your view. It looks like you could climb it, as it has low-hanging branches.
+
+An arch lies to the north, and to the south you can see a statue. To the west is a shaft of light, and a gargoyle bas relief is embedded in the wall to the northeast.  Exits are north, east, south, west, up, northeast, southeast, southwest and northwest.
+
+> u
+You move up.
+
+Top of Tree
+You are in the upper branches of an old oak tree. To the northeast, you can see what looks like a fountain with water rising into the air. The fountain seems to stand on solid cloud. Through gaps in the cloud around you, you can see the courtyard far below.
+
+Off in the distance, over the courtyard wall, you can see a vast plain, and beyond that, a river. A shack appears to sit on the other side of the wall.
+
+Exits are down and northeast.
+
+> ne
+You move northeast.
+
+Fountain
+You stand before a fountain that is somehow suspended on a layer of cloud. A treetop lies to the southwest.  An exit leads southwest.
+
+> put meteorite in fountain
+As the meteor enters the waters of the fountain, the nymph statue comes alive and sings a mournful tune. The waters of the fountain froth and glow, bubbling mightily. After the tune is done, the frothing of the water subsides and the nymph reaches down into the pool. She pulls out a glowing crystal orb which she hands to you.
+
+> sw
+You move southwest.
+
+Top of Tree
+You are in the upper branches of an old oak tree. To the northeast, you can see what looks like a fountain with water rising into the air. The fountain seems to stand on solid cloud. Through gaps in the cloud around you, you can see the courtyard far below.
+
+Off in the distance, over the courtyard wall, you can see a vast plain, and beyond that, a river. A shack appears to sit on the other side of the wall.
+
+Exits are down and northeast.
+
+> d
+You move down.
+
+Near The Oak Tree
+A tall oak tree, very thick around the base, stands here, growing out of the the floor of the courtyard.  The low-hanging cloud obscures the top of the tree from your view. It looks like you could climb it, as it has low-hanging branches.
+
+An arch lies to the north, and to the south you can see a statue. To the west is a shaft of light, and a gargoyle bas relief is embedded in the wall to the northeast.  Exits are north, east, south, west, up, northeast, southeast, southwest and northwest.
+
+> ne
+You move northeast.
+
+By The Grinning Gargoyle
+The courtyard wall makes a sharp turn to the east and heads south. The low-lying clouds overhead completely block your view of the sky. The arch lies to the west.
+
+A grinning gargoyle is set in bas-relief in the stone. It holds a claw out expectantly.
+
+Exits are south, west and southwest.
+
+> give orb to gargoyle
+The gargoyle's claw grips the orb tightly.  The blood stops pouring out the top of the archway.
+
+> s
+You move south.
+
+Eastern End of Courtyard
+The night sky glitters above you like a sea of jewels. The wall to the courtyard lies east and runs north and south. A tree stands to the west and you can see a gargoyle bas-relief on the wall to the north.
+
+Exits are north, south, west, southwest and northwest.
+
+> sw
+You move southwest.
+
+By The Statue
+Here at the southern end of the courtyard you can see the night sky above. The courtyard wall lies to the south. A tall oak tree stands majestically to the north.
+
+A statue of a beautiful woman stands here, her hands held up as if in a silent plea.
+
+Exits are north, east, west, northeast and northwest.
+
+> take silver key
+(from the stone statue)
+Ok, you take the silver key from the stone statue.
+
+> n
+You move north.
+
+Near The Oak Tree
+A tall oak tree, very thick around the base, stands here, growing out of the the floor of the courtyard.  The low-hanging cloud obscures the top of the tree from your view. It looks like you could climb it, as it has low-hanging branches.
+
+An arch lies to the north, and to the south you can see a statue. To the west is a shaft of light, and a gargoyle bas relief is embedded in the wall to the northeast.  Exits are north, east, south, west, up, northeast, southeast, southwest and northwest.
+
+> n
+You move north.
+
+Before The Blood-stained Arch
+You stand before a blood-stained arch in a vast courtyard. The archway sits in the center of a long stone wall to the north. The wall surrounds the square courtyard, continuing east and west and then turning south on both sides. The floor of the courtyard is covered in flagstones. Above you, the night sky reels.  Exits are north, east, south, west, southeast and southwest.
+
+> n
+You move north.
+
+On a Dark Plain
+You are standing on a dark plain. The plain continues to the west, from which a cold wind blows. To the north you can see a river snaking its way across the landscape. To the east, you can see what appears to be a shack.
+
+The archway to the courtyard stands to the south.
+
+Exits are north, east, south and west.
+
+> e
+You move east.
+
+Outside The Shack
+An old shack stands here on the plain. The shack has a single door and no windows. The river lies north, while to the east you see an impenetrable rock wall.  Exits are north and west.
+
+> unlock door with silver key
+You unlock the shack door with the silver key.
+
+> open door
+Inserting the key in the lock, you turn the key and open the door.
+
+Outside The Shack
+An old shack stands here on the plain. The shack has a single door and no windows. The river lies north, while to the east you see an impenetrable rock wall.  Exits are north, west and in.
+
+> in
+You move in.
+
+Wizard's Shack
+Shelves line the walls, holding all sorts of magical paraphernalia. A cot sits against one wall, while a large table dominates the center of the single room.
+
+An exit leads out.
+
+> take book
+(from the table)
+Ok, you take the spell book from the table.
+
+> out
+You move out.
+
+Outside The Shack
+An old shack stands here on the plain. The shack has a single door and no windows. The river lies north, while to the east you see an impenetrable rock wall.  Exits are north, west and in.
+
+> cast open on wall
+The rock rumbles, the earth trembles, and soon you see the rock on either side of the crack move apart, creating an opening large enough for you to enter to the east.
+
+> e
+You move east.
+
+Narrow Canyon
+The rock walls of this narrow canyon crowd close. Layers of different rock types form colorful stripes along the canyon walls. The canyon dead-ends at a small grove of scraggly pines.
+
+An exit leads west.
+
+> search pines
+Amongst the roots and fallen pine needles you find a small bag.
+
+> take bag
+Ok, you pick up the small bag.
+
+> open bag
+You open the small bag.  Inside the small bag is the 30 silver coins.
+
+> w
+You move west.
+
+Outside The Shack
+An old shack stands here on the plain. The shack has a single door and no windows. The river lies north, while to the east you see an impenetrable rock wall.  Exits are north, east, west and in.
+
+> w
+You move west.
+
+On a Dark Plain
+You are standing on a dark plain. The plain continues to the west, from which a cold wind blows. To the north you can see a river snaking its way across the landscape. To the east, you can see what appears to be a shack.
+
+The archway to the courtyard stands to the south.
+
+Exits are north, east, south and west.
+
+> n
+You move north.
+
+Dock Of The Boatman
+An old wooden dock stands in the water, abutting the land. You can see a small boat in the water, anchored against the turbulent current.
+
+A skeletal boatman is here.  Exits are east, south and west.
+
+> pay boatman
+The boatman accepts your payment. You may now enter the boat.
+
+> enter boat
+You step inside the small boat.
+
+ After you step into the boat, the skeletal boatman follows you. Having been paid, the boatman poles you across the mighty river.
+
+As you cross the river, you see the night sky overhead turning into daylight. After a while, you land on the far side of the river. You step out, and the boatman poles his way back across.
+
+Far Side Of River
+This side of the river is bathed in sunlight. Green grass grows here. A narrow dirt trail leads north.
+
+An exit leads north.
+
+> n
+You move north.
+
+Forest Trail
+This is an east-west trail running alongside a stream to the north. Forest surrounds you.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are east, south and west.
+
+> w
+You move west.
+
+Small Hillock
+A small hillock stands alongside the forest trail. The stream burbles past from west to east. To the north a wooden bridge crosses the stream.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are north, east and west.
+
+> cast open on hillock
+With a rumble, the hillock separates at the seam, exposing an entrance down into the earth.
+
+> in
+You move in.
+
+Barrow
+You are in a round chamber with wooden posts supporting the domed ceiling. A tiled mosaic seems to tell the story of a mighty warrior who performed heroic deeds. Torches, held on the wall by sconces, burn without smoke.
+
+The crumbling remains of a once mighty warrior lie here in ruin. Lying against the wall is a suit of armor, hopelessly decayed. Beside it is an equally defunct broad sword.
+
+Also here is a long staff.  A venomous snake is here.  Exits are up and out.
+
+> cast transform on snake
+The snake turns into a lungfish.
+
+> take staff
+Ok, you pick up the long staff.
+
+> out
+You move out.
+
+Small Hillock
+A small hillock stands alongside the forest trail. The stream burbles past from west to east. To the north a wooden bridge crosses the stream.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are north, east, west, down and in.
+
+> e
+You move east.
+
+Forest Trail
+This is an east-west trail running alongside a stream to the north. Forest surrounds you.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are east, south and west.
+
+> e
+You move east.
+
+Eastern End Of Trail
+The forest trail ends here at an impassable mountain wall. The stream falls away in a waterfall below, the spray making a rainbow in the sunlight. The rainbow forms an insubstantial bridge to the far side of the stream, far below. To the northeast, a fallen log is lain across the chasm, providing passage in that direction.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are west and northeast.
+
+> cast transform on rainbow
+ The rainbow turns into a solid bridge, stretching down to the far side of the chasm, far below.
+
+Eastern End Of Trail
+The forest trail ends here at an impassable mountain wall. The stream falls away in a waterfall below, the spray making a rainbow in the sunlight. The rainbow forms an insubstantial bridge to the far side of the stream, far below. To the northeast, a fallen log is lain across the chasm, providing passage in that direction.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are west, down and northeast.
+
+> d
+You move down.
+
+On The Rainbow
+You are standing on a solid rainbow, overlooking the waterfall. Down below you can see the far side of the stream, while above you is the trail. You can feel the spray from the waterfall in your face.
+
+Exits are up and down.
+
+> d
+You move down.
+
+End Of Rainbow
+You are on a sandbar on the far side of the stream, far below the trail at the bottom of the chasm. The rainbow stretches back up toward the trail.
+
+Fearsome crocodiles swim in the stream.
+
+Also here is a long bone and a scroll case.  An exit leads up.
+
+> take scroll case
+Ok, you pick up the scroll case.
+
+> open scroll case
+You open the scroll case.  Inside the scroll case is a tattered scroll.
+
+> take bone
+Ok, you pick up the long bone.
+
+> up
+You move up.
+
+On The Rainbow
+You are standing on a solid rainbow, overlooking the waterfall. Down below you can see the far side of the stream, while above you is the trail. You can feel the spray from the waterfall in your face.
+
+Exits are up and down.
+
+> up
+You move up.
+
+Eastern End Of Trail
+The forest trail ends here at an impassable mountain wall. The stream falls away in a waterfall below, the spray making a rainbow in the sunlight. The rainbow forms an insubstantial bridge to the far side of the stream, far below. To the northeast, a fallen log is lain across the chasm, providing passage in that direction.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are west, down and northeast.
+
+> w
+You move west.
+
+Forest Trail
+This is an east-west trail running alongside a stream to the north. Forest surrounds you.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are east, south and west.
+
+> w
+You move west.
+
+Small Hillock
+A small hillock stands alongside the forest trail. The stream burbles past from west to east. To the north a wooden bridge crosses the stream.
+
+Fearsome crocodiles swim in the stream.
+
+Exits are north, east, west, down and in.
+
+> n
+You move north.
+
+Bridge
+This arched wooden bridge spans the stream below. The bridge is made of sturdy timbers that easily support your weight. Forest can be seen on either side of the stream.
+
+Fearsome crocodiles swim in the stream.
+
+A big, ugly troll stands on the bridge, blocking any further progress. He holds out a hand, as if expecting something.
+
+Exits are north and south.
+
+> n
+The troll blocks your way. "Give us something valuable first!" he hisses.
+
+> cast shrink on troll
+The troll shrinks away to a minute little character who looks up at you in astonishment. Suddenly frightened, the troll scurries under the bridge, disappearing from view.
+
+> n
+You move north.
+
+Forest Clearing
+This clearing opens up in the middle of the forest. There is an old tree stump here.
+
+Exits are north and south.
+
+> x hole
+The hole is about eighteen inches deep.  Inside the hole is a wooden case.
+
+> open case
+You open the wooden case.  Inside the wooden case is a blue gem, a yellow gem and a green gem.
+
+> take blue gem
+(from the wooden case)
+Ok, you take the blue gem from the wooden case.
+
+> take yellow gem
+(from the wooden case)
+Ok, you take the yellow gem from the wooden case.
+
+> take green gem
+(from the wooden case)
+Ok, you take the green gem from the wooden case.
+
+> n
+You move north.
+
+Winding Trail
+The trail winds its way from the south around to the west. Forest closes in on both sides, making the trail narrow.
+
+Exits are south and west.
+
+> w
+You move west.
+
+High Rock Bluff
+The trail here ends at a high rock bluff that rises before you. Vegetation here is sparse; aside from some thinly spaced grass, a single, small tree grows up against the cliff. High overhead, near the top of the cliff, you can see a cave.
+
+An exit leads east.
+
+> cast grow on tree
+The tree grows tall, reaching up to the cave.
+
+> climb tree
+You climb high into the tree, finally reaching the cave entrance and going inside.
+
+Cave
+You are standing in a high cave overlooking the forested valley below. The top of a tree extends a few feet above of the floor of the cave.
+
+The walls of the cave are hewn by many years of erosion, leaving them smooth and hard. The dusty floor shows several years of accumulation. You can go deeper into the cave to the west.
+
+Exits are west and down.
+
+> w
+You move west.
+
+Gate Of The Silver Key
+A massive silver gate stands against the far wall of this end of the cave. The gate glows with a silver light, illuminating the entire room. A single keyhole sits in the middle of the gate.
+
+An exit leads east.
+
+> unlock gate with silver key
+You unlock the silver gate with the silver key.
+
+> open gate
+You open the silver gate.
+
+Gate Of The Silver Key
+A massive silver gate stands against the far wall of this end of the cave. The gate glows with a silver light, illuminating the entire room. A single keyhole sits in the middle of the gate.
+
+Exits are east and out.
+
+> out
+You move out.
+
+By The Silver Gate
+You are in a room with metal walls. At the southern end of the room is a silver gate. The gate has a keyhole in the center.  Exits are north and in.
+
+> n
+You move north.
+
+Sunlit Avenue South
+This long avenue is bathed in sunlight. To the east, you see a domed building. To the west sits some sort of contraption. The avenue continues to the north.
+
+Exits are north, east, south and west.
+
+> w
+You move west.
+
+Solar Collector
+A solar collector stands here alongside the avenue. The sun shines brightly overhead.
+
+An exit leads east.
+
+> turn dish southeast
+You turn the dish to face southeast.
+
+> put yellow gem in focal point
+You put the yellow gem inside the receptacle.
+
+ The solar collector is channeling the sun's energy into the yellow gem.
+
+> z
+Time passes...
+
+ The gem begins to glow brightly.
+
+> z
+Time passes...
+
+ The yellow gem is now fully charged with the sun's energy.
+
+> take yellow gem
+(from the receptacle)
+Ok, you take the yellow gem from the receptacle.
+
+> e
+You move east.
+
+Sunlit Avenue South
+This long avenue is bathed in sunlight. To the east, you see a domed building. To the west sits some sort of contraption. The avenue continues to the north.
+
+Exits are north, east, south and west.
+
+> n
+You move north.
+
+Sunlit Avenue North
+This long avenue is bathed in sunlight. To the west you see what looks like a cathedral. To the east is a machine. To the southeast you can see a domed building. The avenue continues to the south.
+
+Exits are east, south and west.
+
+> e
+You move east.
+
+Metal Machine
+A large metal machine sits here on the side of the avenue. The machine is flush with the domed building to the south. The sun shines brightly overhead.
+
+An exit leads west.
+
+> put blue gem in receptacle
+You put the blue gem inside the metal receptacle.
+
+> cast open on blue gem
+ The water starts pouring out of the blue gem into the machine. Within moments, the machine is full of water.
+
+The machine then springs to life, and the water inside churns and begins to glow with magical energy.
+
+> w
+You move west.
+
+Sunlit Avenue North
+This long avenue is bathed in sunlight. To the west you see what looks like a cathedral. To the east is a machine. To the southeast you can see a domed building. The avenue continues to the south.
+
+Exits are east, south and west.
+
+> s
+You move south.
+
+Sunlit Avenue South
+This long avenue is bathed in sunlight. To the east, you see a domed building. To the west sits some sort of contraption. The avenue continues to the north.
+
+Exits are north, east, south and west.
+
+> e
+You move east.
+
+Domed Chamber
+This round chamber has green walls and a white ceiling. The white ceiling has a sunburst pattern painted on it. A large, circular depression is set into the floor. A pipe leads from the northern wall into the depression. In the wall above the pipe is a socket.
+
+On one side of the room, a ladder, built into the wall, allows access to the ceiling.
+
+Exits are west and up.
+
+> cast transform on bone
+The long bone transforms into a wooden plank.
+
+> put plank in socket
+You put the wooden plank inside the socket.  The plank now forms a wooden lever attached to the socket mechanism.
+
+> put green gem in receptacle
+You put the green gem inside the floor receptacle.
+
+> move lever down
+You move the lever to the down position.
+
+ Magically enriched water from the pipe is pouring into the depression. The etchings in the bottom of the depression are starting to light up a metallic blue color.
+
+> z
+Time passes...
+
+ The magically enriched water now fills the depression, save for the raised portion in the center with the receptacle. The etchings in the depression are now completely lit up, forming glowing blue lines that lead from the edges of the depression to the raised portion in the center.
+
+The green gem begins to glow with green energy.
+
+> move lever up
+You move the lever into the up position.
+
+> u
+You move up.
+
+Under The Ceiling
+You are standing atop the ladder, just under the ceiling of the domed chamber. The ceiling has a sunburst pattern painted on it. In the center of the pattern you can see a tiny receptacle.
+
+An exit leads down.
+
+> put yellow gem in receptacle
+You put the yellow gem inside the ceiling receptacle.
+
+ When you put the gem into the ceiling receptacle, the sunburst pattern lights up. Heat and light begin to emanate from the ceiling, bathing the entire chamber.
+
+A lattice of green light rays forms between the sunburst pattern on the ceiling and the glowing blue etchings in the water below.
+
+> d
+You move down.
+
+Domed Chamber
+This round chamber has green walls and a white ceiling. The white ceiling has a sunburst pattern painted on it. A large, circular depression is set into the floor. A pipe leads from the northern wall into the depression. In the wall above the pipe is a socket.
+
+On one side of the room, a ladder, built into the wall, allows access to the ceiling.
+
+An energy lattice spans the chamber top to bottom from ceiling to floor.
+
+Exits are west and up.
+
+> cast grow on green gem
+The gem begins to get larger, soon filling the entire depression. The castle comes into view, growing to almost a foot tall. The moat and forest surrounding it grow likewise, until the entire landscape inside the gem stands before you like a model landscape made for tiny dolls.
+
+A glowing green force field surrounds the landscape, but there is a tiny opening in the front, only a few inches high.
+
+> cast shrink on me
+ You shrink down to only a few inches tall, and everything you were holding shrinks as well.
+
+Domed Chamber
+This round chamber has green walls and a white ceiling. The white ceiling has a sunburst pattern painted on it. A large, circular depression is set into the floor. A pipe leads from the northern wall into the depression. In the wall above the pipe is a socket.
+
+On one side of the room, a ladder, built into the wall, allows access to the ceiling.
+
+An energy lattice spans the chamber top to bottom from ceiling to floor.
+
+Exits are west, up and in.
+
+> in
+You move in.
+
+Force Field Entrance
+The force field surrounding the miniature landscape has a rectangular opening here, only a few inches high. But that is tall enough for you in your shrunken state. From here, a path leads eastwards into the landscape.
+
+Exits are east and out.
+
+> e
+You move east.
+
+Start Of Cobblestone Path
+A cobblestone path begins here. It heads east, further into the forest. To the south you can see what looks like the entrance to a hedge maze. Trees surround you.
+
+Exits are north, east, south and west.
+
+> s
+You move south.
+
+Hedge Maze Entrance
+You are standing in the entrance to a hedge maze. The hedge stands tall to the west, while you can go left to the east or straight ahead to the south.
+
+Exits are north, east and south.
+
+> e
+You move east.
+
+Straight Section Of Maze
+This part of the maze is a simple east-west path. The hedge walls rise to the north and south.
+
+Exits are east and west.
+
+> e
+You move east.
+
+Intersection
+This is a three-way intersection. The hedge stands to the north.
+
+Exits are east, south and west.
+
+> e
+You move east.
+
+Right Turn
+This is a right hand turn in the hedge maze, if you are coming from the entrance. The path comes from the west and heads south. The hedge wall rises to the north and east.
+
+Exits are south and west.
+
+> s
+You move south.
+
+Monument
+There is a monument standing here against the southern wall of this dead end. The monument is of a rearing horse with a rider holding a sword up triumphantly. The pedestal has four colored squares and a plaque.
+
+The scent of flowers is coming from somewhere.
+
+An exit leads north.
+
+> press blue square
+You hear a loud click.
+
+> press yellow square
+You hear a soft click.
+
+> press yellow square
+You hear a loud click.
+
+> press green square
+You hear a soft click.
+
+> press green square
+You hear a soft click.
+
+> press green square
+You hear a loud click.
+
+> press red square
+You hear a soft click.
+
+> press red square
+You hear a soft click.
+
+> press red square
+You hear a soft click.
+
+> press red square
+You hear a loud click.
+
+ You hear a loud grating sound as the monument moves to the left, revealing a passageway through the hedge to the south.
+
+Monument
+There is a monument standing here against the southern wall of this dead end. The monument is of a rearing horse with a rider holding a sword up triumphantly. The pedestal has four colored squares and a plaque.
+
+The scent of flowers is coming from somewhere.
+
+The monument has moved to the left, exposing a passageway through the hedge to the south.
+
+Exits are north and south.
+
+> s
+You move south.
+
+Secret Garden
+Various flowers surround a small tree. The scent of the flowers is intoxicating. There is a small ironwork bench here, painted white.
+
+Over the hedge to the south you can see the force field.
+
+Also here is a beekeeper's suit.  An exit leads north.
+
+> take suit
+Ok, you pick up the beekeeper's suit.
+
+> wear suit
+Ok, you put on the beekeeper's suit.
+
+> n
+You move north.
+
+Monument
+There is a monument standing here against the southern wall of this dead end. The monument is of a rearing horse with a rider holding a sword up triumphantly. The pedestal has four colored squares and a plaque.
+
+The scent of flowers is coming from somewhere.
+
+The monument has moved to the left, exposing a passageway through the hedge to the south.
+
+Exits are north and south.
+
+> n
+You move north.
+
+Right Turn
+This is a right hand turn in the hedge maze, if you are coming from the entrance. The path comes from the west and heads south. The hedge wall rises to the north and east.
+
+Exits are south and west.
+
+> w
+You move west.
+
+Intersection
+This is a three-way intersection. The hedge stands to the north.
+
+Exits are east, south and west.
+
+> w
+You move west.
+
+Straight Section Of Maze
+This part of the maze is a simple east-west path. The hedge walls rise to the north and south.
+
+Exits are east and west.
+
+> w
+You move west.
+
+Hedge Maze Entrance
+You are standing in the entrance to a hedge maze. The hedge stands tall to the west, while you can go left to the east or straight ahead to the south.
+
+Exits are north, east and south.
+
+> n
+You move north.
+
+Start Of Cobblestone Path
+A cobblestone path begins here. It heads east, further into the forest. To the south you can see what looks like the entrance to a hedge maze. Trees surround you.
+
+Exits are north, east, south and west.
+
+> e
+You move east.
+
+Along The Cobblestone Path
+The cobblestone path continues here, leading east and west. There is a break in the trees to the north, while the hedge stands to the south.
+
+Exits are north, east and west.
+
+> n
+You move north.
+
+Beehive
+Standing here amongst the trees is a large, white box standing on four wooden legs. Bees fly in and out of the box. It looks like the box can be opened.
+
+The force field stands to the north.
+
+An exit leads south.
+
+> open box
+The beekeeper's suit protects you from the stings of the bees.
+
+You open the white box.  Inside the white box is a honeycomb.
+
+> take honeycomb
+(from the white box)
+Ok, you take the honeycomb from the white box.
+
+> s
+You move south.
+
+Along The Cobblestone Path
+The cobblestone path continues here, leading east and west. There is a break in the trees to the north, while the hedge stands to the south.
+
+Exits are north, east and west.
+
+> e
+You move east.
+
+Before The Drawbridge
+The cobblestone path ends here. The castle rises up before you, on the other side of the moat to the east. Impenetrable forest stands to the left and right. A stand of bushes sits off to one side of the path.
+
+The drawbridge is currently closed.
+
+Exits are west and down.
+
+> hide behind bush
+You situate yourself so you are out of view from the castle door, behind the bushes.
+
+> cast open on drawbridge
+ The drawbridge creaks open, then lands with a thud and spans the moat. As soon as it opens, an armored man on a horse carrying a lance trots out on a horse and looks around. Seeing no one, he heads off to the west along the cobblestone path.
+
+Before The Drawbridge
+The cobblestone path ends here. The castle rises up before you, on the other side of the moat to the east. Impenetrable forest stands to the left and right. A stand of bushes sits off to one side of the path.
+
+The drawbridge is currently open.
+
+Exits are east, west and down.
+
+> e
+You step from behind the bushes.
+
+You move east.
+
+Castle Entrance
+You are in the entrance to the castle. The drawbridge mechanism is here. Above you, you can see murder holes.
+
+The drawbridge is currently open.
+
+Exits are east and west.
+
+> e
+You move east.
+
+Main Hallway
+Exits are east and west.
+
+> e
+You move east.
+
+Jailor's Room
+A long table sits in the middle of this room. There are six wooden chairs spaced around it. To the east is what looks like a jail cell.
+
+There is a small hook on the wall, on the wall opposite the jail cell.
+
+To the north you can see a beautiful water garden with plants including pond lilies. Their fragrance is sweet.  A large, iron hook hangs on the wall.  Also here is a key.  A grizzly bear is here.  Exits are north and west.
+
+> feed honeycomb to bear
+The bear gratefully eats the honey.
+
+> take iron key
+(from the Hook)
+Ok, you take the Iron Key from the Hook.
+
+> unlock jail cell door with iron key
+You unlock the Jail Cell Door with the Iron Key.
+
+> open jail cell door
+You open the Jail Cell Door.
+
+> e
+You move east.
+
+Jail Cell
+This is a five by ten foot cell with iron bars. There is a stool along the wall and what looks like a commode. There is also a small barrel of water and a metal tray on the floor with what looks like eating utensils.  Also here is a metal tray and a metal utensils.  Galen is here.  An exit leads west.
+
+> talk to galen
+Galen says, "You have found me, my disciple! You are no longer my apprentice! You have proven yourself to be a true wizard!"
+
+You have succeeded in your adventure!!!
+
+*** You have won ***
+In that game you scored 45 out of a possible 48, in 142 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

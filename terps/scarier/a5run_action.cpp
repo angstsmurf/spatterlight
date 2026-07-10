@@ -427,8 +427,10 @@ group_prop_member_keys (a5_state_t *st, const std::string &arg,
   if (pd == NULL) return false;
   /* A mandatory property (FD's clsProperty.Mandatory) is added to every
      applicable item at load, so clsItem.HasProperty is always true for it --
-     StaticOrDynamic is the canonical case.  Otherwise keep only the members
-     that actually carry a value for the property. */
+     StaticOrDynamic is the canonical case.  Otherwise keep the members that
+     HAVE the property (clsItem.HasProperty), presence not value -- a valueless
+     SelectionOnly marker (AlienDiver's `BlankCards.ObjectIsAC` = the available
+     blank cards) counts even though a5state_entity_prop returns NULL for it. */
   const char *mnd = pd->node ? a5xml_child_text (pd->node, "Mandatory") : NULL;
   int mandatory = (mnd != NULL && strcmp (mnd, "0") != 0);
 
@@ -437,7 +439,7 @@ group_prop_member_keys (a5_state_t *st, const std::string &arg,
     {
       const char *mk = a5state_group_member_at (st, grp.c_str (), i);
       if (mk == NULL) continue;
-      if (mandatory || a5state_entity_prop (st, mk, prop.c_str ()) != NULL)
+      if (mandatory || a5state_entity_has_prop (st, mk, prop.c_str ()))
         out.push_back (mk);
     }
   /* FD still builds one (empty-keyed) Item for an empty resolution, so the
@@ -713,6 +715,38 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
      two identical "Date:" lines still collapse via the text dedup. */
   bool aggregate = t != NULL && t->aggregate && !item.empty ();
 
+  /* FD keys an AggregateOutput response by its RAW template -- AddResponse
+     receives task.CompletionMessage.ToString UNexpanded (the OO chain and
+     %functions% only resolve at Display).  The stock Look's response key is
+     the literal "%Player%.Location.Description", so a movement task that both
+     Executes Look AND carries that same completion (Murder Most Foul's custom
+     PlayerMovement1) MERGES into the Look response: one room view, rendered
+     once at Display -- which also means its DisplayOnce segments retire once
+     and its ALR-borne %scor% reads that commit's state.  Mirror the merge:
+     an aggregate single-reference completion whose raw template assembles to
+     the same text as the pending is_look entry's (the Look task's raw
+     CompletionMessage) is folded into it. */
+  if (t != NULL && t->aggregate && item.empty ())
+    for (auto &e : rm->ents)
+      if (e.is_look && e.is_pass == is_pass)
+        {
+          const a5_task_t *look = a5model_task (st->adv, "Look");
+          const a5_xml_node_t *lcomp =
+              look != NULL ? a5xml_child (look->node, "CompletionMessage") : NULL;
+          bool same = false;
+          if (lcomp != NULL)
+            {
+              int pm = st->marking_display; st->marking_display = 0;
+              char *rawc = a5text_eval_description (st, comp);
+              char *rawl = a5text_eval_description (st, lcomp);
+              st->marking_display = pm;
+              same = rawc != NULL && rawl != NULL && streq (rawc, rawl);
+              free (rawc); free (rawl);
+            }
+          if (same) { rm->nmut++; return; }   /* merge is output (sink_len) */
+          break;
+        }
+
   if (aggregate)
     {
       for (auto &e : rm->ents)
@@ -736,11 +770,29 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
   else
     {
       int pm = st->marking_display; st->marking_display = 1;
-      char *m = a5text_describe (st, comp);
+      int raw_nonblank = 0, pre_alr_ink = 0;
+      char *m = a5text_describe_ex (st, comp, &pre_alr_ink, &raw_nonblank);
       st->marking_display = pm;
+      /* FD's AddResponse output test (bHasOutput) sees the message BEFORE the
+         trailing-whitespace trim, so a whitespace-only "\n" completion counts
+         as task output -- it stops an After-children scan (The Salvage's
+         per-move station-known task suppressing the fuel child) even though
+         nothing visible renders. */
+      if (raw_nonblank)
+        run->task_raw_output = 1;
       bool has = msg_has_output (m);
       std::string r = m ? m : ""; free (m);
-      if (!has) return;
+      /* A message whose plain render is ONLY stripped-tag sentinels but which
+         had visible text before the ALR pass -- WW2 Elevator Escape's
+         "(standing up first)" -> ALR -> "<del>", leaving
+         "<font..><del><font..>" -- passes FD's AddResponse gate (bHasOutput on
+         the stored PRE-ALR text) and is Displayed as a markup skeleton, so
+         FD's raw buffer ends in '>' and the NEXT message pSpace-joins with two
+         spaces.  Keep such an entry: the mark bytes survive to the sb, where
+         sb_pspace treats them as a non-newline tail; finish_turn strips them.
+         A marks-only render with NO pre-ALR ink (Amazon's ts_tasSunset "<>"
+         off-hours completion) fails FD's gate and is dropped as before. */
+      if (!has && !(pre_alr_ink && !r.empty ())) return;
       for (auto &e : rm->ents)
         if (!e.aggregate && e.is_pass == is_pass && e.rendered == r) return;
       resp_entry e;
@@ -895,8 +947,15 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
             /* A deferred room view (Execute Look): rendered now, at the command's
                final state, mirroring FrankenDrift's AggregateOutput Look whose
                function replacement is deferred to Display.  So a move whose After
-               children relocated an NPC lists it at its new spot. */
-            text = render_look_string (run);
+               children relocated an NPC lists it at its new spot.  Real output:
+               retire DisplayOnce segments (view_location_impl honours the
+               ambient marking flag). */
+            {
+              int pm = st->marking_display;
+              st->marking_display = 1;
+              text = render_look_string (run);
+              st->marking_display = pm;
+            }
             /* FD keys the stock Look's AggregateOutput on its response template
                (htblResponsesPass), so a command that Executes Look more than once
                -- e.g. Bug Hunt's cl_ZMovePlaye, which runs Execute Look after the
@@ -947,7 +1006,10 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
         else
           text = e.rendered;
 
-        if (msg_has_output (text.c_str ()))
+        /* Marks-only entries (see resp_add_comp) are emitted too: FD Displayed
+           the markup skeleton, so it space-joins here and leaves the buffer
+           mid-line for the next response's pSpace. */
+        if (msg_has_output (text.c_str ()) || !text.empty ())
           {
             sb_pspace (out); sb_puts (out, text.c_str ());
             /* This message is Displayed, so it is the running NewReferences (FD
@@ -1281,6 +1343,8 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
 
         /* Recurse so the child's own Specific overrides fire in its place
            (AttemptToExecuteSubTask -> recursive AttemptToExecuteTask). */
+        size_t ovf0 = run->exec_scope != NULL
+                      ? run->exec_scope->ov_fails.size () : 0;
         execute_task_with_overrides (run, child, refs, depth + 1, out);
         st->task_done[cidx] = 1;        /* clsUserSession.vb:1193 task.Completed = True */
         /* A completing override child fires its own EventControls/WalkControls,
@@ -1303,8 +1367,21 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
            but the generic "You open the gate." is not shown). */
 
         /* Stop only when this passing child produced output (and isn't
-           ContinueAlways); otherwise fall through to the next matching child. */
-        if (sink_len (run, out) > len0 && !child->continue_lower)
+           ContinueAlways); otherwise fall through to the next matching child.
+           A nested override that failed WITH a buffered message (ov_fails grew
+           during the recursion) counts as output too: FD's bContinue rule sees
+           the htblResponsesFail entry, so the sibling scan stops and a later
+           sibling's own restriction fail is never shown.  Temperamentum `get
+           mirror`: TakeObjectFromLocation's GetALargeM buffers "You can't get
+           at the mirror while the little girl is standing there." -- without
+           this stop the scan fell through to TakeObjectsFromOthers, appending
+           its "The large mirror is not on or inside another object!".  Gated
+           on !hp_passing like the direct-fail claim above. */
+        int subtree_fail_output = run->exec_scope != NULL
+                                  && run->exec_scope->ov_fails.size () > ovf0;
+        if ((sink_len (run, out) > len0
+             || (subtree_fail_output && !st->adv->hp_passing))
+            && !child->continue_lower)
           break;
       }
 
@@ -1399,10 +1476,14 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       for (auto *child : after)
         if (a5restr_pass (st, child->restrictions))
           {
+            size_t alen0 = after_buf.len;
+            run->task_raw_output = 0;
             run_task (run, child, 0, &after_buf);
             int ai = a5state_task_index (st, child->key);
             if (ai >= 0) st->task_done[ai] = 1;
             ev_on_task_completed (run, child->key, &after_buf);
+            if ((after_buf.len > alen0 || run->task_raw_output)
+                && !child->continue_lower) break;
           }
       /* A pinned view (the Look dance's two test renders differed -- a random
          pick moved) is emitted verbatim; otherwise render at the final state
@@ -1417,7 +1498,25 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
           view = render_look_string (run);
           st->marking_display = pm;
         }
-      sb_pspace (out); sb_puts (out, view.c_str ());
+      /* FD's response map holds ONE slot for the stock Look's raw template:
+         a second Execute Look in the same command (The Salvage's request
+         docking Looks at the docked pad, then on the bridge) re-renders that
+         slot rather than appending -- first slot's position, last text. */
+      exec_resp_scope *sc = run->exec_scope;
+      if (sc != NULL && sc->look_off >= 0 && sc->look_sink == out
+          && (size_t) sc->look_off + sc->look_len <= out->len)
+        {
+          sb_splice (out, (size_t) sc->look_off, sc->look_len, view.c_str ());
+          sc->look_len = view.size ();
+        }
+      else
+        {
+          sb_pspace (out);
+          if (sc != NULL)
+            { sc->look_sink = out; sc->look_off = (long) out->len;
+              sc->look_len = view.size (); }
+          sb_puts (out, view.c_str ());
+        }
       if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
       free (after_buf.p);
     }
@@ -1429,15 +1528,46 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       for (auto *child : after)
         if (a5restr_pass (st, child->restrictions))
           {
+            size_t alen0 = after_buf.len;
+            run->task_raw_output = 0;
             run_task (run, child, 0, &after_buf);
             int ai = a5state_task_index (st, child->key);
             if (ai >= 0) st->task_done[ai] = 1;
             ev_on_task_completed (run, child->key, &after_buf);
+            if ((after_buf.len > alen0 || run->task_raw_output)
+                && !child->continue_lower) break;
           }
       int self_ti = a5state_task_index (st, parent->key);
       if (self_ti >= 0) st->task_done[self_ti] = 1;
       const a5_xml_node_t *comp = a5xml_child (parent->node, "CompletionMessage");
-      if (comp != NULL) emit_completion (run, comp, out);
+      /* The stock aggregate Look on the direct path: FD's response map holds
+         ONE slot keyed on its raw template, rendered at final Display -- after
+         the LocationTrigger drain and event tick.  So (1) a command's SECOND
+         Execute Look contributes nothing (one view, first slot's position,
+         final state's text -- The Salvage's request docking Looks at the
+         docked pad, then again on the bridge), and (2) the view reflects
+         drain-time moves (McKinney relocating to the Airlock during `board
+         avadora`).  Emit a display-defer sentinel; a5run_flush_display_defers
+         renders the view into it at Display. */
+      exec_resp_scope *sc = run->exec_scope;
+      if (streq (parent->key, "Look") && parent->aggregate && sc != NULL
+          && run->display_defers != NULL)
+        {
+          if (!(sc->look_off >= 0 && sc->look_sink == out))
+            {
+              sb_pspace (out);
+              sc->look_sink = out;
+              sc->look_off = (long) out->len;
+              char mark[24];
+              snprintf (mark, sizeof mark, "\004%d\004",
+                        (int) run->display_defers->size ());
+              sb_puts (out, mark);
+              sc->look_len = strlen (mark);
+              run->display_defers->push_back ("\002");
+            }
+        }
+      else if (comp != NULL)
+        emit_completion (run, comp, out);
       if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
       free (after_buf.p);
     }
@@ -1445,10 +1575,45 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
     for (auto *child : after)
       if (a5restr_pass (st, child->restrictions))
         {
+          /* FD's bContinue rule (AttemptToExecuteSubTask): stop the child scan
+             once a passing child produces output, unless it is ContinueAlways.
+             Two After overrides of the same general+spec that both pass (Galen's
+             Quest `put yellow gem in ceiling receptacle` matches PutAYellow AND
+             PutYellowG1, both +2) must not both fire -- only the higher-priority
+             PutAYellow does, so the score tracks FD (40, not 42). */
+          size_t olen0 = sink_len (run, out);
+          run->task_raw_output = 0;
           run_task (run, child, 0, out);
           int ai = a5state_task_index (st, child->key);
           if (ai >= 0) st->task_done[ai] = 1;   /* task.Completed = True */
           ev_on_task_completed (run, child->key, out);   /* fire its controls too */
+          if ((sink_len (run, out) > olen0 || run->task_raw_output)
+              && !child->continue_lower) break;
+        }
+      else
+        {
+          /* An After child is evaluated AFTER the parent's actions ran, so its
+             restrictions see the post-action state, and a failure shows its
+             restriction message like any child fail (vb:1244; the parent's own
+             output has already been Displayed, so no cancel applies).  Head
+             Case's `open rear doors`: the AfterTextAndActions Daza8Task24
+             ("MustNot BeInState Open" -> "They are already open.") always
+             fails against the freshly-opened doors, and FD prints "You open
+             the van rear doors.  They are already open." */
+          const a5_xml_node_t *fm =
+            a5restr_fail_message (st, child->restrictions);
+          if (fm != NULL)
+            {
+              char *fmsg = a5text_describe (st, fm);
+              if (msg_has_output (fmsg))
+                {
+                  sb_pspace (out);
+                  sb_puts (out, fmsg);
+                  free (fmsg);
+                  break;               /* fail with output claims the scan */
+                }
+              free (fmsg);
+            }
         }
   free (pinned_view);
 
@@ -1615,9 +1780,21 @@ a5run_flush_display_defers (a5_run_t *run, sb_t *out)
   for (size_t k = 0; k < sink->size (); k++)
     {
       const std::string &body = (*sink)[k];
-      char *val = (!body.empty () && body[0] == '\001')
-                    ? a5text_process_noalr (run->st, body.c_str () + 1)
-                    : a5_eval_sexpr (body.c_str ());
+      char *val;
+      if (body == "\002")
+        {
+          /* Deferred stock-Look room view: render at Display state (real
+             output -- DisplayOnce segments retire). */
+          int pm = run->st->marking_display;
+          run->st->marking_display = 1;
+          std::string v = render_look_string (run);
+          run->st->marking_display = pm;
+          val = strdup (v.c_str ());
+        }
+      else
+        val = (!body.empty () && body[0] == '\001')
+                ? a5text_process_noalr (run->st, body.c_str () + 1)
+                : a5_eval_sexpr (body.c_str ());
       char mark[24];
       int ml = snprintf (mark, sizeof mark, "\004%d\004", (int) k);
       char *at = out->p != NULL ? strstr (out->p, mark) : NULL;
@@ -1732,6 +1909,35 @@ update_seen (a5_state_t *st)
   /* Catch-all for player moves that bypass the MoveCharacter action (event
      moves, walks): the location the player ends the turn in has been seen. */
   a5state_mark_loc_seen (st, ploc);
+}
+
+/* Mark the destination location, its objects and its visible characters as seen
+   the MOMENT the player arrives (clsCharacter.Move, clsCharacter.vb:524-533):
+   FD updates HasSeenObject/-Character/-Location at move time -- BEFORE the room
+   render and BEFORE the movement's AfterTextAndActions overrides run -- so a
+   same-turn `Must HaveBeenSeenByCharacter %Player%` restriction driven by such an
+   override already sees the arrival.  (update_seen alone only refreshes at turn
+   boundaries, which lags a discovery that a movement-override task tests in the
+   same turn -- e.g. Alien Diver's ResetRollC -> CheckIfPla1 setting Shipfound as
+   soon as the player walks onto the crashed ship.)  Player-centric, like the rest
+   of our obj_seen/char_seen sets; only marks on an AtLocation arrival, matching
+   FD's `ToWhere.ExistWhere = AtLocation` gate. */
+void
+mark_player_arrival_seen (a5_state_t *st, const char *loc)
+{
+  int i;
+  a5state_mark_loc_seen (st, loc);
+  if (loc == NULL)
+    return;
+  if (st->obj_seen != NULL)
+    for (i = 0; i < st->adv->n_objects; i++)
+      if (a5state_object_visible_at_location (st, i, loc, 0))
+        st->obj_seen[i] = 1;
+  if (st->char_seen != NULL)
+    for (i = 0; i < st->adv->n_characters; i++)
+      if (!streq (st->adv->characters[i].key, a5state_player_key (st))
+          && a5state_character_at_location (st, i, loc))
+        st->char_seen[i] = 1;
 }
 
 /* ContainsWord (clsUserSession.vb:3885): every space-separated word of `check`
@@ -1922,7 +2128,9 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
           if (fw != NULL)
             {
               const char *pc = st->ctx_char; st->ctx_char = prev->key;
+              int pia = st->intro_active; st->intro_active = 1;
               emit_conv (a5text_describe (st, fw->conversation), out);
+              st->intro_active = pia;
               st->ctx_char = pc;
             }
         }
@@ -1944,16 +2152,29 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
       if (intro != NULL)
         {
           const char *pc = st->ctx_char; st->ctx_char = conv_ch->key;
+          int pia = st->intro_active; st->intro_active = 1;
           emit_conv (a5text_describe (st, intro->conversation), out);
+          st->intro_active = pia;
           st->ctx_char = pc;
           a5state_set_conv_node (st, intro->key);
           if (intro->is_ask || intro->is_tell || intro->is_command)
             {
               a5state_set_conv_char (st, char_key);
               if (intro->actions != NULL)
-                for (const a5_xml_node_t *c = intro->actions->first_child;
-                     c != NULL; c = c->next)
-                  run_action (run, c->name, c->text, 0, out);
+                {
+                  /* FD runs topic actions through the ActionArrayList
+                     ExecuteActions overload, which passes task = Nothing to
+                     ExecuteSingleAction -- so they carry NO owning task even
+                     though a library Say/Ask task triggered the conversation
+                     (and a topic's Score changes never land; see the Score
+                     gate in the variable actions). */
+                  int saved_sti = run->cur_score_ti;
+                  run->cur_score_ti = -1;
+                  for (const a5_xml_node_t *c = intro->actions->first_child;
+                       c != NULL; c = c->next)
+                    run_action (run, c->name, c->text, 0, out);
+                  run->cur_score_ti = saved_sti;
+                }
               return;
             }
         }
@@ -1972,16 +2193,24 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
   if (topic != NULL)
     {
       const char *pc = st->ctx_char; st->ctx_char = conv_ch->key;
+      int pia = st->intro_active; st->intro_active = 1;
       emit_conv (a5text_describe (st, topic->conversation), out);
+      st->intro_active = pia;
       st->ctx_char = pc;
       if (topic_has_children (conv_ch, topic->key))
         a5state_set_conv_node (st, topic->key);
       else if (!topic->stay_in_node)
         a5state_set_conv_node (st, "");
       if (topic->actions != NULL)
-        for (const a5_xml_node_t *c = topic->actions->first_child;
-             c != NULL; c = c->next)
-          run_action (run, c->name, c->text, 0, out);
+        {
+          /* task = Nothing for topic actions, as above. */
+          int saved_sti = run->cur_score_ti;
+          run->cur_score_ti = -1;
+          for (const a5_xml_node_t *c = topic->actions->first_child;
+               c != NULL; c = c->next)
+            run_action (run, c->name, c->text, 0, out);
+          run->cur_score_ti = saved_sti;
+        }
     }
   else
     {
@@ -1995,7 +2224,11 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
             ? "ignores you." : "doesn't appear to understand you.";
           msg = std::string ("%CharacterName[") + conv_ch->key + "]% " + verb;
         }
-      emit_conv (a5text_process (st, msg.c_str ()), out);
+      {
+        int pia = st->intro_active; st->intro_active = 1;
+        emit_conv (a5text_process (st, msg.c_str ()), out);
+        st->intro_active = pia;
+      }
     }
 }
 
@@ -2053,7 +2286,9 @@ clear_conv_if_partner_gone (a5_run_t *run, sb_t *out)
         if (fw != NULL)
           {
             const char *pc = st->ctx_char; st->ctx_char = prev->key;
+            int pia = st->intro_active; st->intro_active = 1;
             emit_conv (a5text_describe (st, fw->conversation), out);
+            st->intro_active = pia;
             st->ctx_char = pc;
           }
       }
@@ -2173,7 +2408,30 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
           else if (to == "ToLocation")
             { if (streq (k2, "Hidden")) { L->where = A5_OWHERE_HIDDEN; L->key = NULL; }
               else { L->where = A5_OWHERE_LOCATION; L->key = k2; } }
-          else if (to == "ToLocationGroup") { L->where = A5_OWHERE_LOCGROUP; L->key = k2; }
+          else if (to == "ToLocationGroup")
+            {
+              /* FD MoveObject->ToLocationGroup (clsUserSession.vb:1560): a STATIC
+                 object occupies the WHOLE group; a DYNAMIC object lands in ONE
+                 random member room (group.RandomKey).  AlienDiver scatters the
+                 crashed ship / sea creatures this way -- Seacreatur4 (dynamic) to
+                 a random ocean room, then the ship ToSameLocationAs it -- so the
+                 ship "must be located" and exit-ship can map back to a single
+                 room.  Setting a dynamic object to the whole group left the ship
+                 nowhere-in-particular and broke exit-ship. */
+              if (L->is_static) { L->where = A5_OWHERE_LOCGROUP; L->key = k2; }
+              else
+                {
+                  int n = a5state_group_count (st, k2);
+                  if (n > 0)
+                    {
+                      const char *m = a5state_group_member_at
+                        (st, k2, a5rand_between (0, n - 1));
+                      const a5_location_t *ld = a5model_location (st->adv, m);
+                      L->where = A5_OWHERE_LOCATION; L->key = ld ? ld->key : m;
+                    }
+                  else { L->where = A5_OWHERE_HIDDEN; L->key = NULL; }
+                }
+            }
           else if (to == "ToSameLocationAs")
             {
               /* The target may be a character or an object (clsUserSession.vb:1570).
@@ -2204,12 +2462,27 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       /* "Object <obj> ToGroup <grp>" / "Object <obj> FromGroup <grp>"
          (clsAction AddObjectToGroup/RemoveObjectFromGroup): runtime membership,
          e.g. the flashlight joins LightSources while switched on so the darkness
-         override's "MustNot BeInSameLocationAsObject LightSources" sees it. */
-      if (tk.size () < 4 || tk[0] != "Object")
+         override's "MustNot BeInSameLocationAsObject LightSources" sees it.
+         The bulk "EverythingWithProperty <prop> ToGroup <grp>" form sweeps every
+         object carrying <prop> (The Salvage's startup seeds its Salvageable
+         group this way before fanning placement out over the members). */
+      if (tk.size () < 4)
+        return;
+      int add = streq (kind, "AddObjectToGroup");
+      if (tk[0] == "EverythingWithProperty")
+        {
+          for (int i = 0; i < st->adv->n_objects; i++)
+            if (a5_prop_find (st->adv->objects[i].props,
+                              st->adv->objects[i].n_props, tk[1].c_str ()))
+              a5state_set_object_in_group (st, tk[3].c_str (),
+                                           st->adv->objects[i].key, add);
+          return;
+        }
+      if (tk[0] != "Object")
         return;
       const char *obj = act_key (st, tk[1].c_str ());
       const char *grp = tk[3].c_str ();
-      a5state_set_object_in_group (st, grp, obj, streq (kind, "AddObjectToGroup"));
+      a5state_set_object_in_group (st, grp, obj, add);
       return;
     }
 
@@ -2309,7 +2582,8 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               const char *here = st->char_loc[ci];
               const char *dest;
               if (canon == NULL) canon = dir;   /* already canonical */
-              dest = here ? a5restr_exit_in_direction (st, here, canon, NULL) : NULL;
+              dest = here ? a5restr_exit_in_direction (st, k1, here, canon, NULL)
+                          : NULL;
               if (dest != NULL)
                 {
                   /* destination may be a location group -> first member */
@@ -2522,10 +2796,17 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
             }
           /* other MoveCharacterToEnum forms: best-effort no-op */
 
-          /* clsCharacter.Move marks the destination location seen for the
-             moving character; our set is player-centric (like obj_seen). */
+          /* clsCharacter.Move marks the destination location -- and, on an
+             AtLocation arrival, its objects and visible characters -- seen for
+             the moving character at move time; our set is player-centric (like
+             obj_seen).  See mark_player_arrival_seen. */
           if (streq (k1, a5state_player_key (st)))
-            a5state_mark_loc_seen (st, st->char_loc[ci]);
+            {
+              if (st->char_onobj[ci] == NULL)
+                mark_player_arrival_seen (st, st->char_loc[ci]);
+              else
+                a5state_mark_loc_seen (st, st->char_loc[ci]);
+            }
         }
       return;
     }
@@ -2533,24 +2814,49 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
   if (streq (kind, "SetVariable") || streq (kind, "IncVariable")
       || streq (kind, "DecVariable"))
     {
-      std::string name, value;
+      std::string name, value, idxstr;
       int vi;
       if (!split_assignment (body, name, value))
         return;
       /* FD's action parser splits the LHS at '[' (FileIO.vb: sKey1 =
-         sElements(0).Split("[")(0)); the bracketed part is an array index,
-         ignored for a Length-1 variable (clsUserSession.vb:2135).  Scarier has
-         no array variables, so drop the suffix -- AoK's push-doors task writes
-         "Variable330[Hidden] = ""1""" and the lookup must see Variable330. */
+         sElements(0).Split("[")(0), sKey2 = the bracketed index).  The index is
+         ignored for a Length-1 variable (clsUserSession.vb:2135, IntValue
+         defaults to 1) -- AoK's push-doors task writes
+         "Variable330[Hidden] = ""1""" and the lookup must see Variable330.
+         For an ArrayLength>1 variable it selects the element to assign
+         (WW2 Elevator Escape's cl_Buttonarra[cl_Variable1] = "1"). */
       size_t br = name.find ('[');
       if (br != std::string::npos)
         {
+          size_t cb = name.find (']', br);
+          idxstr = name.substr (br + 1, (cb == std::string::npos)
+                                            ? std::string::npos : cb - br - 1);
           name.erase (br);
           while (!name.empty () && isspace ((unsigned char) name.back ()))
             name.pop_back ();
         }
       vi = a5state_variable_index (st, name.c_str ());
       if (vi < 0) return;
+      /* Resolve the element index like clsUserSession.vb:2136-2144: a
+         "ReferencedNumber" prefix reads the parser's number reference, a
+         numeric literal is used as-is, anything else is a variable KEY whose
+         (element-1) value is the index. */
+      long elem_idx = 1;
+      if (st->adv->variables[vi].array_length > 1 && !idxstr.empty ())
+        {
+          if (idxstr.compare (0, 16, "ReferencedNumber") == 0)
+            {
+              const char *rn = a5state_lookup_ref (st, "ReferencedNumber");
+              elem_idx = rn != NULL ? strtol (rn, NULL, 10) : 0;
+            }
+          else if (idxstr.find_first_not_of ("0123456789 -") == std::string::npos)
+            elem_idx = strtol (idxstr.c_str (), NULL, 10);
+          else
+            {
+              int ivi = a5state_variable_index (st, idxstr.c_str ());
+              elem_idx = ivi >= 0 ? a5state_var_get_elem (st, ivi, 1) : 0;
+            }
+        }
       if (streq (st->adv->variables[vi].type, "Text") && streq (kind, "SetVariable"))
         {
           /* FD evaluates the RHS as an expression, so a bare string-literal value
@@ -2562,6 +2868,8 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
              Only when it is a lone literal (no interior same-quote), so a
              concatenation like "a" & "b" is left for a5text_process untouched. */
           std::string tv = value;
+          if (getenv ("A5_TRACE_SETVAR"))
+            fprintf (stderr, "[SETVAR] %s = <<%s>>\n", name.c_str (), tv.c_str ());
           /* A bare top-level function call ("UCASE(%text%)", Skybreak's
              Playername1 assignment) is a real expression, not literal text --
              route it through the full evaluator so %text% resolves and
@@ -2601,6 +2909,72 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                 return;
               }
           }
+          /* FD evaluates the RHS through SetToExpression, whose
+             ReplaceFunctions (bExpression=True) substitutes every TEXT
+             variable reference WITH surrounding quotes (Global.vb:1977).
+             When the RHS is itself a single quoted literal, that nested
+             quoting splits the literal and leaves a bare word token, so
+             GetToken/classification throws "Bad token", the exception is
+             swallowed (clsVariable.vb SetToExpression's blanket Try) and the
+             assignment NEVER LANDS: the variable silently keeps its old
+             value.  the virtual human sets Variable28 = "that dream %s/he%
+             had" this way and FD's %human_thinking% stays empty for the rest
+             of the game.  Numeric variables substitute as bare digits and
+             survive, so only a Text-variable reference kills the assignment.
+             split_assignment already peeled the literal's quotes off `value`,
+             so re-inspect the raw RHS for the quoted-literal shape. */
+          {
+            /* Which string does FD's SetToExpression actually see?  Files
+               newer than 5.0.32 (dFileVersion > 5.0000321, FileIO.vb:426)
+               store the expression wrapped in one EXTRA quote layer that FD
+               peels at load -- split_assignment already mirrored that peel,
+               so FD's view is `tv`.  Older files (the virtual human,
+               5.000017) are stored verbatim and FD does NOT peel, so FD's
+               view is the raw RHS, quotes and all. */
+            std::string rhs;
+            double fver = (st->adv->version != NULL) ? atof (st->adv->version) : 0;
+            if (fver > 5.0000321)
+              rhs = tv;
+            else
+              {
+                rhs = body;
+                size_t eqp = rhs.find ('=');
+                rhs = (eqp == std::string::npos) ? "" : rhs.substr (eqp + 1);
+                size_t b = rhs.find_first_not_of (" \t");
+                rhs = (b == std::string::npos) ? "" : rhs.substr (b);
+                while (!rhs.empty () && isspace ((unsigned char) rhs.back ()))
+                  rhs.pop_back ();
+              }
+            if (rhs.size () >= 2 && (rhs[0] == '"' || rhs[0] == '\'')
+                && rhs[rhs.size () - 1] == rhs[0]
+                && rhs.find (rhs[0], 1) == rhs.size () - 1)
+              {
+                size_t sp = 1;
+                while ((sp = rhs.find ('%', sp)) != std::string::npos
+                       && sp + 1 < rhs.size () - 1)
+                  {
+                    size_t ep = rhs.find ('%', sp + 1);
+                    if (ep == std::string::npos || ep >= rhs.size () - 1)
+                      break;
+                    std::string ref = rhs.substr (sp + 1, ep - sp - 1);
+                    int rvi;
+                    for (rvi = 0; rvi < st->adv->n_variables; rvi++)
+                      if (st->adv->variables[rvi].name != NULL
+                          && strcasecmp (st->adv->variables[rvi].name,
+                                         ref.c_str ()) == 0)
+                        break;                 /* FD matches by NAME, any case */
+                    if (rvi < st->adv->n_variables
+                        && streq (st->adv->variables[rvi].type, "Text"))
+                      {
+                        if (getenv ("A5_TRACE_SETVAR"))
+                          fprintf (stderr, "[SETVAR-DROP] %s = <<%s>>\n",
+                                   name.c_str (), rhs.c_str ());
+                        return;                /* FD: bad expression, no-op */
+                      }
+                    sp = ep + 1;
+                  }
+              }
+          }
           if (tv.size () >= 2 && (tv[0] == '"' || tv[0] == '\'')
               && tv[tv.size () - 1] == tv[0]
               && tv.find (tv[0], 1) == tv.size () - 1)
@@ -2622,23 +2996,49 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
              repeatable scoring task, or one System scoring task Execute'd by two
              distinct non-repeatable tasks (FBA's cl_MakeLeash, reached via both
              `make a leash` cl_TieRopeToD1 and `tie rope to dog` cl_TieDogWith),
-             re-awards its points.  Non-Score variables are never gated. */
+             re-awards its points.  Non-Score variables are never gated.
+
+             The guard's other half: FD only touches Score at all when a task
+             is executing (`var.Key <> "Score" OrElse task IsNot Nothing`) --
+             actions run from a conversation TOPIC or an event pass task =
+             Nothing, so their Score changes silently never land (Thy
+             Balconyman's intro/lips/haircut topics all IncVariable Score). */
           int is_score = streq (st->adv->variables[vi].key, "Score");
-          if (is_score && run->cur_score_ti >= 0)
+          if (is_score && run->cur_score_ti < 0)
+            return;                           /* no owning task -- Score frozen */
+          if (is_score)
             {
               if (st->task_scored[run->cur_score_ti])
                 return;                       /* already scored -- suppress */
               st->task_scored[run->cur_score_ti] = 1;
             }
           long delta = eval_num_value (st, value.c_str ());
+          /* A5_DEBUG_SCORE=<varkey> also traces a game's CUSTOM score
+             variable (e.g. Murder Most Foul counts points in "Scor1"),
+             without the once-only Score gate (debug print only).  */
+          {
+            const char *dbg = getenv ("A5_DEBUG_SCORE");
+            if (dbg && !is_score && streq (st->adv->variables[vi].key, dbg))
+              fprintf (stderr, "[score] turn=%d task=%s %s %s %ld (now %ld)\n",
+                       st->turns,
+                       run->cur_score_ti >= 0 ? st->adv->tasks[run->cur_score_ti].key : "?",
+                       st->adv->variables[vi].key,
+                       kind, delta, st->var_num[vi] + (streq (kind, "IncVariable") ? delta : 0));
+          }
           if (is_score && getenv ("A5_DEBUG_SCORE"))
             fprintf (stderr, "[score] turn=%d task=%s %s %ld (now %ld)\n",
                      st->turns,
                      run->cur_score_ti >= 0 ? st->adv->tasks[run->cur_score_ti].key : "?",
                      kind, delta, st->var_num[vi] + (streq (kind, "IncVariable") ? delta : 0));
-          if (streq (kind, "SetVariable"))      st->var_num[vi] = delta;
-          else if (streq (kind, "IncVariable")) st->var_num[vi] += delta;
-          else                                  st->var_num[vi] -= delta;
+          /* FD stores through SetToExpression(sExpr, iIndex): Inc/Dec build
+             "%name% +/- value", and %name% on an array variable reads element
+             1 (GetToken's bare var- token), so the result lands at elem_idx
+             but the BASE is always element 1 (== the var_num mirror). */
+          long newval;
+          if (streq (kind, "SetVariable"))      newval = delta;
+          else if (streq (kind, "IncVariable")) newval = st->var_num[vi] + delta;
+          else                                  newval = st->var_num[vi] - delta;
+          a5state_var_set_elem (st, vi, elem_idx, newval);
         }
       return;
     }
@@ -2673,13 +3073,88 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                        && (streq (pt, "Integer") || streq (pt, "Text")
                            || streq (pt, "StateList") || streq (pt, "ValueList"));
       int has_prop = a5state_entity_prop (st, k1, tk[1].c_str ()) != NULL;
+      /* FD's SetProperties add-branch is asymmetric (clsUserSession.vb): an ABSENT
+         property is cloned-and-added freely for OBJECTS (vb:1989), but for a
+         CHARACTER only a SelectionOnly-<Selected> (vb:2044) or CharacterProperName
+         (vb:2036) is added -- a value-typed property (Integer/Text/StateList/
+         ValueList) set to a plain value on an absent slot is DebugPrinted and
+         ignored (vb:2056).  Galen's Quest shrinks the player with `SetProperty
+         %Player% MaxBulk 90`, but the player has no MaxBulk by default, so in FD
+         the property is never added and carry stays unlimited -- which is why the
+         729-bulk iron key remains takeable while shrunk inside the miniature
+         castle (where `cast grow on me` is blocked).  Mirror the no-op. */
+      if (!has_prop && value_type
+          && a5state_character_index (st, k1) >= 0
+          && a5state_object_index (st, k1) < 0
+          && strcmp (tk[1].c_str (), "CharacterProperName") != 0)
+        return;
       if ((value_type && has_prop) || val.find ('%') != std::string::npos)
         {
           char *ev = a5text_eval_expression (st, val.c_str ());
           if (ev != NULL && ev[0] != '\0') val = ev;
           free (ev);
         }
+      /* A key-typed property (ObjectKey/CharacterKey/LocationKey) set to a bare
+         reference sentinel -- "ReferencedObject", "ReferencedCharacter1", ... or
+         "Player" -- must be resolved to the currently-bound entity KEY, the way
+         FD stores the resolved key (clsUserSession.SetProperties key branch) and
+         not the sentinel word.  LMK's `equip %object%` runs `SetProperty %Player%
+         EquippedWe ReferencedObject`; left raw, EquippedWe holds the literal
+         "ReferencedObject" and never equals the weapon key the combat
+         restrictions test (Knife / s_Sword / Nothing), so NO hit-or-miss subtask
+         fires and `kill squid` falls through to NotUnderstood.  A literal key or
+         "Nothing" is not a per-turn ref binding, so lookup returns NULL and the
+         value is kept verbatim. */
+      {
+        const char *kt = pd ? pd->type : NULL;
+        int is_key_prop = kt != NULL
+                          && (streq (kt, "ObjectKey") || streq (kt, "CharacterKey")
+                              || streq (kt, "LocationKey"));
+        if (is_key_prop && val.find ('%') == std::string::npos
+            && val != "Nothing")
+          {
+            const char *rk = (val == "Player")
+                             ? a5state_player_key (st)
+                             : a5state_lookup_ref (st, val.c_str ());
+            if (rk != NULL && rk[0] != '\0') val = rk;
+          }
+      }
       a5state_set_prop (st, k1, tk[1].c_str (), val.c_str ());
+      /* FD derives an object's location live from its DynamicLocation property, so
+         `SetProperty <obj> DynamicLocation Hidden` (Galen's Quest hides the meteor
+         once the fountain has swallowed it, via GiveMeteor) immediately relocates
+         it.  Scarier caches location in st->obj[], so mirror MoveObject's mapping
+         here or the object lingers stale (a phantom meteorite in the player's
+         hands).  Only DynamicLocation drives relocation; the keyed variants read
+         their companion key property (runtime override, else the static value). */
+      if (tk[1] == "DynamicLocation")
+        {
+          int oi = a5state_object_index (st, k1);
+          if (oi >= 0)
+            {
+              a5_objloc_t *L = &st->obj[oi];
+              const char *w = val.c_str (), *kp = NULL;
+              if (streq (w, "Hidden"))           { L->where = A5_OWHERE_HIDDEN;      L->key = NULL; }
+              else if (streq (w, "Held By Character")) { L->where = A5_OWHERE_HELD_BY;   kp = "HeldByWho"; }
+              else if (streq (w, "Worn By Character")) { L->where = A5_OWHERE_WORN_BY;   kp = "WornByWho"; }
+              else if (streq (w, "In Location"))       { L->where = A5_OWHERE_LOCATION;  kp = "InLocation"; }
+              else if (streq (w, "Inside Object"))     { L->where = A5_OWHERE_IN_OBJECT; kp = "InsideWhat"; }
+              else if (streq (w, "On Object"))         { L->where = A5_OWHERE_ON_OBJECT; kp = "OnWhat"; }
+              if (kp != NULL)
+                {
+                  const char *kv = a5state_entity_prop (st, k1, kp);
+                  if (kv == NULL)
+                    {
+                      const a5_object_t *mo = a5model_object (st->adv, k1);
+                      for (int pi = 0; mo != NULL && pi < mo->n_props; pi++)
+                        if (streq (mo->props[pi].key, kp))
+                          { kv = mo->props[pi].value; break; }
+                    }
+                  if (streq (kv, "%Player%")) kv = st->player_key;
+                  L->key = kv;
+                }
+            }
+        }
       /* clsCharacter.ProperName tracks the CharacterProperName property
          (clsUserSession.vb:2080), so .Name/.ProperName render the new value. */
       if (tk[1] == "CharacterPosition")
@@ -2734,6 +3209,28 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
   if (streq (kind, "SetTasks"))
     {
       if (tk.empty ()) return;
+      /* "FOR Loop = a TO b : Execute <key> : NEXT Loop" (FileIO.vb:365-374:
+         IntValue = element 3, sPropertyValue = element 5, the Execute starts
+         at element 7).  clsUserSession's SetTasks case runs the plain Execute
+         b-a+1 times; the loop counter itself is not visible to the executed
+         task (only SetVariable-in-a-FOR substitutes %Loop%). */
+      if (tk[0] == "FOR" && tk.size () >= 9 && tk[4] == "TO" && tk[6] == ":")
+        {
+          long from = strtol (tk[3].c_str (), NULL, 10);
+          long to   = strtol (tk[5].c_str (), NULL, 10);
+          std::string inner;
+          for (size_t i = 7; i < tk.size (); i++)
+            {
+              if (tk[i] == ":")             /* ": NEXT Loop" tail */
+                break;
+              if (!inner.empty ()) inner += " ";
+              inner += tk[i];
+            }
+          if (!inner.empty () && depth < 16)
+            for (long l = from; l <= to && !st->game_over; l++)
+              run_action (run, "SetTasks", inner.c_str (), depth + 1, out);
+          return;
+        }
       if (tk[0] == "Execute" && tk.size () >= 2)
         {
           std::string key = tk[1];
@@ -2804,54 +3301,87 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
               int tti = a5state_task_index (st, key.c_str ());
               bool ran_any = false;
 
+              /* The Completed/Repeatable gate is FD's AttemptToExecuteTask entry
+                 test, evaluated ONCE per Execute -- so a non-repeatable task run
+                 over a PLURAL group reference still fires its actions for every
+                 member (FD's ExecuteSubTasks iterates the items inside one task
+                 execution; Completed flips only afterwards).  Snapshot the flag
+                 at entry and gate on that, or a task that marks itself done on
+                 member 0 (execute_task_with_overrides) would skip members 1..n --
+                 AlienDiver's ShowCardsP3 (Repeatable=0, `Unset` then Execute'd
+                 over the crafted cards to stamp each a unique CardId) then stamped
+                 only the first card, so `pc`'s CardId==%number% matched every held
+                 card and over-awarded colored fragments. */
+              bool tt_done_at_entry = (tti >= 0 && st->task_done[tti]);
+
               /* One execution of the target task with the references bound from
                  the current `args` (the group member substituted into args[giter]
                  on each pass).  Returns via early-out on a Completed/Repeatable or
                  restriction gate -- FD's AttemptToExecuteSubTask per item. */
               auto run_one = [&] (void) {
                   if (have_args)
-                    for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
-                      {
-                        /* FD's SetTasks handler (clsUserSession.vb:2188) passes a
-                           parameter that names the target task's own reference
-                           (`sParam = sRef`) STRAIGHT THROUGH -- the live
-                           clsNewReference object, items and sCommandReference
-                           intact.  So `Execute cl_TakeObject (%objects%)` keeps
-                           each item's original typed text ("all" under a bare
-                           `get all`), which is what lets the executed task's
-                           `MustNot BeExactText All` restriction fail silently per
-                           item (ThingsThatGoBumpInTheNight's take chain).  Mirror
-                           that by leaving the existing binding (key AND $text)
-                           untouched.  A computed argument (%ParentOf[..]%, a
-                           literal key, or an expanded group member) instead builds
-                           FD's UserDefinedRef, whose fresh items carry NO
-                           sCommandReference -- bind an empty typed text. */
-                        std::string an = args[i];
-                        { size_t b1 = an.find_first_not_of (" \t");
-                          size_t e1 = an.find_last_not_of (" \t");
-                          an = (b1 == std::string::npos)
-                                 ? "" : an.substr (b1, e1 - b1 + 1); }
-                        if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
-                          {
-                            std::string base = an.substr (1, an.size () - 2);
-                            if (base == "object")    base = "object1";
-                            if (base == "character") base = "character1";
-                            if (base == "direction") base = "direction1";
-                            if (base == "number")    base = "number1";
-                            if (base == "text")      base = "text1";
-                            if (base == rnames[i])
-                              continue;                 /* pass the ref through */
-                          }
-                        char *val = eval_arg_to_key (st, args[i]);
-                        bind_reference (st, rnames[i].c_str (), val, "");
-                        free (val);
-                      }
+                    {
+                      /* FD (clsUserSession.vb:2169-2298) builds a FRESH reference
+                         array (ReferencesNew) for the sub-task and only swaps it in
+                         (`NewReferences = ReferencesNew`) AFTER every parameter has
+                         been resolved -- so each computed parameter's OO chain is
+                         evaluated against the PARENT's live references, never
+                         against an earlier parameter's freshly-bound value.  Mirror
+                         that with a two-phase pass: resolve every non-passthrough
+                         argument against the current (parent) state FIRST, then
+                         apply all the binds.  A single-pass bind would let e.g.
+                         AlienDiver's `Execute CraftACard8
+                         (%Player%.Location.Objects.ObjectIsAT|%object%)` read the
+                         cube that arg0 just stamped onto ReferencedObject1 when
+                         resolving arg1's `%object%`, mis-binding ReferencedObject2
+                         to the cube instead of the parent's crafted card. */
+                      std::vector<std::pair<size_t, std::string> > deferred;
+                      for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
+                        {
+                          /* FD's SetTasks handler (clsUserSession.vb:2188) passes a
+                             parameter that names the target task's own reference
+                             (`sParam = sRef`) STRAIGHT THROUGH -- the live
+                             clsNewReference object, items and sCommandReference
+                             intact.  So `Execute cl_TakeObject (%objects%)` keeps
+                             each item's original typed text ("all" under a bare
+                             `get all`), which is what lets the executed task's
+                             `MustNot BeExactText All` restriction fail silently per
+                             item (ThingsThatGoBumpInTheNight's take chain).  Mirror
+                             that by leaving the existing binding (key AND $text)
+                             untouched.  A computed argument (%ParentOf[..]%, a
+                             literal key, or an expanded group member) instead builds
+                             FD's UserDefinedRef, whose fresh items carry NO
+                             sCommandReference -- bind an empty typed text. */
+                          std::string an = args[i];
+                          { size_t b1 = an.find_first_not_of (" \t");
+                            size_t e1 = an.find_last_not_of (" \t");
+                            an = (b1 == std::string::npos)
+                                   ? "" : an.substr (b1, e1 - b1 + 1); }
+                          if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
+                            {
+                              std::string base = an.substr (1, an.size () - 2);
+                              if (base == "object")    base = "object1";
+                              if (base == "character") base = "character1";
+                              if (base == "direction") base = "direction1";
+                              if (base == "number")    base = "number1";
+                              if (base == "text")      base = "text1";
+                              if (base == rnames[i])
+                                continue;               /* pass the ref through */
+                            }
+                          char *val = eval_arg_to_key (st, args[i]);
+                          deferred.push_back (std::make_pair (i, std::string (val)));
+                          free (val);
+                        }
+                      for (size_t d = 0; d < deferred.size (); d++)
+                        bind_reference (st, rnames[deferred[d].first].c_str (),
+                                        deferred[d].second.c_str (), "");
+                    }
                   /* AttemptToExecuteTask: gate on Completed/Repeatable and the
                      task's own restrictions (with any refs just bound above) --
                      the stock list-runner tasks (e.g. the bomb cascade) execute a
                      list of candidate tasks and rely on each one's restrictions to
                      pick the one that fires. */
-                  if (tti >= 0 && st->task_done[tti] && !tt->repeatable)
+                  if (tt_done_at_entry && !tt->repeatable)
                     return;
                   if (!a5restr_pass (st, tt->restrictions))
                     {
@@ -2904,6 +3434,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                   ran_any = true;
               };
 
+              /* FD wraps each SetTasks Execute in `oExistingRefs = NewReferences`
+                 ... `NewReferences = oExistingRefs` (clsUserSession.vb:2172/2310),
+                 so the sub-task's reference bindings are LOCAL to that one Execute
+                 and the parent's references are restored afterwards.  AlienDiver's
+                 craft chain relies on this: CraftACard2 runs `Execute CraftACard5`,
+                 `Execute CraftACard8`, ... in sequence, each `(...ObjectIsAT |
+                 %object%)`.  The first Execute binds object1 (and thus the bare
+                 ReferencedObject alias) to the cube, and without a restore the NEXT
+                 sibling's `%object%` would read that cube instead of the parent's
+                 crafted card -- mis-imprinting CraftedCar onto the cube and losing
+                 the play-match bonus.  Snapshot the parent bindings here, restore
+                 them before each group member and once after the whole Execute. */
+              ref_snap parent_refs;
+              ref_snap_take (st, &parent_refs);
               if (giter >= 0)
                 {
                   /* Iterate the executed task once per resolved group member,
@@ -2915,11 +3459,15 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                      member of a sub-task regardless -- game-over is only checked
                      back in the main loop.  So break only on a game-over NEWLY
                      triggered by a member's own execution, not one inherited
-                     from before the loop, or the tally stops after member 0. */
+                     from before the loop, or the tally stops after member 0.
+                     Restore the parent bindings before each member so every
+                     member's non-iterated args resolve against the parent (FD
+                     fixes them once in ReferencesNew and reuses across items). */
                   bool was_over = st->game_over;
                   std::string saved = args[giter];
                   for (const std::string &mk : gmembers)
                     {
+                      ref_snap_restore (st, &parent_refs);
                       args[giter] = mk;
                       run_one ();
                       if (st->game_over && !was_over)
@@ -2929,6 +3477,7 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                 }
               else
                 run_one ();
+              ref_snap_restore (st, &parent_refs);
 
               /* Mark done + fire completion controls once per AttemptToExecuteTask
                  (FD flips task.Completed once), and only when the task actually
@@ -3130,8 +3679,11 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
       return;
     }
   int pre_alr_ink = 0;
-  char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink);
+  int raw_nonblank = 0;
+  char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink, &raw_nonblank);
   run->st->marking_display = prev_mark;
+  if (raw_nonblank)
+    run->task_raw_output = 1;
   emit_message_body (run, m, pre_alr_ink, out);
 }
 
@@ -3383,10 +3935,28 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         }
       else if (run->resp != NULL)
         {
-          resp_entry e;
-          e.is_pass = true; e.is_look = true;
-          e.item = run->resp->cur_item;
-          resp_insert (run->resp, e, resp_pos);
+          if (!t->aggregate)
+            {
+              /* A NON-aggregate stock Look (this game's library version --
+                 e.g. Murder Most Foul) renders its response text at task
+                 time in FD (AddResponse keys the rendered text), so the view
+                 must NOT be deferred to the flush: a LocationTrigger System
+                 task that fires after the move (the corridor's +2 servant
+                 scene) would otherwise leak its score into the view's SCORE
+                 header, which FD renders pre-award. */
+              pm = run->st->marking_display;
+              run->st->marking_display = 1;
+              std::string v = render_look_string (run);
+              run->st->marking_display = pm;
+              resp_add_text (run, v.c_str (), true, resp_pos);
+            }
+          else
+            {
+              resp_entry e;
+              e.is_pass = true; e.is_look = true;
+              e.item = run->resp->cur_item;
+              resp_insert (run->resp, e, resp_pos);
+            }
         }
       else if (!run->defer_look)
         {
@@ -3400,10 +3970,47 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           run->st->marking_display = pm;
           if (run->exec_scope == NULL
               || run->exec_scope->pass_seen.insert (v).second)
-            { sb_pspace (out); sb_puts (out, v.c_str ()); }
+            {
+              exec_resp_scope *sc = run->exec_scope;
+              if (sc != NULL && t->aggregate && sc->look_off >= 0
+                  && sc->look_sink == out
+                  && (size_t) sc->look_off + sc->look_len <= out->len)
+                {
+                  /* Second aggregate view this command, DIFFERENT text (the
+                     player moved between the Executes): FD's response map has
+                     ONE slot for the Look template, so the later render
+                     replaces the earlier view in place (first slot's position,
+                     last text). */
+                  sb_splice (out, (size_t) sc->look_off, sc->look_len,
+                             v.c_str ());
+                  sc->look_len = v.size ();
+                }
+              else
+                {
+                  sb_pspace (out);
+                  if (sc != NULL && t->aggregate)
+                    { sc->look_sink = out; sc->look_off = (long) out->len; }
+                  sb_puts (out, v.c_str ());
+                  if (sc != NULL && t->aggregate)
+                    sc->look_len = v.size ();
+                }
+            }
         }
-      /* defer_look + unchanged: the pending slot claimed above is rendered at
-         the enabling frame's final state, exactly as before. */
+      else if (!t->aggregate && claimed_pending)
+        {
+          /* Direct-path deferral (the outer task's Execute Look splice) of a
+             NON-aggregate Look: pin the view rendered NOW, at Execute Look
+             time, so later actions/system tasks can't retro-date the SCORE
+             header (FD renders the non-aggregate response eagerly). */
+          pm = run->st->marking_display;
+          run->st->marking_display = 1;
+          std::string v = render_look_string (run);
+          run->st->marking_display = pm;
+          free (run->look_pinned);
+          run->look_pinned = strdup (v.c_str ());
+        }
+      /* defer_look + unchanged (aggregate): the pending slot claimed above is
+         rendered at the enabling frame's final state, exactly as before. */
 
       if (abuf.len > 0) { sb_pspace (out); sb_puts (out, abuf.p); }
       free (abuf.p);

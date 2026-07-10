@@ -1,0 +1,689 @@
+Just a Fairy Tale
+
+The Bedroom.
+You wake up, very confused, and stumble out of bed. You slowly look around, mentally trying to shake the cobwebs of sleep from your head. At first glance everything is as it has always been and you take a deep breath of relief. However, as the cobwebs slowly lift, something strikes you; this is not the same room you went to bed in last night.
+
+First of all, your bedroom used to be bigger and it does not have a window overlooking a meadow. Secondly, the mattress on your bed is usually much more comfortable, not to mention a lot less lumpy, than the one on which you were lying. Also, your cover should be a quilt and not a heavy suffocating duvet. Instead of your night stand there is a wooden chair next to your bed and to the east, blocking your view, a blanket is draped over a piece of rope tied to a hook at each end of the room.
+
+> look under bed
+Crumpled up all the way under your bed you find an old backpack. After some moving around you manage to get hold of it.
+
+> get rope
+As you begin to untie the rope, you feel an electrical sensation running through your fingers. Then, with the rope untied, the hooks disappears into the wall, leaving not a trace. The blanket falls to the floor, revealing, what appears to be a living room to the east.
+To your astonishment the rope magically shortens until it is nothing more than a short piece of string.
+
+> get pants
+(from the wooden chair)
+They are not exactly the jeans you are used to wearing. Reluctantly you reach out and pick them up. The material feels coarse to the touch but that's all there is to wear.
+
+> wear pants
+Ok, you put on the homespun pants.
+
+> e
+You walk east, into the adjacent room.
+
+The Living room.
+As you step into the room, you find that the cottage actually only consists of a large room and that the bedroom you came from was just separated from the rest by a rope and a blanket.
+The living room is sparsely furnished and is dominated by a long table located in the middle surrounded by several chairs. A single painting decorates the otherwise bare walls. Along one wall, close to a window, is an upright writing desk and at the opposite end of the room, to the east, lies what you assume is the kitchen with a small fireplace and a chopping block. A door leading out is located right next to the window. To the west is the bedroom where you woke up.
+Although it is sparse, the cottage is quite cozy. The walls are of limed timber with heavy oak beams resting on top of them supporting the thatched roof which is freely visible.
+
+> x painting
+You walk closer to the wall and study the painting.
+It shows a great hall crowded with humans, elves, dwarfs and fairies. They are all participating in some kind of ceremony.
+The wizard from your dream is standing on a platform and before him a beautiful elf is kneeling in reverence holding out a velvet pillow with a golden compass.
+
+> get compass
+Reluctantly you move your hand towards the painting.
+A pleasant warmth spread through your hand as it gets closer, and the painting begins to shimmer slightly. To your astonishment you are able to insert your hand into the painting.
+As you do so the figures turn towards you with approving smiles and some of them even bow their heads in reverence to you.
+When you close your hand around the compass a sudden dizziness overwhelms you, and to your surprise the voice of the wizard is suddenly heard inside your head.
+"As long as the compass is in your possession, I will try to help and guide you on your quest. This will be the link between us."
+You slowly pull your hand from the painting which then returns to normal.
+
+> e
+You move east.
+
+The Kitchen.
+The kitchen area is just an extension of the living room. There’s a small cooking fireplace with a wooden chopping block nearby, and to the west is the living room and bedroom enclosure where you woke up earlier. Close to the window is a small table with a single chair and a cabinet is positioned against the wall nearby.
+
+> open cabinet
+You open the wooden cabinet.  Inside the wooden cabinet is some old cheese, a leather wineskin and some clay plates.
+
+> get cheese
+(from the wooden cabinet)
+You take the smelly cheese.
+
+> get wineskin
+(from the wooden cabinet)
+Ok, you take the leather wineskin from the wooden cabinet.
+
+> put cheese in backpack
+You put the old cheese inside the old backpack.
+
+> w
+You move west.
+
+The Living room.
+The room is sparsely furnished and is dominated by a long table located in the middle surrounded by several chairs. A single painting decorates the otherwise bare walls. Along one of the walls, close to a window, is an upright writing desk and at the opposite end of the room, to the east, lies what you assume is the kitchen with a small fireplace and a chopping block.
+A door leading out is located next to the window. To the west is the bedroom where you woke up.
+Although it is sparse, the cottage is quite cozy. The walls are of limed timber with heavy oak beams resting on top of them supporting the thatched roof which is freely visible.
+
+> out
+You step out into the bright sunshine, closing the door behind you. You are ready to begin your adventure.
+
+The Yard.
+Outside the cottage is a cobblestone yard. It is surrounded by a wooden fence with a rickety garden gate leading out to a dirt path leading north through a meadow towards the Mirkwood in the distance. In the corner there is a small vegetable garden which, by the looks of it, hasn't been taken care of for quite some time. The door leading into the cottage is right behind you.
+
+> n
+You squeeze through the opening and are soon on the path leading through the meadow.
+
+The Meadow
+You are walking down a dirt path running through a lush green meadow. Ahead of you, to the north and bordering the meadow to the east lies the outskirts of Mirkwood. To the south you can see the cobblestone paved yard and the cottage.
+
+> n
+You walk north in amongst the trees.
+No sooner have you entered the forest than it seems like it closes behind you. A chilly grey mist rises like a ghost from the forest floor and quickly engulfs you.
+
+Mirkwood.
+The forest is very dense and dark here and the swirling mist makes you stumble as you try to make your way through the undergrowth. The path you're walking on leads west and south. The breeze carries the sound of voices from the east but the forest is impenetrable in that direction.
+
+> w
+You move west.
+
+Mirkwood.
+The tree canopy above your head allows only a minimum of sunlight to filter through to the forest floor leaving your surroundings in a dusky atmosphere. The trees, no more than dark shadows in the swirling mist, seem to be alive reaching out their gnarled branches towards you as if they want to grab you and hold you here forever. The forest continues to the east and to the west. To the north, between the trees, you can see a glimpse of a river.
+
+> w
+You move west.
+
+Mirkwood.
+You have entered a small peaceful clearing in the otherwise dense forest.
+The only sound is the river rushing by and the water that once in a while washes up on the river bank. Further to the west, through the trees you can vaguely see the meadow, and behind you, to the east, is the path you just came from. A fisherman is sitting on a turf of grass looking over the river. An empty wicker basket lies by his side. Between his feet a homemade fishing rod is embedded in the ground. He is staring aimlessly at the float that bobs up and down on the water.
+
+> give cheese to fisherman
+Seeing that there is no bait on the hook you get an idea.
+ ”Here, have this cheese.” you say, happy to have found a use for it, and hand him the smelly piece of cheese.
+He looks at it suspiciously but finally takes it, breaks off a piece and attaches it to the hook. A few moments later the float disappears under the surface and the fisherman pulls in his first catch.
+
+From then on the fish don't stop biting. He pulls in fish after fish and very soon his wicker basket is full of sleek silver shapes.
+ “Thank you so very much!” he exclaims.
+ “Now I can feed my family. You are a true hero.”
+He reach into his basket and pulls out a slingshot.
+”While I was waiting for the fish to bite I passed the time making this slingshot. I’m sure you will, at some point, find good use for it.”
+He hands you the slingshot, gets up and place the wicker basket over his shoulder. With a final good bye and thank you, he walks into the forest and disappears from view.
+
+> x river bank
+The river is running very fast, and although you are an excellent swimmer you quickly realize that it will be impossible to just swim across.
+The sandy bank slopes gently towards the waters edge where the stream has washed up some pebbles and playfully toys with them pulling them out into the stream only to wash them back up again a moment later.
+
+> get pebbles
+You carefully search through the pebbles on the bank and pick out four good ones.
+
+> e
+You move east.
+
+Mirkwood.
+The tree canopy above your head allows only a minimum of sunlight to filter through to the forest floor leaving your surroundings in a dusky atmosphere. The trees, no more than dark shadows in the swirling mist, seem to be alive reaching out their gnarled branches towards you as if they want to grab you and hold you here forever. The forest continues to the east and to the west. To the north, between the trees, you can see a glimpse of a river.
+
+> e
+You move east.
+
+Mirkwood.
+The forest is very dense and dark here and the swirling mist makes you stumble as you try to make your way through the undergrowth. The path you're walking on leads west and south. The breeze carries the sound of voices from the east but the forest is impenetrable in that direction.
+
+> s
+You move south.
+
+The Meadow
+You are walking down a dirt path running through a lush green meadow. Ahead of you, to the north and bordering the meadow to the east lies the outskirts of Mirkwood. To the south you can see the cobblestone paved yard and the cottage.
+
+> e
+You walk east in amongst the trees.
+
+No sooner have you entered the forest than it is as if it closes behind you. A chilly grey mist rises like a ghost from the forest floor and quickly engulfs you.
+
+Mirkwood.
+Even here at the eastern outskirts of Mirkwood the sunlight is having difficulty penetrating the canopies of the tall trees. To the west you can see the sunlit meadow and to the north, further in amongst the trees, is a small clearing. The forest stretches on to the east.
+Guttural voices are carried towards you from unseen creatures.
+
+> listen
+You have no idea what they’re saying. As far as you can tell the voices are nothing but a lot of grunts and growling.
+Then the voice in your head speaks:
+"It is worse than I thought. These are no ordinary mountain trolls. They are Polish forest trolls, known as the most dangerous and gruesome trolls ever!"
+
+> x cave
+The cave looks big enough to hold all the trolls and with room to spare. At the top of the entrance some bees have built a nest and are busy flying to and from it.
+
+> shoot nest
+You carefully aim at the bees nest hanging at the top of the entrance to the cave. “You’ve got it right!” The voice inside your head whispers. Holding your breath you let go. The pebble whistles from the slingshot, smashing into the nest just as one of the trolls is about to stick his finger in for another taste.
+
+The effect is devastating.
+Within seconds the air is full of angrily buzzing bees. It takes them only seconds to spot the trolls and to set upon them in a furious attack. The trolls are soon engulfed in dark clouds of furious bees and soon the forest echoes from their painful screams as the bees attack again and again.
+Trying to get away the leading troll frantically pushes his way past his friends, shoving them from the protection of the boulders and into the sunlight. “Pop, pop, pop”, there is the sound of popcorn and the three trolls lie on the path, turned into wood by the sunlight.
+The remaining troll, blinded by the bees, is soon to follow. He stumbles over a rock and tumbles into the sunlight. Another loud “Pop” and he falls next to his friends on the path.
+
+> n
+With the trolls out of the way you walk north and enter the clearing.
+
+A Forest Clearing.
+The clearing is bigger than you first anticipated. The opening of the semicircle formed by the tall boulders is facing the river, and to the west is the dark opening leading into the cave. A narrow path leads south back into the mist that penetrates the forest. There’s a campfire burning in the middle of the clearing, and the four trolls, now turned to wood by the sunlight lies in a heap just outside the circle.
+
+> make raft
+You roll the poles together and as you grab the rope to tie them together, it begins to stretch, extending itself until you have enough rope to tie  them into a suitable raft.
+
+> n
+You manage to push the raft into the river, and with a long branch you make your way to the other side.
+
+Mirkwood.
+You are on the northern side of the river. The trees are not standing as close together here. And when the wind picks up briefly and clears the mist for a short moment, you see a path leading west in amongst the trees.  A raft is lying nearby.
+
+> get rope
+As you begin to untie the rope from the raft it magically loosens itself and coils up in your hand. Luckily the poles has turned so you don't have to look at their ugly faces.
+
+> w
+You move west.
+
+Mirkwood.
+You are on the outskirts of the forest and although the trees are as old and gnarled as in the other parts of the forest, there's a friendlier atmosphere surrounding you. The mist has reluctantly withdrawn and only a few stubborn tendrils insistently try to follow you. The path runs east/west. To the north you can see a road between the trees.
+
+> n
+You pave the way between the trees and are soon on a dusty road going north. Behind you, to the south, is Mirkwood with the old trees and impassable paths. On the horizon you can see something greenish but you can’t really make out what it is from here. A little further up ahead a figure is sitting at the side of the road.
+
+A Road Junction.
+Small clouds of dust rise around your feet at every step you take along the road. The sun warms you as you walk and high above you birds are singing. The road appears to be blocked up ahead to the north by a tall hedge and to the south it leads back into Mirkwood with its old trees and impassable paths. At a T-junction, with a small road leading west towards a small village, an old woman, covered in dirty rags, is sitting at the edge of the road, cheeks in hands, apparently starring at the horizon.
+
+> w
+You move west.
+
+Village Street.
+The main street of this small village is strangely deserted. Houses and shops line both sides of the street. Squeezed in between two houses, to the west, lies an inn and to the northwest is an anonymous looking building with no visible windows or doors. To the north lies a small shop with the word “Pharmacy” painted in bright letters on the window. To the east of you lies the dusty road that lead you here, and far out in the horizon Mirkwood lies as a dark shadow. A sinister looking castle lies in the distance far away to the north.
+
+> knock on building
+Although your name is not Knocks, you still raise your hand and knock on the wall.
+At first nothing happens.
+Then a faint rumble is heard and the bricks in the wall starts to move in a weird pattern leaving a hole leading into the building.
+
+> enter
+You only hesitate for a brief moment. Then you step through the hole in the wall and enter the building.
+
+The Bank.
+Total chaos reigns in here. You are being pushed and shoved by gnomes running to and fro carrying stacks of gold coins, putting them down only to pick them up again a few moments later.
+On each side of you, raised above the floor, are desks where other gnomes sit busily scribbling on parchment. At the end of the aisle you can see a humongous vault.
+
+> out
+As you get closer to the door it automatically opens. As you step out into the sunlit street there's a silent whisper behind you.
+You turn and find that the door has now disappeared.
+
+Village Street.
+The main street of this small village is strangely deserted. Houses and shops line both sides of the street. Squeezed in between two houses, to the west, lies an inn and to the northwest is an anonymous looking building with no visible windows or doors. To the north lies a small shop with the word “Pharmacy” painted in bright letters on the window. To the east of you lies the dusty road that lead you here, and far out in the horizon Mirkwood lies as a dark shadow. A sinister looking castle lies in the distance far away to the north.
+
+> n
+You move north.
+
+The Pharmacy.
+A strong smell of spice and acid tickles your nostrils as you look around inside the pharmacy.
+The owner must have left in a panic. Most of the contents from the shelves are lying scattered on the floor. Broken bottles and jars lay amongst each other.
+
+The door leading out to the village street is right behind you.
+
+> climb shelves
+As you begin to climb the shelves you wonder if this was such a good idea. Although the shelves are securely mounted to the wall they are starting to come away the higher you get.
+You finally reach the top and can see a bottle.
+
+> get bottle
+(from the shelves)
+Holding on to the top of the shelf for dear life you reach out and grab the bottle.
+
+> d
+You begin your descent to the floor and are soon standing on the solid floor of the pharmacy.
+
+> open bottle
+You unscrew the cap. A purple cloud of pungent dust emerges from the bottle.
+
+> smell dust
+You carefully smell the dust of purple powder. Immediately your eyes get heavy and it is like your brain is covered in a ball of cotton. You feel drowsy and all you can think about is lying down and sleeping.
+It takes all your will-power to shake off this feeling and not until several minutes have passed do you feel really awake again.
+
+> out
+You leave the pharmacy.
+
+Village Street.
+The main street of this small village is strangely deserted. Houses and shops line both sides of the street. Squeezed in between two houses, to the west, lies an inn and to the northwest is an anonymous looking building with no visible windows or doors. To the north lies a small shop with the word “Pharmacy” painted in bright letters on the window. To the east of you lies the dusty road that lead you here, and far out in the horizon Mirkwood lies as a dark shadow. A sinister looking castle lies in the distance far away to the north.  You move out.
+
+> w
+You walk across the street and into the inn.
+
+Rusty's Inn.
+Heavy clouds of smoke gently sway back and forth as you walk into Rusty's Inn. A person you gather must be Rusty is standing behind a bar and a few towns people are sitting at tables, eating, drinking or just chatting amongst themselves.
+At the back of the room is a stairway disappearing up into the cloud of smoke.
+As you close the door behind you, every one inside the inn turns their head and looks at you.
+A deep sigh is heard, then one of the customers rises his tankard. "To Lazaitch, the opener of doors!" he says and empty the tankard.
+"Lazaitch" the others reply and they too empties their tankards.
+
+> say hi to rusty
+Seeing a new face in the inn a smile appears on the inn keepers face. But when he discovers that you're only a boy the smile quickly fades away and he looks at you with a sad expression on his face.
+"Hello boy, my name is Rusty, I own this place. I guess you're not going to buy much, if anything. What can I do for you?"
+
+> ask rusty about lazaitch
+"Ahh, Lazaitch. Many a story has been told about him. A mighty wizard he was. His name would open many a door, but his power was the controlling of time.
+A shame he is not amongst us any more."
+
+> get tankards
+You discretely wander around amongst the tables gathering the mugs and tankards.
+
+> pour beer into wineskin
+You find a secluded place, away from any curious eyes. There you carefully pour the beer you gathered from the tables into the wineskin.
+Once you're done, you screw the spout back on again and put down the tankards.
+
+> up
+The heavy smoke stings your eyes and makes you cough as you walk up the stairway.
+
+Rusty's Inn - First floor.
+A corridor runs from one end of the inn to the other, ending in a balcony to the north.
+On each side of the corridor are doors leading into rooms, but they are all locked. Behind you leading down through the smoke is the stairway.
+
+> n
+The door isn't locked so you have no problem opening it and soon you are standing on the balcony.
+
+Balcony.
+Leaning against the sturdy wooden railing you take in the rather splendid view of the village and the surrounding landscape. Far to the north the silhouette of the evil castle stands dark and sinister against the horizon. The roof of an anonymous looking building lies to the east, almost at the same level as the balcony, and behind it you can see the road that brought you to the village. Behind you, is the door leading back in to the corridor.
+
+> tie rope to balcony
+You tie the rope to the railing of the balcony and make sure that you make a solid knot.
+
+> throw rope at chimney
+You throw the rope in the direction of the roof.
+To your utter amazement it lengthens as it snakes through the air. As if it has read your mind, it curls itself neatly around the chimney.
+
+> climb across rope
+You climb the rope and soon stand safely on the roof of the anonymous building.
+
+Roof of Bank.
+There's quite a splendid view from up here. You can see the entire village (which isn't saying much, considering its size) and far beyond. Across the street is Rusty's Inn and the balcony you came from.
+Close to the chimney is a window allowing light to shine down into the bank.  Also here is a magic rope.
+
+> untie rope
+A soon as you start to untie the rope, dislodges itself from the balcony and the chimney. Once again, snaking through the air it coils up in your hand.
+
+> open window
+It doesn't take much for you to open the window. A solid iron hook is mounted on the window frame.
+
+> tie rope to hook
+You tie the rope to the hook and let it fall through the opening. It twists and turns, stretching as it falls towards the floor below.
+
+> climb down rope
+Like you have done so many times before in your tree house back home, you quickly grab the rope and climb down.
+You are soon standing on the floor of the vault, surrounded by stacks of gold.
+
+Inside the vault.
+Somehow the inside of the vault seems a lot roomier compared to the rest of the building. High above your head light shines through an open window, reflecting on towering piles of gold. Most of them are stacked neatly while others have tumbled down, spreading the gold across the floor.
+The vault door leading out is slightly ajar and you can hear the commotion of the gnomes running back and forth out there.  Also here is a magic rope and the gold coins.
+
+> get gold
+You quickly bend down and pick up a few of the gold coins.
+
+> climb up rope
+Although the gold is heavy you manage to climb the rope to the roof again.
+
+Roof of Bank.
+There's quite a splendid view from up here. You can see the entire village (which isn't saying much, considering its size) and far beyond. Across the street is Rusty's Inn and the balcony you came from.
+Close to the chimney is a window allowing light to shine down into the bank.  Also here is a magic rope.
+
+> untie rope
+A soon as you pull on the rope it detaches itself from the hook. And, once again, snaking through the air it coils up in your hand.
+
+> tie rope to chimney
+You tie the rope around the chimney, making sure the knot is securely fastened.
+
+> throw rope at balcony
+You throw the rope in the direction of the balcony.
+Again lengthens as it snakes through the air. As if it has read your mind, it curls itself neatly around the balcony railing.
+
+> climb rope
+After having tied the rope to the bank chimney, you climb back to the balcony.
+
+Balcony.
+Leaning against the sturdy wooden railing you take in the rather splendid view of the village and the surrounding landscape. Far to the north the silhouette of the evil castle stands dark and sinister against the horizon. The roof of an anonymous looking building lies to the east, almost at the same level as the balcony, and behind it you can see the road that brought you to the village. Behind you, is the door leading back in to the corridor.
+
+> untie rope
+Magically, the rope not only unwinds itself from the bank roof, but also from the balcony.
+And snaking through the air, coils up in your hand in a shower of tiny sparks.
+
+> s
+You open the door leading into the corridor and walk through it, remembering to close it after you.
+
+Rusty's Inn - First floor.
+A corridor runs from one end of the inn to the other, ending in a balcony to the north.
+On each side of the corridor are doors leading into rooms, but they are all locked. Behind you leading down through the smoke is the stairway.
+
+> d
+Once again you enter the smelly cloud of smoke as you start your descend down the stairway.
+Not being able to see your feet through the smoke you walk carefully and arrive safely downstairs.
+
+Rusty's Inn.
+You are back at Rusty's Inn. Nothing much has changed. The heavy clouds of smoke are still gently moving about and Rusty is still leaning against the bar, head in hand starring at nothing.
+The same few towns people are sitting at tables, eating, drinking or just chatting amongst themselves. At the back of the room is a stairway disappearing up into the cloud of smoke.
+
+> out
+You quietly leave Rusty's inn.
+
+Village Street.
+The main street of this small village is strangely deserted. Houses and shops line both sides of the street. Squeezed in between two houses, to the west, lies an inn and to the northwest is an anonymous looking building with no visible windows or doors. To the north lies a small shop with the word “Pharmacy” painted in bright letters on the window. To the east of you lies the dusty road that lead you here, and far out in the horizon Mirkwood lies as a dark shadow. A sinister looking castle lies in the distance far away to the north.
+
+> e
+You move east.
+
+A Road Junction.
+Small clouds of dust rise around your feet at every step you take along the road. The sun warms you as you walk and high above you birds are singing. The road appears to be blocked up ahead to the north by a tall hedge and to the south it leads back into Mirkwood with its old trees and impassable paths. At a T-junction, with a small road leading west towards a small village, an old woman, covered in dirty rags, is sitting at the edge of the road, cheeks in hands, apparently starring at the horizon.
+
+> push door
+You place both hands on the door and push as hard as you can.
+Slowly, on squeaking hinges, the door begins to move and a passage appears. For a short while you hesitate. Then you step through the opening and the door closes behind you, and with a rustling of the leaves the door disappears.
+
+Inside the Maze.
+
+You are surrounded by tall impregnable hedges. In front of you paths are leading north, east and northwest.
+
+> nw
+You move northwest.
+
+Somewhere in the Maze.
+
+You are surrounded by tall impregnable hedges. In front of you paths are leading north, northeast, east and southeast of you.
+
+> n
+You move north.
+
+Somewhere in the Maze.
+
+You are standing on a graveled path surrounded by tall impregnable hedges. The path leads east, southeast and south.  A wooden door is embedded in the hedge.
+
+> open door
+As you reach out towards the door a door handle suddenly appears.
+You grab it and open the door. It swings easily on its hinges and you quickly walk through the doorway.
+No sooner are you on the other side before the hedge closes around the door.
+
+A dark Road
+It is as if you have entered a completely different world. Gone is the sun and the blue sky. Not a bird is singing and not even the slightest breeze is felt under the dark gray sky. Everything is engulfed in a threatening atmosphere of menace. The road you are on lies deserted before you, leading west towards a wide moat surrounding a dark castle. To your utter amazement there's an old Grandfather clock standing beside the road.
+Behind you to the east the tall hedge of the maze towers above you.
+
+> x clock
+It stands in front of you, about your size and a half again as tall as you are.
+The case is oak and beautifully ornamented, and the dial is painted like you remember from the movie "Beauty and the Beast" except there is no indication of life.
+The eyes are closed and the hands are not moving at all. The pendulum hangs to one side as it is stopped abruptly, frozen in time. On the back a barely visible crack indicates the outline of a hatch and on the side a wooden sign is nailed to the case of the clock.
+"The evil queen must have stopped time somehow" The voice in your head whispers silently.
+"You must find a way to make it go again. But remember, the solution is often hidden in a riddle."
+
+> x sign
+Somebody has quickly scribbled something on the sign and then driven a huge nail through it, nailing it to the side of the clock casing.
+
+> remove sign
+As you pull the nail from the clock casing the sign falls to the ground. A tremble runs through the clock and a deep sigh of relief is heard. Slowly the old grandfather clock opens its eyes and looks at you.
+"Thank you young man." the old clock says.
+"That nail has been bothering me for ages.
+Let me introduce myself, I am Father Time although there doesn't seem to be much time since the evil queen tampered with my mechanism"
+
+> say hello to father time
+A little taken aback by suddenly facing a talking clock, you politely return Father Times' greeting.
+
+> ask about time
+"The queen seemed so nice and kind." Father Time replies. "But as soon as I had given her the magic word that opens the hatch to my mechanism, she stopped me from working and cast a spell on me making it impossible for me to say the word, or talk at all."
+
+> ask about word
+"I wish I could tell you, my young friend. But I know not of the name. When the queen silenced me, she also put a spell on me prohibiting me from speaking the word."
+
+> say lazaitch
+You clear your throat and take a deep breath."Lazaitch" you say, loud and clear.
+The old clock blinks a couple of times "The spell has been lifted." he says. "Maybe you ARE the one to help us all."
+A squeaking sound is heard and the small secret hatch opens slightly on the side of the clock.
+
+> open hatch
+With the hatch slightly ajar, you manage to squeeze your fingertips into the crack and pull it open.
+The open hatch reveals a small compartment, and in this compartment you see a lot of little gears and counterweights.
+You remember these from the time you "accidentally" took your grandfather's pocket watch apart. Only these are not moving at all.
+
+> look under hedge
+Getting down on your knees you look closer at the stems of the hedge.
+Way in there, hidden carefully between two stems, you find a sprig of thyme.
+
+> get sprig
+Ok, you pick up the sprig of thyme.
+
+> repair mechanism
+You carefully place the sprig inside the mechanism and give it a little push. A soft "tick-tock" is heard and suddenly a whoosh of wind rushes through the air.
+"Thank you, young hero. You have broken the queen's evil spell." Father time says. "What brings you here to this sad and unhappy place?"
+You tell Father Time all that has happened and he listens in silence.
+"Let me see if I can help you." he says. Then he thinks for a while. As a small reward for your help, let me give you some advice. You will not be able to enter the queen's castle without help. The drawbridge is too well guarded. You must summon the dragon that lives in the moat by calling his name. Then ask him to help you."
+
+> ask about dragon
+"They say he is enormous and will turn your blood to ice should you meet him. He is so old that no human can remember his name, as old as the wind, they say.
+The queen lured him with promises and sweet words and then cast a spell on him keeping him captured in the moat forever."
+
+> ask about name
+"I know not of his name" Father Time says. "He is very old, as old as the wind I imagine. Maybe the wind remembers his name..."
+
+> ask about wind
+"The wind is everywhere, but you need to ask her, and then listen. She speaks through the grass and the leaves on the trees."
+
+> w
+With the time working you can now walk down the road, towards the distant castle. You walk for a long time until you finally stand before a wide moat that surrounds the castle.
+
+The Moat.
+The road continues towards the dark castle but is cut by a deep moat. A heavy drawbridge is raised hindering any further movement in that direction.
+A single weeping willow stands in the field by the side of the road, its branches hanging almost to the ground like a tightly knitted curtain.
+
+Up ahead the drawbridge at the castle lowers and a group of Black horsemen emerges. They thunder down the road towards you and if you don't do something fast they will undoubtedly see you.
+Suddenly a breeze is felt and a voice through the leaves of the old willow tree whispers to you.
+Quickly, my young friend, climb up the tree.
+And before your eyes the branches of the old willow slowly move aside.
+
+> climb tree
+You quickly make your way in between the low hanging branches of the willow. You climb up the trunk and are soon hidden between the leaves.
+The Black Horsemen thunder past you not giving the tree a second thought.
+
+Weeping willow.
+You are sitting close to the top of the willow, well hidden by the leave covered branches.
+The Horsemen do not give the old tree a second glance and soon the sound of the hooves are fading away in the distance.
+
+> d
+With the Horsemen out of sight you climb down from the willow and are soon standing safely on the ground.
+There's a soft whisper in the leaves. "Hello there" The willow says. "Now that was a close call wasn't it? My leaves are still shaking. What can I do for you?"
+
+The Moat.
+The road continues towards the dark castle but is cut by a deep moat. A heavy drawbridge is raised hindering any further movement in that direction.
+A single weeping willow stands in the field by the side of the road, its branches hanging almost to the ground like a tightly knitted curtain.
+"What can I help you with, my young friend?" the willow says.
+
+> ask willow about dragon
+"Only the wind can remember his name." the old willow says, "I will ask her."
+For a while nothing happens, then a light breeze slowly picks up and in the leaves of the willow you hear a soft soothing voice.
+"What can I do for you, young man?"
+You tell the wind about your quest and ask for the name of the dragon living in the moat.
+"It is forbidden to mention his name," the wind say. "But I can help you if you listen carefully. The name is hidden in the song."
+
+> listen
+You listen carefully as a breeze sweeps through the leaves of the old willow tree. It picks up slowly and slowly it turns into  music. It's like it comes from a distant past, many years ago.
+The music fades as the wind moves on, leaving only a faint rattling in the foliage.  As the melody is carried gently through the foliage of the old willow, the voice inside your head comes to live again.
+"This, my friend, is a very old song and you may be much too young to recognize it. It was written by the dragon's three foster parents, Peter, Paul and Mary, as a tribute to their pet.
+I can give you no further clues, but you may find the answer if you visit the mighty oracle The Google"
+After the melody has faded away, the wind leaves with a soft rattling of the leaves.
+
+> call puff
+No sooner have you called out his name before there's a disturbance in the mist covering the moat.
+An enormous dark shadow emerges from the depths...
+Puff is standing before you. He cranes his neck and looks at you curiously. Then he speaks.
+
+You have broken the spell, my young friend. How may I help you?"
+
+> climb puff
+You climb up on Puff's back and with a few flaps of his mighty wings he rises into the air and soon you are soaring high above the castle.
+Puff makes a big circle and approach the highest tower where a wide balcony protrudes. As he gets closer he lowers his speed and then gently sets you down just behind the parapet.
+"I thank you for my freedom, my young friend." he says and bows his head in respect. Then with a few flaps of his wings he once again soars into the air and you soon lose sight of him as he disappears between the mountains.
+
+Castle Balcony
+You are standing on a windy balcony high above the castle courtyard. In the distance you can see the fading image of Puff between the mountains, the village and the dark shadows of Mirkwood.
+Behind you, leading in, is a heavy wooden door.
+
+> put powder in wineskin
+You unscrew the spout and quickly pour the powder into the wineskin. Then you shake it thoroughly mixing the powder with the contents of the wineskin. You have made an extremely strong sleeping potion.
+
+> open door
+You open the tower door and look into a dark and empty chamber.
+As you walk through the door the voice speaks to you one last time. ""I can help you no longer, my young friend." it says.
+"The queen's power is too strong now that you are entering her stronghold. This is my last advice: Bring me the compass, thus I can overpower her and you will have saved the kingdom."
+
+Tower chamber.
+You are in a damp and dark chamber where the only light comes from a burning torch in a holder on the wall.
+A door leads out to a wide balcony and a stairway leads down into darkness.
+
+> close door
+As you close the door leading to the balcony, a sudden feeling of being trapped overwhelms you.
+
+> d
+The granite steps are uneven and you walk slowly down into the darkness.
+Ahead of you, you see the flickering light from a torch. An eerie silence engulfs you and you have a feeling that you're being watched by invisible eyes.
+
+Winding Stairs.
+The winding stairs leads down into darkness, or up to the tower chamber.
+A faint sleepy golden light shines from around down the corner.
+
+> d
+You move down.
+
+Tower Landing.
+This landing is nothing more than a rather small platform and you feel as if the walls are moving closer to you, which they are not, but still. There is no light here whatsoever and you can only faintly see the stairs leading up and down because of the dim light from somewhere below.
+
+> d
+You reluctantly move downwards. Your heart is pounding in your chest.
+
+Winding Stairs.
+You are in the dark tower on a winding stairs leading up and down. Upwards is the tower landing and the stair continues downwards.
+You heart is beating hard in your chest and it feel as if the walls of the stairs are slowly closing in on you.
+
+> d
+You walk further down the stairs.
+
+Winding Stairs.
+You are close to the bottom of the stairs. Just a few steps further down you can see a dim glow of light and the exit from the stairs.
+
+> d
+You are just about to walk down into the hall when you discover a figure sitting on the huge throne.
+
+> x figure
+At first it is hard to to make out what the figure is. But as it turns its head, the faint light from the torches falls on its face.
+Mrs. Hacksaw! Your dreaded maths teacher. The most feared teacher at your school.
+
+> wait
+Time passes...
+Somewhere a bell tolls. The queen gets up from her throne and followed closely by her guards, she leaves the hall. The great hall is now empty. But the question remains, will she return and if so, when?
+
+> d
+You quietly leave the darkness of the winding stair and walk into the great hall.
+
+Castle Hall.
+Standing at the bottom of the winding stairs, you stare in amazement at the big hall that lies stretched out before you.
+The dim light from the burning torches on the wall reflects lazily in the marble floor, leaving most of the hall in a semi darkness. Against the far wall, elevated off the floor by a platform, is a throne, and beside it stands an ivory pedestal with a crystal dome. A fireplace is located in the wall next to the platform. The only decoration is a huge tapestry hanging on the wall close to the throne.  Also here is a huge tapestry.
+
+> x fireplace
+A fire is built inside the fireplace, ready to be lit.  Inside the fireplace is the firewood.
+
+> get wood
+(from the fireplace)
+You kneel down and gather as much of the firewood you can carry.
+
+> u
+You move up.
+
+Winding Stairs.
+You are close to the bottom of the stairs. Just a few steps further down you can see a dim glow of light and the exit from the stairs.
+
+> u
+You move up.
+
+Winding Stairs.
+You are in the dark tower on a winding stairs leading up and down. Upwards is the tower landing and the stair continues downwards.
+You heart is beating hard in your chest and it feel as if the walls of the stairs are slowly closing in on you.
+
+> u
+You move up.
+
+Tower Landing.
+This landing is nothing more than a rather small platform and you feel as if the walls are moving closer to you, which they are not, but still. There is no light here whatsoever and you can only faintly see the stairs leading up and down because of the dim light from somewhere below.
+
+> x spot
+Yes, this part of the wall is definitely warmer than the rest of the wall. As you run your hands over it, you feel it give in slightly.
+
+> push spot
+You push the wall and it starts to slowly give in. Soon an opening leading east appears before you.
+
+> e
+For a while you stand there staring into the darkness before you. Then you remember the wizards words that you and only you can save the kingdom. Reluctantly you step through the opening into the unknown darkness.
+Without a sound the wall slides back and utter darkness engulfs you.
+
+Secret Passage.
+You are in what appears to be a secret passage. As the wall silently closes behind you everything is black and you can not see.
+
+> feel passage
+You get down on your hands and knees and slowly begin to feel your way around in the darkness. Suddenly your hand grasp into nothing! You feel around, up... Nothing! Sideways... Nothing! Down... Nothi... What's that? It appears to be the top of a flight of stairs!
+
+> feel stairs
+Carefully reaching out into the darkness you feel the outline of the top of a staircase leading down.
+
+> d
+Having found the staircase, you very carefully start walking down. As you reach the bottom of the stairs, a torch on the wall begins to glow. It slowly become brighter, until the area around you lies in semi darkness.
+
+Lower Secret Passage.
+The passage ends here. The only obvious way is back up where you came from. In the semi darkness you notice a tiny L shaped light, like the upper corner of, perhaps a door?
+
+> x shape
+Running your hands over the L-shaped light you discover that it's a corner of something. Perhaps a door? You feverishly examine what you hope is a door and find  ... nothing! No handle, no keyhole. Just the L-shaped light between what you hope is a door and the passage wall.   .
+
+> say lazaitch
+Not knowing what awaits you on the other side of the door you whisper the word "Lazaitch"
+The door in front of you trembles a little then nothing for a long time.
+Just as you are beginning to think that you have used the wrong word, the door begins to move. It slides silently aside leaving you an exit out, into another room.
+
+> out
+You step out from the passage and into the Dungeon.
+As soon as you step into the dungeon, the guard turns around and sees you. He lowers the ugly looking halberd he is holding and points it towards you.
+"Who are you and what do you want, boy" he says in a threatening voice. "Now speak up quickly or I will run my halberd through you!"
+You are so scared that you are close to tears, but then you see a familiar face looking at you through the bars of a prison door.
+The sight of the old wizard gives you renewed strength and
+"The queen sent me to thank you for guarding the prisoner" you say. "Tell her Majesty, thank you for her kindness" the guard replies. Then he leans over and whispers in your ear."I would have preferred if she had sent you with something to drink. This heat is killing me."
+
+The Dungeon.
+The dungeon is shaped like an arc, with a number of prison doors embedded in the wall. This is not a place you'd like to stay more than absolutely necessary.
+The flames from the fire pit are the only source of light here making the skeletons that are hanging in rusty iron chains on the wall look as if they are dancing a dance macabre across the tapestries hanging from rails under the ceiling.  A member of the Black guard is there, guarding the cells.
+
+> throw wood in fire
+You wait patiently until the guard has turned his back to you. Then you throw the firewood into the fire pit.
+It doesn't take long before you feel the temperature rising. The guard begins to sweat and the drops of sweat shines like sparkles on his face and neck.
+
+> give wineskin to guard
+You give the wineskin to the guard who greedily drinks from the spout. He then wipes his lips on the sleeve of his uniform and throws the wineskin into the fire pit.
+"Thank you" he exclaims "This was just what I needed. Now I am refreshed and can keep my watch here until I am relieved."
+He starts to walk back and forth but soon his legs begin to stagger and soon they buckle under him and he falls to the floor unconscious.
+
+> search guard
+Not quite sure if it is safe you nonetheless build up enough courage to search the guard. You feverish run your hands over him and he grunts in his sleep as you remove the keys from his belt.
+
+> unlock cell door
+With shaking hands you stick the key into the door. With a sigh of relief you hear the faint "click" as you turn it, and the door swings open.
+A figure emerges from within the darkness of the cell...
+It's the wizard! He greets you warmly, his eyes sparkles with joy. "I knew you had it in you!" he exclaims "You have saved the kingdom. Now give me the compass and I will end this once and for all.
+
+> give compass to wizard
+You give the compass to the wizard. As he clutches it in his hand it begins to glow with a bright warm golden light. Lifting it over his head he casts a powerful spell. All the cell doors open and the king and his noble knights rush into the dungeon.
+The wizard whispers quietly with the king for a few moments, then he takes your hand and the two of you walk up the secret passage, up the winding stairs in the tower and out onto the balcony.
+Looking out over the countryside you see the hordes of ugly monsters and the soldiers of the black guard frantically retreating.
+In the distance you notice a tiny black speck in the sky. As it gets closer you recognize Mrs. Hacksaw, the evil queen, on her broomstick.
+She swoops down towards you, raising her arm to point at you. With a twist of her hand, she sends a huge ball of fire flying towards you.
+Frozen with fear, all you can do is stand there and watch as it grows bigger and bigger and the heat emerging from it grows warmer and warmer. Then it suddenly explodes in a million stars and all turns black.
+
+You slowly open your eyes. You are back in your own bed and the morning sun shines through the window warming your face.
+Was this all but a dream?
+Then a bright reflection hits your eyes. You turn your head and there, on your night table, placed upon a purple velvet pillow, lies a golden compass.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

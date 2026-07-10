@@ -1,0 +1,47 @@
+What The Murderer Had Left
+
+The Coffee House
+It's almost evening. You are sitting near the window in a small coffee house, two blocks away from your house. It's a bit dim inside.
+
+There's an albino boy sitting at one of the tables. And at the table opposite his, a teenage girl is sitting.
+
+> x boy
+He is obviously bothered from the teenage girl staring at himself, although he never turns his head from the sandwich he's eating. He is trying to ignore the examining looks on himself.
+
+> x me
+You are a fairly ordinary guy. You don't think there's a lot about you for others to wonder. You're wearing a plain sweater and jeans.
+
+> x girl
+You don't want to stare at her, but you can't help it. Because since the albino boy came into the coffee house and sat down at the table opposite of hers, this teenage girl is staring at him. Apparently, it is the first time she ever sees an albino.
+
+She is trying hard not to look at the albino, but she can't manage and go on staring at his white hair. Who knows what she is thinking?
+
+You throw them to the winds and look out from the window, thinking about the man you saw in a railway station several years ago.
+
+There were half an hour to the departure of the train and you were going to wait. You found a spare seat and sat down.
+
+There was a man sitting against you. He caught your attention.
+
+> x man
+One of his eyes was grippingly prominent. This eye gave the man a somewhat scary appearance, although he had an amiable face.
+
+You were thinking a hundred things, 'Surely it is inborn. It must be hard for him. Maybe he is used to it. I wonder what would it be being like him. I wonder what kind of a childhood he spent.' and so on. The questions you had absolutely would go unanswered. But as you thought these, you must have been staring at him.
+
+Suddenly he smiled, 'Are you going somewhere or welcoming someone?' he asked.
+
+You sobered and answered, 'Returning home.'
+
+'Me too.' he said, 'I am evicted from prison.'
+
+'Really? I'm sorry.'
+
+'Yeah. I murdered a man.'
+
+You could not find anything to say more.
+
+He triumphantly went on, 'He was staring at me.'
+
+Since then, when you see someone staring at another, you recall him. Maybe he lied but that's all the same. You are looking out through the window to the reddening sky, smiling pitifully. 'If only,' you think, 'the albino boy has killed someone too.'
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

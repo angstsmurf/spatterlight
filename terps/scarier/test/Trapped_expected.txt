@@ -1,0 +1,67 @@
+'Trapped'  by Driftwood
+It's a very pleasant Sunday morning, so you decide to go for a walk in the countryside near your home on the hills. While you are out walking, storm clouds start to gather, and you wonder if you can find somewhere to shelter before too long. You find a small cave entrance almost hidden by bushes and wonder if it will be safe to enter.
+
+Outside Cave
+The cave seems to be the only possible means of shelter and you gaze into the gloomy entrance.  You can also see a scribbled note.  An exit leads in.
+
+> x note
+A piece of note paper bearing a message.
+
+> read note
+The note reads:- Two pints today please Milkman.
+No, better make that three as I'm expecting company.
+
+You feel a cold shudder as you read the note. It looks like you are expected. How could that be possible?
+
+> in
+You move in.
+
+Cave Entrance
+You stand just inside the entrance to the cave watching the clouds gather. You notice that there is a passage going off to the east.  Exits are east and out.
+
+> east
+You move east.
+
+East Passage
+The narrow passage just about allows you to squeeze through with an inch or two to spare. You can feel tiny creatures brushing past your feet in the semi-darkness.  Exits are north and west.
+
+> north
+Lights blaze, almost blinding you, and you hear what sounds like a door sliding shut as you enter. It looks like you've walked into a trap. Your eyesight clears and you gaze around the room with amazement.
+
+Living Room
+You are standing in a room carved out of the solid rock. Various basic items of furniture are positioned in the room making it look habitable.  You can also see a printed notice and a wooden table.
+
+> read notice
+Dear Guest,Thank you for visiting. You will find that there is no way out of here without first making a payment of £1,000. You will find a card reader on the table that you can use to make your payment. On receipt of your payment an exit will appear allowing you to leave. Please allow 3 days for your transaction to clear in our bank, (Just joking!!). Should you not have enough funds, an undertaker will be arriving here in six weeks from now to remove your body.
+Have a nice day,
+The Management.
+
+> x table
+Just a table really.  A card reader and a payment instruction sheet are on the wooden table.
+
+> x reader
+It's a card reader.
+
+> x sheet
+A set of instructions for using the card reader to make a payment.
+
+> read sheet
+Please follow these instructions to the letter.
+(A) Put card in reader.
+(B) Wait for transaction to complete.(We already have your PIN.)
+(C) Take card from reader.
+Your payment is now complete.
+Thank you.
+A receipt will be emailed to you for your records.
+
+> put card in reader
+You put the credit card inside the card reader.  The card reader beeps to confirm the transaction.
+
+> take card from reader
+Ok, you take the credit card from the card reader.
+
+*** You have won ***
+A door slides open and you quickly escape. You rush back home in the rain to try and cancel the payment.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

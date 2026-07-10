@@ -1,0 +1,104 @@
+The Heritage
+This little piece was my contribution to the “In the mood for a comp.?” competition, January 2015.
+Unfortunately I was a little too fast in entering and found out to my dismay that the game was unwinnable (Arghh!!)
+Despite that “minor” flaw some people actually enjoyed the game and suggested that I re-released it with the errors fixed.
+A year or so later, here it is:
+
+I give you:
+
+The Heritage
+
+A one room mystery adventure, created with Campbell Wild's Adrift V.5
+
+Thank you to my Beta testers, Joseph Geipel, Lazzah, Kenneth (a fellow Dane), Rotter and R2T1, for checking the game and pointing out the errors.
+
+Mind you. It is possible to get yourself into a situation where the game is unwinnable. But I believe that I have provided enough clues to warn you.
+
+Well, on with the game:
+
+It has been over a year since you received the letter from your uncle’s lawyer informing you of his passing. Unfortunately your posting abroad didn’t allow you to return home until now.
+Your uncle was your only living relative after your parents perished in a plane crash when you were just a kid. The many fond memories from your childhood overwhelm you as you breathe in the moldy smell of dust and old books.
+Maybe it wasn’t such a good idea coming here after all? You’re not even sure why you came. Was it to say a final goodbye, perhaps? Or maybe something more indefinable? The letter in your pocket raises more questions than it answers…
+
+The library
+This is the old library, a place you remember so very well.
+Is it just your imagination or is there still a faint scent of your uncle’s tobacco lingering in the moldy air?
+It looks like nothing has been moved. Your uncle’s big leather chair is still positioned in front of the built-in fireplace in the northern end of the library, and next to it is his old table with a lamp and an ashtray.
+A huge painting is hanging just above the mantelpiece, picturing your uncle in his favorite position he used when telling one of his many stories.
+A thick carpet covers the floor and at the far end of the room, standing in a corner, is your uncle’s wine cabinet.
+There is a door leading out, but this has no interest to you.
+
+> x letter
+It's the letter that was enclosed in the letter you received from your uncle's lawyer informing you of his death.
+You have carried it with you ever since it arrived and read it over and over again.
+
+> x fireplace
+The fireplace is pretty big. There’s still a little pile of ashes lying in the far corner, and the big iron grate that used to be mounted in front of it is gone.
+There's a marble mantelpiece mounted right above the fireplace. This where your uncle used to take his favorite position when telling stories, one arm leaning on the mantelpiece while holding a wine glass in his hand.
+
+> x painting
+It must be fairly new and must have been made during the time you were gone. It pictures your uncle standing in front of the fireplace in this exact library. His pose is very familiar to you. This is the pose he usually took when he was telling you about his adventures in foreign countries or if he had a secret to share with you. (Usually a surprise for you, candy or a souvenir from his latest journey.)
+His pose is casual, one hand in the pocket of his jacket and the other leaning against the mantelpiece on which a bottle of his favorite red wine is placed. He holds a half full glass of wine in his hand. As you study the painting closely you can't help but admire the incredible accurate details the artist has managed to bring to this picture.
+
+> search ashes
+You carefully kneel down and brush the pile of ashes away from the corner of the fireplace and reveal the sooted brick wall.
+
+> move brick
+After a few attempts you manage to get a grip on the brick and after a little twisting and pulling the brick comes out, revealing a hole.
+
+> search hole
+You reach into the hole and soon your fingers touch something metallic. When you pull it out you discover that it's a small metal key.
+
+> i
+You are wearing your everyday clothes, and are carrying a Letter, a key and a sooty brick.
+
+> clean hands
+You wipe your hands and manage to get most of the soot off of them.
+
+> open cabinet
+You quickly insert the key and unlock the cabinet and open the doors.
+
+> x cabinet
+The bottles are neatly placed in rows next to each other on the oak shelves. On the bottom of the cabinet lies your uncle's favorite antique corkscrew.  The wine cabinet is currently open.  Inside the wine cabinet are a wine bottle, a corkscrew and a crystal wine glass.
+
+> take bottle
+(from the wine cabinet)
+Ok, you take the wine bottle from the wine cabinet.
+
+> take corkscrew
+(from the wine cabinet)
+Ok, you take the corkscrew from the wine cabinet.
+
+> open bottle
+You open the bottle and the aroma of this fine wine tease your nostrils.
+
+> x mantelpiece
+You carefully run your hand over the marble mantelpiece reminiscing the many times your uncle stood here with his elbow leaning against the marble and a wine glass in his hand, telling stories from his many adventures.
+As you do so, you feel a very faint roughness in the surface of the polished marble and discover a circle. Hardly noticeable, but it's there.
+
+> x ring
+The ring is slightly discolored as if something wet has been left there long enough to make a lasting mark. Like when you leave a coffee cup on the coffee table.
+
+> drink wine
+You find a glass and pour the wine. Then you raise the glass, saluting your uncle and then take a sip...
+Ahh, not bad, not bad at all.
+
+> drink wine
+You sit yourself down in the leather chair and as you look at the painting above the fireplace you think back on all the happy memories you have of this place. After a while you pour yourself another glass of this very tasteful wine.
+Another salute, and another sip.
+
+> put bottle on ring
+You hear a faint click as you place the bottle on the mantelpiece. And a few moments later an almost inaudible scratching sound.
+
+> in
+You push the cabinet a little further from the wall and squeeze yourself past it entering the secret chamber.
+Secret room
+This is amazing!!
+The room is filled with all kinds of valuables. Things your uncle has gathered on his many journeys, rare antiques, priceless paintings etc. You have often enough heard about his journeys, and more than ones did he mention what he, laughingly, referred to as his retirement fund.
+You take a few minutes to silently thank your uncle and then you phone a friend of yours. A couple of hours later you drive down the driveway passing your uncle’s sister on her way to the mansion. You send her a wave and a friendly smile and drive through the gate into your bright future.
+
+Congrats...
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

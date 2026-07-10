@@ -26,6 +26,12 @@ extern void a5rand_seed (unsigned int seed);
    bounds if hi < lo, exactly like frankendrift. */
 extern long a5rand_between (long lo, long hi);
 
+/* urand(min,max): FD clsVariable.NoRepeatRandom -- a per-"min-max" shuffled
+   pool consumed without repeats (rebuilt when exhausted).  Pools reset on
+   a5rand_seed (new game); they are NOT part of the save state, like FD's
+   Adventure.dictRandValues. */
+extern long a5rand_norepeat (long lo, long hi);
+
 /* Diagnostic: total draws since process start (A5_TRACE_TASK correlation). */
 extern long a5rand_draw_count;
 

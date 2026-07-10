@@ -1,0 +1,641 @@
+The Tartarus Project
+
+THE TARTARUS PROJECT - An interactive science fiction for beginners
+Written by Kenneth Pedersen
+
+Release 1 (competition release) / ADRIFT 5
+
+INTRODUCTION:
+You are Dr. Burke, a professor in high energy physics. You work partly at the university and partly for the company Fu-Tech on a top secret project called Project Tartarus.
+
+The plot will unfold as you proceed.
+
+Special Commands: MAP, VOCAB, HELP, UNDO, TUTORIAL ON/OFF
+
+[Tutorial on. Type TUTORIAL OFF to disable tutorial mode.]
+
+Your office
+You are in your office at the university. A long desk rests against the north wall, while the south wall is occupied by a bookcase filled with all sorts of physics equipment. The sun shines through a window in the east wall. A door leads west.  Your desk phone is ringing..  [You better answer the phone...]
+
+> answer phone
+You pick up the phone. "Dr. Burke?" a muffled voice of a man asks on the other end of the line. "Yes, Dr Burke speaking".
+
+"I really need to talk to you, but we need to meet face to face." the muffled voice says. "Meet me at café The Golden Cup in half an hour".
+"Sorry, who is this?" you ask.
+"All your questions will be answered once we meet. Lets just say that I know about Project Tartarus". He hangs up.
+
+Quite confident guy, you think to yourself. How can he expect me to show up based on so little information? But you cannot hold back your curious nature. You need to know what is going on. And thus you pick up your most basic stuff and head for The Golden Cup downtown..
+
+Please Press Any Key to Continue.....
+
+The Golden Cup
+You stand in the south end of The Golden Cup right next to the counter. A smiling waitress stands behind the counter. A doorway leads north to a small room. The exit is west of here.
+[Notice the small room to the north. To go there, simply type: N]
+
+> n
+You move north.
+
+Small room
+You are in a small room in the north end of The Golden Cup. There are several chairs and tables here. An open doorway leads south.  A guest is seated in the far corner, and he is urging you to come and sit with him.
+[To sit down with the guest, e.g. type: SIT ON CHAIR]
+
+> sit on chair
+You sit down in front of the guest. "What I am about to tell you is very disturbing." he says. So we might as well get through the most disturbing part first. Slowly he removes his hood which was partly covering his face. The sight which meets you is horrifying and the guest says:
+
+Press a key to continue.....
+
+"I am you!"
+
+The guest looks exactly like you and claims to be you. "How is this possible?" you ask. Your double looks at you and begins to tell you a long story: "On the one hand this world is real, though not as real as one might imagine. This world is a simulation of physical processes including evolution. Thus your feelings and thoughts are as real as if the world was purely physical. Life is just implemented in a simulation rather than in physical processes.
+
+Approximately 20 years ago, important research goals had been reached with the simulation. For this reason the simulation was cloned, thus 4 parallel simulations of the same universe have been running. I come from such a parallel simulation. These simulations are not 100% identical since the whole point of doing the parallel simulations is to reach different research goals. Thus subtle differences have been included in the parallel simulations to trigger variations between the simulations. However, the research is not progressing as intended and thus the creators of our simulations are considering shutting down the simulations. In other words, we will die if this happens.
+
+Roughly speaking it is a matter of resources in the world of our creators. Already one parallel simulation has been shut down. The survival of a parallel simulation requires success of the Tartarus project, which is currently running in the existing three simulations. The fourth simulation was turned off after the Tartarus project was abandoned. I know this since I have been contacted by the creators of our simulated worlds. The Tartarus project is most significantly progressing in the simulation where I come from. It is also via the Tartarus project I have been able to come to your simulated world. However, I would not have been able to make contact to your "dimension" unless the creator had provided me with some clues on how to modify the Tartarus project in order to travel between simulated realities. Well, now I am here. My mission is to make the Tartarus project succeed in all 3 worlds so that no more worlds need to be destroyed.
+
+For the sake of ease, let us call the parallel simulations 'worlds'. My world will be safe if I can make it home to my world again, since travel has then been established between worlds, which is the objective of the Tartarus project seen with the eyes of our Creators. Similarly, your world will be safe, since travel has then also been established from here. Thus first task must be to get me home. Then at least two worlds are safe."
+
+It takes some minutes for you to truly believe what you just have been told. On the one hand, this story is too amazing. On the other hand the proof sits right in front of you, and you always had an open mind when it came to the simulation argument, i.e. the theory stating that IF such powerful simulations can be achieved, we are most likely living inside of one. In addition, your knowledge of the Tartarus project tells you that traveling between simulations might be possible. You talk for a while about the specifics of the Tartarus project which simply confirms that your double knows all there is to know about the project. You are convinced.
+
+"So how do we get you back to your own world then?" you ask. Your double answers: "You need to update the core code of the Tartarus Simulator. Then I sit down in the Simulation Chair and you type in the coordinates I give you. Finally you activate the simulator and I should be transferred to my world". He hands you a USB-key with the core code and a note with the coordinates.
+
+"As easy as this may sound we are going to have trouble getting past security" you say. "Meet me outside Fu-tech tonight 7:00pm and we will give it a try. I need to go back to the university and perform my daily tasks, so that no-one becomes suspicious." With those words you stand up and leave your double...
+
+Later that evening 7pm:
+
+Outside Fu-Tech
+You are standing by the entrance to Fu-Tech. It is evening and the sun is slowly setting. The big sliding doors to the east mirrors the setting sun. The parking lot beside the building is almost empty apart from a few cars.  Your double is here.
+[You may want to TALK TO DOUBLE. When you feel ready to proceed, go east into the building.]
+
+> talk to double
+You briefly go through the plan again with your double. The initial plan is that you go into the building and find a way to bring your double in as well. You will contact your double when you know what to do.
+
+> e
+As you approach the sliding doors, they slide open.
+You move east.
+
+Entrance hall
+You are inside the entrance hall. The automatic sliding doors are west of you and a security door is set in the east wall. Right next to the security door is a card reader with a numeric keypad.
+[Rule number one in text adventures: Examine everything. Try now to examine the card reader. Type: X READER]
+
+> x reader
+It is a card reader for your access card. Just put your access card on the card reader and the reader will automatically scan your access card.
+[To open the door, type: PUT CARD ON READER - You can then go east.]
+
+> put card on reader
+A green diode is lit on the keypad and you type in your access code.
+The security door swings open.
+
+> e
+You move east.
+Once inside, the security door slams shut.
+
+By security counter
+You are standing beside the security counter. The security door is to the west. Some elevators are to the south. A security officer is standing behind the counter.  "Good evening Dr. Burke" says the security officer. "Good evening Glenn" you reply, immediately recognizing the officer.
+[This is the end of the tutorial. You are on your own from here. However, a piece of advice:
+Your current objective is to find a way for you and your double to get into Fu-tech, without being seen together by the security officer. Take the elevator up and you might find a solution. Explore all accessible areas and examine everything. Also try to interact with the objects in logical ways. If you are stuck, you may get some inspiration by typing VOCAB. Good luck! ]
+
+> s
+You move south.
+
+In elevator
+You are inside an elevator. The walls are of aluminum and on the west wall there is a large mirror. On the east wall there is a row of buttons. The exit is north.
+
+> x buttons
+A vertical row of buttons:
+
+ 1. 1st floor
+ 0. Ground floor
+-1. Basement
+
+> push 1
+You push the button with the number "1". The doors close, the elevator moves for a short while, then stops. The doors open again.
+
+> n
+You move north.
+
+Office space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into your own cubicle.
+
+> w
+You move west.
+
+West end of office space
+You are in the west end of the open office space beside the west wall. Windows line the wall. You can go back east.
+
+> open window
+As you open the window and look down, you see your double standing right below the window. You whistle to catch his attention.
+
+> throw card out of window
+You throw down your access card to your double. You have already told him your access code, so he should be able to get up here now. Hopefully the guard will not be too surprised to see Dr. Burke entering again! You close the window again.
+
+> e
+You move east.
+
+Office space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into your own cubicle.
+
+You hear a "diingg!" from the elevator and the elevator door slides open. To your relief it is your double who enters the room. "So what did the guard say?" you ask.
+
+"He looked quite confused when he saw me entering the building, so I told him I forgot something in the car. He also looked a bit tired, so hopefully he will not be suspicious. If he comes up here, we have to make sure he does not see us both!"
+
+Shortly after having said that, you both hear the sound of the elevator approaching. "Quick, one of us has to hide!" you say.
+
+The elevator stops and the doors are about to open!
+
+> hide in cubicle
+You run into the cubicle and crouch down just in time to hear the "Diinngg!" from the elevator. The security officer walks into the room and says "Hi Dr. Burke, I am just checking that everything is okay."
+
+"Everything is just fine" your double tells him.
+
+"That is great - I will leave you alone then." The security officer enters the elevator again, pushes the button and the elevator door closes.
+
+As soon as the guard is gone, you get up on your feet again and leave the cubicle. "Phew - that was a close one" you say. "We better hurry in case he comes back."
+
+Your double hands you the access card and says "You are more experienced in this world, so I will let you do the work."
+
+> n
+You move north.
+
+Hallway
+You are standing in a bare hallway, which ends here where a door is set in the north wall. You can go south back into the office space.  Your double enters from the south.
+
+> put card on reader
+You put the access card on the card reader and a green diode on the display lights up. You type in your security code and the steel door swings open.
+
+> n
+You move north.
+
+Laboratory
+You are in the laboratory of the Tartarus project. In the middle of the room is a metallic chair with lots of wires connected to it. The chair is hooked up to various equipment scattered around the room. Specifically, you notice a control panel placed on a trolley against the east wall. A steel door is to the south.
+
+As you enter the laboratory, your double says "It is time for me to get in the chair." He walks up to the chair and sits in it, strapping the helmet on and putting his feet in the footholds. "Please prepare the transfer by typing in the coordinates on your computer, using the USB-key I gave you. Once it is done, press the "activate" button on the control panel."
+
+> s
+You move south.
+
+Hallway
+You are standing in a bare hallway, which ends here where a door is set in the north wall. You can go south back into the office space.
+
+> s
+You move south.
+
+Office space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into your own cubicle.
+
+> in
+You move in.
+
+In cubicle
+You are in your cubicle where you mostly sit and do theoretical work for Fu-Tech, mostly the Tartarus project, when you are not at the university doing teaching. There is a desk here with a laptop and a stack of papers. There is a chair beside the desk. You can go out of the cubicle.
+
+> open laptop
+You open the laptop. The laptop powers up and the screen is lit.
+
+> type tartarus16
+You type in the correct password. The main screen of the laptop comes up. On the screen is an icon called "OPEN TARTARUS".
+
+> put usb key in usb port
+You insert the USB-key in one of the USB-ports. An automated process starts up. "Updating Project Tartarus. Please wait..."  A bar shows the progress of the update. Five minutes later the updating process is finished and you remove the USB-key again.
+
+> open tartarus
+The computer screen flashes. Then a window pops up:
+
+CURRENT SIMULATION: A
+TYPE DESTINATION SIMULATION (B, C, D):
+
+> type b
+You type B and a new window opens:
+
+"TYPE COORDINATES:"
+
+You type in the coordinates from the note you were given.
+
+On the screen is now written:
+
+"DESTINATION LOCKED. PLACE SUBJECT IN CHAIR, THEN PUSH ACTIVATION BUTTON."
+
+> out
+You move out.
+
+Office space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into your own cubicle.
+
+> n
+You move north.
+
+Hallway
+You are standing in a bare hallway, which ends here where a door is set in the north wall. You can go south back into the office space.
+
+> n
+You move north.
+
+Laboratory
+You are in the laboratory of the Tartarus project. In the middle of the room is a metallic chair with lots of wires connected to it. The chair is hooked up to various equipment scattered around the room. Specifically, you notice a control panel placed on a trolley against the east wall. A steel door is to the south.  Your double is here.
+
+> push activate
+"You are ready?" you ask.
+
+"Wait!" says your double. "Before you press the button I must tell you something. A person should not travel back and forth between simulated realities more than once. It is simply too hard on your health. Thus when I get back I cannot travel again. When I get back we have saved simulation A and B but we are still missing simulation C. You have to travel to Simulation C and save that world. You are the only one who can!
+
+Okay, I am now ready. Push the damn button!"
+
+You push the button. A humming noise comes from the surrounding equipment. The noise grows louder. Suddenly a strong light comes from the chair, blinding you momentarily. The noise fades and you see that the chair is empty. Your double has been transported back to his own world!
+
+Unfortunately, from what you were told, you realize that your mission has just begun. You have to travel to simulation C and back, before all worlds are safe.
+
+> s
+You move south.
+
+Hallway
+You are standing in a bare hallway, which ends here where a door is set in the north wall. You can go south back into the office space.
+
+> s
+You move south.
+
+Office space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into your own cubicle.
+
+> in
+You move in.
+
+In cubicle
+You are in your cubicle where you mostly sit and do theoretical work for Fu-Tech, mostly the Tartarus project, when you are not at the university doing teaching. There is a desk here with a laptop and a stack of papers. There is a chair beside the desk. You can go out of the cubicle.
+
+> open tartarus
+The computer screen flashes. Then a window pops up:
+
+CURRENT SIMULATION: A
+TYPE DESTINATION SIMULATION (B, C, D):
+
+> type c
+You type C and a new window opens:
+
+"TYPE COORDINATES:"
+
+You type in the coordinates from the note you were given.
+
+On the screen is now written:
+
+"DESTINATION LOCKED. PLACE SUBJECT IN CHAIR, THEN PUSH ACTIVATION BUTTON."
+
+> out
+You move out.
+
+Office space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into your own cubicle.
+
+> n
+You move north.
+
+Hallway
+You are standing in a bare hallway, which ends here where a door is set in the north wall. You can go south back into the office space.
+
+> n
+You move north.
+
+Laboratory
+You are in the laboratory of the Tartarus project. In the middle of the room is a metallic chair with lots of wires connected to it. The chair is hooked up to various equipment scattered around the room. Specifically, you notice a control panel placed on a trolley against the east wall. A steel door is to the south.
+
+> push trolley
+You push the trolley with the control panel towards the metal chair, so that whoever sits in the chair can activate the controls.
+
+> sit in chair
+You get in the metal chair and strap on the helmet. You also put your feet in the footholds.
+
+> push activate
+You close your eyes and push the button. You feel a slight current run through your entire body as the humming gets louder. You then feel a blinding light and loose consciousness.
+
+You slowly recover your senses. You are lying down on a field. You sit up and look around, to realize that you have been transferred to the soccer field belonging to the university. Everything looks as usual in this spot, but you know that you are now in world C..
+
+Soccer field
+You are on the soccer field belonging to the university. The field is surrounded by a tall fence. There is an opening in the fence to the southwest.
+
+> sw
+(standing up first)
+You move southwest.
+
+Road in front of university
+You are on a road which runs east to west. To the north is the university entrance and to the south is the cemetery.
+
+> w
+You move west.
+
+Crossroad
+You are at a crossroad where the main road, which runs from east to west, crosses the street you live on, at least in your own world. If you go south, you should come to your house.
+
+> w
+You move west.
+
+Crossroad
+You are standing at another crossroad. The main road continues east-west. You remember Michael Peters, the core programmer on the Tartarus project, lives on the street to the north. The street to the south has no significance to you.
+
+> n
+You move north.
+
+Street in front of Michael Peters' house
+You are on the street in front of Michael Peters' house. You can go south back to the crossroad or west onto the porch of Michael Peters' home.
+
+> w
+You move west.
+
+Michael's porch
+You are on Michael Peters' porch in front of the door. There are a few plants scattered around the porch.
+
+> knock on door
+After a short while your hear footsteps and somebody turns the lock. The door opens and you see Michael Peters in front of you. Michael recognizes you and becomes pale. "But.. But you are dead!" Michael stutters. "I went to your funeral!"
+
+Perhaps you should try to explain yourself so that Michael may relax a bit.
+
+> tell michael about tartarus
+You briefly tell Michael that you have come here from a parallel world via the Tartarus project.
+
+"What kind of crazy story is that!" Michael cries out. "Please provide me with some proof of your story and I might consider it!"
+
+> show usb key to michael
+You hand Michael the USB-key while saying: "Here is your proof."
+
+Michael says "Okay, I will take a look at the contents and come back." With those words Michael goes back into the house, closes and locks the door.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...  Michael opens the door and says "Sorry it took so long. Come in."
+
+You enter his house and you follow him into the living room. You sit down on the couch in front of a coffee table and Michael sits down on a chair on the other side.
+
+"Now please tell me the whole story." Michael says. You tell Michael everything that has happened and that your mission now is to save Michael's world from being destroyed. While you are talking you give him your note with coordinates.
+
+Michael looks nervous. Suddenly you hear knocking on the front door. "I'll be back in a moment." Michael says. He returns briefly after with two police officers. "So this is the guy who pretends to be a dead man?" one of the officers asks.
+
+The police officers question you and it quickly becomes apparent that they do not believe your story. "We need somebody to check you out." says one of the officers. "Sorry, but we need to handcuff you for the ride."
+
+You are handcuffed and led out to the police car. You drive for about 40 minutes along the main road, then the car takes a sudden turn to the right. You notice a sign saying "Psychiatric Hospital". "Where are you taking me?" you ask. "We need a doctor to look at you - we do not think that you are well." says the officer who is driving.
+
+You arrive at the hospital and you all leave the car. You enter the hospital and are greeted by a nurse. "The doctor will be with you in a few minutes." she says and leaves. A few minutes go by, then the doctor arrives. He greets you all and takes you and the officers to a small room where you all sit down.
+
+You tell your story to the doctor who clearly sees your story as a sign of mental illness. "I think it would be good to keep you here for a while, until we have sorted out your mental state." he says. You protest but resistance is useless. The police officers leave and you are led to an unoccupied room where you are going to live while you are a patient at the hospital. Your belongings are locked away into a cupboard in your room.
+
+"When you feel you are settled, have a look around the hospital and if you need help from the staff, just knock on the glass door in the living room." says the doctor. He leaves you. You lie down on the bed, frustrated.
+
+You must have slept. A nurse knocks on the door to your room and says: "You have got a visitor. His name is Michael Peters. Would you like his visit?" Without hesitation you say "yes please."
+
+Michael steps in and closes the door after him. He sits down on a chair and quickly begins to talk. "Sorry, at first I did not believe you, so I called the police. It is not everyday I meet a dead guy. But now I have had a chance to look more thoroughly at the USB-key you gave me. That code is really amazing! If simulated realities exists, that code must be the key to travel between them! We need to get you out of here in a hurry. Tomorrow it may be too late."
+
+You tell Michael that the staff is not going to let you out since they clearly believe that you are mentally ill and in need of help. "Then you have to escape!" Michael exclaims. You agree with Michael but tell him you don't know how. "Okay, I will wait at the parking lot the entire evening, hoping that you manage to escape. And if you don't I will come back tomorrow, assuming our world still exists."
+
+Michael leaves you and you begin to ponder how on earth you are going to escape from this hospital...
+
+Your Room
+You are in your own room at the psychiatric hospital. The room has a minimum of furniture in white and grey colors. There is a bed against the south wall and a desk with a chair against the north wall. A cupboard leans against the east wall just beside the door. A window is set in the west wall overlooking a fenced garden. A door leads east.
+
+> open door
+You open your door.
+
+> e
+You move east.
+
+Hallway
+You are out in the hallway between your room to the west and John's room to the east. All doors are painted light blue. The hallway continues north and south.  Linda enters from the south.
+
+> n
+You move north.
+
+Hallway
+You are in the northern part of the hallway. The hallway ends in a junction to the north and it continues south. There are blue doors on each side of the hallway, Eddie's room to the west and Elisabeth's room to the east.  Linda enters from the south.
+
+> n
+You move north.
+
+Junction
+The hallway from the south ends here in a junction. The entrance to the hospital lies to the east and to the west is the living room.  Linda enters from the south.
+
+> w
+You move west.
+
+Living room
+You are in the living room where a wide couch takes up most of the space. A wide flat-screen TV is hanging on the south wall. To the north is a glass door and a large window through which you can see the meeting room of the employees. A door is set in the southwest corner of the room leading out to a fenced garden. To the west begins another hallway and the junction towards your room is to the east.  Tom and Anna are here.  Linda enters from the east.
+
+> e
+You move east.
+
+Junction
+The hallway from the south ends here in a junction. The entrance to the hospital lies to the east and to the west is the living room.  Eddie enters from the south.
+
+> s
+You move south.
+
+Hallway
+You are in the northern part of the hallway. The hallway ends in a junction to the north and it continues south. There are blue doors on each side of the hallway, Eddie's room to the west and Elisabeth's room to the east.
+
+> s
+You move south.
+
+Hallway
+You are out in the hallway between your room to the west and John's room to the east. All doors are painted light blue. The hallway continues north and south.
+
+> s
+You move south.
+
+Hallway
+You are in the hallway between Peter's room to the west and Linda's room to the east. All doors are painted light blue. The hallway continues north and south.  Peter enters from the west.
+
+> open linda's door
+You open Linda's door.  Peter exits to the north.
+
+> e
+You move east.
+
+Linda's room
+Linda's room has the same standard furniture as all the other rooms in this place: A bed, a desk with a chair and a cupboard in the corner. There is a window in the east wall. The room is quite tidy - perhaps Linda prefers to have her things locked away in the cupboards. The door is to the west.
+
+A coin is lying on Linda's wooden desk.
+
+> get coin
+(from the wooden desk)
+Ok, you take the coin from the wooden desk.
+
+> w
+You move west.
+
+Hallway
+You are in the hallway between Peter's room to the west and Linda's room to the east. All doors are painted light blue. The hallway continues north and south.
+
+> n
+You move north.
+
+Hallway
+You are out in the hallway between your room to the west and John's room to the east. All doors are painted light blue. The hallway continues north and south.
+
+> n
+You move north.
+
+Hallway
+You are in the northern part of the hallway. The hallway ends in a junction to the north and it continues south. There are blue doors on each side of the hallway, Eddie's room to the west and Elisabeth's room to the east.  Eddie enters from the west.
+
+> n
+You move north.
+
+Junction
+The hallway from the south ends here in a junction. The entrance to the hospital lies to the east and to the west is the living room.  Linda passes you by.  Linda exits to the south.  Eddie enters from the south.
+
+> w
+You move west.
+
+Living room
+You are in the living room where a wide couch takes up most of the space. A wide flat-screen TV is hanging on the south wall. To the north is a glass door and a large window through which you can see the meeting room of the employees. A door is set in the southwest corner of the room leading out to a fenced garden. To the west begins another hallway and the junction towards your room is to the east.  Tom and Anna are here.  Eddie enters from the east.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...  Eddie exits to the east.
+
+> z
+Time passes...  Peter enters from the south-west.
+
+> ask peter for a cigarette
+"So you are smoking too, huh?" asks Peter. "Well, if you give me a dollar, I will give you one cigarette."
+
+> give coin to peter
+You give Peter the coin and Peter hands you one cigarette saying "Here you are."
+
+> give cigarette to tom
+You give Tom the cigarette. "Thanks man!" Tom says. "I haven't had a cigarette for days!". Tom goes south-west to the garden, whistling.  Peter exits to the east.
+
+> w
+You move west.
+
+Hallway
+Here an east-west hallway begins. On this hallway there are only rooms on the north side. Tom's room is to the north.
+
+> open tom's door
+You open Tom's door.
+
+> n
+You move north.
+
+Tom's room
+Tom's room is very similar to your room, though the window is in the north wall overlooking the parking lot. There is the usual furniture here, consisting of a bed, a desk with a chair and a cupboard in the corner. The door is to the south.
+
+> close door
+You close Tom's door.
+
+> break window
+You think about the best way to break the window without getting injured. You conclude that the best method is to kick the window with the sole of your boot. You give it your best kick and huge cracks become visible in the window glass.
+
+You give it one more kick and your boot smashes a hole in the glass. You continue to kick until the hole is big enough to climb out of. Quickly you climb through the hole you've made and run to Michael Peters' car. As you approach, Michael opens the door for you and you quickly get in. Michael drives away fast.
+
+"Hopefully they did not see my license plate!" Michael says. "Now let us get to Fu-tech immediately!" You drive to Fu-tech and get out. You both walk up to the entrance of Fu-tech.
+
+"Wait here." Michael says. "I will throw my access card down to you once I am upstairs and I have lured the guard up here as well. You then have to avoid the guard on your way up here." You agree on the plan and Michael goes into the building. After a while the window opens above you.
+
+"Here, take the access card!" Michael whispers and throws down the access card which lands on the ground in front of you. You pick it up. "Remember the code which is 4769. Now hurry, the guard is on his way up here! If the guard gets down again before you have entered the building, all hope is lost!"
+
+[It is now highly recommended to save your position]
+
+By entrance
+You are standing by the entrance to Fu-Tech. It is evening and the sun is slowly setting. The big sliding doors to the east mirrors the setting sun. The parking lot to the west of the building is almost empty apart from a few cars.
+
+> e
+As you approach the sliding doors they slide open.
+You move east and the doors close behind you.
+
+Entrance Hall
+You are inside the entrance hall. The automatic sliding doors are west of you and a security door is set in the east wall. Right next to the security door is a card reader with a numeric keypad.
+
+> put blue card on reader
+A green diode is lit on the keypad and you type in Michael's access code.
+The security door swings open.
+
+> e
+You move east.
+Once inside, the security door slams shut.
+
+By security counter
+You are standing beside the security counter. The security door is to the west. An elevator is to the south.
+
+> push call button
+You push the green call button and wait.  There is a "Diinngg!" from the elevator and the elevator doors slide open.
+
+> s
+You move south.
+
+Elevator
+You are inside an elevator. The walls are of aluminum and on the west wall there is a large mirror. On the east wall there is a row of buttons. The exit is north.
+
+> push -1
+You push the button with the number "-1". The doors close, the elevator moves for a short while, then stops. The doors open again.
+
+> n
+You move north.
+
+Basement
+You are in the basement below Fu-tech. Most of the room is filled with a large glass cabinet containing the huge blade server used for powerful simulations. The elevator is to the south.
+
+> look
+
+Basement
+You are in the basement below Fu-tech. Most of the room is filled with a large glass cabinet containing the huge blade server used for powerful simulations. The elevator is to the south.
+
+> z
+Time passes...
+
+> z
+Time passes...  The elevator door closes. Somebody is calling the elevator!
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> push call button
+You push the green call button and wait.  There is a "Diinngg!" from the elevator and the elevator doors slide open.
+
+> s
+You move south.
+
+Elevator
+You are inside an elevator. The walls are of aluminum and on the west wall there is a large mirror. On the east wall there is a row of buttons. The exit is north.
+
+> push 1
+You push the button with the number "1". The doors close, the elevator moves for a short while, then stops. The doors open again.
+
+> n
+You move north.
+
+Office Space
+You are standing in an open office space with many cubicles around. You can go west to the west end of the office space, north to a hallway and the elevators are to the south. You can also go into what used to be your own cubicle back in your own world.  Michael Peters is here.
+
+As you enter the office, Michael Peters says "Hurry, follow me before the security officer comes back!" You follow him into the laboratory where you quickly get in the simulation chair, strap on the helmet and put your feet in the footholds.
+
+Michael has his laptop with him and quickly he types in the coordinates from the note you have given him. "Ready?" Michael asks. "Ready!" you say.
+
+Michael pushes the activation button and once again you experience the small current through your body, the humming sounds and the blinding light before you loose consciousness. Again you recover your senses on the soccer field, but this time you are back in your own world!
+
+The following days you are especially happy to be alive and spend extra time with your family. No-one knows the mysterious ways of your creators so within the Tartarus project you present the code you have uploaded, so that the Tartarus project hopefully will keep progressing satisfactorily seen with the eyes of your creators. As time goes by, research based travel is established between world A, B and C and knowledge is shared between the worlds. Years pass and nothing happens so it seems like your creators are happy, at least for now...
+
+Press a key to continue.....
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

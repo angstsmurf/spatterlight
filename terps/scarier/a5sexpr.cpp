@@ -21,6 +21,9 @@
 
 /* Wired to a5rand_between by the run harness; NULL in RNG-less builds. */
 long (*a5sexpr_rng_hook) (long lo, long hi) = NULL;
+/* Wired to a5rand_norepeat (FD NoRepeatRandom) by the run harness; urand()
+   falls back to a plain a5sexpr_rng_hook draw when unset. */
+long (*a5sexpr_urand_hook) (long lo, long hi) = NULL;
 
 namespace {
 
@@ -312,18 +315,24 @@ apply_function (const std::string &lid, std::vector<Val> &a)
       if (idx < 0) idx = 0; if ((size_t) idx >= n) idx = (long) n - 1;
       return a[idx]; }
   if ((f == "rand" || f == "urand") && n >= 2)
-    /* rand(min,max) -> Random(min,max); urand uses NoRepeatRandom, approximated
-       here by the same inclusive draw (no shipped corpus text uses urand). */
-    return mk_num ((double) (a5sexpr_rng_hook
-                              ? a5sexpr_rng_hook ((long) val_of (a[0]),
-                                                  (long) val_of (a[1]))
-                              : (long) val_of (a[0])));
+    {
+      /* rand(min,max) -> Random(min,max); urand(min,max) -> NoRepeatRandom
+         (a per-range shuffled pool consumed without repeats -- The Salvage's
+         planet-name assignment urand(1,33)). */
+      long lo = (long) val_of (a[0]), hi = (long) val_of (a[1]);
+      if (f == "urand" && a5sexpr_urand_hook)
+        return mk_num ((double) a5sexpr_urand_hook (lo, hi));
+      return mk_num ((double) (a5sexpr_rng_hook ? a5sexpr_rng_hook (lo, hi) : lo));
+    }
   if ((f == "rand" || f == "urand") && n >= 1)
-    /* clsVariable.SetToExpression single-arg rand: Random(0, value) -- inclusive
-       0..value (e.g. RAND(8) draws 0..8), NOT the bare literal. */
-    return mk_num ((double) (a5sexpr_rng_hook
-                              ? a5sexpr_rng_hook (0, (long) val_of (a[0]))
-                              : (long) val_of (a[0])));
+    {
+      /* clsVariable.SetToExpression single-arg rand: Random(0, value) -- inclusive
+         0..value (e.g. RAND(8) draws 0..8), NOT the bare literal. */
+      long hi = (long) val_of (a[0]);
+      if (f == "urand" && a5sexpr_urand_hook)
+        return mk_num ((double) a5sexpr_urand_hook (0, hi));
+      return mk_num ((double) (a5sexpr_rng_hook ? a5sexpr_rng_hook (0, hi) : hi));
+    }
 
   /* unknown / wrong arity: empty string */
   return mk_str ("");

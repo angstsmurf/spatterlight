@@ -1,0 +1,144 @@
+# Race Against Time (ADRIFT 5) — author's walkthrough (Walk-Through RaT.doc)
+# Skip intro at options page
+b
+# Airlock: enter door code (date 112756 + digit sum 22)
+press 11275622
+e
+e
+# Reception area: find green fob in pigeonholes
+x pigeon holes
+search pigeon holes
+get fob
+x fob
+# Engineering corridor: elevator access card
+ne
+x engineers
+search engineers
+# Engineering quarters: pliers from chest
+e
+x chests
+open chest
+look in chest
+get pliers
+# Chief Engineer's quarters (door blocked)
+e
+open door
+push door
+e
+x chief engineer
+search chief engineer
+get thong
+x cylinder
+open cylinder
+x table
+move papers
+push button
+x image
+get pin
+x map pin
+# Back to reception, then living quarters
+w
+w
+sw
+e
+x eastern door
+hold green fob against east reader
+e
+hold green fob against reader
+drop green fob key
+w
+# Mao's quarters: blue fob stuck by the door (needs pliers)
+s
+move scientist
+x space
+get fob key
+x fob key
+hold blue fob against south reader
+out
+x south door
+w
+# Elevator to top floor: commander's quarters
+s
+press call button
+in
+press top button
+e
+x commander
+search commander
+get chain
+x desk
+open drawers
+look in drawers
+x box
+x groove
+x titanium chain
+place titanium chain in groove
+open box
+x silver pin
+# Elevator down to lower level: storage room
+w
+in
+push lower button
+w
+open door
+x shelves
+pull loose shelf
+x compartment
+x handle
+x holes
+insert map pin in right hole
+insert silver pin in left hole
+pull handle
+# Last resort chamber: repair the self-destruct mechanism
+w
+x walls
+x panel
+push panel
+x table
+x blockage
+pull table
+x table
+x contraption
+x wires
+x boxes
+x deformed tube
+get deformed tube
+look inside deformed tube
+get ball
+drop deformed tube
+e
+x boxes
+open boxes
+x cardboard box
+look inside cardboard box
+get plastic tube
+w
+place plastic tube on mechanism
+put metal ball in plastic tube
+push activation switch
+x light
+x guarded switch
+push guarded switch
+# Race against time: elevator is dead, escape via commander's quarters
+e
+e
+e
+in
+push middle button
+push top button
+e
+look under desk
+x plate
+push plate
+s
+d
+push panel
+e
+n
+w
+# Airlock: new code (11+27+56 = 94)
+push 27115694
+w
+x pilot
+talk to pilot
+in

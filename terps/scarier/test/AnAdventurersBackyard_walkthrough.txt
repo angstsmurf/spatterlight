@@ -1,0 +1,74 @@
+# An Adventurer's Backyard (Nick Gauthier, ADRIFT 5) — max score 25/25 walkthrough
+# A tiny treasure-hunt: ten scored deeds worth 25 points, then "score" to win.
+# No deaths, NPCs or timers.  The constraints are physical: you can't climb the
+# tree while holding the bulky stepladder, and the stepladder (bulk 81 of a
+# 90 carry limit) leaves almost no room for anything else -- so the axe and the
+# early treasures get dropped before you pick the ladder up, and the flypaper is
+# dropped once it has done its job.  You must also clear the spider off the rose
+# (by feeding it the fly) before the diamond ring can be lifted from the vase.
+#
+# --- Backyard: grab the axe, then climb the tree (no ladder yet) ---
+s
+take axe
+n
+sw
+u
+# Chop through the treehouse floor with the axe to open the hollow (+2)
+chop floor with axe
+in
+take locket
+out
+drop axe
+d
+# --- Fountain: fish out the rare coin (+3) ---
+ne
+se
+get coin from fountain
+# Shed everything before the stepladder -- it needs almost the whole carry limit
+drop locket
+drop coin
+# --- Fetch the stepladder (too bulky to have climbed the tree with) ---
+nw
+s
+take ladder
+n
+# --- Enter the house through the sliding glass door ---
+e
+open door
+e
+# --- Front porch: the flypaper is hidden under the welcome mat ---
+n
+open front door
+out
+look under mat
+in
+s
+# --- Kitchen: sugar from the lower cabinet, then bait the fly (+2) ---
+e
+s
+open lower cabinet
+open bowl
+take sugar
+catch fly with flypaper
+# --- Hallway: feed the fly to the spider so it leaves the rose (+1),
+#     drop the spent flypaper, then lift the diamond ring from the vase (+3) ---
+n
+feed fly to spider
+drop flypaper
+get ring from vase
+# --- Bathroom: the envelope is hidden in the toilet tank (+3) ---
+n
+open tank
+open envelope
+s
+# --- Master bedroom: take the collar off the cat (+3) ---
+u
+s
+get collar from cat
+# --- Balcony: set the ladder against the roof (+2), climb up for the
+#     meteorite (+3), then claim victory ---
+w
+drop ladder
+u
+take meteorite
+score

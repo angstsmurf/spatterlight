@@ -1,0 +1,262 @@
+The Blank Wall Intro
+By Richard Otter
+
+Written for the V5 Intro Competition 2012
+[During the game you can type ABOUT for general information and HINTS for help/advice]
+
+When all the others had given up, you carried on. Everyone told you to call it a day; your boss, your colleagues, your family, your friends. Everyone said the same, he had escaped. But, you didn't listen to any of them. What did they know or care?
+
+The media just loved the whole thing of course - ritual murders, pagan practices, satanic sacrifices; it all sounded so sensational. It was nothing more than murder, rape and torture; to you he was just an evil minded monster.
+
+So, through many long hours and even longer days you watched and waited. The weather started to turn colder with that early winter chill, but it was not as cold as the feelings in your heart.
+
+And then your dedication finally paid off. Just after 8.00pm on a Saturday evening, at the end of a very long shift, you spotted something moving inside and almost immediately someone appeared at the front door. Not sure at first, was it him? You look carefully, oh so carefully, you must be sure. It is him!
+
+He must have had a hiding place somewhere in the building and has been waiting for the right opportunity to run. You have anticipated this moment for such a long time, but you have no reason to rush. He looks furtively around and then slips out of the building. So, you follow. You are not sure but it looks like he is holding a small bag but in this light it is not easy to tell. He really must believe he has got away with it as he is so easy to shadow.
+
+He doesn't go very far, only a few miles to an abandoned railway station. Standing at the old ticket hall entrance he pauses for a moment and looks around.  He glances in your direction and you imagine he might have seen you.  He swings around and quickly enters the derelict station.
+
+You have him now!
+
+The Front of the Station
+You are at the front of the derelict Coltby railway station, now overgrown with weeds and long grass. All the stations that belonged to this company where built of local stone in a sort of mock Georgian style. Even when this place was open it always looked run down and neglected. Now after a decade of closure the weather and vandalism have made it a very sad place. An old discarded trash can lies forgotten to your left and some large metal thing is laying flat against the ground in front of you. The entrance to the old ticket hall is north and the road leading away from the station is south.
+
+The railway tracks were removed years ago but the station building was left behind to decay.  Many ideas have been put forward over the years for the building, everything from a fancy restaurant to a visitor centre. But, no-one has ever been that interested and nothing has ever happened.  The building now sits alone and seems to be waiting. Out of the corner of your eye you notice something sliding from the roof, whatever it was fell into the long grass somewhere.
+
+> x picture
+The colour photograph is of a very attractive young woman. In her early twenties, the blond girl has the perfect figure and is a natural beauty without the makeup. With a warm smile she also has those eyes that are very easy to get lost into. You have carried this picture a long time and looking at it always seems to stir those old difficult memories.
+
+> x sign
+Laying on the floor is the old sign of the station and reads, "Coltby." It either fell from the wall or some hooligan pulled it off.  Either way it is rusting quietly now.
+
+> x weeds
+In amongst the weeds and grass you find an old roof tile, which you pick up.
+
+> x trash can
+You can see a miss-shaped wire trash can which has been ripped from the wall of the station and thrown around.  Inside the old trash can is a faded coltby timetable.
+
+> get timetable
+(from the old trash can)
+Ok, you take the faded coltby timetable from the old trash can.
+
+> read timetable
+Trains departing from Coltby
+
+Time		Destination	Platform
+10:00		Bayswater	2
+11:00		Draycot	2
+12:00		Colesworth	1
+13:00		Bakeswell	2
+14:00		Coldon	2
+15:00		Thrumpton	1
+16:00		Grantby	2
+17:00		Colesworth	1
+
+The Colesworth to Grantby Line calling at Colesworth, Thrumpton, Coltby, Draycot, Bakeswell, Bayswater, Coldon and Grantby.
+
+> n
+You move north.
+
+Ticket Hall
+You are in the dingy ticket hall.  The floor is stained with decades of footprints and the walls look like they haven't seen a coat of paint for a long time.  The ancient unloved ticket counter is on your right.  The door to the platform should be to the north, but the wall is blank. The main entrance is south and a cafe is west of you.  You can see an old sack and a holdall.
+
+You look around.  He isn't here?
+
+You can feel the presence of the picture you are carrying.
+
+> move sack
+Moving the old sack you notice that it was hiding a drawing marked onto the floor.
+
+> x pentagram
+One of those shapes called a Pentagram has been marked onto the floor with chalk.  It is a five-pointed star drawn with five straight strokes. From the way it is drawn it looks like some objects are expected to be placed on it.  The symbol looks very fresh, so he must have drawn it. More of his dark magic. But why has he drawn this here? You notice a little white powder on the pentagram.
+
+> x powder
+A little white chalk like powder is visible.  The powder seems to blow away, although not a breath of air moves in the old ticket hall.
+
+> hit tile
+In a fit of violence you break the old roof tile.
+
+> open holdall
+You open the holdall.  Inside the holdall is a single blond hair and a pair of red panties.
+
+> x counter
+The small counter is in keeping with this room, shabby, neglected and dirty.  A scrap of paper is on the counter.
+
+> read paper
+At the top of the paper has been written "Find clay, spit and time" and then near the bottom "Speak offer, portal and grantby". Each of the last three words have been circled as if they have some special meaning.  The word "Grantby" catches your eye. The faded timetable mentions Grantby and at one time you could get to it from this station.
+
+> x picture
+Although not visible from the picture you know that the girl also had a great sense of fashion, was very intelligence, had a natural confidence about her and was very friendly.
+
+> w
+You move west.
+
+Cafe
+It is probably the first time you have been in this cafe but you get the feeling you have been here before. Everything is smashed or at least in an advanced state of decay. An old forgotten counter is before you and laying right next to it a battered old tea urn. Just in front of the counter is a rather dejected leg less table and to your right is a window. The ticket hall is to the east.  A drawing has been marked onto the floor in chalk.  You can see a piece of chalk.
+
+You look around.  He isn't here either?  Where has he gone?
+
+> x hexagram
+Someone has tried to draw one of those shapes called a hexagram onto the floor with chalk. It is suppose to be a six-pointed star drawn with six straight strokes but it is uncompleted.  The symbol looks very fresh, so he must have tried to draw it. More of his dark magic. But why has he drawn this here? And why did he not finish it?
+
+> open urn
+You open the battered old tea urn.  Inside the battered old tea urn is a smokers pipe.  You get a horrible fishy smell from urn as is it opened.
+
+> x pipe
+It is a smokers pipe and still smells heavily of tobacco, so must have been well used in its lifetime.
+
+> get gum
+(from the broken table)
+Ok, you take the wad of chewing gum from the broken table.
+
+> get chalk
+Ok, you pick up the piece of chalk.
+
+> x picture
+Although not visible from the picture you know that the girl also had a great sense of fashion, was very intelligence, had a natural confidence about her and was very friendly. You loved her and given time you are sure that she would have returned your love.
+
+> e
+You move east.
+
+Ticket Hall
+You are in the filthy ticket hall.  The floor is stained with decades of footprints and the walls look like they haven't seen a coat of paint for a long time.  The ancient forgotten ticket counter is on your right.  A star shape has been marked onto the floor.  The door to the platform should be to the north, but the wall is blank. The main entrance is south and a cafe is west of you.  You can see an old sack and a holdall.
+
+He could not have got passed you so he must be hiding. But where?
+
+> x hair
+It is a single long blond hair.  One of his victims maybe? May be is one of hers?
+
+> x picture
+Although not visible from the picture you know that the girl also had a great sense of fashion, was very intelligence, had a natural confidence about her and was very friendly. You loved her and given time you are sure that she would have returned your love. But fate had other ideas. You wonder if the blond hair you found was one of hers.
+
+> put tile on pentagram
+Ok, you put the broken roof tile on top of the pentagram.
+
+> put timetable on pentagram
+Ok, you put the faded coltby timetable on top of the pentagram.
+
+> put gum on pentagram
+Ok, you put the wad of chewing gum on top of the pentagram.
+
+> say grantby
+"Grantby."
+
+The room seems to sigh.
+
+> say portal
+"Portal."
+
+It sounds like someone is moving furniture.
+
+> say offer
+"Offer."
+
+The room sounds like a noisy summer thunder storm is taking place.  Something moves behind the counter.
+
+> x powder
+It is a white chalk like powder.  A single word has been written in the white powder, "Grantby."
+
+> talk to seller
+"Hello there", you say.
+
+The Ticket Seller looks up , "Oh hello there. May I help? Where are you going?"
+
+> buy ticket to grantby
+Looking over at the Ticket Seller you remark, "Ticket to Grantby please."
+
+The Ticket Seller hands you the ticket and with an almost sad tone, "Good luck sir." You are about to reply when something on the wall moves and catches your eye.
+
+> get panties
+(from the holdall)
+Ok, you take the pair of red panties from the holdall.  As you take the panties something falls out of them and into the holdall.
+
+> look in holdall
+It is a plain black holdall, or gym bag, and is made of cloth with an opening at the top.
+
+In looks like the one he was carrying. In his haste he must have dropped it.  The holdall is currently open.  Inside the holdall are a single blond hair and a single business card.
+
+> x single business card
+It is one of your business cards.  How did it get here?
+
+It has a large green R and S on one side and your details on the other.  The card is of a reasonable quality but nothing extravagant. The card reads -
+
+Colin Thompson,
+Rapid Stationary Ltd,
+Coltby
+Tel: 798654
+
+> n
+You open the wooden door and move north.
+Platform One
+You are on the wind swept platform.  The platform is covered by a canopy which seems to offer little protect from the rain or wind.  Attached to the wall you can see a large clock and next to it is a poster. Just to the side of you is one of those green railway benches with a metal rubbish bin next to it. Above the bench is an arched window. The Ticket Hall is to the south.  You cannot see platform two though, it should be opposite you on the other side.
+
+You look around. Something is wrong, very wrong! The station is suddenly not such a derelict on this side of the door! After the initial shock your thoughts clear and two questions surface. Did he come this way? And what has happened to him?
+
+> get picture
+(from the bench)
+Ok, you take the picture from the bench.
+
+> x picture
+She would have returned your love if fate hadn't intervened. She met him.
+
+> x bench
+You can see a green railway bench which looks hard, uncomfortably and dirty.   A single blond hair is on the bench.
+
+> x hair
+It is a single long blond hair.  Is this the same one as the one you found in the holdall? How did this get here? Was it one of hers?
+
+Almost without a sound a steam driven train arrives at the platform.  For a moment you just stare at it without any particular thought. Steam? Is this a preservation society?
+
+> get hair
+(from the bench)
+Ok, you take the single blond hair from the bench.
+
+> x clock
+You can see the station clock which is showing the time as 3:55pm. The clock is attached to the wall on its side so both faces are visible.  It must be about 1.5 metres in diameter and has the words "W.Potts of Leeds" at the bottom.    If the faded timetable is right the train to Grantby will be here in a few minutes.
+
+> x bin
+The semi-cicular rubbish bin is a lovely deep blue colour and looks virtually brand new.  Inside the rubbish bin are a new business card and an old delivery receipt.
+
+> x new business card
+It is yet another of your business cards.  How did this one get here?
+
+It has a large green R and S on one side and your details on the other.  The card is of a reasonable quality but nothing extravagant. The card reads -
+
+Colin Thompson,
+Rapid Stationary Ltd,
+Coltby
+Tel: 798654
+
+> z
+Time passes...
+
+For some reason the waiting train catches your attention but you are not sure why.
+
+> z
+Time passes...
+
+You hear a loud whistle from one of those hand held types that railway staff carry. The train might be about to leave.
+
+> listen to train
+The steam train is completely silent, it makes not a single sound.
+
+> score
+You have scored 16 out of 22 points.
+
+> enter train
+You head north and board the waiting steam train.
+
+Steam Train
+The carriage of the train has hard looking double seats either side of a very narrow gangway. You appear to be the only passenger.
+
+As the train pulls out of the station a number of questions float across your consciousness -
+Why has he come out of hiding now? Why did he come to Coltby station? Just what is the place?  What does the pentagram mean and how does it work?  What does the unfinished drawing in the old cafe mean?  Steam trains in this day and age?  Was the blond hair one of hers?  What was your business card doing in that holdall?  How did another of your cards get in the platform bin?  What was that powder all about?  And has he actually gone to Grantby?
+
+You must find him...........
+
+You have scored 20 out of a possible 22 points.
+
+The story continues when the full version of The Blank Wall is released.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

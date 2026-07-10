@@ -1,0 +1,59 @@
+# Stuck Piggy (2.0) -- Mike Desert, ADRIFT 5 (v5.000021 taf), Ectocomp 2011
+# (3-hour speed-IF) -- full winning walkthrough (*** You have won ***; the win
+# is `kiss billy`, printed reversed as "yllib ssik" in the author's bundled
+# "Stuck Piggy Walkthrough of Sorts.txt").  Route = that walkthrough with the
+# command variants this build actually accepts: `take branch` (the author's
+# "get branch" library-takes the hedge-thorns scenery instead of firing
+# Task2), `grab billy` for the sack grab ("get billy" is the intentional
+# refusal gag, kept), `get flour` ("move flour" is not a Task15 command --
+# the taf has "move flower"), `unlock clock with key` (bare "unlock clock"
+# asks "with what?"), `plug in knife` ("use cord with knife" is not a Task21
+# command), and `grate nose`.  The wax teeth ("get candy") are the item the
+# author "didn't get a chance to make use of".
+#
+# The pre-unlock `open clock` is a deliberate conformance probe: the empty
+# Task11 stub ('open clock' with only a key-held restriction, no message, no
+# actions) passes silently, and FD's pass-but-no-output continuation
+# (clsUserSession.vb:918) then reaches the stock OpenObjects, which fails
+# with "You can't open the old grandfather clock as it is locked!" -- the
+# scan-end continuation fix in scan_tasks (a5run.cpp) exists for this line.
+#
+# Story: a pint-sized psycho ambushes trick-or-treater Billy from a hedge,
+# sacks him, drags him home, raids the kitchen for "tools" (extension cord,
+# toaster, electric carving knife, cheese grater, ice pick; the clock key
+# under the pantry flour opens the grandfather clock's dentist tools), and
+# after the torture spree realises it was love all along: kiss billy, slit
+# his throat, and head upstairs for the rope -- "Hurray! You are dead!"
+take branch
+get bag
+empty bag
+get candy
+get billy
+grab billy
+hit bag
+e
+move fridge
+x cord
+get cord
+get toaster
+get knife
+get grater
+get ice pick
+e
+get flour
+get key
+w
+w
+open clock
+unlock clock with key
+open clock
+get dentist tools
+plug in knife
+hit billy with toaster
+grate nose
+use ice pick on eyes
+use dentist tools
+carve body
+carve arm
+slice leg
+kiss billy

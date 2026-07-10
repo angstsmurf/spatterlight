@@ -197,9 +197,13 @@ a5parse_canonical_direction (const char *text)
       do {
         bar = re.find ('|', start);
         std::string alt = re.substr (start, bar - start);
-        /* compare ignoring '-' so "south-east" == "southeast" */
+        /* compare ignoring '-' and whitespace so "south-east" == "southeast";
+           the whitespace-blind compare must apply to BOTH sides -- a localized
+           multi-word synonym (Thy Dunjohnman's DirectionEast "chamber pot")
+           otherwise never canonicalizes, because the input `t` above was
+           space-stripped but the alternative kept its space. */
         std::string a, b;
-        for (char c : alt) if (c != '-') a += c;
+        for (char c : alt) if (c != '-' && !isspace ((unsigned char) c)) a += c;
         for (char c : t)   if (c != '-') b += c;
         if (a == b)
           return kDirs[j].canonical;
@@ -337,6 +341,8 @@ convert_to_re (const char *pattern, std::string &out_pattern,
   else
     result = result.substr (a, b - a + 1);
   out_pattern = "^" + result + "$";
+  if (getenv ("A5_TRACE_RE"))
+    fprintf (stderr, "A5_TRACE_RE: \"%s\" -> %s\n", pattern, out_pattern.c_str ());
   return true;
 }
 
@@ -568,7 +574,19 @@ match_one_pattern (const std::string &pattern, const char *input, a5_match_t *m)
 
   std::smatch mt;
   std::string in = input ? input : "";
-  if (!std::regex_match (in, mt, cp.re))
+  /* FrankenDrift (and real ADRIFT's clsUserSession) test the command regex with
+     .NET Regex.IsMatch, which is a SEARCH, not a full-string match.  For the
+     usual well-formed "^...$" pattern the two are identical, but ADRIFT's
+     ConvertToRE does a *global* '/'->'|' that leaves a bare (un-bracketed) word
+     alternation UNSCOPED: e.g. "[fork] on/against [box]" becomes
+     "^...(fork) on|against (box)$", where '|' has lowest precedence so '^' binds
+     only to the left branch and '$' only to the right.  Under IsMatch/search the
+     left branch "^...(fork) on" still matches the input's prefix, so FD (and
+     ADRIFT) accept "put fork on box"; a full-string std::regex_match would reject
+     both branches.  Mirror FD's search semantics so those bare-'/' connectors
+     match identically (SoC "put fork on box" -> the game's own Task, not the
+     generic library put). */
+  if (!std::regex_search (in, mt, cp.re))
     return 0;
   if (m != NULL)
     {

@@ -1,0 +1,3475 @@
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 220/250
+Suit Oxygen: 120/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+Ocean M005
+There is a Cube 6  here.  Exits are northeast, southeast and northwest.
+
+Cube Status:
+
+Cube is Active - its GREEN light pulsates..Cube Power Number <6>
+  Alien Diver v15
+
+# Alien Diver #
+
+Overview:
+
+On a scouting mission in a far flung solar system, your ship malfunctioned at the worst time just as you were in the middle of sling shooting around a planet called Ochora S7.
+
+After an intense fight with the controls you managed to avoid hitting the atmosphere sideways and eventually crashed into the deep ocean and now lies on the sea floor. The ship is in need of repair, and scans have shown fragments of alien tech can be used to craft everything required to fly again. Luckily your ship has been built to take off from high gravity planets and withstand the ocean's underwater pressure.
+
+You awake floating lifeless in the deep murky alien ocean in your EVA suit, you can feel the ebb and tow of the currents. You expected to be in your ship but vaguely recall leaving it to inspect the outer hull for damage from your crash but got swept away by a current and blacking out.
+
+The ship will have to be located. There was hull damage but your force field managed to protect the ship from getting flooded completely.
+The raw materials needed for repairs are colored fragments which are found inside the alien cubes scattered over the ocean floor. The ship's integrity is slowly deteriorating and your Suit Oxygen depletes -1 unit of Oxygen per turn, if either reach zero it is game over.
+
+Read on for more details
+
+##-- Press any Key to Continue --##
+
+The Details:
+So the objective of the game is to get colored fragments in order to repair your ship.  These are inside cubes. But in order to extract these, you need to have a crafted card that matches the power number and color of an active cube.
+
+So initially when you come across an active cube and you do not have any crafted cards to play, you roll the dice to try and unlock it in order to get a blank card from it (keep rolling until it unlocks). These blank cards are required to craft a card to take on the properties of an active cube. Once a blank card is obtained that cube is inactive and useless to you.
+
+Find another active cube to craft your newly blank card upon on it, which the card will take on the properties of the active cube in color and power number value and renders the cube inactive and once again useless. Think of crafted cards as pass-keys.
+
+Now you can look for an active cube that matches the crafted card you have in both color and power number and play the card upon it to extract the needed colored fragments. You only need to get 1 of each color fragment to repair your ship (In no order: Blue, Red, Green and yellow).
+
+That is the core game loop.
+
+Also there are hostile sea creatures which you can attack or play a blank card that matches the same sea creature to scare it off. This card is expended and remains in the location its placed and will make that location forever a safe location against the specific sea creature. You cannot pick it up.
+
+Main Commands: Roll Die, Extract Card, Craft Card, Play Card on Cube, show cards, play a card on CreatureName (See abbreviated version of commands in: COMMANDS)
+
+Use command HELP (some tips of gameplay and how to use the map etc) and RULES (how to play the game) or COMMANDS to learn more at any time. See Status bar for your Stats. Tip: Turn off Auto-Complete (in Runner not browser version) via Edit and you can cycle through previous commands entered with up arrow button
+
+Summary: Repair Ship and then Take Off | Adjust Map and Status Window Frames with Mouse click/drag frames (but do not try and move custom Status window itself)
+
+Ocean M005
+There is a Cube 6  here.  Exits are northeast, southeast and northwest.
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 219/250
+Suit Oxygen: 119/120
+Crafting Fragments: 1/15
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 218/250
+Suit Oxygen: 118/120
+Crafting Fragments: 2/15
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 217/250
+Suit Oxygen: 117/120
+Crafting Fragments: 5/15
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ec
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 216/250
+Suit Oxygen: 116/120
+Crafting Fragments: 5/15
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ne
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 215/250
+Suit Oxygen: 115/120
+Crafting Fragments: 5/15
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ne
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 214/250
+Suit Oxygen: 114/120
+Crafting Fragments: 5/15
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> e
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 213/250
+Suit Oxygen: 113/120
+Crafting Fragments: 5/15
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> cc
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 212/250
+Suit Oxygen: 112/120
+Crafting Fragments: 5/15
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 211/250
+Suit Oxygen: 111/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 210/250
+Suit Oxygen: 110/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 209/250
+Suit Oxygen: 109/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sw
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 208/250
+Suit Oxygen: 108/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sw
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 207/250
+Suit Oxygen: 107/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sw
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 206/250
+Suit Oxygen: 106/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 205/250
+Suit Oxygen: 105/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 204/250
+Suit Oxygen: 104/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> pc
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 0
+Player HP:100/100
+Ship Hull Integrity: 203/250
+Suit Oxygen: 103/120
+Crafting Fragments: 0/15
+Blank Cards: 0
+Crafted Cards: 1
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 1
+Player HP:100/100
+Ship Hull Integrity: 202/250
+Suit Oxygen: 102/120
+Crafting Fragments: 6/15
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> e
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 1
+Player HP:100/100
+Ship Hull Integrity: 201/250
+Suit Oxygen: 101/120
+Crafting Fragments: 6/15
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 200/250
+Suit Oxygen: 100/120
+Crafting Fragments: 9/16
+Blank Cards: 0
+Crafted Cards: 0
+Total Cards Held: 0/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ec
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 199/250
+Suit Oxygen: 99/120
+Crafting Fragments: 9/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 198/250
+Suit Oxygen: 98/120
+Crafting Fragments: 9/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> nw
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 197/250
+Suit Oxygen: 97/120
+Crafting Fragments: 9/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 196/250
+Suit Oxygen: 96/120
+Crafting Fragments: 10/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 195/250
+Suit Oxygen: 95/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 194/250
+Suit Oxygen: 94/120
+Crafting Fragments: 12/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 193/250
+Suit Oxygen: 93/120
+Crafting Fragments: 15/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ec
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 192/250
+Suit Oxygen: 92/120
+Crafting Fragments: 15/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> nw
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 191/250
+Suit Oxygen: 91/120
+Crafting Fragments: 15/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> cc
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 190/250
+Suit Oxygen: 90/120
+Crafting Fragments: 15/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 189/250
+Suit Oxygen: 89/120
+Crafting Fragments: 10/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> n
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 188/250
+Suit Oxygen: 88/120
+Crafting Fragments: 10/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> n
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 187/250
+Suit Oxygen: 87/120
+Crafting Fragments: 10/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ne
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 186/250
+Suit Oxygen: 86/120
+Crafting Fragments: 10/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> pc
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 185/250
+Suit Oxygen: 85/120
+Crafting Fragments: 10/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 184/250
+Suit Oxygen: 84/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> e
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 183/250
+Suit Oxygen: 83/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> e
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 182/250
+Suit Oxygen: 82/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 181/250
+Suit Oxygen: 81/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 180/250
+Suit Oxygen: 80/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 179/250
+Suit Oxygen: 79/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ec
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 178/250
+Suit Oxygen: 78/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> n
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 177/250
+Suit Oxygen: 77/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> n
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 176/250
+Suit Oxygen: 76/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> cc
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 175/250
+Suit Oxygen: 75/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 174/250
+Suit Oxygen: 74/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> se
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 173/250
+Suit Oxygen: 73/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ne
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 172/250
+Suit Oxygen: 72/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> pc
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 171/250
+Suit Oxygen: 71/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 170/250
+Suit Oxygen: 70/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ne
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 169/250
+Suit Oxygen: 69/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 168/250
+Suit Oxygen: 68/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 167/250
+Suit Oxygen: 67/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 166/250
+Suit Oxygen: 66/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 165/250
+Suit Oxygen: 65/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 164/250
+Suit Oxygen: 64/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 163/250
+Suit Oxygen: 63/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 162/250
+Suit Oxygen: 62/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> rd
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 161/250
+Suit Oxygen: 61/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ec
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:100/100
+Ship Hull Integrity: 160/250
+Suit Oxygen: 60/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> ne
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:97/100
+Ship Hull Integrity: 159/250
+Suit Oxygen: 59/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> n
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:97/100
+Ship Hull Integrity: 158/250
+Suit Oxygen: 58/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> cc
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:97/100
+Ship Hull Integrity: 157/250
+Suit Oxygen: 57/120
+Crafting Fragments: 16/16
+Blank Cards: 2
+Crafted Cards: 0
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:97/100
+Ship Hull Integrity: 156/250
+Suit Oxygen: 56/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sw
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:97/100
+Ship Hull Integrity: 155/250
+Suit Oxygen: 55/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:97/100
+Ship Hull Integrity: 154/250
+Suit Oxygen: 54/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 153/250
+Suit Oxygen: 53/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sw
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 152/250
+Suit Oxygen: 52/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> pc
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 0/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 151/250
+Suit Oxygen: 51/120
+Crafting Fragments: 11/16
+Blank Cards: 1
+Crafted Cards: 1
+Total Cards Held: 2/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> 1
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 150/250
+Suit Oxygen: 50/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 149/250
+Suit Oxygen: 49/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 148/250
+Suit Oxygen: 48/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 147/250
+Suit Oxygen: 47/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sw
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 146/250
+Suit Oxygen: 46/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:84/100
+Ship Hull Integrity: 145/250
+Suit Oxygen: 45/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> se
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 144/250
+Suit Oxygen: 44/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 143/250
+Suit Oxygen: 43/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Unknown
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 142/250
+Suit Oxygen: 42/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> enter ship
+
+Progress for Ship Repair:
+Green Fragments: 1/1
+Blue Fragments: 1/1
+Red Fragments: 1/1
+Yellow Fragments: 1/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 141/250
+Suit Oxygen: 120/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> fix ship
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 250/250
+Suit Oxygen: 120/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 250/250
+Suit Oxygen: 120/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> w
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 250/250
+Suit Oxygen: 120/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> s
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 250/250
+Suit Oxygen: 120/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> sit on seat
+
+Progress for Ship Repair:
+Green Fragments: 0/1
+Blue Fragments: 0/1
+Red Fragments: 0/1
+Yellow Fragments: 0/1
+
+                     Stats:
+Game Score: 2
+Player HP:78/100
+Ship Hull Integrity: 250/250
+Suit Oxygen: 120/120
+Crafting Fragments: 16/16
+Blank Cards: 1
+Crafted Cards: 0
+Total Cards Held: 1/6
+
+Crashed Ship Location: Ocean M053
+
+                     --#--
+ Common Commands:
+RD (Roll dice)
+EC (Extract Card)
+CC (Craft Card on cube)
+Play card on CreatureName (deploys a Holo-gram)
+PC (play crafted card (on an active cube to unlock it))
+Examine cube (gives cube Extraction Status)
+Look (displays location Desc)
+Commands (more to view)
+Attack CreatureName (Hostile Sea Creatures only)
+Examine ObjectName/CharacterName  (Displays desc of an object or character eg fish)
+Rules (how to play the game)
+Commands (list more commands)
+
+Command To see Cards Held:
+Show cards
+
+:Note: Use mouse to adjust this window if needed
+
+> take off
+
+You fire up the engines, the force field allows them to roar to life. You watch the engine heat temps rise to normal levels before increasing the throttle a little more. You begin your pre-flight check list, once completed you press the Launch button, causing the ship thrusters to roar and the engine whine kicks up a notch louder as the ship begins to lift off.
+
+You maneuver the ship upwards with bottom thrusters now at full burn. Everything seems to be functioning normally, no red lights or alarms glaring on the dashboard.
+
+Satisfied you now begin to move the ship into a steeper ascend to the ocean surface above...
+
+#--- Press Any Key ---#
+
+You eventually see the surface above, the bright light penetrating through, your ship forward window tints automatically to account for it.
+Giving the engines more throttle you make your run to the surface.
+
+The ship courses through the water like a sleek steel fish racing upwards, as the surface rapidly approaches you increase more acceleration just as you break through and in the next instant the ship is free, taking flight. You arc away banking left and you begin to rapidly climb into the purple sky...
+
+#--- Press Any Key ---#
+
+*** You have won ***
+
+Well Done and thanks for playing.
+
+I hoped you enjoyed it. If you liked this game and have some feedback and perhaps some ideas please do so.
+
+Daza
+
+In that game you scored 2 out of a possible 6, in 84 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

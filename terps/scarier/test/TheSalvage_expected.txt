@@ -1,0 +1,489 @@
+
+Station Paths >   south | east |
+
+GameJam2019_The Salvage_v35
+
+           /$$$$$$$$ /$$                        /$$$$$$            /$$
+          |__  $$__/| $$                       /$$__  $$          | $$
+             | $$   | $$$$$$$   /$$$$$$       | $$  \__/  /$$$$$$ | $$ /$$    /$$ /$$$$$$   /$$$$$$   /$$$$$$
+             | $$   | $$__  $$ /$$__  $$      |  $$$$$$  |____  $$| $$|  $$  /$$/|____  $$ /$$__  $$ /$$__  $$
+             | $$   | $$  \ $$| $$$$$$$$       \____  $$  /$$$$$$$| $$ \  $$/$$/  /$$$$$$$| $$  \ $$| $$$$$$$$
+             | $$   | $$  | $$| $$_____/       /$$  \ $$ /$$__  $$| $$  \  $$$/  /$$__  $$| $$  | $$| $$_____/
+             | $$   | $$  | $$|  $$$$$$$      |  $$$$$$/|  $$$$$$$| $$   \  $/  |  $$$$$$$|  $$$$$$$|  $$$$$$$
+             |__/   |__/  |__/ \_______/       \______/  \_______/|__/    \_/    \_______/ \____  $$ \_______/
+                                                                                           /$$  \ $$
+                                                                                          |  $$$$$$/
+                                                                                           \______/
+
+ Intro
+
+Captain Pearson is a Salvager through and through and always gets the job done. The Captain owes a favor to an old friend, a friend who saved his life many years ago and now needs help. A freighter belonging to the company of his friend has been missing for a good couple of months, its transponder had turned off midway though its journey. He wishes to know what happened to it and retrieve its black box if possible. He has given Captain Pearson a ship The Avadora to go find it and he has 500 turns in which to achieve that goal.
+
+ =====****=====
+
+2019 Adventure GameJam
+Adrift Engine: Made by Campbell Wild
+Game Design and Writing: Darian Haines (aka Daza)
+Ascii Ship Art: (permission of use from Huw Millward - check out his Text 'Warsim' game on steam!)
+
+Type HELP for some basic info about gameplay and custom commands.
+
+Also Type Player Guide for an overview of how to play this game and what to expect.
+
+Note: If the map window pane is not visible press Ctrl + M to activate it or click on Window/Show map at top bar options above. Then adjust its width with interacting the mouse point on left edge of map window pane. See
+More notes about Runner (what you are using right now to play this) at the very end of the Player Guide.
+
+Note: Auto-Complete: You can turn off auto-complete commands (this feature can be handy but sometimes can be annoying)
+To do so in Runner (the application you are playing this game in) top bar on left click on EDIT and unselect Auto-complete.
+
+ =====****=====
+
+Docked - MPQ 449 Space Station
+The Avadora is sitting on the landing pad.
+
+> board avadora
+
+Airlock
+Officer Mckinney (XO) is here.
+
+Ship Interior Paths >   north |
+
+  Captain Pearson boards the Avadora.
+"Welcome aboard sir", McKinney stands in the middle of the Airlock, his uniform without a crease. He outstretches his right hand and smiles.
+
+1) Shake hand
+2) Ignore
+3) Skip Cutscene
+
+Ship Interior Paths >   north |
+
+> 3
+Skipping interactive cut scene..
+
+##{--------# JOURNAL #--------}##
+
+Find the Freighter Maria Serra and obtain it's black box and a crate on board labeled 'MK40Z'. DO NOT Open the crate under any circumstances.
+
+##{--------#---------#--------}##
+
+> take off
+
+"Docking control. The Avadora is about to depart docking. Request docking clamps to be released."
+
+Avadora you are cleared to take off. Clamps are released. You are go."
+
+((-- Press any Key --))
+
+"Affirmative Control. Thank you."
+
+The ships engines increase and a sudden jolt is felt as the ship lifts upwards and turns elegantly around to a clear flight path and accelerates upwards gaining more altitude leaving the docking bay behind.
+
+TIP: Now type roll dice to get some movement points, you then can move around the Star map. When the movement points reach zero you MAY be given a random event. Then afterwards repeat; roll dice and move etc.
+
+> roll dice
+
+Roll = 3
+
+You have 3 movement turns..
+
+MPQ 449 Space Station (Above)
+Avadora Flying
+
+  Also here is The Empress of the Seas (derelict).
+
+Navigation Paths   west |
+
+Movement turns left: 3
+
+> w
+The Avadora travels West
+
+Space
+Avadora Flying
+
+Navigation Paths   east | west |
+
+Movement turns left: 2
+
+- 1 fuel consumed
+
+> w
+The Avadora travels West
+
+Space
+Avadora Flying
+
+Navigation Paths   south | east | west |
+
+Movement turns left: 1
+
+- 1 fuel consumed
+
+> s
+The Avadora travels South
+
+Space
+Avadora Flying
+
+  Also here is The Costa d'Oro (Derelict).
+
+Navigation Paths   north | south |
+
+Movement turns left: 0  (Roll Dice again to add movement points)
+
+- 1 fuel consumed
+
+"Sir, there is a distress beacon signal within this system. What shall we do?"
+
+1) Lock that signal and lets head to it
+2) I'd rather not risk it
+
+> 2
+"Lets not chance it.
+
+"Aye aye sir."
+
+> roll dice
+
+Roll = 6
+
+You have 6 movement turns..
+
+> s
+The Avadora travels South
+
+Space
+Avadora Flying
+
+Navigation Paths   north | west |
+
+Movement turns left: 5
+
+- 1 fuel consumed
+
+> w
+The Avadora travels West
+
+Space
+Avadora Flying
+
+Navigation Paths   south | east |
+
+Movement turns left: 4
+
+- 1 fuel consumed
+
+> s
+The Avadora travels South
+
+MPQ 449 - Local
+Avadora Flying
+
+  Also here is The Karlsvik (derelict).
+
+Navigation Paths   north | south |
+
+Movement turns left: 3
+
+- 1 fuel consumed
+
+> s
+The Avadora travels South
+
+Enter Jump Gate?
+
+Yes or No
+
+Navigation Paths   north |
+
+Movement turns left: 2
+
+- 1 fuel consumed
+
+> yes
+
+Entering MPQ 449 ♦ Jumpgate ♦
+
+Please choose a navigation direction..(eg. Ne)
+
+Jumpgate Paths   south |
+
+> s
+The ship jumps through the gate..
+
+Some short time later the ship enters Aristaeus System
+
+Aristaeus - Local
+
+Navigation Paths   south | west | southwest |
+
+Movement turns left: 2
+
+> s
+The Avadora travels South
+
+Enter Jump Gate?
+
+Yes or No
+
+Navigation Paths   north | west | northwest |
+
+Movement turns left: 1
+
+- 1 fuel consumed
+
+> salvage maria serra
+Salvage Target:
+
+A MV Freighter class. Five crew ship.
+
+"Board the Maria Serra, look for the black box on the bridge and find that marked crate in the hold if it's still there."
+
+"Aye sir we are ready."
+
+#= Press Any key =#
+
+A few moments later..
+
+"We are leaving air lock heading to Maria Serra now."
+
+"Arrived at Maria Serra. Making an entrance using wielding torch..."
+
+Time passes..
+
+"We are entering now..."
+
+Time passes..
+
+"No signs of foul play so far. Only minimal interior lights are on. Nothing out of the ordinary, it's as if the crew just went for a space walk."
+
+Time passes..
+
+#= Press Any key =#
+
+The radio crackles to life, "We have found the black box from the flight computer. Doesn't seem have been tampered with."
+
+Time passes..
+
+"We have located the crate you instructed us to find. It was well hidden, we almost missed it."
+
+"Good job team, make your way back." Captain Pearson said over the comm.
+
+"Yes sir. See you guys in a few.."
+
+"Acknowledged."
+
+> y
+
+Entering Aristaeus ♦ Jumpgate ♦
+
+Please choose a navigation direction..(eg. Ne)
+
+Jumpgate Paths   north | northeast | southeast |
+
+> n
+The ship jumps through the gate..
+
+Some short time later the ship enters MPQ 449
+
+MPQ 449 - Local
+There is The Karlsvik (derelict) here.
+
+Navigation Paths   north | south |
+
+Movement turns left: 1
+
+> roll dice
+
+Roll = 1
+
+You have 1 movement turns..
+
+> n
+The Avadora travels North
+
+Space
+Avadora Flying
+
+Navigation Paths   south | east |
+
+Movement turns left: 0  (Roll Dice again to add movement points)
+
+- 1 fuel consumed
+
+It appears there is some space debris in the immediate vicinity, some have done some light surface damage to the ship but the Communications Relay Tower outside has been damaged. It's panel light on the bridge is flashing red.
+
+1) Send the Engineer to out and repair it (Engineer Status: active) Risk: 30% (Repair Parts Left: 5)
+2) Send the Crew Chief to out and repair it (Engineer Status: active) Risk: 30% Repair Parts Left: 5)
+3) Wait until the next dock and you will get it repaired then
+
+> 3
+"Lets wait until the next dock and get it repaired then."
+"The safer options sir."
+
+The Comm Relay Tower got damaged!
+
+> roll dice
+
+Roll = 2
+
+You have 2 movement turns..
+
+> e
+The Avadora travels East
+
+Space
+Avadora Flying
+
+Navigation Paths   north | west |
+
+Movement turns left: 1
+
+- 1 fuel consumed
+
+> n
+The Avadora travels North
+
+Space
+Avadora Flying
+
+  Also here is The Costa d'Oro (Derelict).
+
+Navigation Paths   north | south |
+
+Movement turns left: 0  (Roll Dice again to add movement points)
+
+- 1 fuel consumed
+
+> roll dice
+
+Roll = 3
+
+You have 3 movement turns..
+
+> n
+The Avadora travels North
+
+Space
+Avadora Flying
+
+Navigation Paths   south | east | west |
+
+Movement turns left: 2
+
+- 1 fuel consumed
+
+> e
+The Avadora travels East
+
+Space
+Avadora Flying
+
+Navigation Paths   east | west |
+
+Movement turns left: 1
+
+- 1 fuel consumed
+
+> e
+The Avadora travels East
+
+MPQ 449 Space Station (Above)
+Avadora Flying
+
+  Also here is The Empress of the Seas (derelict).
+
+Navigation Paths   west |
+
+Movement turns left: 0  (Roll Dice again to add movement points)
+
+> request docking
+
+Bridge - Avadora
+Officer Mckinney (XO), Officer Perez (nav) and Officer Vega (Pil) are here.
+
+Station Paths >   south | east |
+
+Ship Interior Paths >   north | west |
+
+"This is the Avadora requesting permission to dock."
+
+"Avadora you have clearance to dock at bay 16"
+"Thank you."
+
+The ship slowly moves into position passing a ship taking off at a lower platform and rotates around before engaging the small thrusters to lower itself onto the docking platform.
+
+The main engines power down from a loud roar to a low whine before shutting off entirely.
+
+#= Press Any key =#
+
+Welcome to MPQ 449 Space Station
+
+   #-------- REPAIRS --------#
+1) Request Refuel (Cost per 1 Unit 30creds)
+2) Request Engine(s) Repair ($1200) Replacement ($2200) 10 Turns
+3) Request Hull Repair ($2000) 10 Turns
+4) Request Utility Repairs ($1200) 6 Turns
+
+     #-------- SUPPLIES --------#
+5) Resupply Food to Max Supply ($120)
+6) Give Crew R&R (Increase Morale +15, $400) (Skip 10 turns)
+7) Resupply Medical supplies ($500)
+
+> w
+Captain Pearson moves through the ship to Bulkhead Corridor
+
+Ship Interior Paths >   north | south | east | west |
+
+Bulkhead Corridor
+
+> w
+Captain Pearson moves through the ship to Bulkhead Corridor
+
+Ship Interior Paths >   north | south | east | west |
+
+Bulkhead Corridor
+
+> w
+Captain Pearson moves through the ship to Bulkhead Corridor
+
+Ship Interior Paths >   north | south | east | west |
+
+Bulkhead Corridor
+
+> n
+Captain Pearson moves through the ship to Salvage Storage
+
+Ship Interior Paths >   south | east | west |
+
+Salvage Storage
+There is a Crate MK40Z and The Maria Serra Black Box here.
+
+> open crate
+Captain Pearson opens the Crate MK40Z.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+WELL DONE!
+
+You have completed Chapter 1.
+
+This game is an entry for the GameJolt Adventure 2019 game jam. I hope you have enjoyed playing this game. I plan to keep working on this game in the future and add more chapters, expand number of star systems and add planet-side locations and events as well as ground Party combat and more.
+
+Daza.
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

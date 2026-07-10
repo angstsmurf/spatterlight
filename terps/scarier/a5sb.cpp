@@ -49,6 +49,29 @@ sb_resolve_cls (sb_t *b, size_t floor)
 }
 
 void
+sb_splice (sb_t *b, size_t off, size_t oldn, const char *s)
+{
+  size_t n = s != NULL ? strlen (s) : 0;
+  if (b->p == NULL || off > b->len || off + oldn > b->len)
+    return;
+  if (n > oldn)
+    {
+      size_t grow = n - oldn;
+      if (b->len + grow + 1 > b->cap)
+        {
+          size_t cap = b->cap ? b->cap : 128;
+          while (cap < b->len + grow + 1) cap *= 2;
+          b->p = (char *) realloc (b->p, cap);
+          b->cap = cap;
+        }
+    }
+  memmove (b->p + off + n, b->p + off + oldn, b->len - (off + oldn) + 1);
+  if (n > 0)
+    memcpy (b->p + off, s, n);
+  b->len += n - oldn;
+}
+
+void
 sb_pspace (sb_t *b)
 {
   /* A trailing <cls> marker is treated like a trailing newline: the join spaces

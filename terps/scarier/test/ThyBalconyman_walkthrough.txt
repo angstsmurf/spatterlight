@@ -1,0 +1,80 @@
+# Thy Balconyman (burninatedPeasant, 2024, ADRIFT 5) — full win, max score 38/40
+#
+# Scoring tasks: GiveCaneTo +5, SitOnOffic +2, EatLips +3, FillJelloB +7,
+# GiveGuille +10, EndTheChea +11 = 38.  GetSteak's +2 is unreachable (author
+# bug: the Steak is Static, so the library take-task's StaticOrDynamic
+# restriction always fails before the specific task fires — confirmed
+# identical in FrankenDrift).  The topic IncVariables (intro +5, lips +5,
+# haircut +15) never land: ADRIFT only lets a TASK change Score.
+#
+# Balcony: the crotchety old "beautiful blond woman" sets the quest
+say hi
+ask about back
+ask about cane
+# Glade: Mat el Gato hands over the hot lips; the steak is stuck forever
+west
+say hi
+x steak
+get steak
+ask about lips
+eat lips
+score
+# Youth Group Basement: Guillermo's ragged pants problem + the jello
+east
+south
+say hi
+ask about pants
+ask about sword
+get lime jello
+# Drab Hallway (one-way!): cane + office chair, then the antechamber trap
+north
+east
+northeast
+get cane
+sit on chair
+north
+# No pliers: VRAP! back to the Balcony
+get flask
+# Give the cane; the old man rolls out the door
+give cane to woman
+# Barber Shop: say hi, agree to the haircut, receive thy sideburn
+east
+north
+north
+say hi
+say yes
+x sideburn
+ask about lavender
+# Dank Hallway: jello in the box summons a junimo to repair the way north
+south
+south
+northwest
+put lime jello in box
+north
+# Locker Room: the Coke Pants
+get pants
+south
+southeast
+west
+south
+# Return the pants; Guillermo tosses Meowmere at thy sandaled feet
+give pants to guillermo
+get meowmere
+score
+# Stone hut: slice The Cheat in twain
+north
+east
+northwest
+west
+hit
+# Forest: the flask-getting pliers
+north
+get pliers
+score
+# Antechamber: get ye flask = WIN (38/40 in 51 turns)
+south
+east
+southeast
+northeast
+north
+get flask

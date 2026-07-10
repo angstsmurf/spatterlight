@@ -312,6 +312,11 @@ a5_load_variables (a5_adventure_t *a)
       v->name = a5xml_child_text (c, "Name");
       v->type = a5xml_child_text (c, "Type");
       v->initial = a5xml_child_text (c, "InitialValue");
+      {
+        const char *al = a5xml_child_text (c, "ArrayLength");
+        v->array_length = (al != NULL && strtol (al, NULL, 10) > 1)
+                              ? (int) strtol (al, NULL, 10) : 1;
+      }
     }
 }
 
@@ -1066,15 +1071,18 @@ a5model_load (const char *path)
   fclose (fp);
   file_len = (uint32_t) size;
 
+  int from_blorb;
   if (a5blorb_find_exec (file_buf, file_len, &chunk))
     {
       payload = (uint8_t *) chunk.data;
       payload_len = chunk.size;
+      from_blorb = 1;
     }
   else
     {
       payload = file_buf;
       payload_len = file_len;
+      from_blorb = 0;
     }
 
   if (payload_len < 30)
@@ -1088,6 +1096,7 @@ a5model_load (const char *path)
      by the literal "<ifindex" tag at offset 16 (FrankenDrift FileIO.vb:800,
      sSize = "0000" OrElse sCheck = "<ifindex"). Skip exactly that many bytes
      before the obfuscated/deflated game payload starts. */
+  int obfuscated;
   {
     int is_zero_size = (payload[12] == '0' && payload[13] == '0'
                          && payload[14] == '0' && payload[15] == '0');
@@ -1099,10 +1108,21 @@ a5model_load (const char *path)
         memcpy (size_hex, payload + 12, 4);
         size_hex[4] = '\0';
         header = 16 + (uint32_t) strtoul (size_hex, NULL, 16);
+        obfuscated = 1;
       }
     else
       {
+        /* Pre-5.0.20 layout: the deflate stream follows the 12-byte version
+           header directly.  For a BARE .taf FD treats this layout as NOT
+           obfuscated (FileIO.vb:816 "Pre 5.0.20 ... bObfuscate = False") --
+           it is also the layout of the game data embedded in ADRIFT 5
+           .exe-wrapped games (the virtual human).  A BLORB Exec chunk takes a
+           different FD path (FileIO.vb:753): same 12-byte header offset, but
+           obfuscation is decided by the Blorb metadata (bDeObfuscate), which
+           is true for every ADRIFT-Developer-built blorb -- RtC.blorb is
+           exactly this old-layout-but-obfuscated shape. */
         header = 12;
+        obfuscated = from_blorb;
       }
   }
   if (header + 14 > payload_len)
@@ -1112,7 +1132,8 @@ a5model_load (const char *path)
     }
   region_len = payload_len - header - 14;
 
-  a5_deobfuscate (payload, header, region_len);
+  if (obfuscated)
+    a5_deobfuscate (payload, header, region_len);
   xml = a5_inflate (payload + header, region_len, &xml_len);
   free (file_buf);
   if (xml == NULL)
@@ -1150,6 +1171,141 @@ a5model_load (const char *path)
   if (adv == NULL)
     a5xml_free (doc);
   return adv;
+}
+
+/* ---------------------------------------- "Adventure Upgrade" (FileIO.vb) */
+
+/*
+ * Walk the whole document for <Restrictions> blocks carrying a
+ * <BracketSequence>, calling fn on each such BracketSequence node.  FD's
+ * BuildRestrictions loads every restriction block (tasks, events, walks,
+ * topics...) through the same code path, so the ask/correct pass must see them
+ * all, not just the task blocks.
+ */
+static void
+upgrade_walk (const a5_xml_node_t *n,
+              void (*fn) (a5_xml_node_t *bs, void *ctx), void *ctx)
+{
+  const a5_xml_node_t *c;
+  if (n == NULL)
+    return;
+  if (strcmp (n->name, "Restrictions") == 0)
+    {
+      a5_xml_node_t *bs = a5xml_child (n, "BracketSequence");
+      if (bs != NULL && bs->text != NULL)
+        fn (bs, ctx);
+    }
+  for (c = n->first_child; c != NULL; c = c->next)
+    upgrade_walk (c, fn, ctx);
+}
+
+static void
+upgrade_detect_cb (a5_xml_node_t *bs, void *ctx)
+{
+  if (strstr (bs->text, "#A#O#") != NULL)
+    *(int *) ctx = 1;
+}
+
+int
+a5model_upgrade_pending (const a5_adventure_t *a)
+{
+  a5_adventure_t *ma = (a5_adventure_t *) a;   /* memo fields only */
+  if (a == NULL)
+    return 0;
+  if (!a->upgrade_scanned)
+    {
+      /* FD asks at the first BuildRestrictions whose sequence contains
+         "#A#O#", only for files saved before the 5.0.26 logic correction
+         (FileIO.vb:634: dFileVersion < 5.000026). */
+      double fv = (a->version != NULL) ? strtod (a->version, NULL) : 0.0;
+      int wanted = 0;
+      if (fv > 0.0 && fv < 5.000026)
+        upgrade_walk (a->root, upgrade_detect_cb, &wanted);
+      ma->upgrade_wanted = wanted;
+      ma->upgrade_scanned = 1;
+    }
+  return a->upgrade_wanted && !a->upgrade_prompted;
+}
+
+const char *
+a5model_upgrade_question (void)
+{
+  /* Glue.AskYesNoQuestion body (FileIO.vb:635); the title is "Adventure
+     Upgrade".  FrankenDrift.Headless emits title + "\n" + body with no
+     trailing break, so the first real output abuts "...AND restrictions.". */
+  return
+    "There was a logic correction in version 5.0.26 which means OR "
+    "restrictions after AND restrictions were not evaluated.  Would "
+    "you like to auto-correct these tasks?\n\n"
+    "You may not wish to do so if you have already used brackets "
+    "around any OR restrictions following AND restrictions.";
+}
+
+/*
+ * FD FileIO.vb:1157 CorrectBracketSequence: longest run first, rewrite every
+ * "#A#O#O#..." into "#A(#O#O#...)".  VB String.Replace replaces ALL
+ * occurrences per call and iCorrectedTasks counts the calls (one per While
+ * pass), not the occurrences.  Returns a heap copy when anything changed,
+ * else NULL.
+ */
+static char *
+correct_bracket_sequence (const char *s, int *count)
+{
+  if (strstr (s, "#A#O#") == NULL)
+    return NULL;
+  std::string seq (s);
+  for (int i = 10; i >= 0; i--)
+    {
+      std::string search = "#A#";
+      for (int j = 0; j <= i; j++)
+        search += "O#";
+      while (seq.find (search) != std::string::npos)
+        {
+          std::string repl = "#A(#";
+          for (int j = 0; j <= i; j++)
+            repl += "O#";
+          repl += ")";
+          size_t pos = 0;
+          while ((pos = seq.find (search, pos)) != std::string::npos)
+            {
+              seq.replace (pos, search.size (), repl);
+              pos += repl.size ();
+            }
+          (*count)++;
+        }
+    }
+  return strdup (seq.c_str ());
+}
+
+static void
+upgrade_apply_cb (a5_xml_node_t *bs, void *ctx)
+{
+  a5_adventure_t *a = (a5_adventure_t *) ctx;
+  char *fixed = correct_bracket_sequence (bs->text, &a->upgrade_count);
+  if (fixed == NULL)
+    return;
+  /* The parse is in situ (node text aliases the file buffer) and the corrected
+     sequence is longer, so repoint the node at an owned copy and remember it
+     for a5model_free. */
+  bs->text = fixed;
+  a->upgrade_owned = (char **) realloc (a->upgrade_owned,
+                                        (size_t) (a->n_upgrade_owned + 1)
+                                        * sizeof *a->upgrade_owned);
+  a->upgrade_owned[a->n_upgrade_owned++] = fixed;
+}
+
+int
+a5model_upgrade_answer (a5_adventure_t *a, int yes)
+{
+  if (a == NULL || !a5model_upgrade_pending (a))
+    return 0;
+  a->upgrade_prompted = 1;
+  if (yes)
+    {
+      a->upgrade_applied = 1;
+      upgrade_walk (a->root, upgrade_apply_cb, a);
+    }
+  return a->upgrade_count;
 }
 
 void
@@ -1218,6 +1374,9 @@ a5model_free (a5_adventure_t *a)
     free ((void *) a->synonyms[i].from);
   free (a->synonyms);
   free (a->filemaps);
+  for (i = 0; i < a->n_upgrade_owned; i++)
+    free (a->upgrade_owned[i]);  /* corrected BracketSequence copies */
+  free (a->upgrade_owned);
   a5xml_free (a->doc);
   free (a);
 }

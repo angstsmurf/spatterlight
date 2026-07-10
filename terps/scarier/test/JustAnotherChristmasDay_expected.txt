@@ -1,0 +1,166 @@
+Just Another Christmas Day
+A short story about Christmas day filled with slapstick humor and fun endings. Enjoy the game!
+
+Bedroom
+You wake up lying on your bed. It is a cold December day, but this day just happens to by Christmas. You take a moment to process everything, but when the realization hits, you are almost instantly out of bed. To your left, you see your brother, also lying in his bed. To the right(east) is the door leading out to the hall.   There is a small plastic trash can next to the door.  Jake is here.
+
+> x note
+A note. It is signed by Santa Claus himself. You had better read it!
+
+> read note
+HO HO HO! WE HAVE A GOOD LITTLE BOY THIS YEAR, DON'T WE? AS YOU WILL NOTICE, YOUR BROTHER, UNFORTUNATELY, DOES NOT HAVE A CANDY CANE OR A NOTE ON HIS BED. YOU KNOW WHAT THAT MEANS, DON'T YOU? PLEASE DISCARD OF THIS NOTE AND THE CANDY CANE BEFORE LEAVING THE ROOM. WITH LOVE, SAINT NICOLAS
+
+P.S. The cookies were pretty good this year. Keep it up!
+
+Santa is weird.
+
+> get note
+(from the red bed)
+Ok, you take the note from the red bed.
+
+> put note in trash can
+You put the note inside the plastic trash can.  You put the note into the trash can. Now you may leave the room. Poor Jake...
+
+> get candy
+(from the red bed)
+Ok, you take the candy from the red bed.
+
+> eat candy
+As tasty as the candy looks, you are not hungry right now.  On second thought, you might as well eat it now!
+
+> open door
+You open the wooden door.
+
+> e
+(getting off the red bed first)
+
+> e
+You move east.
+
+Hall
+The grand hallways of your home stretch all around you, being the size you are. To the east, a staircase lies, and to the north, the door to your parents bedroom lies. Other rooms are here, but are not important.  An exit leads west.
+
+> open door
+You open the grand door.
+
+> n
+You move north.
+
+Parent's Bedroom
+Your parent's bedroom. On their bed, they both lie, sound asleep. You need to wake them. You should try asking your parents about Christmas.  Your Parents are here.
+
+> x parents
+They are your Parents, Sherlock.
+
+> ask parents about christmas
+Your Parents stir a little, before both saying "Oh yeah..." and getting out of bed.
+
+"Meet us downstairs," Your Dad says.
+
+> s
+You move south.
+
+Hall
+The grand hallways of your home stretch all around you, being the size you are. To the east, a staircase lies, and to the north, the door to your parents bedroom lies. Other rooms are here, but are not important.  Exits are north, east, west and down.
+
+> e
+You move east.
+
+Living Room
+You are in your living room. Your parents both sit down onto the couch, smiling at their favorite son. Your brother comes down the stairs.
+
+"I already know I'm not getting anything. Just go on without me. I'm gonna go eat some toast." It's good to know that he's at least acceptant of his fate. There is a tree here, and five presents, all lining the tree. Four other presents, which you did not count, are what your parents got eachother, and what Santa got your parents.  There is a red, blue, green, orange, and pink present here.  A television set is here.  The lit fireplace gives a holiday warmth to the room. Four stockings line the fireplace, each inscribed with the name of the family member to whom it belongs to. You can already see that Jake's Stocking is filled with coal. You can see your stocking, but can only guess what goodies fill it.  Also here is your dog.  Your Parents are here.  Exits are west and up.
+
+> x green present
+Your parents both smile as you eye this one. It is going to be good.  Inside the green present are a red rider bb gun and a case of bb's.
+
+> get bb gun
+(from the green present)
+Ok, you take the red rider bb gun from the green present.
+
+> get case
+(from the green present)
+Ok, you take the case of bb's from the green present.
+
+> put bb's in bb gun
+(removing the bb's from the case of bb's first)
+You put the bb's inside the red rider bb gun.
+
+> shoot bb gun
+(first taking it outside)
+
+You shoot the bb gun at targets, which you set up. When you have had enough satisfaction, you put head back inside.
+
+> x red present
+It is a red Christmas present.  Inside the red present is a red toy car.
+
+> get toy car
+(from the red present)
+Ok, you take the red toy car from the red present.
+
+> play with red car
+You begin to play with the toy car. It is just how you imagined it. You put it down.
+
+> x blue present
+It is a blue present. It feels heavy.  Inside the blue present is a NES.
+
+> get nes
+(from the blue present)
+Ok, you take the NES from the blue present.
+
+> turn on tv
+You switch on the television set.
+
+> play with nes
+You play with the NESS, only playing the one game it came with. It is fun, but you figure you should save up to buy some more games.
+
+> x orange present
+It is an orange present. It is small, but you have learned that it is the small ones to get exited about!  Inside the orange present is a pair of underwear.
+
+> get underwear
+(from the orange present)
+Ok, you take the pair of underwear from the orange present.
+
+> wear underwear
+Ok, you put on the pair of underwear.
+
+> x pink present
+A pink present. It is pink, and it is a present. Use >wear bunny to wear.  Inside the pink present is a pink bunny costume.
+
+> get bunny costume
+(from the pink present)
+Ok, you take the pink bunny costume from the pink present.
+
+> wear bunny costume
+Ok, you put on the pink bunny costume.
+
+> x stocking
+It is your stocking  Inside the stocking are a pile of goodies and a stocking leaflet.
+
+> get leaflet
+(from the stocking)
+Ok, you take the stocking leaflet from the stocking.
+
+> read leaflet
+Go into the kitchen for a suprise.
+
+> e
+You move east.
+
+Kitchen
+On the kitchen table lays a large purple box.  An exit leads west.
+
+> x box
+It is a purple box. You open it up.  Inside the purple box is a strange note.
+
+> read strange note
+The answer to life, the universe, and everything in it:
+
+42.
+-------
+It all makes sense now. Your whole life flashes before your eyes. Your smile reaches from ear to ear. You now have infinite power. You win.
+
+*** You have won ***
+You have finished the game! I hope you enjoyed, whether you won or lost. Actually, in your first play through, you probably followed the story, but I encourage you to try other things.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,71 @@
+# The Royal Puzzle (v3) -- Kenneth Pedersen, ADRIFT 5 -- full winning
+# walkthrough (41 game moves).  A faithful port of the Royal Puzzle from
+# Zork/Dungeon (via Ethan Dicks' Inform port zdungeon.z5).  No scoring
+# variable is used (SCORE just shows the author's high-score list); the
+# goal is to escape WITH the solid gold engraved card.  Fully
+# deterministic -- the game draws no RNG at all.
+#
+# The playfield is a 6x6 grid of cells <row,col> below the Small Square
+# Room; you drop in at <1,1> and the only winning exit is the ceiling
+# opening above <1,1>, reachable only by climbing the sandstone wall that
+# has a ladder bolted to it ("EL", starts at <2,5>) -- i.e. that wall must
+# end up at <1,2>, directly east of you.  Marble cells <2,3> and <3,5> and
+# the whole border never move; row 6 exists only at columns 3-5.  Eight
+# sandstone walls start at <1,2> <1,5> <2,1> <2,5>(east ladder)
+# <4,1>(west ladder) <4,4> <4,5> <5,3>.  PUSH <dir> WALL moves the wall
+# one cell if the cell beyond is free, and you follow it; you cannot move
+# diagonally between two walls.  The gold card sits in a niche revealed
+# when the wall at <4,4> is pushed off it.  West of <6,3> is a steel door
+# with a slit: feeding the card to the slit opens the door, but walking
+# through is the LOSE ending (card confiscated) -- never needed.
+#
+# Route (machine-solved BFS over the exact engine rules; 36 puzzle moves,
+# optimal under these commands): clear the walls at <2,1> and <1,2> out of
+# the way, cross to the east side, push the <4,4> wall south and TAKE CARD;
+# then herd the east-ladder wall around the marble at <3,5>:
+#   EL <2,5> -w-> <2,4> -s x3-> <5,4> -n-> <4,4> -w x2-> <4,2> -n x3-> <1,2>
+# (the <4,4>/<5,3> walls get shuffled to <6,3>/<5,1> to open the path, the
+# plain <4,5> wall is parked at <4,6>), finish NW to <1,1> and CLIMB LADDER
+# holding the card = *** You have won ***.
+read note
+x hole
+down
+push south wall
+n
+push east wall
+s
+se
+ne
+n
+push east wall
+sw
+s
+push south wall
+take card
+x card
+push south wall
+e
+ne
+n
+n
+push west wall
+nw
+push south wall
+push south wall
+push south wall
+push east wall
+s
+s
+push west wall
+push north wall
+ne
+push west wall
+push west wall
+se
+push west wall
+push west wall
+push north wall
+push north wall
+push north wall
+nw
+climb ladder

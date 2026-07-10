@@ -1,0 +1,174 @@
+Organic [Title Pending]
+
+Storage Room 1
+A small storage room that is at the end of it's parent corridor. As pretty much any other room like this, it has walls that are lined with several rows of shelves. Scattered around the room are crates that are used to hold various utilities until they are needed. Aside from the usual, the room is riddled with dead bodies, as well as large body parts and small chunks of flesh sticking to various surfaces.  Also here is a pistol.  An exit leads east.
+
+> x shelves
+Some shelves that line the walls of the room. They have small chunks of blood soaked flesh scattered around.  A lead pipe and a surgical box are on the shelves.
+
+> get lead pipe
+(from the shelves)
+Ok, you take the lead pipe from the shelves.
+
+> x surgical box
+A small box meant to contain surgical tools.  The surgical box is currently open.  Inside the surgical box is a scalpel.
+
+> get scalpel
+(from the surgical box)
+Ok, you take the scalpel from the surgical box.
+
+> get pistol
+Ok, you pick up the pistol.
+
+> x crates
+A stack of several metal crates. They're all covered in the blood of the soldiers that had died. It's hard to make out, but there are labels on them reading "Medical". Each crate has a keycard reader so you would be able to open them.  The supply crates is currently locked.
+
+> x bodies
+Three bodies that have all been horribly disfigured and torn apart. By this point, it's hard to tell, but they all look like men. Each one of them are wearing rather thick and heavy looking armour. Two are holding holding assault rifles, but only loosely with little appearance of a grip. You feel bad for them.
+
+> e
+You move east.
+
+Corridor 1
+A corridor in the medical level. The hallway is covered in several stains of blood and flesh, as well as some chunks of metal from the door that was blown off earlier. There is a metal door that leads to the room south and a blast-barrier to the east.  Exits are south, west and northwest.
+
+> x metal door
+It's a heavy metal door. It automatically opens due to a small camera above the door with an internal computer that detect your movement and  predicts whether or not you're going to go through. Since the power is out, though, you can't go through. However, the door isn't closed entirely, so there's an opening under it that's just big enough for you to reach under.
+
+> reach under door
+You attempt to look under the door, but no matter what angle you put your head against the floor, you can't seem to see under. You decide to take a shot in the dark and just reach under. You slowly fit your arm into the opening and search around for a bit. Something nicks your hand and you jolt back.
+
+With whatever urge you have, you reach under the door again. After a bit of flailing your arm about, you finally grab hold of something. You pull your arm out and find that you have gotten hold of a key card.
+
+...Too bad it's such a low level one though.
+
+> x keycard
+It's a level one Medical Deck keycard. It only has access to supply rooms and several offices. It's mostly used by janitors and visitors.
+
+> w
+You move west.
+
+Storage Room 1
+A small storage room that is at the end of it's parent corridor. As pretty much any other room like this, it has walls that are lined with several rows of shelves. Scattered around the room are crates that are used to hold various utilities until they are needed. Aside from the usual, the room is riddled with dead bodies, as well as large body parts and small chunks of flesh sticking to various surfaces.  An exit leads east.
+
+> unlock crates with keycard
+You unlock the supply crates with the level 1 medical keycard.
+
+> open crates
+You open the supply crates.  Inside the supply crates is a medical generator key.
+
+> get medical generator key
+(from the supply crates)
+Ok, you take the medical generator key from the supply crates.
+
+> e
+You move east.
+
+Corridor 1
+A corridor in the medical level. The hallway is covered in several stains of blood and flesh, as well as some chunks of metal from the door that was blown off earlier. There is a metal door that leads to the room south and a blast-barrier to the east.  Exits are south, west and northwest.
+
+> nw
+You move northwest.
+
+Breaker Room 1
+The breaker room for the entire deck, it's dimly lit with a single red light at the top of the room. The room is quite surprisingly clean. That aside from the dead man that lies on the floor in a small puddle of his own blood. Just in front of him is a computer console. You notice that the emergency power generator is still intact, so that's good. Lining the walls is a large metal tube, presumably carrying wires through it.  An exit leads southeast.
+
+> x body
+It's the dead body of one of the ship's onboard guard. The goggles he is sporting makes his eyes completely invisible, but the way he stares blankly at you still puts you in a bit of discomfort. He is wearing a black jumpsuit covered in blueish Kevlar, but it did not seem to protect him. It saddens you when you notice that he had no better means of protecting himself, with the only weapon in his hand is a destroyed wrench.
+
+Around him is a dried puddle of what you assume to be his blood. There appears to be some writing smeared into it.
+C4/S
+
+The only thing you can make out is the number four, whilst everything else seems to have only been partially written. You wonder what it's for.
+
+> x console
+A console that routes power to different parts of the deck.
+
+> unlock panel with medical generator key
+You unlock the panel with the medical generator key.
+
+> open panel
+You open the panel.
+
+> type 0478
+You type the numbers 0-4-7-8 into the keypad. The generator starts whirring, indicating that is is on. Just outside the room, you hear the sound of a metal door opening itself.Some loud sparks explode into the air behind you and the generator goes off.
+
+You turn around to see that the wires in the metal pipe have burnt up and are no longer connected. Looks like you need to find a way to reconnect them.
+
+> se
+You move southeast.
+
+Corridor 1
+A corridor in the medical level. The hallway is covered in several stains of blood and flesh, as well as some chunks of metal from the door that was blown off earlier. There is a metal door that leads to the room south and a blast-barrier to the east.  Exits are south, west and northwest.
+
+> s
+You roll under the door...
+
+Operating Room
+An operating room. In the center of the room is the standard operating table. On it is the body of a woman. Surrounding part of the room is a simple counter.
+
+> x operating table
+An operating table. It's rather clean, even with the body that lies it. On the side of the base, there is a breaker box.
+
+> x counter
+A counter with a surface to place things.  A rubber gloves is on the counter.
+
+> get gloves
+(from the counter)
+Ok, you take the rubber gloves from the counter.
+
+> wear gloves
+Ok, you put on the rubber gloves.
+
+> open breaker box
+When you open the breaker box, a small creature suddenly jumps in between you and the box. You'd better take care of it before it causes any trouble.
+
+> kill creature with lead pipe
+You raise your lead pipe into the are and swing down with all your might. The creature jumps out of the way and screams at you. It then crawls quickly towards you and leaps directly at your face.
+
+Quickly, you take another swing at the creature and, thankfully, you knocked it out of the air and it smacks right into the wall. The creature turns at you and screams once again, but before it can do anything else, you smash it with the pipe.
+
+It lets out a bleeding shriek as you hit it once more, smashing through it's skull and killing it.
+
+> cut wires with scalpel
+You cut the wires from the breaker box with the scalpel and take them from the breaker box.
+
+> n
+You move north.
+
+Corridor 1
+A corridor in the medical level. The hallway is covered in several stains of blood and flesh, as well as some chunks of metal from the door that was blown off earlier. There is a metal door that leads to the room south and a blast-barrier to the east.  Exits are south, west and northwest.
+
+> nw
+You move northwest.
+
+Breaker Room 1
+The breaker room for the entire deck, it's dimly lit with a single red light at the top of the room. The room is quite surprisingly clean. That aside from the dead man that lies on the floor in a small puddle of his own blood. Just in front of him is a computer console. You notice that the emergency power generator is still intact, so that's good. Lining the walls is a large metal tube, presumably carrying wires through it.  An exit leads southeast.
+
+> put wires into metal pipe
+You place the wires into the metal pipe and tie the copper bits together. There is a loud spark and console in the room turns on.
+
+Great, now the power is back.
+
+> deactivate blast barriers
+You enter a command into the console and you hear the barriers in the deck opening simultaneously. Finally, you get start making some progress.
+
+> se
+You move southeast.
+
+Corridor 1
+A corridor in the medical level. The hallway is covered in several stains of blood and flesh, as well as some chunks of metal from the door that was blown off earlier. There is a metal door that leads to the room south and a blast-barrier to the east.  Exits are east, west and northwest.
+
+> e
+You move east.
+
+End Room
+This room is not part of the game, it's just for ending the demo.  An exit leads west.
+
+*** You have won ***
+
+It was an overly complicated process, but you finally made it. Congratulations. But only further must you delve into the depths of ship in your attempt to escape. On your journey for survival, you experience the horrors and the tragedies that unfold the more you unravel the events of what had happened.
+
+Thankfully, with the blood that is now on your hands, you have the strength and courage to press forward. Good luck, and may the universe show mercy on your damned soul.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

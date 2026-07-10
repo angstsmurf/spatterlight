@@ -1,0 +1,52 @@
+A Reading in May
+
+Coffee House
+The book on the round, maroon table is looking at you. In this sunny May afternoon, you wanted to read the book and be outside also. So you took it and came to this coffee house. You are wondering what the protagonist will do next.
+
+You glance at the people who are in light colored clothes and look somewhat dizzy from the lightly blowing wind. The umbrella over you provides an ideal dimness. From the speaker near the entrance of the inner café, a woman is singing an ultimately boring French song.
+
+Thus, everything is so suitable to read.
+
+> i
+I am wearing nothing, and am carrying nothing.
+
+> read book
+You open where you left the book and start reading.
+
+The French woman suddenly starts to yell. She loves him, and never will love somebody else. You say, well, to yourself. You reread the last sentences.
+
+> read book
+After a while, You catch yourself trying to remember the lyrics of an old French song. You shake your head, you have to read. You can go on reading until the waiter comes.
+
+'Good afternoon, sir. Would you like anything?' he says.
+
+You quickly make up your mind and ask, 'Have you got croissants?'
+
+'Yes, sir.'
+
+'Then, I would like a croissant and lemon ice tea, please.'
+
+'Sure.'
+
+Oh, God. You want to finish this book.
+
+> read book
+You return to reading. The novel is developing slowly. Suddenly, the girl sitting under the speaker grabs your attention. She is throwing looks at you time to time. You see that with the feeling side of your eye. You wonder what she thought of you. That you are an intellectual? That you are pretentious? She looks nice. She must be waiting for her boyfriend. Everybody except you has darlings already.
+
+> read book
+But wait! Where were you? You return to the book. It seems that you read a whole paragraph without understanding it. You read it anew.
+
+Then your order comes. You light a cigarette. You recall the strawberry pie and ice tea that you ordered in Florence, in a day like this. When you ordered, the waiter made a comment in Italian: perfetto! What a strange culture, you think, if a waiter in my country did this, I would think he is arrogant or stupid.
+
+> read book
+You remember the book then. You go on reading again. Until the French woman starts to sing the song that you were thinking a while before. Johnny, tu ne pas un ange. / No crois pas que ça m'dérange. Your cigarette finishes while you are listening to the song.
+
+Hmm, you think, I want to read this book. Really.
+
+> read book
+You return to reading.
+
+After a while, you give up, close the book, finish the croissant and the ice tea. As you pay the waiter, you know this is your very last trial to read in a café.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

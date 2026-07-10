@@ -1,0 +1,55 @@
+# Organic [Title Pending] vA0.0.5b ("Simply" Ryan Crisostomo; ADRIFT
+# 5.000024) -- full demo walkthrough to the *** You have won *** "Demo End"
+# (LocationTrigger on the End Room).  A sci-fi horror demo on a medical
+# deck: restore power, deal with the creature, and get past the blast
+# barrier.
+#
+# Chain: lead pipe + scalpel from Storage Room 1; `reach under door` in the
+# corridor yields the level-1 keycard; that unlocks the supply crates (the
+# medical generator key); the key unlocks the generator panel in Breaker
+# Room 1; with the panel open, `type 0478` starts the generator (the dead
+# guard's blood smear "C4/S" hints the code).  In the operating room, wear
+# the rubber gloves, `open breaker box` (a creature jumps out -- kill it
+# with the lead pipe), `cut wires with scalpel`, then feed the wires into
+# the breaker room's metal pipe (gloves on!) and `deactivate blast
+# barriers`.  East exit = End Room = win.
+#
+# Avoid the bare "open box" in Storage Room 1: the breaker-box task's
+# wildcard command steals it and spawns the creature early.
+x shelves
+get lead pipe
+x surgical box
+get scalpel
+get pistol
+x crates
+x bodies
+e
+x metal door
+reach under door
+x keycard
+w
+unlock crates with keycard
+open crates
+get medical generator key
+e
+nw
+x body
+x console
+unlock panel with medical generator key
+open panel
+type 0478
+se
+s
+x operating table
+x counter
+get gloves
+wear gloves
+open breaker box
+kill creature with lead pipe
+cut wires with scalpel
+n
+nw
+put wires into metal pipe
+deactivate blast barriers
+se
+e
