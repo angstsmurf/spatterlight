@@ -105,14 +105,33 @@ main (int argc, char **argv)
     }
 
   /*
-   * Version marker: an ADRIFT 5 payload carries the 12-byte signature then the
-   * four ASCII bytes "0000" at offset 12 (frankendrift FileIO).  When present
-   * the zlib region starts at offset 16; otherwise (older v5 layout) at 12.
-   * Either way a 14-byte trailer follows the stream.
+   * Version marker: an ADRIFT 5 payload carries the 12-byte signature then a
+   * 4-byte hex size field at offset 12 (frankendrift FileIO.vb:800).  A size of
+   * "0000" means an empty (absent) Babel <ifindex> block; a non-empty block is
+   * detectable by the literal "<ifindex" tag at offset 16.  In either case the
+   * obfuscated/deflated region starts at 16 + <hex size>; otherwise (older v5
+   * layout) at 12.  Either way a 14-byte trailer follows the stream.  This must
+   * mirror a5model.cpp's loader exactly (see a5_load_advmodel).
    */
-  is_v5 = (payload[12] == '0' && payload[13] == '0'
-           && payload[14] == '0' && payload[15] == '0');
-  header = is_v5 ? 16 : 12;
+  {
+    int is_zero_size = (payload[12] == '0' && payload[13] == '0'
+                         && payload[14] == '0' && payload[15] == '0');
+    int has_ifindex = (payload_len >= 24
+                        && memcmp (payload + 16, "<ifindex", 8) == 0);
+    if (is_zero_size || has_ifindex)
+      {
+        char size_hex[5];
+        memcpy (size_hex, payload + 12, 4);
+        size_hex[4] = '\0';
+        header = 16 + (uint32_t) strtoul (size_hex, NULL, 16);
+        is_v5 = 1;
+      }
+    else
+      {
+        header = 12;
+        is_v5 = 0;
+      }
+  }
   trailer = 14;
 
   fprintf (stderr, "signature:");
@@ -122,7 +141,7 @@ main (int argc, char **argv)
       fprintf (stderr, " %02x", payload[i]);
   }
   fprintf (stderr, "\nversion marker: %s (header=%u, trailer=%u)\n",
-           is_v5 ? "v5 (\"0000\")" : "non-v5", header, trailer);
+           is_v5 ? "v5 (ifindex/size field)" : "non-v5", header, trailer);
 
   if (payload_len < header + trailer)
     {

@@ -16,14 +16,2911 @@ Please Type O then press Enter to continue or B to start the game from the first
 
 (You are strongly advised to read the playing instructions before playing the game)
 
-> look
-Please press O or B then press Enter.
+> b
 
-> examine me
-Please press O or B then press Enter.
+Edge of the Great Sand Sea
+You are riding your horse Merlin on a dirt road that runs along the northern edge of the Great Sand Sea. This is a vast desert that stretches away to the horizon in every southerly direction. Hecate and Domreil lie many miles distant beyond the Schwarzwald forest, which you can see on the horizon to the north. Here a camel track leads South into the desert and you can go East or West along the dirt road.  King Kelson, Merlin and Shadowfox are here.  A squadron of the King's Hussars follow you, led by Colonel Teege.
 
-> inventory
-Please press O or B then press Enter.
+IMPORTANT: In this game you can change to playing as the other main character by typing BECOME KELSON. To change back type BECOME ALARIC. There may be restrictions on this at certain points in the game.
+
+However, please note that if you are playing as King Kelson, and you want to SAVE or RESTORE your game position, you MUST change back to playing as Alaric Blackmoon - i.e. BECOME ALARIC - before you SAVE or RESTORE. I am sorry about this but this restriction is necessary, otherwise the game will not work properly.
+
+To repeat this information at any time during the game, type S&R and press Enter.
+
+> west
+You ride west.
+
+King Kelson rides beside you and your squadron of troops follow behind.
+
+On Dirt Road By Great Sand Sea
+You are riding on your horse on a dirt road that runs along the northern edge of the Great Sand Sea. The road leads East and to the West you see a wide, low building with some palm trees in the middle.  King Kelson, Merlin and Shadowfox are here.  A squadron of the King's Hussars follow you, led by Colonel Teege.
+
+> west
+You ride west.
+
+King Kelson rides beside you and your squadron of troops follow behind.
+
+By Entrance to Caravansery
+You are riding your horse by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  King Kelson, Merlin and Shadowfox are here.  A squadron of the King's Hussars follow you, led by Colonel Teege.  At the side of the archway a man squats against the wall.
+
+As you approach the man gets to his feet and welcomes you in the local way by bowing and touching his forehead.
+
+"Greetings, good travellers," he greets you. "You may enter if you dismount from your horses," he says, indicating you and King Kelson. "However, your soldiers must remain out here."
+
+You both dismount and, greeting the man, you reply.
+
+1: "Is there anywhere we can buy some camels?"
+2: "Who are you to be giving us such orders?"
+
+> 1
+
+"Is there anywhere we can buy some camels?" you ask the man.
+
+"Yes indeed," he replies. "Mohammed inside the caravansery might have a couple for sale."
+
+> 2
+
+"Who are you to give us such orders?" you ask the man.
+
+"My name is Aziz Bin Rahman," he replies. "I am the owner of this caravansery and there are rules visitors must follow, whomever they may be."
+
+When you have finished talking to Aziz, Colonel Teege approaches.
+
+"Shall I tell the men to stand down, Duke Alaric?" he asks.
+
+1: "Yes, you can all wait here while we try to obtain some camels."
+2: "No. Take the squadron back to Domreil," you order the colonel. "The king and I will continue on alone."
+
+> 1
+
+"Very well, colonel," you say to him. "The men can tether their horses to the hitching rails and they can shelter from the sun under the veranda."
+
+The colonel salutes you and walks away to comply with your order.
+
+By Entrance to Caravansery
+You are leading your horse by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  King Kelson, Merlin and Shadowfox are here.  Your squadron of troops are sheltering under the veranda and their horses are tethered to the hitching rails.  At the side of the archway a man squats against the wall.
+
+> read sign
+The sign reads:
+
+> in
+You move in.
+
+You and King Kelson lead your horses in that direction.
+
+In Caravansery
+You are leading your horse in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with five camels. You can also go South, NW, or SW to a hitching rail.  King Kelson, Merlin and Shadowfox are here.
+
+> southwest
+You move southwest.
+
+You and King Kelson lead your horses in that direction.
+
+By Hitching Rail
+You are leading your horse on the south side of the oasis. It is surrounded by palm trees which grow close to the edge. You can go East or NE. There is a hitching rail here where you can tether your horse.  King Kelson, Merlin and Shadowfox are here.
+
+> tie horse to rail
+You tie the reins of your horse to the hitching rail and King Kelson does the same.
+
+By Hitching Rail
+You are on the south side of the oasis. It is surrounded by palm trees which grow close to the edge. You can go East or NE. Your horses are tethered to the hitching rail here.  King Kelson, Merlin and Shadowfox are here.
+
+> northeast
+You move northeast.
+
+King Kelson walks beside you.
+
+In Caravansery
+You are in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with five camels. You can also go South, NW, or SW to a hitching rail.  King Kelson is here.
+
+> north
+You move North.
+
+As you and Kelson walk towards the camel trader, Kelson speaks to you:
+
+"As I've got all the gold coins, you'd better leave this to me, Alaric," he tells you.
+
+"Very well, my lord," you reply with a smile. "I am more than happy to leave all the haggling to you."
+
+YOU ARE NOW PLAYING AS KING KELSON
+
+By Camel Trader
+You are by a camel trader who has five camels around him. There is a shop here where above the door there is a sign. You can go In to the shop, West to a hitching rail, North, South and SW.  Duke Alaric is here.
+
+You approach the camel trader and you greet him in the local fashion. He returns the greeting,
+
+"Wa Alaikum Salaam," he says, shaking you both by the hand. "My name is Mohammed El Ruweisat. How may I help you, good travellers?"
+
+1: "Do you have any camels for sale?"
+2: "We need 14 camels, do you have that many?"
+
+> 1
+You ask Mohammed:
+
+"Do you have any camels for sale?"
+
+The camel keeper points to the camels he has around him,
+
+"I only have three at the moment," he tells you. "These others have already been sold to someone. I am expecting more soon, but I don't know when they're arriving, maybe today, maybe tomorrow."
+
+You ponder this for a moment or two.
+
+"How much do you want for all three camels?" you ask him.
+
+"Make me an offer and I will consider it," is his answer.
+
+You offer 10 gold coins and Mohammed laughs.
+
+"Is that for one?!" he asks, so you offer him 20 gold coins.
+
+"How about 40 gold coins?" he counters. "That is a fair price!"
+
+You agree, shake hands on the deal and you hand him the coins. He tells you that the camel's names are Eeny, Meeny and Mo and that Mo is best used as a pack camel.
+
+"I sold Miney last week," he tells you with a smile. "It was a shame to break up the group, but the buyer made me an offer I couldn't refuse.
+
+Mohammed points to the clothes you are wearing.
+
+"You cannot make a journey across the Great Sand Sea in those clothes," he tells you. "Go to Mustapha's and he will provide more suitable attire."
+
+You ask where you can buy equipment for the camels and provisions for the journey.
+
+"Ibrahim can supply you with riding equipment and Yusuf sells travel provisions," he tells you. "Tell them Mohammed sent you and they will give you a discount."
+
+Mohammed tells you he will tether your camels to the hitching rail to the west while you buy the things you need.
+
+By Camel Trader
+You are by a camel trader who has two camels around him. There is a shop here where above the door there is a sign. You can go In to the shop, West to a hitching rail, North, South and SW.  Duke Alaric is here.
+
+> in
+You move in.
+
+Duke Alaric walks beside you.
+
+Mustapha's Clothing Emporium
+You are in a shop which sells clothing to travellers. The stock is not very varied, consisting mainly of ghutras, thobes and belgha. There are two curtained doorways, leading In, with signs above them. The shop door leads Out to the caravansery courtyard.  Duke Alaric is here.
+
+The storekeeper greets you effusively.
+
+"Welcome good sirs," he says bowing and shaking your hands. "How may Tariq Mustapha help you on this fine day?"
+
+1: "We need appropriate clothing for a camel journey across the desert."
+2: "Mohammed the camel trader sent us."
+
+> read north sign
+The sign above the north door reads:
+
+> read east sign
+The sign above the west door reads:
+
+> 2
+You tell Tariq that Mohammed sent you and that you require clothing suitable for a journey across the desert for yourself and Duke Alaric.
+
+"It will be my pleasure to clothe the friends of my esteemed friend Mohammed El Ruweisat," he gushes.
+
+He takes a knotted string from around his neck and proceeds to take your measurements, noting them down as he goes. He then does the same to Duke Alaric.
+
+He then scurries around his store, taking two robes off a rack, a couple of headdresses off a pile and two pairs of sandals from a bin. He comes over and leads the two of you into the men's changing room.
+
+"Please try these desert clothes on for fit, you can wear your war belt and baldric over the robes," he tells you and leaves the room to allow you to change clothes.
+
+Men's Changing Room
+You are in the men's changing room in Mustapha's Clothing Emporium. There are benches against two sides for customers to sit upon and a large table to put clothes on. On one wall is a mirror. The main shop is Out through the curtained doorway.  Duke Alaric is here.
+
+You may CHANGE CLOTHES in here.
+
+> change clothes
+You change out of your fighting clothes and put on the desert clothing you just bought.
+
+Duke Alaric does the same.
+
+> take clothes
+You and Duke Alaric take your respective clothing from the table and your boots from the floor.
+
+> out
+You move Out.
+(Moving the curtain aside as you do)
+
+Duke Alaric follows you.
+
+Mustapha's Clothing Emporium
+You are in a shop which sells clothing to travellers. The stock is not very varied, consisting mainly of ghutras, thobes and belgha. There are two curtained doorways, leading In, with signs above them. The shop door leads Out to the caravansery courtyard.  Duke Alaric is here.
+
+Tariq Mustapha greets you as you both emerge from the changing room.
+
+"The clothes fit the both of you perfectly," he exclaims. "Only the best for friends of Mohammed El Ruweisat!"
+
+You ask Tariq how much you owe him and he tells you 10 gold coins. You haggle for a bit and knock him down to 8, which you take out of your pouch and give to him.
+
+"A pleasure doing business with you, kind sirs," Tariq says. "Good luck on your journey!"
+
+You both thank Tariq and leave the shop.
+
+By Camel Trader
+You are by a camel trader who has two camels around him. There is a shop here where above the door there is a sign. You can go In to the shop, West to a hitching rail, North, South and SW.  Duke Alaric is here.
+
+> north
+You move north.
+
+Duke Alaric walks beside you.
+
+NE Corner of Caravansery
+You are in the northeast corner of the caravansery, where there is a shop that sells camel riding equipment. Over the open door, which you can go In to, there is a sign. You can go South or SW.  Duke Alaric is here.
+
+> read sign
+The sign reads:
+
+> in
+You move in.
+
+Duke Alaric walks beside you.
+
+Camel Equipment Store
+You are in Ibrahim's camel equipment store. The place smells of leather and camels. For sale are camel saddles, bridles and panniers. The door leads Out to the caravansery.  Duke Alaric is here.  Ibrahim Khan is here, ready to serve you.
+
+As you walk into the store you are greeted by the owner.
+
+"Welcome to my humble establishment," he says in a deep voice. "How may I be of assistance to you?"
+
+You greet him as well and ask:
+
+1: "How much are your camel saddles?"
+2: "What do we need for our journey?"
+3: "We need equipment for two riding camels and one pack camel."
+
+> 3
+You tell Ibrahim Khan you need equipment for two riding camels and one pack camel.
+
+Ibrahim shows you saddles, bridles and panniers for your camels and you select the most suitable.  He asks 15 gold coins for everything but you haggle with him and manage to get the price down to 12 gold coins which includes Ibrahim's helpers fitting the equipment on the camels for you.
+
+Alaric and the men carry the gear out to where your camels are hitched to the rail and then they spend some time fitting the saddles and bridles to Eeny and Meeny and the panniers onto Mo's back.
+
+You thank Ibrahim and he returns to his store.
+
+The two of you put your clothes into the panniers.
+
+By Hitching Rail
+You are on the north side of the oasis where there is a wooden hitching rail. The camel trader is East and you can also go NE.   Duke Alaric, Eeny, Meeny and Mo are here, the camels being tethered to the hitching rail.
+
+> southeast
+You move southeast.
+
+Duke Alaric walks beside you.
+
+In Caravansery
+You are in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with two camels. You can also go South, NW, or SW to a hitching rail.  Duke Alaric is here.
+
+> south
+You move south.
+
+Duke Alaric walks beside you.
+
+SE Corner of Caravansery
+You are in the southeast corner of the caravansery, where on the south side there is a provisions shop, which you can go In to, with a sign above the door. You can go North, NW or West.  Duke Alaric is here.
+
+> in
+You move In.
+(Opening the door first and closing it after you)
+
+Yusuf's Provisions Shop
+You are in Yusuf's provisions store, which is full of casks and sacks full of all sorts of grain, seeds and pulses. Lying sprawled on a divan on one side of the store is an immensely fat man smoking from a hookah.
+
+The man ignores you, staring at the both of you while sucking from the pipe of the hookah and blowing the smoke out of the corner of his mouth. You can go Out to the caravansery.  Duke Alaric is here.  Taeen Hussain is behind the counter, ready to serve customers.
+
+As you enter the store you are surprised to see a woman behind the counter.
+
+The woman greets you.
+
+"Welcome to Yusuf's, my name is Taeen Hussain, wife of Yusuf," she tells you, nodding in the direction of her husband. "How may I help you today?"
+
+1: "What provisions would we need for a journey of about a week in the desert?"
+2: "We need provisions for two people and three camels, both to last about a week, please."
+3: "Mohammed sent us here."
+
+> 1
+You ask Taeen what provisions you will need for a week's journey in the desert.
+
+"A bag of travel rations for yourselves and a sack of camel feed should be sufficient," she tells you. "You will also need a waterskin each. The camels can go without water for up to 10 days as long as they drink before travelling."
+
+You ask the cost of these provisions and the waterskins and Taeen tells you 10 gold coins.
+
+You and Taeen haggle for a couple of minutes and settle on a price of 8 gold coins, which you give to her.
+
+She lends Alaric a small handcart with which to transport the provisions to your camels, which he does and he loads the bag and sack into one of the panniers. He returns the handcart and she gives you an empty waterskin each.
+
+"You'll need to fill those from the oasis before you leave," she tells you.
+
+You thank Taeen, nod to Yusuf who nods back, and you leave the store.
+
+SE Corner of Caravansery
+You are in the southeast corner of the caravansery, where on the south side there is a provisions shop, which you can go In to, with a sign above the door. You can go North, NW or West.  Duke Alaric is here.
+
+> northwest
+You move northwest.
+
+Duke Alaric walks beside you.
+
+By Oasis
+You are on the east side of a small oasis in the middle of the caravansery. It is surrounded by tall palm trees except for the gap here where animals can drink and people can fill water containers. You can go East to the entrance, NE to the camel trader or SE.  Duke Alaric is here.
+
+> fill skin
+You fill your waterskin with water from the oasis and Duke Alaric does the same.
+
+> northeast
+You move northeast.
+
+Duke Alaric walks beside you.
+
+By Camel Trader
+You are by a camel trader who has two camels around him. There is a shop here where above the door there is a sign. You can go In to the shop, West to a hitching rail, North, South and SW.  Duke Alaric is here.
+
+> west
+You move west.
+
+Duke Alaric walks beside you.
+
+By Hitching Rail
+You are on the north side of the oasis where there is a wooden hitching rail. The camel trader is East and you can also go NE.   Duke Alaric, Eeny, Meeny and Mo are here, the camels being tethered to the hitching rail.
+
+As you approach the camels, you turn to Duke Alaric.
+
+"You can take care of Mo," you tell him. "I have no idea about camels so I will ride Meeny and you can take Eeny. Agreed?"
+
+"Very well, sire," he replies. "I'm sure whatever camel either of us rides, it will be fine."
+
+> untie camels
+You untie Meeny's reins from the hitching rail and Alaric does the same with Eeny's. He does the same to Mo and ties her halter to Eeny's saddle.
+
+> east
+You move east.
+
+You and Duke Alaric lead your camels in that direction.
+
+By Camel Trader
+You are leading your camel by a camel trader who has two camels around him. There is a shop here where above the door there is a sign. You can go In to the shop, West to a hitching rail, North, South and SW.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> southwest
+You move southwest.
+
+You and Duke Alaric lead your camels in that direction.
+
+By Oasis
+You are leading your camel on the east side of a small oasis in the middle of the caravansery. It is surrounded by tall palm trees except for the gap here where animals can drink and people can fill water containers. You can go East to the entrance, NE to the camel trader or SE.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+As you reach the edge of the oasis, your camels bend their heads down and drink deeply. They can now survive for several days without drinking again.
+
+> east
+As you walk towards the caravansery exit, the proprietor, Aziz Bin Rahman, comes walking towards you. He stops before you and greets you in the local fashion.
+
+"I see you are about to leave us, your grace," he says to you. "Would you like me to stable your horses until you return?"
+
+1: "How much will you charge for stabling our horses?"
+2: "Yes please, we would be grateful if you would stable our horses until we return."
+
+In Caravansery
+You are leading your camel in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with two camels. You can also go South, NW, or SW to a hitching rail.  Duke Alaric is here.  At the side of the archway a man squats against the wall.  Eeny, Meeny and Mo are here.
+
+> 2
+You reply to Aziz's offer.
+
+"Yes, please, if you could stable our horses while we are engaged on our mission we would be most grateful," you tell Aziz, and then you continues,
+
+"How much would you charge us for this service?" you ask Aziz, who replies, "That depends on how long you are gone," he tells you. "I charge 5 gold coins per horse per week."
+
+There then ensues a few minutes of haggling at the end of which you knock Aziz down to 3 gold coins per horse per week.
+
+"You are indeed a fearsome opponent, King Kelson," Aziz tells you with a smile. "I would hate to face you on the battlefield if your haggling is anything to go by!" You smile and shake Aziz by the hand to seal the deal.
+
+Aziz calls two of his staff to take Shadowfox and Merlin to the stables and he bids you farewell and good luck before following the horses to see that they are cared for properly.
+
+In Caravansery
+You are leading your camel in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with two camels. You can also go South, NW, or SW to a hitching rail.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> out
+You move Out.
+
+You lead Meeny out of the caravansery followed by Duke Alaric leading Eeny.
+
+By Entrance to Caravansery
+You are leading your camel by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  Duke Alaric is here.  Your squadron of troops are sheltering under the veranda and their horses are tethered to the hitching rails.  Eeny, Meeny and Mo are here.
+
+As you leave the caravansery with your camels, you go over to talk to Colonel Teege.
+
+At first the colonel doesn't recognise you and is astonished by your transformation. You tell the colonel to take his squadron back to Domreil as there are not enough camels for the colonel and his squadron to accompany you and Duke Alaric across the desert.
+
+The colonel argues vociferously against this order, saying his duty is to protect you from danger.
+
+"We'll be fine, colonel," you tell him. "I have the Axe of Kolt with me if we should encounter any Xixons - which I doubt anyway!"
+
+With great reluctance the colonel obeys his order, and he and the squadron ride off towards Domreil, leaving you and Duke Alaric to continue on alone.
+
+By Entrance to Caravansery
+You are leading your camel by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> east
+You are about to lead your camels east when there is a shout from behind you.
+
+It is Ibraham Khan, whom you bought your camel equipment from.
+
+"Before you depart, a gift for you each," he says, giving Duke Alaric a rucksack and you a knapsack. "I noticed you did not have either of these and thought you would like them."
+
+You and Alaric thank him for the gifts and put them over your shoulders.
+
+"Maybe we should have some refreshments before we set off?" you suggest.
+
+"That's not a bad idea," Duke Alaric replies, and you both take some travel rations from the bag in the panniers on Mo's back. You eat them and wash them down with a couple of swigs of water from your waterskins. You put the packet of rations in your knapsack.
+
+"Not much taste to them," Alaric comments. "Don't worry," you reply. "I'm sure Bronwynn will cook you a slap-up meal when you get home!"
+
+The two of you then continue on your way.
+
+On Dirt Road By Great Sand Sea
+You are on a dirt road that runs along the northern edge of the Great Sand Sea. The road leads East and to the West you see the caravansery.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> east
+You move east.
+
+You and Duke Alaric lead your camels in that direction.
+
+Edge of the Great Sand Sea
+You are on a dirt road that runs along the northern edge of the Great Sand Sea. This is a vast desert that stretches away to the horizon in every southerly direction. Hecate and Domreil lie many miles distant beyond the Schwarzwald forest, which you can see on the horizon to the north. Here a camel track leads South into the desert and you can go East or West along the dirt road.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> mount camel
+As instructed by Ibrahim, you say "Down!" to make the camel kneel down and you climb onto Meeny's saddle. You make yourself comfortable and say "Up!". You lean backwards as the camel gets to its rear legs first and then to its front legs.
+
+Duke Alaric does the same and mounts his own camel.
+
+Edge of the Great Sand Sea
+You are riding your camel Eeny on a dirt road that runs along the northern edge of the Great Sand Sea. This is a vast desert that stretches away to the horizon in every southerly direction. Hecate and Domreil lie many miles distant beyond the Schwarzwald forest, which you can see on the horizon to the north. Here a camel track leads South into the desert and you can go East or West along the dirt road.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> south
+You ride South.
+
+You follow the camel track across the barren desert for miles without seeing anything. The heat increases the further you travel into the desert and you are glad that you bought these much cooler robes instead of wearing your usual fighting gear.
+
+As the sun starts to go down you spot the ruins of an ancient city a mile or so to the west of the track and Duke Alaric suggests that you should head there and find somewhere to camp for the night.
+
+You concur and you steer your camels towards the ruins. On the way you pass a large rocky outcrop which you take note of but carry on until you reach the wall of the city.
+
+By Wall of Ancient City
+You are riding your camel by the wall of an ancient city in the Great Sand Sea. There is a large breach in the wall here and you can go West into the ruins or East back to the outcrop you passed earlier. At the foot of the wall and all around you lie the dessicated bodies of hundreds of warriors.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> dismount
+You say "Down!" to instruct Meeny to kneel down and then you climb down off the saddle onto the ground.
+
+Duke Alaric does the same and dismounts from his camel, Eeny.
+
+By Wall of Ancient City
+You are leading your camel by the wall of an ancient city in the Great Sand Sea. There is a large breach in the wall here and you can go West into the ruins or East back to the outcrop you passed earlier. At the foot of the wall and all around you lie the dessicated bodies of hundreds of warriors.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+> search bodies
+The bodies were stripped of anything valuable millennia ago, but as you are examining one skeleton it crumbles to pieces, revealing what looks like a wooden stick underneath.
+
+"That looks interesting," Duke Alaric says to you. "I'd like to have a look at it."
+
+"How about you search some of the bodies," Duke Alaric suggests. "You might find something useful?"
+
+By Wall of Ancient City
+You are leading your camel by the wall of an ancient city in the Great Sand Sea. There is a large breach in the wall here and you can go West into the ruins or East back to the outcrop you passed earlier. At the foot of the wall and all around you lie the dessicated bodies of hundreds of warriors.  Also here you see a wooden sceptre.  Duke Alaric, Eeny, Meeny and Mo are here.
+
+YOUR SCORE HAS NOW REACHED 100 POINTS!
+
+> take sceptre
+Ok, you pick up the wooden sceptre.
+
+> show sceptre to alaric
+You show the sceptre to Duke Alaric.
+
+^Look what I found," you say to the Duke as he takes the sceptre from you and examines it carefully.
+
+"Very interesting," he replies, "I wonder if it represents some sort of deity?" he asks you.
+
+"We'll have to show it to Magor when we get back to Domreil castle," you tell him as he hands the sceptre back.
+
+You decide to put it into your knapsack for safe keeping.
+
+> become alaric
+
+YOU ARE NOW PLAYING AS ALARIC BLACKMOON.
+
+By Wall of Ancient City
+You are leading your camel by the wall of an ancient city in the Great Sand Sea. There is a large breach in the wall here and you can go West into the ruins or East back to the outcrop you passed earlier. At the foot of the wall and all around you lie the dessicated bodies of hundreds of warriors.  King Kelson, Eeny, Meeny and Mo are here.
+
+> search bodies
+The bodies were stripped of anything valuable millennia ago, but as you are examining the ragged remnants of the clothes of one body you find a folded piece of parchment. You pick it up and unfold it, revealing a hand-drawn map.
+
+"That looks useful," King Kelson says to you. "Can I have a look?"
+
+> read map
+The map on the sheet of parchment reads:
+
+> show map to kelson
+You hand the parchment to King Kelson. He takes it and looks at it.
+
+"This looks interesting, Alaric," he says to you. "I wonder what this place called Xanix is?" "Well, we'll find out when we get there!" you say to him as he hands back the map.
+
+> west
+You move West.
+
+As you and Kelson lead Eeny, Meeny and Mo west into the city, the sun goes down below the horizon and everything goes dark. You conjure a ball of handfire, which illuminates your surroundings.
+
+At Crossroads
+You are leading your camel at a crossroads in the ruined city. The rubble of ancient buildings lies in heaps all around, tumbling into the roads that go North, South, East and West from here. In the centre of the crossroads here is a ruined fountain.  King Kelson, Eeny, Meeny and Mo are here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+Suddenly, a thin man dressed in rags comes shuffling towards you out of the darkness from the north.
+
+He sees you and, with a terrified look on his face, he tries to rush past you all without speaking.
+
+You stop the man by grabbing his arm, which feels like a thin stick, and ask him why he is in such a hurry.
+
+"Red mist coming - beware the red mist - Run! Hide!" he screams and, wriggling out of your grasp, he runs towards the west and out of sight.
+
+You turn to King Kelson. "Red mist? What on earth is he talking about?" you say to the king.
+
+Kelson shrugs his shoulders and replies, "I haven't got a clue, but should we hang about to find out?"
+
+> west
+You move west.
+
+You and King Kelson lead your camels in that direction.
+
+West of Crossroads
+You are leading your camel a short distance west of the crossroads, where there is a large building which has escaped the ravages of time, its remaining walls being about six to ten feet high. A gap, where the building's door used to be, leads South inside. The road continues West and goes East back to the crossroads.  King Kelson, Eeny, Meeny and Mo are here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> drop reins
+Ok, you drop your camel's reins, as does King Kelson.
+
+> south
+You move South.
+
+King Kelson follows you inside.
+
+In Ruined Building
+You are in the ruins of a large roofless building. The gap where the doorway used to be leads North and in one corner there is a pile of mudbricks.   King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+You see a faint red glow in the distance to the west, it seems to be coming slowly towards you.
+
+> clear mudbricks
+You start to clear the mudbricks from the corner of the room, throwing them into another corner.
+
+King Kelson helps you and very soon you have uncovered a closed trapdoor in the floor.
+
+In Ruined Building
+You are in the ruins of a large roofless building. The gap where the doorway used to be leads North and in one corner there is a pile of mudbricks. In one corner there is a closed trapdoor.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> open trapdoor
+You pull on the metal ring and open the trapdoor, revealing a flight of stone steps leading down into darkness.
+
+In Ruined Building
+You are in the ruins of a large roofless building. The gap where the doorway used to be leads North and in one corner there is a pile of mudbricks. In one corner there is an open trapdoor with steps leading Down into darkness.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> down
+You move down.
+
+King Kelson walks beside you.
+
+Basement of Ruined Building
+You are in the basement of the ruined building. Stone steps lead Up to the ground floor through the open trapdoor and an open doorway leads West to another room. The floor is littered with debris and old rubbish. Leaning upright against one wall is a longbow and, on a nearby ledge, you see an arrow.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> close trapdoor
+You pull the trapdoor closed with a thud.
+
+You hear a spine-chilling wail of frustration from above as the mist realises it cannot get to you inside the basement.
+
+After a minute or two the wailing stops but you hear a crash as what you assume is a wall collapses onto the trapdoor. You wonder to yourself if your camels have survived the attack of the red mist?
+
+As you breath a sigh of relief that you have sealed the basement from the red mist, you turn around to see the man that you saw at the crossroads cowering in one corner of the room.
+
+You look at King Kelson in astonishment and the both of you ask the same question: "How the hell did HE get down here if the trapdoor was buried under those mudbricks?!"
+
+Basement of Ruined Building
+You are in the basement of the ruined building. Stone steps lead Up, but the trapdoor is closed, and an open doorway leads West to another room. The floor is littered with debris and old rubbish. Leaning upright against one wall is a longbow and, on a nearby ledge, you see an arrow.  King Kelson is here.  Sitting in the corner is the man you saw at the crossroads.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> search debris
+You search through the debris and rubbish and find an old handbrush.
+
+Basement of Ruined Building
+You are in the basement of the ruined building. Stone steps lead Up, but the trapdoor is closed, and an open doorway leads West to another room. The floor is littered with debris and old rubbish. Leaning upright against one wall is a longbow and, on a nearby ledge, you see an arrow.  Also here you see an old handbrush.  King Kelson is here.  Sitting in the corner is the man you saw at the crossroads.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> take brush
+Ok, you pick up the old handbrush.
+
+> talk to man
+You talk to the man, saying to him:
+
+1: "How did you get down here before us?"
+2: "What is the red mist?"
+3: "Can we please borrow the key?"
+
+> 1
+You ask the man how he got here before you and King Kelson?
+
+The man just points at the door in the west wall of the wine cellar next door.
+
+You look at the king, saying, "I suppose that means he came through that door?"
+
+You walk into the next room and try to open the door, but it is locked. You return to where King Kelson is standing by the wild man.
+
+"The door's locked," you tell the king.
+
+"Maybe that key around his neck opens it?" King Kelson replies, pointing at the key.
+
+> 2
+You ask the man what the red mist is?
+
+The man looks at you with a look of dread in his eyes.
+
+"The mist is the disembodied souls of the dead warriors, doomed for all eternity," he tells you. "It lives on the life force of unwary travellers - beware, beware!"
+
+> 3
+You ask the man if you can borrow the key?
+
+The man thinks for a second or two and takes the key from around his neck and hands it to you.
+
+"You may borrow it until you have made a copy, then I must go," he tells you. "The key opens more than one door."
+
+You look at King Kelson in amazement. "How on earth are we going to do that?" you ask. King Kelson replies, "Well, we'd better have a look around."
+
+> take longbow
+Ok, you pick the longbow up from where it stands against the wall, and you also take the arrow from the ledge.
+
+You hand the longbow and arrow to King Kelson, who takes them from you.
+
+"You're a much better archer with a longbow than I am, my liege," you tell him. "I'm happier with a crossbow."
+
+"Yes," replies the king, putting his head and shoulder between the longbow and its string so he can carry it while leaving his hands free. "I always beat you at the lists when we're practising!
+
+He also puts the arrow in his knapsack.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+Wine Cellar
+You are in a room which was once used as a wine store, judging by the smashed amphora which lie in pieces on the floor. In the wall there is a door which is closed and locked.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> search pieces
+Amongst the shattered pieces of amphora you find an intact one.
+
+Wine Cellar
+You are in a room which was once used as a wine store, judging by the smashed amphora which lie in pieces on the floor. In the wall there is a door which is closed and locked.  Also here you see a wine amphora.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> remove stopper
+Using your knife you unseal the wax stopper and remove it from the amphora. It comes loose with a "Pop!".
+
+As you do so a foul smell comes out of the amphora - phew, whatever liquid is in there went off years ago!
+
+Your eyes start to water from the smell, so you put the amphora down on the ground.
+
+> unlock door
+(using the key)
+You go to unlock the door but you suddenly have a thought.
+
+"Maybe we should wait until daylight?" you suggest to King Kelson. "We've no idea what is beyond this door and neither do we know if that red mist has gone."
+
+The king agrees with you.
 
 > wait
-Please press O or B then press Enter.
+
+The two of you settle down to wait until daylight. You fall asleep and are woken up by the King after what seems only a few minutes'
+
+"I think the sun's up, Alaric," he tells you. "Wakey wakey!"
+
+You rub the sleep from your eyes and stand up.
+
+> unlock door
+(using the key)
+You unlock the cellar door with the key.  There's no need to open any doors that are unlocked, just go in the direction indicated.
+
+> west
+You move West.
+(Opening the door first)
+
+King Kelson follows you, closing the door after him.
+
+The Underground Passageway
+You are in a narrow underground passageway that leads West from the wine cellar, which is through the door to the East which is closed.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+Basement Of Shop
+You are in the basement of some sort of shop, judging from all the stuff stored down here. The passageway is to the East and steps lead Up.  King Kelson is here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+As you move into the light, the ball of handfire winks out with a 'pop'.
+
+> search stuff
+You search through the stuff on the floor and find a small ingot of tin.
+
+Basement Of Shop
+You are in the basement of some sort of shop, judging from all the stuff stored down here. The passageway is to the East and steps lead Up.  Also here you see an ingot of tin.  King Kelson is here.
+
+> take tin
+Ok, you pick up the ingot of tin.
+
+> up
+You move Up.
+
+King Kelson follows behind you.
+
+The Tinsmith's Shop
+You are in what used to be a tinsmith's shop. Various items of tinware lie scattered amongst the mud bricks that once made up the walls. You can go North to the road outside, Down to the basement or East to another room.  King Kelson is here.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+The Tinsmith's Workshop
+You are in what was the tinsmith's workshop. This has largely escaped the ravages of time and the equipment in here, despite being covered in years of sand and other detritus, is relatively intact. The shop is to the West. In the centre of the workshop is a large workbench.   King Kelson is here.
+
+> sweep workshop
+Using the handbrush you sweep all the sand and detritus off the surfaces and equipment in the workshop.
+
+Unfortunately, by the time you have finished, all the bristles have fallen out of the handbrush! During the operation you discover a small trough which you assume used to contain water for cooling hot items. It was full of sand which you tip out.
+
+The Tinsmith's Workshop
+You are in what was the tinsmith's workshop. This has largely escaped the ravages of time and the equipment in here is clear of sand and still in working order. In the centre of the workshop is a large workbench.   King Kelson is here.
+
+> x equipment
+There are lots of items here that the tinsmith would've used every day, you see a kiln on a workbench and a number of other items you think would be of use to you, which you put on the bench next to the kiln.
+
+You wonder to yourself if you can use this equipment to make a copy of the key you got from the man in the basement?
+
+The Tinsmith's Workshop
+You are in what was the tinsmith's workshop. This has largely escaped the ravages of time and the equipment in here is clear of sand and still in working order. In the centre of the workshop is a large workbench. Apart from a kiln, on the bench you see a small file, a ceramic crucible, some tinsmith's tongs and some tinsmith's gloves.  King Kelson is here.
+
+> search workshop
+You search the workshop and, under the workbench, find a coal scuttle, which you pull out.
+
+The Tinsmith's Workshop
+You are in what was the tinsmith's workshop. This has largely escaped the ravages of time and the equipment in here is clear of sand and still in working order. In the centre of the workshop is a large workbench. Apart from a kiln, on the bench you see a small file, a ceramic crucible, some tinsmith's tongs and some tinsmith's gloves.  Also here you see a coal scuttle.  King Kelson is here.
+
+> take coal
+Ok, you take a few lumps of coal from the coal scuttle.
+
+> put coal in box
+You fill the fire box under the kiln with coal.
+
+> put stopper by kiln
+You put the wax stopper on the workbench next to the kiln.
+
+> light coal
+Using your 'fossy', you make some sparks and set light to the lumps of coal. Very soon a good fire is blazing away. You put your fossy back in your pocket afterwards.
+
+After a few minutes you pick up the wax stopper - it feels warm and a lot softer than it was before.
+
+YOUR SCORE HAS NOW REACHED 200 POINTS!
+
+> flatten stopper
+Using the heel of your fist, you flatten out the softened wax stopper until it is a disc about three inches across. By the time you have done that, the wax has hardened again.
+
+> put disc by kiln
+You put the flattened wax disc on the workbench next to the kiln.
+
+After a few minutes you pick it up - it feels warm and a lot softer than it was before.
+
+> press key into disc
+You press the key into the soft wax disc, making an impression of the key in the wax. After a minute or two to allow the wax to harden, you remove the key from the wax.
+
+The wild man suddenly appears as if by magic at your side.
+
+He smiles and takes his key from you, putting the thong around his neck.
+
+With a wave and a smile he promptly disappears from view with a "pop" of displaced air.
+
+> wear gloves
+Ok, you put on the tinsmith's gloves.
+
+> take tongs
+Ok, you take the tinsmith's tongs from the tinsmith's workbench.
+
+> put tin in crucible
+Ok, you put the tin ingot into the ceramic crucible.
+
+> take crucible
+Ok, you take the ceramic crucible from the tinsmith's workbench.
+
+> put crucible in kiln
+Ok, using the tongs you put the crucible inside the kiln. It slowly turns to a cherry red in the heat and the tin ingot inside starts to melt.
+
+> pump bellows
+You pump the halves of the bellows to inject air into the fire box under the kiln.
+
+The coals glow brighter and the fire gets hotter. Inside the kiln, the crucible glows white and the ingot inside completely melts.
+
+> put mould on workbench
+Ok, you put the wax mould on top of the tinsmith's workbench.
+
+> drop handbrush
+Ok, you put down the old handbrush.
+
+> put parchment in rucksack
+Ok, you put the sheet of parchment inside the rucksack.
+
+> take crucible
+Using the tongs, you carefully remove the glowing crucible from the kiln.
+
+> pour tin into mould
+You pour some of the molten tin into the impression in the wax mould.
+
+> pour water into trough
+You pour some water into the trough from your water skin.
+
+> wait
+You wait until the tin key is cool enough to remove from the mould, although it is still quite hot. While you are waiting, you douse the fire under the kiln and clean the ashes out of the fire box. Nobody will ever use the kiln again, but it is in your nature to clear up after yourself. You notice that the crucible, and the tin inside it, have also cooled down.
+
+> take key
+You carefully remove the tin key from the wax mould. Using the file, you round off the rough edges so that it will fit into a lock.
+
+> put key in trough
+You dip the hot key into the water in the trough. It hisses a bit as the metal cools but after a couple of minutes it is cool enough to handle with bare hands.
+
+> drop crucible
+Ok, you put down the ceramic crucible.
+
+> drop tongs
+Ok, you put down the tinsmith's tongs.
+
+> remove gloves
+Ok, you remove the tinsmith's gloves.
+
+> drop gloves
+Ok, you put down the tinsmith's gloves.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+The Tinsmith's Shop
+You are in what used to be a tinsmith's shop. Various items of tinware lie scattered amongst the mud bricks that once made up the walls. You can go North to the road outside, Down to the basement or East to the tinsmith's workshop.  King Kelson is here.
+
+> north
+You move north.
+
+King Kelson walks beside you.
+
+By Tinsmith's Shop
+You are some distance west of the crossroads by the tinsmith's shop, which is South. You can also go East to where the other ruined building is or continue West through the ruins of the ancient city.  King Kelson is here.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+West of Crossroads
+You are a short distance west of the crossroads, where there is a large building which has escaped the ravages of time, its remaining walls being about six to ten feet high. A gap, where the building's door used to be, leads South inside. The road continues West and goes East back to the crossroads.  King Kelson, Eeny, Meeny and Mo are here.
+
+You are relieved to see that all three of your camels have survived the Red Mist apparently unscathed.
+
+> take reins
+Ok, you pick up your camel's reins and King Kelson does the same.
+
+> east
+You move east.
+
+You and King Kelson lead your camels in that direction.
+
+At Crossroads
+You are leading your camel at a crossroads in the ruined city. The rubble of ancient buildings lies in heaps all around, tumbling into the roads that go North, South, East and West from here. In the centre of the crossroads here is a ruined fountain.  King Kelson, Eeny, Meeny and Mo are here.
+
+> east
+You move east.
+
+You and King Kelson lead your camels in that direction.
+
+By Wall of Ancient City
+You are leading your camel by the wall of an ancient city in the Great Sand Sea. There is a large breach in the wall here and you can go West into the ruins or East back to the outcrop you passed earlier. At the foot of the wall and all around you lie the dessicated bodies of hundreds of warriors.  King Kelson, Eeny, Meeny and Mo are here.
+
+> east
+You move east.
+
+You and King Kelson lead your camels in that direction.
+
+By Rocky Outcrop
+You are leading your camel by a tall rocky outcrop, which looms high above you, about a mile east of the ruined city. The camel track you travelled down is to the East.   King Kelson, Eeny, Meeny and Mo are here.
+
+> x rocks
+They are enormous and weigh many, many tons. You notice a dark crevice between two of the rocks leading into the depths of the outcrop.
+
+By Rocky Outcrop
+You are leading your camel by a tall rocky outcrop, which looms high above you, about a mile east of the ruined city. The camel track you travelled down is to the East. You see a narrow crevice leading into the outcrop.   King Kelson, Eeny, Meeny and Mo are here.
+
+> drop reins
+Ok, you drop your camel's reins, as does King Kelson.
+
+> lumino
+You say "Lumino" and a ball of handfire appears above your head.
+
+By Rocky Outcrop
+You are by a tall rocky outcrop, which looms high above you, about a mile east of the ruined city. The camel track you travelled down is to the East. You see a narrow crevice leading into the outcrop.   King Kelson, Eeny, Meeny and Mo are here.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> in
+You push your way into the dark crevice and shuffle along it, followed by the king. There is a bend halfway along and when you pass that it is almost totally dark, but the handfire you conjured lights your way and you continue to worm your way along the crevice until you reach a large cave.
+
+Cave Inside Outcrop
+You are in a large cave inside the rocky outcrop. The walls and ceiling are formed from huge slabs of granite and the floor is hard-packed earth. In the centre of the floor is a firepit and against the wall of the cave there is a pile of firewood.   King Kelson is here.
+
+> take firewood
+Ok, you take some firewood from the pile.
+
+> put wood on firepit
+You put the firewood on the firepit.
+
+> light firewood
+Using your 'fossy' to strike some sparks, you set light to the firewood in the firepit.
+
+You have to blow on the firewood to get the fire started but after a few puffs the fire is burning brightly. You notice that the smoke is seeping through gaps between the rocks that make up the ceiling of the cave.
+
+> x ceiling
+The ceiling of the cave, which is about six feet above your head, is made of huge slabs of rock which must weigh many tons. You notice faint marks on a couple of the slabs.  The smoke from the fire is disappearing through gaps between the slabs.
+
+> snuffio
+You whisper the word "Snuffio" and the ball of handfire goes out with a soft "Pop!". However, the cave remains illuminated by the flickering light from the fire.
+
+> x marks
+The marks are glowing in the light from the fire!
+
+> read marks
+The letters on one of the slabs read...
+
+Be humble in the presence of the goddess
+On the other slab they read...
+
+Survival may be ensured with a leap of faith
+
+> out
+You move Out.
+
+King Kelson follows behind you.
+
+By Rocky Outcrop
+You are by a tall rocky outcrop, which looms high above you, about a mile east of the ruined city. The camel track you travelled down is to the East. You see a narrow crevice leading into the outcrop. You see smoke from the fire in the cave seeping out between the rocks of the outcrop.   King Kelson, Eeny, Meeny and Mo are here.
+
+> take reins
+Ok, you pick up your camel's reins and King Kelson does the same.
+
+> put key in pocket
+Ok, you put the tin key into the pocket in your baldric.
+
+> mount eeny
+As instructed by Ibrahim, you say "Down!" to make the camel kneel down and you climb onto Eeny's saddle. You make yourself comfortable and say "Up!". You lean backwards as the camel gets to its rear legs first and then to its front legs.
+
+King Kelson does the same and mounts his own camel.
+
+By Rocky Outcrop
+You are riding your camel by a tall rocky outcrop, which looms high above you, about a mile east of the ruined city. The camel track you travelled down is to the East. You see a narrow crevice leading into the outcrop. You see smoke from the fire in the cave seeping out between the rocks of the outcrop.   King Kelson, Eeny, Meeny and Mo are here.
+
+> east
+You ride East.
+
+King Kelson rides beside you on his camel.
+
+On Camel Track
+You are riding your camel on a camel track in the Great Sand Sea. The track continues South and goes North back to the edge of the desert. All around you the air shimmers in the heat as it rises off the dunes. To the West you see a rocky outcrop beyond which are the ruins of an ancient city.  King Kelson, Eeny, Meeny and Mo are here.
+
+> south
+You ride South.
+
+You ride Eeny south into the desert, leading your pack camel Mo and accompanied by King Kelson on his camel Meeny.
+
+The heat becomes almost unbearable as the sun rises in the sky and you are glad of your cool robes and headdress.
+
+After a couple of hours you spot a camel caravan coming towards you out of the haze about a mile to the south.
+
+As the head of the caravan reaches you, the leader halts his camel next to you and he greets you cordially, telling you that his name is Erwin el Alamein. You and King Kelson return the greeting and the king speaks to Erwin:
+
+1: "Where have you come from?"
+2: "Where are you going to?"
+3: "Have you seen any strange human-shaped lizard creatures?"
+
+> x erwin
+He is dressed in typical desert attire and sits comfortably on his camel. You notice he wears a pair of sand goggles.
+
+> 1
+You ask the caravan leader where he has come from?
+
+"We have come from a city called Timbuctoo," he tells you. "It is many miles west of the Forbidden Forest."
+
+Duke Alaric interrupts with a comment: "That forest is on that map we found by the ancient city, he mentions.
+
+2: "Where are you going to?"
+3: "Have you seen any strange human-shaped lizard creatures?"
+4: "Where is this Forbidden Forest?"
+
+> 2
+You ask the caravan leader where he is going to?
+
+"We are going to the caravansery at Siwa," he tells you. "The goods are for the various shops there and half of the camels are for Mohammed, the camel trader."
+
+You laugh, shaking your head, and Kelson says to the man, "We could've done with these camels yesterday! I needed twelve to provide mounts for my squadron of Hussars."
+
+The caravan leader smiles and nods, but you suspect he hasn't got a clue what you are talking about.
+
+3: "Have you seen any strange human-shaped lizard creatures?"
+4: "Where is this Forbidden Forest?"
+
+> 3
+You ask Erwin if he has seen any human-shaped lizardmen?
+
+"Yes, a caravan I was leading recently alongside the Forbidden Forest was attacked by such creatures," he tells you. "They came out of the forest armed to the teeth and one of my camels was taken."
+
+You ask him how many there were?
+
+"There weren't very many, about half a dozen or so," he says. "But they had this much larger version of themselves which was enormous and carried the camel off in its arms."
+
+You look at King Kelson in surprise at this news - the Xixon have indeed returned!
+
+What is more worrying is what Erwin has told you about this larger Xixon - something you have never encountered before.
+
+"I wish we'd been able to bring the squadron of Hussars now," Kelson tells you. "No chance of that seeing as how they were sent back to Domreil!"
+
+4: "Where is this Forbidden Forest?"
+
+> 4
+You ask the caravan leader about the Forbidden Forest?
+
+"It is at the southern end of this camel track," he tells you. "About four hours journey at camel pace."
+
+Erwin tells you that while it is very nice to talk to you, they must be on their way as he wants to get to Siwa before nightfall.
+
+You thank Erwin and he waves in farewell.
+
+"I might see you again if you return to Siwa soon," he tells you as he leads his camels to the north.
+
+"We hope so!" you call back as you get your own camels moving to the south.
+
+You ride slowly off along the track and, looking behind, see the camel caravan disappear into the haze on its long way north to Siwa.
+
+The further south you go, the cooler it gets and after a few hours you see a green line appear out of the haze on the horizon. The dunes of the desert soon give way to more rocky terrain as the green line resolves itself into a vast forest that seems to stretch into the haze to east and west.
+
+Eventually you reach the edge of the forest where the camel track joins a dirt road that runs from east to west along the edge of the vast forest.
+
+South End Of Camel Track
+You are riding your camel on a dirt road at the south end of the camel track. The forest south of you mostly forms an impenetrable barrier but just here you see a break between the trees which leads South. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+YOUR SCORE HAS NOW REACHED 300 POINTS!
+
+> dismount
+You say "Down!" to instruct Eeny to kneel down and then you climb down off the saddle onto the ground.
+
+King Kelson does the same and dismounts from his camel Meeny.
+
+South End Of Camel Track
+You are leading your camel on a dirt road at the south end of the camel track. The forest south of you mostly forms an impenetrable barrier but just here you see a break between the trees which leads South. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> change clothes
+You both take your fighting clothes out of the panniers and put them on the ground.
+
+You then take off your desert clothes and dump those on the ground beside the clothes you just took out. You then pick up the other clothes and put them on. You adjust the baldric so it is comfortable over your shoulder. Finally, you put your desert clothes in the pannier and King Kelson has done the same.
+
+> mount eeny
+You make Eeny kneel, climb onto the saddle and get her to stand afterwards. King Kelson does the same and mounts his own camel.
+
+South End Of Camel Track
+You are riding your camel on a dirt road at the south end of the camel track. The forest south of you mostly forms an impenetrable barrier but just here you see a break between the trees which leads South. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> east
+You ride east.
+
+King Kelson rides beside you on his camel.
+
+On Dirt Road
+You are riding your camel on the dirt road, about a quarter of a mile east of where the camel track ends. The forest south of you forms an impenetrable barrier and you can only go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> east
+You ride east.
+
+King Kelson rides beside you on his camel.
+
+On Dirt Road
+You are riding your camel on the dirt road, about half a mile east of where the camel track ends. The forest that lies to the south of you is an impenetrable barrier and you can only go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> east
+You ride east.
+
+King Kelson rides beside you on his camel.
+
+On Dirt Road
+You are riding your camel on the dirt road, about three quarters of a mile east of where the camel track ends. The forest that lies to the south of you presents an almost impenetrable barrier but just here you see another narrow gap between the trees which leads Southeast. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> dismount
+You say "Down!" to instruct Eeny to kneel down and then you climb down off the saddle onto the ground.
+
+King Kelson does the same and dismounts from his camel Meeny.
+
+On Dirt Road
+You are leading your camel on the dirt road, about three quarters of a mile east of where the camel track ends. The forest that lies to the south of you presents an almost impenetrable barrier but just here you see another narrow gap between the trees which leads Southeast. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> tie camels to trees
+You and King Kelson tie all the camel's reins around the trunks of nearby trees.
+
+> southeast
+You move southeast.
+
+King Kelson walks beside you.
+
+Path Through Trees
+You are on a narrow path which curves through the trees in a gentle arc. You may go NW or SW.  King Kelson is here.
+
+> southwest
+You move southwest.
+
+King Kelson walks beside you.
+
+Path Through Trees
+You are on a narrow path which runs through the trees of the forest to the NE and West. Either side of you the thick undergrowth prevents you going in any other direction.  King Kelson is here.
+
+> west
+You move West.
+
+As you walk along the path, up ahead you see a jaguar sniffing at something on the ground. It is the carcass of a small bird. You pick up a stone and hurl it at the cat.
+
+WHACK - Good shot!
+
+The stone hits the jaguar on the side of its head. It yelps in pain and surprise and runs off into the undergrowth out of sight.
+
+Path Through Trees
+You are on a narrow path which runs through the trees of the forest. Either side of the path the thick undergrowth prevents you going in any other direction than East and SW. In that direction, through the trees you can see a massive pyramid.  Also here you see a dead bird.  King Kelson is here.
+
+> take bird
+Ok, you pick up the dead bird.
+
+> southwest
+You move southwest.
+
+King Kelson walks beside you.
+
+North Side Of Pyramid
+You are standing at the foot of a massive pyramid that pokes up above the trees around you. A steep flight of wide stairs goes Up this side of the pyramid to the top, upon which sits a building with an oblong conical roof. The paths through the forest lead off to the NW and NE, and a path runs around the pyramid to the East and West.  King Kelson is here.
+
+As you reach the foot of the pyramid, the two of you look up at it in awe.
+
+"Wow," you exclaim. "That's some lump of stone!"
+
+"It's huge," King Kelson says. "I wonder if there's any treasure inside?"
+
+"I doubt it, sire," you reply. "In my experience, old edifices like this will have been looted long ago."
+
+Kelson shrugs. "I guess you're right," he replies. "But it won't hurt us to explore it, you never know what we might find?"
+
+NOTE TO PLAYER: If you wish, you may now use the command LEAVE KELSON to play on your own without the king following you. You can still BECOME KELSON at any time. When you wish to link up with the king again, you should use the command JOIN KELSON, but you must be in the same location as him when you do so.
+
+To get info on the above commands at any time type CHAR and press Enter.
+
+> up
+You climb the stairs that lead up to the top of the pyramid.
+
+The king walks up beside you and soon you are both getting a bit out of breath - it's a long way up!
+
+Near the top, you reach a part of the stairs which is covered with vegetation, and you run the risk of tripping over, so you decide to stop for a breather.
+
+Near Top Of Stairs
+You are on the steep stairway that runs up to the top of the ancient pyramid, about 20 or so stairs from the top. Here the stairs are covered in a thick carpet of vegetation. You can go further Up the stairway past the vegetation or Down the stairway to the forest floor.  King Kelson is here.
+
+As you stand there getting your breath back, you notice some movement in the vegetation just a bit further up the stairway.
+
+> x vegetation
+A thick layer of vegetation, some of which is as high as your knee, that has taken root in cracks in the stone stairway and flourished in the sunlight that falls on the upper part of the pyramid.
+
+> throw bird at movement
+You throw the body of the dead bird into the vegetation where you saw the movement.
+
+There is a sudden flurry of activity amongst the vegetation as whatever was in there grabs the carcass and runs - or slithers - off to eat it.
+
+> search vegetation
+You reach into the carpet of vegetation and, feeling about, you find something that you pick up.
+
+> put queen in rucksack
+Ok, you put the golden queen inside the rucksack.
+
+> down
+You move down.
+
+King Kelson walks beside you.
+
+North Side Of Pyramid
+You are standing at the foot of a massive pyramid that pokes up above the trees around you. A steep flight of wide stairs goes Up this side of the pyramid to the top, upon which sits a building with an oblong conical roof. The paths through the forest lead off to the NW and NE, and a path runs around the pyramid to the East and West.  King Kelson is here.
+
+> down
+There is no route down, only east, west, up, northeast and northwest.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+West Side Of Pyramid
+You are standing on the west side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go North or South around the pyramid and a path leads West into the forest here.  King Kelson is here.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+South Side Of Pyramid
+You are standing on the south side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go East or West around the pyramid. You notice one huge tree has a branch that overhangs the third level of the pyramid.  King Kelson is here.
+
+> leave kelson
+
+From now until you decide to JOIN up with King KELSON again, you are on your own.
+
+"Be careful, Alaric," Kelson says to you. "I can't do this on my own."
+
+> climb tree
+King Kelson gives you a lift up so you can reach the lowest burrs and you use those to climb further up the tree to the branch that overhangs level 3. When you reach the branch, you sit astride it.
+
+On Branch of Tree
+You are sitting astride the branch of the tree, close to the trunk. The ground is about forty feet below you. The branch extends North over the third level of the pyramid, but it is much thinner in that direction and it might not take your weight. The foliage of the tree towers above you.
+
+> look up
+You look up from where you are sitting astride the branch and see, about twenty feet higher above you in the tree, a large bird's nest.
+
+> up
+Moving slowly and very carefully, you climb further up the tree until you are level with the nest. The branches get thinner the higher you climb and when you stop you do not feel very safe at all.
+
+In Tree By Nest
+You are further up the tree, balanced precariously on some rather thin branches. In a fork of some branches here is a large bird's nest. You can only go Down from here.
+
+> x nest
+The nest is a large, domed structure, made from sticks and twigs. You guess it is a magpie's nest because inside you can see a silver chess knight. You know that magpies like shiny objects.
+
+> take knight
+You reach into the nest and take out the silver knight.
+
+Suddenly the branches you are standing on snap under your weight! You shift your feet to some intact branches but you realise they will also snap very soon!
+
+> put knight in rucksack
+Ok, you put the silver knight inside the rucksack.
+
+> down
+You climb back down the tree, very slowly and carefully, until you reach the branch you were on before, and sit astride it.
+
+On Branch of Tree
+You are sitting astride the branch of the tree, close to the trunk. The ground is about forty feet below you. The branch extends North over the third level of the pyramid, but it is much thinner in that direction and it might not take your weight. The foliage of the tree towers above you.
+
+> north
+You shuffle, slowly and carefully, along the branch until you are directly over level 3. As you do so you feel the branch bend under your weight.
+
+On Branch Over Level 3
+You are further along the branch, directly over level 3 of the pyramid. You can jump Down quite easily from here.
+
+Suddenly the end of the branch breaks under your weight and you slip off it - you fall onto the rubble below, but are relatively unhurt. The branch falls beside you.
+
+On Rubble
+You are standing on the pile of rubble and stones on level 3 of the pyramid. You can go down to level 2 from here.  Also here you see a broken branch.
+
+> search rubble
+You clear some rubble and stones off the pile and uncover a hole that seems to lead inside the pyramid.
+
+On Rubble
+You are standing on the pile of rubble and stones on level 3 of the pyramid. You can go down to level 2 from here.  Under the rubble you can see a dark opening that leads In to the pyramid itself.  Also here you see a broken branch.
+
+> in
+You move In.
+
+Passageway in Pyramid
+It is too dark to make anything out clearly, although above your head you see the bright light from the hole that you climbed through to get here.
+
+> lumino
+You say "Lumino" and a ball of handfire illuminates your surroundings.
+
+Passageway in Pyramid
+You are in a passageway within the pyramid where there are double wooden doors. Out of reach above your head is the hole by which you got in here. The passageway leads East and West and the doors to the North are closed.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> north
+You move North.
+(Opening the door first and closing it after you)
+
+Passageway in Pyramid (S)
+You are in a passageway in the pyramid that goes North into darkness and South through the doors. The walls and ceiling, which is only a few inches above your head, are covered in brightly-coloured paintings of people and animals.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> north
+You move North.
+
+Passageway with Statue
+You are in a long passageway in the pyramid. Just ahead of you to the north, illuminated by your handfire, stands a large statue depicting what appears to be a goddess. The statue holds a sabre in each hand. The statue stands before a wall with a gap at each side, in each of which there are steel bars that prevent you going North past the wall. You could always step a bit closer to the statue by going North or you can go South.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> north
+You move North.
+
+As you step nearer towards the statue, you feel a section of the floor give slightly under your foot and you hear a click as if something has been released.
+
+> kneel
+You quickly kneel down on the floor and bow your head.
+
+Suddenly there is a "swish" above you as one of the statue's arms swings out in an arc which would've decapitated you if you had remained standing. Then there is another "swish" as the other arm jabs out - that sabre would've skewered you.
+
+You risk a glance upwards and see that the arms have returned to their original positions and that the bars either side of the wall have retracted, so you crawl cautiously around the statue and stand up on the other side.
+
+As you reach the north side of the wall, the bars extend out again to bar the way south again.
+
+Passageway North of Wall
+You are in the passageway in the pyramid on the other side of the wall. Before you, to the north, your handfire reveals a yawning chasm where there is no floor. You cannot see if there is any floor at all to the north and, because the wall is in the way and the ceiling is low, you cannot take a running jump to try to get across the chasm.  Either side of the wall there are gaps in which there are bars which prevent you going South.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> x statue
+You can only see the arms of the statue from behind the wall.
+
+> x niche
+The niche is about a foot square and deep. Inside the niche you see two ropes.
+
+> look in niche
+Inside the niche you see two ropes.
+
+> pull lever
+You pull the lever in the back of the statue and the metal bars either side of the wall retract inside the wall, allowing you to go South.
+
+Passageway North of Wall
+You are in the passageway in the pyramid on the other side of the wall. Before you, to the north, your handfire reveals a yawning chasm where there is no floor. You cannot see if there is any floor at all to the north and, because the wall is in the way and the ceiling is low, you cannot take a running jump to try to get across the chasm.  The bars in the gaps either side of the wall have retracted and you can go South through either of the gaps.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> draw sword
+You draw your sword from the scabbard at your waist with one smooth action.
+
+> cut ropes with sword
+With a quick slash you sever the ropes with the two ropes.
+
+> jump north
+You rock back and forth a couple of times then you launch yourself forward in an effort to cross the chasm...
+
+THUMP! You land on solid ground a lot quicker than you thought you would. Getting to your feet you see the floor is painted black.
+
+Passageway North of Chasm
+You are in the passageway in the pyramid north of the wide chasm. Before you to the north there are two double doors. You can go North through the doors or jump back across the chasm. The floor next to the chasm is painted a matt black for about ten feet, which is why it seems wider than it actually is.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> north
+You move North.
+(Opening the doors first and closing them after you)
+
+Tomb Chamber
+You are in a large chamber inside the pyramid which is dominated by a large sarcophagus. In front of the sarcophagus there is a square stone table. Either side of the table is a low stone seat. Double doors lead out South to the passageway outside.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> take queen from rucksack
+Ok, you take the golden queen out of the rucksack.
+
+> put queen on table
+Ok, you put the gold queen on the chess board in the position it should be.
+
+> take knight from rucksack
+Ok, you take the silver knight out of the rucksack.
+
+> put knight on table
+Ok, you put the silver knight on the chess board in the position it should be.
+
+Suddenly, the temperature in the chamber drops so much that your breath is visible in the light from the handfire. Then, two misty figures appear, each one sitting on one of the stone seats. They are both looking down at the chess men in front of them. You cannot tell if they are male or female.
+
+They proceed to play chess, moving the silver and gold pieces with smoky white fingers. They play for about five minutes with you looking on in amazement, unable to move or say anything.
+
+Eventually, the silver player concedes defeat and the gold player gets to his - or her - feet and turns to face you.
+
+"Thank you for allowing us to play out our final game," the figure says in an echoing sepulchral voice. "My wife and I were murdered as we started to play and have been unable to pass into the spirit world."
+
+The other figure speaks in a similar, but slightly higher-pitched voice. You guess this is the wife. "Thanks to you, we are now able to pass on and we will leave you now. Farewell!"
+
+As the figures start to slowly fade away, objects appear in their hands. "Here are some tokens of our appreciation," the male figure intones, and hands you the object he was carrying - it is an arbalest.
+
+The female figure steps forward and hands you her object - it is a quiver of bolts.
+
+"The arbalest will never miss whatever it is fired at," he tells you, "And the quiver will never run out of bolts." she intones.
+
+"We hope they are of some use to you," the female figure says, as they finally disappear.
+
+Tomb Chamber
+You are in a large chamber inside the pyramid which is dominated by a large sarcophagus. In front of the sarcophagus there is a square stone table. Either side of the table is a low stone seat. Double doors lead out South to the passageway outside.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+You now need to find King Kelson and then JOIN KELSON.
+
+> wear quiver
+Ok, you put on the magic quiver.
+
+> south
+You move South.
+(Opening the doors first and closing them after you)
+
+Passageway North of Chasm
+You are in the passageway in the pyramid north of the wide chasm. Before you to the north there are two double doors. You can go North through the doors or jump back across the chasm. The floor next to the chasm is painted a matt black for about ten feet, which is why it seems wider than it actually is.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> jump south
+You jump across the chasm to the other side.
+
+Passageway North of Wall
+You are in the passageway in the pyramid on the other side of the wall. Before you, to the north, your handfire reveals a yawning chasm where there is no floor. You cannot see if there is any floor at all to the north and, because the wall is in the way and the ceiling is low, you cannot take a running jump to try to get across the chasm.  The bars in the gaps either side of the wall have retracted and you can go South through either of the gaps.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> south
+You move South.
+
+Passageway with Statue
+You are in a long passageway in the pyramid. Just ahead of you to the north, illuminated by your handfire, stands a large statue depicting what appears to be a goddess. The statue holds a sabre in each hand. The statue stands before a wall with a gap at each side through which you can go North. You can also go South towards the doors.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> south
+You move South.
+
+Passageway in Pyramid (S)
+You are in a passageway in the pyramid that goes North into darkness and South through the doors. The walls and ceiling, which is only a few inches above your head, are covered in brightly-coloured paintings of people and animals.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> south
+You move South.
+(Opening the door first and closing it after you)
+
+Passageway in Pyramid
+You are in a passageway within the pyramid where there are double wooden doors. Out of reach above your head is the hole by which you got in here. The passageway leads East and West and the doors to the North are closed.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> east
+You move East.
+
+Passageway Corner
+You are at a corner in the passageway where it goes North and West.
+
+You catch a movement in the corner of the passageway and shudder as a large hairy spider, with legs as wide as a dinner plate, scuttles away into the darkness.
+
+Ugh! You cannot stand spiders - you sincerely hope that it is as scared of you as you are of it!
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> north
+You move North.
+
+North End of Passageway
+You are at the north end of the east passageway inside the pyramid, which goes South. Here, on the west side, stairs lead up into darkness.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> up
+You move Up.
+
+Top of Stairs in Pyramid
+You are at the top of the flight of stone stairs in the pyramid, on the east side. A heavy bronze door here leads West or you can go back Down the stairs to the passageway.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> take key
+Ok, you take the tin key from the pocket in your baldric.
+
+> unlock door
+(using the tin key)
+You insert the tin key into the keyhole and unlock the door.
+
+The lock is very stiff with age and as you hear the tumblers click as the door unlocks, the tin key breaks in two, leaving you holding the shaft. Now being useless, you throw it away.
+
+> open door
+There's no need to open the door, just go in the direction indicated.
+
+> west
+You move West.
+(Opening the door and closing it after you)
+
+By Bronze Door
+You are at the end of the narrow passageway, where there is a large bronze door. You can either go East through the door or West along the passageway.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> west
+
+End Of Passageway
+You are at the end of the passageway where narrow passageways branch off East and West. The entrance is marked by a door-shaped rectangle of light to the South.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+> south
+You move South.
+
+Entrance Passageway
+You are in the entrance passageway of the building on top of the pyramid. The exit is a bright rectangle of light to the south through which you can go Out to the top of the pyramid, while to the North lies the end of the passageway, which is in darkness.
+
+A ball of handfire floats in the air above your head, illuminating your surroundings.
+
+As you move into the light, the ball of handfire winks out with a 'pop'.
+
+> south
+You move South.
+
+Top Of Pyramid
+You are at the top of the stone stairs, where a tall, oblong building with a conical roof sits on top of the main bulk of the pyramid. It pokes up above the surrounding trees, so you have a panoramic view of the forest to the south. In the front of the building an open door-shaped entrance leads In to darkness. A narrow path goes East and West around the building and the stairs lead Down to the forest floor.
+
+> east
+You move East.
+
+East Side Of Building
+You're on the east side of the top of the pyramid, which pokes up above the surrounding trees, so you have a panoramic view of the forest all around you. Below you you can see the next level down. Above you rises the oblong building that sits on top of the pyramid. You can go North or South around the pyramid or Down to the level below you.
+
+> south
+You move South.
+
+South Side Of Building
+You're on the south side of the top of the pyramid, which pokes up above the surrounding trees, so you have a panoramic view of the forest to the south. Below you you can see the next level down. Above you rises the oblong building that sits on top of the pyramid. You can go East or West around the pyramid or Down to the level below you.
+
+As you look around, you notice that one of the levels below you, the fourth level, has collapsed. If you were to go down on this side you would become trapped!
+
+> look south
+You look south and see the towers of ancient buildings poking up above the trees a couple of miles away.
+
+> west
+You move West.
+
+West Side Of Building
+You're on the west side of the top of the pyramid, which pokes up above the surrounding trees, so you have a panoramic view of the forest to the west. Below you you can see the next level down. Above you rises the oblong building that sits on top of the pyramid. You can go North or South around the pyramid or Down to the level below you.
+
+> north
+You move North.
+
+Top Of Pyramid
+You are at the top of the stone stairs, where a tall, oblong building with a conical roof sits on top of the main bulk of the pyramid. It pokes up above the surrounding trees, so you have a panoramic view of the forest to the south. In the front of the building an open door-shaped entrance leads In to darkness. A narrow path goes East and West around the building and the stairs lead Down to the forest floor.
+
+> down
+You move Down.
+
+You walk down the stairs, moving much quicker than you did going up, so you soon reach the bottom.
+
+North Side Of Pyramid
+You are standing at the foot of a massive pyramid that pokes up above the trees around you. A steep flight of wide stairs goes Up this side of the pyramid to the top, upon which sits a building with an oblong conical roof. The paths through the forest lead off to the NW and NE, and a path runs around the pyramid to the East and West.
+
+> down
+There is no route down, only east, west, up, northeast and northwest.
+
+> down
+There is no route down, only east, west, up, northeast and northwest.
+
+> west
+You move West.
+
+West Side Of Pyramid
+You are standing on the west side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go North or South around the pyramid and a path leads West into the forest here.
+
+> south
+You move South.
+
+South Side Of Pyramid
+You are standing on the south side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go East or West around the pyramid. You notice one huge tree has a branch that overhangs the third level of the pyramid.  King Kelson is here.
+
+You tell King Kelson about the two ghosts you saw in the tomb chamber in the pyramid and show him the arbalest and quiver they gave to you and tell him about their magical qualities.
+
+The king is incredulous on hearing the story.
+
+"I'm glad it was you who was given the arbalest, you're a better shot with that type of weapon than I'll ever be," he tells you. "Even with the arbalest's magical power, I'd much rather you do the shooting!"
+
+"It's a long time since I fired an arbalest," you reply. "So let's hope you are right."
+
+You become aware of a gurgling coming from your stomach. It's been a while since you had anything to eat.
+
+> join kelson
+
+King Kelson will now accompany you in your travels.
+
+"Good to have you back," King Kelson says to you. "We work much better as a team."
+
+> eat rations
+You eat some of the travel rations.
+
+They taste rather bland but satisfy your hunger for a while.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+West Side Of Pyramid
+You are standing on the west side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go North or South around the pyramid and a path leads West into the forest here.  King Kelson is here.
+
+> x skull
+You can't see any skulls!
+
+> drink water
+You had a drink of water not so long ago, you have to make it last.
+
+> east
+There is no route to the east, only north, south and west.
+
+> north
+You move north.
+
+King Kelson walks beside you.
+
+North Side Of Pyramid
+You are standing at the foot of a massive pyramid that pokes up above the trees around you. A steep flight of wide stairs goes Up this side of the pyramid to the top, upon which sits a building with an oblong conical roof. The paths through the forest lead off to the NW and NE, and a path runs around the pyramid to the East and West.  King Kelson is here.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+East Side Of Pyramid
+You are standing on the east side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go North or South around the pyramid or SE along another path through the forest.  King Kelson is here.
+
+> southeast
+You move southeast.
+
+King Kelson walks beside you.
+
+Forest Path SE of Pyramid
+You are on the path to the southeast of the pyramid. It winds off South into the forest and goes NW back to the pyramid. Either side of the path here there is a skull hanging on a tree.  King Kelson is here.
+
+> x skull
+
+It has been hung on the branches of a tree next to the path.
+
+"What do you think that indicates?" King Kelson asks you, pointing at the skull.
+
+"It's probably marking the territory of some local natives," you tell the king.
+
+"At least it's not a severed human head!" Kelson replies.
+
+"Yes, I've seen a few of those in my time," you tell him. "Let's hope it means they're not hostile."
+
+Phew, this mission is making you thirsty, you could do with a drink of water to wet your parched throat.
+
+> drink water
+You drink some water from the waterskin, it refreshes you nicely.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+North of Native Village
+You are at the end of the path where, to the south, there is a huge clearing in the forest in which there is a village of huts. You can go North back along the path or South into the village.  King Kelson is here.
+
+Suddenly, from out of the surrounding undergrowth several armed men appear and capture you and King Kelson. They take your weapons and anything you are carrying.
+
+Your hands are tied behind your back, you are dragged to a hut, thrown into it and the door locked. Kelson is thrown into a different hut.
+
+Hut In Native Village
+You are in a hut in the native village. The single door is locked and you cannot get out. The only furnishing is a crude wooden bed.
+
+> break bed
+You kick at the bed and smash it to pieces with your boot.
+
+Hut In Native Village
+You are in a hut in the native village. The single door is locked and you cannot get out. On the floor are the remains of the wooden bed.  Also here you see the thin straw mattress.
+
+> become kelson
+YOU ARE NOW PLAYING AS KING KELSON.
+
+Hut In Native Village
+You are in a hut in the native village. The single door is locked and you cannot get out. The only furnishing is a crude wooden bed.
+
+> break bed
+You kick at the bed and smash it to pieces with your boot.
+
+Hut In Native Village
+You are in a hut in the native village. The single door is locked and you cannot get out. On the floor are the remains of the wooden bed.  Also here you see a thin straw mattress.
+
+> rub rope on edge
+You kneel down with your back to the wood with the sharp edge and rub the rope that binds your wrists on it.
+
+It takes you a while, but eventually you cut through the rope, freeing your hands. You rub them together to get the circulation going again - ouch, pins and needles!
+
+> shout
+You yell at the top of your voice, trying to attract the the attention of your jailers.  A native unlocks the door of the hut, opens it and comes in.
+
+He sees you have managed to free yourself of your bonds and he just stands there and says something to you in his own language. It sounds vaguely questioning.
+
+Hut In Native Village
+You are in a hut in the native village. The single door is locked and you cannot get out. On the floor are the remains of the wooden bed.  Also here you see a thin straw mattress and a length of rope.  A native is standing in the doorway.
+
+> get sceptre
+You take the sceptre from the knapsack.
+
+The native sees the sceptre you are carrying and says something excitedly in his own language, pointing at the sceptre.
+
+He turns around and calls out to his fellow villagers, some of who come into the room.
+
+To your astonishment, they all fall to their knees and bow their heads to the floor. They get up again and point to the sceptre. You give it to the man who first came in and they all look extremely happy.
+
+You are escorted out of the hut and, after a few minutes, are joined by a puzzled Duke Alaric.
+
+"What on earth did you do?" he asks you, rubbing his wrists.
+
+"I think the sceptre is of great value to them," you tell him. "It might be a deity or something?"
+
+Your weapons are restored to you and, by sign language and gestures, you explain to the natives that you want to go south.
+
+The natives escort you to the south side of their village, then into the forest and leave you at the edge of their territory.
+
+YOU ARE NOW PLAYING AS ALARIC BLACKMOON.
+
+On Path in Forest
+You are on a path in the forest some distance south of the native village. On a tree here hangs a cow's skull. The path splits here, going SW and SE around the tree with the skull, and North back to the village.  King Kelson is here.
+
+> southeast
+You move southeast.
+
+King Kelson walks beside you.
+
+South End of Forest Path E
+You're at the south end of the path that runs through the forest, standing about 10 feet inside the trees. From here you can see, across a wide area clear of vegetation, one of the tall towers you could see from the top of the pyramid to the north. You can go North, back along the path, or South to the tower. You also see an animal track that leads West just inside the edge of the forest.  King Kelson is here.
+
+As you reach the end of the path and look south, you see a huge walled city and spot some movement some distance away at the side of the city - Xixons! Only a couple but you recognise their mottled skin and tails. They disappear from sight inside the city.
+
+You notice there is a guard patrolling the rampart of the wall opposite and assume they will be patrolling the other walls as well.
+
+You and King Kelson discuss tactics.
+
+"We need to find out what the layout of the city is," you tell the king. "You stay here, I'll scout the city walls to find out how many entrances there are."
+
+"Very well," King Kelson replies. "Just make sure you don't get killed or captured - I can't fight this lot on my own, even armed with the Axe of Kolt."
+
+"When I've found out as much as I can, I'll return to the tower opposite," you tell the king. "When I get there I'll wave to you to tell you I'm ready to cross. You'll have to watch that guard and tell me immediately he's not looking so I can dash across, no matter how long it takes, OK?"
+
+The king nods in reply, you draw your sword and prepare to move south.
+
+(You are now on your own, King Kelson will not accompany you)
+
+South End of Forest Path E
+You're at the south end of the path that runs through the forest, standing about 10 feet inside the trees. From here you can see, across a wide area clear of vegetation, one of the tall towers you could see from the top of the pyramid to the north. You can go North, back along the path, or South to the tower. You also see an animal track that leads West just inside the edge of the forest.  King Kelson is here.
+
+Up on the wall, the Xixon guard reaches the northwest tower, turns around and walks the other way along the rampart, still looking in your direction.
+
+> wait
+Time passes...
+
+Up on the wall, the Xixon guard is walking along the rampart from left to right, looking down at the ground.
+
+> wait
+Time passes...
+
+Up on the wall, the Xixon guard reaches the northeast tower, turns around and pauses, looking at something happening below it in the city.
+
+> run south
+You run as fast as you can across the cleared area towards the tower and reach it safely without being spotted by the guard.
+
+By Northeast Tower
+You are standing by the northeast tower of what appears to be a walled city. You can go West and South along the walls or North to the path in the forest.
+
+> west
+You move West, hugging the wall to avoid being spotted by the Xixon guard.
+
+By Northwest Tower
+You are standing by the northwest tower of what seems to be a walled city. You can go East and South along the walls or North to the path in the forest.
+
+> south
+You move South, hugging the wall to avoid being spotted if there is a Xixon guard on the wall above.
+
+By City Gate (W)
+You are by the west gate of the walled city. The gatehouse soars above you and inside it are two gigantic wooden gates.
+
+> look east
+You look east through the port and see a Xixon archer leaning against the building opposite, cleaning his talons with a small knife.
+
+YOUR SCORE HAS NOW REACHED 400 POINTS!
+
+> x gate
+The gates are huge, over 20 feet high and each one is 10 feet wide. The gates are closed and in one of them there is a small postern door.
+
+> south
+You move South, hugging the wall to avoid being spotted if there is a Xixon guard on the wall above.
+
+By Southwest Tower
+You are standing by the southwest tower of the walled city. You can go East and North along the walls.
+
+> east
+You move East, hugging the wall to avoid being spotted if there's a Xixon guard on the wall above you.
+
+By Southeast Tower
+You are standing by the southeast tower of the walled city. You can go West and North along the walls.
+
+> north
+You move North, hugging the wall to avoid being spotted if there's a Xixon guard on the wall above you.
+
+By City Gate (E)
+You are standing by the east gate of the walled city. The gatehouse towers above you and inside it are two enormous wooden gates.
+
+> look west
+You look west through the port and see two Xixon warriors, standing talking in their sibilant, reptilian language.
+
+> north
+You move North, hugging the wall to avoid being spotted if there's a Xixon guard on the wall above you.
+
+By Northeast Tower
+You are standing by the northeast tower of what appears to be a walled city. You can go West and South along the walls or North to the path in the forest.
+
+> run north
+You wave to King Kelson, who is concealed in the forest on the far side of the cleared area, and point up to the guard on the top of the wall.
+
+The king acknowledges your signal and raises a hand, palm up, to tell you to wait. After what seems to be an eternity, Kelson raises his hand, thumbs up. You dash across the open area and into the trees by Kelson's side.
+
+South End of Forest Path E
+You're at the south end of the path that runs through the forest, standing about 10 feet inside the trees. From here you can see, across a wide area clear of vegetation, one of the tall towers you could see from the top of the pyramid to the north. You can go North, back along the path, or South to the tower. You also see an animal track that leads West just inside the edge of the forest.  King Kelson is here.
+
+King Kelson greets you on your return.
+
+"You made it unscathed then?" he says cheerfully.
+
+"Yes, I didn't run into any Xixons," you tell him. "But there are some in the city. We'll have to split up, as if we try to get into the city together we might both get captured or killed," you tell him. "There are two Xixons inside the east gate but only one inside the west."
+
+"Ok, what do you intend, then?" Kelson asks you.
+
+"You go to the west gate and deal with the Xixon in there and I'll take the east and take out the Xixons there," you explain to him. "Once we get in I'll take out the Xixon guards on the rampart, we can then deal with any Xixons in the city."
+
+"Very well," Kelson says to you. "Sounds like a plan, I hope we can pull it off!"
+
+"So do I!", you reply. "You go along that track until you're opposite the tower," you tell the king. "I'll wave when it's safe for us to cross."
+
+"I'll look out for your signal," the king tells you.
+
+You wish each other luck and then Kelson walks along the track until he is north of the northwest tower.
+
+South End of Forest Path E
+You're at the south end of the path that runs through the forest, standing about 10 feet inside the trees. From here you can see, across a wide area clear of vegetation, one of the tall towers you could see from the top of the pyramid to the north. You can go North, back along the path, or South to the tower. You also see an animal track that leads West just inside the edge of the forest.
+
+Up on the wall, the Xixon guard resumes his patrol along the rampart, keeping watch on the area between the wall and the forest.
+
+> wait
+Time passes...
+
+Up on the wall, the Xixon guard is walking along the rampart from right to left, looking down at the ground.
+
+> wait
+Time passes...
+
+Up on the wall, the Xixon guard reaches the northwest tower, turns around and walks the other way along the rampart, still looking in your direction.
+
+> wait
+Time passes...
+
+Up on the wall, the Xixon guard is walking along the rampart from left to right, looking down at the ground.
+
+> wait
+Time passes...
+
+Up on the wall, the Xixon guard reaches the northeast tower, turns around and pauses, looking at something happening below it in the city.
+
+> wave to kelson
+You signal to Kelson and he acknowledges by giving you the thumbs up.
+
+You both run south and reach your respective towers almost simultaneously.
+
+By Northeast Tower
+You are standing by the northeast tower of what appears to be a walled city. You can go West and South along the walls or North to the path in the forest.
+
+Suddenly, you become aware of a mist forming around you. It is only thin at the moment but it might get thicker.
+
+> south
+You point to the south and King Kelson acknowledges your signal.
+
+You both move south, hugging the wall, and reach the city gate on your side of the city.
+
+By City Gate (E)
+You are standing by the east gate of the walled city. The gatehouse towers above you and inside it are two enormous wooden gates. The mist is thicker now and you can only see about five yards in any direction.
+
+> fire bolt at xixon
+Aiming the arbalest through the oblong slit, you fire a bolt at one of the Xixons on the other side of the gate.
+
+The bolt hits the Xixon square in the chest, killing it instantly and it falls to the ground.
+
+Its companion is stunned into immobility by what has happened, and just stands there staring down at its dead nestmate.
+
+> fire bolt at xixon
+Quickly aiming the arbalest at the remaining Xixon on the other side of the gate, you pull the trigger.
+
+The bolt hits the Xixon in the chest, killing it instantly and it falls to the ground next to its dead companion.
+
+> in
+You move In.
+(Opening the door first and closing it after you)
+
+Inside the East Gate
+You are inside the city on a street that goes North and South. Abandoned buildings lie all around you, long deserted by their former occupants. Between the buildings is the east gate, you can go Out of the city through the postern door in the huge gates and there is a narrow lane to the West. The mist prevents you seeing very far in any direction. Just here you see an open doorway leading In to a building.   Lying dead on the ground here are the bodies of two Xixon warriors.
+
+> drag bodies in
+One after the other, you drag the two dead Xixons into the building on the west side of the street, leave them there and walk back out to the street.
+
+Now would be a good time to find the king and JOIN KELSON.
+
+> score
+Your score is 435 points out of a maximum of 600, after taking 251 turns.
+
+> become kelson
+YOU ARE NOW PLAYING AS KING KELSON.
+
+By City Gate (W)
+You are by the west gate of the walled city. The gatehouse soars above you and inside it are two gigantic wooden gates.
+
+> fire arrow at xixon
+Aiming your bow through the slit in the postern door, you fire an arrow at the Xixon guard on the other side of the huge gates.
+
+It hits the creature, which grunts in pain and falls to the floor.
+
+> in
+You move In.
+(Opening the door first and closing it after you
+
+Inside the West Gate
+You are inside the city on a street that goes North and South, although the mist obscures what lies in those directions. Derelict buildings lie all around you, long deserted by their former occupants. Between the buildings is the west gate, and you can go Out of the city through the postern door. You also notice a narrow lane leading East and an open doorway leading In to a building on the east side of the street.   On the ground lies the body of a Xixon warrior, an arrow protruding from its chest.
+
+> search xixon
+You search the dead Xixon and find a bamboo tube with some war arrows inside it. You take it off the body and wear it over your shoulder.
+
+> drag xixon in
+You drag the body of the dead Xixon into the building, leave it there and walk back out to the street.
+
+Now would be a good time to find the duke and JOIN ALARIC.
+
+> south
+You move South.
+
+SW Part of the City
+You are in the SW part of the city, surrounded by abandoned and crumbling buildings. You can go North and South, but the mist obscures what lies in those directions.
+
+> south
+You move South.
+
+By The SW Tower
+You're by the archway into the southwest tower, which you can go In to. You can also go North and East, but the mist obscures what lies in those directions
+
+> east
+You move East.
+
+South Side of the City
+You're on the street that runs along the south side of the city from East to West.
+
+> east
+You move East.
+
+South Side of the City
+You are on the south side of the city. Above you, the city wall rises into the sky. You can go East, West or North, but the mist is obscuring what lies in those directions.
+
+> east
+You move East.
+
+South Side of the City
+You are on the street in the southeast part of the city, where the skeleton of a large animal lies against the wall of a building here. You can go East or West along the street.
+
+> east
+You move East.
+
+By The SE Tower
+You are standing by the entrance to the SE tower. It is an open archway that leads In to the bottom of the tower. You can also go West and North, but the mist obscures what lies in those directions.
+
+> north
+You move North.
+
+SE Part of the City
+You are in a street in the southeast part of the city. Long-abandoned buildings line the thoroughfare and everything is covered with vegetation that has taken root over the years. You can go North or South. Thick mist obscures whatever lies beyond it.
+
+> north
+You move North.
+
+Inside the East Gate
+You are inside the city on a street that goes North and South. Abandoned buildings lie all around you, long deserted by their former occupants. Between the buildings is the east gate, you can go Out of the city through the postern door in the huge gates and there is a narrow lane to the West. The mist prevents you seeing very far in any direction. Just here you see an open doorway leading In to a building.   Duke Alaric is here.
+
+> join alaric
+Ok, Duke Alaric will now accompany you in your travels.
+
+"Good to have you back," you say to the duke. "We work much better as a team."
+
+> become alaric
+
+YOU ARE NOW PLAYING AS ALARIC BLACKMOON.
+
+Inside the East Gate
+You are inside the city on a street that goes North and South. Abandoned buildings lie all around you, long deserted by their former occupants. Between the buildings is the east gate, you can go Out of the city through the postern door in the huge gates and there is a narrow lane to the West. The mist prevents you seeing very far in any direction. Just here you see an open doorway leading In to a building.   King Kelson is here.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+Narrow Lane in City (E)
+You are in a lane in the city which goes East and West. The lane is quite narrow at this point with room for no more than a donkey cart to pass. Vegetation growing along the lane partly obscures the view to the west and hanging down the front of a building on one side of the lane is a dense curtain of vines.   King Kelson is here.
+
+You see a movement to the west beyond the vegetation.
+
+You furtively look through the vegetation and see a Xixon officer - who has silver trappings on his harness - bending down, drinking water from a fountain at a junction about 25 yards away. It stops drinking, stands erect and looks around. You quickly duck down to avoid being spotted and see the creature sniff the air.
+
+For a moment, you are afraid that the Xixon has caught your scent, but then it relaxes and stands there as if waiting for something.
+
+You confer in whispers with Kelson.
+
+"We'd better find somewhere to hide," you suggest to the king. "I've got an awful feeling we'll get caught if we hang around too long out here!"
+
+"I agree," King Kelson replies. "I wonder if all this vegetation is hiding somewhere we can hole up?"
+
+> look behind vines
+You look behind the dense curtain of vines and see an open doorway leading In to the building.
+
+> in
+You move in.
+
+King Kelson walks beside you.
+
+In Dark Room
+You are inside a room in the building which is choked with debris and the remains of a counter and shelves - it must at one time have been a shop of some kind. It is very dark in here due to the vines growing down the front of the building outside. You can go Out to the lane through the doorway with the vines.  King Kelson is here.
+
+As you are looking around the room, you are startled by a loud braying sound that seems to come from very close to you outside.
+
+You risk peeking through the vines to see what is happening outside. You see the Xixon officer blowing into a horn at the junction. He stops blowing and drinks deeply from the fountain. Then, other Xixon warriors come along and, forming an orderly queue, they each take a long drink from the basin of the fountain.  You notice that, apart from the officer, there are only five of them.
+
+The Xixon warriors then depart back to wherever they were before the horn sounded, with one of them going inside the building by the junction. The officer remains where he was by the entrance to the same building.
+
+You confer with King Kelson.
+
+1: What do you think we should do?
+2: Shall we cut our losses and get the hell out of here?
+3: There are fewer Xixons than I thought there would be.
+4: Do you think there might be something useful in here?
+
+> 1
+"What do you think we should do?" you ask King Kelson.
+
+"We need to find something to use against all those Xixons at once," King Kelson replies. "It's no good trying to kill them one-by-one, if we tried that the others would soon come running."
+
+2: Shall we cut our losses and get the hell out of here?
+3: There are less Xixons than I thought there would be.
+4: Do you think there might be something useful in here?
+
+> 2
+"Shall we cut our losses and get the hell out of here?" you ask King Kelson.
+
+"No way!," King Kelson replies. "We haven't come all this way just to give up as soon as we meet some Xixons!"
+
+3: There are less Xixons than I thought there would be.
+4: Do you think there might be something useful in here?
+
+> 3
+"There are fewer Xixons than I thought there would be," you tell King Kelson.
+
+"Yes, I'm surprised by that," King Kelson replies. "However, that's not going to make it any easier to kill them."
+
+4: Do you think there might be something useful in here?
+
+> 4
+"Do you think there might be something useful in here?" you ask Kelson.
+
+"You never know," he replies. "Let's search around and see if we can find anything."
+
+> search room
+You search through the debris in the room and, as you move some of the stuff, an old bottle rolls out onto the floor.
+
+In Dark Room
+You are inside a room in the building which is choked with debris and the remains of a counter and shelves - it must at one time have been a shop of some kind. It is very dark in here due to the vines growing down the front of the building outside. You can go Out to the lane through the doorway with the vines.  Also here you see a dusty bottle.  King Kelson is here.
+
+> take bottle
+Ok, you pick up the dusty bottle.
+
+> clean bottle
+You brush the dirt and dust off the bottle, revealing a label. You cannot read the name of the contents but the presence of a skull and crossbones underneath the name tells you that the bottle contains poison.
+
+"Just what we need!" you exclaim excitedly. "Unbelievable that it's survived intact all this time."
+
+"Right, here's what we're going to do,"  you tell the king. "I'll try to get to the fountain and poison the water. You stay here - if I'm not back in 15 minutes, assume the worst. Get the hell out of here, get home to Domreil and bring some men to clear these Xixons out of here."
+
+"Very well," replies the king. "I hope you are successful, good luck!"
+
+You leave King Kelson to venture out on your own.
+
+> read label
+The label is written in a language you can't read, but underneath the name is a skull and crossbones, the universal sign for poison.
+
+> wait
+You wait for a while.
+
+You watch the junction through the vegetation and eventually the Xixon officer takes a long drink from the fountain, turns around and goes into the building behind him, leaving the junction deserted.
+
+> out
+You move Out.
+
+Narrow Lane in City (E)
+You are in a lane in the city which goes East and West. The lane is quite narrow at this point with room for no more than a donkey cart to pass. Vegetation growing along the lane partly obscures the view to the west and hanging down the front of a building on one side of the lane is a dense curtain of vines. Behind the vines is an open doorway you can go In to.
+
+> crawl west
+Getting down on your stomach, you crawl west on your stomach until you are next to the fountain.
+
+Junction In Middle Of City
+You are at the centre of the city, at a junction where two lanes intersect. In the middle of the junction is a small fountain. Just here is a building that has shown some recent use. You can go North, South, East or West along the lanes, or In to the building.
+
+> pour poison into fountain
+Removing the stopper, you reach up and pour the contents of the bottle into the water in the fountain basin. You throw the bottle and stopper into the fountain to make sure all the poison gets into the water.
+
+> crawl east
+You crawl on your stomach along the lane until you are level with the curtain of vines, then you stand up.
+
+Narrow Lane in City (E)
+You are in a lane in the city which goes East and West. The lane is quite narrow at this point with room for no more than a donkey cart to pass. Vegetation growing along the lane partly obscures the view to the west and hanging down the front of a building on one side of the lane is a dense curtain of vines. Behind the vines is an open doorway you can go In to.
+
+> in
+You move In.
+
+In Dark Room
+You are inside a room in the building which is choked with debris and the remains of a counter and shelves - it must at one time have been a shop of some kind. It is very dark in here due to the vines growing down the front of the building outside. You can go Out to the lane through the doorway with the vines.  King Kelson is here.
+
+As you walk through the vines into the room where Kelson has been waiting, he greets you joyously.
+
+"You did it then?" he excitedly enquires. You reply with a huge grin and a double thumbs-up.
+
+"Yep, it was easier than I thought," you tell him. "I suppose now all we've gotta do is wait to see if the poison was still potent?"
+
+You now re-join King Kelson.
+
+> join kelson
+You have already rejoined King Kelson.
+
+> wait
+You wait for a while.
+
+After several minutes you hear the horn bray again and you both peep through the vines to see what is happening outside.
+
+You see the Xixons arriving at the fountain. They all have their drink and walk away. The officer drinks again and stands by the fountain. Only a couple of minutes later it clutches its stomach and, issuing a loud screech, collapses to the ground and lies still.
+
+"I guess that means the poison worked," you say to King Kelson.
+
+"Yes, hopefully now we can out of here and return home," he replies.
+
+"Don't forget that huge Xixon Erwin mentioned," you tell Kelson. "We have to find out where that is."
+
+"Damn! I forgot about that," the king replies, and thinks for a moment or two.
+
+"How come I get the horrible feeling that I am going to get very involved in all that?" Kelson replies.
+
+> out
+You move out.
+
+King Kelson walks beside you.
+
+Narrow Lane in City (E)
+You are in a lane in the city which goes East and West. The lane is quite narrow at this point with room for no more than a donkey cart to pass. Vegetation growing along the lane partly obscures the view to the west and hanging down the front of a building on one side of the lane is a dense curtain of vines. Behind the vines is an open doorway you can go In to.   King Kelson is here.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+Junction In Middle Of City
+You are at the centre of the city, at a junction where two lanes intersect. In the middle of the junction is a small fountain. Just here is a building that has shown some recent use. You can go North, South, East or West along the lanes, or In to the building.  Lying here is the body of the dead Xixon officer.  King Kelson is here.
+
+> in
+You move in.
+
+King Kelson walks beside you.
+
+In Building By Junction
+You are inside the building by the junction. It shows signs of recent occupation, with a large nest of vegetation in one corner, and the remains of several small creatures scattered around the floor. A stone stairway leads down.  King Kelson is here.
+
+> down
+You move down.
+
+King Kelson walks beside you.
+
+Bottom Of Stairway
+You are at the bottom of the stairway, where a passageway leads East. The passageway is dimly lit by a lantern at the other end and it is quite dark here.  King Kelson is here.
+
+You hear voices and see movement at the east end of the passageway.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+End Of Passageway
+You are at the end of the passageway where there is a large room to the east which is separated from the passageway by some steel bars, into which a door is set. The door is closed and locked. Hanging from the ceiling is a lantern, and there is a strong smell here which makes your eyes water.  Slumped against the wall is the body of a Xixon guard.  King Kelson is here.
+
+When the prisoners in the cell see you they immediately start shouting and yelling, probably demanding to be released. You try to tell them to be quiet and try the language of the desert people, but they don't understand that. You try Hecatean and one of them comes to the bars and, telling the others to be quiet, talks to you.
+
+"I speak your language," he tells you. "Please let us out of here!"
+
+You confer in whispers with King Kelson and decide to ask the man some questions before you release them all.
+
+1: "Where is the key to the cell door?"
+2: "Why are you locked up in here?"
+3: "Why was this city abandoned?"
+
+> look
+
+End Of Passageway
+You are at the end of the passageway where there is a large room to the east which is separated from the passageway by some steel bars, into which a door is set. The door is closed and locked. Hanging from the ceiling is a lantern, and there is a strong smell here which makes your eyes water.  Slumped against the wall is the body of a Xixon guard.  King Kelson is here.  Behind the bars of the cell stands one prisoner who can speak Hecatean.
+
+> search guard
+You search the dead guard and find a bunch of keys.
+
+End Of Passageway
+You are at the end of the passageway where there is a large room to the east which is separated from the passageway by some steel bars, into which a door is set. The door is closed and locked. Hanging from the ceiling is a lantern, and there is a strong smell here which makes your eyes water.  Slumped against the wall is the body of a Xixon guard.  Also here you see a bunch of keys.  King Kelson is here.  Behind the bars of the cell stands one prisoner who can speak Hecatean.
+
+> take keys
+Ok, you pick up the bunch of keys.
+
+> talk to man
+You talk to the man behind the bars.
+
+2: "Why are you locked up in here?"
+3: "Why was this city abandoned?"
+
+> 1
+You ask the man where the key to the cell is.
+
+"The jailer has them," he tells you, pointing at the dead Xixon.
+
+2: "Why are you locked up in here?"
+3: "Why was this city abandoned?"
+
+> 2
+You ask the man why they are locked in this cell?
+
+"The lizardmen kidnapped us when we strayed from our village," he tells you. "We are food for that hybrid lizard of theirs, they feed one of us to it once a week," he tells you to your horror!
+
+3: "Why was this city abandoned?"
+4: "Where is this hybrid?"
+
+> 3
+You ask the man why the city was abandoned?
+
+"The city was home to our ancestors, the Xani," he tells you. "The Xani civilisation flourished for over a thousand years before the city was ravaged by a disease that swept through it, killing almost all of the inhabitants. The few survivors fled the city and we are their descendants."
+
+You ask him about the Xixons who had occupied the city.
+
+"The lizardmen came some years ago, after a battle far to the north in which they were almost all exterminated," he informs you. "There were only a couple of dozen and these ones were all that were left. They had created the hybrids and hoped they would breed them until there were enough to attack whoever had killed all their comrades."
+
+4: "Where is this hybrid?"
+
+> 4
+You ask the man where this Xixon hybrid is?
+
+"It roams the forest to the south of the city," he tells you. "It prefers the coniferous trees that grow in that area."
+
+He continues: "There were two of them and we think they were hoping that they would breed," he tells you, to your horror. "Fortunately the female died and their plans were thwarted."
+
+It looks like you are going to have to venture into the forest, you cannot leave this hybrid to roam free as it is a danger to everyone.
+You try a couple of keys on the ring you found on the dead guard's body. Eventually you find one that fits and you unlock and open the door.
+
+The prisoners all file out, each one thanking you in their own language, and run along the passageway and up the stairs to freedom. Last of all, the man you spoke to comes out.
+
+"Thank you for saving us from that monster," he says to you. "If you ever need any help, come to our village."
+
+With a nod of farewell, he hurries up the stairs after his comrades.
+
+End Of Passageway
+You are at the end of the passageway where there is a large room to the east which is separated from the passageway by some steel bars, into which a door is set. The door is open, leading In. Hanging from the ceiling is a lantern, and there is a strong smell here which makes your eyes water.  Slumped against the wall is the body of a Xixon guard.  King Kelson is here.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+Bottom Of Stairway
+You are at the bottom of the stairway, where a passageway leads East. The passageway is dimly lit by a lantern at the other end and it is quite dark here.  King Kelson is here.
+
+> up
+You move up.
+
+King Kelson walks beside you.
+
+In Building By Junction
+You are inside the building by the junction. It shows signs of recent occupation, with a large nest of vegetation in one corner, and the remains of several small creatures scattered around the floor. A stone stairway leads down.  King Kelson is here.
+
+> out
+You move out.
+
+King Kelson walks beside you.
+
+Junction In Middle Of City
+You are at the centre of the city, at a junction where two lanes intersect. In the middle of the junction is a small fountain. Just here is a building that has shown some recent use. You can go North, South, East or West along the lanes, or In to the building.  Lying here is the body of the dead Xixon officer.  King Kelson is here.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+North-South Lane
+You're in a lane in the south part of the city which leads North and South.   King Kelson is here.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+South Side of the City
+You are on the south side of the city. Above you, the city wall rises into the sky. You can go East, West or North, but the mist is obscuring what lies in those directions.  King Kelson is here.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+South Side of the City
+You are on the street in the southeast part of the city, where the skeleton of a large animal lies against the wall of a building here. You can go East or West along the street.  King Kelson is here.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+By The SE Tower
+You are standing by the entrance to the SE tower. It is an open archway that leads In to the bottom of the tower. You can also go West and North, but the mist obscures what lies in those directions.  Lying slumped against a wall here is the body of a Xixon.  King Kelson is here.
+
+> north
+You move north.
+
+King Kelson walks beside you.
+
+SE Part of the City
+You are in a street in the southeast part of the city. Long-abandoned buildings line the thoroughfare and everything is covered with vegetation that has taken root over the years. You can go North or South. Thick mist obscures whatever lies beyond it.  King Kelson is here.
+
+> north
+You move north.
+
+King Kelson walks beside you.
+
+Inside the East Gate
+You are inside the city on a street that goes North and South. Abandoned buildings lie all around you, long deserted by their former occupants. Between the buildings is the east gate, you can go Out of the city through the postern door in the huge gates and there is a narrow lane to the West. The mist prevents you seeing very far in any direction. Just here you see an open doorway leading In to a building.   King Kelson is here.
+
+> out
+You move Out.
+(Opening the door first)
+
+King Kelson follows you, closing the door after him.
+
+By City Gate (E)
+You are standing by the east gate of the walled city. The gatehouse towers above you and inside it are two enormous wooden gates. The mist is thicker now and you can only see about five yards in any direction.  King Kelson is here.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+By Southeast Tower
+You are standing by the southeast tower of of the city of Xanix. You can go West and North along the walls or South across the open area to the edge of the forest.  King Kelson is here.
+
+> south
+You move South.
+
+As you go across the open area you get the uncomfortable feeling that someone - or something - malicious is watching you from the forest.
+
+Edge of Southern Forest
+You are at the edge of the southern part of the Forbidden Forest. The trees here are coniferous types rather than the deciduous species that grow to the north. You can go South, SE and SW into the forest or North back to the city wall. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction.  King Kelson is here.
+
+You hold your sword a bit tighter and King Kelson removes the Axe of Kolt from over his shoulder.
+
+> look
+
+Edge of Southern Forest
+You are at the edge of the southern part of the Forbidden Forest. The trees here are coniferous types rather than the deciduous species that grow to the north. You can go South, SE and SW into the forest or North back to the city wall. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction.  King Kelson is here.
+
+> southwest
+You move southwest.
+
+King Kelson walks beside you.
+
+In Southern Forest
+You are amongst the trees of the southern forest, to the southwest of where you entered it. The forest floor is covered with pine needles that have fallen from the trees, forming a blanket that is soft underfoot. You can go in several directions from here but a thin mist swirls around you, making it difficult to see more than about 5 yards in any direction.  King Kelson is here.
+
+> west
+You move west.
+
+King Kelson walks beside you.
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with pine needles that have fallen from the trees, forming a blanket that is soft underfoot. You can go in several directions from here but a thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and you cannot go in that direction.  King Kelson is here.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with a blanket of pine needles that have fallen from the trees. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and you cannot go in that direction.  King Kelson is here.
+
+> south
+You move south.
+
+King Kelson walks beside you.
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with a blanket of pine needles that have fallen from the trees. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and south and you cannot go in either direction.  Here lies the body of the dead Xixon female.  King Kelson is here.
+
+You are startled by a couple of birds which take off squarking from their perch on top of the carcass.
+
+"Phwooor!" exclaims King Kelson, waving his hand in front of his nose to stave off the stench. "That pongs a bit!"
+
+You step back a step or two and pull the king with you.
+
+"Don't stand too close, my lord," you tell him. "The smell is a bit less if you stand away from it."
+
+From out of the mist a huge lizardman comes striding towards you! The monstrous creature roars a battle cry and moves towards you.
+
+King Kelson impetuously runs forwards and attacks the creature with the Axe of Kolt. The hybrid lashes out with one muscular arm, hitting the king with a blow that knocks the Axe out of his hands and sending him flying backwards to land, out cold, at your feet!
+
+The Axe of Kolt lands on the carpet of pine needles within your reach and you instinctively pick it up, throwing down your sword. As your hands grip the axe, to your utter astonishment, it starts to emit its high-pitched sound and the hybrid reacts by shaking its head then roaring at you, its mouth wide open to reveal all the fangs inside!
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with a blanket of pine needles that have fallen from the trees. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and south and you cannot go in either direction.  Here lies the body of the dead Xixon female.  Also here you see a sword, an arbalest and a longbow.  King Kelson lies unconscious at your feet.  The Xixon hybrid is standing in front of you!
+
+> look
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with a blanket of pine needles that have fallen from the trees. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and south and you cannot go in either direction.  Here lies the body of the dead Xixon female.  Also here you see a sword, an arbalest and a longbow.  King Kelson lies unconscious at your feet.  The Xixon hybrid is standing in front of you!
+
+The terrifying creature roars at you, a foul-smelling blast of bad breath assaulting your nostrils. It takes a step towards you, its arms outstretched. You grip the shaft of the Axe of Kolt tighter and prepare to defend your king, who lies unconscious at your feet.
+
+> attack hybrid with axe
+You attack the monster with the Axe of Kolt.
+
+You first blow cuts deep into the creature's neck and it screams in pain. It lashes out with one taloned hand, but you jump back just in time.
+
+You renew your attack, the Axe biting deep into the hybrid's flesh. The sound of the magical weapon seems to be confusing the beast, preventing it from co-ordinating its body to retaliate.
+
+With a few powerful blows you drive the hybrid to its knees and then, with one final swing, you decapitate it, its head flying off in a shower of green blood.
+
+Now you have killed all the Xixons in the city and the hybrid, you can return home to Domreil.
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with a blanket of pine needles that have fallen from the trees. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and south and you cannot go in either direction.  The body of the Xixon hybrid lies here in a pool of green blood, its fearsome head lying nearby.  Here lies the body of the dead Xixon female.  Also here you see a sword, an arbalest and a longbow.  King Kelson lies unconscious at your feet.
+
+> remove teeth
+Using your knife, you cut out a couple of the hybrid's teeth to take home as a battle trophies. You put them into the pocket in your baldric in case you drop them.
+
+> take sword
+The sword isn't in the scabbard.
+
+> take arbalest
+Ok, you pick up the arbalest.
+
+> take longbow
+Ok, you pick up the longbow.
+
+> north
+You move North.
+
+In Southern Forest
+You are amongst the trees of the southern forest. The forest floor is covered with a blanket of pine needles that have fallen from the trees. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction. The forest undergrowth is very thick to the west and you cannot go in that direction.
+
+> northeast
+You move NorthEast.
+
+In Southern Forest
+You are amongst the trees of the southern forest, to the southwest of where you entered it. The forest floor is covered with pine needles that have fallen from the trees, forming a blanket that is soft underfoot. You can go in several directions from here but a thin mist swirls around you, making it difficult to see more than about 5 yards in any direction.
+
+> northeast
+You move NorthEast.
+
+Edge of Southern Forest
+You are at the edge of the southern part of the Forbidden Forest. The trees here are coniferous types rather than the deciduous species that grow to the north. You can go South, SE and SW into the forest or North back to the city wall. A thin mist swirls around you, making it difficult to see more than about 5 yards in any direction.
+
+> north
+You move North.
+
+By Southwest Tower
+You are standing by the southwest tower of of the city of Xanix. You can go East and North along the walls or South across the open area to the edge of the forest.
+
+> north
+You move North.
+
+By City Gate (W)
+You are by the west gate of the walled city. The gatehouse soars above you and inside it are two gigantic wooden gates.
+
+> north
+You move North.
+
+By Northwest Tower
+You are standing by the northwest tower of what seems to be a walled city. You can go East and South along the walls or North to the path in the forest.
+
+> north
+You move North.
+
+South End of Forest Path W
+You're at the south end of the path running through the forest, standing about 10 feet inside the trees. From here you can see, across a wide area cleared of vegetation, one of the towers you spotted from the top of the pyramid to the north. You can go North, back along the path, or South to the tower. A narrow animal track also leads East, just inside the edge of the forest.
+
+> north
+You move North.
+
+On Path in Forest
+You are on a path in the forest some distance south of the native village. On a tree here hangs a cow's skull. The path splits here, going SW and SE around the tree with the skull, and North back to the village.
+
+> north
+You move North.
+
+In Native Village
+You are in the native village
+
+As you enter the native village, you are recognised by a couple of the people that were released from the prison cell in Xanix City. They go and find the man who speaks Hecatean and, when he arrives and greets you, you tell him about the king.
+
+They are hesitant about helping you until you tell them that you have killed the hybrid, whereupon they fetch a stretcher and several of them take you through the forest by a quicker route to reach King Kelson, who is still lying unconscious on the ground where you left him.
+
+They put him on the stretcher and take him back to the village, where he is tended by the village medicine man. After a few hours, the king wakes up with a rather sore head, but the medicine man declares him fit to travel.
+
+You tell Kelson how, when you gripped the axe with both hands, it made the high-pitched sound that confused the Xixons. The king is astounded by this.
+
+"Good God, Alaric," he exclaims. "You know what this means, don't you?"
+
+When you profess that you have no idea what he is talking about, Kelson continues.
+
+"You must have Haldane blood in you - we are related!"
+
+"What!?" you say, incredulously. "I know of no link to your family?"
+
+"We'll have to get Magor and the court historians to research your family tree," he tells you. "They will find the link and you will know for sure."
+
+You then remember the teeth you cut out of the hybrid's decapitated head. You take one out of your pocket and hand it to Kelson.
+
+"There you are," you say to him as he gingerly takes the tooth from you. "A souvenir of our encounter with the hybrid. Shame you didn't see me lop off its head, it was a master stroke!"
+
+"I sure it was," Kelson replies sarcastically. "I bet you can't wait to tell Bronwynn about it!"
+
+You return the Axe of Kolt to the king, then the natives escort you to the north boundary of their territory, where they leave you and go back to their village.
+
+North of Native Village
+You are at the end of the path where, to the south, there is a big clearing in the forest in which there is a village of huts. You can go North back along the path or South into the village.  King Kelson is here.
+
+> north
+You move north.
+
+King Kelson walks beside you.
+
+Forest Path West of Pyramid
+You are on the path through the forest where it bends South and East. Hanging on the branches of a tree each side of the path here is a cow's skull.  King Kelson is here.
+
+> x skull
+
+It marks the boundary of the territory of a local native tribe.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+West Side Of Pyramid
+You are standing on the west side of a massive pyramid that pokes up above the trees around you. The six levels of the edifice rise up above you but the top of the lowest level is too high for you to climb onto. You can go North or South around the pyramid and a path leads West into the forest here.  King Kelson is here.
+
+> north
+You move north.
+
+King Kelson walks beside you.
+
+North Side Of Pyramid
+You are standing at the foot of a massive pyramid that pokes up above the trees around you. A steep flight of wide stairs goes Up this side of the pyramid to the top, upon which sits a building with an oblong conical roof. The paths through the forest lead off to the NW and NE, and a path runs around the pyramid to the East and West.  King Kelson is here.
+
+> northeast
+You move northeast.
+
+King Kelson walks beside you.
+
+Path Through Trees
+You are on a narrow path which runs through the trees of the forest. Either side of the path the thick undergrowth prevents you going in any other direction than East and SW. In that direction, through the trees you can see a massive pyramid.  King Kelson is here.
+
+> east
+You move east.
+
+King Kelson walks beside you.
+
+Path Through Trees
+You are on a narrow path which runs through the trees of the forest to the NE and West. Either side of you the thick undergrowth prevents you going in any other direction.  King Kelson is here.
+
+> northeast
+You move northeast.
+
+King Kelson walks beside you.
+
+Path Through Trees
+You are on a narrow path which curves through the trees in a gentle arc. You may go NW or SW.  King Kelson is here.
+
+> northwest
+You move northwest.
+
+King Kelson walks beside you.
+
+On Dirt Road
+You are on the dirt road, about three quarters of a mile east of where the camel track ends. The forest that lies to the south of you presents an almost impenetrable barrier but just here you see another narrow gap between the trees which leads Southeast. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea. Your camels are tied to trees here.  King Kelson, Eeny, Meeny and Mo are here.
+
+Your camels seem none-the-worse after being left for so long, although Mo displays her displeasure by spitting at you. Luckily the gob of saliva misses!
+
+> look
+
+On Dirt Road
+You are on the dirt road, about three quarters of a mile east of where the camel track ends. The forest that lies to the south of you presents an almost impenetrable barrier but just here you see another narrow gap between the trees which leads Southeast. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea. Your camels are tied to trees here.  King Kelson, Eeny, Meeny and Mo are here.
+
+> untie camels
+You and King Kelson untie all the camel's reins.
+
+> change clothes
+You both take your desert clothes out of the panniers, put them on the ground and then you remove your fighting clothes and put on the desert clothing. Lastly, you put your fighting clothes in the panniers.
+
+> give longbow to kelson
+Ok, you give the longbow to King Kelson.
+
+> put arbalest in pannier
+Ok, you put the arbalest into the pannier.
+
+> put keys in pannier
+Ok, you put the bunch of keys into the pannier.
+
+> mount eeny
+You make Eeny kneel, climb onto the saddle and get her to stand afterwards. King Kelson does the same and mounts his own camel.
+
+On Dirt Road
+You are riding your camel on the dirt road, about three quarters of a mile east of where the camel track ends. The forest that lies to the south of you presents an almost impenetrable barrier but just here you see another narrow gap between the trees which leads Southeast. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> west
+You ride west.
+
+King Kelson rides beside you on his camel.
+
+On Dirt Road
+You are riding your camel on the dirt road, about half a mile east of where the camel track ends. The forest that lies to the south of you is an impenetrable barrier and you can only go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> west
+You ride west.
+
+King Kelson rides beside you on his camel.
+
+On Dirt Road
+You are riding your camel on the dirt road, about a quarter of a mile east of where the camel track ends. The forest south of you forms an impenetrable barrier and you can only go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> west
+You ride west.
+
+King Kelson rides beside you on his camel.
+
+South End Of Camel Track
+You are riding your camel on a dirt road at the south end of the camel track. The forest south of you mostly forms an impenetrable barrier but just here you see a break between the trees which leads South. You can also go East or West along the road, to the north of which is scrubland beyond which is the Great Sand Sea.   King Kelson, Eeny, Meeny and Mo are here.
+
+> north
+You travel north across the desert, back to where the outcrop and ruined city lie to the west of the camel track, where you stop to rest your camels.
+
+On Camel Track
+You are riding your camel on a camel track in the Great Sand Sea. The track continues South and goes North back to the edge of the desert. All around you the air shimmers in the heat as it rises off the dunes. To the West you see a rocky outcrop beyond which are the ruins of an ancient city.  King Kelson, Eeny, Meeny and Mo are here.
+
+> north
+You ride north.
+
+King Kelson rides beside you on his camel.
+
+Edge of the Great Sand Sea
+You are riding your camel Eeny on a dirt road that runs along the northern edge of the Great Sand Sea. This is a vast desert that stretches away to the horizon in every southerly direction. Hecate and Domreil lie many miles distant beyond the Schwarzwald forest, which you can see on the horizon to the north. Here a camel track leads South into the desert and you can go East or West along the dirt road.  King Kelson, Eeny, Meeny and Mo are here.
+
+> look
+
+Edge of the Great Sand Sea
+You are riding your camel Eeny on a dirt road that runs along the northern edge of the Great Sand Sea. This is a vast desert that stretches away to the horizon in every southerly direction. Hecate and Domreil lie many miles distant beyond the Schwarzwald forest, which you can see on the horizon to the north. Here a camel track leads South into the desert and you can go East or West along the dirt road.  King Kelson, Eeny, Meeny and Mo are here.
+
+> west
+You ride west.
+
+King Kelson rides beside you on his camel.
+
+On Dirt Road By Great Sand Sea
+You are riding your camel on a dirt road that runs along the northern edge of the Great Sand Sea. The road leads East and to the West you see the caravansery.  King Kelson, Eeny, Meeny and Mo are here.
+
+As you head for the caravansery, you see a small camel caravan coming towards you - it is Erwin El Alamein. He greets you enthusiastically and when you tell him that you have killed all the Xixons in Xanix and the hybrid in the forest, he is overjoyed.
+
+"Now we will be safe from attack by that monster," he tells you. "I and all the other caravan leaders thank you, my friends. If we can ever be of service do not hesitate to ask!"
+
+With a wave of farewell, the caravan heads off.
+
+> west
+You ride west.
+
+King Kelson rides beside you on his camel.
+
+By Entrance to Caravansery
+You are riding your camel by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  King Kelson, Eeny, Meeny and Mo are here.
+
+> dismount
+Maybe you should stay mounted on Eeny until you reach Siwa?
+
+> in
+You ride in.
+
+King Kelson rides beside you on his camel.
+
+In Caravansery
+You are in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with lots of camels around him. You can also go South, NW, or SW to a hitching rail.  King Kelson, Eeny, Meeny and Mo are here.
+
+As you arrive back in the caravansery, some servants come over and help you dismount from your camels.
+
+"Maybe we ought to see if we can sell our camels and other stuff back to the people we bought them from," King Kelson says to you.
+
+"Good idea," you reply. "It's not as if we'll ever have to use them again - I hope!"
+
+You both change back into your fighting gear then Kelson goes around to the various traders, selling the camels, equipment, clothes and provisions back to them. He only gets half what he paid for them originally, but at least you got something and are not lumbered with camels and other stuff that is now of no use to you.
+
+A servant comes over to you and tells you that your horses have been taken to the south hitching rail and are ready for you.
+
+Aziz Bin Rahman comes along and tells Kelson that as you have only been away for a couple of days he will not charge you for the stabling of your horses.
+
+When you tell him of your exploits and that you have cleared the city of Xanix of the Xixons, he is very pleased.
+
+"We had reports from travellers that those lizardmen were raiding them," he tells you. "Our thanks for ridding the city of them!"
+
+In Caravansery
+You are in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with lots of camels around him. You can also go South, NW, or SW to a hitching rail.  King Kelson is here.
+
+> southwest
+You move southwest.
+
+King Kelson walks beside you.
+
+By Hitching Rail
+You are on the south side of the oasis. It is surrounded by palm trees which grow close to the edge. You can go East or NE. Your horses are tethered to the hitching rail here.  King Kelson, Merlin and Shadowfox are here.
+
+> look
+
+By Hitching Rail
+You are on the south side of the oasis. It is surrounded by palm trees which grow close to the edge. You can go East or NE. Your horses are tethered to the hitching rail here.  King Kelson, Merlin and Shadowfox are here.
+
+> untie horses
+You untether your horses from the hitching rail.
+
+> northeast
+You move northeast.
+
+You and King Kelson lead your horses in that direction.
+
+In Caravansery
+You are leading your horse in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with lots of camels around him. You can also go South, NW, or SW to a hitching rail.  King Kelson, Merlin and Shadowfox are here.
+
+> west
+You move west.
+
+You and King Kelson lead your horses in that direction.
+
+By Oasis
+You are leading your horse on the east side of a small oasis in the middle of the caravansery. It is surrounded by tall palm trees except for the gap here where animals can drink and people can fill water containers. You can go East to the entrance, NE to the camel trader or SE.  King Kelson, Merlin and Shadowfox are here.
+
+Reaching their heads down to the water, Merlin and Shadowfox drink deeply from the oasis.
+
+> look
+
+By Oasis
+You are leading your horse on the east side of a small oasis in the middle of the caravansery. It is surrounded by tall palm trees except for the gap here where animals can drink and people can fill water containers. You can go East to the entrance, NE to the camel trader or SE.  King Kelson, Merlin and Shadowfox are here.
+
+> east
+You move east.
+
+You and King Kelson lead your horses in that direction.
+
+In Caravansery
+You are leading your horse in the courtyard of the caravansery, which is open to the sky. The archway leads Out to the dirt road and due West is a small oasis surrounded by palm trees. To the North you see a camel trader with lots of camels around him. You can also go South, NW, or SW to a hitching rail.  King Kelson, Merlin and Shadowfox are here.
+
+> out
+You move out.
+
+You and King Kelson lead your horses in that direction.
+
+By Entrance to Caravansery
+You are leading your horse by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  King Kelson, Merlin and Shadowfox are here.
+
+> mount merlin
+Ok, you mount Merlin, and Kelson mounts Shadowfox.
+
+By Entrance to Caravansery
+You are riding your horse by the entrance to a caravansery where a wide, high archway leads In to the building and either side of this there are sheltered verandas. Above the archway there is a sign and under the verandas there are hitching rails where horses or camels can be tethered with water troughs for them to drink from. The dirt road leads East from here.  King Kelson, Merlin and Shadowfox are here.
+
+> east
+You ride east.
+
+King Kelson rides beside you.
+
+On Dirt Road By Great Sand Sea
+You are riding on your horse on a dirt road that runs along the northern edge of the Great Sand Sea. The road leads East and to the West you see the caravansery.  King Kelson is here.
+
+> east
+You ride east.
+
+King Kelson rides beside you.
+
+Edge of the Great Sand Sea
+You are riding your horse Merlin on a dirt road that runs along the northern edge of the Great Sand Sea. This is a vast desert that stretches away to the horizon in every southerly direction. Hecate and Domreil lie many miles distant beyond the Schwarzwald forest, which you can see on the horizon to the north. Here a camel track leads South into the desert and you can go East or West along the dirt road.  King Kelson is here.
+
+> north
+You ride North.
+
+You and Kelson ride towards Domreil and home.....
+
+Please Press Any Key to Continue.
+You Have Won!
+Find out if Alaric Blackmoon really is related to King Kelson in the forthcoming mini-adventure:
+
+MAGOR INVESTIGATES...
+
+*** CONGRATULATIONS! ***
+
+You have at last solved...
+
+XANIX - XIXON RESURGENCE
+
+...in 369 turns, scoring the maximum 600 points!
+
+I do hope you have enjoyed playing this game.
+
+More Games In 'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+*****************************
+
+'Adventures In The World Of Alaric Blackmoon' Series:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+Chapter 3: FINN'S BIG ADVENTURE
+
+****************************
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPIDES ENIGMA
+
+Chapter 5: BUG HUNT ON MENELAUS
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+

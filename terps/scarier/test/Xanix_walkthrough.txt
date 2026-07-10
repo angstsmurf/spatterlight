@@ -1,4 +1,370 @@
-look
-examine me
-inventory
+b
+west
+west
+1
+2
+1
+read sign
+in
+southwest
+tie horse to rail
+northeast
+north
+1
+in
+read north sign
+read east sign
+2
+change clothes
+take clothes
+out
+north
+read sign
+in
+3
+southeast
+south
+in
+1
+northwest
+fill skin
+northeast
+west
+untie camels
+east
+southwest
+east
+2
+out
+east
+east
+mount camel
+south
+dismount
+search bodies
+take sceptre
+show sceptre to alaric
+become alaric
+search bodies
+read map
+show map to kelson
+west
+west
+drop reins
+south
+clear mudbricks
+open trapdoor
+down
+close trapdoor
+search debris
+take brush
+talk to man
+1
+2
+3
+take longbow
+west
+search pieces
+remove stopper
+unlock door
 wait
+unlock door
+west
+west
+search stuff
+take tin
+up
+east
+sweep workshop
+x equipment
+search workshop
+take coal
+put coal in box
+put stopper by kiln
+light coal
+flatten stopper
+put disc by kiln
+press key into disc
+wear gloves
+take tongs
+put tin in crucible
+take crucible
+put crucible in kiln
+pump bellows
+put mould on workbench
+drop handbrush
+put parchment in rucksack
+take crucible
+pour tin into mould
+pour water into trough
+wait
+take key
+put key in trough
+drop crucible
+drop tongs
+remove gloves
+drop gloves
+west
+north
+east
+take reins
+east
+east
+east
+x rocks
+drop reins
+lumino
+in
+take firewood
+put wood on firepit
+light firewood
+x ceiling
+snuffio
+x marks
+read marks
+out
+take reins
+put key in pocket
+mount eeny
+east
+south
+x erwin
+1
+2
+3
+4
+dismount
+change clothes
+mount eeny
+east
+east
+east
+dismount
+tie camels to trees
+southeast
+southwest
+west
+take bird
+southwest
+up
+x vegetation
+throw bird at movement
+search vegetation
+put queen in rucksack
+down
+down
+west
+south
+leave kelson
+climb tree
+look up
+up
+x nest
+take knight
+put knight in rucksack
+down
+north
+search rubble
+in
+lumino
+north
+north
+north
+kneel
+x statue
+x niche
+look in niche
+pull lever
+draw sword
+cut ropes with sword
+jump north
+north
+take queen from rucksack
+put queen on table
+take knight from rucksack
+put knight on table
+wear quiver
+south
+jump south
+south
+south
+south
+east
+north
+up
+take key
+unlock door
+open door
+west
+west
+south
+south
+east
+south
+look south
+west
+north
+down
+down
+down
+west
+south
+join kelson
+eat rations
+west
+x skull
+drink water
+east
+north
+east
+southeast
+x skull
+drink water
+south
+break bed
+become kelson
+break bed
+rub rope on edge
+shout
+get sceptre
+southeast
+wait
+wait
+run south
+west
+south
+look east
+x gate
+south
+east
+north
+look west
+north
+run north
+wait
+wait
+wait
+wait
+wave to kelson
+south
+fire bolt at xixon
+fire bolt at xixon
+in
+drag bodies in
+score
+become kelson
+fire arrow at xixon
+in
+search xixon
+drag xixon in
+south
+south
+east
+east
+east
+east
+north
+north
+join alaric
+become alaric
+west
+look behind vines
+in
+1
+2
+3
+4
+search room
+take bottle
+clean bottle
+read label
+wait
+out
+crawl west
+pour poison into fountain
+crawl east
+in
+join kelson
+wait
+out
+west
+in
+down
+east
+look
+search guard
+take keys
+talk to man
+1
+2
+3
+4
+west
+up
+out
+south
+south
+east
+east
+north
+north
+out
+south
+south
+look
+southwest
+west
+south
+south
+look
+attack hybrid with axe
+remove teeth
+take sword
+take arbalest
+take longbow
+north
+northeast
+northeast
+north
+north
+north
+north
+north
+north
+north
+x skull
+east
+north
+northeast
+east
+northeast
+northwest
+look
+untie camels
+change clothes
+give longbow to kelson
+put arbalest in pannier
+put keys in pannier
+mount eeny
+west
+west
+west
+north
+north
+look
+west
+west
+dismount
+in
+southwest
+look
+untie horses
+northeast
+west
+look
+east
+out
+mount merlin
+east
+east
+north

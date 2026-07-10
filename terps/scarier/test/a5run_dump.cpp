@@ -171,6 +171,20 @@ main (int argc, char **argv)
       }
   }
 
+  /* A5_DUMP_DONE: after the script ends, list every task whose "scored" flag
+     is set (it has contributed to Score) plus every completed task, one per
+     line on stderr -- lets a walkthrough author diff fired scoring tasks
+     against the game's full scoring checklist. */
+  if (getenv ("A5_DUMP_DONE") != NULL)
+    {
+      a5_state_t *st = a5run_state (run);
+      for (int i = 0; i < st->adv->n_tasks; i++)
+        if (st->task_scored[i] || st->task_done[i])
+          fprintf (stderr, "[task %s%s%s]\n", st->adv->tasks[i].key,
+                   st->task_done[i] ? " done" : "",
+                   st->task_scored[i] ? " scored" : "");
+    }
+
   if (script != stdin)
     fclose (script);
   a5run_free (run);

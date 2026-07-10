@@ -1,77 +1,142 @@
-# Adaptive Spectre-banish solver for The Spectre of Castle Coris (WORK IN PROGRESS).
+# Adaptive Spectre-banish solver for The Spectre of Castle Coris.
 #
-# The game's built-in WLKTHRGH does not win under a faithful engine: its
-# navigation is written for an earlier map revision, and the Spectre is a
-# periodic turn-based killer that must be banished with the prayer book HELD.
-# This driver replays a command list through test/a5run_dump, finds the first
-# Spectre encounter that is not banished before it kills, and injects a banish
-# ("read prayer", wrapped in "get book"/"drop book" when the book is down for a
-# two-handed action), then re-runs -- iterating until it wins, dies on a
-# non-Spectre cause, or gets stuck on a navigation desync it cannot fix.
+# This is the tool that converged test/SpectreOfCastleCoris_walkthrough.txt to
+# its full maximum-score win (700/700).  The Spectre is a repeating turn-based
+# killer: when it materialises, MOVEMENT IS SILENTLY EATEN ("your feet are
+# rooted to the spot") until it is banished by "read prayer" WITH THE PRAYER
+# BOOK HELD IN HAND (book-in-worn-bag fails; plain "say prayer" is hijacked by
+# "say <x> to <NPC>" near characters).  Un-banished encounters kill a few turns
+# later.  Because every command edit shifts the (deterministic) timer, the
+# cadence cannot be hand-authored -- it must be re-converged after any change.
 #
-# It is NOT a finished solution: it converges the Spectre timing but cannot
-# repair the map-navigation desyncs (the portcullis/courtyard cascade), which
-# need a manual region-by-region re-derivation against this build's map.
+# Policy per iteration (first problem found, then re-run):
+#   * The materialisation block is located; if the next command does not banish,
+#     a banish sequence is inserted right after it, chosen by the book's state
+#     (tracked from the transcript text): held -> [read prayer]; in the bag ->
+#     [get book, read prayer, put book in bag]; deliberately dropped (the game
+#     force-drops it for every two-handed action: get wood, climb rope, fish...)
+#     -> [get book, read prayer, drop book].  Restoring the prior state is what
+#     keeps downstream two-handed actions working.
+#   * A spectre death with no catchable materialisation is fixed by inserting
+#     the banish just before the death.
+#   * If the book was left in a DIFFERENT room when the Spectre appears, that
+#     cannot be auto-fixed (report and stop): re-order the script so the book
+#     always travels, or add "z" padding so the timer fires before the bookless
+#     window (that is how the fishpond bait sequence is protected).
 #
-# Usage:  SP=<scratchdir> python3 test/spectre_prayer_solver.py <command-list.txt>
-#   (run from terps/scarier; writes the converged list to $SP/scoc_solved.txt
-#    on a win, else $SP/scoc_partial.txt.)
+# Usage:  python3 test/spectre_prayer_solver.py <command-list.txt> [budget-secs]
+#   (run from terps/scarier; needs test/a5run_dump and the game blorb; writes
+#    the converged list to solved_<status>.txt next to the input.)
 #
-import subprocess,sys,re,os,time
-GAME="test/adrift5-games/TheSpectreOfCastleCoris.blorb"; BIN="test/a5run_dump"; SP=os.environ['SP']
+import subprocess, sys, re, os, time
+
+SCARIER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GAME = f"{SCARIER}/test/adrift5-games/TheSpectreOfCastleCoris.blorb"
+BIN = f"{SCARIER}/test/a5run_dump"
+
+SPECTRE = re.compile(r"The Spectre is materialising in front of you")
+BANISH = re.compile(r"apparition wails|mist fades from view|mist swirls around you then dissipates|You recite the words|You say out loud the words")
+DEATH = re.compile(r"sibilant laughter|You have died|YOU HAVE DIED", re.I)
+WON = re.compile(r"YOU HAVE WON|CONGRATULATIONS", re.I)
+BOOK_HELD = re.compile(r"Ok, you pick up the prayer book|Ok, you take the prayer book from the bag|already carrying the prayer book|find a small book, which you pick up")
+BOOK_DOWN = re.compile(r"you put down [^.\n]*prayer book|Ok, you put down the prayer book")
+BOOK_BAG = re.compile(r"OK, you put the prayer book inside the bag", re.I)
+
+# Room-name set for left-behind detection (best effort: skipped if a5dump or
+# python XML parsing is unavailable).
+def room_names():
+    try:
+        import xml.etree.ElementTree as ET
+        dump = subprocess.run([f"{SCARIER}/test/a5dump", GAME], capture_output=True, text=True, timeout=60)
+        root = ET.fromstring(dump.stdout)
+        names = set()
+        for loc in root.findall("Location"):
+            n = (loc.findtext("ShortDescription/Description/Text") or "").strip()
+            if n and not n.startswith("<"):
+                names.add(n)
+        return names
+    except Exception:
+        return set()
+
 def run(cmds):
-    open(f"{SP}/cur.txt","w").write('o\nb\n'+'\n'.join(cmds)+'\n')
-    return subprocess.run([BIN,GAME,f"{SP}/cur.txt"],capture_output=True,text=True).stdout
-def blocks(out):
-    parts=re.split(r'(?m)^> (.*)$',out); res=[]
-    for i in range(1,len(parts),2):
-        res.append((parts[i].strip(), parts[i+1] if i+1<len(parts) else ''))
-    return res
-PRESENT=re.compile(r'materialising in front of you|The spectre is here|rooted to the spot|starts to coalesce')
-BANISH=re.compile(r'You say the words|You say out loud|You recite|apparition wails|mist fades from view')
-NOBOOK=re.compile(r'not carrying the prayer book')
-DEATH=re.compile(r'you die to the sound of sibilant laughter')
-WON=re.compile(r'YOU HAVE WON|You have won')
-def held_state(cmds,upto):
-    held=True
-    for c in cmds[:upto+1]:
-        if c in ('drop book','put book in bag'): held=False
-        elif c=='get book': held=True
-    return held
-cmds=[l.rstrip('\n') for l in open(sys.argv[1])]
-cmds=[c for c in cmds if c.strip()!='' and not c.startswith('#')]
-if cmds[:2]==['o','b']: cmds=cmds[2:]
-t0=time.time(); hist={}
-for it in range(400):
-    if time.time()-t0>95: print("TIME BUDGET",len(cmds)); break
-    out=run(cmds)
-    if WON.search(out):
-        print(f"*** WON *** after {it} edits, {len(cmds)} cmds"); open(f"{SP}/scoc_solved.txt","w").write('\n'.join(cmds)+'\n'); sys.exit(0)
-    bl=blocks(out)
-    # find first block where spectre becomes present and is NOT banished before death/end
-    present=False; fixed=False
-    for bi in range(2,len(bl)):
-        cmd,txt=bl[bi]
-        if not present and PRESENT.search(txt):
-            present=True; start=bi
-        if present:
-            if BANISH.search(txt):
-                present=False; continue
-            if DEATH.search(txt) or bi==len(bl)-1:
-                # unhandled encounter starting at 'start'
-                ci=start-2
-                key=('P',ci); hist[key]=hist.get(key,0)+1
-                if hist[key]>6:
-                    print(f"STUCK at cmd#{ci} '{cmds[ci] if ci<len(cmds) else '?'}'"); print("ctx:",cmds[max(0,ci-5):ci+4]); print(bl[start][1][:200]); sys.exit(4)
-                ins=['read prayer'] if held_state(cmds,ci) else ['get book','read prayer','drop book']
-                cmds[ci+1:ci+1]=ins
-                fixed=True; break
-    if fixed: continue
-    if DEATH.search(out):
-        for bi in range(len(bl)-1,1,-1):
-            if DEATH.search(bl[bi][1]):
-                ci=bi-2; print(f"NON-SPECTRE DEATH cmd#{ci} '{cmds[ci] if ci<len(cmds) else '?'}'"); print("ctx:",cmds[max(0,ci-6):ci+2]); print("blk:",bl[bi][1][:250]); break
-        open(f"{SP}/scoc_partial.txt","w").write('\n'.join(cmds)+'\n'); sys.exit(1)
-    m=re.findall(r'scored \d+ out of a possible \d+.*|possible \d+',out)
-    print(f"END no-win {len(cmds)} cmds; {m[-1:]}"); print(out[-350:]); open(f"{SP}/scoc_partial.txt","w").write('\n'.join(cmds)+'\n'); sys.exit(2)
-open(f"{SP}/scoc_partial.txt","w").write('\n'.join(cmds)+'\n'); print("done-loop",len(cmds))
+    inp = "o\nb\n" + "\n".join(cmds) + "\n"
+    p = subprocess.run([BIN, GAME, "/dev/stdin"], input=inp, capture_output=True, text=True, timeout=300)
+    return p.stdout
+
+def blocks_of(out):
+    parts = re.split(r"(?m)^> (.*)$", out)
+    return [(parts[i].strip(), parts[i + 1] if i + 1 < len(parts) else "") for i in range(1, len(parts), 2)]
+
+def load(f):
+    cmds = [l.rstrip("\n") for l in open(f)]
+    cmds = [c for c in cmds if c.strip() and not c.startswith("#")]
+    if cmds[:2] == ["o", "b"]: cmds = cmds[2:]
+    return cmds
+
+def insertion(state):
+    if state == "held": return ["read prayer"]
+    if state == "down": return ["get book", "read prayer", "drop book"]
+    if state == "bag":  return ["get book", "read prayer", "put book in bag"]
+    return ["get book", "read prayer"]
+
+def solve(cmds, budget=300, rooms=None):
+    rooms = rooms if rooms is not None else room_names()
+    t0 = time.time(); hist = {}
+    for it in range(600):
+        if time.time() - t0 > budget:
+            print(f"TIME BUDGET after {it} iters"); return cmds, "budget"
+        out = run(cmds)
+        if WON.search(out):
+            print(f"*** WON *** after {it} edits, {len(cmds)} cmds"); return cmds, "won"
+        bl = blocks_of(out)
+        state = "none"; room = "?"; bookroom = None; problem = None
+        for bi in range(2, len(bl)):
+            cmd, txt = bl[bi]
+            ci = bi - 2
+            for line in txt.splitlines():
+                if line.strip() in rooms: room = line.strip()
+            if BOOK_HELD.search(txt): state = "held"; bookroom = None
+            if BOOK_DOWN.search(txt): state = "down"; bookroom = room
+            if BOOK_BAG.search(txt): state = "bag"; bookroom = None
+            if SPECTRE.search(txt):
+                nxt = bl[bi + 1][1] if bi + 1 < len(bl) else ""
+                nxt2 = bl[bi + 2][1] if bi + 2 < len(bl) else ""
+                nxt3 = bl[bi + 3][1] if bi + 3 < len(bl) else ""
+                if BANISH.search(txt): continue
+                if state == "held" and BANISH.search(nxt): continue
+                if state != "held" and (BANISH.search(nxt) or BANISH.search(nxt2) or BANISH.search(nxt3)): continue
+                key = ("S", ci); hist[key] = hist.get(key, 0) + 1
+                if hist[key] > 8:
+                    print(f"STUCK spectre at cmd#{ci} '{cmds[ci] if ci < len(cmds) else '?'}'")
+                    print("ctx:", cmds[max(0, ci - 4):ci + 5]); print(txt[-300:])
+                    return cmds, "stuck"
+                if state == "down" and bookroom is not None and bookroom != room:
+                    print(f"BOOK LEFT BEHIND: spectre@{ci} in {room!r} but book in {bookroom!r}")
+                    print("ctx:", cmds[max(0, ci - 6):ci + 3])
+                    return cmds, "bookaway"
+                ins = insertion(state)
+                cmds[ci + 1:ci + 1] = ins
+                problem = f"iter{it}: spectre@{ci} ({cmds[ci]}) state={state} -> insert {ins}"
+                break
+            if DEATH.search(txt):
+                key = ("D", ci); hist[key] = hist.get(key, 0) + 1
+                if hist[key] > 8:
+                    print(f"STUCK death at cmd#{ci}"); print("ctx:", cmds[max(0, ci - 6):ci + 2]); print(txt[:300])
+                    return cmds, "stuck"
+                ins = insertion(state)
+                cmds[ci:ci] = ins
+                problem = f"iter{it}: death@{ci} -> insert {ins} before"
+                break
+        if problem:
+            print(problem); continue
+        print(f"clean after {it} iters, {len(cmds)} cmds (no unbanished spectre, no death)")
+        return cmds, "clean"
+    return cmds, "loop"
+
+if __name__ == "__main__":
+    cmds = load(sys.argv[1])
+    budget = int(sys.argv[2]) if len(sys.argv) > 2 else 300
+    cmds, status = solve(cmds, budget)
+    outf = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])) or ".", f"solved_{status}.txt")
+    open(outf, "w").write("\n".join(cmds) + "\n")
+    print("wrote", outf)

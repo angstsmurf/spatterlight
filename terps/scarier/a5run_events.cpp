@@ -435,8 +435,12 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
 /* Drain clsAdventure.qTasksToRun: run each LocationTrigger-armed System task in
    FIFO order (clsUserSession.vb:3421 "While qTasksToRun.Count > 0").  A drained
    task may itself move the Player and arm further triggers, so loop until empty.
-   Runs after the turn's command task and before TurnBasedStuff. */
-static void
+   Runs after the turn's command task and before TurnBasedStuff.  Non-static:
+   a5run_input drains BEFORE its FD empty-output check (clsUserSession.vb:3421
+   drains ahead of the vb:3425 `If sOutputText = "" Then NotUnderstood()`), so
+   a silent task whose Player move armed noisy LocationTrigger tasks -- Marooned
+   On Mazoomah's `push radio` win -- counts their output. */
+void
 drain_tasks_to_run (a5_run_t *run, sb_t *out)
 {
   size_t guard = 0;

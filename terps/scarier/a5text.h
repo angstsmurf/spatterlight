@@ -130,6 +130,13 @@ extern char *a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrappe
 extern char *a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
                                  int *pre_alr_ink);
 
+/* a5text_describe_ex on a PRE-FROZEN raw template from a5text_eval_description:
+   function/OO/expression/ALR passes only, segment selection NOT re-evaluated
+   (FD re-renders its captured sMessage string around a Before task's actions;
+   pre_alr_ink may be NULL). */
+extern char *a5text_process_frozen (a5_state_t *st, const char *raw,
+                                    int *pre_alr_ink);
+
 /* The full "LOOK" view of the player's current location (plain text). */
 extern char *a5text_view_location (a5_state_t *st);
 

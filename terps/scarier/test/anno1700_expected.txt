@@ -1002,57 +1002,11 @@ The roar of cannon fire and the scream of men becomes stronger… The vision of 
 
 Then slowly everything fades and a merciful darkness engulfs you before you become aware of your present surroundings.
 
-> x closet
-You can't see any closets!
+> z
+Time passes...
 
-> x hole
-You can't see any holes!
-
-> open closet
-You can't see nothing.
-
-> look in closet
-You can't see any closets!
-
-> x board
-You can't see any boards!
-
-> move board
-Sorry, I didn't understand that command.
-
-> close closet
-You can't see any closets!
-
-> x candleholder
-You can't see any candleholders!
-
-> get candleholder
-You can't see any candleholders!
-
-> insert handle in hole
-I don't understand what you want to do with the brass door handle.
-
-> turn handle
-The brass door handle can't be switched off or on.
-
-> push closet
-You can't see any closets!
-
-> w
-You move west.
-
-Mid Corridor
-The corridor runs east west, ending to the east, further down in a wall, and to the west in a small circle shaped hall.
-
-A carpet softens the sound of your steps and lamps on each side of the corridor provide you with the necessary light to read the numbers on the two doors nearest you.
-
-The one to the north is numbered 104 and the one to the south is numbered 105.
-
-> x wall
-You can't see any walls!
-
-> x brick
-You can't see the old brick.
+> z
+Time passes...
 As a new seizure of dizziness overwhelms you, you find yourself in a corridor unbeknownst to you. You hear voices behind a closed door, brutal guttural voices and a defiant female answering back.
 
 As if it’s not a part of you, you watch yourself reach for the doorknob, turn it and open it. Stepping into the room you see a young woman being held by two British soldiers while a third is pointing a pistol at her.
@@ -1077,26 +1031,98 @@ The couch you woke up on is placed under a blinded window, leaving the room in a
 
 There’s a door to the north leading out.
 
-> move brick
-Sorry, I didn't understand that command.
+> z
+Time passes...
+
+> z
+Time passes...
+
+> x closet
+You walk closer and study the closet closer and suddenly it strikes you that this closet has a stunning resemblance to the closet in your room. But how can it be? This is definitely not the room you settled into this morning.
+
+The wood is untreated but still feels smooth to the touch and the doors are simple with no signs of decorations at all. The way the veins in the wood correspond with the various pieces makes you think that the entire closet is made of one huge piece of wood.
+
+Its intriguingly crafted feet are standing solid on the wooden floor.
+
+There's a square shaped hole near the bottom of the closet.  The hideous closet is currently closed.
 
 > x hole
 The hole is near the bottom of the closet, close to one of the feet. It seems a little out of place and doesn't appear to have a function.
 
-> pull hook
-You can't see any hooks!
+> open closet
+You open the hideous closet.
 
-> push wall
-You push the storage room walls, but nothing happens.
+> look in closet
+It's rather big, a good deal taller than you and pretty dark. At the back of the closet, near the top corner, you notice what appears to be a loose board.
+
+> x board
+Near the top corner of the closet a board is loose leaving a small narrow crack between the board and the back of the closet.
+
+> move board
+You can only move the loose board a little. But it's enough to discover that there's a slim crack between the board and the wall of the closet.
+
+> close closet
+You close the hideous closet.
+
+> x candleholder
+The candle holder is made of iron and is forged into a peculiar shape. A, now, tarnished brass plate is mounted behind it to reflect the light.
+
+> get candleholder
+You take the candle holder from the wall. Hmmm... Interesting. Once the candle holder is removed from the wall it looks like a winch handle.
+
+> insert handle in hole
+The end of the winch fits perfectly into the square hole perfectly.
+
+> turn handle
+You turn the winch and slowly the closet rises from the floor.
+
+> push closet
+You really put your weight into it and slowly you manage to push the heavy closet aside. A dark opening approximately half your size, leading West, has been hidden behind the closet.
+
+> w
+You squeeze through the narrow opening.
+
+Secret walkway to Tower
+Your shoulders rub against the brick walls as you fumble your way forward. The passage shows signs of being used frequently. The air is relatively fresh and there are hardly any cobwebs.
+
+The only source of light managing to penetrate this darkness is the light from the room behind you. Suddenly your passage is blocked by what appears to be a solid wall. Is this all there is?
 
 > x wall
-They are ordinary rough boards making the wall to the outside. Here and there is a space between the boards allowing a little light to filter in from the outside.
+As you carefully run your fingertips over the surface you realize that a brick wall is blocking your further passage. The walls on each side of you are not that interesting, but at the lower corner of the wall in front of you, a brick feels kind of “rocky.”
+
+> x brick
+The brick is loose. As you grab it you can wiggle it from side to side.
+
+> move brick
+You patiently wiggle the brick from side to side and slowly it slides out and leaves a hole in the wall.
+
+> x hole
+The hole isn't very deep, a few inches in you can feel a small hook like "thingy."
+
+> pull hook
+You pull at the hook like thing inside the hole. At first it seems like nothing is happening, then you feel it move and a faint click is heard. The barrier moves slightly.
 
 > push wall
-You push the storage room walls, but nothing happens.
+The barrier slides easily to the side as you push it. Only to reveal another "wall" behind it. This wall is made of wood.
+
+> x wall
+It's some kind of a wooden barrier and it appears to be locked into position.
+A little light shines through a slim space on each side of the barrier as if it's not a perfect fit.
+
+> push wall
+The wooden barrier will not budge no matter how hard you push.
 
 > e
-There is no route to the east, only out.
+You move east.
+
+Storage room
+The little light that filters through the cracks on the boarded wall allows you to distinguish vague silhouettes in what appears to be a storage room.
+
+The canvas bags that you woke up on are placed under a blinded window, leaving the room in ghostlike darkness. Shelves are placed against the walls except over by the door where a hideous monstrosity of a closet takes up most of the wall space.
+
+A single empty candleholder is mounted on the wall next to the closet and it slowly dawns on you that you are in your room in the hotel and yet something is completely different.
+
+There’s a door to the north leading out.
 
 > open door
 You can't open the storage room door as it is locked!
@@ -1373,10 +1399,10 @@ A single empty candleholder is mounted on the wall next to the closet and it slo
 There’s a door to the north leading out.  Also here is a ripped hat.
 
 > open closet
-You open the hideous closet.
+You open the hideous closet.  Inside the hideous closet is a slim crack and a loose board.
 
 > hide key
-The narrow crack isn't big enough to hold the key.
+A little wiggling and the key is securely set in the small crack. You then carefully move the loose board back covering up the crack.
 
 > close closet
 You close the hideous closet.
@@ -1401,48 +1427,99 @@ Two kerosene lamps are mounted on the walls, fighting to light up the area.  Sud
 You recognize Lulu-Belle’s voice. It’s angry but you sense a tone of fear. The other voices you don’t know but they are definitely male.
 
 > open door
-Just as you're about to open the door and barge in, you realize that maybe it's not such a good idea having the key in your position.
-What if this key means something, and it's what the soldiers are looking for?
+Without hesitation you reach for the door handle. You open the door and rush into the room.
+
+Lulu-Belle's room
+You stop abruptly as you enter the room.
+
+Lulu-Belle is standing in front of the fireplace with her arms wrapped around a young girl. She's staring angrily across the room at a soldier who is aiming a pistol at her while the two others are tearing the room apart.
+
+A big four poster bed is leaning crazily and the torn covers lie in a heap on the floor. Across the room, a small wooden dresser lies smashed to pieces as if it had been picked up and thrown against the wall. A broken mirror is thrown in the corner and something that resembles a chair is lying in pieces in the fireplace.
 
 > attack officer
-Sorry, I didn't understand that command.
+Assessing the situation in a fragment of a second you throw yourself against the officer holding the pistol. You have the satisfaction of landing your fist square on his jaw sending him tumbling across the room.
+A blinding flash and a roar of thunder! A sharp pain like your chest is being pulled apart. Sinking to the floor you helplessly watch as one of the soldiers turns towards Lulu, aiming his musket at her.
+Then a merciful peace engulfs you and you drift away into darkness.
+
+Room 101
+Your head is spinning furiously and the nauseating pain in your chest slowly subsides while you fight to open your eyes.
+
+At first everything is just blurred images, then slowly the mist lifts and you recognize your room.
+You are lying on your bed and Susan stands beside you, leaning over you with a worried look on her face.
+
+“Thank God, you’re awake!” she says, the worried look being replaced by a smile of relief. “We’ve been so worried about you…“ Upon seeing the confused look on your face she continues; “We found you lying unconscious and brought you up here. You’ve been out cold for at least half an hour.”
+(Half an hour, is that all?)   Also here is some nuts, a pistol and a broken ramrod.  Susan is here.
 
 > open closet
-You can't see any closets!
+You open the tall closet.  Inside the tall closet is a business suit, a white shirt, a tie, a pair of shoes, a loose board and a narrow crack.
 
 > get key
-You are already carrying the skeleton key!
+(from the narrow crack)
+Ok, you take the skeleton key from the narrow crack.
 
 > get handle
-You can't see any handles!
+(from the square hole)
+Ok, you take the winch handle from the square hole.
 
 > get holder
-You can't see any holders!
+You take the candle holder from the wall and once again you're holding a winch handle.
 
 > w
-Just as you're about to open the door and barge in, you realize that maybe it's not such a good idea having the key in your position.
-What if this key means something, and it's what the soldiers are looking for?
+You manage to squeeze yourself into the hole in the wall. To your surprise it's not so narrow as it looked from the outside.
+
+Secret passage to Tower
+The passage leads back towards your room and forward, north, towards the Tower room. The secret room that has been locked up for centuries.
+Also here is an old brick.  Susan is here.
 
 > n
-There is no route to the north, only east.
+(standing up first)
+You move north.
+
+Lulu-Belle's room
+You’re back in the tower room once again.
+
+The big four poster bed is leaning crazily and the torn moth-eaten covers lie in a heap on the floor. A tall wooden closet is lying on the floor and across the room, a small wooden dresser lies, smashed to pieces, as if it has been picked up and thrown against the wall.
+
+A broken mirror is thrown in the corner and something that resembles a chair is lying in pieces in the fireplace.
+The only thing that seems untouched is the beautiful ornamented silver candle holder on the windowsill.
+
+Behind you, leading South, is the secret passage from which you just entered.
+Susan enters from the south.
 
 > x fireplace
-You can't see any fireplaces!
+The size of the fireplace amazes you and you can easily imagine how it would be able to warm up this room even on the coldest of nights.
+
+An ornamented marble column on each side supports the delicate mantelpiece and inside the fireplace is the ashes from the last time it was in use hundreds of years ago.
+
+Next to it is a brass bucket filled with firewood. Above it you see the only thing not damaged or destroyed in the entire room: a portrait of Lulu-Belle.
+It looks as if the entire fireplace floor has risen a few inches leaving a small space between the fireplace and the floor of the room.
 
 > x floor
-You can't see any floors!
+The floor is covered with ashes from hundreds of years ago when the fireplace was last used.
 
 > get firewood
-You can't see any firewood!
+As you pick up one of the logs, the bucket rises a little.
 
 > turn pitcher
-You can't see any pitchers!
+With the pitcher now protruding a little from the fireplace it's no problem getting a hold of it and you gently turn it. A faint click and the pitcher opens revealing a keyhole.
 
 > insert key in hole
-I don't understand what you want to do with the skeleton key.
+You insert the key into the keyhole and gently turn it. From somewhere inside the fireplace a faint click is heard.
 
 > lift floor
-Sorry, I didn't understand that command.
+After a lot of wiggling and moving about but you manage to press the end of the winch in between the bricks and the fireplace floor. It takes all your strength to lift the false floor but you manage, and with a heavy "clonk”, you drop it on the floor beside you.
 
-> *** YOU HAVE WON! ***
-I did not understand the word "***".
+Before your eyes is a treasure beyond your wildest imagination; Pearls, various precious gems, old Spanish gold doubloons.
+
+A few seconds later, you are almost choked when Susan throws her arms around your neck and hugs you tightly. For the longest time, you and she just sit there trying to comprehend what lies before you. Susan reaches out and gently runs her fingers through the unimaginable treasure while tears fill her eyes.
+
+The next months are turmoil. As the news spreads, Lulu-Belle's Safe Haven is swamped with news reporters and television vans, not to mention dignitaries from various universities.
+
+The remains of LeBeuf is moved from the ship and laid to rest beside his beloved Lulu-Belle, and the cave with the ship is turned into, what will become, a very, popular tourist attraction.
+
+After the summer, you return to college. Your enthusiasm for history restored and in a few years, you graduate with top grades.
+You regularly visit the hotel (and Susan) and over time your visits becomes more numerous and your feelings for each other grow steadily with every visit and one beautiful summer's day you and she get married on the lawn in front of the hotel.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

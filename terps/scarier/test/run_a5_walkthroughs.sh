@@ -522,7 +522,10 @@ FILTER="${1:-}"
 # (2026-07-03) Six games wired at MATCH 0|0 from OPENING-TURN SMOKE PROBES, not
 # full walkthroughs: Halloween (Haven), MagorInvestigates (MI), MuseumHeist,
 # October31st, TheFortressOfFear, Xanix (XXR).  [Halloween since UPGRADED to a
-# blind-derived FULL WIN, and MuseumHeist to a perfect-score run -- see below.]
+# blind-derived FULL WIN, MuseumHeist to a perfect-score run, and Xanix
+# (2026-07-05) to a blind-derived FULL MAX-SCORE WIN 600+/600 (best ending,
+# 370 commands, MATCH 0|0 both modes + the room-view ALR sealing fix) --
+# see TODO_a5_walkthrough_bugs.md.]
 # Their _walkthrough.txt is the
 # generic 4-command probe `look / examine me / inventory / wait`; the golden
 # guards intro + first-room render + basic-verb output byte-exact against FD
@@ -665,6 +668,97 @@ FILTER="${1:-}"
 # exactly where FD's is and finish_turn strips the marks (a5text.h).  All
 # other goldens byte-identical.
 #
+# (2026-07-04) SpectreOfCastleCoris rewired from the CASA-based non-win (town-
+# only, desynced) to a FULL MAXIMUM-SCORE WIN: "...in 923 turns, scoring the
+# maximum of 700 points!"  Base = the game's own built-in WLKTHRGH solution,
+# repaired against this build's map + the Spectre-banish cadence re-derived by
+# the adaptive solver (see the walkthrough header and
+# test/spectre_prayer_solver.py).  Golden = Scarier's winning transcript
+# (vanilla 0).  The xoshiro budget of 1 is a single real, RNG-independent
+# divergence: the "say cook food" task chain runs "Execute Look" BEFORE
+# "Execute Claude Cooks" (which moves the wooden tray into the kitchen), and
+# FD's Look shows the tray anyway because FD expands the room's dynamic
+# object list at DISPLAY time, after the whole turn's actions -- same
+# display-time family as the AoS ALR-boundary note above.  Scarier renders the
+# listing at Look-execution time, so its (arguably more correct) description
+# omits the not-yet-moved tray.  Recorded in TODO_a5_walkthrough_bugs.md.
+#
+# (2026-07-04) AxeOfKolt rebuilt from the game's own built-in WLKTHRGH (was the
+# old CASA-derived non-win that lost at 0/1200) + navigation repairs.  The
+# engine fix that unblocked it: under HighestPriorityPassingTask a task that
+# PASSES with no output no longer claims the turn (it continues to
+# higher-priority tasks, FD AttemptToExecuteTask vb:916), so `buy beer` reaches
+# the real tavern task, the Hussars clear the outlaws, and play advances past
+# the forest.
+# (2026-07-05) COMPLETE: full deterministic WIN (axe lowered to Kelson) under
+# seed 1234; golden = the winning Scarier transcript.  Needed two more engine
+# fixes (MoveCharacter InsideObject/OntoObject now syncs char_loc through the
+# carrier object -- Grat's loo hut; and the furniture/container location sync
+# keeps the current room when the object is a multi-room location-group static
+# -- the cell floor on `lie down`) plus built-in-walkthrough repairs (corpse is
+# 2S not 1S; burrow is in/out; "get tub"="get pot"; ONE `lever rails west` not
+# two east; "sit on straw"->"lie down"; comma typos).  xoshiro budget 37: ~6
+# pre-existing text divergences (dwark room-desc x2, Edwina greet, armourer
+# echo, refusal-order swaps) + the magpie-chase RNG cascade -- FD picks a
+# different Either() variant from shot 2 and misses the shot Scarier hits, so
+# FD never gets the cotton and its transcript diverges from the Galhexia kill
+# onward.  Next conformance target: align the magpie draw order/count
+# (Task998 RAND(1,100) + Either() evaluation) so xoshiro drops toward the ~6
+# text hunks.
+#
+# (2026-07-05, later) Magpie-chase RNG aligned: the Before-message flat path now
+# interleaves render1 -> actions -> render2 (-> finalize) on a FROZEN template
+# (a5text_process_frozen), exactly FD's clsUserSession.vb:1176-1205 -- see the
+# run_task comments.  FD now reaches the win too, and the walkthrough's magpie
+# segment was re-derived for the aligned stream (misses at tree1 + the E-W path,
+# unconditional close-range kill at the abandoned cottage).  xoshiro 37 -> 16:
+# the residual = the 6 pre-existing text hunks (dwark room-desc x2, Edwina
+# greet, armourer echo) + FD printing refusals Scarier suppresses (armourer,
+# leather sheath) + Scarier printing a failing-restriction message before a
+# passing override's text (talisman "Right idea - wrong location!", block pile,
+# wave axe "You are not carrying") + the tomb stone-slab state divergence
+# (slab-dropped text missing from Scarier's room descs, 5 hunks).
+#
+# (2026-07-05, later still) xoshiro 16 -> 0: FULL MATCH, five engine fixes.
+# (1) SetVariable LHS "Variable330[Hidden]" -- FD splits the key at '[' and
+# ignores the index for a Length-1 variable (FileIO.vb / vb:2135); Scarier's
+# lookup saw the whole string and silently no-op'd, so BlockTriggered never
+# became 1 and every slab-gated room-desc segment stayed off (the 6-hunk tomb
+# family).  (2) FD's NotUnderstood-on-empty-turn (vb:3421-3431): the chosen
+# task runs, qTasksToRun drains, and if sOutputText is STILL empty FD falls
+# to NotUnderstood() -- skipping TurnBasedStuff (no event tick).  Mirrored
+# after scan_tasks, with two FD subtleties: the drain precedes the check
+# (Mazoomah's `push radio` win text arrives via YouHaveWon LocationTriggers)
+# and sOutputText is the raw MARKED-UP buffer, so a markup-only completion
+# counts as output (st->turn_out_nonempty; BugHunt's <img> zoo map, which also
+# keeps its turn ticking).  Fixes the armourer/leather-sheath refusals AND the
+# silent oilman greet.  (3) Turn-global sReferencedText (vb:2567/3400/4474):
+# every command-matched candidate's %text% capture overwrites the global slots
+# during the scan -- even when that candidate fails -- and ReferencedText
+# restrictions read the GLOBAL, defaulting to the raw input post-scan.  AoK's
+# s_SayHelloTo ("say hello", no %text% of its own) passes its `ReferencedText
+# Must BeContain "hello"` via that leakage (the Edwina greet + "(Edwina)"
+# family).  (4) Direct-path override fails buffer in the exec scope and flush
+# after the passes with FD's POSITIONAL cancel (vb:804-834): a later passing
+# override with matching refs cancels the fail (talisman/block-pile/wave-axe),
+# while a 2-ref fail survives a 1-ref pass (AoS `get ashes` keeps "nothing
+# suitable to carry the ashes in").  (5) view_location_impl now runs ALR round
+# 1 on the UNCAPPED marked-up room view before its cap (FD Display order,
+# Global.vb:527-539), so AoK's Override12 blanks the lowercase "the dwark is
+# here." NPC listing (the 2 pass room descs).  Golden re-blessed; whole
+# 39-game corpus byte-identical in both RNG modes.
+#
+# (2026-07-05) RevengeOfTheSpacePirates COMPLETE: full deterministic MAXIMUM
+# 550/550 WIN ("scoring the maximum 550 points!", 479 turns), MATCH 0|0 in
+# both modes, golden-backed.  Continues the 410-point WIP (commit 0d7c054d):
+# inserted the Wednesday hotel-bill detour (+15 -- PayBill only fires once the
+# gym pays you off, PaidOff1 gates the foyer stop) and scripted the endgame
+# (nurse-lure medical raid for the ZX128 hypogun, cockroach-sandwich comms raid
+# for the sub-space radio call -- which MUST precede `set timer` -- bomb at the
+# radar, the two 1-turn corridor-guard kills, Grande pickup, FCC stun grenade,
+# and the command-chair launch with `input 4361 9622`).  See
+# A5_WALKTHROUGH_FINDINGS.md for the full route notes.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -706,6 +800,8 @@ Tingalan|Tingalan.blorb|0|0
 BookOfJax|BoJ v.2.blorb|0|0
 GrandmasFlyingSaucer|GFS_Frankendrift.blorb|0|0
 TheGardenParty|TheGardenParty.blorb|0|0
+LostCoastlines|Lost_Coastlines.taf|1|0
+Skybreak|Skybreak.taf|2|0
 EOF
 )
 

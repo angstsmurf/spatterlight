@@ -1,5 +1,149 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+## ✅ Corpus status (2026-07-06): NO open aligned-RNG conformance bugs
+
+Full 41-game sweep is clean.  Every game is `0` in the **xoshiro** (aligned-RNG)
+column — a full every-line conformance MATCH vs FrankenDrift — with a single
+**deliberate, documented** exception:
+
+* **RtC (`0|13`) — NOT a bug; Scarier is the correct side.**  Return to Camelot
+  is file-version **5.000020**, which predates ADRIFT 5.0.22's `<TaskExecution>`
+  element.  `a5model.cpp` version-gates the element-less default: file-version
+  `< 5.000022` ⇒ `HighestPriorityPassingTask` (the v4-compatible mode).  Under
+  that mode RtC's central `unlock chain` puzzle (Task324, sets Variable6 to free
+  the armour) fires as a lower-priority *passing* task after the stock library
+  `unlock %object%` "cannot be unlocked" fallback — impossible under
+  `HighestPriorityTask`, where the failing-with-output library task claims the
+  turn.  **FrankenDrift hardcodes `HighestPriorityTask` regardless of version and
+  therefore cannot win this game** (verified this session by direct `dotnet` run:
+  FD dead-ends at `unlock chain` → never reaches the armour/catapult finale).
+  Golden = Scarier's winning transcript (`vanilla 0`); the xoshiro `13` carries
+  the FD gap.  Same class as the Illumina/BugHunt "win in the correct direction"
+  cases.  Committed `de7d7f6d`.
+
+The remaining non-zero **vanilla** budgets (JacarandaJim 99, October31st 106,
+SixSilverBullets 18, LostLabyrinthOfLazaitch 8, StoneOfWisdom 2, Skybreak 2,
+LostCoastlines 1) are the inherent FD-`System.Random`-vs-xoshiro walk on games
+without a golden — expected, documented, not conformance bugs.  Every game with a
+golden is `vanilla 0` by construction (Scarier vs its own blessed transcript).
+
+## ⭐ Lost Coastlines: model-variable tokens must resolve in variable-declaration order (RNG-index draw order) — FULL MATCH, xoshiro 1 → 0 — ✅ DONE (2026-07-06)
+
+**LostCoastlines xoshiro 1 → 0** (MAP re-blessed `1|0`; the residual `1` is the
+inherent System.Random-vs-xoshiro walk on the vanilla side — no golden — same
+class as JacarandaJim et al.).  The single aligned-RNG hunk was the opening
+inventory's `Body:` line: Scarier rendered "a plaid shirt and a good pair of
+slacks", FD "a light jacket and a pair of cargo pants".  The RNG **stream was
+byte-identical** in both (`RAND(1,10)` = 7, 9, 1, 8) — the divergence was
+*draw order*, not stream alignment.
+
+The inventory task's fragment is `%defaultshirt[Rand (1, 10)]% and
+%defaultpants[Rand (1, 10)]%` — two embedded `Rand` array indices.  FD's
+`ReplaceFunctions` (Global.vb:1972-2019) resolves **model-variable** tokens
+(`%name%` / `%name[idx]%`) in a `For Each var In Adventure.htblVariables.Values`
+pass that runs BEFORE the left-to-right generic-function scan — i.e. in
+variable-*declaration* order, not text order.  `Defaultpan` (defaultpants) is
+declared before `Defaultshi` (defaultshirt), so FD draws the **pants** index
+first (7 → "cargo pants") then the shirt (9 → "light jacket").  Scarier's replace
+pass was strictly text-order, so it drew shirt-first (7 → "plaid shirt") then
+pants (9 → "slacks").
+
+**Fix** (`a5text.cpp`, new `resolve_model_vars_ordered`, run at the top of
+`replace_functions`): a pre-pass that walks the model variables in order and
+splices in each variable's `%name%`/`%name[idx]%` tokens via the same
+`eval_function` the inline path uses, leaving function/reference tokens for the
+text-order scan that follows.  General but inert for every other game: for
+side-effect-free reads the resolved value is order-independent, so it only
+changes output when a text holds ≥2 variable tokens with a side-effecting
+(Rand) index — LostCoastlines is the sole corpus case.  Full 40-game sweep:
+every other game byte-identical in BOTH RNG modes; all a5 unit tests pass.
+
+Also fixed the `a5dump` harness to mirror the real loader's region detection
+(`test/a5dump.cpp`): the 4-byte hex size field / `<ifindex>` skip at offset 12,
+so `.taf`s like Lost Coastlines (size `0379`, non-`"0000"` marker) inflate
+instead of failing.
+
+## ⭐ TheFortressOfFear xoshiro 38 → 2 → 1 → 0 — general engine fixes (equal-priority child override tie-break = .NET introsort; bPassingOnly aborts the child scan; deferred-Look final-state view; endgame `answers above` on the silent winning task) — ✅ DONE & COMMITTED (c0bbb630, d987cdf2, 5fa31363, afc50a88)
+
+FoF's 38 xoshiro hunks were almost entirely ONE cascading class: a +3/+5 score
+drift that began at turn 177 (`talk to baker`) and echoed down every later
+`score`/`Congratulations` line.  The engine fixes killed all 38; **FoF is now a
+FULL every-line MATCH `0|0` in both RNG modes** (golden
+`TheFortressOfFear_expected.txt` re-blessed).  All committed (see git log
+c0bbb630 → afc50a88).  Full 40-game corpus sweep: every other game
+byte-identical to baseline in BOTH RNG modes (no regression); all a5 unit tests
+pass.
+
+**Engine fix 1 — equal-priority Specific-override tie-break must match .NET's
+UNSTABLE introsort** (`a5run_action.cpp`, new `net_introspective_sort` +
+helpers; rewired the child scan in `execute_task_with_overrides`).  `clsTask.
+Children` (clsTask.vb:328-345) sorts a parent's Specific overrides with
+`List(Of String).Sort(TaskPrioritySortComparer)` — .NET's introspective sort
+keyed on Priority ALONE, so equal-priority ties land wherever introsort's
+median-of-3 partition / insertion / heap phases happen to leave them.  Scarier
+had been iterating `run->order` (a global `std::stable_sort`, XML order on
+ties).  FoF's `talk to baker` has TWO Overrides of Task66 both at priority 1211
+— Task58 (2023 revision: +3 Score, message "…baker,telling…") and Task1803
+(2015: no score, "…baker, telling…").  Introsort orders the tie
+[…,Task2536,Task1803,Task58], so FD runs **Task1803** (no score, comma+space);
+stable/XML order runs Task58 (wrong text AND a phantom +3).  Ported the full
+`ArraySortHelper<T>.IntrospectiveSort` (IntrosortSizeThreshold 16, the size-2/3
+special cases, `PickPivotAndPartition` median-of-3, `InsertionSort`, `HeapSort`,
+`2*(log2 n + 1)` depth limit) so the child array is ordered byte-identically to
+FD.  The child list is rebuilt per parent as `clsTask.Children` does: the
+parent's Specific tasks in XML load order, completed non-repeatable ones
+filtered out BEFORE the sort (the property's `bIncludeCompleted=False` gate),
+then introsorted.
+
+**Engine fix 2 — `bPassingOnly` aborts the child scan after a fail-with-output**
+(`a5run_action.cpp`, `any_child_fail_output` flag = FD's `bAnyChildHasOutput`,
+vb:1053/1141).  Once an earlier sibling override has FAILED with output, FD
+attempts every later child with `bPassingOnly=True` (vb:1104 passes
+`bAnyChildHasOutput`), and `AttemptToExecuteTask` returns early for a
+non-passing `bPassingOnly` task ("If bPassingOnly AndAlso Not bPass Then Return
+False", BEFORE the vb:911 bContinue rules) — so `bContinueExecutingTasks` stays
+False and the whole child scan stops dead (vb:1146 `Exit For`).  FoF `ask
+clockmaker about dials` after the clock explanation: Task2932 (7480) fails with
+"I have already explained…", then Task2949 (7495) matches and fails SILENTLY
+(fail-message block gated `If Not bPassingOnly`), aborting the scan before the
+`wearily` catch-all Task2950 (7496, +2 Score) is reached.  Scarier had kept
+scanning and hit Task2950 → phantom +2.  Now a refs-matching child that fails
+its restrictions after `any_child_fail_output` is set simply `break`s.
+
+**The 2 residual xoshiro hunks (both now FIXED — FoF FULL MATCH 0|0):**
+1. **Metal pail still in the bakery description** — ✅ FIXED (2026-07-06, this
+   change; FoF xoshiro 2→1).  Root cause: FD's stock Look is an AggregateOutput
+   task, so its room view is deferred to the command's final Display.  FoF's
+   `give pail to baker` runs Task317 (Baker Bakes Bread), whose action list does
+   `Execute Look` and THEN `Execute Task2572` (Farrier Takes Pail, which hides
+   the pail Object54): FD renders the bakery WITHOUT the pail (final state) then
+   the farrier's "picks up the pail" line.  Scarier's flat (resp==NULL) path
+   rendered the Look room view IMMEDIATELY (pail still present) instead of
+   deferring.  Fix in `run_task` (a5run_action.cpp): when a task's action list
+   has an `Execute Look` that is NOT its last action, defer that look and splice
+   the FINAL-STATE view back at its recorded slot after the remaining actions
+   run.  The usual "move then look" (Execute Look last) is unchanged.  General —
+   ALSO fixed Spectre's last hunk: its kitchen view now lists the wooden tray
+   (dropped in by a later same-list action), taking Spectre to FULL MATCH 0|0.
+2. **Trailing "Please give one of the answers above."** on the final `pull bell
+   ropes` before `*** You have won ***` — ✅ FIXED (2026-07-06; FoF xoshiro 1→0,
+   FULL MATCH 0|0).  NOT the same class as October31st's trailing-`score`-after-
+   win line (which is the *initial* EvaluateInput top-guard firing on a command
+   entered a turn AFTER the game ended — still open, cosmetic).  This one is a
+   **same-turn continuation artifact**: FoF's winning Task1448 ("Pull Bell Ropes
+   - Door Wedged") is a passing task with NO completion message (its actions are
+   IncScore + `Execute Task2681` score-cap + `SetVariable s_GameWon` + `EndGame
+   Win` — all silent).  Per clsUserSession.vb:916-921 a passing-no-output task
+   sets bContinue and re-enters `EvaluateInput(Priority+1)`; that re-entry's top
+   guard now sees `eGameState != Running`, SystemTasks(True) rejects the command,
+   and it prints "Please give one of the answers above." before returning
+   (vb:3372-3379).  Fix in `scan_tasks` (a5run.cpp): in the passing-no-output /
+   ContinueAlways continuation branch, if the task just ended the game
+   (`st->game_over`), emit that line and claim the turn instead of scanning
+   lower-priority tasks.  Golden re-blessed; MAP FoF `0|1`→`0|0`; corpus clean in
+   both modes; all a5 unit tests pass.
+
+
 ## ⭐ Run Bronwynn Run: the 3 residual xoshiro hunks → FULL MATCH 0|0 — 3 general engine fixes (alternate-command ref order, empty-Description default, ReturnToDefault cycle)  ✅ DONE (2026-07-04)
 
 **RunBronwynnRun xoshiro 3→0** (now MATCH 0|0; golden re-blessed — exactly the 3
@@ -5061,7 +5205,7 @@ purely a documentation checkpoint so the RE work (which required reading
 fix lands (or with an honest non-zero budget documenting this exact gap if
 parked further).
 
-## The Spectre of Castle Coris: built-in WLKTHRGH is garbled — deep-but-not-winning best-effort + 3 engine bugs surfaced — ⏳ PARTIAL (2026-07-04)
+## The Spectre of Castle Coris: built-in WLKTHRGH is garbled — deep-but-not-winning best-effort + 3 engine bugs surfaced — ~~⏳ PARTIAL~~ ✅ SUPERSEDED: FULL 700/700 WIN (see the 2026-07-04 completion entry at the end of this file)
 
 **User question: does the game have a WALKTHROUGH command with a more accurate
 walkthrough?** Yes — the `WLKTHRGH` command (task `Walkthroug`) dumps the
@@ -5123,11 +5267,13 @@ carrying …" / "You can't see …" line):
   the have/see failure), but risk corpus-wide message changes, so left for a
   dedicated pass.
 
-**Status: PARTIAL, timeboxed per user request.** The shipped wired test/golden
-(`SpectreOfCastleCoris_walkthrough.txt`, MAP `0|0`) is left UNCHANGED to avoid
-regressing the suite with a non-winning, still-diverging script. The improved
-built-in-based script and the solver are committed as the basis for a future
-full derivation. NOT yet wired into `run_a5_walkthroughs.sh`'s MAP.
+**Status: ~~PARTIAL~~ SUPERSEDED.** The full region-by-region derivation was
+completed on 2026-07-04 (see the completion entry at the end of this file):
+`SpectreOfCastleCoris_walkthrough.txt` is now the full maximum-score win
+(700/700), golden-backed, MAP `0|1`. `SpectreOfCastleCoris_builtin_walkthrough
+.txt` (the raw extraction this entry introduced) was consumed by that
+derivation and removed; the raw WLKTHRGH text remains recoverable from the
+game XML (task `Walkthroug`) or from this file's history.
 
 ## (2026-07-04) FIXED: multi-match `%objects%` noun missing FD's "not sure which object" prefix — the 3 Spectre engine bugs
 
@@ -5157,3 +5303,257 @@ text), `give domino`/`show X` (recipient-scope failure, objects never seen) get
 NO prefix — only genuinely out-of-scope-but-known multi-matches (the two fish,
 the ten keys) do.  Whole committed corpus stays byte-identical (34 golden games
 MATCH); the deep Spectre run's three "not sure which" hunks are gone.
+
+## ⭐ The Spectre of Castle Coris → FULL MAXIMUM-SCORE WIN (700/700) — ✅ DONE (2026-07-04)
+
+Completes the PARTIAL entry above: `test/SpectreOfCastleCoris_walkthrough.txt`
+is now a full winning run — `*** CONGRATULATIONS! *** … in 923 turns, scoring
+the maximum of 700 points!` — golden-backed (vanilla 0) and wired in the MAP
+as `0|1`.
+
+**The key insight that unlocked it:** the earlier "pervasive map desync"
+diagnosis was mostly wrong. The author's built-in `WLKTHRGH` navigation DOES
+match this build's map almost everywhere — the cascades came from the Spectre
+mechanic: while the Spectre is present **movement commands are silently eaten**
+("your feet are rooted to the spot"), so a single unplanned materialisation
+desynced every subsequent room-dependent command (e.g. one eaten `n` made
+`x line`/`get peg` fire one room early, `drop all`+`pull bellpull` landed at
+Outside Shed instead of Top of Steps, stranding the whole inventory). The old
+solver inserted banishes only at the death warning — too late to save the
+eaten moves.
+
+**Rewritten solver** (`test/spectre_prayer_solver.py`): on each iteration find
+the FIRST materialisation whose next command is not a banish and insert one
+right there, chosen by the prayer book's transcript-tracked state — held →
+`read prayer`; in bag → `get book / read prayer / put book in bag`; force-
+dropped (every two-handed action puts the book down) → `get book / read
+prayer / drop book`. Restoring the prior state is what keeps downstream
+two-handed actions (get wood, climb rope, fish) working; the state-restore is
+also why the gatehouse rope/windlass leg — previously diagnosed as a nav
+desync — simply started passing. Converges in ~35 iterations; also detects
+book-left-behind (unbanishable) and reports for manual re-ordering.
+
+**Manual repairs beyond the solver** (all verified in FD too):
+  * fishpond: rod in hand BEFORE baiting (`drop book, get rod, get bread,
+    break bread, scatter crumbs, fish`) — the crumbs hold the shoal ~2 turns
+    and the catch requires `%Player%.Held.Count <= 1`; plus 4×`z` padding so
+    the region's Spectre timer fires (and is banished) before the bait window;
+  * `dig manure` → `dig manure with fork` (bare verb stalls on ADRIFT's
+    "DIG … WITH what?" disambiguation; the stone ring + give-ring-to-Bill
+    chain, 8 points, hangs off it);
+  * `ask about talisman` at the pedlar — the final +2 (698→700);
+  * castle-grounds `"w, ,sw"` garble fix (from the PARTIAL entry, kept).
+
+**Load-bearing game gates documented for future edits** (they cascade):
+  * Top-of-Steps bellpull admits you ONLY with the full checklist carried
+    (held or in the bottomless bag): clothes peg, DEAD goldfish, sack of
+    flour (`FlourInSac=1`), lamp, dead rat, chain + steel hook
+    (`s_Task109`/`PullBellpu` restriction chains);
+  * `pray to saint cecilia` works only at By Shrine (Location38, via
+    `x vegetation` at By Woodpile → `climb over fence`/`d`) or The Crypt
+    (Location19), and only with `Variable1 >= 2` (inscription read after
+    `rub dirt in letters`) AND `s_ZalazarDea = 1`;
+  * the win task (`tell everyone what happened`, tavern) needs
+    `Coffin_Blessed = 1` ← bless coffin ← priestly vows + bible + blessed
+    chalice of spring water + reliquary (bones) in coffin.
+
+**1 open conformance divergence found (the xoshiro budget):** `say cook food`
+(task `s_SayToClaud` etc.) runs `Execute Look` BEFORE `Execute s_Task425`
+("Claude Cooks", which MoveObjects the wooden tray into the kitchen), yet
+FD's Look output lists the tray. FD expands the room description's dynamic
+object list at DISPLAY time — after the whole turn's actions have run — while
+Scarier renders it at Look-execution time (arguably more correct, but not
+FD-faithful). Same display-time family as the AoS ALR-boundary fix. A proper
+fix means deferring the room-contents expansion of queued Look output to the
+end-of-turn flush; risky corpus-wide, left for a dedicated pass.
+
+Also: the vanilla-mode FD diff on this walkthrough is 19 hunks = the 1 tray
+hunk + 18 pure-RNG OneOf picks (two spectre-appearance texts, two banish
+texts, dog-chase escalation lines) — which is why the game is golden-backed
+for the vanilla column.
+
+## ⭐ Xanix — Xixon Resurgence: blind-derived FULL MAX-SCORE WIN, MATCH 0|0 + a room-view ALR sealing fix — ✅ DONE (2026-07-05)
+
+Promoted from a 4-command smoke probe (which never even answered the intro O/B
+gate) to a real 370-command MAX-SCORE win: best ending (`Score >= 600` →
+`Endgame150`), 625 internal points in 369 turns, `test/Xanix_walkthrough.txt` +
+golden `test/Xanix_expected.txt`, **MATCH 0|0 in both RNG modes**.  The old
+"randomised endgame → xoshiro-only at best" fear was unfounded: the hybrid
+fight's only RNG is `cl_SurvivalRa = "RAND (1,100)"`, re-rolled by a repeating
+1-turn event that starts on reaching the carcass at `cl_Location1141`, and the
+axe attack kills iff the CURRENT value is `>= 30` (71% window) — attack on the
+FIRST turn after the KO and the variable still holds its INITIAL 0 (instant
+death, `cl_KillHybrid1`); attack on the SECOND turn and it holds the first
+draw, which passes under both vanilla System.Random and the xoshiro stream.
+No engine RNG work needed; the whole game only ever draws that one variable
+(plus 4 cosmetic `RAND(0,2)` draws).
+
+**Engine fix (general): seal the room view's ALR adjudication (`seal_alr_sites`,
+a5text.cpp).**  `view_location_impl` runs FD's Display-time ALR round over the
+assembled marked-up room view (this is faithful — FD Displays the whole view in
+one call and `ReplaceALRs` runs per Display, clsUserSession.vb:308).  But when
+a restriction-gated TextOverride's passing alternative renders IDENTICAL to its
+OldText — XXR's `cl_EenyMeenyA` maps "Eeny, Meeny and Mo are here" to itself
+until `cl_Eeny` is at `cl_Location113` AND `cl_EenyTiedHr = 1`, when it appends
+", the camels being tethered to the hitching rail" — the no-op replacement left
+the site eligible for the END-OF-TURN Display-boundary ALR pass
+(`a5text_display_alr`), which re-evaluated the override AFTER the turn's tasks
+had run.  On the final `ride in` to Siwa, `cl_BackInSiwa` (LocationTrigger)
+moves the camels to 113 and sets the tether flags mid-turn, so Scarier's
+arrival render grew the tether postfix that FD (which never revisits
+Display()ed text) correctly omits — a 1-hunk divergence in BOTH modes that the
+suite had mis-scored as vanilla-clean because the vanilla column strict-diffs
+the golden (no FD run) for golden-backed games.  Fix: after the view's ALR
+round, insert an `A5_ALR_MARK` sentinel after the first byte of every OldText
+occurrence still present in the view (`seal_alr_sites`) so the boundary strstr
+cannot re-match those adjudicated sites; the boundary still catches OldText
+spans assembled ACROSS separately-emitted fragments (no marks), and
+finish_turn strips the sentinels as before.  Full suite re-run: 32 MATCH +
+7 DIVERGE all exactly at baseline — no other game moved.
+
+Derivation notes (blind, from `test/a5dump` model XML + iterative
+`test/a5run_dump` probing — the Tingalan/MuseumHeist template):
+- Two playable characters (BECOME KELSON / BECOME ALARIC) with auto-switches;
+  Kelson does all the caravansery haggling, Alaric the city recce and both
+  kills.  MaxScore 600 of a 1015-point raw pool (many A/K-exclusive pairs).
+- Deaths derived against: red mist (shelter = basement + CLOSED trapdoor),
+  goddess-statue sabres (KNEEL, both directions), city guard crossings (run
+  only on the "pauses, looking at something below" phase of the 5-turn cycle,
+  = `cl_NotLooking`), NW/NE-tower ambushes while any Xixon lives, the hybrid
+  roll above.
+- The tin-key cast is the long puzzle: sweep workshop → x equipment → search
+  workshop (scuttle) → coal in box → stopper by kiln → light coal → flatten →
+  disc by kiln → press key → gloves/tongs → ingot in crucible → crucible in
+  kiln → pump bellows → mould on bench (hands ≤1 for the glowing crucible!) →
+  pour tin → fill trough → wait → take key → dunk key.  The key breaks in the
+  pyramid's bronze-door lock BY DESIGN (single-use).
+- `wave to kelson` / `run south` / `run north` are the timed crossings; the
+  turn counts in the script are tuned to the guard cycle — do NOT strip the
+  "wasted" probe commands (look/score/i) from the middle of the script without
+  re-timing those waits.
+
+## ⭐ LostCoastlines + Skybreak: two general engine fixes surfaced while smoke-wiring — ✅ DONE (2026-07-06)
+
+Both games were previously marked "NOT a walkthrough. Deprioritise" (no usable
+source material, procedural/RNG-heavy gameplay) but were still worth a 4-command
+smoke probe for MAP coverage. Neither `.taf` would even *load* going in.
+
+**Engine fix 1 (general, `a5model.cpp`, `a5model_load`): 5.0.20+ `.taf`/`.blorb`
+payloads embed a Babel `<ifindex>` metadata block before the obfuscated game
+payload.** The old code assumed the 4-byte hex field at payload offset 12 was
+always either `"0000"` (no block) or the true block length; newer files instead
+put a *literal* `"<ifindex"` tag at offset 16 when a block is present, per
+FrankenDrift's own loader (`FileIO.vb` ~790-820: `sSize = "0000" OrElse sCheck =
+"<ifindex"`). Fixed to detect either case and skip exactly `16 + hex(size)`
+bytes before the real payload starts. Both `Lost_Coastlines.taf` and
+`Skybreak.taf` use this newer container and failed to load at all before this
+fix (`a5run_dump: failed to load ...`); likely unlocks any other 5.0.20+-saved
+game hitting the same wall.
+
+**Engine fix 2 (general, `a5run_action.cpp` + `a5sexpr.cpp`/`.h`): a `Text`-type
+`SetVariable` whose value is a bare top-level function call (e.g. Skybreak's
+`UCASE(%text%)` on `Playername1`) was stored as the literal string
+`"UCASE(look)"` instead of being evaluated to `"LOOK"`.** The Text-SetVariable
+path only ever ran plain literal values through `a5text_process_nocap`
+(quote-stripping + no-cap formatting) — never through the expression evaluator,
+because most Text assignments genuinely are literal multi-word strings, not
+expressions. Fix: added `a5_bare_function_call()` (recognizes `name(...)`
+spanning the whole trimmed value, balanced parens, not e.g. `f(a) & g(b)`) and
+a public wrapper `a5sexpr_is_function()` (the real `is_function()` check lives
+in an anonymous namespace in `a5sexpr.cpp`, so it needed a file-scope wrapper to
+be callable from `a5run_action.cpp`). When a Text SetVariable's RHS passes both
+checks, it now runs through `a5text_eval_expression` (full `%ref%` substitution
++ evaluation) instead of the literal path — narrow enough that plain literal
+Text values (not valid standalone expressions) are unaffected.
+
+Both games wired as smoke probes only (`test/LostCoastlines_walkthrough.txt`,
+`test/Skybreak_walkthrough.txt` — `look` / `examine me` / `inventory` / `wait`),
+MAP rows `LostCoastlines|Lost_Coastlines.taf|1|1` and
+`Skybreak|Skybreak.taf|2|0`. No golden was blessed for either — like
+JacarandaJim/SixSilverBullets/StoneOfWisdom/LostLabyrinthOfLazaitch/October31st,
+their residual vanilla hunks are believed to be real System.Random-vs-xoshiro
+RNG-stream noise rather than engine bugs (Skybreak's 2 residual vanilla hunks —
+a quote-of-the-day pick and a starting silver-piece count — both vanish under
+xoshiro; LostCoastlines' 1-hunk-in-both-modes divergence is its randomised
+starting-outfit text, `%defaultshirt[Rand(1,10)]%`/`%defaultpants[...]%`, a
+genuine RNG-draw-order mismatch in this game's procedural character creation
+that wasn't root-caused further since no real walkthrough source exists to
+justify the investment). Full 40-game suite re-run clean: the other 38 games'
+MATCH/DIVERGE status and hunk counts are all unchanged.
+
+## ⭐ TheFortressOfFear: blind-derived FULL MAX-SCORE WIN 1500/1500 + two general engine fixes — ✅ DONE (2026-07-06)
+
+Final leg of the blind derivation (checkpoints 1-6 in the wiring TODO). The
+finale itself replayed almost exactly as planned from the task DB, but getting
+from Wladyslaw's corpse to the bell tower was IMPOSSIBLE before engine fix 1:
+
+**Engine fix 1 (general, `a5parse.cpp/.h` + `a5run.cpp`): wildcard command
+variants (`GetRegularExpression`).** FD converts a task command containing `*`
+into SEVERAL candidate regexes tried in order: first with ALL wildcards
+removed, then restoring them left-to-right, the original pattern last
+(`clsUserSession.vb:5535-5567`, "otherwise we may always end up matching the
+object name in *"). A matched variant whose object/character reference text
+names nothing falls through to the next variant (`InputMatchesObject` fail ->
+`DoesntMatch` -> next regex). Scarier built only ONE regex (wildcards intact),
+so for Task840 `[find/locate] %object% *` the lazy `(.+?)` + optional-wildcard
+split bound `find bell tower entrance` as %object%="bell" (the armourer's
+small bell!) + wild="tower entrance"; the specific override Task1420
+(Specific/Task840:Object573, the unseen Bell Tower door) then never matched,
+the generic find printed "cannot find it" — and since Task1417 teleports the
+player to Loc123 The Crossing whose ONLY exit is Task1420 itself, the game was
+unwinnable. Fixed with `a5parse_match_command_v(pattern, input, m, variant)`
+(FD variant order, `**`->`*` normalisation) + a variant loop in `scan_tasks`
+(advance on RR_NOMATCH/RR_NOREF, keep the FIRST NOREF variant's binding for
+the second-chance path, re-resolve it if no later variant lands) and the same
+loop in `run_remembered`/`rematch_resolve` (noref re-match sites).
+`a5parse_match_command` keeps its old single-pattern semantics (= last
+variant) for the conversation-keyword and verb-probe call sites. Corpus-wide
+regression: all 41 other games byte-identical to their baselines.
+
+**Engine fix 2 (general, `a5state.h` + `a5run_action.cpp`): 256-byte
+`ref_value` truncated big `%objects%` pipe-lists.** The per-turn reference
+binding table stored values in `char ref_value[16][256]`; a Fortress drop-all
+binds `ReferencedObjects` to a pipe-list of ~28 object keys (~280 chars), so
+snprintf truncated the tail key. Symptoms (all long-standing "ENGINE QA
+notes" mysteries, now root-caused): aggregate drop/get lists ending in
+garbage names — "…the large hammer and Objec", "…and O" (truncated literal
+"Object…" key echoed), or a WRONG object entirely ("…and the secret door",
+"…and the piece of paper": the truncated key prefix-resolved to another
+object) — plus items silently MISSING from the rendered list (keys cut off
+beyond 256). Fixed by `A5_REFVAL_LEN 2048` (both `a5_state_t.ref_value` and
+`a5run_action.cpp`'s `ref_snap` mirror). Killed 12 of the 45 FoF xoshiro
+hunks; no other game changed (their lists never crossed 256).
+
+**Wired 2026-07-06:** `test/TheFortressOfFear_walkthrough.txt` (2117 commands,
+`*** You have won ***` at turn 2115, displayed score 1500/1500 — the win-check
+only needs >=1200), golden `test/TheFortressOfFear_expected.txt`, MAP
+`TheFortressOfFear|TheFortressOfFear.blorb|0|38`.
+
+**The 38 remaining xoshiro hunks (pre-existing, catalogued for later):** most
+are echoes of ONE small score drift (Scarier +3 over FD by turn 1075, +5 by
+1765; FD catches up by the finale — both engines end at exactly 1500). Root
+classes, in transcript order:
+- "You talk to the ghost of the baker,telling him…" — Scarier joins the
+  `AppendToPreviousDescription` segment with no space; FD somehow renders a
+  SINGLE space at the `<>` join (NOT AddSpace's two — mechanism not yet found:
+  no ALR, no trailing space in the raw `<Text>`, headless EmitHtml drops `<>`
+  without spacing). Cosmetic, 1 hunk.
+- Metal pail still visible in Scarier's bakery description after the baker
+  bread chain; FD's is gone — likely the same NPC-chain state drift as the +3
+  score (first divergence class to bisect when picked up again).
+- Clockmaker convo: Scarier replays the first-time "ask about dials" reply
+  where FD gives the "already explained" repeat — conversation repeat-count
+  state.
+- `give hoe to herbalist`: Scarier matches the "hand the hoe" task, FD the
+  "show the hoe" variant (task-selection order under equal-ish priority).
+- Herbalist cage: Scarier lets the early henbane grab succeed where FD's
+  herbalist is still present and blocks it ("Get away from that cage!") —
+  herbalist-departure (Event5) timing divergence. The script still wins in
+  BOTH engines because the post-cannon grab succeeds in FD.
+- "You have fired the cannon once… The cannon isn't loaded yet!" — Scarier
+  appends a second failing-restriction sentence FD suppresses.
+- Endgame: FD emits one extra "Please give one of the answers above." for the
+  trailing `score` after the win prompt; Scarier stays silent.
+Still open from the WIP notes: Task2365 (falconer rat) never lands in
+inventory (the `ask custodian for rat` fallback works, so the win doesn't
+need it); Task956/954 both being +5-repeatable-flagged.

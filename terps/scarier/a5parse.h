@@ -49,6 +49,19 @@ extern int a5parse_match_command (const char *pattern, const char *input,
                                   a5_match_t *m);
 
 /*
+ * Wildcard-variant matching (clsUserSession.GetRegularExpression): a command
+ * containing '*' yields several candidate regexes, tried in order -- variant 0
+ * has ALL wildcards removed (so a %reference% consumes the whole tail), the
+ * last variant is the original command.  Returns -1 when `variant` is past the
+ * variant count, else 0/1 for regex match.  The caller advances to the next
+ * variant when a matched variant's object/character reference text names
+ * nothing (FD's InputMatchesObject failure -> DoesntMatch -> next regex).
+ * A command without wildcards has exactly one variant.
+ */
+extern int a5parse_match_command_v (const char *pattern, const char *input,
+                                    a5_match_t *m, int variant);
+
+/*
  * clsUserSession.CorrectCommand: bracket-normalise a command pattern before it
  * is matched.  Moves a literal space adjacent to an optional `{...}` group
  * *inside* it (so the space becomes optional) and wraps an optional alternation

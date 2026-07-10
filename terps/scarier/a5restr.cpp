@@ -1021,7 +1021,22 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
       char *rhs;
       int res;
       if (cur == NULL) cur = a5state_lookup_ref (st, "ReferencedText");
-      if (cur == NULL) cur = "";
+      if (cur == NULL)
+        {
+          /* FD reads the turn-global Adventure.sReferencedText slot
+             (clsUserSession.vb:4474), filled by every command-matched
+             candidate's %text% capture during the scan and defaulted to the
+             raw input after it (see a5_state_t.scan_text).  A task with no
+             %text% of its own -- AoK's s_SayHelloTo, restriction
+             `ReferencedText Must BeContain "hello"` -- tests that leakage,
+             not an unbound empty string. */
+          int slot = 0;
+          if (isdigit ((unsigned char) r->key1[14]))
+            slot = atoi (r->key1 + 14) - 1;
+          if (slot < 0) slot = 0;
+          if (slot > 4) slot = 4;
+          cur = st->scan_text[slot];
+        }
       rhs = restr_text_value (st, r->key2);
       res = str_compare_op (r->op, cur, rhs);
       free (rhs);

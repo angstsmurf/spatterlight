@@ -1,11 +1,34 @@
-# The Spectre of Castle Coris -- ground-truth walkthrough script (ADRIFT 5).
+# The Spectre of Castle Coris -- FULL WINNING walkthrough (ADRIFT 5).
 #
-# Source: Classic Adventures Solution Archive, http://solutionarchive.com
-#   "THE SPECTRE OF CASTLE CORIS", FSF Adventures / Larry Horsfield;
-#   solution by Terri Sheehan (2003-12-09).
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
-# NOTE: CASA solution is for the original release; the ADRIFT 5 remake is a
-# faithful port so most commands carry over. Best-effort differential script.
+# Wins with the MAXIMUM score: "...in 923 turns, scoring the maximum of 700
+# points!"  Verified against FrankenDrift (FD_RNG=xoshiro): 1 known hunk (see
+# the MAP comment in run_a5_walkthroughs.sh).
+#
+# Source: the game's own built-in WLKTHRGH solution (task "Walkthroug"),
+# extracted verbatim, then repaired against THIS build's map and mechanics:
+#   * castle-grounds route fixed ("w, ,sw, w, w, e, s" garble -> "nw, sw, w, s");
+#   * fishpond re-ordered (rod in hand BEFORE baiting: crumbs only hold the
+#     goldfish shoal for ~2 turns, and the catch requires Held.Count <= 1),
+#     plus "z" padding so the Spectre's timer fires BEFORE the bait window;
+#   * "dig manure" -> "dig manure with fork" (the bare verb stalls on ADRIFT's
+#     "DIG ... WITH what?" disambiguation and the stone ring is never found);
+#   * "ask about talisman" added at the pedlar (+2, the last 2 of 700 points);
+#   * the entire Spectre-banish cadence re-derived by the adaptive solver
+#     (test/spectre_prayer_solver.py): the Spectre is a repeating turn-based
+#     killer that roots your feet (movement is silently eaten!) and must be
+#     banished by "read prayer" WITH THE PRAYER BOOK IN HAND; the solver
+#     inserts "get book"/"read prayer" (restoring the previous held/bagged/
+#     dropped book state afterwards) at every materialisation.
+#
+# Entry gates worth knowing before editing this script (they cascade):
+#   * the Top of Steps bellpull only admits you to the castle when the FULL
+#     checklist is carried (held or in the bottomless bag): clothes peg, DEAD
+#     goldfish, sack of flour, lamp, dead rat, chain + steel hook (attached);
+#   * praying to Saint Cecilia needs the shrine trail (x vegetation at By
+#     Woodpile), the rubbed inscription, AND Zalazar dead;
+#   * two-handed actions (get wood, climb rope, fish, ...) auto-put-down the
+#     book -- a lethal window if the Spectre's timer fires, hence the scripted
+#     drop/get pairs.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/TheSpectreOfCastleCoris.blorb test/SpectreOfCastleCoris_walkthrough.txt
@@ -13,401 +36,925 @@
 # Intro page navigation: O = continue to options page, B = begin adventure.
 o
 b
-inventory
-examine money
+w
 n
-examine bakery
-examine boards
-move boards
-climb in bakery
-search counter
-examine sack
-examine flour
-climb out
 n
 w
-examine landlord
-examine patrons
-ask landlord
 buy ale
-ask landlord
-say blackmoon
-say yes
-buy ale
+greet bernie
+ask bernie for prayer book
 e
+put tankard on counter
+e
+ask about wares
+ask about remedies
+ask about spectre
+ask about talisman
+ask about linctus
+buy linctus
 s
 s
 w
 w
 n
 n
-examine altar
 search pulpit
-examine book
-read book
-pray
+search pews
+put hassock in bag
 s
 s
 e
 e
-s
-read sign
-s
-e
-examine will
-examine tools
-ask about bran
-ask about megan
-ask about castle
-say lend tools
-w
 n
+x boards
+read prayer
+move boards
+say prayer
+climb through hole
+get sack
+x counter
+look behind counter
+get bread
+put bread in bag
+climb through hole
 n
+read prayer
+n
+ne
+say prayer
+e
+x sacks
+fill sack with flour
+close sack
+put sack in bag
+u
+get knife
+cut rope with knife
+replace knife
+put rope in bag
+u
+x hoppers
+search hoppers
+get rat
+put rat in bag
+d
+d
+read prayer
+drink linctus
 w
+sw
+say prayer
+s
+read prayer
+s
+s
+w
+sw
+say prayer
+s
+x bars
+x bar
+pull bar
+put bar in bag
+search coals
+get hook
+x hook
+put hook in bag
+s
+read message
+n
+x forge
+x tools
+search tools
+get saw
+put saw in bag
+n
+ne
 w
 nw
-up
-n
-s
-sw
-examine wall closely
-remove bricks
+u
+x gates
+look under pot
+get key
+read prayer
+unlock gates
+nw
+nw
+x fountain
 ne
-down
+say prayer
+d
+x wheel
+clear weeds
+u
+ne
+d
+open gate
+u
+sw
+read prayer
+sw
+x bowl
+get medal
+se
+se
+d
+say prayer
 se
 e
 e
-s
-s
 e
-drop tools
+x cottage
+knock on door
+show medal
+say no to iain
+say yes to iain
+put crucifix in bag
 w
+w
+w
+nw
+u
+nw
+nw
+sw
+read prayer
+w
+s
+wait
+say prayer
+drop book
+get book
+read prayer
+drop book
+get wood
 n
 w
-examine bran
-ask bran
+fill hopper with wood
+put candlestick in bag
+e
+s
+get book
+read prayer
+n
+say prayer
+n
+x line
+get peg
+put peg in bag
+read prayer
+n
+say hello
+ask about knees
+get hassock
+give hassock
+ask about percy
 ask about spectre
-examine wares
-buy lantern
-e
-n
+ask about baron
+ask about baroness
+ask about coaches
+ask about key
+ask percy for key
+put key in bag
 w
-w
-n
-n
-light lantern
-down
-examine coffin
-read plaque
-up
-extinguish lantern
-s
-s
-nw
-up
-sw
-nw
-ne
-nw
-w
-w
-nw
-examine fountain
-examine mud
-ne
-examine ponds
-sw
-sw
-w
-w
-w
-examine agnes
-examine fireplace
+read prayer
+search bushes
+get stake
+put stake in bag
+say prayer
 e
 s
+w
+search implements
+say prayer
+get brush
+put brush in bag
+search objects
+get rod
+put rod in bag
+e
+s
+read prayer
+s
+x fence
 look over fence
-climb fence
-s
-examine shrine
+climb over fence
+d
+x shrine
 read inscription
+get dirt
+rub dirt in letters
+read inscription
+u
+climb over fence
 n
-climb fence
-take wood
-n
-w
-drop wood
-examine fire
-take wood
-make fire
 e
-n
-w
-search shelves
+e
+se
+se
+d
+se
+e
+read prayer
 e
 s
+w
+say hello to bran
+talk to bran
+ask bran about objects
+ask bran about lamps
+ask bran about megan
+ask bran about spectre
+ask bran about baron
+ask bran about baroness
+read prayer
+buy lamp
 e
-e
+n
+w
+read prayer
+w
+n
+n
+light lamp
+say prayer
+d
+x coffin
+search crypt
+x shrine
+read inscription
+u
+extinguish lamp
+put lamp in bag
+s
+s
+nw
+u
+nw
+nw
 ne
+ne
+z
+z
+read prayer
+z
+z
+drop book
+get rod
+get book
+read prayer
+drop book
+get bread
+break bread
+scatter crumbs on water
+fish
+x fish
+put fish in bag
+put rod in bag
+get book
+say prayer
+sw
+sw
+read prayer
 nw
-w
-nw
-up
-pull bellrope
-n
-examine weapons
-w
-e
-n
-take ladder
-examine ladder
-s
-w
-n
 look up
+get rope
+get bar
+tie rope to bar
+throw bar over crenelations
+read prayer
+wait
+say prayer
+put book in bag
+climb up rope
+climb into embrasure
+get lamp
+light lamp
+drop lamp
+get stake
+put stake in hole
+turn windlass
+pull lever
+get book
+read prayer
+put book in bag
+get stake
+put stake in bag
+get lamp
+get book
+read prayer
+put book in bag
+extinguish lamp
+put lamp in bag
+climb through embrasure
+climb down rope
+get book
+say prayer
 n
-s
-e
-drop ladder
-climb chimney
-light lantern
-search soot
-examine amulet
-read runes
-wear amulet
-down
-take ladder
+n
 w
-extinguish lantern
+x doors
+look through keyhole
+say prayer
+ne
+e
+open doors
+e
+search stalls
+get fork
+e
+open doors
+e
+n
+x goat
 s
-drop ladder
-climb ladder
-examine display
-examine swords
-examine cutlass closely
+dig manure with fork
+read prayer
+get ring
+put ring in bag
+drop fork
+read prayer
+w
+climb up ladder
+put book in bag
+get hay
+w
+get hay
+drop hay into courtyard
+jump d
+move hay
+get book
+sw
+w
+get key
+unlock doors
+say prayer
+read prayer
+drop key
+put book in bag
+open doors
+run ne
+run e
+run e
+run e
+climb up ladder
+get book
+w
+jump d
+read prayer
+close doors
+get stake
+bar doors with stake
+wait
+say prayer
+sw
+w
+w
+x man
+talk to man
+search kennels
+get saw
+read prayer
+saw chain off wall
+get chain
+get hook
+attach hook to chain
+put chain in bag
+e
+read prayer
+ne
+n
+u
+pull bellpull
+drop all
+e
+e
+e
+s
+get lamp
+light lamp
+drop lamp
+get ladder
+n
+w
+w
+w
+n
+prop ladder against wall
+climb u ladder
+x swords
+x cutlasses
+x baskets
 snap wire
-examine wire
-down
+climb d ladder
+s
 e
+e
+e
+s
+get lamp
+n
+extinguish lamp
+put lamp in bag
 e
 n
 n
+e
+s
+get rat
+get wire
 pick lock
+put wire in bag
+open door
+throw rat down stairs
 n
-w
-search kitchen
 e
+open door
+s
+talk to henri
+ask about spectre
+ask about sorcerer
+ask about baron
+ask about baroness
+ask about servants
+ask about bill
+ask about lynne
+ask about sharon
+ask about claude
+ask about bottles
+x bottles
+lift papers
+n
+w
+s
+get peg
+get lamp
+light lamp
+put peg on nose
+open door
+s
+d
+s
 e
-examine butler
-ask butler about xixon
-ask butler about horde
-down
+get brandy
+put brandy in bag
+n
+w
+u
+extinguish lamp
+put lamp in bag
+n
+close door
+remove peg
+put peg in bag
+n
 e
 s
-dig
-take bones
-examine bones
-w
-drop bones
+get brandy
+sing lullaby
+search desk
+get spill
+put spill in bag
+search henri
+search henri
+put keys in bag
+look under desk
+get newspaper
+put newspaper in bag
+n
 w
 n
-up
-give bottle
-hum lullaby
-search butler
+get lamp
+light lamp
+d
+search shadows
+e
+talk to bill
+tell bill about man in kennels
+w
+u
+extinguish lamp
+put lamp in bag
+s
+w
+s
+s
+w
+w
+w
 w
 n
-search shelves
-examine chalice
+get ladder
+n
+n
+w
+prop ladder under chimney
+climb u ladder
+get lamp
+light lamp
+search ledge
+search nest
+wear amulet
+extinguish lamp
+put lamp in bag
+climb d ladder
+e
 s
 s
 s
 w
 w
 w
+get west wing key
+unlock door
+put key in bag
+open door
 n
-examine bookcase
-find bible
-examine bible
-s
-w
-n
-examine books
-take grimoire
+get lamp
+light lamp
+x table
+read grimoire
+get spill
+light spill from lamp
+light candles
 read grimoire
 read chapter
-drop grimoire
+drop lamp
+get grimoire
+shake grimoire
+put grimoire on table
+get parchment
+read writing
+drop parchment
+get lamp
 s
+extinguish lamp
+put lamp in bag
 e
 e
 e
 n
-examine panelling
-sprinkle flour
+n
+look up
 s
-drop sack
-w
-up
+ne
+u
 n
 w
-w
-examine drainpipe
-e
-e
-e
-look around
-examine wall
-examine handle
+look behind curtain
 turn handle
-drop all
-jump on chandelier
-up
-examine dome
-examine ringbolt
-grab ringbolt
-jump e
-up
-up
-examine weathervane
-remove amulet
-hang amulet on weathervane
-down
-down
-climb drainpipe
+e
+n
+n
+w
+w
+s
+e
+climb onto chandelier
+climb up chain
+x hatch
+grab bar
+u
+remove arcanus
+hang arcanus on vane
+d
+d
+climb d drainpipe
+get chain
+hook chain around drainpipe
+climb d chain
+get wire
+pick lock
+open window
+e
+knock on door
+n
+e
+e
+s
+s
+look through keyhole
+get newspaper
+slide newspaper under door
+push wire into keyhole
+drop wire
+pull newspaper
+get guest key
+unlock door
+drop guest key
+open door
 e
 look under bed
-examine reliquary
-take reliquary
-e
-e
-take all
-wait
-wait
-drop all
-jump on chandelier
-up
-grab ringbolt
-jump e
-up
-up
-take arcanus
+talk to lynne
+ask lynne about job
+ask lynne about pantry
+ask lynne about pantry key
+ask lynne for pantry key
+tell lynne about bill
+w
+u
+unlock door
+open door
+n
+search shelves
+get fish
+feed cat with fish
+get cat
+s
+s
+w
+w
+unlock door
+drop pantry key
+open door
+s
+say cook food
+get tray
+n
+w
+s
+s
+nw
+u
+n
+n
+knock on door
+open door
+w
+talk to sharon
+ask sharon about work
+ask sharon about silver service
+ask sharon about heirlooms
+ask sharon about chalice
+ask sharon for silver store key
+put silver key in bag
+tell sharon about Lynne
+w
+u
+extinguish lamp
+put lamp in bag
+sheath sword
+s
+w
+w
+n
+w
+s
+s
+nw
+u
+n
+n
+w
+unlock windows
+open windows
+drop master bedroom key
+w
+climb up chain
+climb up drainpipe
+u
+u
+get arcanus
 wear arcanus
-down
-down
-climb drainpipe
+d
+d
+climb d drainpipe
+climb d chain
 e
-e
-e
-take all
-w
-w
-sleep
 e
 s
-down
-e
+s
+d
+d
+s
+x floor
+x footprints
+get sack
+sprinkle flour on floor
+drop sack
+w
+w
+w
 n
-examine flour
-examine panel
-push button
-e
-down
-call baron
-e
+nw
+u
 n
-push button
+n
+w
+get master key
+close door
+lock door with master key
+sleep
+unlock door with master key
+open door
+drop master key
+look under bed
+get box
+put box in bag
 e
-down
-examine woman
+s
+s
+d
+d
+s
+e
+e
+e
+s
+x floor
+feel scrollwork
+press leaf
+e
+d
+look around corner
+s
+e
+e
+e
+s
+press leaf
+e
+d
+extinguish lamp
+put lamp in bag
+s
+s
 untie woman
-up
+get woman
+n
+n
+u
 press button
 w
 s
+get cat
+w
+w
+n
+w
+s
+s
+s
+call baron
+get sword
+sheath sword
+search body
+read vellum
+wait
+e
+e
+e
 e
 n
 n
-e
-down
 e
 s
-take bones
+get peg
+put peg on nose
+get lamp
+light lamp
+open door
+s
+d
+s
+e
+say coris
+push middle end
+e
+x flagstones
+x edges
+w
+w
+open door
+n
+e
+get besom
+sweep rats into chamber
+drop besom
+n
+u
+n
+close door
+n
+n
+d
+e
+tell bill about baron
+get ring
+give ring to bill
+say to bill help me
+say to bill help me
+drop all
+get spade
+dig earth with spade
+drop spade
+get box
+get bones
+open reliquary
 put bones in reliquary
+get lamp
 w
 n
-up
 w
-s
-s
-w
-w
-s
-down
-se
+u
+n
+n
 e
-se
-ne
-fill chalice
+e
+get silver store key
+unlock door
+drop key
+open door
+e
+find chalice
+w
+w
+w
+w
+s
+s
+w
+w
+n
+x furnishings
+get candlestick
+s
+w
+w
+s
+d
+s
+s
+s
+s
+s
 sw
-pour water into fountain
-examine fountain
-examine mud
-search mud
-examine medal
-sw
-w
 w
 s
-climb fence
-s
-fill chalice
-drink water
-n
-climb fence
+climb over fence
+d
+pray to saint cecilia
+remember
+fill chalice from spring
+u
+climb over fence
 n
 e
 e
-ne
-se
-e
-e
-se
-sw
-se
-ne
-down
-se
+nw
 n
 n
-clean dust
-read inscription
-light lantern
-down
-take bones from reliquary
-put bones in coffin
-up
-extinguish lantern
-s
+n
+n
+u
+n
+w
+w
+get west wing key
+unlock door
+drop west wing key
+open door
+n
+find bible
+get bible
 s
 e
 e
-e
-knock
-show medal
-no
-yes
-examine crucifix
-w
-w
-w
+s
+d
+s
+s
+s
+s
+s
+se
+se
+d
+se
 n
 n
-light lantern
-put crucifix on altar
-pray
-pray to saint celia
-bless water
-down
-pour water on coffin
+get brush
+brush altar with brush
+drop brush
+get candlesticks
+replace candlesticks
+get crucifix
+replace crucifix
+put chalice on altar
+bless chalice
+get chalice
+d
+open coffin
+put reliquary in coffin
+close coffin
 bless coffin
-up
+x coffin
+u
 s
+s
+e
+e
+n
+n
+w
+tell everyone what happened

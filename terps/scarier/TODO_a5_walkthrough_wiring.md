@@ -119,11 +119,16 @@ columns, the real conformance metric, are clean). Changes since 2026-07-02:
   spurious "It is too dark…" override) — see the ⭐ Magor entry in
   `TODO_a5_walkthrough_bugs.md`.
 
-**Remaining backlog = upgrading the other 2 smoke probes to real wins**, both
-blocked on walkthrough material (per-game notes below): TheFortressOfFear
-(Horsfield but no built-in WLKTHRGH) and Xanix (email-only walkthrough → blind
-play-to-win; likely xoshiro-only, randomised endgame). Plus the two
-deprioritised non-walkthrough `.taf`s below (LostCoastlines, Skybreak).
+**Backlog CLEARED (2026-07-06).** Xanix WON 2026-07-05, and the last holdout
+**TheFortressOfFear** is now a blind-derived FULL MAX-SCORE WIN 1500/1500
+(see the ⭐ TheFortressOfFear entry below; golden-backed, 0\|38 at baseline —
+the 38 xoshiro hunks are pre-existing NPC-timing/convo/score-drift classes
+catalogued in `TODO_a5_walkthrough_bugs.md`). Every game with any usable
+walkthrough source is now wired as a real win or conformance MATCH.
+LostCoastlines and Skybreak are smoke-wired into the MAP (2026-07-06,
+DIVERGE-at-baseline, see below) but stay smoke probes permanently — no usable
+walkthrough source exists for either and both are RNG-heavy enough that a real
+win wouldn't byte-align to FrankenDrift anyway.
 
 ## Ready to wire (script + game file already staged — just needs a MAP line)
 
@@ -153,7 +158,7 @@ timed-event `y`). No external walkthrough needed. **Native-solution audit
 | TheEuripidesEnigma | WLKTHRGH | ✅ **WIRED + FIXED 2026-07-02** (11\|11 → **0\|0 MATCH**, golden) — full 400-pt win; the `4` desync was just a downstream artefact of ONE spurious `hit fork on face` (see below) |
 | FinnsBigAdventure (FBA v.3c) | ❌ **vestigial WT** | **NO built-in walkthrough (verified 2026-07-02)** — email-only. ✅ **Blind play paid off: WIRED 2026-07-03 at MAX SCORE 500/500 (0\|0, golden)**; see the hints-only group below + `TODO_fba_walkthrough_progress.md` |
 | MagorInvestigates | none (email-only) | ✅ **BLIND-DERIVED FULL WIN 0\|0 (2026-07-03)** from the `a5dump` model — golden, +1 engine fix (see ⭐ Magor in the bugs TODO) |
-| XanixXixonResurgence | none | only the email-on-request note. **Smoke probe wired 0\|0 (2026-07-03)**; win still open (randomised endgame, likely xoshiro-only) |
+| XanixXixonResurgence | none | ✅ **BLIND-DERIVED FULL MAX-SCORE WIN 600+/600 (2026-07-05), MATCH 0\|0 both modes** — 370-command run; the "randomised endgame" is one `RAND(1,100)>=30` survival roll per turn (attack the hybrid on the 2nd turn after the KO); +1 engine fix (room-view ALR sealing, see ⭐ Xanix in the bugs TODO) |
 
 Caveat: the built-in text was authored against a slightly earlier build, so some
 moves get absorbed by this build's scripted cut-scenes and must be corrected
@@ -325,18 +330,29 @@ pass-text dedup, map-path DisplayOnce retire).
   (RNG-independent endgame-banner bugs: `%Turns%` not substituted +
   leading-cap URL mangling) were fixed same day — see the ⭐ Shaman entry in
   `TODO_a5_walkthrough_bugs.md`.
-- ❌ **LostCoastlines** → `Lost_Coastlines.taf` — **NOT a walkthrough.** The
-  `walkthroughs/LostCoastlines_walkthrough.pdf` (8.6 MB) is an image-only PDF
-  containing a hand-drawn **nautical map feelie** (green coastlines + blue
-  sailing-route dashes, plus decorative bordered blank pages) — no text layer, no
-  commands. And Lost Coastlines is a procedural/random sailing-exploration game
-  that could not byte-align to FrankenDrift anyway. Would need a real walkthrough
-  (none found: not on CASA, not public) *and* xoshiro-only comparison. Deprioritise.
-- ❌ **Skybreak** → `Skybreak.taf` — **NOT a walkthrough.** The
-  `walkthroughs/Skybreak_walkthrough.pdf` (16 pp) is the in-game **manual/lore**
-  (cosmography, skill list, combat formulae), not a command sequence. Skybreak is
-  a class-based RPG with randomised combat and multiple win conditions — hard to
-  wire deterministically even with a real walkthrough (none found).
+- ~~**LostCoastlines**~~ ✅ **SMOKE-WIRED (2026-07-06), DIVERGE 1|1 (at
+  baseline).** No real walkthrough exists (`walkthroughs/LostCoastlines_walkthrough.pdf`,
+  8.6 MB, is an image-only hand-drawn nautical map feelie — no text layer, no
+  commands) and Lost Coastlines is a procedural/random sailing-exploration game
+  that can't byte-align to FrankenDrift anyway, so this stays a 4-command smoke
+  probe (`test/LostCoastlines_walkthrough.txt`), not a real win. Getting the
+  `.taf` to load at all surfaced a general engine fix — see the ⭐
+  LostCoastlines/Skybreak entry in `TODO_a5_walkthrough_bugs.md`. The 1 residual
+  hunk in both RNG modes is believed to be a genuine RNG-draw-order mismatch in
+  the randomised starting-outfit text (`%defaultshirt[Rand(1,10)]%`), not
+  root-caused further — no golden blessed (same class as JacarandaJim/
+  SixSilverBullets/StoneOfWisdom/LostLabyrinthOfLazaitch/October31st).
+- ~~**Skybreak**~~ ✅ **SMOKE-WIRED (2026-07-06), DIVERGE 2|0 (at baseline).**
+  No real walkthrough exists (`walkthroughs/Skybreak_walkthrough.pdf`, 16 pp, is
+  the in-game manual/lore, not a command sequence) and Skybreak is a class-based
+  RPG with randomised combat and multiple win conditions, so this stays a
+  4-command smoke probe (`test/Skybreak_walkthrough.txt`). Surfaced a real
+  engine bug along the way — a bare-function-call Text `SetVariable`
+  (`UCASE(%text%)`) was stored as the literal string instead of being evaluated
+  — fixed generally, see the ⭐ LostCoastlines/Skybreak entry in
+  `TODO_a5_walkthrough_bugs.md`. The 2 residual vanilla hunks (a quote-of-the-day
+  pick + a starting silver-piece count) both vanish under xoshiro, confirming
+  System.Random-vs-xoshiro noise, not a bug — no golden blessed.
 
 ## Have hints only (not a full walkthrough) — treat with the StoneOfWisdom caution
 
@@ -395,9 +411,32 @@ gives a real solution to correct against FD, no blind play needed.
   so v1–v3 aren't hosted anywhere. Only route to a walkthrough is emailing the
   author (in-game `HELP` gives the address). Even then, weak candidate: the endgame
   giant-hybrid fight is **randomised** ("keep hitting it with the axe") → won't
-  vanilla-align; xoshiro-only at best. **Smoke probe wired 0|0 (2026-07-03,
+  vanilla-align; xoshiro-only at best. ~~**Smoke probe wired 0|0 (2026-07-03,
   MAP name `Xanix`) — opening-turn conformance covered; the win is the open
-  item.**
+  item.**~~
+  **UPDATE 2026-07-05: BLIND-DERIVED FULL MAX-SCORE WIN, MATCH 0|0 in BOTH RNG
+  modes** (the "won't vanilla-align" fear was wrong: the fight is ONE
+  `cl_SurvivalRa = RAND(1,100)` roll per turn, checked `>=30` by the axe attack
+  — a 71% window that both vanilla System.Random and xoshiro happen to pass on
+  the same turn).  370-command run, best ending (`Score >= 600` → Endgame150),
+  625 internal points at turn 369.  Route highlights: caravansery outfitting
+  (camels/equipment/clothes/provisions, character-swap haggling as Kelson) →
+  sceptre + map from the wall bodies → red-mist shelter in the basement
+  (clear mudbricks → trapdoor → CLOSE it) → madman's key → tinsmith key-cast
+  (sweep/equipment/scuttle/coal + wax stopper→disc→impression→molten tin→
+  trough) → outcrop cave glowing marks (the two death-trap hints) → Erwin
+  caravan Q&A → jaguar path for the dead bird → feed the stairway snake →
+  golden queen in the vegetation, silver knight in the magpie nest (tree via
+  LEAVE KELSON, branch breaks onto level 3) → statue gauntlet (KNEEL, lever,
+  cut ropes, leap-of-faith chasm) → tomb chess ghosts (magic arbalest+quiver)
+  → native capture (break bed, rub rope, SHOUT, GET SCEPTRE) → city recce
+  (8 spots, guard-cycle timed runs) → two-gate assault (arbalest ×2 E, longbow
+  W) → hide bodies → dark-room conference → poison the fountain (crawl while
+  the officer is inside) → prison keys → 4 jail questions auto-release →
+  hybrid: attack with axe EXACTLY 2 turns after the KO (first survival roll
+  lands then) → teeth trophy → native village heals Kelson → camels → Siwa
+  sell-back → horses → ride North.  Golden `test/Xanix_expected.txt`; +1
+  engine fix (⭐ Xanix room-view ALR sealing in `TODO_a5_walkthrough_bugs.md`).
 
 ## No walkthrough material at all yet — now smoke-probed; real wins still open
 
@@ -415,12 +454,60 @@ way (later 2026-07-03) to a blind-derived PERFECT-SCORE 940M run (36 commands,
 the whole derivation ran off `a5dump`'s model XML + iterative `a5run_dump`
 probing, no `A5_DUMP_VARS` needed). **Halloween followed (2026-07-03 evening):
 blind-derived FULL WIN 0|0, 2 engine fixes — see the ⭐ Halloween entry in
-`TODO_a5_walkthrough_bugs.md`.** The other two (October31st,
-TheFortressOfFear) still carry 4-command opening-turn **smoke probes**
-(look / examine me / inventory / wait) — finding/writing a real solution for
-them (and for Magor/Xanix above) is the remaining backlog. Tingalan's,
-MuseumHeist's and Halloween's derivations are the template for blind-deriving
-the rest.
+`TODO_a5_walkthrough_bugs.md`.** October31st was later upgraded too (see
+above). **TheFortressOfFear** was the last of the five, upgraded 2026-07-06
+from the 4-command smoke probe to a blind-derived FULL MAX-SCORE WIN
+1500/1500 (see the ⭐ TheFortressOfFear entry below) — the backlog is clear.
+
+### ⭐ TheFortressOfFear — ✅ WON 2026-07-06: blind-derived FULL MAX-SCORE WIN 1500/1500, golden-backed (0\|38 at baseline)
+
+No built-in `WLKTHRGH`/`WALKTHROUGH` and no external walkthrough exists (Horsfield
+sends these by email only, per the ⭐ section above; none turned up for this
+title). Blind-derived the same way as Tingalan/MuseumHeist/Halloween/Magor/
+Xanix: BFS shortest-path routing over the `a5dump` map graph
+(`test/route.py`, fed from a `map.tsv` scrape) plus a location-tracking replay
+annotator (`test/annotate.py`) to keep the running script honest turn-by-turn,
+driven via `test/run.sh` (`a5run_dump` against `test/adrift5-games/TheFortressOfFear.blorb`).
+
+Score is shown `/1500` in-game but the real win check (`s_Endgame120`,
+task `EndGame1200`) only requires `Score >= 1200` at the bell ropes; the final
+script lands the FULL 1500 anyway (`*** You have won ***`, 2115 turns,
+`test/TheFortressOfFear_walkthrough.txt`, golden
+`test/TheFortressOfFear_expected.txt`). Finale route from checkpoint 6
+(bridge 263, 1384 pts): courtyard ambush auto-shelters you at the well →
+load shield+lantern into the bucket (calfskin into the worn scrip — the
+bucket refuses non-Property15 "would get wet" items), lower bucket, climb
+down empty-handed → lantern-in-bucket reveals the well door → tunnel →
+dusty cellar (mirror on shelves) → cellar 117/118 (see candle light +
+retrieve the sword/henbane pushed through the crack) → `x aisles` at 297
+*is* the Var223 gate for the 297→298 route → glue pot @298, glue mirror to
+shield, clean it with the calfskin held (Var246) → larder: `search larder`
+(Var236 "food eaten" — REQUIRED by the guard WinFight!) + `throw henbane
+into cauldron`, wait 3 turns at 299 for Grub's Up → kitchen (touch NOTHING)
+→ corridor 301: ONE-turn window, `creep up on guard` (needs chainmail WORN
++ shield HELD + short sword HELD + Var236, else scripted death) → swap to
+the guard's dagger+longsword, drop the short sword (holding both swords or
+neither at the Event20 6-turn check = death) → 303 mercs talk, `follow other
+mercenaries` (3-turn window) → 304 `throw dagger at tall mercenary` (needs
+longsword held, short sword NOT) → 305 open doors, drop all, keep ONLY the
+shield → 120 Wladyslaw auto-showdown (clean mirror on held shield,
+Held.Count==1) → teleported to 123 The Crossing, whose ONLY exit is
+`find bell tower entrance` (Task1420; also the +5 that replaces the
+tapestry variant — same Var250) → open bell tower door → `run up stairs` →
+`wedge door with chair` within 1 turn (Event24) → drop shield →
+`pull bell ropes` (+10, win) within 4 turns of the wedge (Event25).
+
+The finale surfaced TWO general engine bugs, both fixed (see the ⭐
+TheFortressOfFear entry in `TODO_a5_walkthrough_bugs.md`): (1) wildcard
+command variants — FD's `GetRegularExpression` tries `%object% *` with the
+wildcard REMOVED first, so `find bell tower entrance` binds the whole
+phrase to the unseen Bell Tower door instead of lazily splitting at "bell";
+without it Task1420 never fires and Loc123 is an unwinnable dead end;
+(2) the 256-byte `ref_value` binding buffer truncated big drop-all/get-all
+`ReferencedObjects` pipe-lists ("…the large hammer and Objec"/"and O"/
+phantom "the secret door", items silently missing from aggregate lists).
+The remaining 38 xoshiro hunks are catalogued there too (NPC-timing /
+convo-repeat / +3-score-drift classes, all pre-existing).
 All six were re-checked 2026-07-03 for hidden built-in walkthrough tasks
 (`a5dump | grep -i 'walkthrou\|wlkthrgh'`): none — Magor/Xanix only carry the
 email-the-author blurb.

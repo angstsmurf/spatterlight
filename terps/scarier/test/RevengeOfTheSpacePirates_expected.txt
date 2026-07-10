@@ -38,20 +38,8 @@ ABOUT : BUGS : COMMANDS : CREDITS : HELP : INTRO : MACROS : MAP : VOCAB;
 Darisopolis Shuttle Port
 You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
 
-> inventory
-You are wearing a coverall, and are carrying nothing.
-
-> examine lighter
-You will have to take the cigarette lighter out of whatever it is in if you want to do that.
-
-> examine id
-You will have to take the ID pass out of whatever it is in if you want to do that.
-
-> examine documents
-You will have to take the travel documents out of whatever it is in if you want to do that.
-
-> examine card
-You will have to take the credit card out of whatever it is in if you want to do that.
+> take all from pockets
+Ok, you take the ID pass, the cigarette lighter, the credit card, the travel documents and the CV out of your pockets.
 
 > w
 You move West.
@@ -60,9 +48,6 @@ Middle of Customs Hall
 You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
 
 Please have your ID and Travel Documents ready for inspection.
-
-> look around
-You look around at your surroundings but see nothing of special interest or use.
 
 > examine official
 The customs official is sitting at the customs desk, checking traveller's documents. You recognise him! He was a fellow student at the Survey & Exploration Corps Academy and he will surely recognise you if he spots you.
@@ -84,1711 +69,2632 @@ You're in the middle of the customs hall. There is a queue of people leading to 
 
 Please have your ID and Travel Documents ready for inspection.
 
-> examine official
-The customs official is sitting at the customs desk, checking traveller's documents. You do not know this official and he will not know your true identity.
-
 > w
 You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
 
 By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.  You approach the customs desk with your ID and travels documents ready.
 
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+The customs official checks your ID and travel documents carefully.
 
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+"Have a nice stay on Daris," he says insincerely and, thanking him, you leave the customs building, where you join the queue at the bus stand.
 
-> show id
-You will have to take the ID pass out of whatever it is in first.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> show documents
-You will have to take the travel documents out of whatever it is in first.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> w
-You must be carrying your ID card if you want to get through customs.
+By Bus Stand
+You're standing outside the shuttle port building by the bus stand, where a queue of people are waiting for a bus. Other recently landed people are hailing taxi's and still more are arriving by taxi. A tarmac road winds West to Darisopolis city, which you can see on the horizon.
 
 > wait
-You wait around for a couple of minutes.
+You wait patiently for a bus.
+
+Just as you are about to give up and start walking, not one but two buses arrive! You board the first one and pay the flat rate fare of 2 credits. The bus then drives into the city, where you alight in the main street.....
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes West and a narrower street leads North.
+
+As you look around at where the bus has dropped you in the main street of Darisopolis, you think to yourself that you must find somewhere to stay, buy something to help you find your way around, and find a way to infiltrate Fogg's Gym.
 
 > w
-You must be carrying your ID card if you want to get through customs.
+You move West.
 
-> look around
-You look around at your surroundings but see nothing of special interest or use.
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
 
 > w
-You must be carrying your ID card if you want to get through customs.
+You move West.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
 
 > n
-There is no route to the north, only east and west.
+You move North.
+
+Hotel Foyer
+You're in the foyer of the hotel, which is called "Emico's B&B", A tariff giving room prices is on the wall by the reception desk, behind which sits the manager. Opposite the desk is a leather sofa. A flight of stairs leads Up to the rooms and the street is South.
+
+As you walk up to the hotel reception desk, the manager looks up and sees you. You notice that he wears a name badge that states that his name is Emico Quang.
+
+"Hi there, can I help you," he asks pleasantly.
+
+> ask for room
+You introduce yourself as Marc Kolt from Earth and ask the manager for a single room. He says he has one for 10 credits a night. You say that is OK and asks you for ID. You hand him your ID pass and he writes your name and address in the register. Then he hands you a pen and invites you to sign the register.
 
 > sign register
-Sorry, I didn't understand that command.
+You sign the name "Marc Kolt" in the register with your left hand to disguise the writing. You give your credit card to the manager who puts it into the card reader and invites you to key in the pin number. This you do and you take the card out of the reader. The manager hands you your room key and bids you a pleasant stay. You are about to move away carrying the pen but the manager says "Ah-hem!" to remind you and you hand it back to him with a sheepish smile.
 
-> examine window
-You can't see any windows!
+> read tariff
+The tariff reads:
 
-> examine bed
-You can't see any beds!
+HOTEL TARIFF
 
-> sleep
-You aren't feeling tired at the moment.
+Single Room: 10 Credits per Night
+
+Double Room: 25 Credits per Night
+
+Discount for Full Week
+
+Paid In Advance
+
+> down
+There is no route to the down, only south and up.
 
 > s
-There is no route to the south, only east and west.
+You move South.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
 
 > e
 You move East.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
 
 > s
-There is no route to the south, only north, east and west.
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
 > s
-There is no route to the south, only north, east and west.
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
 
 > w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+You move West.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+The Newsagents Shop
+You're in the newsagents, which sells newspapers, confectionery and, among other items, maps. The exit is East.
 
 > buy map
-Sorry, I'm not sure which object you are trying to buy.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+You buy a street map of Darisopolis for 3 credits.
 
 > e
 You move East.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
 
-Please have your ID and Travel Documents ready for inspection.
+> n
+You move North.
 
-The customs official loses patient with you!
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+> e
+You move East.
 
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+Job Centre
+You're in the job centre. There are boards here with jobs advertised on them and a clerk sits at a desk to the South. The exit is East.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+> read jobs
+You read through the job vacancies but nothing seems to be applicable to your skills.
 
-Please have your ID and Travel Documents ready for inspection.
+Then one particular job leaps out at you:
+
+TEMPORARY PERSONAL TRAINER REQUIRED
+
+Fogg's Gym in Hort Street, Darisopolis requires a temporary personal trainer for our exclusive gym, to cover for illness. At least 1 week's work, 8 hours per day, 50 credits per day. Note: PE Kit Required!
+
+Job Number 7135
+
+> s
+You move South.
+
+By Desk In Job Centre
+You are standing in front of a desk at the south end of the job centre. Behind the desk sits a clerk.
+
+> tell clerk about job 7135
+You say the job number 7135 to the clerk and she looks the job up on her computer.
+
+"You certainly look fit enough to do that job," she says to you with a twinkle in her eye.
+
+She prints out an introduction slip on her printer and hands it to you.
+
+"Hand this to the manager of the gym," she tells you. "He might want to see your CV as well, but I think a man of your physique would be perfect for the job!" she says to you with a wink.
+
+You thank the clerk with a smile and a wink and leave the job centre.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
 > find hort street
-Sorry, I'm not sure which object you are trying to find.
-
-> n
-You move North.
-
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
-
-> n
-There is no route to the north, only south.
-
-> e
-There is no route to the east, only south.
-
-> n
-There is no route to the north, only south.
-
-> w
-There is no route to the west, only south.
-
-> examine notice
-You can't see the notice.
-
-> up
-There is no route to the up, only south.
-
-> e
-There is no route to the east, only south.
+You open the map and look for Hort Street. You quickly find it and see that you get there by going north from the east end of the main street. You memorise the route so you won't need the map to find it again.
 
 > s
 You move South.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
 
 > s
-There is no route to the south, only east and west.
+You move South.
 
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> w
-You must be carrying your ID card if you want to get through customs.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> examine jobs
-You see no such thing.
-
-> clerk "job 7135"
-I did not understand the word ""job".
-
-> examine slip
-You see no such thing.
-
-> e
-You move East.
-
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
-
-> s
-There is no route to the south, only west.
-
-> s
-There is no route to the south, only west.
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  Standing here is a rather large security guard.
 
 > w
 You move West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Sportswear Shop
+You're in the sportswear shop, which sells all kinds of sporting clothes and equipment. The exit is East.
 
 > buy pe kit
-Sorry, I'm not sure which object you are trying to buy.
+You purchase a PE kit for 20 credits.
 
 > e
 You move East.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
-
-> n
-There is no route to the north, only west.
-
-> n
-There is no route to the north, only west.
-
-> n
-There is no route to the north, only west.
-
-> e
-There is no route to the east, only west.
-
-> n
-There is no route to the north, only west.
-
-> w
-You move West.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> give slip
-There's nobody here to give anything to!
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  Standing here is a rather large security guard.
 
 > n
 You move North.
 
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
+
+> n
+You move North.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
+
+> n
+You move North.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> e
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes West and a narrower street leads North.
+
+> n
+You head north from the main street, following the route you memorised from the street map, until you reach Hort Street.
+
+Hort Street
+You're in Hort Street, which runs North and South. On the west side you see the entrance to Fogg's Gym.
+
+> w
+You move West.
+
+Gym Reception
+You're in the gym reception where the manager sits behind the desk. The street is East and the gym itself is Upstairs.
+
+As you enter the gym, the manager looks up from what he is doing and looks at you expectantly.
+
+> give slip to manager
+You hand the introduction slip to the manager.
+
+He reads it and gives you a visual appraisal.
+
+"Well, you certainly look fit enough!" he says to you. "But have you any experience at the job? Can I please see your CV?"
+
+> show cv to manager
+You show your CV to the gym manager, who takes it from you.
+
+He reads through it then hands it back to you.
+
+"Mmmm, pretty impressive!" he says to you. "OK, the job is yours. 50 credits a day, I'll probably need you for a week, but it might be less if Mike is OK to return to work after his injury. You can start right away, his classes are being covered by Rudy. Go upstairs, get changed and report to him."
+
+You thank the manager and do as he has instructed. You spend the rest of the day taking Mike's lessons and at the end of the day you find yourself alone in the changing room.
+
+Changing Room
+You're in the changing room standing in front of the locker you have had assigned to you. The room is very clean but smells faintly of sweat and old socks. The gym is East and showers West through a short passage.
+
+> open locker
+You open the locker.
+
+> take all from locker
+Ok, you take everything out of the locker.
+
+> remove kit
+Ok, you remove the PE Kit.
+
+> put kit in locker
+Ok, you put the PE Kit into the locker.
+
+> wear coverall
+Ok, you put on the coverall.
+
+> close locker
+You close the locker.
+
+> e
+You move East.
+
+Main Gymnasium
+You're in the main gym area, which is equipped with all kinds of exercise machines for keeping fit and building muscles. The male changing room is West, the female changing room is South and the corridor East.
+
+> e
+You move East.
+
+Corridor
+A corridor that leads West to the main gymnasium. The gym reception is Down the stairs and there is a storeroom to the North.
+
+> down
+You move Down.
+
+You go down the stairs, out of the gym and walk back to your hotel, where you go straight to your room.
+
+Hotel Room
+You're in your hotel room. It is simply but neatly furnished and there is a window opposite the bed. The door leads West.
+
+> sleep
+You fall into a deep sleep, exhausted by your training sessions during the day, and wake up next morning, which is Tuesday.
+
+> w
+You unlock the door with your key, open the door then leave your room, shutting and locking the door after you.
+
+Landing
+You are on the landing of the hotel outside your room, number 1, which is to the East. A corridor leads north to the other rooms on this landing while stairs lead Up to other floors of the hotel and Down to the foyer.
+
+> d
+You walk down the stairs to the hotel foyer and straight out to the street.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
+
+> e
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> e
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes West and a narrower street leads North.
+
+> n
+You move North.
+
+Hort Street
+You're in Hort Street, which runs North and South. On the west side you see the entrance to Fogg's Gym.
+
+> w
+You move West.
+
+The manager stops you as you walk into the gym reception.
+
+"We'll only need you this morning, you can take the afternoon off," he tells you. "Don't worry, I'll pay you for the whole day!"
+
+You go upstairs to take your classes. Afterwards, you are in the changing room about to have a shower.....
+
+Changing Room
+You're in the changing room standing in front of the locker you have had assigned to you. The room is very clean but smells faintly of sweat and old socks. The gym is East and showers West through a short passage.
+
+A small group of tough-looking men enter the changing room after pumping iron in the gym. They strip off and head for the showers.
+
+> w
+You move West.
+
+After a short period of time, you follow the men into the showers.
+
+In Showers
+You're in the showers. Not much to see in here except white tiles and shower heads. The changing room is East through a short passage.  The room is full of steam from the three men showering at the far end. You cannot see them but you know they are there.
+
+> stand under shower
+You stand under the shower head and water starts to spray out of the head onto you.
+
+In Showers
+You're in the showers. Not much to see in here except white tiles and shower heads. The changing room is East through a short passage.  The room is full of steam from the three men showering at the far end. You cannot see them but you know they are there.
+
+> listen
+You hear the men talking and move slightly nearer so that you can hear them over the noise of the showers.
+
+One of them says, "They've tightened security around Waystar since the Psian mission, and they're changing the password. I'm meeting Jarok in Picard Park this afternoon and he will tell me what it is."
+
+You move away again after hearing this interesting information.
+
+A short time later the men finish their shower and leave the shower room. You wait until they have had time to dress and leave before venturing back to the changing room yourself to dress.
+
+Changing Room
+You're in the changing room standing in front of the locker you have had assigned to you. The room is very clean but smells faintly of sweat and old socks. The gym is East and showers West through a short passage.
+
+> take all from locker
+Ok, you take everything out of the locker.
+
+> close locker
+You close the locker.
+
+> e
+You move East.
+
+Main Gymnasium
+You're in the main gym area, which is equipped with all kinds of exercise machines for keeping fit and building muscles. The male changing room is West, the female changing room is South and the corridor East.
+
+> e
+You move East.
+
+Corridor
+A corridor that leads West to the main gymnasium. The gym reception is Down the stairs and there is a storeroom to the North.
+
+> open storeroom door
+You open the storeroom door.
+
+> n
+You move North.
+
+Gym Storeroom
+You're in a storeroom. The musty smelling room is full of spare equipment. The door leads South.
 
 > search equipment
-You can't see any equipments!
+You search through the equipment and find an old exercise mat.
 
-> take mat
-You can't see any mats!
+> close storeroom door
+You close the storeroom door...
 
-> examine mat
-You can't see any mats!
+...and reveal a cardboard box that was lurking behind it.
+
+Gym Storeroom
+You're in a storeroom. The musty smelling room is full of spare equipment. The door leads South.  Also here is a cardboard box.
+
+> search box
+You search through the lost property in the cardboard box and find an old hat, which you take out.
+
+> open storeroom door
+You open the storeroom door.
 
 > s
 You move South.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Corridor
+A corridor that leads West to the main gymnasium. The gym reception is Down the stairs and there is a storeroom to the North.
 
 > down
-There is no route to the down, only north, east and west.
+You move Down.
 
-> e
-You move East.
+You go down the stairs and out of the gym to Hort Street.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+Hort Street
+You're in Hort Street, which runs North and South. On the west side you see the entrance to Fogg's Gym.
 
 > s
-There is no route to the south, only west.
+You move South.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes West and a narrower street leads North.
 
 > w
 You move West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> n
-There is no route to the north, only east and west.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> sleep
-You aren't feeling tired at the moment.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
 
 > s
-There is no route to the south, only north, east and west.
+You move South.
 
-> e
-You move East.
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+> s
+You move South.
 
-> e
-There is no route to the east, only west.
-
-> n
-There is no route to the north, only west.
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
 
 > w
 You move West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+The Newsagents Shop
+You're in the newsagents, which sells newspapers, confectionery and, among other items, maps. The exit is East.
 
-Please have your ID and Travel Documents ready for inspection.
+> x items
+Amongst the other items for sale you see some sunglasses.
 
-> remove clothes
-You are not wearing the sportswear.
+> buy sunglasses
+You buy a pair of sunglasses for 5 credits.
 
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+> find picard park
+You open the map and look for Picard Park. You quickly find it and see that you get there by going west from the west end of the main street. You memorise the route so you won't need the map to find it again.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+> e
+You move East.
 
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> listen
-You hear nothing out of the ordinary.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> wear clothes
-Sorry, I'm not sure which object you're referring to.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
 
 > n
 You move North.
 
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
-> down
-There is no route to the down, only south.
+> n
+You move North.
 
-> e
-There is no route to the east, only south.
-
-> find park
-Sorry, I'm not sure which object you are trying to find.
-
-> s
-You move South.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
 
 > w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+You move West.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
 
 > w
-You must be carrying your ID card if you want to get through customs.
+You move West.
 
-The official is getting a bit impatient with you.
+You follow the route indicated by the street map to Picard Park.
 
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+Picard Park
+You're in Picard park, near the east entrance. The park is a pleasant place where families play and workers enjoy their lunch breaks. The exit is east and next to the path here you see a bench. The park extends in all other directions.
 
-> w
-You must be carrying your ID card if you want to get through customs.
+> wear hat
+Ok, you put on the wide-brimmed hat.
 
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> examine bench
-You can't see any benches!
+> wear sunglasses
+Ok, you put on the sunglasses.
 
 > sit on bench
-You can't see any benches!
+Ok, you sit down on the park bench.
+
+On Bench In Park
+You're sitting on a bench in the park. Families and workers enjoy the peace and quiet around you.
 
 > wait
-You wait around for a couple of minutes.
+You sit on the bench and wait, looking around at the people enjoying themselves in the park.
+
+After about 10 minutes, a man approaches the bench and sits down at the far end. Then you see the man from the gym approach the bench. He looks around nervously and casts an eye over you, but does not recognise you under your disguise. He sits down next to the other man.
+
+On Bench In Park
+You're sitting on a bench in the park. Families and workers enjoy the peace and quiet around you.  Two men are sitting at the other end of the bench.
 
 > listen
-You hear nothing out of the ordinary.
+You listen to what the men are saying to each other.
 
-> up
-There is no route to the up, only north, east and west.
+"We've heard a whisper that an agent has been sent to rescue the woman," the man who must be Jarok tells the other. "The password has been changed to 'PLUTO', as from today."
+
+They then get up and go their separate ways.....
+
+On Bench In Park
+You're sitting on a bench in the park. Families and workers enjoy the peace and quiet around you.
+
+> stand
+Ok, you stand up off of the bench.
+
+Picard Park
+You're in Picard park, near the east entrance. The park is a pleasant place where families play and workers enjoy their lunch breaks. The exit is east and next to the path here you see a bench. The park extends in all other directions.
 
 > e
 You move East.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
 
 > e
-There is no route to the east, only west.
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
 
 > s
-There is no route to the south, only west.
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
+
+> s
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
+
+> s
+You move South.
+
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  Standing here is a rather large security guard.
+
+> w
+You move West.
+
+Sportswear Shop
+You're in the sportswear shop, which sells all kinds of sporting clothes and equipment. The exit is East.
+
+> buy holdall
+You purchase a holdall for 5 credits.
 
 > e
-There is no route to the east, only west.
+You move East.
 
-> examine list
-You see no such thing.
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  Standing here is a rather large security guard.
 
-> buy rope
-You can't see any ropes!
+> n
+You move North.
 
-> buy forcer
-Sorry, I'm not sure which object you are trying to buy.
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
+
+> n
+You move North.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
+
+> w
+You move West.
+
+D.I.Y. Shop
+You're in the D.I.Y. Shop. In here they sell every kind of tool a person could want when doing D.I.Y. A large notice hangs on one wall by the sales desk, behind which stands the shopkeeper. The exit is West.
+
+> read notice
+The notice reads:
+
+ZYKON CRYSTAL RE-TUNING SERVICE AVAILABLE
+
+Leave your Zykon crystal with us overnight for re-tuning for just 150 credits.
+
+You know very well that a Zykon Crystal is a vital component of a spaceship's navigation system. Each one has to be tuned to a specific frequency unique to the spaceship it is fitted in.
+
+> search tools
+You search amongst the tools and see a number which could come in useful. They are:
+
+Torch.............10 Credits.
+Rope and Grapnel..10 Credits.
+Extension Lead....10 Credits.
+Forcer............10 Credits.
+
+> buy torch
+You buy a torch for 10 credits.
 
 > buy lead
-You can't see any leads!
+You buy an extension lead for 10 credits.
 
-> examine rope
-You can't see any ropes!
+> buy grapnel
+You buy a grapnel, with rope attached, for 10 credits.
 
-> examine forcer
-You see no such thing.
-
-> examine lead
-You can't see any leads!
-
-> w
-You move West.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> s
-There is no route to the south, only north, east and west.
-
-> s
-There is no route to the south, only north, east and west.
-
-> look south
-You look in that direction but see nothing of special interest or use.
-
-> examine guard
-You can't see any guards!
+> buy forcer
+You buy a forcer for 10 credits.
 
 > e
 You move East.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
-> examine lingerie
-You see no such thing.
+> s
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
+
+> s
+You move South.
+
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  Standing here is a rather large security guard.
+
+> e
+You move East.
+
+Ladies Boutique
+You're in the ladies boutique, which is filled with rails of expensive-looking lingerie. The exit is West.
 
 > light lingerie
-Sorry, I didn't understand that command.
+Using the cigarette lighter, you set light to some of the lingerie in a corner of the boutique, then run out into the precinct screaming "FIRE! FIRE!".
+
+The security guard grabs a fire extinguisher, then runs into the boutique, leading the loading bay doors unmanned.
+
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  Smoke is billowing out of the boutique and customers are being evacuated from the precinct by security staff.
 
 > s
-There is no route to the south, only west.
+You push open one of the doors and quickly go into the loading bay.
 
-> examine lorry
-You can't see any lorries!
+Loading Bay
+You're in the loading bay at the rear of the precinct. The bay slopes slightly towards a wire fence on the South side and the doors into the precinct is North and you can also go East or West.  Parked here is a delivery lorry.
 
-> enter lorry
-I did not understand the word "enter".
+> open cab door
+You open the lorry cab door.
 
-> examine controls
-You see no such thing.
+> climb into lorry
+Ok, you climb into the lorry cab.
 
-> examine handbrake
-You see no such thing.
-
-> release handbrake
-Sorry, I'm not sure which object you are trying to release.
+In Lorry Cab
+You are in the cab of the lorry, sitting on the driver's seat. The controls are basic: Steering wheel, handbrake, accelerator and brake. Next to you is the passenger's seat.
 
 > search cab
-Sorry, I'm not sure which object you are trying to search.
-
-> inventory
-You are wearing a coverall, and are carrying nothing.
-
-> leave lorry
-You can't see any lorries!
-
-> climb on lorry
-You can't see any lorries!
-
-> examine wire
-You can't see any wires!
-
-> put mat on wire
-You can't see any mats!
-
-> hook rope on wire
-You can't see any ropes!
-
-> climb rope
-You can't see any ropes!
-
-> s
-There is no route to the south, only west.
-
-> w
-You move West.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> s
-There is no route to the south, only north, east and west.
-
-> e
-You move East.
-
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
-
-> se
-There is no route to the southeast, only west.
-
-> sw
-There is no route to the southwest, only west.
-
-> n
-There is no route to the north, only west.
-
-> w
-You move West.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> nw
-There is no route to the northwest, only north, east and west.
-
-> examine freighter
-You see no such thing.
-
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> examine console
-You can't see any consoles!
-
-> examine computer
-You can't see any computers!
-
-> examine compartment
-You can't see any compartments!
-
-> take crystal
-Sorry, I'm not sure which object you are trying to take.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> examine crystal
-You see no such thing.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> examine wall
-There are just walls, part of the scenery.
-
-> e
-You move East.
-
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
-
-> ne
-There is no route to the northeast, only west.
-
-> s
-There is no route to the south, only west.
-
-> e
-There is no route to the east, only west.
-
-> se
-There is no route to the southeast, only west.
-
-> examine courier
-You see no such thing.
-
-> e
-There is no route to the east, only west.
-
-> examine console
-You can't see any consoles!
-
-> examine computer
-You can't see any computers!
-
-> examine panel
-You see no such thing.
-
-> open panel
-Open what?
-
-> drop forcer
-You are not carrying the forcer.
-
-> take panel
-Sorry, I'm not sure which object you are trying to take.
-
-> examine panel
-You see no such thing.
-
-> drop panel
-You can't drop the triangular panels!
-
-> drop lighter
-I don't understand what you want to do with the cigarette lighter.
-
-> w
-You move West.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> nw
-There is no route to the northwest, only north, east and west.
-
-> n
-You move North.
-
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
-
-> w
-There is no route to the west, only south.
-
-> n
-There is no route to the north, only south.
-
-> n
-There is no route to the north, only south.
-
-> climb rope
-You can't see any ropes!
-
-> take rope
-You can't see any ropes!
-
-> take mat
-You can't see any mats!
-
-> down
-There is no route to the down, only south.
-
-> n
-There is no route to the north, only south.
-
-> n
-There is no route to the north, only south.
-
-> n
-There is no route to the north, only south.
-
-> n
-There is no route to the north, only south.
-
-> e
-There is no route to the east, only south.
-
-> shopkeeper "retune crystal"
-I did not understand the word ""retune".
-
-> shopkeeper "13922"
-I did not understand the word ""13922"".
-
-> examine card
-You will have to take the credit card out of whatever it is in if you want to do that.
-
-> w
-There is no route to the west, only south.
-
-> n
-There is no route to the north, only south.
-
-> w
-There is no route to the west, only south.
-
-> n
-There is no route to the north, only south.
-
-> sleep
-You aren't feeling tired at the moment.
-
-> examine window
-You can't see any windows!
-
-> open window
-You can't see any windows!
-
-> climb window
-You can't see any windows!
-
-> examine man
-You can't see any man!
-
-> search man
-You can't see any man!
-
-> read diary
-Sorry, I'm not sure which object you are trying to read.
-
-> read diary
-Sorry, I'm not sure which object you are trying to read.
-
-> e
-There is no route to the east, only south.
-
-> n
-There is no route to the north, only south.
-
-> w
-There is no route to the west, only south.
-
-> examine card
-You will have to take the credit card out of whatever it is in if you want to do that.
-
-> s
-You move South.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> s
-There is no route to the south, only east and west.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> e
-You move East.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> give ticket
-There's nobody here to give anything to!
-
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> drop pe kit
-You are not carrying the PE Kit.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> wear badge
-You can't see any badges!
-
-> s
-There is no route to the south, only east and west.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> s
-There is no route to the south, only north, east and west.
-
-> s
-There is no route to the south, only north, east and west.
-
-> enter lorry
-I did not understand the word "enter".
+You search the cab and find, in the gap between the seats, an identity badge which probably belongs to the driver of the lorry.
 
 > release handbrake
-Sorry, I'm not sure which object you are trying to release.
+You release the handbrake and the lorry slowly moves backwards down the slope until it hits the fence and is brought to a halt.
 
-> leave lorry
-You can't see any lorries!
+> out
+Ok, you climb out of the lorry cab into the loading bay.
 
-> climb on lorry
-You can't see any lorries!
+By Fence In Loading Bay
+You're on the south side of the loading bay, standing by a 5 metre tall wire fence. Beyond the fence is a scrap spaceship yard. You can go North, NW or NE. Parked here against the fence is a delivery lorry.
 
-> put mat on wire
-You can't see any mats!
+> put all in holdall
+Ok, you put the ID pass, the cigarette lighter, the credit card, the travel documents, the CV, the room key, the street map, the PE Kit, the torch, the extension lead, the grapnel, the forcer and the identity badge into the holdall.  The rubber exercise mat is too big to go in the holdall.
 
-> hook rope on wire
-You can't see any ropes!
+> wear holdall
+Ok, you put the strap of the holdall over your shoulder.
 
-> climb rope
-You can't see any ropes!
+> throw mat onto lorry
+Ok, you throw the rubber exercise mat up onto the top of the lorry.
+
+> climb onto lorry
+You climb up onto the top of the lorry.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  Also here is a rubber exercise mat.
+
+Back in the shopping precinct, the fire you started has been put out by the fire brigade and customers are being allowed back into the precinct, although the boutique is now closed.
+
+> take mat
+Ok, you pick up the rubber exercise mat.
+
+> drape mat over fence
+You lay the rubber workmat over the razor wire on top of the fence, being careful not to touch the wire with your bare hands.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire.
+
+> take grapnel
+(from the canvas holdall)
+Ok, you take the grapnel out of the holdall.
+
+> hang grapnel on fence
+You hang the grapnel on the mat-covered fence and let the rope hang down to the ground on the other side.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire and the grapnel has been hooked over that so that the rope hangs down the other side of the fence.
+
+> climb over fence
+You climb over the mat draped across the razor wire, grab hold of the rope attached to the grapnel and lower yourself down to the ground on the other side of the fence.
+
+By Fence In Scrapyard
+You are standing by the fence in a scrap spaceship yard. Two rows of scrap spaceships stretch off into the distance for a couple of miles and you can go South between them. You can see the lorry against the fence on the other side and above you a rope hangs down from the top of the fence, which is covered by the rubber workmat.
 
 > s
-There is no route to the south, only north, east and west.
+You move South.
 
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
-
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+North End of Rows
+You are at the north end of the two rows of scrap spaceships. You can go North to the fence or South further along the rows.
 
 > s
-There is no route to the south, only east and west.
+You move South.
 
-The official is getting a bit impatient with you.
+Halfway Along Rows
+You are about halfway along the two rows of spaceships. You can go North or South.
 
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+> x ships
+As you are looking at the spaceships, you notice a freighter on the far side of the row on the east side. You can reach it by going East via a gap between the ships on that side.
+
+Halfway Along Rows
+You are about halfway along the two rows of spaceships. You can go North or South.  Through a gap to the East you see a freighter on the far side of the row.
 
 > e
 You move East.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+By Freighter
+You are behind the row of scrap spaceships by a freighter which has just been started to be dismantled. A ramp leads NE into the hull of the ship. You can also go West through the gap via which you got here.
 
-Please have your ID and Travel Documents ready for inspection.
+> ne
+You move NorthEast.
 
-The customs official loses patient with you!
+Freighter Control Room
+Here in the control room of the freighter most of the consoles have been cannibalised for spare parts, although one remains intact, and the bulkheads have been stripped of equipment. An exit hatch leads West.
 
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> se
-There is no route to the southeast, only north, east and west.
-
-> e
-You move East.
-
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
-
-> insert crystal in bracket
-I did not understand the word "crystal".
-
-> drop diary
-You are not carrying the diary.
+> take torch
+(from the canvas holdall)
+Ok, you take the torch out of the holdall.
 
 > take forcer
-Sorry, I'm not sure which object you are trying to take.
+(from the canvas holdall)
+Ok, you take the forcer out of the holdall.
 
-> launch ship
-I did not understand the word "ship".
+> unscrew screws
+Using the forcer you unscrew the four screws sealing the cover over the compartment, keeping hold of both the screws and the compartment cover.
 
-> input waystar 4361 9292
-You can't type anything here!
+> take crystal
+(from the small compartment)
+Ok, you take the Zykon Crystal from the small compartment.
 
-> launch ship
-I did not understand the word "ship".
+> turn on torch
+You switch on the torch.
 
-> waystar "venus"
-I did not understand the word "waystar".
+> shine torch at compartment
+You shine your torch at the Zykon Crystal compartment and see the number 0906.53 etched into the metal at the rear of the compartment.
+
+> w
+You move West.
+
+By Freighter
+You are behind the row of scrap spaceships by a freighter which has just been started to be dismantled. A ramp leads NE into the hull of the ship. You can also go West through the gap via which you got here.
+
+> w
+You move West.
+
+Halfway Along Rows
+You are about halfway along the two rows of spaceships. You can go North or South.  Through a gap to the East you see a freighter on the far side of the row.
+
+> s
+You move South.
+
+South End of Rows
+You are at the south end of the two rows of scrap spaceships. You can only go North.
+
+> x ships
+You look at the scrap spaceships and feel a pang of sadness that they have ended up here after years of service plying the space lanes. Then you notice one small ship - a mail courier - which has not been dismantled yet.
+
+South End of Rows
+You are at the south end of the two rows of scrap spaceships. You can go North or In through the hatch into the control room of the courier.
+
+> in
+You move In.
+
+Courier Control Room
+You're in the tiny control room of the mail courier, in which there is a command chair. You see no sign of damage on the various consoles and bulkheads, and the ship actually looks ready to launch. The exit hatch leads Out and Aft there is a passenger cabin.
+
+> remove holdall
+Ok, you remove the canvas holdall.
+
+> drop holdall
+Ok, you put down the canvas holdall.
+
+> sit in chair
+You settle yourself in the command chair.
+
+Sitting In Command Chair
+You are sitting in the command chair of the mail courier. In front of you are the control consoles.
+
+> look
+
+Sitting In Command Chair
+You are sitting in the command chair of the mail courier. In front of you are the control consoles.
+
+> examine cover
+The cover for a Zykon Crystal compartment.
+
+> unscrew screws
+You cannot unscrew that!
+
+> unscrew cover
+You cannot unscrew that!
+
+> open cover
+The compartment cover cannot be opened or closed!
+
+> open compartment
+The Zykon Crystal compartment is already open!
+
+> shine torch at compartment
+You shine your torch at the Zykon Crystal compartment and see the number 2104.78 etched into the metal at the rear of the compartment.
+
+> turn off torch
+You switch off the torch.
+
+> stand
+Ok, you get out of the command chair and stand up.
+
+Courier Control Room
+You're in the tiny control room of the mail courier, in which there is a command chair. You see no sign of damage on the various consoles and bulkheads, and the ship actually looks ready to launch. The exit hatch leads Out and Aft there is a passenger cabin.  Also here is a canvas holdall.
+
+> take holdall
+Ok, you pick up the canvas holdall.
+
+> put all in holdall
+Ok, you put the torch, the forcer, the Zykon Crystal, the compartment cover and the screws into the holdall.
+
+> wear holdall
+Ok, you put the strap of the holdall over your shoulder.
 
 > inventory
-You are wearing a coverall, and are carrying nothing.
+You are wearing a coverall, a canvas holdall, some sunglasses and a wide-brimmed hat, and are carrying nothing.
 
-> w
-You move West.
+> out
+You move Out.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+South End of Rows
+You are at the south end of the two rows of scrap spaceships. You can go North or In through the hatch into the control room of the courier.
 
 > n
 You move North.
 
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+Halfway Along Rows
+You are about halfway along the two rows of spaceships. You can go North or South.  Through a gap to the East you see a freighter on the far side of the row.
+
+> n
+You move North.
+
+North End of Rows
+You are at the north end of the two rows of scrap spaceships. You can go North to the fence or South further along the rows.
+
+> n
+You move North.
+
+By Fence In Scrapyard
+You are standing by the fence in a scrap spaceship yard. Two rows of scrap spaceships stretch off into the distance for a couple of miles and you can go South between them. You can see the lorry against the fence on the other side and above you a rope hangs down from the top of the fence, which is covered by the rubber workmat.
+
+> climb up rope
+You climb up the rope and over the fence to the top of the lorry.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire and the grapnel has been hooked over that so that the rope hangs down the other side of the fence.
+
+> look
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire and the grapnel has been hooked over that so that the rope hangs down the other side of the fence.
+
+> take mat
+Maybe you should unhook the grapnel first?
+
+> take grapnel
+You unhook the grapnel from the top of the fence and pull the rope up.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire.
+
+> take mat
+You carefully take the mat off the top of the fence, being careful not to touch the electrified razor wire.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.
+
+> put grapnel in holdall
+Ok, you put the grapnel into the holdall.
+
+> throw mat off lorry
+Ok, you throw the rubber exercise mat off the lorry and it lands on the ground below.
+
+> climb down lorry
+Ok, you climb down the side of the lorry to the ground.
+
+By Fence In Loading Bay
+You're on the south side of the loading bay, standing by a 5 metre tall wire fence. Beyond the fence is a scrap spaceship yard. You can go North, NW or NE. Parked here against the fence is a delivery lorry.  Also here is a rubber exercise mat.
+
+> look
+
+By Fence In Loading Bay
+You're on the south side of the loading bay, standing by a 5 metre tall wire fence. Beyond the fence is a scrap spaceship yard. You can go North, NW or NE. Parked here against the fence is a delivery lorry.  Also here is a rubber exercise mat.
+
+> take mat
+Ok, you pick up the rubber exercise mat.
+
+> n
+You move North.
+
+Loading Bay
+You're in the loading bay at the rear of the precinct. The bay slopes slightly towards a wire fence on the South side and the doors into the precinct is North and you can also go East or West.
+
+> n
+You move North.
+
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  The boutique is now closed after the fire you caused.  Standing here is a rather large security guard.
+
+> n
+You move North.
+
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
+
+> n
+You move North.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
 
 > w
-There is no route to the west, only south.
+You move West.
+
+D.I.Y. Shop
+You're in the D.I.Y. Shop. In here they sell every kind of tool a person could want when doing D.I.Y. A large notice hangs on one wall by the sales desk, behind which stands the shopkeeper. The exit is West.
+
+> take crystal from holdall
+Ok, you take the Zykon Crystal out of the holdall.
+
+> ask shopkeeper to retune crystal
+You ask the shopkeeper if he will please re-tune the Zykon Crystal.
+
+"Certainly sir," he says to you. "What frequency would you like it re-tuned to?"
+
+> say 2104.78
+(to Shopkeeper)
+You say "2104.78" to the shopkeeper.
+
+"Very well sir," he says to you, scribbling something on a paper pad.
+
+"Bring this ticket back with you tomorrow and you can have your re-tuned crystal.
+
+He tears the ticket off the pad and hands it to you.
+
+> e
+You move East.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
+
+> n
+You move North.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> w
+You move West.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
+
+> n
+You walk into the hotel and straight up the stairs to the landing.
+
+Landing
+You are on the landing of the hotel outside your room, number 1, which is to the East. A corridor leads north to the other rooms on this landing while stairs lead Up to other floors of the hotel and Down to the foyer.
+
+> e
+You move East.
+
+Hotel Room
+You're in your hotel room. It is simply but neatly furnished and there is a window opposite the bed. The door leads West.
+
+As you enter your room you hear a commotion outside beyond the window. It seems to be someone singing off-key. As quickly as it started the noise stops. You wonder what on earth it could have been?
+
+> sleep
+You get into bed and fall into a deep dreamless sleep.
+
+You wake up next morning feeling refreshed. You shower and dress, ready for work. It is now Wednesday, halfway through the week.
+
+> take key from holdall
+Ok, you take the room key out of the holdall.
+
+> w
+You unlock the door with your key, open the door then leave your room, shutting and locking the door after you.
+
+Landing
+You are on the landing of the hotel outside your room, number 1, which is to the East. A corridor leads north to the other rooms on this landing while stairs lead Up to other floors of the hotel and Down to the foyer.
+
+You remember that you must go to the D.I.Y. shop and collect the Zykon crystal today!
+
+> d
+You walk down the stairs to the hotel foyer and straight out to the street.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
+
+> e
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> n
+You move North.
+
+Narrow Alleyway
+You are a narrow alleyway between two buildings. Main street is to the South and the alley continues North. Above you in the building to the west is the window of your hotel room. The alleyway is surprisingly clear or any rubbish or litter. You expect the robo-cleaners are responsible for that!
+
+> n
+You move North.
+
+Dead End
+You are the end of the alley which has ended in a unclimbable brick wall, so you can only go South.  Lying here is an unconscious man.
+
+> look
+
+Dead End
+You are the end of the alley which has ended in a unclimbable brick wall, so you can only go South.  Lying here is an unconscious man.
+
+> search man
+You search the unconscious man and find in an inside pocket a diary, which you take out.
+
+> read diary
+You flick through the pages of the diary until you find one very interesting page. On it is written:
+
+"Waystar co-ords 4361 9292"
+
+You realise that this must be where the space pirates must be holding Jaelaine!
+
+> s
+You move South.
+
+Narrow Alleyway
+You are a narrow alleyway between two buildings. Main street is to the South and the alley continues North. Above you in the building to the west is the window of your hotel room. The alleyway is surprisingly clear or any rubbish or litter. You expect the robo-cleaners are responsible for that!
+
+> s
+You move South.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> e
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes West and a narrower street leads North.
+
+> n
+You move North.
+
+Hort Street
+You're in Hort Street, which runs North and South. On the west side you see the entrance to Fogg's Gym.
+
+> w
+You move West.
+
+Gym Reception
+You're in the gym reception where the manager sits behind the desk. The street is East and the gym itself is Upstairs.
+
+As you enter the gym, the manager looks up from what he is doing and looks at you expectantly.
+
+As you go to walk past the gym reception the manager stops you. He explains that the trainer you are standing in for has returned to work early and that you are not needed any more. He tells you that you will be paid a full day's wages.
+
+You leave the gym quite happy that you don't have to work there any more.
+
+Hort Street
+You're in Hort Street, which runs North and South. On the west side you see the entrance to Fogg's Gym.
+
+> s
+You move South.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes West and a narrower street leads North.
+
+> w
+You move West.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> w
+You move West.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
+
+> n
+You move North.
+
+Hotel Foyer
+You're in the foyer of the hotel, which is called "Emico's B&B", A tariff giving room prices is on the wall by the reception desk, behind which sits the manager. Opposite the desk is a leather sofa. A flight of stairs leads Up to the rooms and the street is South.
+
+> pay bill
+You tell the manager that you would like to pay the bill for your room.
+
+"Very well, sir, two nights wasn't it?" he says to you pleasantly. "I hope you've enjoyed your stay?"
+
+You say that you have and you hand him your credit card and room key. He deducts the 20 credits from your account and hands you back the card. He thanks you for your custom and you leave the hotel.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West and on the North side you see a hotel.
+
+> e
+You move East.
+
+Main Street
+You are in the Main Street of Darisopolis City. Either side of you there are modern buildings, some large, some small. The street goes East and West, on the South side you see the entrance to a shopping precinct and on the North side there is a narrow alleyway between the buildings.
+
+> s
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
+
+> w
+You move West.
+
+D.I.Y. Shop
+You're in the D.I.Y. Shop. In here they sell every kind of tool a person could want when doing D.I.Y. A large notice hangs on one wall by the sales desk, behind which stands the shopkeeper. The exit is West.
+
+> take ticket from pockets
+Ok, you take the ticket out of your pockets.
+
+> give ticket to shopkeeper
+You give the ticket to the shopkeeper.
+
+"Ah yes," he says looking at the ticket. He searches in a box under his counter and comes up with your Zykon crystal.
+
+"There you are sir, it has been re-tuned to the frequency you specified," he tells you. "That'll be 150 credits."
+
+You hand over your credit card and he processes the transaction. After you key your pin number in he hands you back your card and gives you the crystal. You thank him and leave the shop.
+
+In Shopping Precinct
+You're in the shopping precinct. The exit to Main Street is North, East is a job centre and West a D.I.Y. shop. The precinct extends South.
+
+> s
+You move South.
+
+In Shopping Precinct
+You're in the shopping precinct. To the West is a newsagents and the precinct goes while North and South.
+
+> s
+You move South.
+
+In Shopping Precinct
+You're at the south end of the precinct. To the West is a sportswear shop and East a ladies boutique. To the South there are large double doors with "LOADING BAY - No Unauthorized Admittance!" written on them.  The boutique is now closed after the fire you caused.  Standing here is a rather large security guard.
+
+> remove hat
+Ok, you remove the wide-brimmed hat.
+
+> take badge from holdall
+Ok, you take the identity badge out of the holdall.
+
+> wear badge
+Ok, you put on the identity badge.
+
+> s
+You show the identity badge to the security guard, push open one of the doors and quickly go into the loading bay.
+
+Loading Bay
+You're in the loading bay at the rear of the precinct. The bay slopes slightly towards a wire fence on the South side and the doors into the precinct is North and you can also go East or West.  Parked here is a delivery lorry.
+
+> open cab door
+You open the lorry cab door.
+
+> climb into lorry
+Ok, you climb into the lorry cab.
+
+In Lorry Cab
+You are in the cab of the lorry, sitting on the driver's seat. The controls are basic: Steering wheel, handbrake, accelerator and brake. Next to you is the passenger's seat.
+
+> release handbrake
+You release the handbrake and the lorry slowly moves backwards down the slope until it hits the fence and is brought to a halt.
+
+> out
+Ok, you climb out of the lorry cab into the loading bay.
+
+By Fence In Loading Bay
+You're on the south side of the loading bay, standing by a 5 metre tall wire fence. Beyond the fence is a scrap spaceship yard. You can go North, NW or NE. Parked here against the fence is a delivery lorry.
+
+> put all in holdall
+Ok, you put the wide-brimmed hat, the Zykon Crystal and the diary into the holdall.  The rubber exercise mat is too big to go in the holdall.
+
+> throw mat onto lorry
+Ok, you throw the rubber exercise mat up onto the top of the lorry.
+
+> climb onto lorry
+You climb up onto the top of the lorry.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  Also here is a rubber exercise mat.
+
+> take mat
+Ok, you pick up the rubber exercise mat.
+
+> drape mat over fence
+You lay the rubber workmat over the razor wire on top of the fence, being careful not to touch the wire with your bare hands.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire.
+
+> take grapnel
+(from the canvas holdall)
+Ok, you take the grapnel out of the holdall.
+
+> hang grapnel on fence
+You hang the grapnel on the mat-covered fence and let the rope hang down to the ground on the other side.
+
+On Top Of Lorry
+You are standing on top of the body of the lorry. You can Climb Down the lorry to the ground. The lorry is up against the fence and the razor wire on top of it is right in front of you.  The rubber workmat is laying on top of the wire and the grapnel has been hooked over that so that the rope hangs down the other side of the fence.
+
+> climb over fence
+You climb over the mat draped across the razor wire, grab hold of the rope attached to the grapnel and lower yourself down to the ground on the other side of the fence.
+
+By Fence In Scrapyard
+You are standing by the fence in a scrap spaceship yard. Two rows of scrap spaceships stretch off into the distance for a couple of miles and you can go South between them. You can see the lorry against the fence on the other side and above you a rope hangs down from the top of the fence, which is covered by the rubber workmat.
+
+> s
+You move South.
+
+North End of Rows
+You are at the north end of the two rows of scrap spaceships. You can go North to the fence or South further along the rows.
+
+> s
+You move South.
+
+Halfway Along Rows
+You are about halfway along the two rows of spaceships. You can go North or South.  Through a gap to the East you see a freighter on the far side of the row.
+
+> s
+You move South.
+
+South End of Rows
+You are at the south end of the two rows of scrap spaceships. You can go North or In through the hatch into the control room of the courier.
+
+> in
+You move In.
+
+Courier Control Room
+You're in the tiny control room of the mail courier, in which there is a command chair. You see no sign of damage on the various consoles and bulkheads, and the ship actually looks ready to launch. The exit hatch leads Out and Aft there is a passenger cabin.
+
+> take crystal from holdall
+Ok, you take the Zykon Crystal out of the holdall.
+
+> take forcer from holdall
+Ok, you take the forcer out of the holdall.
+
+> take cover from holdall
+Ok, you take the compartment cover out of the holdall.
+
+> take screws from holdall
+Ok, you take the screws out of the holdall.
+
+> remove holdall
+Ok, you remove the canvas holdall.
+
+> drop holdall
+Ok, you put down the canvas holdall.
+
+> sit in chair
+You settle yourself in the command chair.
+
+Sitting In Command Chair
+You are sitting in the command chair of the mail courier. In front of you are the control consoles.
+
+> put crystal in compartment
+You put the Zykon Crystal into the clamp in the compartment.
+
+> screw cover
+Using the forcer, you screw the cover over the Zykon Crystal compartment.
+
+> press black button
+You press the black power button and, to your surprise, the ship trembles as the engines come to life.
+
+> input 4361 9292
+You type the co-ordinates 4361 9292 into the navigation computer keypad.
+
+A message appears on the screen in front of you:
+
+CO-ORDINATES ACCEPTED - PRESS LAUNCH WHEN READY
+
+> press green button
+You press the green launch button and the exit hatch closes and seals.
+
+The ship lifts off from the scrapyard, zooms into space above the planet and heads out-system to a safe hyperspace point from where it makes the jump to Waystar.
+
+The ship emerges from hyperspace in a sparsely-populated region of space, about 500,000 kilometres away from what appears to be a small asteroid - this must be Waystar!
+
+You assume manual control of the courier and fly towards the asteroid. As you get to within 150,000 kilometres, you see the the asteroid is surrounded by a system of defence satellites. Suddenly you get a communication from the asteroid, it sounds like an automated control system:
+
+"Calling inbound spacecraft, please give password!"
+
+> say pluto
+You say "Pluto" into the comms unit and wait. There is a brief, nerve-racking pause of a couple of minutes then you hear the automated control system reply:
+
+"Password accepted. Proceed through defence screen and head for red beacon. Land in Dock 2."
+
+You fly nervously through the satellite defence screen and head for the pulsing red beacon. As you get nearer you see it is a series of landing docks, surrounded by a massive amount of firepower. You land your ship in the specified dock with a sigh of relief, shut down the drive and other systems and open the exit hatch.
+
+> stand
+Ok, you get out of the command chair and stand up.
+
+Courier Control Room
+You're in the tiny control room of the mail courier, in which there is a command chair. You see no sign of damage on the various consoles and bulkheads, and the ship actually looks ready to launch. The exit hatch leads Out and Aft there is a passenger cabin.  Also here is a canvas holdall.
+
+> take holdall
+Ok, you pick up the canvas holdall.
+
+> wear holdall
+Ok, you put the strap of the holdall over your shoulder.
+
+> out
+Ok, you leave the courier by the exit hatch.
+
+Landing Pad 2
+You're in Landing Pad 2 of the pirate's base on Waystar. The mail courier sits on the landing pad with its entry hatch open. You can go North through some double doors or In to the courier.
+
+> n
+You move North.
+
+FCC Reception
+You are in the reception area of the Flight Control Centre. There is a desk here which is currently unmanned. You can go North into the Flight Control Centre itself or South through the doors to the landing pads.
+
+> n
+You move North.
+
+Flight Control Centre
+You're in the Flight Control Centre, where several people sit at consoles. Doors lead North and West from here and you can also go South to the FCC reception.  By the doors leading North you see an armed guard.
+
+As you walk into the room you hear a loud hubbub of conversation and notice that the staff in here are dealing with some sort of technical problem. They are too busy to notice your presence.
+
+> w
+You move West.
+
+The Washroom
+You're in the washroom, where you can see a locker in one corner. The exit is East.  Also here is a broom.
 
 > search locker
-You can't see any lockers!
+Ok, you open the locker and search it. Inside you see some overalls.
 
-> examine coveralls
-You see no such thing.
+> take overalls from locker
+Ok, you take the overalls from the grey locker.
 
-> wear coveralls
-You are already wearing the coverall!
+> remove holdall
+Ok, you remove the canvas holdall.
+
+> remove coverall
+Ok, you remove the coverall.
+
+> wear overalls
+Ok, you put on the overalls.
+
+> wear holdall
+Ok, you put the strap of the holdall over your shoulder.
+
+> inventory
+You are wearing a canvas holdall, some sunglasses, an identity badge and some overalls, and are carrying a coverall and a forcer.
+
+> remove badge
+Ok, you remove the identity badge.
+
+> put badge in holdall
+Ok, you put the identity badge into the holdall.
+
+Next door in the flight centre, the staff resolve their problem and return to their work.
 
 > e
-There is no route to the east, only south.
+You move East.
+
+Flight Control Centre
+You're in the Flight Control Centre, where several people sit at consoles. Doors lead North and West from here and you can also go South to the FCC reception.  By the doors leading North you see an armed guard.
+
+As you walk back into the FCC you notice that someone is now manning the reception desk. Maybe you had better not go that way now.
 
 > n
-There is no route to the north, only south.
+You move North.
+
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.
 
 > w
-There is no route to the west, only south.
+You move West.
 
-> examine doors
-You can't see any doors!
+Bend In Corridor
+You are at the west end of the corridor where it bends North.
 
 > n
-There is no route to the north, only south.
+You move North.
 
-> examine doors
-You can't see any doors!
-
-> w
-There is no route to the west, only south.
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is a sofa against the west wall.
 
 > move sofa
-You can't see any sofas!
+You move the sofa away from the wall, revealing a ventilation grille on the wall.
 
-> examine grille
-You can't see any grilles!
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is a ventilation grille on the wall behind the sofa, which has been moved away from the wall.
 
 > unscrew grille
-You can't see any grilles!
+Using the forcer, you unscrew the ventilation grille from the wall, revealing a ventilation duct.
+
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is an open ventilation duct on the wall behind the sofa, which has been moved away from the wall.  Also here is a ventilation grille.
+
+> take grille
+Ok, you pick up the ventilation grille.
+
+> hide grille behind sofa
+Ok, you hide the ventilation grille behind the sofa where it cannot be seen.
 
 > n
-There is no route to the north, only south.
+You move North.
 
-> look behind fridge
-Sorry, I'm not sure which object you are trying to look behind.
+In Kitchen
+You are in a small kitchen to the north of the rest room. It is very sparsely equipped with just a fridge, microwave and a kettle. In the wall you see a trash flap.
+
+> feel under fridge
+You feel around under the fridge with your fingers and find something under there which you push out.
+
+In Kitchen
+You are in a small kitchen to the north of the rest room. It is very sparsely equipped with just a fridge, microwave and a kettle. In the wall you see a trash flap.  Also here is a dead cockroach.
 
 > take cockroach
-Sorry, I'm not sure which object you are trying to take.
+Ok, you pick up the dead cockroach.
 
 > s
 You move South.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is an open ventilation duct on the wall behind the sofa, which has been moved away from the wall.
 
-Please have your ID and Travel Documents ready for inspection.
+> put all in holdall
+Ok, you put the coverall, the forcer and the dead cockroach into the holdall.
 
-> climb duct
-You can't see any ducts!
+> take forcer from holdall
+Ok, you take the forcer out of the holdall.
+
+> in
+You move In.
+
+Ventilation Duct
+You are crawling on your stomach in a ventilation duct. You can either go Out to the rest room or North along the duct. On the wall of the duct is written A4. To get to another part of the ventilation ducts type GOTO and then the location code.
 
 > n
 You move North.
 
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
-
-> e
-There is no route to the east, only south.
-
-> look through grille
-You can't see any grilles!
-
-> unscrew grille
-You can't see any grilles!
-
-> climb duct
-You can't see any ducts!
-
-> woman "mike"
-I did not understand the word ""mike"".
-
-> glenda "ducts"
-I did not understand the word "glenda".
-
-> climb duct
-You can't see any ducts!
-
-> w
-There is no route to the west, only south.
-
-> s
-You move South.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> climb duct
-You can't see any ducts!
+Bend in Duct
+You are crawling on your stomach at a bend in the ventilation duct where it goes South and East.
 
 > e
 You move East.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+Ventilation Duct
+You are crawling on your stomach at a junction in the ventilation duct which goes East, West and North.
+
+> e
+You move East.
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is a ventilation grille in the south side.
+
+> look
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is a ventilation grille in the south side.
+
+> greet woman
+You call softly to the woman, who at first is puzzled as to where your voice is coming from. Then she realises there is someone in the ventilation duct and she comes over to crouch down in front of the grille.
+
+"Who the hell are you and what on Earth are you doing inside the ducts?!" she asks you.
+
+You tell her who you are and how you have come here in search of the kidnapped Jaelaine.
+
+"My husband is an expert in the psychic sciences and I am being kept prisoner in here to force him to perform experiments on the woman from Psia," she tells you. "She is being kept under sedation in the Psychic Laboratory."
+
+She introduces herself as Grande and tells you that her husband's name is Symon.
+
+"We were kidnapped ourselves from our home on Earth a couple of months ago," she tells you. "I'm afraid that I haven't got any tools that I can unscrew the grille with."
+
+You assure her that you have a forcer and she backs away into the room to allow you to work."
+
+> unscrew grille
+Using the forcer, you unscrew the ventilation grille from the wall and place it against the wall.
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is an open ventilation duct in the south side through which you can crawl Out.
+
+> out
+You move Out.
+
+Large Room
+You are in a large room with a door leading South. The room is furnished as if it was a bed-sitting room, complete with kitchen facilities in one corner. There is an open ventilation duct in the north wall.  Also here is a ventilation grille.  Grande is here.
+
+> look
+
+Large Room
+You are in a large room with a door leading South. The room is furnished as if it was a bed-sitting room, complete with kitchen facilities in one corner. There is an open ventilation duct in the north wall.  Also here is a ventilation grille.  Grande is here.
+
+> ask grande about ducts
+You ask Grande about the ventilation ducts.
+
+"There should be a plan of the ducts in the office on this level," she tells you.
+
+> in
+You move In.
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is an open ventilation duct in the south side through which you can crawl Out.
+
+> w
+You move West.
+
+Ventilation Duct
+You are crawling on your stomach at a junction in the ventilation duct which goes East, West and North.
+
+> w
+You move West.
+
+Bend in Duct
+You are crawling on your stomach at a bend in the ventilation duct where it goes South and East.
 
 > s
-There is no route to the south, only west.
+You move South.
+
+Ventilation Duct
+You are crawling on your stomach in a ventilation duct. You can either go Out to the rest room or North along the duct. On the wall of the duct is written A4. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> out
+You move Out.
+
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is an open ventilation duct on the wall behind the sofa, which has been moved away from the wall.
+
+> s
+You move South.
+
+Bend In Corridor
+You are at the west end of the corridor where it bends North.
 
 > e
-There is no route to the east, only west.
+You move East.
+
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.
 
 > e
-There is no route to the east, only west.
+You move East.
+
+East-West Corridor
+You are near the east end of the corridor, where there is a door to the north. The corridor continued East and West.
 
 > n
-There is no route to the north, only west.
+You move North.
+
+The Office
+You're in an office with lots of filing cabinets. High in one corner of the room you see a small ventilation grille. The door is south.
 
 > search cabinets
-Sorry, I'm not sure which object you are trying to search.
+You search the filing cabinets, looking for the plan of the ventilation ducts that Grande mentioned, and find it after a few minutes.
+
+> put forcer in holdall
+Ok, you put the forcer into the holdall.
 
 > s
-There is no route to the south, only west.
+You move South.
 
-> e
-There is no route to the east, only west.
-
-> e
-There is no route to the east, only west.
-
-> search rubble
-Sorry, I'm not sure which object you are trying to search.
-
-> search rubble
-Sorry, I'm not sure which object you are trying to search.
-
-> examine semtex
-You can't see any semtices!
+East-West Corridor
+You are near the east end of the corridor, where there is a door to the north. The corridor continued East and West.
 
 > w
 You move West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.
 
 > w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+You move West.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
-
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> w
-You must be carrying your ID card if you want to get through customs.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
-
-> w
-You must be carrying your ID card if you want to get through customs.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Bend In Corridor
+You are at the west end of the corridor where it bends North.
 
 > n
 You move North.
 
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is an open ventilation duct on the wall behind the sofa, which has been moved away from the wall.
 
-> w
-There is no route to the west, only south.
+> in
+You move In.
 
-> climb duct
-You can't see any ducts!
+Ventilation Duct
+You are crawling on your stomach in a ventilation duct. You can either go Out to the rest room or North along the duct. On the wall of the duct is written A4. To get to another part of the ventilation ducts type GOTO and then the location code.
 
 > n
-There is no route to the north, only south.
+You move North.
+
+Bend in Duct
+You are crawling on your stomach at a bend in the ventilation duct where it goes South and East.
 
 > e
-There is no route to the east, only south.
+You move East.
 
-> climb duct
-You can't see any ducts!
+Ventilation Duct
+You are crawling on your stomach at a junction in the ventilation duct which goes East, West and North.
 
-> examine plans
-You see no such thing.
+> e
+You move East.
 
-> show plans
-There's nobody here to show anything to!
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is an open ventilation duct in the south side through which you can crawl Out.
+
+> out
+You move Out.
+
+Large Room
+You are in a large room with a door leading South. The room is furnished as if it was a bed-sitting room, complete with kitchen facilities in one corner. There is an open ventilation duct in the north wall.  Also here is a ventilation grille.  Grande is here.
+
+> show plan to grande
+You give the plan of the ventilation ducts to Grande.
+
+She opens it and shows you where her husband Symon's room is.
+
+"You can get to it by going to B3," she says to you, pointing to it on the map. She gives the plan back you.
 
 > read index
-Sorry, I'm not sure which object you are trying to read.
+The index gives code numbers for various places around the asteroid. You note the most important ones which are:
 
-> climb duct
-You can't see any ducts!
+Psychic LABORATORY = B4.
+WORKSHOP = B7.
+MEDICAL = C1.
+COMMUNICATIONS = C8.
+RADAR SITE = S1.
 
-> goto b4
-Sorry, I didn't understand that command.
+The restroom you found is at A4 and Grande's room is at A11. Grande told you that her husband Symon's room is at B3.
 
-> look through grille
-You can't see any grilles!
+> take forcer from holdall
+Ok, you take the forcer out of the holdall.
 
-> unscrew grille
-You can't see any grilles!
+> put forcer in holdall
+Ok, you put the forcer into the holdall.
 
-> climb duct
-You can't see any ducts!
+> in
+You move In.
 
-> search workbench
-Sorry, I'm not sure which object you are trying to search.
-
-> examine ropegun
-You see no such thing.
-
-> look under workbench
-Sorry, I'm not sure which object you are trying to look below/beneath/under.
-
-> search workshop
-Sorry, I'm not sure which object you are trying to search.
-
-> take bar
-Sorry, I'm not sure which object you are trying to take.
-
-> make bomb
-You're going to need some sort of explosive if you want to make a bomb.
-
-> climb duct
-You can't see any ducts!
-
-> goto s1
-I did not understand the word "s1".
-
-> fire gun
-You can't see any guns!
-
-> climb rope
-You can't see any ropes!
-
-> release grapnel
-You can't see any grapnels!
-
-> reload gun
-I did not understand the word "reload".
-
-> goto s1
-I did not understand the word "s1".
-
-> fire gun
-You can't see any guns!
-
-> climb rope
-You can't see any ropes!
-
-> release grapnel
-You can't see any grapnels!
-
-> reload gun
-I did not understand the word "reload".
-
-> goto s1
-I did not understand the word "s1".
-
-> look through grille
-You can't see any grilles!
-
-> unscrew grille
-You can't see any grilles!
-
-> climb duct
-You can't see any ducts!
-
-> search installation
-Sorry, I'm not sure which object you are trying to search.
-
-> cllimb duct
-I did not understand the word "cllimb".
-
-> goto b3
-Sorry, I didn't understand that command.
-
-> tie lead to bar
-You can't see any leads!
-
-> lay bar across shaft
-You can't see any shafts!
-
-> goto b3
-Sorry, I didn't understand that command.
-
-> look through grille
-You can't see any grilles!
-
-> w
-There is no route to the west, only south.
-
-> look through grille
-You can't see any grilles!
-
-> wait
-You wait around for a couple of minutes.
-
-> e
-There is no route to the east, only south.
-
-> look through grille
-You can't see any grilles!
-
-> unscrew grille
-You can't see any grilles!
-
-> climb duct
-You can't see any ducts!
-
-> wake scientist
-Sorry, I didn't understand that command.
-
-> simon "jaelaine"
-I did not understand the word "simon".
-
-> climb duct
-You can't see any ducts!
-
-> goto c1
-Sorry, I didn't understand that command.
-
-> look through grille
-You can't see any grilles!
-
-> goto a14
-I did not understand the word "a14".
-
-> climb duct
-You can't see any ducts!
-
-> glenda "nurse"
-I did not understand the word "glenda".
-
-> climb duct
-You can't see any ducts!
-
-> goto c1
-Sorry, I didn't understand that command.
-
-> wait
-You wait around for a couple of minutes.
-
-> unscrew grille
-You can't see any grilles!
-
-> climb duct
-You can't see any ducts!
-
-> search cupboard
-Sorry, I'm not sure which object you are trying to search.
-
-> climb duct
-You can't see any ducts!
-
-> screw grille
-You can't see any grilles!
-
-> e
-There is no route to the east, only south.
-
-> look through grille
-You can't see any grilles!
-
-> examine console
-You can't see any consoles!
-
-> wait
-You wait around for a couple of minutes.
-
-> unscrew grille
-You can't see any grilles!
-
-> climb duct
-You can't see any ducts!
-
-> put cockroach in sandwich
-You are not carrying the dead cockroach!
-
-> climb duct
-You can't see any ducts!
-
-> screw grille
-You can't see any grilles!
-
-> wait
-You wait around for a couple of minutes.
-
-> unscrew grille
-You can't see any grilles!
-
-> climb duct
-You can't see any ducts!
-
-> wotan "merlin"
-I did not understand the word "wotan".
-
-> wotan "merlin"
-I did not understand the word "wotan".
-
-> wotan "4361 9292"
-I did not understand the word "wotan".
-
-> climb duct
-You can't see any ducts!
-
-> screw grille
-You can't see any grilles!
-
-> goto b3
-Sorry, I didn't understand that command.
-
-> climb duct
-You can't see any ducts!
-
-> give antidote
-There's nobody here to give anything to!
-
-> give spanner
-There's nobody here to give anything to!
-
-> simon "bomb"
-I did not understand the word "simon".
-
-> simon "timer"
-I did not understand the word "simon".
-
-> climb duct
-You can't see any ducts!
-
-> goto s1
-I did not understand the word "s1".
-
-> fire gun
-You can't see any guns!
-
-> climb rope
-You can't see any ropes!
-
-> release grapnel
-You can't see any grapnels!
-
-> reload gun
-I did not understand the word "reload".
-
-> goto s1
-I did not understand the word "s1".
-
-> climb duct
-You can't see any ducts!
-
-> make bomb
-You're going to need some sort of explosive if you want to make a bomb.
-
-> set timer
-I don't understand what you want to do with Mike Erlin.
-
-> climb duct
-You can't see any ducts!
-
-> goto a11
-Sorry, I didn't understand that command.
-
-> climb duct
-You can't see any ducts!
-
-> e
-There is no route to the east, only south.
-
-> s
-You move South.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> e
-You move East.
-
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
-
-> e
-There is no route to the east, only west.
-
-> e
-There is no route to the east, only west.
-
-> up
-There is no route to the up, only west.
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is an open ventilation duct in the south side through which you can crawl Out.
 
 > w
 You move West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-> wait
-You wait around for a couple of minutes.
+Ventilation Duct
+You are crawling on your stomach at a junction in the ventilation duct which goes East, West and North.
 
 > w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+You move West.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+Bend in Duct
+You are crawling on your stomach at a bend in the ventilation duct where it goes South and East.
 
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+> s
+You move South.
 
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+Ventilation Duct
+You are crawling on your stomach in a ventilation duct. You can either go Out to the rest room or North along the duct. On the wall of the duct is written A4. To get to another part of the ventilation ducts type GOTO and then the location code.
 
-> hit guard
-You can't see any guard!
+> out
+You move Out.
+
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is an open ventilation duct on the wall behind the sofa, which has been moved away from the wall.
+
+> s
+You move South.
+
+Bend In Corridor
+You are at the west end of the corridor where it bends North.
 
 > e
 You move East.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.
 
 > e
 You move East.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+East-West Corridor
+You are near the east end of the corridor, where there is a door to the north. The corridor continued East and West.
 
-The customs official loses patient with you!
+> e
+You move East.
 
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+Bottom of Stairs
+You are at the end of the corridor, at the foot of a flight of stairs going Up. The corridor goes West but further East there is a rock tunnel. On the wall here a large letter A has been painted.
 
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+> e
+You move East.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+Rock Tunnel
+The rock tunnel is only a few metres long and ends in a rough-hewn dead end where there is a pile of rubble. You guess that the builders of the base intended to extend it in this direction, but for some reason they abandoned the idea.
 
-Please have your ID and Travel Documents ready for inspection.
+> look
 
-> down
-There is no route to the down, only north, east and west.
+Rock Tunnel
+The rock tunnel is only a few metres long and ends in a rough-hewn dead end where there is a pile of rubble. You guess that the builders of the base intended to extend it in this direction, but for some reason they abandoned the idea.
 
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+> search rubble
+You search the pile of rubble and find a small slab of Semtex explosive.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+> search rubble
+You search the pile of rubble again and this time you find a detonator.
 
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
-
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
-
-> w
-You must be carrying your ID card if you want to get through customs.
-
-The official is getting a bit impatient with you.
-
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+You immediately realise that you now have the means to make a bomb with which you can disable the base's radar, thus creating a diversion as well as enabling the Space Patrol to attack the base undetected.
 
 > w
-You must be carrying your ID card if you want to get through customs.
+You move West.
 
-The customs official loses patient with you!
+Bottom of Stairs
+You are at the end of the corridor, at the foot of a flight of stairs going Up. The corridor goes West but further East there is a rock tunnel. On the wall here a large letter A has been painted.
 
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
+> w
+You move West.
 
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
+East-West Corridor
+You are near the east end of the corridor, where there is a door to the north. The corridor continued East and West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+> w
+You move West.
 
-Please have your ID and Travel Documents ready for inspection.
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.
+
+> w
+You move West.
+
+Bend In Corridor
+You are at the west end of the corridor where it bends North.
 
 > n
 You move North.
 
-Cafeteria
-You're in the cafeteria where you can buy drinks and various snacks. The customs hall is South and you can see the customs desk.
+Rest Room
+You're in what appears to be a rest room. The corridor is South and a kitchen North and there is an open ventilation duct on the wall behind the sofa, which has been moved away from the wall.
 
-> w
-There is no route to the west, only south.
+> put semtex in holdall
+Ok, you put the small slab of semtex into the holdall.
 
-> climb duct
-You can't see any ducts!
+> put detonator in holdall
+Ok, you put the detonator into the holdall.
+
+> in
+You move In.
+
+Ventilation Duct
+You are crawling on your stomach in a ventilation duct. You can either go Out to the rest room or North along the duct. On the wall of the duct is written A4. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> goto b7
+You crawl around the ventilation ducts until you reach location B7.
+
+End Of Duct
+You are at the end of the ventilation duct where there is a ventilation grille. On the wall is painted B7. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look
+
+End Of Duct
+You are at the end of the ventilation duct where there is a ventilation grille. On the wall is painted B7. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> take forcer from holdall
+Ok, you take the forcer out of the holdall.
+
+> look through grille
+You look through the grille and see an empty workshop.
+
+> unscrew grille
+Using the forcer, you unscrew the ventilation grille from the wall. You stand it against the wall of the workshop.
+
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. On the wall is painted B7. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> out
+You move Out.
+
+Workshop
+You're in a workshop which has a workbench. The corridor is South and in the north wall is an open ventilation duct.  Also here is a ventilation grille.
+
+> look
+
+Workshop
+You're in a workshop which has a workbench. The corridor is South and in the north wall is an open ventilation duct.  Also here is a ventilation grille.
+
+> look under workbench
+You look under the workbench and find a loaded ropegun.
+
+> search bits
+You search through the bits and pieces on the workbench but the only thing you find that could be of use is a length of electrical wire.
+
+> take semtex from holdall
+Ok, you take the small slab of semtex out of the holdall.
+
+> take detonator from holdall
+Ok, you take the detonator out of the holdall.
+
+> take wire
+You are already carrying the length of wire!
+
+> make bomb
+Using the Semtex, wire and detonator you make a crude bomb. All it lacks is a timer to set it off.
+
+> take lead from holdall
+Ok, you take the extension lead out of the holdall.
+
+> remove lead from reel
+You pull the extension lead right out of the reel it was in.
+
+> put bomb in holdall
+Ok, you put the crude bomb into the holdall.
+
+> put forcer in holdall
+Ok, you put the forcer into the holdall.
+
+> put reel in holdall
+Ok, you put the reel into the holdall.
+
+> put lead in holdall
+Ok, you put the extension lead into the holdall.
+
+> put plan in holdall
+Ok, you put the ventilation duct plan into the holdall.
+
+> in
+You move In.
+
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. On the wall is painted B7. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> goto s1
+You crawl around the ventilation ducts towards location S1, but have to stop when you reach a vertical shaft.
+
+Under Vertical Shaft
+You are in the ventilation ducts, which branch off South and East from here. Above you there is a vertical shaft which is the way to location S1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look
+
+Under Vertical Shaft
+You are in the ventilation ducts, which branch off South and East from here. Above you there is a vertical shaft which is the way to location S1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> fire ropegun up
+Aiming the ropegun up the shaft, you pull the trigger.
+
+"PHUUUTTT!" A blast of compressed air sends the sticky pad, with the rope trailing behind it, straight up the shaft. A second or two later you hear a dull thud as the sticky pad hits the top of the shaft and sticks firmly onto whatever surface it has hit.
+
+Under Vertical Shaft
+You are in the ventilation ducts, which branch off South and East from here. Above you there is a vertical shaft which is the way to location S1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look
+
+Under Vertical Shaft
+You are in the ventilation ducts, which branch off South and East from here. Above you there is a vertical shaft which is the way to location S1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> take forcer from holdall
+Ok, you take the forcer out of the holdall.
+
+> drop ropegun
+Ok, you put down the ropegun.
+
+> climb up rope
+You climb up the hanging rope into the vertical shaft.
+
+When you reach the next level, you crawl along the ducts, turning several times, until you reach yet another grille.
+
+End Of Duct (S1)
+You are at the end of the duct where there is a ventilation grille. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look
+
+End Of Duct (S1)
+You are at the end of the duct where there is a ventilation grille. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look through grille
+You look through the grille and see that you are on the surface of the asteroid by a radar installation.
+
+> unscrew grille
+Using the forcer, you unscrew the ventilation grille from the wall and lean it against the wall outside.
+
+End Of Duct (S1)
+You are at the end of the duct where you can now go Out.  To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> out
+You move Out.
+
+Radar Installation
+You're in the radar installation where several space radar dishes sit under a huge geodesic dome. In the wall here you see an open ventilation duct.  Also here is a titanium crowbar and a ventilation grille.
+
+> look
+
+Radar Installation
+You're in the radar installation where several space radar dishes sit under a huge geodesic dome. In the wall here you see an open ventilation duct.  Also here is a titanium crowbar and a ventilation grille.
+
+> search installation
+You search the installation and find a heavy spanner, which you pick up.
+
+> put spanner in holdall
+Ok, you put the heavy spanner into the holdall.
+
+> put forcer in holdall
+Ok, you put the forcer into the holdall.
+
+> take crowbar
+Ok, you pick up the titanium crowbar.
+
+> in
+You move In.
+
+End Of Duct (S1)
+You are at the end of the duct where you can now go Out.  To get to another part of the ventilation ducts type GOTO and then the location code.
 
 > goto b3
-Sorry, I didn't understand that command.
+You crawl around the ventilation ducts towards location B3. You have to stop when you reach a vertical shaft going down.
 
-> climb duct
-You can't see any ducts!
+By Vertical Shaft
+You are laying in the ventilation duct system by a vertical shaft that goes down next to you. To get to another part of the ventilation ducts type GOTO and then the location code.
 
-> give spanner
-There's nobody here to give anything to!
+> take lead from holdall
+Ok, you take the extension lead out of the holdall.
 
-> w
-There is no route to the west, only south.
+> tie lead to bar
+You tie one end of the extension lead to the middle of the crowbar.
 
-> w
-There is no route to the west, only south.
+> put bar over shaft
+You put the crowbar over the shaft and drop the extension lead down it.
 
-> take jaelaine
-Sorry, I'm not sure which object you are trying to take.
+By Vertical Shaft
+You are laying in the ventilation duct system by a vertical shaft that goes down next to you. To get to another part of the ventilation ducts type GOTO and then the location code. A crowbar lays across the shaft with the lead hanging down it.
 
-> e
-There is no route to the east, only south.
+> look
+
+By Vertical Shaft
+You are laying in the ventilation duct system by a vertical shaft that goes down next to you. To get to another part of the ventilation ducts type GOTO and then the location code. A crowbar lays across the shaft with the lead hanging down it.
+
+> down
+You lower yourself down into the shaft, grab hold of the lead and climb down the shaft.
+
+Under Vertical Shaft
+You are in the ventilation ducts, which branch off North and West from here. You just need to type GOTO and the number of the location you were trying to get to.
+
+> look
+
+Under Vertical Shaft
+You are in the ventilation ducts, which branch off North and West from here. You just need to type GOTO and the number of the location you were trying to get to.
+
+> goto b3
+You crawl around the ventilation ducts until you reach location B3.
+
+In Ventilation Duct
+You are in the ventilation ducts where there is a ventilation grille on the east side. You can go North or South from here. On the wall of the duct is painted B3. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> take spanner from holdall
+Ok, you take the heavy spanner out of the holdall.
+
+> goto b4
+You crawl south along the ventilation ducts until you reach location B4.
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the wall is painted B4. The duct ends here and there is a ventilation grille in the east side. The duct goes North. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the wall is painted B4. The duct ends here and there is a ventilation grille in the east side. The duct goes North. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look through grille
+You look through the grille into the room beyond. In there you see a scientist - who you assume is Symon, Grande's husband - standing by a table, lying on which is Jaelaine, the priestess whom you have come to rescue. Watching over Symon is an armed guard.
+
+> wait
+You wait patiently in the duct for about half an hour, watching Symon conclude his tests on Jaelaine.
+
+He says something to the guard, who shoulders his weapon and goes into the other room where the other guard is asleep. He wakes the dozing guard who returns with him. They carefully pick up Jaelaine and take her into another room off the laboratory which you assume is her bedroom.
+
+While this is happening, Symon goes into his own room. The two guards return and one departs, leaving the other on guard in the Psychics Lab. He sits down in a chair and starts to doze off.
+
+> look
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the wall is painted B4. The duct ends here and there is a ventilation grille in the east side. The duct goes North. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> n
+You move North.
+
+In Ventilation Duct
+You are in the ventilation ducts where there is a ventilation grille on the east side. You can go North or South from here. On the wall of the duct is painted B3. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> take forcer from holdall
+Ok, you take the forcer out of the holdall.
+
+> unscrew grille
+Using the forcer, you unscrew the ventilation grille from the wall. You hold on to the grille and put it quietly on the floor of the room beyond.
+
+In Ventilation Duct
+You are in the ventilation ducts where you can go Out to the room beyond. You can also go North or South along the duct. On the wall of the duct is painted B3. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> out
+You move Out.
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille.  Symon is asleep in his bed here.
+
+> look
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille.  Symon is asleep in his bed here.
 
 > s
 You move South.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+Psychic Lab
+The Psychic Lab is full of all sorts of weird-looking machines and consoles. In the centre is a padded table. Doors lead East, North and South.  A guard is asleep here in a chair.
 
-Please have your ID and Travel Documents ready for inspection.
+> hit guard with spanner
+You hit the guard over the head with the spanner.
 
-> e
-You move East.
+He grunts in pain and slumps down in the chair. You grab his laser rifle before it falls to the floor and makes a noise.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+Psychic Lab
+The Psychic Lab is full of all sorts of weird-looking machines and consoles. In the centre is a padded table. Doors lead East, North and South.  An unconscious guard is slumped in a chair here.
 
-> e
-There is no route to the east, only west.
+> look
 
-> down
-There is no route to the down, only west.
+Psychic Lab
+The Psychic Lab is full of all sorts of weird-looking machines and consoles. In the centre is a padded table. Doors lead East, North and South.  An unconscious guard is slumped in a chair here.
+
+> n
+You move North.
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille.  Symon is asleep in his bed here.
+
+> wake symon
+You gently shake Symon's shoulder and he wakes up.
+
+He looks alarmed when he doesn't recognise you, but you tell him not to be afraid as you mean him no harm.
+
+He sits up in bed and you tell him who you are and what you are doing here. You also tell him that you have made contact with his wife Grande.
+
+He tells you that the pirates threatened to kill his wife if he didn't try to find out the secret behind Jaelaine's powers. He tells you that so far he has had no luck and that the pirates have been leaning on him to use ever more powerful and dangerous drugs on the Psian priestess.
+
+You tell him that you have a plan to rescue Jaelaine and summon the Space Patrol to deal with the pirates, by planting a bomb to distract the pirates and disable their radar installation.
+
+Symon tells you that Jaelaine is kept under sedation with powerful drugs and that he will need a drug known as ZX128 to wake her up, which you can only get from the medical facility.
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille.  Symon is here.
+
+> ask symon about timer
+You ask Symon if he knows where you could get a timer to complete the bomb you have made.
+
+He asks you if the way through the ducts to the workshop is open. You say it is and tell him how to get there. He tells you to wait and he crawls into the ventilation duct.
+
+About 15 minutes later he returns and gives you a timer which he has made.
+
+"All you now have to do is SET the TIMER," he tells you. "The timer is set for 25 minutes, which should give you plenty of time to set it and get back here."
+
+> take bomb from holdall
+Ok, you take the crude bomb out of the holdall.
+
+> fit timer to bomb
+You fit the timer to the bomb. All you have to do now is plant the bomb where it can do most damage, SET the TIMER and get the hell clear!
+
+> put bomb in holdall
+Ok, you put the crude bomb into the holdall.
+
+> put spanner in holdall
+Ok, you put the heavy spanner into the holdall.
+
+> drop rifle
+Ok, you put down the laser rifle.
+
+> in
+You move In.
+
+In Ventilation Duct
+You are in the ventilation ducts where you can go Out to the room beyond. You can also go North or South along the duct. On the wall of the duct is painted B3. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> goto c1
+You crawl around the ventilation ducts until you reach location C1.
+
+End Of Duct
+You are at the end of the ventilation duct where there is a ventilation grille. You can also GOTO other locations in the ducts from here. Painted on the wall of the duct is C1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> look through grille
+You look through the grille and see that there is a nurse working at a desk in the medical centre.
+
+You think to yourself that you need somebody to call the nurse away from the medical centre. You wonder who is furthest away and can get her away for the longest time?
+
+> goto a11
+You crawl around the ventilation ducts until you reach location A11 and climb out into Grande's room.
+
+Large Room
+You are in a large room with a door leading South. The room is furnished as if it was a bed-sitting room, complete with kitchen facilities in one corner. There is an open ventilation duct in the north wall.  Also here is a ventilation grille.  Grande is here.
+
+> tell grande about nurse
+You tell Grande that you need to distract the nurse so that you can get into the medical centre via the ventilation ducts.
+
+"I'll pretend to feel unwell and will ask the guard outside to summon the nurse," she tells you. "I'll give you a few minutes to get to the duct by the medical centre, then I will speak to the guard."
+
+You thank Grande and prepare to crawl around the ducts.
+
+"By the way," she adds. "It might be a good idea if you replace the grille after you leave."
+
+> in
+You move In.
+
+End Of Duct
+You are crawling on your stomach in a ventilation duct. On the side of the duct is painted A11. The duct ends here and there is an open ventilation duct in the south side through which you can crawl Out.
+
+> goto c1
+You crawl around the ventilation ducts until you reach location C1.
+
+End Of Duct
+You are at the end of the ventilation duct where there is a ventilation grille. You can also GOTO other locations in the ducts from here. Painted on the wall of the duct is C1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> wait
+You wait for a minute or two in the duct by the medical centre.
+
+Then you see a guard walk into the medical centre. He has a brief word with the nurse, who collects a first aid kit from a cupboard and then the two of them leave the medical centre, presumably to go to Grande's room.
+
+> unscrew grille
+Using the forcer, you unscrew the ventilation grille from the wall. You keep hold of the grille and stand it against the wall inside the room.
+
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. You can also GOTO other locations in the ducts from here. Painted on the wall of the duct is C1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> out
+You move Out.
+
+Medical Centre
+You're in the medical centre which is full of medical equipment and cupboards. The door is South and in the wall you see an open ventilation duct.  Also here is a ventilation grille.
+
+> open cupboards
+You open the cupboards.
+
+> look in cupboard
+You look in the cupboards and search through them until you find some ZX128, which you take out.
+
+> put hypogun in holdall
+Ok, you put the hypo gun into the holdall.
+
+> close cupboards
+You close the cupboards.
+
+> in
+You move In.
+
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. You can also GOTO other locations in the ducts from here. Painted on the wall of the duct is C1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> replace grille
+You screw the grille back over the ventilation duct.
+
+End Of Duct
+You are at the end of the ventilation duct where there is a ventilation grille. You can also GOTO other locations in the ducts from here. Painted on the wall of the duct is C1. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> goto b3
+You crawl around the ventilation ducts until you reach location B3 and climb out into Symon's room.
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille and a laser rifle.  Symon is here.
+
+> take hypogun from holdall
+Ok, you take the hypo gun out of the holdall.
+
+> give zx128 to symon
+You give the hypogun containing the ZX128 antidote to Symon.
+
+Symon takes it from you with a big grin on his face.
+
+"Great, good work," he tells you. "I'll go and give this to Jaelaine. It'll take a little while for it to take effect."
+
+You tell Symon that you have to contact Space Patrol HQ and he tells you there is a sub-space radio in the communications centre. He walks into the Psychics lab and into Jaelaine's room to give her the antidote.
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille and a laser rifle.
+
+> in
+You move In.
+
+In Ventilation Duct
+You are in the ventilation ducts where you can go Out to the room beyond. You can also go North or South along the duct. On the wall of the duct is painted B3. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> goto c8
+You crawl around the ventilation ducts until you reach location C8.
+
+End Of Duct
+You are at the end of the ventilation duct where there is a ventilation grille. You can also GOTO other locations in the ducts from here. On one wall is painted C8. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> wait
+You wait for a while in the ventilation duct.
+
+You watch the comms operator as he carries out his duties. After a while he gets up and leaves the centre.
+
+> unscrew grille
+Using the forcer, you unscrew the ventilation grille from the wall. You keep hold of the grille and stand it against the wall inside the room.
+
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. You can also GOTO other locations in the ducts from here. On one wall is painted C8. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> out
+You move Out.
+
+In Comms Centre
+You're in the communications centre, which is full of various types of communication equipment. In the wall you see an open ventilation duct. The room continues East.  On one of the consoles you see a ceramic plate.  Also here is a ventilation grille.
+
+> take cockroach from holdall
+Ok, you take the dead cockroach out of the holdall.
+
+> put cockroach in sandwich
+You push the cockroach inside the sandwich.
+
+> in
+You move In.
+
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. You can also GOTO other locations in the ducts from here. On one wall is painted C8. To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> wait
+You wait for a while in the ventilation duct.
+
+You see the comms operator return to his console. He picks up the sandwich from the plate and eats it all with relish.
+
+A few minutes later he starts to retch and holds his stomach. He leaps up and runs out of the comms centre like a bat out of hell!
+
+> out
+You move Out.
+
+In Comms Centre
+You're in the communications centre, which is full of various types of communication equipment. In the wall you see an open ventilation duct. The room continues East.  On one of the consoles you see a ceramic plate.  Also here is a ventilation grille.
+
+Back in the medical centre the nurse has returned from dealing with Grande and has resumed whatever it was that she was doing
+
+> find radio
+You search the communications centre and among the equipment you spot what you need - a sub-space radio.
+
+East End Of Comms Centre
+You are at the east end of the comms centre where there is even more communications equipment. You can only go West from here.  Here there is a sub-space radio.
+
+> set frequency to 180452
+You set the frequency on the sub-space radio to 180452. You must now press the SEND button.
+
+> press send
+You press the send button and wait.
+
+After what seems like an eternity but is probably only a minute or so, you hear an automated voice speak from the sub-space radio.
+
+"Say codeword, say codeword...." repeated over and over.
+
+> say wotan
+You say the codeword "WOTAN" and wait.
+
+The voice saying "Send codeword" cuts off mid-sentence and there is then a long pause.
+
+Then the automated voice speaks again, but this time it says "Send Co-ordinates, send co-ordinates...." over and over.
+
+> send 4361 9292
+You send the co-ordinates for Waystar to Space Patrol HQ.
+
+The voice saying "Send co-ordinates" cuts off mid-sentence and there is then a long pause.
+
+Then a human voice come through on the sub-space radio.
+
+"Roger, Captain Erlin, Space Patrol HQ here. Message received and understood. Our task force will reach you in approximately one hour. You should vacate the base as soon as you can with the priestess. Use co-ordinates 4361 9622 when you take off. Space Patrol HQ out!"
+
+Sounds like the Space Patrol will be taking no prisoners - you'd better get Jaelaine as well as Symon and his wife off the asteroid!
 
 > w
 You move West.
 
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
+In Comms Centre
+You're in the communications centre, which is full of various types of communication equipment. In the wall you see an open ventilation duct. The room continues East.  On one of the consoles you see a ceramic plate.  Also here is a ventilation grille.
 
-Please have your ID and Travel Documents ready for inspection.
+> in
+You move In.
 
-> w
-You join the queue of people snaking its way towards the customs desk and after a few minutes you reach it yourself.....
+End Of Duct
+You are at the end of the ventilation duct where you can go Out to the room beyond. You can also GOTO other locations in the ducts from here. On one wall is painted C8. To get to another part of the ventilation ducts type GOTO and then the location code.
 
-By Customs Desk
-You're standing by the customs desk. The exit from the terminal is to the West but you cannot pass that way without ID or travel documents. A customs official stands here.
+> goto s1
+You crawl around the ventilation ducts, climb up the rope in the vertical shaft to location S1 and climb out of the duct to the radar installation.
 
-As you approach the customs desk, the official sees that you do not have all your necessary documents ready. He sighs in resignation and speaks to you.
+Radar Installation
+You're in the radar installation where several space radar dishes sit under a huge geodesic dome. In the wall here you see an open ventilation duct.  Also here is a ventilation grille.
 
-"Can I please see your travel documentation sir?" he says in a slightly annoyed tone.
+> take bomb from holdall
+Ok, you take the crude bomb out of the holdall.
+
+> plant bomb by radar
+You place the bomb at the base of the column on which the radars are mounted where it will do most damage.
+
+Radar Installation
+You're in the radar installation where several space radar dishes sit under a huge geodesic dome. In the wall here you see an open ventilation duct.  Also here is a crude bomb and a ventilation grille.
+
+> set timer
+You set the timer on the bomb - the bomb will explode in 25 minutes, so now's the time to get well clear of this radar installation!
+
+> in
+You move In.
+
+End Of Duct (S1)
+You are at the end of the duct where you can now go Out.  To get to another part of the ventilation ducts type GOTO and then the location code.
+
+> goto b3
+You crawl around the ventilation ducts, climbing down the lead, until you reach location B3 and you then climb out of the duct.
+
+Symon's Room
+You are in a small, bare room with just a bed in it. In the north wall there is a ventilation duct. To the South you can see a laboratory.   Also here is a ventilation grille and a laser rifle.
+
+> take rifle
+Ok, you pick up the laser rifle.
 
 > s
-There is no route to the south, only east and west.
+You move South.
 
-The official is getting a bit impatient with you.
+Psychic Lab
+The Psychic Lab is full of all sorts of weird-looking machines and consoles. In the centre is a padded table. Doors lead East, North and South.  An unconscious guard is slumped in a chair here.
 
-"Can I see your travel documentation and ID PLEASE Sir!" he says angrily.
+> look
 
-> s
-There is no route to the south, only east and west.
-
-The customs official loses patient with you!
-
-"There are people waiting, sir," he says in an annoyed but polite tone. "You have to take your turn again!"
-
-He beckons over another customs official who escorts you back to the middle of the customs hall where you are at the back of the queue again.
-
-Middle of Customs Hall
-You're in the middle of the customs hall. There is a queue of people leading to the customs desk, which is West, and you see a cafeteria to the North. Shuttle passengers and people mill about here. A notice here says:
-
-Please have your ID and Travel Documents ready for inspection.
+Psychic Lab
+The Psychic Lab is full of all sorts of weird-looking machines and consoles. In the centre is a padded table. Doors lead East, North and South.  An unconscious guard is slumped in a chair here.
 
 > e
 You move East.
 
-Darisopolis Shuttle Port
-You're standing in the customs hall of Darisopolis shuttle port. The hall extends West to the customs desk on the far side. The place is not very busy at this time of day but there are a fair number of people arriving from shuttles.
+Jaelaine's Bedoom
+You're in a small room with a single bed in it. The Psychic lab is West.  Symon is here.  Jaelaine is here.
+
+As you walk into the room Jaelaine sees you.
+
+"Oh Mike! Thank the stars you're here!" she exclaims happily. "Symon told me that you had come to rescue me. Can we get out of here?!"
+
+As she says that there is a distant rumble and the floor beneath your feet shakes as the bomb you planted explodes. Immediately an alarm starts to blare out and you hear shouting outside.
+
+"Come on," you say to Syman and Jaelaine. "We gotta go! Our first task is to collect Grande and then get to my ship before the Space Patrol get here. Follow me!"
+
+> w
+You move West.
+
+Symon and Jaelaine follow behind you.
+
+Psychic Lab
+The Psychic Lab is full of all sorts of weird-looking machines and consoles. In the centre is a padded table. Doors lead East, North and South.  Symon is here.  Jaelaine is here.  An unconscious guard is slumped in a chair here.
+
+> s
+You move South.
+
+Symon and Jaelaine follow behind you.
+
+By Psychic Laboratory
+You're at the west end of the corridor where there is a door leading North. On this door are painted the words
+
+Psychic LABORATORY   Authorised Personnel Only
+
+You can also go East from here.  A guard is at the other end of the corridor.  Symon is here.  Jaelaine is here.
+
+There is an armed guard out here at the other end of the corridor, but he has his back to you and therefore doesn't see you, Symon and Jaelaine come out of the Psychics Lab.
+
+> shoot guard with rifle
+Raising the rifle to your shoulder you take aim and shoot the guard before he can turn around and spot you standing there.
+
+> e
+You move East.
+
+Symon and Jaelaine follow behind you.
+
+East-West Corridor
+You are in a long East-West corridor on Level B.  Symon is here.  Jaelaine is here.
+
+> e
+You move East.
+
+Symon and Jaelaine follow behind you.
+
+East End Of Long Corridor
+You're at the east end of a corridor that stretches West. The stairwell is East. Another doorway leads North here.  Lying here on the floor is the guard you shot with the laser rifle.  Also here is a blaster.  Symon is here.  Jaelaine is here.
+
+> search guard
+You search the dead guard and find, in one of his pockets, a stun grenade, which you take out.
+
+> take blaster
+Ok, you pick up the blaster.
+
+> give blaster to symon
+You hand the blaster to Symon, who takes it reluctantly.
+
+"Just in case," you tell him. "If I get killed it'll be up to you to get Jaelaine to my spaceship and get her off this asteroid!"
+
+Symon hefts the blaster and sighs.
+
+"I'll do me best, but I'm no fighter!" he tells you.
+
+> e
+You move East.
+
+Symon and Jaelaine follow behind you.
+
+Stairwell Level B
+You're in the stairwell at Level B. You can only go Down the stairs now that the upper floors are inaccessible after the bomb explosion, or West through the door here.  Symon is here.  Jaelaine is here.
+
+> d
+You move Down.
+
+Symon and Jaelaine follow behind you.
+
+Bottom of Stairs
+You are at the end of the corridor, at the foot of a flight of stairs going Up. The corridor goes West but further East there is a rock tunnel. On the wall here a large letter A has been painted.  Symon is here.  Jaelaine is here.
+
+> w
+You move West.
+
+Symon and Jaelaine follow behind you.
+
+East-West Corridor
+You are near the east end of the corridor, where there is a door to the north. The corridor continued East and West.  Symon is here.  Jaelaine is here.
+
+Further along the corridor you see a guard looking into the flight control centre - he hasn't noticed you yet!
+
+> shoot guard with rifle
+You raise your rifle to shoot the guard but he fires first and, although he misses, your next shot also goes wide. Symon raises the blaster you gave him and fires it at the guard, killing him instantly.
+
+> w
+You move West.
+
+Symon and Jaelaine follow behind you.
+
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.  Lying here is the body of the guard who was shot by Symon.  Also here is a pulse rifle.  Symon is here.  Jaelaine is here.
+
+You hear a lot of noise coming from the flight control centre beyond the doors to the south.
+
+> search guard
+You search the guard and find a key in one of his pockets.
+
+> throw grenade into fcc
+You activate the stun grenade then - telling the others to stand back along the corridor - you throw the grenade into the FCC.
+
+You flatten yourself against the wall and then.....
+
+W - O - O - O - M - P - H!!!
+
+The doors fly open as the grenade goes off and then they swing closed again. The noise that was coming from the room abruptly stops and there is then silence.
+
+> n
+You move North.
+
+Symon and Jaelaine follow behind you.
+
+End of Short Corridor
+You are at the north end of the short corridor where there is a closed door. You can only go South from here.  Symon is here.  Jaelaine is here.
+
+> unlock door with key
+You unlock the door with the metal key.
+
+> open door
+You open the door.
+
+> n
+You unlock the door with the key and the three of you move North into the room beyond.
+
+Large Room
+You are in a large room with a door leading South. The room is furnished as if it was a bed-sitting room, complete with kitchen facilities in one corner. There is an open ventilation duct in the north wall.  Also here is a ventilation grille.  Grande and Symon are here.  Jaelaine is here.
+
+You walk into Grande's room and she look around in surprise and sees her husband. She throws herself into his arms and they hug and kiss each other.
+
+"Come on you two," you say to them. "There'll be plenty of time for that once we get off this asteroid. The pirates will start looking for us soon! We've got to get to my spaceship before the Space Patrol arrive!"
+
+> s
+You move South.
+
+Symon, Grande and Jaelaine follow behind you.
+
+End of Short Corridor
+You are at the north end of the short corridor where there is a open and you can go North into the room or South to the main corridor.  Grande and Symon are here.  Jaelaine is here.
+
+> s
+You move South.
+
+Symon, Grande and Jaelaine follow behind you.
+
+East-West Corridor
+You are in a corridor that leads from East to West, by the doors that lead South to the Flight Control Centre. There is a short corridor leading North.  Lying here is the body of the guard who was shot by Symon.  Also here is a pulse rifle.  Grande and Symon are here.  Jaelaine is here.
+
+> s
+You move South.
+
+Symon, Grande and Jaelaine follow behind you.
+
+Flight Control Centre
+You're in the Flight Control Centre, where several people lie stunned at their consoles or on the floor. Doors lead North and West from here and you can also go South to the FCC reception.  Grande and Symon are here.  Jaelaine is here.
+
+> s
+You move South.
+
+Symon, Grande and Jaelaine follow behind you.
+
+FCC Reception
+You are in the reception area of the Flight Control Centre. There is a desk here which is currently unmanned. You can go North into the Flight Control Centre itself or South through the doors to the landing pads.  Grande and Symon are here.  Jaelaine is here.
+
+> s
+You move South.
+
+Symon, Grande and Jaelaine follow behind you.
+
+Landing Pad 2
+You're in Landing Pad 2 of the pirate's base on Waystar. The mail courier sits on the landing pad with its entry hatch open. You can go North through some double doors or In to the courier.  Grande and Symon are here.  Jaelaine is here.
+
+> in
+You move In.
+
+Symon, Grande and Jaelaine follow behind you.
+
+Courier Control Room
+You're in the tiny control room of the mail courier, in which there is a command chair. You see no sign of damage on the various consoles and bulkheads, and the ship actually looks ready to launch. The exit hatch leads Out and Aft there is a passenger cabin.  Grande and Symon are here.  Jaelaine is here.
+
+You tell Symon and the ladies to go into the passenger cabin and strap into the acceleration couches there, which they do.
+
+Courier Control Room
+You're in the tiny control room of the mail courier, in which there is a command chair. You see no sign of damage on the various consoles and bulkheads, and the ship actually looks ready to launch. The exit hatch leads Out and Aft there is a passenger cabin.
+
+> drop rifle
+Ok, you put down the laser rifle.
+
+> remove holdall
+Ok, you remove the canvas holdall.
+
+> drop holdall
+Ok, you put down the canvas holdall.
+
+> sit in chair
+You settle yourself in the command chair.
+
+Sitting In Command Chair
+You are sitting in the command chair of the mail courier. In front of you are the control consoles.
+
+> press black button
+You press the black power button and the ship trembles as the engines come to life.
+
+> input 4361 9622
+You type the co-ordinates 4361 9622 into the navigation computer keypad.
+
+A message appears on the screen in front of you:
+
+CO-ORDINATES ACCEPTED - PRESS LAUNCH WHEN READY
+
+> press green button
+
+Once there you stop the ship and the four of you watch on the main viewscreen as the Space Patrol task force arrives and surrounds the asteroid. The pirates on the base, having no radar to help them, are powerless to stop them as a score of scout ships land on the surface of the asteroid. The pirates put up a minimum of resistance as the Space Patrolmen storm the base, taking prisoner most of the pirates.
+
+You start the courier's engines again and, keying in the co-ordinates for the "Magnetic Moon" of Psia, make the hyperspace jump to take Jaelaine home at last!
+
+* * * * * * * * * *
+
+*** CONGRATULATIONS! ***
+
+You rescued Jaelaine and saved her from the...
+
+REVENGE OF THE SPACE PIRATES
+
+...in 479 turns, scoring the maximum 550 points!
+
+Thank you for playing this adventure, I hope you enjoyed playing it!
+
+Also Available In The Intrepid Space Adventures of Mike Erlin Series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Coming Soon: Chapter 4: THE EURIPEDES ENIGMA
+
+****************************
+
+The Adventures of Alaric Blackmoon:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+****************************
+
+Adventures in the World of Alaric Blackmoon:
+
+Episode 1: RUN, BRONWYNN, RUN
+
+Episode 2: THE DWARF OF DIREWOOD FOREST
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+

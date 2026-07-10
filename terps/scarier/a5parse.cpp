@@ -510,15 +510,16 @@ trim (const std::string &s)
   return s.substr (a, b - a + 1);
 }
 
-int
-a5parse_match_command (const char *pattern, const char *input, a5_match_t *m)
+/* Match `input` against one already-variant-expanded pattern string. */
+static int
+match_one_pattern (const std::string &pattern, const char *input, a5_match_t *m)
 {
   std::string re_str;
   std::vector<std::string> refs;
 
   if (m != NULL)
     m->n_refs = 0;
-  if (!convert_to_re (pattern, re_str, refs))
+  if (!convert_to_re (pattern.c_str (), re_str, refs))
     return 0;
 
   try
@@ -550,6 +551,65 @@ a5parse_match_command (const char *pattern, const char *input, a5_match_t *m)
     {
       return 0;
     }
+}
+
+/*
+ * Wildcard variants (clsUserSession.GetRegularExpression): a command containing
+ * '*' produces several candidate regexes, tried in order -- first with ALL
+ * wildcards removed, then progressively restoring them left-to-right, the
+ * original command (every wildcard intact) last.  FD builds the list as
+ * iAsterix = N-1 .. -1, each iteration stripping the first iAsterix+1
+ * asterisks, "otherwise we may always end up matching the object name in *":
+ * `find %object% *` must first try %object% = the WHOLE tail ("bell tower
+ * entrance" -> the Bell Tower door) and only fall back to the lazy
+ * %object%/wildcard split ("bell" + "tower entrance") when the longer text
+ * names no object.  The caller advances to the next variant on that name-match
+ * failure (InputMatchesObject -> DoesntMatch -> next regex).
+ */
+static std::string
+variant_pattern (const char *pattern, int variant, int *total)
+{
+  std::string pat = pattern ? pattern : "";
+  replace_all (pat, "**", "*");
+  int n = 0;
+  for (char c : pat)
+    if (c == '*')
+      n++;
+  *total = (n > 0) ? n + 1 : 1;
+  if (variant < 0 || variant >= *total)
+    return std::string ();
+  int remove = n - variant;             /* variant 0 removes all N wildcards */
+  std::string out;
+  out.reserve (pat.size ());
+  for (char c : pat)
+    {
+      if (c == '*' && remove > 0)
+        { remove--; continue; }
+      out += c;
+    }
+  return out;
+}
+
+int
+a5parse_match_command_v (const char *pattern, const char *input, a5_match_t *m,
+                         int variant)
+{
+  int total = 0;
+  std::string pat = variant_pattern (pattern, variant, &total);
+  if (variant < 0 || variant >= total)
+    return -1;
+  return match_one_pattern (pat, input, m);
+}
+
+int
+a5parse_match_command (const char *pattern, const char *input, a5_match_t *m)
+{
+  /* The single-pattern form matches the original command verbatim (all
+     wildcards intact) -- the LAST variant. */
+  int total = 0;
+  variant_pattern (pattern, -1, &total);        /* count only */
+  std::string pat = variant_pattern (pattern, total - 1, &total);
+  return match_one_pattern (pat, input, m) == 1;
 }
 
 const char *

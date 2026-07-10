@@ -1406,11 +1406,118 @@ pron_capture (a5_state_t *st, long off)
   st->pron_pending_pron = 0;
 }
 
+static char *replace_functions (a5_state_t *st, const char *src, int as_arg);
+static char *str_replace_all (const char *src, const char *find,
+                              const char *repl);
+
+/* FD's ReplaceFunctions resolves model-variable tokens (%name% and %name[idx]%)
+   in variable-declaration order, in a pass (Global.vb:1972-2019, a
+   `For Each var In Adventure.htblVariables.Values` loop) that runs BEFORE the
+   left-to-right generic-function scan.  Scarier's replace pass is otherwise
+   strictly text-order, which only diverges when a single text holds two or more
+   variable tokens whose index/value evaluation has a side effect -- in practice
+   an embedded Rand.  Lost Coastlines' inventory line
+   "%defaultshirt[Rand(1,10)]% and %defaultpants[Rand(1,10)]%" is the corpus case:
+   the `defaultpants` variable is declared before `defaultshirt`, so FD draws the
+   pants index first.  For pure (side-effect-free) reads the resolved value is
+   independent of order, so no other corpus text is affected.  This pre-pass
+   mirrors FD: walk the model variables in order and splice in each variable's
+   tokens (via the same eval_function the inline path uses), leaving function and
+   reference tokens for the text-order scan that follows. */
+static char *
+resolve_model_vars_ordered (a5_state_t *st, const char *src)
+{
+  char *cur = strdup (src);
+  int vi;
+
+  if (strchr (src, '%') == NULL)
+    return cur;                         /* nothing to substitute */
+
+  for (vi = 0; vi < st->adv->n_variables; vi++)
+    {
+      const char *vname = st->adv->variables[vi].name;
+      size_t vlen;
+      int guard = 0;
+
+      if (vname == NULL || vname[0] == '\0')
+        continue;
+      vlen = strlen (vname);
+
+      while (guard++ < 4096)
+        {
+          char *hit = NULL, *scan = cur;
+          const char *after;
+          char *name, *rawargs = NULL, *value = NULL, *token;
+          char *tok_end;
+
+          /* Find the next "%vname" (case-insensitive) delimited by '%' or '['. */
+          while ((scan = strchr (scan, '%')) != NULL)
+            {
+              const char *nm = scan + 1;
+              if (strncasecmp (nm, vname, vlen) == 0
+                  && (nm[vlen] == '%' || nm[vlen] == '['))
+                { hit = scan; break; }
+              scan++;
+            }
+          if (hit == NULL)
+            break;
+
+          after = hit + 1 + vlen;
+          name = strndup (hit + 1, vlen);
+          if (*after == '%')
+            {
+              tok_end = (char *) after + 1;
+              value = eval_function (st, name, NULL);
+            }
+          else                          /* '[' : an array element */
+            {
+              int depth = 1;
+              const char *a = after + 1;
+              const char *astart = a;
+              char *args;
+              while (*a && depth > 0)
+                {
+                  if (*a == '[') depth++;
+                  else if (*a == ']') depth--;
+                  if (depth > 0) a++;
+                }
+              if (!(*a == ']' && a[1] == '%'))
+                { free (name); break; }  /* unterminated -> leave for main loop */
+              tok_end = (char *) a + 2;
+              rawargs = strndup (astart, (size_t) (a - astart));
+              args = replace_functions (st, rawargs, 1);
+              if (strchr (args, '.') != NULL)
+                {
+                  char *ooargs = a5expr_replace (st, args);
+                  free (args); args = ooargs;
+                }
+              value = eval_function (st, name, args);
+              free (args);
+            }
+
+          if (value == NULL)             /* not resolvable here */
+            { free (name); free (rawargs); break; }
+
+          token = strndup (hit, (size_t) (tok_end - hit));
+          {
+            char *next = str_replace_all (cur, token, value);
+            free (cur); cur = next;
+          }
+          /* Guard against a value that re-introduces the same token. */
+          if (strstr (value, token) != NULL)
+            { free (token); free (name); free (rawargs); free (value); break; }
+          free (token); free (name); free (rawargs); free (value);
+        }
+    }
+  return cur;
+}
+
 static char *
 replace_functions (a5_state_t *st, const char *src, int as_arg)
 {
   sb_t sb;
-  const char *p = src;
+  char *pre = resolve_model_vars_ordered (st, src);
+  const char *p = pre;
 
   sb_init (&sb);
   while (*p != '\0')
@@ -1556,6 +1663,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
       sb_putc (&sb, *p);
       p++;
     }
+  free (pre);
   return sb_finish (&sb);
 }
 
@@ -2087,6 +2195,52 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
   return alrs;
 }
 
+/* Seal a text's ALR adjudication.  FD runs ReplaceALRs once per Display()
+   call (clsUserSession.vb:308) and never revisits that text, so any OldText
+   occurrence still present after an emit-time ALR pass -- an override whose
+   restriction-gated alternative rendered IDENTICAL to its OldText (XXR's
+   cl_EenyMeenyA camel-tether postfix while the camels are untethered), or one
+   materialised by another ALR's replacement -- is DEAD: the Display-boundary
+   pass (a5text_display_alr) must not re-evaluate it with end-of-turn state,
+   after the turn's tasks have run.  Insert an A5_ALR_MARK sentinel after the
+   first byte of each surviving site so the boundary strstr cannot match
+   across it; the boundary still catches OldText spans assembled ACROSS
+   separately-emitted texts (which carry no mark), and finish_turn strips the
+   sentinels from the output. */
+static char *
+seal_alr_sites (a5_state_t *st, char *text)
+{
+  int i;
+  if (st == NULL || st->adv == NULL || st->adv->n_alrs == 0 || text == NULL)
+    return text;
+  for (i = 0; i < st->adv->n_alrs; i++)
+    {
+      const a5_alr_t *alr = &st->adv->alrs[i];
+      const char *old = alr->old_text;
+      if (old == NULL || old[0] == '\0' || strstr (text, old) == NULL)
+        continue;
+      size_t ol = strlen (old);
+      sb_t sb;
+      const char *p = text;
+      sb_init (&sb);
+      while (*p != '\0')
+        {
+          if (strncmp (p, old, ol) == 0)
+            {
+              sb_putc (&sb, old[0]);
+              sb_putc (&sb, A5_ALR_MARK);
+              sb_puts (&sb, old + 1);
+              p += ol;
+            }
+          else
+            sb_putc (&sb, *p++);
+        }
+      free (text);
+      text = sb_finish (&sb);
+    }
+  return text;
+}
+
 static char *
 process_inner (a5_state_t *st, const char *src, int depth)
 {
@@ -2455,6 +2609,20 @@ a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrapper)
    game ALR blanked the message at Display time; the caller should keep the
    whitespace remainder so the message's paragraph slot survives, as it does in
    FD's output stream. */
+/* FD's Display() appends the still-MARKED-UP string to sOutputText, so its
+   `sOutputText = ""` NotUnderstood test counts markup-only messages as output
+   (see a5_state_t.turn_out_nonempty).  Flag any non-blank marked-up render. */
+static void
+note_marked_output (a5_state_t *st, const char *marked)
+{
+  if (st->turn_out_nonempty)
+    return;
+  for (const char *q = marked; *q; q++)
+    if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t'
+        && *q != A5_ALR_MARK)
+      { st->turn_out_nonempty = 1; return; }
+}
+
 char *
 a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
                     int *pre_alr_ink)
@@ -2465,7 +2633,33 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
   char *capped = auto_capitalise (persp);
   char *plain = a5text_render_plain (capped);
   plain = ps_mark_trailing (capped, plain);
+  note_marked_output (st, capped);
   free (raw);
+  free (inner);
+  free (persp);
+  free (capped);
+  return plain;
+}
+
+/* a5text_describe_ex applied to a PRE-FROZEN raw description template (a string
+   a5text_eval_description returned earlier): the %function%/OO/<#...#>/ALR
+   passes only -- segment selection is NOT re-evaluated.  This is how FD
+   re-renders a Before completion message around its actions
+   (clsUserSession.vb:1178/1200/1204): sMessage is captured ONCE via
+   CompletionMessage.ToString and the later ReplaceExpressions(ReplaceFunctions())
+   calls rework that frozen string, so a restriction-gated segment whose gate the
+   actions flip (Spectre of Castle Coris's banish hiding the Spectre mid-task)
+   still re-renders -- and still draws its <# Either #> -- on the post-action
+   compare. */
+char *
+a5text_process_frozen (a5_state_t *st, const char *raw, int *pre_alr_ink)
+{
+  char *inner = process_inner_ex (st, raw, 0, pre_alr_ink);
+  char *persp = resolve_perspective (st, inner);
+  char *capped = auto_capitalise (persp);
+  char *plain = a5text_render_plain (capped);
+  plain = ps_mark_trailing (capped, plain);
+  note_marked_output (st, capped);
   free (inner);
   free (persp);
   free (capped);
@@ -2843,7 +3037,22 @@ view_location_impl (a5_state_t *st, const char *lockey)
      the tag-sensitive line-start rules.  Non-ALR games always matched with their
      room views already upper-cased at line start, so this is a no-op for them. */
   {
-    char *capped = auto_capitalise (sb.p ? sb.p : "");
+    /* FD's Display runs ReplaceALRs BEFORE CapAfterFullStop (Global.vb:527-539),
+       so a game TextOverride matches the still-lowercase NPC listing -- AoK's
+       Override12 blanks "the dwark is here." -- and only the survivors get their
+       line-start capital.  Run ALR round 1 on the uncapped marked-up buffer
+       here; the cap follows, and FD's post-cap round 2 falls out of the
+       ordinary downstream ALR passes over the capped text. */
+    char *alrd = replace_alrs (st, sb.p ? sb.p : "", 0);
+    /* This ALR round is FD's Display-time pass for the room view: its verdicts
+       are final.  Seal any surviving OldText site (an override whose passing
+       alternative was the identity text, e.g. XXR's camel-tether postfix while
+       the camels are untethered) so the end-of-turn boundary pass cannot
+       re-adjudicate it with post-task state -- FD never revisits Display()ed
+       text.  finish_turn strips the sentinels. */
+    alrd = seal_alr_sites (st, alrd);
+    char *capped = auto_capitalise (alrd);
+    free (alrd);
     plain = a5text_render_plain (capped);
     free (capped);
   }

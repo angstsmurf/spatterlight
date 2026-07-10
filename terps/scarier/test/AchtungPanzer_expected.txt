@@ -17,20 +17,140 @@ If you wish to disable this event press Y and press Enter.
 
 Otherwise type NO + Enter to play the game normally.
 
-> up
-Please type Y or NO and press Enter to make your choice.
+> no
+You have chosen to play the game with the timed event.
 
-> up
-Please type Y or NO and press Enter to make your choice.
+In Tank
+You are sitting on your seat on the left side of the front of the tank. Either side of you are the two steering tillers, while at your feet are the clutch, brake and accelerator pedals. Directly in front of your head is the main vision block you look through while driving and above your head is a thick rubber pad attached to the underside of the ceiling. On your left is a side vision slit and on your right is the transmission housing above which is an instrument panel. In the corner between the vision block and the side vision slit is the gyrocompass.
 
-> n
-Please type Y or NO and press Enter to make your choice.
+To your right, on the other side of the transmission housing, the body of Klaus Hubbuch, the radio operator and front machine gunner, sits headless in his seat while behind you in the main fighting compartment the bodies of the tank commander, gun loader and gunner lie slumped in an unmovable mass of blood and flesh, blocking your way out of the tank turret.
 
-> n
-Please type Y or NO and press Enter to make your choice.
+> look behind
+You turn as much as you can in your seat and look behind yourself. You see an escape hatch in the side of the tank. Beyond that you see flames and smoke - the tank is on fire!
 
-> n
-Please type Y or NO and press Enter to make your choice.
+> open hatch
+You reach behind you, turn the lever and push open the hatch.
 
-> crawl
-Please type Y or NO and press Enter to make your choice.
+> look around
+You look around and the first thing you spot is your canteen of water, which you pick up from the floor of the tank.
+
+> out
+You reach round and flip the catch holding the back of your seat up so that it lies flat, squirm around to face the rear of the tank and crawl in that direction until you are level with the hatch. Thrusting your head and shoulders through the hatch, you grab hold of a couple of the rubber tyres of the road wheels and pull the rest of your body out, scrambling over the wheels until you roll onto the sand beside the tank.
+
+On Ground By Tank
+You are lying on the ground by the left track of the tank. Above you the tank is on fire and might explode at any moment if the blaze reaches the ammunition or the fuel tank. The noise is incredible, with bullets and shells whizzing around from either side of you as the two forces fight it out. You look around and see a slight rise in the ground which might give you some cover about a dozen yards to the west.
+
+> crawl to rise
+You crawl west until you are behind the rise.
+
+Behind Rise
+You are lying on the ground to the west of a slight rise in the ground which gives you enough cover from the weapon fire from the east. Bullets and shells still fly in both directions and you hear explosions and the screams of wounded and dying soldiers.
+
+As you lay down behind the rise, a armour-piercing shell hits the ground on the other side with a loud thump - if the rise hadn't been there it would've killed you!
+
+> crawl n
+You crawl north and after a few seconds reach the comparative safety of the slit trench.
+
+In Slit Trench
+You are lying at the bottom of an abandoned slit trench. The top of the trench is about two feet above you.
+
+Suddenly there is a huge explosion as the tank blows up! You duck as a concussion wave blasts over the slit trench and you cringe in the bottom as deadly shards of metal fly through the air above you to land harmlessly in the sand some distance away! You are showered with sand but otherwise un-injured.
+
+Then there is an almighty ground-shaking crash as the tank's turret, blown completely off the hull by the force of the explosion, lands on the ground on the west side of the rise where you had been sheltering from the battle mere minutes ago!
+
+This works to your advantage as it shields you from the murderous fire coming from the depression.
+
+In Slit Trench
+You are lying at the bottom of an abandoned slit trench. The top of the trench is about two feet above you.
+
+> look over top
+You raise your head so you are looking over the lip of the slit trench.
+
+A few yards to the southwest you can see the turret of your tank and beyond that the wreckage of the hull of the tank, torn apart by the explosion. To the east you can see several of the vehicles of the battlegroup, most of which have been destroyed by the British 6 pounders emplaced in the depression. However, one tank is still engaging the British guns using a couple of knocked-out Panzer III's for cover.
+
+> dig sand
+You dig in the sand and find, to your delight, a tin of bully beef. You pick it up and brush the sand off of it.
+
+> detach key
+Ok, you detach the key from the tin.
+
+> open can
+Using the key you open the can of bully beef.
+
+> eat beef
+You eat the bully beef from the can, scooping it out with your fingers as you have no cutlery. Very soon - all too soon - the bully beef is all gone and the can is empty. It was very nice and filled your otherwise empty stomach.
+
+> drink water
+You take swig of the water in the canteen. It is somewhat warm but serves to keep you hydrated in this oppressive heat.
+
+> wait
+You wait for a while in the safety of the slit trench.
+
+You lay there looking up as bullets and shells whizz by in both directions as both sides slog it out in a battle of attrition.
+
+The fighting continues for some time until it starts to abate somewhat. The sun drops gradually towards the western horizon and you realise it won't be long before night falls.
+
+> wait
+
+*** CONGRATULATIONS! ***
+
+You have escaped from your tank and made it back to your own lines!
+
+...in 14 turns, scoring the maximum 100 points!
+
+I do hope you have enjoyed playing this game.
+
+Other Games By Larry Horsfield:
+
+'The Intrepid Space Adventures Of Mike Erlin' series:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Coming Soon: Chapter 4: THE EURIPEDES ENIGMA
+
+****************************
+
+'The Adventures of Alaric Blackmoon' Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+Episode 8: RETURN TO CASTLE CORIS
+
+****************************
+
+Adventures In The World Of Alaric Blackmoon:
+
+Chapter 1: RUN, BRONWYNN, RUN
+
+Chapter 2: THE DWARF OF DIREWOOD FOREST
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+
+http://www.larrysadrifttextadventures.co.uk
+
+In that game you scored 100 out of a possible 100, in 14 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

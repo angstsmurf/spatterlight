@@ -224,6 +224,18 @@ struct exec_resp_scope {
      response occurred this command (FD's bAllMatch stays True vs the first pass),
      else shown. */
   std::vector<std::pair<std::string, std::vector<std::string>>> fails;
+  /* Specific-override restriction fails, buffered on the DIRECT (single-ref)
+     path with the task's POSITIONAL reference vector.  FD's flush
+     (clsUserSession.vb:804-834) drops a fail only when some pass response's
+     refs match it POSITIONALLY over the fail's full length -- a 2-ref fail
+     (`get ashes` re-dispatched as TakeObjectsFromOthers [ashes, firepit])
+     survives a 1-ref pass ("(from the firepit)" note, [ashes]), while AoK's
+     `show talisman` 1-ref fail [talisman] is cancelled by the 1-ref passing
+     override [talisman]. */
+  std::vector<std::pair<std::string, std::vector<std::string>>> ov_fails;
+  /* Positional ref signatures of every task frame that produced pass output on
+     the direct path (execute_task_with_overrides), for the ov_fails rule. */
+  std::vector<std::vector<std::string>> pass_sigs;
 };
 
 static inline int
@@ -264,6 +276,7 @@ std::string lower (const std::string &s);
 /* a5run_events.cpp (events + walks runtime) */
 void ev_init          (a5_run_t *run, sb_t *out);
 void ev_tick_all      (a5_run_t *run, sb_t *out);
+void drain_tasks_to_run (a5_run_t *run, sb_t *out);
 void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 
 /* a5run_ref.cpp (reference resolution + multiple-object references) */

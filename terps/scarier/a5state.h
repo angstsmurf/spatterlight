@@ -153,9 +153,14 @@ typedef struct a5_state_s {
   const char *ctx_char;
 
   /* Per-turn reference bindings (e.g. "ReferencedObject2" -> "Table1"), set by
-     the parser before restriction/action evaluation. */
+     the parser before restriction/action evaluation.  A binding value can be a
+     whole %objects% pipe-list of keys ("Object27|Object30|...") -- a big
+     drop-all/get-all easily tops 256 chars, and a truncated tail key renders as
+     garbage ("...the large hammer and Objec") or silently drops items from the
+     aggregate list (Fortress of Fear).  Size for ~200 keys. */
+#define A5_REFVAL_LEN 2048
   char  ref_name[16][32];
-  char  ref_value[16][256];
+  char  ref_value[16][A5_REFVAL_LEN];
   int   n_refbind;
 
   /* Multiple-object reference items (the %objects% grammar: "all", "all
@@ -235,6 +240,28 @@ typedef struct a5_state_s {
                                     with its output offset at the emit site */
   const char *pron_pending_key;  /* character key of the pending mention    */
   int  pron_pending_pron;        /* its requested pronoun (-1 = "none")     */
+
+  /* Adventure.sReferencedText(0..4): the TURN-GLOBAL %text% capture slots.
+     During the GetGeneralTask scan every command-matched candidate's %textN%
+     capture overwrites slot N-1 (clsUserSession.vb:2567) -- even when that
+     candidate later fails its references or restrictions -- and a
+     `ReferencedTextN Must ...` restriction reads this GLOBAL slot, not a
+     per-task binding (vb:4474).  So AoK's s_SayHelloTo ("[say] [hello/hi]
+     {to} {edwina/...}", no %text% of its own) passes `ReferencedText Must
+     BeContain "hello"` because earlier scanned candidates ("%text%" catch-alls,
+     "[say/shout] %text%") already captured the input.  After the scan an empty
+     slot 0 defaults to the raw input (vb:3400).  Cleared per processed command
+     by a5run_input; the per-task bindings stay authoritative when present. */
+  char scan_text[5][256];
+
+  /* FD's `sOutputText <> ""` is a test on the RAW marked-up display buffer, so
+     a task completion that is pure markup -- Bug Hunt's cl_ReadMap `<centre>
+     <img src="...">` -- still counts as turn output (no NotUnderstood fallback,
+     TurnBasedStuff ticks) even though it strips to nothing.  Scarier's `out`
+     only sees the stripped text, so the message renderers set this flag when a
+     real (non-test) render produced a non-blank marked-up string.  Reset once
+     per processed command by a5run_input. */
+  int turn_out_nonempty;
 
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is

@@ -1,4 +1,2117 @@
+b
+read plan
+x gatehouse
+drop plan
+climb portcullis
+pull spike
+drop spike
+down
+get plan
+get spike
+n
+e
+e
+n
+ne
+n
+lower bucket
+raise bucket
+search bucket
+sw
+s
+w
+n
+x tapestry
+move tapestry
+move tapestry
+pull lever
+d
+n
+n
+w
+feel wall
+n
+n
+feel wall
+feel font
+feel inscription
+e
+se
+feel wall
+pull lever
+s
+feel wall
+feel altar
+feel inscription
+w
+s
+s
+u
+s
+e
+n
+w
+look north
+look into storeroom
+say hello
+e
+n
+ne
+e
+e
+e
+e
+e
+u
+n
+look under beds
+get scrip
+wear scrip
+s
+u
+s
+look behind long bed
+get shield
+n
+d
+d
+w
+w
+w
+w
+w
+sw
+s
+w
+n
+e
+s
+w
+n
+e
+u
+search pulpit
+get bible
+shake bible
+get paper
+read paper
+d
+e
+pray to god
+talk to skull
+get silver key
+w
+w
+s
+e
+n
+n
+n
+n
+ne
+e
+e
+e
+ne
+x keyhole
+unlock door with iron key
+open door
+n
+u
+u
+w
+look under beds
+get brass key
+e
+u
+s
+x altar
+get altar cloth
+read inscription
+n
+d
+d
+d
+s
+sw
+w
+w
+w
+unlock door with silver key
+open door
+n
+roll barrel
+look behind barrels
+pray to bacchus
+u
+pull shelves
+x winepress
+d
+s
+s
+sw
+unlock door with brass key
+open door
+w
+n
+look behind cupboard
+get paddle
+s
+w
+w
+search kitchen
+get besom
+n
+fill vial with soot
+s
+e
+e
+e
+s
+s
+se
+se
+e
+e
+s
+talk to baker
+ask baker about tool
+give paddle
+e
+ask baker about ingredients
+look under table
+get scales
+u
+search bins
+d
+give yeast to baker
+w
+n
+w
+w
+nw
+n
+n
+fill tankard from bucket
+n
+e
+e
+ne
+n
+ne
+n
+u
+u
+u
+s
+put scales on altar
+get parchment
+n
+d
+d
+d
+s
+sw
+w
+w
+w
+water vine
+cast vormarsch spell on vine
+pick grapes
+n
+drop all
+roll barrel
+get all
+u
+drop all
+pull shelves
+get all
+unscrew lid
+put grapes in press
+put tankard under spout
+screw lid down
+get tankard
+d
+put tankard on shrine
+pray to bacchus
+get tankard
+s
+s
+s
+s
+s
+sw
+w
+n
+e
+e
+put wine on altar
+get rope
+w
+w
+s
+e
+n
+n
+n
+ne
+ask farrier about tool
+throw rope at derrick
+drop all
+climb rope
+search hay
+get disc
+drop disc onto ground
+climb rope
+get all
+s
+s
+s
+sw
+w
+n
+d
+n
+n
+n
+n
+rub disc with cloth
+feel floor
+s
+s
+s
+s
+u
+s
+e
+n
+n
+ne
+e
+e
+e
+e
+e
+u
+u
+u
+unlock door with gold key
+push door
+n
+talk to procurator
+s
+d
+d
+d
+w
+w
+s
+s
+w
+say hello to wife
+ask wife about tool
+w
+w
+sw
+w
+n
+d
+n
+n
+e
+pray to charity
+feel altar
+nw
+nw
+fill goblet with water
+s
+se
+s
+s
+u
+s
+e
+n
+n
+ne
+e
+e
+e
+e
+e
+u
+u
+u
+n
+give goblet to procurator
+get bronze key
+s
+d
+d
+d
+w
+w
+s
+s
+w
+w
+w
+sw
+w
+n
+d
+n
+n
+w
+unlock chest with bronze key
+open chest
+search chest
+e
+s
+s
+u
+s
+e
+n
+n
+n
+ne
+give hoofpick to farrier
+open stable doors
+e
+get sack hook
+e
+look up
+w
+w
+s
+s
+s
+s
+sw
+w
+w
+ask miller about tool
+give sack hook to miller
+n
+n
+x miller
+ask miller about tattoo
+ask miller about tool
+w
+s
+push wagon north
+climb wagon
+look up
+d
+u
+search silo
+sweep grains with besom
+d
+e
+s
+s
+e
+e
+n
+ne
+e
+s
+search hay
+n
+n
+prick sow with needle
+n
+get rod
+s
+s
+n
+e
+give besom to wife
+s
+get stool
+search tools
+get trowel
+search tools
+get rake
+search tools
+get mattock
+search tools
+get saw
+search equipment
+n
+w
+s
+drop stool
+milk cow
+get pail
+saw stool
+get leg
+n
+w
+sw
+w
+n
+pull thread
+thread needle
+s
+e
+n
+n
+n
+ne
+e
+search stalls
+get material
+sew material
+w
+sw
+w
+s
+put bible on altar
+get vellum
+n
+w
+w
+enter fireplace
+fill vial with soot
+search ashes
+s
+e
+e
+e
+s
+s
+s
+s
+w
+w
+n
+n
+w
+u
+fill sack with wheat
+d
+e
+s
+s
+e
+e
+n
+ne
+e
+e
+s
+put leg in hole
+pour wheat into quern
+turn handle
+get flour
+n
+e
+n
+n
+n
+nw
+w
+w
+n
+u
+w
+w
+d
+pour milk into churn
+turn churn
+cast wachstum spell at churn
+u
+e
+e
+d
+s
+s
+s
+s
+fill pail with water
+s
+s
+s
+e
+e
+e
+s
+e
+ask baker about bread
+give flour to baker
+give pail to baker
+w
+n
+n
+n
+n
+nw
+w
+n
+w
+n
+n
+u
+w
+w
+d
+x churn
+spread bread with butter
+u
+e
+e
+d
+s
+s
+s
+s
+s
+s
+se
+talk to sentry
+ask sentry about food
+give bread to sentry
+s
+s
+s
+s
+s
 look
-examine me
-inventory
-wait
+e
+e
+s
+s
+s
+s
+w
+w
+n
+n
+w
+s
+s
+s
+s
+w
+n
+x noticeboard
+get note
+read note
+n
+x statue
+pull lever
+e
+e
+e
+s
+open doors
+e
+in
+look
+out
+u
+open box
+get screwdriver
+d
+w
+n
+nw
+n
+n
+n
+n
+n
+w
+n
+nw
+n
+n
+w
+w
+read paper
+e
+e
+s
+s
+se
+se
+s
+s
+s
+s
+s
+se
+s
+x doors
+open access door
+e
+u
+open box
+get screwdriver
+d
+w
+n
+nw
+n
+n
+n
+n
+n
+nw
+n
+n
+n
+n
+throw screwdriver into hayloft
+drop all
+climb rope
+get screwdriver
+open trapdoor
+unscrew ladder
+drop ladder onto ground
+drop screwdriver onto ground
+climb rope
+e
+get ladder
+w
+s
+s
+s
+s
+se
+s
+s
+s
+s
+s
+e
+prop ladder against statue
+w
+n
+n
+n
+n
+n
+nw
+n
+n
+n
+n
+get all
+s
+s
+s
+s
+se
+s
+s
+s
+s
+s
+e
+se
+lift white visor
+s
+lift green visor
+lift green visor
+w
+w
+w
+lift red visor
+lift red visor
+lift red visor
+e
+e
+n
+e
+drop all
+climb ladder
+lift yellow visor
+lift yellow visor
+d
+get all
+w
+sw
+s
+w
+w
+x cupboard
+x side of cupboard
+hit patch
+open cupboard
+get book
+read book
+x book
+draw curtain
+w
+pray for cellarer
+put disc on altar
+e
+get lantern
+read paper
+e
+e
+n
+w
+lift red visor
+e
+e
+e
+lift green visor
+lift green visor
+lift green visor
+n
+lift white visor
+lift white visor
+lift white visor
+nw
+drop all
+climb ladder
+lift yellow visor
+d
+get all
+se
+s
+s
+s
+e
+look
+d
+nw
+put green rod in nw hole
+pull lever
+nw
+put crossbow on knight
+get green crystal
+read paper
+se
+se
+u
+w
+w
+w
+w
+n
+n
+lift red visor
+e
+e
+e
+lift green visor
+lift green visor
+n
+lift white visor
+lift white visor
+lift white visor
+nw
+drop all
+climb ladder
+lift yellow visor
+lift yellow visor
+lift yellow visor
+lift yellow visor
+d
+get all
+e
+ne
+u
+look
+open door
+e
+d
+sw
+w
+w
+n
+n
+n
+n
+n
+e
+ne
+n
+read sign
+w
+w
+w
+n
+n
+e
+search trough
+x forge
+x anvil
+pull lump
+w
+sw
+s
+s
+w
+n
+d
+n
+n
+n
+ne
+put cloth on tomb
+get bone key
+s
+s
+put coin on altar
+w
+w
+n
+put keys on tomb
+get parchment
+s
+e
+s
+s
+u
+s
+e
+s
+w
+w
+n
+n
+w
+push wagon south
+climb wagon
+look up
+x nest
+d
+push wagon north
+climb wagon
+get egg
+d
+e
+s
+s
+e
+e
+e
+e
+s
+s
+s
+s
+s
+e
+e
+ne
+u
+unlock door with bone key
+open door
+e
+look
+u
+talk to alchemist
+feel under pillow
+d
+n
+look
+x worktable
+s
+s
+look
+open cupboard
+n
+w
+d
+sw
+w
+drop all
+climb ladder
+get broadsword
+drop sword
+d
+get all
+cast reparatur spell at sword
+get broadsword
+se
+s
+s
+s
+e
+d
+n
+put yellow rod in north hole
+pull lever
+n
+put sword on knight
+get vellum
+read paper
+s
+s
+u
+w
+nw
+n
+e
+cast miniat spell at statue
+get figurine
+e
+ne
+u
+e
+s
+open cupboard
+look
+n
+u
+drop all
+jump
+u
+get all
+d
+w
+d
+sw
+w
+w
+n
+n
+n
+n
+n
+e
+e
+n
+n
+w
+n
+loosen twine
+tighten twine
+loosen twine
+inhale gas
+sing
+search nests
+s
+e
+s
+s
+s
+e
+get sack
+get pail
+w
+n
+w
+w
+nw
+sw
+w
+w
+n
+n
+w
+climb wagon
+get egg
+d
+e
+s
+s
+e
+e
+n
+ne
+n
+n
+n
+flick rope
+s
+s
+s
+s
+se
+s
+tie rope to handrail
+drop all
+climb down rope
+pick petals
+put petals in scrip
+climb up rope
+get all
+untie rope
+s
+s
+s
+s
+e
+e
+ne
+u
+e
+u
+look under bed
+d
+w
+d
+sw
+w
+n
+d
+d
+search vault
+kick door
+e
+d
+e
+e
+e
+e
+put bone key on hook 1
+put bone key on hook 2
+put bone key on hook 3
+put bone key on hook 4
+put bone key on hook 5
+put bone key on hook 6
+put bone key on hook 7
+put bone key on hook 8
+put bone key on hook 9
+put bone key on hook 10
+look
+score
+i
+n
+put statuette in niche
+s
+ask custodian about statuette
+ask custodian about khloris
+e
+ask custodian about rats
+ask custodian about rat
+se
+ask custodian about staff
+ask custodian about statuettes
+s
+ask custodian about sounds
+ask custodian about bats
+w
+ask custodian about bag
+ask custodian about leather bag
+nw
+ask custodian about marienburg
+ask custodian about knights
+w
+n
+e
+e
+n
+s
+se
+s
+w
+n
+s
+z
+ask custodian about bones
+ask custodian about chamber of bones
+z
+nw
+ask custodian about rubble
+ask custodian about blocked passageway
+w
+ask custodian about wladyslaw
+sw
+se
+ne
+s
+ne
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+ask custodian about skulls
+score
+i
+nw
+w
+n
+w
+w
+w
+u
+w
+u
+u
+s
+e
+sw
+pick rose
+n
+n
+n
+n
+n
+n
+nw
+n
+n
+n
+n
+n
+e
+cast miniat spell at plank
+get wood
+e
+e
+ne
+n
+u
+e
+get bottle
+smash bottle
+get glass
+w
+d
+s
+sw
+s
+s
+s
+s
+knock on door
+e
+n
+look
+get hammer
+look under bench
+s
+u
+u
+u
+u
+ne
+look
+soak sack in pitch
+sw
+d
+d
+d
+d
+w
+score
+i
+s
+sw
+w
+s
+tie rope to handrail
+drop all
+climb down rope
+release rope
+search moat
+wear gauntlet
+grab rope
+climb up rope
+get all
+untie rope
+s
+s
+s
+s
+e
+n
+d
+d
+e
+d
+e
+e
+e
+e
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+ask custodian about pumice
+walk to edge
+hammer spike into ground
+tie rope to spike
+drop all
+climb down rope
+get pumice
+put pumice in scrip
+climb up rope
+get all
+walk to tunnel
+s
+sw
+se
+s
+s
+s
+put piece of paper in scrip
+put parchment in scrip
+put papyrus in scrip
+put calfskin in scrip
+put withered rose in scrip
+put swallow's egg in scrip
+drop wood
+cast wieder spell at wood
+put vellum in scrip
+drop all
+get plank
+lay plank on pinnacle
+get all
+cross plank
+s
+drop all
+get plank
+lay plank on far side
+get all
+cross plank
+s
+s
+get withered rose from scrip
+put rose on altar
+pray to khloris
+get rose
+n
+n
+s
+put rose on altar
+get papyrus from scrip
+cast verdopplung spell at rose
+put papyrus in scrip
+drop all
+get plank
+lay plank on pinnacle
+get all
+cross plank
+n
+drop all
+get plank
+lay plank on ledge
+get all
+cross plank
+n
+drop all
+get plank
+get all
+n
+n
+score
+i
+n
+nw
+ne
+ask custodian for rat
+ask custodian for dead rat
+i
+score
+n
+w
+w
+w
+u
+w
+u
+u
+s
+e
+sw
+s
+drop plank
+n
+nw
+w
+s
+get calfskin from scrip
+get rose from scrip
+talk to hans
+speak to hans
+greet hans
+show calfskin to hans
+give calfskin to hans
+show rose to hans
+i
+n
+e
+se
+ne
+ne
+u
+e
+n
+find equipment
+look
+x flagon
+score
+get retort
+s
+w
+d
+sw
+w
+n
+d
+d
+e
+d
+e
+e
+e
+e
+n
+get flagon
+search shelves
+s
+w
+w
+w
+w
+u
+w
+u
+u
+s
+w
+n
+n
+n
+n
+n
+nw
+n
+n
+fill retort with water
+nw
+w
+w
+w
+enter fireplace
+remove stopper
+put soot in vial
+s
+e
+e
+e
+s
+s
+se
+se
+s
+s
+s
+s
+s
+e
+e
+ne
+u
+e
+n
+get pumice from scrip
+get swallow's egg from scrip
+get petals from scrip
+put sack in furnace
+get furnace
+s
+w
+d
+sw
+sw
+drop furnace
+focus sunlight onto furnace
+get furnace
+ne
+ne
+u
+e
+n
+remove gauntlet
+make elixir
+pour elixir into flagon
+s
+u
+wake alchemist
+give flagon to alchemist
+score
+i
+d
+w
+d
+sw
+sw
+w
+w
+lift red visor
+e
+e
+e
+lift green visor
+n
+lift white visor
+nw
+drop figurine
+get papyrus from scrip
+cast reparatur spell at figurine
+get vellum from scrip
+cast wieder spell at figurine
+put papyrus in scrip
+put vellum in scrip
+drop all
+get wooden ladder
+prop ladder against statue
+climb ladder
+lift yellow visor
+d
+get all
+score
+w
+sw
+w
+put red crystal in red slot
+score
+w
+open treasury door
+s
+get candlestick
+unscrew candlestick
+get keyring
+unlock padlocks
+read castle names
+read city names
+w
+get white crystal
+e
+n
+open komtur's door
+n
+talk to komtur
+ask komtur about bird
+score
+s
+e
+e
+e
+e
+put green crystal in green slot
+e
+look
+x cannon
+look under cannon
+x locker
+look into narrow gap
+look under locker
+get wad
+push longbow with rake
+look in wider gap
+get longbow
+get parchment from scrip
+cast miniat spell at cannon
+get cannon
+put parchment in scrip
+score
+push rake under locker
+look in wider gap
+get longbow
+score
+w
+n
+put white crystal in white slot
+e
+e
+look into garden
+e
+look
+s
+look
+s
+look
+s
+x bed
+look under bed
+get cadge
+talk to falconer
+ask falconer about tool
+search shelf
+look
+score
+show gauntlet to falconer
+get gauntlet
+wear gauntlet
+e
+s
+s
+look
+s
+x bed
+look under bed
+get cadge
+search shelf
+look
+score
+i
+s
+read reminder
+n
+n
+n
+look
+w
+w
+w
+nw
+w
+n
+n
+n
+n
+n
+nw
+n
+n
+n
+e
+x forge
+x smokehood
+look under smokehood
+look up smokehood
+search inside smokehood
+pull lump of metal
+look
+get lodestone
+unstring longbow
+tie bowstring to lodestone
+w
+s
+s
+s
+se
+s
+s
+s
+s
+s
+e
+se
+e
+e
+e
+s
+s
+get cover
+lower lodestone into drain
+put cover on drain
+n
+n
+n
+erect cadge
+call tiercel
+call tiercel
+call tiercel
+show rat to tiercel
+hold rat above head
+show rat to tiercel
+put tiercel on cadge
+tie jesses to cadge
+s
+w
+w
+w
+nw
+w
+n
+n
+n
+n
+n
+e
+ne
+n
+e
+u
+u
+ring bell
+give token to leatherworker
+d
+d
+w
+s
+sw
+w
+s
+s
+s
+s
+s
+e
+se
+e
+e
+e
+n
+put hood on tiercel
+untie jesses
+get tiercel
+s
+w
+w
+w
+sw
+w
+w
+w
+n
+open drawers
+score
+i
+unlock portal door
+open portal door
+n
+x floor
+fahren lubeck
+look
+x floor
+listen
+look around curtain
+look south
+score
+look south
+look around curtain
+fahren rostock
+look
+x floor
+look around curtain
+look north
+n
+look
+n
+look
+e
+look
+score
+s
+drop longbow
+n
+n
+look
+e
+look
+score
+s
+s
+fahren konigsberg
+x floor
+listen
+listen
+listen
+open door
+e
+look
+look behind outside door
+get habit
+wear habit
+wear hood
+x sign
+e
+look around
+n
+look around
+e
+z
+x wagon
+lift tarpaulin
+get cartridge
+put cartridge in sleeve
+w
+s
+w
+w
+fahren lubeck
+listen
+look around curtain
+s
+search pews
+drop all
+get hymnals
+get all
+n
+fahren rostock
+n
+n
+distribute hymnals
+talk to clockmaker
+x clock
+ask clockmaker about clock
+ask clockmaker about dials
+ask clockmaker about mechanism
+ask clockmaker about rods
+x rods
+x workings
+get rod
+score
+i
+w
+s
+s
+get longbow
+remove habit
+wear chainmail
+fahren toompea
+x floor
+w
+look
+n
+get arrow
+w
+w
+get battleaxe
+e
+e
+get linstock
+e
+e
+search behind cannonballs
+get flask
+w
+w
+w
+s
+e
+fahren marienburg
+score
+i
+s
+s
+e
+e
+ne
+n
+n
+n
+n
+n
+e
+e
+e
+e
+n
+s
+ask sentry about password
+say verona
+ask sentry about figure
+ask sentry about gadfail
+z
+z
+z
+z
+z
+z
+z
+z
+say verona
+e
+e
+n
+look
+score
+talk to herbalist
+s
+w
+w
+n
+n
+w
+ask wife for besom
+s
+look behind doors
+get hoe
+n
+e
+e
+u
+u
+u
+u
+ne
+dip rod in pitch
+sw
+d
+d
+d
+d
+w
+s
+s
+e
+e
+n
+give hoe to herbalist
+n
+x cage
+x plants
+s
+ask herbalist about henbane
+ask herbalist about plants in cage
+ask herbalist about cage
+ask herbalist about saxifrage
+ask herbalist about god
+show calfskin to herbalist
+look
+n
+drop all
+bend bars
+get henbane
+get all
+score
+s
+s
+w
+w
+n
+sw
+w
+nw
+n
+e
+ask wife for besom
+w
+s
+se
+s
+s
+s
+s
+s
+s
+se
+e
+d
+se
+put black rod in se hole
+pull lever
+se
+untie bowstring
+restring longbow
+put longbow on tomb
+put arrow on tomb
+get red rod
+nw
+nw
+s
+put red rod in south hole
+pull lever
+s
+put battleaxe on tomb
+n
+n
+u
+w
+nw
+s
+drop cannon
+aim cannon at gatehouse
+get cannon
+n
+drop cannon
+get vellum from scrip
+cast wieder spell at cannon
+put vellum in scrip
+aim cannon at granite wall
+drop all
+load cannon
+get flask
+pour primer in hole
+drop flask
+get glass
+focus sunlight on slowmatch
+drop glass
+get linstock
+fire cannon
+get all
+score
+fire cannon
+score
+i
+n
+n
+n
+n
+n
+n
+e
+ne
+s
+e
+e
+n
+n
+drop all
+bend bars
+get henbane
+get all
+s
+s
+w
+w
+n
+sw
+w
+s
+s
+s
+s
+s
+s
+se
+e
+d
+get candle
+put candle in scrip
+s
+s
+push henbane under crack
+get candle from scrip
+light candle
+drop candle
+n
+n
+u
+w
+w
+drop all
+get plank
+put plank into hole
+get all
+s
+look
+e
+get sword
+w
+n
+e
+e
+d
+s
+s
+push sword under crack
+n
+n
+u
+w
+w
+score
+i
+e
+open doors
+e
+d
+s
+s
+look
+get lit candle
+push sword under crack
+drop lit candle
+n
+n
+u
+w
+w
+score
+e
+se
+e
+look
+drop plank
+e
+d
+s
+s
+get lit candle
+push sword under crack
+drop lit candle
+n
+n
+u
+w
+w
+s
+s
+look
+score
+i
+s
+s
+e
+put calfskin in scrip
+put shield in bucket
+put lantern in bucket
+lower bucket
+sw
+drop all
+climb down well
+get lantern
+get shield
+open door
+n
+open door
+n
+search shelves
+n
+e
+n
+look through crack
+get sword
+get henbane
+s
+w
+w
+x aisles
+listen
+n
+search shelves
+glue mirror to shield
+get calfskin
+clean mirror
+pull door
+n
+search larder
+throw henbane into cauldron
+z
+z
+z
+w
+s
+creep up on guard
+get dagger
+drop short sword
+get long sword
+u
+z
+follow other mercenaries
+throw dagger at tall mercenary
+open doors
+drop all
+get shield
+e
+find bell tower entrance
+open bell tower door
+run up stairs
+wedge door with chair
+drop shield
+pull bell ropes
+score

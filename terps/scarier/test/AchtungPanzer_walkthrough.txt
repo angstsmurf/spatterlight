@@ -1,19 +1,52 @@
 # Achtung Panzer! -- ground-truth walkthrough script (ADRIFT 5).
 #
-# Source: Denk's published review on intfiction.org (the author did not release
-# a standalone walkthrough; CASA/IF Archive have none). See
-# test/adrift5-games/walkthroughs/AchtungPanzer_walkthrough.txt for provenance.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped
-# (both harnesses skip blank and "#"-prefixed lines).
+# FULL MAX-SCORE WIN: 100/100 in 14 turns ("*** CONGRATULATIONS! ***").
+#
+# Derived 2026-07-05 from the game XML (A5_DUMP_XML score-task audit): exactly
+# 100 points are reachable in the timed game.  Answering "no" at the intro
+# keeps the 10-turn tank-explosion event (cl_TankBlowsU) running AND sets
+# cl_Choice=1, which arms the +10 "Tank Blows Up Safe 1" location trigger on
+# the slit trench; the untimed game's +5 variant (cl_TankBlowsU3, cl_Choice=0)
+# is the mutually exclusive 5 points that make the task total 105.
+# The old script here (Denk's intfiction.org review sequence, see
+# test/adrift5-games/walkthroughs/AchtungPanzer_walkthrough.txt) never
+# answered the intro prompt, so it played nothing.
+#
+# Score ledger (14 tasks = 100):
+#   look behind      +5  find escape hatch (cl_FindHatchS)
+#   open hatch      +10  (cl_OpenHatch)
+#   look around      +5  canteen (cl_CanteenFou1)
+#   out             +20  leave tank (cl_OutFromTan3)
+#   crawl to rise    +5  (cl_CrawlToRis1)
+#   crawl n         +10  reach trench, tank blows up (cl_TankBlowsU4)
+#   look over top    +5  (cl_LookOverLi3; only before the first wait)
+#   dig sand         +5  bully beef (cl_FindBullyS)
+#   detach key       +5  (cl_DetachKeyS)
+#   open can        +10  (cl_OpenCan)
+#   eat beef         +5  (cl_EatBullyBe)
+#   drink water      +5  (cl_DrinkWater)
+#   wait             +5  (cl_WaitInTren1)
+#   wait             +5  (cl_WaitInTren2) -> cl_YouHaveWon
+#
+# The 6 pre-trench commands fit comfortably inside the 10-turn fuse.
 #
 # Run with:
 #   test/a5_groundtruth.sh test/adrift5-games/AchtungPanzer.blorb \
 #       test/AchtungPanzer_walkthrough.txt
-#
-# Minimum-points (~60) escape in seven moves. Max score is 100.
-up
-up
-n
-n
-n
-crawl
+
+no
+look behind
+open hatch
+look around
+out
+crawl to rise
+crawl n
+look over top
+dig sand
+detach key
+open can
+eat beef
+drink water
+wait
+wait
+score

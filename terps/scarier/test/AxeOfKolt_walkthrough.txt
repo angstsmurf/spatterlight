@@ -1,1022 +1,1188 @@
-# The Axe of Kolt -- ground-truth walkthrough script (ADRIFT 5).
-#
-# Source: Classic Adventures Solution Archive, http://solutionarchive.com
-#   "THE AXE OF KOLT (128K)", written by Larry Horsfield, solution by Barbara Gibb.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes stripped.
-# NOTE: CASA solution is for the original release; the ADRIFT 5 remake is a
-# faithful port so most commands carry over. Best-effort differential script.
-#
-# Run with:
-#   test/a5_groundtruth.sh test/adrift5-games/TheAxeOfKolt.blorb test/AxeOfKolt_walkthrough.txt
-#
-# Intro page navigation: O = continue to options page, B = begin adventure.
+# The Axe of Kolt -- built-in WLKTHRGH (game task s_Walkthroug), cleaned to
+# one command per line.  Intro: O = options page, B = begin.
 o
 b
-i
-x signpost
-read notice
+# === Chapter 1 ===
+Read signpost
 e
 e
 e
 e
-look e
-w
+read milestone
 s
+e
+read epitaphs
 s
+read epitaphs
 search grass
-e
+n
 w
 n
+n
+read notice
 nw
 nw
-nw
-help landlord
-talk to lorna
-ask lorna about "pass"
-ask lorna about "dwark"
-x beam
+w
+say hello to innkeeper
+help innkeeper
 w
 x tapestry
+read writing
 e
+talk to bella
+ask about outlaws
+ask about pass
+ask about dwark
+ask about trapper
+ask about tapestry
+ask about magor
+ask about old forest
+ask about chaldon
+ask about ferry
+ask about ferryman
+ask about kolt
+ask about xixon
+ask about kelson
+ask about father
 e
+n
 n
 nw
 w
-say "zorak"
-w
-x bell
-fit clapper
+replace clapper
+ring bell
+ring bell
 ring bell
 w
 u
-tell magor about "xixon"
-x bag
-look in bag
+say alaric to magor
+tell magor about xixon
+tell magor about outlaws
+ask magor about axe
+ask magor about tomb
+ask magor about evil orb
+ask magor about Galhexia
+ask magor about good orb
+ask magor about apparatus
+ask magor about whiskey
 d
-e
 e
 se
-d
 s
-x stalls
-nw
+s
+talk to traders
 w
-buy ale
-e
-e
+in
+wait
+s
+say hello to trapper
+ask trapper about dwark
+ask trapper about cave
+buy fur
+n
+ne
 talk to lampmaker
-buy lamp
-buy tinderbox
-x lamp
-ask lampmaker about "oil"
+buy oil lamp
+buy lamplighter
 s
 x cross
+read inscription
 wait
+talk to oilman
 buy oil
-x stall
-w
-ask trapper about "dwark"
-x coats
-buy coat
-ne
 n
-wear coat
-u
+n
 light lamp
+wear fur
 u
 e
-dive into snow
+e
+dive in snow
 u
 e
-dive into snow
+dive in snow
 u
-throw rock
+throw rock at dwark
 run se
 run e
+get lamp
 extinguish lamp
-w
+out
 d
-sw
-look sw
-ne
 e
-e
-n
-e
-x signpost
 s
 e
-talk to lady
-search bed
-x lady
-give coat to lady
+say hello
+ask about key
+say to edwina are you cold
 w
+s
+search leaves
+s
+s
+say hello to ferryman
+ask about boat
+say i want to cross river
+say mend boat
 n
-w
-n
-search farmyard
-take sieve
-s
-e
-s
-s
-s
-talk to ferryman
-ask ferryman "cross river"
 n
 n
 n
 w
 w
 s
-say sawyer "wood"
+say hello to sawyer
+ask about rod
 take rod
 n
+n
+s
 e
 e
 ne
-say blacksmith "straighten rod"
+in
+say hello to blacksmith
+say to blacksmith straighten rod
+out
 sw
 s
 s
-w
-buy ale
-e
+in
+buy beer
+ask robert about roffey
+say to men cross river
+out
 n
 n
 w
+say yes
 w
 w
-say sergeant "forest"
 sw
-sw
+w
 w
 w
 n
-help girl
-s
-s
-talk to toolmaker
-buy hammer
-nw
-x stall
+w
+say hello to blacksmith
 buy axe
-look in bag
+se
+e
+e
+e
+ne
+e
+n
+drop all except axe
+chop logs
+get all
 s
-x goat
+e
+e
+s
+e
+sieve dirt
 w
-search weeds
+s
+in
+buy beer
+out
+n
+n
+ne
+in
+say to blacksmith straighten rod
+out
+sw
+w
+w
+s
+n
+e
+e
+s
+s
+s
+s
+n
+n
+say yes
 drop all
-take pin
-drop pin
-ne
-ne
-turn handle
-turn handle
-x bucket
-wash
-sw
-sw
-take all
+climb up tree
+get hat
+wear hat
+d
+say yes
+get all
 n
 n
 w
-look around
-x men
+w
+w
+sw
+w
+w
+w
+n
+n
+n
+say hello
+help jacqui
+s
+s
+sw
+sw
+drop all
+search weeds
+get all
+ne
+ne
+n
+n
+pour water over head
+sw
+w
+in
 w
 dry clothes
-x mantelpiece
-search dust
 e
-give domino
+ask eric about domino
+ask ernie about domino
+ask sarah about men
+search floor
+give domino to ernie
 x talisman
-x runes
+out
 e
-e
+n
 n
 nw
 w
 ring bell
+ring bell
+ring bell
 w
 u
-show talisman to magor
-wear talisman
+ask magor about talisman
+ask magor about tunnel wights
+ask magor about barrow wights
+ask magor about father
+ask magor about kolt
 d
 e
 e
 se
-d
 s
+s
+s
+se
 e
 e
 e
 ne
-ne
 e
 e
-n
-chop logs
-take sieve
-s
 e
 s
-e
-sieve bed
-drop sieve
 s
-w
-buy ale
-e
+in
+give hat pin to lily
+out
 n
 n
 ne
-give ale
-give rod
-drop tankard
-sw
-w
-w
-s
-give rod
-n
-e
-e
-s
-s
-x woman
-talk to woman
-n
-climb tree
-take hat
-d
-s
-give hat
-give pin
-give fruit
-n
-n
-w
-w
-w
-sw
+in
+give axe to willy
+search forge
+out
 sw
 w
 w
 w
-buy chainmail
-e
-e
-e
-ne
-ne
-e
-e
-e
-s
-s
-s
-give planks
-give hammer
-n
-n
-n
-ne
-say to apprentice "nails"
-give axe
 sw
-s
-s
-s
-give nails
-board ferry
-s
 w
 w
-wear chainmail
+w
 nw
+buy hammer
+buy nails
 n
+buy chainmail
+tell armourer about xixon
+s
+se
 e
-x path
+e
+e
+ne
+e
+e
+e
+s
+s
+s
+s
+board boat
+b
+# === Chapter 2a ===
+e
+x vegetation
+search vegetation
+w
+s
+wear chainmail
+s
+look around
+x sapling
+break left branch
+break right branch
+sw
+n
 search leaves
 lift doormat
 unlock door
-e
+open door
+in
 light lamp
-x floor
-search rubbish
-x ball
-x table
+x dresser
 open drawer
-search drawer
 remove drawer
 turn drawer over
-drop drawer
-x paper
-read paper
+replace drawer
+search detritus
+search basket
+put ball in bag
+put lamplighter in bag
 w
-drop key
 extinguish lamp
+x poppy
+shake poppy
+get seeds
+put seeds in bag
+e
+e
 s
-x flowers
-take pod
-shake pod
-shake pod hard
-take seeds
-n
-w
-w
+s
+s
 brush spider
 stamp on spider
 x spider
-w
-sw
-sw
-x river
-x fish
+s
+s
 se
 e
 e
+u
+n
+n
+e
+se
+e
 s
-sw
-x door
-knock
-s
-search ivy
-x window
-remove glass
-climb in
+e
+e
+get bloomers
+get string
+put string in bag
+tear bloomers
+drop bloomers
+open door
+in
+get lamplighter
 light lamp
-search wreckage
-x book
-read book
-climb out
-x gap
-x string
-take string
-x shed
-light lamp
-w
-x junk
-search junk
+put lamplighter in bag
 close door
-search junk
+put sack in bag
+search paraphernalia
 x wood
-x knickers
-tear knickers
-tie elastic to wood
-open door
-e
+make catapult
+out
 extinguish lamp
-n
-ne
+put lamp in bag
+w
+w
 n
 w
-listen
-look n
-find stone
-fire stone at woodsmen
-n
-take spear
-x spear
-s
+x tree
+knock on door
+ask about xixon
+ask for weapon
+ask about river
+show paper to grim
+ask about secret
+put paper in bag
+nw
 w
-nw
-s
-se
-x dovecot
-x dove
-throw seed
-take cotton
-nw
-n
-se
 e
-find stone
+find stones
+fire stone at xixon
+w
+pull spear from xixon
+e
+n
+nw
+throw spear at xixon
+get spear
+get quiver
+get bow
+se
+se
+s
+s
+s
+d
+e
+se
+u
+get seeds from bag
+throw seeds
+e
+w
+d
+nw
+w
+ne
+drop all except catapult and stones
+# MAGPIE chase (deterministic, FD-aligned stream): 4 misses at tree1 (Loc76, bird flees NW on its
+# 10-turn walk timer), miss volley at the E-W path (Loc79, restocking stones), then follow it to the
+# abandoned cottage (Loc81) where the close-range shot is an unconditional kill
 fire stone at magpie
-take cotton
-e
-x hedge
+fire stone at magpie
+fire stone at magpie
+fire stone at magpie
+get all
 n
-x bushes
-throw spear at bushes
 n
-take spear
-search bushes
-s
-s
-s
-sw
-knock
-say to dwarf "yes"
-show spear
-show bow
-show paper
-ne
 n
-e
-ne
 nw
-n
-e
-n
-look e
-fire arrow at partridge
-drop bow
-e
-x dog
-whistle
-bounce ball
-throw ball over wall
-take partridge
 w
+drop all except catapult and stones
+fire stone at magpie
+fire stone at magpie
+find stones
+fire stone at magpie
+get all
+w
+n
+drop all except catapult and stones
+fire stone at magpie
+get cotton
+put cotton in bag
+get all
 s
-w
-w
-w
-sw
-throw spear at boar
-take spear
-sw
-se
-e
-e
+# === Chapter 2b ===
 s
-sw
-knock
-show paper
-show book
-ne
-n
-w
-w
-nw
-follow man
-n
-n
-search hut
-lock door
-s
-open door
-d
-light lamp
-look under wardrobe
-read grimoire
-replace grimoire
-u
-s
-follow tracks
-sw
-sw
-empty bottle into river
-cross river
-u
-nw
-take thorn
-se
-d
-cross river
-se
-e
-e
-e
-ne
-nw
-x sapling
-break branch
-dip thorn into resin
-stick cotton to thorn
-n
-w
-x spider
-dip thorn into poison
-w
-sw
-sw
-cross river
-u
 s
 duck
 jump
 throw spear at xixon
-w
-w
-take spear
-w
-look w
-e
-e
-sw
-x brambles
-crawl w
-w
-look n
-x spear
-untie head
-say "nilre ekim"
-insert dart into tube
-blow dart at morgeth
-e
+# corpse falls TWO rooms south (Loc111 -> 82 -> 83); built-in says one 's' (map revision sloppiness)
+s
+s
+get spear
+n
+n
+search vegetation
+s
+s
+drop all except sword
+behead xixon
+get all
+get sack from bag
+put head in sack
+n
+n
+# back at Loc111: reclaim the gear auto-dropped in the ambush (bow/catapult/stone)
+get bow
+get catapult
+get stone
+n
+n
 e
 ne
-w
-w
-w
-x morgeth
-i
-drop tube
-remove chainmail
-drop chainmail
-d
+drop all except sword
+chop head off
+get all
+put head in sack
 se
-look e
 se
-look e
-find stone
-fire stone
-run e
-look around
+s
+w
+drop all except sword
+chop head off
+get all
+put head in sack
+e
+e
+se
+knock on door
+say yes
+empty sack
+get paper
+give paper to grim
+e
+s
+e
+drop all except bow
+fire arrow at partridge
+e
+get ball from bag
+whistle
+bounce ball
+throw ball over wall
+get all
+e
+get partridge
+w
+w
+n
+drop all
 crawl e
-look around
-tie string to head
-whirl head
-release string
-run e
-se
+n
+search ashes
+put spike in bag
 s
+crawl w
+get all
+w
+knock on door
+put pot in bag
+nw
+w
+throw spear at boar
 s
-x boards
+get spear
+s
+follow grat
+get spike from bag
 wait
-grab rope
-climb d
-a
-a
-feel around
-jump s
-feel around
+w
+n
+listen
+put spike in hasp
 s
-feel around
-a
-feel object
-wear goggles
-n
-jump n
-climb u
-a
-a
-a
-a
-jump e
-look u
+open door
+# burrow is in/out, not w/e (built-in sloppiness)
+in
+search books
+read grimoire
+put grimoire on desk
+out
 e
-x wagon
-x carriage
-x brake
-x wheels
-x box
-x lug
+ne
+s
+d
+get pot from bag
 e
 e
 e
-e
+se
+get cotton from bag
+pour potion in water
+nw
 w
 w
-n
+cross river
+sw
+break thorn
+ne
+cross river
 e
-run w
+ne
+n
+n
+n
+n
+get knife
+cut branch with knife
+dip thorn in resin
+stick thorn to cotton
+sw
+w
+w
+s
+s
+dip dart in venom
+s
+s
+se
+e
+cross river
+sw
+e
+se
+look se
+w
+w
+sw
+sw
+sw
+ne
+ne
+cut binding with knife
+resheath knife
+remove bag and quiver
+drop all except shaft and dart
+say nrogara oblib fladnag odorf
+put dart in shaft
+x tracks
+crawl into tunnel
+crawl sw
+crawl sw
+x galhexia
+aim blowpipe at galhexia
+blow dart at galhexia
+get all
+reassemble spear
+sw
+sw
+sw
+sw
+d
+# === Chapter 3 ===
+b
+se
+put lamplighter in pouch
+listen
+look around corner
+nw
+s
+look e
+crawl s
+x trough
+search gap
+throw spear south
+get catapult
+# built-in says "stone" (singular) but that drops the round stones (lost forever); plural keeps them
+drop all but catapult and stones
+fire stone over xixon
+crawl s
+search rails
+untie string
+tie string to spearhead
+spin spearhead
+let go of string
 run s
+s
+s
+grab rope
+feel around
+climb up rope
+feel around
+jump east
+feel around
+e
+feel around
+e
+feel around
+feel rails
+wear goggles
+w
+w
+jump w
+climb down rope
+climb down rope
+climb down rope
+climb down rope
+jump south
+x tunnel
+look around
+x buffer
+s
+s
+s
+s
+s
+e
 run w
-run w
-run w
+run n
+run n
+run n
+run n
 grab bar
+s
+s
+s
+s
+s
 e
-look under wagon
-x pin
-scrape rust
-search compartment
-w
-x buffers
-saw bolts
-saw bar
-drop hacksaw
-e
-e
-e
-x turntable
-n
-e
-search equipment
-search boxes
-pull shelves
-take chalk
+x dust
+x tracks
+search crates
 move crates
-x hole
-reach in hole
-x chalk
-x tub
-x hammer
-x hammer closely
+get all
+x shaft
+x scratches
+get charcoal from pouch
+rub charcoal on scratches
 read name
-rub chalk on shaft
-read name
-drop chalk
+x walls
+open cupboard
+get bandage
+put bandage in pouch
 w
 n
-look n
-x bar
-take pickaxe with bar
-s
-s
-s
-search rubble
 n
-e
-search track
-e
-lever track s
-a
-a
-look along track
+x turntable
+push turntable
 w
-w
-lever turntable
-w
-w
-grease wheels
-drop tub
-insert pin in lug
-climb into wagon
-drop all except bar
-climb out
-w
-take buffer
-e
-e
-e
-e
-e
-slide buffer under track
-w
-w
-w
-w
-insert bar into brake
-e
-e
-s
 x tunnel
-x timbers
-pull timber carefully
-take timber
-n
-w
-w
-place timber in wagon
-climb in wagon
-push against roof
-apply brake
-take timber
-throw timber out wagon
-take all
-climb out
-e
-e
-x wight
-remove talisman
-show talisman to wight
-say "begone torbig brisfak"
-wear talisman
+drop all except spanners
+unbolt rail
+get all
 e
 e
 e
-w
-w
-w
-w
-n
-n
-take spade
-s
-s
 e
-e
-x tunnel
-x timbers
 drop all
 w
 w
 w
-take timber
+w
+get rail
 e
 e
 e
-prop roof with timber
-take hammer
-hammer timber
-take all
 e
+drop rail
+replace section
+get pot
 e
-x tunnel
-search timbers
-tap rock with chisel
-make hole
-drop chisel
-attach fuse to explosive
-insert explosive into hole
-light fuse
+grease axles
+drop pot
+push wagon west
+get all
+drop spanners
+put wood and mallet in wagon
+push wagon west
+push wagon west
+push wagon west
+n
+n
+n
+saw bar
+saw screws
+drop saw
+s
+s
+s
+put bar in hole
+push bar
+get bar
+push wagon north
+push wagon north
+push wagon north
+get buffer
+s
+s
+s
+s
+s
+s
+s
+s
+drop buffer
+look along rails
+slide buffer under rails
+# built-in says "lever rails east" x2, but the win task needs railspointing==3 = ONE lever WEST
+# (wind blows the wagon east; aim slightly west to compensate)
+lever rails west
+look along rails
+n
+n
+n
+n
+n
 w
 w
-s
-n
+w
+look w
+get pin with bar
 e
 e
 e
-look behind boxes
-x staff
+n
+n
+n
+put pin in lug
+put bar in brake
 s
-x floor closely
-throw hammer onto floor
-x doors
-push doors with staff
 s
-look up
-open golden doors with staff
 s
-x throne
-take axe
-look under throne
+w
+w
+w
+carefully move beam
+get prop
+e
+e
+e
 n
 n
 n
-unlock bronze doors
-n
-u
-n
-hit wall with pickaxe
-dig earth
-a
-a
-a
-a
-push slab
-a
-a
-a
-n
-n
-nw
-x grille
-remove goggles
-put goggles into channel
+put prop in wagon
+climb in wagon
+push roof n
+pull brake
+get prop
+throw prop out of wagon
+get all
+throw all out of wagon
+climb out of wagon
+get all
+s
+s
 remove talisman
-put talisman into channel
-r
-search cell
-shout
-a
-a
-say "food"
-wait
-a
-a
-take plate
-eat food
-groan
-a
-a
-say "yes"
-groan loudly
-a
-a
-a
-a
-kick jailer
-search jailer
-unlock manacles
-search cell
-gag jailer
-chain jailer
-e
-close door
-lock door
+show talisman
+say dispellarius lombardo
+get chisel
 s
-unlock door
-open door
+x rough wall
+get explosive
+get all from pouch
+fit fuse to explosive
+n
+n
+tap east wall
+drop all except chisel and mallet
+make hole in east wall
+get explosive
+put explosive in hole
+drop all
+n
+get prop
+s
+x tunnel
+x timbers
+prop roof with prop
+get all
+hammer prop with mallet
+light fuse
+put lamplighter in pouch
+n
+n
+w
+wrap bandage around ears
+get all
+put bandage in pouch
 e
-close door
+s
+s
+throw all through hole
+climb into cave
+get all
+se
+tap east wall
+drop all except pickaxe
+demolish east wall with pickaxe
+get all
+e
+s
+drop all except pickaxe
+demolish south wall with pickaxe
+get wood
+n
+n
+n
+x walls
+x holes
+throw pickaxe on floor
+n
+n
+x ceiling
+get bandage
+tie wood together
+push doors open with wood
+n
+n
+x floor slabs
+close doors
+walk around edge
+open doors
+n
+x kolt
+get axe
+s
+walk around edge
+open bronze doors
+s
+s
+s
+s
+s
+s
+s
+drop axe
+get shovel
+dig earth wall with shovel
+dig earth wall with shovel
+dig earth wall with shovel
+drop shovel
+get axe
+s
+put goggles in pouch
+s
+# === Chapter 4 ===
+b
+x floor
+x channel
+x crevice
+get goggles
+hide goggles in crevice
+z
+z
+z
+call jailer
+ask for food
+z
+z
+z
+taste food
+throw food down latrine
+# built-in says "sit on straw" but that task ALWAYS refuses (bugs joke); moans only count while lying
+lie down
+moan
+moan
+moan
+moan
+kick link
+search straw
+get keys
+unlock manacles
+shackle link
+gag link
+drop keys
+n
+w
+w
+w
+n
+n
+w
+get cudgel
+search under table
+e
+s
+s
+e
+e
+unlock door 4
+n
 lock door
 wait
-a
-drop plate
 unlock door
-open door
-drop keys
+s
+e
+get goggles
 w
-x channel
-x grille
-search hole
+w
+w
 n
+n
+w
+hit guard with cudgel
+e
 u
 e
-e
-x table
-r
-hide under table
-wait
-feel around
-w
-w
-n
-hit xixon with cudgel
-take all
-u
-n
-e
-e
-open door
-n
+s
+get goggles
 wear goggles
-search chamber
-search shelf
+x bed
+get sheet
 tear sheet
 bandage leg
-search bed
-x bottle
-x door
-read sign
-s
-w
+feel under bed
+n
+e
 open door
+push door
 push door hard
+introduce yourself to woman
+search cupboards
+e
+x desk
+open drawer
+show bottle to jasmine
+get string
+ask jasmine for food
+e
 s
-calm woman
-say alison "heal leg"
-search scullery
-n
+w
+w
+d
+w
+get knife
+search xixon
+search xixon
+e
+u
 e
 e
-look n
-listen
-w
-w
-w
-w
-u
-u
-u
-u
-listen
 e
-creep e
-strangle xixon with string
-take sword
+e
+u
+u
+look w
+z
+z
+z
+creep w
+strangle xixon
+get sword
+eat rations
+search xixon
+x iron key
 unlock door
-open door
+n
 s
-take all
-n
-drag xixon s
-n
-close door
-lock door
-w
-w
-d
-d
-d
-d
 e
 e
+u
+look w
+u
+eat rations
+w
+unlock door
+s
+get bag
+n
+e
+d
+d
+d
+w
+w
 knock on door
-say "alaric"
-give linen to alison
-give bag to alison
-say alison "food"
-search cupboard
-talk to alison
-give talisman to alison
-open door
-kiss alison
-n
 w
 w
-n
 u
 u
-u
-e
-e
-e
-u
-u
-w
-eat meat
-w
-w
 u
 x embrasure
-climb embrasure
-x opening
+e
+n
+sheath knife
+put bottle in pouch
+drop all
+s
 w
+remove block
+e
+n
+drop block
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+remove block
+e
+n
+drop block
+x blocks
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+remove block
+e
+n
+drop block
+s
+w
+x embrasure
+d
 d
 d
 e
 e
-e
-d
-d
-w
-w
-w
-d
-d
-d
-d
 e
 s
+x boards
+get pot
+n
+w
+w
+w
+u
+u
+u
+smear butter on gap
 d
-search xixon
-move xixon
-take knife
+d
+d
+e
+e
+e
 s
-e
-search table
-take butter
-w
-n
-u
+put pot on boards
+wash hands
 n
 w
-u
-x door
-look through spyhole
-u
-u
-u
-e
-e
-e
-u
-u
-w
 w
 w
 u
-climb embrasure
-rub butter on opening
-w
-wear gloves
-jump w
 u
+u
+squeeze through gap
+climb up drainpipe
+look up
 x xixon
-pull xixon
-u
-n
-wait
-look d
-x flagpole
-untie rope
-e
-throw knife at xixon
-e
+grab xixon
+climb over battlements
 se
-ne
-look u
+get knife
+throw knife at xixon
 grab bar
-pull bar
-a
-a
-sw
-w
-w
-look d
-x rope
-tie rope to bar
-wedge bar in battlements
-climb d rope
-x grille
-pour acid on grille
-tie rope to grille
-climb in opening
-x staples
-pour acid on staples
-climb out
-climb u rope
-pull rope
-ne
-look d
-wedge bar in battlements
-climb d
-look around
-swing
-flick rope
-d
+grab bar
+grab bar
 n
+e
+e
+x flagpole
+cut lanyard with knife
+put knife back
+tie rope to bar
+w
 look d
-shout
+wedge bar behind battlements
+climb down rope
+look into opening
+get bottle
+pour acid on bars
+tie rope to grille
+put bottle in pouch
+climb through opening
+get bottle
+pour acid on staples
+wear axe
+climb through opening
+climb up rope
+pull rope
+w
+w
+look d
+e
+wedge bar behind battlements
+climb down rope
+swing on rope
+flick rope
+climb down drainpipe
+d
+look down
+remove axe
+shout to kelson
 wave axe
-s
-run
-jump
+u
+run down
+look down
 untie rope
 tie rope to axe
 lower axe

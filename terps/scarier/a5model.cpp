@@ -1086,8 +1086,34 @@ a5model_load (const char *path)
       free (file_buf);
       return NULL;
     }
-  header = (payload[12] == '0' && payload[13] == '0'
-            && payload[14] == '0' && payload[15] == '0') ? 16 : 12;
+  /* 5.0.20+ .taf/.blorb payloads insert a Babel <ifindex> metadata block
+     right after the 4-byte hex size field at offset 12: a size of "0000"
+     means an empty (absent) block, but a non-empty block is only detectable
+     by the literal "<ifindex" tag at offset 16 (FrankenDrift FileIO.vb:800,
+     sSize = "0000" OrElse sCheck = "<ifindex"). Skip exactly that many bytes
+     before the obfuscated/deflated game payload starts. */
+  {
+    int is_zero_size = (payload[12] == '0' && payload[13] == '0'
+                         && payload[14] == '0' && payload[15] == '0');
+    int has_ifindex = (payload_len >= 24
+                        && memcmp (payload + 16, "<ifindex", 8) == 0);
+    if (is_zero_size || has_ifindex)
+      {
+        char size_hex[5];
+        memcpy (size_hex, payload + 12, 4);
+        size_hex[4] = '\0';
+        header = 16 + (uint32_t) strtoul (size_hex, NULL, 16);
+      }
+    else
+      {
+        header = 12;
+      }
+  }
+  if (header + 14 > payload_len)
+    {
+      free (file_buf);
+      return NULL;
+    }
   region_len = payload_len - header - 14;
 
   a5_deobfuscate (payload, header, region_len);

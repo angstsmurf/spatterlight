@@ -489,3 +489,9 @@ a5_eval_sexpr (const char *expr)
   Val v = parse_logic (p);
   return strdup (v.s.c_str ());
 }
+
+bool
+a5sexpr_is_function (const std::string &lid)
+{
+  return is_function (lid);
+}

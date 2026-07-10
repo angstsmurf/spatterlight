@@ -152,6 +152,40 @@ split_assignment (const std::string &body, std::string &name, std::string &value
   return 1;
 }
 
+static std::string
+lower_copy (const std::string &s)
+{
+  std::string r = s;
+  for (char &c : r) c = (char) tolower ((unsigned char) c);
+  return r;
+}
+
+/* True if `v` is, after trimming, a single top-level call "name(...)" spanning
+   the whole string -- not e.g. "f(a) & g(b)" or a plain literal.  `name` is
+   set to the (unlowered) identifier. */
+static bool
+a5_bare_function_call (const std::string &v, std::string &name)
+{
+  size_t i = 0, n = v.size ();
+  while (i < n && isspace ((unsigned char) v[i])) i++;
+  size_t start = i;
+  while (i < n && (isalpha ((unsigned char) v[i]) || v[i] == '_')) i++;
+  if (i == start || i >= n || v[i] != '(')
+    return false;
+  name = v.substr (start, i - start);
+  size_t j = n;
+  while (j > start && isspace ((unsigned char) v[j - 1])) j--;
+  if (j == 0 || v[j - 1] != ')')
+    return false;
+  int depth = 0;
+  for (size_t k = i; k < j; k++)
+    {
+      if (v[k] == '(') depth++;
+      else if (v[k] == ')') { depth--; if (depth == 0 && k != j - 1) return false; }
+    }
+  return depth == 0;
+}
+
 static void run_action (a5_run_t *run, const char *kind, const char *body,
                         int depth, sb_t *out);
 static void emit_look (a5_run_t *run, sb_t *out);
@@ -472,7 +506,7 @@ refs_match_specifics (a5_state_t *st, const a5_task_t *child,
    the end of the command. */
 struct ref_snap {
   char ref_name[16][32];
-  char ref_value[16][256];
+  char ref_value[16][A5_REFVAL_LEN];
   int  n_refbind;
   int  ref_object1_plural;
   int  ref_character1_plural;
@@ -546,6 +580,27 @@ render_comp_test (a5_state_t *st, const a5_xml_node_t *comp)
   char *m = a5text_describe (st, comp);
   st->marking_display = pm;
   return m;
+}
+
+/* Does this CompletionMessage bear a text-changing function -- an embedded
+   <#...#> expression (OneOf/Either/...) or a RAND(..) inside a %function% or
+   array reference?  Only such messages can draw RNG when rendered; run_task
+   uses this to route a Before message through the FD-faithful
+   render/actions/render interleave while plain static messages keep the flat
+   fast path. */
+static int
+comp_bears_function (const a5_xml_node_t *n)
+{
+  if (n == NULL)
+    return 0;
+  if (n->text != NULL
+      && (strstr (n->text, "<#") != NULL
+          || strstr (n->text, "RAND(") != NULL))
+    return 1;
+  for (const a5_xml_node_t *c = n->first_child; c != NULL; c = c->next)
+    if (comp_bears_function (c))
+      return 1;
+  return 0;
 }
 
 /* Insert a freshly-built entry, honouring a reserved position (the slot a
@@ -881,6 +936,144 @@ child_all_any (a5_state_t *st, const a5_task_t *child)
   return 1;
 }
 
+/* clsTask.Children sorts a parent's Specific overrides with
+   List(Of String).Sort(TaskPrioritySortComparer) (clsTask.vb:328-345) -- .NET's
+   UNSTABLE introspective sort, keyed on Priority alone.  When two passing
+   overrides tie on priority the one that runs is decided by where introsort
+   happens to leave them, so being faithful means porting the algorithm
+   byte-for-byte (.NET ArraySortHelper<T>.IntrospectiveSort with a comparer,
+   IntrosortSizeThreshold 16; dotnet/runtime ArraySortHelper.cs).  E.g. Fortress
+   of Fear has two 'talk to baker' Overrides of Task66 both at priority 1211 --
+   Task58 (2023 revision: +3 score, "baker,") and Task1803 (2015: no score,
+   "baker, ") -- and FD runs Task1803 because introsort orders the tie
+   [Task2536, Task1803, Task58].  A stable sort keeps XML order and runs Task58:
+   wrong text AND a +3 score drift.  The sort input is the parent's children in
+   XML load order (TaskHashTable = Dictionary preserves insertion order), with
+   completed non-repeatable tasks filtered out BEFORE sorting (the Children
+   property's bIncludeCompleted=False filter) -- the filter changes the array
+   introsort sees, so it must precede the sort exactly as in FD. */
+
+static int
+net_cmp_pri (const a5_adventure_t *adv, int a, int b)
+{
+  long pa = adv->tasks[a].priority, pb = adv->tasks[b].priority;
+  return pa < pb ? -1 : pa > pb ? 1 : 0;
+}
+
+static void
+net_swap_if_greater (const a5_adventure_t *adv, int *k, int i, int j)
+{
+  if (net_cmp_pri (adv, k[i], k[j]) > 0)
+    { int t = k[i]; k[i] = k[j]; k[j] = t; }
+}
+
+static void
+net_insertion_sort (const a5_adventure_t *adv, int *k, int n)
+{
+  for (int i = 0; i < n - 1; i++)
+    {
+      int t = k[i + 1];
+      int j = i;
+      while (j >= 0 && net_cmp_pri (adv, t, k[j]) < 0)
+        { k[j + 1] = k[j]; j--; }
+      k[j + 1] = t;
+    }
+}
+
+static void
+net_down_heap (const a5_adventure_t *adv, int *k, int i, int n)
+{
+  int d = k[i - 1];
+  while (i <= n / 2)
+    {
+      int child = 2 * i;
+      if (child < n && net_cmp_pri (adv, k[child - 1], k[child]) < 0)
+        child++;
+      if (!(net_cmp_pri (adv, d, k[child - 1]) < 0))
+        break;
+      k[i - 1] = k[child - 1];
+      i = child;
+    }
+  k[i - 1] = d;
+}
+
+static void
+net_heap_sort (const a5_adventure_t *adv, int *k, int n)
+{
+  for (int i = n / 2; i >= 1; i--)
+    net_down_heap (adv, k, i, n);
+  for (int i = n; i > 1; i--)
+    {
+      int t = k[0]; k[0] = k[i - 1]; k[i - 1] = t;
+      net_down_heap (adv, k, 1, i - 1);
+    }
+}
+
+static int
+net_pick_pivot_and_partition (const a5_adventure_t *adv, int *k, int n)
+{
+  int hi = n - 1;
+  int middle = hi >> 1;
+  net_swap_if_greater (adv, k, 0, middle);
+  net_swap_if_greater (adv, k, 0, hi);
+  net_swap_if_greater (adv, k, middle, hi);
+  int pivot = k[middle];
+  { int t = k[middle]; k[middle] = k[hi - 1]; k[hi - 1] = t; }
+  int left = 0, right = hi - 1;
+  while (left < right)
+    {
+      while (net_cmp_pri (adv, k[++left], pivot) < 0) ;
+      while (net_cmp_pri (adv, pivot, k[--right]) < 0) ;
+      if (left >= right)
+        break;
+      { int t = k[left]; k[left] = k[right]; k[right] = t; }
+    }
+  if (left != hi - 1)
+    { int t = k[left]; k[left] = k[hi - 1]; k[hi - 1] = t; }
+  return left;
+}
+
+static void
+net_intro_sort (const a5_adventure_t *adv, int *k, int n, int depth_limit)
+{
+  int partition_size = n;
+  while (partition_size > 1)
+    {
+      if (partition_size <= 16)
+        {
+          if (partition_size == 2)
+            { net_swap_if_greater (adv, k, 0, 1); return; }
+          if (partition_size == 3)
+            {
+              net_swap_if_greater (adv, k, 0, 1);
+              net_swap_if_greater (adv, k, 0, 2);
+              net_swap_if_greater (adv, k, 1, 2);
+              return;
+            }
+          net_insertion_sort (adv, k, partition_size);
+          return;
+        }
+      if (depth_limit == 0)
+        { net_heap_sort (adv, k, partition_size); return; }
+      depth_limit--;
+      int p = net_pick_pivot_and_partition (adv, k, partition_size);
+      net_intro_sort (adv, k + p + 1, partition_size - (p + 1), depth_limit);
+      partition_size = p;
+    }
+}
+
+static void
+net_introspective_sort (const a5_adventure_t *adv, std::vector<int> &keys)
+{
+  int n = (int) keys.size ();
+  if (n <= 1)
+    return;
+  int log2n = 0;
+  for (unsigned u = (unsigned) n; u > 1; u >>= 1)
+    log2n++;
+  net_intro_sort (adv, &keys[0], n, 2 * (log2n + 1));
+}
+
 /*
  * Run PARENT honouring its Specific child overrides (clsTask Children +
  * SpecificOverrideType), recursively -- a faithful port of FD's
@@ -897,23 +1090,37 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
 {
   a5_state_t *st = run->st;
   int parent_text = 1, parent_actions = 1;
+  int any_child_fail_output = 0;    /* FD's bAnyChildHasOutput (vb:1053/1141) */
   std::vector<const a5_task_t *> after;
+  size_t frame_len0 = sink_len (run, out);
 
   /* A command-bearing General has override children; a Specific override
      (depth>0) is itself scanned for its OWN nested children -- e.g. GetAWooden
-     overrides TakeObjectFromLocation, which overrides TakeObjects. */
+     overrides TakeObjectFromLocation, which overrides TakeObjects.  Build the
+     child list the way clsTask.Children does: the parent's Specific tasks in
+     XML load order, completed non-repeatable ones filtered out (the property's
+     bIncludeCompleted=False gate -- FD's vb:730 entry check never sees them),
+     then .NET-introsorted by Priority so equal-priority ties land exactly
+     where FD's unstable sort puts them (see net_introspective_sort above). */
+  std::vector<int> kids;
   if ((parent->n_commands > 0 || depth > 0) && depth < 16)
-    for (size_t oi = 0; oi < run->order->size (); oi++)
+    {
+      for (int i = 0; i < run->adv->n_tasks; i++)
+        {
+          const a5_task_t *t = &run->adv->tasks[i];
+          if (!streq (t->type, "Specific")) continue;
+          if (t->general_key == NULL || !streq (t->general_key, parent->key))
+            continue;
+          if (!t->repeatable && st->task_done[i]) continue;
+          kids.push_back (i);
+        }
+      net_introspective_sort (run->adv, kids);
+    }
+  for (size_t oi = 0; oi < kids.size (); oi++)
       {
-        int cidx = (*run->order)[oi];
+        int cidx = kids[oi];
         const a5_task_t *child = &run->adv->tasks[cidx];
-        if (!streq (child->type, "Specific")) continue;
-        if (!streq (child->general_key, parent->key)) continue;
         if (!refs_match_specifics (st, child, parent, refs)) continue;
-        /* clsUserSession.AttemptToExecuteTask returns False at entry for an
-           already-completed non-repeatable task (vb:730), so such a child does
-           not fire as an override -- the parent (or a later child) runs. */
-        if (!child->repeatable && st->task_done[cidx]) continue;
 
         const char *ot = child->override_type;
         int is_after = ot != NULL && strncmp (ot, "After", 5) == 0;
@@ -933,6 +1140,23 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
 
         if (!a5restr_pass (st, child->restrictions))
           {
+            /* FD's bPassingOnly abort: once an earlier sibling child has failed
+               WITH output (bAnyChildHasOutput, set only in the fail branch,
+               vb:1141), every later child is attempted with bPassingOnly=True.
+               A refs-matching child that then FAILS its restrictions is silent
+               (the fail-message block is gated `If Not bPassingOnly`, vb:1244)
+               and AttemptToExecuteTask returns early ("If bPassingOnly AndAlso
+               Not bPass Then Return False", before the vb:911 bContinue rules)
+               -- so bContinueExecutingTasks stays False and the child scan
+               stops dead (vb:1146 Exit For).  The parent keeps whatever
+               suppression earlier children set; later siblings (even a passing
+               one) never run.  FoF `ask clockmaker about dials` after the
+               clock explanation: Task2932 (7480) fails with "I have already
+               explained...", then Task2949 (7495) matches and fails silently,
+               aborting the scan BEFORE the wearily catch-all Task2950 (7496,
+               +2 score) is reached -- FD shows only Task2932's message. */
+            if (any_child_fail_output)
+              break;
             /* A Specific task that matches the references but whose restrictions
                fail still claims the turn if it has a fail message: show it and
                suppress the parent.  In the default HighestPriorityTask mode a
@@ -950,16 +1174,45 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
                Mirrors why Amazon's bottle (lazy fail) is still picked up while
                RunBronwynn's ballgown (RemoveBall, Key=Ballgown) is not. */
             int lazy = run->resp != NULL && child_all_any (st, child);
+            int fail_claims = 0;
             if (fm != NULL)
               {
                 if (run->resp != NULL)
-                  resp_add_fail (run, fm);
+                  { resp_add_fail (run, fm); any_child_fail_output = 1; }
                 else
-                  { char *fmsg = a5text_describe (st, fm);
-                    sb_pspace (out); sb_puts (out, fmsg); free (fmsg); }
+                  {
+                    char *fmsg = a5text_describe (st, fm);
+                    /* FD buffers this restriction text in htblResponsesFail and
+                       flushes it after the passes; a later sibling override that
+                       PASSES with output for the same reference cancels it
+                       (clsUserSession.vb:804-834).  Buffer it in the command's
+                       exec scope instead of writing to `out`, so AoK's `show
+                       talisman` drops Task236's "Right idea - wrong location!"
+                       once Task1427 passes.  When nothing passes, the scope
+                       flush at the end of run_general still shows it. */
+                    if (msg_has_output (fmsg))
+                      {
+                        fail_claims = 1;
+                        any_child_fail_output = 1;
+                        if (run->exec_scope != NULL)
+                          {
+                            if (run->exec_scope->fail_seen.insert (fmsg).second)
+                              {
+                                std::vector<std::string> pos;
+                                for (auto &ri : refs)
+                                  pos.push_back (ri.key ? ri.key : "");
+                                run->exec_scope->ov_fails.push_back
+                                  (std::make_pair (std::string (fmsg), pos));
+                              }
+                          }
+                        else
+                          { sb_pspace (out); sb_puts (out, fmsg); }
+                      }
+                    free (fmsg);
+                  }
                 if (!lazy) { parent_text = 0; parent_actions = 0; }
               }
-            if (!lazy && sink_len (run, out) > len0
+            if (!lazy && (sink_len (run, out) > len0 || fail_claims)
                 && !child->continue_lower && !st->adv->hp_passing)
               break;                        /* fail with output: claims the turn */
             continue;                       /* no output (or HPPT): keep scanning */
@@ -1137,6 +1390,18 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
           ev_on_task_completed (run, child->key, out);   /* fire its controls too */
         }
   free (pinned_view);
+
+  /* This frame produced pass output on the direct path: record its POSITIONAL
+     reference signature (FD keys every htblResponsesPass entry with the
+     subtask's NewReferences) for the exec_scope ov_fails cancel rule. */
+  if (run->resp == NULL && run->exec_scope != NULL
+      && sink_len (run, out) > frame_len0)
+    {
+      std::vector<std::string> sig;
+      for (auto &ri : refs)
+        sig.push_back (ri.key ? ri.key : "");
+      run->exec_scope->pass_sigs.push_back (sig);
+    }
 }
 
 /* Run a matched General task (the directly command-matched parent), honouring
@@ -1288,6 +1553,35 @@ exec_scope_flush (a5_run_t *run, exec_resp_scope *sc, sb_t *out)
         { sb_pspace (out); sb_puts (out, f.first.c_str ()); }
     }
   sc->fails.clear ();
+
+  /* Specific-override fails buffered on the direct path: FD's positional
+     cancel (clsUserSession.vb:812-834) -- the fail is dropped only when some
+     pass response's reference vector matches it position-for-position over the
+     fail's FULL length (a pass with fewer refs cannot cancel: refsPass.Length
+     <= iRef => bAllMatch False).  A ref-less fail keeps the bAllMatch-True
+     quirk: cancelled by the mere presence of any pass response. */
+  for (auto &f : sc->ov_fails)
+    {
+      bool cancelled;
+      if (f.second.empty ())
+        cancelled = !sc->pass_seen.empty () || !sc->pass_sigs.empty ();
+      else
+        {
+          cancelled = false;
+          for (auto &sig : sc->pass_sigs)
+            {
+              bool all = true;
+              for (size_t i = 0; i < f.second.size (); i++)
+                if (f.second[i].empty () || i >= sig.size ()
+                    || sig[i] != f.second[i])
+                  { all = false; break; }
+              if (all) { cancelled = true; break; }
+            }
+        }
+      if (!cancelled)
+        { sb_pspace (out); sb_puts (out, f.first.c_str ()); }
+    }
+  sc->ov_fails.clear ();
 }
 
 /* ------------------------------------------------------------ conversation */
@@ -1945,10 +2239,21 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
                   int oj = a5state_object_index (st, k2);
                   const char *loc = NULL;
                   if (oj >= 0)
-                    for (int li = 0; li < st->adv->n_locations; li++)
-                      if (a5state_object_at_location (st, oj,
-                                                      st->adv->locations[li].key, 1))
-                        { loc = st->adv->locations[li].key; break; }
+                    {
+                      /* A static object placed at a location GROUP exists at
+                         many rooms (AoK's cell floor, Group74): keep the
+                         character where it is when the furniture is present
+                         there too, else the first-match scan below teleports
+                         the player out of the cell on `lie down`. */
+                      if (st->char_loc[ci] != NULL
+                          && a5state_object_at_location (st, oj, st->char_loc[ci], 1))
+                        loc = st->char_loc[ci];
+                      else
+                        for (int li = 0; li < st->adv->n_locations; li++)
+                          if (a5state_object_at_location (st, oj,
+                                                          st->adv->locations[li].key, 1))
+                            { loc = st->adv->locations[li].key; break; }
+                    }
                   if (loc != NULL && !streq (loc, st->char_loc[ci]))
                     {
                       if (streq (k1, a5state_player_key (st)))
@@ -1962,16 +2267,47 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
           else if (to == "InsideObject" || to == "OntoObject")
             {
               /* clsUserSession MoveCharacterToEnum.InsideObject / OntoObject:
-                 the character stays at its current location but is now in/on the
-                 object (clsCharacterLocation.ExistsWhere InsideObject/OnObject).
+                 the character is now in/on the object
+                 (clsCharacterLocation.ExistsWhere InsideObject/OnObject).
                  char_in distinguishes the two so BeInsideObject / BeOnObject
                  read it back correctly -- e.g. FBA's `hide in niche`
                  (MoveCharacter Player InsideObject cl_Niche1) which the custodian
                  "goes past" check gates on. */
               const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
               if (k2 != NULL)
-                { st->char_onobj[ci] = k2;
-                  st->char_in[ci] = (to == "InsideObject") ? 1 : 0; }
+                {
+                  st->char_onobj[ci] = k2;
+                  st->char_in[ci] = (to == "InsideObject") ? 1 : 0;
+                  /* FD keys the character's location off the container
+                     (clsCharacterLocation.LocationKey follows the object), so
+                     putting someone inside an object in ANOTHER room moves them
+                     there -- Axe of Kolt sends Grat from his burrow (Loc112)
+                     into the loo hut (Object358 @Loc107); leaving char_loc at
+                     the burrow made the Caught-By-Grat death (gated on him
+                     being AT Loc112) fire while he was in the loo.  Sync it,
+                     like the sit-on-furniture branch above. */
+                  const char *loc = NULL;
+                  /* Prefer the character's current room when the container is
+                     present there (multi-location statics), like the
+                     sit-on-furniture sync above. */
+                  if (st->char_loc[ci] != NULL
+                      && a5state_object_key_at_location (st, k2, st->char_loc[ci], 0))
+                    loc = st->char_loc[ci];
+                  else
+                    for (int li = 0; li < st->adv->n_locations; li++)
+                      if (a5state_object_key_at_location (st, k2,
+                                                          st->adv->locations[li].key, 0))
+                        { loc = st->adv->locations[li].key; break; }
+                  if (loc != NULL && (st->char_loc[ci] == NULL
+                                      || !streq (loc, st->char_loc[ci])))
+                    {
+                      if (streq (k1, a5state_player_key (st)))
+                        enqueue_loc_trigger_tasks (run, st->char_loc[ci], loc);
+                      st->char_loc[ci] = loc;
+                      if (streq (k1, a5state_player_key (st)))
+                        clear_conv_if_partner_gone (run, out);
+                    }
+                }
             }
           else if (to == "ToParentLocation")
             {
@@ -2077,6 +2413,18 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
       int vi;
       if (!split_assignment (body, name, value))
         return;
+      /* FD's action parser splits the LHS at '[' (FileIO.vb: sKey1 =
+         sElements(0).Split("[")(0)); the bracketed part is an array index,
+         ignored for a Length-1 variable (clsUserSession.vb:2135).  Scarier has
+         no array variables, so drop the suffix -- AoK's push-doors task writes
+         "Variable330[Hidden] = ""1""" and the lookup must see Variable330. */
+      size_t br = name.find ('[');
+      if (br != std::string::npos)
+        {
+          name.erase (br);
+          while (!name.empty () && isspace ((unsigned char) name.back ()))
+            name.pop_back ();
+        }
       vi = a5state_variable_index (st, name.c_str ());
       if (vi < 0) return;
       if (streq (st->adv->variables[vi].type, "Text") && streq (kind, "SetVariable"))
@@ -2090,6 +2438,20 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
              Only when it is a lone literal (no interior same-quote), so a
              concatenation like "a" & "b" is left for a5text_process untouched. */
           std::string tv = value;
+          /* A bare top-level function call ("UCASE(%text%)", Skybreak's
+             Playername1 assignment) is a real expression, not literal text --
+             route it through the full evaluator so %text% resolves and
+             quotes (expr_substitute's bExpression quoting) before UCASE runs,
+             instead of falling into the plain %ref%-substitution below, which
+             left the literal "UCASE(...)" wrapper in the stored string. */
+          std::string call_name;
+          if (a5_bare_function_call (tv, call_name) && a5sexpr_is_function (lower_copy (call_name)))
+            {
+              char *ev = a5text_eval_expression (st, tv.c_str ());
+              free (st->var_text[vi]);
+              st->var_text[vi] = ev;
+              return;
+            }
           if (tv.size () >= 2 && (tv[0] == '"' || tv[0] == '\'')
               && tv[tv.size () - 1] == tv[0]
               && tv.find (tv[0], 1) == tv.size () - 1)
@@ -2828,6 +3190,11 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
      item merges into its %objects% list. */
   char *resp_pre = NULL;
   int   resp_pos = -1;
+  char *flat_raw = NULL;         /* flat-path frozen Before template + snapshot */
+  char *flat_pre = NULL;
+  int   flat_pre_ink = 0;
+  int   flat_inter = 0;
+  sb_t  flat_abuf; sb_init (&flat_abuf);
   if (before && comp != NULL)
     {
       if (run->resp != NULL)
@@ -2854,7 +3221,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
               free (mark);
             }
         }
-      else
+      else if (!comp_bears_function (comp) || run->defer_look)
         {
           /* FD (FileIO.vb:1618 defaults a missing <MessageBeforeOrAfter> to
              Before) renders a Before completion message up to THREE times
@@ -2871,9 +3238,9 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              showed index 1, diverging every downstream encounter roll).  A static
              completion (no `%function%`) renders identically every time and draws
              nothing, so the two extra renders are inert for the corpus's plain
-             messages.  (These General completion tasks' actions don't draw between
-             renders, so evaluating the compare/finalize here -- before the actions,
-             which run below -- matches FD's stream.) */
+             messages -- this fast path keeps them byte-stable.  (defer_look also
+             stays here: the interleaved path below buffers action output, which
+             would break look_pos indexing into `out`.) */
           char *e1 = render_comp_test (run->st, comp);
           char *e2 = render_comp_test (run->st, comp);
           if (e1 != NULL && e2 != NULL && strcmp (e1, e2) != 0)
@@ -2891,6 +3258,36 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
               emit_completion (run, comp, out);   /* finalize: 3rd render + display */
             }
         }
+      else
+        {
+          /* The message draws AND this task's actions may draw too (AoK's
+             Task999 magpie miss: message = <# Either(...) #>, actions =
+             Execute Task998 = Variable206 RAND(1,100)).  Evaluating the
+             compare/finalize before the actions (as above) would put the
+             Either draws before the roll, while FD's real order is render1 ->
+             actions -> render2 (-> finalize) -- that misordering desynced the
+             whole xoshiro stream from the magpie chase onward.  Interleave:
+             freeze the template and take the pre-action snapshot now, run the
+             actions into a side buffer below (the message still precedes their
+             output, vb:1189 iResponsePosition), compare after them.
+
+             The template is frozen via eval_description ONCE, exactly like
+             FD's `sMessage = task.CompletionMessage.ToString` (segment
+             selection + DisplayOnce retirement happen HERE, vb:1167 -- real
+             render, not bTestingOutput): the pre/post/finalize renders rework
+             that string with the function/expression pass only.  Re-selecting
+             segments per render instead broke Spectre of Castle Coris: the
+             banish task's actions hide the Spectre, so a live re-select
+             dropped the Either-bearing segment from the post-action compare
+             and its draw vanished from the stream. */
+          int pm = run->st->marking_display;
+          run->st->marking_display = 1;
+          flat_raw = a5text_eval_description (run->st, comp);
+          run->st->marking_display = 0;
+          flat_pre = a5text_process_frozen (run->st, flat_raw, &flat_pre_ink);
+          run->st->marking_display = pm;
+          flat_inter = 1;
+        }
     }
 
   /* clsUserSession.vb:1193 sets `task.Completed = True` *before* ExecuteActions
@@ -2901,15 +3298,101 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   if (self_ti >= 0)
     run->st->task_done[self_ti] = 1;
 
+  /* FD's stock Look is an AggregateOutput task, so its room view is deferred to
+     the command's final Display -- a later action in THIS task's list that moves
+     an object out of the room is reflected in the view even though the view is
+     positioned ahead of that action's output.  FoF's `give pail to baker` runs
+     Task317 (Baker Bakes Bread), whose action list does `Execute Look` and THEN
+     `Execute Task2572` (Farrier Takes Pail, hiding the pail); FD shows the bakery
+     WITHOUT the pail followed by the farrier's "picks up the pail" line.  When an
+     `Execute Look` is not the last action here, defer it (its slot is recorded at
+     look_pos) and splice the final-state view back in after the remaining actions
+     have run.  The last-action case (the usual "move then look") is unchanged. */
+  int local_defer_look = 0;
+  int prev_dl = run->defer_look, prev_lp = run->look_pending;
+  size_t prev_lpos = run->look_pos;
+  char *prev_lpin = run->look_pinned;
+  if (act != NULL && !flat_inter && run->resp == NULL && !run->defer_look)
+    {
+      for (const a5_xml_node_t *c = act->first_child; c != NULL; c = c->next)
+        if (streq (c->name, "SetTasks") && c->next != NULL
+            && streq (c->text, "Execute Look"))
+          { local_defer_look = 1; break; }
+      if (local_defer_look)
+        { run->defer_look = 1; run->look_pending = 0; run->look_pinned = NULL; }
+    }
+
   if (act != NULL)
     {
       int saved_sti = run->cur_score_ti;
       run->cur_score_ti = self_ti;
       const a5_xml_node_t *c;
       for (c = act->first_child; c != NULL; c = c->next)
-        run_action (run, c->name, c->text, depth, out);
+        run_action (run, c->name, c->text, depth, flat_inter ? &flat_abuf : out);
       run->cur_score_ti = saved_sti;
     }
+
+  if (local_defer_look)
+    {
+      int did_defer = run->look_pending;
+      size_t lpos = run->look_pos;
+      char *lpin = run->look_pinned;
+      run->defer_look = prev_dl;
+      run->look_pending = prev_lp;
+      run->look_pos = prev_lpos;
+      run->look_pinned = prev_lpin;
+      if (did_defer && lpos <= (size_t) out->len)
+        {
+          std::string view;
+          if (lpin != NULL)
+            view = lpin;                       /* pinned pre-action render */
+          else
+            {
+              int pm = run->st->marking_display;
+              run->st->marking_display = 1;
+              view = render_look_string (run);  /* final-state room view */
+              run->st->marking_display = pm;
+            }
+          /* Splice the view at its recorded slot: head | view | tail, where tail
+             (the output the remaining actions produced) already carries its own
+             leading pSpace separator. */
+          std::string tail (out->p + lpos, out->len - lpos);
+          out->len = lpos;
+          if (out->p) out->p[lpos] = '\0';
+          sb_pspace (out);
+          sb_puts (out, view.c_str ());
+          sb_puts (out, tail.c_str ());
+        }
+      free (lpin);
+    }
+
+  if (flat_inter)
+    {
+      /* Post-action compare + finalize (clsUserSession.vb:1200-1205), on the
+         FROZEN template: pin the pre-action snapshot when the renders differ
+         (FD displays the test render; no third draw), else render once more
+         for display (the finalize draw, real marking). */
+      int pm = run->st->marking_display;
+      run->st->marking_display = 0;
+      char *post = a5text_process_frozen (run->st, flat_raw, NULL);
+      run->st->marking_display = pm;
+      if (flat_pre != NULL && post != NULL && strcmp (flat_pre, post) != 0)
+        { emit_message_body (run, flat_pre, flat_pre_ink, out); flat_pre = NULL; }
+      else
+        {
+          int fin_ink = 0;
+          pm = run->st->marking_display;
+          run->st->marking_display = 1;
+          char *fin = a5text_process_frozen (run->st, flat_raw, &fin_ink);
+          run->st->marking_display = pm;
+          emit_message_body (run, fin, fin_ink, out);
+        }
+      free (post);
+    }
+  free (flat_pre);
+  free (flat_raw);
+  if (flat_abuf.len > 0) { sb_pspace (out); sb_puts (out, flat_abuf.p); }
+  free (flat_abuf.p);
 
   if (before && comp != NULL && run->resp != NULL)
     {

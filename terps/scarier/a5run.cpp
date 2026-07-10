@@ -427,11 +427,19 @@ run_remembered (a5_run_t *run, const char *chosen, sb_t *out)
     return 0;
   const a5_task_t *t = &run->adv->tasks[run->amb_task_index];
   a5_match_t m;
-  if (!a5parse_match_command (t->commands[run->amb_command_index],
-                              run->amb_input.c_str (), &m))
-    return 0;
-  if (resolve_refine (run, t, &m, run->amb_ref_name.c_str (), chosen, NULL) != RR_OK)
-    return 0;
+  int resolved = 0;
+  for (int vi = 0; !resolved; vi++)
+    {
+      int mr = a5parse_match_command_v (t->commands[run->amb_command_index],
+                                        run->amb_input.c_str (), &m, vi);
+      if (mr < 0)
+        return 0;
+      if (mr == 0)
+        continue;
+      if (resolve_refine (run, t, &m, run->amb_ref_name.c_str (), chosen, NULL)
+          == RR_OK)
+        resolved = 1;
+    }
   run_general (run, t, &m, out);
   st->task_done[run->amb_task_index] = 1;
   ev_on_task_completed (run, t->key, out);
@@ -541,9 +549,58 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
         {
           a5_match_t m;
           amb_info this_amb;
-          if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
-            continue;
-          int r = resolve_refine (run, t, &m, NULL, NULL, &this_amb);
+          /* Wildcard variants (GetRegularExpression): try the command's
+             candidate regexes in order -- all wildcards removed first, the
+             original pattern last -- advancing to the next variant when the
+             matched variant's reference text names nothing (InputMatchesObject
+             failure -> DoesntMatch -> next regex).  `find bell tower entrance`
+             must bind the whole tail to %object% (the unseen Bell Tower door)
+             before falling back to the lazy "%object% *" split ("bell").  The
+             first variant that yields a real resolution wins; a NOREF (second-
+             chance Must-Exist) result keeps the FIRST such variant's reference
+             text, as FD's second-chance pass re-matches regex list in order. */
+          int r = RR_NOMATCH;
+          a5_match_t noref_m;
+          int have_noref_var = 0;
+          for (int vi = 0; ; vi++)
+            {
+              int mr = a5parse_match_command_v (t->commands[ci], in.c_str (),
+                                                &m, vi);
+              if (mr < 0)
+                break;
+              if (mr == 0)
+                continue;
+              /* clsUserSession.vb:2567: a command-matched candidate's %textN%
+                 captures overwrite the turn-global sReferencedText slots as soon
+                 as its references are processed -- BEFORE (and regardless of) its
+                 reference resolution or restriction outcome, so a later task's
+                 `ReferencedText Must ...` restriction sees the leakage. */
+              for (int mi = 0; mi < m.n_refs; mi++)
+                if (strncmp (m.ref_name[mi], "text", 4) == 0)
+                  {
+                    int slot = 0;
+                    if (isdigit ((unsigned char) m.ref_name[mi][4]))
+                      slot = atoi (m.ref_name[mi] + 4) - 1;
+                    if (slot < 0) slot = 0;
+                    if (slot > 4) slot = 4;
+                    strncpy (st->scan_text[slot], m.ref_text[mi],
+                             sizeof st->scan_text[slot] - 1);
+                    st->scan_text[slot][sizeof st->scan_text[slot] - 1] = '\0';
+                  }
+              r = resolve_refine (run, t, &m, NULL, NULL, &this_amb);
+              if (r == RR_NOREF && !have_noref_var)
+                { noref_m = m; have_noref_var = 1; }
+              if (r != RR_NOMATCH && r != RR_NOREF)
+                break;
+            }
+          if ((r == RR_NOMATCH || r == RR_NOREF) && have_noref_var)
+            {
+              /* No variant resolved; surface the first NOREF variant (its
+                 bindings may have been clobbered by later variants' probes --
+                 re-resolve to restore them and the amb info). */
+              m = noref_m;
+              r = resolve_refine (run, t, &m, NULL, NULL, &this_amb);
+            }
           if (r == RR_NOMATCH)
             continue;
           if (a5run_trace)
@@ -551,15 +608,44 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                      t->key, t->commands[ci], r);
           if (r == RR_OK)
             {
+              size_t out_before = out->len;
               run_general (run, t, &m, out);
+              int produced = (out->len > out_before);
               st->task_done[ti] = 1;
               ev_on_task_completed (run, t->key, out);
               /* <Continue>ContinueAlways: run lower-priority matching tasks too
                  (clsUserSession GetGeneralTask -> EvaluateInput(Priority+1)).
                  E.g. GetOffBeforeMoving prints "(getting off X first)" then lets
-                 the actual movement task run. */
-              if (t->continue_lower)
+                 the actual movement task run.
+
+                 Also continue when the task PASSED but produced NO OUTPUT:
+                 FrankenDrift's AttemptToExecuteTask (clsUserSession.vb:916-921)
+                 sets bContinue and re-evaluates at Priority+1 for a passing task
+                 with no output, so a higher-priority matching task that DOES emit
+                 (or fails with output) claims the turn instead.  E.g. Axe of Kolt's
+                 generic "Buy Object" (Task54, no completion message) passes for
+                 `buy beer` but must yield to the higher-priority "Buy Beer In
+                 Tavern" task that emits "...run out of change" and sets the
+                 change-needed flag.  If nothing higher claims, the cont_active
+                 fall-through below still reports the turn handled (the silent task
+                 already ran its actions). */
+              if (t->continue_lower || !produced)
                 {
+                  /* If that passing task also ended the game (an EndGame action
+                     with no completion message, e.g. FoF's silent Task1448
+                     "Pull Bell Ropes - Door Wedged": IncScore + Execute + EndGame
+                     Win), FrankenDrift's Priority+1 re-entry into EvaluateInput
+                     hits its top guard with eGameState != Running: SystemTasks(True)
+                     rejects the command (not restart/restore/quit/undo) and it
+                     prints "Please give one of the answers above." before returning
+                     (clsUserSession.vb:3372-3379).  The win/lose banner then follows
+                     from CheckEndOfGame (emit_endgame here).  Emit that line and
+                     claim the turn -- the re-entry scans no further task. */
+                  if (st->game_over)
+                    {
+                      sb_puts (out, "Please give one of the answers above.\n");
+                      return 1;
+                    }
                   /* EvaluateInput(Priority+1): only strictly-higher-priority
                      tasks remain eligible, with the LowPriority/iPriorityFail
                      guard.  A second ContinueAlways task raises the floor. */
@@ -1228,15 +1314,47 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
    HighestPriorityPassingTask (so an examine task whose noun is unknown keeps its
    "You see no such thing." rather than yielding to a higher refless task that
    fails silently and drops the turn to NotUnderstood). */
+/* Re-match (ti,ci) against `in` with the wildcard-variant order scan_tasks
+   used, restoring the binding state of the variant it surfaced: the first
+   variant with a real resolution, else the first NOREF variant. */
+static int
+rematch_resolve (a5_run_t *run, int ti, int ci, const std::string &in,
+                 a5_match_t *m)
+{
+  const a5_task_t *t = &run->adv->tasks[ti];
+  int r = RR_NOMATCH;
+  a5_match_t noref_m;
+  int have_noref = 0;
+  for (int vi = 0; ; vi++)
+    {
+      int mr = a5parse_match_command_v (t->commands[ci], in.c_str (), m, vi);
+      if (mr < 0)
+        break;
+      if (mr == 0)
+        continue;
+      r = resolve_refine (run, t, m, NULL, NULL, NULL);
+      if (r == RR_NOREF && !have_noref)
+        { noref_m = *m; have_noref = 1; }
+      if (r != RR_NOMATCH && r != RR_NOREF)
+        return 1;
+    }
+  if (have_noref)
+    {
+      *m = noref_m;
+      resolve_refine (run, t, m, NULL, NULL, NULL);
+      return 1;
+    }
+  return r != RR_NOMATCH;
+}
+
 static int
 noref_has_output (a5_run_t *run, int ti, int ci, const std::string &in)
 {
   a5_state_t *st = run->st;
   const a5_task_t *t = &run->adv->tasks[ti];
   a5_match_t m;
-  if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
+  if (!rematch_resolve (run, ti, ci, in, &m))
     return 0;
-  resolve_refine (run, t, &m, NULL, NULL, NULL);
   const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
   if (fm == NULL)
     return 0;
@@ -1256,9 +1374,8 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
   a5_state_t *st = run->st;
   const a5_task_t *t = &run->adv->tasks[ti];
   a5_match_t m;
-  if (!a5parse_match_command (t->commands[ci], in.c_str (), &m))
+  if (!rematch_resolve (run, ti, ci, in, &m))     /* binds the resolvable refs */
     return 0;
-  resolve_refine (run, t, &m, NULL, NULL, NULL);   /* binds the resolvable refs */
   const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
   if (fm == NULL)
     return 0;
@@ -1565,10 +1682,49 @@ a5run_input (a5_run_t *run, const char *line)
         run->amb_keys = narrowed;
     }
 
-  if (scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti, &amb_ci,
-                  &amb_cantsee, &have_fail, &fail_text,
-                  &have_noref, &noref_ti, &noref_ci))
-    { run->amb_active = 0; ev_tick_all (run, &out); return finish_turn (run, &out); }
+  /* Adventure.sReferencedText: cleared right before a fresh GetGeneralTask scan
+     (clsUserSession.vb:3389; the ambiguity-resolution path above keeps the
+     original command's slots).  scan_tasks refills the slots from every
+     command-matched candidate's %text% captures; afterwards an empty slot 0
+     defaults to the raw input (vb:3400) for the post-scan paths (noref/fail
+     runs, event ticks). */
+  for (int si = 0; si < 5; si++)
+    st->scan_text[si][0] = '\0';
+  st->turn_out_nonempty = 0;
+
+  int scan_claimed = scan_tasks (run, in, &out, &have_amb, &amb, &amb_ti,
+                                 &amb_ci, &amb_cantsee, &have_fail, &fail_text,
+                                 &have_noref, &noref_ti, &noref_ci);
+  if (st->scan_text[0][0] == '\0')
+    {
+      strncpy (st->scan_text[0], in.c_str (), sizeof st->scan_text[0] - 1);
+      st->scan_text[0][sizeof st->scan_text[0] - 1] = '\0';
+    }
+  if (scan_claimed)
+    {
+      run->amb_active = 0;
+      /* clsUserSession.vb:3421-3431: the chosen task ran, the qTasksToRun
+         LocationTrigger queue is drained, and only THEN does FD test
+         `If sOutputText = "" Then NotUnderstood()` -- skipping TurnBasedStuff
+         entirely on that branch, so events do not tick either.  AoK's "Talk to
+         Oilman + 2" override has actions (Variable33=1) but no completion
+         message: FD greets silently then prints the NotUnderstood ladder's "I
+         don't understand what you want to do with the armourer."  The drain
+         must come first (Mazoomah's `push radio` win text arrives via the
+         YouHaveWon LocationTrigger tasks), and `sOutputText` is the raw
+         marked-up buffer, so a markup-only completion counts as output
+         (turn_out_nonempty; Bug Hunt's cl_ReadMap `<img>` map).  A won/lost
+         game skips the fallback outright -- FD's endgame turns always
+         displayed something. */
+      drain_tasks_to_run (run, &out);
+      if (out.len == 0 && !st->turn_out_nonempty && !st->game_over)
+        {
+          not_understood (run, in, &out);
+          return finish_turn (run, &out);
+        }
+      ev_tick_all (run, &out);
+      return finish_turn (run, &out);
+    }
 
   if (have_fail)
     {

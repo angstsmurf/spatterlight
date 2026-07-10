@@ -39,8 +39,17 @@
 #ifndef A5SEXPR_H
 #define A5SEXPR_H
 
+#include <string>
+
 /* Evaluate a fully-substituted `<#...#>` expression body to its string value. */
 char *a5_eval_sexpr (const char *expr);
+
+/* True if `lid` (already lower-cased) names one of the functions apply_function
+   understands (if/min/max/.../ucase/lcase/.../rand/urand).  Exposed so a
+   caller can tell a bare function-call RHS ("UCASE(...)") apart from plain
+   literal text before deciding whether to run it through the expression
+   evaluator at all. */
+bool a5sexpr_is_function (const std::string &lid);
 
 /* RNG hook for the random functions (either/oneof/rand/urand).  Must return an
    integer in the inclusive range [lo, hi], mirroring frankendrift's

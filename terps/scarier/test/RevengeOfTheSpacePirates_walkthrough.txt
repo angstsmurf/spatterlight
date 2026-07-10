@@ -1,46 +1,33 @@
-# Revenge of the Space Pirates -- ground-truth walkthrough script (ADRIFT 5).
-#
-# Source: Solution by Terri Sheehan (2005-09-20), Larry Horsfield / FSF Adventures;
-# displayed on the Classic Adventures Solution Archive: http://solutionarchive.com.
-# Cleaned for a5_groundtruth.sh: one bare command per line, prose/notes/hints
-# stripped. Verbs kept exactly as written, including the walkthrough's typo
-# ("cllimb duct").
-# NOTE: CASA solution is for the original; ADRIFT 5 remake is a faithful port.
-#
-# Run with:
-#   test/a5_groundtruth.sh test/adrift5-games/RevengeOfTheSpacePirates.blorb test/RevengeOfTheSpacePirates_walkthrough.txt
-#
-# Start-options preamble (not in the prose walkthrough): the game gates play
-# behind a Start Options page -- type O to continue, B to begin from the first
-# location (this game starts play immediately, with no "explore first?" prompt).
+# Revenge of the Space Pirates (Larry Horsfield, ADRIFT 5) -- FULL WIN, MAXIMUM
+# 550/550 points ("*** CONGRATULATIONS! *** ... scoring the maximum 550 points!").
+# Deterministic under the a5 engine (seed 1234): monotonic score, no deaths.
+# Key beats: hotel bill is worth 15 and payable only AFTER the gym pays you off
+# on Wednesday (PaidOff1 gates the foyer stop); ducts allow ONE held item (worn
+# holdall follows); Grande (A11) lures the nurse away (21-turn window, replace
+# the grille!); dead-cockroach-in-sandwich clears the comms op twice (10-turn
+# windows); the sub-space radio call MUST precede `set timer` (CoOrdsSent);
+# guards on the way out die the SAME turn they are seen or you do; collect
+# Grande with the guard's key; grenade the FCC within 3 turns of reaching its
+# doors; launch with `input 4361 9622` from the command chair -> Location70.
+# Verify: A5_DUMP_VARS=Points_Scored ./test/a5run_dump \
+#   test/adrift5-games/RevengeOfTheSpacePirates.blorb <this file>
 o
 b
-inventory
-examine lighter
-examine id
-examine documents
-examine card
+take all from pockets
 w
-look around
 examine official
 n
 buy drink
 s
-examine official
-w
-show id
-show documents
-w
 w
 wait
 w
-look around
 w
 n
+ask for room
 sign register
-examine window
-examine bed
-sleep
+read tariff
+down
 s
 e
 s
@@ -48,23 +35,12 @@ s
 w
 buy map
 e
+n
+e
+read jobs
+s
+tell clerk about job 7135
 find hort street
-n
-n
-e
-n
-w
-examine notice
-up
-e
-s
-w
-s
-w
-examine jobs
-clerk "job 7135"
-examine slip
-e
 s
 s
 w
@@ -76,354 +52,448 @@ n
 e
 n
 w
-give slip
+give slip to manager
+show cv to manager
+open locker
+take all from locker
+remove kit
+put kit in locker
+wear coverall
+close locker
+e
+e
+down
+sleep
+w
+d
+e
+e
+n
+w
+w
+stand under shower
+listen
+take all from locker
+close locker
+e
+e
+open storeroom door
 n
 search equipment
-take mat
-examine mat
+close storeroom door
+search box
+open storeroom door
 s
 down
-e
 s
 w
-w
-n
-sleep
 s
-e
-e
-n
-w
-remove clothes
-w
-listen
-wear clothes
-n
-down
-e
-find park
 s
 w
+x items
+buy sunglasses
+find picard park
+e
+n
+n
 w
 w
-examine bench
+wear hat
+wear sunglasses
 sit on bench
 wait
 listen
-up
+stand
 e
 e
 s
-e
-examine list
-buy rope
-buy forcer
-buy lead
-examine rope
-examine forcer
-examine lead
+s
+s
 w
-s
-s
-look south
-examine guard
+buy holdall
 e
-examine lingerie
+n
+n
+w
+read notice
+search tools
+buy torch
+buy lead
+buy grapnel
+buy forcer
+e
+s
+s
+e
 light lingerie
 s
-examine lorry
-enter lorry
-examine controls
-examine handbrake
-release handbrake
+open cab door
+climb into lorry
 search cab
-inventory
-leave lorry
-climb on lorry
-examine wire
-put mat on wire
-hook rope on wire
-climb rope
+release handbrake
+out
+put all in holdall
+wear holdall
+throw mat onto lorry
+climb onto lorry
+take mat
+drape mat over fence
+take grapnel
+hang grapnel on fence
+climb over fence
 s
-w
 s
-e
-se
-sw
-n
-w
-nw
-examine freighter
-w
-examine console
-examine computer
-examine compartment
-take crystal
-examine crystal
-examine wall
+x ships
 e
 ne
+take torch
+take forcer
+unscrew screws
+take crystal
+turn on torch
+shine torch at compartment
+w
+w
 s
-e
-se
-examine courier
-e
-examine console
-examine computer
-examine panel
-open panel
-drop forcer
-take panel
-examine panel
-drop panel
-drop lighter
-w
-nw
+x ships
+in
+remove holdall
+drop holdall
+sit in chair
+look
+examine cover
+unscrew screws
+unscrew cover
+open cover
+open compartment
+shine torch at compartment
+turn off torch
+stand
+take holdall
+put all in holdall
+wear holdall
+inventory
+out
 n
-w
 n
 n
-climb rope
-take rope
+climb up rope
+look
 take mat
-down
+take grapnel
+take mat
+put grapnel in holdall
+throw mat off lorry
+climb down lorry
+look
+take mat
 n
 n
 n
+n
+w
+take crystal from holdall
+ask shopkeeper to retune crystal
+say 2104.78
+e
+n
+w
 n
 e
-shopkeeper "retune crystal"
-shopkeeper "13922"
-examine card
-w
-n
-w
-n
 sleep
-examine window
-open window
-climb window
-examine man
+take key from holdall
+w
+d
+e
+n
+n
+look
 search man
 read diary
-read diary
+s
+s
 e
 n
 w
-examine card
 s
+# detour: pay the hotel bill (+15) now that the gym has paid us off
 w
-s
+w
+n
+pay bill
+# PayBill auto-moves us back to Main Street (hotel); rejoin route eastward
 e
-give ticket
+s
 w
-drop pe kit
+take ticket from pockets
+give ticket to shopkeeper
+s
+s
+remove hat
+take badge from holdall
 wear badge
 s
-s
-s
-enter lorry
+open cab door
+climb into lorry
 release handbrake
-leave lorry
-climb on lorry
-put mat on wire
-hook rope on wire
-climb rope
+out
+put all in holdall
+throw mat onto lorry
+climb onto lorry
+take mat
+drape mat over fence
+take grapnel
+hang grapnel on fence
+climb over fence
 s
-w
 s
-e
-se
-e
-insert crystal in bracket
-drop diary
-take forcer
-launch ship
-input waystar 4361 9292
-launch ship
-waystar "venus"
-inventory
-w
+s
+in
+take crystal from holdall
+take forcer from holdall
+take cover from holdall
+take screws from holdall
+remove holdall
+drop holdall
+sit in chair
+put crystal in compartment
+screw cover
+press black button
+input 4361 9292
+press green button
+say pluto
+stand
+take holdall
+wear holdall
+out
+n
 n
 w
 search locker
-examine coveralls
-wear coveralls
+take overalls from locker
+remove holdall
+remove coverall
+wear overalls
+wear holdall
+inventory
+remove badge
+put badge in holdall
 e
 n
 w
-examine doors
 n
-examine doors
-w
 move sofa
-examine grille
 unscrew grille
+take grille
+hide grille behind sofa
 n
-look behind fridge
+feel under fridge
 take cockroach
 s
-climb duct
+put all in holdall
+take forcer from holdall
+in
 n
 e
-look through grille
+e
+look
+greet woman
 unscrew grille
-climb duct
-woman "mike"
-glenda "ducts"
-climb duct
+out
+look
+ask grande about ducts
+in
+w
 w
 s
-climb duct
-e
+out
 s
 e
 e
 n
 search cabinets
+put forcer in holdall
 s
-e
-e
-search rubble
-search rubble
-examine semtex
-w
-w
 w
 w
 n
-w
-climb duct
+in
 n
 e
-climb duct
-examine plans
-show plans
+e
+out
+show plan to grande
 read index
-climb duct
-goto b4
-look through grille
-unscrew grille
-climb duct
-search workbench
-examine ropegun
-look under workbench
-search workshop
-take bar
-make bomb
-climb duct
-goto s1
-fire gun
-climb rope
-release grapnel
-reload gun
-goto s1
-fire gun
-climb rope
-release grapnel
-reload gun
-goto s1
-look through grille
-unscrew grille
-climb duct
-search installation
-cllimb duct
-goto b3
-tie lead to bar
-lay bar across shaft
-goto b3
-look through grille
+take forcer from holdall
+put forcer in holdall
+in
 w
-look through grille
-wait
-e
-look through grille
-unscrew grille
-climb duct
-wake scientist
-simon "jaelaine"
-climb duct
-goto c1
-look through grille
-goto a14
-climb duct
-glenda "nurse"
-climb duct
-goto c1
-wait
-unscrew grille
-climb duct
-search cupboard
-climb duct
-screw grille
-e
-look through grille
-examine console
-wait
-unscrew grille
-climb duct
-put cockroach in sandwich
-climb duct
-screw grille
-wait
-unscrew grille
-climb duct
-wotan "merlin"
-wotan "merlin"
-wotan "4361 9292"
-climb duct
-screw grille
-goto b3
-climb duct
-give antidote
-give spanner
-simon "bomb"
-simon "timer"
-climb duct
-goto s1
-fire gun
-climb rope
-release grapnel
-reload gun
-goto s1
-climb duct
-make bomb
-set timer
-climb duct
-goto a11
-climb duct
-e
+w
+s
+out
 s
 e
 e
 e
-up
-w
-wait
-w
-hit guard
 e
-e
-down
+look
+search rubble
+search rubble
+w
 w
 w
 w
 n
-w
-climb duct
+put semtex in holdall
+put detonator in holdall
+in
+goto b7
+look
+take forcer from holdall
+look through grille
+unscrew grille
+out
+look
+look under workbench
+search bits
+take semtex from holdall
+take detonator from holdall
+take wire
+make bomb
+take lead from holdall
+remove lead from reel
+put bomb in holdall
+put forcer in holdall
+put reel in holdall
+put lead in holdall
+put plan in holdall
+in
+goto s1
+look
+fire ropegun up
+look
+take forcer from holdall
+drop ropegun
+climb up rope
+look
+look through grille
+unscrew grille
+out
+look
+search installation
+put spanner in holdall
+put forcer in holdall
+take crowbar
+in
 goto b3
-climb duct
-give spanner
-w
-w
-take jaelaine
-e
-s
-e
-e
+take lead from holdall
+tie lead to bar
+put bar over shaft
+look
 down
-w
-w
+look
+goto b3
+take spanner from holdall
+goto b4
+look
+look through grille
+wait
+look
+n
+take forcer from holdall
+unscrew grille
+out
+look
 s
+hit guard with spanner
+look
+n
+wake symon
+ask symon about timer
+take bomb from holdall
+fit timer to bomb
+# stow everything for duct crawling (max 1 held item); rifle can't enter ducts -- leave it
+put bomb in holdall
+put spanner in holdall
+drop rifle
+in
+goto c1
+look through grille
+# ask Grande (A11) to lure the nurse away, then race the 21-turn window
+goto a11
+tell grande about nurse
+in
+goto c1
+wait
+unscrew grille
+out
+open cupboards
+look in cupboard
+put hypogun in holdall
+close cupboards
+in
+replace grille
+goto b3
+take hypogun from holdall
+give zx128 to symon
+# comms centre C8: lure the operator away twice (cockroach sandwich), then use the sub-space radio
+in
+goto c8
+wait
+unscrew grille
+out
+take cockroach from holdall
+put cockroach in sandwich
+in
+wait
+out
+find radio
+set frequency to 180452
+press send
+say wotan
+send 4361 9292
+w
+in
+# plant the bomb at the radar installation (goto s1 now rides the rope straight up)
+goto s1
+take bomb from holdall
+plant bomb by radar
+set timer
+in
+goto b3
+take rifle
 s
+look
 e
+w
+s
+shoot guard with rifle
+e
+e
+search guard
+take blaster
+give blaster to symon
+e
+d
+w
+shoot guard with rifle
+w
+search guard
+throw grenade into fcc
+n
+unlock door with key
+open door
+n
+s
+s
+s
+s
+s
+in
+drop rifle
+remove holdall
+drop holdall
+sit in chair
+press black button
+input 4361 9622
+press green button

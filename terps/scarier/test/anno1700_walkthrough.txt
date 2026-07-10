@@ -9,11 +9,17 @@
 #   test/a5_groundtruth.sh test/adrift5-games/Anno1700.blorb \
 #       test/anno1700_walkthrough.txt
 #
-# NOTE: after "drink wine" the walkthrough expects a timed event to drop
+# FULL WIN: this script plays through to "*** You have won ***" and
+# MATCHES FrankenDrift 0|0 in both RNG modes.
+#
+# NOTE: after "drink wine" the walkthrough waits for a timed event to drop
 # the player into a storage room ("keep waiting until you wake up in a
-# storage room").  That event does not fire deterministically under the
-# fixed RNG seed (the original author was unsure of its trigger too), so
-# the waits below and the commands after them are best-effort.
+# storage room").  It IS deterministic: event EffectOfTh ("Moving player
+# to storage room", TurnBased, Length 15) plays visions at turns 3/8/11
+# and at turn 15 runs ExecuteTask MovingPlay, which moves the player.
+# Denk's original wait count stopped at the turn-11 vision, 4 turns
+# short, so the player was never moved; the z block below is padded to
+# ride the event out to turn 15.
 x tree
 x crooked tree
 x hole
@@ -167,7 +173,11 @@ knock on door 107
 ask jacques about parchment
 show parchment to jacques
 out
-# --- keep waiting until the storage-room wake event fires ---
+# --- ride out event EffectOfTh to turn 15 (ExecuteTask MovingPlay) ---
+z
+z
+z
+z
 z
 z
 z
