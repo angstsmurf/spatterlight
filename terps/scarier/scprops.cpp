@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 
@@ -63,17 +65,21 @@ typedef scr_prop_node_t *scr_prop_noderef_t;
  * properties functions operate (a properties "object").  Node string
  * names are held in a dictionary to help save space.  To avoid excessive
  * malloc'ing of nodes, new nodes are preallocated in pools.
+ *
+ * The bookkeeping arrays are std::vector (P3 RAII); their *contents* stay
+ * raw -- the dictionary strings, node pool slabs, and orphans are owned
+ * allocations freed by prop_destroy().  The node slabs themselves and the
+ * per-node child lists are deliberately left as raw arrays: tree nodes are
+ * referenced by address all over the tree, so the slabs must never move,
+ * and the child list scan is the engine's hottest loop (see P4 notes).
  */
 typedef struct scr_prop_set_s
 {
   scr_uint magic;
-  scr_int dictionary_length;
-  scr_char **dictionary;
-  scr_int node_pools_length;
-  scr_prop_noderef_t *node_pools;
+  std::vector<scr_char *> dictionary;
+  std::vector<scr_prop_noderef_t> node_pools;
   scr_int node_count;
-  scr_int orphans_length;
-  void **orphans;
+  std::vector<void *> orphans;
   scr_bool is_readonly;
   scr_prop_noderef_t root_node;
   scr_tafref_t taf;
@@ -206,12 +212,12 @@ prop_dictionary_lookup (scr_prop_setref_t bundle, const scr_char *string)
    * some libc's loop or crash when given a list of zero length, so we need to
    * trap that here.
    */
-  if (bundle->dictionary_length > 0)
+  if (!bundle->dictionary.empty ())
     {
       const scr_char *const *dict_search;
 
-      dict_search = (decltype(dict_search)) bsearch (&string, bundle->dictionary,
-                             bundle->dictionary_length,
+      dict_search = (decltype(dict_search)) bsearch (&string, bundle->dictionary.data (),
+                             bundle->dictionary.size (),
                              sizeof (bundle->dictionary[0]), prop_compare);
       if (dict_search)
         return *dict_search;
@@ -221,16 +227,10 @@ prop_dictionary_lookup (scr_prop_setref_t bundle, const scr_char *string)
   dict_string = (decltype(dict_string)) scr_malloc (strlen (string) + 1);
   memcpy (dict_string, string, strlen (string) + 1);
 
-  /* Extend the dictionary if necessary. */
-  bundle->dictionary = (decltype(bundle->dictionary)) prop_ensure_capacity (bundle->dictionary,
-                                             bundle->dictionary_length,
-                                             bundle->dictionary_length + 1,
-                                             sizeof (bundle->dictionary[0]));
-
   /* Add the new entry to the end of the dictionary array, and sort. */
-  bundle->dictionary[bundle->dictionary_length++] = dict_string;
-  qsort (bundle->dictionary,
-         bundle->dictionary_length,
+  bundle->dictionary.push_back (dict_string);
+  qsort (bundle->dictionary.data (),
+         bundle->dictionary.size (),
          sizeof (bundle->dictionary[0]), prop_compare);
 
   /* Return the address of the new string. */
@@ -258,21 +258,15 @@ prop_new_node (scr_prop_setref_t bundle)
     {
       scr_int required;
 
-      /* Extend the node pools array if necessary. */
-      bundle->node_pools = (decltype(bundle->node_pools)) prop_ensure_capacity (bundle->node_pools,
-                                                 bundle->node_pools_length,
-                                                 bundle->node_pools_length + 1,
-                                                 sizeof (bundle->
-                                                         node_pools[0]));
-
-      /* Create a new node pool, and increment the length. */
+      /* Create a new node pool.  The slab itself stays a raw allocation --
+         nodes are referenced by address throughout the tree, so it must
+         never move. */
       required = NODE_POOL_CAPACITY * sizeof (*bundle->node_pools[0]);
-      bundle->node_pools[bundle->node_pools_length] = (scr_prop_node_s *) scr_malloc (required);
-      bundle->node_pools_length++;
+      bundle->node_pools.push_back ((scr_prop_node_s *) scr_malloc (required));
     }
 
   /* Find the next node address, and increment the node counter. */
-  node = bundle->node_pools[bundle->node_pools_length - 1] + node_index;
+  node = bundle->node_pools.back () + node_index;
   bundle->node_count++;
 
   /* Return the new node. */
@@ -807,12 +801,8 @@ prop_solidify (scr_prop_setref_t bundle)
    * player name, set at game start) can adopt a bundle-owned copy of their
    * value -- see prop_put_string().
    */
-  bundle->dictionary = (decltype(bundle->dictionary)) prop_trim_capacity (bundle->dictionary,
-                                           bundle->dictionary_length,
-                                           sizeof (bundle->dictionary[0]));
-  bundle->node_pools = (decltype(bundle->node_pools)) prop_trim_capacity (bundle->node_pools,
-                                           bundle->node_pools_length,
-                                           sizeof (bundle->node_pools[0]));
+  bundle->dictionary.shrink_to_fit ();
+  bundle->node_pools.shrink_to_fit ();
   prop_trim_node (bundle->root_node);
 
   /* Set the bundle so that no more properties can be added. */
@@ -899,22 +889,12 @@ prop_create_empty (void)
 {
   scr_prop_setref_t bundle;
 
-  /* Create a new, empty set. */
-  bundle = (decltype(bundle)) scr_malloc (sizeof (*bundle));
+  /* Create a new, empty set.  The set holds std::vector members (P3 RAII),
+     so it is non-POD and must be new()'d -- value-init zeroes the POD fields
+     and default-constructs the vectors empty. */
+  bundle = new scr_prop_set_s ();
   bundle->magic = PROP_MAGIC;
-
-  /* Begin with an empty strings dictionary. */
-  bundle->dictionary_length = 0;
-  bundle->dictionary = NULL;
-
-  /* Begin with no allocated node pools. */
-  bundle->node_pools_length = 0;
-  bundle->node_pools = NULL;
   bundle->node_count = 0;
-
-  /* Begin with no adopted addresses. */
-  bundle->orphans_length = 0;
-  bundle->orphans = NULL;
 
   /* Leave open for insertions. */
   bundle->is_readonly = FALSE;
@@ -961,41 +941,35 @@ prop_destroy_child_list (scr_prop_noderef_t node)
 void
 prop_destroy (scr_prop_setref_t bundle)
 {
-  scr_int index_;
+  size_t index_;
   assert (prop_is_valid (bundle));
 
-  /* Destroy the dictionary, and free it. */
-  for (index_ = 0; index_ < bundle->dictionary_length; index_++)
+  /* Destroy the dictionary strings. */
+  for (index_ = 0; index_ < bundle->dictionary.size (); index_++)
     scr_free (bundle->dictionary[index_]);
-  bundle->dictionary_length = 0;
-  scr_free (bundle->dictionary);
-  bundle->dictionary = NULL;
 
   /* Free adopted addresses. */
-  for (index_ = 0; index_ < bundle->orphans_length; index_++)
+  for (index_ = 0; index_ < bundle->orphans.size (); index_++)
     scr_free (bundle->orphans[index_]);
-  bundle->orphans_length = 0;
-  scr_free (bundle->orphans);
-  bundle->orphans = NULL;
 
   /* Walk the tree, destroying the child list for each node found. */
   prop_destroy_child_list (bundle->root_node);
   bundle->root_node = NULL;
 
-  /* Destroy each node pool. */
-  for (index_ = 0; index_ < bundle->node_pools_length; index_++)
+  /* Destroy each node pool slab. */
+  for (index_ = 0; index_ < bundle->node_pools.size (); index_++)
     scr_free (bundle->node_pools[index_]);
-  bundle->node_pools_length = 0;
-  scr_free (bundle->node_pools);
-  bundle->node_pools = NULL;
 
   /* Destroy any taf associated with the bundle. */
   if (bundle->taf)
     taf_destroy (bundle->taf);
 
-  /* Poison and free the bundle. */
-  memset (bundle, 0xaa, sizeof (*bundle));
-  scr_free (bundle);
+  /* Free the bundle; its destructor releases the bookkeeping vectors.  (The
+     old 0xaa poison is gone -- it would corrupt the vector members the
+     destructor is about to free, the same reason the scr_filter_s struct
+     moved to new/delete in P3.) */
+  bundle->magic = 0;
+  delete bundle;
 }
 
 
@@ -1049,14 +1023,10 @@ prop_adopt (scr_prop_setref_t bundle, void *addr)
 {
   assert (prop_is_valid (bundle));
 
-  /* Extend the orphans array if necessary. */
-  bundle->orphans = (decltype(bundle->orphans)) prop_ensure_capacity (bundle->orphans,
-                                          bundle->orphans_length,
-                                          bundle->orphans_length + 1,
-                                          sizeof (bundle->orphans[0]));
-
-  /* Add the new address to the end of the array. */
-  bundle->orphans[bundle->orphans_length++] = addr;
+  /* Add the new address to the end of the array.  (The orphans vector is the
+     one bookkeeping array that grows past prop_solidify() -- see
+     prop_put_string().) */
+  bundle->orphans.push_back (addr);
 }
 
 
@@ -1071,10 +1041,10 @@ static scr_bool
 prop_debug_is_dictionary_string (scr_prop_setref_t bundle, const void *pointer)
 {
   const scr_char *const pointer_ = (const scr_char *) pointer;
-  scr_int index_;
+  size_t index_;
 
   /* Compare by pointer directly, not by string value comparisons. */
-  for (index_ = 0; index_ < bundle->dictionary_length; index_++)
+  for (index_ = 0; index_ < bundle->dictionary.size (); index_++)
     {
       if (bundle->dictionary[index_] == pointer_)
         return TRUE;
@@ -1141,19 +1111,21 @@ prop_debug_dump (scr_prop_setref_t bundle)
   scr_trace ("Property: debug dump follows...\n");
   scr_trace ("bundle->is_readonly = %s\n",
             bundle->is_readonly ? "true" : "false");
-  scr_trace ("bundle->dictionary_length = %ld\n", bundle->dictionary_length);
+  scr_trace ("bundle->dictionary_length = %ld\n",
+            (scr_int) bundle->dictionary.size ());
 
   scr_trace ("bundle->dictionary =\n");
-  for (index_ = 0; index_ < bundle->dictionary_length; index_++)
+  for (index_ = 0; index_ < (scr_int) bundle->dictionary.size (); index_++)
     {
       scr_trace ("%3ld : %p \"%s\"\n", index_,
                 bundle->dictionary[index_], bundle->dictionary[index_]);
     }
 
-  scr_trace ("bundle->node_pools_length = %ld\n", bundle->node_pools_length);
+  scr_trace ("bundle->node_pools_length = %ld\n",
+            (scr_int) bundle->node_pools.size ());
 
   scr_trace ("bundle->node_pools =\n");
-  for (index_ = 0; index_ < bundle->node_pools_length; index_++)
+  for (index_ = 0; index_ < (scr_int) bundle->node_pools.size (); index_++)
     scr_trace ("%3ld : %p\n", index_, (void *) bundle->node_pools[index_]);
 
   scr_trace ("bundle->node_count = %ld\n", bundle->node_count);
