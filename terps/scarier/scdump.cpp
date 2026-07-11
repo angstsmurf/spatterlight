@@ -93,10 +93,25 @@ void
 scr_dump_structure_once (scr_gameref_t game)
 {
   static scr_bool dumped = FALSE;
+  static scr_bool checked_env = FALSE;
+  static scr_bool trace_tasks, dump_objloc, dump_tasks;
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int t, i;
 
-  if (getenv ("SCR_TRACE_TASKS"))
+  /* This is called from every task_can_run_task_directional() -- per task,
+   * per turn -- and getenv is a locked linear environ scan, so poll the
+   * environment once only (the variables can't change mid-run anyway). */
+  if (!checked_env)
+    {
+      checked_env = TRUE;
+      trace_tasks = getenv ("SCR_TRACE_TASKS") != NULL;
+      dump_objloc = getenv ("SCR_DUMP_OBJLOC") != NULL;
+      dump_tasks = getenv ("SCR_DUMP_TASKS") != NULL;
+    }
+  if (!trace_tasks && !dump_objloc && !dump_tasks)
+    return;
+
+  if (trace_tasks)
     {
       task_debug_trace (TRUE);
       restr_debug_trace (TRUE);
@@ -105,7 +120,7 @@ scr_dump_structure_once (scr_gameref_t game)
   /* SCR_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
    * (does NOT touch the heavy task/exit/walk sections, so it is safe on games
    * whose full dump is large). */
-  if (getenv ("SCR_DUMP_OBJLOC") && !dumped)
+  if (dump_objloc && !dumped)
     {
       dumped = TRUE;
       for (i = 0; i < gs_object_count (game); i++)
@@ -145,7 +160,7 @@ scr_dump_structure_once (scr_gameref_t game)
       return;
     }
 
-  if (!getenv ("SCR_DUMP_TASKS") || dumped)
+  if (!dump_tasks || dumped)
     return;
   dumped = TRUE;
 
@@ -590,15 +605,27 @@ scr_dump_structure_once (scr_gameref_t game)
 void
 scr_dump_npc_trace (scr_gameref_t game)
 {
+  static scr_bool checked_env = FALSE;
+  static scr_bool trace_player, trace_judy;
+  static const scr_char *trace_obj;
   scr_int npc;
 
+  /* Called once per turn; poll the environment once only. */
+  if (!checked_env)
+    {
+      checked_env = TRUE;
+      trace_player = getenv ("SCR_TRACE_PLAYER") != NULL;
+      trace_obj = getenv ("SCR_TRACE_OBJ");
+      trace_judy = getenv ("SCR_TRACE_JUDY") != NULL;
+    }
+
   /* SCR_TRACE_PLAYER: just the player's room each turn (maze-mapping aid). */
-  if (getenv ("SCR_TRACE_PLAYER"))
+  if (trace_player)
     {
       fprintf (stderr, "PLAYERROOM room=%ld stamina=%ld",
                gs_playerroom (game), game->playerstamina);
       {
-        const scr_char *ov = getenv ("SCR_TRACE_OBJ");
+        const scr_char *ov = trace_obj;
         if (ov)
           {
             scr_int oi = atol (ov);
@@ -610,7 +637,7 @@ scr_dump_npc_trace (scr_gameref_t game)
       fflush (stderr);
     }
 
-  if (!getenv ("SCR_TRACE_JUDY"))
+  if (!trace_judy)
     return;
   for (npc = 0; npc < gs_npc_count (game); npc++)
     fprintf (stderr, "JUDYTRACE npc=%ld room=%ld\n",

@@ -93,6 +93,22 @@ static const scr_char *const SER_VERSION_HEADER = "\xAC" "400052";
 
 enum { BUFFER_SIZE = 4096 };
 
+/*
+ * Deflate level for the next serialization run.  File saves keep zlib's
+ * default level; per-turn undo memos (memo_save_game) select Z_BEST_SPEED
+ * instead -- they are in-memory only, overwritten every 16 turns, and the
+ * per-turn deflate at the default level profiles as ~20-30% of the whole
+ * interpreter.  Either level produces a stream any inflate can read, so
+ * save-file compatibility is unaffected.
+ */
+static scr_int ser_compression = Z_DEFAULT_COMPRESSION;
+
+void
+ser_set_fast_compression (scr_bool fast)
+{
+  ser_compression = fast ? Z_BEST_SPEED : Z_DEFAULT_COMPRESSION;
+}
+
 /* Output buffer. */
 static scr_byte *ser_buffer = NULL;
 static scr_int ser_buffer_length = 0;
@@ -135,7 +151,7 @@ ser_flush (scr_bool is_final)
       stream.zfree = Z_NULL;
       stream.opaque = Z_NULL;
 
-      status = deflateInit (&stream, Z_DEFAULT_COMPRESSION);
+      status = deflateInit (&stream, ser_compression);
       if (status != Z_OK)
         {
           scr_error ("ser_flush: deflateInit: error %ld\n", status);

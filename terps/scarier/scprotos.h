@@ -861,6 +861,7 @@ extern void obj_turn_update (scr_gameref_t game);
 extern void obj_debug_trace (scr_bool flag);
 
 /* Game serialization functions. */
+extern void ser_set_fast_compression (scr_bool fast);
 extern void ser_save_game (scr_gameref_t game,
                            scr_write_callbackref_t callback, void *opaque);
 extern scr_bool ser_save_game_prompted (scr_gameref_t game);

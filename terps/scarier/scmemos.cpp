@@ -220,8 +220,12 @@ memo_save_game (scr_memo_setref_t memento, scr_gameref_t game)
   memo = memento->memo + memento->memo_cursor;
   memo->length = 0;
 
-  /* Serialize the given game into this memo. */
+  /* Serialize the given game into this memo.  Undo memos are in-memory
+   * only and rewritten every turn, so use the fast deflate level; file
+   * saves keep the default (see ser_set_fast_compression). */
+  ser_set_fast_compression (TRUE);
   ser_save_game (game, memo_save_game_callback, memo);
+  ser_set_fast_compression (FALSE);
 
   /*
    * If serialization worked (failure would be a surprise), advance the

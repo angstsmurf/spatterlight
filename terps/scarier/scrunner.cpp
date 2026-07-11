@@ -768,9 +768,13 @@ run_match_task_common (scr_gameref_t game,
       if (is_matched)
         {
 #ifdef SCARIER_DUMP_TOOLS
-          if (getenv ("SCR_TRACE_MATCH"))
-            fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
-                     task, pattern, string);
+          {
+            static const scr_bool trace_match =
+                getenv ("SCR_TRACE_MATCH") != NULL;
+            if (trace_match)
+              fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
+                       task, pattern, string);
+          }
 #endif
           break;
         }
