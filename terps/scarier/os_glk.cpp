@@ -3875,8 +3875,14 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
 #ifdef GARGLK
           if (gsc_a5_adv->title && gsc_a5_adv->title[0])
             {
-              garglk_set_story_name (gsc_a5_adv->title);
-              garglk_set_story_title (gsc_a5_adv->title);
+              /* The title may carry ADRIFT markup (Trapped's is
+                 "<centre><b>'Trapped'  by Driftwood</b></centre>"); render it
+                 down to plain text before handing it to the host UI, exactly as
+                 the in-game title Display does (see a5run.cpp). */
+              char *tp = a5text_render_plain (gsc_a5_adv->title);
+              garglk_set_story_name (tp);
+              garglk_set_story_title (tp);
+              free (tp);
             }
 #endif
           return TRUE;
