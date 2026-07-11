@@ -1,5 +1,21 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
+> **Status (2026-07-11): no open conformance bugs.** Every entry below is
+> ✅ DONE; the full corpus is xoshiro 0 (see "Corpus status" below). All that
+> remains, deliberately:
+>
+> - **Skybreak full WIN** — optional *content* follow-up, not an engine bug:
+>   this build (Human/Earthling+Explorer) can't reach either ending without a
+>   long trap-solving grind or a re-rolled suited build (e.g. Sorcerer for
+>   Kaddax); see the Skybreak "Why still not a full WIN" section.
+> - **Three declined cosmetic residuals** (all documented in place with the
+>   shared-path risk that motivated declining them): the October31st trailing
+>   `score` line after a win, the BugHunt arrival blank line, and the AoS
+>   nested-pouch coin hunk.
+> - **Documented non-issues:** non-zero *vanilla* budgets on golden-less games
+>   (FD `System.Random` vs xoshiro walk) and the Tingalan per-turn RNG-event
+>   desync — expected classes, not conformance bugs.
+
 ## ⭐ Skybreak: AggregateOutput completion draws deferred to the *true* Display point — xoshiro 1 → 0, MATCH 0|0 — ✅ DONE (2026-07-06)
 
 Skybreak's last aligned-RNG hunk was a single flavour line at the opening dock:
@@ -741,7 +757,7 @@ suite otherwise byte-identical (34 goldens unchanged, all unit tests pass).
 >    yields a one-element dirs context (rendering via the custom-name-aware
 >    `dir_display`, i.e. `LCase(DirectionName(d))`).
 
-## ⭐ Tingalan: real WINNING walkthrough wired MATCH 0|0 (6 general engine fixes) — ✅ DONE / committed (2026-07-03); optional stretch goal = the deep-woods PEARL win
+## ⭐ Tingalan: real WINNING walkthrough wired MATCH 0|0 (6 general engine fixes) — ✅ DONE / committed (2026-07-03); the PEARL-win stretch goal is since ✅ DONE too (2026-07-10, `8ae4f2e2`)
 
 > **✅ DONE (2026-07-03, SESSION 2 below).**  A genuine 16-command winning
 > walkthrough is committed and wired at **MATCH 0|0** (`test/Tingalan_walkthrough.txt`
@@ -751,9 +767,14 @@ suite otherwise byte-identical (34 goldens unchanged, all unit tests pass).
 > draws 3×), Scarier drew once, desyncing the book-read RNG stream (details in the
 > SESSION 2 write-up below).  Committed on `scarier`: `f42218d9` (engine fix +
 > walkthrough), `9f985548` (harness `-b/--bless` + newline-tolerant golden compare).
-> Whole corpus unchanged both RNG modes; a5 unit tests pass.  **Remaining is an
-> OPTIONAL stretch goal only:** the *accept-the-pearl* win needs a deep-woods survival
-> run (Courage/Lore/Wits ≥2 for `CheatDerze1`; Wits ≥2 is unreachable at Merch).
+> Whole corpus unchanged both RNG modes; a5 unit tests pass.  **The
+> once-optional stretch goal — the *accept-the-pearl* win — was completed in a
+> later session (2026-07-10, `8ae4f2e2`):** a deep-woods run reaching
+> Courage/Lore/Wits ≥2 for `CheatDerze1`, wired as
+> `test/TingalanTrue_walkthrough.txt` (+ golden, MAP row
+> `TingalanTrue|Tingalan.blorb|0|0`), alongside the `A5_CKPT_SAVE`/`A5_CKPT_RESTORE`
+> checkpoint harness used to derive it — see the
+> `tingalan-true-ending-walkthrough` memory.
 >
 > _(Historical, SESSION 1:)_  Blocker #1 is **fully fixed** and five general engine
 > bugs are committed (all corpus-safe both RNG modes, unit tests + ASan/UBSan clean).
@@ -936,13 +957,15 @@ comparison is now trailing-newline-tolerant (compares `$(...)`-captured content,
 `diff -q` against a raw file) — kills the recurring "golden MISMATCH" false alarm
 from a `> file`-written golden's extra newline.
 
-**★ Remaining (optional, larger): the full PEARL win.**  Accepting the pearl
-(`Countermis=1`) forces the Derzelas debt at dawn (encounter 200), winnable only via
-`CheatDerze1` (`Couragerol/Loreroll/Witsroll` all ≥2) → needs stats ≥2 each.  Wits ≥2
-is unreachable at Merch (only the Folk-Tales book, consumed on read 1 this seed; the
-stat shop is deep-woods encounter 135 on firefly currency), so the pearl win requires
-a deep-woods survival run — the substantial roguelike playthrough.  The decline-pearl
-win above is the shipped deliverable; the pearl win is the stretch goal.
+**★ ✅ The full PEARL win — since DONE (2026-07-10, `8ae4f2e2`).**  Accepting the
+pearl (`Countermis=1`) forces the Derzelas debt at dawn (encounter 200), winnable
+only via `CheatDerze1` (`Couragerol/Loreroll/Witsroll` all ≥2) → needs stats ≥2
+each.  Wits ≥2 is unreachable at Merch (only the Folk-Tales book, consumed on read
+1 this seed; the stat shop is deep-woods encounter 135 on firefly currency), so the
+pearl win required the deep-woods survival run — completed in a later session and
+wired as `test/TingalanTrue_walkthrough.txt` (MATCH 0|0 golden); the
+checkpoint-save harness built for it (`A5_CKPT_SAVE`/`A5_CKPT_RESTORE`) is the
+reusable tool for this kind of roguelike derivation.
 
 ---
 _Original SESSION-2 analysis (pre-fix), retained for the mechanics reference:_
