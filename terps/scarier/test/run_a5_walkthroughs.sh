@@ -753,10 +753,11 @@ FILTER="${1:-}"
 # unlocked" fallback -- impossible under HighestPriorityTask.  Scarier now
 # version-gates that default (a5model.cpp: element-less files below 5.000022 =>
 # HighestPriorityPassingTask), so it reaches *** You have won ***.  FrankenDrift
-# hardcodes HighestPriorityTask regardless of version and therefore CANNOT win
-# this game -- the one deliberate Scarier/FD divergence.  Golden = Scarier's
-# winning transcript (vanilla 0); the xoshiro column carries that FD
-# differential (13, RNG-independent) as the documented FD gap.
+# originally hardcoded HighestPriorityTask regardless of version and so could not
+# win this game.  (2026-07-11) That FrankenDrift bug is now FIXED -- FileIO.vb
+# applies the same version gate (element absent + dFileVersion < 5.000022 =>
+# HighestPriorityPassingTask), so FD wins RtC too and the transcript is
+# byte-identical to Scarier: MAP re-blessed 0|13 => 0|0, no other game affected.
 #
 # (2026-07-04) AoS upgraded 620/650 -> the MAXIMUM 650/650 ("scoring the
 # maximum 650 points!" finale), MATCH 0|0 golden-backed.  The missing 30 =
@@ -1097,11 +1098,12 @@ FILTER="${1:-}"
 #    prepend-question-imply-NO path, so RtC / SonOfCamelot / TheVirtualHuman
 #    goldens are byte-identical.  FD.Headless fix: AskYesNoQuestion now peeks
 #    past blank/#-comment lines (a commented script can lead with its answer).
-#  - DeathShack (Mel S.) DIVERGE 0|6 golden-backed, RtC-class FD gap: part
+#  - DeathShack (Mel S.) golden-backed, was an RtC-class FD gap: part
 #    II's `open door` needs the version-gated HighestPriorityPassingTask mode
 #    to fall through Task2's Location1-only "You can't do that here!" to the
-#    stock OpenObjects; FD hardcodes HighestPriorityTask and never reaches
-#    part IV / the note.  The 6 hunks are identical in both RNG modes.
+#    stock OpenObjects; FD used to hardcode HighestPriorityTask and never reach
+#    part IV / the note.  (2026-07-11) FIXED by the same FileIO.vb version gate
+#    as RtC -- FD now falls through too; MAP re-blessed 0|6 => 0|0.
 #  - IgnisFatuus (DCBSupafly) MATCH 0|0 first try, blind-derived full win
 #    (the jester carves the jack-o'-lantern he is banished into).
 #  - StuckPiggy (Mike Desert) MATCH 0|0: author's txt walkthrough (win =
@@ -1166,7 +1168,7 @@ RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
 RunBronwynnRun|RunBronwynnRun.blorb|0|0
-RtC|RtC.blorb|0|13
+RtC|RtC.blorb|0|0
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|0|0
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
@@ -1237,7 +1239,7 @@ DontGo|dontgo.taf|0|0
 WhatTheMurdererHadLeft|murderer.taf|0|0
 AReadingInMay|reading.taf|0|0
 TheHouse|The House.taf|0|0
-DeathShack|DeathShack.taf|0|6
+DeathShack|DeathShack.taf|0|0
 IgnisFatuus|Ignis Fatuus.taf|0|0
 StuckPiggy|Stuck Piggy2_0.taf|0|0
 Beythilda|Beythilda.taf|0|0

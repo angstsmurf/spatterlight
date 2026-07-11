@@ -83,24 +83,29 @@ documented follow-up.
 
 ## ✅ Corpus status (2026-07-06): NO open aligned-RNG conformance bugs
 
-Full 41-game sweep is clean.  Every game is `0` in the **xoshiro** (aligned-RNG)
-column — a full every-line conformance MATCH vs FrankenDrift — with a single
-**deliberate, documented** exception:
+Full corpus sweep is clean.  Every game is `0` in the **xoshiro** (aligned-RNG)
+column — a full every-line conformance MATCH vs FrankenDrift.  The RtC/DeathShack
+`TaskExecution` differential (below) was the last exception; it is now closed on
+the FrankenDrift side too, so there is no remaining deliberate divergence.
 
-* **RtC (`0|13`) — NOT a bug; Scarier is the correct side.**  Return to Camelot
-  is file-version **5.000020**, which predates ADRIFT 5.0.22's `<TaskExecution>`
-  element.  `a5model.cpp` version-gates the element-less default: file-version
-  `< 5.000022` ⇒ `HighestPriorityPassingTask` (the v4-compatible mode).  Under
-  that mode RtC's central `unlock chain` puzzle (Task324, sets Variable6 to free
-  the armour) fires as a lower-priority *passing* task after the stock library
-  `unlock %object%` "cannot be unlocked" fallback — impossible under
-  `HighestPriorityTask`, where the failing-with-output library task claims the
-  turn.  **FrankenDrift hardcodes `HighestPriorityTask` regardless of version and
-  therefore cannot win this game** (verified this session by direct `dotnet` run:
-  FD dead-ends at `unlock chain` → never reaches the armour/catapult finale).
-  Golden = Scarier's winning transcript (`vanilla 0`); the xoshiro `13` carries
-  the FD gap.  Same class as the Illumina/BugHunt "win in the correct direction"
-  cases.  Committed `de7d7f6d`.
+* **RtC (`0|0`) and DeathShack (`0|0`) — was an FD bug, now FIXED both sides.**
+  Return to Camelot is file-version **5.000020**, which predates ADRIFT 5.0.22's
+  `<TaskExecution>` element.  `a5model.cpp` version-gates the element-less
+  default: file-version `< 5.000022` ⇒ `HighestPriorityPassingTask` (the
+  v4-compatible mode).  Under that mode RtC's central `unlock chain` puzzle
+  (Task324, sets Variable6 to free the armour) fires as a lower-priority
+  *passing* task after the stock library `unlock %object%` "cannot be unlocked"
+  fallback — impossible under `HighestPriorityTask`, where the failing-with-output
+  library task claims the turn.  **FrankenDrift originally hardcoded
+  `HighestPriorityTask` regardless of version** (`clsAdventure.vb` default;
+  `FileIO.vb` only set it from an explicit element), so it dead-ended at `unlock
+  chain` and could not win — for a while this was logged as a deliberate
+  Scarier/FD divergence (`0|13`).  **(2026-07-11)** the FrankenDrift bug is
+  **fixed**: `FileIO.vb` now applies the same gate (element absent +
+  `dFileVersion < 5.000022` ⇒ `HighestPriorityPassingTask`).  With that, FD wins
+  RtC and DeathShack and both transcripts are byte-identical to Scarier —
+  re-blessed `0|13 ⇒ 0|0` and `0|6 ⇒ 0|0`, full-suite sweep confirms no other
+  game moved.  Scarier side committed `de7d7f6d`.
 
 The remaining non-zero **vanilla** budgets (JacarandaJim 99, October31st 106,
 SixSilverBullets 18, LostLabyrinthOfLazaitch 8, StoneOfWisdom 2) are the inherent
