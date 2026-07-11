@@ -1,0 +1,39 @@
+take magazine
+south
+take peel
+north
+north
+put peel on stepladder
+take stepladder
+west
+take card
+east
+south
+south
+south
+southwest
+give card to woman
+give magazine to woman
+west
+southeast
+take hose
+northwest
+south
+attach hose to pipe
+turn tap
+south
+southwest
+west
+climb ladder
+take coconut
+throw coconut at bloke
+down
+take book
+east
+northeast
+north
+north
+north
+west
+give book to lady
+pour drink

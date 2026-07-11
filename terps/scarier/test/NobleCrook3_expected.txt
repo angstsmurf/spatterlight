@@ -1,0 +1,89 @@
+Untitled
+Dawns another day and another opportunity to get richer at other people's expense. You leave the tribesman village and approach the yard of the hotel.
+
+The yard
+You wish there was less shrubbery and more stacks made of the money.  Also here is a trash can.  Exits are north, south and southwest.
+
+> north
+You move north.
+
+The lobby
+It is still there and probably stays here when we all are gone. (Have i mentioned the columns made of the pure marble in this lobby?)  Also here is a seismology book.  A woman is here.  Exits are east, south, west, southeast and northwest.  Woman in here turns to you and says: "So you are still around, you clumsy jock? Here is your book." She hands you a novel by Kafka.
+
+> take book
+"Look but put it back afterwards," says the woman.
+
+> drop novel
+You drop the novel and sneak off with the seismology book.
+
+> west
+You move west.
+
+The toilet
+After not visiting it for the last episode, the toilet is a welcome sight.  Also here is a towel and a barf.  An exit leads east.
+
+> take towel
+Ok, you pick up the towel.
+
+> east
+You move east.
+
+The lobby
+It is still there and probably stays here when we all are gone. (Have i mentioned the columns made of the pure marble in this lobby?)  a woman is here.  Exits are east, south, west, southeast and northwest.
+
+> northwest
+You move northwest.
+
+The Restaurant
+The very same restaurant. You mostly care for the bar.  Also here is a tray.  A policeman and a female waiter are here.  Exits are west and southeast.
+
+> west
+You move west.
+
+The kitchen
+It does look surreal with all those mismatching cooks and cuisines.  Also here is a icebox.  An exit leads east.
+
+> open icebox
+You open the icebox.  Inside the icebox is the ice cubes.
+
+> take cubes
+(from the icebox)
+Ok, you take the ice cubes from the icebox.
+
+> put cubes in towel
+You put the ice cubes inside the towel.
+
+> east
+You move east.
+
+The Restaurant
+The very same restaurant. You mostly care for the bar.  Also here is a tray.  A policeman and a female waiter are here.  Exits are west and southeast.
+
+> southeast
+You move southeast.
+
+The lobby
+It is still there and probably stays here when we all are gone. (Have i mentioned the columns made of the pure marble in this lobby?)  a woman is here.  Exits are east, south, west, southeast and northwest.
+
+> south
+You move south.
+
+The yard
+You wish there was less shrubbery and more stacks made of the money.  Also here is a trash can.  Exits are north, south and southwest.
+
+> southwest
+You move southwest.
+
+The beach
+Some people are nude here. Since they doesn't wear the jewelry besides the clothes, you couldn't care less.  A bloke in the bandages is here.  An exit leads east.
+
+> give towel to bloke
+"That is much better," says the bloke, while pressing the ice wrapped inside the towel to his head.
+
+> give guide to bloke
+"The self described seismologist has much less complicated equipment you say?" The bloke stands up and comes to the the yard. He explains with the clearity and the authority to the crowd,  what is wrong with this so called seismologist. The policeman (who has been holding hands with the fired waitress) takes the fraud away and everybody calms down.
+
+*** You have won ***
+You go back to your room and much to your surprise you find a strange lady sitting on your bed. To be continued...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

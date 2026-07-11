@@ -1,0 +1,17 @@
+north
+take book
+drop novel
+west
+take towel
+east
+northwest
+west
+open icebox
+take cubes
+put cubes in towel
+east
+southeast
+south
+southwest
+give towel to bloke
+give guide to bloke

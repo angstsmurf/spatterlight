@@ -1,0 +1,87 @@
+Untitled
+A lady on your bed. How uninteresting.
+
+Your room
+It is a cramped room. Also, the bed is kind of small.  A woman is here.
+
+> kiss hands
+You kiss her lovely hands (and try to suck off her lovely rings). When you bend down, somebody hits you on head with something heavy. You pass out...
+
+> open box
+You open the glover box.  Inside the glover box is a brass knuckles.
+
+> take knuckles
+(from the glover box)
+Ok, you take the brass knuckles from the glover box.
+
+> hit window with knuckles
+You break the window with the brass knuckles. Some shards of glass remain in the pane.
+
+> hit shards with knuckles
+You remove them with your knuckles.
+
+> out
+You move out.
+
+In the sea
+You are in the not so warm waters of the sea. The surface is somewhere above.   Also here is a car and a trunk.
+
+> open trunk
+You open the trunk.  Inside the trunk is a tool.
+
+> take tool
+(from the trunk)
+Ok, you take the tool from the trunk.
+
+> get tire with tool
+You remove and take one of the tires.
+
+> inhale
+You use the tire to breath. After some time you hope the men have left from the beach.
+
+> up
+You move up.
+
+A beach
+It is sandy.  Also here is a toy shovel.  An old girlfriend is here.  An exit leads north.
+
+> take shovel
+Ok, you pick up the toy shovel.
+
+> north
+You move north.
+
+Near the hotel
+Uh, oh, the thugs are in the north. Luckily they face the other way.   Also here is a bush.  The thugs is here.  An exit leads south.
+
+> dig bush with shovel
+You feel like a fool and hope they doesn't leave in meantime. After some time you have dug up the bush.
+
+> take bush
+Ok, you pick up the dug up bush.
+
+> north
+You move north.
+
+Near the chopper
+The chopper is the usual stuff -a cabin, a fan and the runners.  An exit leads south.  You sneak closer behind the bush (the silly feeling keeps growing stronger). The men enter the chopper and the chopper begins to rise.
+
+> grab runners
+You get on the runners and are invisibly carried almost to a landing site near a big mansion. Just as you think how unlikely this all is, thugs notice you and you finish the flight at the gunpoint.
+
+> ask woman about hotel
+"Do you want to know my reason for doing all of this?"  "There is oil on the lands and nobody else has found out about it yet. But i am talking too much," she says and leaves. She stops and says: "Now it is time for you to die." The thugs take out the guns.
+
+> kneel
+You duck and hit your head against the table. You see hazily that the thugs fall down after shooting each other. When you come to your senses, then you see the bloke with the intelligent eyes talking to the woman with the rings. You lie between them.
+
+> take tray
+Ok, you pick up the tray.
+
+> put tray under shirt
+You do that and stand up just second before the woman tries to shoot the blonde undercover policeman. The bullet richosets off the tray, then off the wall and hits the woman
+
+*** You have won ***
+You are not sad at all that the... witch is dead. After all, the policeman went off to get his cellphone amongst the things the woman confiscated from him and you are left alone with those fabulous rings...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

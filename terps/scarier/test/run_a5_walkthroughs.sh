@@ -991,6 +991,42 @@ FILTER="${1:-}"
 # tin can, give the CAN to the clerk while holding the perfume (he resets the
 # alarm as you walk out), give perfume to the woman = WIN.
 #
+# (2026-07-11) NobleCrook2/3/4 (Noble Crook, episodes 2-4, kaemi 2016) each
+# wired at MATCH 0|0 in both modes, golden-backed, first ground-truth try -- no
+# engine change.  Same author/engine as ep1; derived XML-dump-first.  All three
+# unscored; movement/holding gates carry the puzzles as usual.
+#   EP2 (40 cmds, WIN): expose the fake tribesmen, then win the brooch.  The
+#   journalist guards the calling card in the restaurant, so first do the banana
+#   gag: take the fashion magazine (lobby), take the banana peel (yard trash
+#   can), PUT PEEL ON STEPLADDER in the hallway -> the workman falls and the
+#   journalist leaves his post; now take the stepladder AND take the card.  On
+#   the beach GIVE CARD then GIVE MAGAZINE to the woman (card-first order matters
+#   -- the win branch needs her already holding the card) -> she leaves and the
+#   tribesmen relocate to the front yard.  Fetch the hose (cupboard SE of lobby),
+#   ATTACH HOSE TO PIPE at the yard and TURN TAP -- only fires with the tribesmen
+#   present (spray washes off their blackface; the exposed Lady appears in the
+#   restaurant).  Carry the stepladder down the beach, CLIMB LADDER, take the
+#   coconut and THROW COCONUT AT BLOKE *from the palm top* (ThrowNut requires
+#   PlayerLocation=top), down, take the dropped book, GIVE BOOK TO LADY for a
+#   drink, POUR DRINK = WIN.
+#   EP3 (17 cmds, WIN): the whole cocktail/horn/seismologist chain is optional
+#   flavour -- the win only needs the bandaged bloke holding ice AND the stolen
+#   seismology guide.  Enter the lobby (the woman hands you a Kafka novel),
+#   TAKE BOOK (she lends you her seismology book but blocks every lobby exit
+#   while you hold it), then DROP NOVEL -> you swap the novel decoy for the guide
+#   and can leave.  Grab the towel (toilet), OPEN ICEBOX + take ice cubes
+#   (kitchen), PUT CUBES IN TOWEL, then on the beach GIVE TOWEL TO BLOKE (he
+#   wraps the ice to his head) and GIVE GUIDE TO BLOKE (needs him holding the
+#   cubes) = WIN.
+#   EP4 (21 cmds, WIN): linear escape.  KISS HANDS -> knocked out into a sinking
+#   car; OPEN BOX, take knuckles, HIT WINDOW WITH KNUCKLES, HIT SHARDS WITH
+#   KNUCKLES (clears the Out gate), OUT into the sea; OPEN TRUNK, take tool,
+#   GET TIRE WITH TOOL, INHALE (snorkel until the beach men leave), UP; take the
+#   shovel, north, DIG BUSH WITH SHOVEL, TAKE BUSH (holding it is the gate to go
+#   north), north, GRAB RUNNERS -> caught at the mansion cell; ASK WOMAN ABOUT
+#   HOTEL (she monologues the oil plot and summons the thugs), KNEEL (they shoot
+#   each other), take the tray, PUT TRAY UNDER SHIRT = WIN.
+#
 # (2026-07-10) Sophia ("Sophia or Wisdom Defined", 2021, v5.0000364) wired at
 # MATCH 0|0 in both modes, golden-backed, first try -- no engine change.
 # Unscored allegorical mini-quest (11 rooms) with a built-in per-room WLKTR
@@ -1185,6 +1221,9 @@ TheDragonDiamond|DragonDiamond_V2.blorb|0|0
 TheVirtualHuman|TheVirtualHuman.taf|0|0
 CosmicAdventure|CosmicAdventure.blorb|0|0
 NobleCrook1|NobleCrook1.blorb|0|0
+NobleCrook2|NobleCrook2.blorb|0|0
+NobleCrook3|NobleCrook3.blorb|0|0
+NobleCrook4|NobleCrook4.blorb|0|0
 RaceAgainstTime|RaceAgainstTime.blorb|0|0
 Sophia|Sophia.blorb|0|0
 ThyBalconyman|ThyBalconyman.blorb|0|0

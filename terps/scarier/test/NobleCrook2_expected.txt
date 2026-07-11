@@ -1,0 +1,199 @@
+Untitled
+You are ready for another day. Thanks to you not so clever sham, the hotel still has clients. Maybe now you can get your visit here worth a while...
+
+The lobby
+It is still really luxurious. You feel the envy sinking in.  Also here is a counter.  Exits are north, east, south and southeast.
+
+> take magazine
+(from the counter)
+"Hey, you can't leave with that," says the clerks then grins and says, "i am only kidding. You don't have to photocopy it behind my back or anything."
+
+> south
+You move south.
+
+The front yard
+There is a air of desolation, like something that you can't put your finger on has changed here.  Also here is a pipe, a trash can and a tap.  Exits are north and south.
+
+> take peel
+(from the trash can)
+Ok, you take the banana peel from the trash can.
+
+> north
+You move north.
+
+The lobby
+It is still really luxurious. You feel the envy sinking in.  Also here is a counter.  Exits are north, east, south and southeast.
+
+> north
+You move north.
+
+A hallway
+It is full of doors. The one in the north has number 107 on it.  Also here is a stepladder.  A busy workman is here.  Exits are south and west.  Hey this is the same workman, who is also the plumber of this place. Thank god, you don't care for his bag this time.
+
+> put peel on stepladder
+Feeling slightly sorry for screwing with the same guy whose bag you took, you put the banana peel on the stepladder. The workman falls down and soon the journalist is here.
+
+> take stepladder
+You put it in your pocket. (We are very sorry for a lack of graphics in this game and hope that a verbal description is a passable substitute for a visual gag.)
+
+> west
+You move west.
+
+The restaurant
+The restaurant's decor still baffles you.  Also here is a counter.  An exit leads east.
+
+> take card
+(from the counter)
+You do that.
+
+> east
+You move east.
+
+A hallway
+It is full of doors. The one in the north has number 107 on it.  A journalist is here.  Exits are south and west.
+
+> south
+You move south.
+
+The lobby
+It is still really luxurious. You feel the envy sinking in.  Also here is a counter.  Exits are north, east, south and southeast.
+
+> south
+You move south.
+
+The front yard
+There is a air of desolation, like something that you can't put your finger on has changed here.  Also here is a pipe, a trash can and a tap.  Exits are north and south.
+
+> south
+You move south.
+
+The main gate
+You are on inner side of the main gate. The bars of the gate shine and have yellow hue.  Exits are north and southwest.
+
+> southwest
+You move southwest.
+
+A beach
+It is really sunny. By your nature you prefer more shady places.  A woman is here.  Exits are west and northeast.
+
+> give card to woman
+"So you are photographer. What has this to do with me?"
+
+> give magazine to woman
+"Hey, your work in those photos is really fabulous. Lets do a session." She follows you back to your room. "It is not a proper studio," says she and leaves (keeping her bracelet to herself.)
+
+> west
+You move west.
+
+The lobby
+It is still really luxurious. You feel the envy sinking in.  Also here is a counter.  Exits are north, east, south and southeast.
+
+> southeast
+You move southeast.
+
+A cupboard under the stairs
+It is your room... i mean the cupboard under the stairs. How could i have made mistake like that?  Also here is a hose.  An exit leads northwest.
+
+> take hose
+Ok, you pick up the hose.
+
+> northwest
+You move northwest.
+
+The lobby
+It is still really luxurious. You feel the envy sinking in.  Also here is a counter.  Exits are north, east, south and southeast.
+
+> south
+You move south.
+
+The front yard
+There is a air of desolation, like something that you can't put your finger on has changed here.  Also here is a pipe, a trash can and a tap.  The tribesmen is here.  Exits are north and south.  You see bunch of tribesmen gathered around the hotel, demanding that their ancestor's land should be given back to them.
+
+> attach hose to pipe
+You do that.
+
+> turn tap
+You do that and wash the blackface off. The crooks are taken away by the police. The black paint has gotten on your outfit.
+
+> south
+You move south.
+
+The main gate
+You are on inner side of the main gate. The bars of the gate shine and have yellow hue.  Exits are north and southwest.
+
+> southwest
+You move southwest.
+
+A beach
+It is really sunny. By your nature you prefer more shady places.  Exits are west and northeast.
+
+> west
+You move west.
+
+Further down the beach
+It looks much more tropical here.  Also here is a palm.  A blonde bloke is here.  An exit leads east.
+
+> climb ladder
+You climb up to the top of the tree.
+
+> take coconut
+Ok, you pick up the coco nut.
+
+> throw coconut at bloke
+You do that and the bloke loses consciousness.
+
+> down
+You move down.
+
+Further down the beach
+It looks much more tropical here.  Also here is a book and a palm.  An exit leads east.
+
+> take book
+Ok, you pick up the book.
+
+> east
+You move east.
+
+A beach
+It is really sunny. By your nature you prefer more shady places.  Exits are west and northeast.
+
+> northeast
+You move northeast.
+
+The main gate
+You are on inner side of the main gate. The bars of the gate shine and have yellow hue.  Exits are north and southwest.
+
+> north
+You move north.
+
+The front yard
+There is a air of desolation, like something that you can't put your finger on has changed here.  Also here is a pipe, a trash can and a tap.  Exits are north and south.
+
+> north
+You move north.
+
+The lobby
+It is still really luxurious. You feel the envy sinking in.  Also here is a counter.  Exits are north, east, south and southeast.
+
+> north
+You move north.
+
+A hallway
+It is full of doors. The one in the north has number 107 on it.  A journalist is here.  Exits are south and west.
+
+> west
+You move west.
+
+The restaurant
+The restaurant's decor still baffles you.  Also here is a counter.  An another lady is here.  An exit leads east.
+
+> give book to lady
+Her voice begins to murmur and she buys you both a drink.
+
+> pour drink
+Sure enough, you get her clothes soaked but instead taking off her blouse and the brooch with it, she marches off.
+
+*** You have won ***
+Suddenly a real tribesman enters the bar. "Thank you for showing those frauds for their deception and for humiliating our tribe," says the richly decorated tribesman, who turns out to be chief of the tribe and invites you over to feast. Later at the evening he offers you to choose yourself companion for night amongst the young women of the tribe. You decline, not only because you think ladies should make their own choice about dating or not dating men, but what is the reason for spending night with someone, if you can't get any loot out of it?
+Would you like to restart, restore a saved game, quit or undo the last command?
+
