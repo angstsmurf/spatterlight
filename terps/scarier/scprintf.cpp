@@ -1040,7 +1040,7 @@ pf_buffer_character (scr_filterref_t filter, scr_char character)
  * Return TRUE if text ends with / begins with a line break -- either a literal
  * newline or a "<br>" tag (the unfiltered buffer holds tags verbatim).
  */
-static scr_bool
+scr_bool
 pf_text_ends_with_break (const scr_char *text)
 {
   scr_int length = strlen (text);

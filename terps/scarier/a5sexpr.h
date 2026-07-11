@@ -5,8 +5,9 @@
  *
  * ADRIFT text can embed expressions between `<#` and `#>` (the Adrift 5 runner
  * Global.ReplaceExpressions / EvaluateExpression -> clsVariable.SetToExpression).
- * Unlike the integer-only a5arith evaluator (used for numeric variable
- * assignments), an embedded expression yields a *string*: e.g.
+ * This is also the evaluator for numeric variable assignments (a5run_action's
+ * value path), reading back the leading integer of the result.  An embedded
+ * `<# ... #>` expression instead yields a *string*: e.g.
  *
  *     <# IF(%Player%.Location.Exits.Count = 0, ".", ", only " + %Player%.Location.Exits.List + ".") #>
  *     <# IF(%direction% = "Up" OR %direction% = "Down", "", "to the ") #>

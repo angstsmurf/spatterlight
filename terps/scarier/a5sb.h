@@ -15,10 +15,11 @@
 
 typedef struct { char *p; size_t len, cap; } sb_t;
 
-void  sb_init  (sb_t *b);
-void  sb_puts  (sb_t *b, const char *s);
-void  sb_putc_ (sb_t *b, char c);
-char *sb_take  (sb_t *b);
+void  sb_init   (sb_t *b);
+void  sb_puts   (sb_t *b, const char *s);
+void  sb_putc   (sb_t *b, char c);
+void  sb_putn   (sb_t *b, const char *s, size_t n);
+char *sb_finish (sb_t *b);
 
 /* Resolve any <cls> markers (A5_CLS_MARK) within b->p[floor .. len).  The runner's
    Display renders per commit (bCommit=True flushes the accumulated sOutputText

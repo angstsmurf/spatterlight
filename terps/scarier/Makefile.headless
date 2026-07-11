@@ -76,11 +76,11 @@ A5_TEXT_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
                a5state.cpp a5restr.cpp a5expr.cpp a5sexpr.cpp a5text.cpp a5parse.cpp
 A5_RUN_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
               a5state.cpp a5restr.cpp a5expr.cpp a5sexpr.cpp a5text.cpp a5parse.cpp \
-              a5rand.cpp a5arith.cpp a5sb.cpp a5run_ref.cpp a5run_events.cpp \
+              a5rand.cpp a5sb.cpp a5run_ref.cpp a5run_events.cpp \
               a5run_action.cpp a5run.cpp
 A5_HDRS := a5blorb.h a5deobf.h a5xml.h a5model.h
 A5_TEXT_HDRS := $(A5_HDRS) a5state.h a5restr.h a5expr.h a5sexpr.h a5text.h a5parse.h
-A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5rand.h a5arith.h a5sb.h a5run.h a5run_internal.h
+A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5rand.h a5sb.h a5run.h a5run_internal.h
 A5DUMP_HARNESS := test/a5dump.cpp
 A5DUMP_BIN     := test/a5dump
 A5MODEL_HARNESS := test/a5model_dump.cpp
@@ -97,12 +97,12 @@ A5WALK_HARNESS  := test/a5_walk_test.cpp
 A5WALK_BIN      := test/a5_walk_test
 A5OBJ_HARNESS   := test/a5_objects_test.cpp
 A5OBJ_BIN       := test/a5_objects_test
-A5ARITH_HARNESS := test/a5arith_test.cpp
-A5ARITH_BIN     := test/a5arith_test
+A5SEXPR_HARNESS := test/a5sexpr_test.cpp
+A5SEXPR_BIN     := test/a5sexpr_test
 A5SAVE_HARNESS  := test/a5_save_test.cpp
 A5SAVE_BIN      := test/a5_save_test
 
-.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5arithtest
+.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -111,14 +111,14 @@ A5SAVE_BIN      := test/a5_save_test
 A5_GAMES_DIR ?= test/adrift5-games
 A5_BULLETS ?= $(A5_GAMES_DIR)/SixSilverBullets.blorb
 
-test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BIN) $(QUIT_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
+test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BIN) $(QUIT_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
 	./$(BIN) $(TAF)
 	./$(PREC_BIN) $(PREC_TAF)
 	./$(BADP_BIN) $(BADP_TAF)
 	./$(CORRUPT_BIN)
 	./$(QUIT_BIN) $(PREC_TAF)
 	./$(A5PARSE_BIN)
-	./$(A5ARITH_BIN)
+	./$(A5SEXPR_BIN)
 	./$(A5DIS_BIN)
 	./$(A5WALK_BIN)
 	./$(A5OBJ_BIN)
@@ -172,8 +172,8 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 	$(SAN_ENV) ./$(QUIT_BIN)_san $(PREC_TAF)
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
 	$(SAN_ENV) ./$(A5PARSE_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5arith.cpp $(A5ARITH_HARNESS) -o $(A5ARITH_BIN)_san
-	$(SAN_ENV) ./$(A5ARITH_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5sexpr.cpp a5rand.cpp $(A5SEXPR_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SEXPR_BIN)_san
+	$(SAN_ENV) ./$(A5SEXPR_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5DIS_BIN)_san
 	$(SAN_ENV) ./$(A5DIS_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5WALK_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5WALK_BIN)_san
@@ -242,11 +242,13 @@ a5parsetest: $(A5PARSE_BIN)
 $(A5PARSE_BIN): a5parse.cpp a5parse.h $(A5PARSE_HARNESS)
 	$(CXX) $(CXXFLAGS) a5parse.cpp $(A5PARSE_HARNESS) -o $@
 
-# Self-contained arithmetic-evaluator regression (no game data); part of `test`.
-a5arithtest: $(A5ARITH_BIN)
-	./$(A5ARITH_BIN)
-$(A5ARITH_BIN): a5arith.cpp a5arith.h $(A5ARITH_HARNESS)
-	$(CXX) $(CXXFLAGS) a5arith.cpp $(A5ARITH_HARNESS) -o $@
+# Self-contained expression-evaluator regression (no game data); part of `test`.
+# Exercises a5sexpr (the sole variable/expression evaluator since a5arith was
+# folded in); links a5rand for its rand()/oneof() draws.
+a5sexprtest: $(A5SEXPR_BIN)
+	./$(A5SEXPR_BIN)
+$(A5SEXPR_BIN): a5sexpr.cpp a5sexpr.h a5rand.cpp $(A5SEXPR_HARNESS) $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) a5sexpr.cpp a5rand.cpp $(A5SEXPR_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Self-contained disambiguation regression (synthetic in-memory v5 adventure,
 # no game data); part of `test`.  Links the full a5 run pipeline.
@@ -293,5 +295,5 @@ $(BADP_TAF): test/make_badparent_taf.py
 	python3 test/make_badparent_taf.py $(BADP_TAF)
 
 clean:
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5ARITH_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ)
-	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(A5PARSE_BIN)_san $(A5ARITH_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(SAN_RAND_OBJ)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ)
+	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(SAN_RAND_OBJ)

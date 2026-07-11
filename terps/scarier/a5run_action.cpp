@@ -22,7 +22,6 @@
 #include <string>
 #include <vector>
 
-#include "a5arith.h"
 #include "a5expr.h"
 #include "a5parse.h"
 #include "a5rand.h"
@@ -80,7 +79,6 @@ static long
 eval_num_value (a5_state_t *st, const char *raw)
 {
   char *proc;
-  long v;
   if (raw != NULL && strncmp (raw, "RAND", 4) == 0)
     {
       /* RAND (min, max): inclusive random in [min, max] via the shared
@@ -109,32 +107,29 @@ eval_num_value (a5_state_t *st, const char *raw)
      "17000" -> "1.700.0" must not turn IncVariable cl_Money = "1700000"
      into 1. */
   proc = a5text_process_noalr (st, raw ? raw : "0");
-  {
-    bool ok = false;
-    long e = a5_eval_arith (proc, &ok);
-    if (ok) { free (proc); return e; }   /* arithmetic expression */
-  }
-  /* Not plain arithmetic: the value may be a function call the arith evaluator
-     doesn't know -- most importantly a *lowercase* rand(min,max) (the uppercase
-     RAND fast path above only matches "RAND...").  Tingalan's Roller sets
-     Randbetwee = "rand(1,9)", Witsroll = "rand(0,%playerwits%)" etc. every turn;
-     without this they all evaluate to 0 (no draw) and the whole encounter/combat
-     RNG is dead.  The runner evaluates a SetVariable value through EvaluateExpression, so
-     defer to the s-expression engine, which draws for rand()/oneof() via the same
-     a5rand_between as the uppercase path.  %vars% are already substituted, so
-     rand(0,%playerwits%) is now rand(0,N).  Only used when it yields a number, so
-     a non-numeric junk value still falls through to the leading-integer strtol. */
+  /* The runner evaluates a SetVariable value through EvaluateExpression
+     (clsVariable) and reads the numeric result as VB Val(): full arithmetic
+     (+ - * / ^ mod, with runner precedence and away-from-zero division) plus
+     function calls -- min/max/if and the rand()/oneof() draws.  a5_eval_sexpr
+     IS that evaluator; it supersedes the old integer-only a5arith fast path,
+     whose ^ handled precedence/associativity differently from the runner
+     (clsVariable reduces ^ on run 2, the +/- tier, left-to-right -- see
+     FrankenDrift clsVariable.vb).  %vars% are already substituted, so Tingalan's
+     Roller "rand(0,%playerwits%)" is now rand(0,N) and draws via the same
+     a5rand_between as the uppercase RAND path.
+
+     The value is Val() of the *result* -- its leading integer, else 0.  So a
+     non-numeric value ("Object3") reads as 0, as does an out-of-range result
+     the runner guards with SafeInt(Val(...)): a division by zero evaluates to
+     "\xe2\x88\x9e" (Val 0, the former a5arith div/mod-by-zero guard), not the
+     leading digit of the raw "5/0". */
   {
     char *sv = a5_eval_sexpr (proc);
-    char *end = NULL;
-    long e = strtol (sv, &end, 10);
-    int got = (sv != end);
+    long e = strtol (sv, NULL, 10);      /* Val(): leading integer, else 0 */
     free (sv);
-    if (got) { free (proc); return e; }
+    free (proc);
+    return e;
   }
-  v = strtol (proc, NULL, 10);           /* fall back: leading integer */
-  free (proc);
-  return v;
 }
 
 /* Split a `Name = "value"` action body into name and (unquoted) value. */

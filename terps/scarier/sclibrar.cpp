@@ -669,27 +669,6 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
 
 
 /*
- * lib_text_ends_with_break()
- *
- * Return TRUE if the text ends with a line break -- either a literal newline
- * or a trailing "<br>" tag (the unfiltered buffer holds tags verbatim).  Used
- * to decide whether a character's in-room description needs its own leading
- * break stripped to avoid doubling up on one already in the output.
- */
-static scr_bool
-lib_text_ends_with_break (const scr_char *text)
-{
-  scr_int length = strlen (text);
-
-  if (length > 0 && text[length - 1] == '\n')
-    return TRUE;
-  if (length >= 4 && !scr_strncasecmp (text + length - 4, "<br>", 4))
-    return TRUE;
-  return FALSE;
-}
-
-
-/*
  * lib_print_room_contents()
  *
  * Print a list of the contents of a room.
@@ -824,7 +803,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
                *     without any "<br>" of their own don't run together.
                */
               buffered = pf_get_buffer (filter);
-              buffer_has_break = buffered && lib_text_ends_with_break (buffered);
+              buffer_has_break = buffered && pf_text_ends_with_break (buffered);
               desc_has_break = (*description == '\n')
                                || !scr_strncasecmp (description, "<br>", 4);
 
@@ -1064,7 +1043,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
     {
       const scr_char *buffered = pf_get_buffer (filter);
 
-      if (!(buffered && lib_text_ends_with_break (buffered)))
+      if (!(buffered && pf_text_ends_with_break (buffered)))
         pf_buffer_character (filter, '\n');
     }
 

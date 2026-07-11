@@ -31,10 +31,28 @@ sb_puts (sb_t *b, const char *s)
 }
 
 void
-sb_putc_ (sb_t *b, char c) { char t[2] = { c, '\0' }; sb_puts (b, t); }
+sb_putc (sb_t *b, char c) { char t[2] = { c, '\0' }; sb_puts (b, t); }
+
+/* Append the n-byte span [s, s+n) verbatim (a length-delimited sb_puts). */
+void
+sb_putn (sb_t *b, const char *s, size_t n)
+{
+  if (s == NULL || n == 0) return;
+  if (b->len + n + 1 > b->cap)
+    {
+      size_t cap = b->cap ? b->cap : 128;
+      while (cap < b->len + n + 1) cap *= 2;
+      b->p = (char *) realloc (b->p, cap);
+      b->cap = cap;
+    }
+  if (b->p == NULL) return;
+  memcpy (b->p + b->len, s, n);
+  b->len += n;
+  b->p[b->len] = '\0';
+}
 
 char *
-sb_take (sb_t *b) { return b->p ? b->p : strdup (""); }
+sb_finish (sb_t *b) { return b->p ? b->p : strdup (""); }
 
 void
 sb_resolve_cls (sb_t *b, size_t floor)

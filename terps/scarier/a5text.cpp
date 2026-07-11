@@ -15,72 +15,9 @@
 
 #include "a5expr.h"
 #include "a5restr.h"
+#include "a5sb.h"     /* sb_t growable string builder (shared with a5run_*) */
 #include "a5sexpr.h"
 #include "a5text.h"
-
-/* ------------------------------------------------------- string builder */
-
-typedef struct { char *p; size_t len, cap; } sb_t;
-
-static void sb_init (sb_t *b) { b->p = NULL; b->len = b->cap = 0; }
-
-static void
-sb_need (sb_t *b, size_t extra)
-{
-  if (b->len + extra + 1 > b->cap)
-    {
-      size_t cap = b->cap ? b->cap * 2 : 64;
-      while (cap < b->len + extra + 1)
-        cap *= 2;
-      b->p = (char *) realloc (b->p, cap);
-      b->cap = cap;
-    }
-}
-
-static void
-sb_putc (sb_t *b, char c)
-{
-  sb_need (b, 1);
-  b->p[b->len++] = c;
-  b->p[b->len] = '\0';
-}
-
-static void
-sb_puts (sb_t *b, const char *s)
-{
-  size_t n;
-  if (s == NULL)
-    return;
-  n = strlen (s);
-  sb_need (b, n);
-  memcpy (b->p + b->len, s, n);
-  b->len += n;
-  b->p[b->len] = '\0';
-}
-
-/* Append the n-byte span [s, s+n) verbatim (a length-delimited sb_puts).  The
-   explicit NULL guard after sb_need covers the realloc-failure (OOM) path, which
-   the sb.p + sb.len arithmetic would otherwise dereference. */
-static void
-sb_putn (sb_t *b, const char *s, size_t n)
-{
-  if (n == 0)
-    return;
-  sb_need (b, n);
-  if (b->p == NULL)
-    return;
-  memcpy (b->p + b->len, s, n);
-  b->len += n;
-  b->p[b->len] = '\0';
-}
-
-static char *
-sb_finish (sb_t *b)
-{
-  if (b->p == NULL)
-    return strdup ("");
-  return b->p;
-}
 
 /* ----------------------------------------------------------- small helpers */
 

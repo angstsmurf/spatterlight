@@ -456,7 +456,6 @@
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
 		A386445CBE7CFA2393827746 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 066545D7B54AED7A90A3003E /* scparser.cpp */; };
-		A778F64B95C4175E7E40F988 /* a5arith.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A199C714C44BC6E78B9A0F5 /* a5arith.cpp */; };
 		AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */ = {isa = PBXBuildFile; fileRef = AA11US7A09F29EE60083E64E /* illustrator.c */; };
 		AC710000000000000000B001 /* agtifid.c in Sources */ = {isa = PBXBuildFile; fileRef = AC710000000000000000A001 /* agtifid.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
 		AC710000000000000000B002 /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C109F29EE10083E64E /* agtread.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
@@ -1717,7 +1716,6 @@
 		0E7D25CD79FDADB081ACDA2B /* scprops.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprops.cpp; sourceTree = "<group>"; };
 		10990E34B23D66921A762A58 /* a5rand.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5rand.cpp; sourceTree = "<group>"; };
 		198EF78EF2D09C69E82D3A7B /* zoom.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; name = zoom.h; path = terps/bocfel/zoom.h; sourceTree = SOURCE_ROOT; tabWidth = 4; };
-		1A199C714C44BC6E78B9A0F5 /* a5arith.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5arith.cpp; sourceTree = "<group>"; };
 		1B305C336D7D955664940307 /* scbattle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scbattle.cpp; sourceTree = "<group>"; };
 		24A4363FEF151AF32725A1B4 /* scgamest.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scgamest.cpp; sourceTree = "<group>"; };
 		3CC2449C2978F679050748B2 /* scobjcts.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scobjcts.cpp; sourceTree = "<group>"; };
@@ -4245,7 +4243,6 @@
 				9DAF981FA6279F5D391398AE /* a5text.cpp */,
 				7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */,
 				10990E34B23D66921A762A58 /* a5rand.cpp */,
-				1A199C714C44BC6E78B9A0F5 /* a5arith.cpp */,
 				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
 				A5B000000000000000000102 /* a5sb.cpp */,
 				A5B000000000000000000104 /* a5run_ref.cpp */,
@@ -8013,7 +8010,6 @@
 				B68248355BAFECF536CB7329 /* a5text.cpp in Sources */,
 				8E6D5566C3EB91367805E306 /* a5parse.cpp in Sources */,
 				3B98519817A0F0691F423FD2 /* a5rand.cpp in Sources */,
-				A778F64B95C4175E7E40F988 /* a5arith.cpp in Sources */,
 				E010519EC9196D58BA837C92 /* a5run.cpp in Sources */,
 				A5B000000000000000000101 /* a5sb.cpp in Sources */,
 				A5B000000000000000000103 /* a5run_ref.cpp in Sources */,

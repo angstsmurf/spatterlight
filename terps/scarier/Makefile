@@ -89,9 +89,9 @@ HEADERS	= scarier.h scprotos.h scgamest.h
 # ADRIFT 5 engine objects and headers (driven by os_glk.cpp via gsc_a5_main
 # when the loaded file is an ADRIFT 5 game).
 A5OBJECTS = a5blorb.o a5deobf.o a5xml.o a5model.o a5state.o a5restr.o	\
-	  a5expr.o a5sexpr.o a5text.o a5parse.o a5rand.o a5arith.o a5run.o
+	  a5expr.o a5sexpr.o a5text.o a5parse.o a5rand.o a5run.o
 A5HEADERS = a5blorb.h a5deobf.h a5xml.h a5model.h a5state.h a5restr.h	\
-	  a5expr.h a5sexpr.h a5text.h a5parse.h a5rand.h a5arith.h a5run.h
+	  a5expr.h a5sexpr.h a5text.h a5parse.h a5rand.h a5run.h
 
 # Scarier verifier objects and headers.
 XOBJECTS= sxmain.o sxutils.o sxglob.o sxtester.o sxscript.o sxfile.o	\

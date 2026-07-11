@@ -306,6 +306,7 @@ extern scr_char *pf_escape (const scr_char *string);
 extern scr_char *pf_filter_input (const scr_char *string,
                                  scr_prop_setref_t bundle);
 extern void pf_debug_trace (scr_bool flag);
+extern scr_bool pf_text_ends_with_break (const scr_char *text);
 
 /* Game memo opaque typedef and functions. */
 typedef struct scr_memo_set_s *scr_memo_setref_t;

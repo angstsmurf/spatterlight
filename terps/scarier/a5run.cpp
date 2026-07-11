@@ -29,7 +29,6 @@
 #include <unordered_set>
 #include <vector>
 
-#include "a5arith.h"
 #include "a5expr.h"
 #include "a5parse.h"
 #include "a5rand.h"
@@ -948,7 +947,7 @@ emit_endgame (a5_run_t *run, sb_t *out)
     for (int si = 0; kPromptSegs[si] != NULL; si++)
       {
         if (si > 0)
-          sb_putc_ (out, A5_ALR_MARK);
+          sb_putc (out, A5_ALR_MARK);
         sb_puts (out, kPromptSegs[si]);
       }
     sb_puts (out, "\n\n");
@@ -993,7 +992,7 @@ finish_turn (a5_run_t *run, sb_t *out)
      multi-commit intro resolves its own segments before calling finish_turn, so
      no markers reach here from a5run_intro.) */
   sb_resolve_cls (out, 0);
-  raw = sb_take (out);
+  raw = sb_finish (out);
   /* The pSpace markers (A5_PS_MARK) have already done their job during buffer
      accumulation -- sb_pspace saw them as non-newline tails and inserted the join
      spaces.  Strip them now, before the ALR match and the trailing-whitespace
@@ -1215,7 +1214,7 @@ a5run_intro (a5_run_t *run)
     sb_puts (&pb, a5model_upgrade_question ());
     sb_puts (&pb, turn);
     free (turn);
-    return sb_take (&pb);
+    return sb_finish (&pb);
   }
 }
 
@@ -2111,7 +2110,7 @@ xml_esc (sb_t *b, const char *s)
       case '<': sb_puts (b, "&lt;");  break;
       case '>': sb_puts (b, "&gt;");  break;
       case '"': sb_puts (b, "&quot;"); break;
-      default:  sb_putc_ (b, *p);     break;
+      default:  sb_putc (b, *p);     break;
       }
 }
 
@@ -2257,7 +2256,7 @@ save_scarier_body (sb_t *b, a5_run_t *run)
                         st->var_arr[i][e]);
               sb_puts (&ab, nb);
             }
-          char *joined = sb_take (&ab);
+          char *joined = sb_finish (&ab);
           sb_elem (b, "Arr", joined);
           free (joined);
         }
@@ -2740,7 +2739,7 @@ a5run_save (a5_run_t *run, size_t *out_len)
   sb_puts (&b, "</Game>\n");
   if (out_len != NULL)
     *out_len = b.len;
-  return sb_take (&b);
+  return sb_finish (&b);
 }
 
 /* strtol on a child's text (0 when absent). */
