@@ -2256,13 +2256,8 @@ static void find_journey_globals(void) {
             jo.BERGON = word(offset - 1);
             find_routines_in_pattern({ 0xc1, 0x8f, WILDCARD, WILDCARD, 0xb0, 0xc1 }, { &jr.PARSE_ELVISH }, offset, 200);
         } else if (entrypoint.fn == CHANGE_NAME && entrypoint.found_at_address != 0) {
-            uint32_t offset = find_pattern_in_mem({ 0x2d, 0x04, WILDCARD, 0x8f }, entrypoint.found_at_address - 0x10, 1);
-            if (offset != -1) {
-                // Hack for later versions
-                store_byte(offset, 0xb0);
-            }
             uint8_t tag = 0, dummy;
-            offset = find_values_in_pattern({ WILDCARD, 0x00, 0x74, WILDCARD, 0x00, 0x00 }, { &tag, &dummy }, entrypoint.found_at_address, 200);
+            uint32_t offset = find_values_in_pattern({ WILDCARD, 0x00, 0x74, WILDCARD, 0x00, 0x00 }, { &tag, &dummy }, entrypoint.found_at_address, 200);
             jo.TAG = tag;
 
             offset = find_routines_in_pattern({ 0xd9, 0x2f, WILDCARD, WILDCARD, 0x01, 0x00 }, { &jr.ILLEGAL_NAME }, offset, 200);
@@ -2356,6 +2351,11 @@ static void find_shogun_globals(void) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
             if (start == -1) {
+                // Fallback for early releases (<= r288) whose V-COLOR uses the
+                // 0x0d store idiom instead of 0x2d. The { &bg, &fg } order is
+                // correct and verified against real binaries: r278/r283 reach
+                // this path and yield fg/bg globals consistent with the primary
+                // 0x2d path of the adjacent later release r288 (fg 0x1c in both).
                 start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
 
             }
@@ -2509,8 +2509,8 @@ static void find_shogun_globals(void) {
 //                    fprintf(stderr, "sg.MACHINE = 0x%x sg.WINNER = 0x%x\n", sg.MACHINE, sg.WINNER);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, 0x03, 0xc1, 0x97, 0x1a }, start, 200);
-                    sr.TELL_THE =
-                    unpack_routine(word(start + 2));
+                    if (start != -1)
+                        sr.TELL_THE = unpack_routine(word(start + 2));
 //                    fprintf(stderr, "sr.TELL_THE = 0x%x\n", sr.TELL_THE);
 
                     start = find_values_in_pattern({0x41, 0x1a, WILDCARD, 0x48 }, { &so.BRIDGE_OF_ERASMUS }, start, 200);
@@ -2524,9 +2524,13 @@ static void find_shogun_globals(void) {
 //                    fprintf(stderr, "so.BRIDGE_OF_ERASMUS = 0x%x so.GALLEY = 0x%x so.WHEEL == 0x%x so.GALLEY_WHEEL = 0x%x\n", so.BRIDGE_OF_ERASMUS, so.GALLEY, so.WHEEL, so.GALLEY_WHEEL);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x01, 0x46, 0x61 }, start, 200);
-                    sr.TELL_DIRECTION = unpack_routine(word(start + 2));
-                    sg.SHIP_COURSE = memory[start + 4] - 0x10;
-                    sg.SHIP_DIRECTION = memory[start - 8] - 0x10;
+                    // A mid-chain miss leaves start == -1; guard the dereferences
+                    // so memory[start - 8] doesn't read at a negative index.
+                    if (start != -1) {
+                        sr.TELL_DIRECTION = unpack_routine(word(start + 2));
+                        sg.SHIP_COURSE = memory[start + 4] - 0x10;
+                        sg.SHIP_DIRECTION = memory[start - 8] - 0x10;
+                    }
 //                    fprintf(stderr, "sr.TELL_DIRECTION = 0x%x sg.SHIP_COURSE = 0x%x sg.SHIP_DIRECTION = 0x%x\n", sr.TELL_DIRECTION, sg.SHIP_COURSE, sg.SHIP_DIRECTION);
                 } else {
                     fprintf(stderr, "Error! Could not find sr.TELL_THE!\n");

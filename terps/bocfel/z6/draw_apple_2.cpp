@@ -145,5 +145,8 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
 // palette-indexed result to a 32-bit RGBA pixmap ready for display.
 uint8_t *draw_apple2(ImageStruct *image) {
     uint8_t *result = decompress_apple2(image);
-    return deindex(result, image->width * image->height, image);
+    // Use the same size_t product decompress_apple2 sized its buffer with;
+    // an int product could overflow and disagree, making deindex read past
+    // the decompressed buffer.
+    return deindex(result, (size_t)image->width * (size_t)image->height, image);
 }

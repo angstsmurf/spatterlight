@@ -352,9 +352,12 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
                 str[len++] = c; // For VoiceOver
         }
 
-        // For VoiceOver
+        // For VoiceOver. Pass `len` -- the number of bytes actually written
+        // into str above -- not user_byte(fdef + 1) + 5, which is a screen
+        // column (0..260) unrelated to the fill and would make the front-end
+        // read uninitialized or past-buffer bytes of str[60].
         if (send_menu)
-            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, user_byte(fdef + 1) + 5);
+            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, len);
 
         glsi32 x = user_byte(fdef + 1) + 4;
 
@@ -718,9 +721,12 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
     glui32 upperwidth, lowerwidth, lowerheight;
     glk_window_get_size(V6_STATUS_WINDOW.id, &upperwidth, nullptr);
 
-    int left = (upperwidth - 15) / 2;
+    // upperwidth is unsigned; compute in signed so a status window narrower
+    // than 15 columns yields a negative `left` and trips the fallback below,
+    // instead of wrapping to ~2e9 and making every click hit-test as column 0.
+    int left = ((int)upperwidth - 15) / 2;
     if (left < 0)
-        left = upperwidth / 3;
+        left = (int)upperwidth / 3;
     int right = upperwidth - left;
     if (y == 1) {
         if (x <= left) {

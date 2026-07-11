@@ -185,6 +185,17 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     if (file_header.image_count == 0)
         return 0;
 
+    // The per-entry parser below reads a fixed byte count that depends on the
+    // entry size (8 for compact, 14 for standard, 16 for extended). Any other
+    // value would make the directory-fits reservation (which uses
+    // directory_entry_size) disagree with the bytes actually consumed by the
+    // loop, allowing a small/odd size to pass the check yet read past `end`.
+    if (file_header.directory_entry_size != kCompactEntrySize &&
+        file_header.directory_entry_size != kStandardEntrySize &&
+        file_header.directory_entry_size != kExtendedEntrySize) {
+        return 0;
+    }
+
     // Verify the directory fits within the file
     size_t directory_bytes = (size_t)file_header.image_count * file_header.directory_entry_size;
     if (ptr + directory_bytes > end)

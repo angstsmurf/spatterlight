@@ -16,6 +16,7 @@ extern "C" {
 #include "glkimp.h"
 }
 #include <cerrno>
+#include <climits>
 #include <cmath>
 #include <cstring>
 #include "v6_image.h"
@@ -185,6 +186,13 @@ static constexpr int kBytesPerColor = 3;
 // Copy `image`'s 16-entry RGB palette into the module-shared global_palette
 // (defined in draw_png.cpp) so subsequent decoders can resolve color
 // indices. No-op if the image has no palette.
+//
+// Copying a fixed kPaletteSize*kBytesPerColor (48) bytes is safe because every
+// producer of image->palette allocates at least that many: Blorb PNGs go
+// through extract_palette_from_png_data(), which always calloc()s the full
+// kMaxPaletteEntries*kBytesPerColor (48, zero-padded) no matter how few PLTE
+// entries the file has, and the legacy per-image path allocates
+// kColorPaletteSize (512). Keep that invariant if a new palette source is added.
 void extract_palette(ImageStruct *image) {
     if (image && image->palette) {
         memcpy(global_palette, image->palette, kPaletteSize * kBytesPerColor);
@@ -292,14 +300,22 @@ void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int s
     if (dest_x > dst_width - src_width)
         dest_x = dst_width - src_width;
 
-    // Extend destination buffer downward if necessary
-    const int required_size = dst_width * (dest_y + src_height) * kBytesPerPixel;
-    if (*dst_buffer_size < required_size) {
+    // Nothing to composite if the source lands entirely above the canvas.
+    if (dest_y + src_height <= 0)
+        return;
+
+    // Extend destination buffer downward if necessary. Compute the required
+    // size in size_t so the product can't wrap to a negative int and defeat
+    // the grow check (which would let the row loop write past the allocation).
+    const size_t required_size = (size_t)dst_width * (size_t)(dest_y + src_height) * kBytesPerPixel;
+    if (required_size > INT_MAX)
+        return;
+    if ((size_t)*dst_buffer_size < required_size) {
         uint8_t *expanded = (uint8_t *)calloc(1, required_size);
         if (expanded == nullptr)
             return;
         memcpy(expanded, *dst_pixels, *dst_buffer_size);
-        *dst_buffer_size = required_size;
+        *dst_buffer_size = (int)required_size;
         free(*dst_pixels);
         *dst_pixels = expanded;
     }
@@ -336,14 +352,21 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
     if (dest_x > screen_width - rect_width)
         dest_x = screen_width - rect_width;
 
-    // Extend pixmap downward if necessary
-    int required_size = screen_width * (dest_y + rect_height) * kBytesPerPixel;
-    if (pixlength < required_size) {
+    // Nothing to fill if the rectangle lands entirely above the canvas.
+    if (dest_y + rect_height <= 0)
+        return;
+
+    // Extend pixmap downward if necessary. size_t product avoids a negative
+    // wrap that would skip the grow and let the fill loop run past the buffer.
+    size_t required_size = (size_t)screen_width * (size_t)(dest_y + rect_height) * kBytesPerPixel;
+    if (required_size > INT_MAX)
+        return;
+    if ((size_t)pixlength < required_size) {
         uint8_t *expanded = (uint8_t *)calloc(1, required_size);
         if (expanded == nullptr)
             return;
         memcpy(expanded, pixmap, pixlength);
-        pixlength = required_size;
+        pixlength = (int)required_size;
         free(pixmap);
         pixmap = expanded;
     }

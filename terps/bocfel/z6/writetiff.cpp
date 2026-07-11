@@ -53,7 +53,15 @@ static void write32BE(FILE *fptr, uint32_t offset) {
 // values, sample formats). Silently returns if the pixel write fails.
 void writetiff(FILE *fptr, uint8_t *pixarray, uint32_t pixarraysize, int width) {
 
-    uint16_t height = pixarraysize / (width * 4);
+    // Reject a zero/negative width (would divide by zero below). The TIFF
+    // Height tag is a 16-bit SHORT, so an image taller than 65535 rows cannot
+    // be represented; bail rather than emit a truncated, malformed file.
+    if (width <= 0)
+        return;
+    uint32_t full_height = pixarraysize / ((uint32_t)width * 4);
+    if (full_height > 0xffff)
+        return;
+    uint16_t height = full_height;
 
     /* Write the header */
     writehexstring(fptr, "4d4d002a");    /* Big endian & TIFF identifier */

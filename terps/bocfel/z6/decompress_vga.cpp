@@ -105,8 +105,11 @@ uint8_t *decompress_vga(const ImageStruct *image) {
     if (image->width <= 0 || image->height <= 0)
         return nullptr;
     size_t output_size = (size_t)image->width * (size_t)image->height;
+    // calloc (not malloc): a stream that emits the end code before producing
+    // width*height pixels leaves the tail undecoded; zeroing means those
+    // pixels read as palette index 0 rather than garbage indices.
     std::unique_ptr<uint8_t[], decltype(&free)> output(
-        (uint8_t *)malloc(output_size), free);
+        (uint8_t *)calloc(1, output_size), free);
     if (output == nullptr)
         return nullptr;
 

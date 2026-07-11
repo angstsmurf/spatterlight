@@ -584,6 +584,8 @@ void RT_AUTHOR_OFF(void) {
         lines = count_lines(addr);
     } else {
         int width_in_chars = (V6_TEXT_BUFFER_WINDOW.x_size - 2 * ggridmarginx) / gcellw;
+        if (width_in_chars < 1)
+            width_in_chars = 1;
         lines = user_word(addr) / width_in_chars + 1;
         if (user_word(addr) % width_in_chars == 0)
             lines--;

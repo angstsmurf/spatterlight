@@ -75,11 +75,16 @@ static const int kBytesPerColor = 3;
 uint8_t global_palette[kMaxPaletteEntries * kBytesPerColor];
 
 // zlib-inflate the IDAT payload into a freshly allocated buffer of exactly
-// max_output_size bytes. The caller is responsible for deleting the returned
-// buffer with delete[].
-static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_output_size)
+// max_output_size bytes. If *produced is non-null it receives the number of
+// bytes zlib actually decoded; a truncated or corrupt stream produces fewer
+// than max_output_size bytes. The buffer is zero-initialized so any tail zlib
+// never wrote reads as palette index 0 (transparent) rather than garbage.
+// The caller is responsible for deleting the returned buffer with delete[].
+static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_output_size, size_t *produced)
 {
-    char* output = new char[max_output_size];
+    char* output = new char[max_output_size]();  // () => zero-initialized
+    if (produced != nullptr)
+        *produced = 0;
 
     z_stream infstream;
     infstream.zalloc = Z_NULL;
@@ -90,8 +95,16 @@ static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_out
     infstream.avail_out = (unsigned)max_output_size; // size of output
     infstream.next_out = (Bytef *)output; // output char array
 
-    inflateInit2(&infstream, MAX_WBITS|0x20);
-    inflate(&infstream, Z_NO_FLUSH);
+    if (inflateInit2(&infstream, MAX_WBITS|0x20) != Z_OK)
+        return (uint8_t *)output;  // all-zero buffer; nothing decoded
+
+    int ret = inflate(&infstream, Z_NO_FLUSH);
+    // Z_OK / Z_STREAM_END are the success cases; anything else (Z_DATA_ERROR,
+    // Z_BUF_ERROR, ...) means the stream was truncated or corrupt, but
+    // total_out still reflects the valid prefix decoded so far.
+    if (produced != nullptr && (ret == Z_OK || ret == Z_STREAM_END || ret == Z_BUF_ERROR || ret == Z_DATA_ERROR))
+        *produced = infstream.total_out;
+
     inflateEnd(&infstream);
 
     return (uint8_t *)output;
@@ -189,6 +202,16 @@ static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunk
     debug_png_print("Width: %d\n", header->width);
     header->height = read32be(ihdr_data, 4);
     debug_png_print("Height: %d\n", header->height);
+
+    // Reject absurd dimensions up front. Infocom V6 artwork is tiny; capping
+    // both axes well below the point where width*height*4 could overflow a
+    // 32-bit int keeps every downstream size computation from wrapping.
+    static const uint32_t kMaxPngDimension = 8192;
+    if (header->width == 0 || header->height == 0 ||
+        header->width > kMaxPngDimension || header->height > kMaxPngDimension) {
+        debug_png_print("Rejecting PNG with dimensions %u x %u\n", header->width, header->height);
+        return false;
+    }
     header->bit_depth = ihdr_data[8];
     debug_png_print("Bit depth: %d\n", header->bit_depth);
     header->colour_type = ihdr_data[9];
@@ -268,7 +291,7 @@ static void set_pixel(int color_index, uint8_t *write_ptr) {
 // place (the caller's pointer and size are updated). When `flipped` is true
 // the image is drawn upside-down. Only bit depths 2 and 4 are supported.
 // Returns false on malformed PNG data or unsupported bit depth.
-static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_width, int dest_x, int dest_y, uint8_t *png_data, size_t png_size, bool flipped) {
+static bool draw_indexed_png(uint8_t **canvas_ptr, size_t *canvas_size, int canvas_width, int dest_x, int dest_y, uint8_t *png_data, size_t png_size, bool flipped) {
 
     struct png_chunk chunks[64];
     struct png_header pngheader;
@@ -288,7 +311,10 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_
 
     uint8_t *canvas = *canvas_ptr;
 
-    int required_size = canvas_width * (dest_y + pngheader.height) * 4;
+    // read_png caps width/height at 8192 and dest_y is small, so this size_t
+    // product cannot overflow; computing it in size_t (not int) keeps the
+    // canvas-growth check and the per-byte bounds check below honest.
+    size_t required_size = (size_t)canvas_width * (size_t)(dest_y + (int)pngheader.height) * 4;
     if (*canvas_size < required_size) {
         uint8_t *expanded = (uint8_t *)calloc(1, required_size);
         if (expanded == nullptr)
@@ -306,9 +332,13 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_
     size_t decompressed_size = (size_t)row_stride * pngheader.height;
     debug_png_print("Needed space for image data: %zu\n", decompressed_size);
 
-    uint8_t *decompressed = decompress_idat(chunks[idat_index].data, chunks[idat_index].length, decompressed_size);
+    size_t produced = 0;
+    uint8_t *decompressed = decompress_idat(chunks[idat_index].data, chunks[idat_index].length, decompressed_size, &produced);
 
-    for (size_t byte_index = 0; byte_index < decompressed_size; byte_index++) {
+    // Only iterate over bytes zlib actually decoded; the rest of the buffer is
+    // zeroed (transparent) rather than indeterminate, but there's no reason to
+    // walk it.
+    for (size_t byte_index = 0; byte_index < produced; byte_index++) {
         int draw_y = dest_y + (int)(byte_index / row_stride);
         if (flipped)
             draw_y = pngheader.height + dest_y - draw_y - 1;
@@ -321,10 +351,12 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_
         if (draw_y >= (int)pngheader.height + dest_y || draw_y < dest_y)
             break;
 
-        // Bounds-check the last pixel this byte will produce
+        // Bounds-check the last pixel this byte will produce. Compute the byte
+        // offset in ptrdiff_t/size_t so a large index can't wrap negative and
+        // slip past the check.
         int last_pixel_x = draw_x + pixels_per_byte - 1;
-        uint8_t *last_write = &canvas[(draw_y * canvas_width + last_pixel_x) * 4];
-        if (last_write - canvas + 4 > *canvas_size)
+        ptrdiff_t last_offset = ((ptrdiff_t)draw_y * canvas_width + last_pixel_x) * 4;
+        if (last_offset < 0 || (size_t)last_offset + 4 > *canvas_size)
             break;
 
         uint8_t *write_ptr = &canvas[(draw_y * canvas_width + draw_x) * 4];
@@ -357,8 +389,14 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, int *canvas_size, int canvas_
 // left over from the previous call is reused, which lets a series of images
 // share a consistent color table. Returns nullptr on failure.
 uint8_t *draw_png(ImageStruct *image, bool use_previous_palette) {
-    int32_t pixmapsize = image->width * image->height * 4;
+    if (image->width <= 0 || image->height <= 0)
+        return nullptr;
+    // size_t product can't overflow: draw_indexed_png rejects anything with a
+    // dimension over 8192 via read_png, and these come from the same source.
+    size_t pixmapsize = (size_t)image->width * (size_t)image->height * 4;
     uint8_t *pixmap = (uint8_t *)calloc(1, pixmapsize);
+    if (pixmap == nullptr)
+        return nullptr;
     if (!use_previous_palette)
         extract_palette(image);
     if (draw_indexed_png(&pixmap, &pixmapsize, image->width, 0, 0, image->data, image->datasize, false) == false) {

@@ -527,15 +527,20 @@ static void journey_move_cursor(int column, int line) {
 static int print_tag_route_to_str(char *str) {
     int name_length = get_global(jg.TAG_NAME_LENGTH);
     int name_table = get_global(jg.NAME_TBL) + 4;
+    // Cap the name so that name + " route" (6 chars) + the terminating NUL
+    // all fit within str[STRING_BUFFER_SIZE]; the last byte written below is
+    // str[name_length + 6], so name_length must be <= STRING_BUFFER_SIZE - 7.
+    if (name_length < 0)
+        name_length = 0;
+    if (name_length > STRING_BUFFER_SIZE - 7) {
+        fprintf(stderr, "Error: Tag name too long!\n");
+        name_length = STRING_BUFFER_SIZE - 7;
+    }
     for (int i = 0; i < name_length; i++) {
         str[i] = zscii_to_unicode[user_byte(name_table++)];
     }
     const char *routestring = " route";
     for (int i = 0; i < 6; i++) {
-        if (name_length + i >= STRING_BUFFER_SIZE) {
-            fprintf(stderr, "Error: Tag name too long!\n");
-            return 0;
-        }
         str[name_length + i] = routestring[i];
     }
     str[name_length + 6] = 0;
