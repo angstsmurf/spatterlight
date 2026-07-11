@@ -2707,7 +2707,13 @@ a5_emit_media (const std::string &tag, int is_img)
   /* <audio>: play (default) or stop, with channel=N and optional loop. */
   {
     int is_stop = tag.find ("stop") != std::string::npos;
-    int loop = tag.find ("loop") != std::string::npos;
+    /* Loop only when explicitly loop=Y.  ADRIFT writes loop=Y / loop=N, so a
+       bare substring test for "loop" wrongly loops the (common) loop=N case
+       forever.  Match FrankenDrift (GlkHtmlWin: tokenLower.Contains("loop=y")). */
+    std::string low = tag;
+    for (size_t k = 0; k < low.size (); k++)
+      low[k] = (char) tolower ((unsigned char) low[k]);
+    int loop = low.find ("loop=y") != std::string::npos;
     int channel = 0;
     size_t cp = tag.find ("channel=");
     if (cp != std::string::npos)
