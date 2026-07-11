@@ -1,0 +1,103 @@
+Untitled
+As you remember now, you are a detective. So you delve into your memories...
+
+The bar
+There is a potted plant and a counter here.  A barman and the customers are here.  Exits are east, south and west.
+
+> put wallet on plant
+Ok, you put the wallet on top of the potted plant.
+
+> take branch from plant
+You bend down to pick up your wallet. At the same time you snatch off the branch.
+
+> e
+You move east.
+
+The back alley
+It is even more filthy than the street.  Also here is a trash can.  An exit leads west.
+
+> poke trash with branch
+You poke in the trash with the branch until you find a wrench and take it with you.
+
+> w
+You move west.
+
+The bar
+There is a potted plant and a counter here.  A barman and the customers are here.  Exits are east, south and west.
+
+> w
+You move west.
+
+The toilet
+It isn't very clean.  Also here is a door.  A man is here.  Exits are east and in.
+
+> in
+You move in.
+
+The cubicle
+It is the cubicle.  Also here is a pipe.  An exit leads out.
+
+> turn pipe with wrench
+You do that. Water flows out of the cubicle and makes the man's feet wet. He leaves.
+
+> out
+You move out.
+
+The toilet
+It isn't very clean.  Also here is a door.  Exits are east and in.
+
+> film through door
+You film the drug deal through the door.
+
+> e
+You move east.
+
+The bar
+There is a potted plant and a counter here.  A barman and the customers are here.  Exits are east, south and west.
+
+> ask barman about toilet
+He goes to fix the toilet.
+
+> search counter
+You find barman's id card under the counter and take it with you.
+
+> connect net
+You log to the barman's net account, download hologram depicting his head and use it as your helmet's skin.
+
+> open dossier
+You open the dossier.  Inside the dossier is a photo.
+
+> take photo from dossier
+Ok, you take the photo from the dossier.
+
+> w
+You move west.
+
+The toilet
+It isn't very clean.  Also here is a door.  A barman is here.  Exits are east and in.
+
+> show photo to barman
+"Yes, i know him. He lives in apartment in the city and he likes to visit underground boxing place." He scribbles down addresses for you. One of the drug dealers stands up and stands in front of the door.
+
+> turn on hologram
+The barman's hologram masks your data helmet. The drug dealer relaxes and sits down.
+
+> e
+You move east.
+
+The bar
+There is a potted plant and a counter here.  The customers is here.  Exits are east, south and west.
+
+> s
+You move south.
+
+The street
+This is street that goes through the slum.  Also here is a taxi sign.  An exit leads north.
+
+> call taxi
+You call the taxi and leave.
+
+*** You have won ***
+Here your flashback ends. Continue the adventure in the present in the episode 3...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,20 @@
+# Space Detective Episode 3 walkthrough
+# Win: hold dynamite + detonator, not at Location8, then blow up
+e
+n
+take stick
+n
+sw
+take gum
+ne
+s
+s
+s
+give gum to beast
+put juicy gum on stick
+get perfume with stick
+spray perfume
+e
+take dynamite
+take detonator
+blow up

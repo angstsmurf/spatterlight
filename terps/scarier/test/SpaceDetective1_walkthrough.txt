@@ -1,0 +1,46 @@
+# Space Detective, Episode 1 -- winning walkthrough
+# Start: crashed shuttle interior (ASpaceshut).
+take laser
+enter gateway
+# City hub (AStreet). Get the paid-for data cube by swapping cubes in the video store (E).
+e
+take random data cube
+put random data cube in bag
+w
+# Bank (W): film the clerk, doctor the footage, plant it, blackmail him for money.
+w
+film clerk
+doctor film
+put doctored film in camera
+show laser to clerk
+e
+# Burger salesman (N).
+n
+give money to salesman
+# Muzzle from the room west of the salesman.
+w
+take muzzle
+e
+s
+# Wash the burger in the puddle (S) to get a clean patty.
+s
+put burger in puddle
+n
+# Park (NE): calm the dog with the patty, then muzzle it; the grateful owner gives a TV.
+ne
+give patty to dog
+give muzzle to dog
+sw
+# Electronics shop (NW): bribe the sports client away with the TV, buy a battery.
+nw
+give tv to client
+give money to clerk
+put battery in laser
+se
+# Back to the crashed shuttle door (S, W): cut the panel, pry it, connect the wires.
+s
+w
+take bar
+cut panel with laser
+open panel with bar
+connect wires

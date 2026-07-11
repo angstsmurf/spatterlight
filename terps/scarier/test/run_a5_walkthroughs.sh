@@ -1081,6 +1081,24 @@ FILTER="${1:-}"
 #    carved blorb's FORM length undercounts (patched to filesize-8), the
 #    CosmicAdventure recipe; carved copy = adrift5-games/Ranaway.blorb.
 #
+# (2026-07-11) Space Detective, episodes 1-7 (a 7-part ADRIFT 5 serial) all
+#    wired at MATCH 0|0, golden-backed, blind-derived from each game's model XML.
+#    Each is a short inventory puzzle: ep1 dimensional-gateway blackmail/battery
+#    chain to reconnect the shuttle door; ep2 seedy-bar murder investigation
+#    (hologram-skin disguise); ep3 sticky-stick perfume fetch + dynamite the dam;
+#    ep4 apartment-building map-piece heist; ep5 knock out two guards + power a
+#    shuttle generator with a thunderball; ep6 elevator-shaft infiltration of an
+#    electronics firm; ep7 shoot the villain's spaceship out the shuttle window.
+#    ONE engine fix fell out of ep4: a5parse_canonical_direction resolved a typed
+#    direction word by scanning kDirs in COMPASS order, so ep4's data quirk
+#    (<DirectionNorthEast>West/W</> redefines NorthEast's synonyms to "west"/"w"
+#    while West keeps its default) mis-bound "west" to the non-existent NorthEast
+#    exit, stranding the player (unwinnable).  Now scans in DirectionsEnum order
+#    (kDirEnum: West=3 before NorthEast=8), mirroring FrankenDrift's
+#    `For eDirection = North To NorthWest`, so West wins the synonym tie.  Default
+#    games have disjoint synonyms so the reorder is inert -- whole corpus stays
+#    98 MATCH / 11 DIVERGE-at-baseline, zero regressions.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1183,6 +1201,13 @@ TheDayProgram|The Day Program V1.taf|0|0
 TheLastExpedition|TheLastExpedition_Final.taf|0|0
 WW2ElevatorEscape|WW2 Elevator Escape R3.blorb|0|0
 ADifficultPuzzle|A_Difficult_Puzzle_v2(LimitedParserEdition).blorb|0|0
+SpaceDetective1|SpaceDetective1.blorb|0|0
+SpaceDetective2|SpaceDetective2.blorb|0|0
+SpaceDetective3|SpaceDetective3.blorb|0|0
+SpaceDetective4|SpaceDetective4.blorb|0|0
+SpaceDetective5|SpaceDetective5.blorb|0|0
+SpaceDetective6|SpaceDetective6.blorb|0|0
+SpaceDetective7|SpaceDetective7.blorb|0|0
 EOF
 )
 

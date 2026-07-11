@@ -1,0 +1,143 @@
+Untitled
+Again you dive into the past. The electronic firm where the man from the photo used to work, is a large place. Thankfully there is basement complex marked with red on the map.
+
+Elevator
+There are many buttons on elevator panel. But you are interested of one floor only.  Also here is a ceiling panel.
+
+> open panel
+You open the panel and ride down to the basement on the top of the elevator.
+
+> n
+You move north.
+
+Another passage
+You are standing next to a door to the north.  Also here is a tool box.  A electrician is here.  An exit leads south.
+
+> take manual from box
+Ok, you take the manual from the tool box.
+
+> give manual to electrician
+He says that true specialist doesn't need the manual, but takes it anyway. Soon he is lost in his attempts to try to fix the door.
+
+> take screwdriver from box
+You snatch the screwdriver, when the electrician is not looking.
+
+> s
+You move south.
+
+A passage
+It is sterile looking white passage. One of the passages continues to the west.  Exits are north, east and south.
+
+> s
+You move south.
+
+An elevator
+Thankfully the elevator is empty at the moment.  Also here is a button panel.  An exit leads north.
+
+> open button panel with screwdriver
+You do that and expose the wires.
+
+> recharge weapon
+You reload your electric shock weapon, lo and behold.
+
+> n
+You move north.
+
+A passage
+It is sterile looking white passage. One of the passages continues to the west.  Exits are north, east and south.
+
+> e
+You move east.
+
+The locker room
+This is the room where the employers store their personal belongings.  Also here is a locker and a gurney.  A guy is here.  An exit leads west.
+
+> attack man with recharged weapon
+You take him down with your electric shock weapon.
+
+> put man on gurney
+You put the man on the gurney.
+
+> move gurney to locker
+You move man on the gurney to the locker and open the door. You find white coat inside and take it.
+
+> wear white coat
+Ok, you put on the white coat.
+
+> w
+You move west.
+
+A passage
+It is sterile looking white passage. One of the passages continues to the west.  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Another passage
+You are standing next to a door to the north.  Also here is an opened door.  Exits are north and south.
+
+> n
+You move north.
+
+The toilet
+It is one place, where sterility is not unwelcome sight.  Also here is a lighter.  An exit leads south.
+
+> take lighter
+Ok, you pick up the lighter.
+
+> s
+You move south.
+
+Another passage
+You are standing next to a door to the north.  Also here is an opened door.  Exits are north and south.
+
+> s
+You move south.
+
+A passage
+It is sterile looking white passage. One of the passages continues to the west.  Exits are north, east, south and west.
+
+> w
+You move west.
+
+A passage near the hangar
+Yet another passage. The hangar door is to the west.  Also here is a hangar door.  Exits are north and east.
+
+> n
+You move north.
+
+A room
+This is room full of the scientific equipment.  Also here is a keycard.  A scientist is here.  An exit leads south.
+
+> light cigarette
+You light a cigarette and take few puffs. The scientist gets nervous and then runs out of the room.
+
+> take keycard
+You take it.
+
+> s
+You move south.
+
+A passage near the hangar
+Yet another passage. The hangar door is to the west.  Also here is a hangar door.  Exits are north and east.
+
+> unlock hangar door
+(using the keycard)
+You unlock the hangar door with the keycard.
+
+> open hangar door
+You open the hangar door.
+
+> w
+You move west.
+
+The hangar
+The hangar is huge and it is holding almost a equally huge spaceship.  A small crowd is here.  An exit leads east.
+
+> listen
+The man in a suit is mostly doing the talking. He seems to be owner of the company and the scientist are working on a new type shield for space ships. Why do you feel that he is not going to use it for good purposes?
+
+*** You have won ***
+You sneak to the spaceship after the crowd. Spaceship takes off and we meet in the next episode...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

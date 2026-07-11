@@ -1,0 +1,13 @@
+take similar rock
+drop similar rock
+take rocks
+throw rocks at man
+w
+read manual
+take container
+e
+e
+put thunderball in container
+w
+w
+put thunderball in generator

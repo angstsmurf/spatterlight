@@ -1,0 +1,65 @@
+Untitled
+Hiding out for sometime after the explosion, you sneak to the clearing with the other spaceshuttle. You hide behind the tree.
+
+The clearing
+You stand behind a tree with long branches at the top. The strange spaceship is to the west. There are three holes in the ground.  Also here is  two men, a heavy rock, a small beast and a similar rock.  An exit leads east.
+
+> take similar rock
+You do that.
+
+> drop similar rock
+Ok, you put down the similar rock.
+
+> take rocks
+You do that.  Ok, you pick up the similar rock.
+
+> throw rocks at man
+You throw a rock at man and then hurl the other rock at other man before he notices what has been going on. (Was it the similar rock that you threw first? Or did you threw it second? Oh well, doesn't matter as long as the fiends are unconscious.)
+
+> w
+You move west.
+
+The spaceshuttle
+It has rather complex controls.  Also here is a container.  An exit leads east.
+
+> read manual
+You now understand the machinery of the space shuttle. It seems that the generator is out of juice.
+
+> take container
+Ok, you pick up the container.
+
+> e
+You move east.
+
+The clearing
+You stand behind a tree with long branches at the top. The strange spaceship is to the west. There are three holes in the ground.  Also here is a small beast and an unconscious men.  Exits are east and west.
+
+> e
+You move east.
+
+Near your spaceshuttle
+You stand next to your spaceshuttle that is not in flyable condition.  Also here is a dimensional gateway and a thunderball.  Exits are north and west.
+
+> put thunderball in container
+You do that.
+
+> w
+You move west.
+
+The clearing
+You stand behind a tree with long branches at the top. The strange spaceship is to the west. There are three holes in the ground.  Also here is a small beast and an unconscious men.  Exits are east and west.
+
+> w
+You move west.
+
+The spaceshuttle
+It has rather complex controls.  Also here is a generator.  An exit leads east.
+
+> put thunderball in generator
+(removing the thunderball from the container first)
+The generator begins to work.
+
+*** You have won ***
+Just then when the engines come alive you begin again to remember things about yourself. Find more about your past in the episode 6...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

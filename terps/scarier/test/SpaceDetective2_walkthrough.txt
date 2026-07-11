@@ -1,0 +1,34 @@
+# Space Detective, Episode 2 -- winning walkthrough
+# Start: the bar (Location1). Holding dossier (photo inside), wallet; wearing data helmet.
+# Get the branch: drop wallet on the potted plant, then take the branch (and wallet back).
+put wallet on plant
+take branch from plant
+# Trash can is east; poke it with the branch to fish out a wrench.
+e
+poke trash with branch
+w
+# West to the toilet (Location2); enter the cubicle and open the pipe to flush the man out.
+w
+in
+turn pipe with wrench
+out
+# Film the drug deal through the door.
+film through door
+# Back to the bar; send the barman to the toilet, then search the counter for his id card.
+e
+ask barman about toilet
+search counter
+# Log into the barman's net account to grab his hologram skin.
+connect net
+# Open the dossier and take the photo.
+open dossier
+take photo from dossier
+# Show the photo to the barman (now in the toilet) to get the address paper.
+w
+show photo to barman
+# The drug dealer blocks the door; the barman's hologram disguise makes him back off.
+turn on hologram
+# Head out to the taxi rank and leave.
+e
+s
+call taxi

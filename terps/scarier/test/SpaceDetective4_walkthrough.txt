@@ -1,0 +1,22 @@
+apartment
+take card from box
+net
+s
+e
+n
+take weapon from man
+take key from man
+touch water with weapon
+touch man with weapon
+take map
+take drugs from tank
+s
+put drugs in glass
+make bet
+w
+s
+give money to clerk
+unlock door
+open door
+e
+take paper

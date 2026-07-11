@@ -1,0 +1,167 @@
+Untitled
+After regaining consciousness, you open your eyes and see insides of a space-shuttle. From the fact that everything is in disarray, you deduce that the shuttle has crashed down. You have no recollection of the crashing, in fact you don't remember who you are.
+
+The space-shuttle
+It is the space-shuttle you crashed down with.  Also here is a laser and a radar.
+
+> take laser
+Ok, you pick up the laser.  Suddenly a natural occurrence that seems to be a thunderball, appears inside of the shuttle. It couldn't be a ordinary thunderball, because it creates a small dimensional gateway.
+
+> enter gateway
+You enter the dimensional gateway and find yourself standing in a city street.
+
+> e
+You move east.
+
+The video store
+There is a counter and selves here.  Also here is a shopping bag and a random data cube.  A client is here.  An exit leads west.
+
+> take random data cube
+Ok, you pick up the random data cube.
+
+> put random data cube in bag
+You put the data cube inside the shopping bag and take the cube that is paid for, from the bag.
+
+> w
+You move west.
+
+A Street
+You are standing on a city street.  Exits are north, east, south, west, northeast and northwest.
+
+> w
+You move west.
+
+The Bank
+It is a bank.  Also here is a camera.  A clerk is here.  An exit leads east.
+
+> film clerk
+You film the clerk.
+
+> doctor film
+You doctor the film changing the footage, so it seems that clerk robbed the bank.
+
+> put doctored film in camera
+You put the doctored film inside the camera.
+
+> show laser to clerk
+He hands you the money. As soon as you turn your back, he runs to the judge and hands him a data cube of the supposed robbery. Since you doctored the cube, the clerk is arrested himself.
+
+> e
+You move east.
+
+A Street
+You are standing on a city street.  Exits are north, east, south, west, northeast and northwest.
+
+> n
+You move north.
+
+The northern part of the street
+You are standing on the northern part of street.  Also here is a burger stand.  A burger salesman is here.  Exits are south and west.
+
+> give money to salesman
+You give him some money. He gives you a burger.
+
+> w
+You move west.
+
+The animal store
+The clerk seems to be out. Too bad that you don't have place where to bring a pet.  Also here is a muzzle.  An exit leads east.
+
+> take muzzle
+Ok, you pick up the muzzle.
+
+> e
+You move east.
+
+The northern part of the street
+You are standing on the northern part of street.  Also here is a burger stand.  A burger salesman is here.  Exits are south and west.
+
+> s
+You move south.
+
+A Street
+You are standing on a city street.  Exits are north, east, south, west, northeast and northwest.
+
+> s
+You move south.
+
+The wilderness
+You stand in the wilderness.  Also here is a puddle.  Exits are north and west.
+
+> put burger in puddle
+You wash the burger patty in the puddle.
+
+> n
+You move north.
+
+A Street
+You are standing on a city street.  Exits are north, east, south, west, northeast and northwest.
+
+> ne
+You move northeast.
+
+The park
+It is a quite nice park with the benches.  A man and a dog are here.  An exit leads southwest.
+
+> give patty to dog
+You give the patty to a dog. The dog calms somewhat down.
+
+> give muzzle to dog
+You do that. The dog shuts up, giving you immense relief. The owner is relieved too and hands you his portable tv. Soon he walks out of the park.
+
+> sw
+You move southwest.
+
+A Street
+You are standing on a city street.  Exits are north, east, south, west, northeast and northwest.
+
+> nw
+You move northwest.
+
+The electronics store
+It is a electronics store.  A clerk and a client are here.  An exit leads southeast.
+
+> give tv to client
+He takes it and soon finds a sport channel. After awhile he leaves the shop.
+
+> give money to clerk
+You give the clerk some money. He hands you a battery. "Have a nice day."
+
+> put battery in laser
+You put the battery inside the laser.
+
+> se
+You move southeast.
+
+A Street
+You are standing on a city street.  Exits are north, east, south, west, northeast and northwest.
+
+> s
+You move south.
+
+The wilderness
+You stand in the wilderness.  Also here is a puddle.  Exits are north and west.
+
+> w
+You move west.
+
+Deeper in the wilderness
+You are in the wilderness near your space shuttle.  Also here is a door panel and a toolbox.  An exit leads east.
+
+> take bar
+(from the toolbox)
+Ok, you take the iron bar from the toolbox.
+
+> cut panel with laser
+You do that. The battery is indeed a wrong type, when it runs out of the juice there is only small crack in panel.
+
+> open panel with bar
+You do that with the iron bar, exposing the wires inside.
+
+> connect wires
+You connect the wires and the door of the shuttle opens. You enter.
+
+*** You have won ***
+You begin to remember who you are. Check out the episode two to continue the adventure...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

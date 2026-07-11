@@ -1,0 +1,31 @@
+# Episode 6 - Space Detective
+open panel
+n
+take manual from box
+give manual to electrician
+take screwdriver from box
+s
+s
+open button panel with screwdriver
+recharge weapon
+n
+e
+attack man with recharged weapon
+put man on gurney
+move gurney to locker
+wear white coat
+w
+n
+n
+take lighter
+s
+s
+w
+n
+light cigarette
+take keycard
+s
+unlock hangar door
+open hangar door
+w
+listen

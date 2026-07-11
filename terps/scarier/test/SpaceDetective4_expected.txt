@@ -1,0 +1,98 @@
+Untitled
+Your memories continue. Back to the past...
+
+Taxi
+It is not most clean taxi in the world.  A taxi driver is here.
+
+> apartment
+He takes you there.
+
+> take card from box
+Ok, you take the id card from the lost and found box.
+
+> net
+You log in and download hologram that skins your helmet.
+
+> s
+You move south.
+
+Taxi stand
+An exit leads north.  The taxi drives you to the boxing place.
+
+> e
+You move east.
+
+The betting area
+It is a place where betting is heavy.  Also here is a water glass.  A gambler and a boxer are here.  Exits are north and west.
+
+> n
+You move north.
+
+The toilet
+It is only slightly more clean than the toilet in the bar.  Also here is a puddle of water, a man in a cubicle and a toilet tank.  An exit leads south.
+
+> take weapon from man
+Ok, you take the electric shock weapon from the man in a cubicle.
+
+> take key from man
+When you pick it up from the man's pocket, assassin enters and says he is going to remove all loose ends.
+
+> touch water with weapon
+The electricity travels through the water and takes the assassin down.
+
+> touch man with weapon
+His heart begins to work and he wakes up for moment. "At my workplace," he says whispering and drops part of a map of his workplace on the floor. Then he dies.
+
+> take map
+You do that.
+
+> take drugs from tank
+Ok, you take the drugs from the toilet tank.
+
+> s
+You move south.
+
+The betting area
+It is a place where betting is heavy.  Also here is a water glass.  A gambler and a boxer are here.  Exits are north and west.
+
+> put drugs in glass
+You do that. Now take advantage of the situation before the boxer drinks it.
+
+> make bet
+"So you bet against my boxer? It is a deal." The boxer takes drink, steps into the ring and drops over. You have won some money.
+
+> w
+You move west.
+
+The boxing place lobby
+From here you can enter the boxing place, if you walked to the east.  A guard is here.  Exits are east and south.
+
+> s
+You move south.
+
+The street
+An exit leads north.  You hail the taxi and tell driver to take you to the apartment building.
+
+> give money to clerk
+You do that. He becomes much more friendly and doesn't eye you anymore.
+
+> unlock door
+(using the apartment key)
+You unlock the apartment door with the apartment key.
+
+> open door
+You open the apartment door.
+
+> e
+You move east.
+
+The apartment
+There is a apartment door and a piece of a paper here.  An exit leads west.
+
+> take paper
+Now you have the whole map. It is time to move on to the electronics firm where the man from the photo worked.
+
+*** You have won ***
+Unfortunately you don't remember anything more for now. See you in the next episode...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,71 @@
+Untitled
+You arrive near the administrative planet of the galaxy. Sure enough, a attacking ship is the one with the new shield technology. To your amazment the shield is actually dimensional gateway shielding the surface of the ship. Then the intercom of your shuttle kicks in. "I see that you have taken the shuttle of my henchmen," says the boss of the electronics company. "No matter, you are no threat to me. Just to warn you to not interfere..." He shoots at your ship with a low charge. Some of the shuttle's systems cease to work.
+
+The commander's chair
+It is there, where you control the ship.  Also here is a seatbelt and a window.  An exit leads south.
+
+> s
+You move south.
+
+A passage
+This is one of those sterile passages you are really bored of.  Also here is a airlock and a nut.  Exits are north and west.
+
+> take nut
+Ok, you pick up the nut.
+
+> w
+You move west.
+
+The generator room
+This is the heart of the energy of the shuttle.  Also here is a generator and a locker.  An exit leads east.
+
+> press buttons
+When you check out the buttons, the thunderball begins to crackle. It shoots out a rod of energy and opens another one of those dimensional gateway thingies.
+
+> throw nut at gateway
+You do that to catch the guards attention. Precisely this happens -after some hesitation the guard sticks is head through the gateway.
+
+> press buttons
+It makes the gateway disappear, cutting off the guards head. You open the gateway again and pick up his laser.
+
+> open locker
+You open the locker.  Inside the locker is a spacesuit.
+
+> take spacesuit
+(from the locker)
+Ok, you take the spacesuit from the locker.
+
+> wear spacesuit
+Ok, you put on the spacesuit.
+
+> take thunderball from generator
+Where do you put it?
+
+> put thunderball in container
+You do that.
+
+> e
+You move east.
+
+A passage
+This is one of those sterile passages you are really bored of.  Also here is a airlock.  Exits are north and west.
+
+> n
+You move north.
+
+The commander's chair
+It is there, where you control the ship.  Also here is a seatbelt and a window.  An exit leads south.
+
+> close seatbelt
+You close the seatbelt.
+
+> shoot window
+You do that. Now there is nothing between you and vacuum.
+
+> throw thunderball out
+You do that. Thunderball begins to react with the dimensional gateway around the ship. The gateway begins to change and then it swallows the villain's spaceship in whole.
+
+*** You have won ***
+The villains spaceship materializes in another dimension. Everything seems to be alive and hostile in that dimension. The dimension of justice seems to exist after all, doesn't it?
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,93 @@
+Untitled
+Your flashback is over for now. You look around in your space shuttle, hoping to remember something more. Unfortunately, it doesn't happen now.
+
+The space-shuttle
+It is the space-shuttle you crashed down with.  Also here is a radar.  An exit leads east.
+
+> e
+You move east.
+
+Near your spaceship
+The jungle is still there.  Exits are north, south and west.  Another thunderball appears. It shoots out energy and opens another dimensional gateway.
+
+> n
+You move north.
+
+A glade
+It is the same glade with the now unimportant puddle.  Also here is a stick.  Exits are north and south.
+
+> take stick
+Ok, you pick up the stick.
+
+> n
+You move north.
+
+The street
+The same trusty street lies here under lightly changed light of the planet's sun. Maybe because of the light or some other reason, you see shop you didn't realize previously.  Exits are south and southwest.
+
+> sw
+You move southwest.
+
+The toy shop
+The clerk is out for now.   Also here is a shelf.  An exit leads northeast.
+
+> take gum
+(from the shelf)
+Ok, you take the chewed out gum from the shelf.
+
+> ne
+You move northeast.
+
+The street
+The same trusty street lies here under lightly changed light of the planet's sun. Maybe because of the light or some other reason, you see shop you didn't realize previously.  Exits are south and southwest.
+
+> s
+You move south.
+
+A glade
+It is the same glade with the now unimportant puddle.  Exits are north and south.
+
+> s
+You move south.
+
+Near your spaceship
+The jungle is still there.  Also here is a small dimensional gateway.  Exits are north, south and west.
+
+> s
+You move south.
+
+An another glade
+You just love the nature, but not on this planet. There is cave to the east.  A big beast is here.  Exits are north and west.
+
+> give gum to beast
+He chews it for some time and then spits it out. Hesitantly you pick it up.
+
+> put juicy gum on stick
+Ok, you put the juicy gum on top of the stick.
+
+> get perfume with stick
+You do that. You are rather happy it didn't fall off of the stick.
+
+> spray perfume
+The beast gets irritated by its smell and leaves.
+
+> e
+You move east.
+
+The cave
+There isn't much light in here. Probably good enough, so you don't see stuff in here too clearly.  Also here is a piece of dynamite and a body.  An exit leads west.
+
+> take dynamite
+Ok, you pick up the piece of dynamite.
+
+> take detonator
+(from the body)
+Ok, you take the detonator from the body.
+
+> blow up
+You do that, slapping the detonator to the dynamite and using the detonator's remote from the distance. Water rushes off the river bed, carrying the fallen trees away.
+
+*** You have won ***
+Suddenly you begin to remember your past again. To be continued in episode 4...
+Would you like to restart, restore a saved game, quit or undo the last command?
+

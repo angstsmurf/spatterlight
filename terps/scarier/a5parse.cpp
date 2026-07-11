@@ -190,8 +190,22 @@ a5parse_canonical_direction (const char *text)
   if (t.empty ())
     return NULL;
   ensure_dirs_default ();
-  for (int j = 0; j < kNumDirs; j++)
+  /* Resolve synonyms in DirectionsEnum order (kDirEnum), NOT raw compass order,
+     mirroring FrankenDrift's `For eDirection = North To NorthWest` scan.  This
+     only matters when a game's <Direction*> overrides make two directions share
+     a synonym: Space Detective ep.4 redefines NorthEast's words to "west"/"w"
+     while West keeps its default "west"/"w", so a compass-order scan (NorthEast
+     precedes West) mis-binds "west" to the non-existent NorthEast exit.  Enum
+     order puts West (=3) ahead of NorthEast (=8), so West wins the tie like FD.
+     Default games have disjoint synonyms, so the order is inert for them. */
+  for (int i = 0; i < 12; i++)
     {
+      int j;
+      for (j = 0; j < kNumDirs; j++)
+        if (strcmp (kDirs[j].canonical, kDirEnum[i]) == 0)
+          break;
+      if (j >= kNumDirs)
+        continue;
       std::string re = g_dirs[j].re;
       size_t start = 0, bar;
       do {
