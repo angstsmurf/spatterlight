@@ -16,16 +16,21 @@
 // Emit a sequence of bytes from a string of even-length ASCII hex digits.
 // e.g. "4d4d002a" -> 0x4d 0x4d 0x00 0x2a. Used to write fixed TIFF tag
 // constants whose values never change between calls.
+static int hexnibble(char ch)
+{
+    if (ch >= '0' && ch <= '9') return ch - '0';
+    if (ch >= 'a' && ch <= 'f') return ch - 'a' + 10;
+    if (ch >= 'A' && ch <= 'F') return ch - 'A' + 10;
+    return 0;
+}
+
 static void writehexstring(FILE *fptr, const char *s)
 {
-    unsigned int i,c;
-    char hex[3];
-
-    for (i = 0; i < strlen(s);i += 2) {
-        hex[0] = s[i];
-        hex[1] = s[i+1];
-        hex[2] = '\0';
-        sscanf(hex,"%X",&c);
+    // These are all compile-time hex constants; decode two nibbles at a time
+    // directly instead of paying full sscanf() machinery (and a per-iteration
+    // strlen()) per byte.
+    for (size_t i = 0; s[i] != '\0' && s[i + 1] != '\0'; i += 2) {
+        int c = (hexnibble(s[i]) << 4) | hexnibble(s[i + 1]);
         putc(c, fptr);
     }
 }

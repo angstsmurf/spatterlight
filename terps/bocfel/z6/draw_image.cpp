@@ -195,6 +195,11 @@ void extract_palette(ImageStruct *image) {
 // path and appending the extension. The underlying temp file is deleted
 // immediately so only the path string is reused. Caller frees with free().
 // Returns nullptr on failure.
+//
+// NOTE: each call must return a *distinct* path. win_purgeimage() only sends
+// the filename to the host over IPC (see connect.c); the host reads the TIFF
+// asynchronously, so reusing one path across images lets a later flush
+// clobber a file the host hasn't read yet, producing broken/garbled images.
 static char *create_temp_tiff_file_name(void) {
     fileref_t *fileref = glk_fileref_create_temp(fileusage_Data, NULL);
     if (fileref == nullptr)

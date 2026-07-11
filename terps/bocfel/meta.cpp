@@ -290,6 +290,12 @@ static bool cheat_remove(uint16_t addr)
 
 bool cheat_find_freeze(uint32_t addr, uint16_t &val)
 {
+    // Fast path for the common case (no active freezes): word() calls this on
+    // every 16-bit memory read, so avoid a red-black-tree descent when empty.
+    if (frozen_addresses.empty()) {
+        return false;
+    }
+
     auto found = frozen_addresses.find(addr);
     if (found == frozen_addresses.end()) {
         return false;

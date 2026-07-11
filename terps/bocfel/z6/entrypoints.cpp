@@ -3509,7 +3509,7 @@ void check_entrypoints(uint32_t pc) {
     auto found = entrypoint_map.find(pc);
 
     if (found != entrypoint_map.end()) {
-        EntryPoint *entrypoint = entrypoint_map.at(pc);
+        EntryPoint *entrypoint = found->second;
 //        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
         (entrypoint->fn)();
     }
