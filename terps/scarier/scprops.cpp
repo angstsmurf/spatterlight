@@ -1012,11 +1012,25 @@ prop_create (const scr_tafref_t taf)
   /* Create a new, empty set. */
   bundle = prop_create_empty ();
 
-  /* Populate it with data parsed from the taf file. */
-  if (!parse_game (taf, bundle))
+  /*
+   * Populate it with data parsed from the taf file.  A corrupt game can make
+   * the parser throw (scr_fatal) rather than return FALSE; reclaim the
+   * partially built bundle on that path too, then let the throw carry on to
+   * the interface boundary.  The taf is not yet adopted by the bundle at this
+   * point, so its ownership stays with the caller on both failure paths.
+   */
+  try
+    {
+      if (!parse_game (taf, bundle))
+        {
+          prop_destroy (bundle);
+          return NULL;
+        }
+    }
+  catch (...)
     {
       prop_destroy (bundle);
-      return NULL;
+      throw;
     }
 
   /* Note the taf for destruction later, and return the new set. */

@@ -1881,10 +1881,10 @@ scr_gameref_t
 run_create (scr_read_callbackref_t callback, void *opaque)
 {
   scr_tafref_t taf;
-  scr_prop_setref_t bundle;
-  scr_var_setref_t vars, temporary_vars, undo_vars;
-  scr_filterref_t filter;
-  scr_gameref_t game, temporary_game, undo_game;
+  scr_prop_setref_t bundle = NULL;
+  scr_var_setref_t vars = NULL, temporary_vars = NULL, undo_vars = NULL;
+  scr_filterref_t filter = NULL;
+  scr_gameref_t game = NULL, temporary_game = NULL, undo_game = NULL;
   assert (callback);
 
   /* Create a new TAF using the callback; return NULL if this fails. */
@@ -1894,50 +1894,81 @@ run_create (scr_read_callbackref_t callback, void *opaque)
   else if (if_get_trace_flag (SCR_DUMP_TAF))
     taf_debug_dump (taf);
 
-  /* Create a properties bundle, and parse the TAF data into it. */
-  bundle = prop_create (taf);
-  if (!bundle)
-    {
-      scr_error ("run_create: error parsing game data\n");
-      taf_destroy (taf);
-      return NULL;
-    }
-  else if (if_get_trace_flag (SCR_DUMP_PROPERTIES))
-    prop_debug_dump (bundle);
-
-  /* Try to set an interpreter locale from the properties bundle. */
-  loc_detect_game_locale (bundle);
-  if (if_get_trace_flag (SCR_DUMP_LOCALE_TABLES))
-    loc_debug_dump ();
-
-  /* Create a set of variables from the bundle. */
-  vars = var_create (bundle);
-  if (if_get_trace_flag (SCR_DUMP_VARIABLES))
-    var_debug_dump (vars);
-
-  /* Create a printfilter for the game. */
-  filter = pf_create ();
-
   /*
-   * Create an initial game state, and register it with variables.  Also,
-   * create undo buffers, and initialize them in the same way.
+   * Any construction step below can throw (scr_fatal on a corrupt game);
+   * reclaim whatever has been built so far on that path -- mirroring
+   * run_destroy()'s teardown -- then let the throw carry on to the interface
+   * boundary, which reports the game as unusable.
    */
-  game = gs_create (vars, bundle, filter);
-  var_register_game (vars, game);
+  try
+    {
+      /* Create a properties bundle, and parse the TAF data into it. */
+      bundle = prop_create (taf);
+      if (!bundle)
+        {
+          scr_error ("run_create: error parsing game data\n");
+          taf_destroy (taf);
+          return NULL;
+        }
+      else if (if_get_trace_flag (SCR_DUMP_PROPERTIES))
+        prop_debug_dump (bundle);
 
-  temporary_vars = var_create (bundle);
-  temporary_game = gs_create (temporary_vars, bundle, filter);
-  var_register_game (temporary_vars, temporary_game);
+      /* Try to set an interpreter locale from the properties bundle. */
+      loc_detect_game_locale (bundle);
+      if (if_get_trace_flag (SCR_DUMP_LOCALE_TABLES))
+        loc_debug_dump ();
 
-  undo_vars = var_create (bundle);
-  undo_game = gs_create (undo_vars, bundle, filter);
-  var_register_game (undo_vars, undo_game);
+      /* Create a set of variables from the bundle. */
+      vars = var_create (bundle);
+      if (if_get_trace_flag (SCR_DUMP_VARIABLES))
+        var_debug_dump (vars);
 
-  /* Add the undo buffers and memos to the game, and return it. */
-  game->temporary = temporary_game;
-  game->undo = undo_game;
-  game->memento = memo_create ();
-  return game;
+      /* Create a printfilter for the game. */
+      filter = pf_create ();
+
+      /*
+       * Create an initial game state, and register it with variables.  Also,
+       * create undo buffers, and initialize them in the same way.
+       */
+      game = gs_create (vars, bundle, filter);
+      var_register_game (vars, game);
+
+      temporary_vars = var_create (bundle);
+      temporary_game = gs_create (temporary_vars, bundle, filter);
+      var_register_game (temporary_vars, temporary_game);
+
+      undo_vars = var_create (bundle);
+      undo_game = gs_create (undo_vars, bundle, filter);
+      var_register_game (undo_vars, undo_game);
+
+      /* Add the undo buffers and memos to the game, and return it. */
+      game->temporary = temporary_game;
+      game->undo = undo_game;
+      game->memento = memo_create ();
+      return game;
+    }
+  catch (...)
+    {
+      if (undo_game)
+        gs_destroy (undo_game);
+      if (undo_vars)
+        var_destroy (undo_vars);
+      if (temporary_game)
+        gs_destroy (temporary_game);
+      if (temporary_vars)
+        var_destroy (temporary_vars);
+      if (game)
+        gs_destroy (game);
+      if (filter)
+        pf_destroy (filter);
+      if (vars)
+        var_destroy (vars);
+      if (bundle)
+        prop_destroy (bundle);  /* also destroys the taf it adopted */
+      else
+        taf_destroy (taf);
+      throw;
+    }
 }
 
 

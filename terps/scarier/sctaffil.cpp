@@ -554,6 +554,7 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
 
 
 /*
+ * taf_populate_from_callback()
  * taf_create_from_callback()
  *
  * Create a TAF structure from data read in by repeated calls to the
@@ -561,15 +562,11 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
  * in the buffer, or 0 if no more (end of file).
  */
 static scr_tafref_t
-taf_create_from_callback (scr_read_callbackref_t callback,
-                          void *opaque, scr_bool is_gamefile)
+taf_populate_from_callback (scr_tafref_t taf,
+                            scr_read_callbackref_t callback,
+                            void *opaque, scr_bool is_gamefile)
 {
-  scr_tafref_t taf;
   scr_bool status = FALSE;
-  assert (callback);
-
-  /* Create an empty TAF structure. */
-  taf = taf_create_empty ();
 
   /*
    * Determine the TAF file version in use.  For saved games, we always use
@@ -654,6 +651,34 @@ taf_create_from_callback (scr_read_callbackref_t callback,
 
   /* Return successfully. */
   return taf;
+}
+
+static scr_tafref_t
+taf_create_from_callback (scr_read_callbackref_t callback,
+                          void *opaque, scr_bool is_gamefile)
+{
+  scr_tafref_t taf;
+  assert (callback);
+
+  /* Create an empty TAF structure. */
+  taf = taf_create_empty ();
+
+  /*
+   * Populate it from the callback data.  The readers can throw (scr_fatal on
+   * a truncated final slab or on allocation failure); reclaim the partially
+   * built taf on that path, then let the throw carry on to the interface
+   * boundary.  Plain read failures destroy the taf inside the populate call
+   * and return NULL.
+   */
+  try
+    {
+      return taf_populate_from_callback (taf, callback, opaque, is_gamefile);
+    }
+  catch (...)
+    {
+      taf_destroy (taf);
+      throw;
+    }
 }
 
 

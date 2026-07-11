@@ -1679,51 +1679,64 @@ var_create (scr_prop_setref_t bundle)
   vars = var_create_empty ();
   vars->bundle = bundle;
 
-  /* Retrieve the count of variables. */
-  vt_key[0].string = "Variables";
-  var_count = prop_get_child_count (bundle, "I<-s", vt_key);
-
-  /* Create a variable for each variable property held. */
-  for (index_ = 0; index_ < var_count; index_++)
+  /*
+   * The property reads below can throw (scr_fatal on a corrupt bundle);
+   * reclaim the partially filled variable set on that path, then let the
+   * throw carry on to the interface boundary.
+   */
+  try
     {
-      const scr_char *name;
-      scr_int var_type;
-      const scr_char *value;
+      /* Retrieve the count of variables. */
+      vt_key[0].string = "Variables";
+      var_count = prop_get_child_count (bundle, "I<-s", vt_key);
 
-      /* Retrieve variable name, type, and string initial value. */
-      vt_key[1].integer = index_;
-      vt_key[2].string = "Name";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
-
-      vt_key[2].string = "Type";
-      var_type = prop_get_integer (bundle, "I<-sis", vt_key);
-
-      vt_key[2].string = "Value";
-      value = prop_get_string (bundle, "S<-sis", vt_key);
-
-      /* Handle numerics and strings differently. */
-      switch (var_type)
+      /* Create a variable for each variable property held. */
+      for (index_ = 0; index_ < var_count; index_++)
         {
-        case TAFVAR_NUMERIC:
-          {
-            scr_int integer_value;
-            if (sscanf (value, "%ld", &integer_value) != 1)
+          const scr_char *name;
+          scr_int var_type;
+          const scr_char *value;
+
+          /* Retrieve variable name, type, and string initial value. */
+          vt_key[1].integer = index_;
+          vt_key[2].string = "Name";
+          name = prop_get_string (bundle, "S<-sis", vt_key);
+
+          vt_key[2].string = "Type";
+          var_type = prop_get_integer (bundle, "I<-sis", vt_key);
+
+          vt_key[2].string = "Value";
+          value = prop_get_string (bundle, "S<-sis", vt_key);
+
+          /* Handle numerics and strings differently. */
+          switch (var_type)
+            {
+            case TAFVAR_NUMERIC:
               {
-                scr_error ("var_create:"
-                          " invalid numeric variable %s, %s\n", name, value);
-                integer_value = 0;
+                scr_int integer_value;
+                if (sscanf (value, "%ld", &integer_value) != 1)
+                  {
+                    scr_error ("var_create:"
+                              " invalid numeric variable %s, %s\n", name, value);
+                    integer_value = 0;
+                  }
+                var_put_integer (vars, name, integer_value);
+                break;
               }
-            var_put_integer (vars, name, integer_value);
-            break;
-          }
 
-        case TAFVAR_STRING:
-          var_put_string (vars, name, value);
-          break;
+            case TAFVAR_STRING:
+              var_put_string (vars, name, value);
+              break;
 
-        default:
-          scr_fatal ("var_create: invalid variable type, %ld\n", var_type);
+            default:
+              scr_fatal ("var_create: invalid variable type, %ld\n", var_type);
+            }
         }
+    }
+  catch (...)
+    {
+      var_destroy (vars);
+      throw;
     }
 
   return vars;

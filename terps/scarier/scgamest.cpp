@@ -859,24 +859,18 @@ gs_clear_multiple_references (scr_gameref_t gs)
 
 
 /*
+ * gs_populate()
  * gs_create()
  *
  * Create and initialize a game state.
  */
-scr_gameref_t
-gs_create (scr_var_setref_t vars,
-           scr_prop_setref_t bundle, scr_filterref_t filter)
+static void
+gs_populate (scr_gameref_t game, scr_var_setref_t vars,
+             scr_prop_setref_t bundle, scr_filterref_t filter)
 {
-  scr_gameref_t game;
   scr_vartype_t vt_key[4];
   scr_int index_;
-  assert (vars && bundle && filter);
 
-  /* Create the initial state structure.  sc_game_s now owns std::unique_ptr
-   * status strings (P3 RAII), so it is non-POD and must be new()'d — value-init
-   * zeroes the POD fields (all of which gs_create sets explicitly below anyway)
-   * and default-constructs the owning strings to NULL. */
-  game = new scr_game_s ();
   game->magic = GAME_MAGIC;
 
   /* Store the variables, properties bundle, and filter references. */
@@ -1222,6 +1216,36 @@ gs_create (scr_var_setref_t vars,
   /* Seed the carried-load totals now that initial object placement is done;
    * this also arms gs_carried_track() for subsequent moves. */
   gs_carried_recompute (game);
+}
+
+scr_gameref_t
+gs_create (scr_var_setref_t vars,
+           scr_prop_setref_t bundle, scr_filterref_t filter)
+{
+  scr_gameref_t game;
+  assert (vars && bundle && filter);
+
+  /* Create the initial state structure.  sc_game_s owns std::unique_ptr
+   * status strings (P3 RAII), so it is non-POD and must be new()'d — value-init
+   * zeroes the POD fields (all of which gs_populate sets explicitly anyway)
+   * and default-constructs the owning strings to NULL. */
+  game = new scr_game_s ();
+
+  /*
+   * Populate the state from the bundle.  The property reads can throw
+   * (scr_fatal on a corrupt bundle); reclaim the partially built game on that
+   * path -- its vector and owned-string members free themselves on delete --
+   * then let the throw carry on to the interface boundary.
+   */
+  try
+    {
+      gs_populate (game, vars, bundle, filter);
+    }
+  catch (...)
+    {
+      delete game;
+      throw;
+    }
 
   /* Return the constructed game state. */
   return game;
