@@ -176,7 +176,7 @@ Walk runtime (`a5_walk_rt`): status, length, timer, step index, per-subwalk `sw_
 
 Event runtime (`a5_event_rt`): status, `length_value`, `timer_to_end`, `last_se_time/index`, `just_started`, `next_command`. Sub-events fire at FromLastSubEvent / FromStartOfEvent / BeforeEndOfEvent turn offsets. Event controls (`a5_eventctrl_t`) start/stop/suspend/resume events on task completion; walk controls use the same mechanism. `run->events_running` gates immediate vs deferred Start/Stop.
 
-Meta-commands (quit, restart, save, restore) are handled at the `gsc_a5_main()` host level — they never reach the engine. `a5run_is_over()` signals end-of-game (no `run_loop_halt` exception).
+Meta-commands (quit, restart, save, restore) are handled at the `gsc_a5_main()` host level — they never reach the engine. `a5run_is_over()` signals end-of-game (no `run_loop_halt` exception). The Glk port's `glk ...` command escapes (`GSC_COMMAND_TABLE`) are shared with the v4 path: the a5 loop offers summary, script, inputlog, readlog, version, commands, license and help, while the ADRIFT ≤4 specifics (abbreviations, capacity, combatassist, moveassist, verbose) are filtered out via the table's `in_adrift5` flag (`gsc_command_in_scope()`).
 
 ---
 

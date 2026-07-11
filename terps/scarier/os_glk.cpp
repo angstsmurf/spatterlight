@@ -2859,28 +2859,47 @@ typedef const struct
   const char * const command;                     /* Glk subcommand. */
   void (* const handler) (const char *argument);  /* Subcommand handler. */
   const int takes_argument;                       /* Argument flag. */
+  const int in_adrift5;                           /* Offered in the a5 loop. */
 } gsc_command_t;
 typedef gsc_command_t *gsc_commandref_t;
 
 static void gsc_command_summary (const char *argument);
 static void gsc_command_help (const char *argument);
 
+/* Commands flagged FALSE for in_adrift5 are ADRIFT <=4 engine specifics:
+   abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
+   capacity, combatassist, moveassist (4.0 Battle System / task quirks), and
+   verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game). */
 static gsc_command_t GSC_COMMAND_TABLE[] = {
-  {"summary",        gsc_command_summary,        FALSE},
-  {"script",         gsc_command_script,         TRUE},
-  {"inputlog",       gsc_command_inputlog,       TRUE},
-  {"readlog",        gsc_command_readlog,        TRUE},
-  {"abbreviations",  gsc_command_abbreviations,  TRUE},
-  {"capacity",       gsc_command_capacity,       TRUE},
-  {"combatassist",   gsc_command_combat_assist,  TRUE},
-  {"moveassist",     gsc_command_move_assist,    TRUE},
-  {"verbose",        gsc_command_verbose,        TRUE},
-  {"version",        gsc_command_version,        FALSE},
-  {"commands",       gsc_command_commands,       TRUE},
-  {"license",        gsc_command_license,        FALSE},
-  {"help",           gsc_command_help,           TRUE},
-  {NULL, NULL, FALSE}
+  {"summary",        gsc_command_summary,        FALSE, TRUE},
+  {"script",         gsc_command_script,         TRUE,  TRUE},
+  {"inputlog",       gsc_command_inputlog,       TRUE,  TRUE},
+  {"readlog",        gsc_command_readlog,        TRUE,  TRUE},
+  {"abbreviations",  gsc_command_abbreviations,  TRUE,  FALSE},
+  {"capacity",       gsc_command_capacity,       TRUE,  FALSE},
+  {"combatassist",   gsc_command_combat_assist,  TRUE,  FALSE},
+  {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE},
+  {"verbose",        gsc_command_verbose,        TRUE,  FALSE},
+  {"version",        gsc_command_version,        FALSE, TRUE},
+  {"commands",       gsc_command_commands,       TRUE,  TRUE},
+  {"license",        gsc_command_license,        FALSE, TRUE},
+  {"help",           gsc_command_help,           TRUE,  TRUE},
+  {NULL, NULL, FALSE, FALSE}
 };
+
+
+/*
+ * gsc_command_in_scope()
+ *
+ * Return TRUE if a Glk command table entry applies to the engine driving the
+ * current game: everything for ADRIFT <=4 (scare), only the entries flagged
+ * in_adrift5 for ADRIFT 5 (the a5 loop).
+ */
+static int
+gsc_command_in_scope (gsc_commandref_t entry)
+{
+  return !gsc_is_a5 || entry->in_adrift5;
+}
 
 
 /*
@@ -2902,7 +2921,8 @@ gsc_command_summary (const char *argument)
     {
       if (entry->handler == gsc_command_summary
             || entry->handler == gsc_command_license
-            || entry->handler == gsc_command_help)
+            || entry->handler == gsc_command_help
+            || !gsc_command_in_scope (entry))
         continue;
 
       entry->handler ("");
@@ -2923,15 +2943,24 @@ gsc_command_help (const char *command)
 
   if (strlen (command) == 0)
     {
+      gsc_commandref_t last;
+
+      last = NULL;
+      for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
+        {
+          if (gsc_command_in_scope (entry))
+            last = entry;
+        }
+
       gsc_normal_string ("Glk commands are");
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
-          gsc_commandref_t next;
+          if (!gsc_command_in_scope (entry))
+            continue;
 
-          next = entry + 1;
-          gsc_normal_string (next->command ? " " : " and ");
+          gsc_normal_string (entry == last ? " and " : " ");
           gsc_standout_string (entry->command);
-          gsc_normal_string (next->command ? "," : ".\n\n");
+          gsc_normal_string (entry == last ? ".\n\n" : ",");
         }
 
       gsc_normal_string ("Glk commands may be abbreviated, as long as"
@@ -2945,7 +2974,8 @@ gsc_command_help (const char *command)
   matched = NULL;
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
     {
-      if (scr_strncasecmp (command, entry->command, strlen (command)) == 0)
+      if (gsc_command_in_scope (entry)
+          && scr_strncasecmp (command, entry->command, strlen (command)) == 0)
         {
           if (matched)
             {
@@ -3175,7 +3205,9 @@ gsc_command_escape (const char *string)
       matched = NULL;
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
-          if (scr_strncasecmp (command, entry->command, strlen (command)) == 0)
+          if (gsc_command_in_scope (entry)
+              && scr_strncasecmp (command, entry->command,
+                                  strlen (command)) == 0)
             {
               matches++;
               matched = entry;
@@ -4338,6 +4370,34 @@ gsc_a5_read_line (char *buf, int bufsize)
   event_t event;
   int n = 0, done;
 
+  /* If an input log is being read back ("glk readlog on"), take the next
+     line from it instead of the keyboard, echoing it in input style.  Log
+     lines are the raw UTF-8 bytes "glk inputlog on" wrote, so they round-trip
+     through the byte stream unchanged.  On end of file, close the stream and
+     fall through to a normal line request. */
+  if (gsc_readlog_stream)
+    {
+      glui32 chars;
+
+      memset (buf, 0, (size_t) bufsize);
+      chars = glk_get_line_stream (gsc_readlog_stream, buf, (glui32) bufsize);
+      if (chars > 0)
+        {
+          while (chars > 0 && (buf[chars - 1] == '\n' || buf[chars - 1] == '\r'))
+            chars--;
+          buf[chars] = '\0';
+
+          glk_set_style (style_Input);
+          gsc_a5_put_string (buf);
+          glk_set_style (style_Normal);
+          gsc_a5_put_string ("\n");
+          return (int) chars;
+        }
+
+      glk_stream_close (gsc_readlog_stream, NULL);
+      gsc_readlog_stream = NULL;
+    }
+
   /* In real-time mode take over input echo: a TimeBased tick may cancel and
      re-issue the pending request, and with auto-echo every cancel would
      commit a spurious input line to the window.  The completed command is
@@ -4425,6 +4485,56 @@ gsc_a5_match_command (const char *input, const char *command)
   while (*input == ' ' || *input == '\t')
     input++;
   return *input == '\0' && *command == '\0';
+}
+
+/*
+ * gsc_a5_command_escape()
+ *
+ * Handle the Glk port meta-layer for one completed a5 input line: note a
+ * standalone "help" (so the next prompt can hint at "glk help"), intercept
+ * "glk ..." command escapes, and append game-bound lines to any active input
+ * log.  Returns TRUE when the line was consumed as a Glk command, FALSE when
+ * it should be handed to the game.
+ */
+static int
+gsc_a5_command_escape (char *input)
+{
+  if (gsc_commands_enabled)
+    {
+      char *command;
+
+      command = input + strspn (input, "\t ");
+
+      /* As in os_read_line, a leading quote bypasses command interception;
+         here only for "glk ..." lines, so ADRIFT 5 commands that legitimately
+         start with a quote (say, quoted speech) reach the game unchanged. */
+      if (command[0] == GSC_QUOTED_INPUT
+          && scr_strncasecmp (command + 1, "glk", strlen ("glk")) == 0)
+        memmove (command, command + 1, strlen (command));
+      else
+        {
+          if (scr_strncasecmp (command, "help", strlen ("help")) == 0
+              && strspn (command + strlen ("help"), "\t ")
+                 == strlen (command + strlen ("help")))
+            gsc_output_register_help_request ();
+
+          if (gsc_command_escape (input))
+            {
+              gsc_output_silence_help_hints ();
+              return TRUE;
+            }
+        }
+    }
+
+  /* Log this line to any active input log.  Glk commands are never logged,
+     matching os_read_line. */
+  if (gsc_inputlog_stream)
+    {
+      glk_put_string_stream (gsc_inputlog_stream, input);
+      glk_put_char_stream (gsc_inputlog_stream, '\n');
+    }
+
+  return FALSE;
 }
 
 /*
@@ -5055,6 +5165,8 @@ gsc_a5_main (void)
               gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
               if (gsc_a5_read_line (input, sizeof input) == 0)
                 continue;
+              if (gsc_a5_command_escape (input))
+                continue;
               if (gsc_a5_match_command (input, "quit")
                   || gsc_a5_match_command (input, "q"))
                 {
@@ -5108,8 +5220,15 @@ gsc_a5_main (void)
             }
         }
 
+      /* If a "help" request was noted last turn, hint at "glk help". */
+      gsc_output_provide_help_hint ();
+
       gsc_a5_put_string ("\n> ");
       if (gsc_a5_read_line (input, sizeof input) == 0)
+        continue;
+
+      /* Handle "glk ..." command escapes and input logging. */
+      if (gsc_a5_command_escape (input))
         continue;
 
       if (gsc_a5_match_command (input, "quit")
