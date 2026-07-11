@@ -1038,6 +1038,45 @@ a5model_from_doc (a5_xml_doc_t *doc)
   return a;
 }
 
+/*
+ * Extract the Babel IFID from a raw file buffer.  ADRIFT 5.0.20+ files carry a
+ * plaintext <ifindex> metadata block (in a bare .taf, right after the version
+ * header; in a blorb, an iFiction metadata chunk), which the obfuscation never
+ * touches, so a literal case-insensitive scan for "<ifid>...</ifid>" over the
+ * whole file finds it uniformly across .taf and .blorb layouts (Treaty of
+ * Babel adrift.c get_story_file_IFID).  The deflated game payload is binary and
+ * will not contain the ASCII tag by chance.  Returns an owned copy or NULL.
+ */
+static char *
+a5_scan_ifid (const uint8_t *buf, uint32_t len)
+{
+  static const char open[] = "<ifid>";
+  const uint32_t open_len = 6;
+  uint32_t i;
+  if (buf == NULL || len < open_len)
+    return NULL;
+  for (i = 0; i + open_len <= len; i++)
+    {
+      if (strncasecmp ((const char *) buf + i, open, open_len) != 0)
+        continue;
+      uint32_t s = i + open_len, e = s;
+      while (e < len && buf[e] != '<')
+        e++;
+      if (e > s && e - s < 128)
+        {
+          char *out = (char *) malloc (e - s + 1);
+          if (out != NULL)
+            {
+              memcpy (out, buf + s, e - s);
+              out[e - s] = '\0';
+            }
+          return out;
+        }
+      return NULL;
+    }
+  return NULL;
+}
+
 a5_adventure_t *
 a5model_load (const char *path)
 {
@@ -1046,6 +1085,7 @@ a5model_load (const char *path)
   uint8_t *file_buf, *payload;
   uint32_t file_len, payload_len, header, region_len, xml_len;
   uint8_t *xml;
+  char *ifid;
   a5_blorb_chunk_t chunk;
   a5_xml_doc_t *doc;
   a5_adventure_t *adv;
@@ -1132,12 +1172,20 @@ a5model_load (const char *path)
     }
   region_len = payload_len - header - 14;
 
+  /* Read the Babel IFID from the still-plaintext buffer before deobfuscation
+     scrambles the payload region (the <ifindex> block lies outside it, but scan
+     first to be safe across layouts). */
+  ifid = a5_scan_ifid (file_buf, file_len);
+
   if (obfuscated)
     a5_deobfuscate (payload, header, region_len);
   xml = a5_inflate (payload + header, region_len, &xml_len);
   free (file_buf);
   if (xml == NULL)
-    return NULL;
+    {
+      free (ifid);
+      return NULL;
+    }
 
   {
     const char *dp = getenv ("A5_DUMP_XML");
@@ -1164,12 +1212,18 @@ a5model_load (const char *path)
   if (doc == NULL)
     {
       free (xml);
+      free (ifid);
       return NULL;
     }
 
   adv = a5model_from_doc (doc);
   if (adv == NULL)
-    a5xml_free (doc);
+    {
+      a5xml_free (doc);
+      free (ifid);
+    }
+  else
+    adv->ifid = ifid;   /* ownership transfers; a5model_free releases it */
   return adv;
 }
 
@@ -1308,6 +1362,32 @@ a5model_upgrade_answer (a5_adventure_t *a, int yes)
   return a->upgrade_count;
 }
 
+/*
+ * The "Adventure Upgrade" question defaults to NO (matching an unattended
+ * FrankenDrift: the pre-5.0.26 BracketSequence is read verbatim), so an
+ * interactive host that suppresses the dialog can just leave the file
+ * uncorrected.  A short hard-wired allow-list forces YES for the handful of
+ * games whose intended (post-5.0.26) logic genuinely needs the correction to
+ * play or score correctly -- keyed on the Babel IFID (unique per game; see
+ * a5_scan_ifid), with a title+author fallback for any target that lacks one.
+ */
+int
+a5model_upgrade_forced_yes (const a5_adventure_t *a)
+{
+  static const char *const ifids[] = {
+    "ADRIFT-500-38B2-7938-479E-9893-D365BC92FFBF",  /* The House (Po. Prune), Ectocomp 2011 */
+    "ADRIFT-500-ACE0-ED0B-46A9-8371-6310F781344A",  /* Head Case (Intro_compVB1) */
+  };
+  size_t i;
+  if (a == NULL)
+    return 0;
+  if (a->ifid != NULL)
+    for (i = 0; i < sizeof ifids / sizeof ifids[0]; i++)
+      if (strcasecmp (a->ifid, ifids[i]) == 0)
+        return 1;
+  return 0;
+}
+
 void
 a5model_free (a5_adventure_t *a)
 {
@@ -1377,6 +1457,7 @@ a5model_free (a5_adventure_t *a)
   for (i = 0; i < a->n_upgrade_owned; i++)
     free (a->upgrade_owned[i]);  /* corrected BracketSequence copies */
   free (a->upgrade_owned);
+  free ((void *) a->ifid);
   a5xml_free (a->doc);
   free (a);
 }

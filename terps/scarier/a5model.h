@@ -292,6 +292,9 @@ typedef struct a5_adventure_s {
   const char *title;
   const char *author;
   const char *version;
+  const char *ifid;                 /* Babel IFID from the plaintext <ifid>
+                                       tag in the <ifindex> metadata block
+                                       (owned; NULL when the file embeds none) */
   int show_first_location;          /* <ShowFirstLocation> (default 1): show
                                        the start room after the intro          */
   int show_exits;                   /* <ShowExits> (default 1): append the
@@ -342,6 +345,9 @@ typedef struct a5_adventure_s {
   int upgrade_scanned;        /* pending-condition memoised                  */
   int upgrade_wanted;         /* version < 5.0.26 and some block has #A#O#   */
   int upgrade_prompted;       /* the host asked the question (either answer) */
+  int upgrade_silent;         /* host resolved it WITHOUT showing the dialog:
+                                 a5run_intro emits no question prose and starts
+                                 the intro cleanly (Glk frontend default)     */
   int upgrade_applied;        /* answered yes; sequences corrected           */
   int upgrade_count;          /* FD iCorrectedTasks (one per Replace call)   */
   char **upgrade_owned;       /* corrected BracketSequence copies (owned)    */
@@ -375,6 +381,10 @@ extern a5_adventure_t *a5model_load (const char *path);
 extern int a5model_upgrade_pending (const a5_adventure_t *a);
 extern const char *a5model_upgrade_question (void);
 extern int a5model_upgrade_answer (a5_adventure_t *a, int yes);
+
+/* Whether an interactive host that suppresses the dialog should force YES for
+   this game (hard-wired allow-list, keyed on the Babel IFID); default is NO. */
+extern int a5model_upgrade_forced_yes (const a5_adventure_t *a);
 
 extern void a5model_free (a5_adventure_t *adv);
 

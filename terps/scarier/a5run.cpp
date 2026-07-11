@@ -1124,7 +1124,9 @@ a5run_intro (a5_run_t *run)
    * rewrite ordinary output (the virtual human's lowercasing single-letter
    * overrides) must NOT touch it.
    */
-  if (a5model_upgrade_pending (run->adv))
+  if (run->adv->upgrade_silent)
+    had_prompt = 0;                     /* host resolved it silently: clean intro */
+  else if (a5model_upgrade_pending (run->adv))
     had_prompt = 2;                     /* unasked: prepend question, imply NO */
   else if (run->adv->upgrade_prompted)
     had_prompt = 1;                     /* host asked: only mirror the joins */
