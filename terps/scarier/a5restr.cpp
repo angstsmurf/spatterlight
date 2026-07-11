@@ -164,6 +164,18 @@ resolve_key (a5_state_t *st, const char *k)
   return k;
 }
 
+/* A string that is a plain (optionally signed) integer literal, no other bytes. */
+static int
+is_clean_int (const char *s)
+{
+  if (s == NULL || *s == '\0') return 0;
+  if (*s == '-' || *s == '+') s++;
+  if (*s == '\0') return 0;
+  for (; *s; s++)
+    if (!isdigit ((unsigned char) *s)) return 0;
+  return 1;
+}
+
 /* Evaluate key2 as a number: a variable key's value, a `RAND(min,max)`
    expression, else an integer literal.  An expression RHS is wrapped in single
    quotes in the model (the runner's clsRestriction summary quotes it; the stored
@@ -207,16 +219,8 @@ num_value (a5_state_t *st, const char *k)
      of `Encounter Must BeEqualTo 511` wrongly read that (0-valued) variable and
      made every `Encounter == <n>` where a variable happens to be keyed <n> pass
      spuriously.  Test for the integer form before the variable lookup. */
-  {
-    const char *d = s;
-    if (d != NULL && (*d == '-' || *d == '+')) d++;
-    if (d != NULL && *d != '\0')
-      {
-        const char *q = d;
-        while (*q >= '0' && *q <= '9') q++;
-        if (*q == '\0') return strtol (s, NULL, 10);
-      }
-  }
+  if (is_clean_int (s))
+    return strtol (s, NULL, 10);
   vi = a5state_variable_index (st, s);
   if (vi >= 0)
     return st->var_num[vi];
@@ -1143,6 +1147,20 @@ str_compare_op (const char *op, const char *cur, const char *rhs)
   return 1;
 }
 
+/* The numeric ("Be"-prefixed) comparison operators over longs, shared by the
+   ReferencedNumber and numeric-variable branches of pass_variable.  No BeContain
+   (numbers do not substring-match); an unknown op is the lenient pass. */
+static int
+num_compare_op (const char *op, long cur, long rhs)
+{
+  if (streq (op, "BeEqualTo"))               return cur == rhs;
+  if (streq (op, "BeGreaterThan"))           return cur > rhs;
+  if (streq (op, "BeGreaterThanOrEqualTo"))  return cur >= rhs;
+  if (streq (op, "BeLessThan"))              return cur < rhs;
+  if (streq (op, "BeLessThanOrEqualTo"))     return cur <= rhs;
+  return 1;
+}
+
 static int
 pass_variable (a5_state_t *st, a5_restr_t *r)
 {
@@ -1189,12 +1207,7 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
       rhs_s = restr_text_value (st, r->key2);
       rhs = strtol (rhs_s, NULL, 10);
       free (rhs_s);
-      if (streq (r->op, "BeEqualTo"))               return cur == rhs;
-      if (streq (r->op, "BeGreaterThan"))           return cur > rhs;
-      if (streq (r->op, "BeGreaterThanOrEqualTo"))  return cur >= rhs;
-      if (streq (r->op, "BeLessThan"))              return cur < rhs;
-      if (streq (r->op, "BeLessThanOrEqualTo"))     return cur <= rhs;
-      return 1;
+      return num_compare_op (r->op, cur, rhs);
     }
 
   vi = a5state_variable_index (st, r->key1);
@@ -1214,14 +1227,7 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
          `Kindofhung1 BeContain "'greater'"` compared `greater` against the literal
          `"'greater'"` and never matched -- the greater-thirst wound never landed. */
       char *rhs = restr_text_value (st, r->key2);
-      int cmp = strcmp (cur, rhs);
-      int res = 1;
-      if (streq (r->op, "BeEqualTo"))                 res = cmp == 0;
-      else if (streq (r->op, "BeGreaterThan"))        res = cmp > 0;
-      else if (streq (r->op, "BeGreaterThanOrEqualTo")) res = cmp >= 0;
-      else if (streq (r->op, "BeLessThan"))           res = cmp < 0;
-      else if (streq (r->op, "BeLessThanOrEqualTo"))  res = cmp <= 0;
-      else if (streq (r->op, "BeContain"))            res = strstr (cur, rhs) != NULL;
+      int res = str_compare_op (r->op, cur, rhs);
       free (rhs);
       return res;
     }
@@ -1229,12 +1235,7 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
     {
       long cur = st->var_num[vi];
       long rhs = num_value (st, r->key2);
-      if (streq (r->op, "BeEqualTo"))            return cur == rhs;
-      if (streq (r->op, "BeGreaterThan"))        return cur > rhs;
-      if (streq (r->op, "BeGreaterThanOrEqualTo")) return cur >= rhs;
-      if (streq (r->op, "BeLessThan"))           return cur < rhs;
-      if (streq (r->op, "BeLessThanOrEqualTo"))  return cur <= rhs;
-      return 1;
+      return num_compare_op (r->op, cur, rhs);
     }
 }
 
@@ -1247,17 +1248,6 @@ is_op_numeric_inequality (const char *op)
       || strcmp (op, "GreaterThan") == 0
       || strcmp (op, "LessThanOrEqualTo") == 0
       || strcmp (op, "LessThan") == 0;
-}
-
-static int
-is_clean_int (const char *s)
-{
-  if (s == NULL || *s == '\0') return 0;
-  if (*s == '-' || *s == '+') s++;
-  if (*s == '\0') return 0;
-  for (; *s; s++)
-    if (!isdigit ((unsigned char) *s)) return 0;
-  return 1;
 }
 
 /*

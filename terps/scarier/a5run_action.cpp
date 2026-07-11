@@ -207,6 +207,19 @@ static void emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out
 static void emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out);
 static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 
+/* Render the room view as REAL output -- marking_display=1 so its <DisplayOnce>
+   segments retire -- restoring the previous marking flag afterwards.  The common
+   wrapper around render_look_string at every final-state Display site. */
+static std::string
+render_look_marked (a5_run_t *run)
+{
+  int pm = run->st->marking_display;
+  run->st->marking_display = 1;
+  std::string v = render_look_string (run);
+  run->st->marking_display = pm;
+  return v;
+}
+
 /* Conversation type bits (clsAction.ConversationEnum). */
 enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
        A5_CONV_COMMAND = 8, A5_CONV_FAREWELL = 16 };
@@ -270,6 +283,19 @@ collect_refs (a5_state_t *st, const a5_match_t *m)
   return v;
 }
 
+/* Normalise a bare singular reference name to its "...1" indexed form
+   (FileIO.vb:647: %object% -> %object1%, etc.).  Plural "objects"/"characters"
+   and already-indexed names are left unchanged. */
+static void
+normalize_singular_ref (std::string &base)
+{
+  if (base == "object")    base = "object1";
+  if (base == "character") base = "character1";
+  if (base == "direction") base = "direction1";
+  if (base == "number")    base = "number1";
+  if (base == "text")      base = "text1";
+}
+
 /* The ordered reference names (%objects%, %object2%, ...) in a task's first
    command, normalised to their binding base ("objects","object2"). */
 static std::vector<std::string>
@@ -286,15 +312,10 @@ command_refs (const a5_task_t *t)
           while (*q && *q != '%') q++;
           if (*q == '%')
             {
-              std::string nm (p + 1, (size_t) (q - (p + 1)));
-              std::string base = nm;
+              std::string base (p + 1, (size_t) (q - (p + 1)));
               /* singular %object% normalises to object1 only for matching, but
                  the binding base keeps "objects" plural distinct. */
-              if (base == "object")    base = "object1";
-              if (base == "character") base = "character1";
-              if (base == "direction") base = "direction1";
-              if (base == "number")    base = "number1";
-              if (base == "text")      base = "text1";
+              normalize_singular_ref (base);
               v.push_back (base);
               p = q + 1;
               continue;
@@ -950,12 +971,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
                children relocated an NPC lists it at its new spot.  Real output:
                retire DisplayOnce segments (view_location_impl honours the
                ambient marking flag). */
-            {
-              int pm = st->marking_display;
-              st->marking_display = 1;
-              text = render_look_string (run);
-              st->marking_display = pm;
-            }
+            text = render_look_marked (run);
             /* The runner keys the stock Look's AggregateOutput on its response template
                (htblResponsesPass), so a command that Executes Look more than once
                -- e.g. Bug Hunt's cl_ZMovePlaye, which runs Execute Look after the
@@ -1192,6 +1208,29 @@ net_introspective_sort (const a5_adventure_t *adv, std::vector<int> &keys)
   for (unsigned u = (unsigned) n; u > 1; u >>= 1)
     log2n++;
   net_intro_sort (adv, &keys[0], n, 2 * (log2n + 1));
+}
+
+/* Run the After-override children into `buf` in priority order, stopping after
+   the first that produces output (unless ContinueAlways) -- the runner's bContinue
+   rule.  Shared by the look-deferred and defer-text branches of
+   execute_task_with_overrides, which each run the children into a side buffer. */
+static void
+run_after_children (a5_run_t *run, const std::vector<const a5_task_t *> &after,
+                    sb_t *buf)
+{
+  a5_state_t *st = run->st;
+  for (auto *child : after)
+    if (a5restr_pass (st, child->restrictions))
+      {
+        size_t alen0 = buf->len;
+        run->task_raw_output = 0;
+        run_task (run, child, 0, buf);
+        int ai = a5state_task_index (st, child->key);
+        if (ai >= 0) st->task_done[ai] = 1;
+        ev_on_task_completed (run, child->key, buf);
+        if ((buf->len > alen0 || run->task_raw_output)
+            && !child->continue_lower) break;
+      }
 }
 
 /*
@@ -1473,18 +1512,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
          against real preceding text -- e.g. Jacaranda's "...Exits are ... in.
          [pSpace]It is raining out here." */
       sb_t after_buf; sb_init (&after_buf);
-      for (auto *child : after)
-        if (a5restr_pass (st, child->restrictions))
-          {
-            size_t alen0 = after_buf.len;
-            run->task_raw_output = 0;
-            run_task (run, child, 0, &after_buf);
-            int ai = a5state_task_index (st, child->key);
-            if (ai >= 0) st->task_done[ai] = 1;
-            ev_on_task_completed (run, child->key, &after_buf);
-            if ((after_buf.len > alen0 || run->task_raw_output)
-                && !child->continue_lower) break;
-          }
+      run_after_children (run, after, &after_buf);
       /* A pinned view (the Look dance's two test renders differed -- a random
          pick moved) is emitted verbatim; otherwise render at the final state
          (real output, so <DisplayOnce> segments retire). */
@@ -1492,12 +1520,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       if (pinned_view != NULL)
         view = std::string (pinned_view);
       else
-        {
-          int pm = st->marking_display;
-          st->marking_display = 1;
-          view = render_look_string (run);
-          st->marking_display = pm;
-        }
+        view = render_look_marked (run);
       /* The runner's response map holds ONE slot for the stock Look's raw template:
          a second Execute Look in the same command (The Salvage's request
          docking Looks at the docked pad, then on the bridge) re-renders that
@@ -1525,18 +1548,7 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
       /* Children run into a side buffer so the parent text can be spliced ahead
          of them once their actions have updated state. */
       sb_t after_buf; sb_init (&after_buf);
-      for (auto *child : after)
-        if (a5restr_pass (st, child->restrictions))
-          {
-            size_t alen0 = after_buf.len;
-            run->task_raw_output = 0;
-            run_task (run, child, 0, &after_buf);
-            int ai = a5state_task_index (st, child->key);
-            if (ai >= 0) st->task_done[ai] = 1;
-            ev_on_task_completed (run, child->key, &after_buf);
-            if ((after_buf.len > alen0 || run->task_raw_output)
-                && !child->continue_lower) break;
-          }
+      run_after_children (run, after, &after_buf);
       int self_ti = a5state_task_index (st, parent->key);
       if (self_ti >= 0) st->task_done[self_ti] = 1;
       const a5_xml_node_t *comp = a5xml_child (parent->node, "CompletionMessage");
@@ -1785,10 +1797,7 @@ a5run_flush_display_defers (a5_run_t *run, sb_t *out)
         {
           /* Deferred stock-Look room view: render at Display state (real
              output -- DisplayOnce segments retire). */
-          int pm = run->st->marking_display;
-          run->st->marking_display = 1;
-          std::string v = render_look_string (run);
-          run->st->marking_display = pm;
+          std::string v = render_look_marked (run);
           val = strdup (v.c_str ());
         }
       else
@@ -1999,6 +2008,39 @@ emit_conv (const char *rendered_owned, sb_t *out)
   free (m);
 }
 
+/* Render a topic's <Conversation> with `ctx_key` as the text context and the
+   intro flag set (the runner's conversation-reply emit), restoring both around
+   the one AddResponse.  Shared by the intro / topic-reply / implicit-farewell
+   paths of exec_conversation and clear_conv_if_partner_gone. */
+static void
+emit_topic_conv (a5_run_t *run, const char *ctx_key,
+                 const a5_xml_node_t *conversation, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  const char *pc = st->ctx_char;
+  int pia = st->intro_active;
+  st->ctx_char = ctx_key;
+  st->intro_active = 1;
+  emit_conv (a5text_describe (st, conversation), out);
+  st->intro_active = pia;
+  st->ctx_char = pc;
+}
+
+/* On a topic whose trigger matched but whose restrictions failed, capture the
+   restriction's fail-message text into *restr_text (last wins), so the caller can
+   surface it as the "doesn't understand" default.  A no-op when restr_text is
+   NULL (the callers that do not want the default). */
+static void
+capture_restr_text (a5_state_t *st, const a5_xml_node_t *restrictions,
+                    std::string *restr_text)
+{
+  if (restr_text == NULL)
+    return;
+  const a5_xml_node_t *fm = a5restr_fail_message (st, restrictions);
+  if (fm != NULL)
+    { char *t2 = a5text_describe (st, fm); *restr_text = t2; free (t2); }
+}
+
 /*
  * FindConversationNode (clsUserSession): the best topic of `ch` matching the
  * conversation type + subject at the current node.  Ask/Tell topics match by
@@ -2055,12 +2097,8 @@ find_conv_node (a5_run_t *run, const a5_character_t *ch, int conv_type,
                 {
                   if (a5restr_pass (st, tp->restrictions))
                     matched++;
-                  else if (restr_text != NULL)
-                    { const a5_xml_node_t *fm =
-                        a5restr_fail_message (st, tp->restrictions);
-                      if (fm != NULL)
-                        { char *t2 = a5text_describe (st, fm);
-                          *restr_text = t2; free (t2); } }
+                  else
+                    capture_restr_text (st, tp->restrictions, restr_text);
                   if (k == "*") low_priority = 1;
                 }
             }
@@ -2077,24 +2115,16 @@ find_conv_node (a5_run_t *run, const a5_character_t *ch, int conv_type,
             {
               if (a5restr_pass (st, tp->restrictions))
                 return tp;
-              else if (restr_text != NULL)
-                { const a5_xml_node_t *fm =
-                    a5restr_fail_message (st, tp->restrictions);
-                  if (fm != NULL)
-                    { char *t2 = a5text_describe (st, fm);
-                      *restr_text = t2; free (t2); } }
+              else
+                capture_restr_text (st, tp->restrictions, restr_text);
             }
         }
       else /* greet / farewell: no keyword match, just restrictions */
         {
           if (a5restr_pass (st, tp->restrictions))
             return tp;
-          else if (restr_text != NULL)
-            { const a5_xml_node_t *fm =
-                a5restr_fail_message (st, tp->restrictions);
-              if (fm != NULL)
-                { char *t2 = a5text_describe (st, fm);
-                  *restr_text = t2; free (t2); } }
+          else
+            capture_restr_text (st, tp->restrictions, restr_text);
         }
     }
   return best;
@@ -2126,13 +2156,7 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
         {
           const a5_topic_t *fw = find_conv_node (run, prev, conv_type, "", NULL);
           if (fw != NULL)
-            {
-              const char *pc = st->ctx_char; st->ctx_char = prev->key;
-              int pia = st->intro_active; st->intro_active = 1;
-              emit_conv (a5text_describe (st, fw->conversation), out);
-              st->intro_active = pia;
-              st->ctx_char = pc;
-            }
+            emit_topic_conv (run, prev->key, fw->conversation, out);
         }
       a5state_set_conv_char (st, "");
       a5state_set_conv_node (st, "");
@@ -2151,11 +2175,7 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
         intro = find_conv_node (run, conv_ch, A5_CONV_GREET, "", NULL);
       if (intro != NULL)
         {
-          const char *pc = st->ctx_char; st->ctx_char = conv_ch->key;
-          int pia = st->intro_active; st->intro_active = 1;
-          emit_conv (a5text_describe (st, intro->conversation), out);
-          st->intro_active = pia;
-          st->ctx_char = pc;
+          emit_topic_conv (run, conv_ch->key, intro->conversation, out);
           a5state_set_conv_node (st, intro->key);
           if (intro->is_ask || intro->is_tell || intro->is_command)
             {
@@ -2192,11 +2212,7 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
 
   if (topic != NULL)
     {
-      const char *pc = st->ctx_char; st->ctx_char = conv_ch->key;
-      int pia = st->intro_active; st->intro_active = 1;
-      emit_conv (a5text_describe (st, topic->conversation), out);
-      st->intro_active = pia;
-      st->ctx_char = pc;
+      emit_topic_conv (run, conv_ch->key, topic->conversation, out);
       if (topic_has_children (conv_ch, topic->key))
         a5state_set_conv_node (st, topic->key);
       else if (!topic->stay_in_node)
@@ -2284,13 +2300,7 @@ clear_conv_if_partner_gone (a5_run_t *run, sb_t *out)
         const a5_topic_t *fw =
           find_conv_node (run, prev, A5_CONV_FAREWELL, "", NULL);
         if (fw != NULL)
-          {
-            const char *pc = st->ctx_char; st->ctx_char = prev->key;
-            int pia = st->intro_active; st->intro_active = 1;
-            emit_conv (a5text_describe (st, fw->conversation), out);
-            st->intro_active = pia;
-            st->ctx_char = pc;
-          }
+          emit_topic_conv (run, prev->key, fw->conversation, out);
       }
   }
   a5state_set_conv_char (st, "");
@@ -3363,11 +3373,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                       if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
                         {
                           std::string base = an.substr (1, an.size () - 2);
-                          if (base == "object")    base = "object1";
-                          if (base == "character") base = "character1";
-                          if (base == "direction") base = "direction1";
-                          if (base == "number")    base = "number1";
-                          if (base == "text")      base = "text1";
+                          normalize_singular_ref (base);
                           if (base == rnames[i])
                             continue;               /* pass the ref through */
                         }
@@ -3907,10 +3913,7 @@ emit_look (a5_run_t *run, sb_t *out)
       return;
     }
   /* Real output: retire any <DisplayOnce> completion segments this view shows. */
-  int pm = run->st->marking_display;
-  run->st->marking_display = 1;
-  std::string result = render_look_string (run);
-  run->st->marking_display = pm;
+  std::string result = render_look_marked (run);
   sb_pspace (out);
   sb_puts (out, result.c_str ());
 }
@@ -4007,10 +4010,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                  task that fires after the move (the corridor's +2 servant
                  scene) would otherwise leak its score into the view's SCORE
                  header, which the runner renders pre-award. */
-              pm = run->st->marking_display;
-              run->st->marking_display = 1;
-              std::string v = render_look_string (run);
-              run->st->marking_display = pm;
+              std::string v = render_look_marked (run);
               resp_add_text (run, v.c_str (), true, resp_pos);
             }
           else
@@ -4027,10 +4027,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              keys the Look task's raw AggregateOutput template, so a command
              that Executes Look twice shows one view (Euripides `press on`).
              Real output: retire any <DisplayOnce> completion segments. */
-          pm = run->st->marking_display;
-          run->st->marking_display = 1;
-          std::string v = render_look_string (run);
-          run->st->marking_display = pm;
+          std::string v = render_look_marked (run);
           if (run->exec_scope == NULL
               || run->exec_scope->pass_seen.insert (v).second)
             {
@@ -4065,10 +4062,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              NON-aggregate Look: pin the view rendered NOW, at Execute Look
              time, so later actions/system tasks can't retro-date the SCORE
              header (the runner renders the non-aggregate response eagerly). */
-          pm = run->st->marking_display;
-          run->st->marking_display = 1;
-          std::string v = render_look_string (run);
-          run->st->marking_display = pm;
+          std::string v = render_look_marked (run);
           free (run->look_pinned);
           run->look_pinned = strdup (v.c_str ());
         }
@@ -4247,12 +4241,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           if (lpin != NULL)
             view = lpin;                       /* pinned pre-action render */
           else
-            {
-              int pm = run->st->marking_display;
-              run->st->marking_display = 1;
-              view = render_look_string (run);  /* final-state room view */
-              run->st->marking_display = pm;
-            }
+            view = render_look_marked (run);   /* final-state room view */
           /* Splice the view at its recorded slot: head | view | tail, where tail
              (the output the remaining actions produced) already carries its own
              leading pSpace separator. */

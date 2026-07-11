@@ -31,6 +31,21 @@
 #include "a5sexpr.h"
 #include "a5text.h"
 
+/* A reference alias split into its base ("object1" -> "object") and, when
+   `num_out` is non-NULL, its trailing digit run ("object1" -> "1").  ADRIFT
+   suffixes each singular reference slot with an index (FileIO.vb:647), which
+   several call sites strip back off. */
+static std::string
+ref_base (const std::string &name, std::string *num_out = NULL)
+{
+  std::string base = name, num;
+  while (!base.empty () && isdigit ((unsigned char) base.back ()))
+    { num.insert (num.begin (), base.back ()); base.pop_back (); }
+  if (num_out != NULL)
+    *num_out = num;
+  return base;
+}
+
 /* Collect an entity's matchable words (article + prefix + names/descriptors). */
 static void
 collect_words (const char *article, const char *prefix,
@@ -338,11 +353,8 @@ void
 bind_reference (a5_state_t *st, const char *group, const char *value,
                 const char *text)
 {
-  std::string g = group;
-  std::string base = g;
   std::string num;
-  while (!base.empty () && isdigit ((unsigned char) base.back ()))
-    { num.insert (num.begin (), base.back ()); base.pop_back (); }
+  std::string base = ref_base (group, &num);
 
   std::string cap = base;
   if (!cap.empty ()) cap[0] = (char) toupper ((unsigned char) cap[0]);
@@ -532,6 +544,27 @@ any_candidate_visible (a5_state_t *st, const std::vector<std::string> &keys,
                     : char_visible (st, k.c_str ()))
       return 1;
   return 0;
+}
+
+/* Record an unresolved-reference ambiguity in *amb (when requested) and return
+   the verdict the caller propagates: RR_AMBIG when at least one candidate is
+   currently visible ("Which X?"), else RR_CANTSEE ("You can't see any ...!").
+   `second_chance` flags an ambiguity found only via the runner's existence
+   (second-chance) pass, which loses to a clean no-reference fallback. */
+static int
+set_amb_result (a5_state_t *st, amb_info *amb, const std::string &name,
+                char type, const std::string &text,
+                const std::vector<std::string> &keys, int second_chance)
+{
+  if (amb != NULL)
+    {
+      amb->ref_name = name;
+      amb->type = type;
+      amb->ref_text = text;
+      amb->keys = keys;
+      amb->second_chance = second_chance;
+    }
+  return any_candidate_visible (st, keys, type) ? RR_AMBIG : RR_CANTSEE;
 }
 
 /* -------------------------------------------- multiple-object references */
@@ -849,14 +882,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
        in order; GetGeneralTask sets sAmbTask for the first Count>1). */
     for (auto &item : cur)
       if (item.size () > 1)
-        {
-          int any_vis = any_candidate_visible (st, item, 'o');
-          if (amb != NULL)
-            { amb->ref_name = "objects"; amb->type = 'o';
-              amb->ref_text = text; amb->keys = item;
-              amb->second_chance = 0; }
-          return any_vis ? RR_AMBIG : RR_CANTSEE;
-        }
+        return set_amb_result (st, amb, "objects", 'o', text, item, 0);
   }
 
   /* Choose one key per item; keep the items whose key passes the restrictions.
@@ -1012,9 +1038,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       rref r;
       r.name = m->ref_name[i];
       r.text = m->ref_text[i];
-      std::string base = r.name;
-      while (!base.empty () && isdigit ((unsigned char) base.back ()))
-        base.pop_back ();
+      std::string base = ref_base (r.name);
 
       /* The plural %objects% reference.  Only a *genuine* multiple-object input
          ("all", "X and Y", a comma list, or a plural noun matching several
@@ -1055,9 +1079,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
               for (int j = 0; j < m->n_refs; j++)
                 {
                   if (j == i) continue;
-                  std::string b2 = m->ref_name[j];
-                  while (!b2.empty () && isdigit ((unsigned char) b2.back ()))
-                    b2.pop_back ();
+                  std::string b2 = ref_base (m->ref_name[j]);
                   if ((b2 == "object" || b2 == "item")
                       && (m->ref_name[j] == b2 || m->ref_name[j] == b2 + "1"))
                     { st->ref_objects_suppress_singular = 1; break; }
@@ -1229,9 +1251,8 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
   int noref_required = 0;
   if (have_noref)
     {
-      std::string nm = noref_r.name, num;
-      while (!nm.empty () && isdigit ((unsigned char) nm.back ()))
-        { num.insert (num.begin (), nm.back ()); nm.pop_back (); }
+      std::string num;
+      ref_base (noref_r.name, &num);          /* the "...N" index, if any */
       std::string alias = std::string ("Referenced")
         + (noref_r.type == 'c' ? "Character" : "Object") + num;
       noref_required =
@@ -1255,14 +1276,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
          blow."). */
       for (auto &r : refs)
         if (r.keys.size () > 1)
-          {
-            int any_vis = any_candidate_visible (st, r.keys, r.type);
-            if (amb != NULL)
-              { amb->ref_name = r.name; amb->type = r.type;
-                amb->ref_text = r.text; amb->keys = r.keys;
-                amb->second_chance = 1; }
-            return any_vis ? RR_AMBIG : RR_CANTSEE;
-          }
+          return set_amb_result (st, amb, r.name, r.type, r.text, r.keys, 1);
       if (amb != NULL)
         { amb->ref_name = noref_r.name; amb->type = noref_r.type;
           amb->ref_text = noref_r.text; amb->keys.clear (); }
@@ -1276,24 +1290,17 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
      reference's ambiguity (sAmbTask) wins over an unmatched optional reference. */
   for (auto &r : refs)
     if (r.keys.size () > 1)
-      {
-        int any_vis = any_candidate_visible (st, r.keys, r.type);
-        if (amb != NULL)
-          { amb->ref_name = r.name; amb->type = r.type;
-            amb->ref_text = r.text; amb->keys = r.keys;
-            /* If this task ALSO had a reference that named nothing, it matched
-               only via the Adrift 5 runner's second-chance (existence) pass -- so its
-               ambiguity is a second-chance sAmbTask, which a *different* task's
-               clean no-reference / failing-with-output result (GetGeneralTask)
-               beats.  `remove uniform from dummy`: TakeFromCh1 (`%objects% from
-               %character%`) is ambiguous on "uniform" but its "dummy" names no
-               character, so RemoveObjects' `[remove/take off] %objects%`
-               no-reference message ("...you're referring to.") wins over the
-               cantsee.  A pure first-pass ambiguity (no unmatched ref) stays
-               second_chance=0 and preempts any no-reference fallback. */
-            amb->second_chance = have_noref; }
-        return any_vis ? RR_AMBIG : RR_CANTSEE;
-      }
+      /* If this task ALSO had a reference that named nothing, it matched only via
+         the Adrift 5 runner's second-chance (existence) pass -- so its ambiguity is a
+         second-chance sAmbTask, which a *different* task's clean no-reference /
+         failing-with-output result (GetGeneralTask) beats.  `remove uniform from
+         dummy`: TakeFromCh1 (`%objects% from %character%`) is ambiguous on
+         "uniform" but its "dummy" names no character, so RemoveObjects'
+         `[remove/take off] %objects%` no-reference message ("...you're referring
+         to.") wins over the cantsee.  A pure first-pass ambiguity (no unmatched
+         ref) stays second_chance=0 and preempts any no-reference fallback. */
+      return set_amb_result (st, amb, r.name, r.type, r.text, r.keys,
+                             have_noref);
 
   /* No sibling reference was ambiguous: honour the deferred (optional)
      no-reference fallback (GetGeneralTask sNoRefTask). */

@@ -47,6 +47,21 @@ static void wk_init     (a5_run_t *run, sb_t *out);
 static long ev_from_start (const a5_event_rt &rt) { return rt.length_value - rt.timer_to_end; }
 static long ev_from_last  (const a5_event_rt &rt) { return ev_from_start (rt) - rt.last_se_time; }
 
+/* Render a subevent/subwalk <DisplayMessage> as REAL output (marking_display=1
+   so its <DisplayOnce> segments retire) and emit it when non-empty.  Shared by
+   the event and walk DisplayMessage cases. */
+static void
+emit_marked_description (a5_run_t *run, const a5_xml_node_t *desc, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  int pm = st->marking_display;
+  st->marking_display = 1;
+  char *m = a5text_describe (st, desc);
+  st->marking_display = pm;
+  if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
+  free (m);
+}
+
 /* The TimerToEndOfEvent property setter: assigning it can start a counted-down
    event or stop a running one (clsEvent.TimerToEndOfEvent Set). */
 static void
@@ -83,12 +98,7 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
          (se->key) is set and the player is in that location/group. */
       if (se->description != NULL && se->key != NULL && se->key[0] != '\0'
           && a5state_in_group_or_location (run->st, a5state_player_key (run->st), se->key))
-        { /* Real output: retire <DisplayOnce> segments, like the walk path. */
-          int pm = run->st->marking_display; run->st->marking_display = 1;
-          char *m = a5text_describe (run->st, se->description);
-          run->st->marking_display = pm;
-          if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
-          free (m); }
+        emit_marked_description (run, se->description, out);
       break;
     case A5_SE_SETLOOK:
       /* clsEvent SetLook: push (OnlyApplyAt gate, rendered text) onto the look
@@ -192,6 +202,22 @@ ev_lstop (a5_run_t *run, int ei, int run_subs, sb_t *out)
     }
 }
 
+/* Apply an event Start/Stop/Pause/Resume command to event `ei` immediately
+   (clsEvent.Start/Stop/...).  Shared by the deferred path (ev_increment, on the
+   pending NextCommand) and the immediate path (ev_control, while a tick runs). */
+static void
+ev_apply_command (a5_run_t *run, int ei, int cmd, sb_t *out)
+{
+  a5_event_rt &rt = (*run->events)[ei];
+  switch (cmd)
+    {
+    case A5_CMD_START:  ev_lstart (run, ei, 0, out); break;
+    case A5_CMD_STOP:   ev_lstop  (run, ei, 0, out); break;
+    case A5_CMD_PAUSE:  if (rt.status == A5_EV_RUNNING) rt.status = A5_EV_PAUSED; break;
+    case A5_CMD_RESUME: if (rt.status == A5_EV_PAUSED)  rt.status = A5_EV_RUNNING; break;
+    }
+}
+
 static void
 ev_increment (a5_run_t *run, int ei, sb_t *out)
 {
@@ -199,13 +225,7 @@ ev_increment (a5_run_t *run, int ei, sb_t *out)
 
   if (rt.next_command != A5_CMD_NONE)
     {
-      switch (rt.next_command)
-        {
-        case A5_CMD_START:  ev_lstart (run, ei, 0, out); break;
-        case A5_CMD_STOP:   ev_lstop  (run, ei, 0, out); break;
-        case A5_CMD_PAUSE:  if (rt.status == A5_EV_RUNNING) rt.status = A5_EV_PAUSED; break;
-        case A5_CMD_RESUME: if (rt.status == A5_EV_PAUSED)  rt.status = A5_EV_RUNNING; break;
-        }
+      ev_apply_command (run, ei, rt.next_command, out);
       rt.next_command = A5_CMD_NONE;
       rt.triggering_task.clear ();
     }
@@ -235,15 +255,7 @@ ev_control (a5_run_t *run, int ei, int cmd, const char *task_key, sb_t *out)
 {
   a5_event_rt &rt = (*run->events)[ei];
   if (run->events_running)
-    {
-      switch (cmd)
-        {
-        case A5_CMD_START:  ev_lstart (run, ei, 0, out); break;
-        case A5_CMD_STOP:   ev_lstop  (run, ei, 0, out); break;
-        case A5_CMD_PAUSE:  if (rt.status == A5_EV_RUNNING) rt.status = A5_EV_PAUSED; break;
-        case A5_CMD_RESUME: if (rt.status == A5_EV_PAUSED)  rt.status = A5_EV_RUNNING; break;
-        }
-    }
+    ev_apply_command (run, ei, cmd, out);
   else
     rt.next_command = cmd;
   rt.triggering_task = task_key ? task_key : "";
@@ -271,6 +283,18 @@ task_is_descendant (const a5_adventure_t *adv, const char *ancestor,
   return task_is_descendant (adv, ancestor, c->general_key, depth + 1);
 }
 
+/* The runner's control re-trigger guard (clsUserSession.vb:872/893): a control must
+   not re-fire for the very task that triggered it, nor for a parent of that task
+   (task.Children(True).Contains).  Shared by the event and walk control loops. */
+static int
+ctrl_retrigger_blocked (const a5_adventure_t *adv,
+                        const std::string &triggering_task, const char *task_key)
+{
+  return !triggering_task.empty ()
+         && (triggering_task == task_key
+             || task_is_descendant (adv, task_key, triggering_task.c_str (), 0));
+}
+
 /* clsUserSession: when a task completes (bPass), fire any EventControls. */
 void
 ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
@@ -293,10 +317,7 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
           /* Guard against a task re-triggering the control it just triggered,
              and (the runner's children check) against a parent re-firing a control one
              of its override descendants already triggered. */
-          if (!rt.triggering_task.empty ()
-              && (rt.triggering_task == task_key
-                  || task_is_descendant (run->adv, task_key,
-                                         rt.triggering_task.c_str (), 0)))
+          if (ctrl_retrigger_blocked (run->adv, rt.triggering_task, task_key))
             continue;
           switch (c->control)
             {
@@ -885,13 +906,9 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
           if (sw->description != NULL && sw->only_apply_at != NULL
               && sw->only_apply_at[0] != '\0'
               && a5state_in_group_or_location (st, a5state_player_key (st), sw->only_apply_at))
-            { /* Real output: retire <DisplayOnce> segments (October 31st's
-                 werewolf howl fires once, not every loop of the 1-step walk). */
-              int pm = st->marking_display; st->marking_display = 1;
-              char *m = a5text_describe (st, sw->description);
-              st->marking_display = pm;
-              if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
-              free (m); }
+            /* Real output: retire <DisplayOnce> segments (October 31st's
+               werewolf howl fires once, not every loop of the 1-step walk). */
+            emit_marked_description (run, sw->description, out);
           break;
         case A5_SW_EXECTASK:
           if (sw->task_key != NULL)
@@ -1016,10 +1033,7 @@ wk_on_task_completed (a5_run_t *run, const char *task_key)
           const a5_eventctrl_t *c = &wk->controls[ci];
           if (!c->on_completion || !streq (c->task_key, task_key))
             continue;
-          if (!rt.triggering_task.empty ()
-              && (rt.triggering_task == task_key
-                  || task_is_descendant (run->adv, task_key,
-                                         rt.triggering_task.c_str (), 0)))
+          if (ctrl_retrigger_blocked (run->adv, rt.triggering_task, task_key))
             continue;
           wk_control (run, (int) wi, c->control, task_key);
         }
