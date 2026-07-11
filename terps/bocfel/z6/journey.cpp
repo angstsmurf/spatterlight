@@ -588,15 +588,18 @@ static void create_submenu(JourneyVOMenu *m, int object, int objectindex) {
             if (m->submenu == nullptr) {
                 m->submenu = (struct JourneyVOMenu *)malloc(sizeof(struct JourneyVOMenu) * MAX_SUBMENU_ITEMS);
             }
+            // Bounds-check before indexing: submenu_entries is not reset for
+            // SHADOW characters, so it accumulates across calls and can reach
+            // the cap. The buffer holds MAX_SUBMENU_ITEMS entries (0..MAX-1).
+            if (m->submenu_entries >= MAX_SUBMENU_ITEMS) {
+                fprintf(stderr, "Error! Too many submenu items\n");
+                return;
+            }
             struct JourneyVOMenu *submenu = &(m->submenu[m->submenu_entries]);
             submenu->length = print_zstr_to_cstr(str, submenu->name);
             submenu->line = m->line;
-            m->submenu_entries++;
-            if (m->submenu_entries > MAX_SUBMENU_ITEMS) {
-                fprintf(stderr, "Error! Too manu submenu items\n");
-                return;
-            }
             submenu->column = m->column + i;
+            m->submenu_entries++;
         }
     }
 }
@@ -630,6 +633,12 @@ static void journey_create_vo_menu(JourneyMenuType type, bool is_second_noun) {
         uint16_t object = word(table + 2 * i);
         if (object != 0 && (!(subgroup && !internal_test_attr(object, ja.SUBGROUP)) || internal_test_attr(object, ja.SHADOW))) {
 
+            // menu[] holds 10 entries; stop before indexing past the end.
+            // break (not return) so the items collected so far are still
+            // rendered and their submenus freed below.
+            if (menu_counter >= 10)
+                break;
+
             m = &menu[menu_counter];
 
             int TAG_NAME_LENGTH = get_global(jg.TAG_NAME_LENGTH);
@@ -655,7 +664,7 @@ static void journey_create_vo_menu(JourneyMenuType type, bool is_second_noun) {
                     // Hack to add "shadow" menus to the previous submenu
                     // instead of creating a new one.
                     // This assumes that the shadow menu is always the last one.
-                    if (internal_test_attr(object, ja.SHADOW)) {
+                    if (internal_test_attr(object, ja.SHADOW) && menu_counter > 0) {
                         menu_counter--;
                         menu[menu_counter].line++;
                     }
@@ -664,8 +673,6 @@ static void journey_create_vo_menu(JourneyMenuType type, bool is_second_noun) {
                     m->column = 3 + ((menu_counter > 4 || is_second_noun) ? 1 : 0);
                 }
                 menu_counter++;
-                if (menu_counter > 10)
-                    return;
             }
         }
     }

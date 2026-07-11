@@ -2236,8 +2236,11 @@ static void find_journey_globals(void) {
             // Change start of READ-ELVISH
             // to return local variable 1 (named OFF)
             // (0xab 0x01 means RET L00)
-            store_byte(offset + 3, 0xab);
-            store_byte(offset + 4, 0x01);
+            // Guard the miss case: -1 as a uint32_t offset would clobber the header.
+            if (offset != -1) {
+                store_byte(offset + 3, 0xab);
+                store_byte(offset + 4, 0x01);
+            }
 
             find_routines_in_pattern({ 0xda, 0x2f, WILDCARD, WILDCARD, 0x02, 0x2d }, { &jr.MASSAGE_ELVISH }, offset + 1, 300);
 
@@ -2272,11 +2275,16 @@ static void find_journey_globals(void) {
 
             offset = find_globals_in_pattern({ 0x08, 0x2d, WILDCARD, 0x01, }, { &jg.TAG_NAME_LENGTH }, offset, 200);
 
-            // Change hyphens to underscores in CHANGE-NAME
+            // Change hyphens to underscores in CHANGE-NAME. Guard each
+            // patch: on a miss find_pattern_in_mem returns -1, which as a
+            // uint32_t offset would make store_byte write into the header.
             offset = find_pattern_in_mem({ 0xe5, 0x7f, 0x2d }, offset, 300);
-            store_byte(offset + 2, 0x5f);
-            offset = find_pattern_in_mem({ 0xe5, 0x7f, 0x2d }, offset + 3, 300);
-            store_byte(offset + 2, 0x5f);
+            if (offset != -1) {
+                store_byte(offset + 2, 0x5f);
+                offset = find_pattern_in_mem({ 0xe5, 0x7f, 0x2d }, offset + 3, 300);
+                if (offset != -1)
+                    store_byte(offset + 2, 0x5f);
+            }
 
             find_globals_in_pattern({ 0xff, 0x7f, 0x01, 0xc5, 0x2d, 0x01, WILDCARD }, { &jg.HERE }, jr.REMOVE_TRAVEL_COMMAND, 200);
 
@@ -2511,7 +2519,8 @@ static void find_shogun_globals(void) {
 
                     start = find_16_bit_values_in_pattern({ 0xca, 0x1f, WILDCARD, WILDCARD, 0x13, 0x5c }, { &so.GALLEY_WHEEL }, start, 200);
 
-                    so.GALLEY = memory[start - 4];
+                    if (start != -1)
+                        so.GALLEY = memory[start - 4];
 //                    fprintf(stderr, "so.BRIDGE_OF_ERASMUS = 0x%x so.GALLEY = 0x%x so.WHEEL == 0x%x so.GALLEY_WHEEL = 0x%x\n", so.BRIDGE_OF_ERASMUS, so.GALLEY, so.WHEEL, so.GALLEY_WHEEL);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x01, 0x46, 0x61 }, start, 200);
@@ -2803,7 +2812,9 @@ static void find_zork0_globals(void) {
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == MAP_X && entrypoint.found_at_address != 0) {
             zr.MAP_X = entrypoint.found_at_address;
-            zr.MAP_Y = find_pattern_in_mem({0x43, 0x01, 0x00}, zr.MAP_X + 0x1a, 300) - 1;
+            int32_t map_y = find_pattern_in_mem({0x43, 0x01, 0x00}, zr.MAP_X + 0x1a, 300);
+            if (map_y != -1) // otherwise MAP_Y would become a garbage routine address
+                zr.MAP_Y = map_y - 1;
             fprintf(stderr, "zr.MAP_X at address 0x%x zr.MAP_Y at address 0x%x\n", zr.MAP_X, zr.MAP_Y);
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == PLAY_SELECTED && entrypoint.found_at_address != 0) {
@@ -2888,7 +2899,8 @@ static void find_zork0_globals(void) {
                 zo.PYRAMID_L = memory[start - 5];
                 start = find_16_bit_values_in_pattern({0xc6, 0x0f, one_high, one_lo, WILDCARD, WILDCARD },
                                                       { &zo.CENTER_PEG }, start, 50);
-                zo.PYRAMID_R = memory[start - 5];
+                if (start != -1)
+                    zo.PYRAMID_R = memory[start - 5];
                 fprintf(stderr, "zo.LEFT_PEG = 0x%x zo.CENTER_PEG = 0x%x zo.RIGHT_PEG = 0x%x\n", zo.LEFT_PEG, zo.CENTER_PEG, zo.RIGHT_PEG);
             }
 

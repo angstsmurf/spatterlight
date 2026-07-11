@@ -335,8 +335,11 @@ static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool s
     for (int i = 0; i < length; i++) {
         uint16_t c = user_byte(chr++);
         glk_put_char_stream(stream, c);
-        str[i] = c;
+        if (i < (int)sizeof(str) - 1) // don't overflow the VoiceOver buffer
+            str[i] = c;
     }
+    if (length > (int)sizeof(str) - 1)
+        length = sizeof(str) - 1;
     if (reverse)
         garglk_set_reversevideo_stream(stream, 0);
 

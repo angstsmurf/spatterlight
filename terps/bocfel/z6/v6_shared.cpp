@@ -148,8 +148,13 @@ int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
     string_buf_pos = 0;
     string_maxlen = maxlen;
     print_handler(unpack_string(addr), print_to_string_buffer);
-    str[length] = 0;
-    return length;
+    // Terminate at the number of characters actually written (the callback
+    // caps writes at maxlen), never at the untruncated decoded length --
+    // otherwise a string >= maxlen writes the NUL past the caller's buffer.
+    if (string_buf_pos >= maxlen)
+        string_buf_pos = maxlen - 1;
+    str[string_buf_pos] = 0;
+    return string_buf_pos;
 }
 
 // Convenience wrapper: decodes a Z-string with the default buffer size.
@@ -187,8 +192,7 @@ void v6_close_and_reopen_front_graphics_window(void) {
 // transcript stream (if active).
 void transcribe_and_print_string(const char *str) {
     glk_put_string(const_cast<char*>(str));
-    int i = 0;
-    while (i++ != 0) {
+    for (int i = 0; str[i] != 0; i++) {
         transcribe(str[i]);
     }
 }
@@ -331,16 +335,21 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
         }
         int string_length = user_byte(fdef);
 
-        // For VoiceOver
-        str[len++] = ':';
-        str[len++] = ' ';
+        // For VoiceOver. Guard every write against the fixed str[60] buffer:
+        // the key name, and string_length (a game-supplied byte, 0..255),
+        // can together exceed the buffer.
+        if (len < (int)sizeof(str) - 1)
+            str[len++] = ':';
+        if (len < (int)sizeof(str) - 1)
+            str[len++] = ' ';
 
         for (int i = 0; i < string_length; i++) {
             uint8_t c = user_byte(fdef + 2 + i);
             if (c == ZSCII_NEWLINE)
                 c = '|';
             glk_put_char(c);
-            str[len++] = c; // For VoiceOver
+            if (len < (int)sizeof(str) - 1)
+                str[len++] = c; // For VoiceOver
         }
 
         // For VoiceOver
@@ -405,7 +414,7 @@ void adjust_definitions_window(void) {
     int16_t linmax = user_word(fkeys_table_addr) / 2;
     int y_size = (linmax + 1) * gcellh + 2 * ggridmarginy;
     if (y_size > gscreenh)
-        x_size = gscreenh;
+        y_size = gscreenh;
     int top = (gscreenh - y_size) / 2;
 
 

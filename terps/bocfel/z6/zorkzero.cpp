@@ -149,6 +149,7 @@ static bool is_zorkzero_peggleboz_box_image(int pic) {
 void z0_hide_right_status(void) {
     if (z0_right_status_window == nullptr) {
         fprintf(stderr, "Error!\n");
+        return; // nothing to hide, and dereferencing below would crash
     }
     glk_window_clear(z0_right_status_window);
     win_sizewin(z0_right_status_window->peer, 0, 0, 0, 0);
@@ -874,6 +875,11 @@ void z0_update_colors(void) {
     // IBM: EGA & VGA: black text on white. CGA: white text on black (on a real CGA monitor, "white" may be green or orange)
     // Macintosh: Black text on white
     // Apple 2: White text on black
+
+    // Count invocations so the first-call default-colour reset below fires
+    // exactly once. (This increment used to be a side effect of a debug
+    // fprintf that was removed; the == 1 branch is dead without it.)
+    number_of_update_color_calls++;
 
     uint16_t default_fg = get_global(zg.DEFAULT_FG);
     uint16_t default_bg = get_global(zg.DEFAULT_BG);
@@ -1877,7 +1883,7 @@ void SETUP_SN(void) {
 // Z-machine entry point: redraws the numbered selection boxes for the
 // pile specified in local variable 1.
 void DRAW_SN_BOXES(void) {
-    last_pile = last_pile;
+    last_pile = variable(1);
     snarfem_draw_numbered_boxes(variable(1));
 }
 
