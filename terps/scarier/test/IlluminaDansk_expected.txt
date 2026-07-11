@@ -1,0 +1,82 @@
+Untitled
+
+OK, Så langt, så godt!
+Du orker ikke at tænke på alle de timer du har tilbragt her i borgen, med at undgå vagter, overvinde diverse fælder og alle mulige andre besværligheder. Men nu er du her i fangekælderen, godt nok med en flok vagter i hælene, så din tid er kostbar. Det er her den smukke prinsesse Illumina holdes fanget.
+
+Du tager dig tid til, kortvarigt, at fundere over hvordan du har fået dig rodet ind i dette eventyr. Hvordan er det lykkedes byens folk at overtale dig til, gratis endda, at forsøge at befri den smukke prinsesse, om hvem det siges at blot synet af hende vil give folket mod til at bekæmpe borgherren. Hun er således deres eneste håb om at befri byen fra borgherrens grådige enevælde.
+
+Ikke desto mindre befinder du dig altså nu i fangekælderen, og enden på din mission er nær. Luften her er tung og ætsende, og gør det svært at trække vejret uden at det gør ondt i brystet. Prinsesse Illumina befinder sig bag celledøren. Tæt, så tæt at du næsten kan smage sejrens sødme.
+
+Fangekælderen
+Fangekælderen
+
+Hele atmosfæren her i fangekælderen giver dig en følelse af afmagt og håbløshed.
+
+Fugt og grøn slim driver langsomt ned af de kolde grå stenvægge, hen over gulvet og ender i en ildelugtende strøm der løber tværs gennem kælderen, og forsvinder ud gennem et lille hul i den anden side.
+
+Der er et par udgange herfra. Mod nord er der en kraftig jerndør med et lille vindue med tremmer for. En snæver trappe fører op mod hallen hvor du er kommet fra. Ovre ved den ene væg, næsten skjult i det dunkle mørke ligger resterne af en lerpotte.
+
+> u dør
+Døren er solidt monteret i væggen med kraftige hængsler. Den har ikke noget håndtag, og kun et lille vindue, med jerntremmer, højt oppe. En solid hængelås holder den forsvarligt låst.
+
+> u hængelås
+Det er noget af en basse. Den er lavet af jern, og selvom den er groft lavet er den utrolig stærk.  Hængelåsen er i øjeblikket lukket.
+
+> u strøm
+Væsken kommer fra et hul i væggen og snor sig mellem mellemrummene i stengulvet inden den forsvinder ud gennem et andet hul i den anden side af kælderen. Resterne af en kniv ligger ved siden af den, sammen med nogle halvt opløste knogler fra et eller andet dyr. Bækken afgiver en skarp syreagtig lugt der får dine øjne til at svide, og gør det svært for dig at trække vejret.
+
+> u kniv
+Selvom knivskaftet ser nyt ud, er bladet ikke andet end en rusten stump. Det meste af metallet er ætset væk, og gør kniven fuldstændig ubrugelig.
+
+> tag lerpotten
+Du samler lerpotten op fra gulvet.
+
+> u lerpotten
+Der er ikke så meget tilbage af den. Bunden er hel, og der er cirka fem - ti centimeter af siderne tilbage.
+
+> fyld lerpotten fra strømmen
+Du holder lerpotten mellem to fingre og dypper den forsigtigt i den lille bæk, indtil der er nok væske i den.
+
+> hæld væsken på hængelåsen
+Forsigtigt hælder du indholdet af lerpotten ud over hængelåsen. Først sker der ikke noget, men så begynder det at syde og boble, da syren begynder at æde sig ned gennem metallet. Et øjeblik senere er hængelåsen forvandlet til gammelt jern, og et kraftigt spark af din støvle får døren til at springe op. Prinsesse Illumina kommer løbende ud fra cellens mørke og ud i kælderen. Hun kaster sig i dine arme og takker dig for at have reddet hende.
+
+Støjen fra da du sparkede døren ind har alarmeret vagterne. Du hører lyden af tunge sømbeslåede støvler nærme sig hurtigt. Prinsesse Illumina ser sig nervøst omkring. "Hurtigt!" hvisker hun angst. "Vi må skynde os væk herfra, før vagterne kommer. Jeg tør slet ikke tænke på hvad de vil gøre ved dig, hvis de fanger dig."
+
+> op
+Med Illumina lige i hælene, går du op ad trappen.
+
+Den store sal
+Den store sal
+
+Du står for enden af en snæver stentrappe der fører ned til fangekælderen. I den modsatte ende af den store sal fører en bred stentrappe opad. Foran dig er der to døre. Over døren i den sydlige væg, hænger et skilt. Døren i den østlige væg, har ingen specielle kendetegn. Du ved med dig selv, at uanset hvilken dør du vælger er du nødt til at gå gennem den og stå ansigt til ansigt med hvad der end gemmer sig bag den, når du først har åbnet den.
+
+> læs skiltet
+VAGTSTUE
+Lyden af vagternes sømbeslåede støvler er kommet nærmere. Nu kan du også høre lyden af deres stemmer.
+
+> åbn sydlig dør
+
+Vagtstuen
+Vagtstuen
+
+Stående i totalt mørke, tager det ikke langt tid for dig at forstå at du har problemer, seriøse problemer.
+Et eller andet sted i mørket kan du høre nogen bevæge sig. Lyden af tunge støvler kommer nærmere og nærmere og det er kun et spørgsmål om tid før vagterne fanger dig.
+
+I det totale mørke er det eneste du hører din egen vejrtrækning, og lyden af vagterne der kommer nærmere.
+
+> sig Illumina
+Ikke så snart har du sagt hendes navn, før hendes gyldne hår begynder at skinne. I løbet af kort tid er hun omsluttet af et, næsten, blændende gyldent skær der lyser hele rummet op. Vagterne, der stadig bærer de lysforstærkende briller, skriger i smerte da Illuminas lys forstærkes tusinde gange og blænder dem totalt. De river desperat i brillerne for at få dem af. Nu har du chancen, din eneste chance.
+
+> åbn sydlig dør
+Du griber fat i Illuminas hånd, og trækker hende med over det store bord, over mod døren. Du sparker brutalt et par stole og en uheldig vagt, der står i vejen, til side, og når endelig døren. Med et raskt tag flår du døren op, og skubber Illumina ud gennem den inden du selv følger efter.
+
+Borggården
+Ved synet af den smukke prinsesse Illumina, bryder folket ud i vild jubel, og får fornyet mod til at kæmpe. De samles om hende og råber hendes navn i samlet kor.
+
+Ved lyden af hendes navn fra så mange stemmer, stråler et blændende hvidt lys fra hende og indhylder hele borgen. Vindebroen falder med et tordene brag, og borgens vægge begynder langsomt at smuldre. Kampen er hurtigt overstået. De få vagter der ikke er flygtet overgiver sig og sammen med borgherren bliver de ført frem foran prinsessen.
+
+Endnu en sejr for dig, og en historie du kan fortælle ved lejrbålet om aftenen. For ikke at forglemme taknemmeligheden fra den smukke prinsesse Illumina.
+
+*** Du har vundet ***
+Vil du genstarte, indlæse et gemt spil, afslutte eller fortryde den sidste kommando?
+

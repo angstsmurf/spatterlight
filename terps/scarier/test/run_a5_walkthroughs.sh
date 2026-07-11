@@ -734,6 +734,14 @@ FILTER="${1:-}"
 # Golden = Scarier's winning transcript (vanilla 0); the xoshiro column
 # carries the FD differential (5, RNG-independent) as the documented FD gap.
 #
+# (2026-07-11) IlluminaDansk WIRED as a FULL WIN: a full Danish translation of
+# Illumina (Finn Rosenløv), from the Danish solution by "Denk" (based on the
+# author's English solution, with permission).  13 commands, VERBATIM.  Unlike
+# the English build this is a clean MATCH 0|0 in BOTH columns -- the Danish
+# door answers to "sydlig dor" natively before AND after `laes skiltet`, so
+# `aabn sydlig dor` opens the guard-room door and FD resolves it fine (no
+# "Open what?" gap).  Wins to *** Du har vundet ***.
+#
 # (2026-07-04) RtC (Return to Camelot, Finn Rosenløv, IF Comp 2011) rewired
 # from a stuck non-win to a FULL WIN.  The author's .doc walkthrough needed
 # only trivial command fixes (courtyard<->kitchen stairs "d"/"up" -> the real
@@ -1117,6 +1125,7 @@ SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|0|0
 Illumina|Illumina.blorb|0|0
+IlluminaDansk|IlluminaDansk.blorb|0|0
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0

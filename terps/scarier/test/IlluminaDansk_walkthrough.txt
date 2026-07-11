@@ -1,0 +1,22 @@
+# IlluminaDansk -- Danish translation of Illumina (Finn Rosenløv).
+# Full win, from the Danish solution by "Denk" (based on the author's English
+# CASA solution, with permission; user-supplied illumina_danish_sol.txt),
+# VERBATIM.  Unlike the English build, the Danish door answers to "sydlig
+# doer" both before and after `laes skiltet`, so the guard-room door is opened
+# with the same "aabn sydlig doer" the second door uses.  Pour the stream acid
+# on the padlock to free Illumina, climb up, read the sign, open the southern
+# (guard-room) door into the dark, say her name to blind the goggled guards,
+# then open the southern door again to escape to the courtyard.
+u dør
+u hængelås
+u strøm
+u kniv
+tag lerpotten
+u lerpotten
+fyld lerpotten fra strømmen
+hæld væsken på hængelåsen
+op
+læs skiltet
+åbn sydlig dør
+sig Illumina
+åbn sydlig dør
