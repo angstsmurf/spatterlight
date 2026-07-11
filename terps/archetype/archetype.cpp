@@ -200,6 +200,18 @@ bool Archetype::initialize() {
 }
 
 void Archetype::deinitialize() {
+    // Release an active transcript (player typed `transcript` then `quit`)
+    // before tearing down the window, rather than leaving the stream and
+    // fileref to library-wide glk_exit cleanup. Done directly instead of via
+    // toggleTranscript(false) to avoid a spurious "Transcript stopped." write
+    // into a window that is about to close.
+    if (_transcriptStream) {
+        glk_window_set_echo_stream(_mainWindow, nullptr);
+        glk_stream_close(_transcriptStream, nullptr);
+        glk_fileref_destroy(_transcriptRef);
+        _transcriptStream = nullptr;
+        _transcriptRef = nullptr;
+    }
     if (_mainWindow)
         glk_window_close(_mainWindow, nullptr);
 }
@@ -968,11 +980,22 @@ void Archetype::eval_expr(ExprTree the_expr, ResultType &result, ContextType &co
             eval_expr(the_expr->_data._oper.right, r2, context, RVALUE);
             if (convert_to(STR_PTR, r1) && convert_to(NUMERIC, r2)) {
                 result._kind = STR_PTR;
+                // left()/right() take a size_t, so clamp the (signed) operand to
+                // [0, len] first: a negative or oversized index must yield the
+                // empty string, not wrap to a huge count that returns the whole
+                // string. LEFTFROM keeps the leftmost n chars; RIGHTFROM keeps
+                // from position n to the end == the rightmost (len - n + 1).
+                int len = (int)r1._data._str.acl_str->size();
+                int n = r2._data._numeric.acl_int;
+                int count = (the_expr->_data._oper.op_name == OP_LEFTFROM) ? n : (len - n + 1);
+                if (count < 0)
+                    count = 0;
+                else if (count > len)
+                    count = len;
                 if (the_expr->_data._oper.op_name == OP_LEFTFROM)
-                    result._data._str.acl_str = MakeNewDynStr(r1._data._str.acl_str->left(r2._data._numeric.acl_int));
+                    result._data._str.acl_str = MakeNewDynStr(r1._data._str.acl_str->left((size_t)count));
                 else
-                    result._data._str.acl_str = MakeNewDynStr(r1._data._str.acl_str->right(
-                        (int)r1._data._str.acl_str->size() - r2._data._numeric.acl_int + 1));
+                    result._data._str.acl_str = MakeNewDynStr(r1._data._str.acl_str->right((size_t)count));
             }
             break;
 

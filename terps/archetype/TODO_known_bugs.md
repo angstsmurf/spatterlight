@@ -18,20 +18,24 @@ call or dead code in this playback-only build.
       *Fix:* word-boundary match, or key off the known filename-prompt strings
       instead of a bare `contains()`. Needs care not to break the real
       save/load prompt interception — verify against a game that actually saves.
+      **Left open**: a naive word-boundary tweak would break real prompts whose
+      only match is a longer word ("Restore which *saved* game?"), so this still
+      needs the actual shipped prompt strings to key off — not a blind change.
 
-- [ ] **Transcript stream/fileref leaked at quit** — `deinitialize()`
-      (`archetype.cpp` ~L203). Only `glk_window_close(_mainWindow, …)` runs; an
-      active `_transcriptStream` / `_transcriptRef` (player typed `transcript`
-      then `quit`) is never closed/destroyed. Relies on library-wide `glk_exit`
-      teardown. *Fix:* `if (_transcriptStream) toggleTranscript(false);` before
-      closing the window.
+- [x] **Transcript stream/fileref leaked at quit** — `deinitialize()`
+      (`archetype.cpp`). FIXED 2026-07-11: `deinitialize()` now detaches the echo
+      stream, `glk_stream_close`s `_transcriptStream`, and
+      `glk_fileref_destroy`s `_transcriptRef` before `glk_window_close`. Done
+      inline rather than via `toggleTranscript(false)` to avoid a spurious
+      "Transcript stopped." write into a closing window. `regress-meta` still
+      passes (transcript on/off path).
 
-- [ ] **`LEFTFROM` / `RIGHTFROM` with out-of-range index returns the whole
-      string instead of empty** — `archetype.cpp:972,974-975`. A possibly
-      negative `int` is passed into `String::left(size_t)` / `right(size_t)`
-      (`archetype_string.cpp:132-139`); it converts to a huge `size_t` and
-      `MIN(count,len)` clamps to `len`. Edge case; unlikely in shipped games.
-      *Fix:* clamp the operand to `[0, size()]` before the cast.
+- [x] **`LEFTFROM` / `RIGHTFROM` with out-of-range index returns the whole
+      string instead of empty** — `archetype.cpp` `OP_LEFTFROM`/`OP_RIGHTFROM`.
+      FIXED 2026-07-11: the signed operand is clamped to `[0, len]` (as
+      `count`, with RIGHTFROM's `len - n + 1` computed first) before the
+      `size_t` cast, so a negative or oversized index now yields `""` instead of
+      wrapping to a huge count that `MIN(count,len)` clamped back to `len`.
 
 ## Dead code — compiler front-end (ACH→ACX), not reached when playing .ACX
 
