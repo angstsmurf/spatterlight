@@ -86,7 +86,12 @@ a5_decode_entities (char *s, char *e)
             cp = strtol (p + 3, NULL, 16);
           else
             cp = strtol (p + 2, NULL, 10);
-          /* Encode the code point as UTF-8 (output <= input length here). */
+          /* An out-of-range or malformed reference (negative, overflowed, or
+             above U+10FFFF) becomes U+FFFD rather than a stray byte. */
+          if (cp <= 0 || cp > 0x10ffff)
+            cp = 0xfffd;
+          /* Encode the code point as UTF-8 (output <= input length here: the
+             shortest form of a 4-byte reference, "&#65536;", is 8 chars). */
           if (cp < 0x80)
             *out++ = (char) cp;
           else if (cp < 0x800)
@@ -94,9 +99,16 @@ a5_decode_entities (char *s, char *e)
               *out++ = (char) (0xc0 | (cp >> 6));
               *out++ = (char) (0x80 | (cp & 0x3f));
             }
-          else
+          else if (cp < 0x10000)
             {
               *out++ = (char) (0xe0 | (cp >> 12));
+              *out++ = (char) (0x80 | ((cp >> 6) & 0x3f));
+              *out++ = (char) (0x80 | (cp & 0x3f));
+            }
+          else
+            {
+              *out++ = (char) (0xf0 | (cp >> 18));
+              *out++ = (char) (0x80 | ((cp >> 12) & 0x3f));
               *out++ = (char) (0x80 | ((cp >> 6) & 0x3f));
               *out++ = (char) (0x80 | (cp & 0x3f));
             }

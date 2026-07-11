@@ -4439,22 +4439,27 @@ gsc_a5_init_resources (void)
 /*
  * gsc_a5_draw_image()
  *
- * Draw Blorb Pict resource `number` centred on its own line in the story window.
+ * Draw Blorb Pict resource `number` centred on its own line in window `win`.
+ * Writes straight to `win`'s stream (not the current window), so an image
+ * inside a <window> span and its surrounding blank lines both land in the
+ * same window regardless of which window is currently selected for output.
  * Returns TRUE if an image was actually drawn.
  */
 static int
-gsc_a5_draw_image (glui32 number)
+gsc_a5_draw_image (winid_t win, glui32 number)
 {
   glui32 width = 0, height = 0;
+  strid_t str;
 
-  if (!gsc_a5_graphics_ok || number == 0)
+  if (!gsc_a5_graphics_ok || number == 0 || win == NULL)
     return FALSE;
   if (!glk_image_get_info (number, &width, &height))
     return FALSE;
-  glk_window_flow_break (gsc_main_window);
-  gsc_a5_put_string ("\n");
-  glk_image_draw (gsc_main_window, number, imagealign_InlineCenter, 0);
-  gsc_a5_put_string ("\n");
+  str = glk_window_get_stream (win);
+  glk_window_flow_break (win);
+  glk_put_char_stream (str, '\n');
+  glk_image_draw (win, number, imagealign_InlineCenter, 0);
+  glk_put_char_stream (str, '\n');
   return TRUE;
 }
 
@@ -4582,6 +4587,9 @@ gsc_a5_display (const char *text)
             gsc_a5_status (gsc_a5_run);
           glk_request_char_event (gsc_main_window);
           gsc_event_wait (evtype_CharInput, &event);
+          /* gsc_a5_status leaves the main window selected; restore the span's
+             routing window so text after the pause stays in it. */
+          glk_set_window (cur_window);
         }
       else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
                || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK)
@@ -4606,7 +4614,7 @@ gsc_a5_display (const char *text)
           const char *e = strchr (p + 1, A5_IMG_MARK);
           if (e != NULL)
             {
-              gsc_a5_draw_image ((glui32) atol (p + 1));
+              gsc_a5_draw_image (cur_window, (glui32) atol (p + 1));
               p = e;
             }
         }
@@ -4690,7 +4698,8 @@ gsc_a5_show_cover (void)
   if (chunk.length >= 4 && chunk.data.ptr != NULL)
     {
       p = (const unsigned char *) chunk.data.ptr;
-      gsc_a5_draw_image (((glui32) p[0] << 24) | ((glui32) p[1] << 16)
+      gsc_a5_draw_image (gsc_main_window,
+                         ((glui32) p[0] << 24) | ((glui32) p[1] << 16)
                          | ((glui32) p[2] << 8) | (glui32) p[3]);
     }
   giblorb_unload_chunk (map, chunk.chunknum);
@@ -4982,7 +4991,13 @@ gsc_a5_main (void)
         }
     }
 
-  a5run_free (run);
+  /* Clear the run alias before freeing: `run` references gsc_a5_run, which a
+     resize/redraw dispatched during teardown would otherwise dereference. */
+  {
+    a5_run_t *dead = run;
+    run = NULL;
+    a5run_free (dead);
+  }
   glk_exit ();
 }
 
