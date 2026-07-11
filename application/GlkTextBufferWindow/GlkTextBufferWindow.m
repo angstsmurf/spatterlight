@@ -352,6 +352,17 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         [self reallyClear];
         [textstorage setAttributedString:bufferTextstorage];
         backgroundLayoutGeneration++;
+        // A window clear starts a fresh page, so the viewport belongs at the
+        // top. AppKit only auto-clamps the scroll origin back to the top when
+        // the new content is shorter than the viewport; without this reset an
+        // equally-tall (or taller) post-clear page — e.g. an ADRIFT title
+        // screen's multi-screen "Playing Instructions" — inherits the previous
+        // page's bottom scroll origin and opens scrolled to its end. (The
+        // _lastseen == 0 early-return in reallyPerformScroll leaves the origin
+        // untouched, so it can't correct this on its own.) Skipped during
+        // autorestore, where restoreScroll re-applies the saved position.
+        if (!_pendingScrollRestore)
+            [self scrollToTop];
     } else if (bufferTextstorage.length) {
         // Coalesce a deferred echo-off delete with the new append into a single
         // text storage edit pass so the input replacement is one paint, not two.
