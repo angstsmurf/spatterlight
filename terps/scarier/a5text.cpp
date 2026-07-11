@@ -893,6 +893,575 @@ oo_firstkey (a5_state_t *st, const char *name)
 }
 
 
+/* ---- eval_function per-builtin handlers (extracted from eval_function) ---- */
+
+static char *
+fn_player (a5_state_t *st, const char * /*name*/, const char * /*args*/)
+{
+  const a5_character_t *p = a5model_character (st->adv, a5state_player_key (st));
+  return character_name (st, p, A5_PRO_SUBJ);
+  return NULL;
+}
+
+static char *
+fn_popupinput (a5_state_t * /*st*/, const char * /*name*/, const char *args)
+{
+  /* clsFunction PopUpInput[prompt, default] -> VB InputBox (Global.vb:2296).
+     the runner splits sArgs on the single comma, evaluates arg[1] as the default,
+     and returns InputBox(prompt, default) wrapped in quotes.  Headless we
+     defer to an installed input callback (the host feeds the next script
+     line); with none, we evaluate to the default -- matching the Adrift 5 runner's
+     InputBox returning its default when unattended.  args are already
+     function-expanded; each part may carry surrounding "double quotes". */
+  std::string a = args ? args : "";
+  std::string prompt = a, dflt;
+  size_t comma = a.find (',');
+  if (comma != std::string::npos)
+    { prompt = a.substr (0, comma); dflt = a.substr (comma + 1); }
+  auto unquote = [](std::string &s){
+    size_t b = s.find_first_not_of (" \t");
+    size_t e = s.find_last_not_of (" \t");
+    s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
+    if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
+      s = s.substr (1, s.size () - 2); };
+  unquote (prompt); unquote (dflt);
+  if (a5_popup != NULL)
+    {
+      char *ans = a5_popup (a5_popup_ctx, prompt.c_str (), dflt.c_str ());
+      if (ans != NULL) return ans;
+    }
+  return strdup (dflt.c_str ());
+  return NULL;
+}
+
+static char *
+fn_charactername (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* args may be "<key>" or "<key>, <pronoun>"; default key = Player. */
+  std::string a = args ? args : "";
+  std::string key = a, pron;
+  size_t comma = a.find (',');
+  if (comma != std::string::npos)
+    { key = a.substr (0, comma); pron = a.substr (comma + 1); }
+  /* trim */
+  auto trim = [](std::string &s){
+    size_t b = s.find_first_not_of (" \t");
+    size_t e = s.find_last_not_of (" \t");
+    s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1); };
+  trim (key); trim (pron);
+  /* A bare %CharacterName% (no key) resolves to the character whose text is
+     being rendered (CharHereDesc / topic reply), else the Player -- v5
+     rewrites char-scoped %CharacterName% to %CharacterName[Key]% at load. */
+  if (key.empty ()) key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
+  const a5_character_t *ch = a5model_character (st->adv, key.c_str ());
+  a5_pronoun_t pr = A5_PRO_SUBJ;
+  int pron_none = 0;
+  std::string pl = pron;
+  for (char &c : pl) c = (char) tolower ((unsigned char) c);
+  if (pl.find ("object") != std::string::npos || pl.find ("target") != std::string::npos)
+    pr = A5_PRO_OBJ;
+  else if (pl.find ("possess") != std::string::npos) pr = A5_PRO_POSS;
+  else if (pl.find ("reflect") != std::string::npos) pr = A5_PRO_REFL;
+  else if (pl.find ("none") != std::string::npos)
+    /* PronounEnum.None: never pronoun-replace (clsCharacter.vb:358). */
+    pron_none = 1;
+  /* A resolved key records a PronounKeys entry (Global.vb:2108, gating on
+     htblCharacters.ContainsKey) -- the emit site in replace_functions
+     captures the pending (perspective, key, pronoun) with the name's
+     output offset. */
+  if (ch != NULL)
+    {
+      st->pron_pending = char_perspective (st, ch);
+      st->pron_pending_key = ch->key;
+      st->pron_pending_pron = pron_none ? -1 : (int) pr;
+      /* The runner's "slight fudge" (Global.vb:2102-2107): a resolved %CharacterName%
+         whose two immediately-preceding chars are "  " or CRLF is PCase'd at
+         the emit site (the name starts a sentence -- e.g. the ExamineCharacter
+         message "%DisplayCharacter%  %CharacterName% ... carrying ..." where
+         the second-person name "you" must render "You"). */
+      st->name_cap_eligible = 1;
+    }
+  else
+    ch = a5model_character (st->adv, a5state_player_key (st));
+  return character_name (st, ch, pr, /*consult_ledger=*/!pron_none);
+  return NULL;
+}
+
+static char *
+fn_turns (a5_state_t *st, const char * /*name*/, const char * /*args*/)
+{
+  /* Global.vb:1763 substitutes %turns% with Adventure.Turns.ToString via
+     ReplaceIgnoreCase, so %Turns%/%TURNS% resolve the same (ci_eq folds
+     case).  The runner's Runner bumps Adventure.Turns *after* Process() returns, so
+     the value visible inside a command's own task output is the pre-command
+     count.  Scarier bumps st->turns at the top of a5run_input (a5run.cpp),
+     so the matching value is st->turns - 1 (the same offset emit_endgame's
+     score line uses); clamp to 0 for text rendered before any turn. */
+  char buf[32];
+  snprintf (buf, sizeof buf, "%d", st->turns > 0 ? st->turns - 1 : 0);
+  return strdup (buf);
+  return NULL;
+}
+
+static char *
+fn_alonewithchar (a5_state_t *st, const char * /*name*/, const char * /*args*/)
+{
+  /* The single other character in the player's location, else NoCharacter
+     (clsCharacter.AloneWithChar / Global.vb:1768).  Resolved-location
+     compare, so a character seated on furniture counts (Lost Children's
+     Anne in her rocking chair). */
+  const char *ploc = a5state_player_location (st);
+  const char *found = NULL;
+  int count = 0, i;
+  for (i = 0; ploc != NULL && i < st->adv->n_characters; i++)
+    {
+      const char *oloc;
+      if (ci_eq (st->adv->characters[i].key, a5state_player_key (st)))
+        continue;
+      oloc = a5state_character_location_key (st, i);
+      if (oloc != NULL && streq (oloc, ploc))
+        { count++; found = st->adv->characters[i].key; }
+    }
+  return strdup ((count == 1) ? found : "NoCharacter");
+  return NULL;
+}
+
+static char *
+fn_locationname (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  const char *key = (args && args[0]) ? args : a5state_player_location (st);
+  if (key != NULL && a5model_location (st->adv, key) != NULL)
+    return a5text_location_short (st, key);
+  return strdup ("");
+  return NULL;
+}
+
+static char *
+fn_locationof (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  int i;
+  /* Global.vb:2237: the location KEY of a character (its LocationKey), or an
+     object's location root(s) joined by '|'.  Used by Jacaranda's champagne
+     teleport: %DisplayLocation[%LocationOf[%Player%]%]%. */
+  const char *key = args ? args : "";
+  int ci = a5state_character_index (st, key);
+  if (ci >= 0)
+    return strdup (st->char_loc[ci] ? st->char_loc[ci] : "");
+  {
+    int oi = a5state_object_index (st, key);
+    if (oi >= 0)
+      {
+        sb_t sb; sb_init (&sb);
+        for (i = 0; i < st->adv->n_locations; i++)
+          if (a5state_object_at_location (st, oi, st->adv->locations[i].key, 1))
+            { if (sb.len) sb_putc (&sb, '|');
+              sb_puts (&sb, st->adv->locations[i].key); }
+        return sb_finish (&sb);
+      }
+  }
+  return strdup ("");
+  return NULL;
+}
+
+static char *
+fn_displaylocation (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* Global.vb:2130: render the given location's ViewLocation (or "There is
+     nothing of interest here." when empty). */
+  const a5_location_t *l = (args && args[0]) ? a5model_location (st->adv, args) : NULL;
+  if (l != NULL)
+    {
+      char *s = view_location_impl (st, args);
+      if (s == NULL || s[0] == '\0')
+        { free (s); return strdup ("There is nothing of interest here."); }
+      /* The view is already fully adjudicated (its own ALR + cap ran on the
+         marked-up buffer, mirroring the runner's single Display pass), and it is
+         PLAIN -- its <br>s are now bare '\n's.  The enclosing fragment's
+         auto-capitalise must not treat those as line starts: in the runner the
+         substituted sView still carries its <br> tags, which sit between
+         the newline-to-be and the letter and block the cap regex (the
+         virtual human's lowercase "the virtual human is here." literal
+         must NOT re-cap into the "The virtual human is here." ALR-killed
+         form).  Leave the stripped-tag sentinel after each newline, exactly
+         like a5text_render_plain does for every other dropped tag. */
+      {
+        sb_t mb; sb_init (&mb);
+        for (const char *p = s; *p != '\0'; p++)
+          {
+            sb_putc (&mb, *p);
+            if (*p == '\n')
+              sb_putc (&mb, A5_ALR_MARK);
+          }
+        free (s);
+        s = sb_finish (&mb);
+      }
+      return s;
+    }
+  return strdup ("");
+  return NULL;
+}
+
+static char *
+fn_object_names (a5_state_t *st, const char *name, const char *args)
+{
+  /* The %TheObject[key]% / %ObjectName[key]% function form (args present);
+     bare %object%/%objects% (no args) fall through to the bound-reference
+     block below. args is a key, or a resolved object name. */
+  const a5_object_t *o = a5model_object (st->adv, args);
+  a5_article_t art = (ci_eq (name, "theobject") || ci_eq (name, "theobjects"))
+                       ? A5_ART_DEFINITE
+                   : (ci_eq (name, "aobject") || ci_eq (name, "aobjects")
+                      /* The runner: Case "ObjectName" -> htblObjects.List(,,
+                         ArticleTypeEnum.Indefinite) (Global.vb:2252) --
+                         "You unfold a wet face towel.", not "...wet face
+                         towel." (Head Case %ObjectName[%object%]%). */
+                      || ci_eq (name, "objectname"))
+                       ? A5_ART_INDEFINITE
+                       : A5_ART_NONE;
+  /* A piped multi-object arg (%TheObjects[%objects%]% with a "k1|k2|..."
+     binding from resolve_plural) renders as the runner's "the a, the b and the c"
+     article list -- ReplaceFunctions builds a temp ObjectHashTable from the
+     split keys and returns htblObjects.List (Global.vb:2056/2386). */
+  if (o == NULL && strchr (args, '|') != NULL)
+    {
+      std::vector<std::string> ks = arg_object_keys (st, args);
+      if (ks.size () > 1)
+        {
+          std::vector<const char *> kp;
+          for (auto &s : ks) kp.push_back (s.c_str ());
+          return list_objects_art (st, kp, art);
+        }
+    }
+  if (o == NULL && args != NULL && args[0] != '\0')
+    {
+      /* args may be a key or a display name; resolve_object_arg also
+         matches a "prefix + name" full name (e.g. "framed newspaper
+         article"), which a bare %object% inner render produces -- the
+         plain names[] search missed those and dropped the article. */
+      const char *k = resolve_object_arg (st, args);
+      if (k != NULL)
+        o = a5model_object (st->adv, k);
+    }
+  if (o != NULL)
+    return a5text_object_name (st, o, art);
+  /* No object resolved.  The Adrift 5 runner builds an ObjectHashTable from the key
+     arg and renders htblObjects.List, which returns "nothing" for an empty
+     set (Global.vb:804) -- so %TheObject[]% / %ObjectName[]% with an empty
+     (or whitespace-only) argument is "nothing", not a blank.  A non-empty but
+     unresolved arg is left as-is (it may be an already-rendered name). */
+  {
+    const char *a = args ? args : "";
+    while (*a == ' ' || *a == '\t') a++;
+    if (*a == '\0')
+      return strdup ("nothing");
+  }
+  return strdup (args ? args : "");
+  return NULL;
+}
+
+static char *
+fn_propertyvalue (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %PropertyValue[entity, propkey]% -> the entity's value for that property.
+     (Global.vb:2322 literally loops every object/character/location, but in
+     practice the call is always made for the single bound entity whose
+     property is in context -- the observed Runner output is just
+     that one entity's value, so resolve arg0 to a key and read it.)  A Text
+     property stores its value as a rich <Description> block (value_node), so
+     render that; otherwise return the scalar. */
+  std::string a = args;
+  size_t comma = a.find (',');
+  if (comma == std::string::npos)
+    return strdup ("");
+  std::string ent = a.substr (0, comma), prop = a.substr (comma + 1);
+  auto strip = [](std::string &s){
+    s.erase (std::remove (s.begin (), s.end (), ' '), s.end ()); };
+  strip (prop);
+  /* arg0 may be a key or a display name; map to a key. */
+  const char *ekey = resolve_object_arg (st, ent.c_str ());
+  /* A runtime SetProperty override wins over the static model value, just
+     as a5state_entity_prop layers it (e.g. Amazon's CarriersFl1 runs
+     `SetProperty Door1 LockKey Key3`, retargeting the lazy-unlock chain's
+     `%PropertyValue[Door1,LockKey]%` from the lost silver key to the iron
+     key).  The static value_node path below still serves text properties. */
+  if (ekey != NULL)
+    for (int oi = 0; oi < st->n_ov; oi++)
+      if (streq (st->ov[oi].entity, ekey)
+          && streq (st->ov[oi].prop, prop.c_str ()))
+        return strdup (st->ov[oi].value ? st->ov[oi].value : "");
+  const a5_prop_t *props = NULL; int n_props = 0;
+  const a5_object_t *o = ekey ? a5model_object (st->adv, ekey) : NULL;
+  if (o != NULL) { props = o->props; n_props = o->n_props; }
+  else {
+    const a5_character_t *c = ekey ? a5model_character (st->adv, ekey) : NULL;
+    if (c != NULL) { props = c->props; n_props = c->n_props; }
+    else {
+      const a5_location_t *l = ekey ? a5model_location (st->adv, ekey) : NULL;
+      if (l != NULL) { props = l->props; n_props = l->n_props; }
+    }
+  }
+  const a5_prop_t *pr = props ? a5_prop_find (props, n_props, prop.c_str ()) : NULL;
+  if (pr == NULL)
+    return strdup ("");
+  if (pr->value_node != NULL)
+    return a5text_eval_description (st, pr->value_node);
+  return strdup (pr->value ? pr->value : "");
+  return NULL;
+}
+
+static char *
+fn_parentof (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  int i;
+  /* args is a key or a display name; emit the parent's key. */
+  const a5_object_t *o = a5model_object (st->adv, args);
+  const char *k = NULL;
+  if (o == NULL)
+    for (i = 0; i < st->adv->n_objects; i++)
+      { const a5_object_t *cand = &st->adv->objects[i];
+        for (int j = 0; j < cand->n_names; j++)
+          {
+            if (ci_eq (cand->names[j], args)) { o = cand; break; }
+            /* also match "<prefix> <noun>" (the display form %objects% yields) */
+            if (cand->prefix && cand->prefix[0])
+              { std::string full = std::string (cand->prefix) + " " + cand->names[j];
+                if (ci_eq (full.c_str (), args)) { o = cand; break; } }
+          }
+        if (o != NULL) break; }
+  if (o != NULL)
+    { char *pp = a5expr_eval (st, o->key, ".Parent"); if (pp) return pp; k = ""; }
+  /* Characters too: %ParentOf[%Player%]% is the seat/container the
+     character is on/in (clsCharacter.Parent) -- the stock
+     MoveOffCurrentObject passes it to MoveOffObject (Magnetic Moon's
+     `stand up` from the nav-console chair). */
+  {
+    const a5_character_t *c = a5model_character (st->adv, args);
+    if (c == NULL)
+      for (i = 0; i < st->adv->n_characters; i++)
+        if (st->adv->characters[i].name != NULL
+            && ci_eq (st->adv->characters[i].name, args))
+          { c = &st->adv->characters[i]; break; }
+    if (c != NULL)
+      { char *pp = a5expr_eval (st, c->key, ".Parent"); if (pp) return pp; }
+  }
+  return strdup (k ? k : "");
+  return NULL;
+}
+
+static char *
+fn_list_objects_on_in (a5_state_t *st, const char *name, const char *args)
+{
+  /* Bare indefinite-article list of the children on / in the object,
+     mirroring Children(On|Inside).List(, , Indefinite). */
+  const char *k = resolve_object_arg (st, args);
+  a5_owhere_t want = ci_eq (name, "listobjectson") ? A5_OWHERE_ON_OBJECT
+                                                   : A5_OWHERE_IN_OBJECT;
+  std::vector<const char *> v;
+  if (k != NULL) v = objects_on_in (st, k, want);
+  if (v.empty ())
+    return strdup ("nothing");      /* ObjectHashTable.List of an empty set
+                                       (StronglyTypedCollections.vb:196) --
+                                       Magnetic Moon's "On the desk are
+                                       nothing." */
+  return list_objects (st, v);
+  return NULL;
+}
+
+static char *
+fn_list_objects_on_and_in (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* Global.vb:2213 ListObjectsOnAndIn: iterate the *argument's* object set
+     (e.g. %Player%.WornAndHeld for inventory), concatenating
+     DisplayObjectChildren (joined by pSpace's two spaces) for each that has
+     on/in children -- or, when the set is a single object, unconditionally
+     (so its "Nothing is on or inside ..." surfaces). */
+  std::vector<std::string> objs = arg_object_keys (st, args);
+  std::string out;
+  for (const std::string &ok : objs)
+    {
+      int has_on = !objects_on_in (st, ok.c_str (), A5_OWHERE_ON_OBJECT).empty ();
+      int has_in = !objects_on_in (st, ok.c_str (), A5_OWHERE_IN_OBJECT).empty ();
+      if (objs.size () != 1 && !has_on && !has_in)
+        continue;
+      std::string d = display_object_children (st, ok.c_str ());
+      if (d.empty ())
+        continue;
+      if (!out.empty ())
+        out += "  ";
+      out += d;
+    }
+  return strdup (out.c_str ());
+  return NULL;
+}
+
+static char *
+fn_list_characters (a5_state_t *st, const char *name, const char *args)
+{
+  const char *k = resolve_object_arg (st, args);
+  const a5_object_t *o = k ? a5model_object (st->adv, k) : NULL;
+  std::vector<const a5_character_t *> on, in;
+  if (k != NULL && !ci_eq (name, "listcharactersin")) on = chars_on_in (st, k, 1);
+  if (k != NULL && !ci_eq (name, "listcharacterson")) in = chars_on_in (st, k, 0);
+  /* DisplayCharacterChildren lists inside-characters only when the object
+     is `Not Openable OrElse IsOpen` (clsObject.vb:383) -- same gate as the
+     object children above. */
+  if (!in.empty () && o != NULL
+      && a5_prop_find (o->props, o->n_props, "Openable") != NULL)
+    {
+      const char *os = a5state_entity_prop (st, k, "OpenStatus");
+      if (os == NULL || !streq (os, "Open"))
+        in.clear ();
+    }
+  if (on.empty () && in.empty ())
+    return strdup ("");
+  /* DisplayCharacterChildren: "X is on/inside the <object>." */
+  std::string out;
+  char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (k ? k : "");
+  auto names = [&](std::vector<const a5_character_t *> &cs) {
+    std::string s; int n = (int) cs.size ();
+    for (int i = 0; i < n; i++)
+      { char *nm = a5text_character_subjective (st, cs[i]);
+        if (i > 0) s += (i == n - 1) ? " and " : ", ";
+        s += nm; free (nm); }
+    return s; };
+  if (!on.empty ())
+    { out += names (on); out += (on.size () == 1) ? " is on " : " are on ";
+      out += defn; }
+  if (!in.empty ())
+    { if (!on.empty ()) out += ", and " + names (in);
+      else out += names (in);
+      out += (in.size () == 1) ? " is " : " are ";
+      out += "inside "; out += defn; }
+  out += ".";
+  free (defn);
+  return strdup (out.c_str ());
+  return NULL;
+}
+
+static char *
+fn_list_held_worn (a5_state_t *st, const char *name, const char *args)
+{
+  const a5_character_t *c = a5model_character (st->adv, args);
+  std::vector<const char *> v;
+  if (c != NULL)
+    {
+      a5_owhere_t want = ci_eq (name, "listheld") ? A5_OWHERE_HELD_BY
+                                                  : A5_OWHERE_WORN_BY;
+      for (int i = 0; i < st->adv->n_objects; i++)
+        if (st->obj[i].where == want && streq (st->obj[i].key, c->key))
+          v.push_back (st->adv->objects[i].key);
+    }
+  if (v.empty ()) return strdup ("nothing");
+  /* %ListWorn% / %ListHeld% pass bIncludeSubObjects=True (Global.vb:2182/
+     2225): append each object's on/inside-contents listing. */
+  return list_objects_subobj (st, v);
+  return NULL;
+}
+
+static char *
+fn_display_char_obj (a5_state_t *st, const char *name, const char *args)
+{
+  /* Global.vb:2122/2138 DisplayCharacter/DisplayObject: the entity's
+     Description.ToString, with the canned "sees nothing interesting about"
+     fallback when empty.  a5expr's .Description already renders the node. */
+  const char *key = NULL;
+  int is_char = ci_eq (name, "displaycharacter");
+  if (is_char)
+    { const a5_character_t *c = a5model_character (st->adv, args);
+      key = c ? c->key : NULL; }
+  else
+    key = resolve_object_arg (st, args);
+  if (key != NULL)
+    {
+      char *d = a5expr_eval (st, key, ".Description");
+      if (d != NULL && d[0] != '\0')
+        return d;
+      free (d);
+      std::string fb = "%CharacterName% see[//s] nothing interesting about ";
+      if (is_char)
+        {
+          /* The runner's clsCharacter.Name upgrades Objective->Reflective when the
+             same character key was already rendered Subjective earlier this
+             turn (PronounKeys).  The leading bare %CharacterName% renders the
+             viewpoint character subjectively ("You"), so when the examined
+             character IS that viewpoint (examine yourself) the target form
+             becomes reflexive -- "yourself", not "you".  Emit the reflective
+             qualifier in exactly that case; every other target stays Objective
+             (Scarier has no turn-wide PronounKeys, but this is the only
+             subject==object collision the fallback can produce). */
+          const char *subj = st->ctx_char ? st->ctx_char
+                                          : a5state_player_key (st);
+          const char *qual = (subj != NULL && streq (subj, key))
+                               ? "reflective" : "target";
+          fb += "%CharacterName["; fb += key; fb += ", "; fb += qual;
+          fb += "]%.";
+        }
+      else
+        { const a5_object_t *o = a5model_object (st->adv, key);
+          char *dn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (key);
+          fb += dn; fb += "."; free (dn); }
+      char *proc = a5text_process (st, fb.c_str ());
+      char *plain = a5text_render_plain (proc);
+      free (proc);
+      return plain;
+    }
+  return NULL;
+}
+
+static char *
+fn_list_exits (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* clsCharacter.ListExits: the comma/"and"-joined, lower-cased list of
+     directions the character has a (restriction-checked) route in, or
+     "nowhere" when there are none.  Reuse a5expr's character .Exits path
+     (same DirectionsEnum order + HasRouteInDirection check). */
+  char *cnt = a5expr_eval (st, args, ".Exits.Count");
+  long n = cnt ? strtol (cnt, NULL, 10) : 0;
+  free (cnt);
+  if (n <= 0)
+    return strdup ("nowhere");
+  char *lst = a5expr_eval (st, args, ".Exits.List");
+  return lst ? lst : strdup ("nowhere");
+  return NULL;
+}
+
+static char *
+fn_list_objects_at_location (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  std::vector<const char *> v;
+  for (int i = 0; i < st->adv->n_objects; i++)
+    if (a5state_object_at_location (st, i, args, 1))
+      v.push_back (st->adv->objects[i].key);
+  return list_objects (st, v);
+  return NULL;
+}
+
+static char *
+fn_number_as_text (a5_state_t * /*st*/, const char * /*name*/, const char *args)
+{
+  static const char *ones[] = { "zero","one","two","three","four","five",
+    "six","seven","eight","nine","ten","eleven","twelve" };
+  long n = strtol (args, NULL, 10);
+  if (n >= 0 && n <= 12) return strdup (ones[n]);
+  return strdup (args);
+  return NULL;
+}
+
+static char *
+fn_case (a5_state_t * /*st*/, const char *name, const char *args)
+{
+  int i;
+  char *s = strdup (args ? args : "");
+  if (ci_eq (name, "ucase"))
+    for (i = 0; s[i]; i++) s[i] = toupper ((unsigned char) s[i]);
+  else if (ci_eq (name, "lcase"))
+    for (i = 0; s[i]; i++) s[i] = tolower ((unsigned char) s[i]);
+  else if (s[0])
+    s[0] = toupper ((unsigned char) s[0]);
+  return s;
+  return NULL;
+}
+
 /* Evaluate one %Name[args]% (args already function-expanded), or NULL. */
 static char *
 eval_function (a5_state_t *st, const char *name, const char *args)
@@ -962,519 +1531,55 @@ eval_function (a5_state_t *st, const char *name, const char *args)
   }
 
   if (ci_eq (name, "player"))
-    {
-      const a5_character_t *p = a5model_character (st->adv, a5state_player_key (st));
-      return character_name (st, p, A5_PRO_SUBJ);
-    }
+    return fn_player (st, name, args);
   if (ci_eq (name, "popupinput"))
-    {
-      /* clsFunction PopUpInput[prompt, default] -> VB InputBox (Global.vb:2296).
-         the runner splits sArgs on the single comma, evaluates arg[1] as the default,
-         and returns InputBox(prompt, default) wrapped in quotes.  Headless we
-         defer to an installed input callback (the host feeds the next script
-         line); with none, we evaluate to the default -- matching the Adrift 5 runner's
-         InputBox returning its default when unattended.  args are already
-         function-expanded; each part may carry surrounding "double quotes". */
-      std::string a = args ? args : "";
-      std::string prompt = a, dflt;
-      size_t comma = a.find (',');
-      if (comma != std::string::npos)
-        { prompt = a.substr (0, comma); dflt = a.substr (comma + 1); }
-      auto unquote = [](std::string &s){
-        size_t b = s.find_first_not_of (" \t");
-        size_t e = s.find_last_not_of (" \t");
-        s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
-        if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
-          s = s.substr (1, s.size () - 2); };
-      unquote (prompt); unquote (dflt);
-      if (a5_popup != NULL)
-        {
-          char *ans = a5_popup (a5_popup_ctx, prompt.c_str (), dflt.c_str ());
-          if (ans != NULL) return ans;
-        }
-      return strdup (dflt.c_str ());
-    }
+    return fn_popupinput (st, name, args);
   if (ci_eq (name, "charactername"))
-    {
-      /* args may be "<key>" or "<key>, <pronoun>"; default key = Player. */
-      std::string a = args ? args : "";
-      std::string key = a, pron;
-      size_t comma = a.find (',');
-      if (comma != std::string::npos)
-        { key = a.substr (0, comma); pron = a.substr (comma + 1); }
-      /* trim */
-      auto trim = [](std::string &s){
-        size_t b = s.find_first_not_of (" \t");
-        size_t e = s.find_last_not_of (" \t");
-        s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1); };
-      trim (key); trim (pron);
-      /* A bare %CharacterName% (no key) resolves to the character whose text is
-         being rendered (CharHereDesc / topic reply), else the Player -- v5
-         rewrites char-scoped %CharacterName% to %CharacterName[Key]% at load. */
-      if (key.empty ()) key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
-      const a5_character_t *ch = a5model_character (st->adv, key.c_str ());
-      a5_pronoun_t pr = A5_PRO_SUBJ;
-      int pron_none = 0;
-      std::string pl = pron;
-      for (char &c : pl) c = (char) tolower ((unsigned char) c);
-      if (pl.find ("object") != std::string::npos || pl.find ("target") != std::string::npos)
-        pr = A5_PRO_OBJ;
-      else if (pl.find ("possess") != std::string::npos) pr = A5_PRO_POSS;
-      else if (pl.find ("reflect") != std::string::npos) pr = A5_PRO_REFL;
-      else if (pl.find ("none") != std::string::npos)
-        /* PronounEnum.None: never pronoun-replace (clsCharacter.vb:358). */
-        pron_none = 1;
-      /* A resolved key records a PronounKeys entry (Global.vb:2108, gating on
-         htblCharacters.ContainsKey) -- the emit site in replace_functions
-         captures the pending (perspective, key, pronoun) with the name's
-         output offset. */
-      if (ch != NULL)
-        {
-          st->pron_pending = char_perspective (st, ch);
-          st->pron_pending_key = ch->key;
-          st->pron_pending_pron = pron_none ? -1 : (int) pr;
-          /* The runner's "slight fudge" (Global.vb:2102-2107): a resolved %CharacterName%
-             whose two immediately-preceding chars are "  " or CRLF is PCase'd at
-             the emit site (the name starts a sentence -- e.g. the ExamineCharacter
-             message "%DisplayCharacter%  %CharacterName% ... carrying ..." where
-             the second-person name "you" must render "You"). */
-          st->name_cap_eligible = 1;
-        }
-      else
-        ch = a5model_character (st->adv, a5state_player_key (st));
-      return character_name (st, ch, pr, /*consult_ledger=*/!pron_none);
-    }
+    return fn_charactername (st, name, args);
   if (ci_eq (name, "convcharacter"))
     /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
     return strdup (st->conv_char ? st->conv_char : "");
   if (ci_eq (name, "turns"))
-    {
-      /* Global.vb:1763 substitutes %turns% with Adventure.Turns.ToString via
-         ReplaceIgnoreCase, so %Turns%/%TURNS% resolve the same (ci_eq folds
-         case).  The runner's Runner bumps Adventure.Turns *after* Process() returns, so
-         the value visible inside a command's own task output is the pre-command
-         count.  Scarier bumps st->turns at the top of a5run_input (a5run.cpp),
-         so the matching value is st->turns - 1 (the same offset emit_endgame's
-         score line uses); clamp to 0 for text rendered before any turn. */
-      char buf[32];
-      snprintf (buf, sizeof buf, "%d", st->turns > 0 ? st->turns - 1 : 0);
-      return strdup (buf);
-    }
+    return fn_turns (st, name, args);
   if (ci_eq (name, "alonewithchar"))
-    {
-      /* The single other character in the player's location, else NoCharacter
-         (clsCharacter.AloneWithChar / Global.vb:1768).  Resolved-location
-         compare, so a character seated on furniture counts (Lost Children's
-         Anne in her rocking chair). */
-      const char *ploc = a5state_player_location (st);
-      const char *found = NULL;
-      int count = 0, i;
-      for (i = 0; ploc != NULL && i < st->adv->n_characters; i++)
-        {
-          const char *oloc;
-          if (ci_eq (st->adv->characters[i].key, a5state_player_key (st)))
-            continue;
-          oloc = a5state_character_location_key (st, i);
-          if (oloc != NULL && streq (oloc, ploc))
-            { count++; found = st->adv->characters[i].key; }
-        }
-      return strdup ((count == 1) ? found : "NoCharacter");
-    }
+    return fn_alonewithchar (st, name, args);
   if (ci_eq (name, "locationname"))
-    {
-      const char *key = (args && args[0]) ? args : a5state_player_location (st);
-      if (key != NULL && a5model_location (st->adv, key) != NULL)
-        return a5text_location_short (st, key);
-      return strdup ("");
-    }
+    return fn_locationname (st, name, args);
   if (ci_eq (name, "locationof"))
-    {
-      /* Global.vb:2237: the location KEY of a character (its LocationKey), or an
-         object's location root(s) joined by '|'.  Used by Jacaranda's champagne
-         teleport: %DisplayLocation[%LocationOf[%Player%]%]%. */
-      const char *key = args ? args : "";
-      int ci = a5state_character_index (st, key);
-      if (ci >= 0)
-        return strdup (st->char_loc[ci] ? st->char_loc[ci] : "");
-      {
-        int oi = a5state_object_index (st, key);
-        if (oi >= 0)
-          {
-            sb_t sb; sb_init (&sb);
-            for (i = 0; i < st->adv->n_locations; i++)
-              if (a5state_object_at_location (st, oi, st->adv->locations[i].key, 1))
-                { if (sb.len) sb_putc (&sb, '|');
-                  sb_puts (&sb, st->adv->locations[i].key); }
-            return sb_finish (&sb);
-          }
-      }
-      return strdup ("");
-    }
+    return fn_locationof (st, name, args);
   if (ci_eq (name, "displaylocation"))
-    {
-      /* Global.vb:2130: render the given location's ViewLocation (or "There is
-         nothing of interest here." when empty). */
-      const a5_location_t *l = (args && args[0]) ? a5model_location (st->adv, args) : NULL;
-      if (l != NULL)
-        {
-          char *s = view_location_impl (st, args);
-          if (s == NULL || s[0] == '\0')
-            { free (s); return strdup ("There is nothing of interest here."); }
-          /* The view is already fully adjudicated (its own ALR + cap ran on the
-             marked-up buffer, mirroring the runner's single Display pass), and it is
-             PLAIN -- its <br>s are now bare '\n's.  The enclosing fragment's
-             auto-capitalise must not treat those as line starts: in the runner the
-             substituted sView still carries its <br> tags, which sit between
-             the newline-to-be and the letter and block the cap regex (the
-             virtual human's lowercase "the virtual human is here." literal
-             must NOT re-cap into the "The virtual human is here." ALR-killed
-             form).  Leave the stripped-tag sentinel after each newline, exactly
-             like a5text_render_plain does for every other dropped tag. */
-          {
-            sb_t mb; sb_init (&mb);
-            for (const char *p = s; *p != '\0'; p++)
-              {
-                sb_putc (&mb, *p);
-                if (*p == '\n')
-                  sb_putc (&mb, A5_ALR_MARK);
-              }
-            free (s);
-            s = sb_finish (&mb);
-          }
-          return s;
-        }
-      return strdup ("");
-    }
+    return fn_displaylocation (st, name, args);
   if (args != NULL
       && (ci_eq (name, "theobject") || ci_eq (name, "aobject")
           || ci_eq (name, "objectname") || ci_eq (name, "object")
           || ci_eq (name, "theobjects") || ci_eq (name, "aobjects")
           || ci_eq (name, "objects")))
-    {
-      /* The %TheObject[key]% / %ObjectName[key]% function form (args present);
-         bare %object%/%objects% (no args) fall through to the bound-reference
-         block below. args is a key, or a resolved object name. */
-      const a5_object_t *o = a5model_object (st->adv, args);
-      a5_article_t art = (ci_eq (name, "theobject") || ci_eq (name, "theobjects"))
-                           ? A5_ART_DEFINITE
-                       : (ci_eq (name, "aobject") || ci_eq (name, "aobjects")
-                          /* The runner: Case "ObjectName" -> htblObjects.List(,,
-                             ArticleTypeEnum.Indefinite) (Global.vb:2252) --
-                             "You unfold a wet face towel.", not "...wet face
-                             towel." (Head Case %ObjectName[%object%]%). */
-                          || ci_eq (name, "objectname"))
-                           ? A5_ART_INDEFINITE
-                           : A5_ART_NONE;
-      /* A piped multi-object arg (%TheObjects[%objects%]% with a "k1|k2|..."
-         binding from resolve_plural) renders as the runner's "the a, the b and the c"
-         article list -- ReplaceFunctions builds a temp ObjectHashTable from the
-         split keys and returns htblObjects.List (Global.vb:2056/2386). */
-      if (o == NULL && strchr (args, '|') != NULL)
-        {
-          std::vector<std::string> ks = arg_object_keys (st, args);
-          if (ks.size () > 1)
-            {
-              std::vector<const char *> kp;
-              for (auto &s : ks) kp.push_back (s.c_str ());
-              return list_objects_art (st, kp, art);
-            }
-        }
-      if (o == NULL && args != NULL && args[0] != '\0')
-        {
-          /* args may be a key or a display name; resolve_object_arg also
-             matches a "prefix + name" full name (e.g. "framed newspaper
-             article"), which a bare %object% inner render produces -- the
-             plain names[] search missed those and dropped the article. */
-          const char *k = resolve_object_arg (st, args);
-          if (k != NULL)
-            o = a5model_object (st->adv, k);
-        }
-      if (o != NULL)
-        return a5text_object_name (st, o, art);
-      /* No object resolved.  The Adrift 5 runner builds an ObjectHashTable from the key
-         arg and renders htblObjects.List, which returns "nothing" for an empty
-         set (Global.vb:804) -- so %TheObject[]% / %ObjectName[]% with an empty
-         (or whitespace-only) argument is "nothing", not a blank.  A non-empty but
-         unresolved arg is left as-is (it may be an already-rendered name). */
-      {
-        const char *a = args ? args : "";
-        while (*a == ' ' || *a == '\t') a++;
-        if (*a == '\0')
-          return strdup ("nothing");
-      }
-      return strdup (args ? args : "");
-    }
+    return fn_object_names (st, name, args);
   if (ci_eq (name, "propertyvalue") && args != NULL)
-    {
-      /* %PropertyValue[entity, propkey]% -> the entity's value for that property.
-         (Global.vb:2322 literally loops every object/character/location, but in
-         practice the call is always made for the single bound entity whose
-         property is in context -- the observed Runner output is just
-         that one entity's value, so resolve arg0 to a key and read it.)  A Text
-         property stores its value as a rich <Description> block (value_node), so
-         render that; otherwise return the scalar. */
-      std::string a = args;
-      size_t comma = a.find (',');
-      if (comma == std::string::npos)
-        return strdup ("");
-      std::string ent = a.substr (0, comma), prop = a.substr (comma + 1);
-      auto strip = [](std::string &s){
-        s.erase (std::remove (s.begin (), s.end (), ' '), s.end ()); };
-      strip (prop);
-      /* arg0 may be a key or a display name; map to a key. */
-      const char *ekey = resolve_object_arg (st, ent.c_str ());
-      /* A runtime SetProperty override wins over the static model value, just
-         as a5state_entity_prop layers it (e.g. Amazon's CarriersFl1 runs
-         `SetProperty Door1 LockKey Key3`, retargeting the lazy-unlock chain's
-         `%PropertyValue[Door1,LockKey]%` from the lost silver key to the iron
-         key).  The static value_node path below still serves text properties. */
-      if (ekey != NULL)
-        for (int oi = 0; oi < st->n_ov; oi++)
-          if (streq (st->ov[oi].entity, ekey)
-              && streq (st->ov[oi].prop, prop.c_str ()))
-            return strdup (st->ov[oi].value ? st->ov[oi].value : "");
-      const a5_prop_t *props = NULL; int n_props = 0;
-      const a5_object_t *o = ekey ? a5model_object (st->adv, ekey) : NULL;
-      if (o != NULL) { props = o->props; n_props = o->n_props; }
-      else {
-        const a5_character_t *c = ekey ? a5model_character (st->adv, ekey) : NULL;
-        if (c != NULL) { props = c->props; n_props = c->n_props; }
-        else {
-          const a5_location_t *l = ekey ? a5model_location (st->adv, ekey) : NULL;
-          if (l != NULL) { props = l->props; n_props = l->n_props; }
-        }
-      }
-      const a5_prop_t *pr = props ? a5_prop_find (props, n_props, prop.c_str ()) : NULL;
-      if (pr == NULL)
-        return strdup ("");
-      if (pr->value_node != NULL)
-        return a5text_eval_description (st, pr->value_node);
-      return strdup (pr->value ? pr->value : "");
-    }
+    return fn_propertyvalue (st, name, args);
   if (ci_eq (name, "parentof") && args != NULL)
-    {
-      /* args is a key or a display name; emit the parent's key. */
-      const a5_object_t *o = a5model_object (st->adv, args);
-      const char *k = NULL;
-      if (o == NULL)
-        for (i = 0; i < st->adv->n_objects; i++)
-          { const a5_object_t *cand = &st->adv->objects[i];
-            for (int j = 0; j < cand->n_names; j++)
-              {
-                if (ci_eq (cand->names[j], args)) { o = cand; break; }
-                /* also match "<prefix> <noun>" (the display form %objects% yields) */
-                if (cand->prefix && cand->prefix[0])
-                  { std::string full = std::string (cand->prefix) + " " + cand->names[j];
-                    if (ci_eq (full.c_str (), args)) { o = cand; break; } }
-              }
-            if (o != NULL) break; }
-      if (o != NULL)
-        { char *pp = a5expr_eval (st, o->key, ".Parent"); if (pp) return pp; k = ""; }
-      /* Characters too: %ParentOf[%Player%]% is the seat/container the
-         character is on/in (clsCharacter.Parent) -- the stock
-         MoveOffCurrentObject passes it to MoveOffObject (Magnetic Moon's
-         `stand up` from the nav-console chair). */
-      {
-        const a5_character_t *c = a5model_character (st->adv, args);
-        if (c == NULL)
-          for (i = 0; i < st->adv->n_characters; i++)
-            if (st->adv->characters[i].name != NULL
-                && ci_eq (st->adv->characters[i].name, args))
-              { c = &st->adv->characters[i]; break; }
-        if (c != NULL)
-          { char *pp = a5expr_eval (st, c->key, ".Parent"); if (pp) return pp; }
-      }
-      return strdup (k ? k : "");
-    }
+    return fn_parentof (st, name, args);
   if (args != NULL
       && (ci_eq (name, "listobjectson") || ci_eq (name, "listobjectsin")))
-    {
-      /* Bare indefinite-article list of the children on / in the object,
-         mirroring Children(On|Inside).List(, , Indefinite). */
-      const char *k = resolve_object_arg (st, args);
-      a5_owhere_t want = ci_eq (name, "listobjectson") ? A5_OWHERE_ON_OBJECT
-                                                       : A5_OWHERE_IN_OBJECT;
-      std::vector<const char *> v;
-      if (k != NULL) v = objects_on_in (st, k, want);
-      if (v.empty ())
-        return strdup ("nothing");      /* ObjectHashTable.List of an empty set
-                                           (StronglyTypedCollections.vb:196) --
-                                           Magnetic Moon's "On the desk are
-                                           nothing." */
-      return list_objects (st, v);
-    }
+    return fn_list_objects_on_in (st, name, args);
   if (args != NULL && ci_eq (name, "listobjectsonandin"))
-    {
-      /* Global.vb:2213 ListObjectsOnAndIn: iterate the *argument's* object set
-         (e.g. %Player%.WornAndHeld for inventory), concatenating
-         DisplayObjectChildren (joined by pSpace's two spaces) for each that has
-         on/in children -- or, when the set is a single object, unconditionally
-         (so its "Nothing is on or inside ..." surfaces). */
-      std::vector<std::string> objs = arg_object_keys (st, args);
-      std::string out;
-      for (const std::string &ok : objs)
-        {
-          int has_on = !objects_on_in (st, ok.c_str (), A5_OWHERE_ON_OBJECT).empty ();
-          int has_in = !objects_on_in (st, ok.c_str (), A5_OWHERE_IN_OBJECT).empty ();
-          if (objs.size () != 1 && !has_on && !has_in)
-            continue;
-          std::string d = display_object_children (st, ok.c_str ());
-          if (d.empty ())
-            continue;
-          if (!out.empty ())
-            out += "  ";
-          out += d;
-        }
-      return strdup (out.c_str ());
-    }
+    return fn_list_objects_on_and_in (st, name, args);
   if (args != NULL
       && (ci_eq (name, "listcharacterson") || ci_eq (name, "listcharactersin")
           || ci_eq (name, "listcharactersonandin")))
-    {
-      const char *k = resolve_object_arg (st, args);
-      const a5_object_t *o = k ? a5model_object (st->adv, k) : NULL;
-      std::vector<const a5_character_t *> on, in;
-      if (k != NULL && !ci_eq (name, "listcharactersin")) on = chars_on_in (st, k, 1);
-      if (k != NULL && !ci_eq (name, "listcharacterson")) in = chars_on_in (st, k, 0);
-      /* DisplayCharacterChildren lists inside-characters only when the object
-         is `Not Openable OrElse IsOpen` (clsObject.vb:383) -- same gate as the
-         object children above. */
-      if (!in.empty () && o != NULL
-          && a5_prop_find (o->props, o->n_props, "Openable") != NULL)
-        {
-          const char *os = a5state_entity_prop (st, k, "OpenStatus");
-          if (os == NULL || !streq (os, "Open"))
-            in.clear ();
-        }
-      if (on.empty () && in.empty ())
-        return strdup ("");
-      /* DisplayCharacterChildren: "X is on/inside the <object>." */
-      std::string out;
-      char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (k ? k : "");
-      auto names = [&](std::vector<const a5_character_t *> &cs) {
-        std::string s; int n = (int) cs.size ();
-        for (int i = 0; i < n; i++)
-          { char *nm = a5text_character_subjective (st, cs[i]);
-            if (i > 0) s += (i == n - 1) ? " and " : ", ";
-            s += nm; free (nm); }
-        return s; };
-      if (!on.empty ())
-        { out += names (on); out += (on.size () == 1) ? " is on " : " are on ";
-          out += defn; }
-      if (!in.empty ())
-        { if (!on.empty ()) out += ", and " + names (in);
-          else out += names (in);
-          out += (in.size () == 1) ? " is " : " are ";
-          out += "inside "; out += defn; }
-      out += ".";
-      free (defn);
-      return strdup (out.c_str ());
-    }
+    return fn_list_characters (st, name, args);
   if (args != NULL && (ci_eq (name, "listheld") || ci_eq (name, "listworn")))
-    {
-      const a5_character_t *c = a5model_character (st->adv, args);
-      std::vector<const char *> v;
-      if (c != NULL)
-        {
-          a5_owhere_t want = ci_eq (name, "listheld") ? A5_OWHERE_HELD_BY
-                                                      : A5_OWHERE_WORN_BY;
-          for (int i = 0; i < st->adv->n_objects; i++)
-            if (st->obj[i].where == want && streq (st->obj[i].key, c->key))
-              v.push_back (st->adv->objects[i].key);
-        }
-      if (v.empty ()) return strdup ("nothing");
-      /* %ListWorn% / %ListHeld% pass bIncludeSubObjects=True (Global.vb:2182/
-         2225): append each object's on/inside-contents listing. */
-      return list_objects_subobj (st, v);
-    }
+    return fn_list_held_worn (st, name, args);
   if (args != NULL && (ci_eq (name, "displaycharacter") || ci_eq (name, "displayobject")))
-    {
-      /* Global.vb:2122/2138 DisplayCharacter/DisplayObject: the entity's
-         Description.ToString, with the canned "sees nothing interesting about"
-         fallback when empty.  a5expr's .Description already renders the node. */
-      const char *key = NULL;
-      int is_char = ci_eq (name, "displaycharacter");
-      if (is_char)
-        { const a5_character_t *c = a5model_character (st->adv, args);
-          key = c ? c->key : NULL; }
-      else
-        key = resolve_object_arg (st, args);
-      if (key != NULL)
-        {
-          char *d = a5expr_eval (st, key, ".Description");
-          if (d != NULL && d[0] != '\0')
-            return d;
-          free (d);
-          std::string fb = "%CharacterName% see[//s] nothing interesting about ";
-          if (is_char)
-            {
-              /* The runner's clsCharacter.Name upgrades Objective->Reflective when the
-                 same character key was already rendered Subjective earlier this
-                 turn (PronounKeys).  The leading bare %CharacterName% renders the
-                 viewpoint character subjectively ("You"), so when the examined
-                 character IS that viewpoint (examine yourself) the target form
-                 becomes reflexive -- "yourself", not "you".  Emit the reflective
-                 qualifier in exactly that case; every other target stays Objective
-                 (Scarier has no turn-wide PronounKeys, but this is the only
-                 subject==object collision the fallback can produce). */
-              const char *subj = st->ctx_char ? st->ctx_char
-                                              : a5state_player_key (st);
-              const char *qual = (subj != NULL && streq (subj, key))
-                                   ? "reflective" : "target";
-              fb += "%CharacterName["; fb += key; fb += ", "; fb += qual;
-              fb += "]%.";
-            }
-          else
-            { const a5_object_t *o = a5model_object (st->adv, key);
-              char *dn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (key);
-              fb += dn; fb += "."; free (dn); }
-          char *proc = a5text_process (st, fb.c_str ());
-          char *plain = a5text_render_plain (proc);
-          free (proc);
-          return plain;
-        }
-    }
+    return fn_display_char_obj (st, name, args);
   if (args != NULL && ci_eq (name, "listexits"))
-    {
-      /* clsCharacter.ListExits: the comma/"and"-joined, lower-cased list of
-         directions the character has a (restriction-checked) route in, or
-         "nowhere" when there are none.  Reuse a5expr's character .Exits path
-         (same DirectionsEnum order + HasRouteInDirection check). */
-      char *cnt = a5expr_eval (st, args, ".Exits.Count");
-      long n = cnt ? strtol (cnt, NULL, 10) : 0;
-      free (cnt);
-      if (n <= 0)
-        return strdup ("nowhere");
-      char *lst = a5expr_eval (st, args, ".Exits.List");
-      return lst ? lst : strdup ("nowhere");
-    }
+    return fn_list_exits (st, name, args);
   if (args != NULL && ci_eq (name, "listobjectsatlocation"))
-    {
-      std::vector<const char *> v;
-      for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5state_object_at_location (st, i, args, 1))
-          v.push_back (st->adv->objects[i].key);
-      return list_objects (st, v);
-    }
+    return fn_list_objects_at_location (st, name, args);
   if (ci_eq (name, "numberastext") && args != NULL)
-    {
-      static const char *ones[] = { "zero","one","two","three","four","five",
-        "six","seven","eight","nine","ten","eleven","twelve" };
-      long n = strtol (args, NULL, 10);
-      if (n >= 0 && n <= 12) return strdup (ones[n]);
-      return strdup (args);
-    }
+    return fn_number_as_text (st, name, args);
   if (ci_eq (name, "pcase") || ci_eq (name, "ucase") || ci_eq (name, "lcase"))
-    {
-      char *s = strdup (args ? args : "");
-      if (ci_eq (name, "ucase"))
-        for (i = 0; s[i]; i++) s[i] = toupper ((unsigned char) s[i]);
-      else if (ci_eq (name, "lcase"))
-        for (i = 0; s[i]; i++) s[i] = tolower ((unsigned char) s[i]);
-      else if (s[0])
-        s[0] = toupper ((unsigned char) s[0]);
-      return s;
-    }
+    return fn_case (st, name, args);
 
   /* A bound reference produced by the parser this turn (%direction%, %text%). */
   if (args == NULL)
