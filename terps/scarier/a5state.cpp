@@ -1025,6 +1025,16 @@ a5state_character_visible_at_location (const a5_state_t *st, int ci,
 {
   if (ci < 0 || lockey == NULL || st->char_loc == NULL)
     return 0;
+  /* A character INSIDE an openable, closed, opaque container is bound to the
+     container's key and thus visible at no room (clsCharacter.BoundVisible's
+     InObject branch) -- even though MoveCharacter InsideObject synced char_loc
+     to the container's room (see the sync in ExecuteSingleAction).  This must be
+     checked BEFORE the char_loc short-circuit below, or Dracula asleep in the
+     closed casket (October 31st) / coffin (Halloween) leaks an "is here" line. */
+  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL
+      && st->char_in != NULL && st->char_in[ci]
+      && obj_hides_contents (st, a5state_object_index (st, st->char_onobj[ci])))
+    return 0;
   if (st->char_loc[ci] != NULL)
     return streq (st->char_loc[ci], lockey);
   if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)

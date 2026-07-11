@@ -686,11 +686,20 @@ FILTER="${1:-}"
 # general engine fixes (walk/event sub-display <DisplayOnce> retire; command-
 # topic keywords must go through CorrectCommand) -- see the October 31st
 # entry in TODO_a5_walkthrough_bugs.md.
-# (2026-07-11) October31stComp wired: the earlier COMP-RELEASE build of the
-# same game (2022-07-16 vs the post-comp 2022-08-01; intro/hint/witch-death
-# text differ slightly).  The same 153-turn walkthrough wins 100/100
-# unchanged, xoshiro 0 first try; vanilla 106 is the identical werewolf/
-# mummy random-walk RNG class as October31st, so DIVERGE row, no golden.
+# (2026-07-11) Oktober31Dansk REPLACED the redundant second English build
+# (October31stComp): a full DANISH translation of the same game, wired with its
+# own 143-turn WIN (100/100), derived by re-translating the English route into
+# the game's Danish vocabulary.  xoshiro 0; vanilla 32 is the identical
+# werewolf random-walk RNG class as October31st (FD-vanilla's werewolf reaches
+# the player a turn later and that run dies), so DIVERGE row, no golden.
+# Surfaced 2 general engine fixes: (1) UTF-8-aware lowercasing of localized
+# direction synonyms (a5parse.cpp) -- byte-wise tolower() left the game's
+# DirectionEast "Øst/Ø/..." uppercased, so bare "øst"/"ø" matched no East exit
+# (and "ø" was not even a known word); (2) a character INSIDE a closed opaque
+# container (Dracula asleep in the crypt casket) no longer leaks an "is here"
+# line when MoveCharacter InsideObject has synced char_loc to the container's
+# room (a5state.cpp:a5state_character_visible_at_location) -- the same
+# closed-container class as Halloween's coffin, but reached via char_loc here.
 #
 # (2026-07-03) LostChildren and MagneticMoon REWIRED to their NATIVE built-in
 # WLKTHRGH walkthroughs (user report: the old CASA/Spectrum-original
@@ -1135,7 +1144,7 @@ Halloween|Halloween.blorb|0|0
 MagorInvestigates|MI_v.1.blorb|0|0
 MuseumHeist|MuseumHeist.blorb|0|0
 October31st|October31st.blorb|106|0
-October31stComp|October31stComp.blorb|106|0
+Oktober31Dansk|Oktober31Dansk.blorb|32|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
 Tingalan|Tingalan.blorb|0|0

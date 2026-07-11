@@ -20,6 +20,29 @@
 
 #include "a5parse.h"
 
+/* Lowercase a UTF-8 byte stream the way VB.NET's LCase does (FrankenDrift's
+   direction RE / known-word set).  A byte-wise tolower() folds only ASCII, so a
+   game's accented capitals -- Danish 'Ø' (C3 98), 'Æ' (C3 86), 'Å' (C3 85),
+   German 'Ä/Ö/Ü', French 'É' ... -- survive uppercased and never match the
+   lowercase word the player types (e.g. DirectionEast "Øst/Ø/..." vs input
+   "øst").  Fold the Latin-1 supplement U+00C0..U+00DE (lead byte 0xC3, trail
+   0x80..0x9E, excluding 0x97 = MULTIPLICATION SIGN, which has no case) by adding
+   the 0x20 upper->lower offset to the trail byte; everything else is ASCII. */
+static std::string
+lower_utf8 (const char *s)
+{
+  std::string o;
+  const unsigned char *p = (const unsigned char *) s;
+  while (*p)
+    {
+      if (p[0] == 0xC3 && p[1] >= 0x80 && p[1] <= 0x9E && p[1] != 0x97)
+        { o += (char) 0xC3; o += (char) (p[1] + 0x20); p += 2; }
+      else
+        { o += (char) tolower (*p); p++; }
+    }
+  return o;
+}
+
 /* --------------------------------------------------------- direction table */
 
 /*
@@ -117,10 +140,11 @@ a5parse_set_directions (const char *const *raw_by_enum)
                '/' (Global.DirectionName). */
             const char *slash = strchr (raw, '/');
             g_dirs[j].name = slash ? std::string (raw, slash - raw) : std::string (raw);
-            /* Parse/regex form: lowercased, '/' -> '|' (Global.DirectionRE). */
-            std::string re;
-            for (const char *p = raw; *p; p++)
-              re += (*p == '/') ? '|' : (char) tolower ((unsigned char) *p);
+            /* Parse/regex form: lowercased (UTF-8 aware, so localized accented
+               synonyms like "Øst" fold to "øst"), '/' -> '|'
+               (Global.DirectionRE). */
+            std::string re = lower_utf8 (raw);
+            for (char &c : re) if (c == '/') c = '|';
             g_dirs[j].re = re;
             break;
           }
@@ -184,9 +208,12 @@ a5parse_canonical_direction (const char *text)
   std::string t;
   if (text == NULL)
     return NULL;
-  for (const char *p = text; *p; p++)
-    if (!isspace ((unsigned char) *p))
-      t += (char) tolower ((unsigned char) *p);
+  /* UTF-8-aware lowercase (so "Øst"/"ØST" canonicalize like "øst"), then drop
+     whitespace so "south east" matches the "southeast" synonym. */
+  std::string low = lower_utf8 (text);
+  for (char c : low)
+    if (!isspace ((unsigned char) c))
+      t += c;
   if (t.empty ())
     return NULL;
   ensure_dirs_default ();
