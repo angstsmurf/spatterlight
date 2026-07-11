@@ -141,6 +141,13 @@ static int gsc_is_a5 = FALSE;
 static a5_run_t *gsc_a5_run = NULL;
 static void gsc_a5_status (a5_run_t *run);
 
+/* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
+   lazily as a right-hand text buffer the first time the game routes text to
+   one, then kept open like the official Runner.  This build supports a single
+   side window (games such as Alien Diver use exactly one, "Status"), so every
+   <window NAME> shares it regardless of NAME. */
+static winid_t gsc_a5_side_window = NULL;
+
 /* Special out-of-band os_confirm() options used locally with os_glk. */
 static const scr_int GSC_CONF_SUBTLE_HINT = INT_MAX,
                     GSC_CONF_UNSUBTLE_HINT = INT_MAX - 1,
@@ -4470,6 +4477,28 @@ gsc_a5_span_style (int center_depth, int bold_depth)
 }
 
 /*
+ * gsc_a5_open_side_window()
+ *
+ * Return the author-defined secondary output window, opening it lazily the
+ * first time the game routes text to one (ADRIFT 5 <window NAME>).  It splits
+ * the main story window, taking ~40% of the width on the right, as a text
+ * buffer -- Alien Diver's "Status" pane (ship-repair progress and command
+ * reference).  Once open it is kept for the rest of the session, like the
+ * official Runner's additional windows.  Returns NULL if Glk cannot split
+ * (the caller then leaves output in the main window).
+ */
+static winid_t
+gsc_a5_open_side_window (void)
+{
+  if (gsc_a5_side_window == NULL)
+    gsc_a5_side_window = glk_window_open (gsc_main_window,
+                                          winmethod_Right
+                                            | winmethod_Proportional,
+                                          40, wintype_TextBuffer, 0);
+  return gsc_a5_side_window;
+}
+
+/*
  * gsc_a5_display()
  *
  * Present one turn's text.  The engine runs in interactive mode (see
@@ -4487,16 +4516,23 @@ gsc_a5_display (const char *text)
 {
   const char *p = text, *seg = text;
   int center_depth = 0, bold_depth = 0;
+  /* The window a run of text is currently going to: the main story window, or
+     an author-defined side window between an A5_WINDOW_MARK span and its
+     A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
+  winid_t cur_window = gsc_main_window;
 
   if (text == NULL)
     return;
+
+  glk_set_window (gsc_main_window);
 
   while (TRUE)
     {
       if (*p != '\0' && *p != A5_CLS_MARK && *p != A5_WAITKEY_MARK
           && *p != A5_IMG_MARK && *p != A5_CENTER_MARK
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
-          && *p != A5_ENDBOLD_MARK)
+          && *p != A5_ENDBOLD_MARK && *p != A5_WINDOW_MARK
+          && *p != A5_ENDWINDOW_MARK)
         {
           p++;
           continue;
@@ -4516,7 +4552,27 @@ gsc_a5_display (const char *text)
         break;
 
       if (*p == A5_CLS_MARK)
-        glk_window_clear (gsc_main_window);
+        glk_window_clear (cur_window);
+      else if (*p == A5_WINDOW_MARK)
+        {
+          /* Side-window span opens: \022<name>\022.  Route text to the side
+             window (opened lazily, right split); fall back to the main window
+             if Glk cannot split.  The name delimits the span but is unused --
+             this build routes every <window> to the one side window. */
+          const char *e = strchr (p + 1, A5_WINDOW_MARK);
+          winid_t w = gsc_a5_open_side_window ();
+
+          cur_window = w != NULL ? w : gsc_main_window;
+          glk_set_window (cur_window);
+          if (e != NULL)
+            p = e;
+        }
+      else if (*p == A5_ENDWINDOW_MARK)
+        {
+          /* Side-window span closes: text returns to the main story window. */
+          cur_window = gsc_main_window;
+          glk_set_window (cur_window);
+        }
       else if (*p == A5_WAITKEY_MARK)
         {
           event_t event;
@@ -4560,6 +4616,10 @@ gsc_a5_display (const char *text)
   /* A dangling <center> or <b> must not bleed into prompts and later turns. */
   if (center_depth > 0 || bold_depth > 0)
     glk_set_style (style_Normal);
+  /* Likewise a dangling <window> span: prompts and input echo belong in the
+     main story window. */
+  if (cur_window != gsc_main_window)
+    glk_set_window (gsc_main_window);
 }
 
 /*

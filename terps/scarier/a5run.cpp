@@ -69,17 +69,18 @@ msg_has_output (const char *m)
     return 0;
   for (; *m != '\0'; m++)
     {
-      if (*m == A5_IMG_MARK)
+      if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK)
         {
-          /* Skip the \006<number>\006 span (or a stray unpaired mark). */
-          const char *e = strchr (m + 1, A5_IMG_MARK);
+          /* Skip the \006<number>\006 / \022<name>\022 span (or a stray mark). */
+          const char *e = strchr (m + 1, *m);
           if (e == NULL)
             continue;
           m = e;
         }
       else if (*m != A5_ALR_MARK && *m != A5_WAITKEY_MARK
                && *m != A5_CENTER_MARK && *m != A5_ENDCENTER_MARK
-               && *m != A5_BOLD_MARK && *m != A5_ENDBOLD_MARK)
+               && *m != A5_BOLD_MARK && *m != A5_ENDBOLD_MARK
+               && *m != A5_ENDWINDOW_MARK)
         return 1;
     }
   return 0;

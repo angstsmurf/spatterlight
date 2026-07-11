@@ -90,17 +90,24 @@
      - <b> and </b> leave A5_BOLD_MARK and A5_ENDBOLD_MARK, so the host can
        show the span between them in bold (a Glk host through style_Subheader,
        or style_User2 when the span is also centered).
+     - <window NAME> leaves A5_WINDOW_MARK<name>A5_WINDOW_MARK (the name span
+       delimited like an image), and </window> leaves A5_ENDWINDOW_MARK, so the
+       host can route the enclosed text to a named secondary window (a Glk host
+       through a side text-buffer window).  A <cls> inside the span clears that
+       window, not the main story window.
 
    finish_turn keeps all of these in the returned turn text; a host that never
    enables interactive mode (the headless dump / ground-truth harness) sees no
-   behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE)
-   and \x11 (DC1) never occur in game text. */
+   behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE),
+   \x11 (DC1), \x12 (DC2) and \x13 (DC3) never occur in game text. */
 #define A5_IMG_MARK '\006'
 #define A5_WAITKEY_MARK '\007'
 #define A5_CENTER_MARK '\016'
 #define A5_ENDCENTER_MARK '\017'
 #define A5_BOLD_MARK '\020'
 #define A5_ENDBOLD_MARK '\021'
+#define A5_WINDOW_MARK '\022'
+#define A5_ENDWINDOW_MARK '\023'
 
 /* Interactive-presentation mode toggle (default off; see marks above). */
 extern void a5text_set_interactive (int on);

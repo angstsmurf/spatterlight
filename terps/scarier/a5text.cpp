@@ -2525,10 +2525,11 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
          the ink verdict must come out identical in both modes. */
       for (; *q; q++)
         {
-          if (*q == A5_IMG_MARK)
+          if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK)
             {
-              /* Skip the \006<number>\006 span (or a stray unpaired mark). */
-              const char *e = strchr (q + 1, A5_IMG_MARK);
+              /* Skip the \006<number>\006 / \022<name>\022 span (the window name
+                 is a routing tag, not visible ink), or a stray unpaired mark. */
+              const char *e = strchr (q + 1, *q);
               if (e == NULL)
                 continue;
               q = e;
@@ -2536,7 +2537,8 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
           else if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t'
                    && *q != A5_ALR_MARK && *q != A5_WAITKEY_MARK
                    && *q != A5_CENTER_MARK && *q != A5_ENDCENTER_MARK
-                   && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK)
+                   && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK
+                   && *q != A5_ENDWINDOW_MARK)
             { *pre_alr_ink = 1; break; }
         }
       free (pp);
@@ -2795,6 +2797,22 @@ a5text_render_plain (const char *src)
             sb_putc (&sb, A5_BOLD_MARK);
           else if (a5_interactive_mode && strcmp (name, "/b") == 0)
             sb_putc (&sb, A5_ENDBOLD_MARK);
+          else if (a5_interactive_mode && strcmp (name, "window") == 0)
+            {
+              /* Secondary output window opens: leave the window name delimited
+                 by A5_WINDOW_MARK (like an image span) so the host can route the
+                 enclosed text to that named side window.  The name comes from
+                 the tag argument (lowercased with the rest of the tag); default
+                 to "main" when the author wrote a bare <window>.  Headlessly this
+                 tag drops to A5_ALR_MARK below, so ground truth is unchanged. */
+              const char *wn = tag + 6;            /* past "window" */
+              while (*wn == ' ') wn++;
+              sb_putc (&sb, A5_WINDOW_MARK);
+              sb_puts (&sb, *wn != '\0' ? wn : "main");
+              sb_putc (&sb, A5_WINDOW_MARK);
+            }
+          else if (a5_interactive_mode && strcmp (name, "/window") == 0)
+            sb_putc (&sb, A5_ENDWINDOW_MARK);
           else if (a5_media_sink != NULL
                    && (strcmp (name, "img") == 0 || strcmp (name, "audio") == 0))
             {
