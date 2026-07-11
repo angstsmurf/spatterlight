@@ -17,7 +17,7 @@
 # USA
 #
 
-VERSION = 1.3.10
+VERSION = 1.4.0
 
 #
 # Compiler and Glk library setup.  Configure this section to match the

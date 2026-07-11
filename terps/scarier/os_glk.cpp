@@ -103,8 +103,11 @@ extern "C" {
 /*  Module variables, miscellaneous other stuff                        */
 /*---------------------------------------------------------------------*/
 
-/* Glk SCARIER interface version number. */
-static const glui32 GSC_PORT_VERSION = 0x00010310;
+/* Glk SCARIER interface version number.  Each byte is printed in DECIMAL by
+   gsc_command_print_version_number (so 0x00010400 -> "1.4.0"); keep every
+   component below 10, or encode it as its hex value (11 -> 0x0b).  SCARE
+   1.3.10 wrote 0x...10 here and printed as "1.3.16" for years. */
+static const glui32 GSC_PORT_VERSION = 0x00010400;
 
 /* Two windows, one for the main text, and one for a status line. */
 static winid_t gsc_main_window = NULL,
@@ -5452,7 +5455,7 @@ winglk_startup_code (const char *cmdline)
   winglk_app_set_name ("Scarier");
   winglk_set_menu_name ("&Scarier");
   winglk_window_set_title ("Scarier Adrift Interpreter");
-  winglk_set_about_text ("Windows Scarier 1.3.10");
+  winglk_set_about_text ("Windows Scarier " SCARIER_VERSION);
   winglk_set_gui (IDI_SCARIER);
   glk_stylehint_set (wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
 
