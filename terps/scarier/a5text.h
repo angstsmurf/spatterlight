@@ -71,6 +71,41 @@
    in game text. */
 #define A5_VARDEF_MARK '\005'
 
+/* Sentinels used only in INTERACTIVE mode (a5text_set_interactive), where the
+   host front-end presents the turn text itself instead of receiving the
+   FrankenDrift-conformant pre-resolved transcript.  In this mode:
+
+     - <cls> no longer wipes the accumulated text; the A5_CLS_MARK stays in the
+       stream so the host can SHOW the pre-clear text (a title page like Anno
+       1700's credits/cover) and then clear its window at the mark, exactly
+       like the real Runner's output pane.
+     - <waitkey> leaves A5_WAITKEY_MARK; the host pauses for a keypress there.
+     - <img src="..."> leaves an A5_IMG_MARK-delimited resource number,
+       \006<number>\006, at the tag's position (the number is the Blorb Pict
+       resource the media sink resolved the src path to), so the host can draw
+       the image inline where the author placed it.
+     - <center>/<centre> and the matching close tags leave A5_CENTER_MARK and
+       A5_ENDCENTER_MARK, so the host can show the span between them centered
+       (a Glk host through a justification-hinted style).
+     - <b> and </b> leave A5_BOLD_MARK and A5_ENDBOLD_MARK, so the host can
+       show the span between them in bold (a Glk host through style_Subheader,
+       or style_User2 when the span is also centered).
+
+   finish_turn keeps all of these in the returned turn text; a host that never
+   enables interactive mode (the headless dump / ground-truth harness) sees no
+   behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE)
+   and \x11 (DC1) never occur in game text. */
+#define A5_IMG_MARK '\006'
+#define A5_WAITKEY_MARK '\007'
+#define A5_CENTER_MARK '\016'
+#define A5_ENDCENTER_MARK '\017'
+#define A5_BOLD_MARK '\020'
+#define A5_ENDBOLD_MARK '\021'
+
+/* Interactive-presentation mode toggle (default off; see marks above). */
+extern void a5text_set_interactive (int on);
+extern int  a5text_interactive (void);
+
 /* Expand any \005name\005 deferred-variable sentinels in `text` with the
    variable's CURRENT value (see A5_VARDEF_MARK).  Heap; never NULL. */
 extern char *a5text_expand_var_defers (a5_state_t *st, const char *text);
@@ -119,8 +154,11 @@ extern char *a5text_render_plain (const char *src);
  * apply to sound.  A NULL callback (the default) disables reporting.
  */
 enum { A5_MEDIA_IMAGE = 1, A5_MEDIA_SOUND = 2, A5_MEDIA_SOUND_STOP = 3 };
-typedef void (*a5_media_cb) (void *ctx, int kind, const char *src,
-                             int channel, int loop);
+/* The callback returns the Blorb resource number the src path resolved to (or
+   -1 when unknown); the renderer only uses it for images in interactive mode,
+   to leave the positional \006<number>\006 mark (see A5_IMG_MARK). */
+typedef int (*a5_media_cb) (void *ctx, int kind, const char *src,
+                            int channel, int loop);
 extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
 
 /*

@@ -40,6 +40,9 @@ void
 sb_resolve_cls (sb_t *b, size_t floor)
 {
   size_t last = (size_t) -1, i;
+  /* Interactive hosts present the pre-<cls> text themselves and clear their
+     window at the mark, so the wipe must not happen here (see a5text.h). */
+  if (a5text_interactive ()) return;
   if (b->p == NULL || floor > b->len) return;
   for (i = floor; i < b->len; i++)
     if (b->p[i] == A5_CLS_MARK) last = i;

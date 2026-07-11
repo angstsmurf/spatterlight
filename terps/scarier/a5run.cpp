@@ -61,12 +61,27 @@ msg_has_output (const char *m)
 {
   /* A5_ALR_MARK bytes are stripped-tag sentinels, not output: a message whose
      plain rendering is only stripped tags (e.g. "<font color=X>") was empty in
-     FD's stripped view too. */
+     FD's stripped view too.  The interactive-mode presentation marks (waitkey
+     pause points and \006<number>\006 image slots) are likewise not output --
+     they stand for the same stripped tags, so a message must be judged empty
+     or not identically in both modes. */
   if (m == NULL)
     return 0;
   for (; *m != '\0'; m++)
-    if (*m != A5_ALR_MARK)
-      return 1;
+    {
+      if (*m == A5_IMG_MARK)
+        {
+          /* Skip the \006<number>\006 span (or a stray unpaired mark). */
+          const char *e = strchr (m + 1, A5_IMG_MARK);
+          if (e == NULL)
+            continue;
+          m = e;
+        }
+      else if (*m != A5_ALR_MARK && *m != A5_WAITKEY_MARK
+               && *m != A5_CENTER_MARK && *m != A5_ENDCENTER_MARK
+               && *m != A5_BOLD_MARK && *m != A5_ENDBOLD_MARK)
+        return 1;
+    }
   return 0;
 }
 
@@ -184,8 +199,10 @@ a5run_turns (a5_run_t *run) { return run->st->turns; }
 /* ------------------------------------------------------------- media capture */
 
 /* a5text media sink: resolve the src path to a Blorb resource number (via the
-   game's <FileMappings>) and record the event on the run's per-turn list. */
-static void
+   game's <FileMappings>) and record the event on the run's per-turn list.
+   Returns the resolved number so the renderer can leave a positional image
+   mark in interactive mode (see A5_IMG_MARK). */
+static int
 a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
 {
   a5_run_t *run = (a5_run_t *) ctx;
@@ -200,8 +217,9 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
     for (size_t i = 0; i < run->media->size (); i++)
       if ((*run->media)[i].kind == A5_MEDIA_IMAGE
           && (*run->media)[i].number == ev.number)
-        return;
+        return ev.number;
   run->media->push_back (ev);
+  return ev.number;
 }
 
 /* Install/remove the media sink around a turn's text generation. */

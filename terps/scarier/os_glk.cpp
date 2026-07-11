@@ -137,6 +137,10 @@ static char gsc_game_path[2048];
 static a5_adventure_t *gsc_a5_adv = NULL;
 static int gsc_is_a5 = FALSE;
 
+/* Current a5 run, kept here so status redraws on window resize can reach it. */
+static a5_run_t *gsc_a5_run = NULL;
+static void gsc_a5_status (a5_run_t *run);
+
 /* Special out-of-band os_confirm() options used locally with os_glk. */
 static const scr_int GSC_CONF_SUBTLE_HINT = INT_MAX,
                     GSC_CONF_UNSUBTLE_HINT = INT_MAX - 1,
@@ -1130,7 +1134,14 @@ gsc_status_redraw (void)
       parent = glk_window_get_parent (gsc_status_window);
       glk_window_set_arrangement (parent,
                                   winmethod_Above | winmethod_Fixed, 1, NULL);
-      gsc_status_update ();
+      if (gsc_is_a5)
+        {
+          /* ADRIFT 5 games have no scare game state; use the a5 renderer. */
+          if (gsc_a5_run)
+            gsc_a5_status (gsc_a5_run);
+        }
+      else
+        gsc_status_update ();
     }
 }
 
@@ -4441,11 +4452,123 @@ gsc_a5_draw_image (glui32 number)
 }
 
 /*
+ * gsc_a5_span_style()
+ *
+ * Pick the Glk style for a text span given its centered and bold nesting
+ * depths.  Glk styles don't combine, so the four states map onto four
+ * styles: the two justification-hinted user styles for centered spans
+ * (User2 also weight-hinted, for centered bold), style_Subheader for plain
+ * inline bold (as the ADRIFT 4 path does, gsc_set_glk_style), and Normal
+ * otherwise.
+ */
+static glui32
+gsc_a5_span_style (int center_depth, int bold_depth)
+{
+  if (center_depth > 0)
+    return bold_depth > 0 ? style_User2 : style_User1;
+  return bold_depth > 0 ? style_Subheader : style_Normal;
+}
+
+/*
+ * gsc_a5_display()
+ *
+ * Present one turn's text.  The engine runs in interactive mode (see
+ * a5text.h), so the text carries presentation marks: draw each embedded
+ * image at its marked position, pause for a keypress at each <waitkey>
+ * mark, clear the story window at each <cls> mark, show <center> spans
+ * in the centered style_User1 (hinted for centered justification before the
+ * window opened), and <b> spans in bold.  This is the same presentation the
+ * official Runner's output pane gives, e.g., Anno 1700's intro: credits and
+ * cover image, "Press any key", then a cleared screen for the opening
+ * narrative.
+ */
+static void
+gsc_a5_display (const char *text)
+{
+  const char *p = text, *seg = text;
+  int center_depth = 0, bold_depth = 0;
+
+  if (text == NULL)
+    return;
+
+  while (TRUE)
+    {
+      if (*p != '\0' && *p != A5_CLS_MARK && *p != A5_WAITKEY_MARK
+          && *p != A5_IMG_MARK && *p != A5_CENTER_MARK
+          && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
+          && *p != A5_ENDBOLD_MARK)
+        {
+          p++;
+          continue;
+        }
+
+      /* Flush the plain text run before this mark (or before the end). */
+      if (p > seg)
+        {
+          size_t n = (size_t) (p - seg);
+          char *chunk = (char *) gsc_malloc (n + 1);
+          memcpy (chunk, seg, n);
+          chunk[n] = '\0';
+          gsc_a5_put_string (chunk);
+          free (chunk);
+        }
+      if (*p == '\0')
+        break;
+
+      if (*p == A5_CLS_MARK)
+        glk_window_clear (gsc_main_window);
+      else if (*p == A5_WAITKEY_MARK)
+        {
+          event_t event;
+
+          /* Bring the status line up to date before pausing. */
+          if (gsc_a5_run)
+            gsc_a5_status (gsc_a5_run);
+          glk_request_char_event (gsc_main_window);
+          gsc_event_wait (evtype_CharInput, &event);
+        }
+      else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
+               || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK)
+        {
+          /* Centered or bold span boundary: like the Runner, only the style
+             changes -- the game's own line breaks around a centered span
+             delimit the centered paragraph.  A <b> inside a <center> gets the
+             weight-hinted centered style (User2); elsewhere it gets Subheader. */
+          if (*p == A5_CENTER_MARK)
+            center_depth++;
+          else if (*p == A5_ENDCENTER_MARK && center_depth > 0)
+            center_depth--;
+          else if (*p == A5_BOLD_MARK)
+            bold_depth++;
+          else if (*p == A5_ENDBOLD_MARK && bold_depth > 0)
+            bold_depth--;
+          glk_set_style (gsc_a5_span_style (center_depth, bold_depth));
+        }
+      else
+        {
+          /* Image slot: \006<Blorb resource number>\006. */
+          const char *e = strchr (p + 1, A5_IMG_MARK);
+          if (e != NULL)
+            {
+              gsc_a5_draw_image ((glui32) atol (p + 1));
+              p = e;
+            }
+        }
+      seg = ++p;
+    }
+
+  /* A dangling <center> or <b> must not bleed into prompts and later turns. */
+  if (center_depth > 0 || bold_depth > 0)
+    glk_set_style (style_Normal);
+}
+
+/*
  * gsc_a5_show_media()
  *
  * Present the media events the engine collected for the turn just rendered:
- * draw images, and start/stop sounds on their channels.  Returns the number of
- * images drawn (so the caller can decide whether to fall back to the cover).
+ * start/stop sounds on their channels (images are drawn inline at their text
+ * marks by gsc_a5_display).  Returns the number of images the turn embedded,
+ * so the caller can decide whether to fall back to the cover.
  */
 static int
 gsc_a5_show_media (a5_run_t *run)
@@ -4458,7 +4581,10 @@ gsc_a5_show_media (a5_run_t *run)
 
       if (m->kind == A5_MEDIA_IMAGE)
         {
-          if (gsc_a5_draw_image ((glui32) m->number))
+          /* Images are drawn inline at their text marks by gsc_a5_display;
+             count them here only so the intro's cover-art fallback knows an
+             image was already part of the intro. */
+          if (m->number > 0)
             images++;
         }
       else if (gsc_a5_sound_ok)
@@ -4593,9 +4719,20 @@ gsc_a5_status (a5_run_t *run)
 static void
 gsc_a5_main (void)
 {
-  a5_run_t *run;
+  /* Alias the run through gsc_a5_run so resize redraws always see the
+     current run, including across restarts. */
+  a5_run_t *&run = gsc_a5_run;
   char *text;
   char input[1024];
+
+  /* Centered-text styles, as in gsc_main: User1 centered, User2 centered
+     bold.  The a5 renderer strips <b>, so only User1 is used here, but keep
+     the pair hinted identically in both paths. */
+  glk_stylehint_set (wintype_TextBuffer, style_User1,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
 
   gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
   if (!gsc_main_window)
@@ -4613,6 +4750,11 @@ gsc_a5_main (void)
 
   glk_set_window (gsc_main_window);
   glk_set_style (style_Normal);
+
+  /* Present turns interactively: keep <cls>/<waitkey>/<img> as positional
+     marks in the turn text (a5text.h) so gsc_a5_display can page an intro
+     like the official Runner -- title page, keypress, screen clear. */
+  a5text_set_interactive (TRUE);
 
   /* Register the game Blorb for image/sound resources. */
   gsc_a5_init_resources ();
@@ -4665,7 +4807,7 @@ gsc_a5_main (void)
     }
 
   text = a5run_intro (run);
-  gsc_a5_put_string (text);
+  gsc_a5_display (text);
   free (text);
   gsc_a5_present_intro_media (run);
   gsc_a5_status (run);
@@ -4691,7 +4833,7 @@ gsc_a5_main (void)
             }
           glk_window_clear (gsc_main_window);
           text = a5run_intro (run);
-          gsc_a5_put_string (text);
+          gsc_a5_display (text);
           free (text);
           gsc_a5_present_intro_media (run);
           gsc_a5_status (run);
@@ -4734,7 +4876,7 @@ gsc_a5_main (void)
       a5run_snapshot (run);
 
       text = a5run_input (run, input);
-      gsc_a5_put_string (text);
+      gsc_a5_display (text);
       free (text);
       gsc_a5_show_media (run);
       gsc_a5_status (run);
@@ -4795,7 +4937,7 @@ gsc_a5_main (void)
             }
           glk_window_clear (gsc_main_window);
           text = a5run_intro (run);
-          gsc_a5_put_string (text);
+          gsc_a5_display (text);
           free (text);
           gsc_a5_present_intro_media (run);
           gsc_a5_status (run);

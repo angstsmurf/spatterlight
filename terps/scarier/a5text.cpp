@@ -2520,10 +2520,25 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
       char *pp = a5text_render_plain (exprs);
       const char *q = pp;
       *pre_alr_ink = 0;
+      /* The interactive-mode presentation marks stand for the same stripped
+         tags an A5_ALR_MARK does headlessly, so they are not ink either --
+         the ink verdict must come out identical in both modes. */
       for (; *q; q++)
-        if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t'
-            && *q != A5_ALR_MARK)
-          { *pre_alr_ink = 1; break; }
+        {
+          if (*q == A5_IMG_MARK)
+            {
+              /* Skip the \006<number>\006 span (or a stray unpaired mark). */
+              const char *e = strchr (q + 1, A5_IMG_MARK);
+              if (e == NULL)
+                continue;
+              q = e;
+            }
+          else if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t'
+                   && *q != A5_ALR_MARK && *q != A5_WAITKEY_MARK
+                   && *q != A5_CENTER_MARK && *q != A5_ENDCENTER_MARK
+                   && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK)
+            { *pre_alr_ink = 1; break; }
+        }
       free (pp);
     }
   if (depth > 8)
@@ -2639,6 +2654,22 @@ a5text_set_media_sink (a5_media_cb cb, void *ctx)
   a5_media_sink_ctx = ctx;
 }
 
+/* Interactive-presentation mode: keep <cls>/<waitkey>/<img> as positional
+   marks for the host instead of pre-resolving them (see a5text.h). */
+static int a5_interactive_mode = 0;
+
+void
+a5text_set_interactive (int on)
+{
+  a5_interactive_mode = on;
+}
+
+int
+a5text_interactive (void)
+{
+  return a5_interactive_mode;
+}
+
 /* ---------------------------------------------------- PopUpInput side channel */
 
 void
@@ -2650,8 +2681,9 @@ a5text_set_popup_cb (a5_popup_cb cb, void *ctx)
 
 /* Parse an <img>/<audio> tag body (without the angle brackets) and report it to
    the installed media sink: src="..." (image/sound file), and for <audio> the
-   play/stop verb, channel=N and an optional loop flag. */
-static void
+   play/stop verb, channel=N and an optional loop flag.  Returns the sink's
+   resolved resource number for an image (-1 otherwise). */
+static int
 a5_emit_media (const std::string &tag, int is_img)
 {
   std::string src;
@@ -2668,10 +2700,7 @@ a5_emit_media (const std::string &tag, int is_img)
     }
 
   if (is_img)
-    {
-      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_IMAGE, src.c_str (), 0, 0);
-      return;
-    }
+    return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_IMAGE, src.c_str (), 0, 0);
 
   /* <audio>: play (default) or stop, with channel=N and optional loop. */
   {
@@ -2686,6 +2715,7 @@ a5_emit_media (const std::string &tag, int is_img)
     else
       a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND, src.c_str (), channel, loop);
   }
+  return -1;
 }
 
 /* ----------------------------------------------------------- plain renderer */
@@ -2733,18 +2763,56 @@ a5text_render_plain (const char *src)
                  But FD's Display accumulates the whole turn's text and renders it
                  once, so a <cls> also wipes everything emitted EARLIER in the
                  turn (other fragments already in `out`).  Leave a marker byte so
-                 the per-turn flush can drop that earlier text too. */
-              sb.len = 0;
-              if (sb.p != NULL) sb.p[0] = '\0';
+                 the per-turn flush can drop that earlier text too.
+
+                 Interactively the pre-clear text is a real page the player must
+                 see (the Runner shows it, then clears its window): keep the
+                 text, leave only the mark for the host to clear at. */
+              if (!a5_interactive_mode)
+                {
+                  sb.len = 0;
+                  if (sb.p != NULL) sb.p[0] = '\0';
+                }
               sb_putc (&sb, A5_CLS_MARK);
             }
+          else if (a5_interactive_mode && strcmp (name, "waitkey") == 0)
+            /* Interactive pause point; doubles as the usual ALR tag blocker. */
+            sb_putc (&sb, A5_WAITKEY_MARK);
+          else if (a5_interactive_mode
+                   && (strcmp (name, "center") == 0
+                       || strcmp (name, "centre") == 0))
+            /* Centered span opens; like waitkey, the mark also blocks ALRs. */
+            sb_putc (&sb, A5_CENTER_MARK);
+          else if (a5_interactive_mode
+                   && (strcmp (name, "/center") == 0
+                       || strcmp (name, "/centre") == 0))
+            sb_putc (&sb, A5_ENDCENTER_MARK);
+          else if (a5_interactive_mode && strcmp (name, "b") == 0)
+            /* Bold span opens; like center, the mark also blocks ALRs (a bare
+               control byte can't sit inside a game OldText, so the boundary
+               strstr cannot match across it).  Headlessly <b> still drops to
+               A5_ALR_MARK below, so the ground-truth text is unchanged. */
+            sb_putc (&sb, A5_BOLD_MARK);
+          else if (a5_interactive_mode && strcmp (name, "/b") == 0)
+            sb_putc (&sb, A5_ENDBOLD_MARK);
           else if (a5_media_sink != NULL
                    && (strcmp (name, "img") == 0 || strcmp (name, "audio") == 0))
             {
               /* Embedded media: report it out of band; it still drops from the
-                 plain text (so the text output is unchanged). */
-              a5_emit_media (std::string (p + 1, tagend), strcmp (name, "img") == 0);
-              sb_putc (&sb, A5_ALR_MARK);
+                 plain text (so the text output is unchanged).  Interactively an
+                 image also leaves \006<resource>\006 at the tag's position so
+                 the host draws it where the author placed it. */
+              int res = a5_emit_media (std::string (p + 1, tagend),
+                                       strcmp (name, "img") == 0);
+              if (a5_interactive_mode && res > 0)
+                {
+                  char nbuf[16];
+                  snprintf (nbuf, sizeof nbuf, "%c%d%c",
+                            A5_IMG_MARK, res, A5_IMG_MARK);
+                  sb_puts (&sb, nbuf);
+                }
+              else
+                sb_putc (&sb, A5_ALR_MARK);
             }
           else
             /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...)
