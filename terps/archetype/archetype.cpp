@@ -1093,7 +1093,10 @@ void Archetype::exec_stmt(StatementPtr the_stmt, ResultType &result, ContextType
             if (index_xarray(Literals, the_stmt->_data._expr.expression->_data._msgTextQuote.index, p)) {
                 result._kind = TEXT_LIT;
                 result._data._msgTextQuote.index = the_stmt->_data._expr.expression->_data._msgTextQuote.index;
-                writeln(*((StringPtr)p));
+                // The literal is player/author text, not a format string: pass
+                // it through %s so a stray '%' in the prose can't be read as a
+                // printf conversion (garbage/crash; %n a memory write).
+                writeln("%s", ((StringPtr)p)->c_str());
             }
             break;
 

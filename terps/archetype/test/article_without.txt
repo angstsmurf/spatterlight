@@ -1,0 +1,5 @@
+look
+examine cot
+examine guard
+examine uniform
+examine card

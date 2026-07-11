@@ -40,6 +40,12 @@ void dispose_list(ListType &the_list) {
 		delete axe;
 	}
 
+	// Free the header node too (LINKLIST.PAS disposes it after the loop);
+	// otherwise every list disposal leaks one NodeType and the memory ledger
+	// drifts upward.
+	add_bytes(-(int)sizeof(*the_list));
+	delete the_list;
+	the_list = nullptr;
 }
 
 bool iterate_list(ListType &the_list, NodePtr &index) {

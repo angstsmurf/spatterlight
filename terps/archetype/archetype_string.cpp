@@ -149,7 +149,7 @@ String String::mid(size_t start) const {
 
 void String::del(size_t start, size_t count) {
 	if (start)
-		(*this) = left(start) + mid(start + count - 1);
+		(*this) = left(start) + mid(start + count);
 	else
 		(*this) = mid(count);
 }

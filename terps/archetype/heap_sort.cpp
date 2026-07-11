@@ -99,7 +99,7 @@ static void heapdown(HeapType &H) {
 
 			if (!access_xarray(H, L, lp, PEEK_ACCESS))
 				g_vm->writeln(CANT_PEEK);
-			if (!lighter(comparep, lp)) {
+			if (lighter(comparep, lp)) {
 				temp = comparep;
 				if (!(access_xarray(H, compare, lp, POKE_ACCESS) && access_xarray(H, L, temp, POKE_ACCESS)))
 					g_vm->writeln(CANT_POKE);
@@ -118,8 +118,10 @@ bool pop_heap(Element &e) {
 	if (H.empty()) {
 		return false;
 	} else {
-		if (!(access_xarray(H, 0, e, PEEK_ACCESS) && access_xarray(H, H.size() - 1, temp, PEEK_ACCESS)
-				&&  access_xarray(H, 0, temp, POKE_ACCESS)))
+		// access_xarray is 1-based (array.cpp): move the last element to the
+		// root (index 1) and hand back the old root, matching HEAPSORT.PAS.
+		if (!(access_xarray(H, 1, e, PEEK_ACCESS) && access_xarray(H, H.size(), temp, PEEK_ACCESS)
+				&&  access_xarray(H, 1, temp, POKE_ACCESS)))
 			g_vm->writeln(CANT_PEEK);
 
 		shrink_xarray(H);

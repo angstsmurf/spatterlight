@@ -165,7 +165,7 @@ bool convert_to(AclType target_type, ResultType &the_scalar) {
 			s1 = String::format("%d", the_number);
 			break;
 		case 'B':
-			s1 = boolval ? "TRUE" : "false";
+			s1 = boolval ? "TRUE" : "FALSE";
 			break;
 		default:
 			break;

@@ -161,6 +161,42 @@ regress-meta: archetype_hl
 		echo "regress-meta: FAIL (transcript diverged):"; head -40 /tmp/bare_meta_diff.txt; exit 1; \
 	fi
 
-regress-all: regress regress-starship regress-bare regress-meta
+# Unit regression for the SORT system object (heap_sort.cpp). Needs no story
+# file: it drives drop_str_on_heap / pop_heap directly and checks ascending
+# order. Reuses the interpreter objects and CheapGlk via its own glk_main()
+# (test/heap_sort_test.cpp), so glk_main.o / glkstart.o are swapped out.
+HEAP_TEST_OBJS := $(filter-out $(OBJDIR)/glk_main.o $(OBJDIR)/glkstart.o,$(OBJS)) $(OBJDIR)/heap_sort_test.o
 
-.PHONY: clean regress regress-starship regress-bare regress-meta regress-all
+$(OBJDIR)/heap_sort_test.o: test/heap_sort_test.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+archetype_heap_test: $(HEAP_TEST_OBJS) $(CHEAPGLK_LIB)
+	$(CXX) -o $@ $(HEAP_TEST_OBJS) $(CHEAPGLK_LIB)
+
+regress-heap: archetype_heap_test
+	@./archetype_heap_test 2>&1 | sed '/Cheap Glk Implementation/d' > /tmp/heap_got.txt
+	@if grep -q "HEAP SORT TEST: PASS" /tmp/heap_got.txt; then \
+		echo "regress-heap: PASS (sorter returns ascending order)"; \
+	else \
+		echo "regress-heap: FAIL:"; cat /tmp/heap_got.txt; exit 1; \
+	fi
+
+# Regression for the article-stripping fix (String::del). Filler words a/an/the
+# must be removed without corrupting the surrounding command, so a command typed
+# with articles must parse identically to the same command without them. Runs
+# both forms through Gorreven and asserts byte-identical transcripts (needs
+# GORREVEN; catches the del() off-by-one, which glued the article onto the verb).
+regress-article: archetype_hl
+	@if [ ! -f "$(GORREVEN)" ]; then \
+		echo "regress-article: story file not found at $(GORREVEN); set GORREVEN=/path/to/GORREVEN.ACX"; exit 2; fi
+	@./archetype_hl "$(GORREVEN)" < test/article_with.txt 2>&1 | sed '/Cheap Glk Implementation/d' > /tmp/article_with.txt
+	@./archetype_hl "$(GORREVEN)" < test/article_without.txt 2>&1 | sed '/Cheap Glk Implementation/d' > /tmp/article_without.txt
+	@if diff -u /tmp/article_without.txt /tmp/article_with.txt > /tmp/article_diff.txt; then \
+		echo "regress-article: PASS (articles stripped without corrupting the command)"; \
+	else \
+		echo "regress-article: FAIL (article changed parsing):"; head -40 /tmp/article_diff.txt; exit 1; \
+	fi
+
+regress-all: regress regress-starship regress-bare regress-meta regress-heap regress-article
+
+.PHONY: clean regress regress-starship regress-bare regress-meta regress-heap regress-article regress-all
