@@ -430,7 +430,9 @@ extern scr_bool uip_match (const scr_char *pattern,
                           const scr_char *string, scr_gameref_t game);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
+extern void uip_forget_game (const void *game);
 extern void uip_debug_trace (scr_bool flag);
+extern void task_forget_game (const void *game);
 
 /* Library perspective enumeration and functions. */
 enum

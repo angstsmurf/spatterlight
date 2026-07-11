@@ -35,6 +35,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "scarier.h"
 #include "scprotos.h"
@@ -1384,34 +1385,178 @@ uip_compare_reference (const scr_char *words)
 
 
 /*
- * uip_compare_prefixed_name()
+ * Cached %object% and %character% match candidates.
  *
- * Helper for %character% and %object% matchers.  Attempts a reference
- * match against both the prefixed name, and if that fails, the plain name.
+ * The reference matchers historically re-read every entity's Prefix, Name/
+ * Short and Alias properties from the bundle and re-composed the "prefix
+ * name" comparison string on every %object%/%character% match attempt --
+ * per entity, per attempt, per input line -- which profiled as the largest
+ * single share of parsing.  Those properties are fixed once the game is
+ * loaded (the only runtime-mutable properties are the player's name and
+ * gender globals, which the matchers never read), so build each game's
+ * candidate list once and reuse it.
+ *
+ * Each candidate also precomputes the lead character (the first character
+ * past any article, lowercased) of both its composed prefixed string and
+ * its plain name.  uip_compare_reference() cannot match unless the input's
+ * own lead character equals one of these, so the matchers use that as an
+ * exact one-character rejection test before comparing in full.
+ *
+ * The cache tracks a single game (SCARE runs one at a time); gs_destroy()
+ * calls uip_forget_game() so a later game reusing the same allocation
+ * address cannot be mistaken for a cached one.
+ */
+typedef struct
+{
+  std::string prefixed;    /* "prefix name", exactly as composed before */
+  const scr_char *plain;   /* interned name string from the bundle */
+  scr_char lead_prefixed;  /* uip_lead_char() of the strings above... */
+  scr_char lead_plain;     /* ... valid under the game's locale */
+} scr_uip_candidate_t;
+
+typedef struct
+{
+  scr_uip_candidate_t name;
+  std::vector<scr_uip_candidate_t> aliases;  /* empty aliases excluded */
+} scr_uip_entity_t;
+
+static const void *uip_cache_game = NULL;
+static std::vector<scr_uip_entity_t> uip_cache_objects;
+static std::vector<scr_uip_entity_t> uip_cache_npcs;
+
+/*
+ * uip_lead_char()
+ *
+ * Return the lowercased first character of a string past any leading
+ * article, mirroring what uip_compare_reference() compares first.
+ */
+static scr_char
+uip_lead_char (const scr_char *string)
+{
+  return scr_tolower (string[uip_skip_article (string, 0)]);
+}
+
+/*
+ * uip_build_candidate()
+ *
+ * Fill in one match candidate from a prefix and a name.
+ */
+static void
+uip_build_candidate (scr_uip_candidate_t *candidate,
+                     const scr_char *prefix, const scr_char *name)
+{
+  /* Compose "prefix name" as the old per-call sprintf ("%s %s") did. */
+  candidate->prefixed.assign (prefix);
+  candidate->prefixed.append (1, ' ');
+  candidate->prefixed.append (name);
+
+  candidate->plain = name;
+  candidate->lead_prefixed = uip_lead_char (candidate->prefixed.c_str ());
+  candidate->lead_plain = uip_lead_char (name);
+}
+
+/*
+ * uip_build_entities()
+ *
+ * Build the candidate list for one entity class ("Objects" with "Short"
+ * names, or "NPCs" with "Name" names), reading the same properties the
+ * matchers read before candidates were cached.
+ */
+static void
+uip_build_entities (std::vector<scr_uip_entity_t> &entities,
+                    scr_gameref_t game, scr_int count,
+                    const scr_char *class_key, const scr_char *name_key)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int index_;
+
+  entities.clear ();
+  entities.resize (count);
+  for (index_ = 0; index_ < count; index_++)
+    {
+      scr_uip_entity_t &entity = entities[index_];
+      scr_vartype_t vt_key[4];
+      const scr_char *prefix, *name;
+      scr_int alias_count, alias;
+
+      /* Get the entity's prefix and name. */
+      vt_key[0].string = class_key;
+      vt_key[1].integer = index_;
+      vt_key[2].string = "Prefix";
+      prefix = prop_get_string (bundle, "S<-sis", vt_key);
+      vt_key[2].string = name_key;
+      name = prop_get_string (bundle, "S<-sis", vt_key);
+      uip_build_candidate (&entity.name, prefix, name);
+
+      /* Add each non-empty alias (3.9 games introduce empty aliases). */
+      vt_key[2].string = "Alias";
+      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          const scr_char *alias_name;
+
+          vt_key[3].integer = alias;
+          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (scr_strempty (alias_name))
+            continue;
+
+          entity.aliases.push_back (scr_uip_candidate_t ());
+          uip_build_candidate (&entity.aliases.back (), prefix, alias_name);
+        }
+    }
+}
+
+/*
+ * uip_synchronize_cache()
+ *
+ * Ensure the candidate cache describes the given game.
+ */
+static void
+uip_synchronize_cache (scr_gameref_t game)
+{
+  if (uip_cache_game == game)
+    return;
+
+  uip_build_entities (uip_cache_objects,
+                      game, gs_object_count (game), "Objects", "Short");
+  uip_build_entities (uip_cache_npcs,
+                      game, gs_npc_count (game), "NPCs", "Name");
+  uip_cache_game = game;
+}
+
+/*
+ * uip_forget_game()
+ *
+ * Drop any candidate cache built for the given game.  Called from
+ * gs_destroy() so a stale cache can never outlive its game.
+ */
+void
+uip_forget_game (const void *game)
+{
+  if (uip_cache_game == game)
+    {
+      uip_cache_game = NULL;
+      uip_cache_objects.clear ();
+      uip_cache_npcs.clear ();
+    }
+}
+
+/*
+ * uip_compare_candidate()
+ *
+ * Attempt a reference match against a candidate's prefixed name, and if
+ * that fails, its plain name (the same order the matchers always used).
  * Returns the extent of the match, or zero if no match.
  */
 static scr_int
-uip_compare_prefixed_name (const scr_char *prefix, const scr_char *name)
+uip_compare_candidate (const scr_uip_candidate_t &candidate)
 {
-  scr_char buffer[UIP_SHORT_WORD_SIZE + UIP_SHORT_WORD_SIZE + 1];
-  scr_char *string;
-  scr_int required, extent;
+  scr_int extent;
 
-  /* Create a prefixed string, using the local buffer if possible. */
-  required = strlen (prefix) + strlen (name) + 2;
-  string = required > (scr_int) sizeof (buffer) ? (decltype(+buffer)) scr_malloc (required) : buffer;
-  sprintf (string, "%s %s", prefix, name);
-
-  /* Check against the prefixed name first, free string if required. */
-  extent = uip_compare_reference (string);
-  if (string != buffer)
-    scr_free (string);
-
-  /* If no match there, retry with just the plain name. */
+  extent = uip_compare_reference (candidate.prefixed.c_str ());
   if (extent == 0)
-    extent = uip_compare_reference (name);
+    extent = uip_compare_reference (candidate.plain);
 
-  /* Return the count of characters consumed in matching. */
   return extent;
 }
 
@@ -1464,9 +1609,9 @@ static scr_bool
 uip_match_character (scr_ptnoderef_t node)
 {
   const scr_gameref_t game = uip_get_game ();
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int npc_count, npc, max_extent;
+  scr_char input_lead;
 
   if (uip_trace)
     scr_trace ("UIParser: attempting to match %%character%%\n");
@@ -1474,63 +1619,57 @@ uip_match_character (scr_ptnoderef_t node)
   /* Clear all current character references. */
   gs_clear_npc_references (game);
 
+  /* Ensure cached candidates for this game, and get the input's lead
+     character -- a candidate whose own leads differ cannot match. */
+  uip_synchronize_cache (game);
+  input_lead = scr_tolower (uip_string[uip_skip_article (uip_string,
+                                                         uip_posn)]);
+
   /* Iterate characters, looking for a name or alias match. */
   max_extent = 0;
-  npc_count = gs_npc_count (game);
+  npc_count = uip_cache_npcs.size ();
   for (npc = 0; npc < npc_count; npc++)
     {
-      scr_vartype_t vt_key[4];
-      const scr_char *prefix, *name;
+      const scr_uip_entity_t &entity = uip_cache_npcs[npc];
       scr_int alias_count, alias, extent;
 
-      /* Get the NPC's prefix and name. */
-      vt_key[0].string = "NPCs";
-      vt_key[1].integer = npc;
-      vt_key[2].string = "Prefix";
-      prefix = prop_get_string (bundle, "S<-sis", vt_key);
-      vt_key[2].string = "Name";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
-
       if (uip_trace)
-        scr_trace ("UIParser: trying %s\n", name);
+        scr_trace ("UIParser: trying %s\n", entity.name.plain);
 
       /* Compare this name, both prefixed and not. */
-      extent = uip_compare_prefixed_name (prefix, name);
-      if (extent > 0 && uip_match_remainder (node, extent))
+      if (input_lead == entity.name.lead_prefixed
+          || input_lead == entity.name.lead_plain)
         {
-          if (uip_trace)
-            scr_trace ("UIParser: matched\n");
+          extent = uip_compare_candidate (entity.name);
+          if (extent > 0 && uip_match_remainder (node, extent))
+            {
+              if (uip_trace)
+                scr_trace ("UIParser: matched\n");
 
-          /* Increase the maximum match extent if required. */
-          max_extent = (extent > max_extent) ? extent : max_extent;
+              /* Increase the maximum match extent if required. */
+              max_extent = (extent > max_extent) ? extent : max_extent;
 
-          /* Save match in variables and game. */
-          var_set_ref_character (vars, npc);
-          game->npc_references[npc] = TRUE;
+              /* Save match in variables and game. */
+              var_set_ref_character (vars, npc);
+              game->npc_references[npc] = TRUE;
+            }
         }
 
       /* Now compare against all NPC aliases. */
-      vt_key[2].string = "Alias";
-      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-
+      alias_count = entity.aliases.size ();
       for (alias = 0; alias < alias_count; alias++)
         {
-          const scr_char *alias_name;
-
-          /*
-           * Get the NPC alias.  Version 3.9 games introduce empty aliases,
-           * so check here.
-           */
-          vt_key[3].integer = alias;
-          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
-          if (scr_strempty (alias_name))
-            continue;
+          const scr_uip_candidate_t &alias_name = entity.aliases[alias];
 
           if (uip_trace)
-            scr_trace ("UIParser: trying alias %s\n", alias_name);
+            scr_trace ("UIParser: trying alias %s\n", alias_name.plain);
+
+          if (input_lead != alias_name.lead_prefixed
+              && input_lead != alias_name.lead_plain)
+            continue;
 
           /* Compare this alias name, both prefixed and not. */
-          extent = uip_compare_prefixed_name (prefix, alias_name);
+          extent = uip_compare_candidate (alias_name);
           if (extent > 0 && uip_match_remainder (node, extent))
             {
               if (uip_trace)
@@ -1569,9 +1708,9 @@ static scr_bool
 uip_match_object (scr_ptnoderef_t node)
 {
   const scr_gameref_t game = uip_get_game ();
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int object_count, object, max_extent;
+  scr_char input_lead;
 
   if (uip_trace)
     scr_trace ("UIParser: attempting to match %%object%%\n");
@@ -1579,63 +1718,57 @@ uip_match_object (scr_ptnoderef_t node)
   /* Clear all current object references. */
   gs_clear_object_references (game);
 
+  /* Ensure cached candidates for this game, and get the input's lead
+     character -- a candidate whose own leads differ cannot match. */
+  uip_synchronize_cache (game);
+  input_lead = scr_tolower (uip_string[uip_skip_article (uip_string,
+                                                         uip_posn)]);
+
   /* Iterate objects, looking for a name or alias match. */
   max_extent = 0;
-  object_count = gs_object_count (game);
+  object_count = uip_cache_objects.size ();
   for (object = 0; object < object_count; object++)
     {
-      scr_vartype_t vt_key[4];
-      const scr_char *prefix, *name;
+      const scr_uip_entity_t &entity = uip_cache_objects[object];
       scr_int alias_count, alias, extent;
 
-      /* Get the object's prefix and name. */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Prefix";
-      prefix = prop_get_string (bundle, "S<-sis", vt_key);
-      vt_key[2].string = "Short";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
-
       if (uip_trace)
-        scr_trace ("UIParser: trying %s\n", name);
+        scr_trace ("UIParser: trying %s\n", entity.name.plain);
 
       /* Compare this name, both prefixed and not. */
-      extent = uip_compare_prefixed_name (prefix, name);
-      if (extent > 0 && uip_match_remainder (node, extent))
+      if (input_lead == entity.name.lead_prefixed
+          || input_lead == entity.name.lead_plain)
         {
-          if (uip_trace)
-            scr_trace ("UIParser: matched\n");
+          extent = uip_compare_candidate (entity.name);
+          if (extent > 0 && uip_match_remainder (node, extent))
+            {
+              if (uip_trace)
+                scr_trace ("UIParser: matched\n");
 
-          /* Increase the maximum match extent if required. */
-          max_extent = (extent > max_extent) ? extent : max_extent;
+              /* Increase the maximum match extent if required. */
+              max_extent = (extent > max_extent) ? extent : max_extent;
 
-          /* Save match in variables and game. */
-          var_set_ref_object (vars, object);
-          game->object_references[object] = TRUE;
+              /* Save match in variables and game. */
+              var_set_ref_object (vars, object);
+              game->object_references[object] = TRUE;
+            }
         }
 
       /* Now compare against all object aliases. */
-      vt_key[2].string = "Alias";
-      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-
+      alias_count = entity.aliases.size ();
       for (alias = 0; alias < alias_count; alias++)
         {
-          const scr_char *alias_name;
-
-          /*
-           * Get the object alias.  Version 3.9 games introduce empty aliases,
-           * so check here.
-           */
-          vt_key[3].integer = alias;
-          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
-          if (scr_strempty (alias_name))
-            continue;
+          const scr_uip_candidate_t &alias_name = entity.aliases[alias];
 
           if (uip_trace)
-            scr_trace ("UIParser: trying alias %s\n", alias_name);
+            scr_trace ("UIParser: trying alias %s\n", alias_name.plain);
+
+          if (input_lead != alias_name.lead_prefixed
+              && input_lead != alias_name.lead_plain)
+            continue;
 
           /* Compare this alias name, both prefixed and not. */
-          extent = uip_compare_prefixed_name (prefix, alias_name);
+          extent = uip_compare_candidate (alias_name);
           if (extent > 0 && uip_match_remainder (node, extent))
             {
               if (uip_trace)

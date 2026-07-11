@@ -57,6 +57,21 @@ typedef struct scr_prop_node_s
   scr_vartype_t property;
 
   struct scr_prop_node_s **child_list;
+
+  /*
+   * TRUE when a string-keyed child_list is sorted by name for binary search
+   * (see prop_find_child).  Cleared whenever a string child is appended;
+   * meaningless for integer-keyed nodes, whose children are positional.
+   */
+  scr_bool is_sorted;
+
+  /*
+   * The string-keyed child returned by the last successful lookup, verified
+   * by strcmp before reuse.  Loops asking a node for the same key repeatedly
+   * (the task scan asking the root for "Tasks", say) hit here in one compare
+   * instead of a binary search.
+   */
+  struct scr_prop_node_s *last_found;
 } scr_prop_node_t;
 typedef scr_prop_node_t *scr_prop_noderef_t;
 
@@ -275,6 +290,20 @@ prop_new_node (scr_prop_setref_t bundle)
 
 
 /*
+ * prop_compare_child_names()
+ *
+ * qsort() comparator ordering string-keyed child nodes by their interned
+ * names, for the binary search in prop_find_child().
+ */
+static int
+prop_compare_child_names (const void *child1, const void *child2)
+{
+  return strcmp ((*(scr_prop_noderef_t const *) child1)->name.string,
+                 (*(scr_prop_noderef_t const *) child2)->name.string);
+}
+
+
+/*
  * prop_find_child()
  *
  * Find a child node of the given parent whose name matches that passed in.
@@ -314,47 +343,53 @@ prop_find_child (scr_prop_noderef_t parent, scr_int type, scr_vartype_t name)
 
         case PROP_KEY_STRING:
           /*
-           * Scan children for a string name match.  This is the engine's
+           * Look up a string name among the children.  This is the engine's
            * single hottest inner loop (tens of millions of iterations on a
-           * full walkthrough -- see the P4 profiling notes in
-           * TODO_scare_cpp_modernization.md).  The names are interned, but the
-           * incoming lookup key never is (profiling: 0% pointer-equal), so we
-           * can't shortcut with a pointer compare.  Instead gate the strcmp()
-           * call on a cheap inline first-byte compare: the field names within
-           * a node are diverse, so the common non-matching child is rejected by
-           * a single byte load + branch rather than a strcmp() function call.
-           * Identical match semantics, so output is byte-for-byte unchanged.
+           * full walkthrough -- see the P4 profiling notes and the v4
+           * profiling memo).  String children carry no positional meaning
+           * (this lookup is the only reader, and an earlier move-to-front
+           * scheme reordered them freely), so keep each list sorted by name
+           * and binary search it.  Lists are sorted lazily on first lookup;
+           * prop_add_child clears is_sorted when it appends, so load-time
+           * find/add interleaving stays correct and the steady state after
+           * load is one sort per node, then log2(n) strcmp probes per lookup
+           * in place of a linear scan plus a move-to-front memmove.
            */
           {
-          const scr_char *const key = name.string;
-          const scr_char key0 = key[0];
-          for (index_ = 0; index_ < parent->property.integer; index_++)
-            {
-              const scr_char *cn;
-              child = parent->child_list[index_];
-              cn = child->name.string;
-              if (cn[0] == key0 && strcmp (cn, key) == 0)
-                break;
-            }
-          }
+            const scr_char *const key = name.string;
+            scr_int low, high;
 
-          /* Return child if we found a match. */
-          if (index_ < parent->property.integer)
-            {
-              /*
-               * Before returning the child, try to improve future scans by
-               * moving the matched entry to index_ 0 -- this gives a key set
-               * sorted by recent usage, helpful as the same string key is
-               * used repeatedly in loops.
-               */
-              if (index_ > 0)
-                {
-                  memmove (parent->child_list + 1,
-                           parent->child_list, index_ * sizeof (child));
-                  parent->child_list[0] = child;
-                }
+            /* Re-check the last hit first; loops repeat the same key. */
+            child = parent->last_found;
+            if (child && strcmp (key, child->name.string) == 0)
               return child;
-            }
+
+            if (!parent->is_sorted)
+              {
+                qsort (parent->child_list, parent->property.integer,
+                       sizeof (*parent->child_list), prop_compare_child_names);
+                parent->is_sorted = TRUE;
+              }
+
+            low = 0;
+            high = parent->property.integer - 1;
+            while (low <= high)
+              {
+                const scr_int middle = (low + high) / 2;
+                const int comparison =
+                    strcmp (key, parent->child_list[middle]->name.string);
+
+                if (comparison == 0)
+                  {
+                    parent->last_found = parent->child_list[middle];
+                    return parent->child_list[middle];
+                  }
+                else if (comparison < 0)
+                  high = middle - 1;
+                else
+                  low = middle + 1;
+              }
+          }
           break;
 
         default:
@@ -401,6 +436,8 @@ prop_add_child (scr_prop_noderef_t parent,
   /* Initialize property and child list to visible nulls. */
   child->property.voidp = NULL;
   child->child_list = NULL;
+  child->is_sorted = FALSE;
+  child->last_found = NULL;
 
   /* Make a brief check for obvious overwrites. */
   if (!parent->child_list && parent->property.voidp)
@@ -442,8 +479,10 @@ prop_add_child (scr_prop_noderef_t parent,
                                                  parent->property.integer + 1,
                                                  sizeof (*parent->child_list));
 
-      /* Store the child at the end of the list. */
+      /* Store the child at the end of the list; the append invalidates any
+       * sorted order prop_find_child established (re-sorted on next find). */
       parent->child_list[parent->property.integer++] = child;
+      parent->is_sorted = FALSE;
       break;
 
     default:
@@ -907,6 +946,8 @@ prop_create_empty (void)
   bundle->root_node->child_list = NULL;
   bundle->root_node->name.string = "ROOT";
   bundle->root_node->property.voidp = NULL;
+  bundle->root_node->is_sorted = FALSE;
+  bundle->root_node->last_found = NULL;
 
   /* No taf is yet connected with this set. */
   bundle->taf = NULL;

@@ -28,6 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -127,6 +129,80 @@ task_has_hints (scr_gameref_t game, scr_int task)
 
 
 /*
+ * Cached per-task runnability properties.
+ *
+ * task_can_run_task_directional() is called for every task on every command
+ * match and every turn tick, and before caching it re-read the same fixed
+ * task properties from the bundle each time, which profiled as the largest
+ * remaining prop_get() consumer.  The properties are immutable once a game
+ * is loaded, so remember each answer the first time it is read.  Caching is
+ * per field and lazy -- the first touch of each field goes through the same
+ * fatal-checking prop_get_* wrapper the uncached code used, so a malformed
+ * game fails in exactly the same way, and a field the uncached code never
+ * read is never read here either.
+ *
+ * The cache tracks a single game; gs_destroy() calls task_forget_game() so
+ * a later game reusing the same allocation address starts clean.
+ */
+enum
+{ TASK_CACHE_UNKNOWN = 0, TASK_CACHE_FALSE = 1, TASK_CACHE_TRUE = 2 };
+enum { TASK_CACHE_NO_ROOM = -2 };
+
+typedef struct
+{
+  scr_byte repeatable;           /* tri-state, TASK_CACHE_* */
+  scr_byte repeattext_empty;     /* tri-state: is RepeatText empty? */
+  scr_byte reversible;           /* tri-state */
+  scr_int where_type;            /* Where.Type + 1, 0 = unknown */
+  scr_int where_room;            /* Where.Room, TASK_CACHE_NO_ROOM = unknown */
+  std::vector<scr_byte> where_rooms;  /* per-room tri-state, sized lazily */
+} scr_task_props_t;
+
+static const void *task_cache_game = NULL;
+static std::vector<scr_task_props_t> task_cache;
+
+/*
+ * task_cache_entry()
+ *
+ * Return the cache entry for a task, resetting the cache if it was built
+ * for a different game.
+ */
+static scr_task_props_t *
+task_cache_entry (scr_gameref_t game, scr_int task)
+{
+  if (task_cache_game != game)
+    {
+      scr_task_props_t initial;
+
+      initial.repeatable = TASK_CACHE_UNKNOWN;
+      initial.repeattext_empty = TASK_CACHE_UNKNOWN;
+      initial.reversible = TASK_CACHE_UNKNOWN;
+      initial.where_type = 0;
+      initial.where_room = TASK_CACHE_NO_ROOM;
+
+      task_cache.assign (gs_task_count (game), initial);
+      task_cache_game = game;
+    }
+  return &task_cache[task];
+}
+
+/*
+ * task_forget_game()
+ *
+ * Drop any task property cache built for the given game.  Called from
+ * gs_destroy() so a stale cache can never outlive its game.
+ */
+void
+task_forget_game (const void *game)
+{
+  if (task_cache_game == game)
+    {
+      task_cache_game = NULL;
+      task_cache.clear ();
+    }
+}
+
+/*
  * task_can_run_task_directional()
  *
  * Return TRUE if player is in a room where the task can be run and the task
@@ -139,6 +215,7 @@ task_can_run_task_directional (scr_gameref_t game,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
   scr_int type;
+  scr_task_props_t *cached;
 
 #ifdef SCARIER_DUMP_TOOLS
   /* Reusable structural-dump / NPC-trace instrumentation; see scdump.c.
@@ -147,44 +224,62 @@ task_can_run_task_directional (scr_gameref_t game,
   scr_dump_structure_once (game);
 #endif
 
+  cached = task_cache_entry (game, task);
+
   /* If already run, non-repeatable tasks are not re-runnable forwards. */
   if (forwards && gs_task_done (game, task))
     {
-      scr_bool repeatable;
-      const scr_char *repeattext;
-
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = task;
-      vt_key[2].string = "Repeatable";
-      repeatable = prop_get_boolean (bundle, "B<-sis", vt_key);
-      if (!repeatable)
+      if (cached->repeatable == TASK_CACHE_UNKNOWN)
+        {
+          vt_key[0].string = "Tasks";
+          vt_key[1].integer = task;
+          vt_key[2].string = "Repeatable";
+          cached->repeatable = prop_get_boolean (bundle, "B<-sis", vt_key)
+                               ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
+        }
+      if (cached->repeatable == TASK_CACHE_FALSE)
         return FALSE;
 
-      vt_key[2].string = "RepeatText";
-      repeattext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (repeattext))
+      if (cached->repeattext_empty == TASK_CACHE_UNKNOWN)
+        {
+          const scr_char *repeattext;
+
+          vt_key[0].string = "Tasks";
+          vt_key[1].integer = task;
+          vt_key[2].string = "RepeatText";
+          repeattext = prop_get_string (bundle, "S<-sis", vt_key);
+          cached->repeattext_empty = scr_strempty (repeattext)
+                                     ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
+        }
+      if (cached->repeattext_empty == TASK_CACHE_FALSE)
         return FALSE;
     }
 
   /* If checking for reverse, test the reversibility flag. */
   if (!forwards)
     {
-      scr_bool reversible;
-
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = task;
-      vt_key[2].string = "Reversible";
-      reversible = prop_get_boolean (bundle, "B<-sis", vt_key);
-      if (!reversible)
+      if (cached->reversible == TASK_CACHE_UNKNOWN)
+        {
+          vt_key[0].string = "Tasks";
+          vt_key[1].integer = task;
+          vt_key[2].string = "Reversible";
+          cached->reversible = prop_get_boolean (bundle, "B<-sis", vt_key)
+                               ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
+        }
+      if (cached->reversible == TASK_CACHE_FALSE)
         return FALSE;
     }
 
   /* Check room list for the task and return it. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = "Where";
-  vt_key[3].string = "Type";
-  type = prop_get_integer (bundle, "I<-siss", vt_key);
+  if (cached->where_type == 0)
+    {
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "Where";
+      vt_key[3].string = "Type";
+      cached->where_type = prop_get_integer (bundle, "I<-siss", vt_key) + 1;
+    }
+  type = cached->where_type - 1;
   switch (type)
     {
     case ROOMLIST_NO_ROOMS:
@@ -193,14 +288,49 @@ task_can_run_task_directional (scr_gameref_t game,
       return TRUE;
 
     case ROOMLIST_ONE_ROOM:
-      vt_key[3].string = "Room";
-      return prop_get_integer (bundle,
-                              "I<-siss", vt_key) == gs_playerroom (game);
+      if (cached->where_room == TASK_CACHE_NO_ROOM)
+        {
+          vt_key[0].string = "Tasks";
+          vt_key[1].integer = task;
+          vt_key[2].string = "Where";
+          vt_key[3].string = "Room";
+          cached->where_room = prop_get_integer (bundle, "I<-siss", vt_key);
+        }
+      return cached->where_room == gs_playerroom (game);
 
     case ROOMLIST_SOME_ROOMS:
-      vt_key[3].string = "Rooms";
-      vt_key[4].integer = gs_playerroom (game);
-      return prop_get_boolean (bundle, "B<-sissi", vt_key);
+      {
+        const scr_int room = gs_playerroom (game);
+
+        if (cached->where_rooms.empty ())
+          cached->where_rooms.assign (gs_room_count (game),
+                                      TASK_CACHE_UNKNOWN);
+
+        /* An out-of-range room can't be cached; take the uncached path so
+         * it fails inside prop_get_boolean exactly as it always did. */
+        if (room < 0 || room >= (scr_int) cached->where_rooms.size ())
+          {
+            vt_key[0].string = "Tasks";
+            vt_key[1].integer = task;
+            vt_key[2].string = "Where";
+            vt_key[3].string = "Rooms";
+            vt_key[4].integer = room;
+            return prop_get_boolean (bundle, "B<-sissi", vt_key);
+          }
+
+        if (cached->where_rooms[room] == TASK_CACHE_UNKNOWN)
+          {
+            vt_key[0].string = "Tasks";
+            vt_key[1].integer = task;
+            vt_key[2].string = "Where";
+            vt_key[3].string = "Rooms";
+            vt_key[4].integer = room;
+            cached->where_rooms[room] =
+                prop_get_boolean (bundle, "B<-sissi", vt_key)
+                ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
+          }
+        return cached->where_rooms[room] == TASK_CACHE_TRUE;
+      }
 
     default:
       scr_fatal ("task_can_run_task_directional: invalid type, %ld\n", type);
