@@ -140,6 +140,14 @@ static int gsc_is_a5 = FALSE;
 /* Current a5 run, kept here so status redraws on window resize can reach it. */
 static a5_run_t *gsc_a5_run = NULL;
 static void gsc_a5_status (a5_run_t *run);
+static void gsc_a5_display (const char *text);
+static int gsc_a5_show_media (a5_run_t *run);
+
+/* Set when this session drives the game's TimeBased events off a wall-clock
+   1-second Glk timer (the real Runner's tmrEvents_Tick) instead of the
+   engine's deterministic one-tick-per-input substitute.  Decided per run by
+   gsc_a5_start_real_time. */
+static int gsc_a5_real_time = FALSE;
 
 /* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
    lazily as a right-hand text buffer the first time the game routes text to
@@ -4192,11 +4200,148 @@ gsc_a5_put_string (const char *string)
  * to the a5 parser).  Returns the byte length stored.  Reuses gsc_event_wait so
  * window resize / redraw events are handled while waiting.
  */
+/*
+ * gsc_a5_start_real_time()
+ *
+ * Decide whether this session runs the game's TimeBased events in real time,
+ * and arm (or disarm) the 1-second Glk timer accordingly.  The real Runner
+ * ticks TimeBased events off a wall-clock timer (tmrEvents_Tick); the
+ * engine's default is a deterministic substitute -- one tick per input line
+ * -- which headless harnesses and walkthrough replays depend on.  So real
+ * time is used only when the Glk has timers and line-input echo control (a
+ * tick must be able to cancel pending input cleanly), when determinism mode
+ * is off, and when the game defines TimeBased events at all.  The engine
+ * flag lives on the run: call again after every a5run_new.
+ */
+static void
+gsc_a5_start_real_time (a5_run_t *run)
+{
+#ifdef GLK_MODULE_LINE_ECHO
+  gsc_a5_real_time = glk_gestalt (gestalt_Timer, 0)
+                     && glk_gestalt (gestalt_LineInputEcho, 0)
+                     && a5run_has_time_events (run);
+#if defined(SPATTERLIGHT)
+  /* Determinism (testing) mode keeps the reproducible per-turn model. */
+  if (gli_determinism)
+    gsc_a5_real_time = FALSE;
+#endif
+#else
+  gsc_a5_real_time = FALSE;
+#endif
+  a5run_set_real_time (run, gsc_a5_real_time);
+  glk_request_timer_events (gsc_a5_real_time ? 1000 : 0);
+}
+
+/*
+ * gsc_a5_await_line()
+ *
+ * Wait for line input on the main window, servicing resize redraws and, in
+ * real-time mode, the 1-second TimeBased event tick.  A tick that produces
+ * output cancels the pending input request (echo is off, so the cancel is
+ * clean -- Glk forbids printing to a window with a live line request), shows
+ * the tick's commit, reprints the prompt, and re-requests the line pre-seeded
+ * with whatever the player had already typed.  Exactly one of buf/ubuf is
+ * non-NULL, matching the pending request's buffer.  Returns TRUE when line
+ * input completed, FALSE when a tick ended the game (the pending request has
+ * been cancelled and the end-of-game text already shown).
+ */
+static int
+gsc_a5_await_line (event_t *event, char *buf, int bufsize,
+                   glui32 *ubuf, glui32 ucap)
+{
+  for (;;)
+    {
+      glk_select (event);
+      switch (event->type)
+        {
+        case evtype_Arrange:
+        case evtype_Redraw:
+          /* Refresh any sensitive windows on size events. */
+          gsc_status_redraw ();
+#ifdef SPATTERLIGHT
+          gsc_title_redraw ();
+#endif
+          break;
+
+        case evtype_Timer:
+          if (gsc_a5_real_time && gsc_a5_run != NULL)
+            {
+              char *text = a5run_time_tick (gsc_a5_run);
+
+              if (text == NULL)
+                break;                          /* silent tick */
+              if (text[0] == '\0')
+                {
+                  /* An output-less commit: at most sounds to start or stop,
+                     and possibly a silent score change for the status line
+                     (a separate window, so no need to touch the pending
+                     input request). */
+                  gsc_a5_show_media (gsc_a5_run);
+                  gsc_a5_status (gsc_a5_run);
+                  free (text);
+                  break;
+                }
+
+              {
+                event_t cancel;
+
+                cancel.val1 = 0;
+                glk_cancel_line_event (gsc_main_window, &cancel);
+                /* End the line holding the now-dangling "> " prompt. */
+                gsc_a5_put_string ("\n");
+                gsc_a5_display (text);
+                free (text);
+                gsc_a5_show_media (gsc_a5_run);
+                gsc_a5_status (gsc_a5_run);
+                if (a5run_is_over (gsc_a5_run))
+                  return FALSE;
+                gsc_a5_put_string ("\n> ");
+                if (ubuf != NULL)
+                  glk_request_line_event_uni (gsc_main_window, ubuf, ucap,
+                                              cancel.val1);
+                else
+                  glk_request_line_event (gsc_main_window, buf,
+                                          (glui32) (bufsize - 1), cancel.val1);
+              }
+            }
+          break;
+
+        case evtype_LineInput:
+          if (event->win == gsc_main_window)
+            {
+#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
+              /* A completed command line ends a turn (see gsc_event_wait_2). */
+              gsc_graphic_drawn_since_input = FALSE;
+#endif
+#ifdef SPATTERLIGHT
+              /* The player's first input dismisses any title/cover window. */
+              if (!gsc_seen_input)
+                {
+                  gsc_seen_input = TRUE;
+                  gsc_close_title_graphic ();
+                }
+#endif
+              return TRUE;
+            }
+          break;
+        }
+    }
+}
+
 static int
 gsc_a5_read_line (char *buf, int bufsize)
 {
   event_t event;
-  int n = 0;
+  int n = 0, done;
+
+  /* In real-time mode take over input echo: a TimeBased tick may cancel and
+     re-issue the pending request, and with auto-echo every cancel would
+     commit a spurious input line to the window.  The completed command is
+     echoed manually below instead. */
+#ifdef GLK_MODULE_LINE_ECHO
+  if (gsc_a5_real_time)
+    glk_set_echo_line_event (gsc_main_window, 0);
+#endif
 
   if (gsc_unicode_enabled)
     {
@@ -4206,43 +4351,52 @@ gsc_a5_read_line (char *buf, int bufsize)
 
       memset (unicode, 0, cap * sizeof (*unicode));
       glk_request_line_event_uni (gsc_main_window, unicode, cap, 0);
-      gsc_event_wait (evtype_LineInput, &event);
+      done = gsc_a5_await_line (&event, NULL, 0, unicode, cap);
 
-      for (i = 0; i < event.val1; i++)
-        {
-          glui32 c = unicode[i];
+      if (done)
+        for (i = 0; i < event.val1; i++)
+          {
+            glui32 c = unicode[i];
 
-          if (c < 0x80 && n < bufsize - 1)
-            buf[n++] = (char) c;
-          else if (c < 0x800 && n < bufsize - 2)
-            {
-              buf[n++] = (char) (0xc0 | (c >> 6));
-              buf[n++] = (char) (0x80 | (c & 0x3f));
-            }
-          else if (c < 0x10000 && n < bufsize - 3)
-            {
-              buf[n++] = (char) (0xe0 | (c >> 12));
-              buf[n++] = (char) (0x80 | ((c >> 6) & 0x3f));
-              buf[n++] = (char) (0x80 | (c & 0x3f));
-            }
-          else if (n < bufsize - 4)
-            {
-              buf[n++] = (char) (0xf0 | (c >> 18));
-              buf[n++] = (char) (0x80 | ((c >> 12) & 0x3f));
-              buf[n++] = (char) (0x80 | ((c >> 6) & 0x3f));
-              buf[n++] = (char) (0x80 | (c & 0x3f));
-            }
-        }
+            if (c < 0x80 && n < bufsize - 1)
+              buf[n++] = (char) c;
+            else if (c < 0x800 && n < bufsize - 2)
+              {
+                buf[n++] = (char) (0xc0 | (c >> 6));
+                buf[n++] = (char) (0x80 | (c & 0x3f));
+              }
+            else if (c < 0x10000 && n < bufsize - 3)
+              {
+                buf[n++] = (char) (0xe0 | (c >> 12));
+                buf[n++] = (char) (0x80 | ((c >> 6) & 0x3f));
+                buf[n++] = (char) (0x80 | (c & 0x3f));
+              }
+            else if (n < bufsize - 4)
+              {
+                buf[n++] = (char) (0xf0 | (c >> 18));
+                buf[n++] = (char) (0x80 | ((c >> 12) & 0x3f));
+                buf[n++] = (char) (0x80 | ((c >> 6) & 0x3f));
+                buf[n++] = (char) (0x80 | (c & 0x3f));
+              }
+          }
       free (unicode);
     }
   else
     {
       glk_request_line_event (gsc_main_window, buf, bufsize - 1, 0);
-      gsc_event_wait (evtype_LineInput, &event);
-      n = event.val1;
+      done = gsc_a5_await_line (&event, buf, bufsize, NULL, 0);
+      n = done ? (int) event.val1 : 0;
     }
 
   buf[n] = '\0';
+  if (gsc_a5_real_time && done)
+    {
+      /* Echo the completed command, as Glk's auto-echo would have. */
+      glk_set_style (style_Input);
+      gsc_a5_put_string (buf);
+      glk_set_style (style_Normal);
+      gsc_a5_put_string ("\n");
+    }
   return n;
 }
 
@@ -4852,6 +5006,7 @@ gsc_a5_main (void)
       gsc_a5_put_string ("Out of memory loading ADRIFT 5 game.\n");
       glk_exit ();
     }
+  gsc_a5_start_real_time (run);
 
   text = a5run_intro (run);
   gsc_a5_display (text);
@@ -4861,6 +5016,72 @@ gsc_a5_main (void)
 
   for (;;)
     {
+      if (a5run_is_over (run))
+        /* The game has ended -- by the last command, or by a real-time
+           TimeBased tick that fired while awaiting input.  The engine has
+           already emitted the win/lose/score block (whose banner offers
+           restart / restore / quit / undo); honour all four here.  UNDO and
+           RESTORE revert to a running state and resume play; RESTART rebuilds
+           the game. */
+        {
+          int resumed = 0;
+          for (;;)
+            {
+              gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
+              if (gsc_a5_read_line (input, sizeof input) == 0)
+                continue;
+              if (gsc_a5_match_command (input, "quit")
+                  || gsc_a5_match_command (input, "q"))
+                {
+                  a5run_free (run);
+                  glk_exit ();
+                }
+              if (gsc_a5_match_command (input, "restart"))
+                break;
+              if (gsc_a5_match_command (input, "undo"))
+                {
+                  if (a5run_undo (run))
+                    {
+                      gsc_a5_put_string ("The previous turn has been undone.\n");
+                      gsc_a5_status (run);
+                      resumed = 1;
+                      break;
+                    }
+                  gsc_a5_put_string ("Sorry, no undo is available.\n");
+                  continue;
+                }
+              if (gsc_a5_match_command (input, "restore"))
+                {
+                  if (gsc_a5_restore (run))
+                    {
+                      a5run_undo_forget (run);
+                      gsc_a5_put_string ("Game restored.\n");
+                      resumed = 1;
+                      break;
+                    }
+                  gsc_a5_put_string ("Restore failed.\n");
+                  continue;
+                }
+            }
+          if (!resumed)
+            {
+              a5run_free (run);
+              run = a5run_new (gsc_a5_adv);
+              if (!run)
+                {
+                  gsc_a5_put_string ("Out of memory restarting game.\n");
+                  glk_exit ();
+                }
+              gsc_a5_start_real_time (run);
+              glk_window_clear (gsc_main_window);
+              text = a5run_intro (run);
+              gsc_a5_display (text);
+              free (text);
+              gsc_a5_present_intro_media (run);
+              gsc_a5_status (run);
+            }
+        }
+
       gsc_a5_put_string ("\n> ");
       if (gsc_a5_read_line (input, sizeof input) == 0)
         continue;
@@ -4878,6 +5099,7 @@ gsc_a5_main (void)
               gsc_a5_put_string ("Out of memory restarting game.\n");
               glk_exit ();
             }
+          gsc_a5_start_real_time (run);
           glk_window_clear (gsc_main_window);
           text = a5run_intro (run);
           gsc_a5_display (text);
@@ -4927,68 +5149,7 @@ gsc_a5_main (void)
       free (text);
       gsc_a5_show_media (run);
       gsc_a5_status (run);
-
-      if (a5run_is_over (run))
-        /* The engine has already emitted the win/lose/score block (whose banner
-           offers restart / restore / quit / undo); honour all four here.  UNDO
-           and RESTORE revert to a running state and resume play; RESTART rebuilds
-           the game. */
-        {
-          int resumed = 0;
-          for (;;)
-            {
-              gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
-              if (gsc_a5_read_line (input, sizeof input) == 0)
-                continue;
-              if (gsc_a5_match_command (input, "quit")
-                  || gsc_a5_match_command (input, "q"))
-                {
-                  a5run_free (run);
-                  glk_exit ();
-                }
-              if (gsc_a5_match_command (input, "restart"))
-                break;
-              if (gsc_a5_match_command (input, "undo"))
-                {
-                  if (a5run_undo (run))
-                    {
-                      gsc_a5_put_string ("The previous turn has been undone.\n");
-                      gsc_a5_status (run);
-                      resumed = 1;
-                      break;
-                    }
-                  gsc_a5_put_string ("Sorry, no undo is available.\n");
-                  continue;
-                }
-              if (gsc_a5_match_command (input, "restore"))
-                {
-                  if (gsc_a5_restore (run))
-                    {
-                      a5run_undo_forget (run);
-                      gsc_a5_put_string ("Game restored.\n");
-                      resumed = 1;
-                      break;
-                    }
-                  gsc_a5_put_string ("Restore failed.\n");
-                  continue;
-                }
-            }
-          if (resumed)
-            continue;   /* the run is running again; resume the outer turn loop */
-          a5run_free (run);
-          run = a5run_new (gsc_a5_adv);
-          if (!run)
-            {
-              gsc_a5_put_string ("Out of memory restarting game.\n");
-              glk_exit ();
-            }
-          glk_window_clear (gsc_main_window);
-          text = a5run_intro (run);
-          gsc_a5_display (text);
-          free (text);
-          gsc_a5_present_intro_media (run);
-          gsc_a5_status (run);
-        }
+      /* An ended game is handled at the top of the loop. */
     }
 
   /* Clear the run alias before freeing: `run` references gsc_a5_run, which a

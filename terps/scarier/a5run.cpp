@@ -330,6 +330,7 @@ a5run_new (const a5_adventure_t *adv)
   run->look_pos = 0;
   run->task_raw_output = 0;
   run->in_time_tick = 0;
+  run->real_time = 0;
   run->cur_score_ti = -1;
   run->look_pinned = NULL;
   run->undo_blob = NULL;
@@ -2034,45 +2035,90 @@ a5run_input_inner (a5_run_t *run, const char *line)
   return finish_turn (run, &out);
 }
 
+/* One 1-second TimeBased tick plus its own finish_turn commit (the runner's
+   TimeBasedStuff -> Display("", True) -> CheckEndOfGame).  Returns the tick's
+   rendered text (caller frees), or NULL when the tick flushed nothing -- no
+   output and no fresh end-of-game banner. */
+static char *
+time_tick_commit (a5_run_t *run)
+{
+  sb_t tout;
+  char *extra = NULL;
+  sb_init (&tout);
+  run->in_time_tick = 1;
+  ev_time_tick_all (run, &tout);
+  if (tout.len != 0 || (run->st->game_over && !run->st->end_displayed))
+    extra = finish_turn (run, &tout);
+  else
+    free (tout.p);
+  run->in_time_tick = 0;
+  return extra;
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
   char *txt = a5run_input_inner (run, line);
   /* The real Runner's 1-second tmrEvents timer, deterministically: tick every
      TimeBased event once per processed input line (see ev_time_tick_all).  The
-     tick's output flushes as its own commit AFTER the command's (the runner's
-     TimeBasedStuff -> Display("", True) -> CheckEndOfGame), so it gets its own
-     finish_turn pass and is appended to the command's text. */
-  if (!run->st->game_over)
+     tick's output flushes as its own commit AFTER the command's, so it gets its
+     own finish_turn pass and is appended to the command's text.  In real-time
+     mode the host drives this tick from a wall-clock timer instead
+     (a5run_time_tick), as the Runner itself does. */
+  if (!run->st->game_over && !run->real_time)
     {
-      sb_t tout;
-      sb_init (&tout);
-      run->in_time_tick = 1;
-      ev_time_tick_all (run, &tout);
-      if (tout.len != 0 || (run->st->game_over && !run->st->end_displayed))
+      char *extra = time_tick_commit (run);
+      if (extra != NULL && extra[0] != '\0')
         {
-          char *extra = finish_turn (run, &tout);
-          if (extra != NULL && extra[0] != '\0')
+          size_t tn = txt != NULL ? strlen (txt) : 0;
+          char *joined = (char *) malloc (tn + strlen (extra) + 2);
+          if (joined != NULL)
             {
-              size_t tn = txt != NULL ? strlen (txt) : 0;
-              char *joined = (char *) malloc (tn + strlen (extra) + 2);
-              if (joined != NULL)
-                {
-                  memcpy (joined, txt != NULL ? txt : "", tn);
-                  joined[tn] = '\n';
-                  strcpy (joined + tn + 1, extra);
-                  free (txt);
-                  txt = joined;
-                }
-              free (extra);
+              memcpy (joined, txt != NULL ? txt : "", tn);
+              joined[tn] = '\n';
+              strcpy (joined + tn + 1, extra);
+              free (txt);
+              txt = joined;
             }
-          else
-            free (extra);
         }
-      else
-        free (tout.p);
-      run->in_time_tick = 0;
+      free (extra);
     }
+  return txt;
+}
+
+void
+a5run_set_real_time (a5_run_t *run, int on)
+{
+  if (run != NULL)
+    run->real_time = on != 0;
+}
+
+int
+a5run_has_time_events (a5_run_t *run)
+{
+  int ei;
+  if (run == NULL)
+    return 0;
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    if (run->adv->events[ei].type != NULL
+        && streq (run->adv->events[ei].type, "TimeBased"))
+      return 1;
+  return 0;
+}
+
+char *
+a5run_time_tick (a5_run_t *run)
+{
+  char *txt;
+  if (run == NULL || run->st->game_over)
+    return NULL;
+  /* A fresh media list, as at the top of a turn, so the tick's own <img>/
+     <audio> markup reaches the host.  finish_turn closes the sink; close it
+     here too when the tick flushes nothing and finish_turn never runs. */
+  a5run_media_begin (run);
+  txt = time_tick_commit (run);
+  if (txt == NULL)
+    a5run_media_end ();
   return txt;
 }
 

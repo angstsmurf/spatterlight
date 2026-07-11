@@ -183,6 +183,13 @@ struct a5_run_s {
      under this flag. */
   int    in_time_tick;
 
+  /* Real-time mode (interactive Glk hosts): the host drives TimeBased events
+     from a wall-clock 1-second timer (a5run_time_tick), like the real Runner's
+     tmrEvents_Tick, so a5run_input skips its deterministic once-per-input
+     substitute tick.  Off by default -- headless harnesses and determinism
+     mode keep the reproducible one-turn-one-second model. */
+  int    real_time;
+
   /* clsUserSession htblResponsesPass dedup for an event-fired task chain.  The runner
      runs an event's ExecuteTask through AttemptToExecuteTask, which keys every
      completion message by its rendered text and shows each once (vb:783/1295).

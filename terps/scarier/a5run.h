@@ -37,6 +37,20 @@ extern char *a5run_intro (a5_run_t *run);
    caller).  Never NULL. */
 extern char *a5run_input (a5_run_t *run, const char *line);
 
+/* Real-time TimeBased events (interactive hosts): hand the 1-second event tick
+   to the host.  With real time ON, a5run_input skips its deterministic
+   once-per-input substitute tick, and the host calls a5run_time_tick from a
+   wall-clock 1-second timer instead -- the real Runner's tmrEvents_Tick.
+   a5run_time_tick returns the tick's rendered output (caller frees), or NULL
+   when the tick flushed nothing; a non-NULL return rebuilds the media-event
+   list (a5run_media_*) with the tick's own images/sounds.  The flag is per-run:
+   set it again after every a5run_new.  a5run_has_time_events reports whether
+   the game defines any TimeBased event at all, so hosts can skip the timer
+   entirely for the (many) games with none. */
+extern void  a5run_set_real_time   (a5_run_t *run, int on);
+extern char *a5run_time_tick       (a5_run_t *run);
+extern int   a5run_has_time_events (a5_run_t *run);
+
 /* Non-zero once an EndGame action has fired. */
 extern int a5run_is_over (a5_run_t *run);
 
