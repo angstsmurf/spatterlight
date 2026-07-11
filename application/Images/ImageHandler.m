@@ -7,6 +7,7 @@
 
 #import "ImageHandler.h"
 #import <BlorbFramework/BlorbFramework.h>
+#import <BlorbFramework/BlorbFramework-Swift.h>
 
 @implementation ImageFile : NSObject
 
