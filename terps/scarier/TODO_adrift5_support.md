@@ -56,7 +56,7 @@ C-like C++ style established by the rename):
 | `a5expr.cpp/.h` | OO property-expression engine (`%key%.Prop.Func(args)`) | frankendrift `Global.ReplaceOO`/`ReplaceOOProperty` |
 | `a5parse.cpp` | command → general-reference resolution + task matching | frankendrift `clsUserSession` parser, `clsTask` |
 | `a5run.cpp` | turn loop, restriction eval, action execution, events, characters | frankendrift `clsUserSession`, `clsEvent`, `clsCharacter`, `clsTask` |
-| `a5state.cpp` | v5 save/restore (XML game-state; Scarier's own `<SaveState>` — FrankenDrift-compatible `.tas` interop is TODO, see `TODO_a5_frankendrift_save_compat.md`) | frankendrift `FileIO.SaveState`/`LoadState`, `clsState` |
+| `a5state.cpp` | v5 save/restore (XML game-state; Scarier's own `<SaveState>` plus DONE bidirectional FrankenDrift-compatible `.tas` interop) | frankendrift `FileIO.SaveState`/`LoadState`, `clsState` |
 
 `scinterf.cpp` (the public `scr_game_from_*` / `scr_interpret_game` API) gains a
 v5 branch but keeps the same opaque `scr_game` handle so the os layer
@@ -1369,9 +1369,10 @@ ADRIFT text is full of embedded directives evaluated at display time:
           `save@3` soak across the whole 15-game corpus is **ASan/UBSan-clean**.
         - NOTE: the save format is Scarier's own `<SaveState>`, not
           byte-compatible with the official Runner / FrankenDrift `.tas` saves
-          (interop is a separate effort — see **`TODO_a5_frankendrift_save_compat.md`**
-          for the full FrankenDrift-compatible-save plan: zlib-framed `<Game>`
-          schema, the object dynamic/static location split, and a dual-format
+          (interop was a separate effort, now DONE and validated bidirectionally
+          — the plan doc `TODO_a5_frankendrift_save_compat.md` was deleted
+          2026-07-11, recover from git history; it covered the zlib-framed
+          `<Game>` schema, the object dynamic/static location split, and a dual-format
           read-sniff).  Mid-prompt disambiguation state
           (the "Which X?" `amb_*` fields), the remembered-verb retry and the
           `known_words` cache are transient and not serialised (a save resumes at

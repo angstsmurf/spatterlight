@@ -226,10 +226,12 @@ currents sweep you off course. Then `enter ship`, `fix ship`, go to the cockpit,
 `sit on seat`, `take off`.
 
 **Wired into the strict suite at MATCH 0|0** (`AlienDiver|AlienDiver.blorb|0|0`).
-Reaching a byte-exact `FD_RNG=xoshiro` diff took a chain of engine fixes tracked
-in `TODO_aliendiver_divergences.md` (BUG 1 fragment over-count, BUG 2 save/restore
-round-trip, BUG 3 crafting-bind, the `<#…#>` status expression, the EndGameText
-`<cls>` floor, and finally BUG 4 seen-timing + the v5 empty-room listing grammar):
+Reaching a byte-exact `FD_RNG=xoshiro` diff took a chain of engine fixes (BUG 1
+fragment over-count, BUG 2 save/restore round-trip, BUG 3 crafting-bind, the
+`<#…#>` status expression, the EndGameText `<cls>` floor, and finally BUG 4
+seen-timing + the v5 empty-room listing grammar; the derivation doc
+`TODO_aliendiver_divergences.md` was deleted 2026-07-11 once done — see git
+history for the full analysis):
 
 * **BUG 4 — move-time seen-marking.** FD's `clsCharacter.Move` marks the arrival
   location, its objects and its visible characters seen the *moment* the player
