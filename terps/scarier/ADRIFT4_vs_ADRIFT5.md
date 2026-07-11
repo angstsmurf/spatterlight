@@ -76,7 +76,7 @@ Two distinct layers — immutable model and mutable runtime state.
 - `a5_looktext_t looks[]` — SetLook event text stack.
 - `disp_once[]` — `<DisplayOnce>` DOM nodes already shown.
 - `route_error`, `restriction_text` — last restriction message node.
-- No battle system fields. Undo lives on `a5_run_t` (the `undo_blob` snapshot), not in `a5_state_t`.
+- No battle system fields. Undo lives on `a5_run_t` (the `undo_stack` snapshots), not in `a5_state_t`.
 
 ---
 

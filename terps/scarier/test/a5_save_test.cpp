@@ -19,6 +19,11 @@
  * restore), the event timer (the clock strike must land on the same turn), the
  * "seen" sets and completed tasks (via the room view), and that a restored run
  * needs no intro replay.  It is the save analogue of a5_walk_test / a5objtest.
+ *
+ * A final section exercises the multi-level undo stack built on the same
+ * serialisation (a5run_snapshot / a5run_undo / a5run_undo_forget): walking back
+ * several turns replays byte-identically (RNG included), the stack drains to a
+ * hard failure, and the depth cap holds.
  */
 
 #include <stdio.h>
@@ -221,6 +226,81 @@ main (void)
     { printf ("FAIL: the timed event never fired in the continuation\n"); failures++; }
   if (!saw_roll)
     { printf ("FAIL: the roll task never produced output\n"); failures++; }
+
+  /* --- Multi-level undo: snapshot before each turn (as the Glk frontend
+     does), walk back three turns, and prove the replay is byte-identical --
+     including a fresh RAND draw, so the RNG walked back too.  Then drain the
+     stack to a hard 0, check the depth cap, and check undo_forget. --- */
+  {
+    static const char *kUndoSeq[] = { "roll", "wait", "roll", "get coin", "look" };
+    const size_t n = sizeof kUndoSeq / sizeof *kUndoSeq;
+    std::vector<std::string> first;
+    int undos;
+    a5_run_t *runC = a5run_new (adv);
+
+    free (a5run_intro (runC));
+    for (i = 0; i < n; i++)
+      {
+        char *o;
+        a5run_snapshot (runC);
+        o = a5run_input (runC, kUndoSeq[i]);
+        first.push_back (o ? o : "");
+        free (o);
+      }
+    for (i = 0; i < 3; i++)
+      if (!a5run_undo (runC))
+        { printf ("FAIL: undo %zu of 3 returned no snapshot\n", i + 1); failures++; }
+    /* The post-undo room redisplay (a5run_look) must show the location and --
+       proven by the byte-identical replay below -- must not perturb the state
+       or the RNG (this game's descriptions draw nothing). */
+    {
+      char *look = a5run_look (runC);
+      if (look == NULL || strstr (look, "A small stone vault.") == NULL)
+        { printf ("FAIL: a5run_look after undo missed the room view: [%s]\n",
+                  look ? look : "(null)"); failures++; }
+      free (look);
+    }
+    /* Replay the last three commands (the first is a re-roll). */
+    for (i = n - 3; i < n; i++)
+      {
+        char *o;
+        a5run_snapshot (runC);
+        o = a5run_input (runC, kUndoSeq[i]);
+        if (first[i] != (o ? o : ""))
+          {
+            printf ("FAIL: undo replay of \"%s\" diverged\n  1st: [%s]\n  2nd: [%s]\n",
+                    kUndoSeq[i], first[i].c_str (), o ? o : "");
+            failures++;
+          }
+        free (o);
+      }
+    /* Two pre-undo snapshots remain under the three replay ones: the stack
+       must drain in exactly five undos. */
+    undos = 0;
+    while (a5run_undo (runC))
+      undos++;
+    if (undos != 5)
+      { printf ("FAIL: undo stack drained after %d undos, want 5\n", undos); failures++; }
+    /* Depth cap: push more snapshots than the stack keeps; only the newest
+       A5_UNDO_DEPTH (16, matching the v4 memo ring) survive. */
+    for (i = 0; i < 20; i++)
+      {
+        a5run_snapshot (runC);
+        free (a5run_input (runC, "wait"));
+      }
+    undos = 0;
+    while (a5run_undo (runC))
+      undos++;
+    if (undos != 16)
+      { printf ("FAIL: capped undo stack drained after %d undos, want 16\n", undos); failures++; }
+    /* undo_forget clears the whole stack. */
+    a5run_snapshot (runC);
+    a5run_snapshot (runC);
+    a5run_undo_forget (runC);
+    if (a5run_undo (runC))
+      { printf ("FAIL: undo succeeded after undo_forget\n"); failures++; }
+    a5run_free (runC);
+  }
 
   a5run_free (runA);
   a5run_free (runB);

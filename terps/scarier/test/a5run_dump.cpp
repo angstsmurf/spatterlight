@@ -18,8 +18,10 @@
  * A5_UNDO_AT=N     at the Nth command, a5run_snapshot, run it (captured), then
  *                  a5run_undo and re-run the SAME command -- an undo self-check:
  *                  the two runs must be byte-identical (undo fully reverts state
- *                  AND the RNG) and a second consecutive undo must fail; the
- *                  printed transcript stays identical to a plain run.
+ *                  AND the RNG) and a second consecutive undo must fail (only
+ *                  one snapshot is ever pushed here, so the undo stack is
+ *                  drained); the printed transcript stays identical to a plain
+ *                  run.
  * A5_CKPT_SAVE=F   after the whole (prefix) script has run, a5run_save the state
  *                  to file F.  A5_CKPT_RESTORE=F restores that blob instead of
  *                  starting fresh (the intro/opening LOOK is skipped) and then
@@ -238,7 +240,9 @@ main (int argc, char **argv)
           {
             /* Undo self-check: snapshot, run the command, undo it, re-run the
                SAME command; the two outputs must match byte-for-byte (undo also
-               reverts the RNG), and a second undo must now fail. */
+               reverts the RNG), and a second undo must now fail -- the replay
+               loop never snapshots elsewhere, so the one entry pushed here is
+               the whole undo stack. */
             char *first;
             a5run_snapshot (run);
             first = a5run_input (run, line);

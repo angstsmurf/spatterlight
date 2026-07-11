@@ -142,6 +142,7 @@ static a5_run_t *gsc_a5_run = NULL;
 static void gsc_a5_status (a5_run_t *run);
 static void gsc_a5_display (const char *text);
 static int gsc_a5_show_media (a5_run_t *run);
+static void gsc_a5_undo_look (a5_run_t *run);
 
 /* Set when this session drives the game's TimeBased events off a wall-clock
    1-second Glk timer (the real Runner's tmrEvents_Tick) instead of the
@@ -4828,6 +4829,27 @@ gsc_a5_show_media (a5_run_t *run)
 }
 
 /*
+ * gsc_a5_undo_look()
+ *
+ * Re-show the player's surroundings after a successful UNDO, the way the v4
+ * engine reprints the room name -- here the full room view, separated from
+ * the "undone" line by a blank line.
+ */
+static void
+gsc_a5_undo_look (a5_run_t *run)
+{
+  char *look = a5run_look (run);
+
+  if (look != NULL && look[0] != '\0')
+    {
+      gsc_a5_put_string ("\n");
+      gsc_a5_display (look);
+      gsc_a5_show_media (run);
+    }
+  free (look);
+}
+
+/*
  * gsc_a5_show_cover()
  *
  * Draw the Blorb frontispiece (cover) image.  Used only when a game's intro
@@ -5043,6 +5065,7 @@ gsc_a5_main (void)
                   if (a5run_undo (run))
                     {
                       gsc_a5_put_string ("The previous turn has been undone.\n");
+                      gsc_a5_undo_look (run);
                       gsc_a5_status (run);
                       resumed = 1;
                       break;
@@ -5133,14 +5156,17 @@ gsc_a5_main (void)
           if (a5run_undo (run))
             {
               gsc_a5_put_string ("The previous turn has been undone.\n");
+              gsc_a5_undo_look (run);
               gsc_a5_status (run);
             }
-          else
+          else if (a5run_turns (run) == 0)
             gsc_a5_put_string ("You can't undo what hasn't been done.\n");
+          else
+            gsc_a5_put_string ("Sorry, no more undo is available.\n");
           continue;
         }
 
-      /* Snapshot the pre-turn state for single-level undo (before a5run_input,
+      /* Push the pre-turn state onto the undo stack (before a5run_input,
          which increments the turn counter on entry). */
       a5run_snapshot (run);
 

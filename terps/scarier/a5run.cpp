@@ -333,8 +333,6 @@ a5run_new (const a5_adventure_t *adv)
   run->real_time = 0;
   run->cur_score_ti = -1;
   run->look_pinned = NULL;
-  run->undo_blob = NULL;
-  run->undo_len = 0;
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -354,7 +352,6 @@ a5run_free (a5_run_t *run)
     return;
   a5state_free (run->st);
   free (run->look_pinned);
-  free (run->undo_blob);
   delete run->media;
   delete run->order;
   delete run->events;
@@ -2131,7 +2128,7 @@ a5run_time_tick (a5_run_t *run)
  * compat.md).  An ADRIFT 5 Runner save restores into
  * Scarier, and a Scarier save loads in the Adrift 5 runner.
  *
- * To keep Scarier<->Scarier round-trips (single-level undo, deterministic
+ * To keep Scarier<->Scarier round-trips (undo snapshots, deterministic
  * replay) lossless -- the Adrift 5 runner's schema omits the RNG state and the full
  * event/walk internals -- every Scarier save also carries a <ScarierExt> child
  * of <Game> holding the complete native snapshot (the old <SaveState> body).
@@ -3420,54 +3417,62 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
 
 /* ------------------------------------------------------------------- undo */
 
-/* Capture the current runtime as the single-level undo point (a5run_save into
-   the run's own slot).  Call from the frontend just BEFORE a5run_input, so the
+/* Turns of undo kept (undo_stack, oldest first).  Matches the v4 engine's
+   MEMO_UNDO_TABLE_SIZE.  Snapshots are raw a5run_save XML, so the worst case in
+   the corpus (Tingalan, ~400K a snapshot) holds about 6MB. */
+enum { A5_UNDO_DEPTH = 16 };
+
+/* Capture the current runtime as an undo point (a5run_save pushed onto the
+   run's undo stack).  Call from the frontend just BEFORE a5run_input, so the
    snapshot is the pre-turn state (a5run_input increments st->turns on entry).
-   A prior snapshot is discarded -- this is one-deep undo. */
+   The oldest snapshot drops off once the stack holds A5_UNDO_DEPTH turns. */
 void
 a5run_snapshot (a5_run_t *run)
 {
+  char *blob;
+  size_t len = 0;
+
   if (run == NULL)
     return;
-  free (run->undo_blob);
-  run->undo_blob = a5run_save (run, &run->undo_len);
+  blob = a5run_save (run, &len);
+  if (blob == NULL)
+    return;
+  if (run->undo_stack.size () >= A5_UNDO_DEPTH)
+    run->undo_stack.erase (run->undo_stack.begin ());
+  run->undo_stack.push_back (std::string (blob, len));
+  free (blob);
 }
 
-/* Discard the undo point without restoring (e.g. after a RESTORE from file, so
+/* Discard all undo points without restoring (e.g. after a RESTORE from file, so
    UNDO does not silently jump back across the restore boundary). */
 void
 a5run_undo_forget (a5_run_t *run)
 {
   if (run == NULL)
     return;
-  free (run->undo_blob);
-  run->undo_blob = NULL;
-  run->undo_len = 0;
+  run->undo_stack.clear ();
 }
 
-/* Restore the last snapshot (undo the last turn).  Returns 1 on success, 0 when
-   no undo point exists or the restore failed.  The snapshot is consumed on a
-   successful undo, so a second consecutive UNDO reports "no undo available"
-   (matching the Adrift 5 runner's one-deep model).  Cross-turn parser transients that
-   predate the restored turn (a pending disambiguation, a remembered verb, a
-   pending FailOverride) are cleared so the restored state is clean. */
+/* Restore the newest snapshot (undo the last turn).  Returns 1 on success, 0
+   when no undo point remains or the restore failed.  Each snapshot is consumed
+   on a successful undo, so repeated UNDO walks back up to A5_UNDO_DEPTH turns
+   before reporting "no undo available" (deeper than the Adrift 5 runner's
+   one-deep model -- a deliberate superset; the two diverge only on consecutive
+   UNDOs, which no golden walkthrough issues).  Cross-turn parser transients
+   that predate the restored turn (a pending disambiguation, a remembered verb,
+   a pending FailOverride) are cleared so the restored state is clean. */
 int
 a5run_undo (a5_run_t *run)
 {
-  char *blob;
-  size_t len;
   int ok;
 
-  if (run == NULL || run->undo_blob == NULL)
+  if (run == NULL || run->undo_stack.empty ())
     return 0;
-  /* a5run_restore copies its input before mutating state, but detach the slot
-     first so we never read through a pointer the restore might touch. */
-  blob = run->undo_blob;
-  len = run->undo_len;
-  run->undo_blob = NULL;
-  run->undo_len = 0;
-  ok = a5run_restore (run, blob, len);
-  free (blob);
+  /* a5run_restore copies its input before mutating state, but detach the
+     snapshot first so we never read through storage the restore might touch. */
+  std::string blob = std::move (run->undo_stack.back ());
+  run->undo_stack.pop_back ();
+  ok = a5run_restore (run, blob.data (), blob.size ());
   if (!ok)
     return 0;
   run->amb_active = 0;
@@ -3479,4 +3484,25 @@ a5run_undo (a5_run_t *run)
   run->remembered_verb.clear ();
   run->pending_failover = NULL;
   return 1;
+}
+
+/* Render the current room view as a standalone piece of display text -- the
+   stock Look task's view (darkness override and Look-aggregate segments
+   included) run through the normal end-of-turn pipeline (ALRs, deferred
+   variables, presentation marks), but consuming no turn: the turn counter is
+   untouched and no events tick.  The Glk frontend shows this after a
+   successful UNDO, re-orienting the player the way the v4 engine's room-name
+   line does.  Note that a description whose expressions draw from the RNG
+   advances the stream, exactly as a typed LOOK would.  Caller frees. */
+char *
+a5run_look (a5_run_t *run)
+{
+  sb_t out;
+
+  if (run == NULL)
+    return NULL;
+  a5run_media_begin (run);
+  sb_init (&out);
+  sb_puts (&out, render_look_marked (run).c_str ());
+  return finish_turn (run, &out);
 }

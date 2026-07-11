@@ -244,13 +244,14 @@ struct a5_run_s {
      flush. */
   std::vector<std::string> *display_defers;
 
-  /* Single-level undo: a serialised a5run_save snapshot of the state as it stood
-     BEFORE the last processed turn (NULL until the first turn is snapshotted, and
-     consumed on undo so a double-undo fails).  Taken by a5run_snapshot from the
-     frontend just before a5run_input; a5run_undo restores it.  Mirrors the ADRIFT
-     4 game->undo slot and the Adrift 5 runner's one-deep undo. */
-  char  *undo_blob;
-  size_t undo_len;
+  /* Undo stack: serialised a5run_save snapshots of the state as it stood BEFORE
+     each of the last few processed turns, oldest first (empty until the first
+     turn is snapshotted; each undo pops one entry, so repeated undo walks back
+     turn by turn until the stack drains).  Pushed by a5run_snapshot from the
+     frontend just before a5run_input; a5run_undo restores the newest.  Depth is
+     capped in a5run_snapshot (A5_UNDO_DEPTH) to match the v4 engine's memo ring
+     -- a deliberate superset of the Adrift 5 runner's one-deep undo. */
+  std::vector<std::string> undo_stack;
 };
 
 /* One SetTasks-Execute response scope (see exec_scope above). */
@@ -365,5 +366,6 @@ void update_seen (a5_state_t *st);
 void mark_player_arrival_seen (a5_state_t *st, const char *loc);
 int  conv_contains_word (const std::string &sentence, const std::string &check);
 void exec_scope_flush (a5_run_t *run, struct exec_resp_scope *sc, sb_t *out);
+std::string render_look_marked (a5_run_t *run);
 
 #endif

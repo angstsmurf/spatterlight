@@ -204,8 +204,9 @@ static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 
 /* Render the room view as REAL output -- marking_display=1 so its <DisplayOnce>
    segments retire -- restoring the previous marking flag afterwards.  The common
-   wrapper around render_look_string at every final-state Display site. */
-static std::string
+   wrapper around render_look_string at every final-state Display site (and, via
+   a5run_look, the frontend's post-UNDO room redisplay). */
+std::string
 render_look_marked (a5_run_t *run)
 {
   int pm = run->st->marking_display;
