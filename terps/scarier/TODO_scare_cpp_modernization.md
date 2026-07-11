@@ -367,7 +367,8 @@ drops.
     `MallocScribble=""`/`MallocPreScribble=""` (empty-but-*present*) as ENABLED,
     and `env -u VAR` placed *after* an assignment is mis-parsed — both produce
     bogus "divergence." Put `env -u` options first and never pass empty strings.
-- [~] `scgamest.cpp` (done) / `scprops.cpp` (with P4, still open) — unblocked now. Much of the
+- [x] `scgamest.cpp` (done) / `scprops.cpp` (done in its defensible scope, see
+  below) — unblocked now. Much of the
   runner-adjacent ownership here is **game-struct fields** (`current_room_name`,
   `status_line`, `hint_text`, the property tree) freed during the turn loop; the
   old `longjmp` hazard over those is gone, so RAII on them is now safe to pursue.
@@ -420,11 +421,40 @@ drops.
     regression); `make -f Makefile.headless test` + `sanitize` green; ASan/UBSan
     clean on the heavy games (light_up, secret_of_lost_world, circus, sun_empire,
     space_boy).
-  - **STILL OPEN — `scprops.cpp` property tree** (`node_pools`, dictionary,
-    orphans). The property bundle uses a deliberate **arena/pool allocator** that
-    P4 profiling confirmed is the hot path — converting it to `std::vector`/RAII
-    risks both the byte-exact bar and the arena's performance, so it stays its own
-    coordinated P4-adjacent project, not a mechanical sweep.
+  - **DONE — `scprops.cpp` bundle bookkeeping arrays → `std::vector`**
+    (`dictionary`, `node_pools`, `orphans`), and the bundle itself is
+    `new`/`delete`d (non-POD now; the 0xaa poison went, `scr_filter_s`/
+    `scr_game_s` precedent). Key insight that de-risked this: those three
+    arrays are **load-time only** — `prop_add_child`/`prop_dictionary_lookup`
+    run before `prop_solidify()`, `prop_adopt` is a rare runtime event — so the
+    P4 hot path (`prop_find_child`) is untouched. **Deliberately left raw,
+    per the P4 profiling:** the node pool *slabs* (tree nodes are referenced by
+    address everywhere; slabs must never move) and the per-node `child_list`
+    arrays (the hottest loop; still `prop_ensure_capacity`-grown). The
+    solidify trims for dictionary/node_pools became `shrink_to_fit()`, so the
+    "trimmed arrays can never grow again" footgun (the §5a orphans
+    realloc-tail bug's habitat) no longer applies to them. Validated:
+    determinism-checked cross-binary corpus diff **68/68 MATCH / 0 DIFFER /
+    0 NONDET** (full corpus now stable thanks to the §5/§5a clock-freeze +
+    reseed fixes — best coverage yet), 20/20 committed goldens PASS
+    (`run_v4_walkthroughs.sh`), `make test` + `sanitize` green, ASan/UBSan
+    clean standalone replays (light_up, secret_of_lost_world, circus, alexis,
+    shadowpeak).
+- [x] **Construction-path leak-on-throw guards** (the P2 follow-up: "throw-path
+  leaks are expected, fix in P3" — now fixed). A `scr_fatal` raised while
+  loading a corrupt game unwinds to the `scinterf` boundary but used to leak
+  everything built before the throw. Each constructor in the chain now
+  destroys its own partial product and rethrows: `taf_create_from_callback`
+  (split into populate helper + guarded wrapper), `prop_create`
+  (`prop_destroy` the partial bundle; the taf isn't adopted yet, ownership
+  stays the caller's), `var_create` (`var_destroy` tolerates partial sets),
+  `gs_create` (split into `gs_populate` + wrapper that `delete`s the game —
+  its vector/owned-string members free themselves), and `run_create`
+  (catch-all teardown mirroring `run_destroy` order over whatever locals
+  exist; `prop_destroy` covers the adopted taf). Note: the macOS `leaks` tool
+  can't demonstrate the win — `sctafpar`'s file-static `parse_bundle` keeps
+  the aborted bundle *reachable*, and reachable-but-abandoned memory isn't a
+  "leak" to it; the guarantee is structural (catch → destroy → rethrow).
 - [x] `sctaffil.cpp` — **the load-time decompression/unobfuscation scratch
   buffers** (same P2 follow-up class as `sctafpar` below). The two file readers
   each `scr_malloc` a fixed-size working buffer and then call `taf_append_buffer`
