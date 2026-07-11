@@ -1159,7 +1159,8 @@ static glui32 gsc_font_index = 0;
 static glui32 gsc_attribute_bold = 0,
               gsc_attribute_italic = 0,
               gsc_attribute_underline = 0,
-              gsc_attribute_secondary_color = 0;
+              gsc_attribute_secondary_color = 0,
+              gsc_attribute_center = 0;
 
 /* Notional default font size, and limit font sizes. */
 static const scr_int GSC_DEFAULT_FONT_SIZE = 12,
@@ -1247,6 +1248,16 @@ gsc_set_glk_style (void)
        * style, as it's all we have.
        */
       glk_set_style (style_Preformatted);
+    }
+  else if (gsc_attribute_center > 0)
+    {
+      /*
+       * Centered sections use the two justification-hinted user styles set up
+       * before the main window opened: User1 for plain centered text, User2
+       * for centered bold (title lines are typically <center><b>..., and Glk
+       * styles don't combine, so bold gets its own centered style).
+       */
+      glk_set_style (gsc_attribute_bold > 0 ? style_User2 : style_User1);
     }
   else
     {
@@ -1613,11 +1624,25 @@ os_print_tag (scr_int tag, const scr_char *argument)
       break;
 
     case SCR_TAG_CENTER:
-    case SCR_TAG_RIGHT:
     case SCR_TAG_ENDCENTER:
+      /*
+       * Justification is a paragraph attribute, so a centered section needs
+       * its own paragraph: put the newline first -- it closes the previous
+       * paragraph in that paragraph's own style (on ENDCENTER it is the
+       * centered paragraph's terminator) -- and only then switch styles.
+       */
+      glk_put_char ('\n');
+      if (tag == SCR_TAG_CENTER)
+        gsc_attribute_center++;
+      else if (gsc_attribute_center > 0)
+        gsc_attribute_center--;
+      gsc_set_glk_style ();
+      break;
+
+    case SCR_TAG_RIGHT:
     case SCR_TAG_ENDRIGHT:
       /*
-       * We don't center or justify text, but so that things look right we do
+       * We don't right-justify text, but so that things look right we do
        * want a newline on starting or ending such a section.
        */
       glk_put_char ('\n');
@@ -3953,6 +3978,19 @@ gsc_main (void)
       gsc_fatal ("GLK: Types sized incorrectly, recompilation is needed");
       glk_exit ();
     }
+
+  /*
+   * Centered text (<center>/<centre> sections) renders through two user
+   * styles hinted for centered justification before the window they apply
+   * to is opened: User1 plain, User2 bold (Glk styles don't combine, so
+   * <center><b> title lines need their own style).  Libraries that ignore
+   * justification hints show these as ordinary left-flush text.
+   */
+  glk_stylehint_set (wintype_TextBuffer, style_User1,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
 
   /* Create the Glk window, and set its stream as the current one. */
   gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
