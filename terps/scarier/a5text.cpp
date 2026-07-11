@@ -2853,8 +2853,9 @@ a5text_render_plain (const char *src)
                  the tag argument (lowercased with the rest of the tag); default
                  to "main" when the author wrote a bare <window>.  Headlessly this
                  tag drops to A5_ALR_MARK below, so ground truth is unchanged. */
-              const char *wn = tag + 6;            /* past "window" */
-              while (*wn == ' ') wn++;
+              const char *wn = tag;                /* skip the "window" name */
+              while (*wn != '\0' && *wn != ' ') wn++;
+              while (*wn == ' ') wn++;             /* then any separating spaces */
               sb_putc (&sb, A5_WINDOW_MARK);
               sb_puts (&sb, *wn != '\0' ? wn : "main");
               sb_putc (&sb, A5_WINDOW_MARK);
