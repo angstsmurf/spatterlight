@@ -39,6 +39,16 @@ extern void sys_object_init();
  */
 extern void send_to_system(int transport, String &strmsg, ResultType &result, ContextType &context);
 
+/**
+ * True while the system object is armed for a save or load, i.e. a
+ * `'SAVE STATE'`/`'LOAD STATE' -> system` statement has run and the very next
+ * `read` is the game's own filename prompt rather than a real player command.
+ * The Glk port services save/load through its own file dialog, so readLine()
+ * uses this to skip that stale filename read -- reliably, instead of sniffing
+ * the preceding prompt text for the substrings "save"/"load".
+ */
+extern bool system_awaiting_filename();
+
 } // End of namespace Archetype
 } // End of namespace Glk
 

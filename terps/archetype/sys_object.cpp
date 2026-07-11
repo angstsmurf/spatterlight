@@ -51,6 +51,13 @@ void sys_object_init() {
 	target_list = PARSER_VERBLIST;
 }
 
+bool system_awaiting_filename() {
+	// SAVE_STATE/LOAD_STATE are set by `'SAVE STATE'/'LOAD STATE' -> system`
+	// and cleared as soon as the following `read` result is sent back to the
+	// system object, so this is true only during that one filename read.
+	return sys_state == SAVE_STATE || sys_state == LOAD_STATE;
+}
+
 static bool figure_state(const String &s) {
 	for (int st = IDLING; st <= LOAD_STATE; ++st) {
 		if (StateLookup[st] == s) {

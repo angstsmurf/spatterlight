@@ -478,14 +478,19 @@ String Archetype::readLine() {
         justRestored = true;
     }
 
-    // WORKAROUND inherited from ScummVM: the original Archetype games prompt
-    // for save-file names from the game script before calling save/load. We
-    // detect "save"/"load" in the preceding output and skip waiting for input.
+    // The original Archetype games prompt for a save-file name from the game
+    // script (`writes "...file? "`) and then run `'SAVE STATE'/'LOAD STATE' ->
+    // system` followed by a `read`. This port handles save/load through Glk's
+    // own file dialog, so that scripted filename read is stale and must be
+    // skipped. system_awaiting_filename() reports exactly the window between the
+    // SAVE/LOAD STATE call and its read -- reliable, unlike the former sniff of
+    // the prompt text for "save"/"load" (which false-fired on words like
+    // "reload"/"unloaded" and missed prompts that omit those words).
     // (Skipped right after a restore: there is no such stale prompt then.)
     String text = _lastOutputText;
     text.toLowercase();
     if (!justRestored) {
-        if (text.contains("save") || text.contains("load")) {
+        if (system_awaiting_filename()) {
             writeln();
             return "";
         } else if (loadingSavegame()) {

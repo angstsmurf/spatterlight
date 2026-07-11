@@ -9,18 +9,20 @@ call or dead code in this playback-only build.
 
 ## Runtime — low severity / needs a design decision
 
-- [ ] **`save`/`load` heuristic can eat a player turn** — `archetype.cpp:476`.
-      `readLine()` skips the input read when the *last output fragment* contains
-      the substring `save` or `load` (ScummVM workaround for the games' own
-      filename prompts). False-positives on `reload`, `unloaded`, a status line
-      like `Load: heavy`, etc. Narrowed by the fact that `_lastOutputText` holds
-      only the final `write()` (usually the prompt), but still fragile.
-      *Fix:* word-boundary match, or key off the known filename-prompt strings
-      instead of a bare `contains()`. Needs care not to break the real
-      save/load prompt interception — verify against a game that actually saves.
-      **Left open**: a naive word-boundary tweak would break real prompts whose
-      only match is a longer word ("Restore which *saved* game?"), so this still
-      needs the actual shipped prompt strings to key off — not a blind change.
+- [x] **`save`/`load` heuristic can eat a player turn** — `archetype.cpp`
+      `readLine()`. FIXED 2026-07-11. The stale scripted filename read is now
+      skipped by keying off the interpreter's own state instead of sniffing the
+      prompt text: `'SAVE STATE'/'LOAD STATE' -> system` leaves `sys_state` at
+      `SAVE_STATE`/`LOAD_STATE` for exactly the one `read` that follows, so
+      `system_awaiting_filename()` (new accessor in `sys_object.cpp`, since the
+      enum/`sys_state` are file-local) reports precisely that window. This drops
+      the `_lastOutputText.contains("save"/"load")` test entirely, so narrative
+      prose like Gorreven's win line "I have *saved* the free world" (which
+      contains the substring "save") — or `reload`/`unloaded`/`Load: heavy` — can
+      no longer swallow a turn, and a filename prompt that omits the words (e.g.
+      ANIMAL's load "Name of file?") is now handled too. Verified end-to-end
+      against `BARE.ACX` (`save`/`load` both round-trip through the Glk file
+      dialog) and `regress-all` stays byte-exact.
 
 - [x] **Transcript stream/fileref leaked at quit** — `deinitialize()`
       (`archetype.cpp`). FIXED 2026-07-11: `deinitialize()` now detaches the echo
