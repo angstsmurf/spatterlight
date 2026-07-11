@@ -225,7 +225,10 @@ void Surface::setColorTable(uint index) {
 }
 
 uint Surface::getPenColor(uint8 param) const {
-	return PEN_COLORS[param];
+	// param is the opcode's low nibble (0..15) but only 8 pen colors exist;
+	// mask to the valid 3-bit range so a stray high nibble can't read past the
+	// PEN_COLORS[8] array.
+	return PEN_COLORS[param & 7];
 }
 
 uint32 Surface::getFillColor(uint8 index) {
@@ -400,6 +403,16 @@ void FloodFillSurface::dumpToScreen() {
 }
 
 void FloodFillSurface::floodFill(int16 x, int16 y, uint32 fillColor) {
+	// The fill only advances into pixels that read as white (isPixelWhite is the
+	// boundary test). A white fill color would leave every filled pixel still
+	// white, so floodFillRow would recurse into it forever. Filling a white
+	// region with white is a visual no-op, so bail out. Test whiteness exactly
+	// as isPixelWhite does, to stay consistent with the surface format.
+	byte fr, fg, fb;
+	format.colorToRGB(fillColor, fr, fg, fb);
+	if (fr == 255 && fg == 255 && fb == 255)
+		return;
+
 	if (y == this->h)
 		y = this->h - 1;
 	else if (y > this->h)

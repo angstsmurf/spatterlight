@@ -1447,7 +1447,7 @@ void ComprehendGame::weighInventory() {
 		// Allow for an unlimited number of items in inventory
 		return;
 
-	for (int idx = _itemCount - 1; idx > 0; --idx) {
+	for (int idx = _itemCount - 1; idx >= 0; --idx) {
 		Item *item = get_item(idx);
 		if (item->_room == ROOM_INVENTORY)
 			_totalInventoryWeight += item->_flags & ITEMF_WEIGHT_MASK;

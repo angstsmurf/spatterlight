@@ -108,7 +108,7 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 
 	case OPCODE_HAVE_CURRENT_OBJECT:
 		item = get_item_by_noun(noun);
-		func_set_test_result(func_state, item->_room == ROOM_INVENTORY);
+		func_set_test_result(func_state, item && item->_room == ROOM_INVENTORY);
 		break;
 
 	case OPCODE_HAVE_OBJECT:
@@ -530,7 +530,7 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 
 		if (g_debugger->_invLimit)
 			func_set_test_result(func_state, _variables[VAR_INVENTORY_WEIGHT] +
-			(item->_flags & ITEMF_WEIGHT_MASK) > _variables[VAR_INVENTORY_LIMIT]);
+			(item ? (item->_flags & ITEMF_WEIGHT_MASK) : 0) > _variables[VAR_INVENTORY_LIMIT]);
 		else
 			// Allow for an unlimited number of items in inventory
 			func_set_test_result(func_state, false);

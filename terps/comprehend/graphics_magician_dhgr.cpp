@@ -476,8 +476,20 @@ static const uint8_t gmRMASK[7] = {0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80};
 static inline int col_of(int pos) { return pos / COL_BITS; }
 static inline int bit_of(int pos) { return pos % COL_BITS; }
 static inline int to_pos(int col, int bit) { return col * COL_BITS + bit; }
-static inline uint8_t fb_read(int col) { return (col & 1 ? s_main : s_aux)[g_row_addr + (col >> 1)]; }
-static inline void fb_write(int col, uint8_t v) { dhgr_put(col & 1 ? s_main : s_aux, (uint16_t)(g_row_addr + (col >> 1)), v); }
+// A malformed op15/2 (unclamped fill-bounds bytes) or an op14 PAINT with an
+// out-of-range row can drive g_row_addr + (col >> 1) past A2_PAGE_SIZE. Valid
+// images never exceed 0x1ff7, so these guards only bite in the corrupt regime;
+// they mirror the explicit bounds checks the other dhgr_put callers already do.
+static inline uint8_t fb_read(int col) {
+	uint16_t off = (uint16_t)(g_row_addr + (col >> 1));
+	if (off >= A2_PAGE_SIZE) return 0;
+	return (col & 1 ? s_main : s_aux)[off];
+}
+static inline void fb_write(int col, uint8_t v) {
+	uint16_t off = (uint16_t)(g_row_addr + (col >> 1));
+	if (off >= A2_PAGE_SIZE) return;
+	dhgr_put(col & 1 ? s_main : s_aux, off, v);
+}
 
 static void set_row_address() { g_row_addr = CALC(g_row); g_parity = (uint8_t)((g_row & 1) << 3); }
 static bool pixel_is_set() { return (gmBIT[bit_of(g_pos)] & fb_read(col_of(g_pos))) != 0; }

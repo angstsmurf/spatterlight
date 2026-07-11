@@ -46,7 +46,7 @@ static uint8_t s_colHigh[8];       // pen (0-7) -> colour in high nibble (white=
 static uint8_t s_maskHigh = 0x0f;  // AND mask when writing the high nibble (even x)
 static uint8_t s_maskLow  = 0xf0;  // AND mask when writing the low nibble  (odd x)
 static uint8_t s_fillPat[30][4];   // 16-colour 4bpp dither tiles (4 column phases)
-static uint8_t s_fillSubindex[256];// op6 byte -> (even,odd) pattern index pair
+static uint8_t s_fillSubindex[512];// op6 byte -> (even,odd) pattern index pair; sel*2+parity reaches 511
 static uint8_t s_brushBitmaps[256];// 8 brushes x 32 bytes (shared with CGA)
 static uint8_t s_fontGlyphs[96 * 8];// chars 32-127, 8 bytes each, MSB-first
 

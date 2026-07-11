@@ -419,7 +419,7 @@ void OOToposGame::checkShipFuel() {
 
 	FunctionState funcState;
 	Instruction test(2, 75, 76);
-	execute_opcode(&test, nullptr, nullptr);
+	execute_opcode(&test, nullptr, &funcState);
 
 	if (funcState._testResult) {
 		// Computer: "We should now have enough
