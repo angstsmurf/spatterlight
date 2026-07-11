@@ -239,7 +239,7 @@ a5_load_tasks (a5_adventure_t *a)
       t->run_immediately = a5xml_bool (a5xml_child_text (c, "RunImmediately"));
       t->location_trigger = a5xml_child_text (c, "LocationTrigger");
       t->commands = a5_collect_text (c, "Command", &t->n_commands);
-      /* Apply clsUserSession.CorrectCommand to every command (FD does this once
+      /* Apply clsUserSession.CorrectCommand to every command (the runner does this once
          at game-start init).  The collected pointers alias the XML tree; replace
          each with an owned, bracket-corrected copy (freed in a5model_free). */
       {
@@ -517,7 +517,7 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
   a5_xml_node_t *ch;
   int si = 0, ki = 0;
 
-  /* WhenStartEnum: Immediately=1, BetweenXandYTurns=2, AfterATask=3.  FrankenDrift
+  /* WhenStartEnum: Immediately=1, BetweenXandYTurns=2, AfterATask=3.  The Adrift 5 runner
      loads this with [Enum].Parse, which also accepts the *numeric* serialisation
      (some games write "<WhenStart>0</WhenStart>" -- e.g. Axe of Kolt's "Xixon On
      Path" event).  A value of 0 (or any non-1/2/3) matches no case in the
@@ -635,12 +635,12 @@ a5_load_groups (a5_adventure_t *a)
    clsItem.vb:272-345).  We fold each Objects-type group's <Property> list into
    its member objects' static props at load time, so every object-property
    accessor (obj_prop/obj_has_prop, a5restr HaveProperty, a5text) sees them with
-   no call-site changes.  Frankendrift's precedence: an inherited group property
+   no call-site changes.  The Adrift 5 runner's precedence: an inherited group property
    overrides the object's own value when both are present, else it is appended;
    groups iterate in load order so the last property-group wins on value.
 
    Scope note: inheritance is resolved once, at load.  Runtime add/remove from a
-   group does not re-trigger it (frankendrift recomputes via ResetInherited);
+   group does not re-trigger it (the Adrift 5 runner recomputes via ResetInherited);
    not exercised by the current corpus. */
 static void
 a5_apply_group_properties (a5_adventure_t *a)
@@ -1133,7 +1133,7 @@ a5model_load (const char *path)
   /* 5.0.20+ .taf/.blorb payloads insert a Babel <ifindex> metadata block
      right after the 4-byte hex size field at offset 12: a size of "0000"
      means an empty (absent) block, but a non-empty block is only detectable
-     by the literal "<ifindex" tag at offset 16 (FrankenDrift FileIO.vb:800,
+     by the literal "<ifindex" tag at offset 16 (the Adrift 5 runner FileIO.vb:800,
      sSize = "0000" OrElse sCheck = "<ifindex"). Skip exactly that many bytes
      before the obfuscated/deflated game payload starts. */
   int obfuscated;
@@ -1153,11 +1153,11 @@ a5model_load (const char *path)
     else
       {
         /* Pre-5.0.20 layout: the deflate stream follows the 12-byte version
-           header directly.  For a BARE .taf FD treats this layout as NOT
+           header directly.  For a BARE .taf the runner treats this layout as NOT
            obfuscated (FileIO.vb:816 "Pre 5.0.20 ... bObfuscate = False") --
            it is also the layout of the game data embedded in ADRIFT 5
            .exe-wrapped games (the virtual human).  A BLORB Exec chunk takes a
-           different FD path (FileIO.vb:753): same 12-byte header offset, but
+           different the runner path (FileIO.vb:753): same 12-byte header offset, but
            obfuscation is decided by the Blorb metadata (bDeObfuscate), which
            is true for every ADRIFT-Developer-built blorb -- RtC.blorb is
            exactly this old-layout-but-obfuscated shape. */
@@ -1231,7 +1231,7 @@ a5model_load (const char *path)
 
 /*
  * Walk the whole document for <Restrictions> blocks carrying a
- * <BracketSequence>, calling fn on each such BracketSequence node.  FD's
+ * <BracketSequence>, calling fn on each such BracketSequence node.  The runner's
  * BuildRestrictions loads every restriction block (tasks, events, walks,
  * topics...) through the same code path, so the ask/correct pass must see them
  * all, not just the task blocks.
@@ -1268,7 +1268,7 @@ a5model_upgrade_pending (const a5_adventure_t *a)
     return 0;
   if (!a->upgrade_scanned)
     {
-      /* FD asks at the first BuildRestrictions whose sequence contains
+      /* The runner asks at the first BuildRestrictions whose sequence contains
          "#A#O#", only for files saved before the 5.0.26 logic correction
          (FileIO.vb:634: dFileVersion < 5.000026). */
       double fv = (a->version != NULL) ? strtod (a->version, NULL) : 0.0;
@@ -1296,7 +1296,7 @@ a5model_upgrade_question (void)
 }
 
 /*
- * FD FileIO.vb:1157 CorrectBracketSequence: longest run first, rewrite every
+ * the runner FileIO.vb:1157 CorrectBracketSequence: longest run first, rewrite every
  * "#A#O#O#..." into "#A(#O#O#...)".  VB String.Replace replaces ALL
  * occurrences per call and iCorrectedTasks counts the calls (one per While
  * pass), not the occurrences.  Returns a heap copy when anything changed,
@@ -1364,7 +1364,7 @@ a5model_upgrade_answer (a5_adventure_t *a, int yes)
 
 /*
  * The "Adventure Upgrade" question defaults to NO (matching an unattended
- * FrankenDrift: the pre-5.0.26 BracketSequence is read verbatim), so an
+ * the Adrift 5 runner: the pre-5.0.26 BracketSequence is read verbatim), so an
  * interactive host that suppresses the dialog can just leave the file
  * uncorrected.  A short hard-wired allow-list forces YES for the handful of
  * games whose intended (post-5.0.26) logic genuinely needs the correction to

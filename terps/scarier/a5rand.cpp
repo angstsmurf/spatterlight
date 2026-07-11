@@ -26,10 +26,10 @@ extern "C" {
 
 static int a5rand_seeded = 0;
 
-/* urand()'s no-repeat pools (FD clsVariable.NoRepeatRandom /
+/* urand()'s no-repeat pools (the runner clsVariable.NoRepeatRandom /
    Adventure.dictRandValues): one shuffled value list per "min-max" range,
    consumed without repeats and rebuilt when exhausted.  Adventure-lifetime in
-   FD (not part of the save state, survives undo/restore in-session), so a
+   the runner (not part of the save state, survives undo/restore in-session), so a
    plain static map cleared on a5rand_seed (== new game) mirrors it. */
 static std::map<std::string, std::vector<long> > a5rand_pools;
 
@@ -77,10 +77,10 @@ a5rand_between (long lo, long hi)
 long
 a5rand_norepeat (long lo, long hi)
 {
-  /* FD clsVariable.NoRepeatRandom, verbatim: the pool for "lo-hi" is (re)built
+  /* The runner clsVariable.NoRepeatRandom, verbatim: the pool for "lo-hi" is (re)built
      empty->full by inserting each value at Random(count) -- a Fisher-Yates-like
      shuffle whose draws MUST hit the shared stream in the same order -- then one
-     random element is picked and removed.  (Bounds are NOT swapped: FD builds
+     random element is picked and removed.  (Bounds are NOT swapped: the runner builds
      `For i = iMin To iMax`, which is empty when min > max and then picks from
      an empty list; no shipped game does that.) */
   char keybuf[48];

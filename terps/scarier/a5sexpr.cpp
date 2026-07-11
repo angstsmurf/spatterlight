@@ -21,7 +21,7 @@
 
 /* Wired to a5rand_between by the run harness; NULL in RNG-less builds. */
 long (*a5sexpr_rng_hook) (long lo, long hi) = NULL;
-/* Wired to a5rand_norepeat (FD NoRepeatRandom) by the run harness; urand()
+/* Wired to a5rand_norepeat (the runner NoRepeatRandom) by the run harness; urand()
    falls back to a plain a5sexpr_rng_hook draw when unset. */
 long (*a5sexpr_urand_hook) (long lo, long hi) = NULL;
 

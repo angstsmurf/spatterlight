@@ -72,7 +72,7 @@ struct a5_run_s {
   std::vector<a5_media_event_t> *media;
   std::vector<int> *order;   /* task indices, ascending priority */
 
-  /* FrankenDrift's per-top-level-command response aggregation layer
+  /* The Adrift 5 runner's per-top-level-command response aggregation layer
      (clsUserSession htblResponsesPass/Fail).  Non-NULL only while a plural
      %objects% command iterates its items (run_general): completion + override-
      fail messages are collected here keyed by message/template, deduped and
@@ -122,7 +122,7 @@ struct a5_run_s {
   const a5_xml_node_t *pending_failover;
 
   /* Set by resolve_plural when a %objects% NOUN matched more than one object and
-     none passed the restrictions: FrankenDrift then treats the multi-match as
+     none passed the restrictions: the Adrift 5 runner then treats the multi-match as
      ambiguous and prefixes the task's failure with its "ReferencedObjects Must
      Exist" message ("Sorry, I'm not sure which object you are trying to take.").
      The RR_FAIL consumer prepends this ahead of the restriction message and
@@ -136,7 +136,7 @@ struct a5_run_s {
 
   /* Deferred room-view render.  The stock Look task's CompletionMessage is
      "%Player%.Location.Description" with no <Aggregate> => AggregateOutput=True,
-     so FD defers its function replacement to final Display (clsUserSession.vb:
+     so the runner defers its function replacement to final Display (clsUserSession.vb:
      1184/1210): the room view reflects state changed by AfterText/Actions
      children that run after the parent's `Execute Look`.  When defer_look is set
      (a parent with After children runs on the direct path), emit_look records
@@ -154,21 +154,21 @@ struct a5_run_s {
   int    cur_score_ti;
 
   /* When the Look dance's two test renders differ (a random pick in the room
-     view moved between them -- clsUserSession.vb:1200), FD pins the response to
+     view moved between them -- clsUserSession.vb:1200), the runner pins the response to
      the FIRST render instead of deferring the raw aggregate message to Display.
      This carries that pinned text to the deferred-splice site (owned; NULL =
      not pinned, render at final state as usual). */
   char  *look_pinned;
 
   /* Set only while the System <RunImmediately> startup tasks run (before the
-     title).  emit_completion then uses FD's bHasOutput (markup-aware) instead of
+     title).  emit_completion then uses the runner's bHasOutput (markup-aware) instead of
      the plain whitespace test, so a title-music task's `<audio ...> ` keeps its
      trailing space to join onto the centred title.  Off everywhere else, so the
      per-turn completion-message emission is byte-identical to before. */
   int    immediate_emit;
 
   /* Sticky per-After-children-scan flag: some completion message evaluated
-     since the caller cleared it had a NON-BLANK raw template -- FD's
+     since the caller cleared it had a NON-BLANK raw template -- the runner's
      AddResponse bHasOutput test, which counts a whitespace-only "\n" template
      as task output even though the rendered plain text trims to nothing.  The
      After-children stop rule reads it alongside buffer growth (The Salvage's
@@ -176,14 +176,14 @@ struct a5_run_s {
   int    task_raw_output;
 
   /* Set while the once-per-input TimeBased tick (ev_time_tick_all) and its
-     finish_turn run.  FD's TimeBasedStuff FLUSHES the tick's own output
+     finish_turn run.  The runner's TimeBasedStuff FLUSHES the tick's own output
      (Display("", True)) before CheckEndOfGame emits the banner as a fresh
      commit, so no pSpace/blank-line top-up separates them -- The Salvage's
      "Daza.\n*** You have won ***".  emit_endgame skips its separator top-up
      under this flag. */
   int    in_time_tick;
 
-  /* clsUserSession htblResponsesPass dedup for an event-fired task chain.  FD
+  /* clsUserSession htblResponsesPass dedup for an event-fired task chain.  The runner
      runs an event's ExecuteTask through AttemptToExecuteTask, which keys every
      completion message by its rendered text and shows each once (vb:783/1295).
      Non-NULL only while an outermost event task and its SetTasks-Execute subtree
@@ -195,7 +195,7 @@ struct a5_run_s {
   std::set<std::string> *ev_seen;
 
   /* clsUserSession htblResponsesFail for a SetTasks-Execute'd task whose
-     restrictions fail WITH a message.  FD's ExecuteTask is a full
+     restrictions fail WITH a message.  The runner's ExecuteTask is a full
      AttemptToExecuteTask: the failing restriction's sRestrictionText is
      AddResponse'd (bPass=False), deduped by text, and displayed at the
      response flush ONLY when no pass response carries the same reference
@@ -226,11 +226,11 @@ struct a5_run_s {
   std::vector<std::string> *comp_defers;
 
   /* Persistent per-turn Display-deferral sink (owned; cleared each finish_turn).
-     Holds AggregateOutput-completion draws whose evaluation FD defers to the
+     Holds AggregateOutput-completion draws whose evaluation the runner defers to the
      final Display loop -- i.e. AFTER the command's task, the LocationTrigger
      drain (drain_tasks_to_run) and the event tick.  Skybreak's dock: StorylineL1's
      `After` completion ends in %DisplayLocation% (the `%flavorskybreak[rand]%`
-     draws); FD holds those to Display so the Skybreak location-trigger task's
+     draws); The runner holds those to Display so the Skybreak location-trigger task's
      `SidequestE = RAND(1,10)` draws first.  Flushing here (not at run_general's
      end) reproduces that interleave.  Each body is either a frozen `<#..#>` sexpr
      or, tagged with a leading \001, a raw `%var[rand()]%` token re-resolved at
@@ -241,7 +241,7 @@ struct a5_run_s {
      BEFORE the last processed turn (NULL until the first turn is snapshotted, and
      consumed on undo so a double-undo fails).  Taken by a5run_snapshot from the
      frontend just before a5run_input; a5run_undo restores it.  Mirrors the ADRIFT
-     4 game->undo slot and FrankenDrift's one-deep undo. */
+     4 game->undo slot and the Adrift 5 runner's one-deep undo. */
   char  *undo_blob;
   size_t undo_len;
 };
@@ -250,7 +250,7 @@ struct a5_run_s {
 struct exec_resp_scope {
   std::set<std::string> pass_refs;   /* object keys of pass responses w/ output */
   std::set<std::string> fail_seen;   /* text dedup (htblResponsesFail keying)   */
-  /* Pass-response text dedup (htblResponsesPass keying): FD shows each
+  /* Pass-response text dedup (htblResponsesPass keying): the runner shows each
      distinct response once per command, so a command that Executes two tasks
      with the same completion text -- or `Execute Look` twice -- prints it
      once.  Euripides' `press on` runs cl_ToCrawler11 AND cl_ToCrawler12
@@ -258,11 +258,11 @@ struct exec_resp_scope {
   std::set<std::string> pass_seen;
   /* buffered fail messages, in order: text + the object keys bound when the
      restriction failed.  Empty key set = a ref-less fail: cancelled iff any pass
-     response occurred this command (FD's bAllMatch stays True vs the first pass),
+     response occurred this command (the runner's bAllMatch stays True vs the first pass),
      else shown. */
   std::vector<std::pair<std::string, std::vector<std::string>>> fails;
   /* Specific-override restriction fails, buffered on the DIRECT (single-ref)
-     path with the task's POSITIONAL reference vector.  FD's flush
+     path with the task's POSITIONAL reference vector.  The runner's flush
      (clsUserSession.vb:804-834) drops a fail only when some pass response's
      refs match it POSITIONALLY over the fail's full length -- a 2-ref fail
      (`get ashes` re-dispatched as TakeObjectsFromOthers [ashes, firepit])
@@ -273,13 +273,13 @@ struct exec_resp_scope {
   /* Positional ref signatures of every task frame that produced pass output on
      the direct path (execute_task_with_overrides), for the ov_fails rule. */
   std::vector<std::vector<std::string>> pass_sigs;
-  /* The single aggregate room-view response slot (FD htblResponsesPass keyed
+  /* The single aggregate room-view response slot (the runner htblResponsesPass keyed
      on the stock Look's RAW template): where this command's first direct-path
      `Execute Look` view landed in its sink.  A LATER Execute Look whose view
      text differs (the player moved between them -- The Salvage's request
      docking runs Look at the docked pad, then again on the bridge) REPLACES
      those bytes in place: one view, first slot's position, last render's text,
-     exactly FD's one-key-per-raw-template response map. */
+     exactly the runner's one-key-per-raw-template response map. */
   sb_t  *look_sink = NULL;
   long   look_off = -1;
   size_t look_len = 0;
@@ -301,7 +301,7 @@ struct amb_info {
   std::string ref_text;          /* the captured reference text typed         */
   std::vector<std::string> keys; /* surviving candidate keys                  */
   /* This ambiguity arose only because the *same task* also has an unmatched
-     but *required* (`Must Exist`) reference, so in frankendrift the task does
+     but *required* (`Must Exist`) reference, so in the Adrift 5 runner the task does
      not match in the first pass and is found only in the second-chance
      (existence) pass.  There it sets sAmbTask, but a *different* task's
      0-item Must-Exist failure (GetGeneralTask) wins over it.  So unlike a

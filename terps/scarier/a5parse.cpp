@@ -2,7 +2,7 @@
  *
  * ADRIFT 5 support for Scarier -- command-pattern matcher.  See a5parse.h.
  *
- * A direct port of frankendrift clsUserSession.ConvertToRE (clsUserSession.vb:
+ * A direct port of the Adrift 5 runner clsUserSession.ConvertToRE (clsUserSession.vb:
  * 6298) and the syntactic half of InputMatchesCommand (5575): the structural
  * transforms ([a/b] alternation, {..} optional, '_' space, '*' wildcard) and the
  * reference -> capture-group substitution, then a std::regex match that hands the
@@ -20,7 +20,7 @@
 
 #include "a5parse.h"
 
-/* Lowercase a UTF-8 byte stream the way VB.NET's LCase does (FrankenDrift's
+/* Lowercase a UTF-8 byte stream the way VB.NET's LCase does (the Adrift 5 runner's
    direction RE / known-word set).  A byte-wise tolower() folds only ASCII, so a
    game's accented capitals -- Danish 'Ø' (C3 98), 'Æ' (C3 86), 'Å' (C3 85),
    German 'Ä/Ö/Ü', French 'É' ... -- survive uppercased and never match the
@@ -164,7 +164,7 @@ a5parse_direction_name (const char *canonical)
   return NULL;
 }
 
-/* The full direction alternation, lowercased, built once.  frankendrift's
+/* The full direction alternation, lowercased, built once.  The Adrift 5 runner's
    %direction% builder loops `For eDirection = North To NorthWest` -- and by the
    DirectionsEnum VALUES (North=0, East=1, South=2, West=3, Up=4, Down=5, In=6,
    Out=7, NorthEast=8, SouthEast=9, SouthWest=10, NorthWest=11) that range spans
@@ -218,12 +218,12 @@ a5parse_canonical_direction (const char *text)
     return NULL;
   ensure_dirs_default ();
   /* Resolve synonyms in DirectionsEnum order (kDirEnum), NOT raw compass order,
-     mirroring FrankenDrift's `For eDirection = North To NorthWest` scan.  This
+     mirroring the Adrift 5 runner's `For eDirection = North To NorthWest` scan.  This
      only matters when a game's <Direction*> overrides make two directions share
      a synonym: Space Detective ep.4 redefines NorthEast's words to "west"/"w"
      while West keeps its default "west"/"w", so a compass-order scan (NorthEast
      precedes West) mis-binds "west" to the non-existent NorthEast exit.  Enum
-     order puts West (=3) ahead of NorthEast (=8), so West wins the tie like FD.
+     order puts West (=3) ahead of NorthEast (=8), so West wins the tie like the runner.
      Default games have disjoint synonyms, so the order is inert for them. */
   for (int i = 0; i < 12; i++)
     {
@@ -311,8 +311,8 @@ convert_to_re (const char *pattern, std::string &out_pattern,
   replace_all (sC, "(", "\\(");
   replace_all (sC, ")", "\\)");
 
-  /* Wildcards (non-capturing variants of frankendrift's groups).  Like
-     frankendrift (ConvertToRE), substitute a placeholder for the wildcard body
+  /* Wildcards (non-capturing variants of the Adrift 5 runner's groups).  Like
+     the Adrift 5 runner (ConvertToRE), substitute a placeholder for the wildcard body
      and expand it to ".*?" only at the very end -- otherwise the bare-'*' pass
      re-rewrites the '*' inside an already-inserted ".*?", corrupting the regex
      (e.g. "{the} *[string/twig]" never matched "get twig"). */
@@ -369,7 +369,7 @@ convert_to_re (const char *pattern, std::string &out_pattern,
    * (")? " -> ")? ?") here, to fake the bare-form matching that real ADRIFT gets
    * from clsUserSession.CorrectCommand restructuring `{x} y` into `{x }y`.  Now
    * that a5model applies CorrectCommand (a5_correct_command) at load -- exactly
-   * as FrankenDrift does at game-start init -- this matcher must mirror FD's
+   * as the Adrift 5 runner does at game-start init -- this matcher must mirror the runner's
    * ConvertToRE *verbatim* (no extra space relaxation), or the two double-relax
    * and over-match.
    */
@@ -391,11 +391,11 @@ convert_to_re (const char *pattern, std::string &out_pattern,
 
 /*
  * A verbatim port of clsUserSession.CorrectCommand / ProcessBlock / GetSubBlock
- * / ContainsMandatoryText (clsUserSession.vb:6126-6295).  FrankenDrift applies
+ * / ContainsMandatoryText (clsUserSession.vb:6126-6295).  The Adrift 5 runner applies
  * this to every task command at game-start init, restructuring an optional
  * group so an adjacent literal space becomes optional too: `{x} y` -> `{x }y`,
  * `{a/b}` -> `{ [a/b]}`.  a5model calls a5_correct_command at load on every
- * command, after which a5parse_match_command's ConvertToRE mirrors FD exactly.
+ * command, after which a5parse_match_command's ConvertToRE mirrors the runner exactly.
  */
 
 /* GetSubBlock: peel the next token off sBlock (modified in place) -- either the
@@ -615,16 +615,16 @@ match_one_pattern (const std::string &pattern, const char *input, a5_match_t *m)
 
   std::smatch mt;
   std::string in = input ? input : "";
-  /* FrankenDrift (and real ADRIFT's clsUserSession) test the command regex with
+  /* The Adrift 5 runner (and real ADRIFT's clsUserSession) test the command regex with
      .NET Regex.IsMatch, which is a SEARCH, not a full-string match.  For the
      usual well-formed "^...$" pattern the two are identical, but ADRIFT's
      ConvertToRE does a *global* '/'->'|' that leaves a bare (un-bracketed) word
      alternation UNSCOPED: e.g. "[fork] on/against [box]" becomes
      "^...(fork) on|against (box)$", where '|' has lowest precedence so '^' binds
      only to the left branch and '$' only to the right.  Under IsMatch/search the
-     left branch "^...(fork) on" still matches the input's prefix, so FD (and
+     left branch "^...(fork) on" still matches the input's prefix, so the runner (and
      ADRIFT) accept "put fork on box"; a full-string std::regex_match would reject
-     both branches.  Mirror FD's search semantics so those bare-'/' connectors
+     both branches.  Mirror the runner's search semantics so those bare-'/' connectors
      match identically (SoC "put fork on box" -> the game's own Task, not the
      generic library put). */
   if (!std::regex_search (in, mt, cp.re))
@@ -652,7 +652,7 @@ match_one_pattern (const std::string &pattern, const char *input, a5_match_t *m)
  * Wildcard variants (clsUserSession.GetRegularExpression): a command containing
  * '*' produces several candidate regexes, tried in order -- first with ALL
  * wildcards removed, then progressively restoring them left-to-right, the
- * original command (every wildcard intact) last.  FD builds the list as
+ * original command (every wildcard intact) last.  The runner builds the list as
  * iAsterix = N-1 .. -1, each iteration stripping the first iAsterix+1
  * asterisks, "otherwise we may always end up matching the object name in *":
  * `find %object% *` must first try %object% = the WHOLE tail ("bell tower

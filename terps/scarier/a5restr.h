@@ -12,7 +12,7 @@
  * Phase 2 implements the object/location/variable/task operators the static
  * world's descriptions depend on, plus best-effort character handling; the
  * structure (a ported EvaluateRestrictionBlock + a typed PassSingleRestriction)
- * is the one Phase 3 grows for the full task engine.  Mirrors frankendrift
+ * is the one Phase 3 grows for the full task engine.  Mirrors the Adrift 5 runner
  * clsUserSession.PassRestrictions / EvaluateRestrictionBlock / PassSingleRestriction.
  */
 
@@ -38,7 +38,7 @@ extern int a5restr_has_exist (const a5_xml_node_t *restrictions, char type);
 
 /* The <Message> node of the task's first "ReferencedObject(s) Must Exist" Object
  * restriction, or NULL.  Used to prefix a failing multi-match %objects% noun with
- * FrankenDrift's "Sorry, I'm not sure which object ..." ambiguity indicator. */
+ * the Adrift 5 runner's "Sorry, I'm not sure which object ..." ambiguity indicator. */
 extern const a5_xml_node_t *a5restr_exist_message (const a5_xml_node_t *restrictions);
 
 /*
@@ -69,7 +69,7 @@ extern const a5_xml_node_t *a5restr_fail_message (a5_state_t *st,
  *
  * When `blocked_msg` is non-NULL it is set to the blocking exit-restriction's
  * <Message> node if the exit exists but its restriction fails (left untouched
- * otherwise) -- frankendrift's sRouteError, which overrides the movement task's
+ * otherwise) -- the Adrift 5 runner's sRouteError, which overrides the movement task's
  * generic "There is no route..." message.
  *
  * The evaluation is memoised per (charkey, lockey, dir) for the current turn,

@@ -124,7 +124,7 @@ resolve_key (a5_state_t *st, const char *k)
     return a5state_player_key (st);
   /* A per-turn binding (ReferencedObject2, ReferencedDirection, ...) wins. */
   bound = a5state_lookup_ref (st, k);
-  /* FD's GetReference("ReferencedObjects") carries NO ReferenceMatch condition
+  /* The runner's GetReference("ReferencedObjects") carries NO ReferenceMatch condition
      (clsUserSession.vb:3990): it answers from the first Object-type reference
      in the command whatever its slot, so a restriction keyed "ReferencedObjects"
      also resolves when the command captured a singular %object% (LostLabyrinth's
@@ -140,7 +140,7 @@ resolve_key (a5_state_t *st, const char *k)
     {
       /* A piped multi-object binding (ReferencedObjects = "k1|k2|...", set by
          resolve_plural so the text engine can render the whole set) resolves,
-         for restriction purposes, to its FIRST item -- mirroring FD's
+         for restriction purposes, to its FIRST item -- mirroring the runner's
          GetReference("ReferencedObjects"), which returns Items(0).  Per-item
          narrowing already happened in RefineMatchingPossibilitesUsingRestrictions;
          the final PassRestrictions only ever checks the first item. */
@@ -166,14 +166,14 @@ resolve_key (a5_state_t *st, const char *k)
 
 /* Evaluate key2 as a number: a variable key's value, a `RAND(min,max)`
    expression, else an integer literal.  An expression RHS is wrapped in single
-   quotes in the model (FD's clsRestriction summary quotes it; the stored
-   StringValue is the bare expression), and FD's PassSingleRestriction evaluates
+   quotes in the model (the runner's clsRestriction summary quotes it; the stored
+   StringValue is the bare expression), and the runner's PassSingleRestriction evaluates
    it via EvaluateExpression -> clsVariable.SetToExpression, which calls
    Global.Random(min,max) for a RAND() token (clsUserSession.vb:4486).  So
    SixSilverBullets' TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'` draws one
    random per evaluation -- a draw Scarier previously skipped (strtol of the
    quoted string yields 0, so the chime never fired and the RAND stream desynced
-   from FD, mistiming the sniper/bomb events). */
+   from the runner, mistiming the sniper/bomb events). */
 static long
 num_value (a5_state_t *st, const char *k)
 {
@@ -200,7 +200,7 @@ num_value (a5_state_t *st, const char *k)
       return a5rand_between (lo, hi);
     }
   /* A bare numeric restriction value is an integer LITERAL, never a variable
-     key: FD's FileIO.LoadRestrictions stores `IntValue = CInt(sElements(3))`
+     key: the runner's FileIO.LoadRestrictions stores `IntValue = CInt(sElements(3))`
      when `sElements.Length = 4 AndAlso IsNumeric(sElements(3))`, and only takes
      the "key to a variable" branch for a NON-numeric token.  LostCoastlines has
      a Text variable literally keyed "511", so a variable-key lookup on the RHS
@@ -222,7 +222,7 @@ num_value (a5_state_t *st, const char *k)
     return st->var_num[vi];
   /* Not a RAND literal and not a bare variable key: the value may be an
      expression carrying %references% and/or arithmetic (e.g. Tingalan's
-     `'%randbetween1and9%'` or `'%randbetween1and9%+%randbetween1and2%'`).  FD
+     `'%randbetween1and9%'` or `'%randbetween1and9%+%randbetween1and2%'`).  The runner
      resolves the RHS via EvaluateExpression (substitute %vars%, reduce); strtol
      alone left a leading `%` as 0, so an *unmet* survival restriction such as
      Dysentaryk's `Poopcounte Must BeGreaterThanOrEqualTo '%randbetween1and9%'`
@@ -361,7 +361,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
           return streq (k1, ANYOBJECT) ? any : !any;
         }
       if (oi < 0) return 0;
-      /* BeHeldByCharacter recurses through held containers (FD's
+      /* BeHeldByCharacter recurses through held containers (the runner's
          IsHoldingObject); BeWornByCharacter is a direct check. */
       if (want == A5_OWHERE_HELD_BY)
         return is_holding_object (st, oi, k2);
@@ -410,7 +410,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       int i;
       if (oi < 0) return 0;
       /* Consult the runtime override layer so SetProperty (e.g. OpenStatus) is
-         reflected; fall back to the model's static value.  Mirror FD's
+         reflected; fall back to the model's static value.  Mirror the runner's
          BeInState (clsUserSession.vb:4253): only a StateList property whose
          AppendToProperty is empty counts -- an appended pseudo-state property
          (e.g. LockStatus, which appends "Locked" onto OpenStatus) is skipped,
@@ -452,7 +452,7 @@ pass_object (a5_state_t *st, a5_restr_t *r)
     return streq (k1, k2);
   if (streq (r->op, "BeVisibleToCharacter"))
     {
-      /* FD's CanSeeObject (clsCharacter.vb:772) compares BoundVisible keys, so
+      /* The runner's CanSeeObject (clsCharacter.vb:772) compares BoundVisible keys, so
          an object inside a closed opaque container is not visible. */
       int ci = a5state_character_index (st, k2);
       const char *cloc = a5state_character_location_key (st, ci);
@@ -506,7 +506,7 @@ pass_location (a5_state_t *st, a5_restr_t *r)
     return 1;
   if (streq (r->op, "HaveBeenSeenByCharacter"))
     {
-      /* clsLocation.SeenBy(char) == Character.HasSeenLocation(loc).  In FD that
+      /* clsLocation.SeenBy(char) == Character.HasSeenLocation(loc).  In the runner that
          flag is set in exactly one place -- clsUserSession.vb:222, for the
          PLAYER only, on every player move -- so an NPC observer has NEVER seen
          any location and the restriction is always False for it.  (AoS gates the
@@ -525,7 +525,7 @@ pass_location (a5_state_t *st, a5_restr_t *r)
 
 /* ------------------------------------------------------------ exit lookup */
 
-/* Per-turn route memo, frankendrift's clsCharacter.dictHasRouteCache /
+/* Per-turn route memo, the Adrift 5 runner's clsCharacter.dictHasRouteCache /
    dictRouteErrors: each character's route-restriction evaluation for a
    (location, direction) is performed at most once per turn, and every later
    check that turn reuses the verdict even if an action has since changed the
@@ -603,7 +603,7 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
       mr = a5xml_child (c, "Restrictions");
       if (mr != NULL && !a5restr_pass (st, mr))
         {                               /* route blocked by its restriction */
-          /* Capture the blocking message unconditionally (FD stores
+          /* Capture the blocking message unconditionally (the runner stores
              sErrorMessage in dictRouteErrors on every miss), so a same-turn
              re-check that DOES want it replays it without re-evaluating. */
           bl = a5restr_fail_message (st, mr);
@@ -629,7 +629,7 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
 
 /* AloneWithChar (clsCharacter.AloneWithChar): the single other character in the
    same location as `charkey`, or NULL if there are zero or more than one.
-   FD compares resolved Location.LocationKey values, so a character seated on /
+   the runner compares resolved Location.LocationKey values, so a character seated on /
    inside furniture counts as present (Lost Children's Anne rocks in her chair
    while the player says hello). */
 static const char *
@@ -721,7 +721,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          `AnyCharacter Must BeAtLocation ChieftainS` after the chieftain and
          his wife are bulk-moved into the main chamber; this case previously
          fell through to the ci<0 NULL compare and always failed).  Both
-         branches compare FD's *resolved* LocationKey -- the root room through
+         branches compare the runner's *resolved* LocationKey -- the root room through
          an on/in-object carrier (clsCharacter.vb:1773) -- not the raw
          char_loc, which is NULL for a character seated on furniture. */
       if (streq (k1, ANYCHARACTER))
@@ -850,7 +850,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          this case the operator fell through to the best-effort `return 1`, so e.g.
          RunBronwynn's `ExamineCha1` ("Examine Me", `ReferencedCharacter Must
          BeCharacter Player`) wrongly fired for any examined character (x horse ->
-         Fleetwind), showing its description where FD's higher-priority
+         Fleetwind), showing its description where the runner's higher-priority
          ExamineCharacter fails the HaveSeen check with "You see no such thing." */
       if (streq (k1, ANYCHARACTER))
         return 1;
@@ -917,7 +917,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       /* clsCharacter.HasProperty (clsItem.vb:386) consults the *merged*
          property table, so a property added at runtime via SetProperty
          (e.g. `SetProperty Susan Known <Selected>`, clsUserSession.vb:2042)
-         must count -- not just the static model props.  FD's
+         must count -- not just the static model props.  The runner's
          SetPropertyValue(Boolean) removes a SelectionOnly property when set
          to <Unselected>, so an override carrying that sentinel reads as
          absent (mirroring the display-name "Selected" check at a5text.cpp). */
@@ -971,7 +971,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         : streq (r->op, "BeLyingOnObject")    ? "Lying" : NULL;
       int want_in = streq (r->op, "BeInsideObject");
       const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
-      /* Subject ANYCHARACTER: FD's clsUserSession CharacterOnObject/InObject
+      /* Subject ANYCHARACTER: the runner's clsUserSession CharacterOnObject/InObject
          AnyCharacter case counts the object's ChildrenCharacters (vb:4930/
          4952) -- true when ANY character is on/in the (specific) object.  Head
          Case's examine template gates %ListCharactersOnAndIn[%object%]% on
@@ -1026,14 +1026,14 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "HaveSeenObject"))
     {
-      /* key1 is the observer, key2 the target object.  FD funnels this and the
+      /* key1 is the observer, key2 the target object.  The runner funnels this and the
          object-subject HaveBeenSeenByCharacter to the same per-character
          clsCharacter.HasSeenObject table (clsUserSession.vb:4677 / :4341), so
          mirror the object-side handler exactly: the player consults the tracked
          seen set; a non-player observer falls back to "seen" (best-effort).
          Without this case the operator fell through to `return 1`, so Thy
          Dunjohnman's gated exits (`%Player% Must HaveSeenObject Platform` /
-         Coins) were open from turn one (FD keeps them shut). */
+         Coins) were open from turn one (the runner keeps them shut). */
       int o2 = a5state_object_index (st, k2);
       if (o2 < 0)
         return 0;
@@ -1044,14 +1044,14 @@ pass_character (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "HaveSeenLocation"))
     {
       /* key1 is the observer (typically Player), key2 the target location.
-         FD sets clsCharacter.HasSeenLocation only for the Player
+         the runner sets clsCharacter.HasSeenLocation only for the Player
          (clsUserSession.vb:222, on every player move), so a non-player observer
          has never seen any location -- mirror the location-subject
          HaveBeenSeenByCharacter handler.  Without this case the operator fell
          through to the best-effort `return 1`, so RunBronwynn's Caught121
          (`Player Must HaveSeenLocation BridgetSLi`) fired the moment the player
          reached the cathedral-square street -- BEFORE ever entering Bridget's
-         house -- ending the game prematurely (FD plays on). */
+         house -- ending the game prematurely (the runner plays on). */
       int li = a5state_location_index (st, k2);
       if (li < 0)
         return 0;
@@ -1160,7 +1160,7 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
       if (cur == NULL) cur = a5state_lookup_ref (st, "ReferencedText");
       if (cur == NULL)
         {
-          /* FD reads the turn-global Adventure.sReferencedText slot
+          /* The runner reads the turn-global Adventure.sReferencedText slot
              (clsUserSession.vb:4474), filled by every command-matched
              candidate's %text% capture during the scan and defaulted to the
              raw input after it (see a5_state_t.scan_text).  A task with no
@@ -1205,7 +1205,7 @@ pass_variable (a5_state_t *st, a5_restr_t *r)
   if (streq (v->type, "Text"))
     {
       const char *cur = st->var_text[vi] ? st->var_text[vi] : "";
-      /* The RHS is an expression, not a raw token: FD compares against
+      /* The RHS is an expression, not a raw token: the runner compares against
          EvaluateExpression(value).  A string-literal value like `"'greater'"`
          reduces to `greater` (the SetVariable side already stores it unquoted via
          a5text_process), and a %reference% is substituted.  restr_text_value does
@@ -1325,7 +1325,7 @@ pass_property (a5_state_t *st, a5_restr_t *r)
          Evaluate such an RHS through the OO expression engine (which handles
          .Held/.Size.Sum aggregation) and compare numerically -- previously this
          branch fell through to the lenient always-pass stub, so Scarier never
-         enforced the bulk/weight limits FrankenDrift does.  A bare non-integer
+         enforced the bulk/weight limits the Adrift 5 runner does.  A bare non-integer
          RHS with no reference (e.g. a state word like "Open" in an oddly
          authored `OpenStatus Obj Must LessThan Open`) is not arithmetic, so it
          keeps the lenient pass in the final else. */
@@ -1426,7 +1426,7 @@ static int count_hashes (const char *s)
   return n;
 }
 
-/* Normalise "A#O" -> "(...A#)O..." so AND binds before OR (as frankendrift). */
+/* Normalise "A#O" -> "(...A#)O..." so AND binds before OR (as the Adrift 5 runner). */
 static char *
 normalise_block (const char *in)
 {
@@ -1464,7 +1464,7 @@ normalise_block (const char *in)
  * AND short-circuits false, OR short-circuits true; *idx advances over every
  * '#' actually consumed (including short-circuited ones).
  *
- * `last_fail` mirrors frankendrift's sRestrictionText side effect: every single
+ * `last_fail` mirrors the Adrift 5 runner's sRestrictionText side effect: every single
  * restriction actually evaluated clears it on a pass and sets it to its own
  * index on a fail, so after the (short-circuiting) walk it names the failing
  * restriction on the deciding path -- the one whose Message the Runner shows.
@@ -1507,7 +1507,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
       op = norm[1];
       if (op != '\0' && op != 'A' && op != 'O')
         {
-          /* frankendrift's inner "Case Else": a '#' followed by neither an
+          /* The Adrift 5 runner's inner "Case Else": a '#' followed by neither an
              operator nor end-of-block (e.g. the spurious leading '#' of a
              malformed "##A#").  EvaluateRestrictionBlock takes Case Else and
              falls off the end -> default False, WITHOUT calling
@@ -1515,7 +1515,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
              sRestrictionText (here *last_fail) is left untouched -- preserving
              any carried value (the basis for Anno's reference-free OpeningHid
              failing *with* the previous command's leftover message). */
-          (*idx)++;             /* FD still runs iRestNum += 1 */
+          (*idx)++;             /* The runner still runs iRestNum += 1 */
           free (norm);
           return 0;
         }
@@ -1530,7 +1530,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
   else
     {
       free (norm);
-      /* frankendrift's EvaluateRestrictionBlock hits "Case Else" (a block that
+      /* The Adrift 5 runner's EvaluateRestrictionBlock hits "Case Else" (a block that
          starts with neither '(' nor '#') and falls off the end with no Return,
          so the Boolean function yields its default False -- a malformed bracket
          sequence FAILS, it does not pass. */
@@ -1551,7 +1551,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
     }
   else
     /* The character after the leading term is neither 'A' nor 'O' (e.g. the
-       extra '#' in the malformed "##A#").  frankendrift's inner Select Case
+       extra '#' in the malformed "##A#").  The Adrift 5 runner's inner Select Case
        takes "Case Else" and falls off the end -> default False.  Some games
        (Anno 1700's OpeningClo2) ship such sequences expecting the task to FAIL,
        so the engine moves on to the general task. */
@@ -1565,7 +1565,7 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
  * Shared core for a5restr_pass / a5restr_fail_message: parse the restriction
  * specs, build the (square-bracket-expanded) BracketSequence and evaluate it.
  * Returns the boolean result; when `fail_node_out` is non-NULL it is set to the
- * <Restriction> on the deciding failing path (frankendrift's sRestrictionText
+ * <Restriction> on the deciding failing path (the Adrift 5 runner's sRestrictionText
  * source) -- NULL if the block passes or no single restriction failed.
  */
 static int
@@ -1638,7 +1638,7 @@ eval_restrictions (a5_state_t *st, const a5_xml_node_t *restrictions,
     free (b);
   }
 
-  /* frankendrift's sRestrictionText side effect (clsUserSession.vb:5176/5181):
+  /* The Adrift 5 runner's sRestrictionText side effect (clsUserSession.vb:5176/5181):
      every PassSingleRestriction on the deciding path clears it on a pass and
      sets it to the restriction's Message on a fail; a call that evaluates *no*
      single restriction (malformed bracket -> last_fail still -2) leaves it
@@ -1769,7 +1769,7 @@ a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
 }
 
 /* The <Message> node of the first Object restriction "<ReferencedObject...> Must
- * Exist" in the task.  FrankenDrift surfaces this as the ambiguity indicator when
+ * Exist" in the task.  The Adrift 5 runner surfaces this as the ambiguity indicator when
  * a %objects% NOUN matches more than one object (e.g. `get fish` -> two fish ->
  * "Sorry, I'm not sure which object you are trying to take."): the multi-match is
  * inherently ambiguous, so the task's own reference-existence message is shown as

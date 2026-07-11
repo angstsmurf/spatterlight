@@ -11,7 +11,7 @@
  * Phases 3-4 can mutate it in place (move objects, set variables, complete
  * tasks) without the display code changing.
  *
- * Mirrors frankendrift's clsObject.Location / clsCharacter.Location property
+ * Mirrors the Adrift 5 runner's clsObject.Location / clsCharacter.Location property
  * decoding (clsObject.vb:521, clsObject.ExistsAtLocation) and clsVariable.
  */
 
@@ -59,12 +59,12 @@ typedef struct a5_prop_ov_s {
   char *value;            /* new value (owned)                                 */
 } a5_prop_ov_t;
 
-/* One live group-membership entry (FD clsGroup.arlMembers): an ordered,
+/* One live group-membership entry (the runner clsGroup.arlMembers): an ordered,
    distinct list per group, seeded from the model's static <Member>s and then
    mutated by Add/Remove*ToGroup at runtime.  Keys alias the model DOM (not
    owned).  RandomKey selection and EverywhereInGroup enumeration read this so
    procedural games (e.g. Skybreak's random-jump world groups) select and clear
-   the correct live members in FD's insertion order. */
+   the correct live members in the runner's insertion order. */
 typedef struct a5_grpmem_s {
   char *grp;              /* group key (owned)                                 */
   char *key;              /* member key -- location/object/character (owned)   */
@@ -94,7 +94,7 @@ typedef struct a5_state_s {
                              [array_length], 0-based storage of ADRIFT's 1-based
                              indices), non-NULL only for a Numeric variable with
                              <ArrayLength> > 1.  var_num[i] mirrors element 1
-                             (FD's scalar %name% read of an array = IntValue(1)),
+                             (the runner's scalar %name% read of an array = IntValue(1)),
                              kept in sync by a5state_var_set_elem.              */
 
   char  *task_done;       /* [adv->n_tasks] completed flag                     */
@@ -105,7 +105,7 @@ typedef struct a5_state_s {
   a5_prop_ov_t *ov;       /* property overrides set at runtime                 */
   int n_ov, cap_ov;
 
-  a5_grpmem_t *gm;        /* live group membership (FD arlMembers), ordered    */
+  a5_grpmem_t *gm;        /* live group membership (the runner arlMembers), ordered    */
   int n_gm, cap_gm;
 
   int   game_over;        /* set by EndGame: 0 running, else 1                 */
@@ -140,7 +140,7 @@ typedef struct a5_state_s {
      [n_objects] */
   char *obj_seen;
 
-  /* Player "seen" state for locations (clsCharacter.HasSeenLocation): FD sets
+  /* Player "seen" state for locations (clsCharacter.HasSeenLocation): the runner sets
      the flag inside clsCharacter.Move for every location a character moves to,
      plus the player's start location at session init (clsUserSession.vb:222).
      Player-centric like obj_seen/char_seen; Location HaveBeenSeenByCharacter
@@ -148,7 +148,7 @@ typedef struct a5_state_s {
   char *loc_seen;
 
   /* Per-character snapshot stash for the three player-centric seen sets above,
-     across an ADRIFT BECOME viewpoint switch.  In FD HasSeenObject/-Location/
+     across an ADRIFT BECOME viewpoint switch.  In the runner HasSeenObject/-Location/
      -Character are per-character (clsCharacter), so when the player changes the
      old viewpoint's sightings must NOT carry over to the new one.  On a switch
      the active obj_seen/char_seen/loc_seen are copied into the OLD player's slot
@@ -205,7 +205,7 @@ typedef struct a5_state_s {
   char  ref_items_type;        /* 'o' object / 'c' character                  */
 
   /* The first object/character slot (%object%==%object1% / %character%) was
-     filled by a *plural* %objects%/%characters% reference (FD ReferenceMatch
+     filled by a *plural* %objects%/%characters% reference (the runner ReferenceMatch
      "objects"/"characters", not "object1").  The key stays bound for override-key
      matching and the ReferencedObjects/ReferencedCharacters restriction paths,
      but the singular %object%/%object1% (resp. %character%) text token must
@@ -217,7 +217,7 @@ typedef struct a5_state_s {
 
   /* The matched command carries BOTH a genuine plural %objects% reference and a
      separate singular %object% reference (e.g. `hide %objects% in %object%`).
-     FD's GetReference (clsUserSession.vb:3990) resolves ReferencedObject only
+     the runner's GetReference (clsUserSession.vb:3990) resolves ReferencedObject only
      to the reference whose ReferenceMatch is "object1" -- never to the plural
      -- so the per-item plural binds (resolve_plural's restriction probes,
      run_general's item loop) must NOT clobber the singular alias: a restriction
@@ -243,7 +243,7 @@ typedef struct a5_state_s {
   int n_disp_once, cap_disp_once;
   int marking_display;
 
-  /* Set while rendering text that FD hands to Display() with its %functions%
+  /* Set while rendering text that the runner hands to Display() with its %functions%
      still UNREPLACED -- conversation topic replies (ExecuteConversation
      AddResponses the raw Description; Display -> ReplaceALRs -> ReplaceFunctions
      then renders it under bDisplaying=True).  Only such renders run
@@ -257,21 +257,21 @@ typedef struct a5_state_s {
 
   /* Set while evaluating an ALR (TextOverride) NewText: a bare %variable%
      token is emitted as an A5_VARDEF_MARK sentinel instead of its value, so
-     it resolves at the Display boundary with the end-of-turn value -- FD
+     it resolves at the Display boundary with the end-of-turn value -- the runner
      expands ALRs (and the functions inside them) only in Display's
      ReplaceALRs (see A5_VARDEF_MARK, a5text.h). */
   int alr_defer_vars;
 
-  /* FD UserSession.PronounKeys: each rendered %CharacterName[...]% records the
+  /* The runner UserSession.PronounKeys: each rendered %CharacterName[...]% records the
      named character's perspective and its text offset (Global.vb:2108); a
      [1st/2nd/3rd] conjugation bracket then resolves in the perspective of the
      nearest PRECEDING rendered name -- GetPerspective (Global.vb:2481) picks
      the entry with the highest offset <= the bracket's, falling back to the
      player ("The medic [am/are/is] wearing ..." -> "is").  Offsets are
-     positions within the message being rendered (FD's iMatchLoc; an entry at
+     positions within the message being rendered (the runner's iMatchLoc; an entry at
      offset 0 can never win, mirroring iHighest starting at 0).  Cleared once
      per processed command (PrepareForNextTurn, vb:3823).  Transient: not
-     saved, not copied (FD's States don't record PronounKeys either).
+     saved, not copied (the runner's States don't record PronounKeys either).
      Each entry also records the character KEY and the mention's requested
      pronoun: clsCharacter.Name (clsCharacter.vb:340) pronoun-replaces a later
      %CharacterName[key]% of an already-mentioned character ("He ignores
@@ -288,7 +288,7 @@ typedef struct a5_state_s {
   const char *pron_pending_key;  /* character key of the pending mention    */
   int  pron_pending_pron;        /* its requested pronoun (-1 = "none")     */
   int  name_cap_eligible;        /* set by a resolved CharacterName eval:
-                                    FD's PCase "slight fudge" (Global.vb:2103)
+                                    the runner's PCase "slight fudge" (Global.vb:2103)
                                     capitalises the rendered name when it is
                                     immediately preceded by two spaces / CRLF */
 
@@ -305,7 +305,7 @@ typedef struct a5_state_s {
      by a5run_input; the per-task bindings stay authoritative when present. */
   char scan_text[5][256];
 
-  /* FD's `sOutputText <> ""` is a test on the RAW marked-up display buffer, so
+  /* The runner's `sOutputText <> ""` is a test on the RAW marked-up display buffer, so
      a task completion that is pure markup -- Bug Hunt's cl_ReadMap `<centre>
      <img src="...">` -- still counts as turn output (no NotUnderstood fallback,
      TurnBasedStuff ticks) even though it strips to nothing.  Scarier's `out`
@@ -314,7 +314,7 @@ typedef struct a5_state_s {
      per processed command by a5run_input. */
   int turn_out_nonempty;
 
-  /* Per-turn route-restriction memo (frankendrift's per-character
+  /* Per-turn route-restriction memo (the Adrift 5 runner's per-character
      dictHasRouteCache/dictRouteErrors) -- owned and typed by a5restr.cpp,
      cleared once per processed command (PrepareForNextTurn, vb:3792) via
      a5restr_route_cache_clear.  Transient: not saved, not copied. */
@@ -322,12 +322,12 @@ typedef struct a5_state_s {
 
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is
-     restriction-gated -- frankendrift's sRouteError, which overrides the
+     restriction-gated -- the Adrift 5 runner's sRouteError, which overrides the
      movement restriction's generic "There is no route..." text.  NULL when the
      exit is open or simply absent.  Not owned (a DOM node). */
   const a5_xml_node_t *route_error;
 
-  /* frankendrift's sRestrictionText, as a (non-owned) <Message> DOM node.  Every
+  /* The Adrift 5 runner's sRestrictionText, as a (non-owned) <Message> DOM node.  Every
      PassRestrictions call updates it: a restriction that fails sets it to that
      restriction's Message (NULL when the restriction has none), a passing one on
      the deciding path clears it, and a call that evaluates *no* single
@@ -344,7 +344,7 @@ typedef struct a5_state_s {
      expression is FROZEN (its operands substituted) and replaced by a
      `\004<idx>\004` sentinel instead of being drawn -- the frozen body is
      appended to *expr_defer (a std::vector<std::string>*), and the owning
-     command evaluates it (drawing) at end-of-command Display, mirroring FD's
+     command evaluates it (drawing) at end-of-command Display, mirroring the runner's
      AggregateOutput responses whose ReplaceExpressions runs at flush
      (clsUserSession.vb:1211 skips the draw when AggregateOutput; Display's
      ReplaceALRs->ReplaceExpressions draws it after every action).  Transient:
@@ -406,7 +406,7 @@ extern int a5state_object_key_at_location (const a5_state_t *st, const char *obj
  * but mirrors clsObject.BoundVisible / IsVisibleAtLocation: an object inside a
  * closed opaque openable container resolves to the container key (not the room),
  * so it is hidden.  Used for scope/visibility and end-of-turn seen-tracking,
- * where FD uses CanSeeObject/IsVisibleTo rather than the raw ExistsAtLocation.
+ * where the runner uses CanSeeObject/IsVisibleTo rather than the raw ExistsAtLocation.
  */
 extern int a5state_object_visible_at_location (const a5_state_t *st, int oi,
                                            const char *lockey, int directly);
@@ -430,7 +430,7 @@ extern int a5state_character_at_location (const a5_state_t *st, int ci,
  * IsVisibleAtLocation: like a5state_character_at_location, but a character
  * inside an openable closed opaque container binds to the container key and is
  * visible nowhere, and an on/in-object carrier is resolved with the object
- * BoundVisible rules.  Used where FD uses CharactersVisibleAtLocation (the
+ * BoundVisible rules.  Used where the runner uses CharactersVisibleAtLocation (the
  * ViewLocation "is here" list).
  */
 extern int a5state_character_visible_at_location (const a5_state_t *st, int ci,
@@ -466,7 +466,7 @@ extern void a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
    the @InGroup property overrides (which are what the save actually stores). */
 extern void a5state_rebuild_live_groups (a5_state_t *st);
 
-/* Live, insertion-ordered membership of a group (FD clsGroup.arlMembers): the
+/* Live, insertion-ordered membership of a group (the runner clsGroup.arlMembers): the
    count and the i-th member key.  Reflects runtime Add/Remove*ToGroup on top of
    the static <Member> list -- unlike adv->groups[g].members which is static.
    Used for RandomKey selection and EverywhereInGroup enumeration. */
@@ -500,7 +500,7 @@ extern const char *a5state_var_text_by_name (const a5_state_t *st, const char *n
 
 /* Numeric array-variable element access (idx is ADRIFT's 1-based index).
    Out-of-range reads return 0 and writes are dropped (clsVariable's ErrMsg
-   paths).  On a scalar variable idx is ignored (FD SetVariable: the [index]
+   paths).  On a scalar variable idx is ignored (the runner SetVariable: the [index]
    suffix on a Length-1 variable is meaningless and IntValue defaults to 1). */
 extern long a5state_var_get_elem (const a5_state_t *st, int vi, long idx);
 extern void a5state_var_set_elem (a5_state_t *st, int vi, long idx, long value);

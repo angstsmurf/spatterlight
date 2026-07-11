@@ -101,7 +101,7 @@ ci_eq (const char *a, const char *b)
   return *a == *b;
 }
 
-/* Does s contain an OO property expression "X.Prop..."?  FD's AddSpace regex
+/* Does s contain an OO property expression "X.Prop..."?  the runner's AddSpace regex
    `.*?(%?[A-Za-z][\w\|_-]*%?)(\.%?[A-Za-z][\w\|_-]*%?(\([A-Za-z ,_]+?\))?)+`
    is an UNANCHORED IsMatch -- a contains test, not an ends-with test -- and
    spaces are only legal inside a parenthesised argument list, never in the
@@ -110,7 +110,7 @@ ci_eq (const char *a, const char *b)
    the dot) contains a letter, and whose right side is `%?[A-Za-z]`.  (The old
    backward walk here allowed spaces in the run, so a plain sentence tail like
    "...has its lid closed" walked back through whole sentences to an earlier
-   full stop and matched -- adding a two-space join where FD adds none:
+   full stop and matched -- adding a two-space join where the runner adds none:
    DieFeuerfaust's chieftain's-tent chest.) */
 static int
 contains_oo_expr (const char *s, size_t len)
@@ -163,7 +163,7 @@ add_space (const char *s, size_t len)
     return 0;
   if (c == '.' || c == '!' || c == '?' || c == '%')
     return 1;
-  /* an OO expression anywhere in the text (FD's unanchored regex IsMatch,
+  /* an OO expression anywhere in the text (the runner's unanchored regex IsMatch,
      Global.vb:3873) -- it will expand at display time. */
   return contains_oo_expr (s, len);
 }
@@ -172,7 +172,7 @@ add_space (const char *s, size_t len)
 
 /* Process every <Description> child of `wrapper` into the running buffer `sb`,
    threading clsDescription.ToString's `first`/`default_text` state so several
-   wrappers can be concatenated into one logical Description (FD's
+   wrappers can be concatenated into one logical Description (the runner's
    oShortDesc.Copy + appended group-property SingleDescriptions, clsLocation.vb:62).
    Returns 1 when a DisplayOnce segment terminated the description (no later
    wrapper should be considered), else 0. */
@@ -227,7 +227,7 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
              DisplayOnce segment whose restrictions FAIL still terminates the
              loop -- later segments are not considered -- but is left un-retired
              so it can show on a future turn.  (Anno's Room 101 has two identical
-             "narrow opening" appends straddling a DisplayOnce faint segment; FD
+             "narrow opening" appends straddling a DisplayOnce faint segment; The runner
              shows the line once because the failing faint segment returns before
              the second append.)  */
           if (once)
@@ -281,7 +281,7 @@ eval_desc_into (a5_state_t *st, sb_t *psb, int *pfirst, const char **pdefault,
         {
           if (add_space (sb.p, sb.len))
             sb_puts (&sb, "  ");
-          /* The "<>" marker (frankendrift ToString) is a zero-width separator: it
+          /* The "<>" marker (the Adrift 5 runner ToString) is a zero-width separator: it
              keeps an unexpanded "%x%.Prop" at the join from merging with the next
              segment's text into one corrupt token.  render_plain drops it. */
           sb_puts (&sb, "<>");
@@ -322,7 +322,7 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
    DarkLocations member with no LightSources in scope renders "Everything is
    dark" (its dark alternate is StartDescriptionWithThis + restricted).  Routed
    through by %LocationName%, %DisplayLocation%'s room name, and the
-   `.ShortDescription` OO reads, mirroring FD where every short-name read goes
+   `.ShortDescription` OO reads, mirroring the runner where every short-name read goes
    through the property getter. */
 char *
 a5text_location_short (a5_state_t *st, const char *lockey)
@@ -373,7 +373,7 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
     sb_puts (&sb, "the ");
   else if (art == A5_ART_INDEFINITE)
     {
-      /* FD clsObject.FullName: Indefinite -> sArticle2 = sArticle & " ",
+      /* The runner clsObject.FullName: Indefinite -> sArticle2 = sArticle & " ",
          i.e. the space is appended even when the article is empty, so an
          empty-article object renders with a leading space (e.g. the worn
          "your clothes" -> " your clothes" in an inventory list). */
@@ -604,7 +604,7 @@ list_objects_subobj (a5_state_t *st, const std::vector<const char *> &keys)
 
 /*
  * Resolve a ListObjectsOnAndIn argument to the set of object keys it names.
- * The argument is frankendrift's ReplaceFunctions-processed value: a single key,
+ * The argument is the Adrift 5 runner's ReplaceFunctions-processed value: a single key,
  * a "key1|key2" pipe list, or an OO expression like "Player.WornAndHeld" (which
  * a5expr resolves to a pipe list).  Mirrors Global.vb:2055-2069 (split on '|',
  * trim a trailing ",..." per key, keep only real object keys).
@@ -678,7 +678,7 @@ char_perspective (const a5_state_t *st, const a5_character_t *c)
         if (ci_eq (orig->perspective, "SecondPerson")) return 2;
         if (ci_eq (orig->perspective, "ThirdPerson"))  return 3;
       }
-    /* No stored <Perspective>: FD's loader records ThirdPerson for files
+    /* No stored <Perspective>: the runner's loader records ThirdPerson for files
        >= 5.00002 and forces SecondPerson for older ones (FileIO.vb:1776-7). */
     if (st->adv->version != NULL
         && strtod (st->adv->version, NULL) < 5.00002)
@@ -705,7 +705,7 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
      runs under UserSession.bDisplaying: once a character's name has rendered
      in displayed output, later Indefinite descriptor renders upgrade to the
      Definite article ("a tall guillermo" -> "the tall guillermo"), and the
-     render itself marks the character Introduced.  In FD the only renders
+     render itself marks the character Introduced.  In the runner the only renders
      that happen under bDisplaying are of text still carrying its %functions%
      when it reaches Display() -- see a5state.h's intro_active. */
   if (displaying && st->intro_active
@@ -774,7 +774,7 @@ character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr,
      Landlord]% ignores you." -> "He ignores you.", DieFeuerfaust's
      conversation fallback), and a requested Objective upgrades to Reflective
      when the previous mention was Subjective (vb:352).  Only the
-     %CharacterName% function path consults (FD's other Name() call sites pass
+     %CharacterName% function path consults (the runner's other Name() call sites pass
      bAllowPronouns:=False or don't run under bDisplaying). */
   if (consult_ledger && c != NULL)
     for (int i = st->n_pron - 1; i >= 0; i--)
@@ -848,7 +848,7 @@ a5text_character_known_name (a5_state_t *st, const a5_character_t *c, int defini
  * them) to the resolved entity key(s) for a property expression %name%.Chain.
  * Returns a malloc'd "key" / "key1|key2" string, or NULL if `name` is not an
  * OO-addressable reference or entity key.  Mirrors the %Player%/%objectN%/%objects%
- * -> key substitution frankendrift does before ReplaceOO (Global.vb:1752+).
+ * -> key substitution the Adrift 5 runner does before ReplaceOO (Global.vb:1752+).
  */
 static char *
 oo_firstkey (a5_state_t *st, const char *name)
@@ -858,7 +858,7 @@ oo_firstkey (a5_state_t *st, const char *name)
     return strdup (a5state_player_key (st));
   /* The singular %object%/%object1% (resp. %character%/%character1%) token
      resolves to nothing when the slot was filled by a *plural* %objects%/
-     %characters% reference -- FD's GetReference requires ReferenceMatch="object1"
+     %characters% reference -- the runner's GetReference requires ReferenceMatch="object1"
      (clsUserSession.vb:3990), so a %objects% command never sets %object%.  The
      plural %objects% / index forms %object2%.. and override matching are
      unaffected (they read the still-bound key). */
@@ -901,7 +901,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 
   st->name_cap_eligible = 0;      /* only a resolved CharacterName sets it */
 
-  /* User-defined <Function>s (clsUserFunction): FD's ReplaceFunctions runs
+  /* User-defined <Function>s (clsUserFunction): the runner's ReplaceFunctions runs
      EvaluateUDF over every UDF FIRST (Global.vb:1748), matching the exact
      case-sensitive name with an optional [args] block.  The Output is a
      restriction-gated description whose declared <Argument> names are
@@ -916,14 +916,14 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         if (u->name == NULL || strcmp (u->name, name) != 0)
           continue;
         const a5_xml_node_t *outp = a5xml_child (u->node, "Output");
-        if (outp == NULL || udf_depth > 8)   /* FD: recursive UDF = error */
+        if (outp == NULL || udf_depth > 8)   /* The runner: recursive UDF = error */
           return strdup ("");
         udf_depth++;
         char *r = a5text_describe (st, outp);
         udf_depth--;
         if (r != NULL && args != NULL && args[0] != '\0')
           {
-            /* Split the [.] block on top-level commas (FD SplitArgs) and
+            /* Split the [.] block on top-level commas (the runner SplitArgs) and
                replace each declared argument's %Name% token in the render. */
             std::vector<std::string> vals;
             {
@@ -969,10 +969,10 @@ eval_function (a5_state_t *st, const char *name, const char *args)
   if (ci_eq (name, "popupinput"))
     {
       /* clsFunction PopUpInput[prompt, default] -> VB InputBox (Global.vb:2296).
-         FD splits sArgs on the single comma, evaluates arg[1] as the default,
+         the runner splits sArgs on the single comma, evaluates arg[1] as the default,
          and returns InputBox(prompt, default) wrapped in quotes.  Headless we
          defer to an installed input callback (the host feeds the next script
-         line); with none, we evaluate to the default -- matching FrankenDrift's
+         line); with none, we evaluate to the default -- matching the Adrift 5 runner's
          InputBox returning its default when unattended.  args are already
          function-expanded; each part may carry surrounding "double quotes". */
       std::string a = args ? args : "";
@@ -1033,7 +1033,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           st->pron_pending = char_perspective (st, ch);
           st->pron_pending_key = ch->key;
           st->pron_pending_pron = pron_none ? -1 : (int) pr;
-          /* FD's "slight fudge" (Global.vb:2102-2107): a resolved %CharacterName%
+          /* The runner's "slight fudge" (Global.vb:2102-2107): a resolved %CharacterName%
              whose two immediately-preceding chars are "  " or CRLF is PCase'd at
              the emit site (the name starts a sentence -- e.g. the ExamineCharacter
              message "%DisplayCharacter%  %CharacterName% ... carrying ..." where
@@ -1051,7 +1051,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     {
       /* Global.vb:1763 substitutes %turns% with Adventure.Turns.ToString via
          ReplaceIgnoreCase, so %Turns%/%TURNS% resolve the same (ci_eq folds
-         case).  FD's Runner bumps Adventure.Turns *after* Process() returns, so
+         case).  The runner's Runner bumps Adventure.Turns *after* Process() returns, so
          the value visible inside a command's own task output is the pre-command
          count.  Scarier bumps st->turns at the top of a5run_input (a5run.cpp),
          so the matching value is st->turns - 1 (the same offset emit_endgame's
@@ -1121,9 +1121,9 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           if (s == NULL || s[0] == '\0')
             { free (s); return strdup ("There is nothing of interest here."); }
           /* The view is already fully adjudicated (its own ALR + cap ran on the
-             marked-up buffer, mirroring FD's single Display pass), and it is
+             marked-up buffer, mirroring the runner's single Display pass), and it is
              PLAIN -- its <br>s are now bare '\n's.  The enclosing fragment's
-             auto-capitalise must not treat those as line starts: in FD the
+             auto-capitalise must not treat those as line starts: in the runner the
              substituted sView still carries its <br> tags, which sit between
              the newline-to-be and the letter and block the cap regex (the
              virtual human's lowercase "the virtual human is here." literal
@@ -1158,7 +1158,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       a5_article_t art = (ci_eq (name, "theobject") || ci_eq (name, "theobjects"))
                            ? A5_ART_DEFINITE
                        : (ci_eq (name, "aobject") || ci_eq (name, "aobjects")
-                          /* FD: Case "ObjectName" -> htblObjects.List(,,
+                          /* The runner: Case "ObjectName" -> htblObjects.List(,,
                              ArticleTypeEnum.Indefinite) (Global.vb:2252) --
                              "You unfold a wet face towel.", not "...wet face
                              towel." (Head Case %ObjectName[%object%]%). */
@@ -1166,7 +1166,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                            ? A5_ART_INDEFINITE
                            : A5_ART_NONE;
       /* A piped multi-object arg (%TheObjects[%objects%]% with a "k1|k2|..."
-         binding from resolve_plural) renders as FD's "the a, the b and the c"
+         binding from resolve_plural) renders as the runner's "the a, the b and the c"
          article list -- ReplaceFunctions builds a temp ObjectHashTable from the
          split keys and returns htblObjects.List (Global.vb:2056/2386). */
       if (o == NULL && strchr (args, '|') != NULL)
@@ -1191,7 +1191,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         }
       if (o != NULL)
         return a5text_object_name (st, o, art);
-      /* No object resolved.  frankendrift builds an ObjectHashTable from the key
+      /* No object resolved.  The Adrift 5 runner builds an ObjectHashTable from the key
          arg and renders htblObjects.List, which returns "nothing" for an empty
          set (Global.vb:804) -- so %TheObject[]% / %ObjectName[]% with an empty
          (or whitespace-only) argument is "nothing", not a blank.  A non-empty but
@@ -1209,7 +1209,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
       /* %PropertyValue[entity, propkey]% -> the entity's value for that property.
          (Global.vb:2322 literally loops every object/character/location, but in
          practice the call is always made for the single bound entity whose
-         property is in context -- the observed Runner/FrankenDrift output is just
+         property is in context -- the observed Runner output is just
          that one entity's value, so resolve arg0 to a key and read it.)  A Text
          property stores its value as a rich <Description> block (value_node), so
          render that; otherwise return the scalar. */
@@ -1408,7 +1408,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           std::string fb = "%CharacterName% see[//s] nothing interesting about ";
           if (is_char)
             {
-              /* FD's clsCharacter.Name upgrades Objective->Reflective when the
+              /* The runner's clsCharacter.Name upgrades Objective->Reflective when the
                  same character key was already rendered Subjective earlier this
                  turn (PronounKeys).  The leading bare %CharacterName% renders the
                  viewpoint character subjectively ("You"), so when the examined
@@ -1490,7 +1490,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                || ci_eq (name, "object1") || ci_eq (name, "object2"))
         {
           /* A plural %objects% that resolved to several items renders the whole
-             set as an "a, b and c" list of full names (mirroring frankendrift's
+             set as an "a, b and c" list of full names (mirroring the Adrift 5 runner's
              %objects% -> "key1|key2|..." -> OO list render; each name without an
              article, like a bare %object%). */
           if (ci_eq (name, "objects") && st->n_ref_items > 1)
@@ -1508,7 +1508,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                 }
               return sb_finish (&sb);
             }
-          /* A bare %objectN% renders the entity KEY, mirroring FD's
+          /* A bare %objectN% renders the entity KEY, mirroring the runner's
              ReplaceFunctions (nr.Items(0).MatchingPossibilities(0), Global.vb:
              1795): ReplaceOO only rewrites `key.Property` tokens, so a standalone
              key survives verbatim.  For an ADRIFT-default noun-key that is the
@@ -1516,10 +1516,10 @@ eval_function (a5_state_t *st, const char *name, const char *args)
              and -- crucially -- it lets an OO reference-list argument whose head
              is `%object%.Children(...)` chain from the real key. */
           /* The singular %object%/%object1% never resolves off a plural
-             %objects% binding here either (FD GetReference needs
+             %objects% binding here either (the runner GetReference needs
              ReferenceMatch "object1", clsUserSession.vb:3990) -- so the
              Blender's "You put %object1%.Name on the Table." on a `put
-             %objects% on %object2%` command stays VERBATIM like FD. */
+             %objects% on %object2%` command stays VERBATIM like the runner. */
           if ((ci_eq (name, "object") || ci_eq (name, "object1"))
               && st->ref_object1_plural)
             return NULL;
@@ -1549,7 +1549,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         if (ci_eq (st->adv->variables[i].name, name))
           {
             /* Inside an ALR NewText the value must be the END-OF-TURN one
-               (FD expands ALRs only at Display): emit a deferred sentinel,
+               (the runner expands ALRs only at Display): emit a deferred sentinel,
                resolved by a5text_expand_var_defers in finish_turn. */
             if (st->alr_defer_vars)
               {
@@ -1585,7 +1585,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
             while (end != NULL && (*end == ' ' || *end == '\t'))
               end++;
             /* A non-literal index (e.g. %notallowed[RAND(1,6)]%) must be
-               evaluated as an expression -- FD's clsVariable indexing runs the
+               evaluated as an expression -- the runner's clsVariable indexing runs the
                bracket contents through EvaluateExpression.  Only fall through to
                the plain-literal fast path when args is exactly an integer. */
             if (end == args || (end != NULL && *end != '\0'))
@@ -1631,7 +1631,7 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 
 /* Replace %function%/%variable% tokens in src (single pass; args recurse). */
 /* Capture a pending CharacterName render as a PronounKeys entry at output
-   offset `off` -- the ledger half of FD's Global.vb:2108 (the eval side sets
+   offset `off` -- the ledger half of the runner's Global.vb:2108 (the eval side sets
    st->pron_pending; ReplaceFunctions adds in expression mode too). */
 static void
 pron_capture (a5_state_t *st, long off)
@@ -1656,7 +1656,7 @@ static char *str_replace_all (const char *src, const char *find,
                               const char *repl);
 static int expr_bears_random (const char *body);
 
-/* FD's ReplaceFunctions resolves model-variable tokens (%name% and %name[idx]%)
+/* The runner's ReplaceFunctions resolves model-variable tokens (%name% and %name[idx]%)
    in variable-declaration order, in a pass (Global.vb:1972-2019, a
    `For Each var In Adventure.htblVariables.Values` loop) that runs BEFORE the
    left-to-right generic-function scan.  Scarier's replace pass is otherwise
@@ -1664,10 +1664,10 @@ static int expr_bears_random (const char *body);
    variable tokens whose index/value evaluation has a side effect -- in practice
    an embedded Rand.  Lost Coastlines' inventory line
    "%defaultshirt[Rand(1,10)]% and %defaultpants[Rand(1,10)]%" is the corpus case:
-   the `defaultpants` variable is declared before `defaultshirt`, so FD draws the
+   the `defaultpants` variable is declared before `defaultshirt`, so the runner draws the
    pants index first.  For pure (side-effect-free) reads the resolved value is
    independent of order, so no other corpus text is affected.  This pre-pass
-   mirrors FD: walk the model variables in order and splice in each variable's
+   mirrors the runner: walk the model variables in order and splice in each variable's
    tokens (via the same eval_function the inline path uses), leaving function and
    reference tokens for the text-order scan that follows. */
 static char *
@@ -1734,7 +1734,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
               /* Deferred draw: inside an AggregateOutput completion (st->expr_defer
                  armed), a random array index (`%flavorskybreak[rand(1,25)]%`) has
                  its draw held to end-of-turn Display, just like a `<#Rand#>`
-                 expression -- FD skips this substitution now (AggregateOutput ->
+                 expression -- the runner skips this substitution now (AggregateOutput ->
                  ReplaceFunctions runs at Display).  Emit a `\004<idx>\004` sentinel
                  and push the raw token (tagged \001) to the sink; the flush
                  re-resolves it, drawing the index then.  So Skybreak's dock flavor
@@ -1807,7 +1807,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                   name = strndup (name_start, nlen);
                   /* %reference%.Property...  : emit the resolved entity key and
                      leave the ".chain" as literal text for the later OO pass
-                     (mirrors frankendrift substituting %object%->key before
+                     (mirrors the Adrift 5 runner substituting %object%->key before
                      ReplaceOO, so embedded %Func[]% are gone by then).  Require
                      a real property step after the dot (an alpha char) so a
                      sentence-ending period ("you take %objects%.") is not
@@ -1826,7 +1826,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                     }
                   /* A bare reference (%object%, %character%, ...) used as the
                      argument of an outer %Func[...]% must resolve to the entity
-                     *key*, not its display name: frankendrift substitutes
+                     *key*, not its display name: the Adrift 5 runner substitutes
                      %object%->MatchingPossibilities(0) (the key) before any
                      %Func[]% is evaluated (Global.vb:1752+), so e.g.
                      "%TheObject[%object%]%" keys off the exact referenced object
@@ -1844,7 +1844,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                         }
                       /* An *unbound* object/character reference keyword used as a
                          function argument resolves to the empty string, just as
-                         frankendrift's GetReference("ReferencedObject") returns ""
+                         the Adrift 5 runner's GetReference("ReferencedObject") returns ""
                          when no reference was captured (a reference-free task).
                          The outer %TheObject[]%/%ObjectName[]% then renders
                          "nothing" (htblObjects.List on an empty set) -- e.g. Anno's
@@ -1885,7 +1885,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                       /* Resolve any OO property chain left in the args (e.g.
                          %LCase[%object%.OpenStatus]% -> args "Closet.OpenStatus"
                          -> "Closed") before the outer function transforms it.
-                         FrankenDrift's ReplaceFunctions(sArgs) recursion runs its
+                         the Adrift 5 runner's ReplaceFunctions(sArgs) recursion runs its
                          own ReplaceOO pass on the args (Global.vb:2046); Scarier's
                          OO pass otherwise runs only after the whole replace pass,
                          too late for a function that consumed the chain as an
@@ -1912,7 +1912,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
             {
               if (value != NULL)
                 {
-                  /* CharacterName sentence-start fudge (FD Global.vb:2103): when
+                  /* CharacterName sentence-start fudge (the runner Global.vb:2103): when
                      the resolved name is immediately preceded by two spaces or a
                      CRLF, capitalise its first character.  iMatchLoc>3 there means
                      at least 3 chars precede the token (sb.len >= 3 here). */
@@ -1927,7 +1927,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                 }
               else
                 {
-                  /* leave the original token verbatim -- but FD rewrites the
+                  /* leave the original token verbatim -- but the runner rewrites the
                      bare %object% alias to %object1% BEFORE resolving
                      (ReplaceIgnoreCase, Global.vb:1754), so an unresolved
                      singular on a plural %objects% command surfaces as
@@ -1996,13 +1996,13 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
             fprintf (stderr, "[ALR fragment] hit old=\"%s\" in \"%.60s\"\n",
                      alr->old_text, cur);
           /* Defer bare %variable% tokens inside the NewText to the Display
-             boundary (A5_VARDEF_MARK): FD only expands ALRs at Display time,
+             boundary (A5_VARDEF_MARK): the runner only expands ALRs at Display time,
              so their variables read the end-of-turn state.  The boundary pass
              (a5text_display_alr) expands eagerly -- it IS the boundary. */
           int prev_defer = st->alr_defer_vars;
           st->alr_defer_vars = 1;
           char *raw = a5text_eval_description (st, alr->new_text);
-          /* Mirror FD's `If sText = sALR Then Exit For` (Global.vb:532): when the
+          /* Mirror the runner's `If sText = sALR Then Exit For` (Global.vb:532): when the
              whole current text already equals the (unprocessed) replacement, stop
              processing ALRs entirely -- crucially BEFORE recursing.  This is what
              terminates identity/self-referential ALRs (e.g. this game's ~25 copies
@@ -2029,7 +2029,7 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
 
 /* ------------------------------------------------------ auto-capitalisation */
 
-/* Mirror FrankenDrift's CapAfterFullStop regex
+/* Mirror the Adrift 5 runner's CapAfterFullStop regex
    "^(?<cap>[a-z])|\n(?<cap>[a-z])|[a-z][\.\!\?] ( )?(?<cap>[a-z])"
    (Global.vb:539).  The third alternative requires a *lowercase letter*
    immediately before the .!? so an ellipsis ("...") or a digit/upper char
@@ -2039,7 +2039,7 @@ replace_alrs (a5_state_t *st, const char *src, int depth)
 static int
 is_sentence_start (const char *s, size_t i, int allow_line_start)
 {
-  /* The `^` and `\n` alternatives (start-of-text / start-of-line).  FD applies
+  /* The `^` and `\n` alternatives (start-of-text / start-of-line).  The runner applies
      CapAfterFullStop to still-MARKED-UP text, where a formatting tag (<del>,
      <c>, <b>, <font...>) between the line break and the letter blocks these two
      alternatives (the regex sees the tag's '>' immediately before the letter,
@@ -2047,7 +2047,7 @@ is_sentence_start (const char *s, size_t i, int allow_line_start)
      marked-up text too, so intra-fragment line starts are already handled there;
      the Display-boundary re-cap (a5text_display_alr) runs on PLAIN text, where
      those tags are gone, so honouring `^`/`\n` there wrongly capitalises a letter
-     FD left alone (e.g. Call of the Shaman's `<del>https://...` credits URLs).
+     the runner left alone (e.g. Call of the Shaman's `<del>https://...` credits URLs).
      The boundary therefore passes allow_line_start=0 -- only real sentence
      punctuation (which no tag can hide) drives a cap in the second pass. */
   if (allow_line_start)
@@ -2101,7 +2101,7 @@ perspective_index (a5_state_t *st)
   return char_perspective (st, p) - 1;
 }
 
-/* FD GetPerspective (Global.vb:2481): the PronounKeys entry with the highest
+/* The runner GetPerspective (Global.vb:2481): the PronounKeys entry with the highest
    offset at or before `pos` decides the perspective of a conjugation bracket
    there; iHighest starts at 0, so an entry at offset 0 can never win.  0 =
    no preceding rendered name (caller falls back to the player). */
@@ -2125,7 +2125,7 @@ perspective_at (const a5_state_t *st, long pos)
  * defaulting to the player's ("The medic [am/are/is] wearing ..." -> "is", but
  * "you [am/are/is] carrying" with no name before it -> "are").  Only a "[a/b/c]"
  * group (slash-separated, no nested markup) is touched; everything else passes
- * through.  Mirrors the perspective half of frankendrift Global.ReplaceFunctions
+ * through.  Mirrors the perspective half of the Adrift 5 runner Global.ReplaceFunctions
  * / _FrankenDrift_Pronouns.
  */
 static char *
@@ -2140,7 +2140,7 @@ resolve_perspective (a5_state_t *st, const char *src)
     {
       if (*p == '[')
         {
-          /* FD's rePerspective regex is \[(first)/(second)/(third)\]: the
+          /* The runner's rePerspective regex is \[(first)/(second)/(third)\]: the
              bracket must hold at least TWO slashes (split at the first two;
              the third part is the rest, slashes and all) and lie on one line
              ('.' doesn't span \n).  A one-slash bracket is NOT a perspective
@@ -2177,7 +2177,7 @@ resolve_perspective (a5_state_t *st, const char *src)
 
 /* ------------------------------------------------- embedded <#...#> expressions */
 
-/* A signed decimal integer? (frankendrift's bIntValue -- expression results
+/* A signed decimal integer? (the Adrift 5 runner's bIntValue -- expression results
    that are pure integers are left unquoted; everything else is quoted.) */
 static int
 is_signed_int (const char *s)
@@ -2212,7 +2212,7 @@ sexpr_scan_chain (const char *dot)
   return r;
 }
 
-/* Emit a substituted value into `sb`, quoting it (frankendrift's bExpression
+/* Emit a substituted value into `sb`, quoting it (the Adrift 5 runner's bExpression
    path) unless it is a bare integer or we are already inside a quoted literal. */
 static void
 sb_quote_val (sb_t *sb, const char *val, int in_quote)
@@ -2226,7 +2226,7 @@ sb_quote_val (sb_t *sb, const char *val, int in_quote)
 /*
  * Substitute the %references%, %variables% and OO property-expressions inside a
  * `<#...#>` expression body, quoting non-numeric results so the evaluator sees a
- * self-contained expression.  Ports frankendrift's ReplaceFunctions(expr, True)
+ * self-contained expression.  Ports the Adrift 5 runner's ReplaceFunctions(expr, True)
  * + ReplaceOO(bExpression:=True) (Global.vb:639-647): a substituted value is
  * wrapped in double quotes unless it is an integer or already lies between
  * quotes in the source.
@@ -2344,7 +2344,7 @@ expr_bears_random (const char *body)
   return 0;
 }
 
-/* Evaluate every `<#...#>` expression in `src` (frankendrift ReplaceExpressions:
+/* Evaluate every `<#...#>` expression in `src` (the Adrift 5 runner ReplaceExpressions:
    substitute the body, then reduce it to its string value). */
 static char *
 replace_expressions (a5_state_t *st, const char *src)
@@ -2369,7 +2369,7 @@ replace_expressions (a5_state_t *st, const char *src)
                  `<#LCASE(cl_Door1.OpenStatus)#>` in a room description --
                  expr_substitute only handles %ref%.Prop, and the outer
                  a5expr_replace pass skipped this body because protect_exprs hid
-                 it.  Mirrors a5text_eval_expression's second pass (FD's
+                 it.  Mirrors a5text_eval_expression's second pass (the runner's
                  EvaluateExpression -> ReplaceFunctions includes ReplaceOO).  A
                  `<#..#>` body IS an expression, so use the EXPRESSION-mode
                  replace (bExpression=True): a multi-word OO value like
@@ -2382,7 +2382,7 @@ replace_expressions (a5_state_t *st, const char *src)
               /* Deferred draw: an AggregateOutput completion message renders its
                  static skeleton NOW (correct position and separators) but holds
                  the RNG draw of a random `<#..#>` to end-of-command, matching
-                 FD's Display-time ReplaceExpressions (so Lost Coastlines'
+                 the runner's Display-time ReplaceExpressions (so Lost Coastlines'
                  `Execute EnemyIsMer` ship-name OneOf draws AFTER the following
                  `Execute ShipCombat` action draws, not inline before them).  The
                  operands are frozen here (oo is self-contained) so only the
@@ -2427,7 +2427,7 @@ a5text_eval_expression (a5_state_t *st, const char *expr)
   /* Resolve any BARE OO-chain (no leading %), e.g. `Event12.Position` in a
      rain-gate restriction -- expr_substitute only handles %ref%.Prop, so the
      bare-key form needs the same ReplaceOO pass that process_inner runs on
-     display text (FD's EvaluateExpression -> ReplaceFunctions includes it).
+     display text (the runner's EvaluateExpression -> ReplaceFunctions includes it).
      Expression mode: string values are quoted (Global.vb:645). */
   {
     char *oo = a5expr_replace_expr (st, sub);
@@ -2440,7 +2440,7 @@ a5text_eval_expression (a5_state_t *st, const char *expr)
 }
 
 /* Swap each `<#...#>` for a \x01<n>\x01 sentinel so the %function%/OO passes
-   leave the expression body untouched (frankendrift guards them behind GUIDs);
+   leave the expression body untouched (the Adrift 5 runner guards them behind GUIDs);
    the sentinel survives both passes verbatim and is restored before
    replace_expressions evaluates the bodies. */
 static std::string
@@ -2509,7 +2509,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
   free (oo);
   if (pre_alr_ink != NULL)
     {
-      /* Did the text have visible content BEFORE the ALR pass?  FD stores task
+      /* Did the text have visible content BEFORE the ALR pass?  the runner stores task
          responses at this stage (functions/expressions replaced, ALRs not yet
          -- ReplaceALRs runs inside Display, vb:308) and its bHasOutput keeps
          the message on this form.  A game ALR that maps a phrase to nothing
@@ -2550,7 +2550,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
   return alrs;
 }
 
-/* Seal a text's ALR adjudication.  FD runs ReplaceALRs once per Display()
+/* Seal a text's ALR adjudication.  The runner runs ReplaceALRs once per Display()
    call (clsUserSession.vb:308) and never revisits that text, so any OldText
    occurrence still present after an emit-time ALR pass -- an override whose
    restriction-gated alternative rendered IDENTICAL to its OldText (XXR's
@@ -2627,7 +2627,7 @@ char *
 a5text_process_noalr (a5_state_t *st, const char *src)
 {
   /* %functions%/OO/<#exprs#> WITHOUT the ALR pass: for evaluating ACTION
-     values.  FD's SetVariable path goes through EvaluateExpression
+     values.  The runner's SetVariable path goes through EvaluateExpression
      (ReplaceFunctions only) -- ReplaceALRs runs at Display time (vb:308)
      and must not rewrite stored values.  GFS defines a display ALR
      "17000" -> "1.700.0" that would otherwise corrupt
@@ -2768,7 +2768,7 @@ a5text_render_plain (const char *src)
                  mirroring the GlkHtmlWin / FrankenDrift.Headless handling of
                  <cls>.  An Anno 1700-style intro ends with a <cls>, so its
                  credits/preamble are wiped and only the post-clear text survives.
-                 But FD's Display accumulates the whole turn's text and renders it
+                 But the runner's Display accumulates the whole turn's text and renders it
                  once, so a <cls> also wipes everything emitted EARLIER in the
                  turn (other fragments already in `out`).  Leave a marker byte so
                  the per-turn flush can drop that earlier text too.
@@ -2841,7 +2841,7 @@ a5text_render_plain (const char *src)
           else
             /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...)
                drops -- but leave A5_ALR_MARK so the display-boundary ALR pass
-               cannot match an OldText ACROSS the stripped tag (FD's ALR sees the
+               cannot match an OldText ACROSS the stripped tag (the runner's ALR sees the
                tag and is blocked; see a5text.h).  finish_turn strips the mark. */
             sb_putc (&sb, A5_ALR_MARK);
           p = q;
@@ -2864,7 +2864,7 @@ a5text_render_plain (const char *src)
 /* str_replace_all, except an occurrence of `find` that is part of an ALREADY-
    PRESENT copy of `repl` is left as it is.  The Display-boundary first ALR
    round runs over text whose per-fragment ALR pass has already applied every
-   override, whereas FD's single Display round (Global.vb:530) sees
+   override, whereas the runner's single Display round (Global.vb:530) sees
    unprocessed text -- so an ALR whose NewText CONTAINS its own OldText
    (Magnetic Moon's "some electrical cable" -> "some electrical cable[.]"
    tied-state suffix) must not expand a second time here.  Only a NewText
@@ -2910,9 +2910,9 @@ str_replace_unapplied (const char *src, const char *find, const char *repl)
    The whole-output markup renderer is deliberately not used (it would eat a
    literal '<' the descriptions legitimately carry).  `skip_applied` selects the
    already-applied-occurrence skip (str_replace_unapplied): the FIRST boundary
-   round mirrors FD's single Display round over per-fragment-processed text, so
+   round mirrors the runner's single Display round over per-fragment-processed text, so
    it must skip; the bChanged-gated SECOND round runs over ALREADY-substituted
-   text in FD too, so it re-expands exactly like FD (plain replace). */
+   text in the runner too, so it re-expands exactly like the runner (plain replace). */
 static char *
 boundary_alr_once (a5_state_t *st, const char *src, int skip_applied)
 {
@@ -2966,19 +2966,19 @@ a5text_display_alr (a5_state_t *st, const char *plain)
      (a5text_process already applied them per-fragment on marked-up text) so a
      stripped formatting tag cannot expose a line-leading word to a spurious cap;
      only true sentence punctuation drives this pass (see is_sentence_start).
-     And run it ONLY when ALR round 1 actually rewrote something: FD's display
+     And run it ONLY when ALR round 1 actually rewrote something: the runner's display
      cap operates on the still-MARKED-UP buffer, where a description-segment
      "<>" join or any formatting tag sits between the full stop and the next
      letter and blocks the regex -- Scarier's per-fragment cap (which also sees
      the markup) has already adjudicated those positions identically, so the
      only faithful NEW caps here are on text an ALR substitution just changed
      (Starship Quest's appended lowercase "native's ..." examine segment must
-     stay lowercase, as in FD). */
+     stay lowercase, as in the runner). */
   if (streq (a1, plain))
     cap = strdup (a1);
   else
     cap = auto_capitalise_ex (a1, 0);
-  /* FD's second ALR round runs ONLY `If bChanged` -- when the auto-cap
+  /* The runner's second ALR round runs ONLY `If bChanged` -- when the auto-cap
      actually rewrote something (Global.vb:550).  Unconditionally re-running
      it doubles any ALR whose NewText still contains its OldText (Magnetic
      Moon's suits disambiguation "(type X EVA SUITS ...)" suffix). */
@@ -2994,7 +2994,7 @@ a5text_display_alr (a5_state_t *st, const char *plain)
 /* Expand the A5_VARDEF_MARK deferred-variable sentinels (a bare %variable%
    inside an eagerly-applied ALR NewText, see a5text.h) with the variable's
    CURRENT -- i.e. end-of-turn -- value.  finish_turn runs this on the
-   assembled turn output before the boundary ALR pass, mirroring FD Display's
+   assembled turn output before the boundary ALR pass, mirroring the runner Display's
    ReplaceFunctions-before-ReplaceALRs order, and once more after it for any
    sentinel a boundary-applied ALR introduced. */
 char *
@@ -3036,7 +3036,7 @@ a5text_expand_var_defers (a5_state_t *st, const char *text)
   return sb_finish (&sb);
 }
 
-/* FD applies pSpace to its RAW (markup-bearing) output buffer, so a message whose
+/* The runner applies pSpace to its RAW (markup-bearing) output buffer, so a message whose
    raw text ends in something other than a real newline -- a stripped tag
    (`...\n<font color=X>`), a trailing `<br>`, or an entity -- leaves the buffer
    non-vbLf and the NEXT message space-joins with two leading spaces.  Scarier
@@ -3072,12 +3072,12 @@ a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper, int *raw_nonblank
 
 /* a5text_describe WITHOUT the final markup strip: the processed text keeps its
    formatting tags and the "<>" description-segment join markers.  This is what
-   an OO `.Description` read must return -- FD's Description.ToString hands the
+   an OO `.Description` read must return -- the runner's Description.ToString hands the
    still-MARKED-UP composition to the caller (tags survive comparisons and
    re-embedding; the UI strips them once, at the very end).  When the value is
    re-embedded in a task response, the later a5text_process cap sees the "<>"
    between a full stop and a lowercase segment start and leaves it alone,
-   exactly like FD's Display-time CapAfterFullStop (Starship Quest's DeadNative
+   exactly like the runner's Display-time CapAfterFullStop (Starship Quest's DeadNative
    "native's only clothing ..." append stays lowercase); the response's own
    final render_plain drops the markers from the display text. */
 char *
@@ -3090,12 +3090,12 @@ a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrapper)
 }
 
 /* a5text_describe, additionally reporting whether the text had visible content
-   before the ALR pass (FD's bHasOutput on the stored response -- see
+   before the ALR pass (the runner's bHasOutput on the stored response -- see
    process_inner_ex).  *pre_alr_ink = 1 with a whitespace-only result means a
    game ALR blanked the message at Display time; the caller should keep the
    whitespace remainder so the message's paragraph slot survives, as it does in
-   FD's output stream. */
-/* FD's Display() appends the still-MARKED-UP string to sOutputText, so its
+   the runner's output stream. */
+/* The runner's Display() appends the still-MARKED-UP string to sOutputText, so its
    `sOutputText = ""` NotUnderstood test counts markup-only messages as output
    (see a5_state_t.turn_out_nonempty).  Flag any non-blank marked-up render. */
 static void
@@ -3131,7 +3131,7 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
 
 /* a5text_describe_ex applied to a PRE-FROZEN raw description template (a string
    a5text_eval_description returned earlier): the %function%/OO/<#...#>/ALR
-   passes only -- segment selection is NOT re-evaluated.  This is how FD
+   passes only -- segment selection is NOT re-evaluated.  This is how the runner
    re-renders a Before completion message around its actions
    (clsUserSession.vb:1178/1200/1204): sMessage is captured ONCE via
    CompletionMessage.ToString and the later ReplaceExpressions(ReplaceFunctions())
@@ -3291,7 +3291,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
      & sView"), so after a "> look" echo the room name has a paragraph break. */
   sb_putc (&sb, '\n');
 
-  /* Room name (bold), then the long description.  FD embeds the raw
+  /* Room name (bold), then the long description.  The runner embeds the raw
      ShortDescription (still bearing its %functions%) inside "<b>...</b>" on the
      marked-up view (clsLocation.vb:188) and only its ONE Display-time
      ReplaceFunctions + ReplaceALRs + CapAfterFullStop runs over the whole sView;
@@ -3299,9 +3299,9 @@ view_location_impl (a5_state_t *st, const char *lockey)
      line-start cap rule never fires on the name.  So process the name WITHOUT
      the per-piece cap (a5text_process_nocap keeps markup + resolves
      functions/OO/ALR), wrap it in the bold tags, and let the room-view
-     replace_alrs + auto_capitalise pass below adjudicate it exactly as FD does.
+     replace_alrs + auto_capitalise pass below adjudicate it exactly as the runner does.
      A genuinely lowercase generated name -- LostCoastlines' "cabal plain",
-     "flock sea" -- is thus left lowercase like FD, while an already-capitalised
+     "flock sea" -- is thus left lowercase like the runner, while an already-capitalised
      name (its case baked into the source) is unaffected. */
   {
     char *raw = a5text_location_short (st, lockey);
@@ -3315,9 +3315,9 @@ view_location_impl (a5_state_t *st, const char *lockey)
   body_start = sb.len;
   {
     /* Whether this render retires <DisplayOnce> segments follows the CALLER's
-       marking_display, mirroring FD's ambient bTestingOutput: the Look dance's
+       marking_display, mirroring the runner's ambient bTestingOutput: the Look dance's
        two pre/post-action TEST renders (run_task, marking 0) must NOT retire a
-       first-visit segment -- FD's bTestingOutput=True renders both as the
+       first-visit segment -- the runner's bTestingOutput=True renders both as the
        segment, they compare EQUAL, and the single Display render is what
        retires it.  Forcing 1 here made the test renders unequal (e1 kept the
        DisplayOnce text, e2 lost it), which pinned the view as plain text and
@@ -3329,7 +3329,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
     raw = a5text_eval_description (st, a5xml_child (loc->node, "LongDescription"));
     proc = a5text_process (st, raw);
     free (raw);
-    /* Special-listed objects directly here.  FD's ViewLocation SELECTS them
+    /* Special-listed objects directly here.  The runner's ViewLocation SELECTS them
        via ObjectsInLocation(AllSpecialListedObjects), whose `ob.ListDescription
        <> ""` test is a REAL Description render (clsLocation.vb:232) -- it
        retires <DisplayOnce> segments -- and the append loop then renders the
@@ -3375,7 +3375,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
           free (ld);
         }
     }
-    /* FD's ViewLocation sView at the general-listed test = LongDescription +
+    /* The runner's ViewLocation sView at the general-listed test = LongDescription +
        special objects (the room NAME is NOT part of it): a v5 room whose body is
        empty lists its general objects as "There is X here." instead of the
        trailing "Also here is X." -- clsLocation.vb:132-139. */
@@ -3492,7 +3492,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
       {
         const std::vector<std::string> &nm = groups[g].names;
         std::string d;
-        /* FD substitutes the name back into the de-named form for EVERY group,
+        /* The runner substitutes the name back into the de-named form for EVERY group,
            single characters included (vb:171 `sDesc.Replace("##CHARNAME##",
            .List)`), so an authored lowercase name is case-normalised to the
            character's Name -- LostLabyrinth's caged "white stallion" CharHereDesc
@@ -3523,7 +3523,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
      => "An exit leads <dir>.", none => nothing. */
   if (st->adv->show_exits)
     {
-      /* FD: Adventure.Player.ListExits(Me.Key) -- the player's routes FROM
+      /* The runner: Adventure.Player.ListExits(Me.Key) -- the player's routes FROM
          THE VIEWED LOCATION (Me.Key), so a %DisplayLocation[other]% view
          (Head Case's spyhole) lists the other room's exits. */
       long n = 0;
@@ -3547,7 +3547,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
     }
 
   /* Empty-view fallback (clsLocation.ViewLocation vb:185: `If sView = "" Then
-     sView = "Nothing special."`).  FD's sView at this point is only the BODY
+     sView = "Nothing special."`).  The runner's sView at this point is only the BODY
      (long description + listed objects + event look text + NPC lines + exits);
      the bold room name is prepended after the check.  Scarier builds the name
      into the same buffer up-front, so compare against the post-header mark
@@ -3556,29 +3556,29 @@ view_location_impl (a5_state_t *st, const char *lockey)
     sb_puts (&sb, "Nothing special.");
 
   /* Capitalise the assembled room view on its still-MARKED-UP buffer, exactly
-     as FD's Display-time CapAfterFullStop runs over the whole (marked-up) turn
+     as the runner's Display-time CapAfterFullStop runs over the whole (marked-up) turn
      text.  This is where the room's NPC "is here" list (built here with lowercase
      articles, e.g. "the cook and the kitchen maid are here.") gets its line-start
-     capital: FD caps it because the newline before it is followed directly by the
+     capital: the runner caps it because the newline before it is followed directly by the
      letter, with no intervening tag.  Doing it here (rather than only at the
      a5text_display_alr boundary, which sees PLAIN text and must suppress the
-     `^`/`\n` rules to avoid capitalising a letter FD left alone behind a stripped
+     `^`/`\n` rules to avoid capitalising a letter the runner left alone behind a stripped
      tag) keeps the room view correct for ALR games without the boundary needing
      the tag-sensitive line-start rules.  Non-ALR games always matched with their
      room views already upper-cased at line start, so this is a no-op for them. */
   {
-    /* FD's Display runs ReplaceALRs BEFORE CapAfterFullStop (Global.vb:527-539),
+    /* The runner's Display runs ReplaceALRs BEFORE CapAfterFullStop (Global.vb:527-539),
        so a game TextOverride matches the still-lowercase NPC listing -- AoK's
        Override12 blanks "the dwark is here." -- and only the survivors get their
        line-start capital.  Run ALR round 1 on the uncapped marked-up buffer
-       here; the cap follows, and FD's post-cap round 2 falls out of the
+       here; the cap follows, and the runner's post-cap round 2 falls out of the
        ordinary downstream ALR passes over the capped text. */
     char *alrd = replace_alrs (st, sb.p ? sb.p : "", 0);
-    /* This ALR round is FD's Display-time pass for the room view: its verdicts
+    /* This ALR round is the runner's Display-time pass for the room view: its verdicts
        are final.  Seal any surviving OldText site (an override whose passing
        alternative was the identity text, e.g. XXR's camel-tether postfix while
        the camels are untethered) so the end-of-turn boundary pass cannot
-       re-adjudicate it with post-task state -- FD never revisits Display()ed
+       re-adjudicate it with post-task state -- the runner never revisits Display()ed
        text.  finish_turn strips the sentinels. */
     alrd = seal_alr_sites (st, alrd);
     char *capped = auto_capitalise (alrd);

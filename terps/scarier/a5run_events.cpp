@@ -291,7 +291,7 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
           if (!c->on_completion || !streq (c->task_key, task_key))
             continue;
           /* Guard against a task re-triggering the control it just triggered,
-             and (FD's children check) against a parent re-firing a control one
+             and (the runner's children check) against a parent re-firing a control one
              of its override descendants already triggered. */
           if (!rt.triggering_task.empty ()
               && (rt.triggering_task == task_key
@@ -323,7 +323,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   if (ti >= 0 && st->task_done[ti] && !t->repeatable)
     return;
 
-  /* FrankenDrift runs an event-fired task through the *same* AttemptToExecuteTask
+  /* The Adrift 5 runner runs an event-fired task through the *same* AttemptToExecuteTask
      as a command: it copies the leftover command references
      (`CopyNewRefs(NewReferences)`) and `ExecuteSubTasks`-iterates them one item at
      a time.  After a plural `%objects%` command whose final response reference
@@ -332,7 +332,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
      once PER item.  This is why Amazon's `get ammo and rifle` ticks
      `ts_tasIncrement` twice (+2 minutes) where `get crown and bottle` -- whose
      two takes leave a single-item final reference -- ticks once.  Scarier's
-     `resp_flush` already leaves `st->ref_items` equal to FD's post-Display
+     `resp_flush` already leaves `st->ref_items` equal to the runner's post-Display
      `NewReferences`, so iterate it here.  A 0/1-item leftover keeps the original
      single, refs-cleared run (the overwhelmingly common case stays byte-exact). */
   if (st->n_ref_items > 1)
@@ -345,7 +345,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
       int any_ran = 0;
       for (const char *it : items)
         {
-          /* FD AttemptToExecuteSubTask ReDims NewReferences to this single item;
+          /* The runner AttemptToExecuteSubTask ReDims NewReferences to this single item;
              mirror run_general's per-item bind so a task that *does* read its
              reference resolves the right one (the increment reads none). */
           a5state_clear_refs (st);
@@ -359,7 +359,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
         }
       /* Only "complete" (mark done + fire EventControls) if the task actually
          ran for at least one item -- a task whose restrictions fail for every
-         item never bPass'd in FD, so its completion controls must NOT fire.
+         item never bPass'd in the runner, so its completion controls must NOT fire.
          Mirrors the single-item path below (which returns on restriction
          failure).  Without this, a plural `get X and Y` command that happens to
          coincide with a turn-based event executing a restriction-FAILING System
@@ -379,7 +379,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   a5state_clear_refs (st);                 /* event tasks carry no command refs */
   if (!a5restr_pass (st, t->restrictions))
     {
-      /* FD's AttemptToExecuteTask evaluates responses even for a failing
+      /* The runner's AttemptToExecuteTask evaluates responses even for a failing
          event/System/walk task (bCalledFromEvent=True, bChildTask=False), so a
          failing restriction that carries a <Message> is buffered in
          htblResponsesFail and Displayed (clsUserSession.vb:1244-1259 sMessage =
@@ -390,7 +390,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
          leash to stop him" instead of the (passing) theft completion.
 
          Read the failing restriction's Message from st->restriction_text, which
-         a5restr_pass just set as a side effect (FD's sRestrictionText) -- do NOT
+         a5restr_pass just set as a side effect (the runner's sRestrictionText) -- do NOT
          re-run a5restr_fail_message, which would re-evaluate the restriction
          block and draw any RAND()-valued restriction a SECOND time (e.g. SSB's
          TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`), desyncing the RNG. */
@@ -409,7 +409,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
   ev_on_task_completed (run, key, out);
 }
 
-/* Each event-fired task is its own AttemptToExecuteTask in FD, with a fresh
+/* Each event-fired task is its own AttemptToExecuteTask in the runner, with a fresh
    htblResponsesPass -- so give each attempt_event_task its own dedup scope
    (save/restore the previous one for a nested event task).  Within one scope a
    completion message emitted twice via SetTasks-Execute (run_action, which shares
@@ -434,7 +434,7 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
    FIFO order (clsUserSession.vb:3421 "While qTasksToRun.Count > 0").  A drained
    task may itself move the Player and arm further triggers, so loop until empty.
    Runs after the turn's command task and before TurnBasedStuff.  Non-static:
-   a5run_input drains BEFORE its FD empty-output check (clsUserSession.vb:3421
+   a5run_input drains BEFORE the runner's empty-output check (clsUserSession.vb:3421
    drains ahead of the vb:3425 `If sOutputText = "" Then NotUnderstood()`), so
    a silent task whose Player move armed noisy LocationTrigger tasks -- Marooned
    On Mazoomah's `push radio` win -- counts their output. */
@@ -460,7 +460,7 @@ ev_tick_all (a5_run_t *run, sb_t *out)
      TurnBasedStuff entry). */
   drain_tasks_to_run (run, out);
   /* The command's AggregateOutput-completion random draws (held in display_defers)
-     resolve at the end of FD's command-task AttemptToExecuteTask -- i.e. after the
+     resolve at the end of the runner's command-task AttemptToExecuteTask -- i.e. after the
      LocationTrigger drain (so a drained task's draw lands first, Skybreak's
      SidequestE) but BEFORE TurnBasedStuff (so the completion's own draw precedes
      the per-turn walk/event draws, I Summon Thee's `annihilate` Annihilateflavor
@@ -524,7 +524,7 @@ ev_init (a5_run_t *run, sb_t *out)
           break;
         case 2:                                  /* BetweenXandYTurns */
           rt.status = A5_EV_COUNTDOWN;
-          /* FD: TimerToEndOfEvent = StartDelay.Value + Length.Value -- VB
+          /* The runner: TimerToEndOfEvent = StartDelay.Value + Length.Value -- VB
              evaluates left-to-right, so StartDelay draws BEFORE Length.  Draw in
              that exact order or the two RNG values get swapped (desyncing the
              whole stream and every random timer downstream). */
@@ -645,7 +645,7 @@ walk_player_key (a5_state_t *st)
    set, else the static value -- which for a rich Text property is stored as a
    <Description> (value_node) and must be rendered.  Returns a malloc'd string
    when the property is *present* (HasProperty), or NULL when absent so the
-   caller can apply its default.  Mirrors FD's `If .HasProperty(k) Then s =
+   caller can apply its default.  Mirrors the runner's `If .HasProperty(k) Then s =
    .GetPropertyValue(k)`. */
 static char *
 char_prop_value (a5_state_t *st, const char *charkey, const char *propkey)
@@ -702,7 +702,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             }
         }
       s += ".";
-      /* Process the composed message like any response FD Displays -- a
+      /* Process the composed message like any response the runner Displays -- a
          CharExits/CharEnters property may embed <#...#> expressions (DDF's
          wagon `<# OneOf("trundles away", ...) #>`). */
       char *proc = a5text_process (st, s.c_str ());
@@ -745,7 +745,7 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
   int si;
   /* A *structurally* zero-length looping walk -- the standard "follow the player"
      walk (a lone `Player 0` step, Loops; every step's turn count is exactly 0) --
-     can never restart: wk_lstop's `length > 0` guard (a faithful port of FD's,
+     can never restart: wk_lstop's `length > 0` guard (a faithful port of the runner's,
      which avoids the infinite lStart<->lStop recursion a 0-length restart would
      cause) leaves it Finished immediately after its lStart.  But the real ADRIFT
      Runner still steps the walker toward the player every turn: IncrementTimer

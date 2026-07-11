@@ -6,7 +6,7 @@
  * "(%a%-1)*2", "%n% mod 4").  Once a5text_process has substituted the %vars%
  * to their numeric strings, what remains is a plain arithmetic expression that
  * this evaluator reduces to an integer.  It ports the integer arithmetic core
- * of frankendrift's clsVariable.SetToExpression token reducer (+ - * / mod ^,
+ * of the Adrift 5 runner's clsVariable.SetToExpression token reducer (+ - * / mod ^,
  * unary minus, parentheses) -- the part the games actually use in variable
  * assignments.  The fuller function library (min/max/if/abs/...) is not ported.
  */

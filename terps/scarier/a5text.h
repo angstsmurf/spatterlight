@@ -9,7 +9,7 @@
  * markup (<br>, <c>, <b>, <i>, entities) down to plain text.
  *
  * Covers the variables, core functions and tags the static world needs; the
- * full perspective/pronoun/UDF engine is Phase 4.  Mirrors frankendrift
+ * full perspective/pronoun/UDF engine is Phase 4.  Mirrors the Adrift 5 runner
  * SharedModule.Description.ToString, ReplaceALRs, ReplaceFunctions and the
  * GlkHtmlWin tag renderer.
  *
@@ -23,7 +23,7 @@
 #include "a5xml.h"
 
 /* Sentinel byte relayed by a5text_render_plain when it renders a <cls> screen
-   clear.  FrankenDrift's Display accumulates a whole turn's text into one
+   clear.  The Adrift 5 runner's Display accumulates a whole turn's text into one
    sOutputText string and renders it once at end of turn, so a <cls> embedded
    anywhere in the turn wipes EVERYTHING accumulated before it -- not just the
    fragment it appears in.  The plain renderer can only wipe its own fragment,
@@ -32,10 +32,10 @@
    game text. */
 #define A5_CLS_MARK '\001'
 
-/* Sentinel byte marking "FrankenDrift's raw output buffer would end in a non-vbLf
+/* Sentinel byte marking "the Adrift 5 runner's raw output buffer would end in a non-vbLf
    character here" -- appended by the message renderers when a message's raw
    (markup-bearing) text ends in a stripped tag / <br> / entity rather than a real
-   newline, but the stripped plain text ends in '\n'.  FD applies pSpace to the RAW
+   newline, but the stripped plain text ends in '\n'.  The runner applies pSpace to the RAW
    buffer, so such a message leaves the buffer non-newline and the NEXT message
    space-joins with two spaces; Scarier strips markup per message, so its buffer
    would end in the '\n' that preceded the trailing tag and it would NOT join.
@@ -45,7 +45,7 @@
 #define A5_PS_MARK '\002'
 
 /* Sentinel byte marking "a formatting tag was stripped here" in plain-rendered
-   text.  FD's ReplaceALRs runs at Display time over the still-MARKED-UP text,
+   text.  The runner's ReplaceALRs runs at Display time over the still-MARKED-UP text,
    so a tag EMBEDDED INSIDE an ALR OldText span blocks the match (AoS names its
    Known guard "The guard<Halberd>", whose <Halberd> defeats the game's own
    "The guard comes marching from above" override; the real Runner shows the
@@ -54,12 +54,12 @@
    (a5text_display_alr) re-runs over the accumulated PLAIN text, where the
    stripped tag would otherwise leave the two halves adjacent and let the match
    succeed.  The plain renderer therefore drops this marker where a tag vanished,
-   so boundary matching is blocked exactly where FD's is; finish_turn strips the
+   so boundary matching is blocked exactly where the runner's is; finish_turn strips the
    markers after the boundary pass.  \x03 (ETX) never occurs in game text. */
 #define A5_ALR_MARK '\003'
 
 /* Sentinel pair wrapping a variable NAME whose expansion was deferred to the
-   Display boundary.  FrankenDrift applies ALRs only inside Display()
+   Display boundary.  The Adrift 5 runner applies ALRs only inside Display()
    (ReplaceALRs, Global.vb:519), whose leading ReplaceFunctions call expands any
    %variable% the ALR NewText carries with the END-OF-TURN value -- so a game
    ALR like Murder Most Foul's `<s1>` -> "Your score has increased ... to
@@ -67,13 +67,13 @@
    Scarier applies ALRs eagerly at message render time; a bare %var% inside an
    ALR replacement is therefore emitted as \005name\005 and resolved by
    a5text_expand_var_defers (called from finish_turn, before the boundary ALR
-   pass -- FD's functions-before-ALRs Display order).  \x05 (ENQ) never occurs
+   pass -- the runner's functions-before-ALRs Display order).  \x05 (ENQ) never occurs
    in game text. */
 #define A5_VARDEF_MARK '\005'
 
 /* Sentinels used only in INTERACTIVE mode (a5text_set_interactive), where the
    host front-end presents the turn text itself instead of receiving the
-   FrankenDrift-conformant pre-resolved transcript.  In this mode:
+   the Adrift 5 runner-conformant pre-resolved transcript.  In this mode:
 
      - <cls> no longer wipes the accumulated text; the A5_CLS_MARK stays in the
        stream so the host can SHOW the pre-clear text (a title page like Anno
@@ -134,12 +134,12 @@ extern char *a5text_process (a5_state_t *st, const char *src);
 
 /* Like a5text_process but WITHOUT the trailing auto-capitalisation -- for
    evaluating a value to an entity KEY (case-sensitive), where capitalising the
-   first letter ("s_SkeletonKe" -> "S_SkeletonKe") would corrupt the key.  FD
+   first letter ("s_SkeletonKe" -> "S_SkeletonKe") would corrupt the key.  The runner
    applies auto-cap only at Display time, never when resolving a reference. */
 extern char *a5text_process_nocap (a5_state_t *st, const char *src);
 
 /* Like a5text_process_nocap but WITHOUT the ALR pass -- for evaluating ACTION
-   values (Set/Inc/DecVariable amounts).  FD evaluates those through
+   values (Set/Inc/DecVariable amounts).  The runner evaluates those through
    EvaluateExpression only; ReplaceALRs is Display-time, so a game's display
    ALR (GFS "17000" -> "1.700.0") must not rewrite a stored number. */
 extern char *a5text_process_noalr (a5_state_t *st, const char *src);
@@ -177,7 +177,7 @@ extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
  * prompt and the author's default and returns a heap-allocated answer the
  * engine takes ownership of (frees), or NULL to fall back to the default.  With
  * no callback installed (the default) PopUpInput evaluates to its default,
- * matching FrankenDrift's InputBox returning the default when unattended.  The
+ * matching the Adrift 5 runner's InputBox returning the default when unattended.  The
  * FrankenDrift.Headless frontend consumes exactly one script line per popup the
  * same way, so ground-truth transcripts stay byte-aligned.
  */
@@ -204,10 +204,10 @@ extern char *a5text_describe (a5_state_t *st, const a5_xml_node_t *wrapper,
 extern char *a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrapper);
 
 /* a5text_describe + report whether the text had visible content BEFORE the ALR
-   pass (FD's bHasOutput runs pre-ALR; a game ALR mapping a phrase to nothing
-   still leaves the response's paragraph slot in FD's output).
+   pass (the runner's bHasOutput runs pre-ALR; a game ALR mapping a phrase to nothing
+   still leaves the response's paragraph slot in the runner's output).
    `raw_nonblank`, when non-NULL, receives whether the segment-evaluated RAW
-   template held ANY character at all -- FD's AddResponse output test
+   template held ANY character at all -- the runner's AddResponse output test
    (bHasOutput) sees that raw text, so even a whitespace-only "\n" completion
    counts as task output there (it stops an After-children scan) although the
    rendered plain text trims to nothing (The Salvage's per-move station-known
@@ -217,7 +217,7 @@ extern char *a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
 
 /* a5text_describe_ex on a PRE-FROZEN raw template from a5text_eval_description:
    function/OO/expression/ALR passes only, segment selection NOT re-evaluated
-   (FD re-renders its captured sMessage string around a Before task's actions;
+   (the runner re-renders its captured sMessage string around a Before task's actions;
    pre_alr_ink may be NULL). */
 extern char *a5text_process_frozen (a5_state_t *st, const char *raw,
                                     int *pre_alr_ink);

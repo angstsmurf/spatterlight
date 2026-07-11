@@ -2,7 +2,7 @@
  *
  * ADRIFT 5 support for Scarier -- command-pattern matcher (Phase 3).
  *
- * Ports frankendrift's ConvertToRE / GetRegularExpression / InputMatchesCommand
+ * Ports the Adrift 5 runner's ConvertToRE / GetRegularExpression / InputMatchesCommand
  * syntactic layer: an author command pattern such as
  *
  *     [get/take/pick up/remove] %objects% from %object2%
@@ -14,7 +14,7 @@
  * the turn loop (a5run) then resolves that text to a concrete model key in scope.
  *
  * Singular references (%object%, %character%, %text%, ...) are normalised to the
- * numbered form (%object1% ...) exactly as frankendrift does at load
+ * numbered form (%object1% ...) exactly as the Adrift 5 runner does at load
  * (FileIO.vb:647), so callers may pass patterns verbatim from the model.
  *
  * Self-contained: uses the C++ <regex> already pulled in at the container edge;
@@ -55,7 +55,7 @@ extern int a5parse_match_command (const char *pattern, const char *input,
  * last variant is the original command.  Returns -1 when `variant` is past the
  * variant count, else 0/1 for regex match.  The caller advances to the next
  * variant when a matched variant's object/character reference text names
- * nothing (FD's InputMatchesObject failure -> DoesntMatch -> next regex).
+ * nothing (the runner's InputMatchesObject failure -> DoesntMatch -> next regex).
  * A command without wildcards has exactly one variant.
  */
 extern int a5parse_match_command_v (const char *pattern, const char *input,
@@ -66,7 +66,7 @@ extern int a5parse_match_command_v (const char *pattern, const char *input,
  * is matched.  Moves a literal space adjacent to an optional `{...}` group
  * *inside* it (so the space becomes optional) and wraps an optional alternation
  * in `[...]` -- e.g. `[look] [around] {me/you}` -> `[look] [around]{ [me/you]}`,
- * letting a bare "look around" (or a bare-direction "n") match.  FrankenDrift
+ * letting a bare "look around" (or a bare-direction "n") match.  The Adrift 5 runner
  * applies this to every task command at game-start init; a5model does the same
  * at load, and a5parse_match_command therefore expects the corrected form.
  * Returns a malloc'd string the caller must free.

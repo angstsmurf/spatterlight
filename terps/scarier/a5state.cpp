@@ -73,7 +73,7 @@ compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
     }
 
   /* A holder key may be stored as the literal variable "%Player%" rather than
-     the resolved player key (frankendrift resolves it to Adventure.Player.Key
+     the resolved player key (the Adrift 5 runner resolves it to Adventure.Player.Key
      in every accessor, e.g. clsObjectLocation.Key getter, clsObject.vb:1058).
      The engine uses "Player" as the player key throughout, so normalise here —
      otherwise e.g. a backpack with WornByWho=%Player% is dropped from ListWorn. */
@@ -175,7 +175,7 @@ a5state_new (const a5_adventure_t *adv)
         /* A player who STARTS on/in furniture (JACD's Timmy lying on Bed1:
            CharacterLocation "On Object") has char_loc NULL here; the runtime
            ToStandingOn/ToSittingOn path keeps char_loc synced to the
-           furniture's room (FD derives clsCharacterLocation.LocationKey from
+           furniture's room (the runner derives clsCharacterLocation.LocationKey from
            the object), so establish the same invariant at load. */
         if (pi >= 0 && st->char_loc[pi] == NULL
             && st->char_onobj[pi] != NULL)
@@ -260,7 +260,7 @@ a5state_new (const a5_adventure_t *adv)
       st->task_scored = (char *) calloc ((size_t) adv->n_tasks, 1);
     }
 
-  /* Seed the live group-membership list (FD clsGroup.arlMembers) from each
+  /* Seed the live group-membership list (the runner clsGroup.arlMembers) from each
      group's static <Member>s, in model order, so runtime Add/Remove*ToGroup
      layers on top of it and RandomKey/EverywhereInGroup enumerate correctly. */
   for (i = 0; i < adv->n_groups; i++)
@@ -605,7 +605,7 @@ a5state_object_in_group (const a5_state_t *st, const char *grpkey,
   return 0;
 }
 
-/* --- Live group membership (FD clsGroup.arlMembers): ordered + distinct. --- */
+/* --- Live group membership (the runner clsGroup.arlMembers): ordered + distinct. --- */
 
 static int
 gm_find (const a5_state_t *st, const char *grpkey, const char *key)
@@ -617,7 +617,7 @@ gm_find (const a5_state_t *st, const char *grpkey, const char *key)
   return -1;
 }
 
-/* Distinct append (FD: `If Not arlMembers.Contains(k) Then arlMembers.Add(k)`). */
+/* Distinct append (the runner: `If Not arlMembers.Contains(k) Then arlMembers.Add(k)`). */
 void
 a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
 {
@@ -634,7 +634,7 @@ a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
   st->n_gm++;
 }
 
-/* Remove (FD: `If Contains Then Remove`), preserving the order of the rest. */
+/* Remove (the runner: `If Contains Then Remove`), preserving the order of the rest. */
 void
 a5state_group_remove_member (a5_state_t *st, const char *grpkey, const char *key)
 {
@@ -681,7 +681,7 @@ a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
     return;
   group_prop_key (key, sizeof key, grpkey);
   a5state_set_prop (st, objkey, key, present ? "1" : "0");
-  /* Keep the live insertion-ordered member list (FD arlMembers) in sync so
+  /* Keep the live insertion-ordered member list (the runner arlMembers) in sync so
      RandomKey / EverywhereInGroup see runtime add/remove in the right order. */
   if (present)
     a5state_group_add_member (st, grpkey, objkey);
@@ -689,14 +689,14 @@ a5state_set_object_in_group (a5_state_t *st, const char *grpkey,
     a5state_group_remove_member (st, grpkey, objkey);
 }
 
-/* Rebuild the live insertion-ordered group-membership list (gm / FD arlMembers)
+/* Rebuild the live insertion-ordered group-membership list (gm / the runner arlMembers)
    from the restored effective membership.  Our save serialises runtime group
    membership only as the @InGroup:<grp> property overrides (PropOv); the ordered
    arlMembers list that RandomKey / EverywhereInGroup enumerate is NOT stored, so
    after a restore it must be reconstructed or those actions see stale (static-
    only) membership.  Seed each group's still-effective static members in model
    order, then append runtime-added members in the order their override was
-   created (st->ov append order approximates FD's arlMembers insertion order). */
+   created (st->ov append order approximates the runner's arlMembers insertion order). */
 void
 a5state_rebuild_live_groups (a5_state_t *st)
 {
@@ -724,7 +724,7 @@ a5state_rebuild_live_groups (a5_state_t *st)
 /* A location's inherited group property (clsItem.htblInheritedProperties layered
    from each Locations-type group it belongs to, clsLocation.GetProperty): scan
    every Locations group whose (runtime-or-static) membership includes `lockey`
-   and return the last match for `propkey` (FD's later property-group wins).
+   and return the last match for `propkey` (the runner's later property-group wins).
    Used for the dynamic ShortLocationDescription darkness property, which the
    day/night events add to every outdoor location's group at night. */
 const a5_prop_t *
@@ -866,7 +866,7 @@ a5state_player_location (const a5_state_t *st)
 
 /* A character's EFFECTIVE location key: char_loc when set, else resolved
    through the on/in-object carrier (a char whose model start is "On Object"
-   -- GFS's Grandpa on his rocking chair -- has char_loc NULL; FD derives
+   -- GFS's Grandpa on his rocking chair -- has char_loc NULL; The runner derives
    clsCharacterLocation.LocationKey from the furniture). */
 const char *
 a5state_character_location_key (const a5_state_t *st, int ci)
@@ -891,7 +891,7 @@ a5state_character_location_key (const a5_state_t *st, int ci)
    contents are visible when the container is `Not Openable OrElse IsOpen OrElse
    IsTransparent`, so it hides only when it is openable AND closed AND opaque.
    Openable = HasProperty("Openable"); IsOpen = the OpenStatus property is absent
-   or "Open"; IsTransparent is always False in FD (clsObject.vb:308).  Consults
+   or "Open"; IsTransparent is always False in the runner (clsObject.vb:308).  Consults
    the runtime override layer first (so a SetProperty OpenStatus is reflected). */
 static int
 obj_hides_contents (const a5_state_t *st, int parent)

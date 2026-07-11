@@ -4272,10 +4272,10 @@ gsc_a5_match_command (const char *input, const char *command)
 /*
  * gsc_a5_save()
  *
- * Serialise the a5 runtime state (a5run_save -> FrankenDrift <Game> XML), then
+ * Serialise the a5 runtime state (a5run_save -> the Adrift 5 runner <Game> XML), then
  * zlib-deflate it to the Glk-prompted save file.  The zlib framing (RFC 1950,
- * no header/obfuscation) is exactly what FrankenDrift's FileIO.SaveState writes,
- * so the file is interoperable with FrankenDrift and the ADRIFT 5 Runner.
+ * no header/obfuscation) is exactly what the Adrift 5 runner's FileIO.SaveState writes,
+ * so the file is interoperable with the ADRIFT 5 Runner.
  */
 static void
 gsc_a5_save (a5_run_t *run)
@@ -4331,7 +4331,7 @@ gsc_a5_save (a5_run_t *run)
  * gsc_a5_restore()
  *
  * Read a Glk-prompted save file and apply it to the run.  Sniffs the framing: a
- * zlib stream (0x78 header -- FrankenDrift / ADRIFT 5 Runner, or Scarier's own
+ * zlib stream (0x78 header -- ADRIFT 5 Runner, or Scarier's own
  * new saves) is inflated first; a raw '<' (a pre-interop uncompressed Scarier
  * <SaveState> file) is handed to a5run_restore as-is.  Returns TRUE on success.
  */
@@ -4828,7 +4828,7 @@ gsc_a5_main (void)
   /* The "Adventure Upgrade" bracket-correction question (pre-5.0.26 file with
      AND-then-OR restriction sequences): rather than interrupt the player with a
      dialog, resolve it silently.  The default is NO (matching an unattended
-     FrankenDrift -- the sequence is read verbatim); a hard-wired per-game
+     ADRIFT 5 Runner -- the sequence is read verbatim); a hard-wired per-game
      allow-list forces YES for the few games that need the correction to play or
      score correctly (a5model_upgrade_forced_yes, keyed on the Babel IFID). */
   if (a5model_upgrade_pending (gsc_a5_adv))

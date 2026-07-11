@@ -3,7 +3,7 @@
  * ADRIFT 5 support for Scarier -- turn loop (Phase 3).
  *
  * Drives the player turn: lower-cases the input, walks the General tasks in
- * priority order (frankendrift TaskSorter / GetGeneralTask), matches each task's
+ * priority order (the Adrift 5 runner TaskSorter / GetGeneralTask), matches each task's
  * command patterns (a5parse), resolves the captured references to model keys in
  * scope, evaluates restrictions (a5restr), and -- on the first fully-passing
  * task -- runs its actions (a5run executes the core action set: MoveObject,

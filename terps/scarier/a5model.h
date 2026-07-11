@@ -9,7 +9,7 @@
  * owns the underlying a5_xml_doc, so all the const char * fields alias into it
  * and stay valid until a5model_free().
  *
- * Mirrors frankendrift's clsAdventure collections (FileIO.Load500).
+ * Mirrors the Adrift 5 runner's clsAdventure collections (FileIO.Load500).
  */
 
 #ifndef SCARIER_A5MODEL_H
@@ -143,7 +143,7 @@ typedef struct a5_task_s {
   const char *key;
   long priority;
   const char *type;                 /* General / Specific / System           */
-  int run_immediately;              /* <RunImmediately>: a System task FD runs
+  int run_immediately;              /* <RunImmediately>: a System task the runner runs
                                        once at game start (clsUserSession init
                                        loop, vb:209-216) before the title --
                                        e.g. PlayTune (title music) whose audio
@@ -161,7 +161,7 @@ typedef struct a5_task_s {
                                        higher-priority failing-with-output task
                                        (or a continuation floor) has been seen
                                        (GetGeneralTask iPriorityFail filter)   */
-  int aggregate;                    /* clsTask.AggregateOutput: FD defers an
+  int aggregate;                    /* clsTask.AggregateOutput: the runner defers an
                                        aggregate task's completion-message
                                        function replacement to final Display, so
                                        its text reflects state changed by its
@@ -244,7 +244,7 @@ typedef struct a5_propdef_s {
   const char *append_to;            /* <AppendTo>: a StateList whose value is
                                        appended to another property's state
                                        list (e.g. LockStatus -> OpenStatus).
-                                       FD's BeInState ignores appended props.  */
+                                       the runner's BeInState ignores appended props.  */
   const a5_xml_node_t *node;
 } a5_propdef_t;
 
@@ -340,7 +340,7 @@ typedef struct a5_adventure_s {
   /* "Adventure Upgrade" bracket auto-correction (FileIO.vb:634): a file saved
      before 5.0.26 whose restriction blocks contain an AND-then-OR
      BracketSequence ("#A#O#") gets a one-time question at load; answering yes
-     rewrites each "#A#O#..." into "#A(#O#...)" (FD CorrectBracketSequence).
+     rewrites each "#A#O#..." into "#A(#O#...)" (the runner CorrectBracketSequence).
      See a5model_upgrade_pending / a5model_upgrade_answer below. */
   int upgrade_scanned;        /* pending-condition memoised                  */
   int upgrade_wanted;         /* version < 5.0.26 and some block has #A#O#   */
@@ -349,7 +349,7 @@ typedef struct a5_adventure_s {
                                  a5run_intro emits no question prose and starts
                                  the intro cleanly (Glk frontend default)     */
   int upgrade_applied;        /* answered yes; sequences corrected           */
-  int upgrade_count;          /* FD iCorrectedTasks (one per Replace call)   */
+  int upgrade_count;          /* The runner iCorrectedTasks (one per Replace call)   */
   char **upgrade_owned;       /* corrected BracketSequence copies (owned)    */
   int n_upgrade_owned;
 } a5_adventure_t;
@@ -373,10 +373,10 @@ extern a5_adventure_t *a5model_load (const char *path);
  * next command-script line headless, a typed line in the Glk frontend -- like
  * the ADRIFT 4 gender prompt), then call a5model_upgrade_answer.  On yes the
  * BracketSequence nodes are corrected in place and the call returns the number
- * of Replace passes (FD's "N tasks have been updated." count); on no it returns
+ * of Replace passes (the runner's "N tasks have been updated." count); on no it returns
  * 0 and the sequences stay verbatim.  A host that never asks leaves the model
  * unchanged, and a5run_intro then renders the question itself with an implicit
- * "no" (the pre-existing behaviour, matching an unattended FD).
+ * "no" (the pre-existing behaviour, matching an unattended the runner).
  */
 extern int a5model_upgrade_pending (const a5_adventure_t *a);
 extern const char *a5model_upgrade_question (void);

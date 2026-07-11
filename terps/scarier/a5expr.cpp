@@ -2,7 +2,7 @@
  *
  * ADRIFT 5 support for Scarier -- the property-expression engine.  See a5expr.h.
  *
- * A port of frankendrift Global.ReplaceOOProperty (Global.vb:655-1620): a key (or
+ * A port of the Adrift 5 runner Global.ReplaceOOProperty (Global.vb:655-1620): a key (or
  * pipe-joined key list) navigated by ".Function(args)" steps.  The first key is
  * resolved to an object / character / location / group / direction (the VB "final
  * Else" block), then each step either navigates to a new item set
@@ -69,13 +69,13 @@ static const char *kEnumDirs[12] = {
 };
 
 /* A location has an exit in `dir` if its Movement table names that direction
-   with a non-empty Destination -- frankendrift's location `.Exits` checks
+   with a non-empty Destination -- the Adrift 5 runner's location `.Exits` checks
    arlDirections(d).LocationKey <> "" and does NOT apply the route's
    restrictions (unlike a character's HasRouteInDirection). */
 static const char *
 loc_exit_dest (a5_state_t *st, const char *lockey, const char *dir)
 {
-  /* The raw <Movement> Destination key in `dir`, or NULL (FD arlDirections
+  /* The raw <Movement> Destination key in `dir`, or NULL (the runner arlDirections
      LocationKey read -- no exit-restriction evaluation). */
   const a5_location_t *l = a5model_location (st->adv, lockey);
   const a5_xml_node_t *c;
@@ -188,13 +188,13 @@ objs_worn_by (a5_state_t *st, const char *charkey)
   return v;
 }
 
-/* Child-set filter for objs_children, mirroring FD's WhereChildrenEnum
+/* Child-set filter for objs_children, mirroring the runner's WhereChildrenEnum
    (clsObject.Children): the `.Children(...)` / `.Contents` arg selects which of
    an object's inside/on children to return. */
 enum { A5_CH_BOTH = 0, A5_CH_IN = 1, A5_CH_ON = 2 };
 
 /* Objects directly inside and/or on a container object, filtered by MODE.
-   FD (clsObject.Children) filters strictly: `,On` yields ONLY OnObject
+   the runner (clsObject.Children) filters strictly: `,On` yields ONLY OnObject
    children, `,In`/Contents ONLY InsideObject, plain/`OnAndIn` yields both --
    so a supporter query must not pick up an object that is merely inside. */
 static std::vector<std::string>
@@ -234,12 +234,12 @@ chars_children (a5_state_t *st, const char *objkey, int mode)
 }
 
 /* Resolve a `.Children(<args>)` / `.Contents(<args>)` reference for one container
-   object KEY into its child set, faithfully mirroring FD's ReplaceOOProperty
+   object KEY into its child set, faithfully mirroring the runner's ReplaceOOProperty
    dispatch (Global.vb:826-911).  BOTH the entity type (Objects/Characters/Both)
    AND the where (In/On/OnAndIn) come from the arg, objects are listed before
    characters, and -- crucially -- an unrecognised combination (a bare `On`, or a
    `Characters,On` on a container with no characters) yields the EMPTY set exactly
-   as FD's Select Case falls through.  A `.Children(Characters,In)` must therefore
+   as the runner's Select Case falls through.  A `.Children(Characters,In)` must therefore
    return CHARACTERS, not the objects merely inside -- so Halloween's hole (a
    hook Inside it, no characters) fails dk_ListFirstL1's `.Count>0` gate. */
 static std::vector<std::string>
@@ -250,7 +250,7 @@ oo_children_set (a5_state_t *st, const char *key, const std::string &fn,
   std::vector<std::string> v;
   if (fn == "Contents")
     {
-      /* FD lowercases but does NOT space-strip Contents' arg; always InsideObject. */
+      /* The runner lowercases but does NOT space-strip Contents' arg; always InsideObject. */
       bool objs = (a == "" || a == "all" || a == "objects");
       bool chrs = (a == "" || a == "all" || a == "characters");
       if (objs) for (auto &c : objs_children (st, key, A5_CH_IN)) v.push_back (c);
@@ -269,7 +269,7 @@ oo_children_set (a5_state_t *st, const char *key, const std::string &fn,
   else if (b == "objects,in")                          obj_mode = A5_CH_IN;
   else if (b == "objects,on")                          obj_mode = A5_CH_ON;
   else if (b == "objects,onandin" || b == "objects")   obj_mode = A5_CH_BOTH;
-  /* else: no FD Select Case matches -> empty set. */
+  /* else: no the runner Select Case matches -> empty set. */
   if (obj_mode >= 0) for (auto &c : objs_children (st, key, obj_mode)) v.push_back (c);
   if (chr_mode >= 0) for (auto &c : chars_children (st, key, chr_mode)) v.push_back (c);
   return v;
@@ -459,10 +459,10 @@ split_property (const std::string &p, std::string &fn, std::string &args,
 static std::string
 item_description (a5_state_t *st, const std::string &key)
 {
-  /* FD's Description.ToString returns the still-marked-up composition (tags
+  /* The runner's Description.ToString returns the still-marked-up composition (tags
      and "<>" segment-join markers intact); the display pipeline strips them
      once, at the end.  Returning plain text here let a later re-embedding cap
-     capitalise across a stripped "<>" join that FD leaves alone (Starship
+     capitalise across a stripped "<>" join that the runner leaves alone (Starship
      Quest's DeadNative lowercase "native's ..." append). */
   const a5_object_t *o = a5model_object (st->adv, key.c_str ());
   if (o != NULL)
@@ -470,7 +470,7 @@ item_description (a5_state_t *st, const std::string &key)
       std::string r = d ? d : ""; free (d);
       /* clsObject.Description getter (clsObject.vb:448): an object whose
          composed description renders empty reads as "There is nothing special
-         about <the object>."  This is the source of FD's default examine text
+         about <the object>."  This is the source of the runner's default examine text
          (ExamineObjects' %object%.Description) AND why Global.DisplayObject's
          own "sees nothing interesting" branch is dead code for objects. */
       if (r.empty ())
@@ -535,7 +535,7 @@ resolve_first (a5_state_t *st, const std::string &firstkeys)
       char kind = item_kind (st, parts[0].c_str ());
       if (kind == 'g')
         {
-          /* Live members (FD arlMembers) so a group expression reflects runtime
+          /* Live members (the runner arlMembers) so a group expression reflects runtime
              Add/Remove*ToGroup, not just the static <Member> list. */
           const char *gk = parts[0].c_str ();
           int n = a5state_group_count (st, gk);
@@ -648,7 +648,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
       /* else: a property key -> filter / aggregate.  Carry it for .Sum. */
       {
         /* A SelectionOnly (valueless marker) property applied to a list is a
-           FILTER, not a value: FD's ReplaceOOProperty (Global.vb:931-1082) keeps
+           FILTER, not a value: the runner's ReplaceOOProperty (Global.vb:931-1082) keeps
            the members that carry the marker and yields those member KEYS (a
            reference / sub-collection), because a SelectionOnly prop has no value
            to render.  So `%Player%.Location.Objects.ObjectIsAT` -> the cube's
@@ -711,7 +711,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       if (fn == "Location")
         {
-          /* FD's object .Location resolves to a SINGLE clsLocation when the
+          /* The runner's object .Location resolves to a SINGLE clsLocation when the
              object has one root (ReplaceOOProperty collapses a 1-item list),
              which matters for terminal rich-Text properties: the single-item
              branch renders their <Value><Description> node (The Salvage's
@@ -967,7 +967,7 @@ a5expr_eval (a5_state_t *st, const char *firstkeys, const char *chain,
 static int
 is_key_char (char c)
 {
-  /* FD's key regex uses \w, which is Unicode-aware in .NET -- accept UTF-8
+  /* The runner's key regex uses \w, which is Unicode-aware in .NET -- accept UTF-8
      continuation/lead bytes so keys like "ClaudeMoné" scan whole. */
   return isalnum ((unsigned char) c) || c == '_' || c == '|'
          || (unsigned char) c >= 0x80;

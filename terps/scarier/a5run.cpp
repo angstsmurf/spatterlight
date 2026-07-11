@@ -44,24 +44,24 @@ int a5run_trace = 0;
 
 /* -------------------------------------------------------------- message tests */
 
-/* FD's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
+/* The runner's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
    (the form Scarier holds at every response/emit site, after markup has been
-   converted to plain).  FD keeps a message unless StripCarats leaves the empty
+   converted to plain).  The runner keeps a message unless StripCarats leaves the empty
    string AND it is not a known formatting tag / ALR key.  On plain text the tags
    are already gone, so the faithful test is simply "non-empty" -- and crucially
-   WHITESPACE COUNTS: a `<Text> </Text>` completion renders to " ", which FD keeps
+   WHITESPACE COUNTS: a `<Text> </Text>` completion renders to " ", which the runner keeps
    (StripCarats(" ")=" " != "") and space-joins to the next response.  The old
-   version dropped whitespace-only messages, which swallowed the leading indent FD
+   version dropped whitespace-only messages, which swallowed the leading indent the runner
    renders before search-triggered encounter titles (Tingalan) and blank-line
-   separators FD emits between responses (Bug Hunt).  For a message still carrying
-   MARKUP (what FD's Display sees pre-render), use fd_has_output, which runs the
+   separators the runner emits between responses (Bug Hunt).  For a message still carrying
+   MARKUP (what the runner's Display sees pre-render), use fd_has_output, which runs the
    actual StripCarats + known-tag + ALR fallback. */
 int
 msg_has_output (const char *m)
 {
   /* A5_ALR_MARK bytes are stripped-tag sentinels, not output: a message whose
      plain rendering is only stripped tags (e.g. "<font color=X>") was empty in
-     FD's stripped view too.  The interactive-mode presentation marks (waitkey
+     the runner's stripped view too.  The interactive-mode presentation marks (waitkey
      pause points and \006<number>\006 image slots) are likewise not output --
      they stand for the same stripped tags, so a message must be judged empty
      or not identically in both modes. */
@@ -87,13 +87,13 @@ msg_has_output (const char *m)
 }
 
 /* A faithful port of clsUserSession.bHasOutput (vb:1272), applied to a message
-   string with its markup STILL EMBEDDED (the value FD's Display() sees, before
+   string with its markup STILL EMBEDDED (the value the runner's Display() sees, before
    the final HTML->plain pass).  Unlike msg_has_output (which inspects the
-   already-plain text and treats whitespace as nothing), FD keeps a message when
+   already-plain text and treats whitespace as nothing), the runner keeps a message when
    stripping all <...> tags leaves ANY character behind -- including a bare space.
    This is why Amazon's title music task `<audio play src="...">` followed by a
    space counts as output: StripCarats leaves " ", so the space joins onto the
-   centred title (giving its leading indent).  When stripping leaves nothing, FD
+   centred title (giving its leading indent).  When stripping leaves nothing, the runner
    keeps the message only if it carries a known formatting/media tag, or the whole
    string is an ALR (Text Override) trigger key. */
 int
@@ -111,7 +111,7 @@ fd_has_output (a5_state_t *st, const char *raw)
       else
         return 1;                       /* a non-tag char survives -> output */
     }
-  /* All tags: FD keeps it only for a recognised formatting/media tag. */
+  /* All tags: the runner keeps it only for a recognised formatting/media tag. */
   {
     static const char *const known[] = {
       "<br>", "<center>", "<centre>", "<i>", "</i>", "<b>", "</b>", "<u>",
@@ -178,7 +178,7 @@ a5run_location_name (a5_run_t *run)
   return a5text_location_short_plain (run->st, loc);
 }
 
-/* Adventure.Score / MaxScore (FD reads htblVariables("Score"/"MaxScore"); see
+/* Adventure.Score / MaxScore (the runner reads htblVariables("Score"/"MaxScore"); see
    emit_endgame).  0 when the game defines no such variable. */
 long
 a5run_score (a5_run_t *run)
@@ -438,7 +438,7 @@ build_amb_prompt (a5_state_t *st, const std::string &word,
       list += entity_def_name (st, keys[i], type);
     }
   /* ToProper(bStrict=False): capitalise only the first character; the remainder
-     keeps its original casing (clsUserSession.ToProper, FrankenDrift). */
+     keeps its original casing (clsUserSession.ToProper, the Adrift 5 runner). */
   if (!list.empty ()) list[0] = (char) toupper ((unsigned char) list[0]);
   return "Which " + word + "?  " + list + ".";
 }
@@ -519,7 +519,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
 {
   a5_state_t *st = run->st;
   int fail_priority = 0;
-  /* When a <Continue>ContinueAlways task runs, FrankenDrift continues task
+  /* When a <Continue>ContinueAlways task runs, the Adrift 5 runner continues task
      selection via EvaluateInput(Priority+1) -> GetGeneralTask with
      iMinimumPriority = iPriorityFail = that task's Priority + 1.  So on the
      continuation only *strictly higher* priority tasks are eligible, and a
@@ -548,7 +548,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
 
       /* HighestPriorityTask mode: a recorded failing-with-output task claims the
          turn over any *lower*-priority task (higher Priority value).  But an
-         *equal*-priority task that passes still overrides it -- frankendrift's
+         *equal*-priority task that passes still overrides it -- the Adrift 5 runner's
          GetGeneralTask reaches such a passing task first when its (unstable)
          priority sort happens to order it ahead of the failing one (e.g. the
          library "say %text%" pair: the "Say" fallback needs an active
@@ -559,14 +559,14 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
       if (*have_fail && !st->adv->hp_passing && t->priority > fail_priority)
         return 0;
 
-      /* HighestPriorityPassingTask: once a task fails *with output*, FD sets
+      /* HighestPriorityPassingTask: once a task fails *with output*, the runner sets
          iPriorityFail to its Priority, so the loop-top guard
          `Not (LowPriority AndAlso Priority > iPriorityFail)`
          (clsUserSession.vb:5981) then skips any LowPriority task above that
          floor.  This is what keeps Six Silver Bullets' turn timer aligned when
          the highest-priority failing task wins (below): a LowPriority failing
          task above the floor must not be recorded (and so claim/tick the turn)
-         when FD would have skipped it outright. */
+         when the runner would have skipped it outright. */
       if (st->adv->hp_passing && *have_fail
           && t->low_priority && t->priority > fail_priority)
         continue;
@@ -584,7 +584,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
              before falling back to the lazy "%object% *" split ("bell").  The
              first variant that yields a real resolution wins; a NOREF (second-
              chance Must-Exist) result keeps the FIRST such variant's reference
-             text, as FD's second-chance pass re-matches regex list in order. */
+             text, as the runner's second-chance pass re-matches regex list in order. */
           int r = RR_NOMATCH;
           a5_match_t noref_m;
           int have_noref_var = 0;
@@ -645,7 +645,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  the actual movement task run.
 
                  Also continue when the task PASSED but produced NO OUTPUT:
-                 FrankenDrift's AttemptToExecuteTask (clsUserSession.vb:916-921)
+                 the Adrift 5 runner's AttemptToExecuteTask (clsUserSession.vb:916-921)
                  sets bContinue and re-evaluates at Priority+1 for a passing task
                  with no output, so a higher-priority matching task that DOES emit
                  (or fails with output) claims the turn instead.  E.g. Axe of Kolt's
@@ -660,7 +660,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                   /* If that passing task also ended the game (an EndGame action
                      with no completion message, e.g. FoF's silent Task1448
                      "Pull Bell Ropes - Door Wedged": IncScore + Execute + EndGame
-                     Win), FrankenDrift's Priority+1 re-entry into EvaluateInput
+                     Win), the Adrift 5 runner's Priority+1 re-entry into EvaluateInput
                      hits its top guard with eGameState != Running: SystemTasks(True)
                      rejects the command (not restart/restore/quit/undo) and it
                      prints "Please give one of the answers above." before returning
@@ -678,7 +678,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                   if (!cont_active || t->priority > cont_floor)
                     { cont_active = 1; cont_floor = t->priority; }
                   /* The claiming task supersedes every candidate recorded so
-                     far: FD's continuation is a FRESH EvaluateInput whose
+                     far: the runner's continuation is a FRESH EvaluateInput whose
                      GetGeneralTask starts with empty sAmbTask/sNoRefTask/
                      sRestrictionText -- a pre-continue "which?"/noref/fail
                      message must not resurface if the continuation itself
@@ -702,7 +702,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  the woman!") overrides it.  Mirrors GetGeneralTask, where
                  sAmbTask is shown only when no later task claims sTaskKey.  Record
                  the first such reference and keep scanning.  A genuine first-pass
-                 ambiguity replaces an earlier *second-chance* one (FD finds all
+                 ambiguity replaces an earlier *second-chance* one (the runner finds all
                  first-pass results before the second-chance pass). */
               *have_amb = 1; *amb_cantsee = 1; *amb = this_amb;
               *amb_ti = ti; *amb_ci = ci;
@@ -716,7 +716,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  output; only if nothing claims does the caller run this task
                  with the reference unresolved.
 
-                 These are FD's second-chance pass tasks (matched only via
+                 These are the runner's second-chance pass tasks (matched only via
                  HasObjectExistRestriction, with zero-Item references): there they
                  fail their `Must Exist` restriction *with output*, so the same
                  TaskExecution ordering applies.  Under HighestPriorityPassingTask
@@ -726,7 +726,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                  would produce a message; under the default HighestPriorityTask the
                  first (lowest-priority) one is kept.  E.g. Spectre's `remove
                  bricks` matches both RemoveObjects (P50736, "...you're referring
-                 to.") and RemoveObje (P50749, "...trying to remove."); FD surfaces
+                 to.") and RemoveObje (P50749, "...trying to remove."); The runner surfaces
                  the latter.  The output gate keeps Axe of Kolt's `examine
                  <unknown noun>` on its "You see no such thing." rather than
                  yielding to a higher refless task that fails silently. */
@@ -775,7 +775,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               if (fm == NULL)
                 /* The task's own restrictions named no failing message (e.g. a
                    malformed BracketSequence whose evaluation calls no single
-                   restriction).  frankendrift then still has sRestrictionText
+                   restriction).  The Adrift 5 runner then still has sRestrictionText
                    set to the *previous* command's leftover message, so the task
                    fails *with output* and claims the turn -- ticking
                    TurnBasedStuff.  Anno 1700's reference-free OpeningHid ("##A#")
@@ -786,7 +786,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               if (fm != NULL)
                 {
                   char *fmsg = a5text_describe (st, fm);
-                  /* Prefix a failing multi-match %objects% noun with FD's
+                  /* Prefix a failing multi-match %objects% noun with the runner's
                      "Sorry, I'm not sure which object ..." ambiguity message
                      (set by resolve_plural).  Skip when the failure message is
                      already that text (a never-seen match fails the Exist /
@@ -806,12 +806,12 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                          does (enforced by the loop-top guard, which stops once a
                          strictly lower priority is reached).
 
-                         Under HighestPriorityPassingTask FD reassigns
+                         Under HighestPriorityPassingTask the runner reassigns
                          GetGeneralTask for *every* failing-with-output task
                          (clsUserSession.vb:6076), so the *highest*-priority such
                          task wins -- run->order is ascending, so overwrite each
                          time.  The LowPriority/iPriorityFail guard at the loop top
-                         (above) already excludes the LowPriority tasks FD skips
+                         (above) already excludes the LowPriority tasks the runner skips
                          once a fail floor is set, which keeps Six Silver Bullets'
                          turn timer aligned (a bare keep-highest without that guard
                          ticked early).  Under the default HighestPriorityTask the
@@ -828,7 +828,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
         }
     }
   /* A <Continue>ContinueAlways (or passing-but-silent) task already ran and
-     claimed this turn; the continuation (FD's EvaluateInput at
+     claimed this turn; the continuation (the runner's EvaluateInput at
      iMinimumPriority>0) is a full task-selection pass of its own, so a
      failing-with-output / ambiguity / noref candidate it recorded surfaces
      exactly as on a first pass (e.g. Stuck Piggy's empty `open clock` stub
@@ -852,7 +852,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
    banner, the optional EndGameText (WinningText), the score line when MaxScore>0,
    and the restart prompt.  Emitted once, the first turn game_over is set, before
    `turns` is bumped for the ending command -- so the score shows the count of
-   commands processed *before* this one (FD displays during Process, ahead of its
+   commands processed *before* this one (the runner displays during Process, ahead of its
    per-command Adventure.Turns increment). */
 static void
 emit_endgame (a5_run_t *run, sb_t *out)
@@ -861,7 +861,7 @@ emit_endgame (a5_run_t *run, sb_t *out)
   const char *es = st->end_message;     /* "Win" / "Lose" / "Neutral" */
   long score = 0, maxscore = 0;
 
-  /* FrankenDrift's CheckEndOfGame Displays the banner through pSpace, so a
+  /* The Adrift 5 runner's CheckEndOfGame Displays the banner through pSpace, so a
      paragraph break always separates it from the turn's preceding output.  A
      game that ends via a turn-based event (e.g. StarshipQuest's hyperspace
      death, MagneticMoon's "took too long" timer) emits its death text with a
@@ -886,11 +886,11 @@ emit_endgame (a5_run_t *run, sb_t *out)
     sb_puts (out, "*** You have won ***\n");
   else if (es != NULL && streq (es, "Lose"))
     sb_puts (out, "*** You have lost ***\n");
-  /* Neutral (and an unset/unknown enum): no banner, like FD. */
+  /* Neutral (and an unset/unknown enum): no banner, like the runner. */
 
   if (run->adv->end_game_text != NULL)
     {
-      /* FD's CheckEndOfGame Displays the win/lose banner with bCommit=True
+      /* The runner's CheckEndOfGame Displays the win/lose banner with bCommit=True
          (clsUserSession.vb:515) BEFORE the WinningText (vb:528), so each is a
          separate Display commit and the headless renderer clears only within a
          commit (Program.cs EmitHtml's per-call StringBuilder).  A <cls> embedded
@@ -907,10 +907,10 @@ emit_endgame (a5_run_t *run, sb_t *out)
       sb_resolve_cls (out, after_banner);
     }
 
-  /* FD reads Adventure.Score / MaxScore = htblVariables("Score"/"MaxScore"),
+  /* The runner reads Adventure.Score / MaxScore = htblVariables("Score"/"MaxScore"),
      which is keyed by the variable KEY, not its (user-facing) Name.  Magnetic
      Moon's score variable has key "Score" but Name "__Points_Scored", so a
-     by-Name lookup misses it.  Look up by key (index) to match FD. */
+     by-Name lookup misses it.  Look up by key (index) to match the runner. */
   {
     int svi = a5state_variable_index (st, "Score");
     if (svi >= 0) score = st->var_num[svi];
@@ -926,7 +926,7 @@ emit_endgame (a5_run_t *run, sb_t *out)
       sb_puts (out, line);
     }
 
-  /* The restart prompt is the Runner UI's modal question in FD, not part of
+  /* The restart prompt is the Runner UI's modal question in the runner, not part of
      the CheckEndOfGame Display -- so a game ALR TextOverride must never
      rewrite it (Shattered Memory blanks the whole "Would you like to
      restart..." sentence with an Override meant for the post-restore replay).
@@ -934,12 +934,12 @@ emit_endgame (a5_run_t *run, sb_t *out)
      any OldText across it; finish_turn's existing mark strip removes them
      before the text is shown. */
   {
-    /* FD: Display("Would you like to <c>restart</c>, <c>restore</c> a saved
+    /* The runner: Display("Would you like to <c>restart</c>, <c>restore</c> a saved
        game, <c>quit</c> or <c>undo</c> the last command?").  The <c> tags sit
        in the buffer during ReplaceALRs, so an OldText can match any contiguous
        run BETWEEN tags (Halloween translates the prompt piecewise: "restart"
        -> "genstarte") but never ACROSS one (Shattered Memory's full-sentence
-       blanking Override does not fire in FD).  A5_ALR_MARK is Scarier's
+       blanking Override does not fire in the runner).  A5_ALR_MARK is Scarier's
        stripped-tag stand-in: emit one at each tag position. */
     static const char *kPromptSegs[] = {
       "Would you like to ", "restart", ", ", "restore", " a saved game, ",
@@ -958,7 +958,7 @@ emit_endgame (a5_run_t *run, sb_t *out)
 
 /* Expand any deferred-variable sentinels (A5_VARDEF_MARK, a5text.h) currently
    in the turn buffer with the variables' CURRENT values.  Called at the
-   Scarier equivalents of FD's Display commits (see the claimed-command path)
+   Scarier equivalents of the runner's Display commits (see the claimed-command path)
    so an ALR-borne %scor% reads the state of ITS commit, not end-of-turn. */
 static void
 expand_var_defers_sb (a5_run_t *run, sb_t *out)
@@ -978,7 +978,7 @@ finish_turn (a5_run_t *run, sb_t *out)
 {
   char *raw, *fin;
   size_t n;
-  /* FD's Display loop: draw every AggregateOutput completion whose evaluation was
+  /* The runner's Display loop: draw every AggregateOutput completion whose evaluation was
      held during the command, now that the LocationTrigger drain and event tick
      have run (their draws come first).  Splices each drawn value into its
      `\004<idx>\004` sentinel slot left in `out`. */
@@ -986,7 +986,7 @@ finish_turn (a5_run_t *run, sb_t *out)
   if (run->st->game_over && !run->st->end_displayed)
     emit_endgame (run, out);
   /* Honour any <cls> relayed by the plain renderer (A5_CLS_MARK).  A command
-     turn is a single FD commit (its output accumulates in sOutputText and flushes
+     turn is a single the runner commit (its output accumulates in sOutputText and flushes
      once, clsUserSession.vb:3766), so a <cls> anywhere in the turn wipes the whole
      turn's prior output -- e.g. Pathway to Destruction's win narrative, whose
      embedded <cls> drops the move message, room view and "The End" banner.  (The
@@ -1006,7 +1006,7 @@ finish_turn (a5_run_t *run, sb_t *out)
       *w = '\0';
     }
   /* Deferred-variable sentinels (a bare %var% inside an eagerly-applied ALR
-     NewText) resolve here with the end-of-turn value -- FD Display's
+     NewText) resolve here with the end-of-turn value -- the runner Display's
      ReplaceFunctions runs before its ReplaceALRs (Global.vb:523).  A second
      pass after the boundary ALR catches sentinels a boundary-applied ALR
      itself introduced. */
@@ -1024,7 +1024,7 @@ finish_turn (a5_run_t *run, sb_t *out)
   }
   /* The stripped-tag sentinels (A5_ALR_MARK) have done their job: the boundary
      ALR pass above could not match an OldText across a stripped tag, exactly
-     like FD's Display-time ReplaceALRs over the still-marked-up buffer.  Drop
+     like the runner's Display-time ReplaceALRs over the still-marked-up buffer.  Drop
      them before the output is shown. */
   {
     char *r, *w;
@@ -1032,8 +1032,8 @@ finish_turn (a5_run_t *run, sb_t *out)
       if (*r != A5_ALR_MARK) *w++ = *r;
     *w = '\0';
   }
-  /* Normalise only the very end of the turn: FD's pSpace model leaves a message
-     ending in trailing spaces or a paragraph break, and FD then appends its own
+  /* Normalise only the very end of the turn: the runner's pSpace model leaves a message
+     ending in trailing spaces or a paragraph break, and the runner then appends its own
      end-of-turn vbCrLf pair.  The interior pSpace joins are what matter for
      conformance; the turn's tail is cosmetic (the diff harness collapses it).
      Trim trailing whitespace/newlines and re-add a single '\n' so each turn ends
@@ -1058,7 +1058,7 @@ finish_turn (a5_run_t *run, sb_t *out)
    order, exactly as clsUserSession's init loop does (vb:209-216) -- before the
    title is shown.  Their completion-message output (e.g. a title-music task's
    audio markup + trailing space) accumulates in the same buffer so it joins onto
-   the title via pSpace.  Events are not yet initialised at this point (FD starts
+   the title via pSpace.  Events are not yet initialised at this point (the runner starts
    them after the intro), so no event-completion hooks fire here. */
 static void
 run_immediate_tasks (a5_run_t *run, sb_t *out)
@@ -1088,7 +1088,7 @@ a5run_intro (a5_run_t *run)
 {
   sb_t out;
   char *intro, *look;
-  /* FD renders the intro as several separate commits (Adventure-Upgrade prompt,
+  /* The runner renders the intro as several separate commits (Adventure-Upgrade prompt,
      the RunImmediately output + title at vb:226, the Introduction at vb:227, the
      room view at vb:229), so a <cls> in one unit clears only that unit's buffer
      -- e.g. an Introduction that opens with <cls> must NOT wipe the already-
@@ -1101,7 +1101,7 @@ a5run_intro (a5_run_t *run)
   /*
    * "Adventure Upgrade" auto-correct prompt (FileIO.vb:634).  When the file
    * format version is older than 5.0.26 and any restriction block carries an
-   * "#A#O#" (AND-then-OR) BracketSequence, FD asks once at load whether to
+   * "#A#O#" (AND-then-OR) BracketSequence, the runner asks once at load whether to
    * auto-correct those tasks (a5model_upgrade_pending).  The host frontend
    * asks the question through its NORMAL input channel -- the next command-
    * script line headless (FrankenDrift.Headless consumes a literal yes/no
@@ -1109,13 +1109,13 @@ a5run_intro (a5_run_t *run)
    * frontend, like the ADRIFT 4 gender prompt -- and calls
    * a5model_upgrade_answer BEFORE building the run.  In that case the
    * question (and, on yes, the "N tasks have been updated." info) has already
-   * been shown out-of-band, so here we only mirror the joins: FD emits both
+   * been shown out-of-band, so here we only mirror the joins: the runner emits both
    * via raw writes that never touch the Display/pSpace accumulator, so the
    * first real Display of game-start (the centred title, vb:226) runs with an
    * empty accumulator and a non-empty title concatenates directly onto them
    * ("...restrictions.Son of Camelot", "...updated.the House").
    *
-   * With a frontend that never asks (upgrade still pending here), FD's
+   * With a frontend that never asks (upgrade still pending here), the runner's
    * unattended behaviour holds: the question prose is still EMITTED before
    * the intro with an implicit NO answer -- the correction is NOT applied and
    * the BracketSequence is read verbatim.  That legacy path prepends the
@@ -1130,26 +1130,26 @@ a5run_intro (a5_run_t *run)
     had_prompt = 2;                     /* unasked: prepend question, imply NO */
   else if (run->adv->upgrade_prompted)
     had_prompt = 1;                     /* host asked: only mirror the joins */
-  /* System <RunImmediately> tasks run before the title (FD clsUserSession init,
+  /* System <RunImmediately> tasks run before the title (the runner clsUserSession init,
      vb:209-216); a title-music task's audio markup leaves a trailing space that
      joins onto the centred title. */
   sb_resolve_cls (&out, cf); cf = out.len;   /* commit: Adventure-Upgrade prompt */
   run_immediate_tasks (run, &out);
-  /* The centred title: FD's Display("<c>" & Adventure.Title & "</c>" & vbCrLf)
+  /* The centred title: the runner's Display("<c>" & Adventure.Title & "</c>" & vbCrLf)
      at vb:226, emitted through the same buffer so the RunImmediately output above
-     joins onto it via pSpace.  An empty title emits nothing (FD's "<c></c>"
+     joins onto it via pSpace.  An empty title emits nothing (the runner's "<c></c>"
      renders to a bare blank that the turn-tail normalisation drops); a non-empty
      one space-joins to any preceding RunImmediately output, then the intro's own
      leading break follows. */
   if (run->adv->title != NULL && run->adv->title[0] != '\0')
     {
-      /* After the out-of-band Adventure-Upgrade prompt FD's pSpace accumulator is
+      /* After the out-of-band Adventure-Upgrade prompt the runner's pSpace accumulator is
          empty (the prompt was a raw Console.Write), so a non-empty title joins
          with NO separator -- unless real Display output (RunImmediately) already
          sits after the prompt commit, in which case it pSpace-joins to that. */
       if (!had_prompt || out.len != cf)
         sb_pspace (&out);
-      /* FD's title Display goes through the same HTML rendering as any other
+      /* The runner's title Display goes through the same HTML rendering as any other
          text, so markup INSIDE Adventure.Title is stripped -- Trapped's title
          is "<centre><b>'Trapped'  by Driftwood</b></centre>". */
       {
@@ -1161,7 +1161,7 @@ a5run_intro (a5_run_t *run)
     }
   else if (had_prompt)
     {
-      /* Prompt with an empty title (RtC): FD's empty "<c></c>" Display still
+      /* Prompt with an empty title (RtC): the runner's empty "<c></c>" Display still
          emits a line break and the room view that follows carries its own leading
          vbCrLf (vb:229), so the prompt is separated from the intro/room by a blank
          line.  Scarier's room path has no leading break, so restore the paragraph
@@ -1173,7 +1173,7 @@ a5run_intro (a5_run_t *run)
   /* No paragraph break after an intro whose last visible act is a <cls> (DDF's
      multi-page intro ends "...<waitkey><cls>"): the break would land AFTER the
      wipe marker and survive the resolve below as two stray blank lines at the
-     top of the cleared screen, which FD never shows. */
+     top of the cleared screen, which the runner never shows. */
   if (intro[0])
     {
       sb_puts (&out, intro);
@@ -1206,7 +1206,7 @@ a5run_intro (a5_run_t *run)
     if (had_prompt != 2)
       return turn;
     /* Legacy unasked path: prepend the out-of-band Adventure-Upgrade prompt
-       verbatim: FD wrote it raw to the console before the engine's first
+       verbatim: the runner wrote it raw to the console before the engine's first
        Display, so it reaches the player un-ALR'd and un-capitalised, directly
        abutting the first real output (see the had_prompt joins above). */
     sb_t pb;
@@ -1222,7 +1222,7 @@ a5run_intro (a5_run_t *run)
 /* Seed the known-words list exactly as clsUserSession.NotUnderstood does, lazily
    (the first time an unmatched command needs the word-validity check).
 
-   FAITHFUL QUIRK: FD stores command verbs, object/character articles, prefixes,
+   FAITHFUL QUIRK: the runner stores command verbs, object/character articles, prefixes,
    names and descriptors in listKnownWords with their ORIGINAL case (only the
    character ProperName is `.ToLower`-ed; vb:3489-3531), and the validity check
    compares the *lowercased* input word case-sensitively (`List.Contains`).  So a
@@ -1230,7 +1230,7 @@ a5run_intro (a5_run_t *run)
    a known word for the lowercase input "crystal"/"zykon" -- e.g. Revenge's
    `insert crystal in bracket` reports `I did not understand the word "crystal".`
    (the object is named "Crystal").  We preserve case here to reproduce it; the
-   lookup in not_understood lowercases the input word, mirroring FD's lowercase
+   lookup in not_understood lowercases the input word, mirroring the runner's lowercase
    sInput vs mixed-case known words. */
 static void
 build_known_words (a5_run_t *run)
@@ -1265,7 +1265,7 @@ build_known_words (a5_run_t *run)
         for (auto &w : split_ws (o->names[j])) kw->insert (w);
     }
   /* Characters: article + prefix words + descriptors (original case) + proper
-     name (the one field FD lowercases, vb:3522). */
+     name (the one field the runner lowercases, vb:3522). */
   for (i = 0; i < adv->n_characters; i++)
     {
       const a5_character_t *c = &adv->characters[i];
@@ -1332,7 +1332,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
      input is re-tried as "<verb> <input>" (NotUnderstood, vb:3543-3581).  Only a
      single-word input.
 
-     FAITHFUL QUIRK: FrankenDrift (and the original Runner) test the *normalised*
+     FAITHFUL QUIRK: the Adrift 5 runner tests the *normalised*
      command, where every bare singular reference has been suffixed with "1"
      (%object% -> %object1%, %character% -> %character1%, %direction% ->
      %direction1%; FileIO.vb:647).  The object/character branch checks for the
@@ -1395,11 +1395,11 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
   /* The input names an object the player has seen and can see now, but no task
      accepted it: "I don't understand what you want to do with the X."
      (NotUnderstood's seen-noun branch, vb:3584-3609).  First seen+visible match
-     wins, objects before characters (FD's loop order).
+     wins, objects before characters (the runner's loop order).
 
-     FAITHFUL QUIRK: FD matches the entity's sRegularExpressionString *unanchored*
+     FAITHFUL QUIRK: the runner matches the entity's sRegularExpressionString *unanchored*
      against the whole input (`re.IsMatch(sInput)`, no `^...$`), so a noun
-     alternative need only appear as a SUBSTRING -- FD's player descriptor "me"
+     alternative need only appear as a SUBSTRING -- the runner's player descriptor "me"
      matches inside "hel<me>t", so `put helmet ... ` reports "...do with Mike
      Erlin.".  Since the regex's article/prefix groups are all optional, IsMatch
      reduces to: does any noun alternative occur as a substring of the lowercased
@@ -1407,7 +1407,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
      plus its proper name when usable -- the proper name as a WHOLE string ("mike
      erlin" must appear contiguously, unlike the word-split set used elsewhere),
      so `say erlin ...` does NOT match the player and falls through to
-     NotUnderstood, matching FD. */
+     NotUnderstood, matching the runner. */
   {
     a5_state_t *st = run->st;
     std::string lin = lower (in);
@@ -1426,7 +1426,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         std::vector<std::string> nouns;
         for (int n = 0; n < o->n_names; n++)
           nouns.push_back (lower (o->names[n]));
-        /* FD's `If arl.Count = 0 Then sRE &= "|"` fudge: a nameless object's
+        /* The runner's `If arl.Count = 0 Then sRE &= "|"` fudge: a nameless object's
            empty alternation matches anywhere -> always IsMatch. */
         int hit = (o->n_names == 0) ? 1 : noun_substr (nouns);
         if (hit)
@@ -1469,7 +1469,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
   sb_puts (out, "Sorry, I didn't understand that command.");
 }
 
-/* Would run_noref produce a non-empty message for this task?  Mirrors FD's
+/* Would run_noref produce a non-empty message for this task?  Mirrors the runner's
    `sRestrictionText <> ""` gate: a second-chance Must-Exist task only updates
    GetGeneralTask when its failing restriction has output.  Used to decide
    whether a higher-priority no-reference task may override a recorded one under
@@ -1551,7 +1551,7 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
 
 /* clsUserSession.ReplaceWord: replace whole-word occurrences of `find` in `text`
    with `repl` (word boundaries are spaces / string ends; case-sensitive on the
-   already-lowercased input, exactly as FD). */
+   already-lowercased input, exactly as the runner). */
 static void
 replace_word (std::string &text, const std::string &find, const std::string &repl)
 {
@@ -1579,7 +1579,7 @@ replace_word (std::string &text, const std::string &find, const std::string &rep
  * that class's stored display name.  Objects use the definite full name,
  * characters their (definite) known name.  "them" considers only plural objects;
  * characters split into him/her/it by Gender.  A >1 match is narrowed by a
- * prefix word appearing in the input (FD's second pass); still-ambiguous classes
+ * prefix word appearing in the input (the runner's second pass); still-ambiguous classes
  * keep the previous value.
  */
 static void
@@ -1632,11 +1632,11 @@ grab_it (a5_run_t *run, const std::string &in)
           int matched = 0;
           if (c->name != NULL && has_word (lower (c->name)))
             matched = 1;
-          /* FD compares descriptors CASE-SENSITIVELY against the lowercased
+          /* The runner compares descriptors CASE-SENSITIVELY against the lowercased
              input (GrabIt: `If sWord = sName` -- only ProperName gets a
              .ToLower).  So a capitalised descriptor ("Talia") never matches
              and the pronoun keeps its previous referent; lowercasing here
-             wrongly updated `her` to Talia Swayne where FD keeps Sophia. */
+             wrongly updated `her` to Talia Swayne where the runner keeps Sophia. */
           for (int d = 0; !matched && d < c->n_descriptors; d++)
             if (has_word (c->descriptors[d]))
               matched = 1;
@@ -1702,7 +1702,7 @@ grab_it (a5_run_t *run, const std::string &in)
   if (!new_him.empty ())  { free (st->s_him);  st->s_him = strdup (new_him.c_str ()); }
   if (!new_her.empty ())  { free (st->s_her);  st->s_her = strdup (new_her.c_str ()); }
 
-  /* Defaults so a later "it"/etc. with no referent prints FD's placeholder. */
+  /* Defaults so a later "it"/etc. with no referent prints the runner's placeholder. */
   if (st->s_it[0]   == '\0') { free (st->s_it);   st->s_it   = strdup ("Absolutely Nothing"); }
   if (st->s_them[0] == '\0') { free (st->s_them); st->s_them = strdup ("Absolutely Nothing"); }
   if (st->s_him[0]  == '\0') { free (st->s_him);  st->s_him  = strdup ("No male"); }
@@ -1710,7 +1710,7 @@ grab_it (a5_run_t *run, const std::string &in)
 }
 
 /* Substitute "it"/"them"/"him"/"her" in the player's input with the last
-   referenced object/character name, emitting FD's "(name)" echo line, then
+   referenced object/character name, emitting the runner's "(name)" echo line, then
    recompute the referents for next turn (clsUserSession.EvaluateInput). */
 static void
 resolve_pronouns (a5_run_t *run, std::string &in, sb_t *out)
@@ -1737,7 +1737,7 @@ resolve_pronouns (a5_run_t *run, std::string &in, sb_t *out)
    loop, run right after GrabIt): for each synonym, for each of its <From>
    phrases, if every word of the phrase appears in the input (ContainsWord),
    replace the phrase with its <To> word (ReplaceWord).  Later synonyms see
-   earlier synonyms' replacements, exactly as FD's single `sInput` threaded
+   earlier synonyms' replacements, exactly as the runner's single `sInput` threaded
    through the loop. */
 static void
 resolve_synonyms (a5_run_t *run, std::string &in)
@@ -1813,7 +1813,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
 
   /* Consume any remembered verb for this turn (sRememberedVerb): captured here so
      a turn that does anything naturally clears it (clsUserSession clears it on a
-     successful task); a system command re-sets it (FD keeps it across SystemTasks)
+     successful task); a system command re-sets it (the runner keeps it across SystemTasks)
      and the NotUnderstood fallback re-tries the input as "<verb> <input>". */
   std::string rverb = run->remembered_verb;
   run->remembered_verb.clear ();
@@ -1829,9 +1829,9 @@ a5run_input_inner (a5_run_t *run, const char *line)
   a5restr_route_cache_clear (st);
 
   /* PrepareForNextTurn also clears the rendered-character-name ledger
-     (PronounKeys.Clear, vb:3823).  FD clears at the END of each processed
+     (PronounKeys.Clear, vb:3823).  The runner clears at the END of each processed
      command (vb:504) -- nothing renders between that and the next input, so
-     clearing here is equivalent, EXCEPT that FD's intro entries survive into
+     clearing here is equivalent, EXCEPT that the runner's intro entries survive into
      the first command (its init-time PrepareForNextTurn runs before the intro
      renders); skip the clear on the first command to match. */
   if (st->turns > 1)
@@ -1863,7 +1863,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
       if (narrowed.size () == 1
           && run_remembered (run, narrowed[0].c_str (), &out))
         { run->amb_active = 0; ev_tick_all (run, &out); return finish_turn (run, &out); }
-      /* Not resolved to one.  FD keeps sAmbTask set while trying the new input as
+      /* Not resolved to one.  The runner keeps sAmbTask set while trying the new input as
          a fresh command (GetGeneralTask sets sAmbTask only when it is Nothing,
          and the second-chance noref pass runs only when sAmbTask Is Nothing), so
          a fresh ambiguity / noref CANNOT override the remembered ambiguity --
@@ -1899,19 +1899,19 @@ a5run_input_inner (a5_run_t *run, const char *line)
     {
       run->amb_active = 0;
       /* clsUserSession.vb:3421-3431: the chosen task ran, the qTasksToRun
-         LocationTrigger queue is drained, and only THEN does FD test
+         LocationTrigger queue is drained, and only THEN does the runner test
          `If sOutputText = "" Then NotUnderstood()` -- skipping TurnBasedStuff
          entirely on that branch, so events do not tick either.  AoK's "Talk to
          Oilman + 2" override has actions (Variable33=1) but no completion
-         message: FD greets silently then prints the NotUnderstood ladder's "I
+         message: the runner greets silently then prints the NotUnderstood ladder's "I
          don't understand what you want to do with the armourer."  The drain
          must come first (Mazoomah's `push radio` win text arrives via the
          YouHaveWon LocationTrigger tasks), and `sOutputText` is the raw
          marked-up buffer, so a markup-only completion counts as output
          (turn_out_nonempty; Bug Hunt's cl_ReadMap `<img>` map).  A won/lost
-         game skips the fallback outright -- FD's endgame turns always
+         game skips the fallback outright -- the runner's endgame turns always
          displayed something. */
-      /* FD expands ALR-borne %variable% tokens at each Display COMMIT, not
+      /* The runner expands ALR-borne %variable% tokens at each Display COMMIT, not
          once per turn: the command's own responses Display before the
          LocationTrigger drain runs (so a drain task's IncVariable must not
          retro-date the room header's %scor%), and the drain's output
@@ -1933,7 +1933,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
   if (have_fail)
     {
       /* A HighestPriorityPassingTask game: no task passed, so show the
-         highest-priority failing task's recorded message.  In frankendrift this
+         highest-priority failing task's recorded message.  In the Adrift 5 runner this
          sets GetGeneralTask (non-Nothing), so it preempts the sNoRefTask and the
          ambiguity display.  It is non-empty output, so the turn advances. */
       run->amb_active = 0;
@@ -1946,7 +1946,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
     {
       /* The new input neither resolved the ambiguity nor ran a fresh task.  Show
          the remembered ambiguity's DisplayAmbiguityQuestion result (the fresh
-         command's own ambiguity/noref is suppressed, as FD leaves sAmbTask set
+         command's own ambiguity/noref is suppressed, as the runner leaves sAmbTask set
          throughout resolution).  A clarifier matching none of the candidates
          narrows the reference to zero -> "Sorry, that does not clarify the
          ambiguity." (clsUserSession.vb:2780); a still-ambiguous clarifier
@@ -1966,7 +1966,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
     {
       /* No later task claimed the turn: emit the deferred "You can't see any
          <plural>!" (the out-of-scope reference is a dead end, not a pending
-         prompt).  This does NOT tick TurnBasedStuff: in FrankenDrift an
+         prompt).  This does NOT tick TurnBasedStuff: in the Adrift 5 runner an
          unresolvable reference leaves GetGeneralTask returning Nothing, so
          ProcessTurn takes the `sTaskKey Is Nothing` branch (clsUserSession.vb
          :3436) which shows the message but never calls TurnBasedStuff -- unlike
@@ -1974,7 +1974,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
          Ticking here drifts turn-based event countdowns early (StarshipQuest's
          hyperspace timer fired ~8 turns too soon).
 
-         A cantsee preempts the sNoRefTask below: in FD a cantsee/ambiguity is a
+         A cantsee preempts the sNoRefTask below: in the runner a cantsee/ambiguity is a
          *first-pass* result (the reference name-matched >1 objects) that sets
          sAmbTask, whereas the exist-restriction sNoRefTask is only found in the
          *second-chance* pass -- and that pass runs solely when sAmbTask Is
@@ -1994,7 +1994,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
     {
       /* Remember the ambiguity and prompt; the next turn resolves it.  Like the
          cantsee above, a first-pass ambiguity preempts the second-chance
-         sNoRefTask below (FD enters the exist pass only when sAmbTask Is
+         sNoRefTask below (the runner enters the exist pass only when sAmbTask Is
          Nothing). */
       return remember_amb_and_prompt (run, st, in, amb, amb_ti, amb_ci, &out);
     }
@@ -2004,7 +2004,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
       /* sNoRefTask: a command matched but a reference named nothing.  Running
          the task with the reference unresolved surfaced its `Must Exist`
          message.  Reached only when no task produced a cantsee/ambiguity above
-         -- in FD the sNoRefTask is the result of the second-chance (existence)
+         -- in the runner the sNoRefTask is the result of the second-chance (existence)
          pass, which GetGeneralTask runs only if the first pass left sAmbTask
          Nothing (clsUserSession.vb:5965).  It does claim the turn and ticks. */
       run->amb_active = 0;
@@ -2015,9 +2015,9 @@ a5run_input_inner (a5_run_t *run, const char *line)
   if (have_amb)
     {
       /* A *second-chance* ambiguity: the task it came from matched only because
-         it also had an unmatched required reference, so FD found it in the
+         it also had an unmatched required reference, so the runner found it in the
          second-chance pass (sAmbTask).  It loses to a clean sNoRefTask above;
-         only when none claimed the turn does it surface here (FD shows sAmbTask
+         only when none claimed the turn does it surface here (the runner shows sAmbTask
          when GetGeneralTask is Nothing).  Same cantsee-vs-prompt split as the
          first-pass case above. */
       if (amb_cantsee)
@@ -2043,7 +2043,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
     {
       /* Remembered-verb retry: re-run the whole turn as "<verb> <input>".  The
          retried turn always produces output (its own NotUnderstood at worst), so
-         it claims the turn (FD: "If sOutputText <> '' Then Exit Sub"). */
+         it claims the turn (the runner: "If sOutputText <> '' Then Exit Sub"). */
       run->amb_active = 0;
       free (out.p);
       st->turns--;            /* the retry re-bumps it; one user command == one turn */
@@ -2060,7 +2060,7 @@ a5run_input (a5_run_t *run, const char *line)
   char *txt = a5run_input_inner (run, line);
   /* The real Runner's 1-second tmrEvents timer, deterministically: tick every
      TimeBased event once per processed input line (see ev_time_tick_all).  The
-     tick's output flushes as its own commit AFTER the command's (FD's
+     tick's output flushes as its own commit AFTER the command's (the runner's
      TimeBasedStuff -> Display("", True) -> CheckEndOfGame), so it gets its own
      finish_turn pass and is appended to the command's text. */
   if (!run->st->game_over)
@@ -2100,19 +2100,19 @@ a5run_input (a5_run_t *run, const char *line)
 
 /* Phase 5 save/restore (clsState / FileIO.SaveState|LoadState).
  *
- * The on-disk save is FrankenDrift-compatible: a `<Game>` document keyed by
+ * The on-disk save is ADRIFT 5 Runner-compatible: a `<Game>` document keyed by
  * entity <Key> (FileIO.SaveState / LoadState schema, TODO_a5_frankendrift_save_
- * compat.md).  A FrankenDrift (or official ADRIFT 5 Runner) save restores into
- * Scarier, and a Scarier save loads in FrankenDrift.
+ * compat.md).  An ADRIFT 5 Runner save restores into
+ * Scarier, and a Scarier save loads in the Adrift 5 runner.
  *
  * To keep Scarier<->Scarier round-trips (single-level undo, deterministic
- * replay) lossless -- FrankenDrift's schema omits the RNG state and the full
+ * replay) lossless -- the Adrift 5 runner's schema omits the RNG state and the full
  * event/walk internals -- every Scarier save also carries a <ScarierExt> child
  * of <Game> holding the complete native snapshot (the old <SaveState> body).
- * FrankenDrift's reader queries only the tags it knows via SelectNodes("/Game/
+ * The Adrift 5 runner's reader queries only the tags it knows via SelectNodes("/Game/
  * <tag>") and silently ignores <ScarierExt>, so the extension is invisible to
  * it.  On restore we prefer <ScarierExt> when present (lossless); a foreign save
- * without it is read from the FrankenDrift fields (RNG then re-seeds to 1234).
+ * without it is read from the Adrift 5 runner fields (RNG then re-seeds to 1234).
  *
  * A pre-existing raw (uncompressed) `<SaveState>` file -- the format Scarier
  * wrote before this change -- still restores through the legacy body path. */
@@ -2190,7 +2190,7 @@ intern_key (const a5_adventure_t *adv, const char *key)
    verbatim inside <ScarierExt> (and historically as the bare <SaveState> root);
    read back by restore_scarier_body.  Entity arrays are positional (model
    order); the sparse sets are keyed.  This is what makes undo and Scarier<->
-   Scarier restore byte-for-byte deterministic despite FrankenDrift's lossier
+   Scarier restore byte-for-byte deterministic despite the Adrift 5 runner's lossier
    schema. */
 static void
 save_scarier_body (sb_t *b, a5_run_t *run)
@@ -2290,7 +2290,7 @@ save_scarier_body (sb_t *b, a5_run_t *run)
 
   /* Tasks that have already scored (clsTask.Scored), sparse by key.  This lives
      in <ScarierExt> because our own restore walks only ScarierExt: the full
-     <Task><Scored> in the FD body is read solely for foreign saves
+     <Task><Scored> in the runner body is read solely for foreign saves
      (restore_fd_game).  Without it a repeatable scoring task re-awards its
      points once after restore (inflating the score). */
   for (i = 0; i < adv->n_tasks; i++)
@@ -2327,7 +2327,7 @@ save_scarier_body (sb_t *b, a5_run_t *run)
 
   /* Per-character seen sets for any OTHER viewpoint a BECOME game has switched
      away from (the active player's set is the top-level ObjSeen/CharSeen/LocSeen
-     above).  Mirrors FD's per-character clsCharacterState.lSeenKeys so a saved
+     above).  Mirrors the runner's per-character clsCharacterState.lSeenKeys so a saved
      BugHunt restores each marine's own sightings.  Empty for a lone-"Player"
      game. */
   for (i = 0; i < adv->n_characters; i++)
@@ -2419,13 +2419,13 @@ save_scarier_body (sb_t *b, a5_run_t *run)
     }
 }
 
-/* ----------------------------------------------------- FrankenDrift <Game> ---
-   The interop schema.  Maps a5_state_t onto FrankenDrift's clsGameState fields,
+/* ----------------------------------------------------- the Adrift 5 runner <Game> ---
+   The interop schema.  Maps a5_state_t onto the Adrift 5 runner's clsGameState fields,
    keyed by entity <Key>, with the where-fields written as their .ToString enum
    names.  See TODO_a5_frankendrift_save_compat.md for the full mapping. */
 
-/* Split a5_objloc_t onto FD's two where-enums + LocationKey (SaveState @83).
-   *dyn / *stat are NULL when at their default (Hidden / NoRooms, so FD omits
+/* Split a5_objloc_t onto the runner's two where-enums + LocationKey (SaveState @83).
+   *dyn / *stat are NULL when at their default (Hidden / NoRooms, so the runner omits
    them); *lkey is "" when no key applies. */
 static void
 fd_object_location (const a5_objloc_t *l, const char **dyn, const char **stat,
@@ -2509,7 +2509,7 @@ fd_walk_status (int status)
 
 /* Emit <Property> children for an entity: its base (model) properties with the
    runtime-effective value, plus any override that added a property not in the
-   base list.  FrankenDrift's RestoreState *removes* any current property absent
+   base list.  The Adrift 5 runner's RestoreState *removes* any current property absent
    from the state, so a partial list would strip the entity -- we emit the full
    effective set to be faithful. */
 static void
@@ -2572,9 +2572,9 @@ save_fd_game (sb_t *b, a5_run_t *run)
   const char *player = a5state_player_key (st);
   int i, w;
 
-  /* Locations: property overrides only (base props are static; FD recomputes
+  /* Locations: property overrides only (base props are static; The runner recomputes
      inherited ones).  Emit a <Location> only when it has a runtime override so
-     FD does not strip its (unlisted) actual properties. */
+     the runner does not strip its (unlisted) actual properties. */
   for (i = 0; i < adv->n_locations; i++)
     {
       int has_ov = 0, j;
@@ -2608,8 +2608,8 @@ save_fd_game (sb_t *b, a5_run_t *run)
       sb_puts (b, "</Object>\n");
     }
 
-  /* Tasks (Completed; Scarier has no per-task Scored flag -> FD defaults it
-     false).  Emitted for every task, matching FD's writer. */
+  /* Tasks (Completed; Scarier has no per-task Scored flag -> the runner defaults it
+     false).  Emitted for every task, matching the runner's writer. */
   for (i = 0; i < adv->n_tasks; i++)
     {
       sb_puts (b, "<Task>\n");
@@ -2623,10 +2623,10 @@ save_fd_game (sb_t *b, a5_run_t *run)
   for (i = 0; i < adv->n_events && i < (int) run->events->size (); i++)
     {
       a5_event_rt &e = (*run->events)[i];
-      /* Scarier's last_se_index is -1 for "no sub-event has run"; FrankenDrift
+      /* Scarier's last_se_index is -1 for "no sub-event has run"; The Adrift 5 runner
          has no such sentinel and would do SubEvents(-1) (its only guard is
          Length > index, which -1 passes) -> IndexOutOfRange.  Emit a value >=
-         the sub-event count so FD's guard fails and it leaves LastSubEvent as
+         the sub-event count so the runner's guard fails and it leaves LastSubEvent as
          Nothing, matching the -1 meaning. */
       long sei = e.last_se_index < 0 ? adv->events[i].n_subevents
                                      : e.last_se_index;
@@ -2655,7 +2655,7 @@ save_fd_game (sb_t *b, a5_run_t *run)
           where = "AtLocation";
           lkey = st->char_loc[i];
         }
-      /* else: Hidden -- FD omits ExistWhere/LocationKey. */
+      /* else: Hidden -- the runner omits ExistWhere/LocationKey. */
 
       sb_puts (b, "<Character>\n");
       sb_elem (b, "Key", key);
@@ -2679,7 +2679,7 @@ save_fd_game (sb_t *b, a5_run_t *run)
         }
 
       /* Seen keys: Scarier tracks only the player's, so emit them under the
-         player character (FD stores per-character; NPC seen-sets are untracked). */
+         player character (the runner stores per-character; NPC seen-sets are untracked). */
       if (streq (key, player))
         {
           int k;
@@ -2751,7 +2751,7 @@ a5run_save (a5_run_t *run, size_t *out_len)
   sb_init (&b);
   sb_puts (&b, "<Game>\n");
   save_fd_game (&b, run);
-  /* Scarier-private, full-fidelity snapshot; FrankenDrift's LoadState ignores
+  /* Scarier-private, full-fidelity snapshot; The Adrift 5 runner's LoadState ignores
      any <Game> child it does not query, so <ScarierExt> is invisible to it. */
   sb_puts (&b, "<ScarierExt>\n");
   save_scarier_body (&b, run);
@@ -2771,7 +2771,7 @@ child_long (const a5_xml_node_t *n, const char *name)
 }
 
 /* Zero/clear the accumulating + sparse state before applying a save (shared by
-   both the native and the FrankenDrift readers). */
+   both the native and the Adrift 5 runner readers). */
 static void
 restore_reset (a5_run_t *run)
 {
@@ -3064,10 +3064,10 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
   a5rand_set_state (native, rng);
 }
 
-/* ------------------------------------------------ FrankenDrift <Game> reader ---
-   Applied only to a foreign save (a FrankenDrift / ADRIFT 5 Runner file with no
+/* ------------------------------------------------ the Adrift 5 runner <Game> reader ---
+   Applied only to a foreign save (an ADRIFT 5 Runner file with no
    <ScarierExt>).  Keyed lookups, tolerant of missing/extra entities; the RNG
-   re-seeds to 1234 (FD saves carry none), so a game that draws randomness right
+   re-seeds to 1234 (the runner saves carry none), so a game that draws randomness right
    after such a restore diverges -- documented in the TODO. */
 
 static a5_owhere_t
@@ -3341,7 +3341,7 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
             }
         }
     }
-  /* No RNG in a FrankenDrift save: the run keeps its current (fresh: 1234) seed. */
+  /* No RNG in an ADRIFT 5 Runner save: the run keeps its current (fresh: 1234) seed. */
 }
 
 int
@@ -3367,7 +3367,7 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
 
   if (streq (root->name, "SaveState"))
     {
-      /* Legacy raw Scarier save (pre-FrankenDrift-interop). */
+      /* Legacy raw Scarier save (pre-interop). */
       restore_scarier_body (run, root);
     }
   else if (streq (root->name, "Game"))
@@ -3376,7 +3376,7 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
       if (ext != NULL)
         restore_scarier_body (run, ext);   /* our own save: full fidelity */
       else
-        restore_fd_game (run, root);       /* a foreign FrankenDrift save */
+        restore_fd_game (run, root);       /* a foreign ADRIFT 5 Runner save */
     }
   else
     { a5xml_free (doc); return 0; }
@@ -3415,7 +3415,7 @@ a5run_undo_forget (a5_run_t *run)
 /* Restore the last snapshot (undo the last turn).  Returns 1 on success, 0 when
    no undo point exists or the restore failed.  The snapshot is consumed on a
    successful undo, so a second consecutive UNDO reports "no undo available"
-   (matching FrankenDrift's one-deep model).  Cross-turn parser transients that
+   (matching the Adrift 5 runner's one-deep model).  Cross-turn parser transients that
    predate the restored turn (a pending disambiguation, a remembered verb, a
    pending FailOverride) are cleared so the restored state is clean. */
 int

@@ -14,7 +14,7 @@
  * list of keys), then each step navigates (Parent/Children/Contents/Held/Worn/
  * Location/Objects) or terminates (Name/List/Description/Count/Sum/<property>).
  *
- * This is a port of frankendrift Global.ReplaceOO / ReplaceOOProperty
+ * This is a port of the Adrift 5 runner Global.ReplaceOO / ReplaceOOProperty
  * (Global.vb:619-1620).  a5text calls a5expr_eval when it sees a %reference% (or
  * bare key) immediately followed by '.', having already substituted the
  * reference to its resolved entity key(s).
@@ -35,7 +35,7 @@
  * caller then leaves the original token verbatim).
  *
  * `force_list` makes the head a collection even for a single key -- a plural
- * reference (%objects%/%characters%) is always a collection in frankendrift
+ * reference (%objects%/%characters%) is always a collection in the Adrift 5 runner
  * (clsObjectList/clsCharacterList), so list aggregators like .Sum/.Count walk it
  * (a missing per-item property contributes 0, not "") even when one item bound.
  */
@@ -51,7 +51,7 @@ extern char *a5expr_eval (a5_state_t *st, const char *firstkeys,
  */
 extern char *a5expr_replace (a5_state_t *st, const char *text);
 
-/* a5expr_replace in EXPRESSION mode (FD ReplaceOO bExpression=True,
+/* a5expr_replace in EXPRESSION mode (the runner ReplaceOO bExpression=True,
    Global.vb:645): non-integer OO values are emitted as quoted string
    literals so a `X.Prop & %text%` concatenation parses. */
 extern char *a5expr_replace_expr (a5_state_t *st, const char *text);

@@ -3,7 +3,7 @@
  * ADRIFT 5 support for Scarier -- the string-capable expression evaluator for
  * embedded `<# ... #>` expressions.
  *
- * ADRIFT text can embed expressions between `<#` and `#>` (frankendrift
+ * ADRIFT text can embed expressions between `<#` and `#>` (the Adrift 5 runner
  * Global.ReplaceExpressions / EvaluateExpression -> clsVariable.SetToExpression).
  * Unlike the integer-only a5arith evaluator (used for numeric variable
  * assignments), an embedded expression yields a *string*: e.g.
@@ -15,7 +15,7 @@
  *
  * By the time this evaluator runs, every %reference%, %variable% and OO
  * property-expression in the body has already been substituted to a literal
- * (numbers stay bare; text is wrapped in double quotes -- frankendrift's
+ * (numbers stay bare; text is wrapped in double quotes -- the Adrift 5 runner's
  * bExpression quoting).  What remains is a self-contained expression over:
  *
  *   - numbers, "quoted strings", bare identifiers (treated as string literals);
@@ -52,14 +52,14 @@ char *a5_eval_sexpr (const char *expr);
 bool a5sexpr_is_function (const std::string &lid);
 
 /* RNG hook for the random functions (either/oneof/rand/urand).  Must return an
-   integer in the inclusive range [lo, hi], mirroring frankendrift's
+   integer in the inclusive range [lo, hi], mirroring the Adrift 5 runner's
    Global.Random(iMin, iMax).  The run harness sets this to a5rand_between so
    shipped <# OneOf(...) #> text picks draw from the same xoshiro stream as
    FrankenDrift; left NULL (a5text_dump, which links no RNG) the functions fall
    back to the deterministic first operand / lower bound. */
 extern long (*a5sexpr_rng_hook) (long lo, long hi);
 
-/* urand()'s no-repeat draw (FD clsVariable.NoRepeatRandom); the run harness
+/* urand()'s no-repeat draw (the runner's clsVariable.NoRepeatRandom); the run harness
    sets this to a5rand_norepeat.  Left NULL, urand falls back to a plain
    a5sexpr_rng_hook draw. */
 extern long (*a5sexpr_urand_hook) (long lo, long hi);

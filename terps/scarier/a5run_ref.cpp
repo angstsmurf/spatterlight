@@ -74,7 +74,7 @@ name_match_tail (const std::vector<std::string> &in, size_t i,
    whole name must consume the rest.  Crucially this BACKTRACKS -- a prefix word
    that also equals a name (e.g. the ID pass's prefix "ID" vs its name "id")
    must be skippable so the bare noun still resolves, exactly as .NET's regex
-   engine does for FrankenDrift's `(ID )?(id|pass)` pattern. */
+   engine does for the Adrift 5 runner's `(ID )?(id|pass)` pattern. */
 static int
 name_match_prefix (const std::vector<std::string> &in, size_t i,
                    const std::vector<std::string> &pfx, size_t pi,
@@ -358,7 +358,7 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
       a5state_bind_ref (st, (alias + "$text").c_str (), text);
   };
   /* When the command carries BOTH the plural %objects% and a separate singular
-     %object%, the plural's binds must not alias onto ReferencedObject: FD's
+     %object%, the plural's binds must not alias onto ReferencedObject: the runner's
      GetReference resolves ReferencedObject only to the "object1" reference
      (clsUserSession.vb:3990), so a restriction on ReferencedObject keeps
      testing the singular (the container) while the plural items iterate
@@ -368,7 +368,7 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
     {
       bind ("Referenced" + stem + num);
       /* The bare "Referenced<Stem>" is the *first* reference (%object% ==
-         %object1%); a higher index (%object2%..) must not clobber it -- FD keeps
+         %object1%); a higher index (%object2%..) must not clobber it -- the runner keeps
          ReferencedObject pinned to ref 1 so 2-specific overrides (e.g.
          PutSomeDry: Gunpowder1 + Keg) resolve per index. */
       if (num.empty () || num == "1") bind ("Referenced" + stem);
@@ -378,7 +378,7 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
   if (base == "characters") bind ("ReferencedCharacters");
 
   /* Track whether the *singular* %object%/%object1% (resp. %character%) text
-     token should resolve.  In FrankenDrift GetReference("ReferencedObject")
+     token should resolve.  In the Adrift 5 runner GetReference("ReferencedObject")
      resolves a reference only when its ReferenceMatch is "object1"
      (clsUserSession.vb:3990); a plural %objects% reference has ReferenceMatch
      "objects", so %object%/%object1% in a message render EMPTY even though the
@@ -400,7 +400,7 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
 /* The "Which <word>?" noun: the first word of the typed reference text that
    names every candidate (clsUserSession.AmbWord, vb:2656).
 
-   FAITHFUL QUIRK: FD compares each input word `sWord` to the candidates' whole
+   FAITHFUL QUIRK: the runner compares each input word `sWord` to the candidates' whole
    `arlNames` / ProperName / descriptors **case-sensitively** (`sWord = sName`),
    and returns Nothing (rendered "") when no input word is a name of *every*
    candidate.  So `buy ale` -- which matches two objects, one named "Ale" and one
@@ -439,7 +439,7 @@ amb_word (a5_state_t *st, const std::vector<std::string> &keys,
 
 /* clsObject.GuessPluralFromNoun: a naive English pluraliser (the quirky FRotZ
    one, "feet"->"feets" and all -- ported verbatim so the canned "You can't see
-   any <plural>!" message byte-matches the Runner/FrankenDrift). */
+   any <plural>!" message byte-matches the Runner). */
 std::string
 guess_plural_from_noun (const std::string &n)
 {
@@ -612,7 +612,7 @@ expand_all_objects (a5_state_t *st, std::vector<std::vector<std::string>> &items
  * "X and Y" / comma lists, and a trailing "... except/but/apart from ...".
  * `had_all` is set when a bare/refined "all" appeared (drives the FailOverride).
  * `hard_fail` is set when the input parsed as an explicit "X and Y" / comma
- * multi-reference but a *chunk* named no object: frankendrift's and-form path
+ * multi-reference but a *chunk* named no object: the Adrift 5 runner's and-form path
  * (`If Not InputMatchesObject(...) Then Return False`, vb:5371) returns False
  * outright and -- unlike a single-noun no-match -- does NOT fall through to the
  * second-chance `HasObjectExistRestriction` fallback, so the task does not match
@@ -783,7 +783,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
      "leathers" chunk of `wear leathers and boots` matches two "riding leathers"
      objects, so its Item has Count 2.  (The bare-plural path -- "all", "all
      <plural>", or a plural-noun match -- instead spreads each object into its own
-     single-possibility Item, so it is never ambiguous.)  FD refines every Item
+     single-possibility Item, so it is never ambiguous.)  the runner refines every Item
      through the Applicable/Visible/Seen tiers, resetting the whole reference to
      its original Items whenever a tier empties *all* of them; an Item that is
      never reduced to a unique key stays Count>1, and GetGeneralTask then raises
@@ -796,11 +796,11 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
   {
     /* Applicable: keep, per Item, the candidates that pass the restrictions with
        that single key bound (a key already kept in an earlier Item is not added
-       again -- FD's global lAdded).  Items with no surviving candidate are
+       again -- the runner's global lAdded).  Items with no surviving candidate are
        dropped; if *every* Item is dropped, the whole reference resets to its
        original Items (so a Count>1 Item is preserved).
 
-       The per-candidate probe binds an EMPTY typed text: FD's refine builds a
+       The per-candidate probe binds an EMPTY typed text: the runner's refine builds a
        fresh single-key clsSingleItem whose sCommandReference is never set
        (clsUserSession.vb:5766 itmSingle0), so a `BeExactText` restriction always
        evaluates False here -- `MustNot BeExactText All` PASSES during the refine
@@ -845,7 +845,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
         cur = nr.empty () ? items : nr;
       }
 
-    /* The first Item still holding >1 candidate is the ambiguity (FD scans Items
+    /* The first Item still holding >1 candidate is the ambiguity (the runner scans Items
        in order; GetGeneralTask sets sAmbTask for the first Count>1). */
     for (auto &item : cur)
       if (item.size () > 1)
@@ -860,8 +860,8 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
   }
 
   /* Choose one key per item; keep the items whose key passes the restrictions.
-     Iterate the REFINED set (FD's NewReferencesWorking after the tiered refine),
-     not the original parse: when the Applicable tier kept a subset, FD's final
+     Iterate the REFINED set (the runner's NewReferencesWorking after the tiered refine),
+     not the original parse: when the Applicable tier kept a subset, the runner's final
      PassRestrictions only ever sees those survivors.  For a task without
      BeExactText this is the same set the restrictions re-derive from the
      original items (the probes are identical), so nothing moves; it only
@@ -899,7 +899,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
     {
       /* A single NOUN (not "all", not an explicit "X and Y" list) that name-
          matched several objects, none of which pass the restrictions, is
-         ambiguous: FrankenDrift prefixes the task's failure with its
+         ambiguous: the Adrift 5 runner prefixes the task's failure with its
          "ReferencedObject(s) Must Exist" message ("Sorry, I'm not sure which
          object you are trying to take.").  The count is the ORIGINAL match set
          (a plural noun like "keys" that matches ten key objects but narrows to
@@ -921,7 +921,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
       /* No item passed.  A "get all"-style command shows the FailOverride.
          Otherwise the task runs with the whole (reset) reference set and its
          restrictions decide the message -- a genuine plural %objects% reference
-         is NEVER an out-of-scope "You can't see any <plural>!" ambiguity: FD's
+         is NEVER an out-of-scope "You can't see any <plural>!" ambiguity: the runner's
          InputMatchesObject spreads each matching object into its own Item with a
          single MatchingPossibility (clsUserSession.vb:5387-5391), so no Item ever
          holds >1 possibility and DisplayAmbiguityQuestion (which needs Count>1)
@@ -934,8 +934,8 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
          %object% reference whose one Item name-matched >1 objects -- the
          resolve_refine RR_CANTSEE path, e.g. `press button`.)
 
-         The reset is FD's tiered fallback, not a blunt reset to the full set:
-         when the Applicable tier empties the whole reference, FD resets to the
+         The reset is the runner's tiered fallback, not a blunt reset to the full set:
+         when the Applicable tier empties the whole reference, the runner resets to the
          full set and refines by Visible (each emptied single-possibility item is
          dropped, clsUserSession.vb:5848-5912); only if Visible empties *every*
          item does it reset again and refine by Seen; only if Seen empties
@@ -1031,7 +1031,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           bool ok = match_objects (st, r.text, items, false, false, &had_all,
                                    &hard_fail);
           /* An explicit "X and Y" / comma list one of whose chunks named no
-             object: frankendrift returns False without the second-chance
+             object: the Adrift 5 runner returns False without the second-chance
              existence fallback, so the command does not match this task at all
              (no sNoRefTask) -- e.g. `get fleetwind saddle and fleetwind bridle`,
              where neither chunk names an object, is "I didn't understand", not
@@ -1048,7 +1048,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
               plural_idx = i; plural_text = r.text;
               /* Does this command ALSO carry a singular %object%/%object1% (or
                  %item%) reference?  Then the plural's per-item binds must not
-                 alias onto ReferencedObject (see bind_reference) -- FD keeps the
+                 alias onto ReferencedObject (see bind_reference) -- the runner keeps the
                  two slots distinct, so `hide %objects% in %object%` restrictions
                  on ReferencedObject test the container throughout the item
                  iteration. */
@@ -1137,7 +1137,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
 
   /* A reference matched nothing -> the whole task is deferred as the no-reference
      fallback (GetGeneralTask sNoRefTask).  But the unmatched reference does NOT
-     preempt the *other* references' ambiguity resolution: in frankendrift an
+     preempt the *other* references' ambiguity resolution: in the Adrift 5 runner an
      unmatched-but-Must-Exist reference is a second-chance match that adds a
      zero-Item NewReference (InputMatchesObject returns True via
      HasObjectExistRestriction but appends no Item), so the post-refine loop simply
@@ -1157,7 +1157,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
         continue;
 
       /* Tier 1: Applicable -- the candidates that pass the task's restrictions.
-         frankendrift evaluates candidates in *model order* (the order
+         The Adrift 5 runner evaluates candidates in *model order* (the order
          InputMatchesObject/Character add them to MatchingPossibilities), and the
          last PassRestrictions call leaves sRestrictionText set to its deciding
          restriction's Message (st->restriction_text).  That carried text is what
@@ -1219,7 +1219,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
 
   /* Is the unmatched reference genuinely *required* by this task -- i.e. is its
      `Must Exist` restriction actually evaluated within the BracketSequence?  If so
-     the no-reference fallback wins outright (FD surfaces the task's Must-Exist
+     the no-reference fallback wins outright (the runner surfaces the task's Must-Exist
      message, e.g. `blow dart at <absent>` -> "Sorry, I'm not sure which object you
      are trying to blow.", `hang amulet on <absent>` -> "...trying to hang...").  If
      the Must Exist is truncated out of the bracket, the reference is optional and
@@ -1239,10 +1239,10 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
     }
   if (noref_required)
     {
-      /* The task has an unmatched but *required* reference, so in frankendrift
+      /* The task has an unmatched but *required* reference, so in the Adrift 5 runner
          it never matches in the first pass; it is found only in the
          second-chance (existence) pass.  If a *sibling* reference is itself
-         ambiguous (>1 candidate), FD's second-chance pass sets sAmbTask for
+         ambiguous (>1 candidate), the runner's second-chance pass sets sAmbTask for
          this task but a different task's clean 0-item Must-Exist failure
          (GetGeneralTask) wins.  So surface the sibling ambiguity flagged as
          `second_chance` -- the caller yields it to a clean no-reference
@@ -1282,7 +1282,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           { amb->ref_name = r.name; amb->type = r.type;
             amb->ref_text = r.text; amb->keys = r.keys;
             /* If this task ALSO had a reference that named nothing, it matched
-               only via frankendrift's second-chance (existence) pass -- so its
+               only via the Adrift 5 runner's second-chance (existence) pass -- so its
                ambiguity is a second-chance sAmbTask, which a *different* task's
                clean no-reference / failing-with-output result (GetGeneralTask)
                beats.  `remove uniform from dummy`: TakeFromCh1 (`%objects% from

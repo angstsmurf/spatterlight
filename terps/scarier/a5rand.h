@@ -21,14 +21,14 @@ extern "C" {
 /* (Re)seed the v5 RNG.  Call once per game so each run is reproducible. */
 extern void a5rand_seed (unsigned int seed);
 
-/* A random integer in the inclusive range [lo, hi], mirroring frankendrift
+/* A random integer in the inclusive range [lo, hi], mirroring the Adrift 5 runner
    Global.Random(iMin, iMax) (which returns r.Next(iMin, iMax + 1)).  Swaps the
-   bounds if hi < lo, exactly like frankendrift. */
+   bounds if hi < lo, exactly like the Adrift 5 runner. */
 extern long a5rand_between (long lo, long hi);
 
-/* urand(min,max): FD clsVariable.NoRepeatRandom -- a per-"min-max" shuffled
+/* urand(min,max): the runner clsVariable.NoRepeatRandom -- a per-"min-max" shuffled
    pool consumed without repeats (rebuilt when exhausted).  Pools reset on
-   a5rand_seed (new game); they are NOT part of the save state, like FD's
+   a5rand_seed (new game); they are NOT part of the save state, like the runner's
    Adventure.dictRandValues. */
 extern long a5rand_norepeat (long lo, long hi);
 
