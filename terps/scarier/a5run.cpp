@@ -502,8 +502,8 @@ emit_cantsee (a5_state_t *st, const amb_info *amb, sb_t *out)
   sb_puts (out, "!");
 }
 
-static int noref_has_output (a5_run_t *run, int ti, int ci,
-                             const std::string &in);
+static int run_noref (a5_run_t *run, int ti, int ci,
+                      const std::string &in, sb_t *out);
 
 /* Scan general tasks for `in`.  Runs (and returns 1) on the first unique passing
    match.  Otherwise returns 0, recording -- for the caller to act on after the
@@ -733,7 +733,7 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               if (!*have_noref)
                 { *have_noref = 1; *noref_ti = ti; *noref_ci = ci; }
               else if (st->adv->hp_passing
-                       && noref_has_output (run, ti, ci, in))
+                       && run_noref (run, ti, ci, in, NULL))
                 { *noref_ti = ti; *noref_ci = ci; }
               continue;
             }
@@ -1469,13 +1469,6 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
   sb_puts (out, "Sorry, I didn't understand that command.");
 }
 
-/* Would run_noref produce a non-empty message for this task?  Mirrors the runner's
-   `sRestrictionText <> ""` gate: a second-chance Must-Exist task only updates
-   GetGeneralTask when its failing restriction has output.  Used to decide
-   whether a higher-priority no-reference task may override a recorded one under
-   HighestPriorityPassingTask (so an examine task whose noun is unknown keeps its
-   "You see no such thing." rather than yielding to a higher refless task that
-   fails silently and drops the turn to NotUnderstood). */
 /* Re-match (ti,ci) against `in` with the wildcard-variant order scan_tasks
    used, restoring the binding state of the variant it surfaced: the first
    variant with a real resolution, else the first NOREF variant. */
@@ -1509,27 +1502,15 @@ rematch_resolve (a5_run_t *run, int ti, int ci, const std::string &in,
   return r != RR_NOMATCH;
 }
 
-static int
-noref_has_output (a5_run_t *run, int ti, int ci, const std::string &in)
-{
-  a5_state_t *st = run->st;
-  const a5_task_t *t = &run->adv->tasks[ti];
-  a5_match_t m;
-  if (!rematch_resolve (run, ti, ci, in, &m))
-    return 0;
-  const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
-  if (fm == NULL)
-    return 0;
-  char *fmsg = a5text_describe (st, fm);
-  int has = fmsg[0] != '\0';
-  free (fmsg);
-  return has;
-}
-
 /* Run the deferred sNoRefTask (clsUserSession.GetGeneralTask, GetGeneralTask =
    sNoRefTask): re-bind the resolvable references and surface the task's
    restriction message for the unresolved one ("Sorry, I'm not sure which object
-   you are trying to <verb>.").  Returns 1 if it produced output. */
+   you are trying to <verb>.").  Returns 1 if it produced output.  With a NULL
+   `out` this is the pure predicate the runner's `sRestrictionText <> ""` gate
+   uses (would the task fail *with output*?), letting a higher-priority
+   no-reference task override a recorded one under HighestPriorityPassingTask --
+   so an examine task whose noun is unknown keeps its "You see no such thing."
+   rather than yielding to a higher refless task that fails silently. */
 static int
 run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
 {
@@ -1543,7 +1524,7 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
     return 0;
   char *fmsg = a5text_describe (st, fm);
   int has = fmsg[0] != '\0';
-  if (has)
+  if (has && out != NULL)
     sb_puts (out, fmsg);
   free (fmsg);
   return has;
@@ -2770,6 +2751,13 @@ child_long (const a5_xml_node_t *n, const char *name)
   return t != NULL ? strtol (t, NULL, 10) : 0;
 }
 
+/* strtol on a node's own text (0 when absent). */
+static long
+node_long (const a5_xml_node_t *n)
+{
+  return (n != NULL && n->text != NULL) ? strtol (n->text, NULL, 10) : 0;
+}
+
 /* Zero/clear the accumulating + sparse state before applying a save (shared by
    both the native and the Adrift 5 runner readers). */
 static void
@@ -2835,17 +2823,17 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
     {
       const char *nm = n->name;
       if (streq (nm, "RngNative"))
-        native = (int) strtol (n->text ? n->text : "0", NULL, 10);
+        native = (int) node_long (n);
       else if (streq (nm, "Rng"))
         { if (rng_i < 4) rng[rng_i++] = (unsigned int) strtoul (n->text ? n->text : "0", NULL, 10); }
       else if (streq (nm, "EventsRunning"))
-        run->events_running = (int) strtol (n->text ? n->text : "0", NULL, 10);
+        run->events_running = (int) node_long (n);
       else if (streq (nm, "GameOver"))
-        st->game_over = (int) strtol (n->text ? n->text : "0", NULL, 10);
+        st->game_over = (int) node_long (n);
       else if (streq (nm, "Turns"))
-        st->turns = (int) strtol (n->text ? n->text : "0", NULL, 10);
+        st->turns = (int) node_long (n);
       else if (streq (nm, "EndDisplayed"))
-        st->end_displayed = (int) strtol (n->text ? n->text : "0", NULL, 10);
+        st->end_displayed = (int) node_long (n);
       else if (streq (nm, "EndMessage"))
         st->end_message = strdup (n->text ? n->text : "");
       else if (streq (nm, "ConvChar"))
@@ -3010,7 +2998,7 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
               e.triggering_task = trg ? trg : "";
               for (c = n->first_child; c != NULL; c = c->next)
                 if (streq (c->name, "SeFt") && s < (int) e.se_ft.size ())
-                  e.se_ft[s++] = strtol (c->text ? c->text : "0", NULL, 10);
+                  e.se_ft[s++] = node_long (c);
               ev_i++;
             }
         }
@@ -3033,11 +3021,11 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
               for (c = n->first_child; c != NULL; c = c->next)
                 {
                   if (streq (c->name, "StepDur") && sd < (int) w.step_dur.size ())
-                    w.step_dur[sd++] = strtol (c->text ? c->text : "0", NULL, 10);
+                    w.step_dur[sd++] = node_long (c);
                   else if (streq (c->name, "SwFt") && sf < (int) w.sw_ft.size ())
-                    w.sw_ft[sf++] = strtol (c->text ? c->text : "0", NULL, 10);
+                    w.sw_ft[sf++] = node_long (c);
                   else if (streq (c->name, "CameAcross") && ca < (int) w.came_across.size ())
-                    w.came_across[ca++] = (char) strtol (c->text ? c->text : "0", NULL, 10);
+                    w.came_across[ca++] = (char) node_long (c);
                 }
               wk_i++;
             }
