@@ -1272,6 +1272,346 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     }];
 }
 
+// Regression tests for autorestored scroll position.
+//
+// During autorestore, postRestoreAdjustments seeds the saved scroll state
+// (scrolled to bottom / scrolled to top / a mid-document character index) and
+// schedules restoreScroll: to re-apply it once the restored text has laid out.
+// restoreScroll: has three branches — scroll to bottom, scroll to top, and
+// scrollToCharacter: for anything in between — and each should land the
+// viewport back where the autosave captured it.
+//
+// The "bottom" case is the one commit cde1e69d regressed: the layoutManager
+// didCompleteLayout callback also calls restoreScroll:, but with a non-nil
+// sender, and that commit made the non-nil-sender path cap the scroll to
+// _lastseen so live game output can't race past unread text. The same callback
+// fires while an autorestore is still in flight, and on a fresh restore
+// _lastseen is 0, so the cap pinned the window to the TOP instead of the saved
+// bottom. restoreScroll: now treats a pending restore (pendingScrollRestore ==
+// YES) as uncapped regardless of sender; the bottom test locks that in.
+//
+// Rather than drive a full autosave/relaunch round-trip (which depends on the
+// interpreter process's autosave timing), each test reproduces the restore
+// condition on a real, overflowing buffer window and asserts restoreScroll:
+// returns the viewport to the saved position.
+
+// Shared scaffold: import and launch Curses (a game that actually autosaves and
+// autorestores), shrink to a realistic window size, and type a few commands so
+// the buffer overflows the viewport, then hand the settled buffer window and its
+// scroll view to `scenario`. The scenario performs its own setup + assertions
+// and calls `done` when finished (including after any of its own async waits).
+- (void)runCursesScrollRestoreScenario:(void (^)(GlkTextBufferWindow *bufferWin, NSScrollView *scrollView, dispatch_block_t done))scenario {
+    XCTestExpectation *importExpectation = [self expectationWithDescription:@"Game import completes"];
+    XCTestExpectation *scrollTestExpectation = [self expectationWithDescription:@"Scroll restore test completes"];
+
+    NSURL *gameFileURL = [self cursesGameFileURL];
+    [self deleteGameAtPath:gameFileURL.path];
+
+    NSUInteger initialCount = [self currentGameCount];
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+
+    GameImporter *importer = [self createGameImporter];
+    GameLauncher *launcher = [self createAndSetupGameLauncher];
+
+    __block BOOL originalDeterminismSetting = NO;
+    __block BOOL originalSlowDrawSetting = NO;
+    __block BOOL originalAutosaveSetting = NO;
+    __block BOOL originalSmoothScrollSetting = NO;
+    __block BOOL originalSADelaysSetting = NO;
+    __block Theme *oldTheme = nil;
+
+    [self observeImportCompletionWithInitialCount:initialCount
+                                      gameFileURL:gameFileURL
+                                     fetchRequest:fetchRequest
+                                       onComplete:^(Game *game) {
+        [self verifyGame:game hasPath:gameFileURL.path];
+        [importExpectation fulfill];
+
+        GlkController *tempgctl = [[GlkController alloc] init];
+        [tempgctl deleteAutosaveFilesForGame:game];
+
+        Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.testContext forceRebuild:NO];
+        oldTheme = game.theme;
+        game.theme = theme;
+
+        originalDeterminismSetting = game.theme.determinism;
+        game.theme.determinism = YES;
+        originalSlowDrawSetting = game.theme.slowDrawing;
+        game.theme.slowDrawing = NO;
+        originalAutosaveSetting = game.theme.autosave;
+        game.theme.autosave = NO;
+        originalSmoothScrollSetting = game.theme.smoothScroll;
+        game.theme.smoothScroll = NO; // deterministic, non-animated scrolling
+        originalSADelaysSetting = game.theme.sADelays;
+        game.theme.sADelays = NO; // no real-time delays, for deterministic timing
+
+        void (^restoreTheme)(void) = ^{
+            game.theme.determinism = originalDeterminismSetting;
+            game.theme.slowDrawing = originalSlowDrawSetting;
+            game.theme.autosave = originalAutosaveSetting;
+            game.theme.smoothScroll = originalSmoothScrollSetting;
+            game.theme.sADelays = originalSADelaysSetting;
+            game.theme = oldTheme;
+        };
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSWindow *gameWindow = [launcher playGame:game restorationHandler:nil];
+
+            // Let the game boot to its first prompt, then shrink to a realistic
+            // window size.
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                XCTAssertNotNil(gameWindow, @"Game window should be created");
+
+                GlkController *glkController = self.tableViewController.gameSessions[game.hashTag];
+                XCTAssertNotNil(glkController, @"GlkController should be created");
+                if (!glkController) {
+                    restoreTheme();
+                    [scrollTestExpectation fulfill];
+                    return;
+                }
+
+                GlkTextBufferWindow *bufferWin = nil;
+                for (GlkWindow *win in glkController.gwindows.allValues) {
+                    if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                        bufferWin = (GlkTextBufferWindow *)win;
+                        break;
+                    }
+                }
+
+                XCTAssertNotNil(bufferWin, @"Should have a text buffer window");
+                if (!bufferWin) {
+                    restoreTheme();
+                    [glkController.window performClose:nil];
+                    [scrollTestExpectation fulfill];
+                    return;
+                }
+
+                NSScrollView *scrollView = bufferWin.textview.enclosingScrollView;
+                XCTAssertNotNil(scrollView, @"Buffer window should have a scroll view");
+
+                NSSize defaultSize = gameWindow.contentView.frame.size;
+                NSSize halfSize = NSMakeSize(defaultSize.width / 2.0, defaultSize.height / 2.0);
+                NSRect contentRect = NSMakeRect(0, 0, halfSize.width, halfSize.height);
+                NSRect newWindowFrame = [gameWindow frameRectForContentRect:contentRect];
+                newWindowFrame.origin = gameWindow.frame.origin;
+                [gameWindow setFrame:newWindowFrame display:YES];
+
+                dispatch_block_t done = ^{
+                    bufferWin.pendingScrollRestore = NO;
+                    restoreTheme();
+                    [glkController.window performClose:nil];
+                    [scrollTestExpectation fulfill];
+                };
+
+                // Curses prints little at its opening prompt, so type a few
+                // commands to build up a scrollback tall enough to overflow the
+                // viewport. "verbose" makes every "look" reprint the full room
+                // description; a handful of looks/examines then fills the buffer.
+                NSArray<NSString *> *commands = @[ @"verbose", @"look", @"examine me",
+                                                   @"inventory", @"look", @"examine me", @"look" ];
+
+                // Send the commands one at a time, waiting between each so the
+                // game returns to its input prompt before the next line.
+                __block NSUInteger cmdIndex = 0;
+                __block void (^sendNextCommand)(void) = nil;
+                sendNextCommand = ^{
+                    if (cmdIndex >= commands.count) {
+                        // All commands sent; let the last output settle, then run
+                        // the scenario against the now-overflowing buffer.
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            CGFloat viewportHeight = scrollView.contentView.bounds.size.height;
+                            CGFloat docHeight = scrollView.documentView.frame.size.height;
+                            NSLog(@"Viewport height: %f, document height: %f", viewportHeight, docHeight);
+
+                            // The tests only mean anything if the content overflows
+                            // the viewport — otherwise there is no bottom distinct
+                            // from top.
+                            XCTAssertGreaterThan(docHeight, viewportHeight + 1.0,
+                                                 @"Typed commands should overflow the viewport (doc %f <= viewport %f)",
+                                                 docHeight, viewportHeight);
+                            if (docHeight <= viewportHeight + 1.0) {
+                                done();
+                                return;
+                            }
+
+                            scenario(bufferWin, scrollView, done);
+                        });
+                        return;
+                    }
+
+                    [bufferWin sendCommandLine:commands[cmdIndex]];
+                    cmdIndex++;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        sendNextCommand();
+                    });
+                };
+
+                // Wait for the resize to take effect before typing.
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    sendNextCommand();
+                });
+            });
+        });
+    }];
+
+    NSDictionary *options = @{
+        @"lookForImages": @(NO),
+        @"downloadInfo": @(NO),
+        @"context": self.testContext
+    };
+
+    [importer addFiles:@[gameFileURL] options:options];
+
+    [self waitForExpectationsWithTimeout:60.0 handler:^(NSError * _Nullable error) {
+        [self deleteGameAtPath:gameFileURL.path];
+        if (error) {
+            XCTFail(@"Test timed out: %@", error);
+        }
+    }];
+}
+
+// "Scrolled to bottom" — the case cde1e69d regressed. Reproduces a fresh
+// autorestore's starting state: viewport parked at the top, _lastseen == 0, a
+// restore pending, and the layoutComplete-style non-nil-sender restoreScroll:
+// firing. The fix must scroll uncapped to the saved bottom rather than capping
+// to _lastseen (0) and staying at the top.
+- (void)testAutorestoreScrollPositionRestoresBottom {
+    [self runCursesScrollRestoreScenario:^(GlkTextBufferWindow *bufferWin, NSScrollView *scrollView, dispatch_block_t done) {
+        // Scroll to the true bottom and record it. This also sets the window's
+        // internal lastAtBottom flag — what an autosave persists as
+        // "scrolledToBottom".
+        [bufferWin scrollToBottomAnimated:NO];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            XCTAssertTrue(bufferWin.scrolledToBottom,
+                          @"Setup: window should be scrolled to the bottom before simulating restore");
+            CGFloat bottomPos = scrollView.contentView.bounds.origin.y;
+            NSLog(@"Recorded bottom position: %f", bottomPos);
+
+            // Park at the top and model the fresh-restore state. _lastseen is a
+            // readonly property backed by the _lastseen ivar; set it via KVC to
+            // model the fresh-restore value (0) deterministically. lastAtBottom
+            // is still set from above, so restoreScroll: takes its "scroll to
+            // bottom" branch.
+            [scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+            [scrollView reflectScrolledClipView:scrollView.contentView];
+            [bufferWin setValue:@0 forKey:@"lastseen"];
+            bufferWin.pendingScrollRestore = YES;
+
+            XCTAssertFalse(bufferWin.scrolledToBottom,
+                           @"Setup: window should be parked at the top before restore");
+
+            // Non-nil sender = exactly what the didCompleteLayout callback passes.
+            [bufferWin restoreScroll:bufferWin];
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                CGFloat restoredPos = scrollView.contentView.bounds.origin.y;
+                NSLog(@"Position after restore: %f (expected bottom %f)", restoredPos, bottomPos);
+
+                XCTAssertTrue(bufferWin.scrolledToBottom,
+                              @"Autorestore should return the window to the saved bottom, not pin it to the top (pos %f, bottom %f)",
+                              restoredPos, bottomPos);
+                XCTAssertEqualWithAccuracy(restoredPos, bottomPos, 2.0,
+                                           @"Restored scroll position %f should match saved bottom %f",
+                                           restoredPos, bottomPos);
+                done();
+            });
+        });
+    }];
+}
+
+// "Scrolled to top" — restoreScroll: should take its scrollToTop branch.
+- (void)testAutorestoreScrollPositionRestoresTop {
+    [self runCursesScrollRestoreScenario:^(GlkTextBufferWindow *bufferWin, NSScrollView *scrollView, dispatch_block_t done) {
+        CGFloat inset = bufferWin.textview.textContainerInset.height;
+        CGFloat viewportHeight = scrollView.contentView.bounds.size.height;
+        CGFloat docHeight = scrollView.documentView.frame.size.height;
+
+        // Park at the top and capture that as the saved state. storeScrollOffset
+        // records lastAtTop = YES (an autosave's "scrolledToTop"). scrollToTop
+        // targets an origin.y of textContainerInset.height, so that inset value
+        // is the "at the top" position we assert against.
+        [scrollView.contentView scrollToPoint:NSMakePoint(0, inset)];
+        [scrollView reflectScrolledClipView:scrollView.contentView];
+        [bufferWin storeScrollOffset];
+        XCTAssertEqualWithAccuracy(scrollView.contentView.bounds.origin.y, inset, 2.0,
+                                   @"Setup: window should be scrolled to the top before simulating restore");
+
+        // Park at the bottom via a raw clip-view scroll, which does NOT disturb
+        // the saved lastAtTop/lastAtBottom flags, then run the restore.
+        [scrollView.contentView scrollToPoint:NSMakePoint(0, docHeight - viewportHeight)];
+        [scrollView reflectScrolledClipView:scrollView.contentView];
+        XCTAssertGreaterThan(scrollView.contentView.bounds.origin.y, inset + 10.0,
+                             @"Setup: window should be parked away from the top before restore");
+
+        bufferWin.pendingScrollRestore = YES;
+        [bufferWin restoreScroll:nil];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CGFloat restoredPos = scrollView.contentView.bounds.origin.y;
+            NSLog(@"Position after restore: %f (expected top ~%f)", restoredPos, inset);
+
+            XCTAssertEqualWithAccuracy(restoredPos, inset, 2.0,
+                                       @"Autorestore should return the window to the saved top (pos %f, expected %f)",
+                                       restoredPos, inset);
+            done();
+        });
+    }];
+}
+
+// Mid-document — restoreScroll: should take its scrollToCharacter: branch and
+// land back on the saved character/offset.
+- (void)testAutorestoreScrollPositionRestoresMiddle {
+    [self runCursesScrollRestoreScenario:^(GlkTextBufferWindow *bufferWin, NSScrollView *scrollView, dispatch_block_t done) {
+        CGFloat inset = bufferWin.textview.textContainerInset.height;
+        CGFloat viewportHeight = scrollView.contentView.bounds.size.height;
+        CGFloat docHeight = scrollView.documentView.frame.size.height;
+        CGFloat overflow = docHeight - viewportHeight;
+
+        // Need enough overflow that "the middle" is unambiguously neither the
+        // top nor the bottom; the shared scaffold types commands into Curses to
+        // build up enough scrollback for this to hold.
+        XCTAssertGreaterThan(overflow, 100.0,
+                             @"Not enough overflow (%f) for a distinct mid-document position", overflow);
+
+        // Park at a mid-document position and capture it. Since we are neither at
+        // top nor bottom, storeScrollOffset records lastVisible + lastScrollOffset
+        // (an autosave's mid-document scroll state).
+        CGFloat midTarget = floor(overflow / 2.0);
+        [scrollView.contentView scrollToPoint:NSMakePoint(0, midTarget)];
+        [scrollView reflectScrolledClipView:scrollView.contentView];
+        [bufferWin storeScrollOffset];
+        CGFloat midPos = scrollView.contentView.bounds.origin.y;
+        NSLog(@"Recorded mid position: %f", midPos);
+
+        XCTAssertGreaterThan(midPos, inset + 40.0, @"Setup: mid position should be well below the top");
+        XCTAssertLessThan(midPos, overflow - 40.0, @"Setup: mid position should be well above the bottom");
+        XCTAssertFalse(bufferWin.scrolledToBottom, @"Setup: mid position should not be the bottom");
+
+        // Move away (to the top) via a raw clip-view scroll, which leaves the
+        // saved scroll state untouched, then run the restore.
+        [scrollView.contentView scrollToPoint:NSMakePoint(0, inset)];
+        [scrollView reflectScrolledClipView:scrollView.contentView];
+        bufferWin.pendingScrollRestore = YES;
+        [bufferWin restoreScroll:nil];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CGFloat restoredPos = scrollView.contentView.bounds.origin.y;
+            NSLog(@"Position after restore: %f (expected mid %f)", restoredPos, midPos);
+
+            // storeScrollOffset/scrollToCharacter reconstruct the position from a
+            // character index + fractional offset, so allow ~one line of slop
+            // (this is the same imprecision a real autosave/restore would have).
+            // The margins above keep the middle far enough from either edge that
+            // this tolerance can't be satisfied by landing at the top or bottom.
+            XCTAssertEqualWithAccuracy(restoredPos, midPos, 20.0,
+                                       @"Restored scroll position %f should match saved mid position %f",
+                                       restoredPos, midPos);
+            done();
+        });
+    }];
+}
+
 #pragma mark - Progressive Core Data migration (real model-13 store)
 
 // Copy the file at url (plus its -wal/-shm sidecars, if present) to dstURL.

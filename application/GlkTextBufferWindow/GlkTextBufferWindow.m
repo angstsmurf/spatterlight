@@ -708,7 +708,14 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 
     layoutmanager.delegate = self;
     scrollAdjustTimeStamp = [NSDate date];
-    _pendingScrollRestore = NO;
+    // Leave _pendingScrollRestore set until the scheduled restoreScroll: below
+    // actually runs (it clears the flag for the nil sender). Setting the
+    // layoutmanager delegate above, and the text layout that follows, trigger
+    // layoutComplete callbacks that re-enter restoreScroll: with a non-nil
+    // sender before then. Keeping the flag set marks those callbacks as part of
+    // this restore, so they scroll uncapped to the saved position instead of
+    // being treated as live game output and capped to _lastseen — which is 0
+    // (or a stale y-coordinate) on a fresh restore, pinning the window to the top.
 
     [self restoreScrollBarStyle];
     if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
@@ -2686,7 +2693,13 @@ replacementString:(id)repl {
 // character offset. Called after theme changes or window resizing.
 - (void)restoreScroll:(id)sender {
     scrollAdjustTimeStamp = [NSDate date];
-    _pendingScrollRestore = NO;
+    // A restore is in progress while _pendingScrollRestore is set. The
+    // scheduled (nil-sender) call is the authoritative end of the restore
+    // window and clears it; layoutComplete callbacks (non-nil sender) that
+    // fire during the window leave it set so they, too, restore uncapped.
+    BOOL restoring = _pendingScrollRestore;
+    if (sender == nil)
+        _pendingScrollRestore = NO;
     _pendingScroll = NO;
     //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
     //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
@@ -2710,15 +2723,22 @@ replacementString:(id)repl {
         // scroll one line short of the actual bottom.
         //
         // sender != nil — the layoutComplete callback's !scrolling branch
-        // (which passes self). This DOES fire during game output: chatty games
-        // (the Level 9 Adrian Mole / Archers titles) emit PRINT-then-INITCHAR
-        // bursts in which the callback runs while scrolling==NO, so it reaches
-        // this path rather than reallyPerformScroll. An uncapped jump to the
-        // new bottom there races past unread text — the exact "don't skip
+        // (which passes self). During live game output this DOES fire: chatty
+        // games (the Level 9 Adrian Mole / Archers titles) emit PRINT-then-
+        // INITCHAR bursts in which the callback runs while scrolling==NO, so it
+        // reaches this path rather than reallyPerformScroll. An uncapped jump to
+        // the new bottom there races past unread text — the exact "don't skip
         // unread text" invariant. Respect caps so the auto-scroll advances by
         // at most one viewport and never past _lastseen, matching the normal
         // reallyPerformScroll auto path.
-        [self scrollToBottomAnimated:NO respectCaps:(sender != nil)];
+        //
+        // The exception is `restoring`: the same callback also fires while an
+        // autorestore/theme/resize restore is still in flight (see
+        // postRestoreAdjustments and prefsDidChange). Those callbacks are part
+        // of the restore, not live output, and must NOT cap — on a fresh restore
+        // _lastseen is 0, so the cap would pin the window to the top instead of
+        // the saved bottom.
+        [self scrollToBottomAnimated:NO respectCaps:(sender != nil && !restoring)];
         return;
     }
 
