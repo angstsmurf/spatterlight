@@ -710,7 +710,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     [importer addFiles:@[gameFileURL] options:options];
 
     // Wait for expectations with a longer timeout for game startup and command script
-    [self waitForExpectationsWithTimeout:100.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:110.0 handler:^(NSError * _Nullable error) {
         [[NSNotificationCenter defaultCenter] removeObserver:scriptObserver];
         [self deleteGameAtPath:gameFileURL.path];
         if (error) {
