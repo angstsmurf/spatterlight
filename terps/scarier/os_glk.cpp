@@ -4679,6 +4679,27 @@ static int gsc_a5_sound_ok = FALSE;
 enum { GSC_A5_MAX_CHANNELS = 16 };
 static schanid_t gsc_a5_channels[GSC_A5_MAX_CHANNELS];
 
+/*
+ * gsc_a5_stop_all_sounds()
+ *
+ * Silence every active ADRIFT sound channel.  Used when a game restarts: a
+ * previous playthrough may have started looping music/effects (play_ext with a
+ * 0xffffffff repeat count), and the fresh run only ever (re)starts the channels
+ * it explicitly plays, so without this the old loop keeps sounding on any
+ * channel the new intro does not touch.
+ */
+static void
+gsc_a5_stop_all_sounds (void)
+{
+  int ch;
+
+  if (!gsc_a5_sound_ok)
+    return;
+  for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
+    if (gsc_a5_channels[ch] != NULL)
+      glk_schannel_stop (gsc_a5_channels[ch]);
+}
+
 /* Declared in glkstart.h, which is included further down (in the UNIX linkage
  * section); forward-declared here so the resource setup above it can open the
  * game file as a Glk stream for giblorb. */
@@ -5216,6 +5237,7 @@ gsc_a5_main (void)
                   gsc_a5_put_string ("Out of memory restarting game.\n");
                   glk_exit ();
                 }
+              gsc_a5_stop_all_sounds ();
               gsc_a5_start_real_time (run);
               glk_window_clear (gsc_main_window);
               text = a5run_intro (run);
@@ -5250,6 +5272,7 @@ gsc_a5_main (void)
               gsc_a5_put_string ("Out of memory restarting game.\n");
               glk_exit ();
             }
+          gsc_a5_stop_all_sounds ();
           gsc_a5_start_real_time (run);
           glk_window_clear (gsc_main_window);
           text = a5run_intro (run);

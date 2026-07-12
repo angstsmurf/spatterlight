@@ -976,7 +976,12 @@ exists_at (const a5_state_t *st, int oi, const char *lockey, int directly,
         ci = a5state_character_index (st, loc->key);
         if (ci < 0)
           return 0;
-        return streq (st->char_loc[ci], lockey);
+        /* Resolve through the carrier chain, not char_loc alone: a character
+           seated On/Inside furniture has char_loc[ci] == NULL and its effective
+           room comes from the furniture (a5state_character_location_key).  Held
+           and worn objects must inherit that same effective room, or they drop
+           out of scope / room listings while their holder is plainly present. */
+        return streq (a5state_character_location_key (st, ci), lockey);
       }
     }
   return 0;
