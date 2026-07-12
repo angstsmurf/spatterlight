@@ -404,19 +404,27 @@
         XCUIElement *exportButton = saveDialog.buttons[@"Export"];
         [exportButton click];
 
-        XCUIElement *alert = app.sheets.firstMatch;
-        if ([self waitForElement:alert toExistWithTimeout:1]) {
-            XCUIElement *replaceButton = alert.buttons[@"Replace"];
-            if ([self waitForElement:replaceButton toExistWithTimeout:1])
-                [replaceButton click];
-            else if ([self waitForElement:alert.buttons.firstMatch toBeHittableWithTimeout:1]) {
-                [alert.buttons.firstMatch click];
-            }
+        // When the target file already exists, a "file exists" confirmation
+        // is presented as a second sheet stacked on top of the save panel.
+        // app.sheets.firstMatch resolves to the save panel rather than the
+        // alert, so scope the query to the save-panel sheet and let the
+        // recursive buttons query reach the Replace button in the nested
+        // alert sheet. This also avoids the duplicate Replace button that
+        // lives on the Touch Bar. The alert button reports itself as not
+        // hittable, so wait for it to merely exist (click derives a
+        // coordinate from its frame). Use a generous timeout; otherwise the
+        // undismissed alert keeps the save panel open and derails the next
+        // iteration.
+        XCUIElement *replaceButton = app.sheets[@"save-panel"].buttons[@"Replace"];
+        if ([self waitForElement:replaceButton toExistWithTimeout:5]) {
+            [replaceButton click];
         }
 
-        alert = app.dialogs[@"alert"];
-
-        if ([self waitForElement:alert.buttons.firstMatch toBeHittableWithTimeout:1]) {
+        // An export may cause a "No metadata exported" alert.
+        // Dismiss it before the next iteration; otherwise it stays modal and
+        // the next "Export Metadata…" never opens a fresh save panel.
+        XCUIElement *alert = app.dialogs[@"alert"];
+        if ([self waitForElement:alert.buttons.firstMatch toBeHittableWithTimeout:5]) {
             [alert.buttons.firstMatch click];
         }
     }
@@ -452,7 +460,7 @@
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
 
-    XCUIElement *searchSearchField = app/*@START_MENU_TOKEN@*/.windows[@"library"].searchFields[@"Search"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]",".windows[@\"library\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/ ;
+    XCUIElement *searchSearchField = libraryWindow.searchFields.firstMatch;
 
     XCUIElement *cancelButton = searchSearchField.buttons[@"cancel"];
     if (cancelButton.exists)
