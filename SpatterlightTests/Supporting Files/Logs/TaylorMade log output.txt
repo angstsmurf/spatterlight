@@ -1221,17 +1221,9 @@ The torchlight sends a huge Cave Troll screaming into the depths of the
 [TEXT] ________________________________________________________________________________
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=FILLRECT a1=1 a2=1798 a3=0 len=21576
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=46
 [TEXT] 
-
-[MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
-[MSG] cmd=CANCELCHAR a1=0 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=1000 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=TIMER a1=0 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
-[TEXT] You are attacked by a 
+You are attacked by a 
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24

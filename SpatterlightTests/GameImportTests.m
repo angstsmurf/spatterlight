@@ -551,6 +551,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     __block BOOL originalDeterminismSetting = NO;
     __block BOOL originalSlowDrawSetting = NO;
     __block BOOL originalAutosaveSetting = NO;
+    __block BOOL originalSADelaysSetting = NO;
     __block NSURL *tempDir = [GameImportXCTests tempDir];
     __block Theme *oldtheme = nil;
 
@@ -573,6 +574,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                 game.theme.determinism = originalDeterminismSetting;
                 game.theme.slowDrawing = originalSlowDrawSetting;
                 game.theme.autosave = originalAutosaveSetting;
+                game.theme.sADelays = originalSADelaysSetting;
                 game.theme = oldtheme;
                 NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
                 NSLog(@"Restored slow draw setting to %@", originalSlowDrawSetting ? @"YES" : @"NO");
@@ -638,6 +640,9 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
             originalAutosaveSetting = game.theme.autosave;
             game.theme.autosave = NO;
             NSLog(@"Disabled autosave setting for test");
+            originalSADelaysSetting = game.theme.sADelays;
+            game.theme.sADelays = NO;
+            NSLog(@"Disabled real-time delays (sADelays) for test");
         }
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

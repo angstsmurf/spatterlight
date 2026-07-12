@@ -70,14 +70,11 @@ Please Select One Of The Following Options:
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 0
-[MSG] cmd=TIMER a1=1000 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
 [TEXT] 5
