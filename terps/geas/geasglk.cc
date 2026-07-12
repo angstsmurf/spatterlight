@@ -95,6 +95,11 @@ static bool g_use_objpane = false;       /* host supports a side pane; objwin ma
 extern const char *storyfilename;  /* defined in geasglkterm.c */
 extern int use_inputwindow;
 
+/* Spatterlight's "slow draw / real-time delays" preference, defined in the
+ * glkimp layer. When off (as in the deterministic import tests) we skip the
+ * real-time timer heartbeat below. */
+extern int gli_sa_delays;
+
 static int ignore_lines = 0;  /* count of lines to ignore in game output */
 
 static std::string banner;
@@ -444,7 +449,17 @@ void glk_main(void)
     draw_banner();
     update_objwin(gr);
 
-    glk_request_timer_events(1000);
+    /* Only arm the 1-second heartbeat if the game actually defines timers and
+     * real-time delays are enabled. Geas used to request timer events
+     * unconditionally. The set of timers is fixed at load time, so a timerless
+     * game never needs the heartbeat at all. And when real-time delays are off
+     * -- as in the deterministic import tests --
+     * suppressing the wall-clock ticks keeps the glk_select/NEXTEVENT count in
+     * the input loop deterministic even for games that do use timers (e.g.
+     * Gathered in Darkness). Gating on gli_sa_delays rather than gli_determinism
+     * leaves room to still exercise a game's real-time events deterministically. */
+    if (gr->has_timers() && gli_sa_delays)
+        glk_request_timer_events(1000);
 
     char buf[200];
     bool quitting = false;

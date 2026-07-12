@@ -234,6 +234,11 @@ public:
 
   /* True if a running timer will fire (run its action) on the next tick. */
   virtual bool timer_will_fire() { return false; }
+
+  /* True if the game defines any timers at all. The set of timers is fixed at
+   * load time (timeron/timeroff only toggle existing ones), so a game with none
+   * never needs a timer heartbeat -- letting the host skip real-time events. */
+  virtual bool has_timers() { return false; }
   static GeasRunner* get_runner(GeasInterface *gi);
 };
 

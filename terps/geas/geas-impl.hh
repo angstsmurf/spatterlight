@@ -116,6 +116,7 @@ public:
   void restart ();
   bool undo ();
   bool timer_will_fire ();
+  bool has_timers () { return !state.timers.empty (); }
 
   bool is_running () const;
   std::string get_banner ();
