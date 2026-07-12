@@ -59,7 +59,13 @@ a5rand_between (long lo, long hi)
       a5rand_seeded = 1;
     }
   if (hi < lo) { t = lo; lo = hi; hi = t; }
-  span = (unsigned long) (hi - lo) + 1UL;
+  /* Compute the span in the unsigned domain: hi - lo as signed long overflows
+     (UB) for a range approaching the full long range from a corrupt game file.
+     hi >= lo here, so the unsigned difference is the exact magnitude. */
+  span = (unsigned long) hi - (unsigned long) lo;
+  if (span == ~0UL)               /* full domain: the +1 below would wrap to 0 */
+    return lo + (long) erkyrath_random ();
+  span += 1UL;
   {
     long r = lo + (long) (erkyrath_random () % span);
     /* A5_TRACE_RAND=1: print every draw, for aligning the stream against an

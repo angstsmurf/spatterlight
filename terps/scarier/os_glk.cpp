@@ -4017,10 +4017,16 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   if (window)
     glk_window_close (window, NULL);
 
-  /* Set title of game, and pass it to the host UI via wintitle(). */
+  /* Set title of game, and pass it to the host UI via wintitle().  gsc_game is
+     NULL when the load/restore above failed (gsc_game_message is set instead),
+     and scr_get_game_name would dereference it -- guard as the debugger/locale
+     block above does. */
 #ifdef GARGLK
-    garglk_set_story_name(scr_get_game_name(gsc_game));
-    garglk_set_story_title(scr_get_game_name(gsc_game));
+    if (gsc_game)
+      {
+        garglk_set_story_name(scr_get_game_name(gsc_game));
+        garglk_set_story_title(scr_get_game_name(gsc_game));
+      }
 #endif
 
   /* Game set up, perhaps successfully. */

@@ -450,10 +450,14 @@ parse_cmp (Parser &p)
         res = both_num ? (val_of (left) == val_of (right)) : (left.s == right.s);
       else if (op == "NE")
         res = both_num ? (val_of (left) != val_of (right)) : (left.s != right.s);
-      else if (op == "GT") res = val_of (left) > val_of (right);
-      else if (op == "LT") res = val_of (left) < val_of (right);
-      else if (op == "GE") res = val_of (left) >= val_of (right);
-      else if (op == "LE") res = val_of (left) <= val_of (right);
+      /* Ordered comparisons follow clsVariable too: numeric when both operands
+         are numbers, otherwise a lexical string comparison (val_of returns 0
+         for any non-numeric string, so comparing two strings numerically would
+         collapse to 0-vs-0 and be wrong). */
+      else if (op == "GT") res = both_num ? (val_of (left) > val_of (right))  : (left.s > right.s);
+      else if (op == "LT") res = both_num ? (val_of (left) < val_of (right))  : (left.s < right.s);
+      else if (op == "GE") res = both_num ? (val_of (left) >= val_of (right)) : (left.s >= right.s);
+      else if (op == "LE") res = both_num ? (val_of (left) <= val_of (right)) : (left.s <= right.s);
       Val t = mk_num (res ? 1.0 : 0.0);
       t.is_test = true;                  /* clsVariable "test" token */
       return t;

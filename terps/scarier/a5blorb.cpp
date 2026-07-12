@@ -44,8 +44,14 @@ a5blorb_find (const uint8_t *buf, uint32_t length,
           ridx_size = csize;
           break;
         }
-      /* Chunks are padded to an even length. */
+      /* Chunks are padded to an even length.  Guard the advance against a
+         garbled csize that would overflow uint32 and wrap pos backwards
+         (which would re-scan the same bytes forever). */
+      if (csize > length - body)
+        break;
       pos = body + csize + (csize & 1);
+      if (pos < body)
+        break;
     }
 
   if (ridx_off == 0 || ridx_size < 4 || ridx_off + 4 > length)
@@ -68,14 +74,18 @@ a5blorb_find (const uint8_t *buf, uint32_t length,
       if (res_usage != usage || res_number != number)
         continue;
 
-      if (start + 8 > length)
+      /* start is an untrusted 32-bit offset; test with subtraction so the
+         bounds check cannot be bypassed by unsigned overflow of start + 8.
+         (length >= 12 is guaranteed above, so length - 8 does not wrap.) */
+      if (start > length - 8)
         return 0;
 
       ctype = a5_be32 (buf + start);
       csize = a5_be32 (buf + start + 4);
 
-      /* Defensive clamp against a truncated/garbled file. */
-      if (start + 8 + csize > length)
+      /* Defensive clamp against a truncated/garbled file.  start + 8 <= length
+         holds here, so length - (start + 8) does not wrap. */
+      if (csize > length - (start + 8))
         csize = length - (start + 8);
 
       out->type = ctype;

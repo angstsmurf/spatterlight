@@ -98,15 +98,23 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
 {
   z_stream stream;
   uint8_t *out;
-  uint32_t cap;
+  size_t cap;
   int status;
+
+  /* The result is handed back through a uint32_t *out_size, so a decompressed
+     payload cannot usefully exceed 4 GB; cap growth here uses size_t and is
+     bounded so the doubling can never overflow to 0 and hand inflate a bogus
+     avail_out. */
+  const size_t A5_INFLATE_MAX = 0xFFFFFFFFu;
 
   memset (&stream, 0, sizeof stream);
   if (inflateInit (&stream) != Z_OK)
     return NULL;
 
   /* Start with a generous guess and grow as needed (XML compresses well). */
-  cap = length * 8 + 1024;
+  cap = (size_t) length * 8 + 1024;
+  if (cap > A5_INFLATE_MAX)
+    cap = A5_INFLATE_MAX;
   out = (uint8_t *) malloc (cap);
   if (out == NULL)
     {
@@ -117,16 +125,24 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
   stream.next_in = (Bytef *) data;
   stream.avail_in = length;
   stream.next_out = out;
-  stream.avail_out = cap;
+  stream.avail_out = (uInt) cap;
 
   do
     {
       if (stream.avail_out == 0)
         {
-          uint32_t used = cap;
+          size_t used = cap;
           uint8_t *grown;
 
-          cap *= 2;
+          if (cap >= A5_INFLATE_MAX)
+            {
+              /* Refuse to grow past the representable size instead of
+                 wrapping the capacity and overflowing the buffer. */
+              free (out);
+              inflateEnd (&stream);
+              return NULL;
+            }
+          cap = (cap > A5_INFLATE_MAX / 2) ? A5_INFLATE_MAX : cap * 2;
           grown = (uint8_t *) realloc (out, cap);
           if (grown == NULL)
             {
@@ -136,7 +152,7 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
             }
           out = grown;
           stream.next_out = out + used;
-          stream.avail_out = cap - used;
+          stream.avail_out = (uInt) (cap - used);
         }
       status = inflate (&stream, Z_NO_FLUSH);
     }

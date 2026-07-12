@@ -333,6 +333,7 @@ a5run_new (const a5_adventure_t *adv)
   run->real_time = 0;
   run->cur_score_ti = -1;
   run->look_pinned = NULL;
+  run->pending_failover = NULL;   /* not value-initialized by `new a5_run_s` */
   run->tasks_to_run = new std::vector<std::string>;
   for (i = 0; i < adv->n_tasks; i++)
     run->order->push_back (i);
@@ -1851,7 +1852,12 @@ a5run_input_inner (a5_run_t *run, const char *line)
          ambiguity."; Count >1 -> "Which X?". */
       resolving_amb = 1;
       amb_narrowed = (long) narrowed.size ();
-      if (narrowed.size () > 1)            /* a partial narrowing: keep progress */
+      /* Keep the narrowing progress.  Reaching here with size()==1 means the
+         clarifier picked a unique referent but run_remembered() could not run
+         the remembered task (no matching command variant); still commit the
+         narrowed set so a later re-prompt shows the pared-down candidates
+         rather than the original full "Which X?" list. */
+      if (narrowed.size () >= 1)
         run->amb_keys = narrowed;
     }
 

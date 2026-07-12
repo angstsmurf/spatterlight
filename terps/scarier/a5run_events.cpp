@@ -812,6 +812,21 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
                     { has_adj = 1; break; }
               if (has_adj)
                 {
+                  /* DO NOT "optimise" this into a single draw.  clsWalk picks a
+                     random group member and, when at least one member is
+                     adjacent, re-rolls until the draw lands on an adjacent room
+                     -- and FrankenDrift consumes exactly these rejected draws.
+                     A code review once flagged the rejection loop as an RNG
+                     desync / efficiency bug and replaced it with one
+                     a5rand_between + an adjacency gate; that shifted the shared
+                     draw stream and regressed AlienDiver (Crafting Fragments
+                     5/15 -> 3/15, then the walkthrough desynced).  Confirmed
+                     against FrankenDrift's xoshiro-aligned stream
+                     (FD_RNG=xoshiro test/a5_groundtruth.sh AlienDiver): the
+                     reference makes the same multi-draw sequence, so matching it
+                     REQUIRES re-rolling here.  AlienDiver is the canary in
+                     test/run_a5_walkthroughs.sh.  The guard only bounds a
+                     pathological group with no reachable adjacent member. */
                   int guard = 0;
                   while (dest == NULL && guard++ < 10000)
                     {

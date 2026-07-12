@@ -258,18 +258,29 @@ obj_prop (const a5_object_t *o, const char *key)
 static int
 is_holding_object (a5_state_t *st, int oi, const char *charkey)
 {
-  if (oi < 0) return 0;
-  switch (st->obj[oi].where)
+  /* Walk iteratively up the in/on chain, bounded by the object count: a walk
+     longer than that means a containment cycle (A in B, B in A, or an object
+     in itself, which a malformed game file can create), so bail rather than
+     recurse forever. */
+  int guard = 0;
+  while (oi >= 0)
     {
-    case A5_OWHERE_HELD_BY:
-      return streq (charkey, ANYCHARACTER) || streq (st->obj[oi].key, charkey);
-    case A5_OWHERE_IN_OBJECT:
-    case A5_OWHERE_ON_OBJECT:
-      return is_holding_object (st, a5state_object_index (st, st->obj[oi].key),
-                                charkey);
-    default:
-      return 0;
+      if (guard++ > st->adv->n_objects)
+        return 0;
+      switch (st->obj[oi].where)
+        {
+        case A5_OWHERE_HELD_BY:
+          return streq (charkey, ANYCHARACTER)
+                 || streq (st->obj[oi].key, charkey);
+        case A5_OWHERE_IN_OBJECT:
+        case A5_OWHERE_ON_OBJECT:
+          oi = a5state_object_index (st, st->obj[oi].key);
+          continue;
+        default:
+          return 0;
+        }
     }
+  return 0;
 }
 
 /* clsObject.IsInside / IsOn (clsObject.vb:255 / 240): an object is "inside"
@@ -281,14 +292,21 @@ is_holding_object (a5_state_t *st, int oi, const char *charkey)
 static int
 object_is_in_or_on (a5_state_t *st, int oi, const char *k2, a5_owhere_t want)
 {
-  if (oi < 0) return 0;
-  if (st->obj[oi].where != A5_OWHERE_IN_OBJECT
-      && st->obj[oi].where != A5_OWHERE_ON_OBJECT)
-    return 0;
-  if (st->obj[oi].where == want && streq (st->obj[oi].key, k2))
-    return 1;
-  return object_is_in_or_on (st, a5state_object_index (st, st->obj[oi].key),
-                             k2, want);
+  /* Iterative bounded walk (see is_holding_object) so a containment cycle
+     cannot overflow the stack. */
+  int guard = 0;
+  while (oi >= 0)
+    {
+      if (guard++ > st->adv->n_objects)
+        return 0;
+      if (st->obj[oi].where != A5_OWHERE_IN_OBJECT
+          && st->obj[oi].where != A5_OWHERE_ON_OBJECT)
+        return 0;
+      if (st->obj[oi].where == want && streq (st->obj[oi].key, k2))
+        return 1;
+      oi = a5state_object_index (st, st->obj[oi].key);
+    }
+  return 0;
 }
 
 /* ------------------------------------------------------ object sub-evaluator */
@@ -680,17 +698,28 @@ static int
 char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
                    int directly)
 {
-  int oi = a5state_object_index (st, objkey);
-  if (oi < 0)
-    return 0;
-  a5_owhere_t w = st->obj[oi].where;
-  const char *k = st->obj[oi].key;
-  if (w == A5_OWHERE_HELD_BY)
-    return k != NULL && (streq (k, charkey)
-                         || (streq (k, "%Player%")
-                             && streq (charkey, a5state_player_key (st))));
-  if (!directly && (w == A5_OWHERE_IN_OBJECT || w == A5_OWHERE_ON_OBJECT))
-    return k != NULL && char_holds_object (st, charkey, k, 0);
+  /* Iterative bounded walk (see is_holding_object) so a containment cycle
+     cannot overflow the stack. */
+  int guard = 0;
+  const char *key = objkey;
+  while (key != NULL)
+    {
+      int oi = a5state_object_index (st, key);
+      if (oi < 0 || guard++ > st->adv->n_objects)
+        return 0;
+      a5_owhere_t w = st->obj[oi].where;
+      const char *k = st->obj[oi].key;
+      if (w == A5_OWHERE_HELD_BY)
+        return k != NULL && (streq (k, charkey)
+                             || (streq (k, "%Player%")
+                                 && streq (charkey, a5state_player_key (st))));
+      if (!directly && (w == A5_OWHERE_IN_OBJECT || w == A5_OWHERE_ON_OBJECT))
+        {
+          key = k;
+          continue;
+        }
+      return 0;
+    }
   return 0;
 }
 

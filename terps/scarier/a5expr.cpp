@@ -15,6 +15,7 @@
 #include <string.h>
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "a5expr.h"
@@ -281,9 +282,15 @@ oo_children_set (a5_state_t *st, const char *key, const std::string &fn,
 static void
 add_descendants (a5_state_t *st, std::vector<std::string> &keys)
 {
+  /* An object has a single in/on parent, so no acyclic descendant is reachable
+     twice; a repeat means a containment cycle (A in B, B in A, or a self-
+     containing object from a malformed game file).  Track the keys already
+     seen so a cycle cannot grow `keys` without bound (infinite loop / OOM). */
+  std::unordered_set<std::string> seen (keys.begin (), keys.end ());
   for (size_t i = 0; i < keys.size (); i++)
     for (auto &c : objs_children (st, keys[i].c_str (), 0))
-      keys.push_back (c);
+      if (seen.insert (c).second)
+        keys.push_back (c);
 }
 
 /* Objects directly in a location (ExistsAtLocation, directly). */

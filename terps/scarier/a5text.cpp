@@ -656,13 +656,17 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
           st->char_introduced[intro_ci] = 1;
         }
     }
-  const char *known = c ? a5state_entity_prop (st, c->key, "Known") : NULL;
-  int model_known = c != NULL
-                    && a5_prop_find (c->props, c->n_props, "Known") != NULL;
-  int has_known = (known != NULL) || model_known;
-  int selected = has_known
-                 && (known == NULL || strstr (known, "Selected") != NULL);
-  int use_proper = has_known ? selected : (c == NULL || c->n_descriptors == 0);
+  /* clsCharacter.Name: a character renders by ProperName once its "Known"
+     SelectionOnly property is set, otherwise by its descriptor.  Use the same
+     merged, Unselected-aware test the rest of the engine uses
+     (a5state_entity_has_prop) instead of a substring match on the value: a bare
+     strstr (known, "Selected") also matches the "Unselected" token and would
+     wrongly treat an unselected character as known, leaking its name.  Fall
+     back to the proper name when there is no descriptor to render -- this also
+     guarantees the descriptor branch below only runs with n_descriptors > 0,
+     so c->descriptors[0] is never a NULL dereference. */
+  int known_set = c != NULL && a5state_entity_has_prop (st, c->key, "Known");
+  int use_proper = known_set || c == NULL || c->n_descriptors == 0;
   if (use_proper)
     {
       /* clsCharacter.ProperName: the runtime CharacterProperName override

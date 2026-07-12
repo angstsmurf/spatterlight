@@ -2370,9 +2370,11 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
     }
   else if (what == "EverythingWithProperty")
     {
+      /* Merged (runtime + static) test, matching clsObject.HasProperty: a
+         property added at runtime via SetProperty must be seen here, exactly as
+         the character EveryoneWithProperty branch already does. */
       for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5_prop_find (st->adv->objects[i].props,
-                          st->adv->objects[i].n_props, tk[1].c_str ()))
+        if (a5state_entity_has_prop (st, st->adv->objects[i].key, tk[1].c_str ()))
           targets.push_back (i);
     }
   else
@@ -2457,9 +2459,9 @@ act_object_group (a5_run_t *run, const char *kind,
   int add = streq (kind, "AddObjectToGroup");
   if (tk[0] == "EverythingWithProperty")
     {
+      /* Merged (runtime + static) test -- see the MoveObject branch. */
       for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5_prop_find (st->adv->objects[i].props,
-                          st->adv->objects[i].n_props, tk[1].c_str ()))
+        if (a5state_entity_has_prop (st, st->adv->objects[i].key, tk[1].c_str ()))
           a5state_set_object_in_group (st, tk[3].c_str (),
                                        st->adv->objects[i].key, add);
       return;
@@ -3617,9 +3619,11 @@ act_location_group (a5_run_t *run, const char *kind,
     }
   else if (what == "EverywhereWithProperty")
     {
+      /* Merged (runtime + static, incl. group-inherited) test -- see the
+         MoveObject branch. */
       for (int i = 0; i < st->adv->n_locations; i++)
         { const a5_location_t *l = &st->adv->locations[i];
-          if (a5_prop_find (l->props, l->n_props, k1) != NULL)
+          if (a5state_entity_has_prop (st, l->key, k1))
             locs.push_back (l->key); }
     }
   else
