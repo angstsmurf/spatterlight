@@ -1042,7 +1042,14 @@ expr_replace_impl (a5_state_t *st, const char *text, int expression)
                              source already quotes the match ("Lid.ReadText") or
                              we are inside a quoted run.  Magnetic Moon's
                              `SetProperty Lid ReadText Lid.ReadText & %text%`
-                             needs `"" & "mike"`, not ` & "mike"`. */
+                             needs `"" & "mike"`, not ` & "mike"`.
+                             Known edge case: the strtol test below treats a
+                             digits-then-text value ("3 coins") as non-numeric
+                             and quotes it, while a pure "3" stays bare, so the
+                             two diverge in `&`/`+` contexts.  Left as-is: it
+                             matches the runner for the pure-integer and
+                             pure-text cases that occur in practice, and no
+                             corpus game feeds a partial-numeric OO value here. */
                           int quote = 0;
                           if (expression && (p == text || p[-1] != '"'))
                             {

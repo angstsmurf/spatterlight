@@ -320,7 +320,12 @@ a5_load_variables (a5_adventure_t *a)
     }
 }
 
-/* Parse "1" or "1 To 5" (a FromTo range) into [*from, *to]. */
+/* Parse "1" or "1 To 5" (a FromTo range) into [*from, *to].  The scan stops at
+   the next digit OR a '-' so a negative upper bound ("0 To -5") is picked up.
+   Known limitation: this means a dash used as a *separator* ("5 - 10") stops on
+   the '-' and strtol("- 10") returns 0, so the upper bound reads as 0 instead of
+   10.  The stock ADRIFT serialisation is always "N To M" (dashes only ever
+   prefix a negative number), so no shipped game hits this; left as-is. */
 static void
 a5_parse_range (const char *s, long *from, long *to)
 {
