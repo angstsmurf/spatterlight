@@ -2698,17 +2698,27 @@ replacementString:(id)repl {
     }
 
     if (lastAtBottom) {
-        // Do NOT apply caps here. restoreScroll: is called during resize and
-        // theme-change scenarios (never during game output, which always goes
-        // through reallyPerformScroll with scrolling=YES, causing the layout-
-        // completion callback to take the reallyPerformScroll branch instead).
-        // The one-viewport advance cap in scrollToBottomAnimated:respectCaps:YES
-        // prevents reaching the true document bottom when the viewport shrank by
-        // more than one viewport-height — e.g. exiting fullscreen on a large
-        // monitor leaves clipView.bounds.origin.y at its fullscreen value while
-        // the windowed target is further down, and the cap stops it one line
-        // short of the actual bottom.
-        [self scrollToBottomAnimated:NO respectCaps:NO];
+        // Whether to cap this scroll depends on who called us, distinguished
+        // by sender:
+        //
+        // sender == nil — an explicit resize/theme/fullscreen restore (every
+        // such caller invokes us via performSelector:withObject:nil). Here we
+        // must NOT cap: when the viewport shrank by more than one viewport-
+        // height — e.g. exiting fullscreen on a large monitor leaves
+        // clipView.bounds.origin.y at its fullscreen value while the windowed
+        // target is further down — the one-viewport advance cap would stop the
+        // scroll one line short of the actual bottom.
+        //
+        // sender != nil — the layoutComplete callback's !scrolling branch
+        // (which passes self). This DOES fire during game output: chatty games
+        // (the Level 9 Adrian Mole / Archers titles) emit PRINT-then-INITCHAR
+        // bursts in which the callback runs while scrolling==NO, so it reaches
+        // this path rather than reallyPerformScroll. An uncapped jump to the
+        // new bottom there races past unread text — the exact "don't skip
+        // unread text" invariant. Respect caps so the auto-scroll advances by
+        // at most one viewport and never past _lastseen, matching the normal
+        // reallyPerformScroll auto path.
+        [self scrollToBottomAnimated:NO respectCaps:(sender != nil)];
         return;
     }
 
