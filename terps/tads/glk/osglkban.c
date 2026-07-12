@@ -579,8 +579,16 @@ void os_banner_orphan(void *banner_handle)
 int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
 {
     osbanid_t banner = banner_handle;
+    // Return FALSE (not 1) when we have no window to measure yet: a
+    // size-to-contents banner is created at size 0, so os_banners_open()
+    // skips glk_window_open() and banner->win is still 0 when
+    // CVmConsoleBanner's constructor calls us. Reporting success here without
+    // populating *info left the caller reading an uninitialized info.os_line_wrap
+    // off the stack, which flipped the banner's line-wrap mode (and hence the
+    // per-character BANNERCOLS query storm) nondeterministically between runs.
+    // Returning FALSE makes the caller fall back to os_line_wrap = FALSE.
     if (!banner || !banner->valid || !banner->win)
-        return 1;
+        return FALSE;
 
 //    winid_t win = banner->win;
     glui32 gwintype = banner->type;
