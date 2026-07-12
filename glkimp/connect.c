@@ -44,6 +44,7 @@ int gli_determinism = 0;
 int gli_error_handling = IGNORE_ERRORS;
 int gli_enable_autosave = 1;
 int gli_enable_autosave_on_timer = 1;
+int gli_exiting_via_quit_event = 0;
 
 int gscreenw = 1;
 int gscreenh = 1;
@@ -1116,6 +1117,10 @@ again:
             break;
 
         case EVTQUIT:
+            /* The window is being closed. If autosave is on, the session will be
+               restored in a fresh process, so glk_exit() must not sweep the temp
+               directory out from under any open temp file streams. */
+            gli_exiting_via_quit_event = TRUE;
             glk_exit();
             break;
 

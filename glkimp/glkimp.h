@@ -34,6 +34,12 @@ extern int gli_error_handling;
 extern int gli_enable_autosave;
 extern int gli_enable_autosave_on_timer;
 
+/* Set when we are exiting because the GUI closed the window (EVTQUIT), as
+   opposed to the game reaching its own end. Together with gli_enable_autosave
+   it tells glk_exit() that the session will be autorestored, so temp files
+   backing open streams must be left in place. */
+extern int gli_exiting_via_quit_event;
+
 extern int gscreenw;
 extern int gscreenh;
 extern int gbuffermarginx;

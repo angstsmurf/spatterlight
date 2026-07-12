@@ -274,7 +274,6 @@ Passed.
 
 fileref test: Running the fileref test.
 Named file: autofref
-(Deleting existing file: autofref)
 
 Kill and hit a key>...<return>.
 fileref rock=888

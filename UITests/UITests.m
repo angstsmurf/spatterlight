@@ -546,6 +546,93 @@
     [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Import"];
 }
 
+/// Polls @c textView's text until it stops changing, i.e. the game has finished
+/// printing (or re-rendering after a restore) and is blocking on input. Returns
+/// once the value is unchanged for two consecutive samples, or after a timeout.
+- (void)waitForTextViewToSettle:(XCUIElement *)textView {
+    // Once the game finishes, its window is retitled "… (finished)" and no longer
+    // matches the running-game query, so the text view stops resolving. There is
+    // nothing left to settle in that case; bail out rather than let a snapshot of
+    // a missing element throw.
+    if (!textView.exists)
+        return;
+    NSString *current = textView.value;
+    NSInteger stableSamples = 0;
+    NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:5];
+    while (deadline.timeIntervalSinceNow > 0) {
+        [NSThread sleepForTimeInterval:0.2];
+        if (!textView.exists)
+            return;
+        NSString *previous = current;
+        current = textView.value;
+        if (current.length > 0 && [current isEqualToString:previous]) {
+            if (++stableSamples >= 2)
+                return;
+        } else {
+            stableSamples = 0;
+        }
+    }
+}
+
+/// Returns YES once "run all" has finished and the game is back at its top-level
+/// ">" prompt (or the window is already gone). Distinguishes that prompt from the
+/// "Kill and hit a key>", "Kill and enter a line>" and "Wait for a timer event>"
+/// checkpoint prompts, so the driver stops while the game is still running —
+/// before any extra input makes it exit, which would leave nothing to save.
+- (BOOL)runAllDidCompleteInTextView:(XCUIElement *)textView {
+    if (!textView.exists)
+        return YES;
+    [self waitForTextViewToSettle:textView];
+    if (!textView.exists)
+        return YES;
+    NSString *value = [textView.value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (![value hasSuffix:@">"])
+        return NO;
+    return !([value hasSuffix:@"key>"] || [value hasSuffix:@"line>"] || [value hasSuffix:@"event>"]);
+}
+
+/// Closes the current game window, replays the selected game so it autorestores
+/// from autosave, and waits for the text view to reappear before typing @c text.
+/// Waiting for the text to settle before closing and after reopening keeps the
+/// kill/restore round-trip in step with the game: it stops us autosaving a
+/// mid-output state, or typing before the restored scrollback has re-rendered,
+/// either of which would drop a checkpoint and truncate the transcript.
+- (void)closeAndReopenGame:(XCUIElement *)textView
+                gamesTable:(XCUIElement *)gamesTable
+                   andType:(NSString *)text {
+    // The run can complete in fewer cycles than the script provides. Once the
+    // game has finished, its window is retitled "… (finished)" and the running-
+    // game text view no longer resolves; there is nothing left to drive, so skip
+    // and let any surplus trailing cycles be harmless no-ops.
+    if (!textView.exists)
+        return;
+
+    // Wait until the game has finished printing and is blocking on input, so the
+    // autosave captures a settled prompt rather than a state mid-output.
+    [self waitForTextViewToSettle:textView];
+
+    // The game may have reached its end while settling; if so, stop here too.
+    if (!textView.exists)
+        return;
+
+    // Close the game window and wait for it to disappear.
+    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    NSPredicate *gone = [NSPredicate predicateWithFormat:@"exists == false"];
+    XCTNSPredicateExpectation *closed = [[XCTNSPredicateExpectation alloc] initWithPredicate:gone object:textView];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[closed] timeout:5], XCTWaiterResultCompleted,
+                   @"Game window did not close");
+
+    // Replay the selected game, autorestoring from autosave, and wait for the
+    // text view to come back and finish re-rendering before typing into it.
+    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
+    XCTAssertTrue([self waitForElement:textView toExistWithTimeout:5],
+                  @"Game window did not reopen from autosave");
+    [self waitForTextViewToSettle:textView];
+
+    if (text.length)
+        [textView typeText:text];
+}
+
 - (void)testAutosave {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
@@ -591,168 +678,60 @@
     CGRect statusRect = statusLine.frame;
 
     [textView typeText:@"run all\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     XCUIElement *gamesTable = libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
 
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
+    // Repeatedly close the game and reopen it from autosave, checking that the
+    // state is restored each time. Each helper call waits for the window to
+    // close and the text view to reappear before returning, so the sequence
+    // stays deterministic instead of racing the asynchronous restore.
+    for (NSInteger i = 0; i < 9; i++)
+        [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"\r"];
 
     NSDate *date = [NSDate date];
 
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"q"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"r"];
+    [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"q"];
+    [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"r"];
 
     NSTimeInterval interval1 = date.timeIntervalSinceNow;
     NSLog(@"Time taken: %f", interval1);
 
     date = [NSDate date];
 
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"s"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"t"];
+    [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"s"];
+    [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"t"];
 
     NSTimeInterval interval2 = date.timeIntervalSinceNow;
 
     NSLog(@"Time taken: %f (accelerated) Previous unaccelerated time taken: %f Diff: %f", fabs(interval2), fabs(interval1), fabs(interval1) - fabs(interval2));
     // There might be a way to measure this, but this is not it.
     //    XCTAssert(fabs(interval1) > fabs(interval2));
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    for (NSInteger i = 0; i < 6; i++)
+        [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"\r"];
 
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"This is a short sample text\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"This is a short sample text\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"Thıs is å shört sämplê tëxt\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"This is å shört sämplê tëxt\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"This is ä shört sämplê tëxt\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"This is ö shört sämplê tëxt\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"This is é shört sämplê tëxt\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
-    [textView typeText:@"\r"];
+    NSArray<NSString *> *sampleTexts = @[
+        @"This is a short sample text\r",
+        @"This is a short sample text\r",
+        @"Thıs is å shört sämplê tëxt\r",
+        @"This is å shört sämplê tëxt\r",
+        @"This is ä shört sämplê tëxt\r",
+        @"This is ö shört sämplê tëxt\r",
+        @"This is é shört sämplê tëxt\r",
+    ];
+    for (NSString *sample in sampleTexts)
+        [self closeAndReopenGame:textView gamesTable:gamesTable andType:sample];
+
+    // Drive the remaining checkpoints, but stop the moment the game returns to
+    // its top-level prompt: reaching it means the run is complete, and stopping
+    // while the game is still running (rather than pressing on until it exits)
+    // keeps the final scrollback intact and saveable. The cap is just a safety
+    // net in case completion is never detected.
+    for (NSInteger i = 0; i < 21 && ![self runAllDidCompleteInTextView:textView]; i++)
+        [self closeAndReopenGame:textView gamesTable:gamesTable andType:@"\r"];
+
+    // Let the final response finish rendering before saving the scrollback,
+    // otherwise the saved transcript is cut off before the end of the run.
+    [self waitForTextViewToSettle:textView];
 
     NSString *comparison = [UITests transcriptFromFile:@"autosavetest.txt"];
 
@@ -772,6 +751,13 @@
     facit = [regex stringByReplacingMatchesInString:facit options:0 range:NSMakeRange(0, facit.length) withTemplate:@"X"];
     comparison = [regex stringByReplacingMatchesInString:comparison options:0 range:NSMakeRange(0, comparison.length) withTemplate:@"X"];
 
+    // "(Deleting existing file: …)" is only printed when the file happens to
+    // survive from a previous run, so it is absent on a clean run. Strip these
+    // lines from both sides so the comparison doesn't depend on leftover files.
+    regex = [NSRegularExpression regularExpressionWithPattern:@"\\(Deleting existing file:[^\n]*\\)\n" options:0 error:&error];
+    facit = [regex stringByReplacingMatchesInString:facit options:0 range:NSMakeRange(0, facit.length) withTemplate:@""];
+    comparison = [regex stringByReplacingMatchesInString:comparison options:0 range:NSMakeRange(0, comparison.length) withTemplate:@""];
+
     XCTAssert([comparison isEqualToString:facit]);
 
     NSLog(@"windowRect: %@ gameWindow.frame: %@", NSStringFromRect(windowRect), NSStringFromRect(gameWindow.frame));
@@ -782,7 +768,11 @@
     //    XCTAssert(NSEqualRects(scrollRect, scrollView.frame));
     //    XCTAssert(NSEqualRects(statusRect, statusLine.frame));
 
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    // If the run completed, the game has already finished and its window has been
+    // retitled, so the running-game text view no longer resolves. Only send the
+    // closing Cmd-W when it is still around.
+    if (textView.exists)
+        [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     XCTAssert(!textView.exists);
 }
 
@@ -2273,7 +2263,7 @@
         [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Add"];
     }
 
-    XCUIElement *searchField = libraryWindow/*@START_MENU_TOKEN@*/.searchFields[@"Search"]/*[[".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
     // Select search field
     [searchField click];
 
