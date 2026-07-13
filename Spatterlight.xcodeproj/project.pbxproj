@@ -859,6 +859,10 @@
 		C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */; };
 		C3B6100827DA0C080012FB97 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100427DA07E90012FB97 /* graphics.c */; };
 		C3B6100B27DA10DF0012FB97 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100A27DA10DF0012FB97 /* utility.c */; };
+		C3B69695300471950008D4C0 /* The PK Girl command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B69694300471940008D4C0 /* The PK Girl command script.txt */; };
+		C3B69696300471950008D4C0 /* The PK Girl command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B69694300471940008D4C0 /* The PK Girl command script.txt */; };
+		C3B696983004810A0008D4C0 /* Transcript of The PK Girl.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B696973004810A0008D4C0 /* Transcript of The PK Girl.txt */; };
+		C3B696993004810B0008D4C0 /* Transcript of The PK Girl.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B696973004810A0008D4C0 /* Transcript of The PK Girl.txt */; };
 		C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B7280F2667934100E9B08D /* NSImage+Categories.m */; };
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
 		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
@@ -3442,6 +3446,8 @@
 		C3B6100627DA07E90012FB97 /* graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		C3B6100927DA10DF0012FB97 /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 		C3B6100A27DA10DF0012FB97 /* utility.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utility.c; sourceTree = "<group>"; };
+		C3B69694300471940008D4C0 /* The PK Girl command script.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The PK Girl command script.txt"; sourceTree = "<group>"; };
+		C3B696973004810A0008D4C0 /* Transcript of The PK Girl.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Transcript of The PK Girl.txt"; sourceTree = "<group>"; };
 		C3B7280E2667934100E9B08D /* NSImage+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Categories.h"; sourceTree = "<group>"; };
 		C3B7280F2667934100E9B08D /* NSImage+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSImage+Categories.m"; sourceTree = "<group>"; };
 		C3B9EB4925FA29F4002A406E /* AttributeDictionaryTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributeDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -6229,6 +6235,7 @@
 				C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */,
 				C39D803A26BDF7C300500E1C /* Transparent command script.txt */,
 				C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */,
+				C3B69694300471940008D4C0 /* The PK Girl command script.txt */,
 			);
 			path = "Command scripts";
 			sourceTree = "<group>";
@@ -6248,6 +6255,7 @@
 				C3D7CB1A26CA8D09006DE4CC /* Transcript of Shades of Gray.txt */,
 				C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */,
 				C3CC7FFB26C02784009B0B25 /* Transcript of The Elysium Enigma.txt */,
+				C3B696973004810A0008D4C0 /* Transcript of The PK Girl.txt */,
 				C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */,
 				C3D7CB1726CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt */,
 				C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */,
@@ -7858,6 +7866,8 @@
 				C372B2452F7D56A400331461 /* The Sound of One Hand Clapping command script.txt in Resources */,
 				C372B2462F7D56A400331461 /* The Wyldkynd Project command script.txt in Resources */,
 				C372B2472F7D56A400331461 /* To Hell in a Hamper command script.txt in Resources */,
+				C3B69695300471950008D4C0 /* The PK Girl command script.txt in Resources */,
+				C3B696983004810A0008D4C0 /* Transcript of The PK Girl.txt in Resources */,
 				C372B2482F7D56A400331461 /* Unholy Grail command script.txt in Resources */,
 				C372B06C2F7D4DA200331461 /* Plus command script.txt in Resources */,
 				C372B06D2F7D4DA200331461 /* TaylorMade command script.txt in Resources */,
@@ -7871,6 +7881,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3B69696300471950008D4C0 /* The PK Girl command script.txt in Resources */,
+				C3B696993004810B0008D4C0 /* Transcript of The PK Girl.txt in Resources */,
 				C3A199842999DB5600D27500 /* Transcript of tot.txt in Resources */,
 				C3A199822999D9B400D27500 /* TaylorMade command script.txt in Resources */,
 				C3A1998A2999E63B00D27500 /* Transcript of SPL13P.txt in Resources */,

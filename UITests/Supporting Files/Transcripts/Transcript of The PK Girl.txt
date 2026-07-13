@@ -1,0 +1,671 @@
+Glk transcript is now on.
+
+>
+
+    The tires of your motorcycle roll to a halt on pavement.   As you switch off the engine, the hum decreases to a terminal choke that is replaced without interval by the sound of conversation and carefree laughter.  Around you people are moving to and from an open double doorway up a ways to the north; the inviting entrance to Majesty Mall.
+
+    It is relatively early in the evening; the air is cool but not cold, and the night is not yet dark.  This is that time when friends are want to meet together and pursue wholesome recreation in and around the grounds of the mall.  Having an atmosphere conducive to pleasant joviality, Majesty Mall has always been a popular hangout, especially among the youth of Rittersburg City.  However, your particular reason for stopping in tonight is to sample again the ice cream served by the best ice cream parlor in town.
+
+Front of Mall
+    Although four-wheeled vehicles do pass through, this autonomous spot of pavement is too narrow a place for them to stall.  It is just right for bicycles and motorbikes such as yours.  Beyond the capillaries and side streets that run off in three directions, the more major roads that make up the city can be seen, buildings of all shapes mingled among them.  It's the heart of the metropolis that you've come to, or the equivalent for a city of this size.  The object of your interest, Majesty Mall, lies north.  Your motorcycle is properly parked on the pavement.
+
+>n
+(Getting off your motorcycle first)
+
+You move north.
+
+    Rittersburg may not be your hometown, but its nearness to your home has made it possible for you to take this detour on your way back this evening.  If what you have seen of the city so far is representative of it, quality ice cream parlors are only one element of an altogether agreeable place to live.
+
+Mall Entrance
+    You stand at the mall's canopied entrance.  There are retaining walls on either side leading up to an open double doorway just northward.  These doors are always open.  Perhaps because there are no other malls in this city, this one is always open late.  A steady bi-directional stream of shoppers bustles about the entrance, while now and then a vehicle pulls up momentarily to pick up passenger or party.
+
+>n
+
+    As you attempt to enter the mall, somebody bumps into you quite intentionally.
+    "Well, don't I know you?", asks a snide dry voice.
+    It's Jerrick, the rich boy whose acquaintence you are only able to boast having from when you last came to this mall, and had the privilege of meeting up with his company.  Once more his same two buddies, Vin and Gill, are with him.  What terrible luck to be running into them all again.
+   "Now don't tell me, your name was...well wouldn't you know, it hasn't kept."
+
+Enter your name.  (you are male)
+
+>n
+"N, was it?  No wonder I forgot.  Well, N, is it life in the loser lane as usual?"  And without giving you space to retort, he continues, "No, don't answer.  I can tell just from looking at you.   Well, I didn't come here to dawdle with his kind.  Let's go, fellows."
+    With that he pushes his way past you and departs with his two friends.  You step into the mall. 
+
+
+Press enter to continue
+
+
+>Petter
+
+
+Majesty Mall South End
+    The interior of the mall is spacious, with several yards separating the shops on the west from the shops on the east.  The ceiling, too, reaches to a good height.  The lighting is dim, but not excessively so.  There is a bookstore to the west, a software shop to the east, and more mall extending to the north.  The mall's exit is south.
+
+>
+
+>n
+You move north.
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful fountain around which is a bench that patrons may sit on to rest or to wait for acquaintances.  It is the focal point of the building.  An ice cream parlor is to the west, a women's clothing store is to the east, and the mall continues on north and south.   
+    A girl is sitting on the bench with her hands in the lap of her dress.
+
+>examine girl
+[x girl]
+
+
+
+
+
+
+    The girl is clothed in a silky blue dress.  Long vibrant hair cascades over her shoulders and down her back.  Her countenance seems to reflect all feminine virtue, inclusive of kindness, empathy, and consciousness of time and place.  Her deportment is modest, and there is propriety in the way she patiently sits waiting for someone, a gallant knight to ride up and sweep her off her feet perhaps.  Certainly that cannot be the case, nor do you look anything like a knight, but since when was there ever harm in entertaining a fanciful thought?
+
+
+Press enter to continue
+
+
+>
+
+
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful fountain around which is a bench that patrons may sit on to rest or to wait for acquaintances.  It is the focal point of the building.  An ice cream parlor is to the west, a women's clothing store is to the east, and the mall continues on north and south.   
+    A golden-haired girl is sitting on the bench with her hands in the lap of her dress.
+
+>w
+You move west.
+Ice Cream Parlor
+    The ice cream served in this shop is excellent;  it more than justifies a trip to this mall, even if the route is slightly out of the way.  Ordering a cone is easy but deciding on a flavor sometimes proves time-consuming.  There are wooden stools by the counter for patrons to sit on while they eat and order, and a couple tables a little farther back.  The exit to the ice cream parlor is east.
+    The shopkeeper is behind the counter, tending to duties.  
+
+    "Welcome!" says the shopkeeper in a highly friendly tone of voice.
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+
+    Three girls enter the ice cream parlor and take a table a little ways off.  One of them is the girl you saw sitting by the fountain earlier.  
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+    You can hear the girls talking, although you can't tell exactly what they are saying. 
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+    The three girls are chatting and giggling away. 
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+    The girls are still giggling but they seem to have quieted a bit.
+
+    The shopkeeper is wiping the counter.
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+    In the corner of your vision you glimpse one of the girls eyeing you, but her head is turned by the time you take a look.
+
+>wait
+Time passes...
+
+    You're mostly sure you just caught another girl looking at you, but now they are talking amongst themselves quietly, smiles on their faces.
+
+>wait
+Time passes...
+
+   You feel the eyes of all three girls on you from across the room. 
+
+>wait
+Time passes...
+
+    Suddenly there is a flurry of noise.  Two men dressed in dark raincoats burst into the parlor and rush towards the table where the girls are sitting.  In an instant they have the younger girl by her arms and are hauling her away.  So unexpected is this occurrence that no one, not even yourself, is there to check the malefactors as they move for the exit.
+    Female screams ring out in the parlor as the young girl and her kidnappers disappear out into the mall.  "Cassie!!!", they cry.
+
+
+Press enter to continue
+
+
+>
+
+The golden-haired girl comes running up to you and grabs hold of your arm.  "Help!!", she pleads.
+
+1) "I'll do my best."
+2) "I'm sorry.  There's nothing I can do for you."
+3) "No time to chat, we've got to go after those men!"
+
+>1
+"Thank you", she replies emphatically.  "We must hurry."  She is ready to follow you.
+
+    "Be careful, Laurie!", her friend says from behind.
+
+>e
+You rush out into the mall...
+
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful fountain around which is a bench that patrons may sit on to rest or to wait for acquaintances.  It is the focal point of the building.  An ice cream parlor is to the west, a women's clothing store is to the east, and the mall continues on north and south.   
+
+    South in the distance, amidst surprised onlookers, you can make out the flurry of kidnappers exiting the mall.  
+
+
+
+    Laurie follows you from the west.
+
+>s
+You run in the direction that the kidnappers have fled...
+
+Majesty Mall South End
+    The interior of the mall is spacious, with several yards separating the shops on the west from the shops on the east.  The ceiling, too, reaches to a good height.  The lighting is dim, but not excessively so.  There is a bookstore to the west, a software shop to the east, and more mall extending to the north.  The mall's exit is south.
+
+
+
+    Laurie follows you from the north.
+
+    Somebody brushes past your side on his way to wherever; just another random shopper
+
+>s
+You move south.
+    As you leave the mall you can see a helicopter lifting off ahead.
+
+Mall Entrance
+    You stand at the mall's canopied entrance.  There are retaining walls on either side leading up to an open double doorway just northward.  These doors are always open.  Perhaps because there are no other malls in this city, this one is always open late.  A steady bi-directional stream of shoppers bustles about the entrance, while now and then a vehicle pulls up momentarily to pick up passenger or party.
+
+
+
+    Laurie follows you from the north.
+
+>s
+You move south.
+    The helicopter elevates and turns to face west in the direction of the city.  Perhaps you could follow it on your...?!   Someone has sabotaged your motorcycle!
+
+Front of Mall
+    Although four-wheeled vehicles do pass through, this autonomous spot of pavement is too narrow a place for them to stall.  It is just right for bicycles and motorbikes such as yours.  Beyond the capillaries and side streets that run off in three directions, the more major roads that make up the city can be seen, buildings of all shapes mingled among them.  It's the heart of the metropolis that you've come to, or the equivalent for a city of this size.  The object of your interest, Majesty Mall, lies north.  Your motorcycle is properly parked on the pavement.
+
+
+
+    Laurie follows you from the north.
+
+>wait
+Time passes...
+
+>wait
+Time passes...
+
+    The helicopter shrinks as it continues westward.  Will the criminals get away so conveniently?
+
+>wait
+Time passes...
+
+    "Try starting the motorcycle anyway", says Laurie.
+
+1) "That would be pointless!"
+2) "I suppose I could try it again." 
+
+>ride the motorcycle
+(Sitting on the motorcycle first)
+
+Laurie gets on behind you.
+Putting your faith in Laurie's improbable hope that the motorcycle will somehow work despite its current condition, you try starting up the engine....and it works!  Laurie seems not to be surprised at all by such a miracle.   As you zip through the city streets in pursuit of the helicopter that you can see far ahead in the night sky, she mutters only, "My sister...they finally got you..."
+
+
+Press enter to continue
+
+
+>
+
+    After you have raced through much of the city, you see the helicopter begin to descend beyond a hill by a bridge up ahead.  You pass over the bridge and bring your bike to a halt.  By the time your engine dies, only the sound of sparse traffic passing over the bridge can be heard.  The helicopter is nowhere to be seen.
+  
+Roadside
+    This is the north side of a road that runs east to west on the outskirts of the city.  Traffic on this road is moderate, with every now and then a vehicle zooming past and leaving the sound of its passage reverberating in the air.  Langston Bridge, which you recently passed over, is to the east.  Your motorcycle is parked here.
+    Laurie is right beside you.
+
+>e
+(Getting off your motorcycle first)
+You move east.
+Bridge Landing
+    The bridge that supports the road that you traveled by to reach these parts of the city begins here and continues on to the east.  It is possible to climb over the north railing and onto a hill beyond which you can just barely see the lights of the city. 
+
+
+
+    Laurie follows you from the west.
+
+    Laurie has climbed down from your motorcycle.
+
+>n
+Laurie climbs over the railing with you...
+
+Top of the Hill
+    You are at the top of a grassy hill that overlooks the city to the north and west, and the river to the east.  The view might be considered romantic under different circumstances.  To the south is Langston Bridge.  Not far off below the hill, in the immediate parts of the city, some buildings are visible, one of which is larger than the rest.
+    Laurie is right beside you.
+
+    Laurie steps forward and looks out over the darkened city below where her sister must surely be, shivering a little because the night has grown noticeably colder.
+    "I had almost managed to convince myself that they wouldn't come again, that we could finally live in safety."  Her voice is faint.  She seems to be talking to herself as much as to you.
+    "It isn't the first time that they tried to kidnap her.  It's just the first time that they succeeded.  They finally succeeded.  And now with our parents away.... " Her voice trails off.
+
+1) "You owe me an explanation."
+2) "Who are they?"
+3) "We'll get her back.  I promise."  
+
+>w
+You move west.
+Bottom of the Hill
+    Down here where the slope lessens, very little can be seen of the city, the river, or anything.  Some largish stones are embedded into the ground at the foot of the hill, which looms above like a tolerant titan.  A vacant lot can be reached by travelling to the west.
+
+
+
+    Laurie follows you from the east.
+
+>w
+You move west.
+Vacant Lot
+    This is a small parking lot, or something of that nature.  It is not clear exactly what the space is used for, if anything, as there are no vehicles or buildings directly near it.  However, a large building can be seen farther west.  A darkened back street to the north frightens away lone travellers and old ladies.
+
+
+
+    Laurie follows you from the east.
+
+>n
+You move north.
+Deserted Street
+    This back street runs through a mostly deserted part of town.  The neighborhood is not a nice one and probably not a friendly one either.  The general condition of buildings and the street itself is poor.  If there were people sitting about it, which there aren't, it would be difficult to picture them smiling.  North is a run-down gas station and south is an empty lot.  To the east the river is almost visible.  The street continues on west.
+    Laurie is right beside you.
+
+    Laurie follows you from the south.   "I do not like this street.  It is too quiet", she whispers.
+
+>w
+You move west.
+Street in Front of Bar
+    The street continues on east and west.   The area north is occupied by a dingy bar.  To the south is an alley.  A solitary lamppost stands at a corner, partially lighting this darkened street.  It could do with some company.  
+
+
+
+    Laurie follows you from the east.
+
+>s
+You move south.
+Alley East of Building
+    This is the east side of the large grey building.  It is especially dark here in the shadows provided by the building's wall.  The alley continues into an urban wilderness to the south, but is not worthy of exploration beyond this point.  There is a large dumpster here, enclosed on three sides by a brick wall.    
+
+
+
+    Laurie follows you from the north.
+
+>get on dumpster
+Using hands and feet you clamber up onto the dumpster lid.  From there it is a simple matter to step over to the brick wall.  The small window is in reach.
+Laurie comes up after you.
+
+>open window
+You press against the window and to your surprise it opens with the most minimal effort.  You crawl through it as quickly and nimbly as you can, then drop to the floor inside the foyer.  Laurie lands next to you a moment later.  The security officer whirls around in a flash.
+    "You weasels, how did you get in here!"
+    And then several things happen in quick succession.  The officer begins rushing in your direction.   A banging sound from behind causes the officer to turn his neck.  Was that the front door slamming shut?  Right at that moment the officer trips over his own chair and stumbles to the ground.
+    While you are registering all this Laurie grabs your arm and pulls you towards the hallway.  "Hurry!" she cries.  As you dash towards the hall a loud alarm goes off, ringing throughout the whole building.  Gunshots soon accompany it.  The two of you run for your lives . . .
+
+
+Press enter to continue
+
+
+>
+
+
+
+
+
+
+CHAPTER 2
+
+
+
+The Rescue of Cassandra
+
+
+>
+
+
+Long Hall North
+    You are in the hallway of an office building running north to south and you don't have a lot of time to look around!  Rather than entering one of the rooms that are to the west or east, you would be best off continuing south until you get to a place where you can throw your pursuers off.
+    Laurie is beside you, breathing heavily.
+
+    A loud alarm is ringing.
+
+>south
+[s]
+You move south.
+Long Hall South
+   You are in the hallway of an office building running north to south and you don't have a lot of time to look around!  Rather than entering one of the rooms that are to the west or east, you would be best off continuing south until you get to place where you can throw your pursuers off... like that junction up ahead.
+
+
+
+    Laurie follows you from the north.
+
+    A loud alarm is ringing.
+
+>south
+[s]
+You move south.
+
+Hallway Junction
+    This is where the north-south hallway ends.  Running perpendicular to it is a similar-looking hallway which extends east and west for an indeterminable distance.
+    Laurie is beside you, breathing heavily.
+
+    Laurie follows you from the south.
+
+    An officer far down the hallway to the west notices you and immediately runs in your direction.
+
+    A loud alarm is ringing.
+
+    You can hear the sound of more than one set of feet chasing you from behind.
+
+>east
+You move east.
+
+Long Hall East
+    The hallway continues east and west, with the entrance to some darkened room to the south.
+    Laurie is beside you, breathing heavily.
+
+    Laurie follows you from the west.
+
+    You hear what sounds like a window being opened abruptly.
+
+    "In there!", says Laurie, indicating the room to the south, "We can hide in there!"
+
+    A loud alarm is ringing.
+
+>south
+[s]
+You move south.
+Supply Room
+    Light from the hallway north of you allows you to quickly observe the following features in this closet-type room.  There is a filing cabinet in one corner.  Against one wall is a wide shelf containing office supplies.  A window with curtains stands to the south.
+
+
+
+    Laurie follows you from the north.
+
+    An alarm can be heard in the halls outside.
+
+>south
+[s]
+You push aside the curtains and step through the window.
+
+Standing Outside the East Window
+    You are standing on a windowsill that continues to the west.  North through the window is the room from which you stepped out of.  South of you is the exterior wall of some other part of the building.  It must have been built on a hill of some sort.  Though you entered this building at ground level, the drop from the windowsill to the ground beneath is not insignificant.
+
+
+
+    Laurie follows you from the north.
+
+    Laurie looks like she is on the verge of screaming.
+
+>west
+[w]
+You move west along the windowsill.  As you do so, you hear the curtains close in the room you came from.
+
+On the Windowsill
+    You are standing on a windowsill, hugging the north wall to keep from falling.  South of you is the exterior wall of some other part of the building.  The windowsill continues east and west.
+    Laurie is beside you, trembling mightily. 
+
+    Laurie edges her way along the windowsill slowly.  There is terror in her eyes.
+
+    You hear the sound of shuffling feet and voices in the room you just left.
+    "They can't be in here.  There's nowhere to hide and the curtains are closed."
+    "Funny, I thought they turned in this way."
+    "Look somewhere else--hurry!"
+    The voices fade out.
+
+>west
+[w]
+You move west.
+Standing Outside the West Window
+    You are standing on a windowsill that continues to the east.  North through the window is a darkened room.  Opposite you to the south is the wall of some other part of the building. 
+
+
+
+    Laurie follows you from the east.
+
+>north
+[n]
+You step through the window.
+
+
+
+    Laurie follows you through the window and then stops.
+Copy Room
+    There are no furnishings here other than a copy machine in one corner and stacks of papers all around.  To the north is the main hallway.  There are also rooms to the east and west.  To the south is a window.
+    Laurie is beside you, trembling mightily. 
+
+    An alarm can be heard in the halls outside.
+
+>wait
+Time passes...
+
+    An alarm can be heard in the halls outside.
+
+    Laurie looks like her legs are about to give, and tears are beginning to well up in her eyes.  Finally, she falls to her knees.
+
+>wait
+Time passes...
+
+    An alarm can be heard in the halls outside.
+
+    "I can't go on!", she cries softly.
+
+1) "Yes you can!"
+2) "What happened back there?"
+3) "But if we stay here they'll find us!"
+
+>1
+"You don't understand!", she bursts out.  But somehow, gradually, she manages to gather herself.     
+
+    An alarm can be heard in the halls outside.
+
+>west
+[w]
+You move west.
+An Office
+    This is a one-person office with a nice carpet and a desk.  There is a swivel chair beside the desk.  Underneath the desk is a large cardboard box. 
+
+A swivel chair is by the desk.
+
+
+
+    Laurie follows you from the east.
+
+>move box
+Moving the cardboard box reveals an open hatchway smack in the middle of the carpet.  An underground vein of some sort can be seen below.
+
+    Laurie eyes light up and she glances at you in astonishment.
+
+>down
+You hop down the hatch and help Laurie down afterwards...
+
+
+Press enter to continue
+
+
+>
+
+
+Cellar Passageway
+    You stand in a short cellar passageway full of shadows cast by light from around a corner up ahead.  Except for the hatchway from which you dropped, the ceiling is practically concealed by the criss-crossing of a myriad of pipes.  This area appears to be a dead end from which the only way one can go is north.
+    Laurie is right beside you.
+
+>north
+[n]
+As you move forward you can hear the cries of a girl from up ahead.  You and Laurie crouch behind some furniture that is at hand and survey the scene.
+
+Behind the Furniture
+    This is where the cellar passageway from the south opens into a spacious room to the west.   Pipes hang from the ceiling.  Some miscellaneous furniture provides cover.  
+    Over to the west you see that Laurie's sister is being held down in a chair in the center of the room.
+    Three kidnappers are standing near her.
+    Laurie is right beside you.
+
+    "Cassie!", gasps Laurie.
+
+>west
+[w]
+You stand up and run to the west.
+
+    Cassie sees you and gasps aloud.  The kidnappers notice you immediately.  All three move to confront you, one after the other.  The last one has a blackjack in his hand.  Is this not an opportunity to be a hero?
+
+>wait
+Time passes...
+
+    The kidnappers quickly surround you.  You realize that you are about to be gang-beaten mercilessly.
+
+
+    At that moment, Laurie stands up and shouts "NO!!!"  Enraged, she glares at the men.
+    "Laurie", shrieks Cassie in delight, "I knew you'd come!"
+    Laurie steps forward with mad determination.
+    The Kidnappers, now aware of everyone's presence, ignore both you and Cassie and focus all of their attention on Cassie's older sister.  As one Kidnapper nears her, he is struck on the side of the head by a pail that comes flying seemingly out of nowhere.  Its origin is not difficult to account for; it must have been lying behind some furniture nearby.  But as for being airborne--?!  Cassie yells for you to duck and you do.
+    The pail continues to circles through the air in a random pattern and at a tremendous speed.   It crashes repeatedly into the heads of each of the Kidnappers.  A groan accompanies each collision, but the pail goes on soaring back and forth like a vindictive harpy.
+    Eventually it falls to the floor, rolls for awhile, then is still.  By that time, there is not a single of the men groaning.  They have all been rendered unconscious.
+    Laurie sinks to her knees in relief while Cassie lets out a squeal of joy.
+
+>wait
+Time passes...
+
+    Cassie runs into her sister's arms.  "Laurie!", she cries.   "Are you all right?", asks Laurie.  "I'm fine!", Cassie responds.  "I'm so glad that you came.  But I knew that you would!"
+    And then she runs into your arms.  "Thank you!", she cries with much feeling.  And then, "Um.. sister, who is he?  Wait", she says, turning to look at you again, "Weren't you the one in the ice cream parlor?"
+    Laurie nods her head in enthusiastic affirmation.
+
+>wait
+Time passes...
+
+    Laurie thinks for a moment, then asks you, "I never learned your name, did I?"
+    "Nice to meet you, N!", Cassie says cheerfully upon learning your name.
+    "N", begins Laurie, "Without you... I... I don't know if I ever could have... I..."
+    Cassie, who has been looking at the fallen Kidnappers,  interrupts Laurie's train of speech and speaks up.  "D'jou think it's safe?"
+    "I...", begins Laurie again,"...I hit them pretty hard, I think."
+    "Yeah, you were incredible, sis!  The way you kept that object in the air all that time--I've never been able to do anything like that!"  Laurie shrugs modestly.
+
+1) "Laurie, you didn't tell me that you also had PK!"
+2) "It's okay.  I basically had it figured out already."
+3) "How come you didn't use your power sooner?"
+
+>1
+    "I'm...sorry", she apologizes.  "I didn't know how you would take it.  How could I know if you would have helped me then?  Although, thinking about it now, I think that you would have.  I'm sort of surprised that you didn't figure things out anyways.  I thought...I gave it away on many occasions.  Like when I distracted the security officer and made his chair trip his legs, or when I opened and closed windows and curtains upstairs.  And your motorcycle--I had to fix that, didn't I?"
+
+1) "Laurie, you really are impressive."
+2) "Cassie, you did some amazing things tonight, too."
+3) "So which of you is stronger?"
+
+>1
+    Laurie just blushes and Cassie says, "That's my sister for you.  You're going to keep teaching me how to do all the things that you can do, right, Laurie?  Like levitate things and bend metal.  I don't know if I'll ever be able to do all that."
+    "I'll try, I guess", smiles Laurie.
+
+1) "There's one thing I don't get--How come you needed me at all?"
+2) "C'mon, let's get you girls to safety."
+
+>north
+[n]
+You move north.
+Cellar Annex
+    Light cast from the large room to the south permits some visibility in this dark cellar passageway that leads north.  Pipes hang from the ceiling.  There is a door set in the east wall.
+
+Also here is the chest freezer.
+
+
+
+    Laurie follows you from the south.
+
+
+
+    Cassie follows you from the south.
+
+>north
+[n]
+You move north.
+Passageway End
+    The passageway ends here at a ladder ascending to a circular hatch on the ceiling.  In fact, it is the underside of a manhole.  Not shocking since the passage has had the feel of being in a damp, forgotten sewer all along.
+
+
+
+    Laurie follows you from the south.
+
+
+
+    Cassie follows you from the south.
+
+    "We can go up that way", remarks Laurie, pointing to the ladder.
+
+>up
+As you come near the hatch, the manhole cover slides off seemingly by itself.
+The three of you climb up the ladder one after another, yourself in the lead.
+
+    Laurie replaces the manhole cover.  "It isn't safe for us to be here either", she whispers.  Holding her shoulders in the cold night air, she looks around.
+    "Can we return to our own house?", asks Cassie.
+    Laurie shakes her head.  "I think that is too dangerous.  They know where that is.  They must have known that our parents were out of town and that's why they waited until tonight to...take you away."
+    Cassie giggles.  "It didn't help that I made those ice cream spoons dance on the table, huh?"
+    "Oh, that's how they were able to pinpoint your exact location!", She groans girlishly.  "Cassie, I told you not to do that!  You know that they can hear us do those kind of things by wearing those things in their ears!"
+    "Oops", says Cassie sheepishly.
+    "Oh", cries Laurie, "what will we do?  If we keep running...they'll only find us again.  We can't go on like that.  In order to ever feel safe again...oh, what can we do?" 
+
+    Laurie looks at you with the same pleading expression that you saw in the ice cream parlor.
+
+1) "Gee...I dunno..."
+2) "For now let's get out of here."
+3) "I don't intend to leave you."
+
+>1
+Cassie looks sort of disappointed.  Laurie simply looks forlorn. 
+
+    Laurie gazes at the sky, pondering.  By and by she turns to speak to you again.
+    "We can go to my friend's house.  She'll let us stay there, I know she will.  Until...until it is safe to go home again.  N, will you take us there?  I can show you the way to her house once we get to your motorcycle."
+    "Let's hurry", agrees Cassie, "I've had enough of this place."
+
+>north
+[n]
+The three of you make your way back to your motorcycle without further incident.  Smaller than her sister, Cassie is able to squeeze into the seat with Laurie and hold onto her back while Laurie holds onto yours.  You start the engine and take off into the night, leaving Langston Bridge and its dark alleys behind...
+ 
+
+
+
+Press enter to continue
+ 
+
+>
+
+
+
+
+
+
+CHAPTER 3
+
+
+
+Friends and Clues
+
+
+>
+
+You and your passengers arrive at the front of a house that Laurie indicates is the place where her friend lives.  You park your motorcycle and the girls dismount.
+
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other than in the domestic atmosphere that permeates it, made possible by cleanliness and simple feminine decor.  A mat lies at the foot of the front door, which is east.  A mailbox is attached to the wall beside the door.  Your motorcycle is parked close by.
+    Laurie is right beside you.
+    Cassie is also beside you.
+
+>glk script off
+

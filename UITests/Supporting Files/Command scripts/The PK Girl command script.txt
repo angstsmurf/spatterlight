@@ -79,4 +79,8 @@ north
 up
 1
 north
-quit
+
+
+# The two blank lines above clear the "Press enter to continue" screen and the
+# CHAPTER 3 heading, leaving the game at the "Front of Monika's House" command
+# prompt, which the UI test waits for to know the script has finished.

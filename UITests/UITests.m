@@ -1324,6 +1324,61 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
+- (void)testAdriftPKGirl {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"the_pk_girl.taf"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"The PK Girl"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [textView click];
+
+    // The PK Girl shows a title screen and then waits at a line prompt
+    // ("Press Enter to begin the game"). Spaces do not submit a line, so wait
+    // for the large game to finish loading, then submit a dummy line (a lone
+    // space, which the game discards) to advance to the game proper before
+    // turning the transcript on.
+    NSPredicate *loaded = [NSPredicate predicateWithFormat:@"value CONTAINS 'Press Enter to begin'"];
+    XCTNSPredicateExpectation *loadedExpectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:loaded object:textView];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[loadedExpectation] timeout:30], XCTWaiterResultCompleted);
+
+    [textView typeText:@" \r"];
+    [textView typeText:@" glk script on\r"];
+
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
+    [self openCommandScript:@"The PK Girl"];
+
+    NSString *facit = [self comparisonTranscriptFor:@"The PK Girl"];
+
+    // The command script plays through the Chapter 1 kidnapping and into
+    // Chapter 3, ending at the "Front of Monika's House" room. Waiting for that
+    // (distinctive, end-only) room name tells us the whole script has finished.
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Front of Monika'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:180], XCTWaiterResultCompleted);
+
+    [textView click];
+    [textView typeText:@"glk script off\r"];
+
+    NSError *error = nil;
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of The PK Girl.txt" isDirectory:NO];
+
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
+}
+
 - (void)testCzech {
     XCUIElement *textField = [self addAndSelectGame:@"czech.z5"];
 
