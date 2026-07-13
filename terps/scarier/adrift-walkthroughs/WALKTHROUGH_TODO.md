@@ -15,15 +15,37 @@ turn short vs the EVENT-92 Morac timer, plus three NPC-walk meet/charTask
 triggers that now fire only when the NPC steps onto the player). All three
 re-derived to exact old-order score parity, 0 deaths, and added to
 `run_v4_walkthroughs.sh` with blessed goldens (regression 20/20 PASS). Session
-writeup at the top of `Shadowpeak_walkthrough.md`; mechanism details in
-`terps/scarier/TODO_restriction_type5_and_turn_order.md`; the Damastus chase is
-re-derivable in one run with `harness/shadowpeak_chase.py`. Copies + fresh
+writeup at the top of `Shadowpeak_walkthrough.md` (which also carries the
+mechanism details, after the type-5/turn-order TODO it used to cite was pruned);
+the Damastus chase is re-derivable in one run with `harness/shadowpeak_chase.py`. Copies + fresh
 `scare` synced to `~/adrift-battle/harness` (36 other solutions verified
 unaffected by the binary refresh) and `~/scare/adrift-walkthroughs/harness`.
 
-## 2026-06-28 — ALEXIS max-score — combat RE done, route mapped (banked still 23/65)
+## 2026-07-13 — ALEXIS max-score — ★ BANKED AND WIRED (55/65 and 58/65)
 
-Picked up the parked ALEXIS max-score pass. **Reverse-engineered the 3.9 Battle
+**Closed.** Both cube routes are now regression rows in `run_v4_walkthroughs.sh`
+with blessed goldens, and the whole v4 suite is **22/22 PASS**:
+
+| solution | difficulty | score | route |
+|---|---|---|---|
+| `alexis_solution.txt` (171 cmds) | Easy | **55/65** WIN | *carry* the magic cube (hit 50 → clean kills) |
+| `alexis_worn_cube_solution.txt` (252 cmds) | Hard | **58/65** WIN | *wear* the cube (Defence +50 = immunity) + Hard's +10 |
+
+58/65 is the max reached: worn ≠ wielded, so offense drops to the small sword and
+the four *flee*-type enemies (wolf/bridgekeeper/king/eagle) escape before dying,
+costing points the carry route collects — the two routes trade 12 points of kills
+against 10 points of Hard bonus plus 5 more survivable fights. Win marker for both
+rows is `you have beaten Urgorn`; scores confirmed by injecting `score` before the
+killing blow (the game ends in credits, so a trailing `score` never executes).
+
+Also fixed while doing this: `harness/build.sh` no longer links — `scmap.cpp` (the
+new ADRIFT 4 map port) calls `map_free()` from `mapdraw.cpp`, which the `sc*.cpp`
+glob doesn't match. Added `mapdraw.cpp` to the harness link line (it is plain C++,
+no Glk).
+
+### Background — the 2026-06-28 combat RE that made this possible
+
+**Reverse-engineered the 3.9 Battle
 System** with a temp `battle_resolve` `SC_TRACE_DMG` trace + a new committed
 `SC_DUMP_OBJLOC` scdump path (object positions + weapon/armour Battle props):
 
@@ -44,12 +66,13 @@ System** with a temp `battle_resolve` `SC_TRACE_DMG` trace + a new committed
   large knife 30 (room21 but "too heavy" w/o a Strength boost), **magic cube
   50/50** (hidden master item), elven armour 3 (cupboard r37), longmore chest
   plate 5, steel vest/metal helmet 3, elven chain mail 5 (NPC-worn). 
-- **Resume route (mapped, not banked):** detour the **combat-safe elven village**
+- **Resume route as mapped then:** detour the **combat-safe elven village**
   (rooms 29–38, no hostiles) for **water +1+1** and **wear elven armour**, stack
   surface armour, THEN add turn ring +3 + on-path kills (Serond present) +
-  goblin→juice→carry the large knife → hard +10. Long interactive grind (compass
-  rotated; shared erkyrath stream re-tunes per change). **23/65 stays the verified
-  deterministic win** for now. Committed: `SC_DUMP_OBJLOC` tooling + walkthrough
+  goblin→juice→carry the large knife → hard +10. *(Superseded: the **magic cube**
+  — spell `nnamen tutem selronden flar darg` at game start, hit/protection 50/50 —
+  hardens the player outright and made the armour grind unnecessary. See the
+  banked entry above.)* Committed: `SC_DUMP_OBJLOC` tooling + walkthrough
   rewrite. (This session's env was unstable — classifier outages + OOM; always
   `ulimit`-bound single runs, never background, per scare-harness-oom note.)
 
@@ -392,9 +415,8 @@ native 3.9, win verified 3×). Tree clean (docs/solutions only; no terp `.c`
 edits — `scdump` is already committed in the harness).
 
 **Resume points (untouched / partial), smallest-effort first:**
-- **ALEXIS max-score pass** — banked win is the min-combat 23/65; the other ~42
-  pts (Hard +10, ~8 optional monster kills via Serond, turn-ring/water/dig/
-  marsh-chest side puzzles, power-up items) are detailed in `ALEXIS_walkthrough.md`.
+- ~~**ALEXIS max-score pass**~~ — **DONE (55/65 carry-cube, 58/65 worn-cube; both
+  wired with goldens)** — see the 2026-07-13 entry at the top.
 - ~~**Matt's House**~~ — **DONE** (sandbox, max 5/5, no win) — see 2026-06-26 entry below.
 - ~~**The Screen Savers On Planet X**~~ — **DONE (WON 142/142)** — see 2026-06-26 entry below.
 - **circus** (*Menagerie!*, 158 tasks) — **TRIAGED + opening banked (10/140), PARKED**;
@@ -409,7 +431,8 @@ edits — `scdump` is already committed in the harness).
   entry at the top).
 - **Shadowpeak** (574 tasks, win route not banked) — the last big multi-session one.
   circus (*Menagerie!*) is winnable but parked at the RNG token/cash bootstrap
-  (10/140, OOM-risky); ALEXIS/Les Feux have optional max-score passes.
+  (10/140, OOM-risky); ALEXIS's max-score pass is since **DONE** (55/65 + 58/65),
+  Les Feux's remains optional.
 
 ## 2026-06-26: The Screen Savers on Planet X — **WON, full 142/142**
 
@@ -465,11 +488,13 @@ enemy, no `KilledTask`, and no EndGame, so the stats do nothing observable
 sandbox class as `lifesimulation`/`The_Town_Of_Azra`, but with one token scoring
 task instead of zero. Faithful; no SCARE change, no combat-assist.
 
-## 2026-06-24 session: the newly-added games (see `TRIAGE_NOTES.md`)
+## 2026-06-24 session: the newly-added games
 
 The `games/` folder grew to 50 `.taf` since this file was first written; all 32
-not-yet-covered games were triaged with the structural dump and `TRIAGE_NOTES.md`
-records the full classification. Progress this session (12 new walkthroughs):
+not-yet-covered games were triaged with the structural dump. (The triage is
+finished — every game below is now banked, and the per-game classification lives
+in each game's own `*_walkthrough.md`, so the separate triage table was pruned.)
+Progress this session (12 new walkthroughs):
 
 - **Wins, verified deterministic:** `Cyber_walkthrough.md` (150/150),
   `cyber2_walkthrough.md` (355/355), `TheCatintheTree_walkthrough.md` (50/50),
@@ -501,6 +526,11 @@ records the full classification. Progress this session (12 new walkthroughs):
   (later) entries below.
 
 ## 2026-06-26: ALEXIS (*Alexis: Dalskee*) — **WON, 23/65** (win verified deterministic)
+
+> **SUPERSEDED (2026-07-13):** the magic-cube routes now bank **55/65** and
+> **58/65**, both wired with goldens — see the entry at the top of this file.
+> `harness/alexis_solution.txt` is no longer the 101-cmd 23/65 script described
+> below; it is the 171-cmd carry-the-cube route.
 
 `ALEXIS_walkthrough.md`; solution `harness/alexis_solution.txt` (101 cmds).
 Native **ADRIFT 3.9** (byte8 `0x94`/byte10 `0x37`) fantasy quest w/ Battle
@@ -822,9 +852,10 @@ catnip + wandering-cat lines are decoys. **Tooling:** extended `SC_DUMP_TASKS`
 
 > **PARKED 2026-06-25.** Progress banked below: Shadowpeak side-check RESOLVED
 > (native-4.0 MeetObject fixup correct); Space Boy's triaged + scdump off-by-one
-> fix; Through time = probable-but-unconfirmed No-Rooms SCARE divergence (decode
-> plan in `TODO_decode_sub_20_74.md`). Resume next with Les Feux de l'enfer (the
-> last untouched 4.0 candidate) and/or executing `TODO_decode_sub_20_74.md`.
+> fix; Through time = probable-but-unconfirmed No-Rooms SCARE divergence (a
+> `Sub_20_74` decode plan was drawn up). Resume next with Les Feux de l'enfer
+> (the last untouched 4.0 candidate) and/or executing that decode plan.
+> *(Since superseded — see the RESOLVED verdict further down: SCARE is faithful.)*
 
 **Question to answer:** are any of the *untested* 4.0 games unwinnable because
 their authors converted them from 3.9 in the ADRIFT 4.0 Generator and the
@@ -1023,9 +1054,9 @@ SCARE lacks — its exact form (the VB6 task `Where` record layout / param
 semantics) was not fully decoded.
 
 **Verdict (2026-06-25, RESOLVED — faithful, unplayable-by-design; do NOT patch).**
-The `TODO_decode_sub_20_74.md` deep-dive settled this. Three independent lines
-of evidence converge on *SCARE is faithful*; the earlier "probable divergence"
-rested on a misread of the Runner.
+The `Sub_20_74` deep-dive settled this. Three independent lines of evidence
+converge on *SCARE is faithful*; the earlier "probable divergence" rested on a
+misread of the Runner.
 
 1. **The `Sub_20_74` premise was wrong.** That routine is **not** the task
    room-gate. Re-RE of `run400.txt` shows it is a command-**reference / exit
@@ -1085,7 +1116,8 @@ design (an authoring error), not a SCARE divergence.** SCARE's unconditional
 `NO_ROOMS → FALSE` is **faithful** and must stay. (The Win32 `run400.exe`
 ground-truth shortcut was moot anyway: only the disassembly `run400.txt` is on
 disk — the `.exe` itself is not present, and the host is Apple-Silicon with no
-Wine.) `TODO_decode_sub_20_74.md` is closed; see its tail for the closing note.
+Wine.) The `Sub_20_74` decode TODO is closed and pruned; its verdict is the one
+recorded above.
 
 ## Combat-assist note (opt-in, committed)
 

@@ -67,6 +67,8 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
+alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
+alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 EOF
 )
 

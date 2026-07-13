@@ -7,6 +7,12 @@
 > *"Alternative route — WEAR the cube (58/65, Hard)"*. Solutions:
 > `harness/alexis_solution.txt` (carry/Easy) and
 > `harness/alexis_worn_cube_solution.txt` (wear/Hard).
+>
+> **Both are BANKED (2026-07-13):** each is a row in
+> `harness/run_v4_walkthroughs.sh` with a committed golden
+> (`*_solution.expected.txt`) and the win marker `you have beaten Urgorn`. The v4
+> suite is 22/22 PASS. Re-verify with `sh harness/run_v4_walkthroughs.sh alexis`;
+> re-bless with `--bless` after any intentional engine change.
 
 **Game:** `ALEXIS.TAF` — *"Alexis: Dalskee"* by Kingsbury. **Native ADRIFT 3.9**
 (TAF sig byte8=`0x94`/byte10=`0x37`), a fantasy quest with the ADRIFT Battle

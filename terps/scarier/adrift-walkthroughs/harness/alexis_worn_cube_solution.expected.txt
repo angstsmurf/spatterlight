@@ -1,0 +1,1048 @@
+Loading game...
+
+Alexis:Dalskee
+Alexis: Dalskee
+
+Author: Kingsbury
+
+You are Alexis, the fearless warrior and adventurer. After a long sleep, you
+wake up in your Cottage. Attempting to remember what you were going to do
+today, you realise that the information is stored in your diary, that lies on
+the table. With a yawn, you get up, ready to start your adventure...
+
+(Type help for a list of extra commands or hint for hints on tasks)
+
+Choose your level of difficulty now, either Hard, Medium or Easy.
+
+>The game is set to hard.
+The Old Cottage
+The cottage has clean bright walls and a polished wooden floor. There is a
+fireplace that gives out magnificent heat. There is an old oak table in the
+middle of the room. The ceiling is made of thatch and the whole room smells
+of home. There is a large calendar on the wall. There are some stairs down to
+a cellar too.
+
+>A magic cube appears in your hands.
+
+>You put on the magic cube.
+
+>You take the diary, the brass lantern, the woven cloak and the nice food from
+the old oak table.  You take the Forecarn stone from the leather bag.
+
+>You put on the woven cloak.
+
+>You move down.
+Cottage Cellar
+This dark little room has lots of shelves with little on them.
+
+You can also see a gold coin.
+
+>You take the bottle of oil from the shelves.
+
+>You pick up the gold coin and put it in your purse.
+
+>You move up.
+The Old Cottage
+The cottage has clean bright walls and a polished wooden floor. There is a
+fireplace that gives out magnificent heat. There is an old oak table in the
+middle of the room. The ceiling is made of thatch and the whole room smells
+of home. There is a large calendar on the wall. There are some stairs down to
+a cellar too.
+
+>The oil trickles into the lantern.
+
+>The lantern lights with a little splutter and then gives out a bright light.
+
+>You move out.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are
+standing in front of an old cottage. A well trodden path leads north up the
+hills of Forecarn, while another leads west into Dusteron. Due East of here
+runs a wide path that cuts into Tonerith.
+
+>You move east.
+Tonerith Pass
+This wide path continues to the East. You can see the hills of Forecarn north
+of here but there is no path running there. You can here the sound of rushing
+water in the distance.
+
+You can also see the Tonerith stone.
+There is a grey wolf circling you.
+Wolf hits you, but it doesn't seem to do any damage.
+
+>You hit Wolf.
+
+>You hit Wolf.
+Wolf hits you, but it doesn't seem to do any damage.
+
+>You hit Wolf.
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>You pick up the Tonerith stone.
+
+>You move east.
+Tonerith junction
+You are standing at a junction.  There appears to be a stone bridge over the
+river east of here and a path to the north, running alongside the river.
+Tonerith pass runs west of here.
+
+>You move east.
+The Bridge of Tonerith
+The large stone bridge extends across the wide river. The sound of rushing
+water is almost deafening. A mist of spray from the river blows against your
+face. The bridge is covered in Ivy and moss. The bridge crosses the river
+towards Kedarn forest to the northeast. West will take you to Tonerith
+junction.  There is a large dwarven bridgekeeper blocking your way across the
+bridge.
+The Bridgekeeper is here.
+
+>You hit Bridgekeeper.
+Bridgekeeper hits you, but it doesn't seem to do any damage.
+
+>You hit Bridgekeeper.
+
+>You hit Bridgekeeper.
+Bridgekeeper hits you, but it doesn't seem to do any damage.
+
+>You hit Bridgekeeper.
+
+>You hit Bridgekeeper.
+Bridgekeeper hits you, but it doesn't seem to do any damage.
+
+>You hit Bridgekeeper.
+
+>You hit Bridgekeeper.
+Bridgekeeper hits you, but it doesn't seem to do any damage.
+
+>You hit Bridgekeeper.
+
+>You hit Bridgekeeper.
+Bridgekeeper hits you, but it doesn't seem to do any damage.
+
+>You hit Bridgekeeper.
+
+>You hit Bridgekeeper.
+Bridgekeeper hits you, but it doesn't seem to do any damage.
+
+>You hit Bridgekeeper.
+
+>You move west.
+Tonerith junction
+You are standing at a junction.  There appears to be a stone bridge over the
+river east of here and a path to the north, running alongside the river.
+Tonerith pass runs west of here.
+
+>You move west.
+Tonerith Pass
+This wide path continues to the East. You can see the hills of Forecarn north
+of here but there is no path running there. You can here the sound of rushing
+water in the distance.
+
+>You move west.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are
+standing in front of an old cottage. A well trodden path leads north up the
+hills of Forecarn, while another leads west into Dusteron. Due East of here
+runs a wide path that cuts into Tonerith.
+
+>You move north.
+Hills of Forecarn
+The large green hills of Forecarn, roll out all around. The cool breeze
+sweeps across your face. From the top of this hill, you can see that the path
+lies Northeast. However, another hill blocks your view of where the path
+leads, but you can here the sound of rushing water from that direction. South
+will take you to a cottage.
+
+You can also see a small sword.
+
+>You pick up the small sword.
+
+>You move south.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are
+standing in front of an old cottage. A well trodden path leads north up the
+hills of Forecarn, while another leads west into Dusteron. Due East of here
+runs a wide path that cuts into Tonerith.
+
+>You move west.
+Dusteron Pass
+The path gets gradually less well distinguished. You can feel that in the
+wind there is a sandy, dusty feeling on your face. The path continues to the
+North where it appears to get more dusty. Southeast of here is a small
+cottage.
+
+>You move north.
+Dusteron pass enters the desert
+North of here seems to enter into the Dusteron desert, while South will take
+you down Dusteron pass.
+
+>You move north.
+Dusteron Desert
+The winds sweeps round you as you squint your eyes, you appear to be in the
+centre of an open dessert. There is the sound of rushing water, but with the
+combination of wind and sand, it is difficult to tell where it is coming
+from. The sand whistles into your eyes but you can just see a small path to
+the East, otherwise you can retreat south.
+
+You can also see the Dusteron stone.
+
+>You pick up the Dusteron stone.
+
+>You move east.
+Dusteron plains river bank
+You stand on the banks of the Forecarn river, the fast rushing water flows
+from the west to the east. The sound is almost deafening. Across the other
+side of the river is a cobblestone path leading away. There is another path
+to the West leading to the Dusteron desert.   There is a rotted tree standing
+ just next to the river.
+
+>The tree creaks. It looks like it's going to fall into the river.  Then it
+lands luckily across the river. You can now cross north.
+
+>You are walking across when the tree starts to crumble, as you hop quickly to
+the other side, the tree breaks in half and floats down the river. "It was a
+ROTTING tree, what did I expect?" you think to yourself.
+River bank in Glaven
+You are standing on the bank of the Forecarn river. North of here is a
+cobblestone path which seems to lead to a cave.
+
+>You move north.
+Entrance to the Cave
+You are standing at the entrance to Caves of Eternal night. The legends were
+true! They say that there are unimaginable terrors in the caves. Northwest
+will take you into the cave, Northeast will take you away, up a long path.
+South will take you to a river bank.
+
+>You move northwest.
+Passage in the Caves of eternal night
+The walls are dripping with water, it is extremely dark and the walls appear
+to be made from a very hard rock. Northwest of here the caves continue.
+Southeast will take you out of the cave.  You can see a large area in the
+cave up ahead.  It is too dark to carry on in the caves.
+
+>You move northwest.
+Main Cave
+This cave is huge and the walls glitter with the water trickling down. There
+is a musty smell that fills the air. There is a large cave east of here and a
+smaller one to the west. Northwest takes you into a winding passage.
+Southeast takes you down a straight passage.  The path northwest is being
+blocked by a large troll.
+
+Narfild is here.
+
+>You hit Narfild.
+Narfild hits you, but it doesn't seem to do any damage.
+
+>You hit Narfild.
+
+>You hit Narfild.
+Narfild hits you, but it doesn't seem to do any damage.
+
+>You hit Narfild.
+Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
+
+>Command not understood
+
+>Command not understood
+
+>You move east.
+Large cave
+It is too dark to see here.
+
+>You take the Glaven stone from the large stone table.
+
+>The iron ring slowly begins to move, it turns to a right angle and you hear a
+low pitched rubbing of stone on stone from somewhere in the cave.
+
+>You move west.
+Main Cave
+This cave is huge and the walls glitter with the water trickling down. There
+is a musty smell that fills the air. There is a large cave east of here and a
+smaller one to the west. Northwest takes you into a winding passage.
+Southeast takes you down a straight passage.  There is a huge troll stretched
+out across the floor. He has large scratches all over his body.  The path
+northwest is being blocked by a large troll.
+
+Also here are some grotty rags and a large club.
+
+>You move west.
+Small Cave
+This small cave makes you bow your head slightly. There is water running down
+all the walls apart from one, where the water drips into a puddle. East will
+take you back into the main cave.  There is a doorway that connects this cave
+with a square cave to the West.
+
+>You move west.
+Square cave
+It is too dark to see.
+
+>You take the metal spade from the holes in the wall.
+
+>You move east.
+Small Cave
+This small cave makes you bow your head slightly. There is water running down
+all the walls apart from one, where the water drips into a puddle. East will
+take you back into the main cave.  There is a doorway that connects this cave
+with a square cave to the West.
+
+>You move east.
+Main Cave
+This cave is huge and the walls glitter with the water trickling down. There
+is a musty smell that fills the air. There is a large cave east of here and a
+smaller one to the west. Northwest takes you into a winding passage.
+Southeast takes you down a straight passage.  There is a huge troll stretched
+out across the floor. He has large scratches all over his body.  The path
+northwest is being blocked by a large troll.
+
+Also here are some grotty rags and a large club.
+
+>You move northwest.
+Winding passage
+It is too dark to see.
+
+>You move northwest.
+Small cave entrance
+You are standing in front of a very small entrance to a network of the caves
+of eternal night. Southeast will take you into the caves, east will take you
+along an open path.
+
+>You move east.
+Glaven junction
+You are standing at the junction of four paths. One leaves west towards some
+caves. Another path leads towards some mountains northeast of here. A long
+path goes southwest. The last path is wide and goes southeast.
+
+>You move southwest.
+Long Glaven path
+The path is long and will take you either northeast to a junction or
+southwest towards a cave.   Tarin the dwarf is barring your way northeast.
+Tarin, the dwarf is here.
+
+>Tarin takes the food eagerly. Tarin eats the food and then he bows his head
+to you in gratitude. "Thank you, now you may pass. Would you like to buy
+anything for your journey?"
+
+>You move northeast.
+Glaven junction
+You are standing at the junction of four paths. One leaves west towards some
+caves. Another path leads towards some mountains northeast of here. A long
+path goes southwest. The last path is wide and goes southeast.
+
+>You remove the topsoil carefully with the spade. You then dig down and down
+about 3 feet.  Just when you think there is nothing there, there is a chink.
+Glaven junction
+You are standing at the junction of four paths. One leaves west towards some
+caves. Another path leads towards some mountains northeast of here. A long
+path goes southwest. The last path is wide and goes southeast.
+
+You can also see a large hole.
+
+>You move southeast.
+Longmore junction
+This is the junction to four paths. The view is magnificent. North of here
+are snowcapped mountains. East of here, there is one huge mountain with a
+large castle near the top. Northwest will take you towards Glaven, near some
+caves, and southeast will take you into a marshy area.
+
+You can also see the Longmore stone.
+
+>You pick up the Longmore stone.
+
+>You move southeast.
+Longmore marshes
+The ground is extremely boggy here. Every footstep is a difficult strain.
+With all the water, it is difficult to see where any path goes. As you trudge
+through the marsh your eyes are fixed to the ground to try and be able to get
+through the ground. You can trudge northwest, southeast or attempt another
+direction.
+The Longmore marsh king is here.
+Longmore king hits you, but it doesn't seem to do any damage.
+
+>You move southeast.
+Longmore pass
+The ground has turned extremely wet and appears to get even wetter furthur
+Northwest. Southeast goes to a track junction. In the far distance you can
+see mountains.
+
+>You move southeast.
+Track junction
+You are standing on the junction, where a wide path passes a small faint
+track. The faint track leads towards the river southwest. The wide path leads
+east towards a village, and northwest where the ground gets much wetter.
+
+>You move southwest.
+Elven water collection point
+There appears to be elven footprints all over the path. You are standing
+right next to the river. The water next to where the bank meets it is slower
+and cleaner than the rest of the river. Northeast will take you up a small
+path to a junction.
+
+You can also see a large pot and an ornate key.
+
+>You pick up the large pot.
+
+>You pick up the ornate key.
+
+>The pot fills with river water.
+
+>You move northeast.
+Track junction
+You are standing on the junction, where a wide path passes a small faint
+track. The faint track leads towards the river southwest. The wide path leads
+east towards a village, and northwest where the ground gets much wetter.
+
+>You move east.
+Kedarn junction
+The path splits here. A thin path leads south towards a forest. A wide path
+travels towards a small village to the east. Another thin path heads towards
+wetter ground to the west.
+
+>You move east.
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small
+wooden huts to the north, east,  southeast and south. The huts are covered
+with mud and branches. A wide path leads west to a junction. A small path
+leads southwest towards the sea.
+Serond is standing on your right.
+
+Natalya is here.
+
+>You move east.
+East wooden hut
+The hut floor is covered with straw and in the corner there is a bed. Their
+is a desk against the wall and a stool in front of it.
+
+>You open the wooden desk.  Inside the wooden desk is a small jacket and a
+pile of gold coins.
+
+>You take the small jacket from the wooden desk.
+
+>You pick up the gold coins and put them in your purse.
+
+>You put on the small jacket.
+
+>You move west.
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small
+wooden huts to the north, east,  southeast and south. The huts are covered
+with mud and branches. A wide path leads west to a junction. A small path
+leads southwest towards the sea.
+Serond is standing on your right.
+
+Natalya is here.
+
+>You move north.
+North wooden hut
+The hut is made of wood and is quite small. In the middle there is a table
+with a chair next to it. They are sunken in to the floor. On the table lies
+many items, closely guarded by a tall man. The items have price tags on them.
+Examine the table to see what it available.
+
+>Crisso hands you the helmet as he takes your coins.
+
+>You put on the metal helmet.
+
+>You move south.
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small
+wooden huts to the north, east,  southeast and south. The huts are covered
+with mud and branches. A wide path leads west to a junction. A small path
+leads southwest towards the sea.
+Serond is standing on your right.
+
+Natalya is here.
+
+>You move south.
+South wooden hut
+This hut appears to be an area for cooking and eating. There is a fire in the
+centre of the hut with a large metal pan hanging over it. There is a long
+table around the outside.
+
+Derek is here.
+
+>The river water sploshes into the metal pan and begins to boil.
+
+>You move north.
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small
+wooden huts to the north, east,  southeast and south. The huts are covered
+with mud and branches. A wide path leads west to a junction. A small path
+leads southwest towards the sea.
+Serond is standing on your right.
+
+Natalya is here.
+
+>You move southeast.
+Southeast wooden hut
+The hut is very small but has many cupboards around it's borders. There is a
+door leading east, but it is locked. It simply has the words: "Nnem shclam
+quaten" (Translated as sleeping quarters)  There is an unlocked weapons
+cupboard.  There is a large weapons cupboard that is locked.
+
+>The cupboard creaks open and the objects inside glitter and shine.
+
+>You take the elven armour from the elven cupboard.
+
+>You put on the elven armour.
+
+>You move northwest.
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small
+wooden huts to the north, east,  southeast and south. The huts are covered
+with mud and branches. A wide path leads west to a junction. A small path
+leads southwest towards the sea.
+Serond is standing on your right.
+
+Natalya is here.
+
+>You move west.
+Kedarn junction
+The path splits here. A thin path leads south towards a forest. A wide path
+travels towards a small village to the east. Another thin path heads towards
+wetter ground to the west.
+
+>You move south.
+Kedarn forest opening
+The forest is opened out and you stand between the forest and green fields.
+Picked through the forest there appears to be a path southeast. Another path
+heads north to a junction.
+
+>You move southeast.
+Kedarn forest clearing
+You stand in the middle of a barren circle. All around the trees seem to be
+closing in. West will take you down a tiny path. Another clearer path leads
+northwest.
+
+You can also see the Kedarn stone.
+There is a Forester Goblin hanging from a tree here.
+Forester Goblin hits you, but it doesn't seem to do any damage.
+
+>You hit Forester Goblin.
+
+>You hit Forester Goblin.
+Forester Goblin hits you, but it doesn't seem to do any damage.
+
+>You hit Forester Goblin.
+
+>You hit Forester Goblin.
+The Goblin drops from the tree and lands on the floor. Then, it's little body
+shrivels and turns to dust, it is then blown away by the light wind.
+
+Forester Goblin jumps through the trees to you.
+The birds high above your head hoot and cheep to each other.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You pick up the Kedarn stone.
+
+>You move northwest.
+Kedarn forest opening
+The forest is opened out and you stand between the forest and green fields.
+Picked through the forest there appears to be a path southeast. Another path
+heads north to a junction.
+
+>You move north.
+Kedarn junction
+The path splits here. A thin path leads south towards a forest. A wide path
+travels towards a small village to the east. Another thin path heads towards
+wetter ground to the west.
+
+>You move west.
+Track junction
+You are standing on the junction, where a wide path passes a small faint
+track. The faint track leads towards the river southwest. The wide path leads
+east towards a village, and northwest where the ground gets much wetter.
+
+>You move northwest.
+Longmore pass
+The ground has turned extremely wet and appears to get even wetter furthur
+Northwest. Southeast goes to a track junction. In the far distance you can
+see mountains.
+
+>You move northwest.
+Longmore marshes
+The ground is extremely boggy here. Every footstep is a difficult strain.
+With all the water, it is difficult to see where any path goes. As you trudge
+through the marsh your eyes are fixed to the ground to try and be able to get
+through the ground. You can trudge northwest, southeast or attempt another
+direction.
+The Longmore marsh king is here.
+Longmore king hits you, but it doesn't seem to do any damage.
+
+>You hit Longmore king.
+Longmore king hits you, but it doesn't seem to do any damage.
+
+>You hit Longmore king.
+Longmore king hits you, but it doesn't seem to do any damage.
+
+>You hit Longmore king.
+Longmore king hits you, but it doesn't seem to do any damage.
+
+>You hit Longmore king.
+
+>You hit Longmore king.
+Longmore king hits you, but it doesn't seem to do any damage.
+
+>You hit Longmore king.
+The swamp monster slowly melts into the marsh. It then dissapears.
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>You move northeast.
+Marshy cave
+It is too dark to see.
+
+>The chest's lock slowly turns and with a clunk, the chest is unlocked.
+
+>The large chest is already open!
+
+>You take the longmore chest plate from the large chest.
+
+>You put on the longmore chest plate.
+
+>You move southwest.
+Longmore marshes
+The ground is extremely boggy here. Every footstep is a difficult strain.
+With all the water, it is difficult to see where any path goes. As you trudge
+through the marsh your eyes are fixed to the ground to try and be able to get
+through the ground. You can trudge northwest, southeast or attempt another
+direction.
+
+You can also see a pointy stick.
+
+>You move northwest.
+Longmore junction
+This is the junction to four paths. The view is magnificent. North of here
+are snowcapped mountains. East of here, there is one huge mountain with a
+large castle near the top. Northwest will take you towards Glaven, near some
+caves, and southeast will take you into a marshy area.
+
+>You move east.
+Somlost Pass
+This is a long path towards a large mountain. On one side are lots of snow
+capped mountains, on the other is marsh. East will take you towards the
+mountain. West will take you back to the Longmore Junction.
+
+>You move east.
+Somlost Ravine
+You are standing on the edge of a huge ravine. Below you the cliff drops
+about 60ft down onto jagged rocks. The ravine is about 30ft wide and
+impossible to jump across. Jumping down would result in immediate death. West
+will take you along a path.
+There is an eagle above you circling around your head.
+
+>You hit Eagle.
+Eagle hits you, but it doesn't seem to do any damage.
+
+>You hit Eagle.
+
+>You hit Eagle.
+The eagle makes a last flap of it's enormous wings and falls deep into the
+ravine out of view.
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>You move west.
+Somlost Pass
+This is a long path towards a large mountain. On one side are lots of snow
+capped mountains, on the other is marsh. East will take you towards the
+mountain. West will take you back to the Longmore Junction.
+
+>You move west.
+Longmore junction
+This is the junction to four paths. The view is magnificent. North of here
+are snowcapped mountains. East of here, there is one huge mountain with a
+large castle near the top. Northwest will take you towards Glaven, near some
+caves, and southeast will take you into a marshy area.
+
+>You move northwest.
+Glaven junction
+You are standing at the junction of four paths. One leaves west towards some
+caves. Another path leads towards some mountains northeast of here. A long
+path goes southwest. The last path is wide and goes southeast.
+
+You can also see a large hole.
+
+>You move northeast.
+Nelone mountain junction
+This path threads over the bottoms of many mountains. On each side are
+extremely steep mountains. It is impossible to attempt to climb up any.
+Southwest will take you towards Glaven. Northeast takes you further along the
+pass. East takes you along a valley ridge.
+
+>You move northeast.
+Nelone mountain pass
+This long path threads through the mountains east or to a junction southwest.
+There is a Narn here.
+Kerfald hits you, but it doesn't seem to do any damage.
+
+>You move east.
+Thin mountain path
+The path thins out here to just a small footpath. The path thickens west, or
+goes to a junction to the Southeast.
+
+>You move southeast.
+Nelone mountain junction
+The ground here is covered in a fine layer of snow. This junction leads away
+three ways. Impossible to tell where each one goes as they thread through
+mountains. The paths lead Northwest, West and East. The only way that can be
+sure is that west leads down into a valley.
+
+You can also see the Nelone stone.
+
+>You pick up the Nelone stone.
+
+>You move east.
+Nelone bridge West
+In front of you is a small rope footbridge that stretches over the ravine
+below. It is held by strong ropes that are driven into the ground by huge
+stakes. It would be impossible to cut the ropes with anything. East will take
+you along the bridge. West will take you to a junction.
+
+>You move east.
+Nelone Bridge
+You are at the centre of a long footbridge, reaching across the ravine. There
+is a handrail on either side, with planks of wood to walk on. West goes to
+one side of the bridge, east to the other.  Larnt is standing in front of you
+barring the way.
+
+Larnt is here.
+
+>As you hand over the stones, Larnt's face breaks into an evil smile. As the
+last stone drops into his hand, he begins to laugh a terrible screeching
+laugh.  He leaps into the air, sheds his cloak and flies away towards the
+mountain.
+Nelone Bridge
+You are at the centre of a long footbridge, reaching across the ravine. There
+is a handrail on either side, with planks of wood to walk on. West goes to
+one side of the bridge, east to the other.  Larnt is standing in front of you
+barring the way.
+
+>You move east.
+Nelone Bridge East
+The large footbridge is behind you now as you look to the huge mountain in
+front of you. West takes you along the bridge. East will take you along a
+dark path that winds up the mountain.
+
+>You move east.
+Uron Dark Path
+This long path is completely shadowed. The little light that there is comes
+from far off in the distance. There are sharp jagged rocks on each side of
+the path. West will take you towards the bridge. Northeast will take you
+further up the mountain.
+
+>You move northeast.
+Uron Dark Path
+The path turns marshier here, great pools of boiling mud litter the path. The
+smell is choking. Southwest will take you down the mountain. Northwest will
+take you up the mountain.
+There is a large Narn here.
+Karurn hits you, but it doesn't seem to do any damage.
+
+>You move northwest.
+Uron Dark Path
+The air is very dense now, the smog fills your nostrils with foul air. There
+are pools of slime and mud all around here. Southeast will take you down the
+mountain. Northeast will take you up.
+You get up and start walking again.
+
+>You move northeast.
+Uron Dark Path
+The path starts to get steeper as you get nearer the top of the mountain. The
+path leads Southwest down the mountain or North up the mountain.
+
+>You move north.
+Uron Castle Entrance
+The walls of the castle reach high in the air. The smell fades now, and the
+air appears less dense. It is replaced with a feeling that you are unwanted.
+There is a large wooden door that looks extremely thick. The path leads South
+down the mountain.
+
+>The words seem to have moved the doors a little. They must be unlocked. They
+could probably be opened now.
+
+Haron follows you.
+A knight catches up to you and smiles. Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."
+Haron hands you a phial.
+
+>The doors slowly creak open. A darkness that seems to come out of the doors,
+consumes you.
+
+>You move north.
+Uron Castle Main Hall
+The hall is huge and has Gargoyles around the ceiling. When looking at one,
+another seems to move out of the corner of your eye.  Out will take you back
+outside. North will take you into a long room. West will take you into a
+corridor. East will take you into a smaller room.
+
+Larnt is here.
+
+Haron follows you from the south.
+Haron hits Larnt.
+Larnt hits you, but it doesn't seem to do any damage.
+
+>You hit Larnt.
+Larnt hits you, but it doesn't seem to do any damage.
+
+>You hit Larnt.
+Haron hits Larnt.
+Larnt hits you, but it doesn't seem to do any damage.
+
+>You hit Larnt.
+Larnt drops to the floor with a spine chilling shriek as he dissolves into
+the ground.
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>Command not understood
+
+>You move north.
+Long room
+The room is very long and has a huge table down the centre of it. There are
+lots of chairs down the sides of the table. At the head of the table is a
+large chair almost like a throne. On the north wall is a stone door, but it
+is locked. South will take you into the Main Hall.
+
+Haron follows you from the south.
+
+>You take the small key from the long table.
+
+>You move south.
+Uron Castle Main Hall
+The hall is huge and has Gargoyles around the ceiling. When looking at one,
+another seems to move out of the corner of your eye.  Out will take you back
+outside. North will take you into a long room. West will take you into a
+corridor. East will take you into a smaller room.
+
+You can also see a blade from Uron.
+
+Haron follows you from the north.
+
+>You move west.
+Corridor
+This long narrow corridor is very poorly lit. It is lit by just one candle,
+very high up. There are some stairs up to another room, or you can go South
+to a small room. The main hall is due east of here.
+
+Haron follows you from the east.
+
+>You move up.
+Bedroom
+The room is small, but in the centre is a huge bed. Around the outside of the
+walls are chests and cupboards. There sre some stairs leading down to a
+corridor.
+
+Haron follows you from below.
+
+>The key turns slowly in the lock of the chest. Suddenly with a clunk the
+chest unlocks.
+
+>The chest creaks open.
+
+>You take the large key from the large chest.
+
+>You move down.
+Corridor
+This long narrow corridor is very poorly lit. It is lit by just one candle,
+very high up. There are some stairs up to another room, or you can go South
+to a small room. The main hall is due east of here.
+
+Haron follows you from above.
+
+>You move east.
+Uron Castle Main Hall
+The hall is huge and has Gargoyles around the ceiling. When looking at one,
+another seems to move out of the corner of your eye.  Out will take you back
+outside. North will take you into a long room. West will take you into a
+corridor. East will take you into a smaller room.
+
+You can also see a blade from Uron.
+
+Haron follows you from the west.
+
+>You move north.
+Long room
+The room is very long and has a huge table down the centre of it. There are
+lots of chairs down the sides of the table. At the head of the table is a
+large chair almost like a throne. On the north wall is a stone door, but it
+is locked. South will take you into the Main Hall.
+
+Haron follows you from the south.
+
+>The key turns in the lock and with a clunk the door unlocks.
+Long room
+The room is very long and has a huge table down the centre of it. There are
+lots of chairs down the sides of the table. At the head of the table is a
+large chair almost like a throne. On the north wall is a stone door, but it
+is locked. South will take you into the Main Hall.
+Haron is standingon your left.
+
+>The door scrapes open.
+
+>You move north.
+Mirror room
+This room is small but on each wall except the south wall, is a mirror. There
+is a West mirror, a North mirror, and an East Mirror. The mirrors look like
+doorways. As you look closer at each one, they display somewhere else.
+
+Haron follows you from the south.
+
+>You do not have the Gourd.
+
+>As you pass through the mirror you feel drowsy. As you come to your senses,
+you find yourself in a Torture room.
+Torture room
+The room is large, and has a huge walls made of stone. All the walls are
+covered in blood. In the centre of the room is a large table where pools of
+blood stream to the floor. There is a wide doorway to the North that appears
+to lead to a Dungeon.
+A dark figure darts out of the door to the North of here.
+The seven stones of power are placed around the room. There is a red glow
+coming from them all. They seem to be joined by a beam of red light.
+ The stones suddenly fly into the air and dissapear through the doorway to
+the North.
+
+Haron follows you.
+
+>As you pass through the door, Urgorn creates a spell that shuts the exit to
+the South. He then smiles, and says:
+ Just us now, no escape.
+
+Haron follows you.
+Haron hits Urgorn.
+Urgorn hits Haron.
+
+>You hit Urgorn.
+
+>You hit Urgorn.
+Haron hits Urgorn.
+
+>You hit Urgorn.
+
+>You hit Urgorn.
+Haron hits Urgorn.
+Urgorn hits Haron.
+
+>You hit Urgorn.
+
+>You hit Urgorn.
+Haron hits Urgorn.
+
+>You hit Urgorn.
+Receiving one more hit, Urgorn falls backwards.
+He loses his balance and tips into the pit behind him. As he falls, he
+releases an almighty ball of light. It travels up out of the pit and into the
+air. As it flies up, you can see that in the centre of the light are the
+seven stones of power.
+ The ball of light travels up through the ceiling and travels up ito the air.
+There is then a huge explosion and the stones are lost once more.
+Congratulations, you have beaten Urgorn and saved the Country Dalskee from
+evil.
+Urgorn was going to harness the power of the stones of power, and destroy the
+world. You are a great hero and warrior.
+Look forward to the sequel of Alexis.
+
+Sounds and MIDI provided by: Shane Turner, Mara and Alex Kingsbury
+"Under Pressure" MIDI provided by Partners in Rhyme
+Alex Kingsbury would like to thank:
+
+Everyone invloved in the making of Adrift
+
+All who gave the game music or sound effects,
+
+The beta testers of the game,
+
+The writers of online tutorials for Adrift
+
+and...
+
+You for playing this game.

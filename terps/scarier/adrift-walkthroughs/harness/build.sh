@@ -28,8 +28,12 @@ cd "$SCARE"
 # etc.), so with those vars unset the binary is behaviourally identical to a
 # build without it -- goldens are unaffected -- but SCR_DUMP_TASKS now works for
 # route debugging (e.g. finding a win task's command + restrictions).
+# mapdraw.cpp is not matched by the sc*.cpp glob but scmap.cpp (the ADRIFT 4 map
+# port) calls map_free()/map_build() from it. It is plain C++ with no Glk
+# dependency, so linking it here is free -- the ANSI port simply never asks for a
+# map.
 clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
-  sc*.cpp os_ansi.cpp \
+  sc*.cpp mapdraw.cpp os_ansi.cpp \
   "$HERE/seed.cpp" \
   -lz -o "$OUT"
 
