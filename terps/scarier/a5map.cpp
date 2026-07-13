@@ -26,6 +26,7 @@
 #include <cstring>
 #include <cstdio>
 #include <cmath>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -687,22 +688,131 @@ static const unsigned char kFont8x8[95][8] = {
   { 0x6e, 0x3b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }   /* '~' */
 };
 
-#define GLYPH_H 8
+/* A smaller face, for room names too long to fit their box at 8x8.  Map.vb
+   binary-searches a GDI+ font size until the name fits (GetFont); a Glk
+   graphics window has no text at all, so instead we carry two bitmap faces and
+   drop to the small one when the big one will not fit.  5x7, authored for this
+   purpose. */
+static const unsigned char kFont5x7[95][7] = {
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* space */
+  { 0x04, 0x04, 0x04, 0x04, 0x04, 0x00, 0x04 },  /* '!' */
+  { 0x0a, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '"' */
+  { 0x0a, 0x0a, 0x1f, 0x0a, 0x1f, 0x0a, 0x0a },  /* '#' */
+  { 0x04, 0x1e, 0x05, 0x0e, 0x14, 0x0f, 0x04 },  /* '$' */
+  { 0x13, 0x13, 0x08, 0x04, 0x02, 0x19, 0x19 },  /* '%' */
+  { 0x06, 0x09, 0x05, 0x02, 0x15, 0x09, 0x16 },  /* '&' */
+  { 0x04, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '\'' */
+  { 0x08, 0x04, 0x02, 0x02, 0x02, 0x04, 0x08 },  /* '(' */
+  { 0x02, 0x04, 0x08, 0x08, 0x08, 0x04, 0x02 },  /* ')' */
+  { 0x00, 0x15, 0x0e, 0x1f, 0x0e, 0x15, 0x00 },  /* '*' */
+  { 0x00, 0x04, 0x04, 0x1f, 0x04, 0x04, 0x00 },  /* '+' */
+  { 0x00, 0x00, 0x00, 0x00, 0x06, 0x04, 0x02 },  /* ',' */
+  { 0x00, 0x00, 0x00, 0x1f, 0x00, 0x00, 0x00 },  /* '-' */
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x06 },  /* '.' */
+  { 0x10, 0x08, 0x08, 0x04, 0x02, 0x02, 0x01 },  /* '/' */
+  { 0x0e, 0x11, 0x19, 0x15, 0x13, 0x11, 0x0e },  /* '0' */
+  { 0x04, 0x06, 0x04, 0x04, 0x04, 0x04, 0x0e },  /* '1' */
+  { 0x0e, 0x11, 0x10, 0x08, 0x04, 0x02, 0x1f },  /* '2' */
+  { 0x1f, 0x08, 0x04, 0x08, 0x10, 0x11, 0x0e },  /* '3' */
+  { 0x08, 0x0c, 0x0a, 0x09, 0x1f, 0x08, 0x08 },  /* '4' */
+  { 0x1f, 0x01, 0x0f, 0x10, 0x10, 0x11, 0x0e },  /* '5' */
+  { 0x0c, 0x02, 0x01, 0x0f, 0x11, 0x11, 0x0e },  /* '6' */
+  { 0x1f, 0x10, 0x08, 0x04, 0x02, 0x02, 0x02 },  /* '7' */
+  { 0x0e, 0x11, 0x11, 0x0e, 0x11, 0x11, 0x0e },  /* '8' */
+  { 0x0e, 0x11, 0x11, 0x1e, 0x10, 0x08, 0x06 },  /* '9' */
+  { 0x00, 0x06, 0x06, 0x00, 0x06, 0x06, 0x00 },  /* ':' */
+  { 0x00, 0x06, 0x06, 0x00, 0x06, 0x04, 0x02 },  /* ';' */
+  { 0x08, 0x04, 0x02, 0x01, 0x02, 0x04, 0x08 },  /* '<' */
+  { 0x00, 0x00, 0x1f, 0x00, 0x1f, 0x00, 0x00 },  /* '=' */
+  { 0x02, 0x04, 0x08, 0x10, 0x08, 0x04, 0x02 },  /* '>' */
+  { 0x0e, 0x11, 0x10, 0x08, 0x04, 0x00, 0x04 },  /* '?' */
+  { 0x0e, 0x11, 0x1d, 0x15, 0x1d, 0x01, 0x0e },  /* '@' */
+  { 0x0e, 0x11, 0x11, 0x1f, 0x11, 0x11, 0x11 },  /* 'A' */
+  { 0x0f, 0x11, 0x11, 0x0f, 0x11, 0x11, 0x0f },  /* 'B' */
+  { 0x0e, 0x11, 0x01, 0x01, 0x01, 0x11, 0x0e },  /* 'C' */
+  { 0x07, 0x09, 0x11, 0x11, 0x11, 0x09, 0x07 },  /* 'D' */
+  { 0x1f, 0x01, 0x01, 0x0f, 0x01, 0x01, 0x1f },  /* 'E' */
+  { 0x1f, 0x01, 0x01, 0x0f, 0x01, 0x01, 0x01 },  /* 'F' */
+  { 0x0e, 0x11, 0x01, 0x1d, 0x11, 0x11, 0x0e },  /* 'G' */
+  { 0x11, 0x11, 0x11, 0x1f, 0x11, 0x11, 0x11 },  /* 'H' */
+  { 0x0e, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0e },  /* 'I' */
+  { 0x1c, 0x08, 0x08, 0x08, 0x08, 0x09, 0x06 },  /* 'J' */
+  { 0x11, 0x09, 0x05, 0x03, 0x05, 0x09, 0x11 },  /* 'K' */
+  { 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x1f },  /* 'L' */
+  { 0x11, 0x1b, 0x15, 0x15, 0x11, 0x11, 0x11 },  /* 'M' */
+  { 0x11, 0x13, 0x15, 0x15, 0x19, 0x11, 0x11 },  /* 'N' */
+  { 0x0e, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0e },  /* 'O' */
+  { 0x0f, 0x11, 0x11, 0x0f, 0x01, 0x01, 0x01 },  /* 'P' */
+  { 0x0e, 0x11, 0x11, 0x11, 0x15, 0x09, 0x16 },  /* 'Q' */
+  { 0x0f, 0x11, 0x11, 0x0f, 0x05, 0x09, 0x11 },  /* 'R' */
+  { 0x0e, 0x11, 0x01, 0x0e, 0x10, 0x11, 0x0e },  /* 'S' */
+  { 0x1f, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04 },  /* 'T' */
+  { 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0e },  /* 'U' */
+  { 0x11, 0x11, 0x11, 0x11, 0x11, 0x0a, 0x04 },  /* 'V' */
+  { 0x11, 0x11, 0x11, 0x15, 0x15, 0x1b, 0x11 },  /* 'W' */
+  { 0x11, 0x11, 0x0a, 0x04, 0x0a, 0x11, 0x11 },  /* 'X' */
+  { 0x11, 0x11, 0x0a, 0x04, 0x04, 0x04, 0x04 },  /* 'Y' */
+  { 0x1f, 0x10, 0x08, 0x04, 0x02, 0x01, 0x1f },  /* 'Z' */
+  { 0x0e, 0x02, 0x02, 0x02, 0x02, 0x02, 0x0e },  /* '[' */
+  { 0x01, 0x02, 0x02, 0x04, 0x08, 0x08, 0x10 },  /* backslash */
+  { 0x0e, 0x08, 0x08, 0x08, 0x08, 0x08, 0x0e },  /* ']' */
+  { 0x04, 0x0a, 0x11, 0x00, 0x00, 0x00, 0x00 },  /* '^' */
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f },  /* '_' */
+  { 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '`' */
+  { 0x00, 0x00, 0x0e, 0x10, 0x1e, 0x11, 0x1e },  /* 'a' */
+  { 0x01, 0x01, 0x0f, 0x11, 0x11, 0x11, 0x0f },  /* 'b' */
+  { 0x00, 0x00, 0x0e, 0x11, 0x01, 0x11, 0x0e },  /* 'c' */
+  { 0x10, 0x10, 0x1e, 0x11, 0x11, 0x11, 0x1e },  /* 'd' */
+  { 0x00, 0x00, 0x0e, 0x11, 0x1f, 0x01, 0x0e },  /* 'e' */
+  { 0x0c, 0x12, 0x02, 0x0f, 0x02, 0x02, 0x02 },  /* 'f' */
+  { 0x00, 0x1e, 0x11, 0x11, 0x1e, 0x10, 0x0e },  /* 'g' */
+  { 0x01, 0x01, 0x0f, 0x11, 0x11, 0x11, 0x11 },  /* 'h' */
+  { 0x04, 0x00, 0x06, 0x04, 0x04, 0x04, 0x0e },  /* 'i' */
+  { 0x08, 0x00, 0x0c, 0x08, 0x08, 0x09, 0x06 },  /* 'j' */
+  { 0x01, 0x01, 0x09, 0x05, 0x03, 0x05, 0x09 },  /* 'k' */
+  { 0x06, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0e },  /* 'l' */
+  { 0x00, 0x00, 0x0b, 0x15, 0x15, 0x11, 0x11 },  /* 'm' */
+  { 0x00, 0x00, 0x0f, 0x11, 0x11, 0x11, 0x11 },  /* 'n' */
+  { 0x00, 0x00, 0x0e, 0x11, 0x11, 0x11, 0x0e },  /* 'o' */
+  { 0x00, 0x00, 0x0f, 0x11, 0x0f, 0x01, 0x01 },  /* 'p' */
+  { 0x00, 0x00, 0x1e, 0x11, 0x1e, 0x10, 0x10 },  /* 'q' */
+  { 0x00, 0x00, 0x1a, 0x06, 0x02, 0x02, 0x02 },  /* 'r' */
+  { 0x00, 0x00, 0x1e, 0x01, 0x0e, 0x10, 0x0f },  /* 's' */
+  { 0x02, 0x02, 0x0f, 0x02, 0x02, 0x12, 0x0c },  /* 't' */
+  { 0x00, 0x00, 0x11, 0x11, 0x11, 0x11, 0x1e },  /* 'u' */
+  { 0x00, 0x00, 0x11, 0x11, 0x11, 0x0a, 0x04 },  /* 'v' */
+  { 0x00, 0x00, 0x11, 0x11, 0x15, 0x15, 0x0a },  /* 'w' */
+  { 0x00, 0x00, 0x11, 0x0a, 0x04, 0x0a, 0x11 },  /* 'x' */
+  { 0x00, 0x00, 0x11, 0x11, 0x1e, 0x10, 0x0e },  /* 'y' */
+  { 0x00, 0x00, 0x1f, 0x08, 0x04, 0x02, 0x1f },  /* 'z' */
+  { 0x18, 0x04, 0x04, 0x02, 0x04, 0x04, 0x18 },  /* '{' */
+  { 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04 },  /* '|' */
+  { 0x03, 0x04, 0x04, 0x08, 0x04, 0x04, 0x03 },  /* '}' */
+  { 0x00, 0x16, 0x09, 0x00, 0x00, 0x00, 0x00 }   /* '~' */
+};
+
+/* One of the two faces above.  `rows` is 95 glyphs of `h` row-bytes each, LSB
+   leftmost; `w` is the cell width. */
+typedef struct {
+  const unsigned char *rows;
+  int w, h;
+} a5map_font_t;
+
+static const a5map_font_t kBigFont = { &kFont8x8[0][0], 8, 8 };
+static const a5map_font_t kSmallFont = { &kFont5x7[0][0], 5, 7 };
 
 /* Proportional advance: trim the glyph's unused right-hand columns so labels
    stay compact in a 60px-wide room box. */
 static int
-glyph_advance (unsigned char c)
+glyph_advance (const a5map_font_t *f, unsigned char c)
 {
   int i, row, used = 0;
-  if (c == ' ')
-    return 4;
-  if (c < 32 || c > 126)
-    return 4;
-  for (row = 0; row < GLYPH_H; row++)
+  if (c < 32 || c > 126 || c == ' ')
+    return f->w / 2 + 1;
+  for (row = 0; row < f->h; row++)
     {
-      unsigned char bits = kFont8x8[c - 32][row];
-      for (i = 7; i >= 0; i--)
+      unsigned char bits = f->rows[(c - 32) * f->h + row];
+      for (i = f->w - 1; i >= 0; i--)
         if (bits & (1 << i))
           {
             if (i + 1 > used)
@@ -714,71 +824,65 @@ glyph_advance (unsigned char c)
 }
 
 static void
-draw_glyph (a5map_surface_t *s, unsigned char c, int x, int y,
-            unsigned int rgb, int alpha)
+draw_glyph (a5map_surface_t *s, const a5map_font_t *f, unsigned char c, int x,
+            int y, unsigned int rgb, int alpha)
 {
   int row, col;
   if (c < 32 || c > 126)
     return;
-  for (row = 0; row < GLYPH_H; row++)
+  for (row = 0; row < f->h; row++)
     {
-      unsigned char bits = kFont8x8[c - 32][row];
-      for (col = 0; col < 8; col++)
+      unsigned char bits = f->rows[(c - 32) * f->h + row];
+      for (col = 0; col < f->w; col++)
         if (bits & (1 << col))
           blend (s, x + col, y + row, rgb, alpha);
     }
 }
 
 static int
-text_width (const char *t, size_t len)
+text_width (const a5map_font_t *f, const char *t, size_t len)
 {
   size_t i;
   int w = 0;
   for (i = 0; i < len; i++)
-    w += glyph_advance ((unsigned char) t[i]);
+    w += glyph_advance (f, (unsigned char) t[i]);
   return w;
 }
 
 static void
-draw_text (a5map_surface_t *s, const char *t, size_t len, int x, int y,
-           unsigned int rgb, int alpha)
+draw_text (a5map_surface_t *s, const a5map_font_t *f, const char *t,
+           size_t len, int x, int y, unsigned int rgb, int alpha)
 {
   size_t i;
   for (i = 0; i < len; i++)
     {
-      draw_glyph (s, (unsigned char) t[i], x, y, rgb, alpha);
-      x += glyph_advance ((unsigned char) t[i]);
+      draw_glyph (s, f, (unsigned char) t[i], x, y, rgb, alpha);
+      x += glyph_advance (f, (unsigned char) t[i]);
     }
 }
 
-/* Word-wrap `text` to `maxw` pixels and centre the block in the box.  Stands
-   in for GDI+'s StringFormat centring plus Map.vb's GetFont auto-fit: the
-   runner binary-searches a font size that makes the room name fit its box,
-   but a Glk graphics window has no text, so we draw one fixed bitmap font and
-   wrap into the box, packing the lines as tightly as the glyphs allow. */
-#define LINE_H (GLYPH_H)        /* no leading: an 8px box row per line */
+/* Word-wrap `text` to `maxw` pixels in `f`.  `broke` reports whether a word
+   had to be split, which means the face is too big for the box. */
 static void
-draw_label (a5map_surface_t *s, const char *text, int x0, int y0, int x1,
-            int y1, unsigned int rgb, int alpha)
+wrap_text (const a5map_font_t *f, const char *text, int maxw,
+           std::vector<std::string> &lines, int *broke)
 {
-  std::vector<std::string> lines;
-  int boxw = x1 - x0, boxh = y1 - y0;
-  int maxw = boxw - 2;
-  size_t i = 0, n;
-  int total, ty;
+  size_t i = 0, n = strlen (text);
 
-  if (text == NULL || maxw < 6)
-    return;
-  n = strlen (text);
-
+  *broke = 0;
   while (i < n)
     {
       size_t start = i, brk = 0, j;
       int w = 0;
+
       for (j = i; j < n; j++)
         {
-          int gw = glyph_advance ((unsigned char) text[j]);
-          if (w + gw > maxw)
+          int gw = glyph_advance (f, (unsigned char) text[j]);
+
+          /* An advance includes the gap that follows the glyph; the last one
+             on a line has nothing after it, so don't make the line pay for
+             it.  Without this a name is split for want of a single pixel. */
+          if (w + gw - 1 > maxw)
             break;
           w += gw;
           if (text[j] == ' ')
@@ -796,25 +900,55 @@ draw_label (a5map_surface_t *s, const char *text, int x0, int y0, int x1,
         }
       else
         {
-          /* A single word too long for the box: hard-break it. */
+          /* A single word too wide for the box: split it. */
           size_t take = (j > start) ? j - start : 1;
           lines.push_back (std::string (text + start, take));
           i = start + take;
+          *broke = 1;
         }
     }
+}
 
-  total = (int) lines.size () * LINE_H;
+/* Centre the room name in its box.  Stands in for GDI+'s StringFormat centring
+   plus Map.vb's GetFont auto-fit: the runner binary-searches a font size that
+   makes the name fit, and since a Glk graphics window has no text at all, we
+   do the bitmap equivalent -- lay the name out at 8x8, and drop to the 5x7
+   face when that would split a word or overflow the box. */
+static void
+draw_label (a5map_surface_t *s, const char *text, int x0, int y0, int x1,
+            int y1, unsigned int rgb, int alpha)
+{
+  std::vector<std::string> lines;
+  const a5map_font_t *f = &kBigFont;
+  int boxw = x1 - x0, boxh = y1 - y0;
+  int maxw = boxw - 1;
+  int broke, total, ty;
+  size_t i;
+
+  if (text == NULL || text[0] == '\0' || maxw < 4)
+    return;
+
+  wrap_text (f, text, maxw, lines, &broke);
+  if (broke || (int) lines.size () * f->h > boxh)
+    {
+      lines.clear ();
+      f = &kSmallFont;
+      wrap_text (f, text, maxw, lines, &broke);
+    }
+
+  total = (int) lines.size () * f->h;
   ty = y0 + (boxh - total) / 2;
   if (ty < y0)
-    ty = y0;                    /* taller than the box: start at the top */
+    ty = y0;                    /* still taller than the box: start at the top */
   for (i = 0; i < lines.size (); i++)
     {
-      int tw = text_width (lines[i].c_str (), lines[i].size ());
+      int tw = text_width (f, lines[i].c_str (), lines[i].size ()) - 1;
       int tx = x0 + (boxw - tw) / 2;
-      int yy = ty + (int) i * LINE_H;
-      if (yy + GLYPH_H > y1 && i > 0)
-        break;                  /* out of room: clip the tail */
-      draw_text (s, lines[i].c_str (), lines[i].size (), tx, yy, rgb, alpha);
+      int yy = ty + (int) i * f->h;
+
+      if (yy + f->h > y1 && i > 0)
+        break;                  /* out of room even at 5x7: clip the tail */
+      draw_text (s, f, lines[i].c_str (), lines[i].size (), tx, yy, rgb, alpha);
     }
 }
 
@@ -1082,7 +1216,7 @@ draw_inout_icon (a5map_surface_t *s, const proj_t *p, const a5map_node_t *n,
      corner, which keeps the two badges from colliding. */
   rel_point (p, n, is_in ? 25 : 75, 0, &cx, &cy);
   fill_circle (s, (int) cx, (int) cy, r, is_in ? ICON_IN : ICON_OUT, alpha);
-  draw_text (s, is_in ? "I" : "O", 1, (int) cx - 2, (int) cy - 4,
+  draw_text (s, &kSmallFont, is_in ? "I" : "O", 1, (int) cx - 2, (int) cy - 3,
              0xFFFFFF, alpha);
 }
 
@@ -1248,19 +1382,22 @@ a5map_render (const a5map_t *map, const a5map_view_t *view,
 
 const char *
 a5map_hit (const a5map_t *map, const a5map_view_t *view,
-           const a5map_camera_t *cam, const a5map_surface_t *dst, int mx,
-           int my)
+           const a5map_camera_t *cam, int w, int h, int mx, int my)
 {
   const a5map_page_t *page;
+  a5map_surface_t dim;
   proj_t p;
   int i;
 
-  if (map == NULL || cam == NULL || dst == NULL)
+  if (map == NULL || cam == NULL || w <= 0 || h <= 0)
     return NULL;
   page = page_by_key (map, cam->page);
   if (page == NULL)
     return NULL;
-  proj_init (&p, cam, dst);
+  dim.w = w;
+  dim.h = h;
+  dim.px = NULL;                /* proj_init only reads the dimensions */
+  proj_init (&p, cam, &dim);
 
   for (i = page->n_nodes - 1; i >= 0; i--)
     {
@@ -1276,4 +1413,67 @@ a5map_hit (const a5map_t *map, const a5map_view_t *view,
         return n->key;
     }
   return NULL;
+}
+
+/*
+ * clsCharacter.Dijkstra, with the runner's two constraints: an edge exists
+ * only where HasRouteInDirection says the exit is currently usable (the
+ * restrictions are applied), and only rooms the player has already seen are
+ * walkable.  Every edge costs 1, so Dijkstra on a unit graph is a
+ * breadth-first search; the queue below is one.
+ */
+int
+a5map_walk_step (const a5map_view_t *view, const char *from, const char *to)
+{
+  std::vector<std::string> order;      /* discovered rooms, in BFS order   */
+  std::map<std::string, int> prev;     /* index in `order` of predecessor  */
+  std::map<std::string, int> via;      /* direction taken to reach the room */
+  size_t head = 0;
+
+  if (view == NULL || view->exit_dest == NULL || from == NULL || to == NULL)
+    return -1;
+  if (strcmp (from, to) == 0)
+    return -1;                  /* already there */
+
+  order.push_back (from);
+  prev[from] = -1;
+  via[from] = -1;
+
+  while (head < order.size ())
+    {
+      std::string u = order[head++];
+      int d;
+
+      for (d = 0; d < 12; d++)
+        {
+          const char *dest = view->exit_dest (view->ctx, u.c_str (), d);
+
+          if (dest == NULL || dest[0] == '\0')
+            continue;
+          if (!view_seen (view, dest))
+            continue;           /* the runner will not walk you through
+                                   somewhere you have never been */
+          if (prev.find (dest) != prev.end ())
+            continue;           /* already reached, and by a shorter route */
+
+          prev[dest] = (int) head - 1;
+          via[dest] = d;
+          if (strcmp (dest, to) == 0)
+            {
+              /* Found it.  Walk the chain back to the room whose predecessor
+                 is the start (order[0]), and take the direction that left it. */
+              std::string cur = dest;
+              while (prev[cur] != 0)
+                {
+                  int p = prev[cur];
+                  if (p < 0)
+                    return -1;  /* only `from` has no predecessor */
+                  cur = order[p];
+                }
+              return via[cur];
+            }
+          order.push_back (dest);
+        }
+    }
+  return -1;                    /* unreachable through seen rooms */
 }

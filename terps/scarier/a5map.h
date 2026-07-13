@@ -130,10 +130,12 @@ typedef struct a5map_camera_s {
   int cx, cy;                 /* centre of the view, in map units * scale    */
 } a5map_camera_t;
 
-/* Pick the page the player is on and frame it: fits the seen nodes to `dst`
-   (clamped between A5MAP_SCALE_MIN and A5MAP_SCALE_MAX) and centres on the
-   player, like the runner's LockPlayerCentre. */
-#define A5MAP_SCALE_MIN 3
+/* Pick the page the player is on and frame it: fit the seen nodes to `dst` if
+   they will fit, and otherwise centre on the player and let the map run past
+   the edges, as the runner does (it never shrinks to fit -- iScale stays 10
+   and LockPlayerCentre pans).  Keeping 10 as the floor is also what keeps a
+   room name legible: below it a box is too small for the label. */
+#define A5MAP_SCALE_MIN 10
 #define A5MAP_SCALE_MAX 16
 extern void a5map_frame (const a5map_t *map, const a5map_view_t *view,
                          const char *player_key, const a5map_surface_t *dst,
@@ -145,10 +147,20 @@ extern void a5map_render (const a5map_t *map, const a5map_view_t *view,
                           const char *player_key, const a5map_camera_t *cam,
                           a5map_surface_t *dst);
 
-/* Which room is at pixel (px,py)?  NULL if none.  Lets a click walk there. */
+/* Which room is at pixel (px,py) of a `w` x `h` map view?  NULL if none.
+   Lets a click walk there. */
 extern const char *a5map_hit (const a5map_t *map, const a5map_view_t *view,
-                              const a5map_camera_t *cam,
-                              const a5map_surface_t *dst, int px, int py);
+                              const a5map_camera_t *cam, int w, int h,
+                              int px, int py);
+
+/* The first step of the shortest route from `from` to `to`: a direction index
+   (0..11), or -1 if there is no route.  This is the runner's map-click walk
+   (clsCharacter.Dijkstra / DoWalk): edges are the restriction-checked exits,
+   and only rooms the player has already seen may be walked through.  The
+   caller submits that direction as an ordinary command, one room per turn,
+   exactly as DoWalk does. */
+extern int a5map_walk_step (const a5map_view_t *view, const char *from,
+                            const char *to);
 
 /* The twelve directions, DirectionsEnum order (North=0 .. NorthWest=11). */
 extern const char *const a5map_dirs[12];

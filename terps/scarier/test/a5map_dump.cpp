@@ -19,6 +19,7 @@
 
 #include "a5map.h"
 #include "a5model.h"
+#include "a5parse.h"
 #include "a5restr.h"
 #include "a5run.h"
 #include "a5state.h"
@@ -77,6 +78,7 @@ main (int argc, char **argv)
   a5map_view_t view;
   const char *out = "map.ppm";
   const char *script = NULL;
+  const char *walk_to = NULL;
   int W = 480, H = 480, reveal = 0, i;
   FILE *f;
 
@@ -96,6 +98,8 @@ main (int argc, char **argv)
         H = atoi (argv[++i]);
       else if (strcmp (argv[i], "-all") == 0)
         reveal = 1;
+      else if (strcmp (argv[i], "-walk") == 0 && i + 1 < argc)
+        walk_to = argv[++i];
       else if (argv[i][0] != '-')
         script = argv[i];
     }
@@ -148,6 +152,37 @@ main (int argc, char **argv)
   view.name = cb_name;
   view.exit_dest = cb_exit_dest;
   view.ctx = &ctx;
+
+  /* -walk <roomkey>: the map-click walk, driven headlessly.  Each step is
+     submitted as a direction command, exactly as the Glk layer does. */
+  if (walk_to != NULL)
+    {
+      int step;
+
+      for (step = 0; step < 100; step++)
+        {
+          const char *from = a5state_player_location (ctx.st);
+          const char *word;
+          char *out;
+          int dir;
+
+          if (from == NULL || strcmp (from, walk_to) == 0)
+            break;
+          dir = a5map_walk_step (&view, from, walk_to);
+          if (dir < 0)
+            {
+              fprintf (stderr, "walk: no route from %s to %s\n", from, walk_to);
+              break;
+            }
+          word = a5parse_direction_name (a5map_dirs[dir]);
+          printf ("[walk %2d] %-22s -> %s\n", step + 1, from, word);
+          out = a5run_input (run, word);
+          free (out);
+          ctx.st = a5run_state (run);
+        }
+      printf ("[walk] ended at %s (target %s)\n",
+              a5state_player_location (ctx.st), walk_to);
+    }
 
   surf = a5map_surface_new (W, H);
   {

@@ -75,6 +75,7 @@ static const char *find_last_of(const char *str, const char *chars)
 #include "a5deobf.h"         /* a5_deflate / a5_inflate save framing */
 #include "a5map.h"           /* the ADRIFT 5 map (Map.vb) */
 #include "a5model.h"
+#include "a5parse.h"         /* a5parse_direction_name, for map-click walks */
 #include "a5restr.h"         /* a5restr_exit_in_direction, for map stub arrows */
 #include "a5run.h"
 #include "a5state.h"
@@ -173,6 +174,34 @@ static int gsc_a5_map_shown = FALSE;
    "glk map" escape instead. */
 static int gsc_a5_map_taken = FALSE;
 static void gsc_a5_map_redraw (a5_run_t *run);
+
+/* The camera and pixel size of the last map redraw, so a mouse click can be
+   hit-tested against exactly what is on screen. */
+static a5map_camera_t gsc_a5_map_cam;
+static int gsc_a5_map_px_w = 0, gsc_a5_map_px_h = 0;
+
+/* A walk in progress, from clicking a room on the map (clsCharacter.WalkTo /
+   DoWalk): the target room, and the room we set off from on the last step so a
+   step that fails to move us can abort the walk, as DoWalk's sLastPosition
+   does.  Each step is submitted as an ordinary direction command, one room per
+   turn. */
+static char gsc_a5_walk_to[256] = "";
+static char gsc_a5_walk_last[256] = "";
+static int gsc_a5_walk_clicked = FALSE;
+static int gsc_a5_walk_steps = 0;
+/* A walk is bounded: a game that shuffles the player around could otherwise
+   keep the route recomputing for ever. */
+#define GSC_A5_WALK_MAX 100
+static void gsc_a5_map_view (a5_state_t *st, a5map_view_t *view);
+static int gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize);
+
+static void
+gsc_a5_walk_stop (void)
+{
+  gsc_a5_walk_to[0] = '\0';
+  gsc_a5_walk_last[0] = '\0';
+  gsc_a5_walk_steps = 0;
+}
 
 /* Special out-of-band os_confirm() options used locally with os_glk. */
 static const scr_int GSC_CONF_SUBTLE_HINT = INT_MAX,
@@ -4356,6 +4385,35 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
 #endif
           break;
 
+        case evtype_MouseInput:
+          /* A click on a room walks the player there (Map.vb imgMap_MouseDown:
+             Player.WalkTo = node; DoWalk()).  Cancel the pending line request
+             and let gsc_a5_read_line issue the first step instead. */
+          if (event->win == gsc_a5_map_window && gsc_a5_run != NULL)
+            {
+              a5map_view_t view;
+              a5_state_t *st = a5run_state (gsc_a5_run);
+              const char *hit, *here;
+
+              gsc_a5_map_view (st, &view);
+              hit = a5map_hit (gsc_a5_map, &view, &gsc_a5_map_cam,
+                               gsc_a5_map_px_w, gsc_a5_map_px_h,
+                               (int) event->val1, (int) event->val2);
+              here = a5state_player_location (st);
+              if (hit != NULL && (here == NULL || strcmp (hit, here) != 0))
+                {
+                  gsc_a5_walk_stop ();
+                  snprintf (gsc_a5_walk_to, sizeof gsc_a5_walk_to, "%s", hit);
+                  gsc_a5_walk_clicked = TRUE;
+                  glk_cancel_line_event (gsc_main_window, event);
+                  return FALSE;
+                }
+              /* A click on empty map: re-arm and keep waiting. */
+              if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+                glk_request_mouse_event (gsc_a5_map_window);
+            }
+          break;
+
         case evtype_Timer:
           if (gsc_a5_real_time && gsc_a5_run != NULL)
             {
@@ -4422,7 +4480,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
 }
 
 static int
-gsc_a5_read_line (char *buf, int bufsize)
+gsc_a5_read_line_raw (char *buf, int bufsize)
 {
   event_t event;
   int n = 0, done;
@@ -4519,6 +4577,47 @@ gsc_a5_read_line (char *buf, int bufsize)
       gsc_a5_put_string ("\n");
     }
   return n;
+}
+
+/*
+ * gsc_a5_read_line()
+ *
+ * A line of input for one turn.  While a map-click walk is in progress it
+ * comes from the walk rather than the keyboard: the runner submits each step
+ * as an ordinary direction command and re-walks at the end of every turn
+ * (clsUserSession:863), so a click on a distant room walks there a room per
+ * turn.  A click arriving while we wait cancels the pending line request and
+ * starts a walk instead.
+ */
+static int
+gsc_a5_read_line (char *buf, int bufsize)
+{
+  for (;;)
+    {
+      if (gsc_a5_walk_to[0] != '\0')
+        {
+          if (gsc_a5_walk_next (gsc_a5_run, buf, bufsize))
+            {
+              /* Echo the step as though the player had typed it. */
+              glk_set_style (style_Input);
+              gsc_a5_put_string (buf);
+              glk_set_style (style_Normal);
+              gsc_a5_put_string ("\n");
+              return (int) strlen (buf);
+            }
+          gsc_a5_walk_stop ();          /* arrived, blocked, or no route */
+        }
+
+      gsc_a5_walk_clicked = FALSE;
+      {
+        int n = gsc_a5_read_line_raw (buf, bufsize);
+
+        /* A click cancelled the request: loop round and walk instead. */
+        if (gsc_a5_walk_clicked)
+          continue;
+        return n;
+      }
+    }
 }
 
 /*
@@ -5229,10 +5328,18 @@ gsc_a5_map_exit_dest (void *ctx, const char *lockey, int dir)
  * horizontal spans, which is far cheaper than one fill_rect per pixel.
  */
 static void
+gsc_a5_map_view (a5_state_t *st, a5map_view_t *view)
+{
+  view->seen = gsc_a5_map_seen;
+  view->name = gsc_a5_map_name;
+  view->exit_dest = gsc_a5_map_exit_dest;
+  view->ctx = st;
+}
+
+static void
 gsc_a5_map_redraw (a5_run_t *run)
 {
   a5map_surface_t *surf;
-  a5map_camera_t cam;
   a5map_view_t view;
   a5_state_t *st;
   const char *ploc;
@@ -5251,14 +5358,13 @@ gsc_a5_map_redraw (a5_run_t *run)
     return;
 
   st = a5run_state (run);
-  view.seen = gsc_a5_map_seen;
-  view.name = gsc_a5_map_name;
-  view.exit_dest = gsc_a5_map_exit_dest;
-  view.ctx = st;
+  gsc_a5_map_view (st, &view);
 
   ploc = a5state_player_location (st);
-  a5map_frame (gsc_a5_map, &view, ploc, surf, &cam);
-  a5map_render (gsc_a5_map, &view, ploc, &cam, surf);
+  a5map_frame (gsc_a5_map, &view, ploc, surf, &gsc_a5_map_cam);
+  a5map_render (gsc_a5_map, &view, ploc, &gsc_a5_map_cam, surf);
+  gsc_a5_map_px_w = surf->w;
+  gsc_a5_map_px_h = surf->h;
   gsc_a5_map_names_clear ();
 
   for (y = 0; y < surf->h; y++)
@@ -5279,6 +5385,59 @@ gsc_a5_map_redraw (a5_run_t *run)
     }
 
   a5map_surface_free (surf);
+
+  /* Arm the click that walks the player to a room.  Mouse requests are
+     one-shot, so this is re-armed after every redraw. */
+  if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+    glk_request_mouse_event (gsc_a5_map_window);
+}
+
+/*
+ * gsc_a5_walk_next()
+ *
+ * The next step of a map-click walk, as the game command that makes it (the
+ * localized direction word, so the game's own parser takes it).  Returns FALSE
+ * when the walk is over -- we have arrived, no route remains, or the last step
+ * did not move us (something blocked the way), which is DoWalk's
+ * sLastPosition bail-out.
+ */
+static int
+gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
+{
+  a5map_view_t view;
+  a5_state_t *st;
+  const char *from, *word;
+  int dir;
+
+  if (gsc_a5_walk_to[0] == '\0' || run == NULL)
+    return FALSE;
+  if (a5run_is_over (run))
+    return FALSE;                       /* the walk ended the game */
+  if (++gsc_a5_walk_steps > GSC_A5_WALK_MAX)
+    return FALSE;
+
+  st = a5run_state (run);
+  from = a5state_player_location (st);
+  if (from == NULL)
+    return FALSE;
+
+  if (strcmp (from, gsc_a5_walk_to) == 0)
+    return FALSE;                       /* arrived */
+  if (gsc_a5_walk_last[0] != '\0' && strcmp (from, gsc_a5_walk_last) == 0)
+    return FALSE;                       /* the last step did not move us */
+
+  gsc_a5_map_view (st, &view);
+  dir = a5map_walk_step (&view, from, gsc_a5_walk_to);
+  if (dir < 0)
+    return FALSE;
+
+  word = a5parse_direction_name (a5map_dirs[dir]);
+  if (word == NULL)
+    return FALSE;
+
+  snprintf (buf, (size_t) bufsize, "%s", word);
+  snprintf (gsc_a5_walk_last, sizeof gsc_a5_walk_last, "%s", from);
+  return TRUE;
 }
 
 /*
@@ -5463,6 +5622,11 @@ gsc_a5_main (void)
            the game. */
         {
           int resumed = 0;
+
+          /* A step of a map walk may have ended the game; the walk must not
+             then answer the restart/restore/undo/quit prompt for us. */
+          gsc_a5_walk_stop ();
+
           for (;;)
             {
               gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
