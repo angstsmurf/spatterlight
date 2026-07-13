@@ -37,9 +37,9 @@ glkunix_startup_code(glkunix_startup_t *data)
   }
 
 #ifdef GARGLK
-  garglk_set_program_name("Geas 0.4");
+  garglk_set_program_name("Geas 0.5");
   garglk_set_program_info(
-        "Geas 0.4 by Mark Tilford and David Jones.\n"
+        "Geas 0.5 by Mark Tilford and David Jones.\n"
         "Additional Glk support by Simon Baldwin.");
 #endif
 
