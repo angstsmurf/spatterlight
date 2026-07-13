@@ -725,6 +725,11 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 
     decompressIterations(sf, &length, record);
 
+    /* Debug: dump the decompressed image for offline analysis */
+    const char *dumppath = getenv("C64_DUMP_US_IMAGE");
+    if (dumppath != NULL)
+        writeToFile(dumppath, *sf, length);
+
     *extent = length;
 
     /* US-format games are loaded by the caller, not here */

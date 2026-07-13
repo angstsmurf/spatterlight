@@ -242,16 +242,17 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
         case VOODOO_CASTLE_US:
             /* listVoodoo is calibrated for the canonical crack's memory layout
                (object/room images in 0..0x6c30, database at imgoffset 0x6c30).
-               Other cracks relocate the S.A.G.A. image differently — e.g. the
-               c64.com release decompresses with its database at $4000 — so their
-               images would come out as garbage. Use the table only for the
-               layout it matches; load the rest text-only. */
+               The c64.com release (imgoffset 0x3800, database at $4000) is a
+               stripped crack with no image data anywhere in its depacked RAM,
+               so gate the table to the layout it matches and load the rest
+               text-only. */
             if (cutoff == 0x6c30)
                 list = listVoodoo;
             break;
         default:
             /* COUNT_US and any other all-in-one game without an image table:
-               the database parsed fine above, so ship it playable as text. */
+               the database parsed fine above, so ship it playable as text.
+               (The c64.com Count crack contains no image data at all.) */
             break;
     }
 
