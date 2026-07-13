@@ -162,6 +162,34 @@ int print_zstr_to_cstr(uint16_t addr, char *str) {
     return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
 }
 
+void MenuString::append_char(char c) {
+    if (remaining() <= 0)
+        return;
+    m_buffer[m_length++] = c;
+    m_buffer[m_length] = 0;
+}
+
+void MenuString::append(const char *str) {
+    for (int i = 0; str[i] != 0 && remaining() > 0; i++)
+        append_char(str[i]);
+}
+
+void MenuString::append_zscii(uint16_t addr, int count) {
+    for (int i = 0; i < count && remaining() > 0; i++)
+        append_char((char)zscii_to_unicode[user_byte(addr + i)]);
+}
+
+int MenuString::append_zstr(uint16_t addr) {
+    // print_long_zstr_to_cstr() needs room for at least one character plus the
+    // NUL; it terminates the buffer itself, so m_length just moves up by the
+    // number of characters it reports writing.
+    if (remaining() < 1)
+        return 0;
+    int written = print_long_zstr_to_cstr(addr, m_buffer + m_length, remaining() + 1);
+    m_length += written;
+    return written;
+}
+
 // Destroys and recreates the foreground graphics window. Used when the
 // graphics type changes and the window needs fresh configuration.
 // In slideshow mode, the new window is sized to fill the screen;
@@ -297,7 +325,10 @@ static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bo
 static void display_soft(int function_key, int index, bool inverse, bool send_menu) {
     int fdef, y;
     char str[60];
-    int len = 0;
+    // Every piece of this line comes from the story file (the key name, the
+    // user's definition and its game-supplied length byte), so build it through
+    // MenuString: appends truncate at str's capacity rather than past it.
+    MenuString menu_string(str, sizeof(str));
     fdef = user_word(function_key + 2);
     y = index + 1;
     if ((int16_t)user_word(function_key) < 0) { // hard-coded menu item
@@ -309,8 +340,8 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
             }
             print_center_table(y, user_word(fdef));
             if (send_menu) {
-                len = print_long_zstr_to_cstr(user_word(fdef), str, 40);
-                win_menuitem(kV6MenuTypeDefine, index - 1, 18, 0, str, len);
+                menu_string.append_zstr(user_word(fdef));
+                win_menuitem(kV6MenuTypeDefine, index - 1, 18, 0, str, menu_string.length());
             }
         }
     } else {
@@ -325,7 +356,7 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
             } else {
                 garglk_set_reversevideo(1);
             }
-            len = print_long_zstr_to_cstr(user_word(key_name_string + 2), str, 60);
+            menu_string.append_zstr(user_word(key_name_string + 2));
             glk_put_string(str);
             garglk_set_reversevideo(0);
             glk_put_char(UNICODE_SPACE);
@@ -335,29 +366,22 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
         }
         int string_length = user_byte(fdef);
 
-        // For VoiceOver. Guard every write against the fixed str[60] buffer:
-        // the key name, and string_length (a game-supplied byte, 0..255),
-        // can together exceed the buffer.
-        if (len < (int)sizeof(str) - 1)
-            str[len++] = ':';
-        if (len < (int)sizeof(str) - 1)
-            str[len++] = ' ';
+        menu_string.append(": ");
 
         for (int i = 0; i < string_length; i++) {
             uint8_t c = user_byte(fdef + 2 + i);
             if (c == ZSCII_NEWLINE)
                 c = '|';
             glk_put_char(c);
-            if (len < (int)sizeof(str) - 1)
-                str[len++] = c; // For VoiceOver
+            menu_string.append_char(c); // For VoiceOver
         }
 
-        // For VoiceOver. Pass `len` -- the number of bytes actually written
-        // into str above -- not user_byte(fdef + 1) + 5, which is a screen
-        // column (0..260) unrelated to the fill and would make the front-end
-        // read uninitialized or past-buffer bytes of str[60].
+        // For VoiceOver. Pass the builder's length -- the number of bytes
+        // actually written into str above -- not user_byte(fdef + 1) + 5, which
+        // is a screen column (0..260) unrelated to the fill and would make the
+        // front-end read uninitialized or past-buffer bytes of str[60].
         if (send_menu)
-            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, len);
+            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, menu_string.length());
 
         glsi32 x = user_byte(fdef + 1) + 4;
 

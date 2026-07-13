@@ -39,8 +39,8 @@ extern "C" {
 #include "v6_shared.hpp"
 #include "options.h"
 
-// All bitmaps here are stored as interleaved RGBA — four bytes per pixel.
-static constexpr int kBytesPerPixel = 4;
+// All bitmaps here are stored as interleaved RGBA — four bytes per pixel
+// (kBytesPerPixel, from v6_image.h).
 
 // Copy a horizontal strip (`line_count` rows starting at `start_y`) out of
 // the global pixmap into a freshly allocated buffer. *out_size receives the

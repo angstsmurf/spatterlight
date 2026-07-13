@@ -20,8 +20,6 @@
 uint8_t *decompress_amiga(ImageStruct *image) {
     if (image == nullptr || image->data == nullptr || image->huffman_tree == nullptr)
         return nullptr;
-    if (image->width == 0 || image->height == 0)
-        return nullptr;
 
     static const size_t kHeaderSize = 6;
     if (image->datasize < kHeaderSize)
@@ -30,10 +28,10 @@ uint8_t *decompress_amiga(ImageStruct *image) {
     uint8_t remaining_repeats = 0;
     uint8_t color_index = 0;
 
-    size_t pixel_count = (size_t)image->width * (size_t)image->height;
-    uint8_t *pixel_buffer = (uint8_t *)calloc(pixel_count, 1);
+    size_t pixel_count = 0;
+    uint8_t *pixel_buffer = image_alloc(image->width, image->height, 1, &pixel_count);
     if (pixel_buffer == nullptr)
-        exit(1);
+        return nullptr;
 
     size_t byte_offset = kHeaderSize;
     int bit_position = 7;  // Current bit within the current byte (7 = MSB)

@@ -203,12 +203,12 @@ static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunk
     header->height = read32be(ihdr_data, 4);
     debug_png_print("Height: %d\n", header->height);
 
-    // Reject absurd dimensions up front. Infocom V6 artwork is tiny; capping
-    // both axes well below the point where width*height*4 could overflow a
-    // 32-bit int keeps every downstream size computation from wrapping.
-    static const uint32_t kMaxPngDimension = 8192;
+    // Reject absurd dimensions up front, using the same cap image_alloc()
+    // applies to every other decoder. Infocom V6 artwork is tiny; capping both
+    // axes well below the point where width*height*4 could overflow a 32-bit
+    // int keeps every downstream size computation from wrapping.
     if (header->width == 0 || header->height == 0 ||
-        header->width > kMaxPngDimension || header->height > kMaxPngDimension) {
+        header->width > (uint32_t)kMaxImageDimension || header->height > (uint32_t)kMaxImageDimension) {
         debug_png_print("Rejecting PNG with dimensions %u x %u\n", header->width, header->height);
         return false;
     }
@@ -311,16 +311,20 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, size_t *canvas_size, int canv
 
     uint8_t *canvas = *canvas_ptr;
 
-    // read_png caps width/height at 8192 and dest_y is small, so this size_t
-    // product cannot overflow; computing it in size_t (not int) keeps the
-    // canvas-growth check and the per-byte bounds check below honest.
-    size_t required_size = (size_t)canvas_width * (size_t)(dest_y + (int)pngheader.height) * 4;
+    // image_buffer_size() does the product in size_t and rejects nonsense
+    // dimensions, which keeps the canvas-growth check and the per-byte bounds
+    // check below honest. (read_png has already capped width/height, but the
+    // canvas is the caller's and dest_y is not ours to trust.)
+    size_t required_size = image_buffer_size(canvas_width, dest_y + (int)pngheader.height, kBytesPerPixel);
+    if (required_size == 0)
+        return false;
     if (*canvas_size < required_size) {
-        uint8_t *expanded = (uint8_t *)calloc(1, required_size);
+        size_t expanded_size;
+        uint8_t *expanded = image_alloc(canvas_width, dest_y + (int)pngheader.height, kBytesPerPixel, &expanded_size);
         if (expanded == nullptr)
             return false;
         memcpy(expanded, canvas, *canvas_size);
-        *canvas_size = required_size;
+        *canvas_size = expanded_size;
         free(canvas);
         canvas = expanded;
     }
@@ -389,12 +393,8 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, size_t *canvas_size, int canv
 // left over from the previous call is reused, which lets a series of images
 // share a consistent color table. Returns nullptr on failure.
 uint8_t *draw_png(ImageStruct *image, bool use_previous_palette) {
-    if (image->width <= 0 || image->height <= 0)
-        return nullptr;
-    // size_t product can't overflow: draw_indexed_png rejects anything with a
-    // dimension over 8192 via read_png, and these come from the same source.
-    size_t pixmapsize = (size_t)image->width * (size_t)image->height * 4;
-    uint8_t *pixmap = (uint8_t *)calloc(1, pixmapsize);
+    size_t pixmapsize = 0;
+    uint8_t *pixmap = image_alloc(image->width, image->height, kBytesPerPixel, &pixmapsize);
     if (pixmap == nullptr)
         return nullptr;
     if (!use_previous_palette)

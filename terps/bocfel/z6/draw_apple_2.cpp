@@ -48,13 +48,22 @@ static const rgb_t apple2_palette[] =
 // 4 bytes (R, G, B, A). Transparent pixels (matching transparent_color
 // when transparency is enabled) are left as zeroed-out RGBA (fully
 // transparent). Takes ownership of and frees the input indexed_pixels array.
-static uint8_t *deindex(uint8_t *indexed_pixels, size_t pixel_count, ImageStruct *image) {
-    if (indexed_pixels == nullptr || image == nullptr || pixel_count == 0) {
+//
+// The pixel count is derived from the image the same way decompress_apple2
+// sized indexed_pixels, so the two can't disagree and walk off the end.
+static uint8_t *deindex(uint8_t *indexed_pixels, ImageStruct *image) {
+    if (indexed_pixels == nullptr || image == nullptr) {
         free(indexed_pixels);
         return nullptr;
     }
 
-    uint8_t *rgba_buffer = (uint8_t *)calloc(pixel_count, 4);
+    size_t pixel_count = image_buffer_size(image->width, image->height, 1);
+    if (pixel_count == 0) {
+        free(indexed_pixels);
+        return nullptr;
+    }
+
+    uint8_t *rgba_buffer = image_alloc(image->width, image->height, kBytesPerPixel, nullptr);
     if (rgba_buffer == nullptr) {
         free(indexed_pixels);
         return nullptr;
@@ -65,7 +74,7 @@ static uint8_t *deindex(uint8_t *indexed_pixels, size_t pixel_count, ImageStruct
         if (image->transparency && image->transparent_color == color_index)
             continue;
         rgb_t color = apple2_palette[color_index];
-        size_t write_offset = pixel_index * 4;
+        size_t write_offset = pixel_index * kBytesPerPixel;
         rgba_buffer[write_offset + 0] = color.red;
         rgba_buffer[write_offset + 1] = color.green;
         rgba_buffer[write_offset + 2] = color.blue;
@@ -92,13 +101,13 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
 
     static const size_t kHeaderSize = 3;
 
-    if (image->width <= 0 || image->height <= 0 || image->datasize < kHeaderSize)
+    if (image->datasize < kHeaderSize)
         return nullptr;
 
     uint8_t *read_ptr = image->data + kHeaderSize;
     uint8_t *data_end = image->data + image->datasize;
-    size_t pixel_count = (size_t)image->width * (size_t)image->height;
-    uint8_t *pixel_buffer = (uint8_t *)calloc(1, pixel_count);
+    size_t pixel_count = 0;
+    uint8_t *pixel_buffer = image_alloc(image->width, image->height, 1, &pixel_count);
     if (pixel_buffer == nullptr)
         return nullptr;
 
@@ -144,9 +153,5 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
 // Public entry point: decompresses an Apple II image and converts the
 // palette-indexed result to a 32-bit RGBA pixmap ready for display.
 uint8_t *draw_apple2(ImageStruct *image) {
-    uint8_t *result = decompress_apple2(image);
-    // Use the same size_t product decompress_apple2 sized its buffer with;
-    // an int product could overflow and disagree, making deindex read past
-    // the decompressed buffer.
-    return deindex(result, (size_t)image->width * (size_t)image->height, image);
+    return deindex(decompress_apple2(image), image);
 }

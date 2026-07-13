@@ -331,20 +331,20 @@ static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool s
     uint16_t string_address = user_word(menu + line * 2);
     uint8_t length = user_byte(string_address);
     uint16_t chr = string_address + 1;
+    // The line is drawn from a game-supplied length byte (0..255) into a fixed
+    // buffer, so the VoiceOver copy goes through MenuString and truncates.
     char str[40];
+    MenuString menu_string(str, sizeof(str));
     for (int i = 0; i < length; i++) {
         uint16_t c = user_byte(chr++);
         glk_put_char_stream(stream, c);
-        if (i < (int)sizeof(str) - 1) // don't overflow the VoiceOver buffer
-            str[i] = c;
+        menu_string.append_char(c);
     }
-    if (length > (int)sizeof(str) - 1)
-        length = sizeof(str) - 1;
     if (reverse)
         garglk_set_reversevideo_stream(stream, 0);
 
     if (send_menu)
-        win_menuitem(kV6MenuTypeShogun, line - 1, user_word(menu), 0, str, length);
+        win_menuitem(kV6MenuTypeShogun, line - 1, user_word(menu), 0, str, menu_string.length());
 }
 
 // Highlights a menu line (draws it in reverse video).

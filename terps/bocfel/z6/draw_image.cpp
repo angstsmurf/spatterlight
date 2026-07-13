@@ -93,8 +93,7 @@ ImageStruct *find_image(int picnum) {
 }
 
 // All bitmaps in this file are stored as interleaved RGBA — four bytes
-// per pixel.
-static constexpr int kBytesPerPixel = 4;
+// per pixel (kBytesPerPixel, from v6_image.h).
 
 // Shared RGBA backing buffer all drawing routines composite into.
 // Lazily allocated by ensure_pixmap(); freed by clear_image_buffer().
@@ -304,18 +303,19 @@ void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int s
     if (dest_y + src_height <= 0)
         return;
 
-    // Extend destination buffer downward if necessary. Compute the required
-    // size in size_t so the product can't wrap to a negative int and defeat
-    // the grow check (which would let the row loop write past the allocation).
-    const size_t required_size = (size_t)dst_width * (size_t)(dest_y + src_height) * kBytesPerPixel;
-    if (required_size > INT_MAX)
+    // Extend destination buffer downward if necessary. image_buffer_size()
+    // does the size_t product and the sanity check on the dimensions, so the
+    // grow check below can't be defeated by a product that wrapped negative.
+    const size_t required_size = image_buffer_size(dst_width, dest_y + src_height, kBytesPerPixel);
+    if (required_size == 0)
         return;
     if ((size_t)*dst_buffer_size < required_size) {
-        uint8_t *expanded = (uint8_t *)calloc(1, required_size);
+        size_t expanded_size;
+        uint8_t *expanded = image_alloc(dst_width, dest_y + src_height, kBytesPerPixel, &expanded_size);
         if (expanded == nullptr)
             return;
         memcpy(expanded, *dst_pixels, *dst_buffer_size);
-        *dst_buffer_size = (int)required_size;
+        *dst_buffer_size = (int)expanded_size;
         free(*dst_pixels);
         *dst_pixels = expanded;
     }
@@ -356,17 +356,19 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
     if (dest_y + rect_height <= 0)
         return;
 
-    // Extend pixmap downward if necessary. size_t product avoids a negative
-    // wrap that would skip the grow and let the fill loop run past the buffer.
-    size_t required_size = (size_t)screen_width * (size_t)(dest_y + rect_height) * kBytesPerPixel;
-    if (required_size > INT_MAX)
+    // Extend pixmap downward if necessary. image_buffer_size() does the size_t
+    // product, so a negative wrap can't skip the grow and let the fill loop run
+    // past the buffer.
+    size_t required_size = image_buffer_size(screen_width, dest_y + rect_height, kBytesPerPixel);
+    if (required_size == 0)
         return;
     if ((size_t)pixlength < required_size) {
-        uint8_t *expanded = (uint8_t *)calloc(1, required_size);
+        size_t expanded_size;
+        uint8_t *expanded = image_alloc(screen_width, dest_y + rect_height, kBytesPerPixel, &expanded_size);
         if (expanded == nullptr)
             return;
         memcpy(expanded, pixmap, pixlength);
-        pixlength = (int)required_size;
+        pixlength = (int)expanded_size;
         free(pixmap);
         pixmap = expanded;
     }
@@ -402,8 +404,8 @@ static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *source) {
         return nullptr;
 
     size_t row_bytes = (size_t)image->width * kBytesPerPixel;
-    size_t buffer_size = row_bytes * (size_t)image->height;
-    uint8_t *flipped = (uint8_t *)malloc(buffer_size);
+    size_t buffer_size = 0;
+    uint8_t *flipped = image_alloc(image->width, image->height, kBytesPerPixel, &buffer_size);
     if (flipped == nullptr) {
         free(source);
         return nullptr;
@@ -447,8 +449,8 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
     if (decompressed == nullptr)
         return nullptr;
 
-    size_t rgba_size = packed_size * kBytesPerPixel + padded_width;
-    uint8_t *rgba_buffer = (uint8_t *)calloc(1, rgba_size);
+    size_t rgba_size = 0;
+    uint8_t *rgba_buffer = image_alloc(padded_width, image->height, kBytesPerPixel, &rgba_size);
     if (rgba_buffer == nullptr) {
         free(decompressed);
         return nullptr;
@@ -562,9 +564,10 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous
     if (decompressed == nullptr)
         return nullptr;
 
-    size_t pixel_count = (size_t)image->width * (size_t)image->height;
-    size_t rgba_size = pixel_count * kBytesPerPixel;
-    uint8_t *rgba_buffer = (uint8_t *)malloc(rgba_size);
+    // The same product decompress_vga/decompress_amiga sized `decompressed`
+    // with, so the loop below can't run off the end of it.
+    size_t pixel_count = image_buffer_size(image->width, image->height, 1);
+    uint8_t *rgba_buffer = image_alloc(image->width, image->height, kBytesPerPixel, nullptr);
     if (rgba_buffer == nullptr) {
         free(decompressed);
         return nullptr;
@@ -643,7 +646,8 @@ void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *
     if (result != nullptr) {
         if (!use_previous_palette)
             extract_palette(image);
-        draw_bitmap_on_bitmap(result, image->width * image->height * 4, image->width, pixmap, pixmapsize, screenwidth, (float)x / xscale, (float)y / yscale, flipped);
+        int result_size = (int)image_buffer_size(image->width, image->height, kBytesPerPixel);
+        draw_bitmap_on_bitmap(result, result_size, image->width, pixmap, pixmapsize, screenwidth, (float)x / xscale, (float)y / yscale, flipped);
         free(result);
     }
 }
@@ -685,12 +689,18 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
         return nullptr;
 
     extract_palette(image);
-    int32_t pixmapsize = image->width * image->height * kBytesPerPixel;
+    size_t pixmapsize = image_buffer_size(image->width, image->height, kBytesPerPixel);
+    if (pixmapsize == 0) {
+        free(result);
+        return nullptr;
+    }
 
     char *filename = create_temp_tiff_file_name();
 
-    if (filename == nullptr)
+    if (filename == nullptr) {
+        free(result);
         return nullptr;
+    }
 
     if (flipped) {
         result = flip_bitmap(image, result);
@@ -699,7 +709,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     write_to_tiff(filename, result, pixmapsize, image->width);
     free(result);
 
-    win_purgeimage(picnum, filename, pixmapsize);
+    win_purgeimage(picnum, filename, (int)pixmapsize);
     free(filename);
     return image;
 }

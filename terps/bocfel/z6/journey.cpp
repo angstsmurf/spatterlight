@@ -524,27 +524,24 @@ static void journey_move_cursor(int column, int line) {
 // "Dorian route". The protagonist's name is stored as raw ZSCII bytes
 // in NAME_TBL and the suffix " route" is appended.
 // Used for VoiceOver menus.
-static int print_tag_route_to_str(char *str) {
+static int print_tag_route_to_str(char *str, size_t capacity) {
+    static const char route_suffix[] = " route";
+
+    MenuString route(str, capacity);
+
+    // The name is whatever the player typed, so cap it to leave room for the
+    // suffix: a long name should lose its tail, not the " route" that says what
+    // the menu item does.
     int name_length = get_global(jg.TAG_NAME_LENGTH);
-    int name_table = get_global(jg.NAME_TBL) + 4;
-    // Cap the name so that name + " route" (6 chars) + the terminating NUL
-    // all fit within str[STRING_BUFFER_SIZE]; the last byte written below is
-    // str[name_length + 6], so name_length must be <= STRING_BUFFER_SIZE - 7.
-    if (name_length < 0)
-        name_length = 0;
-    if (name_length > STRING_BUFFER_SIZE - 7) {
+    int max_name_length = route.remaining() - ((int)sizeof(route_suffix) - 1);
+    if (name_length > max_name_length) {
         fprintf(stderr, "Error: Tag name too long!\n");
-        name_length = STRING_BUFFER_SIZE - 7;
+        name_length = max_name_length;
     }
-    for (int i = 0; i < name_length; i++) {
-        str[i] = zscii_to_unicode[user_byte(name_table++)];
-    }
-    const char *routestring = " route";
-    for (int i = 0; i < 6; i++) {
-        str[name_length + i] = routestring[i];
-    }
-    str[name_length + 6] = 0;
-    return name_length + 6;
+
+    route.append_zscii(get_global(jg.NAME_TBL) + 4, name_length);
+    route.append(route_suffix);
+    return route.length();
 }
 
 // Builds the party-wide "Journey Party" command menu (leftmost column in command
@@ -567,7 +564,7 @@ static void create_journey_party_vo_menu(void) {
         object = user_word(table + 2 * i);
         if (object == jo.TAG_ROUTE_COMMAND // TAG-ROUTE-COMMAND
             && get_global(jg.TAG_NAME_LENGTH) != 0) {
-            stringlength = print_tag_route_to_str(str);
+            stringlength = print_tag_route_to_str(str, sizeof(str));
         } else {
             stringlength = print_zstr_to_cstr(user_word(object), str);
         }

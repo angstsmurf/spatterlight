@@ -42,6 +42,46 @@ void after_V_CREDITS(void);
 int print_zstr_to_cstr(uint16_t addr, char *str);
 int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
+// Bounded builder for the fixed-size C strings that the VoiceOver menus hand to
+// win_menuitem(). Everything appended is game-supplied — a decoded Z-string, or
+// a run of ZSCII bytes whose length is a byte or a global in the story file — so
+// each append truncates at the buffer's capacity instead of running past it, and
+// the buffer is left NUL-terminated. Build over the caller's buffer:
+//
+//     char str[60];
+//     MenuString menu_string(str, sizeof(str));
+//     menu_string.append_zstr(user_word(fdef));
+//     win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, menu_string.length());
+class MenuString {
+public:
+    MenuString(char *buffer, size_t capacity) : m_buffer(buffer), m_capacity(capacity) {
+        if (m_capacity > 0)
+            m_buffer[0] = 0;
+    }
+
+    // Characters written so far, not counting the terminating NUL. This is the
+    // length to pass to win_menuitem(): it always matches what is in the buffer.
+    int length() const { return m_length; }
+
+    // Characters that can still be appended before truncation kicks in.
+    int remaining() const { return (int)m_capacity - 1 - m_length; }
+
+    void append_char(char c);
+    void append(const char *str);
+
+    // Appends `count` raw ZSCII bytes read from Z-machine memory at `addr`.
+    void append_zscii(uint16_t addr, int count);
+
+    // Decodes the Z-string at `addr` and appends it. Returns the number of
+    // characters actually appended.
+    int append_zstr(uint16_t addr);
+
+private:
+    char *m_buffer;
+    size_t m_capacity;
+    int m_length = 0;
+};
+
 extern uint8_t fg_global_idx, bg_global_idx;
 
 extern uint8_t hint_chapter_global_idx, hint_quest_global_idx;

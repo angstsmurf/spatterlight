@@ -96,20 +96,15 @@ static int16_t read_lzw_code(const uint8_t **ptr, size_t bytes_remaining, lzw_st
 
 
 // Decompresses LZW-encoded pixel data from an ImageStruct.
-// Returns a malloc'd buffer of width * height bytes containing palette indices,
-// or nullptr on allocation failure or corrupt data.
+// Returns a freshly allocated buffer of width * height bytes containing palette
+// indices, or nullptr on bad dimensions, allocation failure, or corrupt data.
 uint8_t *decompress_vga(const ImageStruct *image) {
     lzw_state_t state;
     uint8_t read_buffer[LZW_TABLE_SIZE];
 
-    if (image->width <= 0 || image->height <= 0)
-        return nullptr;
-    size_t output_size = (size_t)image->width * (size_t)image->height;
-    // calloc (not malloc): a stream that emits the end code before producing
-    // width*height pixels leaves the tail undecoded; zeroing means those
-    // pixels read as palette index 0 rather than garbage indices.
+    size_t output_size = 0;
     std::unique_ptr<uint8_t[], decltype(&free)> output(
-        (uint8_t *)calloc(1, output_size), free);
+        image_alloc(image->width, image->height, 1, &output_size), free);
     if (output == nullptr)
         return nullptr;
 
