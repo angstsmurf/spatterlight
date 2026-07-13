@@ -120,13 +120,13 @@ void progfile::sourcePos() {
 			KeepLooking = false;
 
 		g_vm->writeln("Error in %s at line %d", filename.c_str(), file_line);
-		g_vm->writeln(line_buffer);
+		g_vm->writeln("%s", line_buffer.c_str());
 
 		String s;
 		for (int i = 0; i < line_pos; ++i)
 			s += ' ';
 		s += '^';
-		g_vm->writeln(s);
+		g_vm->writeln("%s", s.c_str());
 	}
 }
 

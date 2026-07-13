@@ -58,7 +58,7 @@ void expect_general(progfile &f, const String &general_desc) {
 void error_message(progfile &f, const String &message) {
 	if (KeepLooking) {
 		f.sourcePos();
-		g_vm->writeln(message);
+		g_vm->writeln("%s", message.c_str());
 	}
 }
 

@@ -1,11 +1,11 @@
 # Archetype interpreter — remaining known bugs
 
-Findings from the 2026-07-11 code review that were **not** fixed. The five
-confirmed runtime bugs (article-stripping `del`, format-string on literals, heap
-sorter, boolean `FALSE`, `dispose_list` header leak) are already fixed and
-covered by `make -f Makefile.headless regress-all` (incl. `regress-heap`,
-`regress-article`). Everything below is left open on purpose — either a design
-call or dead code in this playback-only build.
+Findings from the 2026-07-11 code review. The five confirmed runtime bugs
+(article-stripping `del`, format-string on literals, heap sorter, boolean
+`FALSE`, `dispose_list` header leak) were fixed first and are covered by
+`make -f Makefile.headless regress-all` (incl. `regress-heap`,
+`regress-article`). The remaining items below were fixed 2026-07-13 —
+**nothing is left open**. This file is kept as a record of what was checked.
 
 ## Runtime — low severity / needs a design decision
 
@@ -43,31 +43,46 @@ call or dead code in this playback-only build.
 
 The port only interprets pre-compiled bytecode (`runGame` → `interpret()` →
 `load_game`). The tokenizer / syntax / error-reporting units below have no
-runtime caller, so these are latent — fix only if the compiler path is revived.
+runtime caller, so these were latent. All four were fixed 2026-07-13, each
+verified against the original Pascal in the Archetype 1.01 distribution
+(`~/Downloads/arch101/*.PAS`); `regress-all` stays byte-exact.
 
-- [ ] **`binary_search` bounds wrong for 1-based tables** — `token.cpp:79`
-      (`left = 0, right = elements - 1`) against `keywords.cpp:29,67`, whose
-      `[0]` is a `nullptr` sentinel. A token that descends to index 0 compares a
-      `std::string` against `nullptr` → `strlen(nullptr)` crash (e.g. operator
-      `&`); and the last real entry (`writes`, `~=`) is never found.
-      *Fix:* `left = 1, right = elements`.
+- [x] **`binary_search` bounds wrong for 1-based tables** — `token.cpp`.
+      FIXED 2026-07-13: `left = 1, right = elements`, matching `TOKEN.PAS`
+      (`left := 1; right := elements`). The lookup tables (`keywords.cpp`)
+      keep a `nullptr` sentinel at `[0]`, so the old `left = 0` could compare
+      against `nullptr` (e.g. operator `&` descending to index 0) and could
+      never find the last real entry (`writes`, `~=`).
 
-- [ ] **`verify_expr` OP_DOT fallthrough + precedence mistranslation** —
-      `semantic.cpp:174-190` (OP_DOT falls into the assignment-check case; there
-      is a `// FIXME: is this fallthrough intentional?`) and `:205`
-      (`!(A && B)` where the Pascal means `(!A) && B`).
+- [x] **`verify_expr` OP_DOT fallthrough** — `semantic.cpp`. FIXED 2026-07-13:
+      the OP_DOT case now `break`s instead of falling into the assignment-lhs
+      check (Pascal `case` branches don't fall through — confirmed in
+      `SEMANTIC.PAS`, where OP_DOT and the assignment operators are separate
+      branches). The fallthrough made every dot expression also run the
+      assignment check, flagging e.g. `obj.attr` ("Left side of assignment is
+      not an attribute") because the left of a dot is normally an object, not
+      an attribute.
 
-- [ ] **Format-string on source-line text** — `misc.cpp:123,129` and
-      `error.cpp:61` pass runtime strings (a source line, caret line, error
-      message) as the printf format. Same class as the fixed `archetype.cpp:1096`
-      bug. *Fix:* route through `"%s"`.
+- [x] **Format-string on source-line text** — `misc.cpp` `sourcePos()` and
+      `error.cpp` `error_message()`. FIXED 2026-07-13: the source line, caret
+      line and error message are now routed through `"%s"` instead of being
+      passed as the printf format (`writeln_internal` always runs
+      `String::vformat` on its first argument, and the headless build compiles
+      with `-Wno-format`, so a `%` in a source line was silent UB). Same class
+      as the fixed `archetype.cpp:1096` bug.
 
-- [ ] **`add_ident` hashes the second char, not the first** — `id_table.cpp:38`
-      uses `id_str[1]` (0-based → 2nd char); the Pascal `id_str[1]` (1-based) and
-      the comment mean the first. Distribution-only (in-bucket lookup compares
-      full strings), not corrupting. *Fix:* `id_str[0]`.
+- [x] **`add_ident` hashes the second char, not the first** — `id_table.cpp`.
+      FIXED 2026-07-13: `id_str[1]` → `id_str[0]`. The Pascal `id_str[1]` is
+      1-based (first char, per `ID_TABLE.PAS`). Distribution-only (in-bucket
+      lookup compares full strings), not corrupting.
 
 ## Checked and cleared (not bugs — recorded so they aren't re-investigated)
+
+- **`verify_expr` alleged precedence mistranslation** — `semantic.cpp`
+  (the `!(A && B)` guard in the assignment-lhs check). The 2026-07-11 review
+  claimed the Pascal meant `(!A) && B`; the actual `SEMANTIC.PAS` is fully
+  parenthesized — `not ((left^.kind = OPER) and (left^.op_name = OP_DOT))` —
+  so the C++ is a correct translation. No change.
 
 `OP_OR` missing `result._kind = RESERVED` (entry `cleanup(result)` pre-sets it);
 `crypt.cpp` SIMPLE/PURPLE/UNPURPLE; save/load DUMP↔LOAD symmetry and int widths;

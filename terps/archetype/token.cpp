@@ -76,7 +76,9 @@ bool isOperChar(char c) {
  */
 static bool binary_search(const LookupType &the_array, int elements,
 		const ShortStringType &match_str, int &a_index) {
-	int left = 0, right = elements - 1, mid;
+	// The lookup tables are 1-based ([0] is a nullptr sentinel), so the
+	// search range is [1, elements] as in the original Pascal.
+	int left = 1, right = elements, mid;
 
 	do {
 		mid = (left + right) / 2;
