@@ -252,6 +252,14 @@ struct a5_run_s {
      capped in a5run_snapshot (A5_UNDO_DEPTH) to match the v4 engine's memo ring
      -- a deliberate superset of the Adrift 5 runner's one-deep undo. */
   std::vector<std::string> undo_stack;
+
+  /* The final composed text of the last processed turn (the runner's
+     clsUserSession sTurnOutput), and each undo snapshot's copy of it as it
+     stood when that snapshot was pushed (undo_turn_text parallels undo_stack).
+     A post-game-over UNDO replays it -- the runner's Undo() Displays "Undone."
+     followed by the restored session's sTurnOutput. */
+  std::string last_turn_text;
+  std::vector<std::string> undo_turn_text;
 };
 
 /* One SetTasks-Execute response scope (see exec_scope above). */

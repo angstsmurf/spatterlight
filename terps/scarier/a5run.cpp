@@ -852,6 +852,8 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
    `turns` is bumped for the ending command -- so the score shows the count of
    commands processed *before* this one (the runner displays during Process, ahead of its
    per-command Adventure.Turns increment). */
+static void emit_end_prompt (sb_t *out);
+
 static void
 emit_endgame (a5_run_t *run, sb_t *out)
 {
@@ -931,27 +933,37 @@ emit_endgame (a5_run_t *run, sb_t *out)
      Interleave A5_ALR_MARK sentinels so the boundary ALR pass cannot match
      any OldText across it; finish_turn's existing mark strip removes them
      before the text is shown. */
-  {
-    /* The runner: Display("Would you like to <c>restart</c>, <c>restore</c> a saved
-       game, <c>quit</c> or <c>undo</c> the last command?").  The <c> tags sit
-       in the buffer during ReplaceALRs, so an OldText can match any contiguous
-       run BETWEEN tags (Halloween translates the prompt piecewise: "restart"
-       -> "genstarte") but never ACROSS one (Shattered Memory's full-sentence
-       blanking Override does not fire in the runner).  A5_ALR_MARK is Scarier's
-       stripped-tag stand-in: emit one at each tag position. */
-    static const char *kPromptSegs[] = {
-      "Would you like to ", "restart", ", ", "restore", " a saved game, ",
-      "quit", " or ", "undo", " the last command?", NULL
-    };
-    for (int si = 0; kPromptSegs[si] != NULL; si++)
-      {
-        if (si > 0)
-          sb_putc (out, A5_ALR_MARK);
-        sb_puts (out, kPromptSegs[si]);
-      }
-    sb_puts (out, "\n\n");
-  }
+  emit_end_prompt (out);
   st->end_displayed = 1;
+}
+
+/* The "Would you like to restart, restore a saved game, quit or undo the last
+   command?" prompt (CheckEndOfGame, clsUserSession.vb:533).  The runner
+   re-Displays it on EVERY post-game command -- the prompt sits outside the
+   bDisplayedWinLose gate -- so both the first CheckEndOfGame and each
+   guard-rejected post-game input emit it.
+
+   The runner: Display("Would you like to <c>restart</c>, <c>restore</c> a saved
+   game, <c>quit</c> or <c>undo</c> the last command?").  The <c> tags sit
+   in the buffer during ReplaceALRs, so an OldText can match any contiguous
+   run BETWEEN tags (Halloween translates the prompt piecewise: "restart"
+   -> "genstarte") but never ACROSS one (Shattered Memory's full-sentence
+   blanking Override does not fire in the runner).  A5_ALR_MARK is Scarier's
+   stripped-tag stand-in: emit one at each tag position. */
+static void
+emit_end_prompt (sb_t *out)
+{
+  static const char *kPromptSegs[] = {
+    "Would you like to ", "restart", ", ", "restore", " a saved game, ",
+    "quit", " or ", "undo", " the last command?", NULL
+  };
+  for (int si = 0; kPromptSegs[si] != NULL; si++)
+    {
+      if (si > 0)
+        sb_putc (out, A5_ALR_MARK);
+      sb_puts (out, kPromptSegs[si]);
+    }
+  sb_puts (out, "\n\n");
 }
 
 /* Expand any deferred-variable sentinels (A5_VARDEF_MARK, a5text.h) currently
@@ -2058,9 +2070,73 @@ time_tick_commit (a5_run_t *run)
   return extra;
 }
 
+/* clsUserSession.EvaluateInput's top guard, reached for every command entered
+   AFTER the game has ended (vb:3360-3369): SystemTasks(True) honours only
+   restart / restore / quit / undo (save, wait and everything else return False
+   when bEarly), and a rejected input Displays "Please give one of the answers
+   above." followed by CheckEndOfGame's re-printed restart prompt -- the prompt
+   sits outside the bDisplayedWinLose gate, so the runner re-asks on every
+   rejected post-game command.
+
+   UNDO is honoured here in full: the engine owns the undo stack, and the
+   runner's Undo() (vb:3178) Displays "Undone." followed by the restored
+   session's sTurnOutput, after which play resumes.  RESTART / RESTORE / QUIT
+   return empty text for the HOST to act on (rebuild the run, run a file
+   dialog, exit) -- the Glk frontend runs its own endgame loop and never
+   reaches this path; the a5run_dump harness honours quit and warns on
+   restart/restore.  No turn is consumed and no events tick (the runner's
+   guard returns before any turn processing). */
+static char *
+endgame_guard_input (a5_run_t *run, const char *line)
+{
+  sb_t out;
+  std::string in = lower (line ? line : "");
+  {
+    size_t a = in.find_first_not_of (" \t");
+    size_t b = in.find_last_not_of (" \t");
+    in = (a == std::string::npos) ? "" : in.substr (a, b - a + 1);
+  }
+
+  sb_init (&out);
+  a5run_media_begin (run);
+  if (in == "undo")
+    {
+      if (a5run_undo (run))
+        {
+          /* The runner's SetLastState does NOT roll the turn counter back
+             across the undone command: measured on October31st, a win at "153
+             turns" followed by undo + an immediate re-kill reports "154
+             turns" (155 with one command in between).  Scarier's snapshot is
+             pre-turn, so re-count the undone command's turn.  Only here: the
+             mid-game A5_UNDO_AT self-check replays the SAME command after
+             a5run_undo and must stay byte-identical, so the compensation
+             cannot live inside a5run_undo itself. */
+          a5run_state (run)->turns++;
+          sb_puts (&out, "Undone.");
+          if (!run->last_turn_text.empty ())
+            {
+              sb_pspace (&out);
+              sb_puts (&out, run->last_turn_text.c_str ());
+            }
+        }
+      else
+        /* The runner: "Sorry, <c>undo</c> is not currently available." */
+        sb_puts (&out, "Sorry, undo is not currently available.");
+    }
+  else if (!(in == "restart" || in == "restore" || in == "quit"
+             || in.empty ()))
+    {
+      sb_puts (&out, "Please give one of the answers above.\n");
+      emit_end_prompt (&out);
+    }
+  return finish_turn (run, &out);
+}
+
 char *
 a5run_input (a5_run_t *run, const char *line)
 {
+  if (run->st->game_over)
+    return endgame_guard_input (run, line);
   char *txt = a5run_input_inner (run, line);
   /* The real Runner's 1-second tmrEvents timer, deterministically: tick every
      TimeBased event once per processed input line (see ev_time_tick_all).  The
@@ -2086,6 +2162,10 @@ a5run_input (a5_run_t *run, const char *line)
         }
       free (extra);
     }
+  /* Retain this turn's final text (the runner's sTurnOutput): a5run_snapshot
+     copies it alongside each undo snapshot so a post-game UNDO can replay the
+     restored turn's output, as the runner's Undo() does. */
+  run->last_turn_text = txt != NULL ? txt : "";
   return txt;
 }
 
@@ -3474,8 +3554,12 @@ a5run_snapshot (a5_run_t *run)
   if (blob == NULL)
     return;
   if (run->undo_stack.size () >= A5_UNDO_DEPTH)
-    run->undo_stack.erase (run->undo_stack.begin ());
+    {
+      run->undo_stack.erase (run->undo_stack.begin ());
+      run->undo_turn_text.erase (run->undo_turn_text.begin ());
+    }
   run->undo_stack.push_back (std::string (blob, len));
+  run->undo_turn_text.push_back (run->last_turn_text);
   free (blob);
 }
 
@@ -3487,6 +3571,7 @@ a5run_undo_forget (a5_run_t *run)
   if (run == NULL)
     return;
   run->undo_stack.clear ();
+  run->undo_turn_text.clear ();
 }
 
 /* Restore the newest snapshot (undo the last turn).  Returns 1 on success, 0
@@ -3508,9 +3593,14 @@ a5run_undo (a5_run_t *run)
      snapshot first so we never read through storage the restore might touch. */
   std::string blob = std::move (run->undo_stack.back ());
   run->undo_stack.pop_back ();
+  std::string turn_text = std::move (run->undo_turn_text.back ());
+  run->undo_turn_text.pop_back ();
   ok = a5run_restore (run, blob.data (), blob.size ());
   if (!ok)
     return 0;
+  /* The runner's Undo() restores the session's sTurnOutput along with the
+     state; the post-game guard replays it after "Undone.". */
+  run->last_turn_text = std::move (turn_text);
   run->amb_active = 0;
   run->amb_task_index = run->amb_command_index = -1;
   run->amb_keys.clear ();

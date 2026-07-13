@@ -262,9 +262,28 @@ main (int argc, char **argv)
             ++cmd_no;
             continue;
           }
+        /* Push a pre-turn undo point while the game is running (as the Glk
+           frontend does before every a5run_input), so a post-game-over "undo"
+           in the script can restore the pre-fatal state and resume play --
+           mirroring FrankenDrift, whose EvaluateInput top guard honours undo
+           after the game has ended.  Skipped in A5_UNDO_AT mode, whose
+           self-check relies on its one pushed snapshot being the whole stack.
+           Guard-consumed post-game inputs are NOT snapshotted (the runner
+           records no state for them either). */
+        int was_over = a5run_is_over (run);
+        if (!was_over && undo_at < 0)
+          a5run_snapshot (run);
+        if (was_over
+            && (strcasecmp (line, "restart") == 0
+                || strcasecmp (line, "restore") == 0))
+          fprintf (stderr, "a5run_dump: post-game '%s' is not supported by "
+                   "this harness (host-side in the engine); ignored\n", line);
         txt = a5run_input (run, line);
         printf ("%s\n", txt);
         free (txt);
+        if (was_over && strcasecmp (line, "quit") == 0)
+          /* The runner exits on a post-game "quit"; the transcript just ends. */
+          break;
         /* A5_DUMP_VARS="Depth,Encountern,..." prints those vars + the player's
            location to stderr after each command -- navigation aid for deriving a
            deterministic walkthrough of a large map/encounter game (Tingalan). */
@@ -344,10 +363,11 @@ main (int argc, char **argv)
               fprintf (stderr, "]\n");
             }
         }
-        if (a5run_is_over (run))
-          /* The engine has already emitted the win/lose/score/restart block
-             (clsUserSession.CheckEndOfGame); nothing more to print. */
-          break;
+        /* Do NOT stop at game over: keep feeding script lines, exactly as the
+           (patched) FrankenDrift headless does -- the engine's post-game guard
+           answers junk with "Please give one of the answers above." + the
+           re-printed restart prompt, and honours undo, so die-undo-continue
+           flows and trailing commands are scriptable and diffable. */
         if (++cmd_no == save_at)
           {
             /* Save, tear the run down, rebuild + restore, and continue: the rest

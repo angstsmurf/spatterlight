@@ -1523,3 +1523,7 @@ You regularly visit the hotel (and Susan) and over time your visits becomes more
 *** You have won ***
 Would you like to restart, restore a saved game, quit or undo the last command?
 
+> *** YOU HAVE WON! ***
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

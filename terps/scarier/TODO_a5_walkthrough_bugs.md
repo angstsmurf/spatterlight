@@ -6,22 +6,71 @@
 > is now ✅ DONE too (see the SkybreakWin entry directly below). All that
 > remains, deliberately:
 >
-> - **One declined cosmetic residual**: the October31st trailing-`score`-after-
->   win line (FD's initial `EvaluateInput` top-guard answers a command entered
->   a turn AFTER the game ended — "Please give one of the answers above." —
->   where Scarier stays silent). Unfixed by choice (endgame input-guard path);
->   the wired walkthrough simply types nothing after the win, so it costs no
->   budget. NOT the FoF same-turn continuation artifact, which IS fixed.
->   (2026-07-13 audit: the other two residuals this list used to carry are
->   GONE — the AoS nested-pouch coin hunk was fixed the same day it was
->   declined by the "aggregate same-restriction per-item fail messages" entry
->   (AoS 1|1 → 0|0), and the BugHunt arrival blank line no longer reproduces
->   (xoshiro 0 hunks re-verified via a5_groundtruth.sh; almost certainly
->   collateral repair from the 2026-07-06 FoF deferred-Look/drain-path work.)
->   Their in-place decline notes below are retained as history.)
+> - ~~One declined cosmetic residual~~ **NONE — the last declined residual is
+>   now ✅ FIXED (2026-07-13)**: the post-game-over input guard (the
+>   October31st trailing-`score`-after-win class) is implemented — see the
+>   "post-game-over input guard" entry below. (Same-day audit history: the AoS
+>   nested-pouch coin hunk had already been fixed the day it was declined by
+>   the "aggregate same-restriction per-item fail messages" entry (AoS 1|1 →
+>   0|0), and the BugHunt arrival blank line no longer reproduces — xoshiro 0
+>   hunks re-verified via a5_groundtruth.sh, almost certainly collateral
+>   repair from the 2026-07-06 FoF deferred-Look/drain-path work. The in-place
+>   decline notes below are retained as history.)
 > - **Documented non-issues:** non-zero *vanilla* budgets on golden-less games
 >   (FD `System.Random` vs xoshiro walk) and the Tingalan per-turn RNG-event
 >   desync — expected classes, not conformance bugs.
+
+## ⭐ Post-game-over input guard (EvaluateInput top guard + scriptable die-undo-continue) — ✅ DONE (2026-07-13)
+
+The last declined residual is closed, and post-death flows are now scriptable.
+Previously BOTH headless harnesses simply stopped consuming script lines at
+game over (a5run_dump `break`, FD headless `break`), so the divergence class
+was invisible in transcripts but real in the engine: Scarier had no post-game
+input handling at all (the Glk app runs its own differently-worded endgame
+loop), and die-undo-continue routes could not be exercised end to end.
+
+**Engine (`a5run.cpp` `endgame_guard_input`, called from `a5run_input` when
+`game_over`):** the runner's `EvaluateInput` top guard (clsUserSession.vb:
+3360-3369) + `SystemTasks(True)`:
+
+* Any input that is not restart/restore/quit/undo → `Please give one of the
+  answers above.` **plus the re-printed restart prompt** — CheckEndOfGame
+  (vb:510-535) re-Displays the prompt on EVERY post-game command (it sits
+  outside the `bDisplayedWinLose` gate); banner/WinningText/score print only
+  the first time. The prompt emission is factored into `emit_end_prompt`
+  (shared with `emit_endgame`, keeping the Halloween piecewise-ALR marks).
+* `undo` → restores the pre-fatal snapshot and play RESUMES. Output matches
+  the runner's `Undo()` (vb:3178): `Undone.` + pSpace + the restored session's
+  `sTurnOutput` — the run now retains `last_turn_text` and each undo snapshot
+  carries its copy (`undo_turn_text` parallels `undo_stack`). **Measured
+  quirk:** SetLastState does NOT roll the turn counter back across the undone
+  command (October31st: win at "153 turns", undo + immediate re-kill reports
+  "154"), so the guard re-counts the undone turn after a successful undo —
+  only on the guard path, because the mid-game `A5_UNDO_AT` self-check replays
+  the same command and must stay byte-identical.
+* `restart`/`restore`/`quit` → empty text; the HOST acts (the Glk frontend
+  already does; a5run_dump honours `quit` and stderr-warns on the other two).
+* No turn is consumed and no events tick for guard-handled input (FD headless
+  gates its `Turns += 1`/`TimeBasedStuff()` on the game having been Running
+  when the command was submitted).
+
+**Harnesses:** a5run_dump no longer breaks at game over — it pushes a pre-turn
+undo snapshot while the game is running (as the Glk frontend always has;
+skipped in `A5_UNDO_AT` mode whose self-check owns the stack) and keeps
+feeding lines. The FD fork's headless loop (`Program.cs`, branch
+`scarier-headless`) likewise continues past game over so the reference
+engine's own guard becomes observable. **Note: rebuilding fd-headless.dll
+invalidates the entire `test/.fd_cache`** (the cache key hashes the DLLs), so
+the first sweep after this change re-runs dotnet for every game/mode.
+
+**Verified:** October31st + trailing `score`/`undo`/`look`/`foo bar`, a full
+win-undo-re-win flow, and undo with 0/1 interposed commands — all **0 hunks**
+vs FD under xoshiro. Five corpus scripts carry real trailing post-win commands
+(AchtungPanzer + FoF trailing `score`, TheWayHome `z/look/score`,
+TheLastExpedition `z z`, anno1700 a stray pasted banner line) — previously
+silently dropped, now they exercise the guard permanently: all five re-blessed
+with xoshiro 0, full suite MATCH/at-baseline in both modes, save/restore
+all-OK, 65/65 unit tests.
 
 ## ⭐ Skybreak FULL WIN — Storyteller "Retire" ending, wired as `SkybreakWin` MATCH 0|0 — ✅ DONE (2026-07-13)
 

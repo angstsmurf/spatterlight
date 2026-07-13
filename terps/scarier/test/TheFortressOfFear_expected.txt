@@ -11462,3 +11462,7 @@ In that game you scored 1500 out of a possible 1200, in 2115 turns.
 
 Would you like to restart, restore a saved game, quit or undo the last command?
 
+> score
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

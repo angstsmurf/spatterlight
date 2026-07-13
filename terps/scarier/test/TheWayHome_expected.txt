@@ -831,3 +831,23 @@ In that game you scored 115 out of a possible 115, in 159 turns.
 
 Would you like to restart, restore a saved game, quit or undo the last command?
 
+> z
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+> z
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+> z
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+> look
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+> score
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

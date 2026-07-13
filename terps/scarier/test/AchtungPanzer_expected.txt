@@ -154,3 +154,7 @@ In that game you scored 100 out of a possible 100, in 14 turns.
 
 Would you like to restart, restore a saved game, quit or undo the last command?
 
+> score
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

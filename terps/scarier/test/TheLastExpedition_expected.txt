@@ -315,3 +315,11 @@ I hope you have enjoyed this little adventure.
 *** You have won ***
 Would you like to restart, restore a saved game, quit or undo the last command?
 
+> z
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+> z
+Please give one of the answers above.
+Would you like to restart, restore a saved game, quit or undo the last command?
+
