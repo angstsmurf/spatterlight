@@ -444,6 +444,9 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
         case 3:                /* Not alone */
           return npc_count_in_room (game, gs_npc_location (game, npc1) - 1) > 1;
 
+        /* Cases 4-6 test the NPC's position but the *player's* parent object.
+           This reproduces the original SCARE behavior; don't "correct" it into
+           a divergence from the Adrift runner without evidence.  */
         case 4:                /* Standing on */
           return gs_npc_position (game, npc1) == 0
                  && gs_playerparent (game) == obj_standable_object (game, var3);

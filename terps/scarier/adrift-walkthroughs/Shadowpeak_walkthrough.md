@@ -9,8 +9,8 @@ the task-327 check turn, one turn short of room 104. Re-derivation restored
 **exact score parity with the old-order transcripts** (score-event multisets
 identical): main **710**, allgargoyles **715**, killwraith **740**, all 0 deaths.
 
-Key mechanics discovered (full detail in
-`terps/scarier/TODO_restriction_type5_and_turn_order.md`):
+Key mechanics discovered (the type-5/turn-order TODO that held the long-form
+write-up has since been pruned; the load-bearing detail is kept here):
 
 - **NPC-walk charTask/meetChar tasks now fire only when the NPC's own walk step
   lands on the player**, not when the player walks into the NPC's room. This

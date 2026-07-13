@@ -33,9 +33,19 @@ Highlights, with detail in the git log and the `comprehend-coveted-mirror` /
 - [ ] **Eyeball the hourglass grain-fall animation in the Spatterlight GUI.** The timer can't
       run in the headless cheapglk build; wiring mirrors the proven slow-draw path 1:1 and the
       *resting* level is validated, but the falling-grain motion (model b) has no MAME ground
-      truth and hasn't been seen in the real GUI.
-- [ ] **King's face animation** — event-driven engine effect (colour-flash XOR at $4284/$428e),
-      not in pic streams. Out of scope unless a faithful idle screen is wanted.
+      truth and hasn't been seen in the real GUI. (The animation itself is a keeper — see
+      below; this item is just "look at it once in the app".)
+
+## Not applicable — the king's face animation
+
+The king's face does **not** animate in the Comprehend version of CM; that and the other
+animated effects exist only in the non-Comprehend release of the game. Nothing to port —
+do not add them (the colour-flash XOR at $4284/$428e is the *other* release's code).
+
+The hourglass grain fall is **deliberate and stays**, even though it is ours rather than
+something the Comprehend release animates: the resting sand level is validated pixel-exact
+against `test/cm/fixtures/throne_sand60.page`, and the falling-grain motion rides the proven
+slow-draw path. Don't "correct" it away by appealing to the paragraph above.
 
 ## Reference (verified)
 

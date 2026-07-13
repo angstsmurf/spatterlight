@@ -755,8 +755,11 @@ ser_get_int (void)
 /*
  * ser_restore_battle_attributes()
  *
- * Read back the version-2 mutable battle attributes of one character, in the
- * order ser_save_battle_attributes() wrote them.
+ * Read back the version-2 mutable battle attributes of one character.  The
+ * matching writer no longer exists: current saves interleave the battle block
+ * (ser_restore_battle_block below), so this field order matches nothing we
+ * write today and only runs against saves from the removed v2 writer.  Verify
+ * against a real legacy v2 save before changing it.
  */
 static void
 ser_restore_battle_attributes (scr_battle_t *battle)

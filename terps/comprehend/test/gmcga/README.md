@@ -106,11 +106,12 @@ Scene → picture mapping: `title` = `T0`@4, `throne` = `RA`@0x22 (pic #0),
 ### Room fixtures (all RA–RG)
 
 Beyond the four hand-picked scenes, every Talisman room picture (`RA`–`RG`, 94
-streams) is committed as a regression fixture: 93 are pixel-exact and `RG_07` is
-within 98 px.  These were captured by driving the native interpreter directly —
-see `dosbox_capture_pics.py` (boots NOVEL1 under the GDB stub and patches a stub
-to draw each picture, dumping CGA VRAM) and `gen_room_fixtures.py` (slices the
-streams and packs the 280×160 goldens).  `test_gmcga_pics` loads them from:
+streams) is committed as a regression fixture, and **all 94 are pixel-exact**
+(every ceiling in `rooms.tsv` is `0`).  These were captured by driving the native
+interpreter directly — see `dosbox_capture_pics.py` (boots NOVEL1 under the GDB
+stub and patches a stub to draw each picture, dumping CGA VRAM) and
+`gen_room_fixtures.py` (slices the streams and packs the 280×160 goldens).
+`test_gmcga_pics` loads them from:
 
 | file                 | what                                                       |
 |----------------------|------------------------------------------------------------|
@@ -118,31 +119,73 @@ streams and packs the 280×160 goldens).  `test_gmcga_pics` loads them from:
 | `fixtures/rooms_goldens.bin` | concatenated 280×160 goldens, packed 2 bpp (MSB-first), local-only |
 | `rooms.tsv`          | `name  stream_off  stream_len  golden_off  ceil` (offsets into the .bin) |
 
-Object/overlay pictures (`OA`/`OB`/`OE`/`OF`) are sprites drawn over the live
-room — capturing them this way needs their real in-game predecessor, so they are
-left for a natural-play pass.  See `TODO.md` §5 for the addressing and op14
-prior-page details.
+Three findings from building that capture path, worth keeping:
 
-## Status (2026-06-11)
+- **Picture addressing** (NOVEL.EXE `1cc5`→`1d25`→`1e10`): for 1-based AL `G`,
+  `file_index = ((G-1)&0x7f)>>4` (→ `'A'`+idx) and `pic_index = (G-1)&0xf`;
+  stream = `file[off[pic]:off[pic+1]]`.  Rooms `CALL 0x1cc5` ('R' prefix),
+  objects `CALL 0x1cf5` ('O').
+- **op14 PAINT is prior-page-dependent**: full-screen rooms reproduce the
+  renderer only when drawn over a **black** page (so the capture clears to black
+  first).  Object/overlay pictures (`OA`/`OB`/`OE`/`OF`) are sprites drawn over
+  the live room and need their real in-game predecessor — they are *not*
+  capturable this way, so they are left for a natural-play pass.
+- **Stub re-execution**: a self-looping stub (JMP back) only draws once on this
+  GDB stub (it won't resume over a breakpoint on the loop JMP); the marching stub
+  (fresh location per picture) works.  Keep the march below the first picture
+  handler (Circle @`0x2330`) — 105 stubs fit from `0x207F`.
 
-The renderer now matches DOSBox closely on every fixture — **1.6 %–4.7 %** index
-mismatch, down from 67–80 %.  Four bugs were found and fixed:
+## Status: byte-exact
 
-1. **Fill patterns were sampled mirrored.** The interpreter packs CGA bytes
-   MSB-first (pixel 0 in bits 7:6, per `PicPlotPixel2bpp` @0x2470); the renderer
-   reads its framebuffer LSB-first.  Each fill-table byte's four 2-bit groups are
-   now reversed at load.  (This was the dominant error — it read as a 1-px dither
-   phase shift on the period-2 dithers, ~30 %.)
-2. **`RESET3` (op15 sub-op 3) cleared to a dither, not white.** The cold-start
-   fill selector is 0 → solid white (NOVEL.EXE's statically-zeroed `[0x9d46]`);
-   the renderer defaulted the selector to 3, a cyan/magenta/white dither, which
-   then broke the white-region flood-fill predicate.
-3. **op3 TextChar XORs the glyph** (`pixel ^= 0b11`) — it does not write the pen
-   colour — so black-on-white subtitle text rendered magenta before the fix.
-4. **Brush quadrants were left/right swapped** (`PicStampBrushShape` @0x2967 draws
-   the left byte-column before the right), garbling the `DRAWSHP` logo.
+Every fixture — the four hand-picked scenes and all 94 `RA`–`RG` rooms — renders
+**0 diffs**, and the `test_gmcga_pics` ceilings are locked at 0.
 
-Remaining diffs are thin **fill/brush edge pixels**: the renderer's simplified
-queue flood-fill diverges by ~1 px at boundaries from the native 32-entry
-circular-queue fill (`PicOp14Paint` @0x2630).  Closing that needs a faithful port
-of that routine; the ceilings in `test_gmcga_pics` hold the line meanwhile.
+An earlier pass (2026-06-11) fixed four bugs that took the mismatch from 67–80 %
+down to a few percent: fill patterns were sampled mirrored (the interpreter packs
+CGA bytes MSB-first, per `PicPlotPixel2bpp` @0x2470); `RESET3` (op15 sub-op 3)
+cleared to a dither rather than white (the cold-start fill selector is 0 → solid
+white, NOVEL.EXE's statically-zeroed `[0x9d46]`); op3 TextChar **XORs** the glyph
+(`pixel ^= 0b11`) rather than writing the pen colour; and brush quadrants were
+left/right swapped (`PicStampBrushShape` @0x2967 draws the left byte-column
+first).
+
+The last few percent — thin fill/brush edge pixels — needed three more, found by
+diffing per-fill DOSBox VRAM traces against the renderer:
+
+- **op14 PAINT** is now a mechanical port of `PicOp14Paint` (0x2630): the 32-entry
+  circular span FIFO (head/tail 0xb0d1/0xb0d2, six parallel arrays at
+  0xb0d3..0xb173), opposite-direction overlap merge, ±2-pixel overhang
+  turn-around pushes, and the word-at-a-time masked paint
+  `screen = (pat & M) | (screen ^ M)` where M is the white run found per word
+  (FUN_29e1/2a07 *return* that mask in AX — the early port missed this and bled
+  across boundaries).  Fillable == white (3); ANY non-white pixel is a boundary;
+  the fill re-reads the screen as it goes, so painted dither-black self-limits
+  later spans — this is what makes the surviving white "shadow pockets" in the
+  title reproducible.  Bounds, set by FUN_2556 before every picture: rows
+  0..0x9f, global bytes 5..0x4a; rows outside read as black.
+- **op11 CIRCLE** is *not* the Apple variant: `PicDrawCircleBresenham` (0x2b10)
+  starts the error term at -r, shrinks the radius as the arc closes, and tests
+  `d & 0x80` (bit 7, not the sign) — its diagonal steps are 1 px wider.
+- **op12 BRUSH** stamps at **x-1**: `PicStampBrushShape` (0x2967) begins with
+  `DEC AX`.  Text glyphs (op3/op5, via 0x292b) do not.
+
+op13 DELAY is a pacing hint only: the final frame is pixel-exact on every fixture,
+so the slow-draw path demonstrably doesn't perturb it.
+
+### Per-fill DOSBox tracing (how those last bugs were found)
+
+`dosbox_trace_fills.py` boots the game under dosbox-x-remotedebug (GDB stub on
+:2159, QMP on :4444), uses QMP `debug-break-on-exec` to halt at NOVEL1's entry,
+finds the interpreter by byte signature, breakpoints `PicOp14Paint` (CS:2630) and
+dumps 16 KB of CGA VRAM *before every fill* to `/tmp/nativetrace/`.
+`dosbox_trace_pushes.py` additionally breakpoints the span push (CS:2da0) for one
+chosen fill and logs every push.  The renderer mirrors both: set
+`GMCGA_TRACE_DIR=<dir>` to dump the framebuffer before each op14, and
+`GMCGA_TRACE_FILL=<n>` to log fill *n*'s queue pushes to stderr — then diff the
+two traces to find the first divergent operation.  Mount the game folder as
+floppy A: (see the conf in the scripts) to skip the master-disk prompt.
+
+Address map for the traces: code segment is found by signature; DS = code +
+0x2e70; key globals y=DS:0x9d36, byte/pixel cursor 0x9d52/0x9d53, span left
+0xb0d0/0xb1d4, queue head/tail 0xb0d1/0xb0d2, file offset of a DS global =
+DS_off + 0x3070.

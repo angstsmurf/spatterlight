@@ -38,14 +38,18 @@ interpreter ships. See `scott-image-format-tests` memory note for full context.
         (`/tmp/zx_decode.py`). Used Gremlins' full-screen death scene (no item
         overlays). See groundtruth_zx/README.md.
 
-- [~] **ZX Spectrum Howarth/vector** (`ai_uk/line_drawing.c`,
-      `DrawHowarthVectorPicture`) — harness built (`zxvectortest`, `.zxvec`
-      goldens) + `zxextract` dumps the `LineImages[]` vector streams, but **NOT
-      byte-exact**: Golden Baton's opening room = **94.11%**. Fill px match 95.6%
-      but thin line px only 38% — the renderer's reimplemented Bresenham line
-      rasterizer places pixels ~1px off the original Digital Fantasia ROM routine
-      (inherent renderer-vs-original gap, like the C64 colour-RAM ceiling). No
-      golden committed; harness kept for future investigation.
+- [x] **ZX Spectrum Howarth/vector** (`ai_uk/line_drawing.c`,
+      `DrawHowarthVectorPicture`) — harness built (`zxvectortest`) + `zxextract`
+      dumps the `LineImages[]` vector streams. The rasterizer is now **ROM-exact**
+      (RE'd from the Golden Baton `.z80` in Ghidra): line geometry is **100%**
+      (1740/1740 drawn px on Golden Baton's opening room, was 38%) and end-to-end
+      colour match is **95.26%** (was 94.11%).
+      - The residual ~5% is **inherent**: the Spectrum's 8×8 attribute clash makes
+        a white outline crossing a red-filled cell display as red. Reproducing it
+        would make Spatterlight's output *worse* for users, so it is deliberately
+        not done — hence no exact-colour `.zxvec` golden is committed. If a
+        regression guard is wanted, assert set-bit *geometry* (lines == 100%).
+      - See `ai_uk/NOTES_howarth_vector.md` for the ROM anchors and method.
 
 - [x] **Atari 8-bit bitmap** (`c64a8draw.c` with `is_c64=0`) — `make c64a8test`,
       **four** Atari goldens, all 100% byte-exact:

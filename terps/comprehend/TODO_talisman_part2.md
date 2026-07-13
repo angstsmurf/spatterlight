@@ -301,7 +301,10 @@ room-72 branch) is blocked while `var120 != var122`.
 (`TAKE COINS FROM BOWL` = `func 173`'s all-path; `WEAR AMULET` activates the throb,
 flag 111 / `func 16` — flavour, not needed.)
 
-### 7. Maze exit → carpet flight (rooms 83–86) — **OPEN (next)**
+### 7. Maze exit → carpet flight (rooms 83–86) — **SOLVED (see "Steps 7–9" above)**
+These were the open questions at the time; the answers are in the solution
+section at the top. Kept for the RE trail.
+
 After the bowl, `N` drops back into the moving-wall network (rooms 64–81). The
 source walkthrough's exit moves (`N E E E N D W W S`, `TELL ABU TO PULL LEVER`,
 `N E S E N`, `U S W W S S S`) **do not transfer** (different RNG; tried live —
@@ -323,13 +326,12 @@ Findings so far (this session):
   `32` = magician + genie over the lantern; `33`/`35` cave→`34` palace gates→
   `36` = King Darius's audience chamber (the winning `BOW`).
 
-### 8. Genie / wizard / palace ending → BOW
-Roughly (from the source walkthrough, to be verified line-by-line):
+### 8. Genie / wizard / palace ending → BOW — **SOLVED (see "Steps 7–9" above)**
+The first guess (from the source walkthrough) was
 `E, E, SPEAK, POUR WATER ON LAMP, GET LAMP, RUB LAMP, TELL GENIE TO KILL WIZARD,
 YES, W, W, SIT, FLY, WAIT, BOW`. The genie/wizard cave is rooms 31/32, the
-palace ending 33–36.
-- Open work: drive it to the final `BOW`, capture the **exact victory string**,
-  and set it as the new Talisman win marker.
+palace ending 33–36. The working cadence — and the victory string now used as the
+win marker — are in the solution section.
 
 ## Tooling / reproduction
 
@@ -355,9 +357,9 @@ palace ending 33–36.
   69 diverges from a live run on the *first* move after restore. Use full-prefix
   replay (below) for maze search, where every run is truthful; the checkpoint is
   good for non-parser-sensitive debugging and was how the rand-gating was found.
-- **Route search (BFS):** two getenv-gated probes are **currently present** in
-  `game_tm.cpp` (read-only; remove before a clean commit, this section documents
-  re-adding them):
+- **Route search (BFS):** two getenv-gated probes live in `game_tm.cpp`
+  (read-only, committed deliberately as tooling — they are inert unless the env
+  var is set):
   - `TM_TRACE` in `beforePrompt`: one line per prompt — `room=`, `var72=`,
     `var98=`, `held={…}`, **all nonzero `vars={i:v …}`**, and **all set
     `flags={…}`**. (The vars/flags dumps were what let step 5 be RE'd.)

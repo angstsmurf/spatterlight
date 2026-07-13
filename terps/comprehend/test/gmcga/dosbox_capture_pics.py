@@ -15,7 +15,7 @@ corrupts the white-region flood fills.  Drawing each picture over the previous
 page reproduces the native result byte-for-byte (verified: redrawing the cell
 over the natural cell == cell.fb at 0 diffs).
 
-Picture numbering (from NOVEL.EXE 1cc5->1d25->1e10, see test/gmcga/TODO.md):
+Picture numbering (from NOVEL.EXE 1cc5->1d25->1e10, see test/gmcga/README.md):
   G is 1-based.  file_index = ((G-1) & 0x7f) >> 4 ;  pic_index = (G-1) & 0xf
   rooms   -> CALL 0x1cc5, filename 'R'+('A'+file_index)   (RA..RG)
   objects -> CALL 0x1cf5, filename 'O'+('A'+file_index)   (OA,OB,OE,OF)
