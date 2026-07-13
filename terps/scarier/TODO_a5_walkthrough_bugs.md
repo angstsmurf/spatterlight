@@ -1,13 +1,11 @@
 # TODO: ADRIFT 5 conformance bugs surfaced by the walkthrough corpus
 
-> **Status (2026-07-11): no open conformance bugs.** Every entry below is
-> ✅ DONE; the full corpus is xoshiro 0 (see "Corpus status" below). All that
+> **Status (2026-07-13): no open conformance bugs, and no open follow-ups.**
+> Every entry below is ✅ DONE; the full corpus is xoshiro 0 (see "Corpus
+> status" below). The last remaining follow-up — the **Skybreak full WIN** —
+> is now ✅ DONE too (see the SkybreakWin entry directly below). All that
 > remains, deliberately:
 >
-> - **Skybreak full WIN** — optional *content* follow-up, not an engine bug:
->   this build (Human/Earthling+Explorer) can't reach either ending without a
->   long trap-solving grind or a re-rolled suited build (e.g. Sorcerer for
->   Kaddax); see the Skybreak "Why still not a full WIN" section.
 > - **Three declined cosmetic residuals** (all documented in place with the
 >   shared-path risk that motivated declining them): the October31st trailing
 >   `score` line after a win, the BugHunt arrival blank line, and the AoS
@@ -15,6 +13,67 @@
 > - **Documented non-issues:** non-zero *vanilla* budgets on golden-less games
 >   (FD `System.Random` vs xoshiro walk) and the Tingalan per-turn RNG-event
 >   desync — expected classes, not conformance bugs.
+
+## ⭐ Skybreak FULL WIN — Storyteller "Retire" ending, wired as `SkybreakWin` MATCH 0|0 — ✅ DONE (2026-07-13)
+
+The optional content follow-up from the entry below is closed: Skybreak now has
+a **real deterministic winning walkthrough** (`test/SkybreakWin_walkthrough.txt`,
+golden-backed, MAP `SkybreakWin|Skybreak.taf|0|0` — the original 24-jump
+`Skybreak` regression row is retained unchanged for its combat/travel coverage).
+FD ground truth: **zero diff hunks** under `FD_RNG=xoshiro` on the first run —
+no engine changes were needed.
+
+**Why Storyteller, not Sorcerer.** The old notes suggested re-rolling a
+Sorcerer (Occultism for Kaddax + the lore ending), but a fresh audit of all six
+class endgame prompts found a cheaper, grind-free target. Each class has a
+System task that fires `Encounter=491..495` when its win condition holds with
+`Encounter==0` (SorcererEn1/SorcererEn2/ScientistE2/SorcererEn3/Adventurer3/
+SpaceCadet3); answering `1` is `EndGame Win`. The Storyteller gate
+(`SorcererEn2`, despite its key) is `Cargoanecd>=10 & Cargotales>=10 &
+Cargohorro>=10` — and story cargo increments are the most plentiful reward
+class in the model (88/113/131 `IncVariable` sites respectively), come from
+encounter successes everywhere, and there is **no cargo-hold capacity**, so no
+home/storage (`HouseToken`, rep>=5) is needed at all. The Sorcerer's three
+lore types by contrast have only 87/38/77 sites, mostly Occultism-gated.
+
+**Build:** Vela, Human (`1`), Storyteller (`6`) + Earthling (`1`, +2 adventure
+points), talents Ace (`5`), Genius (`9`), Skill Specialization (`16`), +2
+Acumen (`6`), +2 Perception (`5`) — perception/acumen/survival gate the most
+story-cargo checks (14/11/10 tasks). 436 commands, 124 hyperspace jumps,
+~89 systems, 28 bespoke encounters (including the Psychic Vampires survived at
+hp 1); the run ends in the Ghooric zone, whose repeatable "decipher the
+transmissions" activity supplies the last horror stories, and the
+enlightenment prompt fires on a routine `c` charge — `1) Retire` →
+`*** You have won ***`.
+
+**Derivation (reusable):** greedy auto-player (`seek2.py`, scratchpad, out of
+tree) replaying `test/a5run_dump` from scratch per candidate (~0.1s/run, fully
+deterministic), state via `A5_DUMP_VARS` per-command stderr lines. Three
+lessons over the old seek.py: (1) skip menu options whose line carries an
+unmet `(You have 0)` requirement; (2) reject candidates whose post-state equals
+the pre-state (no-op error replies — the naive greedy loops forever on
+"You have no organics to eat!"); (3) score with a 3-step greedy rollout
+(immediate deltas miss encounter payoffs one level deep), story cargo
+capped-sum ×100 + AP/health/spirit tiebreaks, game-over −10⁶.
+
+**Engine fix surfaced (general): saves must keep the live `arlMembers`
+INSERTION order** (`a5run.cpp` save writer + new `restore_group_order`;
+`a5state.h` exports the live-list mutators). The suite's save/restore
+self-check FAILed on the new route (first post-restore jump landed on Xeen
+instead of Delta Polypus, 2897-line transcript fork): the save serialised
+`<Group>` membership by iterating the model *candidate space*, and
+`a5state_rebuild_live_groups` reconstructed the live list only approximately
+(still-static members first, then `st->ov` append order). But `RandomKey`
+picks a member BY INDEX from the live list, and Skybreak's jump loop clears +
+repopulates its three location groups constantly, so order ≠ set. The runner
+itself treats the order as state: `clsState.vb` captures `For Each sMember In
+grp.arlMembers` and restores via `arlMembers.Clear()` + re-add in saved order
+(`FileIO.vb LoadGameState` likewise). Scarier now writes `<Member>` in live
+order and, after either restore path (own `<ScarierExt>` save or foreign
+Runner save), re-imposes the saved order with `restore_group_order`; the old
+approximation remains only for legacy `<SaveState>` blobs with no `<Group>`
+nodes. Full suite save/restore column all-OK after the fix; all 65 unit tests
+pass.
 
 ## ⭐ Skybreak: AggregateOutput completion draws deferred to the *true* Display point — xoshiro 1 → 0, MATCH 0|0 — ✅ DONE (2026-07-06)
 

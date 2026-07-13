@@ -1202,6 +1202,7 @@ TheGardenParty|TheGardenParty.blorb|0|0
 TheDeadOfWinter|TheDeadOfWinter.blorb|0|0
 LostCoastlines|Lost_Coastlines.taf|0|0
 Skybreak|Skybreak.taf|0|0
+SkybreakWin|Skybreak.taf|0|0
 ISummonThee|ISummonThee.taf|5|0
 BeThere|BeThere.taf|0|0
 SonOfCamelot|SoC.blorb|0|0

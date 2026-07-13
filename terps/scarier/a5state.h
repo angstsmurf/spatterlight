@@ -474,6 +474,15 @@ extern int  a5state_group_count (const a5_state_t *st, const char *grpkey);
 extern const char *a5state_group_member_at (const a5_state_t *st,
                                             const char *grpkey, int i);
 
+/* Direct live-list mutators (distinct append / order-preserving remove), the
+   runner arlMembers.Add/Remove.  Normally reached via
+   a5state_set_object_in_group; exported for the save/restore path, which must
+   rebuild the live list in the SAVED member order. */
+extern void a5state_group_add_member (a5_state_t *st, const char *grpkey,
+                                      const char *key);
+extern void a5state_group_remove_member (a5_state_t *st, const char *grpkey,
+                                         const char *key);
+
 /* A location's inherited Locations-group property (e.g. the dynamic
    ShortLocationDescription darkness property), or NULL. */
 extern const a5_prop_t *a5state_location_group_prop (const a5_state_t *st,

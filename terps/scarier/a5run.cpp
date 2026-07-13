@@ -2747,23 +2747,20 @@ save_fd_game (sb_t *b, a5_run_t *run)
       sb_puts (b, "</Variable>\n");
     }
 
-  /* Groups: effective runtime membership for every group type.  Objects,
-     Locations and Characters groups all mutate at runtime (AddObjectToGroup /
-     AddLocationToGroup) through the override store, so iterate the matching
-     entity space and emit whatever is live now (captures adds AND removals vs
-     the static model list). */
+  /* Groups: live runtime membership for every group type, in arlMembers
+     INSERTION order -- the runner's clsGameState writer does `For Each sMember
+     In grp.arlMembers`, and that order is load-bearing: RandomKey picks a
+     member BY INDEX from the live list, so a save that reorders members (e.g.
+     into model-candidate order) changes which world a random
+     MoveCharacter-ToLocationGroup jump lands on after a restore (Skybreak). */
   for (i = 0; i < adv->n_groups; i++)
     {
       const a5_group_t *g = &adv->groups[i];
-      int j, ncand = group_candidate_count (adv, g);
+      int j, nlive = a5state_group_count (st, g->key);
       sb_puts (b, "<Group>\n");
       sb_elem (b, "Key", g->key);
-      for (j = 0; j < ncand; j++)
-        {
-          const char *ck = group_candidate_key (adv, g, j);
-          if (a5state_object_in_group (st, g->key, ck))
-            sb_elem (b, "Member", ck);
-        }
+      for (j = 0; j < nlive; j++)
+        sb_elem (b, "Member", a5state_group_member_at (st, g->key, j));
       sb_puts (b, "</Group>\n");
     }
 
@@ -3380,6 +3377,36 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
   /* No RNG in an ADRIFT 5 Runner save: the run keeps its current (fresh: 1234) seed. */
 }
 
+/* Rebuild each group's live arlMembers list in the save's <Group>/<Member>
+   document order (the runner: `arlMembers.Clear()` then Add per saved member,
+   clsState.vb RestoreState / FileIO.vb LoadGameState).  Runs after the
+   membership SET has been restored (PropOv overrides for our own saves, the
+   candidate-space reconcile for foreign Runner saves): both of those leave the
+   live list in model/creation order, and that order is load-bearing --
+   RandomKey picks a member BY INDEX, so a Skybreak random jump lands on a
+   different world after a restore unless the saved insertion order is kept. */
+static void
+restore_group_order (a5_run_t *run, const a5_xml_node_t *root)
+{
+  a5_state_t *st = a5run_state (run);
+  const a5_xml_node_t *n, *c;
+  for (n = root->first_child; n != NULL; n = n->next)
+    {
+      const char *gk;
+      if (!streq (n->name, "Group"))
+        continue;
+      gk = a5xml_child_text (n, "Key");
+      if (gk == NULL)
+        continue;
+      while (a5state_group_count (st, gk) > 0)
+        a5state_group_remove_member (st, gk,
+                                     a5state_group_member_at (st, gk, 0));
+      for (c = n->first_child; c != NULL; c = c->next)
+        if (streq (c->name, "Member") && c->text != NULL && c->text[0])
+          a5state_group_add_member (st, gk, c->text);
+    }
+}
+
 int
 a5run_restore (a5_run_t *run, const char *data, size_t len)
 {
@@ -3413,6 +3440,9 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
         restore_scarier_body (run, ext);   /* our own save: full fidelity */
       else
         restore_fd_game (run, root);       /* a foreign ADRIFT 5 Runner save */
+      /* Either path restored membership as a SET (live list in model order);
+         re-impose the saved arlMembers insertion order. */
+      restore_group_order (run, root);
     }
   else
     { a5xml_free (doc); return 0; }

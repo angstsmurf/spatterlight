@@ -10,13 +10,6 @@
 #include "a5restr.h"
 #include "a5state.h"
 
-/* Live group-membership mutators, defined further down but used by a5state_new
-   to seed each group's static <Member> list into the ordered list. */
-void a5state_group_add_member (a5_state_t *st, const char *grpkey,
-                               const char *key);
-void a5state_group_remove_member (a5_state_t *st, const char *grpkey,
-                                  const char *key);
-
 /* ----------------------------------------------------------------- helpers */
 
 static const char *
