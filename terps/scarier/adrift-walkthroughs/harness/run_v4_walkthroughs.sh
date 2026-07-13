@@ -69,6 +69,7 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
+topaz_solution.txt|topaz.taf|The two of you set out into the forest.
 EOF
 )
 

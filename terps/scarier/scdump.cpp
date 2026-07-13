@@ -94,7 +94,7 @@ scr_dump_structure_once (scr_gameref_t game)
 {
   static scr_bool dumped = FALSE;
   static scr_bool checked_env = FALSE;
-  static scr_bool trace_tasks, dump_objloc, dump_tasks;
+  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events;
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int t, i;
 
@@ -107,8 +107,9 @@ scr_dump_structure_once (scr_gameref_t game)
       trace_tasks = getenv ("SCR_TRACE_TASKS") != NULL;
       dump_objloc = getenv ("SCR_DUMP_OBJLOC") != NULL;
       dump_tasks = getenv ("SCR_DUMP_TASKS") != NULL;
+      trace_events = getenv ("SCR_TRACE_EVENTS") != NULL;
     }
-  if (!trace_tasks && !dump_objloc && !dump_tasks)
+  if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events)
     return;
 
   if (trace_tasks)
@@ -116,6 +117,12 @@ scr_dump_structure_once (scr_gameref_t game)
       task_debug_trace (TRUE);
       restr_debug_trace (TRUE);
     }
+
+  /* SCR_TRACE_EVENTS: per-turn event state machine trace (start/tick/finish +
+   * the object moves an event performs).  Separate from SCR_TRACE_TASKS because
+   * an event that silently never fires is invisible in the task trace. */
+  if (trace_events)
+    evt_debug_trace (TRUE);
 
   /* SCR_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
    * (does NOT touch the heavy task/exit/walk sections, so it is safe on games
@@ -153,8 +160,12 @@ scr_dump_structure_once (scr_gameref_t game)
             if (eff < 0 && (pos == -200 || pos == -300) && par >= 0)
               eff = gs_npc_location (game, par) - 1;
             fprintf (stderr,
-                     "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld hit=%ld prot=%ld method=%ld [%s]\n",
-                     i, pos, room, par, eff, hit, prot, method, s ? s : "");
+                     "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
+                     " static=%ld unmoved=%ld hit=%ld prot=%ld method=%ld [%s]\n",
+                     i, pos, room, par, eff,
+                     (scr_int) obj_is_static (game, i),
+                     (scr_int) gs_object_static_unmoved (game, i),
+                     hit, prot, method, s ? s : "");
           }
         }
       return;

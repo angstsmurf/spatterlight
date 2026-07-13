@@ -1,0 +1,195 @@
+Loading game...
+
+Topaz
+
+Topaz
+by Woodfish
+
+An Interactive Fiction Prologue.
+
+ÿ
+
+Rain torrents down, slanting through the air like daggers. The wind hammers
+against your ears and batters your head as you try to bow down and make your
+way through the storm. You've been on the same muddy road for hours, and the
+weather has only intensified. Your boots are soaked and squelching, and the
+clothes upon your back cling to your skin, pounded by the never-ceasing rain.
+
+Muddy Path
+A glance around shows you the same windswept landscape that you have been
+travelling north through for the last few hours. The dirt ground is slippery
+with mud and water, which soaks through to your feet. Tattered bushes, being
+swept violently back and forth, border the path. Beyond them, dull green
+fields roll into the distance.
+
+Something glimmers in the mud, some way to the north.
+
+>Slippery brown mud is pounded by the rain, streaming under your feets.
+
+>The bushes that line either side of the path have been ravaged by the wind,
+and are now only leaveless branches blowing back and forth.
+
+>The bare fields stretch far into the distance.
+
+>You bow your head against the rain, and move north.
+
+Muddy Path
+You are halted in the middle of the trail, the storm beating down upon you.
+The sky above is grey, and rolls with darkening clouds. The mud here is
+extremely thick and slippery - it is all you can do to keep your balance
+against the tremendous force of the wind. The path leads onwards to the
+north. Something shines gold amongst the mud at your feet.
+
+>You see no such thing.
+
+>You bend down, to get a closer look at whatever is buried within the mud.
+There is no doubting that the material glinting in the pale light is gold.
+Possibly, you'd be able to get a grip on it and pull it out.
+
+>
+
+You crouch in the wet mud, and close your cold fingers around the gold
+surface. It takes you a few pulls to loosen it from the ground, but you can
+soon make out that it is some kind of golden handle you are gripping on to.
+Eventually, you manage to loosen it, and pull it all the way out.
+
+Withdrawn from the ground, the long sword glints in the pale sunlight. Mud
+drips of the long silver blade, and the rain clenses the golden hilt to
+reveal its full beauty. A large, orange jewel shines in the hilt, with a
+small bird in flight etched onto its surface.
+
+As you stand admiring it, a strong torrent of rain falls down from the sky,
+and sweeps you off your feet and into the mud. Before you can get you
+bearings, you are slipping down, and down, the world has turned vertical, and
+you are falling into darkness, falling into nothingness...
+
+... hit a key ...
+
+Darkness
+Everywhere is blackness.
+
+>Time passes...
+
+>Time passes...
+
+>You see nothing special about the glow.
+
+A gentle orange glow ignites itself a few feet away to the west.
+
+>You follow the glow.
+
+Darkness
+The sword lies on the floor, a soft amber glow shining from the jewel in its
+hilt. It creates a small pool of light around you. Absolute darkness
+stretches beyond the glow.
+
+Also here is a Topaz.
+
+>The sword is now clean of mud and dirt, and its blade is glinting from the
+light it gives off. The jewel in its golden shaft glows strangely, making the
+bird engraved upon its surface blaze with light. It looks magnificant, even
+in this semi-darkness.
+
+>You pick it up.
+
+Like before, it seems to thrum with life. Suddenly, your mind is sent reeling
+with shock as you sense an acute probing from the sword. Words seem to flow
+between the sword and your body, as your heart hammers.
+
+Who... you? Where is the...
+
+The words arrive in your head as if someone were saying them aloud.
+
+1. Who are you?
+2. How is it that a sword speaks to me?
+
+Choose an option to speak.
+
+>
+Who am I?  You notice that the jewel pulsates as the sword 'speaks' to you.
+
+I am Topaz, of course. Smithed in the iron-works of Modgul, assistant to the
+throne, and commander of the... wait! What is this place?
+
+1. No idea...
+2. I can only see darkness.
+
+>
+The sword, Topaz, is silent for a moment. Then he speaks in your mind.
+
+Hmmm. How odd. You will explore now, mortal. I will guide you with my light.
+
+>You set off into the darkness, with only the glow of Topaz to aid you.
+Holding the sword ahead of you, you move it catiously back and forth as you
+walk, checking for obstacles. After a moment or two of walking, there is a
+sudden clatter.
+
+What have we stumbled upon? Topaz sounds worried.
+
+You peer through the darkness, and see the form of something lying upon the
+ground. You give it a nudge with your foot, and it scrapes. Crouching down,
+you move Topaz nearer to it.
+
+A sudden scream splices through your brain. Topaz has seen what it is on the
+ground. A human skeleton. You recoil with horror, and Topaz decends into
+sobbing.
+
+Paragon! My love, my companion, Paragon!
+
+The sounds descend into incomprehensible crying. You risk another look at the
+skeleton, the cause of the sword's grief.
+
+Darkness
+A skeleton lies at your feet, encompassed in the glow of the sword. Endless
+darkness stretches in all directions, beyond him.
+
+The sword cries shamelessly over the skeleton, his sobs echoing around your
+brain.
+
+>The skeleton is stretched out upon the ground, his bones corroded by age, and
+smothered with dust. You notice a silver ring on one skeletal finger.
+
+>The ring is of simple design, but bears a bird similar to the one on Topaz.
+
+Paragon... Topaz trails off. Eventually his sobbing descends into silence.
+When he next speaks, his voice is hard with determination.
+
+That skeleton was once my owner and companion, the noble Paragon. I am
+flooded with memories, stranger. I now know where we are. We reside beneath
+the Trail of the Dead. Me and Paragon once ventured upon it, heedless of the
+warnings. Paragon was sucked into his depths, but I remained buried in the
+mud, my coffin for years.
+
+And now we have been claimed. For it is well known that once someone is
+sucked below, there is no escape... We will suffer the same end as my dear
+and noble friend, Paragon...
+
+>You'd rather leave him to his grief...
+
+>You reach out, to break the ring away from the finger.
+
+No! cries Topaz, You will leave him! Paragon, my dear, my love... what's
+this? Our ring? Yes... Mortal, take the ring, we may yet live.
+
+>The ring comes away from the bone easily, which crumbles to dust upon your
+touch.
+
+Try it on, whispers Topaz.
+
+>You slip the ring on your finger, and your surroundings disappear, and
+rearrange themselves.
+
+Congratulations!
+Forest Clearing
+Sun shines down through the leaves, lighting up the deep blue sky. Trees form
+a circle around you, lush foliage scaling their trunks and covering the
+forest floor beyond. A rocky boulder sits in the middle of the clearing.
+Birds sing in the distance, and crickets chirp from the grass.
+
+Sanctuary, breathes Topaz. Even in death, Paragon saves lives of those he
+holds dear.
+
+The sword suddenly adresses you. Mortal, together, we will avenge the death
+of my dear Paragon!!
+
+The two of you set out into the forest.

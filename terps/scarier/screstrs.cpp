@@ -96,6 +96,12 @@ restr_object_in_place (scr_gameref_t game,
     {
     case 0:
     case 6:                    /* In room */
+      /*
+       * Callers only ever pass dynamic objects here (the Adrift 4 runner's
+       * object-location restriction ignores statics entirely -- see the static
+       * filter in restr_pass_task_object_location below), so `position` is
+       * meaningful: -1 is genuinely "hidden", and >= 1 is the room, 1-based.
+       */
       if (var3 == 0)
         return gs_object_position (game, object) == OBJ_HIDDEN;
       else
@@ -231,6 +237,24 @@ restr_pass_task_object_location (scr_gameref_t game,
 
       for (target = 0; target < gs_object_count (game); target++)
         {
+          /*
+           * "Any object" / "No object" ranges over DYNAMIC objects only.  The
+           * Adrift 4 runner opens this loop with an explicit `if not
+           * Objects(i).Static then ... next i` filter, and it keeps no location
+           * field for statics at all -- their whereabouts live in an authored
+           * per-room list, while only dynamic objects get the location value
+           * whose -1 means "hidden".
+           *
+           * Without this filter SCARE reads a static's unused position field,
+           * which sits at -1 (== OBJ_HIDDEN) until an event moves the object.
+           * Every piece of scenery therefore looked HIDDEN, so a "no object is
+           * hidden" restriction could never pass in any game that has scenery,
+           * and an "any object is hidden" one always did.  That is what made
+           * Topaz's win task (wear the silver ring) unreachable.
+           */
+          if (obj_is_static (game, target))
+            continue;
+
           if (restr_object_in_place (game, target, var2, var3))
             return should_be;
         }

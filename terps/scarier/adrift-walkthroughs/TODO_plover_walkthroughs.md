@@ -13,12 +13,17 @@ observed, not guessed.
 
 ## TL;DR
 
-* **All of these games are ADRIFT 3.9 / 4.0** — *none* are ADRIFT 5. Verified
-  by header byte and by loading them. They therefore belong to the **SCARE
-  (v4) walkthrough harness** in `adrift-walkthroughs/harness/`, **not** the
-  ADRIFT-5 harness in `test/` (`a5run_dump` / `run_a5_walkthroughs.sh`).
-  `a5model_load()` only understands zlib-compressed ADRIFT-5 XML and returns
-  NULL on every one of these `.taf`s (confirmed).
+* **Nearly all of these games are ADRIFT 3.9 / 4.0**, so they belong to the
+  **SCARE (v4) walkthrough harness** in `adrift-walkthroughs/harness/`, not the
+  ADRIFT-5 harness in `test/`.
+  **Correction (2026-07-13):** the original claim that *none* are ADRIFT 5 was
+  wrong. `coloromc.taf` (*Color of Milk Coffee*) is **ADRIFT 5.00** — its header
+  is the v5 signature (byte 8 = `0x92`, version tag ASCII `02…`, where 3.9/4.0
+  have `0x94`/`0x93` and end `39 fa`), followed by a plaintext Babel iFiction
+  block (IFID `ADRIFT-500-…`) and then the compressed payload. SCARE is right to
+  reject it; the a5 engine plays it fine. It is already wired into the **a5**
+  corpus as `ColorOfMilkCoffee|coloromc.taf|0|0` (FrankenDrift-verified) — see
+  `test/run_a5_walkthroughs.sh`. Nothing to do.
 * The 18 archives cover **~35 distinct games** (two of them are comp round-up
   pages listing many games each). Of those, **~29 are ADRIFT games with a
   usable command walkthrough**; the rest are non-ADRIFT ports, a map-only page,
@@ -27,8 +32,9 @@ observed, not guessed.
   (`icecream_solution.txt`, `the_cat_in_the_tree_solution.txt`).
 * **4 game files are missing from disk entirely** and must be sourced before
   anything can be tested (see §3).
-* **Prerequisite:** `harness/build.sh` is stale and will not rebuild the
-  harness (see §4) — fix it first.
+* ~~**Prerequisite:** `harness/build.sh` is stale~~ — fixed (§4), twice: once for
+  the `terps/scare` → `terps/scarier` rename, and again in 2026-07 when
+  `scmap.cpp` started calling `map_free()` from the un-globbed `mapdraw.cpp`.
 
 ---
 
@@ -41,7 +47,7 @@ Game-file paths are under `~/Downloads/`. "WT engine" = the platform the
 | # | Web-archive | Game / author | ADRIFT ver | Game file on disk | WT engine | Status |
 |---|-------------|---------------|-----------|-------------------|-----------|--------|
 | 1 | A Masochist's Heaven | *A Masochist's Heaven* — Tne Mad Monk (1st 1-Hr Comp 2002) | 4 | **— MISSING —** | ADRIFT | need game (§3) |
-| 2 | Color of Milk Coffee | *Color of Milk Coffee* — Bahri Gordebak (InsideADRIFT #41) | 4 | `Adrift games/InsideADRIFT_41/coloromc.taf` | Inform 7 | ⚠ taf **won't load** ("Not a loadable Adrift game"); game is trivial (`x me`, `z`×3) |
+| 2 | Color of Milk Coffee | *Color of Milk Coffee* — Bahri Gordebak (InsideADRIFT #41) | **5** | `Adrift games/InsideADRIFT_41/coloromc.taf` | Inform 7 | ✅ **DONE — it is an ADRIFT 5 game**, not v4; already in the a5 corpus (MATCH 0\|0). Not a SCARE loader gap. |
 | 3 | Man Overboard!!! | *Man Overboard!!!* — TonyB (Writing Challenges Comp 2006) | 4 | `Adrift games/ifcomps_v4_new/man overboard.taf` | ADRIFT | ✅ **DONE** — wins (boat ending), in harness |
 | 4 | Pieces of eden | *Pieces of eden* — Nicodemus (Comp With No Name 2008) | 4 | `Adrift games/adrift_offarchive_new/Pieces of eden.taf` | ADRIFT | ✅ **DONE** — wins (`END OF PART ONE`), in harness |
 | 5 | The Princess In The Tower | *The Princess In The Tower* — David Whyld (1st 1-Hr Comp 2002) | 4 | `Adrift games/1hourgamecomp/princess1.taf` (title confirmed) | ADRIFT | ✅ **DONE** — wins (`It seems you've won.`), in harness |
@@ -78,8 +84,8 @@ saved thrice.)
 
 Only **7 of the 16** have an actual command walkthrough on the page; the other
 **8 are map-only** (room diagrams, no command list) and one (*Spam*) is broken.
-Of the 7 with walkthroughs, 2 were already carried, **4 are now DONE**, and
-**Topaz is DEFERRED** (unwinnable under SCARE — see §5).
+Of the 7 with walkthroughs, 2 were already carried and **5 are now DONE**
+(Topaz included — see §5).
 
 | Game | File | Status |
 |---|---|---|
@@ -89,7 +95,7 @@ Of the 7 with walkthroughs, 2 were already carried, **4 are now DONE**, and
 | Shred 'Em | `shreddem.taf` | ✅ DONE — `Due to lack of evidence` |
 | The Cat in the Tree | `TheCatintheTree.taf` | ✅ already in harness |
 | Ice Cream | `IceCream.taf` | ✅ already in harness |
-| Topaz | `topaz.taf` | ⚠ **DEFERRED — unwinnable under SCARE** (see `Topaz_walkthrough.md` / §5) |
+| Topaz | `topaz.taf` | ✅ **DONE — WON** (`The two of you set out into the forest.`); the "unwinnable" verdict was a SCARE bug, now fixed — see `Topaz_walkthrough.md` |
 | The Quest for Spam | `SPAM.taf` | ⛔ broken/incomplete game (crashes the Runner) — no walkthrough on page |
 | Agent 4-F From Mars | `agent_4F[1].A.taf` | — map-only page, no command walkthrough |
 | ARGH's Great Escape | `ARGH_sGreatEscape.taf` | — map-only page |
@@ -154,9 +160,13 @@ clang++ -O2 -w -I. -DSCARE_DUMP_TOOLS \
     -lz -o adrift-walkthroughs/harness/scare
 ```
 
-Note: `harness/scproj_regress.sh` (the projectile-combat regression) has the
-**same** staleness (`SCARE_DIR` → `terps/scare`, globs `sc*.c` + `sxstubs.c`,
-uses `clang`/`seed.c`). Not fixed here — flagged for a follow-up.
+Note: `harness/scproj_regress.sh` (the projectile-combat regression) had the
+**same** staleness — since fixed (commit `1fde32ba`).
+
+**Second build fix (2026-07-13):** `build.sh` globs `sc*.cpp`, which does not
+match `mapdraw.cpp` — but `scmap.cpp` (the ADRIFT 4 map port) calls `map_free()`
+from it, so the harness stopped linking entirely. `mapdraw.cpp` is now on the
+link line; it is plain C++ with no Glk dependency.
 
 ---
 
@@ -170,8 +180,8 @@ original 1:1:
 * **The Thorn** — solved on the Inform Z-code port.
 * **Goldilocks is a FOX!** — solved on the ralphmerridew Inform 6 port.
 * **Renegade Brainwave** — solved on J. J. Guest's Inform 7 port.
-* **Color of Milk Coffee** — solved on the Inform 7 version (and the ADRIFT
-  `.taf` won't even load — see below).
+* **Color of Milk Coffee** — solved on the Inform 7 version; the `.taf` is an
+  **ADRIFT 5** game and is already covered by the a5 corpus (see the TL;DR).
 * **Yak Shaving** V2 — Z-code port; **use the V1 section** (the ADRIFT entry).
 
 For these, the extracted commands are a *starting point* only; each needs to be
@@ -181,9 +191,9 @@ different room names, different puzzle wiring). Treat them like the
 
 Also flagged:
 
-* **`coloromc.taf` fails to load** in the current SCARE engine ("Not a loadable
-  Adrift game"). Either the file is damaged/an odd sub-format, or it's a loader
-  gap. Investigate separately before relying on it; the game is trivial anyway.
+* ~~**`coloromc.taf` fails to load**~~ — **RESOLVED (2026-07-13): not a loader
+  gap.** It is an **ADRIFT 5.00** game, so SCARE correctly refuses it; the a5
+  engine plays it and it is already banked in the a5 corpus (MATCH 0|0).
 * **ADRIFTMAS Party** — the archive is a *map*, not a walkthrough. No commands
   to convert. Skip unless someone derives a fresh solution from the map.
 
@@ -273,13 +283,59 @@ run then reports `PASS` for both, and a tampered golden produces `FAIL` + exit
 1. The other MAP rows `NOSCRIPT`/`SKIP` until their solution + game land.
 
 Still TODO on the runner:
-* wire it into `make -f Makefile.headless test` (alongside the battle tests);
-* **optional ground truth:** FrankenDrift plays v4 too, so `a5_groundtruth.sh`'s
-  approach (diff Scarier vs FD) could be reused — but mind the RNG caveat (FD =
-  System.Random, SCARE = seeded RNG in `seed.cpp`; RAND text won't align) and
-  that FD is an uncommitted external checkout.
+* ~~wire it into `make -f Makefile.headless test`~~ — **DONE (2026-07-13).**
+  `Makefile.headless` gained a `v4walkthroughs` target, called from `test` right
+  after `a5runtest`.  It skips outright (without even building the harness) when
+  no ADRIFT 4 corpus is present on the machine, so it is safe on a fresh
+  checkout; the runner itself SKIPs any row whose `.taf` is missing and only
+  exits non-zero on a real regression.
+* **ground truth for v4 is the run400 disassembly, not FrankenDrift.** The claim
+  once made here that "FrankenDrift plays v4 too" is unverified and probably
+  wrong — FD is a port of the **ADRIFT 5** runner. (jAsea, `~/adrift-battle/
+  jasea-0.2t.jar`, is likewise no help: it is a clean-room reimplementation that
+  shares SCARE's exact function names and its bugs — its `objectInPlace` has the
+  same static-object flaw, so it corroborates nothing.)
+
+  The real ground truth is **`~/Desktop/run400.txt`**, the P-code disassembly of
+  the actual Win32 Runner (`~/adrift-battle/runner/run400.exe`, alongside
+  `gen400.exe`, whose UTF-16 UI strings spell out the Generator's dropdown
+  enums in order — very handy for decoding Var1/Var2/Var3 meanings).
+  Useful anchors found so far:
+  - `mdlSpreadTheLoad.Sub_20_65` — restriction *aggregator*: walks a task's
+    restrictions, calls `Sub_20_3` per restriction, `Replace`s `#` with `T`/`F`
+    in a boolean-expression string (this is why ADRIFT 4 evaluates *all*
+    restrictions rather than short-circuiting).
+  - `mdlSpreadTheLoad.Sub_20_3` — the per-restriction evaluator. Type 0 (object
+    location) decoding confirmed here; **its object loop filters out statics**
+    (`Objects(i).[18] == 0`), which is what the Topaz fix restores.
+  - `mdlSpreadTheLoad.Sub_20_7` — "is object in the player's room", showing the
+    Runner's split model: dynamics carry a location int at `[1A]` (-1 = hidden,
+    0 = held, N>=1 = room N-1), statics instead carry a per-room byte array at
+    `[1C]` and have **no** location int at all.
 
 ---
+
+## 7b. Open faithfulness questions raised by the run400 decode (2026-07-13)
+
+Decoding `Sub_20_3` for the Topaz fix turned up two places where SCARE is
+*better behaved* than the real Runner. Neither is fixed, because "faithful" and
+"correct" point in opposite directions here and no game in the corpus depends on
+either. Recorded so the next person does not have to re-derive them:
+
+1. **The Runner does not implement negation for "any/no object" restrictions.**
+   The `Var2 > 5` negation flag and the `Var2 Mod 6` selector exist only in the
+   Runner's specific-object / referenced-object path. In the `Var1 = 0/1` loop the
+   switch is exact-equality on `Var2 = 0..5` with no `Mod` — so in the real Runner
+   **"ANY object must NOT be …" is always FALSE and "NO object must NOT be …" is
+   always TRUE**. SCARE inverts `should_be` and evaluates it properly. Unknown
+   whether `gen400.exe` even lets an author build that combination; if a game ever
+   turns up that depends on the Runner's behaviour, this is the place to look.
+
+2. **`Var1 = 2` (referenced object) with a *static* referenced object.** The Runner
+   reads `[1A]` — the dynamic-only location field — for a static, which is never
+   maintained (probably VB zero-init `0`, i.e. "held by player"). SCARE explicitly
+   returns FALSE for that case (`restr_pass_task_object_location`). SCARE's answer
+   is saner; the Runner's is whatever garbage `[1A]` holds. Not reproduced.
 
 ## 8. Suggested priority order
 
@@ -299,10 +355,14 @@ Still TODO on the runner:
    and the **4 winnable** 4th-1-Hour games with walkthroughs are derived,
    winning, blessed, and in the runner (**17/17 PASS**, deterministic; exercises
    ADRIFT 3 *and* 4 paths). See §2 tables + each `*_walkthrough.md`. Notes:
-   - **Topaz DEFERRED** — unwinnable under SCARE (its win task's "no object
-     hidden" restriction can never pass because a hidden duplicate ring is never
-     un-hidden). Left out of the MAP; best-effort solution kept. Full diagnosis
-     in `Topaz_walkthrough.md`. **Open engine investigation.**
+   - **Topaz — ✅ DONE, WON (2026-07-13).** The "unwinnable" verdict was a real
+     **SCARE bug**, not a game defect: the object-location restriction looped over
+     *all* objects, but a static object's `position` field sits at -1, which is
+     also the `OBJ_HIDDEN` sentinel — so every piece of scenery read as "hidden"
+     and a "no object is hidden" restriction could never pass in any game with
+     scenery. The run400 disassembly (`Sub_20_3`) shows the real Runner filters
+     statics out of that loop. Fixed in `screstrs.cpp`; all 22 prior goldens are
+     byte-identical, Topaz is the 23rd. Full write-up in `Topaz_walkthrough.md`.
    - The other 8 4th-1-Hour games are **map-only** on the page and *Spam* is a
      broken game (§2) — none actionable.
    - **Fixed a second `build.sh` bug:** it defined `-DSCARE_DUMP_TOOLS`, but the
@@ -313,6 +373,8 @@ Still TODO on the runner:
 5. **Port-based games** (§5): The Thorn, Goldilocks, Renegade Brainwave — need
    re-derivation against the ADRIFT `.taf`.
 6. **Source the 4 missing games** (§3), then add them.
-7. **Investigate** the `coloromc.taf` load failure and the **Topaz** SCARE
-   incompatibility (item 4); **skip** ADRIFTMAS Party (map only) unless a
-   solution is derived.
+7. ~~**Investigate** the `coloromc.taf` load failure and the **Topaz** SCARE
+   incompatibility~~ — **both DONE (2026-07-13).** coloromc is an ADRIFT 5 game
+   (already in the a5 corpus, not a SCARE bug); Topaz was a genuine SCARE
+   restriction bug, now fixed and banked. **Skip** ADRIFTMAS Party (map only)
+   unless a solution is derived.
