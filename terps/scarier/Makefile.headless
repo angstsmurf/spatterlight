@@ -37,7 +37,8 @@ COMMON  := ../common_utils
 A5_RAND_OBJ := test/a5_randomness.o
 
 # All interpreter sources, plus the os-layer stubs the battle harness needs.
-SRC  := $(wildcard sc*.cpp)
+# mapdraw.cpp is the engine-neutral map model/rasteriser scmap.cpp draws into.
+SRC  := $(wildcard sc*.cpp) mapdraw.cpp
 STUBS   := sxstubs.cpp sxglob.cpp sxutils.cpp
 HARNESS := test/battle_test.cpp
 
@@ -91,6 +92,8 @@ A5RUN_HARNESS := test/a5run_dump.cpp
 A5RUN_BIN     := test/a5run_dump
 A5MAP_HARNESS := test/a5map_dump.cpp
 A5MAP_BIN     := test/a5map_dump
+SCMAP_HARNESS := test/scmap_dump.cpp
+SCMAP_BIN     := test/scmap_dump
 A5PARSE_HARNESS := test/a5parse_test.cpp
 A5PARSE_BIN     := test/a5parse_test
 A5DIS_HARNESS   := test/a5_disambig_test.cpp
@@ -104,7 +107,7 @@ A5SEXPR_BIN     := test/a5sexpr_test
 A5SAVE_HARNESS  := test/a5_save_test.cpp
 A5SAVE_BIN      := test/a5_save_test
 
-.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest
+.PHONY: test sanitize taf clean scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -242,10 +245,17 @@ $(A5_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
 #   make -f Makefile.headless a5map
 #   ./test/a5map_dump path/to/game.blorb [script.txt] -o map.ppm [-all]
 a5map: $(A5MAP_BIN)
-$(A5MAP_BIN): $(A5_RUN_SRC) a5map.cpp $(A5MAP_HARNESS) $(A5_RUN_HDRS) a5map.h \
-              $(A5_RAND_OBJ)
-	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) a5map.cpp $(A5MAP_HARNESS) \
+$(A5MAP_BIN): $(A5_RUN_SRC) a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) $(A5_RUN_HDRS) \
+              a5map.h mapdraw.h $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) \
 	    $(A5_RAND_OBJ) $(LDLIBS) -o $@
+
+# Render the ADRIFT 4 map headlessly to a PPM (no Glk).  Run it by hand:
+#   make -f Makefile.headless scmap
+#   ./test/scmap_dump path/to/game.taf [script.txt] -o map.ppm [-all] [-grid]
+scmap: $(SCMAP_BIN)
+$(SCMAP_BIN): $(SRC) $(SCMAP_HARNESS) scmap.h mapdraw.h
+	$(CXX) $(CXXFLAGS) $(SRC) $(SCMAP_HARNESS) $(LDLIBS) -o $@
 
 # Self-contained matcher regression test (no game data); part of `test`.
 a5parsetest: $(A5PARSE_BIN)

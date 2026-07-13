@@ -5,7 +5,7 @@
  * would see and writes it out as a PPM.  Lets the map be eyeballed and diffed
  * without the Glk layer.
  *
- *   ./a5map_dump <game.blorb> [script.txt] [-o out.ppm] [-w W] [-h H] [-all]
+ *   ./map_dump <game.blorb> [script.txt] [-o out.ppm] [-w W] [-h H] [-all]
  *
  *   -all   mark every room seen (whole-page view, for development)
  */
@@ -63,7 +63,7 @@ cb_exit_dest (void *vp, const char *lockey, int dir)
 {
   ctx_t *c = (ctx_t *) vp;
   return a5restr_exit_in_direction (c->st, a5state_player_key (c->st),
-                                    lockey, a5map_dirs[dir], NULL);
+                                    lockey, map_dirs[dir], NULL);
 }
 
 int
@@ -71,11 +71,11 @@ main (int argc, char **argv)
 {
   a5_adventure_t *a;
   a5_run_t *run;
-  a5map_t *map;
-  a5map_surface_t *surf;
-  a5map_camera_t cam;
+  map_t *map;
+  map_surface_t *surf;
+  map_camera_t cam;
   ctx_t ctx;
-  a5map_view_t view;
+  map_view_t view;
   const char *out = "map.ppm";
   const char *script = NULL;
   const char *walk_to = NULL;
@@ -168,13 +168,13 @@ main (int argc, char **argv)
 
           if (from == NULL || strcmp (from, walk_to) == 0)
             break;
-          dir = a5map_walk_step (&view, from, walk_to);
+          dir = map_walk_step (&view, from, walk_to);
           if (dir < 0)
             {
               fprintf (stderr, "walk: no route from %s to %s\n", from, walk_to);
               break;
             }
-          word = a5parse_direction_name (a5map_dirs[dir]);
+          word = a5parse_direction_name (map_dirs[dir]);
           printf ("[walk %2d] %-22s -> %s\n", step + 1, from, word);
           out = a5run_input (run, word);
           free (out);
@@ -184,11 +184,11 @@ main (int argc, char **argv)
               a5state_player_location (ctx.st), walk_to);
     }
 
-  surf = a5map_surface_new (W, H);
+  surf = map_surface_new (W, H);
   {
     const char *ploc = a5state_player_location (ctx.st);
-    a5map_frame (map, &view, ploc, surf, &cam);
-    a5map_render (map, &view, ploc, &cam, surf);
+    map_frame (map, &view, ploc, surf, &cam);
+    map_render (map, &view, ploc, &cam, surf);
     fprintf (stderr, "player=%s page=%d scale=%d\n",
              ploc ? ploc : "(none)", cam.page, cam.scale);
   }
@@ -212,7 +212,7 @@ main (int argc, char **argv)
   fclose (f);
   fprintf (stderr, "wrote %s (%dx%d)\n", out, W, H);
 
-  a5map_surface_free (surf);
-  a5map_free (map);
+  map_surface_free (surf);
+  map_free (map);
   return 0;
 }

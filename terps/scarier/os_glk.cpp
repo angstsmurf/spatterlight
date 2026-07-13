@@ -74,6 +74,7 @@ static const char *find_last_of(const char *str, const char *chars)
  * the game file is detected as ADRIFT 5 rather than ADRIFT <=4. */
 #include "a5deobf.h"         /* a5_deflate / a5_inflate save framing */
 #include "a5map.h"           /* the ADRIFT 5 map (Map.vb) */
+#include "scmap.h"           /* the ADRIFT 4 map (run400 Form29) */
 #include "a5model.h"
 #include "a5parse.h"         /* a5parse_direction_name, for map-click walks */
 #include "a5restr.h"         /* a5restr_exit_in_direction, for map stub arrows */
@@ -163,22 +164,26 @@ static int gsc_a5_real_time = FALSE;
    <window NAME> shares it regardless of NAME. */
 static winid_t gsc_a5_side_window = NULL;
 
-/* The ADRIFT 5 map, shown in a graphics window to the right of the story on
-   request ("map").  gsc_a5_map is parsed once per adventure and aliases its
-   XML, so it is dropped whenever the adventure is. */
-static winid_t gsc_a5_map_window = NULL;
-static a5map_t *gsc_a5_map = NULL;
-static int gsc_a5_map_shown = FALSE;
+/* The map, shown in a graphics window to the right of the story on request
+   ("map").  Both engines use this pane; what differs is where the map comes
+   from.  An ADRIFT 5 map is authored data, parsed once per adventure, aliasing
+   its XML, and so dropped whenever the adventure is.  An ADRIFT 4 map has to be
+   derived from the exit graph, and it depends on the room you are standing in
+   and on how much you have explored -- so it is rebuilt on every redraw, as the
+   ADRIFT 4 runner rebuilt it every time it drew (drawmap with mode = 1). */
+static winid_t gsc_map_window = NULL;
+static map_t *gsc_map = NULL;
+static int gsc_map_shown = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
    "glk map" escape instead. */
-static int gsc_a5_map_taken = FALSE;
-static void gsc_a5_map_redraw (a5_run_t *run);
+static int gsc_map_taken = FALSE;
+static void gsc_map_redraw (void);
 
 /* The camera and pixel size of the last map redraw, so a mouse click can be
    hit-tested against exactly what is on screen. */
-static a5map_camera_t gsc_a5_map_cam;
-static int gsc_a5_map_px_w = 0, gsc_a5_map_px_h = 0;
+static map_camera_t gsc_map_cam;
+static int gsc_map_px_w = 0, gsc_map_px_h = 0;
 
 /* A walk in progress, from clicking a room on the map (clsCharacter.WalkTo /
    DoWalk): the target room, and the room we set off from on the last step so a
@@ -192,7 +197,7 @@ static int gsc_a5_walk_steps = 0;
 /* A walk is bounded: a game that shuffles the player around could otherwise
    keep the route recomputing for ever. */
 #define GSC_A5_WALK_MAX 100
-static void gsc_a5_map_view (a5_state_t *st, a5map_view_t *view);
+static void gsc_a5_map_view (a5_state_t *st, map_view_t *view);
 static int gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize);
 
 static void
@@ -201,6 +206,24 @@ gsc_a5_walk_stop (void)
   gsc_a5_walk_to[0] = '\0';
   gsc_a5_walk_last[0] = '\0';
   gsc_a5_walk_steps = 0;
+}
+
+/* The same walk, for ADRIFT 4.  Room keys here are just room numbers, and the
+   step is submitted as a direction word through SCARE's own parser. */
+static char gsc_sc_walk_to[16] = "";
+static char gsc_sc_walk_last[16] = "";
+static int gsc_sc_walk_steps = 0;
+#define GSC_SC_WALK_MAX 100
+
+static int gsc_sc_walk_next (scr_char *buffer, scr_int length);
+static void gsc_map_toggle (void);
+
+static void
+gsc_sc_walk_stop (void)
+{
+  gsc_sc_walk_to[0] = '\0';
+  gsc_sc_walk_last[0] = '\0';
+  gsc_sc_walk_steps = 0;
 }
 
 /* Special out-of-band os_confirm() options used locally with os_glk. */
@@ -1216,8 +1239,7 @@ gsc_status_redraw (void)
 
   /* The map is rasterised to the pixel size of its window, so a resize has to
      redraw it, not just repaint it. */
-  if (gsc_is_a5 && gsc_a5_run)
-    gsc_a5_map_redraw (gsc_a5_run);
+  gsc_map_redraw ();
 }
 
 
@@ -3446,7 +3468,24 @@ os_read_line (scr_char *buffer, scr_int length)
    */
   gsc_reset_glk_style ();
   gsc_status_notify ();
+
+  /* The map follows the game: the ADRIFT 4 layout is centred on the room you
+     are in and grows as you explore, so it is redrawn at every prompt. */
+  gsc_map_redraw ();
+
   glk_put_string (">");
+
+  /* A walk set going by a click on the map supplies the next direction itself,
+     in place of reading one from the player.  Echo it so the transcript reads
+     as though it had been typed. */
+  if (gsc_sc_walk_next (buffer, length))
+    {
+      glk_set_style (style_Input);
+      glk_put_string ((char *) buffer);
+      glk_set_style (style_Normal);
+      glk_put_string ("\n");
+      return TRUE;
+    }
 
   /*
    * If we have an input log to read from, use that until it is exhausted.
@@ -3532,6 +3571,18 @@ os_read_line (scr_char *buffer, scr_int length)
 
               if (gsc_command_escape (buffer))
                 {
+                  gsc_output_silence_help_hints ();
+                  return FALSE;
+                }
+
+              /* A bare MAP shows the map pane, as it did in the ADRIFT 4
+                 runner -- unless the game has a MAP command of its own, in
+                 which case the game's wins and the pane is reached with
+                 "glk map". */
+              if (!gsc_map_taken
+                  && scr_strcasecmp (buffer + posn, "map") == 0)
+                {
+                  gsc_map_toggle ();
                   gsc_output_silence_help_hints ();
                   return FALSE;
                 }
@@ -3720,6 +3771,37 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
 #ifdef SPATTERLIGHT
           gsc_title_redraw ();
 #endif
+          break;
+
+        case evtype_MouseInput:
+          /* A click on a room walks the player there, one room per turn.  The
+             pending line request is cancelled so that os_read_line can issue
+             the first step in its place; whatever the player had half-typed is
+             discarded, as it is on the ADRIFT 5 side. */
+          if (event->win == gsc_map_window && gsc_map != NULL
+              && gsc_game != NULL)
+            {
+              map_view_t view;
+              char here[16];
+              const char *hit;
+
+              scmap_view ((scr_gameref_t) gsc_game, &view);
+              hit = map_hit (gsc_map, &view, &gsc_map_cam,
+                             gsc_map_px_w, gsc_map_px_h,
+                             (int) event->val1, (int) event->val2);
+              snprintf (here, sizeof here, "%ld",
+                        (long) gs_playerroom ((scr_gameref_t) gsc_game));
+              if (hit != NULL && strcmp (hit, here) != 0)
+                {
+                  gsc_sc_walk_stop ();
+                  snprintf (gsc_sc_walk_to, sizeof gsc_sc_walk_to, "%s", hit);
+                  glk_cancel_line_event (gsc_main_window, event);
+                  break;        /* now a LineInput event: the wait ends */
+                }
+              /* A click on empty map: re-arm and keep waiting. */
+              if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+                glk_request_mouse_event (gsc_map_window);
+            }
           break;
         }
     }
@@ -4167,6 +4249,10 @@ gsc_main (void)
                                        winmethod_Above | winmethod_Fixed,
                                        1, wintype_TextGrid, 0);
 
+  /* Does the game define a MAP verb of its own?  If so it keeps it, and the
+     map pane is reached with "glk map" instead. */
+  gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
+
   /* Repeat the game until no more restarts requested. */
   is_running = TRUE;
   while (is_running)
@@ -4230,6 +4316,8 @@ gsc_main (void)
     }
 
   /* All done -- release game resources. */
+  map_free (gsc_map);
+  gsc_map = NULL;
   scr_free_game (gsc_game);
 
   /* Close any open transcript, input log, and/or read log. */
@@ -4389,15 +4477,15 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
           /* A click on a room walks the player there (Map.vb imgMap_MouseDown:
              Player.WalkTo = node; DoWalk()).  Cancel the pending line request
              and let gsc_a5_read_line issue the first step instead. */
-          if (event->win == gsc_a5_map_window && gsc_a5_run != NULL)
+          if (event->win == gsc_map_window && gsc_a5_run != NULL)
             {
-              a5map_view_t view;
+              map_view_t view;
               a5_state_t *st = a5run_state (gsc_a5_run);
               const char *hit, *here;
 
               gsc_a5_map_view (st, &view);
-              hit = a5map_hit (gsc_a5_map, &view, &gsc_a5_map_cam,
-                               gsc_a5_map_px_w, gsc_a5_map_px_h,
+              hit = map_hit (gsc_map, &view, &gsc_map_cam,
+                               gsc_map_px_w, gsc_map_px_h,
                                (int) event->val1, (int) event->val2);
               here = a5state_player_location (st);
               if (hit != NULL && (here == NULL || strcmp (hit, here) != 0))
@@ -4410,7 +4498,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                 }
               /* A click on empty map: re-arm and keep waiting. */
               if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-                glk_request_mouse_event (gsc_a5_map_window);
+                glk_request_mouse_event (gsc_map_window);
             }
           break;
 
@@ -5316,19 +5404,11 @@ gsc_a5_map_exit_dest (void *ctx, const char *lockey, int dir)
   a5_state_t *st = (a5_state_t *) ctx;
 
   return a5restr_exit_in_direction (st, a5state_player_key (st), lockey,
-                                    a5map_dirs[dir], NULL);
+                                    map_dirs[dir], NULL);
 }
 
-/*
- * gsc_a5_map_redraw()
- *
- * Rasterise the map and blit it into the graphics window.  Glk has no drawing
- * primitives beyond a filled rectangle, so -- as in the Comprehend port -- the
- * page is rendered into an RGB surface and flushed as run-length-encoded
- * horizontal spans, which is far cheaper than one fill_rect per pixel.
- */
 static void
-gsc_a5_map_view (a5_state_t *st, a5map_view_t *view)
+gsc_a5_map_view (a5_state_t *st, map_view_t *view)
 {
   view->seen = gsc_a5_map_seen;
   view->name = gsc_a5_map_name;
@@ -5336,36 +5416,92 @@ gsc_a5_map_view (a5_state_t *st, a5map_view_t *view)
   view->ctx = st;
 }
 
-static void
-gsc_a5_map_redraw (a5_run_t *run)
+/*
+ * gsc_map_current()
+ *
+ * The map to draw, and the room to centre it on, for whichever engine is
+ * running.  For ADRIFT 5 that is the map parsed at load; for ADRIFT 4 there is
+ * nothing to parse, so the layout is recomputed here -- it is derived from the
+ * room you are in and the rooms you have seen, both of which change as you
+ * play, and the runner likewise recomputed it every time it drew.
+ *
+ * Returns FALSE if there is no map to show.
+ */
+static int
+gsc_map_current (map_view_t *view, const char **player, char *keybuf,
+                 int keysize)
 {
-  a5map_surface_t *surf;
-  a5map_view_t view;
-  a5_state_t *st;
-  const char *ploc;
+  if (gsc_is_a5)
+    {
+      a5_state_t *st;
+
+      if (gsc_a5_run == NULL || gsc_map == NULL)
+        return FALSE;
+      st = a5run_state (gsc_a5_run);
+      gsc_a5_map_view (st, view);
+      *player = a5state_player_location (st);
+      return TRUE;
+    }
+
+  if (gsc_game == NULL)
+    return FALSE;
+
+  scmap_view ((scr_gameref_t) gsc_game, view);
+  map_free (gsc_map);
+  gsc_map = scmap_build ((scr_gameref_t) gsc_game, view);
+  if (gsc_map == NULL)
+    return FALSE;
+
+  snprintf (keybuf, (size_t) keysize, "%ld",
+            (long) gs_playerroom ((scr_gameref_t) gsc_game));
+  *player = keybuf;
+  return TRUE;
+}
+
+/*
+ * gsc_map_redraw()
+ *
+ * Rasterise the map and blit it into the graphics window.  Glk has no drawing
+ * primitives beyond a filled rectangle, so -- as in the Comprehend port -- the
+ * page is rendered into an RGB surface and flushed as run-length-encoded
+ * horizontal spans, which is far cheaper than one fill_rect per pixel.
+ */
+static void
+gsc_map_redraw (void)
+{
+  map_surface_t *surf;
+  map_view_t view;
+  const char *ploc = NULL;
+  char keybuf[16];
   glui32 w, h;
   int x, y;
 
-  if (!gsc_a5_map_window || !gsc_a5_map || !run)
+  if (!gsc_map_window)
     return;
 
-  glk_window_get_size (gsc_a5_map_window, &w, &h);
+  glk_window_get_size (gsc_map_window, &w, &h);
   if (w == 0 || h == 0)
     return;
 
-  surf = a5map_surface_new ((int) w, (int) h);
+  /* Nothing to draw: an ADRIFT 4 layout that gave up, or a player standing in a
+     room hidden from the map -- where the runner showed an empty map too.  Wipe
+     the pane rather than leave the last one up; it will come back by itself. */
+  if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
+    {
+      glk_window_clear (gsc_map_window);
+      return;
+    }
+
+  surf = map_surface_new ((int) w, (int) h);
   if (surf == NULL)
     return;
 
-  st = a5run_state (run);
-  gsc_a5_map_view (st, &view);
-
-  ploc = a5state_player_location (st);
-  a5map_frame (gsc_a5_map, &view, ploc, surf, &gsc_a5_map_cam);
-  a5map_render (gsc_a5_map, &view, ploc, &gsc_a5_map_cam, surf);
-  gsc_a5_map_px_w = surf->w;
-  gsc_a5_map_px_h = surf->h;
-  gsc_a5_map_names_clear ();
+  map_frame (gsc_map, &view, ploc, surf, &gsc_map_cam);
+  map_render (gsc_map, &view, ploc, &gsc_map_cam, surf);
+  gsc_map_px_w = surf->w;
+  gsc_map_px_h = surf->h;
+  if (gsc_is_a5)
+    gsc_a5_map_names_clear ();
 
   for (y = 0; y < surf->h; y++)
     {
@@ -5379,17 +5515,65 @@ gsc_a5_map_redraw (a5_run_t *run)
             x++;
           while (x < surf->w
                  && surf->px[(size_t) y * surf->w + x] == c);
-          glk_window_fill_rect (gsc_a5_map_window, c,
+          glk_window_fill_rect (gsc_map_window, c,
                                 x0, y, (glui32) (x - x0), 1);
         }
     }
 
-  a5map_surface_free (surf);
+  map_surface_free (surf);
 
   /* Arm the click that walks the player to a room.  Mouse requests are
      one-shot, so this is re-armed after every redraw. */
   if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-    glk_request_mouse_event (gsc_a5_map_window);
+    glk_request_mouse_event (gsc_map_window);
+}
+
+/*
+ * gsc_sc_walk_next()
+ *
+ * The next step of a map-click walk in an ADRIFT 4 game, as the direction
+ * command that makes it.  The route only runs through rooms already visited,
+ * and only along exits whose restrictions are currently satisfied, so it can
+ * always be walked.  Gives up on arrival, when no route remains, or when the
+ * last step did not actually move us -- something in the game blocked it.
+ */
+static int
+gsc_sc_walk_next (scr_char *buffer, scr_int length)
+{
+  map_view_t view;
+  char from[16];
+  const scr_char *word;
+  int dir;
+
+  if (gsc_sc_walk_to[0] == '\0' || gsc_game == NULL)
+    return FALSE;
+  if (++gsc_sc_walk_steps > GSC_SC_WALK_MAX)
+    {
+      gsc_sc_walk_stop ();
+      return FALSE;
+    }
+
+  snprintf (from, sizeof from, "%ld",
+            (long) gs_playerroom ((scr_gameref_t) gsc_game));
+  if (strcmp (from, gsc_sc_walk_to) == 0
+      || (gsc_sc_walk_last[0] != '\0' && strcmp (from, gsc_sc_walk_last) == 0))
+    {
+      gsc_sc_walk_stop ();
+      return FALSE;
+    }
+
+  scmap_view ((scr_gameref_t) gsc_game, &view);
+  dir = map_walk_step (&view, from, gsc_sc_walk_to);
+  word = (dir >= 0) ? lib_direction_name (dir) : NULL;
+  if (word == NULL)
+    {
+      gsc_sc_walk_stop ();
+      return FALSE;
+    }
+
+  snprintf (buffer, (size_t) length, "%s", word);
+  snprintf (gsc_sc_walk_last, sizeof gsc_sc_walk_last, "%s", from);
+  return TRUE;
 }
 
 /*
@@ -5404,7 +5588,7 @@ gsc_a5_map_redraw (a5_run_t *run)
 static int
 gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
 {
-  a5map_view_t view;
+  map_view_t view;
   a5_state_t *st;
   const char *from, *word;
   int dir;
@@ -5427,11 +5611,11 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
     return FALSE;                       /* the last step did not move us */
 
   gsc_a5_map_view (st, &view);
-  dir = a5map_walk_step (&view, from, gsc_a5_walk_to);
+  dir = map_walk_step (&view, from, gsc_a5_walk_to);
   if (dir < 0)
     return FALSE;
 
-  word = a5parse_direction_name (a5map_dirs[dir]);
+  word = a5parse_direction_name (map_dirs[dir]);
   if (word == NULL)
     return FALSE;
 
@@ -5441,49 +5625,63 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
 }
 
 /*
- * gsc_a5_map_toggle()
+ * gsc_map_toggle()
  *
  * Show or hide the map pane.  The window is opened on first use (and only for
  * games that actually have map data), then kept, so toggling is cheap.
  */
 static void
-gsc_a5_map_toggle (a5_run_t *run)
+gsc_map_toggle (void)
 {
-  if (gsc_a5_map == NULL)
+  if (gsc_map_shown)
     {
-      gsc_a5_put_string ("This game has no map.\n");
+      if (gsc_map_window)
+        {
+          glk_window_close (gsc_map_window, NULL);
+          gsc_map_window = NULL;
+        }
+      gsc_map_shown = FALSE;
+      gsc_normal_string ("Map hidden.\n");
       return;
     }
+
+  /* Does the game have a map at all?  In ADRIFT 5 that is settled at load: it
+     either shipped map data or it did not.  In ADRIFT 4 every game with rooms
+     has one, unless the author switched it off.  Whether there is anything to
+     draw *right now* is a separate question, and one for the redraw. */
+  if (gsc_is_a5 ? gsc_map == NULL
+                : !scmap_available ((scr_gameref_t) gsc_game))
+    {
+      gsc_normal_string ("This game has no map.\n");
+      return;
+    }
+
   if (!glk_gestalt (gestalt_Graphics, 0)
       || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
     {
-      gsc_a5_put_string ("This interpreter cannot display the map.\n");
+      gsc_normal_string ("This interpreter cannot display the map.\n");
       return;
     }
 
-  if (gsc_a5_map_shown)
-    {
-      if (gsc_a5_map_window)
-        {
-          glk_window_close (gsc_a5_map_window, NULL);
-          gsc_a5_map_window = NULL;
-        }
-      gsc_a5_map_shown = FALSE;
-      gsc_a5_put_string ("Map hidden.\n");
-      return;
-    }
-
-  gsc_a5_map_window = glk_window_open (gsc_main_window,
+  gsc_map_window = glk_window_open (gsc_main_window,
                                        winmethod_Right
                                        | winmethod_Proportional,
                                        40, wintype_Graphics, 0);
-  if (!gsc_a5_map_window)
+  if (!gsc_map_window)
     {
-      gsc_a5_put_string ("Sorry, the map window could not be opened.\n");
+      gsc_normal_string ("Sorry, the map window could not be opened.\n");
       return;
     }
-  gsc_a5_map_shown = TRUE;
-  gsc_a5_map_redraw (run);
+  gsc_map_shown = TRUE;
+  gsc_map_redraw ();
+
+  /* The ADRIFT 4 layout can give up ("Cannot draw map - too complex.",
+     Form29.showmapfail).  Say so here, once, rather than at every prompt: the
+     pane stays open, because a layout that fails from one room may well succeed
+     from the next. */
+  if (!gsc_is_a5 && gsc_map == NULL && scmap_failed () != 0)
+    gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
+
   glk_set_window (gsc_main_window);
 }
 
@@ -5491,30 +5689,28 @@ gsc_a5_map_toggle (a5_run_t *run)
  * gsc_command_map()
  *
  * "glk map [on|off]".  Always available, even for the rare game that defines a
- * MAP command of its own (see gsc_a5_map_taken).
+ * MAP command of its own (see gsc_map_taken).
  */
 static void
 gsc_command_map (const char *argument)
 {
-  if (!gsc_is_a5 || gsc_a5_run == NULL)
-    {
-      gsc_normal_string ("Glk maps are available only in ADRIFT 5 games.\n");
-      return;
-    }
+  if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
+    return;
+
   if (strlen (argument) == 0)
     {
-      gsc_a5_map_toggle (gsc_a5_run);
+      gsc_map_toggle ();
       return;
     }
   if (scr_strcasecmp (argument, "on") == 0)
     {
-      if (!gsc_a5_map_shown)
-        gsc_a5_map_toggle (gsc_a5_run);
+      if (!gsc_map_shown)
+        gsc_map_toggle ();
     }
   else if (scr_strcasecmp (argument, "off") == 0)
     {
-      if (gsc_a5_map_shown)
-        gsc_a5_map_toggle (gsc_a5_run);
+      if (gsc_map_shown)
+        gsc_map_toggle ();
     }
   else
     gsc_normal_string ("Glk map can be \"on\" or \"off\".\n");
@@ -5598,10 +5794,10 @@ gsc_a5_main (void)
   gsc_a5_start_real_time (run);
 
   /* The map is authored data on the adventure, so it outlives restarts. */
-  if (gsc_a5_map == NULL)
+  if (gsc_map == NULL)
     {
-      gsc_a5_map = a5map_load (gsc_a5_adv);
-      gsc_a5_map_taken = a5map_command_taken (gsc_a5_adv);
+      gsc_map = a5map_load (gsc_a5_adv);
+      gsc_map_taken = a5map_command_taken (gsc_a5_adv);
     }
 
   text = a5run_intro (run);
@@ -5609,7 +5805,7 @@ gsc_a5_main (void)
   free (text);
   gsc_a5_present_intro_media (run);
   gsc_a5_status (run);
-  gsc_a5_map_redraw (run);
+  gsc_map_redraw ();
 
   for (;;)
     {
@@ -5649,7 +5845,7 @@ gsc_a5_main (void)
                       gsc_a5_put_string ("The previous turn has been undone.\n");
                       gsc_a5_undo_look (run);
                       gsc_a5_status (run);
-                      gsc_a5_map_redraw (run);
+                      gsc_map_redraw ();
                       resumed = 1;
                       break;
                     }
@@ -5686,7 +5882,7 @@ gsc_a5_main (void)
               free (text);
               gsc_a5_present_intro_media (run);
               gsc_a5_status (run);
-              gsc_a5_map_redraw (run);
+              gsc_map_redraw ();
             }
         }
 
@@ -5722,17 +5918,17 @@ gsc_a5_main (void)
           free (text);
           gsc_a5_present_intro_media (run);
           gsc_a5_status (run);
-          gsc_a5_map_redraw (run);
+          gsc_map_redraw ();
           continue;
         }
 
       /* MAP toggles the map pane.  The runner's map is host chrome rather than
          a game command, so authors are free to use MAP themselves; when they
          do, theirs wins and the pane is reached with "glk map". */
-      if (gsc_a5_map != NULL && !gsc_a5_map_taken
+      if (gsc_map != NULL && !gsc_map_taken
           && gsc_a5_match_command (input, "map"))
         {
-          gsc_a5_map_toggle (run);
+          gsc_map_toggle ();
           continue;
         }
 
@@ -5762,7 +5958,7 @@ gsc_a5_main (void)
               gsc_a5_put_string ("The previous turn has been undone.\n");
               gsc_a5_undo_look (run);
               gsc_a5_status (run);
-              gsc_a5_map_redraw (run);
+              gsc_map_redraw ();
             }
           else if (a5run_turns (run) == 0)
             gsc_a5_put_string ("You can't undo what hasn't been done.\n");
@@ -5780,7 +5976,7 @@ gsc_a5_main (void)
       free (text);
       gsc_a5_show_media (run);
       gsc_a5_status (run);
-      gsc_a5_map_redraw (run);
+      gsc_map_redraw ();
       /* An ended game is handled at the top of the loop. */
     }
 
@@ -5792,8 +5988,8 @@ gsc_a5_main (void)
     a5run_free (dead);
   }
   gsc_a5_map_names_clear ();
-  a5map_free (gsc_a5_map);
-  gsc_a5_map = NULL;
+  map_free (gsc_map);
+  gsc_map = NULL;
   glk_exit ();
 }
 

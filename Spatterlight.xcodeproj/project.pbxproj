@@ -1013,6 +1013,8 @@
 		D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87010291D59681D38B0F44C5 /* scprintf.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
 		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
+		MAPDRAW00000000000000001 /* mapdraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = MAPDRAW00000000000000002 /* mapdraw.cpp */; };
+		SCMAP000000000000000001 /* scmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = SCMAP000000000000000002 /* scmap.cpp */; };
 		F4E620D1D98ABB1032579FB0 /* sclibrar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7891237714D4C19104EE325 /* sclibrar.cpp */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
 /* End PBXBuildFile section */
@@ -3683,6 +3685,8 @@
 		FBDDF07BAE218674A9BF2815 /* a5xml.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5xml.cpp; sourceTree = "<group>"; };
 		FF22095E6A4182F0BA2C8C35 /* a5run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run.cpp; sourceTree = "<group>"; };
 		A5MAP0000000000000000002 /* a5map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5map.cpp; sourceTree = "<group>"; };
+		MAPDRAW00000000000000002 /* mapdraw.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = mapdraw.cpp; sourceTree = "<group>"; };
+		SCMAP000000000000000002 /* scmap.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scmap.cpp; sourceTree = "<group>"; };
 		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -4203,6 +4207,8 @@
 				10990E34B23D66921A762A58 /* a5rand.cpp */,
 				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
 				A5MAP0000000000000000002 /* a5map.cpp */,
+				MAPDRAW00000000000000002 /* mapdraw.cpp */,
+				SCMAP000000000000000002 /* scmap.cpp */,
 				A5MAP0000000000000000003 /* a5map.h */,
 				A5B000000000000000000102 /* a5sb.cpp */,
 				A5B000000000000000000104 /* a5run_ref.cpp */,
@@ -7973,6 +7979,8 @@
 				3B98519817A0F0691F423FD2 /* a5rand.cpp in Sources */,
 				E010519EC9196D58BA837C92 /* a5run.cpp in Sources */,
 				A5MAP0000000000000000001 /* a5map.cpp in Sources */,
+				MAPDRAW00000000000000001 /* mapdraw.cpp in Sources */,
+				SCMAP000000000000000001 /* scmap.cpp in Sources */,
 				A5B000000000000000000101 /* a5sb.cpp in Sources */,
 				A5B000000000000000000103 /* a5run_ref.cpp in Sources */,
 				A5B000000000000000000105 /* a5run_events.cpp in Sources */,

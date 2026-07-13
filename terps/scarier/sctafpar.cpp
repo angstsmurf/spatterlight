@@ -104,7 +104,7 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
   {"ROOM",
    "$Short $Long ?GEightPointCompass:[12]<ROOM_EXIT>Exits"
    " ?!GEightPointCompass:[8]<ROOM_EXIT>Exits <RESOURCE>Res V<ROOM_ALT>Alts"
-   " ?!GNoMap:bHideOnMap"},
+   " ?!GNoMap:BHideOnMap"},
   {"ROOM_EXIT",
    "{V400_ROOM_EXIT:#Dest_#Var1_#Var2_#Var3}"},
   {"ROOM_ALT",
@@ -196,7 +196,7 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
    " ?!GEightPointCompass:[8]<ROOM_EXIT>Exits $AddDesc1 #Task1 $AddDesc2 #Task2"
    " #Obj $AltDesc #TypeHideObjects <RESOURCE>Res <RESOURCE>LastRes"
    " <RESOURCE>Task1Res <RESOURCE>Task2Res <RESOURCE>AltRes"
-   " ?!GNoMap:bHideOnMap |V390_ROOM:_Alts_|"},
+   " ?!GNoMap:BHideOnMap |V390_ROOM:_Alts_|"},
   {"ROOM_EXIT",
    "{V390_V380_ROOM_EXIT:#Dest_#Var1_#Var2_ZVar3}"},
   {"RESOURCE",

@@ -445,6 +445,10 @@ enum
 extern void lib_warn_battle_system (void);
 extern scr_int lib_random_roomgroup_member (scr_gameref_t game, scr_int roomgroup);
 extern const scr_char *lib_get_room_name (scr_gameref_t game, scr_int room);
+extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
+                            scr_int direction);
+/* The word the parser expects for a direction, for the map's click-to-walk. */
+extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
 extern scr_bool lib_cmd_go_north (scr_gameref_t game);

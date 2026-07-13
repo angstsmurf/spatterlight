@@ -1056,9 +1056,10 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
 /*
  * lib_can_go()
  *
- * Return TRUE if the player can move in the given direction.
+ * Return TRUE if the player can move in the given direction.  Also the map's
+ * test for which connectors are currently usable (scmap.cpp).
  */
-static scr_bool
+scr_bool
 lib_can_go (scr_gameref_t game, scr_int room, scr_int direction)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1200,6 +1201,17 @@ static const scr_char *const DIRNAMES_8[] = {
  * command), discards it if it ends in "any direction!"; testing for usable
  * exits up front is the equivalent.
  */
+const scr_char *
+lib_direction_name (scr_int direction)
+{
+  const scr_int count = sizeof DIRNAMES_8 / sizeof DIRNAMES_8[0] - 1;
+
+  if (direction < 0 || direction >= count)
+    return NULL;
+  return DIRNAMES_8[direction];
+}
+
+
 static scr_bool
 lib_room_has_exits (scr_gameref_t game)
 {
