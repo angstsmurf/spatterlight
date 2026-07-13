@@ -6,10 +6,19 @@
 > is now ✅ DONE too (see the SkybreakWin entry directly below). All that
 > remains, deliberately:
 >
-> - **Three declined cosmetic residuals** (all documented in place with the
->   shared-path risk that motivated declining them): the October31st trailing
->   `score` line after a win, the BugHunt arrival blank line, and the AoS
->   nested-pouch coin hunk.
+> - **One declined cosmetic residual**: the October31st trailing-`score`-after-
+>   win line (FD's initial `EvaluateInput` top-guard answers a command entered
+>   a turn AFTER the game ended — "Please give one of the answers above." —
+>   where Scarier stays silent). Unfixed by choice (endgame input-guard path);
+>   the wired walkthrough simply types nothing after the win, so it costs no
+>   budget. NOT the FoF same-turn continuation artifact, which IS fixed.
+>   (2026-07-13 audit: the other two residuals this list used to carry are
+>   GONE — the AoS nested-pouch coin hunk was fixed the same day it was
+>   declined by the "aggregate same-restriction per-item fail messages" entry
+>   (AoS 1|1 → 0|0), and the BugHunt arrival blank line no longer reproduces
+>   (xoshiro 0 hunks re-verified via a5_groundtruth.sh; almost certainly
+>   collateral repair from the 2026-07-06 FoF deferred-Look/drain-path work.)
+>   Their in-place decline notes below are retained as history.)
 > - **Documented non-issues:** non-zero *vanilla* budgets on golden-less games
 >   (FD `System.Random` vs xoshiro walk) and the Tingalan per-turn RNG-event
 >   desync — expected classes, not conformance bugs.
