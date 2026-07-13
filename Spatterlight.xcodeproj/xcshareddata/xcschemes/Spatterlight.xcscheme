@@ -45,6 +45,9 @@
                   Identifier = "UITests/testAdrift">
                </Test>
                <Test
+                  Identifier = "UITests/testAdriftPKGirl">
+               </Test>
+               <Test
                   Identifier = "UITests/testAdvSys">
                </Test>
                <Test
