@@ -2,3 +2,7 @@
 /scare_prof
 /scproj_det
 *.dSYM/
+
+# Archie's Birthday (AIF): explicit text, deliberately not committed.
+/archie_solution.txt
+/archie_solution.expected.txt

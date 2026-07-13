@@ -2,3 +2,7 @@
 # TODO_plover_walkthroughs.md). run_v4_walkthroughs.sh reads games from here by
 # basename; recreate with symlinks or set GAMES_DIR on another machine.
 /games/
+
+# Archie's Birthday (AIF): explicit text, deliberately not committed
+# (its solution + golden are ignored in harness/.gitignore).
+/Archies_Birthday_walkthrough.md

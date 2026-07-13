@@ -1,0 +1,288 @@
+Loading game...
+
+Quest for the Magic Healing Plant
+
+Copyright 1995, 1996, 2002 by Adam G Crutchlow.
+Ported from Inform to ADRIFT, 2002.
+
+Your daughter Crystal has recently become ill, but you do not know why. It is
+obvious to you that if she isn't cured soon she will die. You have heard
+stories about a magical plant which grows somewhere around this region, but
+you have never actually seen it. It is said to be able to cure any illness.
+You must set off to find it. It is your only chance to save your daughter.
+Good luck!
+
+Small Cottage
+This is your home. A small cottage that you built for you and your daughter.
+Made from the wood of the surrounding trees, it blends in very well with the
+surroundings. The room is not well furnished. There is just a table, an old
+stove and two beds. In one of the beds lies your daughter, Crystal. Set in
+the south wall of the cottage is a small squage window.
+
+Crystal is here.
+
+>
+>You move out.
+Small Clearing
+You stand in a small clearing in the wood. Just to your south you see a
+little cottage. It is totally silent here, even the birds have stopped
+singing.
+
+>You move east.
+Woodland
+This is a quiet peaceful place. Trees gently sway around you. The song of
+birds can be heard in the treetops.
+
+>You move south.
+Woodland
+This is a very scenic part of the wood. The sun shines through the branches
+of the trees. Birdsong can be heard all around.
+
+>You move south.
+Woodland
+It is a little darker here, with the trees being taller and denser, but there
+is still plenty of light to allow many plants to grow.
+
+>You move west.
+Woodland
+You stand at the back of your house. The view is stunning. You can see right
+to the horizon between the trees.
+
+Also here is a sharp knife.
+
+>[get knife]
+You pick up the sharp knife.
+
+>You move east.
+Woodland
+It is a little darker here, with the trees being taller and denser, but there
+is still plenty of light to allow many plants to grow.
+
+>You move north.
+Woodland
+This is a very scenic part of the wood. The sun shines through the branches
+of the trees. Birdsong can be heard all around.
+
+>You move north.
+Woodland
+This is a quiet peaceful place. Trees gently sway around you. The song of
+birds can be heard in the treetops.
+
+>You move north.
+East Road
+You are standing on the east road. To the south you can see trees. The path
+continues east and west.
+
+>You move east.
+East Road
+You are travelling on the East road. The trees get suddenly very dense to the
+east, ehereas to the west you see the road stretch into the distance. There
+is an old sign here.
+
+>You move east.
+East Road's End
+This is the end of the east road. Heading east will take you deep into a very
+dangeous looking wood. You feel very wary. Going west takes you back to the
+road.
+An angry Orc is here blocking your path to the east.
+
+>(Your score has increased by 10)
+You thrust the knife deep into the heart of the orc. It screems and writhes
+about in agony for a few seconds and then falls dead on the floor in a pool
+of blood. Two other orcs run out of the nearby trees and drag the body away.
+
+>You move west.
+East Road
+You are travelling on the East road. The trees get suddenly very dense to the
+east, ehereas to the west you see the road stretch into the distance. There
+is an old sign here.
+
+>You move west.
+East Road
+You are standing on the east road. To the south you can see trees. The path
+continues east and west.
+
+>You move west.
+East Road
+The road continues in easterly and westerly directions. To the south you can
+just make out your small cottage in a clearing.
+
+>You move west.
+East Road
+You are on the East road. To the south and west you can see forest.
+
+>You move west.
+North-East Road Bend
+The road bends here, taking you either north or east.
+
+>You move west.
+Gloomy Forest
+You are at the edge of the forest. The forest becomes deeper to the north.
+
+>You move north.
+Gloomy Forest
+You are right in the very centre of the forest. Here the trees seem
+especially dark and threatening. In front of you is what appeats to be a pit
+of some kind.
+
+>You move north.
+Gloomy Forest
+You are in an especially dark part of the forest. You can barely see a thing.
+
+>You move north.
+Grassy Hills
+You stand at the top of one of the many hills. The breeze blows gently. From
+here you can see the forest to the south stretching into the distance, and
+the mountains to the east.
+
+>You move east.
+Mountains
+You are at the foot of a large mountain. It is very cold and windy here. Set
+in the side of the mountain there is an entrance to a cave. A path continues
+around the mountain to the east.
+
+>You move in.
+Dark Cave
+Water drips down from the roof of the small dingy cave. It looks like someone
+once lived here. There are bits and pieces scattered everywhere. The cave
+entrance is to the South.
+
+>(Your score has increased by 10)
+You discover a small gold coin.
+
+>[get coin]
+You've already got the gold coin!
+
+>You move out.
+Mountains
+You are at the foot of a large mountain. It is very cold and windy here. Set
+in the side of the mountain there is an entrance to a cave. A path continues
+around the mountain to the east.
+
+>You move west.
+Grassy Hills
+You stand at the top of one of the many hills. The breeze blows gently. From
+here you can see the forest to the south stretching into the distance, and
+the mountains to the east.
+
+>You move west.
+Gloomy Forest
+Here the forest is dark and quiet. The trees tower high above you.
+
+>You move west.
+Gloomy Forest
+The forest is less dense here. There is a little light breaking through the
+treetops. A few feet away you can see the remains of a small fire.
+
+>(Your score has increased by 10)
+As you rummage through the ashes of the fire you discover an old torn note.
+
+>[get note]
+You've already got the torn note!
+
+>You move southeast.
+Gloomy Forest
+You are standing in the depths of the forest. All you can see is trees.
+
+>You move southeast.
+Gloomy Forest
+You are right in the very centre of the forest. Here the trees seem
+especially dark and threatening. In front of you is what appeats to be a pit
+of some kind.
+
+>You move east.
+Road Junction
+You are at a junction in the North road. The junction heads off east.
+
+>You move east.
+Fountain
+You find yourself in a small alcove just off the North road. You see a small
+ornate water fountain here. It seems to have been put here for weary
+travellers in need of a drink.
+
+>(Your score has increased by 20)
+As the coin splashes into the water of the fountain there is a bright flash
+and you see the gold coin has become a golden flute.
+
+>[get flute]
+You take the golden flute from the water fountain.
+
+>You move west.
+Road Junction
+You are at a junction in the North road. The junction heads off east.
+
+>You move west.
+Gloomy Forest
+You are right in the very centre of the forest. Here the trees seem
+especially dark and threatening. In front of you is what appeats to be a pit
+of some kind.
+
+>You move west.
+Gloomy Forest
+You are travelling through the forest. Many pairs of eyes seem to be watching
+you.
+
+>You move west.
+Edge of Forest
+You stand on the edge of the forest. There is a vertical wall of stone to the
+west.
+
+>(Your score has increased by 20)
+As you begin to play the flute a small opening gradually appears in the rock
+wall.
+
+>You move in.
+Secluded Lake
+You stand on the bank of a beautiful sparkling lake surrounded be many plants
+of all kinds. There must be well over a thousand different types of plants
+here.
+
+>[get clover]
+(Your score has increased by 20)
+You take some of the magic clover leaves.
+
+>You move east.
+Edge of Forest
+You stand on the edge of the forest. There is a vertical wall of stone to the
+west.
+
+>You move east.
+Gloomy Forest
+You are travelling through the forest. Many pairs of eyes seem to be watching
+you.
+
+>You move east.
+Gloomy Forest
+You are right in the very centre of the forest. Here the trees seem
+especially dark and threatening. In front of you is what appeats to be a pit
+of some kind.
+
+>You move southeast.
+North-East Road Bend
+The road bends here, taking you either north or east.
+
+>You move east.
+East Road
+You are on the East road. To the south and west you can see forest.
+
+>You move southeast.
+Small Clearing
+You stand in a small clearing in the wood. Just to your south you see a
+little cottage. It is totally silent here, even the birds have stopped
+singing.
+
+>You move south.
+Small Cottage
+This is your home. A small cottage that you built for you and your daughter.
+Made from the wood of the surrounding trees, it blends in very well with the
+surroundings. The room is not well furnished. There is just a table, an old
+stove and two beds. In one of the beds lies your daughter, Crystal. Set in
+the south wall of the cottage is a small squage window.
+
+Crystal is here.
+
+>(Your score has increased by 50)
+Well Done! You have saved Crystal's life. Even as you feed the clover leaves
+to your daughter, you notice her perk up. After only a few days she has fully
+recovered. You decide to keep a few of the leaves in case they are needed in
+the future.

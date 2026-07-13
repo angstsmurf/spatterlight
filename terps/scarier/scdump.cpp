@@ -566,12 +566,16 @@ scr_dump_structure_once (scr_gameref_t game)
       }
   }
 
-  /* Room exits + their task gates (dir order N,E,S,W,U,D,IN,OUT,NE,NW,SE,SW). */
+  /* Room exits + their task gates.  The exit array is in ADRIFT's own direction
+     order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (sclibrar.cpp's
+     DIRNAMES, and mapdraw.cpp's map_dirs, which both engines share).  Getting
+     this wrong mislabels every diagonal exit and sends a route derivation into
+     the wrong room. */
   {
     scr_vartype_t rk[5];
     scr_int r, rcount;
     static const char *dirs[] =
-      { "N","E","S","W","U","D","IN","OUT","NE","NW","SE","SW" };
+      { "N","E","S","W","U","D","IN","OUT","NE","SE","SW","NW" };
 
     rk[0].string = "Rooms";
     rcount = prop_get_child_count (bundle, "I<-s", rk);

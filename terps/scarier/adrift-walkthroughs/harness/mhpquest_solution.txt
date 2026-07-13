@@ -1,0 +1,68 @@
+# Quest for the Magic Healing Plant (Adam G. Crutchlow, 1995/2002) -- mhpquest.taf
+# WIN, 140/140 MAX.  Every scoring task in the game:
+#   kill orc 10 | search bits 10 | search fire 10 | throw coin in fountain 20
+#   play flute 20 | get clover 20 | feed clover to crystal 50 (+ endgame win)
+#
+# The Key & Compass walkthrough solves the *Inform* original (TODO §5), and three
+# of its commands do not exist in the ADRIFT port:
+#   "enter cave"            -> the cave is a plain exit: IN (or N) from Mountains
+#   "put coin in fountain"  -> the task command is THROW coin in fountain
+#   "enter wall"            -> IN from Edge of Forest, gated on having played the flute
+# It also omits the E from Grassy Hills to the Mountains.
+#
+# Deadly, so not on this route: entering the pit (Gloomy Forest), and going EAST
+# off the Mountain Path -- both are endgame-death tasks.
+
+out
+e
+s
+s
+w
+take knife
+e
+n
+n
+n
+e
+e
+kill orc
+w
+w
+w
+w
+w
+w
+n
+n
+n
+e
+in
+search bits
+take coin
+out
+w
+w
+w
+search fire
+take note
+se
+se
+e
+e
+throw coin in fountain
+take flute
+w
+w
+w
+w
+play flute
+in
+take clover
+e
+e
+e
+se
+e
+se
+s
+feed clover to crystal

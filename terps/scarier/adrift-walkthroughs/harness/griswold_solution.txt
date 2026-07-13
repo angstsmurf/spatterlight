@@ -1,0 +1,33 @@
+# The Amazing Uncle Griswold (David Whyld, IntroComp 2005) -- Griswold.taf
+# COMPLETES THE INTRO.  0/0: the task dump has no type=4 (score) and no type=6
+# (endgame) action anywhere -- this is an IntroComp *intro*, so "finishing" is
+# reaching the author's sign-off ("And there you have it: the intro to The
+# Amazing Uncle Griswold") and the deliberately unwritten void room beyond it.
+#
+# The three blank lines answer the title/intro "...press a key..." pauses.
+#
+# The one puzzle is a timer, not a lock: a doorbell event fires around turn 15
+# and only then does `open door` in the Hallway pass its variable restriction
+# (TASK 97) and move you on.  Everything before `e` below is just marking time
+# -- any 15 commands would do; these are the Key & Compass examines.
+
+
+
+x me
+x tv
+x video
+push button
+x cassette
+x stereo
+x books
+x shelves
+x sofa
+x chair
+look under sofa
+look under chair
+w
+e
+x stand
+x dresser
+x door
+open door

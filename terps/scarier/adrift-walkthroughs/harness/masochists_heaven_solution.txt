@@ -1,0 +1,20 @@
+# A Masochist's Heaven (Tne Mad Monk, ADRIFT 1st 1-Hour Comp 2002) -- 1HRGAME.taf
+# WIN, 15/15 MAX (three 5-point tasks).  Derived from the Key & Compass
+# walkthrough; it transferred to the ADRIFT original unchanged.
+#
+# The blank first line answers the intro's "press a key".
+# The Apartment's exit reads "south" in the prose but is really NORTH.
+
+x table
+x bottle
+take bottle
+n
+n
+x fountain
+put bubbles in fountain
+take can
+s
+water plant
+go entry
+x god
+fuck

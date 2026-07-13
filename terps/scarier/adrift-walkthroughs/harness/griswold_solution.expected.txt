@@ -1,0 +1,229 @@
+Loading game...
+
+The Amazing Uncle Griswold
+
+The Amazing Uncle
+Griswold
+
+An ADRIFT Text Adventure by David Whyld
+Written: May 2005 with ADRIFT Version 4, Release 46
+E-Mail: dwhyld@gmail.com
+Website: http://www.shadowvault.net
+
+People playing the game for the first time should type ABOUT or INFO
+
+...press a key...
+
+Introduction
+
+Visits from Uncle Griswold were always unusual. After all, Uncle Griswold was
+unusual so it kind of went without saying that any time he chose to visit you
+and your family, it was going to be an unusual visit. The last time he had
+blown up the local police station (supposedly the chief of police was
+possessed by evil forces and it was the only thing to do in the
+circumstances) and the time before that he was being pursued by a group of
+Hungarian karate nuns who scrawled slanderous graffiti on the side of the
+house when they found out he was gone. The time before that…
+   So it was with a sense dread when you got the call from him saying: "break
+out the best rum, lass! I'm coming a-visitin'!"
+
+...press a key...
+
+The rest of the family reacted to it in different ways. Mother outright
+refused to have him in the house. Father said they should quickly move and
+lease out the place to a load of gypsies (whom Uncle Griswold is known to
+have a morbid fear of for reasons best not dwelled upon). Grandmother Terise
+- who has lived with you since being thrown out of the nursing home on
+witchcraft allegations - thought everyone should arm themselves and shoot him
+dead the moment he showed up. Your sister, Elaine, who was usually so busy
+preening herself that she was almost oblivious to what went on in the rest of
+the world, proposed the idea of simply locking the door and pretending
+everyone was out.
+   Finally, Mother turned to you and said, "and what about you, Shelly?"
+   You shrugged. "Invite him in," you said.
+   Which is probably why you don't often get asked for your opinion at times
+like this.
+
+...press a key...
+
+Front Room
+Front rooms are generally called 'front rooms' because they're at the front
+of the house; your front room is different in that it's at the side. You're
+not sure whether this is down to bizarre architecture, drunken house builders
+or just your father's liking for being 'different'. Aside from being at the
+side and not the front, the front room is wholly unremarkable: TV, video,
+stereo, several shelves of books, a sofa and a chair. All very humdrum and
+uninteresting.
+   You see doors to the west leading into the kitchen and the east leading to
+the hallway.
+
+>
+>
+>
+>You carry around a mental image of yourself in your mind and this mental
+image is fourteen years old, unbelievably stunning in a gorgeous sort of
+beautiful way (you might be a tad biased there admittedly). You've got blonde
+hair which is actually light brown but access to your mother's dye cabinet
+(yes, she's got a whole cabinet full of hair dyes) has given it the blonde
+tint you wanted. You're not terribly tall but then as no one in your family
+is either, you've learned to live with this. Oh, and you also tend to buy
+shoes with extra long heels so you can have the satisfaction of looking down
+on your father.
+
+>It's one of the new, modern, super TVs: 87" screen, high definition, able to
+pick up signals from the far side of Mars (assuming there are any TV stations
+broadcasting from the far side of Mars which you're pretty sure there
+aren't). It's so modern and so high tech that no one in the house actually
+knows how to use it but because no one wants to admit that embarrassing
+little fact, you all act like you're experts.
+
+>The TV is amazingly modern, but the video looks like something that was
+probably around in the 1800's. (Actually you're not sure they even had videos
+back then, but if they did then they probably looked something like this.) It
+doesn't have a timer, lacks fast forward and rewind and can't record stuff.
+All it has, in fact, is just one big button on the front which, right now, is
+just crying out for someone to press it.
+
+>You extend your finger, lightly touch the button and…
+
+...press a key...
+
+Out pops a clunky old cassette. It lands on the floor with a thump (as indeed
+it should because it's the size and shape of a brick) which seems to shake
+the whole house. Wafting aside the clouds of dust which the cassette brings
+with you, you pick it up. Engraved on the side of the cassette are the
+ominous words: "The video cassette Shelly is NEVER EVER to be shown because
+it would corrupt her fragile mind. On no account is she to be shown this
+cassette. EVER."
+   Hmmm…
+
+>You blink. Where has the stereo gone? TV, video… no stereo. Weird. You were
+sure it was there a moment ago but now it's disappeared.
+
+>You glance at the titles, seeking something worth reading until Uncle
+Griswold gets here.
+   Nothing really catches your attention.
+
+>There are upwards of five hundred books here, piled high on the shelves which
+are groaning beneath their weight and threatening to collapse at any moment.
+The sheer volume of books is surprising, not just because having five hundred
+books in a front room is a bit unusual but because you've never seen anyone
+in your family read them. Father reads the TV guide but that's about it. Your
+mother, as far as you're aware, doesn't read anything at all. You doubt your
+grandmother even knows what a book is.
+
+>Mother has a thing for sofas that are big, grey and look somewhat like a
+beached whale. Oh, and are so hard that you're liable to dislocate your spine
+if you try sitting on. This is her most extreme sofa yet: twelve feet in
+length, six feet wide and five feet high. How it fit through the door is
+something of a mystery, but an even bigger one is: just what was your mother
+thinking when she went ahead and blew your college fund on this monstrosity?
+
+>One sofa, one chair. In a house with five people. You're sure there's
+something a bit wrong there but, offhand, you can't remember a single time
+when it's ever been a problem. After all, considering this chair is made of
+plain, unadorned wood - and plain, unadorned wood currently suffering from a
+severe dose of woodlice to boot - it's no real wonder that people seldom want
+to sit on it.
+
+>This looks like the sort of sofa under which you could imagine a whole horde
+of nasty (albeit small) monsters skulk. Unfortunately, the underside of it is
+every bit as dull and uninteresting as the top of it and consists of nothing
+more than what you'd expect to see on the underside of any sofa.
+
+>The chair being eaten away slowly but surely by an army of woodlice makes you
+a little hesitant to go examining it too closely.
+
+>"Shelly!" cries mother's voice from somewhere in the house. "I hope you're
+not thinking of going into the kitchen! It's dangerous!"
+   "I'm fourteen, mom!" you cry. "I think I'm quite capable of entering the
+kitchen without having an accident!"
+   But your mother is not listening. "No, no, no! Shelly, dear, be a honey
+and wait for your uncle arriving. I'm sure he won't be long."
+   You fume for a bit but realise that this is one argument that you're not
+going to win.
+
+>
+
+Hallway
+Your hallway has character. It's bright for a start. Blindingly so. Mother
+thinks that the only way to paint a hallway is with big dollops of shocking
+red paint and while anyone else might think this would make the hallway look
+like a blood-soaked murder scene, not your mother. The gaudy coat stand and
+gaudier hat dresser look almost tame by comparison.
+   You see doors to the north leading to that room at the side of the house
+called the front room, the front door (currently closed) to the east and a
+flight of winding steps leading upwards to where all the bedrooms are.
+
+>Free of coats. You keep yours in your room and you're not sure what everyone
+else does with theirs. Just one look at the coat stand - which resembles a
+small, withered tree perhaps fallen victim to some foul wasting disease -
+makes you wish mother would just wake up and get some taste in décor one day.
+She thinks it's fashionable, for mercy's sake!
+
+>Yes, a hat dresser. You didn't know there were such things but, apparently,
+there are because you're looking at one right now. Mother probably purchased
+it on one of her day long shopping trips when she returns so overburdened
+with bags that she can barely stand. In fact, you don't think she does stand.
+She just falls forward, but very slowly, and in the general direction of her
+house.
+   The hat dresser appears to be locked.
+
+The doorbell barks.
+   Yes, you heard that right. It barks. Mother apparently thought that a
+doorbell which made the sound of a bell was kind of boring so she had it
+replaced with a barking one instead. Hmmm… barking and mother. Two words that
+really should not be used in the same sentence but which often are.
+   Anyway, someone is at the front door and no one else in the house seems
+willing to go and open it. Looks like it's you on Door Opening Duty again.
+
+>The front door is closed, keeping the horrors of the outside world firmly
+outside where they belong. As a kid, you used to make believe there were
+really horrible monsters out there, ready to abduct you to their lairs and
+either eat you or turn you into a spider with bat ears (you always did have
+an active imagination). Now you're a little older and have experienced the
+reality that is school, you kind of wish the monsters would hurry up.
+
+>You open the front door.
+   And there, framed in the doorway, larger than life, a veritable mountain
+of a man, his thick beard looking like a colony of badgers has taken
+residence on his lower face, clad in a thick black coat which hasn't been
+washed in decades, his eyes locked away behind a pair of wiry glasses,
+clutching a suitcase in one hand the size of your wardrobe, is Uncle
+Griswold. He looks just how you've always imagined a pirate would look. He's
+even got the requisite parrot on his shoulder and hook in place of his right
+hand.
+
+...press a key...
+
+"Aaaahha-hahahah!" he thunders, sweeping you up into his arms. "Why, it's me
+dear sister-in-law, Melanie! I'd recognised that face anywheres! How are ye,
+lass?"
+   "It's Shelly actually," you say.
+   He gives you a blank stare.
+   "Your niece."
+   Recognition dawns. "Aahahaha-hahahahah! So it is! So it is!" He strides
+into the house, still carrying you and his suitcase (how he manages this with
+just one hand you don't want to know). "Much to tell, Shelly my dear, much to
+tell indeed. Seat yourself down and let me fill ye in. We don't have long."
+   "Long until what, Uncle?" you ask, resisting the urge to sit down on
+either the chair or the sofa.
+   "Until the goblinoids get here," says Uncle Griswold, and proceeds to
+relate to you a most strange and unusual tale…
+
+...press a key...
+
+And there you have it: the intro to The Amazing Uncle Griswold. If you liked
+it, keep checking out this page for progress reports:
+http://www.shadowvault.net/griswold.htm
+
+When the full game is finished, it will be announced there first.
+
+...press a key...
+
+You're floating in a dark, empty void which looks suspiciously like a part of
+the game that hasn't yet been written. Maybe if you hang around here for long
+enough, something interesting will happen.
+
+Or maybe you'd be better off just typing RESTART and having another go to see
+if there is anything you missed the first time.

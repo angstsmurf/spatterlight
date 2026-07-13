@@ -1,14 +1,14 @@
 # TODO — add the "Plover" walkthrough corpus to Scarier's automated testing
 
 > **PARKED 2026-07-13 (updated).** Everything below is committed and the tree is
-> green (`make -f Makefile.headless test` exits 0; v4 suite **26/26 PASS**).
+> green (`make -f Makefile.headless test` exits 0; v4 suite **30/30 PASS**).
 > Closed so far: the `make test` wiring (§7), the `coloromc.taf` "load failure"
 > (it is an ADRIFT 5 game — §TL;DR), **Topaz**, which was never unwinnable —
 > it was a SCARE bug affecting every v4 game (§2, `Topaz_walkthrough.md`, and
-> §7b for the run400 anchors) — and, **2026-07-13, the three port-based
-> re-derivations** (§5): *The Thorn*, *Renegade Brainwave* and *Goldilocks is a
-> FOX!* (100/100 MAX) are all derived, winning, blessed and wired. A second
-> `build.sh` link break was fixed on the way (§4).
+> §7b for the run400 anchors) — the **three port-based re-derivations** (§5):
+> *The Thorn*, *Renegade Brainwave* and *Goldilocks is a FOX!* (100/100 MAX) —
+> and, **2026-07-13, the four missing games** (§3), which Petter sourced. A
+> second `build.sh` link break was fixed on the way (§4).
 >
 > **Resume points, smallest first:**
 > 1. ~~**Port-based re-derivations**~~ — ✅ **DONE 2026-07-13.** All three are in
@@ -21,6 +21,11 @@
 >    port *is* faithful (*Goldilocks*: same 100 points, same 29 items), every
 >    failure is a wording problem, and the fastest tool is the task dump, which
 >    hands you the exact `cmd=[...]` the parser wants.
+> 1b. ~~**Source the 4 missing games**~~ — ✅ **DONE 2026-07-13**, see §3. All four
+>    are derived, winning, blessed and wired. Two of them beat Key & Compass:
+>    *Quest for the Magic Healing Plant* **140/140 MAX** (his page solves the
+>    Inform original and scores 20 on the ADRIFT port) and *Archie's Birthday*
+>    **50/50 MAX** (his page scores 27 and gives up on the Miss Brown puzzle).
 > 2. **An unexplained Runner divergence in Topaz's conversation menu.** Petter
 >    ran the real ADRIFT 4 Runner and got stuck: after the two numbered answers
 >    every later command replied *"Choose an option to speak"*, as if a menu were
@@ -33,7 +38,6 @@
 >    family as the restriction bug just fixed, and worth a run400 check of the
 >    move-player action (does it store `roomIndex + 1`?). Topaz still wins under
 >    SCARE regardless; this is about faithfulness, not winnability.
-> 3. **Source the 4 missing games** (§3) — needs downloads, not code.
 
 Pairing + integration plan for the 18 walkthrough web-archives in
 `~/Desktop/Plover adrift walkthroughs/` (David Welbourn's *Key & Compass* /
@@ -65,8 +69,11 @@ observed, not guessed.
   or already-covered.
 * **2 are already in the harness**: *Ice Cream* and *The Cat in the Tree*
   (`icecream_solution.txt`, `the_cat_in_the_tree_solution.txt`).
-* **4 game files are missing from disk entirely** and must be sourced before
-  anything can be tested (see §3).
+* ~~**4 game files are missing from disk entirely**~~ — **all four sourced and
+  done (2026-07-13); see §3.** Two of them beat the Key & Compass page they came
+  with: *Quest for the Magic Healing Plant* (140/140 MAX vs his 20 — his solves the
+  Inform original) and *Archie's Birthday* (50/50 MAX vs his 27 — he never solved
+  the Miss Brown puzzle). Archie is AIF, so its artifacts are **gitignored**.
 * ~~**Prerequisite:** `harness/build.sh` is stale~~ — fixed (§4), twice: once for
   the `terps/scare` → `terps/scarier` rename, and again in 2026-07 when
   `scmap.cpp` started calling `map_free()` from the un-globbed `mapdraw.cpp`.
@@ -81,7 +88,7 @@ Game-file paths are under `~/Downloads/`. "WT engine" = the platform the
 
 | # | Web-archive | Game / author | ADRIFT ver | Game file on disk | WT engine | Status |
 |---|-------------|---------------|-----------|-------------------|-----------|--------|
-| 1 | A Masochist's Heaven | *A Masochist's Heaven* — Tne Mad Monk (1st 1-Hr Comp 2002) | 4 | **— MISSING —** | ADRIFT | need game (§3) |
+| 1 | A Masochist's Heaven | *A Masochist's Heaven* — Tne Mad Monk (1st 1-Hr Comp 2002) | 4 | `1hourgamecomp/1HRGAME.taf` | ADRIFT | ✅ **DONE — WON 15/15 MAX**, in harness |
 | 2 | Color of Milk Coffee | *Color of Milk Coffee* — Bahri Gordebak (InsideADRIFT #41) | **5** | `Adrift games/InsideADRIFT_41/coloromc.taf` | Inform 7 | ✅ **DONE — it is an ADRIFT 5 game**, not v4; already in the a5 corpus (MATCH 0\|0). Not a SCARE loader gap. |
 | 3 | Man Overboard!!! | *Man Overboard!!!* — TonyB (Writing Challenges Comp 2006) | 4 | `Adrift games/ifcomps_v4_new/man overboard.taf` | ADRIFT | ✅ **DONE** — wins (boat ending), in harness |
 | 4 | Pieces of eden | *Pieces of eden* — Nicodemus (Comp With No Name 2008) | 4 | `Adrift games/adrift_offarchive_new/Pieces of eden.taf` | ADRIFT | ✅ **DONE** — wins (`END OF PART ONE`), in harness |
@@ -91,8 +98,8 @@ Game-file paths are under `~/Downloads/`. "WT engine" = the platform the
 | 8 | Goldilocks is a FOX! | *Goldilocks is a FOX!* — J. J. Guest (2002) | 4 | `Adrift games/goldilocks.taf` | Inform 6 | ✅ **DONE — WON 100/100 MAX**, in harness. Port is faithful; only wording differed. |
 | 9 | Renegade Brainwave | *Renegade Brainwave* — J. J. Guest (Ectocomp 2010) | 4 | `Adrift games/Ectocomp_2010/Renegade_Brainwave.taf` | Inform 7 | ✅ **DONE — WON**, in harness. The Inform release is an **expansion**; WT was unusable, derived from the task dump. |
 | 10 | Yak Shaving for Kicks and Giggles! | *Yak Shaving…* — J. J. Guest (The Odd Competition 2008) | 4 | `Adrift games/yak_shaving.taf` | ADRIFT (V1) | ✅ **DONE** — wins (V1 section; `completed the Odd Competition`), in harness |
-| 11 | Archie's Birthday – Ch.1: Reggie's Gift | Purple Dragon (2005) — **adult content** | 3.90 | **— MISSING —** | ADRIFT | need game (§3); decide whether to include NSFW game |
-| 12 | Quest for the Magic Healing Plant | Adam G. Crutchlow (1995/2002) | 3.9 | **— MISSING —** (only AGT/Inform ports ever existed; none on disk) | Inform 6 | need game (§3); low priority |
+| 11 | Archie's Birthday – Ch.1: Reggie's Gift | Purple Dragon (2005) — **adult content** | 3.90 | `archie/Archie's Birthday V 1-2.taf` | ADRIFT | ✅ **DONE — WON 50/50 MAX** (beats K&C's 27; he never solved Miss Brown). Artifacts **gitignored** — §3 |
+| 12 | Quest for the Magic Healing Plant | Adam G. Crutchlow (1995/2002) | 3.9 | `mhpquest.taf` | Inform 6 | ✅ **DONE — WON 140/140 MAX**, in harness. K&C solves the Inform original and scores 20 here (§3) |
 | 13 | ADRIFTMAS Party | Mystery (2002) | 4 | `Adrift games/adrift_offarchive_new/ADRIFTmas Party.taf`, `Adrift games/aparty.taf` | — | ⚠ archive is **MAP ONLY** — no command list to convert |
 
 ---
@@ -144,28 +151,51 @@ Of the 7 with walkthroughs, 2 were already carried and **5 are now DONE**
 ### IntroComp 2005 — only ONE ADRIFT game on the page
 | Game / author | ADRIFT | File |
 |---|---|---|
-| The Amazing Uncle Griswold — David Whyld | ADRIFT (v4) | **— MISSING —** (`Whatever_Happened_to_Uncle_Grumble.taf` is a *different* game) |
+| The Amazing Uncle Griswold — David Whyld | ADRIFT (v4) | `IntroComp05/ADRIFT/Griswold/Griswold.taf` — ✅ **DONE** (intro completed; 0/0, the game has no score and no ending). Not `Whatever_Happened_to_Uncle_Grumble.taf`, a different game. |
 
 The other six IntroComp entries (Deadsville, The Fox/Dragon/Loaf, The Hobbit,
 Negotis, Somewhen, Weishaupt Scholars) are Z-code/TADS — **not ADRIFT**, ignore.
 
 ---
 
-## 3. Games we must source before testing (missing from disk)
+## 3. The 4 games that were missing — ✅ ALL SOURCED AND DONE (2026-07-13)
 
-Search across `~` (excluding Library/Trash/caches) found nothing for:
+Petter supplied all four. Each is derived, winning, blessed and wired into
+`run_v4_walkthroughs.sh`; the `.taf`s stay untracked and are symlinked into
+`games/` as usual (§6 step 4).
 
-1. **A Masochist's Heaven** (Tne Mad Monk, ADRIFT 1st 1-Hr Comp 2002)
-2. **Archie's Birthday – Ch.1: Reggie's Gift** (Purple Dragon, 2005) — adult
-3. **The Amazing Uncle Griswold** (David Whyld, IntroComp 2005)
-4. **Quest for the Magic Healing Plant** (Adam Crutchlow) — ADRIFT 3.9 version
+| Game | File | Result | Notes |
+|---|---|---|---|
+| **A Masochist's Heaven** (Tne Mad Monk, 1st 1-Hr Comp 2002) | `1HRGAME.taf` (v4) | ★ **WON 15/15 MAX** | K&C route worked unchanged. `Masochists_Heaven_walkthrough.md` |
+| **The Amazing Uncle Griswold** (David Whyld, IntroComp 2005) | `Griswold.taf` (v4) | **Intro completed, 0/0** | No `ChangeScore` and no `EndGame` action exists — it is an intro, so there is nothing to score or win. Doorbell is a ~15-turn timer, not a lock. `Griswold_walkthrough.md` |
+| **Quest for the Magic Healing Plant** (Crutchlow) | `mhpquest.taf` (v3.9) | ★ **WON 140/140 MAX** | K&C solves the **Inform** original and scores only 20 here: `enter cave` → `in`, `put coin in fountain` → **`throw`**, `enter wall` → `in`, plus a missing `e` to the Mountains. `MHP_Quest_walkthrough.md` |
+| **Archie's Birthday – Ch.1** (Purple Dragon, 2005) — **AIF** | `Archie's Birthday V 1-2.taf` (v3.9) | ★ **WON 50/50 MAX** | K&C scores 27 and **gives up on the Miss Brown puzzle** ("if that's possible to do, I've yet to figure it out"). See below. |
 
-Sources to try: the IF Archive (`if-archive/games/adrift/`), the ADRIFT forum
-game DB, and the ShadowVault / IFWiki comp pages the archives link to. #1/#3 are
-David Whyld games and usually on the IF Archive. #2 (AIF) is likely only on the
-adult IF sites. #4's ADRIFT 3.9 port may be hard to find — the AGT and Inform 6
-versions are the common ones, and the walkthrough itself is Inform-based, so
-this one is low priority.
+**Archie's Birthday is deliberately not committed.** The game's text is sexually
+explicit, so its solution, its golden transcript and its walkthrough notes are
+gitignored (`harness/.gitignore`, `adrift-walkthroughs/.gitignore`). The MAP row
+stays in `run_v4_walkthroughs.sh` so the regression runs where the files exist and
+`NOSCRIPT`s everywhere else. Two mechanics worth recording here, since the notes
+are not in the repo:
+
+- **Miss Brown (14 pts).** Every Supply Room task needs NPC 6 in the player's
+  room, and exactly one task moves her there: TASK 108, gated on **`variable 17
+  == 5`** (not `>= 5`). Six one-shot tasks bump that variable — `x` her tits/ass/
+  pussy and `ask` her about tits/ass/pussy — and task 108 is checked *before* all
+  six, so each command falls through to its one-shot and bumps the counter. K&C's
+  route touches only four of the six (never the ass), stalls at 4, and she never
+  moves. Do five, then a sixth: 108 fires, she walks to the Supply Room.
+- **The shower scene (13 pts).** A counter (`variable 13`), not a puzzle: twelve
+  base commands, each in three tiers keyed to it (≤13 / 14–27 / **28–41**), and
+  only tier 3 scores. The win (TASK 367) needs the counter at **42**. Drive it:
+  28 fillers → ten distinct scorers → filler to 42. `lick ass` is the one base
+  command whose tier 3 does not score, so it is the safe filler. With 27 fillers
+  the first scorer lands in tier 2 and silently scores nothing (49/50).
+
+**Dumper bug found while deriving MHP Quest:** `scdump.cpp` listed the exit array's
+diagonals as `NE,NW,SE,SW`. ADRIFT's real order is **`NE,SE,SW,NW`** (`sclibrar.cpp`
+DIRNAMES; `mapdraw.cpp` `map_dirs`), so **every diagonal exit in every dump was
+mislabelled** — cardinals were fine, which is why nobody noticed. Fixed.
 
 ---
 
@@ -408,7 +438,8 @@ either. Recorded so the next person does not have to re-derive them:
 5. ~~**Port-based games** (§5): The Thorn, Goldilocks, Renegade Brainwave~~ — ✅
    **done 2026-07-13.** All three derived, winning, blessed and in the runner
    (**26/26 PASS**). Goldilocks is a full **100/100 MAX**.
-6. **Source the 4 missing games** (§3), then add them.
+6. ~~**Source the 4 missing games** (§3), then add them~~ — ✅ **done 2026-07-13**;
+   all four derived, winning, blessed and wired (**30/30 PASS**).
 7. ~~**Investigate** the `coloromc.taf` load failure and the **Topaz** SCARE
    incompatibility~~ — **both DONE (2026-07-13).** coloromc is an ADRIFT 5 game
    (already in the a5 corpus, not a SCARE bug); Topaz was a genuine SCARE

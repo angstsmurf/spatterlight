@@ -73,6 +73,13 @@ topaz_solution.txt|topaz.taf|The two of you set out into the forest.
 thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
+masochists_heaven_solution.txt|1HRGAME.taf|Congratulations!
+griswold_solution.txt|Griswold.taf|And there you have it: the intro
+mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
+# Archie's Birthday is AIF: the game's text is sexually explicit, so its solution
+# and golden are deliberately NOT committed (they are in harness/.gitignore).  The
+# row stays so the regression runs where the files exist; elsewhere it NOSCRIPTs.
+archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued
 EOF
 )
 
@@ -105,6 +112,7 @@ printf "%-34s %-9s %s\n" "--------" "------" "------"
 
 echo "$MAP" | while IFS='|' read -r sol game marker; do
   [ -z "$sol" ] && continue
+  case "$sol" in '#'*) continue ;; esac       # comment row
   case "$sol" in *"$FILTER"*) : ;; *) continue ;; esac
   solpath="$HERE/$sol"
   golden="$HERE/${sol%.txt}.expected.txt"
