@@ -6,7 +6,10 @@
 # committed golden.  A golden MATCH is the pass; an optional per-row win marker
 # guards against a silently-desynced walkthrough being blessed as "passing"
 # (see TODO_plover_walkthroughs.md §6/§7 -- Key & Compass scripts desync on the
-# games' interactive "(Press a key)" pauses).
+# games' interactive "(Press a key)" pauses).  [TODO_plover_walkthroughs.md was
+# pruned 2026-07-14 once every item closed; citations to it here and in the
+# *_walkthrough.md files resolve via git history:
+#   git log --all -- terps/scarier/adrift-walkthroughs/TODO_plover_walkthroughs.md]
 #
 # Usage:
 #   sh run_v4_walkthroughs.sh [substring]        # run + diff, table + exit code
