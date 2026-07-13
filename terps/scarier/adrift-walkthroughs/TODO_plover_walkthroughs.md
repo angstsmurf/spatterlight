@@ -1,5 +1,33 @@
 # TODO — add the "Plover" walkthrough corpus to Scarier's automated testing
 
+> **PARKED 2026-07-13.** Everything below is committed and the tree is green
+> (`make -f Makefile.headless test` exits 0; v4 suite **23/23 PASS**). This
+> session closed: the `make test` wiring (§7), the `coloromc.taf` "load failure"
+> (it is an ADRIFT 5 game — §TL;DR), and **Topaz**, which was never unwinnable —
+> it was a SCARE bug affecting every v4 game (§2, `Topaz_walkthrough.md`, and
+> §7b for the run400 anchors). A second `build.sh` link break was fixed on the
+> way (§4).
+>
+> **Resume points, smallest first:**
+> 1. **Port-based re-derivations** (§5, priority item 5) — *The Thorn*,
+>    *Goldilocks is a FOX!*, *Renegade Brainwave*. All three `.taf`s are on disk
+>    and load; only the *walkthroughs* are for the Inform ports, so each needs
+>    re-deriving against the ADRIFT original with the §6 recipe. This is the
+>    obvious next chunk.
+> 2. **An unexplained Runner divergence in Topaz's conversation menu.** Petter
+>    ran the real ADRIFT 4 Runner and got stuck: after the two numbered answers
+>    every later command replied *"Choose an option to speak"*, as if a menu were
+>    still open. Under SCARE the menu is exactly **two** answers deep (`1` →
+>    Topaz introduces himself → `1` → *"You will explore now, mortal"*) and then
+>    play continues. The menu is not an engine feature — the author faked it with
+>    two dummy rooms (4 and 5, both "Darkness") and tasks whose command is
+>    literally `1`/`2`, each doing a move-player action. So a disagreement here
+>    smells like an **off-by-one in the move-player destination** — the same
+>    family as the restriction bug just fixed, and worth a run400 check of the
+>    move-player action (does it store `roomIndex + 1`?). Topaz still wins under
+>    SCARE regardless; this is about faithfulness, not winnability.
+> 3. **Source the 4 missing games** (§3) — needs downloads, not code.
+
 Pairing + integration plan for the 18 walkthrough web-archives in
 `~/Desktop/Plover adrift walkthroughs/` (David Welbourn's *Key & Compass* /
 Plover.net solutions, plus a few comp round-up pages).
