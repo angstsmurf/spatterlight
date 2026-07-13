@@ -1,0 +1,16 @@
+
+StaticEval
+
+You are in Room
+There is urn, plaque, sign and both here.
+A room.
+
+> plaque
+plaque: 42 points for Rincewind
+
+> sign
+sign: The urn reads Ming.
+
+> both
+both: Rincewind scored 42 by the Ming urn
+[runner] turns=3 leftover=0 running=true

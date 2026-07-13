@@ -20,6 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <algorithm>
 #include <vector>
 #include <map>
 #include <string>
@@ -688,7 +689,10 @@ vector<string> split_lines (const string &data)
 	  if (tmp.size() > 0 && tmp[tmp.size() - 1] == '_')
 	    {
 	      tmp.erase (tmp.size() - 1);
-	      if (tmp[tmp.size() - 1] == '_')
+	      /* Re-check emptiness: a line consisting of nothing but the "_"
+	       * continuation marker leaves nothing behind, and tmp.size() - 1
+	       * would wrap to SIZE_MAX. */
+	      if (tmp.size() > 0 && tmp[tmp.size() - 1] == '_')
 		tmp.erase (tmp.size() - 1);
 	      if (i < data.length() && data[i] == '\r' && data[i+1] == '\n')
 		++ i;
@@ -804,10 +808,15 @@ static bool is_typelib (const string &name)
   return base == "typelib.qlb" || base == "typelib.lib";
 }
 
-static void handle_includes (const vector<string> &in_data, const string &filename, vector<string> &out_data, GeasInterface *gi)
+/* `open` holds the files whose !includes are currently being expanded, from the
+ * top-level game file down.  A file that !includes something already on that
+ * list -- itself, most simply -- would otherwise recurse until the stack blows,
+ * so we report the cycle and skip that one include instead. */
+static void handle_includes (const vector<string> &in_data, const string &filename, vector<string> &out_data, GeasInterface *gi, vector<string> &open)
 {
   string line, tok;
   std::string::size_type tok_start, tok_end;
+  open.push_back (lcase (filename));
   for (uint ln = 0; ln < in_data.size(); ln ++)
     {
       line = in_data[ln];
@@ -829,23 +838,31 @@ static void handle_includes (const vector<string> &in_data, const string &filena
 	   * its own directives are processed normally). */
 	  if (is_typelib (param_contents (tok)))
 	    {
-	      handle_includes (split_lines (geas_builtin_typelib), "typelib.qlb",
-			       out_data, gi);
+	      if (std::find (open.begin(), open.end(), string ("typelib.qlb"))
+		  == open.end())
+		handle_includes (split_lines (geas_builtin_typelib), "typelib.qlb",
+				 out_data, gi, open);
 	      continue;
 	    }
 	  //handle_includes (split_lines (gi->get_file (param_contents (tok))), out_data, gi);
 	  string newname = gi->absolute_name (param_contents(tok), filename);
-	  handle_includes (split_lines (gi->get_file (newname)), newname, out_data, gi);
+	  if (std::find (open.begin(), open.end(), lcase (newname)) != open.end())
+	    {
+	      gi->debug_print ("Ignoring recursive !include of " + newname);
+	      continue;
+	    }
+	  handle_includes (split_lines (gi->get_file (newname)), newname, out_data, gi, open);
 	}
       else if (tok == "!QDK")
 	{
-	  while (ln < in_data.size() && 
+	  while (ln < in_data.size() &&
 		 first_token (in_data[ln], tok_start, tok_end) != "!end")
 	    ++ ln;
 	}
       else
 	out_data.push_back (line);
     }
+  open.pop_back ();
 }
 
 bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
@@ -863,8 +880,8 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   // preprocessing step 0:
   // Loop through the lines.  Replace !include with appropriate text
   
-  vector<string> v2;
-  handle_includes (v, fname, v2, gi);
+  vector<string> v2, open_includes;
+  handle_includes (v, fname, v2, gi, open_includes);
   v.clear();
 
   map <string, vector<string> > addtos;

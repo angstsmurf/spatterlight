@@ -84,6 +84,7 @@ class GeasInputStream {
 public:
   GeasInputStream (const string &d) : data (d), pos (0) {}
   bool eof () const { return pos >= data.size(); }
+  size_t remaining () const { return pos < data.size() ? data.size() - pos : 0; }
   char get_char () { return pos < data.size() ? data[pos++] : char (0); }
   string get_str ()
   {
@@ -135,11 +136,16 @@ void write_to (GeasOutputStream &gos, const TimerRecord &tr)
 }
 
 
+/* The record's upper bound is written as its element count, so write exactly
+ * max() + 1 elements: an (unexpected) empty record would otherwise announce one
+ * element and write none, leaving the reader to consume the following field as
+ * this array's data.  get() serves the usual "undefined" placeholder for any
+ * index the record does not actually hold. */
 void write_to (GeasOutputStream &gos, const SVarRecord &svr)
 {
   gos.put (svr.name);
   gos.put (svr.max());
-  for (size_t i = 0; i < svr.size(); i ++)
+  for (size_t i = 0; i <= svr.max(); i ++)
     {
       gos.put (svr.get(i));
     }
@@ -149,7 +155,7 @@ void write_to (GeasOutputStream &gos, const IVarRecord &ivr)
 {
   gos.put (ivr.name);
   gos.put (ivr.max());
-  for (size_t i = 0; i < ivr.size(); i ++)
+  for (size_t i = 0; i <= ivr.max(); i ++)
     {
       gos.put (ivr.get(i));
     }
@@ -206,31 +212,56 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   gs.running = true;
   gs.location = gis.get_str();
 
-  uint n;
-  n = gis.get_uint();
-  for (uint i = 0; i < n; i ++)
+  /* A save file is untrusted input, and every count in it is a loop bound.  No
+   * record or array element can occupy less than one byte on the wire (even an
+   * empty string costs its NUL), so a count exceeding the bytes left in the
+   * stream cannot be honest: reject the save rather than trying to allocate for
+   * it.  Without this a corrupt (or hostile) count of a few billion sends us
+   * resizing/pushing until we run out of memory. */
+  auto count = [&gis] (size_t &out) -> bool
+    {
+      size_t n = gis.get_uint();
+      if (n > gis.remaining()) return false;
+      out = n;
+      return true;
+    };
+  /* Same, for an array's highest index: it holds max()+1 elements. */
+  auto elem_count = [&gis] (size_t &out) -> bool
+    {
+      size_t mx = gis.get_uint();
+      if (mx >= gis.remaining()) return false;
+      out = mx + 1;
+      return true;
+    };
+
+  size_t n, cnt;
+  if (!count (n)) return false;
+  for (size_t i = 0; i < n; i ++)
     { string nm = gis.get_str(), d = gis.get_str(); gs.add_prop (nm, d); }
-  n = gis.get_uint();
-  for (uint i = 0; i < n; i ++)
+  if (!count (n)) return false;
+  for (size_t i = 0; i < n; i ++)
     { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
       o.invisible = (gis.get_char() == 0); o.parent = gis.get_str(); gs.objs.push_back (o); }
-  n = gis.get_uint();
-  for (uint i = 0; i < n; i ++)
+  if (!count (n)) return false;
+  for (size_t i = 0; i < n; i ++)
     { string s = gis.get_str(), d = gis.get_str(); gs.exits.push_back (ExitRecord (s, d)); }
-  n = gis.get_uint();
-  for (uint i = 0; i < n; i ++)
+  if (!count (n)) return false;
+  for (size_t i = 0; i < n; i ++)
     { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
       t.interval = gis.get_uint(); t.timeleft = gis.get_uint(); gs.timers.push_back (t); }
-  n = gis.get_uint();
-  for (uint i = 0; i < n; i ++)
-    { SVarRecord v; v.name = gis.get_str(); uint mx = gis.get_uint();
-      for (uint j = 0; j <= mx; j ++) v.set (j, gis.get_str()); gs.svars.push_back (v); }
-  n = gis.get_uint();
-  for (uint i = 0; i < n; i ++)
-    { IVarRecord v; v.name = gis.get_str(); uint mx = gis.get_uint();
-      for (uint j = 0; j <= mx; j ++) v.set (j, gis.get_int()); gs.ivars.push_back (v); }
+  if (!count (n)) return false;
+  for (size_t i = 0; i < n; i ++)
+    { SVarRecord v; v.name = gis.get_str();
+      if (!elem_count (cnt)) return false;
+      for (size_t j = 0; j < cnt; j ++) v.set (j, gis.get_str()); gs.svars.push_back (v); }
+  if (!count (n)) return false;
+  for (size_t i = 0; i < n; i ++)
+    { IVarRecord v; v.name = gis.get_str();
+      if (!elem_count (cnt)) return false;
+      for (size_t j = 0; j < cnt; j ++) v.set (j, gis.get_int()); gs.ivars.push_back (v); }
   if (!gis.eof())   // items were appended by our serializer
-    { n = gis.get_uint(); for (uint i = 0; i < n; i ++) gs.items.push_back (gis.get_str()); }
+    { if (!count (n)) return false;
+      for (size_t i = 0; i < n; i ++) gs.items.push_back (gis.get_str()); }
   return true;
 }
 
@@ -577,8 +608,8 @@ ostream &operator<< (ostream &o, const GeasState &gs)
     o << "    " << i << ": " << gs.svars[i] << "\n";
 
   o << "integer variables:\n";
-  for (size_t i = 0; i < gs.svars.size(); i ++)
-    o << "    " << i << ": " << gs.svars[i] << "\n";
+  for (size_t i = 0; i < gs.ivars.size(); i ++)
+    o << "    " << i << ": " << gs.ivars[i] << "\n";
 
   return o;
 }

@@ -229,14 +229,20 @@ vector<string> split_f_args (const string &s)
   vector<string> rv = split_param (s);
   for (auto &i: rv)
     {
-      const string &tmp = i;
-      if (tmp[0] == '_')
+      /* An empty argument -- "$f()$", or the middle of "$f(a;;b)$" -- made
+       * i.length() - 1 wrap to SIZE_MAX, reading (and, if that stray byte
+       * happened to be '_', writing) outside the string. */
+      if (i.empty ())
+	continue;
+      /* Quest brackets an argument in underscores to protect leading/trailing
+       * spaces; turn those back into the spaces they stand for. */
+      if (i[0] == '_')
 	{
 	  i[0] = ' ';
 	}
-      if (tmp[tmp.length() - 1] == '_')
+      if (i[i.length() - 1] == '_')
 	{
-	  i[tmp.length() - 1] = ' ';
+	  i[i.length() - 1] = ' ';
 	}
     }
   return rv;

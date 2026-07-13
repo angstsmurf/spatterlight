@@ -1,4 +1,7 @@
 /geas_walkthrough_runner
+/geas_unit_tests
+*.dSYM/
 
 # Copyrighted Quest game files used by run_walkthroughs.sh — kept local-only.
+# The fixtures/ games are ours, and are committed.
 /games/

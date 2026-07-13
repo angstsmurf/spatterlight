@@ -72,7 +72,11 @@ class geas_implementation : public GeasRunner
   //GeasInterface *gi;
   GeasFile gf;
   //bool running;
-  bool dont_process, outputting;
+  /* `outputting` gates every print path, and `dont_process` the command
+   * dispatch, but both are only assigned once a game has loaded: a game that
+   * fails to parse would leave them indeterminate while the interface is still
+   * live.  Default to the values a fresh game gets. */
+  bool dont_process = false, outputting = true;
   /* Depth of the undo history.  GeasState snapshots are large (a full copy of
    * the world is taken every turn), so this is a deliberately modest fixed cap
    * rather than unlimited undo.  LimitStack is a ring buffer holding this many
@@ -220,6 +224,13 @@ public:
   /* The room/inventory an object ultimately sits in, walking up through any
    * containers/surfaces it is nested in. */
   std::string room_of (const std::string &obj) const;
+  /* Depth cap on every walk up the object parent chain.  A game can create a
+   * cycle in that chain (put the bag in the box, then the box in the bag), so
+   * an unbounded walk is a hang / stack overflow, not a theoretical concern. */
+  static constexpr int kMaxContainerDepth = 64;
+  /* True if `outer` is `inner` itself or already nested inside it -- i.e. moving
+   * inner into outer would make the parent chain a cycle. */
+  bool is_inside (const std::string &inner, const std::string &outer) const;
   /* Whether the interior of container/surface P currently makes its contents
    * available (open|transparent & seen, or a surface; and P itself reachable). */
   bool content_available (const std::string &P) const;

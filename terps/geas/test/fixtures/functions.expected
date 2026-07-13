@@ -1,0 +1,29 @@
+
+Functions
+
+You are in Room
+A room.
+
+> mid
+mid3: bcd
+mid2: def
+mid1: a
+
+> zeroarg
+zeroarg: called-ok
+
+> randsame
+randsame: -5
+
+> randneg
+randneg: in range
+
+> randrev
+randrev: in range
+
+> randzero
+randzero: 0
+
+> ubound
+ubound: 3
+[runner] turns=7 leftover=0 running=true

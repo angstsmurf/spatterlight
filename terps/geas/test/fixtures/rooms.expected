@@ -1,0 +1,32 @@
+
+Rooms
+
+You are in Hall
+There is vase and coin here.
+You can go out to the walled garden.
+A hall.
+
+> take vase
+You pick it up.
+
+> drop vase
+The vase is far too heavy to put down here.
+
+> take coin
+You pick it up.
+
+> drop coin
+You drop it.
+
+> doorways
+out: walled garden
+display: the walled garden
+
+> out
+You are in walled garden
+A garden.
+
+> look
+You are in walled garden
+A garden.
+[runner] turns=7 leftover=0 running=true

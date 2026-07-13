@@ -619,13 +619,25 @@ bool geas_implementation::container_is_open (const string &name) const
 
 bool geas_implementation::container_in_scope (const string &name, const vector<string> &where) const
 {
-  for (const auto &o: state.objs)
+  /* Walk up the container chain iteratively, bounded by kMaxContainerDepth: a
+   * game can make the chain a cycle (put the bag in the box and the box in the
+   * bag), and recursing on the parent would then never bottom out.  See
+   * room_of, which is bounded the same way. */
+  string cur = name;
+  for (int guard = 0; guard < kMaxContainerDepth; guard++)
     {
-      if (!ci_equal (o.name, name))
-	continue;
-      bool is_surface = has_obj_property (o.name, "surface");
-      if ((!has_obj_property (o.name, "container") && !is_surface) ||
-	  has_obj_property (o.name, "hidden"))
+      const ObjectRecord *obj = NULL;
+      for (const auto &o: state.objs)
+	if (ci_equal (o.name, cur))
+	  {
+	    obj = &o;
+	    break;
+	  }
+      if (obj == NULL)
+	return false;
+      bool is_surface = has_obj_property (obj->name, "surface");
+      if ((!has_obj_property (obj->name, "container") && !is_surface) ||
+	  has_obj_property (obj->name, "hidden"))
 	return false;
       /* Reachability of the contents (Quest's rule): a surface's are always
        * reachable; a container's only when it is open or transparent (you can
@@ -634,18 +646,18 @@ bool geas_implementation::container_in_scope (const string &name, const vector<s
        * the contents of an as-yet-undiscovered container are out of scope. */
       if (!is_surface)
 	{
-	  if (!container_is_open (o.name) && !has_obj_property (o.name, "transparent"))
+	  if (!container_is_open (obj->name) && !has_obj_property (obj->name, "transparent"))
 	    return false;
-	  if (!has_obj_property (o.name, "seen"))
+	  if (!has_obj_property (obj->name, "seen"))
 	    return false;
 	}
       for (const auto &loc: where)
-	if (loc == "game" || ci_equal (o.parent, loc))
+	if (loc == "game" || ci_equal (obj->parent, loc))
 	  return true;
       /* the container may itself sit inside another open container */
-      return container_in_scope (o.parent, where);
+      cur = obj->parent;
     }
-  return false;
+  return false;   /* ran off the depth cap: the chain must be a cycle */
 }
 
 string geas_implementation::obj_parent (const string &obj) const
@@ -659,7 +671,7 @@ string geas_implementation::obj_parent (const string &obj) const
 string geas_implementation::room_of (const string &obj) const
 {
   string p = obj_parent (obj);
-  for (int guard = 0; guard < 64 && p != ""; guard++)
+  for (int guard = 0; guard < kMaxContainerDepth && p != ""; guard++)
     {
       if (!has_obj_property (p, "container") && !has_obj_property (p, "surface"))
 	return p;            /* p is a room/inventory, not a container */
@@ -668,27 +680,51 @@ string geas_implementation::room_of (const string &obj) const
   return p;
 }
 
+bool geas_implementation::is_inside (const string &inner, const string &outer) const
+{
+  /* Would putting `inner` into `outer` nest a container inside itself?  True if
+   * they are the same object, or if outer already sits (however deeply) within
+   * inner.  Bounded like the other chain walks so an already-cyclic chain -- a
+   * state an older save may hold -- cannot hang us. */
+  if (ci_equal (inner, outer))
+    return true;
+  string p = obj_parent (outer);
+  for (int guard = 0; guard < kMaxContainerDepth && p != ""; guard++)
+    {
+      if (ci_equal (p, inner))
+	return true;
+      p = obj_parent (p);
+    }
+  return false;
+}
+
 bool geas_implementation::content_available (const string &P) const
 {
-  bool surf = has_obj_property (P, "surface");
-  if (!surf && !has_obj_property (P, "container"))
-    return false;
-  if (!surf)
+  /* Iterative, bounded walk up the container chain: see container_in_scope. */
+  string cur = P;
+  for (int guard = 0; guard < kMaxContainerDepth; guard++)
     {
-      if (!container_is_open (P) && !has_obj_property (P, "transparent"))
+      bool surf = has_obj_property (cur, "surface");
+      if (!surf && !has_obj_property (cur, "container"))
 	return false;
-      if (!has_obj_property (P, "seen"))
-	return false;
+      if (!surf)
+	{
+	  if (!container_is_open (cur) && !has_obj_property (cur, "transparent"))
+	    return false;
+	  if (!has_obj_property (cur, "seen"))
+	    return false;
+	}
+      /* Is cur itself reachable?  If it sits directly in a room/inventory, it is
+       * available unless it has been (authored-)hidden.  If it is nested inside
+       * another container, its availability is that container's.  We deliberately
+       * read the parent chain's *state* (not the sweep-managed hidden flags) so
+       * the result is independent of the order objects are swept. */
+      string pp = obj_parent (cur);
+      if (pp == "" || (!has_obj_property (pp, "container") && !has_obj_property (pp, "surface")))
+	return !has_obj_property (cur, "hidden");
+      cur = pp;
     }
-  /* Is P itself reachable?  If it sits directly in a room/inventory, it is
-   * available unless it has been (authored-)hidden.  If it is nested inside
-   * another container, its availability is that container's.  We deliberately
-   * read the parent chain's *state* (not the sweep-managed hidden flags) so the
-   * result is independent of the order objects are swept. */
-  string pp = obj_parent (P);
-  if (pp == "" || (!has_obj_property (pp, "container") && !has_obj_property (pp, "surface")))
-    return !has_obj_property (P, "hidden");
-  return content_available (pp);
+  return false;   /* ran off the depth cap: the chain must be a cycle */
 }
 
 void geas_implementation::update_container_visibility ()
@@ -1251,7 +1287,11 @@ void geas_implementation::look()
    * supplementary copy.  Do this whether or not the room has a custom
    * description -- otherwise the player has no way to know which way to go out
    * of a custom-described room. */
-  if ((tmp = get_svar ("quest.doorways.out")) != "")
+  /* The *display* form, so an "out <the; town>" prefix shows up here ("You can
+   * go out to the town."), as it does in the typelib's own version of this line
+   * and in the "places" line below. */
+  if (get_svar ("quest.doorways.out") != ""
+      && (tmp = get_svar ("quest.doorways.out.display")) != "")
     print_formatted ("You can go out to " + tmp + ".");
   if ((tmp = get_svar ("quest.doorways.dirs")) != "")
     print_eval ("You can go #quest.doorways.dirs#.");
@@ -1675,9 +1715,11 @@ void geas_implementation::regen_var_dirs()
       std::string::size_type i = out_dest.find (';');
       GEAS_DBG << ", i == " << i;
       string prefix = "";
-      if (i != string::npos) 
+      if (i != string::npos)
 	{
-	  prefix = trim (out_dest.substr (0, i-1));
+	  /* "out <prefix; destination>" -- the prefix is everything before the
+	   * semicolon, as in get_places (). */
+	  prefix = trim (out_dest.substr (0, i));
 	  out_dest = trim (out_dest.substr (i + 1));
 	  GEAS_DBG << "; prefix == {" << prefix << "}, out_dest == {" << out_dest << "}";
 	}
@@ -1689,12 +1731,15 @@ void geas_implementation::regen_var_dirs()
 
       GEAS_DBG << ", tmp == {" << tmp << "}";
 
-      if (tmp != "")
-	tmp = "|b" + tmp + "|xb";
-      else if (prefix != "")
-	tmp = prefix + " |b" + out_dest + "|xb";
-      else
-	tmp = "|b" + out_dest + "|xb";
+      /* The prefix is the article/preposition the author put in front of the
+       * destination ("out <the; town>" -> "the |btown|xb"), so it goes outside
+       * the bold, exactly as get_places () renders a place's prefix.  It used to
+       * be dropped whenever the destination had a display name -- i.e. always,
+       * for a room that exists -- which left it visible only in the one case it
+       * was not written for. */
+      if (tmp == "")
+	tmp = out_dest;
+      tmp = (prefix != "" ? prefix + " " : "") + "|b" + tmp + "|xb";
 
       GEAS_DBG << ",    final value {" << tmp << "}" << endl;
 
@@ -2710,6 +2755,15 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    set_svar ("quest.put.object", first);
 	    run_script_as (second, script);
 	  }
+	else if (is_inside (first, second))
+	  /* Refuse to nest a container inside itself: the parent chain is walked
+	   * all over the engine (scope, visibility, the objects pane), and a cycle
+	   * in it has no sane reading -- both objects would sit nowhere.  Quest's
+	   * typelib never guards this (its own engine does not walk the chain), so
+	   * there is no Quest wording to borrow; report it as an ordinary refused
+	   * put, which keeps the vocabulary Quest does have and lets a game
+	   * override the text with "error <defaultput; ...>" like any other. */
+	  display_error ("defaultput", first);
 	else if (has_obj_property (second, "surface") ||
 		 (has_obj_property (second, "container") && container_is_open (second)))
 	  {
@@ -2829,8 +2883,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		    {
 		      tok = next_token (line, c1, c2);
 		      move (obj, state.location);
+		      /* param_contents, not the raw token: print_eval does not strip
+		       * the <angle brackets>, so the message was shown with them. */
 		      if (is_param (tok))
-			print_eval (tok);
+			print_eval (param_contents (tok));
 		      else
 			gi->debug_print ("Expected param after drop everywhere in " + line);
 		      return true;
@@ -2838,8 +2894,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		  // SENSITIVE?
 		  if (tok == "nowhere")
 		    {
+		      /* Advance to the message first: this tested is_param() on the
+		       * keyword "nowhere" itself, which is never a param, so the
+		       * refusal message was never printed. */
+		      tok = next_token (line, c1, c2);
 		      if (is_param (tok))
-			print_eval (tok);
+			print_eval (param_contents (tok));
 		      else
 			gi->debug_print ("Expected param after drop nowhere in " + line);
 		      return true;
@@ -3639,6 +3699,13 @@ void geas_implementation::run_script (const string &s, string &rv)
       else if (is_param (tok))
 	{
 	  vector<string> args = split_param (eval_param (tok));
+	  if (args.size() < 3)
+	    {
+	      /* args[1] / args[2] used to be read unconditionally, so a truncated
+	       * "for <i; 5>" indexed off the end of the vector. */
+	      gi->debug_print ("Expected <variable; start; end[; step]> in " + s);
+	      return;
+	    }
 	  string varname = args[0];
 	  string script = s.substr (c2);
 	  int startindex = parse_int (args[1]);
@@ -3646,7 +3713,19 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  int step = 1;
 	  if (args.size() > 3)
 	    step = parse_int (args[3]);
-	  for (set_ivar (varname, startindex); get_ivar (varname) < endindex;
+	  if (step == 0)
+	    {
+	      gi->debug_print ("Zero step would loop forever in " + s);
+	      return;
+	    }
+	  /* Quest's FOR includes its end value and counts down on a negative step
+	   * (it is VB's For/Next).  The old strict "< endindex" dropped the final
+	   * iteration of every loop -- the bundled type library walks a string with
+	   * "for <n; 1; %lengthof%>", so its last character was never seen -- and
+	   * ran a negative step zero times. */
+	  for (set_ivar (varname, startindex);
+	       step > 0 ? get_ivar (varname) <= endindex
+			: get_ivar (varname) >= endindex;
 	       set_ivar (varname, get_ivar (varname) + step))
 	    run_script (script);
 	  return;
@@ -4443,6 +4522,11 @@ bool geas_implementation::eval_cond (const string &s)
       tok = eval_param (tok);
       std::string::size_type index;
       // SENSITIVE?
+      /* preprocess () rewrites "if (a <= b)" to the canonical "is <a;lt=;b>",
+       * so the operator is always preceded by a ';' separator: the left-hand
+       * side is substr (0, index - 1), dropping it.  The numeric branches below
+       * can afford substr (0, index) because eval_double () stops at the
+       * trailing ';', but a string compare cannot. */
       if ((index = tok.find ("!=;")) != string::npos)
 	{
 	  std::string::size_type index1 = index;
@@ -4451,7 +4535,7 @@ bool geas_implementation::eval_cond (const string &s)
 	      -- index1;
 	    } while (index1 > 0 && tok[index1] != ';');
 
-	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index1))) 
+	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index1)))
 	       << "> != <" << trim_braces (trim (tok.substr (index + 3)))
 	       << ">\n";
 	  return ci_notequal (trim_braces (trim (tok.substr (0, index - 1))),
@@ -4459,7 +4543,7 @@ bool geas_implementation::eval_cond (const string &s)
 	}
       if ((index = tok.find ("lt=;")) != string::npos)
 	{
-	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index))) 
+	  GEAS_DBG << "Comparing <" << trim_braces (trim (tok.substr (0, index)))
 	       << "> < <" << trim_braces (trim (tok.substr (index + 4)))
 	       << ">\n";
 	  return eval_double (tok.substr (0, index - 1))
@@ -4747,16 +4831,30 @@ string geas_implementation::run_function (const string &pname)
   // SENSITIVE?
   else if (pname == "mid")
     {
-      if (function_args.size() != 3)
+      /* Quest's Mid is 1-based (it is VB's), and its length argument is
+       * optional: $mid(<s>; <start>)$ returns the rest of the string from
+       * start.  The bundled type library uses both forms (TLFcontentFormat
+       * scans a string with $mid(#s#;%n%;1)$ for n = 1..lengthof, then calls
+       * the 2-argument form), so a 0-based start or a hard 3-argument
+       * requirement silently corrupts its output. */
+      if (function_args.size() != 2 && function_args.size() != 3)
 	return bad_arg_count(pname);
 
-      uint start = parse_int (function_args[1]),
-	len = parse_int (function_args[2]);
-      if (start > function_args[0].length())
+      const string &str = function_args[0];
+      int start = parse_int (function_args[1]);
+      if (start < 1)
+	start = 1;
+      size_t pos = (size_t) (start - 1);
+      if (pos >= str.length())
 	return "";
-      if (start + len > function_args[0].length())
-	return function_args[0].substr (start);
-      return function_args[0].substr (start, len);
+      if (function_args.size() == 2)
+	return str.substr (pos);
+      int len = parse_int (function_args[2]);
+      if (len <= 0)
+	return "";
+      if (pos + (size_t) len > str.length())
+	return str.substr (pos);
+      return str.substr (pos, (size_t) len);
     }
   // SENSITIVE?
   else if (pname == "right")
@@ -4826,14 +4924,27 @@ string geas_implementation::run_function (const string &pname)
     {
       if (function_args.size() != 2)
 	return bad_arg_count(pname);
-      uint lower = parse_int (function_args[0]),
+      /* Signed, and widened, on purpose.  The bounds were read into uints, so a
+       * negative range ($rand(-3;3)$) wrapped into a huge positive result, and
+       * a reversed one ($rand(1;%n%)$ with n == 0) made the modulus zero -- a
+       * division by zero, i.e. undefined: observed as a garbage value at -O2,
+       * but a SIGFPE is equally allowed.  A reversed pair is now read as the
+       * range the game plainly meant. */
+      long long lower = parse_int (function_args[0]),
 	upper = parse_int (function_args[1]);
-      
+      if (upper < lower)
+	{
+	  long long tmp = lower;
+	  lower = upper;
+	  upper = tmp;
+	}
+      unsigned long long range = (unsigned long long) (upper - lower) + 1ULL;
+
       // TODO: change this to use the high order bits of the random # instead
 #ifdef SPATTERLIGHT
-      return string_int (lower + (erkyrath_random() % (upper + 1 - lower)));
+      return string_int (lower + (long long) (erkyrath_random() % range));
 #else
-      return string_int (lower + (rand() % (upper + 1 - lower)));
+      return string_int (lower + (long long) (rand() % range));
 #endif
     }
   // SENSITIVE?

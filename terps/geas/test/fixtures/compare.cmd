@@ -1,0 +1,13 @@
+le
+leq
+ge
+geq
+lt
+gt
+ne
+nediff
+ltgt
+eq
+isequal
+both
+either

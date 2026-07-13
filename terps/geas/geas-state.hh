@@ -67,7 +67,11 @@ public:
   SVarRecord () {}
   SVarRecord (const std::string &in_name) : name (in_name) { set (0, ""); }
   size_t size() const { return data.size(); }
-  size_t max() const { return size() - 1; }
+  /* Highest defined index.  A default-constructed record holds no elements at
+   * all, so guard the subtraction: an unsigned size() - 1 would wrap to
+   * SIZE_MAX, which the serializer would then happily write out as this
+   * array's upper bound. */
+  size_t max() const { return size() ? size() - 1 : 0; }
   void set (size_t i, const std::string &val) { if (i >= size()) data.resize(i+1); data[i] = val; }
   std::string get (size_t i) const { if (i < size()) return data[i]; return "!";}
   void set (const std::string &val) { data[0] = val; }
@@ -89,7 +93,7 @@ public:
   IVarRecord () {}
   IVarRecord (const std::string &in_name) : name (in_name) { set (0, 0.0); }
   size_t size() const { return data.size(); }
-  size_t max() const { return size() - 1; }
+  size_t max() const { return size() ? size() - 1 : 0; }   /* see SVarRecord::max */
   void set (size_t i, double val) { if (i >= size()) data.resize(i+1); data[i] = val; }
   void set (size_t i, int val) { set (i, (double) val); }
   int get (size_t i) const { if (i < size()) return as_int (data[i]); else return -32767;}

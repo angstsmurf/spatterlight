@@ -1,0 +1,13 @@
+
+IncludeCycle
+
+You are in Room
+A room.
+
+> lib
+fromlib: ok
+
+> look
+You are in Room
+A room.
+[runner] turns=2 leftover=0 running=true

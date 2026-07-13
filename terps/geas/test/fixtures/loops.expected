@@ -1,0 +1,22 @@
+
+Loops
+
+You are in Room
+A room.
+
+> up
+up: 1,2,3,
+
+> down
+down: 3,2,1,
+
+> single
+single: 2,
+
+> step2
+step2: 1,3,5,
+
+> badfor
+badfor: before
+badfor: survived
+[runner] turns=5 leftover=0 running=true

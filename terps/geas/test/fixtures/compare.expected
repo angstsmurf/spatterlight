@@ -1,0 +1,45 @@
+
+Compare
+
+You are in Room
+A room.
+
+> le
+le: no
+
+> leq
+leq: yes
+
+> ge
+ge: no
+
+> geq
+geq: yes
+
+> lt
+lt: yes
+
+> gt
+gt: no
+
+> ne
+ne: no
+
+> nediff
+nediff: yes
+
+> ltgt
+ltgt: yes
+
+> eq
+eq: yes
+
+> isequal
+isequal: yes
+
+> both
+both: yes
+
+> either
+either: yes
+[runner] turns=13 leftover=0 running=true

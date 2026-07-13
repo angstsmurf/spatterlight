@@ -1,0 +1,26 @@
+
+Containers
+
+You are in Room
+There is bag and box here.
+A plain room.
+
+> take bag
+You pick it up.
+
+> take box
+You pick it up.
+
+> put bag in bag
+You can't put it there.
+
+> put bag in box
+You put bag in box.
+
+> put box in bag
+You can't put it there.
+
+> look
+You are in Room
+A plain room.
+[runner] turns=6 leftover=0 running=true

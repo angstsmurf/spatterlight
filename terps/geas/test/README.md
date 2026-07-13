@@ -1,16 +1,59 @@
-# geas headless walkthrough runner
+# geas tests
 
-`geas_walkthrough_runner` drives the geas core directly (no Glk) so a Quest
-game can be played from a command script and checked for completion in a
-script/CI. It unity-includes the engine sources from `../`, the same approach
-as `SpatterlightTests/GeasRegressionTests.mm`.
+Three layers, in increasing distance from a real game:
+
+| what | needs | catches |
+| --- | --- | --- |
+| `run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
+| `geas_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
+| `run_walkthroughs.sh` | the game corpus (local) | regressions in 21 real games |
+
+`make check` runs the first two — they are self-contained, so they are the ones
+worth wiring into CI.
 
 ## Build
 
 ```sh
 make            # builds ./geas_walkthrough_runner
+make check      # + ./geas_unit_tests, then runs both test suites
+make asan       # same under AddressSanitizer/UBSan -- see the warning below
 make clean
 ```
+
+## Fixtures (`fixtures/`, `run_fixtures.sh`)
+
+Small hand-written `.asl` games, each paired with a `.cmd` script and a golden
+`.expected` transcript. They exist because **the game corpus cannot catch these
+bugs**: a shipped game only walks the paths its author happened to walk, so a
+crash or a wrong string in an unvisited corner leaves all 21 walkthroughs
+byte-identical. Every fixture here was checked against a pre-fix engine and
+either crashes it or produces different output; each file's header comment says
+what it guards.
+
+```sh
+./run_fixtures.sh           # PASS/FAIL table
+./run_fixtures.sh --bless   # regenerate the .expected files
+```
+
+The transcripts must be reproducible, so the seed is fixed and no fixture ever
+prints a raw random number — `rand()` differs between C libraries. A fixture
+that wants to check a random value asserts a *range* instead (see
+`functions.asl`).
+
+> **Watch out:** several of the bugs these guard are undefined behaviour, and a
+> plain `-O2` build does not fault on them — it silently returns garbage. A
+> fixture that passes at `-O2` on a knowingly-broken engine is not proof of
+> anything; run `make asan` to see them. `source.asl` is the clearest example:
+> it is a clean pass at `-O2` either way, and a heap-buffer-overflow under ASan
+> before the fix.
+
+## Unit tests (`geas_unit_tests.cc`)
+
+For engine code a fixture cannot reach, because no *player input* reaches it: a
+save file is untrusted binary input (every count in it is a loop bound, so a
+corrupt one used to be an out-of-memory), and a record holding no elements
+cannot be conjured from a game script. Run `./geas_unit_tests`; exit 0 is a
+pass.
 
 ## Usage
 

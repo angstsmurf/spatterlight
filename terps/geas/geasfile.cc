@@ -606,16 +606,22 @@ void GeasFile::register_block (const string &blockname, const string &blocktype)
 
 string GeasFile::static_svar_lookup (const string &varname) const
 {
+  /* block("variable", i), not blocks[i]: size("variable") counts the variable
+   * blocks, while blocks[] holds every block of every type in file order, so
+   * indexing one by the other's count scanned unrelated blocks (typically the
+   * game block and the first rooms) and never reached the real variables. */
   for (size_t i = 0; i < size("variable"); i ++)
-    if (ci_equal (blocks[i].name, varname))
+    {
+      const GeasBlock &vb = block ("variable", i);
+      if (ci_equal (vb.name, varname))
       {
 	string rv;
 	string tok;
 	std::string::size_type c1, c2;
 	bool found_typeline = false;
-	for (size_t j = 0; j < blocks[i].data.size(); j ++)
+	for (size_t j = 0; j < vb.data.size(); j ++)
 	  {
-	    string line = blocks[i].data[j];
+	    string line = vb.data[j];
 	    tok = first_token (line, c1, c2);
 	    // SENSITIVE?
 	    if (tok == "type")
@@ -644,20 +650,23 @@ string GeasFile::static_svar_lookup (const string &varname) const
 	GEAS_DBG << "static_svar_lookup(" << varname << ") -> \"" << rv << "\"" << endl;
 	return rv;
       }
+    }
   debug_print ("Variable <" + varname + "> not found.");
   return "";
 }
 
 string GeasFile::static_ivar_lookup (const string &varname) const
 {
+  /* block("variable", i), not blocks[i] -- see static_svar_lookup. */
   for (size_t i = 0; i < size("variable"); i ++)
     {
-      if (ci_equal (blocks[i].name, varname))
+      const GeasBlock &vb = block ("variable", i);
+      if (ci_equal (vb.name, varname))
 	{
 	  string rv;
 	  string tok;
 	  std::string::size_type c1=0, c2;
-	  for (const string &line: blocks[i].data)
+	  for (const string &line: vb.data)
 	    {
 	      tok = first_token (line, c1, c2);
 	      // SENSITIVE?
@@ -703,19 +712,24 @@ string GeasFile::static_eval (const string &input) const
 	  size_t k;
 	  for (k = i + 1; k < j && input[k] != ':'; k ++)
 	    ;
-	  if (k == ':')
+	  /* k < j means we found a ':', i.e. this is "#object:property#" rather
+	   * than a plain "#variable#".  The test used to be "k == ':'", comparing
+	   * the *index* against the character ':' (58), so this branch effectively
+	   * never ran -- and every substring length inside it was left off by one,
+	   * unnoticed.  Those are corrected below. */
+	  if (k < j)
 	    {
 	      string objname;
 	      if (input[i+1] == '(' && input[k-1] == ')')
-		objname = static_svar_lookup (input.substr (i+2, k-i-4));
+		objname = static_svar_lookup (input.substr (i+2, k-i-3));
 	      else
-		objname = input.substr (i+1, k-i-2);
+		objname = input.substr (i+1, k-i-1);
 	      GEAS_DBG << "  objname == '" << objname << endl;
 	      //rv += get_obj_property (objname, input.substr (k+1, j-k-2));
 	      string tmp;
 	      bool had_var;
 	      
-	      string objprop = input.substr (k+1, j-k-2);
+	      string objprop = input.substr (k+1, j-k-1);
 	      GEAS_DBG << "  objprop == " << objprop << endl;
 	      had_var = get_obj_property (objname, objprop, tmp);
 	      rv += tmp;
@@ -734,11 +748,14 @@ string GeasFile::static_eval (const string &input) const
       else if (input[i] == '%')
 	{
 	  size_t j;
-	  for (j = i; j < input.length() && input[j] != '%'; j ++)
+	  /* Start past the opening '%': starting *at* it matched immediately, so the
+	   * name came out empty, the substring length underflowed to a huge count,
+	   * and i never advanced past the '%'. */
+	  for (j = i + 1; j < input.length() && input[j] != '%'; j ++)
 	    ;
 	  if (j == input.length())
 	    throw string ("Error processing '" + input + "', unmatched %");
-	  rv += static_ivar_lookup (input.substr (i+1, j-i-2));
+	  rv += static_ivar_lookup (input.substr (i+1, j-i-1));
 	  i = j;
 	}
       else
