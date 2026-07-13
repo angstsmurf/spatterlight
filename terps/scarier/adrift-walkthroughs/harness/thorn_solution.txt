@@ -1,0 +1,36 @@
+ask wilkens about thorn
+ask wilkens about abbey
+drink scotch
+open desk
+take map
+east
+east
+north
+east
+up
+take book
+read book
+down
+w
+n
+w
+x brush
+get sticks
+w
+x thorn
+z
+z
+z
+
+make fire
+ask vicar about abbey
+ask vicar about thorn
+
+
+
+
+
+w
+
+
+x thorn

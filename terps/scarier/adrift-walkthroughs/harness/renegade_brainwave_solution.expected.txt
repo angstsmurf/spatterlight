@@ -1,0 +1,294 @@
+Loading game...
+
+Renegade Brainwave
+By J. J. Guest
+
+An Ectocomp 2010 entry!
+
+With a burst of eerie organ music, the ground opens up and from deep within
+emerges a cobwebbed coffin. The lid creaks slowly open to reveal the pallid
+form of a circus ringmaster, complete with top hat and twirly moustache.
+Slowly he rises to a sitting position.
+
+"Beware!" says the ringmaster, "Beware! Take care! For you are about take
+part in an interactive story that will reveal the terrifying truth behind the
+ill-fated Mexican space programme! Revelations of incredible horrors that
+will terrify you with their brutal reality!"
+
+"For this is the story of a mysterious force - a force that has crossed the
+billion mile vastness of infinite space! Boneless, fleshless, almost
+invisible and yet imbued with incredible power - I speak to you of cosmic
+radiation!"
+
+"The deadly solar radiation that has the power to raise the dead! The power
+to amplify brainwaves to many times their natural strength - so that even a
+weak little puppy could wipe out a city of concrete and steel - with the
+power of his
+
+mind! In a future that grows ever closer, the fate of the Earth lies in the
+hands of one man. That man is Detective Frank Douglas; that man my friend, is
+you!"
+
+With that the Ringmaster folds his hands across his chest and lies back in
+his coffin, which, with a slight wobble, descends back into the swirling mist
+to be seen no more!
+
+Cemetary Entrance
+You stand at the entrance to the Restview Cemetary for Circus Folk, where a
+mysterious object from space was seen to crash-land earlier tonight. The
+cemetary was built rather hurridly in the middle of a fetid, stinking bog
+after that evil circus came to town and tried to hypnotise and enslave all
+the townspeople. From between the trees and bushes, obelisks, urns and angels
+peer out at drunken angles, ivy covered tombs and headstones lie abandoned
+and to the north are the moss-grown ruins of some ancient chapel, glowing
+with an eerie, greenish light! To the south an open gate leads back to the
+road and the safety of your patrol car. East and west, paths meander into the
+gloom.
+Officer Donald McRonald stands nearby, paying scant attention to what is
+going on.
+
+>You open the Mary Quant handbag.  A gun and a seventeen-foot boa constrictor
+are inside the Mary Quant handbag.
+
+Now, how on Earth did that get in there? Probably a practical joke - the
+other cops are always ribbing you about your transvesitism.
+
+>You drop the handbag rather hurridly, and the snake slithers away into the
+undergrowth.
+
+>You take the gun from the Mary Quant handbag.
+
+>You move west.
+Yew tree
+You stand under the spreading shadow of a vast yew tree, gnarled and twisted
+with age and knobbled with bulbous fungoid protusions. Hundreds of ragged
+crows wheel above the old tree. To the east a meandering pathway disappear
+into the gloom.
+
+Also here is a crowbar.
+
+As you near the yew tree you experience that morbid quickening of the senses
+that presages a visitation from beyond the veil. Directly ahead of you,
+illuminated by a ray of moonshine amid the verdurous gloom, a large gorilla
+is emerging from an open grave. With a prehensile roar he lumbers off into
+the darkness, disappearing among the winding, mossy ways.
+
+"You know, Donald," you say, "I don't think that's the last we've seen of
+that gorilla." But Donald is busy cleaning out his ears with a Q-Tip and
+doesn't seem to have noticed the spooky goings-on. With a sigh you turn back
+to the scene of your psychic visitation, and notice something glinting in the
+moonlight.
+
+Donald McRonald follows you from the east.
+
+>You pick up the crowbar.
+
+>You move east.
+Cemetary Entrance
+You stand at the entrance to the Restview Cemetary for Circus Folk, where a
+mysterious object from space was seen to crash-land earlier tonight. The
+cemetary was built rather hurridly in the middle of a fetid, stinking bog
+after that evil circus came to town and tried to hypnotise and enslave all
+the townspeople. From between the trees and bushes, obelisks, urns and angels
+peer out at drunken angles, ivy covered tombs and headstones lie abandoned
+and to the north are the moss-grown ruins of some ancient chapel, glowing
+with an eerie, greenish light! To the south an open gate leads back to the
+road and the safety of your patrol car. East and west, paths meander into the
+gloom.
+
+Also here is a Mary Quant handbag.
+
+Donald McRonald follows you from the west.
+
+>You move north.
+Outside the chapel
+Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
+boarded up, several solid planks nailed across the door to deter vandals.
+From a gigantic hole in the roof comes an eerie light that casts a green pall
+over the lowering clouds.
+
+Donald McRonald follows you from the south.
+
+>You move west.
+Cemetary
+This is a shady corner of the cemetary. There are a fair scattering of
+variously sized headstones to be seen, including a gigantic stone angel,
+alabaster white and entwined all around by the roots of some twisting tree.
+To the south is the yew tree, and to the east is the ruined chapel with its
+eerie green glow.
+A four-hundred pound gorilla leans nonchalently against a tombstone.
+
+Donald McRonald follows you from the east.
+The gorilla sees you arrive with gun in hand and immediately throws up his
+arms.
+
+"Hey, buddy, let's not be too hasty,' he says, 'here, have a cigar!"
+
+He offers you a cigar from his monogrammed cigar case. Which is especially
+nice because that boa constrictor made off with your cigarettes.
+"C'mon," says the gorilla, waggling the cigar, "I'll bet you're gasping for a
+smoke!"
+
+>"Don't mind if I do," you say. Very decent of the gorilla to offer you a
+cigar - especially since that boa constrictor made off with your cigarettes.
+The gorilla sniggers as he hands it over, and then slopes off into the
+darkness whistling a merry tune.
+
+>You move east.
+Outside the chapel
+Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
+boarded up, several solid planks nailed across the door to deter vandals.
+From a gigantic hole in the roof comes an eerie light that casts a green pall
+over the lowering clouds.
+
+Donald McRonald follows you from the west.
+
+>You move south.
+Cemetary Entrance
+You stand at the entrance to the Restview Cemetary for Circus Folk, where a
+mysterious object from space was seen to crash-land earlier tonight. The
+cemetary was built rather hurridly in the middle of a fetid, stinking bog
+after that evil circus came to town and tried to hypnotise and enslave all
+the townspeople. From between the trees and bushes, obelisks, urns and angels
+peer out at drunken angles, ivy covered tombs and headstones lie abandoned
+and to the north are the moss-grown ruins of some ancient chapel, glowing
+with an eerie, greenish light! To the south an open gate leads back to the
+road and the safety of your patrol car. East and west, paths meander into the
+gloom.
+
+Also here is a Mary Quant handbag.
+
+Donald McRonald follows you from the north.
+
+>You move east.
+The Vault of Mandoo the Mystic
+Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
+structure in the style of an Indian temple that is sinking slowly into the
+depths of the bog. The lead-lined door hangs open.
+A horrible creature stands guard outside the vault. Four feet in height it is
+and life-size only as to its enamelled head - a grinning cloth and
+papier-mache doll dressed in a velveteen suit and white patent-leather
+cuban-heeled shoes. A ventriloquist's dummy, brought to a shocking semblance
+of life by the mysterious space radiation!
+
+From the darkness of the vault emerges a terrible creature, knife in hand.
+Four feet in height it is and life-size only as to its enamelled head - a
+grinning  cloth and papier-mache doll dressed in a velveteen suit and white
+patent-leather cuban-heeled shoes. A ventriloquist's dummy, brought to a
+shocking semblance of life by the mysterious space radiation!
+
+Donald McRonald follows you from the west.
+
+>"Don't mind if I do," says the ventriloquist's dummy, though you're quite
+sure you saw his lips move. Donald lights the cigar for him and you both
+retreat to a safe distance. A couple of puffs later there is a VERY LOUD
+EXPLOSION which sends you both temporalily deaf and takes the dummy
+permanently out of commission. In fact there is nothing left of him but a
+pair of white patent leather cuban-heeled shoes, size 2.
+
+>You move in.
+Inside the Vault
+This is the vault of Mandoo the Mystic - the evil psychic and hypnotist who
+once tried to turn the townsfolk into his willing slaves! Heavy drapes cover
+the slimy walls, and guttering candles festooned with cobwebs burn dimly
+illuminating the open sarcophagus. In the sarcophagus lies the be-turbaned
+skeleton of the evil Mandoo!
+
+Donald McRonald follows you from outside.
+
+>You take the femur bone from the stone sarcophagus.
+
+>You move out.
+The Vault of Mandoo the Mystic
+Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
+structure in the style of an Indian temple that is sinking slowly into the
+depths of the bog. The lead-lined door hangs open.
+
+Donald McRonald follows you from inside.
+
+>You move west.
+Cemetary Entrance
+You stand at the entrance to the Restview Cemetary for Circus Folk, where a
+mysterious object from space was seen to crash-land earlier tonight. The
+cemetary was built rather hurridly in the middle of a fetid, stinking bog
+after that evil circus came to town and tried to hypnotise and enslave all
+the townspeople. From between the trees and bushes, obelisks, urns and angels
+peer out at drunken angles, ivy covered tombs and headstones lie abandoned
+and to the north are the moss-grown ruins of some ancient chapel, glowing
+with an eerie, greenish light! To the south an open gate leads back to the
+road and the safety of your patrol car. East and west, paths meander into the
+gloom.
+
+Also here is a Mary Quant handbag.
+
+Donald McRonald follows you from the east.
+
+>You move north.
+Outside the chapel
+Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
+boarded up, several solid planks nailed across the door to deter vandals.
+From a gigantic hole in the roof comes an eerie light that casts a green pall
+over the lowering clouds.
+
+Donald McRonald follows you from the south.
+
+>You swiftly remove the wooden boards from the door of the chapel and push it
+open. A musty smell and an eerie green glow issue from within.
+
+>You move in.
+The Chapel
+The chapel has been completely wrecked by the object that fell from the sky.
+From a massive hole in the floor comes a greenish glow. Crumbling stone steps
+lead down into the crypt, and a gothic archway leads back out into the
+cemetary.
+
+Donald McRonald follows you from outside.
+
+>You move down.
+The Crypt
+A dismal crypt with vaulted ceiling, now largely destroyed. Sitting in the
+middle of the crypt are the unmistakable remains of a Mexican Space Module.
+The Mexicans have been sending these things up for years, at a cost of
+billions of Pesos, but nobody quite knows why. Presumably they are out there
+colonising every planet in the solar system. The door to the module has been
+blown off its hinges by the impact, an eerie green glow issuing from within.
+Crumbling stone steps lead up into the chapel.
+
+Donald McRonald follows you from above.
+
+>You move in.
+Inside the space module
+The inside of the space module is a mass of hissing tubes and fizzing cables.
+Everything is broken, and everything is bathed in an eerie glow from a
+shimmering curtain of light to the east. Clearly the impact of the crash
+combined with the cosmic radiation absorbed by the module has opened up a
+rift between the dimensions.
+
+You wonder how you know all this stuff, but it is obviously the powerful
+atmosphere of cosmic background information.
+Sitting motionless in the flight seat is a space-suited astronaut, his
+features obscured by his mirrored helmet.
+
+Donald McRonald follows you from outside.
+
+>You hurl the bone into the shimmering veil of light, whereupon it is swiftly
+followed by one salivating chihuahua. As he enters the cosmic curtain there
+is a flash of light. As if a switch had been turned, as if an eye had been
+blinked, as if some phantom force in the universe had made a move eons beyond
+our comprehension, suddenly, there is no veil! There is no bone, and there is
+no hyper-intelligent chihuahua!
+
+Case in point: The line between science fiction and science fact is
+microscopically thin - and so is the Dread Domingo. In pursuit of his prize
+he has unwittingly stepped into the second dimension - becoming as flat as a
+pancake! As three pancakes! With maple syrup! And once that line has been
+crossed - it can never be recrossed! The Dread Domingo is doomed to spend the
+rest of his days as a mere cipher, like the denizens of Plato's cave or the
+characters on a movie screen - a projection on a wall, to be glimpsed on
+moonless nights by star-crossed lovers taking shortcuts across the cemetary!
+
+Thanks to you, and the intrepid, fearless Donald, the terrible threat to
+planet Earth has been averted!
+
+THE END.
+Congratulations!

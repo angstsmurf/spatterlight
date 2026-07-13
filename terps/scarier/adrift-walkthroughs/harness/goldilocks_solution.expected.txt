@@ -1,0 +1,1520 @@
+Loading game...
+
+Goldilocks is a FOX!
+-------------------------
+By J. J. Guest.
+-------------------------
+Release 1.3 19th December 2002
+Visit J. J. Guest's website at:
+www.groundchuck.co.uk
+
+Man, what a party! That was a night to remember - actually it'll be a miracle
+if I remember it at all tomorrow!  Oh, by the way, I'm Goldilocks. I'm a
+nineteen year old blonde bombshell and I'm on my way back from yet another
+crazy art school party. It's about five AM and the sun's already up, as are
+the birds, who are doing their level best to aggravate my hangover with their
+bloody singing! I could really use something to eat and somewhere to sleep
+off this hangover, but something tells me I shouldn't have taken this
+shortcut through the forest. I have a really baaad feeling about it...
+
+In the enchanted forest
+A large wooden sign informs me that I'm in the Enchanted Forest. What it
+doesn't tell me is how the hell I get out! Everywhere I look there are trees,
+trees, trees. This place definately has a 'tree' theme going. A clearly
+marked path leads south and west, whilst in every other direction are, well,
+trees.
+An old pedlar is sitting on a log here, tending to his bunions.
+
+There are exits north, east and south.
+
+>I move south.
+On a path in the forest
+I'm on a path winding through the Enchanted Forest. The path winds it way
+from the north towards the west. In every other direction there are dark,
+sinister looking trees that wave their branches at me in an anthropomorphic
+kind of way. Ooh, I'm soooo scared!
+
+There are exits north, east, south and west.
+
+>As I head off along the path a pathetic, mangey looking wolf jumps out from
+behind a bush and slobbers at me in what he probably hopes is a menacing way.
+   'I am the Big Bad Wolf!' says he. Then, after an awkward pause he adds
+'well, what are you waiting for? Aren't you going to ask me the way to
+Grandma's house?' He looks at me quizzically for a moment and then slaps his
+forehead.
+   'My humblest apologies!' he says. 'You are not the young woman I seek. She
+of the crimson shawl must needs be elsewhere!' He darts back into the forest.
+
+At a fork in the path
+I'm at a fork in the path. Not the kind of fork you eat with, the sort where
+the path forks; you know, like a fork. To the north the path widens into a
+clearing. To the west it disappears into the forest.
+
+>I move north.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+>I move north.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door is closed. Just south of me is the clearing in the forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can also see an empty milkbottle.
+
+I can only move south.
+
+>I pick up the empty milkbottle.
+
+>I take the crumpled note from the empty milkbottle.
+
+>I move south.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+>I move west.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.
+
+I can move north, east and in.
+
+>(Your score has increased by 3)
+I take hold of the leaves and give them a good yank. Something pops out of
+the ground in a great shower of earth! There seems to be some kinda root
+vegetable actually attached to the leaves. Weird; I always thought these
+things came from tins!
+
+>I take the overripe pumpkin from the vegetable plot.
+
+>I move in.
+In the potting shed
+I'm in the potting shed, a ramshackle structure that was obviously cobbled
+together in five minutes some idle Sunday afternoon.  I didn't know bears had
+green fingers. In fact I didn't know they had fingers at all. Plant pots of
+all sizes are scattered about the shed untidily and the whole place is
+festooned with cobwebs.
+
+In the corner is an old metal trunk marked 'FISHING TACKLE.'
+
+I can also see a pair of secateurs and a ratty old paintbrush.
+
+I can only move out.
+
+>Plant pots of all different sizes are scattered about the floor of the shed.
+Inside one of the plant pots is a trowel and a pair of gardening gloves.
+
+>I open the trunk. It contains some sticks of dynamite. If this is what Papa
+Bear thinks of as fishing tackle I dread to think what he uses for hunting -
+a Sherman tank, perhaps?
+
+>I pick up the pair of secateurs and the ratty old paintbrush.  I take the
+sticks of dynamite from the old metal trunk.  I take the trowel and the pair
+of gardening gloves from one of the plant pots.
+
+>I move out.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.
+
+I can move north, east and in.
+
+>I move north.
+In a small meadow
+I'm in a small meadow at the back of the cottage, separated from the forest
+by a rickety fence. In the middle of the meadow is what appears to be a
+homemade wind turbine! To the south, through the tangled pergola, is the
+garden.
+Daisy the cow is standing here, chewing disinterestedly on a mouthful of hay.
+
+I can only move south.
+
+>(Your score has increased by 3)
+Daisy gobbles down the turnip excitedly before sidling over to me and
+nuzzling my chest. I get impression she thinks I've got more turnips hidden
+somewhere about my person. I can't imagine where she gets that idea.
+
+>I move south.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.
+
+I can move north, east and in.
+
+Daisy the cow walks towards me from the north.
+
+>I move east.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+Daisy the cow walks towards me from the west.
+
+>I move south.
+At a fork in the path
+I'm at a fork in the path. Not the kind of fork you eat with, the sort where
+the path forks; you know, like a fork. To the north the path widens into a
+clearing. To the west it disappears into the forest.
+
+I can move north, east and west.
+
+Daisy the cow walks towards me from the north.
+
+>I move east.
+On a path in the forest
+I'm on a path winding through the Enchanted Forest. The path winds it way
+from the north towards the west. In every other direction there are dark,
+sinister looking trees that wave their branches at me in an anthropomorphic
+kind of way. Ooh, I'm soooo scared!
+
+I can move north, east, south and west.
+
+Daisy the cow walks towards me from the west.
+
+>(Your score has increased by 3)
+I move north.
+In the enchanted forest
+A large wooden sign informs me that I'm in the Enchanted Forest. What it
+doesn't tell me is how the hell I get out! Everywhere I look there are trees,
+trees, trees. This place definately has a 'tree' theme going. A clearly
+marked path leads south and west, whilst in every other direction are, well,
+trees.
+An old pedlar is sitting on a log here, tending to his bunions.
+
+I can move north, east and south.
+
+Daisy the cow walks towards me from the south.
+
+'Ah, now there's a lovely specimen!' says the Pedlar, getting up from his log
+and feeling Daisy's knees. He seems satisfied. 'all present and correct! Here
+you go love - you'll be cured in no time!' He open his suitcase and hands me
+a small packet, then leads Daisy off into the forest.
+
+>I move south.
+On a path in the forest
+I'm on a path winding through the Enchanted Forest. The path winds it way
+from the north towards the west. In every other direction there are dark,
+sinister looking trees that wave their branches at me in an anthropomorphic
+kind of way. Ooh, I'm soooo scared!
+
+I can move north, east, south and west.
+
+>I move west.
+At a fork in the path
+I'm at a fork in the path. Not the kind of fork you eat with, the sort where
+the path forks; you know, like a fork. To the north the path widens into a
+clearing. To the west it disappears into the forest.
+
+I can move north, east and west.
+
+>I move north.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+>I move west.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.
+
+I can move north, east and in.
+
+>Okay, I filled the bottle with water from the pond. Yeeurrggh! My hand is
+covered in pondslime now! Thanks a lot!
+
+>I open the small packet.  A magic bean is inside the small packet.
+
+>I take the magic bean from the small packet.
+
+>Okay, I planted it in the vegetable plot. Nothing seems to be happening. So
+much for the "magic."
+
+>(Your score has increased by 3)
+Okay, I watered the magic bean. After a few moments there is a low rumble
+from underground. The ground begins to shake violently...
+
+   Aaah! Something shot out of the ground and knocked me flying! I'm lying
+spreadeagled on the ground beneath this MASSIVE beanstalk! Well, I say
+massive, actually it stops abruptly just above the roof of the cottage.
+
+Damn, I seem to have dropped all my stuff...
+
+>I pick up the crumpled note, the broken bottle, the sticks of dynamite, the
+pair of secateurs, the small packet, the trowel, the ratty old paintbrush,
+the overripe pumpkin and the pair of gardening gloves.
+
+>If Jack can do it, so can Goldilocks!
+At the top of the beanstalk
+I'm at the top of the beanstalk. I was under the impression that these giant
+beanstalks all had castles at the top of them, but not this scrawny specimin.
+However I can almost touch the roof of the cottage from here.
+
+>Okay... Oof! Fortunately for you I had a soft landing on the thatched roof of
+the cottage...
+On the roof
+I'm perched precariously on the roof of the cottage, trying desperately not
+to look down. There is a chimney here attached to which is a TV aerial. It
+kind of spoils the chocolate box look of the place if you know what I mean.
+The top of the beanstalk can be seen poking up above the roofline.
+
+>(Your score has increased by 3)
+Okay - that should impove the picture!
+
+>Okay here goes... Wheee! I slid right down the chimney and out of the
+fireplace! That was fun. Can I do it again?
+In the kitchen
+I am in the bears' tiny kitchen, a cosy little room that could have come
+straight from the pages of Country Living. It's big on original features and
+totally lacking in "mod cons." A large dining table sits in the centre of the
+room and there is a dresser against the wall. Opposite the dresser is an
+enormous brick fireplace that seems to fill half the room.
+
+>I drop the crumpled note.
+
+>I drop the broken bottle.
+
+>I drop the small packet.
+
+>I drop the trowel.
+
+>I take the spoon from the dining table.
+
+>I open the kitchen dresser.  Inside the kitchen dresser is a gigantic bowl.
+
+>I take the gigantic bowl from the kitchen dresser.
+
+>(Your score has increased by 3)
+Okay, I poured the cold porridge and the hot porridge into the gigantic bowl
+and mixed them together with the spoon. Now I have one gigantic bowl of
+hot-but-not-too-hot porridge! why didn't the Three Bears think of that? I
+guess I must be smarter than the average bear!
+
+>(Your score has increased by 3)
+Mmmmm! That porridge tasted JUST RIGHT! Pity there wasn't more of it though,
+I'm starving!!!
+
+>(Your score has increased by 3)
+Mmmmm! That porridge tasted JUST RIGHT! I feel thoroughly invigourated; in
+fact I could toss a few cabers myself if you know what I mean. Wait, that
+sounded really dodgy. Forget I said it.
+
+>(Your score has increased by 3)
+I fish around in the embers until I find an old brass key. What a ridiculous
+place to keep it! I pick it up in case it comes in useful.
+
+>I drop the gigantic bowl.
+
+>I drop the spoon.
+
+>I move north.
+In the pantry
+I'm in the pantry, a small claustrophobic room which smells faintly of
+cinammon, honey and the mouse droppings that are liberally sprinkled across
+the tiled floor. There are some sturdy shelves on the wall and an upright
+freezer in the corner.
+
+Over in the corner of the pantry, underneath the shelves is a mousetrap.
+
+I can only move south.
+
+>I open the freezer.  Inside the freezer is a packet of frozen pork chops.
+
+>I take the packet of frozen pork chops from the freezer.
+
+>I take the box of porridge oats from the shelf.
+
+>I open the box of porridge oats.  There is a plastic pendant at the bottom of
+the box, but it is otherwise empty.
+
+>I take the pendant from the box of porridge oats.
+
+>Oh wow! As soon as I put it on it becomes a glow-in-the-dark pendant! How
+cool is that?
+
+>I take the matchbox from the shelf.
+
+>I take the dead mouse from the mousetrap.
+
+>I take the wedge of cheese from the shelf.
+
+>I drop the box of porridge oats.
+
+>I move south.
+In the kitchen
+I am in the bears' tiny kitchen, a cosy little room that could have come
+straight from the pages of Country Living. It's big on original features and
+totally lacking in "mod cons." A large dining table sits in the centre of the
+room and there is a dresser against the wall. Opposite the dresser is an
+enormous brick fireplace that seems to fill half the room.
+
+I can also see a spoon, a crumpled note, a broken bottle, a small packet, a
+gigantic bowl and a trowel.
+
+I can move north and east.
+
+>I move east.
+
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door is closed.
+
+I can also see a bearskin rug.
+
+'Ding-Dong!' The doorbell rings. A booming voice can be heard from the
+direction of the front door: 'Little pigs, little pigs, LET ME IN, or I'll
+huff and I'll puff and I'll BLOW YOUR HOUSE IN!'
+
+>I open the door a tiny crack. As I do so,  the mangy looking wolf I
+encountered on the path barges into the hall, his beady eyes darting this way
+and that.
+   'I'm going to eat you little piggies!' he snarls. 'Don't worry, it won't
+hurt a bit.' Then he notices me and his expression turns to one of
+bewilderment. 'My dear girl,' he says 'we really must stop meeting like this.
+It is not you I seek, but the Three Little Pigs. I waited two whole weeks for
+Little Red Riding Hood, after devouring her grandmother who was exceedingly
+tough and chewy and quite frankly I have had enough of the taste of humans.
+Go tell those snivelling pigs it's breakfast time!!'
+
+The front door is now open. A stiff breeze from somewhere threatens to blow
+it shut...
+
+>(Your score has increased by 3)
+Okay, I wedged the door open with the stale cheese.
+
+>I pick up the bearskin rug. Oh,  wow, there's a trapdoor hidden underneath
+the rug! What a stupid place to put it - right in front of the front door.
+Someone could have a nasty accident if they didn't know it was there!
+
+>I open the trapdoor. A set of rickety wooden stairs lead down into darkness.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Three chairs are
+arranged around a small coffee table; a large chair, a  medium-sized chair
+and a tiny little chair.
+
+I can only move south.
+
+>I drop the bearskin rug.
+
+>Bloody hell! There are electrodes concealed underneath it! Papa Bear must be
+a little tetchy about other people using his chair - he's wired it up to the
+mains! There's a cable connected to the electrodes which presumably supplies
+the juice.
+
+>I drop the antimacassar.
+
+>(Your score has increased by 3)
+Wow, this chair feels just right! Oh, crap!! The stupid thing collapsed right
+under me! I guess that's what happens if you buy self-assembly.
+
+>I pick up the pile of firewood.
+
+>(Getting up off the floor first)
+I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+The Big Bad Wolf is here.
+
+I can move north, west, up, down and out.
+
+>I move up.
+In the bedroom
+I'm in the Three Bears' bedroom, a small attic room with steeply sloping
+walls. They have the weirdest sleeping arrangements. There's a tiny little
+bed, a medium-sized bed and a huge bed. A narrow staircase leads down to the
+hall.
+
+A tiny dormer window looks out onto the clearing.
+For some unaccountable reason, Sleeping Beauty is lying fast asleep on the
+tiny little bed.
+
+I can only move down.
+
+>Wow! Now I understand why the huge bed felt so hard! What better way to
+conceal from your wife the fact that you've spent your family's entire annual
+porridge budget on a full sized snooker table than to give up your conjugal
+rights altogether and disguise it as a bed! Boy, could this couple use some
+marriage guidance!
+
+>I drop the rather thin blanket.
+
+>I take the cue ball from one of the pockets.
+
+>I move down.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+The Big Bad Wolf is here.
+
+I can move north, west, up, down and out.
+
+>I move west.
+In the kitchen
+I am in the bears' tiny kitchen, a cosy little room that could have come
+straight from the pages of Country Living. It's big on original features and
+totally lacking in "mod cons." A large dining table sits in the centre of the
+room and there is a dresser against the wall. Opposite the dresser is an
+enormous brick fireplace that seems to fill half the room.
+
+I can also see a spoon, a crumpled note, a broken bottle, a small packet, a
+gigantic bowl and a trowel.
+
+I can move north and east.
+
+>I put the pile of firewood onto the fireplace.
+
+>I strike a match and set fire to the remains of Baby Bear's chair...
+
+   Alright! There's a blazing fire in the hearth now. Who says I'm not
+domesticated? That's only one step away from cooking! And to think they
+kicked me out of the Girl Scouts!
+
+>(Your score has increased by 3)
+I put the pork chops on the hearth. Wow, they defrosted quickly!
+
+>I take the packet of medium rare pork chops from the fireplace.
+
+>I move east.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+The Big Bad Wolf is here.
+
+I can move north, west, up, down and out.
+
+>(Your score has increased by 3)
+The wolf grabs the packet of pork chops and tears off the wrapper, then rolls
+on the floor gnawing at them like a dog with an old slipper. Moments later,
+when he has recovered his dignity, he rises to his feet and says
+   'My dear girl, that was simply exquisite! I am indebted for you for that
+delectable dish! If there is anything I can do in return, simply name it, and
+it will be done! Huffing and puffing a speciality...'
+
+>I move out.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door has been wedged open. Just south of me is the clearing in the
+forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can move south and in.
+
+The Big Bad Wolf walks towards me from inside.
+
+>I move south.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+The Big Bad Wolf walks towards me from the north.
+
+>I move west.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
+rises out of the vegetable plot and stops abruptly just above the level of
+the roof.
+
+I can move north, east and in.
+
+The Big Bad Wolf walks towards me from the east.
+
+>I move north.
+In a small meadow
+I'm in a small meadow at the back of the cottage, separated from the forest
+by a rickety fence. In the middle of the meadow is what appears to be a
+homemade wind turbine! To the south, through the tangled pergola, is the
+garden.
+
+I can only move south.
+
+The Big Bad Wolf walks towards me from the south.
+
+>(Your score has increased by 3)
+'Ah, so you wish to make use of my prodigious talents! Well never fear, I
+shall huff, and I shall puff, and I shall have that turbine turning in a
+jiffy!' True to his word, the wolf huffs, and he puffs, and he blows the
+turbine with a gale-force blast of air that sends it spinning like a toy
+windmill.
+   'My debt is paid, dear child - I shall now return to the forest which is
+the natrual habitat of a fearsome predator such as I. I bid you adieu!' With
+that he gives a low bow, at which point the oil can falls from the top of the
+turbine and bops him on the head. With a cluck of annoyance he hitches up the
+hem of his nightdress, hops over the fence and disappears into the forest.
+
+>I pick up the oil can.
+
+>Okay, a dash of SUPERLUBE and these babies are as good as new!
+
+>I drop the oil can.
+
+>I move south.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
+rises out of the vegetable plot and stops abruptly just above the level of
+the roof.
+
+I can move north, east and in.
+
+>I move east.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+>I move north.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door has been wedged open. Just south of me is the clearing in the
+forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can move south and in.
+
+>I move in.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move down.
+In the cellar
+I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
+room. There is an old upright washing machine in the corner and a fusebox on
+the wall. Steps lead up to the trapdoor in the ceiling.  A battered old
+wardrobe stands against the western wall of the cellar.
+
+I can only move up.
+
+>Okay, Switch B is in the OFF position.
+
+>I unlock the wardrobe with the old brass key.
+
+>I open the wardrobe.  Inside the wardrobe is a set of dumbells.
+
+>I drop the old brass key.
+
+>I take the set of dumbells from the wardrobe.
+
+>(Your score has increased by 3)
+Okay.... Oof! I moved it. Oh, wow! There's a gothic archway behind here
+leading into some kind of hidden room! The words 'Baby Bear's Playroom' are
+painted above the arch!
+
+>I move west.
+In a dark passage
+I'm in a dark passage carved into the rock. It curves around to the north.
+
+I can move north and east.
+
+>I move north.
+In a dungeon
+This seems to be a small annex to the main part of the cellar. Everything
+about the decor of this place says 'dungeon' to me, from the guttering
+torches to the ragrolled paint effect on the walls that's meant to look like
+ancient stonework. Unfortunately the rotting skeleton manacled to the wall is
+only too real. A sign on the wall opposite the skeleton says 'When we say NO
+TRESPASSERS we mean NO TRESPASSERS!' Something for the bears' victims to
+think about while they languish in this dump. The passage leads south back to
+the cellar.
+
+I can only move south.
+
+>It's wearing a red cape with a hood. I guess this must be the elusive Little
+Red Riding Hood! No wonder she never made it to Grandma's house - she must
+have called at the wrong cottage by mistake, poor little twerp!
+   Hmm, what's this? There appears to be a blackened metal poker shoved up
+her, um, actually you don't want to know where it was shoved. Ouch.
+
+I've taken the poker in case it comes in useful.
+
+>I move south.
+In a dark passage
+I'm in a dark passage carved into the rock. It curves around to the north.
+
+I can move north and east.
+
+>I move east.
+In the cellar
+I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
+room. There is an old upright washing machine in the corner and a fusebox on
+the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
+archway leading out of the cellar to the west. A battered old wardrobe stands
+close to the archway.
+
+I can also see an old brass key.
+
+I can move west and up.
+
+>(Your score has increased by 3)
+I jam the poker in the door of the machine and give it a good hard push.
+There is a sharp crack and the door flies open!  Who was it said that brute
+force never achieved anything?
+
+>I drop the set of dumbells.
+
+>I move up.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Two chairs are
+arranged around small coffee table; a large chair and a medium-sized chair.
+There used to be a tiny little chair but I'd rather not talk about it.
+
+I can also see a bearskin rug and an antimacassar.
+
+I can only move south.
+
+>(Your score has increased by 3)
+Okay, I use the secateurs to cut the cable connecting the electrodes to the
+power supply. Let's see Papa Bear try to fry me now!
+
+>I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move down.
+In the cellar
+I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
+room. There is an old upright washing machine in the corner and a fusebox on
+the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
+archway leading out of the cellar to the west. A battered old wardrobe stands
+close to the archway.
+
+I can also see a set of dumbells and an old brass key.
+
+I can move west and up.
+
+>Okay, Switch B is in the ON position.
+
+>I move up.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Two chairs are
+arranged around small coffee table; a large chair and a medium-sized chair.
+There used to be a tiny little chair but I'd rather not talk about it.
+
+I can also see a bearskin rug and an antimacassar.
+
+I can only move south.
+
+>Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
+been here two seconds and my buttocks are as numb as a pair of frozen
+fishcakes!
+
+>Whoa! A hole just opened up in the floor and the chair is carrying me down
+into the bowels of the earth! It's just like something out of a James Bond
+film!
+
+   Ouch! - it's stopped...
+
+In a cave
+I'm in an underground cave. From the decor I'd say this was Papa Bear's
+private den, a place of sanctuary away from the rigours of family life. The
+walls are plastered with posters of football teams and pin-ups from
+'Playbear.' A solid metal door, set into the western wall of the cave looks
+almost impenetrable. There's an electric socket in the wall next to the door.
+ The large chair is now facing a television set and there's a fridge within
+easy reach of the chair.
+
+I can also see a TV remote control.
+
+   The jolt threw me out of the chair - I guess the mechanism was designed
+for someone much heavier than me!
+
+>I open the refridgerator.  Inside the refridgerator is a can of beer.
+
+>I take the can of beer from the refridgerator.
+
+>(Your score has increased by 3)
+Down in one! (Glug, glug glug!) God, that hits the spot!  (Burp!)
+
+>I pick up the TV remote control.
+
+>Okay, I put the plug in the wall socket.
+
+>It's the Jerry Springer Show - this week: My Stepdaughter is living in the
+forest with seven little men...
+
+>It's the Fairyland Shopping Channel - "Tired of porridge every morning?
+Sounds like you need toast-o-mastic 1000 atomic three - slot toaster! Toast
+three pieces of bread simultaneously on three different settings! Never again
+will Dad complain that his toast is under-done or Mum that her toast is
+burnt... and for baby of course it's always just right! Press BUY now to make
+your purchase!"
+
+>(Your score has increased by 3)
+Okay, one toast-o-mastic 3000 atomic 3 - slot toaster ordered!
+
+>I drop the TV remote control.
+
+>I sit down on the chair.
+
+>The chair shoots back up through a hole carved in the roof of the cave,
+carrying me with it. The hole in the sitting room floor closes behind it.
+
+>I stand up from the large chair.
+
+>I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+'Ding-Dong!' A bell rings somewhere.
+
+>I move out.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door has been wedged open. Just south of me is the clearing in the
+forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can also see a package.
+
+I can move south and in.
+
+>I open the package.  Inside the package is an electric toaster and a leaflet.
+
+>I take the electric toaster from the package.
+
+>(Your score has increased by 3)
+Hmmm... they seem to fit quite snuggly. I jammed them in upside down so that
+the fuses are touching the heating elements of the toaster.
+
+>I move in.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move down.
+In the cellar
+I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
+room. There is an old upright washing machine in the corner and a fusebox on
+the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
+archway leading out of the cellar to the west. A battered old wardrobe stands
+close to the archway.
+
+I can also see a set of dumbells and an old brass key.
+
+I can move west and up.
+
+>Okay, Switch A is in the OFF position.
+
+>I move up.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Two chairs are
+arranged around small coffee table; a large chair and a medium-sized chair.
+There used to be a tiny little chair but I'd rather not talk about it.
+
+I can also see a bearskin rug and an antimacassar.
+
+I can only move south.
+
+>Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
+been here two seconds and my buttocks are as numb as a pair of frozen
+fishcakes!
+
+>Whoa! A hole just opened up in the floor and the chair is carrying me down
+into the bowels of the earth! It's just like something out of a James Bond
+film!
+
+   Ouch! - it's stopped...
+
+In a cave
+I'm in an underground cave. From the decor I'd say this was Papa Bear's
+private den, a place of sanctuary away from the rigours of family life. The
+walls are plastered with posters of football teams and pin-ups from
+'Playbear.' A solid metal door, set into the western wall of the cave looks
+almost impenetrable. There's an electric socket in the wall next to the door.
+ The large chair is now facing a television set and there's a fridge within
+easy reach of the chair.
+
+I can also see a TV remote control.
+
+   The jolt threw me out of the chair - I guess the mechanism was designed
+for someone much heavier than me!
+
+>Okay, I pulled the plug out of the wall socket.
+
+>Okay, I put the plug in the wall socket.
+
+>Okay, I pushed down the little control lever.
+
+>I sit down on the chair.
+
+>The chair shoots back up through a hole carved in the roof of the cave,
+carrying me with it. The hole in the sitting room floor closes behind it.
+
+>I stand up from the large chair.
+
+>I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move down.
+In the cellar
+I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
+room. There is an old upright washing machine in the corner and a fusebox on
+the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
+archway leading out of the cellar to the west. A battered old wardrobe stands
+close to the archway.
+
+I can also see a set of dumbells and an old brass key.
+
+I can move west and up.
+
+>(Your score has increased by 3)
+Okay, Switch A is in the ON position. Down in the cave the toaster elements
+heat up igniting the fuses on the sticks of dynamite...
+
+   ...which explode causing a chain reaction...
+
+"KABOOOOM!!!"
+
+   The toaster's atomic batteries go into meltdown resulting in a NUCLEAR
+EXPLOSION which rocks the whole cottage!
+
+>I move up.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Two chairs are
+arranged around small coffee table; a large chair and a medium-sized chair.
+There used to be a tiny little chair but I'd rather not talk about it.
+
+I can also see a bearskin rug and an antimacassar.
+
+I can only move south.
+
+>Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
+been here two seconds and my buttocks are as numb as a pair of frozen
+fishcakes!
+
+>Whoa! A hole just opened up in the floor and the chair is carrying me down
+into the bowels of the earth! It's just like something out of a James Bond
+film!
+
+   Ouch! - it's stopped...
+
+In a cave
+The cave has been completely devastated by the explosion! Where the door used
+to be there is now a gaping hole in the rock. The walls of the cave, melted
+by the intensive heat of my homemade atomic bomb are still glowing faintly.
+Of the television set there is no sign. The fridge is lying on its side,
+smoking slightly.
+
+I can also see a TV remote control.
+
+   The jolt threw me out of the chair - I guess the mechanism was designed
+for someone much heavier than me!
+
+>I move west.
+In Papa Bear's workshop
+This must be where Papa Bear does all his D.I.Y. It's a small but tidy
+workshop with a bench and an old filing cabinet in the corner. Pinned to the
+walls are what appear to be the blueprints for various devices.
+
+Sitting in the middle of the floor is a huge wooden crate, stencilled with
+the words: "DANGER: PROTOTYPE!"
+
+I can only move east.
+
+>I take the wrench from the bench.
+
+>I take the tin of gold paint from the bench.
+
+>(Your score has increased by 3)
+Okay, I painted the cue ball gold.
+
+>(Your score has increased by 3)
+Using the poker like a crowbar I wrench the crate apart at the seams. It
+collapses to reveal a strange cauldron-like contraption inside.
+
+>I drop the tin of gold paint.
+
+>I drop the blackened metal poker.
+
+>I move east.
+In a cave
+The cave has been completely devastated by the explosion! Where the door used
+to be there is now a gaping hole in the rock. The walls of the cave, melted
+by the intensive heat of my homemade atomic bomb are still glowing faintly.
+Of the television set there is no sign. The fridge is lying on its side,
+smoking slightly.
+
+I can also see a TV remote control.
+
+I can only move west.
+
+>I sit down on the chair.
+
+>The chair shoots back up through a hole carved in the roof of the cave,
+carrying me with it. The hole in the sitting room floor closes behind it.
+
+>I stand up from the large chair.
+
+>I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move out.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door has been wedged open. Just south of me is the clearing in the
+forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can also see a package.
+
+I can move south and in.
+
+>I move south.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+>I move west.
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
+rises out of the vegetable plot and stops abruptly just above the level of
+the roof.
+
+I can move north, east and in.
+
+>(Your score has increased by 3)
+The ball lands in the pond with a dull plop. A few moments later a small
+green frog emerges from the pond clutching it in one of his slimy flippers.
+He drops it on the grass in front of me and puckers up expectantly...
+
+>I pick up the slimy green frog.
+
+>I move east.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a
+thatched roof and leaded windows. It's just like something out of a fairy
+tale, funnily enough, except for the large hand-painted sign designed to
+deter trespassers. Just to the north is the front porch. A little path lined
+by rows of white-painted stones leads around the side of the house to the
+west.
+
+I can move north, south and west.
+
+>I move north.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door has been wedged open. Just south of me is the clearing in the
+forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can also see a package.
+
+I can move south and in.
+
+>I move in.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move up.
+In the bedroom
+I'm in the Three Bears' bedroom, a small attic room with steeply sloping
+walls. They have the weirdest sleeping arrangements. There's a tiny little
+bed, a medium-sized bed and a full sized snooker table. A narrow staircase
+leads down to the hall.
+
+A tiny dormer window looks out onto the clearing.
+
+I can also see a rather thin blanket.
+For some unaccountable reason, Sleeping Beauty is lying fast asleep on the
+tiny little bed.
+
+I can only move down.
+
+>(Your score has increased by 3)
+Yeeeuch! Actually he's not a bad smoocher, I've never kissed anyone before
+with such a flexible tongue...
+   Whoa! There was a flash of light and the frog just turned into a handsome
+prince!
+   'Thanks, babe,' he says, looking me up and down, 'Maybe we can do lunch
+sometime!'
+   Suddenly he notices Sleeping Beauty sprawled across Baby Bear's bed. 'Now
+that's what I call a REAL princess!' A quick kiss wakes Beauty, and the happy
+couple are off to the cathedral. That's no basis for a lasting relationship!
+
+>Taking the wrench in both hands, I give the catch a good sharp twist. The
+layers of ancient paint crack and flake off allowing me to open the window.
+As I do so, a tiny point of light zips into the room from outside! It whizzes
+two or three times around my head and then, with a sharp 'ping' transforms
+itself into a tiny little old lady with wings.
+   'Fear not, Cinderella!' She says, staggering slightly as she recovers from
+her exertions, 'I am your Fairy Godmother and you shall go to the... to
+the... oh, what was it now?' She looks up at me, bewildered. 'Who are you? Is
+it time for my medicine?'
+
+>(Your score has increased by 3)
+'Thankyou dear,' says my Fairy Godmother as I hand her the pumpkin. 'With a
+wave of my wand I shall transform this pumpkin into a lovely golden coach.
+Now let me see...' She takes out her wand and waves it over the pumpkin a
+couple of times, somewhat uncertainly. After a short time the pumpkin begins
+to swell as though someone were pumping it full of air. Then there is a soft,
+damp 'plop' as the pumpkin explodes, showering the two of us with orange goo.
+   'Oh dear,' says my Fairy Godmother 'that wasn't quite right! Never mind,
+we'll have to make do without a coach. Perhaps you can ride one of the coach
+horses...'
+
+>(Your score has increased by 3)
+'He's a jolly little chap, isn't he?' Says my Fairy Godmother as I hand over
+the dead mouse. With a wave of her magic wand she transforms it into a dead
+coach horse. She seems perfectly satisfied with this outcome. 'Now, child,
+that's the transport sorted out. Now for the other thing. What was it
+now...?'
+
+>(Your score has increased by 3)
+'Oh, yes dear - that was it,' says my Fairy Godmother 'You can't possibly go
+to the ball looking like that!' I'm a little offended by this but decide to
+bite my lip.    'Wait a second while I reprogram my wand.' After a few
+moments she raises the wand and waves it frantically as though it were stuck
+to her hand and she were desperate to get rid of it. There is a sudden,
+bright flash and my dress disappears in a puff of smoke!
+   'Oh dear,' says my Fairy Godmother with a frown, 'that's not the
+rags-to-ballgown spell, it's the one for moving stuff down to the cellar, I
+used it last weekend when I cleared out the spare room. I'm sorry my dear, I
+shall have to go home and get my spell book. I'd forget my wings if they
+were't sellotaped on.'    There is another flash and she turns back into a
+tiny point of light, before flitting back out of the window. As she does so,
+something silvery clatters to the floor.
+
+>I pick up the magic wand.
+
+>(Your score has increased by 3)
+There is a bright flash and my underwear disappears in a puff of smoke!
+
+Damn it! I'm completely starkers now! You've got your three points - I hope
+you're satisfied!
+
+>I move down.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Two chairs are
+arranged around small coffee table; a large chair and a medium-sized chair.
+There used to be a tiny little chair but I'd rather not talk about it.
+
+I can also see a bearskin rug and an antimacassar.
+
+I can only move south.
+
+>Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
+been here two seconds and my buttocks are as numb as a pair of frozen
+fishcakes!
+
+>Whoa! A hole just opened up in the floor and the chair is carrying me down
+into the bowels of the earth! It's just like something out of a James Bond
+film!
+
+   Ouch! - it's stopped...
+
+In a cave
+The cave has been completely devastated by the explosion! Where the door used
+to be there is now a gaping hole in the rock. The walls of the cave, melted
+by the intensive heat of my homemade atomic bomb are still glowing faintly.
+Of the television set there is no sign. The fridge is lying on its side,
+smoking slightly.
+
+I can also see a TV remote control.
+
+   The jolt threw me out of the chair - I guess the mechanism was designed
+for someone much heavier than me!
+
+>I move west.
+In Papa Bear's workshop
+This must be where Papa Bear does all his D.I.Y. It's a small but tidy
+workshop with a bench and an old filing cabinet in the corner. Pinned to the
+walls are what appear to be the blueprints for various devices.
+
+Sitting in the middle of the floor is a huge wooden crate, stencilled with
+the words: "DANGER: PROTOTYPE!"  Sitting amidst the wreckage of the crate is
+a magic porridge pot.
+
+I can also see a blackened metal poker and a tin of gold paint.
+
+I can only move east.
+
+>(Your score has increased by 3)
+There is a bright flash and the magic porridge pot disappears in a puff of
+smoke! The wand is starting to get rarther warm.
+
+>I move east.
+In a cave
+The cave has been completely devastated by the explosion! Where the door used
+to be there is now a gaping hole in the rock. The walls of the cave, melted
+by the intensive heat of my homemade atomic bomb are still glowing faintly.
+Of the television set there is no sign. The fridge is lying on its side,
+smoking slightly.
+
+I can also see a TV remote control.
+
+I can only move west.
+
+>I sit down on the chair.
+
+>The chair shoots back up through a hole carved in the roof of the cave,
+carrying me with it. The hole in the sitting room floor closes behind it.
+
+>I stand up from the large chair.
+
+>I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>I move down.
+In the cellar
+I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
+room. There is an old upright washing machine in the corner and a fusebox on
+the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
+archway leading out of the cellar to the west. A battered old wardrobe stands
+close to the archway.
+
+The magic porridge pot is sitting in the middle of the room.
+
+I can also see a set of dumbells, an old brass key, a "distressed" Laura
+Ashley dress and my underwear.
+
+I can move west and up.
+
+>(Your score has increased by 3)
+'ALAKAZAM!'
+Immediately the magic porridge pot begins to fill up with extremely hot
+porridge. It just sort of swirls up from the bottom of the pot like an
+expensive special effect. Within seconds the pot is full and the porridge
+begins to run down the sides...
+
+>I scramble up the rickety steps just in time - a moment later the lower part
+of the staircase is smashed to splinters by a wave of bubbling porridge. I
+look back to see the cellar completely submerged in boiling oatmeal.
+
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+>I move north.
+In the sitting room
+From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
+sitting room is a chintzy abomination of taste, the sort of room that would
+make any sane bear want to go back and live in a cave. Two chairs are
+arranged around small coffee table; a large chair and a medium-sized chair.
+There used to be a tiny little chair but I'd rather not talk about it.
+
+I can also see a bearskin rug and an antimacassar.
+
+I can only move south.
+
+>I pick up the bearskin rug.
+
+>I move south.
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+ Just inside the front door is an open trapdoor.
+
+I can move north, west, up, down and out.
+
+>(Your score has increased by 3)
+Okay, I placed the rug over the trapdoor, so that it looks exactly as before
+- except that the trapdoor is open!
+
+>Okay, I removed the wedge of cheese that was holding the door open.
+
+>The front door is now closed.
+
+>I move up.
+In the bedroom
+I'm in the Three Bears' bedroom, a small attic room with steeply sloping
+walls. They have the weirdest sleeping arrangements. There's a tiny little
+bed, a medium-sized bed and a full sized snooker table. A narrow staircase
+leads down to the hall.
+
+A tiny dormer window looks out onto the clearing.  Lying in the middle of the
+floor with all four legs pointing heavenward is a dead coach horse.
+
+I can also see a rather thin blanket.
+
+I can only move down.
+
+>(Your score has increased by 4)
+The tiny little bed is so comfortable that I fall into a deep sleep the
+instant my head hits the pillow. Not even the muffled cry as the Three Bears
+fall through the trapdoor into the cellar and drown in a mire of their own
+porridge can rouse me from my sleep.
+  At just after noon I have a strange dream. Three ghostly bears, each with a
+pair of wings and holding a golden harp, float up through the bedroom
+floorboards. Papa Bear hovers above me like a translucent bear-shaped cloud,
+glaring at me through baleful yellow eyes.
+  'Who's been sleeping in my bed?' he growls, his hot, stinky breath on my
+face.
+  'Who's been sleeping in my bed?' snarls Mama Bear nudging her husband out
+of the way.
+  'Mater, Pater,' says Baby Bear who has obviously had the benefit of a
+public school education, 'it's patently obvious who has been sleeping in our
+beds, eating our porridge and destroying our furniture, since the shameless
+hussy is still sprawled across my cot. But it's all academic now - we're
+dead! The little monster got the better of us this time! Come, parents, I
+hear that heaven is full of succulent young ladies such as this and that the
+clouds are made of porridge!' With that the Three Bears float up through the
+ceiling and on to paradise.
+
+A few moments later, they're back again, wingless now and dropping like
+stones towards the fires of hell. The last I hear of them is the anguished
+cry
+
+'No! Please! Not the poker!'
+
+  I awake at around six, having had a full night's, or rather day's sleep,
+fresh as a daisy and ready for another night of partying!
+
+  That's if I can ever find my way out of the enchanted forest...
+
+  ...but that's another story! The important thing is, our plan worked! The
+Three Bears are no more and foxy young chicks are free to roam the forest and
+break into quaint little cottages without fear of ending up as a Bondage
+Barbie for a family of furry freaks! Thanks for all your help, I sure as hell
+couldn't have done it without you!

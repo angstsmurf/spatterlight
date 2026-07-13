@@ -1,19 +1,26 @@
 # TODO — add the "Plover" walkthrough corpus to Scarier's automated testing
 
-> **PARKED 2026-07-13.** Everything below is committed and the tree is green
-> (`make -f Makefile.headless test` exits 0; v4 suite **23/23 PASS**). This
-> session closed: the `make test` wiring (§7), the `coloromc.taf` "load failure"
-> (it is an ADRIFT 5 game — §TL;DR), and **Topaz**, which was never unwinnable —
+> **PARKED 2026-07-13 (updated).** Everything below is committed and the tree is
+> green (`make -f Makefile.headless test` exits 0; v4 suite **26/26 PASS**).
+> Closed so far: the `make test` wiring (§7), the `coloromc.taf` "load failure"
+> (it is an ADRIFT 5 game — §TL;DR), **Topaz**, which was never unwinnable —
 > it was a SCARE bug affecting every v4 game (§2, `Topaz_walkthrough.md`, and
-> §7b for the run400 anchors). A second `build.sh` link break was fixed on the
-> way (§4).
+> §7b for the run400 anchors) — and, **2026-07-13, the three port-based
+> re-derivations** (§5): *The Thorn*, *Renegade Brainwave* and *Goldilocks is a
+> FOX!* (100/100 MAX) are all derived, winning, blessed and wired. A second
+> `build.sh` link break was fixed on the way (§4).
 >
 > **Resume points, smallest first:**
-> 1. **Port-based re-derivations** (§5, priority item 5) — *The Thorn*,
->    *Goldilocks is a FOX!*, *Renegade Brainwave*. All three `.taf`s are on disk
->    and load; only the *walkthroughs* are for the Inform ports, so each needs
->    re-deriving against the ADRIFT original with the §6 recipe. This is the
->    obvious next chunk.
+> 1. ~~**Port-based re-derivations**~~ — ✅ **DONE 2026-07-13.** All three are in
+>    the runner with goldens; see `Thorn_walkthrough.md`,
+>    `Renegade_Brainwave_walkthrough.md`, `Goldilocks_walkthrough.md`. Three
+>    lessons worth carrying: (a) always try **`walkthru`** first — *The Thorn*
+>    ships the author's own solution as a task; (b) a K&C page may solve a
+>    *bigger* game — Guest's Inform *Renegade Brainwave* is an **expansion**, so
+>    deriving from `SCR_DUMP_TASKS=1` beat patching the port script; (c) when a
+>    port *is* faithful (*Goldilocks*: same 100 points, same 29 items), every
+>    failure is a wording problem, and the fastest tool is the task dump, which
+>    hands you the exact `cmd=[...]` the parser wants.
 > 2. **An unexplained Runner divergence in Topaz's conversation menu.** Petter
 >    ran the real ADRIFT 4 Runner and got stuck: after the two numbered answers
 >    every later command replied *"Choose an option to speak"*, as if a menu were
@@ -79,10 +86,10 @@ Game-file paths are under `~/Downloads/`. "WT engine" = the platform the
 | 3 | Man Overboard!!! | *Man Overboard!!!* — TonyB (Writing Challenges Comp 2006) | 4 | `Adrift games/ifcomps_v4_new/man overboard.taf` | ADRIFT | ✅ **DONE** — wins (boat ending), in harness |
 | 4 | Pieces of eden | *Pieces of eden* — Nicodemus (Comp With No Name 2008) | 4 | `Adrift games/adrift_offarchive_new/Pieces of eden.taf` | ADRIFT | ✅ **DONE** — wins (`END OF PART ONE`), in harness |
 | 5 | The Princess In The Tower | *The Princess In The Tower* — David Whyld (1st 1-Hr Comp 2002) | 4 | `Adrift games/1hourgamecomp/princess1.taf` (title confirmed) | ADRIFT | ✅ **DONE** — wins (`It seems you've won.`), in harness |
-| 6 | The Thorn | *The Thorn* — Eric Mayer / David Whyld (Summer MiniComp 2003) | 4 | `Adrift games/Minicomp/Thorn by Eric Mayer/Thorn.taf` | Inform (Z) | ready, but WT is for the Inform port (§5) |
+| 6 | The Thorn | *The Thorn* — Eric Mayer / David Whyld (Summer MiniComp 2003) | 4 | `Adrift games/Minicomp/Thorn by Eric Mayer/Thorn.taf` | Inform (Z) | ✅ **DONE** — re-derived; reaches an ending (`look upon your own mortality`), in harness. Game ships its own `walkthru` task. |
 | 7 | Too Much Exercise | *Too Much Exercise* — Robert Street (Writing Challenges 2006) | 4 | `Adrift games/ifarchive_v4_new/exercise.taf` | ADRIFT | ✅ **DONE** — wins (`Congratulations!`), in harness (worked example, §6) |
-| 8 | Goldilocks is a FOX! | *Goldilocks is a FOX!* — J. J. Guest (2002) | 4 | `Adrift games/goldilocks.taf` | Inform 6 | ready, but WT is for the Inform 6 port (§5) |
-| 9 | Renegade Brainwave | *Renegade Brainwave* — J. J. Guest (Ectocomp 2010) | 4 | `Adrift games/Ectocomp_2010/Renegade_Brainwave.taf` | Inform 7 | ready, but WT is for the Inform 7 port (§5) |
+| 8 | Goldilocks is a FOX! | *Goldilocks is a FOX!* — J. J. Guest (2002) | 4 | `Adrift games/goldilocks.taf` | Inform 6 | ✅ **DONE — WON 100/100 MAX**, in harness. Port is faithful; only wording differed. |
+| 9 | Renegade Brainwave | *Renegade Brainwave* — J. J. Guest (Ectocomp 2010) | 4 | `Adrift games/Ectocomp_2010/Renegade_Brainwave.taf` | Inform 7 | ✅ **DONE — WON**, in harness. The Inform release is an **expansion**; WT was unusable, derived from the task dump. |
 | 10 | Yak Shaving for Kicks and Giggles! | *Yak Shaving…* — J. J. Guest (The Odd Competition 2008) | 4 | `Adrift games/yak_shaving.taf` | ADRIFT (V1) | ✅ **DONE** — wins (V1 section; `completed the Odd Competition`), in harness |
 | 11 | Archie's Birthday – Ch.1: Reggie's Gift | Purple Dragon (2005) — **adult content** | 3.90 | **— MISSING —** | ADRIFT | need game (§3); decide whether to include NSFW game |
 | 12 | Quest for the Magic Healing Plant | Adam G. Crutchlow (1995/2002) | 3.9 | **— MISSING —** (only AGT/Inform ports ever existed; none on disk) | Inform 6 | need game (§3); low priority |
@@ -205,9 +212,9 @@ walkthrough text is written against a **non-ADRIFT port**, so the command
 sequence and (especially) the expected output will **not** match the ADRIFT
 original 1:1:
 
-* **The Thorn** — solved on the Inform Z-code port.
-* **Goldilocks is a FOX!** — solved on the ralphmerridew Inform 6 port.
-* **Renegade Brainwave** — solved on J. J. Guest's Inform 7 port.
+* ~~**The Thorn**~~ — solved on the Inform Z-code port. **✅ re-derived 2026-07-13** (`Thorn_walkthrough.md`).
+* ~~**Goldilocks is a FOX!**~~ — solved on the ralphmerridew Inform 6 port. **✅ re-derived 2026-07-13, 100/100 MAX** (`Goldilocks_walkthrough.md`).
+* ~~**Renegade Brainwave**~~ — solved on J. J. Guest's Inform 7 port, which is an **expansion of the ADRIFT game**, not a port of it. **✅ re-derived 2026-07-13 from the task dump** (`Renegade_Brainwave_walkthrough.md`).
 * **Color of Milk Coffee** — solved on the Inform 7 version; the `.taf` is an
   **ADRIFT 5** game and is already covered by the a5 corpus (see the TL;DR).
 * **Yak Shaving** V2 — Z-code port; **use the V1 section** (the ADRIFT entry).
@@ -398,8 +405,9 @@ either. Recorded so the next person does not have to re-derive them:
      compiled out (dead code). Now `-DSCARIER_DUMP_TOOLS`; env-gated so goldens
      are unaffected, and `SCR_DUMP_TASKS`/`SCR_TRACE_TASKS`/`SCR_DUMP_OBJLOC` now
      work for route debugging (used to diagnose Topaz).
-5. **Port-based games** (§5): The Thorn, Goldilocks, Renegade Brainwave — need
-   re-derivation against the ADRIFT `.taf`.
+5. ~~**Port-based games** (§5): The Thorn, Goldilocks, Renegade Brainwave~~ — ✅
+   **done 2026-07-13.** All three derived, winning, blessed and in the runner
+   (**26/26 PASS**). Goldilocks is a full **100/100 MAX**.
 6. **Source the 4 missing games** (§3), then add them.
 7. ~~**Investigate** the `coloromc.taf` load failure and the **Topaz** SCARE
    incompatibility~~ — **both DONE (2026-07-13).** coloromc is an ADRIFT 5 game

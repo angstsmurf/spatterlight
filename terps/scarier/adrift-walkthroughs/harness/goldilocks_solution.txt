@@ -1,0 +1,208 @@
+s
+w
+n
+n
+take bottle
+take note
+s
+w
+take leaves
+take pumpkin
+in
+x pots
+open trunk
+take all
+out
+n
+give turnip to cow
+s
+e
+s
+e
+n
+s
+w
+n
+w
+fill bottle
+open packet
+take bean
+plant bean
+water bean
+take all
+climb beanstalk
+jump to roof
+turn aerial
+enter chimney
+drop note
+drop bottle
+drop packet
+drop trowel
+take spoon
+open dresser
+take gigantic bowl
+pour porridge in large bowl into gigantic bowl
+eat porridge in tiny bowl
+eat porridge in gigantic bowl
+search ash
+drop gigantic bowl
+drop spoon
+n
+open freezer
+take chops
+take box
+open box
+take pendant
+wear pendant
+take matchbox
+take mouse
+take cheese
+drop box
+s
+e
+open door
+put cheese under door
+take rug
+open trapdoor
+n
+drop rug
+take antimacassar
+drop antimacassar
+sit on tiny chair
+take wood
+s
+u
+take blanket
+drop blanket
+take cue ball
+d
+w
+put firewood in fireplace
+light firewood
+cook chops
+take chops
+e
+give chops to wolf
+out
+s
+w
+n
+ask wolf about turbine
+take oil can
+oil secateurs
+drop oil can
+s
+e
+n
+in
+d
+push switch b
+unlock wardrobe with key
+open wardrobe
+drop key
+take dumbells
+move wardrobe
+w
+n
+x skeleton
+s
+e
+open machine with poker
+drop dumbells
+u
+n
+cut cable
+s
+d
+push switch b
+u
+n
+sit on large chair
+push button
+open fridge
+take beer
+drink beer
+take remote
+plug in tv
+press channel
+press channel
+press buy
+drop remote
+sit on chair
+push button
+stand
+s
+out
+open package
+take toaster
+put dynamite in toaster
+in
+d
+push switch a
+u
+n
+sit on large chair
+push button
+unplug tv
+plug in toaster
+push lever
+sit on chair
+push button
+stand
+s
+d
+push switch a
+u
+n
+sit on large chair
+push button
+w
+take wrench
+take paint
+paint ball
+open crate with poker
+drop paint
+drop poker
+e
+sit on chair
+push button
+stand
+s
+out
+s
+w
+throw ball in pond
+take frog
+e
+n
+in
+u
+kiss frog
+open window with wrench
+give pumpkin to godmother
+give mouse to godmother
+ask godmother about dress
+take wand
+wave wand at underwear
+d
+n
+sit on large chair
+push button
+w
+wave wand at pot
+e
+sit on chair
+push button
+stand
+s
+d
+alakazam
+u
+n
+take rug
+s
+cover trapdoor
+take cheese
+close door
+u
+lie on tiny bed

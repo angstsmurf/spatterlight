@@ -70,6 +70,9 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.
+thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
+renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
+goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
 EOF
 )
 

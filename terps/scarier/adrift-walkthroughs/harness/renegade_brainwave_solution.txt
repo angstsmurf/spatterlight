@@ -1,0 +1,23 @@
+open handbag
+drop handbag
+take gun
+west
+take crowbar
+east
+north
+west
+take cigar
+east
+south
+east
+give cigar to dummy
+in
+take bone
+out
+west
+north
+open chapel
+in
+down
+in
+throw bone at curtain

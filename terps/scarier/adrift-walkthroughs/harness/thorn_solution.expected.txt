@@ -1,0 +1,318 @@
+Loading game...
+
+The Thorn
+"You've heard of the Holy Thorn of  Glastonbury?" Professor Wilkens leans
+forward  in his wing chair to pour another shot of scotch from the bottle
+sitting on the edge of  the hearth tiles. You know from experience he will
+expect you to ask him about this proposed topic, this strange thorn. In fact
+he is looking at you expectantly, as if waiting for a show of hands.
+
+Professor Wilkens' Study
+A crackling fire fills Professor Wilkens' panelled study with shadows which
+leap and shift, giving you the unpleasant, but absurd, sensation of furtive
+things moving just beyond the edges of your vision. A desk sits against one
+wall. A single window looks out onto the night. The study door is to the
+east.
+
+Wilkens stares down into his tumbler.
+
+>"The Glastonbury Thorn is quite interesting. Supposedly, it blooms only at
+Christmas, outside Glastonbury Abbey.  Legend has it the thorn grew where the
+saintly Joseph of Arimathea thrust  his staff into the ground.  I can't vouch
+for the supernatural properties of the Glastonbury Thorn myself,  but I have
+seen one very like, located near a ruined abbey in the Fens.  I wouldn't look
+at that thorn bush again for anything in the world. Or the abbey for that
+matter."
+
+>[ask wilkens about priory]
+"This ruined abbey was in the fens, a few miles south of a village modern map
+makers have apparently given up for dead. I tracked down the location through
+Ordnance Survey maps and correspondence with several vicars in the
+surrounding country. I would not give you directions  any sooner than I would
+give you directions to your own grave site.
+
+"I know your journalistic nature, Lawrence. I hope you're not thinking of
+going out there. Just drink your scotch and forget I mentioned it." It seems
+to you that Wilkens glances, reflexively, toward the closed desk.
+
+>As you take a sip from the tumbler you feel a warmth in the back of your
+throat matching the warmth radiated by the fire
+
+"Would you care to try the Lagavulin?"  Wilkens says suddenly" I have a
+bottle of that out in the kitchen
+You watch as Wilkens walks out the door. You hear his footsteps going down
+the hall
+
+>Feeling like a schoolboy risking a caning you quietly open Professor Wilkens'
+desk.
+
+Inside the otherwise empty desk is what appars to be a map.
+
+>You take the map from the desk.
+
+>You move east.
+Beside the Road
+The road you've parked your van beside is little more than a dirt track,
+running north, through the fens Snow covers the ground but mists still hang
+above the ditches which take the place of hedgerows in the area. To the east,
+a stone vicarage and church are outlined against the sky.
+
+>You move east.
+In Front of the Vicarage
+The area between the road and the vicarage to the east appears to be nothing
+more than a flat patch of desolate earth traversed by a  flagstone walk. The
+snow coating the landscape is not deep enough to conceal  the remains of a
+summer garden, had there been one. The church is just a black  rectangular
+mass from here. A churchyard lies to the north.
+
+>You move north.
+The Churchyard
+This part of the churchyard, dusted in snow, appears nearly empty.  Here and
+there the wind has scoured the snow from one of the flat  gravestones but the
+rest are concealed. The churchyard  extends to the north.  The church looms
+to the east
+
+>You move east.
+Inside the Church
+Weak light from the gray rectangle of the door to the west and from the tall,
+pointed windows along the walls, reveal a gutted interior. A stone staircase
+leads up into the tower.
+
+>You move up.
+Inside the Church Tower
+The tower is an empty shell, like the rest of the church.
+
+A book lies in one corner. Discarded and forgotten perhaps.
+
+>You pick up the composition book.
+
+>Opening the composition book, you read the handwritten entry:
+
+"As Vicar here, I have naturally taken an interest in the history of this
+place and lately, having been ill, I've had more time to study. What I
+learned was exceedingly curious. A dispute arose among the monks of
+Glastonbury. No one remembers what it was over. There were hints of Mithraism
+or worse. Nothing that anyone would care about today.One night a monk whose
+name has been lost, or purposefully obliterated,  slashed a cutting from the
+thorn and he and a few disciples fled to the Fens. Like the Cistercians, they
+preferred  a wild country where they would be allowed to worship in their
+chosen manner. The cutting grew where it was planted, and where it was
+planted the monks built an abbey. But the supernatural properties of this
+thorn were different from those of the Glastonbury Thorn."
+
+There is nothing more. Either the story was never continued or was discarded.
+
+>You move down.
+Inside the Church
+Weak light from the gray rectangle of the door to the west and from the tall,
+pointed windows along the walls, reveal a gutted interior. A stone staircase
+leads up into the tower.
+
+>You move west.
+The Churchyard
+This part of the churchyard, dusted in snow, appears nearly empty.  Here and
+there the wind has scoured the snow from one of the flat  gravestones but the
+rest are concealed. The churchyard  extends to the north.  The church looms
+to the east
+
+>You hear the snow crunch underfoot as you walk further into the churchyard.
+Suddenly a figure appears from the darkness. Then, from the corner of your
+eye, you see another...and another. In an instant you realize you are
+surrounded, not by phantoms, but cross-shaped monuments.
+
+The End of the Churchyard
+ In this part of the churchyard  you are surrounded, not by phantoms, but
+cross-shaped monuments. To the west, in the growing shadows, you can make out
+what might be a ruin. The churchyard extends to the south.
+
+>You move west.
+In Front of the Abbey
+The remains of an ancient abbey. A single wall, part  of the cloister
+buildings, perhaps. The wind off the fens has formed a low,  curved ridge of
+snow at some distance from the wall, while scouring the frozen earth  at the
+base  as bare as the floor of a mausoleum. Some brush clings to one spot
+along the wall. The wall continues west  The churchyard lies to the east.
+
+>Just some half dead brush. On the ground beneath lie some dry sticks.
+
+>You pick up the dry sticks.
+
+>You move west.
+The Ruined Wall
+The short jagged length of wall points like a skeletal finger toward the
+empty fens where ghostly exhalations of mist shimmer in the darkness.
+Growing from the weeds and rubble at the wall's end is a deformed and stunted
+looking thorn bush. The ruin extends back to the east.
+
+>Shoulder-high. Hawthorn-like. Black.  Its limbs are arthritic and swollen,
+devoid of any hint of leaf or bud, let alone blossom. The thorns are at least
+an inch long.
+
+How had it survived in this  desolate country,  lifetime after lifetime,
+watching the winds erode  its sheltering wall.?
+Sharp crystals of snow blow against your face.
+
+Then something touches your leg.  A barely perceptible touch -  like stiff
+fingers - or a frozen branch.
+
+You look at the bush again. It is motionless, unaffected by the movement of
+the air around it. You are at least half a meter from any of the branches
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+A pale wisp of motion catches your attention. A figure appears, seeming
+almost to coalesce from the twilight and shadows as it approaches.
+
+"I am the Reverend Owen," comes the soft voice, sounding distant even though
+the speaker is right beside you. "You must come inside. It is too cold to
+talk out here. You will want to ask me about the thorn."
+
+ [Press Key to Follow the Vicar]
+
+You follow Owen back to the vicarage.  Inside seems colder than outside.
+
+"Why don't you make a fire," he suggests."I believe there are still a few
+warm embers lurking under the ashes in the fireplace. Some wood is all you
+need. Then you can ask what you want to know."
+
+Inside the Vicarage
+The darkness is almost total.The fading twilight turns the single unshuttered
+window into a gray rectangle, but seems hardly strong enough to penetrate the
+glass. Where the south wall must be there is a black gap you guess is a
+fireplace.
+
+The vicar glances around nervously.
+
+>You put the sticks into the fireplace.  They are light as ancient bones. To
+your surprise they burst into flames.  In moments firelight has pushed the
+night into the corners of the room
+
+>[ask vicar about priory]
+"The ruined abbey dates to an ancient time, before even King Lucius, who was
+our first Christian King.. The church and vicarage were built after the abbey
+had fallen into ruin or been demolished. The villagers used stones scavenged
+from the ruins. A common practice. At any rate, I believe those stones were
+imbued with a curse --  by the supernatural thorn whose roots spread beneath
+them -- and they carry that curse even today."
+
+The vicar sighs. Very faintly. You cannot even see the misty exhalation of
+his breath although your own breath forms clouds in the still frosty air
+inside the viacrage. "When you step into the church or the vicarage you might
+as well be stepping into that accursed abbey"
+
+>
+"The bush you were looking at just now really did grow from a cutting from
+the sacred thorn at Glastonbury. But it did not have the same...properties.
+It was cursed.
+
+"Maybe it was because the monks who brought it here held different beliefs,
+or God had just  changed his mind. The bush budded, but the buds, few in
+number, never opened - - until one of the monks died.
+
+ It was from living in that accursed abbey."
+
+When Vicar Owen has finished speaking you feel a sudden overpowering
+lethargy. He bids you to rest, so you lie down before the fire, not feeling
+it strange to do so.
+
+You sleep. In your nightmares you are drawn into a terrible geometry outlined
+by the twisted black branches of the thorn.
+
+[Press a Key to Dream]
+
+You seem to hear Professor Wilkens speaking, can almost see him, sitting in
+his study, sipping scotch. "You should never have taken that map, Lawrence.
+Since you have, you may as well know the story. There was an Abbot Worgren,
+they say, who began a painstaking study of the thorn. He recorded the
+appearance of each bud, when a newcomer arrived at the abbey, and each bloom,
+when a soul departed.
+
+ For every soul who stayed in the abbey, there appeared a bud. It blossomed
+at his death.
+
+ {Press a Key to Dream]
+
+One summer, though he was still a young man, Worgren fell victim to one of
+those fevers that haunted the marshes. Sick as he was, he made his daily
+visit to the thorn. Then, on St. Luke's Day - ironic, since he is the patron
+saint of physicians - Worgen noticed, to his horror that one of the buds was
+swelling.
+
+The fever intensified, as if the fires of Hell burned inside his skull.  By
+the next morning Worgren began to slip in and out of delirium.  In a rational
+moment he ordered two monks to carry him to the thorn and saw exactly what he
+feared. The swelling bud was near to bursting. He knew it was the bud marking
+ his own life, and that, come morning, it would burst into bloom at the first
+touch of the rising sun. Would blossom into his own death.
+
+[Press Key to Dream]
+
+Worgren had come prepared. He pulled from his robes a knife from the
+refrectory and loped off the bud.
+
+He defied God and continued to live. In a manner of speaking.
+
+[Press Key to Dream]
+
+His flesh wasted on his bones.  Certain ligaments and muscles do not,
+apparently, decay so quickly as vocal cords because it was reported, during
+the subsequent hearings on the matter of heresy,  that the pile of bone and
+rotting flesh on the cot continued to twitch long after the screaming
+stopped.
+
+His soul did manage to extricate itself finally from its fleshly tomb,
+exiting  through a hole in the mummified skin near the right heel,  according
+to the legend I was given.  Afterwards a presence was sensed wandering the
+abbey. It may have been his soul. Or something less...Christian.
+
+[Press Key to Wake]
+
+You wake. Chilled to the bone. Not sure whether you have had a dream or a
+vision.
+
+Inside the Vicarage at Dawn
+Dawn light filtering though the dusty window illuminates the empty, frigid
+room and the spent ashes in the firplace. On one  plaster wall a ghostly
+cross shape shows where a crucifix had protected the plaster beneath from
+smoke. The only way out is the door to the west.
+
+>You move west.
+The Ruined Wall at Dawn
+
+You are drawn irresistibly back to the ruined wall and the twisted thorn. The
+harsh morning light reveals what gentle dusk did not. A white scar on one of
+the twisted black branches, still covered in frozen sap. A cut was made, only
+recently.
+
+You would have thought a Vicar, a man who believes in God, would trust in the
+promise of an afterlife.  Yet Owen had followed Worgren's lead and cut the
+bud off to prevent his own death.
+
+You were talking to a ghost. How many ghosts wander the ruins. Monks who took
+the same course - who preferred even a cold, phantom existence in a world
+they knew to a promised Kingdom of God they weren't sure of.
+
+You realize with horror that the vicarage in which you spent the night was
+built with stones from the accursed abbey. Have you, then, come under the
+sway of the ancient curse?
+
+[Press a Key]
+
+One particular black, gnarled branch, seems almost to beckon you, asking you
+to examine it.  The way home is to the south.
+
+There is nothing left for you to do but to look at the thorn or leave. The
+thorn and the black branch are before you.  The way home is to the south.
+
+>
+You see what you feared, on what had been the  bare branches of the thorn,
+just below the cut made by the vicar, a thing you will never dare to look at
+again - a single bright green bud.
+
+You have chosen to look upon your own mortality.
+
+Have you won or lost?
