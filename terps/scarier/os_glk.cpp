@@ -73,7 +73,9 @@ static const char *find_last_of(const char *str, const char *chars)
 /* ADRIFT 5 engine -- driven by the dedicated a5 Glk loop (gsc_a5_main) when
  * the game file is detected as ADRIFT 5 rather than ADRIFT <=4. */
 #include "a5deobf.h"         /* a5_deflate / a5_inflate save framing */
+#include "a5map.h"           /* the ADRIFT 5 map (Map.vb) */
 #include "a5model.h"
+#include "a5restr.h"         /* a5restr_exit_in_direction, for map stub arrows */
 #include "a5run.h"
 #include "a5state.h"
 #include "a5text.h"          /* A5_MEDIA_* kinds */
@@ -159,6 +161,18 @@ static int gsc_a5_real_time = FALSE;
    side window (games such as Alien Diver use exactly one, "Status"), so every
    <window NAME> shares it regardless of NAME. */
 static winid_t gsc_a5_side_window = NULL;
+
+/* The ADRIFT 5 map, shown in a graphics window to the right of the story on
+   request ("map").  gsc_a5_map is parsed once per adventure and aliases its
+   XML, so it is dropped whenever the adventure is. */
+static winid_t gsc_a5_map_window = NULL;
+static a5map_t *gsc_a5_map = NULL;
+static int gsc_a5_map_shown = FALSE;
+/* Set when the game defines a MAP command of its own (Lost Coastlines has a
+   sea chart): the game's command wins, and the pane is reached with the
+   "glk map" escape instead. */
+static int gsc_a5_map_taken = FALSE;
+static void gsc_a5_map_redraw (a5_run_t *run);
 
 /* Special out-of-band os_confirm() options used locally with os_glk. */
 static const scr_int GSC_CONF_SUBTLE_HINT = INT_MAX,
@@ -1170,6 +1184,11 @@ gsc_status_redraw (void)
       else
         gsc_status_update ();
     }
+
+  /* The map is rasterised to the pixel size of its window, so a resize has to
+     redraw it, not just repaint it. */
+  if (gsc_is_a5 && gsc_a5_run)
+    gsc_a5_map_redraw (gsc_a5_run);
 }
 
 
@@ -2881,6 +2900,7 @@ typedef gsc_command_t *gsc_commandref_t;
 
 static void gsc_command_summary (const char *argument);
 static void gsc_command_help (const char *argument);
+static void gsc_command_map (const char *argument);
 
 /* Commands flagged FALSE for in_adrift5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
@@ -2897,6 +2917,7 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE},
   {"verbose",        gsc_command_verbose,        TRUE,  FALSE},
   {"version",        gsc_command_version,        FALSE, TRUE},
+  {"map",            gsc_command_map,            TRUE,  TRUE},
   {"commands",       gsc_command_commands,       TRUE,  TRUE},
   {"license",        gsc_command_license,        FALSE, TRUE},
   {"help",           gsc_command_help,           TRUE,  TRUE},
@@ -3019,6 +3040,20 @@ gsc_command_help (const char *command)
     {
       gsc_normal_string ("Prints a summary of all the current Glk SCARIER"
                          " settings.\n");
+    }
+
+  else if (matched->handler == gsc_command_map)
+    {
+      gsc_normal_string ("Shows the game's map beside the story, as the"
+                         " ADRIFT Runner does: the rooms you have visited,"
+                         " the ways between them, and where you are now.\n\nUse ");
+      gsc_standout_string ("glk map on");
+      gsc_normal_string (" to show the map and ");
+      gsc_standout_string ("glk map off");
+      gsc_normal_string (" to hide it again; plain ");
+      gsc_standout_string ("map");
+      gsc_normal_string (" toggles it too, unless the game uses MAP for"
+                         " something of its own.\n");
     }
 
   else if (matched->handler == gsc_command_script)
@@ -5110,6 +5145,223 @@ gsc_a5_status (a5_run_t *run)
   glk_set_window (gsc_main_window);
 }
 
+
+/*---------------------------------------------------------------------*/
+/*  ADRIFT 5 map window                                                */
+/*---------------------------------------------------------------------*/
+
+/*
+ * The map view callbacks: what a5map needs to know about this run.  They read
+ * the same state the runner's map does -- the player's seen-set, room short
+ * names, and the restriction-checked exits.
+ */
+static int
+gsc_a5_map_seen (void *ctx, const char *lockey)
+{
+  a5_state_t *st = (a5_state_t *) ctx;
+  int li = a5state_location_index (st, lockey);
+
+  return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
+}
+
+/*
+ * Room labels.  a5text_location_short_plain allocates, but a5map wants a
+ * borrowed string, so cache the names for the lifetime of one redraw.
+ */
+#define GSC_A5_MAP_NAMES 512
+static char *gsc_a5_map_name_cache[GSC_A5_MAP_NAMES];
+static const char *gsc_a5_map_name_key[GSC_A5_MAP_NAMES];
+static int gsc_a5_map_n_names = 0;
+
+static void
+gsc_a5_map_names_clear (void)
+{
+  int i;
+
+  for (i = 0; i < gsc_a5_map_n_names; i++)
+    free (gsc_a5_map_name_cache[i]);
+  gsc_a5_map_n_names = 0;
+}
+
+static const char *
+gsc_a5_map_name (void *ctx, const char *lockey)
+{
+  a5_state_t *st = (a5_state_t *) ctx;
+  char *name;
+  int i;
+
+  for (i = 0; i < gsc_a5_map_n_names; i++)
+    if (gsc_a5_map_name_key[i] == lockey)
+      return gsc_a5_map_name_cache[i];
+
+  name = a5text_location_short_plain (st, lockey);
+  if (name == NULL)
+    return NULL;
+  if (gsc_a5_map_n_names >= GSC_A5_MAP_NAMES)
+    {
+      /* Cache full (a huge page): draw this one and drop it. */
+      static char scratch[128];
+      snprintf (scratch, sizeof scratch, "%s", name);
+      free (name);
+      return scratch;
+    }
+  gsc_a5_map_name_key[gsc_a5_map_n_names] = lockey;
+  gsc_a5_map_name_cache[gsc_a5_map_n_names] = name;
+  gsc_a5_map_n_names++;
+  return name;
+}
+
+static const char *
+gsc_a5_map_exit_dest (void *ctx, const char *lockey, int dir)
+{
+  a5_state_t *st = (a5_state_t *) ctx;
+
+  return a5restr_exit_in_direction (st, a5state_player_key (st), lockey,
+                                    a5map_dirs[dir], NULL);
+}
+
+/*
+ * gsc_a5_map_redraw()
+ *
+ * Rasterise the map and blit it into the graphics window.  Glk has no drawing
+ * primitives beyond a filled rectangle, so -- as in the Comprehend port -- the
+ * page is rendered into an RGB surface and flushed as run-length-encoded
+ * horizontal spans, which is far cheaper than one fill_rect per pixel.
+ */
+static void
+gsc_a5_map_redraw (a5_run_t *run)
+{
+  a5map_surface_t *surf;
+  a5map_camera_t cam;
+  a5map_view_t view;
+  a5_state_t *st;
+  const char *ploc;
+  glui32 w, h;
+  int x, y;
+
+  if (!gsc_a5_map_window || !gsc_a5_map || !run)
+    return;
+
+  glk_window_get_size (gsc_a5_map_window, &w, &h);
+  if (w == 0 || h == 0)
+    return;
+
+  surf = a5map_surface_new ((int) w, (int) h);
+  if (surf == NULL)
+    return;
+
+  st = a5run_state (run);
+  view.seen = gsc_a5_map_seen;
+  view.name = gsc_a5_map_name;
+  view.exit_dest = gsc_a5_map_exit_dest;
+  view.ctx = st;
+
+  ploc = a5state_player_location (st);
+  a5map_frame (gsc_a5_map, &view, ploc, surf, &cam);
+  a5map_render (gsc_a5_map, &view, ploc, &cam, surf);
+  gsc_a5_map_names_clear ();
+
+  for (y = 0; y < surf->h; y++)
+    {
+      x = 0;
+      while (x < surf->w)
+        {
+          glui32 c = surf->px[(size_t) y * surf->w + x];
+          int x0 = x;
+
+          do
+            x++;
+          while (x < surf->w
+                 && surf->px[(size_t) y * surf->w + x] == c);
+          glk_window_fill_rect (gsc_a5_map_window, c,
+                                x0, y, (glui32) (x - x0), 1);
+        }
+    }
+
+  a5map_surface_free (surf);
+}
+
+/*
+ * gsc_a5_map_toggle()
+ *
+ * Show or hide the map pane.  The window is opened on first use (and only for
+ * games that actually have map data), then kept, so toggling is cheap.
+ */
+static void
+gsc_a5_map_toggle (a5_run_t *run)
+{
+  if (gsc_a5_map == NULL)
+    {
+      gsc_a5_put_string ("This game has no map.\n");
+      return;
+    }
+  if (!glk_gestalt (gestalt_Graphics, 0)
+      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+    {
+      gsc_a5_put_string ("This interpreter cannot display the map.\n");
+      return;
+    }
+
+  if (gsc_a5_map_shown)
+    {
+      if (gsc_a5_map_window)
+        {
+          glk_window_close (gsc_a5_map_window, NULL);
+          gsc_a5_map_window = NULL;
+        }
+      gsc_a5_map_shown = FALSE;
+      gsc_a5_put_string ("Map hidden.\n");
+      return;
+    }
+
+  gsc_a5_map_window = glk_window_open (gsc_main_window,
+                                       winmethod_Right
+                                       | winmethod_Proportional,
+                                       40, wintype_Graphics, 0);
+  if (!gsc_a5_map_window)
+    {
+      gsc_a5_put_string ("Sorry, the map window could not be opened.\n");
+      return;
+    }
+  gsc_a5_map_shown = TRUE;
+  gsc_a5_map_redraw (run);
+  glk_set_window (gsc_main_window);
+}
+
+/*
+ * gsc_command_map()
+ *
+ * "glk map [on|off]".  Always available, even for the rare game that defines a
+ * MAP command of its own (see gsc_a5_map_taken).
+ */
+static void
+gsc_command_map (const char *argument)
+{
+  if (!gsc_is_a5 || gsc_a5_run == NULL)
+    {
+      gsc_normal_string ("Glk maps are available only in ADRIFT 5 games.\n");
+      return;
+    }
+  if (strlen (argument) == 0)
+    {
+      gsc_a5_map_toggle (gsc_a5_run);
+      return;
+    }
+  if (scr_strcasecmp (argument, "on") == 0)
+    {
+      if (!gsc_a5_map_shown)
+        gsc_a5_map_toggle (gsc_a5_run);
+    }
+  else if (scr_strcasecmp (argument, "off") == 0)
+    {
+      if (gsc_a5_map_shown)
+        gsc_a5_map_toggle (gsc_a5_run);
+    }
+  else
+    gsc_normal_string ("Glk map can be \"on\" or \"off\".\n");
+}
+
+
 /*
  * gsc_a5_main()
  *
@@ -5186,11 +5438,19 @@ gsc_a5_main (void)
     }
   gsc_a5_start_real_time (run);
 
+  /* The map is authored data on the adventure, so it outlives restarts. */
+  if (gsc_a5_map == NULL)
+    {
+      gsc_a5_map = a5map_load (gsc_a5_adv);
+      gsc_a5_map_taken = a5map_command_taken (gsc_a5_adv);
+    }
+
   text = a5run_intro (run);
   gsc_a5_display (text);
   free (text);
   gsc_a5_present_intro_media (run);
   gsc_a5_status (run);
+  gsc_a5_map_redraw (run);
 
   for (;;)
     {
@@ -5225,6 +5485,7 @@ gsc_a5_main (void)
                       gsc_a5_put_string ("The previous turn has been undone.\n");
                       gsc_a5_undo_look (run);
                       gsc_a5_status (run);
+                      gsc_a5_map_redraw (run);
                       resumed = 1;
                       break;
                     }
@@ -5261,6 +5522,7 @@ gsc_a5_main (void)
               free (text);
               gsc_a5_present_intro_media (run);
               gsc_a5_status (run);
+              gsc_a5_map_redraw (run);
             }
         }
 
@@ -5296,6 +5558,17 @@ gsc_a5_main (void)
           free (text);
           gsc_a5_present_intro_media (run);
           gsc_a5_status (run);
+          gsc_a5_map_redraw (run);
+          continue;
+        }
+
+      /* MAP toggles the map pane.  The runner's map is host chrome rather than
+         a game command, so authors are free to use MAP themselves; when they
+         do, theirs wins and the pane is reached with "glk map". */
+      if (gsc_a5_map != NULL && !gsc_a5_map_taken
+          && gsc_a5_match_command (input, "map"))
+        {
+          gsc_a5_map_toggle (run);
           continue;
         }
 
@@ -5325,6 +5598,7 @@ gsc_a5_main (void)
               gsc_a5_put_string ("The previous turn has been undone.\n");
               gsc_a5_undo_look (run);
               gsc_a5_status (run);
+              gsc_a5_map_redraw (run);
             }
           else if (a5run_turns (run) == 0)
             gsc_a5_put_string ("You can't undo what hasn't been done.\n");
@@ -5342,6 +5616,7 @@ gsc_a5_main (void)
       free (text);
       gsc_a5_show_media (run);
       gsc_a5_status (run);
+      gsc_a5_map_redraw (run);
       /* An ended game is handled at the top of the loop. */
     }
 
@@ -5352,6 +5627,9 @@ gsc_a5_main (void)
     run = NULL;
     a5run_free (dead);
   }
+  gsc_a5_map_names_clear ();
+  a5map_free (gsc_a5_map);
+  gsc_a5_map = NULL;
   glk_exit ();
 }
 

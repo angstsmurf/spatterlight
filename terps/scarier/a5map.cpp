@@ -1,0 +1,1279 @@
+/* vi: set ts=2 shiftwidth=2 expandtab:
+ *
+ * Copyright (C) 2026  Petter Sjolund
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/* The ADRIFT 5 map.  See a5map.h for what this is and why the plan view is
+   the faithful one.  Geometry and colours follow the Adrift 5 runner's
+   Map.vb; the software rasteriser below stands in for the GDI+ calls it
+   makes (FillPolygon / DrawBezier / DrawEllipse / DrawString). */
+
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <cmath>
+#include <string>
+#include <vector>
+
+#include "a5map.h"
+#include "a5xml.h"
+#include "a5model.h"
+
+/* DirectionsEnum order (Global.vb:1468), as in a5expr.cpp. */
+const char *const a5map_dirs[12] = {
+  "North", "East", "South", "West", "Up", "Down",
+  "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
+};
+
+enum {
+  DIR_N = 0, DIR_E, DIR_S, DIR_W, DIR_UP, DIR_DOWN,
+  DIR_IN, DIR_OUT, DIR_NE, DIR_SE, DIR_SW, DIR_NW
+};
+
+/* Map.vb:33-39.  The runner's palette, verbatim. */
+#define MAPBACKGROUND  0xE6FFFF
+#define NODEBACKGROUND 0x96C8FF
+#define NODESELECTED   0xFFFF00
+#define NODEBORDER     0x6496C8
+#define NODETEXT       0x000000
+#define LINKCOLOUR     0x460000
+#define ICON_IN        0x00A000
+#define ICON_OUT       0xE06090
+
+/* The runner's node defaults (FileIO.vb only writes Width/Height when they
+   differ from these). */
+#define NODE_W 6
+#define NODE_H 4
+
+static int
+dir_index (const char *s)
+{
+  int i;
+  if (s == NULL)
+    return -1;
+  for (i = 0; i < 12; i++)
+    if (strcmp (s, a5map_dirs[i]) == 0)
+      return i;
+  return -1;
+}
+
+/*
+ * ---------------------------------------------------------------- parsing
+ */
+
+/* The destination of an exit, straight from the location's Movement table --
+   the map XML records only which anchors the connector was drawn between, so
+   the runner re-derives the target from arlDirections (FileIO.vb:4100). */
+static const char *
+movement_dest (const a5_location_t *loc, const char *dir, int *dotted)
+{
+  const a5_xml_node_t *c;
+  if (dotted != NULL)
+    *dotted = 0;
+  if (loc == NULL || loc->node == NULL)
+    return NULL;
+  for (c = loc->node->first_child; c != NULL; c = c->next)
+    {
+      const char *d, *dest;
+      const a5_xml_node_t *r;
+      if (strcmp (c->name, "Movement") != 0)
+        continue;
+      d = a5xml_child_text (c, "Direction");
+      if (d == NULL || strcmp (d, dir) != 0)
+        continue;
+      dest = a5xml_child_text (c, "Destination");
+      if (dest == NULL || dest[0] == '\0')
+        return NULL;
+      /* A restricted movement is drawn dotted (Map.vb:1441, DottedLink). */
+      r = a5xml_child (c, "Restrictions");
+      if (dotted != NULL && r != NULL && r->n_children > 0)
+        *dotted = 1;
+      return dest;
+    }
+  return NULL;
+}
+
+static int
+node_int (const a5_xml_node_t *n, const char *name, int dflt)
+{
+  const char *s = a5xml_child_text (n, name);
+  if (s == NULL || s[0] == '\0')
+    return dflt;
+  return atoi (s);
+}
+
+a5map_t *
+a5map_load (const a5_adventure_t *adv)
+{
+  const a5_xml_node_t *map, *pg;
+  a5map_t *m;
+  int total_nodes = 0;
+
+  if (adv == NULL || adv->root == NULL)
+    return NULL;
+  map = a5xml_child (adv->root, "Map");
+  if (map == NULL)
+    return NULL;
+
+  m = (a5map_t *) calloc (1, sizeof (a5map_t));
+  if (m == NULL)
+    return NULL;
+
+  m->n_pages = a5xml_count (map, "Page");
+  if (m->n_pages <= 0)
+    {
+      free (m);
+      return NULL;
+    }
+  m->pages = (a5map_page_t *) calloc ((size_t) m->n_pages,
+                                      sizeof (a5map_page_t));
+  if (m->pages == NULL)
+    {
+      free (m);
+      return NULL;
+    }
+
+  {
+    int ip = 0;
+    for (pg = map->first_child; pg != NULL; pg = pg->next)
+      {
+        a5map_page_t *page;
+        const a5_xml_node_t *nd;
+        int in;
+
+        if (strcmp (pg->name, "Page") != 0)
+          continue;
+        if (ip >= m->n_pages)
+          break;
+        page = &m->pages[ip];
+        page->key = node_int (pg, "Key", ip);
+        page->label = a5xml_child_text (pg, "Label");
+        page->n_nodes = a5xml_count (pg, "Node");
+        if (page->n_nodes > 0)
+          page->nodes = (a5map_node_t *) calloc ((size_t) page->n_nodes,
+                                                 sizeof (a5map_node_t));
+
+        in = 0;
+        for (nd = pg->first_child; nd != NULL; nd = nd->next)
+          {
+            a5map_node_t *node;
+            const a5_location_t *loc;
+            const a5_xml_node_t *lk;
+            int il, n_links;
+
+            if (strcmp (nd->name, "Node") != 0)
+              continue;
+            if (page->nodes == NULL || in >= page->n_nodes)
+              break;
+            node = &page->nodes[in];
+            node->key = a5xml_child_text (nd, "Key");
+            node->x = node_int (nd, "X", 0);
+            node->y = node_int (nd, "Y", 0);
+            node->z = node_int (nd, "Z", 0);
+            node->w = node_int (nd, "Width", NODE_W);
+            node->h = node_int (nd, "Height", NODE_H);
+            if (node->w <= 0)
+              node->w = NODE_W;
+            if (node->h <= 0)
+              node->h = NODE_H;
+            node->page = page->key;
+
+            loc = a5model_location (adv, node->key);
+
+            n_links = a5xml_count (nd, "Link");
+            if (n_links > 0)
+              node->links = (a5map_link_t *) calloc ((size_t) n_links,
+                                                     sizeof (a5map_link_t));
+            il = 0;
+            for (lk = nd->first_child; lk != NULL && node->links != NULL;
+                 lk = lk->next)
+              {
+                a5map_link_t *link;
+                const a5_xml_node_t *an;
+                const char *src;
+                int d, n_mids, im;
+
+                if (strcmp (lk->name, "Link") != 0)
+                  continue;
+                if (il >= n_links)
+                  break;
+                src = a5xml_child_text (lk, "SourceAnchor");
+                d = dir_index (src);
+                if (d < 0)
+                  continue;
+
+                link = &node->links[il];
+                link->dir = d;
+                link->dst_anchor = dir_index (a5xml_child_text
+                                              (lk, "DestinationAnchor"));
+                link->dest = movement_dest (loc, src, &link->dotted);
+
+                n_mids = a5xml_count (lk, "Anchor");
+                if (n_mids > 0)
+                  {
+                    link->mids = (a5map_pt_t *) calloc ((size_t) n_mids,
+                                                        sizeof (a5map_pt_t));
+                    im = 0;
+                    for (an = lk->first_child;
+                         an != NULL && link->mids != NULL; an = an->next)
+                      {
+                        if (strcmp (an->name, "Anchor") != 0)
+                          continue;
+                        if (im >= n_mids)
+                          break;
+                        link->mids[im].x = node_int (an, "X", 0);
+                        link->mids[im].y = node_int (an, "Y", 0);
+                        link->mids[im].z = node_int (an, "Z", 0);
+                        im++;
+                      }
+                    link->n_mids = im;
+                  }
+                il++;
+              }
+            node->n_links = il;
+            in++;
+            total_nodes++;
+          }
+        page->n_nodes = in;
+        ip++;
+      }
+    m->n_pages = ip;
+  }
+
+  if (total_nodes == 0)
+    {
+      a5map_free (m);
+      return NULL;
+    }
+  return m;
+}
+
+void
+a5map_free (a5map_t *map)
+{
+  int p, n, l;
+  if (map == NULL)
+    return;
+  for (p = 0; p < map->n_pages; p++)
+    {
+      a5map_page_t *page = &map->pages[p];
+      for (n = 0; n < page->n_nodes; n++)
+        {
+          a5map_node_t *node = &page->nodes[n];
+          for (l = 0; l < node->n_links; l++)
+            free (node->links[l].mids);
+          free (node->links);
+        }
+      free (page->nodes);
+    }
+  free (map->pages);
+  free (map);
+}
+
+const a5map_node_t *
+a5map_find (const a5map_t *map, const char *lockey)
+{
+  int p, n;
+  if (map == NULL || lockey == NULL)
+    return NULL;
+  for (p = 0; p < map->n_pages; p++)
+    for (n = 0; n < map->pages[p].n_nodes; n++)
+      {
+        const a5map_node_t *node = &map->pages[p].nodes[n];
+        if (node->key != NULL && strcmp (node->key, lockey) == 0)
+          return node;
+      }
+  return NULL;
+}
+
+/* Does any task command consist of the bare word "map"?  Task commands are
+   slash-separated alternatives ("map/chart"), so each alternative is tested;
+   surrounding space is ignored, and the match is case-insensitive.  Anything
+   with more to it ("look at map", "map %object%") is not a bare MAP and does
+   not conflict with a host MAP command. */
+int
+a5map_command_taken (const a5_adventure_t *adv)
+{
+  int t, c;
+
+  if (adv == NULL)
+    return 0;
+  for (t = 0; t < adv->n_tasks; t++)
+    {
+      const a5_task_t *task = &adv->tasks[t];
+      for (c = 0; c < task->n_commands; c++)
+        {
+          const char *s = task->commands[c];
+          while (s != NULL && *s != '\0')
+            {
+              const char *end = strchr (s, '/');
+              size_t len = (end != NULL) ? (size_t) (end - s) : strlen (s);
+              size_t b = 0;
+
+              while (b < len && (s[b] == ' ' || s[b] == '\t'))
+                b++;
+              while (len > b && (s[len - 1] == ' ' || s[len - 1] == '\t'))
+                len--;
+              if (len - b == 3
+                  && (s[b] == 'm' || s[b] == 'M')
+                  && (s[b + 1] == 'a' || s[b + 1] == 'A')
+                  && (s[b + 2] == 'p' || s[b + 2] == 'P'))
+                return 1;
+              if (end == NULL)
+                break;
+              s = end + 1;
+            }
+        }
+    }
+  return 0;
+}
+
+static const a5map_page_t *
+page_by_key (const a5map_t *map, int key)
+{
+  int p;
+  for (p = 0; p < map->n_pages; p++)
+    if (map->pages[p].key == key)
+      return &map->pages[p];
+  return NULL;
+}
+
+/*
+ * ------------------------------------------------------------- rasteriser
+ *
+ * A minimal 2D back end: alpha-blended rectangles, wide (optionally dotted)
+ * polylines, flattened cubic Beziers, filled circles and 8x8 bitmap text.
+ * That is the whole set of GDI+ primitives Map.vb actually uses.
+ */
+
+a5map_surface_t *
+a5map_surface_new (int w, int h)
+{
+  a5map_surface_t *s;
+  if (w <= 0 || h <= 0)
+    return NULL;
+  s = (a5map_surface_t *) calloc (1, sizeof (a5map_surface_t));
+  if (s == NULL)
+    return NULL;
+  s->w = w;
+  s->h = h;
+  s->px = (unsigned int *) calloc ((size_t) w * (size_t) h,
+                                   sizeof (unsigned int));
+  if (s->px == NULL)
+    {
+      free (s);
+      return NULL;
+    }
+  return s;
+}
+
+void
+a5map_surface_free (a5map_surface_t *s)
+{
+  if (s == NULL)
+    return;
+  free (s->px);
+  free (s);
+}
+
+static void
+blend (a5map_surface_t *s, int x, int y, unsigned int rgb, int alpha)
+{
+  unsigned int dst;
+  int r, g, b, dr, dg, db;
+  if (x < 0 || y < 0 || x >= s->w || y >= s->h || alpha <= 0)
+    return;
+  if (alpha >= 255)
+    {
+      s->px[(size_t) y * s->w + x] = rgb & 0xFFFFFF;
+      return;
+    }
+  dst = s->px[(size_t) y * s->w + x];
+  r = (int) ((rgb >> 16) & 0xFF);
+  g = (int) ((rgb >> 8) & 0xFF);
+  b = (int) (rgb & 0xFF);
+  dr = (int) ((dst >> 16) & 0xFF);
+  dg = (int) ((dst >> 8) & 0xFF);
+  db = (int) (dst & 0xFF);
+  r = (r * alpha + dr * (255 - alpha)) / 255;
+  g = (g * alpha + dg * (255 - alpha)) / 255;
+  b = (b * alpha + db * (255 - alpha)) / 255;
+  s->px[(size_t) y * s->w + x] =
+    ((unsigned int) r << 16) | ((unsigned int) g << 8) | (unsigned int) b;
+}
+
+static void
+fill_surface (a5map_surface_t *s, unsigned int rgb)
+{
+  size_t i, n = (size_t) s->w * s->h;
+  for (i = 0; i < n; i++)
+    s->px[i] = rgb & 0xFFFFFF;
+}
+
+static void
+fill_rect (a5map_surface_t *s, int x0, int y0, int x1, int y1,
+           unsigned int rgb, int alpha)
+{
+  int x, y;
+  if (x1 < x0)
+    { int t = x0; x0 = x1; x1 = t; }
+  if (y1 < y0)
+    { int t = y0; y0 = y1; y1 = t; }
+  for (y = y0; y <= y1; y++)
+    for (x = x0; x <= x1; x++)
+      blend (s, x, y, rgb, alpha);
+}
+
+static void
+draw_rect (a5map_surface_t *s, int x0, int y0, int x1, int y1,
+           unsigned int rgb, int alpha)
+{
+  int x, y;
+  for (x = x0; x <= x1; x++)
+    {
+      blend (s, x, y0, rgb, alpha);
+      blend (s, x, y1, rgb, alpha);
+    }
+  for (y = y0; y <= y1; y++)
+    {
+      blend (s, x0, y, rgb, alpha);
+      blend (s, x1, y, rgb, alpha);
+    }
+}
+
+/* A dot of radius `wd/2`, used as the pen nib when stroking. */
+static void
+nib (a5map_surface_t *s, int x, int y, int wd, unsigned int rgb, int alpha)
+{
+  int dx, dy, r;
+  if (wd <= 1)
+    {
+      blend (s, x, y, rgb, alpha);
+      return;
+    }
+  r = wd / 2;
+  for (dy = -r; dy <= r; dy++)
+    for (dx = -r; dx <= r; dx++)
+      if (dx * dx + dy * dy <= r * r + 1)
+        blend (s, x + dx, y + dy, rgb, alpha);
+}
+
+/* Bresenham with a round nib.  `dash` != 0 draws a dotted pen (DashStyle.Dot):
+   the runner's dot pattern is on/off in units of the pen width. */
+static void
+draw_line (a5map_surface_t *s, int x0, int y0, int x1, int y1, int wd,
+           unsigned int rgb, int alpha, int dash)
+{
+  int dx = abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
+  int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1;
+  int err = dx + dy, e2;
+  int step = 0;
+  int period = (wd > 0 ? wd : 1) * 3;
+
+  for (;;)
+    {
+      if (!dash || (step % period) < period / 2)
+        nib (s, x0, y0, wd, rgb, alpha);
+      if (x0 == x1 && y0 == y1)
+        break;
+      e2 = 2 * err;
+      if (e2 >= dy)
+        { err += dy; x0 += sx; }
+      if (e2 <= dx)
+        { err += dx; y0 += sy; }
+      step++;
+    }
+}
+
+/* Flatten a cubic Bezier (GDI+ DrawBezier) and stroke it. */
+static void
+draw_bezier (a5map_surface_t *s, double x0, double y0, double x1, double y1,
+             double x2, double y2, double x3, double y3, int wd,
+             unsigned int rgb, int alpha, int dash, int *dash_phase)
+{
+  int i, steps;
+  double len;
+  int px = 0, py = 0;
+  int phase = dash_phase != NULL ? *dash_phase : 0;
+  int period = (wd > 0 ? wd : 1) * 3;
+
+  len = fabs (x3 - x0) + fabs (y3 - y0)
+      + fabs (x1 - x0) + fabs (y1 - y0) + fabs (x3 - x2) + fabs (y3 - y2);
+  steps = (int) (len / 2.0);
+  if (steps < 8)
+    steps = 8;
+  if (steps > 512)
+    steps = 512;
+
+  for (i = 0; i <= steps; i++)
+    {
+      double t = (double) i / steps;
+      double u = 1.0 - t;
+      double bx = u * u * u * x0 + 3 * u * u * t * x1
+                + 3 * u * t * t * x2 + t * t * t * x3;
+      double by = u * u * u * y0 + 3 * u * u * t * y1
+                + 3 * u * t * t * y2 + t * t * t * y3;
+      int cx = (int) (bx + 0.5), cy = (int) (by + 0.5);
+      if (i > 0)
+        {
+          /* Stroke the segment, keeping the dash phase continuous along the
+             whole curve rather than restarting it at every flattened step. */
+          int dx = abs (cx - px), dy = abs (cy - py);
+          int seg = (dx > dy ? dx : dy);
+          if (!dash)
+            draw_line (s, px, py, cx, cy, wd, rgb, alpha, 0);
+          else if ((phase % period) < period / 2)
+            draw_line (s, px, py, cx, cy, wd, rgb, alpha, 0);
+          phase += seg > 0 ? seg : 1;
+        }
+      px = cx;
+      py = cy;
+    }
+  if (dash_phase != NULL)
+    *dash_phase = phase;
+}
+
+static void
+fill_circle (a5map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
+             int alpha)
+{
+  int dx, dy;
+  for (dy = -r; dy <= r; dy++)
+    for (dx = -r; dx <= r; dx++)
+      if (dx * dx + dy * dy <= r * r)
+        blend (s, cx + dx, cy + dy, rgb, alpha);
+}
+
+/* A filled arrow head at (x,y) pointing along (dx,dy) -- GDI+
+   AdjustableArrowCap(4,4), used for one-way links. */
+static void
+draw_arrowhead (a5map_surface_t *s, double x, double y, double dx, double dy,
+                int size, unsigned int rgb, int alpha)
+{
+  double len = sqrt (dx * dx + dy * dy);
+  double ux, uy, nx, ny;
+  int i;
+  if (len < 0.001)
+    return;
+  ux = dx / len;
+  uy = dy / len;
+  nx = -uy;
+  ny = ux;
+  /* Scanline the triangle by walking back from the tip. */
+  for (i = 0; i <= size; i++)
+    {
+      double bx = x - ux * i;
+      double by = y - uy * i;
+      double half = (double) i / 2.0;
+      double j;
+      for (j = -half; j <= half; j += 0.5)
+        blend (s, (int) (bx + nx * j + 0.5), (int) (by + ny * j + 0.5),
+               rgb, alpha);
+    }
+}
+
+/* --- 8x8 bitmap text (font8x8_basic, public domain: Marcel Sondaar).
+   Glk graphics windows cannot render text, so room labels are drawn as
+   glyphs.  LSB of each row byte is the leftmost pixel. */
+static const unsigned char kFont8x8[95][8] = {
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* space */
+  { 0x18, 0x3c, 0x3c, 0x18, 0x18, 0x00, 0x18, 0x00 },  /* '!' */
+  { 0x36, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '"' */
+  { 0x36, 0x36, 0x7f, 0x36, 0x7f, 0x36, 0x36, 0x00 },  /* '#' */
+  { 0x0c, 0x3e, 0x03, 0x1e, 0x30, 0x1f, 0x0c, 0x00 },  /* '$' */
+  { 0x00, 0x63, 0x33, 0x18, 0x0c, 0x66, 0x63, 0x00 },  /* '%' */
+  { 0x1c, 0x36, 0x1c, 0x6e, 0x3b, 0x33, 0x6e, 0x00 },  /* '&' */
+  { 0x06, 0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '\'' */
+  { 0x18, 0x0c, 0x06, 0x06, 0x06, 0x0c, 0x18, 0x00 },  /* '(' */
+  { 0x06, 0x0c, 0x18, 0x18, 0x18, 0x0c, 0x06, 0x00 },  /* ')' */
+  { 0x00, 0x66, 0x3c, 0xff, 0x3c, 0x66, 0x00, 0x00 },  /* '*' */
+  { 0x00, 0x0c, 0x0c, 0x3f, 0x0c, 0x0c, 0x00, 0x00 },  /* '+' */
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x0c, 0x0c, 0x06 },  /* ',' */
+  { 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x00 },  /* '-' */
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x0c, 0x0c, 0x00 },  /* '.' */
+  { 0x60, 0x30, 0x18, 0x0c, 0x06, 0x03, 0x01, 0x00 },  /* '/' */
+  { 0x3e, 0x63, 0x73, 0x7b, 0x6f, 0x67, 0x3e, 0x00 },  /* '0' */
+  { 0x0c, 0x0e, 0x0c, 0x0c, 0x0c, 0x0c, 0x3f, 0x00 },  /* '1' */
+  { 0x1e, 0x33, 0x30, 0x1c, 0x06, 0x33, 0x3f, 0x00 },  /* '2' */
+  { 0x1e, 0x33, 0x30, 0x1c, 0x30, 0x33, 0x1e, 0x00 },  /* '3' */
+  { 0x38, 0x3c, 0x36, 0x33, 0x7f, 0x30, 0x78, 0x00 },  /* '4' */
+  { 0x3f, 0x03, 0x1f, 0x30, 0x30, 0x33, 0x1e, 0x00 },  /* '5' */
+  { 0x1c, 0x06, 0x03, 0x1f, 0x33, 0x33, 0x1e, 0x00 },  /* '6' */
+  { 0x3f, 0x33, 0x30, 0x18, 0x0c, 0x0c, 0x0c, 0x00 },  /* '7' */
+  { 0x1e, 0x33, 0x33, 0x1e, 0x33, 0x33, 0x1e, 0x00 },  /* '8' */
+  { 0x1e, 0x33, 0x33, 0x3e, 0x30, 0x18, 0x0e, 0x00 },  /* '9' */
+  { 0x00, 0x0c, 0x0c, 0x00, 0x00, 0x0c, 0x0c, 0x00 },  /* ':' */
+  { 0x00, 0x0c, 0x0c, 0x00, 0x00, 0x0c, 0x0c, 0x06 },  /* ';' */
+  { 0x18, 0x0c, 0x06, 0x03, 0x06, 0x0c, 0x18, 0x00 },  /* '<' */
+  { 0x00, 0x00, 0x3f, 0x00, 0x00, 0x3f, 0x00, 0x00 },  /* '=' */
+  { 0x06, 0x0c, 0x18, 0x30, 0x18, 0x0c, 0x06, 0x00 },  /* '>' */
+  { 0x1e, 0x33, 0x30, 0x18, 0x0c, 0x00, 0x0c, 0x00 },  /* '?' */
+  { 0x3e, 0x63, 0x7b, 0x7b, 0x7b, 0x03, 0x1e, 0x00 },  /* '@' */
+  { 0x0c, 0x1e, 0x33, 0x33, 0x3f, 0x33, 0x33, 0x00 },  /* 'A' */
+  { 0x3f, 0x66, 0x66, 0x3e, 0x66, 0x66, 0x3f, 0x00 },  /* 'B' */
+  { 0x3c, 0x66, 0x03, 0x03, 0x03, 0x66, 0x3c, 0x00 },  /* 'C' */
+  { 0x1f, 0x36, 0x66, 0x66, 0x66, 0x36, 0x1f, 0x00 },  /* 'D' */
+  { 0x7f, 0x46, 0x16, 0x1e, 0x16, 0x46, 0x7f, 0x00 },  /* 'E' */
+  { 0x7f, 0x46, 0x16, 0x1e, 0x16, 0x06, 0x0f, 0x00 },  /* 'F' */
+  { 0x3c, 0x66, 0x03, 0x03, 0x73, 0x66, 0x7c, 0x00 },  /* 'G' */
+  { 0x33, 0x33, 0x33, 0x3f, 0x33, 0x33, 0x33, 0x00 },  /* 'H' */
+  { 0x1e, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'I' */
+  { 0x78, 0x30, 0x30, 0x30, 0x33, 0x33, 0x1e, 0x00 },  /* 'J' */
+  { 0x67, 0x66, 0x36, 0x1e, 0x36, 0x66, 0x67, 0x00 },  /* 'K' */
+  { 0x0f, 0x06, 0x06, 0x06, 0x46, 0x66, 0x7f, 0x00 },  /* 'L' */
+  { 0x63, 0x77, 0x7f, 0x7f, 0x6b, 0x63, 0x63, 0x00 },  /* 'M' */
+  { 0x63, 0x67, 0x6f, 0x7b, 0x73, 0x63, 0x63, 0x00 },  /* 'N' */
+  { 0x1c, 0x36, 0x63, 0x63, 0x63, 0x36, 0x1c, 0x00 },  /* 'O' */
+  { 0x3f, 0x66, 0x66, 0x3e, 0x06, 0x06, 0x0f, 0x00 },  /* 'P' */
+  { 0x1e, 0x33, 0x33, 0x33, 0x3b, 0x1e, 0x38, 0x00 },  /* 'Q' */
+  { 0x3f, 0x66, 0x66, 0x3e, 0x36, 0x66, 0x67, 0x00 },  /* 'R' */
+  { 0x1e, 0x33, 0x07, 0x0e, 0x38, 0x33, 0x1e, 0x00 },  /* 'S' */
+  { 0x3f, 0x2d, 0x0c, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'T' */
+  { 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x3f, 0x00 },  /* 'U' */
+  { 0x33, 0x33, 0x33, 0x33, 0x33, 0x1e, 0x0c, 0x00 },  /* 'V' */
+  { 0x63, 0x63, 0x63, 0x6b, 0x7f, 0x77, 0x63, 0x00 },  /* 'W' */
+  { 0x63, 0x63, 0x36, 0x1c, 0x1c, 0x36, 0x63, 0x00 },  /* 'X' */
+  { 0x33, 0x33, 0x33, 0x1e, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'Y' */
+  { 0x7f, 0x63, 0x31, 0x18, 0x4c, 0x66, 0x7f, 0x00 },  /* 'Z' */
+  { 0x1e, 0x06, 0x06, 0x06, 0x06, 0x06, 0x1e, 0x00 },  /* '[' */
+  { 0x03, 0x06, 0x0c, 0x18, 0x30, 0x60, 0x40, 0x00 },  /* '\\' */
+  { 0x1e, 0x18, 0x18, 0x18, 0x18, 0x18, 0x1e, 0x00 },  /* ']' */
+  { 0x08, 0x1c, 0x36, 0x63, 0x00, 0x00, 0x00, 0x00 },  /* '^' */
+  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff },  /* '_' */
+  { 0x0c, 0x0c, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '`' */
+  { 0x00, 0x00, 0x1e, 0x30, 0x3e, 0x33, 0x6e, 0x00 },  /* 'a' */
+  { 0x07, 0x06, 0x06, 0x3e, 0x66, 0x66, 0x3b, 0x00 },  /* 'b' */
+  { 0x00, 0x00, 0x1e, 0x33, 0x03, 0x33, 0x1e, 0x00 },  /* 'c' */
+  { 0x38, 0x30, 0x30, 0x3e, 0x33, 0x33, 0x6e, 0x00 },  /* 'd' */
+  { 0x00, 0x00, 0x1e, 0x33, 0x3f, 0x03, 0x1e, 0x00 },  /* 'e' */
+  { 0x1c, 0x36, 0x06, 0x0f, 0x06, 0x06, 0x0f, 0x00 },  /* 'f' */
+  { 0x00, 0x00, 0x6e, 0x33, 0x33, 0x3e, 0x30, 0x1f },  /* 'g' */
+  { 0x07, 0x06, 0x36, 0x6e, 0x66, 0x66, 0x67, 0x00 },  /* 'h' */
+  { 0x0c, 0x00, 0x0e, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'i' */
+  { 0x30, 0x00, 0x30, 0x30, 0x30, 0x33, 0x33, 0x1e },  /* 'j' */
+  { 0x07, 0x06, 0x66, 0x36, 0x1e, 0x36, 0x67, 0x00 },  /* 'k' */
+  { 0x0e, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'l' */
+  { 0x00, 0x00, 0x33, 0x7f, 0x7f, 0x6b, 0x63, 0x00 },  /* 'm' */
+  { 0x00, 0x00, 0x1f, 0x33, 0x33, 0x33, 0x33, 0x00 },  /* 'n' */
+  { 0x00, 0x00, 0x1e, 0x33, 0x33, 0x33, 0x1e, 0x00 },  /* 'o' */
+  { 0x00, 0x00, 0x3b, 0x66, 0x66, 0x3e, 0x06, 0x0f },  /* 'p' */
+  { 0x00, 0x00, 0x6e, 0x33, 0x33, 0x3e, 0x30, 0x78 },  /* 'q' */
+  { 0x00, 0x00, 0x3b, 0x6e, 0x66, 0x06, 0x0f, 0x00 },  /* 'r' */
+  { 0x00, 0x00, 0x3e, 0x03, 0x1e, 0x30, 0x1f, 0x00 },  /* 's' */
+  { 0x08, 0x0c, 0x3e, 0x0c, 0x0c, 0x2c, 0x18, 0x00 },  /* 't' */
+  { 0x00, 0x00, 0x33, 0x33, 0x33, 0x33, 0x6e, 0x00 },  /* 'u' */
+  { 0x00, 0x00, 0x33, 0x33, 0x33, 0x1e, 0x0c, 0x00 },  /* 'v' */
+  { 0x00, 0x00, 0x63, 0x6b, 0x7f, 0x7f, 0x36, 0x00 },  /* 'w' */
+  { 0x00, 0x00, 0x63, 0x36, 0x1c, 0x36, 0x63, 0x00 },  /* 'x' */
+  { 0x00, 0x00, 0x33, 0x33, 0x33, 0x3e, 0x30, 0x1f },  /* 'y' */
+  { 0x00, 0x00, 0x3f, 0x19, 0x0c, 0x26, 0x3f, 0x00 },  /* 'z' */
+  { 0x38, 0x0c, 0x0c, 0x07, 0x0c, 0x0c, 0x38, 0x00 },  /* '{' */
+  { 0x18, 0x18, 0x18, 0x00, 0x18, 0x18, 0x18, 0x00 },  /* '|' */
+  { 0x07, 0x0c, 0x0c, 0x38, 0x0c, 0x0c, 0x07, 0x00 },  /* '}' */
+  { 0x6e, 0x3b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }   /* '~' */
+};
+
+#define GLYPH_H 8
+
+/* Proportional advance: trim the glyph's unused right-hand columns so labels
+   stay compact in a 60px-wide room box. */
+static int
+glyph_advance (unsigned char c)
+{
+  int i, row, used = 0;
+  if (c == ' ')
+    return 4;
+  if (c < 32 || c > 126)
+    return 4;
+  for (row = 0; row < GLYPH_H; row++)
+    {
+      unsigned char bits = kFont8x8[c - 32][row];
+      for (i = 7; i >= 0; i--)
+        if (bits & (1 << i))
+          {
+            if (i + 1 > used)
+              used = i + 1;
+            break;
+          }
+    }
+  return used + 1;
+}
+
+static void
+draw_glyph (a5map_surface_t *s, unsigned char c, int x, int y,
+            unsigned int rgb, int alpha)
+{
+  int row, col;
+  if (c < 32 || c > 126)
+    return;
+  for (row = 0; row < GLYPH_H; row++)
+    {
+      unsigned char bits = kFont8x8[c - 32][row];
+      for (col = 0; col < 8; col++)
+        if (bits & (1 << col))
+          blend (s, x + col, y + row, rgb, alpha);
+    }
+}
+
+static int
+text_width (const char *t, size_t len)
+{
+  size_t i;
+  int w = 0;
+  for (i = 0; i < len; i++)
+    w += glyph_advance ((unsigned char) t[i]);
+  return w;
+}
+
+static void
+draw_text (a5map_surface_t *s, const char *t, size_t len, int x, int y,
+           unsigned int rgb, int alpha)
+{
+  size_t i;
+  for (i = 0; i < len; i++)
+    {
+      draw_glyph (s, (unsigned char) t[i], x, y, rgb, alpha);
+      x += glyph_advance ((unsigned char) t[i]);
+    }
+}
+
+/* Word-wrap `text` to `maxw` pixels and centre the block in the box.  Stands
+   in for GDI+'s StringFormat centring plus Map.vb's GetFont auto-fit: the
+   runner binary-searches a font size that makes the room name fit its box,
+   but a Glk graphics window has no text, so we draw one fixed bitmap font and
+   wrap into the box, packing the lines as tightly as the glyphs allow. */
+#define LINE_H (GLYPH_H)        /* no leading: an 8px box row per line */
+static void
+draw_label (a5map_surface_t *s, const char *text, int x0, int y0, int x1,
+            int y1, unsigned int rgb, int alpha)
+{
+  std::vector<std::string> lines;
+  int boxw = x1 - x0, boxh = y1 - y0;
+  int maxw = boxw - 2;
+  size_t i = 0, n;
+  int total, ty;
+
+  if (text == NULL || maxw < 6)
+    return;
+  n = strlen (text);
+
+  while (i < n)
+    {
+      size_t start = i, brk = 0, j;
+      int w = 0;
+      for (j = i; j < n; j++)
+        {
+          int gw = glyph_advance ((unsigned char) text[j]);
+          if (w + gw > maxw)
+            break;
+          w += gw;
+          if (text[j] == ' ')
+            brk = j;
+        }
+      if (j >= n)
+        {
+          lines.push_back (std::string (text + start, n - start));
+          break;
+        }
+      if (brk > start)
+        {
+          lines.push_back (std::string (text + start, brk - start));
+          i = brk + 1;
+        }
+      else
+        {
+          /* A single word too long for the box: hard-break it. */
+          size_t take = (j > start) ? j - start : 1;
+          lines.push_back (std::string (text + start, take));
+          i = start + take;
+        }
+    }
+
+  total = (int) lines.size () * LINE_H;
+  ty = y0 + (boxh - total) / 2;
+  if (ty < y0)
+    ty = y0;                    /* taller than the box: start at the top */
+  for (i = 0; i < lines.size (); i++)
+    {
+      int tw = text_width (lines[i].c_str (), lines[i].size ());
+      int tx = x0 + (boxw - tw) / 2;
+      int yy = ty + (int) i * LINE_H;
+      if (yy + GLYPH_H > y1 && i > 0)
+        break;                  /* out of room: clip the tail */
+      draw_text (s, lines[i].c_str (), lines[i].size (), tx, yy, rgb, alpha);
+    }
+}
+
+/*
+ * ------------------------------------------------------------- projection
+ *
+ * Plan view: Convert3DtoScreen is the identity at the runner's default
+ * offsets, so screen = map-units * scale, translated by the camera.  Z drops
+ * out of the position entirely and survives only as the level fade.
+ */
+
+typedef struct {
+  const a5map_camera_t *cam;
+  int ox, oy;                   /* pixel offset of map origin */
+} proj_t;
+
+static void
+proj_init (proj_t *p, const a5map_camera_t *cam, const a5map_surface_t *dst)
+{
+  p->cam = cam;
+  p->ox = dst->w / 2 - cam->cx;
+  p->oy = dst->h / 2 - cam->cy;
+}
+
+static int
+px_x (const proj_t *p, double ux)
+{
+  return (int) (ux * p->cam->scale + 0.5) + p->ox;
+}
+
+static int
+px_y (const proj_t *p, double uy)
+{
+  return (int) (uy * p->cam->scale + 0.5) + p->oy;
+}
+
+/* GetLinkPoint (Map.vb:747): where a connector meets the node's edge. */
+static void
+link_point (const proj_t *p, const a5map_node_t *n, int dir, double *x,
+            double *y)
+{
+  double lx = n->x, ly = n->y, w = n->w, h = n->h;
+  switch (dir)
+    {
+    case DIR_N:  *x = lx + w / 2; *y = ly;         break;
+    case DIR_NE: *x = lx + w;     *y = ly;         break;
+    case DIR_E:  *x = lx + w;     *y = ly + h / 2; break;
+    case DIR_SE: *x = lx + w;     *y = ly + h;     break;
+    case DIR_S:  *x = lx + w / 2; *y = ly + h;     break;
+    case DIR_SW: *x = lx;         *y = ly + h;     break;
+    case DIR_W:  *x = lx;         *y = ly + h / 2; break;
+    case DIR_NW: *x = lx;         *y = ly;         break;
+    default:     *x = lx + w / 2; *y = ly + h / 2; break;   /* Up/Down/In/Out */
+    }
+  *x = px_x (p, *x);
+  *y = px_y (p, *y);
+}
+
+/* GetRelativePoint (Map.vb:1659): a point given as a percentage of the node
+   box, allowed to fall outside it. */
+static void
+rel_point (const proj_t *p, const a5map_node_t *n, double xp, double yp,
+           double *x, double *y)
+{
+  *x = px_x (p, n->x + n->w * xp / 100.0);
+  *y = px_y (p, n->y + n->h * yp / 100.0);
+}
+
+/* GetBezierAssister (Map.vb:1592): the control point that bows a connector
+   out of the node in its own direction. */
+static void
+bezier_assister (const proj_t *p, const a5map_node_t *n, int dir, double dist,
+                 double *x, double *y)
+{
+  double ox, oy;
+  int scale = p->cam->scale > 0 ? p->cam->scale : 1;
+
+  if (dist == 0)
+    dist = 1;
+  ox = dist * 40.0 / scale / n->w;
+  oy = dist * 40.0 / scale / n->h;
+
+  switch (dir)
+    {
+    case DIR_N:  rel_point (p, n, 50, -oy, x, y); break;
+    case DIR_NE: rel_point (p, n, 100 + 3 * ox / 4, -oy / 2, x, y); break;
+    case DIR_E:  rel_point (p, n, 100 + ox, 50, x, y); break;
+    case DIR_SE: rel_point (p, n, 100 + 3 * ox / 4, 100 + oy / 2, x, y); break;
+    case DIR_S:  rel_point (p, n, 50, 100 + oy, x, y); break;
+    case DIR_SW: rel_point (p, n, -3 * ox / 4, 100 + oy / 2, x, y); break;
+    case DIR_W:  rel_point (p, n, -ox, 50, x, y); break;
+    case DIR_NW: rel_point (p, n, -3 * ox / 4, -oy / 2, x, y); break;
+    default:     rel_point (p, n, 50, 50, x, y); break;
+    }
+}
+
+/*
+ * ---------------------------------------------------------------- drawing
+ */
+
+static int
+view_seen (const a5map_view_t *v, const char *key)
+{
+  if (v == NULL || v->seen == NULL || key == NULL)
+    return 0;
+  return v->seen (v->ctx, key);
+}
+
+static const a5map_node_t *
+page_node (const a5map_page_t *page, const char *key)
+{
+  int i;
+  if (page == NULL || key == NULL)
+    return NULL;
+  for (i = 0; i < page->n_nodes; i++)
+    if (page->nodes[i].key != NULL
+        && strcmp (page->nodes[i].key, key) == 0)
+      return &page->nodes[i];
+  return NULL;
+}
+
+void
+a5map_frame (const a5map_t *map, const a5map_view_t *view,
+             const char *player_key, const a5map_surface_t *dst,
+             a5map_camera_t *cam)
+{
+  const a5map_node_t *pn;
+  const a5map_page_t *page;
+  int i, minx = 0, miny = 0, maxx = 0, maxy = 0, first = 1;
+  int sx, sy, scale;
+
+  cam->page = 0;
+  cam->scale = 10;
+  cam->cx = 0;
+  cam->cy = 0;
+  if (map == NULL || dst == NULL)
+    return;
+
+  /* The runner switches to the page the player is on (SelectNode). */
+  pn = a5map_find (map, player_key);
+  if (pn != NULL)
+    cam->page = pn->page;
+  else if (map->n_pages > 0)
+    cam->page = map->pages[0].key;
+
+  page = page_by_key (map, cam->page);
+  if (page == NULL)
+    return;
+
+  for (i = 0; i < page->n_nodes; i++)
+    {
+      const a5map_node_t *n = &page->nodes[i];
+      if (!view_seen (view, n->key))
+        continue;
+      if (first)
+        {
+          minx = n->x;
+          miny = n->y;
+          maxx = n->x + n->w;
+          maxy = n->y + n->h;
+          first = 0;
+        }
+      else
+        {
+          if (n->x < minx)
+            minx = n->x;
+          if (n->y < miny)
+            miny = n->y;
+          if (n->x + n->w > maxx)
+            maxx = n->x + n->w;
+          if (n->y + n->h > maxy)
+            maxy = n->y + n->h;
+        }
+    }
+  if (first)
+    return;                     /* nothing seen yet */
+
+  /* Fit the seen extent, with a margin for the labels and out-arrows. */
+  sx = (maxx - minx) > 0 ? (dst->w - 24) / (maxx - minx) : A5MAP_SCALE_MAX;
+  sy = (maxy - miny) > 0 ? (dst->h - 24) / (maxy - miny) : A5MAP_SCALE_MAX;
+  scale = sx < sy ? sx : sy;
+  if (scale > A5MAP_SCALE_MAX)
+    scale = A5MAP_SCALE_MAX;
+  if (scale < A5MAP_SCALE_MIN)
+    scale = A5MAP_SCALE_MIN;
+  cam->scale = scale;
+
+  /* Centre the seen extent when it fits at this scale (CentreMap); once it is
+     too big to show at once, follow the player instead (LockPlayerCentre) and
+     clamp so we never scroll past the edge of the map. */
+  cam->cx = (int) ((minx + maxx) / 2.0 * scale);
+  cam->cy = (int) ((miny + maxy) / 2.0 * scale);
+
+  if (pn != NULL && view_seen (view, pn->key))
+    {
+      int spanx = (maxx - minx) * scale;
+      int spany = (maxy - miny) * scale;
+      int lo, hi;
+      if (spanx > dst->w - 24)
+        {
+          cam->cx = (int) ((pn->x + pn->w / 2.0) * scale);
+          lo = minx * scale + (dst->w - 24) / 2;
+          hi = maxx * scale - (dst->w - 24) / 2;
+          if (cam->cx < lo)
+            cam->cx = lo;
+          if (cam->cx > hi)
+            cam->cx = hi;
+        }
+      if (spany > dst->h - 24)
+        {
+          cam->cy = (int) ((pn->y + pn->h / 2.0) * scale);
+          lo = miny * scale + (dst->h - 24) / 2;
+          hi = maxy * scale - (dst->h - 24) / 2;
+          if (cam->cy < lo)
+            cam->cy = lo;
+          if (cam->cy > hi)
+            cam->cy = hi;
+        }
+    }
+}
+
+/* An exit that leads somewhere the player has not been is drawn as a short
+   stub arrow out of the node (DrawOutArrow, Map.vb). */
+static void
+draw_out_arrow (a5map_surface_t *s, const proj_t *p, const a5map_node_t *n,
+                int dir, int wd, int alpha)
+{
+  double x0, y0, x1, y1, dx, dy, len;
+  double stub = p->cam->scale * 1.2;
+
+  link_point (p, n, dir, &x0, &y0);
+  switch (dir)
+    {
+    case DIR_N:  dx = 0;  dy = -1; break;
+    case DIR_NE: dx = 1;  dy = -1; break;
+    case DIR_E:  dx = 1;  dy = 0;  break;
+    case DIR_SE: dx = 1;  dy = 1;  break;
+    case DIR_S:  dx = 0;  dy = 1;  break;
+    case DIR_SW: dx = -1; dy = 1;  break;
+    case DIR_W:  dx = -1; dy = 0;  break;
+    case DIR_NW: dx = -1; dy = -1; break;
+    default: return;            /* Up/Down/In/Out get badges, not stubs */
+    }
+  len = sqrt (dx * dx + dy * dy);
+  dx /= len;
+  dy /= len;
+  x1 = x0 + dx * stub;
+  y1 = y0 + dy * stub;
+  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, LINKCOLOUR,
+             alpha, 0);
+  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, LINKCOLOUR, alpha);
+}
+
+/* The IN / OUT bubble on a node edge (DrawInOutIcon, Map.vb:1530). */
+static void
+draw_inout_icon (a5map_surface_t *s, const proj_t *p, const a5map_node_t *n,
+                 int is_in, int alpha)
+{
+  double cx, cy;
+  int r = p->cam->scale / 2;
+  if (r < 3)
+    r = 3;
+  /* The runner picks the edge from where the destination lies; without the
+     full edge bookkeeping we use the node's top-left (IN) / top-right (OUT)
+     corner, which keeps the two badges from colliding. */
+  rel_point (p, n, is_in ? 25 : 75, 0, &cx, &cy);
+  fill_circle (s, (int) cx, (int) cy, r, is_in ? ICON_IN : ICON_OUT, alpha);
+  draw_text (s, is_in ? "I" : "O", 1, (int) cx - 2, (int) cy - 4,
+             0xFFFFFF, alpha);
+}
+
+void
+a5map_render (const a5map_t *map, const a5map_view_t *view,
+              const char *player_key, const a5map_camera_t *cam,
+              a5map_surface_t *dst)
+{
+  const a5map_page_t *page;
+  const a5map_node_t *active;
+  proj_t p;
+  int i, l, wd;
+
+  if (dst == NULL)
+    return;
+  fill_surface (dst, MAPBACKGROUND);
+  if (map == NULL || cam == NULL)
+    return;
+  page = page_by_key (map, cam->page);
+  if (page == NULL)
+    return;
+
+  proj_init (&p, cam, dst);
+  active = a5map_find (map, player_key);
+  wd = cam->scale / 5;          /* Map.vb:1433, pen width = iScale / 5 */
+  if (wd < 1)
+    wd = 1;
+
+  /* Pass 1: connectors, so the room boxes sit on top of them. */
+  for (i = 0; i < page->n_nodes; i++)
+    {
+      const a5map_node_t *n = &page->nodes[i];
+      if (!view_seen (view, n->key))
+        continue;
+
+      for (l = 0; l < n->n_links; l++)
+        {
+          const a5map_link_t *link = &n->links[l];
+          const a5map_node_t *dn;
+          double x0, y0, x1, y1, x2, y2, x3, y3, dist;
+          int alpha, dash, phase = 0;
+          int dst_anchor;
+
+          if (link->dir == DIR_IN || link->dir == DIR_OUT)
+            continue;           /* drawn as badges below */
+          if (link->dest == NULL)
+            continue;
+
+          dn = page_node (page, link->dest);
+          if (dn == NULL || !view_seen (view, dn->key))
+            {
+              /* Destination unseen or on another page: stub arrow only. */
+              continue;
+            }
+          if (link->dir == DIR_UP || link->dir == DIR_DOWN)
+            {
+              /* In plan view Z drops out, so an up/down link degenerates to a
+                 straight run between the two room centres; that is exactly
+                 what the runner shows until you rotate the map. */
+            }
+
+          /* Nodes on a different level than the player's fade out
+             (Map.vb:1436). */
+          alpha = 100;
+          if (active != NULL && n->z != active->z
+              && !(dn->z == active->z))
+            alpha = 30;
+
+          dash = link->dotted;
+
+          dst_anchor = link->dst_anchor;
+          if (dst_anchor < 0)
+            dst_anchor = link->dir;
+
+          link_point (&p, n, link->dir, &x0, &y0);
+          link_point (&p, dn, dst_anchor, &x3, &y3);
+          dist = sqrt ((x3 - x0) * (x3 - x0) + (y3 - y0) * (y3 - y0));
+          bezier_assister (&p, n, link->dir, dist, &x1, &y1);
+          bezier_assister (&p, dn, dst_anchor, dist, &x2, &y2);
+
+          draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, LINKCOLOUR,
+                       alpha, dash, &phase);
+        }
+    }
+
+  /* Pass 2: exits leading somewhere we have not been, as stub arrows.  The
+     runner gates these on HasRouteInDirection AndAlso Not HasSeenLocation
+     (Map.vb DrawOutArrow) -- an exit back to a room already on the map is
+     already drawn as a connector, so it must not also get a stub. */
+  if (view != NULL && view->exit_dest != NULL)
+    {
+      for (i = 0; i < page->n_nodes; i++)
+        {
+          const a5map_node_t *n = &page->nodes[i];
+          int d;
+          if (!view_seen (view, n->key))
+            continue;
+          for (d = 0; d < 12; d++)
+            {
+              const char *dest;
+              if (d == DIR_IN || d == DIR_OUT)
+                continue;
+              dest = view->exit_dest (view->ctx, n->key, d);
+              if (dest == NULL || dest[0] == '\0')
+                continue;
+              if (view_seen (view, dest))
+                continue;
+              draw_out_arrow (dst, &p, n, d, wd, 100);
+            }
+        }
+    }
+
+  /* Pass 3: the room boxes and their labels. */
+  for (i = 0; i < page->n_nodes; i++)
+    {
+      const a5map_node_t *n = &page->nodes[i];
+      int x0, y0, x1, y1, alpha, is_player, has_in = 0, has_out = 0;
+      unsigned int fill;
+
+      if (!view_seen (view, n->key))
+        continue;
+
+      x0 = px_x (&p, n->x);
+      y0 = px_y (&p, n->y);
+      x1 = px_x (&p, n->x + n->w);
+      y1 = px_y (&p, n->y + n->h);
+      if (x1 < 0 || y1 < 0 || x0 >= dst->w || y0 >= dst->h)
+        continue;               /* off-screen */
+
+      is_player = (player_key != NULL && n->key != NULL
+                   && strcmp (n->key, player_key) == 0);
+
+      /* Alpha 200 on the player's level, 50 elsewhere (Map.vb:1172-1194). */
+      alpha = 200;
+      if (!is_player && active != NULL && n->z != active->z)
+        alpha = 50;
+
+      fill = is_player ? NODESELECTED : NODEBACKGROUND;
+      fill_rect (dst, x0, y0, x1, y1, fill, alpha);
+      draw_rect (dst, x0, y0, x1, y1, NODEBORDER, alpha);
+
+      for (l = 0; l < n->n_links; l++)
+        {
+          if (n->links[l].dir == DIR_IN)
+            has_in = 1;
+          if (n->links[l].dir == DIR_OUT)
+            has_out = 1;
+        }
+      if (has_in)
+        draw_inout_icon (dst, &p, n, 1, alpha);
+      if (has_out)
+        draw_inout_icon (dst, &p, n, 0, alpha);
+
+      if (view != NULL && view->name != NULL)
+        {
+          const char *label = view->name (view->ctx, n->key);
+          if (label != NULL && label[0] != '\0')
+            draw_label (dst, label, x0, y0, x1, y1, NODETEXT,
+                        alpha == 50 ? 90 : 255);
+        }
+    }
+}
+
+const char *
+a5map_hit (const a5map_t *map, const a5map_view_t *view,
+           const a5map_camera_t *cam, const a5map_surface_t *dst, int mx,
+           int my)
+{
+  const a5map_page_t *page;
+  proj_t p;
+  int i;
+
+  if (map == NULL || cam == NULL || dst == NULL)
+    return NULL;
+  page = page_by_key (map, cam->page);
+  if (page == NULL)
+    return NULL;
+  proj_init (&p, cam, dst);
+
+  for (i = page->n_nodes - 1; i >= 0; i--)
+    {
+      const a5map_node_t *n = &page->nodes[i];
+      int x0, y0, x1, y1;
+      if (!view_seen (view, n->key))
+        continue;
+      x0 = px_x (&p, n->x);
+      y0 = px_y (&p, n->y);
+      x1 = px_x (&p, n->x + n->w);
+      y1 = px_y (&p, n->y + n->h);
+      if (mx >= x0 && mx <= x1 && my >= y0 && my <= y1)
+        return n->key;
+    }
+  return NULL;
+}

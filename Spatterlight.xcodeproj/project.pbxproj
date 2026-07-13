@@ -1012,6 +1012,7 @@
 		CC9FC385F0D6751126B1C67D /* a5sexpr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */; };
 		D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87010291D59681D38B0F44C5 /* scprintf.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
+		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
 		F4E620D1D98ABB1032579FB0 /* sclibrar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7891237714D4C19104EE325 /* sclibrar.cpp */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
 /* End PBXBuildFile section */
@@ -3681,6 +3682,8 @@
 		FB5081C8D969BA9C6C4CFC46 /* a5model.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5model.cpp; sourceTree = "<group>"; };
 		FBDDF07BAE218674A9BF2815 /* a5xml.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5xml.cpp; sourceTree = "<group>"; };
 		FF22095E6A4182F0BA2C8C35 /* a5run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run.cpp; sourceTree = "<group>"; };
+		A5MAP0000000000000000002 /* a5map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5map.cpp; sourceTree = "<group>"; };
+		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -4199,6 +4202,8 @@
 				7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */,
 				10990E34B23D66921A762A58 /* a5rand.cpp */,
 				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
+				A5MAP0000000000000000002 /* a5map.cpp */,
+				A5MAP0000000000000000003 /* a5map.h */,
 				A5B000000000000000000102 /* a5sb.cpp */,
 				A5B000000000000000000104 /* a5run_ref.cpp */,
 				A5B000000000000000000106 /* a5run_events.cpp */,
@@ -7967,6 +7972,7 @@
 				8E6D5566C3EB91367805E306 /* a5parse.cpp in Sources */,
 				3B98519817A0F0691F423FD2 /* a5rand.cpp in Sources */,
 				E010519EC9196D58BA837C92 /* a5run.cpp in Sources */,
+				A5MAP0000000000000000001 /* a5map.cpp in Sources */,
 				A5B000000000000000000101 /* a5sb.cpp in Sources */,
 				A5B000000000000000000103 /* a5run_ref.cpp in Sources */,
 				A5B000000000000000000105 /* a5run_events.cpp in Sources */,

@@ -89,6 +89,8 @@ A5TEXT_HARNESS := test/a5text_dump.cpp
 A5TEXT_BIN     := test/a5text_dump
 A5RUN_HARNESS := test/a5run_dump.cpp
 A5RUN_BIN     := test/a5run_dump
+A5MAP_HARNESS := test/a5map_dump.cpp
+A5MAP_BIN     := test/a5map_dump
 A5PARSE_HARNESS := test/a5parse_test.cpp
 A5PARSE_BIN     := test/a5parse_test
 A5DIS_HARNESS   := test/a5_disambig_test.cpp
@@ -102,7 +104,7 @@ A5SEXPR_BIN     := test/a5sexpr_test
 A5SAVE_HARNESS  := test/a5_save_test.cpp
 A5SAVE_BIN      := test/a5_save_test
 
-.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest
+.PHONY: test sanitize taf clean a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -235,6 +237,15 @@ $(A5RUN_BIN): $(A5_RUN_SRC) $(A5RUN_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
 # (only for glui32 via glk.h).
 $(A5_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
 	$(CC) -O2 -w -I../cheapglk -c -o $@ $(COMMON)/randomness.c
+
+# Render the ADRIFT 5 map headlessly to a PPM (no Glk).  Run it by hand:
+#   make -f Makefile.headless a5map
+#   ./test/a5map_dump path/to/game.blorb [script.txt] -o map.ppm [-all]
+a5map: $(A5MAP_BIN)
+$(A5MAP_BIN): $(A5_RUN_SRC) a5map.cpp $(A5MAP_HARNESS) $(A5_RUN_HDRS) a5map.h \
+              $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) a5map.cpp $(A5MAP_HARNESS) \
+	    $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Self-contained matcher regression test (no game data); part of `test`.
 a5parsetest: $(A5PARSE_BIN)
