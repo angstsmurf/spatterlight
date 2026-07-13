@@ -185,6 +185,29 @@ static void gsc_map_redraw (void);
 static map_camera_t gsc_map_cam;
 static int gsc_map_px_w = 0, gsc_map_px_h = 0;
 
+/* The pixels currently on screen, kept so that a redraw need only send the rows
+   that have changed.  The map is redrawn at every prompt, but most turns do not
+   move the player and so do not change a single pixel; a turn that does move him
+   usually changes only part of the pane.  Sending the whole surface regardless
+   is what costs: Glk has no blit, so each row of the map arrives at the display
+   as a run of glk_window_fill_rect() calls, and Spatterlight turns every one of
+   them into an NSRectFill.  Comparing against these pixels first is much cheaper
+   than drawing them again.
+   The comparison is only valid while the window still holds what we last put
+   there, so gsc_map_full_flush forces the whole surface out again whenever it
+   may not: after an arrange or redraw event (the window is resized, and its
+   backing image with it), and when the pane is opened or cleared. */
+static map_surface_t *gsc_map_screen = NULL;
+static int gsc_map_full_flush = TRUE;
+
+static void
+gsc_map_screen_drop (void)
+{
+  map_surface_free (gsc_map_screen);
+  gsc_map_screen = NULL;
+  gsc_map_full_flush = TRUE;
+}
+
 /* A walk in progress, from clicking a room on the map (clsCharacter.WalkTo /
    DoWalk): the target room, and the room we set off from on the last step so a
    step that fails to move us can abort the walk, as DoWalk's sLastPosition
@@ -1238,7 +1261,9 @@ gsc_status_redraw (void)
     }
 
   /* The map is rasterised to the pixel size of its window, so a resize has to
-     redraw it, not just repaint it. */
+     redraw it, not just repaint it -- and the window has lost what we drew
+     there, so all of it must go out again, not just what the game changed. */
+  gsc_map_full_flush = TRUE;
   gsc_map_redraw ();
 }
 
@@ -4318,6 +4343,7 @@ gsc_main (void)
   /* All done -- release game resources. */
   map_free (gsc_map);
   gsc_map = NULL;
+  gsc_map_screen_drop ();
   scr_free_game (gsc_game);
 
   /* Close any open transcript, input log, and/or read log. */
@@ -5465,6 +5491,10 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
  * primitives beyond a filled rectangle, so -- as in the Comprehend port -- the
  * page is rendered into an RGB surface and flushed as run-length-encoded
  * horizontal spans, which is far cheaper than one fill_rect per pixel.
+ *
+ * Only the rows that differ from what is already on screen (gsc_map_screen) are
+ * flushed, so a turn that leaves the map alone -- most of them -- sends nothing
+ * at all.
  */
 static void
 gsc_map_redraw (void)
@@ -5489,6 +5519,7 @@ gsc_map_redraw (void)
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
     {
       glk_window_clear (gsc_map_window);
+      gsc_map_screen_drop ();
       return;
     }
 
@@ -5503,24 +5534,40 @@ gsc_map_redraw (void)
   if (gsc_is_a5)
     gsc_a5_map_names_clear ();
 
+  /* The window was resized under us, so the pixels we think are on screen are
+     not the ones that are. */
+  if (gsc_map_screen != NULL
+      && (gsc_map_screen->w != surf->w || gsc_map_screen->h != surf->h))
+    gsc_map_screen_drop ();
+
   for (y = 0; y < surf->h; y++)
     {
+      const glui32 *row = &surf->px[(size_t) y * surf->w];
+
+      /* Untouched row: what is on screen is already right. */
+      if (!gsc_map_full_flush && gsc_map_screen != NULL
+          && memcmp (row, &gsc_map_screen->px[(size_t) y * surf->w],
+                     (size_t) surf->w * sizeof row[0]) == 0)
+        continue;
+
       x = 0;
       while (x < surf->w)
         {
-          glui32 c = surf->px[(size_t) y * surf->w + x];
+          glui32 c = row[x];
           int x0 = x;
 
           do
             x++;
-          while (x < surf->w
-                 && surf->px[(size_t) y * surf->w + x] == c);
+          while (x < surf->w && row[x] == c);
           glk_window_fill_rect (gsc_map_window, c,
                                 x0, y, (glui32) (x - x0), 1);
         }
     }
 
-  map_surface_free (surf);
+  /* These pixels are the screen now. */
+  map_surface_free (gsc_map_screen);
+  gsc_map_screen = surf;
+  gsc_map_full_flush = FALSE;
 
   /* Arm the click that walks the player to a room.  Mouse requests are
      one-shot, so this is re-armed after every redraw. */
@@ -5641,6 +5688,7 @@ gsc_map_toggle (void)
           gsc_map_window = NULL;
         }
       gsc_map_shown = FALSE;
+      gsc_map_screen_drop ();
       gsc_normal_string ("Map hidden.\n");
       return;
     }
@@ -5673,6 +5721,7 @@ gsc_map_toggle (void)
       return;
     }
   gsc_map_shown = TRUE;
+  gsc_map_screen_drop ();       /* a fresh window holds nothing */
   gsc_map_redraw ();
 
   /* The ADRIFT 4 layout can give up ("Cannot draw map - too complex.",
@@ -5990,6 +6039,7 @@ gsc_a5_main (void)
   gsc_a5_map_names_clear ();
   map_free (gsc_map);
   gsc_map = NULL;
+  gsc_map_screen_drop ();
   glk_exit ();
 }
 
