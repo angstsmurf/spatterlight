@@ -7,6 +7,11 @@ anno1700 style: `#` headers + bare commands) and replayed through **both** the
 Scarier harness (`test/a5run_dump`) and the **FrankenDrift** reference engine
 via `test/a5_groundtruth.sh`. FrankenDrift is the ground truth.
 
+> References here and in code comments to `TODO_a5_walkthrough_bugs.md` point
+> to the conformance-bug ledger that lived next to the engine sources until
+> every entry was closed; it was pruned 2026-07-14 and its full write-ups
+> remain in git history (`git log --all -- terps/scarier/TODO_a5_walkthrough_bugs.md`).
+
 ## Running
 
 ```sh
