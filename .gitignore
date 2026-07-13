@@ -232,3 +232,9 @@ fastlane/screenshots
 .gdb_history
 
 terps/comprehend/test/rgbacrc
+
+# Headless ScottFree test harness build artifacts
+terps/scott/headless_obj/
+terps/scott/scott_hl
+terps/scott/scott_death_test
+terps/scott/scott_all_audit

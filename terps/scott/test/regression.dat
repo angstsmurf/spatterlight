@@ -1,0 +1,59 @@
+0
+10 3 20 2 6 1 1 4 -1 4 2
+
+1507 20 40 40 0 0 7862 150
+1520 80 0 0 0 0 7802 0
+2862 0 0 0 0 0 450 0
+1800 0 0 0 0 0 9900 0
+
+"AUT" "ANY"
+"GO" "NORT"
+"" "SOUT"
+"" "EAST"
+"" "WEST"
+"" "UP"
+"" "DOWN"
+"" "COIN"
+"" "ROPE"
+"" "BOOK"
+"TAKE" ""
+"*GET" ""
+"INV" "DR."
+"DR." ""
+"" "MEDA"
+"" ""
+"" ""
+"" ""
+"DROP" ""
+"CALL" ""
+"" "GEM"
+
+0 0 0 0 0 0 ""
+2 0 0 0 0 0 "test chamber"
+0 1 0 0 0 0 "storeroom"
+
+""
+"The rope slithers away into the shadows."
+"The gem glitters as you take it."
+"You call the doctor. He does not answer."
+""
+
+"Some rubbish" 0
+"A coin/COIN/" 1
+"A rope/ROPE/" 1
+"A book/BOOK/" 1
+"A gem/GEM/" 1
+"A medal/MEDA/" 2
+"Nothing" 0
+"Nothing" 0
+"Nothing" 0
+"A burnt-out lamp" 0
+"Nothing" 0
+
+"TAKE COIN: take it, and the rope slithers off to the storeroom"
+"TAKE GEM: gem is the last dictionary word"
+"CALL DR.: title mid-sentence"
+"INV"
+
+100
+1

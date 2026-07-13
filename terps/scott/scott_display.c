@@ -491,8 +491,13 @@ void Look(void)
 
     r = &Rooms[MyLoc];
 
-    if (!r->Text)
+    if (!r->Text) {
+        /* Flush rather than bare-return: buf and room_description_stream are
+           already allocated/open, and only FlushRoomDescription frees and
+           closes them. A bare return leaks both every time it is hit. */
+        FlushRoomDescription(buf);
         return;
+    }
     /* An initial asterisk means the room description should not */
     /* start with "You are" or equivalent */
     if (*r->Text == '*') {
@@ -616,8 +621,10 @@ void ListInventory(int upper)
    sequences so the player can see intermediate room descriptions. */
 void LookWithPause(void)
 {
+    if (Rooms[MyLoc].Text == NULL || MyLoc == 0)
+        return;
     char fc = Rooms[MyLoc].Text[0];
-    if (Rooms[MyLoc].Text == NULL || MyLoc == 0 || fc == 0 || fc == '.' || fc == ' ')
+    if (fc == 0 || fc == '.' || fc == ' ')
         return;
     should_look_in_transcript = should_draw_image = 1;
     pause_next_room_description = 1;

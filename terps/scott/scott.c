@@ -378,6 +378,13 @@ static char *ReadString(FILE *f)
         /* Ignore CR (assume CRLF in DOS-formatted files) */
         if (c == '\r')
             continue;
+        /* Keep consuming to the closing quote so the file stays in sync, but
+           never write past the buffer: a string longer than the buffer (a
+           corrupt or hostile database) would otherwise smash the stack, since
+           the terminator is fully controlled by the file. Reserve one byte for
+           the trailing NUL. */
+        if (ct >= READSTRING_BUFFER_SIZE - 1)
+            continue;
         /* Pass ASCII and newline to Glk; replace anything else */
         if (c == '\n' || (c >= ' ' && c <= '~'))
             tmp[ct++] = c;

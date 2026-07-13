@@ -452,7 +452,10 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
        data sections.  Arrays are one-indexed (slot 0 is valid), so
        each allocation adds 1 to the count. */
     GameHeader.NumItems = num_items;
-    Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
+    /* Always allocate through LIGHT_SOURCE (item 9): the lamp timer reads
+       Items[LIGHT_SOURCE] every turn without consulting NumItems, and
+       MemCalloc makes the padding read back as a destroyed item. */
+    Items = (Item *)MemCalloc(sizeof(Item) * MAX(num_items + 1, LIGHT_SOURCE + 1));
     GameHeader.NumActions = 0;
     GameHeader.NumWords = num_words;
     GameHeader.WordLength = word_length;

@@ -307,7 +307,12 @@ int PerformExtraCommand(int extra_stop_time)
         }
         break;
     case EXCEPT:
+        /* A bare EXCEPT/BUT (not following ALL) is meaningless: drop the
+           command chain and fall through to the "not handled" path so the
+           caller prints "I don't understand". Without this break it fell into
+           FLICKER and silently switched the flicker option on. */
         FreeCommands();
+        break;
     case FLICKER:
         if (noun == ON || noun == 0) {
             FlickerOn();

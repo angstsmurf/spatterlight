@@ -1,0 +1,130 @@
+# Headless build of the ScottFree interpreter, for automated/regression testing.
+#
+# Instead of linking against Spatterlight's glkimp (which speaks a binary
+# protocol to the Cocoa front-end and aborts with "protocol error" when run
+# from a plain shell), this links the interpreter against the vendored copy of
+# Andrew Plotkin's CheapGlk -- a stdio Glk library. The result, `scott_hl`,
+# reads commands from stdin and writes the transcript to stdout.
+#
+# Graphics degrade gracefully: CheapGlk refuses the wintype_Graphics window, so
+# Graphics stays NULL and the drawing code becomes a no-op. Text, parser and
+# action-table behaviour are unaffected, which is what the regression tests
+# exercise.
+#
+# Usage:
+#   make -f Makefile.headless
+#   printf 'north\nquit\n' | ./scott_hl "/path/to/Seas of Blood.z80"
+
+CHEAPGLK_DIR := ../cheapglk
+COMMON_DIR   := ../common_utils
+SAGADRAW_DIR := ../common_sagadraw
+AIUKGFX_DIR  := ../aiukgraphics
+Z80_DIR      := ../decompressz80
+READWOZ_DIR  := ../readwoz
+C64DISK_DIR  := ../c64diskimage
+UNP64_DIR    := ../unp64
+TAYLOR_DIR   := ../taylor
+OBJDIR       := headless_obj
+
+CC  ?= clang
+CXX ?= clang++
+
+# -I$(CHEAPGLK_DIR) comes first so glk.h / glkstart.h resolve to CheapGlk's
+# headers rather than glkimp's.
+COMMON_INC := -I. -Itest -Iai_uk -Isaga -Iti994a -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) \
+              -I$(SAGADRAW_DIR) -I$(AIUKGFX_DIR) -I$(Z80_DIR) -I$(READWOZ_DIR) \
+              -I$(C64DISK_DIR) -I$(UNP64_DIR) -I$(TAYLOR_DIR)
+DEPFLAGS   := -MMD -MP
+# Some engine headers (e.g. ai_uk/sagadraw.h) use size_t without including
+# <stddef.h>; under glkimp that arrives transitively, but CheapGlk's glk.h does
+# not pull it in. Force it in rather than churn the engine headers.
+FORCE_INC  := -include stddef.h
+CFLAGS     := -O0 -g -Wall -Wno-unknown-pragmas -Wno-unused-function \
+              $(COMMON_INC) $(DEPFLAGS) $(FORCE_INC) -DSPATTERLIGHT -DSCOTT_HEADLESS
+
+# ai_uk/debug.c is an orphan (its debug.h does not exist and Xcode does not
+# build it), so it is filtered out here.
+SRCS := $(wildcard *.c) $(filter-out ai_uk/debug.c,$(wildcard ai_uk/*.c)) $(wildcard saga/*.c) \
+        $(wildcard ti994a/*.c) \
+        $(wildcard $(COMMON_DIR)/*.c) $(wildcard $(SAGADRAW_DIR)/*.c) \
+        $(AIUKGFX_DIR)/irmak.c $(AIUKGFX_DIR)/palette.c \
+        $(AIUKGFX_DIR)/taylordraw.c $(wildcard $(Z80_DIR)/*.c) \
+        $(READWOZ_DIR)/woz2nib.c $(READWOZ_DIR)/ciderpress.c \
+        $(C64DISK_DIR)/c64diskimage.c \
+        test/headless_stubs.c
+
+OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS)))
+VPATH := .:ai_uk:saga:ti994a:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(AIUKGFX_DIR):$(Z80_DIR):$(READWOZ_DIR):$(C64DISK_DIR)
+
+CXX_SRCS := $(wildcard $(UNP64_DIR)/*.cpp) $(wildcard $(UNP64_DIR)/scanners/*.cpp)
+CXX_OBJS := $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(CXX_SRCS)))
+CXXFLAGS := -O0 -g -w $(COMMON_INC) $(FORCE_INC)
+
+CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
+
+scott_hl: $(OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB) -lz
+
+$(OBJDIR)/%.o: $(UNP64_DIR)/%.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(OBJDIR)/%.o: $(UNP64_DIR)/scanners/%.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(CHEAPGLK_LIB):
+	$(MAKE) -C $(CHEAPGLK_DIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Focused reproducer for the death-room bug (compressed-room off-by-one): it
+# needs its own glk_main, so scott.c is compiled a second time with the real one
+# renamed out of the way. Takes a game file, jumps the player into the death
+# room and calls Look(); see test/death_test.c for the ASan invocation.
+$(OBJDIR)/scott_deathmain.o: scott.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -Dglk_main=scott_real_glk_main -c $< -o $@
+
+DEATH_OBJS := $(filter-out $(OBJDIR)/scott.o,$(OBJS)) $(OBJDIR)/scott_deathmain.o \
+              $(OBJDIR)/death_test.o
+
+scott_death_test: $(DEATH_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
+	$(CXX) $(LDFLAGS) -o $@ $(DEATH_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB) -lz
+
+# Regression tests. test/headless_stubs.c forces the engine's determinism mode,
+# so the RNG-driven events (Adventureland's chiggers and bees) replay the same
+# way every run and a transcript can be diffed against a golden file. CheapGlk
+# prints "Glk library error: window_move_cursor" whenever the engine addresses
+# the status window, which is expected here (CheapGlk has no text grid) and is
+# filtered out rather than baked into the goldens.
+UITESTS := ../../UITests/Supporting Files
+NOISE   := grep -v 'Glk library error'
+
+check: scott_hl
+	@echo "--- test/regression.dat: TAKE ALL chain, last-dictionary-word noun, Mr./Dr. tokenizer"
+	@printf 'take all\ninv\ncall dr.\ndr. medal\n' | ./scott_hl test/regression.dat 2>/dev/null \
+	    | $(NOISE) > $(OBJDIR)/regression.out
+	@diff -u test/regression_expected.txt $(OBJDIR)/regression.out && echo "    ok"
+	@echo "--- adv01.dat: full Adventureland walkthrough (157 commands, wins 13/13)"
+	@./scott_hl "$(UITESTS)/Games/adv01.dat" < "$(UITESTS)/Command scripts/ScottFree command script.txt" \
+	    2>/dev/null | $(NOISE) > $(OBJDIR)/adv01.out
+	@diff -u test/adv01_expected.txt $(OBJDIR)/adv01.out && echo "    ok"
+	@echo "PASS"
+
+clean:
+	rm -rf $(OBJDIR) scott_hl scott_death_test
+
+
+.PHONY: clean check
+
+-include $(OBJS:.o=.d)
+
+# Audit tool (not part of `check`): reports actions that can relocate an
+# ALL-eligible item while a TAKE ALL / DROP ALL chain is running -- i.e. whether
+# a given game can reach the chain's skip path at all.
+AUDIT_OBJS := $(filter-out $(OBJDIR)/scott.o,$(OBJS)) $(OBJDIR)/scott_deathmain.o \
+              $(OBJDIR)/all_audit.o
+
+scott_all_audit: $(AUDIT_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
+	$(CXX) $(LDFLAGS) -o $@ $(AUDIT_OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB) -lz

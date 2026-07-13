@@ -1,0 +1,1767 @@
+Welcome to the Cheap Glk Implementation, library version 1.0.7.
+
+Scott Free, A Scott Adams game driver in C.
+Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.
+Distributed under the GNU software license
+
+A voice BOOOOMS out:
+
+Welcome to Adventure number: 1 "ADVENTURELAND".
+In this Adventure you're to find *TREASURES* & store them away.
+
+To see how well you're doing say: "SCORE"
+Remember you can always say "HELP"
+
+I'm in a forest
+
+Obvious exits: North, South, East, West.
+
+I can also see: Trees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - *GOLDEN FISH* - Rusty axe (Magic word "BUNYON" on it) - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a quick-sand bog
+
+Obvious exits: None.
+
+I can also see: *Small statue of a BLUE OX* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a quick-sand bog
+
+Obvious exits: None.
+<------------------------------------------------------------------------------>
+Tell me what to do ? bunyon
+Something I'm holding vibrates and...
+I'm carrying: 
+Nothing.
+
+I'm in a quick-sand bog
+
+Obvious exits: None.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm at the edge of a BOTTOMLESS hole
+
+Obvious exits: North, West.
+
+I can also see: Large outdoor Advertisement - Hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+don't think I want to go down
+
+Obvious exits: Up, Down.
+
+I can also see: Flint & steel - 
+<------------------------------------------------------------------------------>
+I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+don't think I want to go down
+
+Obvious exits: Up, Down.
+
+I can also see: Flint & steel - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm on a ledge just below the rim of the BOTTOMLESS hole. I
+don't think I want to go down
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm at the edge of a BOTTOMLESS hole
+
+Obvious exits: North, West.
+
+I can also see: Large outdoor Advertisement - Hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a hidden grove
+
+Obvious exits: North, East.
+
+I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - Sign says "Paul's place" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a hidden grove
+
+Obvious exits: North, East.
+
+I can also see: Rusty axe (Magic word "BUNYON" on it) - *JEWELED FRUIT* - Sign says "Paul's place" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a hidden grove
+
+Obvious exits: North, East.
+
+I can also see: *JEWELED FRUIT* - Sign says "Paul's place" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a hidden grove
+
+Obvious exits: North, East.
+
+I can also see: Sign says "Paul's place" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a top of a tall cypress tree
+
+Obvious exits: Down.
+
+I can also see: Spider web with writing on it - Ring of skeleton keys - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a top of a tall cypress tree
+
+Obvious exits: Down.
+
+I can also see: Spider web with writing on it - Ring of skeleton keys - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a top of a tall cypress tree
+
+Obvious exits: Down.
+
+I can also see: Spider web with writing on it - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? TIMBER!
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Old fashioned brass lamp - Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? A glowing Genie appears, drops somehting, then vanishes.
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? A glowing Genie appears, drops somehting, then vanishes.
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Water in bottle - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - *Pot of RUBIES* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Locked door - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Locked door - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I can't see. It is too dark!
+<------------------------------------------------------------------------------>
+Tell me what to do ? Lamp burns with a cold flameless blue glow.
+
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal anteroom
+
+Obvious exits: North, Up.
+
+I can also see: Empty wine bladder - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a royal anteroom
+
+Obvious exits: North, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, Down.
+
+I can also see: Sign here says "Opposite of LIGHT is UNLIGHT" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: West, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: Strange scratchings on rock says: "ALADIN was here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: *Thick PERSIAN RUG* - Arrow pointing down - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: Arrow pointing down - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: *GOLDEN NET* - Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Stream of lava - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Stream of lava - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: Arrow pointing down - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>Something I'm holding vibrates and...
+
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+Lamp is off
+
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - *GOLDEN FISH* - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm at the edge of a BOTTOMLESS hole
+
+Obvious exits: North, West.
+
+I can also see: Large outdoor Advertisement - Hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Empty wine bladder - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm bitten by chiggers.
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+BOY that really hit the spot!
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I can't see. It is too dark!
+<------------------------------------------------------------------------------>
+Tell me what to do ? Lamp burns with a cold flameless blue glow.
+
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal anteroom
+
+Obvious exits: North, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal chamber
+
+Obvious exits: Down.
+
+I can also see: Bricked up window - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a royal chamber
+
+Obvious exits: Down.
+
+I can also see: Distended gas bladder - Bricked up window - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gas bladder blew up
+
+I'm in a royal chamber
+
+Obvious exits: Down.
+
+I can also see: Bricked up window with a hole in it - Loose fire bricks - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on a narrow ledge by a chasm. Across the chasm is
+the Throne-room
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm on a narrow ledge by a chasm. Across the chasm is
+the Throne-room
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on a narrow ledge by a Throne-room
+Across the chasm is another ledge
+
+Obvious exits: None.
+
+I can also see: Very thin black bear - *MAGIC MIRROR* - 
+<------------------------------------------------------------------------------>
+I'm on a narrow ledge by a Throne-room
+Across the chasm is another ledge
+
+Obvious exits: None.
+
+I can also see: Very thin black bear - *MAGIC MIRROR* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? Bear is so startled that he FELL off the ledge!
+
+I'm on a narrow ledge by a Throne-room
+Across the chasm is another ledge
+
+Obvious exits: None.
+
+I can also see: *MAGIC MIRROR* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm on a narrow ledge by a Throne-room
+Across the chasm is another ledge
+
+Obvious exits: None.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a throne room
+
+Obvious exits: West.
+
+I can also see: *GOLD CROWN* - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a throne room
+
+Obvious exits: West.
+
+I can also see: *GOLD CROWN* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a throne room
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on a narrow ledge by a Throne-room
+Across the chasm is another ledge
+
+Obvious exits: None.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on a narrow ledge by a chasm. Across the chasm is
+the Throne-room
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+I'm on a narrow ledge by a chasm. Across the chasm is
+the Throne-room
+
+Obvious exits: West.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal chamber
+
+Obvious exits: Down.
+
+I can also see: Bricked up window with a hole in it - Loose fire bricks - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal anteroom
+
+Obvious exits: North, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal anteroom
+
+Obvious exits: North, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal chamber
+
+Obvious exits: Down.
+
+I can also see: Bricked up window with a hole in it - Loose fire bricks - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+Its heavy!
+
+I'm in a royal chamber
+
+Obvious exits: Down.
+
+I can also see: Bricked up window with a hole in it - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a royal anteroom
+
+Obvious exits: North, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, Down.
+
+I can also see: Sign here says "Opposite of LIGHT is UNLIGHT" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: West, Up.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: Strange scratchings on rock says: "ALADIN was here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: Arrow pointing down - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Stream of lava - Slightly woozy bear - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: Glowing *FIRESTONE* - Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? Sizzle...
+
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava stream with brick dam - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm at the bottom of a very deep chasm. High above me is
+a pair of ledges. One has a bricked up window across its face
+the other faces a Throne-room
+
+Obvious exits: Up.
+
+I can also see: Sign: "magic word's AWAY! Look la..."
+(Rest of sign is missing!) - Loose fire bricks - Slightly woozy bear - Lava stream with brick dam - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a maze of pits
+
+Obvious exits: North, South, East, West, Up, Down.
+
+I can also see: Arrow pointing down - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>Something I'm holding vibrates and...
+
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+Lamp is off
+
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm on the shore of a lake
+
+Obvious exits: North, South, West.
+
+I can also see: Water - Sign says "No swimming allowed here" - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? Mirror lands softly on rug, lights up and says:
+" DRAGON STING " and fades. I don't get it, I hope you do.
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I can't see. It is too dark!
+<------------------------------------------------------------------------------>
+Tell me what to do ? Lamp burns with a cold flameless blue glow.
+
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long tunnel. I hear buzzing ahead
+
+Obvious exits: North, South.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large 8 sided room
+
+Obvious exits: South.
+
+I can also see: *ROYAL HONEY* - Large african bees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm in a large 8 sided room
+
+Obvious exits: South.
+
+I can also see: Large african bees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? BOY that really hit the spot!
+
+I'm in a large 8 sided room
+
+Obvious exits: South.
+
+I can also see: Large african bees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? OK
+
+I'm in a large 8 sided room
+
+Obvious exits: South.
+
+I can also see: Large african bees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? First I need an empty container.
+
+I'm in a large 8 sided room
+
+Obvious exits: South.
+
+I can also see: Large african bees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long tunnel. I hear buzzing ahead
+
+Obvious exits: North, South.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a large cavern
+
+Obvious exits: North, South, West, Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a long down sloping hall
+
+Obvious exits: Up, Down.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a semi-dark hole by the root chamber
+
+Obvious exits: Up.
+
+I can also see: Ring of skeleton keys - Open door with a hallway beyond - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a root chamber under the stump
+
+Obvious exits: Up.
+
+I can also see: Dark hole - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? Move undone. 
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large sleeping dragon - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? The bees attack the dragon which gets so annoyed it gets up
+and flys away...
+
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large african bees - Sign here says "In many cases mud is good. In others..." - *DRAGON EGGS* (very rare) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a sunny meadow
+
+Obvious exits: South, East, West.
+
+I can also see: Large african bees - Sign here says "In many cases mud is good. In others..." - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? The bees all suffocated and disappeared
+
+I'm in a dismal swamp
+
+Obvious exits: North, East, West.
+
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud - Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime - Chiggers - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? O.K. 
+
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+I'm in a damp hollow stump in the swamp
+
+Obvious exits: Up, Down.
+
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, then say: SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC MIRROR* - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold now) - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? You have stored 13 treasures. On a scale of 0 to 100 that rates 100.
+Well done.
+
+
+The game is now over. Play again?
+y
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A voice BOOOOMS out:
+
+Welcome to Adventure number: 1 "ADVENTURELAND".
+In this Adventure you're to find *TREASURES* & store them away.
+
+To see how well you're doing say: "SCORE"
+Remember you can always say "HELP"
+
+I'm in a forest
+
+Obvious exits: North, South, East, West.
+
+I can also see: Trees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? No transcript is currently running.
+
+I'm in a forest
+
+Obvious exits: North, South, East, West.
+
+I can also see: Trees - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+<end of input>

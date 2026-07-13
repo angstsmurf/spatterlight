@@ -330,7 +330,13 @@ static ActionResultType PerformLine(int ct)
     debug_print("Performing line %d: ", ct);
 #endif
     int continuation = 0, dead = 0;
-    int param[NUM_CONDITIONS], pptr = 0;
+    /* The opcode phase can pop up to two params per opcode (NUM_OPCODES * 2),
+       which exceeds the NUM_CONDITIONS params the condition phase can push.
+       Size for the reader and zero-init, so an action whose opcodes consume
+       more params than its conditions supplied reads a defined 0 (item/room 0)
+       rather than running off the end of the array into the stack and using the
+       garbage as an Items[] index. */
+    int param[NUM_OPCODES * 2] = { 0 }, pptr = 0;
     int p = 0;
     int act[NUM_OPCODES];
     int cc = 0;
@@ -344,7 +350,8 @@ static ActionResultType PerformLine(int ct)
 #endif
         switch (cv) {
             case COND_PARAMETER:
-                param[pptr++] = dv;
+                if (pptr < (int)(sizeof(param) / sizeof(param[0])))
+                    param[pptr++] = dv;
                 break;
             case COND_CARRIED:
 #ifdef DEBUG_ACTIONS
@@ -968,9 +975,13 @@ ExplicitResultType PerformActions(int vb, int no)
                 int location = CARRIED;
                 if (vb == TAKE)
                     location = MyLoc;
-                while (Items[item].Location != location && !(CurrentCommand->allflag & LASTALL)) {
-                    CurrentCommand = CurrentCommand->next;
-                }
+                /* The ALL chain is built when the line is parsed, so an action
+                   that ran earlier in the chain may have moved this item since.
+                   Skip just this node and let the chain go on to the next one.
+                   (The old loop advanced CurrentCommand without re-reading
+                   item, so its test could never change: a single moved item
+                   fast-forwarded to LASTALL and silently discarded the whole
+                   rest of the ALL chain.) */
                 if (Items[item].Location != location)
                     return ER_SUCCESS;
             }

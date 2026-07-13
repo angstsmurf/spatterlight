@@ -588,18 +588,20 @@ static int MatchYMCA(glui32 *string, int length, int index)
     const char *ymca = "y.m.c.a.";
     int i;
     for (i = 0; i < YMCA_PATTERN_LEN; i++) {
-        if (i + index > length || string[index + i] != ymca[i])
+        if (i + index >= length || string[index + i] != ymca[i])
             return i;
     }
     return i;
 }
 
+/* Check if the string at the given index starts with "mr." or "dr.".
+   Returns TITLE_PATTERN_LEN (3) on a match, 0 otherwise. */
 static int MatchTitleWithPeriod(glui32 *string, int length, int index)
 {
-    if (length >= TITLE_PATTERN_LEN) {
-        if ((string[0] == 'm' || string[0] == 'd') &&
-            string[1] == 'r' &&
-            string[2] == '.')
+    if (length - index >= TITLE_PATTERN_LEN) {
+        if ((string[index] == 'm' || string[index] == 'd') &&
+            string[index + 1] == 'r' &&
+            string[index + 2] == '.')
             return TITLE_PATTERN_LEN;
     }
     return 0;
@@ -1116,7 +1118,7 @@ static Command *CommandFromStrings(int index, Command *previous)
            again to see if it matches a verb as well */
         if (found_noun_at_verb_position) {
             int realverb = WhichWord(CharWords[i - 1], (const char **)Verbs, GameHeader.WordLength,
-                GameHeader.NumWords);
+                GameHeader.NumWords + 1);
             if (realverb) {
                 noun = verb;
                 verb = realverb;
@@ -1183,7 +1185,10 @@ static int CreateAllCommands(Command *command)
 
     Command *c = command;
     int found = 0;
-    for (int i = 0; i < GameHeader.NumItems; i++) {
+    /* Items are indexed 0..NumItems inclusive; <= so TAKE ALL / DROP ALL can
+       reach the last item in the database (the EXCEPT loop above and every
+       other item loop already use <=). */
+    for (int i = 0; i <= GameHeader.NumItems; i++) {
         if (Items[i].AutoGet != NULL && Items[i].AutoGet[0] != '*' && Items[i].Location == location) {
             int exception = 0;
             for (int j = 0; j < exceptioncount; j++) {
@@ -1200,8 +1205,12 @@ static int CreateAllCommands(Command *command)
                 }
                 found = 1;
                 c->verb = command->verb;
+                /* The dictionary holds NumWords + 1 entries and WhichWord stops
+                   at list_length - 1, so passing NumWords here would make the
+                   last dictionary word unmatchable, leaving noun = 0 for an
+                   item whose AutoGet word is that entry. */
                 c->noun = WhichWord(Items[i].AutoGet, (const char **)Nouns, GameHeader.WordLength,
-                    GameHeader.NumWords);
+                    GameHeader.NumWords + 1);
                 c->item = i;
                 c->next = NULL;
                 c->nounwordindex = 0;

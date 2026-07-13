@@ -1368,7 +1368,9 @@ GameIDType DetectRTPI(uint8_t *data, size_t datalength) {
                 &word_length, &light_time, &num_messages, &treasure_room);
 
     GameHeader.NumItems = num_items;
-    Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
+    /* See load_ti99_4a.c: the lamp timer reads Items[LIGHT_SOURCE] (item 9)
+       every turn regardless of NumItems, so never allocate short of it. */
+    Items = (Item *)MemCalloc(sizeof(Item) * MAX(num_items + 1, LIGHT_SOURCE + 1));
     GameHeader.NumActions = num_actions;
     Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
     GameHeader.NumWords = num_words;

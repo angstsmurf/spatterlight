@@ -1,0 +1,47 @@
+Welcome to the Cheap Glk Implementation, library version 1.0.7.
+
+Scott Free, A Scott Adams game driver in C.
+Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.
+Distributed under the GNU software license
+
+
+I'm in a test chamber
+
+Obvious exits: North.
+
+I can also see: A coin - A rope - A book - A gem - 
+<------------------------------------------------------------------------------>
+Tell me what to do ? A coin....
+I'm in a test chamber
+
+Obvious exits: North.
+
+I can also see: A rope - A book - A gem - 
+<------------------------------------------------------------------------------>The rope slithers away into the shadows.
+A rope....
+A book....O.K. 
+A gem....The gem glitters as you take it.
+
+I'm in a test chamber
+
+Obvious exits: North.
+<------------------------------------------------------------------------------>
+Tell me what to do ? I'm carrying: 
+A coin - A book - A gem - 
+I'm in a test chamber
+
+Obvious exits: North.
+<------------------------------------------------------------------------------>
+Tell me what to do ? You call the doctor. He does not answer.
+
+I'm in a test chamber
+
+Obvious exits: North.
+<------------------------------------------------------------------------------>
+Tell me what to do ? I don't understand 
+I'm in a test chamber
+
+Obvious exits: North.
+<------------------------------------------------------------------------------>
+Tell me what to do ? 
+<end of input>

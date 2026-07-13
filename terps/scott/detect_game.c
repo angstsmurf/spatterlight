@@ -667,12 +667,25 @@ void SetGameHeader(int num_items, int num_actions, int num_words,
 
 void AllocateGameData(void)
 {
-    Items = MemAlloc(sizeof(Item) * (GameHeader.NumItems + 1));
-    Actions = MemAlloc(sizeof(Action) * (GameHeader.NumActions + 1));
-    Verbs = MemAlloc(sizeof(char *) * (GameHeader.NumWords + 2));
-    Nouns = MemAlloc(sizeof(char *) * (GameHeader.NumWords + 2));
-    Rooms = MemAlloc(sizeof(Room) * (GameHeader.NumRooms + 1));
-    Messages = MemAlloc(sizeof(char *) * (GameHeader.NumMessages + 1));
+    /* The lamp is item LIGHT_SOURCE (9) by convention, and the engine reads
+       Items[LIGHT_SOURCE] every turn for the lamp timer without consulting
+       NumItems. Every real Scott database has at least ten items, but a
+       malformed one need not, and the read would then be out of bounds. Always
+       allocate through LIGHT_SOURCE so it reads back as a destroyed item. */
+    int num_items = GameHeader.NumItems + 1;
+    if (num_items < LIGHT_SOURCE + 1)
+        num_items = LIGHT_SOURCE + 1;
+
+    /* Zero-initialise: the engine treats an unset Room.Text / Item.Image /
+       Item.Flag as "absent" (e.g. Look()'s `if (!r->Text) return;`), so any
+       field a particular loader doesn't fill must read back as NULL/0 rather
+       than as heap garbage. */
+    Items = MemCalloc(sizeof(Item) * num_items);
+    Actions = MemCalloc(sizeof(Action) * (GameHeader.NumActions + 1));
+    Verbs = MemCalloc(sizeof(char *) * (GameHeader.NumWords + 2));
+    Nouns = MemCalloc(sizeof(char *) * (GameHeader.NumWords + 2));
+    Rooms = MemCalloc(sizeof(Room) * (GameHeader.NumRooms + 1));
+    Messages = MemCalloc(sizeof(char *) * (GameHeader.NumMessages + 1));
 }
 
 static char *ReadBinaryString(uint8_t **ptr)
@@ -949,7 +962,12 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
             if (!ReadBinaryRoomDescs(&ptr, GameHeader.NumRooms, info->number_of_pictures > 0, 0))
                 return UNKNOWN_GAME;
         } else {
-            for (int ct = 0; ct < GameHeader.NumRooms; ct++) {
+            /* Rooms hold NumRooms+1 entries (0..NumRooms); the last room is the
+               death/limbo room the engine jumps to in PlayerIsDead() and the
+               dark-move death. Every other room loop uses <=; this one must too,
+               or Rooms[NumRooms].Text is left uninitialised and Look() reads a
+               wild pointer the first time the player dies. */
+            for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
                 Rooms[ct].Text = DecompressText(ptr, ct);
                 if (Rooms[ct].Text == NULL)
                     return UNKNOWN_GAME;
