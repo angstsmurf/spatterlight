@@ -1306,7 +1306,7 @@ var_get_system (scr_var_setref_t vars,
           else
             {
               vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
-              sprintf (vars->temporary, "%ld", number);
+              snprintf (vars->temporary, 32, "%ld", number);
               retval = vars->temporary;
             }
 
@@ -1349,7 +1349,7 @@ var_get_system (scr_var_setref_t vars,
           else
             {
               vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
-              sprintf (vars->temporary, "%ld", number);
+              snprintf (vars->temporary, 32, "%ld", number);
               retval = vars->temporary;
             }
 

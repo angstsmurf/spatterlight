@@ -916,7 +916,15 @@ restr_eval_action (scr_char token)
     case TOK_AND:
       {
         scr_bool val1, val2, result = FALSE;
-        assert (restr_eval_stack >= 2);
+
+        /*
+         * Guard against stack underflow with a real fatal (as scexpr.cpp does
+         * for the analogous expression case) so it survives NDEBUG, where a
+         * bare assert is a no-op and a malformed restriction stream could read
+         * before the values stack.
+         */
+        if (restr_eval_stack < 2)
+          scr_fatal ("restr_eval_action: stack underflow\n");
 
         /* Get the top two stack values. */
         val1 = restr_eval_values[restr_eval_stack - 2];

@@ -676,7 +676,15 @@ gsc_put_char_locale (scr_char ch,
 {
   const gsc_codepages_t *codepage;
 
-  gsc_main_at_line_start = (ch == '\n');
+  /*
+   * Track whether the next main-window character would start a new line, but
+   * only when output is actually targeting the main window.  Status-window
+   * rendering also routes through here, and must not clobber the flag that
+   * os_show_graphic() relies on to decide whether to emit a leading break.
+   */
+  if (gsc_main_window
+      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+    gsc_main_at_line_start = (ch == '\n');
   unsigned char character;
   glui32 unicode;
   const char *ascii;
@@ -1941,8 +1949,16 @@ static glui32
 gsc_resource_id (scr_int offset, scr_int length)
 {
   /* Synthesize a stable id from offset and length so repeat calls for the
-   * same resource hit the cache instead of re-loading from disk. */
-  return (glui32) (((scr_uint) offset << 12) ^ (scr_uint) length);
+   * same resource hit the cache instead of re-loading from disk.  Fold the
+   * full 64-bit offset into 32 bits rather than shift-then-truncate: a plain
+   * "(offset << 12) ^ length" cast to glui32 drops the high bits of any
+   * offset >= 2^20, so distinct chunks in a large game could collide on one
+   * cached id and cause the wrong image or sound to be drawn or played. */
+  unsigned long long hash;
+
+  hash = (unsigned long long) (scr_uint) offset;
+  hash = (hash ^ (unsigned long long) (scr_uint) length) * 0x9E3779B97F4A7C15ULL;
+  return (glui32) (hash ^ (hash >> 32));
 }
 
 static schanid_t sound_channel;

@@ -165,8 +165,9 @@ sxr_fopen (const scr_char *name, const scr_char *extension, const scr_char *mode
   FILE *stream;
   assert (name && extension && mode);
 
-  filename = (decltype(filename)) sxr_malloc (strlen (name) + strlen (extension) + 2);
-  sprintf (filename, "%s.%s", name, extension);
+  const size_t size = strlen (name) + strlen (extension) + 2;
+  filename = (decltype(filename)) sxr_malloc (size);
+  snprintf (filename, size, "%s.%s", name, extension);
 
   stream = fopen (filename, mode);
 

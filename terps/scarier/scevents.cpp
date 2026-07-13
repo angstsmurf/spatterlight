@@ -340,7 +340,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
   /* See if there is an affected task. */
   vt_key[2].string = "TaskAffected";
   task = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
-  if (task >= 0)
+  if (task >= 0 && task < gs_task_count (game))
     {
       vt_key[2].string = "TaskFinished";
       taskfinished = prop_get_boolean (bundle, "B<-sis", vt_key);
@@ -485,7 +485,7 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
       if (evt_any_task_in_state (game, TRUE))
         start = TRUE;
     }
-  else if (task > 0)
+  else if (task > 0 && task - 1 < gs_task_count (game))
     {
       if (gs_task_done (game, task - 1))
         start = TRUE;
@@ -516,7 +516,7 @@ evt_pauser_task_is_complete (scr_gameref_t game, scr_int event)
       if (evt_any_task_in_state (game, completed))
         pause = TRUE;
     }
-  else if (pausetask > 1)
+  else if (pausetask > 1 && pausetask - 2 < gs_task_count (game))
     {
       if (completed == gs_task_done (game, pausetask - 2))
         pause = TRUE;
@@ -547,7 +547,7 @@ evt_resumer_task_is_complete (scr_gameref_t game, scr_int event)
       if (evt_any_task_in_state (game, completed))
         resume = TRUE;
     }
-  else if (resumetask > 1)
+  else if (resumetask > 1 && resumetask - 2 < gs_task_count (game))
     {
       if (completed == gs_task_done (game, resumetask - 2))
         resume = TRUE;

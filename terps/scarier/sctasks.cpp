@@ -386,10 +386,8 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
                         object, var3 - 1);
             }
 
-          if (var3 == 0)
-            gs_object_player_get (game, object);
-          else
-            gs_object_to_room (game, object, var3 - 1);
+          /* var3 != 0 here (the var3 == 0 "hidden" case is handled above). */
+          gs_object_to_room (game, object, var3 - 1);
         }
       break;
 

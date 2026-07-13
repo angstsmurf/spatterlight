@@ -551,6 +551,48 @@ parse_get_child_count (void)
 
 
 /*
+ * parse_checked_multiply()
+ *
+ * Multiply an attacker-controlled child count by a fixed element size,
+ * fataling on genuine integer overflow rather than silently under-allocating
+ * (which could let a later fill run off the end of the block).  The counts
+ * come from parse_get_child_count(), so each already consumed real TAF bytes
+ * and overflow is not reachable from a valid file; this is hardening against a
+ * hostile or corrupt TAF only, and deliberately imposes no arbitrary cap that
+ * might reject a large-but-valid game.
+ */
+static size_t
+parse_checked_multiply (scr_int count, size_t element_size)
+{
+  if (count < 0)
+    scr_fatal ("parse_checked_multiply: negative count %ld\n", (long) count);
+  if (element_size > 0 && (size_t) count > ((size_t) -1) / element_size)
+    scr_fatal ("parse_checked_multiply: size overflow (%ld * %lu bytes)\n",
+               (long) count, (unsigned long) element_size);
+  return (size_t) count * element_size;
+}
+
+
+/*
+ * parse_checked_count()
+ *
+ * Validate an attacker-controlled child count used to size a std::vector and
+ * return it as a size_t.  std::vector already does its own checked allocation
+ * (it throws on overflow rather than under-allocating), but a negative parsed
+ * count would convert to an enormous size_type and, worse, be used directly as
+ * an index into the sized vector.  Reject it here with a clean scr_fatal
+ * unwind instead of leaving an out-of-range index or an uncaught C++ throw.
+ */
+static size_t
+parse_checked_count (scr_int count)
+{
+  if (count < 0)
+    scr_fatal ("parse_checked_count: negative count %ld\n", (long) count);
+  return (size_t) count;
+}
+
+
+/*
  * parse_get_integer_property()
  * parse_get_boolean_property()
  * parse_get_string_property()
@@ -959,7 +1001,13 @@ parse_read_multiline (void)
 {
   const scr_byte *separator = NULL;
   const scr_char *line;
-  scr_char *multiline;
+
+  /*
+   * Own the growing buffer with RAII.  parse_get_taf_string() below can throw
+   * (scr_fatal_error) when the TAF runs short, and the old raw scr_malloc'd
+   * buffer was leaked on that unwind.
+   */
+  scr_owned_string multiline;
 
   /* Select the appropriate multiline separator. */
   switch (taf_get_version (parse_taf))
@@ -980,21 +1028,29 @@ parse_read_multiline (void)
 
   /* Take a simple copy of the first line. */
   line = parse_get_taf_string ();
-  multiline = (decltype(multiline)) scr_malloc (strlen (line) + 1);
-  memcpy (multiline, line, strlen (line) + 1);
+  multiline.reset ((scr_char *) scr_malloc (strlen (line) + 1));
+  memcpy (multiline.get (), line, strlen (line) + 1);
 
   /* Now concatenate until separator found. */
   line = parse_get_taf_string ();
   while (memcmp (line, separator, SEPARATOR_SIZE) != 0)
     {
-      multiline = (decltype(multiline)) scr_realloc (multiline,
-                              strlen (multiline) + strlen (line) + 2);
-      strncat (multiline, "\n", 1);
-      strncat (multiline, line, strlen (line));
+      scr_char *grown = (scr_char *) scr_realloc (multiline.get (),
+                              strlen (multiline.get ()) + strlen (line) + 2);
+      /*
+       * scr_realloc has freed the old block and returned the grown one; give
+       * up ownership of the (now invalid) old pointer without freeing it, and
+       * adopt the grown block.  (On allocation failure scr_realloc throws with
+       * the old block intact, so multiline still owns and frees it.)
+       */
+      multiline.release ();
+      multiline.reset (grown);
+      strncat (multiline.get (), "\n", 1);
+      strncat (multiline.get (), line, strlen (line));
       line = parse_get_taf_string ();
     }
 
-  return multiline;
+  return multiline.release ();
 }
 
 
@@ -1181,8 +1237,8 @@ parse_get_v400_resource_offset (const scr_char *name,
     {
       parse_resources_size += RESOURCE_GROW_INCREMENT;
       parse_resources = (decltype(parse_resources)) scr_realloc (parse_resources,
-                                    parse_resources_size *
-                                    sizeof (parse_resources[0]));
+                                    parse_checked_multiply (parse_resources_size,
+                                    sizeof (parse_resources[0])));
     }
 
   /*
@@ -2026,9 +2082,10 @@ parse_fixup_v390 (const scr_char *fixup)
         {
           scr_char *restrmask;
           scr_int index_;
+          size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
 
-          restrmask = (decltype(restrmask)) scr_malloc (2 * restriction_count);
-          strncpy (restrmask, "#", 2 * restriction_count);
+          restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
+          strncpy (restrmask, "#", restrmask_size);
           for (index_ = 1; index_ < restriction_count; index_++)
             strncat (restrmask, "A#", 2);
 
@@ -2832,9 +2889,10 @@ parse_fixup_v380 (const scr_char *fixup)
         {
           scr_char *restrmask;
           scr_int index_;
+          size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
 
-          restrmask = (decltype(restrmask)) scr_malloc (2 * restriction_count);
-          strncpy (restrmask, "#", 2 * restriction_count);
+          restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
+          strncpy (restrmask, "#", restrmask_size);
           for (index_ = 1; index_ < restriction_count; index_++)
             strncat (restrmask, "A#", 2);
 
@@ -2865,7 +2923,7 @@ parse_fixup_v380 (const scr_char *fixup)
        * Build an array of object container/surface types.  A std::vector
        * frees itself if a prop_*() call below throws (scr_fatal) mid-parse.
        */
-      std::vector<scr_int> object_type (object_count);
+      std::vector<scr_int> object_type (parse_checked_count (object_count));
       for (object = 0; object < object_count; object++)
         {
           vt_key[1].integer = object;
@@ -3312,8 +3370,12 @@ parse_add_movetimes (scr_prop_setref_t bundle)
           vt_key[4].string = "Times";
           waittimes = prop_get_child_count (bundle, "I<-sisis", vt_key);
 
-          /* Value-initialized to zero; frees itself if prop_*() throws. */
-          std::vector<scr_int> movetimes (waittimes + 1);
+          /*
+           * Value-initialized to zero; frees itself if prop_*() throws.  A
+           * negative waittimes would size the vector to zero yet still be
+           * used as an index at movetimes[waittimes] below, so validate it.
+           */
+          std::vector<scr_int> movetimes (parse_checked_count (waittimes) + 1);
           for (index_ = waittimes - 1; index_ >= 0; index_--)
             {
               vt_key[4].string = "Times";
@@ -3357,7 +3419,7 @@ parse_add_alrs_index (scr_prop_setref_t bundle)
    * get the shortest and longest defined.  A std::vector frees itself if a
    * prop_*() call below throws (scr_fatal) mid-parse.
    */
-  std::vector<scr_int> alr_lengths (alr_count);
+  std::vector<scr_int> alr_lengths (parse_checked_count (alr_count));
   shortest = INT_MAX;
   longest = 0;
   for (index_ = 0; index_ < alr_count; index_++)

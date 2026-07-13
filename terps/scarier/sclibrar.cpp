@@ -7378,7 +7378,7 @@ lib_compare_subject (const scr_char *subject, scr_int posn,
        */
       while (scr_isspace (subject[word_posn])
              && subject[word_posn] != COMMA && subject[word_posn] != NUL)
-        subject++;
+        word_posn++;
 
       /* Advance over whitespace in the current string too. */
       while (scr_isspace (string[string_posn]) && string[string_posn] != NUL)

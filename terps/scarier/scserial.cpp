@@ -814,6 +814,65 @@ ser_restore_battle_block (scr_gameref_t game, scr_int npc)
 }
 
 /*
+ * ser_reject_if()
+ *
+ * Reject the save currently being restored (via the restore error longjmp) when
+ * a value read from the untrusted save file is out of range for this game.  The
+ * gs_* accessors only assert their index arguments, which is a no-op under
+ * NDEBUG, so without these explicit checks a corrupt save could plant
+ * out-of-range room/object/NPC indices that later read or write game-state
+ * arrays out of bounds.
+ */
+static void
+ser_reject_if (scr_bool out_of_range)
+{
+  if (out_of_range)
+    {
+      scr_error ("ser_reject_if:"
+                 " index out of range at line %ld\n", ser_tasline - 1);
+      scr_longjmp (ser_tas_error, 1);
+    }
+}
+
+/*
+ * ser_object_position_valid() / ser_object_parent_valid()
+ *
+ * Validate a dynamic object's restored position and parent.  A position is one
+ * of the OBJ_* sentinels or a 1-based room number.  A parent is an object index
+ * for on/in-object positions, an NPC index for held/worn/part-of-NPC positions
+ * (or -1 for part-of-player), and is unused (so unconstrained) otherwise.
+ */
+static scr_bool
+ser_object_position_valid (scr_gameref_t game, scr_int position)
+{
+  switch (position)
+    {
+    case OBJ_HIDDEN: case OBJ_HELD_PLAYER: case OBJ_HELD_NPC:
+    case OBJ_WORN_PLAYER: case OBJ_WORN_NPC: case OBJ_PART_NPC:
+    case OBJ_ON_OBJECT: case OBJ_IN_OBJECT:
+      return TRUE;
+    default:
+      return position >= 1 && position <= gs_room_count (game);
+    }
+}
+
+static scr_bool
+ser_object_parent_valid (scr_gameref_t game, scr_int position, scr_int parent)
+{
+  switch (position)
+    {
+    case OBJ_ON_OBJECT: case OBJ_IN_OBJECT:
+      return parent >= 0 && parent < gs_object_count (game);
+    case OBJ_HELD_NPC: case OBJ_WORN_NPC:
+      return parent >= 0 && parent < gs_npc_count (game);
+    case OBJ_PART_NPC:
+      return parent == -1 || (parent >= 0 && parent < gs_npc_count (game));
+    default:
+      return TRUE;
+    }
+}
+
+/*
  * ser_restore_object_location()
  *
  * Read an object's location.  In Runner format a static object is a room list
@@ -829,6 +888,7 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
   if (runner_format && obj_is_static (game, object))
     {
       scr_int count = ser_get_int (), index_;
+      ser_reject_if (count < 0 || count > gs_room_count (game));
       for (index_ = 0; index_ < count; index_++)
         (void) ser_get_int ();
     }
@@ -982,9 +1042,18 @@ ser_load_game (scr_gameref_t game,
   if (runner_format)
     (void) ser_get_string ();
 
-  /* Restore the rest of the player block. */
-  gs_set_playerroom (new_game, ser_get_int () - 1);
-  gs_set_playerparent (new_game, ser_get_int ());
+  /* Restore the rest of the player block, validating untrusted indices. */
+  {
+    const scr_int playerroom = ser_get_int ();
+    ser_reject_if (playerroom < 0 || playerroom > gs_room_count (new_game));
+    gs_set_playerroom (new_game, playerroom - 1);
+  }
+  {
+    const scr_int playerparent = ser_get_int ();
+    ser_reject_if (playerparent < -1
+                   || playerparent >= gs_object_count (new_game));
+    gs_set_playerparent (new_game, playerparent);
+  }
   gs_set_playerposition (new_game, ser_get_int ());
 
   /* Skip player gender. */
@@ -1013,6 +1082,19 @@ ser_load_game (scr_gameref_t game,
       ser_restore_object_location (new_game, index_, runner_format);
       gs_set_object_seen (new_game, index_, ser_get_boolean ());
       new_game->objects[index_].parent = ser_get_int ();
+
+      /*
+       * Validate a dynamic object's restored position and parent against the
+       * current game.  A static object's position is taken from its bundle
+       * (not the save), and its parent is never used as an array index.
+       */
+      if (!obj_is_static (new_game, index_))
+        {
+          const scr_int position = new_game->objects[index_].position;
+          const scr_int parent = new_game->objects[index_].parent;
+          ser_reject_if (!ser_object_position_valid (new_game, position));
+          ser_reject_if (!ser_object_parent_valid (new_game, position, parent));
+        }
 
       vt_key[0].string = "Objects";
       vt_key[1].integer = index_;
@@ -1056,7 +1138,8 @@ ser_load_game (scr_gameref_t game,
           if (startertype != 3)
             scr_longjmp (ser_tas_error, 1);
 
-          /* Restore task state. */
+          /* Restore task state (task is a 1-based index from the save). */
+          ser_reject_if (task > gs_task_count (new_game));
           gs_set_task_done (new_game, task - 1, ser_get_boolean ());
         }
       else
@@ -1068,7 +1151,11 @@ ser_load_game (scr_gameref_t game,
     {
       scr_int walk;
 
-      gs_set_npc_location (new_game, index_, ser_get_int ());
+      {
+        const scr_int location = ser_get_int ();
+        ser_reject_if (location < 0 || location > gs_room_count (new_game));
+        gs_set_npc_location (new_game, index_, location);
+      }
       gs_set_npc_seen (new_game, index_, ser_get_boolean ());
 
       /* Runner format: the NPC's battle block follows "seen", before walks. */

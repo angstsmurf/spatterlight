@@ -1,0 +1,82 @@
+# The PK Girl -- opening through the Chapter 1 kidnapping and into Chapter 2,
+# transcribed from a Spatterlight recording of an actual playthrough.
+# Blank lines are "press enter" key presses; lines beginning with "# " (hash
+# plus a space) are comments and are skipped by the command-script reader.
+# The leading blank line clears the "CHAPTER 1" heading prompt (the test itself
+# has already cleared the "Press Enter to begin the game" prompt). The script
+# ends with "quit" so the UI test can detect completion reliably.
+
+n
+n
+n
+Petter
+
+n
+examine girl
+
+w
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+
+1
+e
+s
+s
+s
+wait
+wait
+wait
+ride the motorcycle
+
+e
+n
+w
+w
+n
+w
+s
+get on dumpster
+open window
+
+
+south
+south
+east
+south
+south
+west
+west
+north
+wait
+wait
+1
+west
+move box
+down
+
+north
+west
+wait
+wait
+wait
+1
+1
+north
+north
+up
+1
+north
+quit

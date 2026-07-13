@@ -1395,13 +1395,16 @@ run_player_input (scr_gameref_t game)
       if (!scr_strempty (command))
         {
           scr_vartype_t vt_key[2];
-          scr_char *escaped;
           const scr_char *message;
 
-          /* Command line element not understood. */
-          escaped = pf_escape (scr_normalize_string (line_element));
-          var_set_ref_text (vars, escaped);
-          scr_free (escaped);
+          /*
+           * Command line element not understood.  Own the escaped copy with
+           * RAII (as the sibling code above does): var_set_ref_text() can throw
+           * (scr_fatal_error), and the old manual scr_free() after it leaked on
+           * the throw.
+           */
+          scr_owned_string escaped (pf_escape (scr_normalize_string (line_element)));
+          var_set_ref_text (vars, escaped.get ());
           vt_key[0].string = "Globals";
           vt_key[1].string = "DontUnderstand";
           message = prop_get_string (bundle, "S<-ss", vt_key);

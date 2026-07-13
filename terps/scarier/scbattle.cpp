@@ -381,7 +381,7 @@ battle_start (scr_gameref_t game)
 
   battle_seed_attributes (game, -1);
   battle_bundle_range (game, -1, "Stamina", &lo, &hi);
-  gs_set_playerstamina (game, scr_randomint (lo, hi));
+  gs_set_playerstamina (game, (hi > 0) ? scr_randomint (lo, hi) : 0);
   gs_set_playerstaminacounter (game, 0);
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
