@@ -10,15 +10,20 @@
  * not matter.
  *
  * Self-contained: needs neither DOSBox nor the copyrighted game files at test
- * time.  Committed in test/gmcgav1/:
+ * time.  In test/gmcgav1/fixtures/ (LOCAL-ONLY, gitignored -- derived from the
+ * copyrighted games; regenerate with dosbox_capture_fixtures.py if lost):
  *   novel_ovr_tables.bin -- the PC_GRAPH.OVR fill pattern (30x4) + subindex
  *                           (109 words) slice, starting at the fill-pattern sig.
  *   novel_brushes.bin    -- the 256-byte NOVEL.EXE brush table (brush 5 sig at
  *                           offset 160, so the loader's signature scan resolves).
- *   <scene>.img          -- the room's raw Graphics Magician vector stream.
+ *   charset.bin          -- CHARSET.GDA (byte-identical between Crimson Crown
+ *                           and Transylvania), the op3/op5 in-picture font.
+ *   <scene>.img          -- the picture's raw Graphics Magician vector stream.
  *   <scene>.fb           -- the 16 KB CGA VRAM golden from DOSBox.
  *
  * Build/run:  make -C terps/comprehend test
+ * Golden capture: test/gmcgav1/dosbox_capture_fixtures.py (and the whole-corpus
+ * sweep, dosbox_dump_all_v1.py).
  *
  * Fixtures: lakeshore (RA pic 0), woods (RA pic 2) and cave (RA pic 6) render
  * pixel-exact (ceiling 0).  crypt (RA pic 3) is the only fixture with two-colour
@@ -26,7 +31,9 @@
  * its cyan/magenta dither (2827 diffs); it has a 3-pixel residual from an op12
  * BRUSH spill-byte phase (the flood fill itself is exact -- see the kCases note).
  * rb_03 (RB pic 3) guards the brush/
- * text/rect pattern-PHASE fix.  Any change must stay within these.
+ * text/rect pattern-PHASE fix.  rc_05 / tr_rc09 and the two titles guard the
+ * CHARSET.GDA op3 text path; oa_01 guards object-over-room composition.  Any
+ * change must stay within these.
  */
 
 #include "../graphics_magician_cga.h"
@@ -84,6 +91,13 @@ int main() {
         fprintf(stderr, "gmcgaInstallV1DrawingTables failed\n");
         return 1;
     }
+    // The op3/op5 in-picture font (CHARSET.GDA; CC and Transylvania ship
+    // byte-identical copies).  Needed by the text-cutscene and title fixtures.
+    std::vector<uint8_t> charset = readFile("test/gmcgav1/fixtures/charset.bin");
+    if (charset.empty() || !gmcgaSetV1Font(charset.data(), charset.size())) {
+        fprintf(stderr, "gmcgaSetV1Font failed\n");
+        return 1;
+    }
 
     // `ceil` is the maximum tolerated mismatch -- now 0 for every fixture.  The
     // crypt (RA pic 3) is the only fixture with two-colour dithers, so it guards
@@ -93,21 +107,37 @@ int main() {
     // per painted byte (spill helper 0x94c skips inc DI on a blank byte), not per
     // column -- so the off-grid spill lands on phase 3 (magenta), not phase 0
     // (cyan).  blit_col now replicates that walk.  See TODO_v1_cga_graphics.
-    static const struct { const char *name, *img, *fb; int ceil; } kCases[] = {
-        { "lakeshore", "test/gmcgav1/fixtures/lakeshore.img", "test/gmcgav1/fixtures/lakeshore.fb", 0 },
-        { "woods",     "test/gmcgav1/fixtures/woods.img",     "test/gmcgav1/fixtures/woods.fb",     0 },
-        { "cave",      "test/gmcgav1/fixtures/cave.img",      "test/gmcgav1/fixtures/cave.fb",      0 },
-        { "crypt",     "test/gmcgav1/fixtures/crypt.img",     "test/gmcgav1/fixtures/crypt.fb",     0 },
+    static const struct { const char *name, *img, *fb, *base; int ceil; } kCases[] = {
+        { "lakeshore", "test/gmcgav1/fixtures/lakeshore.img", "test/gmcgav1/fixtures/lakeshore.fb", nullptr, 0 },
+        { "woods",     "test/gmcgav1/fixtures/woods.img",     "test/gmcgav1/fixtures/woods.fb",     nullptr, 0 },
+        { "cave",      "test/gmcgav1/fixtures/cave.img",      "test/gmcgav1/fixtures/cave.fb",      nullptr, 0 },
+        { "crypt",     "test/gmcgav1/fixtures/crypt.img",     "test/gmcgav1/fixtures/crypt.fb",     nullptr, 0 },
         // RB pic 3: an op12 brush stamps the [40 80 40 80] dither over a flood
         // fill.  Guards the brush/text/rect fill-pattern PHASE fix -- the per-
         // pixel blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3,
         // not entry[0]; collapsing to entry[0] left 51 px wrong here.  Pixel-
         // exact after the fix (see TODO_v1_cga_graphics "MOSTLY FIXED").
-        { "rb_03",     "test/gmcgav1/fixtures/rb_03.img",     "test/gmcgav1/fixtures/rb_03.fb",     0 },
+        { "rb_03",     "test/gmcgav1/fixtures/rb_03.img",     "test/gmcgav1/fixtures/rb_03.fb",     nullptr, 0 },
         // Transylvania v1 start room (RA pic 0).  Its fill/subindex/brush tables
         // are byte-identical to Crimson Crown's, so the same installed tables
         // render it -- this guards that the v1 path generalises across both games.
-        { "tr_start",  "test/gmcgav1/fixtures/tr_start.img",  "test/gmcgav1/fixtures/tr_start.fb",  0 },
+        { "tr_start",  "test/gmcgav1/fixtures/tr_start.img",  "test/gmcgav1/fixtures/tr_start.fb",  nullptr, 0 },
+        // CC RC pic 5 (the sage cutscene) and TR RC pic 9 (Zin): op3 TEXT_CHAR
+        // pages -- these guard the CHARSET.GDA glyph load (gmcgaSetV1Font) and
+        // draw_glyph, which no other fixture exercises.
+        { "rc_05",     "test/gmcgav1/fixtures/rc_05.img",     "test/gmcgav1/fixtures/rc_05.fb",     nullptr, 0 },
+        { "tr_rc09",   "test/gmcgav1/fixtures/tr_rc09.img",   "test/gmcgav1/fixtures/tr_rc09.fb",   nullptr, 0 },
+        // CC OA pic 1 stamped over its placed room (RA pic 13), no reset in
+        // between -- the object's flood fills seed against the room geometry.
+        // Guards the object-over-room composition the engine does per scene.
+        { "oa_01",     "test/gmcgav1/fixtures/oa_01.img",     "test/gmcgav1/fixtures/oa_01.fb",
+          "test/gmcgav1/fixtures/ra_13.img", 0 },
+        // The title screens (single-image files, stream starts past the 4-byte
+        // 00 63 header).  Both draw op3 text; the native paints nothing outside
+        // the 280x160 window even here (verified against the boot-time VRAM),
+        // so the windowed compare is complete.
+        { "cc_title",  "test/gmcgav1/fixtures/cc_title.img",  "test/gmcgav1/fixtures/cc_title.fb",  nullptr, 0 },
+        { "tr_title",  "test/gmcgav1/fixtures/tr_title.img",  "test/gmcgav1/fixtures/tr_title.fb",  nullptr, 0 },
     };
 
     int failures = 0;
@@ -118,6 +148,13 @@ int main() {
             printf("%-12s MISSING FIXTURE\n", c.name); failures++; continue;
         }
         gmcgaResetScreen(true);          // white cold page (room change)
+        if (c.base) {
+            std::vector<uint8_t> base = readFile(c.base);
+            if (base.empty()) {
+                printf("%-12s MISSING BASE FIXTURE\n", c.name); failures++; continue;
+            }
+            gmcgaDrawImage(base.data(), base.size());
+        }
         gmcgaDrawImage(img.data(), img.size());
         std::vector<uint32_t> rgba(PIC_W * PIC_H);
         gmcgaBlitToSurface(rgba.data(), PIC_W, PIC_H);

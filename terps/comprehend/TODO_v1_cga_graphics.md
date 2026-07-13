@@ -1,11 +1,12 @@
 # v1 Comprehend DOS (CGA) graphics
 
-**STATUS: COMPLETE (2026-06-13).** The v1 renderer is byte-exact over the whole corpus —
-**Crimson Crown 71/71, Transylvania 81/81** pictures pixel-exact at ceiling 0, with v2 still
-**94/94**. Every fixture in `make test` is at ceiling 0 (the crypt brush-phase residual is fixed).
-All RE/validation tooling is committed. Only the two regression-coverage follow-ups under "Other
-remaining follow-ups" are open, and both are validated at runtime today (just not yet promoted to
-self-contained `make test` fixtures). The sections below are the RE record, kept for reference.
+**STATUS: COMPLETE (2026-06-13; follow-ups closed 2026-07-13).** The v1 renderer is byte-exact
+over the whole corpus — **Crimson Crown 71/71, Transylvania 81/81** pictures pixel-exact at
+ceiling 0, with v2 still **94/94**. Every fixture in `make test` is at ceiling 0 (the crypt
+brush-phase residual is fixed). All RE/validation tooling is committed. The two former
+regression-coverage follow-ups (text-path/"map", object and title fixtures) are now committed
+`make test` cases — see "Regression coverage follow-ups" at the end. The sections below are the
+RE record, kept for reference.
 
 Crimson Crown and Transylvania v1 render through `graphics_magician_cga.cpp` (the v2 renderer)
 via `gmcgaInstallV1DrawingTables` — fill pattern + subindex tables from `PC_GRAPH.OVR`, brushes
@@ -30,13 +31,35 @@ cyan↔magenta across every dither (Crimson Crown crypt: 2827 px). Fixed in
   `[40 80 40 80]` dither over a flood fill). Pixel-exact, ceiling 0.
 - Transylvania v1: tr_start (RA pic 0), pixel-exact, ceiling 0 — its fill/subindex/brush tables
   are byte-identical to Crimson Crown's, so the same committed table slices render both games.
+- Added 2026-07-13 (the former follow-ups): rc_05 (CC RC pic 5, sage cutscene) + tr_rc09 (TR RC
+  pic 9, Zin) guard the CHARSET.GDA op3 text path (`charset.bin` fixture + `gmcgaSetV1Font`);
+  oa_01 (CC OA pic 1 composited over its placed room RA pic 13, no reset between) guards
+  object-over-room composition; cc_title / tr_title guard the single-image title path. All
+  pixel-exact, ceiling 0. Goldens captured by `test/gmcgav1/dosbox_capture_fixtures.py`.
 
 ## In-picture text (op3/op5) — DONE
-v1 pictures **do** draw op3/op5 text (Transylvania map screens MA–ME, Crimson Crown MA/RC). v1
-`NOVEL.EXE` has no embedded picture font; the glyphs come from **CHARSET.GDA** (version 0x1100,
-96 glyphs ×8 bytes at offset 4, LSB-first). `gmcgaSetV1Font()` loads them bit-reversed into the
-renderer's glyph table; `pics.cpp` calls it on the v1 path. Validated: a synthetic op3 string
-renders legible, correctly-oriented upper/lower-case + digits + punctuation.
+v1 pictures **do** draw op3/op5 text. A grammar-driven scan of every picture stream (2026-07-13)
+pins exactly which: CC RC pics 5–8 (cutscene pages), CC OB pics 6–12 (the sage's scroll rhymes,
+plus one stray char in OB 3), TR RC pic 9 (Zin), and both title screens (CC 18 / TR 119 op3
+chars). All op3 (solid); no v1 picture uses op5. (An earlier note attributed text to "map screens
+MA–ME" — wrong; see the correction below.) v1 `NOVEL.EXE` has no embedded picture font; the
+glyphs come from **CHARSET.GDA** (version 0x1100, 96 glyphs ×8 bytes at offset 4, LSB-first;
+CC's and TR's copies are byte-identical). `gmcgaSetV1Font()` loads them bit-reversed into the
+renderer's glyph table; `pics.cpp` calls it on the v1 path. Regression-tested pixel-exact by the
+rc_05 / tr_rc09 / cc_title / tr_title fixtures.
+
+## CORRECTION (2026-07-13): MA–ME are STRING banks, not map pictures
+The old follow-up note claimed the MA–ME `.MS1` files were "map screens — version 0x2000
+composite pictures drawn cumulatively across fragments" loaded via `FUN_1000_0c9f`. Ghidra
+(`/NOVEL.EXE.2` in the DOSTalisman project) disproves it: `0c9f` sets filename prefix `'m'`,
+`[0x2178]=0x82` (a **65-word** offset table — the 64-slot string index + terminator, vs `0x22`
+for the 17-word picture tables), slot = `([0x2da0] & 0x3f) * 2`, file letter from the high bits;
+its **only** caller is `FUN_1000_14bf`, the string printer (ids ≥ 0x200 → subtract 0x200, load
+the M-bank slot to 0xdf0, then `FUN_1000_1595` — the 5-byte string decoder — and `1667` char
+output). That is exactly the engine's `_strings2` path (`game_tr1.cpp`/`game_cc.cpp` register
+MA–ME as `_stringFiles`); the version word 0x2000 is the string-bank header, and there is no
+map-picture path to regression-test. The real uncovered text path was op3 in-picture text, now
+covered by the fixtures above.
 
 ## Whole-corpus ground truth (2026-06-13)
 Every v1 picture is now dumped from the real interpreter and diffed against the renderer:
@@ -238,16 +261,19 @@ brush hit 256, and reaches the painter stamp #257 = gb 50, sub 2, rows 18–25).
   every flood fill exact.
 - `trace_crypt.cpp` — single-picture local driver (`GMCGA_OPLOG`/`GMCGA_WATCH`/`GMCGA_TRACE_FILL`).
 
-## Other remaining follow-ups (the only open items)
-These are regression-*coverage* gaps, not renderer bugs: the renderer already reproduces all of
-these byte-exactly at runtime (`validate_dump.py` over `/tmp/v1cap/{cc,tr}` = TR 81/81, CC 71/71,
-which includes the OA/OB object overlays). What's missing is promoting them into the self-contained
-`make test` set (which deliberately ships no game files), plus a full-frame compare path.
+## Regression coverage follow-ups — CLOSED 2026-07-13
+Both former follow-ups are now committed, self-contained `make test` fixtures (fresh DOSBox
+goldens captured by `test/gmcgav1/dosbox_capture_fixtures.py`, MODE=cc/tr/trmerged; all
+pixel-exact at ceiling 0, first try):
 
-- [ ] Lock a **map** golden (Transylvania MA.MS1 — version 0x2000 composite, drawn cumulatively
-      across fragments) so the CHARSET.GDA text path is regression-tested pixel-exact, not just
-      eyeballed. (MA–ME load via FUN_1000_0c9f, the 'm'-prefix path — not covered by the room/object
-      sweep, which only drives 0b9f/0bc3.)
-- [ ] Object (`OA`/`OB`) and title images as committed fixtures. Object overlays already validate at
-      runtime; the title (`CCTITLE.MS1`) is a **full-screen** 320×200 image (art extends outside the
-      280×160 picture window), so it needs a full-frame compare, not the windowed one the room test uses.
+- [x] **CHARSET.GDA text path** — the "map golden" item was based on a misreading (MA–ME are
+      string banks; see the CORRECTION section). The text path is op3 in-picture text, now
+      regression-tested pixel-exact by rc_05 (CC sage cutscene), tr_rc09 (TR Zin page) and both
+      titles, with `charset.bin` committed (CC/TR ship byte-identical CHARSET.GDA).
+- [x] **Object and title fixtures** — oa_01 (CC OA pic 1 over placed room RA pic 13, no reset
+      between draws) guards object-over-room composition; cc_title / tr_title guard the
+      single-image title path (`gmcgav1test` now takes pic index -1 for title files). The old
+      "full-screen 320×200 / needs full-frame compare" claim was also wrong: the native paints
+      **nothing** outside the 280×160 window even on the titles (verified against boot-time VRAM;
+      CC's two stream rows at y=160–161 are clipped by the native too), so the windowed compare
+      is complete.

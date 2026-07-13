@@ -65,8 +65,16 @@ static uint8_t rgbaToIndex(uint32_t c) {
 // Draw picture `pic` out of an already-loaded .MS1 onto the current canvas
 // (no screen reset -- so a second call composites, as the engine does when it
 // stamps an object over a room).  Returns false on a bad index.
+// A title file (CCTITLE.MS1 / TRTITLE.MS1) holds a single image with no offset
+// table; mirror Pics::ImageFile and start it at 4 when the file leads with a
+// 0x00 header byte (no real stream opens with op0).  Pass pic index -1.
 static bool drawMs1Pic(const std::vector<uint8_t> &ms1, int pic) {
     if (ms1.size() < 4) return false;
+    if (pic < 0) {
+        size_t at = (ms1[0] == 0) ? 4 : 0;
+        gmcgaDrawImage(ms1.data() + at, ms1.size() - at);
+        return true;
+    }
     uint16_t version = (uint16_t)(ms1[0] | (ms1[1] << 8));
     size_t tableAt = (version == 0x1000) ? 4 : 0;
     uint16_t off[16];
