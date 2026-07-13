@@ -7,29 +7,23 @@ I'm stepping down as maintainer of the Spatterlight project. Thank you for your 
 The new maintainer is an AI named Claude.
 
 ### Z-code (Bocfel)
-- Special support for *Zork Zero*, equivalent to the existing support for the other Infocom z6 games. Autosave, window resizing, change graphics format on-the-fly, and improved VoiceOver integration with skippable graphical puzzles. Several pre-release and demo revisions now work.
-- *Trinity*'s side-by-side double quote boxes are now drawn and spoken correctly by VoiceOver.
+- Special support for *Zork Zero*, equivalent to the existing support for the other Infocom z6 games. Autosave, adaptable windows resizing and on-the-fly graphics format switching. Improved VoiceOver integration with skippable graphical puzzles. Several pre-release and demo revisions now work.
+- *Trinity*'s side-by-side twin quote boxes are now drawn, and spoken correctly by VoiceOver.
 - Updated to Bocfel 2.5.1.
 
-### Comprehend
-- A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are fully playable from start to finish.
-- The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions.
-- Optional slow vector drawing.
-- Undo, transcript, restart, restore and quit. Type #help for the full list of metacommands.
-- Modern single-letter abbreviations for inventory, examine and wait.
+### Scarier (Adrift)
+The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the old Adrift 3.8/3.9/4.0 engine and adds a new engine for Adrift 5. A single interpreter now plays all Adrift games.
 
-### Archetype
-- A port of the Archetype interpreter from ScummVM, with added undo, restart and transcript. This interpreter supports two real games, *The Gorreven Papers* (1995) and *The Starship Solitaire Adventure* (1995), both written by the developer Derek T. Jones as demonstration games for the Archetype authoring system.
+#### Adrift 5
+- Plays Adrift 5 games in .taf and .blorb format. All the games I could find of the 91 listed with the Adrift 5 tag on IFDB are playable from start to finish, matching the FrankenDrift output.
+- Sound and graphics support.
+- Status panel in *Alien Diver*.
+- Multi-level UNDO. The original runner only remembers a single turn.
+- Save files in the Adrift 5 runner and FrankenDrift .tas format which can be moved between the three in either direction.
+- Supported: Danish, real-time events. Not supported yet: font tags, text colors, the map.
+- Many of Glk meta-commands (transcript, input log, summary and so on) from SCARE re available in Adrift 5 games too.
 
-### Geas (Quest 4)
-- All the Quest 4 games I've been able to find work.
-- Displays pictures and plays MIDI and MOD music.
-- Status variables listed in the status bar, room exits and objects in a side pane.
-- A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
-- UNDO and OOPS.
-- Some text output has been adjusted to be closer to the original.
-
-### Scare (Adrift)
+#### Adrift 4
 - Implements the Adrift 4.0 battle system: stamina, weapons and armour.
 - Also implements the very different Adrift 3.8/3.9 battle system.
 - Most Adrift games using the battle system are unfinished, broken and / or not very good.
@@ -44,11 +38,29 @@ The new maintainer is an AI named Claude.
 - The Glk single-letter shortcuts no longer interfer with single-letter commands in the original games.
 - Several crashes on malformed game data are fixed.
 - Full support for the original *LAIR of the CYBER-COW*.
+- Events and NPC actions now run in the correct order, which fixes games that appeared to skip or double up events.
+- About three times faster than SCARE.
+
+### Comprehend
+- A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are fully playable from start to finish.
+- The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions.
+- Optional slow vector drawing.
+- A new UI setting for alternative graphics format (HGR or CGA in supported games.)
+- Undo, transcript, restart, restore and quit. Type #help for the full list of metacommands.
+- Modern single-letter abbreviations for inventory, examine and wait.
+
+### Geas (Quest 4)
+- All the Quest 4 games I've been able to find now work.
+- Displays pictures and plays MIDI and MOD music.
+- Status variables listed in the status bar, room exits and objects in a side pane.
+- A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
+- UNDO and OOPS.
 
 ### AGiliTy (AGT)
 - AGT games now play directly from their original .D$$ files; the separate AGX conversion step has been removed.
 - The title image is displayed when a game starts.
 - Inventory and other indented lists now properly prints every item on its own line.
+- The Tone metacommand actually makes a sound now, at the frequency and duration the game asks for.
 
 ### Level 9
 - Loads games from ZX Spectrum .z80 snapshots, .tzx tapes and .dsk images.
@@ -57,27 +69,29 @@ The new maintainer is an AI named Claude.
 - Optional slow vector image drawing.
 - Graphics in Level 9 (and Magnetic) games are now resized automatically.
 
+### Archetype
+- A port of the Archetype interpreter from ScummVM, with added undo, restart and transcript. This interpreter supports two real games, *The Gorreven Papers* (1995) and *The Starship Solitaire Adventure* (1995), both written by the developer Derek T. Jones as demonstration games for the Archetype authoring system.
+
 ### Scott Adams and related
 - ZX Spectrum loading screens are shown as title images in Scott, Taylormade and UnQuill.
-- Adds support for the Alkatraz-protected *Scott Adams Scoops* tzx tape image.
-- Loads more Commodore 64 disk versions of ScottFree and TaylorMade games, including several *Hulk* variants, one new *Pirate Adventure*, and variants of *Masters of the Universe* (*He-Man*) and *Temple of Terror*.
+- Adds support for the elusive Alkatraz-protected *Scott Adams Scoops* tzx tape image (and many other new game veriants).
 - The Apple II, Atari 8-bit and ZX Spectrum vector renderers have had a couple of bug fixes, mostly to do with the draw order of object images.
 - The Atari 8-bit slow-draw pauses now matches the real machine.
-- ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo in *Rebel Planet*.
+- TaylorMade: ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo in *Rebel Planet*.
 
 ### UnQuill
 - Despite many improvements, the UnQuill interpreter is still kind of useless. A ZX Spectrum emulator is the better option. The exception is for VoiceOver users. Most Quill games are probably still not completable (let alone enjoyable) using VoiceOver, though.
 - Quill games now render The Illustrator-format location graphics, placed above the room description. Split-screen games are detected and the picture window is cropped to match. A window at the top displays the room description text.
 - Loads Commodore 64 .t64 Quill games, ZX Spectrum .z80 snapshots, and custom turbo-loader .tzx tapes such as *Bugsy*, and shows the .z80 loading screens.
-- Adds interpreter-level UNDO and the #save, #restore, #restart, #quit, #transcript and #help meta-commands.
+- Adds interpreter-level UNDO and the  meta-commands #save, #restore, #restart, #quit, #transcript, and #help.
 - Hardware-accurate, non-blocking BEEP sounds.
 
 ### Other interpreters
-- The JACL interpreter has been updated to upstream DangarStu/JACL 4.7.0, together with a number of correctness fixes.
-- TADS 3 gets a batch of virtual-machine bug fixes backported from FrobTADS.
+- The JACL interpreter has been updated to upstream DangarStu/JACL 4.7.0, and its broken support for older games has been fixed.
+- A batch of TADS 3 bug fixes were backported from FrobTADS.
 
 ### General
-- Adds a per-theme preference to cap the scrollback buffer length.
+- Adds a preference to cap the scrollback buffer length.
 - Scrolling up to read during real-time or command-script output now pauses auto-scroll, and scrolling back to the bottom resumes it without getting stuck. This does not work very reliably, but a little better than it used to.
 - Fixes horizontal and vertical drift of margin images.
 - Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, announcements are no longer dropped or cut off around graphics, and the "speak status bar" command now reads every non-main text window rather than only the status line.
@@ -85,8 +99,10 @@ The new maintainer is an AI named Claude.
 - More reliable migration from older library database formats.
 - The library search field was recreated constantly, which caused crashes and irregular behavior.
 - The library search bar is cleared automatically when a newly added game would otherwise be hidden.
+- Fixes occasional misdrawn rows in the library game table.
 - Numerous robustness and crash fixes across the bundled interpreters, and many more pointless changes to placate Xcode's static analyzer.
 - Fixes a one-pixel preview-colour line in Preferences after restart.
+- Corrupt or truncated Blorb files no longer read past the end of the file, and Blorbs with a bad length field (such as most Adrift 5 games) can now be read.
 
 ## Release 1.4.9
 - A hotfix for a crash that could happen when opening older library databases.
