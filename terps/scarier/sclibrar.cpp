@@ -183,7 +183,7 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
             vt_key[4].string = "Var3";
             var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
 
-            object = obj_stateful_index (game, var2 - 1);
+            object = obj_stateful_object (game, var2 - 1);
             retval = restr_pass_task_object_state (game, object + 1, var3 - 1);
           }
         break;

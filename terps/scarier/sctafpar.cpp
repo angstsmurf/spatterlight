@@ -1147,7 +1147,8 @@ parse_get_v400_resource_offset (const scr_char *name,
    */
   clean_name = (decltype(clean_name)) scr_malloc (strlen (name) + 1);
   memcpy (clean_name, name, strlen (name) + 1);
-  if (strcmp (clean_name + strlen (clean_name) - 2, "##") == 0)
+  if (strlen (clean_name) >= 2
+      && strcmp (clean_name + strlen (clean_name) - 2, "##") == 0)
     clean_name[strlen (clean_name) - 2] = NUL;
 
   /*

@@ -502,6 +502,7 @@ taf_decompress (scr_tafref_t taf, scr_read_callbackref_t callback,
         {
           if (is_gamefile || !is_first_block)
             scr_error ("taf_decompress: inflate: error %ld\n", status);
+          inflateEnd (&stream);
           return FALSE;
         }
       out_bytes = OUT_BUFFER_SIZE - stream.avail_out;

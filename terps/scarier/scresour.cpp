@@ -302,7 +302,8 @@ res_sync_resources (scr_gameref_t game)
 
       /* If the sound name ends '##', this is a looping sound. */
       name = game->requested_sound.name;
-      is_looping = !strcmp (name + strlen (name) - 2, "##");
+      is_looping = strlen (name) >= 2
+                   && !strcmp (name + strlen (name) - 2, "##");
 
       clean_name = (decltype(clean_name)) scr_malloc (strlen (name) + 1);
       memcpy (clean_name, name, strlen (name) + 1);
