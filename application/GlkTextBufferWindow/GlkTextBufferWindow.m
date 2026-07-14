@@ -41,6 +41,16 @@ static const NSUInteger kScrollbackTrimDefault = 30000;
 // still works even if someone sets a tiny value.
 static const NSUInteger kScrollbackTrimMinimum = 2000;
 
+// Hard cap on the *uncommitted* output buffer (bufferTextstorage), applied in
+// putString before the text is flushed to the live text storage. This is a
+// last-resort guard against a single unbroken burst of output from a runaway
+// game; it is independent of the theme-driven rolling scrollback trim
+// (trimScrollbackIfNeeded:), which bounds the committed text storage. When the
+// buffer grows past the cap, the oldest kOutputBufferHardCapTrim characters are
+// dropped from the front.
+static const NSUInteger kOutputBufferHardCap = 50000;
+static const NSUInteger kOutputBufferHardCapTrim = 25000;
+
 /*
  * GlkTextBufferWindow is the Glk text buffer window type — a scrollable,
  * styled text view used for the main game text. It manages the full
@@ -205,9 +215,8 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         [[BufferTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000)
                                 textContainer:container];
 
+        [self configureBufferTextView:_textview];
         _textview.editable = NO;
-        _textview.minSize = NSMakeSize(1, 10000000);
-        _textview.maxSize = NSMakeSize(10000000, 10000000);
 
         container.textView = _textview;
 
@@ -219,19 +228,6 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         // not its height (so the text view grows vertically as text is added).
         container.widthTracksTextView = YES;
         container.heightTracksTextView = NO;
-
-        _textview.horizontallyResizable = NO;
-        _textview.verticallyResizable = YES;
-
-        _textview.autoresizingMask = NSViewWidthSizable;
-
-        _textview.allowsImageEditing = NO;
-        _textview.allowsUndo = NO;
-        _textview.usesFontPanel = NO;
-        _textview.usesFindBar = YES;
-        _textview.incrementalSearchingEnabled = YES;
-
-        _textview.smartInsertDeleteEnabled = NO;
 
         _textview.delegate = self;
         textstorage.delegate = self;
@@ -259,6 +255,62 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     }
 
     return self;
+}
+
+// Apply the standard BufferTextView configuration shared by the initial text
+// view built in init and the replacement built during a background scrollback
+// trim. Keeping it in one place stops the two construction paths from drifting
+// apart. Instance-specific properties (frame, insets, colors, delegate,
+// editable) are set by the caller.
+- (void)configureBufferTextView:(BufferTextView *)textView {
+    textView.minSize = NSMakeSize(1, 10000000);
+    textView.maxSize = NSMakeSize(10000000, 10000000);
+    textView.horizontallyResizable = NO;
+    textView.verticallyResizable = YES;
+    textView.autoresizingMask = NSViewWidthSizable;
+    textView.allowsImageEditing = NO;
+    textView.allowsUndo = NO;
+    textView.usesFontPanel = NO;
+    textView.usesFindBar = YES;
+    textView.incrementalSearchingEnabled = YES;
+    textView.smartInsertDeleteEnabled = NO;
+}
+
+// Append `toAppend` to the text storage, coalescing any pending echo-off delete
+// into the same edit pass so the input replacement is a single paint rather
+// than two (delete now, append milliseconds later). When echo is off and the
+// player submits a line, the typed text is left in place and
+// pendingEchoDeleteRange records what to delete; this folds that deletion into
+// the next output append. Returns YES if a deferred delete was applied.
+- (BOOL)coalescePendingEchoDeleteWithAppend:(NSAttributedString *)toAppend {
+    if (pendingEchoDeleteRange.length
+        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+        [textstorage beginEditing];
+        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+        [textstorage appendAttributedString:toAppend];
+        [textstorage endEditing];
+        pendingEchoDeleteRange = NSMakeRange(0, 0);
+        fence = textstorage.length;
+        return YES;
+    }
+    [textstorage appendAttributedString:toAppend];
+    return NO;
+}
+
+// Apply a deferred echo-off delete if one is pending and still within the text
+// storage, then clear the pending range unconditionally. Used by call sites
+// (unputString, initLine, cancelLine) that need the ghost input gone before
+// they read or manipulate the tail of the text. Returns YES if characters were
+// actually deleted.
+- (BOOL)applyPendingEchoDeleteIfValid {
+    BOOL applied = NO;
+    if (pendingEchoDeleteRange.length
+        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
+        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+        applied = YES;
+    }
+    pendingEchoDeleteRange = NSMakeRange(0, 0);
+    return applied;
 }
 
 // Override setFrame: to defer the actual frame change until flushDisplay.
@@ -413,19 +465,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         if (!_pendingScrollRestore)
             [self scrollToTop];
     } else if (bufferTextstorage.length) {
-        // Coalesce a deferred echo-off delete with the new append into a single
-        // text storage edit pass so the input replacement is one paint, not two.
-        if (pendingEchoDeleteRange.length
-            && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
-            [textstorage beginEditing];
-            [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
-            [textstorage appendAttributedString:bufferTextstorage];
-            [textstorage endEditing];
-            pendingEchoDeleteRange = NSMakeRange(0, 0);
-            fence = textstorage.length;
-        } else {
-            [textstorage appendAttributedString:bufferTextstorage];
-        }
+        [self coalescePendingEchoDeleteWithAppend:bufferTextstorage];
         backgroundLayoutGeneration++;
     }
 
@@ -1144,9 +1184,11 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         return;
     }
 
-    // Prevent unbounded buffer growth for games that print enormous amounts
-    if (bufferTextstorage.length > 50000)
-        bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
+    // Prevent unbounded buffer growth for games that print enormous amounts.
+    // See kOutputBufferHardCap; this is separate from the committed-text
+    // scrollback trim in trimScrollbackIfNeeded:.
+    if (bufferTextstorage.length > kOutputBufferHardCap)
+        bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(kOutputBufferHardCapTrim, bufferTextstorage.length - kOutputBufferHardCapTrim)].mutableCopy;
 
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
@@ -1216,20 +1258,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     [bufferTextstorage appendAttributedString:attstr];
     dirty = YES;
     if (!_pendingClear && textstorage.length && bufferTextstorage.length) {
-        // Same coalescing as in flushDisplay: if echo-off left a deferred delete
-        // pending, do the delete + append in one edit so the input is replaced
-        // in a single paint.
-        if (pendingEchoDeleteRange.length
-            && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
-            [textstorage beginEditing];
-            [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
-            [textstorage appendAttributedString:bufferTextstorage];
-            [textstorage endEditing];
-            pendingEchoDeleteRange = NSMakeRange(0, 0);
-            fence = textstorage.length;
-        } else {
-            [textstorage appendAttributedString:bufferTextstorage];
-        }
+        [self coalescePendingEchoDeleteWithAppend:bufferTextstorage];
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
     }
 }
@@ -1242,12 +1271,13 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     // The ghost from a deferred echo-off delete must not be examined by the
     // tail match below, or unputString would either match against the player's
     // input or fail because the tail is the wrong style.
-    if (pendingEchoDeleteRange.length
-        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
-        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
-    }
-    pendingEchoDeleteRange = NSMakeRange(0, 0);
+    [self applyPendingEchoDeleteIfValid];
     NSUInteger result = 0;
+    // Guard against an underflow: if the string to retract is longer than the
+    // whole text storage there is nothing valid to match, and computing
+    // textstorage.length - buf.length would wrap and crash substringFromIndex:.
+    if (buf.length > textstorage.length)
+        return result;
     NSUInteger initialLength = textstorage.length;
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
@@ -1544,12 +1574,8 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     // If the previous line was submitted with echo off and no output has
     // arrived since, the typed text is still on screen. Clear it now so the
     // new prompt and fence don't sit after the ghost.
-    if (pendingEchoDeleteRange.length
-        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
-        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
+    if ([self applyPendingEchoDeleteIfValid])
         _lastchar = textstorage.length ? [textstorage.string characterAtIndex:textstorage.length - 1] : '\n';
-    }
-    pendingEchoDeleteRange = NSMakeRange(0, 0);
 
     if (_lastchar == '>' && self.theme.spaceFormat) {
         [self printToWindow:@" " style:style_Normal];
@@ -1592,11 +1618,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 
     // A pending echo-off delete from an earlier submission would shift the
     // meaning of fence; apply it before reading the input.
-    if (pendingEchoDeleteRange.length
-        && NSMaxRange(pendingEchoDeleteRange) <= textstorage.length) {
-        [textstorage deleteCharactersInRange:pendingEchoDeleteRange];
-    }
-    pendingEchoDeleteRange = NSMakeRange(0, 0);
+    [self applyPendingEchoDeleteIfValid];
 
     NSString *str = textstorage.string;
     str = [str substringFromIndex:fence];
@@ -1720,7 +1742,12 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 // Mapping from Beyond Zork's Font3 ASCII characters to their Unicode
 // equivalents (arrows and Anglo-Saxon runes used for the in-game alphabet).
 - (NSDictionary *)font3ToUnicode {
-    return @{
+    // Built once and cached: this is consulted per character during Beyond Zork
+    // Font3 output, so rebuilding the dictionary on every call is wasteful.
+    static NSDictionary *font3 = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        font3 = @{
         @"!" : @"←",
         @"\"" : @"→",
         @"\\" : @"↑",
@@ -1751,7 +1778,9 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         @"x" : @"ᛉ",
         @"y" : @"ᚥ",
         @"z" : @"ᛟ"
-    };
+        };
+    });
+    return font3;
 }
 
 #pragma mark NSTextView customization
@@ -2561,17 +2590,7 @@ replacementString:(id)repl {
                 BufferTextView *newTextView =
                     [[BufferTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000)
                                             textContainer:bgContainer];
-                newTextView.minSize = NSMakeSize(1, 10000000);
-                newTextView.maxSize = NSMakeSize(10000000, 10000000);
-                newTextView.horizontallyResizable = NO;
-                newTextView.verticallyResizable   = YES;
-                newTextView.autoresizingMask      = NSViewWidthSizable;
-                newTextView.allowsImageEditing    = NO;
-                newTextView.allowsUndo            = NO;
-                newTextView.usesFontPanel         = NO;
-                newTextView.usesFindBar           = YES;
-                newTextView.incrementalSearchingEnabled = YES;
-                newTextView.smartInsertDeleteEnabled    = NO;
+                [self configureBufferTextView:newTextView];
                 newTextView.textContainerInset  = inset;
                 newTextView.backgroundColor     = bgColor;
                 newTextView.insertionPointColor = cursorColor;
