@@ -33,8 +33,8 @@
  * Once either engine has produced a map_t, everything below is common, so a v4
  * map and a v5 map look alike in Spatterlight -- even though the ADRIFT 4
  * runner's own map, built out of Visual Basic control arrays, looked nothing
- * like the ADRIFT 5 one.  Geometry and colours follow the Adrift 5 runner's
- * Map.vb, whose plan view is the one a player sees unless they drag the map:
+ * like the ADRIFT 5 one.  Geometry follows the Adrift 5 runner's Map.vb,
+ * whose plan view is the one a player sees unless they drag the map:
  * X to the right, Y downward, one map unit = `scale` pixels.
  *
  * This module is deliberately free of Glk and of both engines: it rasterises
@@ -120,6 +120,12 @@ typedef struct map_surface_s {
 
 extern map_surface_t *map_surface_new (int w, int h);
 extern void map_surface_free (map_surface_t *s);
+
+/* The two colours the map is drawn in, normally the Glk buffer's normal
+   style: `background` fills the map and the room boxes, `text` draws the
+   connectors, borders and labels, and the player's room is their inversion.
+   Black on white until the host says otherwise. */
+extern void map_set_palette (unsigned int background, unsigned int text);
 
 /* What the renderer needs to know about the run.  Keeping this a callback
    table is what lets the map be drawn from the headless harness (and diffed)

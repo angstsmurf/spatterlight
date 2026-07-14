@@ -19,7 +19,7 @@
 
 /* The map model and its rasteriser, shared by both engines.  See mapdraw.h.
 
-   Geometry and colours follow the Adrift 5 runner's Map.vb, and the software
+   Geometry follows the Adrift 5 runner's Map.vb, and the software
    rasteriser below stands in for the GDI+ calls it makes (FillPolygon /
    DrawBezier / DrawEllipse / DrawString).  The ADRIFT 4 runner draws its map
    out of VB control arrays instead, with a look of its own; we render both
@@ -45,15 +45,25 @@ const char *const map_dirs[12] = {
   "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
-/* Map.vb:33-39.  The runner's palette, verbatim. */
-#define MAPBACKGROUND  0xE6FFFF
-#define NODEBACKGROUND 0x96C8FF
-#define NODESELECTED   0xFFFF00
-#define NODEBORDER     0x6496C8
-#define NODETEXT       0x000000
-#define LINKCOLOUR     0x460000
+/* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
+   host's text style instead, so the pane matches the story text in any theme:
+   the map and its room boxes take the style's background colour, connectors,
+   borders and labels its text colour, and the player's room is drawn inverted
+   (text-colour fill, background-colour label) where the runner filled it
+   yellow.  The host passes the two colours in (map_set_palette); until it
+   does, black on white.  Only the IN/OUT badge accents survive from the
+   runner's palette. */
+static unsigned int map_bg = 0xFFFFFF;
+static unsigned int map_fg = 0x000000;
 #define ICON_IN        0x00A000
 #define ICON_OUT       0xE06090
+
+void
+map_set_palette (unsigned int background, unsigned int text)
+{
+  map_bg = background & 0xFFFFFF;
+  map_fg = text & 0xFFFFFF;
+}
 
 void
 map_free (map_t *map)
@@ -950,9 +960,9 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   dy /= len;
   x1 = x0 + dx * stub;
   y1 = y0 + dy * stub;
-  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, LINKCOLOUR,
+  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, map_fg,
              alpha, 0);
-  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, LINKCOLOUR, alpha);
+  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_fg, alpha);
 }
 
 /* The IN / OUT bubble on a node edge (DrawInOutIcon, Map.vb:1530). */
@@ -985,7 +995,7 @@ map_render (const map_t *map, const map_view_t *view,
 
   if (dst == NULL)
     return;
-  fill_surface (dst, MAPBACKGROUND);
+  fill_surface (dst, map_bg);
   if (map == NULL || cam == NULL)
     return;
   page = page_by_key (map, cam->page);
@@ -1050,7 +1060,7 @@ map_render (const map_t *map, const map_view_t *view,
           bezier_assister (&p, n, link->dir, dist, &x1, &y1);
           bezier_assister (&p, dn, dst_anchor, dist, &x2, &y2);
 
-          draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, LINKCOLOUR,
+          draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
                        alpha, dash, &phase);
         }
     }
@@ -1107,9 +1117,9 @@ map_render (const map_t *map, const map_view_t *view,
       if (!is_player && active != NULL && n->z != active->z)
         alpha = 50;
 
-      fill = is_player ? NODESELECTED : NODEBACKGROUND;
+      fill = is_player ? map_fg : map_bg;
       fill_rect (dst, x0, y0, x1, y1, fill, alpha);
-      draw_rect (dst, x0, y0, x1, y1, NODEBORDER, alpha);
+      draw_rect (dst, x0, y0, x1, y1, map_fg, alpha);
 
       for (l = 0; l < n->n_links; l++)
         {
@@ -1127,7 +1137,8 @@ map_render (const map_t *map, const map_view_t *view,
         {
           const char *label = view->name (view->ctx, n->key);
           if (label != NULL && label[0] != '\0')
-            draw_label (dst, label, x0, y0, x1, y1, NODETEXT,
+            draw_label (dst, label, x0, y0, x1, y1,
+                        is_player ? map_bg : map_fg,
                         alpha == 50 ? 90 : 255);
         }
     }

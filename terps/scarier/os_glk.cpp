@@ -5513,6 +5513,24 @@ gsc_map_redraw (void)
   if (w == 0 || h == 0)
     return;
 
+  /* The map is drawn in the story's colours: the buffer's normal style
+     supplies the background and text colour.  Spatterlight answers
+     glk_style_measure with the live theme, and redraws on both prompt and
+     arrange, so a theme change reaches the map by itself; a Glk that cannot
+     measure leaves the palette at its black-on-white default. */
+  {
+    glui32 bg, fg;
+    if (glk_style_measure (gsc_main_window, style_Normal,
+                           stylehint_BackColor, &bg)
+        && glk_style_measure (gsc_main_window, style_Normal,
+                              stylehint_TextColor, &fg))
+      {
+        map_set_palette (bg, fg);
+        /* So the clear below, and any exposed edge, match the surface. */
+        glk_window_set_background_color (gsc_map_window, bg);
+      }
+  }
+
   /* Nothing to draw: an ADRIFT 4 layout that gave up, or a player standing in a
      room hidden from the map -- where the runner showed an empty map too.  Wipe
      the pane rather than leave the last one up; it will come back by itself. */
