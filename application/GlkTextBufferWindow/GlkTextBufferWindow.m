@@ -86,6 +86,12 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     CGFloat lastScrollOffset;           // Sub-line scroll offset (fraction of cell height)
     BOOL lastAtBottom;                  // Was scrolled to bottom before resize
     BOOL lastAtTop;                     // Was scrolled to top before resize
+    NSUInteger rewrapLastseenChar;      // Character under the _lastseen y-coordinate when a frame
+                                        // width change invalidated the layout; restoreScroll uses it
+                                        // to recompute _lastseen in the new layout. NSNotFound when
+                                        // no remap is pending.
+    BOOL rewrapFollowupScroll;          // A deferred auto-scroll was pending when the rewrap hit;
+                                        // re-run it once the restore has made coordinates valid again
 
     BOOL pauseScrolling;               // Temporarily pause auto-scrolling (during command scripts)
     BOOL commandScriptWasRunning;      // Track command script transitions
@@ -167,6 +173,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         // We use lastLineheight to restore scroll position with sub-character size precision
         // after a resize
         lastLineheight = self.theme.bufferCellHeight;
+        rewrapLastseenChar = NSNotFound;
 
         history = [[InputHistory alloc] init];
 
@@ -324,6 +331,41 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
                 self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
 
+            // A width change re-wraps the whole document, so every
+            // y-coordinate captured in the old layout — the clip origin as
+            // well as _lastseen — is invalid afterwards: content above the
+            // viewport that wraps to more lines pushes everything below it
+            // further down. Capture the position as a character anchor
+            // before the old layout goes away, and schedule the same
+            // uncapped restore used after theme changes and live resizes.
+            // Without this, a game-driven arrange (e.g. ADRIFT opening its
+            // map pane) leaves the auto-scroll caps aiming at old-layout
+            // coordinates, which strands the view mid-scrollback when the
+            // rewrap growth exceeds the caps (wide margins and large line
+            // spacing make it large). Live resizes and fullscreen
+            // transitions store/restore around the whole gesture instead.
+            BOOL rewrapRestore = NSWidth(self.pendingFrame) != NSWidth(self.frame)
+                && !_pendingScrollRestore && !self.inLiveResize
+                && !glkctl.ignoreResizes && textstorage.length > 0;
+            if (rewrapRestore) {
+                [self storeScrollOffset];
+                // _lastseen is a y-coordinate in the layout that is about to
+                // go away; remember the character under it so restoreScroll
+                // can recompute it once the new layout exists. Also note
+                // whether an auto-scroll was pending: it will run against
+                // old-layout coordinates and typically go nowhere, so the
+                // restore re-runs it afterwards.
+                if (_lastseen > 0) {
+                    rewrapLastseenChar =
+                        [layoutmanager characterIndexForPoint:NSMakePoint(0, (CGFloat)_lastseen - 1)
+                                              inTextContainer:container
+                     fractionOfDistanceBetweenInsertionPoints:nil];
+                    if (rewrapLastseenChar >= textstorage.length)
+                        rewrapLastseenChar = textstorage.length - 1;
+                }
+                rewrapFollowupScroll = _pendingScroll;
+            }
+
             super.frame = self.pendingFrame;
 
             // If the viewport shrank while we were pinned to the bottom,
@@ -334,6 +376,8 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
             // Growing works without intervention: the clip view extending
             // downward already satisfies scrolledToBottom, so the existing
             // restoreScroll / layoutComplete path is not needed there.
+            // (On a rewrap this is a stale-layout best effort that reduces
+            // the visible jump; the scheduled restoreScroll finishes the job.)
             if (wasAtBottom && !self.scrolledToBottom) {
                 NSClipView *clipView = scrollview.contentView;
                 CGFloat viewportHeight = NSHeight(clipView.bounds);
@@ -344,6 +388,11 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
                     [scrollview reflectScrolledClipView:clipView];
                 }
                 lastAtBottom = YES;
+            }
+
+            if (rewrapRestore) {
+                _pendingScrollRestore = YES;
+                [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
             }
         }
     }
@@ -501,6 +550,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
+        rewrapLastseenChar = NSNotFound;
         _textview = [decoder decodeObjectOfClass:[BufferTextView class] forKey:@"textview"];
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
@@ -1006,6 +1056,8 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     lastAtBottom = NO;
     lastAtTop = NO;
     lastVisible = 0;
+    rewrapLastseenChar = NSNotFound;
+    rewrapFollowupScroll = NO;
     scrollAdjustTimeStamp = [NSDate distantPast];
     _printPositionOnInput = 0;
     [container clearImages];
@@ -2698,8 +2750,38 @@ replacementString:(id)repl {
     // window and clears it; layoutComplete callbacks (non-nil sender) that
     // fire during the window leave it set so they, too, restore uncapped.
     BOOL restoring = _pendingScrollRestore;
-    if (sender == nil)
+    BOOL followupScroll = NO;
+    if (sender == nil) {
         _pendingScrollRestore = NO;
+        // A frame width change invalidated every y-coordinate captured in
+        // the old layout. The new layout exists by now, so recompute
+        // _lastseen from the character it pointed at — otherwise the
+        // auto-scroll caps keep aiming at old-layout positions, which can
+        // strand the view mid-scrollback when the rewrap grew the document
+        // (wide margins and large line spacing make the growth big).
+        if (rewrapLastseenChar != NSNotFound) {
+            if (rewrapLastseenChar < textstorage.length) {
+                NSUInteger glyph =
+                    [layoutmanager glyphRangeForCharacterRange:NSMakeRange(rewrapLastseenChar, 1)
+                                          actualCharacterRange:NULL].location;
+                if (glyph != NSNotFound) {
+                    NSRect line = [layoutmanager lineFragmentRectForGlyphAtIndex:glyph
+                                                                  effectiveRange:nil];
+                    // In the doc-fit case markLastSeen recorded
+                    // docHeightAtLastSeen == _lastseen (both were the last
+                    // line's bottom); keep them in step. When they differ the
+                    // doc had overflowed and the docHAL anchor gate is off.
+                    BOOL docFit = (docHeightAtLastSeen == (CGFloat)_lastseen);
+                    _lastseen = (NSInteger)ceil(NSMaxY(line));
+                    if (docFit)
+                        docHeightAtLastSeen = (CGFloat)_lastseen;
+                }
+            }
+            rewrapLastseenChar = NSNotFound;
+        }
+        followupScroll = rewrapFollowupScroll;
+        rewrapFollowupScroll = NO;
+    }
     _pendingScroll = NO;
     //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
     //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
@@ -2753,6 +2835,15 @@ replacementString:(id)repl {
     }
 
     [self scrollToCharacter:lastVisible withOffset:lastScrollOffset animate:NO];
+
+    // The auto-scroll that was pending when the rewrap hit ran against
+    // old-layout coordinates and typically moved nowhere. Now that the
+    // anchor is re-applied and _lastseen is valid in the new layout, run
+    // it again so a short response (echo plus fresh prompt) just below the
+    // anchor is revealed instead of stranded under the fold; long unread
+    // output still paginates through the usual caps.
+    if (followupScroll)
+        [self performSelector:@selector(reallyPerformScroll) withObject:nil afterDelay:0.1];
     return;
 }
 
