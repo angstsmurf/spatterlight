@@ -174,6 +174,11 @@ static winid_t gsc_a5_side_window = NULL;
 static winid_t gsc_map_window = NULL;
 static map_t *gsc_map = NULL;
 static int gsc_map_shown = FALSE;
+/* Where the map pane sits: the standard 40% pane to the right of the story,
+   or -- for games with wide maps -- a 30% band across the top of the whole
+   screen, above the status line ("glk map top").  The choice is kept, so
+   hiding and re-showing the map does not move it. */
+static int gsc_map_at_top = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
    "glk map" escape instead. */
@@ -3144,8 +3149,16 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to hide it again; plain ");
       gsc_standout_string ("map");
       gsc_normal_string (" toggles it too, unless the game uses MAP for"
-                         " something of its own.\n\nThe map zooms itself to"
-                         " fit its window.  Use ");
+                         " something of its own.\n\nFor games with wide"
+                         " maps, ");
+      gsc_standout_string ("glk map top");
+      gsc_normal_string (" (or ");
+      gsc_standout_string ("glk map above");
+      gsc_normal_string (") moves the map to a band across the top of the"
+                         " screen, above the status line; ");
+      gsc_standout_string ("glk map right");
+      gsc_normal_string (" puts it back beside the story.\n\nThe map zooms"
+                         " itself to fit its window.  Use ");
       gsc_standout_string ("glk zoom in");
       gsc_normal_string (" and ");
       gsc_standout_string ("glk zoom out");
@@ -5919,6 +5932,64 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
 }
 
 /*
+ * gsc_map_show()
+ *
+ * Open the map pane, in whichever position gsc_map_at_top asks for: the
+ * standard pane to the right of the story, or a band across the top of the
+ * screen.  The top band splits the root window, not the story, so that it
+ * sits above the status line and spans the display's full width.
+ */
+static void
+gsc_map_show (void)
+{
+  /* Does the game have a map at all?  In ADRIFT 5 that is settled at load: it
+     either shipped map data or it did not.  In ADRIFT 4 every game with rooms
+     has one, unless the author switched it off.  Whether there is anything to
+     draw *right now* is a separate question, and one for the redraw. */
+  if (gsc_is_a5 ? gsc_map == NULL
+                : !scmap_available ((scr_gameref_t) gsc_game))
+    {
+      gsc_normal_string ("This game has no map.\n");
+      return;
+    }
+
+  if (!glk_gestalt (gestalt_Graphics, 0)
+      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+    {
+      gsc_normal_string ("This interpreter cannot display the map.\n");
+      return;
+    }
+
+  if (gsc_map_at_top)
+    gsc_map_window = glk_window_open (glk_window_get_root (),
+                                         winmethod_Above
+                                         | winmethod_Proportional,
+                                         30, wintype_Graphics, 0);
+  else
+    gsc_map_window = glk_window_open (gsc_main_window,
+                                         winmethod_Right
+                                         | winmethod_Proportional,
+                                         40, wintype_Graphics, 0);
+  if (!gsc_map_window)
+    {
+      gsc_normal_string ("Sorry, the map window could not be opened.\n");
+      return;
+    }
+  gsc_map_shown = TRUE;
+  gsc_map_screen_drop ();       /* a fresh window holds nothing */
+  gsc_map_redraw ();
+
+  /* The ADRIFT 4 layout can give up ("Cannot draw map - too complex.",
+     Form29.showmapfail).  Say so here, once, rather than at every prompt: the
+     pane stays open, because a layout that fails from one room may well succeed
+     from the next. */
+  if (!gsc_is_a5 && gsc_map == NULL && scmap_failed () != 0)
+    gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
+
+  glk_set_window (gsc_main_window);
+}
+
+/*
  * gsc_map_toggle()
  *
  * Show or hide the map pane.  The window is opened on first use (and only for
@@ -5940,45 +6011,37 @@ gsc_map_toggle (void)
       return;
     }
 
-  /* Does the game have a map at all?  In ADRIFT 5 that is settled at load: it
-     either shipped map data or it did not.  In ADRIFT 4 every game with rooms
-     has one, unless the author switched it off.  Whether there is anything to
-     draw *right now* is a separate question, and one for the redraw. */
-  if (gsc_is_a5 ? gsc_map == NULL
-                : !scmap_available ((scr_gameref_t) gsc_game))
+  gsc_map_show ();
+}
+
+/*
+ * gsc_map_place()
+ *
+ * Put the map pane at the top of the screen ("glk map top", for games with
+ * wide maps) or back at the right of the story ("glk map right").  A map
+ * already shown in the other position is closed and reopened in the new one.
+ */
+static void
+gsc_map_place (int at_top)
+{
+  if (gsc_map_shown && gsc_map_at_top == at_top)
     {
-      gsc_normal_string ("This game has no map.\n");
+      gsc_normal_string (at_top
+                         ? "The map is already at the top of the screen.\n"
+                         : "The map is already at the right.\n");
       return;
     }
 
-  if (!glk_gestalt (gestalt_Graphics, 0)
-      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+  if (gsc_map_shown)
     {
-      gsc_normal_string ("This interpreter cannot display the map.\n");
-      return;
+      glk_window_close (gsc_map_window, NULL);
+      gsc_map_window = NULL;
+      gsc_map_shown = FALSE;
+      gsc_map_screen_drop ();
     }
 
-  gsc_map_window = glk_window_open (gsc_main_window,
-                                       winmethod_Right
-                                       | winmethod_Proportional,
-                                       40, wintype_Graphics, 0);
-  if (!gsc_map_window)
-    {
-      gsc_normal_string ("Sorry, the map window could not be opened.\n");
-      return;
-    }
-  gsc_map_shown = TRUE;
-  gsc_map_screen_drop ();       /* a fresh window holds nothing */
-  gsc_map_redraw ();
-
-  /* The ADRIFT 4 layout can give up ("Cannot draw map - too complex.",
-     Form29.showmapfail).  Say so here, once, rather than at every prompt: the
-     pane stays open, because a layout that fails from one room may well succeed
-     from the next. */
-  if (!gsc_is_a5 && gsc_map == NULL && scmap_failed () != 0)
-    gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
-
-  glk_set_window (gsc_main_window);
+  gsc_map_at_top = at_top;
+  gsc_map_show ();
 }
 
 /*
@@ -6008,6 +6071,16 @@ gsc_command_map (const char *argument)
       if (gsc_map_shown)
         gsc_map_toggle ();
     }
+  else if (scr_strcasecmp (argument, "top") == 0
+           || scr_strcasecmp (argument, "above") == 0)
+    {
+      gsc_map_place (TRUE);
+    }
+  else if (scr_strcasecmp (argument, "right") == 0
+           || scr_strcasecmp (argument, "side") == 0)
+    {
+      gsc_map_place (FALSE);
+    }
   else if (scr_strncasecmp (argument, "zoom", 4) == 0
            && (argument[4] == '\0' || argument[4] == ' '
                || argument[4] == '\t'))
@@ -6016,7 +6089,7 @@ gsc_command_map (const char *argument)
       gsc_command_zoom (argument + 4 + strspn (argument + 4, "\t "));
     }
   else
-    gsc_normal_string ("Glk map can be \"on\", \"off\" or"
+    gsc_normal_string ("Glk map can be \"on\", \"off\", \"top\", \"right\" or"
                        " \"zoom [in|out|auto]\".\n");
 }
 
