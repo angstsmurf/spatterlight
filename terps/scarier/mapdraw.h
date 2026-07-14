@@ -160,14 +160,21 @@ typedef struct map_camera_s {
   int cx, cy;                 /* centre of the view, in map units * scale    */
 } map_camera_t;
 
-/* Pick the page the player is on and frame it: fits the seen nodes to `dst`
-   (clamped between MAP_SCALE_MIN and MAP_SCALE_MAX) and centres on the player,
-   like the runner's LockPlayerCentre. */
+/* Pick the page the player is on and frame it.  With `zoom` 0, fits the seen
+   nodes to `dst` (clamped between MAP_SCALE_MIN and MAP_SCALE_MAX) and centres
+   on the player, like the runner's LockPlayerCentre.  A positive `zoom` pins
+   the scale to that many pixels per map unit instead (a manual "glk zoom");
+   the centring still runs, so the view pans to keep the player on-screen. */
 #define MAP_SCALE_MIN 3
 #define MAP_SCALE_MAX 16
 extern void map_frame (const map_t *map, const map_view_t *view,
                        const char *player_key, const map_surface_t *dst,
-                       map_camera_t *cam);
+                       int zoom, map_camera_t *cam);
+
+/* The next manual zoom level in from (dir > 0) or out from (dir <= 0) `scale`
+   pixels per map unit.  Returns `scale` unchanged at the end of the range,
+   which is how a caller knows to warn instead of redraw. */
+extern int map_zoom_step (int scale, int dir);
 
 /* Draw the map.  Only rooms the player has seen are drawn (as in both
    runners); the player's own room is highlighted. */

@@ -171,7 +171,7 @@ draw_and_exit (void)
     print_grid (map, &view);
 
   surf = map_surface_new (g_width, g_height);
-  map_frame (map, &view, player, surf, &cam);
+  map_frame (map, &view, player, surf, 0, &cam);
   map_render (map, &view, player, &cam, surf);
   fprintf (stderr, "scale=%d\n", cam.scale);
 

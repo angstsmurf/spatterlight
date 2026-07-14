@@ -185,6 +185,12 @@ static void gsc_map_redraw (void);
 static map_camera_t gsc_map_cam;
 static int gsc_map_px_w = 0, gsc_map_px_h = 0;
 
+/* A manual zoom ("glk zoom in/out"), as pixels per map unit; 0 while the map
+   is fitting itself to its window ("glk zoom auto", the default).  A manual
+   zoom is kept until "auto" puts it back; meanwhile the view pans to keep the
+   player on-screen. */
+static int gsc_map_zoom = 0;
+
 /* The pixels currently on screen, kept so that a redraw need only send the rows
    that have changed.  The map is redrawn at every prompt, but most turns do not
    move the player and so do not change a single pixel; a turn that does move him
@@ -2977,6 +2983,7 @@ typedef gsc_command_t *gsc_commandref_t;
 static void gsc_command_summary (const char *argument);
 static void gsc_command_help (const char *argument);
 static void gsc_command_map (const char *argument);
+static void gsc_command_zoom (const char *argument);
 
 /* Commands flagged FALSE for in_adrift5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
@@ -2994,6 +3001,7 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"verbose",        gsc_command_verbose,        TRUE,  FALSE},
   {"version",        gsc_command_version,        FALSE, TRUE},
   {"map",            gsc_command_map,            TRUE,  TRUE},
+  {"zoom",           gsc_command_zoom,           TRUE,  TRUE},
   {"commands",       gsc_command_commands,       TRUE,  TRUE},
   {"license",        gsc_command_license,        FALSE, TRUE},
   {"help",           gsc_command_help,           TRUE,  TRUE},
@@ -3028,13 +3036,16 @@ gsc_command_summary (const char *argument)
 
   /*
    * Call handlers that have status to report with an empty argument,
-   * prompting each to print its current setting.
+   * prompting each to print its current setting.  Map and zoom act, rather
+   * than report, on an empty argument, so they cannot be polled this way.
    */
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
     {
       if (entry->handler == gsc_command_summary
             || entry->handler == gsc_command_license
             || entry->handler == gsc_command_help
+            || entry->handler == gsc_command_map
+            || entry->handler == gsc_command_zoom
             || !gsc_command_in_scope (entry))
         continue;
 
@@ -3058,17 +3069,21 @@ gsc_command_help (const char *command)
     {
       gsc_commandref_t last;
 
+      /* Zoom is left off the list; it belongs to the map, and is documented
+         under "glk help map" instead. */
       last = NULL;
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
-          if (gsc_command_in_scope (entry))
+          if (gsc_command_in_scope (entry)
+              && entry->handler != gsc_command_zoom)
             last = entry;
         }
 
       gsc_normal_string ("Glk commands are");
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
-          if (!gsc_command_in_scope (entry))
+          if (!gsc_command_in_scope (entry)
+              || entry->handler == gsc_command_zoom)
             continue;
 
           gsc_normal_string (entry == last ? " and " : " ");
@@ -3129,7 +3144,35 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to hide it again; plain ");
       gsc_standout_string ("map");
       gsc_normal_string (" toggles it too, unless the game uses MAP for"
-                         " something of its own.\n");
+                         " something of its own.\n\nThe map zooms itself to"
+                         " fit its window.  Use ");
+      gsc_standout_string ("glk zoom in");
+      gsc_normal_string (" and ");
+      gsc_standout_string ("glk zoom out");
+      gsc_normal_string (" to zoom by hand instead; the view then pans to"
+                         " keep you on-screen.  ");
+      gsc_standout_string ("glk zoom auto");
+      gsc_normal_string (" restores the automatic fit.\n");
+    }
+
+  else if (matched->handler == gsc_command_zoom)
+    {
+      gsc_normal_string ("Zooms the game's map, which otherwise fits itself"
+                         " to its window.\n\nUse ");
+      gsc_standout_string ("glk zoom in");
+      gsc_normal_string (" and ");
+      gsc_standout_string ("glk zoom out");
+      gsc_normal_string (" to zoom by hand; the view then pans to keep you"
+                         " on-screen.  Plain ");
+      gsc_standout_string ("glk zoom");
+      gsc_normal_string (" zooms in, and ");
+      gsc_standout_string ("glk zoom auto");
+      gsc_normal_string (" (or ");
+      gsc_standout_string ("glk zoom default");
+      gsc_normal_string (") restores the automatic fit.  Each is also"
+                         " understood with a map prefix, as in ");
+      gsc_standout_string ("glk map zoom in");
+      gsc_normal_string (".\n");
     }
 
   else if (matched->handler == gsc_command_script)
@@ -3310,13 +3353,16 @@ gsc_command_escape (const char *string)
     string_copy[posn++] = '\0';
 
   /*
-   * Now find any argument data for the command, ensuring it too terminates
-   * with a NUL.
+   * Now find any argument data for the command: the rest of the line, less
+   * leading and trailing whitespace.  Most subcommands take a single word,
+   * but "glk map zoom in" takes two.
    */
   posn += strspn (string_copy + posn, "\t ");
   argument = string_copy + posn;
-  posn += strcspn (string_copy + posn, "\t ");
-  string_copy[posn] = '\0';
+  posn = (int) strlen (argument);
+  while (posn > 0
+         && (argument[posn - 1] == ' ' || argument[posn - 1] == '\t'))
+    argument[--posn] = '\0';
 
   /*
    * Try to handle the command and argument as a Glk subcommand.  If it
@@ -5728,7 +5774,7 @@ gsc_map_redraw (void)
   if (surf == NULL)
     return;
 
-  map_frame (gsc_map, &view, ploc, surf, &gsc_map_cam);
+  map_frame (gsc_map, &view, ploc, surf, gsc_map_zoom, &gsc_map_cam);
   map_render (gsc_map, &view, ploc, &gsc_map_cam, surf);
   gsc_map_px_w = surf->w;
   gsc_map_px_h = surf->h;
@@ -5962,8 +6008,80 @@ gsc_command_map (const char *argument)
       if (gsc_map_shown)
         gsc_map_toggle ();
     }
+  else if (scr_strncasecmp (argument, "zoom", 4) == 0
+           && (argument[4] == '\0' || argument[4] == ' '
+               || argument[4] == '\t'))
+    {
+      /* "glk map zoom ..." is "glk zoom ..." by another name. */
+      gsc_command_zoom (argument + 4 + strspn (argument + 4, "\t "));
+    }
   else
-    gsc_normal_string ("Glk map can be \"on\" or \"off\".\n");
+    gsc_normal_string ("Glk map can be \"on\", \"off\" or"
+                       " \"zoom [in|out|auto]\".\n");
+}
+
+/*
+ * gsc_command_zoom()
+ *
+ * "glk zoom [in|out|auto]".  Plain "glk zoom" zooms in, and "default" is a
+ * synonym for "auto".  A manual zoom is kept until "auto" puts the map back
+ * to fitting itself to its window; meanwhile the view pans to keep the
+ * player on-screen (map_frame).
+ */
+static void
+gsc_command_zoom (const char *argument)
+{
+  int in, scale, stepped;
+
+  if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
+    return;
+
+  if (scr_strcasecmp (argument, "auto") == 0
+      || scr_strcasecmp (argument, "default") == 0)
+    {
+      if (gsc_map_zoom == 0)
+        gsc_normal_string ("The map is already zooming to fit its window.\n");
+      else
+        {
+          gsc_map_zoom = 0;
+          gsc_map_redraw ();
+          gsc_normal_string ("Map zoom returned to automatic.\n");
+        }
+      return;
+    }
+
+  if (strlen (argument) == 0 || scr_strcasecmp (argument, "in") == 0)
+    in = TRUE;
+  else if (scr_strcasecmp (argument, "out") == 0)
+    in = FALSE;
+  else
+    {
+      gsc_normal_string ("Glk zoom can be \"in\", \"out\" or \"auto\".\n");
+      return;
+    }
+
+  if (!gsc_map_shown)
+    {
+      gsc_normal_string ("The map is not open.  Use ");
+      gsc_standout_string ("glk map on");
+      gsc_normal_string (" to open it first.\n");
+      return;
+    }
+
+  /* Step from the manual zoom, or from wherever the automatic fit last
+     landed; a map with nothing drawn yet steps from the runner's default. */
+  scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
+  if (scale < MAP_SCALE_MIN)
+    scale = 10;
+  stepped = map_zoom_step (scale, in ? 1 : -1);
+  if (stepped == scale)
+    {
+      gsc_normal_string (in ? "The map is already at its maximum zoom.\n"
+                            : "The map is already at its minimum zoom.\n");
+      return;
+    }
+  gsc_map_zoom = stepped;
+  gsc_map_redraw ();
 }
 
 

@@ -835,10 +835,35 @@ page_node (const map_page_t *page, const char *key)
   return NULL;
 }
 
+/* The manual zoom ladder ("glk zoom in/out").  The automatic fit never goes
+   above MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer
+   than the fit would; past 32 the boxes stop gaining anything. */
+int
+map_zoom_step (int scale, int dir)
+{
+  static const int ladder[] = { 3, 4, 5, 6, 8, 10, 12, 16, 20, 26, 32 };
+  const int n = (int) (sizeof ladder / sizeof ladder[0]);
+  int i;
+
+  if (dir > 0)
+    {
+      for (i = 0; i < n; i++)
+        if (ladder[i] > scale)
+          return ladder[i];
+    }
+  else
+    {
+      for (i = n - 1; i >= 0; i--)
+        if (ladder[i] < scale)
+          return ladder[i];
+    }
+  return scale;
+}
+
 void
 map_frame (const map_t *map, const map_view_t *view,
              const char *player_key, const map_surface_t *dst,
-             map_camera_t *cam)
+             int zoom, map_camera_t *cam)
 {
   const map_node_t *pn;
   const map_page_t *page;
@@ -891,14 +916,20 @@ map_frame (const map_t *map, const map_view_t *view,
   if (first)
     return;                     /* nothing seen yet */
 
-  /* Fit the seen extent, with a margin for the labels and out-arrows. */
-  sx = (maxx - minx) > 0 ? (dst->w - 24) / (maxx - minx) : MAP_SCALE_MAX;
-  sy = (maxy - miny) > 0 ? (dst->h - 24) / (maxy - miny) : MAP_SCALE_MAX;
-  scale = sx < sy ? sx : sy;
-  if (scale > MAP_SCALE_MAX)
-    scale = MAP_SCALE_MAX;
-  if (scale < MAP_SCALE_MIN)
-    scale = MAP_SCALE_MIN;
+  /* Fit the seen extent, with a margin for the labels and out-arrows -- unless
+     a manual zoom has pinned the scale, when only the centring below runs. */
+  if (zoom > 0)
+    scale = zoom;
+  else
+    {
+      sx = (maxx - minx) > 0 ? (dst->w - 24) / (maxx - minx) : MAP_SCALE_MAX;
+      sy = (maxy - miny) > 0 ? (dst->h - 24) / (maxy - miny) : MAP_SCALE_MAX;
+      scale = sx < sy ? sx : sy;
+      if (scale > MAP_SCALE_MAX)
+        scale = MAP_SCALE_MAX;
+      if (scale < MAP_SCALE_MIN)
+        scale = MAP_SCALE_MIN;
+    }
   cam->scale = scale;
 
   /* Centre the seen extent when it fits at this scale (CentreMap); once it is

@@ -195,7 +195,7 @@ main (int argc, char **argv)
   surf = map_surface_new (W, H);
   {
     const char *ploc = a5state_player_location (ctx.st);
-    map_frame (map, &view, ploc, surf, &cam);
+    map_frame (map, &view, ploc, surf, 0, &cam);
     map_render (map, &view, ploc, &cam, surf);
     fprintf (stderr, "player=%s page=%d scale=%d\n",
              ploc ? ploc : "(none)", cam.page, cam.scale);
