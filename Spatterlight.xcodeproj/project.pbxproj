@@ -460,6 +460,7 @@
 		A5B000000000000000000105 /* a5run_events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000106 /* a5run_events.cpp */; };
 		A5B000000000000000000107 /* a5run_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000108 /* a5run_action.cpp */; };
 		A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 066545D7B54AED7A90A3003E /* scparser.cpp */; };
+		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
 		AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */ = {isa = PBXBuildFile; fileRef = AA11US7A09F29EE60083E64E /* illustrator.c */; };
 		AC710000000000000000B001 /* agtifid.c in Sources */ = {isa = PBXBuildFile; fileRef = AC710000000000000000A001 /* agtifid.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
 		AC710000000000000000B002 /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C109F29EE10083E64E /* agtread.c */; settings = {COMPILER_FLAGS = "-DGLK -DMAXSTRUC=4194304L -w"; }; };
@@ -1012,11 +1013,10 @@
 		CC9FC385F0D6751126B1C67D /* a5sexpr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */; };
 		D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87010291D59681D38B0F44C5 /* scprintf.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
-		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
-		MAPDRAW00000000000000001 /* mapdraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = MAPDRAW00000000000000002 /* mapdraw.cpp */; };
-		SCMAP000000000000000001 /* scmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = SCMAP000000000000000002 /* scmap.cpp */; };
 		F4E620D1D98ABB1032579FB0 /* sclibrar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7891237714D4C19104EE325 /* sclibrar.cpp */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
+		MAPDRAW00000000000000001 /* mapdraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = MAPDRAW00000000000000002 /* mapdraw.cpp */; };
+		SCMAP000000000000000001 /* scmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = SCMAP000000000000000002 /* scmap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2962,6 +2962,8 @@
 		A5B000000000000000000108 /* a5run_action.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_action.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000109 /* a5sb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sb.h; sourceTree = "<group>"; };
 		A5B00000000000000000010A /* a5run_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run_internal.h; sourceTree = "<group>"; };
+		A5MAP0000000000000000002 /* a5map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5map.cpp; sourceTree = "<group>"; };
+		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 		A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrunner.cpp; sourceTree = "<group>"; };
 		AA11US7A09F29EE60083E64E /* illustrator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = illustrator.c; sourceTree = "<group>"; };
 		AA889483D559290F70E80C64 /* scutils.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scutils.cpp; sourceTree = "<group>"; };
@@ -3189,6 +3191,7 @@
 		C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari_8bit_vector_draw.c; sourceTree = "<group>"; };
 		C32DBFA426714EFE00AB5704 /* MyFilePromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFilePromiseProvider.h; sourceTree = "<group>"; };
 		C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFilePromiseProvider.m; sourceTree = "<group>"; };
+		C331B95630069635008F8BD9 /* scmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmap.h; sourceTree = "<group>"; };
 		C334C47A269C708700B00A2F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C338CF412F71BD3500BCBD18 /* LibHelperTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibHelperTableView.h; sourceTree = "<group>"; };
 		C338CF422F71BD4200BCBD18 /* LibHelperTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibHelperTableView.m; sourceTree = "<group>"; };
@@ -3684,10 +3687,8 @@
 		FB5081C8D969BA9C6C4CFC46 /* a5model.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5model.cpp; sourceTree = "<group>"; };
 		FBDDF07BAE218674A9BF2815 /* a5xml.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5xml.cpp; sourceTree = "<group>"; };
 		FF22095E6A4182F0BA2C8C35 /* a5run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run.cpp; sourceTree = "<group>"; };
-		A5MAP0000000000000000002 /* a5map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5map.cpp; sourceTree = "<group>"; };
 		MAPDRAW00000000000000002 /* mapdraw.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = mapdraw.cpp; sourceTree = "<group>"; };
 		SCMAP000000000000000002 /* scmap.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scmap.cpp; sourceTree = "<group>"; };
-		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -4205,17 +4206,18 @@
 				9DAF981FA6279F5D391398AE /* a5text.cpp */,
 				7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */,
 				10990E34B23D66921A762A58 /* a5rand.cpp */,
+				A5B00000000000000000010A /* a5run_internal.h */,
 				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
-				A5MAP0000000000000000002 /* a5map.cpp */,
-				MAPDRAW00000000000000002 /* mapdraw.cpp */,
-				SCMAP000000000000000002 /* scmap.cpp */,
-				A5MAP0000000000000000003 /* a5map.h */,
-				A5B000000000000000000102 /* a5sb.cpp */,
 				A5B000000000000000000104 /* a5run_ref.cpp */,
 				A5B000000000000000000106 /* a5run_events.cpp */,
 				A5B000000000000000000108 /* a5run_action.cpp */,
+				A5MAP0000000000000000002 /* a5map.cpp */,
+				MAPDRAW00000000000000002 /* mapdraw.cpp */,
+				C331B95630069635008F8BD9 /* scmap.h */,
+				SCMAP000000000000000002 /* scmap.cpp */,
+				A5MAP0000000000000000003 /* a5map.h */,
 				A5B000000000000000000109 /* a5sb.h */,
-				A5B00000000000000000010A /* a5run_internal.h */,
+				A5B000000000000000000102 /* a5sb.cpp */,
 			);
 			path = scarier;
 			sourceTree = "<group>";
