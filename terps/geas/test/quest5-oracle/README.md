@@ -26,9 +26,9 @@ but not something to vendor), just like the FrankenDrift build the a5 oracle use
 ./build.sh
 ```
 
-Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), retargets
-`src/Engine` + `src/Common` from `net10.0` to `net9.0` (idempotent), and builds
-`bin/Release/net9.0/qvh.dll`. Override the location with
+Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), applies the
+deterministic-RNG patch (below), and builds `bin/Release/net10.0/qvh.dll`. With
+the .NET 10 SDK the checkout needs no retargeting. Override the location with
 `ORACLE_HOME=/path ./build.sh`.
 
 ## Run one game
@@ -84,11 +84,24 @@ emits, final state). See the [[quest5-corpus]] memory for the corpus itself.
    arrives as `IPlayer.RunScriptAsync("addText", [html])`, *not* through
    `PrintText`. The harness captures both channels (legacy path for ASL < v540).
 
+## Determinism (RNG)
+
+The oracle replaces QuestViva's `Random` with `ErkyrathRandom` — a C# port of
+Spatterlight's `erkyrath_random()` (`terps/common_utils/randomness.c`): xoshiro128**
+seeded via SplitMix32, verified byte-identical to the C generator. `build.sh`
+injects it via `patch_questviva.py` (idempotent; touches only the three RNG lines
+in `ExpressionOwner.cs` plus a new `ErkyrathRandom.cs`), so the clone stays
+otherwise pristine.
+
+Seed defaults to **1234** (Spatterlight determinism convention); override with
+`QVH_SEED=<n>`. `GetRandomInt(min,max)` uses the inclusive-range mapping from
+`terps/scarier/a5rand.cpp` (`span = max-min+1; min + rand % span`); the native
+Geas engine **must replicate this** for its transcripts to match the oracle.
+Result: games using `GetRandomInt`/`GetRandomDouble` now produce identical
+transcripts across runs.
+
 ## Known gaps
 
 - Non-Welbourn walkthrough formats (e.g. *I Contain Multitudes*, *Night House*)
   aren't extracted by `extract_welbourn.py`; their command lists live elsewhere
   in the document.
-- Games that use `GetRandomInt`/`GetRandomDouble` are not yet reproducible: the
-  oracle uses .NET's RNG. The native Geas engine will route RNG through
-  `erkyrath_random()`; to diff against it the oracle would need the same seeding.

@@ -24,6 +24,10 @@ if [ ! -d "$QV/.git" ]; then
   git clone --depth 1 --filter=blob:none https://github.com/textadventures/quest "$QV"
 fi
 
+# Route QuestViva's RNG through the deterministic ErkyrathRandom (matches the
+# future native Geas engine's erkyrath_random stream). Idempotent.
+python3 "$HERE/patch_questviva.py" "$QV" "$HERE"
+
 echo "[build] building qvh against $QV"
 dotnet build -c Release "$HERE/qvh.csproj" -p:QuestVivaDir="$QV"
 echo "[build] done: $HERE/bin/Release/net10.0/qvh.dll"
