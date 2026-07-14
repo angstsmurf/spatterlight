@@ -84,6 +84,18 @@ stays faithful to run400.exe) and, when on, lets conversion-broken games be
 completed: To Hell & Beyond then wins **248/373**, while X-Files (299/299) and
 Hyperbole (100/100) are unchanged.
 
+> **Update 2026-07-14:** "X-Files/Hyperbole unchanged" was true only of their
+> walkthrough transcripts.  Both games carry an unset **NPC** move whose `Var3`
+> is a *dangling* index (out of range for the room list — the implied offset
+> even differs from this game's, so no single re-basing decodes them all):
+> X-Files' diner buzzer should summon Dean, Hyperbole's `attack` should bring
+> the flare rat to the Attack Menu.  Move assist now repairs a dangling
+> (`Var3 > 0`, non-room) unset NPC move by summoning the NPC to the player's
+> room — correct in every corpus instance — and X-Files is on the Glk port's
+> auto-assist list (os_glk.cpp `GSC_GAME_ASSIST_TABLE`).  To Hell & Beyond's
+> ten unset moves all carry in-range `Var3`s and are unaffected by the
+> fallback; all 75 harness rows still pass.
+
 ---
 
 ## Maximum reachable score ≈ 23 / 373

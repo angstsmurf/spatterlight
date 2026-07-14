@@ -3212,7 +3212,9 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk combatassist off");
       gsc_normal_string (" to turn it off.  This deliberately deviates from the"
                          " original ADRIFT Runner; games that do configure"
-                         " combat are never affected.\n");
+                         " combat are never affected.  For a few games known"
+                         " to be uncompletable without it, the assist is"
+                         " switched on automatically at startup.\n");
     }
 
   else if (matched->handler == gsc_command_move_assist)
@@ -3225,7 +3227,9 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to honour these moves to the named room, and ");
       gsc_standout_string ("glk moveassist off");
       gsc_normal_string (" to turn it off.  This deliberately deviates from the"
-                         " original ADRIFT Runner.\n");
+                         " original ADRIFT Runner.  For a few games known to"
+                         " be uncompletable without it, the assist is switched"
+                         " on automatically at startup.\n");
     }
 
   else if (matched->handler == gsc_command_verbose)
@@ -4045,6 +4049,95 @@ gsc_get_ending_option (void)
 
 
 /*
+ * gsc_apply_known_game_assists()
+ *
+ * Hardcoded per-game assist defaults.  A few catalogued ADRIFT 4.0 games are
+ * unwinnable, or have whole goal chains unreachable, in the faithful Runner
+ * behaviour because of the exact authoring accidents the opt-in assists were
+ * written for:
+ *
+ *  - The Town of Azra: a 3.9 game upgraded to the 4.0 file format, leaving
+ *    every character's Accuracy and Agility at 0, so under the 4.0
+ *    accuracy>agility hit test no attack ever lands and every combat-gated
+ *    goal is closed.
+ *  - To hell & beyond: the same unconfigured combat, plus progression move
+ *    tasks whose "To:" combo was left unset -- faithfully ignored, the player
+ *    never leaves the mansion and neither ending is reachable.
+ *  - The X-Files: A New Beginning: completable, but the move summoning Dean
+ *    when the player pushes his diner's buzzer has an unset "To:" combo, so
+ *    the diner's owner (and all his conversation) never appears in the game.
+ *
+ * For these known games the matching assists default to on, applied at game
+ * start; "glk combatassist off" / "glk moveassist off" still turn them off,
+ * and a one-line notice is printed at startup (see gsc_main).  True 3.9/3.8-
+ * signature games (e.g. Villains and Kings) are deliberately NOT listed:
+ * their combat is repaired unconditionally by the engine's legacy hit model.
+ *
+ * Games are recognised by the TAF's GameName and GameAuthor, compared
+ * case-insensitively, so every release of a game is covered (the two known
+ * Town of Azra releases differ only in CompileDate).  Author strings are the
+ * TAF's raw Windows-1252 bytes.
+ */
+typedef const struct
+{
+  const char * const game_name;    /* TAF GameName. */
+  const char * const game_author;  /* TAF GameAuthor. */
+  const scr_bool combat_assist;    /* Default combat assist on. */
+  const scr_bool move_assist;      /* Default move assist on. */
+  const char * const reason;       /* Startup notice: why assists are on. */
+} gsc_game_assist_t;
+
+static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
+  {"The Town of Azra", "S. P. Tencza", TRUE, FALSE,
+   "This game's combat cannot be won as authored"},
+  {"To hell & beyond", "Steingr\xedmur J\xf3nsson", TRUE, TRUE,
+   "This game cannot be completed as authored"},
+  {"The X-Files: A New Beginning", "Superbone Ali", FALSE, TRUE,
+   "A character in this game never appears as authored"},
+  {NULL, NULL, FALSE, FALSE, NULL}
+};
+
+/* Which assists were switched on automatically, and the matched table row's
+   reason wording, for the startup notice. */
+static scr_bool gsc_combat_assist_auto = FALSE;
+static scr_bool gsc_move_assist_auto = FALSE;
+static const char *gsc_assist_auto_reason = NULL;
+
+static void
+gsc_apply_known_game_assists (scr_game game)
+{
+  const char *name, *author;
+  gsc_game_assist_t *entry;
+
+  name = scr_get_game_name (game);
+  author = scr_get_game_author (game);
+  if (!name || !author)
+    return;
+
+  for (entry = GSC_GAME_ASSIST_TABLE; entry->game_name; entry++)
+    {
+      if (scr_strcasecmp (name, entry->game_name) == 0
+          && scr_strcasecmp (author, entry->game_author) == 0)
+        {
+          if (entry->combat_assist && !scr_get_combat_assist ())
+            {
+              scr_set_combat_assist (TRUE);
+              gsc_combat_assist_auto = TRUE;
+            }
+          if (entry->move_assist && !scr_get_move_assist ())
+            {
+              scr_set_move_assist (TRUE);
+              gsc_move_assist_auto = TRUE;
+            }
+          if (gsc_combat_assist_auto || gsc_move_assist_auto)
+            gsc_assist_auto_reason = entry->reason;
+          break;
+        }
+    }
+}
+
+
+/*
  * gsc_startup_code()
  * gsc_main
  *
@@ -4198,6 +4291,10 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
     {
       scr_set_game_debugger_enabled (gsc_game, enable_debugger);
       gsc_set_locale (scr_get_locale ());
+
+      /* Default the assists on for known broken games, before the game's
+         battle_start() reads the combat-assist flag. */
+      gsc_apply_known_game_assists (gsc_game);
     }
 
   /* Close the temporary window. */
@@ -4277,6 +4374,32 @@ gsc_main (void)
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
      map pane is reached with "glk map" instead. */
   gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
+
+  /* Mention any assists switched on automatically for this known game (see
+     gsc_apply_known_game_assists), and how to get faithful behaviour back. */
+  if (gsc_combat_assist_auto || gsc_move_assist_auto)
+    {
+      gsc_normal_char ('[');
+      gsc_normal_string (gsc_assist_auto_reason
+                         ? gsc_assist_auto_reason
+                         : "This game cannot be completed as authored");
+      gsc_normal_string (", so ");
+      if (gsc_combat_assist_auto && gsc_move_assist_auto)
+        gsc_normal_string ("combat assist and move assist have");
+      else if (gsc_combat_assist_auto)
+        gsc_normal_string ("combat assist has");
+      else
+        gsc_normal_string ("move assist has");
+      gsc_normal_string (" been enabled.  Type ");
+      if (gsc_combat_assist_auto)
+        gsc_standout_string ("glk combatassist off");
+      if (gsc_combat_assist_auto && gsc_move_assist_auto)
+        gsc_normal_string (" and ");
+      if (gsc_move_assist_auto)
+        gsc_standout_string ("glk moveassist off");
+      gsc_normal_string (" to restore the original ADRIFT Runner"
+                         " behaviour.]\n\n");
+    }
 
   /* Repeat the game until no more restarts requested. */
   is_running = TRUE;

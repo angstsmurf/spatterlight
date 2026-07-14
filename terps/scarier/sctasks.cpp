@@ -737,12 +737,26 @@ task_run_move_npc_action (scr_gameref_t game,
         default:
           /* Unset/unknown NPC move destination; ignored, as the Runner does.
            * With move assist on, honour an unset (-1) move whose Var3 names a
-           * real room as "to room" (1-based, as for case 0). */
-          if (task_move_assist && var2 == -1
-              && var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))
+           * real room as "to room" (1-based, as for case 0).  A positive Var3
+           * that names no room is a dangling index (the editor stored it
+           * against a differently-based or since-edited list; the offset even
+           * differs between corpus games, so it cannot be decoded reliably);
+           * every corpus instance of one -- X-Files' diner buzzer, Hyperbole's
+           * flare rat -- is a "bring this character on-stage here" direction,
+           * so summon the NPC to the player's room instead.  A Var3 of 0 or
+           * less means nothing was ever selected; that stays a no-op. */
+          if (task_move_assist && var2 == -1)
             {
-              task_move_npc_to_room (game, npc, var3 - 1);
-              return;
+              if (var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))
+                {
+                  task_move_npc_to_room (game, npc, var3 - 1);
+                  return;
+                }
+              if (var3 > 0)
+                {
+                  task_move_npc_to_room (game, npc, gs_playerroom (game));
+                  return;
+                }
             }
           if (task_trace)
             scr_trace ("Task: ignoring move with unset/unknown"
