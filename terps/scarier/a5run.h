@@ -68,9 +68,9 @@ extern int   a5run_turns         (a5_run_t *run);
    <FileMappings>), or -1 when unresolved / for sound-stop.  The list is rebuilt
    each turn; pointers from a5run_media_get are valid until the next turn. */
 typedef struct {
-  int kind;          /* A5_MEDIA_IMAGE / A5_MEDIA_SOUND / A5_MEDIA_SOUND_STOP    */
+  int kind;          /* A5_MEDIA_IMAGE / A5_MEDIA_SOUND / _SOUND_STOP / _PAUSE   */
   int number;        /* Blorb resource number, or -1                            */
-  int channel;       /* sound channel (audio), else 0                           */
+  int channel;       /* sound channel 1..8 (audio; 1 = the default), else 0     */
   int loop;          /* sound loop flag                                         */
 } a5_media_event_t;
 

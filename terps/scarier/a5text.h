@@ -153,14 +153,16 @@ extern char *a5text_render_plain (const char *src);
 
 /*
  * Embedded-media side channel.  ADRIFT 5 embeds graphics/sound in description
- * text as <img src="..."> and <audio play|stop src="..." channel=N> tags.
+ * text as <img src="..."> and <audio play|stop|pause src="..." channel=N> tags
+ * (channel defaults to 1 when absent, as in the Runner's tag parse).
  * a5text_render_plain always drops these from the plain text (so the text output
  * stays byte-identical), but when a media sink is installed it also reports each
  * one, so the host (Glk driver) can show images / play sounds out of band.  src
  * is the original file path (resolve via a5model_resource_for_file); channel/loop
  * apply to sound.  A NULL callback (the default) disables reporting.
  */
-enum { A5_MEDIA_IMAGE = 1, A5_MEDIA_SOUND = 2, A5_MEDIA_SOUND_STOP = 3 };
+enum { A5_MEDIA_IMAGE = 1, A5_MEDIA_SOUND = 2, A5_MEDIA_SOUND_STOP = 3,
+       A5_MEDIA_SOUND_PAUSE = 4 };
 /* The callback returns the Blorb resource number the src path resolved to (or
    -1 when unknown); the renderer only uses it for images in interactive mode,
    to leave the positional \006<number>\006 mark (see A5_IMG_MARK). */

@@ -102,7 +102,7 @@ UDFs (`a5_udf_t`) are user-defined text macros — a v5-only feature with no v4 
 
 All markup is stripped to plain text by `a5text_render_plain()`. There are **no `os_print_tag` calls from the v5 path** — the Glk host receives plain UTF-8 via `gsc_a5_put_string()`.
 
-Media is a **side-channel**: `<img src="…">` and `<audio play|stop src="…" channel=N>` tags are parsed during rendering and queued in `run->media` (`std::vector<a5_media_event_t>`). The host reads them after each turn via `a5run_media_count()` / `a5run_media_get()` and dispatches `glk_image_draw` / `glk_schannel_play_ext` by Blorb resource number.
+Media is a **side-channel**: `<img src="…">` and `<audio play|stop|pause src="…" channel=N loop=Y>` tags are parsed during rendering and queued in `run->media` (`std::vector<a5_media_event_t>`). The host reads them after each turn via `a5run_media_count()` / `a5run_media_get()` and dispatches `glk_image_draw` / `glk_schannel_play_ext` by Blorb resource number. Audio channels are 1..8 and **default to 1** when the tag has no `channel=` attribute (Runner Global.vb / clsSound.vb); playing the sound a channel is already playing leaves it alone, playing a different one replaces it (`A5_TRACE_MEDIA=1` traces the dispatch).
 
 ---
 

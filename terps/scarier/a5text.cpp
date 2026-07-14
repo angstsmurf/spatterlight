@@ -2750,21 +2750,45 @@ a5_emit_media (const std::string &tag, int is_img)
   if (is_img)
     return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_IMAGE, src.c_str (), 0, 0);
 
-  /* <audio>: play (default) or stop, with channel=N and optional loop. */
+  /* <audio>: play (default), stop or pause, with channel=N and an optional
+     loop flag.  This mirrors the Runner's tag parse (Global.vb, DisplayText):
+     the verb is found by substring (" pause" / " stop", else play), the
+     channel DEFAULTS TO 1 when there is no channel= attribute, and attribute
+     values may be quoted.  The channel-1 default matters: games freely mix
+     bare <audio play src=...> with <audio ... channel=1>, and both must land
+     on the same channel so a new background track replaces the old one
+     instead of layering over it. */
   {
-    int is_stop = tag.find ("stop") != std::string::npos;
-    /* Loop only when explicitly loop=Y.  ADRIFT writes loop=Y / loop=N, so a
-       bare substring test for "loop" wrongly loops the (common) loop=N case
-       forever.  Match FrankenDrift (GlkHtmlWin: tokenLower.Contains("loop=y")). */
     std::string low = tag;
     for (size_t k = 0; k < low.size (); k++)
       low[k] = (char) tolower ((unsigned char) low[k]);
-    int loop = low.find ("loop=y") != std::string::npos;
-    int channel = 0;
-    size_t cp = tag.find ("channel=");
+    int is_pause = low.find (" pause") != std::string::npos;
+    int is_stop = !is_pause && low.find (" stop") != std::string::npos;
+    /* Loop only when explicitly loop=Y / loop=1 / loop=True.  ADRIFT writes
+       loop=Y / loop=N, so a bare substring test for "loop" wrongly loops the
+       (common) loop=N case forever. */
+    int loop = 0;
+    size_t lp = low.find ("loop=");
+    if (lp != std::string::npos)
+      {
+        lp += 5;
+        if (lp < low.size () && (low[lp] == '"' || low[lp] == '\''))
+          lp++;
+        loop = lp < low.size ()
+               && (low[lp] == 'y' || low[lp] == '1' || low[lp] == 't');
+      }
+    int channel = 1;
+    size_t cp = low.find ("channel=");
     if (cp != std::string::npos)
-      channel = atoi (tag.c_str () + cp + 8);
-    if (is_stop)
+      {
+        cp += 8;
+        if (cp < tag.size () && (tag[cp] == '"' || tag[cp] == '\''))
+          cp++;
+        channel = atoi (tag.c_str () + cp);
+      }
+    if (is_pause)
+      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_PAUSE, NULL, channel, 0);
+    else if (is_stop)
       a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_STOP, NULL, channel, 0);
     else
       a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND, src.c_str (), channel, loop);

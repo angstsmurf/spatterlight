@@ -4939,9 +4939,14 @@ gsc_a5_restore (a5_run_t *run)
 static int gsc_a5_graphics_ok = FALSE;
 static int gsc_a5_sound_ok = FALSE;
 
-/* One Glk sound channel per ADRIFT audio channel. */
-enum { GSC_A5_MAX_CHANNELS = 16 };
+/* One Glk sound channel per ADRIFT audio channel.  The Runner has exactly 8
+   (clsSound.vb: Channels(7), numbered 1..8 in the <audio> tag; anything out of
+   that range is a no-op); slot 0 here is simply never used. */
+enum { GSC_A5_MAX_CHANNELS = 9 };
 static schanid_t gsc_a5_channels[GSC_A5_MAX_CHANNELS];
+/* The resource last started on each channel, so a repeated play of the same
+   sound leaves it alone rather than restarting it (see gsc_a5_show_media). */
+static glui32 gsc_a5_chan_sound[GSC_A5_MAX_CHANNELS];
 
 /*
  * gsc_a5_stop_all_sounds()
@@ -4960,8 +4965,11 @@ gsc_a5_stop_all_sounds (void)
   if (!gsc_a5_sound_ok)
     return;
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
-    if (gsc_a5_channels[ch] != NULL)
-      glk_schannel_stop (gsc_a5_channels[ch]);
+    {
+      if (gsc_a5_channels[ch] != NULL)
+        glk_schannel_stop (gsc_a5_channels[ch]);
+      gsc_a5_chan_sound[ch] = 0;
+    }
 }
 
 /* Declared in glkstart.h, which is included further down (in the UNIX linkage
@@ -5201,6 +5209,7 @@ static int
 gsc_a5_show_media (a5_run_t *run)
 {
   int n = a5run_media_count (run), i, images = 0;
+  int trace = getenv ("A5_TRACE_MEDIA") != NULL;
 
   for (i = 0; i < n; i++)
     {
@@ -5216,17 +5225,59 @@ gsc_a5_show_media (a5_run_t *run)
         }
       else if (gsc_a5_sound_ok)
         {
-          int ch = (m->channel >= 0 && m->channel < GSC_A5_MAX_CHANNELS)
-                   ? m->channel : 0;
+          int ch = m->channel;
+
+          /* The Runner has channels 1..8; a channel outside that range makes
+             the whole tag a no-op there (clsSound.vb), so ignore it here too. */
+          if (ch < 1 || ch >= GSC_A5_MAX_CHANNELS)
+            {
+              if (trace)
+                fprintf (stderr, "[a5 media] ignore kind=%d ch=%d (range)\n",
+                         m->kind, ch);
+              continue;
+            }
           if (gsc_a5_channels[ch] == NULL)
             gsc_a5_channels[ch] = glk_schannel_create ((glui32) ch);
           if (gsc_a5_channels[ch] == NULL)
             continue;
           if (m->kind == A5_MEDIA_SOUND_STOP)
-            glk_schannel_stop (gsc_a5_channels[ch]);
+            {
+              if (trace)
+                fprintf (stderr, "[a5 media] stop ch=%d\n", ch);
+              glk_schannel_stop (gsc_a5_channels[ch]);
+              gsc_a5_chan_sound[ch] = 0;
+            }
+          else if (m->kind == A5_MEDIA_SOUND_PAUSE)
+            {
+              if (trace)
+                fprintf (stderr, "[a5 media] pause ch=%d\n", ch);
+              glk_schannel_pause (gsc_a5_channels[ch]);
+            }
           else if (m->number > 0)
-            glk_schannel_play_ext (gsc_a5_channels[ch], (glui32) m->number,
-                                   m->loop ? 0xffffffffu : 1, 0);
+            {
+              /* Playing the sound a channel is already playing leaves it
+                 alone in the Runner ("just leave as is", clsSound.vb) -- a
+                 room description that embeds its background music must not
+                 restart the track every time the room is re-shown.  Only a
+                 different sound (re)starts the channel. */
+              if ((glui32) m->number == gsc_a5_chan_sound[ch])
+                {
+                  if (trace)
+                    fprintf (stderr, "[a5 media] keep ch=%d snd=%d (already "
+                             "playing)\n", ch, m->number);
+                  glk_schannel_unpause (gsc_a5_channels[ch]);
+                }
+              else
+                {
+                  if (trace)
+                    fprintf (stderr, "[a5 media] play ch=%d snd=%d loop=%d\n",
+                             ch, m->number, m->loop);
+                  glk_schannel_play_ext (gsc_a5_channels[ch],
+                                         (glui32) m->number,
+                                         m->loop ? 0xffffffffu : 1, 0);
+                  gsc_a5_chan_sound[ch] = (glui32) m->number;
+                }
+            }
         }
     }
   return images;
