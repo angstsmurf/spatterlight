@@ -52,7 +52,8 @@ enum {
   DIR_N = 0, DIR_E, DIR_S, DIR_W, DIR_UP, DIR_DOWN,
   DIR_IN, DIR_OUT, DIR_NE, DIR_SE, DIR_SW, DIR_NW
 };
-extern const char *const map_dirs[12];
+#define MAP_N_DIRS 12
+extern const char *const map_dirs[MAP_N_DIRS];
 
 /* The runner's node defaults (FileIO.vb only writes Width/Height when they
    differ from these).  The ADRIFT 4 mapper adopts them too, so a room box is

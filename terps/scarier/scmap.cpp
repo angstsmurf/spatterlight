@@ -65,8 +65,8 @@ typedef struct {
   int placed;                   /* has been given a cell                     */
   int hide;                     /* author flagged it "hide on map"           */
   int seen;                     /* the player has been here                  */
-  int exits[12];                /* destination room number, 0 for none       */
-  int restricted[12];           /* the exit has a movement restriction       */
+  int exits[MAP_N_DIRS];        /* destination room number, 0 for none       */
+  int restricted[MAP_N_DIRS];   /* the exit has a movement restriction       */
 } sm_room_t;
 
 typedef struct {
@@ -818,7 +818,7 @@ sm_view_exit_dest (void *ctx, const char *lockey, int dir)
   scr_int room;
   int dest;
 
-  if (game == NULL || lockey == NULL || dir < 0 || dir > 11)
+  if (game == NULL || lockey == NULL || dir < 0 || dir >= MAP_N_DIRS)
     return NULL;
   room = atol (lockey);
   if (room < 0 || room >= gs_room_count (game))
@@ -963,7 +963,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
                         ? (view->seen (view->ctx, key) ? 1 : 0)
                         : (gs_room_seen (game, room) ? 1 : 0);
       L.rooms[i].hide = sm_room_bool (game, room, "HideOnMap") ? 1 : 0;
-      for (d = 0; d < 12; d++)
+      for (d = 0; d < MAP_N_DIRS; d++)
         L.rooms[i].exits[d] = sm_exit (game, room, d,
                                        &L.rooms[i].restricted[d]);
     }
@@ -1059,11 +1059,11 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       int rno = (int) atol (node->key) + 1;
       int nl = 0;
 
-      node->links = (map_link_t *) calloc (12, sizeof (map_link_t));
+      node->links = (map_link_t *) calloc (MAP_N_DIRS, sizeof (map_link_t));
       if (node->links == NULL)
         break;
 
-      for (d = 0; d < 12; d++)
+      for (d = 0; d < MAP_N_DIRS; d++)
         {
           int dest = L.rooms[rno].exits[d];
           int is_badge = (d == DIR_UP || d == DIR_DOWN

@@ -1,6 +1,6 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Copyright (C) 2026  Petter Sjolund
+ * Copyright (C) 2026  Petter Sjölund
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ dir_index (const char *s)
   int i;
   if (s == NULL)
     return -1;
-  for (i = 0; i < 12; i++)
+  for (i = 0; i < MAP_N_DIRS; i++)
     if (strcmp (s, map_dirs[i]) == 0)
       return i;
   return -1;
@@ -89,12 +89,135 @@ node_int (const a5_xml_node_t *n, const char *name, int dflt)
   return atoi (s);
 }
 
+/* The author-dragged waypoints of a connector (<Anchor> children of a
+   <Link>).  ADRIFT 5 only; a connector without them is drawn straight. */
+static void
+parse_anchors (map_link_t *link, const a5_xml_node_t *lk)
+{
+  const a5_xml_node_t *an;
+  int n_mids, im;
+
+  n_mids = a5xml_count (lk, "Anchor");
+  if (n_mids <= 0)
+    return;
+  link->mids = (map_pt_t *) calloc ((size_t) n_mids, sizeof (map_pt_t));
+  if (link->mids == NULL)
+    return;
+
+  im = 0;
+  for (an = lk->first_child; an != NULL; an = an->next)
+    {
+      if (strcmp (an->name, "Anchor") != 0)
+        continue;
+      if (im >= n_mids)
+        break;
+      link->mids[im].x = node_int (an, "X", 0);
+      link->mids[im].y = node_int (an, "Y", 0);
+      link->mids[im].z = node_int (an, "Z", 0);
+      im++;
+    }
+  link->n_mids = im;
+}
+
+/* One connector leaving a node (<Link>).  Returns 0 if the link has no usable
+   source anchor, in which case the slot is left untouched and skipped. */
+static int
+parse_link (map_link_t *link, const a5_xml_node_t *lk,
+            const a5_location_t *loc)
+{
+  const char *src = a5xml_child_text (lk, "SourceAnchor");
+  int d = dir_index (src);
+
+  if (d < 0)
+    return 0;
+  link->dir = d;
+  link->dst_anchor = dir_index (a5xml_child_text (lk, "DestinationAnchor"));
+  link->dest = movement_dest (loc, src, &link->dotted);
+  parse_anchors (link, lk);
+  return 1;
+}
+
+/* One room box on a page (<Node>): its geometry and the connectors leaving
+   it. */
+static void
+parse_node (map_node_t *node, const a5_xml_node_t *nd,
+            const a5_adventure_t *adv, int page_key)
+{
+  const a5_location_t *loc;
+  const a5_xml_node_t *lk;
+  int n_links, il;
+
+  node->key = a5xml_child_text (nd, "Key");
+  node->x = node_int (nd, "X", 0);
+  node->y = node_int (nd, "Y", 0);
+  node->z = node_int (nd, "Z", 0);
+  node->w = node_int (nd, "Width", MAP_NODE_W);
+  node->h = node_int (nd, "Height", MAP_NODE_H);
+  if (node->w <= 0)
+    node->w = MAP_NODE_W;
+  if (node->h <= 0)
+    node->h = MAP_NODE_H;
+  node->page = page_key;
+
+  loc = a5model_location (adv, node->key);
+
+  n_links = a5xml_count (nd, "Link");
+  if (n_links <= 0)
+    return;
+  node->links = (map_link_t *) calloc ((size_t) n_links, sizeof (map_link_t));
+  if (node->links == NULL)
+    return;
+
+  il = 0;
+  for (lk = nd->first_child; lk != NULL; lk = lk->next)
+    {
+      if (strcmp (lk->name, "Link") != 0)
+        continue;
+      if (il >= n_links)
+        break;
+      if (parse_link (&node->links[il], lk, loc))
+        il++;
+    }
+  node->n_links = il;
+}
+
+/* One page (<Page>) and the nodes on it.  Returns the number of nodes placed,
+   which the caller totals to tell an empty map from a populated one. */
+static int
+parse_page (map_page_t *page, const a5_xml_node_t *pg,
+            const a5_adventure_t *adv, int dflt_key)
+{
+  const a5_xml_node_t *nd;
+  int in;
+
+  page->key = node_int (pg, "Key", dflt_key);
+  page->label = a5xml_child_text (pg, "Label");
+  page->n_nodes = a5xml_count (pg, "Node");
+  if (page->n_nodes > 0)
+    page->nodes = (map_node_t *) calloc ((size_t) page->n_nodes,
+                                           sizeof (map_node_t));
+
+  in = 0;
+  for (nd = pg->first_child; nd != NULL && page->nodes != NULL; nd = nd->next)
+    {
+      if (strcmp (nd->name, "Node") != 0)
+        continue;
+      if (in >= page->n_nodes)
+        break;
+      parse_node (&page->nodes[in], nd, adv, page->key);
+      in++;
+    }
+  page->n_nodes = in;
+  return in;
+}
+
 map_t *
 a5map_load (const a5_adventure_t *adv)
 {
   const a5_xml_node_t *map, *pg;
   map_t *m;
   int total_nodes = 0;
+  int ip;
 
   if (adv == NULL || adv->root == NULL)
     return NULL;
@@ -120,112 +243,17 @@ a5map_load (const a5_adventure_t *adv)
       return NULL;
     }
 
-  {
-    int ip = 0;
-    for (pg = map->first_child; pg != NULL; pg = pg->next)
-      {
-        map_page_t *page;
-        const a5_xml_node_t *nd;
-        int in;
-
-        if (strcmp (pg->name, "Page") != 0)
-          continue;
-        if (ip >= m->n_pages)
-          break;
-        page = &m->pages[ip];
-        page->key = node_int (pg, "Key", ip);
-        page->label = a5xml_child_text (pg, "Label");
-        page->n_nodes = a5xml_count (pg, "Node");
-        if (page->n_nodes > 0)
-          page->nodes = (map_node_t *) calloc ((size_t) page->n_nodes,
-                                                 sizeof (map_node_t));
-
-        in = 0;
-        for (nd = pg->first_child; nd != NULL; nd = nd->next)
-          {
-            map_node_t *node;
-            const a5_location_t *loc;
-            const a5_xml_node_t *lk;
-            int il, n_links;
-
-            if (strcmp (nd->name, "Node") != 0)
-              continue;
-            if (page->nodes == NULL || in >= page->n_nodes)
-              break;
-            node = &page->nodes[in];
-            node->key = a5xml_child_text (nd, "Key");
-            node->x = node_int (nd, "X", 0);
-            node->y = node_int (nd, "Y", 0);
-            node->z = node_int (nd, "Z", 0);
-            node->w = node_int (nd, "Width", MAP_NODE_W);
-            node->h = node_int (nd, "Height", MAP_NODE_H);
-            if (node->w <= 0)
-              node->w = MAP_NODE_W;
-            if (node->h <= 0)
-              node->h = MAP_NODE_H;
-            node->page = page->key;
-
-            loc = a5model_location (adv, node->key);
-
-            n_links = a5xml_count (nd, "Link");
-            if (n_links > 0)
-              node->links = (map_link_t *) calloc ((size_t) n_links,
-                                                     sizeof (map_link_t));
-            il = 0;
-            for (lk = nd->first_child; lk != NULL && node->links != NULL;
-                 lk = lk->next)
-              {
-                map_link_t *link;
-                const a5_xml_node_t *an;
-                const char *src;
-                int d, n_mids, im;
-
-                if (strcmp (lk->name, "Link") != 0)
-                  continue;
-                if (il >= n_links)
-                  break;
-                src = a5xml_child_text (lk, "SourceAnchor");
-                d = dir_index (src);
-                if (d < 0)
-                  continue;
-
-                link = &node->links[il];
-                link->dir = d;
-                link->dst_anchor = dir_index (a5xml_child_text
-                                              (lk, "DestinationAnchor"));
-                link->dest = movement_dest (loc, src, &link->dotted);
-
-                n_mids = a5xml_count (lk, "Anchor");
-                if (n_mids > 0)
-                  {
-                    link->mids = (map_pt_t *) calloc ((size_t) n_mids,
-                                                        sizeof (map_pt_t));
-                    im = 0;
-                    for (an = lk->first_child;
-                         an != NULL && link->mids != NULL; an = an->next)
-                      {
-                        if (strcmp (an->name, "Anchor") != 0)
-                          continue;
-                        if (im >= n_mids)
-                          break;
-                        link->mids[im].x = node_int (an, "X", 0);
-                        link->mids[im].y = node_int (an, "Y", 0);
-                        link->mids[im].z = node_int (an, "Z", 0);
-                        im++;
-                      }
-                    link->n_mids = im;
-                  }
-                il++;
-              }
-            node->n_links = il;
-            in++;
-            total_nodes++;
-          }
-        page->n_nodes = in;
-        ip++;
-      }
-    m->n_pages = ip;
-  }
+  ip = 0;
+  for (pg = map->first_child; pg != NULL; pg = pg->next)
+    {
+      if (strcmp (pg->name, "Page") != 0)
+        continue;
+      if (ip >= m->n_pages)
+        break;
+      total_nodes += parse_page (&m->pages[ip], pg, adv, ip);
+      ip++;
+    }
+  m->n_pages = ip;
 
   if (total_nodes == 0)
     {
@@ -233,6 +261,27 @@ a5map_load (const a5_adventure_t *adv)
       return NULL;
     }
   return m;
+}
+
+/* Does the `len`-byte span at `s` equal the NUL-terminated `lit`, ignoring
+   ASCII case?  (Task commands are plain ASCII, so no <cctype>/locale.) */
+static int
+equals_ci (const char *s, size_t len, const char *lit)
+{
+  size_t i;
+  for (i = 0; i < len; i++)
+    {
+      char a = s[i], b = lit[i];
+      if (b == '\0')
+        return 0;
+      if (a >= 'A' && a <= 'Z')
+        a = (char) (a - 'A' + 'a');
+      if (b >= 'A' && b <= 'Z')
+        b = (char) (b - 'A' + 'a');
+      if (a != b)
+        return 0;
+    }
+  return lit[len] == '\0';
 }
 
 /* Does any task command consist of the bare word "map"?  Task commands are
@@ -263,10 +312,7 @@ a5map_command_taken (const a5_adventure_t *adv)
                 b++;
               while (len > b && (s[len - 1] == ' ' || s[len - 1] == '\t'))
                 len--;
-              if (len - b == 3
-                  && (s[b] == 'm' || s[b] == 'M')
-                  && (s[b + 1] == 'a' || s[b + 1] == 'A')
-                  && (s[b + 2] == 'p' || s[b + 2] == 'P'))
+              if (equals_ci (s + b, len - b, "map"))
                 return 1;
               if (end == NULL)
                 break;

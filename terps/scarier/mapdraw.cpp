@@ -1,6 +1,6 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Copyright (C) 2026  Petter Sjolund
+ * Copyright (C) 2026  Petter Sjölund
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
 
 /* DirectionsEnum order (Global.vb:1468), as in a5expr.cpp.  ADRIFT 4 numbers
    its directions the same way (run400 Form29.opp), so the enum serves both. */
-const char *const map_dirs[12] = {
+const char *const map_dirs[MAP_N_DIRS] = {
   "North", "East", "South", "West", "Up", "Down",
   "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
