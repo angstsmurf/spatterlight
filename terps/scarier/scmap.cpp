@@ -1044,12 +1044,14 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
     }
   page->n_nodes = ip;
 
-  /* Connectors.  The eight compass exits are drawn as links between boxes; In
-     and Out become badges on the box (the renderer draws them, as it does for
-     ADRIFT 5).  Up and Down are deliberately left out: they move you nowhere on
-     the grid, so their destination can be anywhere on the map, and drawing them
-     would rule lines across the whole thing.  The runner showed them as a small
-     icon on the room box; a stub is the closest our renderer has. */
+  /* Connectors.  The eight compass exits are drawn as links between boxes.
+     Up, Down, In and Out become badges on the box (link.badge): they move you
+     nowhere on the grid, so their destination can be anywhere on the map, and
+     drawing them as connectors would rule lines across the whole thing.  The
+     runner showed them as a small icon on the room box (Form29.doicon)
+     whenever the raw exit exists -- the destination need not be placed, or
+     even seen; an unseen destination only switches the icon to its dimmed
+     variant, which the renderer does off the badge link's dest. */
   for (ip = 0; ip < page->n_nodes; ip++)
     {
       map_node_t *node = &page->nodes[ip];
@@ -1063,16 +1065,17 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       for (d = 0; d < 12; d++)
         {
           int dest = L.rooms[rno].exits[d];
+          int is_badge = (d == DIR_UP || d == DIR_DOWN
+                          || d == DIR_IN || d == DIR_OUT);
           char key[16];
 
-          if (d == DIR_UP || d == DIR_DOWN)
-            continue;
           if (dest <= 0 || dest > n || dest == rno)
             continue;
-          if (!L.rooms[dest].placed)
+          if (!is_badge && !L.rooms[dest].placed)
             continue;
 
           node->links[nl].dir = d;
+          node->links[nl].badge = is_badge;
           node->links[nl].dst_anchor = sm_opp (d);
           snprintf (key, sizeof key, "%d", (int) sc_room (dest));
           node->links[nl].dest = sm_intern (m, key);

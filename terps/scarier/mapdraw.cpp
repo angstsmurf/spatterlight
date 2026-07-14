@@ -51,12 +51,14 @@ const char *const map_dirs[12] = {
    borders and labels its text colour, and the player's room is drawn inverted
    (text-colour fill, background-colour label) where the runner filled it
    yellow.  The host passes the two colours in (map_set_palette); until it
-   does, black on white.  Only the IN/OUT badge accents survive from the
+   does, black on white.  Only the badge accents survive from the
    runner's palette. */
 static unsigned int map_bg = 0xFFFFFF;
 static unsigned int map_fg = 0x000000;
 #define ICON_IN        0x00A000
 #define ICON_OUT       0xE06090
+#define ICON_UP        0xD0A000
+#define ICON_DOWN      0x4060D0
 
 void
 map_set_palette (unsigned int background, unsigned int text)
@@ -965,22 +967,52 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_fg, alpha);
 }
 
-/* The IN / OUT bubble on a node edge (DrawInOutIcon, Map.vb:1530). */
+/* The IN / OUT bubble on a node edge (DrawInOutIcon, Map.vb:1530), which we
+   extend to Up and Down where those are badge links (ADRIFT 4, whose runner
+   put a little icon on the room box instead of drawing a connector). */
 static void
-draw_inout_icon (map_surface_t *s, const proj_t *p, const map_node_t *n,
-                 int is_in, int alpha)
+draw_dir_icon (map_surface_t *s, const proj_t *p, const map_node_t *n,
+               int dir, int alpha)
 {
   double cx, cy;
+  const char *letter;
+  unsigned int rgb;
+  int xp, yp;
   int r = p->cam->scale / 2;
   if (r < 3)
     r = 3;
   /* The runner picks the edge from where the destination lies; without the
-     full edge bookkeeping we use the node's top-left (IN) / top-right (OUT)
-     corner, which keeps the two badges from colliding. */
-  rel_point (p, n, is_in ? 25 : 75, 0, &cx, &cy);
-  fill_circle (s, (int) cx, (int) cy, r, is_in ? ICON_IN : ICON_OUT, alpha);
-  draw_text (s, &kSmallFont, is_in ? "I" : "O", 1, (int) cx - 2, (int) cy - 3,
+     full edge bookkeeping we give each badge a fixed spot -- IN and OUT along
+     the top edge, UP high on the right edge, DOWN low on the left edge --
+     which keeps the four from colliding, and keeps UP and DOWN off the
+     corners where the NE and SW connectors attach. */
+  switch (dir)
+    {
+    case DIR_IN:   letter = "I"; rgb = ICON_IN;   xp = 25;  yp = 0;   break;
+    case DIR_OUT:  letter = "O"; rgb = ICON_OUT;  xp = 75;  yp = 0;   break;
+    case DIR_UP:   letter = "U"; rgb = ICON_UP;   xp = 100; yp = 25;  break;
+    case DIR_DOWN: letter = "D"; rgb = ICON_DOWN; xp = 0;   yp = 75;  break;
+    default: return;
+    }
+  rel_point (p, n, xp, yp, &cx, &cy);
+  fill_circle (s, (int) cx, (int) cy, r, rgb, alpha);
+  draw_text (s, &kSmallFont, letter, 1, (int) cx - 2, (int) cy - 3,
              0xFFFFFF, alpha);
+}
+
+/* The ADRIFT 4 runner had two pictures per icon: the normal one when the
+   destination has been seen (clicking it recentres the map there), and a
+   dimmed one when it has not (Form29.doicon, the seen-flag branch).  We dim
+   by alpha instead.  Only badge links carry the distinction; ADRIFT 5's
+   DrawInOutIcon has a single look. */
+static int
+badge_alpha (const map_view_t *view, const map_link_t *lk, int alpha)
+{
+  if (!lk->badge)
+    return alpha;
+  if (lk->dest != NULL && view_seen (view, lk->dest))
+    return alpha;
+  return alpha / 2;
 }
 
 void
@@ -1023,7 +1055,7 @@ map_render (const map_t *map, const map_view_t *view,
           int alpha, dash, phase = 0;
           int dst_anchor;
 
-          if (link->dir == DIR_IN || link->dir == DIR_OUT)
+          if (link->dir == DIR_IN || link->dir == DIR_OUT || link->badge)
             continue;           /* drawn as badges below */
           if (link->dest == NULL)
             continue;
@@ -1096,7 +1128,9 @@ map_render (const map_t *map, const map_view_t *view,
   for (i = 0; i < page->n_nodes; i++)
     {
       const map_node_t *n = &page->nodes[i];
-      int x0, y0, x1, y1, alpha, is_player, has_in = 0, has_out = 0;
+      int x0, y0, x1, y1, alpha, is_player;
+      const map_link_t *b_in = NULL, *b_out = NULL;
+      const map_link_t *b_up = NULL, *b_down = NULL;
       unsigned int fill;
 
       if (!view_seen (view, n->key))
@@ -1123,15 +1157,25 @@ map_render (const map_t *map, const map_view_t *view,
 
       for (l = 0; l < n->n_links; l++)
         {
-          if (n->links[l].dir == DIR_IN)
-            has_in = 1;
-          if (n->links[l].dir == DIR_OUT)
-            has_out = 1;
+          const map_link_t *lk = &n->links[l];
+          if (lk->dir == DIR_IN)
+            b_in = lk;
+          else if (lk->dir == DIR_OUT)
+            b_out = lk;
+          else if (lk->dir == DIR_UP && lk->badge)
+            b_up = lk;
+          else if (lk->dir == DIR_DOWN && lk->badge)
+            b_down = lk;
         }
-      if (has_in)
-        draw_inout_icon (dst, &p, n, 1, alpha);
-      if (has_out)
-        draw_inout_icon (dst, &p, n, 0, alpha);
+      if (b_in != NULL)
+        draw_dir_icon (dst, &p, n, DIR_IN, badge_alpha (view, b_in, alpha));
+      if (b_out != NULL)
+        draw_dir_icon (dst, &p, n, DIR_OUT, badge_alpha (view, b_out, alpha));
+      if (b_up != NULL)
+        draw_dir_icon (dst, &p, n, DIR_UP, badge_alpha (view, b_up, alpha));
+      if (b_down != NULL)
+        draw_dir_icon (dst, &p, n, DIR_DOWN,
+                       badge_alpha (view, b_down, alpha));
 
       if (view != NULL && view->name != NULL)
         {
