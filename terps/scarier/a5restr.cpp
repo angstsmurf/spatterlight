@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include <map>
+#include <set>
 #include <string>
 
 #include "a5parse.h"
@@ -584,6 +585,45 @@ a5restr_route_cache_free (a5_state_t *st)
   st->route_cache = NULL;
 }
 
+/* The session ledger behind clsDirection.bEverBeenBlocked: every failed route
+   evaluation records its (location, direction) here, whoever asked -- a
+   movement attempt, a HaveRouteInDirection restriction, %Exits%, or the map
+   painting itself, exactly the callers of the runner's HasRouteInDirection.
+   Unlike the route memo it is never cleared: the runner's flag stays set for
+   the rest of the session (and, like it, is not saved). */
+typedef std::set<std::string> a5_blocked_ledger_t;
+
+static std::string
+blocked_ledger_key (const char *lockey, const char *dir)
+{
+  return std::string (lockey) + '\001' + dir;
+}
+
+static void
+blocked_ledger_add (a5_state_t *st, const char *lockey, const char *dir)
+{
+  if (st->ever_blocked == NULL)
+    st->ever_blocked = new a5_blocked_ledger_t;
+  ((a5_blocked_ledger_t *) st->ever_blocked)
+    ->insert (blocked_ledger_key (lockey, dir));
+}
+
+int
+a5restr_ever_blocked (a5_state_t *st, const char *lockey, const char *dir)
+{
+  if (st->ever_blocked == NULL || lockey == NULL || dir == NULL)
+    return 0;
+  return ((a5_blocked_ledger_t *) st->ever_blocked)
+    ->count (blocked_ledger_key (lockey, dir)) != 0;
+}
+
+void
+a5restr_ever_blocked_free (a5_state_t *st)
+{
+  delete (a5_blocked_ledger_t *) st->ever_blocked;
+  st->ever_blocked = NULL;
+}
+
 const char *
 a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
                            const char *lockey, const char *dir,
@@ -631,6 +671,8 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
           bl = a5restr_fail_message (st, mr);
           if (blocked_msg != NULL)
             *blocked_msg = bl;
+          /* d.bEverBeenBlocked = True (clsCharacter.vb:686). */
+          blocked_ledger_add (st, lockey, dir);
           continue;
         }
       dest = a5xml_child_text (c, "Destination");

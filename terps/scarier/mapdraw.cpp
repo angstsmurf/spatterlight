@@ -1081,6 +1081,20 @@ map_render (const map_t *map, const map_view_t *view,
             alpha = 30;
 
           dash = link->dotted;
+          if (link->dotted && view != NULL && view->ever_blocked != NULL)
+            {
+              /* The ADRIFT 5 runner hides a restricted connector while its
+                 restrictions currently fail -- Grandpa's Ranch's Driveway
+                 shows no link north until the front door is opened
+                 (Map.vb:1429, the DashStyle.Dot HasRouteInDirection gate)... */
+              if (view->exit_dest == NULL
+                  || view->exit_dest (view->ctx, n->key, link->dir) == NULL)
+                continue;
+              /* ...and draws it solid until the player has actually been
+                 blocked there once (Map.vb:1447, bEverBeenBlocked). */
+              if (!view->ever_blocked (view->ctx, n->key, link->dir))
+                dash = 0;
+            }
 
           dst_anchor = link->dst_anchor;
           if (dst_anchor < 0)
@@ -1166,6 +1180,19 @@ map_render (const map_t *map, const map_view_t *view,
             b_up = lk;
           else if (lk->dir == DIR_DOWN && lk->badge)
             b_down = lk;
+        }
+      /* The ADRIFT 5 runner's IN/OUT badges only show while the route is
+         currently usable (the HasRouteInDirection gates, Map.vb:1328/1337) --
+         Grandpa's Ranch's Living Room gains its OUT badge when the front
+         door is opened. */
+      if (view != NULL && view->ever_blocked != NULL && view->exit_dest != NULL)
+        {
+          if (b_in != NULL
+              && view->exit_dest (view->ctx, n->key, DIR_IN) == NULL)
+            b_in = NULL;
+          if (b_out != NULL
+              && view->exit_dest (view->ctx, n->key, DIR_OUT) == NULL)
+            b_out = NULL;
         }
       if (b_in != NULL)
         draw_dir_icon (dst, &p, n, DIR_IN, badge_alpha (view, b_in, alpha));

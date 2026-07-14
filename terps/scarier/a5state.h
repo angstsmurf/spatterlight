@@ -320,6 +320,14 @@ typedef struct a5_state_s {
      a5restr_route_cache_clear.  Transient: not saved, not copied. */
   void *route_cache;
 
+  /* Exits whose route restrictions have ever evaluated false, the runner's
+     clsDirection.bEverBeenBlocked (set by HasRouteInDirection on every failed
+     evaluation, clsCharacter.vb:686).  The map keeps a restricted-but-passable
+     connector solid until its exit is on this ledger (Map.vb:1447).  Owned and
+     typed by a5restr.cpp.  Like the runner's flag it lives for the whole
+     session: never cleared, not saved, not copied. */
+  void *ever_blocked;
+
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is
      restriction-gated -- the Adrift 5 runner's sRouteError, which overrides the

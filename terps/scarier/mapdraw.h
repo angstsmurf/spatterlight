@@ -142,6 +142,14 @@ typedef struct map_view_s {
      runner's HasRouteInDirection), or NULL for no exit.  An exit whose
      destination has not been seen is drawn as a stub arrow.  May be NULL. */
   const char *(*exit_dest) (void *ctx, const char *lockey, int dir);
+  /* Has this exit's movement restriction ever evaluated false (the ADRIFT 5
+     runner's clsDirection.bEverBeenBlocked)?  When set, the renderer applies
+     the ADRIFT 5 runner's route gates: a restricted connector is hidden while
+     its restrictions currently fail and drawn solid until the player has been
+     blocked there once (Map.vb:1429/1447), and the IN/OUT badges only show
+     while their route is open (Map.vb:1328/1337).  NULL for ADRIFT 4, whose
+     runner drew every connector between rooms it laid out. */
+  int (*ever_blocked) (void *ctx, const char *lockey, int dir);
   void *ctx;
 } map_view_t;
 

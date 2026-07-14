@@ -66,6 +66,13 @@ cb_exit_dest (void *vp, const char *lockey, int dir)
                                     lockey, map_dirs[dir], NULL);
 }
 
+static int
+cb_ever_blocked (void *vp, const char *lockey, int dir)
+{
+  ctx_t *c = (ctx_t *) vp;
+  return a5restr_ever_blocked (c->st, lockey, map_dirs[dir]);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -151,6 +158,7 @@ main (int argc, char **argv)
   view.seen = cb_seen;
   view.name = cb_name;
   view.exit_dest = cb_exit_dest;
+  view.ever_blocked = cb_ever_blocked;
   view.ctx = &ctx;
 
   /* -walk <roomkey>: the map-click walk, driven headlessly.  Each step is

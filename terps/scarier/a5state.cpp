@@ -328,6 +328,7 @@ a5state_free (a5_state_t *st)
     { free (st->looks[i].loc_key); free (st->looks[i].text); }
   free (st->looks);
   a5restr_route_cache_free (st);
+  a5restr_ever_blocked_free (st);
   free (st);
 }
 

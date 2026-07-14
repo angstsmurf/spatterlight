@@ -845,6 +845,7 @@ scmap_view (scr_gameref_t game, map_view_t *view)
   view->seen = sm_view_seen;
   view->name = sm_view_name;
   view->exit_dest = sm_view_exit_dest;
+  view->ever_blocked = NULL;    /* no ADRIFT 5 route gates on v4 connectors */
   view->ctx = game;
 }
 

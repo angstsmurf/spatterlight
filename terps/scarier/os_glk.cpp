@@ -5484,12 +5484,21 @@ gsc_a5_map_exit_dest (void *ctx, const char *lockey, int dir)
                                     map_dirs[dir], NULL);
 }
 
+static int
+gsc_a5_map_ever_blocked (void *ctx, const char *lockey, int dir)
+{
+  a5_state_t *st = (a5_state_t *) ctx;
+
+  return a5restr_ever_blocked (st, lockey, map_dirs[dir]);
+}
+
 static void
 gsc_a5_map_view (a5_state_t *st, map_view_t *view)
 {
   view->seen = gsc_a5_map_seen;
   view->name = gsc_a5_map_name;
   view->exit_dest = gsc_a5_map_exit_dest;
+  view->ever_blocked = gsc_a5_map_ever_blocked;
   view->ctx = st;
 }
 
