@@ -57,6 +57,7 @@ play Darkness           "Darkness 1.asl"              "Darkness - command script
 play HauntedHorror      "HauntedHorror/haunted_horror.asl" "Haunted Horror - command script (raw).txt"           "you escaped your doom" --tick
 play KingsQuestV        "KQ5_Full_final_1124.asl"     "Kings Quest V - command script (raw).txt"                 "HAPPILY EVER AFTER" --tick --seed 1
 play Annabel            "annabel.cas"                 "annabel - command script (raw).txt"                       "YOU HAVE FOUND ANNABEL" --tick
+play Lovesong           "lovesong.asl"                "Lovesong - command script (raw).txt"                      "*THE END*"
 play WorldsEnd          "worldsend/world's end.asl"   "Worlds End - command script (raw).txt"                    "slumps to the ground dead" \
     --tick --save-scum \
     --fight "use vial1 on cube|use vial2 on cube=The cube explodes" \

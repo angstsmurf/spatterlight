@@ -3941,8 +3941,8 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
     }
   // SENSITIVE?
-  /* "movechar" is the Quest 2.x spelling of "move". */
-  else if (tok == "move" || tok == "movechar")
+  /* "movechar"/"moveobject" are the Quest 2.x spellings of "move". */
+  else if (tok == "move" || tok == "movechar" || tok == "moveobject")
     {
       tok = next_token (s, c1, c2);
       if (!is_param(tok))
@@ -4129,7 +4129,14 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after return in " + s);
       return;
     }
-  else if (tok == "reveal")
+  /* "reveal"/"conceal" (ASL>=281) and their "…object"/"…char" spellings
+   * (ASL<281) toggle Quest's *visibility* flag (SetVisibility -> .Visible in
+   * LegacyGame.vb), which gates only the room/inventory listing.  This is a
+   * different axis from show/hide (SetAvailability -> .Exists), which gates
+   * verb scope: DisambObjHere resolves a typed noun on .Exists alone and never
+   * consults .Visible, so a concealed-but-existing object stays referenceable.
+   * Hence these must map to the "invisible" property, NOT "hidden". */
+  else if (tok == "reveal" || tok == "revealobject" || tok == "revealchar")
     {
       tok = next_token (s, c1, c2);
       if (is_param(tok))
@@ -4138,7 +4145,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after reveal in " + s);
       return;
     }
-  else if (tok == "conceal")
+  else if (tok == "conceal" || tok == "concealobject" || tok == "concealchar")
     {
       tok = next_token (s, c1, c2);
       if (is_param(tok))
