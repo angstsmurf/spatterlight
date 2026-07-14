@@ -1,0 +1,5 @@
+# Build artifacts and generated transcripts — the QuestViva clone lives outside
+# the repo (~/questviva-oracle by default).
+bin/
+obj/
+out/
