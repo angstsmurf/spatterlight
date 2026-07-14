@@ -24,3 +24,4 @@ w
 d
 n
 drink water
+score

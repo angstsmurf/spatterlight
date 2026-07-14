@@ -1,0 +1,207 @@
+Loading game...
+
+FunHouse
+
+The vendors and ticket salers sure know how to get your attention.  You are
+standing at the main ticket booth right inside the carnival gates. Kids like
+their privacy but will you be able to catch them and remember to meet them
+Now let's see what looks the most fun around here!
+
+Car
+You are in the parking lot of a very attractive carnival. The fall fair has
+hired this clean topnotch carnival group to entertain folks to go to the
+fair. You are excited! But you have to meet the kids at the main ticket
+office. Will you be able to catch them!
+
+Also here is a wallet, a ten dollars, a five dollar bill, a five ones, a five
+twos and a lighter.
+
+There is an exit south.
+
+Tall man walks towards you from the south.
+
+Mafia man .
+
+>You move south.
+Main ticket booth
+What'll it be sir. The bracelet and strips of tickets are five dollars each.
+Hurry up now got a line forming here.
+
+Also here is a hundred dollars, a drink and a ticket.
+
+Ticket man and Your children 8) are here.
+
+There are exits north and east.
+
+Tall man walks towards you from the north.
+
+Mafia man  from the north.
+
+>(Your score has increased by 100)
+You pick up the hundred dollars.
+
+Bouncer walks towards you.
+thank you. Have fun now.
+
+>(Your score has increased by 100)
+Take what?
+You manage to avoid Mafia man's attack.
+
+>You move east.
+Enter Hall of Mirrors
+This room is full of mirrors. There is a door somewhere here. You have time,
+find it!
+
+Brat Kid is here.
+
+You can move north, south and west.
+
+Tall man walks towards you from the west.
+
+Bouncer walks towards you from the west.
+
+Mafia man  from the west.
+
+>You move north.
+Strobe light room
+blacklight posters, music, and strobe lights flashing rapidly are a feature
+of this room. It is giving me a headache.
+
+You can move east and south.
+
+Tall man walks towards you from the south.
+
+Bouncer walks towards you from the south.
+
+Mafia man  from the south.
+
+>You move east.
+Vampire lair
+A coffin opens and closes as you walk past the wax figure of Dracula.
+Creepy......
+
+Vampire is here.
+
+You can move east, south and west.
+
+Bouncer walks towards you from the west.
+
+Mafia man  from the west.
+You manage to avoid Mafia man's attack.
+
+>You move east.
+Dark Room
+Feel your way around the walls. You cannot see anything. Find the door and
+leave this gosh awful room as quick as you can. It gives you the creeps!
+
+Also here is a kewbie doll.
+
+Bumpy the clown is here.
+
+You can move north, east, south and west.
+
+Bouncer walks towards you from the west.
+
+Mafia man  from the west.
+Mafia man manages to avoid Bumpy the clown's attack.
+
+>You move north.
+Fun slide
+A feel along the wall reveals a slide you did not notice. Should you save
+some time and take the slide?
+
+Also here is a diamond ring.
+
+You can only move south.
+
+Bouncer walks towards you from the south.
+
+Mafia man  from the south.
+
+>(Your score has increased by 110)
+You pick up a beautiful ring.
+Fun slide
+A feel along the wall reveals a slide you did not notice. Should you save
+some time and take the slide?
+
+Also here is a diamond ring.
+Stern looking man  Violent mafia man is here looking for a cassette. He knows
+where to look!
+You manage to avoid Mafia man's attack.
+
+>You move south.
+Dark Room
+Feel your way around the walls. You cannot see anything. Find the door and
+leave this gosh awful room as quick as you can. It gives you the creeps!
+
+Also here is a kewbie doll.
+
+Bumpy the clown is here.
+
+You can move north, east, south and west.
+
+Bouncer walks towards you from the north.
+
+Mafia man  from the north.
+Mafia man manages to avoid Bumpy the clown's attack.
+
+>You pick up the kewbie doll.
+
+>You pick up the cassette.
+Mafia man manages to avoid Bumpy the clown's attack.
+Bumpy the clown manages to avoid Mafia man's attack.
+
+>You move west.
+Vampire lair
+A coffin opens and closes as you walk past the wax figure of Dracula.
+Creepy......
+
+Vampire is here.
+
+You can move east, south and west.
+
+Bouncer walks towards you from the east.
+
+Mafia man  from the east.
+
+>You move west.
+Strobe light room
+blacklight posters, music, and strobe lights flashing rapidly are a feature
+of this room. It is giving me a headache.
+
+Tall man is here.
+
+You can move east and south.
+
+Mafia man  from the east.
+
+>You move south.
+Enter Hall of Mirrors
+This room is full of mirrors. There is a door somewhere here. You have time,
+find it!
+
+Brat Kid is here.
+
+You can move north, south and west.
+
+Mafia man  from the north.
+You manage to avoid Brat Kid's attack.
+You manage to avoid Mafia man's attack.
+
+>You move west.
+Main ticket booth
+What'll it be sir. The bracelet and strips of tickets are five dollars each.
+Hurry up now got a line forming here.
+
+Also here is a drink and a ticket.
+
+Ticket man and Your children 8) are here.
+
+You can move north and east.
+
+Mafia man  from the east.
+
+>Your score is 310 out of a maximum of 410.  (75%)
+
+>thank you for bravely protecting this important information
+Congratulations!

@@ -1,0 +1,30 @@
+Loading game...
+
+To hell & beyond
+
+If you want to know what you can ask a person, just type greet 'character'.
+Tavern's are open from 10 in the morning to 11 in the evening.
+
+Entrance to beyond
+You are in a big cave. It's dark but you can clearly identify an exit to the
+south. You can see a figure (Zifan) near the exit. The exit is blocked by a
+big door. In the ceiling in the center of the room is a hole in wich you came
+through.
+
+Zifan is here.
+
+>"I am Zifan. Any questions?" says Zifan.
+
+>You open the big door.
+
+>You move south.
+Oran entrance
+You have entered the town of Oran. This place does not look very friendly.
+The houses are all scattered randomly accross the area. Some of them have
+collapsed, others are just on the verge of collapsing.
+
+Nekar is here.
+
+You can move east and south.
+
+>Do you really want to quit? [Y/N]

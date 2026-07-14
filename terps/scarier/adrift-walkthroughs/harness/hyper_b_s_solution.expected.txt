@@ -1,0 +1,557 @@
+Loading game...
+
+HYPER Battle System
+Version 1.1Copyright 2002 Seciden Mencarde
+This is a little preview of my Battle System. This version is only shareware,
+meaning intense limits. When I finally get the money to register it, the
+battle system will be completed and sent out ASAP. As for now, this mainly
+just tests to see that the basics work right.
+
+>
+>You move down.
+
+Basement Tutorial Lounge
+This room is meant to teach you about the basics of the brand new HYPER
+Battle System. The following is a list of things that you can do:
+
+1) Enter the basic tutorial
+2) First Battle (vs. Flare Rat)
+
+Choose a number.
+
+>
+
+Flare Rat room
+Type "out" to return to the Basement Tutorial Lobby. Otherwise, to fight the
+Flare Rat, well, you should've taken the tutorial already, so do what it said
+to do in there.
+
+>
+
+Initializing Hyper Battle System...
+
+- 1% Complete...
+
+-- 2 % Complete...
+
+--- 3 % Complete...
+
+---- 4 % Complete...
+
+----- 5 % Complete...
+
+------ 6 % Complete...
+
+------- 7 % Complete...
+
+-------- 8 % Complete...
+
+--------- 9 % Complete...
+
+() 10 % Complete...
+
+()- 11 % Complete...
+
+()-- 12 % Complete...
+
+()--- 13 % Complete...
+
+()---- 14 % Complete...
+
+()----- 15 % Complete...
+
+()------ 16 % Complete...
+
+()------- 17 % Complete...
+
+()-------- 18 % Complete...
+
+()--------- 19 % Complete...
+
+()() 20 % Complete...
+
+()()- 21 % Complete...
+
+()()-- 22 % Complete...
+
+()()--- 23 % Complete...
+
+()()---- 24 % Complete...
+
+()()----- 25 % Complete...
+
+()()------ 26 % Complete...
+
+()()------- 27 % Complete...
+
+()()-------- 28 % Complete...
+
+()()--------- 29 % Complete...
+
+()()() 30 % Complete...
+
+()()()- 31 % Complete...
+
+()()()-- 32 % Complete...
+
+()()()--- 33 % Complete...
+
+()()()---- 34 % Complete...
+
+()()()----- 35 % Complete...
+
+()()()------ 36 % Complete...
+
+()()()------- 37 % Complete...
+
+()()()-------- 38 % Complete...
+
+()()()--------- 39 % Complete...
+
+()()()() 40 % Complete...
+
+()()()()- 41 % Complete...
+
+()()()()-- 42 % Complete...
+
+()()()()--- 43 % Complete...
+
+()()()()---- 44 % Complete...
+
+()()()()----- 45 % Complete...
+
+()()()()------ 46 % Complete...
+
+()()()()------- 47 % Complete...
+
+()()()()-------- 48 % Complete...
+
+()()()()--------- 49 % Complete...
+
+()()()()() 50 % Complete...
+
+()()()()()- 51 % Complete...
+
+()()()()()-- 52 % Complete...
+
+()()()()()--- 53 % Complete...
+
+()()()()()---- 54 % Complete...
+
+()()()()()----- 55 % Complete...
+
+()()()()()------ 56 % Complete...
+
+()()()()()------- 57 % Complete...
+
+()()()()()-------- 58 % Complete...
+
+()()()()()--------- 59 % Complete...
+
+()()()()()() 60 % Complete...
+
+()()()()()()- 61 % Complete...
+
+()()()()()()-- 62 % Complete...
+
+()()()()()()--- 63 % Complete...
+
+()()()()()()---- 64 % Complete...
+
+()()()()()()----- 65 % Complete...
+
+()()()()()()------ 66 % Complete...
+
+()()()()()()------- 67 % Complete...
+
+()()()()()()-------- 68 % Complete...
+
+()()()()()()--------- 69 % Complete...
+
+()()()()()()() 70 % Complete...
+
+()()()()()()()- 71 % Complete...
+
+()()()()()()()-- 72 % Complete...
+
+()()()()()()()--- 73 % Complete...
+
+()()()()()()()---- 74 % Complete...
+
+()()()()()()()----- 75 % Complete...
+
+()()()()()()()------ 76 % Complete...
+
+()()()()()()()------- 77 % Complete...
+
+()()()()()()()-------- 78 % Complete...
+
+()()()()()()()--------- 79 % Complete...
+
+()()()()()()()() 80 % Complete...
+
+()()()()()()()()- 81 % Complete...
+
+()()()()()()()()-- 82 % Complete...
+
+()()()()()()()()--- 83 % Complete...
+
+()()()()()()()()---- 84 % Complete...
+
+()()()()()()()()----- 85 % Complete...
+
+()()()()()()()()------ 86 % Complete...
+
+()()()()()()()()------- 87 % Complete...
+
+()()()()()()()()-------- 88 % Complete...
+
+()()()()()()()()--------- 89 % Complete...
+
+()()()()()()()()() 90 % Complete...
+
+()()()()()()()()()- 91 % Complete...
+
+()()()()()()()()()-- 92 % Complete...
+
+()()()()()()()()()--- 93 % Complete...
+
+()()()()()()()()()---- 94 % Complete...
+
+()()()()()()()()()----- 95 % Complete...
+
+()()()()()()()()()------ 96 % Complete...
+
+()()()()()()()()()------- 97 % Complete...
+
+()()()()()()()()()-------- 98 % Complete...
+
+()()()()()()()()()--------- 99 % Complete...
+
+()()()()()()()()()() 100 % Complete!
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 100
+Flare Rat's HP: 30
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 100
+Flare Rat's HP: 30
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 27 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 97 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 97
+Flare Rat's HP: 27
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 97
+Flare Rat's HP: 27
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 24 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 94 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 94
+Flare Rat's HP: 24
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 94
+Flare Rat's HP: 24
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 21 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 91 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 91
+Flare Rat's HP: 21
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 91
+Flare Rat's HP: 21
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 18 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 88 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 88
+Flare Rat's HP: 18
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 88
+Flare Rat's HP: 18
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 15 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 85 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 85
+Flare Rat's HP: 15
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 85
+Flare Rat's HP: 15
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 12 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 82 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 82
+Flare Rat's HP: 12
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 82
+Flare Rat's HP: 12
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 9 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 79 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 79
+Flare Rat's HP: 9
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 79
+Flare Rat's HP: 9
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 6 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 76 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 76
+Flare Rat's HP: 6
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 76
+Flare Rat's HP: 6
+
+>
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 3 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 73 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 73
+Flare Rat's HP: 3
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+>
+
+Attack Menu
+Do you wish to:
+
+Throw a [P]unch
+Attack with a [W]eapon
+
+Your HP: 73
+Flare Rat's HP: 3
+
+>(Your score has increased by 100)
+
+You punch the Flare Rat with all your feeble might. You deal some damage,
+leaving him with only 0 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 70 HP!!
+][
+
+Battle Menu
+Do you wish to:
+
+[A]ttack
+[D]efend {auto Normal [D]efend due to the limits of shareware}
+[F]lee
+[M]editate
+
+Your HP: 70
+Flare Rat's HP: 0
+The Flare Rat glares menacingly at you, foaming at the mouth with a rare
+disease. The disease is known as "Combustial Rabies".
+
+The Flare Rat is dead! Mission complete!
+Congratulations!

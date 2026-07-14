@@ -2,8 +2,9 @@
 
 - **Author:** quantumsheep (2008).
 - **Engine:** ADRIFT 4 (Battle System present — the SoMorph kills the cat and the
-  pilot with it; both die in **one hit**, so combat works as authored and no
-  combat-assist is needed).
+  pilot with it; each dies to **one landed hit**, though the RNG makes the first
+  swing at each miss under the current seed stream, so combat works as authored
+  and no combat-assist is needed).
 - **Result:** **WIN, deterministic. 0/0 (no score — the game has no `ChangeScore`
   actions; the single ending is the victory).** Win marker:
   *"Congratulations! You're on your way home with just a little indigestion!"*
@@ -37,8 +38,11 @@ Deck, **west** = Cryo Stasis Room, **east** = Bathroom (door starts closed),
 ```
 <blank>                 <- "press any key to start"
 <blank>                 <- "press any key to continue"
-north                   <- Corridor Alpha
-attack cat              <- one swipe kills Mr. Jones
+north                   <- Corridor Alpha (the cat is here but exits west)
+look                    <- the cat re-enters and takes a swipe at you
+attack cat              <- Mr. Jones dodges and slips out
+look                    <- the cat re-enters again
+attack cat              <- this swipe kills Mr. Jones
 eat cat                 <- "SoMorph eat cat"; this drops some cat fur here
 take cat fur
 open door               <- the bathroom door (east) starts closed
@@ -52,7 +56,10 @@ push button             <- "Premature Ejection during Hyperspace!" opens the Cry
 open door
 west                    <- Corridor
 west                    <- Cryo Stasis Room (the woken human is here)
-attack human            <- the disguise lets you land the blow; one hit kills him
+attack human            <- the disguise lets you land the blow; he flees east
+look
+look                    <- he runs screaming back into the dead-end Cryo room
+attack human            <- the second blow kills Alan Davies
 eat human               <- "SoMorph prepare for main course" — now you ARE human
 remove cat fur          <- take the cat disguise off so FRANK sees a human
 east                    <- Corridor
@@ -79,7 +86,9 @@ Working backwards:
   the cat fur** ("…hoping to fool the human into not fighting"), the disguise that
   makes you appear as his pet cat. The fur is produced by **eating the cat**
   (task 1's hidden action drops it) and can only be **worn after `use toilet`**
-  (task 6's restriction). With the disguise on, one swipe kills Alan Davies; his
+  (task 6's restriction). With the disguise on, a landed swipe kills Alan Davies
+  (under the current seed the second swing is the one that lands — he dodges the
+  first and flees into the dead-end Cryo room, returning two turns later); his
   death (task 7) reveals the dead-human object, which you then eat.
 - Eating the human makes the SoMorph **appear human** — but only once the cat
   disguise is off, so **`remove cat fur`** before talking to FRANK, who otherwise
@@ -94,4 +103,12 @@ Working backwards:
 - The catnip in the Command Deck and the wandering "Cat sheepishly enters/exits"
   lines are flavour/decoy — neither is needed for the win.
 - Combat is faithful (deterministic under the harness seed): both the cat and the
-  disguised-approach human die in a single hit, so the banked route is exact.
+  disguised-approach human die to a single *landed* hit; the route just has to
+  ride out one dodge each.
+- **Re-derived 2026-07-14** for the scarier engine: the banked solution had lost
+  its two leading waitkey blanks (the intro eats the first two input lines), and
+  the NPCs-before-events tick-order fix shifted the wandering cat's schedule and
+  the combat RNG stream, so the old "one swipe each" route desynced (`attack cat`
+  fired with the cat absent — an unresolved-NPC attack falls through the grammar
+  to "I don't understand", which does not advance the turn). The rewired route
+  above is a `run_v4_walkthroughs.sh` regression row with a blessed golden.

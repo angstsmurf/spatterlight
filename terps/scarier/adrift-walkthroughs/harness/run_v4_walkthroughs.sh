@@ -44,12 +44,18 @@ esac
 FILTER="${1:-}"
 
 # solution file | game .taf basename | optional win marker (grep -F; "" = none)
+#              | optional env assignments (space-separated VAR=val, applied to
+#                the scare run -- e.g. SCR_SEED=2, SCR_ASSUME_COMBAT=1)
 #
 # Seeded with the two 4th-1-Hour-Comp games already carried here, plus the
 # ready-to-add native-ADRIFT Plover games (they SKIP until their .taf is
 # dropped into a games dir and a *_solution.txt is derived -- see
 # TODO_plover_walkthroughs.md §1/§6).  Add a row per game as you derive it.
-MAP=$(cat <<'EOF'
+#
+# (A function-wrapped heredoc, NOT MAP=$(cat <<EOF): macOS /bin/bash 3.2
+# mis-parses heredocs inside $() when the content's quote count is odd --
+# an apostrophe in a marker would break the whole script.)
+map_rows() { cat <<'EOF'
 icecream_solution.txt|IceCream.taf|
 the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|Congratulations!
 man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time
@@ -83,8 +89,56 @@ mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
 # and golden are deliberately NOT committed (they are in harness/.gitignore).  The
 # row stays so the regression runs where the files exist; elsewhere it NOSCRIPTs.
 archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued
+# The adrift-battle corpus (the WALKTHROUGH_TODO.md games, banked 2026-06) --
+# wins first, then documented-max tours / sandboxes / demos.  Tour rows use the
+# final "Your score is N out of a maximum of M." line as their marker so the
+# documented maxima stay locked; win rows use the game's own victory text.
+bomb_threat_solution.txt|Bomb Threat.taf|Congratulations!
+circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=2
+colony_solution.txt|Colony.taf|Congratulations!
+cyber_solution.txt|cyber.taf|THE END,or is it?
+cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
+cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
+cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
+deaths_solution.txt|deaths.taf|crumbles into dust
+donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
+funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
+gateway_solution.txt|gateway.taf|THE END
+hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
+jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!
+light_up_solution.txt|light_up_4summer_comp.taf|THE END
+maincourse_solution.txt|Main Course.taf|You're on your way home with just a little indigestion!
+melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
+orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
+screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
+secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
+space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
+sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|Congratulations!
+tcom_solution.txt|tcom.taf|the file entitled "tcom2"
+think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
+toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH
+xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
+del_sol_solution.txt|Del Sol.taf|Your score is 24 out of a maximum of 46.
+inverness_solution.txt|inverness.taf|A murderer thou shalt be
+les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.
+lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
+matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
+mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|Your score is 25 out of a maximum of 100.
+phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
+questi_solution.txt|QuestI.taf|Your score is 5 out of a maximum of 10.
+shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the statue was you from a past life.
+spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
+srsintro_solution.txt|SRSintro.taf|
+the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
+the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
+thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.
+through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
+to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
+villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 13 out of a maximum of 37.
+villains_and_kings_assisted_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.|SCR_ASSUME_COMBAT=1
+wes_ghn_solution.txt|WesGHN.taf|Your score is 30 out of a maximum of 100.
 EOF
-)
+}
 
 find_game() {  # $1=basename -> prints path or nothing
   if [ -f "$GAMES_DIR/$1" ]; then printf '%s\n' "$GAMES_DIR/$1"; return; fi
@@ -95,9 +149,10 @@ find_game() {  # $1=basename -> prints path or nothing
 
 # Run the seeded interpreter over a solution and normalise the transcript the
 # same way the a5 golden path does (strip trailing ws, squeeze blank runs).
+# ROW_ENV carries the row's optional env assignments (4th MAP field).
 transcript() {  # $1=game path $2=solution path
   { cat "$2"; echo quit; echo y; } \
-    | ( ulimit -t 30; "$SCARE_BIN" "$1" 2>/dev/null ) \
+    | ( ulimit -t 30; env $ROW_ENV "$SCARE_BIN" "$1" 2>/dev/null ) \
     | tr -d '\r' | sed 's/[[:space:]]*$//' | cat -s
 }
 
@@ -113,10 +168,11 @@ REGFILE=$(mktemp); trap 'rm -f "$REGFILE"' EXIT
 printf "%-34s %-9s %s\n" "SOLUTION" "STATUS" "detail"
 printf "%-34s %-9s %s\n" "--------" "------" "------"
 
-echo "$MAP" | while IFS='|' read -r sol game marker; do
+map_rows | while IFS='|' read -r sol game marker envs; do
   [ -z "$sol" ] && continue
   case "$sol" in '#'*) continue ;; esac       # comment row
   case "$sol" in *"$FILTER"*) : ;; *) continue ;; esac
+  ROW_ENV=$envs
   solpath="$HERE/$sol"
   golden="$HERE/${sol%.txt}.expected.txt"
 

@@ -1,0 +1,774 @@
+Loading game...
+
+The X-Files: A New Beginning
+
+The manila file slams down on your desk with a dull thump. Stopping your
+typing for an instant, you glance at the file.  Then slowly, your gaze
+travels upwards. Your partner smiles down at you coyly.   "Should I repeat
+myself, Agent Mulder?"   "What's this," you ask, leaning back casually in
+your chair.   "Consider it an early Christmas present." You grin and shake
+your head.  "After two years, they're not going to grant any of my requests."
+ Ruth sits down across from you.  "Maybe badgering the brass upstairs so long
+knocked something into them," she says teasingly.  Attempting to maintain
+your cool exterior, you reach for the folder.  Your hand trembles slightly
+and gives you away.  If Ruth notices, she doesn't say anything, intent on
+seeing your reaction to what is inside.  Within  the folder, you find a memo.
+ Listed below the formal heading of the Federal Bureau of Investigation, it
+reads:
+
+December 24, 2027
+
+Agent Mulder:
+
+In light of your most recent request, it has been decided that you should be
+granted access to the X-Files.  The division of crimes itself will be
+reopened.  You will be transferred to that division effective immediately.
+Your new office will be in level B.  As the Bureau searches for a new
+Division Head, you will temporarily remain under the supervision of your
+current A.D.
+
+End Memo
+
+You flip the note over, surprised to see something scrawled on the back.
+
+P4 (11)
+
+Now looming over your shoulder, Ruth asks, "What do you think it means?"  The
+answer comes to you.   "It's an arrangement for a meeting . . . in the
+parking garage... P4"  You look up at her and she looks down at you intently.
+ "Are you going to go?"
+ "This is the first chance I've actually been given to investigate  what my
+parents did. Of course I'm going. "  "Then I'm coming with you."  You smile,
+touched by her overprotective nature for you.  "Ruth, I'm sure this was meant
+for me alone.  I appreciate the thought, but don't worry about me.  Besides,
+it's Christmas Eve and you have a plane to catch."  Her glare settles on you
+and you suddenly feel chilled.  Surprisingly, she relents,  "Alright, but
+don't do anything stupid.  Call and leave me know how it goes.  Have a nice
+Christmas, and check the drawer, I left something in there you should see."
+Peaking your eyebrows, you give her a quizzical look.  "Okay, you too."  Ruth
+grabs her coat and flashes you a warm smile before she leaves.
+
+Holidays tend to be bad times.  They always bring back the  painful past.
+
+You were seven the last time you saw your mother, and you've never even met
+your father.  One night, you fell asleep in your bed and woke up the next
+morning in another, in a house you never knew, with people you had never met.
+ They claimed that they were  your foster parents and told you beautiful
+lies.  You never saw your mother again, but over time, the new people became
+your family.  You graduated high school at the top of your class and entered
+Oxford the way your mother told you your father once did.  Always a brilliant
+student, you studied psychology and criminology, excelling in both. You
+applied to the FBI straight out of college and entered the Academy back in
+Quantico. There, you were also  first in your class, discovering only later
+that your father had done the same.  Since then, you've been a profiler in
+D.C. with the violent crimes section, occasionally assigned cases with Agent
+Ruth Savoy.  And until now, your requests to reopen your father's work have
+been denied, but that all changed tonight.  Merry Christmas.
+
+The X-Files: A New Beginning - Prologue
+
+Summary:  It's Christmas Eve 2027.  You are William Mulder, the fated son of
+former Special Agents Fox Mulder and Dana Scully.  You've never met your
+father, and your mother left you when you were seven.  Hoping to find them by
+continuing their work on the X-Files, your requests to do so have been
+denied. . .  until tonight.  Merry Christmas.
+
+Note:  When talking to characters, use the format, "ask (character) about
+(1,2,3, etc.)  It's easier and you'll find out everything you need to know.
+
+This is the first in a series of games.  For more information on this series
+of games, and to acquire a walkthough, check out:
+http://www.geocities.com/xtextadventures .
+
+Please direct any questions, comments, or bugs you may find to
+superbone_ali@yahoo.com.
+
+>
+>You open Your Desk.  Inside Your Desk is Gun Holster, Your Cell Phone, Neatly
+Wrapped Gift and Your Badge.
+
+>You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift,
+Your Badge and the Memo from Your Desk.
+
+>(Your score has increased by 1)
+Oh, good for you, Agent Mulder!
+
+>(Your score has increased by 1)
+You incinerate the The Memo with a Zippo you found somewhere.  It gives you a
+warm feeling inside.
+
+>(Your score has increased by 1)
+You're now naked.  Congratulations, you're a rip snortin' hottie, woof!
+
+>You put on Gun Holster.
+
+>(Your score has increased by 1)
+Gross . . . you drank the half-solidified, week-old coffee.  Just goes to
+prove that drummers will drink or eat anything for . . .  no reason at all.
+
+>(Standing up first)
+You move down.
+Lobby
+This is the lobby of the J. Edgar Hoover Building.  Video monitors and long
+benches remain from the days when they used to allow visitors to tour the
+building.  Several potted plants look like they need tended to.  You can hear
+a Salvation Army volunteer ringing a bell in the street outside.
+
+You can move east, up and out.
+
+>You move east.
+Parking Garage A
+This is the top level of the official FBI Parking Garage.  Some light filters
+in from the exits, but much of the area is illuminated by the neon lights
+that line the ceiling alone.  You usually park on this level when possible.
+Unfortunately, you didn't drive today.   A rat scurries across the floor.
+
+You can move west, down and out.
+
+>You move down.
+Parking Garage B
+This is the lower level of the official FBI Parking Garage.  The area is
+illuminated by the neon lights that line the ceiling alone.  It is somewhat
+dark, and smells of exhaust and cigarette smoke.  The man leaning against the
+wall seems eager to talk to you.
+Cancer Man awaits you in the shadows.
+
+You can only move up.
+
+>You ask the man, "Who are you?  Who do you work for?"  The man smiles, "I'm a
+concerned citizen, Agent Mulder.  I assure you that my interests are well
+placed."
+
+>"What can you tell me about my parents?"  Cancerman's chuckle comes out like
+a cough.  "They were romantic patriots . . . who payed the price for their
+curiosity."
+
+>"Are they dead?"  Cancerman coughs again.  "Young Mulder, if your parents
+were dead, you would be, too."
+
+>(Your score has increased by 25)
+You take the case file from Cancer Man.  "Everything you need to find them
+can be found in the information in this file.  I'll be in touch again . . .
+Trust No One, Agent Mulder."
+Parking Garage B
+This is the lower level of the official FBI Parking Garage.  The area is
+illuminated by the neon lights that line the ceiling alone.  It is somewhat
+dark, and smells of exhaust and cigarette smoke.  The man leaning against the
+wall seems eager to talk to you.
+Cancer Man awaits you in the shadows.
+Cancerman has receded into the shadows and is watching you.
+
+Cancerman leaves.
+
+>You take the Warehouse Key from Case File 10193.
+
+>(Your score has increased by 25)
+This is a labeled key.  The label reads,"Davis Storage, Baltimore, MD. / 5"
+Completing further research, you find directions to the site.
+
+>You move up.
+Parking Garage A
+This is the top level of the official FBI Parking Garage.  Some light filters
+in from the exits, but much of the area is illuminated by the neon lights
+that line the ceiling alone.  You usually park on this level when possible.
+Unfortunately, you didn't drive today.  You scan the shadows but see no one.
+
+You can move west, down and out.
+
+>You move out.
+In Front Of FBI HQ Parking Garage A - Washington, D.C.
+You're standing on the sidewalk outside the J. Edgar Hoover Building Parking
+Garage  in Washington, D.C.  Christmas lights line the buildings as snowfall
+gently continues to layer the streets.  Well kept during the tourist season,
+you wonder if you'll be able to hail a taxi.  You feel compelled to enter the
+parking garage.  Maybe it's just the cold.
+
+You can move west and in.
+
+>You move west.
+In Front Of FBI HQ - Washington, D.C.
+You're standing on the sidewalk outside the J. Edgar Hoover Building in
+Washington, D.C.  Christmas lights line the buildings as snowfall gently
+continues to layer the streets.  Well kept during the tourist season, you
+wonder if you'll be able to hail a taxi.  You feel drawn to the parking
+garage for some reason.  Maybe it's just the cold.
+
+Volunteer is here.
+
+You can move north, east, south and in.
+
+>You move north.
+Davis Storage Warehouse - Baltimore, MD
+You stand outside the garage that the warehouse key indicated.  Nothing seems
+out of place.    You can use the warehouse key to enter the building.
+
+You can only move south.
+
+>(Your score has increased by 25)
+The garage door begins to groan open as the key twists in the lock with a
+click.
+There's little help here, but you may want to look around anyway.
+
+Your phone rings and you put the receiver up to your ear.  "Mulder," you say.
+ It's Ruth Savoy, your partner.  "Hi, Mulder, it's me," she says.  "I take it
+you arrived safely."  "Yeah," she says.  "How did your secret meeting go?"
+You tell her about the case file the Cigarette-Smoking Man gave you and what
+it might mean.  "No heroics, Mulder.  I don't want to come home to a dead
+partner.  I'm not investigating any X-Files by myself."  You smile at the
+thought.  "Merry Christmas, Ruth."  "Yeah, you too, Mulder.  Did you open my
+gift?"  "Uh, yeah," you say.  "And?"  "And I liked it very much."  She sighs
+on the other end of the phone.  "Try not to get too jolly, okay Mulder?"
+"Okay," you say.  She hangs up and your left with the phone in your hand.
+
+>You pick up Small Pocket Knife.
+
+>You move out.
+Davis Storage Warehouse - Baltimore, MD
+You stand outside the garage that the warehouse key indicated.  Nothing seems
+out of place.    You can use the warehouse key to enter the building.
+
+You can move south and in.
+
+>You move south.
+In Front Of FBI HQ - Washington, D.C.
+You're standing on the sidewalk outside the J. Edgar Hoover Building in
+Washington, D.C.  Christmas lights line the buildings as snowfall gently
+continues to layer the streets.  Well kept during the tourist season, you
+wonder if you'll be able to hail a taxi.  You feel drawn to the parking
+garage for some reason.  Maybe it's just the cold.
+
+Volunteer is here.
+
+You can move north, east, south and in.
+
+>(Your score has increased by 25)
+Running your finger over the nameplate, you here a click and it comes off to
+reveal a small indentation that has been carved into the plastic.  You take
+the letter that is inside.
+
+>(Your score has increased by 10)
+Always caring about the goodwill of others, you pull a few dollars from your
+wallet and place it in the bucket.  The man ringing the bell smiles.  "God
+bless you, sir," he says and goes back to ringing the bell.
+
+>You move south.
+Outside Of The Red Bull Tavern - Arlington, VA
+You stand on the sidewalk outside of the bar you live above.  It's in a nice
+section of town and it's only temporary until you find an apartment you can
+afford with your G-Man salary.  Some of your neighbor's kids must have built
+the bulky snowman that warmly greets passerby.  You're exactly the type of
+person they would want to stay away from, you dirty stripper.
+
+You can move north, west, up and in.
+
+>You move in.
+The Red Bull Tavern
+Welcome to the Red Bull Tavern, a nice establishment that you sometimes
+frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
+drinks on the house in thanks for your rent.  The atmosphere here is always
+friendly, if somewhat darkly lit.  "What the hell are you doing in my
+establishment without any pants on?" Nick roars, "Get out of here!"
+
+Also here is A Jukebox Machine.
+
+Nick is here.
+
+You can move up and out.
+
+>(Your score has increased by 1)
+You take a quarter from your pocket and pop it into the machine.  An old
+classic,  "One" by Filter starts drifting through the air and you return to a
+seat at the bar.
+
+>(Getting off the Stool first)
+You move up.
+Your Apartment
+This is your apartment.  Clothes are stewn about the floor.  Your couch, the
+best friend you have besides Ruth, looks inviting.  The light from your fish
+tank illuminates your computer desk and the coffee table.  A TV sits
+unplugged in one corner.  You're a rip snortin' hottie, woof!
+
+You can move down and out.
+
+>You take Fish Food Container from Your Coffee Table.
+
+>You open Fish Food Container.  Tiny Fish Food Pellet is inside Fish Food
+Container.
+
+>You take Tiny Fish Food Pellet from Fish Food Container.
+
+>You open Your Massive Fish Tank.
+
+>(Your score has increased by 1)
+Your fish happily gobble the pellet up.  You receive a warm feeling of
+self-satisfaction.
+Your Apartment
+This is your apartment.  Clothes are stewn about the floor.  Your couch, the
+best friend you have besides Ruth, looks inviting.  The light from your fish
+tank illuminates your computer desk and the coffee table.  A TV sits
+unplugged in one corner.  You're a rip snortin' hottie, woof!
+
+Also here is Fish Food Container.
+
+>You move down.
+The Red Bull Tavern
+Welcome to the Red Bull Tavern, a nice establishment that you sometimes
+frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
+drinks on the house in thanks for your rent.  The atmosphere here is always
+friendly, if somewhat darkly lit.  "What the hell are you doing in my
+establishment without any pants on?" Nick roars, "Get out of here!"
+
+Also here is A Jukebox Machine.
+
+Nick is here.
+
+You can move up and out.
+
+>You move out.
+Outside Of The Red Bull Tavern - Arlington, VA
+You stand on the sidewalk outside of the bar you live above.  It's in a nice
+section of town and it's only temporary until you find an apartment you can
+afford with your G-Man salary.  Some of your neighbor's kids must have built
+the bulky snowman that warmly greets passerby.  You're exactly the type of
+person they would want to stay away from, you dirty stripper.
+
+You can move north, west, up and in.
+
+>You move north.
+In Front Of FBI HQ - Washington, D.C.
+You're standing on the sidewalk outside the J. Edgar Hoover Building in
+Washington, D.C.  Christmas lights line the buildings as snowfall gently
+continues to layer the streets.  Well kept during the tourist season, you
+wonder if you'll be able to hail a taxi.  You feel drawn to the parking
+garage for some reason.  Maybe it's just the cold.
+
+Volunteer is here.
+
+You can move north, east, south, in and southwest.
+
+>
+>You move southwest.
+Outside John Doggett's House -  Falls Church, VA
+You stand on the sidewalk outside John Doggett's house.  Snow is still gently
+falling on the street.  The lights are on, so someone must be home.
+
+You can move east and northeast.
+
+>(Your score has increased by 25)
+Hesitantly, you knock on the door.  After a moment's delay, John Doggett
+answers the door.  Albeit older now and shorter by your changed perception,
+he's still the same man who used to bring you candy when you were a kid.  He
+studies your face as you hold your badge up to identify yourself.  Without
+even glancing at your badge, Doggett recognizes who you are and grabs you in
+a bear hug.  "Nathan . . . it's really you!  God, you look just like . . .
+him."  You return the embrace before Doggett pulls you inside.  "This is
+dangerous,"he comments before shutting the door.
+
+>You move out.
+Outside John Doggett's House -  Falls Church, VA
+You stand on the sidewalk outside John Doggett's house.  Snow is still gently
+falling on the street.  The lights are on, so someone must be home.  You're
+glad to know that you'll always have a safe haven with John Doggett.
+
+You can move north, east, in and northeast.
+
+>You move northeast.
+In Front Of FBI HQ - Washington, D.C.
+You're standing on the sidewalk outside the J. Edgar Hoover Building in
+Washington, D.C.  Christmas lights line the buildings as snowfall gently
+continues to layer the streets.  Well kept during the tourist season, you
+wonder if you'll be able to hail a taxi.  You feel drawn to the parking
+garage for some reason.  Maybe it's just the cold.
+
+Volunteer is here.
+
+You can move north, east, south, west, in and southwest.
+
+>You move west.
+Outside The Lair Of The LGM - Washington, D.C.
+You stand at the bottom of a stairway located inconspiciously next to a
+nicely kept suburban house.  A camera records your movement as you note how
+well worn the steps are.  The door looks innocent enough until you note that
+it has been tampered with to provide extra security.  Don't strip here, this
+isn't the type of place it seems.
+
+Also here is VW Van.
+
+You can move east and south.
+
+>(Your score has increased by 25)
+Peering closely into the lens of the video camera above the doorway and
+grinning, you hear an audible click from the locks on the doorway.  Funny
+they should leave you in after just seeing your face.
+Lair Of The LGM
+This is the private operating layer of the LGM News Service, printers of the
+infamous Magic Bullet Digest.  A network of computers fills the room.
+Shelves, boxes, and wires incorporate the rest.  The sight of their coffee
+machine gives you a nauseous feeling.
+Langly is here.
+
+Byers, Frohike and Skinner are here.
+
+>(Your score has increased by 10)
+Thinking back on the events of the last few hours, you decide to call Ruth.
+You speedial and wait for her to pick up.  "Hello."  "Hey, Ruth, it's me.
+Did you get in okay?"  "Yeah, how'd your meeting go?"  You relate the events
+to her in full detail.  "I'm not sure what to tell you to do."  "I'll keep in
+touch.  And hey, have a nice Christmas." "You too, Mulder."  She hangs up.
+
+>You open Neatly Wrapped Gift.  Inside Neatly Wrapped Gift is Your Gun and
+Alien Keychain.
+
+>You take Your Gun from Neatly Wrapped Gift.
+
+>You move out.
+Outside The Lair Of The LGM - Washington, D.C.
+You stand at the bottom of a stairway located inconspiciously next to a
+nicely kept suburban house.  A camera records your movement as you note how
+well worn the steps are.  The door looks innocent enough until you note that
+it has been tampered with to provide extra security.  Don't strip here, this
+isn't the type of place it seems.
+
+Also here is VW Van.
+
+You can move east, south and in.
+
+>(Your score has increased by 25)
+You open the door on the passenger side of the van, surprised to find it
+unlocked, and roll down the window.  The boys are not far behind and Byers
+takes the driver's seat beside you.  Langly grumbles something about you
+taking shotgun, but Skinner yells at him to shut up.
+
+Byers starts the motor and your 3,000 mile journey to Oregon begins.
+
+  You're now in Indiana.  The weather has taken a turn for the worse and it's
+pelting the windshield as Frohike drives.  You think you'll lie down for a
+bit.
+
+You've passed through Illinois, Iowa, Nebraska (Langly's home state, you're
+surprised to hear,) and are currently travelling through Wyoming.  You wonder
+if your parents traveled this same route in their travels to Bellefleur.
+
+You're exhausted after driving the last eight hours into Oregon, finally
+reaching your destination of Bellefleur.  You might have been here much
+sooner had Byers not gotten you lost with his misguided map reading.
+Fortunately, Skinner took over and got you to this small, backwater town.
+Stopping at a small hotel, everyone exits the vehicle to stretch their legs
+and groan about their sore muscles.  You laugh at this but the Gunmen glare
+at you in return.  Skinner goes inside to get a room and you help the Lone
+Gunmen unload the van and set up computer equipment in the room.  In
+retrospect, the cheesesteaks were good.
+
+>You move east.
+In Front Of FBI HQ - Washington, D.C.
+You're standing on the sidewalk outside the J. Edgar Hoover Building in
+Washington, D.C.  Christmas lights line the buildings as snowfall gently
+continues to layer the streets.  Well kept during the tourist season, you
+wonder if you'll be able to hail a taxi.  You feel drawn to the parking
+garage for some reason.  Maybe it's just the cold.
+
+Volunteer is here.
+
+You can move north, east, south, west, in and southwest.
+
+>You move north.
+Davis Storage Warehouse - Baltimore, MD
+You stand outside the garage that the warehouse key indicated.  Nothing seems
+out of place.    You can use the warehouse key to enter the building.
+
+You can move south and in.
+Your legs are sore.
+
+>You move in.
+Alan Dale Motel - Bellefleur, OR
+This is the Alan Dale Motel.  There's a small counter here against the wall,
+but no one in sight.  There's a stairway here.
+
+You can move up and out.
+
+>You move up.
+Room 8
+This is the small room you and the Lone Gunmen are renting while you stay in
+Bellefleur.  Fully outfitted with computer equipment, you wonder how long
+this will last.  At least the window offers a nice view of the town.
+
+Also here is A Folding Table and A Phone Book.
+
+You can only move down.
+
+>(Your score has increased by 1)
+Always the rebel, you mock Langly sarcastically as you pet his computer.  He
+comes at you from across the room.  "Hey man, what the hell do you think
+you're doing?!!"  Skinner tries to grab him but he's too fast and shoves you
+hard on the shoulders.  He pushes you harder then you anticipated and you
+stumble backwards over a computer wire.
+
+SMACK!
+
+You wake up with a bag of ice on your head.  Skinner and the Lone Gunmen peer
+down at you, worried.  Frohike is yelling at Byers, "Man, punkass.  If Scully
+ever hears you did this, she's going to kick your ass."  Skinner shuts them
+up. "I think he's coming around.  Nathan, do you hear me?"  Your head is sore
+but you nod.  They help you out.  Langly moves to other side of the room.
+
+>(Your score has increased by 1)
+The Lone Gunmen decide to call it quits for the day.  Your lodgings are
+decided first.  "The kid's sleeping on the floor," Langly declares.  Skinner
+says, "I've got the recliner."  Frohike states, "We'll take the bed then, I
+guess."  Skinner kills the lights and the only illumination left in the room
+comes from the labtop on the folding table.
+ "'Night, Narc, Hippie Jerk."
+"Goodnight, Langly.  Goodnight, Frohike."
+"'Night Punkass.  Goodnight, Byers.  'Night Will, 'Night Skinman."
+"Don't call me that.  Shut the hell up.  Good night, everybody."
+The night passes peacefully enough save the snoring of the old men in the
+room with you.  You drift in and out of sleep.
+
+>You pick up the Phone Book.
+
+>You open the Phone Book.
+
+>(Your score has increased by 1)
+You search through the phone book for the name but it must be unlisted.
+Doesn't anyone in this damn community have a telephone?
+
+>(Standing up first)
+You move down.
+Alan Dale Motel - Bellefleur, OR
+This is the Alan Dale Motel.  There's a small counter here against the wall,
+but no one in sight.  There's a stairway here.
+
+You can move up and out.
+
+>You move out.
+Outside Alan Dale Motel - Bellefleur, OR
+You're standing outside of a small motel.  The place is worn down but seems
+well kept.
+There is a man sitting in a dark car here.
+
+You can move north, east, west and in.
+
+>You move north.
+Town Square - Bellefleur, OR
+Welcome to Bellefleur, Oregon, the place your parents worked their first and
+last case together as partners in the FBI X-Files Division.  This is main
+street.  The town is very old-fashioned.  Throughout town, there's a post
+office, a hardware store, and a small diner.  There's a sheriff office here
+as well.
+
+Also here is VW Van.
+
+You can move east, south, west, northeast, southeast, southwest and
+northwest.
+
+>You move southeast.
+Outside Dean's Diner - Bellefleur, OR
+You stand outside of Dean's Diner, an ode to old times.  The place seems like
+something you've seen in old magazines.  You can see that this diner has been
+here for a very long time.
+
+You can move north, west, in and northwest.
+
+>You move in.
+Dean's Diner
+This is Dean's Diner.  It's decorated with memorabilia from the mid-twentieth
+century.  There's a trendy checkered theme with the flooring and the
+furniture here.  You can hear and indistinct song from the era playing in the
+backround.
+
+Also here is A Buzzer.
+
+You can only move out.
+
+>(Your score has increased by 10)
+Your incurable curiosity gets the better part of you again and you reach out
+and push the buzzer.
+
+>You move out.
+Outside Dean's Diner - Bellefleur, OR
+You stand outside of Dean's Diner, an ode to old times.  The place seems like
+something you've seen in old magazines.  You can see that this diner has been
+here for a very long time.
+
+You can move north, west, in and northwest.
+
+>You move northwest.
+Town Square - Bellefleur, OR
+Welcome to Bellefleur, Oregon, the place your parents worked their first and
+last case together as partners in the FBI X-Files Division.  This is main
+street.  The town is very old-fashioned.  Throughout town, there's a post
+office, a hardware store, and a small diner.  There's a sheriff office here
+as well.
+
+Also here is VW Van.
+
+You can move east, south, west, northeast, southeast, southwest and
+northwest.
+
+>You move northeast.
+Outside Arroway Hardware Store - Bellefleur, OR
+You stand outside of the only legitimate shop left in Bellefleur and it seems
+to be doing remarkably well.  The newer concrete building seems to dwarf its
+forgotten neighbors.  Wheelbarrows lean against the outside of this building.
+
+You can move south, in and southwest.
+
+>You move in.
+Arroway Hardware
+This is a small town hardware store that has recently been renovated.  Rows
+and rows of hardware equipment make up the shelves that line the walls.
+There's a counter here, too.
+
+Arroway is here.
+
+>(Your score has increased by 25)
+You take the directions from Mr. Arroway and note them mentally.
+
+You hear a ringing in the establishment and realize that it's coming from
+your cell phone.  You take it from your inventory and put it to your ear.
+"Mulder," you say.  It's Frohike.  "Hey, Mulder, watch your ass, you've got a
+bogey."  "What?" you ask.  "Punkass, you haven't got any time to waste.
+There's someone following you.  He's parked outside and we're tracking him."
+He continues, "Did you find out where they're at?"  You tell him about the
+suspicious directions.  "Alright, we're meet you where you're at."  You tell
+him you're at the hardware store.  "We'll be right there.  Wait, then come
+out.  Get in the van as soon as you're outside.  Don't do anything stupid,
+Mulder."  He hangs up.
+
+>You move out.
+Outside Arroway Hardware Store - Bellefleur, OR
+You stand outside of the only legitimate shop left in Bellefleur and it seems
+to be doing remarkably well.  The newer concrete building seems to dwarf its
+forgotten neighbors.  Wheelbarrows lean against the outside of this building.
+
+Also here is VW Van.
+Langly is here.
+
+Frohike and Skinner are here.
+
+You can move south, in and southwest.
+
+>(Your score has increased by 25)
+The man in the dark car watches you silently as you climb in the van.  Langly
+slams the door shut and Frohike wheels out of the parking lot.  You give the
+directions to Skinner.
+
+Reading over the directions, Skinner directs Frohike on the route to take
+north of Bellefleur.  You continue into the night until Langly spots the
+orange "X" on the highway that the last direction denotes.  Frohike drives
+past it to pull over and the van appears to die as he does so.  The van
+drifts to a stop.  Frohike smacks the driver's wheel with his palms.  "Shit!"
+ "No," you say.  "Mulder and Scully experienced the same thing on their first
+trip to Bellefleur."  Skinner remembers and confirms.  "Yeah, their car
+died.. and they lost nine minutes."
+
+>(Your score has increased by 10)
+
+Outside Arroway Hardware Store - Bellefleur, OR
+You stand outside of the only legitimate shop left in Bellefleur and it seems
+to be doing remarkably well.  The newer concrete building seems to dwarf its
+forgotten neighbors.  Wheelbarrows lean against the outside of this building.
+
+Also here is VW Van.
+Langly is here.   You notice a man sitting alone in a dark car.
+
+Byers, Frohike and Skinner are here.
+
+You can move south, in and southwest.
+Frohike looks to you and your companions and you all get out of the van.
+"Looks like we found the place, huh," Langly says aloud.  Byers is hugging
+himself.  "This is creepy," he says.  You draw your gun in agreement.
+
+>(Your score has increased by 25)
+Without notifying the Gunmen, you draw your gun, turn on your flashlight, and
+venture into the woods.
+Forest Clearing - Bellefleur, OR
+You stand in a small clearing made in the Oregon forest.  There's a small
+dwelling here that looks like a hunting cabin common to this area.  You feel
+like you're being watched.
+There's a soldier hidden in some foliage here.
+
+>The sentry, approaching you cooly and calmy, grips the barrel of his rifle
+and comes at you swinging the butt of the gun.
+
+You're prepared for the onslaught and manage to painfully deflect the first
+swing.  Unfortunately, you lost your gun deflecting the first blow, so you
+revert to your academy hand-to-hand combat training.  You knock the gun from
+the sentry's hands when you drop to the ground and knock his legs out from
+under him.
+
+Both on the ground, you scramble to deliver a knock out blow but he beats you
+to it and you hear the crack your nose makes as the sentry breaks it with the
+barrel of a pistol he produces from a sleeve.  You struggle for but lose
+consciousness.
+
+You wake up in a nicely furnished guest bedroom.  You are lying on a soft bed
+and there is cotton wadding up your nose.  You have a migrane that is
+disorienting you.    There's also a taped bandage around your nose that is
+tickling you.  You begin to sit up but someone pushes you firmly back down
+against the bed.
+
+You open your eyes.  Your vision is blurred at first, but begins to clear
+immediately.  There are two people standing beside your bed, looking down
+upon you.  One is a man, and one is a woman.  As your vision clears a little
+more, you are stunned to see the elusive figures you have been searching for
+the majority of your life.  Your voice sounds raspy and congested.  "Am I
+dead?" you ask.  Your mother is hardly containing tears, you're not sure if
+they are of sorrow or joy.  "No, William, you're not dead."  She sits down on
+the bed beside you.
+
+Your mind is overloaded with questions and thoughts.  Just now, you are
+content to study them.  Your mother is older now than she was the last time
+you saw her, but not remarkably changed.  However, you are enamored with your
+father.  It is as if you were able to open a portal and see what you would
+look like in forty years.  He looks tired and worn with endurance, but smiles
+at you.  It's a rare smile.  You're gaping.  "Hello, Will" he says, awed and
+nervous at the same time.  "Hi," you manage after some time.  Your mother is
+looking back and forth between the two of you.  "William," she says, bursting
+with emotion,  "Meet your father, Fox Mulder."  He looks down.  "I, uh, I'm
+sorry about . . . so many things."  You stop him.  "Dad," you say, having
+wanted to call someone that all your life.  You wait until you get his
+attention, "It's okay.  You'll make me understand."  He looks back up at you,
+surprised that you're not angry at him.  He searches your face for resentment
+and finds none.
+
+"There's so much we need to explain to you, son," your mother says.  Frohike
+comes to mind.  "There were guys with me, four of them, what --"  "They're
+upstairs, they're all okay, they're old friends of ours," your mother tells
+you.  "They're much safer with us now.  I wish I could say the same about
+you."  You look to your mother to explain and turn to your father when she
+doesn't.  He meets your gaze.  "You're a threat to them, Will, because of
+what you are --"  "Exactly what am I?  I keep hearing that, but no one tells
+me."  "You're naturally immune to their virus, Will, the one they plan to use
+for colonization.  You were born that way.  Because your mother and I had
+both been experimented on, vaccinated against the viruses ourselves.  You're
+naturally immune, though."  He paused, allowing it to sink in.  "Each of us
+is born with dormant DNA in our genetic makeup, extra material that seemingly
+has no place.  Your dormant DNA  can be activated and that gives you some
+dangerous potential to them.  We're not even sure what you're capable of."
+You stare at him speechless.  "Upon encountering an alien artifact during a
+case, I began experiencing headaches.  They got worse and worse.  Very
+quickly, I had developed telepathic abilities.  I had also become deathly ill
+and unable to communicate.  The dormant DNA I mentioned, had become
+activated, but at such a frantic frenzy, that it was killing my body.
+Cancerman was after what I had and had surgery performed to remove part of my
+brain.  We're not sure what really took place.  Since, I have experienced
+problems related to the procedure and what took place."  You notice your
+mother grip his hand a little tighter.  "It was very important that we
+protect you from the people who might do the same to you.  But that's blown
+and they've located us now."   You are stunned.   "I led them straight to
+you."  You feel guilt and remorse.  "Not willingly, Will," your mother says.
+"They didn't give you a choice, and they would have killed you if you
+didn't."
+
+"What now?" you ask.  "Stay.  Train with us.  Help the Resistence the way
+only someone like you can.  You may save us all if you do.  I'd like to tell
+you that you could go back if you'd like, but you can't.  They'll kill you."
+Your mother looks at you.  "Do you believe in fate?" she says.  "Only when I
+want to," you say.
+
+>"I'm not sure how I should feel saying this, Nathan, to be glad you've grown
+to be such a strong and smart young man, or to be sad that I can't protect
+you anymore.  Either way," your father says as he extends his hand to you,
+"Welcome to the Resistance."  You smile without knowing why as you grip it in
+return.

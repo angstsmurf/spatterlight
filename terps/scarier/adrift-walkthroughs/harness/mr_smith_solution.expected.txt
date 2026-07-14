@@ -1,0 +1,156 @@
+Loading game...
+
+The Search for Mr. Smith
+A few things to remember while you are playing this game:
+
+- If you run into an ally, always use this format: Ask [name of character]
+about [subject]. It would be a good idea to ask them about himself or
+herself.
+-Anything you ask a character must be in one word, i.e., you wouldn't be able
+to ask that person "how are you".
+-If you get stuck, try different things. This game isn't impossible, and most
+items have a use.
+-To check your status or the status of anyone else, type status (if it's
+another person include thier name). The number in parentheses is the maximum
+for that quality, and the number before it is your current. The present
+number can outnumber the current if you are wearing body armor or carrying a
+weapon.
+-It's a good idea to check the status of an enemy before engaging in battle.
+If their attack force is stronger than your defense, you will take damage. If
+your stamina reaches 0, you will die.
+-You can only carry so many objects at a time.
+
+Sit back and enjoy the game!
+
+You hear your radio beep.
+The voice on the other end says:
+
+"This is your officier, Mr. Jones
+
+Welcome to the mansion.  The reason you have been sent here is  to
+investigate a missing person, Mr. Smith- the owner of this mansion. We don't
+know what happened to him but he disappeared a few days ago. He was supposed
+to show up for a police board meeting but never did. We were unable to
+contact him anywhere, and his family members and friends said they didn't
+know what happened to him. Well, we are sending you to find him and see if he
+is okay, gumshoe. He has a bad leg and he might have fallen and is unable to
+get up.
+Over and out"
+
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+The Hall
+This is the back enterence to the house. It is where you begin your
+adventure.
+
+>
+>You move north.
+The Lobby
+After waking the length of the hall you come to the lobby.
+
+>You move east.
+Study
+Here is the study. Many papers lay about it, and a fire burns in the
+fireplace.  It appears that someone in a hurry has been here recently.
+
+Also here is a fireplace poker and Colt .45 pistol.
+
+>You pick up the fireplace poker.
+
+>You move west.
+The Lobby
+After waking the length of the hall you come to the lobby.
+
+>You move west.
+Library
+This is the Library. Many bookcases cover its walls.
+
+>(Your score has increased by 5)
+As you use the poker to pry open the bookcase, it falls to the floor
+revealing a secret passage.
+
+>You move down.
+Dungeon
+Accesed through the secret passage, the dungeon is several layers below
+ground. You can hardly see anything. You may not want to go any further
+unless you acquire a source of light.
+
+Also here is straw torch.
+
+>You pick up straw torch.
+
+>You move up.
+Library
+This is the Library. Many bookcases cover its walls.  A bookcase has fallen
+to the floor revelaing a secret passage.
+
+>You move east.
+The Lobby
+After waking the length of the hall you come to the lobby.
+
+>You move east.
+Study
+Here is the study. Many papers lay about it, and a fire burns in the
+fireplace.  It appears that someone in a hurry has been here recently.
+
+Also here is Colt .45 pistol.
+
+>(Your score has increased by 5)
+The torch sparks into flame
+
+>You move west.
+The Lobby
+After waking the length of the hall you come to the lobby.
+
+>You move up.
+Upper Lobby
+After climbing the stairs from the lobby,  you emerge into the second floor
+lobby.
+
+>You move east.
+Bathroom
+Ugggh, this bathroom hasn't been cleaned in ages, so it seems. There is a
+horrible stench and many muffled noises coming from behind the shower
+curtain.
+
+>(Your score has increased by 5)
+A girl is tied up behind it!!!!
+
+>(Your score has increased by 5)
+The girl is now untied and is free to talk.
+
+>You move west.
+Upper Lobby
+After climbing the stairs from the lobby,  you emerge into the second floor
+lobby.
+
+>You move down.
+The Lobby
+After waking the length of the hall you come to the lobby.
+
+>You move west.
+Library
+This is the Library. Many bookcases cover its walls.  A bookcase has fallen
+to the floor revelaing a secret passage.
+
+>You move down.
+Dungeon
+Accesed through the secret passage, the dungeon is several layers below
+ground. You can hardly see anything. You may not want to go any further
+unless you acquire a source of light.   Now that the torch is lit, you can
+see about the room.
+
+>You move north.
+Courtyard
+An erie courtyard sits at the middle of the mansion. You stare up at the sky
+and take a deep breath. It is the middle of the night. Now you take notice of
+your surroundings.
+
+>(Your score has increased by 5)
+You drink some of the water from the fountain, and almost immediatly you feel
+stronger.
+
+>Your score is 25 out of a maximum of 100.  (25%)
+
+>Do you really want to quit? [Y/N]

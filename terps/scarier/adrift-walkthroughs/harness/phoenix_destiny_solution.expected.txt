@@ -1,0 +1,220 @@
+Loading game...
+
+Phoenix Destiny: Book One
+ETERNAL ADRIFTWARE PRESENTS...
+
+A GAME BY CHRIS TYSON
+
+PHOENIX DESTINY: BOOK ONE
+
+Welcome to Phoenix Destiny, Book One. This is a story about the greatest
+legend ever told about, named Player, who is sent on a quest to save
+existence...
+Press any key to start the story
+
+Town of Azeroth - Midnight, 31st of December, 1235
+
+You are standing at the peak of a mountain, freezing, and a large red phoenix
+is standing before you.
+
+press any key to continue
+
+"Who are you," you ask promptly. You have no idea how you got here, last you
+remember you were sleeping with your spouse. You back away in fear that the
+phoenix may be hostile.
+
+press any key to continue
+
+A gust of wind makes a large tree sway, sounding like it may snap at any
+moment. "I am Kilik. You are the one the prophet's described. You will save
+existence," speaks the phoenix in a deep commanding voice.
+
+press any key to continue
+
+"What, what do you mean I will save existence?" you stutter. You are quite
+shocked and think you must be halucinating. The tree sways again in the wind,
+this time more violently.
+
+press any key to continue
+
+"You will save existence, you will save me from dying," replies the phoenix.
+The tree sways yet again, and a large branch flies off and collides on the
+dusty ground.
+
+press any key to continue
+
+"Why will I save you from dying?" you ask. You are feeling nautious,
+everything seems so real. "What will happen if you die?" you begin to yell.
+
+press any key to continue
+
+"I am the god of existence, and if I die, time will stop and nothing would of
+ever existed. Each god of existence lives for one mellenium, but there are no
+more gods to take my place. I am now 999, and I shall die in one year,"
+replies the phoenix.
+
+press any key to continue
+
+"I don't believe you," you yell. "I am just imagining this," you think to
+yourself. The tree gets pulled out of the ground with the immense force of
+the wind and topples on it's side.
+
+press any key to continue
+
+You turn around and look at the tree on the ground. "What are you looking
+at?" asks the phoenix. "Didn't you just see that tree get ripped out of the
+ground?" you ask. "What tree?" the phoenix asks calmly. "That tree right over
+there!" you point in the direction of the tree. "I don't see anything, was
+there a tree there?" asks the phoenix now sounding even more confident in
+himself. You turn around to where the tree should be, but in it's place is
+just flat ground. "But I just saw a tree get ripped out of the ground by the
+wind, and it fell over there!" you yell in astonishment. "I don't think that
+tree ever existed," says the phoenix again.
+
+press any key to continue
+
+You turn towards the phoenix in astonishment, and then back to where the tree
+was. "H-h-how did you do that?" you stutter. "I mearly made it exist," says
+the phoenix. "Listen, I need you to take that amulet you are holding in your
+hand to a man named Opus, he recides at the top of Mount Yuko, a terrible and
+dangerous mountain," says the phoenix. You look down at your hand and see a
+large golden amulet, clenched between your fingers.
+
+press any key to continue
+
+"I was never carrying that," you yell out in awe. You now start to believe
+what the phoenix is saying, he is the god of existence, the tree was never
+there, and the amulet was. "Why must I take this amulet to Opus?" you ask.
+"Opus is the god of eternal life, and that amulet contains my soul. If Opus
+can make my sole live for eternity, then time will not perish along with me,"
+says the phoenix. "I must go now, just remember, fate is in your hands," says
+the Phoenix.
+
+press any key to continue
+
+He then dissapears before your eyes, and you wake up with a startle, back in
+bed.
+
+Please read the readme before playing.
+press any key to continue
+
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+Introduction
+Please type one of the following races:
+Human
+Elf
+Dwarve
+
+>You are now a human.
+
+>You are now a warrior.
+
+>You are now 180 centimeters tall.
+
+>You now weigh 80 kilograms.
+
+>You are 25 years old.
+You may now embark on your quest, but remember, there are many dangers
+awaiting you...
+
+>You move west.
+Outside Of Your Hut
+You are standing outside of your hut, which is to the east. A large oak tree
+dominates most of your property, and casts a large shadow across the road
+which leads west. Another small dirt path veers off to the southeast, which
+heads down to a small stream. The sun is shining in the sky.
+
+You can walk east, west and southeast.
+
+>You move southeast.
+By The Stream
+You are standing at the end of the path by a quiet running stream. The water
+is crystal clear and has a few pebbles lying at the bottom. Across the stream
+is a large paddock which is owned by your neighbour. The sun is shining in
+the sky. (to drink the water type drink water)
+
+You can walk northwest.
+
+>You kneel down on the ground and scoop up some water in your hand and drink
+it. It tastes lovely, very refreshing.
+
+>You move northwest.
+Outside Of Your Hut
+You are standing outside of your hut, which is to the east. A large oak tree
+dominates most of your property, and casts a large shadow across the road
+which leads west. Another small dirt path veers off to the southeast, which
+heads down to a small stream. The sun is shining in the sky.
+
+You can walk east, west and southeast.
+
+>You move west.
+At The Front Gate
+You are standing at the front gate of your house. A small wooden mailbox with
+the number 4 painted on it sits to the side of the road. The gate is made out
+of a few wooden planks and a latch. The dirt road goes east back to your hut
+and west onto the main road towards the city. The sun is shining in the sky.
+
+You can walk east and west.
+
+>You move west.
+The Main Road
+You are standing on the main road, which goes north to the mountains and
+south to the town of Azeroth. To the east of you is your front gate. Lovely
+flowers line the side of the road and the thick forest trees cast a lovely
+shadow across the grass. The sun is shining in the sky.
+
+You can walk east.
+A man walks by carrying a sack of food he bought from the town.
+
+>You start walking down the road, which heads to the town of Azeroth. Along
+the way you admire the great pine forest which runs for miles down the main
+road. The occasional villager walks by carrying a sack of food he bought from
+town. About 20 minutes later you finally arrive near the town.
+
+>You move south.
+Idan Road - Northern End
+You are standing at the northern end of Idan Road, a busy street full of
+villagers and shops. The road is made out of large stone slabs. To the east
+of you is the towns armoury, which is open from 6:00 - 20:00 and to the west
+is the towns blacksmith, which is open 7:00 - 20:00. The road continues south
+and north. The sun is shining in the sky.  Many people walk down the streets
+looking through shop windows.
+
+You can walk north and south.
+
+>You move south.
+Idan Road - Middle
+You are standing in the middle Idan Road, which is surrounded by shops and
+villagers. To the west is the Tavern, which is open from 9:00 - 24:00 and to
+the east is Madam Karlan's Potion Store, which is open from 12:00 - 14:00.
+The road continues north and south. The sun is shining in the sky.  Many
+people walk down the streets looking through shop windows.
+
+You can walk north and south.
+
+>You move south.
+At An Intersection
+You are standing in the middle of an intersection, which heads north, south,
+east and west down the long stone roads. The sun is shining in the sky..
+Many people walk down the streets looking through shop windows.
+
+You can walk north, east, south and west.
+A crying little boy runs by being pursued by his mother.
+
+>Date & Time
+Time: 7:36
+Date: It is the 1st of January, 1236 A.D
+
+>Vitals
+Energy Level: 283
+Food Level: 283
+Water Level: 213
+Stomach Capacity: 51 out of 200
+Alcohol Level: 0 out of 25
+
+>Wealth
+Gold: 100
+
+>Do you really want to quit? [Y/N]

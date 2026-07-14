@@ -1,0 +1,176 @@
+Loading game...
+
+The Cave of Morpheus
+[For information about this game, please type "credits". For instructions
+about how to play, type "instructions."]
+
+"So, it, like, always starts the same way. There's this bright sunlight
+pouring through the window, and I'm lying in my bed in Ionesco Hall, wide
+awake, but I can't get up! And the alarm clock is ringing...louder and
+louder...like thunder...horrible...
+
+In My Dorm Room
+My room's lit up by this sort of sickly light, and of course it's a total
+mess. Along with the alarm clock there's an old pizza box, a library book
+open to where I was reading it last night, at least one visible pair of dirty
+underwear...and the place seems incredibly small, this morning, almost like
+I'm in a dark  little cave under the earth, with the walls dripping quietly
+and the rest of the world a hundred yards up above my head. The door  is
+open, and there's a chily draft coming in through it from the stairwell to
+the north. Must be a cold front moving in...
+
+ When I  look over at the alarm clock, I notice that it's...ohmigod - 8:55
+AM!! But...but...my Western Civilizations exam is at nine! If I don't score
+at least a B on that thing, my ass is dust. Seriously - we're talking
+job-at-MacDonalds, disowned-by-parents, dead-in-a-gutter-at-age-twenty-five
+kind of trouble here. How could I have let this happen? I get hit by this
+huge wave of guilt and nausea, but I know I have to get out of bed, like,
+right away...
+
+Also here is a letter from mom and a library book.
+
+>(Getting off the old pizza box first)
+I move north.
+Outside of My Dorm Room
+It's awfully cold out here in the hallway. None of the other guys from my
+floor seem to be around. Perhaps they're at another one of those parties I
+never get invited to. There's a door that goes down to the first floor
+straight ahead.
+
+>I move north.
+At the Top of the Stairwell
+My room is on the top floor of the building - the stairs from here go down
+one floor to the courtyard. I'd better get a move on!
+
+>I move down.
+At the Bottom of the Stairwell
+An open  doorway here leads north in the direction of the courtyard. The door
+has apparently been removed. Some fellow inhabitant has puked on the tiles at
+the bottom of the stairs. Walking through this slippery little deposit does
+not add to the charm of my situation.
+
+>I move north.
+At the Back of the Courtyard
+Ionesco Hall's interior courtyard - or "quadrangle," as I've heard some
+pretentious upper-years call it - consists of four patches of low, slightly
+unkempt grass separated by narrow gravel paths. The paths lead northward to
+the hall porter's desk and east and west to two side entries to the building.
+The air here is cool, damp and feels sort of creepy, like marsh gas, against
+my naked skin.
+
+Nobody ever, ever walks on the grass here, for some reason. Pure
+superstition, I'm guessing. I mean, it's not like the hand of God is going to
+reach down and squash anyone who so much as bends a single blade of grass
+beneath his feet...
+Straight to the north there is a small, decorative fountain.
+
+>I move north.
+Beside the Fountain
+This is an  ugly ornamental fountain that some rich alumnus donated to the
+University back in the 'seventies. It's just a round concrete pool with flat
+black stones at the bottom and a short metal  spout sticking up from the
+middle, painted bright pink  and dribbling warm water slowly downward along
+its side. The thinly trickling sound of the water as it oozes down the spout
+makes me nauseous...and also gives me a curious feeling of inadequacy, for
+some reason.
+
+I think I  saw something moving in there! Just a little beneath the surface
+of the water...
+
+>I move north.
+At the Front of the Courtyard
+Here a broad wooden door stands open, leading northward to the main entrance
+to Ionesco Hall. Through the gloom of the building's main foyer can just
+barely see that the front door is open! I might just make it to that exam in
+time, if I really boot...
+
+>I move north.
+In the Foyer, By the Hall Porter's Desk
+Hanging up over my head on the back wall of the foyer is the University's
+crest, engraved on a thick sheet of  painted steel. To my right as I face
+toward the front door is a small, enclosed desk area where Lester Squeems,
+the aged Porter to Ionesco Hall, usually sits in a chair reading the paper
+and doing...well, whatever else it is that aged Hall Porters are supposed to
+do, I guess. He's not here today, though, and the door to his room behind the
+desk is shut fast.
+
+ Time's tight! The clock above his desk says 8:59! Must hurry! Must hurry!
+
+>I move north.
+On the Front Steps of Ionesco Hall
+The wind whistles disturbingly around me. I'm standing on the great stone
+staircase of Ionesco hall. Before me is the main street of the University
+campus - Purgebody Avenue, complete with its usual aroma of street vendors'
+hot dogs and its endless, faceless army of students, each  trudging,
+empty-eyed, toward who knows what destination. Curiously, they all seem to be
+traveling in one direction.  There are only two directions one can go from
+here - down the steps into the onrushing tide of humanity, some of whom have
+already begun to snicker at my visible nudity, and back into the welcoming
+gates of Ionesco hall. I wonder to myself for just a moment whether it's
+really so very important to me to take this freakin' exam after all...
+
+>
+
+As soon as I leave the grounds of the college I suddenly realize that I'm
+completely naked, and  in full view of the public. There's a crowd of people
+walking by, and of course I recognize every one of them. There's Bucky from
+my Russian Grammar class, peering up at me from under his filthy ballcap.
+There's that sexy redhead I see in the library sometimes, who's always
+talking on her cell phone. They all turn their heads at once to look at
+me...and then just keep moving down the street, with disgusted looks on their
+faces, as though they've just seen a dead bird or a mound of dog poo. God,
+the shame...
+
+Standing on Purgebody Avenue
+A few stray leaves and fast-food wrappers drift aimlessly amongst the parade
+of gloomy-looking undergraduates that marches in endless procession along
+this narrow street.
+Ohmigosh....through the dismal morning fog, I glimpse a hooded figure, making
+its way toward me with frightful, footless speed, and carrying a fearsome
+looking farming implement over its bowed and hooded head. Its face is hidden
+but there's no mistaking it - I'm being chased by Death himself!
+
+>I move north.
+Down a Moist and Unlit Alleyway
+Having managed to cross the sea of bodies I now need to head north to the
+classroom where my exam is taking place - straight down an alleyway between
+two nameless redbrick buildings. This narrow walkway is a well-known location
+for hazings, molestations and sordid rendezvous' on campus after dark. No
+time to be nervous now, though - the Grim Reaper is hot on my trail!
+
+Death drifts along the asphalt towards me, silent and precise in his
+relentless pursuit from the south.
+Death hits you.
+
+>I move north.
+Further Down an Increasingly Dank and Unpleasant Alleyway
+The light seems awfully dim here, given that it's supposed to be early
+morning. Far ahead I see through the morning fog the vague outline of
+something that looks like a huge, dark wooden door.
+
+Ugh - I just stepped on something soft and unpleasant. I look downward.
+
+Also here is a soft and unpleasant thing.
+
+Death drifts along the asphalt towards me, silent and precise in his
+relentless pursuit from the south.
+
+>I move north.
+Before the Great Wooden Door
+This is it - my classroom. If I can just get through this door before the
+9:00 AM bell sounds, I may be able to cheat Death - along with misfortune,
+humiliation, and the sort of flu you get from walking around the campus nude
+in a thick early-morning fog.
+
+Death drifts along the asphalt towards me, silent and precise in his
+relentless pursuit from the south.
+Death hits you.
+
+>I pull hard on the cold iron handle of the door and step forward into...
+
+Nothingness....
+
+...and then I'm falling...falling...
+
+[This ends the first part of "The Cave of Morpheus." To continue, please open
+the file entitled "tcom2"]

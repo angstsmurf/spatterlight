@@ -1,6 +1,9 @@
 
 
 north
+look
+attack cat
+look
 attack cat
 eat cat
 take cat fur
@@ -14,6 +17,9 @@ push button
 open door
 west
 west
+attack human
+look
+look
 attack human
 eat human
 remove cat fur

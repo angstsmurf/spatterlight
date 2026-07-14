@@ -1,0 +1,40 @@
+Loading game...
+
+Quest for Flesh
+[WARNING:  CONTAINS GRAPHIC VIOLENCE SUBJECT MATTER]
+
+Halloween morning, you woke up lying face down in the trash of an alley.
+Vague memories of last night's drinking binge and your upset stomach the only
+reminders of how you got there.  Painfully thinking about the previous
+evening, you remember dancing with a hot chick and taking her back to your
+apartment.  Alone with the girl, you settle in for some fun.  Hopefully it is
+a bad dream... You remember turning down the lights as she sidled up to the
+bed.  It must have been the dim light, but you swore her skin went greyish.
+And then there were those yellowed, crooked teeth.  Blood everywhere.  She
+screamed.  But then you remembered that was you screaming before you blacked
+out... and woke up here...
+
+An Alley
+This is an alley fifteen feet wide between two multi-story brick buildings to
+the east and west.  The alley dead-ends to the north and opens up onto a
+street to the south.  The city is oddly quiet and there is no movement of
+air.
+
+Next to the brick building stands a green dumpster.  A large pile of plastic
+trash bags and newspapers sits across from the dumpster.
+
+>(Your score has increased by 5)
+Sifting through the trash, a thin man scrambles to escape your search.
+However, you catch him by the shoulder and throw him down.  Before you know
+it, you are having the most savage of lunches.  Your hunger decreases
+significantly.  When you are done, you feel your hunger returning...
+
+Your stomach growls with hunger.
+
+>Eat what cat?
+
+A sharp pain in your stomach indicates your hunger.
+
+>Your score is 5 out of a maximum of 10.  (50%)
+
+>Do you really want to quit? [Y/N]

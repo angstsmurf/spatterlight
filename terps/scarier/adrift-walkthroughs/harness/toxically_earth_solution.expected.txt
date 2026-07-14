@@ -1,0 +1,54 @@
+Loading game...
+
+RON: TOXICALLY EARTH
+
+#1
+type down to continue!
+
+There is an exit down.
+
+>I move down.
+#2
+Hi, I am Hevlop, a friend of the Alien #, shit, I forgot his name.... ok, the
+blue planet has bad times now. Some poisened gases went around the world and
+now, it`s only an ill planet, maybe a dead planet soon.   press down to
+continue!
+
+There is an exit down.
+
+>I move down.
+#3
+press down to continue!
+
+I can only move down.
+
+>I move down.
+#4
+press down to continue!
+
+I can only move down.
+
+>I move down.
+Jail
+You are in the jail.... you can see a key, but you can`t reach it. There is a
+keyhole in the cage.
+
+>Hey, who has given this hint to you? Ok, I can go east now.
+
+>I move east.
+Room of the spacerabbit
+Hm... a very big branch is here... and the door is protected by a magic wall.
+
+>No... it`s too big. I can`t take it.
+
+>I found a hidden bell in the bottom...
+
+>The spacerabbit appears: "Hey, Knoffel.... just follow me! Go north!"
+
+>I move north.
+End
+RON-TIME ERROR AT PORT 32390329............... please type down!
+
+>Thanks for playing RON: TOXICALLY EARTH
+This is one end of the game - but you can find any more endings... please
+play again..... ------------ TOBIAS SCHMITT:  www.tobi-as.de.vu

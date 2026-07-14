@@ -1,0 +1,242 @@
+Loading game...
+
+Introduction
+
+Silk  Road  Secrets
+
+(Samarkand to Lop Nor)
+
+by C.Henshaw
+
+For many days, you have been trudging across the torso of the world - through
+the cradle of civilization in old Babylonia and Chaldea, across the great
+Black Desert of Khurasan, and now into the Transoxanian territory of the Khan
+of Samarkand. Thousands of miles of paved road, dirt track, unmarked desert
+navigable only by the stars, mountain path and river bank have finally
+brought you here - to the city of a man who summoned you to arrive on this
+day, at this very hour.
+
+You are known as Beghram of Tokharia, born 25 years ago in the secluded Hindu
+Kush, and exiled from said homeland at the age of fifteen. In actual fact you
+are Beghram of Nowhere, due to complicated tribal intrigues and foriegn
+influences on the politics of Tokharia. In the intervening decade you have
+become skilled at seeking occupation in the mercenarial and protection
+trades, ultimately in search not of fortune (although, if successful, that
+would be an inevitable side-effect), not even your honour (that also will
+come) - but for restitution with your homeland, your tribe, and your
+scattered family.
+
+You left a lucrative position as head bodyguard of a Persian diplomat
+stationed in Damascus - the promised rewards for this as-yet-unexplained
+mission in Transoxania far surpassing any career you may have squandered by
+leaving your post. By horse, by camel, and on foot you wasted no time getting
+to these gates, which stand in front of you wide open, beckoning you to come,
+enter and begin.
+
+Press any key
+
+On first play, type 'info'.
+
+Marketplace
+A paved road leads from the Pamir, or Southern Gate to the main martketplace
+of Samarkand's shakhristan, or inner city. Aligned in orderly rows in some
+areas, higgledy-piggledy in others, a multitute of stalls with goods for sale
+or exchange surround you. Hundreds of people bustle around the square buying
+goods, pulling laden donkeys, minding tethered livestock, hawking chickens or
+silks or radishes - a normal busy market day . Music from entertainers and
+smells from living beings as well as cooked food fills the air.
+
+All you can think about is the offer of the Khan.
+
+Once you are orientated, you realise that there is a steep ramp to the east,
+leading to the high citadel. Pillars of brick and a high dome indicate the
+Khan's palace which towers above the fortification wall that surrounds the
+city.
+
+>This game has been reduced to three rooms for the ADRIFT Intro Comp, 2005.
+Eventual completion of this game (to be the first of two parts) is expected
+sometime this year. Type 'map' to bring up the Silk Road map, included simply
+for the curious.
+
+>You move east.
+Citadel
+From the top of the citadel, the city of Samarkand stretches out in front of
+you, famed for its academics, craftsmen and cosmopolitan nature. It is also
+fiercely independent by nature, although the Khan is a nominal vassal of the
+Caliph at Baghdad. In the middle distance the white dome of the Mosque, and a
+carpet of green trees and gardens nearly hide most of the low mudbrick
+buildings in the shakhristan.
+
+Beyond the walls of the city, the steppe flows to a distant, shimmering
+horizon past an irregular patch of green irrigated fields alongside the river
+Zarafshan that flows nearby. The mountains to the south draw your eye, but
+you must turn away from them for a short while longer.
+The armoured guards, obviously recognising you by your Tokharian warrior
+attire, and aware of your arrival at this hour on this day, move aside to let
+you pass into the Great Hall.
+
+The palace is plastered brick and stone, with wall coverings intricately
+carved and frescoed with traditional geometrical and floral designs
+surrounding scenes of the hunt dating back to earlier Persian traditions. The
+Great Hall is dark and cool, a welcome relief from the searing heat of the
+city.
+
+A short, stocky man who is obviously the Khan of Samarkand, steps off a dias
+at the end of the room and eyes you fixedly.
+
+'Young Beghram of Tokharia - I see you obey my summons...'
+
+And so begins the courtly exhange of greetings and rejoinders, both of you
+speaking in Persian, the lingua franca. Eventually the Khan gets down to
+business, and lowering his voice, commands you to swear upon your life to
+undertake the mission to be requested, in exchange for an instrument you have
+been searching for this past decade. The Sword of Nismus, your ancestor.
+
+'As prophesied in the Quarum Sutra, this sword will do for you what returning
+my possessions will do for me.' You notice a tic in the Khan's dark eye - his
+intense gaze reminds you briefly of a madman you once encountered.
+
+The Khan holds out his hand, and a slave on bended knee hands him a long
+tassled scabbard. Your heart begins to pound, as for an instant you think
+this may be the fabled sword, seen by no man for a hundred years or more. But
+no, of course it isn't. Not yet.
+
+'You have shown trust by entering Samarkand unarmed. To demonstrate the
+sincerity of my mission, I give you my personal sword, the 'Jan-wa', won in
+battle at Khojand. This sword is Chinese crafted, but has certain, shall I
+say, characteristics that will come in useful to you. I will expects its
+return when I give you the Sword of Nismus.'
+
+The Khan holds the scabbard out to you.
+
+>You graciously accept the sword with two hands and bow to the Khan,
+disappointed, but grateful for a weapon at least.
+
+Suddenly the Khan reaches for the sword, grasping it in the middle between
+your two hands so that you cannot move it. Looking at you fiercely, he
+explains his mission in cryptic sentences.
+
+'I am in grave jeapordy. Not, perhaps, of my life, but of a fate similar to
+yours. These animals must be returned to me - and the blame for thier
+disappearance must be borne by the Hun tribe of the Issyk-Kul. Then I will
+give you what you rightly seek. Go soon Beghram of Tokharia. Do not delay
+here for even a day. Go to China.'
+
+You nod, suprised, as the actual mission to be undertaken should not have
+been revealed for at least three days, while the Khan devised various tests
+to assure himself of your honesty and loyalty whilst residing in his city.
+Although to be fair, the Khan did not fully explain the mission. You open
+your mouth to ask for clarification, but before you can do so a councillor
+rushes up to the Khan, bowing obsequiously, a stricken look on his face. The
+Khan sharply releases the sword to you and takes the councillor by the arm,
+quickly rushing out of the room.
+
+You realise you are still standing, with sword held horizontally, several
+minutes later. Is this all you are going to know? Is this all he is going to
+tell you? You came all the way from Damascus - thousands of miles of overland
+routes through mountain and desert, to be told to recover some animals from
+China?
+
+There must be someone who can tell you more - at least some rumour of what is
+so important to the Khan, that he would give up the Sword of Nismus,
+presumably buried in one of his vaults somewhere.
+
+>You move west.
+Marketplace
+The market continues to hum and bustle with activity. The smell of cooking
+food fills your senses, and you are nearly diverted by sizzling shashlik -
+strips of juicy  grilled mutton threaded along a stick. But you know that
+destinies don't wait for the hungrey bellies of men.
+
+The paved road continues towards the center of the city. You can see that the
+Mosque is off somewhere to your right, but as a non-Muslim, you would not be
+allowed to enter. Scanning the buildings through thier screen of trees, you
+manage to locate the city's Zoroastrian Shrine to the northeast.
+
+>You move northeast.
+Zoroastrian Shrine
+The shrine is small and humble, showing its inferior status to the recently
+adopted and near-universal Arab religion. This structure has obviously been
+downsized, with crumbling walls and only one small wooden door.
+
+The interior of the shrine is bathed in a red, flickering light. You don't
+know how long the religion has been practiced in this city, but the flame
+could have been continually burning for hundreds of years.
+The priest sucks on his pipe, gazing dolefully at the eternal flame.
+
+It takes a moment for your eyes to adjust to the reddish gloom, but you can
+immediately make out the eternal flame in the corner, and the fire-worshipper
+crouched next to it. Bittersweet memories, from your childhood visits to a
+similar shrine, stop you on the threshold. You have not been in sight of a
+sacred flame since you left your family lands - and you feel a familiar rush
+of awe and mystery in the presence of the old priest and his gentle flame.
+
+>'I cannot discuss your quest with you. Besides, I don't know what will happen
+to you.' The priest looks at you for the first time, out of the corner of his
+eye.
+
+>The man takes the pipe out of his mouth.
+
+'Those horses, its all a big sham. It was started by the Prince of Erh-Shih
+before Zoroaster was given the holy prophesies. They have started wars,
+toppled kings, and yet they are merely beasts of burden. If it wasn't for the
+strange flecks of blood that appear on thier skin when they are ridden at a
+gallop, the world would be so different today. The Khan places great trust in
+the power thier mythological prowess has for impressing the populace. He
+should instead trust in good leadership skills, and law-keeping.
+
+You would be more successful if you forgot about these horses and thought
+instead of the omens for anticipating danger, and the articles of protection
+for preventing it.
+
+>The priest dips a finger in the oil channel, checking its depth.
+
+'There are signs, given to us by nature, that you may or may not know. I
+cannot tell you what they mean for you, in particular, but I want you to keep
+an eye out, in case they warn of danger. And if you are heading across the
+Tian Shan and the Taklamakan desert, you WILL find danger.
+
+Three signs you must remember. The snake - it usually has something to do
+with health as the ancients have always known. The vulture - you will already
+know that this is an omen of death by violence. It could be you, a friend or
+an enemy, but take heed in any case. The fly - keep watch in your environment
+(although it may also indicate your state of cleanliness). '
+
+>Lifting a sandaled foot, the priest strikes a match on it and relights his
+pipe, which has gone out in a sudden gust of wind. He seems nervous and looks
+over his left shoulder, then his right.
+
+You hadn't noticed until now that his hand was in a pocket this whole time.
+He brings it out and you see a small object on his creased palm.
+
+'Take it - you don't need to know what it's for, just keep it on you
+somewhere, hidden. If the Issyk-Kul find this on you, they will burn you
+alive, for they believe it to be the gift of a demon.'
+
+>'The Khan is not of our religion, but he seems to have the teachings of
+Zoroaster at heart. You should trust him. But be warned - he is in some
+trouble around here.'
+
+>You sit down and shift your sword behind you.
+
+The priest gazes at the flickering flame, which is only about 5 inches high.
+'There is so much you don't know Beghram.'
+
+'How do you know my name?'
+
+The priest sighs again. 'You don't want to know. I wish I didn't. And all for
+the beasts they call 'Heavenly''. He snorts and pulls out a pipe.
+
+>You move southwest.
+Marketplace
+The market continues to hum and bustle with activity. The smell of cooking
+food fills your senses, and you are nearly diverted by sizzling shashlik -
+strips of juicy  grilled mutton threaded along a stick. But you know that
+destinies don't wait for the hungrey bellies of men.
+
+The paved road continues towards the center of the city. You can see that the
+Mosque is off somewhere to your right, but as a non-Muslim, you would not be
+allowed to enter. Scanning the buildings through thier screen of trees, you
+manage to locate the city's Zoroastrian Shrine to the northeast.
+
+>Do you really want to quit? [Y/N]

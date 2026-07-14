@@ -8,6 +8,41 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-07-14 — WHOLE CORPUS WIRED into `run_v4_walkthroughs.sh` — 74/74 PASS
+
+Every banked corpus solution is now a golden-diffed regression row (was 30 rows
+covering only the Plover/Shadowpeak/ALEXIS games; now **74**, deterministic
+across back-to-back full runs). What it took:
+
+- **New optional 4th MAP column: per-row env** (`SCR_SEED=2` for circus,
+  `SCR_ASSUME_COMBAT=1` for the Villains-and-Kings assisted row). Also
+  restructured the MAP heredoc into a `map_rows()` function: macOS
+  `/bin/bash` 3.2 mis-parses heredocs inside `$()` when the content's quote
+  count is odd — one apostrophe in a new win marker broke the whole script.
+- **Tour rows lock their documented maxima**: solutions that didn't already end
+  with `score` got one appended, and the row's win-marker is the exact final
+  `Your score is N out of a maximum of M.` line (mr_smith 25/100, wes_ghn
+  30/100, spirits_flight 50/95, thetest 5/25, del_sol 24/46, les_feux 25/115
+  (`Votre score est…`), villains 13/37 + assisted 30/37, questi 5/10,
+  cybercow-tour 6/10, matts_house 5/5, lifesimulation 0/0). Win rows use the
+  game's own victory text. inverness (75/205) is marker-guarded by the
+  caught-scene prose instead — the knockout cut-scene swallows an input line,
+  so a trailing `score` never executes (verified 75 by scoring pre-capture).
+- **Main Course was silently BROKEN and is re-derived** (win restored,
+  wired): the banked solution had lost its two leading waitkey blanks, and the
+  NPCs-before-events tick-order fix re-timed the wandering cat + combat RNG.
+  Diagnosis notes are in `Main_Course_walkthrough.md`. Footgun worth keeping:
+  an `attack <npc>` with the NPC absent falls through the grammar to "I don't
+  understand what you mean!" and does NOT advance the turn.
+- **Stale-claim correction:** `harness/to_hell_and_beyond_assisted_solution.txt`
+  (224 cmds, ends `claim the throne`) *does* exist — but it DESYNCS near the
+  end (the final command is not understood; no win). Banking the full assisted
+  To-Hell route therefore remains the one open derivation item (section A).
+  Its faithful 3-command opening row IS wired (`to_hell_and_beyond_solution.txt`).
+
+Everything else replayed byte-identically on today's scarier binary — i.e. the
+tick-order fix broke exactly one of the ~45 unwired solutions.
+
 ## 2026-07-02 — Shadowpeak re-derived for the tick-order fix — parity restored (710/715/740)
 
 The NPCs-before-events tick-order fix broke all three Shadowpeak solutions (one
@@ -1206,9 +1241,13 @@ Villains_And_Kings, SecretOfLostWorld) now begin with `Hero` (and `male`/
       Compass labels in Bellefleur are rotated vs the exit table; navigate by the
       game's "you can move…" text.
 - [ ] **To_Hell_And_Beyond** (optional, large) — bank the full *assisted*
-      (`SC_ASSUME_COMBAT=1`) ~293/373 route across 190 rooms. Roadmap already in
+      (`SCR_ASSUME_COMBAT=1`) ~293/373 route across 190 rooms. Roadmap already in
       the walkthrough (Oran→Tinev→ship→shore/forest→Mika→Sulfan(Megasword)→
       final<B>→`movetolargecave`→kill Xozim→claim throne). Multi-session.
+      **2026-07-14 status:** a 224-cmd `to_hell_and_beyond_assisted_solution.txt`
+      exists in the harness (came in with the scarier fork import) but it
+      DESYNCS — the closing `claim the throne` is not understood, so no win
+      fires. Treat it as a draft to bisect, not a banked route.
 
 ### B. Untouched games — derive walkthroughs (smallest first)
 For each: boot, dump structure (re-add the `SC_DUMP_MAP` block to sctasks.c —
@@ -1432,8 +1471,8 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       17 scoring tasks. The single coin scores BOTH `put coin in slot` (+3) and
       `give coin to waiter` (+20) — the waiter task's restriction doesn't
       require holding the coin, the "toss" line is flavor. Full 300 reachable.)
-- [ ] Phoenix_Destiny
-- [ ] SecretOfLostWorld
+- [x] Phoenix_Destiny — DONE (unwinnable 0/0 beta; see its entry above). Wired 2026-07-14.
+- [x] SecretOfLostWorld — DONE (WON 3300/3300; see its entry above). Wired 2026-07-14.
 - [x] **Shadow_Of_The_Past** — WON, max 90/100 (see entry above; orphaned
       "beast killed" +10 caps it at 90).
 - [x] **The_Nonsense_Machine_6000** — *not a game.* Toy random-nonsense
@@ -1450,7 +1489,7 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       Reachable: open bookcase +5, light torch +5, open curtain +5, untie girl
       +5, drink water +5 = 25. Same zero-accuracy combat as the others; intro's
       "attack force vs defense" = the damage step only (acc>agi gate comes first).
-- [ ] The_Spirits_Flight
+- [x] The_Spirits_Flight — DONE (unwinnable; max 50/95; see its entry above). Wired 2026-07-14.
 - [x] **The_Town_Of_Azra** — unfinished RPG sandbox; **no score (0/0), no win**.
       Walkthrough `The_Town_Of_Azra_walkthrough.md`; solution
       `harness/the_town_of_azra_solution.txt`. Of the author's 6 intro goals,
@@ -1488,7 +1527,7 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       hook in Ilsar's house, `harness/to_hell_and_beyond_assisted_opening.txt`);
       full 190-room turn-by-turn list NOT banked — needs multi-session play-
       discovery of the conversation/plot teleports. Roadmap is RE'd from data.
-- [ ] Toxically_Earth
+- [x] Toxically_Earth — DONE (WIN, 0/0 multi-ending; see its entry above). Wired 2026-07-14.
 - [x] **Villains_And_Kings** — 13/37, no win ending (max reachable; verified
       deterministic). Walkthrough `Villains_And_Kings_walkthrough.md`; solution
       `harness/villains_and_kings_solution.txt`. The other 24 pts are unreachable
@@ -1503,10 +1542,10 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       guarded in screstrs.c restr_pass_task_object_state (object<0 ⇒ FALSE).
       Battle verbs confirmed working (attack/hit/stab via NPC alias "guy");
       user independently confirmed noun resolution parity in the real Runner.
-- [ ] gateway
+- [x] gateway — DONE (WON 30/30; see its entry above). Wired 2026-07-14.
 - [x] **hyper_b_s** — WON 100/100 (see entry above; HYPER Battle System demo).
-- [ ] inverness
-- [ ] lifesimulation
+- [x] inverness — DONE (no ending; max 75/205; see its entry above). Wired 2026-07-14.
+- [x] lifesimulation — DONE (0/0 sandbox; see its entry above). Wired 2026-07-14.
 
 Suggested order: smallest first (`The_Nonsense_Machine_6000`, `Orient_Express`,
 `The_Town_Of_Azra`) to validate the workflow, then the rest.

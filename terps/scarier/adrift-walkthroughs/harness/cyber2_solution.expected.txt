@@ -1,0 +1,169 @@
+Loading game...
+
+Cyber Warp 2
+
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.
+
+There are exits north, east, south and west.
+
+>You move west.
+Your room
+you are in the place you sleep in.
+
+Also here is Electric Uniform.
+
+There is an exit east.
+
+>You pick up Electric Uniform.
+
+>You move east.
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.
+
+You can move north, east, south and west.
+
+>You move north.
+Shop
+You are in a large shop that has all kinds of items. One item you have your
+eye on, the type 3 Wave Motion Cannon.
+
+Merchant is here.
+
+You can only move south.
+
+>You give the ten bucks to the clerk.
+
+>You move south.
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.
+
+You can move north, east, south and west.
+
+>You move south.
+Teleporter Room
+You are in the teleporter room.
+
+You can only move north.
+
+>You open the Teleporter.
+
+>(Your score has increased by 50)
+you are teleported!
+Teleporter booth
+You teleport to the teleport booth in the BluDeath Mountains.
+
+>You move out.
+BluDeath Mountains
+The old cold place. A lot of people are here.
+
+You can move west and in.
+
+>You move west.
+The Cave
+You see the Cyber Warp right here. There are a lot of people here, too.
+
+You can only move east.
+
+>(Your score has increased by 50)
+You run into the warp and everyone applauses.
+Bisstonia
+You are in the old demension on a search for lightning.
+
+>You move northeast.
+Back Ally
+You are in the back ally of a famous pizza restorant.
+
+Hooded figrure is here.
+
+You can move in and southwest.
+
+>(Your score has increased by 50)
+Its really Lightning!
+
+>(Your score has increased by 50)
+you give him the electric suit and he looks better.
+
+>You move in.
+Kitchen
+The place where the food is prepaired.
+Ninja Chef is prepared for battle!
+
+You can move east and out.
+You manage to avoid Ninja Chef's attack.
+
+>(Your score has increased by 50)
+You shoot the ninja chef.
+
+>You move east.
+Dining Area
+You are in the dining part of the resturant. There are people all around
+eating, laughing and drinking to there heart's desire.
+
+You can move west and out.
+
+>You move out.
+Main street
+You are on a main street that leads to a large, high security building.
+
+You can move north and in.
+
+>You move north.
+Large Building
+A Large building that is surrounded by guards.
+A Couple of Guards are here.
+
+You can only move south.
+
+>(Your score has increased by 50)
+the guards fall to the floor, dead.
+
+>You move up.
+Stairway
+You are on the stairway up to the second level of Mr. Bissoff's Headquatters.
+You are supposed to meet Lightning up here.
+
+You can move up and down.
+
+>You move up.
+Hall
+You are in the hall on the top floor At the end is a door with a computer
+screen. Blinking on the computer screen: What is the password to the door?
+
+You can move west and down.
+
+>You move west.
+Guard Room
+You are in a room with one guard ready for attack!
+
+You can only move east.
+
+>(Your score has increased by 50)
+You shoot the guard, and as he is dieing, you ask him the password, and he
+replies the pass is...NEVER!
+
+>You move east.
+Hall
+You are in the hall on the top floor At the end is a door with a computer
+screen. Blinking on the computer screen: What is the password to the door?
+
+You can move west and down.
+
+>(Your score has increased by 5)
+Blinking on the computer screen: Password correct! you may pass.
+Mr. Bissoff's Room
+You are in the room with Mr. Bissoff! As soon as you get in, he snatches your
+weapon! All of a sudden, Lightning comes in!
+
+Lightning and Mr. Bissoff are here.
+Mr. Bissoff manages to avoid Lightning's attack.
+
+>You use a powerful enough firebolt, he dies!
+
+>The immense power of your fire explosion, has destroyed Mr. Bissoff, and you
+are now able to teleport back to the warp and enter, and this whole nightmare
+will end!
+ You have rescued Lightning and killed the ruler of an evil demension.
+Congrtulatons, you have beaton Cyber Warp 2!
+
+                                               THE END, or is it?

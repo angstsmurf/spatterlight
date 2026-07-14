@@ -1,0 +1,360 @@
+Loading game...
+
+GATEWAY: Guardian Child
+By: Michael R. Grice
+
+Time and space flash by in blazing colours. You're dizzy and on the verge of
+vomiting. Your head feels as if it is going to explode. Suddenly the flashing
+lights and noise stop and the pain is gone. Your heart pounds and you breath
+heavily, trying to get ahold of yourself. You realize that you're on your
+back, looking up at empty blackness.
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+In The Gateway
+You are in a dark room with a slightly transparent and glowing image of a
+little girl that floats above you and slowly turns. The child has long brown
+hair that hangs down the middle of her back, and her face speaks of wisdom
+beyond what a girl of her apparent age should have. Stars spin slowly around
+her body causing the image to pulse with a dim white light. Also in the room
+is a wood framed door that leads into an expanse of stars in a black night
+sky.
+
+>You walk through the doorway...
+Lights flash around you and noise zips passed. Voices grow loud and then
+disappear so fast you can't tell what they are saying. Your body aches and
+your head pounds as you speed through chaos. Then all is calm and your senses
+slowly return to normal. You are not where you were.
+
+Temple Courtyard
+You are in a large square court yard. East of you stands the double doors to
+a two story building. North can be seen a small stable where a few stable
+boys silently clean and care for a couple horses. From the south the
+fragrance of blooming flowers wafts into the air and in that direction you
+can see a perfectly tended flowerbed. To your west towers the tall rounded
+gates of the temple leading out into the Panrian Woods.
+A woman cries out in terror at your sudden appearance and rushes away into
+the building. A few other people in the court yard stare at you in confusion.
+It appears as if an execution is about to be start.
+
+>   Suddenly a dozen armed guards wearing shiny chain mail armour burst out of
+the building to the east and charge towards you. You are weaponless and have
+no way to defend yourself. The soldiers run you down before you can escape
+and surround you, holding their swords and spears at the ready. One of them,
+probably the leader, steps forward and glares at you suspiciously.
+   Before anything else can happen, a commanding voice from above shouts
+down, "Stop!" All heads, including yours, turn to a window on the second
+floor of the white building. It is hard to make out any details of the man
+leaning out the open window, but his white robe shows him to be a priest of
+the temple. "Stop!" he shouted again. "Bring him to me!"
+   The guard who had been about to address you grabs your arm and practically
+drags you into the temple, hauls you up a spiralled flight of stairs, and
+drops you on the floor of a bright and fresh room. You shakily stand up and
+find yourself looking into the face of your rescuer. The priest smiles kindly
+at you and his eyes seem to stare right through you to a time long forgotten,
+or possibly a time to come.
+   "Well," he starts, clapping his hands together and moving to sit in a
+chair. "I have no doubt that you are confused right now. I know I would be if
+our roles were reversed." The old man laughs slightly and motions for you to
+sit in a chair next to him. You comply and nervously fold your hands on your
+lap. "A month ago a little girl appeared in a similar fashion as yourself.
+She was also sent to us by the Stars, but she was their daughter made flesh.
+She was given to us so she would grow and one day become our queen. Our world
+has been without a master for nearly a century, and wars for power have torn
+the land apart. The Guardian Child was sent to protect the people by leading
+them in peace." He studies you for a moment before continuing. "There must be
+some great danger if the Stars have sent us another saviour besides the
+Guardian Child. You have no idea why you are here? Hmmm, I thought not. Then
+you are probably not a child of the Stars, but for whatever reason, you have
+been chosen to come to our world. I would suggest that you go to the Forest
+of Visions in the west and find out why the Stars sent you here. Oh," he
+grabs a piece of paper and pen and quickly scrolls down a message. He hands
+you the paper and says, "Deliver this to the black smith in Fayn. He will
+give you supplies for your journey. Good luck."
+
+>(Getting off the comfy chair first)
+You move east.
+Bright Hall
+The hallway is extremely bright with the light of day cutting through the
+many skylights along the hall roof. The marble tile floor reflects the light
+off of its nearly white surface, reminding you of snow on a sunny day.
+
+EXITS:  north, east, south and west.
+
+>You move south.
+South End of the Hall
+The light of the hall beyond follows you through the doorway into the
+stairwell. It casts your shadow down the white spiral staircase leading to
+the first floor. North the second floor corridor leads to a few priest
+offices, the library, and a prayer room.
+
+EXITS:  north and down.
+
+>You move down.
+South End of the Corridor
+You are standing in a stair well looking north down a candle lit hall. The
+hall leads into the heart of the first floor of the temple. To your left is
+the temple museum and up the spiralling white stairs is the second floor of
+the building.  Light pours down the stairwell from the day-lit second floor
+hallway.
+
+EXITS:  north, east and up.
+
+>You move north.
+Temple Entry Hall
+The entry is brightly lit and a half dozen white robed priests are constantly
+running passed. A light blue pillar stands on either side of the doors
+leading into a worship room to the east. You look down and see a huge rug on
+the floor depicting a large planet with stars all around it in a dark blue
+emptiness.
+
+Here you can see the designed carpet.
+
+EXITS:  north, east, south and west.
+
+>You move west.
+Temple Courtyard
+You are in a large square court yard. East of you stands the double doors to
+a two story building. North can be seen a small stable where a few stable
+boys silently clean and care for a couple horses. From the south the
+fragrance of blooming flowers wafts into the air and in that direction you
+can see a perfectly tended flowerbed. To your west towers the tall rounded
+gates of the temple leading out into the Panrian Woods.
+
+EXITS:  north, east, south and west.
+It appears as if an execution is about to be start.
+
+>You move south.
+Garden
+A soft breeze washes across the multi-coloured flowers of the temple garden.
+Many of the flowers look similar to the ones you know from your own world,
+but their colours and leaves are different making them look strange.  Many of
+the flowers are blooming with their petals spread wide to the sky.
+
+Here you can see a purple flower.
+The Temple Gardener is busy tending the gardens.
+
+EXIT:   north.
+
+>(Your score has increased by 10)
+You took the purple flower.
+
+>You move north.
+Temple Courtyard
+You are in a large square court yard. East of you stands the double doors to
+a two story building. North can be seen a small stable where a few stable
+boys silently clean and care for a couple horses. From the south the
+fragrance of blooming flowers wafts into the air and in that direction you
+can see a perfectly tended flowerbed. To your west towers the tall rounded
+gates of the temple leading out into the Panrian Woods.
+
+EXITS:  north, east, south and west.
+It appears as if an execution is about to be start.
+
+>You move east.
+Temple Entry Hall
+The entry is brightly lit and a half dozen white robed priests are constantly
+running passed. A light blue pillar stands on either side of the doors
+leading into a worship room to the east. You look down and see a huge rug on
+the floor depicting a large planet with stars all around it in a dark blue
+emptiness.
+
+Here you can see the designed carpet.
+
+EXITS:  north, east, south and west.
+
+>You move north.
+Corridore
+Walking down the hall you come upon a door to the east. To the north another,
+but less attractive, door leads into a stairwell. Candles are spread evenly
+along the left and right walls of this passage, splashing the corridor with
+wavering illumination. If not for the candles, the windowless hall would be
+completely dark.
+
+EXITS:  north, east and south.
+
+>You move east.
+Prayer Room
+The room is small and painted with a peach colour to make it feel warm and
+welcoming. A short wood bench, for kneeling beside when praying, rests near
+the east wall.  On that same wall a giant stained glass window lets in
+sunlight to wash over the bench.
+An old Woman has knelt here and is praying.
+
+EXIT:   west.
+
+>(Your score has increased by 10)
+You took the purple flower.
+
+>You move west.
+Corridore
+Walking down the hall you come upon a door to the east. To the north another,
+but less attractive, door leads into a stairwell. Candles are spread evenly
+along the left and right walls of this passage, splashing the corridor with
+wavering illumination. If not for the candles, the windowless hall would be
+completely dark.
+
+EXITS:  north, east and south.
+
+>You move north.
+North End of the Corridor
+You are at the top of a dark stair well leading down into the ground. Another
+stair case, this one white, spirals up to the second floor of the building.
+South, a candle lit hall leads down into the heart of the temple, to a prayer
+room and to the worship room.   Day light floods down from the top of the
+stairs leading up and washes the ground with fuzzy warmth.
+
+EXITS:  south, up and down.
+
+>You move down.
+Guard Room
+The room is a little chilly and smells slightly of sweat. In the middle of
+the room stands a table upon which rests a bowl. Around the table is three
+benches where three armoured soldiers are sitting and play cards. It appears
+that this is an extremely common way for these not-too-hansom men to pass the
+time. Torches placed in steel brackets easily light the stone room and its
+dirt floor.
+
+Here you can see a torch.
+Kadfast is playing cards with her follow soldiers.
+
+EXITS:  south and up.
+
+>"You take care of that key," Kadfast says as she hands the gold key to you.
+It opens the jail cells and we don't want it leaving this basement."
+
+>"I wouldn't open the east jail cell," one of the soldiers says. "We caught a
+rapist not too long ago and he's still in there. He's due for execution in a
+few days. If you do open the cell and find you can't handle him, just call
+for us and Kadfast'll come running."
+Dark Hall
+You enter the cold room and close the door behind you at the command of the
+guards. You see three iron doors with a tiny barred window on each. Looking
+through the windows you can see that the doors each block off a jail cell.
+
+>Using the key, you walk through the door.
+East Jail Cell
+The room is extremely dark, cold, and damp. This is not at all a comfortable
+place to spend a long time in. Some moldy hay piled in a corner of the room
+is supposed to be a bed. You think you see a rat scurry out from under the
+hay and hide in a dark corner. Very cosy, you think darkly.
+
+A Rapist is here.
+A Rapist hits you.
+
+>(Your score has increased by 10)
+You get the purple flower.
+A Rapist hits you.
+
+>You move west.
+Dark Hall
+You enter the cold room and close the door behind you at the command of the
+guards. You see three iron doors with a tiny barred window on each. Looking
+through the windows you can see that the doors each block off a jail cell.
+
+EXITS:  north and east.
+
+>You move north.
+Guard Room
+The room is a little chilly and smells slightly of sweat. In the middle of
+the room stands a table upon which rests a bowl. Around the table is three
+benches where three armoured soldiers are sitting and play cards. It appears
+that this is an extremely common way for these not-too-hansom men to pass the
+time. Torches placed in steel brackets easily light the stone room and its
+dirt floor.
+
+Here you can see a torch.
+Kadfast is playing cards with her follow soldiers.
+
+EXITS:  south and up.
+
+>"Hold it there!" one of the silent cards speaks up. You turn around and see
+the heavily muscled soldier fingering the edge of a throwing knife. "Where do
+you think you're going with that key?" You scowl and quickly give the key to
+Kadfast. The soldier nods and waves you along, giving you the chance to try
+leaving again.
+
+>You move up.
+North End of the Corridor
+You are at the top of a dark stair well leading down into the ground. Another
+stair case, this one white, spirals up to the second floor of the building.
+South, a candle lit hall leads down into the heart of the temple, to a prayer
+room and to the worship room.   Day light floods down from the top of the
+stairs leading up and washes the ground with fuzzy warmth.
+
+EXITS:  south, up and down.
+
+A Little Boy  walks towards you from above.
+
+>You move south.
+Corridore
+Walking down the hall you come upon a door to the east. To the north another,
+but less attractive, door leads into a stairwell. Candles are spread evenly
+along the left and right walls of this passage, splashing the corridor with
+wavering illumination. If not for the candles, the windowless hall would be
+completely dark.
+
+EXITS:  north, east and south.
+
+>You move south.
+Temple Entry Hall
+The entry is brightly lit and a half dozen white robed priests are constantly
+running passed. A light blue pillar stands on either side of the doors
+leading into a worship room to the east. You look down and see a huge rug on
+the floor depicting a large planet with stars all around it in a dark blue
+emptiness.
+
+Here you can see the designed carpet.
+
+EXITS:  north, east, south and west.
+
+>You move west.
+Temple Courtyard
+You are in a large square court yard. East of you stands the double doors to
+a two story building. North can be seen a small stable where a few stable
+boys silently clean and care for a couple horses. From the south the
+fragrance of blooming flowers wafts into the air and in that direction you
+can see a perfectly tended flowerbed. To your west towers the tall rounded
+gates of the temple leading out into the Panrian Woods.
+
+EXITS:  north, east, south and west.
+It appears as if an execution is about to be start.
+
+>You move west.
+Outside the Temple Gate
+The tall rounded gate of the temple stands to your east and the Panrian Woods
+spreads out over and around you. A wide dirt street heads into the forest and
+turns to disappear into the bushes.  A few colourful birds fly through the
+air and two black squirrels jump across the tree branches above you. The
+chattering squirrels disappear into the thickness of the tree tops as a
+shower of broken twigs and soft leaves fall upon your head.
+
+EXITS:  east and west.
+
+>You move west.
+THE END
+Type End Game if you wish to quit now and win! Or head back East and continue
+exploring the temple.
+Note: This game is no where near completion. Only the temple zone is
+playable.
+
+EXIT:   east.
+
+>Thank you for playing Gateway: Guardian Child.
+
+CONGRADULATIONS!!!
+
+You have completed the game. This game does not go any farther than this. The
+game is still very much under construction and will not be fully ready for
+quite a while.
+
+SCORES:
+10 = You got one purple flower
+20 = 2 out of 3 flowers found
+30 = All the purple flowers were found
+
+Gateway: Guardian Child doesn't go beyond the Fayn Temple of The Stars. The
+temple zone however, is complete to explore and try things in.
+
+By Michael R. Grice (Kinvadren)
+THE END

@@ -1,0 +1,777 @@
+Loading game...
+
+LAIR of the CYBER-COW
+
+You step off and look around, blinking at the abrupt transition to daylight.
+The bus behind you pulls out and drives away.
+
+(HELP is available.)
+
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+Bus Stop
+You are standing at a bus stop at the base of a hill that rises to the south.
+ At the top of the hill there is a chapel, and about halfway up the chapel
+yard there is a small cottage.  Other than this little chapel with its
+cottage on the hill, there is nothing around for a long ways.
+
+There is an exit south.
+
+>You move south.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+
+There are exits north, east, south and west.
+Red sky in morning...
+
+>Can you see something glint down there--?  Some kind of motion--?
+
+>You move east.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here.
+
+You can only move west.
+
+>A small, black mailbox, easily accessible to the resident from the inside.
+(The mailman has a key to access it from the outside.)  The mailbox is
+closed.
+
+>It's just an ordinary cupboard.  The cupboard is closed.
+
+>You open the cupboard.  Inside the cupboard is the bowl and the flashlight.
+
+>You take the bowl and the flashlight from the cupboard.
+
+>The couch is a pale green velvety plaid, suitable for most purposes.  One of
+these modern, lightweight deals.
+
+>Moving the couch reveals a cleverly-hidden trapdoor!
+
+>You move west.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+It is daytime.
+
+You can move north, east, south and west.
+
+>You move west.
+Meadow
+Flowers and grass are all around you.  To the east you can see the well in
+the chapel yard, and beyond that your humble childhood home.  At the top of
+the hill, southeast of you, you can see the chapel with its steeple, and at
+the foot of the hill, northeast of you, you can just make out the sign of the
+bus stop.
+It is daytime.
+
+Also here is a snail.
+
+You can only move east.
+
+Vluurinik flies in.
+
+>It's a snail.  Pretty gross.
+
+>As you pick up the snail between thumb and forefinger, the snail retracts
+into its shell.
+
+>You move east.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+It is daytime.
+
+You can move north, east, south and west.
+
+Vluurinik flies in from the west.
+
+>You move south.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move east.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+You can move west and up.
+
+>The huge cracked church bell rests upright on the floor, on its rim.  It has
+a good-sized chink missing.
+
+>You move up.
+Top of Bell Tower
+You are at the top of the church's bell tower.  A rickety spiral staircase
+leads down to the ground.  The empty bell chassis has a rope tied to an
+armature to permit ringing.
+
+You can move down and out.
+
+>One end of the rope is tied to the empty bell chassis here; the other leads
+down into darkness.
+
+>It's kind of a hassle, but you manage to untie the rope from the scratched-up
+bell chassis.  It falls down the central shaft.
+
+>You move out.
+Clinging to the Steeple
+You can see the chapel yard and the well directly below.  To the east, as if
+in miniature, the little cottage; to the west the wide expanse of meadow.
+Down the hill, past the well to the north, you can see the bus stop.  From
+here, it all looks very small.  The cross attached to the steeple is slightly
+crooked.
+It is daytime.
+
+You can only move in.
+
+>The cross is noticeably crooked, and you can see rotten wood at the roof
+join.
+
+>With a splitting sound, the huge cross tumbles down off the steeple to the
+ground below!  You can see where it landed, quite close to the well.
+
+>
+Clinging to the Steeple
+You can see the chapel yard and the well directly below.  To the east, as if
+in miniature, the little cottage; to the west the wide expanse of meadow.
+Down the hill, past the well to the north, you can see the bus stop.  From
+here, it all looks very small.  The top of the steeple has broken, and rotten
+wood beams sticking out at funny angles.  The cross attached to the steeple
+is slightly crooked.
+It is daytime.
+
+You can only move in.
+
+>You move in.
+Top of Bell Tower
+You are at the top of the church's bell tower.  A rickety spiral staircase
+leads down to the ground.  The empty bell chassis has marks on it you noticed
+when you were untying the rope.  The empty bell chassis has a rope tied to an
+armature to permit ringing.
+
+You can move down and out.
+
+>You move down.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+Also here is the rope.
+
+You can move west and up.
+
+>You pick up the rope.
+
+>You move west.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move north.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+It is daytime.
+
+Also here are the heavy cross.
+
+You can move north, east, south and west.
+
+>You tie the rope to the well.
+
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+Also here are the heavy cross.
+
+>You throw the rope down the well.
+
+>You pick up the heavy cross.
+
+Vluurinik flies in from the west.
+
+>You move south.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move east.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+You can move west and up.
+
+>You hit the bell, but nothing happens. (That is, I couldn't parse this to the
+game situation, so I'm bluffing.)
+
+>Raising the cross like a baseball bat, you strike the bell.  It makes a dull
+clanking sound.
+
+>The bell is far too heavy for you to move with your bare hands.
+
+>Sliding the cross between the bell and the floor through a chink in the
+bell's rim, you pryyyyyy -- Oh GOD that's heavy! -- the bell onto its side.
+As the huge church bell topples onto its side, it makes a
+BONG-BONG-BOONGGG!ing sound which nearly deafens you!
+
+>You pick up the heavy cross.
+
+>Raising the cross like a baseball bat, you strike the bell.  --  "BONG!
+BONG!  BONG!ngngngng" goes the bell.
+(You think you might be deaf.)
+
+>You drop the heavy cross.
+
+>You move in.
+In the Bell
+You are in the huge cracked churchbell.  (Step careful here:  it rolls
+dangerously.)  You can see something taped to the inside of the bell.
+
+You can only move out.
+
+>It's a packet of some kind that's been taped to the inside of the bell.
+
+>You unpeel the packet from the side of the bell.
+
+>You move out.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+Also here are the heavy cross.
+
+You can move west, up and in.
+
+>The packet unfolds into plans for building an invincible robot.  According to
+this, construction is all but complete.
+
+>You move west.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move north.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is raining quite heavily.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+>You move east.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move down.
+Cellar
+The work space around the well-lit table in the center of the room remains
+clear, although cobwebs and dirt have claimed the periphery of the room.  A
+ladder in one corner leads to the trapdoor.
+
+Also here is the robot.
+
+You can only move up.
+
+>The partially completed robot lying here on the table is made mostly out of
+cardboard boxes and styrofoam, duck taped and wired together.  The controls
+have been drawn on carefully with black magic marker.  It only needs a little
+more work.
+
+>Spreading out the plans so you can consult them, you set to work finishing
+the robot.
+The invincible robot is now complete.
+
+>The cardboard and styrofoam robot is structurally complete, but needs a power
+source to be installed in its yawning chest cavity.
+
+>I don't think you can fix the robot.
+
+>No matter which way you turn it, the flashlight simply *will* not fit into
+the robot's yawing chest cavity.  Apparently the flashlight won't work as a
+power source.
+
+>You move up.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move west.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+>You move down.
+Bottom of the Well
+You are standing at the bottom of the town well.  The ground is slightly
+moist here.  The end of the rope dangles here, providing you with a way back
+up.  To the west you can see the narrow entrance to the CyberCow's lair.
+The CyberCow is here.
+
+You can move west and up.
+
+>[x cybercow]
+The CyberCow's right eye has been replaced by a redly glowing lense deeply
+embedded in its skull -- probably night vision, or infrared, you'd guess.
+You can tell by this and a thousand other indicators that this is no ordinary
+CyberCow; just as you can tell by the "I (heart) snailz" tattoo that it has
+been radically customized.
+
+>[milk cybercow]
+The CyberCow dances away skittishly.  Perhaps if you could make friends or
+distract it somehow...
+
+>[give snail to cybercow]
+The CyberCow sticks out its tongue and snatches up the snail, which it
+gobbles up in a spectacular display of crunching and slurping.
+
+The CyberCow gives you a look, as if inviting you to try some for yourself.
+
+>[milk cybercow]
+While the CyberCow continues crunching and slurping delightedly on the snail,
+you fill the bowl with warm, fragrant CyberCow milk.
+
+>That's a bit of a trick carrying a warm bowl of fresh, frothing CyberCow milk
+-- but you manage it.
+
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+>You drop the bowl.
+
+>You pause a moment...
+
+>You pause a moment...
+
+>You pause a moment...
+
+>You pause a moment...
+
+Vluurinik flies in from the west.
+Whoah!  That bowl of milk has captured Vluurinik's attention!
+
+Before you can react, Vluurinik snatches up the bowl of milk and (flying low
+from the weight of the thing) makes for the meadow!
+
+>You pause a moment...
+
+>You pause a moment...
+
+>You move west.
+Meadow
+Flowers and grass are all around you.  To the east you can see the well in
+the chapel yard, and beyond that your humble childhood home.  At the top of
+the hill, southeast of you, you can see the chapel with its steeple, and at
+the foot of the hill, northeast of you, you can just make out the sign of the
+bus stop.
+It is daytime.
+
+Also here is the fairy and the bowl.
+Vluurinik darts in circles.
+
+You can only move east.
+
+>
+Meadow
+Flowers and grass are all around you.  To the east you can see the well in
+the chapel yard, and beyond that your humble childhood home.  At the top of
+the hill, southeast of you, you can see the chapel with its steeple, and at
+the foot of the hill, northeast of you, you can just make out the sign of the
+bus stop.
+It is daytime.
+
+Also here is the fairy and the bowl.
+Vluurinik flits around.
+
+You can only move east.
+
+>Vluurinik struggles between your fingers.  She seems terrified of something.
+
+>The fairy squirms in your grip.
+
+>You move east.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+>You move east.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move down.
+Cellar
+The work space around the well-lit table in the center of the room remains
+clear, although cobwebs and dirt have claimed the periphery of the room.  A
+ladder in one corner leads to the trapdoor.
+
+Also here are the plans and the robot.
+
+You can only move up.
+
+>You put the terrified, struggling fairy into the yawning chest cavity of the
+robot and seal her in.  There is moment of silence...
+
+The robot grabs your arm and twists it behind your back!
+-PATHETIC. HUMAN.-SAY. UNCLE.-
+
+>"Uncle"?
+The robot grabs your arm and twists it behind your back!
+-SAY. UNCLE.- Robot commands.
+
+>-I. THOUGHT. SO. - YOU. ARE. WEAK. - LIKE. ALL. HUMANS.-
+
+The robot seems smug.
+
+-WHY. DID. YOU. CONSTRUCT. ME. PATHETIC. HUMAN.- The Robot demands.
+You are being telepathically probed!
+
+>--
+-CYBERCOW? - WHAT. IS. THIS. CYBERCOW. PLANNING.-
+You can feel the harsh mechanical examination of your most private thoughts.
+
+>--
+-TAKE. ME. TO. THE.CYBERCOW. - NOW.-
+The Robot seems to enjoy this experience.
+
+>--
+The Robot releases you with a mean little shove.
+Cellar
+The work space around the well-lit table in the center of the room remains
+clear, although cobwebs and dirt have claimed the periphery of the room.  A
+ladder in one corner leads to the trapdoor.  The Robot seems to be enjoying
+this experience.
+
+Also here are the plans.
+The Robot is here.
+-YOU. WILL. TAKE. ME. TO. THE. CYBERCOW. - NOW. -
+
+>You pause a moment...
+
+>You move up.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+The Robot marches in  from below.
+
+>You move west.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+The Robot marches in  from the east.
+
+>You move down.
+Bottom of the Well
+You are standing at the bottom of the town well.  The ground is slightly
+moist here.  The end of the rope dangles here, providing you with a way back
+up.  To the west you can see the narrow entrance to the CyberCow's lair.
+The CyberCow is here.
+
+You can move west and up.
+
+The Robot marches in  from above.
+The Robot and the CyberCow lock eyes.
+
+The Robot begins charging its ray weapon.
+--Ah:  there's really no good place to be in the bottom of the well here, if
+the Robot fires that thing.
+
+>You move west.
+Lair Entrance
+This is the narrow entrance to the CyberCow's underground lair.  You are
+standing here fighting off the pricker bushes on both sides.  Sounds of
+battle still rage to the east.  To the west you seem to see a light of some
+kind.
+
+Also here is a thing.
+Just as you reach the lair entrance, behind you there is a bellow and a flash
+of light.
+A thing falls near your foot.
+In the bottom of the well to the east, the sounds of battle continue.
+
+>It seems to be an irregularly cut steak, done medium-well.
+
+>Still hot!
+
+>Yumm.
+
+>You move west.
+The Lair
+The CyberCow lair is decorated mostly in teak, a fine wood for patio
+furniture.  There is a teak recliner in the SW corner, a swinging teak bench
+against the south wall (30" plasma TV against the north), and a small
+half-fridge, like the ones you'd find in a college dorm or a hotel room, with
+a microwave on it, in the southeast corner.  Covering almost the entire west
+wall is a huge map of the world.  Also a fine rolltop desk is against that
+wall.
+You have a sneaking suspicion that this lair has recently been Feng-Shuied.
+
+>This huge map of the world covers almost the entire west wall of the lair.
+Different countries and regions are color-coded and there are many notations
+all over.
+
+>You see no such thing.
+
+>A fine rolltop desk (not made of teak).  The rolltop desk is closed.
+
+>You open the rolltop desk.  Inside the rolltop desk are some bills, an
+envelope and a sticky note.
+
+>
+"Don't forget to deliver the letter to Hero.
+xox
+C."
+
+Surely your friend wasn't so foolish as to forget that CyberCows cannot read?
+
+>"Hero."
+
+>You open the envelope.  A new letter is inside the envelope.
+
+>You take the new letter from the envelope.
+
+>
+Hero--
+
+Please forgive my having summoned you all the way out here for nothing; and
+then not even being around to greet you.  My investigation has revealed to my
+satisfaction that the CyberCow is not bent on world domination after all, and
+indeed since having worked out our initial misunderstandings the CyberCow and
+I have become fast friends.
+
+I'm off to join the Peace Corps, or the Red Cross, or possibly to become a
+firefighter or a paramedic or something.
+
+--C.
+
+ps - Plans to the robot taped inside the churchbell -- careful not to fall
+while getting them out.  (I couldn't think of a better hiding place and I was
+feeling paranoid -- lots of small things were going wrong at the time.)
+Double check the robot's programming before you activate it -- or better yet
+just trash the damn thing.
+
+Take care, my friend.
+A trickle of water runs past your feet from the direction of the well.
+
+>The fridge has shorted out.  (The microwave seems still to be going, though.)
+ The small fridge is closed.
+
+>You move east.
+Lair Entrance
+This is the narrow entrance to the CyberCow's underground lair.  You are
+standing here fighting off the pricker bushes on both sides.  Sounds of
+battle still rage to the east.  To the west you seem to see a light of some
+kind.
+
+You can move east and west.
+
+>You move east.
+Bottom of the Well
+The stone wall leads up to a small circular view of the sky.  A rope dangles
+here.  The CyberCow, victorious, has lain it head on the ruptured hulk of the
+Robot and weeps bitterly.
+
+CyberCow and Robot are here.
+
+>You half-swim, half-climb over the sobbing CyberCow (which makes no protest)
+and climb the rope up out of the well.
+Right behind you, the water level seems to rise as fast as you climb.
+
+>You can't go in that direction, but you can move north, east, south and west.
+
+>You move south.
+In the Chapel (flooding)
+You are in the local house of God.    At the top of the hill, the chapel is
+surrounded on all sides by water.  It is dry here.
+
+You can move north, east and south.
+
+>You move east.
+Bottom of Bell Tower (flooding)
+A rickety spiral staircase leads upward.    It is still dry here.  The
+churchbell rests on its side.
+
+You can move west and up.
+
+>You clamber into the bell.
+The floodwater pours into the room, up-ending the bell, lifting the rim --
+and finally with a strange scraping sound, the bell is borne up off the
+ground.
+
+In the Bell (flooding)
+With your grip on the cold iron rim of the bell, you try not to wonder how
+badly cracked the bell is.
+The water carries the bell up the inside of the bell tower -- you watch the
+spiral stairway unwind into the water below.
+
+As the water level crests the platform and brings the bell to the very top of
+the tower, you grab hold of the bell chassis:
+You pull your way along the rocker arm and outside.
+The steeple sinks gradually into the water behind you.
+
+In the Bell (floating in a vast expanse of water)
+You are careful to keep your weight opposite the crack, so the leaky surface
+of the bell stays out of the water.  The iron bell wouldn't have to take on
+much water to sink like a rock--
+
+A fairy is here.
+It is night-time.  Moonlight shines silver on the water.
+
+>You pause a moment...
+
+>
+In the Bell (floating in a vast expanse of water)
+You are careful to keep your weight opposite the crack, so the leaky surface
+of the bell stays out of the water.  The iron bell wouldn't have to take on
+much water to sink like a rock--
+
+It is night-time.  The moon, three days from full, casts your shadow on the
+water and the inward curve of the bell.
+You're cold.
+
+A fairy is here.
+
+>A sleepy adventurer.
+The sudden, familiar sound of fairy wings--
+
+>You are carrying nothing.
+
+>Please use the format:  ASK [character] ABOUT [word]
+
+>She doesn't reply-- she seems fixated on something in your hair--
+
+>It's not that easy to look at your own hair.  If you only had a mirror--
+
+>You look at your reflection in the water.  Oh-- it looks like you have a
+berry stuck in your hair.  Doubtless it caught there when you were fighting
+your way through the pricker bushes at the CyberCow's lair entrance.
+
+>Examining your reflection, you tease the berry out of your hair.
+
+>Please be more clear, what do you want to examine?  The berry or the berry?
+
+>The fairy avidly stares at the berry.
+
+>You hold out the berry.
+The fairy shifts its attention between your face and the berry--
+--several times. Finally, and seemingly with some desperation, she snatches
+the berry out of your grasp and flies out of reach!
+The fairy cicles warily out of reach, looking at you -- and then at the berry
+in its grasp.
+But over time, she looks more at the berry.
+
+>You pause a moment...
+The fairy settles on the bit of the bell rim furthest from you -- near the
+chink -- and, grappling with the berry, which is somewhat larger to her than
+a grapefruit is to a young child, messily devours the thing.
+
+>You pause a moment...
+With purple-red berry juice running all down her face, her bare arms, and all
+over her dress, the fairy looks at you-- and smiles.
+
+--The fairy lauches suddenly into the air, and flies in circles around you--
+
+>You pause a moment...
+The fairy circles behind you, bumps you in the top of the head once --
+And is gone.
+
+--It takes you a good long moment to realize what happened:
+The fairy examined you from all angles --
+And then, in the only place she considered safe, she kissed you.  And then
+left.
+
+It wasn't her.
+
+***  The End  ***
+
+Thank you for playing Lair of the CyberCow.

@@ -1,0 +1,217 @@
+Loading game...
+
+Shadow of the Past
+"What happened," you ask yourself.  The last thing you remember is delivering
+newspapers while riding your bicycle.  You vaguely remember a car swerving
+and almost hitting you.  You went flying off the bike and hit the pavement.
+As you look around, you realize that you are not only not outside, but you
+are lying on a stone floor in some kind of cave, and the coldness is seeping
+into your bones making them ache.  How can this be?  You were outside and it
+was 87 degrees.  You quickly stand up and start rubbing your hands together
+for warmth and realize that something else is wrong.  It's not just the fact
+you are in a strange place, but your hands do not appear to be your own.
+They are bigger, a man's hands.  How can these be yours?  You're just a ten
+year old boy.  You check out the rest of your body.  Yep, you're a  man now.
+You have had a great desire to have an adventure and to be the hero.  You
+have always felt that something was missing in your life, but this is
+ridiculous.  Well, this could be pretty cool anyway.
+
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of
+stone rests upon its brow, a glittering jewel its centerpiece. About you lurk
+malevolent shadows, seeming to move with a life of their own, though these
+are glimpses seen from the corner of your eye that vanish the moment you look
+closely at them.  You think to yourself, "Good thing I read those Hardy Boys
+books."
+
+Passages in the ruined walls of this place lie to the north and west.
+
+>
+>(Your score has increased by 5)
+You reach the crown of the statue without incident.  It was touch and go for
+a moment or two when you thought the whole thing was going to crumble under
+you.  But you made it to the crown.
+
+>You are now standing on the floor next to the ruined statue.
+
+>You move north.
+Ancient Gallery
+The walls about you are ancient and crumbling, yet modern looking portraits
+hang from them all the same. The faces depicted twist and writhe in torment.
+Is it your imagination or can you also hear their cries? Against one wall
+lies a large crystal, as tall as a man and wide as a chariot, in which is
+imprisoned the form of… something.
+
+A passage lies away to the south and another to the northeast, at the end of
+which a light shines faintly.
+
+>(Your score has increased by 10)
+You strain to hear the cries that are seeming to fill the room.  You can't
+make out specifically what they are saying, but you get the feeling they are
+warning you to not touch the crystal.
+
+>(Your score has increased by 15)
+All of the portraits are leaning against the wall.
+
+>You move south.
+Ruined Statue
+You are on top of the ruined statue, which has been ravaged by the passage of
+time. A crown of stone rests upon its brow, a glittering jewel its
+centrepiece. About you lurk malevolent shadows, seeming to move with a life
+of their own, though these are glimpses seen from the corner of your eye that
+vanish the moment you look closely at them.  You think to yourself, "Good
+thing I read those Hardy Boys books."
+
+Passages in the ruined walls of this place lie to the north and west.
+
+>You move west.
+Cage
+The centre of this circular chamber is a cage. Claw marks on the bars of the
+cage indicate the beast fought ferociously to escape its imprisonment, yet
+failed. And died.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.  The cage is sunken into the floor, in
+which the remains of some beast lie decomposing.
+
+>(Your score has increased by 5)
+The lever is in the down position.  You hear the creaking of chains as the
+cage slowly rises.
+
+>You open the door.
+
+>You move west.
+Humming Chamber
+Once this was doubtless some kind of meeting hall. Rows of seats spiral
+outwards from a central podium where a speaker once stood to deliver speeches
+to a waiting audience. Many of the seats are smashed and little but splinters
+remain. Burn marks scar the floor and walls; in one place there is what
+appears to be a large quantity of books and scrolls which someone has
+attempted to burn but abandoned partway through. A faint humming sound can be
+heard, emanating from somewhere in the chamber.
+
+A passage extends northwest and another to the east.
+
+>(Your score has increased by 5)
+As you examine the book, it begins to crumble in your hands.  It wasn't
+burned, but it is old.  As the book turns to dust before your eyes, you
+notice a key on a chain fall from it.
+
+>You move northwest.
+Blocked Passage
+The ceiling has collapsed, and the stones are blocking further access along
+this passage. On one wall is an opening which overlooks the outside world,
+although the drop looks to be formidable and you doubt you could survive it.
+
+The passage leads back to the southeast.
+
+>(Your score has increased by 10)
+The rope ladder is securely fastened on the hooks.  It looks as though it
+could hold your weight.
+
+>You move down.
+The Ledge
+You are standing on a small ledge.  You must be careful, or you could easily
+fall.  As you look around, you see that this world is far from yours.  There
+are two suns, which are low in the sky.  The sky is a multitude of colors,
+pink, purple, green, yellow, green and blue.  This is not only the most
+unusual sunset you have ever seen, but also the most beautiful.  As you look
+down and notice the drop seems to never end, you see a tuning fork sitting on
+the ledge next to your foot.
+
+Also here is a tuning fork.
+
+>(Your score has increased by 10)
+You now have the tuning fork.
+
+>You move up.
+Blocked Passage
+The ceiling has collapsed, and the stones are blocking further access along
+this passage. On one wall is an opening which overlooks the outside world,
+although the drop looks to be formidable and you doubt you could survive it.
+
+The passage leads back to the southeast.
+
+>You move southeast.
+Humming Chamber
+Once this was doubtless some kind of meeting hall. Rows of seats spiral
+outwards from a central podium where a speaker once stood to deliver speeches
+to a waiting audience. Many of the seats are smashed and little but splinters
+remain. Burn marks scar the floor and walls; in one place there is what
+appears to be a large quantity of books and scrolls which someone has
+attempted to burn but abandoned partway through. A faint humming sound can be
+heard, emanating from somewhere in the chamber.
+
+A passage extends northwest and another to the east.
+
+>You move east.
+Cage
+The centre of this circular chamber is a cage. Claw marks on the bars of the
+cage indicate the beast fought ferociously to escape its imprisonment, yet
+failed. And died.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.  The cage is now raised and the bottom is
+level with the floor.
+Beast hits you, but it doesn't seem to do any damage.
+
+>(Your score has increased by 5)
+As you grab the crown, you notice the beast inside start to stir. Your left
+index finger starts to tingle.  The Beast lunges at you.
+Beast hits you, but it doesn't seem to do any damage.
+
+>You move east.
+Ruined Statue
+You are on top of the ruined statue, which has been ravaged by the passage of
+time. A crown of stone rests upon its brow, a glittering jewel its
+centrepiece. About you lurk malevolent shadows, seeming to move with a life
+of their own, though these are glimpses seen from the corner of your eye that
+vanish the moment you look closely at them.  You think to yourself, "Good
+thing I read those Hardy Boys books."
+
+Passages in the ruined walls of this place lie to the north and west.
+
+>You move north.
+Ancient Gallery
+The walls about you are ancient and crumbling, yet modern looking portraits
+line the floor all the same. The faces depicted twist and writhe in torment.
+Is it your imagination or can you also hear their cries? Against one wall
+lies a large crystal, as tall as a man and wide as a chariot, in which is
+imprisoned the form of… something.
+
+A passage lies away to the south and another to the northeast, at the end of
+which a light shines faintly.
+
+>(Your score has increased by 15)
+Something seems familiar as you approach the crystal.  After hitting the
+tuning fork on the floor, you touch the tuning fork to the crystal.  The
+crystal starts to vibrate and the sound of the vibration becomes deafening.
+You run and take cover in a far corner and watch as the crystal begins to
+crack and then explode.
+
+The room begins to fill with white lights that are coming out of the
+portraits.  You can clearly understand that the souls are thanking you for
+their release.  A sense of satisfaction comes over you.
+
+You begin to notice that there is a wet substance running down your face.
+You reach up and touch it and discover that you are bleeding.  It does not
+seem too bad, nothing a stitch or two can fix.
+
+>You move northeast.
+Passage
+The broken bones of tiny rodents crunch underfoot as you make your way along
+this passage. It is dark and shadowy for the most part, illuminated poorly by
+the pale daylight at the end.
+
+The passage extends northeast to the outside world and southwest to an
+ancient gallery.  Saving the souls from the portraits has opened up a portal
+to the northeast.
+
+There is a small dagger lying on the stone floor.
+
+>(Your score has increased by 10)
+You now realize that the statue was you from a past life.  You were indeed
+reborn and fate allowed you to finish what you could not.  You now know what
+was missing in your life.  It was the unfinished business.  Will this ever
+happen again?  I wonder if there will be another adventure and what will it
+be if there is......

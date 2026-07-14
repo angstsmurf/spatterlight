@@ -5,3 +5,4 @@ d
 n
 open refridgerator
 eat apple
+score

@@ -1,0 +1,303 @@
+Loading game...
+
+Inverness Castle
+Welcome to Inverness Castle!
+Version 0.3c, February 5, 2001
+©2001 by David Good, david@dreamnetstudios.com
+Compiled with ADRIFT Version 3.90.12
+by Campbell Wild, www.adrift.org.uk
+
+The date is September 15, 1040.
+
+You are the Thane of Ross, a Scottish nobleman.  Recently, you fought
+alongside your fellow Scotts to defend King Duncan's claim to the throne.
+Now you have arrived at Inverness Castle so Duncan can honor one of his
+valiant generals, Macbeth.
+
+Macbeth is already Thane of Glamis from his father's death, but Duncan has
+decided to make Macbeth Thane of Cawdor as well.  Macdonwald, the previous
+Thane of Cawdor, sided with Norway in the recent uprising, and stands under
+heavy judgement.
+
+Meanwhile, Duncan has announced that his eldest son, Malcolm, is Prince of
+Cumberland and heir to the throne in the event of the King's death.
+
+Outside Inverness
+The heavy wooden door to Inverness Castle looms before you to the north, the
+castle looking ominous in dark grey stone.  The road to Forres is to the
+north-east.
+
+>You hear the porter behind the door complaining: "Here's a knocking indeed!
+If a man were porter of hell-gate, he should have got old turning the key."
+
+>"Knock, knock knock!" says the Porter.  "Who's there, i' the name of
+Beelzebub? Here's a farmer, that hanged himself on the expectation of plenty:
+come in time; have napkins enow about you; here you'll sweat for't."
+
+>"Knock knock!  Who's there, in the other devil's name?  Faith, here's an
+equivocator, that could swear in both the scales against either scale; who
+committed treason enough for God's sake, yet could not equivocate to heaven:
+O, come in, equivocator."
+
+>"Knock knock! never at quiet! What are you? But this place is too cold for
+hell. I'll devil-porter it no further: I had thought to have let in some of
+all professions that go the primrose way to the everlasting bonfire."
+
+>(Your score has increased by 5)
+"Anon, anon! I pray you, remember the porter."
+
+The door creaks slowly open.  You move north.
+
+Entrance Hall
+This is the entrance hall of Inverness Castle, which is lit by torches on the
+walls.  The walls are decorated in large tapestries.  The sitting room is to
+the east and the receiving hall is to the west.  A large stone staircase
+leads up to the upstairs hall.  You can also go north to the back hall, or
+leave the castle to the south.
+The porter is here.
+
+>You move north.
+Back Hall
+From the back hall you can go north to the kitchen.  A narrow stone staircase
+leads up to the upstairs hall.  You can also go east to the servant's
+quarters, north-east to the kitchen staff's quarters, south-east to the
+sitting room or south to the entrance hall.
+
+>You move north.
+Kitchen
+You're in the kitchen.  There's an oven on the north wall and a pantry to the
+east.  From the kitchen you can go south to the dining room or south-east to
+the back hall.  A staircase leads down to the cellar.  A back door leads out
+to the yard.
+
+>You open the pantry.  Inside the pantry is a loaf of bread, a bag of rice, a
+bottle of wine, a sack of flour and a spice rack.
+
+>You take the loaf of bread from the pantry.
+
+>You move southeast.
+Back Hall
+From the back hall you can go north to the kitchen.  A narrow stone staircase
+leads up to the upstairs hall.  You can also go east to the servant's
+quarters, north-east to the kitchen staff's quarters, south-east to the
+sitting room or south to the entrance hall.
+
+>You move south.
+Entrance Hall
+This is the entrance hall of Inverness Castle, which is lit by torches on the
+walls.  The walls are decorated in large tapestries.  The sitting room is to
+the east and the receiving hall is to the west.  A large stone staircase
+leads up to the upstairs hall.  You can also go north to the back hall, or
+leave the castle to the south.
+The porter is here.
+
+>The porter takes the bread from you greedily, and heads north to the kitchen
+to look for a drink to wash it down.
+
+>(Your score has increased by 10)
+You take the torch from the wall.
+
+>You move east.
+Sitting Room
+The sitting room is lit by candles and oil lamps.  On the walls are a variety
+of paintings, and tapestries, and a statue.  They are dominated by a large
+painting of a man that looks a lot like an older version of Macbeth.
+
+The sitting room has exits to the north which leads to the back hall, or west
+to the entrance hall.
+
+>(Your score has increased by 5)
+You push the statue to the side, revealing a hole.
+
+>You put the torch in the hole.  You hear a click from across the room as it
+settles into the hole.
+
+>(Your score has increased by 10)
+You look behind the painting of Sinel and see a hollowed out area in the wall
+where a small wooden box has been hidden.
+
+>You pick up the wooden box.
+
+>You can't seem to get the box open.  Perhaps someone can help you open it.
+
+>You move west.
+Entrance Hall
+This is the entrance hall of Inverness Castle, which is lit by torches on the
+walls.  The walls are decorated in large tapestries.  The sitting room is to
+the east and the receiving hall is to the west.  A large stone staircase
+leads up to the upstairs hall.  You can also go north to the back hall, or
+leave the castle to the south.
+The porter is here.
+
+>You move south.
+Outside Inverness
+The heavy wooden door to Inverness Castle looms before you to the north, the
+castle looking ominous in dark grey stone.  The road to Forres is to the
+north-east.
+
+>You move northeast.
+Road to Forres
+The town of Forres is to the north-east.  The entrance to Inverness Castle is
+to the south-west, and the back of the castle is to the west.  You see a
+blasted heath to the south.
+
+>You move south.
+A Blasted Heath near Forres
+This is a deserted, foul place.  You can go north to the road.
+Graymalkin the cat is here, skulking around.  Paddock the toad is here.
+Three Witches are here, dancing around a boiling cauldron.
+
+>(Your score has increased by 5)
+"Ah," says the first witch, looking at the box. "This is a riddle box."
+
+Second witch chimes in:  "Thou'dst solve it to open the box."
+
+The third witch tosses something wiggly into the cauldron. "Round about the
+cauldron go; in the poison'd entrails throw," she chants.
+
+The three weird sisters chant together . . .
+
+First put your foot out,
+Lean forward and I'm done;
+If there are lots of me,
+Please take me one by one.
+What am I?
+
+[hint, format the solution as "answer foo" or "say foo", where foo is your
+answer]
+
+>[say step]
+(Your score has increased by 10)
+The box slowly opens.
+
+>You take the old key from the wooden box.
+
+>You take the scroll from the wooden box.
+
+>You move north.
+Road to Forres
+The town of Forres is to the north-east.  The entrance to Inverness Castle is
+to the south-west, and the back of the castle is to the west.  You see a
+blasted heath to the south.
+
+>You move west.
+Behind Inverness
+The desolate area behind the castle is cold and windy.  You can go south to
+the kitchen.  You see the road to the east.
+
+>You move south.
+Kitchen
+You're in the kitchen.  There's an oven on the north wall and a pantry to the
+east.  From the kitchen you can go south to the dining room or south-east to
+the back hall.  A staircase leads down to the cellar.  A back door leads out
+to the yard.
+
+>You move southeast.
+Back Hall
+From the back hall you can go north to the kitchen.  A narrow stone staircase
+leads up to the upstairs hall.  You can also go east to the servant's
+quarters, north-east to the kitchen staff's quarters, south-east to the
+sitting room or south to the entrance hall.
+
+Porter enters from the south.
+
+>You move up.
+North Upstairs Hall
+Bedroom doors are to the east and west, and the hallway continues to the
+south.  There is a narrow, stone staircase going down.
+
+>You move west.
+Master Bedroom
+Macbeth and Lady Macbeth sleep in this room.  There is an exit on the east
+wall, which leads to the hallway, and a dressing room to the south.  There's
+a wardrobe on the south wall and a bed in the middle of the room.  A small
+desk is on the west wall.
+
+>(Your score has increased by 5)
+You unlock the desk.
+
+>(Your score has increased by 5)
+You open the desk drawer.
+
+>You take the letter from the desk.
+
+>(Your score has increased by 10)
+You move south.
+Dressing Room
+This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
+use this room to change their clothes and other things.
+You search through the clothing and linens and don't find anything
+remarkable.
+Suddenly, you hear someone in the bedroom.  If you listen, you might just
+hear what they are saying.  Then again if you are caught, you risk the ire of
+the Thane of Glamis and Cawdor.
+
+>(Your score has increased by 10)
+You listen to the voices. . . .
+
+You hear Lady Macbeth and Macbeth arguing in the next room as Macbeth changes
+his clothes.
+
+"He hath almost supp'd," she says.
+
+"Hath he asked for me?" he says.
+
+"Know you not he has?" Lady Macbeth replies.
+
+Macbeth says: "We will proceed no further in this business: He hath honour'd
+me of late; and I have bought golden opinions from all sorts of people, which
+would be worn now in their newest gloss, not cast aside so soon."
+
+Lady Macbeth chastises him, saying: "Art thou afeard to be the same in thine
+own act and valour as thou art in desire? Wouldst thou have that which thou
+esteem'st the ornament of life, and live a coward in thine own esteem,
+Letting 'I dare not' wait upon 'I would,'?"
+
+"Prithee, peace," Macbeth responds. "I dare do all that may become a man; who
+dares do more is none...  If we fail?"
+
+"We fail!" she says. "But screw your courage to the sticking-place, and we'll
+not fail. When Duncan is asleep whereto the rather shall his day's hard
+journey soundly invite him -- his two chamberlains will I with wine and
+wassail so convince that memory, the warder of the brain, shall be a fume.
+When in swinish sleep their drenched natures lie as in a death, what cannot
+you and I perform upon the unguarded Duncan?"
+
+"Bring forth men-children only," Macbeth says. "For thy undaunted mettle
+should compose nothing but males. Will it not be received, when we have
+mark'd with blood those sleepy two of his own chamber and used their very
+daggers, that they have done't?"
+
+Lady Macbeth says, "Who dares receive it other, as we shall make our griefs
+and clamour roar upon his death?"
+
+"I am settled," the Thane says, "and bend up each corporal agent to this
+terrible feat. Away, and mock the time with fairest show: False face must
+hide what the false heart doth know."
+
+You hear Macbeth and his wife leave the room.
+
+>
+Dressing Room
+This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
+use this room to change their clothes and other things.
+Suddenly, Macbeth bursts into the room.  You've been caught.  He takes his
+dagger and strikes your head with the hilt, knocking you unconscious.
+
+You hear him mutter to his wife as you drift into blackness...
+
+"Fate hath given us a fool to bearest guilt.  A murderer thou shalt be
+tonite, thane of Ross..."
+
+Blackness
+It's dark.  You can't see anything.
+You feel really groggy, and your head hurts.
+
+>After a moment of grogginess, you realize you are in the cellar.
+Cellar
+The dark and dingy cellar is used to store food and wine.  A staircase leads
+up to the kitchen.  It's cold down here.
+
+>I don't understand what you mean!
+
+>

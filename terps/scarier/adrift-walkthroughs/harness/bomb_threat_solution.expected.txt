@@ -1,0 +1,221 @@
+Loading game...
+
+Bomb Threat
+BOMB THREAT
+
+ You are Jack Wayne, one of FBI's top agents ever.
+
+Jack is having his day off, and he is going to his favourite Chinese
+restaurant for lunch.
+
+Suddenly, a phone rings in a near by phone booth, so Jack walks in and picks
+up the receiver.
+
+Jack: Hello, Jack Wayne speaking? Who is this?
+
+Anonymous: Hello Jack. Do you know the Imperial Agency building next to you?
+
+Jack turns around and looks out the booth and sees a large skyscraper with
+the words Imperial Agency written above the door.
+
+Jack: Yes, I see it. What is so special about it?
+
+Anonymous: Oh, nothing. Not that there is a bomb planted somewhere in the
+building...
+
+Jack (interupting): A bomb! Who the hell are you! Where is the bomb!
+
+Anonymous: I'm not going to tell you. All I will tell you is that I want to
+play a little game. If you follow my instructions, I will lead you to the
+bomb, if you don't then I'll blow the place sky high, and everyone within 100
+meters as well...
+
+Jack (yelling): Listen you asshole! If I find this bomb I'm gonna defuse it
+and then find you! Then you'll go to jail for up to 30 years!
+
+Anonymous: Don't yell at me Jack! If I wanted I would blow the place here and
+now...
+
+Jack: Okay, okay. What is the first question?
+
+Anonymous: I belong on the 28th floor, go there now, I will tell you more
+later.
+
+BEEP, BEEP, BEEP. The phone has been hung up. Oh well, better get to the 28th
+floor soon or this psycho might blow the place up.
+
+>You move out.
+The Footpath
+You are standing on the footpath. It is very busy here. To the west of you is
+the Imperial Agency building, where the bomb is supposed to be planted.  A
+car turns into another road and speeds off.  A man walks out of the Imperial
+Agency building to the west of you. There is a manhole here which leads in
+the sewers.
+
+There are exits west and in.
+
+>You move west.
+The Lobby
+You are standing in the lobby of the Imperial Agency building. People are
+walking all about the place. There is an elevator next to you.
+
+You can move east and in.
+
+>You move in.
+The Elevator - Ground Floor
+You are in the elevator on the ground floor. No one else is in here. You must
+go up to the 28th floor.
+
+You can move up and out.
+
+>You move up.
+The Elevator - 28th Floor
+You are in the elevator on the 28th Floor. No one else is in the elevator.
+
+You can move down and out.
+
+>You move out.
+Corridor
+You are standing in a long corridor. There is a door to the north and the
+south.
+
+You can move north, south and in.
+
+>You move south.
+Office Room
+This is a simple office room. You can see out of the windows, which is quite
+high up. There is a desk, a bin and a cabinet here.
+
+You can only move north.
+
+>You open the desk.  Inside the desk is a pen, a calculator and a key.
+
+>You take the key from the desk.
+
+>You put the key in the cabinet and turn it, to your suprise it opens.
+
+>You open the portfolio.
+
+>Hey Jack! Getting closer, time for you're next clue. I am on floor 43 and I
+am very extreme! Find me for your next clue...
+
+>You move north.
+Corridor
+You are standing in a long corridor. There is a door to the north and the
+south.
+
+You can move north, south and in.
+
+>You move north.
+Confrence Room
+A large confrence room, no one is in it. There is a large table and some
+chairs here, and a projector and projector screen.
+
+Also here is coffee mug.
+
+You can only move south.
+
+>You open the folder.  Security card is inside the folder.
+
+>You take security card from the folder.
+
+>You move south.
+Corridor
+You are standing in a long corridor. There is a door to the north and the
+south.
+
+You can move north, south and in.
+
+>It has a lot of pictures of people doing tricks on BMX bikes. On page 72
+however has a message scribbled down the bottom. "You have found me! Okay,
+for your last clue, to defuse the bomb you'll need one of these, once you
+find one finding the bomb will be a breeze. I live on floor 3 and I am quite
+light, if you don't find me you won't live tonight.
+
+>You move in.
+The Elevator - 28th Floor
+You are in the elevator on the 28th Floor. No one else is in the elevator.
+
+You can move down and out.
+
+>You press the 3rd floor button and the elevator springs to life. It
+eventually lands at floor 3.
+
+>You move out.
+Corridor
+This is another small corridor. There is a security clearance required at
+this door to enter, which is to the north.
+
+You can move north and in.
+
+>You move north.
+Tool Room
+This is the tool room. There are lots of tools hanging on the racks around
+the room and a large workbench in the center.
+
+You can only move south.
+
+>You take the pliers from tool racks.
+
+>You take the crowbar from work table.
+
+>You move south.
+Corridor
+This is another small corridor. There is a security clearance required at
+this door to enter, which is to the north.
+
+You can move north and in.
+
+>You move in.
+The Elevator - 3rd Floor
+You are in the elevator on the 3rd floor. No one is in it except you.
+
+You can move up, down and out.
+
+>You move down.
+The Elevator - Ground Floor
+You are in the elevator on the ground floor. No one else is in here. You must
+go up to the 28th floor.
+
+You can move up and out.
+
+>You move out.
+The Lobby
+You are standing in the lobby of the Imperial Agency building. People are
+walking all about the place. There is an elevator next to you.
+
+You can move east and in.
+
+>You move east.
+The Footpath
+You are standing on the footpath. It is very busy here. To the west of you is
+the Imperial Agency building, where the bomb is supposed to be planted.  A
+truck pulls up to the red light and honks his horn.  A young child runs down
+the footpath being pursued by his mother. There is a manhole here which leads
+in the sewers.
+
+You can move west, down and in.
+
+>You move down.
+The Sewers
+You are underground in a dark sewer. There is a package here.
+
+You can only move up.
+
+>You open the package.  Inside the package is a bomb.
+
+>Time passes...
+
+>You cut the red wire. The lights on the bomb stop flashing.  Jack: Yeah, I
+did it!  Anonymous: Very impressive Jack, but I'm afraid now you're going to
+have to die.  Further down the sewer is a man with a long beard holding a
+mobile phone in one hand and a uzi sub-machinegun in the other.  Anonymous:
+My real name is Edgar Henderson, but now you must die...
+
+>You quickly pull out your gun and fire. You don't have much accuaracy because
+you reacted so quickly. The bullet hit  right between Edgar's eyes.
+Edgar stumbles backwards and falls into the water, dead. You have just won
+Bomb Threat!
+Or have you...
+
+Congratulations!

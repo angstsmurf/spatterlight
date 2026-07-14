@@ -1,0 +1,117 @@
+Loading game...
+
+Life Simulation V 1.3
+Welcome Player, to Life Simulation Version 1.3. There is no objective to this
+game, just do what ever you want to do and have fun.
+
+* You start off living in an appartment, with only $50 to spend at your
+leisure at the various shops around.
+
+* The name of the city you are in is called Hudson, which is a fictional city
+but looks kind of the same as New York or some kind of capital city (although
+it is in Australia, where I come from).
+
+* You can talk to different people by using the command "chat to (player)".
+If the chat is succesful, you will be given a list of topics that you can
+talk to them about later on.
+
+* You can die in this world, if you do anything stupid that is, not of old
+age.
+
+* There is a time system which tells you what time it is if you look at your
+watch. The time goes up in 30 minute blocks, which go up every so often. It
+uses 24 hour time. You may need to set appointments between certain times.
+
+* You can go to sleep in your bed by typing sleep in your bedroom. You will
+go to sleep for 8 hours and your health will be at max. You can also nap in
+this adventure for 1 hour, but your stamina won't be full.
+
+* You lose $50 a day to pay for bills, (which is $350 a week). This includes,
+rent, electricity, water etc. If you don't pay your bills then you will go
+into minus money, which is kind of like a debt. Every time you recieve money
+that is how much you take off your debt, because it goes directly to the
+bank. You might not have any money for food.
+
+* To get back into your house once outside, type unlock door.
+
+* It is a good idea to get a credit card, otherwise you cannot access your
+account where you get your pay from.
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+>This is your watch. It is 24 hour time and it says that the time right now is
+[TIME=12]. It has been 0 days since you have moved in.
+
+>You move west.
+The Upstairs Landing
+This is the upstairs landing, which has a cupboard full of towels. To the
+east is your bedroom and downstairs is the lounge room.
+
+You can move east and down.
+
+>You move down.
+The Lounge Room
+This is the lounge room. To the west, is your front garden. To the east, is
+your kitchen. In here is a Couch and a TV.
+
+You can move east, west and up.
+
+>You press the button and your TV turns on. Choose either channel 1 or channel
+7.
+
+>You change to Channel 1. It is the Star Wars marathon, which is playing
+Episode 1 right now.
+
+>You switch to channel 7. It is playing the game show right now. [TV=0].
+
+>You can't turn that.
+
+>You move west.
+Front Garden
+You are in your front garden. Your mailbox is here, which sometimes contains
+mail. To the west is the "Main Street", the road you live on.
+
+You can only move west.
+
+>You move west.
+Main Street - Centre
+You are at the Centre of Main Street. To the east is your appartment. The
+street goes north and south, and you can move to the west to enter the Hudson
+Shopping Centre.
+
+You can move north, east, south and west.
+
+>You move west.
+Hudson Shopping Centre
+This is the Hudson Shopping Centre. To the north is the Supermarket, To the
+South is the Newsagent and to the West is Bank.
+
+You can move north, east, south and west.
+
+>You move north.
+Hudson Supermarket
+This is the Hudson Supermarket, there are counters all around and shelves of
+food. There is a menu which tells you all of the foods for sale.
+Lisa is leaning over the counter serving customers.
+
+You can only move south.
+
+>You give Lisa $2 and she hands you a pack of chips.
+
+>You move south.
+Hudson Shopping Centre
+This is the Hudson Shopping Centre. To the north is the Supermarket, To the
+South is the Newsagent and to the West is Bank.
+
+You can move north, east, south and west.
+
+>
+Hudson Shopping Centre
+This is the Hudson Shopping Centre. To the north is the Supermarket, To the
+South is the Newsagent and to the West is Bank.
+
+You can move north, east, south and west.
+
+>Your score is 0 out of a maximum of 0.  (0%)
+
+>Do you really want to quit? [Y/N]

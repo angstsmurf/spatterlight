@@ -1,0 +1,525 @@
+Loading game...
+
+LES FEUX DE L'ENFER
+
+LES FEUX DE L'ENFER
+
+                                                                1. Nouvelle
+partie.
+                                                                2. Préface.
+                                                                3. Aide.
+                                                                4. Note de
+l'auteur.
+
+>
+
+                                Pour commencer l'aventure en lisant
+l'introduction, tapez: "intro".
+                                Pour commencer l'aventure en passant
+l'introduction, tapez: "passer".
+
+>
+
+Vous êtes sur le point de commencer votre aventure extraordinaire et vous
+deviendrez peut-être une légende,
+renommé et respecté dans le monde entier. Vous devez d'abord traversez les
+Déchets du Chaos, entrez ensuite
+dans le Labyrinthe d'Anarazel, et finalement vous devrez le tuer.  Tout ce
+que vous devez faire maintenant est de
+survivre jusqu'à ce que vous le rencontriez. Plus facile à dire qu'à faire...
+ Mais avant de débuter votre quête, voici
+les caractéristiques de votre personnage:
+
+Mise à jour de vos points de compétence...
+
+Points de Compétence: 10
+
+Mise à jour de vos points d'endurance...
+
+Points d'endurance: 13
+
+Mise à jour de vos points de chance...
+
+Points de chance: 12
+
+Tapez "statut" ou "stat" a tout moment pour voir les caractéristiques de
+votre personnage.
+
+[Appuyez sur une touche pour continuer...]
+
+Comme convenue, vous passez rapidement chez votre ami l'alchimiste qui vous
+avait promis le don
+d'une potion en guise d'encouragement pour votre quête périlleuse.
+
+[Appuyez sur une touche pour continuer...]
+
+LA CAVE DE L'ALCHIMISTE
+
+L'endroit est très sombre, mais néanmoins vos yeux commencent à s'habituer à
+l'obscurité. Quelques bougies
+sont accrochées sur les murs de la cave et éclairent faiblement les longues
+étagères sur les murs qui
+contiennent des tas de potions, fioles en tout genre ainsi que des flasques.
+Au centre de la pièce se trouve un
+énorme chaudron qui bouillonne.
+Votre ami l'alchimiste est ici.
+
+>L'alchimiste se gratte la gorge et dit:
+  "Cette fiole bleue a la propriété de reconstituer l'endurance.
+   Je suis sur que vous avez fait le bon choix l'ami, prenez la et faites en
+bon usage..."
+
+Sur ce fait, l'alchimiste vous salut et retourne a son chaudron pour
+continuer ses mixages.
+
+                                [Appuyez sur une touche pour continuer]
+
+        Six semaines après le premier incident vous décidez de partir une
+nuit, sous la couverture de
+        l'obscurité, sans que personne ne vous arrête. C'est une nuit froide,
+venteuse et pluvieuse,
+        mais si vous ne partez pas maintenant, vous n'aurez plus l'occasion
+demain. Ainsi vous êtes loin
+        de votre ville, dans la nuit froide, et seul...
+
+        Quelques heures plus tard, au plus profond de la nuit, vous
+rencontrez un homme mince qui vous salue
+        sarcastiquement: “Hé! Que faites vous ici ? Un autre guerrier idiot
+qui tente de traiter avec mon maître ?"
+        Vous le regardez, stupéfié et lui répondez: “Votre maître ... vous
+voulez dire Anarazel ?”
+        “En effet je suis son loyal Disciple, il a plusieurs domestiques
+comme moi, en fait, il est loin d'être seul.”
+        “Pourquoi le servez-vous ?" demandez-vous.
+        “Parce qu'il m'a promis la richesse.” Répond l'homme mince avec
+arrogance.
+        “Et vous le croyez vraiment ?” demandez-vous étonné.
+        “Bien sûr que oui !” crie-t-il en reculant,
+        “Et pourquoi, puis-je demander celà ?” ajoute-t-il. “Parce qu'il est
+un Démon!”
+        Vous hurlez dans son visage: “Un Démon plus grand et plus fort si
+vous n'objectez pas!”
+        Il se met à rire à gorge déployée et dit, “Pas le temps de chipotter,
+maintenant nous allons nous téléporter
+        tous les deux dans la tanière de mon maître.”  Soudain vous vous
+sentez très étranges...
+
+                                        [Appuyez sur une touche pour
+continuer]
+
+        Vous êtes maintenant devant l'entrée d'un cachot souterrain! Une
+rivière de sang vous
+        sépare de l'homme mince qui est debout devant la tanière de son
+Maître. Il dit d'un
+        air moqueur: “Impressionné ?” Vous faites un signe négatif de la tête
+en guise de réponse.
+        L'homme minces reprend: “Vous êtes un lâche mon ami. Vous ne faites
+pas ce qui plait le
+        plus à mon maître, mais si vous deviez essayer de le trouver, (il
+indique l'entrée), il
+        est à l'intérieur. ”Vous regardez l'endroit qu'il indique et demandez
+avec un sourire:
+        “Pourquoi il ne sort pas pour me faire face ?” Il répond en riant,
+“Où est le sport la dedans ?
+        De toute manière, vous ne pourriez probablement pas le battre.
+Pourquoi ne pas avoir au moins
+        une dernière aventure avant de mourir ?” Il s'éloigne alors de
+l'entrée menaçante du donjon.
+        Vous n'avez pas le choix que de vous soumettre. Vous avancez à
+travers le sang dégoûtant. Vous
+        vous retournez alors pour voir l'homme et vous rendez compte qu'il
+scelle magiquement les roches
+        de l'entrée, mais avant qu'elle ne soient entièrement fermée il dit:
+“Avant que vous ne mouriez
+        l'aventurier vous devez encore savoir une chose: mon maître admire le
+courage, mais déteste la
+        témérité.” Ensuite il chuchote d'un air détestable, “Bonne chance.”
+Le claquement de la roche qui
+        se ferme avec un bruit assourdissant vous fait presque sursauter !
+
+                                        [Appuyez sur une touche pour
+continuer]
+
+ENTREE DU DONJON
+
+L'atmosphère est lourde avec une puanteur de mort. Vous pouvez voir un tunnel
+pierreux qui
+s'incline légèrement vers le bas en direction du sud. Vos pas se répercutent
+bruyamment et
+un sentiment d'effroi parcourt votre échine. Une porte se trouve à l'ouest et
+une autre se trouve
+à l'est. Celle de gauche est faite de bois mince avec une simple inscription:
+"Trêsor" décoré
+en lettres élégantes en or. La porte de droite est faite de pierre solide
+sans aucune poignée
+où système d'ouverture.
+
+>Vous vous déplacez vers le Sud.
+
+UN TUNNEL DE PIERRE
+
+Ce tunnel de pierre continue à descendre en pente douce en direction du sud.
+Vos pas résonne sur la roche froide, les murs qui se trouvent tout autour de
+vous sont grises et ternes.
+
+Sorties évidentes: Nord et Sud.
+
+>Vous vous déplacez vers le Sud.
+JONCTION
+Vous atteignez une intersection, qui part dans trois direction, Sud, Ouest et
+Est. Au Sud se trouve
+une petite pièce circulaire vivement éclairées qui a l'air de s'étendre un
+peu plus loin. La direction
+à l'Ouest est sombre et silencieuse. Tandis qu'à l'Est il fait très sombre et
+vous avez l'impression
+d'entendre un rire faible émanant de ces profondeurs obscurs. Au Nord, le
+tunnel remonte vers
+l'entrée du cachot souterrain.
+
+Sorties évidentes: nord, Est, Sud et Ouest.
+
+>Vous vous déplacez vers le Sud.
+PIECE CIRCULAIRE
+Vous commencez à descendre le passage au sud et arrivez bientôt dans la pièce
+circulaire que
+vous avez remarquez plus tôt. Vous découvrez avec déception que cette salle
+est vide. Vous êtes
+sur le point de partir quand un bruit étrange survient derrière vous, vous
+vous retournez rapidement
+et remarquez qu'un grand coffre a fait son apparition à côté de l'entrée par
+laquelle vous êtes entrés.
+Il n'était pas là auparavant ...
+Avant même que vous ne pensiez à ouvrir ce coffre - il se déplace!
+Quelque chose est là dedans, quelque chose de grand - et cela n'est pas
+réconfortant !
+
+Sorties évidentes: Nord et Ouest.
+
+>[open coffre]
+Alors que vous touchez le coffre fort, le couvercle vole en éclat ! Un grand
+chauve
+humanoïde bien laid passe à travers - vous reconnaissez de suite que c'est un
+
+ogre ! Il dit: “Vous ne savez pas ce que la curiosité a fait au chat ?”
+demande-t-il sadiquement avec une voix brusque, “maintenant je vais vous
+montrer ce qu'il fait à
+l'homme!” il se précipite vers vous et vous frappe avec un grand club !
+
+Vous arrivez à éviter l'attaque de l'ogre.
+
+>Vous frappez  ogre.
+
+Vous arrivez à éviter l'attaque de l'ogre.
+
+>Vous frappez  ogre.
+
+Vous arrivez à éviter l'attaque de l'ogre.
+
+>Vous frappez  ogre,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque de l'ogre.
+
+>Vous frappez  ogre.
+Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
+
+>[w]
+Vous vous déplacez vers l'ouest.
+
+CAVERNE STERILE
+Cette caverne est stérile mais une étrange odeur de combustion légère émane
+de l'ouest.
+Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
+et au nord
+un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
+
+>Vous vous déplacez vers le Nord.
+
+PETITE CAVERNE
+
+Ce tunnel serpente un peu, mais tient son cap général vers le nord. Au fur et
+à mesure que vous avancez
+une odeur écoeurante de chair en décomposition chatouille vos narines et il
+ne faut pas longtemps avant
+que vous ne découvriez le pourquoi de celà. Vous atteignez une petite caverne
+et découvrez un cadavre
+gonflé, mort depuis longtemps. Le cadavre est paré avec des lambeaux
+antiques. La chair de la chose
+est recouverte de larves se tortillant et des mouches grasses les survolent.
+
+Sorties évidentes: Nord et Sud.
+
+>Plusieurs maladies pourraient infester ce cadavre antique... Cependant, vous
+vous dites qu'une recherche
+(quoi que un peu dégoûtante) pourrait rapporter certains objets utile. Donc
+vous descendez pour l'examiner et...
+"AARGH!" Le cadavre vous regarde fixement - il est vivant. et affamé. D'une
+main morte la chose agrippe votre
+gorge et essaye de vous étrangler de ses doigts pourris. Vous vous retirez
+violemment, juste à temps. La Goule
+se lève et vous bloque dans un coin...
+
+Vous arrivez à éviter l'attaque de la goule.
+
+>Vous frappez  goule.
+
+Vous arrivez à éviter l'attaque de la goule.
+
+>Vous frappez  goule.
+Vous frappez la goule violemment en plein coeur !
+elle retombe lourdement sur le sol, morte...
+Vous sentez que la chance est de votre coté...
+
+>Vous vous déplacez vers le nord.
+
+TUNNEL SOMBRE
+
+Vous marchez le long d'un tunnel sombre qui part vers le Nord. Les murs sont
+fait
+de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
+se trouve
+à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
+Un Démon d'éffroi est ici, prêt à vous attaquer !
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>
+
+TUNNEL SOMBRE
+
+Vous marchez le long d'un tunnel sombre qui part vers le Nord. Les murs sont
+fait
+de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
+se trouve
+à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
+Un Démon d'éffroi est ici, prêt à vous attaquer !
+
+Vous pouvez seulement vous déplacer vers le Sud.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>Vous frappez  demon.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>Vous frappez  demon.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>Vous frappez  demon.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>Vous frappez  demon,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>Vous frappez  demon,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+>Vous frappez  demon.
+Le démon d'éffroi s'éffondre sur le sol et disparaît dans
+un nuage de fumée rouge. Ce qui reste du Démon est sur le sol, sur les murs,
+et sur vous. La chance vous sourit...
+
+>Vous ouvrez la porte qui grince bruyemment...
+
+>Vous tirez votre épée durcie de sang et entrez prudemment. Vous n'êtes pas le
+seul ici.
+Vous avez l'impression d'être dans la tanière de la chose que vous venez
+juste de tuer, on
+dirait qu'il faisait partie d'une famille, parce qu'il y a encore trois
+Démons d'Effroi qui tendent
+leurs armes vers vous. en vous tournant, vous tombez accidentellement sur un
+sac que vous
+n'aviez pas remarqué auparavant, son contenu se renverse sur le sol devant
+vous. Vous avez
+le temps de prendre un article et un seul. Mais vous n'avez pas le temps de
+l'examiner en détail,
+vous le saisissez juste et ressortez de la pièce rapidement en espèrant ne
+plus avoir besoin
+d'entrer dans cet salle.
+
+                                        [Appuyez sur une touche pour
+continuer]
+
+Vous avez pris rapidement dans le sac une clef en forme de squelette.
+
+TUNNEL SOMBRE
+
+Vous marchez le long d'un tunnel sombre qui part vers le Nord. Les murs sont
+fait
+de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
+se trouve
+à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
+
+>Vous vous déplacez vers le Nord.
+
+PASSAGE
+
+Vous voyagez vers le Nord-Est dans le passage qui à une odeur plaisante. Peu
+de temps passe
+avant que vous ne croisiez la source de l'odeur bienveillante. Vous apercevez
+une accolade de
+bougies avec leurs flammes qui brûlent d'une couleur pourpres qui sont
+alignées contre les murs
+de cette place peu commune - le tunnel s'est métamorphosé en un joli couloir,
+complet avec des
+murs multicolores et un tapis épais rouge. Vous trouvez celà étrange, mais
+vous découvrez bientôt
+pourquoi; Vous êtes sur le chemin d'un magasin! Vous reconnaissez celà, parce
+que vous
+regardez fixement une pancarte ou il est écrit: "ouvert" sur une porte au
+sud.
+
+Sorties évidentes: Nord-Est et Sud-Ouest.
+
+>
+
+PASSAGE
+
+Vous voyagez vers le Nord-Est dans le passage qui à une odeur plaisante. Peu
+de temps passe
+avant que vous ne croisiez la source de l'odeur bienveillante. Vous apercevez
+une accolade de
+bougies avec leurs flammes qui brûlent d'une couleur pourpres qui sont
+alignées contre les murs
+de cette place peu commune - le tunnel s'est métamorphosé en un joli couloir,
+complet avec des
+murs multicolores et un tapis épais rouge. Vous trouvez celà étrange, mais
+vous découvrez bientôt
+pourquoi; Vous êtes sur le chemin d'un magasin! Vous reconnaissez celà, parce
+que vous
+regardez fixement une pancarte ou il est écrit: "ouvert" sur une porte au
+sud.
+
+Sorties évidentes: Nord-Est et Sud-Ouest.
+
+>Avant même que vous ne puissiez même toucher la porte, un petit homme faché
+l'ouvre et sort.
+
+>[x petit homme]
+Il vous regarde de haut en bas avant de dire d'un air hautin:
+        "le Bonjour à vous, puis-je demander pourquoi L'ENFER me fait dérangé
+?"
+
+Vous répondez:
+
+        1. "S'il vous plaît oh seigneur, honorez-moi en me laissant regarder
+votre magasin." d'une voix idiote?
+        2. "Arrêtez d'être stupide." D'une voix ferme ?
+        3: Oublier les plaisanteries et tirer votre arme ?
+
+>“Vous vous moquez de moi ?” dit le marchand en fureur. Il crie alors,
+“GARDES!”
+
+Trois gardes du chaos arrivent de nulle part.
+
+Vous arrivez à éviter l'attaque du voyou.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voyou.
+
+Vous arrivez à éviter l'attaque du voyou.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voyou.
+
+Vous arrivez à éviter l'attaque du voyou.
+Un voleur vous frappe.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voyou.
+Le voyou du chaos s'écroule par terre dans une marre de sang.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voleur.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voleur,
+mais cela ne fait aucun domage.
+
+Un voleur vous frappe.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voleur,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voleur.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voleur.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous frappez  voleur.
+Le voleur du chaos tombe raide mort sur le sol.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+>Vous vous déplacez vers le Nord-Est.
+
+PATTE D'OIE
+
+Le tunnel de pierre forme une patte d'oie à cet endroit. Des bruits de
+barbotage se font
+entendre au nord, le passage continue de manière identique à cette place vers
+le sud,
+tandis qu'au sud-ouest l'endroit semble beaucoup plus chic et agréable.
+
+Une petite roche traine au milieu du chemin.
+
+Sorties évidentes: nord, Sud et Sud-Ouest.
+
+>Vous vous déplacez vers le Nord.
+
+TUNNEL
+
+Le tunnel se referme un peu plus autour de vous et devient plus étroit au fur
+et
+à mesure que vous descendez. Le bruit de l'eau se fait entendre de plus en
+plus
+fort en direction de l'ouest tandis qu'au sud il s'assourdit. Directement
+devant
+vous, à demi-caché par la saleté et les ténèbres, se trouve un piège.
+
+Sorties évidentes: Sud et Ouest.
+
+>D'un geste précis, vous descendez lentement votre bras en prenant soin
+d'éviter le
+fil de pêche et soulevez doucement la clef de cristal. Le fil vacille, mais
+ne se
+déclenche pas. Vous enlevez doucement votre bras exposé et placez la clef
+sur vous en essuyant la sueur sur votre front
+
+Vous vous sentez plus agile...
+
+>Votre score est 25 sur un maximum de 115.  (21%)
+
+>Do you really want to quit? [Y/N]

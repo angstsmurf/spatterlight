@@ -1,0 +1,513 @@
+Loading game...
+
+The Spirit's Flight
+An easy game with a background into the Mystical belief. The only hard bit is
+remembering all the NPC's names.
+
+All has been peaceful, at least since your arrival into the spirit world.
+
+However, one day, all went wrong. You and the spirits could feel that life
+and death was starting to join. They would join because the elementals were
+missing from The Stone Circle. These elements of water, fire, air, and earth
+along with the spirits kept life and death separate.
+
+If the elements were not returned to the Stone Circle, the centre of the
+world, life would not exist and neither would the spirits.
+
+The removal of the elementals was disastrous but this continued with the
+separation of the four. This act caused the world to split into four, each
+part corresponding to each elemental. Only the Glade of Spirits remained
+intact. However, there was also the regeneration of evil beings past
+vanquished. It's best that you destroy them if they cause any harm.
+
+You decide that enough was enough. You convinced the Spirit God to change you
+from a spirit back into a living soul so that you can retrieve the elementals
+and return them to the Stone Circle where they belong.
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+Glade of Spirits
+The place is foggy. You can sense some supernatural beings -  like you
+floating around the place. This place is dead quiet.  A voice in your mind
+whispers "Find the elementals. South is your first direction. The fighter
+must accompany you."
+
+There is an exit south.
+
+>(Standing up first)
+You walk south.
+Path to Stone Circle
+The path is paved with large gravel, and is lined on the sides with stones.
+
+Lamanluie is here.
+
+There are exits north and south.
+
+>You walk south.
+The Stone Circle
+A large crater on top of the mountain has a large rock tablet in the middle.
+Five obelisks surround the tablet.  The place looks gloomy and dark
+
+You can move north and southeast.
+
+>You walk southeast.
+High Wizard'sTower
+The bottom part of the tower is open. Potions and books alike scatter the
+tables and shelves
+
+Kilfuno is here.
+
+You can only move northwest.
+
+>He jolts and disturbs some flasks of potions with a clink. A bolt of
+electricity sparks around the room. The High Wizard wakes up and stares at
+your spirit-like body. "What do you want?"
+
+>You pick up Healing Potion.
+
+>(Your score has increased by 5)
+One of the books are not books at all. It is a switch. A slight crack on the
+bottom of the shelf opens. You crawl in without Kilfuno spotting you.
+
+>You pick up Volmor's Cake.
+
+>The glittering swirls on the cake turn into a liquid that flows into your
+throat with a tickly feeling. An unusual voice cackles from your throat,
+"Thank you for trying Volmor's high nutrition cake recipes...Your Stamina,
+Strength, and Defense is now better..."
+You fall to the floor as the flavour overwhelms.
+
+>(Standing up first)
+You move out.
+High Wizard'sTower
+The bottom part of the tower is open. Potions and books alike scatter the
+tables and shelves
+
+Kilfuno is here.
+
+You can only move northwest.
+
+>You walk northwest.
+The Stone Circle
+A large crater on top of the mountain has a large rock tablet in the middle.
+Five obelisks surround the tablet.  The place looks gloomy and dark
+
+Also here is The Spirit Dagger.
+
+You can move north and southeast.
+
+>You pick up the Spirit Dagger.
+
+>You walk north.
+Path to Stone Circle
+The path is paved with large gravel, and is lined on the sides with stones.
+
+Lamanluie is here.
+
+You can move north and south.
+
+>(Your score has increased by 5)
+She picks up her scimitar "Now,where to first?"
+
+>You walk north.
+Glade of Spirits
+The place is foggy. You can sense some supernatural beings -  like you
+floating around the place. This place is dead quiet.  A voice in your mind
+whispers "Wind is next, west you go."  A voice in your mind whispers "Find
+the elementals. South is your first direction. The fighter must accompany
+you."
+
+You can move south and west.
+
+>You walk west.
+Chirpy Forest
+The forest is filled with the sounds of birds. The tree tops obsure the light
+
+You can move east and southwest.
+
+>You walk southwest.
+Whistle Hamlet
+The place is full of pine trees. Log-houses dot the area.  People are locked
+inside their homes, scared of the missing wind elemental.
+
+Fernipor is here.
+
+You can move south and northeast.
+
+>You walk south.
+Breezy Path
+The path leads to a cliff top to the south and Whistle Hamlet to the north.
+A fierce wind blows.
+
+Moyru is here.
+
+>You hit Moyru.
+Moyru cackles one last time before her body melts into a puddle of water.
+
+>You walk south.
+Cliff Top
+The cliff is high up in the clouds.  The wind blows downwards towards a
+cavern. It whistles, "Come help me."
+
+Also here is piece of cheese.
+
+You can move north and down.
+
+>You pick up piece of cheese.
+
+>This makes you satiated.
+
+>You climb down.
+Cavern of Echoes
+This place is so spacious and a steady wind blows through it. Every sound
+that starts here echoes in a deafening way.
+
+You can only move up.
+
+>You climb up.
+Ridge of Storms
+You emerge from the cavern to find yourself up in the clouds on a ridge. This
+must be the ridge of storms.
+
+Fergo is here.
+
+You can only move down.
+Fergo hits you.
+Lamanluie hits Fergo.
+
+>(Your score has increased by 10)
+You hit Fergo.
+Fergo collapses. The wind elemental leaves his body and transforms itself
+into an object.
+The Fletched Spear floats magically into your hands.
+The ridge is no longer windy. However, a gust of wind clears the clouds
+behind you, showing the path out.
+
+>You pick up the Orb of Storms.
+
+>You move out.
+Cliff Top
+The cliff is high up in the clouds.  The cavern you went through does not
+exist.  The wind blows downwards towards a cavern. It whistles, "Come help
+me."
+
+You can only move north.
+
+>You walk north.
+Breezy Path
+The path leads to a cliff top to the south and Whistle Hamlet to the north.
+A steady wind blows.  A fierce wind blows.
+
+Morana is here.
+
+You can only move south.
+
+>You hit Morana.
+Morana screeches before she disappears in a puff of smoke.
+
+>You are not making sense...
+
+>You walk north.
+Whistle Hamlet
+The place is full of pine trees. Log-houses dot the area.  People smile at
+you as you past, hopeful that soon the elementals will be returned to the
+Stone Circle.  People are locked inside their homes, scared of the missing
+wind elemental.
+
+Fernipor is here.
+
+You can move south and northeast.
+
+>You walk northeast.
+Chirpy Forest
+The forest is filled with the sounds of birds. The tree tops obsure the light
+
+You can move east and southwest.
+
+>You walk east.
+Glade of Spirits
+The place is foggy. You can sense some supernatural beings -  like you
+floating around the place. This place is dead quiet.  A voice in your mind
+whispers "Wind is next, west you go."  A voice in your mind whispers "Find
+the elementals. South is your first direction. The fighter must accompany
+you."
+
+You can move east, south and west.
+
+>You walk east.
+Misty Forest
+A hazy fog drifts across the tree branches. Frogs sound in random beats.
+
+You can move east and west.
+
+>You walk east.
+The Beach
+A long stretch of golden sand. Shells dot the place while a gentle cool wind
+blows across your body.  The waves churn fiercely.
+
+You can only move west.
+
+>(Your score has increased by 5)
+The sand castle crumbles as you break it apart. By half-way, you notice the
+floor of the sand castle is the exact same plan of the Merfolk's Domain.
+You trace with your finger the route to the Sea Serpent's cave
+
+>The clam closes up. It burps from it's digestion. This makes it move slightly
+off the Merfolk entrance, allowing you to squeeze in.
+
+>You walk south.
+The Merfolk's Domain
+The place is an amazing splendour of coral buildings and fish schools. The
+wind elemental does you a favour and allows you to breathe underwater.  The
+Merfolk are slightly agitated at the water's fierce churning
+
+Korishia is here.
+
+You can move north and south.
+
+>You walk south.
+Water Tunnel
+A thin tunnel under the water.
+
+Serpanern is here.
+
+You can only move north.
+Lamanluie hits Serpanern.
+
+>You hit Serpanern.
+It's body shrivels and is instantly consumed by fishes.
+
+>You are not making sense...
+
+>You climb up.
+Cavern of Reflections
+The cavern is covered in reflective ice.  A mirror stands.
+
+You can move east and down.
+
+>You walk east.
+Cavern of Mirages
+The carvern is covered in translucent ice.  A mirror stands
+
+Also here is Bent Mirror.
+
+You can move west and down.
+
+>(Your score has increased by 5)
+The mirror shatters easily with the use of The Spirit Dagger.
+Cavern of Mirages
+The carvern is covered in translucent ice.  Borken pieces of the mirror are
+on the floor.  A mirror stands
+
+Also here is A snow flake.
+
+Lamanluie is here.
+
+>You climb down.
+Sea Serpent's Cave
+The cave is full of drawings of mystical sea creatures. Stalactites of
+wondrous colour hang from the ceiling. Bleeched coral is growing in the far
+corner.
+
+Crynasalda is here.
+Crynasalda hits Lamanluie.
+
+>(Your score has increased by 10)
+You hit Crynasalda.
+Lamanluie hits Crynasalda.
+Crynasalda collapses. The water elemental leaves her body and transforms
+itself into an object.
+The Sea Serpent's Scales floats magically onto your body.
+
+>You are not making sense...
+
+>You are not making sense...
+
+>You climb up.
+Cavern of Mirages
+The carvern is covered in translucent ice.  Borken pieces of the mirror are
+on the floor.  A mirror stands
+
+Also here is A snow flake.
+
+You can move west and down.
+
+>You walk west.
+Cavern of Reflections
+The cavern is covered in reflective ice.  A mirror stands.
+
+You can move east and down.
+
+>You climb down.
+Water Tunnel
+A thin tunnel under the water.
+
+You can move north and up.
+
+>You walk north.
+The Merfolk's Domain
+The place is an amazing splendour of coral buildings and fish schools. The
+wind elemental does you a favour and allows you to breathe underwater.  The
+Merfolk swim around happily.  The Merfolk are slightly agitated at the
+water's fierce churning
+
+Korishia is here.
+
+You can move north and south.
+
+>You walk north.
+The Beach
+A long stretch of golden sand. Shells dot the place while a gentle cool wind
+blows across your body.  The waves churn fiercely.
+
+You can move south and west.
+
+>You walk west.
+Misty Forest
+A hazy fog drifts across the tree branches. Frogs sound in random beats.
+
+You can move east and west.
+
+>You walk west.
+Glade of Spirits
+The place is foggy. You can sense some supernatural beings -  like you
+floating around the place. This place is dead quiet.  A voice in your mind
+whispers "Wind is next, west you go."  A voice in your mind whispers "Find
+the elementals. South is your first direction. The fighter must accompany
+you."
+
+You can move east, south, west and northwest.
+
+>You walk northwest.
+Dry Forest
+The forest is full of thin trees and burnt wood scraps. There seems to be an
+eerie quite.
+
+You can move north and southeast.
+You feel cold.
+
+>You walk north.
+Desert Path
+The path is dry and cracked. The sun beats down on you hard. The air is hot
+and dry.  A lizard is here.
+
+Slikerma is here.
+
+You can only move west.
+
+>You walk west.
+Vulcan's Forge
+A small clearing with only a hut. It appears to be a blacksmith's.  The hut
+appears cold and silent.
+
+Afernoga is here.
+
+You can move north and east.
+You feel cold.
+
+>You walk north.
+Volcano Path
+The path to the volcano is tiled with natural igneous rocks. The heat become
+hotter as you reach the volcano itself. The water elemental does you a favour
+and cools you down slightly.
+
+You can move south and northeast.
+
+>You walk northeast.
+Spiral Path
+This path is carved right onto the edge of the volcano. Looking down, you see
+that the lava looks much more dangerous than you thought it would be.
+
+You can move east, in and southwest.
+You feel cold.
+
+>You walk east.
+Core of Volcano
+The magma is oozing everywhere and your body breaks into a sweat. Each drop
+from your body drips onto the ground and sizzles mightily.
+
+Kelorano is here.
+
+You can only move west.
+Lamanluie hits Kelorano.
+Kelorano hits Lamanluie.
+
+>(Your score has increased by 10)
+Lava engulfs Kelorano's body. He screams and you only hope that he is
+destroyed. Something leaves his body and drops at your feet. The Ever-Burning
+torch flies at you and you grab it.
+Core of Volcano
+The magma is oozing everywhere and your body breaks into a sweat. Each drop
+from your body drips onto the ground and sizzles mightily.  The magma looks
+as though it'll erupt any minute. It creeps ever so slowly at you.
+
+Also here are The Amber of Flames.
+
+Lamanluie and Kelorano are here.
+You feels as though you should leave quickly.
+Kelorano hits you.
+
+>You pick up the Amber of Flames.
+Lamanluie hits Kelorano.
+Kelorano hits Lamanluie.
+
+>You walk west.
+Spiral Path
+This path is carved right onto the edge of the volcano. Looking down, you see
+that the lava looks much more dangerous than you thought it would be.
+
+You can move in and southwest.
+
+>You walk southwest.
+Volcano Path
+The path to the volcano is tiled with natural igneous rocks. The heat become
+hotter as you reach the volcano itself. The water elemental does you a favour
+and cools you down slightly.
+
+You can only move south.
+
+>You walk south.
+Vulcan's Forge
+A small clearing with only a hut. It appears to be a blacksmith's.  The hut
+appears cold and silent.
+
+Afernoga is here.
+
+You can move north and east.
+
+>You walk east.
+Desert Path
+The path is dry and cracked. The sun beats down on you hard. The air is hot
+and dry.  A lizard is hissing at you, blocking your way.  A lizard is here.
+
+Slikerma is here.
+
+You can only move west.
+Lamanluie hits Slikerma.
+Slikerma hits Lamanluie, but it doesn't seem to do any damage.
+
+>You hit Slikerma.
+Bright red blood oozes from Slikerma's fatal wound.
+
+>You are not making sense...
+
+>You walk south.
+Dry Forest
+The forest is full of thin trees and burnt wood scraps. There seems to be an
+eerie quite.
+
+You can move north and southeast.
+
+>You walk southeast.
+Glade of Spirits
+The place is foggy. You can sense some supernatural beings -  like you
+floating around the place. This place is dead quiet.  A voice in your mind
+whispers "Wind is next, west you go."  A voice in your mind whispers "Find
+the elementals. South is your first direction. The fighter must accompany
+you."
+
+You can move north, east, south, west and northwest.
+
+>Your score is 50 out of a maximum of 95.  (52%)
+
+>Do you really want to quit? [Y/N]

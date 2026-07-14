@@ -1,0 +1,591 @@
+Loading game...
+
+Melbourne Beach
+Version 1.0f
+Last modified: February 3, 2001
+©2001 by David D. Good <duoing@bigfoot.com>
+Last compiled with ADRIFT Version 3.90.12
+by Campbell Wild, www.adrift.org.uk
+
+Welcome to Melbourne Beach, on the east coast of sunny Florida!
+
+You wake up to the sound of an alarm clock blaring.  After whapping the alarm
+clock a couple times, you realize the noise is coming from the room next
+door, David's room.  You consider throwing a shoe at the wall but decide it's
+time to get up anyway.
+
+Press any key to get up out of bed.
+
+You're not used to a waterbed, so with a little bit of effort you managed to
+haul yourself out of the bed.
+
+Guest room
+This is the guest room.  The room is dominated by a large waterbed, over
+which is a window.  There is a closet on the west wall next to a small
+bookcase, a dresser to the north, and a bedside table.  The carpeting is a
+hideous lavender shag that has seen better days.  The only exit is to the
+west.
+
+>You open the dresser.  Inside the dresser is a pair of jeans.
+
+>You take the pair of jeans from the dresser.
+
+>(Your score has increased by 1)
+OK, you're now wearing the jeans. They are a little snug but seem to fit for
+now.  The pair of jeans has four pockets you can put small items in.
+
+Kitty sashays in.
+
+>You open the closet.  Inside the closet is a shirt.
+
+>You take the shirt from the closet.
+
+>(Your score has increased by 1)
+The shirt fits just fine. It has a pocket you can put small items in.
+
+>(Your score has increased by 1)
+You reach down to pet the kitty. She feels nice and soft. She purrs at you.
+You come away with a handful of fur, which seems to cling to your hand like
+glue. She must be shedding.
+
+>Outside Bedrooms
+This is a long, white-tiled hallway lined with photographs. The guest room is
+to the east, David's room is to the north-east, a bathroom is to the north,
+Judy's bedroom is to the west. The hallway continues to the south.
+
+Kitty sashays in from the east.
+
+>You move west.
+Judy's bedroom
+This is Judy's bedroom.  She practices her trumpet in this room.  There is a
+waterbed here, with a bedside table.  Two windows are on the north wall.
+There is a bathroom to the west, and the hallway is to the east.
+
+Also here is an instrument case.
+
+>You open the instrument case.  Inside the instrument case is a small bottle,
+a spit rag and a Monette trumpet.
+
+>You take the Monette trumpet from the instrument case.
+
+>You take the small bottle from the instrument case.
+
+>You open the small bottle.  Some oil is inside the small bottle.
+
+>(Your score has increased by 5)
+The trumpet valves seem to move much more easily now.
+
+>You move east.
+Outside Bedrooms
+This is a long, white-tiled hallway lined with photographs. The guest room is
+to the east, David's room is to the north-east, a bathroom is to the north,
+Judy's bedroom is to the west. The hallway continues to the south.
+
+David is here.
+
+David withdraws to the north.
+
+>You move south.
+Outside den
+You're in a north-south hallway with a white tiled floor. To the east is the
+den, or computer room. To the west is the living room, and the hallway
+proceeds north and south.
+
+>You move south.
+Entrance hall
+The entrance hall, like the rest of the hallway, has white tile.  Family
+photos and plaques are mounted on the walls.  There is a mirror on the south
+wall, the front door is to the east.  A coat closet is also on the south
+wall.  To the west is the dining room, the north-west the living room,
+south-west is the kitchen, and the hallway continues to the north, where the
+bedrooms are.
+
+>You move southwest.
+Kitchen
+This is the kitchen.  The countertop is blue, and the same white tile lines
+the floor.  There are a variety of small appliances on the counter.  To the
+south there is an eating area, east is the laundry, north is the dining room,
+and north-east is the entrance hall.  You can see the pool and back porch
+through the west window.  There is a pot of hot coffee here, and it smells
+good.
+
+>You move south.
+Eating area
+The eating area is where most of the family meals are eaten, around the
+round, glass-topped table.  Sitting at the table one can either look out the
+sliding glass door to the pool to the west, or look into the family room to
+the east, where there television can plainly be seen.  To the north is the
+kitchen.
+
+Also here is a leather purse.
+Judy is here, whistling happily.
+
+>You open the leather purse.  A set of car keys is inside the leather purse.
+
+Judy strolls away.
+
+>You take the set of car keys from the leather purse.
+
+>You move north.
+Kitchen
+This is the kitchen.  The countertop is blue, and the same white tile lines
+the floor.  There are a variety of small appliances on the counter.  To the
+south there is an eating area, east is the laundry, north is the dining room,
+and north-east is the entrance hall.  You can see the pool and back porch
+through the west window.  There is a pot of hot coffee here, and it smells
+good.
+
+>You move east.
+Laundry
+One of the smallest rooms in the house, this room has a washer and dryer in
+it.  On the floor you see the kitty's food, water and kitty litter.  To the
+east is the door leading to the garage, and west is the kitchen.  To the
+south is the half-bath.
+
+Also here is a laundry basket.
+
+>You move east.
+Garage
+The garage has a large door on the east side.  The laundry is to the east,
+and another small door is on the south wall.  A spare refrigerator is on the
+west wall, as is the garage door opener.
+
+>(Your score has increased by 1)
+The car door is unlocked.
+
+>The car door is open.
+
+>You move in.
+Car
+You're in a red & gray 1994 Chrysler Concorde.
+
+Also here is a folder and a garage-door opener.
+
+>You pick up the folder.
+
+>You move out.
+Garage
+The garage has a large door on the east side.  The laundry is to the east,
+and another small door is on the south wall.  A spare refrigerator is on the
+west wall, as is the garage door opener.  The car door is unlocked.
+
+>You move west.
+Laundry
+One of the smallest rooms in the house, this room has a washer and dryer in
+it.  On the floor you see the kitty's food, water and kitty litter.  To the
+east is the door leading to the garage, and west is the kitchen.  To the
+south is the half-bath.
+
+Also here is a laundry basket.
+
+>You move west.
+Kitchen
+This is the kitchen.  The countertop is blue, and the same white tile lines
+the floor.  There are a variety of small appliances on the counter.  To the
+south there is an eating area, east is the laundry, north is the dining room,
+and north-east is the entrance hall.  You can see the pool and back porch
+through the west window.  There is a pot of hot coffee here, and it smells
+good.
+
+David sashays in from the north-east.
+
+>You move northeast.
+Entrance hall
+The entrance hall, like the rest of the hallway, has white tile.  Family
+photos and plaques are mounted on the walls.  There is a mirror on the south
+wall, the front door is to the east.  A coat closet is also on the south
+wall.  To the west is the dining room, the north-west the living room,
+south-west is the kitchen, and the hallway continues to the north, where the
+bedrooms are.
+
+>You move north.
+Outside den
+You're in a north-south hallway with a white tiled floor. To the east is the
+den, or computer room. To the west is the living room, and the hallway
+proceeds north and south.
+
+>You move north.
+Outside Bedrooms
+This is a long, white-tiled hallway lined with photographs. The guest room is
+to the east, David's room is to the north-east, a bathroom is to the north,
+Judy's bedroom is to the west. The hallway continues to the south.
+
+>You move west.
+Judy's bedroom
+This is Judy's bedroom.  She practices her trumpet in this room.  There is a
+waterbed here, with a bedside table.  Two windows are on the north wall.
+There is a bathroom to the west, and the hallway is to the east.
+
+Also here is an instrument case.
+Judy is here, whistling happily.
+
+>(Your score has increased by 5)
+You give the trumpet to Judy. She thanks you.
+
+Putting the horn to her lips she plays a little ditty.
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+>You don't have the Monette trumpet!
+
+Judy moves on.
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>(Your score has increased by 10)
+Judy says: "You found my music! Now I can go practice!" She sets her music on
+a music stand you hadn't noticed before and proceeds to practice.
+
+After she practices a few minutes, she looks at you and says, "Why don't you
+take the car down to the beach?"
+
+She gives you directions and goes back to practicing.
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>Give what?
+
+>You move east.
+Outside Bedrooms
+This is a long, white-tiled hallway lined with photographs. The guest room is
+to the east, David's room is to the north-east, a bathroom is to the north,
+Judy's bedroom is to the west. The hallway continues to the south.
+
+>You move south.
+Outside den
+You're in a north-south hallway with a white tiled floor. To the east is the
+den, or computer room. To the west is the living room, and the hallway
+proceeds north and south.
+Judy is here, whistling happily.
+
+>You move east.
+Den
+The blue-carpeted den, or computer room, has two desks, and two computers.
+The PC is in the north-east corner of the room, and the Mac is on the desk on
+the south wall.  A bookcase full of computer documentation is on the north
+wall.  The south wall also sports several filing cabinets.  There is a closet
+on the west wall.  A window looks out on the front yard to the east.  You can
+go west to the hallway.
+
+>(Your score has increased by 2)
+You browse a variety of computer reference books, which include an A+ exam
+study guide to a Windows 98 Secrets book as well as a Microsoft Office 2000
+manual.  You study the computer books and feel smarter.
+
+>You move west.
+Outside den
+You're in a north-south hallway with a white tiled floor. To the east is the
+den, or computer room. To the west is the living room, and the hallway
+proceeds north and south.
+Kitty is here. You're not allergic, are you?  Judy is here, whistling
+happily.
+
+Kitty withdraws to the east.
+
+>You move south.
+Entrance hall
+The entrance hall, like the rest of the hallway, has white tile.  Family
+photos and plaques are mounted on the walls.  There is a mirror on the south
+wall, the front door is to the east.  A coat closet is also on the south
+wall.  To the west is the dining room, the north-west the living room,
+south-west is the kitchen, and the hallway continues to the north, where the
+bedrooms are.
+
+>You move southwest.
+Kitchen
+This is the kitchen.  The countertop is blue, and the same white tile lines
+the floor.  There are a variety of small appliances on the counter.  To the
+south there is an eating area, east is the laundry, north is the dining room,
+and north-east is the entrance hall.  You can see the pool and back porch
+through the west window.  There is a pot of hot coffee here, and it smells
+good.
+
+David is here.
+
+>You move east.
+Laundry
+One of the smallest rooms in the house, this room has a washer and dryer in
+it.  On the floor you see the kitty's food, water and kitty litter.  To the
+east is the door leading to the garage, and west is the kitchen.  To the
+south is the half-bath.
+
+Also here is a laundry basket.
+
+>You now have the dirty clothes.
+
+>You open the washer.
+
+>You put the dirty clothes inside the washer.
+
+>You sort through the laundry and decide to throw the whole lot into the
+washer.  Adding a cup of Tide, you fiddle with the dials until you manage to
+turn the washer on.
+
+After a while, the washer finishes the cycle, fills with clean water, then
+spins the excess out.
+
+>You now have the pile of wet clothes.
+
+>[open drier]
+You open the dryer.
+
+>[put wet clothes in drier]
+You put the wet clothes inside the dryer.
+
+>You set the dryer for an appropriate period of time and turn it on.  It spins
+the clothes around for a while, humming merrily, then stops.
+
+>You take the dry clothes from the dryer.
+
+>(Your score has increased by 5)
+What a great guest you are!  You do laundry, fold clothes, you should stay
+here more often!
+
+After folding the clothes, you place them neatly back into the laundry basket
+and put the basket back on top of the washing machine.
+
+>You move west.
+Kitchen
+This is the kitchen.  The countertop is blue, and the same white tile lines
+the floor.  There are a variety of small appliances on the counter.  To the
+south there is an eating area, east is the laundry, north is the dining room,
+and north-east is the entrance hall.  You can see the pool and back porch
+through the west window.  There is a pot of hot coffee here, and it smells
+good.
+
+David is here.
+
+>You take the coffee pot from the counter.
+
+>You pour the coffee into the yellow coffee cup and pick it up. Mmm, it's nice
+and warm and smells nice.
+
+>(Your score has increased by 1)
+Mmm!  That sure tasted good.  You feel all warm inside.
+
+>You move northeast.
+Entrance hall
+The entrance hall, like the rest of the hallway, has white tile.  Family
+photos and plaques are mounted on the walls.  There is a mirror on the south
+wall, the front door is to the east.  A coat closet is also on the south
+wall.  To the west is the dining room, the north-west the living room,
+south-west is the kitchen, and the hallway continues to the north, where the
+bedrooms are.
+
+>You move northwest.
+Living room
+The blue-carpeted living room features a large set of bookshelves on the east
+wall.  There are some chairs and a sofa-bed here.  Windows on the west wall
+look out on the swimming pool.  This room opens into the dining room and
+eventually the kitchen, to the south.  East is the hallway, and the entrance
+hall is to the south-east.
+
+Also here is a chess table.
+
+>(Your score has increased by 1)
+David strolls into the room.  You two sit down and play chess. You won the
+game.  Congratulations!
+
+Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
+
+>You and David play a game of chess. You lost the game.  Too bad.  Better luck
+next time!
+
+Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
+
+>You and David play a game of chess. You lost the game.  Too bad.  Better luck
+next time!
+
+Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
+
+>You move southeast.
+Entrance hall
+The entrance hall, like the rest of the hallway, has white tile.  Family
+photos and plaques are mounted on the walls.  There is a mirror on the south
+wall, the front door is to the east.  A coat closet is also on the south
+wall.  To the west is the dining room, the north-west the living room,
+south-west is the kitchen, and the hallway continues to the north, where the
+bedrooms are.
+
+>You move southwest.
+Kitchen
+This is the kitchen.  The countertop is blue, and the same white tile lines
+the floor.  There are a variety of small appliances on the counter.  To the
+south there is an eating area, east is the laundry, north is the dining room,
+and north-east is the entrance hall.  You can see the pool and back porch
+through the west window.  There is a pot of hot coffee here, and it smells
+good.
+You smell fresh coffee.
+
+>You move east.
+Laundry
+One of the smallest rooms in the house, this room has a washer and dryer in
+it.  On the floor you see the kitty's food, water and kitty litter.  To the
+east is the door leading to the garage, and west is the kitchen.  To the
+south is the half-bath.
+
+>You move east.
+Garage
+The garage has a large door on the east side.  The laundry is to the east,
+and another small door is on the south wall.  A spare refrigerator is on the
+west wall, as is the garage door opener.  The car door is unlocked.
+
+>You move in.
+Car
+You're in a red & gray 1994 Chrysler Concorde.
+
+Also here is a garage-door opener.
+
+>You pick up the garage-door opener.
+
+>You hear the garage door open.
+
+>(Your score has increased by 1)
+You start up the car and back out of the garage.  After following Judy's
+directions, you find the beach.
+
+>You move out.
+Parking lot
+This is a parking lot.  There are a variety of cars here, including Judy's
+red car.
+
+>You move east.
+Path to beach
+The sidewalk leads east to the crossover and west to the parking lot.  To the
+north you see a beach volleyball court, to the south-east is a beach shower.
+
+>You move north.
+Beach volleyball
+The sand beach volleyball court looks like a fun way to get a sunburn.
+
+>You play volleyball for a while with the other beachgoers. You are a lousy
+player.
+
+>You play volleyball for a while with the other beachgoers. You are a bad
+player.
+
+>You play volleyball for a while with the other beachgoers. You are an amateur
+player.
+
+>You play volleyball for a while with the other beachgoers. You are an
+improving player.
+
+>You play volleyball for a while with the other beachgoers. You are a very
+good player.
+
+>You play volleyball for a while with the other beachgoers. You are an
+excellent player.
+
+>(Your score has increased by 2)
+You play volleyball for a while with the other beachgoers. You are an
+excellent player.
+
+>You play volleyball for a while with the other beachgoers. You are an
+excellent player.
+
+>You move south.
+Path to beach
+The sidewalk leads east to the crossover and west to the parking lot.  To the
+north you see a beach volleyball court, to the south-east is a beach shower.
+
+>You move east.
+Beach crossover
+The wooden crossover allows you to cross the environmentally sensitive dunes
+without damaging the plant life.
+
+>You move east.
+
+Beach
+A variety of people are tanning themselves on the beach.  A couple of old men
+are fishing here.  And you see surfers in the ocean to the east.
+
+>You move west.
+Beach crossover
+The wooden crossover allows you to cross the environmentally sensitive dunes
+without damaging the plant life.
+
+>You move west.
+Path to beach
+The sidewalk leads east to the crossover and west to the parking lot.  To the
+north you see a beach volleyball court, to the south-east is a beach shower.
+
+>You move southeast.
+Beach shower
+The beach shower is here to allow visitors to wash the sand off their feet.
+
+>(Your score has increased by 2)
+You wash the sand off your feet.  There, isn't that better?
+
+Congratulations!
+
+You successfully completed the original game Melbourne Beach, ©2001 by David
+D. Good <duoing@bigfoot.com>.  Please feel free to contact me with comments
+on this game.
+
+-dave

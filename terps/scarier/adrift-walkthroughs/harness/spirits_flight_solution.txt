@@ -70,3 +70,4 @@ attack slikerma
 attack slikerma
 south
 southeast
+score

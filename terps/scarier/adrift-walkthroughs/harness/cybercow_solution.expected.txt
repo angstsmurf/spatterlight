@@ -1,0 +1,509 @@
+Loading game...
+
+LAIR of the CYBER-COW
+
+You step off and look around, blinking at the abrupt transition to daylight.
+The bus behind you pulls out and drives away.
+
+(HELP is available.)
+
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+Bus Stop
+You are standing at a bus stop at the base of a hill that rises to the south.
+ At the top of the hill there is a chapel, and about halfway up the chapel
+yard there is a small cottage.  Other than this little chapel with its
+cottage on the hill, there is nothing around for a long ways.
+
+There is an exit south.
+
+>You move south.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+
+There are exits north, east, south and west.
+Red sky in morning...
+
+>You move east.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here.
+
+You can only move west.
+
+>You open the cupboard.  Inside the cupboard is the bowl and the flashlight.
+
+>You take the bowl from the cupboard.
+
+>You take the flashlight from the cupboard.
+
+>Moving the couch reveals a cleverly-hidden trapdoor!
+
+>You move west.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+It is daytime.
+Vluurinik flits around.
+
+You can move north, east, south and west.
+
+>You move west.
+Meadow
+Flowers and grass are all around you.  To the east you can see the well in
+the chapel yard, and beyond that your humble childhood home.  At the top of
+the hill, southeast of you, you can see the chapel with its steeple, and at
+the foot of the hill, northeast of you, you can just make out the sign of the
+bus stop.
+It is daytime.
+
+Also here is a snail.
+
+You can only move east.
+
+>As you pick up the snail between thumb and forefinger, the snail retracts
+into its shell.
+
+>You move east.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+It is daytime.
+
+You can move north, east, south and west.
+
+>You move south.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move east.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+You can move west and up.
+
+>You move up.
+Top of Bell Tower
+You are at the top of the church's bell tower.  A rickety spiral staircase
+leads down to the ground.  The empty bell chassis has a rope tied to an
+armature to permit ringing.
+
+You can move down and out.
+
+>It's kind of a hassle, but you manage to untie the rope from the scratched-up
+bell chassis.  It falls down the central shaft.
+
+>You move out.
+Clinging to the Steeple
+You can see the chapel yard and the well directly below.  To the east, as if
+in miniature, the little cottage; to the west the wide expanse of meadow.
+Down the hill, past the well to the north, you can see the bus stop.  From
+here, it all looks very small.  The cross attached to the steeple is slightly
+crooked.
+It is daytime.
+
+You can only move in.
+
+>With a splitting sound, the huge cross tumbles down off the steeple to the
+ground below!  You can see where it landed, quite close to the well.
+
+>You move in.
+Top of Bell Tower
+You are at the top of the church's bell tower.  A rickety spiral staircase
+leads down to the ground.  The empty bell chassis has marks on it you noticed
+when you were untying the rope.  The empty bell chassis has a rope tied to an
+armature to permit ringing.
+
+You can move down and out.
+
+>You move down.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+Also here is the rope.
+
+You can move west and up.
+
+>You pick up the rope.
+
+>You move west.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move north.
+Chapel Yard
+You are at the well.  You have fond childhood memories of this well, although
+none of them are occurring to you right now.  Your humble abode is to the
+east.  Fields are to the west.  The chapel is on top of the hill to the
+south.  Down the hill to the north there is the bus stop.
+It is daytime.
+
+Also here are the heavy cross.
+
+You can move north, east, south and west.
+
+>You tie the rope to the well.
+
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+Also here are the heavy cross.
+
+>You throw the rope down the well.
+
+Vluurinik flies in from the west.
+
+>You pick up the heavy cross.
+
+>You move south.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move east.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+You can move west and up.
+
+>Sliding the cross between the bell and the floor through a chink in the
+bell's rim, you pryyyyyy -- Oh GOD that's heavy! -- the bell onto its side.
+As the huge church bell topples onto its side, it makes a
+BONG-BONG-BOONGGG!ing sound which nearly deafens you!
+
+>You're not holding the cross!
+
+>You move in.
+In the Bell
+You are in the huge cracked churchbell.  (Step careful here:  it rolls
+dangerously.)  You can see something taped to the inside of the bell.
+
+You can only move out.
+
+>You unpeel the packet from the side of the bell.
+
+>You move out.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+Also here are the heavy cross.
+
+You can move west, up and in.
+
+>The packet unfolds into plans for building an invincible robot.  According to
+this, construction is all but complete.
+
+>You move west.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move north.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+Vluurinik flits around.
+
+You can move north, east, south, west and down.
+
+>You move east.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move down.
+Cellar
+The work space around the well-lit table in the center of the room remains
+clear, although cobwebs and dirt have claimed the periphery of the room.  A
+ladder in one corner leads to the trapdoor.
+
+Also here is the robot.
+
+You can only move up.
+
+>Spreading out the plans so you can consult them, you set to work finishing
+the robot.
+The invincible robot is now complete.
+
+>You move up.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move west.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+>You move down.
+Bottom of the Well
+You are standing at the bottom of the town well.  The ground is slightly
+moist here.  The end of the rope dangles here, providing you with a way back
+up.  To the west you can see the narrow entrance to the CyberCow's lair.
+The CyberCow is here.
+
+You can move west and up.
+
+>The CyberCow sticks out its tongue and snatches up the snail, which it
+gobbles up in a spectacular display of crunching and slurping.
+
+The CyberCow gives you a look, as if inviting you to try some for yourself.
+
+>While the CyberCow continues crunching and slurping delightedly on the snail,
+you fill the bowl with warm, fragrant CyberCow milk.
+
+A warm, gentle rain begins.
+
+>You move up.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is raining quite heavily.
+It is daytime.
+Vluurinik flits around.
+
+You can move north, east, south, west and down.
+
+>You move south.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move east.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+Also here are the heavy cross.
+
+You can move west, up and in.
+
+>You move up.
+Top of Bell Tower
+You are at the top of the church's bell tower.  A rickety spiral staircase
+leads down to the ground.  The empty bell chassis has marks on it you noticed
+when you were untying the rope.  The empty bell chassis has a rope tied to an
+armature to permit ringing.
+
+You can move down and out.
+
+>You move out.
+Clinging to the Steeple
+You can see the chapel yard and the well directly below.  To the east, as if
+in miniature, the little cottage; to the west the wide expanse of meadow.
+Down the hill, past the well to the north, you can see the bus stop.  From
+here, it all looks very small.  The top of the steeple has broken, and rotten
+wood beams sticking out at funny angles.  The cross attached to the steeple
+is slightly crooked.
+It is raining quite heavily.
+It is daytime.
+Vluurinik flits around.
+
+You can only move in.
+
+Vluurinik flies off.
+
+>You drop the bowl.
+
+>You pause a moment...
+
+>You pause a moment...
+
+>You pause a moment...
+It is midday.
+
+>You pause a moment...
+The rain seems to be letting up.
+
+>You move in.
+Top of Bell Tower
+You are at the top of the church's bell tower.  A rickety spiral staircase
+leads down to the ground.  The empty bell chassis has marks on it you noticed
+when you were untying the rope.  The empty bell chassis has a rope tied to an
+armature to permit ringing.
+
+You can move down and out.
+
+>You move down.
+Bottom of Bell Tower
+You are at the bottom of the bell tower.  A rickety spiral stairway leads up
+the inside of the tower -- a long way up.  West returns to the chapel proper.
+ A huge cracked bell is here.  The end of a rope dangles here.
+
+Also here are the heavy cross.
+
+You can move west, up and in.
+
+>You move west.
+In the Chapel
+You are inside the local House of God.
+
+You can move north, east and south.
+
+>You move north.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+>You move west.
+Meadow
+Flowers and grass are all around you.  To the east you can see the well in
+the chapel yard, and beyond that your humble childhood home.  At the top of
+the hill, southeast of you, you can see the chapel with its steeple, and at
+the foot of the hill, northeast of you, you can just make out the sign of the
+bus stop.
+It is daytime.
+Vluurinik flits around.
+
+You can only move east.
+
+>OW!
+--She *bit* you!
+
+>You don't have the fairy!
+
+Vluurinik flies off to the east.
+
+>You move east.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+Vluurinik flits around.
+
+You can move north, east, south, west and down.
+
+>You move east.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move down.
+Cellar
+The work space around the well-lit table in the center of the room remains
+clear, although cobwebs and dirt have claimed the periphery of the room.  A
+ladder in one corner leads to the trapdoor.
+
+Also here are the plans and the robot.
+
+You can only move up.
+
+>You're not holding the little bones to install them in the Invincible Robot.
+
+>You move up.
+Living Room
+Your humble childhood home.  Next to the mailbox, the door west leads
+outside.  There is a cupboard here, which you recall generally not having
+cookies.  There is a couch here, which used to cleverly hide a trapdoor.
+There is a couch here.
+
+You can move west and down.
+
+>You move west.
+Chapel Yard
+You are at the well.   One end of the rope is tied to the well quite
+securely; the rest lies on the ground.  Your humble abode is to the east.
+Fields are to the west.  The chapel is on top of the hill to the south.  Down
+the hill to the north there is the bus stop.  You are at the well.  You have
+fond childhood memories of this well, although none of them are occurring to
+you right now.  Your humble abode is to the east.  Fields are to the west.
+The chapel is on top of the hill to the south.  Down the hill to the north
+there is the bus stop.
+It is daytime.
+
+You can move north, east, south, west and down.
+
+>You move down.
+Bottom of the Well
+You are standing at the bottom of the town well.  The ground is slightly
+moist here.  The end of the rope dangles here, providing you with a way back
+up.  To the west you can see the narrow entrance to the CyberCow's lair.
+The CyberCow is here.
+
+You can move west and up.
+
+>Your score is 6 out of a maximum of 10.  (60%)
+
+>Do you really want to quit? [Y/N]

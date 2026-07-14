@@ -1,0 +1,369 @@
+Loading game...
+
+The Oriental Express
+
+At the Station
+You are at the Destination Station. The platform is long and bustling with
+activity.  There is a newspaper stand, and a soda machine here. The train is
+stopped at the station.
+
+Oddly Istink is here.
+
+>(Your score has increased by 2)
+It appears to have been grown over many years. It is gray and stranggly. It,
+however, is in bad need of grooming. There may be critters living in there!
+Yuck!
+
+>You take the coin from the change return.
+
+>(Your score has increased by 3)
+You put the coin in the newspaper slot and take one newspaper.
+
+>You've already got the Newspaper!
+
+>You open the suitcase.  A pistol is inside the suitcase.
+
+>You take the pistol from the suitcase.
+
+>(Your score has increased by 5)
+You climb aboard the train, and take one last look at Destination Station.
+
+Oddly Istink wobbles in.
+You hear the conductor yell, "ALL Aboard"
+
+>(Your score has increased by 3)
+The conductor takes your ticket from you." Enjoy your trip Mr. We have a
+dinning car, and a variety of other things you might enjoy. Have a look
+around. Enjoy your stay.
+Thanks, you can now go to your compartment, or elsewhere on the train. You
+are in compartment A3."
+
+>You move south.
+Compartment A
+This is the section of train that the compartments are located in. The
+compartments are much nicer than berths. They also provide privacy. Doors
+line the corridor.  The doors are numbered A1-A20. You can see your
+compartment A3 to the west.  The walls appear as if they are being shook by a
+small earthquake.
+
+You can move north, south and west.
+
+>You move south.
+Compartment B
+This is another train car full of compartments. Doors line the corridor. The
+compartments are numbered B1-B20.  Maybe you should talk to the woman.  The
+walls appear as if they are being shook by a small earthquake.
+
+Also here is a bag and a note.
+
+Ivanna Stiffdrink is here.
+
+You can only move north.
+
+>You pick up the bag.
+
+>(Your score has increased by 3)
+"Thank you so much. Maybe we can get together later, for a drink"  With that
+said, she walks into her compartment.
+
+Ivanna Stiffdrink walks off.
+
+>You move south.
+Compartment C
+This car is full of berths. There are berths that line the corridor on both
+sides. The berths are small bunks with curtains to provide privacy.  The
+walls appear as if they are being shook by a small earthquake.
+
+You can move north, east, south, west and up.
+
+>You move south.
+Lavatory Car
+This car provides bathrooms for the passengers. Doors line both sides of the
+corridor.  The walls appear as if they are being shook by a small earthquake.
+
+Also here is a sign.
+
+You can move north, east, south and west.
+
+>You move east.
+Compartment A bathrooms
+This is a fairly large bathroom. It has all the usual features. A toilet,
+sink, mirror, and this one happens to have a shower.  The walls appear as if
+they are being shook by a small earthquake.
+
+You can move west and in.
+
+>(Your score has increased by 2)
+Ahhh! You feel much better now. You Quickly was your hands when you are
+finished, and wipe them on your backside.
+
+>(Your score has increased by 2)
+You turn on the faucet to a suitable temperature. You wash your hands, and
+quickly dry them on your pants.
+May be you should see someone about your compulsive behavior.
+
+>You move in.
+Compartment A shower
+It is a standard shower. There are knobs, a drain, a showerhead. What did you
+expect?  The walls appear as if they are being shook by a small earthquake.
+
+You can only move out.
+
+>(Your score has increased by 25)
+You decide that a shower will relax you. You remove your clothing and toss it
+in the bathroom. You reach down and turn on the water. You do your usual
+routine of washing your hair and body. You finish up and turn off the water.
+You seem to instantly dry, and grab your clothes and put them on. You feel so
+much better now.
+
+>You move out.
+Compartment A bathrooms
+This is a fairly large bathroom. It has all the usual features. A toilet,
+sink, mirror, and this one happens to have a shower.  The walls appear as if
+they are being shook by a small earthquake.
+
+You can move west and in.
+You hear the trains whistle blow loudly.
+
+>You move west.
+Lavatory Car
+This car provides bathrooms for the passengers. Doors line both sides of the
+corridor.  The walls appear as if they are being shook by a small earthquake.
+
+Also here is a sign.
+
+You can move north, east, south and west.
+You are thrown backward as the train begins to pull away from the station.
+
+>You move south.
+Dining Car
+This train car provides a relaxing place to enjoy a meal.  Small tables and a
+few booths take up the space in this room.  This car also has a kitchen built
+on top of it. The passengers do not have access to the kitchen. There is a
+booth with a large table.  The walls appear as if they are being shook by a
+small earthquake.
+
+You can only move north.
+You feel the vibration of the train as it slowly picks up speed. A low rumble
+can be heard from the advancing train.
+
+>(Your score has increased by 5)
+You gaze at the menu.
+
+Gimme Atip enters.
+
+>For some reason you feel compelled to take the spoon from the table.
+
+>(Your score has increased by 5)
+You tell the waiter what you'd like. He looks at you kind of funny then walks
+away.
+
+Gimme Atip walks off.
+
+>(Your score has increased by 20)
+You toss the coin to the waiter. "Now I give you tip, don't eat food."
+
+>(Your score has increased by 10)
+You being a wise guy decide to give the waiter a tip. You look at him and say
+ "Here's a tip for ya, pal.  Never jump off a moving train."
+
+>You move south.
+Lounge Car
+This is the lounge. Many passengers enjoy a drink or two here. There is a bar
+at the far end. There are many cocktail tables and chairs.
+
+Igotta Bigbottom is here.
+
+You can only move north.
+
+>Time passes...
+You manage to avoid Igotta Bigbottom's attack.
+
+>Time passes...
+You manage to avoid Igotta Bigbottom's attack.
+
+>Time passes...
+You manage to avoid Igotta Bigbottom's attack.
+
+Ivanna Stiffdrink walks towards you from the north.
+
+>Time passes...
+You manage to avoid Igotta Bigbottom's attack.
+
+>(Your score has increased by 5)
+You get a drink from the bar, and hand it to Ivanna. She swallows it in one
+gulp, and asks for another.
+
+>You pull out your pistol and shoot the large man in the chest. He staggers
+and wobbles a bit, and falls to the ground.
+
+>(Your score has increased by 50)
+You take the card from the floor, then explain who you are. You instruct the
+conductor and the waiter to dump Igotta Bigbottom in the bathroom that is out
+of order.
+The train begins to slow. You are sure that you must be arriving in
+Hopeimakeit.
+
+>You move north.
+Dining Car
+This train car provides a relaxing place to enjoy a meal.  Small tables and a
+few booths take up the space in this room.  This car also has a kitchen built
+on top of it. The passengers do not have access to the kitchen. There is a
+booth with a large table.  You take a quick look out the window and see the
+station getting larger as you approach.
+
+Gimme Atip is here.
+
+You can move north and south.
+
+Ivanna Stiffdrink walks towards you from the south.
+
+>You move north.
+Lavatory Car
+This car provides bathrooms for the passengers. Doors line both sides of the
+corridor.  You take a quick look out the window and see the station getting
+larger as you approach.
+
+Also here is a sign.
+
+Oddly Istink is here.
+
+You can move north, east, south and west.
+
+Ivanna Stiffdrink walks towards you from the south.
+You lunge slightly to counteract the force of the train coming to a stop.
+
+>You move north.
+Compartment C
+This car is full of berths. There are berths that line the corridor on both
+sides. The berths are small bunks with curtains to provide privacy.
+
+You can move north, east, south, west and up.
+
+Ivanna Stiffdrink walks towards you from the south.
+
+>You move north.
+Compartment B
+This is another train car full of compartments. Doors line the corridor. The
+compartments are numbered B1-B20.  The corridor is empty
+
+Also here is a note.
+
+You can move north and south.
+
+Ivanna Stiffdrink walks towards you from the south.
+
+>You move north.
+Compartment A
+This is the section of train that the compartments are located in. The
+compartments are much nicer than berths. They also provide privacy. Doors
+line the corridor.  The doors are numbered A1-A20. You can see your
+compartment A3 to the west.
+
+You can move north, south, west and out.
+
+Ivanna Stiffdrink walks towards you from the south.
+
+>You move out.
+HopeImakeit Station
+The Hopeimakeit station seems deserted. The platform is empty,  the streets
+are empty.  The only thing in sight is a public telephone.
+
+Ivanna Stiffdrink walks towards you.
+
+>You look around and don't see Miss Fortune anywhere. You were certain that
+she said she'd be here.  You pick up the receiver to call Anita, when you
+realize that you don't have a number for her, and give up the thought. You
+hang up the phone.
+Just as you put the receiver down, the phone rings. You quickly pick it up.
+The voice of a man bends your ear. "Listen, and listen carefully , man. I
+have your lady friend here. She is a mighty fine piece of work. We know what
+you did to Bigbottom. If you don't want the same thing to happen to your lady
+friend, you'd better better get the cash from the address you found on that
+card. You don't have much time."
+
+>You move west.
+Up the Creek Road
+This is the seedy part of town. There are long been closed shops that line
+the street on both sides. Most are boarded up. You can't help but have the
+feeling that you are being watched. A trash can sits near one of the old,
+boarded up shops.
+
+You can move north and east.
+
+Ivanna Stiffdrink walks towards you from the east.
+
+>You move north.
+Booze Barn
+This is Ivanna's favorite place. It is a large red building that looks much
+like a country barn. There is walk up window. They had to close the doors to
+the public due the the rash of theft and robbery. This is the address on the
+card.
+
+Habibo is here.
+
+You can only move south.
+
+Ivanna Stiffdrink walks towards you from the south.
+
+>(Your score has increased by 60)
+You hand the card to Habibo. He looks you over and see's that you can be
+trusted, only because his best customer is at your side. He hands the card to
+a dark figure behind the window. A moment later a brown paper sack is given
+back to him. He hands you the bag and says "There's a little something in it
+for you, sweetie." as he pats Ivanna on the buns.
+You hear a car approaching. You assume that some one is coming to make a
+purchase.
+
+>You quickly check to se if Ivanna is alright. You can tell right away that
+things are not. Her white mini-dress is covered with her booze-logged blood.
+You are sure if you lit a match, it would be instant cremation.
+You hold her and try to keep her still. She whispers to you, "I
+nev...er.......w..w..wanted  it...to  be like.....th...this. Sh....Shh....She
+is in....An....Anita....is in the......" With her last ounce of strength, she
+looks at you with caring eyes. Or maybe drunken eye's.  Ivanna goes limp in
+your arms.  Moments later Habibo  takes Ivanna's lifeless body away.
+
+>You move west.
+Warehouse
+This is the warehouse where you assume that the Big Boss does his business.
+It is dark and musty. Every now and then you can see something moving out of
+the corner of your eye. Shadows move across the room,  giving no indication
+of what is hiding there.
+
+Thug , Ivill Getyou and Anita Fortune are here.
+
+You can only move east.
+You manage to avoid Thug 's attack.
+You manage to avoid Ivill Getyou's attack.
+
+>(Your score has increased by 50)
+You run over to Anita and untie her. She hugs you gratefully. "Thank you Mr.
+Cash. I was at the station, when the phone rang. It was someone claiming to
+be you. They said to go to the warehouse. I thought you double crossed me. I
+can see you were true on your word. I will pay you when we return to
+Destination."
+You help her to her feet and go retrieve the jewel.
+You manage to avoid Thug 's attack.
+You manage to avoid Ivill Getyou's attack.
+
+>You take aim at the thug, and shoot him in the chest. He tries one last
+attempt to hit you, and you shoot him a second time in the shoulder. He falls
+to the cement with a thud.
+You manage to avoid Ivill Getyou's attack.
+
+>The large man falls to the ground with a crash. You can almost hear the waves
+of blubber echo in the empty warehouse. You take a closer look and see the
+J.O.B. inside his belly button.
+You manage to avoid Ivill Getyou's attack.
+
+>(Your score has increased by 50)
+You go over to the dead boss. His massive stomach is hypnotic as you touch
+it, waves move randomly across his body. You dig in his bellybutton with the
+spoon. With a little effort, the jewel pops out.
+You successfully complete your assignment. You accompany Miss Fortune back to
+Destination, then decide that a nice vacation is what you need. Maybe a
+cruise on the high seas, or a trip to one of the wonders of the world. Who
+Knows. You will have to see.
+You hand the jewel to Anita. She is so grateful that she tells you to keep
+the money that was in the sack, for your services.

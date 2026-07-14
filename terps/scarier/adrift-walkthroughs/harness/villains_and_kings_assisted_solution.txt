@@ -40,3 +40,4 @@ w
 n
 w
 use radio
+score

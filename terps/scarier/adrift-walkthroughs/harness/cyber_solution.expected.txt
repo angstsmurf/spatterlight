@@ -1,0 +1,133 @@
+Loading game...
+
+Cyber Warp
+
+The Coffee House
+You are in the the Coffee House you've been going to for as long as you can
+remember. All your friends are here, talking away as if there is not a care
+in the world. You also have heard that there was trouble by the BluDeath
+Mountains. This place is also under construction.
+Lightning is practicing his electricity here.
+
+There is an exit south.
+
+>You move south.
+Teleporter room
+You go into a large room with a teleporter in the center.
+
+There is an exit north.
+
+>You open the teleporter.
+
+>(Your score has increased by 50)
+you are teleported!
+BluDeath Mountains
+You are in extremely cold mountains, but you dont care! You are heated by
+your fire powers.
+Lightning is practicing his electricity here.
+
+>You move out.
+BluDeath Mountains
+You are in extremely cold mountains, but you dont care! You are heated by
+your fire powers.
+
+You can move west and in.
+
+>You move west.
+Cave
+You are in a cave in the mountains. You notice in the back of the cave is a
+strange portal. You remember hearing about these in class, it is a portal to
+a different demension, often called a Cyber Warp.
+
+You can only move east.
+
+>(Your score has increased by 50)
+you enter the cyber warp, but the amount of electricity is too much for
+Lightning! He is sucked in!
+Bisstonia
+Lightning was just sucked in. You must find him.
+
+>You move northeast.
+Back Alley
+You are in a back alley of a resturant where they serve mice......
+
+You can move in and southwest.
+
+>You move in.
+Kitchen
+You are in the mice kitchen. There is a chef that is choppin' them up.
+
+Mice Chef is here.
+
+You can move east and out.
+
+>You move east.
+Dining Area
+You are in the dining area of the grose resturant, and there are people
+eating it........
+
+You can move east, west and out.
+
+>You move out.
+Main Street
+You are on a main street. You can see a large building with high security.
+
+You can move north and in.
+
+>You move north.
+Large Building
+You are in a large building, where two guards are.
+
+You can move north and south.
+
+>(Your score has increased by 50)
+You use fireball, and you kill the guards.
+
+>You ask Lightning to follow you back to the warp. Suddenly, a guard comes and
+shoots ice at Lightning, and he is injured. You must carry him back.
+
+>You move south.
+Large Building
+You are in a large building, where two guards are.
+
+You can move north and south.
+
+>You move south.
+Main Street
+You are on a main street. You can see a large building with high security.
+
+You can move north and in.
+
+>You move in.
+Dining Area
+You are in the dining area of the grose resturant, and there are people
+eating it........
+
+You can move east, west and out.
+
+>You move east.
+Kitchen
+You are in the mice kitchen. There is a chef that is choppin' them up.
+
+Mice Chef is here.
+
+You can move east and out.
+
+>You move out.
+Back Alley
+You are in a back alley of a resturant where they serve mice......
+
+You can move in and southwest.
+
+>You move southwest.
+Bisstonia
+Lightning was just sucked in. You must find him.  You must go back through
+the warp.
+
+You can only move northeast.
+
+>You jump through the warp, and suddenly, before Lightning can enter, it
+closes! OH NO!!!!!!!!!!!!
+THE END,or is it?
+
+Better luck next time.
