@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *restoredSearch;
 @property BOOL restoredFindBarVisible;
 @property BOOL pendingScroll;
-@property BOOL pendingEditable;
 @property BOOL pendingClear;
 @property BOOL pendingScrollRestore;
 

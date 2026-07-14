@@ -227,6 +227,14 @@
 		961CCEF209F23A0000528FF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE009F239E700528FF9 /* main.m */; };
 		961CCEF409F23A0000528FF9 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE409F239E700528FF9 /* Preferences.m */; };
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
+		2EBE4FED5375406CAB41205F /* GlkTextBufferWindow+Autorestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */; };
+		662C36FF62B14FED8CEE7729 /* GlkTextBufferWindow+Hyperlinks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */; };
+		1AE8023714624955A595CABF /* GlkTextBufferWindow+Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 4414D6A890CD4808BA95A025 /* GlkTextBufferWindow+Images.m */; };
+		144A2FE274534FB4993C777A /* GlkTextBufferWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */; };
+		B7145202EAC047AD8BB455D0 /* GlkTextBufferWindow+Output.m in Sources */ = {isa = PBXBuildFile; fileRef = 5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */; };
+		839AE40E479A4A7CBE84ADFE /* GlkTextBufferWindow+Scrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAFE1FFF4524978B2BA7678 /* GlkTextBufferWindow+Scrolling.m */; };
+		8ACEDF01792C4B3AACF80444 /* GlkTextBufferWindow+Speech.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D06A59F00340EB841884EB /* GlkTextBufferWindow+Speech.m */; };
+		A4C48ACBD56A42C3ADB4F649 /* GlkTextBufferWindow+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */; };
 		961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */; };
 		961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEEA09F239E700528FF9 /* GlkWindow.m */; };
 		961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2C09F2940F00528FF9 /* MainMenu.xib */; };
@@ -2298,6 +2306,23 @@
 		961CCEE409F239E700528FF9 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextBufferWindow.h; sourceTree = "<group>"; };
 		961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextBufferWindow.m; sourceTree = "<group>"; };
+		3777563A3F41478D9D6D4C22 /* GlkTextBufferWindowPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindowPrivate.h"; sourceTree = "<group>"; };
+		AA2B7934CD9F4447B195CFA0 /* GlkTextBufferWindow+Autorestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Autorestore.h"; sourceTree = "<group>"; };
+		621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Autorestore.m"; sourceTree = "<group>"; };
+		39EE443C3CA84CFD89C8E2B8 /* GlkTextBufferWindow+Hyperlinks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Hyperlinks.h"; sourceTree = "<group>"; };
+		0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Hyperlinks.m"; sourceTree = "<group>"; };
+		414F4CD2D21942699EBA0D64 /* GlkTextBufferWindow+Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Images.h"; sourceTree = "<group>"; };
+		4414D6A890CD4808BA95A025 /* GlkTextBufferWindow+Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Images.m"; sourceTree = "<group>"; };
+		366403C87A2444E58975FC7A /* GlkTextBufferWindow+Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Input.h"; sourceTree = "<group>"; };
+		A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Input.m"; sourceTree = "<group>"; };
+		C2CBBEA552FF4A3F8ADED453 /* GlkTextBufferWindow+Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Output.h"; sourceTree = "<group>"; };
+		5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Output.m"; sourceTree = "<group>"; };
+		6A79E5D609D14956970E49F6 /* GlkTextBufferWindow+Scrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Scrolling.h"; sourceTree = "<group>"; };
+		3CAFE1FFF4524978B2BA7678 /* GlkTextBufferWindow+Scrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Scrolling.m"; sourceTree = "<group>"; };
+		A6AE1074305149939B370BB6 /* GlkTextBufferWindow+Speech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Speech.h"; sourceTree = "<group>"; };
+		91D06A59F00340EB841884EB /* GlkTextBufferWindow+Speech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Speech.m"; sourceTree = "<group>"; };
+		368791E905344FE7ADBC5C4D /* GlkTextBufferWindow+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Styles.h"; sourceTree = "<group>"; };
+		D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Styles.m"; sourceTree = "<group>"; };
 		961CCEE709F239E700528FF9 /* GlkTextGridWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextGridWindow.h; sourceTree = "<group>"; };
 		961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextGridWindow.m; sourceTree = "<group>"; };
 		961CCEE909F239E700528FF9 /* GlkWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkWindow.h; sourceTree = "<group>"; };
@@ -6435,6 +6460,23 @@
 				C3AD642426176737008614C5 /* BufferTextView.m */,
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
 				961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */,
+				3777563A3F41478D9D6D4C22 /* GlkTextBufferWindowPrivate.h */,
+				AA2B7934CD9F4447B195CFA0 /* GlkTextBufferWindow+Autorestore.h */,
+				621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */,
+				39EE443C3CA84CFD89C8E2B8 /* GlkTextBufferWindow+Hyperlinks.h */,
+				0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */,
+				414F4CD2D21942699EBA0D64 /* GlkTextBufferWindow+Images.h */,
+				4414D6A890CD4808BA95A025 /* GlkTextBufferWindow+Images.m */,
+				366403C87A2444E58975FC7A /* GlkTextBufferWindow+Input.h */,
+				A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */,
+				C2CBBEA552FF4A3F8ADED453 /* GlkTextBufferWindow+Output.h */,
+				5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */,
+				6A79E5D609D14956970E49F6 /* GlkTextBufferWindow+Scrolling.h */,
+				3CAFE1FFF4524978B2BA7678 /* GlkTextBufferWindow+Scrolling.m */,
+				A6AE1074305149939B370BB6 /* GlkTextBufferWindow+Speech.h */,
+				91D06A59F00340EB841884EB /* GlkTextBufferWindow+Speech.m */,
+				368791E905344FE7ADBC5C4D /* GlkTextBufferWindow+Styles.h */,
+				D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */,
 			);
 			path = GlkTextBufferWindow;
 			sourceTree = "<group>";
@@ -8163,6 +8205,14 @@
 				C3191A9E266CDAF300528F6E /* ImageView.m in Sources */,
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
+				2EBE4FED5375406CAB41205F /* GlkTextBufferWindow+Autorestore.m in Sources */,
+				662C36FF62B14FED8CEE7729 /* GlkTextBufferWindow+Hyperlinks.m in Sources */,
+				1AE8023714624955A595CABF /* GlkTextBufferWindow+Images.m in Sources */,
+				144A2FE274534FB4993C777A /* GlkTextBufferWindow+Input.m in Sources */,
+				B7145202EAC047AD8BB455D0 /* GlkTextBufferWindow+Output.m in Sources */,
+				839AE40E479A4A7CBE84ADFE /* GlkTextBufferWindow+Scrolling.m in Sources */,
+				8ACEDF01792C4B3AACF80444 /* GlkTextBufferWindow+Speech.m in Sources */,
+				A4C48ACBD56A42C3ADB4F649 /* GlkTextBufferWindow+Styles.m in Sources */,
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */,
