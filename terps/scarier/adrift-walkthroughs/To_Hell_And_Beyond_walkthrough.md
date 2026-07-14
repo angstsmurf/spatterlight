@@ -27,7 +27,7 @@ register a kill is in combat (the `^^…dead^^` tasks are NPC *KilledTasks*, and
 there are zero "execute task" actions). Both endings require Xozim dead, so even
 ignoring everything else, no ending is reachable.
 
-> SCARE's opt-in combat assist (`SC_ASSUME_COMBAT=1`) can force hits to study the
+> SCARE's opt-in combat assist (`SCR_ASSUME_COMBAT=1`) can force hits to study the
 > intended strength-vs-defence combat, but **it does not make the game winnable**
 > — Breakage #2 traps you first.
 
@@ -78,7 +78,7 @@ X-Files and Hyperbole the unset moves are redundant, so those games still win;
 only To Hell & Beyond put them on the critical path.
 
 **Optional repair (opt-in, off by default).** A sibling of the combat assist,
-`sc_set_move_assist` (harness env `SC_ASSUME_MOVES`), honours an unset (`-1`) move
+`sc_set_move_assist` (harness env `SCR_ASSUME_MOVES`), honours an unset (`-1`) move
 whose `Var3` names a real room as "to room". It is **off by default** (so SCARE
 stays faithful to run400.exe) and, when on, lets conversion-broken games be
 completed: To Hell & Beyond then wins **248/373**, while X-Files (299/299) and
@@ -118,7 +118,23 @@ Do **not** enter the mansion kitchen — that captures you with no escape (faith
 default). The full intended route on through the ship / Mika / Sulfan to a
 **248/373 "claim the throne" win** is in
 `harness/to_hell_and_beyond_assisted_solution.txt` (224 commands, deterministic);
-it requires **both** assists, `SC_ASSUME_COMBAT=1 SC_ASSUME_MOVES=1`.
+it requires **both** assists, `SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1`.
+
+### 2026-07-14 — assisted route verified and wired as a regression row
+
+The assisted solution **wins, deterministically** (verified 3× byte-identical
+on the current scarier binary): 23 faithful points, then +5 reaching the shore,
++10 the scorpion bounty, +10 approaching the ship, +50 `^^xozimisdead^^`, +150
+`claim the throne` = **248/373**, ending *"You are now ruler of Beyond.......
+Congratulations!"*. It is now a golden-diffed row in
+`harness/run_v4_walkthroughs.sh` (env `SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1`,
+marker `You are now ruler of Beyond`), taking the v4 suite to **75/75 PASS**.
+
+**The earlier "it DESYNCS" claim was a replay error, not a route error:** run
+with only `SCR_ASSUME_COMBAT=1`, the dead `jump down` move leaves you trapped
+in the mansion, the rest of the script whiffs, and the closing `claim the
+throne` gets *"I don't understand what you mean!"* — the exact reported
+symptom. This game needs **both** assists (reproduced both ways 2026-07-14).
 
 ---
 
@@ -131,6 +147,6 @@ never be won) **and** the mid-game progression moves were authored with the
 run400.exe). The player is permanently trapped in the old mansion, so **no
 ending is reachable and the score tops out at ≈ 23 / 373.** SCARE is faithful to
 this by default on both counts. Two opt-in aids (off by default) let you study /
-complete the author's intended game: `SC_ASSUME_COMBAT=1` (forces hits in the
-all-zero-accuracy combat) and `SC_ASSUME_MOVES=1` (honours the unset `Var2=-1`
+complete the author's intended game: `SCR_ASSUME_COMBAT=1` (forces hits in the
+all-zero-accuracy combat) and `SCR_ASSUME_MOVES=1` (honours the unset `Var2=-1`
 moves); with both, the game completes at **248 / 373**.

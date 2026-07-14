@@ -8,6 +8,26 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-07-14 (later) — To_Hell_And_Beyond assisted route — ★ CLOSED (248/373, wired) — 75/75 PASS
+
+**Section A is empty: the last open derivation item is done.** The 224-cmd
+`harness/to_hell_and_beyond_assisted_solution.txt` was never broken — the
+"DESYNCS near the end" claim below came from replaying it with only
+`SCR_ASSUME_COMBAT=1`. This game needs **BOTH** assists: without
+`SCR_ASSUME_MOVES=1` the dead `jump down` (Var2=-1) move leaves the player
+trapped in the mansion, the rest of the script whiffs, and the closing `claim
+the throne` gets "I don't understand what you mean!" — the exact reported
+symptom (reproduced both ways today). With `SCR_ASSUME_COMBAT=1
+SCR_ASSUME_MOVES=1` it wins **248/373** deterministically (verified 3×
+byte-identical): 23 faithful + shore +5 + scorpion bounty +10 + ship approach
++10 + `^^xozimisdead^^` +50 + `claim the throne` +150, ending *"You are now
+ruler of Beyond....... Congratulations!"*. Wired as a golden regression row
+(marker `You are now ruler of Beyond`, env in the 4th MAP column) → the v4
+suite is now **75/75 PASS** (twice, back-to-back). Note the TODO section A
+estimate of "~293/373" was wrong; the walkthrough's 248/373 is what the route
+scores. Writeup in `To_Hell_And_Beyond_walkthrough.md` (whose stale
+`SC_ASSUME_*` env names were also refreshed to `SCR_ASSUME_*`).
+
 ## 2026-07-14 — WHOLE CORPUS WIRED into `run_v4_walkthroughs.sh` — 74/74 PASS
 
 Every banked corpus solution is now a golden-diffed regression row (was 30 rows
@@ -39,6 +59,8 @@ across back-to-back full runs). What it took:
   end (the final command is not understood; no win). Banking the full assisted
   To-Hell route therefore remains the one open derivation item (section A).
   Its faithful 3-command opening row IS wired (`to_hell_and_beyond_solution.txt`).
+  **[2026-07-14 later: WRONG — that replay was missing `SCR_ASSUME_MOVES=1`.
+  With both assists the script wins 248/373; now wired. See the entry above.]**
 
 Everything else replayed byte-identically on today's scarier binary — i.e. the
 tick-order fix broke exactly one of the ~45 unwired solutions.
@@ -1177,9 +1199,9 @@ The_Spirits_Flight, inverness, **SecretOfLostWorld (WIN 3300/3300)**,
 **Toxically_Earth (WIN; 0/0 multi-ending)**, **gateway (WIN 30/30)**,
 **Phoenix_Destiny (unwinnable 0/0 beta)**, **hyper_b_s (WIN 100/100)**,
 **Shadow_Of_The_Past (WIN 90/100)**, **X-Files (WIN 299/299)**.
-**Untouched: none — every game on the original list is done.** Only optional
-follow-up left: banking the full assisted To_Hell_And_Beyond route (already
-proven winnable, just not the full 190-room turn list).
+**Untouched: none — every game on the original list is done.** The last
+optional follow-up — banking the full assisted To_Hell_And_Beyond route —
+closed 2026-07-14 (248/373, wired; see the entry at the top of this file).
 
 ## Player name/gender start-up prompts (real SCARE fixes, committed)
 
@@ -1240,14 +1262,14 @@ Villains_And_Kings, SecretOfLostWorld) now begin with `Hero` (and `male`/
       confirmed ADRIFT's `*` is zero-or-more and both run390/run400 match it.)
       Compass labels in Bellefleur are rotated vs the exit table; navigate by the
       game's "you can move…" text.
-- [ ] **To_Hell_And_Beyond** (optional, large) — bank the full *assisted*
-      (`SCR_ASSUME_COMBAT=1`) ~293/373 route across 190 rooms. Roadmap already in
-      the walkthrough (Oran→Tinev→ship→shore/forest→Mika→Sulfan(Megasword)→
-      final<B>→`movetolargecave`→kill Xozim→claim throne). Multi-session.
-      **2026-07-14 status:** a 224-cmd `to_hell_and_beyond_assisted_solution.txt`
-      exists in the harness (came in with the scarier fork import) but it
-      DESYNCS — the closing `claim the throne` is not understood, so no win
-      fires. Treat it as a draft to bisect, not a banked route.
+- [x] **To_Hell_And_Beyond** — **DONE (2026-07-14): the existing 224-cmd
+      `to_hell_and_beyond_assisted_solution.txt` WINS 248/373 deterministically**
+      under `SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1` (both assists are
+      REQUIRED — the earlier "DESYNCS" verdict came from a replay missing the
+      move assist, which leaves the player trapped in the mansion). Wired as a
+      golden regression row → v4 suite 75/75 PASS. The "~293/373" estimate
+      here was wrong; 248/373 matches the walkthrough. See the dated entry at
+      the top of this file.
 
 ### B. Untouched games — derive walkthroughs (smallest first)
 For each: boot, dump structure (re-add the `SC_DUMP_MAP` block to sctasks.c —

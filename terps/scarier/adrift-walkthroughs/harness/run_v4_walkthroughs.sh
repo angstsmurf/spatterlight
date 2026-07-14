@@ -134,6 +134,12 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
 thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.
 through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
 to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
+# The assisted To-Hell row needs BOTH aids: the game's combat data is all-zero
+# accuracy/agility AND its mid-game progression moves have an unset "To:" combo
+# (Var2=-1).  With only SCR_ASSUME_COMBAT the player never leaves the mansion
+# and the closing "claim the throne" is not understood (the 2026-07-14 "desync"
+# was exactly that -- a replay missing SCR_ASSUME_MOVES).
+to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1
 villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 13 out of a maximum of 37.
 villains_and_kings_assisted_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.|SCR_ASSUME_COMBAT=1
 wes_ghn_solution.txt|WesGHN.taf|Your score is 30 out of a maximum of 100.

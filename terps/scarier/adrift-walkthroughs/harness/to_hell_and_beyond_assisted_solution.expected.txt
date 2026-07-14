@@ -1,0 +1,1345 @@
+Loading game...
+
+To hell & beyond
+
+If you want to know what you can ask a person, just type greet 'character'.
+Tavern's are open from 10 in the morning to 11 in the evening.
+
+Entrance to beyond
+You are in a big cave. It's dark but you can clearly identify an exit to the
+south. You can see a figure (Zifan) near the exit. The exit is blocked by a
+big door. In the ceiling in the center of the room is a hole in wich you came
+through.
+
+Zifan is here.
+
+>"I am Zifan. Any questions?" says Zifan.
+
+>You open the big door.
+
+>You move south.
+Oran entrance
+You have entered the town of Oran. This place does not look very friendly.
+The houses are all scattered randomly accross the area. Some of them have
+collapsed, others are just on the verge of collapsing.
+
+Nekar is here.
+
+You can move east and south.
+
+>You move south.
+Oran 2
+You are standing on a crossroad. You see a few houses to the west, two men
+arguing over some matter in the east, the road just continues to the north
+and south. A man run towards you from the south.
+
+Tirdo is here.
+
+You can move north, east, south and west.
+
+>You move west.
+Oran 4
+There are two houses here, to the north and west. East leads to a crossroad.
+There's not much else.
+
+You can move north and east.
+
+>You move north.
+Ilsar's house
+You have entered into an old house.  This is Ilsar's house.
+
+Also here is a hook.
+
+Ilsar is here.
+
+You can only move south.
+
+>You pick up the hook.
+
+>You move south.
+Oran 4
+There are two houses here, to the north and west. East leads to a crossroad.
+There's not much else.
+
+You can move north and east.
+
+>You move east.
+Oran 2
+You are standing on a crossroad. You see a few houses to the west, two men
+arguing over some matter in the east, the road just continues to the north
+and south. A man run towards you from the south.
+
+You can move north, east, south and west.
+
+>You move south.
+Oran 5
+You are standing near a dry well. The ground here, like anywhere else in
+Oran, is nothing but hard dirt. There is a cliff to the east.
+
+You can move north and east.
+
+>You move east.
+Oran 6
+You can see a well to the west and a cliff to the east.
+
+You can move east and west.
+
+>You move east.
+Oran cliff
+You have arrived at a cliff. It´s not very big but it´s very steep. You can
+see a ledge just a meter out of your reach.
+
+Also here is a rope.
+
+You can only move west.
+
+>You pick up the rope.
+
+>You attach the hook to the rope.
+
+>(Your score has increased by 3)
+You throw the hooked rope up to the ledge. Success. You can now go up.
+
+>You move west.
+Oran 6
+You can see a well to the west and a cliff to the east.
+
+You can move east and west.
+
+>You move west.
+Oran 5
+You are standing near a dry well. The ground here, like anywhere else in
+Oran, is nothing but hard dirt. There is a cliff to the east.
+
+You can move north and east.
+
+>You move north.
+Oran 2
+You are standing on a crossroad. You see a few houses to the west, two men
+arguing over some matter in the east, the road just continues to the north
+and south. A man run towards you from the south.
+
+You can move north, east, south and west.
+
+>You move north.
+Oran entrance
+You have entered the town of Oran. This place does not look very friendly.
+The houses are all scattered randomly accross the area. Some of them have
+collapsed, others are just on the verge of collapsing.
+
+Nekar is here.
+
+You can move east and south.
+
+>You move east.
+Oran 1
+
+You can move east and west.
+
+>You move east.
+Inn
+You enter the inn. This house, like all others in town, looks like it´s about
+to collapse any second.
+
+Petri is here.
+
+You can move west and up.
+
+>. .
+
+>You move east.
+Tinev 2
+You can see the docks to the west. To the north is a deadend. The exit is to
+the west.
+
+You can move east and west.
+
+>You move east.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There
+is a closed gate to the north.
+
+Dog is here.
+
+You can move north and west.
+
+>You move north.
+Tinev 5
+There's a butcher to the east.
+
+You can move east and south.
+
+>You move east.
+Tinev butcher
+You have entered into the butcher's shop.
+
+Kiren is here.
+
+You can only move west.
+
+>"Oh yeah. Thanks for reminding me. Could you give it to him yourself. I´m
+kind of busy." says Kiren.
+
+>You move west.
+Tinev 5
+There's a butcher to the east.
+
+You can move east and south.
+
+>You move south.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There
+is a closed gate to the north.
+
+Dog is here.
+
+You can move north and west.
+
+>You move west.
+Tinev 2
+You can see the docks to the west. To the north is a deadend. The exit is to
+the west.
+
+You can move east and west.
+
+>You move west.
+Tinev entrance
+You have now arrived in Tinev. The one Ribn spoke of is called Trace. You can
+see an inn to the north, the docks to the west and the exit is to the south.
+
+You can move north and east.
+
+>You move north.
+Tinev 1
+This is a fairly simple street. An inn is to the north.
+
+You can move north and south.
+
+>You move north.
+Tinev 3
+The tavern is to the east and the exit is south. The street continues to the
+west. The tavern is only open between 10 in the morning and 11 in the night.
+
+You can move east, south and west.
+
+>You move east.
+Tinev tavern
+You enter the tavern and your lungs are filled with smoke. You can see a few
+men sitting at the bar.
+
+Nimf is here.
+
+You can only move west.
+
+>(Your score has increased by 10)
+Nimf accepts the package and gives you 75 gold coins.
+
+>You move west.
+Tinev 3
+The tavern is to the east and the exit is south. The street continues to the
+west. The tavern is only open between 10 in the morning and 11 in the night.
+
+You can move east, south and west.
+
+>You move south.
+Tinev 1
+This is a fairly simple street. An inn is to the north.
+
+You can move north and south.
+
+>You move south.
+Tinev entrance
+You have now arrived in Tinev. The one Ribn spoke of is called Trace. You can
+see an inn to the north, the docks to the west and the exit is to the south.
+
+You can move north and east.
+
+>You move east.
+Tinev 2
+You can see the docks to the west. To the north is a deadend. The exit is to
+the west.
+
+You can move east and west.
+
+>You move east.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There
+is a closed gate to the north.
+
+Dog is here.
+
+You can move north and west.
+
+>You move north.
+Tinev 5
+There's a butcher to the east.
+
+You can move east and south.
+
+>You move east.
+Tinev butcher
+You have entered into the butcher's shop.
+
+Kiren is here.
+
+You can only move west.
+
+>You buy some meat
+
+>You move west.
+Tinev 5
+There's a butcher to the east.
+
+You can move east and south.
+
+>You move south.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There
+is a closed gate to the north.
+
+Dog is here.
+
+You can move north and west.
+
+>(Your score has increased by 5)
+You throw the meat at the dog. The dog starts eating it.
+
+>You move east.
+Tinev docks 2
+You can see a few ships. There´s trash on the street.
+
+You can move east and west.
+
+>You move east.
+Tinev docks 3
+You can see a manhole here.
+
+Trace is here.
+
+You can move north and west.
+
+>".........."
+      Conversation : Trace.
+
+>You move north.
+Tinev docks 4
+
+You can move north and south.
+
+>You move north.
+Tinev docks 5
+
+You can move north and south.
+
+>You move north.
+Tinev cliff
+
+You can move south and up.
+
+>You move up.
+In front of old mansion
+
+Also here is a crowbar.
+
+You can move west, down and in.
+
+>You pick up the crowbar.
+
+>You move down.
+Tinev cliff
+
+You can move south and up.
+
+>You move south.
+Tinev docks 5
+
+You can move north and south.
+
+>You move south.
+Tinev docks 4
+
+You can move north and south.
+
+>You move south.
+Tinev docks 3
+You can see a manhole here.
+
+Trace is here.
+
+You can move north and west.
+
+>(Your score has increased by 5)
+You use the crowbar and manage to lift the manhole. Now do you really want to
+go down there?
+
+>Your score is 23 out of a maximum of 373.  (6%)
+
+>You move north.
+Tinev docks 4
+
+You can move north and south.
+
+>You move north.
+Tinev docks 5
+
+You can move north and south.
+
+>You move north.
+Tinev cliff
+
+You can move south and up.
+
+>You move up.
+In front of old mansion
+
+You can move west, down and in.
+
+>You move in.
+Inside the old mansion
+You are now inside the old mansion.
+
+You can move north, east, west and out.
+
+>You move east.
+Kitchen
+This is the kitchen. You can see a chair and a sink.  There's a cat in the
+sink.
+
+Koir and Cat are here.
+
+You can only move west.
+You sneak up on Koir and his friend and hear them talking.
+                     "Hey, you know this new guy in town. The one wearing the
+black robe. " says Koir.    "Yeah. What about him?" says his friend.
+"This guy said he would give me 1000 gold coins if I killed him. So you up to
+it?" says Koir.        "Yeah. I´m up for it." says his friend.
+     Unfortunately for you, they see you and tie you up and leave you there.
+They also locked the front doors to the mansion. They can´t be opened from
+the inside.                           press any key                You manage to untie yourself. It´s a good thing bad people aren´t good
+at tying things.
+
+>The water floods down. But the cat doesn't move. Maybe the water's warm and
+nice.
+
+>You move west.
+Inside the old mansion
+You are now inside the old mansion.
+
+You can move north, east and west.
+
+>You move north.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of
+this mansion
+
+You can move south and up.
+
+>You move up.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a
+closed door.
+
+You can move east and down.
+
+>You move east.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a
+drawer up against a wall. To the south is a bathroom.
+
+You can move south and west.
+
+>You try all the shelves from top to bottom. Only the bottom one opens.
+There's a piece of paper in it.
+
+>You pick up piece of paper.
+
+>You move south.
+Bathroom 1
+This is a typical bathroom with a toilet, a sink and a bathtub. A bedroom is
+to the north.
+
+You can only move north.
+
+>As you flush the toilet you can hear a sound from below. Guess you got the
+cat out of the sink.
+
+>You move north.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a
+drawer up against a wall. To the south is a bathroom.
+
+You can move south and west.
+
+>You move west.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a
+closed door.
+
+You can move east and down.
+
+>You move down.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of
+this mansion
+
+You can move south and up.
+
+>You move south.
+Inside the old mansion
+You are now inside the old mansion.
+
+You can move north, east and west.
+
+>You move east.
+Kitchen
+This is the kitchen. You can see a chair and a sink.  There's a cat in the
+sink.
+
+Also here is a key.
+
+You can only move west.
+
+>You've already got the key!
+
+>You move west.
+Inside the old mansion
+You are now inside the old mansion.
+
+You can move north, east and west.
+
+>You move west.
+Living room
+You can see a few paintings on the wall. There´s a clock on the wall with a
+dial under it.
+
+You can only move east.
+
+>You turn the dial to 5.
+
+>You move east.
+Inside the old mansion
+You are now inside the old mansion.
+
+You can move north, east and west.
+
+>You move north.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of
+this mansion
+
+You can move south and up.
+
+>You move up.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a
+closed door.
+
+You can move east, west and down.
+
+>You move west.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the
+bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has
+risen from the floor. You can reach the lever.
+
+You can only move east.
+
+>You climb on top of the pillar and pull the lever. You can hear a screeching,
+door-opening sound from the lower floor.
+
+>You move south.
+Bathroom 2
+This bathroom is huge but everything else in it is small. Maybe a
+claustrophobic kid DID live in these two rooms. There´s a door in here
+leading to the balconies.
+
+You can move north and south.
+
+>You move south.
+Balconies
+There are some flowers here and a shovel. There´s no ladder or anything
+leading to the ground. Looks like you´ve gotta jump.
+
+You can only move north.
+
+>You jump down to the ground. It hurt a little in the fall but you´ll be all
+right.
+
+>You open the drawer.  Inside the drawer is a pair of suction arms.
+
+>You take the pair of suction arms from the drawer.
+
+>You open the window and carfully step onto the ledge. With your suction arms
+you can do anything.
+
+>You move west.
+Ship ledge 1
+
+You can move east and west.
+
+>You move west.
+Ship ledge 3
+You are standing outside one of the crew member´s cabin. can hear someone
+talking. It´s not hear. You need to go further.
+
+You can move east and west.
+
+>You move west.
+Ship ledge 4
+You can identify the words more clearly now.                       "So the
+plan is this. We take all the valuables aboard and then we sink the ship."
+says a familiar voice.           "Yeah. That´s the plan. But we must wait for
+Ulthrane to come here on his ship. We wouldn´t want to sink along with this
+ship." says another familiar voice.                     Suddenly the grip on
+one of the suction arm loosens and you almost fall down into the sea. Luckily
+you manage to save yourself. Unluckily, the two men hear you, open the
+window, drag you inside and tie you up. It´s Koir and his friend.
+           press any key                                                Koir didn´t do such a bad job of tying
+you up now. But the two of them do leave you again. All alone. With all those
+scary monsters. Oh yeah. They also locked the door from the outside and took
+your suction arms.
+
+You can only move east.
+
+>You move south.
+Koir´s cabin
+You are now standing inside Koir´s cabin. He has tied you but you can still
+jump around. There's a candle on top of a drawer. There's a sword in the
+corner of the room.
+
+Also here is a sword.
+
+>You use the sword to cut the rope.
+
+>You take the sword.
+
+>You move north.
+Ship hallway 1
+You are standing in the end of a long hallway.
+
+You can move east and south.
+
+>You move east.
+Ship hallway 2
+You are standing in a hallway.
+
+You can move east and west.
+
+>You move east.
+Ship hallway 3
+You are standing in a hallway.
+
+You can move east, south and west.
+
+>You move east.
+Ship hallway 4
+
+You can move east, south and west.
+
+>You move south.
+Trace's cabin
+This is Trace's cabin. You can see a big nice bed. There's a drawer there.
+
+You can only move north.
+
+>You take the key.
+
+>You move north.
+Ship hallway 4
+
+You can move east, south and west.
+
+>You move east.
+Ship hallway 5/ stairs to deck
+You can go up to the deck from here.  It's locked.
+
+You can move west and up.
+
+>You move up.
+Deck 1
+You are up on the deck. There is another boat right next to the Copernika.
+It's sailing away. You notice that the sealine is higher. Or maybe the boat
+is lower. You must find a way off this ship.
+
+You can move east, west and down.
+
+>You move east.
+Deck 2
+You can see a few life-boats to the north.
+
+You can move north and west.
+
+>You move north.
+Deck 4
+There are some life-boats to the north.
+
+You can move north and south.
+
+>You move north.
+Deck 6
+There are some lifeboats here. Just get in.
+
+You can move south and west.
+
+>You drop the boat into the sea and jump on board. You watch as the Copernika
+sinks into the sea.      press any key                      You sail for days until one day you wash ashore. There
+doesn't seem to be any kind of civilization anywhere close.  You are on a
+shore. The shore continues to the east and west. To the south is a grassland.
+Also in the distance you can see a forest.
+
+>You move north.
+Grassland 2
+Grass surrounds you.
+
+You can move north, east, south and west.
+
+>You move west.
+Grassland 1
+You're standing in a grassy field.
+
+You can move north, east, south and west.
+
+>You move north.
+Grassland 8
+A forest is guarding the path to the north.
+
+You can move east, south and west.
+
+>You move west.
+Grassland 7
+There's a path into the forest here.
+
+You can move north, east, south and west.
+
+>You move north.
+Forest 1
+
+You can move north and south.
+
+>You move north.
+Forest 2
+It's quiet here. You can see some birds flying around.
+
+You can move north, east and south.
+
+>You move east.
+Forest 3
+The forest is getting thick. It's quiet.
+
+You can move east and west.
+
+>You move east.
+Forest 4
+You've gotten out of the forest now but you're surrounded by cliffs. There's
+a house to the north.
+
+You can move north and west.
+
+>You move north.
+In front of house
+You have come to a house.
+
+You can move south and in.
+
+>You move in.
+House entrance
+You are standing inside a medium sized house. You can see the kitchen to the
+west. There's a bathroom to the east. The hallway continues to the north.
+
+You can move north, east and out.
+
+>You move north.
+Hallway
+There's a staircase here leading up. To the west is a locked door. Further
+down the hallway is the living room.
+
+You can move south, up and down.
+
+>You move down.
+Basement
+You are standing inside a basement. You can see a door to the north. You can
+also go up.
+
+You can move north and up.
+
+>You move north.
+Tunnel 1
+You are standing in a tunnel. It leads straight to the north and then splits
+into two.
+
+You can move north and south.
+
+>You move north.
+Tunnel 2
+The tunnel continues to the north.
+
+You can move north and south.
+Trace hits Big rat.
+You kill the rat. You get 7 gold coins.
+
+>You move north.
+Tunnel 3
+The path splits to the east and west.
+
+You can move east, south and west.
+
+>You move east.
+Tunnel 4
+You can go north and west.
+
+You can move north and west.
+
+>You move north.
+Tunnel 7
+You can go north and south.
+
+You can move north and south.
+
+>You move north.
+Tunnel 9
+The tunnel continues to the north. You can also go south.
+
+You can move north and south.
+
+>You move north.
+Tunnel 11
+You can move to the west and south.
+
+You can move south and west.
+
+>You move west.
+Tunnel 12
+You can go east, west and north. To the north is a ladder that leads up.
+
+You can move north, east and west.
+
+>You move north.
+Tunnel 13
+There is a ladder leading up to the surface.
+
+You can move south and up.
+
+>You move up.
+Grassland
+You are standing in a grassland. You can see a town to the west. When you
+look to the south, you can see a shore and the ocean. The tunnel must have
+gone underwater. You can go down into a tunnel. Trace says that the mayor of
+Mika, a city close by can help you get a new ship.
+
+You can move north, south, west and down.
+
+>You move west.
+Grassland
+To the west is a city. To the east is a tunnel.
+
+You can move east and west.
+
+>You move west.
+Grassland
+Just a little further to the west is a city.
+
+You can move east, south and west.
+
+>You move west.
+Grassland
+To the west are the city gates of Mika.
+
+You can move east and west.
+
+>You move west.
+In front of Mika city gates
+In front of you are the gates of Mika. This is the second biggest city in all
+of Beyond. You can only get in the city between 6 in the morning and 11 in
+the evening.
+
+You can move east and in.
+
+>You move in.
+Mika entrance
+You are inside the city of Mika. To the east you can see the town square.
+Richton road is south. The market is north.
+
+You can move north, east, south, west and out.
+
+>You move west.
+Mika city 1
+You can continue further to the west.
+
+You can move east and west.
+
+>You move west.
+Town square
+You are standing in the Mika town square. There's a fountain in the middle.
+There are kids playing. You notice a beggar lying by the side of the road.
+There's a tavern to the south.
+
+You can move east, south and west.
+
+>You move west.
+Mika castle gates
+Behind these gates lives the mayor of Mika. The Mika city park is south.
+
+You can move east, south and west.
+
+>You move west.
+Mika, road to castle
+It's a long way to the castle.
+
+You can move east and west.
+
+>You move west.
+Mika, road to castle 2
+To the west you can see a big castle.
+
+You can move east and west.
+
+>You move west.
+Mika in front of castle
+You are standing in front of the castle.
+
+You can move east and in.
+
+>You move in.
+Castle entrance
+This place is huge. To the north is a living room. To the south is the
+kitchen. To the north is a staircase leading up.  But what's important now is
+finding the mayor. Trace is a friend of his.
+
+Warth is here.
+
+You can move north, south, west and out.
+"Ah. It is you Trace. The guest bedroom is ready. The mayor is not at home.
+Why don´t you get some sleep. He´ll meet with you tomorrow.
+
+>You move west.
+Castle 1
+There's a staircase here leading up. To the south is the dining room.
+
+You can move east, south and up.
+
+>You move up.
+Castle upper floor hallway 1
+In front of you is a big door. The hallway continues to the north and south.
+
+You can move north, south and down.
+
+>You move south.
+Castle upper floor hallway 3
+There's a guest bedroom to the west. The hallway continues east and south.
+
+You can move north, east, south and west.
+
+>You move west.
+Guest bedroom
+This bedroom is big. There's a nice fluffy bed opposite to the entrance and
+there's a big mirror covering the northern wall.
+
+You can only move east.
+
+>You lie down on the bed and goto sleep.......  you get an 8 hour sleep.
+
+>You move east.
+Castle upper floor hallway 3
+There's a guest bedroom to the west. The hallway continues east and south.
+
+You can move north, east, south and west.
+
+>You move north.
+Castle upper floor hallway 1
+In front of you is a big door. The hallway continues to the north and south.
+
+You can move north, south, west and down.
+
+>You move west.
+The mayor's bedroom
+This room is big. There's a huge, soft bed opposite to the door.
+
+Enevez is here.
+
+You can only move east.
+
+>"Ah, it is you Trace. What might you be needing from em?" asks the mayor.
+"A ship." says Trace.     "It´s much that you ask of but I will grant you
+your wish. You will find it on the docks." says the mayor. As he finishes, an
+explosion shatters the western wall of the room, leaving only a big hole. You
+can see a few ships out at sea.... launching cannonballs at the castle.
+"What is this?" says the mayor.     "I know that flag." says Trace   "It´s
+Koir.           "The city is lost. We can´t escape past these ships. I´ve got
+a ship on the northeastern part of the island. Let us go there" says the
+mayor.     "My name is Enevez." says the mayor.       Enevez has joined you.
+
+>You move east.
+Castle upper floor hallway 1
+In front of you is a big door. The hallway continues to the north and south.
+
+You can move north, south, west and down.
+
+>You move down.
+Castle 1
+There's a staircase here leading up. To the south is the dining room.
+
+You can move east, south and up.
+
+>You move east.
+Castle entrance
+This place is huge. To the north is a living room. To the south is the
+kitchen. To the north is a staircase leading up.  But what's important now is
+finding the mayor. Trace is a friend of his.
+
+Warth is here.
+
+You can move north, south, west and out.
+
+>You move out.
+Mika in front of castle
+You are standing in front of the castle.
+
+You can move east and in.
+
+>You move east.
+Mika, road to castle 2
+To the west you can see a big castle.
+
+You can move east and west.
+
+>You move east.
+Mika, road to castle
+It's a long way to the castle.
+
+You can move east and west.
+
+>You move east.
+Mika castle gates
+Behind these gates lives the mayor of Mika. The Mika city park is south.
+
+You can move east, south and west.
+
+>You move east.
+Town square
+You are standing in the Mika town square. There's a fountain in the middle.
+There are kids playing. You notice a beggar lying by the side of the road.
+There's a tavern to the south.
+
+You can move east, south and west.
+
+>You move east.
+Mika city 1
+You can continue further to the west.
+
+You can move east and west.
+
+>You move east.
+Mika entrance
+You are inside the city of Mika. To the east you can see the town square.
+Richton road is south. The market is north.
+
+You can move east, south, west and out.
+
+>You move out.
+In front of Mika city gates
+In front of you are the gates of Mika. This is the second biggest city in all
+of Beyond. You can only get in the city between 6 in the morning and 11 in
+the evening.
+
+You can move east and in.
+
+>You move east.
+Grassland
+To the west are the city gates of Mika.
+
+You can move east and west.
+
+>You move east.
+Grassland
+Just a little further to the west is a city.
+
+You can move east, south and west.
+
+>You move east.
+Grassland
+To the west is a city. To the east is a tunnel.
+
+You can move east and west.
+
+>You move east.
+Grassland
+You are standing in a grassland. You can see a town to the west. When you
+look to the south, you can see a shore and the ocean. The tunnel must have
+gone underwater. You can go down into a tunnel. Trace says that the mayor of
+Mika, a city close by can help you get a new ship.
+
+You can move north, south, west and down.
+
+>(Your score has increased by 5)
+You move north.
+Grassland
+
+Big scorpion is here.
+
+You can move north and south.
+Trace hits Big scorpion.
+Enevez hits Big scorpion.
+You kill the scorpion and collect your bounty. 75 gold coins.
+
+>(Your score has increased by 10)
+You move north.
+Grassland
+The path continues north.
+
+Thief is here.
+
+You can move north and south.
+Trace hits Thief.
+Enevez hits Thief.
+You kill the thief and take 30 gold coins.
+
+>You move north.
+Grassland
+The path goes east and south.
+
+You can move east and south.
+
+>You move east.
+Grassland
+Just to the east of here is a ship.
+
+You can move east and west.
+
+>(Your score has increased by 10)
+You move east.
+Grassland
+Just a little further to the east is a ship. The path also leads west.
+
+Bandit is here.
+
+You can move east and west.
+Trace hits Bandit.
+You thrust your sword through the bandit's body and then draw it out. You get
+25 gold coins and a key.
+
+>You move east.
+Northeastern docks
+This is the place where the mayor's ship is. You can get on board or risk
+your life fighting Koir's pirates (actually you can't).
+
+You can only move west.
+
+>You get on board and head for Sulfan, the biggest city in all of Beyond.
+There you will try to figure out where to go.   press any key     ......................................After a few days of sailing you
+finally arrive at sulfan. You split up. You decide to duscuss things at the
+tavern. Trace gives you 700 gold coins that you may use to buy weapons and
+health potions.
+
+>You move south.
+Sulfan road 1
+The docks are to the north. If you continue south you will get to the tavern.
+
+You can move north and south.
+
+>You move south.
+Sulfan road 2
+The tavern is here. If you continue south you will get to the market. You can
+also go east.
+
+You can move north, east, south and in.
+
+>You move south.
+Sulfan road 3
+The docks and tavern are north. The market is south.
+
+You can move north and south.
+
+>You move south.
+Sulfan market 1
+There's a weapons shop here. You can go in, east and south.
+
+You can move north, east and in.
+
+>You move in.
+Weapons shop
+In here are many different weapons. Narjaje is here.
+
+Narjaje is here.
+
+You can only move out.
+
+>You buy the claymore.
+
+>You buy the bladed whip.
+
+>You are now wielding the claymore.
+
+>You move out.
+Sulfan market 1
+There's a weapons shop here. You can go in, east and south.
+
+You can move north, east and in.
+
+>You move north.
+Sulfan road 3
+The docks and tavern are north. The market is south.
+
+You can move north and south.
+
+>You move north.
+Sulfan road 2
+The tavern is here. If you continue south you will get to the market. You can
+also go east.
+
+You can move north, east, south and in.
+
+>You move in.
+Sulfan tavern
+You step inside the tavern.
+
+Trace and Enevez are here.
+
+You can only move out.
+"We have decided to kill assassinate Koir. That way his troops won´t have a
+leader and it will be easier to defeat them.
+
+>You move west.
+Mika city 1
+It's very quiet. You can hear some men singing in the tavern nearby. Drunk
+soldiers.
+
+Soldier 1 is here.
+
+You can move east and west.
+
+>You move west.
+Mika town square
+Just a little bit further and you'll be at the gates.
+
+Soldier 2 is here.
+
+You can move east and west.
+Trace hits Soldier 2.
+Enevez hits Soldier 2.
+Soldier 2 hits Trace, but it doesn't seem to do any damage.
+
+>You move west.
+Mika castle gate
+Luckily the gate is open. The path is clear.
+
+You can move east and west.
+
+>You move west.
+Mika road to castle 1
+
+You can move east and west.
+
+>You move west.
+Mika road to castle 2
+Just a little further to the castle.
+
+You can move east and west.
+
+>You move west.
+Mika in front of castle
+You will enter the castle, find Koir and kill him. Without their leader the
+enemy troops will be easier to defeat.
+
+You can move east and in.
+
+>You move in.
+Castle entrance
+Koir is most likely in the royal bedroom. The doors to the east and west are
+locked.
+
+You can move west and out.
+
+>You move west.
+Castle 1
+
+You can move east and up.
+
+>You move up.
+Castle upper floor hallway 1
+The roof has collapsed to the north and south. You can only go into the royal
+bedroom.
+
+You can move west and down.
+
+>You move west.
+The mayor's bedroom
+You enter the mayor's bedroom. You can see Koir standing there facing away
+from you.
+
+Koir is here.
+
+You can only move east.
+You run towards Koir and swing your sword but your sword catches nothing but
+air. You see that he is now standing in one of the corners of the room. He
+raises his hand. A fiery red glow appears in his hand. Suddenly the room is
+engulfed in flames. When the flames are gone, you are no longer standing
+inside the mayor´s bedroom but a large cave. And where Koir stood now stands
+a humanoid beast.    "Xozim." says Trace in fear.       "Yes. It is I, Xozim.
+I used the body of Koir. I´ve returned from the fiery pits that I was cast
+into." says Xozim.
+Trace hits Xozim.
+Enevez hits Xozim.
+Enevez hits Xozim.
+Xozim hits you.
+
+>Time passes...
+Trace hits Xozim.
+Enevez hits Xozim.
+Enevez hits Xozim.
+Xozim hits you.
+Trace hits Xozim.
+Enevez hits Xozim.
+Enevez hits Xozim.
+Xozim hits you.
+(Your score has increased by 50)
+Trace hits Xozim.
+You thrust your sword into the demon´s chest one final time. The demon
+screams in pain as he turns to dust.                  "You have killed Xozim.
+He was the ruler of Beyond. And since you killed him you can CLAIM THE
+THRONE. But I believe you would most likely want to go home. If you want to
+go home you can do so in this cave. The exit is in that hole over there."
+says Trace.        It is now up to you to choose. GO HOME and you will return
+back to earth. CLAIM THE THRONE and you will become the almighty ruler of ths
+world and possibly turn it into a better place. The choise is yours.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>(Your score has increased by 150)
+You say to Trace : "I want to claim the throne." She points at a place in the
+cave where there´s a throne and says : "All you have to do is sit down in
+that throne over there."  You walk slowly towards the throne and then you
+take a seat. And then suddenly as if by magic the big cave transforms into a
+big palace like throne room. You are now ruler of Beyond.......
+Congratulations!
