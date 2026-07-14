@@ -70,31 +70,32 @@ does by default — commit `00daaa24`.)
 
 **Not a 3.9-conversion parse bug.** A scan of the whole corpus shows the
 `Var2=-1` move pattern occurs **only in native-4.0 games** (To Hell & Beyond ×10,
-X-Files ×2, Hyperbole ×1) and in **zero** of the 3.9 games (whose moves all carry
-a proper `Var2`). So SCARE is not mis-converting 3.9 data; the `-1` is baked into
+X-Files ×2, HYPER Battle System ×1) and in **zero** of the 3.9 games (whose
+moves all carry a proper `Var2`). So SCARE is not mis-converting 3.9 data; the `-1` is baked into
 these games' shipped 4.0 TAFs (most plausibly from the author upgrading a 3.9
 game in ADRIFT's own Generator, which can leave the new "To:" field unset). In
-X-Files and Hyperbole the unset moves are redundant, so those games still win;
-only To Hell & Beyond put them on the critical path.
+X-Files and HYPER Battle System the unset moves are redundant, so those games
+still win; only To Hell & Beyond put them on the critical path.
 
 **Optional repair (opt-in, off by default).** A sibling of the combat assist,
 `sc_set_move_assist` (harness env `SCR_ASSUME_MOVES`), honours an unset (`-1`) move
 whose `Var3` names a real room as "to room". It is **off by default** (so SCARE
 stays faithful to run400.exe) and, when on, lets conversion-broken games be
 completed: To Hell & Beyond then wins **248/373**, while X-Files (299/299) and
-Hyperbole (100/100) are unchanged.
+HYPER Battle System (100/100) are unchanged.
 
-> **Update 2026-07-14:** "X-Files/Hyperbole unchanged" was true only of their
-> walkthrough transcripts.  Both games carry an unset **NPC** move whose `Var3`
-> is a *dangling* index (out of range for the room list — the implied offset
-> even differs from this game's, so no single re-basing decodes them all):
-> X-Files' diner buzzer should summon Dean, Hyperbole's `attack` should bring
-> the flare rat to the Attack Menu.  Move assist now repairs a dangling
-> (`Var3 > 0`, non-room) unset NPC move by summoning the NPC to the player's
-> room — correct in every corpus instance — and X-Files is on the Glk port's
-> auto-assist list (os_glk.cpp `GSC_GAME_ASSIST_TABLE`).  To Hell & Beyond's
-> ten unset moves all carry in-range `Var3`s and are unaffected by the
-> fallback; all 75 harness rows still pass.
+> **Update 2026-07-14:** "X-Files/HYPER Battle System unchanged" was true only
+> of their walkthrough transcripts.  Both games carry an unset **NPC** move
+> whose `Var3` is a *dangling* index (out of range for the room list — the
+> implied offset even differs from this game's, so no single re-basing decodes
+> them all): X-Files' diner buzzer should summon Dean, HYPER Battle System's
+> `attack` should bring the flare rat to the Attack Menu.  Move assist now
+> repairs a dangling (`Var3 > 0`, non-room) unset NPC move by summoning the
+> NPC to the player's room — correct in every corpus instance — and both
+> X-Files and HYPER Battle System are on the Glk port's auto-assist list
+> (os_glk.cpp `GSC_GAME_ASSIST_TABLE`).  To Hell & Beyond's ten unset moves
+> all carry in-range `Var3`s and are unaffected by the fallback; all 75
+> harness rows still pass.
 
 ---
 

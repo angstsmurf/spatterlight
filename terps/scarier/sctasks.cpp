@@ -56,9 +56,9 @@ static scr_bool task_trace = FALSE;
  * reference Runner (run400.exe) silently ignores such a move (its Select Case
  * has no matching/else branch), so the faithful default here is also a no-op
  * (verified against run400.exe).  In some games those unset moves are redundant
- * (X-Files, Hyperbole still win); in others they sit on the critical path,
- * leaving the game unwinnable (To Hell & Beyond traps the player in the
- * mansion).  With move assist on, an unset (-1) move whose Var3 names a real
+ * (X-Files, HYPER Battle System still win); in others they sit on the critical
+ * path, leaving the game unwinnable (To Hell & Beyond traps the player in
+ * the mansion).  With move assist on, an unset (-1) move whose Var3 names a real
  * room is honoured as "to room", letting such games be completed.  Strictly
  * opt-in, as it deliberately diverges from the reference Runner.
  */
@@ -741,10 +741,11 @@ task_run_move_npc_action (scr_gameref_t game,
            * that names no room is a dangling index (the editor stored it
            * against a differently-based or since-edited list; the offset even
            * differs between corpus games, so it cannot be decoded reliably);
-           * every corpus instance of one -- X-Files' diner buzzer, Hyperbole's
-           * flare rat -- is a "bring this character on-stage here" direction,
-           * so summon the NPC to the player's room instead.  A Var3 of 0 or
-           * less means nothing was ever selected; that stays a no-op. */
+           * every corpus instance of one -- X-Files' diner buzzer, HYPER
+           * Battle System's flare rat -- is a "bring this character on-stage
+           * here" direction, so summon the NPC to the player's room instead.
+           * A Var3 of 0 or less means nothing was ever selected; that stays
+           * a no-op. */
           if (task_move_assist && var2 == -1)
             {
               if (var3 - 1 >= 0 && var3 - 1 < gs_room_count (game))

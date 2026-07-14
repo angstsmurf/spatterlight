@@ -96,9 +96,9 @@ and can come later; the metacommands are the minimal, self-contained win.
 - **Move assist metacommand:** in `To Hell & Beyond`, `glk moveassist on` then run
   the route in `harness/to_hell_and_beyond_assisted_solution.txt` → reaches the
   ship and ultimately the 248/373 throne win.
-- **No regression:** with move assist on, X-Files (299/299) and Hyperbole
-  (100/100) are byte-identical to assist-off (their unset moves are inert
-  offstage NPC moves).
+- **No regression:** with move assist on, X-Files (299/299) and HYPER Battle
+  System (100/100) are byte-identical to assist-off (their unset moves are
+  inert offstage NPC moves).
 
 ## Files
 - `terps/scare/os_glk.c` — table entries, two handlers, summary + help text.

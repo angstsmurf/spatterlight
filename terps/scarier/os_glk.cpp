@@ -4125,6 +4125,10 @@ gsc_get_ending_option (void)
  *  - The X-Files: A New Beginning: completable, but the move summoning Dean
  *    when the player pushes his diner's buzzer has an unset "To:" combo, so
  *    the diner's owner (and all his conversation) never appears in the game.
+ *  - HYPER Battle System: completable, but the move bringing the Flare Rat
+ *    into the Attack Menu when the player attacks has the same unset "To:"
+ *    combo, so the opponent is never visibly present during its own battle
+ *    (cosmetic only -- the fight is driven by variables, not presence).
  *
  * For these known games the matching assists default to on, applied at game
  * start; "glk combatassist off" / "glk moveassist off" still turn them off,
@@ -4152,6 +4156,11 @@ static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
   {"To hell & beyond", "Steingr\xedmur J\xf3nsson", TRUE, TRUE,
    "This game cannot be completed as authored"},
   {"The X-Files: A New Beginning", "Superbone Ali", FALSE, TRUE,
+   "A character in this game never appears as authored"},
+  /* The GameName is the game's <wait>-animated title screen with the tags
+     stripped, hence the run-together "1.1Copyright". */
+  {"HYPER Battle System Version 1.1Copyright 2002 Seciden Mencarde",
+   "Seciden Mencarde", FALSE, TRUE,
    "A character in this game never appears as authored"},
   {NULL, NULL, FALSE, FALSE, NULL}
 };

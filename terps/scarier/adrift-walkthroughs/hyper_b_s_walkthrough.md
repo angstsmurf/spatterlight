@@ -63,3 +63,14 @@ complete! Congratulations!"* — game won, **100/100**.
   Battle-System games (Azra / V&K / To-Hell / Mr-Smith).
 - Verified deterministic: the banked solution reproduces 100/100 + the
   "Congratulations!" win marker identically on 3 consecutive runs.
+- **Cosmetic quirk + Glk auto-assist:** the game's `attack` task carries an
+  unset (`Var2=-1`) NPC move with a dangling `Var3`, meant to bring the Flare
+  Rat into the Attack Menu; faithfully ignored, the rat is never visibly
+  present during its own battle (its "glares menacingly" line shows only in
+  the Battle Menu).  The fight itself is variable-driven, so the win is
+  unaffected either way.  The Glk port turns move assist on automatically for
+  this game (os_glk.cpp `GSC_GAME_ASSIST_TABLE`; note the table key is the
+  tag-stripped animated title, "HYPER Battle System Version 1.1Copyright 2002
+  Seciden Mencarde"), which summons the rat to the Attack Menu.  The corpus
+  golden runs assist-off and is unchanged; see
+  `To_Hell_And_Beyond_walkthrough.md` for the full unset-move analysis.
