@@ -1,0 +1,34 @@
+# Quest 5 corpus regression manifest: <game-basename> TAB <walkthrough-file> TAB <mode>
+# game-basename: matches "<name>.quest" in ~/Downloads/Quest 5 games/
+# walkthrough-file: in ~/Downloads/Quest 5 walkthroughs/
+# mode: welbourn | commands | hints
+#   welbourn/commands -> extract_walkthrough.py drives the oracle
+#   hints             -> Q&A/prose only, no linear command script; runner skips
+# The 24 games with a walkthrough (of 49). Filename mismatches vs the .quest
+# names (Guttersnipe spacing, Jacqueline, Hawk suffix, bare .txt) are why a
+# naive "<Game> - walkthrough.txt" match missed several — hence this table.
+A Christmas Game - The Sequel	A Christmas Game - The Sequel - walkthrough.txt	welbourn
+A Christmas Game	A Christmas Game - walkthrough.txt	welbourn
+A Hobbit Trek	A Hobbit Trek - walkthrough.txt	welbourn
+Basilica de Sangre	Basilica de Sangre - walkthrough.txt	welbourn
+Dream Pieces 2 - The Lego Box	Dream Pieces 2 - The Lego Box - walkthrough.txt	welbourn
+Dream Pieces	Dream Pieces - walkthrough.txt	welbourn
+Escape From the Mechanical Bathhouse	Escape From the Mechanical Bathhouse - walkthrough.txt	welbourn
+Guttersnipe- Carnival of Regrets	Guttersnipe - Carnival of Regrets - walkthrough.txt	welbourn
+Guttersnipe- St. Hesper's Asylum for the Criminally Mischievous	Guttersnipe - St Hesper's Asylum for the Criminally Mischievous - walkthrough.txt	welbourn
+Guttersnipe- The Baleful Backwash	Guttersnipe - The Baleful Backwash - walkthrough.txt	welbourn
+I Contain Multitudes	I Contain Multitudes - walkthrough.txt	commands
+Jacqueline, Jungle Queen!	Jacqueline Jungle Queen - walkthrough.txt	welbourn
+One Night Stand	One Night Stand - walkthrough.txt	welbourn
+The Bony King of Nowhere	The Bony King of Nowhere - walkthrough.txt	welbourn
+The Mouse Who Woke Up For Christmas	The Mouse Who Woke Up For Christmas - walkthrough.txt	welbourn
+The Myothian Falcon	The Myothian Falcon.txt	commands
+Whitefield Academy of Witchcraft	Whitefield Academy of Witchcraft - walkthrough.txt	welbourn
+# --- hints-only: Q&A or prose, no mechanically extractable linear script ---
+Eight characters, a number, and a happy ending	Eight characters, a number, and a happy ending.txt	hints
+Hawk the Hunter	Hawk the Hunter - hints-walkthrough.txt	hints
+Night House	Night House - Walkthrough.txt	hints
+Poppet	Poppet - walkthrough.txt	hints
+Quest for the Serpent's Eye	Quest for the Serpent's Eye - walkthrough.txt	hints
+What Once Was	What Once Was - walkthrough.txt	hints
+# The Brutal Murder of Jenny Lee: PDF-only walkthrough, no .txt -> omitted.

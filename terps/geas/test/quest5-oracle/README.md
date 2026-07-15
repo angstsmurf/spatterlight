@@ -62,18 +62,43 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`extract_welbourn.py` converts a David Welbourn (Key & Compass) walkthrough
-`.txt` — where commands are `> `-prefixed and packed several-per-line with `. `
-separators — into a flat one-command-per-line script.
+`corpus.tsv` is the curated manifest: each of the 24 games with a walkthrough
+mapped to its walkthrough file and an extractor mode. It exists because filename
+conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
+`Jacqueline Jungle Queen`, `Hawk … - hints-walkthrough.txt`, bare `.txt`), so a
+naive `<Game> - walkthrough.txt` match silently misses several.
+
+`extract_walkthrough.py` has two modes:
+- **welbourn** — David Welbourn (Key & Compass): commands are `> `-prefixed and
+  packed several-per-line with `. `; parentheticals are prose; `X —or— Y`
+  (em-dash) means "either works", and we take the first alternative (missing
+  this silently stalls the game — an unanswered numbered menu swallows every
+  later command, see below).
+- **commands** — a bare one-command-per-line list (often the tail of an author
+  doc after a prose section), possibly indented and using `menu:` directives;
+  prose lines are dropped by a shape heuristic.
 
 Note: `game.multiplecommands` defaults to **false** in Core and most games leave
 it off, so the engine will *not* split a `.`-joined line itself — pre-splitting
-here is required, and also yields one deterministic turn per command.
+in welbourn mode is required, and also yields one deterministic turn per command.
 
-`run_corpus.sh` runs every `~/Downloads/Quest 5 games/*.quest` that has a
-matching `~/Downloads/Quest 5 walkthroughs/<Game> - walkthrough.txt`, writing
-`out/<Game>.out` transcripts and printing a coverage table (ASL version, steps,
-emits, final state). See the [[quest5-corpus]] memory for the corpus itself.
+`run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
+`out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
+table (ASL version, steps, emits, final state). Current coverage: **17 games
+driven** (8 reach `Finished`; 9 end `Running` — walkthrough exhausts or drifts
+from the game version at the tail, which the oracle faithfully records), **6
+hints-only** (Q&A/prose, no linear script). See [[quest5-corpus]].
+
+### Two menu systems (why a bad answer used to freeze the game)
+
+Core has two: the engine `show menu` script → `IPlayer.ShowMenu` → answered by
+`SetMenuResponse` (the driver's `PendingMenu` path); and Core's ASLX `ShowMenu`
+function, which prints a numbered text menu (`1: Yes` / `2: No`) and is answered
+by sending the **number** as a normal command (`HandleMenuTextResponse` accepts
+integers only). If a text menu is pending and the sent line isn't a valid number
+and `menuallowcancel` is false, `CoreParser.HandleCommand` marks it handled and
+prints nothing — so every subsequent command is silently eaten. That is exactly
+what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Two gotchas the harness handles
 
@@ -102,6 +127,12 @@ transcripts across runs.
 
 ## Known gaps
 
-- Non-Welbourn walkthrough formats (e.g. *I Contain Multitudes*, *Night House*)
-  aren't extracted by `extract_welbourn.py`; their command lists live elsewhere
-  in the document.
+- Six games have **hints-only** walkthroughs (Q&A or prose — *Night House*,
+  *Poppet*, *What Once Was*, *Hawk the Hunter*, *Eight characters…*, *Quest for
+  the Serpent's Eye*): no mechanically extractable linear command script, so
+  they carry a `hints` mode in `corpus.tsv` and are reported as skipped.
+- Some driven games end `Running` because the walkthrough drifts from the game
+  version at the tail (e.g. *I Contain Multitudes*, whose author notes its
+  time-based events break Quest's own walkthrough runner). Transcripts are still
+  deterministic; they just don't reach a formal win.
+- *The Brutal Murder of Jenny Lee* has a PDF-only walkthrough (no `.txt`).
