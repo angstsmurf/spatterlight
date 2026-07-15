@@ -25,6 +25,16 @@ while IFS=$'\t' read -r game wt mode preamble; do
   if [ ! -f "$q" ];   then printf "%-52s  (game file missing)\n" "$game"; continue; fi
   if [ ! -f "$src" ]; then printf "%-52s  (walkthrough missing: %s)\n" "$game" "$wt"; continue; fi
   cmd="$OUT/$game.cmd"
+  # A curated override wins outright: overrides/<game>.cmd is a hand-authored
+  # winning script (verbatim, incl. any title-screen preamble baked in) for a game
+  # whose raw walkthrough does NOT reach the ending as-is — a walkthrough typo, a
+  # branch that must be chosen, a nav error vs the release map, or an RNG-/timer-
+  # specific solve. Each override carries a "#"-comment header documenting exactly
+  # how it deviates from the raw walkthrough. When present it REPLACES both the
+  # preamble and the extractor. See overrides/README.md.
+  if [ -f "$HERE/overrides/$game.cmd" ]; then
+    cp "$HERE/overrides/$game.cmd" "$cmd"
+  else
   # Optional 4th column: ";"-separated commands prepended before the walkthrough
   # (e.g. "new game" to click past a title-screen menu the walkthrough assumes
   # you already dismissed — without it every later command hits the menu and
@@ -35,6 +45,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
     printf '%s\n' "$preamble" | tr ';' '\n' | sed 's/^ *//; s/ *$//' >> "$cmd"
   fi
   python3 "$HERE/extract_walkthrough.py" --mode "$mode" "$src" >> "$cmd"
+  fi
   [ -s "$cmd" ] || { printf "%-52s  (no commands extracted)\n" "$game"; continue; }
   dotnet "$DLL" "$q" "$cmd" > "$OUT/$game.out" 2> "$OUT/$game.err"
   diag="$(grep '^\[diag\] end:' "$OUT/$game.err")"

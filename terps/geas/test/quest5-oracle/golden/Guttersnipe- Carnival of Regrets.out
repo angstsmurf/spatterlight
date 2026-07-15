@@ -1110,6 +1110,12 @@ You can go south, north, west or east.
 You are at the animal pens.
 You're reaching the end of the animal exhibits. To the north, you see a caravan trailer. A trash heap is visible to the northwest through the slats of the fence.  You can see - and smell - an outhouse to the west.  The carnival's backstage alley begins to the east, behind a tarp with a sign above it.
 You can go south, east, northwest, north or west.
+
+You startle when suddenly a tall thin clown emerges from the alley to the east, brushing you aside.  This clown is absurdly tall and thin; he towers above you, moving as gracefully as a deer on his long, stilt-like legs, his white conical hat nearly brushing the electric lighting wires haphazardly strung up over the alleyway.  His baggy white suit is spotless and immaculately pressed, but he's so thin that this only makes him look more like a scarecrow.  His face is painted completely white, except for the black stars around his eyes -- which are so small and set into his face that they look like pinpricks of light in an endless white plane.  He looks right at you, but acts as though he doesn't see you.
+
+He extends to his full height, like a spider unfolding from its hole, and strides off down the alleyway between the animal pens.  As he passes, you notice his feet are thorny and calloused, split into three taloned toes each, like the feet of a chicken. Then you blink and he's gone.
+
+Well.  You probably just imagined that thing about his feet, really.
 > ask Percy about sign
 
 > ask Percy about sign
@@ -2273,558 +2279,6 @@ You can go south.
 You are in the side show.
 Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
 You can go east, west, south or north.
-> w
-
-> w
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> s
-
-> s
-
-You are in the fun house.
-You're in the fun house! It's a real crazy place where anything can happen! There are mirrors everywhere, reflecting a million distorted images of yourself.
-You can go north or south.
-> s
-
-> s
-You wander around inside the house of mirrors for a few minutes, but it's way too confusing to be confronted with a million mirror images of yourself. Eventually, you give up and leave.  Maybe if there was some way to smash those mirrors and find your way through!
-> ask lady about factory
-
-> ask lady about factory
-I can't see that. (lady)
-> ask lady about Igor
-
-> ask lady about Igor
-I can't see that. (lady)
-> ask lady about Abracadabragail
-
-> ask lady about Abracadabragail
-I can't see that. (lady)
-> ask lady about Jolly Bottles
-
-> ask lady about Jolly Bottles
-I can't see that. (lady)
-> ask lady about barker
-
-> ask lady about barker
-I can't see that. (lady)
-> n
-
-> n
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> n
-
-> n
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> w
-
-> w
-
-You are in the aviary.
-The aviary is a large portable greenhouse full of exotic birds. In the center of the room stands a large pool full of brackish water, home to about a dozen black flamingos. The pool is fed by a trickle from a pipe sticking out of the wall to the west.
-You can see black flamingos.
-You can go east or west.
-> w
-
-> w
-
-You are in the aviary control room.
-Behind the scenes of the aviary, you see all the rickety old machinery that maintains the room's conditions to be just right to support all those exotic birds -- as well as the pump that circulates the water through the flamingo pond.
-You can see a pump.
-You can go east.
-> n
-
-> n
-You can't go there.
-> n
-
-> n
-You can't go there.
-> e
-
-> e
-
-You are in the aviary.
-The aviary is a large portable greenhouse full of exotic birds. In the center of the room stands a large pool full of brackish water, home to about a dozen black flamingos. The pool is fed by a trickle from a pipe sticking out of the wall to the west.
-You can see black flamingos.
-You can go east or west.
-> give ipecac to massive snake
-
-> give ipecac to massive snake
-I can't see that. (massive snake)
-> take dog whistle
-
-> take dog whistle
-I can't see that.
-> x it
-
-> x it
-I can't see that.
-> w
-
-> w
-
-You are in the aviary control room.
-Behind the scenes of the aviary, you see all the rickety old machinery that maintains the room's conditions to be just right to support all those exotic birds -- as well as the pump that circulates the water through the flamingo pond.
-You can see a pump.
-You can go east.
-> n
-
-> n
-You can't go there.
-> n
-
-> n
-You can't go there.
-> use telephone
-
-> use telephone
-I can't see that.
-> turn on radio
-
-> turn on radio
-I can't see that. (radio)
-> turn off radio
-
-> turn off radio
-I can't see that. (radio)
-> wear dummy
-
-> wear dummy
-You punch your fist into the opening in the dummy's back, tearing it larger until the hole is big enough for you to climb inside the cavity.  Your legs stick out the bottom, of course, but at least you've got yourself a pretty convincing... uh... wooden robot clown costume?
-> s
-
-> s
-You can't go there.
-> e
-
-> e
-
-You are in the aviary.
-The aviary is a large portable greenhouse full of exotic birds. In the center of the room stands a large pool full of brackish water, home to about a dozen black flamingos. The pool is fed by a trickle from a pipe sticking out of the wall to the west.
-You can see black flamingos.
-You can go east or west.
-> x mucus
-
-> x mucus
-I can't see that.
-> n
-
-> n
-You can't go there.
-> x cocoons
-
-> x cocoons
-I can't see that.
-> ask Percy about cocoons
-
-> ask Percy about cocoons
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> s
-
-> s
-You can't go there.
-> e
-
-> e
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> n
-
-> n
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, north, west or east.
-> hide behind privacy screen
-
-> hide behind privacy screen
-I can't see that. (privacy screen)
-> x screen
-
-> x screen
-I can't see that.
-> x vanity
-
-> x vanity
-I can't see that.
-> x lamp
-
-> x lamp
-I can't see that.
-> take lamp
-
-> take lamp
-I can't see that.
-> s
-
-> s
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> e
-
-> e
-You can't go there.
-> n
-
-> n
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, north, west or east.
-> x vat
-
-> x vat
-I can't see that.
-> use cob with vat
-
-> use cob with vat
-I can't see that. (vat)
-> x stove
-
-> x stove
-I can't see that.
-> x leftovers
-
-> x leftovers
-I can't see that.
-> x tables
-
-> x tables
-I can't see that.
-> s
-
-> s
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> e
-
-> e
-You can't go there.
-> n
-
-> n
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, north, west or east.
-> x official
-
-> x official
-I can't see that.
-> open it
-
-> open it
-I can't see that.
-> take penny
-
-> take penny
-I can't see that.
-> x it
-
-> x it
-I can't see that.
-> x bin
-
-> x bin
-I can't see that.
-> x envelopes
-
-> x envelopes
-I can't see that.
-> x cubicles
-
-> x cubicles
-I can't see that.
-> s
-
-> s
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> s
-
-> s
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> s
-
-> s
-
-You are in the fun house.
-You're in the fun house! It's a real crazy place where anything can happen! There are mirrors everywhere, reflecting a million distorted images of yourself.
-You can go north or south.
-> e
-
-> e
-You can't go there.
-> put penny in zoetrope
-
-> put penny in zoetrope
-I can't see that. (penny)
-> w
-
-> w
-You can't go there.
-> s
-
-> s
-You wander around inside the house of mirrors for a few minutes, but it's way too confusing to be confronted with a million mirror images of yourself. Eventually, you give up and leave.  Maybe if there was some way to smash those mirrors and find your way through!
-> w
-
-> w
-You can't go there.
-> s
-
-> s
-You wander around inside the house of mirrors for a few minutes, but it's way too confusing to be confronted with a million mirror images of yourself. Eventually, you give up and leave.  Maybe if there was some way to smash those mirrors and find your way through!
-> open generator
-
-> open generator
-I can't see that.
-> take gas
-
-> take gas
-I can't see that.
-> n
-
-> n
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> w
-
-> w
-You can't go there.
-> w
-
-> w
-You can't go there.
-> give corncob to clown
-
-> give corncob to clown
-I can't see that. (corncob)
-> n
-
-> n
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> x clowns
-
-> x clowns
-I can't see that.
-> d
-
-> d
-You can't go there.
-> x portrait
-
-> x portrait
-I can't see that.
-> ask Percy about portrait
-
-> ask Percy about portrait
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> x Red
-
-> x Red
-I can't see that.
-> speak to Red
-
-> speak to Red
-I can't see that. (Red)
-> x Mugsy
-
-> x Mugsy
-I can't see that.
-> speak to Mugsy
-
-> speak to Mugsy
-I can't see that. (Mugsy)
-> s
-
-> s
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> e
-
-> e
-
-You are in the side show.
-Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
-You can go east, west, south or north.
-> e
-
-> e
-
-You are in the side show.
-Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
-
-You can go east, south, west or north.
-> u
-
-> u
-You can't go there.
-> x vampires
-
-> x vampires
-I can't see that.
-> out
-
-> out
-You can't go there.
-> in
-
-> in
-You can't go there.
-> d
-
-> d
-You can't go there.
-> w
-
-> w
-
-You are in the side show.
-Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
-You can go east, west, south or north.
-> w
-
-> w
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> d
-
-> d
-You can't go there.
-> turn on lamp
-
-> turn on lamp
-I can't see that. (lamp)
-> look
-
-> look
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> x puddles
-
-> x puddles
-I can't see that.
-> w
-
-> w
-You can't go there.
-> look at stillborn clown
-
-> look at stillborn clown
-I can't see that.
-> take it
-
-> take it
-I can't see that.
-> ask Percy about clown
-
-> ask Percy about clown
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> x furnace
-
-> x furnace
-I can't see that.
-> w
-
-> w
-You can't go there.
-> x heads
-
-> x heads
-I can't see that.
-> ask Percy about heads
-
-> ask Percy about heads
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> n
-
-> n
-
-You are at the animal pens.
-The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
-You can go south, west or north.
-> x belt
-
-> x belt
-I can't see that.
-> nw
-
-> nw
-You can't go there.
-> x slurry
-
-> x slurry
-I can't see that.
-> ask Percy about slurry
-
-> ask Percy about slurry
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> se
-
-> se
-You can't go there.
-> s
-
-> s
-
-You are in the side show.
-You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
-You can see a sandwich board.
-You can go east, north, southwest or south.
-> e
-
-> e
-
-You are in the side show.
-Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
-You can go east, west, south or north.
 > e
 
 > e
@@ -2841,10 +2295,736 @@ You are in the freak show.
 You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
 You can see a wizened old man.
 You can go north or south.
+> s
+
+> s
+
+You are in the Gallery of Grotesqueries.
+You stumble through the beaded curtain into a dim oppressive room, filled with all sorts of bizarre exhibits showcasing the strange and unusual. The only light comes from the single naked electric bulb dangling from a ceiling cord; it casts an evil glare across the rows and rows of dark glass mason jars stacked up in the corners.
+
+You can see a pigmonkey, pickled punks, Petunia Porkchops the fat lady and a jackelope.
+You can go north.
+> ask lady about factory
+
+> ask lady about factory
+"Ah joined this carnival when it came through mah hometown, Scrotchport on the Louisiana coast.  It jest appeared o'ernight, set up right in the spot where th' old Clam Shuckery burned down. Didn't think nuthin' of it then, but this carnival always seems to set up o'er scenes of tragedy..."
+> ask lady about Igor
+
+> ask lady about Igor
+"That Igor talks a big game, but he's as yellow as a canary! He don't got the guts to stand up to them clowns... or anything else here."
+> ask lady about Abracadabragail
+
+> ask lady about Abracadabragail
+"Oh she's a sweet lil' thang, but she nervous. But then, who can blame her with all them awful clowns around. I don't think she ever wanted to really join the carnival, but now she's stuck here same as the rest of us."
+> ask lady about Jolly Bottles
+
+> ask lady about Jolly Bottles
+"Poor thang, ah feel bad fer her. She's so thin!"
+> ask lady about barker
+
+> ask lady about barker
+She makes a sour face. "All he cares about is taking advantage of the next mark. But ah guess y'all gotta do what y'all gotta do ta stay sane in a place like this."
+> n
+
+> n
+
+You are in the freak show.
+You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
+You can see a wizened old man.
+You can go north or south.
+> n
+
+> n
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
+
+You can go east, south, west or north.
+> w
+
+> w
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
+You can go east, west, south or north.
+> w
+
+> w
+
+You are in the side show.
+You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
+You can see a sandwich board.
+You can go east, north, southwest or south.
+> n
+
+> n
+
+You are at the animal pens.
+The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can go south, west or north.
+> n
+
+> n
+
+You are at the animal pens.
+The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can go south, north, west or east.
+> e
+
+> e
+
+You are in the snake house.
+It's so humid in here that you can barely breathe and so dark that you can barely see an inch in front of your face!  The only illumination comes from the glass tanks set up around the edges of the room, each with its own flickering heat lamp.
+You can see a terrarium, a massive snake and a dog leash.
+You can go west.
+> give ipecac to massive snake
+
+> give ipecac to massive snake
+"Oi! Oi! Snakey! Look up here!"  You wave the ipecac bottle over the snake's head.  Eventually the movement gets the snake's attention and it looks up, its mouth hanging open -- just enough to let you pour the syrup down its gullet.
+
+The snake starts to cough and convulse... and eventually it spits up a bile-covered dog whistle.
+> take dog whistle
+
+> take dog whistle
+You grab the whistle. Then you wipe the snake gastric juices off on your shirt.
+> x it
+
+> x it
+It's an ornate red and gold whistle on a string. There's a big gilded "Z" on it.
+> w
+
+> w
+
+You are at the animal pens.
+The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can go south, north, west or east.
+> n
+
+> n
+
+You are at the animal pens.
+You're reaching the end of the animal exhibits. To the north, you see a caravan trailer. A trash heap is visible to the northwest through the slats of the fence.  You can see - and smell - an outhouse to the west.  The carnival's backstage alley begins to the east, behind a tarp with a sign above it.
+You can go south, east, northwest, north or west.
+> n
+
+> n
+
+You are in an office trailer.
+Whoever uses this office does not believe in efficient organization; the floor, the table, the counter, everything is covered in piles and piles of discarded papers, upended manila folders, and other trash.  The air hangs heavy with the lingering smell of tobacco.
+You can see a candlestick telephone and a tombstone radio.
+You can go south.
+> use telephone
+
+> use telephone
+You pick up the receiver. What number do you want to dial?
+> turn on radio
+"Sorry, you number you've dialed cannot be reached," says the swtchboard operator's voice. "Please check your number and try again."
+> turn off radio
+
+> turn off radio
+It is already switched off.
+> wear dummy
+
+> wear dummy
+You punch your fist into the opening in the dummy's back, tearing it larger until the hole is big enough for you to climb inside the cavity.  Your legs stick out the bottom, of course, but at least you've got yourself a pretty convincing... uh... wooden robot clown costume?
+> s
+
+> s
+
+You are at the animal pens.
+You're reaching the end of the animal exhibits. To the north, you see a caravan trailer. A trash heap is visible to the northwest through the slats of the fence.  You can see - and smell - an outhouse to the west.  The carnival's backstage alley begins to the east, behind a tarp with a sign above it.
+You can go south, east, northwest, north or west.
+> e
+
+> e
+Looks like your disguise worked! As long as you're inside the ventriloquist's dummy, the clowns believe that you're one of them... and they won't stop you from strolling right into clown alley!
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> x mucus
+
+> x mucus
+You have no idea what this stuff is, but it's all over everything like a sticky gelatinous sweat.
+> n
+
+> n
+
+You are in a barracks.
+This appears to be a sort of sleeping quarters, but it's not like anything you've ever seen before -- and that's saying something, considering you live in a garbage can.  Everything in the room is covered in sticky, viscous slime. Two long rows of weird, human-sized pods fill the room; they almost look like burst open cocoons.
+You can see cocoons.
+You can go south.
+> x cocoons
+
+> x cocoons
+They look like exploded pimples. And they're just as gooey too.
+> ask Percy about cocoons
+
+> ask Percy about cocoons
+"Good Lord, what are those?" says Percy, horror evident in his voice. "Do the... do they grow the clowns in these things? What a revolting possibility! We already knew they weren't quite human, but it's becoming clear just how inhuman they really are!"
+> s
+
+> s
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> e
+
+> e
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> n
+
+> n
+
+You are in a dressing room.
+It's a dressing room, full of trunks and boxes as well as several privacy screens -- behind which performers would presumably get ready for the show.  There's also a vanity complete with mirror.  Everything is covered with slippery ichor.
+You can see a privacy screen, a vanity and a kerosene lamp.
+You can go south.
+
+You hear something stirring out in the alleyway behind you.
+> hide behind privacy screen
+
+> hide behind privacy screen
+You duck behind the screen just as you hear someone lumber into the room.  Peeking through a gap in the screen, you see that it's the grungy man from the entrance ticket booth.  He plops into the folding chair in front of the vanity and begins to apply clown make-up.
+
+Wait a minute.
+
+No, he's not. He's REMOVING make-up!  Underneath, his skin is ghostly white with splotches of lurid red on his cheeks and around his lips.  He shakes his head and a ruff explodes out from his neck like a peacock unfolding its tail.  He pulls off his shirt to reveal naked skin beneath polka-dotted and baggy like the smock of a clown.
+
+In mere minutes the transformation is complete. Where there was once a man is now a clown.  He lurches to his feet with a final nod at the mirror and lumbers back out of the room.
+> x screen
+
+> x screen
+It's a privacy screen decorated with a vaguely faux-Chinese pattern.
+> x vanity
+
+> x vanity
+It's a dressing room table with two rows of drawers and a mirror. The surface of the table is covered with perplexing make-up paraphernalia.
+> x lamp
+
+> x lamp
+It's an empty kerosene lamp.
+> take lamp
+
+> take lamp
+You grab the kerosene lamp.
+> s
+
+> s
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> e
+
+> e
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> n
+
+> n
+
+You are in the mess.
+This room looks like some sort of mess hall. There are tables and benches, still covered with ichor, and a portable propane stove in the corner.
+You can see a vat, a stove, leftovers and tables.
+You can go south.
+> x vat
+
+> x vat
+A large vat of corn dog batter is bubbling on the stove.
+> use cob with vat
+
+> use cob with vat
+You dip the cob into the vat of bubbling liquid, withdrawing a batter-covered corn cob.  Slathered in batter, it's nearly impossible to tell from a real corn dog.
+> x stove
+
+> x stove
+A portable propane stove. Guess they would need to use something easy to dissemble and pack up since it's a traveling carnival and all.
+> x leftovers
+
+> x leftovers
+Brownish-red smears and half-chewed bones. The bones are rather small and, um, child-like.
+> x tables
+
+> x tables
+The tables are covered in dirty dishes and leftover food -- as well as the same viscous slime that's everywhere back here.
+> s
+
+> s
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> e
+
+> e
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> n
+
+> n
+
+You are in the mail room.
+This room is full of little mail cubicles, possibly so the clowns can leave messages for each other.
+You can see an incoming mail bin and an official looking manila envelope.
+You can go south.
+> x official
+
+> x official
+It's an official looking manila envelope with the seal of the Urchinfinder General stamped on it.
+> open it
+
+> open it
+You open it.
+You rip open the envelope and discover a bright shiny penny inside.
+> take penny
+
+> take penny
+You pocket the penny.
+> x it
+
+> x it
+It's a bright shiny penny, worth 1 cent American.
+> x bin
+
+> x bin
+It's a big bin full of slime-covered envelopes.
+> x envelopes
+
+> x envelopes
+The envelopes are so saturated with slime that they come apart into fibers with a touch.
+> x cubicles
+
+> x cubicles
+The cubicles are full of damp wilted envelopes fused into a paper Dagwood sanwich by soldified goo.
+> s
+
+> s
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west, east or north.
+> e
+
+> e
+Looks like your disguise worked! As long as you're inside the ventriloquist's dummy, the clowns believe that you're one of them... and they won't stop you from strolling right into clown alley!
+
+You are in clown alley.
+The backstage area is a long, dark corridor; the canopy above blocks out almost all light. The floor and walls are covered with a sticky residue and you can see glistening ropes of a thick dripping mucus strung across the pathway.
+You can go west or east.
+> e
+
+> e
+
+You are in the penny arcade.
+You're reaching the end of the penny arcade.  The carnival's backstage alley begins to the west, behind a tarp with a sign above it.
+You can go west, south or northeast.
+> s
+
+> s
+
+You are in the penny arcade.
+The penny arcade is home to the carnival's various totally honest games of skill and chance and other things designed to part suckers from their hard-earned cash. The penny arcade continues to the south; you can see the path ending abruptly to the north.
+You can go south, north, west or east.
+> s
+
+> s
+
+You are in the penny arcade.
+The penny arcade is home to the carnival's various totally honest games of skill and chance and other things designed to part suckers from their hard-earned cash. The penny arcade continues to the north; the food concessions area is to the south.
+You can go south, north or east.
+> e
+
+> e
+
+You are in the nickelodeon.
+This tent is filled with coin-operated bagatelle machines and other automaton-style amusements.
+You can see a zoetrope.
+You can go west.
+> put penny in zoetrope
+
+> put penny in zoetrope
+You shove the penny into the zoetrope's coin slot and listen as the internal mechanism rattles to life.  You see light begin to pour out through the peephole, so you gaze inside.
+
+You're treated to a brief but very interesting and educational slideshow about a particularly flexible Misirlou lady wearing see-through clothes.  When the last slide flashes, you see that someone has defaced it by scratching a crude drawing into the slide.  It's the urchin sigil for WARNING and...something that looks like a worm with a clown face that appears to be on fire.
+
+> w
+
+> w
+
+You are in the penny arcade.
+The penny arcade is home to the carnival's various totally honest games of skill and chance and other things designed to part suckers from their hard-earned cash. The penny arcade continues to the north; the food concessions area is to the south.
+You can go south, north or east.
+> s
+
+> s
+
+You are in the concessions arena.
+You're in a concessions area, full of food wagons and snack vendors.  You can smell the mingled scents of fair food - corn dogs, fry bread, deep-fried sponge cake, fried calamari, soda pop - that make your mouth water.
+You can see a candy wagon and a candy clerk.
+You can go west, north, east or south.
+> w
+
+> w
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
+You can go west, east, south or north.
+> s
+
+> s
+
+You are at the carousel.
+Kids love riding the brightly colored horses of the carousel! The carved wooden horses, forever frozen in mid-whinny with nostrils flaring and teeth bared, look more intent on murder than fun. Their garish red and gold paint has begun to flake, revealing the dull unpolished wood beneath.
+
+The carousel slowly rotates, wobbling in an unending cycle as the painted horses bob up and down, oblivious to the lack of riders. The carousel is powered by a gas generator standing to one side.
+You can see some graffiti, horses and a generator.
+You can go north.
+> open generator
+
+> open generator
+You open the generator's gas tank and peer inside. It's full of gas, as you might expect.
+> take gas
+
+> take gas
+You open the hatch to the generator's gas tank, plunging the kerosene lamp into the tank until it's filled with oil.  You're not sure if this is the right kind of oil for this lamp, buttttt couldn't hurt, right?
+
+> n
+
+> n
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
+You can go west, east, south or north.
+> w
+
+> w
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
+You can see a popcorn machine.
+You can go west, east, south or north.
+> w
+
+> w
+
+You are in the promenade.
+You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
+
+The air is thick with sawdust and calliope music.
+You can see an obese clown and a cotton candy cart.
+You can go north, east, west or south.
+> give corncob to clown
+
+> give corncob to clown
+The clown's little piggy eyes light up as you hold up the battered corncob. The clown drops the corndog nub and grabs the new "corndog" out of your hands so fast that he nearly rips your fingers off.
+
+He shoves it into his mouth and clamps down. The ear-splitting crack of teeth against cob shatters the air.  The clown drops the corncob and falls to the ground, whining in pain.
+
+You've got a clear shot, so... why not? You kick the clown right in his fat forehead, resulting in yet another loud ear-splitting crack, and the fat clown is out cold.
+> n
+
+> n
+
+You are in the Big Top.
+You can see a multitude of clowns.
+You can go south or down.
+The Big Top is filled with chortling and chuckling and whooping. It takes a few moments for your eyes to adjust to the gloom, but when they do you see that the Big Top is filled with clowns: Big ones, little ones, all shapes and sizes, all the colors of the rainbow.  There's an almost overpowering smell of burnt rubber.
+
+Luckily, in your ventriloquist dummy disguise, they don't seem to notice you.
+
+The clowns fill the bleachers where the audience would usually sit, grunting and shouting..  And right there, in the center of the ring, you see a familiar face: It's T.I. Urge the ringmaster! The guy who gave you your free ticket! A small hunched clown painted coal black crouches next to him.
+
+At his feet, you see two other familiar faces. Red and Mugsy. They're wrapped up in sticky cocoons like two flies caught in a spider's web and they're lying very still.
+
+There's also a pit dug in the center of the ring.
+
+"The Clownqueror Worm was born in fire and ash and pain, the dying screams of the innocent and the agonized gasps of the pure. Its rage is blinding, its hunger eternal!"
+
+A murmur ripples through the crowd around you; you catch a few slurred words and you realize that they're repeating his words back. It seems to be some sort of call-and-response prayer ritual, except half of the crowd doesn't seem to be capable of speech. You watch as misshapen mouths ill-suited to forming words drool and blubber with the effort of fitting together syllables.
+
+"It rises eternal, long in coil, deep in maw, hungry always for new flesh. It made up, the clownkin for one purpose, to bring sustenance... and sustenance we bring! For the Clownqueror Worm!"
+The clown crowd whoops and hollers, but T.I. Urge raises his hand for silence.
+
+"Wait," says T.I. Urge, "Where's the third one? There were supposed to be at least THREE urchins. Where's the third one!?"
+
+"She keepsh moving," mutters the black-face clown, dribbling saliva.
+
+"Well, never mind, we'll get her yet," says T.I Urge. He kicks the cocoons at his feet and both Red and Mugsy tumble into the pit, disappearing from sight without a sound.
+The clowns start whooping again.
+
+"Complete the ritual," shouts T.I. Urge, "I'm going to go find that last urchin. And remember, when we open to the public, any urchins that come then will be OURS."
+
+He swaggers out through the back of the tent. The hollering dies down and the clowns return to a steady, rhythmic mumbling.
+> x clowns
+
+> x clowns
+A whole lot of clowns: the way they're crouching, eager to spring, you would definitely call this a pack of clowns.
+
+They're all quietly mumbling, staring intently ahead of them at nothing. They almost seem to be in some sort of religious trance.
+> d
+
+> d
+While the clowns are distracted with their chanting, you scrabble for that pit in the center of the ring and duck down.  For a brief moment, you tumble through darkness... until you collide, hard, with a floor.
+
+You are in an office.
+You're in an office of some sort, covered in loose papers and assorted debris.
+
+The room is dimly lit by some bioluminescent mold on the walls.
+You can see a portrait, cocooned Red and cocooned Mugsy.
+You can go up or south.
+> x portrait
+
+> x portrait
+A large looming oil painting hangs at an angle on the wall. It depicts a pinch-faced old man in a luxurious peacoat and tophat.  There's a brass plaque at the base of the painting.
+> ask Percy about portrait
+
+> ask Percy about portrait
+Percy notices you squinting at the plaque.  "Here, let me take a look," he says.
+
+His eyes go wide.  "It says this is 'Bartleby Tastycakes, CEO of Sweetiepie Doll & Novelty Rubberworks.' Good Lord, this...this must have been his office! This entire carnival must be right above the remains of the old factory!"
+
+Percy rubs his chin. "I wonder if this carnival always appears above sites like this? Sites of some great urchin tragedy. Maybe that's why it always takes urchins."
+
+You stare up at the portrait. "I don't like it. He gots a bad mug."
+> x Red
+
+> x Red
+Red is wrapped up in some sort of sticky substance like a papoose with only his head visible. He seems to be unconscious.
+> speak to Red
+
+> speak to Red
+"Oi! Red, you palooka! Wake up!"  You Give Red a hearty shake for good measure, but he doesn't wake up.  Whatever they did to him, he's out cold.
+> x Mugsy
+
+> x Mugsy
+Mugsy is wrapped up in some sort of sticky substance like a papoose with only his head visible. He seems to be unconscious.
+> speak to Mugsy
+
+> speak to Mugsy
+"You awake? Huh? Huh?" You grab Mugsy and give him a shake.  He murmurs softly in response, but he doesn't wake up.  He's completely out of it!
+> s
+
+> s
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the east; the foreman's office is behind you to the north. There's a spiral staircase leading down to the factory floor below.  It's pitch black down there.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go north, down or east.
+> e
+
+> e
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west and east.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or east.
+> e
+
+> e
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west. A metal rung ladder leads up into the darkness above.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or up.
+> u
+
+> u
+
+You are in the spook house.
+You're inside a darkened room, surrounded by non-functioning animatronic vampires.
+You can go out or down.
+> x vampires
+
+> x vampires
+These vampires look more like they should be in a pizza restaurant.
+> out
+
+> out
+You kick down some of the boards, creating a hole just big enough to squeeze out of the spook house.
+
+You are at the spook house.
+The front of "Dr. Werewolf's Blood Dungeon" is covered with pictures of bloody-fanged ghosts menacing scantily-clad ladies.  The ride is boarded up; you can't read the sign on the cordon across the queue, but you assume it probably says that the ride is closed.
+You can go south or in.
+> in
+
+> in
+
+You are in the spook house.
+You're inside a darkened room, surrounded by non-functioning animatronic vampires.
+You can go out or down.
+> d
+
+> d
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west. A metal rung ladder leads up into the darkness above.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or up.
+> w
+
+> w
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west and east.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or east.
+> w
+
+> w
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the east; the foreman's office is behind you to the north. There's a spiral staircase leading down to the factory floor below.  It's pitch black down there.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go north, down or east.
+> d
+
+> d
+
+You are on the factory floor.
+It's pitch black.  You can't even see your hand in front of your face.
+> turn on lamp
+
+> turn on lamp
+Just to check, you quickly rub a small fire with a stray twig and hold it to the lamp's wick. It catches fire. Looks like a success.
+> look
+
+> look
+You are on the factory floor.
+The factory floor is a wide-open, cavernous room. Your footsteps echo loudly against the metal floor as you walk. There are puddles of water here and there, formed from the steady drip drip drip of absorbed rainwater trickling down from above.  There are also big snowdrift-sized lumps of congealed rubber throughout the room.
+
+You turn suddenly and catch sight of something small and spindly leaning over to drink from one of the puddles. The creature straightens up and swivels to face you as it realizes that it's been exposed in the glare of your lamp.  It's a small articulated doll with a porcelain head and a crinoline dress. It pauses for just a second and then scampers off into the dark.
+You can go up, south or west.
+> x puddles
+
+> x puddles
+Deep puddles of brackish water have collected here and there throughout the room.
+> w
+
+> w
+
+You are at the head moulding furnace.
+This room is filled with the charred remains of a massive furnace.
+You can see a stillborn clown and a furnace.
+You can go east or west.
+> look at stillborn clown
+
+> look at stillborn clown
+Ugh, it's a rubber clown, probably part of some novelty toy. But it's life-size. Or rather, it looks like it was supposed to be.  Its torso is stretched like silly putty and it lies in a crumpled heap on the floor.
+> take it
+
+> take it
+It's just rubber, but something about this thing gives you the willies. Maybe you'll just leave it.
+> ask Percy about clown
+
+> ask Percy about clown
+"Wot in the name of the Great Urchin God Rapscallius is that thing?" you ask, staring in horror at the rubbery heap on the ground before you.
+
+"I don't know how these clown abominations came into the world," says Percy, "But however they do it, it looks like something went wrong in this case."
+> x furnace
+
+> x furnace
+This massive furnace, occupying an entire wall of the room, once blasted hundreds of doll heads every hour. Now it stands cold and dark.
+> w
+
+> w
+
+You are in the head assembly room.
+This room was once the assembly line where workers attached heads to dolls, but the conveyer belt is all in rotted tatters now. The floor is covered with deformed dolls heads, probably damaged in the fire that torched everything in this place.
+You can see doll heads.
+You can go east or north.
+> x heads
+
+> x heads
+They look like perfectly ordinary disembodied doll heads scattered all over the floor, except that they all swivel as one to watch you no matter where you stand in the room.
+> ask Percy about heads
+
+> ask Percy about heads
+"I think we should get out of here as quickly as possible," mutters Percy through clenched teeth, his eyes never leaving the creepy doll heads. "This place seems like bad news."
+> n
+
+> n
+
+You are in a conveyance corridor.
+This long thin room is occupied entirely by a single shattered conveyer belt stretching off into the distance. Broken doll parts and burnt blobs of melted rubber litter the runway.
+You can go south or northwest.
+> x belt
+
+> x belt
+The conveyer belt lies in tatters at your feet.
+> nw
+
+> nw
+
+You are at a slurry pit.
+You're not sure what this room was originally supposed to be, but its now nothing more than a large pit filled with a foul-smelling dank brown slurry.  Occasional flatulent bursts of methane bubble to the surface of the fetid lake. The air is a thick choking miasma of sulphurous fumes.
+You can go southeast.
+> x slurry
+
+> x slurry
+It's disgusting.
+> ask Percy about slurry
+
+> ask Percy about slurry
+"Why are you asking me about that?" gasps Percy, holding a paw to his nose. "Your nose should tell you everything you need to know about this place!"
+> se
+
+> se
+
+You are in a conveyance corridor.
+This long thin room is occupied entirely by a single shattered conveyer belt stretching off into the distance. Broken doll parts and burnt blobs of melted rubber litter the runway.
+You can go south or northwest.
+> s
+
+> s
+
+You are in the head assembly room.
+This room was once the assembly line where workers attached heads to dolls, but the conveyer belt is all in rotted tatters now. The floor is covered with deformed dolls heads, probably damaged in the fire that torched everything in this place.
+You can see doll heads.
+You can go east or north.
+> e
+
+> e
+
+You are at the head moulding furnace.
+This room is filled with the charred remains of a massive furnace.
+You can see a stillborn clown and a furnace.
+You can go east or west.
+> e
+
+> e
+
+You are on the factory floor.
+The factory floor is a wide-open, cavernous room. Your footsteps echo loudly against the metal floor as you walk. There are puddles of water here and there, formed from the steady drip drip drip of absorbed rainwater trickling down from above.  There are also big snowdrift-sized lumps of congealed rubber throughout the room.
+You can go up, south or west.
+> s
+
+> s
+
+You are on the factory floor.
+A massive blob of misshapen rubber occupies the center of the room, but when it shifts you can see that it's not just another pile. It's a massive slug-like creature, fat and slick and blubbery, its face (or what you presume to be its face) painted like a harlequin.  Two tentacles sprout from its face where its eyes should be.
+You can see a clownqueror worm.
+You can go north.
 > look at worm
 
 > look at worm
-I can't see that.
+The clownqueror worm is a massive slick blubbery monster slug coiled at the center of the room. One end, presumably its head, its painted like a clown's face, its red lined mouth sucking and lipless like a sea cucumber's anus, its eyes protruding like a snail's tentacles. All along its sides you can see smaller, half-formed clown faces budding off like boils.  It smells of burnt rubber.
+
+Luckily, the beast seems to be anchored to the spot, its rubbery flanks fused with the floor.
 > ask Percy about worm
 
 > ask Percy about worm
@@ -2853,337 +3033,119 @@ I can't see that.
 
 > n
 
-You are in the side show.
-Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
-
-You can go east, south, west or north.
+You are on the factory floor.
+The factory floor is a wide-open, cavernous room. Your footsteps echo loudly against the metal floor as you walk. There are puddles of water here and there, formed from the steady drip drip drip of absorbed rainwater trickling down from above.  There are also big snowdrift-sized lumps of congealed rubber throughout the room.
+You can go up, south or west.
 > u
 
 > u
-You can't go there.
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the east; the foreman's office is behind you to the north. There's a spiral staircase leading down to the factory floor below.  It's pitch black down there.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go north, down or east.
 > e
 
 > e
 
-You are in the promenade.
-You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west and east.
 
-The air is thick with sawdust and calliope music.
-You can see an obese clown and a cotton candy cart.
-You can go north, east, west or south.
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or east.
 > e
 
 > e
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west. A metal rung ladder leads up into the darkness above.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or up.
+> u
+
+> u
+
+You are in the spook house.
+You're inside a darkened room, surrounded by non-functioning animatronic vampires.
+You can go out or down.
+> out
+
+> out
+
+You are at the spook house.
+The front of "Dr. Werewolf's Blood Dungeon" is covered with pictures of bloody-fanged ghosts menacing scantily-clad ladies.  The ride is boarded up; you can't read the sign on the cordon across the queue, but you assume it probably says that the ride is closed.
+You can go south or in.
+> s
+
+> s
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
+You can go west, east, south or north.
+> w
+
+> w
 
 You are in the midway.
 The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
 You can see a popcorn machine.
 You can go west, east, south or north.
-> u
+> w
 
-> u
-You can't go there.
-> out
+> w
 
-> out
-You can't go there.
+You are in the promenade.
+You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
+
+The air is thick with sawdust and calliope music.
+You can see a cotton candy cart.
+You can go east, west or south.
+> w
+
+> w
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
+
+You can go east, south, west or north.
 > s
 
 > s
 
-You are at the Dodgem Bumper Cars.
-The bumper cars are one of the most popular rides at the carnival. In the darkened rink, the cars look like waiting animals, poised to pounce, their headlights staring outward like so many bulging glassy eyes.
-You can see a bumper car.
+You are in the freak show.
+You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
+You can see a wizened old man.
+You can go north or south.
+> s
+
+> s
+
+You are in the Gallery of Grotesqueries.
+You stumble through the beaded curtain into a dim oppressive room, filled with all sorts of bizarre exhibits showcasing the strange and unusual. The only light comes from the single naked electric bulb dangling from a ceiling cord; it casts an evil glare across the rows and rows of dark glass mason jars stacked up in the corners.
+
+You can see a pigmonkey, pickled punks, Petunia Porkchops the fat lady and a jackelope.
 You can go north.
-> w
-
-> w
-You can't go there.
-> w
-
-> w
-You can't go there.
-> w
-
-> w
-You can't go there.
-> s
-
-> s
-You can't go there.
-> s
-
-> s
-You can't go there.
 > talk to lady
 
 > talk to lady
-I can't see that. (lady)
+"Oh honey, ah don't want no clowns in here!... Oh wait, is that you, shugah? Lawdsakes, I plumb didn't recognize ya! Why're you wearin' that awful thing anyways?"
 > ask lady about worm
 
 > ask lady about worm
-I can't see that. (lady)
+"Lawd sakes, don't talk 'bout such things! Ah don't rightly know what they've got under the big top, but ah reckon it can't be nothin' good.  It's got ta be some sorta ungodly abomination! An' from what ah've heard, it eats even more'n I do. An' ah eat a lot!"
 > n
 
 > n
 
-You are in the midway.
-The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
-You can see a popcorn machine.
-You can go west, east, south or north.
+You are in the freak show.
+You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
+You can see a wizened old man.
+You can go north or south.
 > n
 
 > n
-
-You are at the devil's wheel.
-The devil's wheel is a carnival ride that spins you around really fast until you get plastered to the walls or covered in your own vomit.  The faded vinyl seats are cracked and split from the constant pressure of innumerable fair patrons' buttocks, yellow foam spilling out. The air smells like sweat, grease, and foam rubber.
-
-There's an eerie silence to this ride, almost as if it's sleeping.  But the painted devil's head on the marquee bears a wide nasty grin -- as if it's anticipating all of the terror it's going to cause when the fair opens to the public.
-
-You can see seats.
-You can go south.
-> w
-
-> w
-You can't go there.
-> n
-
-> n
-You can't go there.
-> talk to Igor
-
-> talk to Igor
-I can't see that. (Igor)
-> ask Igor about worm
-
-> ask Igor about worm
-I can't see that. (Igor)
-> s
-
-> s
-
-You are in the midway.
-The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
-You can see a popcorn machine.
-You can go west, east, south or north.
-> w
-
-> w
-
-You are in the promenade.
-You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
-
-The air is thick with sawdust and calliope music.
-You can see an obese clown and a cotton candy cart.
-You can go north, east, west or south.
-> sw
-
-> sw
-You can't go there.
-> talk to girl
-
-> talk to girl
-I can't see that. (girl)
-> ask girl about worm
-
-> ask girl about worm
-I can't see that. (girl)
-> ne
-
-> ne
-You can't go there.
-> s
-
-> s
-
-You are in the entryway.
-The walls of the entryway are painted a deep crimson red, giving you the distinct impression that you're traveling down some monstrous creature's throat.
-You can see a crimson clown.
-You can go south or north.
-> blow whistle
-
-> blow whistle
-I don't understand your command.
-> s
-
-> s
-A large clown, dressed all in red, is blocking the only way out of the carnival.
-> s
-
-> s
-A large clown, dressed all in red, is blocking the only way out of the carnival.
-> x zeppelin
-
-> x zeppelin
-I can't see that.
-> ask Percy about zeppelin
-
-> ask Percy about zeppelin
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> x posters
-
-> x posters
-I can't see that.
-> x hydrogen
-
-> x hydrogen
-I can't see that.
-> ask Percy about posters
-
-> ask Percy about posters
-"I'm afraid that's outside my area of expertise, Rags. But perhaps I could answer another question on some other topic for you?"
-> ask Percy about hydrogen
-
-> ask Percy about hydrogen
-> take cannister
-
-> take cannister
-I can't see that.
-> push hydrogen cannister
-
-> push hydrogen cannister
-I can't see that. (hydrogen cannister)
-> n
-
-> n
-
-You are in the promenade.
-You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
-
-The air is thick with sawdust and calliope music.
-You can see an obese clown and a cotton candy cart.
-You can go north, east, west or south.
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> n
-
-> n
-You try to walk into the Big Top, but the clown shifts his weight to block your way.   "Fine, fine, I can take a hint," you mutter, still straining to see over the clown's shoulder into the darkness of the tent.  There must be something really great in there!
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> n
-
-> n
-You try to walk into the Big Top, but the clown shifts his weight to block your way.   "Fine, fine, I can take a hint," you mutter, still straining to see over the clown's shoulder into the darkness of the tent.  There must be something really great in there!
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> n
-
-> n
-You try to walk into the Big Top, but the clown shifts his weight to block your way.   "Fine, fine, I can take a hint," you mutter, still straining to see over the clown's shoulder into the darkness of the tent.  There must be something really great in there!
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> n
-
-> n
-You try to walk into the Big Top, but the clown shifts his weight to block your way.   "Fine, fine, I can take a hint," you mutter, still straining to see over the clown's shoulder into the darkness of the tent.  There must be something really great in there!
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> n
-
-> n
-You try to walk into the Big Top, but the clown shifts his weight to block your way.   "Fine, fine, I can take a hint," you mutter, still straining to see over the clown's shoulder into the darkness of the tent.  There must be something really great in there!
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> w
-
-> w
-
-You are in the side show.
-Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
-
-You can go east, south, west or north.
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> in
-
-> in
-You can't go there.
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
-> out
-
-> out
-You can't go there.
-> e
-
-> e
-
-You are in the promenade.
-You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
-
-The air is thick with sawdust and calliope music.
-You can see an obese clown and a cotton candy cart.
-You can go north, east, west or south.
-> s
-
-> s
-
-You are in the entryway.
-The walls of the entryway are painted a deep crimson red, giving you the distinct impression that you're traveling down some monstrous creature's throat.
-You can see a crimson clown.
-You can go south or north.
-> s
-
-> s
-A large clown, dressed all in red, is blocking the only way out of the carnival.
-> s
-
-> s
-A large clown, dressed all in red, is blocking the only way out of the carnival.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> n
-
-> n
-
-You are in the promenade.
-You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
-
-The air is thick with sawdust and calliope music.
-You can see an obese clown and a cotton candy cart.
-You can go north, east, west or south.
-> d
-
-> d
-You can't go there.
-> w
-
-> w
 
 You are in the side show.
 Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
@@ -3196,10 +3158,31 @@ You can go east, south, west or north.
 You are in the side show.
 Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
 You can go east, west, south or north.
-> d
+> n
 
-> d
-You can't go there.
+> n
+
+You are in the Strong Man Tent.
+The strong man tent is where people go to watch a strong man lift heavy things. The dirt floor is covered in barbells and other discombobulated exercise equipment, and the walls are plastered with posters.  The posters are all written in cyrillic font, but they depict the strong man lifting various heavy things.
+
+Most of the equipment is definitely designed for someone a lot stronger than you, but you see one pair of dumbbells that are just small enough that you might be able to lift them.
+You can see Igor the strong man and a dumbbell.
+You can go south.
+> talk to Igor
+
+> talk to Igor
+Igor shrieks in horror when he catches sight of you. "Clown monster! Stay away! Wait, you are no clown; you are girl! Oh you play joke on Igor. Not funny!"
+> ask Igor about worm
+
+> ask Igor about worm
+"Clownqueror worm! Is awful monster! Is too strong for even Igor to fight!"
+> s
+
+> s
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
+You can go east, west, south or north.
 > w
 
 > w
@@ -3208,38 +3191,228 @@ You are in the side show.
 You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
 You can see a sandwich board.
 You can go east, north, southwest or south.
-> w
+> sw
 
-> w
-You can't go there.
+> sw
+
+You are in the Tent of Television.
+For once the choking scent of sawdust and vomit that pervades the carnival is masked by more pleasant scents of incence and jasmine. The tent's walls are covered with occult symbols, meaningless to you but doubtless pulsing with arcane power.
+You can see a taxidermy crow and Abracadabragail.
+You can go northeast.
+> talk to girl
+
+> talk to girl
+Abracadabragail starts when she sees you wearing the ventriloquist dummy like a suit, but she quickly realizes it's you.
+
+"By the Great Urchin God Rapscallius! Why are you wearing that awful thing?!"
+
+"It's my disguise!" you say, "Them clowns all got tiny little eyes, so I'm hopin' they think I'm one o' them! Then I can sneak around!"
+> ask girl about worm
+
+> ask girl about worm
+"Sometimes I hear noises from underground... rumbles and groans. I don't know what it is, but it gives me the heebie jeebies."
+> ne
+
+> ne
+
+You are in the side show.
+You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
+You can see a sandwich board.
+You can go east, north, southwest or south.
+> s
+
+> s
+
+You are in the fun house.
+You're in the fun house! It's a real crazy place where anything can happen! There are mirrors everywhere, reflecting a million distorted images of yourself.
+You can go north or south.
+> blow whistle
+
+> blow whistle
+You raise the whistle to your lips and blow.
+
+You don't hear anything from the whistle, but the mirrors in the hall of mirrors immediately shatter -- now you can easily see your way through the maze!
+> s
+
+> s
+
+You are in the maze of mirrors.
+You're in a maze of broken mirrors.  Actually, when the mirrors are all broken, it's not much of a maze at all.  It's pretty easy to find your way through.
+You can go north or south.
+> s
+
+> s
+
+You are in a warehouse.
+This supply room is usually off limits to the public, hidden from view by the reflective mirrors of the fun house.  But with the mirrors shattered, access is easy!
+
+It's full of janitorial supplies and advertising paraphernalia.
+You can see a deflated zeppelin, posters and a hydrogen cannister.
+You can go north.
+> x zeppelin
+
+> x zeppelin
+A small dirigible used for promotion and advertising purposes. There's a picture of a circus tent on the side and some fancy words that probably advertise the carnival.
+
+There's also a huge tear in it, which is probably why it's not in use right now.
+> ask Percy about zeppelin
+
+> ask Percy about zeppelin
+"Wot's it say?" you ask Percy.
+
+"It says 'T.I. Urge & Silent Partners Carnival of Regrets! Urchins Welcome!' "
+> x posters
+
+> x posters
+The walls are covered with faded posters advertising previous years' carnivals.  You can't read the writing, but you recognize the pictures of famous landmarks indicating that the Carnival of Regrets has visited Stenchport, Massachusetts (site of the infamous Happy Cat cannery fire); Junkheap, Maryland (site of the infamous St. Ursula's Home for Wayward Urchins, Mudlarks and Tatterdemalions mass asbestos poisoning); Industrialized Fumebelch, West Virginia (site of the infamous Candlewick coal mine collapse); and Rotgut, New York (site of the infamous Rotgut karzer beatings).
+
+Huh. It's almost like there's a theme here.
+> x hydrogen
+
+> x hydrogen
+It's a large cannister of hydrogen, used for inflating zeppelins.
+> ask Percy about posters
+
+> ask Percy about posters
+"Very odd that this carnival seems to only visit towns where there's been some kind of urchin mass tragedy," says Percy, "I wonder if the lingering psychic energy of the tragedy draws the Dark Carnival to these spots, like hunger draws a possum to a corn hutch. Or perhaps the Dark Carnival is itself somehow spawned from the misery of those tragedies, growing like a fungus in the dark places of the world?"
+
+"Jeez, Percy, you is gettin' pretty heavy with that talk!" you mutter.
+> ask Percy about hydrogen
+
+> ask Percy about hydrogen
+"Careful, Rags! Hydrogen is highly flammable. You'd better keep that away from any open flames or we'll all be blown to kingdom come!"
+> take cannister
+
+> take cannister
+Considering that it's full of lighter than air gas, it's surprisingly heavy. Too heavy for you to lift.
+> push hydrogen cannister
+
+> push hydrogen cannister
+You tip the cannister over onto its side, then give it a good shove with the sole of your foot.  It rolls out of the room.
+> n
+
+> n
+
+You are in the maze of mirrors.
+You're in a maze of broken mirrors.  Actually, when the mirrors are all broken, it's not much of a maze at all.  It's pretty easy to find your way through.
+You can see a hydrogen cannister.
+You can go north or south.
+> push cannister
+
+> push cannister
+You push the cannister and it rolls away into the next room.
+> n
+
+> n
+
+You are in the fun house.
+You're in the fun house! It's a real crazy place where anything can happen! There are mirrors everywhere, reflecting a million distorted images of yourself.
+You can see a hydrogen cannister.
+You can go north or south.
+> push cannister
+
+> push cannister
+You push the cannister and it rolls away into the next room.
+> n
+
+> n
+
+You are in the side show.
+You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
+You can see a sandwich board and a hydrogen cannister.
+You can go east, north, southwest or south.
+> push cannister
+
+> push cannister
+You push the cannister and it rolls away down the path.
 > n
 
 > n
 
 You are at the animal pens.
 The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can see a hydrogen cannister.
 You can go south, west or north.
-> nw
-
-> nw
-You can't go there.
 > push cannister
 
 > push cannister
-> wear gloves
+You push the cannister and it rolls away down the path.
+> n
 
-> wear gloves
-Ugh, wearin' gloves is fer fancy folks! You'd rather not put these on unless you have a compelling reason.
+> n
+
+You are at the animal pens.
+The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can see a hydrogen cannister.
+You can go south, north, west or east.
 > push cannister
 
 > push cannister
-> se
+You push the cannister and it rolls away down the path.
+> n
 
-> se
-You can't go there.
+> n
+
+You are at the animal pens.
+You're reaching the end of the animal exhibits. To the north, you see a caravan trailer. A trash heap is visible to the northwest through the slats of the fence.  You can see - and smell - an outhouse to the west.  The carnival's backstage alley begins to the east, behind a tarp with a sign above it.
+You can see a hydrogen cannister.
+You can go south, east, northwest, north or west.
 > push cannister
 
 > push cannister
+You push the cannister and it rolls away toward the outhouse.
+> w
+
+> w
+
+You are at the outhouse.
+The outhouse is a small wooden shack with a crescent moon carved into the door.  It smells, er, ripe.
+You can see a hydrogen cannister.
+You can go east or in.
+> push cannister
+
+> push cannister
+You shove the hydrogen cannister through the door, into the outhouse.
+> in
+
+> in
+
+You are in the outhouse.
+An ungodly smell rises up from the pit in the center of the room.
+You can see a pile of corncobs, a pit and a hydrogen cannister.
+You can go out.
+> push cannister
+
+> push cannister
+You shove the hydrogen cannister into the latrine and it disappears from sight. You wait several seconds before you hear a distant splash.
+> out
+
+> out
+
+You are at the outhouse.
+The outhouse is a small wooden shack with a crescent moon carved into the door.  It smells, er, ripe.
+You can go east or in.
+> e
+
+> e
+
+You are at the animal pens.
+You're reaching the end of the animal exhibits. To the north, you see a caravan trailer. A trash heap is visible to the northwest through the slats of the fence.  You can see - and smell - an outhouse to the west.  The carnival's backstage alley begins to the east, behind a tarp with a sign above it.
+You can go south, east, northwest, north or west.
+> s
+
+> s
+
+You are at the animal pens.
+The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can go south, north, west or east.
+> s
+
+> s
+
+You are at the animal pens.
+The pathway is lined on either side with animal cages.  You can certainly SMELL animals, but most of the cages look empty. Maybe the animals are just hiding?
+You can go south, west or north.
 > s
 
 > s
@@ -3248,9 +3421,6 @@ You are in the side show.
 You're reaching the end of the side show. The animal pens start to the north and more sideshow exhibits to the east. There's a small tent to the southwest with a sandwich board propped at its entrance.
 You can see a sandwich board.
 You can go east, north, southwest or south.
-> push cannister
-
-> push cannister
 > e
 
 > e
@@ -3258,10 +3428,6 @@ You can go east, north, southwest or south.
 You are in the side show.
 Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
 You can go east, west, south or north.
-> push cannister
-
-> push cannister
-I can't see that. (cannister)
 > e
 
 > e
@@ -3270,183 +3436,495 @@ You are in the side show.
 Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
 
 You can go east, south, west or north.
+> e
+
+> e
+
+You are in the promenade.
+You're in the carnival's promenade area.  To your north is the Big Top tent.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.
+
+The air is thick with sawdust and calliope music.
+You can see a cotton candy cart.
+You can go east, west or south.
+> e
+
+> e
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
+You can see a popcorn machine.
+You can go west, east, south or north.
+> e
+
+> e
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides.  In the distance, you can hear powerful engines and pneumatic pistons roaring to life as the carnies warm up the machines for a new day of parting fair goers with their money. They sound like wild beasts getting ready to lash out against the public. The promenade is to the west, the midway continues to the east.
+You can go west, east, south or north.
+> n
+
+> n
+
+You are at the spook house.
+The front of "Dr. Werewolf's Blood Dungeon" is covered with pictures of bloody-fanged ghosts menacing scantily-clad ladies.  The ride is boarded up; you can't read the sign on the cordon across the queue, but you assume it probably says that the ride is closed.
+You can go south or in.
+> in
+
+> in
+
+You are in the spook house.
+You're inside a darkened room, surrounded by non-functioning animatronic vampires.
+You can go out or down.
+> d
+
+> d
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west. A metal rung ladder leads up into the darkness above.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or up.
+> w
+
+> w
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west and east.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or east.
+> w
+
+> w
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the east; the foreman's office is behind you to the north. There's a spiral staircase leading down to the factory floor below.  It's pitch black down there.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go north, down or east.
+> d
+
+> d
+
+You are on the factory floor.
+The factory floor is a wide-open, cavernous room. Your footsteps echo loudly against the metal floor as you walk. There are puddles of water here and there, formed from the steady drip drip drip of absorbed rainwater trickling down from above.  There are also big snowdrift-sized lumps of congealed rubber throughout the room.
+You can go up, south or west.
+> w
+
+> w
+
+You are at the head moulding furnace.
+This room is filled with the charred remains of a massive furnace.
+You can see a stillborn clown and a furnace.
+You can go east or west.
+> w
+
+> w
+
+You are in the head assembly room.
+This room was once the assembly line where workers attached heads to dolls, but the conveyer belt is all in rotted tatters now. The floor is covered with deformed dolls heads, probably damaged in the fire that torched everything in this place.
+You can see doll heads.
+You can go east or north.
+> n
+
+> n
+
+You are in a conveyance corridor.
+This long thin room is occupied entirely by a single shattered conveyer belt stretching off into the distance. Broken doll parts and burnt blobs of melted rubber litter the runway.
+You can go south or northwest.
+> nw
+
+> nw
+
+You are at a slurry pit.
+You're not sure what this room was originally supposed to be, but its now nothing more than a large pit filled with a foul-smelling dank brown slurry.  Occasional flatulent bursts of methane bubble to the surface of the fetid lake. The air is a thick choking miasma of sulphurous fumes.
+You can see a hydrogen cannister.
+You can go southeast.
 > push cannister
 
 > push cannister
-I can't see that. (cannister)
+Bleh! It's covered in slurry! No way are you touching it with your bare hands now! That's too gross even for you!
+> wear gloves
+
+> wear gloves
+As much as you hate the thought that someone might think you were some sort of fancy pants society dame putting on airs, you pull the rubber gloves onto your hands and up to your elbows.  These will keep your hands relatively slurry-free!
+> push cannister
+
+> push cannister
+You wrestle the cannister out of the slurry pit, then carefully push it with your fingertips to avoid getting any sludge on yourself. It rolls into the next room.
+> se
+
+> se
+
+You are in a conveyance corridor.
+This long thin room is occupied entirely by a single shattered conveyer belt stretching off into the distance. Broken doll parts and burnt blobs of melted rubber litter the runway.
+You can see a hydrogen cannister.
+You can go south or northwest.
+> push cannister
+
+> push cannister
+You push the hydrogen cannister and it rolls into the next room.
 > s
 
 > s
 
-You are in the freak show.
-You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
-You can see a wizened old man.
-You can go north or south.
+You are in the head assembly room.
+This room was once the assembly line where workers attached heads to dolls, but the conveyer belt is all in rotted tatters now. The floor is covered with deformed dolls heads, probably damaged in the fire that torched everything in this place.
+You can see doll heads and a hydrogen cannister.
+You can go east or north.
+> push cannister
+
+> push cannister
+You push the cannister and it rolls out of the room.
+> e
+
+> e
+
+You are at the head moulding furnace.
+This room is filled with the charred remains of a massive furnace.
+You can see a stillborn clown, a furnace and a hydrogen cannister.
+You can go east or west.
+> push cannister
+
+> push cannister
+You push the cannister and it rolls out of the room.
+> e
+
+> e
+
+You are on the factory floor.
+The factory floor is a wide-open, cavernous room. Your footsteps echo loudly against the metal floor as you walk. There are puddles of water here and there, formed from the steady drip drip drip of absorbed rainwater trickling down from above.  There are also big snowdrift-sized lumps of congealed rubber throughout the room.
+You can see a hydrogen cannister.
+You can go up, south or west.
+> push cannister
+
+> push cannister
+You push the hydrogen cannister and it rolls into the next room.
+> s
+
+> s
+
+You are on the factory floor.
+A massive blob of misshapen rubber occupies the center of the room, but when it shifts you can see that it's not just another pile. It's a massive slug-like creature, fat and slick and blubbery, its face (or what you presume to be its face) painted like a harlequin.  Two tentacles sprout from its face where its eyes should be.
+You can see a clownqueror worm and a hydrogen cannister.
+You can go north.
 > push hydrogen cannister
 
 > push hydrogen cannister
-I can't see that. (hydrogen cannister)
+You push the cannister toward the worm.  The clownqueror worm grabs it in its rubbery teeth and gulps it down.
 > give lamp to worm
 
 > give lamp to worm
-I can't see that. (lamp)
+"Oi! Worm! Chew on this!"
+
+You toss the kerosene lamp and the worm automatically snaps it out of the air and swallows it.
+
+A split second later, the flame hits the beast's hydrogen filled gullet.  KABOOOM!!  It immediately explodes in a fountain of flames, throwing you into the next room and showering the room with flaming debris.
+
+You are on the factory floor.
+The factory floor is a wide-open, cavernous room filled with smoke and ash. Fires set by the explosion are rapidly spreading throughout the room.
+You can go up, south or west.
 > u
 
 > u
-You can't go there.
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the east; the foreman's office is behind you to the north. There's a spiral staircase leading down to the factory floor below.  It's pitch black down there.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can see Red Menace and Mugsy Fisticuffs.
+You can go north, down or east.
+As you scale the ladder, you notice Red and Mugsy emerging from the office, both still covered in ichor and both wild-eyed with confusion.
+
+"Crumbs!" shouts Red as he catches sight of you. "A clown!"
+
+"I ain't no clown," you snap. "It's me, Lil' Ragamuffin! I is wearin' a disguise!"
+
+"Wot's goin' on here?" demands Red, "Hey, toots, wot gives?"
+
+"I ain't got time fer you two mugs," you say, "But you's better get outta here, a'fore this place blows ta Kingdom Come! Get!"
+
+"Criminey! C'mon, Red, let's leg it!" squeals Mugsy.
+
+The two of them go pinwheeling off into the darkness of the catwalk, their running footsteps echoing in the thick, sweltering air.
 > e
 
 > e
-You can't go there.
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west and east.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or east.
 > e
 
 > e
-You can't go there.
+
+You are on a catwalk.
+You're on a metal catwalk high above the factory floor.  The walkway continues to the west. A metal rung ladder leads up into the darkness above.
+
+The path is lit by a light dusting of bioluminescent mold.
+You can go west or up.
 > u
 
 > u
-You can't go there.
+
+You are in the spook house.
+You're inside a darkened room, surrounded by non-functioning animatronic vampires.
+You can go out or down.
 > out
 
 > out
-You can't go there.
+
+You are at the spook house.
+The front of "Dr. Werewolf's Blood Dungeon" is covered with pictures of bloody-fanged ghosts menacing scantily-clad ladies.  The ride is boarded up; you can't read the sign on the cordon across the queue, but you assume it probably says that the ride is closed.
+You can go south or in.
 > s
 
 > s
 
-You are in the Gallery of Grotesqueries.
-You stumble through the beaded curtain into a dim oppressive room, filled with all sorts of bizarre exhibits showcasing the strange and unusual. The only light comes from the single naked electric bulb dangling from a ceiling cord; it casts an evil glare across the rows and rows of dark glass mason jars stacked up in the corners.
-
-You can see a pigmonkey, pickled punks, Petunia Porkchops the fat lady and a jackelope.
-You can go north.
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides. The promenade is to the west, the midway continues to the east.
+You can see a tramp clown.
+You can go west, east, south or north.
 > x tramp clown
 
 > x tramp clown
-I can't see that.
+The tramp clown is chewing on his bindle sack with mossy, yellowed teeth.  He looks quite agitated, but also rooted to the spot as though afraid to move.
 > speak to tramp clown
 
 > speak to tramp clown
-I can't see that. (tramp clown)
+"Th' circus is on fire! Every clown fer himself!" says the tramp clown. "I gotta get outta here before I melt! But the ringmaster ain't lettin' anyone out till he finds that red-headed urchin!"
 > w
 
 > w
-You can't go there.
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides. The promenade is to the west, the midway continues to the east.
+
+Clowns are rushing about in a frenzy, screaming and whooping.
+You can see a popcorn machine and a harlequin clown.
+You can go west, east, south or north.
 > x harlequin clown
 
 > x harlequin clown
-I can't see that.
+The harlequin clown is a tall thin clown dressed in motley from his head to his feet; only his pale white face is visible, although you wish it wasn't. He has no eyes, just two vaguely bluish bulges on the uninterrupted white skin of his face.
+
+He looks like he wasn't quite ready when he broke away from the Clownqueror Worm.
 > speak to harlequin clown
 
 > speak to harlequin clown
-I can't see that. (harlequin clown)
+"Um...so wot's going on here, crumbum?" you demand.  "Looking for urchin, urchin is loose in circus," gibbers the harlequin clown.
 > w
 
 > w
-You can't go there.
+
+You are in the promenade.
+You're in the carnival's promenade area.  To your north is the Big Top tent, but there's a fire inside.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.  Clowns are rushing about, chattering and gibbering wildly.
+
+The air is thick with smoke and ash; you can feel the heat billowing from the fire raging inside the Big Top to your north.
+
+T.I. Urge the ringmaster is blocking the exit to the south, speaking in agitated tones to a squat clown dressed in green polka dots.
+You can see T. I. Urge.
+You can go east, west or south.
+
+"I know that little red-headed sneak did this," snarls T.I. Urge. "I want her found and I want her dealt with."
+
+"Most of the carnies escaped in the chaos, but clowns caught Abracadabragail!" says the squat clown. "Clowns put her over at the bumper cars!"
+
+"I don't care about Abracadabragail! I want Lil' Ragamuffin! I want that... that nasty little urchin and her pet rat too!"
+
+"But she could be anywhere! The circus is on fire! The clownqueror worm is no more!" wails the squat clown. "Clowns must get out or clowns will melt!"
+
+"No one leaves until I get to strangle that urchin with my own hands!"
+
+Cowed, the squat clown ducks away and joins the fray of panicking clowns.
 > x Urge
 
 > x Urge
-I can't see that.
+The ringmaster is a tall, thin, scarecrow-like figure, all decked out in a red, sequined jacket over a golden vest and a towering black tophat.  Something really looks wrong about his head, as if it was stretched in production.
 > speak to Urge
 
 > speak to Urge
-I can't see that. (Urge)
+"Don't speak to me unless you've brought me that red-headed guttersnipe!" he snarls.  Good, seems he doesn't see through your disguise.
 > w
 
 > w
-You can't go there.
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
+
+You can see a tall clown.
+You can go east, south, west or north.
 > x tall clown
 
 > x tall clown
-I can't see that.
+An extremely tall thin clown, dressed in white.  His bare feet end in talons.
 > speak to clown
 
 > speak to clown
-I can't see that. (clown)
+"Urchin, urchin, where is nasty urchin?" asks the tall clown, swiveling his head to catch you with his tiny, black, shark eyes.  "Uh, I ain't seen her," you say, "But I'll let ya know if I do."
 > w
 
 > w
-You can't go there.
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
+You can see a baby clown.
+You can go east, west, south or north.
 > x baby clown
 
 > x baby clown
-I can't see that.
+Apparently they make baby clowns? You wonder if clowns age. Their apparent age is probably just a function of how they are when they break off from the clownqueror emperor or something.
 > speak to clown
 
 > speak to clown
-I can't see that. (clown)
+"I AM BABY CLOWN, FOUL SPEW OF THE RANCID CLOWN WOMB.  ALL WILL TREMBLE BEFORE THE WRATH OF BABY CLOWN"  "Okay, never mind," you say.
 > n
 
 > n
 
-You are in the freak show.
-You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
-You can see a wizened old man.
-You can go north or south.
+You are in the Strong Man Tent.
+The strong man tent is where people go to watch a strong man lift heavy things. The dirt floor is covered in barbells and other discombobulated exercise equipment, and the walls are plastered with posters.  The posters are all written in cyrillic font, but they depict the strong man lifting various heavy things.
+
+Most of the equipment is definitely designed for someone a lot stronger than you, but you see one pair of dumbbells that are just small enough that you might be able to lift them.
+You can see a dumbbell.
+You can go south.
 > take dumbbell
 
 > take dumbbell
-I can't see that.
+With considerable effort, you manage to lift the dumbbells and add them to your inventory.
 > s
 
 > s
 
-You are in the Gallery of Grotesqueries.
-You stumble through the beaded curtain into a dim oppressive room, filled with all sorts of bizarre exhibits showcasing the strange and unusual. The only light comes from the single naked electric bulb dangling from a ceiling cord; it casts an evil glare across the rows and rows of dark glass mason jars stacked up in the corners.
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west and east, while you can enter tents to the north and south.
+You can see a baby clown.
+You can go east, west, south or north.
+> e
 
-You can see a pigmonkey, pickled punks, Petunia Porkchops the fat lady and a jackelope.
+> e
+
+You are in the side show.
+Brightly colored canvas tents, filled with all manner of curious and interesting exhibits, line the dirt walkway of the sideshow.  The sideshow continues to the west, while you can enter tents to the north and south.
+
+You can see a tall clown.
+You can go east, south, west or north.
+> e
+
+> e
+
+You are in the promenade.
+You're in the carnival's promenade area.  To your north is the Big Top tent, but there's a fire inside.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.  Clowns are rushing about, chattering and gibbering wildly.
+
+The air is thick with smoke and ash; you can feel the heat billowing from the fire raging inside the Big Top to your north.
+
+T.I. Urge the ringmaster is blocking the exit to the south.
+You can see T. I. Urge.
+You can go east, west or south.
+> e
+
+> e
+
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides. The promenade is to the west, the midway continues to the east.
+
+Clowns are rushing about in a frenzy, screaming and whooping.
+You can see a popcorn machine and a harlequin clown.
+You can go west, east, south or north.
+> s
+
+> s
+
+You are at the Dodgem Bumper Cars.
+The bumper cars are one of the most popular rides at the carnival. In the darkened rink, the cars look like waiting animals, poised to pounce, their headlights staring outward like so many bulging glassy eyes.
+You can see a bumper car and Abracadabragail.
 You can go north.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> e
-
-> e
-You can't go there.
-> s
-
-> s
-You can't go there.
 > x girl
 
 > x girl
-I can't see that.
+It's Abracadabragail! She's bound and gagged and shoved into one of the bumper cars.
 > untie girl
 
 > untie girl
-I can't see that. (girl)
+You untie Abracadabragail and pull the gag from her mouth.
 > put dumbbell in bumper car
 
 > put dumbbell in bumper car
-I can't see that. (dumbbell)
+You climb into the bumper car and drop the dumbbell onto the gas pedal with a THUD!, immediately pushing the pedal all the way to the floor. The bumper car lurches forward at a breakneck speed.
+
+"C'mon!" you call to Abracadabragail. "Get in! No way can that ringmaster stand up to a bumper car!"
 > n
 
 > n
+The bumper car rushes full tilt toward the edge of the bumper car area, hitting the wall and smashing through. You're free to ride your bumper car all over the fair now!
 
-You are in the freak show.
-You can tell by the lurid posters depicting bearded ladies, dwarves, and half man-half alligator monstrosities that this tent must be the freakshow.  A wizened old man wearing dark spectacles sits in the entryway to this tent. Behind him, a beaded curtain covers the doorway leading to the exhibits.
-You can see a wizened old man.
-You can go north or south.
+You are in the midway.
+The midway is home to all the carnival's no doubt completely safe rides. The promenade is to the west, the midway continues to the east.
+
+Clowns are rushing about in a frenzy, screaming and whooping.
+You can see a popcorn machine and a harlequin clown.
+You can go west, east, south or north.
+You jolt slightly as the bumper car jumps the curb, escaping the bumper car ring and barreling straight into the midway.
+
+The harlequin clown looks up at the sound of your approach, but isn't quick enough to get out of your way.
+
+"Haha! Don't try ta clown an urchin, clown!" you shout as the harlequin clown disappears underneath your bumper car with a loud, strangled clown honk. "You'll end up with a frown!"
 > w
 
 > w
-You can't go there.
+
+You are in the promenade.
+You're in the carnival's promenade area.  To your north is the Big Top tent, but there's a fire inside.  The midway is to the east, the side show is to the west.  You see an unattended cotton candy cart here.  Clowns are rushing about, chattering and gibbering wildly.
+
+The air is thick with smoke and ash; you can feel the heat billowing from the fire raging inside the Big Top to your north.
+
+T.I. Urge the ringmaster is blocking the exit to the south.
+You can see T. I. Urge.
+You can go east, west or south.
+
+"Hey! Urge! It's me -- Lil' Ragamuffin! I'm in disguise!" you shout as you barrel down on the tall, skeletal ringmaster in your super fast bumper car.
+
+A brief glimmer of recognition goes off in his beady black eyes before you bowl him over with your bumper car.
+
+"Weee! We're outta here!" you shout. "Ain't no clowns gonna eat us today!"
 > s
 
 > s
 
-You are in the Gallery of Grotesqueries.
-You stumble through the beaded curtain into a dim oppressive room, filled with all sorts of bizarre exhibits showcasing the strange and unusual. The only light comes from the single naked electric bulb dangling from a ceiling cord; it casts an evil glare across the rows and rows of dark glass mason jars stacked up in the corners.
+You are in the entryway.
+The walls of the entryway are painted a deep crimson red, giving you the distinct impression that you're traveling down some monstrous creature's throat.
+You can see a crimson clown.
+You can go south or north.
+There he is-- that crimson clown that was blocking your escape this whole time!  His face is still frozen in the same rictis grin and he hulks his shoulders, ready for a fight.
 
-You can see a pigmonkey, pickled punks, Petunia Porkchops the fat lady and a jackelope.
+You're ready for him.
+
+"Now who's laughing!?" you shout as you gun your bumper car right into him, throwing him to the ground in a crimson blur. "Me, that's who!"
+> s
+
+> s
+
+You are at the Grand Entrance.
+The entryway to the carnival is through the mouth of a giant, grinning plywood face with a handlebar mustache and spinning swirly eyes.
+You can see a ticket booth and a wanted poster.
 You can go north.
-> s
+Smashing your way through barriers of cloth and burning tar and rubber, you finally see sunlight ahead as the bumper car bursts through the boarded-up carnival entrance. You're free!
 
-> s
-You can't go there.
-[state=Running]
+"Ha! Ain't no carnival that kin eat Lil' Ragamuffin!" you crow, "Take that, ya stupid ringmaster! That's what I thinka you an' your giant worm!"
+
+Percy twists around in his seat to watch the burning circus tents disappearing into the distance behind you, thick columns of black smoke billowing into the sky.
+
+"It looks like the whole carnival is burning to the ground," he says. "Though honestly, I do believe that's a moot point.  With the clownqueror worm destroyed, the Carnival of Regrets was effectively dead. It couldn't survive without the dark heart that kept it going."
+
+"Good riddance," you say. "I don't care what they call that place, I ain't got no regrets 'bout blowin' it up.
+
+As the bumper car trundles further from the carnival, you start to notice little clusters of people here and there gathered to watch the carnage.  You recognize a few faces: Red and Mugsy staring wide-eyed, the fat lady clutching the struggling pigmonkey in her arms, the strong man biting his nails nervously, Jolly Bottles grinning widely... Looks like the carnies, freed from their dark carnival prison, have gathered to watch their personal hell burn to the ground.
+
+"I can't believe that I'm finally free of that awful dark carnival," says Abracadabragail. "I...  I mean, we, all the carnies... owe you such a debt, Lil' Ragamuffin. We can never repay you! You'll go down in carnie lore as... The Carnival Destroyer!"
+
+"The Carnival Destroyer?" says Percy. "Destroying a whole carnival is certainly something that would, dare I say it, disturb the peace.  Something that might even attract the notice of the Urchinfinder General, perhaps."
+
+"Yeah!" you say, brightening at the prospect as you ride your bumper car off into the sunset. "That's right! Public Enemy Number 1, here I come!"
+[state=Finished]

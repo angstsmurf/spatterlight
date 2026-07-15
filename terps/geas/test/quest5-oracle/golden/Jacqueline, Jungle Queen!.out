@@ -347,10 +347,10 @@ The frame is pig iron and much heavier than you would figure a portait needed, a
 
 > x keyhole
   Despite the sea of melted slag around it, the keyhole itself seems to be in good shape.
-> mimic pirahna
+> mimic piranha
 
-> mimic pirahna
-I can't see that. (pirahna)
+> mimic piranha
+As you focus on the piranha, you find the barriers in your mind crumbling.  You're no longer antsy about the water.  In fact, the thought of slipping into the river, feeling the cool water bubbling through your gills, is oddly appealing.  Armed with the knowledge of the nature of the chubby aquarium-dwelling piranha, you can now swim, and breathe, just like a fish!
 > e
 
 > e
@@ -368,211 +368,270 @@ You can see a figurehead.
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+You slip easily into the river water.
+
+Riverbed
+The river here is broad, shallow, and  slow-moving.    Sunlight filters down on you as you slip easily through the refreshingly cool water.    You see a few piranha, distant relatives of your friend in the tank, but they're smaller and less fond of fingers, and don't give you any trouble.   You can climb a wooden ramp to the north and board the Murdered Mermaid or swim east, into the deep basin of churning water under the waterfall.   To the west, the river narrows and rushes quickly over jagged rocks, making it impossible to safely swim in that direction.
+
 > e
 
 > e
-You can't go there.
+
+Waterfall Lake
+You're in a basin full of churning water.  It's difficult to swim steadily, and yet seeing the bottom of a waterfall from such an unfamiliar vantage point is somehow soothing and exciting at the same time.    The river flows west, and there's a narrow strip of grassy bank to the north, running along the bottom of the cliff.  You can also see a glow coming from an underwater cave entrance  just to the northeast.
+
 > ne
 
 > ne
-You can't glide back up!  You'll have to find another way.
+You swim into the underwater passage, following streaks of glowing moss along the walls.   Soon you breach the surface and continue crawling along the upward slope of the tunnel, your hands and knees complaining as you penetrate deep, deep into the rock of the cliff.     You turn a corner and the glow brightens, dazzling you.  At the same time, your questing hand meets only air, and you topple forward with a cry, landing on your back on what feets like a gym mat.   It takes you a moment to get your breath back and look around.
+
+The Blue Shrine
+You are standing in a circular stone room which stretches up farther than you can see.   The first thirty feet or so are visible in the eerie blue light of the phosphorescent moss covering the walls, but beyond that is darkness.   The blue bands twist around the walls, leading the eye towards an enormous clam resting in a pool of water. The only visible exit is to the southwest, where a block of stone is missing about ten feet up, directly above a shriveled-up mushroom.
+You can see a giant river clam, a skinny skeleton, a pool of water and a shriveled mushroom.
 > x clam
 
 > x clam
-I can't see that.
+A giant river clam, pitted and covered with freshwater barnacles.   If you put a little elbow grease into it, you could probably OPEN and CLOSE it.
 > open it
 
 > open it
-I can't see that.
+You managed pry the shell open slightly, revealing a glistening pearl idol resting within.
 > x idol
 
 > x idol
-I can't see that.
+Apparently carved from a single enormous pearl, this idol has a rounded face with puffed-up cheeks and squinty eyes, as if it was half a second away from blowing out the candles on a birthday cake.  Despite its comical appearance, its milky shine is somehow enticing, and you feel compelled to TOUCH it.
 > touch it
 
 > touch it
-I can't see that. (it)
+As your fingers brush against the idol, you feel power soaking your body, supersaturating it until it leaks from every pore.   You see yourself opening your mouth and taking on water like a great whale, then breaching the surface and releasing the moisture in a torrential tantrum of vicious, pounding rain.   The secrets of the rainforest's temperamental weather are yours!
+
+You now have the ability to store large amounts of water in your body and use it to generate powerful storms!  DRINK WATER anywhere where there's a source in order to fill your internal reserves.   DRENCH any object to hit it with a real gullywasher!
 > x skeleton
 
 > x skeleton
-I can't see that.
+The delicate bones indicate that whoever this was, they must have been a real beanpole when they were alive.
 > x pool
 
 > x pool
-I can't see that.
+A steady stream of water is trickling down the wall and pooling at the low point of the floor around the clam.   Not that there's any way to tell for sure, but it looks clear and safe to drink.
 > x mushroom
 
 > x mushroom
-I can't see that.
+This mushroom hasn't done as well as you might expect; the water trickling down the far wall doesn't seem to be making it over this far.  The broad cap is lying on the ground, flat, dry, and almost lifeless.
 > drink pool
 
 > drink pool
-I can't see that. (pool)
+You bend down and drink as much of the delicious water as you can hold.
 > drench mushroom
 
 > drench mushroom
-I can't see that.
+You summon a storm and douse the shriveled mushroom, feeling the pressure lessen as your internal water reserves empty.   Soaked with life-giving water, the cap straightens and bulges, rising to several feet high.  You can now use it as a stepping stone to get back to the way you came in, to the southwest.
 > x mushroom
 
 > x mushroom
-I can't see that.
+This broad mushroom looks sturdy enough for you to use it as a stepping stone.
 > sw
 
 > sw
-You can't go there.
+
+Waterfall Lake
+You're in a basin full of churning water.  It's difficult to swim steadily, and yet seeing the bottom of a waterfall from such an unfamiliar vantage point is somehow soothing and exciting at the same time.    The river flows west, and there's a narrow strip of grassy bank to the north, running along the bottom of the cliff.  You can also see a glow coming from an underwater cave entrance  just to the northeast.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Craggy Cliff Bottom
+A strip of lush turf runs between the churning waters of the lake to the south and the series of impossibly steep cliffs to the north, which stretch before you like an enormous stone staircase.    The deafening crash of the waterfall makes it hard to even think, but the cool mist it throws up is surprisingly refreshing on such a warm day. A surefooted leopard goat is picking its way across the crags.
+You can see a leopard goat.
 > x goat
 
 > x goat
-I can't see that.
+This goat has the black-splotched yellow fur of a leopard, but it doesn't seem interested in eating you.  Instead, it's picking its way along the slope, scraping bits of moss and lichen off of the rocks near the falls and chewing them contentedly.  Many of the footholds look dangerously slick, but the goat seems to possess a sixth sense for climbing, invariably choosing a dry spot to place its hooves.
 > mimic goat
 
 > mimic goat
-I can't see that. (goat)
+It seems to be too far away for you to mimic it properly.  You'll have to get it to come down here somehow.
 > drink water
 
 > drink water
-I can't see that. (water)
+You kneel at the edge of the water and drink until your internal reserves are full.
 > drench goat
 
 > drench goat
-I can't see that.
+You summon a storm above the goat's head, buffeting it with wind and soaking it with water.   Mehhing in confusion, the goat brings a hoof down wrong and slips.  You rush to catch it and catch a headbutt square in the chest instead.  Once you're back from a quick trip to Dreamland, you spy the goat wandering around the springy turf, looking dazed.
 > x goat
 
 > x goat
-I can't see that.
+The goat is nursing a bump on the head, but seems merely disgruntled, not injured.
 > mimic goat
 
 > mimic goat
-I can't see that. (goat)
+As you focus on the goat, enlightenment dawns.  You know what it's like skip across the rocky crags, solid rock beneath your hooves, and feast on tender mist-watered mosses.   Armed with the knowledge of the nature of the leopard goat, you can climb steep cliff faces, rock walls, and other stone barriers with ease!
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Ferny Overlook
+The path ends at a cliff which runs from the northwest to the southeast.    From here, you can see a river rushing over the edge just south of you, pouring thousands of gallons of churning white water into a basin below.  To the southwest, where the river continues at a lower elevation, you spy an old ship run aground on a sandbar, near enough that you could glide over to it if you catch the wind just right.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Overgrown Campsite
+The path continues north and south here, winding through the enormous trees.   You can hear the gurgle of rushing water to the south.
+You can see a barrel-chested skeleton.
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+A Tangle of Roots
+You are in a gnarled tangle of enormous roots at the foot of the tree.    A broad, worn path travels past you in a north-south direction, and the heaps of crumbling stonework visible through the roots seems to indicate that there was once some sort of a building where the tree now grows.   High above you, you can just make out the plane tangled in the branches.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+The Great Stone Gate
+A seventy-foot stone wall juts from the earth here, slicing through the jungle.  It was once elaborately carved, but is so old that much of the decoration has worn away, and the crumbling stonework is home to mosses, ferns, and even a few small trees that have managed to take root in the gaps between the blocks.   The  dirt path leads south into the trees and north up to a gate fit for a giant, made of enormous trees that have petrified over the aeons.  It's unlikely that you'll be able to get the gate open, but a good enough climber might be able to make it north over the wall.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+It's a simple matter for a master of the way of the goat, such as yourself, to scale the uneven facade.
+
+Top of the Wall
+You're standing at the top of a vast wall which stretches east and west until it disappears on either side into thick, impenetrable jungle.  The area around the gate has been cleared, allowing you to scout out the land on either side.   To the south, you see tall trees and a wide, crystal-blue river.  To the north the land seems harsh, more forbidding, the tree cover lower but also darker and denser.   You can see the path twisting away towards what looks like a village, and beyond that, the overgrown slopes of a dormant volcano.
+
+You feel the brush of feathers against your ear and catch a streak of gray out of the corner of your eye.    It's the parrot you spotted earlier, and it's winging its way toward the volcano.   In moments it's a mere speck against the trees, and then you lose sight of it for good.
 > x village
 
 > x village
-I can't see that.
+You can't see much from this distance, though you spot a couple of decently-sized buildings.  The whole place looks quaint and picturesque.
 > x volcano
 
 > x volcano
-I can't see that.
+It looks so serene and peaceful, lying there all round and green and forested like one of your mother's famous broccoli gelatins.
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+You carefully descend into the dark and forbidding jungle.
+
+Primeval Trail
+You're standing in thick, greenish purple shrubbery, with dark, twisted palms rising around you on all sides.  A path winds its way through the trees to the northeast, and the Great Gate to the south looks scalable.
+You can hear murmuring, chittering, and the occasional shriek coming from the northeast trail, and behind it all, a group of high-pitched voices raised in a screechy, off-key song.
+
 > ne
 
 > ne
-You can't glide back up!  You'll have to find another way.
+As you step into the clearing, the song falls silent, and you gasp.  You've stepped from the jungle into a lovely Parisian cityscape.  It's built at a one-tenth scale and constructed of grass and bamboo, but you know Paris when you see it.  You've got postcards.
+
+There's not a soul around.   Obviously, you're about as popular here as Elliot Ness at a New Year's Eve party.
+
+A Quaint Upper-Middle-Class Parisian Neighborhood
+This is a small Paris cityscape made of grass and bamboo.  It's eerily empty, as far as you can see, and yet you feel like you're being watched from every window.    The road leads away to the southwest and to the north.   There's no Eiffel tower, but you can see a recreation of the Fontaine des Innocents, which burbles water from some underground spring, and  a scale model of the Cathedral of Notre-Dame sits in the middle of the city.
+
+You can see the Notre Dame Cathedral and the Fontaine des Innocents.
 > x fontaine
 
 > x fontaine
-I can't see that.
+This beautiful fontaine was painstakingly constructed out of carved coconuts and banana paste as a perfect scale replication of the original.  It's surrounded by bas reliefs of monkey nymphs dressed in diaphanous robes.   Cold, refreshing water bubbles up from the center.  It's a drinking fontaine.
 > x cathedral
 
 > x cathedral
-I can't see that.
+A  scale model of the Cathedral of Notre-Dame, built out of grass and vines and buttressed by bamboo.   Beautiful stained-sap windows line the exterior. It's probably the only building here you might actually be able to fit inside.
 > in
 
 > in
-You can't go there.
+You get down on all fours and wriggle through the cathedral doors.  It turns out you can only make it halfway in due to an inconveniently large buttress getting in your way, but that's far enough to take a look around.
+
+Notre Dame Cathedral Nave
+Your front half is lying uncomfortably in the nave of the Notre-Dame Cathedral.    It's like a dollhouse inside--cute little pews carved out of coconut, teensy little hymnals made of scraps of paper bound together, the whole shebang.  Beautiful stained-sap windows line the walls, and a strange collection of objects--maybe left by previous explorers--are piled up behind the altar.  You can't reach any of it, though.   There's a large trapdoor in the floor which might lead somewhere if you could get to it, only you can't, and frankly, sister, barring a sudden attack of the shrinks you'd have an easier time lifting the whole cathedral over your head than getting through this entryway.
+You can see a wilderness survival kit, a map of Darkest Golanaland, a box of flares, a working radio, a Genevieve Yee designer thermos flask, an elephant gun, an useless doorknob and a trapdoor.
 > x kit
 
 > x kit
-I can't see that.
+It's a kit with everything you could possibly need to survive in the jungle.
 > take it
 
 > take it
-I can't see that.
+You can't quite reach it.
 > x map
 
 > x map
-I can't see that.
+This map would lead you out of the jungle for sure if you could reach it.
 > take it
 
 > take it
-I can't see that.
+No matter how you stretch, it's too far away.
 > x box
 
 > x box
-I can't see that.
+These useful flares would surely bring rescue if it were possible to get them.
 > take it
 
 > take it
-I can't see that.
+Your arms aren't long enough.
 > x radio
 
 > x radio
-I can't see that.
+You could call for help on this radio, if only you could reach it.
 > take it
 
 > take it
-I can't see that.
+It's juuuuust out of reach.
 > x flask
 
 > x flask
-I can't see that.
+This expensive Thermos flask, designed by hotshot New York flaskcrafter Genevieve Yee, would keep you hydrated on your way out of the jungle, if you only had it in your possession.
 > take it
 
 > take it
-I can't see that.
+You can't get Yee's flask.
 > x gun
 
 > x gun
-I can't see that.
+No enemy could possibly stand against this mighty firearm.
 > take it
 
 > take it
-I can't see that.
+It's out of reach.
 > x doorknob
 
 > x doorknob
-I can't see that.
+It's a doorknob.  It's completely useless.  It's not heavy enough to be used as a weapon, nor is it the right shape to be used as any kind of tool.  It's rather ugly, but not so ugly as to be remarkable.   The material is not valuable, nor malleable, nor edible.  The end is bent out of shape, so you probably couldn't even use it as a doorknob.
 > take it
 
 > take it
-I can't see that.
+Stretching yourself to your limits, you just manage to snag the useless doorknob.
 > x trapdoor
 
 > x trapdoor
-I can't see that.
+You can smell the stink of rich, wormy earth coming from through the trapdoor, though you can't quite see inside.
 > out
 
 > out
-You can't go there.
+
+A Quaint Upper-Middle-Class Parisian Neighborhood
+This is a small Paris cityscape made of grass and bamboo.  It's eerily empty, as far as you can see, and yet you feel like you're being watched from every window.    The road leads away to the southwest and to the north.   There's no Eiffel tower, but you can see a recreation of the Fontaine des Innocents, which burbles water from some underground spring, and  a scale model of the Cathedral of Notre-Dame sits in the middle of the city.
+
+You can see the Notre Dame Cathedral and the Fontaine des Innocents.
 > drink water
 
 > drink water
-I can't see that. (water)
+You drink your fill from the fontaine.  It chills you to your bones, but it's tasty and refreshing.
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Cavernous Cavemouth
+You're standing at the foot of a mountain.  A looming black cave mouth leads north, into the heart of the mountain, while the trail south leads to the village.   Hot, wet, smelly air rolls from the cave mouth, making it seem like the maw of some enormous, horrible beast.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+It's not that you're scared, exactly, it's just that something about that terrifying maw gives you a real case of Tapioca spine.   There's no way you're going in there!  At least, not without a little something to steady your nerves.
 > drink wine
 
 > drink wine
@@ -584,171 +643,246 @@ You take another healthy guzzle from the bottle.  You're starting to feel more c
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+No wimpy little two-bit cave mouth is going to give you the business!  You swagger in.  Or maybe stagger in.
+You wave away the fetid air and blink your eyes to clear them of the water running down your face.  Suddenly, the mist clears, and, in the red-orange glow of molten rock, you see all too clearly what manner of beast makes this cave its home.
+
+Sauna of Kong
+You're standing in a steamy volcanic cavern.    You can see sunlight from exits low in the wall to the south and high to the northwest.  The floor slopes downward towards a bubbling lava pit in the center of the room.    A gigantic ape sits by the edge of the pit, taking up most of the room.  He periodically shakes a dash of water from the jug he's carrying out into a wooden scoop and dashes it against the hot magma, sending up billowing clouds of steam that make everything look obscure and hazy.
+You can see a gigantic ape and a lava pit.
 > x ape
 
 > x ape
-I can't see that.
+A huge, tremendous, colossal, towering, Brobdignagian whopper of an ape.  He's so big he makes King Kong look like the Two of Kongs.   He's so enormous that not only does he sleep anywhere he wants, they bring him free room service in the morning and leave a mint on his pillow.  He's so gargantuan that the inside of this room, which is not small, is probably going to give him long-term back pain from alll the stooping over.  He's so ridiculously oversized that he could wrap his little toe in a black robe and send it to Halloween parties as Chief Justice of the Supreme Court William Howard Taft.
+
+He's rather on the large size for an ape, is the general takeaway here.
 > mimic ape
 
 > mimic ape
-I can't see that. (ape)
+As you focus on the ape, you feel your muscles bulge with raw strength.  You see yourself tumbling through the forest, trees snapping like twigs, your gnarled fists snatching up the heaviest boulders and logs and tossing them aside as if they were nothing.  You are now VERY strong.  Try to TAKE things that you couldn't before--you may be able to pick them up now, at least temporarily!
 > x lava
 
 > x lava
-I can't see that.
+Bubbling lava oozes through cracks in the floor at the room's lowest point and pools in this hollow crater.
 > drench lava
 
 > drench lava
-I can't see that.
+You douse the lava, sending up a huge cloud of steam.   The ape hoots in surprise and confusion as the vapor fills the room, temporarily blinding him.
 > nw
 
 > nw
-You can't go there.
+You step out onto a path winding its way around the volcano.  You hear a strained squawk, and look up to see the parrot from before fluttering down to perch on a nearby outcropping.
+
+Volcanic Path
+This rocky path winds around the slope of the mountain.  It's a fairly easy trek, and the cool air here is refreshing.  A seemingly endless expanse of jungle stretches out to the west, but on the horizon, you spot the glint of polished glass and steel in the sunlight indicating far-off Gola City.
+
+You can see a decrepit parrot.
 > x city
 
 > x city
-I can't see that.
+It's fifty or sixty miles away, but without a way to make contact it might as well be on the other side of the solar sytem.  If only the plane had made it just a little further, you'd be in a classy restaurant by now, stuffing your face with sirloin stake and martinis on the company's dime, and getting ready to head out for a day of shopping before collapsing into a bubble bath.
+You hear a lot less enraged hooting.  Sounds like the ape got the steam out of his eyes.
 > x parrot
 
 > x parrot
-I can't see that.
+This parrot is ancient, from the worn and scored point of her beak to the tips of her drooping grey tailfeathers.   She nibbles at her tired old wings, picking free some of the most tattered down, and peers at you with eyes that are still sharp and curious.
 > mimic parrot
 
 > mimic parrot
-I can't see that. (parrot)
+As you focus on the parrot, you feel your mind opening to a new ability.  You see yourself listening to common short phrases and, after sufficient repetition, to repeat them.  You now have the ability to talk, just like a human!
+
+Hey, not every box of Crackerjack has the prize you want, you know.
 
 You're beginning to sober up, and your bravado fades a little as you remember the dangers of your situation.
 > ask parrot about Rosie
 
 > ask parrot about Rosie
-I can't see that. (parrot)
+She hops up and down.  "Aint I a pretty little thing?"
 > ask parrot about me
 
 > ask parrot about me
-I can't see that. (parrot)
-> ask parrot about pirahna
+"Awk!  Hair of red!  Cup of tea!"
+> ask parrot about piranha
 
-> ask parrot about pirahna
-I can't see that. (parrot)
+> ask parrot about piranha
+She squawks and flaps her wings.
 > ask parrot about idol
 
 > ask parrot about idol
-I can't see that. (parrot)
+"Hands off me treasures!"
 > ask parrot about monkeys
 
 > ask parrot about monkeys
-I can't see that. (parrot)
+"I'll go mad if we don't get those French trees rats off the ship! Awk!  Dump 'em out!  Dump 'em out!"
 > ask parrot about skinny jack
 
 > ask parrot about skinny jack
-I can't see that. (parrot)
+"Twiggy little rat!  Awk!"
 > ask parrot about ape
 
 > ask parrot about ape
-I can't see that. (parrot)
+"Awk!  Stay away from there, Rosie!"
 > ask parrot about volcano
 
 > ask parrot about volcano
-I can't see that. (parrot)
+"Could go at any moment, Captain!"
 > ask parrot about captain
 
 > ask parrot about captain
-I can't see that. (parrot)
+She chirps sadly.  "Rosie misses papa!"
 > ne
 
 > ne
-You can't glide back up!  You'll have to find another way.
+
+Volcanic Peak
+This is the caldera of the dormant volcano.   It's cooler up here, and the air is thin, but a few grasses and scrubs cling to the otherwise barren soil.   A faint path leads back to the southwest, over the ridge.
+
+You can see a basalt idol.
 
 Your head feels perfectly clear again.
 > x idol
 
 > x idol
-I can't see that.
+A long, high-cheekboned face, carved out of black stone.  It seems frozen in the middle of some inhuman screech, its jaw opened wider than any living person's can stretch.  It's half buried in the ground, as if it's drowning in solid rock.  As with the other idols, something calls out to you, beckoning, begging you to TOUCH it.
 > touch idol
 
 > touch idol
-I can't see that. (idol)
+As you touch the idol, your skin begins to itch, then crawl, then suddenly light up with sheets of searing pain.  In moments the pain passes, leaving only a stinging sensation and the feel of tremendous heat.  It's as if a massively powerful generator has just woken up in your belly.
+
+The ground beneath you cracks, and molten magma oozes forth--and yet, the heat remains bearable, even as the liquid rock draws you down like quicksand.
+
+Not only are you immune to fire, but you also now have the ability to HEAT objects in order to pour the power of the volcano into them!
+
+But where exactly ARE you?
+
+The Red Shrine
+You're floating in a small bubble of open air far below the surface of the lava.   A few walls and pillars of black stone sketch out the blackened skeleton of a room, but even now the molten rock is oozing in to fill in the space.
+You can see red hot lava.
 > x lava
 
 > x lava
-I can't see that.
+The red-hot lava is thick and slow-moving, close to solidifying.  Moving through it is hard, like standing in quick-dry cement.
 > u
 
 > u
-You can't go there.
+You can't seem to fight your way up through the glutinous liquid rock.
 > heat lava
 
 > heat lava
-I can't see that.
+You pour heat energy into the red-hot lava until it's glowing white-hot.  With a rush of escaping heat and gas, the incandescent goop forces its way to the surface, pulling you along with it.  You find yourself born anew into a hellish landscape.
+
+Volcanic Peak
+You're standing in the middle of an inferno, a field of molten rock that's crusting over, cracking, flowing, and crusting over again.   If it wasn't for the power of the idol, you'd be roasting in your own juices like a Thanksgiving turkey right about now.   The bubbling stuff has come right up the rim and overflowed, but you can still make out the path down to the southwest.
+
+You can see a basalt idol.
 > x idol
 
 > x idol
-I can't see that.
+A long, high-cheekboned face, carved out of black stone and resting on the oozing lava, aglow with heat.  Now that you can see its entire grotesquely large mouth, you can tell that the expression on its face was never a scream, but a triumphant laugh.
 > sw
 
 > sw
-You can't go there.
+
+Volcanic Path
+This rocky path winds around the slope of the mountain.   Thick streams of lava cross the trail at several points, and the fumes and ash of the erupting volcano make breathing unpleasant.  A seemingly endless expanse of jungle stretches out to the west, but on the horizon, you spot the glint of polished glass and steel in the sunlight indicating far-off Gola City.
+
+You can see a decrepit parrot.
 > se
 
 > se
-You can't go there.
+
+Sauna of Kong
+You're standing in a steamy volcanic cavern.    You can see sunlight from exits low in the wall to the south and high to the northwest.  The floor slopes downward towards a bubbling lava pit in the center of the room.    A gigantic ape sits by the edge of the pit, taking up most of the room.  He periodically shakes a dash of water from the jug he's carrying out into a wooden scoop and dashes it against the hot magma, sending up billowing clouds of steam that make everything look obscure and hazy.
+You can see a gigantic ape and a lava pit.
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+
+Cavernous Cavemouth
+You're standing at the foot of a mountain.  A looming black cave mouth leads north, into the heart of the mountain, while the trail south leads to the village.   Hot, wet, smelly air rolls from the cave mouth, making it seem like the maw of some enormous, horrible beast.
+
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+
+A Quaint Upper-Middle-Class Parisian Neighborhood
+This is a small Paris cityscape made of grass and bamboo.  It's eerily empty, as far as you can see, and yet you feel like you're being watched from every window.    The road leads away to the southwest and to the north.   There's no Eiffel tower, but you can see a recreation of the Fontaine des Innocents, which burbles water from some underground spring, and  a scale model of the Cathedral of Notre-Dame sits in the middle of the city.
+
+You can see the Notre Dame Cathedral and the Fontaine des Innocents.
 > take fontaine
 
 > take fontaine
-I can't see that.
+You pull it out of the ground and check for hidden maps on the bottom, just in case this fontaine is secretly an atlas.  There's nothing down there, so you carefully screw it back on the water main.
 > take cathedral
 
 > take cathedral
-I can't see that.
+You put those crackerjack biceps to work, hoisting nearly a ton of prime medieval-period cathedral over your head.  Underneath, you can see an opening leading down into the earth!   You carefully drop the cathedral a few feet away, where it isn't blocking the entrance.
+
+The motion has shaken loose one of the bells from the bell tower, which falls to the street a few feet away from you.
 > x bell
 
 > x bell
-I can't see that.
+This bell was carved out of a coconut and decorated with intricate depictions of pious monkeys kneeling.
 > take bell
 
 > take bell
-I can't see that.
+You pick it up.
 > play bell
 
 > play bell
-I can't see that. (bell)
+Clunk, clunk.  Sounds like hoofbeats!
 > sw
 
 > sw
-You can't go there.
+
+Primeval Trail
+You're standing in thick, greenish purple shrubbery, with dark, twisted palms rising around you on all sides.  A path winds its way through the trees to the northeast, and the Great Gate to the south looks scalable.
+You can hear murmuring, chittering, and the occasional shriek coming from the northeast trail, and behind it all, a group of high-pitched voices raised in a screechy, off-key song.
+
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+It's a simple matter for a master of the way of the goat, such as yourself, to scale the uneven facade.
+
+Top of the Wall
+You're standing at the top of a vast wall which stretches east and west until it disappears on either side into thick, impenetrable jungle.  The area around the gate has been cleared, allowing you to scout out the land on either side.   To the south, you see tall trees and a wide, crystal-blue river.  To the north the land seems harsh, more forbidding, the tree cover lower but also darker and denser.   You can see the path twisting away towards what looks like a village.  Further on, a volcano belches ash and magma into the sky.
+
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+In a few easy hops, you descend back into the lush jungle.
+
+The Great Stone Gate
+A seventy-foot stone wall juts from the earth here, slicing through the jungle.  It was once elaborately carved, but is so old that much of the decoration has worn away, and the crumbling stonework is home to mosses, ferns, and even a few small trees that have managed to take root in the gaps between the blocks.   The  dirt path leads south into the trees and north up to a gate fit for a giant, made of enormous trees that have petrified over the aeons.  It's unlikely that you'll be able to get the gate open, but a good enough climber might be able to make it north over the wall.
+
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+
+A Tangle of Roots
+You are in a gnarled tangle of enormous roots at the foot of the tree.    A broad, worn path travels past you in a north-south direction, and the heaps of crumbling stonework visible through the roots seems to indicate that there was once some sort of a building where the tree now grows.   High above you, you can just make out the plane tangled in the branches.
+
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+
+Overgrown Campsite
+The path continues north and south here, winding through the enormous trees.   You can hear the gurgle of rushing water to the south.
+You can see a barrel-chested skeleton.
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
+
+Ferny Overlook
+The path ends at a cliff which runs from the northwest to the southeast.    From here, you can see a river rushing over the edge just south of you, pouring thousands of gallons of churning white water into a basin below.  To the southwest, where the river continues at a lower elevation, you spy an old ship run aground on a sandbar, near enough that you could glide over to it if you catch the wind just right.
+
 > sw
 
 > sw
-You can't go there.
+You spread your arms and glide, dipping low across water but pulling up just in time to avoid clipping the ship's figurehead, and drop neatly onto the deck.
+
+Deck of the Murdered Mermaid
+You're standing on the deck of the Murdered Mermaid, a dreadful pirate galleon.   There's a doorway to the west which stinks of golanut juice.   Your only other option is to climb down the rotted gangplank to the south and slip into the water -- the north bank is impossibly overgrown, and the river's too wide to glide across.
+You can see a figurehead.
 > w
 
 > w
@@ -766,61 +900,63 @@ You can see an aquarium (containing a gold key and a chubby piranha).
 > use tube on aquarium
 
 > use tube on aquarium
-Everyone says you drink like a fish, but fifty gallons is a little much even for your thirsty little gullet.
-> x pirahna
+You pop the end of the tube in the aquarium and gulp until the water is all gone.  It's just like an enormous tropical drink!
+> x piranha
 
-> x pirahna
-I can't see that.
+> x piranha
+He's wallowing in the water at the bottom of the tank, looking irritated.  He'll be okay, it must rain cats and dogs all the time here.
 > take gold key
 
 > take gold key
-As soon as you dip your fingers into the water, the piranha reacts as if it's Oktoberfest and you just served up a plateful of juicy sausages.  He lunges to the surface of the water, snapping furiously, and you barely pull back in time.
-> heat pirahna
+The piranha looks hungrily at your fingers as you reach into the tank and remove the key, but all he can do is look.   The water level is too low for him to reach you.
+> heat piranha
 
-> heat pirahna
-I can't see that.
-> x pirahna
+> heat piranha
+You unceremoniously roast the little guy to a crispy golden brown.  He smells pretty good!
+> x piranha
 
-> x pirahna
-I can't see that.
-> take pirahna
+> x piranha
+A plump piranha that's been perfectly cooked to a lovely golden brown.
+> take piranha
 
-> take pirahna
-I can't see that.
-> eat pirahna
+> take piranha
+You pick him up.
+> eat piranha
 
-> eat pirahna
-I can't see that. (pirahna)
+> eat piranha
+You may have been too late for the goldfish swallowing craze, but who says you have to miss out?  You chow down on the crispy pirahna.  Mmm-mmm!  He was delicious!
 > use gold key on keyhole
 
 > use gold key on keyhole
-You don't have that!
+You stick the gold key firmly in the keyhole and twist until you hear a satisfying metal clunk.   The portrait swings open like a cupboard door, revealing a hidden alcove, inside of which rests a shiny golden fiddle and a leatherbound booty ledger.
 > x fiddle
 
 > x fiddle
-I can't see that.
+A shiny golden fiddle.  An inscription on the side reads, in delicate script, "To H--one hell of a friend!  Love, the Devil."
 > take it
 
 > take it
-Please choose which 'it' you mean:
-1: gold key
-2: keyhole
+You pick it up.
 > play it
 
 > play it
-Please choose which 'it' you mean:
-1: gold key
-2: keyhole
+You fiddle around with it.
 > x ledger
 
 > x ledger
-I can't see that.
+A well-preserved leatherbound ledger filled with the Murderous Mermaid's past financial transactions.
 > read it
 
 > read it
-Please choose which 'it' you mean:
-1: gold key
-2: keyhole
+June 4th: Spanish ship ' Bailadora'.   No casualties.   Twenty pounds sterling; fine silverware; crate of wine.
+
+June 21st: Freighter out of London 'Taurus'.  Fought to last man; sank.  Cargo unrecoverable (turned out to have been bouillon cubes).   Have been sailing through broth for last hour.
+
+June 25th: Italian vessel, unnamed.  One casualty.   Fine art; gems; fish.
+
+June 29th: English ship 'Marian May'.   No casualties.   Fifty pounds sterling; dozen bolts of linen; fine pistol; gold watch; face painting kit and patterns (kitty cat, skeleton)
+
+July 3rd: French circus ship 'Circ Du Mer'.  No casualties.  Booty:  half-ton impractical costumery.   Three tons carnival tickets.  Troupe of trained monkeys.   Assured tickets good for shiny new penny-farthing if taken to Paris; costumery may be usable as fine napkins.  Monkeys to be released at next landfall.
 > e
 
 > e
@@ -838,353 +974,474 @@ You can see a figurehead.
 > s
 
 > s
-You look at the water and shudder.  You're a city girl through and through--no summer trips to the old swimming hole for you!   You could probably drown in a deep bath.  Hell, you're even nervous around a full glass of hooch, which is why you make sure to empty any that get near you.  Maybe gliding down onto this ship wasn't the brightest idea you've ever had.
-> e
+You slip easily into the river water.
+
+Riverbed
+The river here is broad, shallow, and  slow-moving.    Sunlight filters down on you as you slip easily through the refreshingly cool water.    You see a few piranha, distant relatives of your friend in the tank, but they're smaller and less fond of fingers, and don't give you any trouble.   You can climb a wooden ramp to the north and board the Murdered Mermaid or swim east, into the deep basin of churning water under the waterfall.   To the west, the river narrows and rushes quickly over jagged rocks, making it impossible to safely swim in that direction.
 
 > e
-You can't go there.
+
+> e
+
+Waterfall Lake
+You're in a basin full of churning water.  It's difficult to swim steadily, and yet seeing the bottom of a waterfall from such an unfamiliar vantage point is somehow soothing and exciting at the same time.    The river flows west, and there's a narrow strip of grassy bank to the north, running along the bottom of the cliff.  You can also see a glow coming from an underwater cave entrance  just to the northeast.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Craggy Cliff Bottom
+A strip of lush turf runs between the churning waters of the lake to the south and the series of impossibly steep cliffs to the north, which stretch before you like an enormous stone staircase.    The deafening crash of the waterfall makes it hard to even think, but the cool mist it throws up is surprisingly refreshing on such a warm day. A dazed-looking leopard goat is resting on the soft turf.
+You can see a leopard goat.
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Ferny Overlook
+The path ends at a cliff which runs from the northwest to the southeast.    From here, you can see a river rushing over the edge just south of you, pouring thousands of gallons of churning white water into a basin below.  To the southwest, where the river continues at a lower elevation, you spy an old ship run aground on a sandbar, near enough that you could glide over to it if you catch the wind just right.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+Overgrown Campsite
+The path continues north and south here, winding through the enormous trees.   You can hear the gurgle of rushing water to the south.
+You can see a barrel-chested skeleton.
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+A Tangle of Roots
+You are in a gnarled tangle of enormous roots at the foot of the tree.    A broad, worn path travels past you in a north-south direction, and the heaps of crumbling stonework visible through the roots seems to indicate that there was once some sort of a building where the tree now grows.   High above you, you can just make out the plane tangled in the branches.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+
+The Great Stone Gate
+A seventy-foot stone wall juts from the earth here, slicing through the jungle.  It was once elaborately carved, but is so old that much of the decoration has worn away, and the crumbling stonework is home to mosses, ferns, and even a few small trees that have managed to take root in the gaps between the blocks.   The  dirt path leads south into the trees and north up to a gate fit for a giant, made of enormous trees that have petrified over the aeons.  It's unlikely that you'll be able to get the gate open, but a good enough climber might be able to make it north over the wall.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+It's a simple matter for a master of the way of the goat, such as yourself, to scale the uneven facade.
+
+Top of the Wall
+You're standing at the top of a vast wall which stretches east and west until it disappears on either side into thick, impenetrable jungle.  The area around the gate has been cleared, allowing you to scout out the land on either side.   To the south, you see tall trees and a wide, crystal-blue river.  To the north the land seems harsh, more forbidding, the tree cover lower but also darker and denser.   You can see the path twisting away towards what looks like a village.  Further on, a volcano belches ash and magma into the sky.
+
 > n
 
 > n
-You can't glide back up!  You'll have to find another way.
+You carefully descend into the dark and forbidding jungle.
+
+Primeval Trail
+You're standing in thick, greenish purple shrubbery, with dark, twisted palms rising around you on all sides.  A path winds its way through the trees to the northeast, and the Great Gate to the south looks scalable.
+You can hear murmuring, chittering, and the occasional shriek coming from the northeast trail, and behind it all, a group of high-pitched voices raised in a screechy, off-key song.
+
 > ne
 
 > ne
-You can't glide back up!  You'll have to find another way.
+
+A Quaint Upper-Middle-Class Parisian Neighborhood
+This is a small Paris cityscape made of grass and bamboo.  It's eerily empty, as far as you can see, and yet you feel like you're being watched from every window.    The road leads away to the southwest and to the north.   There's no Eiffel tower, but you can see a recreation of the Fontaine des Innocents, which burbles water from some underground spring, and a scale model of the Cathedral of Notre-Dame sits just to the side of the city center.  At the exact center of the city, in the bare patch of soil where the cathedral used to be, an open tunnel leads downwards.
+
+You can see the Notre Dame Cathedral and the Fontaine des Innocents.
 > d
 
 > d
-You can't go there.
+
+Monkey Catacombs
+You're in the miniature jungle equivalent of the catacombs beneath Paris.  The ceilings are so low you almost have to crawl on all fours, and from floor to ceiling, the place is packed with monkey bones, neatly sorted by size and type.    You can see hear the screeching and burbling of monkeys watching you from the shadows.   You can scramble up out of the catacombs, or go east, where the tunnel opens out into a larger chamber.
+
 > x bones
 
 > x bones
-I can't see that.
+The bones are neatly sorted and stacked by type.   It's grisly, yet well organized.
 > take bone
 
 > take bone
-I can't see that.
+You've got more than enough bleached monkey skeletons at home already.
 > e
 
 > e
-You can't go there.
+
+Organ Chamber
+This cavern is made of rough, earthern walls, but the floor is of weathered cut stone which looks different from the other monkey construction you've seen.  It's  nearly filled with a vast steam-powered pipe organ, fed by bamboo tubes.   Sacred statues of the monkey saints have been placed next to the instrument, and a hastily-written ancient inscription has been carved into the wall above them.
+
+You can see a statue of St. Brachiatus, a statue of St. Prehensilus, a statue of St. Bobo and an organ.
 > x brachiatus
 
 > x brachiatus
-I can't see that.
+This statue represents St. Brachiatus, He Whose Sight Is Untainted By Visions of the Unclean.  The statue is holding its hands strangely, almost as if you could give it something.
 > give drum to it
 
 > give drum to it
-I can't see that. (it)
+The drum fits perfectly in the monkey's hands, as if it's now part of the statue.
 > x prehensilus
 
 > x prehensilus
-I can't see that.
+This statue represents St. Prehensilus, She Who Hears Only the Holy Words of Our Lord and Savior.  The statue is holding its hands strangely, almost as if you could give it something.
 > give bell to it
 
 > give bell to it
-I can't see that. (bell)
+The bell fits perfectly in the monkey's hands, as if it's now part of the statue.
 > x bobo
 
 > x bobo
-I can't see that.
+This statue represents St. Bobo, He Whose Lips Speak Only Praise.  The statue is holding its hands strangely, almost as if you could give it something.
 > give fiddle to it
 
 > give fiddle to it
-I can't see that. (fiddle)
+The fiddle fits perfectly in the monkey's hands, as if it's now part of the statue.
 > x organ
 
 > x organ
-I can't see that.
+This vast organ uses the largest stalks of bamboo you've ever seen as pipes, but the keys are tiny, made for itty-bitty fingers.  A large tank on the back acts as a holding reservoir for water.
 > play organ
 
 > play organ
-I can't see that. (organ)
+You pull the sheet music from one of your vest's inner pockets, unroll it, set it front of you, and plunk out a few notes on the tiny keys.   The steam-powered organ wheezes and clunks, but utterly fails to make any sound resembling musical notes.
 > x tank
 
 > x tank
-I can't see that.
+The tank is empty.
 > x inscription
 
 > x inscription
-I can't see that.
+It appears to be in French, and you don't remember nearly enough of that to work out what it says.
 > read it
 
 > read it
-I can't see that. (it)
+You struggle through the French, managing to figure out a word here and there.  Something about "music" and "forbidden" and... "my grandmother is a dancing banana"...?   You're not quite sure about that last one, and the meaning as a whole is way beyond even your clever little melon.
 > w
 
 > w
+As you leave the organ chamber, you see a small figure in a robe of leaves approaching from the west.  It's a small monkey dressed in the clothing of a medieval friar, with a pleasantly chilled banana daiquiri cupped in his hands.
 
-Jolly Tavern
-You are in the dimly-lit remains of a tavern,  where the pirates of old came to brawl, guzzle rum, and listen to the latest hits for piano and tiny pirate accordion.  It looks like they were brewing their own hooch out of golanuts, because the twisted remains of a still sit in the corner, crushed under a clump of medium-sized golanut trees which have burst through the ceiling.  Dozens of full bottles are stacked next to the still, and ripe and rotting golanuts have rolled everywhere.    Sunlight is shining through doorways to the west and the east.
-
+Monkey Catacombs
+You're in the miniature jungle equivalent of the catacombs beneath Paris.  The ceilings are so low you almost have to crawl on all fours, and from floor to ceiling, the place is packed with monkey bones, neatly sorted by size and type.    You can see hear the screeching and burbling of monkeys watching you from the shadows.   You can scramble up out of the catacombs, or go east, where the tunnel opens out into a larger chamber.
+You can see a monkey friar and a communion daiquiri.
 > x friar
 
 > x friar
-I can't see that.
+This short, stout monkey is dressed in a leafy cassock, and is wearing a woven tonsure made of jungle grasses.  He's offering you a sip from a frosty-looking communion daiquiri.
 > mimic friar
 
 > mimic friar
-I can't see that. (friar)
+Non, non!  This monkey is too civilized to be mimicked like a jungle animal.  He is so very French.
 > x daiquiri
 
 > x daiquiri
-I can't see that.
+A frosty mixture of pureed bananas, fermented golanuts, and various hallucinogenic roots and berries.
 > drink it
 
 > drink it
-I can't see that. (it)
+As the frosty pureed banana slides down your throat, you feel you mind seeming to inflate like a balloon.   You're rising up and out of yourself, and at the same time, you're falling, falling into the cup, into a sea of fruity yellow.  In that sea floats the United States, with some wiggly knobs on either side that might be Canada and Mexico, because this is all in your head, and you don't remember what they're shaped like very well.
+
+You fall through the clouds, through the smog, and through the tarpaper roof of a leaky old tenement, the kind a junior reporter who was the office ashtray dumper six months ago might be able to afford.  It's your apartment.  You're back in your own apartment.
+
+Your Apartment
+This is your apartment back in Fresno, or at least it's your hallucination of it.  It's too hot, too messy, and too small.
+You can see a huge mess, a Freudian figment and a book of forgotten French lessons.
+
+The figment takes on the form of a twelve-foot-tall edition of your childhood piano teacher, who coldly orders you to go through the scales one more time.
 > x mess
 
 > x mess
-I can't see that.
+It's a big pile of undifferentiated stuff.  It's more just "a mess" than a collection of specific objects.  The only one that has a semblance of reality is the tacky tourist snowglobe depicting a jungle scene--your eyes feel drawn to it, and you're suddenly sure that if you look too closely, the vision will end.
+
+The figment becomes an unflattering caricature of you.  At least you hope it's an unflattering caricature.
 > x figment
 
 > x figment
-I can't see that.
+This amorphous jelly-ghost creature represents all the insecurities and petty worries that are holding you back.
+
+The figment takes on the form of a twelve-foot-tall edition of your childhood piano teacher, who coldly orders you to go through the scales one more time.
 > x book
 
 > x book
-I can't see that.
+This is a shadowy memory of your high school French textbook.  It even has that homemade Tijuana bible you drew on the inside front cover.  The inside is packed with of all the information you absorbed back in French class.
+
+The figment becomes an unflattering caricature of you.  At least you hope it's an unflattering caricature.
 > read book
 
 > read book
-I can't see that. (book)
+You brush up on a few French phrases that you haven't thought of it years.   You can really feel those crusty old synapses shaking off the cobwebs.
+
+The figment takes on the form of President Hoover and begins bumbling around, knocking things over.
 > x snowglobe
 
 > x snowglobe
-I can't see that.
+Your peer into the depths of the snowglobe, the swirling white, the deep green, round and round, round and round...
+
+You snap awake, the vision over, and wipe away a string of banana-flavored drool.
+
+Monkey Catacombs
+You're in the miniature jungle equivalent of the catacombs beneath Paris.  The ceilings are so low you almost have to crawl on all fours, and from floor to ceiling, the place is packed with monkey bones, neatly sorted by size and type.    You can see hear the screeching and burbling of monkeys watching you from the shadows.   You can scramble up out of the catacombs, or go east, where the tunnel opens out into a larger chamber.
+You can see a monkey friar and a communion daiquiri.
 > e
 
 > e
 
-Deck of the Murdered Mermaid
-You're standing on the deck of the Murdered Mermaid, a dreadful pirate galleon.   There's a doorway to the west which stinks of golanut juice.   Your only other option is to climb down the rotted gangplank to the south and slip into the water -- the north bank is impossibly overgrown, and the river's too wide to glide across.
-You can see a figurehead.
+Organ Chamber
+This cavern is made of rough, earthern walls, but the floor is of weathered cut stone which looks different from the other monkey construction you've seen.  It's  nearly filled with a vast steam-powered pipe organ, fed by bamboo tubes.   Sacred statues of the monkey saints have been placed next to the instrument, and a hastily-written ancient inscription has been carved into the wall above them.
+
+You can see a statue of St. Brachiatus, a statue of St. Prehensilus, a statue of St. Bobo and an organ.
 > read inscription
 
 > read inscription
-I can't see that. (inscription)
+NO JAM SESSIONS
+
+Yes, we know it's fun to jam with the saints, but this organ is for use during services ONLY.   I have disassembled and scattered the activating mechanisms in order to prevent abuse.   Sister Boingboing's geologic survey has determined that a full-on killer jam could easily compromise the structural integrity of these tunnels.   If a little rocking out is worth the risk of a potential cave-in, then my grandmother is a dancing banana!
+
+Signed, Brother Ooky
 > drench tank
 
 > drench tank
-I can't see that.
+Your storm cloud fills the tank to the brim with water.
 > heat tank
 
 > heat tank
-I can't see that.
+The cool water begins to bubble, then boil.    It begins to give off steam, which is drawn into the organ.
 > play organ
 
 > play organ
-I can't see that. (organ)
+You pull the sheet music from one of your vest's inner pockets, unroll it, set it front of you, and plunk out a few notes on the tiny keys.   The steam-powered organ huffs into action, hooting and straining, the pipes reverberating.  The statues begin to vibrate, joining into on the raucous song you're banging out until the room is so full of ear-splitting noise you can barely stand it.   The floor shakes, and dust drifts down from the ceiling.  Suddenly, the floor beneath the organ collapses.  You jump back, just in time, as the entire massive contraption plummets with a moan into a much larger chamber under your feet.
+
+Almost with a sigh, the statues stop their mad oscillation, and the spell fades.    It should now be possible to climb down into the chamber below.
 > d
 
 > d
-You can't go there.
+
+The Golden Shrine
+You're in a roughly circular room which seems to be the focal point of some ancient temple.   Torches line the walls, casting menacing shadows on the carvings which stare inward at the empty dais in the center of the room.   You can climb up the debris and go out through the ceiling, or head east, into an ominous hallway.
+You can see an annihilated organ and a dais.
 > x torches
 
 > x torches
-I can't see that.
+They look like they've been burning down here for centuries.    Hannukah has nothing on these babies!
 > x organ
 
 > x organ
-I can't see that.
+This is one mangled organ.  It's not good for much except as a way to crawl back up, now.
 > x dais
 
 > x dais
-I can't see that.
+It's a big, empty dais.  There's a tempting stone pressure plate on the top that looks like it might make something happen if you pushed it.
 > push dais
 
 > push dais
-I can't see that. (dais)
+It sinks down way too easily.  You hear a dull clunk coming from the mechanism.  Feels like it's broken.
 > e
 
 > e
-You can't go there.
+As you step into the hallway, your feel a pressure plate sinking beneath your foot.  You hear the rusty screech of machinery somewhere.  Forty-five seconds later, a sawblade slowly slides out of a slot in the wall and lands on the floor at your feet like a dropped pizza.
+
+Jaguar Gate
+This section of the hall is decorated with wall carvings of a razor-clawed jaguar.   The hall continues east, while a large chamber opens out to the west.
+You can see a rusty sawblade.
 > x sawblade
 
 > x sawblade
-I can't see that.
+It's almost eaten away by rust, but some of the teeth as still sharp enough to cut.  Careful you don't get lockjaw.
 > take it
 
 > take it
-I can't see that.
+You pick it up, being careful not to cut your fingers.
 > x carvings
 
 > x carvings
-I can't see that.
+It looks pretty scary, baring its fangs like that, but its mouth is writing out IOUs its sawblade can't make good on.
 > e
 
 > e
-You can't go there.
+
+Cobra Gate
+This section of the hall is decorated with wall carvings of a needle-fanged cobra.   The hall continues to the west and the east.
+
+Suddenly, your feel another pressure plate sinking beneath your foot.  This one goes down about eight inches, and you stumble and nearly twist your ankle.  The cobra makes a clicking noise, as if a chamber somewhere is empty.
 > x cobra
 
 > x cobra
-I can't see that.
+Snakes.  Why did it have to be snakes?  Well, for one thing, they're easy to carve, because you're not wasting your time on a lot of fingers and toes.
 > e
 
 > e
-You can't go there.
+
+Elephant Gate
+This section of the hall is decorated with wall carvings of a rearing elephant in mid-pre-trample.
+Passage to the east is blocked by a crushing ceiling trap in the "down" position.
+
+You can see a crushing ceiling trap.
 > x trap
 
 > x trap
-I can't see that.
+This large block of stone, carved to resemble an elephant's foot, fills the hallway.    It's tangled in a mesh of thick, fibrous roots.
 > cut roots with sawblade
 
 > cut roots with sawblade
-I can't see that. (roots)
+Sawing back and forth, you manage to cut your way through the tough roots, freeing the trap.
 > take trap
 
 > take trap
-I can't see that.
+With a mighty heave and a few indelicate grunts, you deadlift the huge block of stone up over your head and back into the ceiling, pushing until you hear a click.  Then a snap.  Looks like you broke it, Muscles.
+
+The hallway to the east is now open.
 > e
 
 > e
-You can't go there.
+As you walk east, a pair of emerald eyes flash at you from out of the darkness.  Now, usually when someone says 'emerald eyes', it's a fancy way of saying 'green eyes'.  Not this time.  This pair of peepers are honest-to-god fist-sized emeralds.   They're peering at you from out of a large and quite lovely golden face, and that face belongs to a metal statue that's about thirty feet tall, assuming the half of her you can't see is proportional to the half you can.   She's standing waist-deep in a section of collapsed floor.
+
+The metal lips part in a grin.  "Well, hi there, honey.  I THOUGHT I heard someone coming in through the back door.  It's been years since the last one, and he was such a bore.  I'm Vola the Unconquerable, you can call me Vola, and I'm afraid if you're looking for the idol you're a little late.  It's gone right out this mortal realm, gulp, gone forever."  She makes a zipping motion with her hand.  "Voop.  There it goes.   You see my last visitor was trying to make off with it -- not that I'm accusing you of anything kind that, savvy? -- and I chased him, and, well, down he went while he was still holding it."
+
+She laughs, a hollow, booming sound.
+
+"Also, I'm stuck in this pit now.  But I don't mind.  Kind of refreshing after six thousand years of sitting in the big room, you know?  Real change of pace.  I expect I'll get bored in a few decades or so and wriggle out and, oh, rain destruction on this and that, but for now, I'm all aces."   She folds her arms.  "Until then, you're free to make an offering, if you want.   Just make it good.  I'm pretty picky, you know."
+
+Mole Gate
+This section of the hall is decorated with wall carvings of a menacing mole.    The hall continues to the west, but any progress further east is blocked by Vola the Unconquerable, whose ample top half is taking up most of the hall.
+You can see Vola the Unconquerable.
 > x Vola
 
 > x Vola
-I can't see that.
+This living titan represents Vola, the Golanese goddess of war, fertility, and dangerous halls and foyers.   She's about thirty feet tall, made of solid gold, and has four arms, real emerald eyes, and a knockout figure.   She's standing waist deep in a pit trap, but doesn't seem at all bothered by it.
 > x carvings
 
 > x carvings
-I can't see that.
+This carving depicts a mole leering at you and brandishing its scoop-like claws.  Of all the dangerous and deadly animals you've seen in this benighted jungle, you guess it's about the third strongest.
 > give doorknob to Vola
 
 > give doorknob to Vola
-I can't see that. (doorknob)
+"Well, that's hardly--oh.  Oh, that's rather nice, actually."   She takes the doorknob and pops in into her mouth like a bon-bon.  "Mmm!  You know, these low-quality alloys go right to my pedestal, but is it worth it?  Absolutely."   She pats her stomach with a loud clang of metal on metal and then fixes you with another emerald glare.  "Now, what ELSE do you have for me?"
 > give music to Vola
 
 > give music to Vola
-I can't see that. (Vola)
+"You offer THAT to the Unconquerable One?"  Vola sneers.  "See, that, that is just not good enough.  Try again.  Oh, wait, you can't, because I'm going to eat you."
+
+She grabs you, tilts her head back, and drops you down her gullet, her lips clanging shut above your head with a metallic finality.
+
+Vola's Stomach
+You're in a lumpy metal hollow poorly illuminated by a few shafts of light from above.
+You can see a fedora-clad skeleton and an useless doorknob.
 > x skeleton
 
 > x skeleton
-I can't see that.
+This poor adventurer must have made it all the way through the shrine's traps and defenses, only to fall victim to Vola's wrath.   Looking at the departed soul, whose story might have been your own, you whisper a heartfelt prayer to the heavens that there's something useful in his pockets as you rifle through them.  You find his ID card, a sketch of the golden shrine chamber, and fifteen cents, all of which you take.
+
+You also discover a brilliant electrum idol gripped tightly by the bony fingers.
 > x id card
 
 > x id card
-I can't see that.
+It identifies the sorry bag of bones as Dr. Hank Hoosier of the Hoosier Correspondence Institute of Archaelogy, Bicycle Repair, and Putting The Moves On Tomatoes.
 > x cents
 
 > x cents
-I can't see that.
+It's a dime and a nickel.    Holy cats, could you kill for coffee and a sandwich right about now.
 > x sketch
 
 > x sketch
-I can't see that.
+It's a sketch of the large golden shrine chamber, meticulously done down to the finest details on the priceless ancient mosiacs that you just ruined by smashing an organ through them.    It looks so real you can almost imagine yourself there.
 > x idol
 
 > x idol
-I can't see that.
+This idol could be Vola's much littler sister, but instead of the goddess's haughty sneer, the round face is serene and welcoming, the plump lips curled in a mysterious smile.   "I would not give my power to a thief," they seem to say, "but I will give it to you, Jacqueline McBean, she who would be Jungle Queen."  You feel an overwhelming desire to TOUCH it.
 > touch idol
 
 > touch idol
-I can't see that. (idol)
+As your fingers brush against the idol, you feel as if you're being pulled in all directions at once, your atoms slathered across the universe like so much peanut butter.  You are growing, expanding, your hands stretching out to encompass the world.  You have come to the end of the path you have been traveling since lo, earlier today, shedding your old self like so many molted feathers.  You are no longer a pale, flabby city slicker.  You are a pale, flabby Jungle Queen!
+
+You are now the ruler of all you can see, and can step from one part of your domain to another at any time.  WARP TO any place in visual range in order to travel there!  Luckily for you, your majesty, this ability also works on pictures and photographs.
 > warp to sketch
 
 > warp to sketch
-I can't see that.
+Focusing on the sketch, you stride forward, feeling the world twist and shift in a nauseating swirl of black and green.  It's a little like being squeezed out of a tube of toothpaste.  At least that's how you imagine it; you've done plenty of stuff you're not writing home to Mother about, but you've never actually been squeezed out of a tube of toothpaste.
+
+With a pop, you emerge in the central chamber of the temple.  You're free!
+
+You are now the Jungle Queen.   Where you go next is up to you.
+
+The Golden Shrine
+You're in a roughly circular room which seems to be the focal point of some ancient temple.   Torches line the walls, casting menacing shadows on the carvings which stare inward at the empty dais in the center of the room.   You can climb up the debris and go out through the ceiling, or head east, into an ominous hallway.
+You can see an annihilated organ and a dais.
 > u
 
 > u
-You can't go there.
+
+Organ Chamber
+This cavern is little more than the remnants of a stone floor surrounding a massive opening blasted into the chamber below.
+
+You can see a statue of St. Brachiatus, a statue of St. Prehensilus and a statue of St. Bobo.
 > w
 
 > w
 
-Jolly Tavern
-You are in the dimly-lit remains of a tavern,  where the pirates of old came to brawl, guzzle rum, and listen to the latest hits for piano and tiny pirate accordion.  It looks like they were brewing their own hooch out of golanuts, because the twisted remains of a still sit in the corner, crushed under a clump of medium-sized golanut trees which have burst through the ceiling.  Dozens of full bottles are stacked next to the still, and ripe and rotting golanuts have rolled everywhere.    Sunlight is shining through doorways to the west and the east.
-
+Monkey Catacombs
+You're in the miniature jungle equivalent of the catacombs beneath Paris.  The ceilings are so low you almost have to crawl on all fours, and from floor to ceiling, the place is packed with monkey bones, neatly sorted by size and type.    You can see hear the screeching and burbling of monkeys watching you from the shadows.   You can scramble up out of the catacombs, or go east, where the tunnel opens out into a larger chamber.
+You can see a monkey friar and a communion daiquiri.
 > u
 
 > u
-You can't go there.
-> n
 
-> n
-You can't go there.
-> n
+A Quaint Upper-Middle-Class Parisian Neighborhood
+This is a small Paris cityscape made of grass and bamboo.  It's eerily empty, as far as you can see, and yet you feel like you're being watched from every window.    The road leads away to the southwest and to the north.   There's no Eiffel tower, but you can see a recreation of the Fontaine des Innocents, which burbles water from some underground spring, and a scale model of the Cathedral of Notre-Dame sits just to the side of the city center.  At the exact center of the city, in the bare patch of soil where the cathedral used to be, an open tunnel leads downwards.
 
-> n
-You can't go there.
-> nw
-
-> nw
-You can't go there.
-> warp to city
-
-> warp to city
-I can't see that.
-> u
-
-> u
-You can't go there.
-> w
-
-> w
-
-Fancy Quarters
-These quarters may have been opulent before the roof collapsed, but two hundred years of exposure to the elements haven't done them any favors.  A faded four-poster bed squats in the middle of the room.  Against one wall, an aquarium sits on top of a solid oak chest of drawers.    The door to the tavern is to the east.   A large portrait of a pirate hangs on the opposite wall.
-You can see an aquarium (containing a gold key and a chubby piranha).
-> u
-
-> u
-You can't go there.
+You can see the Notre Dame Cathedral and the Fontaine des Innocents.
 > s
 
 > s
-You can't go there.
+
+Primeval Trail
+You're standing in thick, greenish purple shrubbery, with dark, twisted palms rising around you on all sides.  A path winds its way through the trees to the northeast, and the Great Gate to the south looks scalable.
+You can hear murmuring, chittering, and the occasional shriek coming from the northeast trail, and behind it all, a group of high-pitched voices raised in a screechy, off-key song.
+
 > s
 
 > s
-You can't go there.
+It's a simple matter for a master of the way of the goat, such as yourself, to scale the uneven facade.
+
+Top of the Wall
+You're standing at the top of a vast wall which stretches east and west until it disappears on either side into thick, impenetrable jungle.  The area around the gate has been cleared, allowing you to scout out the land on either side.   To the south, you see tall trees and a wide, crystal-blue river.  To the north the land seems harsh, more forbidding, the tree cover lower but also darker and denser.   You can see the path twisting away towards what looks like a village.  Further on, a volcano belches ash and magma into the sky.
+
 > s
 
 > s
-You can't go there.
-> x plane
+In a few easy hops, you descend back into the lush jungle.
 
-> x plane
-I can't see that.
+The Great Stone Gate
+A seventy-foot stone wall juts from the earth here, slicing through the jungle.  It was once elaborately carved, but is so old that much of the decoration has worn away, and the crumbling stonework is home to mosses, ferns, and even a few small trees that have managed to take root in the gaps between the blocks.   The  dirt path leads south into the trees and north up to a gate fit for a giant, made of enormous trees that have petrified over the aeons.  It's unlikely that you'll be able to get the gate open, but a good enough climber might be able to make it north over the wall.
+
+> s
+
+> s
+
+A Tangle of Roots
+You are in a gnarled tangle of enormous roots at the foot of the tree.    A broad, worn path travels past you in a north-south direction, and the heaps of crumbling stonework visible through the roots seems to indicate that there was once some sort of a building where the tree now grows.   High above you, you can just make out the plane tangled in the branches.
+
 > warp to plane
 
 > warp to plane
-I can't see that.
+The sensation is like zooming up on elevator shoes.  There are three pops as you appear inside the plane--the usual one, and both your ears.
+
+The Spirit of Fresno
+You're in the cabin of The Spirit of Fresno, the plucky little plane that couldn't.    It's missing its roof, both wings, and the exit door, and leaves are drifting down from the damaged canopy above.   A thick branch has torn through the floor, revealing a dizzying drop to the underbrush far below.
+
+Golden light filters through the metal frame, making a lattice of shadows on the floor.
+
+You can see a Guidebook to Golanaland, a burst golanut, flying squirrels and a radio.
 > use component on radio
 
 > use component on radio
-I can't see that. (radio)
+The vital component snaps easily back into place within the radio.  That certainly was convenient, and not at all a roundabout pain in the hindquarters.  Now you can USE the radio to call for help!
 > turn on radio
 
 > turn on radio
-I can't see that. (radio)
+The cabin is filled with the jaunty sounds of Bix Bigby and his Big Boy Band.
 > use radio
 
 > use radio
-I can't see that.
-[state=Running]
+"Mayday, mayday, this is Jacqueline McBean.  I'm stranded in the jungle, please respond..."
+
+It takes few minutes of frantic calling, but you finally manage to get in touch with a ham radio operator in the city who relays your plight to the proper authorities, and not long after that, you're being escorted out of the jungle by a rescue party.   You arrive in the Big Golanut only slightly delayed, ready to take on your dream job.  Nobody knows what really happened to you; nobody knows about the idols and the shrines and everything else, and would they even believe you?   As time passes, even this exciting new life settles into a sort of routine, and your experiences in the jungle are the ones that feel like a dream...
+...except once a Jungle Queen, always a Jungle Queen, apparently, because you've still got all those crackerjack special abilities.   What's more, they're proving very useful to aspiring raker of muck such as yourself.  Whether it's scaling a building through the way of the gecko, using rain and heat to flush a recalcitrant interviewee out of hiding, or simply warping to the scene faster than anyone else, you're the girl with an arsenal of secret weapons and the will to use 'em.
+Pulitzer, here you come!
+[state=Finished]

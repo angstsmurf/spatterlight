@@ -364,19 +364,41 @@ It's a normal but useful key.
 
 > take key
 You pick it up.
-> unlock door
+> unlock lock
 
-> unlock door
-Try unlocking the lock.
+> unlock lock
+The door is now unlocked!
 
 * You love your room but if you remain here you'll miss out on a great birthday! *
 
 > open door
 
 > open door
-You try to but the door seems stuck. It's hard to pull. Such rotten luck!
+You open it.
 > out
 
 > out
-You can't go there.
-[state=Running]
+
+You wake up and hear all the people saying:
+
+*************************************************************************************
+* Congratulations, you have won! Tell mom and dad and share it with your friends! *
+*************************************************************************************
+
+You have scored 50 out of 50, giving you the rank:  Awake Gamer
+- You broke the lamp (2)
+- You broke the hummer (3)
+- You created the hammer (4)
+- You broke the bed (3)
+- You broke the desk (2)
+- You created the blade (4)
+- You cut the sheets (4)
+- You cut the floor mat (4)
+- You created the matches (4)
+- You burned the box (3)
+- You created the door (3)
+- You broke the clock (2)
+- You created the lock (4)
+- You found the key (8)
+
+[state=Finished]

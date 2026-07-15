@@ -36,13 +36,19 @@ var transcript = new StringBuilder();
 var emitCount = 0;
 var errorCount = 0;
 
-// QuestViva ends the game itself once script errors reach MaxScriptErrors (20 in
-// WorldModel.cs) — the "session is unrecoverably wedged" circuit-breaker — which
-// sets State=Finished exactly like a real `finish`. Distinguish the two so a
-// walkthrough that drifted into a run of failing turnscripts is not miscounted
-// as a genuine win. _scriptErrorsFatal is private; the LogError count is the
-// public proxy (one LogError per script error, verified 1:1 with the trip).
-const int MaxScriptErrors = 20;
+// QuestViva ends the game itself once its error circuit-breaker trips (20 script
+// errors, WorldModel.cs:1195) — "session unrecoverably wedged" — which sets
+// State=Finished exactly like a real `finish`. Distinguish the two so a walkthrough
+// that drifted into failing turnscripts is not miscounted as a genuine win. The
+// breaker's private counter (_scriptErrorCount) increments ONLY on errors thrown
+// through RunScriptAsync (line 1195); but expression-evaluation errors during
+// OUTPUT formatting (e.g. display-name recursion) are logged via a separate,
+// NON-fatal path (line 1456) that fires our LogError WITHOUT feeding the breaker.
+// So the LogError count over-counts and is the WRONG wedge signal: The Bony King of
+// Nowhere finishes genuinely (full ending + credits) while emitting 31 such display
+// errors. Read the breaker's own private _scriptErrorsFatal flag by reflection
+// (set up right after `world` is created, below) — that is the only faithful
+// "did the breaker actually fire?" signal.
 
 void Emit(string html)
 {
@@ -61,8 +67,26 @@ var world = new WorldModel(gameData, null);
 world.LogError += ex => { errorCount++; Console.Error.WriteLine("[error] " + ex.Message); };
 world.PrintText += Emit;                 // legacy output path (ASL < v540)
 
+// Faithful "did the error circuit-breaker actually fire?" probe (see the block
+// above for why the LogError count is the wrong signal).
+var fatalField = typeof(WorldModel).GetField("_scriptErrorsFatal",
+    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+bool BreakerFired() => fatalField != null && (bool)fatalField.GetValue(world)!;
+
 TaskScheduler.UnobservedTaskException += (_, e) =>
     Console.Error.WriteLine("[unobserved] " + e.Exception.GetBaseException().Message);
+
+// Real-time timer draining. The interactive players (WebPlayer/WasmPlayer) run a
+// 1-second JS interval that, after RequestNextTimerTick(seconds), advances
+// game.timeelapsed and calls Tick(elapsed), firing SetTimeout timers. A headless
+// run has no wall clock, so without this the game's SetTimeout-based gates never
+// fire (e.g. the nightclub's "eyes adjust to the dark" reveal, and the yard->town
+// MoveObject after three tasks). We reproduce it deterministically: after each
+// command settles, drain any pending SetTimeout timer by ticking exactly its
+// trigger delta. Only self-destructing SetTimeout timers (named "timeout*" by
+// SetTimeoutID) are drained, so recurring authored timers never loop.
+var pendingTick = 0;
+world.RequestNextTimerTick += s => pendingTick = s;
 
 var player = new HeadlessPlayer(Emit);
 if (!await world.Initialise(player))
@@ -80,6 +104,7 @@ Console.Error.WriteLine($"[diag] version={world.Version} objects={world.Objects.
 // prompt). No polling needed — the suspend TCS is the real settle signal.
 await world.Begin();
 await AutoAdvance();
+await DrainTimers();
 Console.Error.WriteLine($"[diag] after begin: emits={emitCount} state={world.State}");
 
 var stepCount = 0;
@@ -129,12 +154,15 @@ if (args.Length >= 2)
         }
 
         await AutoAdvance();
+        await DrainTimers();
     }
 }
 
-// A Finished reached only because the error breaker tripped is reported as
-// "Wedged", not "Finished" — it is a faithfully-recorded dead end, not a win.
-var wedged = world.State == GameState.Finished && errorCount >= MaxScriptErrors;
+// A Finished reached only because the error breaker actually fired is reported as
+// "Wedged", not "Finished" — a faithfully-recorded dead end, not a win. Use the
+// breaker's real flag (see BreakerFired above), not the over-counting LogError
+// total: display-formatting errors inflate errorCount without wedging the game.
+var wedged = world.State == GameState.Finished && BreakerFired();
 var reportedState = wedged ? "Wedged" : world.State.ToString();
 Console.Error.WriteLine($"[diag] end: steps={stepCount} emits={emitCount} state={reportedState} " +
     $"errors={errorCount} scriptExhausted={scriptExhausted}");
@@ -152,6 +180,32 @@ async Task AutoAdvance()
         if (player.IsWaiting)  { player.IsWaiting = false;  await world.FinishWait(); }
         if (player.IsPausing)  { player.IsPausing = false;  await world.FinishPause(); }
     }
+}
+
+// Drain pending SetTimeout timers deterministically. `pendingTick` holds the
+// seconds until the next timer fires, as reported by RequestNextTimerTick (the
+// same value the interactive players' JS interval waits out). Tick(secs) advances
+// game.timeelapsed by exactly that delta and runs the due timer(s); a SetTimeout
+// timer self-destroys when it fires, so the loop settles. Only "timeout*" timers
+// (created by SetTimeoutID) are drained, keeping recurring authored timers — which
+// would otherwise loop forever in the absence of a real clock — dormant.
+async Task DrainTimers()
+{
+    var guard = 0;
+    while (world.State != GameState.Finished && guard++ < 500 && PendingTimeoutSeconds(out var secs))
+    {
+        pendingTick = 0;
+        await world.Tick(secs > 0 ? secs : 1);
+        await AutoAdvance();
+    }
+}
+
+bool PendingTimeoutSeconds(out int secs)
+{
+    secs = pendingTick;
+    return world.Elements.GetElements(ElementType.Timer)
+        .Any(t => t.Name.StartsWith("timeout", StringComparison.Ordinal)
+                  && t.Fields.GetAsType<bool>("enabled"));
 }
 
 // Resolve a script line to a menu option key: exact key, exact display text,

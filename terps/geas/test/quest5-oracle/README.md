@@ -106,18 +106,33 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**17 games driven** — **9 `Finished`** (genuine wins), **7 `Running`**
-(walkthrough exhausts or drifts from the game version at the tail, which the
-oracle faithfully records), **1 `Wedged`** (Whitefield — see below) — plus **6
-hints-only** (Q&A/prose, no linear script). See [[quest5-corpus]].
+**17 games driven** — **15 `Finished`** (genuine wins), **1 `Running`** (I Contain
+Multitudes — its ending sits behind a nested-wait continuation the harness cannot
+pump; its author warns its time-based events break Quest's own walkthrough runner),
+**1 `Wedged`** (Whitefield — a genuine QuestViva-vs-Quest incompatibility, see
+below) — plus **6 hints-only** (Q&A/prose, no linear script). Six of those wins are
+driven by curated `overrides/` (see next section); the other nine by the raw
+walkthrough via the extractor. See [[quest5-corpus]].
+
+### Curated overrides (`overrides/`)
+
+Some walkthroughs do not reach the ending when run verbatim — a typo the game
+rejects, one of several mutually-exclusive endings, a nav error vs the release map,
+or an RNG-/timer-specific solve. For each such game, `overrides/<Game>.cmd` is a
+hand-authored winning script (with a `#`-comment header documenting every deviation
+from the raw walkthrough); `run_corpus.sh` uses it verbatim in place of the
+extractor+preamble. `overrides/README.md` tabulates why each of the eight exists
+(six now win; I Contain Multitudes and Whitefield are best-effort, documented above
+and below). The nine games whose raw walkthroughs already win have no override.
 
 ### Golden baseline (committed regression)
 
 `golden/` holds the frozen answer key: for each of the 17 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
-committed to the repo — `bin/`, `obj/`, and the scratch `out/` are ignored, and
-the QuestViva clone and the corpus games/walkthroughs all live outside it.
+committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
+`out/` are ignored, and the QuestViva clone and the corpus games/walkthroughs all
+live outside it.
 
 - **`./check_golden.sh`** replays each committed `golden/<Game>.cmd` through the
   built oracle and diffs the result against `golden/<Game>.out`. It drives from
@@ -139,15 +154,53 @@ without needing QuestViva or .NET at all.
 
 ### `Wedged`: telling the error breaker apart from a real win
 
-QuestViva ends the game *itself* once script errors reach `MaxScriptErrors` (20,
-`WorldModel.cs`) — a "session is unrecoverably wedged" circuit-breaker — and this
-sets `State=Finished` exactly like a real `finish`. The harness counts `LogError`
-events (1:1 with the trip) and reports that case as **`Wedged`**, not `Finished`,
-so a walkthrough that drifted into a run of failing turnscripts is not miscounted
-as a win. *Whitefield Academy of Witchcraft* wedges this way: after the
-walkthrough drifts, the CoreGrid map turnscript throws
-`DictionaryItem(coordinates,...)` (missing x/y/z) every turn and trips the
-breaker at 20 errors. All genuinely-finished games show `ERR=0`.
+QuestViva ends the game *itself* once its error circuit-breaker trips (20 script
+errors, `WorldModel.cs:1195`) — a "session unrecoverably wedged" guard — and this
+sets `State=Finished` exactly like a real `finish`. The harness reports that case
+as **`Wedged`**, not `Finished`, so a walkthrough that drifted into failing
+turnscripts is not miscounted as a win.
+
+The signal for "did the breaker actually fire?" must be the breaker's own private
+`_scriptErrorsFatal` flag, read by reflection — **not** the `LogError` count.
+Those differ: the breaker's counter increments only on errors thrown through
+`RunScriptAsync` (line 1195), but expression-evaluation errors during *output
+formatting* (e.g. display-name recursion) are logged via a separate, non-fatal path
+(line 1456) that fires `LogError` without feeding the breaker. So the count
+over-reports. *The Bony King of Nowhere* is the case that proves it: it reaches its
+genuine ending (full "The END" + credits) while emitting **31** display-recursion
+errors on the mandatory `attack general`→prison POV-swap render — `errors=31` yet a
+true `Finished`, because `_scriptErrorsFatal` never set. The earlier
+`errors ≥ 20` heuristic wrongly called that a wedge.
+
+*Whitefield Academy of Witchcraft* is a real wedge: the *mandatory* Grislewood snare
+double-teleports the player into "Inescapable Cage," a room reachable only by that
+teleport that never gets map coordinates, so its enter-script throws
+`DictionaryItem(coordinates,"x")` ~19× *through `RunScriptAsync`* in one transition
+and trips the breaker. In real Quest an enter-script error is non-fatal, so the game
+is winnable there — under this oracle's breaker it is not. This is a genuine
+QuestViva-vs-Quest incompatibility, not a walkthrough error. Genuinely-finished
+games show `ERR=0` except Bony King (`ERR=31`, explained above).
+
+### Real-time timers: `DrainTimers`
+
+Quest timers and `SetTimeout` fire off `game.timeelapsed`, which QuestViva only
+advances when a command supplies `elapsedTime > 0` or `Tick(elapsed)` is called —
+the interactive players (WebPlayer/WasmPlayer) do this from a 1-second JS interval
+after `RequestNextTimerTick`. A headless run has no wall clock, so without help a
+game's `SetTimeout`-gated content never fires. Two corpus games depend on it: *The
+Mouse Who Woke Up For Christmas* (a `<dark>` nightclub's "eyes adjust" reveal is on
+`SetTimeout(2)`; without it the room stays black and the game is unwinnable) and
+*Escape From the Mechanical Bathhouse* (whose 50-second puzzle limit is a real timer
+— the oracle simply never advancing it is what gives unlimited turns).
+
+`Program.cs` reproduces the interactive clock deterministically: it subscribes to
+`RequestNextTimerTick` and, after each command settles, drains any pending
+self-destructing `SetTimeout` timer (named `timeout*` by `SetTimeoutID`) by ticking
+exactly its trigger delta. Recurring authored timers are left dormant (they would
+loop forever without a real clock). This changed only the three timer-dependent
+goldens; every other transcript is byte-identical. (It cannot rescue I Contain
+Multitudes: there the ending `SetTimeout` is never even *created*, because it sits
+inside a nested `wait{…}` continuation the harness does not pump.)
 
 ### Two menu systems (why a bad answer used to freeze the game)
 
@@ -191,16 +244,13 @@ transcripts across runs.
   *Poppet*, *What Once Was*, *Hawk the Hunter*, *Eight characters…*, *Quest for
   the Serpent's Eye*): no mechanically extractable linear command script, so
   they carry a `hints` mode in `corpus.tsv` and are reported as skipped.
-- Some driven games end `Running` because the walkthrough drifts from the game
-  version at the tail (e.g. *I Contain Multitudes*, whose author notes its
-  time-based events break Quest's own walkthrough runner). Transcripts are still
-  deterministic; they just don't reach a formal win.
-- *Dream Pieces* plays its whole wordplay puzzle (with the `new game` preamble)
-  but ends `Running`: its published walkthrough's last step is `unlock door`,
-  which the game rejects with "Try unlocking the lock." Sending `unlock lock`
-  instead wins (50/50, "Awake Gamer") — a walkthrough bug, left as faithful
-  drift rather than hand-patched into the command stream.
-- *Escape From the Mechanical Bathhouse* is a real-time timed game (a matching
-  puzzle with a 50-second wall-clock limit); it always drifts at the tail
-  regardless of the script, and is reported `Running`.
+- *I Contain Multitudes* is the one driven game that does not reach a win. It runs
+  cleanly (0 errors) to its final story beat, but the ending `finish` is behind a
+  nested `wait{…wait{…SetTimeout(7)…}}` continuation inside a menu response that the
+  harness does not pump — so the ending timer is never even created. Its author
+  warns its time-based events break Quest's own walkthrough runner too. Left
+  `Running`; transcript is still deterministic.
+- The other formerly-`Running` walkthroughs now win via `overrides/` (Dream Pieces,
+  Jacqueline, Carnival of Regrets, Mechanical Bathhouse, The Mouse, Bony King) — see
+  `overrides/README.md` for each one's deviation from its raw walkthrough.
 - *The Brutal Murder of Jenny Lee* has a PDF-only walkthrough (no `.txt`).

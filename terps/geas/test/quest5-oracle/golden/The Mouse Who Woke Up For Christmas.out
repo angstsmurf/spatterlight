@@ -584,650 +584,1337 @@ You are in The Nutcracker Night Club (Inside the Squirrel Midden).
 
 It takes a few seconds for your eyes to adjust to the relative darkness...
 
+You are in The Nutcracker Night Club (Inside the Squirrel Midden).
+
+A somewhat seedy nightclub with a retro charm. The owner Cyril Squirrel is rumoured to be an ex boss of the notorious Nutcracker gang, named for their preferred method of punishment rather than their diet.
+
+The room is decorated for Christmas with gaudy decorations hanging from the ceiling.
+
+Some mid 1990's Ibiza trance track is booming out of the PA system.
+
+You can see Cyril Squirrel, a Dance Floor, a Mirror Ball, a Bar, Lights, a bar mirror, Trevor Skunk, Ken Badger and Sam Hedgehog.
+
+You can go out.
+
 > x decorations
 
 > x decorations
-I can't see that.
+
+Silver bells, glitter baubals and all manner of brightly coloured tat.
+
+Better not eat them else you'll get tinselitis.
 > x Cyril
 
 > x Cyril
-I can't see that.
+Manning the bar is the owner of this establishment, one Cyril Squirrel.
+
+Cyril is short for a squirrel but heavily built. He has a large gold chain around his thick neck.
+
+He is wearing a sharp grey suit that matches his fur,and a black pin striped fedora hat with a white band.
+
+He is currently polishing a pint glass and looking at you suspiciously.
 > x floor
 
 > x floor
-I can't see that.
+
+It has ceased to be, passed on, it is pining for the fjords, run down the curtain and joined the choir invisible.
 > x ball
 
 > x ball
-I can't see that.
+A spherical rotating ball covered in tiny mirror panels. It reflects light from the bottles suspended around it.
 > x bottles
 
 > x bottles
-I can't see that.
+An array of bottles suspended from the ceiling, they are casting light on to the mirror ball which is then reflected around the room. On close inspection the bottles contain fireflies.
+
 > take lights
 
 > take lights
-I can't see that.
+
+A mental image of the Weasel bouncer flashes in your mind and you decide that stealing from Cyril would be a bad idea, perhaps try asking him for one.
 > x bar
 
 > x bar
-I can't see that.
+A long black marble bar. At the back of the bar is a room length mirror, reflecting the back of the bottles that are lined up against it.
+
+A sign above the bar reads;
+
+'Payment in nuts only!'
 > x bar mirror
 
 > x bar mirror
-I can't see that.
+
+A large mirror that runs the whole length of the bar.
+
+Looking into the mirror you see;
+
+A distinguished gentleman mouse named Gerald. You have light tan fur, long whiskers and a pink tail.
+
+You are wearing a pair of  Long Johns and Gardening Clothes.
 > x Trevor
 
 > x Trevor
-I can't see that.
+
+Trevor is slumped against the bar, it looks like he's had a few too many already.
+
+The air around him is heavy with whiskey fumes.
 > x Ken
 
 > x Ken
-I can't see that.
+
+Ken Badger, fancies himself as pretty fly for a black and white guy.
+
+He is dressed in ridiculously low slung jeans, over sized white t-shirt and an L.A. Lakers baseball cap (worn back to front).
 > x Sam
 
 > x Sam
-I can't see that.
+
+An ex-raver and refugee of the '90's, his short attention span and infamous mood swings suggest that he left an important part of his brain behind in a club in Ibiza.
+
+He is wearing black jeans and a white t-shirt with 'Manumission 1996' emblazoned on it.
+
+He staring intently at the screen of an IPad.
 > x ipad
 
 > x ipad
-I can't see that.
+
+An IPad that Sam is using to DJ, you can just make out that he has the Spotify App open.
 > talk to Cyril
 
 > talk to Cyril
-I can't see that. (Cyril)
+
+"Alright Gerald me old china!" says Cyril,
+
+"What can I do ya for?"
+
+"By the way, you 'aven't seen Jack Rabbit anywhere 'ave you? 'E went missing after leaving the club the other night,"
 > ask Cyril about Harry
 
 > ask Cyril about Harry
-I can't see that. (Cyril)
+
+"Yeah e's a er... business associate from a previous line of work I wuz in. " says Cyril.
+
+"You wouldn't want to invite him to tea with your mother, but e's solid and reliable."
 > ask Cyril about Jack
 
 > ask Cyril about Jack
-I can't see that. (Cyril)
+
+"'E was in 'ere the other night, was drunk as a skunk when he left..."
+
+"Oi!" shouts Trevor Skunk, overhearing the conversation.
+
+"Sorry Trevor! shouts Cyril.
+
+Cyril rolls his eyes at you and continues,
+
+"Anyway now I come to think of it was unusual for 'im, normally doesn't drink much. Anyway apparently 'e never got home."
+
+"I 'ope nothing's 'appened to him, don't want any trouble around 'ere, bad for business!"
 > ask Cyril about lights
 
 > ask Cyril about lights
-I can't see that. (Cyril)
+
+"Well," says Cyril, "If you want one of the light bottles you'll 'ave to do me a favour."
+
+He nods his head in Sam's direction.
+
+ "Sam's lost his edge, the dance floor is dead. Get that IPad off Sam and put on some tunes to get people dancing and I'll let you 'ave what you need."
+
+Cyril shouts over to Sam,
+
+"Oi Sam! Take a break and let Gerald take over."
+
+Sam passes you the IPad.
+
 > x ipad
 
 > x ipad
-I can't see that.
-> 4
+
+An Ipad conected to the PA system via blutooth. Spotify app is currently open and playing an Ibiza 90's playlist.
+
+Other playlist options on the home page are:
+
+Goth and Industrial Metal (Enter 1 to choose)
+
+1970's Rock (Enter 2 to choose)
+
+Heavy Metal (Enter 3 to choose)
+
+Cheesy Party Anthems  (Enter 4 to choose)
+
+Hip-hop and Rap (Enter 5 to choose)
+
+Enter choice...
 
 > 4
-I don't understand your command.
+
+You select the 'Cheesy Party Anthems' playlist,
+
+Africa by Toto comes booming out of the PA and the dance floor fills up. You follow it up with Jump by Van Halen and now the dance floor is packed and more customers pour into the Nightclub.
+
+Cyril wanders over to you, and hands you a light bottle,
+
+ "Thanks Gerald, you're a natural, you must have done this is a previous life!"
+
+" I think Sam has got the idea now so you can pass things back over to him."
+
+Sam walks over to you, "Jez," he says, "No accounting for taste, but if that's what the punters want, it what they'll get". You hand him back the IPad.
 > x light bottle
 
 > x light bottle
-I can't see that.
+A glass bottle containing fireflies, they emit a bright eerie green glow.
 > x floor
 
 > x floor
-I can't see that.
+
+The dance floor is heaving, the cheesy playlist is doing the job.
 > dance
 
 > dance
 
-You step on to the dance floor and dance along to 'You're not alone' by Olive.
-
-Nobody joins you and you feel a bit self-concious and stop.
+You manage to find a free spot on the dance floor and dance along to Rosanna by Toto.
 > talk to Ken
 
 > talk to Ken
-I can't see that. (Ken)
+
+"Yo! What's up dog?" drawls Ken.
 > ask Ken about Jack
 
 > ask Ken about Jack
-I can't see that. (Ken)
+
+"Yeah bossman Cyril tells me he's gone AWOL," says Ken,
+
+"Sounds like some trouble homie."
 > talk to Trevor
 
 > talk to Trevor
-I can't see that. (Trevor)
+
+"Whazz happening matey?" slurs Trevor.
 > ask Trevor about Jack
 
 > ask Trevor about Jack
-I can't see that. (Trevor)
+
+"Listen here" says Trevor and motions to you to come closer.
+
+He breathes whiskey fumes all over you and wispers in your ear,
+
+"Somethin funny goin on around here, you mark my wards, I mean words!"
+
+Trevor battles to keep his eyes open as he sways to and fro.
 > ask Cyril about stoat
 
 > ask Cyril about stoat
-I can't see that. (Cyril)
+"Yeah there was a stoat in 'ere the other night, I 'ad a go at 'arry for letting him in."
+
+Cyril gestures towards the door.
+
+"Rough as a badger's arse, and ...
+
+"Oi" shouts Ken the Badger, overhearing the conversation
+
+"Sorry Ken!" shouts Cyril.
+
+"Anyway" says Cyril,
+
+"'e kept pushing in at the bar. Said 'is name was Nick."
 > ask Trevor about stoat
 
 > ask Trevor about stoat
-I can't see that. (Trevor)
+
+Breathing whiskey fumes all over you Trevor replies,
+
+"Yeah I saw that git of a stoat on Tuesday, kept pushin in at the bar!"
+
+ Trevor battles to stay upright as he sways to and fro.
 > ask Ken about stoat
 
 > ask Ken about stoat
-I can't see that. (Ken)
+
+"I wasn't in on Tuesday night but Cyril tells me there was some dodgy stoat hanging about." says Ken.
+
+"Don't know why Harry let him, the fool!"
 > ask Sam about stoat
 
 > ask Sam about stoat
-I can't see that. (Sam)
+
+"Yeah man, there was some dodgy stoat in here Tuesday night, was causing hassle at the bar by pushing in and generally being ungroovy."
 > out
 
 > out
-You can't go there.
+You step outside, blinking in the bright light.
+
+You are are Under the Tree.
+
+You are underneath the tall cherry tree. You can hear thumping bass coming from inside the Squirrel Midden.
+
+A rather vicious looking Weasel is lying unconscious  near the entrance to a squirrel midden.
+
+You can see an Entrance to the Squirrel Midden, a Tree, an Unconscious Weasel and a Cricket Ball.
+
+You can go north, northeast, up or in.
+
 > n
 
 > n
-You can't go there.
+
+You are at the Bottom of the Garden.
+
+It is cold enough that you can see your breath in the air.
+
+You can see a Barbecue, a Bird Skull and a Garden Shed.
+
+You can go south, east, northeast, in or up.
+
 > take skull
 
 > take skull
-I can't see that.
+You pick it up.
 > in
 
 > in
-You can't go there.
+
+You are in a Garden Shed.
+
+A rickety garden shed that has been your home for the last couple of years.
+
+You can see a Bed (containing Jessica), a Fireplace, a Wardrobe (containing a Smart Suit and a pair of pyjamas and slippers), a Toolbox (containing A Roll of Duct Tape, A Bottle of Firelighter Fluid  and an Oily Rag), a Mantelpiece, an Alarm Clock, a Mirror, a Stocking, a Fridge and a Photo Frame.
+
+You can go out.
+
 > take stocking
 
 > take stocking
-I can't see that.
+You pick it up.
 > take rag
 
 > take rag
-I can't see that.
+You pick it up.
 > take tape
 
 > take tape
-I can't see that.
+You pick it up.
 > out
 
 > out
-You can't go there.
+
+You are at the Bottom of the Garden.
+
+It is cold enough that you can see your breath in the air.
+
+You can see a Barbecue and a Garden Shed.
+
+You can go south, east, northeast, in or up.
+
 > ne
 
 > ne
-You can't go there.
+
+Brandishing your Rubber Boots you enter the Vegetable Patch.
+
+You are in the Vegetable Patch.
+
+The human who lives in the house is a keen gardener.
+
+In the spring and summer there are wonderful beans and courgettes, followed by luscious cabbages and other assorted brassicas.
+
+You try to not steal too many through the year, but you get the impression that the human doesn't mind too much anyway, he feeds the birds and even the squirrels.
+
+Now in midwinter it is a bare and muddy patch of earth.
+
+You can see a Spade, a Hole (containing a Coin), Stewart the Snail, a Large Stone and a Wheelbarrow.
+
+You can go south, east, southeast, southwest or northwest.
+
 > take coin
 
 > take coin
-I can't see that.
+You pick it up.
 > polish coin
 
 > polish coin
-I can't see that. (coin)
+
+Using the oily rag you polish the coin until it shines brightly.
+
 > x coin
 
 > x coin
-I can't see that.
+
+A very shiny silver coin, now it's clean you can see that it is a 50 pence piece.
 > e
 
 > e
-You can't go there.
+
+You are at the North End of the Patio.
+
+The north end of  the stone flagged patio that runs across the back of the human's house.
+
+You can see a Pair of Blunt Nail Scissors, a Garden Gate and a Scrap of Fur.
+
+You can go south, west or out.
+
 > x scissors
 
 > x scissors
-I can't see that.
+A pair of blunt nail scissors, the owner of the house must have dropped them. You are just about able to carry them using both front paws.
 > x gate
 
 > x gate
-I can't see that.
+
+The gate to the outside world. It's dangerous out there.
 > x fur
 
 > x fur
-I can't see that.
+
+A scrap of white fur speckled with what looks like blood.
+
 > take scissors
 
 > take scissors
-I can't see that.
+You pick it up.
 > take fur
 
 > take fur
-I can't see that.
+You pick it up.
 > out
 
 > out
-You can't go there.
+
+You're not feeling brave enough to go out there yet, there are still some errands to run around here, why not try to get hold of some beer for Christmas Day first.
 > s
 
 > s
-You can't go there.
+
+You are in the Middle of the Patio.
+
+The middle of the stone flagged patio that runs across the back of the human's house.
+
+You can see a Tap and a Patio Door.
+
+You can go north, south, west or northwest.
+
 > x tap
 
 > x tap
-I can't see that.
+An outside brass tap (or as your American cousin Fieval would call it, a faucet), recently installed by the human who lives in the house.
+
 > x boxes
 
 > x boxes
-I can't see that.
+
+Cardboard boxes are strewn around the human's lounge, they are labeled 'Amazon Prime delivery'.
 > s
 
 > s
-You can't go there.
+
+You are at the a South End of Patio.
+
+The south end of  the stone flagged patio that runs across the back of the human's house.
+
+You can see a Washing up sponge and Stinging Nettles.
+
+You can go north, northwest or southwest.
+
 > x sponge
 
 > x sponge
-I can't see that.
+An old dry washing up sponge, rectangular and green.
 > take sponge
 
 > take sponge
-I can't see that.
+You pick it up.
 > x nettles
 
 > x nettles
-I can't see that.
+
+A large overgrown tangle of stinging nettles block the path that leads  behind the greenhouse.
 > cut nettles
 
 > cut nettles
-I can't see that. (nettles)
+
+Gripping the machette with both front paws you swing it from side to like a scythe. You quickly chop down the nettles and clear the path to behind the greenhouse.
+
 > sw
 
 > sw
-You can't go there.
+
+You are Behind The Greenhouse.
+
+An overgrown and neglected bit of the garden.
+
+You can see Holly and Mistletoe and a Greenhouse.
+
+You can go northeast.
+
 > x holly
 
 > x holly
-I can't see that.
+
+Some holly and mistletoe that is conveniently growing behind the greenhouse.
 > take holly
 
 > take holly
-I can't see that.
+
+You take them.
 > ne
 
 > ne
-You can't go there.
+
+You are at the a South End of Patio.
+
+The south end of  the stone flagged patio that runs across the back of the human's house.
+
+You can go north, northwest or southwest.
+
 > n
 
 > n
-You can't go there.
+
+You are in the Middle of the Patio.
+
+The middle of the stone flagged patio that runs across the back of the human's house.
+
+You can see a Tap and a Patio Door.
+
+You can go north, south, west or northwest.
+
 > turn on faucet
 
 > turn on faucet
-I can't see that. (faucet)
+
+You clamber up the pipe to the tap, and using both front paws you swing on the tap and manage to turn it on. A thin stream of water flows from it and starts to gurgle down the drain below. You jump down to the ground.
 > x drain
 
 > x drain
-I can't see that.
+A drain undeneath the tap with a metal grating on top. Water is falling into it from the tap above.
 > drink water
 
 > drink water
-I can't see that. (water)
+
+You lean over and lap up water from the stream coming from the tap. It is very cold, but refreshing.
 > x grating
 
 > x grating
-I can't see that.
+A metal grating covering the drain, water from the tap is gurgling down into it.
 > use sponge on faucet
 
 > use sponge on faucet
-I can't see that. (sponge)
+
+You soak the sponge under the tap until is heavy with water.
 > turn off faucet
 
 > turn off faucet
-I can't see that. (faucet)
+You clamber up the pipe to the tap, and using both front paws you swing on the tap and manage to turn it off. You jump down to the ground.
 > nw
 
 > nw
-You can't go there.
+
+Brandishing your Rubber Boots you enter the Vegetable Patch.
+
+You are in the Vegetable Patch.
+
+The human who lives in the house is a keen gardener.
+
+In the spring and summer there are wonderful beans and courgettes, followed by luscious cabbages and other assorted brassicas.
+
+You try to not steal too many through the year, but you get the impression that the human doesn't mind too much anyway, he feeds the birds and even the squirrels.
+
+Now in midwinter it is a bare and muddy patch of earth.
+
+You can see a Spade, a Hole, Stewart the Snail, a Large Stone and a Wheelbarrow.
+
+You can go south, east, southeast, southwest or northwest.
+
 > use sponge on stone
 
 > use sponge on stone
-I can't see that. (sponge)
+
+You wring the sponge out on the stone, giving it a good soaking. It is now a whetstone.
 > sharpen scissors
 
 > sharpen scissors
-I can't see that. (scissors)
+
+Using the whetstone you sharpen the blades of the scissors until they have a wicked edge.
 > s
 
 > s
-You can't go there.
+
+You are in the Middle of the Garden.
+
+In the summer this is the sunniest part of the garden, today it has hardly got light and it is cold with a chilly breeze.
+
+You can see a Bird Bath, Pigeon Jon, a Greenhouse and a Newspaper page.
+
+You can go north, east, west, southeast, southwest or in.
+
 > x bath
 
 > x bath
-I can't see that.
+
+An octagonal stone bird path on a pedestal, it looks like a modernist church font. It is empty of water at the moment.
 > x Jon
 
 > x Jon
-I can't see that.
+
+A filthy looking grey city pigeon with a grumpy demeanour.
 > x greenhouse
 
 > x greenhouse
-I can't see that.
+
+A large glass greenhouse, peering inside you can make out a potting table and a sleeping cat.
 > x page
 
 > x page
-I can't see that.
+
+The discarded front page of a recent edition of the local paper.
+
 > read it
 
 > read it
-I can't see that. (it)
+
+The discarded front page of a recent edition of the local paper.
+
 > take it
 
 > take it
-I can't see that.
+You pick it up.
 > talk to Jon
 
 > talk to Jon
-I can't see that. (Jon)
+
+"Hello" says the pigeon, "My name's Jon and I'm a fucking pigeon!"
 > ask Jon about Jon
 
 > ask Jon about Jon
-I can't see that. (Jon)
+
+"Yes my name is Jon and I'm a fucking pigeon!"
+
+"Always fancied a go at being human though, maybe on the next time around! Ha ha ha!"
 > ask Jon about cat
 
 > ask Jon about cat
-I can't see that. (Jon)
+
+"Fuck cats" says Jon,
+
+"especially that stuck up diva in the greenhouse! Thinks she's too good to socialise with us non-feline folk."
 > ask Jon about weasel
 
 > ask Jon about weasel
-I can't see that. (Jon)
+
+"Harry?! That weasel is one dodgy geezer, and I should know! I've seen him a couple of times talking to that Stoat that's been hanging around."
+
 > ask Jon about Gemma
 
 > ask Jon about Gemma
-I can't see that. (Jon)
+
+"I'm sorry Gerald, I've not seen her" Jon says, looking genuinely upset,
+
+"She's always so kind to me, no other animals around here invite me into their homes, and put up with my nonsense."
+
 > ask Jon about Peter
 
 > ask Jon about Peter
-I can't see that. (Jon)
+
+"Peter!" exclaims Jon, "That guy has lost his fucking mind."
+
+Jon imitates Peter's voice and says, "shiny things, shiny, shiny, shiny, have you seen my shiny things."
+
+"No wonder he's single, one for sorrow! Ha ha ha!"
 > ask Jon about Petcetera
 
 > ask Jon about Petcetera
-I can't see that. (Jon)
+
+"Yeah I've seen the new place in town, just on Tib Street, says Jon.
+
+"Imagine being a play thing for a human's amusement, urgh!" a visible shiver flows up Jon's spine.
 > ask Jon about Christmas
 
 > ask Jon about Christmas
-I can't see that. (Jon)
+
+The Pigeon says " Here's a good game...
+
+How to get your Pigeon Elf Christmas Name..
+
+The First Letter of Your Name
+
+A. Jingle  B. Sparkle  C. Twinkle  D. Rudolph  E. Tinkle  F. Ducky  G. Lemsip  H. Panda-Eyes  I. Mince  J. Matchmakers  K. Chop-Sticks  L. Snowy  M. Barry  N. Fairy  O. Star  P. Marmalade  Q. Made up Name  R. Dick-face  S. Potato  T. Jesus  U. Calendar  V. Cinnamon W. Emergency Exit  X. Cling film  Y. Derek Acorah  Z. Scrooge
+
+Month of Your Birth
+
+January: Fuck Off.       February: Fuck Off.
+March: Fuck Off.          April: Fuck Off.
+May: Fuck Off.             June: Fuck Off.
+July: Fuck Off.             August: Fuck Off.
+September: Fuck Off.  October: Fuck Off
+November: Fuck Off.    December: Fuck Off
+
 > ask Jon about Santa
 
 > ask Jon about Santa
-I can't see that. (Jon)
+
+"Nice guy, gave me some biscuits again last year, even though I'd been naughty! Omnipresent my arse!"
 > ask Jon about Cyril
 
 > ask Jon about Cyril
-I can't see that. (Jon)
+
+"He used to be gangster!" whispers Jon in awe.
+
+"But I heard his brother got killed in a shoot out and Cyril gave it all up and went straight."
 > ask Jon about Harry
 
 > ask Jon about Harry
-I can't see that. (Jon)
+
+"Harry?! That weasel is one dodgy geezer, and I should know! I've seen him a couple of times talking to that Stoat that's been hanging around."
+
 > ask Jon about Stoat
 
 > ask Jon about Stoat
-I can't see that. (Jon)
+
+"I'm not racist but...I never met a nice stoat, my sister Jane lost a whole clutch of eggs to one once."
+
+"Just as well, I can't stand children, ha ha ha!"
 > ask Jon about Trevor
 
 > ask Jon about Trevor
-I can't see that. (Jon)
+
+"Trev?" says Jon,
+
+ "He's OK as long as you stand upwind of him!"
+
+"You could say he's out of odour! Ha ha ha!"
+
+"Oh suit yourself, my comedy is wasted in this fucking garden."
+
+ Jon scratches the ground and then plucks at an imaginary out of place feather with his beak.
 > ask Jon about Ken
 
 > ask Jon about Ken
-I can't see that. (Jon)
+
+"Ken?" says Jon,
+
+"He should take over Sam's DJ job, he's got a great sett! Ha ha ha!"
+
 > ask Jon about Sam
 
 > ask Jon about Sam
-I can't see that. (Jon)
+
+"Sam?" says Jon
+
+"Fried his brains in Ibiza clubs in the 90's, not a bad way to go I suppose, he seems happy enough, crap DJ though!"
+
 > give skull to Jon
 
 > give skull to Jon
-I can't see that. (skull)
+
+Jon looks at the skull for a second or two, turning his head from side to side,
+
+ "Alas poor Clive the Crow, I knew him Gerald, a fellow of infinite mischief. He was my friend."
+
+ A single tear rolls down Jon's beak, he hand the skull back to you. "I bet that fuckin cat got him!"
 > give fur to Jon
 
 > give fur to Jon
-I can't see that. (fur)
+
+Jon peers at the fur and starts humming 'Bright Eyes'.
+
+"That's Jack Rabbit's fur," says Jon.
+
+"He's so white I'm surprised he doesn't wear a MAGA cap! Ha ha ha!"
+
+"Hope he's alright though, that definitely looks like blood on it."
+
 > in
 
 > in
-You can't go there.
+
+You are in the Greenhouse.
+
+You can see a Potting Table (on which there is a Plant Pot), a Sleeping Cat, some Twine and a Scrap of Paper.
+
+You can go out.
+
 > x cat
 
 > x cat
-I can't see that.
+
+A vicious Bengal Cat called 'Precious', light brown and spotted like a leopard.
+
+You've had run ins with her before and only just escaped with you life.
+
+Thankfully she is alseep;  be careful not to wake her.
 > x paper
 
 > x paper
-I can't see that.
+
+It appears to have some kind of strange code written on it, you read the first few lines but it makes no sense to you:
+
+ object name="StewarttheSnail"
+      inherit name="editor_object" /
+      inherit name="male" /
+      alias = Stewart the Snail
+      usedefaultprefix type="boolean"false/usedefaultprefix
+Load NPC Snail talk responses and description.
+
 > take paper
 
 > take paper
-I can't see that.
+You pick it up.
 > x twine
 
 > x twine
-I can't see that.
+
+A bundle of tough, green, gardening twine.
 > take twine
 
 > take twine
-I can't see that.
+You pick it up.
 > x table
 
 > x table
-I can't see that.
+
+A wooden potting table.
 > x plant pot
 
 > x plant pot
-I can't see that.
+
+A clean and tiny plant pot, with a round hole in the bottom for drainage.
 > take it
 
 > take it
-I can't see that.
+You take it.
 > cut tape
 
 > cut tape
-I can't see that. (tape)
+
+The scissors cut through the tape like a hot knife through butter. You cut off a strip, being careful not to get it stuck to your fur or whiskers.
 > use strip on plant pot
 
 > use strip on plant pot
-I can't see that. (strip)
+
+You use the strip of duct tape to seal over the hole in the plant pot.
+
+You now have an improvised bucket.
 > x bucket
 
 > x bucket
-I can't see that.
+
+An improvised bucket that you made from a plant pot and some duct tape.
 > out
 
 > out
-You can't go there.
+
+You are in the Middle of the Garden.
+
+In the summer this is the sunniest part of the garden, today it has hardly got light and it is cold with a chilly breeze.
+
+You can see a Bird Bath, Pigeon Jon and a Greenhouse.
+
+You can go north, east, west, southeast, southwest or in.
+
 > e
 
 > e
-You can't go there.
+
+You are in the Middle of the Patio.
+
+The middle of the stone flagged patio that runs across the back of the human's house.
+
+You can see a Tap and a Patio Door.
+
+You can go north, south, west or northwest.
+
 > turn on faucet
 
 > turn on faucet
-I can't see that. (faucet)
+
+You clamber up the pipe to the tap, and using both front paws you swing on the tap and manage to turn it on. A thin stream of water flows from it and starts to gurgle down the drain below. You jump down to the ground.
 > put bucket on drain
 
 > put bucket on drain
-I can't see that. (bucket)
+
+You put the bucket under the running tap and fill it with water.
 > turn off faucet
 
 > turn off faucet
-I can't see that. (faucet)
+You clamber up the pipe to the tap, and using both front paws you swing on the tap and manage to turn it off. You jump down to the ground.
 > x bucket
 
 > x bucket
-I can't see that.
+
+An improvised bucket that you made from a plant pot and some duct tape. It is full of water.
 > w
 
 > w
-You can't go there.
+
+You are in the Middle of the Garden.
+
+In the summer this is the sunniest part of the garden, today it has hardly got light and it is cold with a chilly breeze.
+
+You can see a Bird Bath, Pigeon Jon and a Greenhouse.
+
+You can go north, east, west, southeast, southwest or in.
+
 > use bucket on bath
 
 > use bucket on bath
-I can't see that. (bucket)
+
+You fill the bird bath with the water in the bucket.
+
+The pigeon jumps into the water and starts splashing around, spraying water everywhere including on you.
+
+"Cor! That's better" says the pigeon, "I haven't has a bath in weeks, I was starting to smell like a wheelie bin in summer!"
+
+"Here, hang on a sec", says Jon.
+
+Jon hops over to a corner of the vegetable patch and comes back with a couple of monkey nuts which he gives to you.
+
+"It's not much, but you can have them," says Jon, "I saw that daft twat Cyril bury them, the amnesic idot never remebers where he's hidden stuff! Ha ha ha!"
 > x nuts
 
 > x nuts
-I can't see that.
+
+A couple of peanuts still in their shells.
 > sw
 
 > sw
-You can't go there.
+
+You are are Under the Tree.
+
+You are underneath the tall cherry tree. You can hear thumping bass coming from inside the Squirrel Midden.
+
+A rather vicious looking Weasel is lying unconscious  near the entrance to a squirrel midden.
+
+You can see an Entrance to the Squirrel Midden, a Tree, an Unconscious Weasel and a Cricket Ball.
+
+You can go north, northeast, up or in.
+
 > in
 
 > in
-You can't go there.
+
+You step over the unconscious Weasel and enter the Squirrel Midden.
+
+You are in The Nutcracker Night Club (Inside the Squirrel Midden).
+
+A somewhat seedy nightclub with a retro charm. The owner Cyril Squirrel is rumoured to be an ex boss of the notorious Nutcracker gang, named for their preferred method of punishment rather than their diet.
+
+The room is decorated for Christmas with gaudy decorations hanging from the ceiling.
+
+Rosanna by Toto is  booming out of the PA system and the dance floor is full.
+
+You can see Cyril Squirrel, a Dance Floor, a Mirror Ball, a Bar, Lights, a bar mirror, Trevor Skunk, Ken Badger and Sam Hedgehog.
+
+You can go out.
+
+You are in The Nutcracker Night Club (Inside the Squirrel Midden).
+
+A somewhat seedy nightclub with a retro charm. The owner Cyril Squirrel is rumoured to be an ex boss of the notorious Nutcracker gang, named for their preferred method of punishment rather than their diet.
+
+The room is decorated for Christmas with gaudy decorations hanging from the ceiling.
+
+Rosanna by Toto is  booming out of the PA system and the dance floor is full.
+
+You can see Cyril Squirrel, a Dance Floor, a Mirror Ball, a Bar, Lights, a bar mirror, Trevor Skunk, Ken Badger and Sam Hedgehog.
+
+You can go out.
+
 > buy beer
 
 > buy beer
 
-"Sorry," says Cyril, "No nuts, no sale."
+You hand over the monkey nuts and Cyril hands you a bottle of ale.
+
+"Good stuff this," he says, "Merry Chirstmas"
 > out
 
 > out
-You can't go there.
+You step outside, blinking in the bright light.
+
+You are are Under the Tree.
+
+You are underneath the tall cherry tree. You can hear thumping bass coming from inside the Squirrel Midden.
+
+A rather vicious looking Weasel is lying unconscious  near the entrance to a squirrel midden.
+
+You can see an Entrance to the Squirrel Midden, a Tree, an Unconscious Weasel and a Cricket Ball.
+
+You can go north, northeast, up or in.
+
 > u
 
 > u
-You can't go there.
+You scramble up the tree. The bark is gnarly, twisted, and easy to grip onto.
+
+You are at the a Top of the Tree.
+
+You can see Peter Magpie and a Collection of Shiny Things (containing some Rings, a Metal Bar and Half of a metal watch strap).
+
+You can go down.
+
 > give shiny coin to Peter
 
 > give shiny coin to Peter
-I can't see that. (shiny coin)
+
+Peter hops excitedly from foot to foot,
+
+"Ohh, it's so, so shiny!"
+
+He carefully places it amongst his collection. After standing back he cocks his head and peers at the pile.
+
+"Just as I thought, that metal bar just doesn't bedazzle enough!" he says, "Here take it."
+
+He passes you the metal bar.
+
 > d
 
 > d
-You can't go there.
+
+You are are Under the Tree.
+
+You are underneath the tall cherry tree. You can hear thumping bass coming from inside the Squirrel Midden.
+
+A rather vicious looking Weasel is lying unconscious  near the entrance to a squirrel midden.
+
+You can see an Entrance to the Squirrel Midden, a Tree, an Unconscious Weasel and a Cricket Ball.
+
+You can go north, northeast, up or in.
+
 > n
 
 > n
-You can't go there.
+
+You are at the Bottom of the Garden.
+
+It is cold enough that you can see your breath in the air.
+
+You can see a Barbecue and a Garden Shed.
+
+You can go south, east, northeast, in or up.
+
 > ne
 
 > ne
-You can't go there.
+
+Brandishing your Rubber Boots you enter the Vegetable Patch.
+
+You are in the Vegetable Patch.
+
+The human who lives in the house is a keen gardener.
+
+In the spring and summer there are wonderful beans and courgettes, followed by luscious cabbages and other assorted brassicas.
+
+You try to not steal too many through the year, but you get the impression that the human doesn't mind too much anyway, he feeds the birds and even the squirrels.
+
+Now in midwinter it is a bare and muddy patch of earth.
+
+You can see a Spade, a Hole, Stewart the Snail, a Wet Whetstone and a Wheelbarrow.
+
+You can go south, east, southeast, southwest or northwest.
+
 > give scrap of paper to snail
 
 > give scrap of paper to snail
-I can't see that. (scrap of paper)
+
+You give the scrap of paper to Stewart, he chews and swallows it,
+
+"A bit bland but I've had worse" he says.
+
+Something strange starts to happen, where Stewart features were foggy and difficult to see, they now fall sharply into focus.
+
+"Wow, what was that paper made from" says Stewart
+
+"I feel amazing!"
 > x Stewart
 
 > x Stewart
-I can't see that.
+
+Now you can clearly make out what Stewart looks like.
+
+He has a bright yellow and brown swirled  shell that is iridescent when it catches the light.
+
+Stewart has a friendly grin and a twinkle in his eye.
+
+He is wearing a straw hat with a red ribbon around the brim.
+
 > talk to Stewart
 
 > talk to Stewart
-I can't see that. (Stewart)
+
+"Thanks for that magical paper, I feel much more with it now! " says Stewart,
+
+" hope you are still having a nice time."
 > ask Stewart about Jack
 
 > ask Stewart about Jack
-I can't see that. (Stewart)
+
+"Yes I heard from Peter Magpie who had heard from Cyril Squirrel that Jack left the Nutcracker Club the other evening, but never arrived home. I do hope he is OK."
 > nw
 
 > nw
-You can't go there.
+
+You are Behind The Shed.
+
+An overgrown and neglected part of the garden.
+
+It is damp as well as cold here.
+
+You can see a Compost Heap, a Pallet, Nail and a Match.
+
+You can go southeast.
+
 > take match
 
 > take match
-I can't see that.
+You pick it up.
 > use bar on nail
 
 > use bar on nail
-I can't see that. (bar)
+
+You try to use the metal bar to lever out the nail. It almost works, but keeps slipping off.
 > tie bar to skull
 
 > tie bar to skull
-You're not carrying a bird skull.
+You deftly tie the metal bar to the crow skull, with the garden twine, and ta da! You have an improvised crowbar!
 > use crowbar on nail
 
 > use crowbar on nail
-I can't see that. (crowbar)
+
+Using the crowbar, and with considerable effort, you manage to lever the nail out of the pallet and pick it up.
 > se
 
 > se
-You can't go there.
+
+Brandishing your Rubber Boots you enter the Vegetable Patch.
+
+You are in the Vegetable Patch.
+
+The human who lives in the house is a keen gardener.
+
+In the spring and summer there are wonderful beans and courgettes, followed by luscious cabbages and other assorted brassicas.
+
+You try to not steal too many through the year, but you get the impression that the human doesn't mind too much anyway, he feeds the birds and even the squirrels.
+
+Now in midwinter it is a bare and muddy patch of earth.
+
+You can see a Spade, a Hole, a Wet Whetstone, a Wheelbarrow and Stewart the Snail.
+
+You can go south, east, southeast, southwest or northwest.
+
 > sw
 
 > sw
-You can't go there.
+
+You are at the Bottom of the Garden.
+
+It is cold enough that you can see your breath in the air.
+
+You can see a Barbecue and a Garden Shed.
+
+You can go south, east, northeast, in or up.
+
 > u
 
 > u
-You can't go there.
+
+You are On Top of the Barbecue.
+
+You are on top of the lid of the barbeque, below you is a vent by which you can make you way inside (you'll never lift the lid, it's too heavy for a mouse!).
+
+From here you can see across the whole of the garden, luckily you have a head for heights.
+
+You can go down or in.
+
 > in
 
 > in
-You can't go there.
+
+You are in an Inside The Barbecue.
+
+The inside of the barbecue contains a tailors shop and haberdashery.
+
+The sign hanging from the ceiling reads 'Elite Cotour'.
+
+It is run by Penelope Spider, and is where you come for all your clothing needs.
+
+Sartorical elegance is one of your few vices, and runs in the family.
+
+Penelope suffers from hyperlight sensitivity, hence the darkness in here.
+
+You can see Penelope Spider, a Sewing Machine and a Lump of Charcoal.
+
+You can go out.
+
 > x Penelope
 
 > x Penelope
-I can't see that.
+
+Penelope Spider, she is black and hairy with piercing red eyes.
+
+She is wearing a miners lamp on her head and is feverishly working away on a weaving machine.
+
+You can see her shooting the shuttle across the warp and weft,  before operating the treadles with her legs to change the position of the threads before shooting the shuttle across again.
+
+Every now and then she takes some of the material and starts whirring away on the sewing machine, using four of her arms to deftly feed and turn the material through it.
 > x sewing machine
 
 > x sewing machine
-I can't see that.
+A black and silver Singer sewing machine. It is a clacking and whirring as Penelope feeds material through it.
 > x weaving machine
 
 > x weaving machine
-I can't see that.
+
+A wooden weaving machine, a complex looking piece of machinery.
+
+It makes a clonking noise each time Penelope operates the treadles, and a shooshing noise as she shoots the shuttle across.
+
 > x lump
 
 > x lump
-I can't see that.
+
+A lump of charcoal left over from the summer barbeque season.
 > take lump
 
 > take lump
-I can't see that.
+You pick it up.
 > talk to Penelope
 
 > talk to Penelope
-I can't see that. (Penelope)
+
+Penelope glances up from her sewing whilst here hands continue to work at a mad pace.
+
+"No time to chit-chat Gerald." says Penelope, " My daughter is getting married tomorrow and I'm having to alter her dress. She's had  too many mince flies!"
+
+"Actually Gerald" she says, "Any chance you could do me a favour?"
+
+"I still need to make Nancy a posy for her wedding day, some Holly and Mistletoe would be perfect if you can find some."
+
 > ask Penelope about Gemma
 
 > ask Penelope about Gemma
-I can't see that. (Penelope)
+
+"Oh I'm sorry Gerald, I don't know where your wife could have got to, it's become a dangerous world out there, I never leave the garden these days."
 > ask Penelope about Nancy
 
 > ask Penelope about Nancy
-I can't see that. (Penelope)
+
+"She drives me crazy, but I'll miss her when she moves away." says Penelope.
+
+"Her fiance Itsy has place on the other side of town."
 > give stocking to Penelope
 
 > give stocking to Penelope
-I can't see that. (stocking)
+
+"Sorry Gerald, I don't have time to take on extra jobs at the moment," says Penelope.
+
+"Perhaps if you can help me out by finding me some holly and mistletoe for a wedding posy, I'll be able to find the time to help you."
 > give holly to Penelope
 
 > give holly to Penelope
-I can't see that. (holly)
+
+You hand the mistletoe and holly to Penelope Spider.
+
+"Oh thank you so much Gerald", says Penelope.
+
+"That has saved me so much time and trouble, if I can do any favour for you please let me know."
 > give stocking to Penelope
 
 > give stocking to Penelope
-I can't see that. (stocking)
+
+Penelope takes the stocking from you an examines it.
+
+"Hmm, shouldn't be too much bother" she says.
+
+With lightening speed holding the stocking with one leg, she grabs a reel of cotton with another and threads a needle being held by another leg.
+
+In a blur she darns the sock, ties off the end of the thread, and bites of the excess with her fangs.
+
+"There you go", she says,
+
+"I hope Jessica wakes up to something nice inside it, she deserves a happy day the poor mite."
+
+She hands you the mended stocking.
 > x stocking
 
 > x stocking
-I can't see that.
+
+One of Jessica's knee-length socks, knitted by her mother.
+
+The hole that was in the foot has now been darned by Penelope Spider.
 > out
 
 > out
-You can't go there.
+
+You are On Top of the Barbecue.
+
+You are on top of the lid of the barbeque, below you is a vent by which you can make you way inside (you'll never lift the lid, it's too heavy for a mouse!).
+
+From here you can see across the whole of the garden, luckily you have a head for heights.
+
+You can go down or in.
+
 > d
 
 > d
-You can't go there.
+
+You are at the Bottom of the Garden.
+
+It is cold enough that you can see your breath in the air.
+
+You can see a Barbecue and a Garden Shed.
+
+You can go south, east, northeast, in or up.
+
 > in
 
 > in
-You can't go there.
+
+You are in a Garden Shed.
+
+A rickety garden shed that has been your home for the last couple of years.
+
+You can see a Bed (containing Jessica), a Fireplace, a Wardrobe (containing a Smart Suit and a pair of pyjamas and slippers), a Toolbox (containing A Bottle of Firelighter Fluid ), a Mantelpiece, an Alarm Clock, a Mirror, a Fridge and a Photo Frame.
+
+You can go out.
+
 > open fridge
 
 > open fridge
-I can't see that.
+You open it.
 > put ale in fridge
 
 > put ale in fridge
-I can't see that. (ale)
+Done.
 > close fridge
 
 > close fridge
-I can't see that.
+You close it.
 > hang stocking
 
 > hang stocking
-I don't understand your command.
+
+Using the nail you removed from the pallet you hang up Jessica's repaired stocking on the mantelpiece.
 > put lump in fireplace
 
 > put lump in fireplace
-I can't see that. (lump)
+
+You place the charcoal in the fireplace, once lit it should be enough to keep you warm until it's time to go back to sleep on Boxing Day.
 > take fluid
 
 > take fluid
-I can't see that.
+You pick it up.
 > use fluid on lump
 
 > use fluid on lump
-I can't see that. (fluid)
+
+You pour some firelighter fluid on to the charcoal until it is soaked.
 > use match on lump
 
 > use match on lump
-I can't see that. (match)
+
+You strike the match on the wall of the shed and it flares into flame. You touch the charcoal with it and it immediately catches fire.
+
+The shed starts to warm up.
+
+Jessica stirs and murmurs in her sleep, but does not awaken.
 > drop all
 
 > drop all
@@ -1237,76 +1924,209 @@ Note for Santa written by Jessica: It's too precious to leave lying around,
 Gardening Clothes (worn): You can't drop it.
 Flyer: You drop it.
 Machete: You drop it.
+Light Bottle: You drop it.
+Oily Rag: You drop it.
+A Roll of Duct Tape: You drop it.
+Scrap of Fur: You drop it.
+Washing up sponge: You drop it.
+Pair of Sharp Nail Scissors: You drop it.
+Newspaper page: You drop it.
+Empty Bucket: You drop it.
+Crowbar: You drop it.
 > out
 
 > out
-You can't go there.
+
+You are at the Bottom of the Garden.
+
+It is cold enough that you can see your breath in the air.
+
+You can see a Barbecue and a Garden Shed.
+
+You can go south, east, northeast, in or up.
+
 > ne
 
 > ne
-You can't go there.
+
+Brandishing your Rubber Boots you enter the Vegetable Patch.
+
+You are in the Vegetable Patch.
+
+The human who lives in the house is a keen gardener.
+
+In the spring and summer there are wonderful beans and courgettes, followed by luscious cabbages and other assorted brassicas.
+
+You try to not steal too many through the year, but you get the impression that the human doesn't mind too much anyway, he feeds the birds and even the squirrels.
+
+Now in midwinter it is a bare and muddy patch of earth.
+
+You can see a Spade, a Hole, a Wet Whetstone, a Wheelbarrow and Stewart the Snail.
+
+You can go south, east, southeast, southwest or northwest.
+
 > e
 
 > e
-You can't go there.
+
+You are at the North End of the Patio.
+
+The north end of  the stone flagged patio that runs across the back of the human's house.
+
+You can see a Garden Gate.
+
+You can go south, west or out.
+
 > out
 
 > out
-You can't go there.
+
+You've managed to find beer, fix and hang up Jessica's stocking and light the fire, phew!
+
+Now you are feeling brave enough to face the world outside the garden gate. You take a deep breath and step underneath it and into the outside world.
+
+You are on Chester Street.
+
+You are outside the human's house, on a side road near the city centre that runs from East to West.
+
+The sun has set.
+
+It is cold and there is a frost forming on the ground.
+
+A few flakes of snow start to fall.
+
+You can see Exploded Dodgy Van.
+
+You can go in or east.
+
 > x van
 
 > x van
-I can't see that.
+
+The charded and still slightly smoking remains of a knackered, pale blue, Dodge Ram van.
 > x snow
 
 > x snow
-I can't see that.
+
+Large flakes of snow are starting to fall, illuminated by the streetlight.
 > e
 
 > e
-You can't go there.
+
+You are in the Town Square.
+
+The town square is dark and eerily quiet, all the shops look closed.
+
+To the north lies Santa's Workshop where there is a light on, to the south there is a Cheese Shop (The Cheese Hamlet), to the east lies the Cross Key's Inn and to the Northeast is Tib Street.
+
+You can go west, north, northeast, east or south.
+
 > n
 
 > n
-You can't go there.
+
+You are in Santa's Workshop.
+
+The workshop is a blur of activity. It is packed with a gang of elves who are working at lightening speed producing presents.
+
+Every so often the Chief Elf shouts words of encouragement, "Come on lads, we can't let the children down!"
+
+Santa is sat in his armchair checking a very long list.
+
+You can see Santa, a Chief Elf and an Elves.
+
+You can go out.
+
 > x Santa
 
 > x Santa
-In Jessica's unsteady infant writing it reads:
 
-A pang of hurt stabs at your chest, your wife Gemma went missing last summer, when it was so dry she left the garden to try and find water.
+A portly, smiling, white-bearded man with half-moon spectacles, and a twinkle in his eye.
 
-She never returned, and to add salt to the wound the weather broke that night in huge thunderstorm.
+He's wearing a red coat with white collar and cuffs, white-cuffed red trousers, and black leather belt and boots.
 
-You held Jessica all night until she eventually cried herself to sleep.
+He's sat on a large leather armchair.
 > x elf
 
 > x elf
-I can't see that.
+
+You can see why this guy is the 'Chief' Elf, he's taller than Santa!
+
+His lanky frame is all arms and legs, he's wearing a green robe trimmed with white fur, a green and yellow striped cone-shaped hat, and yellow stockings.
 > x elves
 
 > x elves
-I can't see that.
+
+The elves are a blur of activity, you've never seen people work so fast before.
 > talk to Santa
 
 > talk to Santa
-It says nothing.
+
+"Hello Gerald" says Santa,
+
+"A Merry Christmas to you!" "We've had a few problems this year, but we seem to be back on track."
 > give note to Santa
 
 > give note to Santa
-It does not want it.
+
+You climb up Santa's leg and sit on his knee. Santa strokes your head and says,
+
+ "Well then Gerald, you've been a good lad, what can I do for you?"
+
+You hand Santa the letter from Jessica.
+
+"Well, well what this then?" says Santa,
+
+He reads the note and a shadow crosses his face. He wipes a tear from the corner of his eye, clears his throat and says,
+
+"I'm sorry Gerald, it must be tough for you keeping a brave face on things for Jessica, and your wife Gemma is a good lass."
+
+"I have some magic about me, my omniscience isn't as powerful as children think, but my intuition tells me that she is still alive, but lost somewhere."
+
+"I'll tell you what, I'll send the word out to my helpers around the country and see if they have seen or heard anything."
+
+He rummages in his sack and pulls out a wrapped present,
+
+ "Here, save me calling round to night, put this is Jessica's stocking".
+
+He hands you the present and you take it.
+
+"Oh and one for you too Gerald, Merry Christmas!"
+
+He hands you a second parcel.
 > x Jessica's present
 
 > x Jessica's present
-I can't see that.
+
+A small wrapped present that Santa gave you for Jessica.
+
+The wrapping paper is pink with a pattern of rainbows and unicorns. It is tied with a yellow bow.
 > open your present
 
 > open your present
-I can't see that.
+You open it.
+
+You excitedly rip open your present from Santa, for a few seconds you lose yourself in the moment and feel like a child again.
+
+It's a Ninja Outfit!
+
+"Ho Ho Ho!" says Santa,
+
+"I think it will make a nice addition to your wardrobe Gerald. Merry Christmas!"
 > x ninja
 
 > x ninja
-I can't see that.
+
+The whole suit is made from black silk and is a dark as misery's woeful night.
+
+There are loose trousers with cloth wrappings at the calf and ankles, a shirt with wrappings at the wrists, a hood and a mask.
+
+There is also a pair of split toe suede boots.
+
+Attached to a belt worn around the waist is a rather vicious looking grappling hook on a length of black rope.
+
+Although a present from Santa, it doesn't look like this was made by elves.
+
 > remove clothes
 
 > remove clothes
@@ -1314,210 +2134,508 @@ You take it off.
 > wear ninja
 
 > wear ninja
-I can't see that.
+You put it on.
 > out
 
 > out
-You can't go there.
+
+You are in the Town Square.
+
+The town square is dark and eerily quiet, all the shops look closed.
+
+To the north lies Santa's Workshop where there is a light on, to the south there is a Cheese Shop (The Cheese Hamlet), to the east lies the Cross Key's Inn and to the Northeast is Tib Street.
+
+You can go west, north, northeast, east or south.
+
 > ne
 
 > ne
-You can't go there.
+
+You are in a Tib Street.
+
+A quiet back street of town, to the East lies the 'Petcetera' pet shop.
+
+You can go southwest or east.
+
 > e
 
 > e
-You can't go there.
+
+You are an Outside Petcetera Pet Store.
+
+It is dark and cold this end of the street, the snow is starting to fall heavier now.
+
+The  store is closed and dark, but you can see a light on in the 1st floor (2nd floor for you American players) window.
+
+You can see a Shop Door and a Petecetera Pet Store.
+
+You can go in or west.
+
 > x store
 
 > x store
-I can't see that.
+
+The pet store is painted blue and yellow, with a large sign across the front with the shop's name in large illuminated red letters (turned off at the moment).
+
+The glass doors are shut but a banner in the window reads.
+
+'Grand Opening, Boxing Day, 10am!'
+
+The inside of the store is too dark to make out, except for what looks like illuminated tropical fish tanks somewhere at the back of the store.
+
+On the first floor you can see a light on in one of the windows.
+
+The store gives you the creeps, being held captive as a human's pet is one of your biggest fears.
 > in
 
 > in
-You can't go there.
+The store is closed and the door is locked.
 > throw hook
 
 > throw hook
 
-You are not wearing a Ninja Outfit.
+You take the grappling hook, after spinning it a few times above your head to open the hooks you throw it towards to upper storey window ledge.
+
+It sails into the air pulling the rope attached to your waist.
+
+You hear a 'clank' as it lands against the window's decorative lintel.
+
+You give it a tug and it feels like it had gripped tight on to something.
+
+You climb the rope up to the upper storey window ledge.
+
+You are Outside Upper Storey Window.
+
+You are outside the upper storey window of the pet store, there is a light on inside the room, and you can hear raised voices.
+
+You can see a Window.
+
+You can go in or down.
+
 > listen
 
 > listen
-You can't hear much.
+
+Listening carefully at the window you can hear an argument;
+
+"I want a bigger cut Nick, I'm taking a hell of a risk with my job at the Nutcracker!'
+
+"Shut it Harry! You're getting paid well enough for the risk, any more of your cheek and we'll sell you on Boxing Day!"
+
+"Fine, I don't want any more to do with this madness, I'm off'
+
+You hear a door slam.
+
 > x window
 
 > x window
-I can't see that.
+
+Being careful to remain hidden you can see Nick Stoat pacing up and down the office, puffing on a cigar.
+
+After a while he collapses into the office chair with a sigh, stubs out his cigar, and begins to nod off.
+
+Looks like now's your chance if you want to get in there.
 > open window
 
 > open window
-I can't see that.
+
+You carefully open the window just wide enough that you can squeeze through.
 > in
 
 > in
-You can't go there.
-> Continue
 
-> Continue
-I don't understand your command.
+You climb through the window and carefully drop to the floor and sneak across the room, but just as you pass Nick one of the floorboards creaks.
+
+In a shot Nick Stoat is up and on you,
+
+"Ah more stock for the shop!" says Nick with a wicked grin.
+
+He takes all your equipment and makes you strip down to your Long Johns.
+
+He throws all your clothes and possessions into the office waste paper bin.
+
+"Got just the place for you!" snarls Nick.
+
+He opens up one of the cages and throws you in it.
+
+"See you on Boxing Day, Merry Christmas! Haw haw haw!"
+
+Nick slams the door of the cage shut, turns off the light in the office and leaves.
+
+Press any key to continue.
+
+You are Inside A Cage (In the Pet Store Office).
+
+A filthy wire pet cage, there is damp straw on the floor, and there is an empty water bottle and food bowl.
+
+The light is off in the office, but there is bright moonlight streaming through the window so you can see out of the cage and into the pet store office where you can see:
+
+Banners and balloons ready for the opening day, various boxes and a chair and desk (with paperwork stacked on it).
+
+On the wall is a map.
+
+On either side of your cage you can see two others.
+
+You can see Small Cage, a Large Cage, a Food Bowl, Water Bottle, a Moonbeam, a Window and a Waste Paper Bin.
+
+You can go out.
+
+You are Inside A Cage (In the Pet Store Office).
+
+A filthy wire pet cage, there is damp straw on the floor, and there is an empty water bottle and food bowl.
+
+The light is off in the office, but there is bright moonlight streaming through the window so you can see out of the cage and into the pet store office where you can see:
+
+Banners and balloons ready for the opening day, various boxes and a chair and desk (with paperwork stacked on it).
+
+On the wall is a map.
+
+On either side of your cage you can see two others.
+
+You can see Small Cage, a Large Cage, a Food Bowl, Water Bottle, a Moonbeam, a Window and a Waste Paper Bin.
+
+You can go out.
+
 > x banners
 
 > x banners
-I can't see that.
+
+Banners that read 'Welcome to our Opening Day!' and '50% off all pets!'
 > x balloons
 
 > x balloons
-I can't see that.
+
+Blue and yellow balloons (same colour scheme as the outside of the shop).
 > x boxes
 
 > x boxes
-I can't see that.
+
+Carboard boxes with more banners and leaflets bursting out.
 > x chair
 
 > x chair
-I can't see that.
+
+A generic swivel office chair, black with scuffed plastic arms.
 > x desk
 
 > x desk
-I can't see that.
+
+A wooden and tatty office desk.
 > x straw
 
 > x straw
-I can't see that.
+Filthy damp straw.
 > x map
 
 > x map
-I can't see that.
+
+What looks like a map of the town with different locations circled in red, with lines drawn to photos, you recognise one of the photos of the outside of the Nutcracker nightclub.
+
 > x small cage
 
 > x small cage
-I can't see that.
+
+A small wire cage, almost identical to the one that you are trapped in.
+
+It contains Gemma.
 > x Gemma
 
 > x Gemma
-I can't see that.
+
+It's your beautiful wife Gemma!
+
+She has chestnut and dark chocolate coloured fur, and bright green eyes.
+
+Gemma is dressed in the clothes she left home in months ago, now reduced to rags.
+
+She is looking thin, but there is a determined and stoical look in her face.
 > x rags
 
 > x rags
-I can't see that.
+
+Gemma's pretty yellow dress with the red flowers on is reduced to little more than rags.
 > x large cage
 
 > x large cage
-I can't see that.
+
+A large filthy wire cage.
+It contains Jack Rabbit.
 > x Jack
 
 > x Jack
-I can't see that.
+
+Poor old Jack Rabbit, his snow white fur is grey with grime, and there is a vivid red patch on his chest where his fur has been ripped.
+
+He is wearing his usual blue denim dungarees.
 > x bowl
 
 > x bowl
-I can't see that.
+A round, thin and flat silver coloured metal bowl, it is dirty and dull.
 > x bottle
 
 > x bottle
-I can't see that.
+
+An inverted water bottle tied to the cage you are in, it is dirty and empty.
 > x moonbeam
 
 > x moonbeam
-I can't see that.
+A bright ray of moonlight, that lands on the floor of Jack's cage.
 > x window
 
 > x window
-I can't see that.
+
+The window where you came in is stil open a jar. Bright moonlight is streaming in, hitting Jack's cage.
 > x bin
 
 > x bin
-I can't see that.
+The waste paper bin where Nick threw all your clothes and possessions.
 > talk to Gemma
 
 > talk to Gemma
-I can't see that. (Gemma)
+
+"Oh Gerald! I thought I'd never see you again!" says Gemma.
+
+"The Stoat has had me locked up here for weeks, we were at another pet store out of town,"
+
+"Nick ran up a load of bills and then did a midnight flit. He's opened this place with the help of some evil human called Ebeneezer."
+
+"I kept biting the humans that tried to buy me, so Nick locked me up here instead."
+
+"Anyway, how's Jessica?!"
+
+"She's fine!" you reply, "but she has been miserable without you, we both have. She's hibernating at the moment but I promised I'd wake her up to see Christmas Day."
+
+"I hope you've been looking after yourself Gerald, those long johns are filthy!" says Gemma.
+
 > talk to Jack
 
 > talk to Jack
-I can't see that. (Jack)
+
+"Hullo Gerald!" says Jack, "It's good to see you, but sorry you've been trapped too."
+
+"I heard you got kidnapped after leaving the Nutcracker" you say.
+
+"Yes" says Jack," two guys jumped me on my way home,"
+
+"I tried to fight them off, but they must have spiked my drinks too, they knocked me out, next thing I know I'm here."
 > take bowl
 
 > take bowl
-I can't see that.
+You pick it up.
 > polish bowl
 
 > polish bowl
-I can't see that. (bowl)
+
+You attempt to polish to bowl on your long johns, but they are grimy and greasy and you feel embarrassed.
+
+"Here" shouts Gemma, "try this!"
+
+She rips off a strip from the bottom of her raggedy dress and passes it to you through the bars of her cage, you reach out to grab it, and softly stroke the back of her paw as you take it.
+
+Your eyes meet, and for a second you are frozen in the moment and love swells your heart.
+
+"Thanks baby" you say, "I've missed you so much,"
 > polish bowl
 
 > polish bowl
-I can't see that. (bowl)
-> put bowl in moonbeam
 
-> put bowl in moonbeam
-I can't see that. (bowl)
+Using the strip of rag from Gemma's dress you clean and polish the food bowl till it is so shiny you can see your face in it.
 > give bowl to Jack
 
 > give bowl to Jack
-I can't see that. (bowl)
+
+You pass the food bowl to Jack through the bars of your cage., it just about fits sideways through.
+
+Jack grabs it and pulls it inside his cage, as he does so the bowl catches the moonbeam and reflects a super bright beam of light back out of the window.
+
+A few seconds later there is a squawk and a flap of wings at the window, and Peter Magpie appears,
+
+"Shiny Shiny Moon-Shiny Shiny!" exclaims Peter, hopping excitedly from foot to foot.
+
+He jumps down to the floor and goes over to Jack's Cage and examines the shiny food bowl.
+
+"Oooh" sighs Peter, "It's all sheeny, so lustrous, all agleam..."
+
+Peter's eyes roll back in his head.
+
+"Alright Peter, that's enough!" you say, Peter snaps out of it and hops over to your cage.
+
 > talk to peter
 
 > talk to peter
-I can't see that. (peter)
+
+"Hello Gerald!" says Peter, "What are you doing in that cage? It doesn't look very shiny to me."
+
+You patiently explain to Peter what's been going on, but his attention keeps getting drawn to the food bowl reflecting the moonlight in Jack cage.
+
+Eventually you say to Peter, "Look Peter, you can have the moon shiny thing if you can open this cage for me?"
+
+Peter cocks his head and looks at the cage door, "Well its a bit grubby, but OK", he fiddles with the catch, you push against the door and it opens.
+
+Now to release Jack and Gemma.
+
 > out
 
 > out
-You can't go there.
+
+You are in a Pet Store Office.
+
+What looks like an office and general storage area for the Pet Store.
+
+There are banners and balloons ready for the opening day, various boxes and a chair and desk (with paperwork stacked on it).
+
+On the wall is a map, and below that what looks like a couple of cages.
+
+You can see a paperwork, a desk, a cages, Your Cage, a Window, a Chair, a Gemma's Cage (containing Gemma), Jack's Cage (containing Jack Rabbit), Office Door and a Waste Paper Bin.
+
+You can go in or out.
+
 > open Gemma's cage
 
 > open Gemma's cage
-I can't see that.
+You open it.
+
+You unlock and open the cage door. Gemma runs out and embraces you, you hug her till you arms ache.
+
+"Take me home Gerald," says Gemma.
 > open Jack's cage
 
 > open Jack's cage
-I can't see that.
+You open it.
+
+You unlock and open the door to Jack's cage. Jack stumbles out, unsteady on his feet.
+
+"Thanks Gerald, don't think I would have lasted much longer in there, Nick thinks it's fun to deprive us of food and water."
+
+Jack hands the shiny food bowl to Peter.
+
+"Ooooh Moon Shiny thing! Shiny like the moon, shiny shiny!"
+
+Peter flies out of the window and into the night. The night sky has a pale blue hue, dawn is approaching.
+
 > x bin
 
 > x bin
-I can't see that.
+
+A metal waste paper bin, where Nick threw all your clothes and possesions.
+It contains Jessica's present from Santa, Gardening Clothes and a Ninja Outfit (including grappling hook).
 > take clothes
 
 > take clothes
-You are already carrying it.
+You pick it up.
 > take present
 
 > take present
-I can't see that.
 > take ninja
 
 > take ninja
-I can't see that.
+You pick it up.
 > wear ninja
 
 > wear ninja
-I can't see that.
+You put it on.
 > out
 
 > out
-You can't go there.
-> Continue
 
-> Continue
-I don't understand your command.
-> Continue
+"Come on let's get out of here!" you exclaim and head for the window (wondering how the hell you are going to get Gemma and Jack back down to the ground).
 
-> Continue
-I don't understand your command.
+As you approach the window it slides open, and the face of the Chief Elf appears,
+
+"Hey, where did that devil Nick get to?!"
+
+All three of you point towards the office door.
+
+"Right," says the Chief, "We'll deal with him and help out the rest of the animals he's locked up in the shop."
+
+The Chief clambers his huge frame into the office, puts his fingers in his mouth and gives a loud whistle, a gang of elves armed with baseball bats climb in through the window.
+
+"Let's give the guy at the top of the naughty list what he deserves for Christmas lads!" says the Chief Elf, he opens the office door and heads out with the elves behind him.
+
+Press any key to continue
+
+The three of you climb out of the window on to the window ledge, there floating in the air is Santa on his Sleigh with his reindeer at the front, he pats the seat next to him and says,
+
+"Well come on then, I'll give you a lift, it will be light soon! Ho Ho Ho!"
+
+You climb in and in a matter of seconds you are back at the garden.
+
+You and Gemma climb out of the sleigh, "Thanks Santa!", "No problem, give my love to Jessica, I'll take Jack home.
+
+Jack waves and says "Merry Christmas!"
+
+Santa takes off into the sky, you take Gemma's hand and enter the shed together, you're home at last.
+
+ press any key to continue
+
+You are in a Garden Shed.
+
+A rickety garden shed that has been your home for the last couple of years.
+
+You can see a Bed (containing Jessica), a Fireplace (containing a Flaming Charcoal), a Wardrobe (containing a Smart Suit and a pair of pyjamas and slippers), a Toolbox, a Mantelpiece (on which there is a Jessica's Stocking (fixed) and a Nail), an Alarm Clock, a Mirror, a Fridge, a Photo Frame, a To Do List, a Flyer, a Machete, a Light Bottle, an Oily Rag, A Roll of Duct Tape, a Scrap of Fur, a Washing up sponge, a Pair of Sharp Nail Scissors, a Newspaper page, an Empty Bucket, a Crowbar and Gemma.
+
+You can go out.
+
 > put present in stocking
 
 > put present in stocking
-I can't see that. (present)
+
+You excitedly put the present inside Jessica's stocking, you can't wait to see her little face light up when she opens it.
 > x list
 
 > x list
-I can't see that.
+1. Light the fireplace.
+2. Hang up Jessica's stocking on the mantelpiece.
+3. Find a present for Jessica (and put it inside her stocking).
+4. Buy some beer for yourself.
 > wake Jessica
 
 > wake Jessica
-You can't wake up;wake it.
-> Continue
 
-> Continue
-I don't understand your command.
-[state=Running]
+You gently shake Jessica. After a few moments she slowly opens her eyes and looks at you.
+
+"Merry Christmas sweetheart!" you say.
+
+"Look what Santa brought you!" you pull Gemma close to you.
+
+"Mummy!" exclaims Jessica, she jumps into her mother's arms and bursts into tears, you hug them both.
+
+You spend a wonderful Christmas Day together, The fire is warm and cosy, in the afternoon Jon Pigeon calls round and plays games with Jessica, her present from Santa was a packet of playing cards. Jon shows her how to cheat when dealing.
+
+In the evening Gemma sings Christmas songs with Jessica sat on her lap, and you enjoy your Christmas Ale.
+
+As the evening wears on Jessica's eyes grow heavy, until she falls asleep. You tuck her into her crib.
+
+You put out the fire, set the alarm for spring and climb into bed with Gemma, you cuddle each other all up and all is right with the world.
+
+The End
+
+(press any key for credits)
+
+*******************************************************************************************************************************************************************************************************************
+
+Written and coded by Luke A. Jones (luke.jones@gmail.com), using the Quest text adventure engine (www.textadeventures.co.uk).
+
+Firstly, thank you for playing! It's the best way in which you can support interactive fiction, particularly if you want people like me to continue making old school parser games like this.
+
+Thank you to K.V. for coding help, and answering endless daft questions with patience and politeness.
+
+Thank you to Nathan Walker for creating the charming artwork.
+
+Thanks you to Jennifer Thompson, for repeated alpa and beta testing, suggestions for improvements, and 100 other things (the idea of knocking out the Weasel was Jennifer's)
+
+Thanks also to the excellent support from the Quest forum members.
+
+The garden described in the game is pretty much mine, but sadly I find no trace of Gerald and all the others, so I brought them to life here.
+
+I have authored five other games (including two other Christmas games) which you can find here:
+
+http://textadventures.co.uk/user/view/miyjcc_ft0kagw7ynwd4jw/necrodeath
+
+I welcome all (polite) feedback! (luke.jones@gmail.com)
+
+Be excellent to each other.
+
+Luke
+
+[state=Finished]

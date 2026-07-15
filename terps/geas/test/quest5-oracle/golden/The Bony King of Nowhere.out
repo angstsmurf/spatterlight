@@ -1113,21 +1113,6 @@ You can go north or south.
 
 A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
 
-> .s
-
-> .s
-
-I don't understand your command.
-> use raft
-
-> use raft
-
-You consider inventing a new sport called 'land rafting' but decide better of it
-> se
-
-> se
-
-You can't go there.
 > s
 
 > s
@@ -1140,734 +1125,1391 @@ You can go north.
 
 You are on the Northbank of the River Void. The river is roaring past with a fierce current.
 
-> x cat
+> use raft
 
-> x cat
+> use raft
 
-I can't see that.
-> in
+With some trepidation you launch your raft and jump on, Dylan whimpers and jumps on wth you. Using the shovel as a make shift oar you paddle furiously against the current. Utterly exhausted and shivering you arrive at the Southern Bank of the river and jump off, Dylan follows.
 
-> in
+You are at the Southbank of the River Void.
 
-You can't go there.
-> e
+You can see the River Void, a Broken Bridge and Your Dog.
 
-> e
+You can go southeast.
 
-You can't go there.
-> x horehound
+You are on the Southbank of the River Void. The river is roaring past with a fierce current.
 
-> x horehound
+> se
 
-I can't see that.
-> w
+> se
 
-> w
+You are in The Southern Woodland Dell.
 
-You can't go there.
-> give copper fish to cat
+You can see a Horse Drawn Caravan, a Tinker, a Horse and Your Dog.
 
-> give copper fish to cat
+You can go northwest or south.
 
-I can't see that. (cat)
-> give silver fish to cat
+A small secluded grassy hollow, there is thick lush grass under foot.
 
-> give silver fish to cat
+You can see a Horse drawn caravan, and a Horse unhitched from it.
 
-I can't see that. (cat)
-> give golden fish to cat
+Sat on the caravan steps is a bearded man in ragged clothing, using your legendary powers of deduction (by reading the writing on the side of the caravan) you deduce that he is a travelling Tinker.
 
-> give golden fish to cat
-
-I can't see that. (cat)
-> give cheese to mouse
-
-> give cheese to mouse
-
-I can't see that. (mouse)
-> in
-
-> in
-
-You can't go there.
-> x bat
-
-> x bat
-
-A blue glass bottle with the word "FLY" embossed on it.
-> x droppings
-
-> x droppings
-
-I can't see that.
-> speak to bat
-
-> speak to bat
-
-It says nothing.
-> yes
-
-> yes
-
-I don't understand your command.
-> clock
-
-> clock
-
-I don't understand your command.
-> speak to bat
-
-> speak to bat
-
-It says nothing.
-> dice
-
-> dice
-
-I don't understand your command.
-> speak to bat
-
-> speak to bat
-
-It says nothing.
-> blood
-
-> blood
-
-I don't understand your command.
-> take guano
-
-> take guano
-
-I can't see that.
-> out
-
-> out
-
-You can't go there.
-> e
-
-> e
-
-You can't go there.
-> use guano on horehound
-
-> use guano on horehound
-
-I can't see that. (guano)
-> x horehound
-
-> x horehound
-
-I can't see that.
-> take horehound
-
-> take horehound
-
-I can't see that.
-> w
-
-> w
-
-You can't go there.
-> in
-
-> in
-
-You can't go there.
 > s
 
 > s
 
-You can't go there.
-> d
+You are an Outside The Forsaken Cavern.
+
+You can see Jasper The Cat and Your Dog.
+
+You can go in, north or east.
+
+You are at the entrance to a cave, its pitch black narrow mouth entrance seems to suck all the light out of the world with no glimpse given of the cavern's interior.
+
+Blocking the entrance is a cat.
+
+Dylan is trembling at your side.
+
+> x cat
+
+> x cat
+
+A mean looking Bengal Cat, light brown and spotted like a leopard. It flashes its needle like teeth at you, and then looks at Dylan and scrunches up its nose in distain.
+> in
+
+> in
+
+You step towards the entrance to the cave, Dylan whimpers but loyally follows at your side, the cat hisses at you, you take another step forward and the cat swipes at your feet, scratching you painfully with its razor sharp claws, you jump back and decide against trying that again!
+> e
+
+> e
+
+You are in the Withered Heath.
+
+You can see a Clump of Withered Horehound and Your Dog.
+
+You can go west or south.
+
+A god-forsaken stretch of land on the side of the cavern hill. There is some horehound growing here
+
+> x horehound
+
+> x horehound
+
+A clump of withered horehound, a herb of the mint family, you've often used it yourself to ease a cough, but this clump is no good, the leaves are all shrivelled up.
+> w
+
+> w
+
+You are an Outside The Forsaken Cavern.
+
+You can see Jasper The Cat and Your Dog.
+
+You can go in, north or east.
+
+You are at the entrance to a cave, its pitch black narrow mouth entrance seems to suck all the light out of the world with no glimpse given of the cavern's interior.
+
+Blocking the entrance is a cat.
+
+Dylan is trembling at your side.
+
+> give copper fish to cat
+
+> give copper fish to cat
+
+At arms length you drop the Copper Fish near to the Cat. The cat sniffs and then wolfs down the fish in three bites.
+> give silver fish to cat
+
+> give silver fish to cat
+
+At arms length you drop the Silver Fish near to the Cat. The cat sniffs and then wolfs down the fish in three bites.
+> give golden fish to cat
+
+> give golden fish to cat
+
+At arms length you drop the Gold Fish near to the Cat. The cat sniffs and then wolfs down the fish in three bites.
+
+Just as you have given up hope of placating the damn Cat, Gerald the mouse appears, instead of clogs he is now wearing a tiny musketeer costume. He is carrying a tiny shield and a sword at his side.
+> give cheese to mouse
+
+> give cheese to mouse
+
+You break a small piece off the lump of cheese and give it to the mouse. The mouse reaches up with it's little front paws, grabs the cheese, gobbles it down, then gives a tiny squeak of appreciation.
+
+It then draws its tiny sword, dashes fearlessly over to the Cat and stabs it in the nose with his tiny sword. The Cat is stunned for a moment and then erupts in screeching anger, swiping at the mouse, Gerald parries expertly with his shield and dashes away, the Cat shoots off in chase.
+> in
+
+> in
+
+You are  Inside The Forsaken Cavern.
+
+You can go out.
+
+The cavern is pitch black, you can just make out the dim light coming from the narrow passageway leading back to the entrance. There is an acrid sour smell in here and you can hear something that sounds like breathing coming from somewhere above you.
+
+You glance down a notice a light shining from your pocket, you pull out the Glass Sphere and it lights up the cavern.
+
+You are  Inside The Forsaken Cavern.
+
+You can see a Batbat, Bat Droppings and Your Dog.
+
+You can go out or south.
+
+You are inside a large cavern carved out of limestone, the light from your sphere casts strange shadows from the long stalactites fingers that must have taken centuries to form.
+
+Above you hangs a huge Bat, below it there is a large pile of droppings.
+
+You can make out an exit to the South, and the exit Out.
+
+> x bat
+
+> x bat
+
+An enormous fruit bat hangs from the roof of the cave. It is at least a metre in length with folded leathery wings that must span twice that. It has huge bulbous black eyes that stare back at you. For some inexplicable reason it is wearing rubber suit and cape, the hood has pointy ears and there is a bat symbol on its chest.
+
+> x droppings
+
+> x droppings
+
+A large pile of slightly steaming, thin sausage shaped, black bat droppings.
+> speak to bat
+
+> speak to bat
+
+"Greetings traveller" says the Bat (in an outrageous Transylvanian accent), "It's many moons since this cave saw light, Ah! Ah! Ah!", "I hope you've not come to steal my treasure!" the Bat points one of its large curved fingers at the pile of droppings. "Only de vise deserve such a reward." "Answer these riddles three and the guano yours will be." "Are you ready?"
+> yes
+
+"I’m usually round but I’m not the moon
+I tell people something but I don’t have a mouth
+I have a face but I don’t have any eyes"
+
+> clock
+
+"Correct! Viser than you appear it seems", 'Speak to me again ven you are ready for de second riddle"
+> speak to bat
+
+> speak to bat
+
+"Hello again, Riddle two you have reached, listen carefully",
+
+"I have several faces but I’m not a crowd
+I’m covered in spots but I don’t have acne
+I’m sometimes blown on but I’m not hot.
+
+Vhat Am I?"
+
+> dice
+
+"Correct again young traveller!", "Speak to me again ven you are ready for the third and final test"
+> speak to bat
+
+> speak to bat
+
+"Greetings, listen carefully to your third and final test"
+
+"I’m red but I’m not a strawberry
+I have different types but I’m not an apple
+Lose too much of me and you cease to be
+
+Vhat am I?"
+> blood
+
+"Correct for the third time!" "I will trust that you did not cheat"
+
+"Help yourself to my precious pile, and fair you well on your travels, this land could do with a few more smart people".
+> take guano
+
+> take guano
+
+You scoop up some of the precious Bat Guano with the empty chipped mug
+> out
+
+> out
+
+You are an Outside The Forsaken Cavern.
+
+You can see Your Dog.
+
+You can go in, north or east.
+
+You are at the entrance to a cave, its pitch black narrow mouth entrance seems to suck all the light out of the world with no glimpse given of the cavern's interior.
+
+> e
+
+> e
+
+You are in the Withered Heath.
+
+You can see a Clump of Withered Horehound and Your Dog.
+
+You can go west or south.
+
+A god-forsaken stretch of land on the side of the cavern hill. There is some horehound growing here
+
+> use guano on horehound
+
+> use guano on horehound
+
+You pour the Bat Guano on to the clump of horehound, just at that moment there is a convenient brief shower of rain. The leaves of the horehound plump up and unfurl before your eyes.
+> x horehound
+
+> x horehound
+
+A healthy specimen of horehound with plump leaves and white flowers, a herb of the mint family, you've often used it yourself to ease a cough.
+> take horehound
+
+> take horehound
+
+You pick some of the horehound
+> w
+
+> w
+
+You are an Outside The Forsaken Cavern.
+
+You can see Your Dog.
+
+You can go in, north or east.
+
+You are at the entrance to a cave, its pitch black narrow mouth entrance seems to suck all the light out of the world with no glimpse given of the cavern's interior.
+
+> in
+
+> in
+
+You are  Inside The Forsaken Cavern.
+
+You can see a Batbat, Bat Droppings and Your Dog.
+
+You can go out or south.
+
+You are inside a large cavern carved out of limestone, the light from your sphere casts strange shadows from the long stalactites fingers that must have taken centuries to form.
+
+Above you hangs a huge Bat, below it there is a large pile of droppings.
+
+You can make out an exit to the South, and the exit Out.
+
+> s
+
+> s
+
+You are at the top of the Stone Stairs.
+
+You can see Your Dog.
+
+You can go north or down.
+
+You are stood at the top of a huge spiral stone staircase carved out of the rock, somewhere below you can hear the sound of dripping water.
 
 > d
 
-You can't go there.
+> d
+
+You are in The Giant's Bathroom.
+
+You can see Your Dog.
+
+You can go up.
+
+A huge underground pool, there is a steady drip of water from the stalactites above. The water looks extremely cold and deep. Your breath mists in the air.
+
+Dylan is shivering.
+
 > fish
 
 > fish
 
 You cast your rod and the spinner flies above the water, lands with a splash and sinks out of sight, pulling the line behind it.
 
-You hold the rod tightly and wait, the current is pulling strongly on the line.
+You hold the rod and wait, pulling on the line occasionally to move the spinner as there is no current here.
 
-You wait...and wait...and wait..Dylan pads around impatiently...and you wait..and then decide to give up. All you are going to catch here is a cold.
+You wait...and wait...and wait..Dylan pads around the bottom of the stairs impatiently...and you wait..and wait. You're beginning to give up when suddenly Gerald the Mouse appears at your side.
 > x Gerald
 
 > x Gerald
 
-I can't see that.
+It's Gerald the Mouse, this time he is wearing a full scuba suit, complete with flippers, mask, and a respirator connected by tiny rubber hoses to two bright yellow oxygen tanks on his back. He gives you a thumps-up sign.
 > give cheese to Gerald
 
 > give cheese to Gerald
 
-I can't see that. (Gerald)
-> look
+You break a small piece off the lump of cheese and give it to the mouse. The mouse reaches up with it's little front paws, grabs the cheese, removes his tiny respirator from his mouth, gobbles it down, then gives a tiny squeak of appreciation.
+
+Replacing his respirator Gerald performs a perfect back flip into the pool and disappears beneath its surface. After a few moments you notice a loud gurgling sound a a whirpool forming on the surface of the pool, the water level is going down.
+
+As the last of the water disappears down a large hole in the floor of the pool you see Gerald brandishing what appears to be an oversized bathroom plug on a chain. Gerald waves at you and disappears down the hole.
 
 > look
 
-You are at the Northbank of the River Void.
+> look
 
-You can see a Broken Bridge, the River Void and Your Dog.
+You are in The Giant's Bathroom.
 
-You can go north.
+You can see a hole, a Giant's Hair and Your Dog.
 
-You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+You can go up or down.
+
+A huge underground pit that has been drained of water. Its very cold in here and your breath mists in the air.
+
+Dylan is shivering
 
 > x hole
 
 > x hole
 
-I can't see that.
+A plug shaped hole, pitch black inside, there appear to be a few long strands of hair attached to it.
 > x giant's hair
 
 > x giant's hair
 
-I can't see that.
+A few fine strands of very long grey hair, tough as rope.
 > take it
 
 > take it
 
-I can't see that.
+You pick it up.
 > d
 
 > d
 
-You can't go there.
-> d
+You are at the a Top of the Stone Slide.
+
+You can see Your Dog.
+
+You can go up or down.
+
+You are at the top of a U-shaped spiral slide carved out of the stone, presumably used to drain the water from the floor above.  The surface is slimy and slippery underfoot
 
 > d
 
-You can't go there.
+> d
+
+You start to gingerly descend down the slippery spiral slope, but as you turn a corner you loose your footing and behind slipping and sliding down, building up speed at an alarming rate.
+
+Dylan come bounding after you, looses his balance and careers into your back. You cling on to Dylan and together you speed down the slide until you see an oval of daylight getting larger, you are spat out at high velocity into the daylight, luckily the ground is soft and boggy and you land without injury, blinking in the daylight. Dylan licks your face.
+You are in the Midland Marshes.
+
+You can see Your Dog.
+
+You can go up, southeast, south or north.
+
+A bleak wetland with long grasses, and low growing shrubs and bracken. Far on the horizon you can just make out the silhouette of the the City of Lost.
+
+To the southeast you can see a Brewery, with steam and smoke rising from several chimneys on the roof, there is the smell of yeast and hops in the air.
+
 > x city
 
 > x city
 
-I can't see that.
+The silhouette of the City of Lost is on the horizon, its been many years since you saw it. It invokes both dread and painful nostalgia. Amongst the building shapes you can make out the crenelations of the King's Castle walls and keep.
 > se
 
 > se
 
-You can't go there.
-> x cooper
+You are in a Banks's Brewery Yard.
+
+You can see The Cooper and Your Dog.
+
+You can go northwest or in.
+
+A cobbled yard, full of workers just standing around, there doesn't appear to much work going on here at all.
+
+In the corner you can see a very pale looking Cooper, sat next to pile of half made barrels.
 
 > x cooper
 
-I can't see that.
+> x cooper
+
+The Cooper is wearing blue denim dungarees, a plaid red and black shirt and a flat cap. His skin is palid pale and green around the gills, he is sweating profusely, groaning and holding his brow. He's not doing any work.
 > x barrels
 
 > x barrels
 
-I can't see that.
+A stack of barrels in various stages of completion, but none of them are finished
 > talk to cooper
 
 > talk to cooper
 
-I can't see that. (cooper)
+"My poor head! That damn Miller and her cider, horrible gut rotting stuff, I should have stuck with the Banks's, I can't see or think straight to work, the Gaffer is going to fire me if I can't shift this hangover." The thought of the drink brings another wave of nausea over the poor chap and he sways on his stool.
 > x stool
 
 > x stool
 
-I can't see that.
+A three-legged joined wooden stool, The Cooper is sat on it
 > in
 
 > in
 
-You can't go there.
-> x tank
+You are inside Banks's Brewery.
+
+You can see a Fermentation Tank, a Mash Tun, a Pint Glass and Your Dog.
+
+You can go out or north.
+
+The room is dominated by huge towering metal tanks, connected by a complicated system of pipes and valves. You can make out what you assume is a Mash Tun (you can see workmen up at the top pouring grain and water into it) which in turn is connected to a huge Brewing Kettle and a Fermentation Tank.
 
 > x tank
 
-I can't see that.
+> x tank
+
+A huge metal cylinder, attached by pipework to the Brewing Kettle
 > x kettle
 
 > x kettle
 
-I can't see that.
+A huge metal cylinder tank, connected by pipework to the Mash Tun and the Fermentation Tank
 > x tun
 
 > x tun
 
-I can't see that.
+A huge metal cylinder, at the top you can see workmen pouring grain and water into it. It is connected by pipes to the Brewing Kettle.
 > x pint
 
 > x pint
 
-I can't see that.
+A dimpled glass pint mug
 > take pint
 
 > take pint
 
-I can't see that.
+You pick it up.
 > n
 
 > n
 
-You are in a Woodland Clearing.
+You are in the Brewery Kitchen.
 
-You can see a Ruined hovel and Your Dog.
+You can see a Fridge, a Freezer, a Cupboard, a Drawer and Your Dog.
+
+You can go south.
+
+It's the staff kitchen, industrial, stainless steel everywhere and clean as a whistle.
+
+> x cupboard
+
+> x cupboard
+
+Nothing out of the ordinary.
+> open it
+
+> open it
+
+You open it.
+It contains a Tin of Tomato Juice.
+> x juice
+
+> x juice
+
+A full tin of tomato juice.
+> take it
+
+> take it
+
+You pick it up.
+> x drawer
+
+> x drawer
+
+Nothing out of the ordinary.
+> open it
+
+> open it
+
+You open it.
+It contains a Can Opener.
+> x opener
+
+> x opener
+
+A metal butterfly can opener
+> take it
+
+> take it
+
+You pick it up.
+> open tin
+
+> open tin
+
+With some effort you open the tin with the can opener
+> x fridge
+
+> x fridge
+
+Nothing out of the ordinary.
+> open it
+
+> open it
+
+You open it.
+It contains a Stick of Celery.
+> x celery
+
+> x celery
+
+ A long fibrous green stalk tapering into yellow leaves
+> take it
+
+> take it
+
+You pick it up.
+> close fridge
+
+> close fridge
+
+You close it.
+> x freezer
+
+> x freezer
+
+Nothing out of the ordinary.
+> open it
+
+> open it
+
+You open it.
+It contains Ice Cubes.
+> x ice
+
+> x ice
+
+It's ice, ice baby!
+> take ice
+
+> take ice
+
+You pick them up.
+> close freezer
+
+> close freezer
+
+You close it.
+> put ice in pint
+
+> put ice in pint
+
+Done.
+> put tomato juice in pint
+
+> put tomato juice in pint
+
+Done.
+> put celery in pint
+
+> put celery in pint
+
+Done.
+> put dog hair in pint
+
+> put dog hair in pint
+
+Done.
+> i
+
+> i
+
+You are carrying a Shovel, a Sharp Axe, Rags, a Letter, a Lump of cheese, a Business Card, a Bottle, a Scroll of paper, a Raft, a Fishing Rod, a Shiny Glass Sphere, a Chipped Mug, some Horehound, a Giant's Hair, a Tin of Tomato Juice, a Can Opener and a Pint glass (containing Bloody Mary Cocktail).
+> s
+
+> s
+
+You are inside Banks's Brewery.
+
+You can see a Fermentation Tank, a Mash Tun and Your Dog.
+
+You can go out or north.
+
+The room is dominated by huge towering metal tanks, connected by a complicated system of pipes and valves. You can make out what you assume is a Mash Tun (you can see workmen up at the top pouring grain and water into it) which in turn is connected to a huge Brewing Kettle and a Fermentation Tank.
+
+> out
+
+> out
+
+You are in a Banks's Brewery Yard.
+
+You can see The Cooper and Your Dog.
+
+You can go northwest or in.
+
+A cobbled yard, full of workers just standing around, there doesn't appear to much work going on here at all.
+
+In the corner you can see a very pale looking Cooper, sat next to pile of half made barrels.
+
+> give pint to cooper
+
+> give pint to cooper
+
+The Cooper steadies himself and with shaking hands his grips the glass and takes a sip of the drink, he grimaces then drains the lot,
+"Ah, hair of the dog, always does the trick!" " Many thanks to you, here take this.." He hands you a growler of Banks' Best Bitter.
+> x growler
+
+> x growler
+
+A dark brown glass jug containing 3 and 1/3 pints of Bank's Beer, with a screw on metal cap.
+> x Cooper
+
+> x Cooper
+
+The Cooper is wearing blue denim dungarees, a plaid red and black shirt and a flat cap. He's hard at work making barrels.
+> x barrels
+
+> x barrels
+
+Barrels, barrels everywhere; some standing in the yard waiting to be shipped out, others being carried out of the brewery by the workers. The Cooper is hard a work keeping a fresh supply coming
+> nw
+
+> nw
+
+You are in the Midland Marshes.
+
+You can see Your Dog.
+
+You can go up, southeast, south or north.
+
+A bleak wetland with long grasses, and low growing shrubs and bracken. Far on the horizon you can just make out the silhouette of the the City of Lost.
+
+To the southeast you can see a Brewery, with steam and smoke rising from several chimneys on the roof, there is the smell of yeast and hops in the air.
+
+> s
+
+> s
+
+You are in an Outside City Gates.
+
+You can see a City Guard and Your Dog.
 
 You can go north or south.
 
-A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+You are outside the city walls of Lost. There is a City Guard in front of you, and behind him a set of huge wrought-iron gates.
 
-> x cupboard
-
-> x cupboard
-
-I can't see that.
-> open it
-
-> open it
-
-I can't see that.
-> x juice
-
-> x juice
-
-I can't see that.
-> take it
-
-> take it
-
-I can't see that.
-> x drawer
-
-> x drawer
-
-I can't see that.
-> open it
-
-> open it
-
-I can't see that.
-> x opener
-
-> x opener
-
-I can't see that.
-> take it
-
-> take it
-
-I can't see that.
-> open tin
-
-> open tin
-
-I can't see that.
-> x fridge
-
-> x fridge
-
-I can't see that.
-> open it
-
-> open it
-
-I can't see that.
-> x celery
-
-> x celery
-
-I can't see that.
-> take it
-
-> take it
-
-I can't see that.
-> close fridge
-
-> close fridge
-
-I can't see that.
-> x freezer
-
-> x freezer
-
-I can't see that.
-> open it
-
-> open it
-
-I can't see that.
-> x ice
-
-> x ice
-
-I can't see that.
-> take ice
-
-> take ice
-
-I can't see that.
-> close freezer
-
-> close freezer
-
-I can't see that.
-> put ice in pint
-
-> put ice in pint
-
-I can't see that. (ice)
-> put tomato juice in pint
-
-> put tomato juice in pint
-
-I can't see that. (tomato juice)
-> put celery in pint
-
-> put celery in pint
-
-I can't see that. (celery)
-> put dog hair in pint
-
-> put dog hair in pint
-
-I can't see that. (pint)
-> i
-
-> i
-
-You are carrying a Dog Hair, a Shovel, a Sharp Axe, Rags, a Letter, a Lump of cheese, a Business Card, a Bottle, a Scroll of paper, a Shiny Glass Sphere, a Chipped Mug, a Raft, a Fishing Rod, a Golden Fish, a Silver Fish and a Copper Fish.
-> s
-
-> s
-
-You are at the Northbank of the River Void.
-
-You can see a Broken Bridge, the River Void and Your Dog.
-
-You can go north.
-
-You are on the Northbank of the River Void. The river is roaring past with a fierce current.
-
-> out
-
-> out
-
-You can't go there.
-> give pint to cooper
-
-> give pint to cooper
-
-I can't see that. (pint)
-> x growler
-
-> x growler
-
-I can't see that.
-> x Cooper
-
-> x Cooper
-
-I can't see that.
-> x barrels
-
-> x barrels
-
-I can't see that.
-> nw
-
-> nw
-
-You can't go there.
-> s
-
-> s
-
-You can't go there.
 > x guard
 
 > x guard
 
-I can't see that.
+One of the General's goons, with a jobsworth moronic grin on his face, as with most of these types if he ever had a brain cell it died of loneliness a long long time ago.
+
+His CV no doubt lists following orders and stabbing things with the pointy end of his sword as his favourite hobbies.
 > s
 
 > s
 
-You can't go there.
+"Halt!" barks the Guard, "I'm under strict orders not to allow any northerners into the city"
 > give growler to guard
 
 > give growler to guard
 
-I can't see that. (growler)
+The Guard snatches the jug from you, "Trying to bribe an government official are we?", "Hanging offence that you know".
+
+The Guard looks at the label, "Banks's, hmm, the good stuff, well I think I deserve a drink, this guard duty is damn tedious, not enough things to stab.",
+
+He reaches into his pocket, pulls out a key and unlocks the gate.
+
+ "Go on, get going south before I change my mind"
 > s
 
 > s
 
-You can't go there.
-> x fountain
+You are in a City Plaza.
+
+You can see a Fountain and Your Dog.
+
+You can go north, east or west.
+
+Large open public space, and the heart of the city. Doesn't seem to be many people around though, perhaps they are hiding from the army.
+
+On the south side of the square there is a row of soldiers on horseback, blocking the path to the castle drawbridge.
+
+In the centre of the square there is a fountain, underneath which you can see an emaciated pigeon pecking at a few biscuit crumbs.
 
 > x fountain
 
-I can't see that.
+> x fountain
+
+The tall fountain consists of a tower of stacked marble skulls, decending in size to the top. Water pours from the eye sockets of one skull into a hole in the cranium of the one below.
+
+The city planners really took the King's nickname to heart, although a sense of the morbid has always characterised this country well before his reign.
 > x pigeon
 
 > x pigeon
 
-I can't see that.
+A skinny grey city pigeon with a grumpy demeanour
 > speak to pigeon
 
 > speak to pigeon
 
-I can't see that. (pigeon)
+"Coo! Coo! It's a fucking Coup! Ha ha ha, you took your time getting here, thanks for carrying the letter, couldn't be arsed lugging that thing around!" "My names Jon and I'm a fucking pigeon!" The pigeon then descends into an alarming coughing fit.
 > ask Jon about king
 
 > ask Jon about king
 
-I can't see that. (Jon)
+"He's banged up in the prison, he refused to invade the Kingdom of Somewhere, made the General furious, that hawk hasn't had a decent war in decades and finally snapped." Once again the pigeon starts coughing in an alarming fashion.
 > ask Jon about coughing
 
 > ask Jon about coughing
 
-I can't see that. (Jon)
+"Oh you noticed did you? Driving me nuts, still you know what they say, 'It's not the cough that carries you off, it's the coffin they carry you off in! Ha Ha Ha!" *Cough, cough, hack*
 > ask Jon about general
 
 > ask Jon about general
 
-I can't see that. (Jon)
+"That Warmongering fucknugget! Tried to convince the King that Somewhere are developing Weapons of Mass Destruction, the King was having none of it without evidence" *cough, cough, hack*
 > ask Jon about crumbs
 
 > ask Jon about crumbs
 
-I can't see that. (Jon)
+"They're my biscuit crumbs, fuck you. I'm bloody starving, no people means no litter means hungry Jon" *hack, hack, cough*
 > e
 
 > e
 
-You can't go there.
+You are in a Merry Jack's Inn.
+
+You can see a Pool Table, an One Armed Bandit, Jack The Landlord, a Dartboard, a Gnome Chompsky and Your Dog.
+
+You can go west.
+
+You are inside a proper old boozer. You are luckily enough to live before the smoking ban so there is no stench of urinals and stale beer, just lovely stale smoke.
+
+There is a new-fangled invention called carpet on the floor, it is sticky underfoot. There are wooden benches and stools. The Barman is behind the bar polishing glasses with a face as long as a wet weekend in Coventry.
+
 > x pool
 
 > x pool
 
-I can't see that.
+A traditional pub pool table, 7 x 4 foot. The green baize is in decent enough condition, and with only a few drink stains
 > play pool
 
 > play pool
 
-I can't see that. (pool)
+You pick up the pool cue and look down its shaft, it's straight as a die. You check the tip and it is secure and properly rounded.
+
+You grab the chalk and carefully stoke the tip with it and blow off the excess.
+
+You spend a minute setting up the balls correctly, then taking careful aim you hit the cue ball, your cue rips into the baize, and the cue ball shoots into the air and smashes the glass that the Landlord is holding.
+
+With a face like thunder the Landlord walks over to the pool table, firmly takes the cue from you and places a sign on the table reading "Out of Order".
 > x dartboard
 
 > x dartboard
 
-I can't see that.
+A cork and wire dartboard, 17 3⁄4 inches in diameter and divided into 20 radial sections.
 > play darts
 
 > play darts
 
-I can't see that. (darts)
+You've not played darts in long time, but have always fancied yourself a good shot. You pick up the three darts and taking careful aim throw the first one...
+
+....It bounces off the wall above the board and lands in the Pool table..The Landlord walks over and removes it, eying you wearily.
 > play darts
 
 > play darts
 
-I can't see that. (darts)
+Ok, you've got your eye in now...you throw the second dart..
+
+... it flies though the air, bounces off one of the wires and embeds itself in the bar. The Landlord walks over and removes it, cursing under his breath.
 > play darts
 
 > play darts
 
-I can't see that. (darts)
+Feeling embarrassed and aware of the Landlord glaring at you, you take a deep breath and throw the last dart...
+
+..it flys out of your hand and lands plumb in the middle of the treble-twenty area! In your relief you fist pump the air. The Landlord walks over and says Nice throwing.. and then take the remaining dart and hangs a sign on the dartboard reading, Do Not Touch!.
 > x Jack
 
 > x Jack
 
-I can't see that.
+'Merry' by name but not by nature it seems. As you look at him, he stares back and lets out an exacerbated sigh of such length you wonder if he has sprung a leak.
 > x Gnome
 
 > x Gnome
 
-I can't see that.
+He's just over a foot tall, including his bright red brimless conical cap. He's wearing a pastel blue jacket with a belt fastened at the middle, black trousers and comically big (relative to his stature) black boots.
+
+He has a white beard and a mischievous twinkle in his eyes, he drinking a pint of dark porter
 > speak to Gnome
 
 > speak to Gnome
 
-I can't see that. (Gnome)
+"Hello again there traveller!"
 > x bandit
 
 > x bandit
 
-I can't see that.
+On the end of the bar is a One Armed Bandit machine, it's metal and looks like it weighs a tonne. There is a lever sticking out of the side of it, on the front is a glass window looking into three reels with symbols on.
+
+Written on the front it says "Skulls and Axes" match three symbols to win!
 > play bandit
 
 > play bandit
 
-I can't see that. (bandit)
+There are three credits left on the machine. You pull the arm on the machine for the first play, the reels whirl and spin...
+
+The first reel clonks to stop = Skull....
+....The second reel clonks to a stop = Skull...
+...The third reel clonks to a stop = Axe
+
+No Win
 > play bandit
 
 > play bandit
 
-I can't see that. (bandit)
+There are two credits left on the machine. You pull the arm on the machine for the second play, the reels whirl and spin...
+
+The first reel clonks to stop = Axe....
+....The second reel clonks to a stop = Axe...
+...The third reel clonks to a stop = Skull
+
+No Win
 > play bandit
 
 > play bandit
 
-I can't see that. (bandit)
+There is one credit left on the machine. You pull the arm on the machine for the final play, the reels whirl and spin...
+
+The first reel clonks to stop = Skull....
+....The second reel clonks to a stop = Skull...
+...The third reel clonks to a stop = Skull !
+
+There is a satisfying Ker-Chunk, Ker-Chunk, Ker-Chunk noise and three coins are deposited in the tray. You place them in your pocket.
+
+The Landlord walks across to the machine. Muttering under his breath he locks it shut and places an 'Out of Order' sign across it.
+
+Suddenly the doors of the pub fly open and in comes one very tall guy and one very short, huffing and puffing as they manoeuvre a piano into the pub.
+
+"Here you go Jack" the short guys shouts, "Will settle up with you in the week", and they both leave.
 > x piano
 
 > x piano
 
-I can't see that.
+A beautiful old upright Feurich piano in burnish walnut
 > play piano
 
 > play piano
 
-I can't see that. (piano)
+You used to play a little when you were younger, you sit down and start to plonk your way through Maple Leaf Rag, but the piano is horribly out of tune. The Landlord eyes you with a world weary expression.
+
+Suddenly Gerald the Mouse appears.
 > x mouse
 
 > x mouse
 
-I can't see that.
+It's Gerald the Mouse, he's wearing a smart grey suit and half-moon spectacles, and he's carrying a small metal lever.
 > give cheese to mouse
 
 > give cheese to mouse
 
-I can't see that. (mouse)
+You break a small piece off the lump of cheese and give it to the mouse. The mouse reaches up with it's little front paws, grabs the cheese, gobbles it down, then gives a tiny squeak of appreciation.
+
+Gerald opens the lid of the piano and jumps inside, there a commotion of plinking, plonking and squeaking. Then Gerald reappears, jumps on to the keyboard and plays a sweet rendition of "Old Amsterdam" by running around and stamping on the keys with his feet.
+
+The Landlord gives a small slow sarcastic round of applause. The Mouse takes a bow, gives the Landlord the finger and dashes off.
 > play piano
 
 > play piano
 
-I can't see that. (piano)
+You sit down at the piano, and remembering the message in the bottle you pull out the scroll and begin to play the score, "Adagio in G minor by Albinoni".
+
+Your sight-reading skills are rusty but your fingers somehow remember the tune, the haunting melody fills the pub. Looking over to the bar you can see the Landlord's astonished face.
+
+When you've finished the piece the Landlord walks over, inspects the script and says, "Well, well, well, I should have recognised you, but its been a long time. Listen the armed forces still loyal to the King are camped to the far south on the border with Somewhere, we need to get a message to them to attack tomorrow at dawn"
+
+"You've done well getting here to far, take this note and get it to the Loyalist as fast as possible", "I'm off to organise the resistance forces still hiding out in the city"
 > x message
 
 > x message
 
-I can't see that.
+A tiny scroll of paper, in minute writing it reads:
+
+ "Attack at dawn, resistance ready, J.J"
 > x coins
 
 > x coins
 
-I can't see that.
+Three silver 1 zilch coins, the currency of Nowhere. They have a portrait of the skeletal 'Bony' King on the obverse and an Axe on the other side. Inscribed around the edge it reads, "Quidquid latinae dictum set, altrum sonar "
 > give hair to gnome
 
 > give hair to gnome
 
-I can't see that. (gnome)
-> w
+"Well, well, well, what do we have here! Giant's hair, rare stuff this, makes the best rope known to man, let's see what we can do"
+
+With astonishing speed and dexterity the Gnome twists and plaits and weaves the strands of hair together into a long, thin, but incredibly strong rope, he hands it to you.
 
 > w
 
-You can't go there.
 > w
+
+You are in a City Plaza.
+
+You can see a Fountain and Your Dog.
+
+You can go north, east or west.
+
+Large open public space, and the heart of the city. Doesn't seem to be many people around though, perhaps they are hiding from the army.
+
+On the south side of the square there is a row of soldiers on horseback, blocking the path to the castle drawbridge.
+
+In the centre of the square there is a fountain, underneath which you can see an emaciated pigeon pecking at a few biscuit crumbs.
 
 > w
 
-You can't go there.
+> w
+
+You are in a Beppe's Pizzaria.
+
+You can see Beppe, a Counter and Your Dog.
+
+You can go east.
+
+There is a heavenly smell of dough, cheese and woodsmoke in here. Behind the counter you can see the owner Beppe removing pizzas from the oven with a long peal.
+
 > x Beppe
 
 > x Beppe
 
-I can't see that.
+A dark and swarthy type with a roman nose and a friendly grin. He's wearing chef whites and a white cap.
 > x counter
 
 > x counter
 
-I can't see that.
-> give coins to Beppe
+A wooden counter with a hammered zinc top, there is a sign reading,
+
+'Beppe's stupendo pizza
+
+Piccolo - 1 Zilch
+
+Medio - 2 Zilch
+
+Gigantesco! - 3 Zilch'
 
 > give coins to Beppe
 
-I can't see that. (coins)
+> give coins to Beppe
+
+"Grazie mille!" says Beppe,
+
+He scoops a huge pizza out of the oven with his peal, places it in a cardboard tray, closes the lid and hands it to you.
 > x pizza
 
 > x pizza
 
-I can't see that.
+A huge cardboard pizza box with a picture of Venice on the front, steam is escaping from the lovely pizza inside, it smells heavenly.
 > e
 
 > e
 
-You can't go there.
-> give pizza to Jon
+You are in a City Plaza.
+
+You can see a Fountain and Your Dog.
+
+You can go north, east or west.
+
+Large open public space, and the heart of the city. Doesn't seem to be many people around though, perhaps they are hiding from the army.
+
+On the south side of the square there is a row of soldiers on horseback, blocking the path to the castle drawbridge.
+
+In the centre of the square there is a fountain, underneath which you can see an emaciated pigeon pecking at a few biscuit crumbs.
 
 > give pizza to Jon
 
-I can't see that. (pizza)
+> give pizza to Jon
+
+"Fuck me, now you're talking" says the pigeon...*hack* *splutter*, "I haven't eaten properly in weeks"
+
+The pigeon dives into the pizza, there is a blur of wings, feathers, feet and beak, small pieces of cheese and dough fly into the air. After a few minutes the pizza is gone and a fatter looking pigeon is now standing there.
 > give horehound to Jon
 
 > give horehound to Jon
 
-I can't see that. (horehound)
+"What this herbal shite when it's at home?" Says Jon, "Only joking, horehound weed aint' it. The Pigeon pecks a small corner of leaf,  "well it tastes like crap but I'll try anything to shift this damn cough"
+
+The pigeon pecks and chews at the leaves for a few minutes, and his breathing seems to ease, "Thanks" he says, "Don't take my swearing personally, you're a decent fucker"
 > give message to Jon
 
 > give message to Jon
 
-I can't see that. (message)
+You place the message in a small leather tube on the pigeon's leg
+
+"Fuck's sake" says the Pigeon. "Another message to deliver, well if it means the city gets back to normal and the litter returns I guess I'm game".
+
+The pigeon takes a long run up, beats its wings furiously and manages to get it's pizza laden body airborne, as it disappears South you can hear its faint voice on the wind, "Fuuuuck Yooouu!"
+
+Just at that moment General D'sarray enters the City Plaza.
+
+You hear a small clanking noise and looking down you see that Gerald the Mouse has appeared by your side
 > x General
 
 > x General
 
-I can't see that.
+An ugly bloated porcine looking army general. His drab olive uniform is festooned with medals and gold braiding, he has a swagger stick under one arm and is wearing black jackboots, and a black hat with a red front and more gold braiding.
 > x mouse
 
 > x mouse
 
-I can't see that.
+It's Gerald the Mouse, this time he is wearing a full suit of armour, including helmet with the visor down. He is holding a lance in one hand and a shield in the other.
 > give cheese to mouse
 
 > give cheese to mouse
 
-I can't see that. (mouse)
-> attack general
+You break a small piece off the lump of cheese and give it to the mouse. The mouse reaches up with it's little front paws which are wearing adorable tiny gauntlets, takes the cheese, raises his visor and gobbles it down, and then gives a tiny squeak of appreciation, and with a salute closes his visor.
+
+Aiming his lance at the General on the other side of the square, Gerald runs at full charge.
+
+Just as Gerald reaches the General he is spotted, the General takes a swing with his foot and with sickening force kicks Gerald so hard that he goes flying into the air and over the castle walls.
+
+Dylan wimpers, tears well in your eyes and a violent rage burns in your heart.
+
+"rodent scum" grunts the General.
 
 > attack general
 
-I can't see that. (general)
+> attack general
+
+In your grief and anger you grab hold of your axe and charge recklessly at the General with a furious Dylan by your side, yelling "Kiss my shiny metal axe you bastard!" but you are quickly overpowered by the guards and knocked unconscious.
+Error running script: Error evaluating expression '(not GetBoolean(game.pov.parent, "visited")) and HasScript(game.pov.parent, "beforefirstenter")': Value cannot be null. (Parameter 'obj')
+You are in Prison Cell 37927.
+
+You can see The  and .
+
+You slowly come round and realise you are in a dark and dank prison cell, it stinks in here.
+
+Dylan is pawing at your chest, you sit up, with your head still spinning you hear a voice you've not heard in years, "Hello my child" says the Bony King. "Hello Dad", you reply.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
+You are in Prison Cell 37927.
+
+You can see The Bony King and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
+
 > x king
 
 > x king
 
-I can't see that.
+The 'bony' king of Nowhere, stick thin, (you'd find more meat on a butchers pencil), his emaciated face is even more drawn than the last time you saw him. His regal red robes hang off him, he's sat uncomfortably on the straw.
 > x straw
 
 > x straw
 
-I can't see that.
+Blackened filthy straw, it stinks and is sticky to the touch
 > x bars
 
 > x bars
 
-I can't see that.
+Thick iron bars, it would take a month of Sundays to file your way though one of them, even if you had the tools
 > i
 
 > i
 
-You are carrying a Dog Hair, a Shovel, a Sharp Axe, Rags, a Letter, a Lump of cheese, a Business Card, a Bottle, a Scroll of paper, a Shiny Glass Sphere, a Chipped Mug, a Raft, a Fishing Rod, a Golden Fish, a Silver Fish and a Copper Fish.
+You are not carrying anything.
 > speak to king
 
 > speak to king
 
-I can't see that. (king)
+"Hello my child, its a joy to see you, even under such grim circumstances"
 > ask king about general
 
 > ask king about general
 
-I can't see that. (king)
+"He's always been a hawk for conflict, but never thought he'd betray me, barks all the time, but he finally bit." "His men only fear and don't love him though, his power base is weak."
 > move straw
 
 > move straw
 
-I can't see that. (straw)
+Moving aside the filthy straw reveals the stoney floor, but wait one of the stones is loose!
 > move stone
 
 > move stone
 
-I can't see that. (stone)
+You grab hold of the loose stone, with a great deal of wiggling you manage to remove it, after a lot of hard work you manage to remove a few more, until there is a hole barely big enough to fit through
 > d
 
 > d
 
-You can't go there.
-> x stones
+With a great deal of struggling, writhing and wriggling you manage to squeeze through the hole, your Father and Dylan have far less trouble and follow behind you.
+
+You land on some filthy straw
+You are in a Prison Cell 37927b.
+
+You can see a pile of stones and Your Dog.
+
+A dark and dank prison cell, with filthy straw on the hard stone floor, the walls of the cell is in the form of an iron cage.
 
 > x stones
 
-I can't see that.
+> x stones
+
+The stones you removed to make the hole, what a waste of time that was.
 > z
 
 > z
 
 Time passes.
-[state=Running]
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+You hear a rattle of keys and a guard appears at the door to the cell, behind him you can see two armed soldiers "Time to meet your maker, traitor scum"
+
+You are lead out of the cell to the castle courtyard. Dylan brushes against your leg for reassurance as you walk.
+You are in a Courtyard.
+
+You can see Your Dog.
+
+You are lead into the Castle courtyard, the pale blue light in the East heralds that the arrival of dawn is nigh. You, the King and Dylan are led to platform and each tied to stake. You can't believe they are going to kill Dylan as well.
+
+"I'm so sorry" says the King, "I know you never wanted any part in the politics of the Kingdom, I'm sorry I brought you back here, I didn't know who else to send the letter to"
+
+"That's OK Dad", you reply.
+
+The first rays of dawn hit the courtyard and make you blink in the light.
+
+Facing you is a firing squad and General D'sarray, "Silence traitors!" barks the General.
+
+"Men on my mark take aim!", "Aim", the squad raise their guns, "Ready", you brace yourself, at that moment the sky darkens, confused the General looks up, and is hit smack in the temple by what looks like a metal boomerang, he collapses to the floor like a sack of spuds. More boomerangs rain down on the firing squad.
+
+Looking up you see it's Batbat! and who's is that riding on his back but Gerald! He's wearing some weird rubber suit with a red letter R on the front.
+
+There is a thundering of hooves and the Loyal forces storm into the courtyard, rounding up the remaining soldiers.
+
+"You saved the Kingdom my child!" says the King, "You're welcome to it" you reply, "I'm off home to the North", "Come on Dylan, let's go!", "Thank fuck for that" replies Dylan.
+
+**************************************************************************
+Congratulations, you have completed The Bony King of Nowhere, thanks for playing!
+
+The END
+
+Credits:
+
+Written and coded by Luke A. Jones (luke.jones@gmail.com), using the Quest text adventure engine (www.textadeventures.co.uk).
+
+Thank you to Alex Dimmer for creating the artwork and to Jennifer Thompson and Joe Dillon for alpa and beta testing, and for their excellent suggestions for improvements.
+
+Thanks also to the excellent support from the Quest forum members, a more friendly bunch of geeks you won't meet.
+
+I was inspired to start writing text adventures after playing and testing the wonderful games by Robin Johnson, you should check them out: http://versificator.net/
+
+The title of the game comes from a song in an episode of Bagpuss by Oliver Postgate
+
+The pigeon was inspired by the twitter account @pigeonjohn
+
+Be excellent to each other.
+
+Luke
+
+[state=Finished]

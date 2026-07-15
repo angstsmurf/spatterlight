@@ -575,47 +575,65 @@ The gauge reads: 6
 > z
 
 Time passes.
-> tell man about bath
+> z
 
-> tell man about bath
+> z
 
-You can't see that. (man)
-> take cube
+Time passes.
+> z
 
-> take cube
+> z
 
-You try to get it out of the well,  but it is too far down, and the well is too narrow and deep for your fingers.
-> x cube
+Time passes.
+> z
 
-> x cube
+> z
 
-It is a security access cube, used for decoding an electronic lock. About the size of a large gaming die, it bears a symbol instead of a number on each of its six faces.
-
-It's currently sitting at the bottom of a dry well in the floor design.
-> x symbol
-
-> x symbol
-
-You need to be holding it to examine it that closely.
+Time passes.
 
 The mechanical man is here, creaking and rattling around.
 
 "Oh dear me, my aching joints!", he says.
-> take coin
+> z
 
-> take coin
+> z
 
-You take the coin out of the plughole.
+Time passes.
 
 "I really must take an oil bath", says the mechanical man. "I'm rusted almost solid! If I wind down now, I may never move again…"
 
 The mechanical man wanders west.
-Oil drains away down the plughole...
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> tell man about bath
+
+> tell man about bath
+
+The mechanical man peers over the side of the tub with the reserved but expectant air of a connoiseur of baths. His bushy eyebrow struggle upwards in surprise. "Just right!" he mutters.
+
+With the unselfconsciousness of the incredibly old, he strips naked and, discarding his clothing, ascends the set of ornate steps that have been placed conveniently alongside the bath. With an enormous effort and a  grinding of ancient joints, he manages to pivot one leg over the side of the tub before pausing for so long that you begin to suspect he has wound down again...until he suddenly pitches forward and falls headlong into the bath. "Eureka!" he cries, as liquid surges upwards and out of the tub, leaving a tide of oil spreading across the floor. The mechanical man reclines in the tub, closes his eyes and appears to go to sleep.
+
+The drainage channels are flooded with oil.
+> take cube
+
+> take cube
+
+The cube is floating high enough in the well for you to take it, which you do.
+The drainage channels are flooded with oil.
 > take bathrobe
 
 > take bathrobe
 
-You can't see that.
+You pick it up.
+The oil in the drainage channels is rapidly disappearing...
 > w
 
 > w
@@ -626,13 +644,9 @@ The changing room, a functional space, has all it needs to fulfil its principle 
 
 Furnished only with a set of plain metal lockers and an ever vigilant attendant, perpetually on duty, it is as warm, clean and soothingly lit as any of the other of the rooms in this place. There is a doorway to the east, and a cubicle to the north.
 
-You can see the Attendant, a keyring (to which are attached a brass key, inserted into the locker door, and a card) and a mechanical man (wearing  a bathrobe).
+You can see the Attendant and a keyring (to which are attached a brass key, inserted into the locker door, and a card).
 
 You can go north, east or west.
-
-The mechanical man is here, creaking and rattling around.
-
-"Oh dear me, my aching joints!", he says.
 
 The attendant eyes you suspiciously...
 > n
@@ -656,7 +670,7 @@ You take it off.
 
 > wear bathrobe
 
-You can't see that.
+You put it on.
 > s
 
 > s
@@ -671,109 +685,34 @@ You can see the Attendant and a keyring (to which are attached a brass key, inse
 
 You can go north, east or west.
 
-The attendant pierces you with an icy glare. "No nudity in the changing room!" she snaps, pointing towards the cubicle with a rigid metal finger.
-
-Shrinking beneath her withering gaze, you decide to retreat to somewhere more private.
-The Cubicle
-
-The cubicle is a simple bare cell, furnished with nothing more than what is needed to facilitate the changing of one's clothes (which isn't much).
-
-You can see a bench and some hooks (on which there are hanging pyjamas).
-
-You can go south.
-
+The attendant eyes you suspiciously...
 > e
 
 > e
 
-You can't go there.
+The Bathroom
+
+The Bathroom somehow achieves a majestic spotlessness without appearing clinical, perhaps because its overall ambience is just a touch more ivory than pure white. Opulent roll-top baths squat proudly around the room, and the fluffiest of white towels are draped luxuriously across shining brass rails within easy reach of the fortunate bather. There is an oddly incongruous smell in here, that evokes memories of the last time you took your car to the local garage.
+
+You can see a Bath (with a mechanical man).
+
+You can go west or south.
+
+The last of the oil drains away, leaving the channel dry.
 > give towel to man
 
 > give towel to man
 
-You can't see that. (man)
+"For me?" asks the mechanical man. "How thoughtful of you!" He takes the towel and steps out of the bath.
 > take coin
 
 > take coin
 
-You are already carrying it.
+You take the coin out of the plughole.
+Oil drains away down the plughole...
 > w
 
 > w
-
-You can't go there.
-> put coin in door
-
-> put coin in door
-
-You can't see that. (door)
-> take keyring
-
-> take keyring
-
-You can't see that.
-> e
-
-> e
-
-You can't go there.
-> s
-
-> s
-
-The Changing Room
-
-The changing room, a functional space, has all it needs to fulfil its principle role in life as a gatehouse between the outer region of the lobby and the inner sanctum of the bathhouse.
-
-Furnished only with a set of plain metal lockers and an ever vigilant attendant, perpetually on duty, it is as warm, clean and soothingly lit as any of the other of the rooms in this place. There is a doorway to the east, and a cubicle to the north.
-
-You can see the Attendant, a keyring (to which are attached a brass key, inserted into the locker door, and a card) and a mechanical man (wearing  a bathrobe).
-
-You can go north, east or west.
-
-"I really must take an oil bath", says the mechanical man. "I'm rusted almost solid! If I wind down now, I may never move again…"
-
-The mechanical man wanders north.
-
-The attendant pierces you with an icy glare. "No nudity in the changing room!" she snaps, pointing towards the cubicle with a rigid metal finger.
-
-Shrinking beneath her withering gaze, you decide to retreat to somewhere more private.
-The Cubicle
-
-The cubicle is a simple bare cell, furnished with nothing more than what is needed to facilitate the changing of one's clothes (which isn't much).
-
-You can see a bench, some hooks (on which there are hanging pyjamas) and a mechanical man (wearing  a bathrobe).
-
-You can go south.
-
-> x sign
-
-> x sign
-
-You see nothing worthy of attention.
-> read sign
-
-> read sign
-
-You can't see that. (sign)
-> x door
-
-> x door
-
-You see nothing worthy of attention.
-> x mechanism
-
-> x mechanism
-
-You see nothing worthy of attention.
-> swipe card
-
-> swipe card
-
-You can't see that. (card)
-> s
-
-> s
 
 The Changing Room
 
@@ -785,149 +724,270 @@ You can see the Attendant and a keyring (to which are attached a brass key, inse
 
 You can go north, east or west.
 
-The attendant pierces you with an icy glare. "No nudity in the changing room!" she snaps, pointing towards the cubicle with a rigid metal finger.
+The attendant eyes you suspiciously...
+> put coin in door
 
-Shrinking beneath her withering gaze, you decide to retreat to somewhere more private.
-The Cubicle
+> put coin in door
 
-The cubicle is a simple bare cell, furnished with nothing more than what is needed to facilitate the changing of one's clothes (which isn't much).
+You put the coin in the slot in the back of the door
 
-You can see a bench, some hooks (on which there are hanging pyjamas) and a mechanical man (wearing  a bathrobe).
+The attendant eyes you suspiciously...
+> take keyring
 
-You can go south.
+> take keyring
 
-> x bench
+You slide the key out of the lock and take the keyring.
 
-> x bench
+The attendant eyes you suspiciously...
+> e
 
-Just an unfussy wooden bench.
+> e
 
-"I really must take an oil bath", says the mechanical man. "I'm rusted almost solid! If I wind down now, I may never move again…"
+The Bathroom
 
-The mechanical man wanders south.
-> x people
+The Bathroom somehow achieves a majestic spotlessness without appearing clinical, perhaps because its overall ambience is just a touch more ivory than pure white. Opulent roll-top baths squat proudly around the room, and the fluffiest of white towels are draped luxuriously across shining brass rails within easy reach of the fortunate bather. There is an oddly incongruous smell in here, that evokes memories of the last time you took your car to the local garage.
 
-> x people
+You can see a Bath.
 
-You see nothing worthy of attention.
+You can go west or south.
+
+The last of the oil drains away down the plughole.
+> s
+
+> s
+
+A Corridor
+
+Compared to the ostentatious opulence of the bathroom, the corridor is a breath of minimalistic fresh air. It is a short walkway between rooms, entirely devoid of extraneous stuff. A delicious orange light emanates from every surface, making you feel as though you could just lie down here on the perfectly smooth, perfectly warm floor and bask in the tangerine glow for hours on end, to no real purpose and with no real consequences. But no: even here, your deeply ingrained protestant work ethic rebels at the thought of such wanton frivolity and nags you to press on.
+
+At the end of the corridor is a sliding door, next to which is a sign.
+
+You can see a mechanical man (wearing  a towel).
+
+You can go north or south.
+
+> swipe card
+
+> swipe card
+
+You swipe the card through the mechanism, and hear a musical chime, as of an old-fashioned clock.
+> s
+
+> s
+
+The doors slide smoothly open, and a great cloud of oily steam engulfs you as you pass through.
+The Sauna
+
+It's difficult to tell how big the sauna is as a haze of oil vapour makes any reckoning of distance impossible, but it must be fairly large to accommodate the multitude of mechanical people whose fuzzy outlines you can just make out occupying the benches around the room. It feels as though the entire membership of the ◈100 Jewels Club is in residence.
+
+You can see a bench (on which are sitting  mechanical people) and a mechanical man (wearing  a towel).
+
+You can go north.
+
+"Ahhh - just the place to relax and loosen my couplings," says the mechanical man, making room for himself amongst his fellow club members by the simple expedient of lowering his rump very slowly towards them in the expectation that some of them will move before they end up with his rusty old frame perched upon their knees. Which indeed, they do.
 > x walls
 
 > x walls
 
-You see nothing worthy of attention.
-> x control panel
+You can't see much through the steam, but you do notice a control panel mounted high up on the wall above one of the benches.
 
-> x control panel
-
-You see nothing worthy of attention.
-> ask man about sauna
-
-> ask man about sauna
-
-You can't see that. (man)
-> ask man about attendant
-
-> ask man about attendant
-
-You can't see that. (man)
 > stand on bench
 
 > stand on bench
 
-You can't stand on it.
+You try to, but there are too many mechanical people in the way.
+Fragrant steam hisses gently from hidden nozzles, producing an oily mist that obscures most things in the room.
+
 > remove bathrobe
 
 > remove bathrobe
 
-You can't see that.
-> wear bathrobe
+You take it off.
+
+Naked, you stand unashamedly before the mechanical people. It takes a while for any of them to notice, but eventually one of them opens their eyes and, looking upon you with amazement, nudges their neighbour. A babbling of ancient voices spreads slowly along the benches. The spectacle of your non-mechanical body is no more than faintly distracting to the majority of the mechanical people, but one or two of them seem disturbed enough to rise from their places and make their way out of the sauna.
+
+Fragrant steam hisses gently from hidden nozzles, producing an oily mist that obscures most things in the room.
 
 > wear bathrobe
 
-You can't see that.
+> wear bathrobe
+
+You put it on.
+Fragrant steam hisses gently from hidden nozzles, producing an oily mist that obscures most things in the room.
+
 > stand on bench
 
 > stand on bench
 
-You can't stand on it.
-> x panel
+You stand on the bench.
+On the bench
 
-> x panel
+You are standing on a plain wooden bench. The view is not much different from up here, although the control panel is much closer now.
 
-You see nothing worthy of attention.
-> x gauge
+You can see a control panel (mounted a little way above you)..
 
-> x gauge
+You can go down.
 
-You see nothing worthy of attention.
-> read gauge
+Fragrant steam hisses gently from hidden nozzles, producing an oily mist that obscures most things in the room.
 
-> read gauge
-
-You can't see that. (gauge)
-> x slider
-
-> x slider
-
-You see nothing worthy of attention.
 > set slider to 1
 
 > set slider to 1
 
-I don't understand your command.
-> d
+You set the slider to: 1
+
+Steam trickles feebly from hidden nozzles, producing a thin mist through which most details of the room can be made out.
 
 > d
 
-You can't go there.
+> d
+
+You step down off the bench.
+The Sauna
+
+It's difficult to tell how big the sauna is as a haze of oil vapour makes any reckoning of distance impossible, but it must be fairly large to accommodate the multitude of mechanical people whose fuzzy outlines you can just make out occupying the benches around the room. It feels as though the entire membership of the ◈100 Jewels Club is in residence.
+
+You can see a control panel (mounted high on the wall) and a bench (on which are sitting  mechanical people and a mechanical man (wearing  a towel)).
+
+You can go north.
+
+Steam trickles feebly from hidden nozzles, producing a thin mist through which most details of the room can be made out.
+
+You hear the mechanicals grumbling about the state of the steam-making machinery, and one of them rises from the bench and shuffles purposefully out of the sauna.
+
 > x walls
 
 > x walls
 
-You see nothing worthy of attention.
-> sw
+Now that the steam has cleared a little, you notice a door to the south west.
+
+Steam trickles feebly from hidden nozzles, producing a thin mist through which most details of the room can be made out.
+
+You hear distant footsteps approaching...
 
 > sw
 
-You can't go there.
-> x window
+> sw
 
-> x window
+The Service Entrance
 
-You see nothing worthy of attention.
-> x door
+The service entrance is little more than a cubby-hole occupying a void between the external face of the building and the internal wall of the sauna. You assume that this is the route by which the cleaners, engineers and other lower-level functionaries are suffered to penetrate the hallowed sanctum of the bathhouse, without causing too much upset to the guests.
 
-> x door
+You can see an Access Panel and a Service door, to the West (in which there is a window).
 
-You see nothing worthy of attention.
-> x panel
+You can go northeast or west.
 
-> x panel
-
-You see nothing worthy of attention.
 > x recess
 
 > x recess
 
-You see nothing worthy of attention.
-> x button
+It is a cube-shaped recess, currently empty.
 
-> x button
-
-You see nothing worthy of attention.
-> open door
-
-> open door
-
-You can't see that.
 > press button
 
 > press button
 
-You can't see that. (button)
+You press the button and the panel lights up.
+
+The ⬜ symbol is displayed.
+The timer begins to count down...
+> insert arrow face
+
+> insert arrow face
+
+You insert the 'arrow' face of the access cube into the access panel.
+The match indicator turns GREEN.
+The counter displays: 1
+> take cube
+
+> take cube
+
+You take the cube out of the access panel.
+
+The display refreshes.
+
+The ⬜ symbol is displayed.
+> insert arrow face
+
+> insert arrow face
+
+You insert the 'arrow' face of the access cube into the access panel.
+The match indicator turns GREEN.
+The counter displays: 2
+> take cube
+
+> take cube
+
+You take the cube out of the access panel.
+
+The display refreshes.
+
+The ◇ symbol is displayed.
+> insert triangle face
+
+> insert triangle face
+
+You insert the 'triangle' face of the access cube into the access panel.
+The match indicator turns GREEN.
+The counter displays: 3
+> take cube
+
+> take cube
+
+You take the cube out of the access panel.
+
+The display refreshes.
+
+The ↑ symbol is displayed.
+> insert square face
+
+> insert square face
+
+You insert the 'square' face of the access cube into the access panel.
+The match indicator turns GREEN.
+The counter displays: 4
+> take cube
+
+> take cube
+
+You take the cube out of the access panel.
+
+The display refreshes.
+
+The △ symbol is displayed.
+> insert diamond face
+
+> insert diamond face
+
+You insert the 'diamond' face of the access cube into the access panel.
+The match indicator turns GREEN.
+The counter displays: 5
+The access panel goes dark and, with a gentle hum, the service door slides smoothly open.
 > w
 
 > w
 
-You can't go there.
-[state=Running]
+You emerge into the garden, a wave of relief washing over you as you leave the confines of the bathhouse. The day is blissful, the sun unbelievaby bright, the shrubs and flowers impossibly lush and colourful, tiny mechanical insects whirring and buzzing between brilliantly colourful blossoms. You make your way to the centre of the lawn and lie down, sinking into mattress-soft emerald green grass. Lazily, you roll your head in the direction of the bathhouse but the sun is in your eyes and you can’t make out much above the forest of green stalks that fringe your vision. Or maybe there is nothing there to see? In fact, you can’t quite remember where you have been, or where it is that you are going. It probably doesn’t matter, you think to yourself, as you close your eyes against the light and listen to the soothing sounds of mechanical birdsong and the quiet rustling of clockwork animals in the undergrowth. You hear a sound from somewhere far off, so familiar and yet hard to place, like something calling to you from another world.
+
+It lulls you to sleep…
+
+You awoke to the chiming of the clock. You rolled over and checked the time: 10 o’clock. You realised that you’re overslept, again, on a workday…but you were surprised to discover that you didn’t care. You felt refreshed, invigorated, full of life. Not at all what you expected after a late night, a bottle of red wine and a hunk of overripe cheese. The sun was streaming in through your bedroom curtains and a blackbird was singing in a nearby tree, its voice mingling sweetly with the sound of traffic passing in the road below. This day, you felt, was truly blessed.
+
+You arose, put the coffee on and then, more through habit than any sense of necessity, checked your messages while you waited for it to brew. Half a dozen, from Philips. You started to read them, most recent first:
+
+ 9.55. Clarke says you shouldn’t bother. You’re REALLY going to get it now. Reply though, to let me know you’re not already dead.
+
+ 9.41. Really? Are you EVER coming in??
+
+9.27. You’re just making it worse, you know. Leclercq’s not changing his tune now. So you might as well come and face the music.
+
+ 9.15. Overslept again? Not the best impression, THE DAY AFTER!!
+
+You switched off your phone and weighed it thoughtfully in your hand as you listened to the terminal burbling of the coffee percolator. And then, quite calmly, you went to the bathroom, stood on the lavatory seat and threw your phone out of the window, listening to the dull clunk as it landed in the refuse skip in the yard below.
+
+You stood in the living room, drinking coffee and thinking about what you could be now that you’d seen Clarke, Clark, Clerk and Leclercq for what it really was: a phantasm, an illusion, a piece of undigested cheese languishing in the bottom of an empty stomach. You heard the postman whistling his way along the street below and considered that as your next career move. Or alternatively, you thought, you could deliver the milk. Were there still such things as milkmen? Or you could change your name, leave your home and all your possessions behind, bundle up a few things in a spotted handkerchief and abscond…become a pedlar, traveling from town to town, sharpening knives and selling pots and pans and repairing…clocks? You gazed at your grandmother’s clock on the bookshelf, happily ticking away eternity to itself. You’d always wondered how it worked...
+
+But all of that could wait. The day was young, the air was fresh and you wanted nothing more than to go outside and enjoy the sunshine. You had no garden, but there was a park across the road - you'd go there. You’d finished your coffee and were down the stairs and almost out of the front door before, glancing down, you noticed that you were still wearing your pyjamas. You paused momentarily, then shrugged - who cared? Humming happily to yourself, you opened the front door and stepped forth into the unknown freedoms of a blissfully unplanned new day.
+
+The End
+[state=Finished]
