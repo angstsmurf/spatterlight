@@ -34,6 +34,15 @@ if (args.Length < 1)
 
 var transcript = new StringBuilder();
 var emitCount = 0;
+var errorCount = 0;
+
+// QuestViva ends the game itself once script errors reach MaxScriptErrors (20 in
+// WorldModel.cs) — the "session is unrecoverably wedged" circuit-breaker — which
+// sets State=Finished exactly like a real `finish`. Distinguish the two so a
+// walkthrough that drifted into a run of failing turnscripts is not miscounted
+// as a genuine win. _scriptErrorsFatal is private; the LogError count is the
+// public proxy (one LogError per script error, verified 1:1 with the trip).
+const int MaxScriptErrors = 20;
 
 void Emit(string html)
 {
@@ -49,7 +58,7 @@ void Line(string s) => transcript.Append(s).Append('\n');
 var provider = new FileDirectoryGameDataProvider(args[0]);
 var gameData = await provider.GetData();
 var world = new WorldModel(gameData, null);
-world.LogError += ex => Console.Error.WriteLine("[error] " + ex.Message);
+world.LogError += ex => { errorCount++; Console.Error.WriteLine("[error] " + ex.Message); };
 world.PrintText += Emit;                 // legacy output path (ASL < v540)
 
 TaskScheduler.UnobservedTaskException += (_, e) =>
@@ -123,9 +132,13 @@ if (args.Length >= 2)
     }
 }
 
-Console.Error.WriteLine($"[diag] end: steps={stepCount} emits={emitCount} state={world.State} " +
-    $"scriptExhausted={scriptExhausted}");
-Line($"[state={world.State}]");
+// A Finished reached only because the error breaker tripped is reported as
+// "Wedged", not "Finished" — it is a faithfully-recorded dead end, not a win.
+var wedged = world.State == GameState.Finished && errorCount >= MaxScriptErrors;
+var reportedState = wedged ? "Wedged" : world.State.ToString();
+Console.Error.WriteLine($"[diag] end: steps={stepCount} emits={emitCount} state={reportedState} " +
+    $"errors={errorCount} scriptExhausted={scriptExhausted}");
+Line($"[state={reportedState}]");
 
 Console.Out.Write(Normalise(transcript.ToString()));
 return 0;

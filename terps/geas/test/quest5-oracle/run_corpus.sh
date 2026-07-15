@@ -12,9 +12,9 @@ OUT="$HERE/out"
 mkdir -p "$OUT"
 DLL="$HERE/bin/Release/net10.0/qvh.dll"
 
-printf "%-52s %-6s %6s %6s %-9s\n" "GAME" "ASL" "STEPS" "EMITS" "STATE"
-fin=0; run=0; skip=0
-while IFS=$'\t' read -r game wt mode; do
+printf "%-52s %-6s %6s %6s %4s %-9s\n" "GAME" "ASL" "STEPS" "EMITS" "ERR" "STATE"
+fin=0; run=0; wedge=0; skip=0
+while IFS=$'\t' read -r game wt mode preamble; do
   case "$game" in ''|\#*) continue;; esac
   if [ "$mode" = "hints" ]; then
     printf "%-52s %-6s %6s %6s %-9s\n" "$game" "-" "-" "-" "hints"
@@ -25,16 +25,30 @@ while IFS=$'\t' read -r game wt mode; do
   if [ ! -f "$q" ];   then printf "%-52s  (game file missing)\n" "$game"; continue; fi
   if [ ! -f "$src" ]; then printf "%-52s  (walkthrough missing: %s)\n" "$game" "$wt"; continue; fi
   cmd="$OUT/$game.cmd"
-  python3 "$HERE/extract_walkthrough.py" --mode "$mode" "$src" > "$cmd"
+  # Optional 4th column: ";"-separated commands prepended before the walkthrough
+  # (e.g. "new game" to click past a title-screen menu the walkthrough assumes
+  # you already dismissed — without it every later command hits the menu and
+  # fails). Kept out of extract_walkthrough.py because it is game-, not
+  # format-specific.
+  : > "$cmd"
+  if [ -n "${preamble:-}" ]; then
+    printf '%s\n' "$preamble" | tr ';' '\n' | sed 's/^ *//; s/ *$//' >> "$cmd"
+  fi
+  python3 "$HERE/extract_walkthrough.py" --mode "$mode" "$src" >> "$cmd"
   [ -s "$cmd" ] || { printf "%-52s  (no commands extracted)\n" "$game"; continue; }
   dotnet "$DLL" "$q" "$cmd" > "$OUT/$game.out" 2> "$OUT/$game.err"
   diag="$(grep '^\[diag\] end:' "$OUT/$game.err")"
   ver="$(grep -o 'version=[^ ]*' "$OUT/$game.err" | head -1 | cut -d= -f2)"
   steps="$(echo "$diag" | grep -o 'steps=[0-9]*' | cut -d= -f2)"
   emits="$(echo "$diag" | grep -o 'emits=[0-9]*' | cut -d= -f2)"
+  errs="$(echo "$diag" | grep -o 'errors=[0-9]*' | cut -d= -f2)"
   state="$(echo "$diag" | grep -o 'state=[A-Za-z]*' | cut -d= -f2)"
-  printf "%-52s %-6s %6s %6s %-9s\n" "$game" "${ver:-?}" "${steps:-?}" "${emits:-?}" "${state:-?}"
-  [ "$state" = "Finished" ] && fin=$((fin+1)) || run=$((run+1))
+  printf "%-52s %-6s %6s %6s %4s %-9s\n" "$game" "${ver:-?}" "${steps:-?}" "${emits:-?}" "${errs:-?}" "${state:-?}"
+  case "$state" in
+    Finished) fin=$((fin+1));;
+    Wedged)   wedge=$((wedge+1));;
+    *)        run=$((run+1));;
+  esac
 done < "$HERE/corpus.tsv"
 echo "---"
-echo "driven: $((fin+run))  (Finished: $fin, Running: $run)   hints-only skipped: $skip"
+echo "driven: $((fin+run+wedge))  (Finished: $fin, Running: $run, Wedged: $wedge)   hints-only skipped: $skip"

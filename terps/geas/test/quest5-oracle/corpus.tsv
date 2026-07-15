@@ -4,6 +4,9 @@
 # mode: welbourn | commands | hints
 #   welbourn/commands -> extract_walkthrough.py drives the oracle
 #   hints             -> Q&A/prose only, no linear command script; runner skips
+# optional 4th column (preamble): ";"-separated commands prepended before the
+#   walkthrough, for a game whose walkthrough assumes a title-screen menu was
+#   already dismissed (e.g. Dream Pieces needs "new game" or every command fails).
 # The 24 games with a walkthrough (of 49). Filename mismatches vs the .quest
 # names (Guttersnipe spacing, Jacqueline, Hawk suffix, bare .txt) are why a
 # naive "<Game> - walkthrough.txt" match missed several — hence this table.
@@ -12,7 +15,7 @@ A Christmas Game	A Christmas Game - walkthrough.txt	welbourn
 A Hobbit Trek	A Hobbit Trek - walkthrough.txt	welbourn
 Basilica de Sangre	Basilica de Sangre - walkthrough.txt	welbourn
 Dream Pieces 2 - The Lego Box	Dream Pieces 2 - The Lego Box - walkthrough.txt	welbourn
-Dream Pieces	Dream Pieces - walkthrough.txt	welbourn
+Dream Pieces	Dream Pieces - walkthrough.txt	welbourn	new game
 Escape From the Mechanical Bathhouse	Escape From the Mechanical Bathhouse - walkthrough.txt	welbourn
 Guttersnipe- Carnival of Regrets	Guttersnipe - Carnival of Regrets - walkthrough.txt	welbourn
 Guttersnipe- St. Hesper's Asylum for the Criminally Mischievous	Guttersnipe - St Hesper's Asylum for the Criminally Mischievous - walkthrough.txt	welbourn

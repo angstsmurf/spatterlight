@@ -73,10 +73,30 @@ naive `<Game> - walkthrough.txt` match silently misses several.
   packed several-per-line with `. `; parentheticals are prose; `X —or— Y`
   (em-dash) means "either works", and we take the first alternative (missing
   this silently stalls the game — an unanswered numbered menu swallows every
-  later command, see below).
+  later command, see below). Also handled, because each silently breaks a run:
+  - **inline menu / input answers** — an *unprefixed* line quoting the game's
+    prompt and ending in the chosen number, e.g. `...thwarted expectations? 1`
+    (a numbered text menu) or `What combination do you enter? 987333` (a
+    get-input answer). A real `>` command never contains `?`, so the trailing
+    digits are unambiguously an answer to send as its own turn. Missing them
+    left St. Hesper's psychiatrist menu pending, swallowing 200+ later commands.
+  - **dingbat/emoji annotations** — Welbourn sprinkles `☹`/`☺`/`★` into command
+    lines to flag notes (`> x figurehead. take it. ☹ w.`). Left in, `☹ w` is an
+    unknown command, so the move silently fails and every later command cascades
+    into "I can't see that". The symbol ranges are stripped; the `—or—` dashes
+    sit outside them and survive.
+  - **keypress tokens** — `SPACE` (Bathhouse only) is Welbourn's "press any key"
+    notation; the harness auto-continues those prompts, so a literal `SPACE`
+    command is dropped.
 - **commands** — a bare one-command-per-line list (often the tail of an author
   doc after a prose section), possibly indented and using `menu:` directives;
   prose lines are dropped by a shape heuristic.
+
+`corpus.tsv` has an optional 4th column, **preamble** — `;`-separated commands
+prepended before the walkthrough. It exists for games whose walkthrough assumes
+a title-screen menu was already dismissed: *Dream Pieces* opens on a
+`[NEW GAME]` menu, so without a `new game` preamble every command hits the menu
+and fails ("I can't see that") — the whole transcript is garbage.
 
 Note: `game.multiplecommands` defaults to **false** in Core and most games leave
 it off, so the engine will *not* split a `.`-joined line itself — pre-splitting
@@ -84,10 +104,23 @@ in welbourn mode is required, and also yields one deterministic turn per command
 
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
-table (ASL version, steps, emits, final state). Current coverage: **17 games
-driven** (8 reach `Finished`; 9 end `Running` — walkthrough exhausts or drifts
-from the game version at the tail, which the oracle faithfully records), **6
+table (ASL version, steps, emits, error count, final state). Current coverage:
+**17 games driven** — **9 `Finished`** (genuine wins), **7 `Running`**
+(walkthrough exhausts or drifts from the game version at the tail, which the
+oracle faithfully records), **1 `Wedged`** (Whitefield — see below) — plus **6
 hints-only** (Q&A/prose, no linear script). See [[quest5-corpus]].
+
+### `Wedged`: telling the error breaker apart from a real win
+
+QuestViva ends the game *itself* once script errors reach `MaxScriptErrors` (20,
+`WorldModel.cs`) — a "session is unrecoverably wedged" circuit-breaker — and this
+sets `State=Finished` exactly like a real `finish`. The harness counts `LogError`
+events (1:1 with the trip) and reports that case as **`Wedged`**, not `Finished`,
+so a walkthrough that drifted into a run of failing turnscripts is not miscounted
+as a win. *Whitefield Academy of Witchcraft* wedges this way: after the
+walkthrough drifts, the CoreGrid map turnscript throws
+`DictionaryItem(coordinates,...)` (missing x/y/z) every turn and trips the
+breaker at 20 errors. All genuinely-finished games show `ERR=0`.
 
 ### Two menu systems (why a bad answer used to freeze the game)
 
@@ -135,4 +168,12 @@ transcripts across runs.
   version at the tail (e.g. *I Contain Multitudes*, whose author notes its
   time-based events break Quest's own walkthrough runner). Transcripts are still
   deterministic; they just don't reach a formal win.
+- *Dream Pieces* plays its whole wordplay puzzle (with the `new game` preamble)
+  but ends `Running`: its published walkthrough's last step is `unlock door`,
+  which the game rejects with "Try unlocking the lock." Sending `unlock lock`
+  instead wins (50/50, "Awake Gamer") — a walkthrough bug, left as faithful
+  drift rather than hand-patched into the command stream.
+- *Escape From the Mechanical Bathhouse* is a real-time timed game (a matching
+  puzzle with a 50-second wall-clock limit); it always drifts at the tail
+  regardless of the script, and is reported `Running`.
 - *The Brutal Murder of Jenny Lee* has a PDF-only walkthrough (no `.txt`).

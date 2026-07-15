@@ -19,17 +19,43 @@ import re, sys
 # "ask X about a —or— ask X about b" (em/en dash). Take the first alternative.
 _OR = re.compile(r"\s*[—–]\s*or\s*[—–]\s*")
 
+# Inline menu / get-input answer. Welbourn writes an unprefixed line quoting the
+# game's prompt and ending in the number he chose, e.g. "...thwarted
+# expectations? 1" (a numbered text menu) or "What combination do you enter?
+# 987333" (a get-input answer). A real ">" command never contains "?", so the
+# trailing digits are unambiguously an answer to send as its own turn — missing
+# it leaves a text menu pending, which silently swallows every later command.
+_MENU_ANSWER = re.compile(r"\?\s+(\d+)\s*$")
+
+# Welbourn's keypress notation for a "press any key" / timed prompt (only Escape
+# From the Mechanical Bathhouse uses it). The harness auto-continues wait/DoPause
+# prompts without consuming a script line, so a literal SPACE would just be a
+# bogus command; drop it. "SPACESPACE" is two presses collapsed by the "."-split.
+_KEYPRESS = re.compile(r"^(?:SPACE)+$")
+
+# Welbourn sprinkles inline dingbat/emoji annotations into command lines — ☹/☺
+# to flag a note, ★ for a milestone — e.g. "> x figurehead. take it. ☹ w." Left
+# in, "☹ w" is an unrecognised command, so the move silently fails and every
+# later command (examining objects in rooms never reached) cascades into "I
+# can't see that". Strip the symbol/dingbat/emoji ranges; the em/en dashes used
+# by the "—or—" notation sit outside them and are preserved for _OR.
+_GLYPH = re.compile("[☀-➿⬀-⯿️\U0001f000-\U0001faff]")
+
 
 def extract_welbourn(text):
     cmds = []
     for line in text.splitlines():
         if not line.lstrip().startswith(">"):
+            m = _MENU_ANSWER.search(line)
+            if m:
+                cmds.append(m.group(1))
             continue
         body = line.lstrip()[1:].strip()
         body = re.sub(r"\([^)]*\)", "", body)          # drop "(asides)"
+        body = _GLYPH.sub("", body)                    # drop ☹/☺/★ annotations
         for part in re.split(r"\.\s+|\.$", body):
             c = _OR.split(part, 1)[0].strip().rstrip(".").strip()
-            if c:
+            if c and not _KEYPRESS.match(c):
                 cmds.append(c)
     return cmds
 
