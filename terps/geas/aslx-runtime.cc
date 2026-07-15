@@ -562,19 +562,29 @@ static ExprP compile_expr_str(const std::string &src) {
 // ===========================================================================
 
 struct Stmt {
-    enum class Kind { Msg, If, While, For, ForEach, Assign, Call, Return, Comment };
+    enum class Kind {
+        Msg, If, While, For, ForEach, Assign, Call, Return, Comment,
+        Switch, FirstTime, OnReady
+    };
     Kind kind;
     std::string name;              // Assign var/prop, For/ForEach var, Call name
-    ExprP expr;                    // Msg/Return value, While/If cond, Assign value
+    ExprP expr;                    // Msg/Return value, While/If cond, Assign value,
+                                   // Switch selector
     ExprP obj;                     // Assign target object (before last dot), or null
     ExprP from, to, step;          // For
     ExprP list;                    // ForEach
-    std::vector<Stmt> body;        // block
+    std::vector<Stmt> body;        // block (also FirstTime first / OnReady callback)
     // If: chained else-if/else
     std::vector<std::pair<ExprP, std::vector<Stmt>>> elseifs;
-    std::vector<Stmt> else_body;
+    std::vector<Stmt> else_body;   // also Switch `default`, FirstTime `otherwise`
     bool has_else = false;
     std::vector<ExprP> call_args;  // Call
+    // Switch: each case is (one-or-more match exprs) -> body.
+    std::vector<std::pair<std::vector<ExprP>, std::vector<Stmt>>> cases;
+    // FirstTime: per-compiled-instance "has it run yet" flag. The compiled Stmt
+    // is cached and reused across invocations, so this shared flag persists,
+    // matching QuestViva's per-FirstTimeScript m_hasRun.
+    std::shared_ptr<bool> ran;
 };
 
 // ===========================================================================
@@ -718,10 +728,38 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         }
         return;
     }
+    case Stmt::Kind::Switch: {
+        std::string sel = to_string(eval_expr(*s.expr, ctx));
+        for (const auto &c : s.cases) {
+            for (const auto &m : c.first) {
+                if (to_string(eval_expr(*m, ctx)) == sel) {
+                    exec_block(c.second, ctx);
+                    return;
+                }
+            }
+        }
+        if (!s.else_body.empty()) exec_block(s.else_body, ctx);
+        return;
+    }
+    case Stmt::Kind::FirstTime: {
+        if (s.ran && !*s.ran) {
+            *s.ran = true;
+            exec_block(s.body, ctx);
+        } else if (s.has_else) {
+            exec_block(s.else_body, ctx);
+        }
+        return;
+    }
+    case Stmt::Kind::OnReady: {
+        on_ready_.emplace_back(&s.body, ctx);
+        return;
+    }
     case Stmt::Kind::Call: {
+        // Reserved statement commands (do/invoke/create/set/list add/...) take
+        // precedence, then game functions, then built-ins.
+        if (exec_statement_command(s.name, s.call_args, ctx)) return;
         std::vector<Value> args;
         for (const auto &a : s.call_args) args.push_back(eval_expr(*a, ctx));
-        // A game function takes precedence at statement position.
         if (world_.find(s.name) &&
             (world_.find(s.name)->elem_type == "function")) {
             call_function(s.name, std::move(args), &ctx);
@@ -733,6 +771,16 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         }
         return;
     }
+    }
+}
+
+void Interp::drain_on_ready() {
+    // FIFO; callbacks queued during draining are appended and run this pass.
+    while (!on_ready_.empty()) {
+        auto item = on_ready_.front();
+        on_ready_.erase(on_ready_.begin());
+        Context ctx = item.second;
+        exec_block(*item.first, ctx);
     }
 }
 
@@ -924,6 +972,166 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     if (body && body->type == Value::Type::Script)
         run_script(body->str, local);
     return local.return_value;
+}
+
+// -- reserved statement commands --------------------------------------------
+
+// Resolve an lvalue expression (a local variable or obj.attr) to the mutable
+// Value backing it, creating a local if needed. Used by list/dictionary
+// mutators, which change the collection in place. Returns nullptr for anything
+// that is not an assignable location.
+Value *Interp::lvalue_of(const Expr &e, Context &ctx) {
+    if (e.kind == Expr::Kind::Var) {
+        return &ctx.locals[e.str];
+    }
+    if (e.kind == Expr::Kind::Member) {
+        Value ov = eval_expr(*e.a, ctx);
+        Element *el = (ov.type == Value::Type::ObjectRef) ? world_.find(ov.str)
+                                                          : nullptr;
+        if (!el) return nullptr;
+        // Own field if present; else copy the inherited value down so the
+        // mutation lands on this element (copy-on-write), matching how Quest's
+        // list/dictionary attributes become instance-owned once modified.
+        if (const Value *own = el->field(e.str))
+            return const_cast<Value *>(own);
+        if (const Value *inh = resolve_field(el, e.str))
+            return &el->set_field(e.str, *inh);
+        return &el->set_field(e.str, Value{});
+    }
+    return nullptr;
+}
+
+bool Interp::exec_statement_command(const std::string &name,
+                                    const std::vector<std::shared_ptr<Expr>> &args,
+                                    Context &ctx) {
+    auto ev = [&](size_t i) -> Value {
+        return i < args.size() ? eval_expr(*args[i], ctx) : vnull();
+    };
+    auto as_element = [&](const Value &v) -> Element * {
+        return v.type == Value::Type::ObjectRef ? world_.find(v.str) : nullptr;
+    };
+
+    // JS.* -- the front-end bridge. Only JS.addText carries game text; route it
+    // to the output sink. Everything else is a UI side effect we can ignore in
+    // the headless/native core (a later presentation milestone wires the rest).
+    if (name.compare(0, 3, "JS.") == 0) {
+        std::string fn = name.substr(3);
+        if (fn == "addText" && !args.empty())
+            print(to_string(ev(0)));
+        return true;
+    }
+
+    if (name == "do") {
+        Element *obj = as_element(ev(0));
+        std::string action = to_string(ev(1));
+        if (!obj) { errors().push_back("do: not an object"); return true; }
+        const Value *scr = resolve_field(obj, action);
+        if (!scr || scr->type != Value::Type::Script) {
+            errors().push_back("do: no script '" + action + "'");
+            return true;
+        }
+        Context local;
+        if (args.size() >= 3) {
+            Value params = ev(2);
+            for (auto &kv : params.dict)
+                local.locals[kv.first] =
+                    params.type == Value::Type::ObjectDict ? vobj(kv.second)
+                                                           : vstr(kv.second);
+        }
+        run_script(scr->str, local);
+        return true;
+    }
+    if (name == "invoke") {
+        Value scr = ev(0);
+        if (scr.type != Value::Type::Script) {
+            errors().push_back("invoke: not a script");
+            return true;
+        }
+        Context local;
+        if (args.size() >= 2) {
+            Value params = ev(1);
+            for (auto &kv : params.dict)
+                local.locals[kv.first] =
+                    params.type == Value::Type::ObjectDict ? vobj(kv.second)
+                                                           : vstr(kv.second);
+        }
+        run_script(scr.str, local);
+        return true;
+    }
+    if (name == "create") {
+        std::string nm = to_string(ev(0));
+        std::string ty = args.size() >= 2 ? to_string(ev(1)) : "";
+        world_.create_object(nm, ty);
+        return true;
+    }
+    if (name == "destroy") {
+        world_.destroy_element(to_string(ev(0)));
+        return true;
+    }
+    if (name == "set") {  // set(obj, "field", value)
+        Element *obj = as_element(ev(0));
+        if (obj) obj->set_field(to_string(ev(1)), ev(2));
+        else errors().push_back("set: not an object");
+        return true;
+    }
+    if (name == "list add" || name == "list remove") {
+        if (args.size() < 2) return true;
+        Value *lst = lvalue_of(*args[0], ctx);
+        Value item = ev(1);
+        if (!lst || !(lst->type == Value::Type::StringList ||
+                      lst->type == Value::Type::ObjectList)) {
+            errors().push_back("Unrecognised list type");
+            return true;
+        }
+        std::string s = (item.type == Value::Type::ObjectRef) ? item.str
+                                                             : to_string(item);
+        if (name == "list add") {
+            lst->list.push_back(s);
+        } else {
+            lst->list.erase(std::remove(lst->list.begin(), lst->list.end(), s),
+                            lst->list.end());
+        }
+        return true;
+    }
+    if (name == "dictionary add" || name == "dictionary remove") {
+        if (args.size() < 2) return true;
+        Value *d = lvalue_of(*args[0], ctx);
+        std::string key = to_string(ev(1));
+        if (!d || !(d->type == Value::Type::StringDict ||
+                    d->type == Value::Type::ObjectDict ||
+                    d->type == Value::Type::ScriptDict)) {
+            errors().push_back("Unrecognised dictionary type");
+            return true;
+        }
+        // remove any existing entry with this key first (Add replaces).
+        for (auto it = d->dict.begin(); it != d->dict.end();) {
+            if (it->first == key) it = d->dict.erase(it);
+            else ++it;
+        }
+        if (name == "dictionary add") {
+            Value v = ev(2);
+            std::string sv = (v.type == Value::Type::ObjectRef ||
+                              v.type == Value::Type::Script)
+                                 ? v.str
+                                 : to_string(v);
+            d->dict.emplace_back(key, sv);
+        }
+        return true;
+    }
+    if (name == "error") {
+        errors().push_back(to_string(ev(0)));
+        ctx.returned = true;  // approximate the thrown-exception unwind
+        return true;
+    }
+    if (name == "finish") {
+        world_.finished = true;
+        return true;
+    }
+    if (name == "undo" || name == "start transaction") {
+        // UndoLogger is a later milestone; accept and no-op for now.
+        return true;
+    }
+    return false;
 }
 
 }  // namespace aslx

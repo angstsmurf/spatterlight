@@ -100,6 +100,24 @@ const std::string *World::implied_type(const std::string &elem_type,
     return it == implied_types.end() ? nullptr : &it->second;
 }
 
+Element *World::create_object(const std::string &name, const std::string &type) {
+    auto e = std::make_unique<Element>();
+    Element *ep = e.get();
+    ep->elem_type = "object";
+    ep->name = name;
+    if (!type.empty()) ep->inherits.push_back(type);
+    roots.push_back(ep);
+    by_name[name] = ep;            // last create wins, like ObjectFactory
+    elements.push_back(std::move(e));
+    return ep;
+}
+
+void World::destroy_element(const std::string &name) {
+    by_name.erase(name);
+    // The Element storage stays in `elements` (other references may exist); it
+    // simply becomes unreachable by name, which is what scope walks rely on.
+}
+
 // ---------------------------------------------------------------------------
 // Small utilities matching QuestViva's Utility.cs
 // ---------------------------------------------------------------------------
@@ -685,13 +703,15 @@ struct Loader {
         // command body text is its script; verb body text is defaulttext.
         if (e->elem_type == "command") {
             if (!trim(body).empty()) {
-                Value v; v.type = Value::Type::Script; v.str = body;
+                Value v; v.type = Value::Type::Script;
+                v.str = replace_templates(body);
                 v.declared_type = "script";
                 e->set_field("script", v);
             }
         } else if (e->elem_type == "verb") {
             if (!trim(body).empty()) {
-                Value v; v.type = Value::Type::String; v.str = trim(body);
+                Value v; v.type = Value::Type::String;
+                v.str = replace_templates(trim(body));
                 e->set_field("defaulttext", v);
             }
         }
@@ -761,7 +781,8 @@ struct Loader {
                 Value rv; rv.type = Value::Type::String; rv.str = ret;
                 e->set_field("returntype", rv);
             }
-            Value sv; sv.type = Value::Type::Script; sv.str = f.text;
+            Value sv; sv.type = Value::Type::Script;
+            sv.str = replace_templates(f.text);
             sv.declared_type = "script";
             e->set_field("script", sv);
             return;
@@ -806,9 +827,9 @@ struct Loader {
         const std::string &text = f.text;
 
         if (type == "string") {
-            v.type = Value::Type::String; v.str = text;
+            v.type = Value::Type::String; v.str = replace_templates(text);
         } else if (type == "script") {
-            v.type = Value::Type::Script; v.str = text;
+            v.type = Value::Type::Script; v.str = replace_templates(text);
         } else if (type == "int") {
             v.type = Value::Type::Int; v.integer = std::atol(trim(text).c_str());
         } else if (type == "double") {
@@ -870,7 +891,7 @@ struct Loader {
             // signature (QuestViva stores a DelegateImplementation wrapping it).
             // The delegate name is kept in declared_type so `rundelegate` can
             // look up its parameter names at invoke time.
-            v.type = Value::Type::Script; v.str = text;
+            v.type = Value::Type::Script; v.str = replace_templates(text);
         } else {
             // Unknown type: keep the raw text as a string, but flag it.
             v.type = Value::Type::String; v.str = text;
@@ -886,6 +907,38 @@ struct Loader {
         Frame tmp;
         tmp.text = text;
         set_typed_field_from_frame(owner, attr, type, tmp);
+    }
+
+    // Substitute `[name]` template references with the named template's text,
+    // using templates registered so far (later registrations win, matching
+    // QuestViva's Template.ReplaceTemplateText / m_templateLookup). An
+    // unmatched reference is left verbatim -- this is what keeps regex character
+    // classes like [^\w] intact. Applied at load time to script bodies and
+    // string attributes, exactly where the GameLoader calls GetTemplate.
+    std::string replace_templates(const std::string &text) {
+        if (text.find('[') == std::string::npos) return text;
+        std::string out = text;
+        size_t start = 0;
+        while (start < out.size()) {
+            size_t open = out.find('[', start);
+            if (open == std::string::npos) break;
+            size_t close = out.find(']', open + 1);
+            if (close == std::string::npos) break;
+            std::string name = out.substr(open + 1, close - open - 1);
+            std::string value;
+            bool found = false;
+            for (auto it = world.templates.rbegin();
+                 it != world.templates.rend(); ++it) {
+                if (it->first == name) { value = it->second; found = true; break; }
+            }
+            if (found) {
+                out = out.substr(0, open) + value + out.substr(close + 1);
+                start = open + value.size();
+            } else {
+                start = close + 1;  // leave "[name]" as-is
+            }
+        }
+        return out;
     }
 };
 

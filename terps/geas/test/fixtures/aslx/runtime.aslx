@@ -1,11 +1,14 @@
 <!--Fixture for the milestone-2 script/expression runtime test.-->
 <asl version="550">
+  <template name="Greeting">hello</template>
+  <dynamictemplate name="Weigh">"weighs " + object.weight</dynamictemplate>
   <type name="container">
     <capacity type="int">10</capacity>
   </type>
   <object name="room">
     <object name="player">
       <score type="int">0</score>
+      <greet type="script">msg ("player waves")</greet>
     </object>
     <object name="box">
       <inherit name="container" />
@@ -36,5 +39,9 @@
     else {
       return ("positive")
     }
+  </function>
+  <!-- [Greeting] is substituted at load time to the template's text. -->
+  <function name="Templated" type="string">
+    return ("[Greeting] world")
   </function>
 </asl>

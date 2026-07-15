@@ -22,6 +22,38 @@ static bool does_inherit(World &w, Element *e, const std::string &t) {
     return false;
 }
 
+// ASLX type name for a value, matching WorldModel.ConvertTypeToTypeName.
+static std::string type_name(const Value &v) {
+    switch (v.type) {
+    case Value::Type::Null: return "null";
+    case Value::Type::String: return "string";
+    case Value::Type::Int: return "int";
+    case Value::Type::Double: return "double";
+    case Value::Type::Boolean: return "boolean";
+    case Value::Type::ObjectRef: return "object";
+    case Value::Type::Script: return "script";
+    case Value::Type::StringList: return "stringlist";
+    case Value::Type::ObjectList: return "objectlist";
+    case Value::Type::StringDict: return "stringdictionary";
+    case Value::Type::ObjectDict: return "objectdictionary";
+    case Value::Type::ScriptDict: return "scriptdictionary";
+    }
+    return "null";
+}
+
+// Template lookups: later registrations win (Quest's m_templateLookup overwrite).
+static const std::string *find_template(World &w, const std::string &name) {
+    for (auto it = w.templates.rbegin(); it != w.templates.rend(); ++it)
+        if (it->first == name) return &it->second;
+    return nullptr;
+}
+static const std::string *find_dyn_template(World &w, const std::string &name) {
+    for (auto it = w.dynamic_templates.rbegin(); it != w.dynamic_templates.rend();
+         ++it)
+        if (it->first == name) return &it->second;
+    return nullptr;
+}
+
 Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                            bool &handled, Context &ctx) {
     handled = true;
@@ -83,20 +115,149 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
     if (fn == "doesinherit" && n == 2)
         return vbool(does_inherit(world_, obj_of(arg(0)), sarg(1)));
-    if (fn == "typeof" && n == 1) {
-        switch (arg(0).type) {
-        case Value::Type::Int: return vstr("int");
-        case Value::Type::Double: return vstr("double");
-        case Value::Type::Boolean: return vstr("boolean");
-        case Value::Type::String: return vstr("string");
-        case Value::Type::ObjectRef: return vstr("object");
-        case Value::Type::StringList:
-        case Value::Type::ObjectList: return vstr("list");
-        default: return vstr("null");
-        }
+    if (fn == "typeof" && n == 1) return vstr(type_name(arg(0)));
+    if (fn == "typeof" && n == 2) {
+        const Value *f = resolve_field(obj_of(arg(0)), sarg(1));
+        return vstr(f ? type_name(*f) : std::string("null"));
     }
     if (fn == "isdefined" && n == 1)
         return vbool(ctx.locals.count(sarg(0)) > 0);
+
+    // ---- world model: objects, children, attributes -----------------------
+    if (fn == "allobjects" && n == 0) {
+        std::vector<std::string> names;
+        for (auto &up : world_.elements)
+            if (up->elem_type == "object") names.push_back(up->name);
+        return vobjlist(names);
+    }
+    if (fn == "allcommands" && n == 0) {
+        std::vector<std::string> names;
+        for (auto &up : world_.elements)
+            if (up->elem_type == "command") names.push_back(up->name);
+        return vobjlist(names);
+    }
+    if (fn == "getdirectchildren" && n == 1) {
+        Element *e = obj_of(arg(0));
+        std::vector<std::string> names;
+        if (e)
+            for (Element *c : e->children)
+                if (c->elem_type == "object") names.push_back(c->name);
+        return vobjlist(names);
+    }
+    if (fn == "getallchildobjects" && n == 1) {
+        Element *e = obj_of(arg(0));
+        std::vector<std::string> names;
+        std::function<void(Element *)> rec = [&](Element *x) {
+            for (Element *c : x->children)
+                if (c->elem_type == "object") { names.push_back(c->name); rec(c); }
+        };
+        if (e) rec(e);
+        return vobjlist(names);
+    }
+    if (fn == "contains" && n == 2) {
+        Element *parent = obj_of(arg(0)), *child = obj_of(arg(1));
+        bool found = false;
+        for (Element *p = child ? child->parent : nullptr; p; p = p->parent)
+            if (p == parent) { found = true; break; }
+        return vbool(found);
+    }
+    if (fn == "getattributenames" && (n == 1 || n == 2)) {
+        Element *e = obj_of(arg(0));
+        bool inh = (n == 2) && truthy(arg(1));
+        std::vector<std::string> names;
+        auto collect = [&](Element *x) {
+            if (!x) return;
+            for (auto &kv : x->fields)
+                if (std::find(names.begin(), names.end(), kv.first) == names.end())
+                    names.push_back(kv.first);
+        };
+        collect(e);
+        if (inh && e)
+            for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
+                collect(world_.find(*it));
+        return vstrlist(names);
+    }
+
+    // ---- dictionaries -----------------------------------------------------
+    if ((fn == "newdictionary" || fn == "newstringdictionary") && n == 0) {
+        Value v; v.type = Value::Type::StringDict; return v;
+    }
+    if (fn == "newobjectdictionary" && n == 0) {
+        Value v; v.type = Value::Type::ObjectDict; return v;
+    }
+    if (fn == "newscriptdictionary" && n == 0) {
+        Value v; v.type = Value::Type::ScriptDict; return v;
+    }
+    if (fn == "dictionarycount" && n == 1) return vint((long)arg(0).dict.size());
+    if (fn == "dictionarycontains" && n == 2) {
+        for (auto &kv : arg(0).dict) if (kv.first == sarg(1)) return vbool(true);
+        return vbool(false);
+    }
+    if ((fn == "dictionaryitem" || fn == "stringdictionaryitem") && n == 2) {
+        for (auto &kv : arg(0).dict) if (kv.first == sarg(1)) return vstr(kv.second);
+        return vnull();
+    }
+    if (fn == "objectdictionaryitem" && n == 2) {
+        for (auto &kv : arg(0).dict) if (kv.first == sarg(1)) return vobj(kv.second);
+        return vnull();
+    }
+    if (fn == "scriptdictionaryitem" && n == 2) {
+        for (auto &kv : arg(0).dict)
+            if (kv.first == sarg(1)) {
+                Value v; v.type = Value::Type::Script; v.str = kv.second; return v;
+            }
+        return vnull();
+    }
+    if (fn == "stringlistitem" && n == 2) {
+        const Value &l = arg(0); long i = iarg(1);
+        if (i < 0 || (size_t)i >= l.list.size()) return vnull();
+        return vstr(l.list[i]);
+    }
+    if (fn == "objectlistitem" && n == 2) {
+        const Value &l = arg(0); long i = iarg(1);
+        if (i < 0 || (size_t)i >= l.list.size()) return vnull();
+        return vobj(l.list[i]);
+    }
+
+    // ---- templates --------------------------------------------------------
+    if (fn == "template" && n == 1) {
+        const std::string *t = find_template(world_, sarg(0));
+        return vstr(t ? *t : std::string());
+    }
+    if (fn == "dynamictemplate" && n >= 1) {
+        const std::string *t = find_dyn_template(world_, sarg(0));
+        if (!t) {  // fall back to a static template of the same name
+            const std::string *st = find_template(world_, sarg(0));
+            return vstr(st ? *st : std::string());
+        }
+        Context tc;
+        if (n == 2) {
+            // One trailing arg binds "object" (an element) or "text" (a string).
+            tc.locals[arg(1).type == Value::Type::ObjectRef ? "object" : "text"] =
+                arg(1);
+        } else {
+            for (size_t i = 1; i < n; ++i)
+                tc.locals["object" + std::to_string(i)] = arg(i);
+        }
+        return vstr(to_string(eval(*t, tc)));
+    }
+
+    // ---- misc string ------------------------------------------------------
+    if (fn == "capfirst" && n == 1) {
+        std::string s = sarg(0);
+        if (!s.empty()) s[0] = (char)std::toupper((unsigned char)s[0]);
+        return vstr(s);
+    }
+    if (fn == "safexml" && n == 1) {
+        std::string s = sarg(0), out;
+        for (char c : s) {
+            if (c == '&') out += "&amp;";
+            else if (c == '<') out += "&lt;";
+            else if (c == '>') out += "&gt;";
+            else out += c;
+        }
+        return vstr(out);
+    }
 
     // ---- lists ------------------------------------------------------------
     if ((fn == "newlist" || fn == "newstringlist") && n == 0) return vstrlist({});

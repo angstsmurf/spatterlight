@@ -172,6 +172,136 @@ static void test_functions_and_objects() {
     CHECK_STR(run(in, "msg (Classify(7))"), "positive");
 }
 
+static void test_script_commands() {
+    World w;
+    bool ok = load_file("fixtures/aslx/runtime.aslx", w);
+    if (!ok) std::cerr << dump(w);
+    CHECK(ok);
+    Interp in(w);
+
+    // switch / case (multiple values) / default
+    const char *sw =
+        "switch (x) {\n"
+        "  case (1) { msg (\"one\") }\n"
+        "  case (2, 3) { msg (\"two-three\") }\n"
+        "  default { msg (\"other\") }\n"
+        "}";
+    CHECK_STR(run(in, std::string("x = 2\n") + sw), "two-three");
+    CHECK_STR(run(in, std::string("x = 3\n") + sw), "two-three");
+    CHECK_STR(run(in, std::string("x = 9\n") + sw), "other");
+
+    // firsttime / otherwise -- state persists across runs of the same (cached)
+    // script source, mirroring Quest's per-instance m_hasRun.
+    const char *ft =
+        "firsttime { msg (\"first\") }\n"
+        "otherwise { msg (\"again\") }";
+    CHECK_STR(run(in, ft), "first");
+    CHECK_STR(run(in, ft), "again");
+    CHECK_STR(run(in, ft), "again");
+
+    // do -- run a named script attribute on an object
+    CHECK_STR(run(in, "do (player, \"greet\")"), "player waves");
+
+    // create / create-with-type / destroy
+    run(in, "create (\"widget\")");
+    CHECK(w.find("widget"));
+    run(in, "create (\"crate\", \"container\")");
+    {
+        Context c;
+        CHECK_STR(Interp::to_string(in.eval("DoesInherit(crate, \"container\")", c)),
+                  "True");
+    }
+    run(in, "destroy (\"widget\")");
+    CHECK(!w.find("widget"));
+
+    // set(obj, field, value)
+    CHECK_STR(run(in, "set (box, \"colour\", \"red\")\nmsg (box.colour)"), "red");
+
+    // list add / list remove, local and on an attribute
+    CHECK_STR(run(in,
+        "l = NewStringList()\n"
+        "list add (l, \"x\")\n"
+        "list add (l, \"y\")\n"
+        "list remove (l, \"x\")\n"
+        "msg (Join(l, \",\"))"), "y");
+    CHECK_STR(run(in,
+        "box.tags = NewStringList()\n"
+        "list add (box.tags, \"heavy\")\n"
+        "list add (box.tags, \"wooden\")\n"
+        "msg (ListCount(box.tags))"), "2");
+
+    // dictionary add / remove / count / contains / item
+    CHECK_STR(run(in,
+        "d = NewDictionary()\n"
+        "dictionary add (d, \"a\", \"1\")\n"
+        "dictionary add (d, \"b\", \"2\")\n"
+        "dictionary remove (d, \"a\")\n"
+        "msg (DictionaryContains(d, \"a\"))\n"
+        "msg (DictionaryContains(d, \"b\"))\n"
+        "msg (DictionaryCount(d))\n"
+        "msg (DictionaryItem(d, \"b\"))"), "False\nTrue\n1\n2");
+
+    // on ready -- deferred until drain, then FIFO
+    {
+        in.clear_output();
+        Context ctx;
+        in.run_script(
+            "msg (\"a\")\n"
+            "on ready { msg (\"deferred\") }\n"
+            "msg (\"b\")", ctx);
+        std::string before = in.output();
+        CHECK(before.find("deferred") == std::string::npos);
+        CHECK(before.find("a") != std::string::npos &&
+              before.find("b") != std::string::npos);
+        in.drain_on_ready();
+        CHECK(in.output().find("deferred") != std::string::npos);
+    }
+
+    // JS.addText routes to the output sink; other JS.* calls are ignored.
+    CHECK_STR(run(in, "JS.addText (\"<b>hi</b>\")\nJS.updateLocation (\"room\")"),
+              "<b>hi</b>");
+
+    // finish sets the world flag.
+    CHECK(!w.finished);
+    run(in, "finish");
+    CHECK(w.finished);
+}
+
+static void test_new_builtins() {
+    World w;
+    bool ok = load_file("fixtures/aslx/runtime.aslx", w);
+    CHECK(ok);
+    Interp in(w);
+
+    // Load-time [template] substitution: Templated() returns "[Greeting] world"
+    // with [Greeting] already replaced by the template text.
+    CHECK_STR(run(in, "msg (Templated())"), "hello world");
+    // Template() / DynamicTemplate() at runtime.
+    CHECK_STR(evals(in, "Template(\"Greeting\")"), "hello");
+    CHECK_STR(evals(in, "DynamicTemplate(\"Weigh\", box)"), "weighs 4");
+
+    // String helpers.
+    CHECK_STR(evals(in, "CapFirst(\"hello\")"), "Hello");
+    CHECK_STR(evals(in, "SafeXML(\"a<b>&c\")"), "a&lt;b&gt;&amp;c");
+
+    // TypeOf(obj, attr): own, inherited, and missing.
+    CHECK_STR(evals(in, "TypeOf(box, \"weight\")"), "int");
+    CHECK_STR(evals(in, "TypeOf(box, \"capacity\")"), "int");   // inherited
+    CHECK_STR(evals(in, "TypeOf(box, \"nope\")"), "null");
+
+    // World-model queries.
+    CHECK_STR(evals(in, "ListCount(AllObjects())"), "3");        // room, player, box
+    CHECK_STR(evals(in, "ListCount(GetDirectChildren(room))"), "2");
+    CHECK_STR(evals(in, "Contains(room, player)"), "True");
+    CHECK_STR(evals(in, "Contains(player, room)"), "False");
+    CHECK_STR(evals(in, "ListContains(GetAttributeNames(player, false), \"score\")"),
+              "True");
+
+    // Typed list/dictionary item access.
+    CHECK_STR(evals(in, "StringListItem(Split(\"a,b,c\", \",\"), 1)"), "b");
+    CHECK_STR(evals(in, "ObjectListItem(AllObjects(), 0)"), "room");
+}
+
 static void test_rng_determinism() {
     World w; w.asl_version = 550;
     Interp a(w), b(w);
@@ -189,6 +319,8 @@ int main() {
     test_expressions();
     test_control_flow();
     test_functions_and_objects();
+    test_script_commands();
+    test_new_builtins();
     test_rng_determinism();
 
     if (g_failures == 0) {

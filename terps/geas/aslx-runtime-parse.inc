@@ -43,7 +43,20 @@ static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp
         stmt = rt_trim(stmt);
 
         if (!stmt.empty()) {
-            if (starts_with_word(stmt, "else")) {
+            if (starts_with_word(stmt, "otherwise")) {
+                // Attach to the immediately-preceding firsttime.
+                if (!result.empty() &&
+                    result.back().kind == Stmt::Kind::FirstTime) {
+                    Stmt &ft = result.back();
+                    std::string a;
+                    std::string body =
+                        get_script(rt_trim(stmt.substr(9)), a);
+                    ft.else_body = parse_statements(body, interp);
+                    ft.has_else = true;
+                } else {
+                    interp.errors().push_back("Unexpected 'otherwise': " + stmt);
+                }
+            } else if (starts_with_word(stmt, "else")) {
                 // Attach to the most recent If.
                 Stmt *last = nullptr;
                 for (auto it = result.rbegin(); it != result.rend(); ++it) {
@@ -148,6 +161,56 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         } else {
             interp.errors().push_back("'for' needs 3 or 4 parameters");
         }
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+
+    if (starts_with_word(line, "switch")) {
+        s.kind = Stmt::Kind::Switch;
+        std::string after; bool found;
+        std::string cond = get_parameter(line, after, found);
+        s.expr = compile_expr_str(cond);
+        std::string bafter;
+        std::string block = remove_surrounding_braces(get_script(after, bafter));
+        std::string cases = block;
+        while (true) {
+            std::string rem;
+            std::string cs = rt_trim(get_script(cases, rem));
+            if (!cs.empty()) {
+                if (starts_with_word(cs, "case")) {
+                    std::string a2, a3; bool f2;
+                    std::string expr = get_parameter(cs, a2, f2);
+                    std::string cbody = get_script(a2, a3);
+                    std::vector<ExprP> matches;
+                    for (const std::string &m : split_parameters(expr))
+                        matches.push_back(compile_expr_str(m));
+                    s.cases.emplace_back(std::move(matches),
+                                         parse_statements(cbody, interp));
+                } else if (starts_with_word(cs, "default")) {
+                    s.else_body =
+                        parse_statements(rt_trim(cs.substr(7)), interp);
+                } else {
+                    interp.errors().push_back("Invalid inside switch: " + cs);
+                }
+            }
+            cases = rem;
+            if (rt_trim(cases).empty()) break;
+        }
+        return s;
+    }
+    if (starts_with_word(line, "firsttime")) {
+        s.kind = Stmt::Kind::FirstTime;
+        std::string a;
+        std::string body = get_script(rt_trim(line.substr(9)), a);
+        s.body = parse_statements(body, interp);
+        s.ran = std::make_shared<bool>(false);
+        return s;
+    }
+    if (line.compare(0, 8, "on ready") == 0 &&
+        (line.size() == 8 || !std::isalnum((unsigned char)line[8]))) {
+        s.kind = Stmt::Kind::OnReady;
+        std::string a;
+        std::string body = get_script(rt_trim(line.substr(8)), a);
         s.body = parse_statements(body, interp);
         return s;
     }

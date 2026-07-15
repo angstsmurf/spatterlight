@@ -39,12 +39,44 @@
     a fresh game boots the full Core tree (~330 functions / ~56 types). Wired as
     `test/aslx_loader_test.cc:test_coreboot()` (fixture `coreboot.aslx`),
     `make check` green, clean under ASan/UBSan.
-  - Still open for M3: `[Something]` template substitution, the listextend
-    merge-on-read in field resolution, game-local libraries bundled *inside* a
-    `.quest` zip (only the Core dir resolves for packaged games today), change
-    scripts, UndoLogger, the rest of the ~45 script commands and ~150 built-ins,
-    and multi-word (space-encoded) identifiers. Then `look`/`take`/`go` running
-    as Core library code. Milestones 3 (rest)–5 remain.
+  - **M3 script layer widened** (2026-07-15): the big batch of Core-critical
+    script commands and built-ins landed, all unit-tested and clean under
+    ASan/UBSan; the 76-game 0-error load invariant is preserved.
+    - `[Something]` template substitution now resolves at **load time** (like
+      QuestViva's `GameLoader.GetTemplate`): `[name]` in script bodies and
+      string attributes is replaced with the registered template's text
+      (later-registered wins, unmatched refs left verbatim so regex classes
+      like `[^\w]` survive). `Template()`/`DynamicTemplate()` built-ins cover
+      the runtime calls. `aslx.cc:Loader::replace_templates`.
+    - New script commands: `switch`/`case`/`default`, `firsttime`/`otherwise`
+      (per-instance run flag), `do (obj,"script"[,params])`, `invoke`,
+      `create`/`create`-with-type, `destroy`, `set(obj,attr,val)`,
+      `list add`/`list remove`, `dictionary add`/`dictionary remove`,
+      `on ready` (deferred FIFO queue + `drain_on_ready()`), `error`, `finish`
+      (sets `World::finished`), `undo`/`start transaction` (accepted, no-op
+      until the UndoLogger lands), and the `JS.*` bridge (`JS.addText` → output
+      sink, other `JS.*` ignored). List/dictionary mutators resolve their
+      target as an lvalue (local var or obj.attr, copy-on-write for inherited).
+    - New built-ins: `Template`/`DynamicTemplate`, dictionary
+      constructors/`DictionaryItem`/`DictionaryCount`/`DictionaryContains` and
+      the typed `*DictionaryItem`, `StringListItem`/`ObjectListItem`,
+      `AllObjects`/`AllCommands`, `GetDirectChildren`/`GetAllChildObjects`,
+      `Contains`, `GetAttributeNames`, 2-arg `TypeOf(obj,attr)`, `CapFirst`,
+      `SafeXML`. (`JSSafe` is Core ASLX, not an engine primitive — it comes
+      free once these run.)
+    - Tests: `test/aslx_runtime_test.cc:test_script_commands` +
+      `:test_new_builtins` (fixture `runtime.aslx` gained a template, a
+      dynamictemplate, and an object script).
+  - Still open for M3: routing `msg` through Core's `OutputText` (v540+) so the
+    `{...}` text processor runs, the listextend merge-on-read in field
+    resolution, game-local libraries bundled *inside* a `.quest` zip (only the
+    Core dir resolves for packaged games today), change scripts, UndoLogger,
+    `get input`/`show menu`/`ask`/`wait`, command-template patterns (`[look]`
+    in a `pattern=`) and the `IsRegexMatch`/`GetMatchStrength`/`Populate`
+    parser primitives, the game-boot driver (`InitInterface` → `StartGame` →
+    `HandleCommand`), and multi-word (space-encoded) identifiers. Then
+    `look`/`take`/`go` running as Core library code. Milestones 3 (rest)–5
+    remain.
 
 ## 0. Scope and reality check
 
@@ -113,11 +145,16 @@ Reference source (MIT licensed, so Core libraries can be bundled):
       in `aslx-core/README.txt`. One version is enough — Core branches on the
       game's declared `<asl version=>`. The core dir is passed to `load_file` or
       taken from `$ASLX_CORE`; app wiring will point it at the resource bundle.
-- [~] Templates: `<template>`/`<dynamictemplate>`/`<verbtemplate>` elements are
-      parsed and registered (`World::templates` etc.); `[Something]` substitution
-      in strings is deferred to the script/expression milestone (needs the base
-      template pre-pass from `ScanForTemplates`, and it only matters once strings
-      are evaluated). See `Templates.cs`.
+- [x] Templates: `<template>`/`<dynamictemplate>`/`<verbtemplate>` elements are
+      parsed and registered (`World::templates` etc.). `[Something]`
+      substitution now runs at load time on script bodies and string attributes
+      (`aslx.cc:Loader::replace_templates`, mirroring
+      `GameLoader.GetTemplate`): later-registered templates win, unmatched
+      references are left verbatim (so regex classes survive). Not applied to
+      `simplepattern` attributes — a command template like `pattern="[look]"`
+      resolves to a raw regex and must skip simplepattern conversion; that path
+      belongs to the parser milestone. `Template()`/`DynamicTemplate()`
+      built-ins handle the runtime calls. See `Templates.cs`.
 
 ## 2. WorldModel port (the new engine core)
 
@@ -134,27 +171,37 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
 - [ ] **UndoLogger**: per-turn transaction log of field writes / element
       creation-destruction; powers `undo` (maps onto the existing
       `LimitStack` idea, but log-based rather than snapshot-based).
-- [~] **Script commands** (~45; enumerate `v5:.../Scripts/`): DONE so far —
+- [~] **Script commands** (~45; enumerate `v5:.../Scripts/`): DONE —
       `msg`, `if`/`else if`/`else`, `while`, `for`, `foreach`, `=` assignment
       (var and `obj.attr`), function invocation (statement position), `return`,
-      comments (`ScriptFactory.CreateScript` statement splitter ported). TODO —
-      `switch`, `set`, `create`/`create exit`, `destroy`, `invoke`,
-      `rundelegate`, `do`, `get input`, `show menu`, `ask`, `wait`, `on ready`,
-      `firsttime`, `picture`, `play sound`/`stop sound`, `JS.*`, `request`,
-      `list add/remove`, `dictionary add/remove`, `undo`, `finish`, `error`,
-      `create timer`/`enable`/`disable`.
+      comments (`ScriptFactory.CreateScript` statement splitter ported),
+      `switch`/`case`/`default`, `firsttime`/`otherwise`, `do`, `invoke`,
+      `create` (+ type), `destroy`, `set` (3-arg field form), `list add`/
+      `list remove`, `dictionary add`/`dictionary remove`, `on ready`, `error`,
+      `finish`, `undo`/`start transaction` (no-op until UndoLogger), and the
+      `JS.*` bridge. TODO — `create exit`, `rundelegate`, `get input`,
+      `show menu`, `ask`, `wait`, `picture`, `play sound`/`stop sound`,
+      `request`, `create timer`/`enable`/`disable`.
 - [~] **Expression evaluator**: hand-written lexer + recursive-descent parser
       over `aslx::Value` (`aslx-runtime.cc`), compiled-expression cache per
       source string. DONE: `=`/`==` equality, `<>`/`!=`, `and or xor not`,
       `< > <= >=`, `+ - * / %` with int→double promotion, `+` string concat,
       ternary `?:`, dot member access (`box.capacity`), `[]` list/dict indexers,
       `null`/`true`/`false` literals, dispatch to ASLX `<function>` elements and
-      ~40 built-ins (`GetBoolean`/`GetInt`/`GetString`/`HasAttribute`/`TypeOf`/
-      `DoesInherit`, `NewList`/`ListCount`/`ListItem`/`ListContains`, `Split`/
-      `Join`/`Left`/`Right`/`Mid`/`Instr`/`Replace`/`LCase`/`UCase`,
-      `CInt`/`CDbl`/`Abs`/`Max`/`Min`/`GetRandomInt`/`GetRandomDouble`). TODO:
-      the remaining ~110 built-ins (`Eval`, DateTime, dictionaries beyond
-      basics), list/dict literals, and multi-word (space-encoded) identifiers.
+      ~65 built-ins: type/attribute (`GetBoolean`/`GetInt`/`GetString`/
+      `HasAttribute`/`TypeOf` 1- & 2-arg/`DoesInherit`), world model
+      (`AllObjects`/`AllCommands`/`GetDirectChildren`/`GetAllChildObjects`/
+      `Contains`/`GetAttributeNames`), lists (`NewList`/`ListCount`/`ListItem`/
+      `StringListItem`/`ObjectListItem`/`ListContains`/`ListExclude`/
+      `ListCombine`), dictionaries (`NewDictionary`/`NewStringDictionary`/
+      `NewObjectDictionary`/`NewScriptDictionary`/`DictionaryCount`/
+      `DictionaryContains`/`DictionaryItem`/`*DictionaryItem`), strings (`Split`/
+      `Join`/`Left`/`Right`/`Mid`/`Instr`/`Replace`/`LCase`/`UCase`/`CapFirst`/
+      `SafeXML`), templates (`Template`/`DynamicTemplate`), and numbers
+      (`CInt`/`CDbl`/`Abs`/`Max`/`Min`/`GetRandomInt`/`GetRandomDouble`). TODO:
+      the remaining ~85 built-ins (`Eval`, DateTime, `IsRegexMatch`/regex,
+      `FormatList` and the scope helpers), list/dict literals, and multi-word
+      (space-encoded) identifiers.
 - [ ] **Command parsing comes free**: it is implemented in `CoreParser.aslx`.
       Once elements + scripts + expressions + regex support
       (`RegexCache.cs`) work, `look`/`take`/disambiguation all run as

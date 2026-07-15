@@ -70,6 +70,12 @@ public:
     Value call_function(const std::string &name, std::vector<Value> args,
                         Context *caller);
 
+    // Run every callback queued by `on ready` since the last drain, FIFO.
+    // Callbacks queued while draining run in the same pass (Quest flushes the
+    // whole ready queue before returning control to the player).
+    void drain_on_ready();
+    bool has_pending_on_ready() const { return !on_ready_.empty(); }
+
     // Field access with inheritance resolution (own fields, then inherited
     // types most-recent-first). Returns nullptr if unresolved.
     const Value *resolve_field(Element *e, const std::string &name);
@@ -99,6 +105,24 @@ private:
     Value call_builtin(const std::string &name, std::vector<Value> &args,
                        bool &handled, Context &ctx);
     Value resolve_variable(const std::string &name, Context &ctx, bool &found);
+
+    // Reserved statement-position commands (do / invoke / create / destroy /
+    // set / list add / dictionary add / error / finish / undo / JS.*). Returns
+    // true if `name` was one and it was executed. Checked before function and
+    // built-in dispatch, matching Quest's ScriptFactory keyword precedence.
+    bool exec_statement_command(const std::string &name,
+                                const std::vector<std::shared_ptr<Expr>> &args,
+                                Context &ctx);
+
+    // Resolve an lvalue expression (local var or obj.attr) to the mutable Value
+    // backing it (copy-on-write for inherited attrs). Used by the list/
+    // dictionary mutator commands. nullptr if not an assignable location.
+    Value *lvalue_of(const Expr &e, Context &ctx);
+
+    // Deferred `on ready` callbacks: a pointer to the compiled callback body
+    // (owned by the never-freed script cache) plus a snapshot of the locals at
+    // queue time.
+    std::vector<std::pair<const std::vector<Stmt> *, Context>> on_ready_;
 };
 
 }  // namespace aslx

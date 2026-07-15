@@ -107,9 +107,20 @@ struct World {
     std::vector<std::string> includes;   // <include ref="..."/> (unresolved in M1)
     std::vector<std::string> errors;
 
+    // Set by the `finish` script command; the driver ends the session on it.
+    bool finished = false;
+
     Element *find(const std::string &n) const;
     const std::string *implied_type(const std::string &elem_type,
                                     const std::string &property) const;
+
+    // Runtime element creation/destruction (the `create`/`destroy` script
+    // commands). create_object appends a new root-level object element (with an
+    // optional inherited type) and registers it by name; destroy unregisters an
+    // object/timer so find() no longer resolves it. Both mirror QuestViva's
+    // ObjectFactory.CreateObject / DestroyElement.
+    Element *create_object(const std::string &name, const std::string &type = "");
+    void destroy_element(const std::string &name);
 };
 
 // Load from a file path. Sniffs the content: a PK zip is treated as a .quest
