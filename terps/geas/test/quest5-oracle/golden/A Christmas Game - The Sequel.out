@@ -1,0 +1,1353 @@
+A Christmas Game: The Sequel
+
+by Luke A. Jones
+
+You are in Your House.
+
+You can see an Advent Calendar, an Armchair, a Memory Stick, a Shopping List, a Fireplace and a TV.
+
+You can go north or out.
+
+You are in your own home. It is still a modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes. On the wall is an advent calendar with an alarming amount of doors already open.
+
+Just like last year you've left things a bit late and are missing the following essential items for a decent Christmas: Logs for the Fire, A Selection of Cheese, Chestnuts, Some Wrapping Paper,  Sniper Elite 4 Computer Game,a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done, problem is that you've run out of money. Perhaps there are other ways to get what you need.
+
+ (type 'game' for game specific help)
+
+> x list
+
+> x list
+
+It's a list of all the things you need to collect, how useful. You can type 'x list' to quickly check it at any time.
+
+You need:
+
+Logs for the Fire
+A Selection of Cheese
+Chestnuts
+Some Wrapping Paper
+A copy of Sniper Elite 4 Computer Game
+A Bottle of Port
+Bumper Radio Times Christmas Special
+
+> take it
+
+> take it
+
+You pick it up.
+> x stick
+
+> x stick
+
+A 32Gb memory stick in the shape of a snowman. A present for your friend James who is forever losing them.
+> take it
+
+> take it
+
+You pick it up.
+> x advent
+
+> x advent
+
+It's a traditional advent calendar, with a traditional Minecraft Lego design. There is only one unopened door left (its days are clearly numbered!)
+> open it
+
+> open it
+
+You have opened the last door of the advent calendar and can see a chocolate inside
+> take chocolate
+
+> take chocolate
+
+You pick it up.
+> x it
+
+> x it
+
+A thumb sized chocolate in the vague shape of pixelated axe
+> eat it
+
+> eat it
+
+You eat the chocolate. It tastes like advent calendar chocolate, i.e. stale and not very nice
+> x armchair
+
+> x armchair
+
+A beautiful oxblood leather wingback armchair that you purchased on Ebay, and had to pick up from some godforsaken industrial estate out of town. You stare at it longingly, but you've too much to do!
+> x fireplace
+
+> x fireplace
+
+A real fireplace that you had installed this year. No smoke without fire, and no fire without logs; which is a shame as you've run out of them.
+> x TV
+
+> x TV
+
+A 48 inch, full HD, widescreen, smart TV with integrated Blu-ray player. You mainly use it to listen to the radio.
+> turn on TV
+
+> turn on TV
+
+You flick on the TV, it is tuned to Radio 3. The sound of Chopin's Nocturne Op 55 No1 comes drifting across the lounge. You'd love to listen, but you have so many things to do. You reluctantly switch it off again.
+> x boxes
+
+> x boxes
+
+The amazon boxes fill the room, it doesn't help that they are all so big compared to the contents. The biggest one in the room is nearly the size of the sofa and contained a single memory stick.
+> n
+
+> n
+
+You are in Your Garden.
+
+You can see a Shed and a Twisted Thorny Tree.
+
+You can go south.
+
+It's your garden, a modest patch of land where you grow a few things, but there's not much growing this time of year except a few root veg. The ground is soft under foot. At the end of the garden is a rather rickety looking shed.
+
+> x shed
+
+> x shed
+
+A bit rickety and could still do with a lick of paint, maybe next summer.
+> open it
+
+> open it
+
+You open it.
+It contains a Spade and a Broom.
+> x spade
+
+> x spade
+
+It's an excellent spade, in fact you might say it was the ace of spades.
+
+> take it
+
+> take it
+
+You pick it up.
+> x broom
+
+> x broom
+
+A wooden broom, the handle is screwed into the head. You've changed the head three times and the handle twice, but it's still the same broom.
+> take it
+
+> take it
+
+You pick it up.
+> x tree
+
+> x tree
+
+An ancient looking tree, with a tangle of twisted thorny branches and a tough bark. It was in your garden when you moved in, you've no idea what species it is.
+> dig
+
+> dig
+
+You dig a hole.
+> x hole
+
+> x hole
+
+A small muddy hole.
+It contains a Potato.
+> take potato
+
+> take potato
+
+You pick it up.
+> x it
+
+> x it
+
+A large round potato, it looks apeeling.
+> s
+
+> s
+
+You are in Your House.
+
+You can see an Advent Calendar, an Armchair, a Fireplace and a TV.
+
+You can go north or out.
+
+You are in your own home. It is still a modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes. On the wall is an advent calendar with an alarming amount of doors already open.
+
+Just like last year you've left things a bit late and are missing the following essential items for a decent Christmas: Logs for the Fire, A Selection of Cheese, Chestnuts, Some Wrapping Paper,  Sniper Elite 4 Computer Game,a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done, problem is that you've run out of money. Perhaps there are other ways to get what you need.
+
+ (type 'game' for game specific help)
+
+> out
+
+> out
+
+You are in Chester Street.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+The daylight is waning and there is a strange looking star in the western sky.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> x star
+
+> x star
+
+In the western sky you see a faintly glowing object. You can't make out whether it's a planet, star, or maybe even a comet.
+
+> listen
+
+> listen
+
+In the distance you can hear carol singers and a brass band, but they seem to be stopping and restarting the same song.
+> e
+
+> e
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> x master
+
+> x master
+
+A tall man with a bushy black beard speckled with grey, wearing wire-frame glasses, a smart Dickensian style suit, greatcoat and sporting a caroler top hat.
+
+He is repeatedly trying to get the choir and brass band to play in time together, but it's not going well. He looks fed up.
+
+> talk to master
+
+> talk to master
+
+You catch the eye of the Choir Master and he wanders over to talk to you. "Hello my friend", he says, and shakes your hand. "We've having terrible trouble keeping in time with the band, their lead trumpeter player is at home sick." "Without him we're struggling to hear the melody and stay in time." "I suppose it's too late to find a replacement."
+> x band
+
+> x band
+
+A brass band, but there is something wrong, they keep going out of time with the choir.
+> e
+
+> e
+
+You are in a The Cross Keys Inn.
+
+You can see a Jukebox, a Table Football, a Landlady, a Quiz Machine and James.
+
+You can go west.
+
+A great British pub, just like they used to be, all sticky carpets and wet tables. Thanks to the smoking ban there is a persistent scent of stale spilt beer and urinals.
+
+> x James
+
+> x James
+
+Mid 30's, thin and scruffly dressed with a shock of bright ginger hair. He's wearing a battered rain coat, and a blue scarf.
+> talk to James
+
+> talk to James
+
+"Hello" says James, "There's snow forcast!" he says with a grin.
+> give stick to James
+
+> give stick to James
+
+"Oh nice one mate, that's really lovely, thank you!", Here take this, I saw they were selling out so I grabed you one. James hands you a copy of the Bumper Radio Times Christmas Special.
+> x Bumper
+
+> x Bumper
+
+It's the 14 day christmas edition of the Radio Times. The front cover (which is already coming loose thanks to the woefully inadequate staples) features the stars of a Christmas edition of Strictly Celebrity Bake Off On Ice With Mrs Brown's Boys In The Jungle, at least with this guide you'll know exactly how to avoid catching it.
+> talk to landlady
+
+> talk to landlady
+
+"Not enough money huh? Perhaps you can make yourself useful around here and I might sort you out with a drink."
+> x jukebox
+
+> x jukebox
+
+A jukebox, and it's a nice one, a genuine Wurlitzer with actual vinyl singles inside. A label next to the coin slot reads "Insert coin to play'.
+> x football
+
+> x football
+
+A big wooden table football game, 3 feet wide and 5 feet long. There are four wooden spindles on each side with handles on for controlling the players. It's free to play but unfortunately the wooden spindle on the red players goalie has snapped.
+> unscrew broom
+
+> unscrew broom
+
+You unscrew the handle from the broom, you now have a wooden handle and a broom head.
+> x head
+
+> x head
+
+A wooden broom head with plastic bristles.
+> x handle
+
+> x handle
+
+A wooden cylindrical broom handle, 3 foot in length.
+> use handle on table
+
+> use handle on table
+
+You unscrew the broken spindle, remove the goalie figure, attach it to the broom handle and screw it back into the table. It's fixed!
+
+The landlady shouts across to you, "Thank you love, here have a drink for your troubles". She pours a pint of London Porter and places it on the bar. "And here take this, I had a load delivered as part of some promotion from the brewery." She hands you a corkscrew.
+
+> take pint
+
+> take pint
+
+You pick it up.
+> x pint
+
+> x pint
+
+A foaming pint of dark black London Porter with a white head. Lovely stuff!
+> drink pint
+
+> drink pint
+
+You down it in several large draughts, it slips down like silk. You place the glass back on the bar, and supress a belch. The landlady take the glass and says, "Wow, you've really got a thirst on today, huh!".
+> x corkscrew
+
+> x corkscrew
+
+A sharp corkscrew, the handle is in the shape of a bull's head.
+> x machine
+
+> x machine
+
+A pub quiz machine, it has one free play left on it.
+> play machine
+
+> play machine
+
+Answer 3 questions correct in a row to win.
+Topic: Christmas
+  Question 1: What is Santa's middle name?
+
+1: Euriprides
+2: George
+3: Constantine
+> 1
+"Wrong answer!" GAME OVER
+> w
+
+> w
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> n
+
+> n
+
+You are in Santa's Workshop.
+
+You can see Santa and a 3D Printer.
+
+You can go south.
+
+Apart from Santa sat in his armchair the room is dominated by a huge 3D printer. Scattered and piled up around the room are what looks like poorly printed versions of popular toys; a wonky looking Xbox, a teddy bear that looks like it is suffering from the pox, a bike with sagging oval wheels.
+
+> x Santa
+
+> x Santa
+
+A portly, white-bearded man with half-moon spectacles. He's wearing a red coat with white collar and cuffs, white-cuffed red trousers, and black leather belt and boots. He's sat on a large leather armchair. He looks very sad and his eyes are red as if he has recently been crying.
+> x printer
+
+> x printer
+
+A huge industrial scale 3D printer dominates the room
+> x Xbox
+
+> x Xbox
+
+A wonky looking 3D printed X-Box. Not only does it look crooked, it obviously has no electronics inside.
+> x bear
+
+> x bear
+
+A distorted 3D printed teddy bear that looks like it would give a child (or adult) nightmares for life.
+> talk to Santa
+
+> talk to Santa
+
+"Hello my child", says Santa with a sigh, "I'm in a hell of a pickle. After all the grief with the striking elves last year, I decided to replace them with that damn contraption" (he points at the 3D printer). "what a fool I've been, all those children, with no presents to wake up to tomorrow". A single tear flows down Santa’s cheek."
+
+> ask Santa about printer
+
+> ask Santa about printer
+
+"They must have seen me coming." says Santa, "I've never been much good with technology and like a fool I trusted the salesman! How can anyone take advantage of Father Christmas like that."
+> ask Santa about elves
+
+> ask Santa about elves
+
+"I sacked the Chief Elf and all the Elves left with him. What a fool I've been, I should put myself on the naughty list."
+> ask Santa about xbox
+
+> ask Santa about xbox
+
+"I've never been very good with new technology" says Santa, "I prefer to use magic."
+> ask Santa about teddy bear
+
+> ask Santa about teddy bear
+
+"Isn't it just hideous, Ill traumatise the child for life if I put that in their stocking!."
+> ask Santa about middle name
+
+> ask Santa about middle name
+
+"Now that's something I've not been asked in a very long time" says Santa, "It's Constantine, after my grandfather."
+> turn on printer
+
+> turn on printer
+
+You reach to switch on the printer, but Santa says, "please don't bother, there is no point, everything is makes is garbage."
+> s
+
+> s
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> e
+
+> e
+
+You are in a The Cross Keys Inn.
+
+You can see a Jukebox, a Landlady, a Table Football, a Quiz Machine and James.
+
+You can go west.
+
+A great British pub, just like they used to be, all sticky carpets and wet tables. Thanks to the smoking ban there is a persistent scent of stale spilt beer and urinals.
+
+> play machine
+
+> play machine
+
+Answer 3 questions correct in a row to win.
+Topic: Christmas
+  Question 1: What is Santa's middle name?
+
+1: Euriprides
+2: George
+3: Constantine
+> 3
+"Correct!",
+Topic: Christmas
+ Question 2: What bird is depicted on the back of Wenceslas' Kaftan?
+1: Raven
+2: Eagle
+3: Phoenix
+> 1
+"Wrong answer!" GAME OVER
+> w
+
+> w
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> se
+
+> se
+
+You are in a K. Wenceslas & Son: Winter Fuel Supplies.
+
+You can see a Zbraslav Wenceslas and a Pile of Logs.
+
+You can go northwest.
+
+A fuel supply shop, selling wood, coal, charcoal, oil, propane and propane accessories. Like everywhere else today it has practically sold out of everything, except for a pile of logs.
+
+> x Wenceslas
+
+> x Wenceslas
+
+A bohemian looking chap with a black bushy beard. He is wearing a purple Kaftan . He's deeply engrossed in a crossword and sighing heavily.
+> x kaftan
+
+> x kaftan
+
+A regal purple Charmeuse silk kaftan. It has a  crest on the back depicting a black flaming Eagle.
+> x logs
+
+> x logs
+
+A pile of dry seasoned oak logs, these would be perfect for your fire at home.
+> talk to Wenceslas
+
+> talk to Wenceslas
+
+"Hello there, this damn crossword is driving me nuts, just one more clue to get. So you want to try and help, and perhaps I can reward you with something? (type yes or no)
+> yes
+
+"Great" says Zbraslav, "the clue is 'One month a patio fire remnant contains no potassium. Eight letters.", "What do you think it might be?"
+> December
+
+"Ah ha! Yes, that fits!" "Thank you, that would have bugged me all Christmas", here take the logs for your trouble. Zbraslav gathers up the logs, puts them into a sack and hands them to you.
+
+"As my father would say, 'Ye who now will bless the poor, shall yourselves find blessing.' Merry Christmas!
+> nw
+
+> nw
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> e
+
+> e
+
+You are in a The Cross Keys Inn.
+
+You can see a Jukebox, a Landlady, a Table Football, a Quiz Machine and James.
+
+You can go west.
+
+A great British pub, just like they used to be, all sticky carpets and wet tables. Thanks to the smoking ban there is a persistent scent of stale spilt beer and urinals.
+
+> play machine
+
+> play machine
+
+Answer 3 questions correct in a row to win.
+Topic: Christmas
+  Question 1: What is Santa's middle name?
+
+1: Euriprides
+2: George
+3: Constantine
+> 3
+"Correct!",
+Topic: Christmas
+ Question 2: What bird is depicted on the back of Wenceslas' Kaftan?
+1: Raven
+2: Eagle
+3: Phoenix
+> 2
+"Correct!",
+Topic: Christmas
+ Question 3: Which of the Magi gave the gift of Gold?
+1: Melchior
+2: Gaspar
+3: Balthasar
+> 2
+"Correct!"."£1 prize won!".
+
+The machine spits out a pound coin and you place it in your pocket, shame it's not enough to buy a beer with.
+
+> x coin
+
+> x coin
+
+A pound coin, Queen's head on one side, and a Thistle and Royal Diadem on the other. Inscribed around the edge it reads "NEMO ME IMPUNE LACESSIT"
+> use coin on jukebox
+
+> use coin on jukebox
+
+You insert the pound coin into the jukebox, a record swings down on to the platter with a satisfying soft clunk. The opening bars of "All I Want For Christmas Is You" by Mariah Carey plays warmly through the room.
+
+At that moment the door to the pub swings open, and in walks a tall lanky chap in an Elf costume. "Jesus, not that tune again!" he says. He orders a gin and tonic and sits down at the bar.
+> x elf
+
+> x elf
+
+You can see why this guy is the 'Chief' Elf, he's taller than you! His lanky frame is all arms and legs, he's wearing a green robe trimmed with white fur, a green and yellow striped cone-shaped hat, and yellow stockings.
+> talk to elf
+
+> talk to elf
+
+"Hello again." says the Chief Elf, "I've lost my job since I last saw you, damn automation caught up with me."
+> ask elf about automation
+
+> ask elf about automation
+
+"Yeah Santa got fed up of our pay and condition demands and replaced us with some kind of wizz bang machinery” says the Chief Elf,  “I hope for the children's sake that it works out for him, but I'm lost without my purpose in life."
+
+> tell elf about printer
+
+> tell elf about printer
+
+You tell the Chief Elf about the disaster in waiting that you have seen in Santa’s workshop, The Chief Elf's eyes widen as you describe the cockeyed presents and Santa's despair.
+
+"Well, well, well" says the Chief Elf, "It will be nice to see old Saint Nick eat humble pie, but first things first, we need to save Christmas, the poor children, I'll round up the gang and head straight over there!"
+
+The Chief Elf bolts out of the door.
+
+> w
+
+> w
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> n
+
+> n
+
+You are in Santa's Workshop.
+
+You can see Santa, Elves and a Chief Elf.
+
+You can go south.
+
+The workshop is a blur of activity. It is packed with a gang of elves who are working at lightening speed producing presents. Every so often the Chief Elf shouts words of encouragement, "Come on lads, we can't let the children down!"
+
+Santa is sat in his armchair checking a very long list.
+
+> talk to Santa
+
+> talk to Santa
+
+"You saved Christmas my child", "There is a lot to do, but the elves are determined that we're not going to let the children down."
+> sit on Santa
+
+> sit on Santa
+
+You sit down on Santa's knee. Santa says, "What would like for Christmas?" You whisper in his ear. Santa chuckles and says "Well, you've have been very good this year, and that's a modest request, here you go"
+
+He hands you a big bag of chestnuts."
+
+"The best in the world" says Santa, "friend of mine in Spain always sends me some."
+> x chestnuts
+
+> x chestnuts
+
+A bag of shiny deep brown chestnuts from Spain.
+> x list
+
+> x list
+
+Santa's list of children's names, what they want for christmas, and a nice/naughty score next to each one.
+> s
+
+> s
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> ne
+
+> ne
+
+You are in Tib Street.
+
+You can see a Bench and Kevin.
+
+You can go southwest.
+
+You are in a quiet back street of town.
+
+> x bench
+
+> x bench
+
+A Victorian public bench made from cast iron and wooden slats. A small boy is sat on the bench looking miserable, you recognise him as Kevin, he lives on your street.
+> x Kevin
+
+> x Kevin
+
+An 8 year old boy called Kevin, you recognise him as he lives on your street. He has blonde-brown hair and is wearing a thick red jumper, khaki trousers and a white bobble hat. He looks fed-up.
+> talk to Kevin
+
+> talk to Kevin
+
+"Hello", says Kevin, "I'm not supposed to talk to strangers, but I recognise you from our street." "My parents have gone away for a few days, and 'accidently' left me home alone again". "It would be OK, but I've seen some dodgy guys hanging around town in a van. I overheard them talking about burglary." "Perhaps you could do something about them, else I'll be forced to take rather drastic measures!" Kevin fixes you with a grin of pure mischief.
+> ask Kevin about dodgy guys
+
+> ask Kevin about dodgy guys
+
+"Yeah they were parked outside my house. They were talking about coming back tonight to rob my house!"
+> sw
+
+> sw
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> w
+
+> w
+
+You are in Chester Street.
+
+You can see a Dodgy Looking Van.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+The daylight is waning and there is a strange looking star in the western sky.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> x van
+
+> x van
+
+A knackered pale blue Dodge Ram van, with a large bore exhaust pipe. It has 'Oh-Kay Plumbing and Heating' written on the side. There appears to be a row of snowglobes on the inside front windowsill.
+> x pipe
+
+> x pipe
+
+The van has a large boy racer style exhaust pipe. Large enough that one could block it with a suitably placed item.
+> put potato in pipe
+
+> put potato in pipe
+
+You glance around to make sure no one is watching then shove the potato firmly into the exhaust pipe, it forms a good seal.
+
+At that moment you spy two dodgy men entering Chester Street, making sure they don't see you stand further down the street.
+
+The dodgy men open the van and get in, you can hear them bickering, "Marv you are an idiot with a big mouth, let's hide this van away and come back later when the kid's asleep".
+
+You hear the van start up and there is a high-pitched whining sound coming from the exhaust that increases in pitch. The driver guns the engine and there is loud *KA-BOOM!!" explosion that destroys the back half of the van, blasts the bonnet into the air and sends a potato whistling past your ear at supersonic speed.
+
+The two men stumble out of the van with their clothes steaming and smoking from the heat of the explosion. The short fat one says, "Let's get the hell out of here! If the cops arrive I'll have to try and explain away your damn snow globe collection! One from each house we've robbed. You idiot Marv!"
+
+They disappear up the street leaving the van's smoking ruins behind.
+
+> look
+
+> look
+
+You are in Chester Street.
+
+You can see an Exploded Dodgy Van, Jon Pigeon, a Smashed Potato and a Gold Tooth.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+The daylight is waning and there is a strange looking star in the western sky.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> x van
+
+> x van
+
+The charded and still slightly smoking remains of a knackered, pale blue, Dodge Ram van.
+> x potato
+
+> x potato
+
+The smashed and steaming remains of the potato that you blew up the van with. It's currently being consumed by a grumpy looking filthy grey pigeon.
+> x Jon
+
+> x Jon
+
+A filthy grey city pigeon, with a grumpy looking demeanour.
+> x tooth
+
+> x tooth
+
+A gold crown for a tooth. Perhaps one of the dodgy guys lost it in the force of the potato induced van explosion.
+> take tooth
+
+> take tooth
+
+You pick it up.
+> talk to Jon
+
+> talk to Jon
+
+The pigeon replies; "My Name's Jon, and I'm a fucking pigeon."
+> ask Jon about potato
+
+> ask Jon about potato
+
+"It's my potato, fuck you."
+> take potato
+
+> take potato
+
+You stoop down to pick it up but the pigeon exclaims, "It's my mashed potato! Fuck off!". The murderous glint in the pigeon's eye persuades you to leave the potato on the ground. Its glare softens ever so slightly, "Oh it's you! Got any butter?" it squawks.
+> ask Jon about Santa
+
+> ask Jon about Santa
+
+"Nice guy, gave me some biscuits again last year, even though I'd been naughty! Omnipresent my arse."
+> ask Jon about James
+
+> ask Jon about James
+
+"He seems a lot brighter these days. Though he's still obsessed with the weather like some half-wit magpie."
+> ask Jon about landlady
+
+> ask Jon about landlady
+
+"Seems she's finally weaned herself off the gin, she used to be a fiend for it!"
+
+> in
+
+> in
+
+You are in Your House.
+
+You can see an Advent Calendar, an Armchair, a Fireplace and a TV.
+
+You can go north or out.
+
+You are in your own home. It is still a modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes. On the wall is an advent calendar with an alarming amount of doors already open.
+
+Just like last year you've left things a bit late and are missing the following essential items for a decent Christmas: Logs for the Fire, A Selection of Cheese, Chestnuts, Some Wrapping Paper,  Sniper Elite 4 Computer Game,a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done, problem is that you've run out of money. Perhaps there are other ways to get what you need.
+
+ (type 'game' for game specific help)
+
+> n
+
+> n
+
+You are in Your Garden.
+
+You can see a Shed, a hole and a Twisted Thorny Tree.
+
+You can go south.
+
+It's your garden, a modest patch of land where you grow a few things, but there's not much growing this time of year except a few root veg. The ground is soft under foot. At the end of the garden is a rather rickety looking shed.
+
+> use corkscrew on tree
+
+> use corkscrew on tree
+
+You ram the corkscrew into the bark of the tree and twist. After a few seconds a gummy resin starts to trickle out of the hole. You collect the resin until you have a small thumbnail sized blob of what appears to be Myrrh
+> x myrrh
+
+> x myrrh
+
+A light brown ball of hardened Myrrh.
+> s
+
+> s
+
+You are in Your House.
+
+You can see an Advent Calendar, an Armchair, a Fireplace and a TV.
+
+You can go north or out.
+
+You are in your own home. It is still a modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes. On the wall is an advent calendar with an alarming amount of doors already open.
+
+Just like last year you've left things a bit late and are missing the following essential items for a decent Christmas: Logs for the Fire, A Selection of Cheese, Chestnuts, Some Wrapping Paper,  Sniper Elite 4 Computer Game,a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done, problem is that you've run out of money. Perhaps there are other ways to get what you need.
+
+ (type 'game' for game specific help)
+
+> out
+
+> out
+
+You are in Chester Street.
+
+You can see an Exploded Dodgy Van, Jon Pigeon and a Smashed Potato.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+The daylight is waning and there is a strange looking star in the western sky.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> e
+
+> e
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> ne
+
+> ne
+
+You are in Tib Street.
+
+You can see a Bench and Kevin.
+
+You can go southwest.
+
+You are in a quiet back street of town.
+
+> talk to Kevin
+
+> talk to Kevin
+
+You tell Kevin about your potato and exploding van exploits. He laughs and exclaims, "Yes!!", "Merry Christmas you filthy animal!". He hands you a copy of Sniper Elite 4 Computer Game. "Here I heard you're a fan, I've already rinsed it, and completed the kill Hitler DLC". "I'm off home to watch crap on TV and eat rubbish".
+> sw
+
+> sw
+
+You are in a Town Square.
+
+You can see a Choir Master.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir here and a brass band, attempting a rendition of "Hark The Herald Angels Sing!", but there is something not right about the relative tempo of the choir and the band. They keep stopping and retrying to get some flow. You can hear tuts and grumbles from the passing shoppers. The Choir Master looks exasperated and forlorn.
+
+> w
+
+> w
+
+You are in Chester Street.
+
+You can see an Exploded Dodgy Van, Jon Pigeon and a Smashed Potato.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+The daylight is waning and there is a strange looking star in the western sky.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> w
+
+> w
+
+You are in Glad Tidings Gift Shop.
+
+You can see Gabriel and Wrapping Paper.
+
+You can go east or west.
+
+A gift shop selling cards, wrapping paper, and all manner of elegant gifts and decorations. It is light with a warm glow from candles and white fairy lights.
+
+Alllegri's 'Miserere' plays gently from the shop's sound system, and there is the sweet scent of incense coming from somewhere.
+
+It's normally immaculately organised in here, but it looks like the last minute Christmas shoppers have ransacked the shelves.  All that is left is a couple of rolls of wrapping paper.
+
+> x Gabriel
+
+> x Gabriel
+
+The proprietor of the shop. He is an androgynous and attractive looking fellow. He is barefoot and wearing a huge long blue flowing robe.
+> x paper
+
+> x paper
+
+Gorgeous wrapping paper with a depiction of a group of shepherds being visited by an angel. The shepherds look terrified.
+> talk to Gabriel
+
+> talk to Gabriel
+
+"Glad tidings!" says Gabriel, "Do not be afraid.. er.. of the mess I mean, it's always like this on Christmas Eve."
+> ask Gabriel about paper
+
+> ask Gabriel about paper
+
+"Yeah that design doesn't seem to be too popular, I thought it was pretty funny. Sheperds spook too easy!"
+> ask Gabriel about shepherds
+
+> ask Gabriel about shepherds
+
+"Yeah they spook easy those guys."
+> listen
+
+> listen
+
+You listen to the shop's sound system, it's playing Allegri's 'Miserere'. You're the secular type, but as the hairs on your neck rise up you have to admit that the devil doesn't quite have all the best tunes.
+> x system
+
+> x system
+
+A Bang and Olufsen sound system, seems Gabriel is quite the audiophile. It is currently playing Allegri's 'Miserere'.
+> smell
+
+> smell
+
+You sniff and follow the scent of the incense, eventually you discover its source hidden behind one of the displays. There is a platter of gently smoking amber crystals of frankincense.
+> x frankincense
+
+> x frankincense
+
+A crystal shapped pale amber coloured lump of Frankincense.
+> take it
+
+> take it
+
+You pick it up.
+> ask Gabriel about frankincense
+
+> ask Gabriel about frankincense
+
+"Yes I adore the smell of it in the shop".
+> ask Gabriel about heaven
+
+> ask Gabriel about heaven
+
+"Heaven?" says Gabriel, "that's a nightclub in the Big City isn't it?"
+> ask Gabriel about Christmas
+
+> ask Gabriel about Christmas
+
+"Ahhh!" says Gabriel and he suddenly looks worried, "You've just reminded me, I haven't got round to buying his birthday present, oh well he'll have to settle for socks again, I got some clean ones from some Shepherds."
+> tell Gabriel about band
+
+> tell Gabriel about band
+
+Gabriel looks troubled, and something stirs beneath the back of his robe, but a smile breaks out of the corner of his mouth. "Well we can't have that can we? The angels can't hark properly without a trumpet player, and it just so happens that I'm a dab hand."
+
+Gabriel reaches into his desk drawer and pulls out a beautiful golden trumpet, it shines with an angelic light. "OK I'm off to the town square, there is only that wrapping paper left to sell anyway, here have it if you want it" He hands you the wrapping paper and dashes out of the shop. The bell above the door ting-a-lings as he leaves.
+
+> w
+
+> w
+
+You are in Westward Leading.
+
+You can go east or west.
+
+You are on the old west road heading out of town.
+
+The Strange Star In The Sky is still moving Westwards
+
+> w
+
+> w
+
+You are in Still Proceeding.
+
+You can go east or west.
+
+You are on the old west road heading out of town.
+
+The Strange Star In The Sky is still moving Westwards
+
+> w
+
+> w
+
+You are in The West.
+
+You can see Gaspar Mouse, Melchior Mouse, Balthasar Mouse and a Tiny Stable.
+
+You can go east.
+
+The Strange Star in the Sky is now directly overhead. As you look it starts to decend to the ground and you realise that it's actually a drone with bright white LEDs on. The drone lands and is picked up by a tiny mouse who is holding the remote control.
+
+"Season's Greeting To You! " says the mouse. "We heard you were a useful and kind human, I thought I could engage your curiosity to lead you here - hence the drone."
+
+"Allow me to introduce myself, I'm Gaspar, these here are my fellow wise mice, Balthasar and Melchior." All three mice bow their heads.
+
+ "We have travelled from the East to worship the new born baby cheesus." "He lies asleep in this stable, for as it was fortold we would find him wrapped in cheesecloth and laid in a manger." "But we cannot enter as we have no appropriate gifts to give." "I don't suppose you have some Gold, Frankincense and Myrrh about your person do you?" says the mouse.
+
+> x Gaspar
+
+> x Gaspar
+
+A tiny mouse wearing a regal purple cloak and a purple and gold turban.
+> x Melchior
+
+> x Melchior
+
+A tiny mouse wearing a regal gold cloak, and a royal blue conical hat with a star pattern on.
+> x Balthasar
+
+> x Balthasar
+
+A tiny mouse wearing a regal gown, and a white fez.
+> x stable
+
+> x stable
+
+A tiny wooden stable. The door is closed, but you would never fit in anyway.
+> open door
+
+> open door
+
+You open the tiny door to the stable. Peering in you can just make out a tiny manger full of straw and something wrapped up in cheesecloth. The manger shines with angelic light.
+> give gold to Gaspar
+
+> give gold to Gaspar
+
+"Why thank you kindly human. That will do perfectly for my gift!"
+> give frankincense to Melchior
+
+> give frankincense to Melchior
+
+"Why thank you kindly human. That will do perfectly for my gift!"
+> give myrrh to Balthasar
+
+> give myrrh to Balthasar
+
+"Why thank you kindly human. That will do perfectly for my gift!"
+
+"And now all three of us are ready to adore the holy cheesus."
+
+The mice bow to you.
+
+Gaspar says, "Hang on a moment" and scribbles something on a pice of paper and hands it to you. "A little reward for the kind human."
+
+The mice start singing in sweet angelic voices,
+
+🎶 "A whey in a manger no crib for a bed.." 🎶
+
+They enter the stable and close the door.
+> i
+
+> i
+
+You are carrying a Shopping List, a Spade, a Bumper Radio Times Christmas Special, a Broom Head, a Corkscrew, a Sack of Logs, Chestnuts, a Sniper Elite 4 Computer Game, Wrapping Paper and a Note from Gaspar.
+> x note
+
+> x note
+
+In fine gothic copper script the note reads;
+
+*****************************************************************************************************
+To the proprietor of the Cheese Hamlet,
+
+Please give the holder of this note whatever they wish from your shop and charge to our account.
+
+Signed,
+
+Gaspar T. Magi
+
+*****************************************************************************************************
+> e
+
+> e
+
+You are in Still Proceeding.
+
+You can go east or west.
+
+You are on the old west road out of town.
+
+> e
+
+> e
+
+You are in Westward Leading.
+
+You can go east or west.
+
+You are on the old west road heading out of town.
+
+> e
+
+> e
+
+You are in Glad Tidings Gift Shop.
+
+You can go east or west.
+
+A gift shop selling cards, wrapping paper, and all manner of elegant gifts and decorations. It is light with a warm glow from candles and white fairy lights, Alllegri's 'Miserere' plays gently from the shop's sound system, and there is the sweet scent of incense coming from somewhere.
+
+It's normally immaculately organised in here, but it looks like the last minute Christmas shoppers have ransacked the shelves.
+
+> e
+
+> e
+
+You are in Chester Street.
+
+You can see an Exploded Dodgy Van, Jon Pigeon and a Smashed Potato.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> e
+
+> e
+
+You are in a Town Square.
+
+You can see a Choir Master and Gabriel.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir and brass band here, with Gabriel on lead Trumpet they have finaly got their voice and intruments in synch and they sound heavenly. They are currently belting out "In The Bleak Midwinter" to an appreciative crowd. The Choir Master is beaming from ear to ear, he come over to you and says, "You've saved the day again! Here take this." He hands you a bottle of port.
+
+> x bottle
+
+> x bottle
+
+A bottle of  2003 Vau Vintage Port, lovely stuff!
+> s
+
+> s
+
+You are in a The Cheese Hamlet.
+
+You can see a Luxury Cheese Hamper and a Cheesemonger.
+
+You can go north.
+
+A ridiculously posh cheese shop, but my word have they got some produce in here. Every cheese you've heard of any plenty you haven't.  As everywhere else today the shelves are practically bare but in the window is the luxury gigantic hamper of cheese from around the world, exquisite crackers and wonderful chutneys. It brings a tear to your eye, but not as much as the price tag!
+
+> x hamper
+
+> x hamper
+
+The big Daddy of cheese hampers. It contains no less than two dozen different cheese from around the world, plus luxury crackers, chutneys and pickles.
+> x cheesemonger
+
+> x cheesemonger
+
+A young man in his twenties, you recognise him as Robin, the son of the owner Mr U'blind, they used to run a butchers shop, but now they run the Cheese Hamlet instead.
+> talk to Robin
+
+> talk to Robin
+
+"Hello!" says Robin, "A Merry Christmas to you!".
+> ask Robin about hamper
+
+> ask Robin about hamper
+
+"Yes it's pretty much all I've got left. Been a hell of a busy day."
+> ask Robin about butchers shop
+
+> ask Robin about butchers shop
+
+"I'm so glad we moved out of the butchery trade" says Robin. "All that mess, the early moring starts at the market, and that damn delivery bike I had to ride about on."
+> ask Robin about cheese
+
+> ask Robin about cheese
+
+"We have the finest cheese in all the land in our shop." says Robin, "not cheap of course, but the best is always worth paying for..at least that's what my father reckons."
+> give note to Robin
+
+> give note to Robin
+
+You hand the note from Gaspar to Robin. "Ah!" says Robin, 'Well that mouse's credit is good, they spent a fortune in here when they passed through." "Here take the hamper, its the last thing left to sell and I can close early. I've been dying to go and see the choir in the Town Square, they have a brass band playing with them this year."
+> n
+
+> n
+
+You are in a Town Square.
+
+You can see a Choir Master, Gabriel and a Cheesemonger.
+
+You can go west, southeast, east, south, northeast or north.
+
+There is a choir and brass band here, with Gabriel on lead Trumpet they have finally got their voice and instruments in synch and they sound heavenly. They are currently belting out "Once In Royal Davis's City" to an appreciative crowd. The Choir Master is beaming from ear to ear.
+
+> w
+
+> w
+
+You are in Chester Street.
+
+You can see an Exploded Dodgy Van, Jon Pigeon and a Smashed Potato.
+
+You can go in, east or west.
+
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+It's crisp and cold, and in the distance you can hear carol singing.
+
+> ask Jon about Gabriel
+
+> ask Jon about Gabriel
+
+"Yeah, he's a new chap in town. Something about him gives me the creeps."
+> in
+
+> in
+
+You are in Your House.
+
+You can see an Advent Calendar, an Armchair, a Fireplace and a TV.
+
+You can go north or out.
+
+**************************************************************************
+You’re finally home with everything you need for Christmas, what a day! Rather more hectic than you expected, but was a good day in all.
+
+You light a fire with the logs you picked up, soon it is roaring and you settle down in your armchair and pour yourself a glass of port, not a bad drop.
+
+You flick idly through the Radio Times, but your eyes grow heavy from the port and your exhausting day. You fall asleep……...
+
+You awake to the sound of the clock on the mantelpiece softly chiming midnight. You wipe your eyes and yawn. There is a gentle knocking at your front door.
+
+You open the front door, it is snowing heavily and a few inches has already settled.
+
+In the street is Santa in his reindeer pulled sleigh which is weighed down with a huge pile of presents. Santa grins and says "the elves did it!"  he pats the space on the seat next to him, "Come on my child, let's go for a ride!!" "I saw James and his friend earlier, we'll catch up with them later!"
+
+**************************************************************************
+Congratulations you have completed the game!
+
+ Press any key to see the credits
+
+Credits:
+
+Written and coded by Luke A. Jones (luke.jones@gmail.com), using the Quest text adventure engine (www.textadeventures.co.uk).
+
+Thank you to Alex Dimmer for creating the artwork and to Jennifer Thompson, and K.V. for alpa and beta testing, and for their excellent suggestions for improvements.
+
+Thanks also to the excellent support from the Quest forum members.
+
+The pigeon was inspired by the twitter account @pigeonjohn
+
+I have authored three other games which you can find here: http://textadventures.co.uk/user/view/miyjcc_ft0kagw7ynwd4jw/necrodeath
+
+I welcome all (polite) feedback!
+
+Merry Christmas! Be excellent to each other.
+
+Luke xx
+
+[state=Finished]

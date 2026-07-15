@@ -1,5 +1,6 @@
-# Build artifacts and generated transcripts — the QuestViva clone lives outside
-# the repo (~/questviva-oracle by default).
+# Build artifacts and scratch transcripts — the QuestViva clone lives outside
+# the repo (~/questviva-oracle by default). golden/ is the committed regression
+# baseline and is NOT ignored (see check_golden.sh / update_golden.sh).
 bin/
 obj/
 out/

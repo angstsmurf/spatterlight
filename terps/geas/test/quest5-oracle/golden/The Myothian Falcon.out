@@ -1,0 +1,1306 @@
+The Myothian Falcon
+
+Andy Joel
+
+ - - - That day, the 9th of June, 3145, started out like any other, perhaps a little hotter than usual. Then Maisy DeValle entered his office.
+
+Vic's office
+
+ - - - Vic Gantry's office was small, but he tried to keep it smart. In the centre of the room, there was a neo-chrome desk, with a computer screen on it, and a black chair behind it. Behind the chair, a window, looking out on New Chicago. On the north wall there was a picture of a gazelle, the door was to the west. There were also two chairs for clients to sit on, and at the moment an attractive woman, hopefully a new client, was sat on the left one, waiting for Vic to ask her what her business was.
+> ask maisy about business
+
+ - - - "So what can I do you for?" asked Vic.
+
+ - - - "I need your help, Mr Gantry," she said "My husband... oh, it is too terrible... My husband's dead, and the police think I did it! You've got to help me."
+> ask maisy about money
+
+ - - - "Okay, lady, I'll take the case. It'll cost you 1000 credits, and I'll need 500 in advance to cover expenses."
+
+ - - - "That's fine, Mr Gantry. I am not without means. I'll pay you an additional 500 credits if you can clear my name within two days." She handed over her credit chip, and let Vic take off 500 credits. "I'll be at the Grand Hotel if you need to contact me; I'll be booked in as Leona Jones."
+> w
+
+The Office Lobby
+
+ - - - The lobby was clean and functional. To the south, the sounds of the street drifted in though the large glass doors; to the north, a notice board directed people to the various businesses in the building. Vic's office was to the east.
+> read sign
+
+ - - - The notice listed the businesses in the building. "Vic Gantry, P.I." was seventh, under "Linda, Love Massages". Vic glanced at Linda's door, to the northwest, wondering about those massages...
+> nw
+
+Linda Love's Office
+
+ - - - This was similar to Vic's office in size, though without a window. Linda was sat at a retro pine desk, and as Vic entered the room, she took a break from typing at her computer, and looked him up and down.
+> look at linda love
+
+ - - - Dressed in black trousers, and a pale blue shirt, Linda Love looked to be in her mid-twenties. Her blonde hair was cropped short, and she smelt of cheap perfume. She looked questioningly at Vic as she sat behind her desk.
+> ask linda about massages
+
+ - - - "That dumb sign," signed Linda. "My company offers secure messaging, using 2k-bit encryption over standard internet protocols. My name is Linda Love, so 'Linda Love, Messages.' You wouldn't believe the sort of dirty old men I get coming in here thinking I... Well, anyway. You're the guy from across the lobby, aren't you?"
+> ask linda about encryption
+
+ - - - "If I had a little problem with some encrypted files, you'd be able to help me I guess."
+
+ - - - Linda shook her head. "Technically I might be able to, but it's against the law. So no."
+> ask linda about date
+
+ - - - "Say, I was wondering...," said Vic, "perhaps you and I could hook up some time?"
+
+ - - - "You mean like a date? Sure, might be kind of fun. I don't really know many guys since moving to this part of town. Say, we could go to the fancy French place across the road. L'Escargo's. I'll book us a table for this evening."
+> se
+
+The Office Lobby
+
+ - - - The lobby was clean and functional. To the south, the sounds of the street drifted in though the large glass doors; to the north, a notice board directed people to the various businesses in the building. Vic's office was to the east.
+> s
+
+Yardley Street (East)
+
+ - - - Yardley Street was one of the busier thoroughfares in the New Chicago central business district, running east to west. A constant stream of people, both humans and occasional Uralgans, and even a few more exotic races, headed in either direction. To the north was Derrington Building, where Vic had his office, to the south, Renoir building, and "Bert's Bagels", where Vic would usually grab lunch. There was not much to the east, but heading west might be good, thought Vic.
+> w
+
+Yardley Street
+
+ - - - Vic was now in the middle of Yardley Street, near the transit station, which was on the south side of the street. Shops and other businesses lined the street. Numerous people were out, hurrying about their business, or just enjoying the fine weather.
+
+ - - - An AutoClean hummed to itself as it scrubbed the pavements.
+> s
+
+ - - - The TeleMat system offered instant transportation to any other TeleMat station in the city. For 5 credits, the system would annihilate your body, transmit the data to a destination booth, and create your body anew. Vic contemplated where to go. The DeValle mansion on Opulent Street seemed a good idea, but it might be worth talking to Detective Munroe; she would probably be in Donegal's on Bureau Street.
+
+Yardley Street TeleMat Station
+
+ - - - Vic looked about Yardley Street Telemat Station. It was typical of many such stations across New Chicago. Larger than most, it had twenty four booths along three walls; fourteen were for departing, ten for arriving. As he wondered where to go next, a stream of people passed through.
+> teleport
+Choose a destination
+ - Opulent Boulevard
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Opulent Boulevard.
+
+Opulent Boulevard TeleMat Station
+
+ - - - Vic was stood on the concourse at Opulent Boulevard transit. It was noticeably cleaner than most, and quiet too. Not only were fewer people using the booths, but there was little noise coming from the street. The usual hum of city was muted here.
+> n
+
+Opulent Boulevard
+
+ - - - Originally named after Jackie O'Poole, one of the original settlers, the name Opulent Boulevard became popular as more and more of the city's ultra-rich moved here. Opulent Boulevard ran some way out of the city into the Uralgan jungle - far enough to allow the residents to feel removed from the common man, but still close enough to the safety of the city. The road was quiet; Vic could see no one for several blocks. Both sides were lined with jacaranda trees, and behind them the high walls surrounded the various mansions. The DeValle mansion was off to the east.
+
+ - - - A native Uralgan bird, something like a parrot, cocked its head as it watched Vic from its perch high in a tree.
+> e
+
+Opulent Boulevard (East)
+
+ - - - Vic stood opposite the gates to the DeValle mansion. A cop stood at the entrance, so getting inside might not be easy. Through the gates, Vic could see a long driveway, presumably heading up to the house.
+
+ - - - A sudden gust of wind caused a flurry of blue blossom to fall from the jacaranda trees.
+> ask cop about maisy
+
+ - - - Vic sauntered over to the gate, and nodded at the cop. "Hey, it's Mister Gantry, isn't it? How are you doing sir?"
+
+ - - - "I was just idling wondering if you know anything about Maisy DeValle, Harry."
+
+ - - - "I know she murdered her husband. We'll have her soon, too. You can't get far in this city without being traced. The guys at the station'll be checking the TeleMat logs even as we speak."
+> ask cop about telemat logs
+
+ - - - "What's that about TeleMat logs, Harry? Who has access to them?"
+
+ - - - "The detectives back at the station, though they need a judge to agree it."
+> e
+
+Opulent Boulevard (Further East)
+
+ - - - This was the end of Opulent Boulevard. To the east, the gates to the mansions of another wealthy citizen of New Chicago, to the north and south, the high walls to keep the less wealthy citizens out.
+
+ - - - A squirrel, startled by Vic's approach, ran across the road, and up a nearby tree. Vic wondered if he could climb it too, and see over the wall.
+> climb
+
+ - - - It was a few years since Vic had last climbed a tree, but with some effort he hauled himself up.
+
+Opulent Boulevard (Further East; Up a Tree)
+
+ - - - From the tree, Vic had a great view up and down the street. He was higher than the wall here, so he could also see the DeValle mansion, the curving form that was so popular a couple of centuries ago. With a bit of effort, he thought he could jump across on to the wall to the north. Otherwise, he was going to have to climb down again.
+> jump
+
+ - - - After a moment's hesitation, Vic leapt across on to the wall
+
+DeValle Mansion (on the Wall)
+
+ - - - The wall around the DeValle mansion was lined with vicious spikes for the most part, but over the years they had become rusted and broken. Where Vic stood a whole section was missing, giving him a more-or-less flat, if narrow, platform to stand on. The gardens below him were large by New Chicago standards. With the Uralgans declared an intelligent species, further expansion became a legal nightmare, and the humans on Uralga IV had been getting more and more densely populated ever since.
+
+ - - - It looked as though someone else had made use of it recently, too. Vic noticed a cigarette end and matchbook lying where they had been discarded. The previous caller had stopped to have a smoke here, perhaps as he or she watched the house.
+> get matchbook
+
+ - - - Vic picked up the match book .
+> look at matchbook
+
+ - - - Vic turned the match book over. All the matches were gone, but the image on the front indicated it came from the Lion's Den. That was a dive on Twenty Third Avenue that Vic knew only too well.
+> get cigarette end
+
+ - - - Vic carefully picked up the cigarette end, and placed it into an evidence bag. There were all sorts of stories a used cigarette could tell to the forensics guys, if he handed it to Detective Munroe.
+> d
+
+DeValle Mansion (Side Garden)
+
+ - - - Vic stood in amongst some shrubs, near the wall. It looked easy enough to get back up on top of the wall from here. The lawn was well-kept, good enough for playing golf on, if a guy was so inclined. Trees and shrubs along the sides shielded the high walls. Vic spotted a couple of security cameras mounted on posts.
+
+ - - - The house was to the northwest, built in the Duro style that had been popular in the twenty-ninth century; a series of cylinders that seems to flow into each other. The central cylinder had the main entrance, a grand arched door with a cop on it. Vic would not be going in that way. On either side, shorter, but fatter cylinders for the various reception and bedrooms; that looked to be the study nearest to him, Vic thought. Was one window not quite shut properly?
+
+ - - - The garden extended to the west, but northwards a high wall marked the boundary of the Uralgan jungle, beyond which Vic could see the indigenous trees of the planet.
+> look at window
+
+ - - - Vic had a closer look at the study window. Sure enough, it was not quite flush with its surround, and now he could see scratch marks, as though someone had forced the window with a crowbar. He could probably get in the same way, he reckoned.
+> in
+
+ - - - Vic propped the window open. Using a branch of a substantial bush to help him, he slipped though the window, into the study.
+
+DeValle Mansion (Study)
+
+ - - - Lawrence DeValle's study. Vic knocked on the large desk. Real wood, and by the look of it, oak, imported from Earth. The desk alone was probably worth more than he made in a year. A matching chair, covered in dark leather, where Lawrence Devalle would sit. There were four more chairs, expensive, but not so comfortable, set in pairs against the walls. Two whole sides of the room were lined with books. As far as Vic could see there was only one reason to own a book, and that was to show off how much money you had to waste. There was a door to the west, and he could otherwise go back out the window.
+> look at desk
+
+ - - - Vic examined the desk more closely. Large, and rectangular, ornately carved, with drawers on the right. He realised there was a computer built into it; the screen and keyboard neatly tucked away. The computer was locked, and it was beyond Vic's skills to unlock it.
+> open desk
+
+ - - - Vic opened the desk.
+
+ - - - It contained a Data Key.
+> get data key
+
+ - - - Vic picked up the data key .
+> use data key
+
+ - - - Bingo! With this data key Vic could get into the computer. Pretty lax of Lawrence DeValle to leave it lying around. Vic pushed it into the computer's socket. "Damn," he muttered. He had complete access to the files, but every one of them was encrypted. While he was in, he changed the security profile to allow remote access; now if he could only find someone who knew about hacking encrypted files...
+> w
+
+DeValle Mansion (Great Hall)
+
+ - - - This was a large room, panelled in dark wood, dominated by a grand staircase, rising to the upper story. The staircase was carpeted in red, but the floor was tiled in an ornate geometric pattern. That would make cleaning the blood off easier, thought Vic ruefully. There was a lot of it. The body must have been taken already, and it was hard for Vic to tell anything from the white outline; for all he could tell, Lawrence DeValle had slipped and fallen down the stairs. There were doors to east and west, and rather larger, grander double doors to the north and south. The one to the south would be the front entrance, Vic reckoned. Along the wall there were a series of niches, each containing an odd statuette or other weird objet d'art. All but one, Vic noted.
+> u
+
+ - - - Vic headed up the wide staircase, careful to avoid the blood at the bottom. Portraits of the DeValle family stared down at him as he walked along the landing. The master bedroom was at the back; a huge circular bed, with black satin sheets. Walk-in wardrobes on either side, Lawrence's on the right, Maisy's on the left. A number of wigs; did Lawrence like dressing up in his wife's clothes? At the back, a large window giving a panoramic view of the Uralgan jungle. Rather more quickly Vic looked through the other rooms; smaller bedrooms, two bathrooms (both with gold fittings), before deciding there was nothing up there, and heading back down to the hall.
+> look at niche
+
+ - - - One niche was empty, but Vic saw a label there; something used to be there. He read the plaque: The Myothian Falcon. Ancient Uralgan artefact said to be the embodiment of the god of dreams, ca. 2840. Recovered by Dr George Lancing of the NCU, 3144.
+> n
+
+DeValle Mansion (Passage)
+
+ - - - A wide passage way going the short distance from the hall, to the ball room. The floor was tiled with the same ornate pattern as the hall, the walls panelled in a darker wood.
+> n
+
+DeValle Mansion (Ballroom)
+
+ - - - Now this was classy, Vic thought. It was a glass dome set down in the jungle. To the south, it was possible to make out the house through the trees; Vic could just about identify the master bedroom. The floor was wooden, but nevertheless felt soft and yielding. The only exit was south, back though the passage way. All around was the thick Uralgan forest, verdant and wild.
+> look at jungle
+
+ - - - Vic was a city boy at heart, but he could not resist the urge to just stare into the jungle for a few minutes. A scurry of movement to his right, as a rodent-like creature darted along a branch. A flash of colour as a bird or a butterfly or... Vic had no idea what, but it sure was beautiful.
+> s
+
+DeValle Mansion (Passage)
+
+ - - - A wide passage way going the short distance from the hall, to the ball room. The floor was tiled with the same ornate pattern as the hall, the walls panelled in a darker wood.
+> s
+
+DeValle Mansion (Great Hall)
+
+ - - - This was a large room, panelled in dark wood, dominated by a grand staircase, rising to the upper story. The staircase was carpeted in red, but the floor was tiled in an ornate geometric pattern. That would make cleaning the blood off easier, thought Vic ruefully. There was a lot of it. The body must have been taken already, and it was hard for Vic to tell anything from the white outline; for all he could tell, Lawrence DeValle had slipped and fallen down the stairs. There were doors to east and west, and rather larger, grander double doors to the north and south. The one to the south would be the front entrance, Vic reckoned. Along the wall there were a series of niches, each containing an odd statuette or other weird objet d'art. All but one, Vic noted.
+> w
+
+DeValle Mansion (Dining Room)
+
+ - - - Vic could not help but be impressed with the style of the dining room. The dark wood table was almost large enough to play soccer on - though the oval shape would make it tricky. Eighteen chairs surrounded in in matching dark wood. On the west wall hung a large painting of Lawrence and Maisy DeValle.
+> n
+
+ - - - Vic headed into the kitchen, and the staff areas beyond, but it was soon apparent there was nothing much there. The housekeeper evidently lived elsewhere, and there were no personel effects or anything out of the ordinary. He went back to the dining room.
+> e
+
+DeValle Mansion (Great Hall)
+
+ - - - This was a large room, panelled in dark wood, dominated by a grand staircase, rising to the upper story. The staircase was carpeted in red, but the floor was tiled in an ornate geometric pattern. That would make cleaning the blood off easier, thought Vic ruefully. There was a lot of it. The body must have been taken already, and it was hard for Vic to tell anything from the white outline; for all he could tell, Lawrence DeValle had slipped and fallen down the stairs. There were doors to east and west, and rather larger, grander double doors to the north and south. The one to the south would be the front entrance, Vic reckoned. Along the wall there were a series of niches, each containing an odd statuette or other weird objet d'art. All but one, Vic noted.
+> e
+
+DeValle Mansion (Study)
+
+ - - - Lawrence DeValle's study. Vic knocked on the large desk. Real wood, and by the look of it, oak, imported from Earth. The desk alone was probably worth more than he made in a year. A matching chair, covered in dark leather, where Lawrence Devalle would sit. There were four more chairs, expensive, but not so comfortable, set in pairs against the walls. Two whole sides of the room were lined with books. As far as Vic could see there was only one reason to own a book, and that was to show off how much money you had to waste. There was a door to the west, and he could otherwise go back out the window.
+> out
+
+ - - - Vic climbed back out through the window, into the garden.
+
+DeValle Mansion (Side Garden)
+
+ - - - Vic stood in amongst some shrubs, near the wall. It looked easy enough to get back up on top of the wall from here. The lawn was well-kept, good enough for playing golf on, if a guy was so inclined. Trees and shrubs along the sides shielded the high walls. Vic spotted a couple of security cameras mounted on posts.
+
+ - - - The house was to the northwest, built in the Duro style that had been popular in the twenty-ninth century; a series of cylinders that seems to flow into each other. The central cylinder had the main entrance, a grand arched door with a cop on it. Vic would not be going in that way. On either side, shorter, but fatter cylinders for the various reception and bedrooms; that looked to be the study nearest to him, Vic thought. Was one window not quite shut properly?
+
+ - - - The garden extended to the west, but northwards a high wall marked the boundary of the Uralgan jungle, beyond which Vic could see the indigenous trees of the planet.
+> u
+
+DeValle Mansion (on the Wall)
+
+ - - - The wall around the DeValle mansion was lined with vicious spikes for the most part, but over the years they had become rusted and broken. Where Vic stood a whole section was missing, giving him a more-or-less flat, if narrow, platform to stand on. The gardens below him were large by New Chicago standards. With the Uralgans declared an intelligent species, further expansion became a legal nightmare, and the humans on Uralga IV had been getting more and more densely populated ever since.
+> s
+
+ - - - Vic leapt from the wall on to a branch of the tree in the street.
+
+Opulent Boulevard (Further East; Up a Tree)
+
+ - - - From the tree, Vic had a great view up and down the street. He was higher than the wall here, so he could also see the DeValle mansion, the curving form that was so popular a couple of centuries ago. With a bit of effort, he thought he could jump across on to the wall to the north. Otherwise, he was going to have to climb down again.
+> d
+
+Opulent Boulevard (Further East)
+
+ - - - This was the end of Opulent Boulevard. To the east, the gates to the mansions of another wealthy citizen of New Chicago, to the north and south, the high walls to keep the less wealthy citizens out.
+> w
+
+Opulent Boulevard (East)
+
+ - - - Vic stood opposite the gates to the DeValle mansion. A cop stood at the entrance, so getting inside might not be easy. Through the gates, Vic could see a long driveway, presumably heading up to the house.
+> w
+
+Opulent Boulevard
+
+ - - - Originally named after Jackie O'Poole, one of the original settlers, the name Opulent Boulevard became popular as more and more of the city's ultra-rich moved here. Opulent Boulevard ran some way out of the city into the Uralgan jungle - far enough to allow the residents to feel removed from the common man, but still close enough to the safety of the city. The road was quiet; Vic could see no one for several blocks. Both sides were lined with jacaranda trees, and behind them the high walls surrounded the various mansions. The DeValle mansion was off to the east.
+> s
+
+Opulent Boulevard TeleMat Station
+
+ - - - Vic was stood on the concourse at Opulent Boulevard transit. It was noticeably cleaner than most, and quiet too. Not only were fewer people using the booths, but there was little noise coming from the street. The usual hum of city was muted here.
+> teleport
+Choose a destination
+ - Bureau Street
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Bureau Street.
+
+Bureau Street TeleMat Station
+
+ - - - The TeleMat station for the main administration area, this was one of the largest in the city, and at rush hour it would be a seething mass of people. Right now, it was relatively quiet.
+> w
+
+Bureau Street
+
+ - - - Vic stood in Bureau Street and looked about. This was where much of the administration of New Chicago was, including the police station, right across from the TeleMat station, to the west. To the right of the police station, there was a bar, "Donegal's Authentic Irish Bar"; that was where Vic was most likely to find Detective Munroe. A temporary stall had been set up beside the TeleMat station by some enterprising guy by the name of Pierre, offering flowers for the busy office workers to take home to their loved ones.
+
+ - - - A Ya-Po hovered by in its enviro-tank.
+> ask pierre about flowers
+
+ - - - "Say, what flowers do you recommend for a guy going on a date with a girl for the first time?" asked Vic.
+
+ - - - "You cannot go wrong with roses, my friend, but lilies will be appreciated too, and might look more thoughful. It's 3 credits either way."
+> buy lilies
+
+ - - - Vic bought a bunch of lilies for 5 credits.
+> nw
+
+Donegal's Authentic Irish Bar
+
+ - - - As Vic surveyed Donegal's Irish Bar, he wondered just how authentic this place was. Would a real Irish pub have shamrock shaped tables, and videos of "Riverdance" on every available wall? The customers were a mix of business men and cops; even those who were not in suits or uniform looked to be plainclothes cops to Vic's experienced eye. As expected, Munroe was here, his old partner from his brief time as a cop.
+> ask munroe about lawrence devalle
+
+ - - - "So what can you tell me about about Lawrence DeValle," asked Vic.
+
+ - - - "He was found dead just after seven thirty A.M. by the housekeeper. Shot in the chest, with something designed to be as messy as possible. I'm betting on a YP-33. From the wound, we can know he was shot several times from somewhere near the bottom of the stairs, while he was stood facing that way, half way between there and the door."
+> ask munroe about maisy devalle
+
+ - - - "So what do you know about Maisy DeValle," Vic asked casually.
+
+ - - - Jill gave him a look. "Is this about a case, Vic? You do know we have an APB out on her. If you knew where she was, you would tell me, right?"
+
+ - - - "I was just curious, what with it being in the papers. So what about her?"
+
+ - - - "Well, all the evidence's against her. She stands to inherit a ton, and we know she was at the house when her husband died, and she did a runner after the murder. Still waiting for the forenics, but she's as good as fried."
+> give cigarette to munroe
+
+ - - - "I found this near the DeValle place." Vic handed the cigarette end, still in the evidence bag, to Jill. "You might want to get your boys to take a look at it."
+
+ - - - "Where exactly did you find this?"
+
+ - - - "On the wall round the mansion. I figure the guy climbed a tree, then smoked this while watching the house."
+> ask munroe about telemat logs
+
+ - - - "What's the latest on the DeValle case? Have the TeleMat records turned up anything?" In theory, the records could pinpoint exactly who when where at any time; the system did record each person going through in absolute detail to reproduce him or her at the other end. However, Old Earth privacy laws meant that it was illegal for the TeleMat system to store identifying data for more than a fraction of a second. Nevertheless, Opulent Boulevard was not well used, and it would at least be interesting to know where people went to and from the the relevant time, even if he did not know who it was.
+
+ - - - "You know I'm not supposed to tell you."
+
+ - - - "But you're going to anyway."
+
+ - - - She smiled. "Two guys arrived at Opulent Street from Twenty Third Avenue separately in the early hours. Later one goes back. Here is the mystery; shortly after that a Uralgan goes to Grand Hotel, but we can see no sign of him on the security cameras at either end. Oh, and you never heard any of that from me, okay?."
+
+ - - - "You're a sweetheart, Jill."
+
+ - - - "I'm an idiot, Vic."
+> se
+
+Bureau Street
+
+ - - - Vic stood in Bureau Street and looked about. This was where much of the administration of New Chicago was, including the police station, right across from the TeleMat station, to the west. To the right of the police station, there was a bar, "Donegal's Authentic Irish Bar"; that was where Vic was most likely to find Detective Munroe. A temporary stall had been set up beside the TeleMat station by some enterprising guy by the name of Pierre, offering flowers for the busy office workers to take home to their loved ones.
+> e
+
+Bureau Street TeleMat Station
+
+ - - - The TeleMat station for the main administration area, this was one of the largest in the city, and at rush hour it would be a seething mass of people. Right now, it was relatively quiet.
+> teleport
+Choose a destination
+ - Yardley Street
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Yardley Street.
+
+Yardley Street TeleMat Station
+
+ - - - Vic looked about Yardley Street Telemat Station. It was typical of many such stations across New Chicago. Larger than most, it had twenty four booths along three walls; fourteen were for departing, ten for arriving. As he wondered where to go next, a stream of people passed through.
+> n
+
+Yardley Street
+
+ - - - Vic was now in the middle of Yardley Street, near the transit station, which was on the south side of the street. Shops and other businesses lined the street. Numerous people were out, hurrying about their business, or just enjoying the fine weather.
+> w
+
+Yardley Street (West)
+
+ - - - The west end of Yardley Street had a style all of its own. In this part of the city, the area had a certain reputation for its bars and restaurants, such as Piggy Sue's, to the north, and L'Escargots, to the south. Of the two, Piggy Sue's was Vic's kind of place.
+
+ - - - A group of Jonto-monks walked by, quietly muttering incantations to keep themselves ritually clean as they mingled with the heathens.
+> s
+
+L'Escargot's (Lobby)
+
+ - - - The lobby was small. Curtains prevented Vic from seeing into the actual restaurant, but there was a menu on the wall, and a wonderful aroma of garlic, coriander and oregano. The food sounded great, but there were no prices, which Vic took to be a bad sign. The owner, Maurice Chapeau, claimed to be French born, but Vic had his doubts. Very, very few people in New Chicago had even visited Earth. Needless to say, Vic had never actually eaten here before.
+> e
+
+ - - - "Do you 'ave a reservation, monsieur?"
+
+ - - - For once, Vic did. "Sure, in the name Linda Love."
+
+ - - - "Ah, bon. Please, this way, monsieur. Mademoiselle is waiting for you."
+
+L'Escargot's
+
+ - - - L'Escargot's was one fancy restaurant; Vic was impressed that Linda Love had got a reservation for them. There were about a dozen tables, all set for two, each with a deep red table cloth, and a candle. In fact the twelve candles were about the only illumination, and it took Vic a few moments to spot Linda, sat at a table to the right. She smiled at him, as he sat down in the chair opposite her.
+> look at linda love
+
+ - - - She certainly scrubbed up well, Vic thought. Linda was dressed in a very short red dress, and Vic could see she had a great set on pins on her. The perfume that had before smelled cheap, now smelled heady and erotic.
+> give lilies to linda
+
+ - - - Vic handed the lilies he had bought to Linda, and her face lit up. "Hey, that's so thoughful, Vic. Lilies are so beautful; you're so sensitive! So much nicer than the usual guys I date, who are only after one thing."
+> tell linda about myself
+
+ - - - "Tell me about Vic Gantry," said Linda.
+
+ - - - "Well, I didn't do too well at school, so when a couple of guys said they were going to be cops, I figured I might do the same. After three years of training, and over a year on the job, I decided I was not the sort of guy that likes to take orders, so I set up my own business as a P.I. Been doing that ever since."
+> ask linda about herself
+
+ - - - "So tell me about yourself," said Vic.
+
+ - - - "There's not much to tell. I'm a bit of a geek, to be honest. Good grades at school, got a job as a software engineer with SynCorp." She leant forward, inadventedly letting Vic ee down her dress. "A few months ago, I decided to go freelance; I had some ideas about better encyption software... I'm not boring you am I?"
+
+ - - - Vic hastily looked up from her cleavage. "No, absolutely not. Go on."
+
+ - - - "The problem with data encryption..." She continued for some time, but Vic was not really paying attention to what she said.
+> ask linda about encryption
+
+ - - - "If I had a little problem with some encrypted files, you'd be able to help me I guess."
+
+ - - - Linda shrugged. "I expect so. But let's leave that until tomorrow. I really don't want to tak about work now."
+> w
+
+ - - - Vic had to admit the food was great. So was the wine. "That was a great meal," he said as he was presented with the bill. At 230 credits, it had better be; he would not be back here in a while.
+
+ - - - "I had a really good time tonight, Vic. Would you... like to come back to my place for coffee? My apartment's in the building across the road."
+
+Linda Love's Apartment
+
+ - - - Linda's apartment was small, but well kept. A living room, with kitchen area in one corner; a large sofa was the only large piece of furniture, facing the TV screen on the wall. Beyond that a bedroom, with a tiny bathroom attached. The door was south.
+
+ - - - "Sure, that would be great," said Vic, trying not to sound too keen. The bill paid, Linda took his hand, and they walked to her apartment.
+> look at linda love
+
+ - - - Linda looked wonderful as she smiled demurly in her very short red dress. Vic admired her long legs, now she was barefoot, and inhaled her heady perfume. "You're one good-looking babe, Linda." She smiled at the compliment.
+> make love to linda
+
+ - - - Vic took Linda in his arms, picking her up, and carrying her to the small bed...
+> s
+
+ - - - Later, Vic had to accept he really needed to get on with the case. "This has been great, perhaps we could do it again some time."
+
+ - - - "That would be nice," smiled Linda. She kissed him good bye, and he left her apartment, heading down to the street.
+
+Yardley Street
+
+ - - - Vic was now in the middle of Yardley Street, near the transit station, which was on the south side of the street. Shops and other businesses lined the street. Numerous people were out, hurrying about their business, or just enjoying the fine weather.
+> e
+
+Yardley Street (East)
+
+ - - - Yardley Street was one of the busier thoroughfares in the New Chicago central business district, running east to west. A constant stream of people, both humans and occasional Uralgans, and even a few more exotic races, headed in either direction. To the north was Derrington Building, where Vic had his office, to the south, Renoir building, and "Bert's Bagels", where Vic would usually grab lunch. There was not much to the east, but heading west might be good, thought Vic.
+> n
+
+The Office Lobby
+
+ - - - The lobby was clean and functional. To the south, the sounds of the street drifted in though the large glass doors; to the north, a notice board directed people to the various businesses in the building. Vic's office was to the east.
+> nw
+
+Linda Love's Office
+
+ - - - This was similar to Vic's office in size, though without a window. Linda was sat at a retro pine desk, and as Vic entered the room, she took a break from typing at her computer, and looked him up and down.
+> look at linda love
+
+ - - - Dressed in black trousers, and a pink shirt, Linda Love looked radiant as she smiled up a Vic. Her blonde hair was cropped short, and her perfume smelled of desire. She looked questioningly at Vic as she sat behind her desk.
+> ask linda about encryption
+
+ - - - "If I had a little problem with some encrypted files, you'd be able to help me I guess."
+
+ - - - Linda smiled. "No promises, but I'd be happy to try, Vic. It'll be nice working together."
+> se
+
+The Office Lobby
+
+ - - - The lobby was clean and functional. To the south, the sounds of the street drifted in though the large glass doors; to the north, a notice board directed people to the various businesses in the building. Vic's office was to the east.
+> s
+
+Yardley Street (East)
+
+ - - - Yardley Street was one of the busier thoroughfares in the New Chicago central business district, running east to west. A constant stream of people, both humans and occasional Uralgans, and even a few more exotic races, headed in either direction. To the north was Derrington Building, where Vic had his office, to the south, Renoir building, and "Bert's Bagels", where Vic would usually grab lunch. There was not much to the east, but heading west might be good, thought Vic.
+> w
+
+Yardley Street
+
+ - - - Vic was now in the middle of Yardley Street, near the transit station, which was on the south side of the street. Shops and other businesses lined the street. Numerous people were out, hurrying about their business, or just enjoying the fine weather.
+> s
+
+Yardley Street TeleMat Station
+
+ - - - Vic looked about Yardley Street Telemat Station. It was typical of many such stations across New Chicago. Larger than most, it had twenty four booths along three walls; fourteen were for departing, ten for arriving. As he wondered where to go next, a stream of people passed through.
+> teleport
+Choose a destination
+ - Grand Hotel
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Grand Hotel.
+
+Grand Hotel TeleMat Station
+
+ - - - Someone arriving at the Grand Hotel TeleMat Station a hundred years ago would have been impressed with the marble tiles on the floor, the gilt edging along the walls, the graceful curves of the arches over the booths. A century later the peeling tiles showed the marble-effect was only paper thin, the gilt had long since been scratched off, though the curves remained.
+> w
+
+ - - - The Grand Hotel... Back in the thirtieth century this place might have been grand, but nowadays it looked worn and old.
+
+Grand Hotel (Lobby)
+
+ - - - Vic stood in the lobby of the Grand Hotel; a large open area with a high ceiling. The carpet, a blue Paisy-like design, was faded, and looking worn in the doorways. To the east, there was an archway leading to the TeleMat station, to the north, a large window looked out on the starport. Automatic doors to the south led to Star Avenue. To the west, there was a row of lifts giving access to the floor above, and a long reception desk. A woman in blue uniform sat behind the desk filing her nails; her name badge indicated she was called Mandy.
+> ask mandy about maisy
+
+ - - - "I'm looking for Maisy DeValle," said Vic.
+
+ - - - "Yeah, you and all the New Chicago police force. What makes you think I know anything about her?"
+> ask mandy about leona
+
+ - - - "I'm looking for Leona Jones," said Vic.
+
+ - - - "Yeah? Leona Jones... Yeah, we got a Leona Jones. Who shall I say it is?"
+
+ - - - "Gantry. Vic Gantry."
+
+ - - - Mandy picked up her phone, and spoke to it. "Miss Jones? There's a Vic Gantry wants to see you... Okay." She out the phone down. "Seems she wants to see you. Room 423; take the elevator." With that she returned to filing her nails.
+> u
+
+ - - - Vic got the lift up to the fourth floor. Room 423 was a short way down the corridor, on the right. He knocked, and entered.
+
+Grand Hotel (Room 423)
+
+ - - - Maisy's room was like any other at the hotel. The AutoCleans kept it spotless, but could not hide the faded glory. There was a double bed, a dresser, two chairs, and a very small bathroom. On the dresser, Vic could see the remains of a meal. Maisy was sat on the bed.
+> ask maisy about myothian falcon
+
+ - - - "What do you know about something called the Myothian Falcon? I think it was taken when your husband was murdered."
+
+ - - - "That?" She shrugged. "It looked like a glass bird, nothing special. My husband got it about six months ago."
+> d
+
+Grand Hotel (Lobby)
+
+ - - - Vic stood in the lobby of the Grand Hotel; a large open area with a high ceiling. The carpet, a blue Paisy-like design, was faded, and looking worn in the doorways. To the east, there was an archway leading to the TeleMat station, to the north, a large window looked out on the starport. Automatic doors to the south led to Star Avenue. To the west, there was a row of lifts giving access to the floor above, and a long reception desk. A woman in blue uniform sat behind the desk filing her nails; her name badge indicated she was called Mandy.
+> e
+
+Grand Hotel TeleMat Station
+
+ - - - Someone arriving at the Grand Hotel TeleMat Station a hundred years ago would have been impressed with the marble tiles on the floor, the gilt edging along the walls, the graceful curves of the arches over the booths. A century later the peeling tiles showed the marble-effect was only paper thin, the gilt had long since been scratched off, though the curves remained.
+> teleport
+Choose a destination
+ - Yardley Street
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Yardley Street.
+
+Yardley Street TeleMat Station
+
+ - - - Vic looked about Yardley Street Telemat Station. It was typical of many such stations across New Chicago. Larger than most, it had twenty four booths along three walls; fourteen were for departing, ten for arriving. As he wondered where to go next, a stream of people passed through.
+> n
+
+Yardley Street
+
+ - - - Vic was now in the middle of Yardley Street, near the transit station, which was on the south side of the street. Shops and other businesses lined the street. Numerous people were out, hurrying about their business, or just enjoying the fine weather.
+> e
+
+Yardley Street (East)
+
+ - - - Yardley Street was one of the busier thoroughfares in the New Chicago central business district, running east to west. A constant stream of people, both humans and occasional Uralgans, and even a few more exotic races, headed in either direction. To the north was Derrington Building, where Vic had his office, to the south, Renoir building, and "Bert's Bagels", where Vic would usually grab lunch. There was not much to the east, but heading west might be good, thought Vic.
+> n
+
+The Office Lobby
+
+ - - - The lobby was clean and functional. To the south, the sounds of the street drifted in though the large glass doors; to the north, a notice board directed people to the various businesses in the building. Vic's office was to the east.
+> nw
+
+Linda Love's Office
+
+ - - - This was similar to Vic's office in size, though without a window. Linda was sat at a retro pine desk, and as Vic entered the room, she took a break from typing at her computer, and looked him up and down.
+> give data key to linda
+
+ - - - "I, er, found this data key during an on-going investigation," Vic said, handing the data key from DeValle's desk to Linda. "I guess you'd know what to do with it."
+> ask linda about files
+
+ - - - "If I had a little problem with some encrypted files, you'd be able to help me I guess. Its about that data key I gave you, you see, and an innocent women could go to the chair if I fail..."
+
+ - - - Linda smiled. "No promises, but I'd be happy to try, Vic. It'll be nice working together." She took the key from Vic, and put it into her computer. "I'm going to go via a couple of other servers to hide my tracks, so it might take a few moments." A few minutes later: "We're in; what do you want to see?"
+
+ - - - "Anything unusual, anything odd for a rich, happily married guy."
+
+ - - - "That's a bit vague... Okay, six months ago he paid a large sum of money to a guy called George Lancing, 450,000 credits. Few payments to something called Green Heaven... Here's something, he pays rent on an apartment in Twenty Third Street - Camden Towers, room 312. Why would a guy who lives in a big mansion want an apartment in that district?"
+
+ - - - "That's a very interesting question."
+> se
+
+The Office Lobby
+
+ - - - The lobby was clean and functional. To the south, the sounds of the street drifted in though the large glass doors; to the north, a notice board directed people to the various businesses in the building. Vic's office was to the east.
+> s
+
+Yardley Street (East)
+
+ - - - Yardley Street was one of the busier thoroughfares in the New Chicago central business district, running east to west. A constant stream of people, both humans and occasional Uralgans, and even a few more exotic races, headed in either direction. To the north was Derrington Building, where Vic had his office, to the south, Renoir building, and "Bert's Bagels", where Vic would usually grab lunch. There was not much to the east, but heading west might be good, thought Vic.
+> w
+
+Yardley Street
+
+ - - - Vic was now in the middle of Yardley Street, near the transit station, which was on the south side of the street. Shops and other businesses lined the street. Numerous people were out, hurrying about their business, or just enjoying the fine weather.
+> s
+
+Yardley Street TeleMat Station
+
+ - - - Vic looked about Yardley Street Telemat Station. It was typical of many such stations across New Chicago. Larger than most, it had twenty four booths along three walls; fourteen were for departing, ten for arriving. As he wondered where to go next, a stream of people passed through.
+> teleport
+Choose a destination
+ - New Chicago University
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at New Chicago University.
+
+NCU TeleMat station
+
+ - - - The NCU TeleMat Station was like no other. Generations of students had left their marks, whether sanctioned by the university or not, so the walls were a riot of colour. To Vic's eye, it was just a mess, but doubtless it meant something to someone at the university. Whether that was someone in the fine arts department or the anthropology department, Vic was not too sure. The university was off to the east.
+> e
+
+NPC Campus
+
+ - - - The central campus of the CYU was a large grassed area, crossed with gravel paths, and surrounded by the various departmental buildings. The lawn was littered with students, studying, chatting, drinking or kissing. A signpost pointed northeast to the History and Archaeology Department, and west back to the TeleMat station.
+
+ - - - The History and Archaeology Department was a hexagonal building, each side of which was displaying an animated sequence from Uralgas past, or possibly earlier than that. Vic's history was a bit shaky, but he certainly recognised the Tequila Riots of '84.
+> ne
+
+Dept History and Archaeology (Lobby)
+
+ - - - The foyer of the History and Archaeology Department was grand and imposing. A series of free standing pillars contained holograms of historical events. Posters on the wall proclaimed forth-coming events, many that had long since happened, Vic noted. Stairs led up to the lecture halls, while a sign to the north east indicated the laboratory lay that way. There were offices; to the north, Prof Kant's, and to the west, Dr. Lancing's. A secretary, Una, sat at a desk. The building exit was though large glass doors to the southwest.
+> ask una about lancing
+
+ - - - "Hi," said Vic. "I was wondering if I could talk to Dr Lancing."
+
+ - - - "I'm afraid Dr Lancing is currently unavailable."
+
+ - - - "Do you know when he will be available."
+
+ - - - "Huh! Like he would bother to tell me what his plans are. I'm just his secretary."
+> ask una about kant
+
+ - - - "Well could I talk to Prof Kant?"
+
+ - - - "Do you have an appointment?"
+
+ - - - "Not as such..."
+
+ - - - "Not as such?... Look, I shouldn't do this, and she has a seminar in five minutes, but if it is quick, just knock on the door.
+> knock
+
+ - - - Vic knocked twice on the door, heard a "Come in", and walked into Prof Kant's office.
+
+Prof Kant's office
+
+ - - - Prof Kant's office was small and functional; somehow Vic had expected something more fancy for an academic. The entire west wall was covered with newspaper printouts. Prof Kant was sat at a desk; she looked up from her computer.
+> ask kant about lancing
+
+ - - - "Thank you for seeing me, professor," said Vic. "I'm working on a case, and I was hoping to talking to Dr. Lancing about an artefact he found..."
+
+ - - - "Mr..?"
+
+ - - - "Gantry. Vic Gantry."
+
+ - - - "My Gantry, Dr Lancing collects a great many artefacts; you would have to talk to him about it. And I really have no idea where he might be." This was getting him nowhere fast, Vic realised. He needed some way to connect to her, so she might be prepared to trust him at least a little.
+> look at clippings
+
+ - - - Vic briefly scanned the wall of clippings; they seemed to be events that had occurred in New Chicago in the last fifteen years or so. One in particular caught his eye. "Pentown Bombing: Man Arrested" It was a case Vic had been involved in, and he knew for a fact the papers had got it all wrong.
+
+ - - - Professor Kant noticed what Vic was reading. "I like to keep a visual record of recent history as a reminder to students that what happens today is history tomorrow. That article has some personal interest for me."
+> ask kant about pentown
+
+ - - - "I worked on that case," said Vic, "it was just as I was starting out as a P.I."
+
+ - - - "The man they arrested was innocent! He was acquitted at trial, thank goodness, but it was such an ordeal. He's my brother."
+
+ - - - "Of course! Clive Kant, that was his name. The cops were all for sending him to the chair, until the real bomber was found."
+
+ - - - "You did that?" Suddenly she seemed rather more friendly to Vic.
+
+ - - - "Well, I helped find him, sure. It's a similar deal now, Professor. A woman is set to be fried unless I can help her."
+> ask kant about lancing
+
+ - - - "So about Dr Lancing?"
+
+ - - - "As I said, I don't know where he is, though I suppose you might like to look in on his apartment. It's on the ground floor of Jonti Building, on the south side of the campus green."
+> s
+
+Dept History and Archaeology (Lobby)
+
+ - - - The foyer of the History and Archaeology Department was grand and imposing. A series of free standing pillars contained holograms of historical events. Posters on the wall proclaimed forth-coming events, many that had long since happened, Vic noted. Stairs led up to the lecture halls, while a sign to the north east indicated the laboratory lay that way. There were offices; to the north, Prof Kant's, and to the west, Dr. Lancing's. A secretary, Una, sat at a desk. The building exit was though large glass doors to the southwest.
+> sw
+
+NPC Campus
+
+ - - - The central campus of the CYU was a large grassed area, crossed with gravel paths, and surrounded by the various departmental buildings. The lawn was littered with students, studying, chatting, drinking or kissing. A signpost pointed northeast to the History and Archaeology Department, and west back to the TeleMat station.
+
+ - - - The History and Archaeology Department was a hexagonal building, each side of which was displaying an animated sequence from Uralgas past, or possibly earlier than that. Vic's history was a bit shaky, but he certainly recognised the Tequila Riots of '84.
+> s
+
+Jonty Hall (Ground Floor)
+
+ - - - Jonty Hall was an accommodation block for staff and students wanting to live on campus. It was much like any regular apartment block, and kept in a good state of cleanliness. Vic noticed the door to the west had a plaque, with 'Dr Lancing' inscribed on it.
+> w
+
+Dr. Lancing's Apartment
+
+ - - - Even before he entered the apartment, Vic could tell something was wrong. He could smell death even at the doorway. Inside, the large apartment was a mess, but what drew Vic's eyes was the corpse. Somebody, presumably Dr Lancing lay, in the middle of the room, spread-eagled, and very dead, with a spear in his chest.
+> look at body
+
+ - - - Dr. Lancing's body looked to have been carefully laid out, with his arms and legs spread-eagled. He would have been about forty, Vic judged, with dark and and moustache, and was wearing red pyjamas. A spear was buried deep in his chest, his eyes wide open with fear. From the smell, Vic guessed he had been dead a couple of days at least, which meant he had been murdered before Lawrence DeValle.
+> look at spear
+
+ - - - The spear protuding from Dr. Lancing's chest was made of thick wood. Vic could not see the head of it at all, but the shaft was inscribed with writing, though in a script unlike any he had seen before. Red ribbons had been tied around it at three points along the shaft, close to where it entered the body.
+> take spear
+
+ - - - Vic would have liked to take the spear to show to Prof Kant, but the cops would call it interfering with evidence; instead he took some photos on his iJot.
+> e
+
+Jonty Hall (Ground Floor)
+
+ - - - Jonty Hall was an accommodation block for staff and students wanting to live on campus. It was much like any regular apartment block, and kept in a good state of cleanliness. Vic noticed the door to the west had a plaque, with 'Dr Lancing' inscribed on it.
+> n
+
+NPC Campus
+
+ - - - The central campus of the CYU was a large grassed area, crossed with gravel paths, and surrounded by the various departmental buildings. The lawn was littered with students, studying, chatting, drinking or kissing. A signpost pointed northeast to the History and Archaeology Department, and west back to the TeleMat station.
+
+ - - - The History and Archaeology Department was a hexagonal building, each side of which was displaying an animated sequence from Uralgas past, or possibly earlier than that. Vic's history was a bit shaky, but he certainly recognised the Tequila Riots of '84.
+> ne
+
+Dept History and Archaeology (Lobby)
+
+ - - - The foyer of the History and Archaeology Department was grand and imposing. A series of free standing pillars contained holograms of historical events. Posters on the wall proclaimed forth-coming events, many that had long since happened, Vic noted. Stairs led up to the lecture halls, while a sign to the north east indicated the laboratory lay that way. There were offices; to the north, Prof Kant's, and to the west, Dr. Lancing's. A secretary, Una, sat at a desk. The building exit was though large glass doors to the southwest.
+> n
+
+ - - - Vic knocked twice on the door, heard a "Come in", and walked into Prof Kant's office.
+
+Prof Kant's office
+
+ - - - Prof Kant's office was small and functional; somehow Vic had expected something more fancy for an academic. The entire west wall was covered with newspaper printouts. Prof Kant was sat at a desk; she looked up from her computer.
+> tell kant about lancing
+
+ - - - Vic confronted Prof. Kant directly. "I've some bad news about Dr Lancing, Professor. I called at his apartment, and found the door ajar. Inside, well, it wasn't pretty, I can tell you. Been dead a couple of days at least."
+
+ - - - "How awful..." She looked pale as milk. "He was not exactly a friend, but still I knew him well; it's hard to believe... Well, hard to believe it happened here on the campus, and not in the Uralgan jungle. Have you informed the police?"
+
+ - - - "Under the circumstances, I thought it would sound better coming from you."
+
+ - - - "I suppose you're right. If you could see yourself out, I shall do that directly."
+> ask kant about spear
+
+ - - - Vic wanted to handle this delicately. "There was a spear in Dr. Lancing's apartment with writing on it." He showed her the photo on his iJot. "Can you tell me anything about it?"
+
+ - - - "Let me see. Well, it's a Uralgan script, I can tell you that much. If it was written recently, I would place it around 200 miles from here. The Uralgans had a very simple alphabet before we arrived; slowly they are adopting English characters into their own written language to cover the deficiencies. See here, an "e", and this is an "r". The more English characters, the nearer the city it comes from. No idea what it means, sorry."
+> ask kant about myothian falcon
+
+ - - - "I'm interested in an artefact Dr Lancing found, the Myothian Falcon. Would you know anything about that?"
+
+ - - - "I've never heard of it, but let me check the database. Any items found on an expedition are carefully catelogued." She consulted her computer, then shook her head. "No, nothing. The only thing I can tell you is that Myothi is a Uralgan nation. Hmm, you might want to talk to Ursula Nguyen; she was Dr Lancing's Post-Doc; I suppose I'll have to re-assign her. She's probably in the lab."
+> ask kant about date
+
+ - - - "You're a remarkable woman, Professor. I was wonder if perhaps you'd like to have dinner with me some time?"
+
+ - - - "Goodness me, I'm old enough to be your mother." She shrugged. "Then again, why not? That would be lovely."
+> s
+
+Dept History and Archaeology (Lobby)
+
+ - - - The foyer of the History and Archaeology Department was grand and imposing. A series of free standing pillars contained holograms of historical events. Posters on the wall proclaimed forth-coming events, many that had long since happened, Vic noted. Stairs led up to the lecture halls, while a sign to the north east indicated the laboratory lay that way. There were offices; to the north, Prof Kant's, and to the west, Dr. Lancing's. A secretary, Una, sat at a desk. The building exit was though large glass doors to the southwest.
+> ne
+
+Dept History and Archaeology (Post Graduate Lab)
+
+ - - - Vic had an image in his head of a laboratory where people in white coats worked at benches doing experiments. This was not at all like that; just two rows of desks with computers on them, and students doing their research on the internet. Ursula was at the third desk on the right.
+> ask ursula about lancing
+
+ - - - "I hear Dr Lancing is your supervisor. Do you mind if I ask you to tell me about him?"
+
+ - - - Ursula sniffed sadly. "Oh, he was a wonderful man. All the other lecturers were jealous of him, because he was the only one willing to do field work. I bet it was one of them.  Oh, God, I can't believe he's dead." She started to sob quietly.
+> ask ursula about myothian falcon
+
+ - - - "Do you know anything about an artefact Dr Lancing found a few months ago, something called the Myothian Falcon?"
+
+ - - - "Oh, yes, that," sighed Ursula. "It was on an expedition seven months. We found it on the central altar inside the ancient Temple of Irithea. Dr Lancing called it the Myothian Falcon because it kind of looked like a falcon. The natives said it had some strange powers, and Dr Lancing pretended to go a bit loopy when he picked it up."
+
+ - - - "Loopy?"
+
+ - - - "Yeah, like he could see terrible monsters."
+
+ - - - "You sure he was just kidding?"
+
+ - - - "Yes! I was carrying it half the time; I can assure you I saw no monsters."
+
+ - - - "Did anyone else know about the Falcon?"
+
+ - - - She shrugged. "I don't know. .. Yes, there was a guy called Barry asking about it a couple of weeks ago. No, not Barry; Larry, that was it. Real seedy looking guy. Larry Yang. Oh, yes, and Lawence DeValle, that dead guy; I heard Dr Lancing talking to him about it shortly after we got back. Hey, is that what this is about?"
+> ask ursula about date
+
+ - - - "Say you fancy going to get a bite to eat later?"
+
+ - - - "You mean like a date? You're old enough to be my dad!"
+> sw
+
+Dept History and Archaeology (Lobby)
+
+ - - - The foyer of the History and Archaeology Department was grand and imposing. A series of free standing pillars contained holograms of historical events. Posters on the wall proclaimed forth-coming events, many that had long since happened, Vic noted. Stairs led up to the lecture halls, while a sign to the north east indicated the laboratory lay that way. There were offices; to the north, Prof Kant's, and to the west, Dr. Lancing's. A secretary, Una, sat at a desk. The building exit was though large glass doors to the southwest.
+> sw
+
+NPC Campus
+
+ - - - The central campus of the CYU was a large grassed area, crossed with gravel paths, and surrounded by the various departmental buildings. The lawn was littered with students, studying, chatting, drinking or kissing. A signpost pointed northeast to the History and Archaeology Department, and west back to the TeleMat station.
+
+ - - - The History and Archaeology Department was a hexagonal building, each side of which was displaying an animated sequence from Uralgas past, or possibly earlier than that. Vic's history was a bit shaky, but he certainly recognised the Tequila Riots of '84.
+> w
+
+NCU TeleMat station
+
+ - - - The NCU TeleMat Station was like no other. Generations of students had left their marks, whether sanctioned by the university or not, so the walls were a riot of colour. To Vic's eye, it was just a mess, but doubtless it meant something to someone at the university. Whether that was someone in the fine arts department or the anthropology department, Vic was not too sure. The university was off to the east.
+> teleport
+Choose a destination
+ - Bureau Street
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Bureau Street.
+
+Bureau Street TeleMat Station
+
+ - - - The TeleMat station for the main administration area, this was one of the largest in the city, and at rush hour it would be a seething mass of people. Right now, it was relatively quiet.
+> w
+
+Bureau Street
+
+ - - - Vic stood in Bureau Street and looked about. This was where much of the administration of New Chicago was, including the police station, right across from the TeleMat station, to the west. To the right of the police station, there was a bar, "Donegal's Authentic Irish Bar"; that was where Vic was most likely to find Detective Munroe. A temporary stall had been set up beside the TeleMat station by some enterprising guy by the name of Pierre, offering flowers for the busy office workers to take home to their loved ones.
+> nw
+
+Donegal's Authentic Irish Bar
+
+ - - - As Vic surveyed Donegal's Irish Bar, he wondered just how authentic this place was. Would a real Irish pub have shamrock shaped tables, and videos of "Riverdance" on every available wall? The customers were a mix of business men and cops; even those who were not in suits or uniform looked to be plainclothes cops to Vic's experienced eye. As expected, Munroe was here, his old partner from his brief time as a cop.
+> ask munroe about maisy
+
+ - - - "So what do you know about Maisy DeValle," Vic asked casually.
+
+ - - - Jill gave him a look. "Is this about a case, Vic? You do know we have an APB out on her. If you knew where she was, you would tell me, right?"
+
+ - - - "I was just curious, what with it being in the papers. So what about her?"
+
+ - - - "Well, all the evidence's against her. She stands to inherit a ton, and we know she was at the house when her husband died, and she did a runner after the murder. Still waiting for the forenics, but she's as good as fried."
+> ask munroe about cigarette
+
+ - - - "Your boys found anything on that cigarette end yet, Jill?"
+
+ - - - "Give them a chance, Vic. You know we're all ploughed under with work."
+> ask munroe about lancing
+
+ - - - "So what did you find out about Lancing?"
+
+ - - - "You know I can't tell you about that, Vic."
+
+ - - - "I know the official line, but this connects to a case I'm working on. We both want the sme thing here, Jill, to see the right people go to court. So if you happened to let something slip in conversation with an old friend..."
+
+ - - - "Well, as long as that old friend never let on where he heard it... Lancing was stabbed to death with with two different knives, the spear was added as decoration once he was dead. The room was then ransacked; at this point we haven't discovered anything that might be missing; it was not a burglary gone wrong as far as we can tell. DNA indicates two Uralgans, and security cameras confirm two Uralgans entering and leaving the building three days ago, at 0432 and 0456 respectively. TeleMat records indicate they arrived from Twenty Third Street and returned there."
+> se
+
+Bureau Street
+
+ - - - Vic stood in Bureau Street and looked about. This was where much of the administration of New Chicago was, including the police station, right across from the TeleMat station, to the west. To the right of the police station, there was a bar, "Donegal's Authentic Irish Bar"; that was where Vic was most likely to find Detective Munroe. A temporary stall had been set up beside the TeleMat station by some enterprising guy by the name of Pierre, offering flowers for the busy office workers to take home to their loved ones.
+> e
+
+Bureau Street TeleMat Station
+
+ - - - The TeleMat station for the main administration area, this was one of the largest in the city, and at rush hour it would be a seething mass of people. Right now, it was relatively quiet.
+> teleport
+Choose a destination
+ - Twenty Third Avenue
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Twenty Third Avenue.
+
+Twenty Third Avenue TeleMat Station
+
+ - - - This was the Twenty Third Avenue TeleMat station. One of the larger ones, and one a guy would avoid if he could help it. The smell of cigarettes and urine, the discarded litter of ten thousand people a day, not to mention the risk of mugging from any number of desperate lowlifes. Even the AutoCleans feared to come here.
+
+ - - - The TeleMat station for perhaps the worst part of the city. Not a place to hang around. Not if you wanted to keep your wallet and your liver. But Vic knew the place, and hopefully knew how to keep out of trouble. He had a contact here, Mickey Singh; talking to him might be a good idea. He usually hung out at Topside, one of many seedy bars in the area.
+> w
+
+ - - - As Vic left the TeleMat station, he wondered why it was that every investigation brought him back here. Twenty Third was home to some of the worst scum in New Chicago, and some of its most lively entertainments. Just coming here was gambling that you would be alive the next day.
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+
+ - - - In a shop doorway, two lovers embraced. They could be no more than fourteen, thought Vic, shaking his head.
+> se
+
+Topside Bar
+
+ - - - Topside bar was squeezed between a closed-down food store and a brothel. Inside was more like a wide corridor than a room, it was dark, and smelt of damp; Vic could not imagine why people would come here, but nevertheless there were several people sat at the bar, even at this time of day. All seemed to be drinking alone. He spotted Mickey Singh towards the back of the room.
+> ask mickey about yp-33
+
+ - - - "Mickey, you know anyone who hangs out on Twenty Third uses a YP-33?"
+
+ - - - "Funny, I can't remember. Can't remember much at the minute, Mr G."
+> give cash to mickey
+
+ - - - "I wonder if I can give you a few credits to jog your memory about a few things." Vic took 50 credits off his credit chip, and transferred them to Mickey's.
+
+ - - - "Much obliged, Mr G. Always a pleasure to help you any way I can."
+> ask mickey about yp-33
+
+ - - - "Mickey, you know anyone who hangs out on Twenty Third uses a YP-33?"
+
+ - - - "A YP-33, eh? There's no one round here uses them any more, Mr. G... No one except Bram Fenton, that is. One of Nikki Stom's boys. None too bright either. Well, if he was bright, he wouldn't use a YP-33, not with their history."
+> ask mickey about fenton
+
+ - - - "What do yu know about Bram Fenton, Mickey?"
+
+ - - - "Fenton's basically a petty crook, you know, picking pocket, house breaking. Not a violent guy, generally, not none too bright either. Stom pretty much looks after him."
+> ask mickey about myothian falcon
+
+ - - - "Ever heard of something called the Myothian Falcon.
+
+ - - - A shake of the head. "Nope."
+> nw
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+> w
+
+Green Heaven
+
+ - - - The Green Heaven... Vic had never noticed the place before. Clearly it catered to guys with unusual tastes. The clientele was strictly male and human, the entertainment was female and green. For a moment, Vic watched the two Uralgan girls gyrating naked on the stage, before taking in the rest of the place. About a dozen men were watching the dancers, entranced. To the south, a third Uralgan was serving drinks; this one, Syrella, was at least wearing something. To the east, the door back to the street.
+> look at dancers
+
+ - - - Vic took a few more minutes to look at the two dancers, purely to see how much like humans they were. Their skin was an emerald green, their eyes were green too, but darker; but the shape of their bodies was like that of a human woman - and a well-stacked on at that, Vic reckoned. They were lithe and agile dancers too, and Vic could almost see why men came here to watch them.
+> ask syrella about myothian falcon
+
+ - - - "Say, you won't have heard of something called the Myothian Falcon, have you?"
+
+ - - - Syrella shook her head. "No. You might want to Lairas; she's from the Myothi nation originally. Might mean something to her. She'll be in the back; I'll make sure they let you through."
+> s
+
+Green Heaven (Back Stage)
+
+ - - - The back stage area was basically a single small room, with places where the girls could get changed and put on make-up. There was just one Uralgan girl there at the moment, sat at a mirror, preparing for her act. Presumably, this was Lairas.
+> ask lairas about myothian falcon
+
+ - - - "I'm looking for a couple of Uralgans recently here from Myothi. You seen anyone like that?"
+
+ - - - "Yeah, I seen them. A guy, Kalal, and, well, I think she might be a preistess, Erida-Pa. I've kind of lost touch with the old ways. I think they're living in a derelict clothing shop a little way south down the avenue."
+> ask lairas about uralgans
+
+ - - - "I'm looking for a couple of Uralgans recently here from Myothi. You seen anyone like that?"
+
+ - - - "Yeah, I seen them. A guy, Kalal, and, well, I think she might be a preistess, Erida-Pa. I've kind of lost touch with the old ways. I think they're living in a derelict clothing shop a little way south down the avenue."
+> n
+
+Green Heaven
+
+ - - - The Green Heaven... Vic had never noticed the place before. Clearly it catered to guys with unusual tastes. The clientele was strictly male and human, the entertainment was female and green. For a moment, Vic watched the two Uralgan girls gyrating naked on the stage, before taking in the rest of the place. About a dozen men were watching the dancers, entranced. To the south, a third Uralgan was serving drinks; this one, Syrella, was at least wearing something. To the east, the door back to the street.
+> e
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+> s
+
+Twenty Third Avenue (South)
+
+ - - - The south end of Twenty Third Avenue was the most run down. The 'Lion's Den', at the north end, might be a dive, but it had a seedy glamour that attracted the better class of scum. At this end, the shops were tattier, the people more miserable and the whores cheaper. To the southeast, Vic noticed a derelict shop; 'Marty's Fashion Boutique'.
+
+ - - - On one side of the street, a man was telling all who would listen that they were damned to hell unless they adopted his personal brand of religion. Vic wondered if any ever did listen to people like that.
+> w
+
+Camden Towers
+
+ - - - Camden Towers was a run-down apartment block, put up early in the last century. When built, it had pretentions of attracting a smart crowd, and the apartments had been well-appointed. As the Twenty Third Avenue district had slid down the drain, the better residents had left, the rent had dropped, and the owners had stopped bothering to maintain the place. Now the stairwells were full of litter, the walls were stained with various dubious liquids, and everywhere smelt of urine. Room 312 would be up on the third floor.
+> u
+
+Camden Towers (Room 312)
+
+ - - - Petharla's apartment was just one room in what would have been a suite of rooms; this would probably have been a bedroom. There was a window, a bed, two chairs, and a cupboard, and one door if he wanted to go back down.
+
+ - - - The lift was out of order, and looked like it had been for many years. Vic walked up the three flights of stairs, carefuly picking his way between the junk, excrement and occasional vagrant. There was apartment 312; the name on the door was Petharla. He knocked and a Uralgan girl, presumably Petharla, let him in.
+> ask petharla about lawrence
+
+ - - - "Do you know a guy called Lawrence DeValle?"
+
+ - - - "I... yes, I did. Oh, gods, what does it matter now? We were lovers." Her shuddering grew worse. "He was a wonderful man, so warm and caring. He was going to divorce his wife, and marry me - before that heartless bitch killed him. He didn't even like human women, did you know that?"
+
+ - - - "He rented this apartment for you?"
+
+ - - - "Just temporarily, while he worked things out."
+
+ - - - "When did you last see him?"
+
+ - - - "Only last night..." More shuddering. "Just a few hours ago I was lying in his arms..."
+
+ - - - "Really? So when he was murdered he was on his way home from here then. Say, that might account for the security system..."
+
+ - - - "Oh he always turned off the security when he was coming here, so his horrible wife would not see him leaving. Is that important?"
+> ask petharla about myothian falcon
+
+ - - - "Ever heard of something called the Myothian Falcon?"
+
+ - - - "No." She shook her head. "What is it?"
+> d
+
+ - - - "I'll see myself out," said Vic, leaving the apartment. Carefully he picked his way down to the lobby.
+
+Camden Towers
+
+ - - - Camden Towers was a run-down apartment block, put up early in the last century. When built, it had pretentions of attracting a smart crowd, and the apartments had been well-appointed. As the Twenty Third Avenue district had slid down the drain, the better residents had left, the rent had dropped, and the owners had stopped bothering to maintain the place. Now the stairwells were full of litter, the walls were stained with various dubious liquids, and everywhere smelt of urine. Room 312 would be up on the third floor.
+> e
+
+Twenty Third Avenue (South)
+
+ - - - The south end of Twenty Third Avenue was the most run down. The 'Lion's Den', at the north end, might be a dive, but it had a seedy glamour that attracted the better class of scum. At this end, the shops were tattier, the people more miserable and the whores cheaper. To the southeast, Vic noticed a derelict shop; 'Marty's Fashion Boutique'.
+> n
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+> n
+
+Twenty Third Avenue (North)
+
+ - - - Now he was at north end of Twenty Third Avenue, Vic could see the 'Lion's Den', an almost legit casino on the east side of the road. As he watched, a man and a woman walked in. Lambs to the slaughter, thought Vic, shaking his head.
+
+ - - - A gust of wind set a fast food wrapper tumbling down the street.
+> ne
+
+Dark Alley
+
+ - - - The back street was basically a gap between buildings, allowing service access to them. To the west, Twenty Third Avenue, to the east, a dead end. This was the domain of the garbage canister and the fire escape.
+> u
+
+Garbage Canister
+
+ - - - Vic was now stood on top of the garbage canister. He was probably high enough to reach the fire escape; unfortunately it was on the other side of the alley.
+> leap
+
+ - - - Vic leapt for the fire escape, but it was too far away, too high up, and he landed, a little awkwardly, on the ground.
+
+Dark Alley
+
+ - - - The back street was basically a gap between buildings, allowing service access to them. To the west, Twenty Third Avenue, to the east, a dead end. This was the domain of the garbage canister and the fire escape.
+> push canister
+
+ - - - With some effort, Vic pushed the garbage canister under the Lion's Den fire escape. You would think something on wheels would be a bit easier to shift, he thought to himself.
+> u
+
+Garbage Canister
+
+ - - - Vic was now stood on top of the garbage canister, under the fire escape.
+> jump
+
+ - - - Vic jumped up, grabbing hold of the fire escape, and swinging himself up.
+
+Lion's Den (Fire Escape)
+
+ - - - Vic was stood on a platform someway up the north side of Lion's Den; a fire escape from the upper floor. There was no door to the building; presumably in the event of a fire people were supposed to climb out the window.
+> examine window
+
+ - - - Vic peered through the grimy window. It was hard to see through, but he could make out a desk and a chair; there seemed to be no people in it. He also checked the window itself. He could find no trace of an alarm on it, and the lock looked positively antiquated. Perhaps Stom relied on her reputation as a vicious and vindictive bitch to deter burglars.
+> in
+
+Lion's Den (Office)
+
+ - - - The office was a strange mix of rich and poor. The cream paint on the walls and ceiling was flaking so badly, Vic could see that it used to be painted aqua, and before that olive green. However, the furnishings were all very high class. A Hetu-style desk, with matching chair, paintings on the walls looked to be originals - or at least expensive copies - the rugs on the floor were deep and soft. There was a single door to the east, and Vic thought he could hear footsteps out there; a window to the north led to the fire escape.
+
+ - - - Vic gently eased the window open, still looking carefully for any evidence of an alarm system. Then he quietly climbed inside.
+> open desk
+
+ - - - Vic opened the heti-style desk.
+
+ - - - The desk contained a Myothian Falcon.
+> get falcon
+
+ - - - The footsteps beyond the door were getting closer; he had to work fast. Quickly he picked up the Myothian Falcon, but at that moment the door burst open, and... something entered the room. It was the stuff of nightmares, a beast of some sort, but its form was constantly shifting; at first dog-like, now more avian, and then perhaps like a dragon. Whatever its true shape, it struck fear in Vic's heart like nothing ever had before.
+> drop falcon
+
+ - - - With some effort of will, Vic put down the Myothian Falcon. As he did so, the nightmeare beast became more solid, assuming just one form; a man. Specifically Doug Kalto, one of Stom's goons. He was looking at Vic. "I said, what are you doing in Ms Stom's office?"
+> get falcon
+
+ - - - "I'm just here to pick this up,", said Vic, as he lifted up the Myothian Falcon again. For a moment Kalto seemed to be thinking about changed into a giant spider, before changing his mind, and keeping his man shape.
+
+ - - - "I don't think so," said Kalto
+> give falcon to doug
+
+ - - - "Perhaps you should have this." Vic handed the Myothian Falcon to Kalto.
+
+ - - - "Maybe I sh... No, no. Getting away from me!" His eyes wide with terror, Kalto dropped the Myothian Falcon and fled the room.
+> get falcon
+
+ - - - Vic picked up the Myothian Falcon, and as he did, the room lurched around his, everything around him taking a new form, but only briefly, then turning back to normal.
+> n
+
+ - - - Vic opened the window again, and climbed out on to the fire ecape.
+
+Lion's Den (Fire Escape)
+
+ - - - Vic was stood on a platform someway up the north side of Lion's Den; a fire escape from the upper floor. There was no door to the building; presumably in the event of a fire people were supposed to climb out the window.
+> leave
+You can't go that way.
+> d
+
+Dark Alley
+
+ - - - The back street was basically a gap between buildings, allowing service access to them. To the west, Twenty Third Avenue, to the east, a dead end. This was the domain of the garbage canister and the fire escape.
+> w
+
+Twenty Third Avenue (North)
+
+ - - - Now he was at north end of Twenty Third Avenue, Vic could see the 'Lion's Den', an almost legit casino on the east side of the road. As he watched, a man and a woman walked in. Lambs to the slaughter, thought Vic, shaking his head.
+> s
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+> s
+
+Twenty Third Avenue (South)
+
+ - - - The south end of Twenty Third Avenue was the most run down. The 'Lion's Den', at the north end, might be a dive, but it had a seedy glamour that attracted the better class of scum. At this end, the shops were tattier, the people more miserable and the whores cheaper. To the southeast, Vic noticed a derelict shop; 'Marty's Fashion Boutique'.
+> se
+
+ - - - The door to the old clothing shop was broken, and Vic could ease it aside, then slip carefully into the building.
+
+Derelict Clothing Shop
+
+ - - - The shop interior was a mess. It looked like the last tenant had left pretty quickly; there were racks still with clothes on them, though most were in a pretty poor shape. There was also evidence of more recent occupation; blankets laid out on the floor, on top of more of the old merchandise; the remains of a meal.
+
+ - - - Two Uralgans, a man and a woman, emerged from the darkness at the back on the room; this must be Kalal and Erida-Pa, though Vic. "Who are you, what do you want?", asked Kalal; he did not sound exactly friendly.
+> ask erida-pa about falcon
+
+ - - - "Can I ask you a question," Vic said to Erida-Pa. She narrowed her eyes at her.
+
+ - - - "She will not speak to you," said Kalal. "She is a holy person, for her to speak in your language would be a blasphemy. It is shameful for me too, but I do it because I must."
+> ask kalal about falcon
+
+ - - - "You know about something called the Myothian Falcon."
+
+ - - - "Hah! What you call the Myothian Falcon is the embodiment of the goddess Irithea. The theft of this most holy thing is deeply insulting to all Uralgans, and especially the Myothi! Even for a man to hold it is considered a blasphemy."
+> nw
+
+Twenty Third Avenue (South)
+
+ - - - The south end of Twenty Third Avenue was the most run down. The 'Lion's Den', at the north end, might be a dive, but it had a seedy glamour that attracted the better class of scum. At this end, the shops were tattier, the people more miserable and the whores cheaper. To the southeast, Vic noticed a derelict shop; 'Marty's Fashion Boutique'.
+> n
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+> n
+
+Twenty Third Avenue (North)
+
+ - - - Now he was at north end of Twenty Third Avenue, Vic could see the 'Lion's Den', an almost legit casino on the east side of the road. As he watched, a man and a woman walked in. Lambs to the slaughter, thought Vic, shaking his head.
+> e
+
+The Lion's Den (Lobby)
+
+ - - - Vic looked around the dimly lit lobby of the Lion's Den. While the interior might have been dressed up, no one had bothered with this area; the blue paint was flaking from the walls, the concrete floors were scratched and marked. An archway to the north led to the casino. A large guy in a suit eyed him suspiciously. "You ain't a cop, are you? We don't take kindly to cops in here."
+> n
+
+The Lion's Den (Casino)
+
+ - - - The casino area was lousy with people losing money hand over fist and enjoying it. Pretty women in next-to-nothing handed out free drinks to the players to keep them happy and drunk. Others had to buy their drinks at the buy to the east.
+> s
+
+The Lion's Den (Lobby)
+
+ - - - Vic looked around the dimly lit lobby of the Lion's Den. While the interior might have been dressed up, no one had bothered with this area; the blue paint was flaking from the walls, the concrete floors were scratched and marked. An archway to the north led to the casino. A large guy in a suit eyed him suspiciously. "You ain't a cop, are you? We don't take kindly to cops in here."
+> w
+
+Twenty Third Avenue (North)
+
+ - - - Now he was at north end of Twenty Third Avenue, Vic could see the 'Lion's Den', an almost legit casino on the east side of the road. As he watched, a man and a woman walked in. Lambs to the slaughter, thought Vic, shaking his head.
+> s
+
+Twenty Third Avenue
+
+ - - - Vic looked up and down Twenty Third Avenue. It was busy, but then it was always business. Most street corners had a hooker or two touting for business, and the shops were all offering sex or gambling or some either vice, or were just boarded shut. He did not know why, but the steeet always seemed to have more than the usual number of Uralgans.
+> e
+
+Twenty Third Avenue TeleMat Station
+
+ - - - This was the Twenty Third Avenue TeleMat station. One of the larger ones, and one a guy would avoid if he could help it. The smell of cigarettes and urine, the discarded litter of ten thousand people a day, not to mention the risk of mugging from any number of desperate lowlifes. Even the AutoCleans feared to come here.
+> use telemat booth
+Choose a destination
+ - Bureau Street
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Bureau Street.
+
+Bureau Street TeleMat Station
+
+ - - - The TeleMat station for the main administration area, this was one of the largest in the city, and at rush hour it would be a seething mass of people. Right now, it was relatively quiet.
+> w
+
+Bureau Street
+
+ - - - Vic stood in Bureau Street and looked about. This was where much of the administration of New Chicago was, including the police station, right across from the TeleMat station, to the west. To the right of the police station, there was a bar, "Donegal's Authentic Irish Bar"; that was where Vic was most likely to find Detective Munroe. A temporary stall had been set up beside the TeleMat station by some enterprising guy by the name of Pierre, offering flowers for the busy office workers to take home to their loved ones.
+> nw
+
+Donegal's Authentic Irish Bar
+
+ - - - As Vic surveyed Donegal's Irish Bar, he wondered just how authentic this place was. Would a real Irish pub have shamrock shaped tables, and videos of "Riverdance" on every available wall? The customers were a mix of business men and cops; even those who were not in suits or uniform looked to be plainclothes cops to Vic's experienced eye. As expected, Munroe was here, his old partner from his brief time as a cop.
+> ask jill about cigarette
+
+ - - - "Your boys found anything on that cigarette end yet, Jill?"
+
+ - - - "Yeah. Alway good for forensics, a used cigarette. It was smoked by a guy caled Bram Fenton. Quite a history, but petty stuff mostly. Nothing violent."
+> tell jill about fenton
+
+ - - - "Jill, I know who murdered Lawrence DeValle, and it wasn't his wife."
+
+ - - - "I'm listening."
+
+ - - - "It was that lowlife Bram Fenton, whose cigarette end your boys analysed. He's also about the only guy in New Chicago packing a YP-33, the weapon used to murder DeValle."
+
+ - - - "Okay, that fits. But you need to explain why he did it. And how he turned off the fancy security system. Neither fit the profile for Fenton."
+
+ - - - "Fenton was there to steal something, a statuette called the Myothian Falcon."
+
+ - - - "Okay, well that is more Fenton's style than murder, so that makes sense. But even if he was caught, Fenton's just not the killing type. That stupid gun of his is just for show."
+
+ - - - "This is where it gets weird. This Myothian Falcon has some kind of psychotropic effect, on guys anyway. When he picked it up, he saw DeValle as a terrible monster - that is what he shot."
+
+ - - - "Are you serious?"
+
+ - - - "Absolutely. It affected Lancing when he first picked it up, it affected me too."
+
+ - - - "That sounds like a temporary insanity plea in the making. So let's say that did happen, it still leaves the security system. I know Fenton; he's barely able to turn a light off, let alone an expensive security system."
+
+ - - - "Fenton didn't turn off the security system, DeValle did. He had spent the night with his Uralgan mistress, and turned off the security system so his wife wouldn't be any the wiser."
+
+ - - - "A guy like DeValle with a Uralgan? Doesn't sound too likely."
+
+ - - - "Oh, DeValle was big on Uralgan girls. He was quite a regular at the Green Heaven Club."
+
+ - - - "You know, that makes a twisted kind of sense. Did you know Maisy was a Uralgan? The TeleMat logs had two people go to to the house, DeValle, and later the killer. Then two leave, one a Uralgan. The killer, and then Mrs DeValle it turns out. She must've done gene therapy of something so her skins not green, and stuck on a wig.
+
+ - - - "You know what, Vic? I think you've solved the case. Maisy DeValle should be very grateful; you can leave Fenton to us."
+unlocked
+> se
+
+Bureau Street
+
+ - - - Vic stood in Bureau Street and looked about. This was where much of the administration of New Chicago was, including the police station, right across from the TeleMat station, to the west. To the right of the police station, there was a bar, "Donegal's Authentic Irish Bar"; that was where Vic was most likely to find Detective Munroe. A temporary stall had been set up beside the TeleMat station by some enterprising guy by the name of Pierre, offering flowers for the busy office workers to take home to their loved ones.
+> e
+
+Bureau Street TeleMat Station
+
+ - - - The TeleMat station for the main administration area, this was one of the largest in the city, and at rush hour it would be a seething mass of people. Right now, it was relatively quiet.
+> teleport
+Choose a destination
+ - Opulent Boulevard
+
+ - - - Vic typed in the code for his destination, and an instant later was in a booth at Opulent Boulevard.
+
+Opulent Boulevard TeleMat Station
+
+ - - - Vic was stood on the concourse at Opulent Boulevard transit. It was noticeably cleaner than most, and quiet too. Not only were fewer people using the booths, but there was little noise coming from the street. The usual hum of city was muted here.
+> n
+
+Opulent Boulevard
+
+ - - - Originally named after Jackie O'Poole, one of the original settlers, the name Opulent Boulevard became popular as more and more of the city's ultra-rich moved here. Opulent Boulevard ran some way out of the city into the Uralgan jungle - far enough to allow the residents to feel removed from the common man, but still close enough to the safety of the city. The road was quiet; Vic could see no one for several blocks. Both sides were lined with jacaranda trees, and behind them the high walls surrounded the various mansions. The DeValle mansion was off to the east.
+> e
+
+Opulent Boulevard (East)
+
+ - - - Vic stood outside the gates to the DeValle mansion. The cop at the entrance had gone now, and looking up the drive, Vic could see the one at the door was not there either.
+> n
+
+DeValle Mansion (Front Garden)
+
+ - - - Vic stood on the red brick path leading up to the house. From here, he could see the front door of the house well, while the gate was behind him.
+> n
+
+DeValle Mansion (Great Hall)
+
+ - - - This was a large room, panelled in dark wood, dominated by a grand staircase, rising to the upper story. The staircase was carpeted in red, but the floor was tiled in an ornate geometric pattern. That will have made cleaning the blood off easier, thought Vic ruefully; it was all but gone now. Maisy DeValle was here, waiting to talk to Vic.
+> ask maisy about money
+
+ - - - "I'm glad to see you back in your own home, Mrs DeValle. Did the cops tell you it was a guy called Bram Fenton? He was stealing the Myothian Falcon," Vic indicated the empty niche that it had been taken from, "and Mr DeValle was in the wrong place at the wrong time."
+
+ - - - "Thank you very much, Mr Gantry. Yes, it's wonderful to be back, but the house is so empty without Lawrence... But anyway, you'll be wanting your money I expect. The remaining 500 credits, and an extra 500 for being so quick."
+
+ - - - "That's great, Mrs DeValle."
+> journal
+
+ - - - Vic felt sure he was on the right trail, but what now? He got out his iJot, and reviewed what he had learnt so far.
+I have a new case at last! Maisy DeValle, on the run, found husband dead at bottom of stairs in pool of blood; check house on Opulent B
+Maisy staying in Grand Hotel as Leona Jones
+Met Linda Love in other office; does message encryption
+ Got a date with Linda Love at L'Escargots; just hope I can afford the prices
+Found matchbook from Lion's Den, someone watching the house?
+Found cigarette near DeValle mansion; remember to give to Jill
+Study window forced, murderer's access?
+Body gone, but a lot of blood; what a mess
+Something stolen from hall? Myothian Falcon ?!? See Dr Lancing at uni arch dept
+Weapon: YP-33; not common; ask Mickey
+Telemat logs; two men arrive at Opulent, a man and a Uralgan leave, all separately?!?
+DeValle paid 450k cr to George Lancing; pays regular money to Green Heaven; has apartment 312 in Camden Towers
+Talked to Prof Kant, brother of Clive from Pentown bombing case
+Dr Lancing dead, spear in chest
+Spear has Uralgan writing
+Ursula Nguyen, postdoc for lancing
+M Falcon causes delusion?!?
+Mickey says only Bram Fenton still uses YP-33
+Two Myothi Uralgan's in Marty's clothes shop; Kalal and Erida-Pa
+Petharla says DeValle regular turned off the security himself so Maisy would not discover he was going off at night to see his bit of fluff
+Found M Falcon in Lion's Den office; hallucinations; did Fenton see them too?
+Cigarette smoked by Bram Fenton; petty criminal; Nikki Stom's
+Talked to Maisy; got paid; case over
+> give falcon to maisy
+
+ - - - "I'm not sure who this really belongs to," said Vic, handing the Myothian Falcon to Maisy, "but it was stolen from your house, so I'm giving it to you."
+
+ - - - "Thank you, Mr Gantry. It is absolutely beautiful. It's strange, I never noticed that before. But I think the right place for this is in its temple, in Myothi."
+
+ - - - "Perhaps you could take it there. They seem a bit touchy about a guy holding it, so you might like to play down my involvement."
+
+ - - - "I'd be delighted to, Mr Gantry."
+
+ - - - The case was solved, Vic had been paid and the Myothian Falcon returned. A good day's work, he considered.
+
+ - - - . . . THE END ! . . .
+[state=Finished]

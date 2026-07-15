@@ -1,0 +1,692 @@
+A giant flood has ravaged the countryside, sweeping aside villages and destroying homes.  You were caught up in the raging waters and carried away to a strange land.  The flood drops you off in the branches of an overhanging tree where you wisely stay until the water goes down.  You are relatively unharmed, however, because you are a hobbit and hardy.  Try to survive and find your way home to Bree.
+You are in a Tree.
+You can go down.
+You are balanced precariously in a tree overhanging the raging river.  Luckily for you, this tree has very close together branches so your short little hobbit legs can easily reach them.  Most trees cannot be climbed around here.
+> x foot
+
+> x foot
+You have a gash on your poor little foot.  You should bandage that up if you can find anything.
+> x tree
+
+> x tree
+It is a deciduous tree, Salix Sepulcralis, aka a weeping willow.
+> x river
+
+> x river
+A raging, rushing river.  Rather risky.
+> d
+
+> d
+
+You are on the North bank.
+You can see Mushrooms.
+You can go up, south or east.
+You are standing on a river bank.  To the west is the raging river that you were in just minutes before.  The river bank continues to the south.  A flood plain is to the east.
+> x mushrooms
+
+> x mushrooms
+These mushrooms grow well in the soggy ground.
+> take them
+
+> take them
+You pick them up.
+> s
+
+> s
+
+You are on the Bank.
+You can see Branches.
+You can go north, south or east.
+The riverbank stretches along the raging river both to the north and south.  The flood plain is to the east.  Some smallish tree branches have drifted onto the riverbank.
+> x branches
+
+> x branches
+Some smallish birch branches.  They smell a little funny but they are still wood.
+> take them
+
+> take them
+You pick them up.
+> s
+
+> s
+
+You are on the South bank.
+You can see a Partially destroyed bridge.
+You can go north, south or east.
+You are standing on the bank of the river.  You can follow the river a little more south, but you can already hear the roaring of a waterfall.  There is a bridge to the west that has been almost completely washed away.  The flood plain is to the east.
+> x bridge
+
+> x bridge
+This bridge has been almost completely destroyed.  The supports of the bridge are still there however.  You might be able to find something to fix it enough to cross over.
+> s
+
+> s
+
+You are on a Cliff bank.
+You can see Rocks.
+You can go north or east.
+A cliff drops away abruptly to the south, and you can see a waterfall.  It's a good thing you got out of the river when you did!  The water has washed some rocks up on shore.  The flood plain is to the east, and you can see the remains of a hut there.
+> x rocks
+
+> x rocks
+Rather ugly river rocks.  They are too big to fit nicely into the palm of your hand, but they heft well.
+> take them
+
+> take them
+You pick them up.
+> e
+
+> e
+
+You are in a Plain.
+You can go north, west or in.
+This is as far as the flood plain goes.  Some silly man built his house here and now it is almost completely destroyed.  It is little more than a pile of rubble.  There is a little opening near where the door used to be that you might be able to fit in.  You can hear the waterfall to the south.
+> in
+
+> in
+
+You are in a Hut.
+You can see a Seedcake and a Napkin.
+You can go out.
+You are inside what used to be some man's summer vacation home.
+> x seedcake
+
+> x seedcake
+Oh, you do love seedcake!  It is a hobbit delicacy, but some men like it too.
+> x napkin
+
+> x napkin
+A rather pretty linen napkin.  It is a good size for a man, albeit too big for a hobbit unless you eat like a pig.
+> take all
+
+> take all
+Seedcake: You pick it up.
+Napkin: You pick it up.
+> x foot
+
+> x foot
+You securely wrap your foot in the napkin.  Now you can walk without pain.
+> out
+
+> out
+
+You are in a Plain.
+You can go north, west or in.
+This is as far as the flood plain goes.  Some silly man built his house here and now it is almost completely destroyed.  It is little more than a pile of rubble.  There is a little opening near where the door used to be that you might be able to fit in.  You can hear the waterfall to the south.
+> n
+
+> n
+
+You are in the South flood plain.
+You can see a Firework.
+You can go north, west or south.
+The flood plain stretches to the north.  You can see the remains of a hut to the south, and the river far to the west.  In a pile of rubble you find a firework!  It is slightly damp but intact.
+> x firework
+
+> x firework
+Oh goody goody!  You love fireworks.  This looks like a big one too.  Unfortunately, it is a little damp right now.
+> take it
+
+> take it
+You pick it up.
+> n
+
+> n
+
+You are in a Flood plain.
+You can go west, north, east or south.
+To the north is the debris field.  You can see the river bank far to the west.  The flood plain continues to the south.  You can smell something weird and very unpleasant coming from the cave to the east, and the path is riddled with sharp stones.  It reminds you of the stories that Mister Gamgee told all the young hobbits in Bree when you were little, about big mountains and goblins and trolls.
+> n
+
+> n
+
+You are in the North flood plain.
+You can see a Slingshot, a Chesterfield, a Shoes and a Walking stick.
+You can go west or south.
+You are standing on the flood plain.  There is an assortment of debris that the river has washed up here.  The only items that are in good enough condition to be recognized are a chesterfield, a slingshot, a walking stick, and a mismatched pair of walking shoes.  Everything is covered in a thin layer of river yuck.
+> x slingshot
+
+> x slingshot
+A leather slingshot.  It is a bit bigger than what you are used to, probably made by a man instead of a hobbit, but definitely serviceable.
+> x chesterfield
+
+> x chesterfield
+A big mucky chesterfield.  It looks like a bigger version of the one in Uncle Doderick Brandybuck's house in the Shire, except much dirtier
+> x shoes
+
+> x shoes
+There are a pair of shoes.  Like the sofa, they were most likely made for the men in Bree because they are waaayy to big for your hobbit feet.  You don't need them, though, because you already have nice leathery soles and soft fur on your feet.
+> x stick
+
+> x stick
+It looks like a walking stick!
+> take slingshot
+
+> take slingshot
+You pick it up.
+> take stick
+
+> take stick
+You go to pick up the walking stick and it falls apart.  You guess that it was completely shattered in the river.
+> use rocks on slingshot
+
+> use rocks on slingshot
+You load the rocks into your slingshot.  You are ready to take on the world!  Or at least part of the world.
+> s
+
+> s
+
+You are in a Flood plain.
+You can go west, north, east or south.
+To the north is the debris field.  You can see the river bank far to the west.  The flood plain continues to the south.  You can smell something weird and very unpleasant coming from the cave to the east, and the path is riddled with sharp stones.  It reminds you of the stories that Mister Gamgee told all the young hobbits in Bree when you were little, about big mountains and goblins and trolls.
+> e
+
+> e
+
+You are in a Hoard.
+You can see a Troll.
+You can go west.
+You are in a troll hoard.  It stinks of troll.
+You quietly walk into the hoard.  The troll is too busy eating a leg of mutton to notice you.  You will need to get rid of the troll before you can explore the cave any more.
+> x troll
+
+> x troll
+Good heavens, that troll is ugly!
+> use slingshot on troll
+
+> use slingshot on troll
+You shoot a load of rocks at the troll, hitting him in face.  He falls over unconscious.  You inch around his body and explore the cave.
+> x gold
+
+> x gold
+Some nice shiny gold coins.  You don't recognize the denomination, but they are probably worth something.
+> x tinderbox
+
+> x tinderbox
+A tinderbox, for boxing tinders!  You used one of these once when you took a trip with your cousin Bill Heathertoes.  This one is a little banged up.
+> x rope
+
+> x rope
+A good length of sturdy, dwarf-made rope.
+> take all
+
+> take all
+Troll: You can't take it.
+Gold: You pick it up.
+Tinderbox: You pick it up.
+Rope: You pick it up.
+> w
+
+> w
+
+You are in a Flood plain.
+You can go west, north, east or south.
+To the north is the debris field.  You can see the river bank far to the west.  The flood plain continues to the south.  You can smell something weird and very unpleasant coming from the cave to the east, and the path is riddled with sharp stones.  It reminds you of the stories that Mister Gamgee told all the young hobbits in Bree when you were little, about big mountains and goblins and trolls.
+> w
+
+> w
+
+You are on the Bank.
+You can go north, south or east.
+The riverbank stretches along the raging river both to the north and south.  The flood plain is to the east.  Some smallish tree branches have drifted onto the riverbank.
+> s
+
+> s
+
+You are on the South bank.
+You can see a Partially destroyed bridge.
+You can go north, south or east.
+You are standing on the bank of the river.  You can follow the river a little more south, but you can already hear the roaring of a waterfall.  There is a bridge to the west that has been almost completely washed away.  The flood plain is to the east.
+> use branches on bridge
+
+> use branches on bridge
+You balance the branches across the supports of the bridge.  If only you had some way to secure them.
+> use rope on bridge
+
+> use rope on bridge
+You secure the branches to the supports with your rope.  Congratulations!  You have made a bridge!  As you tie the last knot, a knight in black armour rides across your bridge and blocks your way.
+> x knight
+
+> x knight
+A rather intimidating knight astride a black horse.  He is clad in all black armour and his face shield is down.  He towers over you.
+> speak to knight
+
+> speak to knight
+"Daisy Tunnelly at your service," you start politely.
+"I arrest you for trespassing on Her Royal Majesty Princess Haifalutin's bridge crossing the River Branduin!"  Before you can say anything, he heaves you up onto his horse and gallops back over your bridge.  You gallop and gallop through unfamiliar woods until you come to an ancient castle.  He leaves you in the dungeon.  Apparently they take trespassing very seriously here!
+
+You are in a Dungeon.
+You can see a Guard, a Bread and a Water bowl.
+You are in a dungeon cell.  You, Daisy Tunnelly of Bree, are in jail.  There is a guard standing on the other side of your cell door.  He has left you a water bowl and a hunk of stale bread.
+> x bread
+
+> x bread
+That is the saddest excuse for elevensies that you have ever seen.
+> x bowl
+
+> x bowl
+It is a standard, run of the mill, prison water bowl, except that this one is special because it is cracked and therefore empty.  Princess Haifalutin really treats her prisoners well.
+> take bread
+
+> take bread
+You pick it up.
+> take bowl
+
+> take bowl
+You pick it up.
+> give gold to guard
+
+> give gold to guard
+The guard coughs discreetly, pockets the gold, and unlocks the door for you before casually sauntering away.
+> n
+
+> n
+
+You are in a Guard room.
+You can see a Candle stub.
+You can go south or up.
+This is the guard room.  Some rickety stairs go up to the hall.  There is the remains of what appears to be a candle lying on the floor.
+> x stub
+
+> x stub
+It is the stub of a candle.  The wick is reasonably long but there is a shortage of wax on it.
+> take it
+
+> take it
+You pick it up.
+> u
+
+> u
+
+You are in a Hall.
+You can go down, west or east.
+You can see the guard room downstairs, the kitchen off to the east, and the Great Council Chambers of Her Royal Majesty Princess Haifalutin to the west.  From here you can tell that the council chambers are just swarming with guards.
+> e
+
+> e
+
+You are in a Kitchen.
+You can see a woman.
+You can go west.
+You are in a small kitchen.  There is a woman here, sitting on a bench and weeping into her apron.
+> x woman
+
+> x woman
+She has been crying, you can tell.  Other than that, she looks like a nice and attractive woman.
+> speak to woman
+
+> speak to woman
+"Daisy Tunnelly, at your service," you say, hoping that she won't throw you back in the dungeon.
+
+"Belinda Oswyn at yours and your family," she responds politely.
+
+"I don't mean to intrude," you say, "but I was just arrested for trespassing on a washed out bridge as I was trying to get home to Bree.  I was caught in the river.  By any chance, Miss Oswyn, would you be able to help me get home?"
+
+"Bree?" Miss Oswyn manages a shaky smile, "I was born in Bree!  Of course I will help you.  Would you be able to do something for me?  My sweetheart Gomlin Drudukr has been exiled into the mines for supposedly speaking against the Princess, even though the real reason is that she does not want a man like him in court, who agitates for equal rights for dwarves.  Could you bring him a note for me?  The mines are just on the other side of the forest, where you will pass by.  I cannot go because they are watching my every move.  But you, Miss Tunnelly, could pass by unseen."
+
+You accept the note.  Miss Oswyn fits you into an old basket and lowers you out the kitchen window into the garden outside.
+
+"Now run, run north," she whispers at you.  As you flee, you hear guards coming into the kitchen and shouting starts.  You hope she will be all right.
+
+Being a Bree hobbit, not at all used to these dense forests, you are soon completely lost in the woods.
+
+You are in a Forest.
+You can go east or south.
+You have no idea where you are.
+> x note
+
+> x note
+That is not polite.
+> s
+
+> s
+
+You are in a Wood.
+You can go north, east or south.
+You are in a dark wood.  You have no idea where you are.
+> s
+
+> s
+
+You are in a Wooded area.
+You can see an Entwife.
+You can go north or east.
+You are in a dark wood.  You have no idea where you are.  You can see an entwife.
+> x entwife
+
+> x entwife
+Nothing out of the ordinary.
+> speak to entwife
+
+> speak to entwife
+"Daisy Tunnelly, at your service," you call up to the entwife.
+
+"Oom, Hoom," the Entwife says, slowly bending down to look at you.  She picks you up and straightens again.  "What is this?  Hoom?"
+
+"I am a hobbit of Bree," you say nervously, "I have wandered in this forest for hours and I am completely lost.  Can you direct me to the meadow?"
+
+"Let us not be hasty, little hobbit," the Entwife says ponderously.  "Why should I help you?  Oom?"
+
+"I am trying to deliver a note from a cook, Belinda Oswyn, to an exiled man," you explain.  "I got swept away in the flood and I just want to go home to Bree."
+
+"Ooom, hoom," says the Entwife dubiously.
+
+"Maybe I could do something for you in return?" you plead.
+
+"I am lonely, little hobbit.  I have searched for Ents far and wide and I am now tired.  If you find an Ent, signal to me where he is and I will go to him.  Oom Hoom."  The Entwife lowers you to the ground and directs you to the edge of the forest.
+
+"Thank you, good Entwife," you call up to her.
+> go exit
+
+> go exit
+
+You are in a meadow.
+You can see a Bee Tree.
+You can go north, east or south.
+You can see the marsh to the east and further meadow to the south.  There is a rather large bee tree here.
+> x tree
+
+> x tree
+A strangely abandoned bee tree.  There is a lot of honey inside.
+> x honey
+
+> x honey
+Sticky, gooey, honey wonderfulness.  You love this stuff.  Come to think of it, you like most food.
+> take honey
+
+> take honey
+The honey is much too gooey to hold in your hands.
+> use bowl on honey
+
+> use bowl on honey
+You scoop up a bunch of honey in the water bowl you swiped from the dungeon.
+> n
+
+> n
+
+You are at  the Edge of Forest.
+You can go east or south.
+You are standing at the edge of the forest.  You really don't want to go back in there.  The meadow stretches out to the east and south.
+> e
+
+> e
+
+You are in a Meadow.
+You can see a Bee.
+You can go west or south.
+You are standing in a lush meadow.  You can see a marsh to the south.
+> x bee
+
+> x bee
+That is the biggest bee you have ever seen in your life.  It looks almost intelligent.
+> speak to bee
+
+> speak to bee
+"Hello, Bee," you say.  Much to your surprise, the bee talks back.  "Hello, hobbit," it says weakly.  "What's wrong?" you ask.  "I feel tired and slow," the bee answers sadly, "I can't find any flowers or food."
+> give honey to bee
+
+> give honey to bee
+The giant bee accepts the bowl of honey and gives you a good-sized chunk of beeswax in return.  He buzzes away.
+> x beeswax
+
+> x beeswax
+A decent sized chunk of beeswax.  It looks like enough to make a candle with.
+> use beeswax on stub
+
+> use beeswax on stub
+You smoosh the beeswax and candle stub together, making a whole candle.
+> x candle
+
+> x candle
+A candle, made from pure 100% natural organic free-range beeswax.  Except for the stub part, which is pure 100% petroleum byproduct, or paraffin, as the men call it.  The wick is beautiful too- a finely braided strand of cotton that somebody probably found somewhere for cheap.  You have never truly contemplated a whole candle like this before, and probably never will again.
+> s
+
+> s
+
+You are in a Marsh.
+You can see a Reed.
+You can go north or west.
+You are standing up to your ankles in marshy water.  There are some beautiful reeds here.  They remind you of your reed flute back home.  You used to make flutes for your little Heathertoes cousins.
+> x reed
+
+> x reed
+A long slender reed.
+> take reed
+
+> take reed
+You try to pluck the reed, but it is much too strong for your little fingers.
+> w
+
+> w
+
+You are in a meadow.
+You can see a Bee Tree.
+You can go north, east or south.
+You can see the marsh to the east and further meadow to the south.  There is a rather large bee tree here.
+> s
+
+> s
+
+You are in a field.
+You can go north or east.
+To the east you can see a cave entrance.  It looks very dim inside.  To the south is a road.  You will not take to the road until you know which way to go.
+> e
+
+> e
+
+You are in a Cave Entrance.
+You can go west or east.
+It is very dim in here.  You can barely make out a further room in the cave to the east where you can hear something moving around.
+> e
+
+> e
+
+You are in a Cave.
+You can see Gomlin.
+You can go west.
+You are standing in the very dim cave.  You can barely make out Gomlin in the gloom.
+A voice comes to you out of the darkness: "Do you by any chance have a candle?"
+> x Gomlin
+
+> x Gomlin
+It is Gomlin Drudukr, the sweetheart of the cook, Belinda Oswyn, at the castle.  He is tall even for a man and built like a tank (if there were tanks in Bree, that is).
+> give candle to Gomlin
+
+> give candle to Gomlin
+You hand Gomlin your candle and he lights it.  "Who are you?" he asks.  You consider asking him for directions.
+> give note to Gomlin
+
+> give note to Gomlin
+You hand Gomlin the note.  He nods politely and accepts the note which he stuffs in his pocket unconcernedly.
+> speak to Gomlin
+
+> speak to Gomlin
+"This is a note from Belinda Oswyn," you say.  "Belinda?  No kidding?"  He lights your candle and reads in silence for a few seconds.  "I am most grateful to you for bringing this to me," he says finally, bowing formally, "You are a princess among hobbits.  Is there any way I can repay you?"
+"Directions to Bree?" you suggest.
+"I cannot direct you there," he answers, "But there is a tavern where you can ask for directions.  If you leave the cave back to the meadow, you can take the road east.  West will take you back to the castle."  He hands you a little knife  "I found this when I was mining in here.  I can't use it, it is too small.  But maybe you will find it useful?"
+> x knife
+
+> x knife
+A small, sharp knife.  It is little more than a letter opener for anything bigger than you, but it makes a handy hobbit pocketknife.
+> w
+
+> w
+
+You are in a Cave Entrance.
+You can go west or east.
+It is very dim in here.  You can barely make out a further room in the cave to the east where you can hear something moving around.
+> w
+
+> w
+
+You are in a field.
+You can go north, east or south.
+To the east you can see a cave entrance.  It looks very dim inside.  To the south is a road.  You will not take to the road until you know which way to go.
+> n
+
+> n
+
+You are in a meadow.
+You can see a Bee Tree.
+You can go north, east or south.
+You can see the marsh to the east and further meadow to the south.  There is a rather large bee tree here.
+> e
+
+> e
+
+You are in a Marsh.
+You can see a Reed.
+You can go north or west.
+You are standing up to your ankles in marshy water.  There are some beautiful reeds here.  They remind you of your reed flute back home.  You used to make flutes for your little Heathertoes cousins.
+> use knife on reed
+
+> use knife on reed
+You cut a nice long reed.  It takes you just a few seconds to make a lovely little flute.
+> x flute
+
+> x flute
+The reed flute that you just made.
+> w
+
+> w
+
+You are in a meadow.
+You can see a Bee Tree.
+You can go north, east or south.
+You can see the marsh to the east and further meadow to the south.  There is a rather large bee tree here.
+> s
+
+> s
+
+You are in a field.
+You can go north, east or south.
+To the east you can see a cave entrance.  It looks very dim inside.  To the south is a road.  You will not take to the road until you know which way to go.
+> s
+
+> s
+
+You are on the Road intersection.
+You can go north, east or west.
+The road stretches in two directions: east and west.  If you recall, Gomlin told you that the castle was to the west.  It might be a good idea to go east, towards the tavern.
+> e
+
+> e
+
+You are on the East Road.
+You can go west or east.
+You can see a tavern to the east.
+> e
+
+> e
+
+You are on the Road.
+You can go west or in.
+You are outside a tavern called The Red Stag.  The name is vaguely familiar, but you can't place it.  Maybe somebody you know goes there?
+> in
+
+> in
+
+You are in a Tavern.
+You can see men.
+You can go out.
+It is a rather rough tavern, but nothing worse than a Friday night at the Dancing Bear in Bree.  It is packed with men drinking and talking and laughing.
+> x men
+
+> x men
+A band of big, tall, rowdy men.
+> speak to men
+
+> speak to men
+"Play something for us, hobbit!  Aren't you little halflings supposed to be great musicians?"  They laugh uproariously.
+> play flute
+
+> play flute
+You play a rolicking tune on your reed flute.  The customers hoot and holler appreciatively.  After you finish, a hobbit pushes his way to the front.  It is Tom Brockhouse from Buckland!  "Daisy!" he exclaims, "What are you doing so far from home?"
+> x Tom
+
+> x Tom
+It's Tom Brockhouse, your old neighbour from Bree!  His eyes are goggling at you like he has seen a ghost.
+> speak to Tom
+
+> speak to Tom
+"Hullo, Mister Brockhouse," you say politely.
+
+"Daisy Tunnelly, as I live and breath!" he puffs in surprise. "What are you doing so far from Bree?"
+
+Over a pint at a private table, you regale him with your tale of being washed away, arrested, meeting the Entwife, and talking to Gomlin.
+
+Tom hastily escorts you out of the tavern.  "It's not safe for you here," he says, "if you angered the Princess Haifalutin's knight and aided a renegade!  The roads have been washed out between here and Bree but I will take you as far as I can."
+
+He helps you into his wagon and you trot away briskly.  He leaves you right where the road ends.  "Best of luck Daisy," he says, touches his hat, and hastens back to the tavern.
+
+You are in a Washed out road.
+You can go south or east.
+You are standing on a washed out road.  A small footpath leads east, and there is a copse of trees to the south.
+> s
+
+> s
+
+You are in a Dense copse.
+You can go north or east.
+You are standing in a dense copse of trees.  You can see very little of your surroundings.  You can go east.
+> e
+
+> e
+
+You are in a Copse.
+You can go north, west or south.
+You are standing in a copse of trees.  You can see a clearing to the south.
+> s
+
+> s
+
+You are in a Clearing.
+You can see Ent.
+You can go north.
+> x Ent
+
+> x Ent
+Good golly, it is an Ent!
+> speak to Ent
+
+> speak to Ent
+"Daisy Tunnelly at your service," you call up to the massive Ent.
+
+"Ooom, hoom, a halfling," the Ent says, peering down at you.
+
+"Excuse me please, but could you give me directions to Bree?" you ask politely.
+
+"To Bree? No, halfling, I do not concern myself with the movements of men and halflings.  Hoom, boom.  I spend my days in loneliness here."
+
+You suddenly remember the Entwife.  How will you signal her that you have found an Ent?
+> use tinderbox on firework
+
+> use tinderbox on firework
+You have to open it first.  Maybe someone bigger and stronger than you can get it open.
+> open tinderbox
+
+> open tinderbox
+It is locked.
+> give tinderbox to Ent
+
+> give tinderbox to Ent
+You hand the tinderbox to the Ent.  "Oom, Hoom?" he inquires.
+
+"Could you open this for me?" you ask, "It seems to be stuck."
+
+The giant Ent crushes the box into a little pile of twisted metal, and hands you the flint that was inside.
+> x flint
+
+> x flint
+A flint for making fires!
+> use flint on firework
+
+> use flint on firework
+You strike the flint until you have lit the fuse of the firework.  The firework shoots into the air and explodes in a shower of sparkles.  Very very faintly you can hear an "Ooooommmm!" far in the distance.  "An Entwife!" the Ent exclaims.  He moves off towards the sound, revealing a trail that he had been blocking before.
+> se
+
+> se
+
+You are in a Bree.
+You are back in Bree!  Hip Hip Hooray!  As you run down the main street, your Tunnelly and Heathertoes relations swarm around you.  "We thought you were gone for good," they cry.  They drag you off to the Dancing Bear for a pint all round.  It is good to be home.
+[state=Finished]

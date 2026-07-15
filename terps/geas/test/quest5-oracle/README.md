@@ -17,7 +17,8 @@ but not something to vendor), just like the FrankenDrift build the a5 oracle use
 
 ## Requirements
 
-- .NET 9 SDK (`brew install dotnet` — this Mac has 9.0.100, arm64).
+- .NET 10 SDK (`brew install dotnet` — this Mac has 10.0.301, arm64). QuestViva
+  targets `net10.0`, so with the .NET 10 SDK the checkout builds unmodified.
 - Network access on first build (to clone QuestViva).
 
 ## Build
@@ -34,7 +35,7 @@ the .NET 10 SDK the checkout needs no retargeting. Override the location with
 ## Run one game
 
 ```sh
-dotnet bin/Release/net9.0/qvh.dll <game.quest|game.aslx> [command-script.txt]
+dotnet bin/Release/net10.0/qvh.dll <game.quest|game.aslx> [command-script.txt]
 ```
 
 Transcript → stdout, diagnostics (`[diag] …`) → stderr. With no script it just
@@ -109,6 +110,32 @@ table (ASL version, steps, emits, error count, final state). Current coverage:
 (walkthrough exhausts or drifts from the game version at the tail, which the
 oracle faithfully records), **1 `Wedged`** (Whitefield — see below) — plus **6
 hints-only** (Q&A/prose, no linear script). See [[quest5-corpus]].
+
+### Golden baseline (committed regression)
+
+`golden/` holds the frozen answer key: for each of the 17 driven games, the exact
+command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
+produces for it (`golden/<Game>.out`). This is the only part of the harness
+committed to the repo — `bin/`, `obj/`, and the scratch `out/` are ignored, and
+the QuestViva clone and the corpus games/walkthroughs all live outside it.
+
+- **`./check_golden.sh`** replays each committed `golden/<Game>.cmd` through the
+  built oracle and diffs the result against `golden/<Game>.out`. It drives from
+  the *frozen* `.cmd` (not `extract_walkthrough.py`), so a `FAIL` isolates an
+  actual oracle behaviour change — a QuestViva upstream bump, a .NET/RNG
+  regression, or a `Program.cs` edit — from a walkthrough-extraction tweak. It
+  needs the built oracle and the corpus games; exit status is non-zero on any
+  divergence. (Running it also re-confirms determinism: the goldens were frozen
+  from one run and every game is re-driven from scratch.)
+- **`./update_golden.sh`** refreshes the baseline after an *intended* change: it
+  runs the full `run_corpus.sh` pipeline (re-extract → drive → transcript) and
+  copies the new `.cmd` + `.out` for every driven game into `golden/`. The git
+  diff of `golden/` then *is* the change in "what real Quest does" — review it
+  before committing.
+
+This is what makes the oracle a durable reference: the eventual native Geas ASLX
+engine diffs its own transcript for `golden/<Game>.cmd` against `golden/<Game>.out`
+without needing QuestViva or .NET at all.
 
 ### `Wedged`: telling the error breaker apart from a real win
 

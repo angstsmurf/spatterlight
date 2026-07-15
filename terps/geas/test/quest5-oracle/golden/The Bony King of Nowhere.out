@@ -1,0 +1,1873 @@
+The Bony King Of Nowhere
+
+by Luke A. Jones
+
+You are in Your Hovel.
+
+You can see a Battered Wooden Chest and Your Dog.
+
+You can go out.
+
+You are in your hovel in the northernmost borderlands of the Kingdom of Nowhere.
+
+It is a round wattle and daub hut. There is a fireplace in the middle with a hole in the thatch roof above it acting as a chimney.
+
+Around the circumference of the room there are a few sticks of furniture and rags that represent the totality of your worldly possessions.
+
+(type 'hints' for game specific help at anytime)
+
+> x me
+
+> x me
+
+You are thin and your skin is grimy, you are wearing grey ragged woollen clothing
+> i
+
+> i
+
+You are not carrying anything.
+> x dog
+
+> x dog
+
+It's your faithful canine companion, he's an ageing Boxer mongrel of some sort, he has tan brown fur with a white patch on his chest. He's seen a few too many scrapes and doesn't smell too sweet, but you love him dearly and he's called Dylan.
+> pet dog
+
+> pet dog
+
+Dylan nuzzles against your leg and looks up to you with doleful eyes, his tail wagging expectantly. Some of his mooting hair collects in your hand, you shove it in your pocket
+> x hair
+
+> x hair
+
+A few strands of Dylan's brown and white hair
+> x furniture
+
+> x furniture
+
+Furniture might be a rather grand term what consists of a filthy straw bed and a battered wooden chest
+> x bed
+
+> x bed
+
+Several large rectangular bales of hay lashed together, it is blackened with grime and splattered with mud
+> x chest
+
+> x chest
+
+An ancient wooden chest that has been repeatedly patched and repaired. You'll be pleased to know there is no lock.
+> open it
+
+> open it
+
+You open it.
+It contains an axe.
+> x axe
+
+> x axe
+
+An axe with an arms length wooden haft and a steel head with the letter L and the pattern of a rose embossed on it. It is your prized (and only) possession given to you by your father. It's blade is a sharp as Jack after a busy day.
+> take it
+
+> take it
+
+You pick it up.
+> x fireplace
+
+> x fireplace
+
+A round circle of flat stones with the ashen remains of last night's fire smouldering in the middle. Leaning against the fireplace is a shovel.
+> x stone
+
+> x stone
+
+A circle of flat whetstones bearing heavy scratch marks.
+> x shovel
+
+> x shovel
+
+A small wooden shovel that you use for removing ashes. It's a ground-breaking design.
+> take it
+
+> take it
+
+You pick it up.
+> sharpen axe
+
+> sharpen axe
+
+You walk over to the hearthstones and sharpen the axe blade on one of them. After a minute or so it gleams with a wicked edge, it's now an axis of evil.
+
+> x rags
+
+> x rags
+
+A pile of rags that were once clothes, now too threadbare to wear
+> take rags
+
+> take rags
+
+You pick them up.
+> out
+
+> out
+
+You are in the Northern Meadow.
+
+You can see Your Dog.
+
+You can go in or south.
+
+You are in the meadow outside your hovel, several acres of wild grassland and wild flowers. You may be dirt poor, but the beauty of the landscape is some consolation.
+
+As you step out of your home there is a beating of wings above your head, looking up you see a pigeon rapidly disappearing out of sight, and a letter flutters to your feet, you pick it up.
+
+ On the wind you can hear a distant shout of what sounds like "Fuck yooouuuu..." coming from the pigeon's direction before it disappears from sight.
+
+> x letter
+
+> x letter
+
+The letter is addressed to the Bony King of Nowhere, at his palace in the capital Lost, many miles to the south.
+
+On the reverse is written;
+
+"If found please deliver personally to the King, the contents are confidential and you are forbidden from reading them. Failure to comply with either of these requests will result in summary execution."
+
+Well that's just perfect you think, you've always hated a) the capital, b) the monarchy, and c) the south in general.
+> s
+
+> s
+
+You are in the Southern Meadow.
+
+You can see a fallen tree, an apple and Your Dog.
+
+You can go north, south or east.
+
+You are in the Southern Meadow, on the edge of the Northern Woods
+
+> x tree
+
+> x tree
+
+It's a fallen poplar tree, looks like it got too top heavy and was ripped down by the wind
+> x apple
+
+> x apple
+
+A medium sized apple of the Cox's variety, it is mottled green and red.
+> take it
+
+> take it
+
+You pick it up.
+> chop tree
+
+> chop tree
+
+You swing your trusty axe and reduce the tree to four body-length logs
+
+> x logs
+
+> x logs
+
+Four body-length sized logs from a poplar tree
+> take logs
+
+> take logs
+
+You pick them up, they're not heavy
+> e
+
+> e
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today but the sails are motionless.
+
+> x pump
+
+> x pump
+
+A green hand pump fixed over a well, there is a large lever on the side of it.
+> x windmill
+
+> x windmill
+
+The bright red windmill towers above you, it has four large slated wooden sails which are stationary even though there is a stiff breeze.
+> in
+
+> in
+
+You are in The Windmill.
+
+You can see a Wooden Table, Wendy Miller, some Stairs and Your Dog.
+
+You can go out or up.
+
+You are inside the windmill, in the middle of the room are the enormous grinding stones with a huge wooden axle leading up into the ceiling.
+
+Also in the room is a wooden table, at which sits Wendy the Miller, fast asleep and snoring like a congested hippo.
+
+> x Wendy
+
+> x Wendy
+
+A stern looking dark haired lady, she is wearing a pale blue shin length smock, a red neckerchief, and a brown Quaker style hat. She is currently sound asleep and snoring at an unbelievable volume. A fog of cider fumes is in the air around her.
+> x table
+
+> x table
+
+It's a plain wooden table made from pine, on top of the table is Wendy's slumped head and an empty jug of cider
+> x jug
+
+> x jug
+
+An empty quart sized jug of cider. Written on the label it says 'Dicken's Cider, 8.5%, please drink responsibly.'
+> take jug
+
+> take jug
+
+You pick it up.
+> x stairs
+
+> x stairs
+
+Wooden stairs leading up to the top floor of the Windmill, you can see a mouse, there, there on the stairs, right there.
+> x mouse
+
+> x mouse
+
+A tiny grey-furred mouse, who looks to all the world as if it's wearing tiny little clogs, it's making a 'clip-clippety clop' noise as it scurries up and down the stairs.
+> u
+
+> u
+
+You are in The Top floor of Windmill.
+
+You can see a Mousetrap and Your Dog.
+
+You can go down.
+
+You are inside the top floor of the windmill, the dome roof curves above you, and on one wall you can see the stationary horizontal sail shaft where it enters and connects via a gear to the vertical shaft leading straight down to the grinding room below.
+
+> x mousetrap
+
+> x mousetrap
+
+A wooden spring loaded mouse trap, with a piece of cheese as bait. You consider these traps rather cruel, so you decide to caerphilly unset the trap and place the piece of cheese in your pocket.
+> x cheese
+
+> x cheese
+
+A small piece of cheese that you stole from a mousetrap, it's not your cheese, in fact it's Nacho Cheese.
+> d
+
+> d
+
+You are in The Windmill.
+
+You can see a Wooden Table, Wendy Miller, some Stairs and Your Dog.
+
+You can go out or up.
+
+You are inside the windmill, in the middle of the room are the enormous grinding stones with a huge wooden axle leading up into the ceiling.
+
+Also in the room is a wooden table, at which sits Wendy the Miller, fast asleep and snoring like a congested hippo.
+
+> give cheese to mouse
+
+> give cheese to mouse
+
+You break a small piece off the lump of cheese and give it to the mouse. The mouse reaches up with it's little front paws, grabs the cheese, gobbles it down, then gives a tiny squeak of appreciation.
+
+Somewhere from the folds of its fur it produces a tiny business card and holds it up to you, you take it. The mouse scurries off out of sight.
+> x card
+
+> x card
+
+A tiny business card, made of exquisite silken paper. In a minute gothic script it reads,
+
+_______________________________________________________________________
+
+'Gerald T. Mouse, freelance adventurer, no quest too great or small.'
+
+'Payment in cheese only!'
+
+________________________________________________________________
+> out
+
+> out
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today but the sails are motionless.
+
+> fill jug
+
+> fill jug
+
+You place the jug under the spout of the pump and crank the lever, with three pumps the jug is full of freezing cold water, you pick it up
+> in
+
+> in
+
+You are in The Windmill.
+
+You can see a Wooden Table, Wendy Miller, some Stairs and Your Dog.
+
+You can go out or up.
+
+You are inside the windmill, in the middle of the room are the enormous grinding stones with a huge wooden axle leading up into the ceiling.
+
+Also in the room is a wooden table, at which sits Wendy the Miller, fast asleep and snoring like a congested hippo.
+
+> pour water on Wendy
+
+> pour water on Wendy
+
+With some trepidation you empty the jug of freezing cold water over the Miller's head. With a jolt she wakes up, shrieks and jumps out of her chair. Just as she is about to start shouting at you Dylan bounds over to her, wagging his tail and looking at her with his doleful eyes, "What the hell..I..er...Oh! Aren't you an adorable little pooch! Aren't you? Aren't you? Who's a lovely pooch?"
+
+The Miller looks up at you and says, "Er, bit of a late night on the cider, please don't tell anyone, what I can I do for you?"
+> ask Wendy about windmill
+
+> ask Wendy about windmill
+
+"Fabulous contraption isn't it? There's rumours from Lost of a new technology coming to replace 'em, something to do with fire and steam, sounds hideous."
+> ask Wendy about mouse
+
+> ask Wendy about mouse
+
+"That damn creature, clip-clippety-clopping all over the place, does me head in!"
+> ask Wendy about axe
+
+> ask Wendy about axe
+
+"Only two things in life are certain: death and axes. The former usually follows the latter."
+> out
+
+> out
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today but the sails are motionless.
+
+> n
+
+> n
+
+You are at The Desolate Beach.
+
+You can see a Bottle, The Sea of Emptiness and Your Dog.
+
+You can go south.
+
+You are on long, bleak, sandy beach on the shore of the Sea of Emptiness. There is a brisk and bracing (i.e. bloody freezing) sea-breeze.
+
+ Dylan bounds around in circles in the sand wagging his tail.
+
+> take bottle
+
+> take bottle
+
+You pick it up.
+> x it
+
+> x it
+
+A blue glass bottle with the word "FLY" embossed on it.
+> open bottle
+
+> open bottle
+
+You open it.
+It contains a Scroll of paper.
+> take scroll
+
+> take scroll
+
+You pick it up.
+> x scroll
+
+> x scroll
+
+You unfurl the scroll of paper it reads,
+
+"Help! We're under siege, the Bony King has been imprisoned in his Castle. General D'sarray and the armed forces have assumed control"
+
+You let out an audible groan and say to yourself. 'let me get this straight, if I don't deliver the letter then the King will have me killed, if on the otherhand I do try to deliver it then the General will have me killed.'
+
+You turn the scroll over and on the reverse side there is a printed score of music, titled "Adagio in G Minor, by Albinoni", you vaguely remember the piece from the piano lessons your father gave you, back in more comfortable times.
+> x sea
+
+> x sea
+
+The sea stretches as far as the horizon. A powerful surf is roaring and rolling before pounding into the shore, then receding for a few seconds and crashing in again.
+> dig
+
+> dig
+
+You dig in the sand and find a small smooth glass sphere, you pick it up.
+> x sphere
+
+> x sphere
+
+A fist sized glass sphere, it is perfectly smooth and round, but has a smeared and dirty surface.
+> clean sphere
+
+> clean sphere
+
+Using the rags from your home you polish the surface of he sphere until it shines and reflects an inverted curved image of your face.
+> x sphere
+
+> x sphere
+
+A fist sized glass sphere, it is perfectly smooth and round, it has a highly polished surface. It reflects a curved and inverted image of the landscape.
+> s
+
+> s
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today but the sails are motionless.
+
+> w
+
+> w
+
+You are in the Southern Meadow.
+
+You can see Your Dog.
+
+You can go north, south or east.
+
+You are in the Southern Meadow, on the edge of the Northern Woods
+
+> s
+
+> s
+
+You are in the Northern Woods.
+
+You can see a Twisted Oak, a leaf litter and Your Dog.
+
+You can go north or south.
+
+You are on a path in the woods that runs North to South, the trees are densely packed, shards of sunlight stab through the small gaps in the canopy, it is humid in here. The floor of the forest is thick with leaf litter from countless autumns.
+
+> x oak
+
+> x oak
+
+An enormous oak tree lies to the side of the path. Its trunk and branches are twisted into contorted and tortured shapes like writhing serpents.
+
+Nestled into the base of the tree is a small blue door.
+> x door
+
+> x door
+
+A small arched shaped door around 2 foot high and painted a pale pastel blue colour. There is a handwritten sign next to it.
+> x sign
+
+> x sign
+
+In perfect copperplate the sign reads,
+
+ 'Residence of Gnome Chompsky, Master Weaver and Tailor, No Free Papers, Thank You'
+> x litter
+
+> x litter
+
+The floor of the woods is carpeted in a deep layer of dead leaves, ranging in colour from a deep copper to pale yellow
+> s
+
+> s
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> x thyme
+
+> x thyme
+
+A powerful herb, Mussolini made the trains run on this stuff
+> x hovel
+
+> x hovel
+
+An abandoned and collapsed circular hovel. Amongst its shattered remains you spy what looks like a mug and a fishing rod
+> x mug
+
+> x mug
+
+An old brown clay mug, chipped on the rim. On the side it reads 'Mug puns are tea-dious'
+> take it
+
+> take it
+
+You pick it up.
+> x rod
+
+> x rod
+
+A bamboo fishing rod, with a cork handle. It has a line and hook, but the reel is seized with rust.
+> take it
+
+> take it
+
+You pick it up.
+> s
+
+> s
+
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> x river
+
+> x river
+
+The River Void is fast, deep and wide. The water level is unusually high and it is roaring loudly as it flows past. It looks like the bridge across has collapsed. On the edge of the riverbank there are a thick beds of reeds.
+> x reeds
+
+> x reeds
+
+They are long and fibrous water reeds
+> take reeds
+
+> take reeds
+
+You pick a large bail of reeds
+> weave reeds
+
+> weave reeds
+
+Nice idea, but you lack the skill
+> n
+
+> n
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> n
+
+> n
+
+You are in the Northern Woods.
+
+You can see a Twisted Oak, a leaf litter and Your Dog.
+
+You can go north or south.
+
+You are on a path in the woods that runs North to South, the trees are densely packed, shards of sunlight stab through the small gaps in the canopy, it is humid in here. The floor of the forest is thick with leaf litter from countless autumns.
+
+> knock on door
+
+> knock on door
+
+You knock politely on the door, you can hear the sound of someone running downstairs, the door is yanked open, and standing in the door is a Gnome, behind him you can see stairs leading up into the heart of the tree.
+
+"Hello traveller!", says the Gnome, "What can I do for you?"
+
+Dylan wanders over and sniffs curiously at the Gnome, the Gnome chuckles and pats him on the nose.
+
+"I'd invite you in, but you're just too big!" says the Gnome
+> give reeds to gnome
+
+> give reeds to gnome
+
+"Ah river reeds, perfect for rope making, let me sort that out for you". With his quick and nimble fingers the Gnome weaves the reeds together with astonishing speed. He hands you a long coil of strong rope.
+> x rope
+
+> x rope
+
+A strong coil of rope weaved from reeds
+> ask gnome about bridge
+
+> ask gnome about bridge
+
+"Yes I've seen it, must have been some heavy rainfall in the hills. Don't try swimming across, the current is far too strong and the water is deathly cold. Don't hold your breath for the council to fix the bridge anytime soon, all the infrastructure taxes get spent in Lost."
+> s
+
+> s
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> s
+
+> s
+
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> tie rope to logs
+
+> tie rope to logs
+
+You lash the logs together with the rope, you now have what could very generously be described as a raft. Dylan eyes it suspiciously.
+> x raft
+
+> x raft
+
+Your 'artisan' raft, made from four body length logs lashed together with rope
+> use raft
+
+> use raft
+
+With some trepidation you launch your raft and jump on, Dylan whimpers and jumps on wth you. Using the shovel as a make shift oar you paddle furiously against the current. Utterly exhausted and shivering you arrive at the Southern Bank of the river and jump off, Dylan follows.
+
+You are at the Southbank of the River Void.
+
+You can see the River Void, a Broken Bridge and Your Dog.
+
+You can go southeast.
+
+You are on the Southbank of the River Void. The river is roaring past with a fierce current.
+
+> se
+
+> se
+
+You are in The Southern Woodland Dell.
+
+You can see a Horse Drawn Caravan, a Tinker, a Horse and Your Dog.
+
+You can go northwest or south.
+
+A small secluded grassy hollow, there is thick lush grass under foot.
+
+You can see a Horse drawn caravan, and a Horse unhitched from it.
+
+Sat on the caravan steps is a bearded man in ragged clothing, using your legendary powers of deduction (by reading the writing on the side of the caravan) you deduce that he is a travelling Tinker.
+
+> x caravan
+
+> x caravan
+
+A horseshose shaped cylindrical wooden caravan. It's body is pale green and the ribbing is painted red. It has large yellow cartwheels shod with metal. On the side is a lettering reading "All smithing and repair work undertaken, enquire with driver"
+> x horse
+
+> x horse
+
+A beautiful Irish Cob horse, standing 14 hands tall and piebald with white patches scattered over its black body. It has a silky long black and white mane, and white feathering hair on its lower legs. It looks at you, snorts gently and nods its head.
+
+> x tinker
+
+> x tinker
+
+A friendly looking wiry built chap in his mid-fifties, he has a wiry black beard, a battered derby hat, he's smoking a clay pipe and playing with a backgammon set.
+> x backgammon
+
+> x backgammon
+
+A beautiful wooden backgammon set, consisting of a wooden board, two sets of 15 checkers, two pairs of dice, a doubling cube, and dice cups.
+> speak to tinker
+
+> speak to tinker
+
+"Greetings" says the Tinker
+> ask tinker about horse
+
+> ask tinker about horse
+
+"She's a beauty ain't she? Runs like the wind when she has the mind to, my late wife named her Dobby"
+> ask tinker about backgammon
+
+> ask tinker about backgammon
+
+"A pleasant way to pass the time, the concentration calms my mind, more skill in the game than most folks think"
+> play backgammon
+
+> play backgammon
+
+You while away a pleasant half hour playing Backgammon with the Tinker, just for fun not money. The Tinker regales you with tales of his many travels as he comprehensively thrashes you from pillar to post
+> give rod to tinker
+
+> give rod to tinker
+
+"Ah, haven't seen this model in years, a real classic in its day. I can fix it for you, but I need a favour in return. Can you take this sack of wheat to the Windmill and have it milled for me please?"
+
+The Tinker hands you a sack of wheat
+> x wheat
+
+> x wheat
+
+A small hessian bag of wheat
+> nw
+
+> nw
+
+You are at the Southbank of the River Void.
+
+You can see the River Void, a Broken Bridge and Your Dog.
+
+You can go southeast.
+
+You are on the Southbank of the River Void. The river is roaring past with a fierce current.
+
+> use raft
+
+> use raft
+
+With some trepidation you launch your raft and jump on, Dylan whimpers and jumps on wth you. Using the shovel as a make shift oar you paddle furiously against the current. Utterly exhausted and shivering you arrive at the Northern Bank of the river and jump off, Dylan follows.
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> n
+
+> n
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> n
+
+> n
+
+You are in the Northern Woods.
+
+You can see a Twisted Oak, Gnome Chompsky, a leaf litter and Your Dog.
+
+You can go north or south.
+
+You are on a path in the woods that runs North to South, the trees are densely packed, shards of sunlight stab through the small gaps in the canopy, it is humid in here. The floor of the forest is thick with leaf litter from countless autumns.
+
+> n
+
+> n
+
+You are in the Southern Meadow.
+
+You can see Your Dog.
+
+You can go north, south or east.
+
+You are in the Southern Meadow, on the edge of the Northern Woods
+
+> e
+
+> e
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today but the sails are motionless.
+
+> in
+
+> in
+
+You are in The Windmill.
+
+You can see a Wooden Table, Wendy Miller, some Stairs and Your Dog.
+
+You can go out or up.
+
+You are inside the windmill, in the middle of the room are the enormous grinding stones with a huge wooden axle leading up into the ceiling.
+
+Also in the room is a wooden table, next to which stands Wendy the Miller.
+
+> give wheat to Wendy
+
+> give wheat to Wendy
+
+"I can mill this for you no problem, about time I got to work anyway, hang on."
+
+ The miller walks over to the wall and pulls a hidden lever, after a few seconds the grindstone begins to move, and you can hear the sails  and gears making a pleasing repetitive , "Koor-keeer, chick-a-clunk.." noise as they spin round.
+
+Wendy empties the wheat into the hopper, and in a few seconds has filled a small sack with flour which she hands to you.
+> x flour
+
+> x flour
+
+A brown hessian sack of flour, the label on the bag reads, "Product of Coley's Mill, the taste of Yeasterday"
+> out
+
+> out
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today and the sails are turning at a fair pace.
+
+> w
+
+> w
+
+You are in the Southern Meadow.
+
+You can see Your Dog.
+
+You can go north, south or east.
+
+You are in the Southern Meadow, on the edge of the Northern Woods
+
+> s
+
+> s
+
+You are in the Northern Woods.
+
+You can see a Twisted Oak, Gnome Chompsky, a leaf litter and Your Dog.
+
+You can go north or south.
+
+You are on a path in the woods that runs North to South, the trees are densely packed, shards of sunlight stab through the small gaps in the canopy, it is humid in here. The floor of the forest is thick with leaf litter from countless autumns.
+
+> s
+
+> s
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> s
+
+> s
+
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> use raft
+
+> use raft
+
+With some trepidation you launch your raft and jump on, Dylan whimpers and jumps on wth you. Using the shovel as a make shift oar you paddle furiously against the current. Utterly exhausted and shivering you arrive at the Southern Bank of the river and jump off, Dylan follows.
+
+You are at the Southbank of the River Void.
+
+You can see the River Void, a Broken Bridge and Your Dog.
+
+You can go southeast.
+
+You are on the Southbank of the River Void. The river is roaring past with a fierce current.
+
+> se
+
+> se
+
+You are in The Southern Woodland Dell.
+
+You can see a Horse Drawn Caravan, a Tinker, a Horse and Your Dog.
+
+You can go northwest or south.
+
+A small secluded grassy hollow, there is thick lush grass under foot.
+
+You can see a Horse drawn caravan, and a Horse unhitched from it.
+
+Sat on the caravan steps is a bearded man in ragged clothing, using your legendary powers of deduction (by reading the writing on the side of the caravan) you deduce that he is a travelling Tinker.
+
+> give flour to Tinker
+
+> give flour to Tinker
+
+"Ah, excellent, thank you! In return I've finished fixing your fishing rod, here" and he hands it to you.
+> x rod
+
+> x rod
+
+A bamboo fishing rod, with a cork handle. It has a line and hook, and a now fully functional reel.
+> give apple to horse
+
+> give apple to horse
+
+You place the apple in the flat palm of your hand and offer it up to the horse. Its lips tickle your hand as it picks it up, it munches it noisily. You smell the tart tang of the apple as it's masticated.
+
+The horse eyes you and gently snorts. You've made a friend.
+> nw
+
+> nw
+
+You are at the Southbank of the River Void.
+
+You can see the River Void, a Broken Bridge and Your Dog.
+
+You can go southeast.
+
+You are on the Southbank of the River Void. The river is roaring past with a fierce current.
+
+> fish
+
+> fish
+
+You cast your rod and the spinner flies above the water, lands with a splash and sinks out of sight, pulling the line behind it.
+
+You hold the rod tightly and wait, the current is pulling strongly on the line.
+
+You wait...and wait...and wait..Dylan pads around impatiently...and you wait..and the suddenly there is tremendous pull on the line and you struggle to hold on to the rod.
+
+Pulling back on the rod you heave a large struggling Golden Fish on to the bank. You dispatch it with a clean blow and pick it up.
+> use raft
+
+> use raft
+
+With some trepidation you launch your raft and jump on, Dylan whimpers and jumps on wth you. Using the shovel as a make shift oar you paddle furiously against the current. Utterly exhausted and shivering you arrive at the Northern Bank of the river and jump off, Dylan follows.
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> fish
+
+> fish
+
+You cast your rod and the spinner flies above the water, lands with a splash and sinks out of sight, pulling the line behind it.
+
+You hold the rod tightly and wait, the current is pulling strongly on the line.
+
+You wait...and wait...and wait..Dylan pads around impatiently...and you wait..and the suddenly there is tremendous pull on the line and you struggle to hold on to the rod.
+
+Pulling back on the rod you heave a large struggling Silver Fish on to the bank. You dispatch it with a clean blow and pick it up.
+> n
+
+> n
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> n
+
+> n
+
+You are in the Northern Woods.
+
+You can see a Twisted Oak, Gnome Chompsky, a leaf litter and Your Dog.
+
+You can go north or south.
+
+You are on a path in the woods that runs North to South, the trees are densely packed, shards of sunlight stab through the small gaps in the canopy, it is humid in here. The floor of the forest is thick with leaf litter from countless autumns.
+
+> n
+
+> n
+
+You are in the Southern Meadow.
+
+You can see Your Dog.
+
+You can go north, south or east.
+
+You are in the Southern Meadow, on the edge of the Northern Woods
+
+> e
+
+> e
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today and the sails are turning at a fair pace.
+
+> n
+
+> n
+
+You are at The Desolate Beach.
+
+You can see The Sea of Emptiness and Your Dog.
+
+You can go south.
+
+You are on long, bleak, sandy beach on the shore of the Sea of Emptiness. There is a brisk and bracing (i.e. bloody freezing) sea-breeze.
+
+ Dylan bounds around in circles in the sand wagging his tail.
+
+> fish
+
+> fish
+
+You cast your rod and the spinner flies above the crashing waves, lands with a splash and sinks out of sight, pulling the line behind it.
+
+You hold the rod tightly and wait, the surf is pulling strongly on the line.
+
+You wait...and wait...and wait..Dylan digs around in the sand impatiently...and you wait..and the suddenly there is tremendous pull on the line and you struggle to hold on to the rod.
+
+Pulling back on the rod you heave a large struggling Copper Fish on to the bank. You dispatch it with a clean blow and pick it up.
+> s
+
+> s
+
+You are at Coley's Mill.
+
+You can see a Hand Water Pump and Your Dog.
+
+You can go west, in or north.
+
+You are stood in the yard of Coley's Mill, towering above you is the windmill, it is painted bright red. There is a stiff breeze today and the sails are turning at a fair pace.
+
+> w
+
+> w
+
+You are in the Southern Meadow.
+
+You can see Your Dog.
+
+You can go north, south or east.
+
+You are in the Southern Meadow, on the edge of the Northern Woods
+
+> s
+
+> s
+
+You are in the Northern Woods.
+
+You can see a Twisted Oak, Gnome Chompsky, a leaf litter and Your Dog.
+
+You can go north or south.
+
+You are on a path in the woods that runs North to South, the trees are densely packed, shards of sunlight stab through the small gaps in the canopy, it is humid in here. The floor of the forest is thick with leaf litter from countless autumns.
+
+> s
+
+> s
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> .s
+
+> .s
+
+I don't understand your command.
+> use raft
+
+> use raft
+
+You consider inventing a new sport called 'land rafting' but decide better of it
+> se
+
+> se
+
+You can't go there.
+> s
+
+> s
+
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> x cat
+
+> x cat
+
+I can't see that.
+> in
+
+> in
+
+You can't go there.
+> e
+
+> e
+
+You can't go there.
+> x horehound
+
+> x horehound
+
+I can't see that.
+> w
+
+> w
+
+You can't go there.
+> give copper fish to cat
+
+> give copper fish to cat
+
+I can't see that. (cat)
+> give silver fish to cat
+
+> give silver fish to cat
+
+I can't see that. (cat)
+> give golden fish to cat
+
+> give golden fish to cat
+
+I can't see that. (cat)
+> give cheese to mouse
+
+> give cheese to mouse
+
+I can't see that. (mouse)
+> in
+
+> in
+
+You can't go there.
+> x bat
+
+> x bat
+
+A blue glass bottle with the word "FLY" embossed on it.
+> x droppings
+
+> x droppings
+
+I can't see that.
+> speak to bat
+
+> speak to bat
+
+It says nothing.
+> yes
+
+> yes
+
+I don't understand your command.
+> clock
+
+> clock
+
+I don't understand your command.
+> speak to bat
+
+> speak to bat
+
+It says nothing.
+> dice
+
+> dice
+
+I don't understand your command.
+> speak to bat
+
+> speak to bat
+
+It says nothing.
+> blood
+
+> blood
+
+I don't understand your command.
+> take guano
+
+> take guano
+
+I can't see that.
+> out
+
+> out
+
+You can't go there.
+> e
+
+> e
+
+You can't go there.
+> use guano on horehound
+
+> use guano on horehound
+
+I can't see that. (guano)
+> x horehound
+
+> x horehound
+
+I can't see that.
+> take horehound
+
+> take horehound
+
+I can't see that.
+> w
+
+> w
+
+You can't go there.
+> in
+
+> in
+
+You can't go there.
+> s
+
+> s
+
+You can't go there.
+> d
+
+> d
+
+You can't go there.
+> fish
+
+> fish
+
+You cast your rod and the spinner flies above the water, lands with a splash and sinks out of sight, pulling the line behind it.
+
+You hold the rod tightly and wait, the current is pulling strongly on the line.
+
+You wait...and wait...and wait..Dylan pads around impatiently...and you wait..and then decide to give up. All you are going to catch here is a cold.
+> x Gerald
+
+> x Gerald
+
+I can't see that.
+> give cheese to Gerald
+
+> give cheese to Gerald
+
+I can't see that. (Gerald)
+> look
+
+> look
+
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> x hole
+
+> x hole
+
+I can't see that.
+> x giant's hair
+
+> x giant's hair
+
+I can't see that.
+> take it
+
+> take it
+
+I can't see that.
+> d
+
+> d
+
+You can't go there.
+> d
+
+> d
+
+You can't go there.
+> x city
+
+> x city
+
+I can't see that.
+> se
+
+> se
+
+You can't go there.
+> x cooper
+
+> x cooper
+
+I can't see that.
+> x barrels
+
+> x barrels
+
+I can't see that.
+> talk to cooper
+
+> talk to cooper
+
+I can't see that. (cooper)
+> x stool
+
+> x stool
+
+I can't see that.
+> in
+
+> in
+
+You can't go there.
+> x tank
+
+> x tank
+
+I can't see that.
+> x kettle
+
+> x kettle
+
+I can't see that.
+> x tun
+
+> x tun
+
+I can't see that.
+> x pint
+
+> x pint
+
+I can't see that.
+> take pint
+
+> take pint
+
+I can't see that.
+> n
+
+> n
+
+You are in a Woodland Clearing.
+
+You can see a Ruined hovel and Your Dog.
+
+You can go north or south.
+
+A clearing in the wood, looks like it was once a small holding. There is a carpet of thyme underfoot that releases a sweet tang into the air as you walk across it.
+
+> x cupboard
+
+> x cupboard
+
+I can't see that.
+> open it
+
+> open it
+
+I can't see that.
+> x juice
+
+> x juice
+
+I can't see that.
+> take it
+
+> take it
+
+I can't see that.
+> x drawer
+
+> x drawer
+
+I can't see that.
+> open it
+
+> open it
+
+I can't see that.
+> x opener
+
+> x opener
+
+I can't see that.
+> take it
+
+> take it
+
+I can't see that.
+> open tin
+
+> open tin
+
+I can't see that.
+> x fridge
+
+> x fridge
+
+I can't see that.
+> open it
+
+> open it
+
+I can't see that.
+> x celery
+
+> x celery
+
+I can't see that.
+> take it
+
+> take it
+
+I can't see that.
+> close fridge
+
+> close fridge
+
+I can't see that.
+> x freezer
+
+> x freezer
+
+I can't see that.
+> open it
+
+> open it
+
+I can't see that.
+> x ice
+
+> x ice
+
+I can't see that.
+> take ice
+
+> take ice
+
+I can't see that.
+> close freezer
+
+> close freezer
+
+I can't see that.
+> put ice in pint
+
+> put ice in pint
+
+I can't see that. (ice)
+> put tomato juice in pint
+
+> put tomato juice in pint
+
+I can't see that. (tomato juice)
+> put celery in pint
+
+> put celery in pint
+
+I can't see that. (celery)
+> put dog hair in pint
+
+> put dog hair in pint
+
+I can't see that. (pint)
+> i
+
+> i
+
+You are carrying a Dog Hair, a Shovel, a Sharp Axe, Rags, a Letter, a Lump of cheese, a Business Card, a Bottle, a Scroll of paper, a Shiny Glass Sphere, a Chipped Mug, a Raft, a Fishing Rod, a Golden Fish, a Silver Fish and a Copper Fish.
+> s
+
+> s
+
+You are at the Northbank of the River Void.
+
+You can see a Broken Bridge, the River Void and Your Dog.
+
+You can go north.
+
+You are on the Northbank of the River Void. The river is roaring past with a fierce current.
+
+> out
+
+> out
+
+You can't go there.
+> give pint to cooper
+
+> give pint to cooper
+
+I can't see that. (pint)
+> x growler
+
+> x growler
+
+I can't see that.
+> x Cooper
+
+> x Cooper
+
+I can't see that.
+> x barrels
+
+> x barrels
+
+I can't see that.
+> nw
+
+> nw
+
+You can't go there.
+> s
+
+> s
+
+You can't go there.
+> x guard
+
+> x guard
+
+I can't see that.
+> s
+
+> s
+
+You can't go there.
+> give growler to guard
+
+> give growler to guard
+
+I can't see that. (growler)
+> s
+
+> s
+
+You can't go there.
+> x fountain
+
+> x fountain
+
+I can't see that.
+> x pigeon
+
+> x pigeon
+
+I can't see that.
+> speak to pigeon
+
+> speak to pigeon
+
+I can't see that. (pigeon)
+> ask Jon about king
+
+> ask Jon about king
+
+I can't see that. (Jon)
+> ask Jon about coughing
+
+> ask Jon about coughing
+
+I can't see that. (Jon)
+> ask Jon about general
+
+> ask Jon about general
+
+I can't see that. (Jon)
+> ask Jon about crumbs
+
+> ask Jon about crumbs
+
+I can't see that. (Jon)
+> e
+
+> e
+
+You can't go there.
+> x pool
+
+> x pool
+
+I can't see that.
+> play pool
+
+> play pool
+
+I can't see that. (pool)
+> x dartboard
+
+> x dartboard
+
+I can't see that.
+> play darts
+
+> play darts
+
+I can't see that. (darts)
+> play darts
+
+> play darts
+
+I can't see that. (darts)
+> play darts
+
+> play darts
+
+I can't see that. (darts)
+> x Jack
+
+> x Jack
+
+I can't see that.
+> x Gnome
+
+> x Gnome
+
+I can't see that.
+> speak to Gnome
+
+> speak to Gnome
+
+I can't see that. (Gnome)
+> x bandit
+
+> x bandit
+
+I can't see that.
+> play bandit
+
+> play bandit
+
+I can't see that. (bandit)
+> play bandit
+
+> play bandit
+
+I can't see that. (bandit)
+> play bandit
+
+> play bandit
+
+I can't see that. (bandit)
+> x piano
+
+> x piano
+
+I can't see that.
+> play piano
+
+> play piano
+
+I can't see that. (piano)
+> x mouse
+
+> x mouse
+
+I can't see that.
+> give cheese to mouse
+
+> give cheese to mouse
+
+I can't see that. (mouse)
+> play piano
+
+> play piano
+
+I can't see that. (piano)
+> x message
+
+> x message
+
+I can't see that.
+> x coins
+
+> x coins
+
+I can't see that.
+> give hair to gnome
+
+> give hair to gnome
+
+I can't see that. (gnome)
+> w
+
+> w
+
+You can't go there.
+> w
+
+> w
+
+You can't go there.
+> x Beppe
+
+> x Beppe
+
+I can't see that.
+> x counter
+
+> x counter
+
+I can't see that.
+> give coins to Beppe
+
+> give coins to Beppe
+
+I can't see that. (coins)
+> x pizza
+
+> x pizza
+
+I can't see that.
+> e
+
+> e
+
+You can't go there.
+> give pizza to Jon
+
+> give pizza to Jon
+
+I can't see that. (pizza)
+> give horehound to Jon
+
+> give horehound to Jon
+
+I can't see that. (horehound)
+> give message to Jon
+
+> give message to Jon
+
+I can't see that. (message)
+> x General
+
+> x General
+
+I can't see that.
+> x mouse
+
+> x mouse
+
+I can't see that.
+> give cheese to mouse
+
+> give cheese to mouse
+
+I can't see that. (mouse)
+> attack general
+
+> attack general
+
+I can't see that. (general)
+> x king
+
+> x king
+
+I can't see that.
+> x straw
+
+> x straw
+
+I can't see that.
+> x bars
+
+> x bars
+
+I can't see that.
+> i
+
+> i
+
+You are carrying a Dog Hair, a Shovel, a Sharp Axe, Rags, a Letter, a Lump of cheese, a Business Card, a Bottle, a Scroll of paper, a Shiny Glass Sphere, a Chipped Mug, a Raft, a Fishing Rod, a Golden Fish, a Silver Fish and a Copper Fish.
+> speak to king
+
+> speak to king
+
+I can't see that. (king)
+> ask king about general
+
+> ask king about general
+
+I can't see that. (king)
+> move straw
+
+> move straw
+
+I can't see that. (straw)
+> move stone
+
+> move stone
+
+I can't see that. (stone)
+> d
+
+> d
+
+You can't go there.
+> x stones
+
+> x stones
+
+I can't see that.
+> z
+
+> z
+
+Time passes.
+[state=Running]

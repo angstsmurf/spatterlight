@@ -1,0 +1,382 @@
+D R E A M / P I E C E S
+
+[NEW GAME]
+
+[OPTIONS]
+
+[DEVICE]
+
+[QUIT]
+
+D R E A M / P I E C E S
+
+[NEW GAME]
+
+[ENABLE RHYMES]
+
+[OPTIONS]
+
+[DEVICE]
+
+[QUIT]
+> new game
+
+> new game
+Dream Pieces
+An Interactive Fiction
+Release Version 5.0 / Quest 5.4.1
+
+****************************************************************************
+
+Waking up in your bedroom, you look at the clock.
+
+It's a little while after three.
+
+"Wait a minute", you think,
+
+"There is no door nor windows in my room".
+
+There is something odd with the things!,
+
+because many were not in your room earlier.
+
+ A box of toys is in the corner.  Your desk and chair seem rusty,
+
+And a funny carpet is on the floor.
+
+****************************************************************************
+
+* If you're confused, type HELP or ABOUT*
+
+You are in your bedroom.  You looked at the clock. It's 3:14 in the morning and you are awake... And it's the night before your birthday.  Then, you notice that everything is a little scrambled and out of place.  You jump out of the bed but surprisingly you remain floating in the air.  After a little while, you touch the ground and  looking carefully to everything, you realize it's a dream. There's no way out and you need to wake up.
+
+ Along the north wall, there is a bed, where you use to sleep. A closed box is in a corner; the label says "Toys". A small chair is floating in the air. You better grab it! There is a mat covering the whole floor. Against the east wall there is an old, small desk.
+
+You can see the bed, the box, the chair, the floor mat, the desk and the clock.
+Please type your birthdate (mm:dd:yyyy):
+
+> 01012000
+Done.  The goal is to destroy things.  Some of them by making tools first.  To learn how, try the  TUTORIAL.
+
+[HELP] [JOURNAL] [OPTIONS] [ABOUT] [CREDITS]
+
+You are in your bedroom.  You looked at the clock. It's 3:14 in the morning and you are awake... And it's the night before your birthday.  Then, you notice that everything is a little scrambled and out of place.  You jump out of the bed but surprisingly you remain floating in the air.  After a little while, you touch the ground and  looking carefully to everything, you realize it's a dream. There's no way out and you need to wake up.
+
+ Along the north wall, there is a bed, where you use to sleep. A closed box is in a corner; the label says "Toys". A small chair is floating in the air. You better grab it! There is a mat covering the whole floor. Against the east wall there is an old, small desk.
+
+You can see the bed, the box, the chair, the floor mat, the desk and the clock.
+> about
+
+> about
+A short fun game to you, in IFCOMP 2-0-1-3
+
+Commands to use are LOOK,TAKE, CUT, OPEN, MIX...WITH..., BURN and BREAK.
+
+Things in your room must be remade. Experiment!
+
+If you are clueless, the last resort is type WALKTHROUGH.
+
+For those who helped with the game, the right command to type is CREDITS.
+
+[ MORE HELP]
+[TUTORIAL]
+[HINT / WALKTHROUGH]
+> x bed
+
+> x bed
+Something soft, with a pillow now lost and made of wood.
+It contains a thing with stains,  some sheets.
+> x sheets
+
+> x sheets
+You use the sheets to cover your feet and head.
+
+It has a beautiful dragon printed in red and some stains.
+> x box
+
+> x box
+When you were younger you use to keep your toys in there.
+> open box
+
+> open box
+You open the box of toys...
+It contains the hummer.
+> x hummer
+
+> x hummer
+"Oh my god! This is a gift from my dad!", your old car but it looks like new now.
+
+You liked it once. It's now a bummer.
+> x chair
+
+> x chair
+It's a wooden chair with legs made of iron.
+> x floor mat
+
+> x floor mat
+It's a really long mat, very soft and comfy!
+> x desk
+
+> x desk
+It's your favorite place where you sit and write!
+Wait.. I see something... the lamp.
+> x lamp
+
+> x lamp
+It's a beautiful lamp made of glass. It plugs in.
+> x clock
+
+> x clock
+Hanging on the wall, just out of reach. full of numbers.
+
+The numbers on the clock match your birthdate, month and year!
+> take lamp
+
+> take lamp
+You pick it up.
+> break lamp
+
+> break lamp
+ You break the lamp with your bare hands!!!
+
+*Now...It's hammer time!*
+
+> x la
+
+> x la
+It's a piece of glass from the lamp, very sharpie.
+
+*Now...It's hammer time!*
+
+> take hummer
+
+> take hummer
+You pick it up.
+> break hummer
+
+> break hummer
+You beat and beat just like a drummer. Until it's broken down!
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> x mmer
+
+> x mmer
+It's a piece of the toy car with enough metal to make a tool
+> take chair
+
+> take chair
+You pick it up.
+> break chair
+
+> break chair
+With the force of your arm, you break the chair!
+> x c
+
+> x c
+From the chair, it is the back!
+
+*Now...It's hammer time!*
+
+> x ha
+
+> x ha
+It's a leg made of iron and wood from a chair.
+> mix ha with mmer
+
+> mix ha with mmer
+You stick the car part to the leg!
+
+Now you have a tool! It's made of dream pieces!!
+
+*Now, let's make a blade*
+
+> x hammer
+
+> x hammer
+It's a tool made with a piece of a toy and the leg of a chair!
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> break bed with hammer
+
+> break bed with hammer
+You broke the bed.  there are some pieces remaining!!!
+> x b
+
+> x b
+It's the leg of the bed!
+> x e
+
+> x e
+It's a small spring made of metal.
+> x d
+
+> x d
+It's another leg of the bed!
+> break desk with hammer
+
+> break desk with hammer
+You removed nails and wood!!!
+> x de
+
+> x de
+It's a piece of wood from the desk.
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> x k
+
+> x k
+A piece of iron from the desk forming a "k"
+
+*Now, let's make a blade*
+
+> mix b with la
+
+> mix b with la
+You stick a piece of the lamp to the wood.  It's not complete!
+> mix bla with de
+
+> mix bla with de
+Now you have a blade! From dream pieces!!!
+> x blade
+
+> x blade
+It's made of wood from the desk, the bed, and a piece of lamp.
+
+> cut sheets with blade
+
+> cut sheets with blade
+You cut the sheets with the blade!!!
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> x s
+
+> x s
+It's a piece of a sheet!
+> x he
+
+> x he
+It's another piece of a sheet!
+
+What about some matches?
+
+> cut floor mat with blade
+
+> cut floor mat with blade
+You cut the mat with the blade!
+> x mat
+
+> x mat
+From the floor mat, is a small part!
+
+What about some matches?
+
+> x oor
+
+> x oor
+It's the another part of the floor mat.
+> mix mat with c
+
+> mix mat with c
+You tied the piece of mat to the back of the chair!
+> mix matc with he
+
+> mix matc with he
+This strange mix has something red but it's not complete!
+
+What about some matches?
+
+> mix matche with s
+
+> mix matche with s
+You made some matches! Now you can burn things!
+> x matches
+
+> x matches
+It's a strange mix of things to make fire!
+
+> burn box with matches
+
+> burn box with matches
+You burn the box but part of the word "Toy" remains!
+> x y
+
+> x y
+It's the only thing remaining from the box.
+> mix d with oor
+
+> mix d with oor
+Now, there is a door in the north wall. You knock but no-one answers.
+
+The clock falls to the floor after you knock!
+> x door
+
+> x door
+It has no lock!
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> take clock
+
+> take clock
+You pick it up!
+> break clock
+
+> break clock
+You step on the clock and break it.
+> x lo
+
+> x lo
+A piece of clock that looks like a knob!
+> x ck
+
+> x ck
+It's a piece of the clock.  It is very round.
+> mix lo with ck
+
+> mix lo with ck
+With shards of metal, you manage to create a lock!
+
+And then you see it soar into the right side of the door!
+> x lock
+
+> x lock
+It's made of metal with pieces from the clock!
+> mix k with e
+
+> mix k with e
+You hang the piece of metal in the hook which has the shape of a letter "e".
+> mix ke with y
+
+> mix ke with y
+You should feel smart. You've made a useful looking key!
+> x key
+
+> x key
+It's a normal but useful key.
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> take key
+
+> take key
+You pick it up.
+> unlock door
+
+> unlock door
+Try unlocking the lock.
+
+* You love your room but if you remain here you'll miss out on a great birthday! *
+
+> open door
+
+> open door
+You try to but the door seems stuck. It's hard to pull. Such rotten luck!
+> out
+
+> out
+You can't go there.
+[state=Running]

@@ -1,0 +1,1192 @@
+A Christmas Game
+
+by Luke A. Jones
+
+You are in Your House.
+You can see an Advent calendar, a Sofa, an Armchair and a Shopping List.
+
+You can go out or north.
+
+You are in your own home. A modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes and wrapping paper. On the wall is an advent calendar with an alarming amount of doors already open.
+
+You've left things a bit late this year and are missing the following essential items for a decent Christmas; a Christmas Tree, Christmas Crackers, Satsumas, a Turkey,  Skyrim Special Edition Computer Game, a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done!
+
+ (type 'game' or 'hints' for game specific help)
+
+> x list
+
+> x list
+
+It's a list of all the things you need to collect, how useful. You can type 'x list' to quickly check it at any time.
+
+You need:
+
+A Christmas Tree
+Christmas Crackers
+Satsumas
+A Turkey
+A copy of Skyrim Special Edition Game
+A Bottle of Port
+Bumper Radio Times Christmas Special
+
+> take list
+
+> take list
+
+You pick it up.
+> x calendar
+
+> x calendar
+
+It's a traditional advent calendar, with a traditional Angry Birds Lego design. There is one unopened door left
+> open it
+
+> open it
+
+You have opened the last door of the advent calendar and can see a chocolate inside
+> take chocolate
+
+> take chocolate
+
+You pick it up.
+> x it
+
+> x it
+
+A thumb sized chocolate in the vague shape of a pissed off bird
+> eat it
+
+> eat it
+
+You eat the chocolate. It tastes like advent calendar chocolate, i.e. stale and not very nice
+> x sofa
+
+> x sofa
+
+An old slightly knackered Ikea sofa, you hardly use it as you prefer your armchair
+> x armchair
+
+> x armchair
+
+A red leather cantilevered armchair from Ikea, you stare at it longingly but you've too much to do!
+> x boxes
+
+> x boxes
+
+The amazon boxes fill the room, it doesn't help that they are all so big compared to the contents. The biggest one in the room is nearly the size of the sofa and contains a single memory stick.
+> x paper
+
+> x paper
+
+a few rolls of Christmas wrapping paper, if only you could find the damn scissors and sellotape.
+> n
+
+> n
+
+You are in Your Garden.
+You can see a Shed.
+
+You can go south.
+It's your garden, a modest patch of land where you grow a few things, but there's not much growing this time of year except a few root veg. The ground is soft under foot. At the end of the garden is a rather rickety looking shed.
+
+> x shed
+
+> x shed
+
+A bit rickety and could do with a lick of paint.
+> x ground
+
+> x ground
+
+The ground is soft under foot
+
+> open shed
+
+> open shed
+
+You open it.
+It contains a spade and a Toolbox.
+> x spade
+
+> x spade
+
+It's an excellent spade, in fact you might say it was the ace of spades.
+
+> take it
+
+> take it
+
+You pick it up.
+> x toolbox
+
+> x toolbox
+
+Your toolbox, which contains useful things, unfortunately you lost the key ages ago
+> take it
+
+> take it
+
+It's too heavy to carry about
+> dig
+
+> dig
+
+you dig a hole
+> x hole
+
+> x hole
+
+A small muddy hole
+It contains a Carrot.
+> take carrot
+
+> take carrot
+
+You pick it up.
+> x carrot
+
+> x carrot
+
+A fine specimen of a carrot, maybe you'll leave it out next to a mince pie tonight
+> put spade in shed
+
+> put spade in shed
+
+Done.
+> s
+
+> s
+
+You are in Your House.
+You can see an Advent calendar, a Sofa and an Armchair.
+
+You can go out or north.
+
+You are in your own home. A modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes and wrapping paper. On the wall is an advent calendar with an alarming amount of doors already open.
+
+You've left things a bit late this year and are missing the following essential items for a decent Christmas; a Christmas Tree, Christmas Crackers, Satsumas, a Turkey,  Skyrim Special Edition Computer Game, a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done!
+
+ (type 'game' or 'hints' for game specific help)
+
+> out
+
+> out
+
+You are on Chester Street.
+
+You can go in, east or west.
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+In the gutter a pigeon is joyfully pecking at the remains of a discarded KFC. It's a crisp cold day, in the distance you can hear carol singing..
+
+> x pigeon
+
+> x pigeon
+
+A grey city pigeon with a grumpy demeanour
+> x KFC
+
+> x KFC
+
+It's the forsaken remains of a KFC meal, a 'mighty bucket for one' by the looks of it. Probably discarded last night by someone staggering home from the Cross Keys Inn
+> talk to pigeon
+
+> talk to pigeon
+
+The pigeon replies;  "My Name's Jon, and I'm a fucking pigeon."
+> ask Jon about KFC
+
+> ask Jon about KFC
+
+"It's my KFC, fuck you."
+> take KFC
+
+> take KFC
+
+You stoop down to pick it up but the pigeon exclaims, "It's my KFC! Fuck off!". The murderous glint in the pigeon's eye persuades you to leave the KFC on the ground.
+> ask Jon about Christmas
+
+> ask Jon about Christmas
+
+The Pigeon says " Here's a good game...
+
+How to get your Pigeon Elf Christmas Name..
+
+The First Letter of Your Name
+
+A. Jingle  B. Sparkle  C. Twinkle  D. Rudolph  E. Tinkle  F. Ducky  G. Lemsip  H. Panda-Eyes  I. Mince  J. Matchmakers  K. Chop-Sticks  L. Snowy  M. Barry  N. Fairy  O. Star  P. Marmalade  Q. Made up Name  R. Dick-face  S. Potato  T. Jesus  U. Calendar  V. Cinnamon W. Emergency Exit  X. Cling film  Y. Derek Acorah  Z. Scrooge
+
+Month of Your Birth
+
+January: Fuck Off.       February: Fuck Off.
+March: Fuck Off.          April: Fuck Off.
+May: Fuck Off.             June: Fuck Off.
+July: Fuck Off.             August: Fuck Off.
+September: Fuck Off.  October: Fuck Off
+November: Fuck Off.    December: Fuck Off
+
+> ask Jon about Santa
+
+> ask Jon about Santa
+
+"Nice guy, gave me some biscuits last year, even though I'd been naughty! Omnipresent my arse."
+> ask Jon about turkey
+
+> ask Jon about turkey
+
+"Turkey? My Name's Jon and I'm a fucking pigeon!  Ha ha!  Anyway I prefer chicken myself"
+> ask Jon about crackers
+
+> ask Jon about crackers
+
+"Crackers! I'm a fucking pigeon not a parrot! Polly wants a cracker, Polly wants a cracker! Fuck off."
+> e
+
+> e
+
+You are in the Town Square.
+You can see Glühwein and a Choir Leader.
+
+You can go west, north, east, southeast or south.
+As the name suggests it's a square in the town, and as it's christmas there is a German market including a Glühwein stall .
+
+There are also some carol singers, they are currently belting out a hearty rendition of Stay Another Day by East 17 to a disinterested crowd of busy shoppers who scurry by.
+
+> x gluhwein
+
+> x gluhwein
+
+Hot steaming Glühwein, in a plastic cup
+> take it
+
+> take it
+
+You pick it up.
+> drink it
+
+> drink it
+
+You peer into the Glühwein, it a deep red, hot and steamy, you could do with the Dutch courage to deal with the crowds so you down it in one...its rather too hot and stings your throat and it tastes like hot vimto. Unfortunately all the alcohol seems to have been boiled off, probably sometime in early December
+> x cup
+
+> x cup
+
+A transparent empty plastic cup that smells of Glühwein
+> x leader
+
+> x leader
+
+A tall man with a bushy black beard speckled with grey, wearing wire-frame glasses, a smart Dickensian style suit, greatcoat and sporting a caroler top hat. He's singing his heart out with the rest of the choir, but he's scanning the square and is obviously disappointed at the lack of interest from the crowds wandering past.
+> x singers
+
+> x singers
+
+A mixed group of young and old carol singers, dressed in warm coats, hats and scarfs; which is just as well as the temperature seems to be dropping.
+> sing
+
+> sing
+
+You sing, the carol singers increase in volume, the crowd starts singing. For a moment the whole town square is united in a joyous brief pause from the commercial hustle and bustle.
+
+The carol leader walks over and shakes your hand, "here take this,". He hands you a Bottle of Port
+> x port
+
+> x port
+
+It's a bottle of Taylor's Late Bottled Vintage Port 2010, very nice!
+> n
+
+> n
+
+You are in Santa's Christmas Emporium.
+You can see Santa, a Sprig of Holly, a Scarf and a teddy.
+
+You can go south, down or east.
+
+a shop specialising in christmas toys and decorations, it looks like its been ransacked by the shoppers, most of the shelves are bare with the odd bauble, tinsel and teddy bear scattered about the place
+
+> x holly
+
+> x holly
+
+A small twig of holly with three spiky leaves and a cluster of dark red berries
+> x scarf
+
+> x scarf
+
+It is a small scarf, probably made for a child. It is a faded blue colour with a repeated pattern of a snowman with an orange for a nose, wearing a floppy green hat and a green scarf.
+> x teddy
+
+> x teddy
+
+Nothing out of the ordinary.
+> take scarf
+
+> take scarf
+
+You pick it up.
+> x Santa
+
+> x Santa
+
+A portly, smiling, white-bearded man with half-moon spectacles, and a twinkle in his eye. He's wearing a red coat with white collar and cuffs, white-cuffed red trousers, and black leather belt and boots. He's sat on a large leather armchair.
+> talk to Santa
+
+> talk to Santa
+
+Greetings! And a Merry Christmas to you! Ho Ho Ho etc. How can I help you?
+> sit on Santa
+
+> sit on Santa
+
+You sit down on Santa's knee. Santa says "What would like for Christmas?" You whisper in his ear. Santa chuckles and says "Well, you've been good this year, here you go" He hands you a parcel and a card." You say "thank you" and stand up
+> i
+
+> i
+
+You are carrying a Shopping List, a Carrot, an Empty Plastic Cup, a Bottle of Port, a Scarf, a Present From Santa and a Christmas Card.
+> x present
+
+> x present
+
+A rectangular parcel wrapped in red paper with green ribbon tied in a bow.
+> x card
+
+> x card
+
+A cheap Christmas card, printed on thin card. It has a clichéd depiction of a nativity scene on the front. Inside it says 'Seasons Greetings!' in a poorly chosen font, but underneath in perfect handwritten copperplate script it reads “Merry Christmas, you’ve been good this year! All the best from Santa and Rudolph xxx PS: Sorry about the cheap card, terrible supply problems this year.”
+> ask Santa about Rudolph
+
+> ask Santa about Rudolph
+
+"How else would I light my merry way? Especially when it's foggy."
+> open present
+
+> open present
+
+You're tempted to open the present, but you decide to be good and save it for tomorrow
+> d
+
+> d
+
+You are in an Elves Workshop.
+You can see a Chief Elf.
+
+You can go up.
+You are in the Elves Workshop, there are row upon row of workbenches with toys, decorations and christmas paraphernalia of every type in various states of completion.On the wall is a poster.
+
+There is a gang of Elves here
+
+> x chief
+
+> x chief
+
+You can see why this guy is the 'Chief' Elf, he's taller than you! His lanky frame is all arms and legs, he's wearing a green robe trimmed with white fur, a green and yellow striped cone-shaped hat and yellow stockings.
+
+He has a face as long as a fortnight, one unhappy chap.
+> x gang
+
+> x gang
+
+The elves are sat playing cards, they look bored.
+> x poster
+
+> x poster
+
+The poster reads, "Christmas Cracker joke writer wanted, excellent rates of pay, enquire with Chief Elf"
+> take poster
+
+> take poster
+
+You pick it up.
+> talk to chief
+
+> talk to chief
+
+The Chief Elf looks at you witheringly, "and what do YOU want?" he says.
+> ask chief about poster
+
+> ask chief about poster
+
+Why don't you try reading it!
+> ask chief about writer
+
+> ask chief about writer
+
+"Yes we're after a new one, the old one was far too witty"
+> ask chief about Santa
+
+> ask chief about Santa
+
+"Don't get me wrong I love the guy, would do anything for him, but his demands are relentless."
+> ask chief about elves
+
+> ask chief about elves
+
+I love my boys, hardest grafters you've ever seen!
+> ask chief about toys
+
+> ask chief about toys
+
+Toys? My boys make the best! But not today, I'm sick of being taken for granted around here, haven't had a pay rise for years, no overtime even on Christmas Eve...come the revolution.." he continues to grumpily reel off a list of complaints and empty revolutionary slogans
+> u
+
+> u
+
+You are in Santa's Christmas Emporium.
+You can see Santa, a Sprig of Holly and a teddy.
+
+You can go south, down or east.
+
+a shop specialising in christmas toys and decorations, it looks like its been ransacked by the shoppers, most of the shelves are bare with the odd bauble, tinsel and teddy bear scattered about the place
+
+> ask Santa about elves
+
+> ask Santa about elves
+
+"Genius master craftsmen.. when they actually do any work. The key is keeping the Chief Elf happy, the rest follow his command."
+> ask Santa about Chief Elf
+
+> ask Santa about Chief Elf
+
+"He knows how to make the Elves work like you wouldn't believe..as long as he's happy...or drunk"
+> d
+
+> d
+
+You are in an Elves Workshop.
+You can see a Chief Elf.
+
+You can go up.
+You are in the Elves Workshop, there are row upon row of workbenches with toys, decorations and christmas paraphernalia of every type in various states of completion..
+There is a gang of Elves here.
+
+> ask chief about beer
+
+> ask chief about beer
+
+"Huh! Chance would be a fine thing!"
+> u
+
+> u
+
+You are in Santa's Christmas Emporium.
+You can see Santa, a Sprig of Holly and a teddy.
+
+You can go south, down or east.
+
+a shop specialising in christmas toys and decorations, it looks like its been ransacked by the shoppers, most of the shelves are bare with the odd bauble, tinsel and teddy bear scattered about the place
+
+> e
+
+> e
+
+You are on a Tib Street.
+You can see a Bench.
+
+You can go west or east.
+You are on a small quiet side street off the town square, running from west to east. In the distance you can hear the singing in the town square.
+
+> x bench
+
+> x bench
+
+A Victorian public bench made from cast iron and wooden slats.
+> sit on bench
+
+> sit on bench
+
+You sit down to rest on the bench, after a few seconds you hear a ringing emanating from the bench, looking down you see a mobile phone lodged between the wooden slates of the bench.
+
+You pick it up.
+
+> x phone
+
+> x phone
+
+A black smart phone, it's some generic cheap brand that you don't recognise. On the lock screen you can see 7 missed calls from 'Marley'.
+> e
+
+> e
+
+You are in a Stable.
+You can see a Reindeer.
+
+You can go south or west.
+There is clean straw on the floor, a food trough and behind that stands a Reindeer. The Reindeer snorts gently as you enter.
+
+> x reindeer
+
+> x reindeer
+
+It's a reindeer, thick soft mottled brown fur, furry antlers, and yes of course a bright red nose. He seems friendly and wanders over for you to stroke him, you notice that he is limping slightly
+> x foot
+
+> x foot
+
+it's a reindeer hoof, cloven with two toes at the front and one at the back
+It contains a nail.
+> x nail
+
+> x nail
+
+a 4 inch nail, bent slightly at the pointy end
+> take nail
+
+> take nail
+
+You examine the reindeer's hoof and find a nail stuck in it. You remove it. The reindeer nuzzles you in thanks
+> x straw
+
+> x straw
+
+Clean straw, looks like the stable has recently been cleaned out and refreshed
+> x trough
+
+> x trough
+
+A food trough or manger, full of oats
+> x oats
+
+> x oats
+
+Just dry oats, nothing special
+> stroke reindeer
+
+> stroke reindeer
+
+You stroke the Reindeer, it nuzzles against you in a ridiculously endearing manner
+> give carrot to reindeer
+
+> give carrot to reindeer
+
+You give the carrot to the Reindeer, who munches it down. A few seconds later it grunts and deposits a small gift of some fresh Reindeer dung
+> x dung
+
+> x dung
+
+a small mound of berry sized brown droppings, slightly steaming
+> take dung
+
+> take dung
+
+You scoop up the dung with the empty plastic cup
+> s
+
+> s
+
+You are in The Cross Keys Inn.
+You can see a Jukebox, a Pool Table and a Fruit Machine.
+
+You can go west or north.
+A great British pub, just like they used to be, all sticky carpets and wet tables. Thanks to the smoking ban there is a persistent scent of stale spilt beer and urinals.
+
+Propping up the bar is a rake thin man in his late 30's, hunkered in an unkempt and crumpled raincoat, he has a mop of ginger hair and is nursing an advocaat and lemonade.
+
+You've got a lot to do today, but there is always time for a pint, and you've got a thirst on!
+
+> buy beer
+
+> buy beer
+
+The Rake Thin Man says, "If you're after a drink then The Landlady is out the back somewhere, probably asleep"
+> x man
+
+> x man
+
+Thin, haggard and world beaten, but with young eyes. He stares into his drink as if its a portal to a lost world. Next to him on the bar is a string bag of satsumas. Periodically he checks the weather app on his phone. He gives off a faint air of fried chicken.
+> talk to man
+
+> talk to man
+
+"Hello" says the Rake Thin Man and gives you a half smile
+> x satsumas
+
+> x satsumas
+
+a handful of satsumas in an orange string bag, they smell ripe and zesty
+> ask man about satsumas
+
+> ask man about satsumas
+
+"Oh these, just in case I need a nose, but the weather is looking too dry tonight"
+> ask man about weather
+
+> ask man about weather
+
+"Only a 5% chance of snow tonight, damn climate change"
+> give scarf to man
+
+> give scarf to man
+
+The man's face lights up in a childlike grin, "my scarf! I thought it was lost forever!" How can I possibly repay you?
+
+You nod hopefully at the bag of satsumas on the bar. "Oh those, well it looks like its not going to snow yet again this xmas eve"
+
+He looks wistfully away. "Here take them, the name's James by the way". He shakes you by the hand.
+> x jukebox
+
+> x jukebox
+
+A jukebox and it's a nice one, a genuine Wurlitzer with actual vinyl singles inside. A label next to the coin slot reads "Insert coin to play'
+> x table
+
+> x table
+
+A traditional pub pool table, 7 x 4 foot. The green baize is in decent enough condition, and there are only a few drink stains, but all the balls are accumulated at one corner. It leans so much it's unplayable.
+> x machine
+
+> x machine
+
+An Only Fools and Horses themed Fruit Machine, with three reels. It looks like someone has left 1 credit on it.
+> play machine
+
+> play machine
+
+You press the 'Start button', the three reels spin and thump to stop one at a time...
+Cherry.......Cherry.....and.......Cherry!
+The machine makes an over dramatic electronic 'whoop whoop' noise and plays a snippet of the Only Fools and Horses theme music. You hit the collect button, the machine makes a satisfying Ker-Chunk noise and deposits a pound coin in the bottom tray. You place the coin in your pocket
+> x coin
+
+> x coin
+
+A pound coin, Queen's head on one side, and a Thistle and Royal Diadem on the other. Inscribed around the edge it reads "NEMO ME IMPUNE LACESSIT"
+> turn on jukebox
+
+> turn on jukebox
+
+You insert the pound coin into the jukebox, a record swings down on to the platter with a satisfying soft clunk. The opening bars of War Is Over (if you want it) play warmly through the room, as if by magic the Landlady appears
+> x landlady
+
+> x landlady
+
+The Landlady has finally appeared, and has clearly just woken up. What she lacks in stature she makes up for in steely presence and inscrutable countenance.
+> talk to landlady
+
+> talk to landlady
+
+"Welcome" says the Landlady, "what can I get you?"
+> buy beer
+
+> buy beer
+
+The landlady says, "I don't give away beer for free, perhaps you make yourself useful around here and I'll reconsider"
+> ask landlady about pool table
+
+> ask landlady about pool table
+
+Damn thing's wonky as a hell, used to get loads of people in here playing on it.
+> fold card
+
+> fold card
+
+You fold the card in half
+> use card on table
+
+> use card on table
+
+You place the folded christmas card under the leg in the corner of the table where the balls keep accumulating.  The balls roll back to the centre. You've fixed it!
+> buy beer
+
+> buy beer
+
+"Here you go love, thanks for fixing the table, might actually get a few more customers in here now"
+> x beer
+
+> x beer
+
+A pint of 'Good Elf' Christmas Ale, it's a dark umber colour with a creamy looking head. It smells of sultanas and liquorice.
+> w
+
+> w
+
+You are in the Town Square.
+You can see a Choir Leader.
+
+You can go west, north, east, southeast or south.
+As the name suggests its a square in the town, and as it's christmas there is a German market including a Glühwein stall .
+
+There are also some carol singers, they are currently belting out a hearty rendition of 2 Become 1 by The Spice Girls to an appreciative crowd of shoppers
+
+> se
+
+> se
+
+You are in a Garden Centre.
+You can see a Christmas Tree and a Gardener.
+
+You can go northwest.
+You see a sign that says "Xmas Trees this way ------->" You follow the arrow to find a very empty looking section of the Garden centre.
+
+Scattered on the cold concrete floor are broken twigs, needles, and small branches of christmas trees. There is one tree left.
+
+> x tree
+
+> x tree
+
+The last Christmas Tree left in the shop, probably because it's so small, but it's perfect for your cramped lounge.
+> x gardener
+
+> x gardener
+
+A stout, weather worn man, wearing denim dungarees which are streaked with mud, muddy work boots, and a black donkey jacket. Bald save for a small patch of grey hair above each ear.
+> talk to gardener
+
+> talk to gardener
+
+"Hello Sir, how can I help you?"  He wipes his brow, "It's been one hell of a busy day, but glad people like my trees so much"
+> ask gardener about tree
+
+> ask gardener about tree
+
+"Yes we've one left, but I can't give it away for free."
+> give dung to gardener
+
+> give dung to gardener
+
+The Gardener's face lights up, "Reindeer dung! Wow, this stuff is as rare as rocking horse shite, one of the best fertilisers known to man. Ample payment for the Christmas Tree".
+He hands you the Christmas Tree and pats you on the back
+> nw
+
+> nw
+
+You are in the Town Square.
+You can see a Choir Leader.
+
+You can go west, north, east, southeast or south.
+As the name suggests its a square in the town, and as it's christmas there is a German market including a Glühwein stall .
+
+There are also some carol singers, they are currently belting out a hearty rendition of 2 Become 1 by The Spice Girls to an appreciative crowd of shoppers
+
+> s
+
+> s
+
+You are in Ebenezer's Cash Convertors.
+You can see Ebenezer Scrooge and a Skyrim Special Edition.
+
+You can go north or west.
+A modern day pawn-brokers shop. What a depressing place to be on Christmas Eve. The shelves are packed with all manner of second hand digital gadgets, at slightly too expensive prices but with 'pay weekly' offers.
+
+At the counter a queue of world beaten looking people clutching their wares wait to speak to the proprietor (one Ebenezer Scrooge) to try and get enough money to make it though Christmas.
+
+> x Scrooge
+
+> x Scrooge
+
+Despite it being warm and stuffy in the shop, Scrooge radiates cold. The cold within him has frozen his old features, nipped his pointed nose, shrivelled his cheeks, stiffened his gait; made his eyes red and his thin lips blue.
+
+He's wearing a black suit, waistcoat and fingerless gloves.
+> x Skyrim
+
+> x Skyrim
+
+A copy of The Elder Scrolls V: Skyrim Special Edition! This year's 'must have' Christmas game. You're looking forward to re-rolling as a one-handed tank, but as usual will probably end up as a sneaking archer with destruction magic.
+> talk to Scrooge
+
+> talk to Scrooge
+
+"Bah, Humbug!" says Scrooge
+> ask Scrooge about Skyrim
+
+> ask Scrooge about Skyrim
+
+"Bah humbug!"
+> give phone to Scrooge
+
+> give phone to Scrooge
+
+You hand the phone to Scrooge. He grunts a reluctant thanks and snatches it from you, just at that moment the phone starts ringing, Scrooge sees that it's a call from Marley and starts to turn white, with a trembling hand he answers the call.
+
+You can only hear Scrooge's side of the conversation but its clearly scaring the hell out of Scrooge who is begging and pleading for forgiveness.
+
+Scrooge finishes the call and says to you, "I'd forgotten the lessons I was taught a few years ago, old habits die hard you know. Here take this" Scrooge hands you the copy of  Skyrim Special Edition .
+
+Still trembling, Scrooge turns to the rest of the customers and shouts, "2 years interest free credit on all items, plus a 20% reduction in price, Merry Christmas Everyone!"
+> w
+
+> w
+
+You are in the Backroom of Cash Converters.
+You can see Bob Cratchit and a Computer.
+
+You can go east.
+A cramped back office, there is a single desk at which sits Bob Cratchitt on a tall stool,  he is hunched over an an ancient PC computer working on an Excel spreadsheet. Unlike the main shop, it's cold and draughty in here.
+
+> x Bob
+
+> x Bob
+
+A man his late thirties, with thinning dark hair and a warm smile. He is wearing a heavily worn cord jacket with leather elbow patches, faded blue jeans and an enormous scarf that touches the ground.
+> x computer
+
+> x computer
+
+An ancient looking PC with a CRT monitor. It is so old the original white plastic has discoloured to a nicotine yellow colour. On the screen is an open Excel spreadsheet.
+> x spreadsheet
+
+> x spreadsheet
+
+The spreadsheet is labelled "pawned items". There is a list of names, items pawned, and in the last column 'loan Paid/Unpaid", Bob is inputting 'Unpaid' into most of the rows.
+> talk to Bob
+
+> talk to Bob
+
+Bob smiles and says "Merry Christmas!"
+> ask Bob about Scrooge
+
+> ask Bob about Scrooge
+
+Bob looks nervously around but sees that Scrooge is busy in the shop. "That man stretches even my sunny outlook to breaking point, but a job's a job, I've got a family to support, although I barely can on these 'wages'. The smile on Bob face wavers for a second. "He was taught a lesson a few years ago and we thought he had changed for good, but he just falls back into his own ways once the fear dies down."
+> ask Bob about computer
+
+> ask Bob about computer
+
+It's ridiculous, yet another terrible aspect of this awful job. I keep telling Mr Scrooge that we need a new one, but he won't listen. No internet access and its running Windows 3.11 for goodness sake! Well mustn't grumble, at least it's not vista, ha ha!
+> ask Bob about jokes
+
+> ask Bob about jokes
+
+"I love writing jokes, here's one for you, 'What do reindeers hang on their Christmas Trees?', 'Horn-aments!"
+> give poster to Bob
+
+> give poster to Bob
+
+Bob takes the poster from you and reads it, "By Santa's beard, this is just the job I've been looking for! I used to be a scriptwriter for 'Two Pints of Lager and a Packet of Crisps', that level of piss weak humour should stand me in good stead!
+
+I'm out of here, but first let's settle a few things. Bob types Paid into the first row of third column of the spreadsheet, copies and pastes into the entire column. "Heh heh heh" chuckles Bob, old Scrooge will have a fit, and no way to recover the money."
+
+"How can I possibly repay you?" You tell Bob about your shopping list. Bob grins mischievously, "here take this, Scrooge sent me out to buy it for him, but I told him they had sold out..it's the small victories that keep you going". Bob hands you a copy of the Bumper Radio Times Christmas Special.
+
+Bob dashes off to see the Chief Elf, telling Scrooge where he can stick his job, and wishes him and the rest of the people in the shop a "Very Merry Christmas!" as he leaves.
+> x Bumper
+
+> x Bumper
+
+It's the 14 day christmas edition of the Radio Times. The front cover (which is already coming loose thanks to the woefully inadequate staples) features the stars of a Christmas edition of Strictly Celebrity Bake Off On Ice In The Jungle, at least with this guide you'll know exactly how to avoid catching it.
+> e
+
+> e
+
+You are in Ebenezer's Cash Convertors.
+You can see Ebenezer Scrooge.
+
+You can go north or west.
+A modern day pawn-brokers shop A slightly less depressing place to be now that Scrooge is behaving himself again. The shelves are packed with all manner of second hand digital gadgets, at slightly too expensive prices but with 'pay weekly' offers.
+
+At the counter a queue of world beaten looking people clutching their wares wait to speak to the proprietor (one Ebenezer Scrooge) to try and get enough money to make it though Christmas.
+
+> n
+
+> n
+
+You are in the Town Square.
+You can see a Choir Leader.
+
+You can go west, north, east, southeast or south.
+As the name suggests its a square in the town, and as it's christmas there is a German market including a Glühwein stall .
+
+There are also some carol singers, they are currently belting out a hearty rendition of 2 Become 1 by The Spice Girls to an appreciative crowd of shoppers
+
+> n
+
+> n
+
+You are in Santa's Christmas Emporium.
+You can see Santa, a Sprig of Holly and a teddy.
+
+You can go south, down or east.
+
+a shop specialising in christmas toys and decorations, it looks like its been ransacked by the shoppers, most of the shelves are bare with the odd bauble, tinsel and teddy bear scattered about the place
+
+> d
+
+> d
+
+You are in an Elves Workshop.
+You can see a Chief Elf and Bob Cratchit.
+
+You can go up.
+You are in the Elves Workshop, there are row upon row of workbenches with toys, decorations and christmas paraphernalia of every type in various states of completion..
+There is a gang of Elves here.
+
+> ask Bob about jokes
+
+> ask Bob about jokes
+
+"This is my dream job!, Listen to this one, 'Why does Santa have three gardens?'......'Cos he likes to ho, ho, ho!'"
+> give beer to chief
+
+> give beer to chief
+
+The Chief Elf smiles, takes the beer from you and downs it in four huge gulps. He wipes the froth from his top lip and belches. "Right boys, time to get back to work!" The elves go into a frantic blur of activity and the production line starts up again
+> look
+
+> look
+
+You are in an Elves Workshop.
+You can see a Chief Elf, a Christmas Crackers, an Elves and Bob Cratchit.
+
+You can go up.
+You are in the Elves Workshop, there are row upon row of workbenches with toys, decorations and christmas paraphernalia of every type in various states of completion..
+There is a gang of Elves here.
+
+> take crackers
+
+> take crackers
+
+You pick them up.
+> x crackers
+
+> x crackers
+
+Some seriously bling Crackers! An assorted box of large gold and silver crackers with glittery bows. A quick glimpse of the back of the box shows lots photos of shiny objects that are the gifts inside.
+> u
+
+> u
+
+You are in Santa's Christmas Emporium.
+You can see Santa, a Sprig of Holly and a teddy.
+
+You can go south, down or east.
+
+a shop specialising in christmas toys and decorations, it looks like its been ransacked by the shoppers, most of the shelves are bare with the odd bauble, tinsel and teddy bear scattered about the place
+
+> s
+
+> s
+
+You are in the Town Square.
+You can see a Choir Leader.
+
+You can go west, north, east, southeast or south.
+As the name suggests its a square in the town, and as it's christmas there is a German market including a Glühwein stall .
+
+There are also some carol singers, they are currently belting out a hearty rendition of 2 Become 1 by The Spice Girls to an appreciative crowd of shoppers
+
+> w
+
+> w
+
+You are on Chester Street.
+
+You can go in, east or west.
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+In the gutter a pigeon is joyfully pecking at the remains of a discarded KFC. It's a crisp cold day, in the distance you can hear carol singing..
+
+> ask Jon about landlady
+
+> ask Jon about landlady
+
+"A fiend for the gin that one, sleeps like the dead when she's had a session."
+> ask Jon about Bob
+
+> ask Jon about Bob
+
+"Poor git, having to work for that tyrant Ebenezer."
+> ask Jon about rake thin man
+
+> ask Jon about rake thin man
+
+"That poor fucker, something must have happened to him when he was younger, all he does is prop up the bar at the Cross Keys, I think his name's James. Still, he's always dropping his takeaway after closing time, so it's all good for me!
+> ask Jon about jokes
+
+> ask Jon about jokes
+
+The Pigeon says, "Here's one for you:
+
+ "What do angry mice send to each other at Christmas?"
+
+"Cross Mouse Cards!"
+> ask Jon about Chief Elf
+
+> ask Jon about Chief Elf
+
+"He's a right bolshy git! One of them champagne socialist types, thinks he's champion of the working class, soon mellows after a jar or two though!
+> in
+
+> in
+
+You are in Your House.
+You can see an Advent calendar, a Sofa and an Armchair.
+
+You can go out or north.
+
+You are in your own home. A modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes and wrapping paper. On the wall is an advent calendar with an alarming amount of doors already open.
+
+You've left things a bit late this year and are missing the following essential items for a decent Christmas; a Christmas Tree, Christmas Crackers, Satsumas, a Turkey,  Skyrim Special Edition Computer Game,a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done!
+
+ (type 'game' or 'hints' for game specific help)
+
+> n
+
+> n
+
+You are in Your Garden.
+You can see a Shed (containing a Toolbox and a spade) and a hole.
+
+You can go south.
+It's your garden, a modest patch of land where you grow a few things, but there's not much growing this time of year except a few root veg. The ground is soft under foot. At the end of the garden is a rather rickety looking shed.
+
+> pick lock
+
+> pick lock
+
+you pick the lock open with the nail, nice work!
+> x toolbox
+
+> x toolbox
+
+Hurray! The damn thing is finally unlocked.
+It contains an Oil Can.
+> x oil can
+
+> x oil can
+
+A bright red hand sized oil can, with a nozzle and thumb pump on the handle.
+> take it
+
+> take it
+
+You pick it up.
+> s
+
+> s
+
+You are in Your House.
+You can see an Advent calendar, a Sofa and an Armchair.
+
+You can go out or north.
+
+You are in your own home. A modest (i.e. rather too small) town house, which is in a rather chaotic state as you try to prepare for Christmas. The floor is strewn with Amazon delivery boxes and wrapping paper. On the wall is an advent calendar with an alarming amount of doors already open.
+
+You've left things a bit late this year and are missing the following essential items for a decent Christmas; a Christmas Tree, Christmas Crackers, Satsumas, a Turkey,  Skyrim Special Edition Computer Game,a Bottle of Port and a copy of the Bumper Radio Times Christmas Special. You'd better head out into town to get some shopping done!
+
+ (type 'game' or 'hints' for game specific help)
+
+> out
+
+> out
+
+You are on Chester Street.
+
+You can go in, east or west.
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+In the gutter a pigeon is joyfully pecking at the remains of a discarded KFC. It's a crisp cold day, in the distance you can hear carol singing..
+
+> w
+
+> w
+
+You are in a Butcher's Shop.
+You can see a Butcher's Delivery Bike, a Butcher and The Last Turkey In The Shop.
+
+You can go east.
+You part the red strip door blind and enter the butcher's shop, the air inside has a tang of iron and bleach. Like every other shop late on Christmas eve the counters have been stripped nearly bare of produce.
+
+> x turkey
+
+> x turkey
+
+A recently deceased turkey, (joined the choir invisible, shuffled off his mortal coil... etc).
+
+It's the last one in the shop, it's small but perfectly formed, just the job.
+
+> x butcher
+
+> x butcher
+
+A young man in his twenties, you recognise him as Robin, the son of the owner Mr U'blind. He looks tired and stressed.
+
+He's wearing butcher's white overalls with smears of blood, and white rubber boots also smeared with blood.
+> x bike
+
+> x bike
+
+A black framed delivery bike, with a smaller wheel at the front than at the back to make space for a large wicker basket, which is full of crates and parcels of greaseproof paper tied with string. You try to turn the peddles but they are very stiff.
+> talk to Robin
+
+> talk to Robin
+
+"Hello" says the Butcher, "Been one hell of a day, been rushed off my feet since 7 o'clock this morning. I've still got my deliveries to do before I can call it a day, but my bike is seized up"
+> ask Robin about turkey
+
+> ask Robin about turkey
+
+Yep its the last one, a bit smaller than the rest, but free range, organic, spoilt, Farmer Bell treats them like his children, weeps like a child when December comes round. I can't give it away for free, Dad will kill me!
+> ask Robin about bike
+
+> ask Robin about bike
+
+"Damn thing is seized up, keep telling Dad I need a new one"
+> ask Robin about oil
+
+> ask Robin about oil
+
+"That would help! But I don't have any."
+> oil bike
+
+> oil bike
+
+You oil the bike's chain and running gear. After a few rotations of the pedals it's running smooth as silk.
+
+The Butcher says "Thanks so much, you've saved Christmas for me and my customers, here take this.." He hands you the Turkey, gets on the bike and is off in a shot.
+> e
+
+> e
+
+You are on Chester Street.
+
+You can go in, east or west.
+You are outside Your House on a side road near the city centre, that runs from East to West.
+
+In the gutter a pigeon is joyfully pecking at the remains of a discarded KFC. It's a crisp cold day, in the distance you can hear carol singing..
+
+> in
+
+> in
+
+You are in Your House.
+You can see an Advent calendar, a Sofa and an Armchair.
+
+You can go out or north.
+
+**************************************************************************
+You’re finally home with everything you need for Christmas, what a day! Rather more hectic than you expected, but was a good day in all.
+
+You settle down in your armchair and pour yourself a glass of port, not a bad drop, you raise your glass to the empty room as if to salute the choir leader. You admire your Christmas tree sat in the corner with your present from Santa underneath,  and the bowl of satsumas on the table next to you. The turkey is in a bucket of brine in the kitchen, a secret you got from Nigella.
+
+You flick idly through the Radio Times, but your eyes grow heavy from the port and your exhausting day. You fall asleep……...
+
+You awake to the sound of the clock on the mantelpiece softly chiming midnight. You wipe your eyes and yawn. There is a gentle knocking at your front door.
+
+You open the front door, it is snowing heavily and a few inches has already settled.
+
+Standing in the door way is James, he has a huge grin on his face, “Hello” he says, “Come with me, there’s someone I want you to meet, bring a Satsuma with you.”
+
+**************************************************************************
+Congratulations and thanks for playing!
+
+The END
+
+Credits:
+
+Written and coded by Luke Jones (luke.jones@gmail.com), using the Quest text adventure engine (www.textadeventures.co.uk).
+
+Thank you to Alex Dimmer for creating the artwork and to Jennifer Thompson, Daniel Buxton and Joe Dillon for alpa and beta testing, and for their excellent suggestions for improvements.
+
+Thanks also to the excellent support from the Quest forum members.
+
+I was inspired to write this game after playing the wonderful text adventures of Robin Johnson, you should check them out: http://versificator.net/
+
+If you didn’t get James’ character (The Rake Thin Man), then you should watch The Snowman by Raymond Briggs (the music at the end of the game is the theme music by Howard Blake)
+
+The pigeon was inspired by the twitter account @pigeonjohn
+
+Merry Christmas! Be excellent to each other.
+
+Luke xx
+
+[state=Finished]
