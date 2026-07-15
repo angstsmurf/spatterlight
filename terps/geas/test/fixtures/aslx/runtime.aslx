@@ -1,0 +1,40 @@
+<!--Fixture for the milestone-2 script/expression runtime test.-->
+<asl version="550">
+  <type name="container">
+    <capacity type="int">10</capacity>
+  </type>
+  <object name="room">
+    <object name="player">
+      <score type="int">0</score>
+    </object>
+    <object name="box">
+      <inherit name="container" />
+      <weight type="int">4</weight>
+    </object>
+  </object>
+  <function name="AddScore" parameters="amount" type="int">
+    player.score = player.score + amount
+    return (player.score)
+  </function>
+  <function name="Describe" parameters="obj">
+    msg ("The " + obj + " weighs " + obj.weight)
+  </function>
+  <function name="SumTo" parameters="n" type="int">
+    total = 0
+    for (i, 1, n) {
+      total = total + i
+    }
+    return (total)
+  </function>
+  <function name="Classify" parameters="k" type="string">
+    if (k &lt; 0) {
+      return ("negative")
+    }
+    else if (k = 0) {
+      return ("zero")
+    }
+    else {
+      return ("positive")
+    }
+  </function>
+</asl>

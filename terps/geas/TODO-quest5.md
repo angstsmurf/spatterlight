@@ -1,5 +1,51 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-15)
+
+- **Ground-truth oracle: built and frozen** (§7, milestone 6's diff half).
+  `terps/geas/test/quest5-oracle/` drives real `.quest`/`.aslx` games headless
+  through QuestViva (.NET port of the Quest 5 engine), RNG routed through
+  `erkyrath_random()` (seed 1234), and captures normalised golden transcripts.
+  17 walkthroughs driven — **15 Finished, 1 Running (ICM), 1 Wedged
+  (Whitefield)**; the last two are genuine QuestViva-vs-Quest limitations, not
+  drift. `check_golden.sh` replays all 17 `.cmd` scripts and diffs vs frozen
+  `.out` (17/17), doubling as a determinism check. This is the reference the
+  native engine will diff against, with no .NET dependency at replay time.
+- **Native engine: milestones 1–2 landed.**
+  - **M1 loader** (`aslx.hh`/`aslx.cc`): `.quest` (in-memory zip over zlib) or
+    raw `.aslx` (libexpat SAX) → typed element tree (containment, `<inherit>`
+    chains, `<implied>`/`<template>` registration, full attribute-type set,
+    simplepattern→regex). Loads all **76** corpus games, 0 failures.
+  - **M2 script/expression core** (`aslx-runtime.hh`/`aslx-runtime.cc` +
+    `-parse.inc`/`-builtins.inc`): a hand-written lexer + recursive-descent
+    expression parser over the typed `Value`, and a script interpreter for
+    `msg`, `if`/`else if`/`else`, `while`, `for`, `foreach`, `=` assignment
+    (var and `obj.attr`), function calls, `return`, comments. Field access
+    resolves inheritance (own → inherited types, most-recent-first). ~40
+    built-ins (attribute/type, list, string, number) with `GetRandomInt`/
+    `GetRandomDouble` routed through a deterministic erkyrath_random() port.
+    Tested by `test/aslx_runtime_test.cc` (`make check`, clean under ASan/UBSan).
+  - **M3 loader half landed** (Core bundling + `<include>` resolution).
+    The non-editor Core libraries are bundled under `terps/geas/aslx-core/`
+    (root `Core*.aslx`/`GamebookCore.aslx` + `Languages/*.aslx`), and the
+    loader resolves `<include ref="..">` inline in source order — game-adjacent
+    dir, then Core dir, then Core/Languages — matching QuestViva's
+    `GetLibraryStream()`. `Editor*`/`CoreEditor*` refs are skipped (not
+    bundled). Recursion is deduped/guarded. Three Core-driven attribute types
+    now load too: `listextend` (flagged `Value::list_extend`, merge-on-read
+    still TODO), `list` (heterogeneous `<value>` list), and delegate-typed
+    attributes (an attr whose `type=` names a `<delegate>` loads its body as a
+    delegate-implementation Script). **All 76 corpus games load with 0 errors**;
+    a fresh game boots the full Core tree (~330 functions / ~56 types). Wired as
+    `test/aslx_loader_test.cc:test_coreboot()` (fixture `coreboot.aslx`),
+    `make check` green, clean under ASan/UBSan.
+  - Still open for M3: `[Something]` template substitution, the listextend
+    merge-on-read in field resolution, game-local libraries bundled *inside* a
+    `.quest` zip (only the Core dir resolves for packaged games today), change
+    scripts, UndoLogger, the rest of the ~45 script commands and ~150 built-ins,
+    and multi-word (space-encoded) identifiers. Then `look`/`take`/`go` running
+    as Core library code. Milestones 3 (rest)–5 remain.
+
 ## 0. Scope and reality check
 
 Quest 5 shares nothing with Quest 4 except lineage. The game format is XML
@@ -31,10 +77,15 @@ Reference source (MIT licensed, so Core libraries can be bundled):
 
 ## 1. Loading: zip + XML + includes
 
-- [ ] Zip reader for `.quest` packages (vendor `miniz` or reuse whatever the
-      repo already links). The package holds `game.aslx` plus images/sounds;
-      the core libraries are *not* packaged — the interpreter supplies them.
-- [ ] XML parser for `.aslx` (system `libexpat` is fine). ASLX quirks to
+- [x] Zip reader for `.quest` packages — a small self-contained in-memory
+      reader over system zlib (`aslx.cc:extract_game_aslx`), pulls `game.aslx`
+      out of the package. (Didn't reuse the scott MiniZip helper — it's coupled
+      to scott internals.) Other package resources are left for the presentation
+      milestone.
+- [x] XML parser for `.aslx` via `libexpat` SAX (`aslx.cc:load_aslx_buffer`).
+      ASLX quirks handled (BOM, CDATA, script bodies kept verbatim, nested
+      containment, attribute type system). `<include>` refs are now resolved
+      inline (see the Core-bundling item below). ASLX quirks to
       preserve:
       - root `<asl version="NNN">` (500–580 seen in the wild) — gates
         compatibility behaviour, like `asl-version` does in `set_game`
@@ -44,68 +95,77 @@ Reference source (MIT licensed, so Core libraries can be bundled):
       - script text as element bodies where newlines/indentation matter —
         do not whitespace-normalise;
       - nested `<object>` elements (containment by nesting);
-      - `<include ref="English.aslx"/>` resolution: bundled library dir
-        first, then game dir (recursion guard like `readfile.cc:824`).
-- [ ] Bundle the non-editor core libraries from
-      `v5:WorldModel/WorldModel/Core/` as terp resources (~260 KB total:
-      `Core.aslx`, `CoreCommands`, `CoreParser`, `CoreOutput`, `CoreTypes`,
-      `CoreScopes`, `CoreDescriptions`, `CoreFunctions`, `CoreTimers`,
-      `CoreTurnScripts`, `CoreStatusAttributes`, `CoreGrid`, `CoreWearable`,
-      `CoreCombat`, `CoreEffects`, `GamebookCore`, `Languages/*.aslx`,
-      `Templates/`). Skip all `CoreEditor*.aslx`. One current version is
-      enough — Core itself branches on the game's declared ASL version.
-- [ ] Templates: `<template>`/`<dynamictemplate>` elements and `[Something]`
-      substitution in strings (see `Templates.cs`).
+      - [x] `<include ref="English.aslx"/>` resolution: game dir first, then
+        bundled Core dir, then Core/Languages (QuestViva's `GetLibraryStream()`
+        order — note game-adjacent wins, unlike the v5 desktop player). Resolved
+        inline during the SAX parse so template precedence matches Quest's
+        source-order processing; dedup + depth guard against cycles
+        (`aslx.cc:Loader::resolve_include`).
+- [x] Bundle the non-editor core libraries as terp resources under
+      `terps/geas/aslx-core/` (`Core.aslx`, `CoreCommands`, `CoreParser`,
+      `CoreOutput`, `CoreTypes`, `CoreScopes`, `CoreDescriptions`,
+      `CoreFunctions`, `CoreTimers`, `CoreTurnScripts`, `CoreStatusAttributes`,
+      `CoreGrid`, `CoreWearable`, `CoreCombat`, `CoreEffects`, `GamebookCore`,
+      `Languages/*.aslx`). All `CoreEditor*.aslx`/`Editor*.aslx` skipped (they
+      are referenced but simply not bundled, so the loader treats a missing
+      `*editor*` ref as a no-op). `.template` files are an editor artifact — not
+      bundled. Copied verbatim from the QuestViva checkout (MIT); refresh recipe
+      in `aslx-core/README.txt`. One version is enough — Core branches on the
+      game's declared `<asl version=>`. The core dir is passed to `load_file` or
+      taken from `$ASLX_CORE`; app wiring will point it at the resource bundle.
+- [~] Templates: `<template>`/`<dynamictemplate>`/`<verbtemplate>` elements are
+      parsed and registered (`World::templates` etc.); `[Something]` substitution
+      in strings is deferred to the script/expression milestone (needs the base
+      template pre-pass from `ScanForTemplates`, and it only matters once strings
+      are evaluated). See `Templates.cs`.
 
 ## 2. WorldModel port (the new engine core)
 
 Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
 
-- [ ] **Element/Fields**: elements of type object, command, function,
+- [x] **Element/Fields**: elements of type object, command, function,
       turnscript, timer, walkthrough, template, delegate, type, javascript…
-      each with a typed field bag. Types needed: string, int, double, bool,
-      object reference, script, stringlist/objectlist, stringdictionary/
-      objectdictionary/scriptdictionary, delegate, null. Use a value variant
-      (precedent: scarier's a5 value types).
-- [ ] **Inheritance**: `<inherit name="type"/>` chains with Quest's field
-      resolution order (own fields → inherited types, most recent first).
+      each with a typed field bag (`aslx::Value` variant: string, int, double,
+      bool, object ref, script, string/object list, string/object/script dict,
+      null). Delegate values not yet a distinct runtime type.
+- [x] **Inheritance**: `<inherit name="type"/>` chains resolved own → inherited
+      types most-recent-first, recursively (`Interp::resolve_field`).
 - [ ] **Change notification**: `changed<attr>` scripts fire on field writes.
 - [ ] **UndoLogger**: per-turn transaction log of field writes / element
       creation-destruction; powers `undo` (maps onto the existing
       `LimitStack` idea, but log-based rather than snapshot-based).
-- [ ] **Script commands** (~45; enumerate `v5:.../Scripts/`): `msg`, `if`,
-      `else if`, `while`, `for`, `foreach`, `switch`, `=` assignment,
-      `set`, `create`/`create exit`, `destroy`, function invocation
-      (statement position), `invoke`, `rundelegate`, `do`, `get input`,
-      `show menu`, `ask`/`Ask`, `wait`, `on ready`, `firsttime`, `picture`,
-      `play sound`/`stop sound`, `JS.*`, `request`, `list add/remove`,
-      `dictionary add/remove`, `undo`, `finish`, `return`, `error`,
-      `create timer`/`enable`/`disable`. Registration table à la
-      `ScriptFactory.cs`.
-- [ ] **Expression evaluator** (the single biggest chunk): replaces FLEE.
-      Hand-written lexer + recursive-descent/Pratt parser over a typed value
-      variant (precedent: a5sexpr in scarier). Semantics to match:
-      - `=` is equality in expressions, `<>` inequality; `and or not`;
-        arithmetic with int→double promotion; `+` concatenates strings;
-      - dot access walks object attributes (`player.parent.alias`);
-        `game`, `player`, `this` resolve as elements;
-      - function calls dispatch to ASLX `<function>` elements *and* the
-        built-ins in `ExpressionOwner.cs` / `StringFunctions.cs` /
-        `DateTimeFunctions.cs` (~150 functions: `GetBoolean`, `HasAttribute`,
-        `ListContains`, `Split`, `TypeOf`, `GetRandomInt`, `Eval`, …);
-      - list/dictionary indexers, `null` literal.
-      Cache compiled expressions per source string (Quest does; also mirrors
-      the `GeasBlock::ensure_cached` lesson — re-parsing per turn was the
-      Quest-4 hotspot too).
+- [~] **Script commands** (~45; enumerate `v5:.../Scripts/`): DONE so far —
+      `msg`, `if`/`else if`/`else`, `while`, `for`, `foreach`, `=` assignment
+      (var and `obj.attr`), function invocation (statement position), `return`,
+      comments (`ScriptFactory.CreateScript` statement splitter ported). TODO —
+      `switch`, `set`, `create`/`create exit`, `destroy`, `invoke`,
+      `rundelegate`, `do`, `get input`, `show menu`, `ask`, `wait`, `on ready`,
+      `firsttime`, `picture`, `play sound`/`stop sound`, `JS.*`, `request`,
+      `list add/remove`, `dictionary add/remove`, `undo`, `finish`, `error`,
+      `create timer`/`enable`/`disable`.
+- [~] **Expression evaluator**: hand-written lexer + recursive-descent parser
+      over `aslx::Value` (`aslx-runtime.cc`), compiled-expression cache per
+      source string. DONE: `=`/`==` equality, `<>`/`!=`, `and or xor not`,
+      `< > <= >=`, `+ - * / %` with int→double promotion, `+` string concat,
+      ternary `?:`, dot member access (`box.capacity`), `[]` list/dict indexers,
+      `null`/`true`/`false` literals, dispatch to ASLX `<function>` elements and
+      ~40 built-ins (`GetBoolean`/`GetInt`/`GetString`/`HasAttribute`/`TypeOf`/
+      `DoesInherit`, `NewList`/`ListCount`/`ListItem`/`ListContains`, `Split`/
+      `Join`/`Left`/`Right`/`Mid`/`Instr`/`Replace`/`LCase`/`UCase`,
+      `CInt`/`CDbl`/`Abs`/`Max`/`Min`/`GetRandomInt`/`GetRandomDouble`). TODO:
+      the remaining ~110 built-ins (`Eval`, DateTime, dictionaries beyond
+      basics), list/dict literals, and multi-word (space-encoded) identifiers.
 - [ ] **Command parsing comes free**: it is implemented in `CoreParser.aslx`.
       Once elements + scripts + expressions + regex support
       (`RegexCache.cs`) work, `look`/`take`/disambiguation all run as
       library code. Needs a regex engine compatible with .NET named groups
       `(?<object1>.*)` — `std::regex` ECMAScript mode covers what Core uses,
       but verify.
-- [ ] **Determinism**: route `GetRandomInt`/`GetRandomDouble` through
-      `erkyrath_random()` under `SPATTERLIGHT` (same policy as every other
-      terp; see `geas-runner.cc:1421`).
+- [x] **Determinism**: `GetRandomInt`/`GetRandomDouble` route through a
+      xoshiro128**+SplitMix32 port of `erkyrath_random()` (`aslx::Rng`, seed
+      1234, byte-identical to `terps/common_utils/randomness.c` and the oracle's
+      `ErkyrathRandom.cs`). App wiring will point it at the real
+      `erkyrath_random()` under `SPATTERLIGHT`; see `geas-runner.cc:1421`.
 
 ## 3. Input and timing model
 
@@ -170,25 +230,35 @@ stays unsupported, as in `quest4.c`.
 
 ## 7. Testing
 
-- [ ] Corpus: there are no Quest 5 games in `~/Desktop/Geas games` — pull
-      from textadventures.co.uk and `if-archive/games/quest`.
-- [ ] Ground truth: build Quest Viva's `src/Engine` headless on macOS
-      (.NET 8) and diff transcripts against ours for identical command
-      scripts — same recipe as `test/a5_groundtruth.sh` vs FrankenDrift.
-- [ ] Many `.quest` games ship `<walkthrough>` elements; the engine's
-      `Walkthrough.cs` shows the format — use them as free regression
-      scripts.
+- [x] Corpus: 49 games + 102 walkthroughs pulled into `~/Downloads`
+      (textadventures.co.uk + if-archive). See the `quest5-corpus` memo.
+- [x] Ground truth: Quest Viva's `src/Engine` builds headless on macOS
+      (.NET 10, `terps/geas/test/quest5-oracle/build.sh` clones + builds
+      `~/questviva-oracle`). `qvh` driver emits normalised transcripts;
+      RNG wired to `erkyrath_random()`. Same recipe as `test/a5_groundtruth.sh`.
+- [x] Walkthrough regression scripts: `.quest` games' shipped walkthroughs
+      (+ Welbourn corpus) extracted by `extract_walkthrough.py`, driven by
+      `run_corpus.sh`; 17 wired (15 win). Frozen as `golden/<Game>.cmd`+`.out`.
 - [ ] Extend `terps/geas/test/`: aslx fixtures with `.cmd`/`.expected`
       goldens under `run_fixtures.sh`, walkthrough runner rows for real
-      games, `make check` stays the gate.
+      games, `make check` stays the gate. (Oracle goldens exist; the native
+      engine still needs its own fixture harness — starts with milestone 1.)
 
 ## 8. Milestones
 
-1. **Loader**: unzip + XML → element tree; dump-elements debug mode.
-2. **Script/expression core**: run a hand-written `.aslx` (msg/if/set/
-   functions) with no Core library.
-3. **Core.aslx boots**: a fresh Quest-editor default game loads; `look`,
-   `take`, `go` work (proves parser-in-ASLX, scopes, templates).
+1. **Loader** ✅ (2026-07-15): unzip + XML → element tree; `dump()` debug mode.
+   `aslx.hh`/`aslx.cc` + `test/aslx_loader_test.cc`; loads all 76 corpus games.
+2. **Script/expression core** ✅ (2026-07-15): runs a hand-written `.aslx`
+   (msg/if/while/for/foreach/`=`/functions/return) with no Core library.
+   `aslx-runtime.*` + `test/aslx_runtime_test.cc`. Expression evaluator, script
+   interpreter, inheritance-aware field resolution, ~40 built-ins, deterministic
+   RNG. Remaining script commands / built-ins tracked in §2.
+3. **Core.aslx boots** (loader half ✅ 2026-07-15): every corpus game plus a
+   fresh default game loads its full Core element tree with 0 errors
+   (`aslx-core/` bundle + inline `<include>` resolution; `listextend`/`list`/
+   delegate-typed attributes handled). `test/aslx_loader_test.cc:test_coreboot`.
+   Remaining half: `look`, `take`, `go` actually running (proves parser-in-ASLX,
+   scopes, templates) — needs template substitution + more script commands.
 4. **Interaction**: get input, menus, wait, timers, undo, save/restore.
 5. **Presentation**: HTML→styles, hyperlinks, panes, pictures, sound.
 6. **Integration**: babel module, Info.plist, Xcode wiring, corpus

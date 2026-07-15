@@ -1,0 +1,31 @@
+<asl version="580">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+
+  <game name="Core Boot Test">
+    <gameid>d0d0cafe-0000-0000-0000-000000000001</gameid>
+    <author>Geas test suite</author>
+  </game>
+
+  <object name="lounge">
+    <inherit name="editor_room" />
+    <object name="player">
+      <inherit name="editor_player" />
+    </object>
+    <object name="chest">
+      <inherit name="editor_object" />
+      <inherit name="openable" />
+    </object>
+  </object>
+
+  <!-- A command with an implicit-typed <multiple>: the command.multiple
+       implied type resolves to the AssociatedScope delegate, so this body is
+       loaded as a delegate-implementation script, not a plain string. -->
+  <command name="pushcmd">
+    <pattern>push #object#</pattern>
+    <multiple>ScopeReachable</multiple>
+    <script>
+      msg ("You push " + object.name + ".")
+    </script>
+  </command>
+</asl>

@@ -1,0 +1,188 @@
+// aslx-runtime-parse.inc -- statement parser for the Quest 5 script language.
+// Textually included at the end of aslx-runtime.cc (same translation unit, so it
+// sees Lexer/Parser/Stmt/Expr and the tokenizer helpers). Mirrors QuestViva's
+// ScriptFactory.CreateScript statement splitting + keyword dispatch.
+
+namespace aslx {
+
+// Substring after the first occurrence of `kw`.
+static std::string text_after(const std::string &s, const std::string &kw) {
+    size_t p = s.find(kw);
+    if (p == std::string::npos) return s;
+    return s.substr(p + kw.size());
+}
+
+// Top-level '=' position for an assignment, ignoring ==, <=, >=, <>, != and
+// anything from the first '{' onward. Returns npos if not an assignment.
+static size_t assign_eq_pos(const std::string &line) {
+    std::string ob = obscure_strings(line);
+    size_t brace = ob.find('{');
+    if (brace != std::string::npos) ob = ob.substr(0, brace);
+    for (size_t i = 0; i < ob.size(); ++i) {
+        if (ob[i] != '=') continue;
+        char prev = i > 0 ? ob[i - 1] : 0;
+        char next = i + 1 < ob.size() ? ob[i + 1] : 0;
+        if (prev == '<' || prev == '>' || prev == '!' || prev == '=') continue;
+        if (next == '=') continue;
+        return i;
+    }
+    return std::string::npos;
+}
+
+static Stmt parse_one_statement(const std::string &line, Interp &interp);
+static std::string get_parameter_wrap(const std::string &s, std::string &after);
+
+// Parse a block of script source into a statement list.
+static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp) {
+    std::vector<Stmt> result;
+    std::string line = remove_comments(remove_surrounding_braces(src));
+
+    while (true) {
+        std::string after;
+        std::string stmt = get_script(line, after);
+        stmt = rt_trim(stmt);
+
+        if (!stmt.empty()) {
+            if (starts_with_word(stmt, "else")) {
+                // Attach to the most recent If.
+                Stmt *last = nullptr;
+                for (auto it = result.rbegin(); it != result.rend(); ++it) {
+                    if (it->kind == Stmt::Kind::If) { last = &*it; break; }
+                    break;  // else must immediately follow its if
+                }
+                if (last) {
+                    std::string rest = rt_trim(text_after(stmt, "else"));
+                    if (starts_with_word(rest, "if")) {
+                        std::string a2, a3;
+                        std::string cond = get_parameter_wrap(rest, a2);
+                        std::string body = get_script(a2, a3);
+                        last->elseifs.emplace_back(compile_expr_str(cond),
+                                                   parse_statements(body, interp));
+                    } else {
+                        last->else_body = parse_statements(rest, interp);
+                        last->has_else = true;
+                    }
+                } else {
+                    interp.errors().push_back("Unexpected 'else': " + stmt);
+                }
+            } else {
+                result.push_back(parse_one_statement(stmt, interp));
+            }
+        }
+
+        line = after;
+        if (rt_trim(line).empty()) break;
+    }
+    return result;
+}
+
+// Small wrapper so the else-if path reads cleanly.
+static std::string get_parameter_wrap(const std::string &s, std::string &after) {
+    bool found;
+    return get_parameter(s, after, found);
+}
+
+static Stmt parse_one_statement(const std::string &line, Interp &interp) {
+    Stmt s;
+
+    if (starts_with_word(line, "//")) { s.kind = Stmt::Kind::Comment; return s; }
+
+    if (starts_with_word(line, "msg")) {
+        s.kind = Stmt::Kind::Msg;
+        std::string after; bool found;
+        std::string p = get_parameter(line, after, found);
+        s.expr = compile_expr_str(found ? p : std::string("\"\""));
+        return s;
+    }
+    if (starts_with_word(line, "return")) {
+        s.kind = Stmt::Kind::Return;
+        std::string after; bool found;
+        std::string p = get_parameter(line, after, found);
+        if (found && !rt_trim(p).empty()) s.expr = compile_expr_str(p);
+        return s;
+    }
+    if (starts_with_word(line, "if")) {
+        s.kind = Stmt::Kind::If;
+        std::string after; bool found;
+        std::string cond = get_parameter(line, after, found);
+        std::string bafter; std::string body = get_script(after, bafter);
+        s.expr = compile_expr_str(cond);
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+    if (starts_with_word(line, "while")) {
+        s.kind = Stmt::Kind::While;
+        std::string after; bool found;
+        std::string cond = get_parameter(line, after, found);
+        std::string bafter; std::string body = get_script(after, bafter);
+        s.expr = compile_expr_str(cond);
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+    if (starts_with_word(line, "foreach")) {
+        s.kind = Stmt::Kind::ForEach;
+        std::string after; bool found;
+        std::string param = get_parameter(line, after, found);
+        std::string bafter; std::string body = get_script(after, bafter);
+        auto parts = split_parameters(param);
+        if (parts.size() == 2) {
+            s.name = parts[0];
+            s.list = compile_expr_str(parts[1]);
+        } else {
+            interp.errors().push_back("'foreach' needs 2 parameters");
+        }
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+    if (starts_with_word(line, "for")) {
+        s.kind = Stmt::Kind::For;
+        std::string after; bool found;
+        std::string param = get_parameter(line, after, found);
+        std::string bafter; std::string body = get_script(after, bafter);
+        auto parts = split_parameters(param);
+        if (parts.size() == 3 || parts.size() == 4) {
+            s.name = parts[0];
+            s.from = compile_expr_str(parts[1]);
+            s.to = compile_expr_str(parts[2]);
+            if (parts.size() == 4) s.step = compile_expr_str(parts[3]);
+        } else {
+            interp.errors().push_back("'for' needs 3 or 4 parameters");
+        }
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+
+    // Assignment: "x = expr" or "obj.prop = expr".
+    size_t eq = assign_eq_pos(line);
+    if (eq != std::string::npos) {
+        s.kind = Stmt::Kind::Assign;
+        std::string lhs = rt_trim(line.substr(0, eq));
+        std::string rhs = rt_trim(line.substr(eq + 1));
+        size_t dot = lhs.rfind('.');
+        if (dot == std::string::npos) {
+            s.name = lhs;
+        } else {
+            s.obj = compile_expr_str(lhs.substr(0, dot));
+            s.name = rt_trim(lhs.substr(dot + 1));
+        }
+        s.expr = compile_expr_str(rhs);
+        return s;
+    }
+
+    // Otherwise a function call: "Name (args)" or bare "Name".
+    s.kind = Stmt::Kind::Call;
+    std::string after; bool found;
+    std::string param = get_parameter(line, after, found);
+    if (found) {
+        size_t paren = line.find('(');
+        s.name = rt_trim(line.substr(0, paren));
+        if (!rt_trim(param).empty())
+            for (const std::string &a : split_parameters(param))
+                s.call_args.push_back(compile_expr_str(a));
+    } else {
+        s.name = rt_trim(line);
+    }
+    return s;
+}
+
+}  // namespace aslx

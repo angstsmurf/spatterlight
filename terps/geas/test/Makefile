@@ -20,7 +20,20 @@ TESTBIN := geas_unit_tests
 TESTSRC := geas_unit_tests.cc
 DEPS := $(wildcard ../*.cc ../*.hh)
 
-all: $(BIN) $(TESTBIN)
+# Quest 5 (.aslx / .quest) milestone-1 loader test. It compiles ../aslx.cc via a
+# unity include and links libexpat + zlib (the loader's only external deps).
+ASLXBIN := aslx_loader_test
+ASLXSRC := aslx_loader_test.cc
+ASLXDEPS := ../aslx.cc ../aslx.hh
+ASLXLIBS := -lexpat -lz
+
+# Quest 5 milestone-2 script/expression runtime test.
+ASLXRTBIN := aslx_runtime_test
+ASLXRTSRC := aslx_runtime_test.cc
+ASLXRTDEPS := ../aslx.cc ../aslx.hh ../aslx-runtime.cc ../aslx-runtime.hh \
+              ../aslx-runtime-parse.inc ../aslx-runtime-builtins.inc
+
+all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 
 $(BIN): $(SRC) $(DEPS)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $@
@@ -28,17 +41,29 @@ $(BIN): $(SRC) $(DEPS)
 $(TESTBIN): $(TESTSRC) $(DEPS)
 	$(CXX) $(CXXFLAGS) $(TESTSRC) -o $@
 
-check: $(BIN) $(TESTBIN)
+$(ASLXBIN): $(ASLXSRC) $(ASLXDEPS)
+	$(CXX) $(CXXFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $@
+
+$(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
+	$(CXX) $(CXXFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $@
+
+check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 	./$(TESTBIN)
+	./$(ASLXBIN)
+	./$(ASLXRTBIN)
 	./run_fixtures.sh
 
 asan: $(SRC) $(TESTSRC) $(DEPS)
 	$(CXX) $(ASANFLAGS) $(TESTSRC) -o $(TESTBIN)
 	$(CXX) $(ASANFLAGS) $(SRC) -o $(BIN)
+	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $(ASLXBIN)
+	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
 	./$(TESTBIN)
+	./$(ASLXBIN)
+	./$(ASLXRTBIN)
 	./run_fixtures.sh
 
 clean:
-	rm -f $(BIN) $(TESTBIN)
+	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 
 .PHONY: all check asan clean

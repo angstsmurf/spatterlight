@@ -1,0 +1,66 @@
+<!--A hand-written ASLX fixture for the milestone-1 loader test.-->
+<asl version="550">
+  <implied element="object" property="displayverbs" type="simplestringlist" />
+  <implied element="command" property="pattern" type="simplepattern" />
+  <implied element="command" property="script" type="script" />
+  <template name="Take">Take</template>
+  <game name="Hello Quest">
+    <gameid>11111111-2222-3333-4444-555555555555</gameid>
+    <author>Test Author</author>
+    <version>1.2.0</version>
+    <showscore />
+    <start type="script">
+      msg ("Welcome!")
+    </start>
+    <maxscore type="int">50</maxscore>
+  </game>
+  <object name="room">
+    <inherit name="editor_room" />
+    <isroom type="boolean">true</isroom>
+    <object name="player">
+      <inherit name="editor_player" />
+      <isplayer />
+    </object>
+    <object name="lamp">
+      <look>A brass lamp.</look>
+      <displayverbs type="simplestringlist">Look; Take; Rub</displayverbs>
+      <take type="script">
+        msg ("You take the lamp.")
+        MoveObject (lamp, player)
+      </take>
+      <weight type="int">3</weight>
+      <price type="double">4.5</price>
+    </object>
+    <exit alias="north" to="hall">
+      <look>A doorway leads north.</look>
+    </exit>
+  </object>
+  <object name="hall">
+    <cmdlist type="stringlist">
+      <value>look</value>
+      <value>wait</value>
+    </cmdlist>
+    <mapping type="stringdictionary">
+      <item><key>a</key><value>alpha</value></item>
+      <item><key>b</key><value>beta</value></item>
+    </mapping>
+  </object>
+  <command name="rublamp">
+    <pattern>rub #object#; polish #object#</pattern>
+    <script>
+      msg ("Nothing happens.")
+    </script>
+  </command>
+  <verb>
+    <property>xyzzy</property>
+    <pattern>xyzzy</pattern>
+    You wave your hands mysteriously.
+  </verb>
+  <function name="MoveObject" parameters="obj, dest" type="boolean">
+    obj.parent = dest
+    return (true)
+  </function>
+  <walkthrough name="main">
+    <steps type="simplestringlist">north; take lamp; rub lamp</steps>
+  </walkthrough>
+</asl>
