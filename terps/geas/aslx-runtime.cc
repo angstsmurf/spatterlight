@@ -6,10 +6,126 @@
 #include <cctype>
 #include <cmath>
 #include <cstdlib>
+#include <regex>
 #include <sstream>
 #include <stdexcept>
 
 namespace aslx {
+
+// ===========================================================================
+// Regex support for the parser primitives (IsRegexMatch/GetMatchStrength/
+// Populate). Quest patterns are .NET regexes with named groups, e.g. the
+// simplepattern "take #object#" compiles to "^take (?<object>.*)$". std::regex
+// (ECMAScript) has no named-group syntax, so we rewrite "(?<name>" to a plain
+// "(" and record the group name by capture index. Lookahead/non-capturing
+// groups are passed through untouched and do not consume a capture index.
+// See QuestViva Utility.IsRegexMatch/GetMatchStrength/Populate + RegexCache.cs.
+// ===========================================================================
+
+struct CompiledRegex {
+    std::regex re;
+    // names[k] is the name of capture group k+1 ("" for an unnamed group).
+    std::vector<std::string> names;
+    bool valid = false;
+};
+
+// Rewrite a .NET pattern into an ECMAScript one, filling `names`. Distinguishes
+// the named-group "(?<name>" / "(?'name'" from lookbehind "(?<=" / "(?<!" and
+// from non-capturing/lookahead "(?:" "(?=" "(?!". Skips escapes and character
+// classes so a literal "(" inside "[...]" or after "\" is not miscounted.
+static std::string rewrite_dotnet_regex(const std::string &pat,
+                                        std::vector<std::string> &names) {
+    std::string out;
+    size_t i = 0, n = pat.size();
+    bool in_class = false;
+    while (i < n) {
+        char c = pat[i];
+        if (c == '\\') {  // escape: copy the pair verbatim
+            out += c;
+            if (i + 1 < n) out += pat[i + 1];
+            i += 2;
+            continue;
+        }
+        if (in_class) {
+            out += c;
+            if (c == ']') in_class = false;
+            ++i;
+            continue;
+        }
+        if (c == '[') { in_class = true; out += c; ++i; continue; }
+        if (c == '(') {
+            if (i + 1 < n && pat[i + 1] == '?') {
+                // (?<name>  or  (?'name'  -> a named capture group
+                bool angle = (i + 2 < n && pat[i + 2] == '<' && i + 3 < n &&
+                              pat[i + 3] != '=' && pat[i + 3] != '!');
+                bool quote = (i + 2 < n && pat[i + 2] == '\'');
+                if (angle || quote) {
+                    char close = angle ? '>' : '\'';
+                    size_t j = i + 3;
+                    std::string name;
+                    while (j < n && pat[j] != close) name += pat[j++];
+                    names.push_back(name);
+                    out += '(';
+                    i = (j < n) ? j + 1 : j;  // skip the closing '>' / '\''
+                    continue;
+                }
+                // (?: (?= (?! (?<= (?<! : pass through, no capture index
+                out += c;
+                ++i;
+                continue;
+            }
+            names.push_back("");  // plain capturing group
+            out += c;
+            ++i;
+            continue;
+        }
+        out += c;
+        ++i;
+    }
+    return out;
+}
+
+static std::shared_ptr<CompiledRegex> build_regex(const std::string &pattern,
+                                                  std::vector<std::string> &errors) {
+    auto cr = std::make_shared<CompiledRegex>();
+    std::string rewritten = rewrite_dotnet_regex(pattern, cr->names);
+    try {
+        cr->re.assign(rewritten, std::regex::ECMAScript | std::regex::icase);
+        cr->valid = true;
+    } catch (const std::regex_error &e) {
+        errors.push_back("Invalid regex '" + pattern + "': " + e.what());
+    }
+    return cr;
+}
+
+// Resolve the named groups to (name, value) pairs in first-appearance order,
+// with .NET's semantics for repeated names: two groups sharing a name (as in a
+// "take (?<object>.*)|get (?<object>.*)" alternation) are one logical group
+// whose value is the last successful capture. std::regex keeps them as distinct
+// numbered groups, so we coalesce here.
+static std::vector<std::pair<std::string, std::string>> named_groups(
+        const CompiledRegex &cr, const std::smatch &m) {
+    std::vector<std::pair<std::string, std::string>> out;
+    for (size_t k = 0; k < cr.names.size(); ++k) {
+        const std::string &name = cr.names[k];
+        if (name.empty()) continue;
+        auto it = std::find_if(out.begin(), out.end(),
+                               [&](const auto &p) { return p.first == name; });
+        // Only overwrite a previously-stored value when this group matched
+        // (last successful capture wins; an unmatched later group is ignored).
+        if (it == out.end()) out.emplace_back(name, m[k + 1].str());
+        else if (m[k + 1].matched) it->second = m[k + 1].str();
+    }
+    return out;
+}
+
+// Sum the lengths captured by the (coalesced) named groups, matching
+// Utility.GetMatchStrengthInternal (unnamed/numbered groups are excluded).
+static int named_group_len(const CompiledRegex &cr, const std::smatch &m) {
+    int total = 0;
+    for (const auto &g : named_groups(cr, m)) total += (int)g.second.size();
+    return total;
+}
 
 // ===========================================================================
 // Deterministic RNG (xoshiro128** + SplitMix32), matching erkyrath_random().
@@ -136,11 +252,23 @@ static std::string rt_trim(const std::string &s) {
 
 // Replace the contents of each "..." string with dashes, keeping the quotes and
 // everything outside strings unchanged, so structural scans ignore string bodies.
+// Replace the contents of every double-quoted string with '-' so structural
+// scanning (braces, newlines, "//") ignores anything inside a literal. A
+// backslash escapes the next character -- in particular "\"" is a literal quote,
+// not a terminator -- matching QuestViva's Utility.SplitQuotes (the backslash
+// "don't process the next character" rule). Length is preserved so positions in
+// the obscured string map back to the original.
 static std::string obscure_strings(const std::string &in) {
     std::string out;
     out.reserve(in.size());
     bool inq = false;
-    for (char c : in) {
+    for (size_t i = 0; i < in.size(); ++i) {
+        char c = in[i];
+        if (c == '\\') {  // backslash + next char are literal, never a quote
+            out += inq ? '-' : c;
+            if (i + 1 < in.size()) { out += inq ? '-' : in[i + 1]; ++i; }
+            continue;
+        }
         if (c == '"') { out += '"'; inq = !inq; }
         else out += inq ? '-' : c;
     }
@@ -234,19 +362,21 @@ static std::string remove_surrounding_braces(const std::string &input) {
     return s;
 }
 
-// Strip // line comments, respecting string literals.
+// Strip // line comments, respecting string literals (a "//" inside a quoted
+// string is not a comment). Uses obscure_strings so backslash-escaped quotes are
+// handled the same way the statement splitter handles them.
 static std::string remove_comments(const std::string &input) {
+    std::string ob = obscure_strings(input);
     std::string out;
-    bool inq = false;
+    out.reserve(input.size());
     for (size_t i = 0; i < input.size(); ++i) {
-        char c = input[i];
-        if (c == '"') { inq = !inq; out += c; continue; }
-        if (!inq && c == '/' && i + 1 < input.size() && input[i + 1] == '/') {
+        if (ob[i] == '/' && i + 1 < input.size() && ob[i + 1] == '/') {
+            // Skip to end of line (the comment); keep the newline itself.
             while (i < input.size() && input[i] != '\n') ++i;
             if (i < input.size()) out += '\n';
             continue;
         }
-        out += c;
+        out += input[i];
     }
     return out;
 }
@@ -307,8 +437,24 @@ struct Lexer {
         ++i;  // opening quote
         std::string s;
         while (i < src.size() && src[i] != '"') {
-            // ASLX strings do not use backslash escapes; a doubled "" is rare.
-            s += src[i++];
+            char c = src[i];
+            // Backslash escapes, matching Parlot's StringLiteralQuotes decoding
+            // used by QuestNCalcLogicalExpressionParser. Core relies on \" \' \\
+            // (the last so "\\D" yields the regex \D); an unknown escape keeps
+            // the following character verbatim.
+            if (c == '\\' && i + 1 < src.size()) {
+                char n = src[i + 1];
+                switch (n) {
+                case 'n': s += '\n'; break;
+                case 't': s += '\t'; break;
+                case 'r': s += '\r'; break;
+                default:  s += n;    break;  // " ' \ and anything else: literal
+                }
+                i += 2;
+                continue;
+            }
+            s += c;
+            ++i;
         }
         if (i < src.size()) ++i;  // closing quote
         toks.push_back({Tok::T::Str, s});
@@ -398,12 +544,25 @@ struct Parser {
     }
 
     ExprP parse_logical() {
-        ExprP l = parse_equality();
+        ExprP l = parse_not();
         while (is_kw("and") || is_kw("or") || is_kw("xor")) {
             std::string op = cur().s; advance();
-            l = bin(op, l, parse_equality());
+            l = bin(op, l, parse_not());
         }
         return l;
+    }
+    // Logical NOT binds looser than equality/comparison, so "not x = null" is
+    // "not (x = null)" -- matching QuestViva's notOperator level, which sits
+    // between and/or and equality (not the tight unary "-"). See
+    // QuestNCalcLogicalExpressionParser (the grammar comment on notOperator).
+    ExprP parse_not() {
+        if (is_kw("not") || is_op("!")) {
+            advance();
+            auto e = std::make_shared<Expr>();
+            e->kind = Expr::Kind::Unary; e->str = "not"; e->a = parse_not();
+            return e;
+        }
+        return parse_equality();
     }
     ExprP parse_equality() {
         ExprP l = parse_relational();
@@ -439,8 +598,10 @@ struct Parser {
         return l;
     }
     ExprP parse_unary() {
-        if (is_op("-") || is_op("!") || is_kw("not")) {
-            std::string op = is_kw("not") ? "not" : cur().s;
+        // Only arithmetic negation binds tightly here; logical "not" is handled
+        // at parse_not (looser than equality).
+        if (is_op("-")) {
+            std::string op = cur().s;
             advance();
             auto e = std::make_shared<Expr>();
             e->kind = Expr::Kind::Unary; e->str = op; e->a = parse_unary();
@@ -554,7 +715,11 @@ static ExprP compile_expr_str(const std::string &src) {
     Lexer lex(src);
     lex.lex();
     Parser parser(lex.toks);
-    return parser.parse();
+    try {
+        return parser.parse();
+    } catch (const std::runtime_error &err) {
+        throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
+    }
 }
 
 // ===========================================================================
@@ -599,13 +764,30 @@ Interp::Interp(World &world) : world_(world) {
 }
 Interp::~Interp() = default;
 
+std::shared_ptr<CompiledRegex> Interp::compiled_regex(const std::string &pattern,
+                                                      const std::string *cache_id) {
+    if (cache_id) {
+        auto it = regex_cache_.find(*cache_id);
+        if (it != regex_cache_.end()) return it->second;  // hit: pattern ignored
+        auto cr = build_regex(pattern, world_.errors);
+        regex_cache_[*cache_id] = cr;
+        return cr;
+    }
+    return build_regex(pattern, world_.errors);  // no cacheID: compile fresh
+}
+
 std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
     auto it = expr_cache_.find(src);
     if (it != expr_cache_.end()) return it->second;
     Lexer lex(src);
     lex.lex();
     Parser parser(lex.toks);
-    ExprP e = parser.parse();
+    ExprP e;
+    try {
+        e = parser.parse();
+    } catch (const std::runtime_error &err) {
+        throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
+    }
     expr_cache_[src] = e;
     return e;
 }
@@ -658,7 +840,15 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     case Stmt::Kind::Comment: return;
     case Stmt::Kind::Msg: {
         Value v = eval_expr(*s.expr, ctx);
-        print(to_string(v) + "\n");
+        std::string text = to_string(v);
+        // v540+ routes msg through Core's OutputText so the {...} text processor
+        // runs (QuestViva WorldModel.PrintAsync). Without Core (unit tests) or on
+        // older games, print directly. OutputText ends at JS.addText -> print.
+        Element *ot = world_.find("OutputText");
+        if (world_.asl_version >= 540 && ot && ot->elem_type == "function")
+            call_function("OutputText", {vstr(text)}, &ctx);
+        else
+            print(text + "\n");
         return;
     }
     case Stmt::Kind::Return: {
@@ -701,7 +891,8 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         std::vector<std::string> items;
         if (is_list(lst)) items = lst.list;
         else if (lst.type == Value::Type::StringDict ||
-                 lst.type == Value::Type::ObjectDict) {
+                 lst.type == Value::Type::ObjectDict ||
+                 lst.type == Value::Type::ScriptDict) {
             for (auto &kv : lst.dict) items.push_back(kv.first);
         } else {
             errors().push_back("Cannot foreach over non-list");
@@ -724,7 +915,8 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
             Value ov = eval_expr(*s.obj, ctx);
             Element *e = interp_eval_element(*this, ov);
             if (e) e->set_field(s.name, val);
-            else errors().push_back("Assignment to attribute of non-object");
+            else errors().push_back("Assignment to attribute '" + s.name +
+                                    "' of a non-object");
         }
         return;
     }
@@ -1020,6 +1212,13 @@ bool Interp::exec_statement_command(const std::string &name,
             print(to_string(ev(0)));
         return true;
     }
+
+    // request (RequestType, data): a player-UI request (RequestScript). The
+    // first argument is a bare enum identifier (Speak, Quit, Show, ...) that is
+    // not a resolvable expression, so we must NOT evaluate the args -- headless
+    // ignores UI requests (a later presentation milestone wires the handful Core
+    // relies on). Same for `request` with a callback and RequestSave.
+    if (name == "request") return true;
 
     if (name == "do") {
         Element *obj = as_element(ev(0));

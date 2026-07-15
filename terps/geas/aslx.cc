@@ -105,6 +105,11 @@ Element *World::create_object(const std::string &name, const std::string &type) 
     Element *ep = e.get();
     ep->elem_type = "object";
     ep->name = name;
+    // Every runtime-created object inherits defaultobject (lowest priority),
+    // then the caller's explicit type -- QuestViva ObjectFactory.CreateObject
+    // inserts the default type at the front of initialTypes. resolve_field skips
+    // it in a Core-less game that never defines defaultobject.
+    ep->inherits.push_back("defaultobject");
     if (!type.empty()) ep->inherits.push_back(type);
     roots.push_back(ep);
     by_name[name] = ep;            // last create wins, like ObjectFactory
@@ -436,8 +441,21 @@ struct Loader {
         ep->name = name;
         ep->anonymous = anonymous;
         ep->parent = current();
-        if (ep->parent) ep->parent->children.push_back(ep);
-        else world.roots.push_back(ep);
+        if (ep->parent) {
+            ep->parent->children.push_back(ep);
+            // Expose containment as a `parent` ObjectRef field, the way QuestViva
+            // stores it (FieldDefinitions.Parent). Core reads/writes obj.parent
+            // pervasively (scope, MoveObject); the runtime derives children from
+            // this field so it stays correct after a runtime move.
+            if (!ep->parent->name.empty()) {
+                Value pv;
+                pv.type = Value::Type::ObjectRef;
+                pv.str = ep->parent->name;
+                ep->set_field("parent", pv);
+            }
+        } else {
+            world.roots.push_back(ep);
+        }
         if (!name.empty() && !world.find(name)) world.by_name[name] = ep;
         world.elements.push_back(std::move(e));
         return ep;
@@ -1001,9 +1019,32 @@ static std::string resolve_core_dir(const std::string &explicit_dir) {
     return env ? std::string(env) : std::string();
 }
 
+// Apply the implicit default type every element gets by its kind, mirroring
+// QuestViva's ObjectFactory.CreateObject + WorldModel.DefaultTypeNames: an
+// object inherits defaultobject, the game inherits defaultgame, and so on. The
+// default type is prepended (lowest priority) so game-declared and user types
+// override it. A Core-less game never defines these types, so resolve_field
+// simply skips the missing name -- harmless.
+static void apply_default_types(World &world) {
+    for (auto &up : world.elements) {
+        const std::string &t = up->elem_type;
+        const char *dt = nullptr;
+        if (t == "object") dt = "defaultobject";
+        else if (t == "game") dt = "defaultgame";
+        else if (t == "exit") dt = "defaultexit";
+        else if (t == "command" || t == "verb") dt = "defaultcommand";
+        else if (t == "turnscript") dt = "defaultturnscript";
+        if (!dt) continue;
+        auto &inh = up->inherits;
+        if (std::find(inh.begin(), inh.end(), dt) == inh.end())
+            inh.insert(inh.begin(), dt);
+    }
+}
+
 static bool finish_load(Loader &ld, World &world) {
     if (world.asl_version == 0)
         world.errors.push_back("no ASL version found (missing <asl version=>)");
+    apply_default_types(world);
     // A genuinely broken load surfaces as an XML/parse error or a missing
     // version; unresolved includes and per-field warnings are non-fatal.
     (void)ld;

@@ -67,6 +67,15 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     auto obj_of = [&](const Value &v) -> Element * {
         return v.type == Value::Type::ObjectRef ? world_.find(v.str) : nullptr;
     };
+    // The current containment parent, read from the (own) `parent` field so a
+    // runtime MoveObject (which sets obj.parent) is reflected -- not the static
+    // load-time Element::parent pointer.
+    auto parent_of = [&](Element *e) -> Element * {
+        if (!e) return nullptr;
+        const Value *p = e->field("parent");
+        return (p && p->type == Value::Type::ObjectRef) ? world_.find(p->str)
+                                                        : nullptr;
+    };
     auto sarg = [&](size_t i) { return to_string(arg(i)); };
     auto iarg = [&](size_t i) { return (long)std::llround(as_double(arg(i))); };
 
@@ -109,10 +118,27 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         const Value *f = resolve_field(obj_of(arg(0)), sarg(1));
         return vbool(f && f->type == Value::Type::ObjectRef);
     }
+    if (fn == "hasdouble" && n == 2) {
+        const Value *f = resolve_field(obj_of(arg(0)), sarg(1));
+        return vbool(f && f->type == Value::Type::Double);
+    }
+    // HasScript / HasDelegateImplementation: a field of Script type. We store a
+    // delegate-implementation body as Script too, so both map to the same check.
+    if ((fn == "hasscript" || fn == "hasdelegateimplementation") && n == 2) {
+        const Value *f = resolve_field(obj_of(arg(0)), sarg(1));
+        return vbool(f && f->type == Value::Type::Script);
+    }
     if (fn == "getobject" && n == 1) {
         Element *e = world_.find(sarg(0));
-        return e ? vobj(e->name) : vnull();
+        return e && e->elem_type == "object" ? vobj(e->name) : vnull();
     }
+    if (fn == "gettimer" && n == 1) {
+        Element *e = world_.find(sarg(0));
+        return e && e->elem_type == "timer" ? vobj(e->name) : vnull();
+    }
+    // GetUIOption: player-UI configuration lookup. Headless has no overrides, so
+    // every option reads back empty (Core's "= true"/LengthOf > 0 guards fail).
+    if (fn == "getuioption" && n == 1) return vstr(std::string());
     if (fn == "doesinherit" && n == 2)
         return vbool(does_inherit(world_, obj_of(arg(0)), sarg(1)));
     if (fn == "typeof" && n == 1) return vstr(type_name(arg(0)));
@@ -122,6 +148,17 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
     if (fn == "isdefined" && n == 1)
         return vbool(ctx.locals.count(sarg(0)) > 0);
+    // Eval(expr[, scope]): evaluate an expression string, optionally with a
+    // dictionary supplying local variables (QuestViva ExpressionOwner.Eval). The
+    // text processor's {=...} uses this; ParamsForTextProcessor is usually empty.
+    if (fn == "eval" && (n == 1 || n == 2)) {
+        Context local;
+        if (n == 2)
+            for (auto &kv : arg(1).dict)
+                local.locals[kv.first] = arg(1).type == Value::Type::ObjectDict
+                                             ? vobj(kv.second) : vstr(kv.second);
+        return eval(sarg(0), local);
+    }
 
     // ---- world model: objects, children, attributes -----------------------
     if (fn == "allobjects" && n == 0) {
@@ -136,20 +173,40 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (up->elem_type == "command") names.push_back(up->name);
         return vobjlist(names);
     }
+    if (fn == "allexits" && n == 0) {
+        std::vector<std::string> names;
+        for (auto &up : world_.elements)
+            if (up->elem_type == "exit") names.push_back(up->name);
+        return vobjlist(names);
+    }
+    if (fn == "allturnscripts" && n == 0) {
+        std::vector<std::string> names;
+        for (auto &up : world_.elements)
+            if (up->elem_type == "turnscript") names.push_back(up->name);
+        return vobjlist(names);
+    }
     if (fn == "getdirectchildren" && n == 1) {
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
         if (e)
-            for (Element *c : e->children)
-                if (c->elem_type == "object") names.push_back(c->name);
+            for (auto &up : world_.elements)
+                if (up->elem_type == "object" && parent_of(up.get()) == e)
+                    names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "getallchildobjects" && n == 1) {
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
+        // Recurse through the parent-field tree. A visited set guards against a
+        // cycle introduced by a bad runtime parent assignment.
         std::function<void(Element *)> rec = [&](Element *x) {
-            for (Element *c : x->children)
-                if (c->elem_type == "object") { names.push_back(c->name); rec(c); }
+            for (auto &up : world_.elements) {
+                if (up->elem_type != "object" || parent_of(up.get()) != x) continue;
+                if (std::find(names.begin(), names.end(), up->name) != names.end())
+                    continue;
+                names.push_back(up->name);
+                rec(up.get());
+            }
         };
         if (e) rec(e);
         return vobjlist(names);
@@ -157,7 +214,9 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "contains" && n == 2) {
         Element *parent = obj_of(arg(0)), *child = obj_of(arg(1));
         bool found = false;
-        for (Element *p = child ? child->parent : nullptr; p; p = p->parent)
+        int guard = 0;
+        for (Element *p = parent_of(child); p && guard < 10000;
+             p = parent_of(p), ++guard)
             if (p == parent) { found = true; break; }
         return vbool(found);
     }
@@ -382,6 +441,41 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vbool(end && *end == 0);
     }
 
+    // ---- regex (parser primitives) ----------------------------------------
+    // IsRegexMatch/GetMatchStrength/Populate mirror QuestViva's Utility.*; the
+    // optional 3rd arg is a RegexCache cacheID (the command name). See the
+    // rewrite_dotnet_regex note at the top of aslx-runtime.cc.
+    if (fn == "isregexmatch" && (n == 2 || n == 3)) {
+        std::string cid = sarg(2);
+        auto cr = compiled_regex(sarg(0), n == 3 ? &cid : nullptr);
+        if (!cr->valid) return vbool(false);
+        return vbool(std::regex_search(sarg(1), cr->re));
+    }
+    if (fn == "getmatchstrength" && (n == 2 || n == 3)) {
+        std::string cid = sarg(2), input = sarg(1);
+        auto cr = compiled_regex(sarg(0), n == 3 ? &cid : nullptr);
+        std::smatch m;
+        if (!cr->valid || !std::regex_search(input, m, cr->re)) {
+            world_.errors.push_back("String '" + input +
+                                    "' is not a match for Regex '" + sarg(0) + "'");
+            return vint((long)input.size());
+        }
+        return vint((long)input.size() - named_group_len(*cr, m));
+    }
+    if (fn == "populate" && (n == 2 || n == 3)) {
+        std::string cid = sarg(2), input = sarg(1);
+        auto cr = compiled_regex(sarg(0), n == 3 ? &cid : nullptr);
+        Value out; out.type = Value::Type::StringDict;
+        std::smatch m;
+        if (!cr->valid || !std::regex_search(input, m, cr->re)) {
+            world_.errors.push_back("String '" + input +
+                                    "' is not a match for Regex '" + sarg(0) + "'");
+            return out;
+        }
+        out.dict = named_groups(*cr, m);
+        return out;
+    }
+
     // ---- numbers ----------------------------------------------------------
     auto num_of = [&](const Value &v) -> double {
         if (v.type == Value::Type::String) return std::strtod(v.str.c_str(), nullptr);
@@ -389,6 +483,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     };
     if (fn == "cint" && n == 1) return vint((long)std::llround(num_of(arg(0))));
     if (fn == "cdbl" && n == 1) return vdouble(num_of(arg(0)));
+    // ToInt/ToDouble parse a string; ToString formats a number. (CInt/CDbl
+    // coerce any value; ToInt/ToDouble are the string-parse forms.)
+    if (fn == "toint" && n == 1) return vint((long)std::llround(num_of(arg(0))));
+    if (fn == "todouble" && n == 1) return vdouble(num_of(arg(0)));
+    if (fn == "tostring" && n == 1) return vstr(to_string(arg(0)));
     if (fn == "abs" && n == 1) {
         if (arg(0).type == Value::Type::Int) return vint(std::labs(arg(0).integer));
         return vdouble(std::fabs(as_double(arg(0))));

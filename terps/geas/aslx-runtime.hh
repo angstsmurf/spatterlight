@@ -44,6 +44,12 @@ struct Rng {
 struct Expr;
 struct Stmt;
 
+// A .NET-flavoured regex compiled for std::regex, plus the ordered names of its
+// capture groups (empty string for an unnamed group). Defined in the .cc; the
+// parser primitives (IsRegexMatch/GetMatchStrength/Populate) use it. Mirrors
+// QuestViva's RegexCache entry (System.Text.RegularExpressions.Regex).
+struct CompiledRegex;
+
 // The interpreter: owns the loaded World, an output sink, and the RNG.
 class Interp {
 public:
@@ -94,6 +100,14 @@ private:
     // Compiled-statement cache, keyed by source string (Quest caches too).
     std::map<std::string, std::shared_ptr<std::vector<Stmt>>> script_cache_;
     std::map<std::string, std::shared_ptr<Expr>> expr_cache_;
+
+    // Compiled-regex cache, keyed by the caller's cacheID (Quest's RegexCache
+    // keys on cacheID alone -- the command name -- ignoring the pattern text on
+    // a hit). The 2-arg IsRegexMatch/etc forms with no cacheID compile fresh.
+    std::map<std::string, std::shared_ptr<CompiledRegex>> regex_cache_;
+    // Compile `pattern`, or return the cache entry for `*cache_id` if present.
+    std::shared_ptr<CompiledRegex> compiled_regex(const std::string &pattern,
+                                                  const std::string *cache_id);
 
     std::shared_ptr<std::vector<Stmt>> compile_script(const std::string &src);
     std::shared_ptr<Expr> compile_expr(const std::string &src);

@@ -67,15 +67,68 @@
     - Tests: `test/aslx_runtime_test.cc:test_script_commands` +
       `:test_new_builtins` (fixture `runtime.aslx` gained a template, a
       dynamictemplate, and an object script).
-  - Still open for M3: routing `msg` through Core's `OutputText` (v540+) so the
-    `{...}` text processor runs, the listextend merge-on-read in field
-    resolution, game-local libraries bundled *inside* a `.quest` zip (only the
-    Core dir resolves for packaged games today), change scripts, UndoLogger,
-    `get input`/`show menu`/`ask`/`wait`, command-template patterns (`[look]`
-    in a `pattern=`) and the `IsRegexMatch`/`GetMatchStrength`/`Populate`
-    parser primitives, the game-boot driver (`InitInterface` → `StartGame` →
-    `HandleCommand`), and multi-word (space-encoded) identifiers. Then
-    `look`/`take`/`go` running as Core library code. Milestones 3 (rest)–5
+  - **M3 parser primitives: regex landed** (2026-07-15): `IsRegexMatch`,
+    `GetMatchStrength`, `Populate` (each in the 2-arg and 3-arg/cacheID forms)
+    port `Utility.IsRegexMatch/GetMatchStrength/Populate` + `RegexCache.cs`. The
+    core wrinkle: Quest patterns are .NET regexes with named groups
+    (`^look at (?<object1>.*)$`) and `std::regex` (ECMAScript) has no named-group
+    syntax, so `rewrite_dotnet_regex` (aslx-runtime.cc) strips `(?<name>`/
+    `(?'name'` to plain `(` and records the group name by capture index, leaving
+    non-capturing/lookaround groups untouched. Repeated names across an
+    alternation (`take (?<object>.*)|get (?<object>.*)`) are coalesced to one
+    logical group with .NET's last-successful-capture value (`named_groups`).
+    Matching is `regex_search` (search, not full-match, mirroring .NET `Match`)
+    with `icase`; the `RegexCache` keys on cacheID alone (pattern ignored on a
+    hit), so the no-cacheID forms compile fresh. Wired as
+    `test/aslx_runtime_test.cc:test_regex_primitives`; `make check` green, clean
+    under ASan/UBSan; the 76-game 0-error load invariant is preserved. This
+    proves `std::regex` ECMAScript covers what CoreParser's simplepattern regexes
+    need (§2 "Command parsing comes free" caveat resolved for the common case).
+  - **M3 boot pipeline: the game boots and renders through Core** (2026-07-15):
+    a fresh game plus the full Core library now runs `InitInterface` +
+    `StartGame` + the `on ready` queue with **zero script errors**, and the
+    opening title + room description come out through Core's own `{...}` text
+    processor. Regression: `test/aslx_runtime_test.cc:test_coreboot_runs`
+    (`make check` green, clean under ASan/UBSan; 76-game 0-error load preserved).
+    Landed to get there, all traced empirically by running Core and fixing what
+    it hit:
+    - **`msg` → `OutputText`** (v540+): `msg` now calls Core's `OutputText`
+      (which runs `ProcessText` then `JS.addText`) when it exists, so the entire
+      `{...}` text processor -- itself ASLX in `CoreOutput`/`CoreTypes` -- runs.
+      Unlocked by three primitives: `Eval(expr[,scope])`, `foreach` over a
+      `scriptdictionary` (the `textprocessorcommands` dispatch table), and the
+      pre-existing `ScriptDictionaryItem`/`invoke`-with-params.
+    - **`not` precedence bug fixed** (critical): `not` bound tighter than `=`, so
+      `not obj = null` -- which is *everywhere* in Core -- parsed as
+      `(not obj) = null`. Moved `not`/`!` to their own level between `and/or` and
+      equality (`parse_not`), matching QuestViva's notOperator; `-`/`~` stay
+      tight. This alone was silently breaking most Core conditionals.
+    - **Backslash string escapes**: `obscure_strings`, `remove_comments`, and the
+      expression lexer now honour `\"` `\'` `\\` (Parlot semantics). Before, a
+      body like `Replace(s,"\"","")` swallowed the rest of the function.
+    - **Implicit default types**: every element gets `defaultobject`/
+      `defaultgame`/`defaultexit`/`defaultcommand`/`defaultturnscript` prepended
+      (QuestViva `ObjectFactory` + `DefaultTypeNames`); this is what gives the
+      game object its `showtitle`/`textprocessorcommands` defaults.
+    - **`parent` as a field**: containment is now exposed as a `parent`
+      ObjectRef field (not just the load-time pointer), and
+      `GetDirectChildren`/`GetAllChildObjects`/`Contains` derive from it, so a
+      runtime `MoveObject` (which sets `obj.parent`) stays correct.
+    - **CoreEditor.aslx bundled**: it is an "editor" library but QuestViva loads
+      it at runtime (defines `editor_player` + runtime types every editor-made
+      game inherits); its 18 UI sub-includes stay unbundled/skipped.
+    - New builtins: `HasScript`/`HasDouble`/`HasDelegateImplementation`,
+      `AllExits`/`AllTurnScripts`, `GetTimer`, `GetUIOption` (empty headless),
+      `ToInt`/`ToDouble`/`ToString`, `Eval`. `request` accepted as a no-op (its
+      first arg is a bare enum identifier, so it must not evaluate its args).
+  - Still open for M3: driving an actual command end-to-end (`HandleCommand` →
+    `ScopeCommands`/`GetScope`/`ResolveName` → verb script) so `look`/`take`/`go`
+    run -- the parser primitives are in place but the object-listing helpers
+    (`FormatList` and friends; `{object:}` currently renders empty) and
+    command-template patterns (`[look]` in a `pattern=`) still need work; plus
+    the listextend merge-on-read, game-local libraries bundled *inside* a
+    `.quest` zip, change scripts, UndoLogger, `get input`/`show menu`/`ask`/
+    `wait`, and multi-word (space-encoded) identifiers. Milestones 3 (rest)–5
     remain.
 
 ## 0. Scope and reality check
@@ -166,8 +219,12 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       bool, object ref, script, string/object list, string/object/script dict,
       null). Delegate values not yet a distinct runtime type.
 - [x] **Inheritance**: `<inherit name="type"/>` chains resolved own → inherited
-      types most-recent-first, recursively (`Interp::resolve_field`).
+      types most-recent-first, recursively (`Interp::resolve_field`). Each
+      element also gets an implicit default type (`defaultobject`/`defaultgame`/
+      …) prepended at load, and containment is exposed as a `parent` ObjectRef
+      field (children derived from it, so runtime `MoveObject` is honoured).
 - [ ] **Change notification**: `changed<attr>` scripts fire on field writes.
+      (Not yet — the boot path doesn't need it, but turn handling will.)
 - [ ] **UndoLogger**: per-turn transaction log of field writes / element
       creation-destruction; powers `undo` (maps onto the existing
       `LimitStack` idea, but log-based rather than snapshot-based).
@@ -178,10 +235,12 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `switch`/`case`/`default`, `firsttime`/`otherwise`, `do`, `invoke`,
       `create` (+ type), `destroy`, `set` (3-arg field form), `list add`/
       `list remove`, `dictionary add`/`dictionary remove`, `on ready`, `error`,
-      `finish`, `undo`/`start transaction` (no-op until UndoLogger), and the
-      `JS.*` bridge. TODO — `create exit`, `rundelegate`, `get input`,
-      `show menu`, `ask`, `wait`, `picture`, `play sound`/`stop sound`,
-      `request`, `create timer`/`enable`/`disable`.
+      `finish`, `undo`/`start transaction` (no-op until UndoLogger), `request`
+      (no-op — headless UI request; its enum arg is left unevaluated), and the
+      `JS.*` bridge. `msg` routes through Core's `OutputText` (v540+) so the
+      `{...}` text processor runs. TODO — `create exit`, `rundelegate`,
+      `get input`, `show menu`, `ask`, `wait`, `picture`, `play sound`/
+      `stop sound`, `create timer`/`enable`/`disable`.
 - [~] **Expression evaluator**: hand-written lexer + recursive-descent parser
       over `aslx::Value` (`aslx-runtime.cc`), compiled-expression cache per
       source string. DONE: `=`/`==` equality, `<>`/`!=`, `and or xor not`,
@@ -197,17 +256,27 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `NewObjectDictionary`/`NewScriptDictionary`/`DictionaryCount`/
       `DictionaryContains`/`DictionaryItem`/`*DictionaryItem`), strings (`Split`/
       `Join`/`Left`/`Right`/`Mid`/`Instr`/`Replace`/`LCase`/`UCase`/`CapFirst`/
-      `SafeXML`), templates (`Template`/`DynamicTemplate`), and numbers
-      (`CInt`/`CDbl`/`Abs`/`Max`/`Min`/`GetRandomInt`/`GetRandomDouble`). TODO:
-      the remaining ~85 built-ins (`Eval`, DateTime, `IsRegexMatch`/regex,
+      `SafeXML`), templates (`Template`/`DynamicTemplate`), the regex parser
+      primitives (`IsRegexMatch`/`GetMatchStrength`/`Populate`, 2- & 3-arg),
+      `Eval(expr[,scope])`, the has-family (`HasScript`/`HasString`/`HasBoolean`/
+      `HasInt`/`HasDouble`/`HasObject`/`HasDelegateImplementation`), world-model
+      helpers (`AllExits`/`AllTurnScripts`/`GetTimer`/`GetUIOption`), the `To*`
+      converters (`ToInt`/`ToDouble`/`ToString`), and numbers
+      (`CInt`/`CDbl`/`Abs`/`Max`/`Min`/`GetRandomInt`/`GetRandomDouble`).
+      **Operator precedence fixed**: `not` binds looser than `=`/comparison
+      (own `parse_not` level), so `not obj = null` is `not (obj = null)` — Core
+      depends on this everywhere. TODO: the remaining built-ins (DateTime,
       `FormatList` and the scope helpers), list/dict literals, and multi-word
       (space-encoded) identifiers.
 - [ ] **Command parsing comes free**: it is implemented in `CoreParser.aslx`.
       Once elements + scripts + expressions + regex support
       (`RegexCache.cs`) work, `look`/`take`/disambiguation all run as
-      library code. Needs a regex engine compatible with .NET named groups
-      `(?<object1>.*)` — `std::regex` ECMAScript mode covers what Core uses,
-      but verify.
+      library code. Regex verified: `std::regex` ECMAScript mode + the
+      `rewrite_dotnet_regex` named-group shim (aslx-runtime.cc) cover the .NET
+      named groups `(?<object1>.*)` CoreParser generates from simplepatterns;
+      the `IsRegexMatch`/`GetMatchStrength`/`Populate` primitives are in place.
+      Remaining for the parser proper: `ScopeCommands`/`GetScope`/`ResolveName`
+      chain (Core ASLX, comes free once the boot driver + `msg`→OutputText run).
 - [x] **Determinism**: `GetRandomInt`/`GetRandomDouble` route through a
       xoshiro128**+SplitMix32 port of `erkyrath_random()` (`aslx::Rng`, seed
       1234, byte-identical to `terps/common_utils/randomness.c` and the oracle's
@@ -300,12 +369,14 @@ stays unsupported, as in `quest4.c`.
    `aslx-runtime.*` + `test/aslx_runtime_test.cc`. Expression evaluator, script
    interpreter, inheritance-aware field resolution, ~40 built-ins, deterministic
    RNG. Remaining script commands / built-ins tracked in §2.
-3. **Core.aslx boots** (loader half ✅ 2026-07-15): every corpus game plus a
-   fresh default game loads its full Core element tree with 0 errors
-   (`aslx-core/` bundle + inline `<include>` resolution; `listextend`/`list`/
-   delegate-typed attributes handled). `test/aslx_loader_test.cc:test_coreboot`.
-   Remaining half: `look`, `take`, `go` actually running (proves parser-in-ASLX,
-   scopes, templates) — needs template substitution + more script commands.
+3. **Core.aslx boots** (loader half ✅ 2026-07-15; run half ✅ 2026-07-15):
+   every corpus game plus a fresh default game loads its full Core element tree
+   with 0 errors, and `InitInterface`+`StartGame`+`on ready` now **execute**
+   with 0 errors, rendering the title + room description through Core's own
+   `{...}` text processor. `test/aslx_loader_test.cc:test_coreboot` (load) +
+   `test/aslx_runtime_test.cc:test_coreboot_runs` (run). Remaining: driving a
+   real command (`look`/`take`/`go`) through `HandleCommand` + the scope/resolve
+   chain and the object-listing helpers (`FormatList`; `{object:}` still empty).
 4. **Interaction**: get input, menus, wait, timers, undo, save/restore.
 5. **Presentation**: HTML→styles, hyperlinks, panes, pictures, sound.
 6. **Integration**: babel module, Info.plist, Xcode wiring, corpus

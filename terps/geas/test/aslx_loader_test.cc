@@ -83,9 +83,12 @@ static void test_hello() {
     CHECK(lamp->parent == room);
     CHECK(room->parent == nullptr);
 
-    // Inheritance recorded.
-    CHECK_EQ(room->inherits.size(), (size_t)1);
-    CHECK_EQ(room->inherits[0], std::string("editor_room"));
+    // Inheritance recorded. Every object gets the implicit `defaultobject` type
+    // prepended (lowest priority), matching QuestViva's ObjectFactory; the
+    // game-declared type follows and overrides it.
+    CHECK_EQ(room->inherits.size(), (size_t)2);
+    CHECK_EQ(room->inherits[0], std::string("defaultobject"));
+    CHECK_EQ(room->inherits[1], std::string("editor_room"));
 
     // Lamp fields: implicit string, typed simplestringlist, int, double, script.
     const Value *look = lamp->field("look");

@@ -12,10 +12,14 @@ directives against this directory (root first, then Languages/), matching
 QuestViva's GetLibraryStream() search order (game-adjacent, then Core/, then
 Core/Languages/). See terps/geas/aslx.cc.
 
-Only the runtime libraries are bundled; every CoreEditor*.aslx and
-Editor*.aslx (editor-only UI, referenced but skipped at load) is omitted, as
-are the .template files (an editor artifact). One version is enough -- Core
-itself branches on the game's declared <asl version=>.
+The runtime libraries are bundled, plus CoreEditor.aslx: although it is an
+"editor" library, QuestViva loads it at runtime too (it defines editor_player
+and a couple of runtime types every editor-made game inherits). Its own 18
+CoreEditor*.aslx sub-includes are the actual visual-editor UI -- referenced but
+not bundled, so the loader skips them (a missing *editor* ref is a no-op). The
+other Editor*.aslx files and the .template files (an editor artifact) are also
+omitted. One version is enough -- Core itself branches on the game's declared
+<asl version=>.
 
-To refresh: re-copy the non-editor *.aslx from a current QuestViva checkout's
-src/Engine/Core/ and src/Engine/Core/Languages/.
+To refresh: re-copy the non-editor *.aslx (plus CoreEditor.aslx) from a current
+QuestViva checkout's src/Engine/Core/ and src/Engine/Core/Languages/.

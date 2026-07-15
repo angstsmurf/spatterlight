@@ -67,10 +67,20 @@ static void test_expressions() {
     CHECK_STR(evals(in, "3 > 2 and 1 < 2"), "True");
     CHECK_STR(evals(in, "3 > 2 or 1 > 2"), "True");
     CHECK_STR(evals(in, "not (1 = 2)"), "True");
+    // `not` binds looser than `=` (QuestViva notOperator level): "not x = y" is
+    // "not (x = y)". Core relies on this pervasively ("not obj = null").
+    CHECK_STR(evals(in, "not 1 = 2"), "True");
+    CHECK_STR(evals(in, "not 1 = 1"), "False");
+    CHECK_STR(evals(in, "not \"x\" = null"), "True");
+    CHECK_STR(evals(in, "not 1 = 1 and 2 = 2"), "False");
+    CHECK_STR(evals(in, "not not 1 = 1"), "True");
     CHECK_STR(evals(in, "5 > 3 ? \"big\" : \"small\""), "big");
     CHECK_STR(evals(in, "-4 + 1"), "-3");
     CHECK_STR(evals(in, "true and false"), "False");
     CHECK_STR(evals(in, "\"a\" < \"b\""), "True");
+    // Backslash escapes in string literals (Parlot StringLiteralQuotes): \" \' \\.
+    CHECK_STR(evals(in, "Replace(\"a\\\"b\", \"\\\"\", \"X\")"), "aXb");
+    CHECK_STR(evals(in, "\"\\\\D\""), "\\D");
 
     // Built-in string functions (1-based positions).
     CHECK_STR(evals(in, "LCase(\"ABC\")"), "abc");
@@ -98,6 +108,15 @@ static void test_control_flow() {
     Interp in(w);
 
     CHECK_STR(run(in, "msg (\"hi\")"), "hi");
+
+    // Statement splitting must not be derailed by an escaped quote in a string
+    // literal: "\"" is a literal quote, so the next line is a separate statement
+    // (regression for the JSSafe-style whole-body-swallow bug).
+    CHECK_STR(run(in,
+        "s = Replace(\"a\\\"b\", \"\\\"\", \"\")\n"
+        "msg (s)"), "ab");
+    // A // inside a string is not a comment.
+    CHECK_STR(run(in, "msg (\"http://x\")"), "http://x");
 
     // if / else if / else
     CHECK_STR(run(in,
@@ -302,6 +321,61 @@ static void test_new_builtins() {
     CHECK_STR(evals(in, "ObjectListItem(AllObjects(), 0)"), "room");
 }
 
+// The parser primitives: named-group matching, match strength, and Populate,
+// mirroring QuestViva Utility.IsRegexMatch/GetMatchStrength/Populate on the
+// simplepattern-derived regexes CoreParser feeds them.
+static void test_regex_primitives() {
+    World w; w.asl_version = 550;
+    Interp in(w);
+
+    // IsRegexMatch: named group + case-insensitive, like a "look at #object1#"
+    // command pattern. Non-matching input returns False, not an error.
+    CHECK_STR(evals(in, "IsRegexMatch(\"^look at (?<object1>.*)$\", \"look at thing\")"),
+              "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^TAKE (?<object1>.*)$\", \"take sword\")"),
+              "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^look at (?<object1>.*)$\", \"take thing\")"),
+              "False");
+
+    // GetMatchStrength = input length minus the length matched by named groups.
+    // "look at thing" is 13 chars, object1 captures "thing" (5) -> 8.
+    CHECK_STR(evals(in, "GetMatchStrength(\"^look at (?<object1>.*)$\", \"look at thing\")"),
+              "8");
+    // A more specific command (less captured by the group) scores higher.
+    CHECK_STR(evals(in, "GetMatchStrength(\"^(?<object1>.*)$\", \"look at thing\")"),
+              "0");
+
+    // Populate returns a string dictionary of group name -> captured text.
+    CHECK_STR(evals(in,
+              "StringDictionaryItem(Populate(\"^put (?<object1>.*) in (?<object2>.*)$\","
+              " \"put hat in box\"), \"object1\")"), "hat");
+    CHECK_STR(evals(in,
+              "StringDictionaryItem(Populate(\"^put (?<object1>.*) in (?<object2>.*)$\","
+              " \"put hat in box\"), \"object2\")"), "box");
+    CHECK_STR(evals(in,
+              "DictionaryCount(Populate(\"^put (?<object1>.*) in (?<object2>.*)$\","
+              " \"put hat in box\"))"), "2");
+
+    // Multi-alternative verb regex (from ConvertVerbSimplePattern shape).
+    CHECK_STR(evals(in,
+              "IsRegexMatch(\"^take (?<object>.*)$|^get (?<object>.*)$\", \"get lamp\")"),
+              "True");
+    CHECK_STR(evals(in,
+              "StringDictionaryItem(Populate(\"^take (?<object>.*)$|^get (?<object>.*)$\","
+              " \"get lamp\"), \"object\")"), "lamp");
+
+    // Character-class group, no backslash escapes needed in the source string.
+    CHECK_STR(evals(in,
+              "StringDictionaryItem(Populate(\"^(?<num>[0-9]+)(?<rest>.*)$\","
+              " \"42abc\"), \"num\")"), "42");
+
+    // Cache path: same cacheID reuses the compiled regex (3-arg form).
+    CHECK_STR(evals(in,
+              "IsRegexMatch(\"^go (?<object1>.*)$\", \"go north\", \"go\")"), "True");
+    CHECK_STR(evals(in,
+              "GetMatchStrength(\"^go (?<object1>.*)$\", \"go north\", \"go\")"), "3");
+}
+
 static void test_rng_determinism() {
     World w; w.asl_version = 550;
     Interp a(w), b(w);
@@ -315,12 +389,56 @@ static void test_rng_determinism() {
     CHECK(s1.find_first_not_of("0123456789,") == std::string::npos);
 }
 
+// End-to-end boot: load a game plus the full Core library, run InitInterface +
+// StartGame, and confirm the whole pipeline (default types, parent field, the
+// text processor via msg->OutputText, ~all the primitives) runs with zero
+// errors and produces processed output. This is the milestone-3 boot proof.
+static void test_coreboot_runs() {
+    World w;
+    // core_dir relative to test/ (where the harness runs).
+    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../aslx-core");
+    CHECK(ok);
+    CHECK(w.errors.empty());
+    if (!w.errors.empty())
+        for (auto &e : w.errors) std::cerr << "  boot-load err: " << e << "\n";
+
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+
+    Context c1, c2;
+    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &c1);
+    if (w.find("StartGame")) in.call_function("StartGame", {}, &c2);
+    if (in.has_pending_on_ready()) in.drain_on_ready();
+
+    // The whole boot ran without a single script error.
+    if (!w.errors.empty())
+        for (auto &e : w.errors) std::cerr << "  boot-run err: " << e << "\n";
+    CHECK(w.errors.empty());
+
+    // The title rendered (StartGame -> PrintCentered -> msg -> OutputText), and
+    // the {...} text processor expanded (no raw "{=" survives, WriteVerb ran so
+    // "It is" appears for the gender-"it" fixture player).
+    CHECK(out.find("Core Boot Test") != std::string::npos);
+    CHECK(out.find("It is") != std::string::npos);
+    CHECK(out.find("{=") == std::string::npos);
+
+    // The parent field is exposed and drives containment.
+    CHECK_STR(Interp::to_string(in.eval("player.parent", c1)), "lounge");
+    CHECK_STR(Interp::to_string(in.eval("Contains(lounge, chest)", c1)), "True");
+    // The game object inherits defaultgame (implicit default type).
+    CHECK_STR(Interp::to_string(in.eval("DoesInherit(game, \"defaultgame\")", c1)),
+              "True");
+}
+
 int main() {
     test_expressions();
     test_control_flow();
     test_functions_and_objects();
     test_script_commands();
     test_new_builtins();
+    test_regex_primitives();
+    test_coreboot_runs();
     test_rng_determinism();
 
     if (g_failures == 0) {
