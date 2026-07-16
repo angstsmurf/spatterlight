@@ -29,6 +29,7 @@
 #include "aslx-runtime.cc"
 
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <map>
 #include <string>
@@ -56,9 +57,24 @@ using namespace aslx;
 winid_t gwin = nullptr;      /* main text buffer */
 winid_t gbanner = nullptr;   /* one-line status grid: room name */
 strid_t gtranscript = nullptr;
-bool g_manual_echo = false;
+bool g_manual_echo = false;  /* the HOST echoes accepted input lines */
+bool g_echo_control = false; /* library supports glk_set_echo_line_event */
 bool g_hyperlinks = false;
 std::string g_room_name;
+
+/* Prompt-first presentation.  The reference player has a separate input box
+ * ("Type here..."), so no prompt is ever printed and the GAME side echoes
+ * each accepted command into the transcript itself ("> cmd" -- Core's
+ * game.echocommand, or the engine for pre-v520).  In a Glk buffer we want a
+ * standard "> " prompt at the input point instead, so when the library lets
+ * us control line-input echo we print the prompt up front, echo the accepted
+ * line ourselves, and swallow the game-side echo (g_swallow) so the command
+ * does not appear twice.  Echo-incapable libraries (CheapGlk: the smoke
+ * harness) keep the reference presentation, byte-stable for the harness. */
+bool g_prompt_first = false;
+int g_swallow = 0;              /* 2 = leading blank + "> cmd" outstanding,
+                                   1 = blank swallowed, "> cmd" outstanding */
+std::string g_swallow_cmd;      /* the trimmed command the echo must match */
 
 /* Click actions, one per Glk hyperlink value (index + 1).  A cmdlink carries
  * either a literal command (data-command / data-elementid) or an
@@ -294,9 +310,37 @@ std::string decode_entities(const std::string &s)
     return out;
 }
 
+std::string trim(const std::string &s);
+std::string plain_text(const std::string &html, const char *brsep);
+
+/* While g_swallow is armed (a send_command whose prompt and echo the host
+ * already printed), watch for the game side's own echo of the command --
+ * msg("")'s blank line then "&gt; cmd" (Core's echocommand), or the bare
+ * "> cmd" print of pre-540 engines -- and drop it.  Any other chunk disarms
+ * and prints normally (a game with a custom HandleCommand), giving back the
+ * provisionally swallowed blank.  True = the chunk was the echo. */
+bool swallow_echo_chunk(const std::string &html)
+{
+    std::string t = trim(plain_text(html, " "));
+    if (t == "> " + g_swallow_cmd) {
+        g_swallow = 0;
+        return true;
+    }
+    if (g_swallow == 2 && t.empty()) {
+        g_swallow = 1;
+        return true;
+    }
+    if (g_swallow == 1)
+        glk_put_char('\n');     /* not the echo after all: restore the blank */
+    g_swallow = 0;
+    return false;
+}
+
 /* Render one HTML chunk (a JS.addText payload) into the main window. */
 void render_html(const std::string &html)
 {
+    if (g_swallow && swallow_echo_chunk(html))
+        return;
     std::vector<StylePush> spans;   /* open <span>s */
     std::vector<StylePush> anchors; /* open <a>s */
     for (size_t i = 0; i < html.size();) {
@@ -736,19 +780,60 @@ bool engine_state_pending(Interp &in)
            in.world().finished;
 }
 
-/* Request one line of input.  `echo` = the HOST echoes the accepted line
- * (host-owned prompts: get input, menus, yes/no, the post-game menu).  It is
- * false for parser-bound commands, which the GAME side echoes itself --
- * Core's game.echocommand prints "> cmd" into the transcript (the engine
- * does it for pre-v520 games), exactly like the reference player, whose
- * input box leaves no other record.  Library echo is off either way (when
- * controllable), so the typed line is atomically replaced by whichever echo
- * applies.  Timer events tick the engine; if a tick opens a prompt or ends
- * the game the request is cancelled and InEnd::State returned. */
-InResult read_line(Interp &in, bool echo)
+/* Will the game side echo the next parser command?  Pre-v520 the engine
+ * echoes unconditionally; later Cores echo when game.echocommand is set
+ * (CoreParser's HandleCommand -- our commands never carry link metadata, so
+ * the plain "&gt; cmd" path is the only one taken). */
+bool command_echoes(Interp &in)
+{
+    if (in.world().asl_version < 520)
+        return true;
+    Element *game = in.world().find("game");
+    if (!game)
+        return false;
+    const Value *v = in.resolve_field(game, "echocommand");
+    return v && Interp::truthy(*v);
+}
+
+/* Scope guard: reroute engine prints so the first output emitted while a
+ * prompt sits on the screen breaks to a fresh line first.  broke tells the
+ * caller a reprint of the prompt is needed. */
+struct PromptBreak {
+    Interp &in;
+    bool active;
+    bool broke = false;
+    PromptBreak(Interp &i, bool a) : in(i), active(a) {
+        if (!active) return;
+        in.print = [this](const std::string &h) {
+            if (!broke && !h.empty()) {
+                glk_put_char('\n');
+                broke = true;
+            }
+            render_html(h);
+        };
+    }
+    ~PromptBreak() {
+        if (active) in.print = render_html;
+    }
+};
+
+/* Request one line of input.  `prompt` is printed first (and reprinted after
+ * any engine output that interrupts the request); pass nullptr when the
+ * caller printed its own or none applies.  `echo` = the HOST echoes the
+ * accepted line (host-owned prompts, and every prompt-first line).  It is
+ * false only for legacy-mode parser commands, which the GAME side echoes
+ * itself -- Core's game.echocommand prints "> cmd" into the transcript (the
+ * engine does it for pre-v520 games), exactly like the reference player,
+ * whose input box leaves no other record.  Library echo is off either way
+ * (when controllable), so the typed line is atomically replaced by whichever
+ * echo applies.  Timer events tick the engine; if a tick opens a prompt or
+ * ends the game the request is cancelled and InEnd::State returned. */
+InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
 {
     static glui32 buf[256];
-    if (g_manual_echo)
+    if (prompt)
+        glk_put_string((char *) prompt);
+    if (g_echo_control)
         glk_set_echo_line_event(gwin, 0);
     glk_request_line_event_uni(gwin, buf, 255, 0);
     if (g_hyperlinks) {
@@ -778,7 +863,11 @@ InResult read_line(Interp &in, bool echo)
                         echo_input(act.command);
                     return {InEnd::Command, act.command};
                 }
-                run_asl_event(in, act);
+                {
+                    /* Event output must not land on the prompt line. */
+                    PromptBreak pb(in, prompt != nullptr);
+                    run_asl_event(in, act);
+                }
                 return {InEnd::Event, ""};
             }
             if (ev.win == gobjwin && ev.val1 >= kPaneLinkBase &&
@@ -802,12 +891,19 @@ InResult read_line(Interp &in, bool echo)
              * With echo off the cancel is invisible. */
             event_t ce;
             glk_cancel_line_event(gwin, &ce);
-            in.tick(1);
-            in.drain_on_ready();
+            bool reprompt;
+            {
+                PromptBreak pb(in, prompt != nullptr);
+                in.tick(1);
+                in.drain_on_ready();
+                reprompt = pb.broke;
+            }
             update_banner(in);
             redraw_side_pane(in);
             if (engine_state_pending(in))
                 return {InEnd::State, ""};
+            if (reprompt)
+                glk_put_string((char *) prompt);
             glk_request_line_event_uni(gwin, buf, 255, ce.val1);
             if (g_hyperlinks) {
                 glk_request_hyperlink_event(gwin);
@@ -888,8 +984,7 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
         char pr[64];
         snprintf(pr, sizeof pr, "\nChoose [1-%zu]%s> ", m.options.size(),
                  m.allow_cancel ? " (or nothing to cancel)" : "");
-        glk_put_string(pr);
-        InResult r = read_line(in, true);
+        InResult r = read_line(in, true, pr);
         if (r.kind == InEnd::State)
             return false;                     /* timer ended the world */
         if (r.kind == InEnd::Event)
@@ -1002,7 +1097,8 @@ bool handle_transcript_command(const std::string &raw)
                 c == "notranscript" || c == "noscript" || c == "unscript");
     if (!on && !off)
         return false;
-    echo_metaverb(raw);
+    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
+        echo_metaverb(raw);
     if (on) {
         if (gtranscript) {
             glk_put_string((char *) "A transcript is already being recorded.\n");
@@ -1412,8 +1508,7 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
     glk_put_string((char *) "\nThe story has ended.  You can RESTART, RESTORE"
                             " a saved game, or QUIT.\n");
     for (;;) {
-        glk_put_string((char *) "> ");
-        InResult r = read_line(in, true);
+        InResult r = read_line(in, true, "> ");
         if (r.kind != InEnd::Line)
             continue;
         std::string w = lower(trim(r.text));
@@ -1573,8 +1668,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
              * UI); render it with a yes/no prompt. */
             render_html(*q);
             for (;;) {
-                glk_put_string((char *) " (yes/no) > ");
-                InResult r = read_line(in, true);
+                InResult r = read_line(in, true, " (yes/no) > ");
                 if (r.kind == InEnd::State) break;
                 if (r.kind != InEnd::Line) continue;
                 std::string a = lower(trim(r.text));
@@ -1587,16 +1681,19 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             if (in.pending_wait())
                 in.finish_wait();
         } else {
-            /* Parser-bound lines get no printed prompt and no host echo: the
-             * game side echoes them itself ("> cmd" -- Core's echocommand,
-             * or the engine for pre-v520), so printing our own would double
-             * every command.  A pending `get input` is the exception: the
-             * engine consumes the line without any game-side echo, so it is
-             * host-prompted and host-echoed. */
+            /* Parser-bound lines.  Prompt-first (g_prompt_first): print a
+             * standard "> " prompt at the input point, host-echo the accepted
+             * line, and arm g_swallow so the game side's own echo of the
+             * command ("> cmd" -- Core's echocommand, or the engine for
+             * pre-v520) is dropped instead of doubling it.  Legacy mode (no
+             * line-input echo control, e.g. CheapGlk): no prompt, no host
+             * echo -- the game-side echo is the only record, like the
+             * reference player, whose input box leaves no other trace.  A
+             * pending `get input` is host-owned either way: the engine
+             * consumes the line without any game-side echo. */
             bool host_owned = in.command_override();
-            if (host_owned)
-                glk_put_string((char *) "\n> ");
-            InResult r = read_line(in, host_owned);
+            bool prompted = g_prompt_first || host_owned;
+            InResult r = read_line(in, prompted, prompted ? "\n> " : nullptr);
             if (r.kind == InEnd::State || r.kind == InEnd::Event)
                 { /* re-dispatch on the new engine state */ }
             else {
@@ -1604,11 +1701,17 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                 if (cmd.empty())
                     continue;
                 if (is_restore_command(cmd)) {
-                    echo_metaverb(cmd);
+                    if (!g_prompt_first)
+                        echo_metaverb(cmd);
                     if (do_restore_ui(restore_data))
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd)) {
+                    if (g_prompt_first && !host_owned && command_echoes(in)) {
+                        g_swallow = 2;
+                        g_swallow_cmd = cmd;
+                    }
                     in.send_command(cmd);
+                    g_swallow = 0;
                 }
             }
         }
@@ -1683,7 +1786,16 @@ extern "C" void aslx_glk_main(const char *storyfile)
     gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
                               wintype_TextGrid, 0);
 
-    g_manual_echo = glk_gestalt(gestalt_LineInputEcho, 0) != 0;
+    /* Prompt-first needs the library to suppress line-input echo (the host
+     * echoes instead).  Without it (CheapGlk) keep the reference player's
+     * game-side-echo presentation -- the smoke harness's transcripts depend
+     * on it.  ASLXGLK_PROMPT_FIRST=1 forces the new mode there for testing:
+     * under CheapGlk the typed line never reaches the output stream, so
+     * manual echo is right for a piped harness too. */
+    g_echo_control = glk_gestalt(gestalt_LineInputEcho, 0) != 0;
+    g_manual_echo = g_echo_control ||
+                    getenv("ASLXGLK_PROMPT_FIRST") != nullptr;
+    g_prompt_first = g_manual_echo;
     g_hyperlinks = glk_gestalt(gestalt_Hyperlinks, 0) &&
                    glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
 
