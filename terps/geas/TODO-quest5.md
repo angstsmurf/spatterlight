@@ -1,5 +1,57 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, night — error-cascade topology: 16/17 golden-exact)
+
+- **16 of 17 golden walkthroughs replay BYTE-IDENTICAL**, including the two
+  known-glitchy games. The 17th (I Contain Multitudes, 27 diff lines) is the
+  DOCUMENTED QuestViva artifact (pending synchronous-sound TCS leak — the
+  oracle never shows the ending; the native engine correctly does, like real
+  Quest. Do not chase). `make check` green, ASan/UBSan clean, corpus still
+  50-load-0-fail / 49-boot-0-error (spondre = QuestViva's own abort point),
+  oracle check_golden 17/17.
+- **Landed in this batch** (each mechanism verified by instrumenting the
+  oracle: qvh gained `QVH_TRACE_ERRORS=1` — stack dump per LogError — and the
+  engines share `ASLX_TRACE_CALLS=1` / `QVH_TRACE_CALLS=2` streaming
+  per-function-call depth traces, diffed frame-for-frame):
+  - **NCalc's double-evaluation quirk** (Whitefield's 8×/8×/1× error
+    cascade): for the operators QuestViva's EvaluateBinaryAsync intercepts
+    (`+ - * / % = <>`), the handler evaluates both operands; when both are
+    "standard" NCalc types (null/number/bool/string) it sets no result and
+    NCalc's native path evaluates the operands AGAIN — BinaryEventArgs caches
+    with `??=`, so only a NULL operand actually re-runs. An erroring ASLX
+    function (which prints at its own boundary and yields null) therefore
+    runs once more per enclosing binary op — 2^3 = 8 error prints for
+    `Grid_Get(x) + a - b + c` — feeding the 20-error breaker at exactly the
+    oracle's rate. Ported in eval Binary (aslx-runtime.cc).
+  - **Native NCalc null semantics** (same both-standard path): arithmetic
+    with a null operand yields null SILENTLY (MathHelper); `null + "s"`
+    concats (null → ""); a null on ONE side of a relational comparison is a
+    "type conflict" — false for everything except `<>`. And
+    **HandleBinaryResult's int/int division intercept**: `10 / 4` = 2 (FLEE
+    IL semantics), div/mod by int 0 throws .NET's "Attempted to divide by
+    zero."
+  - **LogException-only wrappers** (`Interp::log_exception`): PrintAsync →
+    OutputText, HandleCommandAsyncInternal, and TryFinishTurnAsync catch
+    LogException-ONLY — logged, not printed, NOT fed to the breaker. Only
+    throws that BYPASS RunScriptAsync's catch reach them — above all the
+    depth-cap throw, which fires BEFORE the callee's try. Consequence: a
+    frame at the 200 cap that catches an error still counts it, but its
+    report-print itself dies silently inside PrintAsync (the catch runs
+    before the depth decrement) — which is why Bony King's death spiral
+    prints ONE error, logs 31, counts 16, and never wedges.
+  - **`on ready` callbacks are real stack frames**: AddOnReady and the
+    on-ready flush loop run callbacks through RunScriptAsync, so
+    run_callback_boundary now does full depth accounting (cap-throw BEFORE
+    the guarded region, propagating to the ENCLOSING boundary) and
+    add_on_ready releases the pending count on a throw (AddOnReady's
+    finally). This makes the depth at which sub-calls die during Bony King's
+    beforeenter spiral match the oracle frame-for-frame (which decides
+    whether firsttime text, display-name links, or whole descriptions
+    survive each unwinding iteration).
+  - **Wedged-vs-Finished mirrored in the replayer**:
+    `Interp::script_errors_fatal()` exposes the breaker, aslx_replay reports
+    `[state=Wedged]` exactly like qvh's reflection probe.
+
 ## Status (2026-07-16, evening — golden-parity batch)
 
 - **14 of 17 golden walkthroughs replay BYTE-IDENTICAL through the native
@@ -410,12 +462,12 @@
   - Still open for M3/M4: `request (Wait)`/`request (Pause)`
     for pre-v540 games (truly blocking mid-script in QuestViva, needs a
     blocking host hook), game-local
-    libraries bundled *inside* a `.quest` zip, the UndoLogger, locked
+    libraries bundled *inside* a `.quest` zip, the UndoLogger, and locked
     inherited collections (mutating a type-provided list without assigning it
     first throws "Cannot modify the contents of this list as it is defined by
-    an inherited type..." in QuestViva; we copy-on-write silently), and the
-    error-cascade topology for the two glitchy goldens (see the evening
-    status). Timers landed (see evening status). Milestone 5 remains.
+    an inherited type..." in QuestViva; we copy-on-write silently). Timers
+    landed (evening status); the error-cascade topology landed (night
+    status, 16/17 golden-exact). Milestone 5 remains.
 
 ## 0. Scope and reality check
 
@@ -703,10 +755,9 @@ stays unsupported, as in `quest4.c`.
       an oracle `.cmd` through the native engine with qvh's exact step
       grammar/normalisation and diffs against `quest5-oracle/golden/*.out`.
       First-light baseline was ~30–70% matching lines, 0 games finishing;
-      by the end of 2026-07-16 **14 of 17 goldens replay byte-identical**
-      (see the evening status; only Whitefield/Bony King error-cascades and
-      the documented ICM artifact remain). DrainTimers is mirrored;
-      Wedged-vs-Finished is not yet (needs the breaker-feeding rules).
+      by the end of 2026-07-16 **16 of 17 goldens replay byte-identical**
+      (night status; only the documented ICM oracle artifact remains).
+      DrainTimers and Wedged-vs-Finished are both mirrored.
 
 ## 8. Milestones
 

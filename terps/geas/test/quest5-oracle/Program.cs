@@ -64,7 +64,15 @@ void Line(string s) => transcript.Append(s).Append('\n');
 var provider = new FileDirectoryGameDataProvider(args[0]);
 var gameData = await provider.GetData();
 var world = new WorldModel(gameData, null);
-world.LogError += ex => { errorCount++; Console.Error.WriteLine("[error] " + ex.Message); };
+world.LogError += ex => {
+    errorCount++;
+    Console.Error.WriteLine("[error] " + ex.Message);
+    // QVH_TRACE_ERRORS=1: dump the managed stack at each logged error — the only
+    // way to see the exact catch-boundary topology (which caller each error was
+    // swallowed at) when matching the native engine's error cascade.
+    if (Environment.GetEnvironmentVariable("QVH_TRACE_ERRORS") == "1")
+        Console.Error.WriteLine("[error-stack #" + errorCount + "]\n" + ex.StackTrace + "\n[/error-stack]");
+};
 world.PrintText += Emit;                 // legacy output path (ASL < v540)
 
 // Faithful "did the error circuit-breaker actually fire?" probe (see the block

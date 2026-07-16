@@ -198,6 +198,13 @@ public:
 
     World &world() { return world_; }
 
+    // True once the 20-error circuit breaker has fired (scriptErrorsFatal):
+    // the game was force-finished because every script was failing. Hosts use
+    // it to distinguish a wedged session from a genuine `finish` (the oracle
+    // reads QuestViva's private _scriptErrorsFatal by reflection for the same
+    // purpose and reports "[state=Wedged]").
+    bool script_errors_fatal() const { return script_errors_fatal_; }
+
     // Value/runtime helpers (also used by tests).
     static std::string to_string(const Value &v);
     static bool truthy(const Value &v);
@@ -266,6 +273,15 @@ private:
     static constexpr int kMaxScriptDepth = 200;   // MaxScriptExecutionDepth
     static constexpr int kMaxScriptErrors = 20;   // MaxScriptErrors
     void report_script_error(const std::string &what);
+    // WorldModel's LogException-ONLY wrappers (PrintAsync -> OutputText,
+    // HandleCommandAsyncInternal, TryFinishTurnAsync, TickAsyncInternal,
+    // UpdateLists/UpdateStatusAttributes): the error is logged for diagnostics
+    // but neither printed nor counted toward the breaker. Only throws that
+    // BYPASS RunScriptAsync's own catch reach these -- above all the depth-cap
+    // throw, which fires before the callee's try block -- so a deep `msg` or
+    // FinishTurn quietly does nothing instead of wedging the session (The
+    // Bony King's pov.parent=null scene relies on this to recover).
+    void log_exception(const std::string &what);
     int script_depth_ = 0;
     int script_error_count_ = 0;
     bool script_errors_fatal_ = false;

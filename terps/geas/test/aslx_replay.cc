@@ -14,15 +14,17 @@
 // DrainTimers (after each step, tick pending SetTimeout timers by exactly
 // their trigger delta; only self-destructing "timeout*" timers are drained so
 // recurring authored timers never loop), same HTML-strip + blank-line-collapse
-// normalisation, same "> cmd" echo for v520+ and final "[state=...]" line.
-// NOT yet mirrored: the Wedged-vs-Finished distinction.
+// normalisation, same "> cmd" echo for v520+ and final "[state=...]" line,
+// same Wedged-vs-Finished distinction (a Finished forced by the 20-error
+// breaker reports as Wedged, via Interp::script_errors_fatal()).
 //
-// Baseline at first light (2026-07-16, input-model commit): all 17 goldens
-// replay end-to-end with 0-4 script errors; matching golden lines per game
-// range from ~30% to ~70%, no game reaches Finished yet. First divergences
-// cluster on: verb commands ("wear X", "break X") answered "I don't
-// understand your command.", object resolution ("open door 24" -> "I can't
-// see that."), and missing/displaced room-description output on `go`.
+// Baseline at first light (2026-07-16, input-model commit) was ~30-70%
+// matching lines and 0 games finishing; by end of day 16 of 17 goldens
+// replay BYTE-IDENTICAL (incl. Whitefield's Wedged error-cascade and Bony
+// King's depth-cap death spiral). The one remaining diff, I Contain
+// Multitudes, is a DOCUMENTED QuestViva artifact: its pending
+// synchronous-sound TCS leak means the oracle never shows the ending; the
+// native engine ends the game like real Quest. Do not chase.
 #include "aslx.cc"
 #include "aslx-runtime.cc"
 
@@ -247,7 +249,13 @@ int main(int argc, char **argv) {
         drain_timers();
     }
 
-    line_out(std::string("[state=") + (w.finished ? "Finished" : "Running") + "]");
+    // A Finished reached only because the 20-error breaker fired is reported
+    // as Wedged, exactly like qvh's reflection probe on _scriptErrorsFatal.
+    line_out(std::string("[state=") +
+             (in.script_errors_fatal() ? "Wedged"
+              : w.finished             ? "Finished"
+                                       : "Running") +
+             "]");
     std::cout << normalise(transcript);
     std::cerr << "[diag] steps=" << steps << " errors=" << w.errors.size()
               << " finished=" << w.finished << "\n";

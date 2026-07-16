@@ -57,7 +57,10 @@ static void test_expressions() {
 
     CHECK_STR(evals(in, "1 + 2 * 3"), "7");
     CHECK_STR(evals(in, "(1 + 2) * 3"), "9");
-    CHECK_STR(evals(in, "10 / 4"), "2.5");
+    // int/int is INTEGER division (HandleBinaryResult's intercept -- FLEE
+    // compiled to IL where int/int = int); mixed operands stay double.
+    CHECK_STR(evals(in, "10 / 4"), "2");
+    CHECK_STR(evals(in, "10 / 4.0"), "2.5");
     CHECK_STR(evals(in, "10 - 3 - 2"), "5");
     CHECK_STR(evals(in, "7 % 3"), "1");
     CHECK_STR(evals(in, "\"foo\" + \"bar\""), "foobar");

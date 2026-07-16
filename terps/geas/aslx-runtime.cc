@@ -1299,6 +1299,14 @@ void Interp::report_script_error(const std::string &what) {
     }
 }
 
+void Interp::log_exception(const std::string &what) {
+    // See the header note: the LogException-only boundary. Same log format as
+    // report_script_error, no print, no breaker feed.
+    std::string msg = std::string("Error running script: ") + what;
+    errors().push_back(frames_.empty() ? msg
+                                       : msg + " [in " + frames_.back() + "]");
+}
+
 void Interp::warn_once(const std::string &key, const std::string &message) {
     for (const auto &k : warned_)
         if (k == key) return;
@@ -1308,15 +1316,30 @@ void Interp::warn_once(const std::string &key, const std::string &message) {
 
 void Interp::run_callback_boundary(const std::vector<Stmt> *body, Context &ctx) {
     if (!body || body->empty() || script_errors_fatal_) return;
-    // Each callback is its own script boundary (RunScriptAsync): a failure is
-    // reported and the engine carries on. A TurnSuspended (synchronous `play
-    // sound`) abandons the rest of the callback, silently.
+    // Each callback is its own script boundary (RunScriptAsync) with FULL
+    // depth accounting: it occupies a stack frame (AddOnReady and the on-ready
+    // flush loop both run callbacks through RunScriptAsync), so nested
+    // `on ready` chains contribute to the 200 cap exactly like the oracle --
+    // which decides which sub-calls die during an error-cascade unwind (The
+    // Bony King's beforeenter spiral). The cap throw fires BEFORE the guarded
+    // region, propagating to the ENCLOSING boundary, like RunScriptAsync's
+    // entry check. A failure inside is reported and the engine carries on; a
+    // TurnSuspended (synchronous `play sound`) abandons the callback silently.
+    if (script_depth_ >= kMaxScriptDepth)
+        throw std::runtime_error(
+            "Script execution depth exceeded 200 - this usually means a script "
+            "is recursing infinitely (e.g. a \"changed<field>\" script that "
+            "sets the field it's watching)");
+    ++script_depth_;
     try {
         exec_block(*body, ctx);
     } catch (const TurnSuspended &) {
+        --script_depth_;
+        throw;
     } catch (const std::exception &err) {
         report_script_error(err.what());
     }
+    --script_depth_;
 }
 
 void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
@@ -1329,7 +1352,16 @@ void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
     }
     begin_pending_callback();
     Context c = ctx;
-    run_callback_boundary(body, c);
+    try {
+        run_callback_boundary(body, c);
+    } catch (...) {
+        // AddOnReady's finally: the pending count is released (and the queue
+        // flushed) even when the callback throws past its boundary -- the
+        // depth-cap throw and TurnSuspended both do -- then the throw
+        // continues to the enclosing boundary.
+        end_pending_callback();
+        throw;
+    }
     end_pending_callback();
 }
 
@@ -1378,15 +1410,20 @@ void Interp::fire_changed_script(Element *e, const std::string &attr,
 
 void Interp::print_via_core(const std::string &text, Context &ctx) {
     // WorldModel.PrintAsync: v540+ routes through Core's OutputText so the
-    // {...} text processor runs; its failures are reported and swallowed
-    // (PrintAsync's own catch). Without Core (unit tests) or on older games,
-    // print directly. OutputText ends at JS.addText -> print.
+    // {...} text processor runs; failures inside its body report at the
+    // script boundary as usual, while bypass throws (depth cap) are logged
+    // only. Without Core (unit tests) or on older games, print directly.
+    // OutputText ends at JS.addText -> print.
     Element *ot = world_.find("OutputText");
     if (world_.asl_version >= 540 && ot && ot->elem_type == "function") {
         try {
             call_function("OutputText", {vstr(text)}, &ctx);
         } catch (const std::exception &err) {
-            report_script_error(err.what());
+            // PrintAsync's catch is LogException-ONLY: a throw that escaped
+            // OutputText's own script boundary (i.e. the depth-cap throw) is
+            // swallowed silently and the caller carries on -- a deep msg
+            // just prints nothing.
+            log_exception(err.what());
         }
     } else {
         // Pre-540 PrintText wraps the text in <output>...</output>, so an
@@ -1434,7 +1471,8 @@ void Interp::send_command(const std::string &command) {
             try {
                 call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
             } catch (const std::exception &err) {
-                report_script_error(err.what());
+                // HandleCommandAsyncInternal's catch: LogException-only.
+                log_exception(err.what());
             }
         }
         // Pre-v580 Core relies on the engine calling FinishTurn after the
@@ -1446,7 +1484,8 @@ void Interp::send_command(const std::string &command) {
                 try {
                     call_function("FinishTurn", {}, &ctx);
                 } catch (const std::exception &err) {
-                    report_script_error(err.what());
+                    // TryFinishTurnAsync's catch: LogException-only.
+                    log_exception(err.what());
                 }
             }
         }
@@ -1850,6 +1889,33 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         Value l = eval_expr(*e.a, ctx);
         Value r = eval_expr(*e.b, ctx);
         if (op == "xor") return vbool(truthy(l) != truthy(r));
+        // NCalc's double-evaluation quirk, ported for side-effect parity
+        // (AsyncEvaluationVisitor.Visit(BinaryExpression) + BinaryEventArgs):
+        // for the operators QuestViva's EvaluateBinaryAsync intercepts
+        // (+ - * / % = <>), the handler evaluates both operands, and when both
+        // are "standard" NCalc types (null/number/bool/string) it sets no
+        // result, so NCalc's native path evaluates the operands AGAIN --
+        // BinaryEventArgs caches with `??=`, so only a NULL operand actually
+        // re-runs. Side effects repeat: an erroring ASLX function (which
+        // prints its error at its own script boundary and yields null) runs
+        // once more per enclosing binary op, doubling each level -- 2^3 = 8
+        // error prints for Whitefield's `Grid_Get(..) + a/2.0 - b/2.0 + c`
+        // and a single print for a bare call, feeding the 20-error breaker
+        // at exactly the oracle's rate.
+        auto ncalc_standard = [](const Value &v) {
+            switch (v.type) {
+            case Value::Type::Null: case Value::Type::Int:
+            case Value::Type::Double: case Value::Type::Boolean:
+            case Value::Type::String: return true;
+            default: return false;
+            }
+        };
+        if ((op == "=" || op == "<>" || op == "+" || op == "-" ||
+             op == "*" || op == "/" || op == "%") &&
+            ncalc_standard(l) && ncalc_standard(r)) {
+            if (l.type == Value::Type::Null) l = eval_expr(*e.a, ctx);
+            if (r.type == Value::Type::Null) r = eval_expr(*e.b, ctx);
+        }
         if (op == "=") return vbool(values_equal(l, r));
         if (op == "<>") return vbool(!values_equal(l, r));
         // "x in y": list membership, dictionary key lookup, or substring
@@ -1915,23 +1981,43 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             if (l.type == Value::Type::String || r.type == Value::Type::String ||
                 l.type == Value::Type::ObjectRef || r.type == Value::Type::ObjectRef)
                 return vstr(to_string(l) + to_string(r));
+            // MathHelper.Add: a null operand (not consumed by string concat
+            // above) makes the whole sum null, silently.
+            if (l.type == Value::Type::Null || r.type == Value::Type::Null)
+                return vnull();
             if (l.type == Value::Type::Int && r.type == Value::Type::Int)
                 return vint(l.integer + r.integer);
             return vdouble(as_double(l) + as_double(r));
         }
         if (op == "-" || op == "*" || op == "%") {
+            if (l.type == Value::Type::Null || r.type == Value::Type::Null)
+                return vnull();  // MathHelper: null operand -> null result
             bool ints = l.type == Value::Type::Int && r.type == Value::Type::Int;
             double a = as_double(l), b = as_double(r);
             if (op == "-") return ints ? vint(l.integer - r.integer) : vdouble(a - b);
             if (op == "*") return ints ? vint(l.integer * r.integer) : vdouble(a * b);
-            return ints ? vint(r.integer ? l.integer % r.integer : 0)
-                        : vdouble(std::fmod(a, b));
+            if (ints) {
+                if (r.integer == 0) error("Attempted to divide by zero.");
+                return vint(l.integer % r.integer);
+            }
+            return vdouble(std::fmod(a, b));
         }
         if (op == "/") {
+            if (l.type == Value::Type::Null || r.type == Value::Type::Null)
+                return vnull();
+            if (l.type == Value::Type::Int && r.type == Value::Type::Int) {
+                // HandleBinaryResult's integer-division intercept (FLEE
+                // compiled to IL where int/int = int).
+                if (r.integer == 0) error("Attempted to divide by zero.");
+                return vint(l.integer / r.integer);
+            }
             double b = as_double(r);
             return vdouble(b != 0 ? as_double(l) / b : 0);
         }
-        // relational
+        // relational: a null on one side only is NCalc's "type conflict" --
+        // every comparison except <> is false (TypeHelper.HasNullOrTypeConflict).
+        if ((l.type == Value::Type::Null) != (r.type == Value::Type::Null))
+            return vbool(false);
         if (is_number(l) && is_number(r)) {
             double a = as_double(l), b = as_double(r);
             if (op == "<") return vbool(a < b);
@@ -1956,6 +2042,13 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
 
 Value Interp::call_function(const std::string &name, std::vector<Value> args,
                             Context *) {
+    // ASLX_TRACE_CALLS=1: stream every function invocation with the current
+    // script depth, matching the oracle's QVH_TRACE_CALLS=2 format, to diff
+    // depth accounting frame-for-frame (the depth cap decides which sub-calls
+    // die during error-cascade unwinds).
+    static const bool trace_calls = std::getenv("ASLX_TRACE_CALLS") != nullptr;
+    if (trace_calls)
+        fprintf(stderr, "[call d%d] %s\n", script_depth_, name.c_str());
     Element *fn = world_.find(name);
     if (!fn || fn->elem_type != "function") {
         error("Function not found: '" + name + "'");
