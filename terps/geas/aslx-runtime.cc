@@ -815,7 +815,7 @@ static ExprP compile_expr_str(const std::string &src) {
 struct Stmt {
     enum class Kind {
         Msg, If, While, For, ForEach, Assign, Call, Return, Comment,
-        Switch, FirstTime, OnReady, Wait
+        Switch, FirstTime, OnReady, Wait, GetInput, ShowMenu, Ask
     };
     Kind kind;
     std::string name;              // Assign var/prop, For/ForEach var, Call name
@@ -953,15 +953,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     case Stmt::Kind::Comment: return;
     case Stmt::Kind::Msg: {
         Value v = eval_expr(*s.expr, ctx);
-        std::string text = to_string(v);
-        // v540+ routes msg through Core's OutputText so the {...} text processor
-        // runs (QuestViva WorldModel.PrintAsync). Without Core (unit tests) or on
-        // older games, print directly. OutputText ends at JS.addText -> print.
-        Element *ot = world_.find("OutputText");
-        if (world_.asl_version >= 540 && ot && ot->elem_type == "function")
-            call_function("OutputText", {vstr(text)}, &ctx);
-        else
-            print(text + "\n");
+        print_via_core(to_string(v), ctx);
         return;
     }
     case Stmt::Kind::Return: {
@@ -1065,16 +1057,82 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         return;
     }
     case Stmt::Kind::OnReady: {
-        on_ready_.emplace_back(&s.body, ctx);
+        add_on_ready(&s.body, ctx);
         return;
     }
+    // The four prompt commands are fire-and-forget (QuestViva's ExecuteAsync
+    // starts AwaitResponseAndRunCallbackAsync and returns): the callback is
+    // registered, execution of the enclosing script continues, and the host
+    // resolves the prompt later (send_command / set_menu_response /
+    // set_question_response / finish_wait). Registering a new prompt of a kind
+    // that already pends cancels the old one (BeginPrompt's TrySetCanceled).
     case Stmt::Kind::Wait: {
-        // The real input model (M4, TODO §3) blocks on a keypress before the
-        // callback. Headless for now: warn once and run the callback as if the
-        // key had been pressed immediately.
-        warn_once("wait", "'wait' runs its script without pausing (no input "
-                          "model yet)");
-        exec_block(s.body, ctx);
+        if (wait_pending_) { wait_cb_ = PendingCallback{}; end_pending_callback(); }
+        wait_pending_ = true;
+        wait_cb_.body = &s.body;
+        wait_cb_.ctx = ctx;
+        wait_cb_.ctx.returned = false;
+        begin_pending_callback();
+        return;
+    }
+    case Stmt::Kind::GetInput: {
+        if (command_override_) {
+            command_cb_ = PendingCallback{};
+            end_pending_callback();
+        }
+        command_override_ = true;
+        command_cb_.body = &s.body;
+        command_cb_.ctx = ctx;
+        command_cb_.ctx.returned = false;
+        begin_pending_callback();
+        return;
+    }
+    case Stmt::Kind::Ask: {
+        // PlayerUI.ShowQuestion: the caption is handed to the host, not
+        // printed -- rendering the yes/no prompt is presentation.
+        std::string caption = to_string(eval_expr(*s.expr, ctx));
+        if (question_pending_) {
+            question_cb_ = PendingCallback{};
+            end_pending_callback();
+        }
+        question_pending_ = true;
+        question_ = caption;
+        question_cb_.body = &s.body;
+        question_cb_.ctx = ctx;
+        question_cb_.ctx.returned = false;
+        begin_pending_callback();
+        return;
+    }
+    case Stmt::Kind::ShowMenu: {
+        std::string caption = to_string(eval_expr(*s.call_args[0], ctx));
+        Value options = eval_expr(*s.call_args[1], ctx);
+        bool allow_cancel = truthy(eval_expr(*s.call_args[2], ctx));
+        MenuData md;
+        md.caption = caption;
+        md.allow_cancel = allow_cancel;
+        // ShowMenuScript: a stringlist's entries are their own keys; a
+        // stringdictionary supplies key -> display text.
+        if (options.type == Value::Type::StringList) {
+            for (const Value &e : options.list()) {
+                std::string s2 = to_string(e);
+                md.options.emplace_back(s2, s2);
+            }
+        } else if (options.type == Value::Type::StringDict) {
+            for (const auto &kv : options.dict())
+                md.options.emplace_back(kv.first, to_string(kv.second));
+        } else {
+            error("Unknown menu options type");
+        }
+        if (md.options.empty()) error("No menu options specified");
+        // The caption is printed (PrintAsync) before the menu goes to the UI.
+        print_via_core(caption, ctx);
+        if (menu_pending_) { menu_cb_ = PendingCallback{}; end_pending_callback(); }
+        menu_pending_ = true;
+        menu_ = std::move(md);
+        menu_cb_.body = &s.body;
+        menu_cb_.ctx = ctx;
+        menu_cb_.ctx.returned = false;
+        begin_pending_callback();
         return;
     }
     case Stmt::Kind::Call: {
@@ -1133,21 +1191,173 @@ void Interp::warn_once(const std::string &key, const std::string &message) {
     world_.warnings.push_back(message);
 }
 
+void Interp::run_callback_boundary(const std::vector<Stmt> *body, Context &ctx) {
+    if (!body || body->empty() || script_errors_fatal_) return;
+    // Each callback is its own script boundary (RunScriptAsync): a failure is
+    // reported and the engine carries on.
+    try {
+        exec_block(*body, ctx);
+    } catch (const std::exception &err) {
+        report_script_error(err.what());
+    }
+}
+
+void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
+    // WorldModel.AddOnReady: queue only while a prompt callback is
+    // outstanding; otherwise run immediately. The count is held >0 during the
+    // run so nested `on ready` statements queue instead of recursing.
+    if (pending_callback_count_ > 0) {
+        on_ready_.emplace_back(body, ctx);
+        return;
+    }
+    begin_pending_callback();
+    Context c = ctx;
+    run_callback_boundary(body, c);
+    end_pending_callback();
+}
+
+void Interp::end_pending_callback() {
+    --pending_callback_count_;
+    // EndPendingCallbackAsync: flush the on-ready queue, FIFO, while nothing
+    // pends. A flushed callback may itself register a prompt (show menu inside
+    // on ready) -- the count check stops the flush; resolving that prompt
+    // continues it.
+    while (pending_callback_count_ == 0 && !on_ready_.empty() &&
+           !world_.finished) {
+        auto item = on_ready_.front();
+        on_ready_.erase(on_ready_.begin());
+        Context ctx = item.second;
+        run_callback_boundary(item.first, ctx);
+    }
+}
+
 void Interp::drain_on_ready() {
-    // FIFO; callbacks queued during draining are appended and run this pass.
+    // Manual flush for hosts/tests. Anything still queued while no prompt
+    // pends (e.g. the flush stopped early because the game finished) runs now;
+    // with a prompt outstanding this is a no-op -- resolving the prompt
+    // flushes the queue itself.
+    if (pending_callback_count_ > 0) return;
     while (!on_ready_.empty()) {
         auto item = on_ready_.front();
         on_ready_.erase(on_ready_.begin());
         Context ctx = item.second;
-        // Each callback is its own script boundary: one failing callback is
-        // reported and the rest of the queue still drains.
+        run_callback_boundary(item.first, ctx);
+        if (script_errors_fatal_) break;
+    }
+}
+
+void Interp::print_via_core(const std::string &text, Context &ctx) {
+    // WorldModel.PrintAsync: v540+ routes through Core's OutputText so the
+    // {...} text processor runs; its failures are reported and swallowed
+    // (PrintAsync's own catch). Without Core (unit tests) or on older games,
+    // print directly. OutputText ends at JS.addText -> print.
+    Element *ot = world_.find("OutputText");
+    if (world_.asl_version >= 540 && ot && ot->elem_type == "function") {
         try {
-            exec_block(*item.first, ctx);
+            call_function("OutputText", {vstr(text)}, &ctx);
         } catch (const std::exception &err) {
             report_script_error(err.what());
         }
-        if (script_errors_fatal_) break;
+    } else {
+        print(text + "\n");
     }
+}
+
+// Utility.SafeXML -- also the safexml builtin.
+static std::string safe_xml_escape(const std::string &s) {
+    std::string out;
+    for (char c : s) {
+        if (c == '&') out += "&amp;";
+        else if (c == '<') out += "&lt;";
+        else if (c == '>') out += "&gt;";
+        else out += c;
+    }
+    return out;
+}
+
+// -- input model (TODO §3): host entry points --------------------------------
+
+void Interp::send_command(const std::string &command) {
+    // HandleCommandAsyncInternal. A pending `get input` consumes the line
+    // (command override) instead of the parser.
+    if (command_override_) {
+        command_override_ = false;
+        PendingCallback cb = std::move(command_cb_);
+        command_cb_ = PendingCallback{};
+        cb.ctx.locals["result"] = vstr(command);
+        run_callback_boundary(cb.body, cb.ctx);
+        end_pending_callback();
+        return;
+    }
+    Context ctx;
+    if (world_.asl_version < 520) {
+        // Pre-v520 games expect the engine to echo the command.
+        print_via_core("", ctx);
+        print_via_core("> " + safe_xml_escape(command), ctx);
+    }
+    Element *hc = world_.find("HandleCommand");
+    if (hc && hc->elem_type == "function") {
+        try {
+            call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
+        } catch (const std::exception &err) {
+            report_script_error(err.what());
+        }
+    }
+    // Pre-v580 Core relies on the engine calling FinishTurn after the command
+    // (TryFinishTurnAsync); v580+ Core runs it from HandleCommand itself.
+    if (world_.asl_version < 580) {
+        Element *ft = world_.find("FinishTurn");
+        if (ft && ft->elem_type == "function") {
+            try {
+                call_function("FinishTurn", {}, &ctx);
+            } catch (const std::exception &err) {
+                report_script_error(err.what());
+            }
+        }
+    }
+}
+
+void Interp::set_menu_response(const std::string *key) {
+    if (!menu_pending_) return;
+    menu_pending_ = false;
+    MenuData md = std::move(menu_);
+    menu_ = MenuData{};
+    PendingCallback cb = std::move(menu_cb_);
+    menu_cb_ = PendingCallback{};
+    if (key) {
+        // ShowMenuScript echoes the chosen option's display text.
+        for (const auto &kv : md.options) {
+            if (kv.first == *key) {
+                print_via_core(" - " + kv.second, cb.ctx);
+                break;
+            }
+        }
+        cb.ctx.locals["result"] = vstr(*key);
+    } else {
+        cb.ctx.locals["result"] = vnull();  // cancelled
+    }
+    run_callback_boundary(cb.body, cb.ctx);
+    end_pending_callback();
+}
+
+void Interp::set_question_response(bool response) {
+    if (!question_pending_) return;
+    question_pending_ = false;
+    question_.clear();
+    PendingCallback cb = std::move(question_cb_);
+    question_cb_ = PendingCallback{};
+    cb.ctx.locals["result"] = vbool(response);
+    run_callback_boundary(cb.body, cb.ctx);
+    end_pending_callback();
+}
+
+void Interp::finish_wait() {
+    if (!wait_pending_) return;
+    wait_pending_ = false;
+    PendingCallback cb = std::move(wait_cb_);
+    wait_cb_ = PendingCallback{};
+    run_callback_boundary(cb.body, cb.ctx);
+    end_pending_callback();
 }
 
 Element *interp_eval_element(Interp &in, const Value &v) {

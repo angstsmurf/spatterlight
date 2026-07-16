@@ -11,10 +11,12 @@
   drift. `check_golden.sh` replays all 17 `.cmd` scripts and diffs vs frozen
   `.out` (17/17), doubling as a determinism check. This is the reference the
   native engine will diff against, with no .NET dependency at replay time.
-- **Native engine: milestones 1–2 landed; milestone 3 mostly done** — Core
-  boots *and* real player commands (`look`/`take`/`examine`/`open`/`go`) now run
-  end-to-end through Core's parser with zero script errors (see the M3 command
-  driving entry below).
+- **Native engine: milestones 1–2 landed; milestone 3 mostly done; milestone
+  4's input model landed** — Core boots, real player commands
+  (`look`/`take`/`examine`/`open`/`go`) run end-to-end through Core's parser
+  with zero script errors, and the prompt layer (`get input`/`show menu`/
+  `ask`/`wait` + disambiguation menus) works through the new `send_command`
+  host API (see the M3/M4 entries below).
   - **M1 loader** (`aslx.hh`/`aslx.cc`): `.quest` (in-memory zip over zlib) or
     raw `.aslx` (libexpat SAX) → typed element tree (containment, `<inherit>`
     chains, `<implied>`/`<template>` registration, full attribute-type set,
@@ -260,12 +262,47 @@
     SHADOWED the inherited base. Unit-tested in `test_new_builtins` (fixture
     `runtime.aslx`: container base + openable extension + own extension);
     corpus boot output byte-identical (displayverbs feed UI verb menus).
-  - Still open for M3: multi-object/disambiguation menus and `show menu`/
-    `ask`/`get input`/real `wait` (the input model, §3), change
-    (`changed<attr>`) scripts, game-local
+  - **M4 input model landed (engine side)** (2026-07-16): the four prompt
+    script commands (`get input`, `show menu`, `ask`, real pending `wait`) plus
+    the host-facing entry points, ported from QuestViva's fire-and-forget
+    pending-callback model rather than the nested-glk_select plan (§3 has the
+    details). Highlights:
+    - `Interp::send_command()` ports `HandleCommandAsyncInternal`: a pending
+      `get input` consumes the line (command override, `result` param bound),
+      otherwise pre-v520 echo + Core `HandleCommand` + pre-v580 `FinishTurn`.
+    - Prompts are fire-and-forget (QuestViva ExecuteAsync): the callback is
+      registered, the enclosing script keeps running, the host resolves later
+      via `set_menu_response(key|null)` / `set_question_response(bool)` /
+      `finish_wait()`. `pending_menu()` (MenuData: caption + ordered
+      key→display options + allow_cancel), `pending_question()` (caption; the
+      engine does NOT print it — ShowQuestion is host UI), `pending_wait()`,
+      `command_override()` tell the host what the prompt is waiting for.
+      A new same-kind prompt cancels the old one (BeginPrompt TrySetCanceled).
+    - **`on ready` semantics corrected to WorldModel.AddOnReady**: it runs
+      IMMEDIATELY (inline) unless a prompt callback is outstanding
+      (`_pendingCallbackCount`), in which case it queues; resolving the prompt
+      flushes the queue FIFO (EndPendingCallbackAsync). Our old queue-always +
+      manual-drain model ran callbacks too late / menus'd have drained early.
+    - `msg` caption/echo printing factored into `print_via_core`
+      (WorldModel.PrintAsync: OutputText on v540+, failures reported and
+      swallowed); menu responses echo " - <display text>".
+    - **Core disambiguation needed NO engine prompt**: Core's `ShowMenu` is
+      pure ASLX (numbered options via `msg`, callback in `game.menucallback`,
+      answer routed by `HandleCommand` → `HandleMenuTextResponse`), so two
+      same-alias objects + `take hat` + `1` works end-to-end through
+      send_command. Only missing primitive was `IsInt` (+ `IsDouble`), added.
+    - Tests: `test/aslx_runtime_test.cc:test_input_model` (fixture
+      `command.aslx` gained two same-alias hats + type/pick/query/nap
+      commands); `make check` green, ASan/UBSan clean; corpus still
+      49/50-boot-0-error, boot output byte-identical except The Acreage, whose
+      `wait`-gated intro sections now emerge in the correct authored order.
+  - Still open for M3/M4: timers (`SetTimeout`/`SetTimerScript`/`enable`/
+    `disable`, a Tick entry point — see §3), `request (Wait)`/`request (Pause)`
+    for pre-v540 games (truly blocking mid-script in QuestViva, needs a
+    blocking host hook), change (`changed<attr>`) scripts, game-local
     libraries bundled *inside* a `.quest` zip, the UndoLogger, and (maybe)
     member-access-on-null throwing like QuestViva ("Property 'x' not found on
-    ''") instead of yielding null. Milestones 4–5 remain.
+    ''") instead of yielding null. Milestone 5 remains.
 
 ## 0. Scope and reality check
 
@@ -389,8 +426,9 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `{script}` call argument, `this` binding in `do`/`rundelegate`,
       `picture`/`play sound`/`stop sound`/`insert` (headless no-op + warning),
       `wait` (runs callback immediately pending §3), `error` (throws, QuestViva
-      semantics). TODO — `create exit`, `get input`, `show menu`, `ask`, real
-      blocking `wait`, `enable`/`disable` timer.
+      semantics). Also done (2026-07-16): `get input`, `show menu`, `ask`,
+      real pending `wait` (the §3 input model — fire-and-forget callbacks
+      resolved by the host). TODO — `create exit`, `enable`/`disable` timer.
 - [~] **Expression evaluator**: hand-written lexer + recursive-descent parser
       over `aslx::Value` (`aslx-runtime.cc`), compiled-expression cache per
       source string. DONE: `=`/`==` equality, `<>`/`!=`, `and or xor not`,
@@ -433,9 +471,10 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       blocked it: command patterns from `pattern="[tmpl]"`/`template="verb"`
       (not just nested `<pattern>`); the `name` field (RegexCache cacheID);
       reference-type lists/dicts (caller-built match lists); per-entry dict value
-      typing (object params to verb scripts). Remaining parser work is
-      multi-object/`ResolveNameList` disambiguation menus (needs the §3 input
-      model) and multi-word identifiers.
+      typing (object params to verb scripts). Disambiguation menus work too
+      (2026-07-16, `test_input_model`): Core's ShowMenu stores
+      `game.menucallback` and the numbered answer is routed by `HandleCommand`
+      — all ASLX, no engine prompt involved.
 - [x] **Determinism**: `GetRandomInt`/`GetRandomDouble` route through a
       xoshiro128**+SplitMix32 port of `erkyrath_random()` (`aslx::Rng`, seed
       1234, byte-identical to `terps/common_utils/randomness.c` and the oracle's
@@ -444,17 +483,34 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
 
 ## 3. Input and timing model
 
-Quest 5's engine thread blocks mid-script on `get input` / `show menu` /
-`ask` / `wait` until the UI responds. Under single-threaded Glk, do what
-geasglk already does for `get_string`/`make_choice` (`GeasRunner.hh`,
-`geasglk.cc:63-64`): re-enter `glk_select` from inside script execution.
-No second thread.
+Classic Quest 5's engine thread blocked mid-script on `get input` /
+`show menu` / `ask` / `wait`; QuestViva (the oracle) instead made them
+**fire-and-forget**: the script command registers a callback, the rest of the
+enclosing script keeps running, and the next player input resolves it
+(`_commandOverride` / `_menuTcs` / `_questionTcs` / `_waitTcs`), with
+`_pendingCallbackCount` deferring `on ready` until the prompt resolves. We
+ported that model exactly (2026-07-16) — it needs **no nested glk_select and
+no second thread**: the Glk prompt loop just asks the engine what it is
+waiting for and routes the next line/keypress.
 
-- [ ] `get input` → nested line event in the main buffer.
-- [ ] `show menu` / `ask` → numbered-menu prompt (reuse `make_choice` UI).
-- [ ] `wait` → keypress event.
-- [ ] Timer elements + `SetTimeout`/`SetTimerScript` → `glk_request_timer_events`
-      at prompt level (precedent: scarier a5 real-time events).
+- [x] `get input` → command override: the next `send_command` line binds
+      `result` and runs the callback instead of the parser.
+- [x] `show menu` / `ask` → `pending_menu()` (MenuData) / `pending_question()`
+      exposed to the host; resolved by `set_menu_response(key|null)` /
+      `set_question_response(bool)`. Core's own ShowMenu/disambiguation is
+      pure ASLX via `game.menucallback` and needs none of this — numbered
+      answers arrive as ordinary commands.
+- [x] `wait` → `pending_wait()` + `finish_wait()` (host keypress; headless
+      harnesses auto-advance like the oracle's AutoAdvance).
+- [ ] Glk wiring in geasglk: render pending menus/questions as numbered
+      prompts (reuse `make_choice` UI), `wait` as a keypress event.
+- [ ] Timer elements + `SetTimeout`/`SetTimerScript` → an engine Tick(secs)
+      entry (TimerRunner port) + `glk_request_timer_events` at prompt level
+      (precedent: scarier a5 real-time events; the oracle's DrainTimers shows
+      the deterministic-headless variant).
+- [ ] `request (Wait)` / `request (Pause, ms)` (pre-v540/v550 games only):
+      genuinely blocking mid-script even in QuestViva (`DoWaitAsync` is
+      awaited) — needs a blocking host hook; currently a no-op.
 
 ## 4. Output mapping (HTML/JS → Glk)
 
@@ -536,9 +592,13 @@ stays unsupported, as in `quest4.c`.
    Core's `HandleCommand` → scope → resolve → verb-script chain with 0 errors.
    `test/aslx_loader_test.cc:test_coreboot` (load) +
    `test/aslx_runtime_test.cc:test_coreboot_runs` (boot) +
-   `:test_command_driving` (commands). Remaining: multi-object disambiguation
-   menus (needs §3 input), change scripts.
-4. **Interaction**: get input, menus, wait, timers, undo, save/restore.
+   `:test_command_driving` (commands) + `:test_input_model` (disambiguation).
+   Remaining: change scripts.
+4. **Interaction** (input model ✅ 2026-07-16): get input, menus, ask, wait
+   all land engine-side with host entry points (`send_command` +
+   `set_menu_response`/`set_question_response`/`finish_wait`,
+   `test_input_model`). Remaining: timers/Tick, undo, save/restore, and the
+   geasglk prompt-loop wiring.
 5. **Presentation**: HTML→styles, hyperlinks, panes, pictures, sound.
 6. **Integration**: babel module, Info.plist, Xcode wiring, corpus
    regression + ground-truth harness green.

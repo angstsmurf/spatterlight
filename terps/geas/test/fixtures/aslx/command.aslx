@@ -20,6 +20,16 @@
       <inherit name="editor_object" />
       <inherit name="openable" />
     </object>
+    <object name="tophat">
+      <inherit name="editor_object" />
+      <alias>hat</alias>
+      <take />
+    </object>
+    <object name="strawhat">
+      <inherit name="editor_object" />
+      <alias>hat</alias>
+      <take />
+    </object>
     <exit alias="north" to="garden">
       <inherit name="northdirection" />
     </exit>
@@ -31,4 +41,47 @@
       <inherit name="editor_object" />
     </object>
   </object>
+
+  <!-- §3 input model: one command per engine-level prompt kind. -->
+  <command name="typecmd">
+    <pattern>type</pattern>
+    <script><![CDATA[
+      get input {
+        msg ("You typed " + result)
+      }
+    ]]></script>
+  </command>
+  <command name="pickcmd">
+    <pattern>pick</pattern>
+    <script><![CDATA[
+      options = Split("red;green;blue", ";")
+      show menu ("Pick a colour", options, false) {
+        msg ("You picked " + result)
+      }
+      on ready {
+        msg ("menu settled")
+      }
+    ]]></script>
+  </command>
+  <command name="querycmd">
+    <pattern>query</pattern>
+    <script><![CDATA[
+      ask ("Are you sure?") {
+        if (result) {
+          msg ("Confirmed")
+        }
+        else {
+          msg ("Denied")
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="napcmd">
+    <pattern>nap</pattern>
+    <script><![CDATA[
+      wait {
+        msg ("You wake up.")
+      }
+    ]]></script>
+  </command>
 </asl>

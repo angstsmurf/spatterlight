@@ -230,6 +230,52 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         s.body = parse_statements(body, interp);
         return s;
     }
+    if (line.compare(0, 9, "get input") == 0 &&
+        (line.size() == 9 || !std::isalnum((unsigned char)line[9]))) {
+        s.kind = Stmt::Kind::GetInput;
+        std::string a;
+        std::string body = get_script(rt_trim(line.substr(9)), a);
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+    if (line.compare(0, 9, "show menu") == 0 &&
+        (line.size() == 9 || !std::isalnum((unsigned char)line[9]))) {
+        // show menu (caption, options, allowCancel) { callback }
+        std::string after; bool found;
+        std::string param = get_parameter(line, after, found);
+        auto parts = split_parameters(param);
+        if (parts.size() != 3) {
+            interp.errors().push_back(
+                "'show menu' script should have 3 parameters: 'show menu (" +
+                param + ")'");
+            s.kind = Stmt::Kind::Comment;
+            return s;
+        }
+        s.kind = Stmt::Kind::ShowMenu;
+        for (const std::string &p : parts)
+            s.call_args.push_back(compile_expr_str(p));
+        std::string bafter;
+        std::string body = get_script(after, bafter);
+        s.body = parse_statements(body, interp);
+        return s;
+    }
+    if (starts_with_word(line, "ask")) {
+        // ask (caption) { callback }
+        std::string after; bool found;
+        std::string param = get_parameter(line, after, found);
+        if (!found || rt_trim(param).empty()) {
+            interp.errors().push_back(
+                "'ask' script should have 1 parameter: 'ask (" + param + ")'");
+            s.kind = Stmt::Kind::Comment;
+            return s;
+        }
+        s.kind = Stmt::Kind::Ask;
+        s.expr = compile_expr_str(param);
+        std::string bafter;
+        std::string body = get_script(after, bafter);
+        s.body = parse_statements(body, interp);
+        return s;
+    }
 
     // Assignment: "x = expr", "obj.prop = expr", or the script-literal form
     // "x => { script }" (which stores the RHS as a Script value, SetScriptScript).

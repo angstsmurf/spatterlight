@@ -260,21 +260,13 @@ static void test_script_commands() {
         "msg (DictionaryCount(d))\n"
         "msg (DictionaryItem(d, \"b\"))"), "False\nTrue\n1\n2");
 
-    // on ready -- deferred until drain, then FIFO
-    {
-        in.clear_output();
-        Context ctx;
-        in.run_script(
-            "msg (\"a\")\n"
-            "on ready { msg (\"deferred\") }\n"
-            "msg (\"b\")", ctx);
-        std::string before = in.output();
-        CHECK(before.find("deferred") == std::string::npos);
-        CHECK(before.find("a") != std::string::npos &&
-              before.find("b") != std::string::npos);
-        in.drain_on_ready();
-        CHECK(in.output().find("deferred") != std::string::npos);
-    }
+    // on ready -- with no prompt callback outstanding it runs immediately,
+    // inline (WorldModel.AddOnReady); deferral until a pending show menu /
+    // ask / get input / wait resolves is exercised by test_input_model.
+    CHECK_STR(run(in,
+        "msg (\"a\")\n"
+        "on ready { msg (\"deferred\") }\n"
+        "msg (\"b\")"), "a\ndeferred\nb");
 
     // JS.addText routes to the output sink; other JS.* calls are ignored.
     CHECK_STR(run(in, "JS.addText (\"<b>hi</b>\")\nJS.updateLocation (\"room\")"),
@@ -392,8 +384,15 @@ static void test_realgame_constructs() {
     size_t warned = w.warnings.size();
     run(in, "picture (\"again.jpg\")");   // warn once per command, not per call
     CHECK(w.warnings.size() == warned);
-    // wait runs its callback immediately (input model is M4).
-    CHECK_STR(run(in, "wait { msg (\"resumed\") }"), "resumed");
+    // wait registers its callback and pends until the host's finish_wait (the
+    // keypress); statements after it in the block run first (fire-and-forget).
+    CHECK_STR(run(in, "wait { msg (\"resumed\") }\nmsg (\"after wait\")"),
+              "after wait");
+    CHECK(in.pending_wait());
+    in.clear_output();
+    in.finish_wait();
+    CHECK_STR(in.output(), "resumed\n");
+    CHECK(!in.pending_wait());
     CHECK(w.errors.empty());
 
     // -- Robustness: an error inside one script aborts only that script; it is
@@ -696,6 +695,99 @@ static void test_command_driving() {
     CHECK_STR(Interp::to_string(in.eval("player.parent", boot)), "garden");
 }
 
+// The §3 input model, end to end through send_command: `get input` command
+// override, engine `show menu` (+ `on ready` deferral until the response),
+// `ask`, real pending `wait`, and Core's own ASLX disambiguation menu
+// (game.menucallback -> HandleMenuTextResponse), which needs no engine prompt
+// at all -- the numbered answer arrives as the next command.
+static void test_input_model() {
+    World w;
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    CHECK(ok);
+    CHECK(w.errors.empty());
+
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+
+    Context boot;
+    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+    if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    in.drain_on_ready();
+    w.errors.clear();
+
+    auto run = [&](const char *cmd) -> std::string {
+        out.clear();
+        in.send_command(cmd);
+        if (!w.errors.empty()) {
+            for (auto &e : w.errors)
+                std::cerr << "  cmd '" << cmd << "' err: " << e << "\n";
+        }
+        CHECK(w.errors.empty());
+        w.errors.clear();
+        return out;
+    };
+
+    // get input: the next command line goes to the callback, not the parser.
+    run("type");
+    CHECK(in.command_override());
+    std::string t = run("hello world");
+    CHECK(t.find("You typed hello world") != std::string::npos);
+    CHECK(!in.command_override());
+
+    // show menu: caption printed, options exposed to the host, `on ready`
+    // deferred while the menu pends and flushed by the response, which is
+    // echoed as " - <display text>".
+    t = run("pick");
+    CHECK(t.find("Pick a colour") != std::string::npos);
+    CHECK(t.find("menu settled") == std::string::npos);
+    const MenuData *m = in.pending_menu();
+    CHECK(m != nullptr);
+    if (m) {
+        CHECK(m->options.size() == 3);
+        CHECK_STR(m->options[1].first, "green");
+        CHECK(!m->allow_cancel);
+    }
+    out.clear();
+    std::string key = "green";
+    in.set_menu_response(&key);
+    CHECK(out.find(" - green") != std::string::npos);
+    CHECK(out.find("You picked green") != std::string::npos);
+    CHECK(out.find("menu settled") != std::string::npos);
+    CHECK(in.pending_menu() == nullptr);
+    CHECK(w.errors.empty());
+
+    // ask: caption handed to the host (not printed), boolean result.
+    run("query");
+    CHECK(in.pending_question() != nullptr &&
+          *in.pending_question() == "Are you sure?");
+    out.clear();
+    in.set_question_response(true);
+    CHECK(out.find("Confirmed") != std::string::npos);
+    CHECK(in.pending_question() == nullptr);
+
+    // wait: pends until the host keypress.
+    run("nap");
+    CHECK(in.pending_wait());
+    out.clear();
+    in.finish_wait();
+    CHECK(out.find("You wake up.") != std::string::npos);
+    CHECK(!in.pending_wait());
+    CHECK(w.errors.empty());
+
+    // Core disambiguation: two objects alias "hat"; Core's ShowMenu (pure
+    // ASLX) prints a numbered menu and stores game.menucallback; the numbered
+    // answer is an ordinary command that HandleCommand routes to
+    // HandleMenuTextResponse.
+    t = run("take hat");
+    CHECK(t.find("1") != std::string::npos);
+    CHECK(t.find("2") != std::string::npos);
+    CHECK(in.pending_menu() == nullptr);  // engine prompt NOT involved
+    t = run("1");
+    CHECK(t.find("pick") != std::string::npos);  // "You pick it up."
+    CHECK_STR(Interp::to_string(in.eval("tophat.parent", boot)), "player");
+}
+
 int main() {
     test_expressions();
     test_control_flow();
@@ -707,6 +799,7 @@ int main() {
     test_regex_primitives();
     test_coreboot_runs();
     test_command_driving();
+    test_input_model();
     test_rng_determinism();
 
     if (g_failures == 0) {

@@ -346,14 +346,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vstr(s);
     }
     if (fn == "safexml" && n == 1) {
-        std::string s = sarg(0), out;
-        for (char c : s) {
-            if (c == '&') out += "&amp;";
-            else if (c == '<') out += "&lt;";
-            else if (c == '>') out += "&gt;";
-            else out += c;
-        }
-        return vstr(out);
+        return vstr(safe_xml_escape(sarg(0)));
     }
 
     // ---- lists ------------------------------------------------------------
@@ -483,6 +476,27 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vstr(s);
     }
     if (fn == "trim" && n == 1) return vstr(rt_trim(sarg(0)));
+    // ExpressionOwner.IsInt/IsDouble: int.TryParse / double.TryParse (decimal
+    // point only, no exponent/thousands) on the string form.
+    if (fn == "isint" && n == 1) {
+        std::string s = rt_trim(sarg(0));
+        size_t i = (s.size() && (s[0] == '-' || s[0] == '+')) ? 1 : 0;
+        bool ok = i < s.size();
+        for (size_t k = i; k < s.size(); ++k)
+            if (!std::isdigit((unsigned char)s[k])) { ok = false; break; }
+        return vbool(ok);
+    }
+    if (fn == "isdouble" && n == 1) {
+        std::string s = rt_trim(sarg(0));
+        size_t i = (s.size() && (s[0] == '-' || s[0] == '+')) ? 1 : 0;
+        bool digits = false, dot = false, ok = i < s.size();
+        for (size_t k = i; k < s.size() && ok; ++k) {
+            if (std::isdigit((unsigned char)s[k])) digits = true;
+            else if (s[k] == '.' && !dot) dot = true;
+            else ok = false;
+        }
+        return vbool(ok && digits);
+    }
     if ((fn == "lengthof") && n == 1) return vint((long)sarg(0).size());
     if (fn == "startswith" && n == 2) {
         std::string s = sarg(0), p = sarg(1);

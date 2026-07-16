@@ -44,6 +44,25 @@ struct Rng {
 struct Expr;
 struct Stmt;
 
+// A pending engine-level prompt callback: the compiled callback body (owned by
+// the never-freed script cache, so the pointer is stable) plus a snapshot of
+// the locals at prompt time. Mirrors the (IScript, Context) pair QuestViva's
+// prompt scripts capture in AwaitResponseAndRunCallbackAsync.
+struct PendingCallback {
+    const std::vector<Stmt> *body = nullptr;
+    Context ctx;
+};
+
+// An active `show menu` prompt, exposed to the host so it can render the
+// options and answer with set_menu_response (QuestViva's MenuData).
+struct MenuData {
+    std::string caption;
+    // key -> display text, in authored order. A stringlist option is its own
+    // key; a stringdictionary provides distinct keys and texts.
+    std::vector<std::pair<std::string, std::string>> options;
+    bool allow_cancel = false;
+};
+
 // A .NET-flavoured regex compiled for std::regex, plus the ordered names of its
 // capture groups (empty string for an unnamed group). Defined in the .cc; the
 // parser primitives (IsRegexMatch/GetMatchStrength/Populate) use it. Mirrors
@@ -82,11 +101,47 @@ public:
     Value call_function(const std::string &name, std::vector<Value> args,
                         Context *caller);
 
-    // Run every callback queued by `on ready` since the last drain, FIFO.
-    // Callbacks queued while draining run in the same pass (Quest flushes the
-    // whole ready queue before returning control to the player).
+    // Flush queued `on ready` callbacks, FIFO. With the QuestViva pending-
+    // callback model an `on ready` runs immediately unless a prompt callback
+    // (show menu / ask / get input / wait) is outstanding, so this only has
+    // work to do -- and only runs -- while no prompt is pending; resolving the
+    // prompt flushes the queue itself.
     void drain_on_ready();
     bool has_pending_on_ready() const { return !on_ready_.empty(); }
+
+    // -- input model (TODO §3) ------------------------------------------------
+    // Engine-level prompts are fire-and-forget (QuestViva): the script command
+    // registers a callback and execution continues; the host later resolves it.
+    // At the prompt, the host should check, in this order: pending_menu() ->
+    // set_menu_response, pending_question() -> set_question_response,
+    // pending_wait() -> finish_wait (no player text), else send_command (which
+    // also feeds a pending `get input`).
+
+    // Player input entry point (WorldModel.SendCommand): routes the line to a
+    // pending `get input` callback if one is registered (command override),
+    // otherwise echoes (pre-v520 games) and calls Core's HandleCommand, then
+    // FinishTurn for pre-v580 games.
+    void send_command(const std::string &command);
+
+    // Active `show menu` prompt, or nullptr.
+    const MenuData *pending_menu() const { return menu_pending_ ? &menu_ : nullptr; }
+    // Resolve it: key must be an option key, or nullptr to cancel (only
+    // meaningful when allow_cancel; QuestViva passes null through regardless).
+    void set_menu_response(const std::string *key);
+
+    // Active `ask` prompt caption, or nullptr. The engine does not print the
+    // caption -- displaying the question is the host's job (PlayerUI.ShowQuestion).
+    const std::string *pending_question() const {
+        return question_pending_ ? &question_ : nullptr;
+    }
+    void set_question_response(bool response);
+
+    // Active `wait` prompt (PlayerUI.DoWait). finish_wait() = the keypress.
+    bool pending_wait() const { return wait_pending_; }
+    void finish_wait();
+
+    // True when a `get input` callback will consume the next send_command line.
+    bool command_override() const { return command_override_; }
 
     // Field access with inheritance resolution (own fields, then inherited
     // types most-recent-first). Returns nullptr if unresolved.
@@ -167,8 +222,41 @@ private:
 
     // Deferred `on ready` callbacks: a pointer to the compiled callback body
     // (owned by the never-freed script cache) plus a snapshot of the locals at
-    // queue time.
+    // queue time. Only populated while a prompt callback is outstanding
+    // (WorldModel._onReadyQueue); otherwise `on ready` runs immediately.
     std::vector<std::pair<const std::vector<Stmt> *, Context>> on_ready_;
+
+    // -- input model internals -----------------------------------------------
+    // WorldModel._pendingCallbackCount: >0 while a prompt callback (show menu /
+    // ask / get input / wait) is registered but unresolved; `on ready` defers
+    // until it returns to zero, at which point the queue flushes.
+    int pending_callback_count_ = 0;
+    void begin_pending_callback() { ++pending_callback_count_; }
+    void end_pending_callback();
+    // AddOnReady: run now (count == 0) or queue.
+    void add_on_ready(const std::vector<Stmt> *body, const Context &ctx);
+    // Run a prompt/on-ready callback as its own script boundary (errors are
+    // reported and the engine carries on), like drain_on_ready always did.
+    void run_callback_boundary(const std::vector<Stmt> *body, Context &ctx);
+    // PrintAsync: route through Core's OutputText on v540+ when present (so the
+    // {...} text processor runs), else the raw sink. Failures are reported and
+    // swallowed, like PrintAsync's own catch.
+    void print_via_core(const std::string &text, Context &ctx);
+
+    // One slot per prompt kind (WorldModel's _commandInputTcs/_menuTcs/
+    // _questionTcs/_waitTcs). Registering a new prompt of a kind that already
+    // pends cancels the old one (BeginPrompt's TrySetCanceled): its callback is
+    // dropped and its pending-callback count released.
+    bool command_override_ = false;
+    PendingCallback command_cb_;
+    bool menu_pending_ = false;
+    MenuData menu_;
+    PendingCallback menu_cb_;
+    bool question_pending_ = false;
+    std::string question_;
+    PendingCallback question_cb_;
+    bool wait_pending_ = false;
+    PendingCallback wait_cb_;
 };
 
 }  // namespace aslx
