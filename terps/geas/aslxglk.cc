@@ -117,6 +117,10 @@ bool draw_image_inline(const std::string &name);
 void redraw_side_pane(Interp &in);
 void fill_pane_divider();
 
+/* The grid map (game.gridmap): a graphics band across the top of the screen,
+ * drawn from CoreGrid.aslx's paint stream via the grid_draw host hook. */
+#include "aslxglk-map.inc"
+
 /* ---------------------------------------------------------------- output -- */
 
 void put_uni_char(glui32 c)
@@ -900,6 +904,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
             }
             update_banner(in);
             redraw_side_pane(in);
+            redraw_grid_map();
             if (engine_state_pending(in))
                 return {InEnd::State, ""};
             if (reprompt)
@@ -916,6 +921,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
         case evtype_Redraw:
             update_banner(in);
             fill_pane_divider();
+            grid_map_arrange();
             break;
         }
     }
@@ -934,6 +940,7 @@ void read_keypress(Interp &in)
             in.tick(1);
             update_banner(in);
             redraw_side_pane(in);
+            redraw_grid_map();
             if (in.world().finished || !in.pending_wait()) {
                 glk_cancel_char_event(gwin);
                 return;
@@ -942,6 +949,7 @@ void read_keypress(Interp &in)
         if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
             update_banner(in);
             fill_pane_divider();
+            grid_map_arrange();
         }
     }
 }
@@ -1383,8 +1391,10 @@ void wait_for_sound(Interp &in, glui32 id)
             stop_sound_ui();
             return;
         }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
             update_banner(in);
+            grid_map_arrange();
+        }
     }
 }
 
@@ -1584,6 +1594,11 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     in.update_location = [](const std::string &text) {
         g_location_line = plain_text(text);
     };
+    /* The grid map needs only filled rectangles, so plain gestalt_Graphics
+     * gates it.  Unset (CheapGlk: the smoke harness), the engine never even
+     * evaluates the paint arguments, keeping headless transcripts intact. */
+    if (glk_gestalt(gestalt_Graphics, 0))
+        in.grid_draw = grid_map_command;
     /* Pre-540 `picture` shows the image through the UI directly (no <img>
      * print), and JS.setPanelContents is the picture frame. Only claim them
      * when this Glk can actually draw -- unset, the engine keeps its
@@ -1656,6 +1671,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     flush_warnings(w, warnings_seen);
     update_banner(in);
     redraw_side_pane(in);
+    redraw_grid_map();
     update_timer_request(in);
 
     while (!w.finished) {
@@ -1719,6 +1735,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         flush_warnings(w, warnings_seen);
         update_banner(in);
         redraw_side_pane(in);
+        redraw_grid_map();
         update_timer_request(in);
     }
 
@@ -1822,6 +1839,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
         apply_style();
         /* No pane content survives the session either. */
         close_side_pane();
+        grid_map_reset();
         g_pane_inv.clear();
         g_pane_places.clear();
         g_pane_exits.clear();

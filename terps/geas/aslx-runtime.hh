@@ -84,6 +84,37 @@ struct ListData {
     std::string display_alias;
 };
 
+// One grid-map drawing command (the JS.ShowGrid / JS.Grid_* vocabulary that
+// CoreGrid.aslx sends to grid.js in the reference player). The layout is all
+// engine-side script -- CoreGrid computes every coordinate in grid units and
+// only ever asks the UI to paint -- so a host that retains these commands in
+// a display list can render the map without knowing anything about rooms.
+// Coordinates are doubles in grid units (Grid_SetScale supplies the pixels
+// per unit); colours are HTML names or #rrggbb, as authored.
+struct GridDraw {
+    enum class Op {
+        Show,     // JS.ShowGrid: h = pane height in pixels (<= 0 hides it)
+        Scale,    // Grid_SetScale: w = pixels per grid unit (game.mapscale)
+        Box,      // Grid_DrawBox: x,y top-left, w,h size, z layer, border +
+                  // borderwidth, fill, sides = which borders to draw, an
+                  // NESW bitmask (8=N top, 4=E right, 2=S bottom, 1=W left);
+                  // the fill always covers the full rectangle
+        Label,    // Grid_DrawLabel: x,y = centred text baseline, z, text,
+                  // fill = colour (grid.js PointText, centre-justified)
+        Line,     // Grid_DrawLine: x,y -> x2,y2, border + borderwidth. No z:
+                  // grid.js draws on the layer the last Box/Label/Player
+                  // activated, so the renderer tracks that state
+        Player,   // Grid_DrawPlayer: x,y centre, z, w = radius IN PIXELS
+                  // (not grid units), border + borderwidth, fill. There is
+                  // one player marker: a later call moves it
+        Clear,    // Grid_ClearAllLayers (ChangePOV wipes the map)
+    };
+    Op op = Op::Clear;
+    double x = 0, y = 0, x2 = 0, y2 = 0, w = 0, h = 0;
+    int z = 0, borderwidth = 0, sides = 15;
+    std::string border, fill, text;
+};
+
 // A .NET-flavoured regex compiled for std::regex, plus the ordered names of its
 // capture groups (empty string for an unnamed group). Defined in the .cc; the
 // parser primitives (IsRegexMatch/GetMatchStrength/Populate) use it. Mirrors
@@ -314,6 +345,14 @@ public:
     // host can render the picture inline when it changes. Unset, the call is
     // ignored with its argument unevaluated, as before.
     std::function<void(const std::string &html)> set_panel_contents;
+
+    // Host hook for the grid map (game.gridmap): CoreGrid.aslx does all the
+    // layout engine-side and sends bare paint commands (JS.ShowGrid /
+    // JS.Grid_DrawBox / ...) -- see GridDraw. Arguments are evaluated only
+    // when the hook is set, so headless transcripts are untouched. The
+    // custom-layer vocabulary (Grid_DrawSquare, SVG, images, shapes) stays
+    // silently ignored either way, like every other unclaimed JS.* call.
+    std::function<void(const GridDraw &)> grid_draw;
 
     // Host hooks for `play sound` / `stop sound` (PlaySoundScript /
     // StopSoundScript -> IPlayer.PlaySound/StopSound). play_sound receives

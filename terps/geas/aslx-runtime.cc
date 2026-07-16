@@ -2540,6 +2540,57 @@ bool Interp::exec_statement_command(const std::string &name,
             update_status(to_string(ev(0)));
         else if (fn == "updateLocation" && !args.empty() && update_location)
             update_location(to_string(ev(0)));
+        else if (grid_draw) {
+            /* The grid-map paint vocabulary (CoreGrid.aslx -> grid.js),
+             * forwarded as GridDraw commands. Argument evaluation only
+             * happens down here, hook set -- the headless path above stays
+             * untouched. Guarding numbers through as_double keeps a game
+             * that passes junk from crashing the bridge (grid.js would have
+             * silently drawn NaNs). */
+            auto num = [&](size_t i) { return as_double(ev(i)); };
+            GridDraw g;
+            if (fn == "ShowGrid") {
+                g.op = GridDraw::Op::Show;
+                g.h = num(0);
+                grid_draw(g);
+            } else if (fn == "Grid_SetScale") {
+                g.op = GridDraw::Op::Scale;
+                g.w = num(0);
+                grid_draw(g);
+            } else if (fn == "Grid_DrawBox") {
+                g.op = GridDraw::Op::Box;
+                g.x = num(0); g.y = num(1); g.z = (int)num(2);
+                g.w = num(3); g.h = num(4);
+                g.border = to_string(ev(5));
+                g.borderwidth = (int)num(6);
+                g.fill = to_string(ev(7));
+                g.sides = (int)num(8);
+                grid_draw(g);
+            } else if (fn == "Grid_DrawLabel") {
+                g.op = GridDraw::Op::Label;
+                g.x = num(0); g.y = num(1); g.z = (int)num(2);
+                g.text = to_string(ev(3));
+                g.fill = args.size() > 4 ? to_string(ev(4)) : "black";
+                grid_draw(g);
+            } else if (fn == "Grid_DrawLine") {
+                g.op = GridDraw::Op::Line;
+                g.x = num(0); g.y = num(1); g.x2 = num(2); g.y2 = num(3);
+                g.border = to_string(ev(4));
+                g.borderwidth = (int)num(5);
+                grid_draw(g);
+            } else if (fn == "Grid_DrawPlayer") {
+                g.op = GridDraw::Op::Player;
+                g.x = num(0); g.y = num(1); g.z = (int)num(2);
+                g.w = num(3);
+                g.border = to_string(ev(4));
+                g.borderwidth = (int)num(5);
+                g.fill = to_string(ev(6));
+                grid_draw(g);
+            } else if (fn == "Grid_ClearAllLayers") {
+                g.op = GridDraw::Op::Clear;
+                grid_draw(g);
+            }
+        }
         return true;
     }
 
