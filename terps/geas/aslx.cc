@@ -51,7 +51,11 @@ std::string Value::debug_string() const {
         o << '[';
         for (size_t i = 0; i < list().size(); ++i) {
             if (i) o << ", ";
-            o << list()[i];
+            // String/ObjectRef entries (the common case) print bare, keeping
+            // dumps stable; anything else shows its typed form.
+            const Value &e = list()[i];
+            if (e.type == Type::String || e.type == Type::ObjectRef) o << e.str;
+            else o << e.debug_string();
         }
         o << ']';
         break;
@@ -89,6 +93,22 @@ static Value dict_entry_value(const std::string &s, Value::Type dict_type) {
         v.str = s;
     }
     return v;
+}
+
+// Wrap a raw list-entry string as a typed Value: an ObjectList holds object
+// refs, everything else plain strings. List entries are typed per-entry (like
+// dictionary values); the loader materialises each one here.
+static Value list_entry_value(const std::string &s, Value::Type list_type) {
+    Value v;
+    v.type = (list_type == Value::Type::ObjectList) ? Value::Type::ObjectRef
+                                                    : Value::Type::String;
+    v.str = s;
+    return v;
+}
+
+static void fill_list(Value &v, const std::vector<std::string> &items) {
+    for (const std::string &s : items)
+        v.list().push_back(list_entry_value(s, v.type));
 }
 
 const Value *Element::field(const std::string &n) const {
@@ -907,10 +927,11 @@ struct Loader {
                 std::string cur;
                 for (size_t i = 0; i < params.size(); ++i) {
                     if (params[i] == ',') {
-                        pv.list().push_back(trim(cur)); cur.clear();
+                        pv.list().push_back(list_entry_value(trim(cur), pv.type));
+                        cur.clear();
                     } else cur += params[i];
                 }
-                pv.list().push_back(trim(cur));
+                pv.list().push_back(list_entry_value(trim(cur), pv.type));
                 e->set_field("paramnames", pv);
             }
             std::string ret = attr_get(f.attrs, "type");
@@ -980,28 +1001,51 @@ struct Loader {
         } else if (type == "object") {
             v.type = Value::Type::ObjectRef; v.str = trim(text);
         } else if (type == "simplestringlist") {
-            v.type = Value::Type::StringList; v.list() = simple_list_values(text);
+            v.type = Value::Type::StringList;
+            fill_list(v, simple_list_values(text));
         } else if (type == "listextend") {
             // A list that appends to the inherited same-named list. Core uses it
             // heavily for displayverbs/inventoryverbs on its object types.
-            v.type = Value::Type::StringList; v.list() = simple_list_values(text);
+            v.type = Value::Type::StringList;
+            fill_list(v, simple_list_values(text));
             v.list_extend = true;
         } else if (type == "stringlist") {
-            v.type = Value::Type::StringList; v.list() = f.values;
+            v.type = Value::Type::StringList;
+            fill_list(v, f.values);
         } else if (type == "list") {
             // A general list built from nested <value type="..."> children; each
-            // value may carry its own type (QuestViva's QuestList<object>). Our
-            // Value model has no heterogeneous list, so store an ObjectList when
-            // every value is an object reference, otherwise a StringList.
+            // value carries its own type (QuestViva's QuestList<object>), so the
+            // entries are materialised typed. The container tag is ObjectList
+            // when every entry is an object ref, otherwise StringList (TypeOf
+            // reports one of those two; a distinct "list" name is still TODO).
             bool all_obj = !f.values.empty();
             for (const std::string &t : f.value_types)
                 if (t != "object") { all_obj = false; break; }
             v.type = all_obj ? Value::Type::ObjectList : Value::Type::StringList;
-            v.list() = f.values;
+            for (size_t i = 0; i < f.values.size(); ++i) {
+                const std::string &vt =
+                    i < f.value_types.size() ? f.value_types[i] : std::string();
+                Value ev;
+                if (vt == "object") {
+                    ev.type = Value::Type::ObjectRef; ev.str = trim(f.values[i]);
+                } else if (vt == "int") {
+                    ev.type = Value::Type::Int;
+                    ev.integer = std::atol(trim(f.values[i]).c_str());
+                } else if (vt == "double") {
+                    ev.type = Value::Type::Double;
+                    ev.dbl = std::atof(trim(f.values[i]).c_str());
+                } else if (vt == "boolean") {
+                    ev.type = Value::Type::Boolean;
+                    ev.boolean = (trim(f.values[i]) != "false");
+                } else {
+                    ev.type = Value::Type::String; ev.str = f.values[i];
+                }
+                v.list().push_back(std::move(ev));
+            }
         } else if (type == "objectlist") {
             v.type = Value::Type::ObjectList;
             for (const std::string &s : simple_list_values(text))
-                if (!s.empty()) v.list().push_back(s);
+                if (!s.empty()) v.list().push_back(list_entry_value(s, v.type));
         } else if (type == "simplestringdictionary" ||
                    type == "simpleobjectdictionary") {
             v.type = (type[6] == 'o') ? Value::Type::ObjectDict

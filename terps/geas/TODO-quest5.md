@@ -1,6 +1,6 @@
 # TODO: Quest 5 support in Geas
 
-## Status (2026-07-15)
+## Status (2026-07-16)
 
 - **Ground-truth oracle: built and frozen** (§7, milestone 6's diff half).
   `terps/geas/test/quest5-oracle/` drives real `.quest`/`.aslx` games headless
@@ -230,15 +230,32 @@
       verified against the oracle, same abort point), and (b) **lists holding
       only strings**: spondre builds lists of *dictionaries* and indexes them
       (`match["score"]`), which needs QuestList-style typed lists (see below).
-  - Still open for M3: **typed lists** (list entries as full `Value`s, like the
-    dict-values change — spondre's list-of-dicts is the driver; touches the
-    loader, foreach, the QuestList operators and every list builtin),
-    multi-object/disambiguation menus and `show menu`/`ask`/`get input`/real
-    `wait` (the input model, §3), change (`changed<attr>`) scripts, the
-    listextend merge-on-read, game-local libraries bundled *inside* a `.quest`
-    zip, the UndoLogger, and (maybe) member-access-on-null throwing like
-    QuestViva ("Property 'x' not found on ''") instead of yielding null.
-    Milestones 4–5 remain.
+  - **M3 typed lists landed** (2026-07-16): list entries are now full `Value`s
+    behind the shared backing (QuestList<object>), completing the dict-values
+    change. Loader materialises typed entries (`<value type="int">` etc. in a
+    `type="list"` attr; String entries for stringlists, ObjectRef for
+    objectlists); `list add` stores the boxed value verbatim (a list can hold
+    dictionaries — spondre's `match["score"]`); indexing/`ListItem`/foreach
+    hand back the typed entry; `in`/`ListContains`/`list remove`/the QuestList
+    operators compare via `values_equal`, with collections comparing by
+    REFERENCE identity (shared-backing pointer), matching .NET. Verified
+    against QuestViva source while porting: `list remove` takes the FIRST
+    occurrence only (QuestList.Remove → List<T>.Remove; ours removed all),
+    `ListExclude` filters ALL occurrences and also accepts a list to exclude
+    (both fixed). Container TypeOf stays "stringlist"/"objectlist" — QuestViva
+    has a distinct "list" name for QuestList<object>, still TODO if a game
+    branches on it. Tests: `test/aslx_runtime_test.cc:test_typed_lists` +
+    typed-`<value>` loader checks (fixture `hello.aslx`); `make check` green,
+    clean under ASan/UBSan. **spondre now aborts at QuestViva's own abort
+    point** (foreach over `game.pov.longtermtopics` with pov unset — the
+    genuine game bug the oracle hits), with the rest of the corpus still
+    49/50-boot-0-error and 0 load failures.
+  - Still open for M3: multi-object/disambiguation menus and `show menu`/
+    `ask`/`get input`/real `wait` (the input model, §3), change
+    (`changed<attr>`) scripts, the listextend merge-on-read, game-local
+    libraries bundled *inside* a `.quest` zip, the UndoLogger, and (maybe)
+    member-access-on-null throwing like QuestViva ("Property 'x' not found on
+    ''") instead of yielding null. Milestones 4–5 remain.
 
 ## 0. Scope and reality check
 
@@ -332,9 +349,11 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       their storage sits behind a `shared_ptr` so copies (function args, `y = x`,
       field reads) alias one backing and `list add`/`dictionary add` propagate,
       matching QuestList/QuestDictionary; derived-list builtins `detach()` first.
-      **Dictionary values are full Values** (per-entry typing), so one dict can
-      mix objects, strings and booleans (CoreParser's resolvedelements). Delegate
-      values not yet a distinct runtime type.
+      **List entries and dictionary values are full Values** (per-entry typing),
+      so one collection can mix objects, strings, numbers and dictionaries
+      (CoreParser's resolvedelements; spondre's list-of-dicts). Collections
+      compare by reference identity on the shared backing (.NET semantics).
+      Delegate values not yet a distinct runtime type.
 - [x] **Inheritance**: `<inherit name="type"/>` chains resolved own → inherited
       types most-recent-first, recursively (`Interp::resolve_field`). Each
       element also gets an implicit default type (`defaultobject`/`defaultgame`/
@@ -392,9 +411,10 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       depends on this everywhere. Also done (2026-07-16): multi-word
       (space-encoded) identifiers, `in`/`not in`, case-insensitive
       `True`/`False`/`Null`, NCalc `if()`/`cast()`, `GetFileURL`/
-      `GetUniqueElementName`/`RunDelegateFunction`. TODO: the remaining
-      built-ins (DateTime, `FormatList` and the scope helpers), list/dict
-      literals, and typed (Value-holding) lists.
+      `GetUniqueElementName`/`RunDelegateFunction`; typed (Value-holding)
+      lists with reference-identity equality (2026-07-16). TODO: the remaining
+      built-ins (DateTime, `FormatList` and the scope helpers) and list/dict
+      literals.
 - [x] **Command parsing comes free**: implemented in `CoreParser.aslx`, and it
       now runs — `HandleCommand` → `ScopeCommands` → `IsRegexMatch`/
       `GetMatchStrength` → `ResolveName`/`GetScope`/`ResolveNameFromList`/

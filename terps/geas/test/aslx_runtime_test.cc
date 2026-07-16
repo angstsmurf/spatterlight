@@ -414,6 +414,103 @@ static void test_realgame_constructs() {
     w.errors.clear();
 }
 
+// Typed lists: entries are full Values (QuestList<object>) -- the spondre
+// blocker. Lists of dictionaries index as match["score"], entries keep their
+// type through list add / ListItem / foreach / the QuestList operators, and
+// removal follows QuestViva semantics (Remove = first occurrence, by
+// reference identity for collections; Exclude filters all).
+static void test_typed_lists() {
+    World w;
+    w.asl_version = 550;
+    Interp in(w);
+
+    // A list of dictionaries, indexed (spondre's match["score"] shape).
+    CHECK_STR(run(in,
+        "matches = NewList()\n"
+        "d = NewDictionary()\n"
+        "dictionary add (d, \"score\", 5)\n"
+        "dictionary add (d, \"name\", \"first\")\n"
+        "list add (matches, d)\n"
+        "msg (ListItem(matches, 0)[\"score\"])\n"
+        "msg (matches[0][\"name\"])"), "5\nfirst");
+
+    // The list holds the dictionary by reference: mutating it through the
+    // ListItem alias is visible through the original variable.
+    CHECK_STR(run(in,
+        "l = NewList()\n"
+        "d = NewDictionary()\n"
+        "dictionary add (d, \"score\", 1)\n"
+        "list add (l, d)\n"
+        "e = ListItem(l, 0)\n"
+        "dictionary add (e, \"score\", 99)\n"
+        "msg (d[\"score\"])"), "99");
+
+    // foreach binds the typed entry (a dictionary, not its string form).
+    CHECK_STR(run(in,
+        "l = NewList()\n"
+        "d1 = NewDictionary()\n"
+        "dictionary add (d1, \"n\", 1)\n"
+        "d2 = NewDictionary()\n"
+        "dictionary add (d2, \"n\", 2)\n"
+        "list add (l, d1)\n"
+        "list add (l, d2)\n"
+        "total = 0\n"
+        "foreach (m, l) {\n"
+        "  total = total + m[\"n\"]\n"
+        "}\n"
+        "msg (total)"), "3");
+
+    // Numeric entries stay numeric through add/index/arithmetic.
+    CHECK_STR(run(in,
+        "l = NewList()\n"
+        "list add (l, 42)\n"
+        "list add (l, \"x\")\n"
+        "msg (l[0] + 1)\n"
+        "msg (TypeOf(l[0]))\n"
+        "msg (TypeOf(l[1]))"), "43\nint\nstring");
+
+    // list remove takes the FIRST occurrence only (QuestList.Remove ->
+    // List<T>.Remove); ListExclude filters ALL occurrences into a new list,
+    // and also accepts a list of elements to exclude.
+    CHECK_STR(run(in,
+        "l = NewStringList()\n"
+        "list add (l, \"a\")\n"
+        "list add (l, \"b\")\n"
+        "list add (l, \"a\")\n"
+        "list remove (l, \"a\")\n"
+        "msg (Join(l, \",\"))\n"
+        "msg (Join(ListExclude(l, \"a\"), \",\"))"), "b,a\nb");
+
+    // Removing a collection entry matches by reference identity, not text.
+    CHECK_STR(run(in,
+        "l = NewList()\n"
+        "d1 = NewDictionary()\n"
+        "d2 = NewDictionary()\n"
+        "dictionary add (d1, \"k\", \"one\")\n"
+        "dictionary add (d2, \"k\", \"two\")\n"
+        "list add (l, d1)\n"
+        "list add (l, d2)\n"
+        "list remove (l, d1)\n"
+        "msg (ListCount(l))\n"
+        "msg (l[0][\"k\"])"), "1\ntwo");
+
+    // The QuestList + operator appends the boxed value itself.
+    CHECK_STR(run(in,
+        "d = NewDictionary()\n"
+        "dictionary add (d, \"k\", \"boxed\")\n"
+        "l = NewList() + d\n"
+        "msg (l[0][\"k\"])"), "boxed");
+
+    // `in` compares typed entries.
+    CHECK_STR(run(in,
+        "l = NewList()\n"
+        "list add (l, 5)\n"
+        "msg (5 in l)\n"
+        "msg (6 in l)"), "True\nFalse");
+
+    CHECK(w.errors.empty());
+}
+
 // The parser primitives: named-group matching, match strength, and Populate,
 // mirroring QuestViva Utility.IsRegexMatch/GetMatchStrength/Populate on the
 // simplepattern-derived regexes CoreParser feeds them.
@@ -596,6 +693,7 @@ int main() {
     test_script_commands();
     test_new_builtins();
     test_realgame_constructs();
+    test_typed_lists();
     test_regex_primitives();
     test_coreboot_runs();
     test_command_driving();

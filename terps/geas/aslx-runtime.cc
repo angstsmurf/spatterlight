@@ -179,10 +179,16 @@ static Value vobj(std::string name) {
     Value v; v.type = Value::Type::ObjectRef; v.str = std::move(name); return v;
 }
 static Value vstrlist(std::vector<std::string> l) {
-    Value v; v.type = Value::Type::StringList; v.list() = std::move(l); return v;
+    Value v; v.type = Value::Type::StringList;
+    v.list();  // allocate the backing so a fresh list has its own identity
+    for (std::string &s : l) v.list().push_back(vstr(std::move(s)));
+    return v;
 }
 static Value vobjlist(std::vector<std::string> l) {
-    Value v; v.type = Value::Type::ObjectList; v.list() = std::move(l); return v;
+    Value v; v.type = Value::Type::ObjectList;
+    v.list();
+    for (std::string &s : l) v.list().push_back(vobj(std::move(s)));
+    return v;
 }
 
 static bool is_number(const Value &v) {
@@ -224,7 +230,7 @@ std::string Interp::to_string(const Value &v) {
         std::string s;
         for (size_t i = 0; i < v.list().size(); ++i) {
             if (i) s += ", ";
-            s += v.list()[i];
+            s += to_string(v.list()[i]);
         }
         return s;
     }
@@ -995,20 +1001,22 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     }
     case Stmt::Kind::ForEach: {
         Value lst = eval_expr(*s.list, ctx);
-        std::vector<std::string> items;
+        // Iterate a snapshot: list entries are typed Values and bind verbatim;
+        // dictionary iteration binds the KEYS (object refs for an ObjectDict).
+        std::vector<Value> items;
         if (is_list(lst)) items = lst.list();
         else if (lst.type == Value::Type::StringDict ||
                  lst.type == Value::Type::ObjectDict ||
                  lst.type == Value::Type::ScriptDict) {
-            for (auto &kv : lst.dict()) items.push_back(kv.first);
+            bool obj = (lst.type == Value::Type::ObjectDict);
+            for (auto &kv : lst.dict())
+                items.push_back(obj ? vobj(kv.first) : vstr(kv.first));
         } else {
             error("Cannot foreach over non-list");
             return;
         }
-        bool obj = (lst.type == Value::Type::ObjectList ||
-                    lst.type == Value::Type::ObjectDict);
-        for (const std::string &item : items) {
-            ctx.locals[s.name] = obj ? vobj(item) : vstr(item);
+        for (const Value &item : items) {
+            ctx.locals[s.name] = item;
             exec_block(s.body, ctx);
             if (ctx.returned) break;
         }
@@ -1163,7 +1171,7 @@ Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
     const Value *pn = def ? def->field("paramnames") : nullptr;
     for (size_t k = 0; k < params.size(); ++k) {
         if (pn && k < pn->list().size())
-            local.locals[pn->list()[k]] = params[k];
+            local.locals[Interp::to_string(pn->list()[k])] = params[k];
     }
     Value self; self.type = Value::Type::ObjectRef; self.str = obj->name;
     local.locals["this"] = self;
@@ -1210,6 +1218,10 @@ static bool values_equal(const Value &a, const Value &b) {
     if ((a.type == Value::Type::String || a.type == Value::Type::ObjectRef) &&
         (b.type == Value::Type::String || b.type == Value::Type::ObjectRef))
         return a.str == b.str;
+    // Lists and dictionaries compare by reference (shared backing), matching
+    // .NET reference equality on QuestList/QuestDictionary instances.
+    if (is_list(a) && is_list(b)) return a.list_store && a.list_store == b.list_store;
+    if (a.dict_store && b.dict_store) return a.dict_store == b.dict_store;
     return false;
 }
 
@@ -1245,8 +1257,7 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
                 error("List index out of range");
                 return vnull();
             }
-            return coll.type == Value::Type::ObjectList ? vobj(coll.list()[i])
-                                                        : vstr(coll.list()[i]);
+            return coll.list()[i];  // entries are typed
         }
         if (coll.type == Value::Type::StringDict ||
             coll.type == Value::Type::ObjectDict) {
@@ -1324,12 +1335,8 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
         if (op == "in" || op == "not in") {
             bool contains = false;
             if (is_list(r)) {
-                std::string item = (l.type == Value::Type::ObjectRef ||
-                                    l.type == Value::Type::String ||
-                                    l.type == Value::Type::Script)
-                                       ? l.str : to_string(l);
-                for (auto &s : r.list())
-                    if (s == item) { contains = true; break; }
+                for (auto &entry : r.list())
+                    if (values_equal(entry, l)) { contains = true; break; }
             } else if (r.type == Value::Type::StringDict ||
                        r.type == Value::Type::ObjectDict ||
                        r.type == Value::Type::ScriptDict) {
@@ -1349,41 +1356,35 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
         // first occurrence, list*list unions. Handled before the scalar/string
         // paths, since list+objectref would otherwise be string-concatenated.
         if (is_list(l) || is_list(r)) {
-            auto elem_str = [](const Value &v) {
-                return (v.type == Value::Type::ObjectRef ||
-                        v.type == Value::Type::String ||
-                        v.type == Value::Type::Script)
-                           ? v.str : to_string(v);
-            };
             if (op == "+" && is_list(l) && is_list(r)) {
                 Value out = l; out.detach();
-                for (auto &s : r.list()) out.list().push_back(s);
+                for (auto &e : r.list()) out.list().push_back(e);
                 return out;
             }
-            if (op == "+" && is_list(l)) {
+            if (op == "+" && is_list(l)) {  // list + elem -> append (boxed)
                 Value out = l; out.detach();
-                out.list().push_back(elem_str(r));
+                out.list().push_back(r);
                 return out;
             }
             if (op == "+") {  // elem + list -> prepend
                 Value out = r; out.detach();
-                out.list().insert(out.list().begin(), elem_str(l));
+                out.list().insert(out.list().begin(), l);
                 return out;
             }
             if (op == "-" && is_list(l)) {  // list - elem -> remove first
                 Value out = l; out.detach();
-                std::string it = elem_str(r);
                 auto &v = out.list();
                 for (auto i = v.begin(); i != v.end(); ++i)
-                    if (*i == it) { v.erase(i); break; }
+                    if (values_equal(*i, r)) { v.erase(i); break; }
                 return out;
             }
             if (op == "*" && is_list(l) && is_list(r)) {  // union
                 Value out = l; out.detach();
-                for (auto &s : r.list()) {
+                for (auto &e : r.list()) {
                     bool present = false;
-                    for (auto &x : l.list()) if (x == s) { present = true; break; }
-                    if (!present) out.list().push_back(s);
+                    for (auto &x : l.list())
+                        if (values_equal(x, e)) { present = true; break; }
+                    if (!present) out.list().push_back(e);
                 }
                 return out;
             }
@@ -1442,7 +1443,7 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     const Value *pn = fn->field("paramnames");
     if (pn) {
         for (size_t i = 0; i < pn->list().size() && i < args.size(); ++i)
-            local.locals[pn->list()[i]] = args[i];
+            local.locals[to_string(pn->list()[i])] = args[i];
     }
     const Value *body = fn->field("script");
     if (body && body->type == Value::Type::Script) {
@@ -1600,13 +1601,15 @@ bool Interp::exec_statement_command(const std::string &name,
             errors().push_back("Unrecognised list type");
             return true;
         }
-        std::string s = (item.type == Value::Type::ObjectRef) ? item.str
-                                                             : to_string(item);
         if (name == "list add") {
-            lst->list().push_back(s);
+            // The value is stored boxed/typed verbatim (QuestList<object>.Add)
+            // -- a list can hold dictionaries, objects, numbers... (spondre).
+            lst->list().push_back(std::move(item));
         } else {
-            lst->list().erase(std::remove(lst->list().begin(), lst->list().end(), s),
-                            lst->list().end());
+            // QuestList.Remove: first occurrence only (List<T>.Remove).
+            auto &v = lst->list();
+            for (auto i = v.begin(); i != v.end(); ++i)
+                if (values_equal(*i, item)) { v.erase(i); break; }
         }
         return true;
     }

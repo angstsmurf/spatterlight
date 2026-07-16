@@ -44,6 +44,12 @@
       <item><key>a</key><value>alpha</value></item>
       <item><key>b</key><value>beta</value></item>
     </mapping>
+    <mixed type="list">
+      <value type="int">7</value>
+      <value>seven</value>
+      <value type="boolean">true</value>
+      <value type="object">lamp</value>
+    </mixed>
   </object>
   <command name="rublamp">
     <pattern>rub #object#; polish #object#</pattern>

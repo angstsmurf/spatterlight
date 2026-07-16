@@ -97,9 +97,9 @@ static void test_hello() {
     CHECK(dv && dv->type == Value::Type::StringList);
     CHECK_EQ(dv->list().size(), (size_t)3);
     if (dv && dv->list().size() == 3) {
-        CHECK_EQ(dv->list()[0], std::string("Look"));
-        CHECK_EQ(dv->list()[1], std::string("Take"));
-        CHECK_EQ(dv->list()[2], std::string("Rub"));
+        CHECK_EQ(dv->list()[0].str, std::string("Look"));
+        CHECK_EQ(dv->list()[1].str, std::string("Take"));
+        CHECK_EQ(dv->list()[2].str, std::string("Rub"));
     }
     const Value *weight = lamp->field("weight");
     CHECK(weight && weight->type == Value::Type::Int && weight->integer == 3);
@@ -137,6 +137,22 @@ static void test_hello() {
         CHECK_EQ(mapping->dict()[0].second.str, std::string("alpha"));
     }
 
+    // A general type="list" keeps each <value type="...">'s own type
+    // (QuestList<object> with boxed entries).
+    const Value *mixed = field(w, "hall", "mixed");
+    CHECK(mixed && mixed->type == Value::Type::StringList);
+    CHECK_EQ(mixed->list().size(), (size_t)4);
+    if (mixed && mixed->list().size() == 4) {
+        CHECK(mixed->list()[0].type == Value::Type::Int &&
+              mixed->list()[0].integer == 7);
+        CHECK(mixed->list()[1].type == Value::Type::String &&
+              mixed->list()[1].str == "seven");
+        CHECK(mixed->list()[2].type == Value::Type::Boolean &&
+              mixed->list()[2].boolean);
+        CHECK(mixed->list()[3].type == Value::Type::ObjectRef &&
+              mixed->list()[3].str == "lamp");
+    }
+
     // command: pattern (simplepattern -> regex) + script body.
     Element *cmd = w.find("rublamp");
     CHECK(cmd && cmd->elem_type == "command");
@@ -170,8 +186,8 @@ static void test_hello() {
     CHECK(params && params->type == Value::Type::StringList);
     CHECK_EQ(params->list().size(), (size_t)2);
     if (params && params->list().size() == 2) {
-        CHECK_EQ(params->list()[0], std::string("obj"));
-        CHECK_EQ(params->list()[1], std::string("dest"));
+        CHECK_EQ(params->list()[0].str, std::string("obj"));
+        CHECK_EQ(params->list()[1].str, std::string("dest"));
     }
     const Value *ret = fn ? fn->field("returntype") : nullptr;
     CHECK(ret && ret->str == "boolean");

@@ -307,12 +307,13 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "stringlistitem" && n == 2) {
         const Value &l = arg(0); long i = iarg(1);
         if (i < 0 || (size_t)i >= l.list().size()) return vnull();
-        return vstr(l.list()[i]);
+        return vstr(to_string(l.list()[i]));
     }
     if (fn == "objectlistitem" && n == 2) {
         const Value &l = arg(0); long i = iarg(1);
         if (i < 0 || (size_t)i >= l.list().size()) return vnull();
-        return vobj(l.list()[i]);
+        const Value &e = l.list()[i];
+        return e.type == Value::Type::ObjectRef ? e : vobj(to_string(e));
     }
 
     // ---- templates --------------------------------------------------------
@@ -363,26 +364,34 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         const Value &l = arg(0);
         long i = iarg(1);
         if (i < 0 || (size_t)i >= l.list().size()) return vnull();
-        return l.type == Value::Type::ObjectList ? vobj(l.list()[i]) : vstr(l.list()[i]);
+        return l.list()[i];  // entries are typed
     }
     if (fn == "listcontains" && n == 2) {
-        const Value &l = arg(0);
-        std::string item = to_string(arg(1));
-        for (const std::string &s : l.list()) if (s == item) return vbool(true);
+        for (const Value &e : arg(0).list())
+            if (values_equal(e, arg(1))) return vbool(true);
         return vbool(false);
     }
     if (fn == "listexclude" && n == 2) {
+        // QuestList.Exclude filters ALL matching entries into a new list; the
+        // second arg may be a single element or a list of elements to exclude.
         Value out = arg(0);
         out.detach();  // return a new list; do not mutate the input's backing
-        std::string item = to_string(arg(1));
-        out.list().erase(std::remove(out.list().begin(), out.list().end(), item),
-                       out.list().end());
+        auto excluded = [&](const Value &e) {
+            if (is_list(arg(1))) {
+                for (const Value &x : arg(1).list())
+                    if (values_equal(e, x)) return true;
+                return false;
+            }
+            return values_equal(e, arg(1));
+        };
+        auto &v = out.list();
+        v.erase(std::remove_if(v.begin(), v.end(), excluded), v.end());
         return out;
     }
     if (fn == "listcombine" && n == 2) {
         Value out = arg(0);
         out.detach();  // return a new list; do not mutate the input's backing
-        for (const std::string &s : arg(1).list()) out.list().push_back(s);
+        for (const Value &e : arg(1).list()) out.list().push_back(e);
         return out;
     }
     // ObjectListSort(list, attr[, attr2...]): stably order an object list by one
@@ -393,13 +402,13 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         out.detach();
         std::vector<std::string> attrs;
         for (int i = 1; i < n; ++i) attrs.push_back(to_string(arg(i)));
-        auto key_at = [&](const std::string &el, size_t k) -> std::string {
-            Element *e = world_.find(el);
+        auto key_at = [&](const Value &el, size_t k) -> std::string {
+            Element *e = world_.find(to_string(el));
             const Value *f = e ? resolve_field(e, attrs[k]) : nullptr;
             return f ? to_string(*f) : std::string();
         };
         std::stable_sort(out.list().begin(), out.list().end(),
-                         [&](const std::string &a, const std::string &b) {
+                         [&](const Value &a, const Value &b) {
                              for (size_t k = 0; k < attrs.size(); ++k) {
                                  std::string ka = key_at(a, k), kb = key_at(b, k);
                                  if (ka != kb) return ka < kb;
@@ -413,7 +422,10 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if ((fn == "stringlistsort" || fn == "stringlistsortdescending") && n == 1) {
         Value out = arg(0);
         out.detach();
-        std::stable_sort(out.list().begin(), out.list().end());
+        std::stable_sort(out.list().begin(), out.list().end(),
+                         [](const Value &a, const Value &b) {
+                             return to_string(a) < to_string(b);
+                         });
         if (fn == "stringlistsortdescending")
             std::reverse(out.list().begin(), out.list().end());
         return out;
@@ -500,7 +512,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         const Value &l = arg(0);
         for (size_t i = 0; i < l.list().size(); ++i) {
             if (i) out += delim;
-            out += l.list()[i];
+            out += to_string(l.list()[i]);
         }
         return vstr(out);
     }

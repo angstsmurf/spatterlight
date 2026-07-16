@@ -63,29 +63,25 @@ struct Value {
     // everywhere. Builtins that derive a *new* collection from an input must
     // call detach() first (see aslx-runtime-builtins.inc).
     //
-    // A dictionary's *values* are full Values, not strings: Quest's dictionaries
-    // hold typed/boxed entries, and a single dictionary can mix objects, strings
-    // and booleans (e.g. CoreParser's currentcommandresolvedelements holds the
-    // resolved objects alongside a boolean `multiple`). The dict-level Type enum
-    // (StringDict/ObjectDict/ScriptDict) is retained only for TypeOf and for the
-    // NewXxxDictionary constructors' declared kind.
+    // Entries of both are full Values, not strings: Quest's collections hold
+    // typed/boxed entries, and a single list/dictionary can mix objects,
+    // strings, numbers, dictionaries... (spondre builds lists of dictionaries
+    // and indexes them, `match["score"]`; CoreParser's
+    // currentcommandresolvedelements dict holds resolved objects alongside a
+    // boolean `multiple`). The container-level Type enum (StringList/ObjectList,
+    // StringDict/ObjectDict/ScriptDict) is retained only for TypeOf and for the
+    // NewXxx constructors' declared kind -- a loaded StringList holds String
+    // entries and an ObjectList holds ObjectRef entries by construction.
     using DictEntry = std::pair<std::string, Value>;
-    std::shared_ptr<std::vector<std::string>> list_store;
+    std::shared_ptr<std::vector<Value>> list_store;
     std::shared_ptr<std::vector<DictEntry>> dict_store;
 
     // Lazily-allocating accessors so a freshly-typed list/dict Value is usable
     // without a separate init step. The const overloads return a shared empty
-    // when the store is null (a null list reads as empty, never faults). The
-    // dict accessors are defined out-of-line (they need Value to be complete).
-    std::vector<std::string> &list() {
-        if (!list_store)
-            list_store = std::make_shared<std::vector<std::string>>();
-        return *list_store;
-    }
-    const std::vector<std::string> &list() const {
-        static const std::vector<std::string> empty;
-        return list_store ? *list_store : empty;
-    }
+    // when the store is null (a null list reads as empty, never faults). All
+    // are defined out-of-line (they need Value to be complete).
+    std::vector<Value> &list();
+    const std::vector<Value> &list() const;
     std::vector<DictEntry> &dict();
     const std::vector<DictEntry> &dict() const;
 
@@ -96,6 +92,15 @@ struct Value {
     std::string debug_string() const;
 };
 
+inline std::vector<Value> &Value::list() {
+    if (!list_store)
+        list_store = std::make_shared<std::vector<Value>>();
+    return *list_store;
+}
+inline const std::vector<Value> &Value::list() const {
+    static const std::vector<Value> empty;
+    return list_store ? *list_store : empty;
+}
 inline std::vector<Value::DictEntry> &Value::dict() {
     if (!dict_store)
         dict_store = std::make_shared<std::vector<DictEntry>>();
@@ -107,7 +112,7 @@ inline const std::vector<Value::DictEntry> &Value::dict() const {
 }
 inline void Value::detach() {
     if (list_store)
-        list_store = std::make_shared<std::vector<std::string>>(*list_store);
+        list_store = std::make_shared<std::vector<Value>>(*list_store);
     if (dict_store)
         dict_store = std::make_shared<std::vector<DictEntry>>(*dict_store);
 }
