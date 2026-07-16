@@ -64,6 +64,12 @@ public:
     void clear_output() { output_.clear(); }
 
     std::vector<std::string> &errors() { return world_.errors; }
+    // Raise a runtime script error: appends the innermost executing <function>
+    // name ("... (in HandleCommand)") and THROWS, aborting the current script
+    // body -- QuestViva semantics, where expression/script exceptions unwind to
+    // the nearest RunScriptAsync, which logs "Error running script: ..." and
+    // lets the outer script continue. run_script is that boundary here.
+    [[noreturn]] void error(const std::string &message);
     Rng &rng() { return rng_; }
 
     // Run a raw script source string (a function body / command script) in ctx.
@@ -132,6 +138,27 @@ private:
     // backing it (copy-on-write for inherited attrs). Used by the list/
     // dictionary mutator commands. nullptr if not an assignable location.
     Value *lvalue_of(const Expr &e, Context &ctx);
+
+    // Record a one-per-key notice in world.warnings (e.g. "picture no-opped
+    // headless") without polluting world.errors.
+    void warn_once(const std::string &key, const std::string &message);
+    std::vector<std::string> warned_;
+
+    // Names of the <function> elements currently executing (call_function
+    // pushes/pops); the innermost is appended to error() messages.
+    std::vector<std::string> frames_;
+
+    // Script-error accounting, mirroring WorldModel.RunScriptAsync: each error
+    // is logged + printed once; after kMaxScriptErrors the session is declared
+    // wedged (scriptErrorsFatal -> FinishGame) and scripts stop running. The
+    // depth cap guards infinite script recursion.
+    static constexpr int kMaxScriptDepth = 200;   // MaxScriptExecutionDepth
+    static constexpr int kMaxScriptErrors = 20;   // MaxScriptErrors
+    void report_script_error(const std::string &what);
+    int script_depth_ = 0;
+    int script_error_count_ = 0;
+    bool script_errors_fatal_ = false;
+    bool reporting_error_ = false;
 
     // Deferred `on ready` callbacks: a pointer to the compiled callback body
     // (owned by the never-freed script cache) plus a snapshot of the locals at

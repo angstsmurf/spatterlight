@@ -49,9 +49,9 @@ std::string Value::debug_string() const {
         o << (type == Type::ObjectList ? "objectlist" : "list");
         if (list_extend) o << "+";   // extends the inherited list
         o << '[';
-        for (size_t i = 0; i < list.size(); ++i) {
+        for (size_t i = 0; i < list().size(); ++i) {
             if (i) o << ", ";
-            o << list[i];
+            o << list()[i];
         }
         o << ']';
         break;
@@ -61,15 +61,34 @@ std::string Value::debug_string() const {
     case Type::ObjectDict:
     case Type::ScriptDict: {
         o << "dict{";
-        for (size_t i = 0; i < dict.size(); ++i) {
+        for (size_t i = 0; i < dict().size(); ++i) {
             if (i) o << ", ";
-            o << dict[i].first << "=" << dict[i].second;
+            o << dict()[i].first << "=" << dict()[i].second.debug_string();
         }
         o << '}';
         break;
     }
     }
     return o.str();
+}
+
+// Wrap a raw dictionary-entry string as a typed Value according to the
+// dictionary's declared kind (ObjectDict -> object ref, ScriptDict -> script,
+// otherwise a plain string). Dictionary values are typed per-entry now, so the
+// loader materialises each one here.
+static Value dict_entry_value(const std::string &s, Value::Type dict_type) {
+    Value v;
+    if (dict_type == Value::Type::ObjectDict) {
+        v.type = Value::Type::ObjectRef;
+        v.str = s;
+    } else if (dict_type == Value::Type::ScriptDict) {
+        v.type = Value::Type::Script;
+        v.str = s;
+    } else {
+        v.type = Value::Type::String;
+        v.str = s;
+    }
+    return v;
 }
 
 const Value *Element::field(const std::string &n) const {
@@ -100,16 +119,20 @@ const std::string *World::implied_type(const std::string &elem_type,
     return it == implied_types.end() ? nullptr : &it->second;
 }
 
-Element *World::create_object(const std::string &name, const std::string &type) {
+Element *World::create_object(const std::string &name, const std::string &type,
+                              const std::string &elem_type) {
     auto e = std::make_unique<Element>();
     Element *ep = e.get();
-    ep->elem_type = "object";
+    ep->elem_type = elem_type;
     ep->name = name;
-    // Every runtime-created object inherits defaultobject (lowest priority),
-    // then the caller's explicit type -- QuestViva ObjectFactory.CreateObject
-    // inserts the default type at the front of initialTypes. resolve_field skips
-    // it in a Core-less game that never defines defaultobject.
-    ep->inherits.push_back("defaultobject");
+    // Every runtime-created element inherits its implicit default type (lowest
+    // priority), then the caller's explicit type -- QuestViva
+    // ObjectFactory.CreateObject inserts the default type at the front of
+    // initialTypes. Same mapping as apply_default_types; timers have no default
+    // type. resolve_field skips a default the game never defines -- harmless.
+    if (elem_type == "object") ep->inherits.push_back("defaultobject");
+    else if (elem_type == "turnscript") ep->inherits.push_back("defaultturnscript");
+    else if (elem_type == "exit") ep->inherits.push_back("defaultexit");
     if (!type.empty()) ep->inherits.push_back(type);
     roots.push_back(ep);
     by_name[name] = ep;            // last create wins, like ObjectFactory
@@ -209,6 +232,69 @@ static std::string convert_simple_pattern(const std::string &pattern) {
     for (const std::string &p : list_split(out)) {
         if (!result.empty()) result += "|";
         result += "^" + p + "$";
+    }
+    return result;
+}
+
+// Escape the regex metacharacters .NET's Regex.Escape escapes that matter for
+// matching (whitespace is left literal -- it matches the same either way).
+static std::string regex_escape(const std::string &s) {
+    static const std::string meta = "\\.^$|?*+()[]{}";
+    std::string out;
+    for (char c : s) {
+        if (meta.find(c) != std::string::npos) out += '\\';
+        out += c;
+    }
+    return out;
+}
+
+// Utility.ConvertVerbSimplePattern: turn a verbtemplate list
+// "look at; look; x" into "^look at (?<object>.*?)$|^look (?<object>.*?)$|...".
+// A verb containing "#object#" places the object mid-pattern
+// ("switch #object# on" -> "^switch (?<object>.*?) on$"). Lazy quantifier,
+// unlike SimplePatternLoader's greedy one (matches QuestViva). `separator`, if
+// set, appends the "( SEP (?<object2>.*))?" tail for multi-object verbs.
+static std::string convert_verb_simple_pattern(const std::string &pattern,
+                                               const std::string &separator) {
+    std::string sep_regex;
+    if (!separator.empty()) {
+        sep_regex = "(";
+        bool first = true;
+        for (const std::string &s : list_split(separator)) {
+            if (!first) sep_regex += "|";
+            sep_regex += regex_escape(trim(s));
+            first = false;
+        }
+        sep_regex += ")";
+    }
+    static const std::string object_regex = "(?<object>.*?)";
+    std::string result;
+    for (const std::string &verb : list_split(pattern)) {
+        if (!result.empty()) result += "|";
+        std::string add;
+        size_t hash = verb.find("#object#");
+        if (hash != std::string::npos) {
+            add = "^";
+            size_t pos = 0;
+            bool first = true;
+            while (true) {
+                size_t h = verb.find("#object#", pos);
+                std::string seg = verb.substr(pos, h == std::string::npos
+                                                        ? std::string::npos
+                                                        : h - pos);
+                if (!first) add += object_regex;
+                add += regex_escape(seg);
+                first = false;
+                if (h == std::string::npos) break;
+                pos = h + 8;  // strlen("#object#")
+            }
+        } else {
+            add = "^" + regex_escape(verb) + " " + object_regex;
+        }
+        if (!sep_regex.empty())
+            add += "( " + sep_regex + " (?<object2>.*))?";
+        add += "$";
+        result += add;
     }
     return result;
 }
@@ -440,6 +526,16 @@ struct Loader {
         ep->elem_type = type;
         ep->name = name;
         ep->anonymous = anonymous;
+        // Expose the element id as a `name` field (QuestViva's
+        // FieldDefinitions.Name). Core reads obj.name / cmd.name pervasively --
+        // notably as the RegexCache key in HandleSingleCommand -- so an empty
+        // name would collapse every command's cache entry onto one key.
+        if (!name.empty()) {
+            Value nv;
+            nv.type = Value::Type::String;
+            nv.str = name;
+            ep->set_field("name", nv);
+        }
         ep->parent = current();
         if (ep->parent) {
             ep->parent->children.push_back(ep);
@@ -590,14 +686,37 @@ struct Loader {
                 b.boolean = true;
                 e->set_field("anonymous", b);
             }
-            if (!pattern.empty()) set_typed_field(e, "pattern", "simplepattern",
-                                                  pattern);
             std::string tmpl = attr_get(attrs, "template");
-            if (!tmpl.empty()) {
-                Value t;
-                t.type = Value::Type::String;
-                t.str = tmpl;
-                e->set_field("template", t);
+            if (!pattern.empty()) {
+                // A `pattern=` attribute: template-substitute any [refs] and
+                // store the result RAW as the regex, without simplepattern
+                // conversion. QuestViva's CommandLoader sets Fields[Pattern]
+                // verbatim after GetTemplate ("[look]" -> "^look$|^l$";
+                // "^restart$" stays). Simplepattern conversion is reserved for
+                // nested <pattern> elements (defaultcommand's declared type).
+                Value p; p.type = Value::Type::String; p.declared_type = "string";
+                p.str = replace_templates(pattern);
+                e->set_field("pattern", p);
+            } else if (!tmpl.empty()) {
+                // A `template=` attribute names a verbtemplate; its combined
+                // (";"-joined) text is a verb simplepattern -> lazy regex
+                // (Utility.ConvertVerbSimplePattern with a null separator).
+                std::string ttext;
+                if (template_text(tmpl, ttext)) {
+                    Value p; p.type = Value::Type::String;
+                    p.declared_type = "string";
+                    p.str = convert_verb_simple_pattern(ttext, "");
+                    e->set_field("pattern", p);
+                    // v530+: displayverb is the first verb in the list.
+                    if (world.asl_version >= 530) {
+                        std::vector<std::string> verbs = list_split(ttext);
+                        if (!verbs.empty()) {
+                            Value dv; dv.type = Value::Type::String;
+                            dv.str = trim(verbs[0]);
+                            e->set_field("displayverb", dv);
+                        }
+                    }
+                }
             }
             if (name == "verb") {
                 std::string prop = attr_get(attrs, "property");
@@ -788,10 +907,10 @@ struct Loader {
                 std::string cur;
                 for (size_t i = 0; i < params.size(); ++i) {
                     if (params[i] == ',') {
-                        pv.list.push_back(trim(cur)); cur.clear();
+                        pv.list().push_back(trim(cur)); cur.clear();
                     } else cur += params[i];
                 }
-                pv.list.push_back(trim(cur));
+                pv.list().push_back(trim(cur));
                 e->set_field("paramnames", pv);
             }
             std::string ret = attr_get(f.attrs, "type");
@@ -861,14 +980,14 @@ struct Loader {
         } else if (type == "object") {
             v.type = Value::Type::ObjectRef; v.str = trim(text);
         } else if (type == "simplestringlist") {
-            v.type = Value::Type::StringList; v.list = simple_list_values(text);
+            v.type = Value::Type::StringList; v.list() = simple_list_values(text);
         } else if (type == "listextend") {
             // A list that appends to the inherited same-named list. Core uses it
             // heavily for displayverbs/inventoryverbs on its object types.
-            v.type = Value::Type::StringList; v.list = simple_list_values(text);
+            v.type = Value::Type::StringList; v.list() = simple_list_values(text);
             v.list_extend = true;
         } else if (type == "stringlist") {
-            v.type = Value::Type::StringList; v.list = f.values;
+            v.type = Value::Type::StringList; v.list() = f.values;
         } else if (type == "list") {
             // A general list built from nested <value type="..."> children; each
             // value may carry its own type (QuestViva's QuestList<object>). Our
@@ -878,11 +997,11 @@ struct Loader {
             for (const std::string &t : f.value_types)
                 if (t != "object") { all_obj = false; break; }
             v.type = all_obj ? Value::Type::ObjectList : Value::Type::StringList;
-            v.list = f.values;
+            v.list() = f.values;
         } else if (type == "objectlist") {
             v.type = Value::Type::ObjectList;
             for (const std::string &s : simple_list_values(text))
-                if (!s.empty()) v.list.push_back(s);
+                if (!s.empty()) v.list().push_back(s);
         } else if (type == "simplestringdictionary" ||
                    type == "simpleobjectdictionary") {
             v.type = (type[6] == 'o') ? Value::Type::ObjectDict
@@ -893,15 +1012,19 @@ struct Loader {
                 size_t eq = p.find('=');
                 if (eq == std::string::npos) { error("dict missing '=' in " +
                     owner->name + "." + attr); continue; }
-                v.dict.emplace_back(trim(p.substr(0, eq)), trim(p.substr(eq + 1)));
+                v.dict().emplace_back(trim(p.substr(0, eq)),
+                    dict_entry_value(trim(p.substr(eq + 1)), v.type));
             }
         } else if (type == "stringdictionary" || type == "objectdictionary" ||
                    type == "dictionary") {
             v.type = (type[0] == 'o') ? Value::Type::ObjectDict
                                       : Value::Type::StringDict;
-            v.dict = f.items;
+            for (const auto &kv : f.items)
+                v.dict().emplace_back(kv.first, dict_entry_value(kv.second, v.type));
         } else if (type == "scriptdictionary") {
-            v.type = Value::Type::ScriptDict; v.dict = f.items;
+            v.type = Value::Type::ScriptDict;
+            for (const auto &kv : f.items)
+                v.dict().emplace_back(kv.first, dict_entry_value(kv.second, v.type));
         } else if (Element *del = world.find(type);
                    del && del->elem_type == "delegate") {
             // An attribute whose type is a registered <delegate>: the body is a
@@ -933,6 +1056,27 @@ struct Loader {
     // unmatched reference is left verbatim -- this is what keeps regex character
     // classes like [^\w] intact. Applied at load time to script bodies and
     // string attributes, exactly where the GameLoader calls GetTemplate.
+    // Template.GetText: the text registered for a template name. Verb templates
+    // sharing a name are joined by "; " (QuestViva's AddVerbTemplate appends),
+    // and command/plain templates fall back to the last registration. Verb
+    // templates take priority since a `template=` command ref names one.
+    bool template_text(const std::string &name, std::string &out) {
+        std::string joined;
+        bool any = false;
+        for (auto &vt : world.verb_templates) {
+            if (vt.first != name) continue;
+            if (any) joined += "; ";
+            joined += vt.second;
+            any = true;
+        }
+        if (any) { out = joined; return true; }
+        for (auto it = world.templates.rbegin(); it != world.templates.rend();
+             ++it) {
+            if (it->first == name) { out = it->second; return true; }
+        }
+        return false;
+    }
+
     std::string replace_templates(const std::string &text) {
         if (text.find('[') == std::string::npos) return text;
         std::string out = text;

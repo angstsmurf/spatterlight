@@ -179,10 +179,10 @@ static Value vobj(std::string name) {
     Value v; v.type = Value::Type::ObjectRef; v.str = std::move(name); return v;
 }
 static Value vstrlist(std::vector<std::string> l) {
-    Value v; v.type = Value::Type::StringList; v.list = std::move(l); return v;
+    Value v; v.type = Value::Type::StringList; v.list() = std::move(l); return v;
 }
 static Value vobjlist(std::vector<std::string> l) {
-    Value v; v.type = Value::Type::ObjectList; v.list = std::move(l); return v;
+    Value v; v.type = Value::Type::ObjectList; v.list() = std::move(l); return v;
 }
 
 static bool is_number(const Value &v) {
@@ -222,9 +222,9 @@ std::string Interp::to_string(const Value &v) {
     case Value::Type::StringList:
     case Value::Type::ObjectList: {
         std::string s;
-        for (size_t i = 0; i < v.list.size(); ++i) {
+        for (size_t i = 0; i < v.list().size(); ++i) {
             if (i) s += ", ";
-            s += v.list[i];
+            s += v.list()[i];
         }
         return s;
     }
@@ -242,6 +242,16 @@ bool Interp::truthy(const Value &v) {
 // ===========================================================================
 // Tokenizer helpers, mirroring QuestViva Utility.cs
 // ===========================================================================
+
+// Case-insensitive ASCII compare (NCalc's true/false literals and the "null"
+// parameter lookup are case-insensitive).
+static bool rt_iequals(const std::string &a, const char *b) {
+    size_t n = 0;
+    for (; n < a.size() && b[n]; ++n)
+        if (std::tolower((unsigned char)a[n]) != std::tolower((unsigned char)b[n]))
+            return false;
+    return n == a.size() && b[n] == 0;
+}
 
 static std::string rt_trim(const std::string &s) {
     size_t a = 0, b = s.size();
@@ -381,6 +391,49 @@ static std::string remove_comments(const std::string &input) {
     return out;
 }
 
+// Quest identifiers can contain spaces ("OUTSIDE INN", "game.Next text").
+// QuestViva pre-encodes every expression with Utility.EncodeIdentifierSpaces:
+// outside string literals, two space-separated words whose boundary characters
+// are both word characters are joined into one identifier -- unless either
+// word is an expression keyword (and/or/xor/not/if/in). We do the same but
+// join with '\x01' (instead of "___SPACE___"), which the lexer folds back to a
+// space inside a single Ident token, so no decode pass is needed downstream.
+static bool is_word_char(char c) {
+    return std::isalnum((unsigned char)c) || c == '_';
+}
+
+static bool is_expr_keyword(const std::string &w) {
+    // Utility.s_keywords (case-sensitive, like the HashSet it feeds).
+    return w == "and" || w == "or" || w == "xor" || w == "not" || w == "if" ||
+           w == "in";
+}
+
+static std::string encode_identifier_spaces(const std::string &in) {
+    std::string out = in;
+    bool inq = false;
+    for (size_t i = 0; i < out.size(); ++i) {
+        char c = out[i];
+        if (c == '\\') { ++i; continue; }  // backslash: next char is literal
+        if (c == '"') { inq = !inq; continue; }
+        if (inq || c != ' ') continue;
+        // A single space with word characters on both sides (a run of spaces
+        // never joins -- QuestViva splits on ' ' and an empty word bails).
+        if (i == 0 || i + 1 >= out.size()) continue;
+        if (!is_word_char(out[i - 1]) || !is_word_char(out[i + 1])) continue;
+        // The trailing word-char run before / leading run after the space
+        // (the (\w+)$ / ^(\w+) matches in IsSplitVariableName).
+        size_t a = i;
+        while (a > 0 && is_word_char(out[a - 1])) --a;
+        size_t b = i + 1;
+        while (b < out.size() && is_word_char(out[b])) ++b;
+        if (is_expr_keyword(out.substr(a, i - a)) ||
+            is_expr_keyword(out.substr(i + 1, b - i - 1)))
+            continue;
+        out[i] = '\x01';
+    }
+    return out;
+}
+
 // ===========================================================================
 // Expression AST + parser
 // ===========================================================================
@@ -476,11 +529,16 @@ struct Lexer {
     }
 
     void lex_ident() {
-        size_t start = i;
+        std::string s;
         while (i < src.size() &&
-               (std::isalnum((unsigned char)src[i]) || src[i] == '_'))
+               (std::isalnum((unsigned char)src[i]) || src[i] == '_' ||
+                src[i] == '\x01')) {
+            // '\x01' is the encode_identifier_spaces join marker: this is one
+            // multi-word identifier ("OUTSIDE INN"); restore the space.
+            s += (src[i] == '\x01') ? ' ' : src[i];
             ++i;
-        toks.push_back({Tok::T::Ident, src.substr(start, i - start)});
+        }
+        toks.push_back({Tok::T::Ident, s});
     }
 
     void lex_op() {
@@ -575,9 +633,27 @@ struct Parser {
     }
     ExprP parse_relational() {
         ExprP l = parse_additive();
-        while (is_op(">") || is_op("<") || is_op(">=") || is_op("<=")) {
-            std::string op = cur().s; advance();
-            l = bin(op, l, parse_additive());
+        while (true) {
+            if (is_op(">") || is_op("<") || is_op(">=") || is_op("<=")) {
+                std::string op = cur().s; advance();
+                l = bin(op, l, parse_additive());
+                continue;
+            }
+            // "in" / "not in" sit at the relational level in QuestViva's
+            // grammar (QuestNCalcLogicalExpressionParser: relational => shift
+            // ((">=" | "<=" | "<" | ">" | "in" | "not in") shift)*).
+            if (is_kw("in")) {
+                advance();
+                l = bin("in", l, parse_additive());
+                continue;
+            }
+            if (is_kw("not") && p + 1 < toks.size() &&
+                toks[p + 1].t == Tok::T::Ident && toks[p + 1].s == "in") {
+                advance(); advance();
+                l = bin("not in", l, parse_additive());
+                continue;
+            }
+            break;
         }
         return l;
     }
@@ -673,13 +749,16 @@ struct Parser {
             return e;
         }
         if (t.t == Tok::T::Ident) {
-            if (t.s == "true" || t.s == "false") {
+            // Boolean/null literals are case-insensitive ("True", "FALSE"):
+            // NCalc's Terms.Text("true", true), and the null parameter check in
+            // NcalcExpressionEvaluator.ResolveVariable.
+            if (rt_iequals(t.s, "true") || rt_iequals(t.s, "false")) {
                 advance();
                 auto e = std::make_shared<Expr>();
-                e->kind = Expr::Kind::Bool; e->boolean = (t.s == "true");
+                e->kind = Expr::Kind::Bool; e->boolean = rt_iequals(t.s, "true");
                 return e;
             }
-            if (t.s == "null") {
+            if (rt_iequals(t.s, "null")) {
                 advance();
                 auto e = std::make_shared<Expr>();
                 e->kind = Expr::Kind::Null;
@@ -712,7 +791,8 @@ struct Parser {
 
 // Compile an expression source string to an AST (used by the statement parser).
 static ExprP compile_expr_str(const std::string &src) {
-    Lexer lex(src);
+    std::string enc = encode_identifier_spaces(src);
+    Lexer lex(enc);
     lex.lex();
     Parser parser(lex.toks);
     try {
@@ -729,12 +809,15 @@ static ExprP compile_expr_str(const std::string &src) {
 struct Stmt {
     enum class Kind {
         Msg, If, While, For, ForEach, Assign, Call, Return, Comment,
-        Switch, FirstTime, OnReady
+        Switch, FirstTime, OnReady, Wait
     };
     Kind kind;
     std::string name;              // Assign var/prop, For/ForEach var, Call name
     ExprP expr;                    // Msg/Return value, While/If cond, Assign value,
                                    // Switch selector
+    // "x => { script }" (SetScriptScript): the RHS is a script literal, stored
+    // as source text and assigned as a Script value. expr is null in that case.
+    std::string script_text;
     ExprP obj;                     // Assign target object (before last dot), or null
     ExprP from, to, step;          // For
     ExprP list;                    // ForEach
@@ -779,7 +862,8 @@ std::shared_ptr<CompiledRegex> Interp::compiled_regex(const std::string &pattern
 std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
     auto it = expr_cache_.find(src);
     if (it != expr_cache_.end()) return it->second;
-    Lexer lex(src);
+    std::string enc = encode_identifier_spaces(src);
+    Lexer lex(enc);
     lex.lex();
     Parser parser(lex.toks);
     ExprP e;
@@ -795,8 +879,17 @@ std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
 Value Interp::eval(const std::string &source, Context &ctx) {
     std::string s = rt_trim(source);
     if (s.empty()) return vnull();
-    ExprP e = compile_expr(s);
-    return eval_expr(*e, ctx);
+    // A parse failure (or any other internal throw) must not abort the engine:
+    // log it as a world error and yield null, so one unsupported construct
+    // degrades gracefully (QuestViva wraps evaluation the same way).
+    try {
+        ExprP e = compile_expr(s);
+        return eval_expr(*e, ctx);
+    } catch (const std::exception &err) {
+        errors().push_back(std::string("Error evaluating expression: ") +
+                           err.what());
+        return vnull();
+    }
 }
 
 // -- statement parsing ------------------------------------------------------
@@ -820,8 +913,22 @@ std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src
 }
 
 void Interp::run_script(const std::string &source, Context &ctx) {
-    auto stmts = compile_script(source);
-    exec_block(*stmts, ctx);
+    if (script_errors_fatal_) return;
+    if (script_depth_ >= kMaxScriptDepth)
+        throw std::runtime_error(
+            "Script execution depth exceeded 200 - this usually means a script "
+            "is recursing infinitely");
+    // This is the script boundary (QuestViva RunScriptAsync): a parse or
+    // runtime throw aborts THIS script body only; it is logged and reported,
+    // and the calling script carries on with its next statement.
+    ++script_depth_;
+    try {
+        auto stmts = compile_script(source);
+        exec_block(*stmts, ctx);
+    } catch (const std::exception &err) {
+        report_script_error(err.what());
+    }
+    --script_depth_;
 }
 
 // -- execution --------------------------------------------------------------
@@ -889,13 +996,13 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     case Stmt::Kind::ForEach: {
         Value lst = eval_expr(*s.list, ctx);
         std::vector<std::string> items;
-        if (is_list(lst)) items = lst.list;
+        if (is_list(lst)) items = lst.list();
         else if (lst.type == Value::Type::StringDict ||
                  lst.type == Value::Type::ObjectDict ||
                  lst.type == Value::Type::ScriptDict) {
-            for (auto &kv : lst.dict) items.push_back(kv.first);
+            for (auto &kv : lst.dict()) items.push_back(kv.first);
         } else {
-            errors().push_back("Cannot foreach over non-list");
+            error("Cannot foreach over non-list");
             return;
         }
         bool obj = (lst.type == Value::Type::ObjectList ||
@@ -908,14 +1015,21 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         return;
     }
     case Stmt::Kind::Assign: {
-        Value val = eval_expr(*s.expr, ctx);
+        Value val;
+        if (s.expr) {
+            val = eval_expr(*s.expr, ctx);
+        } else {
+            // "x => { ... }": assign the script literal itself.
+            val.type = Value::Type::Script;
+            val.str = s.script_text;
+        }
         if (!s.obj) {
             ctx.locals[s.name] = val;
         } else {
             Value ov = eval_expr(*s.obj, ctx);
             Element *e = interp_eval_element(*this, ov);
             if (e) e->set_field(s.name, val);
-            else errors().push_back("Assignment to attribute '" + s.name +
+            else error("Assignment to attribute '" + s.name +
                                     "' of a non-object");
         }
         return;
@@ -946,12 +1060,28 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         on_ready_.emplace_back(&s.body, ctx);
         return;
     }
+    case Stmt::Kind::Wait: {
+        // The real input model (M4, TODO §3) blocks on a keypress before the
+        // callback. Headless for now: warn once and run the callback as if the
+        // key had been pressed immediately.
+        warn_once("wait", "'wait' runs its script without pausing (no input "
+                          "model yet)");
+        exec_block(s.body, ctx);
+        return;
+    }
     case Stmt::Kind::Call: {
         // Reserved statement commands (do/invoke/create/set/list add/...) take
         // precedence, then game functions, then built-ins.
         if (exec_statement_command(s.name, s.call_args, ctx)) return;
         std::vector<Value> args;
         for (const auto &a : s.call_args) args.push_back(eval_expr(*a, ctx));
+        if (!s.script_text.empty()) {
+            // Trailing "{ script }" block: one extra script-literal argument.
+            Value scr;
+            scr.type = Value::Type::Script;
+            scr.str = s.script_text;
+            args.push_back(std::move(scr));
+        }
         if (world_.find(s.name) &&
             (world_.find(s.name)->elem_type == "function")) {
             call_function(s.name, std::move(args), &ctx);
@@ -959,11 +1089,40 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
             bool handled = false;
             call_builtin(s.name, args, handled, ctx);
             if (!handled)
-                errors().push_back("Function not found: '" + s.name + "'");
+                error("Function not found: '" + s.name + "'");
         }
         return;
     }
     }
+}
+
+void Interp::error(const std::string &message) {
+    if (frames_.empty()) throw std::runtime_error(message);
+    throw std::runtime_error(message + " (in " + frames_.back() + ")");
+}
+
+void Interp::report_script_error(const std::string &what) {
+    std::string msg = std::string("Error running script: ") + what;
+    errors().push_back(msg);
+    if (++script_error_count_ >= kMaxScriptErrors) {
+        // Every script is failing the same way; the session is wedged. Stop
+        // running scripts and end the game (WorldModel's scriptErrorsFatal).
+        script_errors_fatal_ = true;
+        world_.finished = true;
+    } else if (!reporting_error_) {
+        // The message also goes to the player, once (no recursive reports if
+        // printing itself errors) -- WorldModel.PrintAsync in the catch.
+        reporting_error_ = true;
+        print(msg + "\n");
+        reporting_error_ = false;
+    }
+}
+
+void Interp::warn_once(const std::string &key, const std::string &message) {
+    for (const auto &k : warned_)
+        if (k == key) return;
+    warned_.push_back(key);
+    world_.warnings.push_back(message);
 }
 
 void Interp::drain_on_ready() {
@@ -972,13 +1131,44 @@ void Interp::drain_on_ready() {
         auto item = on_ready_.front();
         on_ready_.erase(on_ready_.begin());
         Context ctx = item.second;
-        exec_block(*item.first, ctx);
+        // Each callback is its own script boundary: one failing callback is
+        // reported and the rest of the queue still drains.
+        try {
+            exec_block(*item.first, ctx);
+        } catch (const std::exception &err) {
+            report_script_error(err.what());
+        }
+        if (script_errors_fatal_) break;
     }
 }
 
 Element *interp_eval_element(Interp &in, const Value &v) {
     if (v.type == Value::Type::ObjectRef) return in.world().find(v.str);
     return nullptr;
+}
+
+// Shared body of the `rundelegate` statement and the RunDelegateFunction
+// built-in: look up the delegate implementation (a Script field whose
+// declared_type names the <delegate> element), bind params by the delegate's
+// paramnames, bind `this`, run, and return the script's return value.
+Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
+                          const std::vector<Value> &params) {
+    if (!obj) in.error("rundelegate: not an object");
+    const Value *impl = in.resolve_field(obj, delname);
+    if (!impl || impl->type != Value::Type::Script)
+        in.error("Object '" + obj->name + "' has no delegate implementation '" +
+                 delname + "'");
+    Context local;
+    Element *def = in.world().find(impl->declared_type);
+    const Value *pn = def ? def->field("paramnames") : nullptr;
+    for (size_t k = 0; k < params.size(); ++k) {
+        if (pn && k < pn->list().size())
+            local.locals[pn->list()[k]] = params[k];
+    }
+    Value self; self.type = Value::Type::ObjectRef; self.str = obj->name;
+    local.locals["this"] = self;
+    in.run_script(impl->str, local);
+    return local.return_value;
 }
 
 // -- expression evaluation --------------------------------------------------
@@ -998,7 +1188,7 @@ const Value *Interp::resolve_field(Element *e, const std::string &name) {
 
 Value Interp::resolve_variable(const std::string &name, Context &ctx, bool &found) {
     found = true;
-    if (name == "null") return vnull();
+    if (rt_iequals(name, "null")) return vnull();
     auto it = ctx.locals.find(name);
     if (it != ctx.locals.end()) return it->second;
     if (Element *e = world_.find(name)) {
@@ -1034,7 +1224,7 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
         bool found;
         Value v = resolve_variable(e.str, ctx, found);
         if (!found) {
-            errors().push_back("Unknown object or variable '" + e.str + "'");
+            error("Unknown object or variable '" + e.str + "'");
             return vnull();
         }
         return v;
@@ -1051,27 +1241,52 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
         Value idx = eval_expr(*e.b, ctx);
         if (is_list(coll)) {
             long i = (long)std::llround(as_double(idx));
-            if (i < 0 || (size_t)i >= coll.list.size()) {
-                errors().push_back("List index out of range");
+            if (i < 0 || (size_t)i >= coll.list().size()) {
+                error("List index out of range");
                 return vnull();
             }
-            return coll.type == Value::Type::ObjectList ? vobj(coll.list[i])
-                                                        : vstr(coll.list[i]);
+            return coll.type == Value::Type::ObjectList ? vobj(coll.list()[i])
+                                                        : vstr(coll.list()[i]);
         }
         if (coll.type == Value::Type::StringDict ||
             coll.type == Value::Type::ObjectDict) {
             std::string key = to_string(idx);
-            for (auto &kv : coll.dict)
-                if (kv.first == key)
-                    return coll.type == Value::Type::ObjectDict ? vobj(kv.second)
-                                                                : vstr(kv.second);
-            errors().push_back("Dictionary key not found: " + key);
+            for (auto &kv : coll.dict())
+                if (kv.first == key) return kv.second;
+            error("Dictionary key not found: " + key);
             return vnull();
         }
-        errors().push_back("Cannot index a non-collection");
+        error("Cannot index a non-collection");
         return vnull();
     }
     case Expr::Kind::Call: {
+        // NCalc's built-in if()/cast() need special argument handling, so they
+        // sit before generic evaluation: if() evaluates only the taken branch;
+        // cast()'s type argument is a bare identifier (cast(x, int)), not a
+        // resolvable variable (the _evaluatingCastType dance in
+        // NcalcExpressionEvaluator).
+        if (rt_iequals(e.str, "if") && e.args.size() == 3) {
+            return truthy(eval_expr(*e.args[0], ctx))
+                       ? eval_expr(*e.args[1], ctx)
+                       : eval_expr(*e.args[2], ctx);
+        }
+        if (rt_iequals(e.str, "cast") && e.args.size() == 2) {
+            Value v = eval_expr(*e.args[0], ctx);
+            std::string ty = (e.args[1]->kind == Expr::Kind::Var)
+                                 ? e.args[1]->str
+                                 : to_string(eval_expr(*e.args[1], ctx));
+            if (rt_iequals(ty, "int") || rt_iequals(ty, "long"))
+                return vint((long)as_double(v));   // truncation, like (int)double
+            if (rt_iequals(ty, "double") || rt_iequals(ty, "single") ||
+                rt_iequals(ty, "decimal"))
+                return vdouble(v.type == Value::Type::String
+                                   ? std::atof(v.str.c_str()) : as_double(v));
+            if (rt_iequals(ty, "string")) return vstr(to_string(v));
+            if (rt_iequals(ty, "boolean") || rt_iequals(ty, "bool"))
+                return vbool(truthy(v));
+            if (rt_iequals(ty, "object")) return v;
+            error("cast(): unknown type '" + ty + "'");
+        }
         std::vector<Value> args;
         for (const auto &a : e.args) args.push_back(eval_expr(*a, ctx));
         bool handled = false;
@@ -1079,7 +1294,7 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
         if (handled) return r;
         if (world_.find(e.str) && world_.find(e.str)->elem_type == "function")
             return call_function(e.str, std::move(args), &ctx);
-        errors().push_back("Unknown function '" + e.str + "'");
+        error("Unknown function '" + e.str + "'");
         return vnull();
     }
     case Expr::Kind::Unary: {
@@ -1104,6 +1319,75 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
         if (op == "xor") return vbool(truthy(l) != truthy(r));
         if (op == "=") return vbool(values_equal(l, r));
         if (op == "<>") return vbool(!values_equal(l, r));
+        // "x in y": list membership, dictionary key lookup, or substring
+        // (NCalc's In over QuestList / string; dictionary keys per Quest docs).
+        if (op == "in" || op == "not in") {
+            bool contains = false;
+            if (is_list(r)) {
+                std::string item = (l.type == Value::Type::ObjectRef ||
+                                    l.type == Value::Type::String ||
+                                    l.type == Value::Type::Script)
+                                       ? l.str : to_string(l);
+                for (auto &s : r.list())
+                    if (s == item) { contains = true; break; }
+            } else if (r.type == Value::Type::StringDict ||
+                       r.type == Value::Type::ObjectDict ||
+                       r.type == Value::Type::ScriptDict) {
+                std::string key = to_string(l);
+                for (auto &kv : r.dict())
+                    if (kv.first == key) { contains = true; break; }
+            } else if (r.type == Value::Type::String) {
+                contains = r.str.find(to_string(l)) != std::string::npos;
+            } else {
+                errors().push_back(
+                    "'in' needs a list, dictionary or string on the right");
+            }
+            return vbool(op == "in" ? contains : !contains);
+        }
+        // Quest overloads +, -, * on lists (QuestList<T> operators): list+list
+        // merges, list+elem appends, elem+list prepends, list-elem removes the
+        // first occurrence, list*list unions. Handled before the scalar/string
+        // paths, since list+objectref would otherwise be string-concatenated.
+        if (is_list(l) || is_list(r)) {
+            auto elem_str = [](const Value &v) {
+                return (v.type == Value::Type::ObjectRef ||
+                        v.type == Value::Type::String ||
+                        v.type == Value::Type::Script)
+                           ? v.str : to_string(v);
+            };
+            if (op == "+" && is_list(l) && is_list(r)) {
+                Value out = l; out.detach();
+                for (auto &s : r.list()) out.list().push_back(s);
+                return out;
+            }
+            if (op == "+" && is_list(l)) {
+                Value out = l; out.detach();
+                out.list().push_back(elem_str(r));
+                return out;
+            }
+            if (op == "+") {  // elem + list -> prepend
+                Value out = r; out.detach();
+                out.list().insert(out.list().begin(), elem_str(l));
+                return out;
+            }
+            if (op == "-" && is_list(l)) {  // list - elem -> remove first
+                Value out = l; out.detach();
+                std::string it = elem_str(r);
+                auto &v = out.list();
+                for (auto i = v.begin(); i != v.end(); ++i)
+                    if (*i == it) { v.erase(i); break; }
+                return out;
+            }
+            if (op == "*" && is_list(l) && is_list(r)) {  // union
+                Value out = l; out.detach();
+                for (auto &s : r.list()) {
+                    bool present = false;
+                    for (auto &x : l.list()) if (x == s) { present = true; break; }
+                    if (!present) out.list().push_back(s);
+                }
+                return out;
+            }
+        }
         if (op == "+") {
             if (l.type == Value::Type::String || r.type == Value::Type::String ||
                 l.type == Value::Type::ObjectRef || r.type == Value::Type::ObjectRef)
@@ -1151,18 +1435,28 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
                             Context *) {
     Element *fn = world_.find(name);
     if (!fn || fn->elem_type != "function") {
-        errors().push_back("Function not found: '" + name + "'");
+        error("Function not found: '" + name + "'");
         return vnull();
     }
     Context local;
     const Value *pn = fn->field("paramnames");
     if (pn) {
-        for (size_t i = 0; i < pn->list.size() && i < args.size(); ++i)
-            local.locals[pn->list[i]] = args[i];
+        for (size_t i = 0; i < pn->list().size() && i < args.size(); ++i)
+            local.locals[pn->list()[i]] = args[i];
     }
     const Value *body = fn->field("script");
-    if (body && body->type == Value::Type::Script)
-        run_script(body->str, local);
+    if (body && body->type == Value::Type::Script) {
+        frames_.push_back(name);
+        try {
+            run_script(body->str, local);
+        } catch (...) {
+            // Only the depth-cap guard throws out of run_script; keep the
+            // frame stack balanced on that path.
+            frames_.pop_back();
+            throw;
+        }
+        frames_.pop_back();
+    }
     return local.return_value;
 }
 
@@ -1213,6 +1507,17 @@ bool Interp::exec_statement_command(const std::string &name,
         return true;
     }
 
+    // Media/output-decoration commands (insert splices an HTML file into the
+    // output): pure presentation, no world-model effect. Accept and no-op with
+    // a one-time warning so a game using them still runs headless (the
+    // presentation milestone wires them to Glk). Args are deliberately not
+    // evaluated -- nothing observable should happen.
+    if (name == "picture" || name == "play sound" || name == "stop sound" ||
+        name == "insert") {
+        warn_once(name, "'" + name + "' is not supported yet; ignored");
+        return true;
+    }
+
     // request (RequestType, data): a player-UI request (RequestScript). The
     // first argument is a bare enum identifier (Speak, Quit, Show, ...) that is
     // not a resolvable expression, so we must NOT evaluate the args -- headless
@@ -1232,11 +1537,12 @@ bool Interp::exec_statement_command(const std::string &name,
         Context local;
         if (args.size() >= 3) {
             Value params = ev(2);
-            for (auto &kv : params.dict)
-                local.locals[kv.first] =
-                    params.type == Value::Type::ObjectDict ? vobj(kv.second)
-                                                           : vstr(kv.second);
+            for (auto &kv : params.dict())
+                local.locals[kv.first] = kv.second;  // values are typed per-entry
         }
+        // DoScript passes the object as thisElement (WorldModel.RunScriptAsync
+        // binds it as the "this" parameter).
+        local.locals["this"] = vobj(obj->name);
         run_script(scr->str, local);
         return true;
     }
@@ -1249,10 +1555,8 @@ bool Interp::exec_statement_command(const std::string &name,
         Context local;
         if (args.size() >= 2) {
             Value params = ev(1);
-            for (auto &kv : params.dict)
-                local.locals[kv.first] =
-                    params.type == Value::Type::ObjectDict ? vobj(kv.second)
-                                                           : vstr(kv.second);
+            for (auto &kv : params.dict())
+                local.locals[kv.first] = kv.second;  // values are typed per-entry
         }
         run_script(scr.str, local);
         return true;
@@ -1261,6 +1565,20 @@ bool Interp::exec_statement_command(const std::string &name,
         std::string nm = to_string(ev(0));
         std::string ty = args.size() >= 2 ? to_string(ev(1)) : "";
         world_.create_object(nm, ty);
+        return true;
+    }
+    if (name == "rundelegate") {  // RunDelegateScript
+        std::vector<Value> params;
+        for (size_t i = 2; i < args.size(); ++i) params.push_back(ev(i));
+        interp_run_delegate(*this, as_element(ev(0)), to_string(ev(1)), params);
+        return true;
+    }
+    if (name == "create timer") {  // CreateTimerScript
+        world_.create_object(to_string(ev(0)), "", "timer");
+        return true;
+    }
+    if (name == "create turnscript") {  // CreateTurnScript
+        world_.create_object(to_string(ev(0)), "", "turnscript");
         return true;
     }
     if (name == "destroy") {
@@ -1285,10 +1603,10 @@ bool Interp::exec_statement_command(const std::string &name,
         std::string s = (item.type == Value::Type::ObjectRef) ? item.str
                                                              : to_string(item);
         if (name == "list add") {
-            lst->list.push_back(s);
+            lst->list().push_back(s);
         } else {
-            lst->list.erase(std::remove(lst->list.begin(), lst->list.end(), s),
-                            lst->list.end());
+            lst->list().erase(std::remove(lst->list().begin(), lst->list().end(), s),
+                            lst->list().end());
         }
         return true;
     }
@@ -1303,24 +1621,17 @@ bool Interp::exec_statement_command(const std::string &name,
             return true;
         }
         // remove any existing entry with this key first (Add replaces).
-        for (auto it = d->dict.begin(); it != d->dict.end();) {
-            if (it->first == key) it = d->dict.erase(it);
+        for (auto it = d->dict().begin(); it != d->dict().end();) {
+            if (it->first == key) it = d->dict().erase(it);
             else ++it;
         }
-        if (name == "dictionary add") {
-            Value v = ev(2);
-            std::string sv = (v.type == Value::Type::ObjectRef ||
-                              v.type == Value::Type::Script)
-                                 ? v.str
-                                 : to_string(v);
-            d->dict.emplace_back(key, sv);
-        }
+        if (name == "dictionary add")
+            d->dict().emplace_back(key, ev(2));  // store the typed value verbatim
         return true;
     }
     if (name == "error") {
-        errors().push_back(to_string(ev(0)));
-        ctx.returned = true;  // approximate the thrown-exception unwind
-        return true;
+        // ErrorScript throws; the nearest script boundary reports it.
+        error(to_string(ev(0)));
     }
     if (name == "finish") {
         world_.finished = true;

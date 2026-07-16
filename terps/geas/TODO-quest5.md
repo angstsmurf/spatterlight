@@ -11,7 +11,10 @@
   drift. `check_golden.sh` replays all 17 `.cmd` scripts and diffs vs frozen
   `.out` (17/17), doubling as a determinism check. This is the reference the
   native engine will diff against, with no .NET dependency at replay time.
-- **Native engine: milestones 1–2 landed.**
+- **Native engine: milestones 1–2 landed; milestone 3 mostly done** — Core
+  boots *and* real player commands (`look`/`take`/`examine`/`open`/`go`) now run
+  end-to-end through Core's parser with zero script errors (see the M3 command
+  driving entry below).
   - **M1 loader** (`aslx.hh`/`aslx.cc`): `.quest` (in-memory zip over zlib) or
     raw `.aslx` (libexpat SAX) → typed element tree (containment, `<inherit>`
     chains, `<implied>`/`<template>` registration, full attribute-type set,
@@ -121,15 +124,121 @@
       `AllExits`/`AllTurnScripts`, `GetTimer`, `GetUIOption` (empty headless),
       `ToInt`/`ToDouble`/`ToString`, `Eval`. `request` accepted as a no-op (its
       first arg is a bare enum identifier, so it must not evaluate its args).
-  - Still open for M3: driving an actual command end-to-end (`HandleCommand` →
-    `ScopeCommands`/`GetScope`/`ResolveName` → verb script) so `look`/`take`/`go`
-    run -- the parser primitives are in place but the object-listing helpers
-    (`FormatList` and friends; `{object:}` currently renders empty) and
-    command-template patterns (`[look]` in a `pattern=`) still need work; plus
-    the listextend merge-on-read, game-local libraries bundled *inside* a
-    `.quest` zip, change scripts, UndoLogger, `get input`/`show menu`/`ask`/
-    `wait`, and multi-word (space-encoded) identifiers. Milestones 3 (rest)–5
-    remain.
+  - **M3 command driving: real commands run end-to-end** (2026-07-16): a booted
+    game now takes player input through Core's `HandleCommand` → `ScopeCommands`
+    → `IsRegexMatch`/`GetMatchStrength` → `ResolveName`/`GetScope` → verb script
+    chain, with **zero script errors**. `look`, `take`/`inventory`, `examine`,
+    `open`, and `go`-through-an-exit (into a second room, with the object list
+    and the `{exit:}` link rendered) all work. Regression:
+    `test/aslx_runtime_test.cc:test_command_driving` (fixture `command.aslx`);
+    `make check` green, clean under ASan/UBSan; 50-package corpus still loads
+    0-error. Landed, each traced by running a command and fixing what Core hit:
+    - **Command patterns resolve three ways** (`aslx.cc`, matching QuestViva's
+      CommandLoader): a `pattern=` attribute is template-substituted then stored
+      RAW as its regex (`[look]` → `^look$|^l$`; `^restart$` verbatim) with no
+      simplepattern conversion; a `template=` attribute names a verbtemplate
+      whose `;`-joined text goes through `ConvertVerbSimplePattern` (lazy
+      `(?<object>.*?)`, plus `displayverb`); a nested `<pattern>` keeps the
+      existing greedy simplepattern conversion. `template_text()` unifies the
+      verb/plain template lookup (verbtemplates `"; "`-joined, `AddVerbTemplate`).
+    - **`name` exposed as a field** on every element (QuestViva
+      `FieldDefinitions.Name`). It was missing, so `cmd.name` -- the RegexCache
+      cacheID in `HandleSingleCommand` -- was empty and every command collapsed
+      onto one cache entry (the first pattern won for all input). This also fixed
+      the empty `{object:}`/room description, which key off `.name`/`.alias`.
+    - **Lists and dictionaries are now REFERENCE types** (`aslx.hh`): their
+      backing lives behind a `shared_ptr`, so copying a Value (function-arg
+      binding, `y = x`, reading a field) shares it and `list add`/`dictionary
+      add` through any alias is visible everywhere -- exactly Quest's
+      QuestList/QuestDictionary. This is what makes `CompareNames`,
+      `ResolveNameFromList`, and every Core helper that builds a caller-supplied
+      list work. Builtins that derive a *new* collection (`ListExclude`,
+      `ListCombine`, `ObjectListSort`) call `detach()` first.
+    - **Dictionary values are typed per-entry** (`Value`, not a flat string):
+      Quest dicts hold boxed values and a single dict can mix objects, strings
+      and booleans (CoreParser's `currentcommandresolvedelements` holds the
+      resolved objects alongside a boolean `multiple`). `do`/`invoke`/`Eval`
+      param binding now hands each resolved object to the verb script as an
+      object ref, not the string of its name -- the fix that let `open` pass its
+      object to `TryOpenClose`.
+    - **QuestList operators** `+`/`-`/`*` (`QuestList<T>` overloads): list+list
+      merge, list+elem append, elem+list prepend, list-elem remove-first,
+      list*list union -- handled before scalar/string arithmetic. `GetScope`'s
+      `ListCombine(...) - game.pov` was silently coercing the list to numeric 0.
+    - **`GetObject` resolves exits** (they are `ElementType.Object` in QuestViva,
+      just `ObjectType.Exit`), so `ProcessTextCommand_Exit` renders `{exit:}`.
+    - New builtins: `IsGameRunning`, `ObjectListSort`/`ObjectListSortDescending`,
+      `StringListSort`/`StringListSortDescending`.
+  - **M3 real-game blockers cleared: 49/50 corpus games boot with 0 errors**
+    (2026-07-16, second batch — the whole corpus through `InitInterface` +
+    `StartGame` + `on ready`, up from 2-of-5 sampled the day before). Landed,
+    each verified against QuestViva source and unit-tested
+    (`test/aslx_runtime_test.cc:test_realgame_constructs`):
+    - **Multi-word (space-encoded) identifiers** (`Utility.EncodeIdentifierSpaces`
+      port): outside string literals, adjacent word-char words join into one
+      identifier unless either is an expression keyword (`and or xor not if in`,
+      case-sensitive). We join with `'\x01'` and the lexer folds it back to a
+      space inside a single Ident token — no decode pass. Covers Dracula's
+      `GetBoolean(OUTSIDE INN, "MORNING")` and Magi's `game.Next text` (member
+      names with spaces work too).
+    - **`in` / `not in`** at the relational precedence level (QuestNCalc
+      grammar): list membership, dictionary-key lookup, substring.
+    - **`x => { script }` script-literal assignment** (SetScriptScript; `=>`
+      checked before `=`, like SetScriptConstructor). This was Everyman's
+      `unexpected token '>'`.
+    - **Trailing script-block argument**: `Proc (args) { script }` (and
+      `Proc { script }`) passes the block as one extra script-literal argument
+      bound to the function's last parameter (FunctionCallScript.paramFunction).
+      This is how ShowMenu callbacks and the classic inlined-CoreTimers
+      `SetTimerScript (timer) { ... }` pattern work.
+    - **`this` binding**: `do (obj, "action" [, params])` and `rundelegate` run
+      their script with `this` = the object (WorldModel.RunScriptAsync's
+      thisElement) — fixes every `changedparent`-style script Core invokes via
+      `do`. `invoke` deliberately does NOT bind this (matches InvokeScript).
+    - **`rundelegate` + `RunDelegateFunction`**: shared implementation; the
+      delegate's `paramnames` come from the `<delegate>` element named by the
+      implementation Script's declared_type; returns the script's return value.
+    - **`create timer` / `create turnscript`** (create_object grew an elem_type
+      param; turnscripts get defaultturnscript, timers have no default type) and
+      **`GetUniqueElementName`** (trailing-digits-stripped numbering).
+      **`GetObject` resolves turnscripts and the game element** too (they are
+      ElementType.Object in QuestViva) — dynamic-turnscript code relies on it.
+    - **`True`/`FALSE`/`Null` are case-insensitive** (NCalc `Terms.Text(...,
+      true)`; null via the evaluator's parameter check).
+    - **NCalc `if(cond, a, b)`** (lazy branches) **and `cast(x, int)`** (the
+      type arg is a bare identifier, special-cased before evaluation like
+      `_evaluatingCastType`).
+    - **`GetFileURL`** returns the filename headless (real URL mapping is
+      presentation-milestone work).
+    - **Media commands no-op with a one-time `world.warnings` entry** (new
+      vector, separate from `errors` so the 0-error invariants stay strict):
+      `picture`, `play sound`, `stop sound`, `insert`. `wait { ... }` parses and
+      (until the §3 input model) runs its callback immediately.
+    - **QuestViva error semantics**: runtime errors (unknown variable/function,
+      foreach over non-list, bad index, the `error` command...) now THROW;
+      `run_script` is the per-script-body boundary (RunScriptAsync's catch) that
+      logs to `world.errors` AND prints "Error running script: ..." once to the
+      player. After 20 errors the session is declared wedged and finished
+      (MaxScriptErrors/scriptErrorsFatal); a 200-deep script recursion cap
+      matches MaxScriptExecutionDepth. Error messages carry the innermost
+      executing function ("... (in UpdatePlayerUI)") via a call-frame stack.
+    - Corpus smoke driver: scratch `boot_smoke.cc` (loads + boots every game in
+      `~/Downloads/Quest 5 games`, reports load/boot errors) — worth wiring into
+      test/ as a permanent gate once a corpus path convention is settled.
+    - The one remaining boot failure, **spondre**, is two things: (a) QuestViva
+      itself errors on its boot (`game.pov.longtermtopics` with pov unset —
+      verified against the oracle, same abort point), and (b) **lists holding
+      only strings**: spondre builds lists of *dictionaries* and indexes them
+      (`match["score"]`), which needs QuestList-style typed lists (see below).
+  - Still open for M3: **typed lists** (list entries as full `Value`s, like the
+    dict-values change — spondre's list-of-dicts is the driver; touches the
+    loader, foreach, the QuestList operators and every list builtin),
+    multi-object/disambiguation menus and `show menu`/`ask`/`get input`/real
+    `wait` (the input model, §3), change (`changed<attr>`) scripts, the
+    listextend merge-on-read, game-local libraries bundled *inside* a `.quest`
+    zip, the UndoLogger, and (maybe) member-access-on-null throwing like
+    QuestViva ("Property 'x' not found on ''") instead of yielding null.
+    Milestones 4–5 remain.
 
 ## 0. Scope and reality check
 
@@ -217,7 +326,15 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       turnscript, timer, walkthrough, template, delegate, type, javascript…
       each with a typed field bag (`aslx::Value` variant: string, int, double,
       bool, object ref, script, string/object list, string/object/script dict,
-      null). Delegate values not yet a distinct runtime type.
+      null). The element id is exposed as a `name` field (QuestViva's
+      `FieldDefinitions.Name` — Core keys `cmd.name`/`obj.name` off it, notably
+      the RegexCache cacheID). **Lists and dictionaries are reference types**:
+      their storage sits behind a `shared_ptr` so copies (function args, `y = x`,
+      field reads) alias one backing and `list add`/`dictionary add` propagate,
+      matching QuestList/QuestDictionary; derived-list builtins `detach()` first.
+      **Dictionary values are full Values** (per-entry typing), so one dict can
+      mix objects, strings and booleans (CoreParser's resolvedelements). Delegate
+      values not yet a distinct runtime type.
 - [x] **Inheritance**: `<inherit name="type"/>` chains resolved own → inherited
       types most-recent-first, recursively (`Interp::resolve_field`). Each
       element also gets an implicit default type (`defaultobject`/`defaultgame`/
@@ -238,14 +355,21 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `finish`, `undo`/`start transaction` (no-op until UndoLogger), `request`
       (no-op — headless UI request; its enum arg is left unevaluated), and the
       `JS.*` bridge. `msg` routes through Core's `OutputText` (v540+) so the
-      `{...}` text processor runs. TODO — `create exit`, `rundelegate`,
-      `get input`, `show menu`, `ask`, `wait`, `picture`, `play sound`/
-      `stop sound`, `create timer`/`enable`/`disable`.
+      `{...}` text processor runs. Also done (2026-07-16): `rundelegate`,
+      `create timer`/`create turnscript`, `x => {script}` assignment, trailing
+      `{script}` call argument, `this` binding in `do`/`rundelegate`,
+      `picture`/`play sound`/`stop sound`/`insert` (headless no-op + warning),
+      `wait` (runs callback immediately pending §3), `error` (throws, QuestViva
+      semantics). TODO — `create exit`, `get input`, `show menu`, `ask`, real
+      blocking `wait`, `enable`/`disable` timer.
 - [~] **Expression evaluator**: hand-written lexer + recursive-descent parser
       over `aslx::Value` (`aslx-runtime.cc`), compiled-expression cache per
       source string. DONE: `=`/`==` equality, `<>`/`!=`, `and or xor not`,
       `< > <= >=`, `+ - * / %` with int→double promotion, `+` string concat,
-      ternary `?:`, dot member access (`box.capacity`), `[]` list/dict indexers,
+      the `QuestList<T>` operator overloads (`list+list` merge, `list±elem`
+      append/remove-first, `elem+list` prepend, `list*list` union — Core's
+      `GetScope` does `list - game.pov`), ternary `?:`, dot member access
+      (`box.capacity`), `[]` list/dict indexers,
       `null`/`true`/`false` literals, dispatch to ASLX `<function>` elements and
       ~65 built-ins: type/attribute (`GetBoolean`/`GetInt`/`GetString`/
       `HasAttribute`/`TypeOf` 1- & 2-arg/`DoesInherit`), world model
@@ -265,18 +389,23 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       (`CInt`/`CDbl`/`Abs`/`Max`/`Min`/`GetRandomInt`/`GetRandomDouble`).
       **Operator precedence fixed**: `not` binds looser than `=`/comparison
       (own `parse_not` level), so `not obj = null` is `not (obj = null)` — Core
-      depends on this everywhere. TODO: the remaining built-ins (DateTime,
-      `FormatList` and the scope helpers), list/dict literals, and multi-word
-      (space-encoded) identifiers.
-- [ ] **Command parsing comes free**: it is implemented in `CoreParser.aslx`.
-      Once elements + scripts + expressions + regex support
-      (`RegexCache.cs`) work, `look`/`take`/disambiguation all run as
-      library code. Regex verified: `std::regex` ECMAScript mode + the
-      `rewrite_dotnet_regex` named-group shim (aslx-runtime.cc) cover the .NET
-      named groups `(?<object1>.*)` CoreParser generates from simplepatterns;
-      the `IsRegexMatch`/`GetMatchStrength`/`Populate` primitives are in place.
-      Remaining for the parser proper: `ScopeCommands`/`GetScope`/`ResolveName`
-      chain (Core ASLX, comes free once the boot driver + `msg`→OutputText run).
+      depends on this everywhere. Also done (2026-07-16): multi-word
+      (space-encoded) identifiers, `in`/`not in`, case-insensitive
+      `True`/`False`/`Null`, NCalc `if()`/`cast()`, `GetFileURL`/
+      `GetUniqueElementName`/`RunDelegateFunction`. TODO: the remaining
+      built-ins (DateTime, `FormatList` and the scope helpers), list/dict
+      literals, and typed (Value-holding) lists.
+- [x] **Command parsing comes free**: implemented in `CoreParser.aslx`, and it
+      now runs — `HandleCommand` → `ScopeCommands` → `IsRegexMatch`/
+      `GetMatchStrength` → `ResolveName`/`GetScope`/`ResolveNameFromList`/
+      `CompareNames` → verb script all execute as library code. `look`/`take`/
+      `examine`/`open`/`go` work end-to-end (0 errors). The four engine gaps that
+      blocked it: command patterns from `pattern="[tmpl]"`/`template="verb"`
+      (not just nested `<pattern>`); the `name` field (RegexCache cacheID);
+      reference-type lists/dicts (caller-built match lists); per-entry dict value
+      typing (object params to verb scripts). Remaining parser work is
+      multi-object/`ResolveNameList` disambiguation menus (needs the §3 input
+      model) and multi-word identifiers.
 - [x] **Determinism**: `GetRandomInt`/`GetRandomDouble` route through a
       xoshiro128**+SplitMix32 port of `erkyrath_random()` (`aslx::Rng`, seed
       1234, byte-identical to `terps/common_utils/randomness.c` and the oracle's
@@ -369,14 +498,16 @@ stays unsupported, as in `quest4.c`.
    `aslx-runtime.*` + `test/aslx_runtime_test.cc`. Expression evaluator, script
    interpreter, inheritance-aware field resolution, ~40 built-ins, deterministic
    RNG. Remaining script commands / built-ins tracked in §2.
-3. **Core.aslx boots** (loader half ✅ 2026-07-15; run half ✅ 2026-07-15):
-   every corpus game plus a fresh default game loads its full Core element tree
-   with 0 errors, and `InitInterface`+`StartGame`+`on ready` now **execute**
-   with 0 errors, rendering the title + room description through Core's own
-   `{...}` text processor. `test/aslx_loader_test.cc:test_coreboot` (load) +
-   `test/aslx_runtime_test.cc:test_coreboot_runs` (run). Remaining: driving a
-   real command (`look`/`take`/`go`) through `HandleCommand` + the scope/resolve
-   chain and the object-listing helpers (`FormatList`; `{object:}` still empty).
+3. **Core.aslx boots + drives commands** (loader ✅ 2026-07-15; boot ✅
+   2026-07-15; command driving ✅ 2026-07-16): every corpus game plus a fresh
+   default game loads its full Core tree with 0 errors, `InitInterface`+
+   `StartGame`+`on ready` execute with 0 errors, and real player commands
+   (`look`/`take`/`inventory`/`examine`/`open`/`go`) now run end-to-end through
+   Core's `HandleCommand` → scope → resolve → verb-script chain with 0 errors.
+   `test/aslx_loader_test.cc:test_coreboot` (load) +
+   `test/aslx_runtime_test.cc:test_coreboot_runs` (boot) +
+   `:test_command_driving` (commands). Remaining: multi-object disambiguation
+   menus (needs §3 input), change scripts, listextend merge-on-read.
 4. **Interaction**: get input, menus, wait, timers, undo, save/restore.
 5. **Presentation**: HTML→styles, hyperlinks, panes, pictures, sound.
 6. **Integration**: babel module, Info.plist, Xcode wiring, corpus

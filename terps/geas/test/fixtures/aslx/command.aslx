@@ -1,0 +1,34 @@
+<asl version="580">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+
+  <game name="Command Test">
+    <gameid>d0d0cafe-0000-0000-0000-000000000002</gameid>
+    <author>Geas test suite</author>
+  </game>
+
+  <object name="lounge">
+    <inherit name="editor_room" />
+    <object name="player">
+      <inherit name="editor_player" />
+    </object>
+    <object name="apple">
+      <inherit name="editor_object" />
+      <take />
+    </object>
+    <object name="chest">
+      <inherit name="editor_object" />
+      <inherit name="openable" />
+    </object>
+    <exit alias="north" to="garden">
+      <inherit name="northdirection" />
+    </exit>
+  </object>
+
+  <object name="garden">
+    <inherit name="editor_room" />
+    <object name="rose">
+      <inherit name="editor_object" />
+    </object>
+  </object>
+</asl>

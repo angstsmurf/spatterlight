@@ -54,11 +54,63 @@ struct Value {
     long integer = 0;           // Int
     double dbl = 0.0;           // Double
     bool boolean = false;       // Boolean
-    std::vector<std::string> list;                          // StringList / ObjectList
-    std::vector<std::pair<std::string, std::string>> dict;  // *Dict (ordered)
+
+    // StringList / ObjectList and *Dict (ordered) storage. Held behind a
+    // shared_ptr so that lists and dictionaries are REFERENCE types, exactly
+    // like Quest's QuestList<T> / QuestDictionary<T>: copying a Value (function
+    // argument binding, `y = x` assignment, reading a field) shares the same
+    // backing, so `list add`/`dictionary add` through any alias is visible
+    // everywhere. Builtins that derive a *new* collection from an input must
+    // call detach() first (see aslx-runtime-builtins.inc).
+    //
+    // A dictionary's *values* are full Values, not strings: Quest's dictionaries
+    // hold typed/boxed entries, and a single dictionary can mix objects, strings
+    // and booleans (e.g. CoreParser's currentcommandresolvedelements holds the
+    // resolved objects alongside a boolean `multiple`). The dict-level Type enum
+    // (StringDict/ObjectDict/ScriptDict) is retained only for TypeOf and for the
+    // NewXxxDictionary constructors' declared kind.
+    using DictEntry = std::pair<std::string, Value>;
+    std::shared_ptr<std::vector<std::string>> list_store;
+    std::shared_ptr<std::vector<DictEntry>> dict_store;
+
+    // Lazily-allocating accessors so a freshly-typed list/dict Value is usable
+    // without a separate init step. The const overloads return a shared empty
+    // when the store is null (a null list reads as empty, never faults). The
+    // dict accessors are defined out-of-line (they need Value to be complete).
+    std::vector<std::string> &list() {
+        if (!list_store)
+            list_store = std::make_shared<std::vector<std::string>>();
+        return *list_store;
+    }
+    const std::vector<std::string> &list() const {
+        static const std::vector<std::string> empty;
+        return list_store ? *list_store : empty;
+    }
+    std::vector<DictEntry> &dict();
+    const std::vector<DictEntry> &dict() const;
+
+    // Give this Value its own private copy of the list/dict backing, breaking
+    // the reference-sharing. Used before building a derived collection.
+    void detach();
 
     std::string debug_string() const;
 };
+
+inline std::vector<Value::DictEntry> &Value::dict() {
+    if (!dict_store)
+        dict_store = std::make_shared<std::vector<DictEntry>>();
+    return *dict_store;
+}
+inline const std::vector<Value::DictEntry> &Value::dict() const {
+    static const std::vector<DictEntry> empty;
+    return dict_store ? *dict_store : empty;
+}
+inline void Value::detach() {
+    if (list_store)
+        list_store = std::make_shared<std::vector<std::string>>(*list_store);
+    if (dict_store)
+        dict_store = std::make_shared<std::vector<DictEntry>>(*dict_store);
+}
 
 // One element of the world model: object, command, function, game, type, etc.
 // Containment is by nesting (parent/children). Inheritance is by <inherit> and
@@ -106,6 +158,9 @@ struct World {
 
     std::vector<std::string> includes;   // <include ref="..."/> (unresolved in M1)
     std::vector<std::string> errors;
+    // Non-fatal notices (e.g. a media command no-opped headless). Kept separate
+    // from `errors` so the boot/command-driving 0-error invariants stay strict.
+    std::vector<std::string> warnings;
 
     // Set by the `finish` script command; the driver ends the session on it.
     bool finished = false;
@@ -114,12 +169,13 @@ struct World {
     const std::string *implied_type(const std::string &elem_type,
                                     const std::string &property) const;
 
-    // Runtime element creation/destruction (the `create`/`destroy` script
-    // commands). create_object appends a new root-level object element (with an
-    // optional inherited type) and registers it by name; destroy unregisters an
-    // object/timer so find() no longer resolves it. Both mirror QuestViva's
-    // ObjectFactory.CreateObject / DestroyElement.
-    Element *create_object(const std::string &name, const std::string &type = "");
+    // Runtime element creation/destruction (the `create`/`create timer`/
+    // `create turnscript`/`destroy` script commands). create_object appends a
+    // new root-level element (with an optional inherited type) and registers it
+    // by name; destroy unregisters an object/timer so find() no longer resolves
+    // it. Both mirror QuestViva's ObjectFactory.CreateObject / DestroyElement.
+    Element *create_object(const std::string &name, const std::string &type = "",
+                           const std::string &elem_type = "object");
     void destroy_element(const std::string &name);
 };
 

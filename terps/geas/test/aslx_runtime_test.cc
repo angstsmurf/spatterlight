@@ -321,6 +321,99 @@ static void test_new_builtins() {
     CHECK_STR(evals(in, "ObjectListItem(AllObjects(), 0)"), "room");
 }
 
+// Constructs the real-game boot smoke test hit (TODO §Status): multi-word
+// identifiers, in/not in, "=>" script assignment, headless media no-ops, and
+// graceful degradation on a parse error.
+static void test_realgame_constructs() {
+    World w;
+    w.asl_version = 550;
+    Interp in(w);
+
+    // -- Multi-word (space-encoded) identifiers, per EncodeIdentifierSpaces.
+    run(in, "create (\"OUTSIDE INN\")");
+    run(in, "OUTSIDE INN.MORNING = true");
+    CHECK_STR(evals(in, "GetBoolean(OUTSIDE INN, \"MORNING\")"), "True");
+    // Dracula's shape: `not` applies to the whole call, and `not`/`and` stay
+    // keywords (never joined into an identifier).
+    CHECK_STR(evals(in, "not GetBoolean(OUTSIDE INN, \"MORNING\")"), "False");
+    CHECK_STR(evals(in, "GetBoolean(OUTSIDE INN, \"MORNING\") and true"), "True");
+    // Magi's shape: an attribute name containing a space (game.Next text).
+    run(in, "create (\"thegame\")");
+    run(in, "thegame.Next text = \"chapter 2\"");
+    CHECK_STR(evals(in, "thegame.Next text"), "chapter 2");
+    // Spaces inside string literals are never touched.
+    CHECK_STR(evals(in, "\"OUTSIDE INN\""), "OUTSIDE INN");
+
+    // -- in / not in (relational level, QuestNCalcLogicalExpressionParser).
+    CHECK_STR(evals(in, "\"b\" in Split(\"a,b,c\", \",\")"), "True");
+    CHECK_STR(evals(in, "\"z\" in Split(\"a,b,c\", \",\")"), "False");
+    CHECK_STR(evals(in, "\"z\" not in Split(\"a,b,c\", \",\")"), "True");
+    CHECK_STR(evals(in, "OUTSIDE INN in AllObjects()"), "True");
+    CHECK_STR(evals(in, "\"ell\" in \"hello\""), "True");
+    // spondre's shape: prefix not over a membership test.
+    CHECK_STR(evals(in, "not OUTSIDE INN in AllObjects()"), "False");
+    CHECK_STR(run(in,
+        "d = NewDictionary()\n"
+        "dictionary add (d, \"k\", \"v\")\n"
+        "msg (\"k\" in d)\n"
+        "msg (\"j\" in d)"), "True\nFalse");
+
+    // -- "x => { script }" assigns a script literal (SetScriptScript).
+    run(in, "create (\"guard\")");
+    CHECK_STR(run(in,
+        "guard.oncrit => {\n"
+        "  if (guard.health > 100) {\n"
+        "    msg (\"overhealed\")\n"
+        "  }\n"
+        "}\n"
+        "guard.health = 150\n"
+        "do (guard, \"oncrit\")"), "overhealed");
+    CHECK_STR(evals(in, "HasScript(guard, \"oncrit\")"), "True");
+
+    // -- Media commands no-op with a one-time warning; no errors.
+    CHECK(w.errors.empty());
+    CHECK_STR(run(in,
+        "picture (\"cover.jpg\")\n"
+        "play sound (\"boop.wav\", false, true)\n"
+        "stop sound\n"
+        "msg (\"after\")"), "after");
+    CHECK(w.errors.empty());
+    CHECK(w.warnings.size() >= 3);
+    size_t warned = w.warnings.size();
+    run(in, "picture (\"again.jpg\")");   // warn once per command, not per call
+    CHECK(w.warnings.size() == warned);
+    // wait runs its callback immediately (input model is M4).
+    CHECK_STR(run(in, "wait { msg (\"resumed\") }"), "resumed");
+    CHECK(w.errors.empty());
+
+    // -- Robustness: an error inside one script aborts only that script; it is
+    // logged, printed once ("Error running script: ...", WorldModel's catch in
+    // RunScriptAsync), and the engine (and later scripts) carry on.
+    std::string bad = run(in, "x = )bad(\nmsg (\"unreached\")");
+    CHECK(bad.find("Error running script") != std::string::npos);
+    CHECK(bad.find("unreached") == std::string::npos);
+    CHECK(!w.errors.empty());
+    CHECK(w.errors.back().find("Error running script") != std::string::npos);
+    w.errors.clear();
+    CHECK_STR(run(in, "msg (\"recovered\")"), "recovered");
+    CHECK_STR(evals(in, "1 +"), "");   // host-level eval degrades to null
+    CHECK(!w.errors.empty());
+    w.errors.clear();
+    // A runtime error aborts the innermost script body only; the calling
+    // script's next statement still runs (each run_script is a boundary). The
+    // `error` command throws, like QuestViva's ErrorScript.
+    run(in, "create (\"bomb\")");
+    run(in, "bomb.boom => { error (\"kaboom\") }");
+    std::string r = run(in,
+        "do (bomb, \"boom\")\n"
+        "msg (\"outer continues\")");
+    CHECK(r.find("Error running script: kaboom") != std::string::npos);
+    CHECK(r.find("outer continues") != std::string::npos);
+    CHECK(!w.errors.empty() &&
+          w.errors.back().find("kaboom") != std::string::npos);
+    w.errors.clear();
+}
+
 // The parser primitives: named-group matching, match strength, and Populate,
 // mirroring QuestViva Utility.IsRegexMatch/GetMatchStrength/Populate on the
 // simplepattern-derived regexes CoreParser feeds them.
@@ -431,14 +524,81 @@ static void test_coreboot_runs() {
               "True");
 }
 
+// End-to-end command driving: load a game plus full Core, boot it, then feed
+// real player commands through Core's HandleCommand -> ScopeCommands ->
+// ResolveName -> verb-script chain. Exercises command-template patterns
+// ([look]), verbtemplate patterns (template="lookat"), object resolution,
+// object-typed command params (do/invoke), the QuestList +/- operators, and
+// exit movement -- the milestone-3 "drive a real command" proof. Every command
+// must run with zero script errors and produce the expected Core output.
+static void test_command_driving() {
+    World w;
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    CHECK(ok);
+    CHECK(w.errors.empty());
+
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+
+    Context boot;
+    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+    if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    if (in.has_pending_on_ready()) in.drain_on_ready();
+    w.errors.clear();
+
+    auto run = [&](const char *cmd) -> std::string {
+        out.clear();
+        Context cc;
+        Value cv; cv.type = Value::Type::String; cv.str = cmd;
+        Value mv; mv.type = Value::Type::Null;
+        in.call_function("HandleCommand", {cv, mv}, &cc);
+        if (in.has_pending_on_ready()) in.drain_on_ready();
+        if (!w.errors.empty()) {
+            for (auto &e : w.errors)
+                std::cerr << "  cmd '" << cmd << "' err: " << e << "\n";
+        }
+        CHECK(w.errors.empty());
+        w.errors.clear();
+        return out;
+    };
+
+    // look: room description lists both objects and renders the exit as "north"
+    // ([look] command template + FormatList + {exit:} text processor).
+    std::string look = run("look");
+    CHECK(look.find("apple") != std::string::npos);
+    CHECK(look.find("chest") != std::string::npos);
+    CHECK(look.find("north") != std::string::npos);
+    CHECK(look.find("{exit") == std::string::npos);  // exit processor ran
+
+    // take: allow_all/notheld scope, QuestList `- game.pov`, object move.
+    CHECK(run("take apple").find("picks it up") != std::string::npos);
+    CHECK(run("inventory").find("apple") != std::string::npos);
+
+    // examine (verbtemplate) resolves the object and runs the lookat script.
+    CHECK(run("examine chest").find("Nothing out of the ordinary") !=
+          std::string::npos);
+    // open (verbtemplate) passes the object to TryOpenClose via do(...,params).
+    CHECK(run("open chest").find("opens") != std::string::npos);
+
+    // go through the exit, then confirm we are in the new room.
+    run("north");
+    std::string look2 = run("look");
+    CHECK(look2.find("garden") != std::string::npos);
+    CHECK(look2.find("rose") != std::string::npos);
+    CHECK_STR(Interp::to_string(in.eval("player.parent", boot)), "garden");
+}
+
 int main() {
     test_expressions();
     test_control_flow();
     test_functions_and_objects();
     test_script_commands();
     test_new_builtins();
+    test_realgame_constructs();
     test_regex_primitives();
     test_coreboot_runs();
+    test_command_driving();
     test_rng_determinism();
 
     if (g_failures == 0) {

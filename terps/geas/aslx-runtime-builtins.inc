@@ -129,16 +129,49 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vbool(f && f->type == Value::Type::Script);
     }
     if (fn == "getobject" && n == 1) {
+        // Exits, turnscripts and the game element are all ElementType.Object in
+        // QuestViva (ObjectType.Exit/TurnScript/Game), so GetObject resolves
+        // them -- ProcessTextCommand_Exit and dynamically-created turnscripts
+        // ("turnscript = GetObject(name)") rely on this.
         Element *e = world_.find(sarg(0));
-        return e && e->elem_type == "object" ? vobj(e->name) : vnull();
+        return e && (e->elem_type == "object" || e->elem_type == "exit" ||
+                     e->elem_type == "turnscript" || e->elem_type == "game")
+                   ? vobj(e->name) : vnull();
     }
     if (fn == "gettimer" && n == 1) {
         Element *e = world_.find(sarg(0));
         return e && e->elem_type == "timer" ? vobj(e->name) : vnull();
     }
+    // RunDelegateFunction(obj, "delegatename", params...): the expression form
+    // of rundelegate; returns the implementation script's return value.
+    if (fn == "rundelegatefunction" && n >= 2) {
+        std::vector<Value> params(args.begin() + 2, args.end());
+        return interp_run_delegate(*this, obj_of(arg(0)), sarg(1), params);
+    }
     // GetUIOption: player-UI configuration lookup. Headless has no overrides, so
     // every option reads back empty (Core's "= true"/LengthOf > 0 guards fail).
     if (fn == "getuioption" && n == 1) return vstr(std::string());
+    // GetFileURL: front-end URL for a packaged resource. Headless there is no
+    // web root; the filename itself is a serviceable stand-in (it only ever
+    // lands inside HTML the presentation milestone will interpret).
+    if (fn == "getfileurl" && n == 1) return vstr(sarg(0));
+    // GetUniqueElementName (WorldModel.GetUniqueElementName): the name itself
+    // if free, else the name minus trailing digits with the first free number
+    // appended (timeout -> timeout1, timeout2, ...).
+    if (fn == "getuniqueelementname" && n == 1) {
+        std::string base = sarg(0);
+        if (!world_.find(base)) return vstr(base);
+        std::string root = base;
+        while (!root.empty() && std::isdigit((unsigned char)root.back()))
+            root.pop_back();
+        for (long k = 1;; ++k) {
+            std::string cand = root + std::to_string(k);
+            if (!world_.find(cand)) return vstr(cand);
+        }
+    }
+    // IsGameRunning: State != Finished (ExpressionOwner.IsGameRunning). Turn
+    // scripts guard on this every turn.
+    if (fn == "isgamerunning" && n == 0) return vbool(!world_.finished);
     if (fn == "doesinherit" && n == 2)
         return vbool(does_inherit(world_, obj_of(arg(0)), sarg(1)));
     if (fn == "typeof" && n == 1) return vstr(type_name(arg(0)));
@@ -154,9 +187,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "eval" && (n == 1 || n == 2)) {
         Context local;
         if (n == 2)
-            for (auto &kv : arg(1).dict)
-                local.locals[kv.first] = arg(1).type == Value::Type::ObjectDict
-                                             ? vobj(kv.second) : vstr(kv.second);
+            for (auto &kv : arg(1).dict())
+                local.locals[kv.first] = kv.second;  // values are typed per-entry
         return eval(sarg(0), local);
     }
 
@@ -247,35 +279,40 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "newscriptdictionary" && n == 0) {
         Value v; v.type = Value::Type::ScriptDict; return v;
     }
-    if (fn == "dictionarycount" && n == 1) return vint((long)arg(0).dict.size());
+    if (fn == "dictionarycount" && n == 1) return vint((long)arg(0).dict().size());
     if (fn == "dictionarycontains" && n == 2) {
-        for (auto &kv : arg(0).dict) if (kv.first == sarg(1)) return vbool(true);
+        for (auto &kv : arg(0).dict()) if (kv.first == sarg(1)) return vbool(true);
         return vbool(false);
     }
-    if ((fn == "dictionaryitem" || fn == "stringdictionaryitem") && n == 2) {
-        for (auto &kv : arg(0).dict) if (kv.first == sarg(1)) return vstr(kv.second);
+    if (fn == "dictionaryitem" && n == 2) {
+        for (auto &kv : arg(0).dict()) if (kv.first == sarg(1)) return kv.second;
+        return vnull();
+    }
+    if (fn == "stringdictionaryitem" && n == 2) {
+        for (auto &kv : arg(0).dict())
+            if (kv.first == sarg(1)) return vstr(to_string(kv.second));
         return vnull();
     }
     if (fn == "objectdictionaryitem" && n == 2) {
-        for (auto &kv : arg(0).dict) if (kv.first == sarg(1)) return vobj(kv.second);
+        for (auto &kv : arg(0).dict())
+            if (kv.first == sarg(1))
+                return kv.second.type == Value::Type::ObjectRef
+                           ? kv.second : vobj(to_string(kv.second));
         return vnull();
     }
     if (fn == "scriptdictionaryitem" && n == 2) {
-        for (auto &kv : arg(0).dict)
-            if (kv.first == sarg(1)) {
-                Value v; v.type = Value::Type::Script; v.str = kv.second; return v;
-            }
+        for (auto &kv : arg(0).dict()) if (kv.first == sarg(1)) return kv.second;
         return vnull();
     }
     if (fn == "stringlistitem" && n == 2) {
         const Value &l = arg(0); long i = iarg(1);
-        if (i < 0 || (size_t)i >= l.list.size()) return vnull();
-        return vstr(l.list[i]);
+        if (i < 0 || (size_t)i >= l.list().size()) return vnull();
+        return vstr(l.list()[i]);
     }
     if (fn == "objectlistitem" && n == 2) {
         const Value &l = arg(0); long i = iarg(1);
-        if (i < 0 || (size_t)i >= l.list.size()) return vnull();
-        return vobj(l.list[i]);
+        if (i < 0 || (size_t)i >= l.list().size()) return vnull();
+        return vobj(l.list()[i]);
     }
 
     // ---- templates --------------------------------------------------------
@@ -321,29 +358,64 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // ---- lists ------------------------------------------------------------
     if ((fn == "newlist" || fn == "newstringlist") && n == 0) return vstrlist({});
     if (fn == "newobjectlist" && n == 0) return vobjlist({});
-    if (fn == "listcount" && n == 1) return vint((long)arg(0).list.size());
+    if (fn == "listcount" && n == 1) return vint((long)arg(0).list().size());
     if (fn == "listitem" && n == 2) {
         const Value &l = arg(0);
         long i = iarg(1);
-        if (i < 0 || (size_t)i >= l.list.size()) return vnull();
-        return l.type == Value::Type::ObjectList ? vobj(l.list[i]) : vstr(l.list[i]);
+        if (i < 0 || (size_t)i >= l.list().size()) return vnull();
+        return l.type == Value::Type::ObjectList ? vobj(l.list()[i]) : vstr(l.list()[i]);
     }
     if (fn == "listcontains" && n == 2) {
         const Value &l = arg(0);
         std::string item = to_string(arg(1));
-        for (const std::string &s : l.list) if (s == item) return vbool(true);
+        for (const std::string &s : l.list()) if (s == item) return vbool(true);
         return vbool(false);
     }
     if (fn == "listexclude" && n == 2) {
         Value out = arg(0);
+        out.detach();  // return a new list; do not mutate the input's backing
         std::string item = to_string(arg(1));
-        out.list.erase(std::remove(out.list.begin(), out.list.end(), item),
-                       out.list.end());
+        out.list().erase(std::remove(out.list().begin(), out.list().end(), item),
+                       out.list().end());
         return out;
     }
     if (fn == "listcombine" && n == 2) {
         Value out = arg(0);
-        for (const std::string &s : arg(1).list) out.list.push_back(s);
+        out.detach();  // return a new list; do not mutate the input's backing
+        for (const std::string &s : arg(1).list()) out.list().push_back(s);
+        return out;
+    }
+    // ObjectListSort(list, attr[, attr2...]): stably order an object list by one
+    // or more attributes (ExpressionOwner.ObjectListSort -> OrderBy/ThenBy). A
+    // missing attribute sorts as empty. Descending reverses the result.
+    if ((fn == "objectlistsort" || fn == "objectlistsortdescending") && n >= 2) {
+        Value out = arg(0);
+        out.detach();
+        std::vector<std::string> attrs;
+        for (int i = 1; i < n; ++i) attrs.push_back(to_string(arg(i)));
+        auto key_at = [&](const std::string &el, size_t k) -> std::string {
+            Element *e = world_.find(el);
+            const Value *f = e ? resolve_field(e, attrs[k]) : nullptr;
+            return f ? to_string(*f) : std::string();
+        };
+        std::stable_sort(out.list().begin(), out.list().end(),
+                         [&](const std::string &a, const std::string &b) {
+                             for (size_t k = 0; k < attrs.size(); ++k) {
+                                 std::string ka = key_at(a, k), kb = key_at(b, k);
+                                 if (ka != kb) return ka < kb;
+                             }
+                             return false;
+                         });
+        if (fn == "objectlistsortdescending")
+            std::reverse(out.list().begin(), out.list().end());
+        return out;
+    }
+    if ((fn == "stringlistsort" || fn == "stringlistsortdescending") && n == 1) {
+        Value out = arg(0);
+        out.detach();
+        std::stable_sort(out.list().begin(), out.list().end());
+        if (fn == "stringlistsortdescending")
+            std::reverse(out.list().begin(), out.list().end());
         return out;
     }
 
@@ -426,9 +498,9 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "join" && n == 2) {
         std::string out, delim = sarg(1);
         const Value &l = arg(0);
-        for (size_t i = 0; i < l.list.size(); ++i) {
+        for (size_t i = 0; i < l.list().size(); ++i) {
             if (i) out += delim;
-            out += l.list[i];
+            out += l.list()[i];
         }
         return vstr(out);
     }
@@ -472,7 +544,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                                     "' is not a match for Regex '" + sarg(0) + "'");
             return out;
         }
-        out.dict = named_groups(*cr, m);
+        for (const auto &g : named_groups(*cr, m))
+            out.dict().emplace_back(g.first, vstr(g.second));
         return out;
     }
 

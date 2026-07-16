@@ -14,10 +14,19 @@ static std::string text_after(const std::string &s, const std::string &kw) {
 
 // Top-level '=' position for an assignment, ignoring ==, <=, >=, <>, != and
 // anything from the first '{' onward. Returns npos if not an assignment.
-static size_t assign_eq_pos(const std::string &line) {
+// If the '=' begins a "=>" (a script-literal assignment, SetScriptScript),
+// is_script is set: the RHS is a script body, not an expression.
+static size_t assign_eq_pos(const std::string &line, bool &is_script) {
+    is_script = false;
     std::string ob = obscure_strings(line);
     size_t brace = ob.find('{');
     if (brace != std::string::npos) ob = ob.substr(0, brace);
+    // "=>" first, like SetScriptConstructor (it looks for => before =).
+    size_t arrow = ob.find("=>");
+    if (arrow != std::string::npos) {
+        is_script = true;
+        return arrow;
+    }
     for (size_t i = 0; i < ob.size(); ++i) {
         if (ob[i] != '=') continue;
         char prev = i > 0 ? ob[i - 1] : 0;
@@ -214,13 +223,22 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         s.body = parse_statements(body, interp);
         return s;
     }
+    if (starts_with_word(line, "wait")) {
+        s.kind = Stmt::Kind::Wait;
+        std::string a;
+        std::string body = get_script(rt_trim(line.substr(4)), a);
+        s.body = parse_statements(body, interp);
+        return s;
+    }
 
-    // Assignment: "x = expr" or "obj.prop = expr".
-    size_t eq = assign_eq_pos(line);
+    // Assignment: "x = expr", "obj.prop = expr", or the script-literal form
+    // "x => { script }" (which stores the RHS as a Script value, SetScriptScript).
+    bool is_script_assign = false;
+    size_t eq = assign_eq_pos(line, is_script_assign);
     if (eq != std::string::npos) {
         s.kind = Stmt::Kind::Assign;
         std::string lhs = rt_trim(line.substr(0, eq));
-        std::string rhs = rt_trim(line.substr(eq + 1));
+        std::string rhs = rt_trim(line.substr(eq + (is_script_assign ? 2 : 1)));
         size_t dot = lhs.rfind('.');
         if (dot == std::string::npos) {
             s.name = lhs;
@@ -228,20 +246,31 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
             s.obj = compile_expr_str(lhs.substr(0, dot));
             s.name = rt_trim(lhs.substr(dot + 1));
         }
-        s.expr = compile_expr_str(rhs);
+        if (is_script_assign) s.script_text = rhs;
+        else s.expr = compile_expr_str(rhs);
         return s;
     }
 
-    // Otherwise a function call: "Name (args)" or bare "Name".
+    // Otherwise a function call: "Name (args)", bare "Name", or either form
+    // with a trailing "{ script }", which is passed as one extra script-literal
+    // argument bound to the function's last parameter (FunctionCallScript's
+    // paramFunction -- e.g. Core's "ShowMenu (...) { ... }" callback).
     s.kind = Stmt::Kind::Call;
-    std::string after; bool found;
-    std::string param = get_parameter(line, after, found);
-    if (found) {
-        size_t paren = line.find('(');
+    std::string ob = obscure_strings(line);
+    size_t brace = ob.find('{');
+    size_t paren = ob.find('(');
+    if (paren != std::string::npos &&
+        (brace == std::string::npos || paren < brace)) {
+        std::string after; bool found;
+        std::string param = get_parameter(line, after, found);
         s.name = rt_trim(line.substr(0, paren));
         if (!rt_trim(param).empty())
             for (const std::string &a : split_parameters(param))
                 s.call_args.push_back(compile_expr_str(a));
+        s.script_text = rt_trim(after);   // "" when no block follows
+    } else if (brace != std::string::npos) {
+        s.name = rt_trim(line.substr(0, brace));
+        s.script_text = rt_trim(line.substr(brace));
     } else {
         s.name = rt_trim(line);
     }

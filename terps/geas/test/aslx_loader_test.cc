@@ -95,11 +95,11 @@ static void test_hello() {
     CHECK(look && look->type == Value::Type::String && look->str == "A brass lamp.");
     const Value *dv = lamp->field("displayverbs");
     CHECK(dv && dv->type == Value::Type::StringList);
-    CHECK_EQ(dv->list.size(), (size_t)3);
-    if (dv && dv->list.size() == 3) {
-        CHECK_EQ(dv->list[0], std::string("Look"));
-        CHECK_EQ(dv->list[1], std::string("Take"));
-        CHECK_EQ(dv->list[2], std::string("Rub"));
+    CHECK_EQ(dv->list().size(), (size_t)3);
+    if (dv && dv->list().size() == 3) {
+        CHECK_EQ(dv->list()[0], std::string("Look"));
+        CHECK_EQ(dv->list()[1], std::string("Take"));
+        CHECK_EQ(dv->list()[2], std::string("Rub"));
     }
     const Value *weight = lamp->field("weight");
     CHECK(weight && weight->type == Value::Type::Int && weight->integer == 3);
@@ -128,13 +128,13 @@ static void test_hello() {
     // Nested <value> stringlist and <item> dictionary on hall.
     const Value *cmdlist = field(w, "hall", "cmdlist");
     CHECK(cmdlist && cmdlist->type == Value::Type::StringList);
-    CHECK_EQ(cmdlist->list.size(), (size_t)2);
+    CHECK_EQ(cmdlist->list().size(), (size_t)2);
     const Value *mapping = field(w, "hall", "mapping");
     CHECK(mapping && mapping->type == Value::Type::StringDict);
-    CHECK_EQ(mapping->dict.size(), (size_t)2);
-    if (mapping && mapping->dict.size() == 2) {
-        CHECK_EQ(mapping->dict[0].first, std::string("a"));
-        CHECK_EQ(mapping->dict[0].second, std::string("alpha"));
+    CHECK_EQ(mapping->dict().size(), (size_t)2);
+    if (mapping && mapping->dict().size() == 2) {
+        CHECK_EQ(mapping->dict()[0].first, std::string("a"));
+        CHECK_EQ(mapping->dict()[0].second.str, std::string("alpha"));
     }
 
     // command: pattern (simplepattern -> regex) + script body.
@@ -168,10 +168,10 @@ static void test_hello() {
     CHECK(fn && fn->elem_type == "function");
     const Value *params = fn ? fn->field("paramnames") : nullptr;
     CHECK(params && params->type == Value::Type::StringList);
-    CHECK_EQ(params->list.size(), (size_t)2);
-    if (params && params->list.size() == 2) {
-        CHECK_EQ(params->list[0], std::string("obj"));
-        CHECK_EQ(params->list[1], std::string("dest"));
+    CHECK_EQ(params->list().size(), (size_t)2);
+    if (params && params->list().size() == 2) {
+        CHECK_EQ(params->list()[0], std::string("obj"));
+        CHECK_EQ(params->list()[1], std::string("dest"));
     }
     const Value *ret = fn ? fn->field("returntype") : nullptr;
     CHECK(ret && ret->str == "boolean");
@@ -181,7 +181,7 @@ static void test_hello() {
     CHECK(wt && wt->elem_type == "walkthrough");
     const Value *steps = wt ? wt->field("steps") : nullptr;
     CHECK(steps && steps->type == Value::Type::StringList);
-    CHECK_EQ(steps->list.size(), (size_t)3);
+    CHECK_EQ(steps->list().size(), (size_t)3);
 }
 
 // Loads a game that <include>s English.aslx + Core.aslx from the bundled Core
