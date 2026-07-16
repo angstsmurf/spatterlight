@@ -129,6 +129,12 @@ struct Element {
     bool anonymous = false;
     int source_line = 0;
 
+    // Child ordering (QuestViva's SortIndex MetaField): elements start in
+    // creation order; a runtime parent change bumps the element to the end of
+    // its new parent's children (WorldModel.UpdateElementSortOrder). Children
+    // enumerations sort by this.
+    long sort_index = 0;
+
     // Fields in insertion order (Quest's field bag is unordered, but preserving
     // order keeps dumps stable and readable).
     std::vector<std::pair<std::string, Value>> fields;
@@ -169,6 +175,10 @@ struct World {
 
     // Set by the `finish` script command; the driver ends the session on it.
     bool finished = false;
+
+    // Monotonic SortIndex source: creation order at load, bumped past
+    // everything by runtime parent changes (see Element::sort_index).
+    long next_sort_index = 0;
 
     Element *find(const std::string &n) const;
     const std::string *implied_type(const std::string &elem_type,

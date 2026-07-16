@@ -296,10 +296,26 @@
       commands); `make check` green, ASan/UBSan clean; corpus still
       49/50-boot-0-error, boot output byte-identical except The Acreage, whose
       `wait`-gated intro sections now emerge in the correct authored order.
+  - **Verb elements + change scripts + child sort order** (2026-07-16, the
+    replay-driven batch — each found by chasing a golden diff):
+    - **`<verb>` elements are commands** (QuestViva loads them as
+      ElementType.Command): `AllCommands()` now returns them (ScopeCommands
+      needs that), they inherit the `defaultverb` type (generic
+      property-dispatch script, separator, multi-object defaults; inserted
+      above the implicit defaultcommand), and the `<implied element="command">`
+      declarations apply to them — which routes a verb's nested `<pattern>` to
+      the simplepattern loader, whose isverb branch does
+      `ConvertVerbSimplePattern(pattern, separator)` (deferred to finish_load
+      so the type-provided separator "with; using" resolves; also sets
+      displayverb = first verb, `#object#` stripped). A verb's `pattern=`
+      ATTRIBUTE stays raw like a command's (CommandLoader), but `template=`
+      defers like the nested form (LoadPattern is virtual). This fixed every
+      "wear X"/"break X" → "I don't understand".
+    - **`changed<attr>` + SortIndex** — see §2 Change notification.
   - Still open for M3/M4: timers (`SetTimeout`/`SetTimerScript`/`enable`/
     `disable`, a Tick entry point — see §3), `request (Wait)`/`request (Pause)`
     for pre-v540 games (truly blocking mid-script in QuestViva, needs a
-    blocking host hook), change (`changed<attr>`) scripts, game-local
+    blocking host hook), game-local
     libraries bundled *inside* a `.quest` zip, the UndoLogger, and (maybe)
     member-access-on-null throwing like QuestViva ("Property 'x' not found on
     ''") instead of yielding null. Milestone 5 remains.
@@ -406,8 +422,17 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       element also gets an implicit default type (`defaultobject`/`defaultgame`/
       …) prepended at load, and containment is exposed as a `parent` ObjectRef
       field (children derived from it, so runtime `MoveObject` is honoured).
-- [ ] **Change notification**: `changed<attr>` scripts fire on field writes.
-      (Not yet — the boot path doesn't need it, but turn handling will.)
+- [x] **Change notification** (2026-07-16): `changed<attr>` scripts fire on
+      script field writes (`obj.attr = v` and `set()`), resolved through
+      inheritance, with `oldvalue` bound and `this` = the element —
+      Element.SetFieldAsync semantics (fires on every script assignment, no
+      same-value check). This is what makes `changedparent` → `OnEnterRoom`
+      print room descriptions on movement (and got the POV gender right:
+      "You pick it up", not "picks it up"). A runtime reparent also bumps the
+      element to the end of its new parent's children
+      (`Element::sort_index`, WorldModel.UpdateElementSortOrder) and
+      GetDirectChildren/GetAllChildObjects enumerate in SortIndex order —
+      inventory listings match the oracle's after take/drop churn.
 - [ ] **UndoLogger**: per-turn transaction log of field writes / element
       creation-destruction; powers `undo` (maps onto the existing
       `LimitStack` idea, but log-based rather than snapshot-based).
@@ -578,13 +603,16 @@ stays unsupported, as in `quest4.c`.
       (`make aslx_replay`, needs the local corpus so not in `check`) replays
       an oracle `.cmd` through the native engine with qvh's exact step
       grammar/normalisation and diffs against `quest5-oracle/golden/*.out`.
-      First-light baseline: all 17 goldens replay end-to-end with 0–4 script
-      errors, ~30–70% of golden lines already match, no game Finishes yet.
-      First divergences cluster on (in priority order): verb commands
-      ("wear X"/"break X" → "I don't understand"), object resolution
-      ("open door 24" → "I can't see that"), and missing/displaced room
-      description output on `go`. DrainTimers (needs the native timer engine)
-      and Wedged-vs-Finished are not mirrored yet.
+      First-light baseline was ~30–70% matching lines, 0 games finishing;
+      after the same-day verb/changed-script/sort-order fixes, **Dream Pieces
+      and One Night Stand replay BYTE-IDENTICAL to their goldens through to
+      state=Finished**, and most others dropped sharply (A Christmas Game
+      94/1192 diff lines, I Contain Multitudes 50/800, Escape From the
+      Mechanical Bathhouse 95/993, Basilica de Sangre 297/2235). Still far:
+      Dream Pieces 2, the Guttersnipes, Myothian Falcon, Mouse/Christmas,
+      Whitefield — chase each game's FIRST divergence next. DrainTimers
+      (needs the native timer engine) and Wedged-vs-Finished are not
+      mirrored yet.
 
 ## 8. Milestones
 
@@ -604,7 +632,8 @@ stays unsupported, as in `quest4.c`.
    `test/aslx_loader_test.cc:test_coreboot` (load) +
    `test/aslx_runtime_test.cc:test_coreboot_runs` (boot) +
    `:test_command_driving` (commands) + `:test_input_model` (disambiguation).
-   Remaining: change scripts.
+   Change scripts landed 2026-07-16; two real games replay byte-identical to
+   their oracle goldens (test/aslx_replay.cc).
 4. **Interaction** (input model ✅ 2026-07-16): get input, menus, ask, wait
    all land engine-side with host entry points (`send_command` +
    `set_menu_response`/`set_question_response`/`finish_wait`,

@@ -616,10 +616,10 @@ static void test_coreboot_runs() {
     CHECK(w.errors.empty());
 
     // The title rendered (StartGame -> PrintCentered -> msg -> OutputText), and
-    // the {...} text processor expanded (no raw "{=" survives, WriteVerb ran so
-    // "It is" appears for the gender-"it" fixture player).
+    // the {...} text processor expanded (no raw "{=" survives; WriteVerb ran
+    // with the editor_player "you" gender, so "You are" appears).
     CHECK(out.find("Core Boot Test") != std::string::npos);
-    CHECK(out.find("It is") != std::string::npos);
+    CHECK(out.find("You are") != std::string::npos);
     CHECK(out.find("{=") == std::string::npos);
 
     // The parent field is exposed and drives containment.
@@ -678,14 +678,16 @@ static void test_command_driving() {
     CHECK(look.find("{exit") == std::string::npos);  // exit processor ran
 
     // take: allow_all/notheld scope, QuestList `- game.pov`, object move.
-    CHECK(run("take apple").find("picks it up") != std::string::npos);
+    // Second person ("You pick it up.") -- editor_player's "you" gender flows
+    // through WriteVerb now that changedparent/OnEnterRoom fire properly.
+    CHECK(run("take apple").find("You pick it up") != std::string::npos);
     CHECK(run("inventory").find("apple") != std::string::npos);
 
     // examine (verbtemplate) resolves the object and runs the lookat script.
     CHECK(run("examine chest").find("Nothing out of the ordinary") !=
           std::string::npos);
     // open (verbtemplate) passes the object to TryOpenClose via do(...,params).
-    CHECK(run("open chest").find("opens") != std::string::npos);
+    CHECK(run("open chest").find("You open it") != std::string::npos);
 
     // go through the exit, then confirm we are in the new room.
     run("north");

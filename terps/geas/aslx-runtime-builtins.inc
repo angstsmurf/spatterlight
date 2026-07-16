@@ -200,9 +200,12 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vobjlist(names);
     }
     if (fn == "allcommands" && n == 0) {
+        // Verbs ARE commands (QuestViva loads <verb> as ElementType.Command
+        // with IsVerb=true) -- ScopeCommands depends on seeing them here.
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "command") names.push_back(up->name);
+            if (up->elem_type == "command" || up->elem_type == "verb")
+                names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "allexits" && n == 0) {
@@ -217,13 +220,25 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (up->elem_type == "turnscript") names.push_back(up->name);
         return vobjlist(names);
     }
+    // Children enumerate in SortIndex order (Elements.GetDirectChildren sorts
+    // by the SortIndex MetaField): creation order, except a runtime parent
+    // change moves the element to the end of its new parent's children.
+    auto direct_children = [&](Element *e) {
+        std::vector<Element *> kids;
+        for (auto &up : world_.elements)
+            if (up->elem_type == "object" && parent_of(up.get()) == e)
+                kids.push_back(up.get());
+        std::stable_sort(kids.begin(), kids.end(),
+                         [](const Element *a, const Element *b) {
+                             return a->sort_index < b->sort_index;
+                         });
+        return kids;
+    };
     if (fn == "getdirectchildren" && n == 1) {
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
         if (e)
-            for (auto &up : world_.elements)
-                if (up->elem_type == "object" && parent_of(up.get()) == e)
-                    names.push_back(up->name);
+            for (Element *k : direct_children(e)) names.push_back(k->name);
         return vobjlist(names);
     }
     if (fn == "getallchildobjects" && n == 1) {
@@ -232,12 +247,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         // Recurse through the parent-field tree. A visited set guards against a
         // cycle introduced by a bad runtime parent assignment.
         std::function<void(Element *)> rec = [&](Element *x) {
-            for (auto &up : world_.elements) {
-                if (up->elem_type != "object" || parent_of(up.get()) != x) continue;
-                if (std::find(names.begin(), names.end(), up->name) != names.end())
+            for (Element *k : direct_children(x)) {
+                if (std::find(names.begin(), names.end(), k->name) != names.end())
                     continue;
-                names.push_back(up->name);
-                rec(up.get());
+                names.push_back(k->name);
+                rec(k);
             }
         };
         if (e) rec(e);

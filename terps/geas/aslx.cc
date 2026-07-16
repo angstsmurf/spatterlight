@@ -145,6 +145,7 @@ Element *World::create_object(const std::string &name, const std::string &type,
     Element *ep = e.get();
     ep->elem_type = elem_type;
     ep->name = name;
+    ep->sort_index = next_sort_index++;
     // Every runtime-created element inherits its implicit default type (lowest
     // priority), then the caller's explicit type -- QuestViva
     // ObjectFactory.CreateObject inserts the default type at the front of
@@ -486,6 +487,12 @@ struct Loader {
     std::set<std::string> included;      // lowercased basenames already pulled
     int include_depth = 0;
 
+    // <verb> elements whose pattern (from pattern= or template=) is a verb
+    // simplepattern awaiting ConvertVerbSimplePattern. Deferred to finish_load
+    // because the separator comes from the defaultverb type ("with; using"),
+    // which may not be parsed yet (QuestViva's LazyFields.AddAction).
+    std::vector<std::pair<Element *, std::string>> pending_verb_patterns;
+
     explicit Loader(World &w) : world(w) {}
 
     Element *current() { return containers.empty() ? nullptr : containers.back(); }
@@ -546,6 +553,7 @@ struct Loader {
         ep->elem_type = type;
         ep->name = name;
         ep->anonymous = anonymous;
+        ep->sort_index = world.next_sort_index++;
         // Expose the element id as a `name` field (QuestViva's
         // FieldDefinitions.Name). Core reads obj.name / cmd.name pervasively --
         // notably as the RegexCache key in HandleSingleCommand -- so an empty
@@ -710,23 +718,30 @@ struct Loader {
             if (!pattern.empty()) {
                 // A `pattern=` attribute: template-substitute any [refs] and
                 // store the result RAW as the regex, without simplepattern
-                // conversion. QuestViva's CommandLoader sets Fields[Pattern]
-                // verbatim after GetTemplate ("[look]" -> "^look$|^l$";
-                // "^restart$" stays). Simplepattern conversion is reserved for
+                // conversion -- for verbs too. QuestViva's CommandLoader sets
+                // Fields[Pattern] verbatim after GetTemplate ("[look]" ->
+                // "^look$|^l$"; "^restart$" stays); VerbLoader only overrides
+                // the template= path. Simplepattern conversion is reserved for
                 // nested <pattern> elements (defaultcommand's declared type).
                 Value p; p.type = Value::Type::String; p.declared_type = "string";
                 p.str = replace_templates(pattern);
                 e->set_field("pattern", p);
             } else if (!tmpl.empty()) {
                 // A `template=` attribute names a verbtemplate; its combined
-                // (";"-joined) text is a verb simplepattern -> lazy regex
-                // (Utility.ConvertVerbSimplePattern with a null separator).
+                // (";"-joined) text is a verb simplepattern
+                // (Utility.ConvertVerbSimplePattern -- null separator for
+                // commands, the type-provided separator for verbs, so verbs
+                // defer like the pattern= path; LoadPattern is virtual).
                 std::string ttext;
                 if (template_text(tmpl, ttext)) {
-                    Value p; p.type = Value::Type::String;
-                    p.declared_type = "string";
-                    p.str = convert_verb_simple_pattern(ttext, "");
-                    e->set_field("pattern", p);
+                    if (name == "verb") {
+                        pending_verb_patterns.emplace_back(e, ttext);
+                    } else {
+                        Value p; p.type = Value::Type::String;
+                        p.declared_type = "string";
+                        p.str = convert_verb_simple_pattern(ttext, "");
+                        e->set_field("pattern", p);
+                    }
                     // v530+: displayverb is the first verb in the list.
                     if (world.asl_version >= 530) {
                         std::vector<std::string> verbs = list_split(ttext);
@@ -960,6 +975,11 @@ struct Loader {
         if (type.empty()) {
             const std::string *imp =
                 world.implied_type(owner->elem_type, attr);
+            // Verbs ARE commands in QuestViva (ElementType.Command), so the
+            // <implied element="command"> declarations apply to them -- this
+            // is how a verb's nested <pattern> gets the simplepattern type.
+            if (!imp && owner->elem_type == "verb")
+                imp = world.implied_type("command", attr);
             if (imp) type = *imp;
         }
 
@@ -997,6 +1017,20 @@ struct Loader {
             std::string t = trim(text);
             v.boolean = (t.empty() || t == "true");
         } else if (type == "simplepattern") {
+            if (owner->elem_type == "verb") {
+                // SimplePatternLoader branches on isverb: a verb's pattern is
+                // a VERB simplepattern -- ConvertVerbSimplePattern with the
+                // type-provided separator, deferred to finish_load (LazyFields)
+                // -- and displayverb is the first verb, #object# stripped.
+                pending_verb_patterns.emplace_back(owner, text);
+                std::string first = trim(text.substr(0, text.find(';')));
+                size_t h;
+                while ((h = first.find("#object#")) != std::string::npos)
+                    first.erase(h, 8);
+                Value dv; dv.type = Value::Type::String; dv.str = trim(first);
+                owner->set_field("displayverb", dv);
+                return;
+            }
             v.type = Value::Type::String; v.str = convert_simple_pattern(text);
         } else if (type == "object") {
             v.type = Value::Type::ObjectRef; v.str = trim(text);
@@ -1229,10 +1263,52 @@ static void apply_default_types(World &world) {
     }
 }
 
+// Own field, else inherited types most-recent-first (load-time inheritance
+// walk; the runtime equivalent is Interp::resolve_field).
+static const Value *find_field_rec(World &world, Element *e,
+                                   const std::string &name,
+                                   std::set<Element *> &seen) {
+    if (!e || !seen.insert(e).second) return nullptr;
+    if (const Value *own = e->field(name)) return own;
+    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
+        if (const Value *v = find_field_rec(world, world.find(*it), name, seen))
+            return v;
+    return nullptr;
+}
+
+// Deferred <verb> pattern conversion (VerbLoader.LoadPattern's lazy action):
+// now that every include is parsed, the separator -- the verb's own
+// <separator> or the defaultverb type's ("with; using") -- is resolvable, and
+// ConvertVerbSimplePattern can build the final regex, object2 tail included.
+static void finish_verb_patterns(Loader &ld, World &world) {
+    for (auto &pv : ld.pending_verb_patterns) {
+        Element *e = pv.first;
+        std::set<Element *> seen;
+        const Value *sep = find_field_rec(world, e, "separator", seen);
+        std::string separator =
+            (sep && sep->type == Value::Type::String) ? sep->str : "";
+        Value p; p.type = Value::Type::String; p.declared_type = "string";
+        p.str = convert_verb_simple_pattern(pv.second, separator);
+        e->set_field("pattern", p);
+    }
+}
+
 static bool finish_load(Loader &ld, World &world) {
     if (world.asl_version == 0)
         world.errors.push_back("no ASL version found (missing <asl version=>)");
+    // Verbs inherit the defaultverb type (VerbLoader's AddType): its generic
+    // script dispatches on the object's `property` attribute, and it carries
+    // the separator/multi-object defaults. Inserted at the front so explicit
+    // <inherit>s override it, while it overrides the implicit defaultcommand
+    // prepended by apply_default_types below.
+    for (auto &up : world.elements) {
+        if (up->elem_type != "verb") continue;
+        auto &inh = up->inherits;
+        if (std::find(inh.begin(), inh.end(), "defaultverb") == inh.end())
+            inh.insert(inh.begin(), "defaultverb");
+    }
     apply_default_types(world);
+    finish_verb_patterns(ld, world);
     // A genuinely broken load surfaces as an XML/parse error or a missing
     // version; unresolved includes and per-field warnings are non-fatal.
     (void)ld;

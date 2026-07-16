@@ -243,6 +243,13 @@ private:
     // swallowed, like PrintAsync's own catch.
     void print_via_core(const std::string &text, Context &ctx);
 
+    // Element.SetFieldAsync: after a script assignment (obj.attr = v / set()),
+    // run the element's "changed<attr>" script if one resolves (inheritance
+    // included), with `oldvalue` bound and `this` = the element. This is what
+    // triggers OnEnterRoom via the player's changedparent.
+    void fire_changed_script(Element *e, const std::string &attr,
+                             const Value &oldval);
+
     // One slot per prompt kind (WorldModel's _commandInputTcs/_menuTcs/
     // _questionTcs/_waitTcs). Registering a new prompt of a kind that already
     // pends cancels the old one (BeginPrompt's TrySetCanceled): its callback is

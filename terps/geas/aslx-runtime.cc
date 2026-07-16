@@ -947,6 +947,7 @@ void Interp::exec_block(const std::vector<Stmt> &stmts, Context &ctx) {
 }
 
 Element *interp_eval_element(Interp &, const Value &);
+static bool values_equal(const Value &a, const Value &b);
 
 void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     switch (s.kind) {
@@ -1028,9 +1029,20 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         } else {
             Value ov = eval_expr(*s.obj, ctx);
             Element *e = interp_eval_element(*this, ov);
-            if (e) e->set_field(s.name, val);
-            else error("Assignment to attribute '" + s.name +
+            if (e) {
+                const Value *prev = resolve_field(e, s.name);
+                Value old = prev ? *prev : vnull();
+                e->set_field(s.name, val);
+                // A runtime reparent moves the element to the end of its new
+                // parent's children (UpdateElementSortOrder), before the
+                // changed script runs (Fields.Set order).
+                if (s.name == "parent" && !values_equal(old, val))
+                    e->sort_index = world_.next_sort_index++;
+                fire_changed_script(e, s.name, old);
+            } else {
+                error("Assignment to attribute '" + s.name +
                                     "' of a non-object");
+            }
         }
         return;
     }
@@ -1244,6 +1256,19 @@ void Interp::drain_on_ready() {
         run_callback_boundary(item.first, ctx);
         if (script_errors_fatal_) break;
     }
+}
+
+void Interp::fire_changed_script(Element *e, const std::string &attr,
+                                 const Value &oldval) {
+    // Element.SetFieldAsync: fires on every script assignment (no same-value
+    // check), with `oldvalue` and this = the element; RunScriptAsync is the
+    // error boundary, which run_script provides.
+    const Value *scr = resolve_field(e, "changed" + attr);
+    if (!scr || scr->type != Value::Type::Script) return;
+    Context local;
+    local.locals["oldvalue"] = oldval;
+    local.locals["this"] = vobj(e->name);
+    run_script(scr->str, local);
 }
 
 void Interp::print_via_core(const std::string &text, Context &ctx) {
@@ -1828,8 +1853,18 @@ bool Interp::exec_statement_command(const std::string &name,
     }
     if (name == "set") {  // set(obj, "field", value)
         Element *obj = as_element(ev(0));
-        if (obj) obj->set_field(to_string(ev(1)), ev(2));
-        else errors().push_back("set: not an object");
+        if (obj) {
+            std::string attr = to_string(ev(1));
+            const Value *prev = resolve_field(obj, attr);
+            Value old = prev ? *prev : vnull();
+            Value nv = ev(2);
+            obj->set_field(attr, nv);
+            if (attr == "parent" && !values_equal(old, nv))
+                obj->sort_index = world_.next_sort_index++;
+            fire_changed_script(obj, attr, old);
+        } else {
+            errors().push_back("set: not an object");
+        }
         return true;
     }
     if (name == "list add" || name == "list remove") {
