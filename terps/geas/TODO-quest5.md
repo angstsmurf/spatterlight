@@ -1,5 +1,55 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, pictures — zip resources + inline images via new Glk 0.7.6 IMAGE2)
+
+- **Pictures render in the app** (milestone 5's first slice): Core's `picture`
+  (v540+ `<img>` print AND the pre-540 direct-UI path), the `{img:}` text
+  processor and hand-written `<img src="' + GetFileUrl(..) + '">` all draw
+  inline in the buffer window, verified visually (synthetic v550 + v520
+  packages; Dracula/Mouse carry the real thing mid-game).
+- **Zip resource API** (`aslx.hh`): `zip_list_entries` / `zip_extract_entry` /
+  `zip_find_entry` (exact-then-case-insensitive, QuestViva's OrdinalIgnoreCase
+  resource table) generalize the old game.aslx-only reader;
+  `extract_game_aslx` is a wrapper now (still exact-name, like
+  `zip.GetEntry`). `test_zip_package` + committed `fixtures/aslx/package.quest`
+  (stored + deflated + directory entries).
+- **Frontend resources** (aslxglk.cc): the package entry table is listed once
+  at startup; `resource_bytes(name)` pulls a payload byte-range out of the
+  .quest on demand (raw-.aslx games read game-adjacent files instead;
+  `..` rejected like GetExternalUrlAsync). Images register with the
+  Spatterlight backend under private resource numbers (win_loadimage — the
+  classic runner's show_image pattern): stored entries point the app straight
+  at the .quest at their byte offset; deflated ones (the packager's default)
+  inflate through a mkstemp file that is unlinked as soon as
+  glk_image_get_info round-trips. Failed names are negative-cached.
+- **Glk 0.7.6 GLK_MODULE_IMAGE2 implemented app-wide** (user-requested): the
+  spec's `glk_image_draw_scaled_ext` + `imagerule_*` + `gestalt_DrawImageScale`
+  land in glkimp (glk.h/image.c/gestalt.c/gi_dispa.c with upstream's 0x00EC
+  dispatch entry) and the DRAWIMAGE protocol carries imagerule+maxwidth
+  (`struct drawrect`; 0 = legacy). App side: `MyAttachmentCell` stores the
+  rule and resolves its display size against the line-fragment width in
+  `cellFrameForTextContainer:` EVERY layout pass — so `imagerule_WidthRatio`
+  and `maxwidth` track buffer resizes dynamically, exactly per spec, with no
+  stored scaled copies (draws scale at render time, high interpolation).
+  Legacy cells get 0.7.6's behaviour change (images wider than the window
+  reduce proportionally) through the same layout-time clamp, while their
+  existing theme-rescale machinery (REFRESH/xscale — bocfel Z6) is untouched;
+  rule cells are skipped by it. Graphics windows resolve rules once at draw
+  and ignore maxwidth, per spec. Direct win_drawimage callers (bocfel z6,
+  hugo) updated. The Quest 5 frontend draws
+  `WidthOrig|AspectRatio, maxwidth=$10000` — original size, never wider than
+  the window, re-fitting on resize (verified by shrinking the window).
+  ADRIFT/Hamper title graphic (legacy path) verified unchanged.
+- `make check` + ASan/UBSan green, goldens 16/17 byte-identical (ICM is the
+  documented oracle artifact), full app + all terps build. `picture` now
+  ALWAYS evaluates its filename first (PictureScript does; the pre-540
+  headless path previously skipped evaluation) — no golden moved.
+- Still open in presentation: sounds (`resource_bytes` is the extraction
+  half; the synchronous `play sound` TurnSuspended semantics need a host that
+  can finish a sound), panes (SetFramePicture/JS.setPanelContents — Dracula
+  shows most of its art through the panel), babel zip metadata + cover art,
+  Spatterlight autosave/autorestore.
+
 ## Status (2026-07-16, later still — undo + save/restore land; milestone 4 complete)
 
 - **Undo (UndoLogger port)**: `undo` and `start transaction` are real script
@@ -720,7 +770,9 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `wait` (runs callback immediately pending §3), `error` (throws, QuestViva
       semantics). Also done (2026-07-16): `get input`, `show menu`, `ask`,
       real pending `wait` (the §3 input model — fire-and-forget callbacks
-      resolved by the host). TODO — `create exit`, `enable`/`disable` timer.
+      resolved by the host), and `create exit` (evening batch). There is NO
+      `enable`/`disable` timer script command in QuestViva —
+      EnableTimer/DisableTimer are Core ASLX and run as library code.
 - [~] **Expression evaluator**: hand-written lexer + recursive-descent parser
       over `aslx::Value` (`aslx-runtime.cc`), compiled-expression cache per
       source string. DONE: `=`/`==` equality, `<>`/`!=`, `and or xor not`,
@@ -817,8 +869,12 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
 - [x] Object/command links (`<a class="cmdlink" ...>`) → Glk hyperlinks
       (2026-07-16): `data-command` sends the command, ASLEvent onclicks call
       the function, elementmenu links fall back to "look at".
-- [ ] `picture` → `glk_image_draw` in the buffer (resources from the zip).
-- [ ] `play sound` → Glk sound channels.
+- [x] `picture` → inline buffer images (2026-07-16): render_html's `<img>`
+      + the pre-540 `Interp::show_picture` hook draw zip/adjacent resources
+      via win_loadimage + the new Glk 0.7.6 `glk_image_draw_scaled_ext`
+      (`WidthOrig|AspectRatio`, maxwidth=$10000 — window-fitted, dynamic on
+      resize). See the top status entry.
+- [ ] `play sound` → Glk sound channels (resource_bytes already extracts).
 - [ ] Panes: compass/inventory/"places and objects"/status attributes →
       reuse the existing sidebar machinery (`objwin`, `bannerwin` in
       `geasglk.cc:83-87`); the data arrives as UI update requests
@@ -913,8 +969,9 @@ stays unsupported, as in `quest4.c`.
    `finish_wait`, `test_input_model`) and aslxglk.cc drives them in the app.
    Undo landed 2026-07-16 (UndoLogger port, §2); save/restore landed
    2026-07-16 (v1 snapshot, §5). Milestone complete.
-5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16): remaining —
-   panes, pictures, sound (zip resource extraction).
+5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16; pictures + zip
+   resource extraction ✅ 2026-07-16, via the new Glk 0.7.6 IMAGE2 support):
+   remaining — panes (SetFramePicture / JS.updateList), sound.
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
    app-verified with Dream Pieces): remaining — babel zip metadata/cover,
    a corpus-wide replay gate wired into `make check`.

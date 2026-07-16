@@ -274,6 +274,55 @@ static void test_coreboot() {
     CHECK(w.includes.size() >= 2);
 }
 
+// The .quest zip package reader: entry listing, stored + deflated extraction,
+// QuestViva-style case-insensitive lookup, and extract_game_aslx over the
+// same machinery. fixtures/aslx/package.quest wraps hello.aslx (deflated)
+// plus one stored and one deflated resource and a directory entry.
+static void test_zip_package() {
+    std::string buf;
+    CHECK(slurp_file("fixtures/aslx/package.quest", buf));
+    const uint8_t *data = reinterpret_cast<const uint8_t *>(buf.data());
+
+    std::vector<ZipEntryInfo> entries;
+    CHECK(zip_list_entries(data, buf.size(), entries));
+    CHECK_EQ(entries.size(), (size_t)3);   // directory entry skipped
+
+    // Case-insensitive find (exact first): QuestViva's resource dictionary is
+    // OrdinalIgnoreCase, so "pics/troll.png" must hit "Pics/Troll.PNG".
+    const ZipEntryInfo *troll = zip_find_entry(entries, "Pics/Troll.PNG");
+    CHECK(troll && troll->method == 0);
+    CHECK_EQ(zip_find_entry(entries, "pics/troll.png"), troll);
+    CHECK(!zip_find_entry(entries, "absent.png"));
+
+    // Stored entry: payload aliases the package bytes at `offset`.
+    std::string out;
+    CHECK(troll && zip_extract_entry(data, buf.size(), *troll, out));
+    CHECK_EQ(out, std::string("\x89PNG-fake-stored-payload"));
+    if (troll)
+        CHECK_EQ(std::string((const char *)data + troll->offset,
+                             troll->comp_size), out);
+
+    // Deflated entry round-trips.
+    const ZipEntryInfo *notes = zip_find_entry(entries, "notes.txt");
+    CHECK(notes && notes->method == 8 && notes->comp_size < notes->raw_size);
+    CHECK(notes && zip_extract_entry(data, buf.size(), *notes, out));
+    CHECK(out.find("deflated resource") != std::string::npos);
+
+    // extract_game_aslx still works on top, and the package loads end-to-end.
+    std::string game;
+    CHECK(extract_game_aslx(data, buf.size(), game));
+    std::string direct;
+    CHECK(slurp_file("fixtures/aslx/hello.aslx", direct));
+    CHECK(game == direct);
+
+    World w;
+    CHECK(load_file("fixtures/aslx/package.quest", w));
+    CHECK_EQ(w.game_name, std::string("Hello Quest"));
+
+    // Not a zip at all.
+    CHECK(!zip_list_entries((const uint8_t *)"nope", 4, entries));
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         std::string core = "";
@@ -286,6 +335,7 @@ int main(int argc, char **argv) {
 
     test_hello();
     test_coreboot();
+    test_zip_package();
 
     if (g_failures == 0) {
         std::cout << "aslx_loader_test: all checks passed\n";

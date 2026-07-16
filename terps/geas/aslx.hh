@@ -243,6 +243,34 @@ bool load_aslx_buffer(const char *data, size_t len, World &world,
 // buffer is not a zip or has no game.aslx.
 bool extract_game_aslx(const uint8_t *data, size_t len, std::string &out);
 
+// One entry of a .quest zip package, as listed by zip_list_entries. `offset`
+// is the payload's byte offset in the package (past the local header), so a
+// stored (method 0) entry's bytes can be used straight from the file.
+struct ZipEntryInfo {
+    std::string name;           // entry path as stored, e.g. "pics/troll.png"
+    uint16_t method = 0;        // 0 = stored, 8 = deflate
+    uint32_t comp_size = 0;     // payload size in the package
+    uint32_t raw_size = 0;      // decompressed size
+    size_t offset = 0;          // payload offset in the package buffer
+};
+
+// List a zip's central directory. Returns false if the buffer is not a zip.
+// Entries with unsupported compression methods are still listed (extraction
+// rejects them); directory entries (trailing '/') are skipped.
+bool zip_list_entries(const uint8_t *data, size_t len,
+                      std::vector<ZipEntryInfo> &out);
+
+// Extract one listed entry into `out`. Returns false on a corrupt package or
+// an unsupported compression method.
+bool zip_extract_entry(const uint8_t *data, size_t len, const ZipEntryInfo &e,
+                       std::string &out);
+
+// Find an entry by name: exact match first, then the first case-insensitive
+// match -- QuestViva keeps package resources in an OrdinalIgnoreCase
+// dictionary and resolves URLs the same way. Returns nullptr if absent.
+const ZipEntryInfo *zip_find_entry(const std::vector<ZipEntryInfo> &entries,
+                                   const std::string &name);
+
 // Human-readable dump of the element tree, for the loader debug mode / tests.
 std::string dump(const World &world);
 

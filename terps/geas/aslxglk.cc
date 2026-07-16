@@ -30,6 +30,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -68,6 +69,11 @@ struct LinkAction {
     std::string event_param;
 };
 std::vector<LinkAction> g_links;
+
+/* Inline image drawing (defined in the resources section below): draw the
+ * named game resource in the main window, original size but never wider
+ * than the window. False when unresolvable or images are unsupported. */
+bool draw_image_inline(const std::string &name);
 
 /* ---------------------------------------------------------------- output -- */
 
@@ -202,6 +208,25 @@ LinkAction link_action(const std::string &tag)
     return a;
 }
 
+void utf8_append(std::string &out, glui32 cp)
+{
+    if (cp < 0x80) {
+        out += (char) cp;
+    } else if (cp < 0x800) {
+        out += (char) (0xc0 | (cp >> 6));
+        out += (char) (0x80 | (cp & 0x3f));
+    } else if (cp < 0x10000) {
+        out += (char) (0xe0 | (cp >> 12));
+        out += (char) (0x80 | ((cp >> 6) & 0x3f));
+        out += (char) (0x80 | (cp & 0x3f));
+    } else {
+        out += (char) (0xf0 | (cp >> 18));
+        out += (char) (0x80 | ((cp >> 12) & 0x3f));
+        out += (char) (0x80 | ((cp >> 6) & 0x3f));
+        out += (char) (0x80 | (cp & 0x3f));
+    }
+}
+
 /* Decode one HTML entity starting at s[i] ('&').  Returns the codepoint and
  * advances i past it, or returns '&' advancing 1 if not an entity. */
 glui32 decode_entity(const std::string &s, size_t &i)
@@ -228,6 +253,19 @@ glui32 decode_entity(const std::string &s, size_t &i)
         if (e == en.name) { i = semi + 1; return en.cp; }
     i++;
     return '&';
+}
+
+/* Entity-decode a whole attribute value (an <img src> may carry &amp;). */
+std::string decode_entities(const std::string &s)
+{
+    std::string out;
+    for (size_t i = 0; i < s.size();) {
+        if (s[i] == '&')
+            utf8_append(out, decode_entity(s, i));
+        else
+            out += s[i++];
+    }
+    return out;
 }
 
 /* Render one HTML chunk (a JS.addText payload) into the main window. */
@@ -287,10 +325,21 @@ void render_html(const std::string &html)
                     pop_style(anchors.back());
                     anchors.pop_back();
                 }
+            } else if (name == "img") {
+                /* Core's `picture` and the {img:} text-processor command
+                 * both emit <img src="filename"/> (GetFileURL returns the
+                 * filename as-is in this engine); games also hand-write the
+                 * tag around GetFileUrl(). Unresolvable images are dropped
+                 * like any other unknown tag. */
+                if (!closing) {
+                    std::string src = decode_entities(tag_attr(tag, "src"));
+                    if (!src.empty())
+                        draw_image_inline(src);
+                }
             }
-            /* every other tag (img, font, div, table...) is dropped: §4 says
-             * best-effort subset, not a browser.  Images/sounds are the
-             * presentation milestone. */
+            /* every other tag (font, div, table...) is dropped: §4 says
+             * best-effort subset, not a browser.  Sounds are still
+             * presentation-milestone work. */
         } else if (ch == '&') {
             put_uni_char(decode_entity(html, i));
         } else if (ch == '\r') {
@@ -750,6 +799,182 @@ std::string core_dir_path()
     return "";
 }
 
+/* ------------------------------------------------------------- resources -- */
+
+/* The .quest package's entry table, listed once at startup. Empty for raw
+ * .aslx games, whose resources live next to the game file instead
+ * (QuestViva's FileDirectoryGameDataProvider). */
+std::vector<ZipEntryInfo> g_package_entries;
+bool g_is_package = false;
+std::string g_story_dir;
+
+void init_resources(const char *storyfile)
+{
+    g_package_entries.clear();
+    g_is_package = false;
+    g_story_dir.clear();
+    if (!storyfile)
+        return;
+    std::string path = storyfile;
+    size_t slash = path.find_last_of("/\\");
+    g_story_dir = slash == std::string::npos ? "." : path.substr(0, slash);
+    std::string buf;
+    if (!slurp_file(path, buf) || buf.size() < 4 ||
+        memcmp(buf.data(), "PK\x03\x04", 4) != 0)
+        return;
+    g_is_package = zip_list_entries((const uint8_t *) buf.data(), buf.size(),
+                                    g_package_entries);
+}
+
+/* Read one byte range of a file (a zip entry's payload). */
+bool read_file_range(const std::string &path, size_t offset, size_t len,
+                     std::string &out)
+{
+    FILE *f = fopen(path.c_str(), "rb");
+    if (!f)
+        return false;
+    out.resize(len);
+    bool ok = fseek(f, (long) offset, SEEK_SET) == 0 &&
+              fread(&out[0], 1, len, f) == len;
+    fclose(f);
+    return ok;
+}
+
+/* Bytes of a game resource by name: a package entry (exact match first,
+ * then case-insensitive -- QuestViva's resource table is OrdinalIgnoreCase)
+ * or a file next to a raw .aslx game. ".." is rejected like
+ * WorldModel.GetExternalUrlAsync does. */
+bool resource_bytes(const std::string &name, std::string &out)
+{
+    if (name.empty() || name.find("..") != std::string::npos)
+        return false;
+    if (g_is_package) {
+        const ZipEntryInfo *e = zip_find_entry(g_package_entries, name);
+        if (!e)
+            return false;
+        std::string comp;
+        if (!read_file_range(g_storyfile ? g_storyfile : "", e->offset,
+                             e->comp_size, comp))
+            return false;
+        if (e->method == 0) { out = std::move(comp); return true; }
+        if (e->method != 8)
+            return false;
+        return inflate_raw((const uint8_t *) comp.data(), comp.size(),
+                           e->raw_size, out);
+    }
+    if (g_story_dir.empty())
+        return false;
+    return slurp_file(g_story_dir + "/" + name, out);
+}
+
+#ifdef SPATTERLIGHT
+/* Like the classic runner's show_image (geasglk.cc): Quest image files are
+ * external and arbitrarily named, so register each with the backend under a
+ * private resource number and let glk_image_draw* short-circuit its
+ * PIC<n>/blorb lookup via win_findimage. */
+extern "C" int  win_findimage(int resno);
+extern "C" void win_loadimage(int resno, const char *filename, int offset, int reslen);
+
+/* filename (case-folded) -> registered resource number; 0 = known-failed. */
+std::map<std::string, glui32> g_image_ids;
+int g_image_next_id = 1;
+
+/* Stage bytes in a temporary file for the backend to load. The file is only
+ * needed until the load round-trips (the caller's glk_image_get_info), after
+ * which it is unlinked. */
+bool stage_temp_file(const std::string &bytes, std::string &path)
+{
+    const char *tmpdir = getenv("TMPDIR");
+    std::string t = (tmpdir && *tmpdir) ? tmpdir : "/tmp";
+    if (t.back() != '/')
+        t += '/';
+    t += "aslximgXXXXXX";
+    std::vector<char> buf(t.begin(), t.end());
+    buf.push_back('\0');
+    int fd = mkstemp(buf.data());
+    if (fd < 0)
+        return false;
+    bool ok = write(fd, bytes.data(), bytes.size()) == (ssize_t) bytes.size();
+    close(fd);
+    path.assign(buf.data());
+    if (!ok) {
+        unlink(path.c_str());
+        path.clear();
+        return false;
+    }
+    return true;
+}
+
+/* Resolve + register one image resource. Returns its resource number, or 0.
+ * A stored package entry is read by the app straight from the .quest at its
+ * byte offset; a deflated entry (the common case -- Quest's packager
+ * deflates everything) or an adjacent file goes through resource_bytes. */
+glui32 load_image_resource(const std::string &name)
+{
+    glui32 id = 0;
+    std::string temp_path;
+
+    const ZipEntryInfo *e =
+        g_is_package && name.find("..") == std::string::npos
+            ? zip_find_entry(g_package_entries, name) : nullptr;
+    if (e && e->method == 0 && g_storyfile) {
+        id = (glui32) (g_image_next_id++);
+        win_loadimage((int) id, g_storyfile, (int) e->offset,
+                      (int) e->comp_size);
+    } else {
+        std::string bytes;
+        if (!resource_bytes(name, bytes) || bytes.empty())
+            return 0;
+        if (!stage_temp_file(bytes, temp_path))
+            return 0;
+        id = (glui32) (g_image_next_id++);
+        win_loadimage((int) id, temp_path.c_str(), 0, (int) bytes.size());
+    }
+
+    /* glk_image_get_info round-trips to the app, which both confirms the
+     * image really decoded and means the temp file has been consumed. */
+    glui32 w, h;
+    if (!glk_image_get_info(id, &w, &h))
+        id = 0;
+    if (!temp_path.empty())
+        unlink(temp_path.c_str());
+    return id;
+}
+#endif /* SPATTERLIGHT */
+
+bool draw_image_inline(const std::string &name)
+{
+#ifdef SPATTERLIGHT
+    if (!glk_gestalt(gestalt_Graphics, 0) ||
+        !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+        return false;
+
+    glui32 id;
+    auto it = g_image_ids.find(lower(name));
+    if (it != g_image_ids.end()) {
+        id = it->second;
+    } else {
+        id = load_image_resource(name);
+        g_image_ids[lower(name)] = id;   /* 0 = known-unresolvable */
+    }
+    if (!id)
+        return false;
+
+    /* Original size with the aspect ratio preserved, but never wider than
+     * the window -- re-resolved on every resize (Glk 0.7.6
+     * glk_image_draw_scaled_ext). Baseline-aligned like an HTML <img>;
+     * Core's OutputText supplies the surrounding <br/>s. */
+    return glk_image_draw_scaled_ext(gwin, id, imagealign_InlineUp, 0,
+                                     0, 0x10000,
+                                     imagerule_WidthOrig | imagerule_AspectRatio,
+                                     0x10000) != 0;
+#else
+    /* No way to register images by name outside Spatterlight's Glk. */
+    (void) name;
+    return false;
+#endif
+}
+
 /* Print any warnings the engine queued since the last check ("'play sound'
  * is not supported yet" etc.), bracketed and emphasized. */
 void flush_warnings(World &w, size_t &seen)
@@ -828,6 +1053,15 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         return run_menu_ui(in, m, key);
     };
     in.request_save = [&in] { do_save_ui(in); };
+    /* Pre-540 `picture` shows the image through the UI directly (no <img>
+     * print). Only claim it when this Glk can actually draw -- unset, the
+     * engine keeps its one-time "not supported" warning. */
+    if (glk_gestalt(gestalt_Graphics, 0) &&
+        glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+        in.show_picture = [](const std::string &filename) {
+            if (draw_image_inline(filename))
+                glk_put_char('\n');
+        };
 
 #ifdef GLK_MODULE_GARGLKTEXT
     if (!w.game_name.empty())
@@ -990,6 +1224,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
                    glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
 
     g_storyfile = storyfile;
+    init_resources(storyfile);
     std::string restore_data;
     while (run_session(storyfile, restore_data) != SessionEnd::Quit) {
         /* RESTART/RESTORE: fresh world, fresh screen (QuestViva reloads from

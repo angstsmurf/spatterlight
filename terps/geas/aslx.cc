@@ -400,7 +400,9 @@ static bool inflate_raw(const uint8_t *src, size_t srclen, size_t rawlen,
     return r == Z_STREAM_END || (r == Z_OK && zs.avail_out == 0);
 }
 
-bool extract_game_aslx(const uint8_t *data, size_t len, std::string &out) {
+bool zip_list_entries(const uint8_t *data, size_t len,
+                      std::vector<ZipEntryInfo> &out) {
+    out.clear();
     if (len < 22 || !(data[0] == 'P' && data[1] == 'K' && data[2] == 3 &&
                       data[3] == 4))
         return false;
@@ -424,34 +426,75 @@ bool extract_game_aslx(const uint8_t *data, size_t len, std::string &out) {
 
     for (uint16_t e = 0; e < count && p + 46 <= data + len; ++e) {
         if (!(p[0] == 'P' && p[1] == 'K' && p[2] == 1 && p[3] == 2)) break;
-        uint16_t method = rd16(p + 10);
-        uint32_t comp_size = rd32(p + 20);
-        uint32_t raw_size = rd32(p + 24);
+        ZipEntryInfo info;
+        info.method = rd16(p + 10);
+        info.comp_size = rd32(p + 20);
+        info.raw_size = rd32(p + 24);
         uint16_t name_len = rd16(p + 28);
         uint16_t extra_len = rd16(p + 30);
         uint16_t comment_len = rd16(p + 32);
         uint32_t local_off = rd32(p + 42);
-        std::string name((const char *)p + 46, name_len);
-
-        if (name == "game.aslx") {
-            const uint8_t *lh = data + local_off;
-            if (lh + 30 > data + len ||
-                !(lh[0] == 'P' && lh[1] == 'K' && lh[2] == 3 && lh[3] == 4))
-                return false;
-            uint16_t l_name = rd16(lh + 26);
-            uint16_t l_extra = rd16(lh + 28);
-            const uint8_t *src = lh + 30 + l_name + l_extra;
-            if (src + comp_size > data + len) return false;
-            if (method == 0) {  // stored
-                out.assign((const char *)src, raw_size);
-                return true;
-            }
-            if (method == 8)  // deflate
-                return inflate_raw(src, comp_size, raw_size, out);
-            return false;
-        }
+        info.name.assign((const char *)p + 46, name_len);
         p += 46 + name_len + extra_len + comment_len;
+
+        if (!info.name.empty() && info.name.back() == '/')  // directory
+            continue;
+
+        // The local header repeats name/extra with possibly DIFFERENT extra
+        // length, so the payload offset must come from it, not the central
+        // directory.
+        const uint8_t *lh = data + local_off;
+        if (lh + 30 > data + len ||
+            !(lh[0] == 'P' && lh[1] == 'K' && lh[2] == 3 && lh[3] == 4))
+            continue;
+        uint16_t l_name = rd16(lh + 26);
+        uint16_t l_extra = rd16(lh + 28);
+        info.offset = (size_t)(lh - data) + 30 + l_name + l_extra;
+        if (info.offset + info.comp_size > len) continue;
+
+        out.push_back(std::move(info));
     }
+    return true;
+}
+
+bool zip_extract_entry(const uint8_t *data, size_t len, const ZipEntryInfo &e,
+                       std::string &out) {
+    out.clear();
+    if (e.offset + e.comp_size > len) return false;
+    const uint8_t *src = data + e.offset;
+    if (e.method == 0) {  // stored
+        out.assign((const char *)src, e.raw_size);
+        return true;
+    }
+    if (e.method == 8)  // deflate
+        return inflate_raw(src, e.comp_size, e.raw_size, out);
+    return false;
+}
+
+const ZipEntryInfo *zip_find_entry(const std::vector<ZipEntryInfo> &entries,
+                                   const std::string &name) {
+    for (const ZipEntryInfo &e : entries)
+        if (e.name == name) return &e;
+    for (const ZipEntryInfo &e : entries) {
+        if (e.name.size() != name.size()) continue;
+        bool match = true;
+        for (size_t i = 0; i < name.size(); i++)
+            if (std::tolower((unsigned char)e.name[i]) !=
+                std::tolower((unsigned char)name[i])) {
+                match = false;
+                break;
+            }
+        if (match) return &e;
+    }
+    return nullptr;
+}
+
+bool extract_game_aslx(const uint8_t *data, size_t len, std::string &out) {
+    std::vector<ZipEntryInfo> entries;
+    if (!zip_list_entries(data, len, entries)) return false;
+    // Exact name only, like QuestViva's zip.GetEntry("game.aslx").
+    for (const ZipEntryInfo &e : entries)
+        if (e.name == "game.aslx") return zip_extract_entry(data, len, e, out);
     return false;
 }
 

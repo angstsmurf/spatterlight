@@ -2359,20 +2359,29 @@ bool Interp::exec_statement_command(const std::string &name,
     }
 
     // Media/output-decoration commands (insert splices an HTML file into the
-    // output): pure presentation, no world-model effect. Accept and no-op with
-    // a one-time warning so a game using them still runs headless (the
-    // presentation milestone wires them to Glk). Args are deliberately not
-    // evaluated -- nothing observable should happen.
+    // output): pure presentation, no world-model effect. Sounds and insert
+    // no-op with a one-time warning so a game using them still runs headless.
+    // Their args are deliberately not evaluated -- nothing observable should
+    // happen. `picture` is different: PictureScript ALWAYS evaluates its
+    // filename first (so an erroring expression reports like the oracle's),
+    // then prints an <img> on v540+ or shows the picture through the UI
+    // (ShowPictureAsync) pre-540 -- the latter lands in the show_picture host
+    // hook when the front-end can draw it.
     if (name == "picture" || name == "play sound" || name == "stop sound" ||
         name == "insert") {
-        warn_once(name, "'" + name + "' is not supported yet; ignored");
-        if (name == "picture" && world_.asl_version >= 540 && !args.empty()) {
-            // PictureScript (v540+): the image is PRINTED as an <img> tag
-            // through Core's OutputText -- whose <br/> suffix is why the
-            // oracle transcripts show a blank line here. The URL is the
-            // filename headless (IPlayer.GetUrlAsync); the presentation
-            // milestone maps it to a real Glk image.
-            print_via_core("<img src=\"" + to_string(ev(0)) + "\" />", ctx);
+        if (name != "picture" || !show_picture)
+            warn_once(name, "'" + name + "' is not supported yet; ignored");
+        if (name == "picture" && !args.empty()) {
+            std::string filename = to_string(ev(0));
+            if (world_.asl_version >= 540) {
+                // The <img> print's <br/> suffix (Core OutputText) is why
+                // oracle transcripts show a blank line here. The URL is the
+                // filename headless (IPlayer.GetUrlAsync); a Glk host's
+                // render_html maps the tag onto a real image.
+                print_via_core("<img src=\"" + filename + "\" />", ctx);
+            } else if (show_picture) {
+                show_picture(filename);
+            }
             return true;
         }
         if (name == "play sound" && args.size() >= 2 && truthy(ev(1))) {

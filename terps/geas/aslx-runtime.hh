@@ -248,6 +248,15 @@ public:
     // the request warns once like the other unsupported UI requests.
     std::function<void()> request_save;
 
+    // Host hook for `picture`. QuestViva's PictureScript has two paths: on
+    // v540+ it PRINTS an <img src="..."> through Core's OutputText (the HTML
+    // renderer displays it), while pre-540 it calls the UI directly
+    // (PlayerUi.ShowPictureAsync) -- that direct path lands here, with the
+    // evaluated filename. When set, the media warn_once for `picture` is
+    // suppressed on both paths (the host renders images). Unset, pre-540
+    // pictures no-op with the one-time warning as before.
+    std::function<void(const std::string &filename)> show_picture;
+
     // Synchronous provider for the EXPRESSION form of ShowMenu
     // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
     // returns the selected key). A synchronous host must supply the answer in
