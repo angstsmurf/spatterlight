@@ -1115,10 +1115,13 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
                 // (Fields.Set), so HasAttribute goes false and Core re-init
                 // paths ("player.grid_coordinates = null" then Grid_Redraw)
                 // work. Older games store the null.
-                if (world_.asl_version >= 530 && val.type == Value::Type::Null)
+                if (world_.asl_version >= 530 && val.type == Value::Type::Null) {
+                    log_field_set(e, s.name, val, /*removing=*/true);
                     e->remove_field(s.name);
-                else
+                } else {
+                    log_field_set(e, s.name, val, /*removing=*/false);
                     e->set_field(s.name, val);
+                }
                 // EVERY parent write moves the element to the end of its
                 // parent's children -- even a same-value one. QuestViva's
                 // Fields.Set calls SetParentFromFields unconditionally, which
@@ -1126,8 +1129,10 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
                 // check only guards the saver-facing SortIndex metafield).
                 // WearGarment's redundant `object.parent = game.pov` really
                 // does reorder the inventory.
-                if (s.name == "parent")
+                if (s.name == "parent") {
+                    log_sort_index(e);
                     e->sort_index = world_.next_sort_index++;
+                }
                 fire_changed_script(e, s.name, old);
             } else {
                 error("Assignment to attribute '" + s.name +
@@ -1152,6 +1157,14 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     case Stmt::Kind::FirstTime: {
         if (s.ran && !*s.ran) {
             *s.ran = true;
+            // FirstTimeScript logs UndoFirstTime, so undoing the turn lets
+            // the firsttime text fire again.
+            if (undo_logging_) {
+                UndoAction a;
+                a.kind = UndoAction::Kind::FirstTime;
+                a.ran = s.ran;
+                add_undo(std::move(a));
+            }
             exec_block(s.body, ctx);
         } else if (s.has_else) {
             exec_block(s.else_body, ctx);
@@ -1571,8 +1584,15 @@ long Interp::time_elapsed() {
 }
 
 void Interp::set_time_elapsed(long t) {
-    if (Element *game = world_.find("game"))
-        game->set_field("timeelapsed", vint(t));
+    // TimerRunner's writes go through Fields.Set, so while a command's
+    // transaction is still open (timer ticks happen at prompt level, after
+    // `start transaction` and before the next one) they are undoable too --
+    // hence the log_field_set calls here and below.
+    if (Element *game = world_.find("game")) {
+        Value v = vint(t);
+        log_field_set(game, "timeelapsed", v, false);
+        game->set_field("timeelapsed", v);
+    }
 }
 
 void Interp::begin_timers() {
@@ -1588,10 +1608,11 @@ void Interp::increment_time(int seconds) {
         if (timer_enabled(t)) continue;
         // Disabled timers get their triggers pushed into the future, so they
         // will run if they become enabled (TimerRunner.IncrementTime).
-        if (field_int(t, "trigger") < now)
-            t->set_field("trigger", vint(now + field_int(t, "interval")));
-        else
-            t->set_field("trigger", vint(field_int(t, "trigger") + seconds));
+        Value v = field_int(t, "trigger") < now
+                      ? vint(now + field_int(t, "interval"))
+                      : vint(field_int(t, "trigger") + seconds);
+        log_field_set(t, "trigger", v, false);
+        t->set_field("trigger", v);
     }
 }
 
@@ -1606,8 +1627,9 @@ void Interp::tick(int seconds) {
     for (Element *t : live_timers()) {
         if (!timer_enabled(t)) continue;
         if (now >= field_int(t, "trigger")) {
-            t->set_field("trigger",
-                         vint(field_int(t, "trigger") + field_int(t, "interval")));
+            Value v = vint(field_int(t, "trigger") + field_int(t, "interval"));
+            log_field_set(t, "trigger", v, false);
+            t->set_field("trigger", v);
             const Value *scr = resolve_field(t, "script");
             if (scr && scr->type == Value::Type::Script)
                 due.emplace_back(t, scr->str);
@@ -1673,6 +1695,214 @@ Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
     local.locals["this"] = self;
     in.run_script(impl->str, local);
     return local.return_value;
+}
+
+// -- undo (UndoLogger.cs port) ------------------------------------------------
+//
+// Transactions are lazy: Core's parser runs `start transaction (cmd)` for each
+// successfully-parsed non-<isundo/> command, which COMMITS the previous
+// command's transaction and opens this command's; the open transaction is only
+// ever committed by the next command or by `undo` itself. Actions are recorded
+// only while a transaction is open (AddUndoAction checks m_logging), so
+// nothing from boot/StartGame is undoable.
+
+// Template lookups live in aslx-runtime-builtins.inc (same TU, included below).
+static const std::string *find_template(World &w, const std::string &name);
+static const std::string *find_dyn_template(World &w, const std::string &name);
+
+void Interp::add_undo(UndoAction a) {
+    if (!undo_logging_) return;
+    current_txn_->actions.push_back(std::move(a));
+}
+
+void Interp::start_transaction(const std::string &command) {
+    if (undo_logging_)
+        error("Starting transaction when previous transaction not finished");
+    undo_logging_ = true;
+    // An empty (nothing-logged) transaction is skipped over in the chain.
+    std::shared_ptr<UndoTransaction> prev;
+    if (current_txn_)
+        prev = !current_txn_->actions.empty() ? current_txn_
+                                              : current_txn_->previous;
+    current_txn_ = std::make_shared<UndoTransaction>();
+    current_txn_->description = command;
+    current_txn_->previous = prev;
+}
+
+void Interp::end_transaction() {
+    undo_logging_ = false;
+    if (current_txn_ && !current_txn_->actions.empty()) {
+        undo_stack_.push_back(current_txn_);
+        redo_stack_.clear();
+    }
+}
+
+void Interp::roll_transaction(const std::string &command) {
+    if (current_txn_)
+        end_transaction();
+    start_transaction(command);
+}
+
+void Interp::rollback_transaction(Context &ctx) {
+    // RollbackTransaction: commit whatever the last command logged, undo one
+    // transaction, and step the chain back so the next `start transaction`
+    // re-commits the previous record (a genuine QuestViva quirk: after
+    // undo-then-command-then-undo the same transaction can be rolled back
+    // twice; the in-place reverse in undo_once makes the second application
+    // run forward, also as in the reference).
+    if (undo_logging_)
+        end_transaction();
+    undo_once(ctx);
+    if (current_txn_)
+        current_txn_ = current_txn_->previous;
+}
+
+void Interp::undo_once(Context &ctx) {
+    // UndoLogger.Undo: an empty stack prints the NothingToUndo template, or
+    // errors when the game has none (GamebookCore never starts transactions
+    // but supplies the template).
+    if (undo_stack_.empty()) {
+        if (const std::string *t = find_template(world_, "NothingToUndo"))
+            print_via_core(*t, ctx);
+        else
+            error("Nothing to undo");
+        return;
+    }
+    std::shared_ptr<UndoTransaction> txn = undo_stack_.back();
+    undo_stack_.pop_back();
+    // Transaction.DoUndo: announce via the UndoTurn dynamic template
+    // ("Undo: " + text in English.aslx), then apply the actions in reverse.
+    if (const std::string *dt = find_dyn_template(world_, "UndoTurn")) {
+        Context tc;
+        tc.locals["text"] = vstr(txn->description);
+        print_via_core(to_string(eval(*dt, tc)), ctx);
+    }
+    std::reverse(txn->actions.begin(), txn->actions.end());
+    for (UndoAction &a : txn->actions)
+        apply_undo_action(a);
+    redo_stack_.push_back(txn);
+}
+
+void Interp::apply_undo_action(UndoAction &a) {
+    // undo_logging_ is always false here (end_transaction ran first), so the
+    // mutations below log nothing -- matching how QuestList.AddInternal's
+    // re-logging is a no-op during DoUndo.
+    switch (a.kind) {
+    case UndoAction::Kind::FieldSet: {
+        // UndoFieldSet.DoUndo: re-resolve by name; an added attribute is
+        // removed, a changed one restored via SetFromUndo -- no changed-script
+        // events, no cloning (the old backing pointer comes back verbatim,
+        // which is what any list/dict actions of the same transaction hold).
+        Element *e = world_.find(a.element);
+        if (!e) return;
+        if (a.added)
+            e->remove_field(a.attr);
+        else
+            e->set_field(a.attr, a.old_value);
+        return;
+    }
+    case UndoAction::Kind::FieldRemove: {
+        Element *e = world_.find(a.element);
+        if (e) e->set_field(a.attr, a.old_value);
+        return;
+    }
+    case UndoAction::Kind::SortIndex: {
+        Element *e = world_.find(a.element);
+        if (e) e->sort_index = a.index;
+        return;
+    }
+    case UndoAction::Kind::Create:
+        // CreateDestroyLogEntry undo-of-create: Elements.Remove -- the storage
+        // stays alive (like our destroy_element), only the name unregisters.
+        world_.by_name.erase(a.element);
+        return;
+    case UndoAction::Kind::Destroy:
+        // Undo-of-destroy: re-register the kept-alive element, fields intact.
+        world_.by_name[a.element] = a.element_ptr;
+        return;
+    case UndoAction::Kind::ListAdd: {
+        std::vector<Value> &v = *a.list_backing;
+        if ((size_t)a.index < v.size())
+            v.erase(v.begin() + a.index);
+        return;
+    }
+    case UndoAction::Kind::ListRemove: {
+        std::vector<Value> &v = *a.list_backing;
+        size_t at = (size_t)a.index <= v.size() ? (size_t)a.index : v.size();
+        v.insert(v.begin() + at, a.old_value);
+        return;
+    }
+    case UndoAction::Kind::DictAdd: {
+        std::vector<Value::DictEntry> &d = *a.dict_backing;
+        for (auto it = d.begin(); it != d.end(); ++it)
+            if (it->first == a.attr) { d.erase(it); break; }
+        return;
+    }
+    case UndoAction::Kind::DictRemove: {
+        std::vector<Value::DictEntry> &d = *a.dict_backing;
+        size_t at = (size_t)a.index <= d.size() ? (size_t)a.index : d.size();
+        d.insert(d.begin() + at, {a.attr, a.old_value});
+        return;
+    }
+    case UndoAction::Kind::FirstTime:
+        if (a.ran) *a.ran = false;
+        return;
+    }
+}
+
+void Interp::log_field_set(Element *e, const std::string &attr,
+                           const Value &newval, bool removing) {
+    if (!undo_logging_) return;
+    const Value *own = e->field(attr);
+    if (removing) {
+        // Fields.RemoveField -> UndoFieldRemove; only a real removal logs.
+        if (!own) return;
+        UndoAction a;
+        a.kind = UndoAction::Kind::FieldRemove;
+        a.element = e->name;
+        a.attr = attr;
+        a.old_value = *own;
+        add_undo(std::move(a));
+        return;
+    }
+    // Fields.Set logs only when the OWN attribute changes (same check that
+    // gates clone-on-set); `added` decides remove-vs-restore at undo time.
+    bool added = !own;
+    if (!added && values_equal(*own, newval))
+        return;
+    UndoAction a;
+    a.kind = UndoAction::Kind::FieldSet;
+    a.element = e->name;
+    a.attr = attr;
+    a.added = added;
+    if (!added) a.old_value = *own;
+    add_undo(std::move(a));
+}
+
+void Interp::log_sort_index(Element *e) {
+    if (!undo_logging_) return;
+    UndoAction a;
+    a.kind = UndoAction::Kind::SortIndex;
+    a.element = e->name;
+    a.index = e->sort_index;
+    add_undo(std::move(a));
+}
+
+void Interp::log_create(Element *e) {
+    if (!undo_logging_) return;
+    UndoAction a;
+    a.kind = UndoAction::Kind::Create;
+    a.element = e->name;
+    add_undo(std::move(a));
+}
+
+void Interp::log_destroy(Element *e) {
+    if (!undo_logging_) return;
+    UndoAction a;
+    a.kind = UndoAction::Kind::Destroy;
+    a.element = e->name;
+    a.element_ptr = e;
+    add_undo(std::move(a));
 }
 
 // -- expression evaluation --------------------------------------------------
@@ -2096,8 +2326,13 @@ Value *Interp::lvalue_of(const Expr &e, Context &ctx) {
         // list/dictionary attributes become instance-owned once modified.
         if (const Value *own = el->field(e.str))
             return const_cast<Value *>(own);
-        if (const Value *inh = resolve_field(el, e.str))
+        if (const Value *inh = resolve_field(el, e.str)) {
+            // The copy-down creates an own attribute: log it as an added
+            // field set so a rollback removes it (back to the inherited one).
+            log_field_set(el, e.str, *inh, /*removing=*/false);
             return &el->set_field(e.str, *inh);
+        }
+        log_field_set(el, e.str, Value{}, /*removing=*/false);
         return &el->set_field(e.str, Value{});
     }
     return nullptr;
@@ -2205,7 +2440,7 @@ bool Interp::exec_statement_command(const std::string &name,
     if (name == "create") {
         std::string nm = to_string(ev(0));
         std::string ty = args.size() >= 2 ? to_string(ev(1)) : "";
-        world_.create_object(nm, ty);
+        log_create(world_.create_object(nm, ty));
         return true;
     }
     if (name == "rundelegate") {  // RunDelegateScript
@@ -2215,7 +2450,7 @@ bool Interp::exec_statement_command(const std::string &name,
         return true;
     }
     if (name == "create timer") {  // CreateTimerScript
-        world_.create_object(to_string(ev(0)), "", "timer");
+        log_create(world_.create_object(to_string(ev(0)), "", "timer"));
         return true;
     }
     if (name == "create exit") {  // CreateExitScript / ObjectFactory.CreateExit
@@ -2234,6 +2469,7 @@ bool Interp::exec_statement_command(const std::string &name,
             do { id = "exit" + std::to_string(++k); } while (world_.find(id));
         }
         Element *exit = world_.create_object(id, type, "exit");
+        log_create(exit);
         exit->set_field("alias", vstr(alias));
         if (from.type == Value::Type::ObjectRef)
             exit->set_field("parent", from);
@@ -2242,11 +2478,14 @@ bool Interp::exec_statement_command(const std::string &name,
         return true;
     }
     if (name == "create turnscript") {  // CreateTurnScript
-        world_.create_object(to_string(ev(0)), "", "turnscript");
+        log_create(world_.create_object(to_string(ev(0)), "", "turnscript"));
         return true;
     }
     if (name == "destroy") {
-        world_.destroy_element(to_string(ev(0)));
+        std::string nm = to_string(ev(0));
+        if (Element *el = world_.find(nm))
+            log_destroy(el);
+        world_.destroy_element(nm);
         return true;
     }
     if (name == "set") {  // set(obj, "field", value)
@@ -2262,13 +2501,18 @@ bool Interp::exec_statement_command(const std::string &name,
                                 own->dict_store == nv.dict_store;
             if (!same_backing) nv.detach();
             // v530+ null assignment removes the attribute -- see Assign.
-            if (world_.asl_version >= 530 && nv.type == Value::Type::Null)
+            if (world_.asl_version >= 530 && nv.type == Value::Type::Null) {
+                log_field_set(obj, attr, nv, /*removing=*/true);
                 obj->remove_field(attr);
-            else
+            } else {
+                log_field_set(obj, attr, nv, /*removing=*/false);
                 obj->set_field(attr, nv);
+            }
             // Same-value writes reorder too -- see the Assign case.
-            if (attr == "parent")
+            if (attr == "parent") {
+                log_sort_index(obj);
                 obj->sort_index = world_.next_sort_index++;
+            }
             fire_changed_script(obj, attr, old);
         } else {
             errors().push_back("set: not an object");
@@ -2287,12 +2531,32 @@ bool Interp::exec_statement_command(const std::string &name,
         if (name == "list add") {
             // The value is stored boxed/typed verbatim (QuestList<object>.Add)
             // -- a list can hold dictionaries, objects, numbers... (spondre).
-            lst->list().push_back(std::move(item));
+            auto &v = lst->list();
+            if (undo_logging_) {
+                UndoAction a;
+                a.kind = UndoAction::Kind::ListAdd;
+                a.list_backing = lst->list_store;
+                a.old_value = item;
+                a.index = (long)v.size();
+                add_undo(std::move(a));
+            }
+            v.push_back(std::move(item));
         } else {
             // QuestList.Remove: first occurrence only (List<T>.Remove).
             auto &v = lst->list();
             for (auto i = v.begin(); i != v.end(); ++i)
-                if (values_equal(*i, item)) { v.erase(i); break; }
+                if (values_equal(*i, item)) {
+                    if (undo_logging_) {
+                        UndoAction a;
+                        a.kind = UndoAction::Kind::ListRemove;
+                        a.list_backing = lst->list_store;
+                        a.old_value = *i;
+                        a.index = (long)(i - v.begin());
+                        add_undo(std::move(a));
+                    }
+                    v.erase(i);
+                    break;
+                }
         }
         return true;
     }
@@ -2308,11 +2572,32 @@ bool Interp::exec_statement_command(const std::string &name,
         }
         // remove any existing entry with this key first (Add replaces).
         for (auto it = d->dict().begin(); it != d->dict().end();) {
-            if (it->first == key) it = d->dict().erase(it);
-            else ++it;
+            if (it->first == key) {
+                if (undo_logging_) {
+                    UndoAction a;
+                    a.kind = UndoAction::Kind::DictRemove;
+                    a.dict_backing = d->dict_store;
+                    a.attr = key;
+                    a.old_value = it->second;
+                    a.index = (long)(it - d->dict().begin());
+                    add_undo(std::move(a));
+                }
+                it = d->dict().erase(it);
+            } else {
+                ++it;
+            }
         }
-        if (name == "dictionary add")
+        if (name == "dictionary add") {
+            if (undo_logging_) {
+                UndoAction a;
+                a.kind = UndoAction::Kind::DictAdd;
+                a.dict_backing = d->dict_store;
+                a.attr = key;
+                a.index = (long)d->dict().size();
+                add_undo(std::move(a));
+            }
             d->dict().emplace_back(key, ev(2));  // store the typed value verbatim
+        }
         return true;
     }
     if (name == "error") {
@@ -2323,8 +2608,18 @@ bool Interp::exec_statement_command(const std::string &name,
         world_.finished = true;
         return true;
     }
-    if (name == "undo" || name == "start transaction") {
-        // UndoLogger is a later milestone; accept and no-op for now.
+    if (name == "undo") {
+        // UndoScript: one `undo` = one RollbackTransaction. Core's undo
+        // command is <isundo/> so it never opened its own transaction; what
+        // gets committed-and-rolled-back here is the previous command's.
+        rollback_transaction(ctx);
+        return true;
+    }
+    if (name == "start transaction") {
+        // UndoScript (start transaction): commit the open transaction, open a
+        // new one labelled with the command text (CoreParser passes
+        // game.pov.currentcommand).
+        roll_transaction(args.empty() ? std::string() : to_string(ev(0)));
         return true;
     }
     return false;

@@ -79,6 +79,52 @@ struct MenuData {
 // QuestViva's RegexCache entry (System.Text.RegularExpressions.Regex).
 struct CompiledRegex;
 
+// One logged state change (the IUndoAction family in UndoLogger.cs / Fields.cs
+// / ObjectFactory.cs / QuestList.cs). A transaction's actions are applied in
+// reverse on rollback.
+struct UndoAction {
+    enum class Kind {
+        FieldSet,     // own attribute written: restore old (or remove if added)
+        FieldRemove,  // own attribute removed (v530+ null assignment): restore
+        SortIndex,    // a parent write bumped sort_index: restore the old one
+        Create,       // element created: unregister its name again
+        Destroy,      // element destroyed: re-register the (kept-alive) storage
+        ListAdd,      // entry appended to a shared list backing: erase at index
+        ListRemove,   // entry removed: re-insert at index
+        DictAdd,      // entry added to a shared dict backing: remove the key
+        DictRemove,   // entry removed: re-insert at index
+        FirstTime,    // a firsttime block ran: clear its flag (UndoFirstTime)
+    };
+    Kind kind;
+    std::string element;    // FieldSet/FieldRemove/SortIndex/Create/Destroy:
+                            // element name, re-resolved at undo time
+                            // (UndoFieldSet stores names, not references)
+    std::string attr;       // field name, or the dictionary key
+    Value old_value;        // old field value / list item / dict value -- kept
+                            // verbatim (same backing), like SetFromUndo
+    bool added = false;     // FieldSet: no own attribute existed before
+    long index = 0;         // list/dict position, or the old sort_index
+    // List/dict actions hold the live backing itself (QuestViva's UndoListAdd
+    // keeps the IQuestList reference), so they hit the right collection even
+    // after the owning field was overwritten and restored.
+    std::shared_ptr<std::vector<Value>> list_backing;
+    std::shared_ptr<std::vector<Value::DictEntry>> dict_backing;
+    Element *element_ptr = nullptr;   // Destroy: storage to re-register (the
+                                      // element object stays alive, like
+                                      // CreateDestroyLogEntry)
+    std::shared_ptr<bool> ran;        // FirstTime: the flag to clear
+};
+
+// UndoLogger.Transaction: everything one player command changed. The
+// `previous` chain mirrors PreviousTransaction, which RollbackTransaction
+// steps back through so the next `start transaction` re-commits the right
+// record (including QuestViva's re-commit-after-undo quirk).
+struct UndoTransaction {
+    std::string description;          // the command text, echoed by UndoTurn
+    std::vector<UndoAction> actions;
+    std::shared_ptr<UndoTransaction> previous;
+};
+
 // The interpreter: owns the loaded World, an output sink, and the RNG.
 class Interp {
 public:
@@ -156,6 +202,24 @@ public:
 
     // True when a `get input` callback will consume the next send_command line.
     bool command_override() const { return command_override_; }
+
+    // -- undo (UndoLogger port) ----------------------------------------------
+    // The logger only records while a transaction is open. Core's parser opens
+    // one per successfully-parsed player command ("start transaction
+    // (game.pov.currentcommand)" in CoreParser.aslx, skipped for <isundo/>
+    // commands), and the open transaction is committed lazily by the NEXT
+    // `start transaction` or by `undo` -- there is no end-of-turn commit.
+    // Boot/StartGame changes are therefore never undoable, exactly like
+    // QuestViva (m_logging is false until the first command).
+
+    // `start transaction (cmd)` -- UndoLogger.RollTransaction: commit the open
+    // transaction (dropped silently if it logged nothing) and open a new one.
+    void roll_transaction(const std::string &command);
+    // `undo` -- UndoScript -> UndoLogger.RollbackTransaction: commit the open
+    // transaction, roll back ONE transaction (printing the UndoTurn dynamic
+    // template, or NothingToUndo when the stack is empty), and step the
+    // current-transaction chain back.
+    void rollback_transaction(Context &ctx);
 
     // Synchronous provider for the EXPRESSION form of ShowMenu
     // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
@@ -316,6 +380,31 @@ private:
     // triggers OnEnterRoom via the player's changedparent.
     void fire_changed_script(Element *e, const std::string &attr,
                              const Value &oldval);
+
+    // -- undo internals (UndoLogger.cs) ----------------------------------------
+    bool undo_logging_ = false;                          // m_logging
+    std::shared_ptr<UndoTransaction> current_txn_;       // m_currentTransaction
+    std::vector<std::shared_ptr<UndoTransaction>> undo_stack_;
+    // Populated by rollbacks and cleared on every commit (EndTransaction).
+    // Nothing in play mode pops it -- redo is an editor feature -- but keeping
+    // it mirrors the reference lifecycle.
+    std::vector<std::shared_ptr<UndoTransaction>> redo_stack_;
+    void add_undo(UndoAction a);                         // AddUndoAction
+    void start_transaction(const std::string &command);  // StartTransaction
+    void end_transaction();                              // EndTransaction
+    void undo_once(Context &ctx);                        // Undo()
+    void apply_undo_action(UndoAction &a);
+    // Fields.Set's undo hook: called BEFORE the own attribute is written
+    // (or removed, for the v530+ null assignment); logs only when the own
+    // attribute actually changes, with `added` recording whether it existed.
+    void log_field_set(Element *e, const std::string &attr,
+                       const Value &newval, bool removing);
+    // The SortIndex metafield bump a parent write performs: log the old value
+    // before overwriting (UpdateElementSortOrder's Fields.Set is undoable).
+    void log_sort_index(Element *e);
+    // Element creation/destruction (CreateDestroyLogEntry).
+    void log_create(Element *e);
+    void log_destroy(Element *e);
 
     // -- timer internals (TimerRunner port) -----------------------------------
     std::vector<Element *> live_timers();

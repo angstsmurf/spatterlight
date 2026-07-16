@@ -744,6 +744,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             int k = 0;
             do { nm = root + std::to_string(++k); } while (world_.find(nm));
             Element *e = world_.create_object(nm, "", from->elem_type);
+            log_create(e);  // Element.Clone creates via ObjectFactory -- undoable
             e->inherits = from->inherits;  // the clone shares the type stack
             for (const auto &kv : from->fields) {
                 if (kv.first == "name") continue;

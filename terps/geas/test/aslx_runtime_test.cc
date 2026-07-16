@@ -933,8 +933,89 @@ static void test_parity_batch() {
     in.menu_provider = nullptr;
 }
 
+// UndoLogger port: lazy per-command transactions (`start transaction` commits
+// the previous one), `undo` = RollbackTransaction, actions logged only while a
+// transaction is open. See UndoLogger.cs / Fields.cs / QuestList.cs.
+static void test_undo() {
+    World w;
+    w.asl_version = 550;
+    w.create_object("box", "");
+    w.templates.emplace_back("NothingToUndo", "Nothing to undo!");
+    w.dynamic_templates.emplace_back("UndoTurn", "\"Undo: \" + text");
+    Interp in(w);
+
+    // Empty stack: the NothingToUndo template prints (no error).
+    CHECK_STR(run(in, "undo"), "Nothing to undo!");
+    CHECK(w.errors.empty());
+
+    // Changes outside any transaction are not undoable (boot/StartGame).
+    run(in, "box.colour = \"red\"\n"
+            "box.d = NewStringDictionary()\n"
+            "box.tags = NewStringList()\n"
+            "list add (box.tags, \"old\")");
+
+    // Command 1: field write, added attribute, list/dict mutations, create.
+    run(in, "start transaction (\"paint box\")\n"
+            "box.colour = \"blue\"\n"
+            "box.items = NewStringList()\n"
+            "list add (box.items, \"brush\")\n"
+            "list remove (box.tags, \"old\")\n"
+            "dictionary add (box.d, \"k\", \"v\")\n"
+            "create (\"kite\")");
+    CHECK_STR(evals(in, "box.colour"), "blue");
+    CHECK(w.find("kite") != nullptr);
+
+    // Command 2 (its `start transaction` commits command 1's record).
+    run(in, "start transaction (\"break kite\")\n"
+            "box.colour = \"green\"\n"
+            "destroy (\"kite\")");
+    CHECK(w.find("kite") == nullptr);
+
+    // Undo command 2: destroyed element re-registered, field restored.
+    CHECK_STR(run(in, "undo"), "Undo: break kite");
+    CHECK_STR(evals(in, "box.colour"), "blue");
+    CHECK(w.find("kite") != nullptr);
+
+    // Undo command 1: added attr removed, list/dict mutations reversed,
+    // created element unregistered.
+    CHECK_STR(run(in, "undo"), "Undo: paint box");
+    CHECK_STR(evals(in, "box.colour"), "red");
+    CHECK_STR(evals(in, "HasAttribute(box, \"items\")"), "False");
+    CHECK_STR(evals(in, "ListCount(box.tags)"), "1");
+    CHECK_STR(evals(in, "box.tags[0]"), "old");
+    CHECK_STR(evals(in, "DictionaryContains(box.d, \"k\")"), "False");
+    CHECK(w.find("kite") == nullptr);
+
+    // Stack exhausted again.
+    CHECK_STR(run(in, "undo"), "Nothing to undo!");
+
+    // firsttime is undoable (UndoFirstTime): after a rollback the block
+    // fires again. The compiled statement is cached by source text, so the
+    // identical script re-runs through the same flag.
+    const char *ft = "start transaction (\"ft\")\nfirsttime { msg (\"FT\") }";
+    CHECK_STR(run(in, ft), "FT");
+    CHECK_STR(run(in, ft), "");                      // flag set, no output
+    CHECK_STR(run(in, "undo"), "Undo: ft");          // commits + rolls back
+    CHECK_STR(run(in, ft), "FT");                    // flag cleared: fires again
+
+    CHECK(w.errors.empty());
+
+    // A parent write's inventory reorder (sort_index bump) is restored too.
+    run(in, "create (\"sack\")\n"
+            "create (\"coin\")\n"
+            "create (\"ring\")\n"
+            "coin.parent = sack\n"
+            "ring.parent = sack");
+    CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "coin");
+    run(in, "start transaction (\"reorder\")\ncoin.parent = sack");
+    CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "ring");
+    run(in, "undo");
+    CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "coin");
+}
+
 int main() {
     test_parity_batch();
+    test_undo();
     test_expressions();
     test_control_flow();
     test_functions_and_objects();

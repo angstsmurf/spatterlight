@@ -514,7 +514,7 @@
   - Still open for M3/M4: `request (Wait)`/`request (Pause)`
     for pre-v540 games (truly blocking mid-script in QuestViva, needs a
     blocking host hook), game-local
-    libraries bundled *inside* a `.quest` zip, the UndoLogger, and locked
+    libraries bundled *inside* a `.quest` zip, and locked
     inherited collections (mutating a type-provided list without assigning it
     first throws "Cannot modify the contents of this list as it is defined by
     an inherited type..." in QuestViva; we copy-on-write silently). Timers
@@ -634,9 +634,33 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       (`Element::sort_index`, WorldModel.UpdateElementSortOrder) and
       GetDirectChildren/GetAllChildObjects enumerate in SortIndex order —
       inventory listings match the oracle's after take/drop churn.
-- [ ] **UndoLogger**: per-turn transaction log of field writes / element
-      creation-destruction; powers `undo` (maps onto the existing
-      `LimitStack` idea, but log-based rather than snapshot-based).
+- [x] **UndoLogger** (2026-07-16): a faithful port of QuestViva's
+      `UndoLogger.cs` transaction log. Transactions are LAZY: Core's parser
+      runs `start transaction (game.pov.currentcommand)` per successfully
+      parsed non-`<isundo/>` command, which COMMITS the previous command's
+      transaction (dropped if it logged nothing) and opens this one; nothing
+      commits at end-of-turn, and boot/StartGame changes are never logged
+      (actions record only while a transaction is open). Logged actions:
+      own-field set/remove (with `added` deciding remove-vs-restore, old
+      values kept with their original backing pointers, SetFromUndo
+      semantics: no changed-scripts, no cloning), the sort_index bump of
+      parent writes, element create/destroy (destroy keeps the storage alive
+      and undo just re-registers the name, CreateDestroyLogEntry), list/dict
+      mutations (actions hold the live shared backing, like UndoListAdd's
+      IQuestList reference), timer trigger/timeelapsed writes, and
+      `firsttime` flags (UndoFirstTime). `undo` = RollbackTransaction:
+      commit, roll back ONE transaction (actions applied in reverse via an
+      in-place reverse, quirks included), print the `UndoTurn` dynamic
+      template ("Undo: take lamp") or `NothingToUndo`, and step the
+      PreviousTransaction chain back — including QuestViva's genuine
+      re-commit-after-undo quirk (undo, command, undo, undo rolls the same
+      transaction back twice, the second time applying forward). Stacks are
+      unbounded, exactly like the reference; the redo stack exists but
+      nothing in play mode pops it. Tests:
+      `test/aslx_runtime_test.cc:test_undo`; verified end-to-end through
+      Core's parser in Dream Pieces (take/i/undo echoes "Undo: i" and
+      reverts). Goldens unaffected (16/17, ASan/UBSan clean) even though
+      every replayed command now runs the logger hot.
 - [~] **Script commands** (~45; enumerate `v5:.../Scripts/`): DONE —
       `msg`, `if`/`else if`/`else`, `while`, `for`, `foreach`, `=` assignment
       (var and `obj.attr`), function invocation (statement position), `return`,
@@ -644,7 +668,8 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `switch`/`case`/`default`, `firsttime`/`otherwise`, `do`, `invoke`,
       `create` (+ type), `destroy`, `set` (3-arg field form), `list add`/
       `list remove`, `dictionary add`/`dictionary remove`, `on ready`, `error`,
-      `finish`, `undo`/`start transaction` (no-op until UndoLogger), `request`
+      `finish`, `undo`/`start transaction` (real, via the UndoLogger port —
+      2026-07-16), `request`
       (no-op — headless UI request; its enum arg is left unevaluated), and the
       `JS.*` bridge. `msg` routes through Core's `OutputText` (v540+) so the
       `{...}` text processor runs. Also done (2026-07-16): `rundelegate`,
@@ -841,7 +866,7 @@ stays unsupported, as in `quest4.c`.
    get input, menus, ask, wait land engine-side with host entry points
    (`send_command` + `set_menu_response`/`set_question_response`/
    `finish_wait`, `test_input_model`) and aslxglk.cc drives them in the app.
-   Remaining: undo, save/restore.
+   Undo landed 2026-07-16 (UndoLogger port, §2). Remaining: save/restore.
 5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16): remaining —
    panes, pictures, sound (zip resource extraction).
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
