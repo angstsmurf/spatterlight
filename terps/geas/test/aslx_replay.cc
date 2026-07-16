@@ -10,10 +10,12 @@
 //
 // Mirrors quest5-oracle/Program.cs: same step grammar (menu:/answer:/assert:/
 // label:/delay:/runtime:/event:/# comments; bare lines resolve pending menus
-// and questions), same auto-advance of pending waits, same HTML-strip +
-// blank-line-collapse normalisation, same "> cmd" echo for v520+ and final
-// "[state=...]" line. NOT yet mirrored: DrainTimers (no native timer engine),
-// and the Wedged-vs-Finished distinction.
+// and questions), same auto-advance of pending waits, same deterministic
+// DrainTimers (after each step, tick pending SetTimeout timers by exactly
+// their trigger delta; only self-destructing "timeout*" timers are drained so
+// recurring authored timers never loop), same HTML-strip + blank-line-collapse
+// normalisation, same "> cmd" echo for v520+ and final "[state=...]" line.
+// NOT yet mirrored: the Wedged-vs-Finished distinction.
 //
 // Baseline at first light (2026-07-16, input-model commit): all 17 goldens
 // replay end-to-end with 0-4 script errors; matching golden lines per game
@@ -39,9 +41,10 @@ static std::string strip_html(std::string s) {
             size_t close = s.find('>', i);
             if (close == std::string::npos) { out += s.substr(i); break; }
             std::string tag = s.substr(i + 1, close - i - 1);
-            std::string lt;
-            for (char c : tag) lt += (char)std::tolower((unsigned char)c);
-            if (lt == "br" || lt == "br/" || lt == "br /") out += '\n';
+            // qvh's Strip regex ("<br\\s*/?>") is case-SENSITIVE: an
+            // uppercase <BR> is dropped by the generic tag stripper, no
+            // newline. Mirror that exactly.
+            if (tag == "br" || tag == "br/" || tag == "br /") out += '\n';
             i = close + 1;
         } else {
             out += s[i++];
@@ -109,22 +112,80 @@ int main(int argc, char **argv) {
     auto line_out = [&](const std::string &s) { transcript += s + "\n"; };
 
     Context boot;
-    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
-    if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    in.begin_timers();  // BeginInternalAsync arms enabled timers before InitInterface
+    try {
+        if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+        if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    } catch (const TurnSuspended &) {
+        // synchronous `play sound` during boot: the rest of Begin is abandoned
+    }
     in.drain_on_ready();
     auto auto_advance = [&]() {
         int guard = 0;
         while (!w.finished && in.pending_wait() && guard++ < 100) in.finish_wait();
     };
     auto_advance();
+    // Oracle DrainTimers: pending_tick mirrors RequestNextTimerTick (the engine
+    // reports it after every call; we poll next_timer_seconds() at the same
+    // points). While a SetTimeout timer pends, tick exactly its trigger delta.
+    auto drain_timers = [&]() {
+        int guard = 0;
+        int pending_tick = in.next_timer_seconds();
+        while (!w.finished && guard++ < 500 && in.has_enabled_timeout()) {
+            int secs = pending_tick;
+            in.tick(secs > 0 ? secs : 1);
+            auto_advance();
+            pending_tick = in.next_timer_seconds();
+        }
+    };
+    drain_timers();
 
     bool echo = w.asl_version >= 520;
     std::ifstream script(argv[2]);
+    std::vector<std::string> lines;
     std::string raw;
+    while (std::getline(script, raw)) lines.push_back(raw);
+    size_t li = 0;
     int steps = 0;
-    while (std::getline(script, raw)) {
+
+    // Resolve a script line to a menu option key: exact key, display text
+    // (case-insensitive), or 1-based number. Empty return = no match.
+    auto resolve_menu_key = [](const MenuData &m, std::string l) -> std::string {
+        if (l.compare(0, 5, "menu:") == 0) l = nr_trim(l.substr(5));
+        for (auto &kv : m.options)
+            if (kv.first == l) return kv.first;
+        for (auto &kv : m.options)
+            if (rt_iequals(kv.second, l.c_str())) return kv.first;
+        char *end = nullptr;
+        long n = std::strtol(l.c_str(), &end, 10);
+        if (end && *end == 0 && n >= 1 && (size_t)n <= m.options.size())
+            return m.options[n - 1].first;
+        return std::string();
+    };
+
+    // The EXPRESSION form of ShowMenu blocks mid-script for its answer
+    // (ExpressionOwner.ShowMenu awaits); feed it the next script line, like
+    // the oracle driver feeds its PendingMenu.
+    in.menu_provider = [&](const MenuData &m, std::string &key) -> bool {
+        while (li < lines.size()) {
+            std::string cmd = nr_trim(lines[li++]);
+            if (cmd.empty() || cmd[0] == '#') continue;
+            steps++;
+            std::string k = resolve_menu_key(m, cmd);
+            if (k.empty()) {
+                std::cerr << "[warn] step " << steps << ": '" << cmd
+                          << "' is not a valid menu option; cancelling menu\n";
+                return false;
+            }
+            key = k;
+            return true;
+        }
+        return false;  // script exhausted
+    };
+
+    while (li < lines.size()) {
         if (w.finished) break;
-        std::string cmd = nr_trim(raw);
+        std::string cmd = nr_trim(lines[li++]);
         if (cmd.empty() || cmd[0] == '#') continue;
         steps++;
         if (const MenuData *m = in.pending_menu()) {
@@ -157,8 +218,12 @@ int main(int argc, char **argv) {
             in.set_question_response(l == "yes" || l == "y" || l == "true" || l == "1");
         } else if (cmd.compare(0, 7, "assert:") == 0) {
             std::string expr = cmd.substr(7);
-            Value v = in.eval(expr, boot);
-            bool ok = Interp::truthy(v);
+            bool ok = false;
+            try {
+                ok = Interp::truthy(in.eval(expr, boot));
+            } catch (const std::exception &err) {
+                std::cerr << "  err: " << err.what() << "\n";
+            }
             line_out(std::string("[assert ") + (ok ? "PASS" : "FAIL") + "] " + expr);
         } else if (cmd.compare(0, 6, "label:") == 0 ||
                    cmd.compare(0, 6, "delay:") == 0 ||
@@ -169,13 +234,17 @@ int main(int argc, char **argv) {
             size_t sc = rest.find(';');
             std::string name = sc == std::string::npos ? rest : rest.substr(0, sc);
             std::string param = sc == std::string::npos ? "" : rest.substr(sc + 1);
-            if (w.find(name)) in.call_function(name, {vstr(param)}, &boot);
+            try {
+                if (w.find(name)) in.call_function(name, {vstr(param)}, &boot);
+            } catch (const TurnSuspended &) {
+            }
         } else {
             if (echo) line_out("> " + cmd);
             in.send_command(cmd);
         }
         in.drain_on_ready();
         auto_advance();
+        drain_timers();
     }
 
     line_out(std::string("[state=") + (w.finished ? "Finished" : "Running") + "]");

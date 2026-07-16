@@ -372,13 +372,15 @@ static void test_realgame_constructs() {
         "do (guard, \"oncrit\")"), "overhealed");
     CHECK_STR(evals(in, "HasScript(guard, \"oncrit\")"), "True");
 
-    // -- Media commands no-op with a one-time warning; no errors.
+    // -- Media commands no-op with a one-time warning; no errors. On v540+,
+    // `picture` PRINTS its image as an <img> tag (PictureScript -> PrintAsync);
+    // the sound commands stay silent (async playback has no text side).
     CHECK(w.errors.empty());
     CHECK_STR(run(in,
         "picture (\"cover.jpg\")\n"
         "play sound (\"boop.wav\", false, true)\n"
         "stop sound\n"
-        "msg (\"after\")"), "after");
+        "msg (\"after\")"), "<img src=\"cover.jpg\" />\nafter");
     CHECK(w.errors.empty());
     CHECK(w.warnings.size() >= 3);
     size_t warned = w.warnings.size();
@@ -395,18 +397,30 @@ static void test_realgame_constructs() {
     CHECK(!in.pending_wait());
     CHECK(w.errors.empty());
 
-    // -- Robustness: an error inside one script aborts only that script; it is
-    // logged, printed once ("Error running script: ...", WorldModel's catch in
-    // RunScriptAsync), and the engine (and later scripts) carry on.
+    // -- Robustness: a statement whose EXPRESSION fails to parse compiles to
+    // a stub that errors only when it RUNS (QuestViva's NCalc expressions
+    // parse lazily at evaluation): reached, it reports and aborts the body;
+    // unreached (EFMB's `MoveObject (coin, )` behind an always-false guard),
+    // it stays silent and the rest of the body still loads.
     std::string bad = run(in, "x = )bad(\nmsg (\"unreached\")");
     CHECK(bad.find("Error running script") != std::string::npos);
     CHECK(bad.find("unreached") == std::string::npos);
     CHECK(!w.errors.empty());
-    CHECK(w.errors.back().find("Error running script") != std::string::npos);
+    CHECK(w.errors.back().find("Error running script") == 0);
+    w.errors.clear();
+    CHECK_STR(run(in, "if (false) {\n  x = )bad(\n}\nmsg (\"fine\")"), "fine");
+    CHECK(w.errors.empty());
     w.errors.clear();
     CHECK_STR(run(in, "msg (\"recovered\")"), "recovered");
-    CHECK_STR(evals(in, "1 +"), "");   // host-level eval degrades to null
-    CHECK(!w.errors.empty());
+    // Host-level eval THROWS (wrapped at the expression root); the script
+    // boundary is what reports it (QuestViva semantics).
+    bool threw = false;
+    try {
+        evals(in, "1 +");
+    } catch (const std::exception &) {
+        threw = true;
+    }
+    CHECK(threw);
     w.errors.clear();
     // A runtime error aborts the innermost script body only; the calling
     // script's next statement still runs (each run_script is a boundary). The
@@ -790,7 +804,134 @@ static void test_input_model() {
     CHECK_STR(Interp::to_string(in.eval("tophat.parent", boot)), "player");
 }
 
+// The 2026-07-16 golden-parity batch: timers, turn suspension, clone-on-set,
+// v530 null-removal, per-expression RNG, create exit, Clone, expression
+// ShowMenu. Each mirrors a QuestViva behaviour verified against a golden.
+static void test_parity_batch() {
+    World w;
+    w.asl_version = 550;
+    w.create_object("game", "", "game");
+    Element *room = w.create_object("room");
+    Element *player = w.create_object("player");
+    player->set_field("parent", [&] {
+        Value v; v.type = Value::Type::ObjectRef; v.str = "room"; return v;
+    }());
+    (void)room;
+    Interp in(w);
+
+    // -- timers: TimerRunner. An enabled timer arms to its interval at
+    // begin_timers, fires when tick() reaches the trigger (with `this`
+    // bound), and re-arms; next_timer_seconds reports the delta.
+    run(in, "create timer (\"t1\")");
+    run(in, "set (GetTimer(\"t1\"), \"interval\", 5)");
+    run(in, "set (GetTimer(\"t1\"), \"enabled\", true)");
+    run(in, "set (GetTimer(\"t1\"), \"script\", null)");
+    Context c0;
+    in.run_script("t1.script => { msg (\"tick \" + this.name) }", c0);
+    in.begin_timers();
+    CHECK(in.next_timer_seconds() == 5);
+    in.clear_output();
+    in.tick(4);
+    CHECK_STR(in.output(), "");
+    CHECK(in.next_timer_seconds() == 1);
+    in.tick(1);
+    std::string t = in.output();
+    CHECK(t.find("tick t1") != std::string::npos);
+    CHECK(in.next_timer_seconds() == 5);  // re-armed
+    run(in, "set (GetTimer(\"t1\"), \"enabled\", false)");
+    CHECK(in.next_timer_seconds() == 0);  // no enabled timer
+
+    // -- synchronous `play sound` abandons the rest of the turn, silently:
+    // TurnSuspended passes through the script boundary to the host/turn
+    // boundary (send_command and friends catch it; a raw run_script caller
+    // sees it, like QuestViva's suspended await chain).
+    in.clear_output();
+    bool suspended = false;
+    try {
+        Context sc;
+        in.run_script("msg (\"before\")\n"
+                      "play sound (\"x.mp3\", true, false)\n"
+                      "msg (\"after\")", sc);
+    } catch (const TurnSuspended &) {
+        suspended = true;
+    }
+    CHECK(suspended);
+    std::string sus = in.output();
+    CHECK(sus.find("before") != std::string::npos);
+    CHECK(sus.find("after") == std::string::npos);
+    CHECK(sus.find("Error") == std::string::npos);
+
+    // -- clone-on-set: assigning a list to a field copies the backing, so
+    // later mutations through the source alias don't leak in (Fields.Set).
+    run(in, "src = NewStringList()\n"
+            "list add (src, \"a\")\n"
+            "player.mylist = src\n"
+            "list add (src, \"b\")\n"
+            "msg (ListCount(player.mylist))");
+    CHECK_STR(run(in, "msg (ListCount(player.mylist))"), "1");
+    // ...and localising an inherited list gives the element its own copy.
+    Element *ty = w.create_object("sharedtype", "", "type");
+    {
+        Value lst; lst.type = Value::Type::StringList;
+        lst.list().push_back(vstr("base"));
+        ty->set_field("povalt", lst);
+    }
+    run(in, "create (\"npc1\", \"sharedtype\")\n"
+            "create (\"npc2\", \"sharedtype\")");
+    run(in, "npc1.povalt = npc1.povalt\nlist add (npc1.povalt, \"extra\")");
+    CHECK_STR(run(in, "msg (ListCount(npc1.povalt))"), "2");
+    CHECK_STR(run(in, "msg (ListCount(npc2.povalt))"), "1");
+
+    // -- v530+ null assignment removes the attribute (HasAttribute false).
+    run(in, "player.flagattr = \"x\"");
+    CHECK_STR(evals(in, "HasAttribute(player, \"flagattr\")"), "True");
+    run(in, "player.flagattr = null");
+    CHECK_STR(evals(in, "HasAttribute(player, \"flagattr\")"), "False");
+
+    // -- RNG is per-compiled-expression: two distinct expressions each start
+    // a fresh seed-1234 stream, so their first draws over one domain agree.
+    Context rc;
+    Value r1 = in.eval("GetRandomInt(0, 999983)", rc);
+    Value r2 = in.eval("GetRandomInt(0, 999983) + 0", rc);
+    CHECK(r1.integer == r2.integer);
+
+    // -- create exit: alias/parent/to, generated "exitN" id + anonymous.
+    run(in, "create (\"room2\")");
+    run(in, "create exit (\"north\", room, room2)");
+    CHECK_STR(evals(in, "AllExits()[0].alias"), "north");
+    CHECK_STR(evals(in, "AllExits()[0].parent.name"), "room");
+    CHECK_STR(evals(in, "AllExits()[0].to.name"), "room2");
+    CHECK_STR(evals(in, "AllExits()[0].anonymous"), "True");
+
+    // -- Clone: fresh trailing-digit name, own field backings, deep children.
+    run(in, "create (\"box\")\n"
+            "box.tags = NewStringList()\n"
+            "list add (box.tags, \"tag1\")\n"
+            "create (\"gem\")\n"
+            "gem.parent = box");
+    CHECK_STR(evals(in, "Clone(box).name"), "box1");
+    run(in, "list add (box1.tags, \"tag2\")");
+    CHECK_STR(evals(in, "ListCount(box.tags)"), "1");
+    CHECK_STR(evals(in, "ListCount(box1.tags)"), "2");
+    CHECK_STR(evals(in, "ListCount(GetDirectChildren(box1))"), "1");
+
+    // -- expression ShowMenu: synchronous host provider supplies the key.
+    in.menu_provider = [](const MenuData &m, std::string &key) {
+        CHECK(m.options.size() == 2);
+        key = m.options[1].first;
+        return true;
+    };
+    run(in, "opts = NewStringList()\n"
+            "list add (opts, \"first\")\n"
+            "list add (opts, \"second\")\n"
+            "picked = ShowMenu(\"Pick one\", opts, false)\n"
+            "msg (\"picked \" + picked)");
+    CHECK(in.output().find("picked second") != std::string::npos);
+    in.menu_provider = nullptr;
+}
+
 int main() {
+    test_parity_batch();
     test_expressions();
     test_control_flow();
     test_functions_and_objects();

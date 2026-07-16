@@ -89,6 +89,14 @@ struct Value {
     // the reference-sharing. Used before building a derived collection.
     void detach();
 
+    // Allocate the backing for a collection-typed Value if absent. Every
+    // collection CREATION site must end with this invariant: a fresh (even
+    // empty) collection owns a store, because copies alias the store and a
+    // late lazy allocation would happen on one copy only -- .NET reference
+    // semantics require `f(NewStringDictionary())` mutations through the
+    // parameter to be visible to the caller.
+    void ensure_backing();
+
     std::string debug_string() const;
 };
 
@@ -115,6 +123,23 @@ inline void Value::detach() {
         list_store = std::make_shared<std::vector<Value>>(*list_store);
     if (dict_store)
         dict_store = std::make_shared<std::vector<DictEntry>>(*dict_store);
+    ensure_backing();  // a detached collection owns a store even when empty
+}
+
+inline void Value::ensure_backing() {
+    switch (type) {
+    case Type::StringList:
+    case Type::ObjectList:
+        list();
+        break;
+    case Type::StringDict:
+    case Type::ObjectDict:
+    case Type::ScriptDict:
+        dict();
+        break;
+    default:
+        break;
+    }
 }
 
 // One element of the world model: object, command, function, game, type, etc.
@@ -145,6 +170,9 @@ struct Element {
 
     const Value *field(const std::string &n) const;
     Value &set_field(const std::string &n, Value v);
+    // Erase an own field (v530+ null assignment: Fields.Set REMOVES the
+    // attribute, so HasAttribute goes false and inherited values re-resolve).
+    void remove_field(const std::string &n);
     bool has_field(const std::string &n) const { return field(n) != nullptr; }
 };
 

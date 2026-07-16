@@ -44,6 +44,16 @@ struct Rng {
 struct Expr;
 struct Stmt;
 
+// Thrown by a synchronous `play sound` to abandon the remainder of the turn:
+// QuestViva parks the whole async chain on the wait slot until the UI reports
+// the sound finished, and headless (like the oracle) nothing ever does, so
+// everything after the statement -- including the rest of HandleCommand and
+// FinishTurn -- silently never runs. Not an error (script boundaries pass it
+// through un-reported; deliberately not a std::exception). The engine catches
+// it at its own turn boundaries (send_command / prompt callbacks / tick);
+// hosts that call call_function or run_script directly must catch it too.
+struct TurnSuspended {};
+
 // A pending engine-level prompt callback: the compiled callback body (owned by
 // the never-freed script cache, so the pointer is stable) plus a snapshot of
 // the locals at prompt time. Mirrors the (IScript, Context) pair QuestViva's
@@ -83,6 +93,10 @@ public:
     void clear_output() { output_.clear(); }
 
     std::vector<std::string> &errors() { return world_.errors; }
+    // The RNG stream of the expression currently evaluating (QuestViva has one
+    // fresh seed-1234 RNG per compiled expression); rng_ is the fallback for
+    // draws made outside any expression.
+    Rng &active_rng() { return current_rng_ ? *current_rng_ : rng_; }
     // Raise a runtime script error: appends the innermost executing <function>
     // name ("... (in HandleCommand)") and THROWS, aborting the current script
     // body -- QuestViva semantics, where expression/script exceptions unwind to
@@ -143,6 +157,41 @@ public:
     // True when a `get input` callback will consume the next send_command line.
     bool command_override() const { return command_override_; }
 
+    // Synchronous provider for the EXPRESSION form of ShowMenu
+    // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
+    // returns the selected key). A synchronous host must supply the answer in
+    // place: the next script line in harnesses, a nested prompt loop in Glk.
+    // Return true with `key` set for a selection, false for cancel. Unset,
+    // the expression form reports an error.
+    std::function<bool(const MenuData &, std::string &key)> menu_provider;
+
+    // -- timers (TimerRunner port, TODO §3) -----------------------------------
+    // Quest timers are <timer> elements with `enabled`/`interval`/`trigger`/
+    // `script` fields against a game.timeelapsed clock; the enable/disable/
+    // SetTimeout layer is Core ASLX (CoreTimers.aslx). The engine only needs
+    // the clock: the host advances it with tick(seconds) -- at prompt level in
+    // the real app (glk_request_timer_events), deterministically in harnesses.
+
+    // Arm every enabled timer for its first interval (TimerRunner's
+    // initialise). Call once at game start, before InitInterface/StartGame;
+    // a restored game skips it.
+    void begin_timers();
+
+    // Advance game.timeelapsed by `seconds` and run every enabled timer that
+    // comes due, each with `this` = the timer and its own error boundary
+    // (WorldModel.Tick -> TimerRunner.TickAndGetScripts).
+    void tick(int seconds);
+
+    // Seconds until the earliest enabled timer fires, capped at 60; 0 when no
+    // timer is enabled (TimerRunner.GetTimeUntilNextTimerRuns -- the value
+    // RequestNextTimerTick hands the host after every engine call).
+    int next_timer_seconds();
+
+    // True while a self-destructing SetTimeout timer (named "timeout*" by
+    // Core's SetTimeoutID) is enabled. Headless harnesses drain only these,
+    // so recurring authored timers never loop (oracle PendingTimeoutSeconds).
+    bool has_enabled_timeout();
+
     // Field access with inheritance resolution (own fields, then inherited
     // types most-recent-first). Returns nullptr if unresolved.
     const Value *resolve_field(Element *e, const std::string &name);
@@ -157,6 +206,7 @@ private:
     World &world_;
     std::string output_;
     Rng rng_;
+    Rng *current_rng_ = nullptr;  // active per-expression stream (eval_expr)
 
     // Compiled-statement cache, keyed by source string (Quest caches too).
     std::map<std::string, std::shared_ptr<std::vector<Stmt>>> script_cache_;
@@ -176,6 +226,7 @@ private:
     void exec_block(const std::vector<Stmt> &stmts, Context &ctx);
     void exec_stmt(const Stmt &s, Context &ctx);
     Value eval_expr(const Expr &e, Context &ctx);
+    Value eval_expr_node(const Expr &e, Context &ctx);
 
     Value call_builtin(const std::string &name, std::vector<Value> &args,
                        bool &handled, Context &ctx);
@@ -249,6 +300,14 @@ private:
     // triggers OnEnterRoom via the player's changedparent.
     void fire_changed_script(Element *e, const std::string &attr,
                              const Value &oldval);
+
+    // -- timer internals (TimerRunner port) -----------------------------------
+    std::vector<Element *> live_timers();
+    long field_int(Element *e, const char *name);
+    bool timer_enabled(Element *t);
+    long time_elapsed();
+    void set_time_elapsed(long t);
+    void increment_time(int seconds);
 
     // One slot per prompt kind (WorldModel's _commandInputTcs/_menuTcs/
     // _questionTcs/_waitTcs). Registering a new prompt of a kind that already

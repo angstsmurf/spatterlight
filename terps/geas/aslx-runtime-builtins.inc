@@ -41,6 +41,26 @@ static std::string type_name(const Value &v) {
     return "null";
 }
 
+// System.String.CompareTo -- the comparer behind OrderBy in QuestViva's
+// ObjectListSort/StringListSort -- is a culture WORD sort, not ordinal:
+// letters compare case-insensitively first ("archimedes" < "Attendant"), and
+// strings equal ignoring case put lowercase before uppercase at the first
+// differing position. EFMB sorts its turnscripts by name and relies on this.
+static bool dotnet_string_less(const std::string &a, const std::string &b) {
+    size_t n = a.size() < b.size() ? a.size() : b.size();
+    for (size_t i = 0; i < n; ++i) {
+        int la = std::tolower((unsigned char)a[i]);
+        int lb = std::tolower((unsigned char)b[i]);
+        if (la != lb) return la < lb;
+    }
+    if (a.size() != b.size()) return a.size() < b.size();
+    for (size_t i = 0; i < a.size(); ++i) {
+        unsigned char ca = (unsigned char)a[i], cb = (unsigned char)b[i];
+        if (ca != cb) return std::islower(ca) && std::isupper(cb);
+    }
+    return false;
+}
+
 // Template lookups: later registrations win (Quest's m_templateLookup overwrite).
 static const std::string *find_template(World &w, const std::string &name) {
     for (auto it = w.templates.rbegin(); it != w.templates.rend(); ++it)
@@ -78,6 +98,82 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     };
     auto sarg = [&](size_t i) { return to_string(arg(i)); };
     auto iarg = [&](size_t i) { return (long)std::llround(as_double(arg(i))); };
+    // Still reachable by name: `destroy` only unregisters (storage stays in
+    // world.elements), and QuestViva removes destroyed elements entirely, so
+    // every world enumeration must skip the dead ones. Without this, a
+    // destroyed turnscript whose NAME is later reused (GetUniqueElementName
+    // counts up from what find() sees) shows up twice in AllTurnScripts --
+    // both entries resolving to the live one, running its script twice a turn
+    // (Jacqueline's SetTurnTimeout chain fired at half the authored delay).
+    auto live = [&](const std::unique_ptr<Element> &up) {
+        return world_.find(up->name) == up.get();
+    };
+
+    // QuestViva ExpressionOwner argument checking, needed verbatim in the
+    // transcripts of buggy games: a null argument throws .NET's
+    // ArgumentNullException message ("Value cannot be null. (Parameter 'x')",
+    // ArgumentNullException.ThrowIfNull), and a wrong-typed one throws
+    // GetParameter's "<Fn> function expected <type> parameter but was passed
+    // '<value>'". The error unwinds to the enclosing expression root, which
+    // wraps it as "Error evaluating expression '...': ...".
+    auto throw_null = [&](const char *param) {
+        error(std::string("Value cannot be null. (Parameter '") + param + "')");
+    };
+    auto expect_object = [&](const char *caller, const char *param = "obj") {
+        if (arg(0).type == Value::Type::Null) throw_null(param);
+        if (arg(0).type != Value::Type::ObjectRef)
+            error(std::string(caller) +
+                  " function expected object parameter but was passed '" +
+                  to_string(arg(0)) + "'");
+    };
+    auto expect_dictionary = [&](const char *caller) {
+        if (arg(0).type == Value::Type::Null) throw_null("obj");
+        if (arg(1).type == Value::Type::Null) throw_null("key");
+        if (arg(0).type != Value::Type::StringDict &&
+            arg(0).type != Value::Type::ObjectDict &&
+            arg(0).type != Value::Type::ScriptDict)
+            error(std::string(caller) +
+                  " function expected dictionary parameter but was passed '" +
+                  to_string(arg(0)) + "'");
+    };
+    {
+        // The (obj, property) attribute getters / has-checks all start with
+        // ThrowIfNull(obj) + ThrowIfNull(property).
+        static const struct { const char *lower, *canon; } kObjProp[] = {
+            {"getattribute", "GetAttribute"}, {"getboolean", "GetBoolean"},
+            {"getint", "GetInt"}, {"getdouble", "GetDouble"},
+            {"getstring", "GetString"}, {"hasattribute", "HasAttribute"},
+            {"hasstring", "HasString"}, {"hasint", "HasInt"},
+            {"hasboolean", "HasBoolean"}, {"hasobject", "HasObject"},
+            {"hasdouble", "HasDouble"}, {"hasscript", "HasScript"},
+            {"hasdelegateimplementation", "HasDelegateImplementation"},
+        };
+        for (const auto &m : kObjProp) {
+            if (fn == m.lower && n == 2) {
+                expect_object(m.canon);
+                if (arg(1).type == Value::Type::Null) throw_null("property");
+                break;
+            }
+        }
+        if ((fn == "getdirectchildren" || fn == "getallchildobjects" ||
+             fn == "getattributenames") && n >= 1 && arg(0).type == Value::Type::Null)
+            throw_null("obj");
+        if (fn == "contains" && n == 2 && arg(0).type == Value::Type::Null)
+            throw_null("parent");
+        static const struct { const char *lower, *canon; } kDictItem[] = {
+            {"dictionaryitem", "DictionaryItem"},
+            {"stringdictionaryitem", "StringDictionaryItem"},
+            {"objectdictionaryitem", "ObjectDictionaryItem"},
+            {"scriptdictionaryitem", "ScriptDictionaryItem"},
+            {"dictionarycontains", "DictionaryContains"},
+        };
+        for (const auto &m : kDictItem) {
+            if (fn == m.lower && n == 2) {
+                expect_dictionary(m.canon);
+                break;
+            }
+        }
+    }
 
     // ---- attribute / type -------------------------------------------------
     if (fn == "getattribute" && n == 2) {
@@ -196,7 +292,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "allobjects" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "object") names.push_back(up->name);
+            if (up->elem_type == "object" && live(up)) names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "allcommands" && n == 0) {
@@ -204,20 +300,22 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         // with IsVerb=true) -- ScopeCommands depends on seeing them here.
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "command" || up->elem_type == "verb")
+            if ((up->elem_type == "command" || up->elem_type == "verb") &&
+                live(up))
                 names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "allexits" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "exit") names.push_back(up->name);
+            if (up->elem_type == "exit" && live(up)) names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "allturnscripts" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "turnscript") names.push_back(up->name);
+            if (up->elem_type == "turnscript" && live(up))
+                names.push_back(up->name);
         return vobjlist(names);
     }
     // Children enumerate in SortIndex order (Elements.GetDirectChildren sorts
@@ -226,7 +324,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     auto direct_children = [&](Element *e) {
         std::vector<Element *> kids;
         for (auto &up : world_.elements)
-            if (up->elem_type == "object" && parent_of(up.get()) == e)
+            if (up->elem_type == "object" && live(up) &&
+                parent_of(up.get()) == e)
                 kids.push_back(up.get());
         std::stable_sort(kids.begin(), kids.end(),
                          [](const Element *a, const Element *b) {
@@ -284,39 +383,50 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
 
     // ---- dictionaries -----------------------------------------------------
+    // The constructors must allocate the backing EAGERLY: a fresh dictionary
+    // is one .NET object and every copy of the Value must alias it. With a
+    // lazy (null) store, passing an empty dictionary to a function and adding
+    // through the parameter would allocate on the copy only, and the caller's
+    // dictionary would stay empty (broke v550 disambiguation menus).
     if ((fn == "newdictionary" || fn == "newstringdictionary") && n == 0) {
-        Value v; v.type = Value::Type::StringDict; return v;
+        Value v; v.type = Value::Type::StringDict; v.dict(); return v;
     }
     if (fn == "newobjectdictionary" && n == 0) {
-        Value v; v.type = Value::Type::ObjectDict; return v;
+        Value v; v.type = Value::Type::ObjectDict; v.dict(); return v;
     }
     if (fn == "newscriptdictionary" && n == 0) {
-        Value v; v.type = Value::Type::ScriptDict; return v;
+        Value v; v.type = Value::Type::ScriptDict; v.dict(); return v;
     }
     if (fn == "dictionarycount" && n == 1) return vint((long)arg(0).dict().size());
     if (fn == "dictionarycontains" && n == 2) {
         for (auto &kv : arg(0).dict()) if (kv.first == sarg(1)) return vbool(true);
         return vbool(false);
     }
+    // The *DictionaryItem getters index the underlying .NET dictionary: a
+    // missing key throws KeyNotFoundException's message (seen verbatim in the
+    // oracle transcripts), not null.
+    auto missing_key = [&]() {
+        error("The given key '" + sarg(1) + "' was not present in the dictionary.");
+    };
     if (fn == "dictionaryitem" && n == 2) {
         for (auto &kv : arg(0).dict()) if (kv.first == sarg(1)) return kv.second;
-        return vnull();
+        missing_key();
     }
     if (fn == "stringdictionaryitem" && n == 2) {
         for (auto &kv : arg(0).dict())
             if (kv.first == sarg(1)) return vstr(to_string(kv.second));
-        return vnull();
+        missing_key();
     }
     if (fn == "objectdictionaryitem" && n == 2) {
         for (auto &kv : arg(0).dict())
             if (kv.first == sarg(1))
                 return kv.second.type == Value::Type::ObjectRef
                            ? kv.second : vobj(to_string(kv.second));
-        return vnull();
+        missing_key();
     }
     if (fn == "scriptdictionaryitem" && n == 2) {
         for (auto &kv : arg(0).dict()) if (kv.first == sarg(1)) return kv.second;
-        return vnull();
+        missing_key();
     }
     if (fn == "stringlistitem" && n == 2) {
         const Value &l = arg(0); long i = iarg(1);
@@ -418,7 +528,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                          [&](const Value &a, const Value &b) {
                              for (size_t k = 0; k < attrs.size(); ++k) {
                                  std::string ka = key_at(a, k), kb = key_at(b, k);
-                                 if (ka != kb) return ka < kb;
+                                 if (ka != kb)
+                                     return dotnet_string_less(ka, kb);
                              }
                              return false;
                          });
@@ -431,7 +542,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         out.detach();
         std::stable_sort(out.list().begin(), out.list().end(),
                          [](const Value &a, const Value &b) {
-                             return to_string(a) < to_string(b);
+                             return dotnet_string_less(to_string(a),
+                                                       to_string(b));
                          });
         if (fn == "stringlistsortdescending")
             std::reverse(out.list().begin(), out.list().end());
@@ -577,7 +689,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "populate" && (n == 2 || n == 3)) {
         std::string cid = sarg(2), input = sarg(1);
         auto cr = compiled_regex(sarg(0), n == 3 ? &cid : nullptr);
-        Value out; out.type = Value::Type::StringDict;
+        Value out; out.type = Value::Type::StringDict; out.dict();
         std::smatch m;
         if (!cr->valid || !std::regex_search(input, m, cr->re)) {
             world_.errors.push_back("String '" + input +
@@ -609,10 +721,93 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return as_double(arg(0)) >= as_double(arg(1)) ? arg(0) : arg(1);
     if (fn == "min" && n == 2)
         return as_double(arg(0)) <= as_double(arg(1)) ? arg(0) : arg(1);
+    // Clone / ShallowClone (ExpressionOwner -> Element.Clone): copy the
+    // element under a fresh "<root>N" name (GetUniqueElementName strips
+    // trailing digits), copying the inherited-type stack and every own field
+    // except `name` -- collections get their own backing (Fields.Clone runs
+    // clone-on-set) -- and, for the deep form, recursively cloning children
+    // into the copy. The clone lands in the same parent, at the end.
+    if ((fn == "clone" || fn == "shallowclone") && n == 1) {
+        if (arg(0).type == Value::Type::Null) throw_null("obj");
+        Element *src = obj_of(arg(0));
+        if (!src)
+            error(std::string(fn == "clone" ? "Clone" : "ShallowClone") +
+                  " function expected object parameter but was passed '" +
+                  to_string(arg(0)) + "'");
+        std::function<Element *(Element *, bool)> do_clone =
+            [&](Element *from, bool deep) -> Element * {
+            std::string root = from->name;
+            while (!root.empty() &&
+                   std::isdigit((unsigned char)root.back()))
+                root.pop_back();
+            std::string nm;
+            int k = 0;
+            do { nm = root + std::to_string(++k); } while (world_.find(nm));
+            Element *e = world_.create_object(nm, "", from->elem_type);
+            e->inherits = from->inherits;  // the clone shares the type stack
+            for (const auto &kv : from->fields) {
+                if (kv.first == "name") continue;
+                Value v = kv.second;
+                v.detach();
+                e->set_field(kv.first, v);
+            }
+            if (deep) {
+                std::vector<Element *> kids;
+                for (auto &up : world_.elements)
+                    if (live(up) && parent_of(up.get()) == from)
+                        kids.push_back(up.get());
+                std::stable_sort(kids.begin(), kids.end(),
+                                 [](const Element *a, const Element *b) {
+                                     return a->sort_index < b->sort_index;
+                                 });
+                for (Element *kid : kids) {
+                    Element *ck = do_clone(kid, true);
+                    ck->set_field("parent", vobj(e->name));
+                }
+            }
+            return e;
+        };
+        return vobj(do_clone(src, fn == "clone")->name);
+    }
+
+    // ExpressionOwner.ShowMenu -- the EXPRESSION form, which QuestViva AWAITS:
+    // print the caption, get the selection from the synchronous host provider,
+    // echo " - <display>", and return the key ("" on cancel).
+    if (fn == "showmenu" && n == 3) {
+        MenuData md;
+        md.caption = sarg(0);
+        md.allow_cancel = truthy(arg(2));
+        const Value &options = arg(1);
+        if (options.type == Value::Type::StringList) {
+            for (const Value &e2 : options.list()) {
+                std::string s2 = to_string(e2);
+                md.options.emplace_back(s2, s2);
+            }
+        } else if (options.type == Value::Type::StringDict) {
+            for (const auto &kv : options.dict())
+                md.options.emplace_back(kv.first, to_string(kv.second));
+        } else {
+            error("ShowMenu cannot handle this options type");
+        }
+        if (!menu_provider)
+            error("ShowMenu (expression form) requires a host menu provider");
+        print_via_core(md.caption, ctx);
+        std::string key;
+        if (menu_provider(md, key)) {
+            for (const auto &kv : md.options)
+                if (kv.first == key) {
+                    print_via_core(" - " + kv.second, ctx);
+                    break;
+                }
+            return vstr(key);
+        }
+        return vstr("");  // cancelled: result ?? string.Empty
+    }
+
     if (fn == "getrandomint" && n == 2)
-        return vint(rng_.between(iarg(0), iarg(1)));
+        return vint(active_rng().between(iarg(0), iarg(1)));
     if (fn == "getrandomdouble" && n == 0)
-        return vdouble(rng_.next_double());
+        return vdouble(active_rng().next_double());
 
     handled = false;
     return vnull();

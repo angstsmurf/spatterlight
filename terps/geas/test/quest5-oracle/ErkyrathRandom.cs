@@ -56,6 +56,12 @@ internal sealed class ErkyrathRandom
         return result;
     }
 
+    // QVH_TRACE_RAND=1: log every draw to stderr for stream-parity debugging
+    // against the native engine's ASLX_TRACE_RAND (same numbering/format).
+    private static readonly bool Trace =
+        Environment.GetEnvironmentVariable("QVH_TRACE_RAND") is { Length: > 0 } t && t != "0";
+    private static long _traceSeq;
+
     // Inclusive [min, max]; mirrors a5rand_between (min==max draws no number).
     public int NextInclusive(int min, int max)
     {
@@ -64,9 +70,16 @@ internal sealed class ErkyrathRandom
         var span = (uint)((long)max - min);          // exact magnitude, no overflow
         if (span == uint.MaxValue) return (int)(min + NextUInt32()); // full domain
         span += 1u;
-        return (int)(min + NextUInt32() % span);
+        var r = (int)(min + NextUInt32() % span);
+        if (Trace) Console.Error.WriteLine($"[rand {++_traceSeq}] between({min},{max})={r}");
+        return r;
     }
 
     // [0, 1) double: 32 random bits over 2^32.
-    public double NextDouble() => NextUInt32() / 4294967296.0;
+    public double NextDouble()
+    {
+        var r = NextUInt32() / 4294967296.0;
+        if (Trace) Console.Error.WriteLine($"[rand {++_traceSeq}] double={r:G17}");
+        return r;
+    }
 }

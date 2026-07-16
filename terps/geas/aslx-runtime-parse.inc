@@ -88,7 +88,17 @@ static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp
                     interp.errors().push_back("Unexpected 'else': " + stmt);
                 }
             } else {
-                result.push_back(parse_one_statement(stmt, interp));
+                // One bad statement must not abort the whole body: QuestViva
+                // parses statement-by-statement (lazily), so later statements
+                // still load and the failure surfaces only if the bad one runs.
+                try {
+                    result.push_back(parse_one_statement(stmt, interp));
+                } catch (const std::exception &err) {
+                    Stmt bad;
+                    bad.kind = Stmt::Kind::ParseError;
+                    bad.name = err.what();
+                    result.push_back(std::move(bad));
+                }
             }
         }
 

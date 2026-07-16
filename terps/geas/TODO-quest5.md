@@ -1,5 +1,100 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, evening — golden-parity batch)
+
+- **14 of 17 golden walkthroughs replay BYTE-IDENTICAL through the native
+  engine** (up from 2 this morning; test/aslx_replay.cc vs
+  quest5-oracle/golden/): Dream Pieces, One Night Stand, A Christmas Game (+
+  Sequel), A Hobbit Trek, Basilica de Sangre, EFMB, all three Guttersnipes,
+  Jacqueline, Mouse/Christmas, Myothian Falcon, Dream Pieces 2. The three
+  remaining are the two known-glitchy games — Whitefield (598 diff lines, the
+  oracle's error-breaker Wedge) and The Bony King of Nowhere (345, the
+  pov.parent=null death-spiral scene) — whose tails need QuestViva's exact
+  error-cascade topology (which LogException-only wrapper catches which throw:
+  PrintAsync/UpdateLists/FinishTurn swallow depth-errors without printing or
+  feeding the breaker), plus I Contain Multitudes (25, a DOCUMENTED QuestViva
+  artifact: its pending synchronous-sound TCS is cancelled by the next wait's
+  BeginPrompt, whose synchronous .NET continuation re-registers and is then
+  clobbered by `tcs = new`, leaking _pendingCallbackCount — QuestViva never
+  shows the ending; the native engine does, like real Quest. Do not chase).
+  `make check` green throughout; corpus still 49/50-boot-0-error (spondre
+  matches QuestViva's own abort point); oracle check_golden 17/17.
+- **Landed in this batch** (each found by chasing a golden first-divergence,
+  each verified against QuestViva source):
+  - **Timers** (§3): TimerRunner port — `begin_timers()`/`tick(secs)`/
+    `next_timer_seconds()`/`has_enabled_timeout()` on Interp;
+    enabled/interval/trigger fields against game.timeelapsed; due scripts run
+    with `this` = the timer; disabled timers get triggers pushed forward.
+    aslx_replay mirrors the oracle's DrainTimers exactly (drain only
+    self-destructing "timeout*" timers, tick exactly the reported delta).
+    EnableTimer/DisableTimer/SetTimeout/SetTimeoutID are Core ASLX and run as
+    library code; there is NO enable/disable script command in QuestViva.
+  - **Synchronous `play sound` suspends the turn** (`TurnSuspended` in
+    aslx-runtime.hh): QuestViva parks the whole async chain on the wait slot
+    and headless nothing resolves it, so everything after the statement —
+    including FinishTurn — is silently abandoned. Thrown by the statement,
+    passed through script boundaries un-reported, caught at send_command /
+    prompt callbacks / tick / host boot.
+  - **`type` + `elementtype` fields** on every element (QuestViva sets them at
+    Element construction; verbs are ObjectType.Command). Core's
+    AddToResolvedNames gates game.lastobjects on `obj.type = "object"` — this
+    is what makes "it"/pronoun resolution work. Runtime-created elements also
+    now get a `name` field (SetTimeout's `destroy (this.name)` was a no-op).
+  - **UTF-8 identifiers** ("Glühwein"): bytes >= 0x80 are word characters in
+    the lexer, encode_identifier_spaces, and keyword-boundary checks.
+  - **Collections: eager backing + clone-on-set.** Every collection creation
+    site allocates its backing eagerly (Value::ensure_backing; a lazily-null
+    store broke reference semantics — mutations through a function parameter
+    allocated on the copy). And Fields.Set semantics: assigning a list/dict
+    CLONES it whenever the assignment changes the OWN attribute (QuestList.
+    RequiresCloning is unconditional; the changed-check consults own attrs
+    only) — `newPOV.pov_alt = newPOV.pov_alt` localises an inherited list
+    (Basilica's possession). v530+ null assignment REMOVES the attribute
+    (HasAttribute goes false; ICM's `player.grid_coordinates = null`).
+  - **Destroyed elements excluded from enumerations** (AllObjects/AllCommands/
+    AllExits/AllTurnScripts/GetDirectChildren + live_timers): destroy only
+    unregisters the name, and a reused name previously enumerated twice —
+    Jacqueline's SetTurnTimeout chain fired at half the authored delay.
+  - **Every `parent` write re-appends the child** (even same-value writes:
+    SetParentFromFields runs unconditionally in Fields.Set) — WearGarment's
+    redundant `object.parent = game.pov` really reorders the inventory (Mouse).
+  - **QuestViva error semantics**: expression failures wrap as
+    "Error evaluating expression '<src>': <msg>" at the per-compiled-expression
+    root (EvalError keeps the innermost message across Eval() nesting); no
+    "(in fn)" suffix on player-facing messages (kept in the world.errors log);
+    object-taking builtins throw .NET's "Value cannot be null. (Parameter
+    'obj')" / GetParameter's "expected object parameter" texts;
+    *DictionaryItem throws "The given key 'k' was not present in the
+    dictionary."; report printing goes through PrintAsync (SafeXML + Core
+    OutputText). Statements whose expression fails to PARSE compile to a stub
+    that errors only if reached (NCalc parses lazily — EFMB's
+    `MoveObject (coin, )` behind a false guard stays silent).
+  - **RNG is per-compiled-expression** (the big one): QuestViva's
+    NcalcExpressionEvaluator constructs its own ExpressionOwner — and thus its
+    own fresh seed-1234 ErkyrathRandom — PER COMPILED EXPRESSION. Each root
+    Expr now owns a lazily-created Rng (Interp::active_rng()); both engines
+    gained stream tracing (ASLX_TRACE_RAND / QVH_TRACE_RAND, same format) to
+    diff streams. Caveat: we cache compiled expressions by SOURCE TEXT, so two
+    scripts with byte-identical RNG expressions share one stream where
+    QuestViva would have two — not yet observed in a golden.
+  - **Sorts use .NET culture word-sort** (dotnet_string_less: case-insensitive
+    first, lowercase-before-uppercase tiebreak) in ObjectListSort/
+    StringListSort — EFMB sorts turnscripts by name ("archimedes" <
+    "Attendant").
+  - **`create exit`** (3/4/5-arg CreateExitScript incl. generated "exitN" ids
+    + anonymous flag), **`Clone`/`ShallowClone`** (GetUniqueElementName
+    trailing-digit numbering, type-stack + own-fields copy with fresh
+    backings, deep child clone — Dream Pieces 2), **expression-form
+    `ShowMenu(caption, options, allowCancel)`** returning the key via a new
+    synchronous `Interp::menu_provider` host hook (ExpressionOwner.ShowMenu
+    awaits mid-expression; the replayer feeds the next script line, the Glk
+    layer will use a nested prompt loop — Myothian Falcon), **`picture`
+    prints an `<img>` via OutputText on v540+** (its `<br/>` is the blank
+    line in oracle transcripts), and pre-540 empty prints emit nothing
+    (`<output></output>` strips to nothing).
+  - The replayer's HTML strip is now qvh-exact (case-SENSITIVE `<br/>` only —
+    uppercase `<BR>` is dropped without a newline, St Hesper's cage sign).
+
 ## Status (2026-07-16)
 
 - **Ground-truth oracle: built and frozen** (§7, milestone 6's diff half).
@@ -312,13 +407,15 @@
       defers like the nested form (LoadPattern is virtual). This fixed every
       "wear X"/"break X" → "I don't understand".
     - **`changed<attr>` + SortIndex** — see §2 Change notification.
-  - Still open for M3/M4: timers (`SetTimeout`/`SetTimerScript`/`enable`/
-    `disable`, a Tick entry point — see §3), `request (Wait)`/`request (Pause)`
+  - Still open for M3/M4: `request (Wait)`/`request (Pause)`
     for pre-v540 games (truly blocking mid-script in QuestViva, needs a
     blocking host hook), game-local
-    libraries bundled *inside* a `.quest` zip, the UndoLogger, and (maybe)
-    member-access-on-null throwing like QuestViva ("Property 'x' not found on
-    ''") instead of yielding null. Milestone 5 remains.
+    libraries bundled *inside* a `.quest` zip, the UndoLogger, locked
+    inherited collections (mutating a type-provided list without assigning it
+    first throws "Cannot modify the contents of this list as it is defined by
+    an inherited type..." in QuestViva; we copy-on-write silently), and the
+    error-cascade topology for the two glitchy goldens (see the evening
+    status). Timers landed (see evening status). Milestone 5 remains.
 
 ## 0. Scope and reality check
 
@@ -529,10 +626,12 @@ waiting for and routes the next line/keypress.
       harnesses auto-advance like the oracle's AutoAdvance).
 - [ ] Glk wiring in geasglk: render pending menus/questions as numbered
       prompts (reuse `make_choice` UI), `wait` as a keypress event.
-- [ ] Timer elements + `SetTimeout`/`SetTimerScript` → an engine Tick(secs)
-      entry (TimerRunner port) + `glk_request_timer_events` at prompt level
-      (precedent: scarier a5 real-time events; the oracle's DrainTimers shows
-      the deterministic-headless variant).
+- [x] Timer elements + `SetTimeout`/`SetTimerScript` → an engine Tick(secs)
+      entry (TimerRunner port: `begin_timers`/`tick`/`next_timer_seconds`/
+      `has_enabled_timeout`, 2026-07-16). Still TODO:
+      `glk_request_timer_events` at prompt level in geasglk (precedent:
+      scarier a5 real-time events; aslx_replay mirrors the oracle's
+      deterministic DrainTimers).
 - [ ] `request (Wait)` / `request (Pause, ms)` (pre-v540/v550 games only):
       genuinely blocking mid-script even in QuestViva (`DoWaitAsync` is
       awaited) — needs a blocking host hook; currently a no-op.
@@ -604,15 +703,10 @@ stays unsupported, as in `quest4.c`.
       an oracle `.cmd` through the native engine with qvh's exact step
       grammar/normalisation and diffs against `quest5-oracle/golden/*.out`.
       First-light baseline was ~30–70% matching lines, 0 games finishing;
-      after the same-day verb/changed-script/sort-order fixes, **Dream Pieces
-      and One Night Stand replay BYTE-IDENTICAL to their goldens through to
-      state=Finished**, and most others dropped sharply (A Christmas Game
-      94/1192 diff lines, I Contain Multitudes 50/800, Escape From the
-      Mechanical Bathhouse 95/993, Basilica de Sangre 297/2235). Still far:
-      Dream Pieces 2, the Guttersnipes, Myothian Falcon, Mouse/Christmas,
-      Whitefield — chase each game's FIRST divergence next. DrainTimers
-      (needs the native timer engine) and Wedged-vs-Finished are not
-      mirrored yet.
+      by the end of 2026-07-16 **14 of 17 goldens replay byte-identical**
+      (see the evening status; only Whitefield/Bony King error-cascades and
+      the documented ICM artifact remain). DrainTimers is mirrored;
+      Wedged-vs-Finished is not yet (needs the breaker-feeding rules).
 
 ## 8. Milestones
 

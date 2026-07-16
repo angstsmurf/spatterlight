@@ -156,13 +156,34 @@ uint32_t Rng::next() {
     return result;
 }
 
+// ASLX_TRACE_RAND=1: log every draw to stderr for stream-parity debugging
+// against the oracle's QVH_TRACE_RAND (same numbering, same format).
+static bool rng_trace_enabled() {
+    static int on = -1;
+    if (on < 0) {
+        const char *env = std::getenv("ASLX_TRACE_RAND");
+        on = (env && *env && *env != '0') ? 1 : 0;
+    }
+    return on == 1;
+}
+static long rng_trace_seq = 0;
+
 long Rng::between(long lo, long hi) {
     if (hi <= lo) return lo;
     unsigned long span = (unsigned long)(hi - lo + 1);
-    return lo + (long)(next() % span);
+    long r = lo + (long)(next() % span);
+    if (rng_trace_enabled())
+        fprintf(stderr, "[rand %ld] between(%ld,%ld)=%ld\n",
+                ++rng_trace_seq, lo, hi, r);
+    return r;
 }
 
-double Rng::next_double() { return next() * (1.0 / 4294967296.0); }
+double Rng::next_double() {
+    double r = next() * (1.0 / 4294967296.0);
+    if (rng_trace_enabled())
+        fprintf(stderr, "[rand %ld] double=%.17g\n", ++rng_trace_seq, r);
+    return r;
+}
 
 // ===========================================================================
 // Value constructors + coercions
@@ -405,7 +426,10 @@ static std::string remove_comments(const std::string &input) {
 // join with '\x01' (instead of "___SPACE___"), which the lexer folds back to a
 // space inside a single Ident token, so no decode pass is needed downstream.
 static bool is_word_char(char c) {
-    return std::isalnum((unsigned char)c) || c == '_';
+    // Any byte >= 0x80 is part of a UTF-8 sequence: .NET \w covers Unicode
+    // letters, and game identifiers use them ("Glühwein").
+    return std::isalnum((unsigned char)c) || c == '_' ||
+           (unsigned char)c >= 0x80;
 }
 
 static bool is_expr_keyword(const std::string &w) {
@@ -456,6 +480,28 @@ struct Expr {
     // children
     std::shared_ptr<Expr> a, b, c;
     std::vector<std::shared_ptr<Expr>> args;
+    // Original source text, set on the ROOT node of each compiled expression
+    // only. A non-empty src marks the QuestViva Expression<T> boundary where a
+    // runtime failure is wrapped as "Error evaluating expression '<src>': ...".
+    std::string src;
+    // Per-expression RNG stream (lazily created at the root on first draw).
+    // QuestViva's NcalcExpressionEvaluator constructs its OWN ExpressionOwner
+    // -- and thus its own seed-1234 ErkyrathRandom -- per compiled expression,
+    // so every expression's GetRandomInt/GetRandomDouble sequence starts fresh
+    // and advances only when THAT expression evaluates. (Verified against the
+    // oracle: EFMB's PickOneString stream restarts at the seed.)
+    std::shared_ptr<Rng> rng;
+};
+
+// A wrapped expression-evaluation failure (NcalcExpressionEvaluator's catch).
+// `original` keeps the innermost message so a nested failure (Eval()) re-wraps
+// with the OUTER source but the ORIGINAL message, exactly like QuestViva's
+// `ex.InnerException?.Message ?? ex.Message`.
+struct EvalError : std::runtime_error {
+    std::string original;
+    EvalError(const std::string &src, const std::string &orig)
+        : std::runtime_error("Error evaluating expression '" + src + "': " + orig),
+          original(orig) {}
 };
 
 using ExprP = std::shared_ptr<Expr>;
@@ -486,7 +532,13 @@ struct Lexer {
                 lex_number();
                 continue;
             }
-            if (std::isalpha((unsigned char)c) || c == '_') { lex_ident(); continue; }
+            if (std::isalpha((unsigned char)c) || c == '_' ||
+                (unsigned char)c >= 0x80) {
+                // Bytes >= 0x80 are UTF-8 letters (.NET identifiers are \w,
+                // which is Unicode-aware -- "Glühwein").
+                lex_ident();
+                continue;
+            }
             lex_op();
         }
         toks.push_back({Tok::T::End, ""});
@@ -538,7 +590,7 @@ struct Lexer {
         std::string s;
         while (i < src.size() &&
                (std::isalnum((unsigned char)src[i]) || src[i] == '_' ||
-                src[i] == '\x01')) {
+                (unsigned char)src[i] >= 0x80 || src[i] == '\x01')) {
             // '\x01' is the encode_identifier_spaces join marker: this is one
             // multi-word identifier ("OUTSIDE INN"); restore the space.
             s += (src[i] == '\x01') ? ' ' : src[i];
@@ -802,7 +854,9 @@ static ExprP compile_expr_str(const std::string &src) {
     lex.lex();
     Parser parser(lex.toks);
     try {
-        return parser.parse();
+        ExprP e = parser.parse();
+        if (e) e->src = src;  // mark the Expression<T> wrap boundary
+        return e;
     } catch (const std::runtime_error &err) {
         throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
     }
@@ -815,7 +869,12 @@ static ExprP compile_expr_str(const std::string &src) {
 struct Stmt {
     enum class Kind {
         Msg, If, While, For, ForEach, Assign, Call, Return, Comment,
-        Switch, FirstTime, OnReady, Wait, GetInput, ShowMenu, Ask
+        Switch, FirstTime, OnReady, Wait, GetInput, ShowMenu, Ask,
+        // A statement whose COMPILE failed: the rest of the body still loads
+        // (QuestViva parses statement-by-statement, lazily), and the error --
+        // kept in `name` -- surfaces only if this statement actually RUNS.
+        // EFMB has a `MoveObject (coin, )` behind an always-false guard.
+        ParseError
     };
     Kind kind;
     std::string name;              // Assign var/prop, For/ForEach var, Call name
@@ -845,10 +904,14 @@ struct Stmt {
 // Interp
 // ===========================================================================
 
-Interp::Interp(World &world) : world_(world) {
-    rng_.seed(1234);
+// Seed for every RNG stream: 1234, or ASLX_SEED (the oracle's QVH_SEED analog).
+static uint32_t aslx_default_seed() {
     const char *env = std::getenv("ASLX_SEED");
-    if (env) rng_.seed((uint32_t)std::strtoul(env, nullptr, 10));
+    return env ? (uint32_t)std::strtoul(env, nullptr, 10) : 1234u;
+}
+
+Interp::Interp(World &world) : world_(world) {
+    rng_.seed(aslx_default_seed());
     print = [this](const std::string &s) { output_ += s; };
 }
 Interp::~Interp() = default;
@@ -878,6 +941,7 @@ std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
     } catch (const std::runtime_error &err) {
         throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
     }
+    if (e) e->src = src;  // mark the Expression<T> wrap boundary
     expr_cache_[src] = e;
     return e;
 }
@@ -885,17 +949,12 @@ std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
 Value Interp::eval(const std::string &source, Context &ctx) {
     std::string s = rt_trim(source);
     if (s.empty()) return vnull();
-    // A parse failure (or any other internal throw) must not abort the engine:
-    // log it as a world error and yield null, so one unsupported construct
-    // degrades gracefully (QuestViva wraps evaluation the same way).
-    try {
-        ExprP e = compile_expr(s);
-        return eval_expr(*e, ctx);
-    } catch (const std::exception &err) {
-        errors().push_back(std::string("Error evaluating expression: ") +
-                           err.what());
-        return vnull();
-    }
+    // Failures THROW (wrapped by the root-expression boundary in eval_expr),
+    // unwinding to the nearest script boundary, which logs and reports --
+    // QuestViva semantics. The Eval() builtin relies on the throw so the
+    // outer expression re-wraps with its own source text.
+    ExprP e = compile_expr(s);
+    return eval_expr(*e, ctx);
 }
 
 // -- statement parsing ------------------------------------------------------
@@ -904,7 +963,8 @@ static bool starts_with_word(const std::string &line, const std::string &kw) {
     if (line.compare(0, kw.size(), kw) != 0) return false;
     if (line.size() == kw.size()) return true;
     char n = line[kw.size()];
-    return !(std::isalnum((unsigned char)n) || n == '_');
+    return !(std::isalnum((unsigned char)n) || n == '_' ||
+             (unsigned char)n >= 0x80);
 }
 
 // Forward-declared recursive statement compiler (defined in the .inc below).
@@ -923,7 +983,8 @@ void Interp::run_script(const std::string &source, Context &ctx) {
     if (script_depth_ >= kMaxScriptDepth)
         throw std::runtime_error(
             "Script execution depth exceeded 200 - this usually means a script "
-            "is recursing infinitely");
+            "is recursing infinitely (e.g. a \"changed<field>\" script that "
+            "sets the field it's watching)");
     // This is the script boundary (QuestViva RunScriptAsync): a parse or
     // runtime throw aborts THIS script body only; it is logged and reported,
     // and the calling script carries on with its next statement.
@@ -931,6 +992,12 @@ void Interp::run_script(const std::string &source, Context &ctx) {
     try {
         auto stmts = compile_script(source);
         exec_block(*stmts, ctx);
+    } catch (const TurnSuspended &) {
+        // Not an error: a synchronous `play sound` parked the turn. The
+        // suspension passes through every script boundary to the turn
+        // boundary (QuestViva's await chain suspends RunScriptAsync itself).
+        --script_depth_;
+        throw;
     } catch (const std::exception &err) {
         report_script_error(err.what());
     }
@@ -1032,11 +1099,34 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
             if (e) {
                 const Value *prev = resolve_field(e, s.name);
                 Value old = prev ? *prev : vnull();
-                e->set_field(s.name, val);
-                // A runtime reparent moves the element to the end of its new
-                // parent's children (UpdateElementSortOrder), before the
-                // changed script runs (Fields.Set order).
-                if (s.name == "parent" && !values_equal(old, val))
+                // Fields.Set CLONES a list/dictionary on any assignment that
+                // changes the OWN attribute (QuestList.RequiresCloning is
+                // unconditionally true; the changed-check consults own
+                // attributes only, so localising an inherited list --
+                // "newPOV.pov_alt = newPOV.pov_alt" -- copies the type's
+                // backing instead of aliasing it. Basilica's possession
+                // mechanic relies on every body getting its own alt list).
+                const Value *own = e->field(s.name);
+                bool same_backing = own &&
+                    own->list_store == val.list_store &&
+                    own->dict_store == val.dict_store;
+                if (!same_backing) val.detach();
+                // v530+: assigning null REMOVES the own attribute
+                // (Fields.Set), so HasAttribute goes false and Core re-init
+                // paths ("player.grid_coordinates = null" then Grid_Redraw)
+                // work. Older games store the null.
+                if (world_.asl_version >= 530 && val.type == Value::Type::Null)
+                    e->remove_field(s.name);
+                else
+                    e->set_field(s.name, val);
+                // EVERY parent write moves the element to the end of its
+                // parent's children -- even a same-value one. QuestViva's
+                // Fields.Set calls SetParentFromFields unconditionally, which
+                // removes + re-appends in the children index (the `changed`
+                // check only guards the saver-facing SortIndex metafield).
+                // WearGarment's redundant `object.parent = game.pov` really
+                // does reorder the inventory.
+                if (s.name == "parent")
                     e->sort_index = world_.next_sort_index++;
                 fire_changed_script(e, s.name, old);
             } else {
@@ -1072,6 +1162,9 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         add_on_ready(&s.body, ctx);
         return;
     }
+    case Stmt::Kind::ParseError:
+        error(s.name);
+        return;
     // The four prompt commands are fire-and-forget (QuestViva's ExecuteAsync
     // starts AwaitResponseAndRunCallbackAsync and returns): the callback is
     // registered, execution of the enclosing script continues, and the host
@@ -1175,13 +1268,20 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
 }
 
 void Interp::error(const std::string &message) {
-    if (frames_.empty()) throw std::runtime_error(message);
-    throw std::runtime_error(message + " (in " + frames_.back() + ")");
+    // No "(in function)" suffix: QuestViva prints exception messages verbatim
+    // ("Error running script: " + ex.Message), and the golden transcripts
+    // contain the bare form. frames_ stays for diagnostics elsewhere.
+    throw std::runtime_error(message);
 }
+
+static std::string safe_xml_escape(const std::string &s);
 
 void Interp::report_script_error(const std::string &what) {
     std::string msg = std::string("Error running script: ") + what;
-    errors().push_back(msg);
+    // The LOG copy carries the innermost executing function for diagnostics;
+    // the player-facing print below stays bare (QuestViva prints ex.Message).
+    errors().push_back(frames_.empty() ? msg
+                                       : msg + " [in " + frames_.back() + "]");
     if (++script_error_count_ >= kMaxScriptErrors) {
         // Every script is failing the same way; the session is wedged. Stop
         // running scripts and end the game (WorldModel's scriptErrorsFatal).
@@ -1189,9 +1289,12 @@ void Interp::report_script_error(const std::string &what) {
         world_.finished = true;
     } else if (!reporting_error_) {
         // The message also goes to the player, once (no recursive reports if
-        // printing itself errors) -- WorldModel.PrintAsync in the catch.
+        // printing itself errors), through the same channel as any other text:
+        // PrintAsync(SafeXML(message)) -- so on v540+ it passes through Core's
+        // OutputText like the oracle's transcripts.
         reporting_error_ = true;
-        print(msg + "\n");
+        Context ctx;
+        print_via_core(safe_xml_escape(msg), ctx);
         reporting_error_ = false;
     }
 }
@@ -1206,9 +1309,11 @@ void Interp::warn_once(const std::string &key, const std::string &message) {
 void Interp::run_callback_boundary(const std::vector<Stmt> *body, Context &ctx) {
     if (!body || body->empty() || script_errors_fatal_) return;
     // Each callback is its own script boundary (RunScriptAsync): a failure is
-    // reported and the engine carries on.
+    // reported and the engine carries on. A TurnSuspended (synchronous `play
+    // sound`) abandons the rest of the callback, silently.
     try {
         exec_block(*body, ctx);
+    } catch (const TurnSuspended &) {
     } catch (const std::exception &err) {
         report_script_error(err.what());
     }
@@ -1284,7 +1389,10 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
             report_script_error(err.what());
         }
     } else {
-        print(text + "\n");
+        // Pre-540 PrintText wraps the text in <output>...</output>, so an
+        // EMPTY print (the pre-v520 echo's leading blank) strips to nothing
+        // downstream -- emit nothing, like the oracle transcripts.
+        if (!text.empty()) print(text + "\n");
     }
 }
 
@@ -1315,30 +1423,37 @@ void Interp::send_command(const std::string &command) {
         return;
     }
     Context ctx;
-    if (world_.asl_version < 520) {
-        // Pre-v520 games expect the engine to echo the command.
-        print_via_core("", ctx);
-        print_via_core("> " + safe_xml_escape(command), ctx);
-    }
-    Element *hc = world_.find("HandleCommand");
-    if (hc && hc->elem_type == "function") {
-        try {
-            call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
-        } catch (const std::exception &err) {
-            report_script_error(err.what());
+    try {
+        if (world_.asl_version < 520) {
+            // Pre-v520 games expect the engine to echo the command.
+            print_via_core("", ctx);
+            print_via_core("> " + safe_xml_escape(command), ctx);
         }
-    }
-    // Pre-v580 Core relies on the engine calling FinishTurn after the command
-    // (TryFinishTurnAsync); v580+ Core runs it from HandleCommand itself.
-    if (world_.asl_version < 580) {
-        Element *ft = world_.find("FinishTurn");
-        if (ft && ft->elem_type == "function") {
+        Element *hc = world_.find("HandleCommand");
+        if (hc && hc->elem_type == "function") {
             try {
-                call_function("FinishTurn", {}, &ctx);
+                call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
             } catch (const std::exception &err) {
                 report_script_error(err.what());
             }
         }
+        // Pre-v580 Core relies on the engine calling FinishTurn after the
+        // command (TryFinishTurnAsync); v580+ Core runs it from HandleCommand
+        // itself.
+        if (world_.asl_version < 580) {
+            Element *ft = world_.find("FinishTurn");
+            if (ft && ft->elem_type == "function") {
+                try {
+                    call_function("FinishTurn", {}, &ctx);
+                } catch (const std::exception &err) {
+                    report_script_error(err.what());
+                }
+            }
+        }
+    } catch (const TurnSuspended &) {
+        // Synchronous `play sound` mid-command: the rest of the turn --
+        // including FinishTurn -- is abandoned (the QuestViva await chain
+        // never resumes headless).
     }
 }
 
@@ -1383,6 +1498,113 @@ void Interp::finish_wait() {
     wait_cb_ = PendingCallback{};
     run_callback_boundary(cb.body, cb.ctx);
     end_pending_callback();
+}
+
+// -- timers (TimerRunner port) ------------------------------------------------
+
+// Live <timer> elements: still reachable by name. `destroy` only unregisters
+// (the storage stays in world.elements), and a SetTimeout timer destroys
+// itself after firing, so the name check is what retires it.
+std::vector<Element *> Interp::live_timers() {
+    std::vector<Element *> out;
+    for (auto &up : world_.elements)
+        if (up->elem_type == "timer" && world_.find(up->name) == up.get())
+            out.push_back(up.get());
+    return out;
+}
+
+long Interp::field_int(Element *e, const char *name) {
+    const Value *v = resolve_field(e, name);
+    if (!v) return 0;
+    if (v->type == Value::Type::Int) return v->integer;
+    if (v->type == Value::Type::Double) return (long)v->dbl;
+    return 0;
+}
+
+bool Interp::timer_enabled(Element *t) {
+    const Value *v = resolve_field(t, "enabled");
+    return v && truthy(*v);
+}
+
+long Interp::time_elapsed() {
+    Element *game = world_.find("game");
+    return game ? field_int(game, "timeelapsed") : 0;
+}
+
+void Interp::set_time_elapsed(long t) {
+    if (Element *game = world_.find("game"))
+        game->set_field("timeelapsed", vint(t));
+}
+
+void Interp::begin_timers() {
+    for (Element *t : live_timers())
+        if (timer_enabled(t))
+            t->set_field("trigger", vint(field_int(t, "interval")));
+}
+
+void Interp::increment_time(int seconds) {
+    set_time_elapsed(time_elapsed() + seconds);
+    long now = time_elapsed();
+    for (Element *t : live_timers()) {
+        if (timer_enabled(t)) continue;
+        // Disabled timers get their triggers pushed into the future, so they
+        // will run if they become enabled (TimerRunner.IncrementTime).
+        if (field_int(t, "trigger") < now)
+            t->set_field("trigger", vint(now + field_int(t, "interval")));
+        else
+            t->set_field("trigger", vint(field_int(t, "trigger") + seconds));
+    }
+}
+
+void Interp::tick(int seconds) {
+    if (world_.finished) return;
+    if (seconds > 0) increment_time(seconds);
+    // Collect every due timer first, bumping its next trigger, THEN run the
+    // scripts (TickAndGetScripts returns the batch before any script runs) --
+    // a SetTimeout script disables and destroys its own timer mid-run.
+    long now = time_elapsed();
+    std::vector<std::pair<Element *, std::string>> due;
+    for (Element *t : live_timers()) {
+        if (!timer_enabled(t)) continue;
+        if (now >= field_int(t, "trigger")) {
+            t->set_field("trigger",
+                         vint(field_int(t, "trigger") + field_int(t, "interval")));
+            const Value *scr = resolve_field(t, "script");
+            if (scr && scr->type == Value::Type::Script)
+                due.emplace_back(t, scr->str);
+        }
+    }
+    for (auto &d : due) {
+        if (world_.finished) break;
+        Context local;
+        local.locals["this"] = vobj(d.first->name);
+        try {
+            run_script(d.second, local);
+        } catch (const TurnSuspended &) {
+            // A suspended timer script suspends the whole batch
+            // (TickAsyncInternal's await chain).
+            break;
+        }
+    }
+}
+
+int Interp::next_timer_seconds() {
+    long now = time_elapsed();
+    long next = now + 60;
+    bool any = false;
+    for (Element *t : live_timers()) {
+        if (!timer_enabled(t)) continue;
+        any = true;
+        if (field_int(t, "trigger") < next) next = field_int(t, "trigger");
+    }
+    return any ? (int)(next - now) : 0;
+}
+
+bool Interp::has_enabled_timeout() {
+    for (Element *t : live_timers())
+        if (t->name.compare(0, 7, "timeout") == 0 && timer_enabled(t))
+            return true;
+    return false;
 }
 
 Element *interp_eval_element(Interp &in, const Value &v) {
@@ -1491,6 +1713,41 @@ static bool values_equal(const Value &a, const Value &b) {
 }
 
 Value Interp::eval_expr(const Expr &e, Context &ctx) {
+    // A root node (non-empty src) is QuestViva's Expression<T>.EvaluateAsync
+    // boundary: a runtime failure below it is wrapped as "Error evaluating
+    // expression '<src>': <msg>". A nested wrap (the Eval() builtin) re-wraps
+    // with the outer source but keeps the innermost message, matching
+    // `ex.InnerException?.Message ?? ex.Message`. Sub-expressions have empty
+    // src and pass errors through untouched.
+    if (!e.src.empty()) {
+        // Activate this expression's own RNG stream (see Expr::rng) for the
+        // duration of the evaluation; nested roots (function args, Eval) each
+        // swap in their own.
+        if (!e.rng) {
+            const_cast<Expr &>(e).rng = std::make_shared<Rng>();
+            e.rng->seed(aslx_default_seed());
+        }
+        Rng *prev = current_rng_;
+        current_rng_ = e.rng.get();
+        try {
+            Value v = eval_expr_node(e, ctx);
+            current_rng_ = prev;
+            return v;
+        } catch (const TurnSuspended &) {
+            current_rng_ = prev;
+            throw;
+        } catch (const EvalError &err) {
+            current_rng_ = prev;
+            throw EvalError(e.src, err.original);
+        } catch (const std::exception &err) {
+            current_rng_ = prev;
+            throw EvalError(e.src, err.what());
+        }
+    }
+    return eval_expr_node(e, ctx);
+}
+
+Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
     switch (e.kind) {
     case Expr::Kind::Num:
         return e.is_int ? vint((long)e.num) : vdouble(e.num);
@@ -1781,6 +2038,31 @@ bool Interp::exec_statement_command(const std::string &name,
     if (name == "picture" || name == "play sound" || name == "stop sound" ||
         name == "insert") {
         warn_once(name, "'" + name + "' is not supported yet; ignored");
+        if (name == "picture" && world_.asl_version >= 540 && !args.empty()) {
+            // PictureScript (v540+): the image is PRINTED as an <img> tag
+            // through Core's OutputText -- whose <br/> suffix is why the
+            // oracle transcripts show a blank line here. The URL is the
+            // filename headless (IPlayer.GetUrlAsync); the presentation
+            // milestone maps it to a real Glk image.
+            print_via_core("<img src=\"" + to_string(ev(0)) + "\" />", ctx);
+            return true;
+        }
+        if (name == "play sound" && args.size() >= 2 && truthy(ev(1))) {
+            // play sound (file, true, loop): synchronous playback. QuestViva
+            // claims the wait slot (BeginPrompt on _waitTcs, cancelling a
+            // pending `wait` -- its callback never runs) and awaits it, and
+            // with no UI to report the sound finished, everything after this
+            // statement in the turn is abandoned. Mirror that exactly: the
+            // suspension unwinds to the turn boundary, unreported. Note no
+            // begin_pending_callback -- PlaySoundScript never counts itself,
+            // so `on ready` is not deferred by a stuck sound.
+            if (wait_pending_) {
+                wait_pending_ = false;
+                wait_cb_ = PendingCallback{};
+                end_pending_callback();
+            }
+            throw TurnSuspended{};
+        }
         return true;
     }
 
@@ -1843,6 +2125,29 @@ bool Interp::exec_statement_command(const std::string &name,
         world_.create_object(to_string(ev(0)), "", "timer");
         return true;
     }
+    if (name == "create exit") {  // CreateExitScript / ObjectFactory.CreateExit
+        // 3 args: (alias, from, to); 4: (alias, from, to, initialType);
+        // 5: (id, alias, from, to, initialType). No id -> a generated
+        // "exitN" name and the anonymous flag.
+        size_t base = args.size() >= 5 ? 1 : 0;
+        std::string alias = to_string(ev(base));
+        Value from = ev(base + 1), to = ev(base + 2);
+        std::string type =
+            args.size() >= 4 ? to_string(ev(base + 3)) : std::string();
+        std::string id = args.size() >= 5 ? to_string(ev(0)) : std::string();
+        bool anonymous = id.empty();
+        if (anonymous) {
+            int k = 0;
+            do { id = "exit" + std::to_string(++k); } while (world_.find(id));
+        }
+        Element *exit = world_.create_object(id, type, "exit");
+        exit->set_field("alias", vstr(alias));
+        if (from.type == Value::Type::ObjectRef)
+            exit->set_field("parent", from);
+        exit->set_field("to", to);
+        if (anonymous) exit->set_field("anonymous", vbool(true));
+        return true;
+    }
     if (name == "create turnscript") {  // CreateTurnScript
         world_.create_object(to_string(ev(0)), "", "turnscript");
         return true;
@@ -1858,8 +2163,18 @@ bool Interp::exec_statement_command(const std::string &name,
             const Value *prev = resolve_field(obj, attr);
             Value old = prev ? *prev : vnull();
             Value nv = ev(2);
-            obj->set_field(attr, nv);
-            if (attr == "parent" && !values_equal(old, nv))
+            // Clone-on-set for collections -- see the Assign case.
+            const Value *own = obj->field(attr);
+            bool same_backing = own && own->list_store == nv.list_store &&
+                                own->dict_store == nv.dict_store;
+            if (!same_backing) nv.detach();
+            // v530+ null assignment removes the attribute -- see Assign.
+            if (world_.asl_version >= 530 && nv.type == Value::Type::Null)
+                obj->remove_field(attr);
+            else
+                obj->set_field(attr, nv);
+            // Same-value writes reorder too -- see the Assign case.
+            if (attr == "parent")
                 obj->sort_index = world_.next_sort_index++;
             fire_changed_script(obj, attr, old);
         } else {

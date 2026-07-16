@@ -128,6 +128,15 @@ Value &Element::set_field(const std::string &n, Value v) {
     return fields.back().second;
 }
 
+void Element::remove_field(const std::string &n) {
+    for (auto it = fields.begin(); it != fields.end(); ++it) {
+        if (it->first == n) {
+            fields.erase(it);
+            return;
+        }
+    }
+}
+
 Element *World::find(const std::string &n) const {
     auto it = by_name.find(n);
     return it == by_name.end() ? nullptr : it->second;
@@ -139,6 +148,38 @@ const std::string *World::implied_type(const std::string &elem_type,
     return it == implied_types.end() ? nullptr : &it->second;
 }
 
+// Expose the element's kind as fields, the way QuestViva does on Element
+// construction: `elementtype` is the ElementType string, and -- for the
+// "object" family only (object/exit/command/verb/game/turnscript are all
+// ElementType.Object with an ObjectType subtype) -- `type` is the ObjectType
+// string. Core branches on both (AddToResolvedNames checks obj.type =
+// "object" to build game.lastobjects, which is what makes "it" resolve).
+static void set_kind_fields(Element *ep) {
+    static const struct { const char *et; const char *elementtype; const char *type; }
+        kMap[] = {
+            {"object", "object", "object"},
+            {"exit", "object", "exit"},
+            {"command", "object", "command"},
+            {"verb", "object", "command"},
+            {"game", "object", "game"},
+            {"turnscript", "object", "turnscript"},
+        };
+    Value ev2;
+    ev2.type = Value::Type::String;
+    ev2.str = ep->elem_type;
+    for (const auto &m : kMap) {
+        if (ep->elem_type == m.et) {
+            ev2.str = m.elementtype;
+            Value tv;
+            tv.type = Value::Type::String;
+            tv.str = m.type;
+            ep->set_field("type", tv);
+            break;
+        }
+    }
+    ep->set_field("elementtype", ev2);
+}
+
 Element *World::create_object(const std::string &name, const std::string &type,
                               const std::string &elem_type) {
     auto e = std::make_unique<Element>();
@@ -146,6 +187,15 @@ Element *World::create_object(const std::string &name, const std::string &type,
     ep->elem_type = elem_type;
     ep->name = name;
     ep->sort_index = next_sort_index++;
+    set_kind_fields(ep);
+    if (!name.empty()) {
+        // Same `name` field every loaded element gets (FieldDefinitions.Name)
+        // -- a runtime-created timer reads this.name to destroy itself.
+        Value nv;
+        nv.type = Value::Type::String;
+        nv.str = name;
+        ep->set_field("name", nv);
+    }
     // Every runtime-created element inherits its implicit default type (lowest
     // priority), then the caller's explicit type -- QuestViva
     // ObjectFactory.CreateObject inserts the default type at the front of
@@ -554,6 +604,7 @@ struct Loader {
         ep->name = name;
         ep->anonymous = anonymous;
         ep->sort_index = world.next_sort_index++;
+        set_kind_fields(ep);
         // Expose the element id as a `name` field (QuestViva's
         // FieldDefinitions.Name). Core reads obj.name / cmd.name pervasively --
         // notably as the RegexCache key in HandleSingleCommand -- so an empty
@@ -1117,6 +1168,9 @@ struct Loader {
             error("unrecognised attribute type '" + type + "' in " +
                   owner->name + "." + attr);
         }
+        // A loaded collection owns its backing even when empty (reference
+        // semantics -- see Value::ensure_backing).
+        v.ensure_backing();
         owner->set_field(attr, std::move(v));
     }
 
