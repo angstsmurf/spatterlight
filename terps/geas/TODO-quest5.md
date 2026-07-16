@@ -1,5 +1,56 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, panes — UpdateLists port + side pane / status banner)
+
+- **The panes are live** (milestone 5's third slice): a port of QuestViva's
+  `UpdateListsAsync` runs at every turn boundary — send_command /
+  set_menu_response / set_question_response / finish_wait / tick engine-side
+  (each mirroring the reference's `State != Finished` gates and
+  LogException-only error topology, incl. tick's skip-on-TurnSuspended), plus
+  the Begin/boot call the hosts make (run_session, aslx_replay). The
+  object/exit lists (`GetPlacesObjectsList` + appended exits → "placesobjects",
+  `ScopeInventory` → "inventory", `ScopeExits`/v530+ `GetExitsList` → "exits",
+  each row a QuestViva `ListData`: GetListDisplayAlias text, display verbs
+  incl. the pre-v520 inventoryverbs/displayverbs field fallback, element name,
+  GetDisplayAlias) are computed ONLY when the new `Interp::update_list` hook is
+  subscribed — QuestViva skips them when its UpdateList event is null, and the
+  oracle never subscribes, so headless parity costs nothing.
+  `UpdateStatusAttributes` runs REGARDLESS (the oracle ran it every turn;
+  goldens stayed byte-identical) and lands in `Interp::update_status` via BOTH
+  status channels: modern Core's `JS.updateStatus` and the pre-JS
+  `request (SetStatus, text)` older embedded Cores use (Caught! overrides
+  UpdateStatusAttributes with the old implementation — newlines normalised to
+  `<br/>` so the hook sees one contract). `request (UpdateLocation, ...)` and
+  `request (SetPanelContents, ...)` route to their JS-twin hooks the same way;
+  request data is only evaluated when a hook consumes it.
+- **Glk side** (aslxglk.cc): a right-hand side pane in the classic runner's
+  objwin style (20% split + 2px divider, opened only when something is listed,
+  probed at startup so the engine hook is only subscribed when the host can
+  split — CheapGlk harnesses keep the null-subscriber path). Sections
+  localized via the `[InventoryLabel]`/`[PlacesObjectsLabel]`/`[CompassLabel]`
+  templates; compass-direction exits (game.compassdirections, matching the
+  reference UI's filter) leave "Places and Objects" and form the Compass
+  section. Every item is a hyperlink: objects run their first display verb
+  ("Look at hat"), compass exits send the direction — clicks land as typed
+  commands through the existing link machinery (pane link ids live above
+  0x40000000). Status attributes show right-aligned in the banner
+  ("Score: 0 | Health: 100%"); the room name now prefers Core's own
+  `JS.updateLocation` string (CapFirst(GetDisplayName(...))) with a
+  `player`-object fallback for v500-era games that embed pre-JS libraries and
+  never set game.pov (Myothian's blank banner). **ASLEvent hyperlinks now run
+  the faithful `Interp::send_event`** (SendEventCore: missing-handler print,
+  v540..579 FinishTurn, pane refresh) instead of a bare call_function; the
+  replayer's `event:` step uses it too (qvh grammar parity — no golden uses
+  it yet).
+- Verified: goldens 16/17 byte-identical (ICM = the documented artifact),
+  `make check` + ASan/UBSan green (`test_update_lists` covers lists/status/
+  send_event), corpus still 50-load-0-fail / 49-boot-0-error WITH the pane
+  hooks subscribed, Myothian + Dream Pieces + Caught! verified in the app
+  (pane fills/refreshes, compass click walks west, banner shows room +
+  score/health, per-room art still draws inline).
+- Still open in presentation: `<backgroundimage>`, babel zip metadata +
+  cover art, Spatterlight autosave/autorestore.
+
 ## Status (2026-07-16, sounds + the command-echo fix)
 
 - **Sounds play in the app** (milestone 5's second slice): `play sound` /
@@ -936,12 +987,15 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       synchronous play blocks on evtype_SoundNotify in the hook (keypress
       skips), which resolves the TurnSuspended semantics against a real
       host. See the top status entry.
-- [~] Panes: the picture frame (SetFramePicture → JS.setPanelContents) is
+- [x] Panes: the picture frame (SetFramePicture → JS.setPanelContents) is
       redirected INLINE (2026-07-16, the Scarier approach — drawn on change,
-      per-room art above the room description). Remaining: compass/inventory/
-      "places and objects"/status attributes → reuse the existing sidebar
-      machinery (`objwin`, `bannerwin` in `geasglk.cc:83-87`); the data
-      arrives as UI update requests (`RequestScript` / `UpdateList` calls).
+      per-room art above the room description). Compass/inventory/"places and
+      objects"/status attributes landed 2026-07-16 (the UpdateLists port —
+      see the top status entry): a quest4-objwin-style side pane with
+      hyperlinked, localized sections, status right-aligned in the banner,
+      room name from JS.updateLocation. Both the JS.* and the pre-JS
+      `request (SetStatus/UpdateLocation/SetPanelContents)` channels route to
+      the same hooks.
 - [ ] `JS.*` calls: implement the handful Core itself uses (`JS.eval` from
       user games gets a one-time warning and is ignored). Games built around
       custom JavaScript UIs are explicitly out of scope — detect and warn.
@@ -1035,7 +1089,8 @@ stays unsupported, as in `quest4.c`.
 5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16; pictures + zip
    resource extraction ✅ 2026-07-16, via the new Glk 0.7.6 IMAGE2 support;
    sounds ✅ 2026-07-16, incl. synchronous-play blocking + the command-echo
-   de-dup): remaining — panes (JS.updateList), `<backgroundimage>`.
+   de-dup; panes ✅ 2026-07-16, the UpdateLists port + side pane / status
+   banner): remaining — `<backgroundimage>`.
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
    app-verified with Dream Pieces): remaining — babel zip metadata/cover,
    a corpus-wide replay gate wired into `make check`.

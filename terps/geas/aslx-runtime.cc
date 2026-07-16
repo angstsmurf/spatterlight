@@ -1502,6 +1502,9 @@ void Interp::send_command(const std::string &command) {
                 }
             }
         }
+        // HandleCommandAsyncInternal ends the turn with a pane refresh (its
+        // std::exception throws are LogException'd inside update_lists).
+        if (!world_.finished) update_lists();
     } catch (const TurnSuspended &) {
         // Synchronous `play sound` mid-command: the rest of the turn --
         // including FinishTurn -- is abandoned (the QuestViva await chain
@@ -1530,6 +1533,10 @@ void Interp::set_menu_response(const std::string *key) {
     }
     run_callback_boundary(cb.body, cb.ctx);
     end_pending_callback();
+    // WorldModel.SetMenuResponse: pane refresh once the chain resolved.
+    try {
+        if (!world_.finished) update_lists();
+    } catch (const TurnSuspended &) {}
 }
 
 void Interp::set_question_response(bool response) {
@@ -1541,6 +1548,10 @@ void Interp::set_question_response(bool response) {
     cb.ctx.locals["result"] = vbool(response);
     run_callback_boundary(cb.body, cb.ctx);
     end_pending_callback();
+    // WorldModel.SetQuestionResponse: pane refresh once the chain resolved.
+    try {
+        if (!world_.finished) update_lists();
+    } catch (const TurnSuspended &) {}
 }
 
 void Interp::finish_wait() {
@@ -1550,6 +1561,161 @@ void Interp::finish_wait() {
     wait_cb_ = PendingCallback{};
     run_callback_boundary(cb.body, cb.ctx);
     end_pending_callback();
+    // WorldModel.FinishWait: refresh the panes once the callback chain
+    // resolved (a park inside update_lists just abandons the refresh).
+    try {
+        if (!world_.finished) update_lists();
+    } catch (const TurnSuspended &) {}
+}
+
+void Interp::send_event(const std::string &name, const std::string &param) {
+    // WorldModel.SendEventCore -- the ASLEvent bridge (hyperlink onclicks).
+    Context ctx;
+    Element *h = world_.find(name);
+    if (!h || h->elem_type != "function") {
+        print_via_core("Error - no handler for event '" + name + "'", ctx);
+        return;
+    }
+    try {
+        call_function(name, {vstr(param)}, &ctx);
+        // SendEventCore's version switch: pre-540 stops after the handler;
+        // 540..579 runs TryFinishTurnAsync (LogException-only, like
+        // send_command); then the panes refresh.
+        if (world_.asl_version < 540) return;
+        if (world_.asl_version < 580) {
+            Element *ft = world_.find("FinishTurn");
+            if (ft && ft->elem_type == "function") {
+                try {
+                    call_function("FinishTurn", {}, &ctx);
+                } catch (const std::exception &err) {
+                    log_exception(err.what());
+                }
+            }
+        }
+        if (!world_.finished) update_lists();
+    } catch (const TurnSuspended &) {
+        // synchronous `play sound`: the rest of the event chain is abandoned
+    } catch (const std::exception &) {
+        // reported at the script boundary already; SendEventCore has no catch
+        // of its own, so the throw just kills this fire-and-forget chain
+        // (FinishTurn and the pane refresh are skipped)
+    }
+}
+
+// -- pane updates (WorldModel.UpdateListsAsync port) --------------------------
+
+std::vector<Element *> Interp::objects_in_scope(const std::string &scope) {
+    // GetObjectsInScopeAsync: throws when the scope function is missing
+    // (update_lists' catch turns that into a LogException, like the callers'
+    // catches in the reference).
+    Element *f = world_.find(scope);
+    if (!f || f->elem_type != "function")
+        throw std::runtime_error("No function '" + scope + "'");
+    Context ctx;
+    Value v = call_function(scope, {}, &ctx);
+    std::vector<Element *> out;
+    if (v.list_store)
+        for (const Value &e : *v.list_store)
+            if (e.type == Value::Type::ObjectRef)
+                if (Element *el = world_.find(e.str))
+                    out.push_back(el);
+    return out;
+}
+
+ListData Interp::list_data_for(Element *obj, bool inventory) {
+    ListData d;
+    d.element_name = obj->name;
+    Context ctx;
+
+    // GetDisplayAliasAsync: Core function when present, element name otherwise.
+    Element *gda = world_.find("GetDisplayAlias");
+    d.display_alias = gda && gda->elem_type == "function"
+        ? to_string(call_function("GetDisplayAlias", {vobj(obj->name)}, &ctx))
+        : obj->name;
+
+    // GetListDisplayAliasAsync: the pane label (may carry {}-processed markup).
+    Element *glda = world_.find("GetListDisplayAlias");
+    d.text = glda && glda->elem_type == "function"
+        ? to_string(call_function("GetListDisplayAlias", {vobj(obj->name)}, &ctx))
+        : d.display_alias;
+
+    // Verbs: pre-v520 (or Core-less) reads the inventoryverbs/displayverbs
+    // fields directly; later Core supplies GetDisplayVerbs.
+    Element *gdv = world_.find("GetDisplayVerbs");
+    if (world_.asl_version <= 520 || !gdv || gdv->elem_type != "function") {
+        const Value *verbs =
+            resolve_field(obj, inventory ? "inventoryverbs" : "displayverbs");
+        if (verbs && verbs->list_store)
+            for (const Value &e : *verbs->list_store)
+                d.verbs.push_back(to_string(e));
+    } else {
+        Value verbs = call_function("GetDisplayVerbs", {vobj(obj->name)}, &ctx);
+        if (verbs.list_store)
+            for (const Value &e : *verbs.list_store)
+                d.verbs.push_back(to_string(e));
+    }
+    return d;
+}
+
+std::vector<ListData> Interp::exits_list_data() {
+    // GetExitsListDataAsync: ScopeExits, or GetExitsList on v530+.
+    std::string scope = "ScopeExits";
+    Element *gel = world_.find("GetExitsList");
+    if (world_.asl_version >= 530 && gel && gel->elem_type == "function")
+        scope = "GetExitsList";
+    std::vector<ListData> out;
+    for (Element *e : objects_in_scope(scope))
+        out.push_back(list_data_for(e, false));
+    return out;
+}
+
+void Interp::update_status_variables() {
+    // UpdateStatusVariablesAsync: Core's UpdateStatusAttributes ends in
+    // JS.updateStatus. Its own catch is LogException-only.
+    Element *f = world_.find("UpdateStatusAttributes");
+    if (!f || f->elem_type != "function") return;
+    Context ctx;
+    try {
+        call_function("UpdateStatusAttributes", {}, &ctx);
+    } catch (const std::exception &err) {
+        log_exception(err.what());
+    }
+}
+
+void Interp::update_lists() {
+    // UpdateListsAsync: the object/exit lists only exist for a subscriber
+    // (QuestViva skips them when the UpdateList event is null -- the oracle
+    // never subscribes, so headless parity costs nothing); the status
+    // attributes run regardless. A throw from the list computations skips
+    // the status refresh, mirroring the propagation in the reference, and is
+    // logged-not-printed by the callers' LogException-only catches.
+    // (ElementMenuVerbs -- live verb menus for inline {object:} links -- is
+    // deliberately not ported: the Glk front-end has no pop-up verb menus.)
+    try {
+        if (update_list) {
+            std::vector<ListData> places;
+            for (Element *e : objects_in_scope("GetPlacesObjectsList"))
+                places.push_back(list_data_for(e, false));
+            // The "Places and Objects" list is generated by function, so the
+            // exits are appended too; the UI is responsible for filtering the
+            // compass directions out so they only show in the compass.
+            for (ListData &d : exits_list_data())
+                places.push_back(std::move(d));
+            update_list("placesobjects", places);
+
+            std::vector<ListData> inv;
+            for (Element *e : objects_in_scope("ScopeInventory"))
+                inv.push_back(list_data_for(e, true));
+            update_list("inventory", inv);
+
+            // UpdateExitsListAsync (computed twice, like the reference).
+            update_list("exits", exits_list_data());
+        }
+    } catch (const std::exception &err) {
+        log_exception(err.what());
+        return;
+    }
+    update_status_variables();
 }
 
 // -- timers (TimerRunner port) ------------------------------------------------
@@ -1635,6 +1801,7 @@ void Interp::tick(int seconds) {
                 due.emplace_back(t, scr->str);
         }
     }
+    bool suspended = false;
     for (auto &d : due) {
         if (world_.finished) break;
         Context local;
@@ -1643,9 +1810,17 @@ void Interp::tick(int seconds) {
             run_script(d.second, local);
         } catch (const TurnSuspended &) {
             // A suspended timer script suspends the whole batch
-            // (TickAsyncInternal's await chain).
+            // (TickAsyncInternal's await chain) -- including the pane refresh.
+            suspended = true;
             break;
         }
+    }
+    // TickAsyncInternal refreshes the panes after the batch (inside the same
+    // LogException-only try, which update_lists provides itself).
+    if (!suspended) {
+        try {
+            update_lists();
+        } catch (const TurnSuspended &) {}
     }
 }
 
@@ -2361,6 +2536,10 @@ bool Interp::exec_statement_command(const std::string &name,
             print(to_string(ev(0)));
         else if (fn == "setPanelContents" && !args.empty() && set_panel_contents)
             set_panel_contents(to_string(ev(0)));
+        else if (fn == "updateStatus" && !args.empty() && update_status)
+            update_status(to_string(ev(0)));
+        else if (fn == "updateLocation" && !args.empty() && update_location)
+            update_location(to_string(ev(0)));
         return true;
     }
 
@@ -2443,14 +2622,37 @@ bool Interp::exec_statement_command(const std::string &name,
         // `save` command runs `request (RequestSave, "")` and the UI is
         // expected to capture + persist the game (PlayerUI.RequestSave). The
         // newer standalone `requestsave` command is the same request.
-        bool is_save = name == "requestsave" ||
-                       (!args.empty() && args[0]->kind == Expr::Kind::Var &&
-                        args[0]->str == "RequestSave");
-        if (is_save) {
+        std::string req =
+            name == "requestsave"
+                ? "RequestSave"
+                : (!args.empty() && args[0]->kind == Expr::Kind::Var
+                       ? args[0]->str : "");
+        if (req == "RequestSave") {
             if (request_save)
                 request_save();
             else
                 warn_once("requestsave", "Saving is not supported here.");
+        } else if (req == "SetStatus" && update_status) {
+            // The pre-JS status channel: games embedding an older Core send
+            // `request (SetStatus, text)` (PlayerUI.SetStatusText) where the
+            // modern one calls JS.updateStatus. The data joins lines with
+            // real newlines ("\n" string escapes); normalise to <br/> so the
+            // hook sees the JS contract. Data is only evaluated when a hook
+            // will consume it (RequestScript always evaluates; headless
+            // parity keeps the old ignore-unevaluated behaviour).
+            std::string data = to_string(ev(1)), html;
+            for (char c : data) {
+                if (c == '\n') html += "<br/>";
+                else html += c;
+            }
+            update_status(html);
+        } else if (req == "UpdateLocation" && update_location) {
+            // PlayerUI.LocationUpdated -- same pre-JS pairing as SetStatus.
+            update_location(to_string(ev(1)));
+        } else if (req == "SetPanelContents" && set_panel_contents) {
+            // PlayerUI.SetPanelContents -- the picture frame, like
+            // JS.setPanelContents.
+            set_panel_contents(to_string(ev(1)));
         }
         return true;
     }

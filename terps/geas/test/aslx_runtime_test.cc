@@ -824,6 +824,69 @@ static void test_input_model() {
     CHECK_STR(Interp::to_string(in.eval("tophat.parent", boot)), "player");
 }
 
+// UpdateListsAsync port: the pane lists (only with an update_list
+// subscriber), the JS.updateStatus route, and the SendEventCore bridge.
+static void test_update_lists() {
+    World w;
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    CHECK(ok);
+
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+
+    std::map<std::string, std::vector<ListData>> lists;
+    in.update_list = [&](const char *type, const std::vector<ListData> &items) {
+        lists[type] = items;
+    };
+    std::string status;
+    in.update_status = [&](const std::string &html) { status = html; };
+
+    Context boot;
+    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+    if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    in.drain_on_ready();
+    w.errors.clear();
+
+    auto has = [&](const char *list, const char *name) {
+        for (const ListData &d : lists[list])
+            if (d.element_name == name)
+                return true;
+        return false;
+    };
+
+    // A command turn refreshes every list (HandleCommandAsyncInternal ->
+    // UpdateListsAsync).
+    in.send_command("take apple");
+    CHECK(has("inventory", "apple"));
+    CHECK(!has("placesobjects", "apple"));      // held, no longer in the room
+    CHECK(has("placesobjects", "chest"));
+    CHECK(!has("placesobjects", "player"));     // GetPlacesObjectsList excludes pov
+    // The exits are appended to "Places and Objects" (the UI filters the
+    // compass directions out) and also form their own list.
+    CHECK(lists["exits"].size() == 1);
+    CHECK_STR(lists["exits"][0].display_alias, "north");
+    CHECK(has("placesobjects", lists["exits"][0].element_name.c_str()));
+    // v580 Core supplies GetDisplayVerbs ("Look at"/"Drop"/...).
+    CHECK(!lists["inventory"][0].verbs.empty());
+
+    // Status attributes: Core's UpdateStatusAttributes runs every turn and
+    // lands in JS.updateStatus.
+    Context ctx;
+    in.run_script("game.statusattributes = NewStringDictionary()\n"
+                  "dictionary add (game.statusattributes, \"score\", \"\")\n"
+                  "game.score = 7", ctx);
+    in.send_command("look");
+    CHECK_STR(status, "Score: 7");
+    CHECK(w.errors.empty());
+
+    // SendEventCore: a missing handler reports like the reference.
+    out.clear();
+    in.send_event("NoSuchHandler", "param");
+    CHECK(out.find("Error - no handler for event 'NoSuchHandler'") !=
+          std::string::npos);
+}
+
 // The 2026-07-16 golden-parity batch: timers, turn suspension, clone-on-set,
 // v530 null-removal, per-expression RNG, create exit, Clone, expression
 // ShowMenu. Each mirrors a QuestViva behaviour verified against a golden.
@@ -1188,6 +1251,7 @@ int main() {
     test_coreboot_runs();
     test_command_driving();
     test_input_model();
+    test_update_lists();
     test_rng_determinism();
 
     if (g_failures == 0) {

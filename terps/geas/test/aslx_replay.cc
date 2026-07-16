@@ -118,6 +118,9 @@ int main(int argc, char **argv) {
     try {
         if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
         if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+        // BeginInternalAsync ends with UpdateListsAsync -- with no UpdateList
+        // subscriber that is just UpdateStatusAttributes, exactly like qvh.
+        in.update_lists();
     } catch (const TurnSuspended &) {
         // synchronous `play sound` during boot: the rest of Begin is abandoned
     }
@@ -236,10 +239,8 @@ int main(int argc, char **argv) {
             size_t sc = rest.find(';');
             std::string name = sc == std::string::npos ? rest : rest.substr(0, sc);
             std::string param = sc == std::string::npos ? "" : rest.substr(sc + 1);
-            try {
-                if (w.find(name)) in.call_function(name, {vstr(param)}, &boot);
-            } catch (const TurnSuspended &) {
-            }
+            // qvh: await world.SendEvent(name, param)
+            in.send_event(name, param);
         } else {
             if (echo) line_out("> " + cmd);
             in.send_command(cmd);

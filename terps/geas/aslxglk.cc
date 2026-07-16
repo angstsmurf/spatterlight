@@ -70,10 +70,36 @@ struct LinkAction {
 };
 std::vector<LinkAction> g_links;
 
+/* Right-hand pane: Quest's Inventory / "Places and Objects" / compass lists
+ * (WorldModel.UpdateListsAsync -> the update_list host hook), shown the way
+ * the classic runner shows its objwin -- opened only when there is something
+ * to list, with a thin graphics divider, closed otherwise. */
+winid_t gobjwin = nullptr;
+winid_t gdivider = nullptr;
+bool g_use_objpane = false;          /* host can split; probed at startup */
+std::vector<ListData> g_pane_inv, g_pane_places, g_pane_exits;
+bool g_pane_dirty = false;           /* lists changed since the last redraw */
+std::vector<LinkAction> g_pane_links;   /* rebuilt on every pane redraw */
+/* Pane hyperlink values live above the main-window link ids, which only ever
+ * grow one per rendered cmdlink and never get near this. */
+const glui32 kPaneLinkBase = 0x40000000;
+/* JS.updateStatus payload flattened for the banner ("Score: 3 | Health: 90%"),
+ * shown right-aligned next to the room name like the classic runner. */
+std::string g_status_line;
+/* JS.updateLocation payload -- Core's own "where am I" string, preferred over
+ * resolving game.pov.parent by hand (empty for old pre-JS games). */
+std::string g_location_line;
+
 /* Inline image drawing (defined in the resources section below): draw the
  * named game resource in the main window, original size but never wider
  * than the window. False when unresolvable or images are unsupported. */
 bool draw_image_inline(const std::string &name);
+
+/* Pane redraw (defined after the HTML renderer): repaints the side pane from
+ * the stored lists when they changed; safe to call anywhere no line input is
+ * pending. */
+void redraw_side_pane(Interp &in);
+void fill_pane_divider();
 
 /* ---------------------------------------------------------------- output -- */
 
@@ -373,19 +399,81 @@ void render_html(const std::string &html)
 
 /* ---------------------------------------------------------------- banner -- */
 
-/* Current room = game.pov.parent, its alias if it has one.  Purely cosmetic;
- * any resolution failure just blanks the banner. */
+/* Write a UTF-8 string to a byte stream per-codepoint so accents survive
+ * (the byte-stream API is Latin-1). */
+void put_stream_utf8(strid_t s, const std::string &str)
+{
+    for (size_t i = 0; i < str.size();) {
+        unsigned char c = (unsigned char) str[i];
+        glui32 cp = c;
+        int len = 1;
+        if (c >= 0xf0) len = 4;
+        else if (c >= 0xe0) len = 3;
+        else if (c >= 0xc0) len = 2;
+        if (len > 1 && i + len <= str.size()) {
+            cp = c & (0x7f >> len);
+            for (int k = 1; k < len; k++)
+                cp = (cp << 6) | ((unsigned char) str[i + k] & 0x3f);
+        }
+        glk_put_char_stream_uni(s, cp);
+        i += len;
+    }
+}
+
+size_t utf8_cp_len(const std::string &s)
+{
+    size_t n = 0;
+    for (size_t i = 0; i < s.size(); i++)
+        if (((unsigned char) s[i] & 0xc0) != 0x80)
+            n++;
+    return n;
+}
+
+/* Flatten a scrap of game HTML to plain text for the banner / pane labels:
+ * tags stripped, entities decoded.  Newlines (from <br/>) become the given
+ * separator. */
+std::string plain_text(const std::string &html, const char *brsep = " ")
+{
+    std::string out;
+    bool intag = false;
+    for (size_t i = 0; i < html.size(); i++) {
+        char c = html[i];
+        if (intag) {
+            if (c == '>') intag = false;
+            continue;
+        }
+        if (c == '<') {
+            /* <br> variants become the separator */
+            std::string t = lower(html.substr(i, 5));
+            if (t.compare(0, 3, "<br") == 0 && !out.empty())
+                out += brsep;
+            intag = true;
+            continue;
+        }
+        out += c;
+    }
+    return decode_entities(out);
+}
+
+/* Current room: what Core last sent through JS.updateLocation
+ * (CapFirst(GetDisplayName(game.pov.parent)) -- the reference player's
+ * location bar).  Old v500-era games embed pre-JS libraries that never call
+ * it, so fall back to resolving game.pov.parent -- or the conventional
+ * `player` object, Core's own StartGame fallback, since those games predate
+ * game.pov too.  Purely cosmetic; any resolution failure blanks the banner. */
 void update_banner(Interp &in)
 {
     World &w = in.world();
-    std::string room;
-    Element *game = nullptr;
-    for (Element *r : w.roots)
-        if (r->elem_type == "game") { game = r; break; }
-    if (game) {
-        const Value *pov = in.resolve_field(game, "pov");
+    std::string room = g_location_line;
+    if (room.empty()) {
+        Element *game = nullptr;
+        for (Element *r : w.roots)
+            if (r->elem_type == "game") { game = r; break; }
+        const Value *pov = game ? in.resolve_field(game, "pov") : nullptr;
         Element *pl = pov && pov->type == Value::Type::ObjectRef
                           ? w.find(pov->str) : nullptr;
+        if (!pl)
+            pl = w.find("player");
         const Value *par = pl ? in.resolve_field(pl, "parent") : nullptr;
         Element *rm = par && par->type == Value::Type::ObjectRef
                           ? w.find(par->str) : nullptr;
@@ -394,10 +482,10 @@ void update_banner(Interp &in)
             room = alias && alias->type == Value::Type::String ? alias->str
                                                                : rm->name;
         }
+        if (!room.empty())
+            room[0] = (char) toupper((unsigned char) room[0]);
     }
-    if (!room.empty())
-        room[0] = (char) toupper((unsigned char) room[0]);
-    g_room_name = room;
+    g_room_name = plain_text(room);
 
     if (!gbanner)
         return;
@@ -409,22 +497,169 @@ void update_banner(Interp &in)
     for (glui32 x = 0; x < width; x++)
         glk_put_char_stream(s, ' ');
     glk_window_move_cursor(gbanner, 1, 0);
-    /* The byte-stream API is Latin-1; write per-char so accents survive. */
-    for (size_t i = 0; i < g_room_name.size();) {
-        unsigned char c = (unsigned char) g_room_name[i];
-        glui32 cp = c;
-        int len = 1;
-        if (c >= 0xf0) len = 4;
-        else if (c >= 0xe0) len = 3;
-        else if (c >= 0xc0) len = 2;
-        if (len > 1 && i + len <= g_room_name.size()) {
-            cp = c & (0x7f >> len);
-            for (int k = 1; k < len; k++)
-                cp = (cp << 6) | ((unsigned char) g_room_name[i + k] & 0x3f);
+    put_stream_utf8(s, g_room_name);
+    /* Status attributes (JS.updateStatus: "Score: 3 | Health: 90%"),
+     * right-aligned after the room name when they fit. */
+    if (!g_status_line.empty()) {
+        size_t len = utf8_cp_len(g_status_line);
+        if (utf8_cp_len(g_room_name) + len + 4 < width) {
+            glk_window_move_cursor(gbanner, width - (glui32) len - 1, 0);
+            put_stream_utf8(s, g_status_line);
         }
-        glk_put_char_stream_uni(s, cp);
-        i += len;
     }
+}
+
+/* ------------------------------------------------------------- side pane -- */
+
+/* Open the right-hand pane (and its divider) if the host supports splits.
+ * Mirrors the classic runner's objwin arrangement: 20% of the main text's
+ * width, with a 2px graphics divider drawn in the text colour. */
+void ensure_pane_open()
+{
+    if (gobjwin || !g_use_objpane)
+        return;
+    gobjwin = glk_window_open(gwin, winmethod_Right | winmethod_Proportional,
+                              20, wintype_TextBuffer, 0);
+    if (gobjwin && glk_gestalt(gestalt_Graphics, 0))
+        gdivider = glk_window_open(gobjwin, winmethod_Left | winmethod_Fixed,
+                                   2, wintype_Graphics, 0);
+    fill_pane_divider();
+}
+
+/* Close the pane so the main window reclaims the width.  The divider is a
+ * child split of the pane, so close it first. */
+void close_side_pane()
+{
+    if (gdivider) { glk_window_close(gdivider, nullptr); gdivider = nullptr; }
+    if (gobjwin)  { glk_window_close(gobjwin, nullptr);  gobjwin = nullptr; }
+}
+
+/* Paint the divider in the main text colour.  Graphics windows are blanked
+ * on resize, so Arrange/Redraw events call this again. */
+void fill_pane_divider()
+{
+    if (!gdivider)
+        return;
+    glui32 color;
+    if (!glk_style_measure(gwin, style_Normal, stylehint_TextColor, &color))
+        color = 0;
+    glui32 w = 0, h = 0;
+    glk_window_get_size(gdivider, &w, &h);
+    glk_window_fill_rect(gdivider, color, 0, 0, w, h);
+}
+
+/* A registered [template] text, later registration winning (like the loader's
+ * replace_templates). */
+std::string template_text_or(World &w, const char *name, const char *fallback)
+{
+    for (auto it = w.templates.rbegin(); it != w.templates.rend(); ++it)
+        if (it->first == name)
+            return it->second;
+    return fallback;
+}
+
+/* game.compassdirections (localized at load time via the [CompassN]...
+ * templates): the reference UI filters these aliases out of "Places and
+ * Objects" so they only appear in the compass. */
+std::vector<std::string> compass_directions(Interp &in)
+{
+    std::vector<std::string> dirs;
+    Element *game = nullptr;
+    for (Element *r : in.world().roots)
+        if (r->elem_type == "game") { game = r; break; }
+    const Value *v = game ? in.resolve_field(game, "compassdirections") : nullptr;
+    if (v && v->list_store)
+        for (const Value &e : *v->list_store)
+            if (e.type == Value::Type::String)
+                dirs.push_back(lower(e.str));
+    return dirs;
+}
+
+/* Repaint the side pane from the stored lists when they changed.  The pane is
+ * shown only while it has something to list (Quest's panes are permanent, but
+ * an empty sidebar is dead width in a Glk layout -- the classic runner's
+ * objwin behaves the same way).  Each item is a hyperlink: objects run their
+ * first display verb ("Look at hat"), exits go their direction. */
+void redraw_side_pane(Interp &in)
+{
+    if (!g_use_objpane || !g_pane_dirty)
+        return;
+    g_pane_dirty = false;
+
+    std::vector<std::string> dirs = compass_directions(in);
+    auto is_dir = [&](const ListData &d) {
+        std::string a = lower(d.display_alias);
+        for (const std::string &x : dirs)
+            if (x == a)
+                return true;
+        return false;
+    };
+    std::vector<const ListData *> inv, places, exits;
+    for (const ListData &d : g_pane_inv)
+        inv.push_back(&d);
+    for (const ListData &d : g_pane_places)
+        if (!is_dir(d))
+            places.push_back(&d);
+    for (const ListData &d : g_pane_exits)
+        if (is_dir(d))
+            exits.push_back(&d);
+
+    if (inv.empty() && places.empty() && exits.empty()) {
+        close_side_pane();
+        return;
+    }
+    ensure_pane_open();
+    if (!gobjwin) {
+        /* The host cannot split after all; stop asking the engine for lists. */
+        g_use_objpane = false;
+        return;
+    }
+
+    glk_window_clear(gobjwin);
+    g_pane_links.clear();
+    strid_t s = glk_window_get_stream(gobjwin);
+    bool first = true;
+
+    auto section = [&](const std::string &header,
+                       const std::vector<const ListData *> &items,
+                       bool exit_links) {
+        if (items.empty())
+            return;
+        if (!first)
+            glk_put_char_stream(s, '\n');
+        first = false;
+        glk_set_style_stream(s, style_Subheader);
+        put_stream_utf8(s, header);
+        glk_put_char_stream(s, '\n');
+        glk_set_style_stream(s, style_Normal);
+        for (const ListData *d : items) {
+            std::string label = plain_text(d->text);
+            if (label.empty())
+                label = d->display_alias;
+            if (g_hyperlinks) {
+                LinkAction act;
+                act.command = exit_links
+                    ? d->display_alias
+                    : (d->verbs.empty() ? std::string("look at")
+                                        : plain_text(d->verbs[0])) +
+                          " " + d->display_alias;
+                g_pane_links.push_back(act);
+                glk_set_hyperlink_stream(
+                    s, kPaneLinkBase + (glui32) g_pane_links.size() - 1);
+            }
+            put_stream_utf8(s, label);
+            if (g_hyperlinks)
+                glk_set_hyperlink_stream(s, 0);
+            glk_put_char_stream(s, '\n');
+        }
+    };
+
+    World &w = in.world();
+    section(template_text_or(w, "InventoryLabel", "Inventory"), inv, false);
+    section(template_text_or(w, "PlacesObjectsLabel", "Places and Objects"),
+            places, false);
+    section(template_text_or(w, "CompassLabel", "Compass"), exits, true);
+    fill_pane_divider();
 }
 
 /* ----------------------------------------------------------------- input -- */
@@ -483,19 +718,13 @@ void echo_metaverb(const std::string &cmd)
     echo_input(cmd);
 }
 
-/* Fire an ASLEvent hyperlink (Core menu options): call the named function
- * with its single parameter, as WebPlayer's ASLEvent bridge does. */
+/* Fire an ASLEvent hyperlink (Core menu options): WorldModel.SendEventCore,
+ * which also runs FinishTurn (v540..579) and refreshes the panes -- exactly
+ * what the reference player does with an onclick.  send_event catches its
+ * own throws. */
 void run_asl_event(Interp &in, const LinkAction &act)
 {
-    Context ctx;
-    try {
-        if (in.world().find(act.event_func))
-            in.call_function(act.event_func, {vstr(act.event_param)}, &ctx);
-    } catch (const TurnSuspended &) {
-        /* synchronous `play sound`: rest of the handler abandoned */
-    } catch (const std::exception &) {
-        /* reported at the script boundary already */
-    }
+    in.send_event(act.event_func, act.event_param);
     in.drain_on_ready();
 }
 
@@ -522,8 +751,11 @@ InResult read_line(Interp &in, bool echo)
     if (g_manual_echo)
         glk_set_echo_line_event(gwin, 0);
     glk_request_line_event_uni(gwin, buf, 255, 0);
-    if (g_hyperlinks)
+    if (g_hyperlinks) {
         glk_request_hyperlink_event(gwin);
+        if (gobjwin)
+            glk_request_hyperlink_event(gobjwin);
+    }
     for (;;) {
         event_t ev;
         glk_select(&ev);
@@ -549,8 +781,21 @@ InResult read_line(Interp &in, bool echo)
                 run_asl_event(in, act);
                 return {InEnd::Event, ""};
             }
-            if (g_hyperlinks)
+            if (ev.win == gobjwin && ev.val1 >= kPaneLinkBase &&
+                ev.val1 - kPaneLinkBase < g_pane_links.size()) {
+                /* A side-pane item: run its command as if typed. */
+                event_t ce;
+                glk_cancel_line_event(gwin, &ce);
+                const LinkAction &act = g_pane_links[ev.val1 - kPaneLinkBase];
+                if (g_manual_echo && echo)
+                    echo_input(act.command);
+                return {InEnd::Command, act.command};
+            }
+            if (g_hyperlinks) {
                 glk_request_hyperlink_event(gwin);
+                if (gobjwin)
+                    glk_request_hyperlink_event(gobjwin);
+            }
             break;
         case evtype_Timer: {
             /* Cancel first: Glk forbids output with a live line request.
@@ -560,16 +805,21 @@ InResult read_line(Interp &in, bool echo)
             in.tick(1);
             in.drain_on_ready();
             update_banner(in);
+            redraw_side_pane(in);
             if (engine_state_pending(in))
                 return {InEnd::State, ""};
             glk_request_line_event_uni(gwin, buf, 255, ce.val1);
-            if (g_hyperlinks)
+            if (g_hyperlinks) {
                 glk_request_hyperlink_event(gwin);
+                if (gobjwin)
+                    glk_request_hyperlink_event(gobjwin);
+            }
             break;
         }
         case evtype_Arrange:
         case evtype_Redraw:
             update_banner(in);
+            fill_pane_divider();
             break;
         }
     }
@@ -587,13 +837,16 @@ void read_keypress(Interp &in)
         if (ev.type == evtype_Timer) {
             in.tick(1);
             update_banner(in);
+            redraw_side_pane(in);
             if (in.world().finished || !in.pending_wait()) {
                 glk_cancel_char_event(gwin);
                 return;
             }
         }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
             update_banner(in);
+            fill_pane_divider();
+        }
     }
 }
 
@@ -1214,6 +1467,28 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         return run_menu_ui(in, m, key);
     };
     in.request_save = [&in] { do_save_ui(in); };
+    /* Pane lists (UpdateListsAsync): only subscribe when this Glk could open
+     * a side pane at startup -- an unset hook skips the whole scope
+     * computation, like QuestViva with no UpdateList listener.  The hook just
+     * snapshots; redraw_side_pane repaints at the next safe point. */
+    if (g_use_objpane) {
+        in.update_list = [](const char *type, const std::vector<ListData> &items) {
+            if (strcmp(type, "inventory") == 0)
+                g_pane_inv = items;
+            else if (strcmp(type, "placesobjects") == 0)
+                g_pane_places = items;
+            else if (strcmp(type, "exits") == 0)
+                g_pane_exits = items;
+            g_pane_dirty = true;
+        };
+    }
+    /* Status attributes land in the banner, next to the room name. */
+    in.update_status = [](const std::string &html) {
+        g_status_line = plain_text(html, " | ");
+    };
+    in.update_location = [](const std::string &text) {
+        g_location_line = plain_text(text);
+    };
     /* Pre-540 `picture` shows the image through the UI directly (no <img>
      * print), and JS.setPanelContents is the picture frame. Only claim them
      * when this Glk can actually draw -- unset, the engine keeps its
@@ -1272,6 +1547,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
         if (!restored && w.find("StartGame"))
             in.call_function("StartGame", {}, &boot);
+        /* BeginInternalAsync ends with UpdateListsAsync: first pane fill +
+         * status attributes (a park above skips it, like the await chain). */
+        in.update_lists();
     } catch (const TurnSuspended &) {
         /* synchronous `play sound` during boot: rest of Begin abandoned */
     }
@@ -1282,6 +1560,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     in.drain_on_ready();
     flush_warnings(w, warnings_seen);
     update_banner(in);
+    redraw_side_pane(in);
     update_timer_request(in);
 
     while (!w.finished) {
@@ -1336,6 +1615,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         in.drain_on_ready();
         flush_warnings(w, warnings_seen);
         update_banner(in);
+        redraw_side_pane(in);
         update_timer_request(in);
     }
 
@@ -1407,6 +1687,14 @@ extern "C" void aslx_glk_main(const char *storyfile)
     g_hyperlinks = glk_gestalt(gestalt_Hyperlinks, 0) &&
                    glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
 
+    /* Probe for side-pane support (CheapGlk can't split), then close it:
+     * redraw_side_pane manages the pane dynamically, and the engine only
+     * computes the pane lists when the probe succeeded. */
+    g_use_objpane = true;
+    ensure_pane_open();
+    g_use_objpane = (gobjwin != nullptr);
+    close_side_pane();
+
     g_storyfile = storyfile;
     init_resources(storyfile);
     std::string restore_data;
@@ -1420,5 +1708,14 @@ extern "C" void aslx_glk_main(const char *storyfile)
         g_links.clear();
         g_bold = g_italic = g_under = 0;
         apply_style();
+        /* No pane content survives the session either. */
+        close_side_pane();
+        g_pane_inv.clear();
+        g_pane_places.clear();
+        g_pane_exits.clear();
+        g_pane_links.clear();
+        g_pane_dirty = false;
+        g_status_line.clear();
+        g_location_line.clear();
     }
 }

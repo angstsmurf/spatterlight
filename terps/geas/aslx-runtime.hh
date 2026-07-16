@@ -73,6 +73,17 @@ struct MenuData {
     bool allow_cancel = false;
 };
 
+// One row of a UI pane list (QuestViva's ListData): the pane label (already
+// run through GetListDisplayAlias, so it may carry {}-processed markup), the
+// object's display verbs for a verb menu, the element id, and the plain
+// display alias (what a typed command would call it).
+struct ListData {
+    std::string text;
+    std::vector<std::string> verbs;
+    std::string element_name;
+    std::string display_alias;
+};
+
 // A .NET-flavoured regex compiled for std::regex, plus the ordered names of its
 // capture groups (empty string for an unnamed group). Defined in the .cc; the
 // parser primitives (IsRegexMatch/GetMatchStrength/Populate) use it. Mirrors
@@ -202,6 +213,44 @@ public:
 
     // True when a `get input` callback will consume the next send_command line.
     bool command_override() const { return command_override_; }
+
+    // ASLEvent bridge (WorldModel.SendEventCore): call the named <function>
+    // with one parameter -- how the reference player routes hyperlink onclicks
+    // (Core ShowMenu options). Prints "Error - no handler ..." when the
+    // function is missing; on v540+ runs FinishTurn (pre-v580) and refreshes
+    // the panes afterwards, exactly like a real command.
+    void send_event(const std::string &name, const std::string &param);
+
+    // -- pane updates (WorldModel.UpdateListsAsync) ---------------------------
+    // After every turn boundary (send_command / menu / question / wait / tick;
+    // hosts add the boot and post-restore calls, like Begin does) the engine
+    // refreshes the UI panes: the places-and-objects / inventory / exits lists
+    // (only when an update_list subscriber exists -- QuestViva skips the whole
+    // computation when the UpdateList event is null, and the oracle never
+    // subscribes) and then Core's UpdateStatusAttributes, which runs REGARDLESS
+    // of subscribers (it ends in JS.updateStatus). Any failure is
+    // LogException-only: logged, never printed, never fed to the breaker.
+    void update_lists();
+
+    // Host hook for the pane lists. listtype is "placesobjects" (Quest's
+    // "Places and Objects": GetPlacesObjectsList scope plus ALL exits -- the
+    // UI filters compass directions out so they only show in the compass),
+    // "inventory" (ScopeInventory), or "exits" (ScopeExits/GetExitsList,
+    // including compass directions). Unset, the lists are never computed.
+    std::function<void(const char *listtype,
+                       const std::vector<ListData> &)> update_list;
+
+    // Host hook for JS.updateStatus -- Core's UpdateStatusAttributes joins the
+    // configured status attributes ("Score: 3" etc.) with "<br/>" and sends
+    // them here every turn. Unset, the call is ignored (arg unevaluated).
+    std::function<void(const std::string &html)> update_status;
+
+    // Host hook for JS.updateLocation -- Core sends
+    // CapFirst(GetDisplayName(game.pov.parent)) at InitInterface and with
+    // every room description; the reference player shows it above the
+    // transcript. Old (v500-era) games with embedded libraries never call it.
+    // Unset, the call is ignored (arg unevaluated).
+    std::function<void(const std::string &text)> update_location;
 
     // -- undo (UndoLogger port) ----------------------------------------------
     // The logger only records while a transaction is open. Core's parser opens
@@ -404,6 +453,20 @@ private:
     // FinishTurn quietly does nothing instead of wedging the session (The
     // Bony King's pov.parent=null scene relies on this to recover).
     void log_exception(const std::string &what);
+
+    // -- pane update internals (UpdateListsAsync) -----------------------------
+    // GetObjectsInScopeAsync: run the named scope <function>, expect a list of
+    // object refs. Throws (caught by update_lists) when the function is missing.
+    std::vector<Element *> objects_in_scope(const std::string &scope);
+    // One pane row (the ListData constructor calls): GetListDisplayAlias /
+    // GetDisplayAlias / GetDisplayVerbs, with the pre-v520 (or Core-less)
+    // fallback onto the inventoryverbs/displayverbs fields.
+    ListData list_data_for(Element *obj, bool inventory);
+    // GetExitsListDataAsync: ScopeExits, or GetExitsList on v530+.
+    std::vector<ListData> exits_list_data();
+    // UpdateStatusVariablesAsync: run Core's UpdateStatusAttributes.
+    void update_status_variables();
+
     int script_depth_ = 0;
     int script_error_count_ = 0;
     bool script_errors_fatal_ = false;
