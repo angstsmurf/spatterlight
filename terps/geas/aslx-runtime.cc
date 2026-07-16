@@ -2540,7 +2540,19 @@ bool Interp::exec_statement_command(const std::string &name,
             update_status(to_string(ev(0)));
         else if (fn == "updateLocation" && !args.empty() && update_location)
             update_location(to_string(ev(0)));
-        else if (grid_draw) {
+        else if (fn == "eval" && !args.empty() && request_restart) {
+            /* The restart channel: Core's `restart` command evals
+             * "window.location.reload();" (older Cores first probe the
+             * desktop player's RestartGame()).  That reload IS the restart
+             * -- route it to the host.  Everything else this eval channel
+             * carries (transcript flags, jQuery pane tweaks) stays ignored;
+             * the argument is only evaluated with a hook installed, so
+             * headless transcripts are untouched. */
+            std::string js = to_string(ev(0));
+            if (js.find("location.reload") != std::string::npos ||
+                js.find("RestartGame") != std::string::npos)
+                request_restart();
+        } else if (grid_draw) {
             /* The grid-map paint vocabulary (CoreGrid.aslx -> grid.js),
              * forwarded as GridDraw commands. Argument evaluation only
              * happens down here, hook set -- the headless path above stays

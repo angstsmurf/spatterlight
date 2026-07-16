@@ -1572,6 +1572,12 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         return run_menu_ui(in, m, key);
     };
     in.request_save = [&in] { do_save_ui(in); };
+    /* Core's `restart` command (via JS.eval window.location.reload).  The
+     * turn finishes normally -- under a browser reload the server-side turn
+     * also runs to completion -- and the session ends at the next loop
+     * check, rebooting through the same teardown as the post-game menu. */
+    bool restart_requested = false;
+    in.request_restart = [&restart_requested] { restart_requested = true; };
     /* Pane lists (UpdateListsAsync): only subscribe when this Glk could open
      * a side pane at startup -- an unset hook skips the whole scope
      * computation, like QuestViva with no UpdateList listener.  The hook just
@@ -1675,6 +1681,8 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     update_timer_request(in);
 
     while (!w.finished) {
+        if (restart_requested)
+            return SessionEnd::Restart;
         if (const MenuData *m = in.pending_menu()) {
             std::string key;
             bool picked = run_menu_ui(in, *m, key);
@@ -1745,6 +1753,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                                 " errors occurred.]\n");
         glk_set_style(style_Normal);
     }
+    /* finish + reload in one turn: the browser reload wins over any menu. */
+    if (restart_requested)
+        return SessionEnd::Restart;
     return post_game_menu(in, restore_data);
 }
 

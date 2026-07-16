@@ -328,6 +328,17 @@ public:
     // the request warns once like the other unsupported UI requests.
     std::function<void()> request_save;
 
+    // Host hook for the restart channel. Quest has no Restart request enum:
+    // Core's `restart` command (after its Ask confirmation) runs
+    // `JS.eval ("window.location.reload();")` -- the web player reloads the
+    // page, i.e. reboots the session from the game file; older Cores probe a
+    // desktop-player RestartGame() first in the same eval. When set, JS.eval
+    // scripts naming either are routed here; the host is expected to tear
+    // down and boot a fresh session (the rest of the turn still runs, as it
+    // does server-side under a browser reload). Unset, JS.eval stays ignored
+    // with its argument unevaluated, as before.
+    std::function<void()> request_restart;
+
     // Host hook for `picture`. QuestViva's PictureScript has two paths: on
     // v540+ it PRINTS an <img src="..."> through Core's OutputText (the HTML
     // renderer displays it), while pre-540 it calls the UI directly

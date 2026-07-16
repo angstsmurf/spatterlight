@@ -999,6 +999,13 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
 - [ ] `JS.*` calls: implement the handful Core itself uses (`JS.eval` from
       user games gets a one-time warning and is ignored). Games built around
       custom JavaScript UIs are explicitly out of scope — detect and warn.
+      Done so far: the restart channel (2026-07-16) — Core's `restart`
+      command is `JS.eval("window.location.reload();")` (older embedded
+      Cores probe the desktop player's `RestartGame()` in the same eval);
+      both land in the `request_restart` host hook, and aslxglk ends the
+      session with `SessionEnd::Restart` (same teardown/reboot as the
+      post-game menu). Hook unset (headless), JS.eval stays ignored with
+      its argument unevaluated.
 
 ## 5. App/frontend integration
 
