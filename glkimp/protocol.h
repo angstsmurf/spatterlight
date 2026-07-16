@@ -25,6 +25,13 @@ struct drawrect
 {
     glsi32 x, y;
     glui32 width, height, style;
+    /* Glk 0.7.6 (GLK_MODULE_IMAGE2) scaling rule. 0 = legacy draw call
+       (glk_image_draw / glk_image_draw_scaled): width/height are final
+       pixel sizes and the pre-0.7.6 behaviour is kept. Nonzero = a
+       glk_image_draw_scaled_ext() imagerule; width/height are then that
+       rule's raw arguments and maxwidth is the fixed-point ($10000 = 1.0)
+       window-width bound, resolved (and re-resolved on resize) app-side. */
+    glui32 imagerule, maxwidth;
 };
 
 struct settings_struct

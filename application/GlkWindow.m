@@ -267,6 +267,8 @@
              val2:(NSInteger)v2
             width:(NSInteger)w
            height:(NSInteger)h
+        imagerule:(NSUInteger)imagerule
+         maxwidth:(NSUInteger)maxwidth
             style:(NSUInteger)style {
     NSLog(@"drawimage in %@ not implemented", [self class]);
 }

@@ -16,6 +16,9 @@
     NSString *baseFilename;
     CGFloat lastXHeight;
     CGFloat lastAscender;
+    // Display size resolved by the most recent layout pass
+    // (cellFrameForTextContainer:). Starts out as the image's size.
+    NSSize lastDisplaySize;
 }
 @end
 
@@ -44,6 +47,8 @@
         _attrstr = anattrstr;
         _pos = apos;
         _index = index;
+        _naturalSize = image.size;
+        lastDisplaySize = image.size;
         if (image.accessibilityDescription.length) {
             self.accessibilityLabel = image.accessibilityDescription;
             _hasDescription = YES;
@@ -64,6 +69,15 @@
         lastAscender = [decoder decodeDoubleForKey:@"lastAscender"];
         _hasDescription = [decoder decodeBoolForKey:@"hasDescription"];
         self.accessibilityLabel = (NSString *)[decoder decodeObjectOfClass:[NSString class] forKey:@"label"];
+        // Glk 0.7.6 scaling rule; all absent (0) in pre-rule archives.
+        _imagerule = (NSUInteger)[decoder decodeIntegerForKey:@"imagerule"];
+        _ruleWidth = (NSUInteger)[decoder decodeIntegerForKey:@"ruleWidth"];
+        _ruleHeight = (NSUInteger)[decoder decodeIntegerForKey:@"ruleHeight"];
+        _ruleMaxWidth = (NSUInteger)[decoder decodeIntegerForKey:@"ruleMaxWidth"];
+        _naturalSize = [decoder decodeSizeForKey:@"naturalSize"];
+        if (NSEqualSizes(_naturalSize, NSZeroSize))
+            _naturalSize = self.image.size;
+        lastDisplaySize = self.image.size;
     }
     return self;
 }
@@ -79,6 +93,11 @@
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeInteger:_index forKey:@"index"];
     [encoder encodeBool:_hasDescription forKey:@"hasDescription"];
+    [encoder encodeInteger:(NSInteger)_imagerule forKey:@"imagerule"];
+    [encoder encodeInteger:(NSInteger)_ruleWidth forKey:@"ruleWidth"];
+    [encoder encodeInteger:(NSInteger)_ruleHeight forKey:@"ruleHeight"];
+    [encoder encodeInteger:(NSInteger)_ruleMaxWidth forKey:@"ruleMaxWidth"];
+    [encoder encodeSize:_naturalSize forKey:@"naturalSize"];
 }
 
 - (BOOL)wantsToTrackMouse {
@@ -96,6 +115,76 @@
         return YES;
         }
     return NO;
+}
+
+#pragma mark Glk 0.7.6 rule scaling
+
++ (NSSize)resolveImageRule:(NSUInteger)imagerule
+                     width:(NSUInteger)ruleWidth
+                    height:(NSUInteger)ruleHeight
+                  maxwidth:(NSUInteger)maxwidth
+                   natural:(NSSize)natural
+                 available:(CGFloat)availwidth {
+    CGFloat w, h;
+    switch (imagerule & imagerule_WidthMask) {
+        case imagerule_WidthFixed:
+            w = (CGFloat)ruleWidth;
+            break;
+        case imagerule_WidthRatio:
+            w = availwidth * (CGFloat)ruleWidth / 65536.0;
+            break;
+        default: /* imagerule_WidthOrig */
+            w = natural.width;
+            break;
+    }
+    switch (imagerule & imagerule_HeightMask) {
+        case imagerule_HeightFixed:
+            h = (CGFloat)ruleHeight;
+            break;
+        case imagerule_AspectRatio:
+            h = natural.width > 0
+                ? w * (natural.height / natural.width) * (CGFloat)ruleHeight / 65536.0
+                : 0;
+            break;
+        default: /* imagerule_HeightOrig */
+            h = natural.height;
+            break;
+    }
+    // maxwidth: an additional window-width bound, applied after both rules,
+    // reducing proportionally (regardless of how the height was determined).
+    if (maxwidth && availwidth > 1) {
+        CGFloat maxw = availwidth * (CGFloat)maxwidth / 65536.0;
+        if (w > maxw) {
+            if (w > 0)
+                h = h * maxw / w;
+            w = maxw;
+        }
+    }
+    if (w < 1) w = 1;
+    if (h < 1) h = 1;
+    return NSMakeSize(w, h);
+}
+
+// The display size for a given wrap width: the full 0.7.6 rule resolution
+// for rule cells; for legacy cells the image size, proportionally reduced
+// when wider than the window (the 0.7.6 behaviour change for plain
+// glk_image_draw/glk_image_draw_scaled in buffer windows).
+- (NSSize)displaySizeForWidth:(CGFloat)availwidth {
+    if (_imagerule)
+        return [MyAttachmentCell resolveImageRule:_imagerule
+                                            width:_ruleWidth
+                                           height:_ruleHeight
+                                         maxwidth:_ruleMaxWidth
+                                          natural:_naturalSize
+                                        available:availwidth];
+    NSSize size = self.image.size;
+    if (availwidth > 1 && size.width > availwidth) {
+        size.height = size.height * availwidth / size.width;
+        size.width = availwidth;
+        if (size.height < 1)
+            size.height = 1;
+    }
+    return size;
 }
 
 - (NSPoint)cellBaselineOffset {
@@ -121,10 +210,13 @@
     else
         lastXHeight = xHeight;
 
+    CGFloat displayHeight = lastDisplaySize.height > 0
+        ? lastDisplaySize.height : self.image.size.height;
+
     if (_glkImgAlign == imagealign_InlineCenter) {
-        return NSMakePoint(0, -(self.image.size.height / 2) + xHeight / 2);
+        return NSMakePoint(0, -(displayHeight / 2) + xHeight / 2);
     } else if (_glkImgAlign == imagealign_InlineDown) {
-        return NSMakePoint(0, -self.image.size.height + ascender);
+        return NSMakePoint(0, -displayHeight + ascender);
     }
 
     return [super cellBaselineOffset];
@@ -134,6 +226,8 @@
     if (_glkImgAlign == imagealign_MarginLeft || _glkImgAlign == imagealign_MarginRight) {
         return NSZeroSize;
     }
+    if (lastDisplaySize.width > 0 && !NSEqualSizes(lastDisplaySize, self.image.size))
+        return lastDisplaySize;
     return [super cellSize];
 }
 
@@ -144,10 +238,42 @@
     if (_glkImgAlign == imagealign_MarginLeft || _glkImgAlign == imagealign_MarginRight) {
         return NSZeroRect;
     }
+    // Resolve the display size against the current wrap width, every layout
+    // pass, so rule-scaled (and oversized legacy) images track resizes.
+    CGFloat availwidth = lineFrag.size.width - 2 * textContainer.lineFragmentPadding;
+    NSSize size = [self displaySizeForWidth:availwidth];
+    if (!NSEqualSizes(size, lastDisplaySize)) {
+        lastDisplaySize = size;
+    }
+    if (_imagerule || !NSEqualSizes(size, self.image.size)) {
+        NSPoint offset = [self cellBaselineOffset];
+        return NSMakeRect(offset.x, offset.y, size.width, size.height);
+    }
     return [super cellFrameForTextContainer:textContainer
                        proposedLineFragment:lineFrag
                               glyphPosition:position
                              characterIndex:charIndex];
+}
+
+// Draw the image scaled into cellFrame when the resolved display size
+// differs from the stored image size (rule-scaled cells, and legacy images
+// reduced to the window width). Returns NO when the default unscaled
+// drawing should run instead.
+- (BOOL)drawScaledInFrame:(NSRect)cellFrame {
+    if (!self.image || lastDisplaySize.width <= 0 ||
+        NSEqualSizes(lastDisplaySize, self.image.size))
+        return NO;
+    NSGraphicsContext *ctx = NSGraphicsContext.currentContext;
+    NSImageInterpolation oldInterpolation = ctx.imageInterpolation;
+    ctx.imageInterpolation = NSImageInterpolationHigh;
+    [self.image drawInRect:cellFrame
+                  fromRect:NSZeroRect
+                 operation:NSCompositingOperationSourceOver
+                  fraction:1.0
+            respectFlipped:YES
+                     hints:nil];
+    ctx.imageInterpolation = oldInterpolation;
+    return YES;
 }
 
 - (void)drawWithFrame:(NSRect)cellFrame
@@ -157,6 +283,8 @@
         case imagealign_MarginRight:
             break;
         default:
+            if ([self drawScaledInFrame:cellFrame])
+                break;
             [super drawWithFrame:cellFrame
                           inView:controlView];
             break;
@@ -171,6 +299,8 @@
         case imagealign_MarginRight:
             break;
         default:
+            if ([self drawScaledInFrame:cellFrame])
+                break;
             [super drawWithFrame:cellFrame
                           inView:controlView
                   characterIndex:charIndex];
@@ -187,6 +317,8 @@
         case imagealign_MarginRight:
             break;
         default:
+            if ([self drawScaledInFrame:cellFrame])
+                break;
             [super drawWithFrame:cellFrame
                           inView:controlView
                   characterIndex:charIndex

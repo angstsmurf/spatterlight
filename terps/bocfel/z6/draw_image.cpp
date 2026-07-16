@@ -248,7 +248,7 @@ void flush_bitmap(winid_t winid) {
     write_to_tiff(filename, pixmap, pixlength, hw_screenwidth);
     win_purgeimage(600, filename, pixlength);
     free(filename);
-    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (kBytesPerPixel * hw_screenwidth * hw_screenwidth));
+    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (kBytesPerPixel * hw_screenwidth * hw_screenwidth), 0, 0);
     image_needs_redraw = false;
 }
 
@@ -729,7 +729,7 @@ void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y, float s
     if (x < 0)
         x = 0;
 
-    win_drawimage(winid->peer, x, y, image->width * xscalefactor, image->height * scalefactor);
+    win_drawimage(winid->peer, x, y, image->width * xscalefactor, image->height * scalefactor, 0, 0);
 }
 
 // Draw image `image` at (x, y) into the global pixmap with no scaling and

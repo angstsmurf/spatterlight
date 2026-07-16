@@ -184,6 +184,8 @@
                val2:0
               width:(NSInteger)oldimage.size.width
              height:(NSInteger)oldimage.size.height
+          imagerule:0
+           maxwidth:0
               style:style_Normal];
 
     dirty = YES;
@@ -248,6 +250,8 @@
              val2:(NSInteger)y
             width:(NSInteger)w
            height:(NSInteger)h
+        imagerule:(NSUInteger)imagerule
+         maxwidth:(NSUInteger)maxwidth
             style:(NSUInteger)style {
     NSSize srcsize = src.size;
 
@@ -259,10 +263,40 @@
         }
     }
 
-    if (w == 0)
-        w = (NSInteger)srcsize.width;
-    if (h == 0)
-        h = (NSInteger)srcsize.height;
+    if (imagerule) {
+        // Glk 0.7.6 glk_image_draw_scaled_ext(): resolve the scaling rule
+        // once, against the window width at draw time. The spec explicitly
+        // says imagerule_WidthRatio does not dynamically resize in graphics
+        // windows, and maxwidth is ignored here.
+        CGFloat winwidth = _image.size.width;
+        switch (imagerule & imagerule_WidthMask) {
+            case imagerule_WidthFixed:
+                break;
+            case imagerule_WidthRatio:
+                w = (NSInteger)(winwidth * (CGFloat)w / 65536.0);
+                break;
+            default: /* imagerule_WidthOrig */
+                w = (NSInteger)srcsize.width;
+                break;
+        }
+        switch (imagerule & imagerule_HeightMask) {
+            case imagerule_HeightFixed:
+                break;
+            case imagerule_AspectRatio:
+                if (srcsize.width > 0)
+                    h = (NSInteger)((CGFloat)w * (srcsize.height / srcsize.width)
+                                    * (CGFloat)h / 65536.0);
+                break;
+            default: /* imagerule_HeightOrig */
+                h = (NSInteger)srcsize.height;
+                break;
+        }
+    } else {
+        if (w == 0)
+            w = (NSInteger)srcsize.width;
+        if (h == 0)
+            h = (NSInteger)srcsize.height;
+    }
 
     NSRect florpedRect;
 

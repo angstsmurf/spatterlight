@@ -604,7 +604,8 @@ void win_sizeimage(glui32 *width, glui32 *height)
     }
 }
 
-void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
+void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height,
+                   glui32 imagerule, glui32 maxwidth)
 {
     win_flush();
     if (gli_enable_graphics)
@@ -617,6 +618,8 @@ void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
         drawstruct->width = width;
         drawstruct->height = height;
         drawstruct->style = win->style;
+        drawstruct->imagerule = imagerule;
+        drawstruct->maxwidth = maxwidth;
 
         sendmsg(DRAWIMAGE, name, 0, 0, 0, 0,
                     sizeof(struct drawrect),

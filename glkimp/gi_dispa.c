@@ -249,6 +249,9 @@ static gidispatch_function_t function_table[] = {
     { 0x00E9, glk_window_erase_rect, "window_erase_rect" },
     { 0x00EA, glk_window_fill_rect, "window_fill_rect" },
     { 0x00EB, glk_window_set_background_color, "window_set_background_color" },
+  #ifdef GLK_MODULE_IMAGE2
+    { 0x00EC, glk_image_draw_scaled_ext, "image_draw_scaled_ext" },
+  #endif /* GLK_MODULE_IMAGE2 */
 #endif /* GLK_MODULE_IMAGE */
 #ifdef GLK_MODULE_SOUND
     { 0x00F0, glk_schannel_iterate, "schannel_iterate" },
@@ -540,6 +543,10 @@ char *gidispatch_prototype(glui32 funcnum)
             return "6QaIuIsIsIuIu:";
         case 0x00EB: /* window_set_background_color */
             return "2QaIu:";
+  #ifdef GLK_MODULE_IMAGE2
+        case 0x00EC: /* image_draw_scaled_ext */
+            return "9QaIuIsIsIuIuIuIu:Iu";
+  #endif /* GLK_MODULE_IMAGE2 */
 #endif /* GLK_MODULE_IMAGE */
 
 #ifdef GLK_MODULE_SOUND
@@ -1099,6 +1106,16 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
         case 0x00EB: /* window_set_background_color */
             glk_window_set_background_color(arglist[0].opaqueref, arglist[1].uint);
             break;
+
+#ifdef GLK_MODULE_IMAGE2
+        case 0x00EC: /* image_draw_scaled_ext */
+            arglist[9].uint = glk_image_draw_scaled_ext(arglist[0].opaqueref,
+                arglist[1].uint,
+                arglist[2].sint, arglist[3].sint,
+                arglist[4].uint, arglist[5].uint,
+                arglist[6].uint, arglist[7].uint);
+            break;
+#endif /* GLK_MODULE_IMAGE2 */
 #endif /* GLK_MODULE_IMAGE */
 
 #ifdef GLK_MODULE_SOUND

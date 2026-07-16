@@ -1802,7 +1802,7 @@ void heglk_adjust_single_future_boy_image(int type, int i, int alignment, int sh
 
     heglk_sizeifexists(i);
     win_fillrect(wins[i].win->peer, hugo_color(wins[i].bg), 0, 0, abs(x1-x0), abs(y1-y0));
-    win_drawimage(wins[i].win->peer, xoff, yoff, origwidth, origheight);
+    win_drawimage(wins[i].win->peer, xoff, yoff, origwidth, origheight, 0, 0);
 }
 
 void heglk_adjust_future_boy_windows(void) {
@@ -2901,7 +2901,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             glk_set_style(style_User1);
             glk_put_char(' ');
             glk_set_hyperlink(1);
-            win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height);
+            win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height, 0, 0);
             glk_set_hyperlink(0);
             wins[mainwin].clear = 0;
             glk_put_char('\n');
@@ -2953,7 +2953,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
             win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
             LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
-            win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
+            win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height, 0, 0);
             wins[curwin].clear = 0;
         }
     }

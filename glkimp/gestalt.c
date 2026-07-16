@@ -71,6 +71,7 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
             return gli_enable_graphics;
             
         case gestalt_DrawImage:
+        case gestalt_DrawImageScale:
             if (val == wintype_Graphics)
                 return gli_enable_graphics;
             if (val == wintype_TextBuffer)

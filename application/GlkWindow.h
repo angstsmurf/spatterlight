@@ -95,6 +95,8 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
              val2:(NSInteger)v2
             width:(NSInteger)w
            height:(NSInteger)h
+        imagerule:(NSUInteger)imagerule
+         maxwidth:(NSUInteger)maxwidth
             style:(NSUInteger)style;
 - (void)flowBreak;
 - (void)prefsDidChange;

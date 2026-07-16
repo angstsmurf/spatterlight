@@ -1048,6 +1048,8 @@
                                  val2:(glsi32)drawstruct->y
                                 width:drawstruct->width
                                height:drawstruct->height
+                            imagerule:drawstruct->imagerule
+                             maxwidth:drawstruct->maxwidth
                                 style:drawstruct->style];
                     free(drawstruct);
                 }

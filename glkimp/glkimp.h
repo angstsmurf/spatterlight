@@ -156,7 +156,8 @@ void win_flowbreak(int name);
 int  win_findimage(int resno);
 void win_loadimage(int resno, const char *filename, int offset, int reslen);
 void win_sizeimage(glui32 *width, glui32 *height);
-void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height);
+void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height,
+                   glui32 imagerule, glui32 maxwidth);
 
 void win_stylehint(int type, int styl, int hint, int val);
 void win_clearhint(int type, int styl, int hint);

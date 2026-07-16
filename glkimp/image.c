@@ -69,13 +69,13 @@ glui32 glk_image_draw_scaled(winid_t win, glui32 image,
         gli_strict_warning("image_draw_scaled: invalid ref");
         return FALSE;
     }
-    
+
     if (!loadimage(image))
     {
         return FALSE;
     }
-    
-    win_drawimage(win->peer, val1, val2, width, height);
+
+    win_drawimage(win->peer, val1, val2, width, height, 0, 0);
     return TRUE;
 }
 
@@ -86,8 +86,49 @@ glui32 glk_image_draw(winid_t win, glui32 image, glsi32 val1, glsi32 val2)
         gli_strict_warning("image_draw: invalid ref");
         return FALSE;
     }
-    
+
     return glk_image_draw_scaled(win, image, val1, val2, 0, 0);
+}
+
+/* Glk 0.7.6 (GLK_MODULE_IMAGE2): draw with explicit scaling rules. The rule
+ * and its raw width/height/maxwidth arguments travel to the app, which
+ * resolves them against the current window width -- and re-resolves on every
+ * re-layout, so imagerule_WidthRatio and maxwidth track buffer-window
+ * resizes dynamically, as the spec requires. In graphics windows the size is
+ * computed once at draw time and maxwidth is ignored. */
+glui32 glk_image_draw_scaled_ext(winid_t win, glui32 image,
+                                 glsi32 val1, glsi32 val2, glui32 width, glui32 height,
+                                 glui32 imagerule, glui32 maxwidth)
+{
+    glui32 widthrule = imagerule & imagerule_WidthMask;
+    glui32 heightrule = imagerule & imagerule_HeightMask;
+
+    if (!win)
+    {
+        gli_strict_warning("image_draw_scaled_ext: invalid ref");
+        return FALSE;
+    }
+
+    if (widthrule == 0 || heightrule == 0 ||
+        imagerule & ~(glui32)(imagerule_WidthMask | imagerule_HeightMask))
+    {
+        gli_strict_warning("image_draw_scaled_ext: invalid imagerule");
+        return FALSE;
+    }
+
+    /* "If width or height is zero, nothing is drawn." (Fixed rules only:
+       Orig ignores the argument, and a zero ratio is legal if pointless.) */
+    if ((widthrule == imagerule_WidthFixed && width == 0) ||
+        (heightrule == imagerule_HeightFixed && height == 0))
+        return FALSE;
+
+    if (!loadimage(image))
+    {
+        return FALSE;
+    }
+
+    win_drawimage(win->peer, val1, val2, width, height, imagerule, maxwidth);
+    return TRUE;
 }
 
 glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height)

@@ -63,11 +63,17 @@
 // Margin images are added to the MarginContainer's image list and require
 // the preceding character to be a newline. Inline images are appended as
 // text attachments. If width or height is 0, uses the image's natural size.
+// A nonzero imagerule (glk_image_draw_scaled_ext, Glk 0.7.6) carries the
+// rule's raw width/height/maxwidth arguments instead: inline cells store the
+// rule and resolve their display size at layout time (tracking resizes);
+// margin images resolve it once here.
 - (void)drawImage:(NSImage *)image
              val1:(NSInteger)alignment
              val2:(NSInteger)index
             width:(NSInteger)w
            height:(NSInteger)h
+        imagerule:(NSUInteger)imagerule
+         maxwidth:(NSUInteger)maxwidth
             style:(NSUInteger)style {
     [self flushDisplay];
 
@@ -77,14 +83,41 @@
         _lastchar = '\n';
     }
 
-    if (w == 0)
-        w = (NSInteger)image.size.width;
-    if (h == 0)
-        h = (NSInteger)image.size.height;
+    BOOL isMargin = (alignment == imagealign_MarginLeft ||
+                     alignment == imagealign_MarginRight);
+    NSUInteger cellRule = 0;
+    NSSize natural = image.size;
 
-    image = [self scaleImage:image size:NSMakeSize((CGFloat)w, (CGFloat)h)];
+    if (imagerule && isMargin) {
+        // Margin images are laid out by the MarginContainer, not the cell:
+        // resolve the rule once against the current content width. (The
+        // spec's dynamic behaviour is buffer-inline-specific; maxwidth
+        // still bounds the initial size.)
+        NSSize resolved = [MyAttachmentCell resolveImageRule:imagerule
+                                                       width:(NSUInteger)w
+                                                      height:(NSUInteger)h
+                                                    maxwidth:maxwidth
+                                                     natural:natural
+                                                   available:scrollview.contentView.frame.size.width];
+        w = (NSInteger)resolved.width;
+        h = (NSInteger)resolved.height;
+        imagerule = 0;
+    }
 
-    if (textstorage.length == 0 && (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight)) {
+    if (imagerule) {
+        // Rule-scaled inline image: keep the image at its natural size and
+        // let the attachment cell resolve the display size per layout pass.
+        cellRule = imagerule;
+    } else {
+        if (w == 0)
+            w = (NSInteger)image.size.width;
+        if (h == 0)
+            h = (NSInteger)image.size.height;
+
+        image = [self scaleImage:image size:NSMakeSize((CGFloat)w, (CGFloat)h)];
+    }
+
+    if (textstorage.length == 0 && isMargin) {
         [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\u00AD" attributes:styles[style]]];
         _lastchar = '\n';
     }
@@ -95,6 +128,14 @@
                                   andAttStr:textstorage
                                          at:textstorage.length
                                       index:index];
+
+    if (cellRule) {
+        cell.imagerule = cellRule;
+        cell.ruleWidth = (NSUInteger)w;
+        cell.ruleHeight = (NSUInteger)h;
+        cell.ruleMaxWidth = maxwidth;
+        cell.naturalSize = natural;
+    }
 
     if (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight) {
         if (_lastchar != '\n') {
@@ -194,6 +235,12 @@
             return;
         }
         MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
+
+        // Rule-scaled cells (glk_image_draw_scaled_ext) resolve their display
+        // size against the wrap width at layout time; scaling their stored
+        // image here would compound with that.
+        if (cell.imagerule)
+            return;
 
         NSImage *img = nil;
         BOOL imageIsMargin = (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight);
