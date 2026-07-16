@@ -85,7 +85,8 @@ PasteboardFilePasteLocation;
         @"j2",  @"ulx", @"blb",  @"zlb",  @"blorb", @"glb",   @"gblorb",
         @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb",@"atr",
         @"st",  @"msa", @"woz",  @"sag",  @"plus",  @"plu",   @"tay",
-        @"taylor", @"rpk", @"cart", @"zip", @"acx", @"exe"
+        @"taylor", @"rpk", @"cart", @"zip", @"acx", @"exe",
+        @"quest", @"aslx"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];
@@ -138,6 +139,7 @@ PasteboardFilePasteLocation;
                    @"tads3" : @"tadsr",
                    @"zcode" : @"bocfel",
                    @"quest4" : @"geas",
+                   @"quest5" : @"geas",
                    @"jacl" : @"jacl",
                    @"sagaplus" : @"plus",
                    @"scott" : @"scott",

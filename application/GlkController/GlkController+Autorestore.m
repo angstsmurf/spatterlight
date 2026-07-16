@@ -283,6 +283,7 @@
                                      @"level9" : @"Level 9",
                                      @"magscrolls" : @"Magnetic",
                                      @"quest4" : @"Quest",
+                                     @"quest5" : @"Quest 5",
                                      @"quill"  : @"UnQuill",
                                      @"tads2"  : @"TADS",
                                      @"tads3"  : @"TADS",

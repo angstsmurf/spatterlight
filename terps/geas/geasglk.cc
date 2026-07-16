@@ -75,6 +75,11 @@ public:
 
 static void glk_put_cstring(const char *);
 
+/* The native Quest 5 engine (aslxglk.cc).  glk_main below sniffs the story
+ * file and dispatches .aslx/.quest games there; .asl/.cas stay here. */
+extern "C" int aslx_is_quest5_file(const char *path);
+extern "C" void aslx_glk_main(const char *path);
+
 extern "C" {
 
 #include <assert.h>
@@ -365,6 +370,14 @@ void glk_main(void)
 {
     char err_buf[1024];
     char cur_buf[1024];
+
+    /* Quest 5 games (.quest zip with game.aslx inside, or raw <asl> XML) run
+     * on the native aslx engine, a separate runner sharing this frontend. */
+    if (storyfilename && aslx_is_quest5_file(storyfilename)) {
+        aslx_glk_main(storyfilename);
+        return;
+    }
+
     glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_ReverseColor, 1);
     /* Open the main window. */
     mainglkwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);

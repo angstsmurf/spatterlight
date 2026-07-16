@@ -37,6 +37,11 @@ ASLXRTDEPS := ../aslx.cc ../aslx.hh ../aslx-runtime.cc ../aslx-runtime.hh \
 # Needs the local game corpus, so it is built on demand and not part of check.
 ASLXREPLAY := aslx_replay
 
+# Quest 5 Glk frontend smoke harness: the real aslxglk.cc against the in-repo
+# CheapGlk, driven by piping commands to stdin. Built on demand.
+ASLXGLK := aslxglk_smoke
+CHEAPGLK := ../../cheapglk
+
 all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 
 $(BIN): $(SRC) $(DEPS)
@@ -53,6 +58,10 @@ $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
+
+$(ASLXGLK): $(ASLXGLK).cc ../aslxglk.cc $(ASLXRTDEPS)
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../aslxglk.cc \
+	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
 check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 	./$(TESTBIN)

@@ -39,6 +39,10 @@
 		55368B77272BF24700740A0A /* geasfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6B272BF24700740A0A /* geasfile.cc */; };
 		55368B78272BF24700740A0A /* geas-runner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B70272BF24700740A0A /* geas-runner.cc */; };
 		55368B79272BF27D00740A0A /* geas in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 55368B5B272BF1C500740A0A /* geas */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C3A51F00000000000000000A /* aslxglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000001 /* aslxglk.cc */; };
+		C3A51F00000000000000000B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
+		C3A51F00000000000000000C /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000009 /* libexpat.tbd */; };
+		C3A51F00000000000000000D /* aslx-core in Resources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000008 /* aslx-core */; };
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
 		55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A01EDC2B189325003D7C18 /* BlorbResource.swift */; };
 		55A01EE02B1898E9003D7C18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DE223262CA008C9CB7 /* Foundation.framework */; };
@@ -791,6 +795,7 @@
 		C396E2882F812E3500B6308A /* messagenames.h in Headers */ = {isa = PBXBuildFile; fileRef = C396E2852F812E3500B6308A /* messagenames.h */; };
 		C396E28A2F814ED500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
+		C3A51F00000000000000000E /* quest5.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F00000000000000000F /* quest5.c */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
 		C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */; };
 		C3998E2E26C9836E002C1E5D /* Level 9 command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2D26C9836E002C1E5D /* Level 9 command script.txt */; };
@@ -1742,6 +1747,15 @@
 		55368B5E272BF24700740A0A /* geas-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-state.cc"; sourceTree = "<group>"; };
 		55368B5F272BF24700740A0A /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
 		55368B60272BF24700740A0A /* geasglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geasglk.cc; sourceTree = "<group>"; };
+		C3A51F000000000000000001 /* aslxglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aslxglk.cc; sourceTree = "<group>"; };
+		C3A51F000000000000000002 /* aslx.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aslx.cc; sourceTree = "<group>"; };
+		C3A51F000000000000000003 /* aslx.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = aslx.hh; sourceTree = "<group>"; };
+		C3A51F000000000000000004 /* aslx-runtime.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslx-runtime.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000005 /* aslx-runtime.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime.hh"; sourceTree = "<group>"; };
+		C3A51F000000000000000006 /* aslx-runtime-parse.inc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-parse.inc"; sourceTree = "<group>"; };
+		C3A51F000000000000000007 /* aslx-runtime-builtins.inc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-builtins.inc"; sourceTree = "<group>"; };
+		C3A51F000000000000000008 /* aslx-core */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "aslx-core"; sourceTree = "<group>"; };
+		C3A51F000000000000000009 /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55368B61272BF24700740A0A /* istring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = istring.cc; sourceTree = "<group>"; };
 		55368B62272BF24700740A0A /* general.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = general.hh; sourceTree = "<group>"; };
 		55368B63272BF24700740A0A /* istring.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = istring.hh; sourceTree = "<group>"; };
@@ -3373,6 +3387,7 @@
 		C396E2852F812E3500B6308A /* messagenames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = messagenames.h; sourceTree = "<group>"; };
 		C396E2862F812E3500B6308A /* messagenames.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = messagenames.c; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
+		C3A51F00000000000000000F /* quest5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest5.c; sourceTree = "<group>"; };
 		C3983D872F62CE4600717789 /* SpatterlightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpatterlightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Shades of Gray command script.txt"; sourceTree = "<group>"; };
@@ -3741,6 +3756,8 @@
 			files = (
 				55368B56272BF1C500740A0A /* libglkimp.dylib in Frameworks */,
 				55368B57272BF1C500740A0A /* libglkmain.a in Frameworks */,
+				C3A51F00000000000000000B /* libz.tbd in Frameworks */,
+				C3A51F00000000000000000C /* libexpat.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4090,6 +4107,14 @@
 		55368B5C272BF24700740A0A /* geas */ = {
 			isa = PBXGroup;
 			children = (
+				C3A51F000000000000000002 /* aslx.cc */,
+				C3A51F000000000000000003 /* aslx.hh */,
+				C3A51F000000000000000007 /* aslx-runtime-builtins.inc */,
+				C3A51F000000000000000006 /* aslx-runtime-parse.inc */,
+				C3A51F000000000000000004 /* aslx-runtime.cc */,
+				C3A51F000000000000000005 /* aslx-runtime.hh */,
+				C3A51F000000000000000008 /* aslx-core */,
+				C3A51F000000000000000001 /* aslxglk.cc */,
 				55368B6E272BF24700740A0A /* geas-impl.hh */,
 				55368B64272BF24700740A0A /* GeasRunner.hh */,
 				55368B70272BF24700740A0A /* geas-runner.cc */,
@@ -4864,6 +4889,7 @@
 			isa = PBXGroup;
 			children = (
 				C384A68A2C6EB64E0081FC50 /* libz.tbd */,
+				C3A51F000000000000000009 /* libexpat.tbd */,
 				C3A207982727B1BE00BAAA24 /* Security.framework */,
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
@@ -5898,6 +5924,7 @@
 				C311DE2925C4383100484639 /* twine.c */,
 				96A9BA5F0A064C9C001B5B9B /* zcode.c */,
 				C396E8EF2732B2CE0090B5DF /* quest4.c */,
+				C3A51F00000000000000000F /* quest5.c */,
 				961DC9360A108DE10044A0D4 /* quill.c */,
 				AC8E0000000000000000F11E /* archetype.c */,
 				C0FFEE000000000000000F11 /* comprehend.c */,
@@ -7872,6 +7899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DCDD44C23104AC4006715DD /* fonts in Resources */,
+				C3A51F00000000000000000D /* aslx-core in Resources */,
 				961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */,
 				96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */,
 				C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */,
@@ -8038,6 +8066,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55368B74272BF24700740A0A /* geasglk.cc in Sources */,
+				C3A51F00000000000000000A /* aslxglk.cc in Sources */,
 				55368B78272BF24700740A0A /* geas-runner.cc in Sources */,
 				55368B77272BF24700740A0A /* geasfile.cc in Sources */,
 				55368B71272BF24700740A0A /* geas-util.cc in Sources */,
@@ -8508,6 +8537,7 @@
 				96A9BA8A0A065642001B5B9B /* register.c in Sources */,
 				96A9BA8F0A06565B001B5B9B /* register_ifiction.c in Sources */,
 				C396E8F12732B2CE0090B5DF /* quest4.c in Sources */,
+				C3A51F00000000000000000E /* quest5.c in Sources */,
 				96A9BA890A065642001B5B9B /* misc.c in Sources */,
 				96A9BA980A06565B001B5B9B /* ifiction.c in Sources */,
 				96A9BA8B0A065642001B5B9B /* md5.c in Sources */,

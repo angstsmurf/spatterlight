@@ -1,5 +1,57 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, late night — Glk frontend + app integration: Quest 5 playable in Spatterlight)
+
+- **Quest 5 games now run in the real app**: double-clicking a `.quest`/`.aslx`
+  imports it (babel claims it as format `quest5`), launches the geas terp, and
+  the game plays through the native engine in a Glk window. Verified end-to-end:
+  the app-bundle terp boots Dream Pieces and sits in the prompt loop
+  (`read_line` → `glk_select`, confirmed by `sample`), keystrokes round-trip,
+  and via the CheapGlk smoke harness Dream Pieces and The Myothian Falcon play
+  to their WINS through the exact frontend code (`test/aslxglk_smoke`,
+  `make aslxglk_smoke`, needs the local corpus).
+- **`aslxglk.cc` — the Glk frontend** (unity-includes the loader+runtime, the
+  only aslx TU in the geas binary; `geasglk.cc:glk_main` sniffs the story file
+  and dispatches, .asl/.cas untouched):
+  - **Prompt loop** (§3 Glk wiring done): asks the engine what it awaits —
+    `pending_menu()` → numbered menu (number / key / display-text answers,
+    empty line cancels when allowed), `pending_question()` → rendered caption
+    + yes/no, `pending_wait()` → keypress, else line input → `send_command`.
+    `menu_provider` runs the same menu UI as a nested input loop for the
+    expression form of ShowMenu. Uni line input (Glühwein-safe), manual echo
+    (engine echoes for pre-520), transcript metaverb, post-game
+    RESTART/QUIT menu (undo/restore need later milestones), restart =
+    fresh World+Interp. Engine `warnings` are flushed to the player
+    bracketed+emphasized after each step.
+  - **HTML→Glk renderer** (§4 first two items): `<br/>` = newline;
+    bold/italic/underline from `<b>/<i>/<u>/<strong>/<em>` AND span-style CSS
+    (`font-weight:bold` etc.), nesting-counted, mapped like the classic
+    runner (Alert/Emphasized/Subheader/User2); entity decode incl. numeric;
+    UTF-8 → `glk_put_char_uni`; everything else stripped. **cmdlinks become
+    Glk hyperlinks**: `data-command` (command/exit links) sends the command
+    as if typed, `onclick="ASLEvent('F','p')"` (Core ShowMenu options) calls
+    the function, `elementmenu` object links fall back to "look at <id>";
+    without hyperlink support links render underlined.
+  - **Timers**: 1s heartbeat armed while any timer is enabled (gated on
+    `gli_sa_delays` like the classic loop); a tick that opens a prompt or
+    ends the game cancels pending input and re-dispatches.
+  - **Core dir**: `$ASLX_CORE`, else exe-relative `../Resources/aslx-core`
+    (app bundle; verified in a fake-bundle layout) or `./aslx-core` (dev).
+- **App integration** (§5 mostly done): `babel/quest5.c` (claims PK zips
+  containing game.aslx + raw `<asl` XML; raw-XML `<gameid>` GUID returned as
+  IFID, zip metadata needs zlib — still NO_METADATA/NO_COVER, see §5),
+  registered in modules.h + babel makefile; `quest5 → geas` in AppDelegate,
+  Autorestore ("Quest 5"), glkimp fileref; `quest`/`aslx` in gGameFileTypes +
+  Info.plist (document type + `public.quest5` UTI); Xcode: aslxglk.cc in the
+  geas target (links libz+libexpat), `aslx-core/` copied into app Resources.
+- Still open for presentation/integration: images (`picture`'s `<img>` needs
+  zip resource extraction), sounds (incl. resolving the synchronous
+  `play sound` TurnSuspended semantics against a host that can actually
+  finish a sound), compass/inventory/status panes (JS.updateList requests),
+  save/restore + undo (UndoLogger + geas-state seam), `request (Wait/Pause)`,
+  babel zip metadata + cover art, game-local libraries inside the zip,
+  locked inherited collections.
+
 ## Status (2026-07-16, night — error-cascade topology: 16/17 golden-exact)
 
 - **16 of 17 golden walkthroughs replay BYTE-IDENTICAL**, including the two
@@ -676,14 +728,14 @@ waiting for and routes the next line/keypress.
       answers arrive as ordinary commands.
 - [x] `wait` → `pending_wait()` + `finish_wait()` (host keypress; headless
       harnesses auto-advance like the oracle's AutoAdvance).
-- [ ] Glk wiring in geasglk: render pending menus/questions as numbered
-      prompts (reuse `make_choice` UI), `wait` as a keypress event.
+- [x] Glk wiring in aslxglk.cc (2026-07-16): pending menus/questions rendered
+      as numbered/yes-no prompts, `wait` as a keypress event, expression
+      ShowMenu via a nested `menu_provider` input loop.
 - [x] Timer elements + `SetTimeout`/`SetTimerScript` → an engine Tick(secs)
       entry (TimerRunner port: `begin_timers`/`tick`/`next_timer_seconds`/
-      `has_enabled_timeout`, 2026-07-16). Still TODO:
-      `glk_request_timer_events` at prompt level in geasglk (precedent:
-      scarier a5 real-time events; aslx_replay mirrors the oracle's
-      deterministic DrainTimers).
+      `has_enabled_timeout`, 2026-07-16). `glk_request_timer_events` 1s
+      heartbeat at prompt level in aslxglk.cc, gated on `gli_sa_delays`
+      (aslx_replay mirrors the oracle's deterministic DrainTimers).
 - [ ] `request (Wait)` / `request (Pause, ms)` (pre-v540/v550 games only):
       genuinely blocking mid-script even in QuestViva (`DoWaitAsync` is
       awaited) — needs a blocking host hook; currently a no-op.
@@ -692,10 +744,13 @@ waiting for and routes the next line/keypress.
 
 Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
 
-- [ ] HTML-subset → Glk styles converter: `<b><i><u>`, `<br/>`, `<font>`/
-      colour best-effort, alignment ignored gracefully. (Core's output is a
-      constrained subset; don't write a browser.)
-- [ ] Object/command links (`<a class="cmdlink" ...>`) → Glk hyperlinks.
+- [x] HTML-subset → Glk styles converter (aslxglk.cc render_html, 2026-07-16):
+      `<b><i><u>` + span-style CSS bold/italic/underline, `<br/>`, entity
+      decode, UTF-8 → uni output; fonts/colours/alignment dropped gracefully.
+      (Core's output is a constrained subset; don't write a browser.)
+- [x] Object/command links (`<a class="cmdlink" ...>`) → Glk hyperlinks
+      (2026-07-16): `data-command` sends the command, ASLEvent onclicks call
+      the function, elementmenu links fall back to "look at".
 - [ ] `picture` → `glk_image_draw` in the buffer (resources from the zip).
 - [ ] `play sound` → Glk sound channels.
 - [ ] Panes: compass/inventory/"places and objects"/status attributes →
@@ -708,19 +763,22 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
 
 ## 5. App/frontend integration
 
-- [ ] Dispatch in `glk_main` (`geasglk.cc:364`): sniff the file — `PK\x03\x04`
-      zip containing `game.aslx`, or XML whose root is `<asl` → Quest 5
-      runner; else the existing `read_geas_file` path. Keep `GeasInterface`
-      as the shared host seam if practical.
-- [ ] New sources into the geas group of `Spatterlight.xcodeproj` *and* the
-      standalone `test/Makefile`.
-- [ ] Babel: new `babel/quest5.c` treaty module beside `quest4.c` — claim
-      zips whose directory contains `game.aslx` and raw `<asl version=`
-      XML. Unlike quest4 it can return real metadata: IFID from the game's
-      `gameid` GUID attribute, plus `gamename`/`author` (and cover art from
-      the package). Drop `NO_METADATA`/`NO_COVER`.
-- [ ] `Info.plist`: register `quest` and `aslx` extensions/UTIs (only `asl`
-      + `public.quest` exist today, lines ~668/682/1738/1744).
+- [x] Dispatch in `glk_main` (2026-07-16): `aslx_is_quest5_file` sniffs —
+      `PK\x03\x04` zip containing `game.aslx`, or XML whose root is `<asl` →
+      `aslx_glk_main`; else the existing `read_geas_file` path. (The aslx
+      runner has its own host seam, not `GeasInterface` — the interaction
+      models are too different.)
+- [x] New sources into the geas target of `Spatterlight.xcodeproj` (only
+      aslxglk.cc compiles — it unity-includes the rest; links libz+libexpat)
+      *and* the standalone `test/Makefile` (`aslxglk_smoke` vs CheapGlk).
+- [~] Babel: `babel/quest5.c` (2026-07-16) claims zips containing `game.aslx`
+      and raw `<asl` XML; raw-XML `<gameid>` GUID is returned as the IFID.
+      TODO: zip metadata needs a zlib inflate of game.aslx — IFID from
+      packaged games, `gamename`/`author` ifiction, cover art; then drop
+      `NO_METADATA`/`NO_COVER`.
+- [x] `Info.plist` (2026-07-16): `quest`/`aslx` document type +
+      `public.quest5` UTI; also gGameFileTypes in AppDelegate.m, the
+      quest5→geas terp table, Autorestore + fileref format names.
 - [ ] Save/undo: v1 ships our own snapshot format via the existing
       `save_state`/`load_state` seam (`geas-state.cc` pattern) so autosave
       and Spatterlight integration behave like every other terp. Native
@@ -779,14 +837,16 @@ stays unsupported, as in `quest4.c`.
    `:test_command_driving` (commands) + `:test_input_model` (disambiguation).
    Change scripts landed 2026-07-16; two real games replay byte-identical to
    their oracle goldens (test/aslx_replay.cc).
-4. **Interaction** (input model ✅ 2026-07-16): get input, menus, ask, wait
-   all land engine-side with host entry points (`send_command` +
-   `set_menu_response`/`set_question_response`/`finish_wait`,
-   `test_input_model`). Remaining: timers/Tick, undo, save/restore, and the
-   geasglk prompt-loop wiring.
-5. **Presentation**: HTML→styles, hyperlinks, panes, pictures, sound.
-6. **Integration**: babel module, Info.plist, Xcode wiring, corpus
-   regression + ground-truth harness green.
+4. **Interaction** (input model ✅ 2026-07-16; Glk prompt loop ✅ 2026-07-16):
+   get input, menus, ask, wait land engine-side with host entry points
+   (`send_command` + `set_menu_response`/`set_question_response`/
+   `finish_wait`, `test_input_model`) and aslxglk.cc drives them in the app.
+   Remaining: undo, save/restore.
+5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16): remaining —
+   panes, pictures, sound (zip resource extraction).
+6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
+   app-verified with Dream Pieces): remaining — babel zip metadata/cover,
+   a corpus-wide replay gate wired into `make check`.
 
 Size honesty: milestones 2–3 alone are on the order of the whole existing
 runner (`geas-runner.cc` is 5.5 k lines) — the engine primitives are small
