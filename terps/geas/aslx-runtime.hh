@@ -221,6 +221,33 @@ public:
     // current-transaction chain back.
     void rollback_transaction(Context &ctx);
 
+    // -- save/restore (TODO §5) ------------------------------------------------
+    // v1 snapshot format (not Quest's ASLX re-serialization -- that is the
+    // optional native-compat milestone): a restore RELOADS the original game
+    // file into a fresh World/Interp and applies the snapshot, so only the
+    // dynamic state is serialized -- every live element's identity (elem_type,
+    // inherits, sort_index) and own fields (full recursive Values: nested
+    // lists/dicts, scripts as source, object refs by name), plus which
+    // load-time elements were destroyed, runtime-created elements, and the
+    // `firsttime` flags (keyed by script source text, preorder). Undo history
+    // and RNG streams are not saved, like QuestViva. The host must follow the
+    // reference's saved-game boot: skip StartGame and begin_timers, re-run
+    // InitInterface, print "Loaded saved game".
+
+    // Serialize the current state. `original_file` is recorded like the
+    // <asl original=""> marker (informational).
+    std::string save_game(const std::string &original_file);
+    // Apply a snapshot onto this freshly-loaded, not-yet-booted Interp.
+    // Returns false with `err` set on malformed data or a wrong-game save.
+    bool restore_game(const std::string &data, std::string &err);
+    // Cheap sniff for "is this buffer one of our saves?".
+    static bool is_save_data(const char *data, size_t len);
+
+    // Host hook for `request (RequestSave, ...)` / `requestsave` (Core's
+    // `save` command): the UI prompts for a file and calls save_game. Unset,
+    // the request warns once like the other unsupported UI requests.
+    std::function<void()> request_save;
+
     // Synchronous provider for the EXPRESSION form of ShowMenu
     // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
     // returns the selected key). A synchronous host must supply the answer in

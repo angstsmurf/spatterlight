@@ -1,5 +1,45 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, later still — undo + save/restore land; milestone 4 complete)
+
+- **Undo (UndoLogger port)**: `undo` and `start transaction` are real script
+  commands now — see the §2 UndoLogger entry for the full mechanism (lazy
+  per-command transactions, all nine action kinds, the UndoTurn/NothingToUndo
+  templates, and QuestViva's PreviousTransaction-chain quirks, ported
+  verbatim). Verified through Core's real parser (Dream Pieces: take/i/undo
+  echoes "Undo: i" and reverts); goldens unaffected with the logger running
+  hot on every replayed command. `test_undo` in the runtime tests.
+- **Save/restore (v1 snapshot)**: `aslx-state.inc` serializes the DYNAMIC
+  state only — every live mutable-family element (object/exit/command/verb/
+  game/turnscript/timer) with elem_type/inherits/anonymous/sort_index and its
+  own fields as full recursive Values (nested lists/dicts round-trip, scripts
+  as source, object refs by name), which load-time elements were destroyed,
+  runtime-created elements, and `firsttime` flags (keyed by script source
+  text, preorder). A restore RELOADS the game file fresh and applies the
+  snapshot, then follows QuestViva's saved-game boot exactly: begin_timers
+  and StartGame are SKIPPED, InitInterface re-runs, "Loaded saved game" is
+  printed (the reference's no-transcript fallback). Undo history and RNG
+  streams reset, as in QuestViva. Glk wiring (aslxglk.cc): Core's own `save`
+  command reaches the host through the new `request (RequestSave)` /
+  `requestsave` dispatch (`Interp::request_save` hook) and prompts for a
+  file; RESTORE/LOAD GAME is a frontend metaverb (Quest has no restore
+  command — loading is a UI action) that validates the save against a
+  scratch reload before tearing down the session; the post-game menu gained
+  RESTORE. `test_save_restore` covers state survival, byte-identical
+  re-save round-trip, StartGame-not-re-run, firsttime persistence, and
+  wrong-game/truncated rejection; the CheapGlk smoke harness plays
+  command.aslx, saves mid-game, and restores in a second process with
+  location/inventory intact. `make check` green, ASan/UBSan clean, goldens
+  16/17 (the documented ICM artifact), geas Xcode target builds.
+- Still open around save: Spatterlight autosave/autorestore integration
+  (hooking the glkimp autosave path like other terps), saving while an
+  engine prompt (`show menu`/`ask`/`get input`/`wait`) is pending (the
+  snapshot does not capture pending callbacks; Core's `save` command can
+  only run from a normal parsed command anyway), and native `.quest-save`
+  compatibility (GameSaver.cs re-serializes the whole world to standalone
+  ASLX — deliberately NOT what v1 does; the snapshot applies onto a reload
+  instead, which sidesteps every loader round-trip hazard).
+
 ## Status (2026-07-16, late night — Glk frontend + app integration: Quest 5 playable in Spatterlight)
 
 - **Quest 5 games now run in the real app**: double-clicking a `.quest`/`.aslx`
@@ -48,9 +88,10 @@
   zip resource extraction), sounds (incl. resolving the synchronous
   `play sound` TurnSuspended semantics against a host that can actually
   finish a sound), compass/inventory/status panes (JS.updateList requests),
-  save/restore + undo (UndoLogger + geas-state seam), `request (Wait/Pause)`,
+  `request (Wait/Pause)`,
   babel zip metadata + cover art, game-local libraries inside the zip,
-  locked inherited collections.
+  locked inherited collections. (Save/restore + undo landed later the same
+  day — see the top status entry.)
 
 ## Status (2026-07-16, night — error-cascade topology: 16/17 golden-exact)
 
@@ -804,11 +845,15 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
 - [x] `Info.plist` (2026-07-16): `quest`/`aslx` document type +
       `public.quest5` UTI; also gGameFileTypes in AppDelegate.m, the
       quest5→geas terp table, Autorestore + fileref format names.
-- [ ] Save/undo: v1 ships our own snapshot format via the existing
-      `save_state`/`load_state` seam (`geas-state.cc` pattern) so autosave
-      and Spatterlight integration behave like every other terp. Native
+- [x] Save/undo (2026-07-16): undo via the §2 UndoLogger port; save/restore
+      via the v1 snapshot format (`aslx-state.inc`,
+      `Interp::save_game`/`restore_game`) wired into aslxglk.cc — Core's
+      `save` command lands in the `request (RequestSave)` host hook, RESTORE
+      is a frontend metaverb with scratch-reload validation, and the
+      post-game menu offers RESTORE. See the top status entry. Still open:
+      Spatterlight autosave/autorestore integration, and native
       `.quest-save` compatibility (Quest serialises the whole world back to
-      ASLX, `GameSaver.cs`) is a later, optional milestone — the SCARE
+      ASLX, `GameSaver.cs`) as a later, optional milestone — the SCARE
       `.tas` work proved two-way save compat is doable.
 
 ## 6. Legacy dispatch note
@@ -866,7 +911,8 @@ stays unsupported, as in `quest4.c`.
    get input, menus, ask, wait land engine-side with host entry points
    (`send_command` + `set_menu_response`/`set_question_response`/
    `finish_wait`, `test_input_model`) and aslxglk.cc drives them in the app.
-   Undo landed 2026-07-16 (UndoLogger port, §2). Remaining: save/restore.
+   Undo landed 2026-07-16 (UndoLogger port, §2); save/restore landed
+   2026-07-16 (v1 snapshot, §5). Milestone complete.
 5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16): remaining —
    panes, pictures, sound (zip resource extraction).
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;

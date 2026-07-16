@@ -2399,7 +2399,23 @@ bool Interp::exec_statement_command(const std::string &name,
     // not a resolvable expression, so we must NOT evaluate the args -- headless
     // ignores UI requests (a later presentation milestone wires the handful Core
     // relies on). Same for `request` with a callback and RequestSave.
-    if (name == "request") return true;
+    if (name == "request" || name == "requestsave") {
+        // The request's first arg is a bare enum identifier (never evaluated).
+        // RequestSave is the one request with engine-side meaning: Core's
+        // `save` command runs `request (RequestSave, "")` and the UI is
+        // expected to capture + persist the game (PlayerUI.RequestSave). The
+        // newer standalone `requestsave` command is the same request.
+        bool is_save = name == "requestsave" ||
+                       (!args.empty() && args[0]->kind == Expr::Kind::Var &&
+                        args[0]->str == "RequestSave");
+        if (is_save) {
+            if (request_save)
+                request_save();
+            else
+                warn_once("requestsave", "Saving is not supported here.");
+        }
+        return true;
+    }
 
     if (name == "do") {
         Element *obj = as_element(ev(0));
@@ -2632,3 +2648,4 @@ bool Interp::exec_statement_command(const std::string &name,
 // runtime (the test unity-includes it).
 #include "aslx-runtime-parse.inc"
 #include "aslx-runtime-builtins.inc"
+#include "aslx-state.inc"

@@ -596,6 +596,83 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
     }
 }
 
+/* ---------------------------------------------------------- save/restore -- */
+
+std::string core_dir_path();   /* defined in the core section below */
+
+const char *g_storyfile = nullptr;
+
+/* Write the engine snapshot to a player-chosen file. Runs mid-turn, from the
+ * request (RequestSave) hook -- Core's `save` command -- so there is never a
+ * pending line request here. */
+void do_save_ui(Interp &in)
+{
+    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
+    frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Write, 0);
+    if (!fref) { glk_put_string((char *) "Save cancelled.\n"); return; }
+    strid_t str = glk_stream_open_file(fref, filemode_Write, 0);
+    glk_fileref_destroy(fref);
+    if (!str) {
+        glk_put_string((char *) "Could not open the save file.\n");
+        return;
+    }
+    std::string data = in.save_game(g_storyfile ? g_storyfile : "");
+    glk_put_buffer_stream(str, (char *) data.data(), (glui32) data.size());
+    glk_stream_close(str, nullptr);
+    glk_put_string((char *) "Game saved.\n");
+}
+
+/* Prompt for a save file and read it, validating it against a scratch reload
+ * of the game (so a wrong-game or corrupt save never tears down the running
+ * session). Returns true with `data` filled when the caller should reboot
+ * the session from it. */
+bool do_restore_ui(std::string &data)
+{
+    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
+    frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Read, 0);
+    if (!fref) { glk_put_string((char *) "Restore cancelled.\n"); return false; }
+    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
+    glk_fileref_destroy(fref);
+    if (!str) {
+        glk_put_string((char *) "Could not open the save file.\n");
+        return false;
+    }
+    data.clear();
+    char buf[4096];
+    glui32 n;
+    while ((n = glk_get_buffer_stream(str, buf, sizeof buf)) > 0)
+        data.append(buf, n);
+    glk_stream_close(str, nullptr);
+
+    if (!Interp::is_save_data(data.data(), data.size())) {
+        glk_put_string((char *) "Sorry, that does not look like a saved game"
+                                " for this story.\n");
+        return false;
+    }
+    /* Full validation: apply it to a scratch world before committing. */
+    World probe_w;
+    std::string err = "could not reload the game";
+    if (load_file(g_storyfile ? g_storyfile : "", probe_w, core_dir_path())) {
+        Interp probe(probe_w);
+        probe.print = [](const std::string &) {};
+        if (probe.restore_game(data, err))
+            return true;
+    }
+    glk_put_string((char *) "Sorry, that save cannot be restored (");
+    put_uni_string(err);
+    glk_put_string((char *) ").\n");
+    return false;
+}
+
+/* The RESTORE metaverb. Quest has no restore command of its own (loading is
+ * a UI action, like the classic desktop player's menu), so the frontend owns
+ * it; `save` stays with Core's own command, which lands in request_save. */
+bool is_restore_command(const std::string &raw)
+{
+    std::string c = lower(trim(raw));
+    return c == "restore" || c == "restore game" || c == "load game";
+}
+
 /* ------------------------------------------------------------- metaverbs -- */
 
 /* Transcript recording, same commands as the classic runner. */
@@ -686,11 +763,15 @@ void flush_warnings(World &w, size_t &seen)
     }
 }
 
-/* After the game ends: restart or quit.  (Undo/restore need the UndoLogger
- * and the save format -- later milestones.)  Returns true to restart. */
-bool post_game_menu(Interp &in)
+/* How a session ended, and what the next one boots from. */
+enum class SessionEnd { Quit, Restart, Restore };
+
+/* After the game ends: restart, restore or quit.  (In-game UNDO is Core's own
+ * command; there is no post-game undo, as in QuestViva.) */
+SessionEnd post_game_menu(Interp &in, std::string &restore_data)
 {
-    glk_put_string((char *) "\nThe story has ended.  You can RESTART or QUIT.\n");
+    glk_put_string((char *) "\nThe story has ended.  You can RESTART, RESTORE"
+                            " a saved game, or QUIT.\n");
     for (;;) {
         glk_put_string((char *) "> ");
         InResult r = read_line(in, true);
@@ -698,12 +779,17 @@ bool post_game_menu(Interp &in)
             continue;
         std::string w = lower(trim(r.text));
         if (w == "restart" || w == "r")
-            return true;
+            return SessionEnd::Restart;
+        if (w == "restore" || w == "load") {
+            if (do_restore_ui(restore_data))
+                return SessionEnd::Restore;
+            continue;
+        }
         if (w == "quit" || w == "q") {
             glk_put_string((char *) "\nThanks for playing. Goodbye!\n");
-            return false;
+            return SessionEnd::Quit;
         }
-        glk_put_string((char *) "Please type RESTART or QUIT.\n");
+        glk_put_string((char *) "Please type RESTART, RESTORE or QUIT.\n");
     }
 }
 
@@ -720,8 +806,10 @@ void update_timer_request(Interp &in)
     }
 }
 
-/* Run one full game session.  Returns true if the player asked to restart. */
-bool run_session(const char *storyfile)
+/* Run one full game session, booting fresh or from a validated snapshot
+ * (which do_restore_ui already probe-applied). `restore_data` is consumed on
+ * entry and re-filled when the session ends with a RESTORE. */
+SessionEnd run_session(const char *storyfile, std::string &restore_data)
 {
     World w;
     if (!load_file(storyfile, w, core_dir_path())) {
@@ -731,7 +819,7 @@ bool run_session(const char *storyfile)
             put_uni_string(e);
             glk_put_char('\n');
         }
-        return false;
+        return SessionEnd::Quit;
     }
 
     Interp in(w);
@@ -739,6 +827,7 @@ bool run_session(const char *storyfile)
     in.menu_provider = [&in](const MenuData &m, std::string &key) -> bool {
         return run_menu_ui(in, m, key);
     };
+    in.request_save = [&in] { do_save_ui(in); };
 
 #ifdef GLK_MODULE_GARGLKTEXT
     if (!w.game_name.empty())
@@ -748,13 +837,38 @@ bool run_session(const char *storyfile)
     size_t warnings_seen = 0;
     bool host_echo = w.asl_version >= 520;   /* pre-520: the engine echoes */
 
+    /* Saved-game boot, mirroring WorldModel.BeginInternalAsync with
+     * _loadedFromSaved: timers are not re-armed, InitInterface re-runs,
+     * StartGame does not, and the reference's no-transcript fallback message
+     * is printed. */
+    bool restored = false;
+    if (!restore_data.empty()) {
+        std::string err;
+        restored = in.restore_game(restore_data, err);
+        restore_data.clear();
+        if (!restored) {
+            /* Should not happen -- the probe validated it -- but never boot
+             * half-applied state silently. */
+            glk_put_string((char *) "Restore failed (");
+            put_uni_string(err);
+            glk_put_string((char *) "); starting a new game.\n\n");
+            return SessionEnd::Restart;
+        }
+    }
+
     Context boot;
-    in.begin_timers();
+    if (!restored)
+        in.begin_timers();
     try {
         if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
-        if (w.find("StartGame"))     in.call_function("StartGame", {}, &boot);
+        if (!restored && w.find("StartGame"))
+            in.call_function("StartGame", {}, &boot);
     } catch (const TurnSuspended &) {
         /* synchronous `play sound` during boot: rest of Begin abandoned */
+    }
+    if (restored) {
+        glk_put_string((char *) "Loaded saved game\n");
+        update_banner(in);
     }
     in.drain_on_ready();
     flush_warnings(w, warnings_seen);
@@ -793,8 +907,12 @@ bool run_session(const char *storyfile)
                 std::string cmd = trim(r.text);
                 if (cmd.empty())
                     continue;
-                if (!handle_transcript_command(cmd))
+                if (is_restore_command(cmd)) {
+                    if (do_restore_ui(restore_data))
+                        return SessionEnd::Restore;
+                } else if (!handle_transcript_command(cmd)) {
                     in.send_command(cmd);
+                }
             }
         }
         in.drain_on_ready();
@@ -809,7 +927,7 @@ bool run_session(const char *storyfile)
                                 " errors occurred.]\n");
         glk_set_style(style_Normal);
     }
-    return post_game_menu(in);
+    return post_game_menu(in, restore_data);
 }
 
 }  // namespace
@@ -871,8 +989,11 @@ extern "C" void aslx_glk_main(const char *storyfile)
     g_hyperlinks = glk_gestalt(gestalt_Hyperlinks, 0) &&
                    glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
 
-    while (run_session(storyfile)) {
-        /* RESTART: fresh world, fresh screen (QuestViva reloads from disk). */
+    g_storyfile = storyfile;
+    std::string restore_data;
+    while (run_session(storyfile, restore_data) != SessionEnd::Quit) {
+        /* RESTART/RESTORE: fresh world, fresh screen (QuestViva reloads from
+         * disk; a restore then applies the snapshot in run_session). */
         glk_window_clear(gwin);
         g_links.clear();
         g_bold = g_italic = g_under = 0;

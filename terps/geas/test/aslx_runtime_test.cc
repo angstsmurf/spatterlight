@@ -1013,9 +1013,116 @@ static void test_undo() {
     CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "coin");
 }
 
+// Save/restore: the v1 snapshot format (aslx-state.inc). A restore reloads
+// the game file fresh and applies the snapshot, mirroring QuestViva's
+// saved-game boot (InitInterface re-runs, StartGame does not).
+static void test_save_restore() {
+    World w;
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    CHECK(ok);
+
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+
+    Context boot;
+    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+    if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    if (in.has_pending_on_ready()) in.drain_on_ready();
+    w.errors.clear();
+
+    // Mutate: move the player, take the apple, open the chest, create and
+    // destroy elements, flip a firsttime, touch a list and a dictionary.
+    in.send_command("take apple");
+    in.send_command("open chest");
+    in.send_command("north");
+    Context c;
+    in.run_script("create (\"souvenir\")\n"
+                  "souvenir.parent = player\n"
+                  "destroy (\"rose\")\n"
+                  "game.notes = NewStringDictionary()\n"
+                  "dictionary add (game.notes, \"day\", \"one\")", c);
+    // The firsttime state is keyed by its whole script body's source text
+    // (the compiled-script cache key), so run it as its own body -- the same
+    // text will be replayed against the restored world below.
+    const char *ft_src = "firsttime { msg (\"fresh eyes\") }";
+    out.clear();
+    in.run_script(ft_src, c);
+    CHECK(out.find("fresh eyes") != std::string::npos);
+    CHECK(w.errors.empty());
+    CHECK(w.find("rose") == nullptr);
+
+    std::string save = in.save_game("command.aslx");
+    CHECK(Interp::is_save_data(save.data(), save.size()));
+
+    // Round-trip stability: applying the snapshot to a fresh world and saving
+    // again reproduces it byte-identically.
+    {
+        World w2;
+        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../aslx-core"));
+        Interp in2(w2);
+        in2.print = [](const std::string &) {};
+        std::string err;
+        bool restored = in2.restore_game(save, err);
+        if (!restored) std::cerr << "  restore err: " << err << "\n";
+        CHECK(restored);
+
+        // Round-trip stability: re-saving straight after the restore (before
+        // anything else mutates state) reproduces the snapshot byte-for-byte.
+        CHECK_STR(in2.save_game("command.aslx"), save);
+
+        // Saved-game boot: InitInterface only (StartGame must NOT re-run).
+        Context b2;
+        if (w2.find("InitInterface")) in2.call_function("InitInterface", {}, &b2);
+        if (in2.has_pending_on_ready()) in2.drain_on_ready();
+        w2.errors.clear();
+
+        // State survived: location, inventory, open chest, created element,
+        // destroyed element, dictionary, firsttime flag.
+        CHECK_STR(Interp::to_string(in2.eval("player.parent", b2)), "garden");
+        CHECK_STR(Interp::to_string(in2.eval("apple.parent", b2)), "player");
+        CHECK_STR(Interp::to_string(in2.eval("chest.isopen", b2)), "True");
+        CHECK_STR(Interp::to_string(in2.eval("souvenir.parent", b2)), "player");
+        CHECK(w2.find("rose") == nullptr);
+        CHECK_STR(Interp::to_string(
+                      in2.eval("StringDictionaryItem(game.notes, \"day\")", b2)),
+                  "one");
+        // The already-run firsttime must NOT fire again.
+        std::string ftout;
+        in2.print = [&](const std::string &s) { ftout += s; };
+        Context c2;
+        in2.run_script(ft_src, c2);
+        CHECK(ftout.empty());
+
+        // The restored world still plays: a full command round-trip.
+        std::string out2;
+        in2.print = [&](const std::string &s) { out2 += s; };
+        in2.send_command("look");
+        CHECK(out2.find("garden") != std::string::npos);
+        CHECK(w2.errors.empty());
+    }
+
+    // Wrong-game and malformed saves are rejected without touching the world.
+    {
+        World w3;
+        CHECK(load_file("fixtures/aslx/runtime.aslx", w3));
+        Interp in3(w3);
+        std::string err;
+        CHECK(!in3.restore_game(save, err));
+        CHECK(!err.empty());
+        std::string truncated = save.substr(0, save.size() / 2);
+        World w4;
+        CHECK(load_file("fixtures/aslx/command.aslx", w4, "../aslx-core"));
+        Interp in4(w4);
+        CHECK(!in4.restore_game(truncated, err));
+        CHECK(!Interp::is_save_data("garbage", 7));
+    }
+}
+
 int main() {
     test_parity_batch();
     test_undo();
+    test_save_restore();
     test_expressions();
     test_control_flow();
     test_functions_and_objects();
