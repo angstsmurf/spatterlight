@@ -473,6 +473,16 @@ void echo_input(const std::string &line)
     glk_put_char('\n');
 }
 
+/* Echo a host-owned metaverb (RESTORE, TRANSCRIPT) the way Core's
+ * echocommand records a real command -- blank line, "> cmd" -- since the
+ * game side never sees it and parser-bound lines are otherwise not
+ * host-echoed. */
+void echo_metaverb(const std::string &cmd)
+{
+    glk_put_string((char *) "\n> ");
+    echo_input(cmd);
+}
+
 /* Fire an ASLEvent hyperlink (Core menu options): call the named function
  * with its single parameter, as WebPlayer's ASLEvent bridge does. */
 void run_asl_event(Interp &in, const LinkAction &act)
@@ -497,15 +507,20 @@ bool engine_state_pending(Interp &in)
            in.world().finished;
 }
 
-/* Request one line of input (echo handled here).  `echo` is false for
- * pre-v520 games, whose engine echoes the command itself.  Timer events tick
- * the engine; if a tick opens a prompt or ends the game the request is
- * cancelled and InEnd::State returned. */
+/* Request one line of input.  `echo` = the HOST echoes the accepted line
+ * (host-owned prompts: get input, menus, yes/no, the post-game menu).  It is
+ * false for parser-bound commands, which the GAME side echoes itself --
+ * Core's game.echocommand prints "> cmd" into the transcript (the engine
+ * does it for pre-v520 games), exactly like the reference player, whose
+ * input box leaves no other record.  Library echo is off either way (when
+ * controllable), so the typed line is atomically replaced by whichever echo
+ * applies.  Timer events tick the engine; if a tick opens a prompt or ends
+ * the game the request is cancelled and InEnd::State returned. */
 InResult read_line(Interp &in, bool echo)
 {
     static glui32 buf[256];
     if (g_manual_echo)
-        glk_set_echo_line_event(gwin, echo ? 0 : 1);
+        glk_set_echo_line_event(gwin, 0);
     glk_request_line_event_uni(gwin, buf, 255, 0);
     if (g_hyperlinks)
         glk_request_hyperlink_event(gwin);
@@ -734,6 +749,7 @@ bool handle_transcript_command(const std::string &raw)
                 c == "notranscript" || c == "noscript" || c == "unscript");
     if (!on && !off)
         return false;
+    echo_metaverb(raw);
     if (on) {
         if (gtranscript) {
             glk_put_string((char *) "A transcript is already being recorded.\n");
@@ -942,6 +958,127 @@ glui32 load_image_resource(const std::string &name)
 }
 #endif /* SPATTERLIGHT */
 
+#ifdef SPATTERLIGHT
+/* Sounds, the same pattern as images: register each game sound file with the
+ * backend under a private resource number so glk_schannel_play* finds it via
+ * win_findsound. */
+extern "C" int  win_findsound(int resno);
+extern "C" void win_loadsound(int resno, char *filename, int offset, int reslen);
+
+/* filename (case-folded) -> registered resource number; 0 = known-failed. */
+std::map<std::string, glui32> g_sound_ids;
+int g_sound_next_id = 1;
+
+/* Resolve + register one sound resource, mirroring load_image_resource. The
+ * app loads the data as soon as it receives LOADSOUND, and win_findsound
+ * round-trips (the glk_image_get_info analog): it both confirms the resource
+ * really loaded and means a temp file has been consumed. */
+glui32 load_sound_resource(const std::string &name)
+{
+    glui32 id = 0;
+    std::string temp_path;
+
+    const ZipEntryInfo *e =
+        g_is_package && name.find("..") == std::string::npos
+            ? zip_find_entry(g_package_entries, name) : nullptr;
+    if (e && e->method == 0 && g_storyfile) {
+        id = (glui32) (g_sound_next_id++);
+        win_loadsound((int) id, (char *) g_storyfile, (int) e->offset,
+                      (int) e->comp_size);
+    } else {
+        std::string bytes;
+        if (!resource_bytes(name, bytes) || bytes.empty())
+            return 0;
+        if (!stage_temp_file(bytes, temp_path))
+            return 0;
+        id = (glui32) (g_sound_next_id++);
+        win_loadsound((int) id, (char *) temp_path.c_str(), 0,
+                      (int) bytes.size());
+    }
+
+    if (!win_findsound((int) id))
+        id = 0;
+    if (!temp_path.empty())
+        unlink(temp_path.c_str());
+    return id;
+}
+#endif /* SPATTERLIGHT */
+
+/* One sound channel, like the reference player's single <audio> element: a
+ * new `play sound` replaces the current one, `stop sound` silences it. */
+schanid_t g_schannel = nullptr;
+
+void stop_sound_ui()
+{
+    if (g_schannel)
+        glk_schannel_stop(g_schannel);
+}
+
+/* Block until the playing sound reports finished -- the synchronous
+ * `play sound`, whose turn resumes only when the sound ends (QuestViva's
+ * awaited wait slot). A keypress skips: the sound is stopped and the turn
+ * resumes at once (also the safety valve if the notification never comes).
+ * Timer events are deliberately ignored -- the turn is suspended, engine
+ * ticks resume at prompt level. */
+void wait_for_sound(Interp &in, glui32 id)
+{
+    glk_request_char_event(gwin);
+    for (;;) {
+        event_t ev;
+        glk_select(&ev);
+        if (ev.type == evtype_SoundNotify && ev.val1 == id) {
+            glk_cancel_char_event(gwin);
+            return;
+        }
+        if (ev.type == evtype_CharInput && ev.win == gwin) {
+            stop_sound_ui();
+            return;
+        }
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            update_banner(in);
+    }
+}
+
+/* The play_sound host hook. Degrades to an instantly-finished sound whenever
+ * it cannot really play (sound disabled, unresolvable resource): the turn
+ * always continues -- only the hook-less headless engine keeps the oracle's
+ * abandoned-turn semantics. A looping synchronous sound never finishes, so
+ * it plays without blocking; deterministic mode (gli_sa_delays off) never
+ * blocks, like the timer heartbeat. */
+void play_sound_ui(Interp &in, const std::string &name, bool sync, bool loop)
+{
+#ifdef SPATTERLIGHT
+    if (!glk_gestalt(gestalt_Sound2, 0))
+        return;
+
+    glui32 id;
+    auto it = g_sound_ids.find(lower(name));
+    if (it != g_sound_ids.end()) {
+        id = it->second;
+    } else {
+        id = load_sound_resource(name);
+        g_sound_ids[lower(name)] = id;   /* 0 = known-unresolvable */
+    }
+    if (!id)
+        return;
+
+    if (!g_schannel)
+        g_schannel = glk_schannel_create(0);
+    if (!g_schannel)
+        return;
+
+    bool block = sync && !loop && gli_sa_delays;
+    if (!glk_schannel_play_ext(g_schannel, id, loop ? 0xffffffff : 1,
+                               block ? 1 : 0))
+        return;
+    if (block)
+        wait_for_sound(in, id);
+#else
+    /* No way to register sounds by name outside Spatterlight's Glk. */
+    (void) in; (void) name; (void) sync; (void) loop;
+#endif
+}
+
 bool draw_image_inline(const std::string &name)
 {
 #ifdef SPATTERLIGHT
@@ -1090,6 +1227,17 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         g_panel_last.clear();   /* a fresh session redraws its frame */
         in.set_panel_contents = panel_contents;
     }
+#ifdef SPATTERLIGHT
+    /* Sounds play through a Glk sound channel; a synchronous `play sound`
+     * blocks in the hook until the finish notification (or a keypress).
+     * Installed unconditionally so an unplayable sound "finishes" instantly
+     * and the turn always continues -- only the hook-less headless engine
+     * (the oracle-parity harnesses) keeps the abandoned-turn semantics. */
+    in.play_sound = [&in](const std::string &f, bool sync, bool loop) {
+        play_sound_ui(in, f, sync, loop);
+    };
+    in.stop_sound = stop_sound_ui;
+#endif
 
 #ifdef GLK_MODULE_GARGLKTEXT
     if (!w.game_name.empty())
@@ -1097,7 +1245,6 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
 #endif
 
     size_t warnings_seen = 0;
-    bool host_echo = w.asl_version >= 520;   /* pre-520: the engine echoes */
 
     /* Saved-game boot, mirroring WorldModel.BeginInternalAsync with
      * _loadedFromSaved: timers are not re-armed, InitInterface re-runs,
@@ -1161,8 +1308,16 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             if (in.pending_wait())
                 in.finish_wait();
         } else {
-            glk_put_string((char *) "\n> ");
-            InResult r = read_line(in, host_echo);
+            /* Parser-bound lines get no printed prompt and no host echo: the
+             * game side echoes them itself ("> cmd" -- Core's echocommand,
+             * or the engine for pre-v520), so printing our own would double
+             * every command.  A pending `get input` is the exception: the
+             * engine consumes the line without any game-side echo, so it is
+             * host-prompted and host-echoed. */
+            bool host_owned = in.command_override();
+            if (host_owned)
+                glk_put_string((char *) "\n> ");
+            InResult r = read_line(in, host_owned);
             if (r.kind == InEnd::State || r.kind == InEnd::Event)
                 { /* re-dispatch on the new engine state */ }
             else {
@@ -1170,6 +1325,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                 if (cmd.empty())
                     continue;
                 if (is_restore_command(cmd)) {
+                    echo_metaverb(cmd);
                     if (do_restore_ui(restore_data))
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd)) {
@@ -1256,7 +1412,10 @@ extern "C" void aslx_glk_main(const char *storyfile)
     std::string restore_data;
     while (run_session(storyfile, restore_data) != SessionEnd::Quit) {
         /* RESTART/RESTORE: fresh world, fresh screen (QuestViva reloads from
-         * disk; a restore then applies the snapshot in run_session). */
+         * disk; a restore then applies the snapshot in run_session), and no
+         * sound survives the old session (a looping one would keep playing
+         * over the new game). */
+        stop_sound_ui();
         glk_window_clear(gwin);
         g_links.clear();
         g_bold = g_italic = g_under = 0;

@@ -881,6 +881,43 @@ static void test_parity_batch() {
     CHECK(sus.find("after") == std::string::npos);
     CHECK(sus.find("Error") == std::string::npos);
 
+    // -- ...but with a play_sound host hook, a synchronous play runs through
+    // the hook (which blocks until the sound ends) and the turn CONTINUES --
+    // QuestViva's awaited wait slot, resolved by a UI that can finish a
+    // sound. Args arrive evaluated in PlaySoundScript order.
+    struct SoundCall { std::string file; bool sync, loop; };
+    std::vector<SoundCall> sounds;
+    int stops = 0;
+    in.play_sound = [&](const std::string &f, bool s, bool l) {
+        sounds.push_back({f, s, l});
+    };
+    in.stop_sound = [&] { stops++; };
+    size_t warned_before = w.warnings.size();
+    in.clear_output();
+    {
+        Context sc;
+        in.run_script("play sound (\"bg\" + \".mp3\", false, true)\n"
+                      "play sound (\"sting.wav\", true, false)\n"
+                      "stop sound\n"
+                      "msg (\"turn continues\")", sc);
+    }
+    CHECK(sounds.size() == 2);
+    CHECK(sounds[0].file == "bg.mp3" && !sounds[0].sync && sounds[0].loop);
+    CHECK(sounds[1].file == "sting.wav" && sounds[1].sync && !sounds[1].loop);
+    CHECK(stops == 1);
+    CHECK(in.output().find("turn continues") != std::string::npos);
+    CHECK(w.warnings.size() == warned_before);   // hooked: no warning
+    // A synchronous play still claims the wait slot: a pending `wait` is
+    // cancelled, its callback never runs (BeginPrompt on _waitTcs).
+    in.clear_output();
+    run(in, "wait { msg (\"wait resumed\") }");
+    CHECK(in.pending_wait());
+    run(in, "play sound (\"claim.mp3\", true, false)");
+    CHECK(!in.pending_wait());
+    CHECK(in.output().find("wait resumed") == std::string::npos);
+    in.play_sound = nullptr;
+    in.stop_sound = nullptr;
+
     // -- clone-on-set: assigning a list to a field copies the backing, so
     // later mutations through the source alias don't leak in (Fields.Set).
     run(in, "src = NewStringList()\n"

@@ -1,5 +1,47 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-16, sounds + the command-echo fix)
+
+- **Sounds play in the app** (milestone 5's second slice): `play sound` /
+  `stop sound` land in new `Interp::play_sound`/`stop_sound` host hooks
+  (PlaySoundScript evaluates filename/synchronous/loop in that order — the
+  engine now does too, on BOTH paths; a synchronous play still claims the
+  wait slot). Hook-less (harnesses/oracle parity) keeps the headless
+  semantics: warn-once, sync play throws TurnSuspended. The Glk side
+  (aslxglk.cc) registers sound resources exactly like images
+  (win_loadsound + a win_findsound round-trip standing in for
+  glk_image_get_info; stored zip entries point at the .quest, deflated ones
+  stage through a temp file; negative-cached) and plays them on ONE
+  schannel, like the reference player's single audio element. A
+  **synchronous play blocks in the hook** on evtype_SoundNotify — QuestViva's
+  awaited wait slot, resolved by a host that can finish a sound — with a
+  keypress as skip/hang-safety; looping-sync and deterministic mode
+  (gli_sa_delays off) never block; unplayable sounds "finish" instantly so
+  the app never loses turn text; restart/restore stops the old session's
+  sound. Verified in the app with a synthetic package (2s wav: boot blocks
+  ~2s between the before/after prints — the notify only fires after real
+  playback — loop + stop work) — and headless keeps abandoning the turn,
+  byte-identically (goldens 16/17, `make check` + ASan/UBSan green).
+  ICM's sync `beatingheart.mp3` is the real-game case: with a sound host
+  the native engine shows the ending real Quest shows.
+- **Command echo de-duplicated** (pre-existing bug, exposed while testing):
+  every typed command showed TWICE in the app — the frontend printed its own
+  "\n> " prompt AND manually echoed, but the GAME side echoes too (Core's
+  `game.echocommand` default: `msg("")` + `OutputTextRaw("&gt; " + cmd)` in
+  CoreParser's HandleSingleCommand; the engine does it for pre-v520). The
+  reference player's transcript record IS that game-side echo. Fix: parser-
+  bound lines get NO printed prompt and NO host echo (library echo forced
+  off; the typed ghost line is atomically replaced by Core's "> cmd");
+  host-OWNED prompts keep prompt+manual echo (`get input` via
+  `command_override()`, menus, yes/no, post-game menu), and the RESTORE/
+  TRANSCRIPT metaverbs echo themselves Core-style (echo_metaverb). Verified:
+  Myothian Falcon plays to THE END through the smoke harness (menus incl.),
+  Serpent's Eye in-app (get-input intro + per-room art + single echo),
+  goldens untouched (the replayer has its own qvh step grammar).
+- Still open in presentation: compass/inventory/status panes
+  (JS.updateList), `<backgroundimage>`, babel zip metadata + cover art,
+  Spatterlight autosave/autorestore.
+
 ## Status (2026-07-16, pictures — zip resources + inline images via new Glk 0.7.6 IMAGE2)
 
 - **Pictures render in the app** (milestone 5's first slice): Core's `picture`
@@ -779,7 +821,8 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `{...}` text processor runs. Also done (2026-07-16): `rundelegate`,
       `create timer`/`create turnscript`, `x => {script}` assignment, trailing
       `{script}` call argument, `this` binding in `do`/`rundelegate`,
-      `picture`/`play sound`/`stop sound`/`insert` (headless no-op + warning),
+      `picture`/`play sound`/`stop sound`/`insert` (host hooks for picture +
+      sounds, 2026-07-16; headless no-op + warning without one),
       `wait` (runs callback immediately pending §3), `error` (throws, QuestViva
       semantics). Also done (2026-07-16): `get input`, `show menu`, `ask`,
       real pending `wait` (the §3 input model — fire-and-forget callbacks
@@ -887,7 +930,12 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       via win_loadimage + the new Glk 0.7.6 `glk_image_draw_scaled_ext`
       (`WidthOrig|AspectRatio`, maxwidth=$10000 — window-fitted, dynamic on
       resize). See the top status entry.
-- [ ] `play sound` → Glk sound channels (resource_bytes already extracts).
+- [x] `play sound` / `stop sound` → one Glk sound channel (2026-07-16):
+      `Interp::play_sound`/`stop_sound` hooks; resources registered via
+      win_loadsound (win_findsound round-trip validates + frees temp files);
+      synchronous play blocks on evtype_SoundNotify in the hook (keypress
+      skips), which resolves the TurnSuspended semantics against a real
+      host. See the top status entry.
 - [~] Panes: the picture frame (SetFramePicture → JS.setPanelContents) is
       redirected INLINE (2026-07-16, the Scarier approach — drawn on change,
       per-room art above the room description). Remaining: compass/inventory/
@@ -985,8 +1033,9 @@ stays unsupported, as in `quest4.c`.
    Undo landed 2026-07-16 (UndoLogger port, §2); save/restore landed
    2026-07-16 (v1 snapshot, §5). Milestone complete.
 5. **Presentation** (HTML→styles + hyperlinks ✅ 2026-07-16; pictures + zip
-   resource extraction ✅ 2026-07-16, via the new Glk 0.7.6 IMAGE2 support):
-   remaining — panes (SetFramePicture / JS.updateList), sound.
+   resource extraction ✅ 2026-07-16, via the new Glk 0.7.6 IMAGE2 support;
+   sounds ✅ 2026-07-16, incl. synchronous-play blocking + the command-echo
+   de-dup): remaining — panes (JS.updateList), `<backgroundimage>`.
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
    app-verified with Dream Pieces): remaining — babel zip metadata/cover,
    a corpus-wide replay gate wired into `make check`.

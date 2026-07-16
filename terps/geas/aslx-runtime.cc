@@ -2365,16 +2365,15 @@ bool Interp::exec_statement_command(const std::string &name,
     }
 
     // Media/output-decoration commands (insert splices an HTML file into the
-    // output): pure presentation, no world-model effect. Sounds and insert
-    // no-op with a one-time warning so a game using them still runs headless.
-    // Their args are deliberately not evaluated -- nothing observable should
-    // happen. `picture` is different: PictureScript ALWAYS evaluates its
-    // filename first (so an erroring expression reports like the oracle's),
-    // then prints an <img> on v540+ or shows the picture through the UI
-    // (ShowPictureAsync) pre-540 -- the latter lands in the show_picture host
-    // hook when the front-end can draw it.
-    if (name == "picture" || name == "play sound" || name == "stop sound" ||
-        name == "insert") {
+    // output): pure presentation, no world-model effect. Unsupported ones
+    // no-op with a one-time warning so a game using them still runs headless
+    // (insert's arg is deliberately not evaluated -- nothing observable
+    // should happen). `picture` is different: PictureScript ALWAYS evaluates
+    // its filename first (so an erroring expression reports like the
+    // oracle's), then prints an <img> on v540+ or shows the picture through
+    // the UI (ShowPictureAsync) pre-540 -- the latter lands in the
+    // show_picture host hook when the front-end can draw it.
+    if (name == "picture" || name == "insert") {
         if (name != "picture" || !show_picture)
             warn_once(name, "'" + name + "' is not supported yet; ignored");
         if (name == "picture" && !args.empty()) {
@@ -2390,22 +2389,46 @@ bool Interp::exec_statement_command(const std::string &name,
             }
             return true;
         }
-        if (name == "play sound" && args.size() >= 2 && truthy(ev(1))) {
-            // play sound (file, true, loop): synchronous playback. QuestViva
-            // claims the wait slot (BeginPrompt on _waitTcs, cancelling a
-            // pending `wait` -- its callback never runs) and awaits it, and
-            // with no UI to report the sound finished, everything after this
+        return true;
+    }
+
+    // play sound (file, synchronous, loop) -- PlaySoundScript.ExecuteAsync
+    // evaluates all three in that order, then hands them to the UI.
+    if (name == "play sound") {
+        std::string filename = !args.empty() ? to_string(ev(0)) : "";
+        bool sync = args.size() >= 2 && truthy(ev(1));
+        bool loop = args.size() >= 3 && truthy(ev(2));
+        if (sync && wait_pending_) {
+            // A synchronous play claims the wait slot (BeginPrompt on
+            // _waitTcs): a pending `wait` is cancelled -- its callback never
+            // runs. Note no begin_pending_callback -- PlaySoundScript never
+            // counts itself, so `on ready` is not deferred by the sound.
+            wait_pending_ = false;
+            wait_cb_ = PendingCallback{};
+            end_pending_callback();
+        }
+        if (play_sound) {
+            // The host plays it; a synchronous host BLOCKS in the hook until
+            // playback finishes, so the rest of the turn resumes exactly
+            // where QuestViva's awaited wait slot would resume it.
+            play_sound(filename, sync, loop);
+            return true;
+        }
+        warn_once(name, "'" + name + "' is not supported yet; ignored");
+        if (sync) {
+            // With no UI to report the sound finished, everything after this
             // statement in the turn is abandoned. Mirror that exactly: the
-            // suspension unwinds to the turn boundary, unreported. Note no
-            // begin_pending_callback -- PlaySoundScript never counts itself,
-            // so `on ready` is not deferred by a stuck sound.
-            if (wait_pending_) {
-                wait_pending_ = false;
-                wait_cb_ = PendingCallback{};
-                end_pending_callback();
-            }
+            // suspension unwinds to the turn boundary, unreported.
             throw TurnSuspended{};
         }
+        return true;
+    }
+
+    if (name == "stop sound") {   // StopSoundScript: no args
+        if (stop_sound)
+            stop_sound();
+        else
+            warn_once(name, "'" + name + "' is not supported yet; ignored");
         return true;
     }
 

@@ -266,6 +266,19 @@ public:
     // ignored with its argument unevaluated, as before.
     std::function<void(const std::string &html)> set_panel_contents;
 
+    // Host hooks for `play sound` / `stop sound` (PlaySoundScript /
+    // StopSoundScript -> IPlayer.PlaySound/StopSound). play_sound receives
+    // the evaluated filename plus the synchronous and loop flags; a
+    // synchronous play must BLOCK until playback finishes (QuestViva awaits
+    // the wait slot the statement claims -- the enclosing script, and the
+    // rest of the turn, resume when the sound ends). Unset, the commands
+    // keep their headless semantics: a one-time warning, and a synchronous
+    // play abandons the rest of the turn (TurnSuspended), exactly like the
+    // oracle with no UI to report the sound finished.
+    std::function<void(const std::string &filename, bool synchronous,
+                       bool loop)> play_sound;
+    std::function<void()> stop_sound;
+
     // Synchronous provider for the EXPRESSION form of ShowMenu
     // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
     // returns the selected key). A synchronous host must supply the answer in
