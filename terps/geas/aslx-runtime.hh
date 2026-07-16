@@ -257,6 +257,15 @@ public:
     // pictures no-op with the one-time warning as before.
     std::function<void(const std::string &filename)> show_picture;
 
+    // Host hook for JS.setPanelContents -- Quest's picture frame, a
+    // persistent panel above the transcript in the reference player. Core's
+    // SetFramePicture(file) passes '<img src="URL" onload=.../>' (URL = the
+    // filename here, like GetFileURL) and ClearFramePicture passes "";
+    // OnEnterRoom drives it from the room's `picture` attribute. A paneless
+    // host can render the picture inline when it changes. Unset, the call is
+    // ignored with its argument unevaluated, as before.
+    std::function<void(const std::string &html)> set_panel_contents;
+
     // Synchronous provider for the EXPRESSION form of ShowMenu
     // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
     // returns the selected key). A synchronous host must supply the answer in

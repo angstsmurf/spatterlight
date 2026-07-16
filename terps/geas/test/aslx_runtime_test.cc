@@ -275,6 +275,23 @@ static void test_script_commands() {
     CHECK_STR(run(in, "JS.addText (\"<b>hi</b>\")\nJS.updateLocation (\"room\")"),
               "<b>hi</b>");
 
+    // JS.setPanelContents (the picture frame: SetFramePicture /
+    // ClearFramePicture) routes to the set_panel_contents host hook when one
+    // is installed -- with the evaluated argument -- and stays a silent no-op
+    // otherwise (the run above already covered unset-hook JS.* calls).
+    std::vector<std::string> panels;
+    in.set_panel_contents = [&](const std::string &html) {
+        panels.push_back(html);
+    };
+    run(in, "JS.setPanelContents (\"<img src=\\\"pic\\\" />\" )\n"
+            "JS.setPanelContents (\"\")");
+    CHECK(panels.size() == 2);
+    if (panels.size() == 2) {
+        CHECK_STR(panels[0], "<img src=\"pic\" />");
+        CHECK_STR(panels[1], "");
+    }
+    in.set_panel_contents = nullptr;
+
     // finish sets the world flag.
     CHECK(!w.finished);
     run(in, "finish");

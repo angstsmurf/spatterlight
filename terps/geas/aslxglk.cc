@@ -975,6 +975,30 @@ bool draw_image_inline(const std::string &name)
 #endif
 }
 
+/* Frame-picture redirect (JS.setPanelContents): Quest's picture frame is a
+ * persistent panel above the transcript -- Core sets it from the room's
+ * `picture` attribute on every room change (OnEnterRoom -> SetFramePicture)
+ * and re-sets it at boot/restore (InitInterface). With no panel, draw the
+ * picture inline when it CHANGES, the way Scarier folds ADRIFT's graphics
+ * into the buffer: room art appears on entry, classic illustrated-IF style,
+ * and consecutive re-sets of the same file stay quiet. */
+std::string g_panel_last;   /* case-folded filename currently "in the frame" */
+
+void panel_contents(const std::string &html)
+{
+    std::string src = decode_entities(tag_attr(html, "src"));
+    if (src.empty()) {          /* ClearFramePicture (or non-img contents) */
+        g_panel_last.clear();
+        return;
+    }
+    if (lower(src) == g_panel_last)
+        return;
+    if (draw_image_inline(src)) {
+        g_panel_last = lower(src);
+        glk_put_char('\n');
+    }
+}
+
 /* Print any warnings the engine queued since the last check ("'play sound'
  * is not supported yet" etc.), bracketed and emphasized. */
 void flush_warnings(World &w, size_t &seen)
@@ -1054,14 +1078,18 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     };
     in.request_save = [&in] { do_save_ui(in); };
     /* Pre-540 `picture` shows the image through the UI directly (no <img>
-     * print). Only claim it when this Glk can actually draw -- unset, the
-     * engine keeps its one-time "not supported" warning. */
+     * print), and JS.setPanelContents is the picture frame. Only claim them
+     * when this Glk can actually draw -- unset, the engine keeps its
+     * one-time "not supported" warning / silent ignore. */
     if (glk_gestalt(gestalt_Graphics, 0) &&
-        glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+        glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)) {
         in.show_picture = [](const std::string &filename) {
             if (draw_image_inline(filename))
                 glk_put_char('\n');
         };
+        g_panel_last.clear();   /* a fresh session redraws its frame */
+        in.set_panel_contents = panel_contents;
+    }
 
 #ifdef GLK_MODULE_GARGLKTEXT
     if (!w.game_name.empty())

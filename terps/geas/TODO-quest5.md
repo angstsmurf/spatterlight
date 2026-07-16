@@ -44,11 +44,24 @@
   documented oracle artifact), full app + all terps build. `picture` now
   ALWAYS evaluates its filename first (PictureScript does; the pre-540
   headless path previously skipped evaluation) — no golden moved.
+- **Frame pictures redirect inline** (same day, follow-up): Quest's picture
+  frame — the persistent panel the reference player keeps above the
+  transcript, driven by `SetFramePicture`/`ClearFramePicture` and set from
+  the room's `picture` attribute on every room change (OnEnterRoom) and at
+  boot/restore (InitInterface) — all funnels through `JS.setPanelContents`.
+  A new `Interp::set_panel_contents` host hook routes it (arg unevaluated
+  when unset, as before; unit-tested); the frontend extracts the `<img src>`
+  and draws it inline when the filename CHANGES (consecutive re-sets stay
+  quiet; "" clears the tracker; reset per session), the way Scarier folds
+  ADRIFT graphics into the buffer. Verified in Quest for the Serpent's Eye
+  (126 images, per-room `<picture>`): title, then per-room art above each
+  room description. NOTE Dracula's remaining art is `<backgroundimage>`
+  (JS page background) + `<cover>` — different features, still open.
 - Still open in presentation: sounds (`resource_bytes` is the extraction
   half; the synchronous `play sound` TurnSuspended semantics need a host that
-  can finish a sound), panes (SetFramePicture/JS.setPanelContents — Dracula
-  shows most of its art through the panel), babel zip metadata + cover art,
-  Spatterlight autosave/autorestore.
+  can finish a sound), compass/inventory/status panes (JS.updateList),
+  `<backgroundimage>`, babel zip metadata + cover art, Spatterlight
+  autosave/autorestore.
 
 ## Status (2026-07-16, later still — undo + save/restore land; milestone 4 complete)
 
@@ -875,10 +888,12 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       (`WidthOrig|AspectRatio`, maxwidth=$10000 — window-fitted, dynamic on
       resize). See the top status entry.
 - [ ] `play sound` → Glk sound channels (resource_bytes already extracts).
-- [ ] Panes: compass/inventory/"places and objects"/status attributes →
-      reuse the existing sidebar machinery (`objwin`, `bannerwin` in
-      `geasglk.cc:83-87`); the data arrives as UI update requests
-      (`RequestScript` / `UpdateList` calls).
+- [~] Panes: the picture frame (SetFramePicture → JS.setPanelContents) is
+      redirected INLINE (2026-07-16, the Scarier approach — drawn on change,
+      per-room art above the room description). Remaining: compass/inventory/
+      "places and objects"/status attributes → reuse the existing sidebar
+      machinery (`objwin`, `bannerwin` in `geasglk.cc:83-87`); the data
+      arrives as UI update requests (`RequestScript` / `UpdateList` calls).
 - [ ] `JS.*` calls: implement the handful Core itself uses (`JS.eval` from
       user games gets a one-time warning and is ignored). Games built around
       custom JavaScript UIs are explicitly out of scope — detect and warn.

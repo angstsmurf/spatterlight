@@ -2349,12 +2349,18 @@ bool Interp::exec_statement_command(const std::string &name,
     };
 
     // JS.* -- the front-end bridge. Only JS.addText carries game text; route it
-    // to the output sink. Everything else is a UI side effect we can ignore in
-    // the headless/native core (a later presentation milestone wires the rest).
+    // to the output sink. JS.setPanelContents is the picture frame
+    // (SetFramePicture/ClearFramePicture wrap it, and OnEnterRoom sets it from
+    // the room's `picture` attribute) -- routed to the set_panel_contents host
+    // hook when one is installed, untouched (arg unevaluated) otherwise.
+    // Everything else is a UI side effect we can ignore in the headless/native
+    // core (a later presentation milestone wires the rest).
     if (name.compare(0, 3, "JS.") == 0) {
         std::string fn = name.substr(3);
         if (fn == "addText" && !args.empty())
             print(to_string(ev(0)));
+        else if (fn == "setPanelContents" && !args.empty() && set_panel_contents)
+            set_panel_contents(to_string(ev(0)));
         return true;
     }
 
