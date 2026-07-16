@@ -309,8 +309,18 @@ static void test_new_builtins() {
     CHECK_STR(evals(in, "TypeOf(box, \"nope\")"), "null");
 
     // World-model queries.
-    CHECK_STR(evals(in, "ListCount(AllObjects())"), "3");        // room, player, box
+    CHECK_STR(evals(in, "ListCount(AllObjects())"), "4");  // chest, room, player, box
     CHECK_STR(evals(in, "ListCount(GetDirectChildren(room))"), "2");
+
+    // listextend merges on read (Fields.GetMergedResult): the base list's
+    // entries first, then extensions least-derived -> most-derived -- here
+    // container's base + openable's extension + chest's own extension. The
+    // plain base list on a sibling type user is unaffected.
+    CHECK_STR(evals(in, "Join(chest.displayverbs, \",\")"),
+              "Look,Take,Open,Close,Lock");
+    CHECK_STR(evals(in, "Join(box.displayverbs, \",\")"), "Look,Take");
+    CHECK_STR(evals(in, "TypeOf(chest, \"displayverbs\")"), "stringlist");
+    CHECK_STR(evals(in, "ListCount(chest.displayverbs)"), "5");
     CHECK_STR(evals(in, "Contains(room, player)"), "True");
     CHECK_STR(evals(in, "Contains(player, room)"), "False");
     CHECK_STR(evals(in, "ListContains(GetAttributeNames(player, false), \"score\")"),

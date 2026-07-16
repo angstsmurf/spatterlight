@@ -35,8 +35,8 @@
     dir, then Core dir, then Core/Languages — matching QuestViva's
     `GetLibraryStream()`. `Editor*`/`CoreEditor*` refs are skipped (not
     bundled). Recursion is deduped/guarded. Three Core-driven attribute types
-    now load too: `listextend` (flagged `Value::list_extend`, merge-on-read
-    still TODO), `list` (heterogeneous `<value>` list), and delegate-typed
+    now load too: `listextend` (flagged `Value::list_extend`; merge-on-read
+    landed 2026-07-16 -- see the typed-lists entry), `list` (heterogeneous `<value>` list), and delegate-typed
     attributes (an attr whose `type=` names a `<delegate>` loads its body as a
     delegate-implementation Script). **All 76 corpus games load with 0 errors**;
     a fresh game boots the full Core tree (~330 functions / ~56 types). Wired as
@@ -250,9 +250,19 @@
     point** (foreach over `game.pov.longtermtopics` with pov unset — the
     genuine game bug the oracle hits), with the rest of the corpus still
     49/50-boot-0-error and 0 load failures.
+  - **M3 listextend merge-on-read landed** (2026-07-16, with typed lists):
+    `resolve_field` now collects the whole field chain -- the base value is the
+    first NON-extend field, and every `listextend` field anywhere in the chain
+    is an extension. Reads merge base-entries-first then extensions
+    least-derived to most-derived (QuestViva Fields.GetMergedResult /
+    QuestList.MergeLists accumulate parent-first), rebuilt on every read into a
+    stable per-(element,attr) slot. Before this, a listextend field silently
+    SHADOWED the inherited base. Unit-tested in `test_new_builtins` (fixture
+    `runtime.aslx`: container base + openable extension + own extension);
+    corpus boot output byte-identical (displayverbs feed UI verb menus).
   - Still open for M3: multi-object/disambiguation menus and `show menu`/
     `ask`/`get input`/real `wait` (the input model, §3), change
-    (`changed<attr>`) scripts, the listextend merge-on-read, game-local
+    (`changed<attr>`) scripts, game-local
     libraries bundled *inside* a `.quest` zip, the UndoLogger, and (maybe)
     member-access-on-null throwing like QuestViva ("Property 'x' not found on
     ''") instead of yielding null. Milestones 4–5 remain.
@@ -527,7 +537,7 @@ stays unsupported, as in `quest4.c`.
    `test/aslx_loader_test.cc:test_coreboot` (load) +
    `test/aslx_runtime_test.cc:test_coreboot_runs` (boot) +
    `:test_command_driving` (commands). Remaining: multi-object disambiguation
-   menus (needs §3 input), change scripts, listextend merge-on-read.
+   menus (needs §3 input), change scripts.
 4. **Interaction**: get input, menus, wait, timers, undo, save/restore.
 5. **Presentation**: HTML→styles, hyperlinks, panes, pictures, sound.
 6. **Integration**: babel module, Info.plist, Xcode wiring, corpus

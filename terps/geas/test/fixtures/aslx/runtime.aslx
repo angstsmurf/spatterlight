@@ -4,6 +4,11 @@
   <dynamictemplate name="Weigh">"weighs " + object.weight</dynamictemplate>
   <type name="container">
     <capacity type="int">10</capacity>
+    <displayverbs type="simplestringlist">Look; Take</displayverbs>
+  </type>
+  <type name="openable">
+    <inherit name="container" />
+    <displayverbs type="listextend">Open; Close</displayverbs>
   </type>
   <object name="room">
     <object name="player">
@@ -14,6 +19,10 @@
       <inherit name="container" />
       <weight type="int">4</weight>
     </object>
+  </object>
+  <object name="chest">
+    <inherit name="openable" />
+    <displayverbs type="listextend">Lock</displayverbs>
   </object>
   <function name="AddScore" parameters="amount" type="int">
     player.score = player.score + amount

@@ -139,6 +139,11 @@ private:
     // dictionary mutator commands. nullptr if not an assignable location.
     Value *lvalue_of(const Expr &e, Context &ctx);
 
+    // Storage for merged listextend reads: resolve_field builds the merged
+    // list into a stable per-(element,attr) slot and returns a pointer to it
+    // (rebuilt on every read, like QuestViva's Fields.GetMergedResult).
+    std::map<std::string, Value> extend_cache_;
+
     // Record a one-per-key notice in world.warnings (e.g. "picture no-opped
     // headless") without polluting world.errors.
     void warn_once(const std::string &key, const std::string &message);

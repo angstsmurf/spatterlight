@@ -1181,17 +1181,47 @@ Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
 
 // -- expression evaluation --------------------------------------------------
 
+// Walk the field chain (own field, then inherited types most-recent-first,
+// depth-first) collecting the base value -- the first NON-extend field -- and
+// every `listextend` field encountered anywhere in the chain, in traversal
+// order (most-derived first). Mirrors QuestViva Fields.Get: extendable fields
+// live outside normal resolution (m_extendableFields) and merge on read.
+static void collect_field_chain(World &w, Element *e, const std::string &name,
+                                const Value *&base,
+                                std::vector<const Value *> &exts) {
+    if (!e) return;
+    if (const Value *own = e->field(name)) {
+        if (own->list_extend) exts.push_back(own);
+        else if (!base) base = own;
+    }
+    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
+        collect_field_chain(w, w.find(*it), name, base, exts);
+}
+
 const Value *Interp::resolve_field(Element *e, const std::string &name) {
     if (!e) return nullptr;
-    if (const Value *own = e->field(name)) return own;
-    // inherited types, most recent first
-    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it) {
-        Element *type = world_.find(*it);
-        if (type) {
-            if (const Value *v = resolve_field(type, name)) return v;
-        }
-    }
-    return nullptr;
+    const Value *base = nullptr;
+    std::vector<const Value *> exts;
+    collect_field_chain(world_, e, name, base, exts);
+    if (exts.empty()) return base;  // fast path: no listextend in the chain
+    // Merge on read (Fields.GetMergedResult): the base list's entries first,
+    // then each extension least-derived to most-derived (QuestList.MergeLists
+    // accumulates parent-first). A non-list base is ignored, like QuestViva's
+    // null extendableBaseField. The merged Value lives in a per-(element,attr)
+    // slot so the returned pointer stays valid; it is rebuilt on every read
+    // (QuestViva re-merges each Get too).
+    Value merged;
+    merged.type = (base && (base->type == Value::Type::StringList ||
+                            base->type == Value::Type::ObjectList))
+                      ? base->type : exts.front()->type;
+    if (base && (base->type == Value::Type::StringList ||
+                 base->type == Value::Type::ObjectList))
+        for (const Value &v : base->list()) merged.list().push_back(v);
+    for (auto it = exts.rbegin(); it != exts.rend(); ++it)
+        for (const Value &v : (*it)->list()) merged.list().push_back(v);
+    Value &slot = extend_cache_[e->name + "\x01" + name];
+    slot = std::move(merged);
+    return &slot;
 }
 
 Value Interp::resolve_variable(const std::string &name, Context &ctx, bool &found) {
