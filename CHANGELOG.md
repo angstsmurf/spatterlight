@@ -16,11 +16,12 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the ol
 
 #### Adrift 5
 - Plays Adrift 5 games in .taf and .blorb format. All the games I could find of the 91 listed with the Adrift 5 tag on IFDB are playable from start to finish, matching the FrankenDrift output.
+- Map display.
 - Sound and graphics support.
 - Status panel in *Alien Diver*.
 - Multi-level UNDO. The original runner only remembers a single turn.
 - Save files in the Adrift 5 runner and FrankenDrift .tas format which can be moved between the three in either direction.
-- Supported: Danish, real-time events. Not supported yet: font tags, text colors, the map.
+- Supported: Danish, real-time events. Not supported yet: font tags, text colors.
 - Many of Glk meta-commands (transcript, input log, summary and so on) from SCARE re available in Adrift 5 games too.
 
 #### Adrift 4
