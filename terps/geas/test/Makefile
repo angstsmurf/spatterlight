@@ -33,6 +33,10 @@ ASLXRTSRC := aslx_runtime_test.cc
 ASLXRTDEPS := ../aslx.cc ../aslx.hh ../aslx-runtime.cc ../aslx-runtime.hh \
               ../aslx-runtime-parse.inc ../aslx-runtime-builtins.inc
 
+# Quest 5 native walkthrough replayer (diff against quest5-oracle/golden/).
+# Needs the local game corpus, so it is built on demand and not part of check.
+ASLXREPLAY := aslx_replay
+
 all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 
 $(BIN): $(SRC) $(DEPS)
@@ -46,6 +50,9 @@ $(ASLXBIN): $(ASLXSRC) $(ASLXDEPS)
 
 $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $@
+
+$(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
+	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
 
 check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
 	./$(TESTBIN)

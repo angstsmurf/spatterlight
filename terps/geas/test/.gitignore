@@ -7,3 +7,4 @@
 # Copyrighted Quest game files used by run_walkthroughs.sh — kept local-only.
 # The fixtures/ games are ours, and are committed.
 /games/
+/aslx_replay

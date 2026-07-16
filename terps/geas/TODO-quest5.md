@@ -570,10 +570,21 @@ stays unsupported, as in `quest4.c`.
 - [x] Walkthrough regression scripts: `.quest` games' shipped walkthroughs
       (+ Welbourn corpus) extracted by `extract_walkthrough.py`, driven by
       `run_corpus.sh`; 17 wired (15 win). Frozen as `golden/<Game>.cmd`+`.out`.
-- [ ] Extend `terps/geas/test/`: aslx fixtures with `.cmd`/`.expected`
+- [~] Extend `terps/geas/test/`: aslx fixtures with `.cmd`/`.expected`
       goldens under `run_fixtures.sh`, walkthrough runner rows for real
       games, `make check` stays the gate. (Oracle goldens exist; the native
       engine still needs its own fixture harness — starts with milestone 1.)
+      **Native replay driver landed** (2026-07-16): `test/aslx_replay.cc`
+      (`make aslx_replay`, needs the local corpus so not in `check`) replays
+      an oracle `.cmd` through the native engine with qvh's exact step
+      grammar/normalisation and diffs against `quest5-oracle/golden/*.out`.
+      First-light baseline: all 17 goldens replay end-to-end with 0–4 script
+      errors, ~30–70% of golden lines already match, no game Finishes yet.
+      First divergences cluster on (in priority order): verb commands
+      ("wear X"/"break X" → "I don't understand"), object resolution
+      ("open door 24" → "I can't see that"), and missing/displaced room
+      description output on `go`. DrainTimers (needs the native timer engine)
+      and Wedged-vs-Finished are not mirrored yet.
 
 ## 8. Milestones
 
