@@ -1,0 +1,1348 @@
+Is this your first time playing Quest for the Serpent's Eye? (Y/N?)
+> y
+
+> y
+
+August, 1983
+
+It's 9pm on a Friday night. You are seated at a DESK on which sits a home COMPUTER. A DESK LAMP provides the room's only illumination. A GAME BOX is on the desk.
+
+Try looking around the room for a bit. For example, type LOOK AT COMPUTER or simply LOOK COMPUTER. If you lose track of what objects are in the room, just say LOOK.
+
+Type DONE LOOKING or DONE when you're finished.
+
+> look at computer
+
+> look at computer
+
+It's your family's home computer, complete with high-resolution monochrome MONITOR, a DISK DRIVE, full-size KEYBOARD and 48k of RAM. It's currently off.
+> look at game box
+
+> look at game box
+
+'Quest for the Serpent's Eye: A Text-Based Jungle Adventure Game' is written on the front of the box, along with 'Exclusive Hint Book and glow-in-the-dark Compass Included!' in the bottom corner.
+
+It has taken you two months' worth of mowing lawns to get to this moment. Your spine tingles with excitement at the thought of the hours of entertainment that await you.
+
+> done
+
+> done
+
+As you will discover, there are several types of input commands you can use to play this game. We've already covered LOOK, now let's try USE.
+
+Try USING different items in the room. When you're finished, type DONE USING or DONE.
+> use computer
+
+> use computer
+
+You'll need to put a disk in the drive before you can turn it on.
+> done
+
+> done
+
+Perfect! Let's try a few more commands, like OPEN, READ, and TAKE.
+
+Try opening the GAME BOX.
+> open game box
+
+> open game box
+
+You open the box. Now try LOOKING at the box again and TAKE or GET what you find inside.
+> read manual
+
+> read manual
+
+You can't look around while you are reading the manual.
+
+Game Manual for
+Quest for the Serpent’s Eye
+
+Welcome to the Island of Ankrum!
+
+Quest for the Serpent’s Eye is a text-based graphic adventure game where YOU are the hero. You will make every choice, overcome every obstacle, and be expected to solve every puzzle to reach your goal.
+
+Every step brings you closer to your goal, but be warned: danger lurks around every corner!
+
+So grab your walking stick and compass - your greatest adventure awaits!
+
+Type NEXT PAGE to continue reading or CLOSE MANUAL to return to the game.
+> close manual
+
+> close manual
+
+You close the game manual.
+You are seated at a DESK on which sits a home COMPUTER. A DESK LAMP provides the room's only illumination. A GAME BOX is on the desk.
+
+Now type TAKE FLOPPY DISK or GET DISK.
+> take floppy disk
+
+> take floppy disk
+
+You take the diskette from the box.
+
+You can LOOK at the disk if you want - type LOOK AT FLOPPY DISK or LOOK DISK.
+> put disk in drive
+
+> put disk in drive
+
+You insert the floppy disk in the drive. Now you have to turn the computer on. Type TURN ON COMPUTER or USE COMPUTER.
+> turn on computer
+
+> turn on computer
+
+Good work! You've finished loading the program. When you're ready, type PLAY GAME.
+> play game
+
+> play game
+
+Please wait...loading
+Welcome to the Island of Ankrum! You are standing on a weathered wooden dock. You can see the rusted hulk of a steamship that brought you to this island sailing off in the distance. For better or worse, you're stuck here.
+
+The GAME MANUAL is sitting on the dock. The island's only VILLAGE is to the NORTH. The OCEAN is to the SOUTH.
+
+Type GO NORTH, or simply N.
+> n
+
+> n
+
+You make your way into the heart of the tiny tropical village. Loose pebbles have been scattered across the ground to make a path to each building.
+
+The only dwellings not made of grass and palm leaves are a TRADING POST to the EAST and a LOG HOUSE to the WEST.
+
+You can see a large WALL to the NORTH.
+
+Type INVENTORY at any time to see what you are carrying.
+> look at pebbles
+
+> look at pebbles
+
+You glance down at the pebbles scattered across the path and notice something shiny. It's a MARBLE!
+> take marble
+
+> take marble
+
+You put the marble in your pocket.
+> e
+
+> e
+
+Without the faint breeze it's even warmer in the trading post than outside. Flies buzz around your head.
+
+The SHOPKEEPER stands in the shade. A SIGN hangs on the nearby wall.
+
+"Take a look at my fine merchandise! Better take everything you can if you're headed into the jungle. It's so cheap it's practically free! If you need more info just ASK. Name's Stan, by the way."
+
+Go WEST to return to the village square.
+> look at horse
+
+> look at horse
+
+Hmm. The little horse in his pocket looks interesting. Why not ask him about it?
+> ask stan about horse
+
+> ask stan about horse
+
+"Oh yeah, my knight. It's my lucky charm I guess. I used to play a lot of chess with Professor P, before he locked himself away with his books. We never did finish our last game."
+
+He leans in. "...if you see him, tell him about Q-N8."
+> w
+
+> w
+
+You're standing in the middle of the tiny village. Loose pebbles have been scattered across the ground to make a path to each building.
+
+The TRADING POST is to the EAST and the LOG HOUSE to the WEST.
+
+The WALL is to the NORTH.
+> w
+
+> w
+
+You are facing WEST towards the front door of the log house.
+
+There's a sign beside the door.
+
+Go EAST to return to the village square.
+> i
+
+> i
+
+You are carrying a Journal, a Pistol and a Marble.
+> read journal
+
+> read journal
+
+From the personal journal of Dr. J. H. Carter.
+
+Press any key to continue.
+March 2nd, 1933 - The ship sailed today. Just twelve hours ago, upon setting foot on dry land for the first time in four months, I had entertained the thought of never again subjecting myself to the rolling monotony of sea life. But as the rusted freighter ‘SS Fawcett’ finally vanished over the horizon I must admit that I felt a sudden urge to steal one of the local fisherman’s canoes and give chase, thus abandoning what has been my life’s work.
+
+Press any key to continue.
+I proceeded in haste to the residence of Professor X. Position, the preeminent academic expert on the Island of Ankrum and its inhabitants. After knocking five times, I received a warm greeting followed by a warm meal and a wealth of information that should prove invaluable in reaching my goal.
+
+Press any key to continue.
+It was through the Professor (who prefers to be addressed as ‘PP’) that I was able to secure a group of the finest village warriors as escort on my jungle expedition. The young Chieftain (he cannot be older than twenty-one), having never ventured beyond the base of the mountain, has declared that he will personally accompany me to the summit. It is there I hope to, at long last, determine the truth behind the legend of the Serpent’s Eye.
+
+Press any key to continue.
+Should I fail to return, I have left explicit instructions for this journal to be mailed to my assistant in the archeological department of Schoedsack University as both proof of this expedition and a warning: In the likely event of my disappearance, there will be no attempt made at a rescue, for I fear that, should anyone follow in my footsteps...
+
+Type CLOSE JOURNAL.
+> put away journal
+
+> put away journal
+
+You close the journal.
+> knock five times
+
+> knock five times
+
+The lock clicks and the front door creaks open. The long nose of Professor P emerges from the doorway.
+
+"Five knocks...you must be Dr. Carter's assistant! Come in, come in!" he says.
+
+Go WEST to enter the log house.
+> w
+
+> w
+
+The log house is dark, but quite cozy. Professor P leads you towards a faded leather chair then sits opposite you. He limps as he walks; likely an old injury.
+
+Every wall is covered with bookshelves. There's a small desk in one corner.
+
+The front door is to the EAST.
+
+> ask professor about gate
+
+> ask professor about gate
+
+"So you want to travel beyond the wall. What are you prepared to risk on such a quest? The elusive Serpent's Eye may lurk at the summit, but in between lies many untold dangers, to which I can personally attest."
+
+He points a bony finger at your chest.
+
+"Are you fully prepared to suffer the same fate as your predecessors? YES or NO?"
+> y
+
+> y
+
+"You will need to show proof of your bravery in order to travel beyond the wall." He walks over to his desk and unlocks one of the drawers. Inside is an AMULET.
+
+"This amulet was given to me by the island Chieftain when I first ventured into the jungle many years ago. It's the twin to the one he carried."
+
+He ties the amulet around your neck. "It will protect you. Never, ever take it off."
+> tell professor about q-n8
+
+> tell professor about q-n8
+
+Professor P looks puzzled for a moment. "Q-N8?....Q-N8!"
+
+He leaps up and hobbles over to a dusty chess set on his desk. You watch as he studies the board very carefully. Then he moves the white queen.
+
+"He beat me! All these years I thought I had him on the ropes, and that bespectacled bumpkin pulls out the perfect move! Go on, take a LOOK at the board."
+> look at chess board
+
+> look at chess board
+
+You look at the dusty old chess board. A game looks to be in progress, but you fail to grasp anything beyond that.
+
+"Do me a favour and take this GOLD COIN to him. He won it fair and square."
+> take gold coin
+
+> take gold coin
+
+You take the gold coin.
+> e
+
+> e
+
+You are facing WEST towards the front door of Professor P's house.
+
+There's a sign beside the door.
+
+Go EAST to return to the village square.
+> e
+
+> e
+
+You're standing in the middle of the tiny village. Loose pebbles have been scattered across the ground to make a path to each building.
+
+The TRADING POST is to the EAST and the LOG HOUSE to the WEST.
+
+The WALL is to the NORTH.
+> e
+
+> e
+
+You're in the Trading Post. A sign hangs near the door, and there's a shelf on the back wall.
+
+Stanley the shopkeeper greets you. "Take a look at my fine merchandise! Better take everything you can if you're headed into the jungle. It's so cheap it's practically free! If you need more info just ASK."
+
+Go WEST to return to the village square.
+> give gold coin to stan
+
+> give gold coin to stan
+
+Stanley appears thrilled to receive the gold coin.
+
+"Thanks for bringing this to me! Tell you what, TAKE anything you want from the shelf as a reward."
+> take slingshot
+
+> take slingshot
+
+You take the slingshot.
+> take knife
+
+> take knife
+
+You take the knife.
+> take flashlight
+
+> take flashlight
+
+You take the flashlight.
+> w
+
+> w
+
+You're standing in the middle of the tiny village. Loose pebbles have been scattered across the ground to make a path to each building.
+
+The TRADING POST is to the EAST and the LOG HOUSE to the WEST.
+
+The WALL is to the NORTH.
+> n
+
+> n
+
+You are standing before the heavy wooden gate. The guard is blocking your path.
+> show amulet to guard
+
+> show amulet to guard
+
+The young guard gives you a stone-faced nod, then opens the gate for you.
+
+When you're ready, venture NORTH into the jungle.
+> n
+
+> n
+
+The wooden gate creaks open, revealing a dirt path leading straight NORTH into the heart of the tangled jungle. The solitary mountain peak, your ultimate destination, beckons from afar. As you gaze up at it you swear you can see the faintest glimmer near the summit.
+
+Press any key to continue.
+Now might be a good time to record your progress. You can do this at any time by typing SAVE into the command bar. You'd better make absolutely certain that you're carrying everything you think you'll need to complete your quest. We can't guarantee you'll be able to retreat SOUTH to the safety of the village for long...
+
+Head NORTH when you're ready to begin your quest!
+> n
+
+> n
+
+For several hours you claw your way through the thick jungle growth, dodging low hanging branches, enormous roots, and more species of creepy-crawly than you ever knew existed. Just as you are nearing exhaustion, you emerge from a thick mass of leaves and discover a fork in the trail on the edge of a deep ravine.
+
+You can see a SIGN pointing to the WEST and EAST. Head SOUTH to return to the village.
+> w
+
+> w
+
+You are making your way WEST along the south side of the ravine.
+
+The trail, if you can even call it that, is only a couple of feet wide in this spot, and the thick vegetation threatens to trip you up and send you teetering over the edge.
+
+You can continue moving WEST, or go EAST to return to the sign.
+> w
+
+> w
+
+The trail turns to the south, away from the ravine.
+
+Go SOUTH to continue along the trail, or head EAST in the direction of the mossy sign.
+> s
+
+> s
+
+You've wandered into a grove thick with hanging bananas. When compared to the harshness of the surrounding jungle, this spot seems fairly peaceful...
+
+...except for the angry MONKEY blocking your path!
+> put marble in slingshot
+
+> put marble in slingshot
+
+You place the marble into the leather patch on the slingshot.
+> fire slingshot at bananas
+
+> fire slingshot at bananas
+
+You aim the slingshot at the bananas...
+
+The marble ricochets off the tree, and an enormous bunch of bananas fall to the ground.
+
+The monkey grabs one and runs off into the jungle. Good Thinking!
+
+Unfortunately the slingshot has snapped from the stress. You toss it away.
+> take banana
+
+> take banana
+
+You pick up the banana. It's nice and ripe.
+> eat banana
+
+> eat banana
+
+You peel the banana and eat it. Mmm, tasty.
+
+Now you're left with the peel.
+> s
+
+> s
+
+You are standing in a tiny clearing. The only trail you can see is the one to the NORTH that you came in on.
+
+Thick vines are blocking you in every other direction.
+> cut vines with knife
+
+> cut vines with knife
+
+You slice away at the mass of vines until you succeed in cutting loose an eight-foot section.
+
+You wrap it into a coil and sling it over your shoulder.
+As you collect the vines you discover a human SKELETON hidden in the flora.
+> look in vest pocket
+
+> look in vest pocket
+
+Dust and pollen cascades upwards as you rummage through the leather vest.
+
+You are surprised to discover a small chunk of FLINT in the pocket!
+> take flint
+
+> take flint
+
+You place the flint in your pocket, careful not to store it beside anything that might strike it.
+> n
+
+> n
+
+You don't see any more monkeys around, but you'd better not let your guard down.  You can go NORTH or SOUTH.
+
+Don't slip on any banana peels, Bullseye!
+> n
+
+> n
+
+The trail turns to the south, away from the ravine.
+
+Go SOUTH to continue along the trail, or head EAST in the direction of the mossy sign.
+> e
+
+> e
+
+You are standing on the south side of the ravine to the west of the sign.
+
+You can continue moving WEST, or go EAST to return to the sign.
+> e
+
+> e
+
+You arrive back at the sign above the jungle ravine.
+
+You can follow the trail WEST or EAST, or head SOUTH to the village.
+> e
+
+> e
+
+The trail continues to the EAST along the edge of the ravine, or you can go WEST to return to the trail sign.
+
+There is a fallen log across the path.
+> look in log
+
+> look in log
+
+You peer into the hollow, cobweb-filled log and find a small paperback HINT BOOK. It looks like a small animal may have intended to use it for a nest.
+> take hint book
+
+> take hint book
+
+You take the hint book.
+> e
+
+> e
+
+The trail starts to turn to the north, towards the ravine.
+
+You can go NORTH or WEST.
+> n
+
+> n
+
+You find yourself at the south end of a rickety old bridge which spans the width of the ravine. The wooden boards look solid enough, but you wouldn't trust the rotten ropes to hold your weight.
+
+You can try to go NORTH to cross the bridge, or head SOUTH back to the jungle.
+> use vine on ropes
+
+> use vine on ropes
+
+You wrap the vine around the frayed rope and pull it tight. It's not a textbook repair, but it's definitely an improvement.
+> n
+
+> n
+
+You cautiously step out onto the bridge. It groans beneath your weight, but holds.
+
+You can go NORTH or SOUTH.
+> n
+
+> n
+
+You breathe a sigh of relief as you reach solid ground on the north side of the bridge. The trail continues to the NORTH.
+
+Go SOUTH to walk back across the bridge.
+> n
+
+> n
+
+After several more hours of hiking you discover that the rocky path you're on has taken you far above the treeline. As you glance up at the summit, you realize that the real climb has just begun.
+
+Go EAST around the base of the mountain or head SOUTH to return to the bridge.
+> e
+
+> e
+
+As if the rickety bridge crossing wasn't enough, the rocky path has become a narrow ledge that wraps around the side of the mountain to the EAST. Your old friend acrophobia pays you a visit as you notice the fluffy clouds drifting along beneath you.
+
+You can also go WEST to the rocky trail.
+
+> e
+
+> e
+
+The narrow ledge abruptly ends atop a narrow outcropping. The mountain looms above you and the valley is far below.
+
+A strange STONE DEVICE appears to have been carved into the side on the mountain.
+
+You can go WEST to the mountain ledge.
+> look at stone device
+
+> look at stone device
+
+The strange device has been carved out of the rock face. There appear to be some strange MARKINGS set around a flat stone slab.
+
+> w
+
+> w
+
+You are standing on the narrow mountain ledge. The strange stone device is to the EAST, and the rocky path lies to the WEST.
+> w
+
+> w
+
+You're on the rocky path leading EAST around the mountain and SOUTH towards the bridge.
+> s
+
+> s
+
+You're standing on the north side of the bridge. The trail continues to the NORTH. The bridge is to the SOUTH.
+> s
+
+> s
+
+As you make your way back over the bridge, you hear a sudden loud crack followed by a sudden feeling of weightlessness...
+
+...the wind rushes past your ears as you fall...
+...until you are gently smacked across the face by something rather wet and cold.
+
+You slowly float to the surface and realize you've landed in the creek at the bottom of the ravine. After climbing up the north bank you realize you just happened to land in the deepest part of the stream - how's that for luck?
+
+The trail follows the stream to the WEST and EAST.
+> w
+
+> w
+
+You are in the west part of the canyon where the river vanishes into an underground cavern. A pile of dead BRANCHES, probably fallen from the trees far above, has been deposited on the riverbank.
+
+The only open path lies to the EAST.
+> take sticks
+
+> take sticks
+
+You gather as many of the sticks as you can comfortably carry.
+> e
+
+> e
+
+You're standing in the ravine directly below the rickety bridge. The stream, which is actually quite deep and swift, rushes past you towards the west.
+
+You can go WEST or EAST.
+
+> e
+
+> e
+
+You are in the eastern part of the ravine, where the steep rock walls are at their highest. There is a waterfall here.
+
+You can see a small cave to the NORTH. The path follows the stream to the WEST.
+> n
+
+> n
+
+The cave is barely large enough to stand up in, but it offers at least a slight respite from the elements. The cave entrance is to the SOUTH.
+
+There is a small circle of rocks on the ground.
+
+Uh oh...it's getting dark. You'd better find shelter soon.
+> put sticks in rocks
+
+> put sticks in rocks
+
+You place the sticks in the circle of rocks.
+> put hint book in rocks
+
+> put hint book in rocks
+
+You crumple the pages of the hint book and place them under the pile of sticks.
+> strike flint on rocks
+
+> strike flint on rocks
+
+You strike the flint against the rocks. After a few tries the crumpled pages of the hint book burst into flames. Within moments you're standing before a warm, crackling campfire.
+
+Unfortunately you've used up all of the flint.
+> look
+
+> look
+
+As the darkness overtakes the world outside you trust in the fire to keep the danger at bay.
+
+In the flickering light, you notice for the first time what appears to be a PAGE from a book laying the back of the cave.
+> take page
+
+> take page
+
+You pick up the damp and tattered page.
+> read page
+
+> read page
+
+From the personal journal of Dr. J. H. Carter.
+
+Press any key to continue.
+Our leader appears incapable of providing even the minimum level of authority over his warriors and this expedition. His insistence on preventing any attempt to obtain the stone key has led to great frustration on my part.
+
+Press any key to continue.
+He even refuses to offer any translation for the strange markings we have encountered thus far. He has instead chosen to put his trust in an ancient and intricate vine rope system that he believes will allow him to reach the temple while avoiding any potential dangers.
+
+Press any key to continue.
+Unbeknownst to the group, I have begun work on a crude translation myself and, though largely a matter of trial and error, I am confident that my work will prove fruitful - and far more sensible.
+
+Press any key to continue.
+You put the page in your pocket.
+> rest
+
+> rest
+
+Warm, dry, and safe (for the moment), you decide to catch up on some much-needed rest. You close your eyes and are soon in a deep sleep.
+
+Press any key to continue.
+Hours pass.
+
+More hours pass.
+
+You begin to have the strangest dream...that spiders are crawling all over your neck...you brush them away but they return seconds later...
+
+Press any key to continue.
+Your eyes fly open and you sit up with a start. The firepit is full of glowing embers and everything beyond the mouth of the cave is still dark.
+
+You catch a glimpse of a second flickering light source vanishing through an extremely narrow tunnel behind one of the boulders on the NORTH wall of the cave.
+
+You also realize you are feeling a lot lighter.
+> n
+
+> n
+
+Chasing after the flickering light, you follow the tunnel as it twists and turns upwards until you arrive in a wider section leading WEST. You can also descend to the ravine cave by going SOUTH.
+> w
+
+> w
+
+As you crawl through the tunnel you start to hear a low rumbling from above, followed by a cloud of fine rock dust.
+You tumble into a larger cavern just in time to see the tunnel collapse behind you - and cut off all remaining light.
+
+It would appear that you're totally Zorked. I guess you'll have to feel your way from here.
+> take rock
+
+> take rock
+
+You pick up a palm-sized rock and put it in your pocket.
+> w
+
+> w
+
+You go in the direction you think is west.
+
+From the deafening echoes you sense you are in a very large room with a high ceiling.
+> throw rock at wall
+
+> throw rock at wall
+
+You throw the rock at the nearest wall. From the sharp crack you assume you've made contact - a suspicion confirmed seconds later by a cachophony of percussion that shakes the very ground beneath your feet.
+
+The noise eventually fades, although the skull-pounding headache you've acquired is likely to last a bit longer.
+> n
+
+> n
+
+You go in the direction you think is north.
+
+The floor of the cave feels very jagged here, which has been magnified by the fresh chunks of rock that you assume came from the ceiling - no doubt a direct result of your recent work in the other room.
+
+You notice the faint glow is now on the floor.
+> take glow
+
+> take glow
+
+You take the glowing object. On closer inspection it's a glow-in-the-dark compass!
+> look at compass
+
+> look at compass
+
+The compass needle is pointing east.
+> e
+
+> e
+
+You go in the direction you think is east.
+
+You can hear the sound of dripping water...or at least what you assume is water.
+> feel water
+
+> feel water
+
+Creeping forward on hands and knees, you follow the dripping sound until your hand makes contact with a pool of water. There's no way to tell how large it is, but from the sound of the drips you guess it's fairly sizeable.
+> swim in pool
+
+> swim in pool
+
+Once you've taken a moment to gather your courage, you draw in a deep breath and dive beneath the surface.
+After what feels like an eternity of cold blackness and burning lungs, you emerge from the dark waters.
+
+You discover that you are in a long cavern with a stone staircase that continues UP at a steep incline. What's more, thanks to the shaft of sunlight at the top of the stairs, you discover you can actually see again.
+> up
+
+> up
+
+You stagger to the top of the stone staircase and burst out into the open air. Athough your eyes haven't yet adjusted, you pause for a moment to enjoy the fresh, cool breeze after your subterranean detour.
+
+You notice that there are paths leading NORTH and EAST from here. You can also go back DOWN into the tunnel.
+> e
+
+> e
+
+You arrive at a wide plateau that offers a magnificent panorama of the island to the south. The path continues to the NORTH.
+
+A tall white pillar, similar to the ones on the bridge, has been placed near the edge of the cliff.
+> lower rope down cliff
+
+> lower rope down cliff
+
+You lower the vine rope over the edge of the cliff.
+> n
+
+> n
+
+The path leads you towards a small hovel of branches and leaves tucked into the natural contour of the mountain. Any remaining doubt of you being the only human in this part of the island has now been permanently dispelled.
+
+A rumpled SLEEPING BAG is on the ground, and a makeshift TABLE sits against one wall.
+
+Head SOUTH to return to the cliff.
+> take batteries
+
+> take batteries
+
+You wisely take the batteries.
+> take letter
+
+> take letter
+
+You take the scrap of paper.
+> take plank
+
+> take plank
+
+You retrieve the plank and tuck it under your arm. It's awkward but somehow you manage.
+> look in sleeping bag
+
+> look in sleeping bag
+
+You look inside the sleeping bag. Something glints in the sunlight. It's a SPEAR HEAD.
+> take spear head
+
+> take spear head
+
+You retrieve the spear head from the sleeping bag.
+> read letter
+
+> read letter
+
+After several days and nights of study, my translation efforts have experienced a significant breakthrough. I have just discovered that the island of Ankrum has, in fact, two distinct written languages.
+
+Press any key to continue.
+Much as Latin emerged from a collection of earlier languages, the script used on the unusual device appears to be a much more recent evolution of the symbols which adorn many of the island's other landmarks. With this knowledge I have been able to apply my earlier research towards finding a translation that aligns with our own relatively primative English.
+
+Press any key to continue.
+I must be cautious, however. The Chieftain seems to be growing suspicious of my nightly work, almost as if he knows more than he has revealed. Should he try to obstruct my efforts in any way, I may be forced to complete the last stretch of this journey alone.
+
+Press any key to continue.
+A partially translated alphabet has been scribbled across the bottom of the paper.
+
+Press any key to continue.
+You place the paper in your pocket.
+> s
+
+> s
+
+You are standing on the plateau. The path continues to the NORTH and WEST, or your can climb DOWN the vine rope.
+> w
+
+> w
+
+You are at the upper cave entrance. There are paths leading NORTH and EAST. You can also go back DOWN into the tunnel.
+> n
+
+> n
+
+Travelling north from the cave entrance, you come face-to-face with another massive obstacle in the form of a impenetrable stone wall. As before, the path leads directly to a large gate in the middle of the wall. It's locked, of course.
+
+The locked gate is to the NORTH. The cave entrance is to the SOUTH.
+> read plaque
+
+> read plaque
+
+Using Dr. Carter's partial translation, you are able to decipher some of the markings:
+
+GVSW QN WVF XSDQJ GBKL becomes GVaW iN WVe maDiJ Gord.
+
+I suppose you'll have to take it from here.
+> s
+
+> s
+
+You are at the upper cave entrance. There are paths leading NORTH and EAST. You can also go back DOWN into the tunnel.
+> e
+
+> e
+
+You are standing on the plateau. The path continues to the NORTH and WEST, or your can climb DOWN the vine rope.
+> down
+
+> down
+
+You make your way down the rope.
+You are standing on the narrow mountain ledge. The strange stone device is to the EAST, and the rocky path lies to the WEST.
+> e
+
+> e
+
+You are standing on the rocky outcropping with the strange STONE DEVICE before you.
+
+You can go WEST to the mountain ledge.
+> what
+
+> what
+
+You hear a low rumbling from deep within the mountain...
+
+...like the clash of distant gears, long dormant...
+
+...there is a loud click...
+
+...and the stone slab set into the cliff face slides upwards, revealing a STONE KEY sitting atop a wedge-shaped base covered in writing. Nice work!
+> take stone key
+
+> take stone key
+
+You take the stone key.
+> read writing
+
+> read writing
+
+Your understanding of the language is limited, but you believe it says "The Eye sees only Death."
+> w
+
+> w
+
+You are standing on the narrow mountain ledge. The strange stone device is to the EAST, and the rocky path lies to the WEST.
+> up
+
+> up
+
+You are standing on the plateau. The path continues to the NORTH and WEST, or your can climb DOWN the vine rope.
+> w
+
+> w
+
+You are at the upper cave entrance. There are paths leading NORTH and EAST. You can also go back DOWN into the tunnel.
+> n
+
+> n
+
+You're standing in front of the wall and stone gate. The large doors appear to have several strange markings and shapes engraved on them.
+
+The locked gate is to the NORTH. The cave entrance is to the SOUTH.
+> put key in keyhole
+
+> put key in keyhole
+
+You guide the stone key into the keyhole and give it a turn. There's a low clunk as the locking mechanism slides back.
+
+Although the gate is made of stone, it swings open with the slightest bit of pressure. The technical craftsmanship on display is truly staggering.
+
+You can now continue NORTH towards the temple.
+> n
+
+> n
+
+Any thoughts of exhaustion quickly fade away as your eyes fall upon the ancient glory of the temple of the Serpent's Eye and its glistening white marble walls.
+
+Two tall statues, carved in the likeness of monstrous snakes, stand guard on either side of the entrance. You are shocked to discover no gates, spikes, or drawbridge to block your progress. The little voice inside your head openly questions the convenience of such a gift.
+
+The temple lies to the NORTH, or you can descend the mountain to the SOUTH.
+> read plaque
+
+> read plaque
+
+Applying the knowledge of the ancient language you've gained by translating the stone gate, you believe it says:
+
+"THE POWER OF THE SERPENT'S EYE IS CONQUERED WITH A LULLABY"
+
+Rhyming in two languages is extremely impressive, you think to yourself.
+> n
+
+> n
+
+Your eyes take a few seconds to adjust to the darkness of the temple, just enough to make out a familiar reflection on the opposite wall.
+
+You'll need another light source before you can proceed any farther.
+> put batteries in flashlight
+
+> put batteries in flashlight
+
+You unscrew the bottom of the flashlight and install the new batteries.
+> turn on flashlight
+
+> turn on flashlight
+
+With the new batteries installed, the flashlight is actually quite effective.
+> w
+
+> w
+
+You are in a plain room that is roughly square in shape. There are doorways to the NORTH, WEST, and EAST.
+> w
+
+> w
+
+You are in a plain room that is roughly square in shape, with doorways to the NORTH and EAST. An unusual-looking spider symbol has been carved into the wall above the north door.
+
+> n
+
+> n
+
+Clearing away the cobwebs, you find yourself in a long passageway that gradually descends as it continues NORTH from this spot. You can also go SOUTH to the maze.
+> n
+
+> n
+
+Your flashlight beam reflects off an enormous spider's web, creating a blinding effect which makes the rest of the room indistinguishable in the darkness. Even if you could cut through the web, you doubt you'd make much progress.
+
+The only exit is to the SOUTH.
+> use spear head on web
+
+> use spear head on web
+
+The sharpened edge of the spear head slices through the web, allowing you to retrieve the broken pole.
+> attach spear head to broken pole
+
+> attach spear head to broken pole
+
+You attach the spear head to the tapered end of the broken pole. It fits perfectly.
+> s
+
+> s
+
+You're in a long passageway that gradually descends as it continues NORTH from this spot. You can also go SOUTH to the maze.
+> s
+
+> s
+
+You are in a plain room that is roughly square in shape, with doorways to the NORTH and EAST. An unusual-looking spider symbol has been carved into the wall above the north door.
+
+> e
+
+> e
+
+You are in a plain room that is roughly square in shape. There are doorways to the NORTH, WEST, and EAST.
+> e
+
+> e
+
+You are standing in the mall hall of the temple. The walls and floor are constructed of the same marble bricks as the temple exterior, with passageways leading to the WEST and EAST.
+
+An imposing glass eye stares at you from the north wall.
+
+Head SOUTH to leave the temple.
+> e
+
+> e
+
+You are in a plain room that is roughly square in shape with doorways leading NORTH and WEST. A JADE SNAKE is above the north door.
+> n
+
+> n
+
+You are in a plain room that is roughly square in shape with doorways leading NORTH, SOUTH, WEST and EAST. A sign with four arrows hangs above the north door.
+> e
+
+> e
+
+You are in a plain room that is roughly square in shape with doorways leading SOUTH and WEST. A most unusual SQUARE OBJECT adorns the top of the south door.
+> use spear on floppy disk
+
+> use spear on floppy disk
+
+With a mighty pull, you pry on the square object with the spear.
+
+With a mighty CRACK, the square object pops free of the wall and tumbles gently into your outstretched hand.
+
+You're feeling mighty proud of yourself. Then you notice the broken spear in your other hand. The other half, including the tip, seems to have vanished.
+> s
+
+> s
+
+You arrive at a heavy braced wooden door. A lever assembly of some kind protrudes from the wall to the left of the door.
+
+The wooden door is to the SOUTH, or you can go NORTH to return to the maze.
+> put handle in lever
+
+> put handle in lever
+
+The broken spear piece fits perfectly into the hole on the lever.
+> pull lever
+
+> pull lever
+
+Gripping the handle with both hands, you pull firmly down on the lever. The stone wheel makes a low grinding noise as it turns, followed by a loud clunk and a few smaller clicks and creaks.
+
+The deadbolt slides back into the wall.
+> s
+
+> s
+
+You push open the wooden door and walk through.
+You are in a rocky cave with a very low ceiling. The walls show evidence of ancient chiselwork, suggesting that this room may have been, in whole or in part, human-made.
+
+A rough stone dias rises from the floor. Atop it rests a silver FLUTE of some sort.
+> take flute
+
+> take flute
+
+You retrieve the silver flute from the dias.
+> n
+
+> n
+
+You are standing before a unlocked braced wooden door. The lever, which you pulled earlier, protrudes from the wall to the left of the door.
+
+You can head through the wooden door to the SOUTH, or go NORTH to return to the maze.
+> n
+
+> n
+
+You are in a plain room with doorways leading SOUTH and WEST. A square indent marks the top of the south door.
+> w
+
+> w
+
+You are in a plain room that is roughly square in shape with doorways leading NORTH, SOUTH, WEST and EAST. A sign with four arrows hangs above the north door.
+> s
+
+> s
+
+You are in a plain room that is roughly square in shape with doorways leading NORTH and WEST. A JADE SNAKE is above the north door.
+> put disk in slot
+
+> put disk in slot
+
+Standing on your tiptoes, you slide the square object into the horizontal slot until you hear a click.
+> take jade snake
+
+> take jade snake
+
+The snake slides free from the wall, leaving a circular indent in its place.
+> n
+
+> n
+
+You are in a plain room that is roughly square in shape with doorways leading NORTH, SOUTH, WEST and EAST. A sign with four arrows hangs above the north door.
+> n
+
+> n
+
+You are in a plain room that is roughly square in shape with doorways leading SOUTH, WEST and EAST. A sign with various shapes marks the wall above the east door.
+> e
+
+> e
+
+You are in a plain room that is roughly square in shape with doorways leading NORTH and WEST. A sign shaped like a wooden gate hangs above the north door.
+> n
+
+> n
+
+The massive iron gate stands before you. Some sort of lock with a circular indent in the middle is holding the doors firmly shut.
+
+Something about the gate gives you a distinct sense of finality. You'd better make sure you're fully prepared for what may be waiting on the other side.
+
+You can enter the iron gate to the NORTH, or go SOUTH to return to the maze.
+> put jade snake in circle
+
+> put jade snake in circle
+
+You place the jade snake into the circular indent.
+
+There is a single dull thud and one of the doors swings slowly open. You can enter the gate to the NORTH.
+> n
+
+> n
+
+As you step cautiously past the threshold of the iron gate, your flashlight inexplicably flickers and dies.
+The brightness of the treasure room assaults your eyes. You are able to make out a white marble altar beside the wall opposite the iron gate. A massive pit with no visible bottom dominates most of the room’s centre.
+
+You observe that the light is not coming from the sun, but rather from the large gemstone sitting atop the altar. It takes you a few moments to grasp the magnitude of this discovery. You are staring at the SERPENT’S EYE.
+
+You are so entranced with the glowing gem that you almost fail to notice the iron gate slamming shut behind you.
+> take eye
+
+> take eye
+
+Any fears you may have had previously quickly melt away as you are lulled towards the seductive glow of the Serpent’s Eye. You don’t pause to consider whether the faint singing you hear is real or just your imagination.
+
+Your fingertips are mere inches away when you hear a cold, distinct CLICK.
+
+Press any key to continue.
+
+In the otherworldly light it takes you a moment to make out the identity of the bedraggled figure standing before you.
+
+“I knew I could always count on the tenacity of my finest student,” she says. “Although your thirst for solving puzzles always did outweigh your aptitude for detecting deceit.”
+
+Dr. Josephine H. Carter waves a pistol - your pistol - in your general direction.
+
+Press any key to continue.
+
+You notice the amulet hanging around her neck. “The Chieftain gladly leapt to his death rather than allow me to complete my quest. The remaining warriors may have needed some... encouragement.”
+
+She raises her pistol as if to punctuate this statement. “It’s a shame he had to take his own amulet into the abyss with him.”
+
+Press any key to continue.
+
+“Did you not notice it strange that my journal, not to mention each subsequent page I placed along your path, was conveniently found when and where it was? I knew my dire warning to stay away from the island would have the opposite effect, and every new bit of insight you stumbled across would lead you further up the mountain.”
+
+She points towards your flashlight. “Did you not think it odd that, of all things, a pair of fresh batteries would just happen to be sitting in my camp? I wanted you to be here with me, so I’d have exactly what I needed to complete my life’s work.”
+
+Press any key to continue.
+
+Carter chuckles to herself. “I decided the best way to draw you here was to set up a scavenger hunt of sorts. I’m so fortunate to have a student who does exactly what they’re told at every turn.”
+
+Carter places her free hand on the Serpent’s Eye. Her head arches back as if absorbing some mystical energy from its touch. When she speaks, it’s no longer Carter’s voice you hear, but rather a shallow rasping sound, as if her words were carried on the wind itself.
+
+She lifts the large gem from its cradle with one hand. “Now, at long last, everything has fallen into place...including the final piece of the puzzle…”
+
+Press any key to continue.
+
+Her eyes burst open, and you can see the light of the Serpent’s Eye within them. She trains her gaze on you.
+
+“...a sacrifice.”
+
+Blinding light pours from the Serpent’s Eye, accompanied by a low fog that drifts across the floor before cascading over the edge of the pit.
+
+Press any key to continue.
+
+A low pulsing sound drifts up from the depths of the void, and the fog rises once more, twisting and shaping its form until it assumes the shape of a colossal grey COBRA with glowing eyes that match Dr. Carter’s.
+
+It wheels about and bears its fangs. You estimate you have two seconds at the most to act.
+> play flute
+
+> play flute
+
+Fully aware that you may only have a few breaths left, you choose to apply one of them to the silver flute.
+
+The grey cobra seems to ripple at the soothing tones before pausing its attack.
+
+You may have just bought yourself three more seconds of existence. Use them wisely.
+> throw peel at carter
+
+> throw peel at carter
+
+Recalling your favourite Keystone Cops picture, you hurl the banana peel at Dr. Carter. In the rolling fog she fails to notice it land at her feet.
+
+The resulting slip is one for the history books. It seems to happen over the course of many minutes; her legs fly up until they’re almost horizontal with the ground, and her arms extend in a purely reflexive motion in a vain attempt to catch herself. The pistol falls from her grasp, bounces once on the marble floor, and tumbles into the pit.
+
+Press any key to continue.
+
+She scrambles back to her feet, still clutching the Serpent’s Eye and rubbing her elbow. “And to think I was going to recommend you for tenure.”
+
+Then she notices the amulet lying on the ground.
+
+“No-” is all she can bring herself to say as she lunges towards the amulet. But the cobra, seeing her completely unprotected, swirls around her like a grey whirlwind, drowning out her cries.
+
+A moment later it is all over.
+
+Press any key to continue.
+
+The serpent seems to vanish in the same way it appeared, dissipating into wisps of fog before returning to the Serpent’s Eye, which is now lying where Dr. Carter stood mere seconds earlier. There is no trace of her.
+
+Press any key to continue.
+
+You quickly retrieve the amulet from the floor.
+> take eye
+
+> take eye
+
+You crouch down and retrieve the Serpent's Eye from the floor. It seems to wink at you as you stare into its swirling heart.
+
+Do you try to STEAL the Serpent's Eye, or do you RETURN it to the altar?
+> put eye on altar
+
+> put eye on altar
+
+It doesn’t take you long to decide that the corrupting power of the Serpent’s Eye has no place in the hands of the human race, and you return the legendary stone to the altar.
+
+You are extremely relieved when the iron gate creaks open seconds later.
+
+You retrieve Professor P's amulet. Perhaps you should return it to him.
+
+Press any key to continue.
+You pause to take one last look at the magnificent temple, knowing full well you will most likely never return.
+
+However, when all is still, you're convinced you can still hear the Serpent's Eye calling to you...begging you to return...
+
+Go SOUTH to descend the mountain.
+> s
+
+> s
+
+You're standing in front of the wall and stone gate. The large doors are open. You can go NORTH up the mountain or SOUTH to the cave entrance.
+> s
+
+> s
+
+You are at the upper cave entrance. There are paths leading NORTH and EAST. You can also go back DOWN into the tunnel.
+> e
+
+> e
+
+You are standing on the plateau. The path continues to the NORTH and WEST, or your can climb DOWN the vine rope.
+> down
+
+> down
+
+You make your way down the rope.
+You are standing on the narrow mountain ledge. The strange stone device is to the EAST, and the rocky path lies to the WEST.
+> w
+
+> w
+
+You're on the rocky path leading EAST around the mountain and SOUTH towards the bridge.
+> s
+
+> s
+
+You're standing on the north side of the bridge. The trail continues to the NORTH. The bridge is to the SOUTH.
+> s
+
+> s
+
+You move onto the bridge, but you're unable to move past the large hole you made in it yesterday evening.
+
+You can return to the NORTH side of the bridge.
+> use plank on hole
+
+> use plank on hole
+
+You place the plank across the hole. Good job!
+> s
+
+> s
+
+You're on the south side of the rickety bridge. You can go NORTH  to cross it, or head back SOUTH into the jungle.
+
+> s
+
+> s
+
+The trail starts to turn to the north, towards the ravine.
+
+You can go NORTH or WEST.
+> w
+
+> w
+
+The trail continues to the EAST along the edge of the ravine, or you can go WEST to return to the trail sign.
+> w
+
+> w
+
+You arrive back at the sign above the jungle ravine.
+
+You can follow the trail WEST or EAST, or head SOUTH to the village.
+> s
+
+> s
+
+You are standing at the threshold of the village wall. The jungle lies to the NORTH.
+
+You'd better make absolutely certain that you're carrying everything you think you'll need to complete your quest. We can't guarantee you'll be able to retreat SOUTH to the safety of the village for long...
+> s
+
+> s
+
+The guard moves aside to let you pass.
+> s
+
+> s
+
+You are standing in the village.
+
+The TRADING POST is to the EAST and the LOG HOUSE to the WEST.
+
+The WALL is to the NORTH.
+> w
+
+> w
+
+You are facing WEST towards the front door of Professor P's house.
+
+There's a sign beside the door.
+
+Go EAST to return to the village square.
+> knock five times
+
+> knock five times
+
+You knock five times. Professor P answers the door within seconds. Upon seeing your disheveled state he chuckles and shakes his head before flashing a knowing smile. "Did you find what you were looking for, my friend?"
+
+Without giving it much thought, you shake your head, hand the amulet back to him, and say nothing more on the subject.
+
+Press any key to continue.
+
+"That's probably for the best," he replies. "Sometimes it is better to let myths continue to be just that - myths."
+
+He pats your shoulder. "I'm afraid I'll have to cut our meeting short. I'm in the midst of a rather heated chess game..." and shuts the door.
+
+Press any key to continue.
+
+You stand on the stern deck of the ship staring longingly back at the Island of Ankrum as it fades into the distance, and ponder which version of your tale you’ll tell your colleagues upon your return. Fortunately you have many weeks of sea travel ahead of you in which to decide.
+
+THE END
+
+Press any key to continue.
+Thank you for playing my game! I look forward to any feedback or comments you may have.
+> quit
+
+> quit
+
+[state=Finished]

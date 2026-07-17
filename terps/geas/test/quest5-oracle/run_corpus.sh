@@ -23,7 +23,12 @@ while IFS=$'\t' read -r game wt mode preamble; do
   q="$GAMES/$game.quest"
   src="$WALKS/$wt"
   if [ ! -f "$q" ];   then printf "%-52s  (game file missing)\n" "$game"; continue; fi
-  if [ ! -f "$src" ]; then printf "%-52s  (walkthrough missing: %s)\n" "$game" "$wt"; continue; fi
+  # wt="-" marks an override-only row: no source walkthrough exists anywhere
+  # (the overrides/ script was derived from the game source), so there is no
+  # file to existence-check — the override itself is required instead.
+  if [ "$wt" = "-" ]; then
+    if [ ! -f "$HERE/overrides/$game.cmd" ]; then printf "%-52s  (override missing for wt=- row)\n" "$game"; continue; fi
+  elif [ ! -f "$src" ]; then printf "%-52s  (walkthrough missing: %s)\n" "$game" "$wt"; continue; fi
   cmd="$OUT/$game.cmd"
   # A curated override wins outright: overrides/<game>.cmd is a hand-authored
   # winning script (verbatim, incl. any title-screen preamble baked in) for a game

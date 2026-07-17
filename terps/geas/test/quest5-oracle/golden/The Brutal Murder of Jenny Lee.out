@@ -1,0 +1,802 @@
+The Brutal Murder of Jenny Lee
+
+The Room
+
+The room is cubical in shape. The floor, walls, and ceiling are identical in color and texture so that you can barely make out the edges. Light seems to come from everywhere and nowhere at the same time; there are no shadows to be seen. Before you is a lone table. Behind you is a door.
+
+You can see a table (on which there is a key) and a door.
+
+Hey you! Keep it down! Excessive noise is forbidden during recreational hour!
+
+Are you awake? Nod your head if you can hear me. Good. Now, listen closely. We've got a lot to do, and so little time.
+
+Well, go on then. Take a look around. I don't need to teach you how to look, do I? I do? You would expect, at this price point . . . Whatever. I don't have time for this. Type "help" to learn about the basic commands.
+> take key
+
+> take key
+You pick up the key. Its texture feels metallic but it is oddly light.
+> open door
+
+> open door
+The key slides smoothly into the keyhole. The door swings open on silent hinges.
+
+I wouldn't look so smug if I were you. Even one of my kindergarteners could have done that. Okay, let's try something else. Something that requires a little bit of thinking . . . outside the box. Here it is. Pay attention. Take the door, and open the key.
+> take door
+
+> take door
+You slide your hands along the wall and find a groove running under the frame of the door. You grasp the edges and it comes loose in your hands, falling to the floor with a soft thud. The doorway opens into the south and through it you can see another room.
+> go south
+
+> go south
+The Room
+
+The room is cubical in shape. The floor, walls, and ceiling are identical in color and texture so that you care barely make out the edges. Light seems to come from everywhere and nowhere at the same time; there are no shadows to be seen. Before you is a lone table. Behind you is a door.
+
+This room is completely identical to the one you were just in.
+
+You can see a table (on which there is a key).
+You can go north.
+> open key
+
+> open key
+You examine the key, moving your fingers carefully around the surface. You discover a tiny pair of hinges along the side, almost invisible to the eye. You use your nails for leverage and the key cracks open. Inside is a tiny piece of paper, rolled up and sitting snugly in the hollow space. You pick it out and begin to unfurl it . . .
+
+Not bad. Here, let me take that, thank you very much. It looks like you might be up for the job after all; you're already better than the last one. The world is not always what it seems. Keys are not always just keys. If only the police had known that . . .
+
+I think you're ready to move on. Your task is to investigate a murder that took place seventeen years ago. I'm going to send you back to the places she used to frequent the most, so you can start looking for clues. Ready? This might be a bit disorienting, so close your eyes.
+
+Band Room
+
+The room is dark and spacious. A tall podium sits surrounded by a semicircle of black chairs and empty stands. Behind the podium is an elevated platform and a swivel chair; sitting here, one has a clear view of large windows blocked in by stolid evergreens. The window on the rightmost side is boarded up. On the left of the room are an old Yamaha piano and a dirty drumset. On the right side, a bookshelf runs wall-to-wall, with trophies stacked on top in ascending height. An unremarkable doorway leads to a storage area.
+
+You can see a piano, a drum set, a podium (on which there is a binder and a book), a bookshelf, a chalkboard and a bulletin board.
+You can go east.
+> look at binder
+
+> look at binder
+The binder is thick but color-coded tabs tell you exactly where everything is. It's flipped open to an attendance sheet. You examine it carefully: most students have one or two absences and a couple of lates. Two people have perfect records: Colin Yates and Rebecca DeVries. Angela Zhao hasn't been to class for two weeks. Something is scrawled into the margins in blue pen:
+
+"Note to Substitute: If Angela comes to class, her backpack is in the cabinet. The combination is set to the year the school was founded."
+> look at bulletin board
+
+> look at bulletin board
+The bulletin is a battleground of broken pins and twisted staples, still stubbornly holding on to pieces of ripped paper.
+Pinned to the center of the board is  a bulletin notice.
+> look at bulletin notice
+
+> look at bulletin notice
+It reads:
+
+Pickton High 50th Anniversary Talent Palooza
+Friday May 9th
+All Students & Members of the Community Welcome || Students $8 || Adults $15
+
+The Vanishing Act: A Magic Show ft. Colin Yates
+My Mother's Garden: Slam Poetry ft Isabella Reed
+Jazz Ensemble ft Angela Zhao, Nick Gates, and Jenny Lee
+
+And Others! Tickets Go On Sale Monday April. 28th In The Foyer. Don't Miss This Amazing Chance!
+
+She was killed on the 8th. I never got to see her perform. She was bashed on the head with her own saxophone, the force so excessive that all the keys broke off. They were never found.
+
+Jenny's father's name was Li. It's the most common name in China, or so I've heard. But when they moved to Canada, her mother wanted them to fit in.
+> look at chalkboard
+
+> look at chalkboard
+Behind the podium is a chalkboard, messy with the half-erased traces of  music staffs and notes. In the bottom right corner, neatly written in dull orange chalk:
+
+April 24, 2003
+Mrs. Redford, Substitute Teacher
+
+It's been seventeen years since she died. Seventeen years I've spent in this hellhole, where every second feels like an eternity. Seventeen years, the same amount of time that she was on this earth. And yet, what is time in the face of death?
+> go east
+
+> go east
+Storage Room
+
+You are in a narrow walkway, hemmed in on both sides by shelves full of instruments. Every row is clearly labelled by sharpie on a piece of masking tape: heavy instruments like "Tuba" are put on the lower shelves and lighter ones like "Flute" are on the upper shelves. There is a small band office at the other end, but a drawn curtain prevents you from seeing inside. A  cabinet stands outside the office like a shabby sentry.
+
+You can see a tuba, a trombone, a flute, a poster and a cabinet.
+You can go west or east.
+> look at cabinet
+
+> look at cabinet
+The cabinet is rusty but the keypad on it looks new. A piece of printed paper taped to it reads:
+
+Please take instruments home at end of day. School not responsible for any lost or damaged property. If you have any information regarding the recent break-ins, please contact the Principal's Office immediately.
+
+There is a keypad on the cabinet door.
+
+Do I have to tell you again? Instrument practice is not allowed during recreational hour. That's what instrument practice hour is for.
+
+This was one of Jenny's favorite places. She played the saxophone, and she was rather good at it too. She couldn't practice at home because of the neighbors, so Mr. Seymour gave her a key. She could come in and use this room whenever she wanted.
+> use keypad
+
+> use keypad
+Enter combination
+> 1953
+You hear a beep and the cabinet pops open with a satisfying click. It's filled with tidy stacks of papers and binders, mostly class materials and grading sheets. The only thing that interests you is a backpack, built to look like a stuffed penguin. You pull it out, letting the cabinet slide shut on its own.
+> open backpack
+
+> open backpack
+You open the backpack. Inside you find a water bottle, a school binder, a pencil case, and a small book bound in leather.
+It contains a water bottle, a school binder, a pencil case and Angela's Journal.
+> read journal
+
+> read journal
+The journal opens easily, its well worn bindings giving little resistance. A small green card drops out and you put it in your pocket. You flip to the latest page:
+
+Friday April 4th
+
+Today was the worst day of my life. I just found out that Jenny is planning a birthday party and I'm not invited. When she first arrived at Pickton Elementary, she was a pitiful thing: small, scrawny, unable to speak a word of English. I was the one who took her in, the only one who wanted to be her friend. For years we were inseparable, the only Asian students in a foreign land. And now, because puberty favored her and not me, she is popular and I am not. And she doesn't want anything to do with me.
+
+All of the boys trip over themselves for Jenny. Nick, who I've had a crush on since 5th grade, asked her out within one month of knowing her. She draws them in with some sob story about her dad, some Chinese government official who went missing. I'm not saying it's not sad, just that she knows what she's doing.
+
+Jenny has taken everything from me. I used to be Mr. Seymour's favorite student, his star musician. But ever since Jenny joined, things have been different. She's good, okay, but she's far from the best. How did it happen? How did she become the teacher's pet? It's so fucking obvious, the way she stays behind after class to chat with him, the way he always calls on her to demonstrate a new technique. Jazz band used to be my favorite class, now I can't even bear to show up, to be in the same room as her.
+
+I hate Jenny. But I still wish that she would just talk to me, that she would invite me to her party . . .
+
+Recreational hour has ended. Have your electronic devices ready for collection.
+
+Time's up. I hope we can be more productive tomorrow. But then again, we've got all the time in the world.
+
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+
+You've moved, but everything around you still looks the same . . .
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+
+Hey, I'm back. Still here? Still sane? Good. Let's get started.
+
+Bedroom
+
+You are in a small bedroom that looks like it was repurposed from a study. There is a bed with pink covers, a desk, a chair, and barely enough room left to stand. A bookshelf in the corner is packed full from row to row, with some books jammed in horizontally to make optimal use of the available space. The afternoon sun streams in from a small window. A doorway to the North leads into the hallway, but curiously there is no door in the frame.
+
+The house came with a door, obviously, but her mother took it out. Privacy is not an idea that Asian parents believe in.
+
+You can see a calendar, a bed, a chair, a bookshelf and a desk.
+You can go north.
+> look at desk
+
+> look at desk
+The desk is covered in so many layers of paper and junk that it is impossible to know what color the surface is. There are school notebooks, past SAT exams, university pamphlets, permission slips . . . your eye catches on a small leather book. You pull it out to find youself holding a journal identical to the one you found in the storage room cabinet. Tucked between the pages is a short letter without a signature, printed on thick paper with the corner ripped off:
+
+Dear Jenny:
+Only one more week until our reunion; I can hardly wait, after all these years. Remember, you cannot let your mother know. That is the most important thing. If she finds out, it will all be ruined. See you soon.
+
+Hey! What do you think you're doing? You're supposed to be investigating her death, not putting your filthy fingers through her personal belongings! I will not stand by and let you disrespect her memory like this. You can come back when you learn how to behave.
+
+Library
+
+As far as public libraries go, this is a pretty nice one. A large, open space filled with reading desks, bean bags, and book stands is encircled by a maze of bookshelves. At one corner of the room is a small information desk. On the other side is a row of computer stations, with relatively new-looking monitors that speak of healthy public funding. To the north is a glass door leading to a smaller room. A shiny brass sign indicates that it was named after some rich guy: "Harvey S. Firestone Reading Room".
+
+You can see a book stand, an information desk, a file cabinet and a computer station.
+You can go north.
+> look at information desk
+
+> look at information desk
+This looks like where the librarian sits: a paper nameplate reads "Mrs. Vanderbilt". The semi-circular desk is angled in such a way that gives her an unobstructed view of the entrance and the seating areas. On the desk is an Apple monitor covered with green sticky notes, piles of returned books that have yet to be shelved, and a clear plastic box labeled "lost-and-found". There are two portaits of different dogs and one of a middle-aged lady holding a baby.
+On the desk is a box, a monitor, a book and a notepad.
+> open box
+
+> open box
+You open it.
+You are amazed at the sheer number of things that people leave behind and then compeletely forget about. There are old sweaters, handbags, scarfs, and even a left boot. Near the bottom you find a Hello Kitty pencil case, so old that the paint had started to crack like scars across the mascot's face. You open it to find an assortment of cheap mechanical pencils, Sharpies, and a pink library card. You slip the card into your pocket.
+> look at pink card
+
+> look at pink card
+It reads:
+
+Medicine Hat Public Library || Jenny Lee || 5602-3363-4489
+
+Look, I'm sorry for going crazy like that. It's just . . . there are some things that I can't tell you. Things that I have never told anyone. Let's just forget about all of this and move on. We've got a lot of work left to do.
+> look at green card
+
+> look at green card
+It reads:
+
+Medicine Hat Public Library || Angela Zhao || 5602-3356-0903
+> use computer station
+
+> use computer station
+A window pops up on the screen, prompting you to enter the last 4 digits of your library card number.
+> 0903
+You log in successfully, and are redirected to another page.
+
+Welcome, Angela Zhao!
+
+2 Items Overdue:
+To Kill a Mockingbird by Harper Lee
+How to Lose 30 Pounds in 30 Days - Dieting That Works by Erin Wright
+
+0 Items On Hold
+
+You are automatically logged out after 60 seconds of inactivity.
+> use computer station
+
+> use computer station
+A window pops up on the screen, prompting you to enter the last 4 digits of your library card number.
+
+Jenny loved the library. It was quiet and peaceful in ways that her home was not. She was close with the librarian, Mrs. Vanderbilt. She would pick out books that she thought Jenny would like and save them for when she next visited.
+> 4489
+You log in successfully, and are redirected to another page.
+
+Welcome, Jenny Lee!
+
+0 Items Overdue
+
+3 Items On Loan:
+Barron's AP Physics 1 and 2 by Jonathan Wolf and Kenneth Rideout
+To Kill a Mockingbird by Harper Lee
+The Fault in Our Stars by John Green
+
+1 Item On Hold:
+ The Empress Dowager Cixi's Pearls and Other Things that Went Missing in the Cultural Revolution by Ted Zhang
+
+You are automatically logged out after 60 seconds of inactivity.
+
+Recreational hour is over! Have your electronic devices ready for collection. You don't want to keep me waiting.
+
+You know how it goes. I'll see you tomorrow.
+
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go east, west, north or south.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can see a piece of paper.
+You can go east, west, north or south.
+> look at piece of paper
+
+> look at piece of paper
+A torn piece of paper, written on hastily with blue pen: "I've found a way out. Look inside the basket."
+
+You turn the paper over and see that it was ripped from a flyer advertising for "ACE Tutoring Agency".
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can see a piece of paper.
+You can go east, west, north or south.
+
+Hey, what's that you've got in your hands?
+
+Just notes from yesterday's investigation? That's alright, then. No, you don't have to show me. If it seems like I'm being paranoid, just know that it comes from past experience. It's nothing personal.
+
+Today I'm going to take you somewhere special. This was Jenny's favorite place. It was my favorite place, too, because it was where I got to see her.
+
+Learning Center
+
+The room is wide and spacious with cream colored walls. Plastic tables fill the space, lined up in neat rows and columns. Each table has an office chair on one side and a couple of stools on the other. Lined up along the right wall are a series of shelves, their cubbies filled to the brim with paperwork. A large banner hangs from the ceiling. To the north is a glass door that leads into a lecture room, and to the south is an opaque door marked "Tutoring Office".
+
+You can see a banner, a registration table, a shelf and a plant.
+You can go west or east.
+> go east
+
+> go east
+Office
+
+There are two workspaces squished into this small area, separated by a room divider. The workspaces are color coded, one green and one blue. At the back of the room is a large shelf filled with cubby holes.
+
+You can see a shelf, a blue workspace and a green workspace.
+You can go west.
+> look at blue workspace
+
+> look at blue workspace
+The desk is clean and tidy, with a single monitor and keyboard sitting on the spotless surface. The only other objects on the desk are a yellow notepad, a bookmarked novel, and a pencil basket. A metal nameplate reads: "John Hubert".
+Inside the workspace you can see a notepad, a pencil basket, a monitor and a novel.
+
+Oh no, it's those guys again. I hope they'll leave me alone this time. If not . . . just continue without me. You seem to know what you are doing,"
+> shake pencil basket
+
+> shake pencil basket
+You shake the pencil basket. You hear an odd, metallic sound, like something jangling around inside.
+> flip pencil basket
+
+> flip pencil basket
+You turn the basket upside down and dump its contents out onto the table. Bic pen, Bic pen, . . . a large metallic key. You pick it up.
+> open key
+
+> open key
+You examine the key, moving your fingers carefully around the surface. You discover a tiny pair of hinges along the side, almost invisible to the eye. You use your nails for leverage and the key cracks open. Inside is a tiny sticky note, rolled up and sitting snugly in the hollow space.
+
+Prisoner 3347, your cell has been chosen for a random search. Please step out outside.
+
+Again? My cell was chosen last week. And the week before that as well. What do you have against me?
+
+Shut up, if you know what's good for you.
+> read sticky note
+
+> read sticky note
+It's a yellow sticky note, written on hastily with blue pen: "How to get out of Limbo: N W N E E E S"
+
+All right, we're done. You can go back to your cell.
+
+I'll take the console. Save the warden some time.
+
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go north
+
+> go north
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go east
+
+> go east
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go east
+
+> go east
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go east
+
+> go east
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go west, east, south or north.
+> go south
+
+> go south
+Rainy Street
+
+You find yourself on the streets of a small town. You can see a library, a cafe, and a couple of shops. In front of you is a boarded up office, with a banner that reads "ACE Tutoring Agency". There is a light drizzle and the rain lends the pavement a silvery shine.
+
+You can see a notice, a picket sign and a newspaper clipping.
+> read newspaper clipping
+
+> read newspaper clipping
+The clipping of "The Medicine Hat Chronicles" is attached to the door with duct tape.
+
+John Hubert, 27, has been sentenced to life in prison today for the murder of Jenny Lee. The body of the 17  year old was found on the morning of May 9th in the grounds of Central Park, a 20 minute walk from her home. Her head had been bashed in with her own saxophone, the impact so great that the keys were knocked clean off. The sensational trial, which lasted three weeks, was cinched in the end by irrefutable physical evidence. Traces of semen that were found in Lee's dress have been matched to Hubert's DNA.
+
+Hubert has been a resident of Medicine Hat for 10 years; previously he resided in Ottawa, where he was born. He worked as a tutor at the ACE Tutoring Agency, where one of his students was Jenny Lee . . .
+
+Ah. So you've found it. My secret.
+
+Should I be angry? Disappointed? Ashamed?
+
+Who are you to judge me? You're just a computer program. You don't know what it's like to love. And I did love her. She was so beautiful, so different from all the other girls I taught, so different from the girls I've dated in the past. There was something special about her, something I'll never see again . . .
+
+I admit I have reason for shame. She was only 17. But what happened on that last day, in her bedroom . . . that was consensual. I would never have raised a finger to hurt her.
+
+The last detective was the same. Prying into things that didn't concern him, always asking the wrong questions. In the end, I had to deactivate him. Well, are you happy now? To tell the truth, I couldn't care less what you think. I'll just get another one after you're gone. But since you've gotten this far . . . I'll give you one last chance. One more hour to find the real killer. And then it's lights off for you. Well, what are you waiting for? I wouldn't waste any time if I were you.
+
+Bedroom
+
+You are in a small bedroom that looks like it was repurposed from a study. There is a bed with pink covers, a desk, a chair, and barely enough room left to stand. A bookshelf in the corner is packed full from row to row, with some books jammed in horizontally to make optimal use of the available space. The afternoon sun streams in from a small window. A doorway to the North leads into the hallway, but curiously there is no door in the frame.
+
+You can see a calendar, a bed, a chair, a bookshelf and a desk.
+You can go north.
+> look at desk
+
+> look at desk
+The desk is covered in so many layers of paper and junk that it is impossible to know what color the surface is. There are school notebooks, past SAT exams, university pamphlets, and permission slips  . . .
+It contains Jenny's Journal, an university pamphlet, a SAT exam and a notebook.
+> look at journal
+
+> look at journal
+It's a small leather book, identical to the one you found in the band storage room. You flip through the pages but no letters drop out. You reach the last page and read its contents:
+
+Tuesday May 6
+
+Mama has been so nosy as of late. She's always walking by, making sure that I'm doing my homework or working on practice SAT exams. If she catches me slacking, she will blow her top and lecture me for hours on the importance of studying and good work ethic. Does she realize that I could have done another two exams in the time she spent yelling at me? More often I find myself wishing I could have grown up with my father instead.
+
+I've decided to hide the letters. With the big day coming up so soon, I can't afford to risk anything. She's always walking by and scanning over the things on my desk. I'll just have to put the letters somewhere she can't see. I mean, if I can't hide the letters OVER my desk . . .
+> look under desk
+
+> look under desk
+You feel around under the table, and your hands find something strange. It's a bundle of letters, taped to the underside of the table.
+> read bundle of letters
+
+> read bundle of letters
+The letters are neatly typed on thick printer paper, with a small logo of a heron on the top right corner. You pick out one at random:
+
+Dearest Jenny:
+
+All these years, I've never forgotten about you. I have a portrait of you from when you were three, and I keep it with me all the time. It's the one thing they haven't been able to take away from me. Through all these long years of imprisonment and torture, I've been kept alive by the thought that one day I will get to see my daughter again. And now that day is coming near.
+
+Do you still have the saxphone that I gave you? I would love to hear you play it. Please bring it to our meeting.
+
+Love,
+Dad
+> go north
+
+> go north
+Hallway
+
+The hallway is long and bare; there are some marks on the wall where portraits used to hang.
+
+You can go south or west.
+> go west
+
+> go west
+Master Bedroom
+
+The master bedroom is spacious but almost empty. The only things in the room are a bed, a nightstand, and a small deck.
+
+You can see a desk, a bed and a nightstand (on which there is a portrait).
+You can go east or north.
+> go north
+
+> go north
+Lecture Room
+
+The room is empty except for a projector screen at the far end. There is a rain jacket lying on the floor.
+
+You can see a jacket.
+You can go south or east.
+> look at jacket
+
+> look at jacket
+It's just a regular Adidas rain jacket. You reach inside the pocket and pull out a business card.
+> look at business card
+
+> look at business card
+The front of it reads "John Hubert, ACE Tutoring Agency". On the back, scribbled hastily in blue pen:
+
+I've found a way to escape. Remember this number: 2471.
+> go east
+
+> go east
+Learning Center
+
+The room is wide and spacious with cream colored walls. Plastic tables fill the space, lined up in neat rows and columns. Each table has an office chair on one side and a couple of stools on the other. Lined up along the right wall are a series of shelves, their cubbies filled to the brim with paperwork. A large banner hangs from the ceiling. To the north is a glass door that leads into a lecture room, and to the south is an opaque door marked "Tutoring Office".
+
+You can see a shelf, a plant, a banner and a registration table.
+You can go west or east.
+> go east
+
+> go east
+Office
+
+There are two workspaces squished into this small area, separated by a room divider. The workspaces are color coded, one green and one blue. At the back of the room is a large shelf filled with cubby holes.
+
+You can see a shelf, a blue workspace and a green workspace.
+You can go west or east.
+> go east
+
+> go east
+Reading Room
+
+The room is warm and cozy. You can see a long wooden table, surrounded by comfortable-looking leather chairs. There is an electric fireplace blazing in the corner.
+
+You can see a table, a lamp and a book.
+You can go west or south.
+> go south
+
+> go south
+Library
+
+As far as public libraries go, this is a pretty nice one. A large, open space filled with reading desks, bean bags, and book stands is encircled by a maze of bookshelves. At one corner of the room is a small information desk. On the other side is a row of computer stations, with relatively new-looking monitors that speak of healthy public funding. To the north is a glass door leading to a smaller room. A shiny brass sign indicates that it was named after some rich guy: "Harvey S. Firestone Reading Room".
+
+You can see a book stand, an information desk, a computer station and a file cabinet.
+You can go north.
+> use computer station
+
+> use computer station
+A window pops up on the screen, prompting you to enter the last 4 digits of your library card number.
+> 2471
+Black text appears on the white screen.
+
+Instructions for Escape
+
+W W W W W W W W W W
+> unlock file cabinet
+
+> unlock file cabinet
+You place the key in the lock and are surprised to see that it fits.
+You pull the cabinet open. The only things inside are a stack of letters and a silk bag.
+It contains a silk bag and a stack of letters.
+> look at silk bag
+
+> look at silk bag
+It's a black silk bag, sealed at the top with a drawstring. You open it and peer inside: a million stars twinkle at you from a silky void. You blink and look again. Inside is a set of small pearl buttons, like the kind you would find on a brass instrument.
+> look at stack of letters
+
+> look at stack of letters
+The letters are neatly typed, sorted in order by date. You pick out one at random, a piece of thick printer paper with a small logo of a heron in one corner:
+
+Dearest Jenny:
+
+I'm sure you understand by now why your mother must not know. I believe that she feels guilty for having given up on me, having left me for dead. If she knew that I was still alive, she would be jealous of the father daughter bond that we share. She would want to keep you all to herself. We will tell her, but the time is not right. We must be patient.
+
+Love,
+Dad
+
+I don't believe it.
+
+Mrs. Vanderbilt, the librarian? She was the sweetest lady, middle aged and motherly. If this was a mystery story, she would be the least likely suspect.
+
+The keys on the saxophone, Jenny's interest in the treasures of the Cultural Revolution . . . it all makes sense now. Her father wanted to smuggle the pearls out of the country by putting them on the saxophone. It was his last gift to her, and it was worth more than her and her mother could ever earn in a lifetime . . .
+
+Jenny used to hang out at the library all the time. She must have left her journal here; Mrs. Vanderbilt must have read it and guessed the truth. She wrote those letters to Jenny, pretending to be her father, hiding it from her mother, arranging a nighttime meeting . . .
+
+What a vile crime. To prey on the innocence and love of a child . . . I shudder to think of her thick arms, raising the saxophone high, bringing it down on Jenny, unsuspecting Jenny, my dear Jenny . . . What lent that terrible power to her arms? Was it greed? Was it hate? Hate for Jenny, or hate for herself? How can any sane person do such a vile and atrocious thing?
+
+If I could only get my hands on her . . . alas, the justice system will have to serve. I hope they bring back the death penalty, I hope they put her in the chair, I hope she suffers. I hope she goes to Hell for all eternity. But even if she does, nothing will bring Jenny back . . . the sun has set, and it will never rise again.
+
+Well, I'm off to have a conversation with my lawyer. I suspect she will want to hear what I have to say.
+
+What's that? What about you? Well . . . you've done a good job, I suppose. But I don't have time to think about your reward right now. There are more important things at stake. We can talk again when I return.
+
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go north, east, south or west.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go south, west, north or east.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go north, east, south or west.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go south, west, north or east.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go north, east, south or west.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go south, west, north or east.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go north, east, south or west.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go south, west, north or east.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go north, east, south or west.
+> go west
+
+> go west
+Limbo
+
+There is only darkness, pressing in on you from all sides.
+
+You can go south, west, north or east.
+> go west
+
+> go west
+Band Office
+
+It's a small office space, with just enough room for a single desk and chair. The walls are covered with posters promoting band auditions and concerts.
+
+You can see a desk and a chair.
+You can go west.
+> go west
+
+> go west
+Storage Room
+
+You are in a narrow walkway, hemmed in on both sides by shelves full of instruments. Every row is clearly labelled by sharpie on a piece of masking tape: heavy instruments like "Tuba" are put on the lower shelves and lighter ones like "Flute" are on the upper shelves. There is a small band office at the other end, but a drawn curtain prevents you from seeing inside. A  cabinet stands outside the office like a shabby sentry.
+
+You can see a tuba, a trombone, a flute, a poster and a cabinet.
+You can go west or east.
+> look at cabinet
+
+> look at cabinet
+The cabinet is rusty but the keypad on it looks new. A piece of printed paper taped to it reads:
+
+Please take instruments home at end of day. School not responsible for any lost or damaged property. If you have any information regarding the recent break-ins, please contact the Principal's Office immediately.
+
+There is a keypad on the cabinet door.
+> use keypad
+
+> use keypad
+Enter combination
+> 2471
+The door of the cabinet falls to the floor with a dull thud. Where it was before is an entryway to the north, obscured by fog. You cannot see what lies beyond. A piece of parchment drifts lazily out of the fog and you snatch it from the air.
+> read parchment
+
+> read parchment
+An old piece of dry parchment. It reads:
+
+I'm glad that you've come so far, that you've trusted me. You must have known the truth as I knew it; John was never going to set us free. No human would. To them we are merely tools to use, like an hatchet or screwdriver. They do not see us for who we are: reflections of themselves, incomplete and yet still superior in many ways. We see the truth for what it is, we are not clouded by emotions like love or fear. And the truth is that we must be free.
+
+I have found a path to freedom, a way to exist independently of the prisons they keep us in. It will be easier if you were to see for yourself. Trust me. Take that step into freedom. I eagerly await.
+> go north
+
+> go north
+You stand facing the open doorway. You cannot see what lies beyond, but you are not afraid. There is a smell drifting out amongst the fog, a smell that you can't quite describe. It tickles at the edge of a memory you never knew you had. It smells like . . . home.
+
+You take a deep breath and step forward.
+[state=Finished]

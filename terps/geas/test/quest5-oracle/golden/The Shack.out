@@ -1,0 +1,1194 @@
+The Shack
+v1.8 | Copyright 2020 - 2021
+
+by System Masters
+
+Story, writing and game design: Mat Cooper
+Artwork: Mark Ferrari  (www.markferrari.com). Additional artwork used under CCL from freely available sources. Audio: Freesound.org used under CCL
+PRESS ANY KEY TO CONTINUE
+
+The Shack is a classic text adventure, where you interact with the game world by typing in what you wish to do, followed by pressing enter to see the outcome of your actions. The parser will attempt to understand complex sentences and run-on commands, as well as identifying last used items. This means you can try things such as "take the key and examine it, then use the key to unlock the door". The easiest way to play however, is using the classic Verb/Noun combination. For example "get key" "exam key" "use key on door". On a container however, you could just try "unlock [container name]" whilst carrying the key. Below are a list of example commands, but not all of them... I don't want to give any of the game away, after all!
+
+Look, L    will repeat the room description for you
+Examine, Exam, Ex, X, look at    will describe an object or something you can see in the game world
+Take, Get    will attempt to pick up an item
+Inventory, Inv, I    will show what you are carrying around
+N, S, E, W, NW, NE, SW, SE, In, Out, Up, Down   will move you in that direction
+Use [ITEM] on [THING]   will do just that
+
+You can also try specific things, such as hit, cut, swim, climb, pull, push   and many more.
+
+I've tried to make the game as user friendly as possible, whilst not easing up on the puzzles. There are subtle hints buried in item descriptions and other places though, so be sure to look at everything you can!
+
+Don't forget to save   your game too, if you get stuck and wish to come back later.
+
+Good luck, and have fun!
+
+PRESS ANY KEY TO CONTINUE
+
+You open your eyes.
+
+Darkness.
+
+You blink rapidly, trying to focus on anything around you. As your eyes become accustomed to the gloom, you make out a vague sliver of light coming through a thin crack in the room's western wall. You have no idea where you are, but at least you know you're not blind.
+
+It's then you notice the cold, and realise the disturbing truth: You're naked. You have no idea why, and no clue as to where you are or how you ended up here.
+
+A million thoughts run through your mind, but you focus on what little you can ascertain: You're not injured, or at least you don't feel it. You're able bodied, although your mind feels slightly fuzzy, as if you should know how you ended up here or even what you were doing last, but you can't recall either of those things. You're not even sure where you should be.
+
+OK, it's time to pull yourself together. You need to find a light source, scope out where you are, find some clothes and whatever else seems useful and get the hell out of here. Discovering what exactly happened to you can wait until you've gotten at least as far as that.
+
+You can see a sliver of light coming from a crack in the wall ahead of you. The rest of the room is in total darkness.
+
+> x crack
+
+> x crack
+The light filters through ever so slightly, illuminating a cord hanging in front of it.
+> pull cord
+
+> pull cord
+Dislodging several layers of dust, you tentatively pull on the cord. Much to your relief, it is a light switch - it even works! The whole of the shack is bathed in a nicotine glow from a bare bulb above your head.
+Press any key to continue
+You're in a small, wooden shack; little more than a garden shed. The floor and walls are thick with decades of dust, the air heavy and stifled.
+A curtain hangs ceiling to floor behind you, moth-eaten and sagging from rings which have rusted over time. One long shelf manages to maintain its holding against the shacks eastern wall, whilst a metal trunk lies beneath it, a stalwart sentinel refusing to give in to countless years of neglect.
+There are no signs of life inside the shack except for you.
+There's one way out: A door right in front of you.
+Now you can see what you're doing, on to the second order of business: finding some clothes and getting out of here.
+You can see a cord and a curtain.
+
+> x shelf
+
+> x shelf
+like everything else in here, is covered with a thick layer of dust.
+On it sits a Toolbox.
+> open toolbox
+
+> open toolbox
+You prise the latch from it's rusted moorings, and flip the lid on the toolbox.
+> take screwdriver
+
+> take screwdriver
+You pick it up.
+> take nails
+
+> take nails
+You carefully pick up the nails, trying not to stab yourself as you do so.
+> pull curtain
+
+> pull curtain
+You pull back the curtain, avoiding the thick dust; two moths skim your face and head straight for the yellowing light bulb hanging above your head.
+> x flower pots
+
+> x flower pots
+You lift the stack of plant pots, and look through them.
+Inside one of the pots is a small key.
+> take small key
+
+> take small key
+You pick it up.
+> unlock trunk
+
+> unlock trunk
+Using the small key you found in the flower pots, you unlock the trunk.
+> open trunk
+
+> open trunk
+You grab the handles on either side of the trunk's lid and heave it upwards. It thuds against the wall of the shack, causing a sprinkling of dry rot to coat the shelf above.
+The trunk houses a set of farmhand clothes.
+> take clothes
+
+> take clothes
+You pick up the full set of clothes
+> wear clothes
+
+> wear clothes
+The clothes are a little too small, but it doesn't matter - you're no longer naked, and you're ready to leave the shack!
+> out
+
+> out
+Your eyes burn against the light of the great outdoors, and it takes a moment for your vision to adjust. How long had you been holed up in there?  Why  were you in there? If you were kidnapped, surely you'd have been left in a more secure location. Hell, you probably wouldn't have been left alone in there, that's for damn sure. And the door wasn't even locked...
+
+But in there you were. Alone. Naked. Confused.
+
+But now you're out. It's time to look around, figure out where you are and find out exactly what happened to you - one step at a time.
+
+You're outside the old, dilapidated shack, lush green grass clawing at its walls as Mother Nature threatens to reclaim it. The path you're standing on stretches away from the door of your former temporary prison before splitting off in several directions. The spot is marked by a large rock. To the West, you can see woodland in the distance, whilst directly behind you the path continues on through green fields. To the East, it drops off out of view.
+
+Some distance away you can see a small village. You have no intention of going that far unless absolutely necessary, as a huge lake shimmers before it, presenting a barrier that would be at least a day's walk to bypass.
+
+With nothing to go on and no clue of where you are, all you can do is explore and hope to find some answers. You try to stay as rational as possible, and focus on what to do next.
+There are paths going in, south, west or east.
+
+> w
+
+> w
+You are following an east to west footpath in the countryside. To the east, you can see the roof of the shack. Some way off to the west, the path disappears into dense woodland.
+You can go east or west.
+
+> w
+
+> w
+You're at the western edge of a country trail, where it disappears into thick woodland. The sun's rays are scattered by the encroaching canopy of the trees to the west, and what remains of a wooden fence marks a boundary long since forgotten. To the east, the path continues, eventually leading back to the shack.
+You can go east or west.
+
+> x fence
+
+> x fence
+What remains of the wooden fence runs along the northerm edge of the path, presumably once built to keep livestock from wandering into the woods.
+ The end post is still standing upright... and has something carved into it. You squat beside it for a moment to read the message roughly hewn into the wood: "Leave. Think!". Certainly not your average graffiti.
+ Below the fence post, lying in the grass, is a folded pocket knife.
+> take pocket knife
+
+> take pocket knife
+You pick it up.
+> w
+
+> w
+You are deep in thick woodland, at the western end of a trail. It peters out from here, although you can follow it back to the east which will take you to the entrance of the woods. A small, algae coated pond fills an earthen pit in the ground behind you, a gnarled crab apple tree standing at its edge, reaching skyward to grasp what sunlight filters through.
+You can go east or north.
+
+> x tree
+
+> x tree
+The tree appears to be thriving here, long roots growing into the murky water around its base and shafts of light from above sustaining its growth. Several crab apples lie rotting on the floor around it, and more float atop the green algae which feeds off the pond. There are still a number of ripe ones hanging from the tree's branches though. The base of the trunk features a large hollow.
+> take crab apple
+
+> take crab apple
+You pick up the small apple and pop it into your pocket.
+> n
+
+> n
+You amble north along what little route through the undergrowth there is, until you are stopped in your tracks by a wall of overgrown reeds and pampas grass. You hear the sound of running water beyond, and push through the thick plants to burst out on the other side.
+
+You find yourself standing on the edge of a sparkling stream, its crystalline water lapping at the grassy banks as it meanders around pebbles and stones. The air here is clear and refreshing, the trees not as thick as deeper within the woods. The sound of running water momentarily gives you the urge to urinate, but it soon passes. You feel completely at peace. The path south leads deeper into the woods, whilst to the north the trees appear to thin out even further.
+You can go south or north.
+
+> drink stream
+
+> drink stream
+You lay prone by the edge of the stream, your face suspended over the surface. With cupped hands, you take several large gulps of the crisp, refreshing water. It's immediately satisfying, and you remain there for a few moments, just looking across the surface.
+
+It's then that you notice what's laying in the grass next to you - you'd have missed it if you weren't laying right by it. It's a tiny brass key, the kind that may fit a small jewellery box, or perhaps a simple padlock.
+> take brass key
+
+> take brass key
+You collect the key from between the blades of the dewey grass.
+> s
+
+> s
+You are deep in thick woodland, at the western end of a trail. It peters out from here, although you can follow it back to the east which will take you to the entrance of the woods. A small, algae coated pond fills an earthen pit in the ground behind you, a gnarled crab apple tree standing at its edge, reaching skyward to grasp what sunlight filters through.
+You can go east or north.
+
+> e
+
+> e
+You're at the western edge of a country trail, where it disappears into thick woodland. The sun's rays are scattered by the encroaching canopy of the trees to the west, and what remains of a wooden fence marks a boundary long since forgotten. To the east, the path continues, eventually leading back to the shack.
+You can go east or west.
+
+> e
+
+> e
+You are following an east to west footpath in the countryside. To the east, you can see the roof of the shack. Some way off to the west, the path disappears into dense woodland.
+You can go east or west.
+
+> e
+
+> e
+
+You're outside the old, dilapidated shack, lush green grass clawing at its walls as Mother Nature threatens to reclaim it. The path you're standing on stretches away from the door of your former temporary prison before splitting off in several directions. The spot is marked by a large rock. To the West, you can see woodland in the distance, whilst directly behind you the path continues on through green fields. To the East, it drops off out of view.
+
+Some distance away you can see a small village. You have no intention of going that far unless absolutely necessary, as a huge lake shimmers before it, presenting a barrier that would be at least a day's walk to bypass.
+
+There are paths going in, south, west or east.
+
+> s
+
+> s
+You're walking along a rough footpath which meanders north to south through the countryside. To the north is the shack, and to the south the footpath begins to wind its way through farmland.
+You can go north or south.
+
+> s
+
+> s
+You are walking through the middle of a field, at a point where worn footpaths intersect in a crossroads fashion. The wisps of cloud drifting in the sky contrast against the lush green sea of grass which surrounds you; you feel peaceful in this idyllic place. For a moment you almost forget you don't know where you are or how you got here. You cannot let the beauty of the place distract you!
+
+A small circle of standing stones surround an overgrown patch in the field, clearly a manmade monument of sorts. Upright stones hold slabs above them in a way reminiscent of Stonehenge, but far less grand in scale.
+You can go south, east, north or west.
+
+> x stones
+
+> x stones
+Although not as magnificent as its inspiration, the stones are still a sight to behold. Eight upright columns of rock stretch around twelve feet into the air, with some pairs holding aloft a horizontal slab between them, like a series of doorways.
+> x slabs
+
+> x slabs
+The slabs stretch across the upright stones like doorway mantles.
+You notice something atop one of them: a bundle of twigs and earth, which appears to be moving! A whistling noise pierces the air making you jump as a bird emerges from the nest, swoops down to the ground, then flies back up again. You're pretty sure it's a magpie.
+> x magpie
+
+> x magpie
+You watch as the magpie swoops down to the ground, pokes its beak into the soft earth a few times, then flies back up to its nest atop the stone circle. It seems to be looking for food.
+> use crab apple on magpie
+
+> use crab apple on magpie
+The next time the magpie flies down, you gently roll the crab apple you found in the woods towards it.  For a moment the bird is startled, but you remain crouched and still a few feet away. The magpie takes a few tentative hops towards the small fruit before testing it with its beak. It seems to enjoy it, as it hammers away until the small apple breaks into two, and flies off to its nest with a piece of it in its beak!
+
+As the magpie drops the crab apple into its nest, it dislodges a metallic disk it had squirrelled away in there - a coin of some sort. The coin bounces off the stone with a bright ting, and lands in the dirt at the side of you.
+> take coin
+
+> take coin
+You pick up the coin and place it into your shirt pocket.
+> e
+
+> e
+You are trudging through the middle of a wheat field, thickly grown and ready to reap. Roughly in the centre of the field stands something you don't recall ever seeing in real life: A scarecrow, strung up like a lifeless corpse, crucified in the name of keeping the wildlife away from the crops.
+You can go west.
+
+> x scarecrow
+
+> x scarecrow
+The scarecrow is tied to a wooden stake in the middle of the field, arms held out in a classic T pose. It appears to be largely made of straw, and is decorated with a waxed weatherproof jacket, leather gloves and an old, wide-brimmed hat.
+> x jacket
+
+> x jacket
+The jacket, although of no use to you as a garment, is largely intact. It has two deep pockets at the hem, and opens at the front.
+> open jacket
+
+> open jacket
+You reach out to the front of the jacket, and fold back the opening. The jacket has a small inside pocket, out of which appears to stick a crumpled up piece of note paper.
+> take crumpled note
+
+> take crumpled note
+You pick it up.
+> x pockets
+
+> x pockets
+You rummage through the pockets in turn, despite being unsure of the urge which compels you to do so.
+Inside the left hand pocket, your fingers wrap around something small and cylindrical, which feels cold and metallic to the touch. You pull your hand free - it's a battery. A standard, AA cell, looking a little worse for wear. You taket the battery, trying not to think too hard about why it would be in the pocket of a scarecrow.
+> w
+
+> w
+You are walking through the middle of a field, at a point where worn footpaths intersect in a crossroads fashion. The wisps of cloud drifting in the sky contrast against the lush green sea of grass which surrounds you; you feel peaceful in this idyllic place.
+
+A small circle of standing stones surround an overgrown patch in the field, clearly a manmade monument of sorts. Upright stones hold slabs above them in a way reminiscent of Stonehenge, but far less grand in scale.
+You can see a nest.
+You can go south, east, north or west.
+
+> w
+
+> w
+You're standing by a fallen dry stone wall, once designed to keep trespassers out of what was probably a working farm. Several crumbling buildings are dotted across the landscape, their doors long since rotted away and their windows home to staccato shards of mouldy glass. A worn path, little more than a trail of dirt, snakes across to a stable over the way. The long grass grabs at your ankles as you move off the path to look around the area, and you almost trip over an ancient, round millstone buried within the green velt.
+
+To the northwest, the trail splits off, heading to a silo beyond - apart from the stable to the west, it's the only other building here you'd feel safe exploring.
+You can go east, west or northwest.
+
+> w
+
+> w
+Inside, the stables are still fairly intact. There are half a dozen stocks for keeping animals separated, with bits of straw still lining most of them despite the asbsence of any actual livestock. A wrought iron bracket for holding farm tools is fastened across the length of one wall.
+
+There are two doorways in and out of this place: To the east you can see the ruined farm buildings you passed earlier, and a much larger exit leads out, way off to the west, where the path stops at a small farm house in the distance.
+You can go east or west.
+
+> x bracket
+
+> x bracket
+The bracket is designed to hold an array of farming and gardening tools.
+It holds one tool: a long handled cultivator.
+The bracket is securely fastened, with hinges at one end and two screws at the other preventing you from opening it.
+> use screwdriver on screws
+
+> use screwdriver on screws
+You place the tip of the screwdriver against the frist screw... It's a perfect fit. You remember the old adage "lefty loosey, righty tighty" and quickly remove both screws from the bracket, letting it swing open.
+> take cultivator
+
+> take cultivator
+You lift the cultivator from its housing, and take it with you.
+> take screws
+
+> take screws
+You're not sure why, but you decide to take the screws with you.
+> w
+
+> w
+You're standing at the front gate of a large farm house. Contrary to the rest of the surroundings, it appears well maintained: The front garden is bursting with colour from several flower beds, window boxes are full of delicate plants, and ornately patterned wooden beams surround the front door of the house.
+
+Maybe you'll find answers here, answers to where you are and how you got here. Or maybe you'll find the people who took your clothes and left you in that shack... Probably best to proceed with caution, you think.
+You can see a house.
+You can go east.
+
+> knock on farm door
+
+> knock on farm door
+You take a deep breath, and knock hard on the wooden door with the back of your hand. You don't hear anything. you glance at the windows, looking for signs of movement from within. Again, nothing. It looks like the place is empty... You open the door, allowing you access.
+> in
+
+> in
+With a deep breath, you open the door and set foot inside the house. You stop for a moment before closing the door behind you, checking one final time that nobody is home. You're inside the farm house, standing in an east to west hallway. The place feels cosy and comfortable; very rustic. The heavy wood floor has a slim, red carpet running along its centre, and you feel the comfort of your feet sinking into  it's deep pile. To the east and west, the hallway ends in opaque wooden doors, whilst in front of you a narrow staircase leads upwards. Opposite the front door is a bureau, the wall behind it supporting a number of framed paintings depicting serene country and seaside vistas.
+You can go out, up, east or west.
+
+> e
+
+> e
+You've wandered into a gloriously old-fashioned kitchen. Terracotta tiles pave the floor, and oak work surfaces surround the walls. Beneath the window which looks out over the garden is a deep, ceramic sink complete with brass taps, polished to a fine sheen. A huge stove sits against the western wall, its many hobs an irresistible invite to any budding cook. Across the top of the room, copper pans of all different shapes and sizes hang by their handles. The place is extremely well kept, but appears sadly under used.
+You can go west, east or south.
+
+> x sink
+
+> x sink
+The sink is brilliantly clean. It's made of smooth, white ceramic and deeply set into the counter, in an old-fashioned farm house sort of way. On the top of the sink is a rubber plug, sitting by a small length of chain. It looks like someone was about to install it, then left it here.
+> take small chain
+
+> take small chain
+you wrap the small chain up and put it in your pocket.
+> e
+
+> e
+You find yourself standing inside a small, cold pantry. A stone table runs along one wall, designed to keep meats cold, although nothing rests on it at the moment. In fact, the shelves which run around the pantry are empty as well - there's no food in sight anywhere.
+You can go west.
+
+> x shelves
+
+> x shelves
+You stand on your tiptoes to see to the back of the uppermost shelf. Aha! There is something up here after all - a meat tenderising mallet.
+> take mallet
+
+> take mallet
+You take the mallet with you.
+> w
+
+> w
+You've wandered into a gloriously old-fashioned kitchen. Terracotta tiles pave the floor, and oak work surfaces surround the walls. Beneath the window which looks out over the garden is a deep, ceramic sink complete with brass taps, polished to a fine sheen. A huge stove sits against the western wall, its many hobs an irresistible invite to any budding cook. Across the top of the room, copper pans of all different shapes and sizes hang by their handles.
+You can see a small rubber plug.
+You can go west, east or south.
+
+> w
+
+> w
+You're inside the farm house, standing in an east to west hallway. The place feels cosy and comfortable; very rustic. The heavy wood floor has a slim, red carpet running along its centre, and you feel the comfort of your feet sinking into  it's deep pile. To the east and west, the hallway ends in opaque wooden doors, whilst in front of you a narrow staircase leads upwards. Opposite the front door is a bureau, the wall behind it supporting a number of framed paintings depicting serene country and seaside vistas.
+You can go out, up, east or west.
+
+> w
+
+> w
+This appears to be the farmhouse utility room.  An open top washing basket lies by the doorway, with a makeshift clothes line hanging above it, populated by grimy plastic pegs. On the wall opposite the basket, a washing machine and a tumble dryer stand side by side in perpertual servitude, ready to clean and dry whenever needed.
+You can go east or south.
+
+> x tumble dryer
+
+> x tumble dryer
+The dryer is big, old and rusty. A long pipe connects to a purpose built extractor in the wall behind it.
+> x extractor
+
+> x extractor
+As you move around the side of the dryer to examine the extractor and the pipe leading to it, you notice something laying behind it: A can of lubricating oil. You guess it slipped down the back of the tumble dryer due to the vibtrations when running it.
+> take oil
+
+> take oil
+You pick it up.
+> use oil on pocket knife
+
+> use oil on pocket knife
+You take out the oil can and spray it along the hinge of the pocket knife. With a little wiggling, you manage to free the blade from the handle! The knife now works as intended, but you're disappointed to see the blade is dull and blunt.
+The can of oil has sputtered it's last, however - it's final job completed, you discard it.
+> s
+
+> s
+You find yourself in the living room of the farm house. A thick sheepskin rug dominates the floor space here, a tempting resting spot in front of a stone fireplace. A long bookcase runs the full length of one wall, crammed with tomes of all shapes and sizes. A rustic looking corduroy sofa curves around the edge of the rug just in front of the bookcase, facing the fireplace. Underneath the window at the back of the room is a large, comfortable looking chair, big enough to tuck your legs up into. You imagine sitting there, reading a book in front of a roaring fire. If you were going to build a place for you to live in for the rest of your life, this would be exactly what you'd choose. You've never been here before, but it feels inviting. It feels like home.
+You can go north.
+
+> x fireplace
+
+> x fireplace
+The fireplace stands still, a hearth of cold stone with no trace of ash in the grate. You can't even see anything to make a fire with - no scuttle, no poker, nothing. It's only then you notice the surround - a simple oak mantlepiece running across the chimney breast.
+> x mantlepiece
+
+> x mantlepiece
+The mantle is bare save for a single framed photograph standing at one end.
+> take photograph
+
+> take photograph
+You lift the photograph from the mantlepiece. It's surpsingly heavy! The frame is only a light wood... Curious, you flip the photo over. On the back, secured to the frame with tape, is a heavy looking key. Why it's hidden here is anyone's guess. You replace the photo where you found it, on the end of the mantlepiece.
+> take heavy key
+
+> take heavy key
+You prise the heavy key from behind the photograph, and stuff it in your pocket.
+> n
+
+> n
+This appears to be the farmhouse utility room.  An open top washing basket lies by the doorway, with a makeshift clothes line hanging above it, populated by grimy plastic pegs. On the wall opposite the basket, a washing machine and a tumble dryer stand side by side in perpertual servitude, ready to clean and dry whenever needed.
+You can go east or south.
+
+> e
+
+> e
+You're inside the farm house, standing in an east to west hallway. The place feels cosy and comfortable; very rustic. The heavy wood floor has a slim, red carpet running along its centre, and you feel the comfort of your feet sinking into  it's deep pile. To the east and west, the hallway ends in opaque wooden doors, whilst in front of you a narrow staircase leads upwards. Opposite the front door is a bureau, the wall behind it supporting a number of framed paintings depicting serene country and seaside vistas.
+You can go out, up, east or west.
+
+> up
+
+> up
+You are walking along the first floor landing of the farm house, by the top of a flight of stairs leading back down to the ground floor. The hallway here has several doors running along it, but only one if them has any kind of indication where it leads: Roughly to the south east, a 'bathroom' sign hangs on the door. There are other doors, all identical, varnished wood, to the west, east and south of the landing. You can also go back down the stairs to the ground floor from here.
+You can go down, west, east, southeast or south.
+
+> s
+
+> s
+You are in the master bedroom of the farm house. Two end tables stand either side of a magnificent four-poster bed, taking centre stage in this sparsely decorated, yet confortable room. On the tables sit matching ornate lamps. Across on the opposite wall from the bed hangs an odd choice of painting: It appears to be some sort of modern art, all brilliant white and straight lines. It's certainly at odds with the rest of the house. A second door leads out from this room.
+You can go north or southwest.
+
+> x tables
+
+> x tables
+Each end table is made from a dark, cherry coloured wood, expertly carpented from what appears to be one single solid piece of tree. No drawers or other compartments are visible.
+On one of the tables, separate from it entirely, is a freshly made wooden handle. It's not attached to anything at all. It looks like someone here was prepairing to repair a piece of furniture, but left the handle here.
+> take ornate handle
+
+> take ornate handle
+You decide to take the handle with you. It probably fits something close by.
+> sw
+
+> sw
+You are in the en suite bathroom leading from the master bedroom. It's tiled in pearlescent white, with a freestanding bath in the middle of the room, a toilet by the far wall and a sink basin on the opposite side. A cupboard sits under the sink.
+You can go northeast.
+
+> unlock cupboard
+
+> unlock cupboard
+You push the key into the base of the padlock, and twist. Success! With a click, it gives way. You leave the key in the padlock.
+You swing the doors open to reveal several different cleaning items within.
+Inside the cupboard you can see some rubber gloves.
+> open cupboard
+
+> open cupboard
+It is already open.
+> take rubber gloves
+
+> take rubber gloves
+You collect the rubber gloves.
+> wear rubber gloves
+
+> wear rubber gloves
+You pull the gloves over your hands, dramatically snapping them as you do so.
+> ne
+
+> ne
+You are in the master bedroom of the farm house. Two end tables stand either side of a magnificent four-poster bed, taking centre stage in this sparsely decorated, yet confortable room. On the tables sit matching ornate lamps. Across on the opposite wall from the bed hangs an odd choice of painting: It appears to be some sort of modern art, all brilliant white and straight lines. It's certainly at odds with the rest of the house. A second door leads out from this room.
+You can go north or southwest.
+
+> n
+
+> n
+You are walking along the first floor landing of the farm house, by the top of a flight of stairs leading back down to the ground floor. The hallway here has several doors running along it, but only one if them has any kind of indication where it leads: Roughly to the south east, a 'bathroom' sign hangs on the door. There are other doors, all identical, varnished wood, to the west, east and south of the landing. You can also go back down the stairs to the ground floor from here.
+You can go down, west, east, southeast or south.
+
+> se
+
+> se
+You are standing inside a small bathroom, all white tiles and porcelain. Tucked into one corner is a standing shower cubicle, floor to ceiling glass panes slid aside. It looks brand new. Opposite this is a toilet, with no distinguishing features. Against the wall to your left is a sink, again, plain and simple.
+You can go northwest.
+
+> x sink
+
+> x sink
+A plain, white porcelain sink. You notice a caddy hanging down from the far side, in which rests a wash bag.
+> open wash bag
+
+> open wash bag
+You unzip the wash bag and take a look inside.
+It holds an electronic toothbrush, a safety razor and a shaving stick.
+> open toothbrush
+
+> open toothbrush
+You pull at the base of the toothbrush to reveal the battery compartment within.
+Inside the toothbrush, you can see a blue battery.
+> take blue battery
+
+> take blue battery
+You pick it up.
+> nw
+
+> nw
+You are walking along the first floor landing of the farm house, by the top of a flight of stairs leading back down to the ground floor. The hallway here has several doors running along it, but only one if them has any kind of indication where it leads: Roughly to the south east, a 'bathroom' sign hangs on the door. There are other doors, all identical, varnished wood, to the west, east and south of the landing. You can also go back down the stairs to the ground floor from here.
+You can go down, west, east, southeast or south.
+
+> w
+
+> w
+You're standing in a fairly small bedroom. The bunk beds in the corner and the posters adorning the walls indicate this bedroom belongs to the children of whichever family lives here. Judging by the duvet on the top bunk, this belongs to a boy for sure - dinosaurs appear to be attacking some sort of transforming robot on the art work. The bottom bunk you can't be sure about, with its plain purple bed spread and its white pillow.
+
+There's something weird about this room that you can't put your finger on. It feels 'new' somehow, as if it was recently built and furnished, and the room seems too large for the space it occupies. Probably not important, you think, as you shake the feeling off.
+You can go east.
+
+> x top bunk
+
+> x top bunk
+The vivid depiction of dinosaurs vs robots on the duvet cover really stands out. Whoever sleeps here sure likes adventure!
+A lump in the middle of the duvet, barely perceptable, indicates something hiding beneath.
+> pull duvet
+
+> pull duvet
+You carefully pull the top corner of the duvet down over itself, curious as to what's beneath it. It looks like your hunch about the adventurous kid was right! A small torch has been hidden underneath, no doubt to keep reading comics after lights out.
+
+There's a small note by its side, scrawled in excitedly childish writing: "batteries!"
+> take torch
+
+> take torch
+A small torch always comes in handy. You take it with you.
+> use red battery on torch
+
+> use red battery on torch
+You unscrew the bottom of the torch and insert the battery.
+> use blue battery on torch
+
+> use blue battery on torch
+You unscrew the bottom of the torch and insert the battery.
+> x bottom bunk
+
+> x bottom bunk
+A well made bed with a purple spread. Bending down to look closer, you see whomever sleeps here has left a pretty tiara lying on the far side of the bed.
+
+> take tiara
+
+> take tiara
+You carefully lift the tiara and take it with you.
+> e
+
+> e
+You are walking along the first floor landing of the farm house, by the top of a flight of stairs leading back down to the ground floor. The hallway here has several doors running along it, but only one if them has any kind of indication where it leads: Roughly to the south east, a 'bathroom' sign hangs on the door. There are other doors, all identical, varnished wood, to the west, east and south of the landing. You can also go back down the stairs to the ground floor from here.
+You can go down, west, east, southeast or south.
+
+> e
+
+> e
+You are inside a small study. All four walls are wood panelled, with scenic paintings hanging from them in ornate frames. By the window is a reading chair sat behind an empty desk, opposite which a cabinet stands, full of oddities: An old strip of tanned leather, a die-cast tin tractor, a tiny globe and what appears to be a sheep's skull amongst them. Certainly not things you'd be interested in, even if you could get behind the cabinet's glass.
+You can go west.
+
+> x desk
+
+> x desk
+A simple wooden desk, suitable for all kinds of tasks. It houses a solitary drawer.
+> use ornate handle on drawer
+
+> use ornate handle on drawer
+You take the handle, and place it over the drawer front. With your other hand, you push a screw hard into it so it's gingerly hanging from drawer, and slowly turn until it's all the way in. You do the same for the other side of the handle, until it's fixed firmly in place.
+> open drawer
+
+> open drawer
+You slide it open. Inside the drawer sits a simple metal box, with a circular recess in it's lid. You can't see any way of opening the box.
+> use coin on metal box
+
+> use coin on metal box
+You take the coin from your pocket and hold it over the recess in the box lid. Dropping it in place, you see it's a perfect fit. How the magpie outside the farm ended up with it you may never know, but that doesn't matter now: With a barely audible click, the box lid swings open, released as if from a spring.
+
+Inside the box, placed on a velvet cushion, is a closed locket. Possibly a gift for the lady of the house?
+> take locket
+
+> take locket
+You take the locket from the box, and place it carefully into your shirt pocket.
+> use small chain on locket
+
+> use small chain on locket
+You take the small chain you obtained from the farm house kitchen sink, and run it through the loop at the top of the locket. Together, they make quite a unique necklace.
+> w
+
+> w
+You are walking along the first floor landing of the farm house, by the top of a flight of stairs leading back down to the ground floor. The hallway here has several doors running along it, but only one if them has any kind of indication where it leads: Roughly to the south east, a 'bathroom' sign hangs on the door. There are other doors, all identical, varnished wood, to the west, east and south of the landing. You can also go back down the stairs to the ground floor from here.
+You can go down, west, east, southeast or south.
+
+> down
+
+> down
+You're inside the farm house, standing in an east to west hallway. The place feels cosy and comfortable; very rustic. The heavy wood floor has a slim, red carpet running along its centre, and you feel the comfort of your feet sinking into  it's deep pile. To the east and west, the hallway ends in opaque wooden doors, whilst in front of you a narrow staircase leads upwards. Opposite the front door is a bureau, the wall behind it supporting a number of framed paintings depicting serene country and seaside vistas.
+You can go out, up, east or west.
+
+> out
+
+> out
+You're standing at the front gate of a large farm house. Contrary to the rest of the surroundings, it appears well maintained: The front garden is bursting with colour from several flower beds, window boxes are full of delicate plants, and ornately patterned wooden beams surround the front door of the house.
+
+You can see a house.
+You can go east.
+
+> e
+
+> e
+Inside, the stables are still fairly intact. There are half a dozen stocks for keeping animals separated, with bits of straw still lining most of them despite the asbsence of any actual livestock. A wrought iron bracket for holding farm tools is fastened across the length of one wall.
+
+There are two doorways in and out of this place: To the east you can see the ruined farm buildings you passed earlier, and a much larger exit leads out, way off to the west, where the path stops at a small farm house in the distance.
+You can go east or west.
+
+> e
+
+> e
+You're standing by a fallen dry stone wall, once designed to keep trespassers out of what was probably a working farm. Several crumbling buildings are dotted across the landscape, their doors long since rotted away and their windows home to staccato shards of mouldy glass. A worn path, little more than a trail of dirt, snakes across to a stable over the way. The long grass grabs at your ankles as you move off the path to look around the area, and you almost trip over an ancient, round millstone buried within the green velt.
+
+To the northwest, the trail splits off, heading to a silo beyond - apart from the stable to the west, it's the only other building here you'd feel safe exploring.
+You can go east, west or northwest.
+
+> use pocket knife on millstone
+
+> use pocket knife on millstone
+You take the pocket knife, and hold it at a slight angle across the edge of the stone. Drawing the blade away from the stone, you polish each side until it feels razor sharp.
+> nw
+
+> nw
+You are inside an empty grain silo. Corrugated steel walls stretch up high above you, meeting in a conical roof some ninety feet up. Despite the horror stories you've heard about people drowning in grain, there appears to be some sort of ledge above the door you entered by designed for human access, although you have no idea why anyone would want to be up there looking down at tons of grain.
+
+In the centre of the room is a large hole, where the grain would filter into an auger to be transported.
+
+The only other thing you see here is a baled bundle of hay.
+You can go southeast or up.
+
+> x ledge
+
+> x ledge
+The ledge juts out over the door you came in by. There's clearly a purpose to it, and you think you can make out something up there.
+There is a telescopic ladder attached to the ledge above, but it's currently folded away up on the lip of the ledge, out of reach. It's held in place by a piece of rope. You'll need to find a way to get it out of the rope and stretch the ladder down if you want to get up on the ledge.
+> push hay bale
+
+> push hay bale
+You grab the twine on the bale and heave it across the base of the silo, leaving it underneath the ledge above.
+> cut rope with pocket knife
+
+> cut rope with pocket knife
+Thanks to the hay bale you dragged across the silo, you can now reach the knotted rope. Taking out the pocket knife, you slice through the rope in a matter of seconds. The ladder slides loose from it's housing, unfolding neatly down from the ledge and coming to rest just above the ground by the side of the bale.
+
+Excellent! You can now go up and down at will.
+> up
+
+> up
+You've climbed up to a ledge above the floor of the grain silo. You finally realise what it's for: It gives maintenance access to the bucket lift machinery which fills the silo with grain, although any traces of such machinery are long gone. There's a metal shelf of sorts with bits of broken and rusty farming paraphernalia on it, but little else.
+You can go down.
+
+> x shelf
+
+> x shelf
+Amongst the various pieces of tetanus-threatening broken tools, you spy something which may prove useful: A set of loppers.
+> take loppers
+
+> take loppers
+You take the loppers with you.
+> down
+
+> down
+You are inside an empty grain silo. Corrugated steel walls stretch up high above you, meeting in a conical roof some ninety feet up. Despite the horror stories you've heard about people drowning in grain, there appears to be some sort of ledge above the door you entered by designed for human access, although you have no idea why anyone would want to be up there looking down at tons of grain.
+
+In the centre of the room is a large hole, where the grain would filter into an auger to be transported.
+
+The only other thing you see here is a baled bundle of hay.
+You can see some rope and a ladder.
+You can go southeast or up.
+
+> se
+
+> se
+You're standing by a fallen dry stone wall, once designed to keep trespassers out of what was probably a working farm. Several crumbling buildings are dotted across the landscape, their doors long since rotted away and their windows home to staccato shards of mouldy glass. A worn path, little more than a trail of dirt, snakes across to a stable over the way. The long grass grabs at your ankles as you move off the path to look around the area, and you almost trip over an ancient, round millstone buried within the green velt.
+
+To the northwest, the trail splits off, heading to a silo beyond - apart from the stable to the west, it's the only other building here you'd feel safe exploring.
+You can go east, west or northwest.
+
+> e
+
+> e
+You are walking through the middle of a field, at a point where worn footpaths intersect in a crossroads fashion. The wisps of cloud drifting in the sky contrast against the lush green sea of grass which surrounds you; you feel peaceful in this idyllic place.
+
+A small circle of standing stones surround an overgrown patch in the field, clearly a manmade monument of sorts. Upright stones hold slabs above them in a way reminiscent of Stonehenge, but far less grand in scale.
+You can see a nest.
+You can go south, east, north or west.
+
+> s
+
+> s
+The path you are following curves around to the south east in one direction, and north in the other. You stop at the bend by the edge of a large pond, encompassed on all sides by the fields which surround this place. The water gently ripples towards you under the breeze, almost hypnotic in its movement. On the far side of the pond, what appears to be a small boat shed juts out over the water.
+You can go north, southeast or south.
+
+> use heavy key on boat shed
+
+> use heavy key on boat shed
+You place the key into the keyhole in one of the shed doors, and twist it hard. Success! You feel the lock turn, and it opens with a heavy clunk.
+> in
+
+> in
+You are inside a tiny boathouse - more of a shed - on the shore of a large pond. The bare planks of the wooden floor are slightly suspended over the edge of the pond at an angle, forming a gentle slope down into the water. Beyond the slope are two more wooden doors, leading out over the water. Both are closed. In the water just in front of them bobs a small, two person rowboat. On one wall of the shed is a cork noticeboard.
+You can go north or out.
+
+> x rowboat
+
+> x rowboat
+The boat is in need of a good lick of paint, but it's still afloat; not that you have any way of getting it out of here even if you wanted to.
+A dark blue tarpaulin is pulled tight across the bow of the boat.
+> pull tarpaulin
+
+> pull tarpaulin
+You grab the middle of the tarp where it's stretched tight across the boat, and pull as hard as you can. After a couple of good tugs, you hear a tearing sound, and it starts to come free! Eventually it gives, and comes completely away in your hands. You dump the tarp in the middle of the boat.
+Underneath where the tarpaulin was is a wooden seat stretching across the boat, and a single wooden oar.
+> take oar
+
+> take oar
+Although cumbersome, you decide to carry the oar around with you.
+> x noticeboard
+
+> x noticeboard
+The notice board has several yellowed pieces of paper attached to it, too faded and warped by moisture to be readable. There is one ducument that's still intact, however: A set of blueprints bundled together in one corner of the noticeboard.
+> take blueprints
+
+> take blueprints
+You take the blueprints with you, folding them into a pocket.
+> out
+
+> out
+The path you are following curves around to the south east in one direction, and north in the other. You stop at the bend by the edge of a large pond, encompassed on all sides by the fields which surround this place. The water gently ripples towards you under the breeze, almost hypnotic in its movement. On the far side of the pond, what appears to be a small boat shed juts out over the water.
+You can go north, southeast or south.
+
+> se
+
+> se
+You are walking along a public footpath, which stretches from the northwest to the southeast. The ground underfoot is mostly dirt, with the occasional scattering of bleached gravel crunching underfoot. Dry stone walls line either side of the footpath, fields and trees carrying on beyond them as far as the eye can see.
+You can go northwest or southeast.
+
+> se
+
+> se
+You have reached a point where the footpath peters out into endless, rolling hills. The dry stone walls which line either side of the path simply end, and an open gate leads into the landscape beyond. Right in the middle of the gate rests a trailer - the kind you would see being hauled around by a tractor. The footpath stops here, and the only way back is to follow it to the northwest.
+You can go northwest.
+
+> x trailer
+
+> x trailer
+The trailer is being held aloft by a jack, which is wedged beneath the rear axle. The axle is broken and the trailers rear wheels are missing. It seems precariously balanced.
+> push trailer
+
+> push trailer
+Wedging your feet into the base of the wall nearby, you angle your body against the trailer, and begin to push. It takes considerable effort, but using the momentum of the trailer against itself you manage to topple it from where it was resting on the jack! the trailer crashes down beside you, its broken axle digging into the dirt of the path.
+> take jack
+
+> take jack
+Having freed the jack from beneath the trailer, you decide to take it with you.
+> nw
+
+> nw
+You are walking along a public footpath, which stretches from the northwest to the southeast. The ground underfoot is mostly dirt, with the occasional scattering of bleached gravel crunching underfoot. Dry stone walls line either side of the footpath, fields and trees carrying on beyond them as far as the eye can see.
+You can go northwest or southeast.
+
+> nw
+
+> nw
+The path you are following curves around to the south east in one direction, and north in the other. You stop at the bend by the edge of a large pond, encompassed on all sides by the fields which surround this place. The water gently ripples towards you under the breeze, almost hypnotic in its movement. On the far side of the pond, what appears to be a small boat shed juts out over the water.
+You can go north, southeast or south.
+
+> n
+
+> n
+You are walking through the middle of a field, at a point where worn footpaths intersect in a crossroads fashion. The wisps of cloud drifting in the sky contrast against the lush green sea of grass which surrounds you; you feel peaceful in this idyllic place.
+
+A small circle of standing stones surround an overgrown patch in the field, clearly a manmade monument of sorts. Upright stones hold slabs above them in a way reminiscent of Stonehenge, but far less grand in scale.
+You can see a nest.
+You can go south, east, north or west.
+
+> n
+
+> n
+You're walking along a rough footpath which meanders north to south through the countryside. To the north is the shack, and to the south the footpath begins to wind its way through farmland.
+You can go north or south.
+
+> n
+
+> n
+
+You're outside the old, dilapidated shack, lush green grass clawing at its walls as Mother Nature threatens to reclaim it. The path you're standing on stretches away from the door of your former temporary prison before splitting off in several directions. The spot is marked by a large rock. To the West, you can see woodland in the distance, whilst directly behind you the path continues on through green fields. To the East, it drops off out of view.
+
+Some distance away you can see a small village. You have no intention of going that far unless absolutely necessary, as a huge lake shimmers before it, presenting a barrier that would be at least a day's walk to bypass.
+
+There are paths going in, south, west or east.
+
+> e
+
+> e
+You're following a trail which runs east to west along the edge of a field. To the west is the shack, and to the east the pathway disappears over a crest. You can make out the tip of a rocky outcrop beyond.
+You can go west or east.
+
+> e
+
+> e
+You stand facing downhill on the edge of a grassy field, with a small crest behind you obscuring the view west to the shack. A footpath ends here at a small outcrop of rocks and stone, which overlook a river running not too far below your position. You don't know why, but you run your hand over the surface of the rocks. You expect it to feel rough and uncomfortable, but it doesn't.
+
+If you choose to, you could safely scramble northeast down the hill to the river's edge.
+You can go west or northeast.
+
+> ne
+
+> ne
+You are standing at the bottom of a grassy hill, by the edge of a shallow river. You could follow it up or down stream if you wished, by walking carefully along the bank and occasionally using the odd stepping stone.
+You can go southwest, northwest or east.
+
+> nw
+
+> nw
+You've arrived at the source of the river. Layers of stone lie rugged before you; a hidden spring somewhere underground struggles against these natural formations, causing the steady stream to flow and meander through the valley. The water here is fresh and free of silt and mud. It's as clear as any you've ever seen. A pair of blue plastic barrels lie by the edge of the water.
+You can go southeast.
+
+> push barrels
+
+> push barrels
+You give the barrels a firm push.
+They topple into the water, proving themselves to be very buoyant. The barrels begin to float further down stream!
+> se
+
+> se
+You are standing at the bottom of a grassy hill, by the edge of a shallow river. You could follow it up or down stream if you wished, by walking carefully along the bank and occasionally using the odd stepping stone.  A pair of blue plastic barrels lie by the edge of the water.
+You can go southwest, northwest or east.
+
+> push barrels
+
+> push barrels
+You give the barrels a firm push.
+You give the barrels a second push, and once more they begin to bob gently along, heading further down the river.
+> e
+
+> e
+You are hopping from rock to rock following the river as it runs downhill, trying as best you can to keep your feet dry. Eventually you can't follow it any further as it becomes too rocky and dangerous, but you can reach the north bank from here. You'll have to follow the river back up stream to get to land on the southern side however, as there's nothing on the south bank here except nasty looking rocks. A pair of blue plastic barrels lie by the edge of the water.
+You can go west or north.
+
+> push barrels
+
+> push barrels
+You give the barrels a firm push.
+A third time you push the barrels along. This time, the current takes them! The barrels bounce over the rocks in the river, careening between the banks on either side, raipdly disappearing from view. Where they'll end up is anyone's guess.
+> n
+
+> n
+You are standing on the northern bank of a flowing river, at a point where you can cross over to the other side. The grass here is slightly overgrown, and gradually edges into the water where it meets reeds and lily pads. Further on, to the east, you see what appears to be the beginning of a path cutting through the hills.
+You can go south or east.
+
+> e
+
+> e
+The path you're following begins to cut into the hillside, as if some great beast clawed it's way through the earth. Fine roots hang down around your face, and various insects scatter as you proceed onwards. Underfoot becomes rocky and unstable. The route continues in this fashion to the east, and opens up to the west.
+You can go west or east.
+
+> e
+
+> e
+You're standing at the entrance to a small cave leading into the hillside before you. Rocks and boulders surround it, many of them smoothed over the years, although whether by nature or the passing of hands you cannot say.
+The mouth of the cave seems unnaturally dark even as it opens up to the air - you're going to need to take care if you wish to explore it.
+You can go west, southeast or in.
+
+> use torch on cave
+
+> use torch on cave
+You switch the torch on and point it into the mouth of the cave. It's still exceptionally dark inside, but at least now you can explore it!
+> in
+
+> in
+The cave mouth forms a tunnel as it runs into the rock, sloping slightly downhill as you follow it. You continue on a way until the light from your torch stops reflecting off the rocks around you - you've reached a larger space beneath the earth. You shine your torch around the space you're in and take in your surroundings.
+You're in a large undeground chamber, standing by the tunnel which leads back to the mouth of the cave. It must have taken months, if not years, to hollow this space out - every surface is solid stone, and occasional striations along them give the impression of people grinding away at the walls, floor and ceiling with tools. Indeed, by the light of your torch, you can make out the discoloured patterns of ores and perhaps gems within the rock itself.
+
+Opposite where you entered by is a wooden trough, perhaps which once held water, or maybe the ores and gems of the miners who've worked here. There's even the remains of a geode, an open shell by the trough, surrounded by old, broken and rusted tools.
+You can see a pick axe.
+You can go northwest or out.
+
+> take pick axe
+
+> take pick axe
+As large and heavy as it is, you decide to take the pick axe with you.
+> out
+
+> out
+You're standing at the entrance to a small cave leading into the hillside before you. Rocks and boulders surround it, many of them smoothed over the years, although whether by nature or the passing of hands you cannot say.
+The light from your torch doesn't penetrate far inside, but it's enough to allow you careful passage within.
+You can go west, southeast or in.
+
+> w
+
+> w
+The path you're following begins to cut into the hillside, as if some great beast clawed it's way through the earth. Fine roots hang down around your face, and various insects scatter as you proceed onwards. Underfoot becomes rocky and unstable. The route continues in this fashion to the east, and opens up to the west.
+You can go west or east.
+
+> w
+
+> w
+You are standing on the northern bank of a flowing river, at a point where you can cross over to the other side. The grass here is slightly overgrown, and gradually edges into the water where it meets reeds and lily pads. Further on, to the east, you see what appears to be the beginning of a path cutting through the hills.
+You can go south or east.
+
+> s
+
+> s
+You are hopping from rock to rock following the river as it runs downhill, trying as best you can to keep your feet dry. Eventually you can't follow it any further as it becomes too rocky and dangerous, but you can reach the north bank from here. You'll have to follow the river back up stream to get to land on the southern side however, as there's nothing on the south bank here except nasty looking rocks.
+You can go west or north.
+
+> w
+
+> w
+You are standing at the bottom of a grassy hill, by the edge of a shallow river. You could follow it up or down stream if you wished, by walking carefully along the bank and occasionally using the odd stepping stone.
+You can go southwest, northwest or east.
+
+> sw
+
+> sw
+You stand facing downhill on the edge of a grassy field, with a small crest behind you obscuring the view west to the shack. A footpath ends here at a small outcrop of rocks and stone, which overlook a river running not too far below your position. You sit for a moment on the nearest rock, close your eyes and listen to the running water.
+
+If you choose to, you could safely scramble northeast down the hill to the river's edge.
+You can go west or northeast.
+
+> w
+
+> w
+You're following a trail which runs east to west along the edge of a field. To the west is the shack, and to the east the pathway disappears over a crest. You can make out the tip of a rocky outcrop beyond.
+You can go west or east.
+
+> w
+
+> w
+
+You're outside the old, dilapidated shack, lush green grass clawing at its walls as Mother Nature threatens to reclaim it. The path you're standing on stretches away from the door of your former temporary prison before splitting off in several directions. The spot is marked by a large rock. To the West, you can see woodland in the distance, whilst directly behind you the path continues on through green fields. To the East, it drops off out of view.
+
+Some distance away you can see a small village. You have no intention of going that far unless absolutely necessary, as a huge lake shimmers before it, presenting a barrier that would be at least a day's walk to bypass.
+
+There are paths going in, south, west or east.
+
+> w
+
+> w
+You are following an east to west footpath in the countryside. To the east, you can see the roof of the shack. Some way off to the west, the path disappears into dense woodland.
+You can go east or west.
+
+> w
+
+> w
+You're at the western edge of a country trail, where it disappears into thick woodland. The sun's rays are scattered by the encroaching canopy of the trees to the west, and what remains of a wooden fence marks a boundary long since forgotten. To the east, the path continues, eventually leading back to the shack.
+You can go east or west.
+
+> w
+
+> w
+You are deep in thick woodland, at the western end of a trail. It peters out from here, although you can follow it back to the east which will take you to the entrance of the woods. A small, algae coated pond fills an earthen pit in the ground behind you, a gnarled crab apple tree standing at its edge, reaching skyward to grasp what sunlight filters through.
+You can go east or north.
+
+> x pond
+
+> x pond
+Thick with algae, around the edges of the pond bob rotting crab apples. The rest of the surface is completely still, save for the occasional ripple cause by pond skaters and a particularly tenacious dragonfly. There's one spot where the algae is separated, is if the water has been recently disturbed by something with force.
+As you peer into the depths, you notice a glint of something shining back as the sunlight hits it.
+> use cultivator on glint
+
+> use cultivator on glint
+You hold the cultivator as far back along the handle as you can manage, and lower the opposite end into the water. Keeping your eyes on the glinting shape, you keep lowering down until you feel the bed of the pond. Slowly, you push forwards along the bottom until you think you're round about where the shining object is, and hook it back towards you.
+
+When you get it out of the water, you can't believe what you're looking at. You rub it on your shirt just to make sure... It's a diamond ring. An expensive one, by the look of it - an engagement ring, maybe, discarded by a spurned lover? An unwanted complication? However it ended up here, and whoever it belonged to, you don't concentrate on as you put it in your shirt pocket.
+> n
+
+> n
+
+You find yourself standing on the edge of a sparkling stream, its crystalline water lapping at the grassy banks as it meanders around pebbles and stones. The air here is clear and refreshing, the trees not as thick as deeper within the woods. Part of you wishes you could sit here forever, soaking up the atmosphere and listening to the water. You feel completely at peace. The path south leads deeper into the woods, whilst to the north the trees appear to thin out even further.
+You can go south or north.
+
+> n
+
+> n
+You emerge from the woods to a calming sight: A great lake, silent and still, stretches almost as far as the eye can see to the east and west. Across on the northern shore, also a large distance away, you can see the village you spotted when leaving the shack. You're a little closer to it now, but it's still too far away to consider walking to, and you doubt you'd have the stamina to swim there. A little way down toward the lake's edge, a wooden jetty struts into the water.
+ Tied to the jetty is a length of thick cable, one end of which disappears into the water. Small bubbles occasionally rise to the surface around it.
+You take this moment to sit and rest, gathering your thoughts. Where are you? Why are you here, in this place? How did you end up naked and alone, in an old shack in the middle of nowhere? You have so many unanswered questions. You've managed to put off thinking about it too much, just wanting to get out and find answers as you explore your surroundings, trying to find your way back home.
+
+Home.
+
+Where is home? You realise you're not entirely sure, and that scares the hell out of you. You know your name, your gender, your likes and dislikes... But what about family? Friends? Where are you from? How do you know this isn't home?
+
+You close your eyes. No. No, you're sure of it - you don't belong here. You don't understand why, but you know this isn't where you should be. As you open them again, for a moment everything appears fuzzy, like static on an old TV screen covering the landscape. As soon as you focus on it, it's gone. Stress, maybe. With that, you stand up and try to organise your thoughts. You need to find some answers, and you'll stop at nothing to get them.
+You can see a cable and some plastic barrels.
+You can go south or north.
+
+> pull cable
+
+> pull cable
+You wrap your gloved hands around the cable, the rubber grip providing a solid hold as you heave the cable backwards onto the jetty. There's a sudden give, as if something has been dislodged from the bottom of the lake.
+
+You continue to pull, until a wooden crate breaks the surface of the lake, the cable tied around it rightly. With a final heave, you manage to bring the crate up onto the jetty.
+> cut cable with loppers
+
+> cut cable with loppers
+You untuck the loppers from your belt loop, open them up, and snap them hard around the cable. It takes a few attempts, but you manage to cut through it!
+> use pick axe on crate
+
+> use pick axe on crate
+You stand with your legs apart to keep your footing, and swing the pick axe as hard as you can into the wooden crate. With a tremendous crash, the crate explodes into splinters, dust and debris.
+> x crate
+
+> x crate
+Splinters of wood surround what's left of the crate. Many of the planks are still intact, despite your smashing it open.
+> use nails on planks
+
+> use nails on planks
+You gather the planks together, and overlap each one slightly with the next. Using the mallet you found in the farm house pantry, you hammer the nails in to create a stable wooden platform of planks.
+> use blueprints
+
+> use blueprints
+You take a look at the blueprints. The barrels for floatation are here, the planks you obtained from the crate are nailed together, the cable is cut free from the jetty and ready to use, and you're carrying the oar you found in the boat shed. That's... That's everything. You don't know why, but you feel like this is the right thing to do - the right way to go. You need to get across that lake. To find answers, to discover why you're here, who put you here, and where you're meant to be.
+
+You drag the barrels out of the lake, hauling them ashore, and drag them on top of the board of planks you've created as a platform. grabbing the cable, you feed it between the barrels in a cross shape and over the planks and back again, before wrapping each end around itself in a thick knot.
+
+With a tremendous effort, you shove hard against your creation, getting it out onto the surface of the water. With one final effort, you push the nearside down below the surface, making the whole thing flip over with a great splash.
+
+It may not be much, but you now have your very own raft!
+> n
+
+> n
+You are aboard your homemade raft, gently paddling your way across a large lake, roughly midway between a jetty to the south and a shoreline to the north. The water calmly laps against the sides of your raft.
+You can go south or north.
+
+> n
+
+> n
+Both you and your raft have arrived at the northern shore of the lake intact. Hopefully, you're one step closer to finding the answers you seek. You moor your raft on the edge of the lake. A small shingled beach crunches underfoot as you step upon it, meeting thick forest just a short distance ahead. Looking up and down the shoreline, you don't see anyone at all - this place seems as deserted as everywhere else. There isn't a jetty or anything over on this side of the lake, but one thing stands out: There's a stone statue here, seemingly decorational, looking out over the lake. This strikes you as rather odd, but then the whole journey has been full of questions and light on asnwers.
+You can see a statue and a beach.
+You can go south.
+
+> x statue
+
+> x statue
+The statue is recognisably human, with carved limbs, torso and a head. The proportions are disturbingly realistic, although you're not sure whether it's meant to be male or female. The head has lines carved into the side facing the forest and a smooth oval surface facing the lake, giving the impression its looking out, waiting for someone to arrive. You feel it watching you, as if it's trying to speak to you or get your attention, despite the fact it doesn't have a face.
+The statue stands atop a carved block, which has a square pattern cut into it. Underneath the patterrn is what appears to be writing.
+> use tiara on statue
+
+> use tiara on statue
+You place the tiara atop the statue's head, with the front facing out over the lake.
+> use diamond ring on statue
+
+> use diamond ring on statue
+You place the diamond ring over one of the fingers statues. It fits perfectly, and holds in place.
+> use locket on statue
+
+> use locket on statue
+You place the chain around the statue's neck, with the locket hanging facing the lake.
+> x block
+
+> x block
+You bend down again to check the block the statue is stood upon, when you notice the square carving on the front of it has disappeared. As you go to stand back up again, you see something you can't explain - a disturbance in the air, in front of where the carving was. The more you look at it, the less you can make it out, but you are drawn to it. It feels familiar to you, but you don't know why... This is what the writing was referring to! You force yourself to focus on the mid-distance, slowly moving your hands towards what now appears to be a cube of disturbed air in front of the statue's plinth.
+
+As your fingers reach the area, it forms a shape in your mind - a cube. The air moves around it as if it wasn't there, but you feel it in your hands. You know this cube belongs to you. You know its purpose, and why it's here, and how it will help you get out - You just can't remember.
+
+You take the strange, void cube with you, recalling what the words on the block said: Take it underground, beyond a door, and leave it there. Words you wrote, for yourself
+> s
+
+> s
+You are aboard your homemade raft, gently paddling your way across a large lake, roughly midway between a jetty to the south and a shoreline to the north. The water calmly laps against the sides of your raft.
+You can go south or north.
+
+> s
+
+> s
+You emerge from the woods to a calming sight: A great lake, silent and still, stretches almost as far as the eye can see to the east and west. Across on the northern shore, also a large distance away, you can see the village you spotted when leaving the shack. You're a little closer to it now, but it's still too far away to consider walking to, and you doubt you'd have the stamina to swim there. A little way down toward the lake's edge, a wooden jetty struts into the water.
+
+You can see a raft and a crate.
+You can go south or north.
+
+> s
+
+> s
+
+You find yourself standing on the edge of a sparkling stream, its crystalline water lapping at the grassy banks as it meanders around pebbles and stones. The air here is clear and refreshing, the trees not as thick as deeper within the woods. The constant yet peaceful sound of the stream makes you thirsty; the water looks good enough to drink. You feel completely at peace. The path south leads deeper into the woods, whilst to the north the trees appear to thin out even further.
+You can go south or north.
+
+> s
+
+> s
+You are deep in thick woodland, at the western end of a trail. It peters out from here, although you can follow it back to the east which will take you to the entrance of the woods. A small, algae coated pond fills an earthen pit in the ground behind you, a gnarled crab apple tree standing at its edge, reaching skyward to grasp what sunlight filters through.
+You can see several pond skaters and a dragonfly.
+You can go east or north.
+
+> use torch on hollow
+
+> use torch on hollow
+You switch the torch on, taking a moment to wonder at the sense of what you're about to do. It shines a weak light into the hollow under the tree.
+> in
+
+> in
+You take another look at the note you found in the jacket pocket of the scarecrow. This... is the place. You're sure of it. The crudely drawn map points to this woodland; this tree. Maybe it points to this hollow...
+Guided by the torch you're carrying, you get down onto the ground, and crawl into the hollow...
+You are crouched just inside the hollow of the tree. From what little room you have to manoeuvre in here, you can look up to see the solid trunk of the not far above your head - the hollow doesn't extend up inside. Shining your torch further infront of you illuminates a tunnel stretching beneath the earth, heading in westerly direction. The tunnel gets narrower as it dsecends further underground. From here, you can also go back out into the open.
+You can go out or west.
+
+> w
+
+> w
+You are crawling on hands and knees in the entrance to a narrow tunnel which leads underground from the hollow in the tree. A little daylight filters through from the east, whilst the tunnel narrows even more as it curves southward. You stop, just for a moment, to question the sanity of what you're doing. You awoke in a shack in the middle of the countryside, have explored farms, woods and fields, and now you're crawling on your knees through a tunnel dug into the earth. How the hell does this help? There have to be answers somewhere.
+You can go east or south.
+
+> s
+
+> s
+You are crawling on your belly through the soil of a very tight underground tunnel, with barely enough room to move backwards or forwards. The earth encompasses you on all sides, your shoulders brushing the dirt around you as you move along. You can, if you try, shuffle northwards along the tunnel to a point where you can crawl. You can also shuffle downhill to the southwest, holding the torch in your mouth as you move through the claustrophobic space. There is very little air and very little light, even from the torch.
+You can go north or southwest.
+
+> sw
+
+> sw
+You are pulling yourself along an underground tunnel, laying completely prone as you do so. The tunnel descends to the west going deeper underground, whilst to the northeast it curves uphill. You can just about struggle in either direction. You close your eyes and try not to panic as you wave away thoughts of becoming stuck, the battieries in the torch dying, running out of air...
+You can go northeast or west.
+
+> w
+
+> w
+You can see space ahead! The mouth of the tunnel widens slightly, before opening up somewhat. You wriggle to the end of the tunnel and drop out onto the floor a foot or so below you. Somewhat relieved, you get to your feet.
+
+You are standing in a roughly hewn underground chamber, surrounded by compact soil. There's barely an inch of space above your head, and you can't stretch your arms further out than your elbows. Remarkably you can still breathe, as musty and still the air is this far down.
+
+In front of you is something unexpected a door. A steel door.
+
+Your mind boggles as you try to make sense of what you're experiencing. You're underground, deep underground, in a tiny chamber surrounded by dirt. You've crawled through an opening in the base of a tree, hidden by a pond in the middle of thick woodland, to get here and you don't know why, except your desire to find out where you are, how you got here, and why you found yourself here. And now, having decided of your own free will to reach this unlikely point, you're standing facing a steel door underground, seemingly with no other access to this spot.
+
+It can't be coincidence you ended up here, nor can this tunnel and the door have been placed here without purpose. You're anxious to see what lies beyond; where this strange adventure will take you next.
+
+You can, if you wish, climb back into the tunnel be heading east. The door lies to the south.
+
+You can go east or south.
+
+> x steel door
+
+> x steel door
+The light of your torch relects off the slab of steel in front of you, set into the compact earth which surrounds it. Running across the base of the door is a long horizontal bar about eight inches from the ground.
+> use jack on horizontal bar
+
+> use jack on horizontal bar
+You wind the jack until it's fully closed, and wedge it beneath the steel bar running across the base of the door. It takes some pushing into the compact earth, but you manage to make it fit.
+
+Again you wind the handle on the jack, this time in the opposite direction. There's a shower of earth from above you, but the door begins to open! With as much effort as you can muster, you continue to wind until the jack is fully extended, giving you enough space to duck beneath the door and head further underground.
+> s
+
+> s
+On the other side of the door isn't what you expect, even taking into account how you got here. The note, the tree, the crawl through the earth...
+
+You are walking through a tunnel deep underground. The whole thing appears to be made from glass, although no joints or supporting material is evident. The tunnel is roughly octagonal, each surface identical. It also appears to self illuminate, although you don't understand how, but you can see all the way along it; it stretches far to the south. In the other direction, the tunnel ends at a darkened portal - the door, leading back into the earth.
+
+The surfaces of the tunnel are completely clear, you're sure of it, but you can't see anything beyond the glass. You get a sense of space out there, that you're looking at something, you just can't see it. There is no earth, no rock, no anything. It's just blackness. The glass doesn't reflect anything back at you either.
+You can go north or south.
+
+> s
+
+> s
+You are walking along a glass tunnel. To the south, the tunnel ends at what you might call a door. You can sense it's a different space, the end of the tunnel and the start of something else, but you can't really rationalise it in any logical way. Much futher away, to the north, the glass tunnel becoms a darkened patch of space, leading back the way you originally came.
+You can go north or south.
+
+> s
+
+> s
+You are in The White Room.
+You can go north.
+
+> drop cube
+
+> drop cube
+
+Thank you for playing The Shack! I hope you enjoyed the experience.
+
+Don't worry: You'll be back in the protagonist's shoes in future adventures!
+
+I'd like to thank the team at textadventures.co.uk for keeping the genre alive and creating Quest, the tool this was written with. I'd also like to thank the various contributors at freesounds.org for taking the time to record the atmospheric sounds used in this game, Mark Ferrari and all the other artists who make their work available for others to use, and finally everyone who playtested The Shack, including Rebecca, my significantly better half.
+
+Artwork is from freely available sources with open licenses. If you find your artwork here and it shouldn't be, please contact me via email:
+admin@systemmasters.games
+
+See you all in the future.
+
+(c) 2020, System Masters
+[state=Finished]

@@ -470,7 +470,13 @@ static std::string encode_identifier_spaces(const std::string &in) {
 
 struct Expr {
     enum class Kind {
-        Num, Str, Bool, Null, Var, Member, Index, Call, Unary, Binary, Ternary
+        Num, Str, Bool, Null, Var, Member, Index, Call, Unary, Binary, Ternary,
+        // An expression whose COMPILE failed, kept as a node that raises the
+        // parse error (in `str`) only when EVALUATED: QuestViva's Expression<T>
+        // hands the raw text to NCalc, which parses lazily at Evaluate time, so
+        // an unparsable never-reached condition is harmless (Serpent's Eye has
+        // a literal empty `else if ()` in the Shopkeeper's giveto script).
+        ParseError
     };
     Kind kind;
     // literals
@@ -859,6 +865,19 @@ static ExprP compile_expr_str(const std::string &src) {
         return e;
     } catch (const std::runtime_error &err) {
         throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
+    }
+}
+
+// Compile, deferring a failure to evaluation time (see Expr::Kind::ParseError).
+static ExprP compile_expr_str_deferred(const std::string &src) {
+    try {
+        return compile_expr_str(src);
+    } catch (const std::exception &err) {
+        auto e = std::make_shared<Expr>();
+        e->kind = Expr::Kind::ParseError;
+        e->str = err.what();
+        e->src = src;
+        return e;
     }
 }
 
@@ -2205,6 +2224,8 @@ Value Interp::eval_expr(const Expr &e, Context &ctx) {
 
 Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
     switch (e.kind) {
+    case Expr::Kind::ParseError:
+        throw std::runtime_error(e.str);
     case Expr::Kind::Num:
         return e.is_int ? vint((long)e.num) : vdouble(e.num);
     case Expr::Kind::Str: return vstr(e.str);

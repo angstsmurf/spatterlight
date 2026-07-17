@@ -25,6 +25,16 @@
 // Multitudes, is a DOCUMENTED QuestViva artifact: its pending
 // synchronous-sound TCS leak means the oracle never shows the ending; the
 // native engine ends the game like real Quest. Do not chase.
+//
+// 2026-07-17: corpus grown to 25 goldens (the six formerly hints-only games
+// + the PDF-only Jenny Lee, each driven by a curated override); 24 of 25
+// replay byte-identical (ICM = the same documented artifact). The batch cost
+// three engine/harness fixes: GetExitByLink + dictionary ListCount (Hawk),
+// deferred else-if condition compile (Serpent's Eye's literal `else if ()`),
+// and .NET-TrimEnd-equivalent Unicode whitespace stripping here (Hawk's
+// literal trailing U+00A0s). Then 26 goldens (The Deer Trail, an override
+// rendering the author's "Direction to <room>" shorthand into parser
+// commands); it replayed byte-identical with no engine changes — 25 of 26.
 #include "aslx.cc"
 #include "aslx-runtime.cc"
 
@@ -74,10 +84,45 @@ static std::string normalise(const std::string &s) {
     std::string line;
     int blanks = 0;
     bool first = true;
+    // qvh trims with .NET TrimEnd(), whose default set is char.IsWhiteSpace --
+    // Unicode whitespace, not just ASCII. The one non-ASCII member that occurs
+    // in practice is U+00A0 (Hawk the Hunter has literal trailing nbsp before
+    // a <br/>); strip the common UTF-8 whitespace sequences too.
+    auto strip_trailing_ws = [](std::string &l) {
+        for (;;) {
+            if (!l.empty() && (l.back() == ' ' || l.back() == '\t' ||
+                               l.back() == '\r' || l.back() == '\v' ||
+                               l.back() == '\f')) {
+                l.pop_back();
+                continue;
+            }
+            if (l.size() >= 2 && (unsigned char)l[l.size() - 2] == 0xC2 &&
+                ((unsigned char)l.back() == 0xA0 ||    // U+00A0 nbsp
+                 (unsigned char)l.back() == 0x85)) {   // U+0085 NEL
+                l.erase(l.size() - 2);
+                continue;
+            }
+            if (l.size() >= 3 && (unsigned char)l[l.size() - 3] == 0xE2 &&
+                (unsigned char)l[l.size() - 2] == 0x80 &&
+                (((unsigned char)l.back() >= 0x80 &&
+                  (unsigned char)l.back() <= 0x8A) ||  // U+2000..U+200A
+                 (unsigned char)l.back() == 0xA8 ||    // U+2028
+                 (unsigned char)l.back() == 0xA9 ||    // U+2029
+                 (unsigned char)l.back() == 0xAF)) {   // U+202F
+                l.erase(l.size() - 3);
+                continue;
+            }
+            if (l.size() >= 3 && (unsigned char)l[l.size() - 3] == 0xE3 &&
+                (unsigned char)l[l.size() - 2] == 0x80 &&
+                (unsigned char)l.back() == 0x80) {     // U+3000
+                l.erase(l.size() - 3);
+                continue;
+            }
+            break;
+        }
+    };
     while (std::getline(is, line)) {
-        while (!line.empty() &&
-               (line.back() == ' ' || line.back() == '\t' || line.back() == '\r'))
-            line.pop_back();
+        strip_trailing_ws(line);
         if (line.empty()) { blanks++; continue; }
         if (!first && blanks > 0) os << "\n";
         os << line << "\n";

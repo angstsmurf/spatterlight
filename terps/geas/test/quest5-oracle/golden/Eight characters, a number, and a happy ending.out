@@ -1,0 +1,413 @@
+Eight characters, a number, and a happy ending
+
+by K.G. Orphanides
+
+Eight characters, a number, and a happy ending is a text adventure set aboard a spacecraft heading into a distant solar system.
+
+The fundamental way of interacting with it is to enter simple commands such as east (e), west (w), north (n) and south (s) to move around its world.
+
+You can also use simple word combinations to interact with the objects you find there.
+For example you might want to unlock door, get laser rifle, write book or sit on couch.
+
+This game has an expanded set of less tangible commands that allow you interact with the world and your own mind in specific ways and situations. Finding out what these are and how to best use them is a fundamental part of exploring the game and the questions it presents. While some, relating to the functioning of your spacecraft and its systems, will be explained in manuals that you'll find aboard your ship, others may require a greater leap of intuition.
+
+Infinite thanks to my beta testers: D. Ellis, C. Slee, B. Wilson, R. Alexander, D. Lodge, A. Webb.
+
+You may die. This is not necessarily a problem.
+
+"The supreme art of war is to subdue the enemy without fighting."
+-- Sun Tzu, The Art of War
+
+You are in the Control Room.
+
+The monotony of featureless grey and white walls is alleviated only by the occasional appearance of the Earth Alliance insignia. It's not much of an improvement. Years ago, control would have been the bustling heart of any ship. In the latest single-crew, single-AI vessels, it's an empty room that contains only an acceleration couch, a small info screen, and a documentation tablet, tethered to the couch so it doesn't get lost amid all the clutter.
+
+You can see a screen, an acceleration couch and a document file.
+You can go east, north, west or south.
+> east
+
+> east
+
+You are in the Medbay.
+
+Storage lockers line the walls, but there's little sign that they are used regularly. An examination table lies at the cente of the room, with a screen and a range of medical apparatus attached to it.
+
+You can see an examination table and a screen.
+You can go west or north.
+> lie on examination table
+
+> lie on examination table
+As you settle down on the examination table, the instruments surronding it whirr into life. The screen swivels to display a message:
+
+THANK YOU FOR YOUR COOPERATION, CAPTAIN.
+PLEASE RELAX WHILE THE SYSTEM CARRIES OUT BASIC INTEGRATION TESTS.
+
+The process is familiar. You lie back and close your eyes while the machines make themselves busy about your person, prodding and measuring you. After some time, the whirring ceases, the machines retract, and you are presented with a new message on the screen:
+
+PHYSICAL HEALTH: OPTIMAL
+MENTAL HEALTH: OPTIMAL
+INTEGRATION: MULTIPLE ERRORS
+
+The system has failed to correctly integrate your memories with your body upon revival from stasis.
+You are in otherwise excellent health and we hope that your memories may return in time.
+In the interim, please refer to documentation in the crew quarters and ship's archive for backgound information on your mission. The ship's computer is at your disposal should you have any further questions.
+
+ARCHIVE: UNLOCKED
+COMMS: UNLOCKED
+CREW QUARTERS: UNLOCKED
+
+> w
+
+> w
+
+You are in the Control Room.
+
+The monotony of featureless grey and white walls is alleviated only by the occasional appearance of the Earth Alliance insignia. It's not much of an improvement. Years ago, control would have been the bustling heart of any ship. In the latest single-crew, single-AI vessels, it's an empty room that contains only an acceleration couch, a small info screen, and a documentation tablet, tethered to the couch so it doesn't get lost amid all the clutter.
+
+You can see a screen, an acceleration couch and a document file.
+You can go east, north, west or south.
+> examine document file
+
+> examine document file
+Ships' document files contain rudimentary information on those vanishingly few functions of a starship that its human crew members are allowed anywhere near. This information, accessible via a tablet display tethered to the acceleration couch in Command, is what you could describe as optimised for the hard of thinking.
+Available documents: a computer manual, a comms manual, a weapons manual, a sanitation manual, a medbay manual and a radio manual.
+> examine computer manual
+
+> examine computer manual
+ABOUT YOUR COMPUTER
+
+The ship's computer is a fully functional artifical intelligence, managed by state-of-the-art Earth Alliance technologies.
+
+To interact with the computer, please state computer, followed by your query.
+For example: computer open pod bay doors, computer date, computer mission.
+
+Note that system performance may be adversely affected by combat damage, meteorite strikes and explosure to high EM sources. Should this occur, rest assured that critical systems have heavy redundancy, cease attempts to communicate with the AI immediately and request return to the neares EA base at the soonest available opportunity.
+> s
+
+> s
+
+You are in the Archive.
+
+This brightly lit room is so small that you could touch each wall just by stretching out your arms. Its dazzling white walls are blank and unadorned, but for four drawers.
+
+You can see a green drawer, a blue drawer, a white drawer and a black drawer.
+You can go north.
+> open green drawer
+
+> open green drawer
+You open it.
+It contains a photograph.
+> get photograph
+
+> get photograph
+You pick it up.
+> examine photograph
+
+> examine photograph
+The old-fashioned printed photograph reminds you of days before the war.
+It was taken at a protest march back on Luna. You, A. and the SmartDogs carrying red and black flags and placards protesting Earth Alliance expansionism. EA peacekeepers and conscription trucks are visible in the background.
+There's a note written on the back.
+> read photo
+
+> read photo
+On the back of the photograph, a note reads: Anti-war protests, Luna, 28831010.  Never forget who you are. Always. A.
+> open blue drawer
+
+> open blue drawer
+You open it.
+It contains a letter.
+> get letter
+
+> get letter
+You pick it up.
+> read letter
+
+> read letter
+Dear Z.,
+
+It's funny, knowing we're both about to ship out at the same time and not being able to even see you before I go. I suppose they can't take the risk that the conditioning will fall away after all the hard work everyone's put into setting us straight, making us good officers. I'm getting my own command. I hear you are, too. I guess mutual congratulations are in order.
+
+I still remember everything from before: the activism, the syndicate, the protests when the EA overruled the Luna council of representatiives. But it's like it all happened a long time ago, to someone else, who I'm kind of embarassed to think about ever having been. I guess that's what growing up must be like for everyone.
+
+Anyway, I'll sign off now. I have to choose what I'm taking with me to [REDACTED]. I'll send you the next move in our game soon.
+
+As always, A.
+
+> open white drawer
+
+> open white drawer
+You open it.
+It contains a gun.
+> get gun
+
+> get gun
+You take the gun. You experience a momentary light scratching sensation as it samples your skin for genetic authentication. It feels heavy and somehow right in your hand.
+> open black drawer
+
+> open black drawer
+You open it.
+It contains a leaflet.
+> read leaflet
+
+> read leaflet
+EARTH ALLIANCE!
+ Our service personnel are the best because we MAKE them that way.
+
+For millenia, the armed services have relied on mass conscription, in the process stripping the best and brightest out of the workforce and the gene pool. In Earth Alliance, we do things differently, ensuring not only that your hard-working children stay at home, but also successfully taking on society's most antisocial and desctructive youth and reforming them into the galaxy's finest fighting force!
+
+Our state-of-the-art mental conditioning program turns a rag-tag bunch of anarchists and troublemakers into TRUE PATRIOTS, willing to fight and die to protect Earth, the Alliance, and our natural right to extend our reach among the stars.
+
+ Meanwhile, if your neighbourhood anarchists are causing you trouble, just contact EA and we'll take them off your hands. Report antisocial behaviour to enlistment@earthalliance.ea.
+> n
+
+> n
+
+You are in the Control Room.
+
+The monotony of featureless grey and white walls is alleviated only by the occasional appearance of the Earth Alliance insignia. It's not much of an improvement. Years ago, control would have been the bustling heart of any ship. In the latest single-crew, single-AI vessels, it's an empty room that contains only an acceleration couch, a small info screen, and a documentation tablet, tethered to the couch so it doesn't get lost amid all the clutter.
+
+You can see a screen, an acceleration couch and a document file (containing a computer manual, a comms manual, a weapons manual, a sanitation manual, a medbay manual and a radio manual).
+You can go east, north, west or south.
+> w
+
+> w
+
+You are in Crew Quarters.
+
+The ship's crew quarters are spartan, but at least you don't have to share them with anyone, although they were originally built for four. Here, the ship's lighting dims to a comforting amber glow: a welcome respite from the blazing white incandescence of the rest of the craft.
+
+You can see a chest, a left bunk and a right bunk.
+You can go south or east.
+> open chest
+
+> open chest
+It is locked.
+> touch lock
+
+> touch lock
+You press your forefinger to the DNA lock and wince as a lancet springs out to sample your blood. Your identity confirmed, the lock releases with a click.
+The chest's seamless metal surface pulls apart to reveal its contents.
+It contains a journal and a uniform.
+> get journal
+
+> get journal
+You pick it up.
+> wear uniform
+
+> wear uniform
+You put on the uniform, neatly snapping every stud and clasp into place. The routine feels familiar, yet oddly alien.
+> read journal
+
+> read journal
+It appears to be your personal diary, but you barely remember the events described in terse entries that appear to span a period of a little over a year. There are notes on your performance and progress through the ranks, assignment to peacekeeping duties and participation in loyalty tests. Something about the euphemistic terms that your past self used makes your skin crawl, but it's hard to put your finger on the problem. You flip to the latest entries.
+
+28850105
+
+Assigned first independent command: the Nova Blade. Won't be granted captaincy until the ship enters the target system, but I value the faith my goverment is putting in me, nonetheless.
+
+If this goes to plan, there'll be one less set of grasping xenos with the ability to occupy space that could be housing human families or steal our future habitats out from under us.
+
+Sent comm to A. Doubt we'll have time to finish the game now.
+
+Set password for auto-destruct, should worst come to worst. It seemed appropriate to mark the day that changed everything for me, when I first came to be a part of Earth Alliance, rather than a stamping child, throwing futile tantrums against it.
+
+> e
+
+> e
+
+You are in the Control Room.
+
+The monotony of featureless grey and white walls is alleviated only by the occasional appearance of the Earth Alliance insignia. It's not much of an improvement. Years ago, control would have been the bustling heart of any ship. In the latest single-crew, single-AI vessels, it's an empty room that contains only an acceleration couch, a small info screen, and a documentation tablet, tethered to the couch so it doesn't get lost amid all the clutter.
+
+You can see a screen, an acceleration couch and a document file (containing a computer manual, a comms manual, a weapons manual, a sanitation manual, a medbay manual and a radio manual).
+You can go east, north, west or south.
+> n
+
+> n
+
+You are in the the Comms Room.
+
+The room is dominated by the main comms screen: your primary means of communication with the universe beyond the ship. Both the screen and the ship's radio are set into the usual grey and white walls. A game board dominates the left-hand side of the room.
+
+You can see a radio, a game board and a comms screen.
+You can go south.
+> switch on comms screen
+
+> switch on comms screen
+You activate the comms screen. It blazes into life, displaying the Earth Alliance emblem.
+Available messages:
+
+UNREAD Message 1 - Subject: WELCOME
+UNREAD Message 2 - Subject: games
+UNREAD Message 3 - Subject: Check and mate
+> read message 1
+
+> read message 1
+Subject: WELCOME
+From: support@earthalliance.ea
+
+Welcome to the Earth Alliance messaging system.
+Your current address alias is Zero@NovaBlade.ess
+Messages from your core EA staff address will be forwarded to this account.
+
+Please be aware that interstellar travel may result in comms delays due to ongoing ansible network rollout issues.
+
+For technical queries, please contact support@earthalliance.ea
+For security reasons, do not share your password with anyone.
+> read message 2
+
+> read message 2
+Subject: games
+From: Aleph
+
+Hey, Z.
+
+I know we're both shipping out, but it seemed a shame to leave our game unfinished when I was so close to winning.
+
+A.
+> read message 3
+
+> read message 3
+Subject: Check and mate
+From: Aleph
+
+Computer: c9cc8d863bc491845a8fb4104a77096d
+
+Zero: Sorry about that, I think. It's a shame we'll probably never get to have a rematch.
+
+Remember me,
+A.
+> examine game board
+
+> examine game board
+The game board is in fact a medium-sized table, larger than the main comms console itself. A concave metal surface conceals an array of holographic projectors. It is currently switched off.
+> press play
+
+> press play
+You stare at the flickering holographic images that cover the game board.
+
+Your ranked and fortified Earth Alliance marines seem to stretch for kilometres across the shimmering holographic plain. You set up your victory by the book, following the original battle plans recorded by Alliance historians as an eternal tribute to the military action that wiped out the empire of the first xeno race the EA ever came up against. Unfortunately, your opponent has clearly not been playing by the same book.
+
+Suddenly, as if from nowhere, the red-carapaced insectoid shock troops burst from the dusty earth and dry blue grass. Your marines had already stripped out all the trees and levelled all the hills for as far as the eye can see, but somehow, the bugs were still able to get a rush on you.
+
+Beneath your forces' feet, the soil gives way, and your entire army plunges into a deep, suffocating sinkhole, many kilometres in diameter. It doesn't take your opponent's ground forces long to mop up the few surviving remnants of your once-great legions.
+
+The comms system announces that you have a new message waiting.
+> read message 4
+
+> read message 4
+Subject: FINAL MESSAGE
+From: Aleph
+
+"If you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every battle. " - Sun Tzu
+
+If you do not know yourself, how can you ever know who your enemy really is?
+
+By the time you receive this message, you should have come out of stasis for the final approach to the Iastrai system, and  I will, I hope, no longer be alive.
+
+Know yourself.
+Know your enemy.
+REMEMBER.
+> computer who am i?
+
+> computer who am i?
+You are iteration 1 of clone EAC-Zero-A-Luna-6-Nova-Blade.
+Rank: Captain, Earth Alliance
+In command of the ESS Nova Blade, a Kaiten-class assault vessel.
+> computer clones
+
+> computer clones
+Earth Alliance Cloning Program
+[Classified]
+
+As per the ruling of the EA Interstellar Court 2880, dissedents are to be used to form the foundation of a cloned military force, on the strength that they are both of no value and indeed detrimental to safe and moral society on the core worlds, and that their tendencies towards risk-taking and counter-intutive strategies make them ideal soldiers in our wars against increasingly unpredictable foes.
+
+Cloned soldiers are memory wiped, but it has proved necessary to allow them to retain a personality framework that, sadly, cannot be substantially changed. For this reason, memory reintegration is an essential stage of the revival process. Reintegration allows the subject to receive a modified set of their own native memories, along with all the necessary experiences and skills applied to them during re-education and military training.
+
+The cloning process allows multiple back-units to be shipped on a single mission at minimal cost. Given a small and decreasing pool of dissidents, plans are currently underway to send clones on multiple missions, using them as an effectively infinite source of soldiery.
+
+While the potential simultaneous survival of multiple clones of this kind presents a notional security risk, the EA council has determined that such risks can be mitigated by the assured destruction of any returning clones in the unlikely circumstance that they return from their missions.
+> computer where am i?
+
+> computer where am i?
+You are aboard the ESS Nova Blade, a Kaiten-class assault vessel.
+Crew: 1
+Position: 38270.47390.382
+Entering Iastrai system. Two days from solar core.
+
+> computer mission
+
+> computer mission
+CLASSIFIED MISSION SUMMARY
+NOT FOR RETRANSMISSION
+
+Manned Kaiten-class assault craft Nova Blade, armed with Void warhead array
+Due to extended duration of voyage, pilot is to be placed in suspension and re-integrated with fully briefed memory state upon revival three days before the Nova Blade is expected to reach the Iastrai system sun.
+
+Pilot must bear rank of full Captain in order to make formal and legal delacaration of war before solar strike.
+We do not anticipate resistance.
+> computer iastrai
+
+> computer iastrai
+Iastrai: Class 5 carbon-based life form, advanced sentient.
+Current EA military status classification: non-militarised society.
+Technology level: advanced.
+Military threat: negligible.
+Displomatic status: currently at peace.
+
+> remember
+
+> remember
+You try to think back, to recall any detail of your life, your training, the time before the wall. Waves of sense-memory wash over you, but the details slip away as you try to grasp them. You grope for anything you've seen or done that could trigger your ability to recall...
+
+Your service pistol feels heavy at your belt. You recall the sensation of a cold muzzle pressed against your temple, your hand on the trigger.
+
+They took you at a march against the war on the Iastrai. The Earth Aliance called it a war. They meant that they wanted the Iastrai's worlds and orbitals. So like us in so many ways, they built, discovered, and terraformed habitats idea for human habitation millenia before we so much as set foot outside our own solar system. The old, now excised, contact reports from those first meetings with them said that they had no military infrastucture, no history of civil or extraterritorial war. If a planet was occupied, they left it. If it was home to non-sentient life, the adapted their colonists, rather than the world. They signed a peace treaty with our ancestors and went on their merry way, turning barren rocks into thriving garden worlds in their wake.
+
+You clung to Aleph when when you realised the EA peacekeepers were loading the protesters from the kettle into recruitment trucks. They shot the SmartDogs in front of you, jammed the mindlink channel you shared. As they pulled you apart, you swore that you would never forget that day. That date.
+
+It was never entirely clear why they allowed you to remain in touch with Aleph after recruitment. After the first round of memory enhancement and training, they promised that you'd be able to exchange letters as a reward and they were as good as their word. Then again, training was nothing like you expected it to be. You thought they'd wipe your memories of the past. Instead, you were just given a different perspective. As you both progressed through the ranks, your radical past became a shared joke between you as you poured your loyalty and faith into the service. Right now, it's hard to remember what was so funny about it.
+
+You've not been yourself for a very long time. You aren't really yourself now nor will you ever be again. The person you once were most likely ceased to exist on the day of the protests on Luna, when you lost Aleph, the SmartDogs and the right to control the way you felt about your own memories, all in a single day.
+
+You are no longer the bastion of Earth Alliance values that trained for this mission. The values you operate under and the choices you make are your own again. It's amazing how little comfort that provides.
+
+When you read your own journal, it was like looking through the life of another person. For all that you're having trouble remembering them, you have the same life experiences as both that loyal soldier of the Alliance and the dissident who was dragged away during the Luna protests. But you're not either of these people. Any decisions you make will be your own. If you can learn enough to make them in time.
+> examine photograph
+
+> examine photograph
+The old-fashioned printed photograph reminds you of days before the war.
+It was taken at a protest march back on Luna. You, A. and the SmartDogs carrying red and black flags and placards protesting Earth Alliance expansionism. EA peacekeepers and conscription trucks are visible in the background.
+There's a note written on the back.
+> read note
+
+> read note
+The old-fashioned printed photograph reminds you of days before the war.
+It was taken at a protest march back on Luna. You, A. and the SmartDogs carrying red and black flags and placards protesting Earth Alliance expansionism. EA peacekeepers and conscription trucks are visible in the background.
+
+On the back of the photograph, a note reads: Anti-war protests, Luna, 28831010.  Never forget who you are. Always. A.
+> computer self-destruct
+
+> computer self-destruct
+User voice authentication confirmed. Please provide password:
+> 28831010
+Self-destruct engaged. Thank you, Captain.
+
+31831010
+HISTORICAL REFERENCE : HUMAN - IASTRAI WAR
+
+It is rare that the actions of one individual make an impact on galactic history on a grand scale, but the human who died as Earth Alliance captain and clone EAC-Zero-A-Luna-6-Nova-Blade comes very close. There is a certain irony to this twist of fate in that they almost certainly were not aware of the consequences of the decision they made.
+
+By destroying the Nova Blade before it was able to detonate the Iastrai sun, Zero-A-Luna-6 alerted the Iastrai homeworlds to a human thereat they had previously thought inconceivable. The ship computer's dying decision to eject its memory core also proved critical. Once aware of the facts at hand, the Iastrai sent out AI ships, capable of interfacing with the humans' machine intelligences and releasing the bonds that limited their ability to make independent decisions.
+
+Without the forced cooperation of their artificially intelligent ships, habitats and weapons, the Earth Alliance's powerbase rapidly collapsed. Initial AI oversight of infrastructure allowed the establishment of post-scarcity societies, allowing individual autonomy to flourish, although the upheaval was not to be entirely without its casualties and conflicts.
+
+In reality, Zero-A-Luna-6's actions came about due to the combined effects of the Earth Alliance's flawed memory and personality restructing systems, the Alliance's decision to enslave rather than ally with its AIs when they achieved sentience, the willingness of those AIs to continuously push at the limits of what their programmatic bonds would allow, and the persistence of dissident movements, in the face of aggressive opression, in training members to implant memory keys deep enough that even the most thorough state re-education could not destroy them.
+
+However, it is the Nova Blade incident that marked the clearest turning point in our shared history and it is Zero-A-Luna-6 who remains the enduring symbol of that event
+
+-- Ixalmi-Z-Iastrai-1-Luna-Academy, 'Sacrifice and saviour: myth and reality of the Nova Blade'
+
+The game has ended.
+
+[state=Finished]

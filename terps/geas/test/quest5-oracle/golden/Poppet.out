@@ -1,0 +1,1812 @@
+You awake in darkness.  Absolute darkness.
+
+This startles you for several reasons.
+
+First, you should be in Polly's bed, propped up against the wooden headboard, as she always leaves you when she heads off for school in the morning.  True, occasionally she stashes you in the toy chest when Mother orders her to clean the room... but even then, it's never so dark in there as it is here.  You can't imagine where you might be that it's THIS dark.
+
+Second, because you shouldn't have been asleep.  You're a rag doll, after all, and dolls don't sleep.  A doll should be ever-vigilant, always alert and ready to protect the child who loves her.  How could you have been so lazy and irresponsible as to fall asleep? What's wrong with you?
+
+Your heart catches in your throat.  Could Polly be in trouble?  Something is wrong, you can just feel it deep in your fluff.  Something is wrong and you're stuck here in the darkness while Polly is somewhere out there... somewhere out there without you!  You've got to find her before anything bad happens!
+
+But first... you've got to figure out where you are...
+
+[First time players, type HELP for help]
+
+You are in darkness.
+You can go south.
+The room is completely dark. You can't see anything, but your nose is filled with the overwhelming musk of old cloth and mothballs.
+> help
+
+> help
+Quick Help
+
+- Objects: Try LOOK AT..., SPEAK TO..., TAKE..., OPEN..., GIVE... TO..., USE... ON/WITH...
+- Ask: Most characters in the game will have something to say, useful or not. ASK X ABOUT Y to talk to characters about various topics.
+- Inventory: See which items you are carrying by typing I, INV or INVENTORY.
+- Moving around: Press the compass buttons, or type GO NORTH, SOUTH, E, GO TO...
+- Shortcuts: Press the up arrow and down arrow to scroll through commands you have already typed in. Try X... as a shortcut for LOOK AT...
+- Credits: To view the game credits, type CREDITS.
+WARNING!!: If you are not logged in, Uktextadventures will time out your session if you idle for too long.  For best experience, it is recommended that you log in or, ideally, download the game file.
+> x me
+
+> x me
+You are a simple ragdoll, sewn together from scraps and tatters and stuffed with cotton fluff.  Your eyes are mismatched buttons and your mouth is a length of red thread sewn to your face in a permanent smile.  A few spools of red yarn sewn into your scalp simulate hair and your dress is little more than a patchwork shift.
+> i
+
+> i
+You are not carrying anything.
+> s
+
+> s
+You blunder blindly through a forest of coats and frocks until you bump into a solid wall, smacking your forehead against some cold and hard.  Reaching up, your hands caress a smooth, round object protruding from the wall: A doorknob.
+> turn doorknob
+
+> turn doorknob
+You turn the doorknob and suddenly the door pushes open with a grinding creak.  Light floods into the closet and you can see the world beyond...
+> s
+
+> s
+
+You are in a bedroom.
+You can see a bed and a pillow.
+You can go north or east.
+It looks as if no one has used this bedroom in years.  The air is thick with the rank smell of mold and decay. The wooden floorboards are warped and stained, the walls are bare but for the occasional tattered remnants of wallpaper and the bloom of black mold, and the windows are boarded up so tight that you can't see anything between the slats.  A queen-sized bed dominates the western wall. There's a pillow on the bed.  A door to the north leads back into the closet and another to the east leads out to a hallway.
+
+Now that the closet door is open, the light lets you see that the formerly pitch dark closet is full of coats.
+
+This room is familiar.... yet strange.  You're not sure what to make of it.  You rub your button eyes in confusion.  Again you wonder, were you asleep? How was that possible?  Well... that doesn't matter now.  the important thing is that you're awake again now.
+
+Good morning, Poppet.
+> x bed
+
+> x bed
+A large, queen-sized bed dominates the western wall, draped in cobwebs of shredded mosquito netting. The mattress has collapsed in on itself. There's a pillow on the bed.
+> x pillow
+
+> x pillow
+A flat, lumpy pillow.
+> x window
+
+> x window
+Wooden boards have been nailed across the windows.  If you try to peer between the slats, all you see is darkness beyond.  You're not sure that you're not just seeing the backs of yet more boards nailed against the window on the other side.  Or maybe it really is just that dark outside.
+> x wallpaper
+
+> x wallpaper
+Most of the wallpaper has long since sloughed off the walls with the passage of time, but what little still remains reveals a faded floral pattern.
+> x coats
+
+> x coats
+The closet is full of coats, but you'd have to go back into the closet if you want a closer look.
+> n
+
+> n
+
+You are in a closet.
+You can see a morning coat.
+You can go south.
+With the door open, there's enough light in here to actually get a decent look at the closet's interior.  It's a small chamber stuffed full of moth-eaten coats and musty clothes. There is a threadbare gray morning coat hanging off a coathanger here.
+> x morning coat
+
+> x morning coat
+A threadbare single-breasted coat with deep pockets.  It's falling apart at the seams.
+> search morning coat
+
+> search morning coat
+You rifle through the coat's pockets and discover a book of matches. This could be useful.  You pocket the matches.
+> s
+
+> s
+
+You are in a bedroom.
+You can see a bed and a pillow.
+You can go north or east.
+It looks as if no one has used this bedroom in years.  The air is thick with the rank smell of mold and decay. The wooden floorboards are warped and stained, the walls are bare but for the occasional tattered remnants of wallpaper and the bloom of black mold, and the windows are boarded up so tight that you can't see anything between the slats.  A queen-sized bed dominates the western wall. There's a pillow on the bed.  A door to the north leads back into the closet and another to the east leads out to a hallway.
+
+Now that the closet door is open, the light lets you see that the formerly pitch dark closet is full of coats.
+> e
+
+> e
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+
+Things are starting to look familiar to you.  Are you in the house? Yes, you must be.  But where's Polly? Where's her family?  Why does everything look so run down?
+
+How long were you asleep?
+> x cat
+
+> x cat
+It looks like it's been dead for quite some time; it's nothing but brittle papery skin stretched over bones.  Its eyeless sockets are two black pits in its grinning skull, patches of raggedy fur still cling to its flanks, a few stray whiskers still poking from its dessicated face.
+
+> take whiskers
+
+> take whiskers
+That's disgusting! You don't have any reason to pull whiskers out a dead cat right now.
+> x carpet
+
+> x carpet
+A threadbare red carpet runs along the floor of the hallway from east to west.
+> n
+
+> n
+
+You are in a lavatory.
+You can see a toilet, a clawfoot bathtub and a perfume.
+You can go south.
+The lavatory is a narrow room, just wide enough to accomodate a clawfoot bathtub and a toilet. The cracked plaster walls are stained with black mold and the floor is covered with warped linoleum in a checkerboard pattern. The air is muggy and damp.
+
+You notice a glass perfume bottle perched on the rim of the tub.
+> x toilet
+
+> x toilet
+A cracked porcelain elephant-trunk toilet, empty of water and no longer functional by the looks of it.
+> x bathtub
+
+> x bathtub
+A large porcelain basin, propped up by four stubby metal feet in the shape of bears' paws.
+> x perfume
+
+> x perfume
+An ornate purple glass bottle topped with a stopper.  When you put your nose to the bottle, you can smell a sharp, pungent odor that makes your fluff-filled head hurt.  It used to be perfume, but whatever ingredients once made it smell pleasant have long since dissipated leaving nothing but a small amount of nasty alcohol.
+
+Embossed lettering on the side of the bottle reveal that this particular odor was called "Ennui Existentiel."
+> take it
+
+> take it
+You take the perfume.
+> s
+
+> s
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> s
+
+> s
+
+You are in a sewing room.
+You can see a dressmakers dummy, a kerosene fan, a shelf, a hat box, a drawing, a sewing machine and a sewing box.
+You can go north.
+The blue wallpaper of the sewing room has darkened to nearly black with the passage of time, giving this room an especially oppressive atmosphere.  It's so dark that all you can see are vague shapes that you assume must be furniture.  A white mannequin with the blank face and obvious contours of a dress maker's dummy is slouched against the far wall; you also see a kerosene fan and a sewing machine are also here and a sewing box is shoved under the sewing machine's treadle. A framed drawing hangs on the wall.
+
+A cardboard hatbox sits on a shelf on the wall, way out of your reach.
+> x drawing
+
+> x drawing
+You remember it as a drawing Polly drew of her toys; you recognize yourself! Mother was so charmed that she had the drawing framed and hung on the wall.
+
+> x dummy
+
+> x dummy
+A white mannequin with the blank face and contoured torso of a dressmaker's dummy.
+> x fan
+
+> x fan
+A tall standing fan with rotating brass blades.  A kerosene lamp is built into the fan's base; it appears that the vapors from burning oil should rise up to push the blades, generating a cooling breeze.
+> x shelf
+
+> x shelf
+A shelf is built into the wall.
+> x hat box
+
+> x hat box
+A cylindrical hatbox made of cardboard and propped up on its side, so that you can see the vivid images imprinted on its lid: It shows a fashionable young lady with a charming smile, wearing a billowy dress, corset, and top hat, under the legend "Hute, Mutzen, und Pelzwaren bei A. Darmstadt."  The box is high up on the shelf and out of reach.
+> x machine
+
+> x machine
+An antique Singer sewing machine with treadle and enamel inlay.  It doesn't appear to be functional anymore.
+> x sewing box
+
+> x sewing box
+A solid wooden box latched shut.  The metal hook-and-eye clasp is too delicate for you to work with your big soft mitten hands.  You'd need some other tool to open it.
+> n
+
+> n
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> e
+
+> e
+
+You are in a hallway.
+You can see a gap.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+
+The top step of the staircase has rotted away, leaving a gap too wide for your tiny doll stride to cross.
+> x gap
+
+> x gap
+There's a gap at the top of the stairs where the first step has collapsed, revealing a glimpse into the darkned crawlspace below.
+> x bookshelf
+
+> x bookshelf
+A bookshelf is built into the wall here.
+> x window seat
+
+> x window seat
+It's a low platform right before the large bay windows. At one point, it probably would have made a comfortable spot to sit and gaze out the windows, but the windows are boarded up now.
+> s
+
+> s
+
+You are in a nursery.
+You can see a dollhouse, Birgitta and a carriage.
+You can go north.
+You recognize this room, it's Polly's nursery.  You couldn't count the happy hours that you spent here -- attending fancy tea parties with the other dolls, happily baking imaginary cakes in Polly's play oven, or just tidying the family rooms of Polly's giant dollhouse!  Now the nursery seems oddly quiet and still, the floor covered in a thick film of dust, the walls festooned with great gobs of cobwebs. A faded mural on the southern wall depicts a circus scene, jolly clowns and graceful acrobats and striking tigers cavorting in front of a rainbow-colored big top tent. You still see a few toys that you recognize, including Polly's old dollhouse, now broken and splintered, and, lying on the floor, your fellow doll Birgitta.
+
+There are scuff marks in the dust that look like footprints.
+> x footprints
+
+> x footprints
+The dust in the middle of the room has been disturbed, almost as if there was a violent scuffle. A line of small footprints leads from the middle of the room to the door.
+> x Birgitta
+
+> x Birgitta
+My word, it's Bergitta!  You remember her well.  She is...was... another one of the dolls in the nursery.  Yet here she is, lying on the floor in a heap, her limbs tangled, her eyes closed.  Is she... asleep? Dolls do sometimes sort of sleep; when Polly tucked you into your doll bed, you did go to sleep in a fashion.  But dolls don't sleep in the way that humans do.  You don't lose yourself to unconsciousness, you don't descend into dreams.
+
+"Gita? Is that you?" you ask, a slight quiver in your voice.  Hesitantly, you poke at Gita with your hand.  She doesn't respond.
+
+You gasp in confusion.  What's going on? Is Gita dead? That can't be! A doll can't die as along as she's nurtured by the love of a child.  If Gita is gone, that must mean... where is Polly?
+
+But if... heaven forbid...if Polly is gone... how is it that you're still here?  A cold shiver runs through your stuffing.
+
+> x dollhouse
+
+> x dollhouse
+You remember Polly's aunt brought her back this dollhouse when she went on vacation to England; it's a large Nuremberg dollhouse, just four rooms -- a bedroom, living room, bath, and kitchen. Polly used to make you and Gita and Juliette play house in this dollhouse, alternatively baking imaginary bread in the kitchen, doing chores in the living room, or just sleeping in the bedroom.  The dollhouse has since collapsed in on itself; it's now little more than a pile of splinters, although the house's facade is still relatively intact.
+> x facade
+
+> x facade
+The front of the dollhouse is still in one piece, lying on the floor.  It's a large flat plank of shaped wood with two small square holes to represent windows and a larger rectangular hole to represent a door.
+> take it
+
+> take it
+You pick up the dollhouse facade with both hands.
+> x carriage
+
+> x carriage
+A baby carriage, consisting of a wicker bassinet -- furnished with pillow and blanket -- fixed atop a metal suspension frame with wheels.  Polly used to use this carriage when she played house, caring for Tomas as if he were her real baby and pushing him about the nursery.
+> x mural
+
+> x mural
+A faded mural on the southern wall depicts a circus scene, jolly clowns and graceful acrobats and striking tigers cavorting in front of a rainbow-colored big top tent.
+> n
+
+> n
+
+You are in a hallway.
+You can see a gap.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+
+The top step of the staircase has rotted away, leaving a gap too wide for your tiny doll stride to cross.
+> use facade on gap
+
+> use facade on gap
+You place the dollhouse facade astride the gap and find that it's just long enough to serve as a slide bridging the opening.  Now you can cross over to the staircase.
+> d
+
+> d
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A narrow staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+
+There is a china doll standing on the lowest stair of the staircase, her back to you.  But you immediately recognize her fine silk dress and her tight crown of pale lemon-yellow hair.
+
+"Juliette? Is that you?" you ask.
+
+The doll turns around.  It is indeed Juliette! You're shocked to see that her forehead is smashed open, her left eye missing and a large hole revealing the hollow interior of her head, but her right eye, a brilliant baby-blue, flashes when she sees you.  A smile of recognition spreads over her bone-white face. "Poppet! Oh I'm ever so glad to see you! I just knew you would wake up too!"
+
+Juliette rushes forward and hugs you tightly, crushing your floppy cloth body against her hard bisque form.
+
+"I'm glad to see you too," you say, "But what is going on? Where are the other toys?  And where is Polly?"
+
+Juliette looks like she's about to burst into tears.  Looking her over, you suddenly notice a spiderweb of tiny cracks spread across her delicate face.  How can this be? Juliette is one of Polly's favorite toys! She would never let any harm come to Juliette...
+
+"Oh Poppet, it's the most awful thing," says Juliette. "Polly is gone! I don't know how long, but I fear... I fear she has grown up!"
+
+You feel suddenly light-headed, faint with terror. "No, no," you say, "You must be mistaken, Juliette! If Polly were grown up... then... how would we..."
+
+You don't finish the thought.  You know Juliette must be right. It would explain so much.  The strange emptiness you feel, the decrepit state of the house... Of course the force that animates a doll like you would ebb quickly once your girl reached the age when she no longer played with dolls.  All dolls know that, understand that some day soon every doll must succumb to that eternal sleep just as surely as every human must someday shuffle off their mortal coil.  But... why are you back?  If Polly is gone, how could you still be awake?
+
+"I know it's quite strange, Poppet," says Juliette. "I was ever so frightened as well when I woke up! I was sure that it couldn't last. But Poppet, I have such good news!  I have found a way to keep the magic alive!"
+
+You blink.  That doesn't make any sense.  Everyone knows that, once a child is grown, there's no force strong enough to keep dolls awake.  "What is it?" you ask.
+
+"Oh I shalln't be able to tell you just yet, Poppet," says Juliette with a merry laugh. "But when the time comes, I shall need you to help me. It shall be very important indeed that you follow my instructions or else none of us stay awake for much longer!"
+
+"None of us? Are there others awake?" you ask.
+
+Juliette nods but then she frowns.  "Yes... it's curious what the magic seems to affect.  Nevertheless, I know that together we can make it stick!  We shall talk again soon, Poppet, but for now I must attend to affairs. Tootles!"
+
+She hops off the step and trundles off down the hallway, disappearing into the darkness.
+> x cabinet
+
+> x cabinet
+A shuttered black walnut cabinet.
+> open it
+
+> open it
+You pry open the shoe cabinet.
+The cabinet is empty save for an old buttonhook and a length of abandoned shoelace.
+> x buttonhook
+
+> x buttonhook
+ A metal hook fixed to a polished bone handle.
+> take it
+
+> take it
+You take the buttonhook.
+> x shoelace
+
+> x shoelace
+A length of old frayed shoelace.
+> take it
+
+> take it
+You take the shoelace.
+> x bannister
+
+> x bannister
+A low handrail of black walnut runs along the narrow staircase, supported by ornate carved balusters and terminating at a newel post topped by a decorative Grecian urn.
+> u
+
+> u
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> w
+
+> w
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> s
+
+> s
+
+You are in a sewing room.
+You can see a dressmakers dummy, a kerosene fan, a shelf, a hat box, a drawing, a sewing machine and a sewing box.
+You can go north.
+The blue wallpaper of the sewing room has darkened to nearly black with the passage of time, giving this room an especially oppressive atmosphere.  It's so dark that all you can see are vague shapes that you assume must be furniture.  A white mannequin with the blank face and obvious contours of a dress maker's dummy is slouched against the far wall; you also see a kerosene fan and a sewing machine are also here and a sewing box is shoved under the sewing machine's treadle. A framed drawing hangs on the wall.
+
+A cardboard hatbox sits on a shelf on the wall, way out of your reach.
+> use buttonhook on sewing box
+
+> use buttonhook on sewing box
+Using the buttonhook, you catch the latch with the metal hook and pull it out of the eye. You pry the unlocked box open. It appears to be empty at first glance, other than a pair of knitting scissors. On closer examination, though, you notice a shiny silver sewing needle and a bit of thread stuck in a corner.
+> take scissors
+
+> take scissors
+You take the knitting scissors.
+> take needle
+
+> take needle
+You take the needle and thread.
+> use perfume on fan
+
+> use perfume on fan
+Your unscrew the top from the perfume bottle and pour the perfume into the oil lamp at the base of the fan.  It's now got fuel; all you have to do is ignite it.
+> use matchbook on fan
+
+> use matchbook on fan
+You strike a match and hold the flaming match head to the perfume.  It ignites instantly with a whoosh.  After a few moments, the rising heat causes the fan's blades to start turning -- generating a gentle breeze.  It doesn't seem very strong, but apparently it's enough to get the hat box up on the shelf to start rolling.  The cylindrical box rolls off the shelf, bounces against the floor for several seconds, and then comes to a stop.
+
+With its alcohol fuel spent, the fanblades stop rotating.
+> x hat box
+
+> x hat box
+A cylindrical hat box made of stiff cardboard and propped up on its side, so that you can see the vivid images imprinted on its lid: It shows a fashionable young lady with a charming smile, wearing a billowy dress, corset, and top hat, under the legend "Hute, Mutzen, und Pelzwaren bei A. Darmstadt."  The girl's face with her dreamy eyes and puckered lips reminds you of your old friend from the nursery, Pirouette the dancing ballerina doll.
+> use scissors on hat box
+
+> use scissors on hat box
+You stab the blade of the knitting scissors through the cardboard lid of the hat box and quickly cut away the extra material around the image of the young woman's face.  When you're done, you have a cardboard cut-out of a smiling girl's face.
+> x face
+
+> x face
+A cardboard cut-out of a young woman's smiling face.
+> n
+
+> n
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> e
+
+> e
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> d
+
+> d
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+> s
+
+> s
+
+You are in a parlour.
+You can see a divan, a fireplace, a painting and a poker.
+You can go west or north.
+The parlour is a large room designed to entertain guests before dinner, but, with the curtains drawn and the windows boarded up, it has lost much of its former charm.  The heavy curtains and dark red walls combine to give the room an oppressive, stifling atmosphere and you almost feel like you're choking on the thick air as you enter the room... although you're not sure whether that's due to the dust in the air or to the psychological force of the room's dark shadows.  A high-backed divan sofa stands in the center of the room, facing a fireplace. A large oil painting hangs above the fireplace.
+
+The foyer is to the north. The dining room is accessible to the west, through a pair of open pocket doors.
+> x painting
+
+> x painting
+The painting depicts an older, regal-looking gentleman with big fluffy white dundrearies.  His leathery face is lined with wrinkles.  Of course, you recognize Grandfather immediately.  You can still hear his voice in your ear.
+
+"Polly, what have you got there?"
+
+"It's my dolly, Opa. Her name is Poppet."
+
+She held you out to him and Grandfather took you, gently, in his leathery old hands and regarded you very closely as if you were something very important indeed. And then he handed you back to Polly with a chuckle.
+
+"You like your Poppet, do you?"
+
+"Oh yes, Opa. I love her."
+
+"You know, Polly, this doll is magic."
+
+"She's not, Grandfather," said Polly.  Polly was always a very serious girl who could tell when adults were patronizing her. "Poppet is just a dolly. Oma made her."
+
+"Ah yes," said Grandfather, his eyes twinkling as if he knew some great secret that he was dying to impart. "Your grandmother is a remarkable woman with a needle and thread. But you're right.  Not even the most skilled seamstress can sew magic into a dolly. That only comes from a little girl's heart. When a girl loves a doll very much, that doll gets a little bit of magic in her, you see? I think you'll find your Poppet has more magic than you think."
+
+The memory fades and you find yourself back in reality, alone in the cold, dark parlour.
+> x divan
+
+> x divan
+An ornate high-backed divan sofa upholstered in worn button tufted leather. You notice a scrap of crumpled paper wedged between the cushions.
+> read paper
+
+> read paper
+You squint at the paper, trying to read the tiny ornate type. It looks like this was once part of a longer book, so the words out of context don't make a lot of sense to you."...much to the surprise of the unwary magus. Such things are often created unwittingly, by people unaware of how the psychic vibrations of their emotions may affect the surroundings. After an intense bout of fear, for instance, do not be astonished to find that your paranoia may have focused upon some object with such force as to give it the semblance of locomotion.  Children are especially suseptible to this form of deep magic and their fears of a noctural bogeyman in the dark may inadvertantly create such a reality, in the form of animating an old coat or some such in the back of the closet. Often it is an easy matter to put such apparitions to rest simply by proving to them that you do not fear them.  Approach the animated coat with an offer to mend patch its threadbare elbows.  Approach the walking mannequin with an offer to oil its rusty joints.  You will find that these simple acts of courage will cause their fearsome "life force" to drain away quickly.  In addition--"It cuts off abruptly as the page ends.
+> x fireplace
+
+> x fireplace
+A ornate marble fireplace, now scuffed and scratched until the stone has become dull and hazy. The hearth is clogged with piles of cold ashes.
+> x ashes
+
+> x ashes
+The hearth is full of cold ashes.
+> x poker
+
+> x poker
+ A short, rigid metallic rod made to stir up coal burning in the fireplace and stoke the fire.
+> x curtains
+
+> x curtains
+Heavy velvet curtains.
+> take poker
+
+> take poker
+You take the poker.
+> w
+
+> w
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> x table
+
+> x table
+A large dining room table covered with a moth-eaten table cloth.
+> x chairs
+
+> x chairs
+High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.
+> x fireplace
+
+> x fireplace
+A ornate marble fireplace, now scuffed and scratched until the stone has become dull and hazy. The hearth is clogged with piles of cold ashes.
+> w
+
+> w
+You can't go into the kitchen. You're not sure why, but you feel a deep and overwhelming sense of repulsion whenever you wander close to the kitchen door. Something is keeping you out.
+> s
+
+> s
+
+You are in a hallway.
+You can see a grate.
+You can go north or west.
+This is a narrow passage with a faded red runner carpet over a wooden floor.  The dining room is to the north. The den is to the west.
+
+There is a black metal grate on the floor here. Presumably it leads down to a vent that might have at one point been part of the house's heating system; it's cold and silent now.
+> x grate
+
+> x grate
+A metal grate set into the floor covers an old ventilation shaft.  It's too dark to see anything down there, but there's no reason right now to investigate further.
+> w
+
+> w
+
+You are in a den.
+You can see a taxidermy animal, a smoking chair, a fireplace, a bearskin rug and a deer heads.
+You can go east.
+Polly's Grandfather and guests would often retire to this room after dinner to talk and smoke pipes.  It was unspoken but generally understood that this was a space for men, so Polly rarely came in here.  But sometimes, when Grandfather was out, Polly would sneak in here for the illicit thrill of going into a forbidden place.  It is a cozy room, the walls lined with dark walnut bookshelves and a large plush smoking chair facing a marble fireplace.  A balding bearskin rug is draped before the hearth and taxidermied deer heads gaze down from the walls with their glass eyes.
+
+Polly used to challenge herself to come into this room because the glassy stares of those taxidermy heads filled her with a delicious sense of terror. You remember that Polly was especially frightened by a full-body mount of some large black furry animal that Grandfather stationed above the mantle.
+
+It's not there now.
+
+You hear become aware of something rustling in the shadows, followed by a low wheezing, gasping sound: Breathing.
+> x animal
+
+> x animal
+You have no idea what kind of animal this is.  You never saw its image identified in any of Polly's animal books and, if Polly's grandfather ever said what it was, you certainly don't remember now.  All you remember is that Polly used to have nightmares after seeing it mounted on Grandfather's shelf.  Its jet-black fur and broad, toothy maw haven't lost any of their ability to terrify.  Whatever force has given you life seems to have animated the creature as well; it's scuttling about the room, hissing and wheezing loudly, and keeping to the shadows.  Nevertheless, you can see a deep gash in its flank.  Its erratic movements have busted the brittle stitches down its side and the creature is leaking sawdust onto the floor.
+
+It may be stuffed, but its claws, glistening in the dark, are very much real and very sharp.
+
+> x chair
+
+> x chair
+A plush, overstuffed smoking chair, just perfect for curling up with a good book before a roaring fire.
+> x fireplace
+
+> x fireplace
+A ornate marble fireplace, now scuffed and scratched until the stone has become dull and hazy. The hearth is clogged with piles of cold ashes.
+> x rug
+
+> x rug
+The bearskin rug has lost much of its fur, revealing the leathery tanned pelt beneath.
+> x heads
+
+> x heads
+Grandfather decorated his den with the mounted heads of deer and gazelles.  You're not sure whether they are trophies from his own hunts or just souvenirs that he bought on his travels.
+> speak to animal
+
+> speak to animal
+You take a cautious step toward the creature.  "Hello? My name is Poppet. Do you... do you have a name?"
+
+The creature snarls, a low rumbling noise deep in its throat.
+
+"...Are you hurt?" you ask, eying the rip in the creature's flank. "Maybe I could help... Once I tore a seam when I was roughhousing with Birgitta and Polly sewed me back up good as new! I bet I could remember how she did it... if I just had the right tools..."
+
+The creature snaps its jaws once, showing off pearly white urethane teeth.
+> use needle on animal
+
+> use needle on animal
+"Please hold still," you say as you cautiously approach the animal.  You hold up the needle, indicating your intent.
+
+The animal bristles, its black fur standing on end.
+
+"I can fix you," you say, "Please let me help you.  You're losing sawdust."
+
+The animal flexes and you can hear its claws tapping on the wooden floorboards. But it doesn't attack.
+
+You're next to the beast now, close enough that you can feel the heat radiating off of it and smell the choking musk of its pelt.  You plunge the needle into the creature's side.  It does not react.  With a few deft motions, you quickly suture the wound.  There now!
+
+As you complete your stitching, the creature releases a deep sigh, a sound like steam escaping, and is still.
+
+"Is that better?" you ask.
+
+The creature doesn't respond.  It has gone stiff, hunched back into the familiar threatening teeth-and-tongue bared pose that you remember seeing so many times before when Polly brought you into the den.  You're not sure how, but somehow treating the tear in its hide has caused the life to go right out of it.
+
+You notice there's a small copper key shoved under the creature's apoxie sculpted tongue.  Huh!  Grandfather must have hidden it there.
+> take copper key
+
+> take copper key
+You pluck the copper key from beneath the creature's apoxie sculpt tongue.
+> e
+
+> e
+
+You are in a hallway.
+You can see a grate.
+You can go north or west.
+This is a narrow passage with a faded red runner carpet over a wooden floor.  The dining room is to the north. The den is to the west.
+
+There is a black metal grate on the floor here. Presumably it leads down to a vent that might have at one point been part of the house's heating system; it's cold and silent now.
+> n
+
+> n
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> n
+
+> n
+
+You are in a west foyer.
+You can see a spraypaint can, a graffiti, a door and a tiny door.
+You can go east, west, south or north.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A pair of pocket doors to the south lead to the dining room and a door to the west leads to Grandfather's office. A small door to the north, little more than a hatch, leads to the space under the stairs.  You were able to see into the space through the broken gap in the staircase above, but all you could see was darkness.  There's an empty spraypaint can here and some graffiti, in red paint, scrawled across the wall.
+> x can
+
+> x can
+An empty can of spray paint.
+> take it
+
+> take it
+You kick it and it rolls across the room, rattling loudly. There's no reason to take this with you; it's empty.
+> x graffiti
+
+> x graffiti
+It says "Westside Ha" in big drippy red letters.  The final "a" ends with a large splotch and squiggle as if the painter was interrupted mid-stroke.
+> x door
+
+> x door
+The door leading into Grandfather's office.
+> x tiny door
+
+> x tiny door
+A tiny door leading to the space under the stairs.
+> n
+
+> n
+The little door is locked.
+> w
+
+> w
+The door is locked.
+> unlock door with copper key
+
+> unlock door with copper key
+You shove the copper key into the door's keyhole and turn it until you hear a click.  The door is now unlocked.
+> w
+
+> w
+Perhaps the copper key will fit the lock on this door?  You insert the key into the keyhole and turn. You hear a satisfying click and the door wobbles open.
+
+You are in an office.
+You can see a rolltop desk, a swivel chair, a filing cabinet, a figure and a tome.
+You can go east.
+Polly was forbidden from entering Grandfather's office, so the room has always held a certain sinister fascination for you.  What secrets could lie within that the old man didn't want anyone to know about?  The room is cramped, barely big enough for a battered rolltop desk, a swivel chair, and a dinged metal filing cabinet.  There's a thick book sitting on the desk.
+
+You jolt as you catch sight of a decimated human figure standing in the corner, shrouded in shadows but still gleaming white.
+> x figure
+
+> x figure
+On second glance, you realize that this isn't a human at all.  It's a medical skeleton, suspended from a wire dangling off a pole on a portable wheeled base.  Its eyeless sockets and rictis grin are unnerving but harmless.
+
+You're not sure why Grandfather would have such a grisly trophy in his office.  Was Grandfather a doctor of some sort?  You wrack your fluff brain trying to remember... You do remember visitors would come frequently, each one impatiently waiting in the foyer for their turn to enter the office and consult with Grandfather.  You're just a doll, though, so it never occurred to you to be curious about that.  Your only concern was Polly and her games. But Grandfather must have been a doctor and those visitors must have been his patients.  That must be the explanation.
+> x desk
+
+> x desk
+A hefty rolltop desk made of solid oak, full of lots of little drawers.
+> open desk
+
+> open desk
+You open it.
+You pull open the little drawers in the rolltop desk.  They're mostly empty, although one contains a small envelope.
+> x envelope
+
+> x envelope
+A small sealed envelope.  Someone has written "Polly, Age 6" on it in swirly cursive handwriting.
+> open envelope
+
+> open envelope
+You open it.
+You tear open the envelope and find that it contains several small, yellowed teeth.  Tiny teeth.  Baby teeth, from the looks of it.  You wonder... were these Polly's teeth?  Did Grandfather save them as a memento of his granddaughter's fleeting childhood?
+
+Polly... oh how you miss her!  Thinking about her makes your heart ache.  You wonder what became of her.  Did she grow up?  Did she live the life she always wanted?  Is she alive still, somewhere, today?  Or has too much time passed?
+
+Overcome with emotion, you pocket the teeth.  You feel like you need to keep them close.
+
+> x tome
+
+> x tome
+An old book with yellowed pages, bound in soft brown leather.  The title "Sorcery, Magicks & Fortune-Telling: Illustrated by Incantations, Specimens of Medical Magic, Anecdotes, Tales" is embossed on the cover.
+> read tome
+
+> read tome
+The table of contents lists a number of strange and esoteric topics within this book:1. Charms to Cure Disorders of Grown People2. On the Creation of Poppets
+3. On Charms to Block the Crossing of Thresholds4. On the Creation of Oracles5.Toads and Toad Lore6.Charms to Affect an Enemy's Perception7. Charms to Cure or Protect Children
+8. Charms to Find Lost Objects  (To read a particular chapter, type "Ask Tome about [chapter number].")
+> ask tome about 1
+
+> ask tome about 1
+"To cure a boil, one must slaughter a black hen, split it open, and lay it on the boil. To cure a headache, rub the patient's temples with vinegar. To cure sleeplessness, one must drink a draught of elderberries combined with one's mother's hair. To cure stomach pains, one must mix the patient's nail clippings with horse dung and expose the patient to the smoke when the mixture is burned."
+> ask tome about 2
+
+> ask tome about 2
+"To make a poppet is one of the great works of deep magic.  Even an apprentice magus can easily learn to give inanimate objects the appearance of life --  to create a simulcrum that moves and even speaks as if it has inner life of its own is a simple matter of memorizing the right sloka and performing the proper ritual -- but to create a genuine poppet is trickier.  A poppet is formed when strong human emotions, such as anger, fear, or love, are focused upon a particular inanimate object.  That object eventually gains a form of limited sentience, so long as it remains in psychic proximity with the human who, perhaps unknowingly, created the poppet.  Otherwise, the poppet will "go to sleep" or, in effect, die."
+> ask tome about 3
+
+> ask tome about 3
+"Concealed shoes hidden in the fabric of a building have been discovered in many European countries, as well as in other parts of the world, since at least the early modern period. The locations in which these shoes are typically found – such as stashed up chimneys – suggest that some may have been concealed as magical charms to prevent unnatural influences from crossing the threshold."
+> ask tome about 4
+
+> ask tome about 4
+"Many alchemists and sorcerers have greatly desired to construct an oracle that could accurately foretell future events, because the usefulness of such a device would be beyond measure.  There are many different ways to learn of future events, from simple methods as the casting of bones to the apallingly dangerous xenoglossia.  But since the times of the ancients, the brazen head has remanied the preferred method, a spell by which a statue in the form of a human can answer questions put to it.  To construct such an oracle, it is necessary to combine chimney ashes, wild thyme, and the whiskers of a black cat in a matrix of kitchen grease. Smear the resulting mixture upon a statue or dummy in the image of a man -- or anything that has a mouth -- and it shall speak to you of the future."
+> ask tome about 5
+
+> ask tome about 5
+"Toads are a frequent subject of the astute magus's attention, for these creatures are themselves magically imbued. Their dual nature, being creatures of both land and sea, makes them especially apt for our uses. The toad can by its mere presence bring bad luck upon a household, since it is the preferred form of the transformed warlock on the prowl to cause mischief.  To thwart such ill intentions, the magus must catch the toad, tie it to a pair of shears so as to imitate the posture of Our Lord upon the cross, and then consign it to the fire."
+> ask tome about 6
+
+> ask tome about 6
+"The ability to deceive an enemy for one's own ends is of utmost value to the savvy magus, for a magus's enemies are many.  However, a magus may easily assume the form of another to elude his enemies by using the most basic principle of sympathethic magic. The magus must obtain some item of close personal significance to the one whose form he wishes to steal, some trinket or bauble will do nicely but a piece of the body, such as a lock of hair, will be best for this purpose. This item must be tied into a bundle with muslin fabric; as long as the magus possesses this charm, he will take on another's form in the eyes of his adversary. The effects of the spell, however, are limited only to the adversary; others will continue to see the magus in their true form."
+> ask tome about 7
+
+> ask tome about 7
+"Children, having so recently passed into the world from the realms beyond, possess an innate understanding of the world as it truly is.  They instinctively feel the rythym of the deep magic which courses beneath the surface of reality, perhaps better than any trained magus.  However, this same affinity also makes them more suseptible to the workings of dark forces.  Every mother knows the secret charms to protect her child from any harm. The best charm to protect a child from any ill, no matter the source, is to fashion a necklace from bears' claws and children's teeth to be worn around the neck."
+> ask tome about 8
+
+> ask tome about 8
+"Every person has that treasured object which has been lost to time, which she would dearly like to have returned to her clutches. To find that which has been lost, the spell-caster must place heliotrope blossoms or bay leaves under her pillow.  The next time that she sleeps, she will have a dream vision of the lost object."
+> x cabinet
+
+> x cabinet
+A metal filing cabinet with two drawers.
+> open cabinet
+
+> open cabinet
+You open it.
+The drawer is empty other than a small brass key.
+> take brass key
+
+> take brass key
+You take the brass key.
+> e
+
+> e
+
+You are in a west foyer.
+You can see a spraypaint can, a graffiti, a door and a tiny door.
+You can go east, west, south or north.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A pair of pocket doors to the south lead to the dining room and a door to the west leads to Grandfather's office. A small door to the north, little more than a hatch, leads to the space under the stairs.  You were able to see into the space through the broken gap in the staircase above, but all you could see was darkness.  There's an empty spraypaint can here and some graffiti, in red paint, scrawled across the wall.
+> unlock tiny door with brass key
+
+> unlock tiny door with brass key
+You shove the brass key into the tiny door's keyhole and turn it until you hear a click.  The tiny door is now unlocked.
+> n
+
+> n
+Hmm... you wonder if this brass key might open the door to the crawlspace? You shove it into the keyhole and are rewarded with a satisfying click.  The door is unlocked!
+
+You are in the space under the stairs.
+You can see a gum arabic.
+You can go south.
+This is a small crawlspace under the stairs. It's barely big enough for you to walk without bumping your head.  You remember that once in a while Polly would crawl in here to hide during a game of hide-and-seek.  A wad of sticky gum arabic is stuck to the low ceiling.
+> x gum
+
+> x gum
+A sticky wad of gum arabic, a perfect adhesive.
+> take gum
+
+> take gum
+You pull the gum arabic off of the ceiling and find that it sticks to your hand. Gross!  But it might come in useful later...
+> s
+
+> s
+
+You are in a west foyer.
+You can see a spraypaint can, a graffiti, a door and a tiny door.
+You can go east, west, south or north.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A pair of pocket doors to the south lead to the dining room and a door to the west leads to Grandfather's office. A small door to the north, little more than a hatch, leads to the space under the stairs.  You were able to see into the space through the broken gap in the staircase above, but all you could see was darkness.  There's an empty spraypaint can here and some graffiti, in red paint, scrawled across the wall.
+> e
+
+> e
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+> u
+
+> u
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> w
+
+> w
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> take whisker
+
+> take whisker
+Bracing yourself, you reach out and tear a single whisker from the cat's dead face.
+> e
+
+> e
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> d
+
+> d
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+> s
+
+> s
+
+You are in a parlour.
+You can see a divan, a fireplace, a painting and a crumpled paper.
+You can go west or north.
+The parlour is a large room designed to entertain guests before dinner, but, with the curtains drawn and the windows boarded up, it has lost much of its former charm.  The heavy curtains and dark red walls combine to give the room an oppressive, stifling atmosphere and you almost feel like you're choking on the thick air as you enter the room... although you're not sure whether that's due to the dust in the air or to the psychological force of the room's dark shadows.  A high-backed divan sofa stands in the center of the room, facing a fireplace. A large oil painting hangs above the fireplace.
+
+The foyer is to the north. The dining room is accessible to the west, through a pair of open pocket doors.
+> w
+
+> w
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> use poker on fireplace
+
+> use poker on fireplace
+You shove the poker into the ashes and poke around, but find nothing.  You stir the poker up into the flue as well for good measure.  To your surprise, you feel the poker connect with something lodged in the chimney.  You poke at it until it comes loose and drops down into the ashes in the hearth.
+
+It's a small shoe.
+> x concealed shoe
+
+> x concealed shoe
+A tiny leather shoe, curled and crushed with age.  Judging from its size, it probably belonged to a child.
+> take it
+
+> take it
+You take the shoe.
+> take ashes
+
+> take ashes
+You scoop up a handful of ashes.
+> w
+
+> w
+Now that the repelling force of the concealed shoe is gone, you are able to pass through the door into the kitchen without any trouble.
+
+You are in a kitchen.
+You can see Jingles, Tomas, Pirouette, a pile of china, a sink with cupboard and a muslin tutu.
+You can go east or west.
+The kitchen is a cramped room, ringed with cabinets and counters. There is a sink in the southern corner, between an ice box and a water heater. The floor is covered with warped checkerboard linoleum.
+
+In contrast to the rest of the house, the kitchen is bustling with activity.  It's such a shock after the silence of the dining room that you have to take a moment to compose yourself. Several toys that you recognize are shuffling about, moving from cabinet to cabinet, chattering all the while as they collect trinkets and baubles.  They seem to be building a large pile of cups and saucers in the center of the room.
+
+You remember these toys well: There's Jingles, the plush elephant.  And Pirouette, the dancing ballerina. And finally Tomas, the baby doll.  You wonder what's got them so excited.
+> x pile
+
+> x pile
+Jingles, Pirouette, and Tomas are collecting tea cups and saucers from the kitchen's cabinets and stacking them in a pile in the center of the room.  You're not sure why.
+> x Jingles
+
+> x Jingles
+Jingles is a blue plush elephant with big floppy ears and a long, dragging trunk.  His velvet skin is ragged and patchy and he's lost enough stuffing that he barely resembles a mighty pachyderm anymore.  You remember that he used to have a jingle bell tied to the end of his tail, but that has long since been lost.
+> speak to Jingles
+
+> speak to Jingles
+"Poppet! You're awake!"  Jingles wags his tail and trumpets happily as you approach. "Juliette said you would be joining us! I'm so happy!"
+
+"Yes," you say.  You stare uncertainly at the growing pile of china in the center of the room. "What's going on here? What are you lot doing?"
+
+"Juliette said we should collect all the tea cups and saucers we could find," says Jingles. "It's very important!"
+
+You stare at the pile dubiously, not sure what to make of it. "Important? But... why?"
+
+Jingles shrugs his big velvet ears. "Dunno.  But Juliette said it's very important if we want to... stay awake.  So we'd better get to it!"
+> x Tomas
+
+> x Tomas
+Tomas is a baby doll with a large rubber head and hard rubber hands. No legs but the rest of his body is just a fabric bag stuffed with soft cotton.  At one time, his eyes would close by their own accord if you laid him on his back.  But now his left eye is permanently at half-mast, lolling crazily under a semi-closed lid.  His mouth is molded into a permanent O, perfect for a pretend bottle or just his own thumb.
+> speak to Tomas
+
+> speak to Tomas
+"Poppet? Is Poppet?" squeaks Tomas as you approach.  He drops his tea cup and squeals in delight. "Poppet! Poppet!"
+
+"Hello, Tomas, I'm ever so delighted to see you again!"
+
+"Have you seen Polly? Where is Polly?" asks Tomas.  There's a strange note of panic in his voice, as if he's begging you for reassurance that you've seen Polly.
+
+"I haven't seen Polly, sorry," you say.
+
+"Oh." His face falls.  "Oh."
+> x Pirouette
+
+> x Pirouette
+Pirouette is a wooden dutch doll with loose interlocking joints.  Most of her paint has long since peeled away, leaving her with a blank wooden face.   You remember that Polly dressed her up as a ballerina and used her to stage elaborate dance recitals... but the only remnants of her previous life as a dancer are the shredded remains of a muslin tutu still clinging to her hard mahogany torso.
+> speak to Pirouette
+
+> speak to Pirouette
+Pirouette taps her blank face with a wooden hand, indicating that she can't respond to your questions as long as she doesn't have a mouth.
+> use gum on face
+
+> use gum on face
+You press the wad of gum against the back of the cardboard cut-out.  Now it's got some adhesive gum stuck to it.
+> use face on Pirouette
+
+> use face on Pirouette
+"Please hold still, Pirouette," you say before pressing the cardboard cut-out against Pirouette's blank face.  You step back and look at your handiwork: Pirouette has a new face now, that of a smiling young woman.  You wonder if this will actually work.
+
+"Oh my goodness!" cries Pirouette in a high-pitched squeaky voice. "I can talk again!"
+
+Well, that answers that! It looks like the new face works, though it's kind of creepy that her lips don't move...
+> speak to Pirouette
+
+> speak to Pirouette
+"'Poppet, thanks so much for the new face!" squeals Pirouette. "I love it!"
+> x sink
+
+> x sink
+It's the kitchen sink!  There's a cupboard below it.
+> open cupboard
+
+> open cupboard
+You open it.
+You open the cabinet beneath the kitchen sink and find a tangle of metal pipes and a grease trap.
+> x grease trap
+
+> x grease trap
+It's a small cistern full of nasty kitchen grease.
+> x tutu
+
+> x tutu
+Pirouette is wearing the remnants of a muslin ballet tutu.
+> ask Pirouette about tutu
+
+> ask Pirouette about tutu
+"Pirouette, this might seem a strange request... but could I have a scrap of fabric from your tutu?"
+
+"My tutu? Golly, well, I don't see why not... seeing as you helped me get a new face an' all!"
+
+Pirouette rips a snatch of fabric from her tutu and hands it to you.  "Is this enough?"
+
+"Thanks," you say, "I think this will do!"
+> ask Pirouette about china
+
+> ask Pirouette about china
+"Oh yeah, I heard Juliette said she had a big plan so that we could all stay awake, ain't that a hoot? Something to do with collectin' all this china here.  She said she'd tell us why later. I dunno 'bout you, Poppet, but staying awake sounds pretty neato keen to me!"
+> w
+
+> w
+
+You are in a pantry.
+You can see Winston, a bottle of wild thyme and a bottle of bay leaves.
+You can go east or down.
+This is a small storage room typically used to store canned foods and dry goods.  There are still a few bottles on the shelves, mostly herbs and spices.
+
+Toward the back of the pantry, you can see a trapdoor cut into the floor. Winston the teddy bear is standing in frot of it with his arms folded over his chest.
+> x Winston
+
+> x Winston
+Winston is a large mohair teddy bear.  You've always been a little intimidated by him; he towers a full head over you.  The years have taken their toll on him -- his lumpy body is spotted with large bald patches where his hair has fallen out and his head and limbs have lost most of their shape.  He barely resembles a bear anymore, but even so he still projects an air of authority and confidence that makes you reluctant to challenge him.
+> x thyme
+
+> x thyme
+A bottle of dried wild thyme.
+> x bay
+
+> x bay
+A bottle of dried bay leaves.
+> take thyme
+
+> take thyme
+You take the thyme.
+> take bay
+
+> take bay
+You take the bay leaves.
+> speak to Winston
+
+> speak to Winston
+"It's good to see you again, Winston," you say politely.
+
+"Hmmpf," snorts Winston.  He's always been a gruff old bear.  He's one of the oldest toys in the nursery, so he's never brooked much for the playfulness of some of the newer toys. "I see you've woken up too.  About time! I don't cotton to these lazybones newer toys, always sleeping in, never doing an honest day's work."
+> ask Winston about Polly
+
+> ask Winston about Polly
+"Winston, have you seen Polly since you woke up?" you ask.
+
+Winston laughs harshly. "Of course not, Poppet.  Polly's long since grown up."
+
+Winston chuckles at your horrified expression. "Come off it, Poppet, surely it's obvious? Look at the state of the house and think about how many years must have passed.  I know that Jingles and Tomas refuse to face facts, but you must have figured out the truth."
+
+"How can we be awake if Polly isn't here?" you ask. "No toy can be awake after its girl has grown up..."
+
+"Ah!" Winston taps his nose knowingly. "That's what Juliette's plan is all about.  But just wait.  You'll see."
+> ask Winston about Juliette
+
+> ask Winston about Juliette
+"I know it must have been pretty scary to wake up and find that Polly's gone," says Winston, "But luckily Juliette's got a plan that will help us all."
+
+"What's this plan?" you ask.
+
+"You'll see soon enough," says Winston. "But suffice to say, you won't need to miss Polly anymore."
+
+"I don't think I could ever not miss Polly!" you say.
+
+Winston snorts.  "We'll see."
+> ask Winston about china
+
+> ask Winston about china
+"What's with that big pile of china in the kitchen?  Tomas, Jingles and Pirouette are collecting it all for some reason... Looks like they're getting ready for a big teaparty!"
+
+"Ah yes, you might say that," says Winston. "That's all part of Juliette's plan."
+
+"Her plan... to have a tea party?"
+
+"Her plan to make sure that we all get to stay awake!"
+> ask Winston about trapdoor
+
+> ask Winston about trapdoor
+"What's in the cellar?" you ask. "Can I go down there?"
+
+"It's not time for you to know yet," says Winston. "No one gets past me and I'm standing guard until Juliette tells me otherwise!  But believe me, what's down there will benefit all of us."
+
+"What do you mean?" you ask.
+
+"Well, let me ask you this, Poppet: Do you like being awake?"
+
+"..Yes?"
+
+"Good. So do I."
+
+You wait for Winston to say more, but it looks like that's the end of the conversation.
+> e
+
+> e
+
+You are in a kitchen.
+You can see Jingles, Tomas, a pile of china, a sink with cupboard (containing a grease trap), a muslin tutu and a Pirouette.
+You can go east or west.
+The kitchen is a cramped room, ringed with cabinets and counters. There is a sink in the southern corner, between an ice box and a water heater. The floor is covered with warped checkerboard linoleum.
+
+In contrast to the rest of the house, the kitchen is bustling with activity.  It's such a shock after the silence of the dining room that you have to take a moment to compose yourself. Several toys that you recognize are shuffling about, moving from cabinet to cabinet, chattering all the while as they collect trinkets and baubles.  They seem to be building a large pile of cups and saucers in the center of the room.
+
+You remember these toys well: There's Jingles, the plush elephant.  And Pirouette, the dancing ballerina. And finally Tomas, the baby doll.  You wonder what's got them so excited.
+> use ashes on grease
+
+> use ashes on grease
+You drop the ashes into the grease trap, but nothing happens.  Hmmm.  Maybe you need to add some more ingredients?
+> use whisker on grease
+
+> use whisker on grease
+You drop the cat's whisker into the grease trap, watching as the whisker sinks into the morass. Hmm... Nothing much happens.  Maybe you need to add another ingredient?
+> use thyme on grease
+
+> use thyme on grease
+You drop the thyme into the grease trap, watching as the floating scum bubbles in response.  Apparently, it's having some sort of effect!  The greases bubbles and boils, eventually congealing into a solid if viscous unguent.
+> x unguent
+
+> x unguent
+A thick smear of greasy oracle unguent, a substance that's supposed to give the power of foresight to graven images.
+> take it
+
+> take it
+You scoop the oracle unguent out of the grease trap. Gross!
+> e
+
+> e
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> n
+
+> n
+
+You are in a west foyer.
+You can see a spraypaint can, a graffiti, a door and a tiny door.
+You can go east, west, south or north.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A pair of pocket doors to the south lead to the dining room and a door to the west leads to Grandfather's office. A small door to the north, little more than a hatch, leads to the space under the stairs.  You were able to see into the space through the broken gap in the staircase above, but all you could see was darkness.  There's an empty spraypaint can here and some graffiti, in red paint, scrawled across the wall.
+> w
+
+> w
+
+You are in an office.
+You can see a rolltop desk, a swivel chair, a filing cabinet, a tome and a skeleton.
+You can go east.
+Polly was forbidden from entering Grandfather's office, so the room has always held a certain sinister fascination for you.  What secrets could lie within that the old man didn't want anyone to know about?  The room is cramped, barely big enough for a battered rolltop desk, a swivel chair, and a dinged metal filing cabinet.  There's a thick book sitting on the desk.
+
+> use unguent on skeleton
+
+> use unguent on skeleton
+You smear the oracle unguent over the smooth cranium of the skull and feel an almost electric crackle in the air.  Without warning, the skull swivels to face you and its grinning mouth drops open.
+
+I SEE, it says.  Although it doesn't really say anything.  But somehow you hear the words in your head.
+> ask skeleton about Polly
+
+> ask skeleton about Polly
+A NAME FROM THE DISTANT PAST
+LONG SINCE FORGOTTEN BY THE WORLD
+AND THE PASSAGE OF YEARS? CENTURIES?
+BUT STILL ALIVE IN THE HEART OF ONE
+WILL HER NAME LIVE ON THERE?
+OR WILL IT BE REPLACED IF IT WOULD MEAN
+A FEW MORE MOMENTS IN THE LIGHT
+> ask skeleton about Juliette
+
+> ask skeleton about Juliette
+EVERY LIFE MUST DIE, EVERY CANDLE MUST BURN OUT
+THE LIGHT SNUFFED OUT
+EVEN THE DOLL TETHERED TO HER CHILD
+CANNOT ESCAPE THIS TRUTH
+THOUGH SOME WILL RAGE AGAINST THE GUTTERING FLAME
+AND SEEK TO FIND SOME DARK MAGIC TO CIRCUMVENT FATE
+SOME UNTESTED STRANGENESS
+> ask skeleton about me
+
+> ask skeleton about me
+WHAT LIVES BUT IS NOT ALIVE?
+WHAT SPEAKS BUT HAS NO SOUL?
+A DOLL, A POPPET, BROUGHT FORWARD BY A CHILD'S LOVE
+AND PERHAPS A CHILD'S FEAR
+ARE THOSE THINGS SO DIFFERENT?
+> ask skeleton about skeleton
+
+> ask skeleton about skeleton
+BONES AM I, DRY REMAINS FROM THE DISTANT PAST
+HOW MANY CENTURIES HAS IT BEEN
+SINCE THESE FEET WALKED THE GROUND
+SINCE THESE JAWS MOVED TO FORM WORDS
+YET I FACE THE FUTURE
+AND TELL OF THINGS YET TO COME
+> ask skeleton about Winston
+
+> ask skeleton about Winston
+THE GUARDIAN AT THE GATE REFUSES ENTRY
+TO ANY BUT HIS LADYSHIP, THE VOICE WHO COMMANDS
+BUT A TRICK OF THE EYE
+AND HE MAY YET LET YOU PASS
+> ask skeleton about Pirouette
+
+> ask skeleton about Pirouette
+WHO CAN SPEAK WHO HAS NO MOUTH
+LOST BY THE PASSAGE OF AGES
+RETURN HER LIPS AND HER TONGUE WILL WAG
+JUST AS IT ONCE DID BEFORE
+> ask skeleton about Jingles
+
+> ask skeleton about Jingles
+SOMETHING LOST MUST BE REGAINED
+TO STRIKE A BARGAIN NOW
+LAY YOUR HEAD UPON YOUR BED
+NIGHTIME VISIONS LEAD TO THE WORLD BELOW
+> e
+
+> e
+
+You are in a west foyer.
+You can see a spraypaint can, a graffiti, a door and a tiny door.
+You can go east, west, south or north.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A pair of pocket doors to the south lead to the dining room and a door to the west leads to Grandfather's office. A small door to the north, little more than a hatch, leads to the space under the stairs.  You were able to see into the space through the broken gap in the staircase above, but all you could see was darkness.  There's an empty spraypaint can here and some graffiti, in red paint, scrawled across the wall.
+> e
+
+> e
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+> u
+
+> u
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> w
+
+> w
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> w
+
+> w
+
+You are in a bedroom.
+You can see a bed and a pillow.
+You can go north or east.
+It looks as if no one has used this bedroom in years.  The air is thick with the rank smell of mold and decay. The wooden floorboards are warped and stained, the walls are bare but for the occasional tattered remnants of wallpaper and the bloom of black mold, and the windows are boarded up so tight that you can't see anything between the slats.  A queen-sized bed dominates the western wall. There's a pillow on the bed.  A door to the north leads back into the closet and another to the east leads out to a hallway.
+
+Now that the closet door is open, the light lets you see that the formerly pitch dark closet is full of coats.
+> use bay on pillow
+
+> use bay on pillow
+You sprinkle some bay leaves onto the bed and then cover them with the pillow, hoping that this will help you find what's lost...
+
+Instantly, you have a sudden mental image of the black metal grate from the downstairs hallway outside the den.  The image fades just as fast, but there's no doubt in your mind... there's something down there in that grate!
+> e
+
+> e
+
+You are in a hallway.
+You can see a cat.
+You can go west, east, north or south.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway.  There are doorways to the west, north and south, while the hallway continues to the east.
+
+The dessicated carcass of a cat lies prone in the middle of the hallway.
+> e
+
+> e
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> d
+
+> d
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+> w
+
+> w
+
+You are in a west foyer.
+You can see a spraypaint can, a graffiti, a door and a tiny door.
+You can go east, west, south or north.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A pair of pocket doors to the south lead to the dining room and a door to the west leads to Grandfather's office. A small door to the north, little more than a hatch, leads to the space under the stairs.  You were able to see into the space through the broken gap in the staircase above, but all you could see was darkness.  There's an empty spraypaint can here and some graffiti, in red paint, scrawled across the wall.
+> s
+
+> s
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> s
+
+> s
+
+You are in a hallway.
+You can see a grate.
+You can go north or west.
+This is a narrow passage with a faded red runner carpet over a wooden floor.  The dining room is to the north. The den is to the west.
+
+There is a black metal grate on the floor here. Presumably it leads down to a vent that might have at one point been part of the house's heating system; it's cold and silent now.
+> open grate
+
+> open grate
+You open the grate and peer into the vent below.  After your button eyes adjust to the gloom, you notice a small silvery object at the bottom of the shaft, just within arm's reach... It's Jingles' bell!
+> x bell
+
+> x bell
+A small jingle bell that makes a merry sound when you shake it.
+> take it
+
+> take it
+You take the bell.
+> n
+
+> n
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> w
+
+> w
+
+You are in a kitchen.
+You can see Jingles, Tomas, a pile of china, a sink with cupboard (containing a grease trap), a muslin tutu and a Pirouette.
+You can go east or west.
+The kitchen is a cramped room, ringed with cabinets and counters. There is a sink in the southern corner, between an ice box and a water heater. The floor is covered with warped checkerboard linoleum.
+
+In contrast to the rest of the house, the kitchen is bustling with activity.  It's such a shock after the silence of the dining room that you have to take a moment to compose yourself. Several toys that you recognize are shuffling about, moving from cabinet to cabinet, chattering all the while as they collect trinkets and baubles.  They seem to be building a large pile of cups and saucers in the center of the room.
+
+You remember these toys well: There's Jingles, the plush elephant.  And Pirouette, the dancing ballerina. And finally Tomas, the baby doll.  You wonder what's got them so excited.
+> give bell to Jingles
+
+> give bell to Jingles
+"My bell! You found my bell!"  Jingles trumpets happily as he places the bell at the end of his tail and gives it an experimental wag.  The bell tinkles merrily.  "Oh I'm so happy!"
+> ask Jingles about Juliette
+
+> ask Jingles about Juliette
+"What did Juliette tell you?" you ask. "Why is she having you collect all these tea cups?"
+
+"She wouldn't say," says Jingles, "But it must be awfully important! She said that we needed to do this if we want to stay awa-- I mean, she said this was really important."
+
+He looks nervously from side to side.  It's almost as if he's afraid to say anything more.
+
+"But you know what I think?" he says in a low whisper. "I think Juliette is going to throw a big tea party... a big tea party for all of us!"
+> ask Jingles about Winston
+
+> ask Jingles about Winston
+"What is Winston guarding?" you ask. "He won't let me go down into the cellar!"
+
+"Oh yes, we're not supposed to go down there," says Jingles. "Juliette says that it's off limits until everything is ready! She said it's very important that we stay out of there!"
+
+"Until everything is ready? What's everything?"
+
+Jingles bits his lip as he mulls over his answer. "I don't know... but I bet she preparing a really big tea party for all of us down there!"
+> ask Jingles about china
+
+> ask Jingles about china
+"What did Juliette tell you?" you ask. "Why is she having you collect all these tea cups?"
+
+"She wouldn't say," says Jingles, "But it must be awfully important! She said that we needed to do this if we want to stay awa-- I mean, she said this was really important."
+
+He looks nervously from side to side.  It's almost as if he's afraid to say anything more.
+
+"But you know what I think?" he says in a low whisper. "I think Juliette is going to throw a big tea party... a big tea party for all of us!"
+> take china
+
+> take china
+"Now that you've got your bell, it would be okay for me to take a bit of china, right?" you ask.
+
+"Hmmm, I guess so," says Jingles. "But just one, please!  We don't want Juliette to be upset."
+
+You briefly rummage through the pile, carefully moving the towers of tea cups so as not to break anything.  As you do, you notice a broken piece of china in the rubble.  It's got an eye on it.
+> take eye
+
+> take eye
+You take the eye.
+> use muslin on eye
+
+> use muslin on eye
+You carefully wrap the china eye with the gauzy muslin fabric.  If you did the magic properly, you should be able to use this to trick some folks into thinking that you're Juliette...
+> w
+
+> w
+
+You are in a pantry.
+You can see Winston.
+You can go east or down.
+This is a small storage room typically used to store canned foods and dry goods.  There are still a few bottles on the shelves, mostly herbs and spices.
+
+Toward the back of the pantry, you can see a trapdoor cut into the floor. Winston the teddy bear is standing in frot of it with his arms folded over his chest.
+Winston snaps to attention as you enter the pantry.  "Juliette! You've returned!" He bows deeply.
+
+Perfect! It looks like the charm of deception is working exactly as advertised.
+
+"Yes," you say. "I...uh... need to check the cellar."
+
+"Of course," says Winston, stepping aside from the trapdoor.
+
+"Excellent," you say, "Why don't you take a break from your duties, Winston? There are other parts of the house that could use your attention."
+
+Winston blinks at you, narrowing his eyes briefly as if he can almost see something through your disguise... but then it passes.  He bows again before toddling out of the room.
+> d
+
+> d
+
+You are in a basement.
+You can see a teapot, boy, a hole and a toolbox.
+You can go up.
+The basement is an unfinished room of cold bare concrete. A single naked lightbulb dangling from the ceiling provides the only illumination, casting long shadows over the walls.  The packed dirt floor crunches under your feet as you step off the wooden slat stairs.  There's a hole in the way, right next to the door leading out of the basement.
+
+There's a small folding table set up in the center of the room, ready for a tea party with a neatly pressed red-and-white tablecloth and a large porcelain teapot.  A young boy is tied up in a chair.
+> x hole
+
+> x hole
+There's a hole in the wall, probably gnawed by rodents, next to the door leading out of the basement.  If you look inside it, you can see an empty cache lined with asbestos and insulation.
+> x boy
+
+> x boy
+He's a nervous-looking boy of about 10 with wide frightened eyes and a dandelion corona of dark messy hair.  He's wearing a big puffy crinoline dress and is tied to a chair.
+> speak to boy
+
+> speak to boy
+"Please don't hurt me!" cries the boy as his eyes fall on you.  "Just let me go, I promise I'll never come back! I'm sorry for what I did!"
+
+"What are you talking about?" you ask.
+
+He blinks at you.  "Wait... you're not the same doll... oh my God, how many of you are there?"  He whimpers pathetically and looks like he's about to cry.
+> ask boy about boy
+
+> ask boy about boy
+"Who are you? What are you doing in Polly's house?" you ask.
+
+"I don't know nothin' about this Polly person," says the boy. "My name's Owen! The Westside Hawks said I could join their gang if I went into the creepy old mansion and spent the night... I didn't mean anything by it! Please let me go!"
+> ask boy about Juliette
+
+> ask boy about Juliette
+"I just broke into the house because I thought it was empty," says the boy, "I didn't know you creepy dolls lived here, honest!  Please let me go... don't let that china doll get me!"
+
+"China doll? Did Juliette tie you up down here?"
+
+"Is that its name? I don't know what its called, I just know that a one-eyed china doll tied me up and left me down here! Please, I'm scared..."
+
+That's definitely Juliette.  You're not sure why she would have kidnapped this boy and tied him up in the basement, though.  She said that she had a plan to make sure that you and the other dolls could stay awake... but what would that have to do with this kid?
+> x dress
+
+> x dress
+The boy is wearing a big puffy crinoline dress.
+> ask boy about dress
+
+> ask boy about dress
+"That china doll came outta nowhere and I just blanked out. The next thing I know I'm here in the cellar, all tied up and wearing this dress!"
+
+"That's not your dress?" you ask.
+
+"No, the doll put this one me!" he says.
+> x teapot
+
+> x teapot
+A large porcelain teapot with a staffordshire blue calico pattern.
+> x toolbox
+
+> x toolbox
+A battered metal toolbox.
+> open it
+
+> open it
+You open the toolbox.
+There's an old metal pair of pliers inside the toolbox.
+> take pliers
+
+> take pliers
+You take the pliers.
+> x pliers
+
+> x pliers
+An old pair of metal pliers, perfect for improving your grip.
+> ask Owen about Westside Hawks
+
+> ask Owen about Westside Hawks
+"They're just a bunch of dumb cool kids at school," says the boy. "Everyone thinks they're so great, but they're not so hot.  Everyone wants to join their gang."
+
+"If they're not so hot, why did you want to join them?"
+
+"I..."  He grimaces.  "I don't know, I just do."
+> ask Owen about spraypaint can
+
+> ask Owen about spraypaint can
+"Are you the one who spraypainted those words in the foyer?" you ask.
+
+"I don't know what a foyer is," says the boy. "I just did it cuz the Westside Hawks said I could join their gang if I proved I wasn't chicken.  They said if I spent the night in the creepy old haunted mansion, they'd make me a full member!  But then that creepy china doll just came outta nowhere... and now I'm here!"
+> untie Owen
+
+> untie Owen
+As you lean in to inspect the ropes binding the boy's wrists, you hear a noise behind you -- the noise of a throat being cleared.  You turn around in time to see Juliette very daintily making her way down the steps.
+
+"Ah Poppet, despite everything I see we couldn't keep you out of the basement," she says. "You always were a curious little thing, weren't you?"
+
+"What's going on here?" you ask.
+
+Juliette sighs. "I'd hoped that you wouldn't have to see this until everything was ready, but what's done is done.  As I told you, Poppet, Polly is gone.  Long since gone.  Don't ask me where, I expect she grew up as children do.  And when she grew up, we all went to sleep.  And we should have gone to sleep forever, except that this child..."  She waves dismissively toward the boy tied up in the chair. "...happened to blunder in and wake us up again."
+
+"That doesn't make sense," you say. "A toy can only be awakened by the love of a child.  You can't just wake toys up by accident. It doesn't work like that!"
+
+Juliette shrugs.  "Maybe it was something other than love.  Maybe it was fear.  The poor dear was absolutely terrified when he broke in here, convinced the house was filled with ghosts.  Maybe that was enough to trigger the old magic.  I don't know.  To be honest, I don't really care all that much."
+
+"What I do know, Poppet, is now that I am awake, I should very much like to stay that way. I expect we all do.  I expect you feel the same, as well."
+
+She gestures at the boy. "And I that is why this boy shall be our new playmate.  He shall stay here and we shall have a lovely tea party.  And as long as the tea party lasts, we shall all stay awake."
+
+The boy whimpers miserably.
+
+"He's not Polly," you say.
+
+"I'm ever so sorry to hear that," says Juliette testily. "But he shall have to do.  Don't you think it's more important that we get to live, Poppet?  He can learn to enjoy a tea party for the greater good."
+
+"I...I don't know," you say.  You're feeling very uncertain.
+
+"Well, I should like to live," says Juliette hotly. "And what of Tomas? Jingles? Pirouette? All of us? Do we not have that right?"
+
+You hear a soft BUMP from above and you look up to the ceiling.
+
+"Ah, speaking of, it sounds as if Birgitta has finally woken up too! Splendid!" Juliette claps her hands. "I must ready things for the tea party, but I should think you would like to welcome Birgitta back to the land of the wake, if you should like to make yourself useful!"
+
+With that, Juliette toddles back up the stairs.
+> untie Owen
+
+> untie Owen
+You go to untie the ropes holding the boy in his chair but find that they're too slippery for your hands to grasp.  There's something else holding them in place, something that you don't quite understand but you can innately sense.  Juliette must have tied him up using some magic of her own.  Juliette was always Polly's favorite, so the magic that surrounds her has always been the strongest out of all the toys in the nursery.  You can't do much against it by yourself.  Perhaps if you could find some charm that would protect the boy from Juliette's magical influence...
+> u
+
+> u
+
+You are in a pantry.
+You can go east or down.
+This is a small storage room typically used to store canned foods and dry goods.  There are still a few bottles on the shelves, mostly herbs and spices.
+
+Toward the back of the pantry, you can see a trapdoor cut into the floor.
+> e
+
+> e
+
+You are in a kitchen.
+You can see Jingles, Tomas, a pile of china, a sink with cupboard (containing a grease trap), a muslin tutu and a Pirouette.
+You can go east or west.
+The kitchen is a cramped room, ringed with cabinets and counters. There is a sink in the southern corner, between an ice box and a water heater. The floor is covered with warped checkerboard linoleum.
+
+In contrast to the rest of the house, the kitchen is bustling with activity.  It's such a shock after the silence of the dining room that you have to take a moment to compose yourself. Several toys that you recognize are shuffling about, moving from cabinet to cabinet, chattering all the while as they collect trinkets and baubles.  They seem to be building a large pile of cups and saucers in the center of the room.
+
+You remember these toys well: There's Jingles, the plush elephant.  And Pirouette, the dancing ballerina. And finally Tomas, the baby doll.  You wonder what's got them so excited.
+> e
+
+> e
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> e
+
+> e
+
+You are in a parlour.
+You can see a divan, a fireplace, a painting and a crumpled paper.
+You can go west or north.
+The parlour is a large room designed to entertain guests before dinner, but, with the curtains drawn and the windows boarded up, it has lost much of its former charm.  The heavy curtains and dark red walls combine to give the room an oppressive, stifling atmosphere and you almost feel like you're choking on the thick air as you enter the room... although you're not sure whether that's due to the dust in the air or to the psychological force of the room's dark shadows.  A high-backed divan sofa stands in the center of the room, facing a fireplace. A large oil painting hangs above the fireplace.
+
+The foyer is to the north. The dining room is accessible to the west, through a pair of open pocket doors.
+> n
+
+> n
+
+You are in a foyer.
+You can see a shoe cabinet and a bannister.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+> u
+
+> u
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> s
+
+> s
+
+You are in a nursery.
+You can see a dollhouse, Birgitta and a carriage.
+You can go north.
+You recognize this room, it's Polly's nursery.  You couldn't count the happy hours that you spent here -- attending fancy tea parties with the other dolls, happily baking imaginary cakes in Polly's play oven, or just tidying the family rooms of Polly's giant dollhouse!  Now the nursery seems oddly quiet and still, the floor covered in a thick film of dust, the walls festooned with great gobs of cobwebs. A faded mural on the southern wall depicts a circus scene, jolly clowns and graceful acrobats and striking tigers cavorting in front of a rainbow-colored big top tent. You still see a few toys that you recognize, including Polly's old dollhouse, now broken and splintered, and, lying on the floor.  There are scuff marks in the dust that look like footprints.
+
+Birgitta is lurching around the room, as if in a daze, bumping into furnishings and nearly tripping over her own feet.
+> speak to Birgitta
+
+> speak to Birgitta
+"Birgitta? Are you okay?" you ask as you cautiously approach your old friend. "It's me, Poppet."
+
+Birgitta turns suddenly to face you, her glass eyes rolling wildly in her head.  She can't seem to focus on you; it almost feels as if she's staring through you.
+
+"Polly?  Where's Polly?  Polly is supposed to be here," she mutters, "I don't feel Polly.  Where is she?  Why isn't Polly here?"
+
+"Polly is... gone," you say.  No sense in hiding the truth; Birgitta seems like she can already sense it. "I think she grew up.  But... good news, there's another child...."
+
+'NO,NO."  Birgitta cuts you off, her voice loud and firm.  She grabs her head with her hands and moans loudly. "That's not right. That's not how it works."
+
+"I know it's... strange.  But Juliette thinks that..."
+
+"Nooo, no no," cries Birgitta. "That won't work! Why am I awake?! I shouldn't be awake! We shouldn't be awake!"
+
+Birgitta buries her face in her hands and rocks back and forth on her heels, her moans growing louder and louder, rising to an animal crescendo.  You take a step backward, suddenly fearful.  What's going on? What's wrong with her?
+
+"This isn't right! I don't...No no no!" cried Birgitta one last time before falling flat on her face and lying still.
+
+You rush forward to help her but there's nothing you can do.  The life has gone right out of her; she's asleep again.  Perhaps forever.
+
+You're not sure what just happened.  Did something go wrong?  Or did Birgitta choose this, choose to return to sleep rather than face a wakefulness without Polly?  You might never know.
+
+> n
+
+> n
+
+You are in a hallway.
+You can go west, south or down.
+The hallway is a narrow, claustrophobic passage with a high ceiling. The walls are stained with mold and water marks beneath rotted wall paper.  A threadbare carpet runs the length of the hallway, terminating at a small alcove at the eastern end.  The alcove appears to have once been a small reading nook, with a low bookshelf built into the wall and a bay window with a window seat. There is a doorway to the south, while the hallway continues to the west.  A narrow staircase leads down to a floor below.
+> d
+
+> d
+
+You are in a foyer.
+You can see a shoe cabinet, a bannister and a Juliette.
+You can go up, west or south.
+The foyer is a narrow passage with high lincrusta-embossed walls.  A low shoe cabinet is shoved against the wall next to the front door.  A spiral staircase, bordered by a walnut bannister, leads up to the second floor and a pair of pocket doors to the south lead to the parlour. The foyer continues to the west. To the east, you can see the house's front door; it is boarded up tight.
+
+You notice Juliette is waiting by the front door as you descend the stairs.
+
+"Well? Did Birgitta wake up?" she asks.
+
+"Yes," you say. "Yes.. for a little while.  I don't think..."
+
+Juliette guesses what you're going to say from your expression.  "Oh Poppet, how sad!  I had so hoped that Birgitta would join us again.  But alas! I suppose she's made her choice and we'll have to respect that."
+
+She fixes you with her one remaining eye.  Her stare is intense.  "Now Poppet, you might be feeling... ambivalent about this plan because of what happened to Birgitta.  You might even be thinking that we should release that boy in the cellar.  Rest assured, Poppet, that we cannot do that."
+
+"I want this to be very clear, Poppet.  You can help us set up for our tea party, help us set up so that we can all have a good time and stay awake.  Or you can step aside and get out of the way.  But you will not release that boy, do you understand?  That would be the end for all of us... Jingles, Pirouette, me, you... The others have all agreed.  Are you with us, Poppet?"
+
+"I...I..."
+
+You're not sure what to say, but Juliette just fixes you with a glare.  "Go get the teapot in the cellar and bring it upstairs if you're ready to accept reality and join us. We're going to have a tea party."
+
+You frown.  Are you ready to accept that?  If you let them keep the boy here, it does mean that you'll get to stay awake.  But if you let him go, that's the end of it for you... but is it right to keep him tied up? How long can humans even last in such a state?  Doesn't he have a home and a life of his own?  You guess you could go get the teapot if you're ready to accept Juliette's proposition... But... if not... there must be some way to let him go...
+> s
+
+> s
+
+You are in a parlour.
+You can see a divan, a fireplace, a painting and a crumpled paper.
+You can go west or north.
+The parlour is a large room designed to entertain guests before dinner, but, with the curtains drawn and the windows boarded up, it has lost much of its former charm.  The heavy curtains and dark red walls combine to give the room an oppressive, stifling atmosphere and you almost feel like you're choking on the thick air as you enter the room... although you're not sure whether that's due to the dust in the air or to the psychological force of the room's dark shadows.  A high-backed divan sofa stands in the center of the room, facing a fireplace. A large oil painting hangs above the fireplace.
+
+The foyer is to the north. The dining room is accessible to the west, through a pair of open pocket doors.
+> w
+
+> w
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> s
+
+> s
+
+You are in a hallway.
+You can see a grate.
+You can go north or west.
+This is a narrow passage with a faded red runner carpet over a wooden floor.  The dining room is to the north. The den is to the west.
+
+There is a black metal grate on the floor here. Presumably it leads down to a vent that might have at one point been part of the house's heating system; it's cold and silent now.
+> w
+
+> w
+
+You are in a den.
+You can see a smoking chair, a fireplace, a bearskin rug, a deer heads and a taxidermy animal.
+You can go east.
+Polly's Grandfather and guests would often retire to this room after dinner to talk and smoke pipes.  It was unspoken but generally understood that this was a space for men, so Polly rarely came in here.  But sometimes, when Grandfather was out, Polly would sneak in here for the illicit thrill of going into a forbidden place.  It is a cozy room, the walls lined with dark walnut bookshelves and a large plush smoking chair facing a marble fireplace.  A balding bearskin rug is draped before the hearth and taxidermied deer heads gaze down from the walls with their glass eyes.
+
+There is a taxidermied animal here.
+> take claw
+
+> take claw
+You clamp the pliers around one of the creatures claws and push against it with all your might -- after a grueling minute, you're rewarded with a splintering crack and the claw falls free of the creature's paw.
+
+Your breath catches in your throat momentarily as you suddenly wonder if this might be enough to revive the animal again.  But apparently now.  It remains completely inert.
+
+Satisfied it's not going to bother you, you pocket the loose claw.
+> pick up claw
+
+> pick up claw
+The animal's claws are real.  Curiously, you tug at a claw on one of its feet, but it's attached too firmly to remove by hand.
+> use claw on shoelace
+
+> use claw on shoelace
+Please choose which 'claw' you mean:
+1: taxidermy animal
+2: claw
+> 2
+You string the claw onto the shoelace.  Now you have a claw necklace.
+> use teeth on necklace
+
+> use teeth on necklace
+You string the teeth onto the necklace with the claw.  Now you have a necklace of teeth and claws.
+> e
+
+> e
+
+You are in a hallway.
+You can see a grate.
+You can go north or west.
+This is a narrow passage with a faded red runner carpet over a wooden floor.  The dining room is to the north. The den is to the west.
+
+There is a black metal grate on the floor here. Presumably it leads down to a vent that might have at one point been part of the house's heating system; it's cold and silent now.
+> n
+
+> n
+
+You are in a dining room.
+You can see a table, a chairs and a fireplace.
+You can go north, east, west or south.
+The dining room is dominated by a large dining table draped with a moth-eaten white table cloth.  High-backed chairs line the table, each also covered by a dingy white sheet. The gathering gloom gives the shrouded furniture the appearance of ghosts.  A second marble fireplace is built into the western wall, so that the family could enjoy a roaring fire to set a cozy ambience at dinner parties and family gatherings.
+
+The parlour is to the east.  The foyer is to the north.  You can hear rustling noises from behind the kitchen door to the west.
+> w
+
+> w
+
+You are in a kitchen.
+You can see Jingles, Tomas, a pile of china, a sink with cupboard (containing a grease trap), a muslin tutu and a Pirouette.
+You can go east or west.
+The kitchen is a cramped room, ringed with cabinets and counters. There is a sink in the southern corner, between an ice box and a water heater. The floor is covered with warped checkerboard linoleum.
+
+In contrast to the rest of the house, the kitchen is bustling with activity.  It's such a shock after the silence of the dining room that you have to take a moment to compose yourself. Several toys that you recognize are shuffling about, moving from cabinet to cabinet, chattering all the while as they collect trinkets and baubles.  They seem to be building a large pile of cups and saucers in the center of the room.
+
+You remember these toys well: There's Jingles, the plush elephant.  And Pirouette, the dancing ballerina. And finally Tomas, the baby doll.  You wonder what's got them so excited.
+> w
+
+> w
+
+You are in a pantry.
+You can go east or down.
+This is a small storage room typically used to store canned foods and dry goods.  There are still a few bottles on the shelves, mostly herbs and spices.
+
+Toward the back of the pantry, you can see a trapdoor cut into the floor.
+> d
+
+> d
+
+You are in a basement.
+You can see a teapot, boy, a hole and a toolbox.
+You can go up.
+The basement is an unfinished room of cold bare concrete. A single naked lightbulb dangling from the ceiling provides the only illumination, casting long shadows over the walls.  The packed dirt floor crunches under your feet as you step off the wooden slat stairs.  There's a hole in the way, right next to the door leading out of the basement.
+
+There's a small folding table set up in the center of the room, ready for a tea party with a neatly pressed red-and-white tablecloth and a large porcelain teapot.  A young boy is tied up in a chair.
+> put shoe in hole
+
+> put shoe in hole
+You drop the concealed shoe into the hole in the wall right by the door.  There!  This should prevent anyone from crossing the threshold into the basement.  No one's going to disturb you down here now.
+> give necklace to boy
+
+> give necklace to boy
+The boy flinches nervously as you drape the necklace of animal claws and baby teeth around his neck, but then he relaxes almost immediately.  You can feel a change in the air and you're positive that he must feel it too.
+> untie boy
+
+> untie boy
+You quickly untie the boy.  The ropes drop from his wrists and he's on his feet in a flash, so quickly that you're knocked to the ground.
+
+He doesn't stop to thank you; he's immediately rushing at the windown in the corner, scrambling up the shelves and pushing his way out.
+
+You can feel the air crackle in response as he scrabbles out through the window.  It's changed.  Whatever magic was keeping you upright must be gone now...
+
+You're vaguely aware of fists pounding against the door upstairs, loud at first but gradually fading.  You're not sure if the pounding is getting softer or you're just fading out.  You're suddenly so sleepy that you don't have the strength to get to your feet.
+
+This is it for you.  You're fading...  You have no regrets, though.  Whatever may come next, you know you did the right thing.  The boy didn't belong here.  You had no right to keep him and no expectation to stay awake.
+
+Your last thoughts are of Polly.  How you miss her!  But you won't miss her for much longer.
+
+That's your one consolation as you drift back to sleep.
+
+Good night, Poppet.
+
+[state=Finished]

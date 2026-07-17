@@ -78,7 +78,10 @@ static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp
                         std::string a2, a3;
                         std::string cond = get_parameter_wrap(rest, a2);
                         std::string body = get_script(a2, a3);
-                        last->elseifs.emplace_back(compile_expr_str(cond),
+                        // Deferred: an unparsable condition must only error if
+                        // this else-if is actually REACHED (all prior branches
+                        // false) -- see compile_expr_str_deferred.
+                        last->elseifs.emplace_back(compile_expr_str_deferred(cond),
                                                    parse_statements(body, interp));
                     } else {
                         last->else_body = parse_statements(rest, interp);

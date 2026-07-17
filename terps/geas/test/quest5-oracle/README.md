@@ -63,8 +63,9 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest: each of the 24 games with a walkthrough
-mapped to its walkthrough file and an extractor mode. It exists because filename
+`corpus.tsv` is the curated manifest: each of the 25 games with a walkthrough
+mapped to its walkthrough file and an extractor mode, plus override-only rows
+(walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
 `Jacqueline Jungle Queen`, `Hawk … - hints-walkthrough.txt`, bare `.txt`), so a
 naive `<Game> - walkthrough.txt` match silently misses several.
@@ -106,30 +107,37 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**18 games driven** — **16 `Finished`** (genuine wins), **1 `Running`** (I Contain
+**27 games driven** — **25 `Finished`** (genuine wins), **1 `Running`** (I Contain
 Multitudes — its ending sits behind a nested-wait continuation the harness cannot
 pump; its author warns its time-based events break Quest's own walkthrough runner),
 **1 `Wedged`** (Whitefield — a genuine QuestViva-vs-Quest incompatibility, see
-below) — plus **6 hints-only** (Q&A/prose, no linear script). Seven of those wins are
-driven by curated `overrides/` (see next section); the other nine by the raw
-walkthrough via the extractor. See [[quest5-corpus]]. (Dracula is a special case: its
-only walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
-override heavily adapts that solution to the remake's parser — see its header.)
+below). No hints-only rows remain: the six games whose walkthroughs are Q&A/prose
+hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
+Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
+are driven by hand-derived winning scripts in `overrides/` (each linearised from
+the hints against the game source). Eighteen rows are driven by curated
+`overrides/` (see next section); the other nine by the raw walkthrough via the
+extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
+walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
+override heavily adapts that solution to the remake's parser — see its header.
+The Shack is another: it has no published walkthrough anywhere, so its override
+was derived entirely from the game source and its walkthrough column is `-`.)
 
 ### Curated overrides (`overrides/`)
 
 Some walkthroughs do not reach the ending when run verbatim — a typo the game
 rejects, one of several mutually-exclusive endings, a nav error vs the release map,
-or an RNG-/timer-specific solve. For each such game, `overrides/<Game>.cmd` is a
+an RNG-/timer-specific solve, or (the seven formerly hints-only games) no linear
+walkthrough at all. For each such game, `overrides/<Game>.cmd` is a
 hand-authored winning script (with a `#`-comment header documenting every deviation
 from the raw walkthrough); `run_corpus.sh` uses it verbatim in place of the
-extractor+preamble. `overrides/README.md` tabulates why each of the eight exists
-(six now win; I Contain Multitudes and Whitefield are best-effort, documented above
+extractor+preamble. `overrides/README.md` tabulates why each of the eighteen exists
+(sixteen win; I Contain Multitudes and Whitefield are best-effort, documented above
 and below). The nine games whose raw walkthroughs already win have no override.
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 18 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 27 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
@@ -181,7 +189,10 @@ teleport that never gets map coordinates, so its enter-script throws
 and trips the breaker. In real Quest an enter-script error is non-fatal, so the game
 is winnable there — under this oracle's breaker it is not. This is a genuine
 QuestViva-vs-Quest incompatibility, not a walkthrough error. Genuinely-finished
-games show `ERR=0` except Bony King (`ERR=31`, explained above).
+games show `ERR=0` except Bony King (`ERR=31`, explained above) and The Shack
+(`ERR=2` — its own `open drawer` onopen/changed-isopen recursion hits the
+200-depth cap twice on a mandatory step; output stays correct and the breaker
+never trips — see its override header).
 
 ### Real-time timers: `DrainTimers`
 
@@ -242,17 +253,19 @@ transcripts across runs.
 
 ## Known gaps
 
-- Six games have **hints-only** walkthroughs (Q&A or prose — *Night House*,
-  *Poppet*, *What Once Was*, *Hawk the Hunter*, *Eight characters…*, *Quest for
-  the Serpent's Eye*): no mechanically extractable linear command script, so
-  they carry a `hints` mode in `corpus.tsv` and are reported as skipped.
 - *I Contain Multitudes* is the one driven game that does not reach a win. It runs
   cleanly (0 errors) to its final story beat, but the ending `finish` is behind a
   nested `wait{…wait{…SetTimeout(7)…}}` continuation inside a menu response that the
   harness does not pump — so the ending timer is never even created. Its author
   warns its time-based events break Quest's own walkthrough runner too. Left
   `Running`; transcript is still deterministic.
-- The other formerly-`Running` walkthroughs now win via `overrides/` (Dream Pieces,
+- The formerly-`Running` walkthroughs now win via `overrides/` (Dream Pieces,
   Jacqueline, Carnival of Regrets, Mechanical Bathhouse, The Mouse, Bony King) — see
-  `overrides/README.md` for each one's deviation from its raw walkthrough.
-- *The Brutal Murder of Jenny Lee* has a PDF-only walkthrough (no `.txt`).
+  `overrides/README.md` for each one's deviation from its raw walkthrough — and the
+  six formerly hints-only games plus the PDF-only *The Brutal Murder of Jenny Lee*
+  are driven by winning scripts derived from their hints against the game source
+  (same table).
+- *Eight characters…*: switching on the game board is avoided by its override —
+  the three board objects mutually `SwitchOn` each other and QuestViva's
+  changed-script dispatch recurses to the 200-depth cap, tripping the 20-error
+  breaker (a real QuestViva-vs-Quest incompatibility, like Whitefield's).

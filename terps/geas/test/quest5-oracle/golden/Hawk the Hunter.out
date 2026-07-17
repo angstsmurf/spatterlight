@@ -1,0 +1,1012 @@
+Hawk the Hunter
+()xxxxxx{>==============================>
+
+by Jonathan B. Himes
+
+You awake outside the fortified Keep of your family, aware only that the Mindsword has been wrenched from you by a powerful Warlock. . .
+
+This is a Story of Heroic Deeds with one true goal but infinite paths to find it.  It's an unofficial sequel to the 1980 film Hawk the Slayer, but will make sense as a stand-alone as you uncover what happened to you.
+
+The realm of Hawk the Hunter is fraught with dangerous trails that twist and turn, so mapping with notes is essential. Save your game frequently in case of mishaps! Leave no stone unturned.
+Type HELP for more startup tips, further hints (a walk-through of sorts), and credits.  Don't use SCRIPT ON, which interferes with Quest code.
+Last you remember, your giant comrade Gort was with you in the South, spying on a secret conclave of Black Wizards.  But you were waylaid by a Warlock. . .
+
+Courtyard
+Cobblestones line the quadrangle of this entrance to RavenWood Keep, the small castle of your family now adorned solely by a torn flag in the lookout tower.  An old stable lies in a corner.  The rest of this area is swallowed by the surrounding gloom of the forest.  The iron-bound doors of the castle, damaged and slightly ajar, are set in the stone walls to the north.
+You can go southeast, north or in.
+
+You are disoriented and cannot recall how you got here. You will regain your faculties by degrees as you recover your wits (type HELP STATS at any time to learn more). . .
+> increase strength
+
+> increase strength
+Your strength is now 3 (5 points left to allocate)
+> increase strength
+
+> increase strength
+Your strength is now 4 (4 points left to allocate)
+> increase strength
+
+> increase strength
+Your strength is now 5 (3 points left to allocate)
+> increase strength
+
+> increase strength
+Your strength is now 6 (2 points left to allocate)
+> increase stamina
+
+> increase stamina
+Your stamina is now 2 (1 points left to allocate)
+> increase stamina
+
+> increase stamina
+Your stamina is now 3 (0 points left to allocate)
+> north
+
+> north
+
+Main Hall
+In this spacious hall, dark wooden benches and receiving tables have been overturned.  Stale odors waft in from serving doors to the north, and doused torches hang from sconces in the corners, one of them lit by gutted flame.  Also on prominent display, an elaborate tapestry graces the north wall.  An ancient battle axe hangs proudly over the iron doors at the entrance.  A stout door to the east has been barred shut.
+You can go west, south, east or north.
+
+> take torch
+
+> take torch
+You have taken a torch.  It might be prudent to put it back when you're done.
+> west
+
+> west
+
+Dim Passage
+As you turn the corner in this gloomy passage, you bump into a loose stone on the wall.  Shadows flicker on a tattered red arras to the west.
+You can go north or east.
+
+> x stone wall
+
+> x stone wall
+On closer inspection, you detect a hollow spot behind the corner stone.
+> shift stone
+
+> shift stone
+There seems to be something behind the stone.
+> take chalice
+
+> take chalice
+You pick up the golden chalice.
+Your score went up by 10!
+> east
+
+> east
+
+Main Hall
+In this spacious hall, dark wooden benches and receiving tables have been overturned.  Stale odors waft in from serving doors to the north, and doused torches hang from sconces in the corners.  Also on prominent display, an elaborate tapestry graces the north wall.  An ancient battle axe hangs proudly over the iron doors at the entrance.  A stout door to the east has been barred shut.
+You can go west, south, east or north.
+
+> north
+
+> north
+
+Kitchen
+Windows in the north wall admit cool air, and a fair amount of light.  A blackened oven takes up one wall, and long wooden tables serve for food preparation.  The pantry takes up another wall with shelves in the stone.  Any edibles look to have been scavenged some time ago.
+You can go south.
+
+> x pantry
+
+> x pantry
+On the cobwebbed wall of the pantry shelves, you find sundry cooking implements, mostly broken.
+They contain a tinderbox.
+> take tinderbox
+
+> take tinderbox
+You pick it up.
+> south
+
+> south
+
+Main Hall
+In this spacious hall, dark wooden benches and receiving tables have been overturned.  Stale odors waft in from serving doors to the north, and doused torches hang from sconces in the corners.  Also on prominent display, an elaborate tapestry graces the north wall.  An ancient battle axe hangs proudly over the iron doors at the entrance.  A stout door to the east has been barred shut.
+You can go west, south, east or north.
+
+> drop torch
+
+> drop torch
+You gingerly set it on a nonflammable surface.
+> south
+
+> south
+
+Courtyard
+Cobblestones line the quadrangle of this entrance to RavenWood Keep, the small castle of your family now adorned solely by a torn flag in the lookout tower.  An old stable lies in a corner.  The rest of this area is swallowed by the surrounding gloom of the forest.  The iron-bound doors of the castle, damaged and slightly ajar, are set in the stone walls to the north.
+You can go southeast, north or in.
+
+> southeast
+
+> southeast
+
+Elians Way
+This  overgrown path used to be Lady Elian's favorite for riding or taking strolls in sight of RavenWood Castle.
+You can go southwest, northeast or northwest.
+
+> northeast
+
+> northeast
+
+Village of Burnby
+The Village of Burnby, once a lively center of trade, currently resembles a ghost town.  Except for a few hovels on the outskirts and bonfires that periodically get relit by bandits, there are only booths of craftsmen that lie now in rubble and the remains of a tavern -- stone foundation and collapsed wooden poles.  A large one, forming part of the ridge pole, still seems sturdy and in good repair.
+You can go southwest, northwest or southeast.
+
+> take pole
+
+> take pole
+You pick it up.  Whoa!  something this heavy had better be worth it.
+> southeast
+
+> southeast
+
+Holy Lake
+A dense fog settles over the Waters of the Brethren.  You can just make out the shoreline in the distance as it curls northwest toward Burnby village and then gets lost in the fog to the east.  Pine trees and thick bramble form a screen, in front of which you see a charcoal brazier faintly smoking, a leather drum, and stumps arranged in a circle.  No sign of anyone present, though you could swear you heard voices faintly chanting something like "Ma-ta-pa."  Below the screen of brush, the sandy soil slopes down to the shore where you see an old raft.
+A tiny glint in the midst of the Lake penetrates the rolling mists.
+You can go northwest or down.
+
+> down
+
+> down
+
+Lake shore
+On this small strand between the pines and the lapping lake water, you can either go back up to the vista of Holy Lake and its surroundings, or you can get in the raft and take your chances on the waves.
+You can go up.
+You can see a raft and lake water lapping.
+
+> in
+
+> in
+
+A raft
+Bobbing at the shore, you stand on an old raft which could probably convey you to the middle of the lake, if you head east.
+
+> east
+
+> east
+
+Lake
+You are adrift on the undulating waves of Holy Lake, brackish nearer the shore, but shimmering strangely in the fog further on.  To the west you could head back to shore, but a lift in the fog to the east draws your eye thither.
+
+Your score went up by 5!
+> east
+
+> east
+You are punting on the sacred waters, heading for the middle of the Lake.
+> east
+
+> east
+Making steady progress to center of the lake.
+> east
+
+> east
+Keep punting eastward, you'll get there.
+> east
+
+> east
+
+Center of Lake
+At long last, your punting has brought you so far out that the Lake Shore is now shrouded in fog, whereas here the mists have parted like a curtain, admitting a thin ray of twilight that reveals a punting raft much like the one you're in, only this one is charred to cinders.  It floats in and out of the mist, then settles right before you. Gradually you discern a blackened skeleton pinned by a trenchant blade stuck fast in the wood.  The golden pommel gleams brightly, creating an eerie metallic rainbow against the receding mists.
+
+> take mindsword
+
+> take mindsword
+With your stout limbs, you wrench the Mindsword free from the fire-hardened timbers.
+You now bear the Sword of Mind.
+Your score went up by 25!
+Where the blade was sunk, you see an iron collar with a'V' shackled to the skeletal remains of the Brethren's last victim.  The burnt raft then drifts into the fog.
+> west
+
+> west
+
+Lake
+You are adrift on the undulating waves of Holy Lake, brackish nearer the shore, but shimmering strangely in the fog further on.  To the west you could head back to shore, but a lift in the fog to the east draws your eye thither.
+
+> west
+
+> west
+The fog descends, making it difficult to navigate.
+Arrows aflame whizz past you and splash into the lake with a loud hiss.
+Mumbling Acolyte has seen you, and is going to attack!
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+> west
+
+> west
+It's a ways back to shore, just keep on punting!
+Arrows aflame whizz past you and splash into the lake with a loud hiss.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and hits, doing 2 points of damage.
+> west
+
+> west
+Don't give out now, you'll make it eventually.
+Through the haze you see gaunt figures on the lake shore who seem to be pointing at you.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and hits, doing 4 points of damage.
+> west
+
+> west
+In the fog, you can just make out the shoreline.
+Arrows aflame whizz past you and splash into the lake with a loud hiss.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+> west
+
+> west
+
+A raft
+Bobbing at the shore, you stand on an old raft which could probably convey you to the middle of the lake, if you head east.
+
+The pole slips from your grasp and slides into the lake.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and hits, doing 1 points of damage.
+> out
+
+> out
+
+Lake shore
+On this small strand between the pines and the lapping lake water, you can either go back up to the vista of Holy Lake and its surroundings, or you can get in the raft and take your chances on the waves.
+You can go up.
+You can see a raft and lake water lapping.
+
+Bumbling Acolyte has seen you, and is going to attack!
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+Bumbling Acolyte flings his incense chain at you and misses.
+> equip mindsword
+
+> equip mindsword
+You draw your Mindsword ready.
+Stumbling Acolyte has seen you, and is going to attack!
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+Bumbling Acolyte flings his incense chain at you and hits, doing 6 points of damage.
+Stumbling Acolyte swings his dagger of sacrifice and hits, doing 2 points of damage.
+> attack bumbling acolyte
+
+> attack bumbling acolyte
+You swing your Mindsword and miss.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+Bumbling Acolyte flings his incense chain at you and misses.
+Stumbling Acolyte swings his dagger of sacrifice and misses.
+> attack bumbling acolyte
+
+> attack bumbling acolyte
+You swing your Mindsword and hit, doing 9 points of damage (6 hits left).
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and hits, doing 2 points of damage.
+Bumbling Acolyte flings his incense chain at you and misses.
+Stumbling Acolyte swings his dagger of sacrifice and misses.
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> attack bumbling acolyte
+
+> attack bumbling acolyte
+You swing your Mindsword and hit, doing 13 points of damage. This Bumbler trips on his chain and falls, dead.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and hits, doing 5 points of damage.
+Stumbling Acolyte swings his dagger of sacrifice and hits, doing 1 points of damage.
+Hawk the Hunter could use The Woman's healing herbs.
+> attack stumbling acolyte
+
+> attack stumbling acolyte
+You swing your Mindsword and hit, doing 8 points of damage (10 hits left).
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+Stumbling Acolyte swings his dagger of sacrifice and hits, doing 4 points of damage.
+Hawk the Hunter needs food badly.
+> attack stumbling acolyte
+
+> attack stumbling acolyte
+You swing your Mindsword and hit, doing 14 points of damage. This brother stumbles to his death while chanting his own funeral rite.
+Mumbling Acolyte fires a puny bow with flaming arrows at you! and misses.
+Hawk the Hunter needs food badly.
+> up
+
+> up
+
+Holy Lake
+A dense fog settles over the Waters of the Brethren.  You can just make out the shoreline in the distance as it curls northwest toward Burnby village and then gets lost in the fog to the east.  Pine trees and thick bramble form a screen, in front of which you see a charcoal brazier faintly smoking, a leather drum, and stumps arranged in a circle.  No sign of anyone present, though you could swear you heard voices faintly chanting something like "Ma-ta-pa."  Below the screen of brush, the sandy soil slopes down to the shore where you see an old raft.
+
+You can go northwest or down.
+
+You can just make out robed figures on the lake shore who seem to be pointing at you.
+Hawk the Hunter could use The Woman's healing herbs.
+> northwest
+
+> northwest
+
+Village of Burnby
+The Village of Burnby, once a lively center of trade, currently resembles a ghost town.  Except for a few hovels on the outskirts and bonfires that periodically get relit by bandits, there are only booths of craftsmen that lie now in rubble and the remains of a tavern -- stone foundation and collapsed wooden poles.
+You can go southwest, northwest or southeast.
+
+Hawk the Hunter needs food badly.
+> southwest
+
+> southwest
+
+Elians Way
+This  overgrown path used to be Lady Elian's favorite for riding or taking strolls in sight of RavenWood Castle.
+You can go southwest, northeast or northwest.
+
+Hawk the Hunter needs food badly.
+> northwest
+
+> northwest
+
+Courtyard
+Cobblestones line the quadrangle of this entrance to RavenWood Keep, the small castle of your family now adorned solely by a torn flag in the lookout tower.  An old stable lies in a corner.  The rest of this area is swallowed by the surrounding gloom of the forest.  The iron-bound doors of the castle, damaged and slightly ajar, are set in the stone walls to the north.
+You can go southeast, north or in.
+
+Hawk the Hunter needs food badly.
+> north
+
+> north
+
+Main Hall
+In this spacious hall, dark wooden benches and receiving tables have been overturned.  Stale odors waft in from serving doors to the north, and doused torches hang from sconces in the corners, one of them lit by gutted flame.  Also on prominent display, an elaborate tapestry graces the north wall.  An ancient battle axe hangs proudly over the iron doors at the entrance.  A stout door to the east has been barred shut.
+You can go west, south, east or north.
+You can see a torch.
+
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> unequip mindsword
+
+> unequip mindsword
+You put away your Mindsword.
+Hawk the Hunter needs food badly.
+> take torch
+
+> take torch
+You have taken a torch.  It might be prudent to put it back when you're done.
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> south
+
+> south
+
+Courtyard
+Cobblestones line the quadrangle of this entrance to RavenWood Keep, the small castle of your family now adorned solely by a torn flag in the lookout tower.  An old stable lies in a corner.  The rest of this area is swallowed by the surrounding gloom of the forest.  The iron-bound doors of the castle, damaged and slightly ajar, are set in the stone walls to the north.
+You can go southeast, north or in.
+
+Your torch's flame dwindles in the outdoor breezes.
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> southeast
+
+> southeast
+
+Elians Way
+This  overgrown path used to be Lady Elian's favorite for riding or taking strolls in sight of RavenWood Castle.
+You can go southwest, northeast or northwest.
+
+Hawk the Hunter needs food badly.
+> southwest
+
+> southwest
+
+CrossRoads
+This ancient intersection near Castle RavenWood, trails barely discernible to each other through the fog and foliage, is overgrown in these dark days with a canopy of thick limbs and vines.
+ You can go south, northeast or west.
+
+You hear the loud screech of a goshawk.
+It intercepts a pigeon or a dove far above the canopy overhead. For a second between an opening in the leaves you see them clash. A frayed roll of tiny parchment bounces down from the branches below the wheeling birds.  By the time it lands, it has come untied.
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> west
+
+> west
+
+Old Mule Track
+An old market path, wide enough for mule-drawn carts, is on the verge of being reclaimed by the wilderness. As dark shadows and mist roll in from either side, you can hear faint bellows and cries, as of wanderers off the track, now the prey of lurking vermin.
+You can go east, south or northwest.
+
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> south
+
+> south
+
+Hog Scald Crossing
+The small clearing here is surrounded by thick interwoven branches overhead and brambles and briar all around, possibly the dens and tunnels of wild boar.
+ You can go east, south, north or west.
+You can see The Woman.
+
+You see an iron kettle large enough to boil a hog, or a witch, that sits upon a huge mound of kindling.
+Hawk the Hunter could use The Woman's healing herbs.
+> west
+
+> west
+
+Woodsmans Clearing
+A few trails spill into this grassy field where the canopy of leaves thins out enough to show the grey sky.  Many stumps attest to active clearing by loggers in days gone by, but there are still a few large boled trees that dot the perimeter. One of them has a rusty axe embedded in the trunk at eye level. A glint round back of it also catches your eye.
+You can go east, south or north.
+
+Hawk the Hunter needs food badly.
+> south
+
+> south
+
+Caddonbury Church
+It is too dark to make anything out.
+You can go north.
+
+Hawk the Hunter needs food badly.
+> light torch with tinderbox
+
+> light torch with tinderbox
+With the help of the flint and charcloth in your tinderbox, the torch's flame flicks back to life. You look around.
+The Sisters of the Holy Word once resided in the cells of this ancient church, healing and tending the wounded victims of the Dark One, but the site was plundered and several of the sisters kidnapped or killed.
+You can go north.
+You can see a basin, an altar and a parchment roll.
+
+Hawk the Hunter needs food badly.
+Hawk the Hunter needs rest in a soothing spa, or maybe a cauldron.
+> fill chalice with basin
+
+> fill chalice with basin
+The chalice now holds enough holy water to sprinkle a heathen!
+Your score went up by 10!
+Hawk the Hunter needs food badly.
+> dip finger
+
+> dip finger
+You dip a finger in the holy water and then douse yourself with the sign of the cross. (+100 hit points!)
+> drop torch
+
+> drop torch
+Remember: only You can prevent forest fires!
+> drop tinderbox
+
+> drop tinderbox
+You drop it.
+> x altar
+
+> x altar
+Nothing out of the ordinary.
+It contains a bread and a wrapped egg.
+> take egg
+
+> take egg
+You pick up the wrapped egg.
+> take bread
+
+> take bread
+You pick it up.
+> north
+
+> north
+
+Woodsmans Clearing
+A few trails spill into this grassy field where the canopy of leaves thins out enough to show the grey sky.  Many stumps attest to active clearing by loggers in days gone by, but there are still a few large boled trees that dot the perimeter. One of them has a rusty axe embedded in the trunk at eye level.  Who knows what other old tools the wood cutters left behind?
+You can go east, south or north.
+
+> east
+
+> east
+
+Hog Scald Crossing
+The small clearing here is surrounded by thick interwoven branches overhead and brambles and briar all around, possibly the dens and tunnels of wild boar.
+ You can go east, south, north or west.
+
+You see an iron kettle large enough to boil a hog, or a witch, that sits upon a huge mound of kindling.
+> north
+
+> north
+
+Old Mule Track
+An old market path, wide enough for mule-drawn carts, is on the verge of being reclaimed by the wilderness. As dark shadows and mist roll in from either side, you can hear faint bellows and cries, as of wanderers off the track, now the prey of lurking vermin.
+You can go east, south or northwest.
+
+> northwest
+
+> northwest
+
+Blacksmithy
+The blacksmith's forge consists of his oven, bellows, and of course, an anvil.   Behind his work table, the smith is polishing some gear.
+You can go southeast, north or southwest.
+You can see a blacksmith, a work table and a bellows.
+
+> equip mindsword
+
+> equip mindsword
+You draw your Mindsword ready.
+> north
+
+> north
+
+Wagon Track
+The ruts of this narrow pass, deep and marshy, do not permit easy transport any longer, as the broken frames and spokes of castoff wagons attest, sinking like corpses into the mire.
+You can go south, east or north.
+
+> north
+
+> north
+
+Ruffians Clearing
+Scorched trees and blasted clumps of heath surround you here on the edges of a moor to the north and west.  The trail through this clearing is littered with broken bits of iron and leaves besotted with blood.  You feel malevolent eyes following your moves through here.
+You can go south, northwest, north or east.
+You can see Ruff Ian and Rap Scallion.
+
+A rough customer with a 'V' tattooed on his ungainly forearms, Ian strides forth pointing at you and yammering over his shoulder at the other rogue he calls Rap Scallion.
+Ruff Ian has seen you, and is going to attack!
+Ruff Ian swings a sharp dirk at you and hits, doing 1 points of damage.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and miss.
+Ruff Ian swings a sharp dirk at you and hits, doing 2 points of damage.
+"I'll have yer money or yer life!" Ian snarls.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and miss.
+Ruff Ian swings a sharp dirk at you and hits, doing 1 points of damage.
+Rap Scallion leaves, heading east.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and hit, doing 11 points of damage (34 hits left).
+Ruff Ian swings a sharp dirk at you and hits, doing 2 points of damage.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and hit, doing 15 points of damage (19 hits left).
+Ruff Ian swings a sharp dirk at you and misses.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and hit, doing 14 points of damage (5 hits left).
+Ruff Ian swings a sharp dirk at you and misses.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and miss.
+Ruff Ian swings a sharp dirk at you and misses.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and miss.
+Ruff Ian swings a sharp dirk at you and hits, doing 2 points of damage.
+> attack ruffian
+
+> attack ruffian
+You swing your Mindsword and hit, doing 12 points of damage. He falls down, dead.
+> north
+
+> north
+
+Forest of Weir
+Stepping to the fringe of the murky woodlands, bounded by a high eldritch gate, you hear eerie sounds of woe and gibbering madness.  A cluster of skeletal corpses near the Forest Gate catches your eye. When you turn to look closer, it is all gone. You misdoubt yourself.
+You can go south or north.
+
+> north
+
+> north
+
+A dark path
+In this dim forest, all paths look the same, leading north, south, east, and west.
+You can go north, east, south or west.
+
+> north
+
+> north
+In this dim forest, all paths look the same, leading north, south, east, and west.
+> east
+
+> east
+In this dim forest, all paths look the same, leading north, south, east, and west.
+> west
+
+> west
+The trail begins to thin out and you see light ahead, but strangely, the clearing seems to be indoors...
+> south
+
+> south
+
+As you step beyond the forest clearing, the leaves subside to masonry and you find yourself in an unfamiliar room like a closet.
+
+A guard room
+This small room has stone stairs in the corner going up and down, arrow loops in one wall, and several small holes in the other through which you can see dim lights and hear loud voices.  It sounds as though a large assembly has been mustered by Voltan in the room beyond.
+You can go up, down or east.
+
+You notice a small notepaper on the floor, but before you can pick it up, you are startled at the sight of an armed guard pointing a pike in your face. He pulls out an olifaunt and whets his lips to blow...
+> attack guard
+
+> attack guard
+You swing your Mindsword and hit, doing 11 points of damage (14 hits left).
+Guard swings at you and hits, doing 2 points of damage.
+
+The guard drops from fright as much as fight, and as the dust settles, you overhear Voltan ranting in the adjoining chamber, which you observe through a hole in the wall:
+
+"Speak up, sorcerer!  Or shall I say, 'scientist'?  Your efforts thus far have yielded minions who walk and talk, but are too slow and weak.  Or they prefer their old haunts and habits."  The old man in the lab coat sighs and lectures Voltan in mild tones you cannot make out.
+
+"Very well," Voltan hisses. "With the kettle to serve as our own cauldron, we shall quicken those 're-animations', as you say.  But they had best be done before the Dark Sword is fetched here, that we may open the new portals, else you shall return to Kleel the old way."  The scientist shivers as Voltan snickers, "Yes ... yes!  A little taste of the undead is less than appetizing, it seems.  Heheheheheheh."
+
+Your view begins to blur, and the notepaper you saw on the floor whips into the air like a leaf in the wind, in fact joining other leaves in the gloomy forest paths.
+Your score went up by 10!
+
+Forest of Weir
+Stepping to the fringe of the murky woodlands, bounded by a high eldritch gate, you hear eerie sounds of woe and gibbering madness.  A cluster of skeletal corpses near the Forest Gate catches your eye. When you turn to look closer, it is all gone. Were they ever there?
+You can go south or north.
+You can see another notepaper.
+
+> z
+
+> z
+Time passes.
+> north
+
+> north
+
+A dark path
+In this dim forest, all paths look the same, leading north, south, east, and west.
+You can go north, east, south or west.
+
+> north
+
+> north
+In this dim forest, all paths look the same, leading north, south, east, and west.
+> east
+
+> east
+In this dim forest, all paths look the same, leading north, south, east, and west.
+> west
+
+> west
+The trail begins to thin out and you see light ahead, but strangely, the clearing seems to be indoors...
+> south
+
+> south
+
+As you step beyond the forest clearing, the leaves subside to masonry and you find yourself in an unfamiliar room like a closet.
+
+A guard room
+This small room has stone stairs in the corner going up and down, arrow loops in one wall, and several small holes in the other through which you can see dim lights.
+You can go up, down or east.
+
+You are startled by a guard pointing a pike in your face, but he seems either dead or asleep.
+Guard swings at you and misses.
+> east
+
+> east
+
+Great Hall
+Here in the imposing hall of the Fortress, the High Abbot would receive dignitaries of various holy orders.  Now all is a shambles, the carved chairs kicked in and the gilt trim smeared with grime, or worse.  In the dim light, you can make out the still-pristine chapel door open to the east, narrow double doors to the north, and steps to the west leading up to a heavily armored door, above which you descry lookout slits from a guard room.  An upside-down crucifix hangs on the west wall.
+As you gaze toward the chapel, you notice a well-armed minion, seemingly roused from unhallowed liturgy, rushing at you in a frenzy.
+You can go south, west or north.
+You can see a minion, a crucifix and a font.
+
+From the double doors to the north, you hear plaintive feminine cries for help.
+Minion has seen you, and is going to attack!
+Minion swings at you and misses.
+One by one, Minions emerge to drag the dead back to the chapel.
+
+Your view begins to blur as it reassumes the features of bewildering forest paths.
+
+Forest of Weir
+Stepping to the fringe of the murky woodlands, bounded by a high eldritch gate, you hear eerie sounds of woe and gibbering madness.  A low dark figure crouches with a candle near the Forest Gate. When you turn to look closer, it is all gone. You misdoubt yourself.
+You can go south or north.
+You can see another notepaper.
+
+> north
+
+> north
+
+A dark path
+In this dim forest, all paths look the same, leading north, south, east, and west.
+You can go north, east, south or west.
+
+> north
+
+> north
+In this dim forest, all paths look the same, leading north, south, east, and west.
+> east
+
+> east
+In this dim forest, all paths look the same, leading north, south, east, and west.
+> west
+
+> west
+The trail begins to thin out and you see light ahead, but strangely, the clearing seems to be indoors...
+> south
+
+> south
+
+As you step beyond the forest clearing, the leaves subside to masonry and you find yourself in an unfamiliar room like a closet.
+
+A guard room
+This small room has stone stairs in the corner going up and down, arrow loops in one wall, and several small holes in the other through which you can see dim lights.
+You can go up, down or east.
+
+You are startled by a guard pointing a pike in your face, but he seems either dead or asleep.
+Guard swings at you and hits, doing 2 points of damage.
+> east
+
+> east
+
+Great Hall
+In the dim light, you can make out the still-pristine chapel door open to the east, narrow double doors to the north, and steps to the west leading up to a heavily armored door, above which you descry lookout slits from a guard room.  An upside-down crucifix hangs on the west wall.
+
+You can go south, west or north.
+You can see a minion, a crucifix, a font and a minion.
+
+Minion has seen you, and is going to attack!
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and hits, doing 2 points of damage.
+One by one, Minions file in to fight as if recently wakened.
+> south
+
+> south
+
+Holy Fortress of Gainsford
+The Fortress entrance looms over the steep bank of the River.  Sentry posts, marked by clefts in the stone walls with pikes leaning or fallen across them, have been strangely abandoned.  The heavy oaken door to the Great Hall is unbolted to the north.
+You can go southwest or north.
+
+> north
+
+> north
+
+Great Hall
+In the dim light, you can make out the still-pristine chapel door open to the east, narrow double doors to the north, and steps to the west leading up to a heavily armored door, above which you descry lookout slits from a guard room.  An upside-down crucifix hangs on the west wall.
+
+You can go south, west or north.
+You can see a minion, a crucifix, a font, a minion and a minion.
+
+Minion has seen you, and is going to attack!
+Minion swings at you and hits, doing 3 points of damage.
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and hits, doing 4 points of damage.
+One by one, Minions stumble in to replace their fallen comrades.
+> wash me
+
+> wash me
+You first pour holy water into the font's basin and then douse yourself with the sign of the cross, as your forefathers have always done for blessing and protection from evil. (+200 hit points!)
+Minion has seen you, and is going to attack!
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and hits, doing 1 points of damage.
+One by one, Minions file in to fight as if recently wakened.
+> z
+
+> z
+Time passes.
+Minion has seen you, and is going to attack!
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at you and misses.
+One by one, Minions stumble in to replace their fallen comrades.
+> z
+
+> z
+Time passes.
+Minion has seen you, and is going to attack!
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at you and misses.
+One by one, Minions file in to fight as if recently wakened.
+> z
+
+> z
+Time passes.
+Minion has seen you, and is going to attack!
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and hits, doing 3 points of damage.
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and misses.
+One by one, Minions stumble in to replace their fallen comrades.
+> eat bread
+
+> eat bread
+This holy food is very much to your liking, so you take several bites (+50 hitpoints).  It is best shared, for what are companions for but to help one another?
+Minion has seen you, and is going to attack!
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at you and misses.
+Minion swings at you and misses.
+Minion swings at you and hits, doing 3 points of damage.
+Minion swings at you and misses.
+Minion swings at you and misses.
+One by one, Minions stumble in to replace their fallen comrades.
+You see The Woman approaching from the south.
+> z
+
+> z
+Time passes.
+Minion has seen you, and is going to attack!
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and misses.
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at The Woman and hits, doing 1 points of damage.
+Minion swings at The Woman and misses.
+Minion swings at The Woman and hits, doing 1 points of damage.
+Minion swings at The Woman and hits, doing 3 points of damage.
+Minion swings at The Woman and hits, doing 1 points of damage.
+Minion swings at you and hits, doing 2 points of damage.
+The Woman shoots firebolts from her palm at minion and misses.
+One by one, Minions stumble in to replace their fallen comrades.
+"When I observed all this in my fires," the Woman tells you, "I hastened to your aid, but damned spirits detained me. I am ready now to fight for you!"
+> eat egg
+
+> eat egg
+You hungrily devour this high fructose delicacy, telling yourself the sugar rush is good for an active warrior like yourself.  It gives you stamina (+50 hitpoints) and, for a while, greater agility (+1).
+Minion has seen you, and is going to attack!
+Minion swings at you and hits, doing 3 points of damage.
+Minion swings at The Woman and hits, doing 3 points of damage.
+Minion swings at you and hits, doing 1 points of damage.
+Minion swings at you and misses.
+Minion swings at The Woman and misses.
+Minion swings at you and hits, doing 2 points of damage.
+Minion swings at The Woman and hits, doing 4 points of damage.
+Minion swings at The Woman and misses.
+Minion swings at The Woman and misses.
+Minion swings at you and misses.
+The Woman sends blinding darts from her fingertips at minion and hits, doing 4 points of damage.
+One by one, Minions emerge to drag the dead back to the chapel.
+The Woman leaves, heading west.
+> east
+
+> east
+
+Chapel
+Once an ornate sanctuary, this chapel now looks like a garbage-strewn cemetary.  All articles of devotion have been upturned and smashed to bits, the stone tiles smeared with dung, and a small dias in the center now holds a humongous kettle that bubbles over with rancid red foam like a Cauldron.
+You can go west.
+You can see a crypt, conclave of wizards, a squad of minions and Black Wizard.
+
+From crimson depths within the Cauldron, the familiar cowl of the Black Wizard rises before your eyes, somehow still dry, and fully alive!  Lifting a red talon, he commands arterial spray from the Cauldron to assault you!
+You gasp as the crimson spray deflects to the floor, your genuflections having formed a holy barrier. The Wizard curses at you for this thwarting of his unhallowed powers.
+Squad of minions has seen you, and is going to attack!
+Black Wizard has seen you, and is going to attack!
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and misses.
+Raising his paw, the wizard intones a mesmerizing litany, then lifts two fingers.  The Chapel door screeches shut and bolts itself. The Black Wizard pauses his canticle to tell you: "The Dark One is being fed and dressed for his final consummation, but will be with us presently!"
+> z
+
+> z
+Time passes.
+Conclave of wizards has seen you, and is going to attack!
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and hits, doing 12 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and misses.
+Holding an upside-down crozier, The Black Wizard begins to chant backward.  The crozier casts a glow against his robes revealing crescents, triangles, and other arcana that glow in sympathy.
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and hits, doing 2 points of damage.
+Black Wizard shoots green lightning from his red talons  and misses.
+Conclave of wizards sings Gregorian chants backwards at you and misses.
+Radiant with forbidden power, the Crystal summons the Dark Sword.  Attuned to its proddings, the black blade spins through the air, beyond your control, to the waiting paw of the wizard.  In a metallic whisper, he gloats, "Our Master of Ceremonies will be pleased by this offering."
+The wizard's diabolical chanting continues as the ground shudders, and in the floor, the outlines of the Crypt glow eerily as the Casket within begins to quake.
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and hits, doing 12 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 5 points of damage.
+The Casket lid flies open, and the dark figure of Voltan springs forth onto the small dias next to the wizard.  His pallid eye, now a pink dot in a face like rotten meat, blazes beside the metal gauze in his helmet. With the rosary beads of the Abbot on his scrawny neck, he looms over the Cauldron, black cape billowing out behind him as the smell of blood fills the chapel.
+Voltan grins menacingly as the wizard bestows the Dark Sword in his tight-gloved hands. "Gog and Magog!  A Black Blade to rival the weapon of my whining ancestors."  He turns to you.  "Look well at this boon, little brother.  The articles of your superstitious creed were right about Life after Death!  Behold, I have undergone baptisms unimaginable, yet here I am in the flesh to escort you to the Gates of Hell!"
+> z
+
+> z
+Time passes.
+Voltan has seen you, and is going to attack!
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and misses.
+Conclave of wizards sings Gregorian chants backwards at you and misses.
+Voltan pivots with the Dark Sword and tries to impale you and hits, doing 18 points of damage.
+"Whore of Babylon, come forth!" Out of the shadows behind the dais, a forlorn figure in a bridal veil totters forward at his beckoning.
+
+Voltan's surly grin goes slack as he continues:  "Ten thousand times have I dreamed of killing you slowly, painfully... and now... with equal abandon shall I enjoy the marriage bed, wedding Elian as I was meant to."  The wizard, turning his hood in surprise, interrupts to ask if he just said "bed-wetting."
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and misses.
+Black Wizard shoots green lightning from his red talons  and misses.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 5 points of damage.
+Voltan hacks and slashes with the Dark Sword at you and hits, doing 9 points of damage.
+"Enough chatter!  I have no time for grandiloquence, no time for slow-mo duels. No more one-arm pushups for Voltan.  No!  I have turned to fairer sport in my degenerate, er, regenerate state.  All I need now is a consort that befits my status."  At these words, the bride lifts her veil, revealing the tear-stained face of Rap.
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and hits, doing 19 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 4 points of damage.
+Voltan cuts and thrusts with the Dark Sword at you and misses.
+"The life-energy of this young rapscallion can be transferred to the shell of the one who spurned me because of you,"  Voltan continues.  "Tell me, little brother:  Whose bride is Elian truly, after tasting of death's cold embrace?  Reborn from the Cauldron, she will be twice the woman, and with twice the staying power!  And her resistance, as well as her yielding, will be mine to command.  Bwahahahaha!"
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and misses.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 4 points of damage.
+Voltan cuts and thrusts with the Dark Sword at you and hits, doing 21 points of damage.
+"First of course, I must recover her remains."  Voltan's pink eye freezes on you.  "I think you can be persuaded to tell me the final resting place of our fair-haired, lily-white queen.  No?  Then let me show the full reach of our new Cauldron.  Elian and I shall rule over this and other lost worlds.  You shall accompany us on our honeymoon in Vanya, and the last thing you will ever see is..."
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and misses.
+Black Wizard swipes with his rending claw  and hits, doing 11 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 2 points of damage.
+Voltan pivots with the Dark Sword and tries to impale you and hits, doing 7 points of damage.
+"Or perhaps," Voltan's voice softens, "I may let you remain in Vanya with this gorgeous thief, to serve as co-regents in my name, once I have emptied that world of eligible soldiers.  I am even willing to spare the lives of your friends, if only you will surrender the Mindsword.  It will not come to my sword-arm willingly, but if transferred first to my Wizard" -- at this, the Black Wizard's eyes seethe red -- "we may commence opening portals to many dimensions!"
+> z
+
+> z
+Time passes.
+Squad of minions swings at you and hits, doing 2 points of damage.
+Black Wizard shoots green lightning from his red talons  and hits, doing 14 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and misses.
+Voltan hacks and slashes with the Dark Sword at you and hits, doing 20 points of damage.
+A squad of minions leave, heading west.
+> z
+
+> z
+Time passes.
+Black Wizard shoots green lightning from his red talons  and hits, doing 11 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and misses.
+Voltan hacks and slashes with the Dark Sword at you and misses.
+> save rap
+
+> save rap
+You can't do that with so much unfriendliness in your way!
+Black Wizard swipes with his rending claw  and misses.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 4 points of damage.
+Voltan cuts and thrusts with the Dark Sword at you and hits, doing 24 points of damage.
+> save rap
+
+> save rap
+You can't do that with so much unfriendliness in your way!
+Black Wizard swipes with his rending claw  and hits, doing 14 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 4 points of damage.
+Voltan cuts and thrusts with the Dark Sword at you and hits, doing 24 points of damage.
+> save rap
+
+> save rap
+You can't do that with so much unfriendliness in your way!
+Black Wizard shoots green lightning from his red talons  and hits, doing 10 points of damage.
+Conclave of wizards sings Gregorian chants backwards at Rap Scallion and misses.
+Voltan pivots with the Dark Sword and tries to impale Rap Scallion and hits, doing 8 points of damage.
+Rap Scallion swings at Black Wizard and misses.
+> save rap
+
+> save rap
+You can't do that with so much unfriendliness in your way!
+Black Wizard shoots green lightning from his red talons  and hits, doing 12 points of damage.
+Conclave of wizards sings Gregorian chants backwards at Rap Scallion and hits, doing 1 points of damage.
+Voltan cuts and thrusts with the Dark Sword at you and misses.
+Rap Scallion swings at Voltan and hits, doing 10 points of damage.
+When Voltan notices Rap has joined in the fray, he goes livid. "How dare you turn against me, after all I've done! A chance for you to live on -- in another person's body -- and your own planet to rule!"
+> save rap
+
+> save rap
+You can't do that with so much unfriendliness in your way!
+Black Wizard shoots green lightning from his red talons  and hits, doing 9 points of damage.
+Conclave of wizards sings Gregorian chants backwards at you and hits, doing 2 points of damage.
+Voltan cuts and thrusts with the Dark Sword at you and misses.
+Rap Scallion swings at conclave of wizards and hits, doing 9 points of damage.
+Rap responds by flicking her stiletto at Voltan's eye. He deflects it, slashes her blouse, pushes her toward the Crypt.
+> save rap
+
+> save rap
+You can't do that with so much unfriendliness in your way!
+Black Wizard shoots green lightning from his red talons  and hits, doing 14 points of damage.
+Conclave of wizards sings Gregorian chants backwards at Rap Scallion and hits, doing 3 points of damage.
+Voltan pivots with the Dark Sword and tries to impale you and misses.
+Rap Scallion swings at Black Wizard and misses.
+In a burst of swashbuckling fervor, Voltan crosses swords with staccato taps and startling twists that sends the Mindsword across the chapel, where it bangs into the Conclave's hymnals and drops into a hex on the floor. Its charms burn the Mindstone bright as the sun, whereat the Elfin fist looses its hold. As the Black Wizard scurries over, you catch sight of Voltan holding Rap over the Crypt as she fights for dear life.
+> save rap
+
+> save rap
+You rush headlong at Voltan from the side, knocking Rap clear from the Crypt, but plowing straight into your revolting brother.  As you collide, he lets go his weapon and swings you in an icy grip. For a second you are only inches from his worm-eaten face, nearly gagging at the stench, but he swerves you past his metal helmet and billowed cape. Stumbling back two steps, you careen from the dais and flop with outstretched arms into the enormous bloody Cauldron!At first, all is dark, all silent. Then a quake, a thunderous report, and excruciating pain. As if all your limbs were torn off. Then a whoosh and crack as if the bottom fell out of the earth. You seem to be floating toward a dim light. There is a familiar form beckoning you from that distant star. She herself is the light, robed in it, a White Queen. Music floods your senses, the songs you always wanted to hear, and new ones yet to be recorded. She extends her hand, and you take it.There are indeed many worlds. You have played a part in saving this one.
+Thou hast scored 60 out of 360.
+Lo, here are Thy Achievements, O Bearer of the Mindsword:
+- found chalice (10)
+- figured out how to row on lake (5)
+- found the Mindsword (25)
+- filled chalice with holy water (10)
+- solved the maze, spied on Voltan (10)
+
+[state=Finished]

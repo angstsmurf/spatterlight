@@ -1,0 +1,1035 @@
+The Deer Trail
+
+by Justin Squires
+
+Forest Trailhead
+A cool and grey October day; perfect weather for an afternoon hunt. You exit your truck and head down the trail towards a deer blind you had set up a few weeks earlier while scouting the forest. A thick fog hangs in the air, making visibility difficult. As the leaves crunch underneath your feet, you decide that you must hurry North to the blind, as you only have a few hours until dark.
+
+[ Type: HELP at any time to display a list of command prompts and game functions. ]
+
+> north
+
+> north
+
+Deer Blind
+You find your makeshift deer blind just off the trail and sit inside of it. It is a lean-to construction, crafted using fallen branches and dead leaves against a large oak tree. You have built them this way since you were a young teen, always at ground level. You sit, Bow in hand, and prepare to wait silently for your prey to enter within shooting distance. In the meantime, you had better [NOCK] your [ARROW] so that you are ready.
+
+> nock arrow
+
+> nock arrow
+You nock the arrow onto the bowstring.
+
+Many moments pass by as you wait. Out here in the forest, you can hear every disturbance clearly. A squirrel rustling in the leaves, pinecones falling from the canopy to the forest floor after being jarred by a breeze, the groan of tree trunks as they sway to and fro; nothing escapes you as you listen for the distinct pattern of a deer making its way through the wilderness.
+
+The night is falling quicker than before as a waning sun competes with the overcast skies. In the twilight of dawn, the ability to clearly define your surroundings diminishes and your eyes begin to play tricks. The foliage is replaced by ominous shapes and shadows. A tree stump becomes a forest troll, off-color leaves become sets of eyes staring back at you; the imagination runs wild at this hour of fading light.  Very soon it will be too dark to hunt and you will have to return empty-handed.
+
+Perhaps it would be best to [REST] your [EYES] for a moment and listen to the forest one last time.
+> rest eyes
+
+> rest eyes
+You briefly close your eyes and listen intently to the forest.
+
+Suddenly, you hear the sound of leaves crunching in front of you. You recognize the sound pattern and when you open your eyes, your stomach drops. Standing in the clearing ahead of you, illuminated by the last bit of remaining light, is the largest buck you have ever laid eyes on. He wears a crown of sprawling boney antlers that reach skyward. His presence is both exhilarating and foreboding, as something is off in his stature.
+
+You hesitate for a moment, but regain your composure and slowly bring the bow up to take aim. When the moment is right, you will try to [SHOOT] the [DEER].
+> shoot deer
+
+> shoot deer
+You draw back the bowstring and aim at the buck.
+
+After a slow and steady breath in, you let your arrow fly. It strikes the deer right behind its shoulder blade and the deer staggers before quickly darting off into the thicket.
+
+Feeling a rush of adrenaline course through your body, you sit back in the blind and take several deep breathes. It is customary to wait a few moments before you start to track the deer. During this time, a deafening silence washes over the forest and the blackness of night consumes all. You flick on your flashlight as you get ready to head Northeast towards the clearing.
+
+The fog is thicker than before.
+> northeast
+
+> northeast
+
+Clearing
+A very small clearing inside the dense forest. This is where you struck the deer and it is surely wounded. You should probably [TRACK] the [DEER] so that you can pick up its trail.
+
+> track deer
+
+> track deer
+There is a trail of light blood droplets leading North into what looks like a deer trail.
+(You unlocked an Achievement.)
+> north
+
+> north
+
+Deer Trail
+This is a narrow trail through thick brush used by deer. The trail continues Northeast and Northwest. You will have to track the deer in order to navigate your way through here.
+
+> Track deer
+
+> Track deer
+The trail of blood and hair continues North.
+> north
+
+> north
+
+Deer Trail 2a
+The trail is so narrow. It continues West and East.
+
+> Track deer
+
+> Track deer
+You find more blood droplets and hair that lead Northeast.
+> northeast
+
+> northeast
+
+Small Clearing
+A small clearing nestled inside the thicket of deer trails. In the brush, you can see an old rusty car. Trails are leading Northeast, East, and South.
+
+> Track deer
+
+> Track deer
+The trail of blood seems to go West from here. It was definitely a lung shot. There are bits of bloody membrane scattered about.
+> west
+
+> west
+
+Deer Trail 2b
+More deer trail surrounded by thick brush. There is a trail to the Northeast and East.
+
+> Track deer
+
+> Track deer
+The blood is going West.
+> west
+
+> west
+
+Deer Trail 1b
+This part of the deer trail is narrow. Trails are leading East and South.
+
+> Track deer
+
+> Track deer
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North.
+> north
+
+> north
+
+Deer Trail 1c
+The trail is so narrow you have to crouch. There doesn't seem to be anywhere else to go. You can head South.
+
+> Track deer
+
+> Track deer
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush.
+(You unlocked an Achievement.)
+> north
+
+> north
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> northwest
+
+> northwest
+
+Treeline
+This treeline is a row of pines that run along the western and northern edges of the field. Someone has built a deer blind here. Made of wood, it sits on stilts ten feet above the ground and is accessible by a ladder. You can go back Southeast to the field.
+
+> Climb Ladder
+
+> Climb Ladder
+
+Old Deer Blind
+This blind was constructed long ago; most of it is in shambles. A rusted folding chair sits at its center, a pile of hunting clothes lay tattered next to the chair, and an old Rusted Rifle leans against the wall. Looking down, you see large brown stains on the wooden floor
+
+A ladder leads back down to the treeline.
+
+> Take Rifle
+
+> Take Rifle
+You pick up the Rusted Rifle.
+> Climb Ladder
+
+> Climb Ladder
+
+Treeline
+This treeline is a row of pines that run along the western and northern edges of the field. Someone has built a deer blind here. Made of wood, it sits on stilts ten feet above the ground and is accessible by a ladder. You can go back Southeast to the field.
+
+> southeast
+
+> southeast
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> east
+
+> east
+
+Decrepit Paddock
+You stand inside of a grazing paddock just outside of the barn. To your shock, you discover dozens of animal skeletons inside the paddock. Cows, pigs, goats, all of them look to have been forgotten here and left for dead. Who could have let this happen?
+
+The large barn looms to the East and the field to the West.
+
+> east
+
+> east
+
+Old Barn North
+The interior of the barn is massive and has not been maintained over the years, as it is missing boards along its walls. It won't be long until the roof collapses.
+
+Next to you near the entryway; you see a pile of miscellaneous sporting goods. There is a large workbench across from you along the wall near the stables. You can travel deeper into the barn by going South.
+
+> Take Tackle Box
+
+> Take Tackle Box
+You pick it up.
+> south
+
+> south
+
+Old Barn South
+You find yourself facing a wall of old cobblestone. Here, the barn is in as bad of shape as it is to the North. The wooden boards are weathered, warped, and discolored from years of exposure to the elements. Antique farming tools hang from hooks on the walls.
+
+You can see Wooden Ladder.
+> Take ladder
+
+> Take ladder
+You have taken the Wooden Ladder
+> north
+
+> north
+
+Old Barn North
+The interior of the barn is massive and has not been maintained over the years, as it is missing boards along its walls. It won't be long until the roof collapses.
+
+Next to you near the entryway; you see a pile of miscellaneous sporting goods. There is a large workbench across from you along the wall near the stables. You can travel deeper into the barn by going South.
+
+> west
+
+> west
+
+Decrepit Paddock
+You stand inside of a grazing paddock just outside of the barn. To your shock, you discover dozens of animal skeletons inside the paddock. Cows, pigs, goats, all of them look to have been forgotten here and left for dead. Who could have let this happen?
+
+The large barn looms to the East and the field to the West.
+
+> west
+
+> west
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> north
+
+> north
+
+Front Porch
+You stand in front of an abandoned farmhouse. It is an old construction, possibly dating back to the '20s or '30s. The siding is greyed, and the paint has all but peeled away, suggesting that it has not been occupied for many years. On the porch; you see a broken porch swing, some empty planters, and a rocking chair.
+
+The front door is directly North of you. You notice a second-story window just above the doorway.
+
+> Use ladder
+
+> Use ladder
+You climb the ladder up and crawl through the broken window.
+(You unlocked an Achievement.)
+
+Upstairs Hallway East
+You climb through the window and find yourself on a second floor hallway. Looking beside you next to the window, you find a letter on a small table. It reads:
+
+Confession of Daniel Muir #1
+(Letter has been logged into your Inventory. Type: READ LETTER to review.)
+
+The hallway reveals that the interior of the house is in a state of blight. The wood floors are warped and buckled from exposure to the elements. The paint has peeled away from the walls, and parts of the ceiling have fallen in from water damage. You notice that a trail of fresh blood comes from down the hall and stops at a door directly in front of you to the North.
+
+The hallway continues West, and there is a door next to you to the East.
+
+> west
+
+> west
+
+Upstairs Hallway West
+The narrow and warped second-floor hallway creaks and moans as you walk. The wind howls against the window behind you on the south wall, a cool draft passing through the single pane.
+
+The hallway continues to the East, or you can take the Stairs to the first floor.
+
+> use stairs
+
+> use stairs
+
+Living Room
+Once the main dwelling space of this house, the living room is now a stale and dusty remnant of another age. There is a fireplace along the north wall, a gun rack resting just above it. A large wooden cabinet stands tall just a few feet to the right of the fireplace. A deer mount hangs on the east wall, staring into the room with faux eyes. There is a sofa in the center of the room facing the fireplace; a painting hangs on the wall behind it.
+
+You can climb the stairs to the second floor, or travel South into the hallway.
+
+> Use rifle
+
+> Use rifle
+You place the Rusted Rifle on the Gun Rack. You hear a loud clicking sound as if something has just unlocked.
+(You unlocked an Achievement.)
+> Open cabinet
+
+> Open cabinet
+You open it.
+> take call
+
+> take call
+You pick it up.
+> push cabinet
+
+> push cabinet
+You move the cabinet West. As it scrapes the wall, a Hidden Room to the North is revealed to you.
+(You unlocked an Achievement.)
+> north
+
+> north
+
+Hidden Room
+This tight space could have been a closet at some point, but now it is more reminiscent of a small jail cell. The wooden wall panels are warped and have mostly come untacked. There is a small desk in the corner of the room, and a dirty cot lay next to you.
+
+You can exit the room to the South.
+
+> open drawer
+
+> open drawer
+You open it.
+> take key
+
+> take key
+You pick it up.
+> unlock tackle box
+
+> unlock tackle box
+Unlocked.
+You use the Tackle Box Key and unlock the Tackle Box
+> open tackle box
+
+> open tackle box
+You open it.
+You open the tackle box and find a Fishing Net inside of it.
+(You unlocked an Achievement.)
+> south
+
+> south
+
+Living Room
+Once the main dwelling space of this house, the living room is now a stale and dusty remnant of another age. There is a fireplace along the north wall, a gun rack resting just above it. A large wooden cabinet stands tall just a few feet to the right of the fireplace. A deer mount hangs on the east wall, staring into the room with faux eyes. There is a sofa in the center of the room facing the fireplace; a painting hangs on the wall behind it.
+
+You can climb the stairs to the second floor, travel South into the hallway, or enter the hidden room to the North.
+
+> Take arrow
+
+> Take arrow
+You pull the arrow out of the deer head.
+> use stairs
+
+> use stairs
+
+Upstairs Hallway West
+The narrow and warped second-floor hallway creaks and moans as you walk. The wind howls against the window behind you on the south wall, a cool draft passing through the single pane.
+
+The hallway continues to the East, or you can take the Stairs to the first floor.
+
+> east
+
+> east
+
+Upstairs Hallway East
+The wood floors are warped and buckled from exposure to the elements. The paint has peeled away from the walls, and parts of the ceiling have fallen in from water damage. You notice that a trail of fresh blood comes from down the hall and stops at a door directly in front of you to the North.
+
+The hallway continues West, and there is a door next to you to the East.
+
+> east
+
+> east
+
+Bathroom
+The bathroom is in shambles. The '70s mint green floor tile has all but broken apart and scattered into pieces. The sink is hanging off the wall, the mirror above the sink is shattered, and you seriously doubt that the grimy toilet and tub are in working order. There is a cupboard below the sink and a Laundry Shoot on the far wall.
+
+> open cupboard
+
+> open cupboard
+You open it.
+> take bottle
+
+> take bottle
+You pick it up.
+Suddenly the door to the Bathroom SLAMS shut. Startled, you cautiously try the handle; it is locked.
+> enter laundry shoot
+
+> enter laundry shoot
+It's a tight fit, but you manage to crawl into the laundry shoot and slowly slide down into the darkness below.
+(You unlocked an Achievement.)
+
+Cellar
+You fall from the shoot into the cellar. You notice a piece of paper came out of the laundry shoot with you. It must have been stuck in there. It reads:
+
+Confession of Daniel Muir #2
+(Letter has been logged into your Inventory. Type: READ LETTER to review.)
+
+The cellar is dreary and dank, with low ceilings, a dirt floor, and dust-ridden cobwebs sprawled along the log rafters. You can see a workbench against the wall nearest to you. Next to the bench is a metal cabinet. The Laundry Shoot you fell from earlier protrudes from the ceiling. There are stone steps in the corner of the room that lead upward.
+
+You can see a Steps.
+> Open cabinet
+
+> Open cabinet
+The old metal cabinet squeaks as you twist the knobs and swing the doors open.
+> Take compound
+
+> Take compound
+You pick it up.
+> take spare parts
+
+> take spare parts
+You pick it up.
+> use steps
+
+> use steps
+You travel up the old stone steps and unlock the Cellar Doors.
+
+Backyard
+You walk outside onto a patio surrounded by tall grass. It is unnervingly quiet out here. In the grass, you can see a rusty swing set, and at the edge of the patio, there is a water spigot. On the side of the house, you spot cellar doors.
+
+You can go South back into the house.
+
+> south
+
+> south
+
+Kitchen
+The kitchen is a mess.  You hear creaking and see that the back door has been left open, allowing dirt and dead leaves to collect on the floor. The kitchen table lay flipped and broken on its side, and the counter is covered in dishes and cooking utensils. Next to you is a dirty stove with a set of cupboards above it.
+
+You can go back into the hallway South or exit North through the back door.
+
+> open cupboard
+
+> open cupboard
+You open it.
+> take pitcher
+
+> take pitcher
+You pick it up.
+> north
+
+> north
+
+Backyard
+You walk outside onto a patio surrounded by tall grass. It is unnervingly quiet out here. In the grass, you can see a rusty swing set, and at the edge of the patio, there is a water spigot. On the side of the house, you spot cellar doors.
+
+You can go South back into the house.
+
+> Use spigot
+
+> Use spigot
+You used the water spigot and filled the pitcher with water.
+> south
+
+> south
+
+Kitchen
+The kitchen is a mess.  You hear creaking and see that the back door has been left open, allowing dirt and dead leaves to collect on the floor. The kitchen table lay flipped and broken on its side, and the counter is covered in dishes and cooking utensils. Next to you is a dirty stove with a set of cupboards above it.
+
+You can go back into the hallway South or exit North through the back door.
+
+> south
+
+> south
+
+Downstairs Hallway East
+The fog outside has somehow made its way into the house, a smokey grey haze blanketing your surroundings.
+
+From the hallway, you see a kitchen to the North, and the front door is behind you to the South.
+
+> Unlock door
+
+> Unlock door
+You unlocked the door. You can now travel South and go outside.
+> south
+
+> south
+
+Front Porch
+You stand in front of an abandoned farmhouse. It is an old construction, possibly dating back to the '20s or '30s. The siding is greyed, and the paint has all but peeled away, suggesting that it has not been occupied for many years. On the porch; you see a broken porch swing, some empty planters, and a rocking chair.
+
+The front door is directly North of you. You notice a second-story window just above the doorway.
+
+> south
+
+> south
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> south
+
+> south
+
+Deer Trail 1c
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush. You can also head South.
+
+> south
+
+> south
+
+Deer Trail 1b
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North. There are also trails to the East and South.
+
+> south
+
+> south
+
+Rabbit Blind
+This is another small clearing. It looks like this area has been used to trap rabbits. You can go North, or Northeast.
+
+You can see a Broken Rabbit Snare.
+> Take Broken rabbit snare
+
+> Take Broken rabbit snare
+You have taken the Broken Rabbit Snare. It might be useless in its current state.
+> use spare parts on rabbit snare
+
+> use spare parts on rabbit snare
+You use the spare parts to Fix the Rabbit Snare.
+(You unlocked an Achievement.)
+> use rabbit snare
+
+> use rabbit snare
+You have set the snare.
+> use rabbit call
+
+> use rabbit call
+You use the Rabbit Call. After a moment, you can hear rustling in the nearby brush. To your surprise; a rabbit darts out, getting caught in the snare. It squeals in pain!
+(You unlocked an Achievement.)
+> nock arrow
+
+> nock arrow
+You nock the arrow onto the bowstring.
+> shoot rabbit
+
+> shoot rabbit
+You shoot an arrow into the Rabbit. It dies almost imediately. There is a subtle death rattle.
+> take rabbit
+
+> take rabbit
+You pick it up.
+> use knife on rabbit
+
+> use knife on rabbit
+You use the knife to gut and skin the dead rabbit. Now you have Rabbit Meat fit for a stew.
+(You unlocked an Achievement.)
+> north
+
+> north
+
+Deer Trail 1b
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North. There are also trails to the East and South.
+
+> north
+
+> north
+
+Deer Trail 1c
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush. You can also head South.
+
+> north
+
+> north
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> north
+
+> north
+
+Front Porch
+You stand in front of an abandoned farmhouse. It is an old construction, possibly dating back to the '20s or '30s. The siding is greyed, and the paint has all but peeled away, suggesting that it has not been occupied for many years. On the porch; you see a broken porch swing, some empty planters, and a rocking chair.
+
+The front door is directly North of you. You notice a second-story window just above the doorway.
+
+> north
+
+> north
+
+Downstairs Hallway East
+The fog outside has somehow made its way into the house, a smokey grey haze blanketing your surroundings.
+
+From the hallway, you see a kitchen to the North, and the front door is behind you to the South.
+
+> north
+
+> north
+
+Kitchen
+The kitchen is a mess.  You hear creaking and see that the back door has been left open, allowing dirt and dead leaves to collect on the floor. The kitchen table lay flipped and broken on its side, and the counter is covered in dishes and cooking utensils. Next to you is a dirty stove with a set of cupboards above it.
+
+You can go back into the hallway South or exit North through the back door.
+
+> use rabbit meat on meat scale
+
+> use rabbit meat on meat scale
+The face of the scale popped open, revealing a hidden compartment.
+(You unlocked an Achievement.)
+> take key
+
+> take key
+You have taken the Car Key.
+> south
+
+> south
+
+Downstairs Hallway East
+The fog outside has somehow made its way into the house, a smokey grey haze blanketing your surroundings.
+
+From the hallway, you see a kitchen to the North, and the front door is behind you to the South.
+
+> south
+
+> south
+
+Front Porch
+You stand in front of an abandoned farmhouse. It is an old construction, possibly dating back to the '20s or '30s. The siding is greyed, and the paint has all but peeled away, suggesting that it has not been occupied for many years. On the porch; you see a broken porch swing, some empty planters, and a rocking chair.
+
+The front door is directly North of you. You notice a second-story window just above the doorway.
+
+> south
+
+> south
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> south
+
+> south
+
+Deer Trail 1c
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush. You can also head South.
+
+> south
+
+> south
+
+Deer Trail 1b
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North. There are also trails to the East and South.
+
+> east
+
+> east
+
+Deer Trail 2b
+More deer trail surrounded by thick brush. The blood leads West. There is a trail to the Northeast and East.
+
+> east
+
+> east
+
+Small Clearing
+A small clearing nestled inside the thicket of deer trails. In the brush, you can see an old rusty car. The blood seems to lead West from here. Trails are leading Northeast, East, and South
+
+> unlock trunk
+
+> unlock trunk
+You unlocked the car trunk.
+(You unlocked an Achievement.)
+You open it.
+> take sledge hammer
+
+> take sledge hammer
+You pick it up.
+> west
+
+> west
+
+Deer Trail 2b
+More deer trail surrounded by thick brush. The blood leads West. There is a trail to the Northeast and East.
+
+> west
+
+> west
+
+Deer Trail 1b
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North. There are also trails to the East and South.
+
+> north
+
+> north
+
+Deer Trail 1c
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush. You can also head South.
+
+> north
+
+> north
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> east
+
+> east
+
+Decrepit Paddock
+You stand inside of a grazing paddock just outside of the barn. To your shock, you discover dozens of animal skeletons inside the paddock. Cows, pigs, goats, all of them look to have been forgotten here and left for dead. Who could have let this happen?
+
+The large barn looms to the East and the field to the West.
+
+> east
+
+> east
+
+Old Barn North
+The interior of the barn is massive and has not been maintained over the years, as it is missing boards along its walls. It won't be long until the roof collapses.
+
+Next to you near the entryway; you see a pile of miscellaneous sporting goods. There is a large workbench across from you along the wall near the stables. You can travel deeper into the barn by going South.
+
+> south
+
+> south
+
+Old Barn South
+You find yourself facing a wall of old cobblestone. Here, the barn is in as bad of shape as it is to the North. The wooden boards are weathered, warped, and discolored from years of exposure to the elements. Antique farming tools hang from hooks on the walls.
+
+> use sledge hammer
+
+> use sledge hammer
+You swing the Sledge Hammer with all of your might, hitting the crack. It crumbles and creates a large hole. You can see the inside of the Silo to the South.
+(You unlocked an Achievement.)
+> south
+
+> south
+
+Dilapidated Silo
+The cobblestone silo once stood tall overlooking the farmland but has since collapsed to half its original height. Inside, you see a mess of stone and rubble. Scanning the area with your flashlight, the light beam lands on a pile of animal bones.
+
+You can exit the Silo to the North.
+
+> take chemical compound b
+
+> take chemical compound b
+You pick it up.
+Underneath the bag of chemicals, you find a piece of paper. You pick it up, it reads:
+
+Confession of Daniel Muir #3
+(Letter has been logged into your Inventory. Type: READ LETTER to review.)
+> north
+
+> north
+
+Old Barn South
+You find yourself facing a wall of old cobblestone. Here, the barn is in as bad of shape as it is to the North. The wooden boards are weathered, warped, and discolored from years of exposure to the elements. Antique farming tools hang from hooks on the walls.  There is a crack in the wall big enough to slip through. You see the interior of the Silo to the South.
+
+> north
+
+> north
+
+Old Barn North
+The interior of the barn is massive and has not been maintained over the years, as it is missing boards along its walls. It won't be long until the roof collapses.
+
+Next to you near the entryway; you see a pile of miscellaneous sporting goods. There is a large workbench across from you along the wall near the stables. You can travel deeper into the barn by going South.
+
+> use chemical compound b on mixer
+
+> use chemical compound b on mixer
+You put Compound B into the mixer.
+> use chemical compound a on mixer
+
+> use chemical compound a on mixer
+You put one part of Compound A into the mixer.
+> use pitcher on mixer
+
+> use pitcher on mixer
+You put water into the mixer.
+> use mixer
+
+> use mixer
+You created the Herbicide.
+(You unlocked an Achievement.)
+> take herbicide
+
+> take herbicide
+You fill the Spray Bottle with Herbicide.
+> west
+
+> west
+
+Decrepit Paddock
+You stand inside of a grazing paddock just outside of the barn. To your shock, you discover dozens of animal skeletons inside the paddock. Cows, pigs, goats, all of them look to have been forgotten here and left for dead. Who could have let this happen?
+
+The large barn looms to the East and the field to the West.
+
+> west
+
+> west
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> south
+
+> south
+
+Deer Trail 1c
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush. You can also head South.
+
+> south
+
+> south
+
+Deer Trail 1b
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North. There are also trails to the East and South.
+
+> east
+
+> east
+
+Deer Trail 2b
+More deer trail surrounded by thick brush. The blood leads West. There is a trail to the Northeast and East.
+
+> east
+
+> east
+
+Small Clearing
+A small clearing nestled inside the thicket of deer trails. In the brush, you can see an old rusty car. The blood seems to lead West from here. Trails are leading Northeast, East, and South
+
+> northeast
+
+> northeast
+
+Deer Trail 3c
+Your clothes get caught on thorns and branches as you make your way. It looks like you can go East, South, Southwest, or West.
+
+> east
+
+> east
+
+Deer Trail 4c
+You can see a small opening in the trail to the East. The trail continues West and South.
+
+> east
+
+> east
+
+Eastern Forest
+You exit the deer trail and enter the darkened forest. Amidst the many pine trees, you can vaguely make out the shadow of a tree looming to the East. There is also a trail leading North.
+
+You can re-enter the deer trail to the West.
+
+> east
+
+> east
+
+Large Oak Tree
+You gaze at a towering dead oak tree, its twisted and gnarled branches reaching out in all directions. At the base of the trunk, there is a large hole, its entrance covered with a thick layer of vines.
+
+In the distance, you hear the high-pitched whining of coyotes. You can go back West.
+
+> use spray bottle on vines
+
+> use spray bottle on vines
+You spray the Herbicide onto the Vines and they wither away.
+(You unlocked an Achievement.)
+> enter hole
+
+> enter hole
+
+A Coyote Den
+It is a tight fit, but you are inside the earthen den. Roots and stone portrude from its walls and the ground is compact from years of use. You are startled by the discovery of a human skeleton inside the den with you.
+
+You can flee by climbing out of the hole.
+
+> take key
+
+> take key
+You pick it up.
+> climb out of hole
+
+> climb out of hole
+
+Large Oak Tree
+You gaze at a towering dead oak tree, its twisted and gnarled branches reaching out in all directions. At the base of the trunk, there is a large hole just big enough to climb in.
+
+In the distance, you hear the high-pitched whining of coyotes. You can go back West.
+
+> west
+
+> west
+
+Eastern Forest
+You exit the deer trail and enter the darkened forest. Amidst the many pine trees, you can vaguely make out the shadow of a tree looming to the East. There is also a trail leading North.
+
+You can re-enter the deer trail to the West.
+
+> north
+
+> north
+
+Swampy Pond
+You come up to a small pond in the middle of the forest. Earlier in the year, the bog would be alive with the croaking of toads and frogs, but October has chilled them all into hibernation, and the swamp lay eerily silent. Fog rolls atop the surface of the green, slimy water as you scan your flashlight back and forth. You wonder; could there be fish in here?
+
+You can head back South the way you came.
+
+> use fishing net on pond
+
+> use fishing net on pond
+You throw the fishing net out into the pond and slowly drag it towards the shore. You discover a human Skull inside the net. You take the Skull.
+(You unlocked an Achievement.)
+> south
+
+> south
+
+Eastern Forest
+You exit the deer trail and enter the darkened forest. Amidst the many pine trees, you can vaguely make out the shadow of a tree looming to the East. There is also a trail leading North.
+
+You can re-enter the deer trail to the West.
+
+> west
+
+> west
+
+Deer Trail 4c
+You can see a small opening in the trail to the East. The trail continues West and South.
+
+> west
+
+> west
+
+Deer Trail 3c
+Your clothes get caught on thorns and branches as you make your way. It looks like you can go East, South, Southwest, or West.
+
+> west
+
+> west
+
+Deer Trail 2c
+These trails are extensive. You begin to wonder what other animals might lurk around in here. You can continue Southwest or go East.
+
+> southwest
+
+> southwest
+
+Deer Trail 2b
+More deer trail surrounded by thick brush. The blood leads West. There is a trail to the Northeast and East.
+
+> west
+
+> west
+
+Deer Trail 1b
+There is a pool of blood, hair, and mucus here; the deer must have fallen. The broken branches indicate that it traveled North. There are also trails to the East and South.
+
+> north
+
+> north
+
+Deer Trail 1c
+The blood has become droplets again. Your eyes follow them Northeast, where you find an opening through the brush. You can also head South.
+
+> north
+
+> north
+
+Darkened Field
+This larger field looks like it once was used to grow corn or possibly soybeans, but now it is covered in tall grass. An old Farmall tractor sits in the center of the field. Barely visible through the fog, you see the shadow of a farmhouse to the North, a decrepit barn to the East, and a treeline to the Northwest.
+
+> north
+
+> north
+
+Front Porch
+You stand in front of an abandoned farmhouse. It is an old construction, possibly dating back to the '20s or '30s. The siding is greyed, and the paint has all but peeled away, suggesting that it has not been occupied for many years. On the porch; you see a broken porch swing, some empty planters, and a rocking chair.
+
+The front door is directly North of you. You notice a second-story window just above the doorway.
+
+> north
+
+> north
+
+Downstairs Hallway East
+The fog outside has somehow made its way into the house, a smokey grey haze blanketing your surroundings.
+
+From the hallway, you see a kitchen to the North, and the front door is behind you to the South.
+
+> west
+
+> west
+
+Downstairs Hallway West
+This narrow hallway is covered in cobwebs, and you watch dust particles floating in and out of your light's beam as you scan the area. Pictures are hanging along the northern wall, and several boarded-up windows are on the southern wall.
+
+The hallway continues East, or you can enter the living room to the North.
+
+You can see a Cobwebs.
+> north
+
+> north
+
+Living Room
+Once the main dwelling space of this house, the living room is now a stale and dusty remnant of another age. There is a fireplace along the north wall, a gun rack resting just above it. A large wooden cabinet stands tall just a few feet to the right of the fireplace. A deer mount hangs on the east wall, staring into the room with faux eyes. There is a sofa in the center of the room facing the fireplace; a painting hangs on the wall behind it.
+
+You can climb the stairs to the second floor, travel South into the hallway, or enter the hidden room to the North.
+
+> use stairs
+
+> use stairs
+
+Upstairs Hallway West
+The narrow and warped second-floor hallway creaks and moans as you walk. The wind howls against the window behind you on the south wall, a cool draft passing through the single pane.
+
+The hallway continues to the East, or you can take the Stairs to the first floor.
+
+> east
+
+> east
+
+Upstairs Hallway East
+The wood floors are warped and buckled from exposure to the elements. The paint has peeled away from the walls, and parts of the ceiling have fallen in from water damage. You notice that a trail of fresh blood comes from down the hall and stops at a door directly in front of you to the North.
+
+The hallway continues West, and there is a door next to you to the East.
+
+> unlock door
+
+> unlock door
+You unlock the Bedroom Door.
+(You unlocked an Achievement.)
+> north
+
+> north
+
+Bedroom
+You enter the bedroom and follow the trail of blood to a darkened corner. When you look up, you are startled to find a pair of milky white eyes watching your every move from the darkness. You stand still, shining your flashlight at the Lurking Shadow, but somehow its beam cannot penetrate it. The shadow speaks to you in a chillingly gurgled voice. "Find... her."
+
+The decrepit bedroom has a dresser and a bed. You can exit South, the way you came.
+
+> use skull on lurking shadow
+
+> use skull on lurking shadow
+The creature's milky white eyes follow you across the room as you place the Skull on the floor near the impenetrable shadow. After a few tense moments, a gangly misshapen hand reaches out, grabbing the skull and pulling it into the darkness. A haunting cry fills the room as an obscure figure emerges from the shadow. Standing in front of you is a creature so hideous that the mere sight of it leaves you disoriented and feeling faint. A wildly animated and fleshy juxtaposition of man and deer howls as it clutches the skull.
+
+As you watch, frozen in terror, it runs on all fours toward the window, then jumps through the glass. You run to the window and find that the creature has vanished through the tall grass, back into the forest in which it came.
+
+Turning your gaze back into the room, you see that your bloodied arrow lay on the floor.
+
+(You unlocked an Achievement.)
+
+YOUR HUNT IS OVER
+Achievements: 17/28
+
+You can type RESTART  to start the game over.
+OR
+You can type  UNDO  to undo your last turn.
+
+The Deer Blind
+A Dark Forest Media Game
+Created by Justin Squires for Ectocomp 2021
+Follow Dark Forest Media on Instagram or Twitter @darkforestmedia
+
+Thanks for playing!
+
+> quit
+
+> quit
+[state=Finished]

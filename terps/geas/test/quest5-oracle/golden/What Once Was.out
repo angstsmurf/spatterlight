@@ -1,0 +1,1713 @@
+What Once Was
+
+by Luke A. Jones
+ (with some coding magic from K.V.)
+
+You are in Your Office.
+
+You can see Your Desk, Holly's Desk, a Computer, a Window, a Radiator and Your Desk Drawer.
+
+You can go out.
+
+You are in the cramped postgraduate office that you share with Holly, (who is currently away at a conference in the states). There are piles of journal papers everywhere and empty bottles of diet coke festoon your desk and the window sill. There are various posters and timetables blu-tacked to the walls.
+
+You've just arrived at the office rather late after a heavy night's drinking at The Cross Keys with your housemate Phil, best check your email first and see what you've missed.
+
+*****type 'hints' at any time for instructions and help******
+
+> read email
+
+> read email
+
+You take a deep breath and steel yourself to deal with today's delivery of electronic mither and annoyance.
+
+Amongst the usual academic spam and poorly directed mass emails from faculty, three emails from your supervisor marked 'URGENT' leap out of the screen at you.
+
+Email sent today at 7:47am
+
+"Where are you? It's nearly 8am, I had a breakthrough with the power problems we've been struggling with, meet me down at the lab when you finally get out of bed"
+
+Email sent today at 8:33am
+
+"OK I got bored waiting for you, I've implemented the power fix and the voltage seems to finally be stabilised. Come down to the lab and we'll try test run number 1337b. Also I've changed the  lab code, it's easy as 12,34,56,78"
+
+Email sent today at 9:03am
+
+"Right, I can't hang around all morning waiting for you, I have a damn programme committee meeting to attend at 9:30am, I'm going to do the trial run myself, I'll catch up with you later this afternoon when you finally crawl in"
+> open drawer
+
+> open drawer
+
+You open it.
+It contains Your Passport.
+> take passport
+
+> take passport
+
+You pick it up.
+> out
+
+> out
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> e
+
+> e
+
+You are in the Post Room.
+
+You can see a Photocopier, a Pigeon-hole Cabinet and a Stationery  Cupboard.
+
+You can go west.
+
+> x pigeon-hole cabinet
+
+> x pigeon-hole cabinet
+
+The departmental pigeon-hole cabinet where the post and  internal messages are placed (and often left for weeks or even years on end), there are individual compartments each labelled with a person's name.
+
+Yours appear to have something in it, it's a note from Professor Weck, it reads "In case your PC isn't working.. I've gone down to the lab, I've had a breakthrough! Meet me there, signed" ...and then there’s Prof's complicated scrawl of a signature.
+> w
+
+> w
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> w
+
+> w
+
+You are in the Common Room.
+
+You can see a TV, a Filthy Microwave, some Uncomfortable chairs and a Remote Control.
+
+You can go east.
+
+> open remote control
+
+> open remote control
+
+You open it.
+It contains a Full Battery.
+> take battery
+
+> take battery
+
+You pick it up.
+> e
+
+> e
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> down
+
+> down
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> down
+
+> down
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> w
+
+> w
+
+You are in the Porters Lodge.
+
+You can see a radio and The Porter.
+
+You can go east.
+
+> give battery to porter
+
+> give battery to porter
+
+You give the full battery to the Porter, his face lights up, "Thank you!", he replaces the battery in the radio and switches it on , it crackles into life, and the dulcit tones of Geoffrey Boycott come drifting across the airwaves, "You've got to get it into the corridor of uncertainity!" says Geoffrey.. for the millionth time.
+
+"YES!", says the Porter, "You tell 'em Geoffrey!", "Thanks so much, here take this and help yourself, just don't go crazy", he hands you the key for the stationery cupboard
+> e
+
+> e
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> use keypad
+
+> use keypad
+
+Please enter security code:
+> 2444666668888888
+The lab door is unlocked now
+> e
+
+> e
+
+You are in the Temporal Integrator Laboratory.
+
+You can see a Computer Bank, Computer Monitors, a Slot (containing a Temporal Power Algorithm Cartridge), a Socket (containing a Broken Power Unit) and a Temporal Integrator.
+
+You can go west.
+
+> take cartridge
+
+> take cartridge
+
+You pick it up.
+> take broken power unit
+
+> take broken power unit
+
+You pick it up.
+> w
+
+> w
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> down
+
+> down
+
+You are in the Sub basement corridor.
+
+You can go east, up or west.
+
+> w
+
+> w
+
+You are in a Broom Cupboard.
+
+You can see a Broom, a Mop, a Bucket, a Shelf and a Mousetrap.
+
+You can go east.
+
+> x shelf
+
+> x shelf
+
+A high wooden shelf, (if anything falls off it you've only yourshelf to blame)
+on which there is a Bottle of White Spirit.
+> take white spirit
+
+> take white spirit
+
+You pick it up.
+> x mousetrap
+
+> x mousetrap
+
+A wooden spring loaded mouse trap, with a piece of cheese as bait. You consider these traps rather cruel, so you decide to caerphilly unset the trap and place the piece of cheese in your pocket.
+> fill zippo
+
+> fill zippo
+
+You remove the inner mechanism of the lighter and gently pour the white spirit into the cotton gauze inside. It gives off a sweet and heady smell. You discard the empty bottle.
+> e
+
+> e
+
+You are in the Sub basement corridor.
+
+You can go east, up or west.
+
+> up
+
+> up
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> up
+
+> up
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> up
+
+> up
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> e
+
+> e
+
+You are in the Post Room.
+
+You can see a Photocopier, a Pigeon-hole Cabinet and a Stationery  Cupboard.
+
+You can go west.
+
+> unlock cupboard
+
+> unlock cupboard
+
+You unlock the cupboard
+
+A thrill of adrenaline courses through your body as you finally gain access to the stationary cupboard
+
+You open it.
+It contains a box of pens, a whiteboard eraser, a Whiteboard marker, A4 paper and Scissors.
+> open cupboard
+
+> open cupboard
+
+It is already open.
+> take paper
+
+> take paper
+
+You pick it up.
+> take marker
+
+> take marker
+
+You pick it up.
+> put paper in photocopier
+
+> put paper in photocopier
+
+After a lot of fiddling with the various trays you manage to fill the photocopier with paper, you have a few sheets left which you keep.
+> photocopy passport
+
+> photocopy passport
+
+After several paper jams, and practically disassembling the machine and putting it back together again you manage to produce a photocopy of your passport.
+> w
+
+> w
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> down
+
+> down
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> north
+
+> north
+
+You are in the Main Campus Quadrangle.
+
+You can see a Huge Boulder.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is an immaculate lawn in the centre of which is a Huge Boulder.
+
+> north
+
+> north
+
+You are inside the Library.
+
+You can see a Librarian and a Reception Desk.
+
+You can go south.
+
+The library reception area, a beautiful Victorian Neo-Gothic building with a wooden vaulted ceiling.To gain access you need to speak to the librarian as you've lost your library card (hopefully it's not fully booked).
+
+> speak to librarian
+
+> speak to librarian
+
+The librarian looks up and smiles broadly, "Good morning Sir, how can I help you?"
+
+You awkwardly explain that you have lost your library card. The Librarian says, "Ok, well you'll need to bring me a photocopy of your passport and get this form signed by your Professor, Professor Weck isn't it? Lovely man, I knew him when we were both students, I'd recognise his signature anywhere."
+
+The librarian hands you the form.
+
+> south
+
+> south
+
+You are in the Main Campus Quadrangle.
+
+You can see a Huge Boulder.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is an immaculate lawn in the centre of which is a Huge Boulder.
+
+> put paper on boulder
+
+> put paper on boulder
+
+You place a piece of paper on the boulder, after a few moments there is a sizzling sound and the rock begins to glow and turn into a huge pile of sand. A convenient blast of wind blows the sand away, revealing a bunker door.
+> down
+
+> down
+
+You are in a Cold War Bunker.
+
+You can go up.
+
+It is pitch black in here and you can't see a thing, the air is stale and musty, you turn around and scrape your leg painfully on some hidden object.
+
+> use zippo
+
+> use zippo
+
+You flip the lid on your Zippo and spark the flame with a flick of your fingers, it burns with a fat blue and yellow flame
+
+Finally you can see what you are doing in here!
+> open filing cabinet
+
+> open filing cabinet
+
+You open it.
+It contains Incriminating Evidence.
+> take incriminating evidence
+
+> take incriminating evidence
+
+You pick it up.
+> up
+
+> up
+
+As you exit the bunker into the light you extinguish your Zippo
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> west
+
+> west
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> southwest
+
+> southwest
+
+You are in the School of Art and Design.
+
+You can see Alex and Alex's Workstation.
+
+You can go northeast.
+
+> give form to alex
+
+> give form to alex
+
+"So", says Alex, "you want a bit of forgery doing! It will have to be good to get past Laura's gaze..but I like a challenge, I'll hold on to it, but you need to bring me a sample of your Prof's signature."
+> give note from professor weck to alex
+
+> give note from professor weck to alex
+
+"Ah, that will do nicely" says Alex. He begins to carefully copy the signature from the note to the form, after a few minutes he finishes and says, "Probably my finest work yet, pearls before swine, anyway here you go, buy me a pint next time we're in The Cross Keys". He hands you the signed form
+> northeast
+
+> northeast
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> south
+
+> south
+
+You are in Greggs.
+
+You can see an All manner of hot pastry goodness, a Shopkeeper and a Menu.
+
+You can go north.
+
+> speak to shopkeeper
+
+> speak to shopkeeper
+
+"Hello Sir what would you like today?" (just type the name of the thing you want)
+
+> cheese and onion bake
+"An excellent choice!" She picks up a cheese and onion bake with a pair of tongs, places it in a paper bag and hands it to you. "I'll add it to your account" she says.
+> north
+
+> north
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> north
+
+> north
+
+You are in the School of Mathematics.
+
+You can see Phil the PostDoc.
+
+You can go south.
+
+A beautiful Art Deco building, built in the 1920's. The corridors are lined with geometric designs, and deeply cut narrow stained glass windows let the light stream in. Your footseteps echos off the parquet flooring.
+
+> give cheese and onion bake to phil
+
+> give cheese and onion bake to phil
+
+Phil's rheumy eyes light up, "Sweet Mother of Mercy! Cheers mate" Phil munches down the Cheese and Onion Bake and washes it down with a cup of coffee from his thermos flask.
+
+"Right' says Phil, "I'm ready to integrate, calculate and aggravate!"
+> give marker to phil
+
+> give marker to phil
+
+"Thanks, they always come in handy"
+> give cartridge to phil
+
+> give cartridge to phil
+
+"OK", says Phil, lets have a look at your Prof's handiwork then. Phil pulls a magnifying glass out of his pocket and scrutinises the integrator while making a series of grunting, humming and sardonic chuckling noises.
+
+"Well, well, well", says Phil, "It's genius, but it's flawed genius, as you have already ascertained by the knackered power unit and a missing professor", "It's not far off being perfect though, I think I can tweak the parallel circuit feedback loop, I'll need a quiet room with a whiteboard and this journal paper (he scribbles a note and hands it to you)
+
+> south
+
+> south
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> east
+
+> east
+
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> north
+
+> north
+
+You are inside the Library.
+
+You can see a Librarian and a Reception Desk.
+
+You can go south.
+
+The library reception area, a beautiful Victorian Neo-Gothic building with a wooden vaulted ceiling.To gain access you need to speak to the librarian as you've lost your library card (hopefully it's not fully booked).
+
+> speak to librarian
+
+> speak to librarian
+
+"Ah I see you have the form and photocopy Sir, excellent" she takes them from you, "I knew I'd recognise Professor Weck's signature", she fiddles with an electronic laminater connected to a PC, it ejects a laminated library card and she hands it to you "here you go" she says.
+> give note from phil to librarian
+
+> give note from phil to librarian
+
+The librarian take the note from you, squints at the handwriting and says, "No problem, and say hello to Phil from me", she disappears down the corridor but is back in a couple of minutes.
+
+"Here you go, hope it solves the problem, and do say hi to Professor Weck from me, the name's Laura", she hands you a photocopied journal article.
+
+> south
+
+> south
+
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> west
+
+> west
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> north
+
+> north
+
+You are in the School of Mathematics.
+
+You can see Phil the PostDoc.
+
+You can go south.
+
+A beautiful Art Deco building, built in the 1920's. The corridors are lined with geometric designs, and deeply cut narrow stained glass windows let the light stream in. Your footseteps echos off the parquet flooring.
+
+> give journal article to phil
+
+> give journal article to phil
+
+"Excellent, now I have everything I need, tell me where there is a quiet room with a whiteboard and I'll get this done for you" (just type name of the room/location)
+> profs office
+"Ah good idea", says Phil, I'll meet you there
+> south
+
+> south
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> east
+
+> east
+
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> south
+
+> south
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> west
+
+> west
+
+You are in Professor Weck's Office.
+
+You can see Profs Desk, a Whiteboard and Phil the PostDoc.
+
+You can go east.
+
+> speak to phil
+
+> speak to phil
+
+"Look upon, my works, ye mighty, and despair!", says Phil and gesturing towards the whiteboard.
+
+"I've emailed the new algorithm to Yi Lu to make a new cartridge you can go and ask him for it whenever you like."
+
+> east
+
+> east
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> north
+
+> north
+
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> east
+
+> east
+
+You are in the Faculty Building.
+
+You can go west, north or east.
+
+A beautiful stone building in the classic gothic style, with wood panelling and oil portraits on the walls (mainly of the Dean and his sycophantic board of governors).
+
+There seems to be a hell of a lot of construction work going on, looks some kind of extension is being built. (There's a construction pun coming, but I'm still working on it)
+
+> north
+
+> north
+
+You are in the Deans Reception Room.
+
+You can see a Deans Secretary.
+
+You can go south or north.
+
+> give incriminating evidence to secretary
+
+> give incriminating evidence to secretary
+
+The Dean's Secretary scans through the documents, and begins to chuckle, she looks you in the eye and says, "It's about time the croc got his comeuppance, the fucker makes my life a misery,",  "I have a feeling that space has just opened up in the Dean's diary, hang on a sec"
+
+The secretary disappears into the Deans office; you can hear a muffled raised voice and what sounds like a string of expletives. The secretary reappears, "Dean Berthill will see you now" she says.
+
+> north
+
+> north
+
+You are in the Deans Office.
+
+You can see a The Dean.
+
+You can go south.
+
+> speak to dean
+
+> speak to dean
+
+"So," says the Dean, "You discovered my connection with Balfour Beatty", 'Well let me tell you something I've discovered in this job, everyone has their price, now what's yours?"
+
+You hesitate for a second, you would dearly love to tell the Dean where to go and procreate, but the image of your Prof stuck in time with no way back comes to your mind, you explain to the Dean what you want.
+
+"Very well" says the Dean, he takes a pad of blank purchase orders from his desk, scribbles on one of them and hands it to you. "And here's a little something to sweeten the deal", he hands you an envelope. "This matter is over, if I hear any rumours I'll destroy your career and that of your beloved Professor Weck". "Now get out of here"
+
+> south
+
+> south
+
+You are in the Deans Reception Room.
+
+You can see a Deans Secretary.
+
+You can go south or north.
+
+> south
+
+> south
+
+You are in the Faculty Building.
+
+You can go west, north or east.
+
+A beautiful stone building in the classic gothic style, with wood panelling and oil portraits on the walls (mainly of the Dean and his sycophantic board of governors).
+
+There seems to be a hell of a lot of construction work going on, looks some kind of extension is being built. (There's a construction pun coming, but I'm still working on it)
+
+> east
+
+> east
+
+You are in the Requisitions Building.
+
+You can see a Requisitions Clerk and a Time Suit.
+
+You can go west.
+
+> give purchase order to clerk
+
+> give purchase order to clerk
+
+You give the purchase order to the clerk, he studies it with suspicion, but can find no fault, he stamps it, places it in a folder and hands you the Time Suit
+> west
+
+> west
+
+You are in the Faculty Building.
+
+You can go west, north or east.
+
+A beautiful stone building in the classic gothic style, with wood panelling and oil portraits on the walls (mainly of the Dean and his sycophantic board of governors).
+
+There seems to be a hell of a lot of construction work going on, looks some kind of extension is being built. (There's a construction pun coming, but I'm still working on it)
+
+> west
+
+> west
+
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> south
+
+> south
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> down
+
+> down
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> down
+
+> down
+
+You are in the Sub basement corridor.
+
+You can go east, up or west.
+
+> east
+
+> east
+
+You are in the Technical Support Office.
+
+You can see Barry and Yi Lu.
+
+You can go west.
+
+Imagine an explosion in a Dell computer factory and you've got a good idea of what this room looks like, PCs, monitors, keyboards and mice in various states of repair. Boxes bursting with all manner of connection leads, electrical testing gear and soldering irons on benches.
+
+> give season ticket to barry
+
+> give season ticket to barry
+
+Barry's eyes light up in wonder, "Are you serious?!" he says, "There's a twenty year waiting list for one of these! Where the hell did you get it?"
+
+You explain about the Dean, "That corrupt rat, a finger in every pie huh. " says Barry, "Well thank you so much, let me know if there is anything I can ever do for you".
+> give broken power unit to barry
+
+> give broken power unit to barry
+
+Barry takes the unit from you and says, "OK no problem", he prises it open, fiddles with the wiring and changes the internal fuses, tests it with a probe, fiddles with a dial, nods with approval, closes the unit up and passes it back to you. "There you go, fit as Fernandinho, ha ha!", "You laugh and say "thanks Barry", and wonder who the fuck Fernandinho is.
+> speak to yi lu
+
+> speak to yi lu
+
+"Hello there, I got the email from Phil, here your new Temporal Agorithm Cartridge, nice coding by the way, but there is a problem I didn't have the right size blank cartridge, they are out of stock. It will still work, but you need to find something small and metal to wedge it into the lab's computer slot."
+> west
+
+> west
+
+You are in the Sub basement corridor.
+
+You can go east, up or west.
+
+> up
+
+> up
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> up
+
+> up
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> use vending machine
+
+> use vending machine
+
+You insert several coins into the slot and press the 1st Diet Coke button, a message flashes up next to it saying "Sold Out", you press the 2nd Diet Coke button, there is a satisfying metallic clunk and thud as the can hits the dispensing tray. You pick it up.
+> drink coke
+
+> drink coke
+
+You crack open the ring tab, the can gives forth a 'pssst' noise, you drain the can in several swigs, it's oh so familiar sweet cool and dry taste is still awesome, and you can feel the caffeine hitting your brain.
+
+You feel like you can do anything (until the hit wears off and you need another). You belch loudly.
+> crush can
+
+> crush can
+
+Yes you can! (crush the can) so you do, you crush it down to a small metal disc.
+> down
+
+> down
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> east
+
+> east
+
+You are in the Temporal Integrator Laboratory.
+
+You can see a Computer Bank, Computer Monitors, a Slot, a Socket and a Temporal Integrator.
+
+You can go west.
+
+> put new temporal algorithm cartridge in slot
+
+> put new temporal algorithm cartridge in slot
+
+The New Temporal Algorithm Cartridge fits into the slot but it is the wrong size, it needs to be wedged in with something, just as Yi Lu suggested.
+> put crushed can in slot
+
+> put crushed can in slot
+
+You've done it! The cartridge is firmly wedged in the slot with the crushed can. With work like this you'll be a precision engineer in no time.
+> put fixed power unit in socket
+
+> put fixed power unit in socket
+
+Done.
+> wear time suit
+
+> wear time suit
+
+You put it on.
+> turn on integrator
+
+> turn on integrator
+
+OK, you finally have everything in place, you are wearing a Time Suit, the temporal power algorithm is fixed and wedged into the slot, and the faulty power unit has been replaced.
+
+You input your temporal destination on the computer, press enter and flick on the temporal integrator.
+
+There is a humming noise that increases in volume and pitch and then suddenly a purple spot of light is projected from the integrator, it hangs in mid-air and increases in size until it is large enough to step into.
+
+You close the visor on your helmet and step into the hole.
+
+You are in The Year 2037: Temporal Integrator Laboratory.
+
+You can see Professor Weck and a Temporal Field.
+
+You can go west.
+
+"Hello" says Professor Weck, "You finally got out of bed then!"
+
+You smile and say, "Nice riddle on the lab keypad". Then you notice that apart from the glowing temporal field there is no light in the lab, and huge cobwebs and dust cover the walls and ceiling.
+
+Professor Weck notices the puzzlement on your face and a shadow crosses his. He says, "I twisted my knee and banged my head in the blast when the temporal field collapsed, I need to rest for a while,  but you should go and have a look around, see what you can find out about this time, explore where you want but do go and see what's happening in the Main Quad, try and pick up a prospectus so we have some proof, then report back. If you need to go back to 2017 for anything just walk into the temporal field."
+
+As you turn to leave Prof Weck says, "Oh one more thing, my portable temporal field manipulator is out of charge, here (he hands it to you) try and find a source of mild non-ionising radiation to charge it up
+
+> west
+
+> west
+
+You are in The Year 2037: Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go west, east, down or up.
+
+Paint is peeling off the walls and there is a smell of mildew, in places there are missing celing tiles and exposed wiring.
+
+> up
+
+> up
+
+You are in The Year 2037: Ground Floor Corridor.
+
+You can see a Security Guard and a Drink Vending Machine.
+
+You can go up, west, north or down.
+
+> up
+
+> up
+
+You are in a The Year 2037: First Floor Corridor.
+
+You can go in, east, west or down.
+
+> in
+
+> in
+
+You are in The Year 2037: Your Office.
+
+You can see a Small Hole and a window.
+
+You can go out.
+
+Your old office now appears to be a storeroom, it's full of broken furniture, boxes of paperwork, old computer parts and electrical components are stacked up. Like the rest of the building there is dust and cobwebs everywhere and the paint is peeling off the walls.
+
+> put cheese in small hole
+
+> put cheese in small hole
+
+You break a small piece off the lump of cheese and place it near the hole, suddenly you see a small nose and whiskers appear, a tiny mouse grabs the cheese with its little front paws,  gobbles it down, then gives a tiny squeak of appreciation.
+
+The mouse steps out of the hole and appears for all the world to be wearing a tiny academic gown, hood and tudor bonnet.
+
+Somewhere from the folds of its gown it produces a tiny business card and holds it up to you, you take it. The mouse bows and scurries off out of sight.
+> out
+
+> out
+
+You are in a The Year 2037: First Floor Corridor.
+
+You can go in, east, west or down.
+
+> down
+
+> down
+
+You are in The Year 2037: Ground Floor Corridor.
+
+You can see a Security Guard, a Drink Vending Machine and Gerald The Mouse.
+
+You can go up, west, north or down.
+
+> give cheese to gerald
+
+> give cheese to gerald
+
+You break a small piece off the lump of cheese and give it to the mouse. The mouse reaches up with it's little front paws, grabs the cheese, gobbles it down, then gives a tiny squeak of appreciation.
+
+Moving swift and silently in the shadows the mouse scales the wall and swings across the ceiling until he is just above the Security Guard. The mouse repels down a tiny rope to the Guard's belt and gently unhooks one of the keys. He then clambers back up to the ceiling.
+
+There is a blur of motion and the mouse appears at your side, hands you up the key and disappears out of sight.
+
+> up
+
+> up
+
+You are in a The Year 2037: First Floor Corridor.
+
+You can go in, east, west or down.
+
+> west
+
+> west
+
+You are in The Year 2037: Common Room.
+
+You can see a Locker.
+
+You can go east.
+
+The sign on the common room door now reads 'Security Office: Authorised Personnel Only'. Inside there are a series of lockers and benches, basically a changing area.
+
+> unlock locker
+
+> unlock locker
+
+Unlocked.
+You open it.
+It contains a Guard Uniform.
+> open locker
+
+> open locker
+
+It is already open.
+> take guard uniform
+
+> take guard uniform
+
+You pick it up.
+> remove time suit
+
+> remove time suit
+
+You take it off.
+> wear guard uniform
+
+> wear guard uniform
+
+You put it on.
+> east
+
+> east
+
+You are in a The Year 2037: First Floor Corridor.
+
+You can go in, east, west or down.
+
+> down
+
+> down
+
+You are in The Year 2037: Ground Floor Corridor.
+
+You can see a Security Guard and a Drink Vending Machine.
+
+You can go up, west, north or down.
+
+> north
+
+> north
+
+The Security Guard clicks his heels and salutes, "All hail The Croc!" he says, you nod and return the salute.
+You are in The Year 2037: Main Campus Quadrangle .
+
+You can see a Huge Statue and Luxury Cars.
+
+You can go south, east, west or north.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy, the Library is to the North and the Student Union Building lies West.
+
+To the East lies the Faculty Building which is now twice the size than it was 20 years ago, crenulated towers have been added to each corner, giving it the appearance of a fortress and the roof appears to be covered in gold.
+
+In the middle of the Quad the lawn has been concreted over and made into a private carpark for faculty members, in the centre is a Huge Statue.
+
+> west
+
+> west
+
+You are in The Year 2037: Student Union Building.
+
+You can see a Gig Poster 2037.
+
+You can go east, south, north, southwest or west.
+
+You are in the Student Union building, to the North is Waste Ground, to the South is the Outback Café, to the East is the Main Quad, to the Southwest is The George Osborne School of Economics, and to the West lies the Cross Keys Inn
+
+> south
+
+> south
+
+You are in The Year 2037: Outback Café.
+
+You can see a Menu Board, a Waiter and a Prospectus.
+
+You can go north.
+
+What used to be Greggs now appears to be an Australian themed café. Customers are sat on sanded driftwood benches, there are folded bicycles, pushchairs, and enough Berghaus and North Face clothing to mount a polar expedition.
+
+> take prospectus
+
+> take prospectus
+
+You pick it up.
+> north
+
+> north
+
+You are in The Year 2037: Student Union Building.
+
+You can see a Gig Poster 2037.
+
+You can go east, south, north, southwest or west.
+
+You are in the Student Union building, to the North is Waste Ground, to the South is the Outback Café, to the East is the Main Quad, to the Southwest is The George Osborne School of Economics, and to the West lies the Cross Keys Inn
+
+> east
+
+> east
+
+You are in The Year 2037: Main Campus Quadrangle .
+
+You can see a Huge Statue and Luxury Cars.
+
+You can go south, east, west or north.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy, the Library is to the North and the Student Union Building lies West.
+
+To the East lies the Faculty Building which is now twice the size than it was 20 years ago, crenulated towers have been added to each corner, giving it the appearance of a fortress and the roof appears to be covered in gold.
+
+In the middle of the Quad the lawn has been concreted over and made into a private carpark for faculty members, in the centre is a Huge Statue.
+
+> south
+
+> south
+
+You are in The Year 2037: Ground Floor Corridor.
+
+You can see a Security Guard and a Drink Vending Machine.
+
+You can go up, west, north or down.
+
+> down
+
+> down
+
+You are in The Year 2037: Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go west, east, down or up.
+
+Paint is peeling off the walls and there is a smell of mildew, in places there are missing celing tiles and exposed wiring.
+
+> down
+
+> down
+
+You are in The Year 2037: Sub Basement Corridor.
+
+You can go up, west or east.
+
+Paint is peeling off the walls and there is a very strong smell of mildew, in places there are missing celing tiles and exposed wiring.
+
+> east
+
+> east
+
+You are in The Year 2037: Technical Support Office.
+
+You can see a Box of Electrical Gubbins and a magnetron.
+
+You can go west.
+
+Another abandoned and derelict room, looks like Barry and Yi Lu are long gone.
+
+> take magnetron
+
+> take magnetron
+
+You pick it up.
+> west
+
+> west
+
+You are in The Year 2037: Sub Basement Corridor.
+
+You can go up, west or east.
+
+Paint is peeling off the walls and there is a very strong smell of mildew, in places there are missing celing tiles and exposed wiring.
+
+> up
+
+> up
+
+You are in The Year 2037: Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go west, east, down or up.
+
+Paint is peeling off the walls and there is a smell of mildew, in places there are missing celing tiles and exposed wiring.
+
+> east
+
+> east
+
+You are in The Year 2037: Temporal Integrator Laboratory.
+
+You can see Professor Weck and a Temporal Field.
+
+You can go west.
+
+The only source of light in the room is the glowing temporal field that you travelled through, which hangs in the middle of the room. The rest of the room is empty save for dust and huge cobwebs.
+
+> remove guard uniform
+
+> remove guard uniform
+
+You take it off.
+> wear time suit
+
+> wear time suit
+
+You put it on.
+> use temporal field
+
+> use temporal field
+
+You are in the Temporal Integrator Laboratory.
+
+You can see a Computer Bank, Computer Monitors, a Slot (containing a New Temporal Algorithm Cartridge and a Crushed Diet Coke Can), a Socket (containing a Fixed Power Unit), a Temporal Integrator and a Temporal Field.
+
+You can go west.
+
+> west
+
+> west
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> up
+
+> up
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> up
+
+> up
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> west
+
+> west
+
+You are in the Common Room.
+
+You can see a TV, a Filthy Microwave, some Uncomfortable chairs and a Remote Control.
+
+You can go east.
+
+> fix microwave
+
+> fix microwave
+
+You unscrew the back of the microwave and replace the broken magnetron. Congratulations you fixed it!
+> use microwave
+
+> use microwave
+
+You place the PTFM gadget inside the microwave and set the timer for 30 secs. After 30 seconds the microwave goes "Ping!", and you remove the warm and now fully charged PTFM.
+> east
+
+> east
+
+You are in the First Floor Corridor.
+
+You can go in, east, west or down.
+
+> down
+
+> down
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> down
+
+> down
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> east
+
+> east
+
+You are in the Temporal Integrator Laboratory.
+
+You can see a Computer Bank, Computer Monitors, a Slot (containing a New Temporal Algorithm Cartridge and a Crushed Diet Coke Can), a Socket (containing a Fixed Power Unit), a Temporal Integrator and a Temporal Field.
+
+You can go west.
+
+> step into temporal field
+
+> step into temporal field
+
+You are in The Year 2037: Temporal Integrator Laboratory.
+
+You can see Professor Weck and a Temporal Field.
+
+You can go west.
+
+The only source of light in the room is the glowing temporal field that you travelled through, which hangs in the middle of the room. The rest of the room is empty save for dust and huge cobwebs.
+
+> give ptfm to professor weck
+
+> give ptfm to professor weck
+
+"Ah, well done", says Prof Weck, he takes the th PTFM gadget and inserts it into a hole on the side of his laptop
+> give prospectus to professor weck
+
+> give prospectus to professor weck
+
+Professor Weck thumbs through the prospectus, through gritted teeth he says, "That mother fucker!", "this might come in handy later, I'll hang on to it"
+> speak to professor weck
+
+> speak to professor weck
+
+You tell the prof about all the horrors you have seen in 2037, the Prof listens in silence while his face slowly turns red, suddenly he bursts out "Enough! That maniac needs to be stopped, or this university and my life's work are for nothing"
+
+The Prof pauses for a second as if hesitating, "I know we have discussed how dangerous visiting the past is, but if we are careful then it will be worth the risk..and for christ’s sake fracking! Fucking granola?! This will not stand"
+
+The prof pulls pulls out his laptop, extends a small aerial, a purple beam of light hits the temporal field, "Just adjusting the temporal depth...there! Got it", "1997 here we come"
+
+The Prof hobbles into the Temporal field and you follow him
+
+You are in a Year 1997: Temporal Integrator Laboratory.
+
+You can see Professor Weck and a Temporal Field.
+
+You can go west.
+
+"So, we're here, back in the last decent decade, before the dark times," says Prof, "It's too dangerous for me to leave this room, I may bump into people who know me, or even worse, myself!"
+
+"Bring the Dean here, this note should do the trick". The Prof scribbles something on the back of an enevelope and hands it to you.
+
+"The history department is where the requisitions office is in 2017, the Croc's first act on getting promoted to Dean was to shut it down."
+
+"Have a quick look around while you're here, but we can't stay long, it's dangerous!"
+
+> west
+
+> west
+
+You are in a The Year 1997: Basement Corridor.
+
+You can go up, east, west or down.
+
+> up
+
+> up
+
+You are in a The Year 1997: Ground Floor Corridor.
+
+You can go down, west, up or north.
+
+> north
+
+> north
+
+You are in The Year 1997: Main Campus Quadrangle.
+
+You can go south, east, west or north.
+
+You are in the Main Campus Quadrangle in the year 1997. Looks like the Huge Boulder hasn't been placed here yet, nothing to hide you guess.
+
+To the East is the Faculty Building, to the West is The Student Union Building, to the North is the Library, to the South is the School of Physics
+
+> east
+
+> east
+
+You are in The Year 1997: Faculty Building.
+
+You can go west, east or north.
+
+A beautiful stone building in the classic gothic style, with wood panelling and photos on the walls of the University buildings at various points in the its history
+
+> east
+
+> east
+
+You are in a The Year 1997: School of History.
+
+You can see Dr Alan Berthill.
+
+You can go west.
+
+The School of History has the privilege of being housed in the east wing of the grand   Faculty building. Your footsteps echo of the stone floors and vaulted ceiling. The Dean (or just Dr Alan Berthill as he is at the moment) is sat in the corner of the reading room in a oxblood leather wingback chesterfield armchair. He looks up from his book as you enter.
+
+> give note to alan
+
+> give note to alan
+
+You give the note to Dr Alan Berthill, he reads it and chuckles, "so Jim's got his time machine working!? This I have to see, lead the way!" he says.
+Dr Alan Berthill begins to follow you.
+> west
+
+> west
+
+You are in The Year 1997: Faculty Building.
+
+You can go west, east or north.
+
+A beautiful stone building in the classic gothic style, with wood panelling and photos on the walls of the University buildings at various points in the its history
+
+Dr Alan Berthill is right by your side.
+> west
+
+> west
+
+You are in The Year 1997: Main Campus Quadrangle.
+
+You can go south, east, west or north.
+
+You are in the Main Campus Quadrangle in the year 1997. Looks like the Huge Boulder hasn't been placed here yet, nothing to hide you guess.
+
+To the East is the Faculty Building, to the West is The Student Union Building, to the North is the Library, to the South is the School of Physics
+
+Dr Alan Berthill is right by your side.
+> south
+
+> south
+
+You are in a The Year 1997: Ground Floor Corridor.
+
+You can go down, west, up or north.
+
+Dr Alan Berthill is right by your side.
+> down
+
+> down
+
+You are in a The Year 1997: Basement Corridor.
+
+You can go up, east, west or down.
+
+Dr Alan Berthill is right behind you.
+> east
+
+> east
+
+You are in a Year 1997: Temporal Integrator Laboratory.
+
+You can see Professor Weck and a Temporal Field.
+
+You can go west.
+
+A testament to how long the Prof has been working on the Temporal Integrator, this is his lab from 20 years ago, half assembled prototypes and what would turn out to be woefully underpowered computers are strewn around the room.
+
+As you enter the lab with Alan Berthill, there is a click behind you as Prof Weck locks the lab door.
+
+"Jesus Christ!" says Alan to the Prof, what the hell happened to you, you've aged twenty years...Oh, I see, wow! You got the machine to work then?
+
+"Yes", says Prof, "but it took longer than anticipated," "you better look at this", he hands him the prospectus.
+
+Alan flips through the prospectus, he mumbles as waves of incomprehension and then shock flow across his face, "...Fracking!..jesus....Who is George Osbourne?...that statue!...Croc security Inc? ... fucking Quinoa and flax seeds?!..."
+
+Shaking and pale he says, "This isn't me! How do I become this barbarian? Are you judging me for things I haven't done yet? Well I swear to you now I'll never let this happen if I do become Dean."
+
+Alan looks nervously at the temporal field and then at Prof Weck with pleading eyes and says "Jim, you know me, I'm no monster, give me a chance, please!"
+
+Prof Weck turns to you and says, "You decide his fate, I'm too close to this"
+
+It's time for you to decide the fate of Dr Alan Berthill. What is your decision?
+
+ Press 1 to Kill Alan Berthill,
+Press 2 to Trust that Alan Berthill will change
+
+1: Kill Dr Alan Berthill
+2: Trust Dr Alan Berthill
+> 2
+You look Alan directly in the eye, "I'm trusting you to act on what you have seen." Your voice trembles, "You've been given a second chance, make the most of it".
+
+Prof Weck says, "Let's hope your compassion isn't folly" he unlocks the door, "Get out of here Alan, before I get any ideas".
+
+Alan looks at you and says, "Thank you, I won't let you down", he gives a half-grin half-smile and for a second you see a flash of the Croc that you know in 2037.
+
+Alan bolts out of the door.
+
+"Right" says Prof Weck, "let's get the hell out of here! He manipulates the temporal field with the PTFM and hobbles into it. You follow.
+
+You are in the Temporal Integrator Laboratory.
+
+You can see a Computer Bank, Computer Monitors, a Slot (containing a New Temporal Algorithm Cartridge and a Crushed Diet Coke Can), a Socket (containing a Fixed Power Unit), a Temporal Integrator and a Temporal Field.
+
+You can go west.
+
+> west
+
+> west
+
+You are in the Basement Corridor.
+
+You can see a Lab Security Keypad.
+
+You can go up, west, down or east.
+
+> up
+
+> up
+
+You are in the Ground Floor Corridor.
+
+You can see a Drink Vending Machine.
+
+You can go up, west, down or north.
+
+> north
+
+> north
+
+You are in the Main Campus Quadrangle.
+
+You can go south, west, north, east or down.
+
+You are in the Main Campus Quadrangle, to the South is The School of Interdisciplinary Cross-Fertilization and Scientific Impactful Synergy (where your office is), to the east is the Faculty Building, the Library is to the North and the Student Union Building lies West.
+
+In the middle of the Quad is a bunker door
+
+> west
+
+> west
+
+You are inside the Student Union Building.
+
+You can see a Gig Poster.
+
+You can go east, south, west, north or southwest.
+
+You are in the Student Union building, to the North is The School of Mathematics, to the South is a Greggs Pasty Shop, to the East is the Main Quad, to the Southwest is the School of Art and Design, and to the West lies the Cross Keys Inn
+
+> west
+
+> west
+
+You are in the Cross Keys Inn.
+
+You can see a Landlady, Dean Alan Berthill, Alex, Phil , Holly and a Pool Table.
+
+You can go east.
+
+The Cross Keys Inn, actually predates the University, it used to be an charming and slightly scruffy boozer, but with the increase in student access to debt it has evolved into a gastro pub with pretentious aspirations. However its convenient location, pool table and decent larger on tap means that you and Phil are regular punters.
+
+> wait
+
+> wait
+
+Time passes.
+> wait
+
+> wait
+
+Time passes.
+> wait
+
+> wait
+
+Time passes.
+> wait
+
+> wait
+
+Time passes.
+> wait
+
+> wait
+
+Time passes.
+> wait
+
+> wait
+
+Time passes.
+*************************************************************************
+
+The doors of the pub swing open and in walks Professor Weck.
+
+"Hi Alan! Long time no see, I like what you have done with the place, so a man of your word after all!"
+
+"Glad you approve" says the Dean, "But I've been wondering recently if I've gone too soft, so I've hired a new Vice-Dean to help me out, she's got some excellent ideas about how to increase the income of the University, her name is Macy Wellroth".
+
+The Prof shoots you a worried look...
+
+**********************************************************************
+
+Congratulations, you have completed the game! (Ending 1 of 2)
+
+)
+
+ Press any key to see the credits
+___________________________________________________
+
+Credits
+
+Written and coded by Luke A. Jones, using the Quest text adventure engine (www.textadeventures.co.uk), with some amazing coding help and magic by K.V. (one cool Frood, cheers K.V.), I would never have got it finished in time without him.
+
+Thank you to Alex Dimmer for creating the artwork and to Jennifer Thompson, and K.V. for alpha and beta testing, and for their excellent suggestions for improvements. Special thanks to Jennifer for putting up with my puns and awful spelling.
+
+Thank you to Joe Wright for providing the Latin translation for the University Crest
+
+Thanks also to the excellent support from the Quest forum members.
+
+I was inspired to start writing parser games after playing the wonderful text adventures of Robin Johnson, you should check them out: http://versificator.net/
+
+The pigeon was inspired by the twitter account @pigeonjohn
+
+The huge boulder is a real thing (although not enchanted as far as I can tell) have a look: http://www.geograph.org.uk/photo/4363007
+
+Lastly you no doubt spotted a whole load of paradoxes in the plot, this is unavoidable without invoking alternative realities. The only time travelling book I have read that actually manages to avoid paradoxes is by the genius hard sci-fi writer (and my favourite author) Stephen Baxter in his novel ‘The Time Ships’, which was written to commemorate the centenary of the publication of ‘The Time Machine’ by H.G. Wells.
+
+I have authored two other text adventures, ‘A Christmas Game’ and ‘The Bony of Nowhere’. The Christmas game is a nice short casual game if you want to introduce someone to parser text adventure games.
+
+I welcome any (polite) feedback: luke.jones@gmail.com
+
+Be kind and excellent to each other, and thanks for playing.
+
+Luke xx
+
+[state=Finished]

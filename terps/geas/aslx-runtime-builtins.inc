@@ -311,6 +311,31 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (up->elem_type == "exit" && live(up)) names.push_back(up->name);
         return vobjlist(names);
     }
+    if (fn == "getexitbylink" && n == 2) {
+        // ExpressionOwner.GetExitByLink: the first ElementType.Object element
+        // (exits included -- Elements.Objects is the whole Object element
+        // type, not ObjectType.Object) parented in `from` whose `to` field is
+        // the target, returned as its NAME (a string), or null. Hawk the
+        // Hunter's NPC movement messages use it every walk tick.
+        if (arg(0).type == Value::Type::Null) throw_null("from");
+        if (arg(1).type == Value::Type::Null) throw_null("to");
+        for (int i = 0; i < 2; ++i)
+            if (arg(i).type != Value::Type::ObjectRef)
+                error("GetExitByLink function expected object parameter but "
+                      "was passed '" + to_string(arg(i)) + "'");
+        Element *fromEl = obj_of(arg(0)), *toEl = obj_of(arg(1));
+        for (auto &up : world_.elements) {
+            if (!live(up)) continue;
+            if (up->elem_type != "object" && up->elem_type != "exit" &&
+                up->elem_type != "turnscript" && up->elem_type != "game")
+                continue;
+            if (parent_of(up.get()) != fromEl) continue;
+            const Value *f = resolve_field(up.get(), "to");
+            if (f && f->type == Value::Type::ObjectRef && obj_of(*f) == toEl)
+                return vstr(up->name);
+        }
+        return vnull();
+    }
     if (fn == "allturnscripts" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
@@ -476,7 +501,16 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // ---- lists ------------------------------------------------------------
     if ((fn == "newlist" || fn == "newstringlist") && n == 0) return vstrlist({});
     if (fn == "newobjectlist" && n == 0) return vobjlist({});
-    if (fn == "listcount" && n == 1) return vint((long)arg(0).list().size());
+    if (fn == "listcount" && n == 1) {
+        // QuestViva's ListCount takes any ICollection -- dictionaries count
+        // too (Hawk's finale checks ListCount(game.score_achievements) > 0 on
+        // a dictionary before printing the achievements header).
+        if (arg(0).type == Value::Type::StringDict ||
+            arg(0).type == Value::Type::ObjectDict ||
+            arg(0).type == Value::Type::ScriptDict)
+            return vint((long)arg(0).dict().size());
+        return vint((long)arg(0).list().size());
+    }
     if (fn == "listitem" && n == 2) {
         const Value &l = arg(0);
         long i = iarg(1);
