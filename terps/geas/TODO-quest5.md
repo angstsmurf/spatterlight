@@ -1,5 +1,29 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-17, babel metadata + cover art)
+
+- **`babel/quest5.c` now extracts full iFiction metadata and cover art from
+  Quest 5 packages** (milestone 6's last presentation-facing gap). It inflates
+  `game.aslx` with zlib (a compact central-directory zip reader +
+  `inflateInit2(-MAX_WBITS)`), parses the `<game>` element's bibliographic
+  fields (name→title, `<gameid>`→IFID, author/subtitle→headline/category→genre/
+  firstpublished/description) and synthesizes an iFiction record; a shared
+  `clean_html` decodes entities THEN strips tags so double-encoded HTML titles
+  (`&lt;b&gt;DRACULA&lt;/b&gt;` → `DRACULA`) come out clean. Packaged games now
+  return their real `<gameid>` IFID (inflate-then-search), falling back to the
+  whole-file MD5 byte-for-byte like `babel_handler`. Cover art pulls the
+  `<cover>` image out of the zip (stored or deflated), sniffs PNG/JPEG, parses
+  dimensions, and returns the bytes byte-identically. `NO_METADATA`/`NO_COVER`
+  dropped; the standalone `babel` makefile link line gains `-lz`. Verified: all
+  55 corpus packages + raw `.aslx` pass `babel -verify` AND `-lint`, 36 covers
+  extract byte-exact, 0 real ASan/UBSan findings across every game ×
+  {meta,cover,ifid,format}, clean under `-Wall -Wextra -Werror`. Fixed along
+  the way: the returned metadata buffer is now NUL-terminated with the extent
+  reserving room for it — babel's own consumers (`get_biblio`,
+  `deep_babel_ifiction`) treat it as a C string via `strstr`/`fputs`, so
+  without the terminator the CLI `-meta` path overflowed (a latent bug the
+  synthesizing modules share). See §5.
+
 ## Status (2026-07-17, The Tree + synchronous play-sound parked continuations)
 
 - **The Tree (Father Thyme, 2014/v2.0 2023, ASL 580) joins the corpus as the
@@ -1050,11 +1074,29 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
 - [x] New sources into the geas target of `Spatterlight.xcodeproj` (only
       aslxglk.cc compiles — it unity-includes the rest; links libz+libexpat)
       *and* the standalone `test/Makefile` (`aslxglk_smoke` vs CheapGlk).
-- [~] Babel: `babel/quest5.c` (2026-07-16) claims zips containing `game.aslx`
-      and raw `<asl` XML; raw-XML `<gameid>` GUID is returned as the IFID.
-      TODO: zip metadata needs a zlib inflate of game.aslx — IFID from
-      packaged games, `gamename`/`author` ifiction, cover art; then drop
-      `NO_METADATA`/`NO_COVER`.
+- [x] Babel: `babel/quest5.c` claims zips containing `game.aslx` and raw
+      `<asl` XML. **Metadata + cover landed (2026-07-17)**: game.aslx is
+      inflated with zlib (a small central-directory zip reader +
+      `inflateInit2(-MAX_WBITS)`), the `<game>...</game>` element is parsed for
+      the bibliographic fields (name= → title, `<gameid>` → IFID, `<author>`,
+      `<subtitle>` → headline, `<category>` → genre, `<firstpublished>`,
+      `<description>`), and a synthesized iFiction record is emitted. Quest
+      stores these as HTML, so a shared `clean_html` decodes entities THEN
+      strips tags (double-encoded titles like `&lt;b&gt;DRACULA&lt;/b&gt;`
+      resolve to `DRACULA`); the output is XML-escaped, `<br/>` preserved in
+      the description. IFID from packaged games is now the real `<gameid>`
+      (inflate-then-search), falling back to the whole-file MD5 exactly like
+      `babel_handler`'s auto-fallback (byte-identical, verified). Cover art:
+      the `<cover>` filename is extracted from the zip (stored or deflated),
+      format sniffed (PNG/JPEG magic), dimensions parsed, and the bytes handed
+      back verbatim (byte-identical to the packaged image). `NO_METADATA`/
+      `NO_COVER` dropped; the standalone `babel` makefile link line gains
+      `-lz` (the app target already links libz). Verified: all 55 corpus
+      packages + raw `.aslx` produce iFiction that passes `babel -verify` AND
+      `-lint`, 36 covers extract byte-exact, 0 real AddressSanitizer/UBSan
+      findings across every game × {meta,cover,ifid,format}, clean under
+      `-Wall -Wextra -Werror`. (The one babel self-test failure, `alan`, is a
+      pre-existing lowercase-IFID mismatch, unrelated.)
 - [x] `Info.plist` (2026-07-16): `quest`/`aslx` document type +
       `public.quest5` UTI; also gGameFileTypes in AppDelegate.m, the
       quest5→geas terp table, Autorestore + fileref format names.
@@ -1132,8 +1174,8 @@ stays unsupported, as in `quest4.c`.
    de-dup; panes ✅ 2026-07-16, the UpdateLists port + side pane / status
    banner): remaining — `<backgroundimage>`.
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
-   app-verified with Dream Pieces): remaining — babel zip metadata/cover,
-   a corpus-wide replay gate wired into `make check`.
+   app-verified with Dream Pieces; babel zip metadata + cover art ✅
+   2026-07-17): remaining — a corpus-wide replay gate wired into `make check`.
 
 Size honesty: milestones 2–3 alone are on the order of the whole existing
 runner (`geas-runner.cc` is 5.5 k lines) — the engine primitives are small

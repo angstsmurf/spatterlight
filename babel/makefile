@@ -52,7 +52,7 @@ babel_functions =  babel_story_functions${OBJ} babel_ifiction_functions${OBJ} ba
 babel_objs = babel${OBJ} $(BABEL_FLIB) $(IFICTION_LIB) $(BABEL_LIB)
 
 babel: ${babel_objs}
-	${COMPILER} ${OUTPUT_BABEL} ${babel_objs}
+	${COMPILER} ${OUTPUT_BABEL} ${babel_objs} -lz
 
 %${OBJ} : %.c
 	${COMPILER} -c $^
