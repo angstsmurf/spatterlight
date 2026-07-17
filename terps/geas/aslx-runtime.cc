@@ -1011,10 +1011,14 @@ void Interp::run_script(const std::string &source, Context &ctx) {
     try {
         auto stmts = compile_script(source);
         exec_block(*stmts, ctx);
-    } catch (const TurnSuspended &) {
+    } catch (TurnSuspended &ts) {
         // Not an error: a synchronous `play sound` parked the turn. The
         // suspension passes through every script boundary to the turn
         // boundary (QuestViva's await chain suspends RunScriptAsync itself).
+        // This IS a script boundary, so claim the frames unwound so far with
+        // a snapshot of this script's context; resume_parked_tail re-runs
+        // them inside an equivalent boundary.
+        ts.frames.push_back(TurnSuspended::Frame{nullptr, 0, ctx});
         --script_depth_;
         throw;
     } catch (const std::exception &err) {
@@ -1026,8 +1030,24 @@ void Interp::run_script(const std::string &source, Context &ctx) {
 // -- execution --------------------------------------------------------------
 
 void Interp::exec_block(const std::vector<Stmt> &stmts, Context &ctx) {
-    for (const Stmt &s : stmts) {
-        exec_stmt(s, ctx);
+    exec_block_from(stmts, 0, ctx);
+}
+
+void Interp::exec_block_from(const std::vector<Stmt> &stmts, size_t start,
+                             Context &ctx) {
+    for (size_t i = start; i < stmts.size(); ++i) {
+        try {
+            exec_stmt(stmts[i], ctx);
+        } catch (TurnSuspended &ts) {
+            // Park capture: the not-yet-run remainder of this block joins the
+            // suspended continuation, innermost block first. The enclosing
+            // script boundary claims these frames with a context snapshot.
+            // (Known gap: a while/for/foreach loop's remaining ITERATIONS are
+            // C++ loop state and are not captured -- a sync sound inside a
+            // loop body resumes the rest of that body only.)
+            ts.frames.push_back(TurnSuspended::Frame{&stmts, i + 1, Context{}});
+            throw;
+        }
         if (ctx.returned) return;
     }
 }
@@ -1204,6 +1224,10 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     // set_question_response / finish_wait). Registering a new prompt of a kind
     // that already pends cancels the old one (BeginPrompt's TrySetCanceled).
     case Stmt::Kind::Wait: {
+        // WaitScript.ExecuteAsync: DoWait, then BeginPrompt(ref _waitTcs) --
+        // which first cancels whatever holds the slot. A parked synchronous
+        // `play sound` resumes inline HERE, before this wait registers.
+        resume_parked_tail();
         if (wait_pending_) { wait_cb_ = PendingCallback{}; end_pending_callback(); }
         wait_pending_ = true;
         wait_cb_.body = &s.body;
@@ -1365,7 +1389,10 @@ void Interp::run_callback_boundary(const std::vector<Stmt> *body, Context &ctx) 
     ++script_depth_;
     try {
         exec_block(*body, ctx);
-    } catch (const TurnSuspended &) {
+    } catch (TurnSuspended &ts) {
+        // A script boundary: claim the unwound frames with this callback's
+        // context so resume_parked_tail can re-run them (see run_script).
+        ts.frames.push_back(TurnSuspended::Frame{nullptr, 0, ctx});
         --script_depth_;
         throw;
     } catch (const std::exception &err) {
@@ -1487,7 +1514,13 @@ void Interp::send_command(const std::string &command) {
         PendingCallback cb = std::move(command_cb_);
         command_cb_ = PendingCallback{};
         cb.ctx.locals["result"] = vstr(command);
-        run_callback_boundary(cb.body, cb.ctx);
+        try {
+            run_callback_boundary(cb.body, cb.ctx);
+        } catch (TurnSuspended &ts) {
+            // Parked on a sync sound (see set_menu_response).
+            park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/1);
+            return;
+        }
         end_pending_callback();
         return;
     }
@@ -1524,10 +1557,11 @@ void Interp::send_command(const std::string &command) {
         // HandleCommandAsyncInternal ends the turn with a pane refresh (its
         // std::exception throws are LogException'd inside update_lists).
         if (!world_.finished) update_lists();
-    } catch (const TurnSuspended &) {
+    } catch (TurnSuspended &ts) {
         // Synchronous `play sound` mid-command: the rest of the turn --
-        // including FinishTurn -- is abandoned (the QuestViva await chain
-        // never resumes headless).
+        // including FinishTurn -- parks on the wait slot, resumed when the
+        // slot is next claimed (see resume_parked_tail).
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/0);
     }
 }
 
@@ -1550,12 +1584,21 @@ void Interp::set_menu_response(const std::string *key) {
     } else {
         cb.ctx.locals["result"] = vnull();  // cancelled
     }
-    run_callback_boundary(cb.body, cb.ctx);
+    try {
+        run_callback_boundary(cb.body, cb.ctx);
+    } catch (TurnSuspended &ts) {
+        // Parked on a sync sound: the callback finally (EndPendingCallback)
+        // and the pane refresh are owed by the parked continuation.
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
+        return;
+    }
     end_pending_callback();
     // WorldModel.SetMenuResponse: pane refresh once the chain resolved.
     try {
         if (!world_.finished) update_lists();
-    } catch (const TurnSuspended &) {}
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
+    }
 }
 
 void Interp::set_question_response(bool response) {
@@ -1565,26 +1608,142 @@ void Interp::set_question_response(bool response) {
     PendingCallback cb = std::move(question_cb_);
     question_cb_ = PendingCallback{};
     cb.ctx.locals["result"] = vbool(response);
-    run_callback_boundary(cb.body, cb.ctx);
+    try {
+        run_callback_boundary(cb.body, cb.ctx);
+    } catch (TurnSuspended &ts) {
+        // Parked on a sync sound (see set_menu_response).
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
+        return;
+    }
     end_pending_callback();
     // WorldModel.SetQuestionResponse: pane refresh once the chain resolved.
     try {
         if (!world_.finished) update_lists();
-    } catch (const TurnSuspended &) {}
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
+    }
 }
 
 void Interp::finish_wait() {
-    if (!wait_pending_) return;
+    if (!wait_pending_) {
+        // WorldModel.FinishWait is `_waitTcs?.TrySetResult()`: if the wait
+        // slot is held by a parked synchronous `play sound` instead of a
+        // wait, completing the TCS resumes that continuation.
+        resume_parked_tail();
+        return;
+    }
     wait_pending_ = false;
     PendingCallback cb = std::move(wait_cb_);
     wait_cb_ = PendingCallback{};
-    run_callback_boundary(cb.body, cb.ctx);
+    try {
+        run_callback_boundary(cb.body, cb.ctx);
+    } catch (TurnSuspended &ts) {
+        // The callback parked on a sync sound; its AwaitWaitAndRunCallback
+        // finally (EndPendingCallback) and the pane refresh are owed by the
+        // parked continuation.
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
+        return;
+    }
     end_pending_callback();
     // WorldModel.FinishWait: refresh the panes once the callback chain
-    // resolved (a park inside update_lists just abandons the refresh).
+    // resolved (a park inside update_lists defers the refresh to the resume).
     try {
         if (!world_.finished) update_lists();
-    } catch (const TurnSuspended &) {}
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
+    }
+}
+
+void Interp::park_suspension(TurnSuspended &ts, bool owes_update,
+                             int owes_endcb) {
+    // Store the captured continuation of a synchronous `play sound` at a turn
+    // boundary. Frames arrive innermost-first; every script boundary claimed
+    // its frames with a context snapshot during the unwind. A suspension can
+    // only reach here with no previous park outstanding (the play-sound
+    // statement itself resumes any parked tail before throwing).
+    if (!ts.frames.empty() && ts.frames.back().stmts) {
+        // Defensive: a suspension outside any script boundary -- claim the
+        // stragglers with an empty context so resume still consumes them.
+        ts.frames.push_back(TurnSuspended::Frame{});
+    }
+    sound_parked_ = true;
+    parked_frames_ = std::move(ts.frames);
+    parked_owes_update_ = parked_owes_update_ || owes_update;
+    parked_owes_endcb_ += owes_endcb;
+}
+
+void Interp::resume_parked_tail() {
+    // The wait slot held by a parked synchronous `play sound` has been
+    // claimed (BeginPrompt TrySetCanceled from a new `wait`/sync sound) or
+    // completed (host FinishWait): the parked continuation runs INLINE, right
+    // here, before the caller registers its own prompt -- exactly like the
+    // default TaskCompletionSource running the awaiter synchronously. Each
+    // boundary group re-runs inside an equivalent script boundary: an error
+    // aborts that group only (RunScriptAsync semantics), and a NEW sync sound
+    // re-parks the not-yet-run remainder.
+    if (!sound_parked_) return;
+    sound_parked_ = false;
+    std::vector<TurnSuspended::Frame> frames = std::move(parked_frames_);
+    parked_frames_.clear();
+    bool owes_update = parked_owes_update_;
+    int owes_endcb = parked_owes_endcb_;
+    parked_owes_update_ = false;
+    parked_owes_endcb_ = 0;
+    if (script_errors_fatal_) return;
+    size_t i = 0;
+    while (i < frames.size()) {
+        size_t b = i;
+        while (b < frames.size() && frames[b].stmts) ++b;
+        if (b >= frames.size()) break;  // defensive: no boundary, drop
+        Context ctx = std::move(frames[b].ctx);
+        if (script_depth_ >= kMaxScriptDepth) {
+            report_script_error(
+                "Script execution depth exceeded 200 - this usually means a "
+                "script is recursing infinitely (e.g. a \"changed<field>\" "
+                "script that sets the field it's watching)");
+            break;
+        }
+        ++script_depth_;
+        size_t j = i;
+        try {
+            for (; j < b; ++j) {
+                exec_block_from(*frames[j].stmts, frames[j].next, ctx);
+                if (ctx.returned) break;
+            }
+            --script_depth_;
+        } catch (TurnSuspended &ts) {
+            --script_depth_;
+            // Parked again mid-resume: the new unwind captured the inner
+            // frames; claim them with this group's context, then re-append
+            // the untouched remainder of the original tail.
+            for (size_t k = j + 1; k < b; ++k)
+                ts.frames.push_back(std::move(frames[k]));
+            ts.frames.push_back(TurnSuspended::Frame{nullptr, 0, ctx});
+            for (size_t k = b + 1; k < frames.size(); ++k)
+                ts.frames.push_back(std::move(frames[k]));
+            sound_parked_ = true;
+            parked_frames_ = std::move(ts.frames);
+            parked_owes_update_ = owes_update;
+            parked_owes_endcb_ = owes_endcb;
+            return;
+        } catch (const std::exception &err) {
+            --script_depth_;
+            report_script_error(err.what());
+        }
+        i = b + 1;
+    }
+    // The C++-side tail the suspended chain still owed, in QuestViva's order:
+    // the prompt-callback finallys (EndPendingCallback), then the pane
+    // refresh. Each can itself park again.
+    try {
+        while (owes_endcb > 0) {
+            --owes_endcb;
+            end_pending_callback();
+        }
+        if (owes_update && !world_.finished) update_lists();
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, owes_update, owes_endcb);
+    }
 }
 
 void Interp::send_event(const std::string &name, const std::string &param) {
@@ -1612,8 +1771,10 @@ void Interp::send_event(const std::string &name, const std::string &param) {
             }
         }
         if (!world_.finished) update_lists();
-    } catch (const TurnSuspended &) {
-        // synchronous `play sound`: the rest of the event chain is abandoned
+    } catch (TurnSuspended &ts) {
+        // synchronous `play sound`: the rest of the event chain parks on the
+        // wait slot (FinishTurn and the pane refresh are owed by the resume)
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/0);
     } catch (const std::exception &) {
         // reported at the script boundary already; SendEventCore has no catch
         // of its own, so the throw just kills this fire-and-forget chain
@@ -1839,9 +2000,13 @@ void Interp::tick(int seconds) {
         local.locals["this"] = vobj(d.first->name);
         try {
             run_script(d.second, local);
-        } catch (const TurnSuspended &) {
+        } catch (TurnSuspended &ts) {
             // A suspended timer script suspends the whole batch
-            // (TickAsyncInternal's await chain) -- including the pane refresh.
+            // (TickAsyncInternal's await chain) -- including the pane
+            // refresh. The suspended script's own tail parks; the batch's
+            // REMAINING timer scripts are C++ loop state and are dropped
+            // (known gap, matches the pre-park behaviour for them).
+            park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/0);
             suspended = true;
             break;
         }
@@ -1851,7 +2016,9 @@ void Interp::tick(int seconds) {
     if (!suspended) {
         try {
             update_lists();
-        } catch (const TurnSuspended &) {}
+        } catch (TurnSuspended &ts) {
+            park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
+        }
     }
 }
 
@@ -2673,14 +2840,18 @@ bool Interp::exec_statement_command(const std::string &name,
         std::string filename = !args.empty() ? to_string(ev(0)) : "";
         bool sync = args.size() >= 2 && truthy(ev(1));
         bool loop = args.size() >= 3 && truthy(ev(2));
-        if (sync && wait_pending_) {
+        if (sync) {
             // A synchronous play claims the wait slot (BeginPrompt on
-            // _waitTcs): a pending `wait` is cancelled -- its callback never
-            // runs. Note no begin_pending_callback -- PlaySoundScript never
-            // counts itself, so `on ready` is not deferred by the sound.
-            wait_pending_ = false;
-            wait_cb_ = PendingCallback{};
-            end_pending_callback();
+            // _waitTcs): a previously parked sync sound resumes inline; a
+            // pending `wait` is cancelled -- its callback never runs. Note no
+            // begin_pending_callback -- PlaySoundScript never counts itself,
+            // so `on ready` is not deferred by the sound.
+            resume_parked_tail();
+            if (wait_pending_) {
+                wait_pending_ = false;
+                wait_cb_ = PendingCallback{};
+                end_pending_callback();
+            }
         }
         if (play_sound) {
             // The host plays it; a synchronous host BLOCKS in the hook until
@@ -2692,8 +2863,10 @@ bool Interp::exec_statement_command(const std::string &name,
         warn_once(name, "'" + name + "' is not supported yet; ignored");
         if (sync) {
             // With no UI to report the sound finished, everything after this
-            // statement in the turn is abandoned. Mirror that exactly: the
-            // suspension unwinds to the turn boundary, unreported.
+            // statement parks on the wait slot: the unwind captures the
+            // remainder as TurnSuspended frames, stored at the turn boundary
+            // and resumed when the slot is next claimed (the next `wait` or
+            // sync sound, or a host finish_wait) -- see resume_parked_tail.
             throw TurnSuspended{};
         }
         return true;

@@ -1,5 +1,38 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-17, The Tree + synchronous play-sound parked continuations)
+
+- **The Tree (Father Thyme, 2014/v2.0 2023, ASL 580) joins the corpus as the
+  28th driven golden** — the second game (after The Shack) with no published
+  walkthrough anywhere: the 94-step winning override was derived entirely from
+  game.aslx (`overrides/The Tree.cmd` documents the solution chain). Oracle:
+  state=Finished errors=0; check_golden 28/28; native aslx_replay
+  **byte-identical** after one engine change (below). 27/28 native goldens
+  replay exact (ICM stays the documented oracle artifact).
+- **Synchronous `play sound` does NOT park the turn forever — the parked
+  continuation resumes when the wait slot is next claimed.** The Tree's
+  `insert_spike` is the first corpus case with load-bearing statements after a
+  sync sound (`play sound ("click.mp3", true, false)` then LockExit + the
+  Crusher Bayliss reveal). QuestViva semantics (PlaySoundScript.ExecuteAsync +
+  WorldModel.BeginPrompt): the sound BeginPrompts `_waitTcs`, signals the turn
+  suspended (the driver moves on), and awaits the TCS; the NEXT claim on the
+  slot — a `wait{}` or another sync sound (BeginPrompt `TrySetCanceled`, whose
+  continuation runs INLINE, OperationCanceledException swallowed) or a host
+  FinishWait (`TrySetResult`) — resumes everything after the sound statement.
+  In the game, the `x tube` holcast's first `wait{}` is what finally reveals
+  Crusher. Native port: `TurnSuspended` now carries unwind-captured **frames**
+  (each exec_block records its un-run statements; each script boundary —
+  run_script / run_callback_boundary — claims the frames below it with a
+  context snapshot); turn boundaries `park_suspension()` instead of dropping,
+  and `resume_parked_tail()` re-runs each boundary group inside an equivalent
+  script boundary (error aborts that group only; a new sync sound re-parks the
+  remainder; owed C++ tails — EndPendingCallback finallys, pane refresh — are
+  replayed after the frames). Resume points: `wait` registration, sync
+  play-sound, finish_wait. Known gaps (commented): remaining loop ITERATIONS
+  and a tick batch's remaining timer scripts are C++ state, not captured; a
+  suspension inside an expression-position function call cannot resume the
+  expression. make check + 27/28 native replays clean.
+
 ## Status (2026-07-16, panes — UpdateLists port + side pane / status banner)
 
 - **The panes are live** (milestone 5's third slice): a port of QuestViva's

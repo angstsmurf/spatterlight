@@ -44,15 +44,33 @@ struct Rng {
 struct Expr;
 struct Stmt;
 
-// Thrown by a synchronous `play sound` to abandon the remainder of the turn:
-// QuestViva parks the whole async chain on the wait slot until the UI reports
-// the sound finished, and headless (like the oracle) nothing ever does, so
-// everything after the statement -- including the rest of HandleCommand and
-// FinishTurn -- silently never runs. Not an error (script boundaries pass it
-// through un-reported; deliberately not a std::exception). The engine catches
-// it at its own turn boundaries (send_command / prompt callbacks / tick);
-// hosts that call call_function or run_script directly must catch it too.
-struct TurnSuspended {};
+// Thrown by a synchronous `play sound` to park the remainder of the turn:
+// QuestViva's PlaySoundScript does BeginPrompt(ref _waitTcs) and awaits the
+// TCS, so the whole async chain -- including the rest of HandleCommand and
+// FinishTurn -- suspends on the wait slot. Headless nothing reports the sound
+// finished, but the park is NOT permanent: the next claim on the wait slot
+// (a `wait` or another synchronous sound calling BeginPrompt, or a host
+// FinishWait) cancels/completes the TCS, whose continuation then runs INLINE
+// (default TaskCompletionSource; the OperationCanceledException is swallowed
+// in PlaySoundScript), resuming everything after the sound statement. The
+// unwind captures that continuation here as frames: each exec_block records
+// its not-yet-run statements (innermost first), and each script boundary
+// (run_script / run_callback_boundary) claims the frames below it with a
+// snapshot of that script's context. Not an error (deliberately not a
+// std::exception). The engine parks it at its own turn boundaries
+// (send_command / prompt callbacks / tick) and resumes via
+// resume_parked_tail; hosts that call call_function or run_script directly
+// must catch it too.
+struct TurnSuspended {
+    struct Frame {
+        // null stmts = script-boundary marker: `ctx` is the shared context
+        // snapshot for all (unclaimed) frames pushed before it.
+        const std::vector<Stmt> *stmts = nullptr;
+        size_t next = 0;  // first not-yet-run statement of the block
+        Context ctx;
+    };
+    std::vector<Frame> frames;
+};
 
 // A pending engine-level prompt callback: the compiled callback body (owned by
 // the never-freed script cache, so the pointer is stable) plus a snapshot of
@@ -460,7 +478,16 @@ private:
     std::shared_ptr<Expr> compile_expr(const std::string &src);
 
     void exec_block(const std::vector<Stmt> &stmts, Context &ctx);
+    void exec_block_from(const std::vector<Stmt> &stmts, size_t start,
+                         Context &ctx);
     void exec_stmt(const Stmt &s, Context &ctx);
+
+    // Parked synchronous `play sound` (see TurnSuspended): store the captured
+    // continuation at a turn boundary / resume it when the wait slot is next
+    // claimed (new `wait` or sync sound = BeginPrompt cancel; host
+    // finish_wait = TrySetResult).
+    void park_suspension(TurnSuspended &ts, bool owes_update, int owes_endcb);
+    void resume_parked_tail();
     Value eval_expr(const Expr &e, Context &ctx);
     Value eval_expr_node(const Expr &e, Context &ctx);
 
@@ -607,6 +634,18 @@ private:
     PendingCallback question_cb_;
     bool wait_pending_ = false;
     PendingCallback wait_cb_;
+
+    // Parked synchronous `play sound` continuation (the wait slot held by
+    // PlaySoundScript's awaited TCS). parked_owes_update_/parked_owes_endcb_
+    // record the C++-side tail the suspended chain still owes (pane refresh /
+    // EndPendingCallback finallys), replayed after the frames on resume.
+    // NOT captured by save/undo snapshots: a park pends only between two
+    // consecutive turns, and snapshots are taken at turn boundaries with no
+    // park outstanding in practice.
+    bool sound_parked_ = false;
+    std::vector<TurnSuspended::Frame> parked_frames_;
+    bool parked_owes_update_ = false;
+    int parked_owes_endcb_ = 0;
 };
 
 }  // namespace aslx
