@@ -106,13 +106,15 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**17 games driven** — **15 `Finished`** (genuine wins), **1 `Running`** (I Contain
+**18 games driven** — **16 `Finished`** (genuine wins), **1 `Running`** (I Contain
 Multitudes — its ending sits behind a nested-wait continuation the harness cannot
 pump; its author warns its time-based events break Quest's own walkthrough runner),
 **1 `Wedged`** (Whitefield — a genuine QuestViva-vs-Quest incompatibility, see
-below) — plus **6 hints-only** (Q&A/prose, no linear script). Six of those wins are
+below) — plus **6 hints-only** (Q&A/prose, no linear script). Seven of those wins are
 driven by curated `overrides/` (see next section); the other nine by the raw
-walkthrough via the extractor. See [[quest5-corpus]].
+walkthrough via the extractor. See [[quest5-corpus]]. (Dracula is a special case: its
+only walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
+override heavily adapts that solution to the remake's parser — see its header.)
 
 ### Curated overrides (`overrides/`)
 
@@ -127,7 +129,7 @@ and below). The nine games whose raw walkthroughs already win have no override.
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 17 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 18 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch

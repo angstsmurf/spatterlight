@@ -13,6 +13,7 @@ Why each game needs an override (all verified against the game source, seed 1234
 
 | game | state | reason |
 |---|---|---|
+| Dracula | Finished | walkthrough is for the *original 1986 CRL* game, not this 2014 remake — same plot/map, different parser. Heavy adaptation: systematic `look X`→`examine X` / `touch X`→`feel X`; per-scene fixes (reception `examine desk` reveals the bell; coach `no`+`jonathan harker`; `close eyes` for the cross; `feel mouth`; `move rail`/`move wardrobe`; `drop cross` in the box + `south`×3; store `pay storekeeper`; post-office `examine s` mail-slot; `sleep` overnight; rail `stratford`/`hawkins`; Renfield `drop net`; finale `chop tree`, spade-handle+carving-knife stake, `focus monocle` to burn the crypt door, `drop corn`, garlic to repel Dracula, tunnels→mausoleum). Header documents every deviation. |
 | Dream Pieces | Finished | walkthrough's last step `unlock door` is rejected ("Try unlocking the lock."); the real verb is `unlock lock`. `new game` preamble baked in. |
 | Jacqueline, Jungle Queen! | Finished | two mutually-exclusive endings (running both corrupts state); keep only Ending 2 "Radio for Help". Also fixes the `pirahna`→`piranha` typo that silently broke the swim ability, and one nav step vs the release map. |
 | Guttersnipe- Carnival of Regrets | Finished | two walkthrough nav errors vs the actual room map (`w`→`e` at the Strong Man Tent; insert `in` before a spook-house descent). One early wrong turn cascaded through the whole tail. |

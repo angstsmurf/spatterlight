@@ -10,10 +10,14 @@
 # The 24 games with a walkthrough (of 49). Filename mismatches vs the .quest
 # names (Guttersnipe spacing, Jacqueline, Hawk suffix, bare .txt) are why a
 # naive "<Game> - walkthrough.txt" match missed several — hence this table.
+# Dracula is the 25th: it had no walkthrough in the corpus, so one was sourced
+# externally (CASA solutionarchive) — but that solution is for the ORIGINAL 1986
+# CRL game, not this 2014 remake, so it is driven by a heavily-adapted override.
 A Christmas Game - The Sequel	A Christmas Game - The Sequel - walkthrough.txt	welbourn
 A Christmas Game	A Christmas Game - walkthrough.txt	welbourn
 A Hobbit Trek	A Hobbit Trek - walkthrough.txt	welbourn
 Basilica de Sangre	Basilica de Sangre - walkthrough.txt	welbourn
+Dracula	Dracula - walkthrough.txt	commands
 Dream Pieces 2 - The Lego Box	Dream Pieces 2 - The Lego Box - walkthrough.txt	welbourn
 Dream Pieces	Dream Pieces - walkthrough.txt	welbourn	new game
 Escape From the Mechanical Bathhouse	Escape From the Mechanical Bathhouse - walkthrough.txt	welbourn
