@@ -939,15 +939,39 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
     }
 }
 
-/* One keypress (a pending `wait`).  Timer events keep ticking. */
+/* One keypress (a pending `wait`).  Timer events keep ticking.  A click on a
+ * hyperlink -- in the main window or the side pane -- counts as the keypress
+ * that dismisses the wait, matching the reference player where any input
+ * continues past "Press any key to continue". */
 void read_keypress(Interp &in)
 {
     glk_request_char_event(gwin);
+    if (g_hyperlinks) {
+        glk_request_hyperlink_event(gwin);
+        if (gobjwin)
+            glk_request_hyperlink_event(gobjwin);
+    }
     for (;;) {
         event_t ev;
         glk_select(&ev);
-        if (ev.type == evtype_CharInput && ev.win == gwin)
+        if (ev.type == evtype_CharInput && ev.win == gwin) {
+            if (g_hyperlinks) {
+                glk_cancel_hyperlink_event(gwin);
+                if (gobjwin)
+                    glk_cancel_hyperlink_event(gobjwin);
+            }
             return;
+        }
+        if (ev.type == evtype_Hyperlink &&
+            (ev.win == gwin || ev.win == gobjwin)) {
+            glk_cancel_char_event(gwin);
+            if (g_hyperlinks) {
+                glk_cancel_hyperlink_event(gwin);
+                if (gobjwin)
+                    glk_cancel_hyperlink_event(gobjwin);
+            }
+            return;
+        }
         if (ev.type == evtype_Timer) {
             in.tick(1);
             update_banner(in);
@@ -955,8 +979,16 @@ void read_keypress(Interp &in)
             redraw_grid_map();
             if (in.world().finished || !in.pending_wait()) {
                 glk_cancel_char_event(gwin);
+                if (g_hyperlinks) {
+                    glk_cancel_hyperlink_event(gwin);
+                    if (gobjwin)
+                        glk_cancel_hyperlink_event(gobjwin);
+                }
                 return;
             }
+            /* Clearing the pane drops its hyperlink request; re-arm it. */
+            if (g_hyperlinks && gobjwin)
+                glk_request_hyperlink_event(gobjwin);
         }
         if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
             update_banner(in);
