@@ -525,16 +525,22 @@ void grid_map_arrange()
     redraw_grid_map();
 }
 
-/* JS.ShowGrid: open the pane at `hpx` pixels tall, resize it, or (<= 0)
- * close it.  The display list survives a hide, as in the reference player
- * (ShowGrid(0) just collapses the panel). */
+/* Fraction of the window height the map pane occupies when shown.  The
+ * engine's ShowGrid carries a pixel height, but the pane reads better as a
+ * fixed proportion of the window (like the Scarier/ADRIFT map band). */
+static const glui32 GM_HEIGHT_PERCENT = 30;
+
+/* JS.ShowGrid: open the pane at 30% of the window height, or (<= 0) close
+ * it.  The engine's `hpx` is kept only as the show/hide trigger; the display
+ * list survives a hide, as in the reference player (ShowGrid(0) just
+ * collapses the panel). */
 void grid_map_show(int hpx)
 {
     g_gm_height = hpx;
     if (hpx > 0 && !gmapwin) {
         gmapwin = glk_window_open(glk_window_get_root(),
-                                  winmethod_Above | winmethod_Fixed,
-                                  (glui32) hpx, wintype_Graphics, 0);
+                                  winmethod_Above | winmethod_Proportional,
+                                  GM_HEIGHT_PERCENT, wintype_Graphics, 0);
         if (gmapwin) {
             glk_window_set_background_color(gmapwin, 0xFFFFFF);
             glk_window_clear(gmapwin);
@@ -548,8 +554,8 @@ void grid_map_show(int hpx)
         winid_t parent = glk_window_get_parent(gmapwin);
         if (parent)
             glk_window_set_arrangement(parent,
-                                       winmethod_Above | winmethod_Fixed,
-                                       (glui32) hpx, gmapwin);
+                                       winmethod_Above | winmethod_Proportional,
+                                       GM_HEIGHT_PERCENT, gmapwin);
         gm_screen_drop();
     }
     g_gm_dirty = true;
