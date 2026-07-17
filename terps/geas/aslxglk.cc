@@ -1533,8 +1533,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
 #endif
 
 #ifdef GLK_MODULE_GARGLKTEXT
-    if (!w.game_name.empty())
-        garglk_set_story_title(w.game_name.c_str());
+    {
+        /* Game names may carry markup ("<b><i> DRACULA </b></i>"); the
+         * window title wants plain text.  game_name itself must stay raw --
+         * it is the save-state identity. */
+        std::string title = trim(plain_text(w.game_name));
+        if (!title.empty())
+            garglk_set_story_title(title.c_str());
+    }
 #endif
 
     size_t warnings_seen = 0;
