@@ -1183,6 +1183,67 @@ bool handle_transcript_command(const std::string &raw)
     return true;
 }
 
+/* VERBS <object>: list the verb menu a QuestViva object-name hyperlink would
+ * pop up for that object -- its displayverbs, or inventoryverbs when carried.
+ * The reference player only exposes these by clicking a name; this makes the
+ * same list typable.  A pure front-end convenience, handled like the other
+ * metaverbs (it never reaches the engine's parser). */
+bool handle_verbs_command(Interp &in, const std::string &raw)
+{
+    std::string t = trim(raw);
+    std::string c = lower(t);
+    if (c != "verbs" && c.rfind("verbs ", 0) != 0)
+        return false;
+    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
+        echo_metaverb(raw);
+
+    strid_t s = glk_window_get_stream(gwin);
+
+    /* The object name, minus a leading article the parser would also drop. */
+    std::string want = lower(trim(t.substr(5)));
+    if (want.rfind("the ", 0) == 0)      want = trim(want.substr(4));
+    else if (want.rfind("an ", 0) == 0)  want = trim(want.substr(3));
+    else if (want.rfind("a ", 0) == 0)   want = trim(want.substr(2));
+
+    if (want.empty()) {
+        glk_put_string((char *) "Type VERBS followed by an object name, "
+                                "e.g. VERBS lamp.\n");
+        return true;
+    }
+
+    /* Match a currently-clickable object by the alias a typed command uses
+     * (or its pane label), inventory winning a clash -- see verb_menu_objects. */
+    const ListData *match = nullptr;
+    std::vector<ListData> objs = in.verb_menu_objects();
+    for (const ListData &d : objs) {
+        if (lower(trim(d.display_alias)) == want ||
+            lower(trim(plain_text(d.text))) == want) {
+            match = &d;
+            break;
+        }
+    }
+
+    if (!match) {
+        glk_put_string((char *) "You can't see any such thing.\n");
+        return true;
+    }
+
+    std::string alias = plain_text(match->display_alias);
+    if (match->verbs.empty()) {
+        put_stream_utf8(s, "There is nothing you can do with " + alias + ".\n");
+        return true;
+    }
+
+    put_stream_utf8(s, "Verbs for " + alias + ": ");
+    for (size_t i = 0; i < match->verbs.size(); i++) {
+        if (i)
+            put_stream_utf8(s, ", ");
+        put_stream_utf8(s, plain_text(match->verbs[i]));
+    }
+    put_stream_utf8(s, ".\n");
+    return true;
+}
+
 /* ------------------------------------------------------------------ core -- */
 
 /* Locate the bundled Core libraries: $ASLX_CORE, else next to the terp
@@ -1773,7 +1834,8 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                         echo_metaverb(cmd);
                     if (do_restore_ui(restore_data))
                         return SessionEnd::Restore;
-                } else if (!handle_transcript_command(cmd)) {
+                } else if (!handle_transcript_command(cmd) &&
+                           !handle_verbs_command(in, cmd)) {
                     if (g_prompt_first && !host_owned && command_echoes(in)) {
                         g_swallow = 2;
                         g_swallow_cmd = cmd;

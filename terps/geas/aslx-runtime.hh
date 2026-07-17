@@ -263,6 +263,14 @@ public:
     // LogException-only: logged, never printed, never fed to the breaker.
     void update_lists();
 
+    // The in-scope objects a QuestViva object-name hyperlink could target,
+    // each carrying its display alias and the verb menu clicking it would show:
+    // inventory objects with their inventoryverbs, room/place objects with
+    // their displayverbs, exactly as the side pane builds them (exits are
+    // excluded -- compass directions have no verb menu). Backs the front-end's
+    // VERBS command; computed on demand, independent of any update_list hook.
+    std::vector<ListData> verb_menu_objects();
+
     // Host hook for the pane lists. listtype is "placesobjects" (Quest's
     // "Places and Objects": GetPlacesObjectsList scope plus ALL exits -- the
     // UI filters compass directions out so they only show in the compass),

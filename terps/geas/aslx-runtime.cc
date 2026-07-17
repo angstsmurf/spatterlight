@@ -1657,6 +1657,18 @@ ListData Interp::list_data_for(Element *obj, bool inventory) {
     return d;
 }
 
+std::vector<ListData> Interp::verb_menu_objects() {
+    // Same objects and verb sources the pane uses (see update_lists), minus the
+    // exits: inventory objects carry inventoryverbs, room/place objects carry
+    // displayverbs. Inventory first, so a carried object wins a name clash.
+    std::vector<ListData> out;
+    for (Element *e : objects_in_scope("ScopeInventory"))
+        out.push_back(list_data_for(e, true));
+    for (Element *e : objects_in_scope("GetPlacesObjectsList"))
+        out.push_back(list_data_for(e, false));
+    return out;
+}
+
 std::vector<ListData> Interp::exits_list_data() {
     // GetExitsListDataAsync: ScopeExits, or GetExitsList on v530+.
     std::string scope = "ScopeExits";
