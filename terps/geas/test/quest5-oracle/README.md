@@ -107,7 +107,7 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**27 games driven** — **25 `Finished`** (genuine wins), **1 `Running`** (I Contain
+**28 games driven** — **26 `Finished`** (genuine wins), **1 `Running`** (I Contain
 Multitudes — its ending sits behind a nested-wait continuation the harness cannot
 pump; its author warns its time-based events break Quest's own walkthrough runner),
 **1 `Wedged`** (Whitefield — a genuine QuestViva-vs-Quest incompatibility, see
@@ -115,13 +115,14 @@ below). No hints-only rows remain: the six games whose walkthroughs are Q&A/pros
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Eighteen rows are driven by curated
+the hints against the game source). Nineteen rows are driven by curated
 `overrides/` (see next section); the other nine by the raw walkthrough via the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
 override heavily adapts that solution to the remake's parser — see its header.
-The Shack is another: it has no published walkthrough anywhere, so its override
-was derived entirely from the game source and its walkthrough column is `-`.)
+The Shack and The Tree are two more: they have no published walkthrough
+anywhere, so their overrides were derived entirely from the game source and
+their walkthrough columns are `-`.)
 
 ### Curated overrides (`overrides/`)
 
@@ -137,7 +138,7 @@ and below). The nine games whose raw walkthroughs already win have no override.
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 27 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 28 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch

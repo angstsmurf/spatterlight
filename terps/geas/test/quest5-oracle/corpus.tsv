@@ -11,8 +11,9 @@
 #   already dismissed (e.g. Dream Pieces needs "new game" or every command fails).
 # The 25 games with a walkthrough (of 50), plus Dracula (walkthrough sourced
 # externally from CASA solutionarchive — for the ORIGINAL 1986 CRL game, not
-# this 2014 remake, hence a heavily-adapted override) and The Brutal Murder of
-# Jenny Lee (PDF-only walkthrough) = 26 driven rows. Filename mismatches vs the
+# this 2014 remake, hence a heavily-adapted override), The Brutal Murder of
+# Jenny Lee (PDF-only walkthrough) and the two override-only wt="-" rows
+# (The Shack, The Tree) = 28 driven rows. Filename mismatches vs the
 # .quest names (Guttersnipe spacing, Jacqueline, Hawk suffix, bare .txt, The
 # Deer Trail's walkthrough named after its working title "The Deer Blind") are
 # why a naive "<Game> - walkthrough.txt" match silently misses several — hence
@@ -45,6 +46,7 @@ Night House	Night House - Walkthrough.txt	commands
 Quest for the Serpent's Eye	Quest for the Serpent's Eye - walkthrough.txt	commands
 Hawk the Hunter	Hawk the Hunter - hints-walkthrough.txt	commands
 The Shack	-	commands
+The Tree	-	commands
 Whitefield Academy of Witchcraft	Whitefield Academy of Witchcraft - walkthrough.txt	welbourn
 # (No hints-only rows remain: the six formerly-hints games and the PDF-only
 #  Brutal Murder of Jenny Lee are all driven by curated overrides/ scripts.)
