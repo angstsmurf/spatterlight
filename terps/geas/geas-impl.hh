@@ -271,7 +271,7 @@ public:
   virtual v2string get_inventory();
   virtual v2string get_room_contents();
   v2string get_room_contents(const std::string &);
-  virtual vstring get_room_exits();
+  virtual v2string get_room_exits();
   virtual vstring get_status_vars();
   virtual std::vector<bool> get_valid_exits();
 

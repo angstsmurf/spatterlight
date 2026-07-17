@@ -96,6 +96,14 @@ static bool g_manual_echo = false;       /* Glk line echo off; we echo input our
 static bool g_output_seen = false;       /* set when print_* actually writes to the window */
 static bool g_use_objpane = false;       /* host supports a side pane; objwin may be
                                           * momentarily closed (when empty) yet still "in use" */
+static bool g_hyperlinks = false;        /* host supports clickable hyperlinks in a
+                                          * text buffer (the object pane's entries) */
+
+/* One click command per objwin hyperlink, indexed by (link value - 1).  Rebuilt
+ * on every update_objwin: an object runs "verbs <alias>" (its verb menu, like
+ * the Quest 5 pane), an exit runs its navigation command (a direction, "out",
+ * or "go to <place>"). */
+static std::vector<std::string> g_objlinks;
 
 extern const char *storyfilename;  /* defined in geasglkterm.c */
 extern int use_inputwindow;
@@ -424,6 +432,12 @@ void glk_main(void)
     g_use_objpane = (objwin != nullptr);
     close_objwin();
 
+    /* Clickable hyperlinks for the object-pane entries (objects and exits), as
+     * in the Quest 5 frontend.  Only when the host both draws and accepts
+     * hyperlink input in a text buffer -- otherwise the pane stays plain text. */
+    g_hyperlinks = glk_gestalt(gestalt_Hyperlinks, 0) &&
+                   glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
+
     /* We can turn off Glk's automatic line-input echo and echo entered text
      * ourselves; this is used for the command loop so that a timer cancelling
      * the input doesn't leave a stray newline and partial line on screen.
@@ -555,6 +569,48 @@ void glk_main(void)
                 }
                 break;
 
+            case evtype_Hyperlink:
+                /* A click on an object-pane entry runs its command as if typed
+                 * (objects -> "verbs <object>", exits -> their navigation). */
+                if (g_hyperlinks && ev.win == objwin &&
+                    ev.val1 >= 1 && ev.val1 <= (glui32) g_objlinks.size()) {
+                    std::string cmd = g_objlinks[ev.val1 - 1];
+                    /* Cancel the live line input first -- Glk forbids printing to
+                     * a window with a pending request; with echo off the cancel
+                     * leaves nothing on screen. */
+                    event_t ce;
+                    glk_cancel_line_event(inputwin, &ce);
+                    /* Echo the clicked command so the player sees what ran.  With
+                     * input in the main window the "> " prompt is already there
+                     * and run_command's own "> cmd" echo is suppressed
+                     * (ignore_lines below), so echo the command here -- there is
+                     * no typed text for the library to echo.  With a separate
+                     * input window run_command prints its own "> cmd" into the
+                     * main text (ignore_lines stays 0), so no manual echo. */
+                    if (inputwin == mainglkwin) {
+                        glk_set_style(style_Input);
+                        glk_put_cstring(cmd.c_str());
+                        glk_set_style(style_Normal);
+                        glk_put_char('\n');
+                    }
+                    if (!handle_transcript_command(cmd) &&
+                        !handle_saverestore_command(cmd, gr) &&
+                        !handle_restart_command(cmd, gr) &&
+                        !handle_help_command(cmd) &&
+                        !handle_quit_command(cmd, quitting)) {
+                        if (inputwin == mainglkwin)
+                            ignore_lines = 2;
+                        gr->run_command(cmd);
+                    }
+                    /* Treat the click as this turn's input so the loop exits,
+                     * refreshes the pane (re-arming the link) and re-prompts. */
+                    ev.type = evtype_LineInput;
+                } else if (g_hyperlinks && objwin) {
+                    /* Out-of-range (pane changed under the click): just re-arm. */
+                    glk_request_hyperlink_event(objwin);
+                }
+                break;
+
             case evtype_Arrange:
             case evtype_Redraw:
                 draw_banner();
@@ -683,6 +739,23 @@ cap_first(std::string s)
     return s;
 }
 
+/* Write one pane entry (on its own line) to the objwin stream.  When the host
+ * supports hyperlinks the label is made clickable: its link value is its
+ * 1-based index in g_objlinks, and a click runs `command` as if the player had
+ * typed it (see the evtype_Hyperlink handling in glk_main). */
+static void
+put_objwin_link(strid_t s, const std::string &label, const std::string &command)
+{
+    if (g_hyperlinks) {
+        g_objlinks.push_back(command);
+        glk_set_hyperlink_stream(s, (glui32) g_objlinks.size());
+    }
+    glk_put_string_stream(s, (char *) label.c_str());
+    if (g_hyperlinks)
+        glk_set_hyperlink_stream(s, 0);
+    glk_put_char_stream(s, '\n');
+}
+
 /* Redraw the right-hand pane with the objects/characters in the current room.
  * The pane (and its divider) is shown only when it has something to list --
  * objects or exits; the room-name header alone does not justify it, so a room
@@ -709,14 +782,15 @@ update_objwin(GeasRunner *gr)
         flat += item[0];
     }
 
-    vstring exits = gr->get_room_exits();
+    /* Each exit is a {display label, click command} pair. */
+    v2string exits = gr->get_room_exits();
     std::string flatexits;
-    for (std::string &exit : exits) {
-        if (exit.empty())
+    for (std::vector<std::string> &exit : exits) {
+        if (exit.empty() || exit[0].empty())
             continue;
         if (!flatexits.empty())
             flatexits += ", ";
-        flatexits += exit;
+        flatexits += exit[0];
     }
 
     /* Status variables (Quest's "collectables": money/health/score etc.,
@@ -746,21 +820,27 @@ update_objwin(GeasRunner *gr)
             close_objwin();
     }
 
+    /* Rebuild the click-command table for the pane's hyperlinks from scratch;
+     * the entries below append to it in draw order (its indices are the link
+     * values). */
+    g_objlinks.clear();
+
     if (objwin) {
         glk_window_clear(objwin);
         strid_t s = glk_window_get_stream(objwin);
 
-        /* List the room's objects. */
+        /* List the room's objects.  Clicking one lists its verb menu, matching
+         * the Quest 5 pane's default ("verbs <object>"). */
         for (std::vector<std::string> &item : contents) {
             if (item.empty())
                 continue;
-            std::string label = cap_first(item[0]);
-            glk_put_string_stream(s, (char *) label.c_str());
-            glk_put_char_stream(s, '\n');
+            put_objwin_link(s, cap_first(item[0]), "verbs " + item[0]);
         }
 
         /* List the room's exits below the objects, under their own subheader
-         * (the original Quest runner showed exits in a separate pane). */
+         * (the original Quest runner showed exits in a separate pane).  Clicking
+         * an exit runs its navigation command (a direction, "out", or
+         * "go to <place>"). */
         if (!exits.empty()) {
             /* Separate exits from the objects above, but only when there are
              * objects -- with none, "Exits" sits at the very top of the pane. */
@@ -769,15 +849,20 @@ update_objwin(GeasRunner *gr)
             glk_set_style_stream(s, style_Subheader);
             glk_put_string_stream(s, (char *) "Exits\n");
             glk_set_style_stream(s, style_Normal);
-            for (std::string &exit : exits) {
-                if (exit.empty())
+            for (std::vector<std::string> &exit : exits) {
+                if (exit.empty() || exit[0].empty())
                     continue;
-                std::string label = cap_first(exit);
-                glk_put_string_stream(s, (char *) label.c_str());
-                glk_put_char_stream(s, '\n');
+                std::string command = exit.size() > 1 ? exit[1] : exit[0];
+                put_objwin_link(s, cap_first(exit[0]), command);
             }
         }
         fill_divider();
+
+        /* Re-arm the pane's hyperlink input: clearing the window above drops any
+         * pending request, and reopening it (for a previously empty room) makes
+         * a fresh window with none.  The main input loop consumes the event. */
+        if (g_hyperlinks)
+            glk_request_hyperlink_event(objwin);
     }
 
     std::string key = room + "\x01" + flat + "\x01" + flatexits + "\x01" + flatstatus;
@@ -936,10 +1021,21 @@ GeasGlkInterface::wait_keypress (const std::string &msg)
   if (!msg.empty())
     print_formatted(msg);
   glk_request_char_event(mainglkwin);
+  /* A click on a pane hyperlink also dismisses the wait, like any keypress
+   * (matching the Quest 5 frontend); the click's command is not run here. */
+  if (g_hyperlinks && objwin)
+    glk_request_hyperlink_event(objwin);
   event_t ev;
-  do
+  for (;;)
     {
       glk_select(&ev);
+      if (ev.type == evtype_CharInput && ev.win == mainglkwin)
+        break;
+      if (ev.type == evtype_Hyperlink && ev.win == objwin)
+        {
+          glk_cancel_char_event(mainglkwin);
+          break;
+        }
       if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
         {
           draw_banner();
@@ -947,7 +1043,6 @@ GeasGlkInterface::wait_keypress (const std::string &msg)
         }
       /* timers deliberately ignored: the game is paused for the keypress */
     }
-  while (!(ev.type == evtype_CharInput && ev.win == mainglkwin));
   return r_success;
 }
 

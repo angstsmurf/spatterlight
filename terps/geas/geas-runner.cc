@@ -5069,9 +5069,13 @@ v2string geas_implementation::get_room_contents (const string &room)
   return rv;
 }
 
-vstring geas_implementation::get_room_exits ()
+v2string geas_implementation::get_room_exits ()
 {
-  vstring rv;
+  v2string rv;
+
+  /* Each exit is a {display label, click command} pair.  The label is what the
+   * pane shows; the command is what a host runs when the label is clicked as a
+   * hyperlink -- the same thing the player would type. */
 
   /* Directional exits, in the canonical order, skipping the trailing "out"
    * (handled separately below so it can show its destination place). */
@@ -5081,20 +5085,27 @@ vstring geas_implementation::get_room_exits ()
 	string label = dir_names[i];
 	if (!label.empty())
 	  label[0] = toupper ((unsigned char) label[0]);
-	rv.push_back (label);
+	rv.push_back ({label, dir_names[i]});
       }
 
   /* The "out" exit, with the place it leads to when one is named. */
   if (exit_dest (state.location, "out") != "")
     {
       string out = get_svar ("quest.doorways.out");
-      rv.push_back (out != "" ? "Out to " + out : string ("Out"));
+      rv.push_back ({out != "" ? "Out to " + out : string ("Out"), "out"});
     }
 
-  /* Named "place" exits, listed by their displayed destination name. */
+  /* Named "place" exits, listed by their displayed destination name.  Clicking
+   * one navigates with "go to <target>", where the target matches what the
+   * "go to" handler compares against: the destination room name for a scripted
+   * place, or the displayed name for a plain one. */
   for (const auto &place: get_places (state.location))
     if (place.size() > 2 && place[2] != "")
-      rv.push_back (place[2]);
+      {
+	bool scripted = (place.size () == 5);
+	const string &target = scripted ? place[3] : place[2];
+	rv.push_back ({place[2], "go to " + target});
+      }
 
   return rv;
 }

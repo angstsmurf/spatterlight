@@ -202,9 +202,12 @@ public:
 
   virtual v2string get_inventory() = 0;
   virtual v2string get_room_contents() = 0;
-  /* The available exits from the current room, as display labels (directions,
-   * an "out" exit, and named places) for hosts that list them in a pane. */
-  virtual vstring  get_room_exits() = 0;
+  /* The available exits from the current room, for hosts that list them in a
+   * pane.  Each entry is a {label, command} pair: the display label (a
+   * direction, an "out" exit, or a named place) and the command a host runs
+   * when the label is clicked as a hyperlink (the bare direction, "out", or
+   * "go to <place>"). */
+  virtual v2string get_room_exits() = 0;
   virtual vstring  get_status_vars() = 0;
   virtual std::vector<bool> get_valid_exits() = 0;
 
