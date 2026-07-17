@@ -672,6 +672,17 @@ close_objwin()
     if (objwin) { glk_window_close(objwin, nullptr); objwin = nullptr; }
 }
 
+/* Uppercase the leading ASCII letter (like the room name above and the Quest 5
+ * pane's CapFirst): the pane's object/exit names read better capitalized. A
+ * UTF-8 lead byte or non-letter first character is left untouched. */
+static std::string
+cap_first(std::string s)
+{
+    if (!s.empty() && (unsigned char) s[0] < 0x80)
+        s[0] = toupper((unsigned char) s[0]);
+    return s;
+}
+
 /* Redraw the right-hand pane with the objects/characters in the current room.
  * The pane (and its divider) is shown only when it has something to list --
  * objects or exits; the room-name header alone does not justify it, so a room
@@ -743,7 +754,8 @@ update_objwin(GeasRunner *gr)
         for (std::vector<std::string> &item : contents) {
             if (item.empty())
                 continue;
-            glk_put_string_stream(s, (char *) item[0].c_str());
+            std::string label = cap_first(item[0]);
+            glk_put_string_stream(s, (char *) label.c_str());
             glk_put_char_stream(s, '\n');
         }
 
@@ -760,7 +772,8 @@ update_objwin(GeasRunner *gr)
             for (std::string &exit : exits) {
                 if (exit.empty())
                     continue;
-                glk_put_string_stream(s, (char *) exit.c_str());
+                std::string label = cap_first(exit);
+                glk_put_string_stream(s, (char *) label.c_str());
                 glk_put_char_stream(s, '\n');
             }
         }
