@@ -404,6 +404,22 @@ public:
                        bool loop)> play_sound;
     std::function<void()> stop_sound;
 
+    // Host hooks for the pre-v540/v550 blocking `request (Wait)` /
+    // `request (Pause, ms)` (RequestScript -> WorldModel.DoWaitAsync /
+    // DoPauseAsync -> IPlayer.DoWait / DoPause). Unlike the fire-and-forget
+    // `wait` script command, these genuinely block mid-script in QuestViva:
+    // the enclosing script -- and the rest of the turn -- resume only when the
+    // wait/pause slot completes, so a synchronous host BLOCKS in the hook and
+    // returns (do_wait until the player presses a key; do_pause for `ms`
+    // milliseconds), after which the tail runs inline. Unset, both are a
+    // silent no-op: the tail continues inline, which is byte-identical to the
+    // oracle's immediate AutoAdvance (FinishWait/FinishPause) since neither
+    // request prints anything and the tail runs before the turn's FinishTurn
+    // either way. The version gate (Wait throws for v540+, Pause for v550+)
+    // fires regardless of whether a hook is installed.
+    std::function<void()> do_wait;
+    std::function<void(int ms)> do_pause;
+
     // Synchronous provider for the EXPRESSION form of ShowMenu
     // (ExpressionOwner.ShowMenu, which AWAITS the response mid-expression and
     // returns the selected key). A synchronous host must supply the answer in

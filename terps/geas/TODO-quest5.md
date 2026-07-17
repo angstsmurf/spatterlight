@@ -1,5 +1,40 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-17, blocking `request (Wait)` / `request (Pause, ms)`)
+
+- **The pre-v540/v550 blocking timing requests are wired to real host hooks**
+  (§3's last open input-model item). `request (Wait)` (Core's WaitForKeyPress)
+  and `request (Pause, ms)` (Core's Pause) genuinely block mid-script in
+  QuestViva — `DoWaitAsync`/`DoPauseAsync` are *awaited*, unlike the
+  fire-and-forget `wait` command — so they land in two new blocking host hooks,
+  `Interp::do_wait` / `Interp::do_pause(int ms)`, modelled on the synchronous
+  `play_sound` hook (the C++ call stack genuinely blocks, so no async unwind /
+  TurnSuspended parking is needed). The request dispatch (aslx-runtime.cc):
+  version-gates each (`Wait` throws for v540+, `Pause` for v550+, QuestViva's
+  exact messages); `Wait` claims the wait slot (`resume_parked_tail()` +
+  cancel a pending `wait` callback, exactly like `BeginPrompt(ref _waitTcs)`,
+  so a parked synchronous `play sound` resumes inline); `Pause` `int.TryParse`s
+  its data (a non-numeric string = no pause) and uses the *separate* pause slot,
+  leaving a parked sound untouched. Hook-unset (headless/oracle-parity) is a
+  **silent no-op**: the tail continues inline, which is byte-identical to the
+  oracle's immediate AutoAdvance (FinishWait/FinishPause) because neither
+  request prints and the tail always runs before the turn's FinishTurn. Glk
+  side (aslxglk.cc): `do_wait_ui` blocks on a keypress / hyperlink click (the
+  reference player's "press any key to continue"), `do_pause_ui` on a one-shot
+  Glk timer with a keypress skip; both self-suppress in deterministic mode
+  (`gli_sa_delays` off, incl. the smoke harness — never blocks), and
+  `do_pause_ui` tears its one-shot timer down and resets the file-scope
+  `g_timer_armed` heartbeat flag it overrode so the prompt loop re-arms cleanly.
+- Verified: `make check` + ASan/UBSan green; **28/29 native goldens
+  byte-identical** (A Hobbit Trek — v540, 6 real `Pause(...)` calls on its
+  winning path — stays byte-identical, incl. the newly-evaluated `Pause` data
+  expression; ICM remains the documented sound artifact, not this change); A
+  Hobbit Trek byte-identical under ASan with no runtime findings; the Glk
+  frontend compiles and boots (Dream Pieces).
+- §3's input/timing model is now **fully implemented** (get input / show menu /
+  ask / wait / timers / Wait / Pause). Still open in presentation:
+  `<backgroundimage>`, Spatterlight autosave/autorestore.
+
 ## Status (2026-07-17, babel metadata + cover art)
 
 - **`babel/quest5.c` now extracts full iFiction metadata and cover art from
@@ -1018,9 +1053,26 @@ waiting for and routes the next line/keypress.
       `has_enabled_timeout`, 2026-07-16). `glk_request_timer_events` 1s
       heartbeat at prompt level in aslxglk.cc, gated on `gli_sa_delays`
       (aslx_replay mirrors the oracle's deterministic DrainTimers).
-- [ ] `request (Wait)` / `request (Pause, ms)` (pre-v540/v550 games only):
-      genuinely blocking mid-script even in QuestViva (`DoWaitAsync` is
-      awaited) — needs a blocking host hook; currently a no-op.
+- [x] `request (Wait)` / `request (Pause, ms)` (pre-v540/v550 games only):
+      genuinely blocking mid-script even in QuestViva (`DoWaitAsync`/
+      `DoPauseAsync` are awaited). Ported 2026-07-17 as two blocking host hooks
+      (`Interp::do_wait` / `do_pause(ms)`) mirroring the `play_sound` pattern:
+      the request dispatch (aslx-runtime.cc) gates the version (Wait throws for
+      v540+, Pause for v550+, QuestViva's exact messages), Wait claims the wait
+      slot (resume any parked sync sound + cancel a pending `wait` callback,
+      like `BeginPrompt(_waitTcs)`), Pause `int.TryParse`s its data (separate
+      `_pauseTcs` slot, so it leaves a parked sound untouched), then calls the
+      hook. A synchronous host BLOCKS in the hook and the tail runs inline;
+      unset, both are a silent no-op — byte-identical to the oracle's immediate
+      AutoAdvance since neither request prints and the tail runs before the
+      turn's FinishTurn either way (so the 28/29 native goldens, incl. A Hobbit
+      Trek's 6 `Pause` calls, stay byte-identical; ICM = the documented sound
+      artifact). Glk side (aslxglk.cc): `do_wait_ui` blocks on a keypress /
+      hyperlink click (like the reference "press any key"), `do_pause_ui` on a
+      one-shot Glk timer with a keypress skip; both self-suppress in
+      deterministic mode (gli_sa_delays off) so the smoke harness never blocks,
+      and `do_pause_ui` resets the `g_timer_armed` heartbeat flag it overrode.
+      `make check` + ASan/UBSan green; A Hobbit Trek byte-identical under ASan.
 
 ## 4. Output mapping (HTML/JS → Glk)
 

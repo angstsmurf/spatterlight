@@ -59,6 +59,12 @@ namespace {
 
 using namespace aslx;
 
+/* True while the 1-second timer heartbeat is armed (update_timer_request).
+ * A file-scope global so the blocking do_pause hook, which overrides the timer
+ * with its own one-shot interval, can reset it and let the next
+ * update_timer_request re-arm the heartbeat cleanly. */
+bool g_timer_armed = false;
+
 /* Shared frontend helpers (questglk-common.inc).  Using-declarations rather
  * than a using-directive: aslx.cc has a file-local trim of its own, and a
  * name declared here shadows it instead of colliding with it. */
@@ -1347,6 +1353,74 @@ void play_sound_ui(Interp &in, const std::string &name, bool sync, bool loop)
 #endif
 }
 
+/* The do_wait host hook (pre-v540 `request (Wait)` -- Core's WaitForKeyPress).
+ * Block mid-script until the player presses a key or clicks a link, exactly
+ * like the reference player's "press any key to continue". Deterministic mode
+ * (gli_sa_delays off, as in the import tests and the smoke harness) never
+ * blocks -- the request just returns, keeping transcripts wall-clock free. No
+ * game-time tick happens: a Quest wait is real-world only. */
+void do_wait_ui(Interp &in)
+{
+    if (!gli_sa_delays)
+        return;
+    glk_request_char_event(gwin);
+    if (g_hyperlinks) {
+        glk_request_hyperlink_event(gwin);
+        if (gobjwin)
+            glk_request_hyperlink_event(gobjwin);
+    }
+    for (;;) {
+        event_t ev;
+        glk_select(&ev);
+        if ((ev.type == evtype_CharInput && ev.win == gwin) ||
+            (ev.type == evtype_Hyperlink &&
+             (ev.win == gwin || ev.win == gobjwin))) {
+            glk_cancel_char_event(gwin);
+            if (g_hyperlinks) {
+                glk_cancel_hyperlink_event(gwin);
+                if (gobjwin)
+                    glk_cancel_hyperlink_event(gobjwin);
+            }
+            return;
+        }
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
+            update_banner(in);
+            fill_pane_divider();
+            grid_map_arrange();
+        }
+    }
+}
+
+/* The do_pause host hook (pre-v550 `request (Pause, ms)` -- Core's Pause).
+ * Block mid-script for `ms` milliseconds using a one-shot timer; a keypress
+ * skips it (the safety valve). Deterministic mode never blocks. The
+ * prompt-level heartbeat is overridden here and torn down afterwards --
+ * g_timer_armed is reset so the next update_timer_request re-arms it. */
+void do_pause_ui(Interp &in, int ms)
+{
+    if (!gli_sa_delays || ms <= 0)
+        return;
+    glk_request_timer_events((glui32) ms);
+    glk_request_char_event(gwin);
+    for (;;) {
+        event_t ev;
+        glk_select(&ev);
+        if (ev.type == evtype_Timer) {
+            glk_cancel_char_event(gwin);
+            break;
+        }
+        if (ev.type == evtype_CharInput && ev.win == gwin)
+            break;
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
+            update_banner(in);
+            fill_pane_divider();
+            grid_map_arrange();
+        }
+    }
+    glk_request_timer_events(0);
+    g_timer_armed = false;
+}
+
 bool draw_image_inline(const std::string &name)
 {
 #ifdef SPATTERLIGHT
@@ -1444,11 +1518,10 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
  * deterministic import tests see no wall-clock events. */
 void update_timer_request(Interp &in)
 {
-    static bool armed = false;
     bool want = gli_sa_delays && in.next_timer_seconds() > 0;
-    if (want != armed) {
+    if (want != g_timer_armed) {
         glk_request_timer_events(want ? 1000 : 0);
-        armed = want;
+        g_timer_armed = want;
     }
 }
 
@@ -1531,6 +1604,13 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     };
     in.stop_sound = stop_sound_ui;
 #endif
+
+    /* The pre-v540/v550 blocking `request (Wait)` / `request (Pause, ms)`
+     * (Core's WaitForKeyPress / Pause). Standard Glk keypress + timer events,
+     * so wired on every host; both self-suppress in deterministic mode, so the
+     * smoke harness never blocks. */
+    in.do_wait = [&in] { do_wait_ui(in); };
+    in.do_pause = [&in](int ms) { do_pause_ui(in, ms); };
 
 #ifdef GLK_MODULE_GARGLKTEXT
     {

@@ -2990,6 +2990,47 @@ bool Interp::exec_statement_command(const std::string &name,
             // PlayerUI.SetPanelContents -- the picture frame, like
             // JS.setPanelContents.
             set_panel_contents(to_string(ev(1)));
+        } else if (req == "Wait") {
+            // RequestScript Wait -> DoWaitAsync: the pre-JS "press any key"
+            // prompt (Core's WaitForKeyPress). Valid only pre-v540 -- v540+
+            // throws (games use the `wait` script command instead). It claims
+            // the wait slot (BeginPrompt on _waitTcs): a parked synchronous
+            // `play sound` resumes inline HERE and a pending `wait` callback is
+            // cancelled. A synchronous host then BLOCKS in do_wait until the
+            // keypress and the enclosing script resumes inline; headless it is a
+            // silent no-op (do_wait's doc explains why that stays oracle-exact).
+            if (world_.asl_version >= 540)
+                throw std::runtime_error(
+                    "The 'Wait' request is not supported for games written for "
+                    "Quest 5.4 or later. Use the 'wait' script command "
+                    "instead.");
+            resume_parked_tail();
+            if (wait_pending_) {
+                wait_pending_ = false;
+                wait_cb_ = PendingCallback{};
+                end_pending_callback();
+            }
+            if (do_wait) do_wait();
+        } else if (req == "Pause") {
+            // RequestScript Pause -> DoPauseAsync (Core's Pause function).
+            // Valid only pre-v550 -- v550+ throws (games use SetTimeout). The
+            // data is int.TryParse'd; a non-numeric string is ignored (no
+            // pause), matching QuestViva. Pause uses a SEPARATE slot (_pauseTcs)
+            // so it leaves any parked sync sound on the wait slot untouched. A
+            // synchronous host BLOCKS in do_pause for the interval; headless it
+            // is a silent no-op.
+            if (world_.asl_version >= 550)
+                throw std::runtime_error(
+                    "The 'Pause' request is not supported for games written "
+                    "for Quest 5.5 or later. Use the 'SetTimeout' function "
+                    "instead.");
+            std::string data = rt_trim(to_string(ev(1)));
+            size_t i = (!data.empty() && (data[0] == '-' || data[0] == '+'))
+                           ? 1 : 0;
+            bool is_int = i < data.size();
+            for (size_t k = i; k < data.size(); ++k)
+                if (!std::isdigit((unsigned char)data[k])) { is_int = false; break; }
+            if (is_int && do_pause) do_pause((int)strtol(data.c_str(), nullptr, 10));
         }
         return true;
     }
