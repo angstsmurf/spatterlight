@@ -602,7 +602,10 @@ put_objwin_link(strid_t s, const std::string &label, const std::string &command)
         g_objlinks.push_back(command);
         linkval = (glui32) g_objlinks.size();
     }
-    put_pane_link(s, label, linkval, false);
+    /* Encoding sniff per label, as in draw_banner: names from UTF-8-authored
+     * games are written codepoint-aware, Latin-1 ones pass through as bytes
+     * (ASCII is identical either way). */
+    put_pane_link(s, label, linkval, utf8_valid(label));
 }
 
 /* Redraw the right-hand pane with the objects/characters in the current room.
