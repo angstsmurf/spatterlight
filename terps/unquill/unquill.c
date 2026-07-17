@@ -217,7 +217,15 @@ int glkunix_startup_code(glkunix_startup_t *data)
 {
 //    char *restorefile;
     int c;
-    
+
+#ifdef SPATTERLIGHT
+    /* Identify ourselves so save/work files land in "UnQuill Files" rather
+     * than the "(null) Files" fallback a default "Unknown" program name
+     * produces (see glkimp fileref.m gFolderMap). */
+    garglk_set_program_name("UnQuill");
+#endif
+
+
     while ((c = getopt(data->argc, data->argv, "lr:")) != -1)
     {
 	switch (c)

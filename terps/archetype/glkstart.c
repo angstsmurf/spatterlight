@@ -16,6 +16,14 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 
 int glkunix_startup_code(glkunix_startup_t *data)
 {
+    /* Identify ourselves to glkimp so save/work files land in "Archetype
+     * Files" rather than the "(null) Files" fallback a default "Unknown"
+     * program name produces (see fileref.m gFolderMap).  CheapGlk
+     * (headless) has no garglk extensions, so skip it there. */
+#ifndef ARCHETYPE_HEADLESS
+    garglk_set_program_name("Archetype");
+#endif
+
     if (data->argc == 2)
         archetype_storyfile = data->argv[1];
     return 1;

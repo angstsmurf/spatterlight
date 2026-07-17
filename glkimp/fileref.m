@@ -13,26 +13,31 @@ static void setdefaultworkdir(char **string)
     *string = NULL;
     @autoreleasepool {
 
+        /* Keyed by the lower-cased FIRST WORD of the terp's program name
+         * (garglk_set_program_name), e.g. "ScottFree 1.14" -> "scottfree".
+         * Keys must match that first word, not the format or binary name,
+         * or the lookup falls through to a "(null) Files" folder. */
         NSDictionary *gFolderMap = @{@"scarier": @"SCARE",
                                      @"advsys": @"AdvSys",
                                      @"agility": @"AGiliTy",
                                      @"alan": @"Alan 2",
                                      @"alan 3": @"Alan 3",
+                                     @"archetype": @"Archetype",
                                      @"glulxe": @"Glulxe",
                                      @"hugo": @"Hugo",
-                                     @"level9": @"Level 9",
+                                     @"level": @"Level 9",
                                      @"magnetic": @"Magnetic",
                                      @"unquill": @"UnQuill",
                                      @"tads": @"TADS",
                                      @"frotz": @"Frotz",
                                      @"fizmo": @"Fizmo",
                                      @"bocfel": @"Bocfel",
-                                     @"quest4": @"Geas",
-                                     @"quest5": @"Geas",
+                                     @"comprehend": @"Comprehend",
+                                     @"geas": @"Quest",
                                      @"jacl": @"JACL",
-                                     @"sagaplus": @"Plus",
-                                     @"scott": @"ScottFree",
-                                     @"taylor": @"TaylorMade"
+                                     @"plus": @"Plus",
+                                     @"scottfree": @"ScottFree",
+                                     @"taylormade": @"TaylorMade"
                                      };
         NSError *error;
         NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];

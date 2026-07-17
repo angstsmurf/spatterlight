@@ -17,6 +17,14 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 
 int glkunix_startup_code(glkunix_startup_t *data)
 {
+    /* Give glkimp our identity so save/work/autosave files land in
+     * "Comprehend Files" rather than the "(null) Files" fallback that a
+     * default "Unknown" program name produces (see fileref.m gFolderMap).
+     * CheapGlk (headless) has no garglk extensions, so skip it there. */
+#ifndef COMPREHEND_HEADLESS
+    garglk_set_program_name("Comprehend");
+#endif
+
     for (int i = 1; i < data->argc; ++i) {
         const char *a = data->argv[i];
         if (a[0] == '-' && a[1] == 'g' && a[2] == '\0' && i + 1 < data->argc) {
