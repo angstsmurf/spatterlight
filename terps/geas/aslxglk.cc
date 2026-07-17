@@ -698,11 +698,12 @@ void redraw_side_pane(Interp &in)
                 label = cap_first(d->display_alias);
             if (g_hyperlinks) {
                 LinkAction act;
+                /* A direction runs itself; an object defaults to VERBS, which
+                 * lists its verb menu (QuestViva pops the same menu on click)
+                 * rather than firing the first verb. */
                 act.command = exit_links
                     ? d->display_alias
-                    : (d->verbs.empty() ? std::string("look at")
-                                        : plain_text(d->verbs[0])) +
-                          " " + d->display_alias;
+                    : "verbs " + d->display_alias;
                 g_pane_links.push_back(act);
                 glk_set_hyperlink_stream(
                     s, kPaneLinkBase + (glui32) g_pane_links.size() - 1);
