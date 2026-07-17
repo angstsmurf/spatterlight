@@ -915,6 +915,7 @@
 		C3CED4482810190E0040252F /* loadtotpicture.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4462810190E0040252F /* loadtotpicture.c */; };
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
+		FA11B0010000000000000003 /* LibraryOrganizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11B0010000000000000002 /* LibraryOrganizer.m */; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
 		C3CF8A172DF8799500EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
@@ -3588,6 +3589,8 @@
 		C3CF3694265FA461004D0F7B /* CoverImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoverImageView.h; sourceTree = "<group>"; };
 		C3CF3696265FB2FA004D0F7B /* GameImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameImporter.h; sourceTree = "<group>"; };
 		C3CF3697265FB2FA004D0F7B /* GameImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameImporter.m; sourceTree = "<group>"; };
+		FA11B0010000000000000001 /* LibraryOrganizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryOrganizer.h; sourceTree = "<group>"; };
+		FA11B0010000000000000002 /* LibraryOrganizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryOrganizer.m; sourceTree = "<group>"; };
 		C3CF36992660207E004D0F7B /* neo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = neo.c; sourceTree = "<group>"; };
 		C3CF369A2660207E004D0F7B /* neo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = neo.h; sourceTree = "<group>"; };
 		C3CF369C26605E4A004D0F7B /* zimage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zimage.h; sourceTree = "<group>"; };
@@ -6276,6 +6279,8 @@
 				96A9C0EF0A07AE17001B5B9B /* LibController.m */,
 				C3CF3696265FB2FA004D0F7B /* GameImporter.h */,
 				C3CF3697265FB2FA004D0F7B /* GameImporter.m */,
+				FA11B0010000000000000001 /* LibraryOrganizer.h */,
+				FA11B0010000000000000002 /* LibraryOrganizer.m */,
 				C3C506E326590E4B00763D3E /* MissingFilesFinder.h */,
 				C3C506E426590E4B00763D3E /* MissingFilesFinder.m */,
 				6DCFFC2C22BE57790035FA99 /* SideInfoView.h */,
@@ -8320,6 +8325,7 @@
 				C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
 				C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */,
+				FA11B0010000000000000003 /* LibraryOrganizer.m in Sources */,
 				AC710000000000000000B001 /* agtifid.c in Sources */,
 				AC710000000000000000B002 /* agtread.c in Sources */,
 				AC710000000000000000B003 /* agxfile.c in Sources */,

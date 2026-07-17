@@ -36,6 +36,7 @@
 #import "NSManagedObjectContext+safeSave.h"
 #import "ImageCompareViewController.h"
 #import "ComparisonOperation.h"
+#import "LibraryOrganizer.h"
 
 extern NSArray *gGameFileTypes;
 
@@ -521,6 +522,17 @@ void freeContext(void **ctx) {
         }
         blorb = nil;
 //        NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
+
+        // If the user asked us to keep games organised, copy this newly
+        // imported game into the central library folder and re-point its
+        // bookmark. Skip hidden games (opened but not added to the library).
+        // The source folder is already access-granted for the whole import run.
+        if (!hide && [LibraryOrganizer keepGamesOrganised]) {
+            NSError *orgError = nil;
+            if (![[LibraryOrganizer sharedOrganizer] organiseGame:game error:&orgError])
+                NSLog(@"GameImporter: could not organise \"%@\": %@",
+                      metadata.title, orgError.localizedDescription);
+        }
     }];
 
     return game;

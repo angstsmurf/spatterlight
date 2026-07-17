@@ -14,6 +14,7 @@
 #import "Image.h"
 #import "Metadata.h"
 #import "Fetches.h"
+#import "LibraryOrganizer.h"
 
 #import "Constants.h"
 
@@ -416,6 +417,10 @@
         {
             if (_titleField.stringValue.length && ![_meta.title isEqualToString:_titleField.stringValue]) {
                 _meta.title = _titleField.stringValue;
+                // If this game lives in the organised library, move its folder
+                // to match the new title.
+                if (_game)
+                    [[LibraryOrganizer sharedOrganizer] reorganiseGame:_game];
             } else if (_titleField.stringValue.length == 0) {
                 _titleField.stringValue = _meta.title;
             }
