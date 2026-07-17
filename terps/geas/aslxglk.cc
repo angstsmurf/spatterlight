@@ -39,6 +39,11 @@ extern "C" {
 #include "glk.h"
 }
 
+/* Presentation helpers shared with the classic Quest 1-4 frontend
+ * (geasglk.cc): the status banner, side pane + divider, transcript metaverb,
+ * save-file prompts, string/UTF-8 utilities and resource registration. */
+#include "questglk-common.inc"
+
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
 #include <libgen.h>
@@ -53,6 +58,29 @@ extern "C" int gli_sa_delays;
 namespace {
 
 using namespace aslx;
+
+/* Shared frontend helpers (questglk-common.inc).  Using-declarations rather
+ * than a using-directive: aslx.cc has a file-local trim of its own, and a
+ * name declared here shadows it instead of colliding with it. */
+using questglk::cap_first;
+using questglk::close_side_pane_windows;
+using questglk::draw_status_banner;
+using questglk::echo_input_line;
+using questglk::fill_side_divider;
+using questglk::lower;
+using questglk::match_transcript_command;
+using questglk::open_side_pane_windows;
+using questglk::play_single_sound;
+using questglk::prompt_read_save;
+using questglk::prompt_write_save;
+using questglk::put_pane_header;
+using questglk::put_pane_link;
+using questglk::put_stream_utf8;
+using questglk::stop_single_sound;
+using questglk::toggle_transcript;
+using questglk::trim;
+using questglk::utf8_cp_len;
+using questglk::utf8_next_cp;
 
 winid_t gwin = nullptr;      /* main text buffer */
 winid_t gbanner = nullptr;   /* one-line status grid: room name */
@@ -130,21 +158,8 @@ void put_uni_char(glui32 c)
 
 void put_uni_string(const std::string &utf8)
 {
-    for (size_t i = 0; i < utf8.size();) {
-        unsigned char c = (unsigned char) utf8[i];
-        glui32 cp = c;
-        int len = 1;
-        if (c >= 0xf0) len = 4;
-        else if (c >= 0xe0) len = 3;
-        else if (c >= 0xc0) len = 2;
-        if (len > 1 && i + len <= utf8.size()) {
-            cp = c & (0x7f >> len);
-            for (int k = 1; k < len; k++)
-                cp = (cp << 6) | ((unsigned char) utf8[i + k] & 0x3f);
-        }
-        put_uni_char(cp);
-        i += len;
-    }
+    for (size_t i = 0; i < utf8.size();)
+        put_uni_char(utf8_next_cp(utf8, i));
 }
 
 /* Current inline style, tracked as nesting counters so tags may overlap.
@@ -164,12 +179,6 @@ void apply_style()
 
 /* What one <span>/<a> contributed to the counters, so its close undoes it. */
 struct StylePush { int b = 0, i = 0, u = 0; };
-
-std::string lower(std::string s)
-{
-    for (char &c : s) c = (char) tolower((unsigned char) c);
-    return s;
-}
 
 /* Value of attr="..." (or attr='...') inside a raw tag body, or "". */
 std::string tag_attr(const std::string &tag, const std::string &attr)
@@ -314,7 +323,6 @@ std::string decode_entities(const std::string &s)
     return out;
 }
 
-std::string trim(const std::string &s);
 std::string plain_text(const std::string &html, const char *brsep);
 
 /* While g_swallow is armed (a send_command whose prompt and echo the host
@@ -421,19 +429,7 @@ void render_html(const std::string &html)
         } else {
             /* UTF-8 sequence or plain char (raw newlines kept, as in the
              * oracle transcripts). */
-            unsigned char c = (unsigned char) ch;
-            glui32 cp = c;
-            int len = 1;
-            if (c >= 0xf0) len = 4;
-            else if (c >= 0xe0) len = 3;
-            else if (c >= 0xc0) len = 2;
-            if (len > 1 && i + len <= html.size()) {
-                cp = c & (0x7f >> len);
-                for (int k = 1; k < len; k++)
-                    cp = (cp << 6) | ((unsigned char) html[i + k] & 0x3f);
-            }
-            put_uni_char(cp);
-            i += len;
+            put_uni_char(utf8_next_cp(html, i));
         }
     }
     /* Unbalanced opens (rare, malformed game HTML): restore the base style. */
@@ -446,36 +442,6 @@ void render_html(const std::string &html)
 }
 
 /* ---------------------------------------------------------------- banner -- */
-
-/* Write a UTF-8 string to a byte stream per-codepoint so accents survive
- * (the byte-stream API is Latin-1). */
-void put_stream_utf8(strid_t s, const std::string &str)
-{
-    for (size_t i = 0; i < str.size();) {
-        unsigned char c = (unsigned char) str[i];
-        glui32 cp = c;
-        int len = 1;
-        if (c >= 0xf0) len = 4;
-        else if (c >= 0xe0) len = 3;
-        else if (c >= 0xc0) len = 2;
-        if (len > 1 && i + len <= str.size()) {
-            cp = c & (0x7f >> len);
-            for (int k = 1; k < len; k++)
-                cp = (cp << 6) | ((unsigned char) str[i + k] & 0x3f);
-        }
-        glk_put_char_stream_uni(s, cp);
-        i += len;
-    }
-}
-
-size_t utf8_cp_len(const std::string &s)
-{
-    size_t n = 0;
-    for (size_t i = 0; i < s.size(); i++)
-        if (((unsigned char) s[i] & 0xc0) != 0x80)
-            n++;
-    return n;
-}
 
 /* Flatten a scrap of game HTML to plain text for the banner / pane labels:
  * tags stripped, entities decoded.  Newlines (from <br/>) become the given
@@ -535,65 +501,35 @@ void update_banner(Interp &in)
     }
     g_room_name = plain_text(room);
 
-    if (!gbanner)
-        return;
-    glk_window_clear(gbanner);
-    strid_t s = glk_window_get_stream(gbanner);
-    glk_set_style_stream(s, style_User1);
-    glui32 width;
-    glk_window_get_size(gbanner, &width, nullptr);
-    for (glui32 x = 0; x < width; x++)
-        glk_put_char_stream(s, ' ');
-    glk_window_move_cursor(gbanner, 1, 0);
-    put_stream_utf8(s, g_room_name);
-    /* Status attributes (JS.updateStatus: "Score: 3 | Health: 90%"),
-     * right-aligned after the room name when they fit. */
-    if (!g_status_line.empty()) {
-        size_t len = utf8_cp_len(g_status_line);
-        if (utf8_cp_len(g_room_name) + len + 4 < width) {
-            glk_window_move_cursor(gbanner, width - (glui32) len - 1, 0);
-            put_stream_utf8(s, g_status_line);
-        }
-    }
+    /* Room name left, status attributes (JS.updateStatus: "Score: 3 |
+     * Health: 90%") right-aligned when they fit, in codepoint-aware UTF-8
+     * mode. */
+    draw_status_banner(gbanner, g_room_name, g_status_line, true);
 }
 
 /* ------------------------------------------------------------- side pane -- */
 
 /* Open the right-hand pane (and its divider) if the host supports splits.
- * Mirrors the classic runner's objwin arrangement: 20% of the main text's
- * width, with a 2px graphics divider drawn in the text colour. */
+ * The same arrangement as the classic runner's objwin (shared code). */
 void ensure_pane_open()
 {
     if (gobjwin || !g_use_objpane)
         return;
-    gobjwin = glk_window_open(gwin, winmethod_Right | winmethod_Proportional,
-                              20, wintype_TextBuffer, 0);
-    if (gobjwin && glk_gestalt(gestalt_Graphics, 0))
-        gdivider = glk_window_open(gobjwin, winmethod_Left | winmethod_Fixed,
-                                   2, wintype_Graphics, 0);
+    open_side_pane_windows(gwin, &gobjwin, &gdivider);
     fill_pane_divider();
 }
 
-/* Close the pane so the main window reclaims the width.  The divider is a
- * child split of the pane, so close it first. */
+/* Close the pane so the main window reclaims the width. */
 void close_side_pane()
 {
-    if (gdivider) { glk_window_close(gdivider, nullptr); gdivider = nullptr; }
-    if (gobjwin)  { glk_window_close(gobjwin, nullptr);  gobjwin = nullptr; }
+    close_side_pane_windows(&gobjwin, &gdivider);
 }
 
 /* Paint the divider in the main text colour.  Graphics windows are blanked
  * on resize, so Arrange/Redraw events call this again. */
 void fill_pane_divider()
 {
-    if (!gdivider)
-        return;
-    glui32 color;
-    if (!glk_style_measure(gwin, style_Normal, stylehint_TextColor, &color))
-        color = 0;
-    glui32 w = 0, h = 0;
-    glk_window_get_size(gdivider, &w, &h);
-    glk_window_fill_rect(gdivider, color, 0, 0, w, h);
+    fill_side_divider(gwin, gdivider);
 }
 
 /* A registered [template] text, later registration winning (like the loader's
@@ -628,18 +564,6 @@ std::vector<std::string> compass_directions(Interp &in)
  * an empty sidebar is dead width in a Glk layout -- the classic runner's
  * objwin behaves the same way).  Each item is a hyperlink: objects run their
  * first display verb ("Look at hat"), exits go their direction. */
-/* Uppercase the first letter, like Core's CapFirst (input[..1].ToUpper()):
- * the reference already caps the location banner this way, and the side
- * pane's exit/object aliases read better matching it. Only the leading ASCII
- * letter is touched -- a UTF-8 lead byte (>= 0x80) or non-letter is left
- * alone, so accented or symbol-first names pass through unchanged. */
-std::string cap_first(std::string s)
-{
-    if (!s.empty() && (unsigned char) s[0] < 0x80)
-        s[0] = (char) toupper((unsigned char) s[0]);
-    return s;
-}
-
 void redraw_side_pane(Interp &in)
 {
     if (!g_use_objpane || !g_pane_dirty)
@@ -688,14 +612,12 @@ void redraw_side_pane(Interp &in)
         if (!first)
             glk_put_char_stream(s, '\n');
         first = false;
-        glk_set_style_stream(s, style_Subheader);
-        put_stream_utf8(s, header);
-        glk_put_char_stream(s, '\n');
-        glk_set_style_stream(s, style_Normal);
+        put_pane_header(s, header, true);
         for (const ListData *d : items) {
             std::string label = cap_first(plain_text(d->text));
             if (label.empty())
                 label = cap_first(d->display_alias);
+            glui32 linkval = 0;
             if (g_hyperlinks) {
                 LinkAction act;
                 /* A direction runs itself; an object defaults to VERBS, which
@@ -705,13 +627,9 @@ void redraw_side_pane(Interp &in)
                     ? d->display_alias
                     : "verbs " + d->display_alias;
                 g_pane_links.push_back(act);
-                glk_set_hyperlink_stream(
-                    s, kPaneLinkBase + (glui32) g_pane_links.size() - 1);
+                linkval = kPaneLinkBase + (glui32) g_pane_links.size() - 1;
             }
-            put_stream_utf8(s, label);
-            if (g_hyperlinks)
-                glk_set_hyperlink_stream(s, 0);
-            glk_put_char_stream(s, '\n');
+            put_pane_link(s, label, linkval, true);
         }
     };
 
@@ -741,32 +659,14 @@ struct InResult {
 std::string utf8_from_uni(const glui32 *buf, glui32 n)
 {
     std::string out;
-    for (glui32 i = 0; i < n; i++) {
-        glui32 cp = buf[i];
-        if (cp < 0x80) out += (char) cp;
-        else if (cp < 0x800) {
-            out += (char) (0xc0 | (cp >> 6));
-            out += (char) (0x80 | (cp & 0x3f));
-        } else if (cp < 0x10000) {
-            out += (char) (0xe0 | (cp >> 12));
-            out += (char) (0x80 | ((cp >> 6) & 0x3f));
-            out += (char) (0x80 | (cp & 0x3f));
-        } else {
-            out += (char) (0xf0 | (cp >> 18));
-            out += (char) (0x80 | ((cp >> 12) & 0x3f));
-            out += (char) (0x80 | ((cp >> 6) & 0x3f));
-            out += (char) (0x80 | (cp & 0x3f));
-        }
-    }
+    for (glui32 i = 0; i < n; i++)
+        utf8_append(out, buf[i]);
     return out;
 }
 
 void echo_input(const std::string &line)
 {
-    glk_set_style(style_Input);
-    put_uni_string(line);
-    glk_set_style(style_Normal);
-    glk_put_char('\n');
+    echo_input_line(line, true);
 }
 
 /* Echo a host-owned metaverb (RESTORE, TRANSCRIPT) the way Core's
@@ -999,14 +899,6 @@ void read_keypress(Interp &in)
     }
 }
 
-std::string trim(const std::string &s)
-{
-    size_t a = s.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos) return "";
-    size_t b = s.find_last_not_of(" \t\r\n");
-    return s.substr(a, b - a + 1);
-}
-
 bool iequal(const std::string &a, const std::string &b)
 {
     if (a.size() != b.size()) return false;
@@ -1072,19 +964,7 @@ const char *g_storyfile = nullptr;
  * pending line request here. */
 void do_save_ui(Interp &in)
 {
-    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
-    frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Write, 0);
-    if (!fref) { glk_put_string((char *) "Save cancelled.\n"); return; }
-    strid_t str = glk_stream_open_file(fref, filemode_Write, 0);
-    glk_fileref_destroy(fref);
-    if (!str) {
-        glk_put_string((char *) "Could not open the save file.\n");
-        return;
-    }
-    std::string data = in.save_game(g_storyfile ? g_storyfile : "");
-    glk_put_buffer_stream(str, (char *) data.data(), (glui32) data.size());
-    glk_stream_close(str, nullptr);
-    glk_put_string((char *) "Game saved.\n");
+    prompt_write_save(in.save_game(g_storyfile ? g_storyfile : ""));
 }
 
 /* Prompt for a save file and read it, validating it against a scratch reload
@@ -1093,21 +973,8 @@ void do_save_ui(Interp &in)
  * the session from it. */
 bool do_restore_ui(std::string &data)
 {
-    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
-    frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Read, 0);
-    if (!fref) { glk_put_string((char *) "Restore cancelled.\n"); return false; }
-    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
-    glk_fileref_destroy(fref);
-    if (!str) {
-        glk_put_string((char *) "Could not open the save file.\n");
+    if (!prompt_read_save(data))
         return false;
-    }
-    data.clear();
-    char buf[4096];
-    glui32 n;
-    while ((n = glk_get_buffer_stream(str, buf, sizeof buf)) > 0)
-        data.append(buf, n);
-    glk_stream_close(str, nullptr);
 
     if (!Interp::is_save_data(data.data(), data.size())) {
         glk_put_string((char *) "Sorry, that does not look like a saved game"
@@ -1140,47 +1007,16 @@ bool is_restore_command(const std::string &raw)
 
 /* ------------------------------------------------------------- metaverbs -- */
 
-/* Transcript recording, same commands as the classic runner. */
+/* Transcript recording, same commands (and shared code) as the classic
+ * runner. */
 bool handle_transcript_command(const std::string &raw)
 {
-    std::string c = lower(trim(raw));
-    bool on  = (c == "transcript" || c == "transcript on" ||
-                c == "script" || c == "script on");
-    bool off = (c == "transcript off" || c == "script off" ||
-                c == "notranscript" || c == "noscript" || c == "unscript");
-    if (!on && !off)
+    int on = match_transcript_command(raw);
+    if (!on)
         return false;
     if (!g_prompt_first)        /* prompt-first: the host already echoed it */
         echo_metaverb(raw);
-    if (on) {
-        if (gtranscript) {
-            glk_put_string((char *) "A transcript is already being recorded.\n");
-            return true;
-        }
-        frefid_t fref = glk_fileref_create_by_prompt(
-            fileusage_Transcript | fileusage_TextMode, filemode_Write, 0);
-        if (!fref) {
-            glk_put_string((char *) "Transcript cancelled.\n");
-            return true;
-        }
-        gtranscript = glk_stream_open_file(fref, filemode_Write, 0);
-        glk_fileref_destroy(fref);
-        if (!gtranscript) {
-            glk_put_string((char *) "Could not open the transcript file.\n");
-            return true;
-        }
-        glk_window_set_echo_stream(gwin, gtranscript);
-        glk_put_string((char *) "Transcript on: game text is now being saved to a file.\n");
-    } else {
-        if (!gtranscript) {
-            glk_put_string((char *) "No transcript is being recorded.\n");
-            return true;
-        }
-        glk_put_string((char *) "Transcript off.\n");
-        glk_window_set_echo_stream(gwin, nullptr);
-        glk_stream_close(gtranscript, nullptr);
-        gtranscript = nullptr;
-    }
+    toggle_transcript(on, gwin, &gtranscript);
     return true;
 }
 
@@ -1347,20 +1183,21 @@ bool resource_bytes(const std::string &name, std::string &out)
 }
 
 #ifdef SPATTERLIGHT
-/* Like the classic runner's show_image (geasglk.cc): Quest image files are
- * external and arbitrarily named, so register each with the backend under a
- * private resource number and let glk_image_draw* short-circuit its
- * PIC<n>/blorb lookup via win_findimage. */
-extern "C" int  win_findimage(int resno);
-extern "C" void win_loadimage(int resno, const char *filename, int offset, int reslen);
+/* Quest's image and sound files are external and arbitrarily named, so
+ * register each with the backend under a private resource number (the
+ * win_find / win_load pre-registration shared with the classic runner --
+ * see questglk-common.inc) and let glk_image_draw* / glk_schannel_play*
+ * short-circuit their PIC<n>/SND<n> blorb lookup. */
 
 /* filename (case-folded) -> registered resource number; 0 = known-failed. */
 std::map<std::string, glui32> g_image_ids;
+std::map<std::string, glui32> g_sound_ids;
 int g_image_next_id = 1;
+int g_sound_next_id = 1;
 
 /* Stage bytes in a temporary file for the backend to load. The file is only
- * needed until the load round-trips (the caller's glk_image_get_info), after
- * which it is unlinked. */
+ * needed until the load round-trips (see load_media_resource), after which
+ * it is unlinked. */
 bool stage_temp_file(const std::string &bytes, std::string &path)
 {
     const char *tmpdir = getenv("TMPDIR");
@@ -1384,97 +1221,76 @@ bool stage_temp_file(const std::string &bytes, std::string &path)
     return true;
 }
 
-/* Resolve + register one image resource. Returns its resource number, or 0.
- * A stored package entry is read by the app straight from the .quest at its
- * byte offset; a deflated entry (the common case -- Quest's packager
- * deflates everything) or an adjacent file goes through resource_bytes. */
-glui32 load_image_resource(const std::string &name)
+/* Resolve + register one image or sound resource. Returns its resource
+ * number, or 0. A stored package entry is read by the app straight from the
+ * .quest at its byte offset; a deflated entry (the common case -- Quest's
+ * packager deflates everything) or an adjacent file goes through
+ * resource_bytes and a temp file. The verification round-trip to the app
+ * (glk_image_get_info / win_findsound) both confirms the resource really
+ * decoded and means the temp file has been consumed. */
+glui32 load_media_resource(const std::string &name, bool sound)
 {
     glui32 id = 0;
     std::string temp_path;
+    int &next_id = sound ? g_sound_next_id : g_image_next_id;
 
     const ZipEntryInfo *e =
         g_is_package && name.find("..") == std::string::npos
             ? zip_find_entry(g_package_entries, name) : nullptr;
     if (e && e->method == 0 && g_storyfile) {
-        id = (glui32) (g_image_next_id++);
-        win_loadimage((int) id, g_storyfile, (int) e->offset,
-                      (int) e->comp_size);
+        id = (glui32) (next_id++);
+        if (sound)
+            win_loadsound((int) id, (char *) g_storyfile, (int) e->offset,
+                          (int) e->comp_size);
+        else
+            win_loadimage((int) id, g_storyfile, (int) e->offset,
+                          (int) e->comp_size);
     } else {
         std::string bytes;
         if (!resource_bytes(name, bytes) || bytes.empty())
             return 0;
         if (!stage_temp_file(bytes, temp_path))
             return 0;
-        id = (glui32) (g_image_next_id++);
-        win_loadimage((int) id, temp_path.c_str(), 0, (int) bytes.size());
+        id = (glui32) (next_id++);
+        if (sound)
+            win_loadsound((int) id, (char *) temp_path.c_str(), 0,
+                          (int) bytes.size());
+        else
+            win_loadimage((int) id, temp_path.c_str(), 0, (int) bytes.size());
     }
 
-    /* glk_image_get_info round-trips to the app, which both confirms the
-     * image really decoded and means the temp file has been consumed. */
     glui32 w, h;
-    if (!glk_image_get_info(id, &w, &h))
+    bool ok = sound ? win_findsound((int) id) != 0
+                    : glk_image_get_info(id, &w, &h) != 0;
+    if (!ok)
         id = 0;
     if (!temp_path.empty())
         unlink(temp_path.c_str());
     return id;
 }
-#endif /* SPATTERLIGHT */
 
-#ifdef SPATTERLIGHT
-/* Sounds, the same pattern as images: register each game sound file with the
- * backend under a private resource number so glk_schannel_play* finds it via
- * win_findsound. */
-extern "C" int  win_findsound(int resno);
-extern "C" void win_loadsound(int resno, char *filename, int offset, int reslen);
-
-/* filename (case-folded) -> registered resource number; 0 = known-failed. */
-std::map<std::string, glui32> g_sound_ids;
-int g_sound_next_id = 1;
-
-/* Resolve + register one sound resource, mirroring load_image_resource. The
- * app loads the data as soon as it receives LOADSOUND, and win_findsound
- * round-trips (the glk_image_get_info analog): it both confirms the resource
- * really loaded and means a temp file has been consumed. */
-glui32 load_sound_resource(const std::string &name)
+/* Cached name -> resource-number lookup (failures cached as 0, so an
+ * unresolvable file is only chased once). */
+glui32 cached_media_id(std::map<std::string, glui32> &ids,
+                       const std::string &name, bool sound)
 {
-    glui32 id = 0;
-    std::string temp_path;
-
-    const ZipEntryInfo *e =
-        g_is_package && name.find("..") == std::string::npos
-            ? zip_find_entry(g_package_entries, name) : nullptr;
-    if (e && e->method == 0 && g_storyfile) {
-        id = (glui32) (g_sound_next_id++);
-        win_loadsound((int) id, (char *) g_storyfile, (int) e->offset,
-                      (int) e->comp_size);
-    } else {
-        std::string bytes;
-        if (!resource_bytes(name, bytes) || bytes.empty())
-            return 0;
-        if (!stage_temp_file(bytes, temp_path))
-            return 0;
-        id = (glui32) (g_sound_next_id++);
-        win_loadsound((int) id, (char *) temp_path.c_str(), 0,
-                      (int) bytes.size());
-    }
-
-    if (!win_findsound((int) id))
-        id = 0;
-    if (!temp_path.empty())
-        unlink(temp_path.c_str());
+    auto it = ids.find(lower(name));
+    if (it != ids.end())
+        return it->second;
+    glui32 id = load_media_resource(name, sound);
+    ids[lower(name)] = id;
     return id;
 }
 #endif /* SPATTERLIGHT */
 
 /* One sound channel, like the reference player's single <audio> element: a
- * new `play sound` replaces the current one, `stop sound` silences it. */
+ * new `play sound` replaces the current one, `stop sound` silences it
+ * (shared single-channel semantics -- see questglk-common.inc). */
 schanid_t g_schannel = nullptr;
 
 void stop_sound_ui()
 {
-    if (g_schannel)
-        glk_schannel_stop(g_schannel);
+    stop_single_sound(&g_schannel);
 }
 
 /* Block until the playing sound reports finished -- the synchronous
@@ -1516,25 +1332,12 @@ void play_sound_ui(Interp &in, const std::string &name, bool sync, bool loop)
     if (!glk_gestalt(gestalt_Sound2, 0))
         return;
 
-    glui32 id;
-    auto it = g_sound_ids.find(lower(name));
-    if (it != g_sound_ids.end()) {
-        id = it->second;
-    } else {
-        id = load_sound_resource(name);
-        g_sound_ids[lower(name)] = id;   /* 0 = known-unresolvable */
-    }
+    glui32 id = cached_media_id(g_sound_ids, name, true);
     if (!id)
         return;
 
-    if (!g_schannel)
-        g_schannel = glk_schannel_create(0);
-    if (!g_schannel)
-        return;
-
     bool block = sync && !loop && gli_sa_delays;
-    if (!glk_schannel_play_ext(g_schannel, id, loop ? 0xffffffff : 1,
-                               block ? 1 : 0))
+    if (!play_single_sound(&g_schannel, id, loop, block ? 1 : 0))
         return;
     if (block)
         wait_for_sound(in, id);
@@ -1551,14 +1354,7 @@ bool draw_image_inline(const std::string &name)
         !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
         return false;
 
-    glui32 id;
-    auto it = g_image_ids.find(lower(name));
-    if (it != g_image_ids.end()) {
-        id = it->second;
-    } else {
-        id = load_image_resource(name);
-        g_image_ids[lower(name)] = id;   /* 0 = known-unresolvable */
-    }
+    glui32 id = cached_media_id(g_image_ids, name, false);
     if (!id)
         return false;
 

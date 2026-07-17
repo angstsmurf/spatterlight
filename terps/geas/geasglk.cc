@@ -49,6 +49,12 @@
 
 #include "GeasRunner.hh"
 
+/* Presentation helpers shared with the Quest 5 frontend (aslxglk.cc): the
+ * status banner, side pane + divider, transcript metaverb, save-file
+ * prompts, string/UTF-8 utilities and resource registration. */
+#include "questglk-common.inc"
+using namespace questglk;
+
 class GeasGlkInterface : public GeasInterface
 {
 protected:
@@ -131,58 +137,10 @@ static std::string g_room_name;      /* current room name, shown left-aligned in
 static bool
 handle_transcript_command(const std::string &raw)
 {
-    std::string c;
-    for (char ch : raw)
-        c += tolower((unsigned char) ch);
-    std::string::size_type a = c.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos)
+    int on = match_transcript_command(raw);
+    if (!on)
         return false;
-    std::string::size_type b = c.find_last_not_of(" \t\r\n");
-    c = c.substr(a, b - a + 1);
-
-    bool on  = (c == "transcript" || c == "transcript on" ||
-                c == "script" || c == "script on");
-    bool off = (c == "transcript off" || c == "script off" ||
-                c == "notranscript" || c == "noscript");
-    if (!on && !off)
-        return false;
-
-    if (on)
-      {
-        if (transcriptstr)
-          {
-            glk_put_string((char *) "A transcript is already being recorded.\n");
-            return true;
-          }
-        frefid_t fref = glk_fileref_create_by_prompt(
-            fileusage_Transcript | fileusage_TextMode, filemode_Write, 0);
-        if (!fref)
-          {
-            glk_put_string((char *) "Transcript cancelled.\n");
-            return true;
-          }
-        transcriptstr = glk_stream_open_file(fref, filemode_Write, 0);
-        glk_fileref_destroy(fref);
-        if (!transcriptstr)
-          {
-            glk_put_string((char *) "Could not open the transcript file.\n");
-            return true;
-          }
-        glk_window_set_echo_stream(mainglkwin, transcriptstr);
-        glk_put_string((char *) "Transcript on: game text is now being saved to a file.\n");
-      }
-    else
-      {
-        if (!transcriptstr)
-          {
-            glk_put_string((char *) "No transcript is being recorded.\n");
-            return true;
-          }
-        glk_put_string((char *) "Transcript off.\n");
-        glk_window_set_echo_stream(mainglkwin, nullptr);
-        glk_stream_close(transcriptstr, nullptr);
-        transcriptstr = nullptr;
-      }
+    toggle_transcript(on, mainglkwin, &transcriptstr);
     return true;
 }
 
@@ -191,18 +149,9 @@ handle_transcript_command(const std::string &raw)
 static bool
 do_restore(GeasRunner *gr)
 {
-    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
-    frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Read, 0);
-    if (!fref) { glk_put_string((char *) "Restore cancelled.\n"); return false; }
-    strid_t str = glk_stream_open_file(fref, filemode_Read, 0);
-    glk_fileref_destroy(fref);
-    if (!str) { glk_put_string((char *) "Could not open the save file.\n"); return false; }
     std::string data;
-    char buf[4096];
-    glui32 n;
-    while ((n = glk_get_buffer_stream(str, buf, sizeof buf)) > 0)
-        data.append(buf, n);
-    glk_stream_close(str, nullptr);
+    if (!prompt_read_save(data))
+        return false;
     if (gr->load_state(data)) {
         glk_put_string((char *) "\nGame restored.\n");
         return true;
@@ -217,38 +166,17 @@ do_restore(GeasRunner *gr)
 static bool
 handle_saverestore_command(const std::string &raw, GeasRunner *gr)
 {
-    std::string c;
-    for (char ch : raw)
-        c += tolower((unsigned char) ch);
-    std::string::size_type a = c.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos)
-        return false;
-    std::string::size_type b = c.find_last_not_of(" \t\r\n");
-    c = c.substr(a, b - a + 1);
-
+    std::string c = lower(trim(raw));
     bool save = (c == "save" || c == "save game");
     bool restore = (c == "restore" || c == "restore game" ||
                     c == "load" || c == "load game");
     if (!save && !restore)
         return false;
 
-    glui32 usage = fileusage_SavedGame | fileusage_BinaryMode;
     if (save)
-      {
-        frefid_t fref = glk_fileref_create_by_prompt(usage, filemode_Write, 0);
-        if (!fref) { glk_put_string((char *) "Save cancelled.\n"); return true; }
-        strid_t str = glk_stream_open_file(fref, filemode_Write, 0);
-        glk_fileref_destroy(fref);
-        if (!str) { glk_put_string((char *) "Could not open the save file.\n"); return true; }
-        std::string data = gr->save_state();
-        glk_put_buffer_stream(str, (char *) data.data(), (glui32) data.size());
-        glk_stream_close(str, nullptr);
-        glk_put_string((char *) "Game saved.\n");
-      }
+        prompt_write_save(gr->save_state());
     else
-      {
         do_restore(gr);
-      }
     return true;
 }
 
@@ -257,15 +185,7 @@ handle_saverestore_command(const std::string &raw, GeasRunner *gr)
 static bool
 handle_quit_command(const std::string &raw, bool &quitting)
 {
-    std::string c;
-    for (char ch : raw)
-        c += tolower((unsigned char) ch);
-    std::string::size_type a = c.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos)
-        return false;
-    std::string::size_type b = c.find_last_not_of(" \t\r\n");
-    c = c.substr(a, b - a + 1);
-
+    std::string c = lower(trim(raw));
     if (c != "quit" && c != "q" && c != "quit game")
         return false;
 
@@ -278,15 +198,7 @@ handle_quit_command(const std::string &raw, bool &quitting)
 static bool
 handle_restart_command(const std::string &raw, GeasRunner *gr)
 {
-    std::string c;
-    for (char ch : raw)
-        c += tolower((unsigned char) ch);
-    std::string::size_type a = c.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos)
-        return false;
-    std::string::size_type b = c.find_last_not_of(" \t\r\n");
-    c = c.substr(a, b - a + 1);
-
+    std::string c = lower(trim(raw));
     if (c != "restart" && c != "restart game")
         return false;
 
@@ -301,15 +213,7 @@ handle_restart_command(const std::string &raw, GeasRunner *gr)
 static bool
 handle_help_command(const std::string &raw)
 {
-    std::string c;
-    for (char ch : raw)
-        c += tolower((unsigned char) ch);
-    std::string::size_type a = c.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos)
-        return false;
-    std::string::size_type b = c.find_last_not_of(" \t\r\n");
-    c = c.substr(a, b - a + 1);
-
+    std::string c = lower(trim(raw));
     if (c != "#help" && c != "#commands" && c != "metaverbs")
         return false;
 
@@ -363,9 +267,7 @@ post_game_menu()
         std::string w;
         for (int i = 0; i < (int) ev.val1; i++)
             w += tolower((unsigned char) b[i]);
-        std::string::size_type p = w.find_first_not_of(" \t\r\n");
-        std::string::size_type q = w.find_last_not_of(" \t\r\n");
-        w = (p == std::string::npos) ? std::string() : w.substr(p, q - p + 1);
+        w = trim(w);
         if (w == "1" || w == "u" || w == "undo")    return 1;
         if (w == "2" || w == "restore" || w == "load") return 2;
         if (w == "3" || w == "restart")             return 3;
@@ -518,12 +420,8 @@ void glk_main(void)
                     /* Auto-echo is off, so echo the entered command ourselves at
                      * the prompt (which was already printed above), so every
                      * command -- including the metaverbs below -- shows up. */
-                    if (g_manual_echo) {
-                        glk_set_style(style_Input);
-                        glk_put_cstring(cmd.c_str());
-                        glk_set_style(style_Normal);
-                        glk_put_char('\n');
-                    }
+                    if (g_manual_echo)
+                        echo_input_line(cmd, false);
                     if(!handle_transcript_command(cmd) &&
                        !handle_saverestore_command(cmd, gr) &&
                        !handle_restart_command(cmd, gr) &&
@@ -587,12 +485,8 @@ void glk_main(void)
                      * no typed text for the library to echo.  With a separate
                      * input window run_command prints its own "> cmd" into the
                      * main text (ignore_lines stays 0), so no manual echo. */
-                    if (inputwin == mainglkwin) {
-                        glk_set_style(style_Input);
-                        glk_put_cstring(cmd.c_str());
-                        glk_set_style(style_Normal);
-                        glk_put_char('\n');
-                    }
+                    if (inputwin == mainglkwin)
+                        echo_input_line(cmd, false);
                     if (!handle_transcript_command(cmd) &&
                         !handle_saverestore_command(cmd, gr) &&
                         !handle_restart_command(cmd, gr) &&
@@ -669,36 +563,11 @@ void glk_main(void)
 void
 draw_banner()
 {
-  glui32 width;
-  int index;
-  if (bannerwin)
-    {
-      glk_window_clear(bannerwin);
-      glk_window_move_cursor(bannerwin, 0, 0);
-      strid_t stream = glk_window_get_stream(bannerwin);
-
-      glk_set_style_stream(stream, style_User1);
-      glk_window_get_size (bannerwin, &width, NULL);
-      for (index = 0; index < (int) width; index++)
-        glk_put_char_stream (stream, ' ');
-
-      /* The current room name, left-aligned.  (The game's title/version/author
-       * banner is shown once at startup in the main window, not here.) */
-      std::string title = g_room_name;
-      glk_window_move_cursor(bannerwin, 1, 0);
-      glk_put_string_stream(stream, (char*) title.c_str());
-
-      if (!g_status_line.empty()) {
-          glui32 slen = (glui32) g_status_line.size();
-          if (slen + 2 < width) {
-              glui32 col = width - slen - 1;
-              if (col > (glui32) title.size() + 2) {
-                  glk_window_move_cursor(bannerwin, col, 0);
-                  glk_put_string_stream(stream, (char*) g_status_line.c_str());
-              }
-          }
-      }
-    }
+  /* The current room name, left-aligned, and the status vars right-aligned.
+   * (The game's title/version/author banner is shown once at startup in the
+   * main window, not here.)  Byte mode: classic geas text passes through
+   * verbatim. */
+  draw_status_banner(bannerwin, g_room_name, g_status_line, false);
 }
 
 /* Open the right-hand pane (and its divider), if not already open and the host
@@ -707,36 +576,14 @@ draw_banner()
 static void
 ensure_objwin_open()
 {
-    if (objwin)
-        return;
-    objwin = glk_window_open(mainglkwin,
-                             winmethod_Right | winmethod_Proportional,
-                             20, wintype_TextBuffer, 0);
-    /* A thin graphics window between the main text and the pane, drawn in the
-     * text colour, as a divider. */
-    if (objwin && glk_gestalt(gestalt_Graphics, 0))
-        gfxwin = glk_window_open(objwin, winmethod_Left | winmethod_Fixed,
-                                 2, wintype_Graphics, 0);
+    open_side_pane_windows(mainglkwin, &objwin, &gfxwin);
 }
 
-/* Close the pane and its divider so the main window reclaims the full width.
- * The divider is a child split of objwin, so close it first. */
+/* Close the pane and its divider so the main window reclaims the full width. */
 static void
 close_objwin()
 {
-    if (gfxwin) { glk_window_close(gfxwin, nullptr); gfxwin = nullptr; }
-    if (objwin) { glk_window_close(objwin, nullptr); objwin = nullptr; }
-}
-
-/* Uppercase the leading ASCII letter (like the room name above and the Quest 5
- * pane's CapFirst): the pane's object/exit names read better capitalized. A
- * UTF-8 lead byte or non-letter first character is left untouched. */
-static std::string
-cap_first(std::string s)
-{
-    if (!s.empty() && (unsigned char) s[0] < 0x80)
-        s[0] = toupper((unsigned char) s[0]);
-    return s;
+    close_side_pane_windows(&objwin, &gfxwin);
 }
 
 /* Write one pane entry (on its own line) to the objwin stream.  When the host
@@ -746,14 +593,12 @@ cap_first(std::string s)
 static void
 put_objwin_link(strid_t s, const std::string &label, const std::string &command)
 {
+    glui32 linkval = 0;
     if (g_hyperlinks) {
         g_objlinks.push_back(command);
-        glk_set_hyperlink_stream(s, (glui32) g_objlinks.size());
+        linkval = (glui32) g_objlinks.size();
     }
-    glk_put_string_stream(s, (char *) label.c_str());
-    if (g_hyperlinks)
-        glk_set_hyperlink_stream(s, 0);
-    glk_put_char_stream(s, '\n');
+    put_pane_link(s, label, linkval, false);
 }
 
 /* Redraw the right-hand pane with the objects/characters in the current room.
@@ -846,9 +691,7 @@ update_objwin(GeasRunner *gr)
              * objects -- with none, "Exits" sits at the very top of the pane. */
             if (!flat.empty())
                 glk_put_char_stream(s, '\n');
-            glk_set_style_stream(s, style_Subheader);
-            glk_put_string_stream(s, (char *) "Exits\n");
-            glk_set_style_stream(s, style_Normal);
+            put_pane_header(s, "Exits", false);
             for (std::vector<std::string> &exit : exits) {
                 if (exit.empty() || exit[0].empty())
                     continue;
@@ -891,14 +734,7 @@ GeasGlkInterface::has_objects_window ()
 static void
 fill_divider()
 {
-    if (!gfxwin)
-        return;
-    glui32 color;
-    if (!glk_style_measure(mainglkwin, style_Normal, stylehint_TextColor, &color))
-        color = 0;   /* fall back to black */
-    glui32 w = 0, h = 0;
-    glk_window_get_size(gfxwin, &w, &h);
-    glk_window_fill_rect(gfxwin, color, 0, 0, w, h);
+    fill_side_divider(mainglkwin, gfxwin);
 }
 
 void
@@ -1177,13 +1013,8 @@ std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const 
   return rv;
 }
 
-/* glkimp helpers (declared in glkimp.h, which we don't include here).  Quest/
- * Geas reference audio by file name (e.g. "die.wav"), not by numbered Blorb
- * resource, so we pre-register each file under a synthetic resource number
- * with win_loadsound().  glk_schannel_play_ext() then short-circuits its
- * SND<n> lookup because win_findsound() reports the number already loaded. */
-extern "C" int  win_findsound (int resno);
-extern "C" void win_loadsound (int resno, char *filename, int offset, int reslen);
+/* Audio and images go through the by-name resource registration shared with
+ * the Quest 5 frontend (register_path_resource in questglk-common.inc). */
 
 static schanid_t geas_soundchannel = NULL;
 
@@ -1196,55 +1027,27 @@ GeasGlkInterface::play_sound (const std::string &filename, bool looped, bool /*s
   /* An empty filename is Geas's request to stop all sound. */
   if (filename.empty())
     {
-      if (geas_soundchannel)
-	glk_schannel_stop (geas_soundchannel);
+      stop_single_sound (&geas_soundchannel);
       return r_success;
     }
-
-  if (!geas_soundchannel)
-    {
-      geas_soundchannel = glk_schannel_create (0);
-      if (!geas_soundchannel)
-	return r_not_supported;   /* sound disabled or unsupported */
-    }
-
-  /* Quest plays one sound at a time; a new sound replaces the previous one. */
-  glk_schannel_stop (geas_soundchannel);
 
   std::string parent = storyfilename ? storyfilename : "";
   std::string path = absolute_name (filename, parent);
 
   /* Assign each distinct file a stable resource number and load it once. */
   static std::map<std::string, int> sound_ids;
-  auto it = sound_ids.find (path);
-  int resno;
-  if (it == sound_ids.end())
-    resno = sound_ids[path] = (int) sound_ids.size() + 1;
-  else
-    resno = it->second;
-
-  if (!win_findsound (resno))
+  int resno = register_path_resource (sound_ids, path, true);
+  if (!resno)
     {
-      std::ifstream f (path.c_str(), std::ios::binary | std::ios::ate);
-      if (!f.is_open())
-	{
-	  std::cerr << "play_sound: cannot open " << path << "\n";
-	  return r_not_supported;
-	}
-      int len = (int) f.tellg();
-      win_loadsound (resno, (char *) path.c_str(), 0, len);
+      std::cerr << "play_sound: cannot open " << path << "\n";
+      return r_not_supported;
     }
 
-  glui32 repeats = looped ? 0xffffffffu : 1u;   /* 0xffffffff == loop forever */
-  glk_schannel_play_ext (geas_soundchannel, (glui32) resno, repeats, 0);
+  /* One sound at a time: a new sound replaces the previous one. */
+  if (!play_single_sound (&geas_soundchannel, (glui32) resno, looped, 0))
+    return r_not_supported;   /* sound disabled or unsupported */
   return r_success;
 }
-
-/* Like the sound case: Quest's image files are external and arbitrarily named,
- * so register each with the backend under a stable resource number and let
- * glk_image_draw () short-circuit its PIC<n>/blorb lookup via win_findimage (). */
-extern "C" int  win_findimage (int resno);
-extern "C" void win_loadimage (int resno, const char *filename, int offset, int reslen);
 
 GeasResult
 GeasGlkInterface::show_image (const std::string &filename, const std::string &resolution,
@@ -1261,23 +1064,11 @@ GeasGlkInterface::show_image (const std::string &filename, const std::string &re
   std::string path = absolute_name (filename, parent);
 
   static std::map<std::string, int> image_ids;
-  auto it = image_ids.find (path);
-  int resno;
-  if (it == image_ids.end())
-    resno = image_ids[path] = (int) image_ids.size() + 1;
-  else
-    resno = it->second;
-
-  if (!win_findimage (resno))
+  int resno = register_path_resource (image_ids, path, false);
+  if (!resno)
     {
-      std::ifstream f (path.c_str(), std::ios::binary | std::ios::ate);
-      if (!f.is_open())
-	{
-	  std::cerr << "show_image: cannot open " << path << "\n";
-	  return r_not_supported;
-	}
-      int len = (int) f.tellg();
-      win_loadimage (resno, path.c_str(), 0, len);
+      std::cerr << "show_image: cannot open " << path << "\n";
+      return r_not_supported;
     }
 
   /* Draw on its own line in the main window.  Honour the optional "<W>x<H>"
