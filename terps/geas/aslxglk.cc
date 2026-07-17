@@ -628,6 +628,18 @@ std::vector<std::string> compass_directions(Interp &in)
  * an empty sidebar is dead width in a Glk layout -- the classic runner's
  * objwin behaves the same way).  Each item is a hyperlink: objects run their
  * first display verb ("Look at hat"), exits go their direction. */
+/* Uppercase the first letter, like Core's CapFirst (input[..1].ToUpper()):
+ * the reference already caps the location banner this way, and the side
+ * pane's exit/object aliases read better matching it. Only the leading ASCII
+ * letter is touched -- a UTF-8 lead byte (>= 0x80) or non-letter is left
+ * alone, so accented or symbol-first names pass through unchanged. */
+std::string cap_first(std::string s)
+{
+    if (!s.empty() && (unsigned char) s[0] < 0x80)
+        s[0] = (char) toupper((unsigned char) s[0]);
+    return s;
+}
+
 void redraw_side_pane(Interp &in)
 {
     if (!g_use_objpane || !g_pane_dirty)
@@ -681,9 +693,9 @@ void redraw_side_pane(Interp &in)
         glk_put_char_stream(s, '\n');
         glk_set_style_stream(s, style_Normal);
         for (const ListData *d : items) {
-            std::string label = plain_text(d->text);
+            std::string label = cap_first(plain_text(d->text));
             if (label.empty())
-                label = d->display_alias;
+                label = cap_first(d->display_alias);
             if (g_hyperlinks) {
                 LinkAction act;
                 act.command = exit_links
