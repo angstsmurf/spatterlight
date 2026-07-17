@@ -486,7 +486,8 @@ private:
     // continuation at a turn boundary / resume it when the wait slot is next
     // claimed (new `wait` or sync sound = BeginPrompt cancel; host
     // finish_wait = TrySetResult).
-    void park_suspension(TurnSuspended &ts, bool owes_update, int owes_endcb);
+    void park_suspension(TurnSuspended &ts, bool owes_update, int owes_endcb,
+                         bool owes_finishturn = false);
     void resume_parked_tail();
     Value eval_expr(const Expr &e, Context &ctx);
     Value eval_expr_node(const Expr &e, Context &ctx);
@@ -646,6 +647,15 @@ private:
     std::vector<TurnSuspended::Frame> parked_frames_;
     bool parked_owes_update_ = false;
     int parked_owes_endcb_ = 0;
+    // A COMMAND turn (run_command, pre-v580) calls FinishTurn -- which runs the
+    // turnscripts -- as a step AFTER HandleCommand returns. When HandleCommand
+    // suspends on a synchronous `play sound`, that FinishTurn is never reached,
+    // so the parked continuation still owes it: QuestViva's awaited command
+    // chain resumes THROUGH TryFinishTurnAsync when the wait slot is claimed, so
+    // the turnscripts DO tick for that turn (just deferred). Replayed after the
+    // frames, before the owed pane refresh. Core's RunTurnScripts self-guards on
+    // IsGameRunning(), so an owed FinishTurn on a finished game no-ops the ticks.
+    bool parked_owes_finishturn_ = false;
 };
 
 }  // namespace aslx

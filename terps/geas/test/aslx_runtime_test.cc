@@ -478,15 +478,30 @@ static void test_typed_lists() {
         "msg (matches[0][\"name\"])"), "5\nfirst");
 
     // The list holds the dictionary by reference: mutating it through the
-    // ListItem alias is visible through the original variable.
+    // ListItem alias is visible through the original variable. Add a NEW key
+    // through the alias -- `dictionary add` with an EXISTING key THROWS in
+    // QuestViva (OrderedDictionary.Insert -> Dictionary.Add; see the duplicate
+    // `touch` verb error in The Zen Garden's golden), it does not replace.
     CHECK_STR(run(in,
         "l = NewList()\n"
         "d = NewDictionary()\n"
         "dictionary add (d, \"score\", 1)\n"
         "list add (l, d)\n"
         "e = ListItem(l, 0)\n"
-        "dictionary add (e, \"score\", 99)\n"
-        "msg (d[\"score\"])"), "99");
+        "dictionary add (e, \"bonus\", 99)\n"
+        "msg (d[\"bonus\"])"), "99");
+
+    // `dictionary add` with a key already present throws, exactly like
+    // QuestViva's QuestDictionary.Add (Dictionary.Add on a dup key).
+    {
+        World dw;
+        Interp di(dw);
+        run(di,
+            "d = NewDictionary()\n"
+            "dictionary add (d, \"k\", 1)\n"
+            "dictionary add (d, \"k\", 2)");
+        CHECK(!dw.errors.empty());
+    }
 
     // foreach binds the typed entry (a dictionary, not its string form).
     CHECK_STR(run(in,

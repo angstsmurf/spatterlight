@@ -1,0 +1,1279 @@
+Error running script: Error adding key 'touch' to dictionary: An item with the same key has already been added. Key: touch
+ Welcome to The Zen Garden (Quest v5.3).
+
+This is a text-only brainteaser (with some sound) inspired by Japanese art and haiku.
+
+It's not easy!
+
+It has been designed to be explored and contemplated over endless cups of green tea.
+
+ A few hints before you start:.
+
+Examine everything in the game thoroughly. There are a few red herrings, but most things are significant.
+
+Read location descriptions carefully - things do not always stay the same!
+
+In general, expect to find subtle clues rather than explicit solutions.
+
+If you expect something to work and it doesn't, try using full words.
+
+Interrogate the characters you encounter. Don't forget to ASK (person) ABOUT (thing), and that (thing) must be a full word. Some characters are more talkative than others. All have at least something to tell you.
+
+Good luck and please let me know how you get on!
+
+You are in a Zen Garden.
+
+There is a small lake with a wooden bridge.
+
+In the centre of the lake is a flat rock.
+
+A heron stands quite motionless in the shallows.
+
+There is a teahouse in the eastern corner of the garden.
+
+You can also see a young woman standing on the bridge, an old man sitting on the floor of the teahouse and a sparrow singing in a willow tree.
+
+You can go east into the teahouse or out of the garden.
+> ask woman about dish
+> ask woman about dish
+"The dish was broken into five pieces," she says, "Please restore us!"
+> out
+> out
+You are on a road lined with cherry trees.
+A bank of fog lies across the road to the west.
+
+You can go into the Zen Garden or walk east along the road.
+> take blossom
+> take blossom
+You carefully pick the blossom from the tree.
+> e
+> e
+You stand next to an old pond.
+
+The road leads west. There is also a track that takes you up into the mountains or down towards the beach.
+
+> x pond
+> x pond
+Just an old pond...You find a colourful fragment of pottery lying next to it.
+> take colourful fragment
+> take colourful fragment
+You pick it up.
+> d
+> d
+You are on a cliff path.
+
+You can go up to the old pond or down to the beach.
+> d
+> d
+You are in a small fishing hamlet on the beach.
+The huts are empty and the boats are gone.
+
+You can go up the cliff or into a hut.
+> x beach
+> x beach
+You find a single pebble lying in the sand.
+> take pebble
+> take pebble
+You pick it up.
+> x tracks
+> x tracks
+Lying in one of the tracks you find a large fragment of pottery.
+> take large fragment
+> take large fragment
+You pick it up.
+Fishing boats appear on the horizon.
+> in
+> in
+You are inside a fisherman's hut.
+
+The single room is basic but clean.
+
+You can see a scrubbing brush.
+
+You can go out.
+> out
+> out
+You are in a small fishing hamlet on the beach.
+The huts are empty and the boats are gone.
+
+You can go up the cliff or into a hut.
+The fishing boats are landing on the beach.
+> z
+> z
+Time passes.
+The fishermen are pulling their boats up the beach.
+> z
+> z
+Time passes.
+The fishermen disappear into their huts, leaving the boats on the beach.
+> x boats
+> x boats
+Precariously narrow little boats.
+In one of them, you find a basket.
+> take basket
+> take basket
+You pick it up.
+> up
+> up
+You are on a cliff path.
+
+You can go up to the old pond or down to the beach.
+> up
+> up
+You stand next to an old pond.
+
+The road leads west. There is also a track that takes you up into the mountains or down towards the beach.
+
+> throw pebble
+> throw pebble
+You toss the pebble into the pond. Splash! A frog jumps out.
+> take frog
+> take frog
+You pick it up.
+> up
+> up
+You are on a dusty mountain track.
+
+The way is lined with military banners.
+
+You can go northeast to Issa Castle, northwest to a temple or back down to the old pond.
+> x dust
+> x dust
+You spot a little goat bell in the dust.
+> take bell
+> take bell
+You pick it up.
+> ne
+> ne
+You are in front of Issa Castle.
+
+A wide moat surrounds the wooden fortifications. There is a rose garden to the east, and a path going southwest.
+
+You can see a bridge over the moat and a guard standing impassively before the bridge.
+
+> e
+> e
+You are at the edge of a rose garden.
+
+Issa Castle stands to the west, and there is a low wooden building to the north. An overgrown path leads in to the rose garden.
+
+> n
+> n
+You are outside a low wooden building.
+
+You can see a beggar sitting on the ground, staring straight ahead.
+
+You can go south or in.
+> x tavern
+> x tavern
+A building of rough timbers. The door hangs open.
+> x door
+> x door
+A red paper lantern hanging above the doorway identifies the building as a tavern.
+> take lantern
+> take lantern
+You carefully take down the lantern.
+> s
+> s
+You are at the edge of a rose garden.
+
+Issa Castle stands to the west, and there is a low wooden building to the north. An overgrown path leads in to the rose garden.
+
+> in
+> in
+You are surrounded by rose bushes.
+
+Paths seem to run in all directions. Or you can take a path out of the rose garden.
+
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+A bee buzzes by...
+> follow bee
+> follow bee
+You follow the bee through a wilderness of rose bushes.
+You are in a sunny clearing.
+
+In the middle of the clearing is a beehive. A winding path leads back out to the edge of the rose garden.
+
+> look under beehive
+> look under beehive
+You find a jagged fragment of pottery under there.
+> take jagged fragment
+> take jagged fragment
+You pick it up.
+> out
+> out
+You are at the edge of a rose garden.
+
+Issa Castle stands to the west, and there is a low wooden building to the north. An overgrown path leads in to the rose garden.
+
+> w
+> w
+You are in front of Issa Castle.
+
+A wide moat surrounds the wooden fortifications. There is a rose garden to the east, and a path going southwest.
+
+You can see a bridge over the moat and a guard standing impassively before the bridge.
+
+> sw
+> sw
+You are on a dusty mountain track.
+
+The way is lined with military banners.
+
+You can go northeast to Issa Castle, northwest to a temple or back down to the old pond.
+> nw
+> nw
+You are on a mountaintop outside a temple.
+
+You hear the incessant song of a skylark.
+
+You can go southeast or in.
+> in
+> in
+You are in the mountain temple.
+
+The dimly lit space is dominated by a large statue of a Buddha.
+
+You can go out.
+> x statue
+> x statue
+The statue glows in the lantern light, illuminating a few grains of rice on the floor in front of it.
+> take rice
+> take rice
+You pick them up.
+> out
+> out
+You are on a mountaintop outside a temple.
+
+You hear the incessant song of a skylark.
+
+You can go southeast or in.
+> se
+> se
+You are on a dusty mountain track.
+
+The way is lined with military banners.
+
+You can go northeast to Issa Castle, northwest to a temple or back down to the old pond.
+> ne
+> ne
+You are in front of Issa Castle.
+
+A wide moat surrounds the wooden fortifications. There is a rose garden to the east, and a path going southwest.
+
+You can see a bridge over the moat and a guard standing impassively before the bridge.
+
+> x water
+> x water
+There is an enormous red and white carp in the water.
+> drop rice
+> drop rice
+You drop the rice into the moat. The carp swims lazily over.
+> x markings
+> x markings
+The markings are characters that represent the word "Typhoon".
+> say typhoon
+> say typhoon
+You say "typhoon"
+Upon hearing the password, the guard stands aside.
+> cross bridge
+> cross bridge
+You are in a courtyard surrounded by high walls.
+
+The castle keep towers above you.
+
+You can leave the castle by crossing the bridge or go up a flight of steps into the keep.
+
+> up
+> up
+You are in a bare and functional hall.
+
+A series of coloured panels around the room provides the only decoration. Some wooden stairs lead up to the next floor.
+
+You can go down into the courtyard or up the stairs.
+> x ochre panel
+> x ochre panel
+The ochre panel swings open revealing a passage in the north wall.
+> up
+> up
+You are on a first floor of the keep.
+
+Stairs lead up and down.
+
+You can see a sword and a wall painting.
+
+> take sword
+> take sword
+You pick it up.
+> down
+> down
+You are in a bare and functional hall.
+
+A series of coloured panels around the room provides the only decoration. Some wooden stairs lead up to the next floor.
+
+You can go down into the courtyard, up the stairs or north into a passage.
+> n
+> n
+You are in passageway with stone walls.
+
+You can go south back into the castle or north down the passage.
+> n
+> n
+You find yourself in a dark cave.
+
+In the lantern light, the walls of the cave feel close and restrictive.
+
+You can go south to the passage or leave the cave by going out.
+> out
+> out
+You are outside a cave in the midst of a bamboo thicket.
+
+You can go back into the cave.
+> cut bamboo
+> cut bamboo
+You cut down some of the bamboo plants, revealing a narrow path through the thicket.
+> e
+> e
+You are on a road.
+
+You can see a crow sitting on a bare branch.
+
+You can go west through the thicket, or follow a road to the northwest or southeast.
+> look behind tree
+> look behind tree
+You find a bow leaning against the tree.
+> take bow
+> take bow
+You pick it up.
+> se
+> se
+You are outside a tumbledown water mill.
+The stream is just a trickle. The water wheel is motionless.
+
+You can go northwest or into the mill.
+> in
+> in
+You are inside the water mill.
+
+Stripped of its machinery, the mill is little more than a barn now. Various agricultural tools hang on the walls.
+
+You can go out.
+> take winnowing fan
+> take winnowing fan
+You pick it up.
+> turn crank handle
+> turn crank handle
+As you turn the handle, you hear the gushing of water.
+> turn crank handle
+> turn crank handle
+You turn the handle. The sound of gushing water stops.
+> out
+> out
+You are outside a tumbledown water mill.
+The stream is just a trickle. The water wheel is motionless.
+
+You can go northwest or into the mill.
+> x stream
+> x stream
+Nothing more than a boggy ditch. A little cloud of mosquitoes hovers over the mud.
+> look under mosquitoes
+> look under mosquitoes
+You find a narrow fragment of pottery lying on the stream bed.
+> take narrow fragment
+> take narrow fragment
+You pick it up.
+> nw
+> nw
+You are on a road.
+
+You can see a crow sitting on a bare branch.
+
+You can go west through the thicket, or follow a road to the northwest or southeast.
+> nw
+> nw
+You are on a road through rice fields.
+
+You can go southeast or west over the brow of a hill.
+> w
+> w
+You stand amid the remains of a farming village.
+
+The village is a smouldering ruin.
+
+You can see hungry-looking cat.
+
+You can go east to the rice fields or northwest.
+> give minnows to cat
+> give minnows to cat
+He cautiously takes a fish from you and slinks away.
+> nw
+> nw
+You find yourself at a crossroad beside a meadow.
+You hear a cricket chirping.
+
+You can go southeast, northwest or west.
+> listen to cricket
+> listen to cricket
+The chirping sounds strangely muffled. It is coming from near a tuft of grass.
+> x tuft
+> x tuft
+You find an ornate helmet lying amongst the tall grass.
+> take helmet
+> take helmet
+You pick it up.
+The cricket springs away from under the helmet.
+> nw
+> nw
+You are standing on an edge of a battlefield.
+
+The fighting is over. Bodies of slain warriors lie scattered all around.
+
+You can go southeast back towards the village or north across the battlefield.
+> n
+> n
+You are in the middle of the battlefield.
+
+You can see a warrior sitting on the grass.
+
+You can go south.
+> give helmet to warrior
+> give helmet to warrior
+He seizes the helmet with both hands. Blood pours from his wound as he places it on his head. Taking a key from around his neck and dropping it at your feet, he says:
+
+My princely life was just a dream
+Had I been a fisherman
+I should have spent my days
+Inspecting boats that were not there
+Upon a beach of black sand
+To find such wisdom
+> take key
+> take key
+You pick it up.
+> s
+> s
+You are standing on an edge of a battlefield.
+
+The fighting is over. Bodies of slain warriors lie scattered all around.
+
+You can go southeast back towards the village or north across the battlefield.
+> se
+> se
+You find yourself at a crossroad beside a meadow.
+
+You can go southeast, northwest or west.
+> se
+> se
+You stand amid the remains of a farming village.
+
+The village is a smouldering ruin.
+
+You can go east to the rice fields or northwest.
+> e
+> e
+You are on a road through rice fields.
+
+You can go southeast or west over the brow of a hill.
+> se
+> se
+You are on a road.
+
+You can see a crow sitting on a bare branch.
+
+You can go west through the thicket, or follow a road to the northwest or southeast.
+> w
+> w
+You are outside a cave in the midst of a bamboo thicket.
+
+You can go back into the cave or east through the thicket.
+> in
+> in
+You find yourself in a dark cave.
+
+In the lantern light, the walls of the cave feel close and restrictive.
+
+You can go south to the passage or leave the cave by going out.
+> s
+> s
+You are in passageway with stone walls.
+
+You can go south back into the castle or north down the passage.
+> s
+> s
+You are in a bare and functional hall.
+
+A series of coloured panels around the room provides the only decoration. Some wooden stairs lead up to the next floor.
+
+You can go down into the courtyard, up the stairs or north into a passage.
+> up
+> up
+You are on a first floor of the keep.
+
+Stairs lead up and down.
+
+You can see a wall painting.
+
+> up
+> up
+You are on a second floor of the keep.
+
+There are large, square windows in each of the four walls.
+
+Stairs lead up and down.
+
+> up
+> up
+You are at a heavy wooden door.
+
+You can go down the stairs.
+> unlock door
+> unlock door
+You unlock the door.
+> open door
+> open door
+You open it.
+> in
+> in
+You are in Lord Issa's sleeping quarters.
+
+In the middle of the floor is a straw sleeping mat. Against one wall stands a large chest.
+
+You can also see a blanket.
+
+You can go out.
+> look under mat
+> look under mat
+Underneath the mat, you find an arrow.
+> take arrow
+> take arrow
+You pick it up.
+> take blanket
+> take blanket
+You pick it up.
+> wear blanket
+> wear blanket
+You wrap yourself in the blanket.
+> out
+> out
+You are at a heavy wooden door.
+
+You can go down the stairs or in.
+> down
+> down
+You are on a second floor of the keep.
+
+There are large, square windows in each of the four walls.
+
+Stairs lead up and down.
+
+> down
+> down
+You are on a first floor of the keep.
+
+Stairs lead up and down.
+
+You can see a wall painting.
+
+> down
+> down
+You are in a bare and functional hall.
+
+A series of coloured panels around the room provides the only decoration. Some wooden stairs lead up to the next floor.
+
+You can go down into the courtyard, up the stairs or north into a passage.
+> n
+> n
+You are in passageway with stone walls.
+
+You can go south back into the castle or north down the passage.
+> n
+> n
+You find yourself in a dark cave.
+
+In the lantern light, the walls of the cave feel close and restrictive.
+
+You can go south to the passage or leave the cave by going out.
+> out
+> out
+You are outside a cave in the midst of a bamboo thicket.
+
+You can go back into the cave or east through the thicket.
+> e
+> e
+You are on a road.
+
+You can see a crow sitting on a bare branch.
+
+You can go west through the thicket, or follow a road to the northwest or southeast.
+> nw
+> nw
+You are on a road through rice fields.
+
+You can go southeast or west over the brow of a hill.
+> w
+> w
+You stand amid the remains of a farming village.
+
+The village is a smouldering ruin.
+
+You can go east to the rice fields or northwest.
+> nw
+> nw
+You find yourself at a crossroad beside a meadow.
+
+You can go southeast, northwest or west.
+> w
+> w
+You are in front of a monastery.
+
+The perimeter wall and gate are topped with clay roof tiles. Rising above the monastery wall is a pagoda.
+
+You can go east to the crossroad, or you can follow the monastery wall around to the northwest or southwest.
+
+You can see the cat from the village.
+
+> sw
+> sw
+You face the southern wall of the monastery.
+
+You can see the cat.
+
+You can go northeast or northwest.
+> nw
+> nw
+You face the western wall of the monastery.
+
+You can go northeast or southeast.
+The cat trots past you and slips through a gap under the wall.
+> in
+> in
+You are in front of the pagoda.
+
+The pagoda entrance is to the west. The gap under the wall leads out of the compound.
+
+You can see a stone basin at the foot of a tall pine tree.
+
+> x basin
+> x basin
+It is full of water. The rim of the basin is decorated with engravings of skylarks.
+> x water
+> x water
+You see a fragment of pottery.
+> take fragment of pottery
+> take fragment of pottery
+You try to take it but, as your hand touches the water, you see only ripples.
+> look up
+> look up
+You see a fragment of pottery hanging in the air above the basin.
+> x fragment of pottery
+> x fragment of pottery
+It's a piece of fine china dangling on a thread.
+> fire arrow at thread
+> fire arrow at thread
+The arrow cuts the silk thread as it flies through the air. The fragment of pottery falls to the ground.
+> take brown fragment
+> take brown fragment
+You pick it up.
+A sudden gust of wind from the west...The five pottery fragments fit together to form a round dish.
+> x dish
+> x dish
+The dish is decorated with a garden scene:
+
+A young woman carrying a parasol stands on a bridge over a lake.
+
+In the centre of the lake is a turtle sitting on a rock.
+
+Beside the lake a heron stands holding a frog in its beak.
+
+Nearby, an old man drinks tea while watching a sparrow in flight.
+> w
+> w
+You are inside the pagoda.
+A monk with a thin beard kneels at a low table.
+He speaks as you enter, "You have passed one test. But there is another, more deadly one, to come."
+
+You can go east or up.
+> x table
+> x table
+On the table is a sheet of paper and a large rectangular inkstone.
+> x sheet of paper
+> x sheet of paper
+White paper inscribed with the letters LNVZM.
+> e
+> e
+You are in front of the pagoda.
+
+The pagoda entrance is to the west. The gap under the wall leads out of the compound.
+
+You can see a stone basin at the foot of a tall pine tree.
+
+> out
+> out
+You face the western wall of the monastery.
+
+You can see a gap at the foot of the wall.
+
+You can go northeast, southeast or into the compound.
+> se
+> se
+You face the southern wall of the monastery.
+
+You can go northeast or northwest.
+> ne
+> ne
+You are in front of a monastery.
+
+The perimeter wall and gate are topped with clay roof tiles. Rising above the monastery wall is a pagoda.
+
+You can go east to the crossroad, or you can follow the monastery wall around to the northwest or southwest.
+
+> e
+> e
+You find yourself at a crossroad beside a meadow.
+
+You can go southeast, northwest or west.
+> se
+> se
+You stand amid the remains of a farming village.
+
+The village is a smouldering ruin.
+
+You can go east to the rice fields or northwest.
+> e
+> e
+You are on a road through rice fields.
+
+You can go southeast or west over the brow of a hill.
+> se
+> se
+You are on a road.
+
+You can see a crow sitting on a bare branch.
+
+You can go west through the thicket, or follow a road to the northwest or southeast.
+> w
+> w
+You are outside a cave in the midst of a bamboo thicket.
+
+You can go back into the cave or east through the thicket.
+> in
+> in
+You find yourself in a dark cave.
+
+In the lantern light, the walls of the cave feel close and restrictive.
+
+You can go south to the passage or leave the cave by going out.
+> s
+> s
+You are in passageway with stone walls.
+
+You can go south back into the castle or north down the passage.
+> s
+> s
+You are in a bare and functional hall.
+
+A series of coloured panels around the room provides the only decoration. Some wooden stairs lead up to the next floor.
+
+You can go down into the courtyard, up the stairs or north into a passage.
+> down
+> down
+You are in a courtyard surrounded by high walls.
+
+The castle keep towers above you.
+
+You can leave the castle by crossing the bridge or go up a flight of steps into the keep.
+
+> cross bridge
+> cross bridge
+You are in front of Issa Castle.
+
+A wide moat surrounds the wooden fortifications. There is a rose garden to the east, and a path going southwest.
+
+You can see a bridge over the moat, an enormous carp and a guard standing next to the bridge.
+
+> sw
+> sw
+You are on a dusty mountain track.
+
+The way is lined with military banners.
+
+You can go northeast to Issa Castle, northwest to a temple or back down to the old pond.
+> down
+> down
+You stand next to an old pond.
+
+The road leads west. There is also a track that takes you up into the mountains or down towards the beach.
+
+> w
+> w
+You are on a road lined with cherry trees.
+
+You can go into the Zen Garden, walk east along the road or head west.
+> w
+> w
+You are standing on the east bank of a fast flowing river.
+You can go east.
+
+> x river
+> x river
+A narrow ford is the only way across.
+> cross ford
+> cross ford
+As you step onto the ford, a squat little figure emerges from the water in front of you.
+> bow
+> bow
+> bow
+> bow
+As the monster bows back, shimmering liquid spills from the top of its head. And the creature slips timidly away back into the depths.
+> cross ford
+> cross ford
+You are on the west bank of the river by a reed bed.
+
+You can see a wooden bowl.
+
+You can go east across the ford or take the mountain road west.
+> n
+> n
+You are on a snowy mountain road.
+
+Matsuo far to the north, the river to the east. Before you, a roadside shrine.
+
+> tie bell
+> tie bell
+You tie the bell onto the end of the cord.
+> ring bell
+> ring bell
+The bell jingles brightly. Suddenly the tom cat is here, rubbing against your legs.
+> take large coin
+> take large coin
+You take the coin off the collar. The cat trots away.
+> n
+> n
+You are in the mountains.
+Narrow road to the deep north
+A freezing wind blows -
+You draw the blanket tighter.
+
+You can go south or north to Matsuo.
+> n
+> n
+You are in the main street at Matsuo.
+
+It is snowing.
+
+A man in winter garb stands next to a hand cart.
+
+You can go south or into an inn.
+> x fallen snow
+> x fallen snow
+You spot a small coin half buried in the snow.
+> take small coin
+> take small coin
+You pick it up.
+> give large coin to vendor
+> give large coin to vendor
+He takes the coin.
+> give small coin to vendor
+> give small coin to vendor
+He takes the coin.
+> take parasol
+> take parasol
+You take a parasol from the cart.
+> in
+> in
+You are in a reception room.
+
+Everything is white.
+
+You can see a round table surrounded by square cushions and a silk screen.
+
+You can go out.
+> x silk screen
+> x silk screen
+A print of a prowling tiger with a menacing snarl. A legend says "Follow the letters perfectly."
+> look behind screen
+> look behind screen
+You find a sliding door in the west wall behind the screen.
+> open door
+> open door
+You open it.
+> w
+> w
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go east back into the reception room, south, southwest or southeast.
+> s
+> s
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go southwest, southeast, east or north.
+> e
+> e
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go west, north, east or southeast.
+> n
+> n
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go north, east, southeast or south.
+> se
+> se
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go north, southeast, east or northwest.
+> n
+> n
+You find yourself in a enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go northeast, southeast, south or north.
+A dark figure passes behind the wall to the north.
+> se
+> se
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go north, northeast, east or northwest.
+> ne
+> ne
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go east, southwest, southeast or north.
+> e
+> e
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go southwest, east, west or north.
+> sw
+> sw
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go east, southeast, north or northeast.
+> e
+> e
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go north, east, southwest or west.
+A dark figure passes behind the wall to the south.
+> n
+> n
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go north, east, southeast or south.
+> se
+> se
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go northeast, northwest or east.
+> ne
+> ne
+You find yourself in a small chamber enclosed by paper walls.
+
+You hear a girl singing...
+
+You can go northwest, northeast, south or southwest.
+> s
+> s
+You find yourself in a small chamber enclosed by paper walls.
+In the middle of the room kneels a girl with a face painted white.
+She holds out an open hand.
+
+You can go north.
+> give blossom to girl
+> give blossom to girl
+The girl accepts the blossom with a bow and speaks :
+The heron
+After seven small fish
+Only his eyes are hungry
+> n
+> n
+You are in a reception room.
+
+Everything is white.
+
+You can see a round table surrounded by square cushions, a silk screen and a sliding door.
+
+You can go out or west.
+> out
+> out
+You are in the main street at Matsuo.
+
+It is snowing.
+
+A man in winter garb stands next to a hand cart.
+
+You can go south or into an inn.
+> s
+> s
+You are in the mountains.
+Long road south
+A freezing wind blows -
+You draw the blanket tighter.
+
+You can go south or north to Matsuo.
+> s
+> s
+You are on a snowy mountain road.
+
+Matsuo far to the north, the river to the east. Before you, a roadside shrine.
+
+> e
+> e
+You are on the west bank of the river by a reed bed.
+
+You can see a wooden bowl.
+
+You can go east across the ford or take the mountain road west.
+> e
+> e
+You are standing on the east bank of a fast flowing river.
+You can go east along the road, or cross the ford to the west.
+
+> e
+> e
+You are on a road lined with cherry trees.
+
+You can go into the Zen Garden, walk east along the road or head west.
+> in
+> in
+You are in a Zen Garden.
+
+There is a small lake with a wooden bridge.
+
+In the centre of the lake is a flat rock.
+
+A heron stands quite motionless in the shallows.
+
+There is a teahouse in the eastern corner of the garden.
+
+You can also see a young woman standing on the bridge, an old man sitting on the floor of the teahouse and a sparrow singing in a willow tree.
+
+You can go east into the teahouse or out of the garden.
+> give parasol to woman
+> give parasol to woman
+She smiles and takes the parasol.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give minnows to heron
+> give minnows to heron
+The heron swallows a minnow.
+> give frog to heron
+> give frog to heron
+The heron holds the frog in its beak.
+> e
+> e
+You are in a teahouse.
+
+You can see an old man sitting on the floor. Tea-making utensils are spread out before him.
+
+You can go west.
+> scoop tea
+> scoop tea
+You scoop up some tea.
+> dip tea
+> dip tea
+You dip the tea into hot water.
+> stir tea
+> stir tea
+You stir the tea.
+> pour tea
+> pour tea
+You pour the tea.
+> serve tea
+> serve tea
+The old man accepts the tea.
+> w
+> w
+You are in a Zen Garden.
+
+There is a small lake with a wooden bridge.
+
+In the centre of the lake is a flat rock.
+
+A heron stands quite motionless in the shallows.
+
+There is a teahouse in the eastern corner of the garden.
+
+You can also see a sparrow singing in a willow tree, a turtle on the rock, a frog held by the heron, an old man drinking tea and a young woman on the bridge carrying a parasol.
+
+You can go east into the teahouse or out of the garden.
+> z
+> z
+Time passes.
+The turtle slides quietly into the water.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+A turtle crawls onto the rock.
+> clap
+> clap
+The sound of two hands clapping!
+Startled, the sparrow flies into the air.
+At this moment
+All things in the garden
+Seem in harmony
+Well done, you have solved the Zen Garden!
+The Game is over.
+> quit
+> quit
+As the monster bows back, shimmering liquid spills from the top of its head. And the creature slips timidly away back into the depths.
+[state=Finished]

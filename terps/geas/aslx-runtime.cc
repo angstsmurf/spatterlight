@@ -1488,7 +1488,35 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
         // Pre-540 PrintText wraps the text in <output>...</output>, so an
         // EMPTY print (the pre-v520 echo's leading blank) strips to nothing
         // downstream -- emit nothing, like the oracle transcripts.
-        if (!text.empty()) print(text + "\n");
+        //
+        // qvh's Emit strips FIRST and then appends '\n' only when the
+        // stripped chunk lacks one, so a paragraph's TRAILING <br/> yields a
+        // single newline (no blank line: The Zen Garden's 5.3-era
+        // ShowRoomDescription ends every autodescription paragraph with one),
+        // while <br/><br/> keeps its blank. Appending '\n' to the RAW text
+        // here (the old behaviour) turned every trailing <br/> into a blank
+        // line. Mirror qvh: only terminate chunks that don't already end in a
+        // newline-producing tail. qvh's "<br\s*/?>" regex is lowercase-only,
+        // so an uppercase <BR> tail is NOT newline-producing there -- but it
+        // strips to nothing, and the appended '\n' then produces the same
+        // single newline either way, so lowercase-only matching stays exact.
+        if (!text.empty()) {
+            size_t e = text.size();
+            bool ends_nl = text[e - 1] == '\n';
+            if (!ends_nl && text[e - 1] == '>') {
+                size_t lt = text.rfind('<');
+                if (lt != std::string::npos) {
+                    std::string tag = text.substr(lt + 1, e - lt - 2);
+                    size_t j = 2;
+                    if (tag.compare(0, 2, "br") == 0) {
+                        while (j < tag.size() && (tag[j] == ' ' || tag[j] == '\t')) j++;
+                        if (j < tag.size() && tag[j] == '/') j++;
+                        ends_nl = j == tag.size();
+                    }
+                }
+            }
+            print(ends_nl ? text : text + "\n");
+        }
     }
 }
 
@@ -1525,6 +1553,10 @@ void Interp::send_command(const std::string &command) {
         return;
     }
     Context ctx;
+    // Pre-v580 run_command calls FinishTurn as a step AFTER HandleCommand. If
+    // HandleCommand suspends (sync sound), that FinishTurn is owed by the park
+    // (see resume_parked_tail); cleared the moment we actually reach the call.
+    bool owes_ft = world_.asl_version < 580;
     try {
         if (world_.asl_version < 520) {
             // Pre-v520 games expect the engine to echo the command.
@@ -1544,6 +1576,8 @@ void Interp::send_command(const std::string &command) {
         // command (TryFinishTurnAsync); v580+ Core runs it from HandleCommand
         // itself.
         if (world_.asl_version < 580) {
+            owes_ft = false;  // reached the call; if FinishTurn itself parks,
+                              // its frames carry the tail (not re-owed here)
             Element *ft = world_.find("FinishTurn");
             if (ft && ft->elem_type == "function") {
                 try {
@@ -1560,8 +1594,10 @@ void Interp::send_command(const std::string &command) {
     } catch (TurnSuspended &ts) {
         // Synchronous `play sound` mid-command: the rest of the turn --
         // including FinishTurn -- parks on the wait slot, resumed when the
-        // slot is next claimed (see resume_parked_tail).
-        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/0);
+        // slot is next claimed (see resume_parked_tail). A suspend from within
+        // HandleCommand still owes the deferred FinishTurn; one from within
+        // FinishTurn does not (owes_ft already cleared).
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/0, owes_ft);
     }
 }
 
@@ -1655,7 +1691,7 @@ void Interp::finish_wait() {
 }
 
 void Interp::park_suspension(TurnSuspended &ts, bool owes_update,
-                             int owes_endcb) {
+                             int owes_endcb, bool owes_finishturn) {
     // Store the captured continuation of a synchronous `play sound` at a turn
     // boundary. Frames arrive innermost-first; every script boundary claimed
     // its frames with a context snapshot during the unwind. A suspension can
@@ -1670,6 +1706,7 @@ void Interp::park_suspension(TurnSuspended &ts, bool owes_update,
     parked_frames_ = std::move(ts.frames);
     parked_owes_update_ = parked_owes_update_ || owes_update;
     parked_owes_endcb_ += owes_endcb;
+    parked_owes_finishturn_ = parked_owes_finishturn_ || owes_finishturn;
 }
 
 void Interp::resume_parked_tail() {
@@ -1687,8 +1724,10 @@ void Interp::resume_parked_tail() {
     parked_frames_.clear();
     bool owes_update = parked_owes_update_;
     int owes_endcb = parked_owes_endcb_;
+    bool owes_finishturn = parked_owes_finishturn_;
     parked_owes_update_ = false;
     parked_owes_endcb_ = 0;
+    parked_owes_finishturn_ = false;
     if (script_errors_fatal_) return;
     size_t i = 0;
     while (i < frames.size()) {
@@ -1725,6 +1764,7 @@ void Interp::resume_parked_tail() {
             parked_frames_ = std::move(ts.frames);
             parked_owes_update_ = owes_update;
             parked_owes_endcb_ = owes_endcb;
+            parked_owes_finishturn_ = owes_finishturn;
             return;
         } catch (const std::exception &err) {
             --script_depth_;
@@ -1733,16 +1773,34 @@ void Interp::resume_parked_tail() {
         i = b + 1;
     }
     // The C++-side tail the suspended chain still owed, in QuestViva's order:
-    // the prompt-callback finallys (EndPendingCallback), then the pane
-    // refresh. Each can itself park again.
+    // the prompt-callback finallys (EndPendingCallback), then -- for a parked
+    // COMMAND turn -- the deferred FinishTurn (turnscripts), then the pane
+    // refresh. Each can itself park again. The FinishTurn matches QuestViva's
+    // command chain resuming through TryFinishTurnAsync: Core's RunTurnScripts
+    // self-guards on IsGameRunning(), so it no-ops when the game has finished.
     try {
         while (owes_endcb > 0) {
             --owes_endcb;
             end_pending_callback();
         }
+        if (owes_finishturn) {
+            owes_finishturn = false;
+            if (world_.asl_version < 580) {
+                Element *ft = world_.find("FinishTurn");
+                if (ft && ft->elem_type == "function") {
+                    Context tctx;
+                    try {
+                        call_function("FinishTurn", {}, &tctx);
+                    } catch (const std::exception &err) {
+                        // TryFinishTurnAsync's catch: LogException-only.
+                        log_exception(err.what());
+                    }
+                }
+            }
+        }
         if (owes_update && !world_.finished) update_lists();
     } catch (TurnSuspended &ts) {
-        park_suspension(ts, owes_update, owes_endcb);
+        park_suspension(ts, owes_update, owes_endcb, owes_finishturn);
     }
 }
 
@@ -2896,7 +2954,17 @@ bool Interp::exec_statement_command(const std::string &name,
                 ? "RequestSave"
                 : (!args.empty() && args[0]->kind == Expr::Kind::Var
                        ? args[0]->str : "");
-        if (req == "RequestSave") {
+        if (req == "Quit") {
+            // RequestScript's Quit case: PlayerUi.Quit() (a headless no-op)
+            // then WorldModel.Finish() -> FinishGame(). FinishGame sets
+            // State=Finished FIRST, then TrySetCanceled()s the pending TCS --
+            // which resumes any parked synchronous `play sound` continuation
+            // inline (its remaining statements print, but Core's turnscripts
+            // and pane refresh no-op now that the game is finished). Match that
+            // order so a parked tail is flushed exactly as QuestViva flushes it.
+            world_.finished = true;
+            resume_parked_tail();
+        } else if (req == "RequestSave") {
             if (request_save)
                 request_save();
             else
@@ -3094,6 +3162,18 @@ bool Interp::exec_statement_command(const std::string &name,
                     d->type == Value::Type::ScriptDict)) {
             errors().push_back("Unrecognised dictionary type");
             return true;
+        }
+        // QuestDictionary.Add throws on a duplicate key (DictionaryAddScript
+        // calls IDictionary.Add directly) -- The Zen Garden defines the
+        // `touch` verb twice and its golden opens with exactly this error
+        // from Core's InitVerbsList. Only `dictionary add` throws; the
+        // remove path below still just erases.
+        if (name == "dictionary add") {
+            for (auto &kv : d->dict())
+                if (kv.first == key)
+                    error("Error adding key '" + key + "' to dictionary: "
+                          "An item with the same key has already been added. "
+                          "Key: " + key);
         }
         // remove any existing entry with this key first (Add replaces).
         for (auto it = d->dict().begin(); it != d->dict().end();) {
