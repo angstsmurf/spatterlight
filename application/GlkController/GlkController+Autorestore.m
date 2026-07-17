@@ -283,7 +283,12 @@
                                      @"level9" : @"Level 9",
                                      @"magscrolls" : @"Magnetic",
                                      @"quest4" : @"Quest",
-                                     @"quest5" : @"Quest 5",
+                                     // Both Quest versions share one folder: the Geas terp runs
+                                     // both and cannot distinguish them when naming its own
+                                     // work/autosave dir (glkimp fileref.m keys off the program
+                                     // name's first word, "quest" for either). Per-game signature
+                                     // subfolders keep individual games separate inside it.
+                                     @"quest5" : @"Quest",
                                      @"quill"  : @"UnQuill",
                                      @"tads2"  : @"TADS",
                                      @"tads3"  : @"TADS",
