@@ -60,7 +60,8 @@ $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
 
-$(ASLXGLK): $(ASLXGLK).cc ../aslxglk.cc $(ASLXRTDEPS)
+$(ASLXGLK): $(ASLXGLK).cc ../aslxglk.cc ../aslxglk-map.inc \
+            ../questglk-common.inc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../aslxglk.cc \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 

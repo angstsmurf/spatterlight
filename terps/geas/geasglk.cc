@@ -565,9 +565,13 @@ draw_banner()
 {
   /* The current room name, left-aligned, and the status vars right-aligned.
    * (The game's title/version/author banner is shown once at startup in the
-   * main window, not here.)  Byte mode: classic geas text passes through
-   * verbatim. */
-  draw_status_banner(bannerwin, g_room_name, g_status_line, false);
+   * main window, not here.)  Classic games carry no encoding declaration:
+   * when the text is well-formed UTF-8 (which includes plain ASCII, where
+   * both modes agree) use codepoint-aware writes and measurement so accented
+   * names render and right-align correctly; anything else is passed through
+   * as Latin-1 bytes, as before. */
+  bool utf8 = utf8_valid(g_room_name) && utf8_valid(g_status_line);
+  draw_status_banner(bannerwin, g_room_name, g_status_line, utf8);
 }
 
 /* Open the right-hand pane (and its divider), if not already open and the host

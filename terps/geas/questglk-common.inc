@@ -110,6 +110,33 @@ utf8_cp_len (const std::string &s)
     return n;
 }
 
+/* True when the whole string is well-formed UTF-8 (pure ASCII counts).  Used
+ * to pick between byte (Latin-1) and codepoint-aware presentation for
+ * classic-game text, whose file encoding is unknown: real Latin-1 text is
+ * practically never valid UTF-8, so the check only flips a string to
+ * codepoint mode when decoding it that way is right.  (Overlong forms and
+ * surrogates are not rejected; this is an encoding sniff, not a validator.) */
+[[maybe_unused]] static bool
+utf8_valid (const std::string &s)
+{
+    for (size_t i = 0; i < s.size ();) {
+        unsigned char c = (unsigned char) s[i];
+        int len;
+        if (c < 0x80) { i++; continue; }
+        if ((c & 0xe0) == 0xc0) len = 2;
+        else if ((c & 0xf0) == 0xe0) len = 3;
+        else if ((c & 0xf8) == 0xf0) len = 4;
+        else return false;
+        if (i + len > s.size ())
+            return false;
+        for (int k = 1; k < len; k++)
+            if (((unsigned char) s[i + k] & 0xc0) != 0x80)
+                return false;
+        i += len;
+    }
+    return true;
+}
+
 /* ------------------------------------------------------------------- echo */
 
 /* Echo an accepted input line -- or a clicked hyperlink's command, run as if
