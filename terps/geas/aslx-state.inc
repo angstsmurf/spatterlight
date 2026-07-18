@@ -297,6 +297,11 @@ std::string Interp::save_game(const std::string &original_file) {
 }
 
 bool Interp::restore_game(const std::string &data, std::string &err) {
+    // Native Quest/QuestViva `.quest-save` (ASLX re-serialization): overlay it
+    // onto this freshly-reloaded world instead of applying the v1 snapshot.
+    if (is_native_save_data(data.data(), data.size()))
+        return restore_game_native(data, err);
+
     const char *p = data.data();
     const char *end = p + data.size();
     if (!is_save_data(p, data.size())) {

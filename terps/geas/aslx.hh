@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -238,6 +239,17 @@ bool load_file(const std::string &path, World &world,
 bool load_aslx_buffer(const char *data, size_t len, World &world,
                       const std::string &core_dir = "",
                       const std::string &game_dir = "");
+
+// Overlay a saved-game ASLX document (Quest's native .quest-save: an <asl
+// original="..."> doc re-declaring elements with their saved state) onto an
+// already-loaded World -- the freshly reloaded original game. Elements whose
+// name already exists are DISPLACED by the save's version (QuestViva's
+// Elements.Add override semantics); new names are created. `overlaid` receives
+// every element name the save (re)defined, so the caller can drop live
+// elements the save omitted. Returns false on an XML/version parse error.
+bool overlay_aslx_buffer(const char *data, size_t len, World &world,
+                         std::set<std::string> &overlaid,
+                         const std::string &core_dir = "");
 
 // Extract game.aslx from a .quest (zip) buffer into `out`. Returns false if the
 // buffer is not a zip or has no game.aslx.

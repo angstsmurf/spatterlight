@@ -6,6 +6,7 @@
 #include <cctype>
 #include <cmath>
 #include <cstdlib>
+#include <deque>
 #include <regex>
 #include <sstream>
 #include <stdexcept>
@@ -3279,3 +3280,4 @@ bool Interp::exec_statement_command(const std::string &name,
 #include "aslx-runtime-parse.inc"
 #include "aslx-runtime-builtins.inc"
 #include "aslx-state.inc"
+#include "aslx-savenative.inc"

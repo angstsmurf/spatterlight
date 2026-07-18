@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using QuestViva.Common;
 using QuestViva.Engine;
+using QuestViva.Engine.GameLoader;
 
 // qvh <game.quest|game.aslx> [command-script.txt]
 //
@@ -63,7 +64,18 @@ void Line(string s) => transcript.Append(s).Append('\n');
 
 var provider = new FileDirectoryGameDataProvider(args[0]);
 var gameData = await provider.GetData();
-var world = new WorldModel(gameData, null);
+
+// QVH_LOADSAVE=<file>: boot from a saved game (native .quest-save format). The
+// save may be one QuestViva wrote (`save:` step below) or one the native Geas
+// engine wrote -- this is the save-compat cross-test's loader. GameLoader reads
+// the save's <asl original=..>, reloads the original .quest, then overlays the
+// saved elements; BeginInternalAsync then skips StartGame (_loadedFromSaved).
+Stream? saveData = null;
+var loadSavePath = Environment.GetEnvironmentVariable("QVH_LOADSAVE");
+if (!string.IsNullOrEmpty(loadSavePath))
+    saveData = new MemoryStream(await File.ReadAllBytesAsync(loadSavePath));
+
+var world = new WorldModel(gameData, saveData);
 world.LogError += ex => {
     errorCount++;
     Console.Error.WriteLine("[error] " + ex.Message);
@@ -100,6 +112,8 @@ var player = new HeadlessPlayer(Emit);
 if (!await world.Initialise(player))
 {
     Console.Error.WriteLine("[fatal] game failed to initialise");
+    if (world.Errors != null)
+        foreach (var e in world.Errors) Console.Error.WriteLine("[load-error] " + e);
     return 3;
 }
 
@@ -138,6 +152,15 @@ if (args.Length >= 2)
         {
             player.PendingQuestion = null;
             await world.SetQuestionResponse(ParseYesNo(cmd));
+        }
+        else if (cmd.StartsWith("save:"))
+        {
+            // Write QuestViva's native saved game (SaveMode.SavedGame) to a
+            // file -- the ground-truth `.quest-save` the native engine's reader
+            // is tested against, and the baseline our writer is compared to.
+            var path = cmd[5..].Trim();
+            var saved = world.Save(SaveMode.SavedGame, html: "");
+            await File.WriteAllTextAsync(path, saved);
         }
         else if (cmd.StartsWith("assert:"))
         {

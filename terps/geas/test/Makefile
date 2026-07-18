@@ -32,7 +32,7 @@ ASLXRTBIN := aslx_runtime_test
 ASLXRTSRC := aslx_runtime_test.cc
 ASLXRTDEPS := ../aslx.cc ../aslx.hh ../aslx-runtime.cc ../aslx-runtime.hh \
               ../aslx-runtime-parse.inc ../aslx-runtime-builtins.inc \
-              ../aslx-state.inc
+              ../aslx-state.inc ../aslx-savenative.inc
 
 # Quest 5 native walkthrough replayer (diff against quest5-oracle/golden/).
 # Needs the local game corpus, so it is built on demand and not part of check.

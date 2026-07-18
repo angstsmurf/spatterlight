@@ -539,12 +539,25 @@ struct Frame {
     std::string attr_name;     // Field
     std::string type;          // Field / Value type= attribute
     std::string text;          // accumulated char data
-    std::vector<std::string> values;       // Field: <value> children
-    std::vector<std::string> value_types;  // Field: per-<value> type
-    std::vector<std::pair<std::string, std::string>> items;  // Field: dict items
+    // Nested children as fully-built Values, so collections nest arbitrarily
+    // (a dictionary whose values are dictionaries -- Quest's grid-coordinate
+    // save state). A Field / Value / ItemValue frame collects <value> children
+    // here; <item> children go into `items`.
+    std::vector<Value> values;                 // <value> children (built, typed)
+    std::vector<std::string> value_texts;      // <value> children raw text
+    struct ItemData {
+        std::string key;
+        bool has_val = false;   // saw a nested <value> (vs scriptdict item text)
+        Value val;              // the nested <value>'s built Value (generic dict)
+        std::string val_text;   // the nested <value>'s raw text (string/object dict)
+        std::string text;       // item's own text (scriptdictionary body)
+    };
+    std::vector<ItemData> items;               // <item> children (dict)
     std::string item_key;      // Item scratch
-    std::string item_value;
     bool item_has_key = false;
+    bool item_has_value = false;
+    Value item_val;            // Item scratch: its <value>'s built Value
+    std::string item_val_text; // Item scratch: its <value>'s raw text
     std::map<std::string, std::string> attrs;  // start-tag attributes
     int ignore_depth = 0;      // Ignore
 };
@@ -585,6 +598,15 @@ struct Loader {
     // because the separator comes from the defaultverb type ("with; using"),
     // which may not be parsed yet (QuestViva's LazyFields.AddAction).
     std::vector<std::pair<Element *, std::string>> pending_verb_patterns;
+
+    // Save-overlay mode (native .quest-save restore). When set, a container
+    // whose name already exists DISPLACES the live element (QuestViva's
+    // Elements.Add override: a same-named element of the same family replaces
+    // the old, which drops out of every enumeration via the find()==this
+    // filter). `overlaid_names`, when non-null, records every name the overlay
+    // (re)defined so the caller can drop live elements the save omitted.
+    bool override_existing = false;
+    std::set<std::string> *overlaid_names = nullptr;
 
     explicit Loader(World &w) : world(w) {}
 
@@ -674,7 +696,18 @@ struct Loader {
         } else {
             world.roots.push_back(ep);
         }
-        if (!name.empty() && !world.find(name)) world.by_name[name] = ep;
+        if (!name.empty()) {
+            // Normal load: last-write is ignored (keep-first). Overlay: the
+            // save's element DISPLACES the live one (Elements.Add override),
+            // and we note the name so a live element the save omits can later
+            // be dropped from the family.
+            if (override_existing) {
+                world.by_name[name] = ep;
+                if (overlaid_names) overlaid_names->insert(name);
+            } else if (!world.find(name)) {
+                world.by_name[name] = ep;
+            }
+        }
         world.elements.push_back(std::move(e));
         return ep;
     }
@@ -706,8 +739,12 @@ struct Loader {
         Frame::Kind ctx =
             frames.empty() ? Frame::Kind::Element : frames.back().kind;
 
-        // Nested value/item structure inside a field.
-        if (ctx == Frame::Kind::Field && name == "value") {
+        // Nested value/item structure. A <value>/<item> may sit inside a Field
+        // OR inside another Value / ItemValue (a collection whose entries are
+        // themselves collections -- Quest's nested grid-coordinate dictionaries).
+        bool value_ctx = ctx == Frame::Kind::Field || ctx == Frame::Kind::Value ||
+                         ctx == Frame::Kind::ItemValue;
+        if (value_ctx && name == "value") {
             Frame f;
             f.kind = Frame::Kind::Value;
             f.tag = name;
@@ -715,7 +752,7 @@ struct Loader {
             frames.push_back(std::move(f));
             return;
         }
-        if (ctx == Frame::Kind::Field && name == "item") {
+        if (value_ctx && name == "item") {
             Frame f;
             f.kind = Frame::Kind::Item;
             f.tag = name;
@@ -737,6 +774,7 @@ struct Loader {
             Frame f;
             f.kind = Frame::Kind::ItemValue;
             f.tag = name;
+            f.type = attr_get(attrs, "type");
             frames.push_back(std::move(f));
             return;
         }
@@ -935,9 +973,15 @@ struct Loader {
             finish_field(f);
             return;
         case Frame::Kind::Value:
-            if (!frames.empty() && frames.back().kind == Frame::Kind::Field) {
-                frames.back().values.push_back(f.text);
-                frames.back().value_types.push_back(f.type);
+            // Build this <value> as a Value (scalar, or a nested collection from
+            // its own children) and hand it to the enclosing collection frame.
+            if (!frames.empty()) {
+                Frame &p = frames.back();
+                if (p.kind == Frame::Kind::Field || p.kind == Frame::Kind::Value ||
+                    p.kind == Frame::Kind::ItemValue) {
+                    p.values.push_back(build_value(f.type, f));
+                    p.value_texts.push_back(f.text);
+                }
             }
             return;
         case Frame::Kind::ItemKey:
@@ -947,14 +991,25 @@ struct Loader {
             }
             return;
         case Frame::Kind::ItemValue:
-            if (!frames.empty() && frames.back().kind == Frame::Kind::Item)
-                frames.back().item_value = f.text;
+            if (!frames.empty() && frames.back().kind == Frame::Kind::Item) {
+                frames.back().item_val = build_value(f.type, f);
+                frames.back().item_val_text = f.text;
+                frames.back().item_has_value = true;
+            }
             return;
         case Frame::Kind::Item:
-            if (!frames.empty() && frames.back().kind == Frame::Kind::Field) {
-                // scriptdictionary uses the item's own text as the value.
-                std::string val = f.item_value.empty() ? f.text : f.item_value;
-                frames.back().items.emplace_back(f.item_key, val);
+            if (!frames.empty()) {
+                Frame &p = frames.back();
+                if (p.kind == Frame::Kind::Field || p.kind == Frame::Kind::Value ||
+                    p.kind == Frame::Kind::ItemValue) {
+                    Frame::ItemData d;
+                    d.key = f.item_key;
+                    d.has_val = f.item_has_value;
+                    d.val = std::move(f.item_val);
+                    d.val_text = f.item_val_text;
+                    d.text = f.text;  // scriptdictionary item body
+                    p.items.push_back(std::move(d));
+                }
             }
             return;
         case Frame::Kind::Leaf:
@@ -1005,17 +1060,24 @@ struct Loader {
             }
             return;
         }
+        // In a save overlay the original's templates are already registered,
+        // and appending would duplicate them (unbounded across save/restore
+        // cycles); a native save re-emits them only for a standalone
+        // Quest/QuestViva reload.
         if (tag == "template") {
-            world.templates.emplace_back(attr_get(f.attrs, "name"), f.text);
+            if (!override_existing)
+                world.templates.emplace_back(attr_get(f.attrs, "name"), f.text);
             return;
         }
         if (tag == "dynamictemplate") {
-            world.dynamic_templates.emplace_back(attr_get(f.attrs, "name"),
-                                                 f.text);
+            if (!override_existing)
+                world.dynamic_templates.emplace_back(attr_get(f.attrs, "name"),
+                                                     f.text);
             return;
         }
         if (tag == "verbtemplate") {
-            world.verb_templates.emplace_back(attr_get(f.attrs, "name"), f.text);
+            if (!override_existing)
+                world.verb_templates.emplace_back(attr_get(f.attrs, "name"), f.text);
             return;
         }
         if (tag == "javascript") {
@@ -1066,7 +1128,13 @@ struct Loader {
         if (attr.empty()) return;
 
         std::string type = f.type;
-        if (type.empty()) {
+        // A native saved game (override_existing) re-emits NO <implied>
+        // declarations and stores already-final values (e.g. command patterns
+        // as raw regex, not simplepattern), so QuestViva's own reload resolves
+        // every type-less attribute to string/boolean, NOT its implied type.
+        // Mirror that: skip implied resolution in a save overlay, or an
+        // already-converted <pattern> would be simplepattern-converted again.
+        if (type.empty() && !override_existing) {
             const std::string *imp =
                 world.implied_type(owner->elem_type, attr);
             // Verbs ARE commands in QuestViva (ElementType.Command), so the
@@ -1090,18 +1158,35 @@ struct Loader {
         set_typed_field_from_frame(owner, attr, type, f);
     }
 
-    // Build a Value of `type` from either the frame's text or nested children,
-    // and set it on `owner`.
-    void set_typed_field_from_frame(Element *owner, const std::string &attr,
-                                    const std::string &type, Frame &f) {
+    // Build a Value of `type` from a frame's text or nested (recursive) child
+    // values/items. `apply_templates` is true only at the field level -- list
+    // and dictionary ENTRIES keep their raw text (matching the historical
+    // loader, which template-substituted attributes but not collection
+    // entries). `ctx` labels errors. Verb simplepatterns have an owner side
+    // effect and are handled by set_typed_field_from_frame, not here.
+    Value build_value(const std::string &type_in, Frame &f,
+                      bool apply_templates, const std::string &ctx) {
+        std::string type = type_in;
+        // Legacy type-name remapping for old games (<= v530); idempotent.
+        if (!type.empty() && world.asl_version <= 530) {
+            if (type == "list") type = "simplestringlist";
+            else if (type == "stringdictionary") type = "simplestringdictionary";
+            else if (type == "objectdictionary") type = "simpleobjectdictionary";
+        }
+        bool nested = !f.values.empty() || !f.items.empty();
+        if (type.empty()) type = (!f.text.empty() || nested) ? "string" : "boolean";
+
         Value v;
         v.declared_type = type;
         const std::string &text = f.text;
+        auto tmpl = [&](const std::string &s) {
+            return apply_templates ? replace_templates(s) : s;
+        };
 
         if (type == "string") {
-            v.type = Value::Type::String; v.str = replace_templates(text);
+            v.type = Value::Type::String; v.str = tmpl(text);
         } else if (type == "script") {
-            v.type = Value::Type::Script; v.str = replace_templates(text);
+            v.type = Value::Type::Script; v.str = tmpl(text);
         } else if (type == "int") {
             v.type = Value::Type::Int; v.integer = std::atol(trim(text).c_str());
         } else if (type == "double") {
@@ -1111,20 +1196,6 @@ struct Loader {
             std::string t = trim(text);
             v.boolean = (t.empty() || t == "true");
         } else if (type == "simplepattern") {
-            if (owner->elem_type == "verb") {
-                // SimplePatternLoader branches on isverb: a verb's pattern is
-                // a VERB simplepattern -- ConvertVerbSimplePattern with the
-                // type-provided separator, deferred to finish_load (LazyFields)
-                // -- and displayverb is the first verb, #object# stripped.
-                pending_verb_patterns.emplace_back(owner, text);
-                std::string first = trim(text.substr(0, text.find(';')));
-                size_t h;
-                while ((h = first.find("#object#")) != std::string::npos)
-                    first.erase(h, 8);
-                Value dv; dv.type = Value::Type::String; dv.str = trim(first);
-                owner->set_field("displayverb", dv);
-                return;
-            }
             v.type = Value::Type::String; v.str = convert_simple_pattern(text);
         } else if (type == "object") {
             v.type = Value::Type::ObjectRef; v.str = trim(text);
@@ -1138,38 +1209,20 @@ struct Loader {
             fill_list(v, simple_list_values(text));
             v.list_extend = true;
         } else if (type == "stringlist") {
+            // Homogeneous string list: entries are strings from raw <value>
+            // text (an empty <value/> is the empty string, NOT a boolean).
             v.type = Value::Type::StringList;
-            fill_list(v, f.values);
+            fill_list(v, f.value_texts);
         } else if (type == "list") {
-            // A general list built from nested <value type="..."> children; each
-            // value carries its own type (QuestViva's QuestList<object>), so the
-            // entries are materialised typed. The container tag is ObjectList
-            // when every entry is an object ref, otherwise StringList (TypeOf
-            // reports one of those two; a distinct "list" name is still TODO).
+            // A general list of nested <value type="..">s -- each already built
+            // as a typed Value (and may itself be a collection). ObjectList when
+            // every entry is an object ref, else StringList (TypeOf reports one
+            // of those two; a distinct "list" name is still TODO).
             bool all_obj = !f.values.empty();
-            for (const std::string &t : f.value_types)
-                if (t != "object") { all_obj = false; break; }
+            for (const Value &cv : f.values)
+                if (cv.type != Value::Type::ObjectRef) { all_obj = false; break; }
             v.type = all_obj ? Value::Type::ObjectList : Value::Type::StringList;
-            for (size_t i = 0; i < f.values.size(); ++i) {
-                const std::string &vt =
-                    i < f.value_types.size() ? f.value_types[i] : std::string();
-                Value ev;
-                if (vt == "object") {
-                    ev.type = Value::Type::ObjectRef; ev.str = trim(f.values[i]);
-                } else if (vt == "int") {
-                    ev.type = Value::Type::Int;
-                    ev.integer = std::atol(trim(f.values[i]).c_str());
-                } else if (vt == "double") {
-                    ev.type = Value::Type::Double;
-                    ev.dbl = std::atof(trim(f.values[i]).c_str());
-                } else if (vt == "boolean") {
-                    ev.type = Value::Type::Boolean;
-                    ev.boolean = (trim(f.values[i]) != "false");
-                } else {
-                    ev.type = Value::Type::String; ev.str = f.values[i];
-                }
-                v.list().push_back(std::move(ev));
-            }
+            for (const Value &cv : f.values) v.list().push_back(cv);
         } else if (type == "objectlist") {
             v.type = Value::Type::ObjectList;
             for (const std::string &s : simple_list_values(text))
@@ -1182,21 +1235,35 @@ struct Loader {
                 std::string p = trim(pair);
                 if (p.empty()) continue;
                 size_t eq = p.find('=');
-                if (eq == std::string::npos) { error("dict missing '=' in " +
-                    owner->name + "." + attr); continue; }
+                if (eq == std::string::npos) {
+                    error("dict missing '=' in " + ctx); continue;
+                }
                 v.dict().emplace_back(trim(p.substr(0, eq)),
                     dict_entry_value(trim(p.substr(eq + 1)), v.type));
             }
         } else if (type == "stringdictionary" || type == "objectdictionary" ||
                    type == "dictionary") {
+            // A string/object dictionary holds plain string / object-ref values
+            // (from raw <value> text; empty is the empty string). The GENERIC
+            // "dictionary" holds typed, possibly nested values (grid coords).
             v.type = (type[0] == 'o') ? Value::Type::ObjectDict
                                       : Value::Type::StringDict;
-            for (const auto &kv : f.items)
-                v.dict().emplace_back(kv.first, dict_entry_value(kv.second, v.type));
+            bool generic = type == "dictionary";
+            for (const Frame::ItemData &it : f.items) {
+                Value ev;
+                if (generic && it.has_val)
+                    ev = it.val;                          // typed / nested
+                else
+                    ev = dict_entry_value(it.has_val ? it.val_text : it.text,
+                                          v.type);        // string / object ref
+                v.dict().emplace_back(it.key, std::move(ev));
+            }
         } else if (type == "scriptdictionary") {
             v.type = Value::Type::ScriptDict;
-            for (const auto &kv : f.items)
-                v.dict().emplace_back(kv.first, dict_entry_value(kv.second, v.type));
+            for (const Frame::ItemData &it : f.items)
+                v.dict().emplace_back(
+                    it.key, dict_entry_value(it.has_val ? it.val_text : it.text,
+                                             v.type));
         } else if (Element *del = world.find(type);
                    del && del->elem_type == "delegate") {
             // An attribute whose type is a registered <delegate>: the body is a
@@ -1204,17 +1271,43 @@ struct Loader {
             // signature (QuestViva stores a DelegateImplementation wrapping it).
             // The delegate name is kept in declared_type so `rundelegate` can
             // look up its parameter names at invoke time.
-            v.type = Value::Type::Script; v.str = replace_templates(text);
+            v.type = Value::Type::Script; v.str = tmpl(text);
         } else {
             // Unknown type: keep the raw text as a string, but flag it.
             v.type = Value::Type::String; v.str = text;
-            error("unrecognised attribute type '" + type + "' in " +
-                  owner->name + "." + attr);
+            error("unrecognised attribute type '" + type + "' in " + ctx);
         }
         // A loaded collection owns its backing even when empty (reference
         // semantics -- see Value::ensure_backing).
         v.ensure_backing();
-        owner->set_field(attr, std::move(v));
+        return v;
+    }
+
+    // Nested-value entry point (list <value> / dict item <value>): resolves the
+    // type from the frame alone (no owner/implied), raw entries.
+    Value build_value(const std::string &type, Frame &f) {
+        return build_value(type, f, /*apply_templates=*/false, "collection entry");
+    }
+
+    // Build a Value of `type` from the frame and set it on `owner`.
+    void set_typed_field_from_frame(Element *owner, const std::string &attr,
+                                    const std::string &type, Frame &f) {
+        // A verb's simplepattern has an owner side effect (displayverb + a
+        // deferred ConvertVerbSimplePattern) that the generic builder can't do.
+        if (type == "simplepattern" && owner->elem_type == "verb") {
+            const std::string &text = f.text;
+            pending_verb_patterns.emplace_back(owner, text);
+            std::string first = trim(text.substr(0, text.find(';')));
+            size_t h;
+            while ((h = first.find("#object#")) != std::string::npos)
+                first.erase(h, 8);
+            Value dv; dv.type = Value::Type::String; dv.str = trim(first);
+            owner->set_field("displayverb", dv);
+            return;
+        }
+        owner->set_field(attr,
+                         build_value(type, f, /*apply_templates=*/true,
+                                     owner->name + "." + attr));
     }
 
     // Set a field from a plain string of a known type (used for pattern etc.).
@@ -1420,6 +1513,22 @@ bool load_aslx_buffer(const char *data, size_t len, World &world,
     Loader ld(world);
     ld.core_dir = resolve_core_dir(core_dir);
     ld.game_dir = game_dir;
+    parse_buffer_into(ld, data, len);
+    return finish_load(ld, world);
+}
+
+bool overlay_aslx_buffer(const char *data, size_t len, World &world,
+                         std::set<std::string> &overlaid,
+                         const std::string &core_dir) {
+    Loader ld(world);
+    ld.core_dir = resolve_core_dir(core_dir);
+    ld.override_existing = true;
+    ld.overlaid_names = &overlaid;
+    // Templates registered by the original load still live in `world`, so
+    // replace_templates resolves against them during the overlay (matching
+    // QuestViva's v530+ re-scan on saved-game reload). The overlay itself
+    // rarely carries [refs] -- saved values are already substituted -- so this
+    // is normally a no-op that only guards against re-mangling.
     parse_buffer_into(ld, data, len);
     return finish_load(ld, world);
 }

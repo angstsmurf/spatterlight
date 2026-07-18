@@ -982,7 +982,11 @@ bool do_restore_ui(std::string &data)
     if (!prompt_read_save(data))
         return false;
 
-    if (!Interp::is_save_data(data.data(), data.size())) {
+    /* Accept both our v1 snapshot and a native Quest/QuestViva `.quest-save`
+     * (the interoperable format -- a save exported from the desktop Quest
+     * player or QuestViva imports here). restore_game auto-detects which. */
+    if (!Interp::is_save_data(data.data(), data.size()) &&
+        !Interp::is_native_save_data(data.data(), data.size())) {
         glk_put_string((char *) "Sorry, that does not look like a saved game"
                                 " for this story.\n");
         return false;

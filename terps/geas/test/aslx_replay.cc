@@ -158,11 +158,27 @@ int main(int argc, char **argv) {
     in.print = emit;
     auto line_out = [&](const std::string &s) { transcript += s + "\n"; };
 
+    // ASLX_RESTORE=<file>: apply a saved game onto the freshly-loaded original
+    // and boot the saved-game way (WorldModel.BeginInternalAsync with
+    // _loadedFromSaved -- InitInterface only, no begin_timers/StartGame). Used
+    // by the native<->QuestViva save-compat cross-test; the save may be one this
+    // engine wrote OR one QuestViva wrote (native format).
+    bool restored = false;
+    if (const char *rf = std::getenv("ASLX_RESTORE")) {
+        std::ifstream sf(rf, std::ios::binary);
+        std::stringstream ss; ss << sf.rdbuf();
+        std::string data = ss.str();
+        std::string err;
+        restored = in.restore_game(data, err);
+        if (!restored) { std::cerr << "[fatal] restore failed: " << err << "\n"; return 4; }
+    }
+
     Context boot;
-    in.begin_timers();  // BeginInternalAsync arms enabled timers before InitInterface
+    if (!restored)
+        in.begin_timers();  // BeginInternalAsync arms enabled timers before InitInterface
     try {
         if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
-        if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+        if (!restored && w.find("StartGame")) in.call_function("StartGame", {}, &boot);
         // BeginInternalAsync ends with UpdateListsAsync -- with no UpdateList
         // subscriber that is just UpdateStatusAttributes, exactly like qvh.
         in.update_lists();
@@ -266,6 +282,11 @@ int main(int argc, char **argv) {
             if (l.compare(0, 7, "answer:") == 0) l = nr_trim(l.substr(7));
             for (char &c : l) c = (char)std::tolower((unsigned char)c);
             in.set_question_response(l == "yes" || l == "y" || l == "true" || l == "1");
+        } else if (cmd.compare(0, 5, "save:") == 0) {
+            // Write a native .quest-save at this point (save-compat cross-test).
+            std::string path = nr_trim(cmd.substr(5));
+            std::ofstream of(path, std::ios::binary);
+            of << in.save_game_native(argv[1]);
         } else if (cmd.compare(0, 7, "assert:") == 0) {
             std::string expr = cmd.substr(7);
             bool ok = false;

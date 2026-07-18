@@ -345,9 +345,35 @@ public:
     std::string save_game(const std::string &original_file);
     // Apply a snapshot onto this freshly-loaded, not-yet-booted Interp.
     // Returns false with `err` set on malformed data or a wrong-game save.
+    // Auto-detects the format: a native `.quest-save` (`<asl original=...>`
+    // ASLX re-serialization, Quest/QuestViva's own format) routes to
+    // restore_game_native; otherwise the v1 snapshot above.
     bool restore_game(const std::string &data, std::string &err);
-    // Cheap sniff for "is this buffer one of our saves?".
+    // Cheap sniff for "is this buffer one of our (v1) saves?".
     static bool is_save_data(const char *data, size_t len);
+
+    // -- native .quest-save (Quest/QuestViva GameSaver format) ----------------
+    // Interoperable with the desktop Quest player and QuestViva: an ASLX
+    // document (`<asl version=".." original="game.quest"> ... </asl>`) that
+    // re-serializes the mutable object family (object/game/command/verb/exit/
+    // turnscript/timer) with every own field and inherit. A restore reloads
+    // the original game (done by the host before this Interp) and overlays the
+    // save, each element DISPLACING its freshly-loaded twin (QuestViva's
+    // Elements.Add override); family elements the save omits are dropped
+    // (destroyed at save time). Static elements (functions/types/delegates/
+    // templates) come back from the reload untouched -- they never change at
+    // runtime -- so, unlike Quest, we do not re-emit them; the result is still
+    // a valid Quest saved-game document.
+    std::string save_game_native(const std::string &original_file);
+    bool restore_game_native(const std::string &data, std::string &err);
+    // Return `src` with already-run `firsttime` blocks baked out (a run
+    // firsttime becomes its `otherwise` body, or nothing) -- QuestViva's
+    // FirstTimeScript.Save behaviour, reproduced so an exported native save does
+    // not re-fire one-time text. `src` unchanged when nothing has run.
+    std::string bake_firsttime_source(const std::string &src);
+    // Sniff for a native ASLX save (leading XML whose first element is <asl
+    // ... original=...>, or our "Saved by Geas" marker comment).
+    static bool is_native_save_data(const char *data, size_t len);
 
     // Host hook for `request (RequestSave, ...)` / `requestsave` (Core's
     // `save` command): the UI prompts for a file and calls save_game. Unset,

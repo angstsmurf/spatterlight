@@ -1,5 +1,66 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-17, native `.quest-save` compatibility)
+
+- **The native Quest/QuestViva `.quest-save` format is now bidirectional**
+  (§5's last open save item). A native save is a complete, self-contained ASLX
+  document (`<asl version=".." original="game.quest"> ... </asl>`) — Quest's
+  loader reads ONLY the save (the original `.quest` supplies resources, not
+  elements), so the save re-emits the WHOLE world. `aslx-savenative.inc` ports
+  QuestViva's `GameSaver` (SaveMode.SavedGame) + `FieldSaver` + `ObjectSaver`:
+  - **Writer** (`Interp::save_game_native`): implied/template/dynamictemplate/
+    delegate then the nested object graph (containment via the runtime `parent`
+    field, ordered by sort_index) then types/functions then flat timers, in
+    QuestViva's ElementType enum order. Strings are written type-less and
+    everything else with an explicit type (QuestViva emits NO `<implied>` in a
+    save, so a type-less attribute reloads as string — this is what keeps an
+    already-converted command `<pattern>` as raw regex instead of being
+    re-run through the simplepattern loader). v540+ nested collections use the
+    attribute name as the tag; a generic `dictionary`/`list` (any non-string/
+    non-collection entry, incl. nested dicts — Quest's grid coordinates)
+    serialises typed, recursively (`write_value`).
+  - **firsttime baking**: QuestViva's `FirstTimeScript.Save` re-serialises an
+    already-run firsttime as just its `otherwise` body (or nothing);
+    `Interp::bake_firsttime_source` reproduces this on the raw source (a
+    statement walk aligned to `collect_firsttime`'s preorder), so exported
+    saves don't re-fire intros/one-time text. Only scripts with a run firsttime
+    are transformed.
+  - **Reader** (`restore_game_native`): overlays the save onto the freshly
+    reloaded original via a new loader `override_existing` mode (a same-named
+    element DISPLACES its twin — QuestViva `Elements.Add` override), then drops
+    mutable-family elements the save omitted. `restore_game` auto-detects
+    native vs. the v1 snapshot; `is_native_save_data` sniffs `<asl ...
+    original=..>`. In override mode the loader skips implied-type resolution
+    and template re-registration (matching QuestViva's implied-less save
+    reload; avoids re-converting patterns and duplicating templates).
+  - **Loader nested typed collections**: the frame machinery now builds
+    `Value`s recursively, so a dictionary whose values are dictionaries
+    (Quest's grid-coordinate save state) round-trips. String-typed containers
+    (stringlist / string+object dictionaries) keep raw-text/string entries
+    (an empty `<value/>` is the empty string); the generic `dictionary`/`list`
+    keeps typed, nested values. Fixed a pre-existing loader bug: an empty
+    dict-item `<value/>` grabbed the item's surrounding whitespace.
+- **App**: the RESTORE metaverb (aslxglk.cc) now accepts a native save too, so
+  a game saved in the desktop Quest player / QuestViva imports into
+  Spatterlight. The `save` command still writes the v1 snapshot (perfect
+  Spatterlight round-trip); the native writer is the interop/export path.
+- **Ground truth**: `test/quest5-oracle/save_compat.sh` drives a golden
+  walkthrough's first half in one engine, snapshots a native save, and
+  continues the second half in the OTHER engine, comparing both directions to a
+  pure-QuestViva save/restore baseline (qvh gained a `save:` step + a
+  `QVH_LOADSAVE` boot). **~18 diverse games verify byte-identical BOTH
+  directions** (incl. Dracula 290 steps, Mouse 308, Bony King 286, and the
+  grid-map games Night House / Poppet / Jacqueline). Documented benign
+  transcript artifacts (not state): pre-v540 games' output-log replay, the
+  "Loaded saved game" fallback (our save omits the HTML log), and a sort_index
+  object-order nuance (Basilica). Reader (importing a Quest-written save) works
+  for every tested game including all grid-map games.
+- Verified: `make check` + ASan/UBSan green (native round-trip + nested-dict
+  survival in `test_save_restore_native`); **native goldens still 28/29
+  byte-identical** (ICM = the documented oracle artifact) after the loader
+  refactor; oracle `check_golden` 29/29; the Glk frontend + smoke harness
+  compile.
+
 ## Status (2026-07-17, blocking `request (Wait)` / `request (Pause, ms)`)
 
 - **The pre-v540/v550 blocking timing requests are wired to real host hooks**
@@ -1157,11 +1218,15 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       `Interp::save_game`/`restore_game`) wired into aslxglk.cc — Core's
       `save` command lands in the `request (RequestSave)` host hook, RESTORE
       is a frontend metaverb with scratch-reload validation, and the
-      post-game menu offers RESTORE. See the top status entry. Still open:
-      Spatterlight autosave/autorestore integration, and native
-      `.quest-save` compatibility (Quest serialises the whole world back to
-      ASLX, `GameSaver.cs`) as a later, optional milestone — the SCARE
-      `.tas` work proved two-way save compat is doable.
+      post-game menu offers RESTORE. **Native `.quest-save` compatibility
+      landed 2026-07-17** (`aslx-savenative.inc`, GameSaver port + firsttime
+      baking + a loader override mode + recursive nested typed collections):
+      `save_game_native`/`restore_game_native`, `restore_game` auto-detects the
+      format, and the RESTORE metaverb imports a Quest/QuestViva-written save.
+      Bidirectional, verified against the QuestViva oracle by
+      `test/quest5-oracle/save_compat.sh` (~18 games byte-identical both ways).
+      See the top status entry. Still open: Spatterlight autosave/autorestore
+      integration.
 
 ## 6. Legacy dispatch note
 

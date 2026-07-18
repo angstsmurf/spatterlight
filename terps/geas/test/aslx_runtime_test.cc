@@ -1251,10 +1251,122 @@ static void test_save_restore() {
     }
 }
 
+// The native Quest/QuestViva `.quest-save` format: an ASLX re-serialization
+// overlaid onto a reloaded original. Same mutate/save/restore round-trip as
+// test_save_restore, exercising the writer and the overlay reader.
+static void test_save_restore_native() {
+    World w;
+    CHECK(load_file("fixtures/aslx/command.aslx", w, "../aslx-core"));
+
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+
+    Context boot;
+    if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+    if (w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+    if (in.has_pending_on_ready()) in.drain_on_ready();
+    w.errors.clear();
+
+    in.send_command("take apple");
+    in.send_command("open chest");
+    in.send_command("north");
+    Context c;
+    in.run_script("create (\"souvenir\")\n"
+                  "souvenir.parent = player\n"
+                  "destroy (\"rose\")\n"
+                  "game.notes = NewStringDictionary()\n"
+                  "dictionary add (game.notes, \"day\", \"one\")\n"
+                  "game.tally = 7\n"
+                  "player.ratio = 1.5\n"
+                  // A nested dictionary (a dict whose value is a dict of typed
+                  // scalars) -- Quest's grid-coordinate save state, which the
+                  // native format must round-trip through the generic
+                  // "dictionary" form (a plain stringdictionary cannot hold it).
+                  "game.grid = NewDictionary()\n"
+                  "inner = NewDictionary()\n"
+                  "dictionary add (inner, \"x\", 3)\n"
+                  "dictionary add (inner, \"flag\", true)\n"
+                  "dictionary add (game.grid, \"room1\", inner)", c);
+    CHECK(w.errors.empty());
+
+    std::string save = in.save_game_native("command.aslx");
+    CHECK(Interp::is_native_save_data(save.data(), save.size()));
+    // A native save is NOT mistaken for a v1 snapshot, and vice versa.
+    CHECK(!Interp::is_save_data(save.data(), save.size()));
+    std::string v1 = in.save_game("command.aslx");
+    CHECK(!Interp::is_native_save_data(v1.data(), v1.size()));
+    // The document is well-formed ASLX that reloads through the loader.
+    CHECK(save.find("<asl") != std::string::npos);
+    CHECK(save.find("original=\"command.aslx\"") != std::string::npos);
+
+    {
+        World w2;
+        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../aslx-core"));
+        Interp in2(w2);
+        in2.print = [](const std::string &) {};
+        std::string err;
+        bool restored = in2.restore_game(save, err);  // auto-detects native
+        if (!restored) std::cerr << "  native restore err: " << err << "\n";
+        CHECK(restored);
+
+        // Re-serialising straight after the restore reproduces the save
+        // byte-for-byte (the DFS/field order is preserved across the overlay).
+        CHECK_STR(in2.save_game_native("command.aslx"), save);
+
+        Context b2;
+        if (w2.find("InitInterface")) in2.call_function("InitInterface", {}, &b2);
+        if (in2.has_pending_on_ready()) in2.drain_on_ready();
+        w2.errors.clear();
+
+        CHECK_STR(Interp::to_string(in2.eval("player.parent", b2)), "garden");
+        CHECK_STR(Interp::to_string(in2.eval("apple.parent", b2)), "player");
+        CHECK_STR(Interp::to_string(in2.eval("chest.isopen", b2)), "True");
+        CHECK_STR(Interp::to_string(in2.eval("souvenir.parent", b2)), "player");
+        CHECK(w2.find("rose") == nullptr);
+        CHECK_STR(Interp::to_string(in2.eval("game.tally", b2)), "7");
+        CHECK_STR(Interp::to_string(in2.eval("player.ratio", b2)), "1.5");
+        CHECK_STR(Interp::to_string(
+                      in2.eval("StringDictionaryItem(game.notes, \"day\")", b2)),
+                  "one");
+        // The nested dictionary survived with its typed scalars intact.
+        CHECK_STR(Interp::to_string(
+                      in2.eval("DictionaryItem(DictionaryItem(game.grid, "
+                               "\"room1\"), \"x\")", b2)),
+                  "3");
+        CHECK_STR(Interp::to_string(
+                      in2.eval("DictionaryItem(DictionaryItem(game.grid, "
+                               "\"room1\"), \"flag\")", b2)),
+                  "True");
+
+        std::string out2;
+        in2.print = [&](const std::string &s) { out2 += s; };
+        in2.send_command("look");
+        CHECK(out2.find("garden") != std::string::npos);
+        CHECK(w2.errors.empty());
+    }
+
+    // A native save for a different-version world is rejected up front.
+    {
+        std::string bogus = save;
+        size_t vp = bogus.find("version=\"");
+        CHECK(vp != std::string::npos);
+        size_t vq = bogus.find('"', vp + 9);
+        bogus.replace(vp, vq - vp + 1, "version=\"999\"");
+        World w5;
+        CHECK(load_file("fixtures/aslx/command.aslx", w5, "../aslx-core"));
+        Interp in5(w5);
+        std::string err;
+        CHECK(!in5.restore_game(bogus, err));
+        CHECK(!err.empty());
+    }
+}
+
 int main() {
     test_parity_batch();
     test_undo();
     test_save_restore();
+    test_save_restore_native();
     test_expressions();
     test_control_flow();
     test_functions_and_objects();
