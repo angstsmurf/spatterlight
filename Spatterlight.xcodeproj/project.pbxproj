@@ -10010,6 +10010,7 @@
 					Foundation,
 					"-framework",
 					AppKit,
+					"-lz",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
@@ -10066,6 +10067,7 @@
 					Foundation,
 					"-framework",
 					AppKit,
+					"-lz",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
