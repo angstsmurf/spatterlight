@@ -1,0 +1,1459 @@
+The Acreage
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"Where is Satan not? Tell me.
+I would invent him if he did not exist,
+and he would emerge, one evening from my silence."
+
+Sabbat
+Hélèn Picard
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PRESS ANY KEY
+
+HOW TO PLAY:
+
+MOVE AROUND THE WORLD by entering abbreviated compass points
+(Enter 'W' to go west or 'SE' to go southeast)
+
+EXAMINE ANY OBJECT in capital letters with 'Look'
+(Enter 'look at lamp' or 'x lamp' to examine a LAMP or switch it on.)
+
+PICK UP AND INTERACT WTIH OBJECTS in capital letters with 'Take'
+(Enter 'take book' to pick up a BOOK, do not use 'take all')
+
+VIEW YOUR INVENTORY by entering 'i'
+
+INTERACT WITH NPCS with 'Talk'
+(Enter 'talk to clerk' to ask THE CLERK questions or buy items)
+
+SEE AVAILABLE EXITS by entering 'look'
+
+Enter 'map' to pull up a map of the places you've been
+
+Enter 'save' to save your game
+
+*   Enter 'tips' to see this message again
+
+The writer and game designer can be reached at dctozier@gmail.com
+
+PRESS ANY KEY TO BEGIN
+
+PART ONE: OLD BEGINNINGS
+
+Desmond's whistling falls through the yultide bells ringing in your dreams before prevailing and leading you back into the waking world. It's cold here. A not entirely unpleasant blend of stale and freshly burnt tobacco waits for you. The last motel room was nearly identical in its delapidation, despite being located far across the acreage, somewhere in the Pisces constellation.
+
+It was there that death sought you yet again, this time in the form of a Tremont security beamshot cannon. An indirect hit. Your ship, The Vigil, managed to escape through the fold, but it's not going to make another journey in its current condition. So you landed on Bluèl, the nearest populated planet.
+
+It's been like this every step of the way. What was supposed to be a quick transport job continues to spiral out into something more. You should have called it quits long ago, but something is keeping you here.
+
+He calls himself Isaac.
+
+PRESS ANY KEY
+
+Motel Room
+
+You find yourself in a motel room defined by filth and monastic efficiency. A single brass flame LAMP illuminates the foulness of your situation with arrhythmic orange light. Mildewed blankets cover the twin BEDS, both of which are held together by overlapping strips of thick, red industrial tape.
+
+The floor, walls, and ceiling are enduring entropy each in their own unique way. Water stains pool above you; beneath your feet several rugs hide multicolored stains in the green carpet. The wallpaper is failing at its edges, peeling away in large swatches to reveal the synthetic wood walls beneath.
+
+There's a WINDOW, though it's so filthy you would be better off guessing about the world beyond.
+
+PRESS ANY KEY
+
+Familiar voices echo within the architecture of your being.
+
+SYNAPSE: Based on the wallpaper pattern (cancerian art deco passé), the last time this motel saw renovations was the 2980s.
+
+ANIMUS: Why would the manager bother with renovations? His customers tend to have more pursuants than options.
+
+SYNAPSE: The door doesn't even lock properly.
+
+ANIMUS: Which is why we barely slept last night.
+
+A ship passes low overhead, the first of the morning, rattling the room like a tin can in the wind. ISAAC sleeps soundly in one of the beds, beneath a small bundle of blankets. His gray tunic hides his face, for which you are grateful. DESMOND sits in the corner, using his teeth to tear bandages from a spool. A cigarette burns in an ashtray at his elbow.
+
+SINEW: Fracture of his fifth metacarpal. Likely from punching that Tremont peace officer during yesterday's urgent exit.
+
+"You're finally up. I need you to give Isaac his treatment," DESMOND says, wrapping the bandage around his hand. "Can't work the syringe with my hand like this. It's in the bathroom. Then we can grab a repair kit for your ship and head to Surst."
+
+Bathroom >>> WEST
+Motel Lobby >>> EAST
+> w
+
+> w
+
+Motel Bathroom
+
+You enter the dark bathroom and turn the knob mounted on the wall. Gas hisses momentarily behind the white tiles before a flint clicks and ignites the small flame of a sconce to illuminate the cramped space.
+
+The bathroom exceeds the motel room in its state of disrepair. A small rectangular MIRROR hangs above the sink. The bathtub is stained with what you hope is rust. The toilet was clearly usable at some point, judging from the contents, but the thought of making physical contact with it rises bile in your throat.
+
+SINEW: The only reason we’re keeping last night’s dinner down is because it was so meager.
+
+There is an empty VIAL in the sink. (Enter "look at vial" to examine it)
+
+Isaac's treatment, held in a glass SYRINGE, sits on the sink.
+
+(Enter "take syringe" to pick up the syringe and add it to your inventory. Enter "i" to see what you're carrying.)
+
+Motel Room >>> EAST
+> take vial
+
+> take vial
+
+You slip the empty vial into your coat pocket.
+> take syringe
+
+> take syringe
+
+_
+
+Motel Bathroom
+
+You look at the SYRINGE and your stomach turns. DESMOND has been injecting ISAAC with the thick sludge every week or so. You haven't asked why. As you pick up the SYRINGE another ship passes overhead, twice the size of the first one if the turbulence is any indication. As you attempt to gain your footing, you find instead a slick unknown substance. Your shoulder collides with the tiled wall and the SYRINGE tumbles away from your palm, falling to the floor where it shatters.
+
+ SINEW: Oops.
+
+Desmond’s voice booms from the other room to break the deafening silence, "Was that the treatment?!"
+
+The bathroom door slams open and DESMOND's eys fall to the shattered glass on the floor.
+
+He turns around and walks back into the room without looking at you.
+
+Motel Room >>> EAST
+> e
+
+> e
+
+Motel Room
+
+ You find yourself in a motel room defined by filth and monastic efficiency. A single brass flame LAMP illuminates the foulness of your situation with arrhythmic orange light. Mildewed blankets cover the twin BEDS, both of which are held together by overlapping strips of thick, red industrial tape.
+
+There's a WINDOW, though it's so filthy you would be better off guessing about the world beyond.
+
+DESMOND sits on a stool by the table. ISAAC rests on the bed.
+
+The occasional ship passes overheard, each one testing the structural integrity of the motel.
+________________________________________________________
+
+DESMOND's glare meets you.
+
+"That was the last of his treatment," DESMOND says sharply, his anger barely contained.
+
+PRESS ANY KEY
+
+ANIMUS: He wants to hit you.
+
+SINEW: Let him try. Lovers kiss and fuck on the battlefields of his youth. We could easily take this old man.
+
+"ISAAC can not miss a dose. Not now," DESMOND says running his hands through his short graying hair. "We'll need to sythansize more here. I need a compound called essage. Head into town and find more. Start with starports and clinics. This city is ancient, they should have some in storage somewhere."
+
+SYNAPSE: The starport is too new, you won't find any there. We saw a clinic on the way here though.
+
+Bathroom >>> WEST
+Motel Lobby >>> EAST
+> e
+
+> e
+
+ MOTEL LOBBY
+
+Flame lamps illuminate the dark, empty motel lobby in a wash of unsteady orange. A puddle spreading out from the corner of the room's cement floor emerges from a pipe running the length of the wall and across the ceiling. The smell of dust and wet stone greets you. A POSTER hangs on the wall by the front door.
+
+A desk has been shoved haphazardly in the corner of the room, but no one is sitting there this early in the morning. A striped gray CAT sleeps on a window sill behind the empty desk.
+
+Civic Resource District >>> NORTH
+Motel Room >>> WEST
+> n
+
+> n
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+You walk alone through the empty pre-dawn streets of Bluèl. Flame lamps line the pathways before you, dousing the walls and wet pavement with dancing light of burnt orange. Frigid winds swirl with the scent of wet stone and smoke. Above the MOTEL, smokestacks of varying heights gently parcel out clouds of white, a stark contrast against the black firmament.
+
+You are surrounded by the windows and doors of buildings no more than three or four stories high. They are each built of different material, but all are painted some shade of blue or gray.
+
+Occasional ships rise slowly above the skyline, lilting like icebergs before vanishing upward into sweeping black clouds.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight flickers from within. A row of vendor STALLS bisects the street.
+
+PRESS ANY KEY
+
+SYNAPSE: This is the southern lane of Bluèl’s Civic Resource District. A sorry collective of shops designed to meet the most basic demands of factory employees. Nearly all of them closed at this hour. Many appear to have been closed for decades.
+
+ANIMUS: There are no trees here, or plants. Not even a wayward weed.
+
+You pull your coat around you, but the cold wind finds its way through regardless.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> n
+
+> n
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+You make your way through the dark into the northern lane of the CR District. Flame lamps glow in long flickering rows. Though the port is some distance away, you can hear the roar of ships as they flee the cold. You look up to see the pusling glows of green and red of their anti-collision lights refracting throughout the black clouds.
+
+The steel tracks of a light rail STATION cut across the district's lane. Beyond, you see a long paved road that leads to the port, where you ship is waiting. There is a BAR nearby, its opaque windows lit with flickering amber light. An OFFICE stands out with its bright white exterior amongst the monochromatic world.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Southern Lane, CR District >>> SOUTH
+
+SYNAPSE: What's that to the SOUTH EAST? A gap between two buildings, just big enough for you to fit through.
+> se
+
+> se
+
+ALLEYWAY
+
+You find a gap between the buildings, barely wide enough to accommodate your frame. Your coat pulls blue paster off the wall as your slip through.
+
+ The narrow space appears to be funneling all the wind of Bluèl into a singular contained roar. Holding your hands in front of your eyes, you can still see that it's cleaner than you would expect an alleyway to be. There are no newspaper pages or other trash particles waiting to be caught in the wind whipping through. A wall of brick, easily nine feet tall rises on one side where it meets a hill of dirt that continues its ascent.
+
+A row of SHACKS have been constructed against the brick wall. You pass by them on your way to the backside of the abandoned clinic.
+
+Bluèl’s Civic Resource District >>> NORTH WEST
+Clinic Exam Room >>> SOUTH
+> s
+
+> s
+
+ CLINIC EXAM ROOM
+
+The hinges of the door creak as you enter the clinic. The building is small, consisting of only an exam room, where you stand now, and a lobby. The exam room has been converted into a living room complete with a SOFA and RECORD PLAYER. A BASS guitar is leaning up against the corner. The door that leads to the lobby is missing, replaced by a FLAG draped over the frame.
+
+If you're going to find the essage that Desmond demands, it will be somewhere around here.
+
+You spend some time digging through the shelves and cupboards, but find only torn packaging and empty boxes. Dust is clinging to the back of your throat, but you are empty handed.
+
+Alleyway >>> NORTH
+Clinic Lobby >>> WEST
+> w
+
+> w
+
+CLINIC LOBBY
+
+ You push the flag out of the way as you enter the lobby. It's clean and free of dust, with the notable exception of the filthy windows. Years of dust have been left uncleaned, blocking the view of any curious passerby.
+
+SYNAPSE: Someone lives here.
+
+ANIMUS: In secret.
+
+ There are two empty SLEEPING BAGS in the corner of the room, side by side on a wide rubber mat. Several SKETCHES have been pinned to the wall using large construction nails.
+
+ There is a metal CRATE next to the bed being used as an impromptu nightstand for several unlit candles and a large yellow rotary PHONE.
+
+There's a blue BOOK amongst the clutter.
+
+Southern Lanne, CR District >>> WEST
+Clinic Exam Room >>> EAST
+
+> x crate
+
+> x crate
+
+Whoever has been living here is using this relic as an impromptu nightstand. It's made of metal and was at one point painted green, but most of that has chipped off in the recent centuries.
+
+What do you do?
+1: Open the crate
+2: Leave the crate alone for now
+> 1
+You move the objects off the CRATE and force the latches open. There's a silver CANISTER inside. It's ancient, but intact.
+> take canister
+
+> take canister
+
+You pick up the CANISTER.
+> e
+
+> e
+
+ CLINIC EXAM ROOM
+
+ The clinic is small, consisting of only an exam room, where you stand now, and a lobby. The exam room has been converted into a living room complete with a SOFA and RECORD PLAYER. A BASS guitar is leaning up against the corner. The door that leads to the lobby is missing, replaced by a FLAG draped over the frame.
+
+You've made quite the mess of the place. Torn plastic everywhere. Boxes and their lids seperated. But you found what you were looking for.
+
+Alleyway >>> NORTH
+Clinic Lobby >>> WEST
+> n
+
+> n
+
+ALLEYWAY
+
+ The narrow space appears to be funneling all the wind of Bluèl into a singular contained roar. Holding your hands in front of your eyes, you can still see that it's cleaner than you would expect an alleyway to be. There are no newspaper pages or other trash particles waiting to be caught in the wind whipping through. A wall of brick, easily nine feet tall rises on one side where it meets a hill of dirt that continues its ascent.
+
+A row of SHACKS have been constructed against the brick wall. You pass by them on your way to the backside of the abandoned clinic.
+
+Bluèl’s Civic Resource District >>> NORTH WEST
+Clinic Exam Room >>> SOUTH
+> nw
+
+> nw
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+Flame lamps glow in long flickering rows down the northern lane of the CR District. Though the port is some distance away, you can hear the roar of ships as they depart. You look up to see the pusling glows of green and red of their anti-collision lights refracting throughout the black clouds.
+
+The steel tracks of a light rail STATION cut across the district's lane. Beyond, you see a long paved road that leads to the port, where your ship is waiting. There is a BAR nearby, its opaque windows lit with flickering amber light. An OFFICE stands out with its bright white exterior amongst the monochromatic world.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Southern Lane, CR District >>> SOUTH
+
+SYNAPSE: What's that to the SOUTH EAST? A gap between two buildings, just big enough for you to fit through.
+> s
+
+> s
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+You walk alone through the empty pre-dawn streets of Bluèl. Flame lamps line the pathways before you, dousing the walls and wet pavement with dancing light of burnt orange. Frigid winds swirl with the scent of wet stone and smoke. Above the MOTEL, smokestacks of varying heights gently parcel out clouds of white, a stark contrast against the black firmament.
+
+You are surrounded by the windows and doors of buildings no more than three or four stories high. They are each built of different material, but all are painted some shade of blue or gray.
+
+Occasional ships rise slowly above the skyline, lilting like icebergs before vanishing upward into sweeping black clouds.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight flickers from within. A row of vendor STALLS bisects the street.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> s
+
+> s
+
+ MOTEL LOBBY
+
+Flame lamps illuminate the dark, empty motel lobby in a wash of unsteady orange. A puddle spreading out from the corner of the room's cement floor emerges from a pipe running the length of the wall and across the ceiling. The smell of dust and wet stone greets you. A POSTER hangs on the wall by the front door.
+
+A desk has been shoved haphazardly in the corner of the room, but no one is sitting there this early in the morning. A striped gray CAT sleeps on a window sill behind the empty desk.
+
+Civic Resource District >>> NORTH
+Motel Room >>> WEST
+> w
+
+> w
+
+Motel Room
+
+ You find yourself in a motel room defined by filth and monastic efficiency. A single brass flame LAMP illuminates the foulness of your situation with arrhythmic orange light. Mildewed blankets cover the twin BEDS, both of which are held together by overlapping strips of thick, red industrial tape.
+
+There's a WINDOW, though it's so filthy you would be better off guessing about the world beyond.
+
+DESMOND sits on a stool by the table. ISAAC rests on the bed.
+
+The occasional ship passes overheard, each one testing the structural integrity of the motel.
+________________________________________________________
+
+DESMOND stands as you walk through the door.
+
+"Finally," he says, taking the canister and a leather satchel into the bathroom. You sit and listen to him work.
+
+The gray light of dawn emerges against the foggy window, as the people of Bluèl, tense to face another day, rise nevertheless. Throughout the city, flames ignite under kettles and pans. Showers burst forth with water as hot as a sun. Feet find boots, and hands, gloves.
+
+ISAAC sits up and pulls his tunic away from his small face to reveal two mechanical lenses where his eyes should be, each one polished to a void. As has become your habit, you try not to look at his thin parchment-colored skin or the cables running from the back of his shorn head. He is either an ancient man or an extremely ill child. You never bothered to ask.
+
+SINEW: It's difficult to tell if he's even human.
+
+SYNAPSE: Technically speaking, he is.
+
+ANIMUS: Was. He's something else now entirely.
+
+PRESS ANY KEY
+
+ISAAC speaks suddenly, his lips not moving. The voice comes electronicaly from beneath his tunic.
+
+"You are a worthy light upon a dark path,
+So I ask of one more thing.
+Sleep, in chemical form, will be needed.
+Trust in me
+And your faith in my works,
+Will be a crown upon your head."
+
+You're about to respond in plain language, to remind him that this is nothing more than a contract job when DESMOND emerges with a new syringe of violet and quickly pierces ISAAC's skin. Fluid swirls in the syringe before vanishing into his flesh. ISAAC does not respond to the intrusion, his eyes remaininng on you.
+
+"Alright," DESMOND says. "Let's go. We'll find a repair kit, get your ship in working order, and be in Surst by end of day. If you have any questions about your contract, just talk to me."
+
+Bathroom >>> WEST
+Motel Lobby >>> EAST
+> e
+
+> e
+
+ MOTEL LOBBY
+
+The MANAGER, a boulder of a man, sits in a small chair behind a small desk where a small yellow leger is open, lit by a flame lamp built into the desk. His pen floats across the pages like a figure skater. He is wearing an almost white collared shirt with a small blue pocket square sticking out.
+
+SINEW: What a specimen he is. Absolutely strapping.
+
+He stops to pet the gray striped CAT, now awake. You watch as he feeds the animal from his hand, although upon closer inspection the CAT's jaws seem to only open and close above an empty palm. A silver spray of sparks ignites at the corner of its jaw. He looks up at you and redirects his attention as you walk in.
+
+"Hello, sirs," he says, "How's your stay?"
+
+"We'll be checking out now," DESMOND says, as he places a few cash notes onto the table. The MANAGER consults his leger, dragging his large finger down the rows. Seemingly satisfied, he takes the cash and makes a note.
+
+"Well, alright then," he says. "You enjoy the rest of your time here."
+
+"Ready?," DESMOND says, turning to you. "Let's go find a repair kit and leave this place."
+
+Civic Resource District >>> NORTH
+Motel Room >>> WEST
+> n
+
+> n
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has begun to rise, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The flame lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an array of smokestacks. The apartments making up the the highest stories of the district have poured their inhabitants out into the lane where they slosh and ebb between the shop exteriors.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+DESMOND stamps his feet against the pavement. ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> w
+
+> w
+
+Pawn Shop
+
+You walk up the steps to the locked, front door of the pawn shop where you find the girl at the counter, the CLERK, staring at you. She sighs before finally buzzing you in. The door is heavier than its wooden exterior would suggest.
+
+SYNAPSE: The core is lined with a sheet of dense security metal. It’s probably wired up as well for anyone who might try to cut their way through.
+
+"Talk to me if there's anything you want to buy. We don't take tokens, only cash" she says as she returns to the ledger open before her.
+
+Several parallels of flame lamps illuminate the shop's crowded shelves with dancing light. The air is musty and smells of old things. Every inch of the walls are covered in shelves of various mechanical INSTRUMENTS. A few articles of fine CLOTHING hang on the walls, but the dust gathering on their shoulder pads speaks to the lack of demand. A few WEAPONS lay inert beneath the glass counter. A security CAMERA in the corner of the shop sweeps silently from left to right.
+
+The store’s CLERK, a bored young woman, sits behind a long counter of glass. A GUN sits cocked just to the counter to the right of her hand.
+
+SYNAPSE: Look, there beneath the glass. A REPAIR KIT for sale. Hard to tell from here, but it should be functional.
+
+Southern Lane, CR District >>> EAST
+> talk to clerk
+
+> talk to clerk
+
+Talk to THE CLERK about...
+1: What kind of shop is this?
+2: How do you like living here?
+3: What's the story with that gun?
+4: Do you sell sleeping pills?
+5: Buy Repair Kit
+6: EXIT
+> 5
+________________________________________________________
+"Just the repair kit then," she says, lifting it from beneath the counter. "We actually are running a special...sale. You can pay part of the cost with food. It's a good deal for you."
+
+You explain that you don't have any food on you at the moment, but can pay the full cost with cash.
+
+She watches as ISAAC inserts a few bills into into the machine on your side of the counter. You take the repair kit.
+
+ANIMUS: She would much rather have had the food.
+
+ SINEW: Her body is hungry. I can feel it from here.
+
+Talk to THE CLERK about...
+1: What kind of shop is this?
+2: How do you like living here?
+3: What's the story with that gun?
+4: Do you sell sleeping pills?
+5: EXIT
+> 5
+> e
+
+> e
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has risen, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The gas lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an jagged array of smokestacks. Quiet figures around you go about their slow morning routines.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+DESMOND stamps his feet against the pavement. ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> nw
+
+> nw
+
+Grocery Store Entrance
+
+You make your way across the street toward a single story building, light blue with a cornucopia of food painted above the entrance.
+
+The grocery store is now open. You can see flame lamps inside flickering above shelves of cans and colorful boxes. A long line has formed at its entrance, beneath a concrete arch. There's no point in waiting to enter and you fear that trying to cut would end in a public execution. In a corner are NEWSPAPERS that may have at one point been used as a bed.
+
+There is a SIGN posted to the front door.
+
+Southern Lane, CR District >>> SOUTH EAST
+
+> x newspaper
+
+> x newspaper
+
+The pages strewn about the concrete floor are a collection of news and sports stories from across the const. Gas production numbers are featured widely with a red line rising across a graph.
+
+SYNAPSE: Look, what’s that beneath the news and trash? A COIN of some sort?
+
+> take coin
+
+> take coin
+
+You bend down to pick up the COIN. It is cold and greasy to the touch. Stamped into the metal are the words ‘FOOD TOKEN - BLUÈL. The crowd eyes you suspiciously, but no one seems to catch on to the treasure you've discovered.
+> se
+
+> se
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has risen, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The gas lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an jagged array of smokestacks. Quiet figures around you go about their slow morning routines.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+DESMOND stamps his feet against the pavement. ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> n
+
+> n
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+The crowd begins to thin as you enter the northern end of the CR District. Here too are the flame lamps you've become accustomed to, burning in the cold wind. The tracks of a light rail STATION cut across the district's lane. Beyond the tracks you see a long paved road that leads to the port, where you ship is waiting. You can still hear the crowd inside the bar. The windows of an OFFICE building glow with bright clean light.
+
+There is a PROTESTER on the street corner, yelling slogans to an uncaring river of workers. A few smokers are igniting near the entrance of the BAR. The light rail train stops to collect a crowd of workers, all in blue overalls, before charging towards a long day's work.
+________________________________________________________
+Through the windows of the OFFICE building, you see two indviduals arguing, one with serious intensity, the other with a massive smile.
+
+ISAAC holds his tunic tightly around himself. DESMOND's  eyes float towards the bar.
+
+"Maybe I'll grab a beer before take off," DESMOND says.
+
+"Vices make the possible, impossible," ISAAC says. "And time is at my heels."
+
+DESMOND appears dejected, but continues following you through the district.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Alleyway >>> SOUTH EAST
+Southern Lane, CR District >>> SOUTH
+> n
+
+> n
+
+Bluèl & GasTechnin Acreage Port
+
+It's only a 20 minute walk to your ship, but the frigid air seems to slow both time and molecules alike. Finally, you arrive at the port, passing through the enormous open concrete gates. Your face is numb and fingertips burn with cold.
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+Bluèl & GasTechnin Acreage Port
+
+ Overall clad workers scatter and regroup throughout the port's expansive space, jumping over cables and fuel lines. The smell of burning of exhaust and various gasses cling immediately to your throat. You see your ship, THE VIGIL, dwarfed by enormous tankercrafts parked on either side. The spotlights of arriving and departing ships sweep the port, illuminating the scene with white light and shifting shadows.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+> x ship
+
+> x ship
+
+THE VIGIL is a medium sized passenger craft painted olive green with accents and serial numbers in bright yellow. Long windows, several inches thick, run down the sides. From the ground, you can see into the cockpit pusling with various instrument lights.
+
+It's an older model, but one built to last.
+
+SYNAPSE: It's an A-Class machine, built by the Corvor corporation in 3022. The internal systems are well maintained and pirate software offers agility unmatched by most ships this size.
+
+It's illegal and unsafe to have a fold engine on a craft this small, but it wasn't hard to find someone willing to do it off the record.
+
+ PRESS ANY KEY
+
+Even in the anemic light of dawn you can see your ship has taken far more damage than you initially thought. Desmond lets out a low series of curses. The alloy hull on the starboard side of THE VIGIL is marred with coal-colored impact sites of shredded metal.
+
+Their first of the Tremont Peace Keepers' beamshot made contact, a shimmering pillar of violent white but by the time their cannons sent a second shot, THE VIGIL had vanished into folded space, the beams carrying on harmlessly into the acreage.
+
+ANIMUS: This was a close call, even by our standards.
+
+SYNAPSE: If they had expected a craft this small to have its own fold engine, they would have started with missiles.
+
+ “Look what they did to your ship," DESMOND says, running his rough hands run over the damage as though reading something written in the warped metal.
+
+ PRESS ANY KEY
+
+ISAAC pushes his hood off onto his shoulders, gears behind his lenses whisper mechanically as he inspects the damage. He speaks:
+
+“My words are never light,
+Strike first when I call you to do so.
+Meet the moment without hesitation."
+
+SINEW: Who is he to tell us what to do?
+
+SYNAPSE: The damage speaks for itself, doesn’t it? The inner hull is nearing its breaking point. A repair kit will not suffice.
+
+“You’ll need to find an engineer for this,” DESMOND says.
+
+The Vigil >>> EAST
+Northern Lane, CR District >>> SOUTH
+> s
+
+> s
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+The northern end of the CR District is home to more small shops lit by the flame lamps you've become accustomed to, burning in the cold wind. The tracks of a light rail STATION cut across the district's lane. Beyond the tracks you see a long paved road that leads to the port, where you ship is waiting. You can still hear the crowd inside the bar. The windows of an OFFICE building glow with bright clean light.
+
+There is a PROTESTER on the street corner, yelling slogans to an uncaring river of workers. A few smokers are igniting near the entrance of the BAR, huddling around one of the flame lamps.
+________________________________________________________
+Through the windows of the OFFICE building, you see two indviduals arguing, one with serious intensity, the other with a massive smile.
+
+ISAAC holds his tunic tightly around himself. DESMOND's  eyes float towards the bar.
+
+"Well, it looks like I do have time for the beer. Find an engineer and get your ship fixed," DESMOND says, slipping away from the group and disappearing into the bar.
+
+ISAAC shakes his head and turns to you.
+
+"He can no longer call my side 'home'.
+You have been strong,
+Where weakness fails.
+Bring poison to his poison,
+And in his slumber we will fly."
+
+SYNAPSE: He's asking you to drug Desmond's beer. The best place to find a suitable substance is the pawn shop. It's not going to be on a shelf, but that clerk might be willing to help.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Alleyway >>> SOUTH EAST
+Southern Lane, CR District >>> SOUTH
+> e
+
+> e
+
+GasTechnin Offices
+
+The POSTERs and LOGOs plastered across the well-lit office tell you that this is GasTechnin's main office for Bluèl. The space is bright and free of dust.  Unlike the other buildings, this space is lit with electric lightbulbs. Emerald green plants of plastic decorate each of the four corners. Were it not for the massive painted LOGO looming over the office, you might forget, for a moment, which planet you are on.
+________________________________________________________
+The company SECRETARY is speaking cheerfully to a very angry, but stunningly beautiful, individual. They tower over the secretary's desk in a long black coat.
+
+"Shanti, it's immaterial," the SECRETARY says. "Food tokens can not just be handed out. They must be earned. Worked for."
+
+"We do work! It is not enough," SHANTI spits back. "You must know this. Everyone knows this."
+
+The SECRETARY types something into his terminal.
+
+"It looks like you should receive a pay check and tokens tomorrow," a sympthetic look crosses his face before he reaches behind his desk and produces few tokens. "This should hold you over until then."
+
+"These are drink tokens," SHANTI says, examining them. "...and only for beer."
+
+PRESS ANY KEY
+
+The SECRETARY notices you and smiles in your direction. SHANTI, takes the drink tokens and storms past you and out of the office.
+
+“I am just so sorry about that, sir,” he says.
+
+You follow his eyes to see SHANTI making a rude gesture through the front window before walking out of view.
+
+“Our friend seems to be having a bad day.”
+
+His smile turns to an exaggerated frown. “Anyways!," his smile bounces back to life "We don’t get many visitors here, but we welcome them all the same! So welcome to the Bluèl branch of GasTechnin Interconstellation Enterprises!”
+
+ANIMUS: I…don’t like this man.
+
+ SINEW: He seems well fed and cleaner than anyone else here though. Maybe we should rob him?
+
+ SYNAPSE: I don’t care for him either, but let’s not attract attention.
+
+SINEW: …
+
+SYNAPSE: Don’t sulk. If you still feel like robbing him after we complete the contract, we’ll come back.
+
+“How can I help you gentlemen?,” he chimes, his smile slipping as his gaze lands upon ISAAC.
+
+CR Disitrict >>> WEST
+
+> w
+
+> w
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+The northern end of the CR District is home to more small shops lit by the flame lamps you've become accustomed to, burning in the cold wind. The tracks of a light rail STATION cut across the district's lane. Beyond the tracks you see a long paved road that leads to the port, where you ship is waiting. You can still hear the crowd inside the bar. The windows of an OFFICE building glow with bright clean light.
+
+There is a PROTESTER on the street corner, yelling slogans to an uncaring river of workers. A few smokers are igniting near the entrance of the BAR, huddling around one of the flame lamps.
+________________________________________________________
+ ISAAC holds his tunic tightly around himself.
+
+You see SHANTI walking quickly across the lane and towards the bar, their brow furrowed in anger.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Alleyway >>> SOUTH EAST
+Southern Lane, CR District >>> SOUTH
+> s
+
+> s
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has risen, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The gas lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an jagged array of smokestacks. Quiet figures around you go about their slow morning routines.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> s
+
+> s
+
+ MOTEL LOBBY
+
+Flame lamps illuminate the dark, empty motel lobby in a wash of unsteady orange. A puddle spreading out from the corner of the room's cement floor emerges from a pipe running the length of the wall and across the ceiling. The smell of dust and wet stone greets you. A POSTER hangs on the wall by the front door.
+
+The MANAGER, a boulder of a man, sits in a small chair behind a small desk where a small yellow leger is open. His pen floats across the pages like a figure skater. He is wearing an almost white collared shirt with a small blue pocket square sticking out.
+
+A flame lamp built into the desk is lit, illuminating both him and a striped gray CAT sitting upright on the counter. He is still pretending to feed the CAT from his empty hand. A silver spray of sparks ignites at the corner of the animal's jaw.
+
+ISAAC stands in the lobby looking at the cat.
+
+Civic Resource District >>> NORTH
+Motel Room >>> WEST
+> talk to manager
+
+> talk to manager
+
+Talk to THE MANAGER about...
+1: Is this your pet cat?
+2: Some motel you have here.
+3: EXIT
+> 1
+________________________________________________________
+"No, it isn't my pet," he says, looking at it. "I found it in a dumpster. I had planned on fixing it and selling it at the pawnshop, but the wires are rusty and most of the pistons have cracked."
+
+Talk to THE MANAGER about...
+1: Is this your pet cat?
+2: I could probably fix up your cat.
+3: Some motel you have here.
+4: EXIT
+> 2
+________________________________________________________
+ISAAC shurgs.
+
+“Do as you please.
+The tools you carry
+Will not fix your ship."
+
+You press against the right eye of the cat until it falls back into its socket and the entire body goes limp with mechanical obedience. The MANAGER gasps but your attention remains on the insides of the robotic creature, now revealed via an opening on its stomach. The mechanics are not particularly unique or advanced. Miniature pistons and a series of wires leading to the processor which, thankfully, doesn’t seem to be the issue here.
+
+It’s not difficult to identify the problem, some bad wiring and loose connectors. You unpack the repair kit and begin your work. The MANAGER watches your hands, unable to hide the concern brimming around his dark blue irises. For a moment you feel as though you are operating on an actual living thing.
+
+You close up the panel and press the cat’s eye once again.
+
+PRESS ANY KEY
+
+ANIMUS: The MANAGER is holding his breath.
+
+SYNAPSE: I’m not sure why, the repair was executed perfectly.
+
+The cat rises, arching its back into a long stretch, much to the delight of the MANAGER. It jumps off the desk and begins tentatively exploring the damp lobby.
+
+“Look at her go, can you believe someone just threw her away?,” he looks up and makes eye contact with you for the first time and quickly corrects his demeanor.
+
+“Well, thank you, then. You let me know if you need anything.”
+
+Talk to THE MANAGER about...
+1: Is this your pet cat?
+2: Some motel you have here.
+3: Do you know if there's an engineer here who can fix a ship?
+4: EXIT
+> 3
+"You need a ship engineer? Have you checked the port? Julia can probably help you. Although at this hour she's probably at Notre Feu. She cooks for them to earn extra tokens. If anyone can fix your ship, she can," he says, adding "It may take some convincing though. She's not fond of helping people, or people in general for that matter."
+
+> n
+
+> n
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has risen, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The gas lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an jagged array of smokestacks. Quiet figures around you go about their slow morning routines.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> n
+
+> n
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+The northern end of the CR District is home to more small shops lit by the flame lamps you've become accustomed to, burning in the cold wind. The tracks of a light rail STATION cut across the district's lane. Beyond the tracks you see a long paved road that leads to the port, where you ship is waiting. You can still hear the crowd inside the bar. The windows of an OFFICE building glow with bright clean light.
+
+There is a PROTESTER on the street corner, yelling slogans to an uncaring river of workers. A few smokers are igniting near the entrance of the BAR, huddling around one of the flame lamps.
+________________________________________________________
+ ISAAC holds his tunic tightly around himself.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Alleyway >>> SOUTH EAST
+Southern Lane, CR District >>> SOUTH
+> w
+
+> w
+
+Notre Feu
+
+No one but the BARTENDER seems to notice your presence as you pass through the doorway. He knows everyone on Bluèl and he does not know you. Immediatly, he sets down the beer he was filling up, resting his massive hands on his hips. The patron looks at his half-empty pint, dejected, but takes it and walks away silently.
+
+ ANIMUS: The barman's freeing up his hands in case he needs them. In case, you do something stupid.
+
+ SINEW: Violence. That's the stupid thing he's waiting for you to do.
+
+You feel the PISTOL beneath your coat as you raise both hands as a sign of peace. With a nod, the BARTENDER gives you permission to enter his domain.
+
+ As the morning progresses, several drinkers have switched to coffee before heading out to their jobsites. Although you spot plenty who are attempting to get one more drink into their bloodstreams, including two WORKERS deep in conversation.
+
+DESMOND  sits alone at a table just near the entrance.  "Don't bother. This is a company bar so they only take tokens. They won't even let me buy a beer with cash."
+
+SHANTI, the worker from the GasTechnin offices, is at the bar arguing with the BARTENDER. Their eyes and voice are steady as they speak, both hands pressing firmly against the wooden bartop.
+
+PRESS ANY KEY
+
+“Yes, I know they are drink tokens, but I just want some rice. You sell that here, no?,” they say.
+
+“For the last time, they are only good for drinks,” the BARTENDER replies tersely before looking closer at the tokens in their hands. “And only beer”
+
+“What about the bathroom? It is always disgusting. I can clean it.”
+
+“Bathroom’s fines. Now order something or get out.”
+
+The bartender walks away to the other end of the bar, where a queue has started to grow. A rapid stream of swears follow him in a foreign language.
+
+PRESS ANY KEY
+
+SYNAPSE: Some dialect from Capricorn perhaps? I can’t be sure.
+
+ ANIMUS: They called him an asshole. We don’t need a translator to know that.
+
+SHANTI collapses into a seat at a table crammed in the corner, fiddling with their unused drink tokens.
+
+Kitchen >>> WEST
+Northern Lane, CR District >>> EAST
+> w
+
+> w
+
+Notre Feu's Kitchen
+The kitchen of Notre Feu is cramped and furiously hot. There's hardly enough room for a stove and a sink. The chef, JULIA, cracks an egg into a scorching pan of rice with such focus that she doesn't hear you come in. Once the yolk is broken, a plastic spoon mixes it into the rice.
+
+SINEW: Sustenance!
+
+Tins of dried spices line the wall, the label of each one is perfectly aligned and facing forward.
+
+Notre Feu >>>EAST
+> talk to julia
+
+> talk to julia
+
+Talk to Julia about...
+1: I heard you were a engineer
+2: What are you making?
+3: EXIT
+> 1
+________________________________________________________
+You ask JULIA if she has a moment. Your inquiry is not well received.
+
+She looks up suddenly from her flames and rice and eggs, not at all thrilled by the interruption. Her stare pierces you until the silence collapses.
+
+"I'm working, fuck off."
+
+ SINEW: I like the cut of her jib.
+
+You explain as quickly as you can that the motel manager recommended her engineering acumen and that your ship was shredded in the Pisces const and is she interested in making some extra cash in exchange for some repairs."
+
+"I'm working for tokens, not cash and not for bloody strangers. So again: Fuck. Off."
+
+Without another word, ISAAC disappears through the kithcen door.
+
+PRESS ANY KEY
+
+In his absence, she turns back to her stove, fury and flames accosting her torso. You can feel her anger simmering alongside the oil and spices.
+
+ SINEW: I think she's about to kill you...
+
+"Why the fuck are you still in my fucking kitchen," she finally shouts turning around, a long knife held tight in her hand. As your life is flashing before your eyes, ISAAC returns and drops nine heavy tokens onto her cutting board, each one engraved with the words "FOOD TOKEN."
+
+"Fine," her hands sweep the tokens away but not before glaring holes into both of your skulls.  "What do you want."
+
+She agrees to fix your ship but insists on cleaning up first, turning to the sink as it bursts forth a scalding spring. She doesn't seem to mind you now waiting in the doorway while suds bloom between the sponge and her metal tools. Once she's done, and all the blades and spatulas are dried, she hangs up her apron. With a sharp nod she heads through the bar and into the CR District, leaving you alone in her kitchen.
+
+Notre Feu >>> EAST
+> e
+
+> e
+
+Notre Feu
+
+The morning bar's population is a blend of people drinking beer and coffee. A few are eating what appears to be egg-fried rice from metal bowls.
+
+Just about every table at the bar is full and the entire space breathes with the blending of several conversations, including two WORKERS sitting at the counter, deep in conversation. The BARTENDER moves gracefully despite his size between customers, taps, and bottles of various spirits.
+
+DESMOND is at a table. "Don't bother. This is a company bar so they only take tokens. They won't even let me buy a beer with cash."
+
+SHANTI is here, sulking at one of the tables. They're taking small sips for a mug of beer.
+
+ ISAAC stands behind you, his glass eyes absorbing the crowd's debauchery. A few patrons stare at his unusual appearance, but look away quickly whenever he meets their eyes.
+
+Kitchen >>> WEST
+Northern Lane, CR District >>> EAST
+> talk to shanti
+
+> talk to shanti
+
+Talk to Shanti about...
+1: Offer the food token to Shanti
+2: Are you from Bluèl?
+3: What was that fight all about?
+4: Where are you from?
+5: EXIT
+> 1
+________________________________________________________
+You explain that you’re only passing through on assignment and don’t have much use for local tokens. You place the food token on the table and slide it over.
+
+They stare at the gift as though it might burn their hands, but eventually reach for it anyways. The token disappears into their coat.
+
+“But I am not going to owe you anything,” they say dropping a drink token onto your side of the table where it clatters and spins. “Have this token. It is only good for drinks in this shitty bar though.”
+
+They get up from the table and turn to look down at you. You are taken aback by their beauty.
+
+“Thank you.”
+
+ PRESS ANY KEY
+
+You watch them walk out of the bar and into the district beyond. You pick up the drink token, considering its weight in your palm.
+
+ANIMUS: This place is a bit dimmer without their presence.
+
+ISAAC's voice interrupts your longing.
+
+“The brighter acreage you see,
+It is possible.
+Help me will it into existance.”
+
+> e
+
+> e
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+The northern end of the CR District is home to more small shops lit by the flame lamps you've become accustomed to, burning in the cold wind. The tracks of a light rail STATION cut across the district's lane. Beyond the tracks you see a long paved road that leads to the port, where you ship is waiting. You can still hear the crowd inside the bar. The windows of an OFFICE building glow with bright clean light.
+
+There is a PROTESTER on the street corner, yelling slogans to an uncaring river of workers. A few smokers are igniting near the entrance of the BAR, huddling around one of the flame lamps.
+________________________________________________________
+ ISAAC holds his tunic tightly around himself.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Alleyway >>> SOUTH EAST
+Southern Lane, CR District >>> SOUTH
+> s
+
+> s
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has risen, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The gas lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an jagged array of smokestacks. Quiet figures around you go about their slow morning routines.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> w
+
+> w
+
+Pawn Shop
+
+You walk up the steps to the front door of the pawn shop. The CLERK looks up and throws you a quick nod before buzzing you in, taking the last bite of what appears to be an egg and cheese sandwich.
+
+Several parallels of flame lamps illuminate the shop's crowded shelves with dancing light. The air is musty and smells of old things. Every inch of the walls are covered in shelves of various mechanical INSTRUMENTS. A few articles of fine CLOTHING hang on the walls, but the dust gathering on their shoulder pads speaks to the lack of demand. A few WEAPONS lay inert beneath the glass counter. A security CAMERA in the corner of the shop sweeps silently from left to right.
+
+“I guess I owe you some sort of thanks unless there’s another hired hand with an eyeless sick child giving away food tokens," she says as she chews.
+
+ISAAC doesn’t seem to register that this comment is referring to him. His lenses seem to be focused in on some sort of MANUSCRIPT draped beneath a CLOWN figurine.
+
+“Yea, anyways, thanks,” a quick grimace crosses her face before being replaced by something else.
+
+ANIMUS: It’s not really a smile, but she’s no longer actively wishing you were dead.
+
+“I’m Colette, by the way. We can pay you back next month if you’re still here.”
+
+Southern Lane, CR District >>> EAST
+> talk to clerk
+
+> talk to clerk
+
+Talk to Colette about...
+1: What kind of shop is this?
+2: How do you like living here?
+3: So that was your partner trading drink tokens for food?
+4: What's the story with that gun?
+5: Do you sell sleeping pills?
+6: EXIT
+> 5
+________________________________________________________
+She looks past your shoulder at someone looking at a machine part and waits for them to leave.
+
+"Okay yea, we have some," she says pulling a small pill bottle from behind the counter and shaking it. You're about to insert your cash into the machine, when COLETTE coughs and holds out her hand. You place the bills on her open palm instead. She slips them into her jean pockets and hands you a small orange bottle. There are is only one pill inside.
+
+SYNAPSE: It's Suprabarbital. Very strong. One will be enough.
+
+"If you get caught with that," she says. "Tell them it's a corporate prescription from another const."
+
+Talk to Colette about...
+1: What kind of shop is this?
+2: How do you like living here?
+3: So that was your partner trading drink tokens for food?
+4: What's the story with that gun?
+5: EXIT
+> 5
+> e
+
+> e
+
+ SOUTHERN LANE, CIVIC RESOURCE DISTRICT
+
+ The sun has risen, but a thick cover of gray clouds keeps most of its light from reaching the district's streets. The gas lamps lining the path still flicker with their dark orange flames. The MOTEL sits in the shadow of taller buildings and an jagged array of smokestacks. Quiet figures around you go about their slow morning routines.
+
+You stand amongst the blue and gray buildings and smoke of various fires burning rich, damp wood. Above an unreadable network of wires and black pipes, hauler ships continue tracing their paths to and from the acreage above.
+
+A CLINIC and GROCERY STORE are nearby. A short flight of stairs leads to a PAWNSHOP. Between two buildings you see a small TENT, firelight still flickers from within. A VENDOR stands by her STALL, holding out various trinkets for sale.
+
+ISAAC huddles next to you, wrapping his tunic close in the cold.
+
+Northern Lane, CR District >>> NORTH
+Grocery Store >>> NORTH WEST
+Pawnshop >>> WEST
+Clinic >>> EAST
+Tent >>> SOUTH EAST
+Motel >>> SOUTH
+> n
+
+> n
+
+NORTHERN LANE, CIVIC RESOURCE DISTRICT
+
+The northern end of the CR District is home to more small shops lit by the flame lamps you've become accustomed to, burning in the cold wind. The tracks of a light rail STATION cut across the district's lane. Beyond the tracks you see a long paved road that leads to the port, where you ship is waiting. You can still hear the crowd inside the bar. The windows of an OFFICE building glow with bright clean light.
+
+There is a PROTESTER on the street corner, yelling slogans to an uncaring river of workers. A few smokers are igniting near the entrance of the BAR, huddling around one of the flame lamps.
+________________________________________________________
+ ISAAC holds his tunic tightly around himself.
+
+Port >>> NORTH
+Bar >>> WEST
+Office Building >>> EAST
+Alleyway >>> SOUTH EAST
+Southern Lane, CR District >>> SOUTH
+> w
+
+> w
+
+Notre Feu
+
+The morning bar's population is a blend of people drinking beer and coffee. A few are eating what appears to be egg-fried rice from metal bowls.
+
+Just about every table at the bar is full and the entire space breathes with the blending of several conversations, including two WORKERS sitting at the counter, deep in conversation. The BARTENDER moves gracefully despite his size between customers, taps, and bottles of various spirits.
+
+DESMOND is at a table, sulking and uncomfortably sober.
+
+Kitchen >>> WEST
+Northern Lane, CR District >>> EAST
+> talk to bartender
+
+> talk to bartender
+
+Talk to Bartender about...
+1: One beer, please.
+2: People start drinking early here, don't they?
+3: EXIT
+> 1
+________________________________________________________
+You drop the heavy coin onto the bar. The bartender is suspicious but takes the coin and begins filling a glass with beer the color of ancient gold.
+
+The bartender sets the beer down with a clunk and walks away. You pull the sleepig pill out of your pocket and empty the capsule into your palms.
+
+What will you do?
+1: Put the sleeping drug into Desmond's beer.
+2: Empty the capsule onto the floor.
+> 2
+________________________________________________________
+You watch the white powder float to the floor.
+
+You can feel Isaac's eyes upon your back, like two weights pressing into you.
+
+> talk to desmond
+
+> talk to desmond
+
+Talk to Desmond about...
+1: Here, I dug this up for you. (Give Desmond a beer)
+2: What was the contract again?
+3: What kind of place is Surst?
+4: Who is Isaac?
+5: EXIT
+> 1
+________________________________________________________
+You offer a beer to DESMOND.
+
+"Well now, what's this?," he says, as he happily accepts the beer. ISAAC leavevs and waits silently for you at the bar's entrance, simmering with angy.
+
+"Sit and chat for a bit. We deserve a break," he says.
+
+> talk to desmond
+
+> talk to desmond
+
+Talk to Desmond about...
+1: What was the contract again?
+2: What kind of place is Surst?
+3: What do you know about The Divide?
+4: Who is Isaac?
+5: Where did you find Isaac?
+6: EXIT
+> 3
+________________________________________________________
+"Well, I wasn’t there, I’m not that old,” he says lighting a cigarette and taking a long drag. “And no one knows what caused it, some say poverty-stricken terrorists others say poverty-stricken revolutionaries.” He leans in to whisper though his voice isn’t much quieter. “Someone blew up all the starship fuel depots in a single, carefully coordinated strike. Who do you think could do that? And why for that matter? Why would anyone want to isolate every planet and moon in the acreage? Who would benefit from entire cities dying off? All those millions of starving, suffocating people?”
+
+He takes another drag of his cigarette.
+
+"I'll tell you who: Those bastards over in the Cancer constellation."
+
+Talk to Desmond about...
+1: What was the contract again?
+2: What kind of place is Surst?
+3: What do you know about The Divide?
+4: Who is Isaac?
+5: Where did you find Isaac?
+6: EXIT
+> 5
+________________________________________________________
+He laughs and takes a long sip from his glass.
+"I didn't," he says. "He found me. I was a gunner for the army of Curia, a border planet in the Taurus const. My home. During The Divide, Curia began trading with a nearby Geminian planet and eventually came to consider itself part of their const. Their council was fair and stable. Well, the fold engines brought everyone back together and Taurus sent representatives to assess and relcaim our mineral fields. They were sent back with bullets in their heads and a civil war broke out.
+
+Anyways, my unit went down toward the worst of the fighting and I woke up in a field hospital. Isaac's lenses looking down at me. Into me. We spoke, or maybe I should say he spoke. It was like he knew me, had always known me. He helped me realize I was fighting the wrong war. He called me to fight for him. So I defected and fled as soon as my legs worked again. I was fourteen and I've been at his side ever since."
+
+Talk to Desmond about...
+1: What was the contract again?
+2: What kind of place is Surst?
+3: What do you know about The Divide?
+4: Who is Isaac?
+5: EXIT
+> 5
+[state=Running]
