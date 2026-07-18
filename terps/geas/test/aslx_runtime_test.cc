@@ -88,6 +88,16 @@ static void test_expressions() {
     // Built-in string functions (1-based positions).
     CHECK_STR(evals(in, "LCase(\"ABC\")"), "abc");
     CHECK_STR(evals(in, "UCase(\"abc\")"), "ABC");
+    // .NET case mapping is full-Unicode, not ASCII: Greek-language games
+    // (Iron John) LCase player input against LCase'd aliases, and CapFirst
+    // article-based templates ("το" -> "Το"). Includes accented vowels and
+    // the final-sigma asymmetry (ς uppercases to Σ; Σ lowercases to σ).
+    CHECK_STR(evals(in, "LCase(\"Βασιλιά\")"), "βασιλιά");
+    CHECK_STR(evals(in, "UCase(\"βασιλιάς\")"), "ΒΑΣΙΛΙΆΣ");
+    CHECK_STR(evals(in, "LCase(\"ΆΈΉΊΌΎΏΣ\")"), "άέήίόύώσ");
+    CHECK_STR(evals(in, "CapFirst(\"το\")"), "Το");
+    CHECK_STR(evals(in, "LCase(\"ÉÀÑ\")"), "éàñ");
+    CHECK_STR(evals(in, "UCase(\"éàñ\")"), "ÉÀÑ");
     CHECK_STR(evals(in, "Left(\"hello\", 2)"), "he");
     CHECK_STR(evals(in, "Right(\"hello\", 3)"), "llo");
     CHECK_STR(evals(in, "Mid(\"hello\", 2, 3)"), "ell");

@@ -68,7 +68,6 @@ bool g_timer_armed = false;
 /* Shared frontend helpers (questglk-common.inc).  Using-declarations rather
  * than a using-directive: aslx.cc has a file-local trim of its own, and a
  * name declared here shadows it instead of colliding with it. */
-using questglk::cap_first;
 using questglk::close_side_pane_windows;
 using questglk::draw_status_banner;
 using questglk::echo_input_line;
@@ -78,6 +77,16 @@ using questglk::match_transcript_command;
 using questglk::open_side_pane_windows;
 using questglk::play_single_sound;
 using questglk::prompt_read_save;
+
+/* Core's CapFirst is .NET ToUpper on the first CHARACTER, not the first
+ * ASCII byte -- Greek pane labels ("τόξο") and room names must capitalize
+ * ("Τόξο") exactly as under QuestViva.  questglk::cap_first stays ASCII-only
+ * for the Quest 4 frontend (geas strings are Latin-1-ish, passthrough there);
+ * here the engine's .NET-invariant simple case map is in this TU already. */
+static std::string cap_first(const std::string &s)
+{
+    return aslx::utf8_case(s, true, true);
+}
 using questglk::prompt_write_save;
 using questglk::put_pane_header;
 using questglk::put_pane_link;
@@ -502,8 +511,7 @@ void update_banner(Interp &in)
             room = alias && alias->type == Value::Type::String ? alias->str
                                                                : rm->name;
         }
-        if (!room.empty())
-            room[0] = (char) toupper((unsigned char) room[0]);
+        room = cap_first(room);
     }
     g_room_name = plain_text(room);
 
@@ -1071,20 +1079,43 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
     }
 
     if (!match) {
-        glk_put_string((char *) "You can't see any such thing.\n");
+        /* The game's own localized template ("Δεν βλέπω κάτι τέτοιο."), run
+         * through Core's ASL text processor when this Core has one -- the
+         * template may carry {if:}/{random:} directives (Dream Pieces). */
+        std::string t = template_text_or(in.world(), "UnresolvedObject",
+                                         "You can't see any such thing.");
+        Element *pt = in.world().find("ProcessText");
+        if (pt && pt->elem_type == "function") {
+            Value v = in.call_function("ProcessText", {vstr(t)}, nullptr);
+            if (v.type == Value::Type::String)
+                t = v.str;
+        } else {
+            /* Pre-580 Cores have no ProcessText wrapper; their OutputText
+             * calls ProcessTextSection(text, data) with a fresh dictionary
+             * carrying "fulltext" -- do the same. */
+            pt = in.world().find("ProcessTextSection");
+            if (pt && pt->elem_type == "function") {
+                Value data;
+                data.type = Value::Type::StringDict;
+                data.dict().push_back({"fulltext", vstr(t)});
+                Value v = in.call_function("ProcessTextSection",
+                                           {vstr(t), data}, nullptr);
+                if (v.type == Value::Type::String)
+                    t = v.str;
+            }
+        }
+        put_stream_utf8(s, plain_text(t) + "\n");
         return true;
     }
 
+    /* The reference UI pops a bare verb menu on an object-name click -- no
+     * prose around it -- and English framing sits wrongly in a translated
+     * game ("Verbs for τόξο: εξέτασε, πάρε").  Print the label and the verb
+     * list uncommented; an (unlikely) empty list is just the label. */
     std::string alias = plain_text(match->display_alias);
-    if (match->verbs.empty()) {
-        put_stream_utf8(s, "There is nothing you can do with " + alias + ".\n");
-        return true;
-    }
-
-    put_stream_utf8(s, "Verbs for " + alias + ": ");
+    put_stream_utf8(s, cap_first(alias));
     for (size_t i = 0; i < match->verbs.size(); i++) {
-        if (i)
-            put_stream_utf8(s, ", ");
+        put_stream_utf8(s, i ? ", " : ": ");
         put_stream_utf8(s, plain_text(match->verbs[i]));
     }
     put_stream_utf8(s, ".\n");

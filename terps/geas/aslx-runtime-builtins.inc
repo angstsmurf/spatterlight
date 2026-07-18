@@ -12,6 +12,86 @@ static std::string to_lower(std::string s) {
     return s;
 }
 
+// .NET's ToLowerInvariant/ToUpperInvariant (behind LCase/UCase/CapFirst) are
+// full-Unicode; a std::tolower fold is ASCII-only, which broke Greek games
+// (Iron John: the input "βασιλιά" must LCase-match the alias "Βασιλιά", and
+// CapFirst("το") must print "Το"). Simple one-codepoint case mappings for the
+// scripts the corpus contains: ASCII, Latin-1, Latin Extended-A, Greek,
+// Cyrillic. No locale variants or SpecialCasing — same as .NET's invariant
+// simple mapping over these ranges.
+static uint32_t cp_to_lower(uint32_t c) {
+    if (c < 0x80) return (uint32_t)std::tolower((int)c);
+    if (c >= 0xC0 && c <= 0xDE && c != 0xD7) return c + 0x20;    // Latin-1
+    if (c == 0x178) return 0xFF;                                 // Ÿ -> ÿ
+    if ((c >= 0x100 && c <= 0x137) || (c >= 0x14A && c <= 0x177))
+        return (c % 2 == 0) ? c + 1 : c;                         // Āā..Ŵŵ pairs
+    if ((c >= 0x139 && c <= 0x148) || (c >= 0x179 && c <= 0x17E))
+        return (c % 2 == 1) ? c + 1 : c;                         // Ĺĺ..Žž pairs
+    if (c == 0x386) return 0x3AC;                                // Ά -> ά
+    if (c >= 0x388 && c <= 0x38A) return c + 0x25;               // Έ Ή Ί
+    if (c == 0x38C) return 0x3CC;                                // Ό -> ό
+    if (c == 0x38E || c == 0x38F) return c + 0x3F;               // Ύ Ώ
+    if (c >= 0x391 && c <= 0x3AB && c != 0x3A2) return c + 0x20; // Α..Ϋ
+    if (c >= 0x410 && c <= 0x42F) return c + 0x20;               // А..Я
+    if (c >= 0x400 && c <= 0x40F) return c + 0x50;               // Ѐ..Џ
+    return c;
+}
+static uint32_t cp_to_upper(uint32_t c) {
+    if (c < 0x80) return (uint32_t)std::toupper((int)c);
+    if (c >= 0xE0 && c <= 0xFE && c != 0xF7) return c - 0x20;    // Latin-1
+    if (c == 0xFF) return 0x178;                                 // ÿ -> Ÿ
+    if ((c >= 0x100 && c <= 0x137) || (c >= 0x14A && c <= 0x177))
+        return (c % 2 == 1) ? c - 1 : c;
+    if ((c >= 0x139 && c <= 0x148) || (c >= 0x179 && c <= 0x17E))
+        return (c % 2 == 0) ? c - 1 : c;
+    if (c == 0x3AC) return 0x386;                                // ά -> Ά
+    if (c >= 0x3AD && c <= 0x3AF) return c - 0x25;               // έ ή ί
+    if (c == 0x3CC) return 0x38C;                                // ό -> Ό
+    if (c == 0x3CD || c == 0x3CE) return c - 0x3F;               // ύ ώ
+    if (c == 0x3C2) return 0x3A3;                                // final ς -> Σ
+    if (c >= 0x3B1 && c <= 0x3CB) return c - 0x20;               // α..ϋ
+    if (c >= 0x430 && c <= 0x44F) return c - 0x20;               // а..я
+    if (c >= 0x450 && c <= 0x45F) return c - 0x50;               // ѐ..џ
+    return c;
+}
+// Codepoint-wise UTF-8 case conversion; first_only converts just the leading
+// codepoint (CapFirst). Malformed bytes pass through unchanged.
+static std::string utf8_case(const std::string &s, bool upper, bool first_only) {
+    std::string out;
+    out.reserve(s.size());
+    bool done = false;
+    for (size_t i = 0; i < s.size();) {
+        unsigned char b = (unsigned char)s[i];
+        uint32_t cp = 0;
+        size_t len = 1;
+        if (b < 0x80) { cp = b; }
+        else if ((b & 0xE0) == 0xC0 && i + 1 < s.size()) { cp = ((b & 0x1Fu) << 6) | ((unsigned char)s[i+1] & 0x3Fu); len = 2; }
+        else if ((b & 0xF0) == 0xE0 && i + 2 < s.size()) { cp = ((b & 0x0Fu) << 12) | (((unsigned char)s[i+1] & 0x3Fu) << 6) | ((unsigned char)s[i+2] & 0x3Fu); len = 3; }
+        else if ((b & 0xF8) == 0xF0 && i + 3 < s.size()) { cp = ((b & 0x07u) << 18) | (((unsigned char)s[i+1] & 0x3Fu) << 12) | (((unsigned char)s[i+2] & 0x3Fu) << 6) | ((unsigned char)s[i+3] & 0x3Fu); len = 4; }
+        else { out += (char)b; ++i; continue; }
+        if (!done) {
+            cp = upper ? cp_to_upper(cp) : cp_to_lower(cp);
+            if (first_only) done = true;
+        }
+        if (cp < 0x80) out += (char)cp;
+        else if (cp < 0x800) {
+            out += (char)(0xC0 | (cp >> 6));
+            out += (char)(0x80 | (cp & 0x3F));
+        } else if (cp < 0x10000) {
+            out += (char)(0xE0 | (cp >> 12));
+            out += (char)(0x80 | ((cp >> 6) & 0x3F));
+            out += (char)(0x80 | (cp & 0x3F));
+        } else {
+            out += (char)(0xF0 | (cp >> 18));
+            out += (char)(0x80 | ((cp >> 12) & 0x3F));
+            out += (char)(0x80 | ((cp >> 6) & 0x3F));
+            out += (char)(0x80 | (cp & 0x3F));
+        }
+        i += len;
+    }
+    return out;
+}
+
 // Recursive "does e inherit type t" (directly or transitively).
 static bool does_inherit(World &w, Element *e, const std::string &t) {
     if (!e) return false;
@@ -490,9 +570,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
 
     // ---- misc string ------------------------------------------------------
     if (fn == "capfirst" && n == 1) {
-        std::string s = sarg(0);
-        if (!s.empty()) s[0] = (char)std::toupper((unsigned char)s[0]);
-        return vstr(s);
+        return vstr(utf8_case(sarg(0), true, true));
     }
     if (fn == "safexml" && n == 1) {
         return vstr(safe_xml_escape(sarg(0)));
@@ -585,12 +663,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
 
     // ---- strings ----------------------------------------------------------
-    if (fn == "lcase" && n == 1) return vstr(to_lower(sarg(0)));
-    if (fn == "ucase" && n == 1) {
-        std::string s = sarg(0);
-        for (char &c : s) c = (char)std::toupper((unsigned char)c);
-        return vstr(s);
-    }
+    if (fn == "lcase" && n == 1) return vstr(utf8_case(sarg(0), false, false));
+    if (fn == "ucase" && n == 1) return vstr(utf8_case(sarg(0), true, false));
     if (fn == "left" && n == 2) {
         std::string s = sarg(0); long k = iarg(1);
         if (k < 0) k = 0;
