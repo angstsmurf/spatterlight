@@ -1,0 +1,411 @@
+Welcome to the Paris Hotel. As you navigate, most things you encounter can be interacted with in some way. If one verb doesn't work, try another! You can also LOOK at things, scenery, and even yourself! Try it out!
+
+You are in the taxi drop.
+
+Even though the taxi ride wasn't long, the Nevada heat punches you in the face. Much more arrid than the Florida humidity you're used to.
+
+You can go north.
+
+> n
+
+> n
+
+You are in a lobby.
+
+As you walk into the hotel you are immediately transported to France! The ceiling is painted to look like the sky and the Eiffel Tower that can be seen from outside cuts into the hotel and can be accessed from within. There is traditional French music playing over the intercoms, and the surrounding area is certainly smokey like Paris.
+
+You can go north, south, east or west.
+
+> n
+
+> n
+
+You are in a casino.
+
+There is quite an assortment of gambling opportunities in this first casino area.
+
+You can see slot machines, a black jack table and a keno station.
+
+You can go north, south, east or west.
+
+> x slot machines
+
+> x slot machines
+Slot machines! Well these are a cheap and easy way to lose all of your money...
+There are three slot machines in the following themes: Journey, Backstreet Boys and John Mayer.
+> x journey
+
+> x journey
+A Journey themed slot machine blasting "Don't Stop Believing."
+You can see a gold lever.
+> pull gold lever
+
+> pull gold lever
+The wheels spin and click into place... YOU WON! A voucher prints out for you to take.
+> take voucher
+
+> take voucher
+You add the voucher to your inventory.
+> n
+
+> n
+
+You are in a mall.
+
+There is certainly no shortage of shops in this area. Everything ranging from clothing to jewelry, but nothing we have time for right now.
+
+You can also see a mural.
+
+You can go north, south, east or west.
+
+> n
+
+> n
+
+You are in a ski-ball room.
+
+Just as it sounds, the room is filled with ski-ball machines. I guess you never outgrow it, though I'm not sure what you would do with all of those tickets in Vegas.
+
+You can see a redemption hub and a grate.
+
+You can go south or east.
+
+> use voucher on redemption hub
+
+> use voucher on redemption hub
+The machine took the voucher and spit out two dollar bills!
+The two dollars were added to your inventory.
+> x grate
+
+> x grate
+You crawl over to the grate and look inside. You can see an ID card of some sort just out of reach!
+> s
+
+> s
+
+You are in a mall.
+
+There is certainly no shortage of shops in this area. Everything ranging from clothing to jewelry, but nothing we have time for right now.
+
+You can also see a mural.
+
+You can go north, south, east or west.
+
+> x mural
+
+> x mural
+You see a beautiful tile mosaic of an old willow tree. Below the tree you see the word ROTTING with a space missing between the Ts. Curious...
+> w
+
+> w
+
+You are in a crepe stand.
+
+They aren't open at the moment, but when they ARE open, they have a great mix of sweet and savory crepes available. Mmm!
+
+You can also see a a tile.
+
+You can go east.
+
+> x tile
+
+> x tile
+It appears the management misspelled crepe as "crape" the first time around.
+> take tile
+
+> take tile
+You pick up the tile and put it in your inventory.
+> e
+
+> e
+
+You are in a mall.
+
+There is certainly no shortage of shops in this area. Everything ranging from clothing to jewelry, but nothing we have time for right now.
+
+You can also see a mural (containing a space).
+
+You can go north, south, east or west.
+
+> use tile on space
+
+> use tile on space
+You place the "A" tile into the space. It now reads ROTATING! You hear a click and the mural roates around revealing a secret room!
+> e
+
+> e
+
+You are in a secret room.
+
+You can see a button on a string.
+
+You can go west.
+
+> take button on a string
+
+> take button on a string
+You put the button in your inventory. Maybe it will be useful.
+> w
+
+> w
+
+You are in a mall.
+
+There is certainly no shortage of shops in this area. Everything ranging from clothing to jewelry, but nothing we have time for right now.
+
+You can go north, south or west.
+
+> s
+
+> s
+
+You are in a casino.
+
+There is quite an assortment of gambling opportunities in this first casino area.
+
+You can see slot machines ( Journey ( a gold lever), Backstreet Boys and John Mayer), a black jack table and a keno station.
+
+You can go north, south, east or west.
+
+> s
+
+> s
+
+You are in a lobby.
+
+As you walk into the hotel you are immediately transported to France! The ceiling is painted to look like the sky and the Eiffel Tower that can be seen from outside cuts into the hotel and can be accessed from within. There is traditional French music playing over the intercoms, and the surrounding area is certainly smokey like Paris.
+
+You can go north, south, east or west.
+
+> w
+
+> w
+
+You are in a gift shop.
+
+Well what do you know, a gift shop. There are t-shirts, sweaters, shot glasses... all of the usual stuff. You head over to the attendant to see if there is anything you can buy.
+
+You can see an Eiffel Tower key chain, lavendar soap, gum and baguettes.
+
+You can go east.
+
+> buy gum
+
+> buy gum
+The attendant takes your two dollars and hands you the pack of gum. "Don't chew it all in one place..."
+> chew gum
+
+> chew gum
+You take a piece of gum and chew it. Mmm, minty. You put the wrapper in your pocket.
+> use gum on button
+
+> use gum on button
+You take the wad of gum and stick it to the button. Now you have a sticky button on a string. Gross.
+> e
+
+> e
+
+You are in a lobby.
+
+As you walk into the hotel you are immediately transported to France! The ceiling is painted to look like the sky and the Eiffel Tower that can be seen from outside cuts into the hotel and can be accessed from within. There is traditional French music playing over the intercoms, and the surrounding area is certainly smokey like Paris.
+
+You can go north, south, east or west.
+
+> n
+
+> n
+
+You are in a casino.
+
+There is quite an assortment of gambling opportunities in this first casino area.
+
+You can see slot machines ( Journey ( a gold lever), Backstreet Boys and John Mayer), a black jack table and a keno station.
+
+You can go north, south, east or west.
+
+> n
+
+> n
+
+You are in a mall.
+
+There is certainly no shortage of shops in this area. Everything ranging from clothing to jewelry, but nothing we have time for right now.
+
+You can go north, south or west.
+
+> n
+
+> n
+
+You are in a ski-ball room.
+
+Just as it sounds, the room is filled with ski-ball machines. I guess you never outgrow it, though I'm not sure what you would do with all of those tickets in Vegas.
+
+You can see a redemption hub and a grate (containing a Marilyn ID).
+
+You can go south or east.
+
+> take marilyn id
+
+> take marilyn id
+You slowly lower the button down and... the ID is stuck to the button! You carefully pull it back up annndddd voila! You have an ID!
+> s
+
+> s
+
+You are in a mall.
+
+There is certainly no shortage of shops in this area. Everything ranging from clothing to jewelry, but nothing we have time for right now.
+
+You can go north, south or west.
+
+> s
+
+> s
+
+You are in a casino.
+
+There is quite an assortment of gambling opportunities in this first casino area.
+
+You can see slot machines ( Journey ( a gold lever), Backstreet Boys and John Mayer), a black jack table and a keno station.
+
+You can go north, south, east or west.
+
+> s
+
+> s
+
+You are in a lobby.
+
+As you walk into the hotel you are immediately transported to France! The ceiling is painted to look like the sky and the Eiffel Tower that can be seen from outside cuts into the hotel and can be accessed from within. There is traditional French music playing over the intercoms, and the surrounding area is certainly smokey like Paris.
+
+You can go north, south, east or west.
+
+> e
+
+> e
+
+You are in guest services.
+
+A long bar with service attendants lines the back wall. You walk through the long line of ropes guiding you along and you eventually arrive in front of an attendant.
+
+You can see an attendant.
+
+You can go west.
+
+> speak to attendant
+
+> speak to attendant
+"Welcome to the Paris Hotel. Name please?"
+> Marilyn Copeland
+"Do you have ID?"
+> yes
+You hand Marilyn's ID to the attendant.
+"Thank you very much Mrs. Copeland."
+"Ah here it is. You are currently in Room 1987. Here is a spare key. Bring it down when you retrieve your other key. Have a nice day."
+> w
+
+> w
+
+You are in a lobby.
+
+As you walk into the hotel you are immediately transported to France! The ceiling is painted to look like the sky and the Eiffel Tower that can be seen from outside cuts into the hotel and can be accessed from within. There is traditional French music playing over the intercoms, and the surrounding area is certainly smokey like Paris.
+
+You can go north, south, east or west.
+
+> n
+
+> n
+
+You are in a casino.
+
+There is quite an assortment of gambling opportunities in this first casino area.
+
+You can see slot machines ( Journey ( a gold lever), Backstreet Boys and John Mayer), a black jack table and a keno station.
+
+You can go north, south, east or west.
+
+> e
+
+> e
+You flash your key to the security guard and he gives a polite nod as you head to the elevator.
+
+You are in an elevator.
+
+The ornate 1920s style elevator closes the doors with a "ping."
+
+Push a button to proceed. You can go to floors 2-50 or the casino.
+
+> push 19
+
+> push 19
+
+You are on Floor 19.
+
+What a beautiful hotel! The hallways have ornate filigree wallpaper and a rich scarlet carpet.
+
+You can go to the elevator, Room 1985, Room 1986, Room 1987, Room 1988 or Room 1989.
+
+> go to room 1987
+
+> go to room 1987
+You insert your key into the lock and with a CLICK, the door swings open.
+
+You are in Room 1987.
+
+Wow! What a room! This place is amazing!
+
+You can see a bed, a wardrobe and a nightstand.
+
+You can go to the hallway.
+
+> x nightstand
+
+> x nightstand
+A lovely nightstand is next to the bed. It can be opened.
+> open nightstand
+
+> open nightstand
+You open the drawer and find a Bible of course.
+> x bible
+
+> x bible
+You thumb through the pages of the Bible. Nothing out of the ordinary here.
+> go to the hallway
+
+> go to the hallway
+
+You are on Floor 19.
+
+What a beautiful hotel! The hallways have ornate filigree wallpaper and a rich scarlet carpet.
+
+You can go to the elevator, Room 1985, Room 1986, Room 1987, Room 1988 or Room 1989.
+
+> go to room 1988
+
+> go to room 1988
+You insert your key into the lock and with a CLICK, the door swings open.
+
+You are in Room 1988.
+
+This room has signs that someone left in a hurry. Maybe she isn't here? There must be a clue somewhere, there must be!
+
+You can see a bed, a wardrobe and a nightstand.
+
+You can go to the hallway.
+
+> x nightstand
+
+> x nightstand
+A lovely nightstand is next to the bed. The drawer is slightly open already. You can see a Bible inside.
+> x bible
+
+> x bible
+You thumb through the pages and find a slip of paper folded up between pages of 2 Kings. It falls into the drawer where the Bible came from.
+> x paper
+
+> x paper
+You recognize this handwriting! But it's written in a code. Thankfully, you've seen National Treasure and so you summon the powers of Nicholas Cage and you patiently decode the message
+
+Now you have a clue to where Marilyn has fled to next! Write to Mme. Mainline at once!
+[state=Finished]
