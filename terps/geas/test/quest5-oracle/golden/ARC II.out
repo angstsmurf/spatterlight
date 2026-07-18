@@ -1,0 +1,493 @@
+ARC II
+
+by Daniel Gao
+
+Waiting Room
+
+You are in a small waiting room with no windows. Across from you there is a small coffee table and a single chair.  A high-resolution poster of a stretching polar bear completes the look of the small dentist office waiting room, but something about it feels artificial. The coffee table is too tidy, and the chair looks stiff and uncomfortable.   A woman in formal attire is standing in the middle of the room, looking in your direction with such an intense smile that you want to look away.
+
+You can see a plant, a lamp, a table (on which there is a Stack of Newspapers), a chair and a woman.
+You can go west, east or south.
+PART ONE: Afternoon Nap
+
+Type "look" to toggle room description.
+> speak to woman
+
+> speak to woman
+You walk up to the woman. "Hello," you say.
+
+She turns to you with her beaming smile. "Hello, Dr. Chase! My name is Sharon. I hope you found the physical examination pleasant. Your daughter is waiting behind that door." She points to the door on the right. "I just need you to answer some questions to confirm your identity and that you fully understand the situation. Is that okay with you, Dr. Chase?" She was holding a clipboard now, seemingly procured out of thin air. "Okay, let's begin. What is your full name?"
+
+"Conor Cabot Chase," you reply.
+
+"Date and location of birth?"
+
+"August 17th, 1969, in San Francisco."
+
+"Profession?"
+
+"I am - was - a professor of astrophysics at Stanford University. For the last 20 years of my life."
+
+"Next of kin."
+
+"One daughter, Chloe Claire Chase, age 24."
+
+Sharon's smile widened, something you had not thought was possible. "Sounds like your family really likes the C's. Well, it seems clear to me that you are indeed you. Let's move on. Here, take this. Please read the underlined text out loud and then sign your name on the dotted line." She passes you the clipboard.
+
+ Press any key to read and sign clipboard
+
+"I, Conor Cabot Chase, am of sound mind and understand that I have been diagnosed with a terminal illness, the cure of which is beyond the reaches of modern medicine. I hereby give Cryptec Inc. permission to put my body into cryonic sleep, and to revive me only at a time when the technology to cure me becomes available. I understand that this is a brand new state-of-the-art procedure, and that there are inherent risks that cannot be avoided. I understand that Cryptec Inc. will not be responsible for any damage that is caused to me in the duration of the operation."
+
+You sign your name and Sharon takes the clipboard back. "Great! That was easy, wasn't it? Now, I won't hold you back any longer. Your daughter is waiting for you!" She points to the door on the right.
+
+Type "look" any time to re-toggle room description and hyperlinks.
+> east
+
+> east
+As you place your hand on the doorknob, you feel your heartbeat pulsing on the cold metal. Are you ready to say goodbye to your daughter? What should you say? You take your hand back. Better to take a couple of deep breaths and try again in a couple of minutes.
+> east
+
+> east
+
+Meeting Room
+
+This room is slightly larger than the one you just stepped out of, and it looks as if someone had put in an effort to make it seem cozy. The floor is carpeted and there is a black couch facing yet another coffee table. To your left is a bookcase, empty except for a couple of hardcovers strewn across the top row.  There is a woman sitting on the couch with her back towards you, her shoulders moving up and down in short bursts, as if she were sobbing. It's your daughter, Chloe. She doesn't seem to have heard you come in.
+
+You can see a bookshelf, a couch, a table and Chloe Chase.
+You can go west or north.
+> speak to chloe
+
+> speak to chloe
+"Chloe?" Your voice is barely more than a whisper.
+
+The young woman on the sofa suddenly sits up straight. She stands and turns to look at you, her eyes red but her lips spread out in a huge smile. "Dad!" she says, and runs into your arms. You hold her there, steadying yourself against her body. She is so warm, so tough, so strong. You don't want to let go, don't want to look into her eyes and acknowledge, to the both of you, that you might never see her again.
+
+"Dad, you will be okay. I promise. Dr. Schneider is a brilliant man, and I have the utmost trust in him. I have a feeling that I will see you again very soon. Great things are happening at Cryptec, you know. Oh, I almost forgot." She takes off the necklace that she is wearing, a golden turtle on a silver chain. "You gave this to me for my twenty-first birthday. I want you to keep this, to wear it when you . . . sleep. It would mean a lot to me." She drapes it around your neck, and when her fingers touch your skin you feel shivers up your spine. "There," she says. "I think it looks much better on you anyway."
+
+"Chloe," you say, "there's something you're not telling me. Don't give me that look; I've known you for all your life, I know what you're like when you're trying to keep something from me. Is it bad news? Go on, I can handle it."
+
+Chloe looks down at her feet, frowning. "I didn't want to alarm you. It's probably nothing. It's just . . . something seems off about this disease, the Grey Death. It's not just that it's fatal . . . we've eliminated so many fatal diseases in the past, like yellow fever and smallpox. The way that the Grey Death spreads makes no sense. It doesn't pass from person to person, and yet more cases are being diagnosed every day. It's just not right. I'm sure that I'm just being paranoid - after all, I am new to this kind of stuff. I don't have Dr. Schneider's experience." Before you can answer, she hugs you again, squeezing all the wind out of you. "If I don't go soon, I'll never go," she mumbles, her face still in your chest. She tiptoes and kisses you on the cheek.
+
+"Have a good time," you say. "And you have the best time," she replies, and you both smile at the inside joke. Then, she turns to the northern door, which opens with a beep as she swipes her employee card on the reader. Before you know it, she is gone.
+
+The necklace has been added to your inventory. Type "inventory" to see what you are carrying with you.
+> west
+
+> west
+
+Waiting Room
+
+You are in a small waiting room with no windows. Across from you there is a small coffee table and a single chair.  A high-resolution poster of a stretching polar bear completes the look of the small dentist office waiting room, but something about it feels artificial. The coffee table is too tidy, and the chair looks stiff and uncomfortable.  There is a memo lying on the ground. It looks like it fell from the receptionist's pocket.
+
+You can see a plant, a lamp, a table (on which there is a Stack of Newspapers), a chair and a memo.
+You can go west, east or south.
+
+Sharon is nowhere to be seen. Where could she have gone? You realize she didn't tell you where to go, but the door on the left looks slightly ajar.
+> west
+
+> west
+
+Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. The walls are empty and bare.
+
+The door closes behind you with a click. You stand there, not sure if you are expected to walk forward, when you hear footsteps coming toward you. A clean-shaven man, around seventy years of age and wearing a white lab coat, appears from the depths of the hallway, like a chameleon emerging from camouflage. He holds out his hand. His manner is gentle and polite.
+
+"Hi, Dr. Chase. My name is Dr. Carl Schneider. It is a pleasure to finally meet you."
+
+"A pleasure to meet you too," you say. "My daughter has told me so much about you."
+
+Dr. Schneider coughs lightly into his elbow. He looks at you over his glasses, and you feel as if he is talking down to you, like a parent trying to comfort a crying child. "I don't want you to worry at all, Dr. Chase. You are, of course, aware that you are about to be the first person to undergo cryogenic sleep. Naturally there will be some risk. But I want to assure you, Dr. Chase, that we will do everything in our power to keep you safe, alive, and healthy." He starts to move down the hallway and you follow behind. "Your daughter, by the way, has an extraordinary medical mind; she is without doubt the most brilliant researcher in my lab. You should be proud. Not to mention anything about her stubbornness and determination: from the first day she heard about the project, she insisted on the possibility of having you as our first trial subject. I told her about the risks, the conflict of interest . . . but she just wouldn't let up. She is a headstrong woman." He smiles. "My daugher is very much the same. I tried my best to get her to go to medical school, but she just wouldn't give up on her childhood dream."
+
+"And what dream was that?" you ask.
+
+"She wanted to be an astronaut."
+
+ Press any key to follow Dr. Schneider
+
+The doctor offers you his arm, but you tell him you can walk on your own. "Right now, I'm taking you to the sleep chamber. Dr. Chase, have you ever been under general anesthesia before? Well, this is going to be just like that. No pain, no disorientation whatsoever. You're going to close your eyes, and then open then again. Easy as that. It will just be like an afternoon nap." You finally reach the end of the hallway. A small, wooden door blocks the way. The doctor opens it and you follow him in.
+
+Bedroom
+
+The room is small and tidy. A twin-sized bed with grey covers occupies one corner, and a working desk occupies another. A tall, sturdy wardrobe stands at the foot of the bed, open just wide enough for you to see the suits hanging inside. An upright lamp illuminates the windowless bedroom. The walls are bare, except for a single poster, a colorized photograph of the Milky Way. A luscious carpet covers the floor. There is a folded letter on the table. There is a white envelope sitting on the table.
+
+You can see a bed, a desk (on which there is a letter from Zach), a wardrobe, a chair, a lamp, an envelope and Dr Schneider.
+You can go east.
+
+You rub your eyes to make sure you aren't dreaming. The bedroom is a spitting copy of the one in your apartment, minus the window over the Stanford campus. You plop down on the bed, glad to finally give your legs some rest. Dr. Schneider is smiling at you.
+
+"It was Chloe's idea; she thought it would make you feel more comfortable. We even took your actual suits to make it seem more realistic."
+
+"But where are the machinery? The tubes? The capsules?"
+
+Dr. Schneider laughed. "We have all that, of course. But we thought it would be scary for you to see. All you have to do is fall asleep, in your own bed, and we'll handle the rest. When you wake up, you will be in your own bed too, so you won't feel disoriented. I'll give you a moment to take it all in."
+> speak to schneider
+
+> speak to schneider
+"I'm ready," you say.
+
+Dr. Schneider hands you a small red button on a black cube. "When you're ready to sleep, just press this button. We've already injected anesthetic into your veins, and this activates it."
+
+You shake your head. "I didn't know we could do this already."
+
+Dr. Schneider's eyes are shining through his glasses. "This is nothing compared to the technology that you'll see. Fifty years, a hundred, two hundred . . . it will make what we have now seem like rocks and clubs. We'll be able to go wherever we want, whenever we want, do whatever we want. Maybe even death will be eliminated." He puts a hand on your shoulder. "I won't be able to see all of that, but you will. Enjoy it for me."
+
+Press any key to voice your concerns.
+
+"Wait," you say. "Chloe was worried about something. She said there was something off about the disease, about the way it spreads . . ."
+
+Dr. Schneider coughs again. His expression doesn't change. "You leave the worrying to the experts, Dr. Chase. Cryptec employs some of the best doctors and scientists in the world. You won't get better care anywhere else. Thousands of people would kill to be in your position right now."
+
+You nod reluctantly. "Actually, I was wondering about that too. Why all the secrecy? Why do I have to fake my own death? Wouldn't it comfort the public to know that you guys are working on a cure?"
+
+"Dr. Chase," he says slowly. "Hope can be a dangerous thing. Do you know how much it's going to cost to keep you in cryonic sleep? The unit we have prepared for you is the only one of its kind in the world. We have to observe its effects on you and then make more. That could take years and billions of dollars. Not everyone can afford to hope.
+
+"Let me speak frankly, Dr. Chase. I saw the report from your physical examination, and you are not in good shape. In about two weeks you will lose the ability to walk, and in a month you won't be able to breathe without a tube sticking into your lungs. It is a painful way to die; trust me, I've seen it. This is your only chance to survive."
+
+He sees the look on your face. "If you can't do this for yourself, then do it for Chloe. Do it for science. Don't think too much about questions that you can't answer, Dr. Chase." With that, he turns and walks out of the room. The door shuts with a soft click.
+
+A button has been added to your inventory. Type "inventory" to see what you are carrying.
+
+> press button
+
+> press button
+You look at the button, staring back at you with its single red eye. If you press it, you may never wake up again. Are you ready? You tell yourself that you've lived a full life, but the truth is you're afraid of death. A simple, quick press of the button, and then . . . nothingness for eternity. You want so badly to imagine it but you can't. You try to bring up the faces of your late wife and daughter, but you are surprised at how difficult it is. Maybe you should sit here for a while longer. There's no rush, after all.
+> press button
+
+> press button
+You finger brushes the top of the button. Why did you agree to do this? If you had just died, you would have been out of Chloe's life forever. But now, the thought of you will torment her for the rest of her life, taunt her inability to find a cure for your disease. What if something happens to you? How will she handle the guilt?
+
+You give yourself a mental slap on the cheek. You made Chloe a promise and you are going to follow it through. The time for changing minds has long since passed. Isabelle's death hit her harder than it hit you, and it will be a comfort for her to know that she will never be alone. And what about that bright future that everybody talks about? Perhaps you would like to see it too.
+
+You make up your mind. You are going to press the button.
+> press button
+
+> press button
+You hold the black box in your hand. It's weight and coldness are somehow comforting. Your life flashes before your eyes; childhood in San Francisco, high school prom, first day at University, meeting Isabelle for the first time . . . holding a crying infant Chloe, receiving your offer of tenure, looking at the stars from the roof of your apartment building and asking it to reveal its mysteries . . . you suppose you've lived as good as a life as anybody could ask for.
+
+You fixate an image in your mind, a picture of Chloe and Isabelle smiling across the table of your favorite restaurant, on your 40th birthday. It's the picture you want to see as you make your leap into eternity. You're thankful that you are able to visualize the image so clearly.
+
+You press the button.
+
+The End of Part One
+
+Press any key.
+
+PART TWO: The Warden
+
+Press any key to wake up.
+
+From out of the darkness, you hear a voice.
+
+It's my fault, all my fault . . . I couldn't see, I couldn't see . . . my cataracts . . . I'm so sorry . . .
+
+Press any key to wake up.
+
+Wake up. Wake up. Wake up! Conor Chase, Dr. Chase, please wake up! Please . . .
+
+Press any key to wake up.
+
+Bedroom (Dr. Conor Chase)
+
+The room is small and tidy. A twin-sized bed with grey covers occupies one corner, and a working desk occupies another. A tall, sturdy wardrobe stands at the foot of the bed, open just wide enough for you to see the suits hanging inside. An upright lamp illuminates the windowless bedroom. The walls are bare, except for a single poster, a colorized photograph of the Milky Way. A luscious carpet covers the floor.
+
+You can see a bed, a desk (on which there is a letter ), a wardrobe, a chair and a lamp.
+You can go east.
+
+You open your eyes slowly to the familiar yellow tint of your ceiling. You sit up in bed. You have never felt so good before. You had a bad dream, something about diseases and forms on clipboards and long hallways, but now everything is just fine.
+
+You look around. Everything is where it should be, and yet something is not quite right. You've just woken up from an afternoon nap, but there is no sunlight, only the glow of the lamp.
+
+There is no window.
+
+Could it be? Have you arrived at the destination of an undeterminable journey through time? You touch your face, then your hands, then your chest. You feel like yourself, but better. You stand up. You are still wearing same clothes, black jeans and button-down shirt, but all of your lethargy and soreness is gone.
+
+You examine the room again. If the cryonic sleep worked, then why is there nobody here to welcome you into the future? You must have woken up too early. Maybe only a couple of hours have passed. You should go find Dr. Schneider and tell him to give you the anesthetic again.
+> east
+
+> east
+
+South Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. The walls are empty and bare. There are doors to your west, east, and south. A golden placard above the south door reads "Sleep Chamber". Similar placards above the west and east doors read "Dr. Conor Chase" and "Dr. Carl Schneider" respectively. The hallway stretches away to the north.
+
+You can see footprints.
+You can go north, south, east or west.
+
+The hallway looks exactly like it did before, but you don't remember seeing these other entryways with their placards; perhaps you were too occupied with your own thoughts. Is the "Sleep Chamber" where Cryptec employees sleep when they stay late at work? You look at the entryway to your east: at least this one is clear. It must be Dr. Schneider's office. You will go in and ask him what's going on.
+> north
+
+> north
+
+North Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. There are doors to your west, east, and north. A golden placard above the north door reads "Greenhouse". Golden placards above the west and east doors read "Warden's Quarters" and "John and Mary Roakes" respectively. The hallway stretches away to the south.
+
+You can see a poster.
+You can go south, west, east or north.
+> west
+
+> west
+
+Warden's Quarters
+
+The room is large and spacious, the walls a comforting shade of lavender. A crystal chandelier hangs from the ceiling, and lush pillows sit atop a queen-sized mattress. An electric fireplace at the foot of the bed reminds you of the lodge in Colorado where you and Isabelle spent your honeymoon. A large wedding portait hangs above the fireplace, but your attention is immediately caught by what looks to be a colorful mural spanning across the walls of the bedroom. Flowers of every shade and shape, golden, cinder, magenta, swaying gently to an unseen wind, filling the air with an undetectable fragrance . . . A sliding door opens onto a walk-in bathroom to the west.
+
+You can see a bed, a nightstand, a bookshelf, a Wedding Portrait and a mural.
+You can go east or west.
+> x wedding portrait
+
+> x wedding portrait
+It is a portrait of a young, handsome couple, the type you might see hung with pride on the wall of a photographer's studio. The man is tall and dark, his eyes looking straight at the camera. A small handlebar mustache gives him an air of silliness which clashes with his serious expression. The woman is blonde and lightly freckled, her smiling face turned towards her new husband. There is no date anywhere on the photo.
+> x mural
+
+> x mural
+You've never seen a bedroom like this before. You lean in closer and feel the uneven texture of the flowers with your fingers; every single one was drawn with paint and brush, with a painstaking care for detail. Almost without realizing it you begin to count the flowers. There are fifty-one in total.
+> x bookshelf
+
+> x bookshelf
+The shelf is built into the wall, two rows filled to the brim with books. You scan the top row and find Agatha Christie novels that you've never heard of. Gardening handbooks fill the bottom row; you never knew there were so many books about gardening in the world.
+> east
+
+> east
+
+North Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. There are doors to your west, east, and north. A golden placard above the north door reads "Greenhouse". Golden placards above the west and east doors read "Warden's Quarters" and "John and Mary Roakes" respectively. The hallway stretches away to the south.
+
+You can see a poster.
+You can go south, west, east or north.
+> south
+
+> south
+
+South Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. The walls are empty and bare. There are doors to your west, east, and south. A golden placard above the south door reads "Sleep Chamber". Similar placards above the west and east doors read "Dr. Conor Chase" and "Dr. Carl Schneider" respectively. The hallway stretches away to the north.
+
+You can see footprints.
+You can go north, south, east or west.
+> east
+
+> east
+
+Bedroom (Dr. Carl Schneider)
+
+The room is simple and bare. A single mattress sits atop a derelict frame; the frayed comforter is folded in a perfect, military cube. A solitary bulb reluctantly shines upon a small, wooden desk and a larger chair. There is no window in this room either. There is a garden rake leaning against the corner, its teeth choked with dark soil.
+
+You can see a bed, a desk (on which there is a picture frame, And Then There Were None and a pair of glasses), a chair and a rake.
+You can go west.
+
+Suddenly, you find yourself face-to-face with the floor. The ground is shaking and turning, rumbling like an angry beast. Earthquake! A childhood in California has familiarized you with this particular natural disaster, but you've never felt one this powerful before. Just when it feels like the earth might split open, everything stops. You rise shakily to your feet.
+> x picture frame
+
+> x picture frame
+It's a faded photograph of a young couple. The man is tall, mustached, serious. The woman is blonde, freckled, laughing. A beautiful garden fills the background, framed by leaning palm trees.
+
+Neither of the people in the photo look like Dr. Schneider.
+
+> west
+
+> west
+
+South Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. The walls are empty and bare. There are doors to your west, east, and south. A golden placard above the south door reads "Sleep Chamber". Similar placards above the west and east doors read "Dr. Conor Chase" and "Dr. Carl Schneider" respectively. The hallway stretches away to the north.
+
+You can see footprints.
+You can go north, south, east or west.
+> north
+
+> north
+
+North Hallway
+
+You are in a long, white hallway, stretching out before you, seemingly without end. The floor is tiled and so clean that you can see your blurred reflection in it. There are doors to your west, east, and north. A golden placard above the north door reads "Greenhouse". Golden placards above the west and east doors read "Warden's Quarters" and "John and Mary Roakes" respectively. The hallway stretches away to the south.
+
+You can see a poster.
+You can go south, west, east or north.
+
+The door to the north has disappeared. It must have slid into the doorway somehow, but you can't see anything except for smooth, white wall. Maybe the earthquake somehow shook the door loose.
+> north
+
+> north
+
+South Greenhouse
+
+The hallway opens into a large, cylindrical space, longer and wider than the Stanford football stadium. Along the ceiling is a strip of light, burning into your eyes with the intensity of a small sun. All around you are racks upon racks of plants, rotating silently on unseen tracks, taking their turn to bathe in the light. There are blueberries the size of cherries, and tomatoes so round and perfect and impossibly plump that you can taste their sweetness simply by looking at them. And then there are vegetables and fruits that you don't recognize: yellow triangular prisms covered with hair, orange cubic shapes sticking out of the soil. A single, winding path leads onward, but you cannot see where it ends.  There is a book is lying face-down on the dirt, partially hidden from view by the leaves of a grapevine.
+
+You can see a footprints, a The ABC Murders and a sticker.
+You can go south or north.
+
+You don't know what you expected when you saw the word "Greenhouse", but it was not this. You feel yourself trembling. Whatever hope you may have had is gone. This is something of the future, something unimaginable by an astrophysics professor born in the 1960s. How many years has it been? How many? Zach is surely dead. Chloe probably is, too. What have you done? What have you gotten yourself into?
+> north
+
+> north
+
+Central Greenhouse
+
+The winding path continues. The greenhouse is so impossibly vast, the ceiling so high, that you forget you are indoors. To your left is a large reservoir, a square of piercing blue, with channels running through the greenhouse in intricate grids. To your amazement, you follow the channels with your eyes and see them run onto the walls and ceiling, unhindered by gravity.  To your right is a small path cut through the plants, leading to a circular clearing. In the middle of the clearing is what appears to be a black tombstone, surrounded by rings of flowers.
+
+You can see a Tombstone.
+You can go south or north.
+> x tombstone
+
+> x tombstone
+You see yourself in the shiny surface of the stone: an old man, hair halfway grey, crow's feet beginning to grow from the corners of your eyes. And yet you see a vitality in that familiar face, the determination of a man who has been given a second chance at life. There are no words on the smooth stone, no name to indicate who lay beneath your feet, no dates to delineate their short stay upon this earth. The flowers, though, are beautiful, each one a different shade from the next. You wish you could name them, but you were never a flower person. You count them. There are exactly fifty-one.
+
+There is a sound coming from further up the path, to the north, a dull kind of thudding, like metal hitting dirt. You stiffen; this is the first sound you've heard since waking up. If there is another person in the greenhouse, they could explain everything, they could take you to see Chloe, if . . . you let that thought drift away unfinished.
+> north
+
+> north
+
+North Greenhouse
+
+The greenhouse ends the same way it began. Far in the distance, you see the open space close back onto a single door, where the winding path terminates. Just off the left of the path, in between the blue channels and rotating tracks, is a square plot of earth cut geometrically from its surroundings. The soil in this patch has a lighter shade than the dark, rich soil of the greenhouse.
+
+You are reminded of the garden that you once had, in the backyard of your Palo Alto home. Every weekend, Isabelle would wake up at the crack of dawn to clear the leaves, pull the weeds, and lay mulch around the plants. Sometimes you helped her, but you both knew that it was Isabelle's garden. After she passed, it was neglected and overgrown; you could not bear to admit to yourself that she was gone, that she would never bend over again in that garden, never sweat and smile and wave at you through the window . . .
+
+Despite the advanced technology all around you, the small patch of soil looks as if it has been tended to manually. Modestly-sized tomatoes hang meekly from wooden racks, and pudgy pumpkins are lined up in neat but imperfect rows. There is an old man standing with his back to you, his hair ashen white, his back bent over, clutching a shovel and working furiously on the light soil of the garden. Beside him are a dozen mounds of freshly turned dirt.  Lying on the ground is a body. It's eyes are closed and although you look at it for a while, it does not move.
+
+You can see the Warden, a corpse and a badge.
+You can go south or north.
+> take badge
+
+> take badge
+You pick up the badge and clip it to your pants. You have a feeling it will come in handy.
+> speak to warden
+
+> speak to warden
+"Who's that?" the old man squints at you. "Nicky? Is that you, Nicky? Where have you been all this time? Look at our garden, look at what I've done. Do you like the pumkpins? We could never get them to grow this big . . ."
+
+"My name is Conor," you say. "Conor Chase. Please, I fell asleep, and when I woke up, I found myself here. . . it was an experiment, part of some trial . . . Dr. Carl Schneider told me that everything woudl be okay . . . do you know Dr. Schneider?" You know that you are jabbering but you can't help it.
+
+The old man squints his eyes. They look milky and grey. "Dr. Chase . . ."
+
+"Please, I need to know. What year is it? Where am I? I need to know if my daughter is okay. Please tell me!"
+
+The old man says nothing. Big, fat teardrops squeeze themselves out from his unseeing eyes, leaving jagged trails down his withered face. His whole body is shaking. "I'm so sorry, so sorry . . . I tried my best. I did everything I could, but I couldn't see, couldn't see . . . my cataracts got worse after Nicky left, but I couldn't tell the captain . . . I couldn't risk losing my job. By the time the power systems came back online, they were all . . . oh God, Nicky, forgive me . . ."
+
+You grasp him by the shoulders, hold him so that his eyes are staring forward into your face. "Calm down," you say, even though your heart is beating at a hundred miles a minute. "Slow down and tell me what happened."
+
+"It was an asteroid that hit us, it must have been. All the sirens were going off and I didn't know what to do . . . oh God . . . I failed everyone. You're the only one left, Dr. Chase. You were the first one, so you were on a different support system . . . I did the best I could.
+
+"Would you forgive me, Dr. Chase? Could you do that for me? "
+1: Yes
+2: No
+> 1
+"Of course," you say. "There are many things outside of our control. I'm sure that whatever happened here, it wasn't your fault."
+
+The Warden grasps your hands in his and holds you tightly. His hands are rough and course from a lifetime of gardenwork. "Oh, thank you, thank you. You have no idea what that means to me. You have a big heart, Dr. Chase, to forgive me. But I'm not sure that I can forgive myself. I've served ARC Two faithfully . . . one momentary lapse in fifty-one years, and yet, I let down those who put their lives in my hands."
+
+"Please, if you can just answer some of my questions . . ."
+
+But the Warden has already picked up shovel again. He resumes his work, attacking the earth with less violence this time but the same determination.
+> north
+
+> north
+You wave the badge in front of you, and the door slides open on silent tracks. Beyond the doorway, all you see is darkness.
+
+Star Room
+
+You step onto a black walkway and the door closes behind you. You are engulfed by a complete and total darkness. A familiar voice speaks to you from out of this darkness, and for a second you think that it's Isabelle, but it can't be. Isabelle is long dead.
+
+"Welcome to the Star Observation Room of the ARC Two. To give you an immersive experience, the gravity generator in this chamber will be temporarily switched off. We hope you have the best time." As the voice fades, you feel a lightness spread throughout your body, and all the worries and fears you've been carrying suddenly seem to weigh nothing. You take a step forward and you find yourself sailing slowly through the air. Your eyes adjust and you see that you are not alone; you are surrounded by millions of stars, more than you've ever seen before, too many to even imagine counting. You feel as if you are one of them.
+
+You can go north or south.
+
+Finally, you feel at peace . . .
+
+The End of Part Two
+
+Press any key.
+
+PART THREE: ARC
+
+Press any key to wake up.
+
+You didn't even realize that you had dozed off. What did you dream about? You strain to remember but you can't. Perhaps the same stars that surround you now followed you into the other realm. The thought of it fills you with comfort.
+
+You want to just stay here forever, but you know you can't. There are still so many questions to be answered. You went to sleep underneath the ground, and now you are in space; what happened? And where was Chloe? Speaking of Chloe . . . there was something here that reminded you of her, something recent, but you can't remember what it is . . .
+
+You flail your arms and legs, but you don't seem to move. How can you get to the door? Then, you remember the voice that spoke to you.
+
+"Let me down," you say. "Gravity will now be switched back on," the voice replies, and you find yourself dropping slowly to the walkway. You walk forward and the door slides open.
+
+Archive
+
+You are in a dimly lit, narrow walkway, hemmed in by glass cases that stretch on to your left and right. Inside each case are books of different colors and sizes, packed tightly according to some three-dimensional algorithm, so that not even an inch of empty space is left. Ahead of you, in the center of the walkway, is a wide, black, cylinder. Above it, blue words hang in the air, unsupported by anything that you can see. It reads: "Terminal".
+
+You can see a Terminal.
+You can go south or north.
+> use terminal
+
+> use terminal
+The terminal beeps, and its blue text splinters into holographic options. "What would you like to learn about?" asks the familiar voice.
+
+1: The Selection
+2: The Origin of the Grey Death
+3: ARC Program
+4: Transmission of the Grey Death
+> 3
+You try to touch the option, but your hand just goes through. "Preparing sources," the voice says. The contents of the cases start moving, shuffling along unseen tracks. A mechanical arm reaches out from above, plucks some books out from behind the cases, and holds them up, open, behind the terminal display. New words appear on the hologram.
+
+The Auto-Restorative Cryonics procedure, or ARC for short, was developed and patented by Cryptec Inc. It was initially conceived as a way to keep subjects alive until a time in the future when a cure for the Grey Death was discovered, but monitoring of subjects revealed that the number of infected cells were reducing without any additional treatment. Cryptec Inc. made the discovery that the virus had a lifespan that was independent of the human host, but that it was much longer than the natural human lifespan. To put it another way, infected humans died faster than the Grey Death did. Freezing the human in a cryonic chamber would extend the lifespan of the human but not that of the virus.
+
+Due to the high cost of cryonic technology and the chaos brought about by World War Three, the ARC program was initiated by Cryptec Inc. in secret, in collaboration with the United States government. The government had begun constructing extra-solar spaceships without the knowledge of the public ten years prior, and the program consisted of accelerating this construction and loading them with ARC units.
+
+A total of five ships were built as part of the ARC fleet. The first one was the biggest, and contained one thousand occupants, while each subsequent ship housed one hundred occupants each. The occupants of each ship were selected according to the principles outlined by Dr. Carl Schneider in his paper "The Principles of the Selection for the Continuation of the Human Species". While the other occupants slept, the Captain of the ARC I maintained the operation of the ship; the other ships were each assigned a "Warden" for this role. These individuals were selected for their natural immunity to the disease, a rare quality estimated to be possessed by no more than 0.01% of the population.
+
+> north
+
+> north
+
+Museum
+
+You are in a small, circular room. A couple of objects lie around the room, with golden plaques beneath each. You are reminded of the small, hipster galleries you and Isabelle used to go to whenever you travelled to Europe.
+
+You can see a Display Case, a Statue, an Art Piece and a Painting.
+You can go south or north.
+> x statue
+
+> x statue
+It's in the style of a Roman bust. Intelligent eyes, round spectacles . . . with a shock you realize the face is that of Dr. Schneider. You read the plaque below:
+
+Dr. Carl Schneider 1955-2024
+Dr. Carl Schneider was born in Rotterdam, Netherlands, and immigrated to the United States with his parents when he was ten. Throughout his life, Dr. Schneider was a cardiologist, university lecturer, and an infectious diseases expert, but he was best known for his role as Chief Scientist at Cryptec Inc., and as the mastermind behind the Selection. When the grey death pandemic broke out in 2020, he lead Cryptec Inc. as the first private entity to create and test cryonic chambers on infected patients. His widely controversial paper, "Principles of the Selection for the Continuation of the Human Race", eventually lead to government sanctions on Cryptec Inc. and the ensuing world war. Despite being infected himself, he delayed treatment, instead prolonging his life through medication and therapy. When the ARC program took off to the cosmos, Dr. Carl Schneider chose to stay behind to supervise the manufacturing of cryonic units for the remaining human population. On August 5th, 2024, members of the HEFA militant group broke into his bunker, and he passed away in the ensuing shootout.
+
+> north
+
+> north
+You wave the badge in front of you, and the door slides open on silent tracks. Beyond the doorway, all you see is darkness.
+
+Command Room
+
+You've reached the front of the spaceship. You feel as if you've just entered the Star Room again, but instead of being spherical, this room is shaped like a cone. Sandwiched between a white floor and ceiling is a strip of star-speckled darkness, stretching from left to right across the peripheries of your vision. As you step up, holographic displays flare up all around you, turning the observation glass into a giant display.  Directly in front of you, the black-and-white logo of the ARC flashes impatiently. "You have an incoming message," says the voice that sounds so like Isabelle. "Urgent message incoming. Please receive."
+
+You can see a Display.
+You can go south.
+
+The holographic display to your left shows a grid of square photos, each labelled with a name. As you look at them longer you realize that they are live video footage of each of the rooms on the ship. In the square labelled "Dr. Conor Chase", you see your cozy bedroom, just waiting for you to return and take your well-deserved rest. In the square labelled "Greenhouse", you see the Warden still obstinately shovelling at the hard earth."In the square labelled "Sleep Chamber", you see rows upon rows of transparent pods, lined up neatly, their occupants frozen in eternal sleep.
+> receive message display
+
+> receive message display
+You raise your hand and point at the flashing icon. The display in front of you dissipates into the face of an old woman, so familiar and yet so strange to you. She opens her mouth, and you realize that her voice is the voice of the ship.
+
+"This is Captain Chloe Chase of the ARC One. I am hailing the ARC Two because I haven't received any communications from you in seventy-two hours. We are aware that the ARC Two was hit when we passed through the asteroid field, but our analyses tell us that the hull was not breached. Please respond as soon as possible with your status. If we do not hear from you in twenty-four hours, we will assume the worst and begin emergency measures. Please be advised that it can take up to a week for us to reach you and begin the proper boarding procedures. Captain Chase out."
+
+The display stops. "Auto-playing older messages," Chloe says. "Say anything to cancel."
+
+It's the same face again, but less serious, less stern. This is the playful, sensitive Chloe that you once knew. This is your Chloe.
+
+"Hello, Jake. I hope you are doing well. I know it's been a difficult time for you, ever since Nicole passed away. I should have been there for you more, and I'm truly sorry about that. But today, I want to discuss something happier. I want to talk about the future, not the past. As you know, we've just passed the fifty year mark of our journey, and there is a decision that needs to be made. I have already reached out to the other wardens, just to prepare you before we have any official discussions. I know that all of us have been pondering this for all these long years.
+
+"Shall we go back, or shall we continue? Shall we return to our birthplace, a place we have had no contact with for half a century, and which we now know nothing about? Shall we attempt to clean up the mess we find there, to fix our mistakes of the past? Or shall we continue into the cosmos? Shall we finally let go of our mistakes and start anew? This is the most difficult question I have ever faced, and for now I am undecided. I would not hold it against the other wardens if we were to disagree and diverge in our paths. Please think on this, Jake. I would love to hear your thoughts."
+
+You reach into your pocket and pull out the necklace that you had given Chloe on her twenty-first birthday, and that she had given back to you fifty years ago. The turtle, a symbol for Mother Earth. A symbol for longevity, and for perseverance and stubbornness. Whatever the world was like now, you will not have to face it alone; you will have your daughter beside you. You know what your answer will be.
+
+"But for now, I hope you have the best time." She smiles. "Inbox empty", Chloe says. "Start speaking to respond."
+
+You do.
+The End
+
+[state=Finished]
