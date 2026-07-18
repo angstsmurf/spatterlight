@@ -39,3 +39,59 @@ for old, new in edits:
 owner.write_text(text)
 print(f"[patch] {'already patched' if already else 'patched'}: "
       f"ExpressionOwner.cs -> ErkyrathRandom (seed 1234 / QVH_SEED)")
+
+# 3. Lazy dynamictemplate expressions. QuestViva parses every dynamictemplate's
+# expression EAGERLY at load (Templates.cs AddDynamicTemplate -> new
+# Expression<string>), so a game shipping one malformed template fails to
+# initialise at all. Legacy Quest (~5.0, 2011) did not do this — e.g.
+# "Nearco II (Remake)" ships `"No puedes tirar de eso"."` (stray tail) in its
+# DefaultPull dynamictemplate and was released and played, so the parse must
+# be deferred to first *use* to be faithful (the native Geas engine also
+# compiles lazily). On parse failure we register QvhLazyExpression, which
+# re-attempts the compile when the template actually fires.
+lazy_cls = engine / "Functions" / "QvhLazyExpression.cs"
+lazy_cls.write_text('''using QuestViva.Engine.Scripts;
+
+namespace QuestViva.Engine.Functions;
+
+// qvh patch: a dynamictemplate expression that failed to parse at load.
+// Legacy Quest deferred that parse to first use; do the same, so the error
+// (if ever reached) surfaces as a runtime script error, not a load failure.
+public class QvhLazyExpression(string expression, ScriptContext scriptContext) : IFunction<string>
+{
+    private IFunction<string>? _inner;
+
+    public Task<string> ExecuteAsync(Context c)
+    {
+        _inner ??= new Expression<string>(expression, scriptContext);
+        return _inner.ExecuteAsync(c);
+    }
+
+    public string Save() => expression;
+
+    public IFunction<string> Clone() => new QvhLazyExpression(expression, scriptContext);
+}
+''')
+
+templates = engine / "Templates.cs"
+ttext = templates.read_text()
+anchor = """            template.Fields[FieldDefinitions.Function] =
+                new Expression<string>(expression, new ScriptContext(m_worldModel));"""
+lazy = """            try
+            {
+                template.Fields[FieldDefinitions.Function] =
+                    new Expression<string>(expression, new ScriptContext(m_worldModel));
+            }
+            catch (Exception)
+            {
+                // qvh patch: legacy-Quest lazy dynamictemplate parse (see patch_questviva.py)
+                template.Fields[FieldDefinitions.Function] =
+                    new QuestViva.Engine.Functions.QvhLazyExpression(expression, new ScriptContext(m_worldModel));
+            }"""
+if "QvhLazyExpression(expression" in ttext:
+    print("[patch] already patched: Templates.cs -> lazy dynamictemplate parse")
+elif anchor in ttext:
+    templates.write_text(ttext.replace(anchor, lazy, 1))
+    print("[patch] patched: Templates.cs -> lazy dynamictemplate parse")
+else:
+    sys.exit("[patch] anchor not found in Templates.cs (upstream changed?)")

@@ -1,0 +1,464 @@
+NEARCO II (REMAKE) - "LA PERDICIÓN DE LA NINFA"
+Autor: Jhames. Año: 2011
+Contacto: Bolumbero@hotmail.com
+Pulsa una tecla...
+
+Tu nombre es Nearco.
+
+Tu señor, Alejandro Magno te ha enviado a estas tierras para buscar un valioso tesoro guardado con sumo celo por el gran rey persa el Codomano.
+
+En la primera parte de tus aventuras tuviste que atravesar las cuevas de Evil-Merodak, que fueron posteriormente ampliadas por el poderoro monarca del imperio persa, Darío III.
+
+Según el oráculo de Delfos, cuando atravesases dichas cuevas podrías continuar con tu búsqueda.
+
+Después de descender por un tobogán de piedra, te encontraste con el dios RAR que te hizo una pregunta a la que respondiste con la palabra: CODOMANO. Después de eso, continuáste cayendo hasta que la esponjosa arena amortiguó tu brusca caída, donde aterrizaste con tu valiosa cabecita...
+
+Pulsa una tecla...
+
+Para parar la música teclea: MUSICA OFF
+Para escuchar la música teclea: MUSICA ON
+Para obtener AYUDA, teclea AYUDA
+Si te encuentras muy atascado, teclea PISTAS
+Para volver al estado anterior de un comando, teclea DESHACER
+Para hablar con personajes, utiliza la fórmula: DECIR PERSONAJE TAL o DI PERSONAJE TAL (Ej. Di Viejo zanahoria)
+Para Invidentes: Existen algunos gráficos esenciales para la terminación de la aventura. Si quieres una descripción más detallada del gráfico teclea XI OBJETO (X=Examina I=Invidente).
+
+(En cualquier caso los efectos sonoros seguirán funcionando. Si no quieres escucharlos, desactiva el volumen te tu equipo).
+Pulsa una tecla...
+Estás en la salida de la cueva.
+Puedes ir al norte.
+Te has dado un terrible golpe en la cabeza. Te duele de un modo horrible, y no sabes muy bien dónde te encuentras. El suelo está lleno de arena. Has perdido la orientación, por lo que decides descansar unos minutos hasta recuperarte.
+> norte
+Estás en un cruce de caminos.
+Puedes ir al sur, al noroeste, al norte o al noreste.
+Desde aquí ves como el camino se divide en tres sendas.
+Ahora debes elegir cuál vas a tomar. Solo los dioses conocen el camino correcto que has de seguir...
+> norte
+Estás en un camino.
+Puedes ir al sur o al norte.
+El olor de la vegetación impregna tus fosas nasales. La fragancia del tomillo y el romero te transporta a aquellos días en los que preparabas paellas de arroz con conejo, al estilo griego, a las tropas de Alejandro.
+> norte
+Estás en un camino.
+Puedes ir al sur o al noreste.
+Aquí la vegetación se espesa. La maleza está más alta. Al noreste ves un bosque.
+> noreste
+Estás en el bosque.
+Puedes ir al suroeste.
+Has entrado dentro del bosque. Una gran cantidad de árboles te rodea.
+Parece que este lugar tiene un aire un tanto mágico.
+Eres incapaz de adentrarte mucho más. Tu única salida cierta está al suroeste.
+> suroeste
+Estás en un camino.
+Puedes ir al sur o al noreste.
+> noreste
+Estás en el bosque.
+Puedes ver una ninfa.
+Puedes ir al suroeste.
+Has entrado dentro del bosque. Una gran cantidad de árboles te rodea.
+La ninfa, triste, te mira y te dice:
+"Sé quién eres, Nearco. Mi corazón sufre una gran pena. Mi amado murió y está enterrado en el cementerio, pero los dioses borraron de mi memoria su nombre, y si no lo pronuncio, jamás volveré a reunirme con él. ¿Me ayudarás a recordar su nombre?"
+> examina ninfa
+¡¡¡ Es un pedazo de ninfa del quince !!!
+Seguro que ha sido portada del Playboy Griego del mes de enero del año 332 A.de C.
+Si fueses un fauno.. estoy seguro de que no se te escapaba.
+Parece triste.
+> di ninfa hola
+La ninfa dice:
+"Hola Nearco. Estoy segura de que los dioses te han enviado para ayudarme ..."
+> di ninfa si
+La ninfa te dice:
+"Entra en el laberinto de la estrellas, busca la natividad del hijo de Zeus y Olimpia, y pronuncia mi nombre: "Nerea" junto al año en que vio la luz del Sol. Si lo haces correctamente podrás encontrar el nombre de mi amado, y yo podré reunirme con él. Así, podrás seguir con tu destino. ¡¡¡ Que la gloria de Aquiles te acompañe!!!"
+Como por arte de magia, mientras la ninfa se desvanece, un pasillo se abre entre la vegetación, permitiéndote ir hacia el norte.
+> norte
+Estás en un largo corredor del bosque.
+Puedes ir al norte o al sur.
+Este es un sitio muy extraño, parece como si la noche se hiciese día, y el día se hiciese noche.
+> norte
+Mientras avanzas, un manto de oscuridad se cierne sobre ti. Se hace de noche, y en el firmamento ves brillar la estrellas.
+Estás en la casa de Libra.
+Puedes ir al este, al oeste o al sur.
+En la oscuridad del cielo, la balanza de Libra se refleja en tus pupilas.
+> este
+Estás en la casa de Virgo.
+Puedes ir al noreste o al oeste.
+Ja. Esta constelación debe ser una broma. Ni en toda Grecia, ni en toda Persia queda una de este tipo. Y menos, desde que tu frecuentas estas tierras.
+> noreste
+Estás en la casa de Leo.
+Puedes ir al norte o al suroeste.
+Te fijas con atención en la silueta que forman las estrellas, y te recuerdan la figura de un león. Inmediatamente, te pones en alerta recordando que esta región está llena de fieras salvajes.
+> norte
+Estás en la casa de Cáncer.
+Puedes ir al norte o al sur.
+Ves brillar en las estrellas las forma de las pinzas de un cangrejo.
+> nerea 356
+Un sonido atronador suena desde el cielo.
+Una voz profunda y varonil como la de Jhames, dice:
+"Soy Zeus. Estaba retozando con Afrodita. ¿Eres tú Nearco? Toma esto, y no des más por ...  saco.
+Ahora, sigue tu camino".
+Un pergamino cae del cielo meciéndose en la brisa de la noche hasta posarse suavemente en el suelo.
+> coger pergamino
+Coges el pergamino que te envió Zeus, y te lo guardas.
+> examina pergamino
+Es el pergamino que ha caído del cielo cuando sonó el trueno. Lleva varios números apuntados. Por un momento crees que son los teléfonos de las diosas más viciosillas del Olimpo. Pero luego te das cuenta, con pavor, de que aún no se ha inventado el teléfono.
+> di zeus serpiente
+Una atronadora voz se escucha desde los cielos:
+"Nearco, por Dios te lo pido, digo, por -MÍ- te lo pido, déjame ya en paz.  Ah... ya veo, tienes problemas con la serpiente. Bueno, me has hecho bastantes ofrendas, de modo que toma este rayo anti-serpientes made in Zeus... pero no me des más follón"
+De pronto, una especie de bote, tipo spray, cae del cielo y rebota a tus pies varias veces...
+> coger antiserpientes
+Coges el poderosísimo rayo anti-serpientes marca "Zeus and Friends Limited Corporation".
+> examina antiserpientes
+Es un rayo anti-serpientes que te ha enviado el poderoso Zeus desde los cielos. Parece que no está caducado...
+(En realidad es un aerosol anti-serpientes, pero los griegos en aquella época no tenían en su diccionario la palabra espray...)
+> sur
+Estás en la casa de Leo.
+Puedes ir al norte o al suroeste.
+> suroeste
+Estás en la casa de Virgo.
+Puedes ir al noreste o al oeste.
+> oeste
+Estás en la casa de Libra.
+Puedes ir al este, al oeste o al sur.
+> sur
+Estás en un largo corredor del bosque.
+Puedes ir al norte o al sur.
+Este es un sitio muy extraño, parece como si la noche se hiciese día, y el día se hiciese noche.
+> sur
+Mientras avanzas, la luz del sol se va apoderando de las tinieblas de la noche...
+Estás en el bosque.
+Puedes ir al suroeste o norte.
+Has entrado dentro del bosque. Una gran cantidad de árboles te rodea.
+> suroeste
+Estás en un camino.
+Puedes ir al sur o al noreste.
+> sur
+Estás en un camino.
+Puedes ir al sur o al norte.
+> sur
+Estás en un cruce de caminos.
+Puedes ir al sur, al noroeste, al norte o al noreste.
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+Es un camino de tierra. La hierba crece a ambos lados. Hace un día fantástico, los pajarillos revolotean sobre las copas de los árboles.
+> norte
+Estás en un camino.
+Puedes ir al sur o al noroeste.
+Este camino te recuerda tu amada Macedonia. Qué día tan maravilloso. Ojalá pudieses pasear junto a tus veinte esclavas persas, y admirar con ellas el paisaje de este día primaveral. Después, retozarías con alguna de ellas sobre la verde hierba del lugar.
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+Desde aquí, pareces divisar el humo de alguna hoguera hacia el norte.
+> norte
+Estás en un camino, delante de una pequeña choza.
+Puedes ver una hoguera y un anciano.
+Puedes ir al sur o al norte.
+Un anciano está sentado en el suelo con las piernas cruzadas, junto a una pequeña choza.
+Hay una pequeña hoguera a su derecha.
+El anciano, con la mirada perdida en la hoguera, sin verla debido a su ceguera, intuye tu presencia y sin mover la cabeza te dice:
+"¡Hola Nearco! Te preguntarás como sé tu nombre. Lo sé absolutamente todo sobre ti. Tu pasado, tu presente y tu futuro. Sé la misión que tienes encomendada. Yo he perdido algo, y solo si me ayudas a encontrarlo te dejaré pasar por mis tierras para que encuentres lo que buscas..."
+> examina anciano
+Ves a un señor muy anciano sentado en el suelo, junto a una choza de madera, con las piernas cruzadas como si estuviese meditando, mientras que con un palo dibuja círculos y hace números sobre la poca arena que hay en este lugar. Observas que sus ojos son completamente blancos, lo cual, junto a su larga barba blanca le da un aspecto, como menos, impactante.
+> di viejo hola
+El viejo dice:
+"Buenos días Nearco...Apresúrate que pronto se va a hacer de noche..."
+> di viejo 1036957284
+El anciano, saltando de alegría, te dice:
+¡¡¡Si!!! Ese es el número que yo buscaba. Es el número que me faltaba de este maravilloso cuadrado mágico de orden 4. Tiene la sorprendente característica de ser pandigital, es decir, que cada elemento está formado por las diez cifras decimales sin repetir ninguna y además la suma de sus filas, columnas y diagonales es también pandigital (4129607358). Probablemente es la matriz pandigital de orden 4 menor posible, dado que se pueden construir otras pero con números mayores ¡Es una joya matemática casi incomparable!
+La fuerza invisible que te impedía el paso hacia el norte, desaparece...
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un camino.
+Puedes ir al sur o al noroeste.
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un cruce de caminos.
+Puedes ir al sur, al noroeste, al norte o al noreste.
+> noreste
+Estás en un camino.
+Puedes ir al suroeste o al noreste.
+Únicamente Zeus sabe dónde te llevará este camino. Sin embargo confías en el filo de tu espada y sigues hacia adelante.
+> noreste
+Estás en un camino.
+Puedes ir al suroeste o al norte.
+¡¡¡ Por el sagrado Aquiles !!! Este camino debe de llevar a algún sitio...
+De pronto, sin previo aviso, una enorme serpiente, te corta el paso amenazante...
+> examina serpiente
+Puaajj... Es asquerosa. No parece muy agresiva. Pero solo lo parece. Su enorme tamaño podría engullirte de un solo bocado.
+> rocia serpiente con antiserpientes
+Rocías a la serpiente con el rayo-espray antiserpientes que te regaló Zeus. La serpiente encantada son su sabor empieza a lamerse por todo el cuerpo. Al cabo de unos segundos, le entran unos retortijones de barriga, y sale corriendo despavorida. Ahora tienes el paso libre.
+> norte
+Estás en la zona cercana a un puente.
+Puedes ir al sur o al norte.
+Delante de ti ves un puente de cuerdas con tablones suspendido sobre un precipicio.
+> norte
+Estás en un puente.
+Puedes ir al sur o al noroeste.
+Estás sobre un puente de cuerdas con tablones suspendido sobre un precipicio. ¡¡¡ El problema es que aquí casi no quedan tablones por donde pasar !!!
+> noroeste
+Estás en un acantilado.
+Puedes ir al sureste o al oeste.
+Desde aquí el fresco viento del mar azota tu cara. Allá abajo ves la playa y al norte, la inmensidad del azul del mar.
+> oeste
+Estás en un acantilado.
+Puedes ver una roca.
+Puedes ir al este o al noroeste.
+Desde aquí divisas la playa que se extiende varios kilómetros debajo de ti.
+A lo lejos ves una gaviota que pasa volando, y se aleja de la costa, posiblemente buscando algún pescado que llevarse al estómago.
+> examina roca
+Examinas la roca y te das cuenta de que es esférica. Te recuerda a la de Indiana Jones, en no sé qué templo...
+> empuja roca
+Empujas la roca con un tremendo esfuerzo. Debido a que es esférica, y que hay una pequeña inclinación en el terreno, consigues hacerla rodar hasta la localidad que se encuentra al noroeste.
+> noroeste
+Estás en un acantilado.
+Puedes ver una roca.
+Puedes ir al sureste.
+Has llegado al extremo del acantilado. Al norte todo lo que ves es mar. El inmenso mar. Debajo entre una neblina al oeste, pareces distinguir unas piedras planas de color blanco. No sabes lo que son, pero crees tener una idea ...
+> empuja roca
+Empujas la roca con un tremendo esfuerzo. Debido a que es esférica y hay una pequeña inclinación en el terreno, consigues hacerla rodar hasta el extremo del acantilado, donde se precipita en el vacio ...
+Al cabo de unos segundos, oyes un fuerte estruendo...
+> sureste
+Estás en un acantilado.
+Puedes ir al este o al noroeste.
+> este
+Estás en un acantilado.
+Puedes ir al sureste o al oeste.
+> sureste
+Estás en un puente.
+Puedes ir al sur o al noroeste.
+> sur
+Estás en la zona cercana a un puente.
+Puedes ir al sur o al norte.
+> sur
+Estás en un camino.
+Puedes ir al suroeste o al norte.
+> suroeste
+Estás en un camino.
+Puedes ir al suroeste o al noreste.
+> suroeste
+Estás en un cruce de caminos.
+Puedes ir al sur, al noroeste, al norte o al noreste.
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> norte
+Estás en un camino.
+Puedes ir al sur o al noroeste.
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> norte
+Estás en un camino, delante de una pequeña choza.
+Puedes ver una hoguera y un anciano.
+Puedes ir al sur o norte.
+Un anciano está sentado en el suelo con las piernas cruzadas, junto a una pequeña choza.
+Hay una pequeña hoguera a su derecha.
+El anciano, absorto en su número pandigital, no te hace ni el más mínimo puñetero caso...
+> norte
+Estás en un camino.
+Puedes ir al noroeste o al sureste.
+Al llegar a este punto del camino, empieza a oscurecer. Se va haciendo de noche y escuchas a una lechuza ulular, mientras te mira sorprendida, con sus brillantes ojos amarillos, pensando qué se te puede haber perdido en estos lóbregos parajes...
+Tú piensas: "Extraños parajes son éstos, Nearco"
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+Estás en la entrada del cementerio. Ves un lobo aullar a la luna desde lo alto de una roca. Un escalofrío recorre tu espina dorsal.
+> norte
+Estás en el cementerio.
+Puedes ver una losa, una tumba y una roca.
+Puedes ir al sur.
+Desde aquí ves muchas fosas, y algunas tumbas tenebrosas. Hasta tus fosas nasales llega un olor nauseabundo. No estás muy seguro si se debe al lugar, o la pestecilla proviene de la parte trasera que está en contacto con tus calzones ...Como eres un valeroso soldado de Alejandro, supones que el aroma proviene de las fosas. (Las nasales).
+> examina tumba
+Es una tumba. La pesada losa que estaba encima, ahora está hecha pedazos debido a la enorme roca que ha caído sobre ella. La tumba está abierta. Dentro hay un cráneo.
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un camino.
+Puedes ir al noroeste o al sureste.
+Al llegar a este punto del camino, empieza a oscurecer. Se va haciendo de noche y escuchas a una lechuza ulular, mientras te mira sorprendida, con sus brillantes ojos amarillos, pensando qué se te puede haber perdido en estos lóbregos parajes...
+Tú piensas: "Extraños parajes son éstos, Nearco"
+> sureste
+Estás en un camino.
+Puedes ir al noroeste o al sur.
+Está empezando a clarear.
+Caray. Qué pronto amanece en este lugar. Los rayos del Sol iluminan tu cara y los pajarillos del bosque empiezan a cantar indicándote que un nuevo día ha comenzado...
+(Aunque pensándolo bien, estos pajarillos cantan de una forma muy extraña ... hmmmm..)
+Está empezando a clarear.
+Caray. Que pronto amanece en este lugar. Los rayos del Sol iluminan tu cara y los pajarillos del bosque empiezan a cantar indicándote que un nuevo día ha comenzado...
+(Aunque pensándolo bien, estos pajarillos cantan de una forma muy extraña... hmmmm..)
+Y tú piensas: "Definitivamente, estos parajes parecen mágicos"
+> sur
+Estás en un camino, delante de una pequeña choza.
+Puedes ver una hoguera y un anciano.
+Puedes ir al sur o norte.
+Un anciano está sentado en el suelo con las piernas cruzadas, junto a una pequeña choza.
+Hay una pequeña hoguera a su derecha.
+El anciano, absorto en su número pandigital, no te hace ni el más mínimo puñetero caso...
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un camino.
+Puedes ir al sur o al noroeste.
+> sur
+Estás en un camino.
+Puedes ver un cíclope.
+Puedes ir al sureste o al norte.
+De pronto, un enorme cíclope se planta ante tí.
+Te mira fijamente, y al cabo de unos segundos, te dice:
+"Oye por favor, ¿El camino más corto para llegar al Ninfa's Club?"
+Durante unos minutos te rascas la barba, y luego respondes:
+"Baja hacia el sur, luego tuerce a la derecha, luego la cuarta a la izquierda, después sigue las luces rojas..."
+El cíclope, se da media vuelta, y sin mirarte a la cara, levantando el brazo derecho en señal de agradecimiento, te dice:
+"Gracias. Si vas por allí te invitaré a una copa".
+Y diciendo estas palabras se aleja por el camino, perdiéndose su silueta al cabo de unos minutos.
+> norte
+Estás en un camino.
+Puedes ir al sur o al noroeste.
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> norte
+Estás en un camino, delante de una pequeña choza.
+Puedes ver una hoguera y un anciano.
+Puedes ir al sur o norte.
+Un anciano está sentado en el suelo con las piernas cruzadas, junto a una pequeña choza.
+Hay una pequeña hoguera a su derecha.
+El anciano, absorto en su número pandigital, no te hace ni el más mínimo puñetero caso...
+> norte
+Estás en un camino.
+Puedes ir al noroeste o al sureste.
+Al llegar a este punto del camino, empieza a oscurecer. Se va haciendo de noche y escuchas a una lechuza ulular, mientras te mira sorprendida, con sus brillantes ojos amarillos, pensando qué se te puede haber perdido en estos lóbregos parajes...
+Tú piensas: "Extraños parajes son éstos, Nearco"
+> noroeste
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> norte
+Estás en el cementerio.
+Puedes ver una losa, una tumba, una roca y un cráneo.
+Puedes ir al sur.
+> examina cráneo
+Es un cráneo. No sabes si humano. Pero si que pertenecía a la cabeza de alguien.
+Tiene unas extrañas inscripciones.
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un camino.
+Puedes ir al noroeste o al sureste.
+Al llegar a este punto del camino, empieza a oscurecer. Se va haciendo de noche y escuchas a una lechuza ulular, mientras te mira sorprendida, con sus brillantes ojos amarillos, pensando qué se te puede haber perdido en estos lóbregos parajes...
+Tú piensas: "Extraños parajes son éstos, Nearco"
+> sureste
+Estás en un camino.
+Puedes ir al noroeste o al sur.
+Está empezando a clarear.
+Caray. Que pronto amanece en este lugar. Los rayos del Sol iluminan tu cara y los pajarillos del bosque empiezan a cantar indicándote que un nuevo día ha comenzado...
+(Aunque pensándolo bien, estos pajarillos cantan de una forma muy extraña... hmmmm..)
+Y tú piensas: "Definitivamente, estos parajes parecen mágicos"
+> sur
+Estás en un camino, delante de una pequeña choza.
+Puedes ver una hoguera y un anciano.
+Puedes ir al sur o norte.
+Un anciano está sentado en el suelo con las piernas cruzadas, junto a una pequeña choza.
+Hay una pequeña hoguera a su derecha.
+El anciano, absorto en su número pandigital, no te hace ni el más mínimo puñetero caso...
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un camino.
+Puedes ir al sur o al noroeste.
+> sur
+Estás en un camino.
+Puedes ir al sureste o al norte.
+> sureste
+Estás en un cruce de caminos.
+Puedes ir al sur, al noroeste, al norte o al noreste.
+> norte
+Estás en un camino.
+Puedes ir al sur o al norte.
+> norte
+Estás en un camino.
+Puedes ir al sur o al noreste.
+> noreste
+Estás en el bosque.
+Puedes ir al suroeste o norte.
+Has entrado dentro del bosque. Una gran cantidad de árboles te rodea.
+> norte
+Estás en un largo corredor del bosque.
+Puedes ir al norte o al sur.
+Este es un sitio muy extraño, parece como si la noche se hiciese día, y el día se hiciese noche.
+> norte
+Mientras avanzas, un manto de oscuridad se cierne sobre ti. Se hace de noche, y en el firmamento ves brillar la estrellas.
+Estás en la casa de Libra.
+Puedes ir al este, al oeste o al sur.
+> oeste
+Estás en la casa de Escorpio.
+Puedes ir al este o al noroeste.
+La pinzas del cangrejo de la constelación de Escorpio, parecen recordarte que has de sacarle filo a la hoja de tu espada.
+> noroeste
+Estás en la casa de Sagitario.
+Puedes ir al sureste o al norte.
+Ves brillar un centauro con una arco sobre la oscuridad de la noche, iluminado por fulgurantes estrellas.
+> norte
+Estás en la casa de Capricornio.
+Puedes ir al sur o al norte.
+Los cuernos de la cabra te recuerdan los miles de maridos que has conocido a través de sus esposas.
+> norte
+Estás en la casa de Acuario.
+Puedes ir al sur o al noreste.
+Viendo las estrellas parece que tu sed se apaga.
+> noreste
+Estás en la casa de Piscis.
+Puedes ir al este o al suroeste.
+Al ver esas estrellas, recuerdas las doradas a la sal que te preparaba tu esclava Zoabel para cenar, en las primaverales noches que pasaste en la isla de Cnossos.
+> este
+Estás en la casa de Aries.
+Puedes ir al oeste, al este o al norte.
+Más cuernos. Recuerdas más esposas. También recuerdas más maridos, aunque jamás los hayas conocido.
+Al llegar a esta constelación zodiacal... escuchas unos jadeos... ¿Qué raro?
+Pulsa una tecla ...
+Luego ves como un fauno se viste a toda prisa, y sale corriendo perdiéndose entre las ramas del bosque...
+Pulsa una tecla ...
+Inmediatamente después, aparece la ninfa arreglándose el pelo de detrás de unos arbustos. Se sube el escote y se estira de la falda hacia abajo, dándole golpecitos con la palma de la mano, para alisarla y limpiar los restos de broza del bosque que aún permanecen en ella.
+Tú le dices:
+"Pero... ¿No estabas de luto por la muerte de tu amado?"
+Ella te contesta:
+"Si... pero la vida del bosque es muy triste. ¡¡¡ Todo el pu...ñetero día mirando estrellas!!!
+Una tiene sus necesidades... y los faunos son tan picarones.
+Ayyy...!!! (Suspirando)."
+Luego continúa diciendo:
+Pulsa una tecla ...
+Bueno. Dime Nearco, ¿sabrías decirme ya el nombre de mi amado?
+> di ninfa teofet
+La ninfa te mira, te da un beso (con lengua) y te dice:
+"Gracias. No sé cómo podré agradecértelo. Quizás algún día...Ahora que sé que su nombre era TEOFET, por fin podré reunirme con mi amado. Sigue tu destino, lo encontrarás al norte ... Cuando te visite el dios RAR no olvides decirle como se llamaba mi gran amor. Adiós Nearco. Que la sabiduría de Artemisa ilumine tu camino..."
+Tras decir esto, varios árboles que estaban al norte desaparecen dejándote el paso libre...
+> norte
+Estás en una playa paradisíaca.
+Contemplando una vista maravillosa.
+
+No ves a nadie, pero en tu cabeza suena una dulce melodía. Con una sonrisa en los labios, piensas que la bella ninfa Nerea te susurra una canción, agradeciéndote tu ayuda.
+
+Pronto te encontrarás con el dios RAR. No olvides recordar el nombre de su amado ...
+
+FELICIDADES HAS TERMINADO NEARCO 2.
+
+Pulsa una tecla
+Agradecimientos:
+
+A POMPONIO, como principal betatester.
+A ALEX WARREN, por hacer el pedazo programa que es QUEST 5.0
+A ELAINE MARLEY y a NINES, por su apoyo.
+Al MEC, por poder descargar desde allí algunos recursos sonoros, posteriormente modificados.
+A la WWW, por poder permitirme descargar algunos gráficos que posteriormente han sido modificados para la aventura.
+A tí, por jugar esta aventura.
+A mí, por disfrutar haciéndola para tí.
+
+Cualquier duda, sugerencia, o lo que quieras decirme: Bolumbero@hotmail.com
+Fdo: Jhames.
+[state=Running]

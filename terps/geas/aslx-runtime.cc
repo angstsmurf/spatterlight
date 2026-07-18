@@ -1501,20 +1501,32 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
         // so an uppercase <BR> tail is NOT newline-producing there -- but it
         // strips to nothing, and the appended '\n' then produces the same
         // single newline either way, so lowercase-only matching stays exact.
+        //
+        // The tail may be a <br/> FOLLOWED by closing tags that strip to
+        // nothing -- Nearco II's PrintCentered ends "...<br/></align>",
+        // which qvh strips to "...\n" (no extra append). Walk backwards over
+        // trailing tags: any non-br tag strips to nothing and is skipped; a
+        // br tag produces the newline; anything else means no newline.
         if (!text.empty()) {
             size_t e = text.size();
-            bool ends_nl = text[e - 1] == '\n';
-            if (!ends_nl && text[e - 1] == '>') {
-                size_t lt = text.rfind('<');
-                if (lt != std::string::npos) {
-                    std::string tag = text.substr(lt + 1, e - lt - 2);
-                    size_t j = 2;
-                    if (tag.compare(0, 2, "br") == 0) {
-                        while (j < tag.size() && (tag[j] == ' ' || tag[j] == '\t')) j++;
-                        if (j < tag.size() && tag[j] == '/') j++;
-                        ends_nl = j == tag.size();
-                    }
+            bool ends_nl = false;
+            for (;;) {
+                if (e == 0) break;
+                char c = text[e - 1];
+                if (c == '\n') { ends_nl = true; break; }
+                if (c != '>') break;
+                size_t lt = text.rfind('<', e - 1);
+                if (lt == std::string::npos) break;
+                std::string tag = text.substr(lt + 1, e - lt - 2);
+                size_t j = 2;
+                if (tag.compare(0, 2, "br") == 0) {
+                    while (j < tag.size() && (tag[j] == ' ' || tag[j] == '\t')) j++;
+                    if (j < tag.size() && tag[j] == '/') j++;
+                    if (j == tag.size()) { ends_nl = true; break; }
                 }
+                // any other tag strips to nothing under qvh's Strip -- skip
+                // it and keep looking at what precedes it.
+                e = lt;
             }
             print(ends_nl ? text : text + "\n");
         }
