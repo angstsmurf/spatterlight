@@ -2473,7 +2473,16 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         bool found;
         Value v = resolve_variable(e.str, ctx, found);
         if (!found) {
-            error("Unknown object or variable '" + e.str + "'");
+            // QuestViva pre-encodes multi-word identifiers before parsing
+            // (Utility.EncodeIdentifierSpaces), so its unknown-variable error
+            // reports the ENCODED name ("The___SPACE___Mages___SPACE___..."
+            // in The Last Hero's misspelled-room bugs). Mirror that exactly.
+            std::string enc;
+            for (char c : e.str) {
+                if (c == ' ') enc += "___SPACE___";
+                else enc += c;
+            }
+            error("Unknown object or variable '" + enc + "'");
             return vnull();
         }
         return v;
