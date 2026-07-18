@@ -1,0 +1,190 @@
+Exit the room
+
+by jerkdavi
+
+Thank you for choosing to play this game.
+This is the first game I have ever made, that originated as a silly little idea, me trying to learn a little bit of game making and quest coding, and fruited into this exploration of putting an idea into reality and creating a short little puzzle game. Be sure to play with sound, as it adds to the experience. Furthermore, I recommend downloading the game to playing it in the browser, to keep the glitches at minimum. I downloaded the sound from Zapsplat.com. I downloaded the image from pixabay.com.
+
+Like all adventure games, you can use commands like:
+
+'l or look' - to see the room and all the objects inside it.
+'i or inventory' - to check your inventory.
+
+Try looking at every object you see, even before trying to pick it up, to gather all the required information; try to pick up every object you can; and try to deduce what steps you need to take, from the little nudges inside the game, and the descriptions of objects.
+
+If you encounter any problems in the gameplay, be sure to contact me.
+I wish you happy playing and send kind regards your way. jerkdavi =)
+
+You are in your room. You have spent quite a long time here, in deep meditation, and contemplation of transience of life, and you have decided that it is time to exit the room. You are literally going insane from so much isolation from the outside world! You need to GET OUT NOW!! EXIT THE ROOM NOW!!!
+
+You start hearing these imaginary noises, as you feel more and more disconnected from the world. You must escape your room as soon as possible!
+
+> You look at the room.
+
+The room is filled with light. The blinds are open.
+It is your room, which is neatly and tidely organized. Only problem with it, is that it is a bit dusty, and could do with some cleaning.
+
+You can see a bed, a door, an icon, a bookcase, a mirror, a closet, a carpet and a window.
+
+You can go north.
+
+> x door
+
+> x door
+
+There is a massive closed door on the north wall in front of you, that is separating you from the world. Separating you from freedom. You know its every crack and every crevice... You must find a way to unlock it.
+In the lock there is a doorkey.
+> take doorkey
+
+> take doorkey
+
+You take the doorkey and think to yourself, that there must be a spare in the room somewhere, with which you could open the door. At least you know what the key must look like.
+> x bed
+
+> x bed
+
+In the southwest corner of the room is your bed. It is tightly made and looks very comfortable.
+On the bed there is a pillow.
+> look under pillow
+
+> look under pillow
+
+It is your pillow. It looks a bit bumpy.
+Under the pillow there is a note.
+> take note
+
+> take note
+
+You take the note with you. Better safe than sorry.
+> x note
+
+> x note
+
+Now that the note is in your hand, you can take a closer look at it. It is something you scribbled in your sleep. It says "7:7-8". You do not recall writing it, and you have no idea what it means.
+> x icon
+
+> x icon
+
+There is an icon on the southwest wall (just above your bed) of saint Mark with a lion. Although you have an icon of saint Mark, saint Matthew is your favourite saint. Oh, how many times in life have you aspired to be more like him?...
+> x bookcase
+
+> x bookcase
+
+In the southeast corner of the room is a bookcase. It is filled with books of saints and their lives, but after all those years, your favourite is still the Bible.
+On the 3rd shelf there is your favourite Bible.
+> take Bible
+
+> take Bible
+
+You have taken the Bible with you. It has given you quiescence many a times you have been in woe.
+> read matthew 7:7-8
+
+> read matthew 7:7-8
+
+Matthew is my favourite saint, and the scribbles on the note must mean something.
+
+There is no shame in trying.
+
+"...Ask and it will be given to you; seek and you will find; knock and the door will be opened to you. For everyone who asks receives; the one who seeks finds; and to the one who knocks, the door will be opened..."
+
+You ponder on the quote's meaning...
+> open closet
+
+> open closet
+
+You open the closet.
+> x closet
+
+> x closet
+
+The closet is open.
+In the closet, there is your old gray tunic.
+> move tunic
+
+> move tunic
+
+You move the tunic to the left side of the closet, just where you like it.
+> take box
+
+> take box
+
+You decide to take out the box and put it on the floor.
+> open box
+
+> open box
+
+You open the box.
+> x box
+
+> x box
+
+The box is open.
+In the box, there are keys.
+> take keys
+
+> take keys
+
+You take the keys and put them in your pocket.
+> compare doorkey to keys
+
+> compare doorkey to keys
+
+Are you sure? There is about 20 keys. It could take some time. Answer with a simple yes or no.
+> yes
+Comparing keys...
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+You find the copykey!!!! It falls on the floor...
+> take copykey
+
+> take copykey
+
+You decide to take the copykey.
+
+You feel the imaginary noises coming closer and closer together. How to get out?!
+
+> use copykey on door
+
+> use copykey on door
+
+You put the copykey in the lock victoriously!
+.
+.
+.
+But nothing happens! You burst into tears!!!!
+> knock on door
+
+> knock on door
+
+Of course!
+
+"...Knock and the door will be opened to you. For everyone who knocks, the door will be opened..."
+
+Maybe the problem wasn't my lack of trying, but my lack of faith all along...
+
+You knock, hear the lock clicking, and see the door opening.
+
+On the other side is Jesus welcoming you in his embrace!
+
+THE END!
+
+CONGRATULATIONS ON COMPLETING THE GAME!!!
+[state=Finished]
