@@ -178,6 +178,23 @@ if (args.Length >= 2)
             var parts = cmd[6..].Split(';', 2);
             await world.SendEvent(parts[0], parts.Length > 1 ? parts[1] : "");
         }
+        else if (cmd.StartsWith("tick:"))
+        {
+            // Deterministic real-time advance: tick the game clock by exactly N
+            // seconds, firing any AUTHORED timers that come due — the explicit,
+            // script-driven counterpart of the interactive players' 1s JS
+            // interval. DrainTimers only ever fires SetTimeout ("timeout*")
+            // timers, so games whose progression gates on authored one-shot
+            // timers (First Times' choice/heart/neglect gates) need the script
+            // to say how long the player waits. Recurring timers fire at most
+            // the scripted N seconds' worth — no unbounded looping.
+            if (int.TryParse(cmd[5..].Trim(), out var tsecs) && tsecs > 0)
+            {
+                pendingTick = 0;
+                await world.Tick(tsecs);
+                await AutoAdvance();
+            }
+        }
         else
         {
             if (echoCommands) Line("> " + cmd);

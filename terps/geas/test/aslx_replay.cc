@@ -307,6 +307,17 @@ int main(int argc, char **argv) {
             std::string param = sc == std::string::npos ? "" : rest.substr(sc + 1);
             // qvh: await world.SendEvent(name, param)
             in.send_event(name, param);
+        } else if (cmd.compare(0, 5, "tick:") == 0) {
+            // qvh tick:N — deterministic real-time advance: tick the game
+            // clock by exactly N seconds, firing due AUTHORED timers (the
+            // script-driven counterpart of the interactive 1s JS interval).
+            // Needed by games whose progression gates on authored one-shot
+            // timers, which drain_timers deliberately leaves dormant.
+            long tsecs = std::strtol(cmd.c_str() + 5, nullptr, 10);
+            if (tsecs > 0) {
+                in.tick((int)tsecs);
+                auto_advance();
+            }
         } else {
             if (echo) line_out("> " + cmd);
             in.send_command(cmd);
