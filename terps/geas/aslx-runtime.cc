@@ -1339,7 +1339,7 @@ void Interp::report_script_error(const std::string &what) {
     // the player-facing print below stays bare (QuestViva prints ex.Message).
     errors().push_back(frames_.empty() ? msg
                                        : msg + " [in " + frames_.back() + "]");
-    if (++script_error_count_ >= kMaxScriptErrors) {
+    if (++script_error_count_ >= max_script_errors_) {
         // Every script is failing the same way; the session is wedged. Stop
         // running scripts and end the game (WorldModel's scriptErrorsFatal).
         script_errors_fatal_ = true;

@@ -95,3 +95,25 @@ elif anchor in ttext:
     print("[patch] patched: Templates.cs -> lazy dynamictemplate parse")
 else:
     sys.exit("[patch] anchor not found in Templates.cs (upstream changed?)")
+
+# 4. Configurable script-error breaker limit. QuestViva's 20-script-error
+# circuit breaker ("session unrecoverably wedged") has NO counterpart in
+# legacy Quest, which simply printed every script error and carried on.
+# Some corpus games are legacy-tolerable error storms: spondre's ResponseLib
+# re-adds duplicate suggestion keys (~18 throws per topic pass) and would be
+# Wedged instantly under the breaker despite being fully playable in real
+# Quest. QVH_ERROR_LIMIT overrides the threshold per run (default stays 20,
+# so Whitefield's and Eight characters' frozen behaviours are unchanged).
+wm = engine / "WorldModel.cs"
+wtext = wm.read_text()
+w_anchor = "    private const int MaxScriptErrors = 20;"
+w_repl = """    private static readonly int MaxScriptErrors =
+        int.TryParse(Environment.GetEnvironmentVariable("QVH_ERROR_LIMIT"), out var qvhLimit)
+            ? qvhLimit : 20; // qvh patch: legacy Quest had no breaker at all"""
+if "QVH_ERROR_LIMIT" in wtext:
+    print("[patch] already patched: WorldModel.cs -> QVH_ERROR_LIMIT breaker")
+elif w_anchor in wtext:
+    wm.write_text(wtext.replace(w_anchor, w_repl, 1))
+    print("[patch] patched: WorldModel.cs -> QVH_ERROR_LIMIT breaker")
+else:
+    sys.exit("[patch] anchor not found in WorldModel.cs (upstream changed?)")

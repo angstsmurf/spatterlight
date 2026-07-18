@@ -493,6 +493,8 @@ public:
     // reads QuestViva's private _scriptErrorsFatal by reflection for the same
     // purpose and reports "[state=Wedged]").
     bool script_errors_fatal() const { return script_errors_fatal_; }
+    // Harness knob for the `#!errorlimit=N` script directive (default 20).
+    void set_max_script_errors(int n) { max_script_errors_ = n; }
 
     // Value/runtime helpers (also used by tests).
     static std::string to_string(const Value &v);
@@ -570,7 +572,10 @@ private:
     // wedged (scriptErrorsFatal -> FinishGame) and scripts stop running. The
     // depth cap guards infinite script recursion.
     static constexpr int kMaxScriptDepth = 200;   // MaxScriptExecutionDepth
-    static constexpr int kMaxScriptErrors = 20;   // MaxScriptErrors
+    // MaxScriptErrors. Mutable (default 20) so harnesses can honour a
+    // `#!errorlimit=N` script directive, mirroring qvh's QVH_ERROR_LIMIT —
+    // legacy Quest had no breaker at all (patch_questviva.py §4).
+    int max_script_errors_ = 20;
     void report_script_error(const std::string &what);
     // WorldModel's LogException-ONLY wrappers (PrintAsync -> OutputText,
     // HandleCommandAsyncInternal, TryFinishTurnAsync, TickAsyncInternal,

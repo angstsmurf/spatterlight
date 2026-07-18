@@ -62,6 +62,19 @@ void Emit(string html)
 
 void Line(string s) => transcript.Append(s).Append('\n');
 
+// A `#!errorlimit=N` directive line in the command script raises the
+// script-error breaker threshold for this game (see patch_questviva.py §4 —
+// legacy Quest had no breaker; some games are legacy-tolerable error storms).
+// Must be set before WorldModel's static init runs.
+if (args.Length >= 2)
+{
+    foreach (var l in File.ReadLines(args[1]))
+    {
+        if (l.StartsWith("#!errorlimit="))
+            Environment.SetEnvironmentVariable("QVH_ERROR_LIMIT", l["#!errorlimit=".Length..].Trim());
+    }
+}
+
 var provider = new FileDirectoryGameDataProvider(args[0]);
 var gameData = await provider.GetData();
 

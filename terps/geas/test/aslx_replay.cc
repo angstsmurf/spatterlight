@@ -211,6 +211,11 @@ int main(int argc, char **argv) {
     std::vector<std::string> lines;
     std::string raw;
     while (std::getline(script, raw)) lines.push_back(raw);
+    // qvh `#!errorlimit=N` directive: raise the script-error breaker
+    // threshold for this game (legacy Quest had no breaker at all).
+    for (auto &l : lines)
+        if (l.rfind("#!errorlimit=", 0) == 0)
+            in.set_max_script_errors((int)std::strtol(l.c_str() + 13, nullptr, 10));
     size_t li = 0;
     int steps = 0;
 
