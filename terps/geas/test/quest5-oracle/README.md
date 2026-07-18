@@ -63,8 +63,9 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest: each of the 25 games with a walkthrough
-mapped to its walkthrough file and an extractor mode, plus override-only rows
+`corpus.tsv` is the curated manifest — 57 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 31
+override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
 `Jacqueline Jungle Queen`, `Hawk … - hints-walkthrough.txt`, bare `.txt`), so a
@@ -139,7 +140,7 @@ extractor+preamble. `overrides/README.md` tabulates why each exists
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 28 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 57 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
