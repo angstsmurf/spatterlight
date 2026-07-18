@@ -1,0 +1,329 @@
+Texture
+©2015-2017 Ralf Thissen
+
+Forest
+The sound of birds chirping enters your ears. You open your eyes and slowly stand up. Trees surround you. It seems you woke up in a forest. You try to remember. Who are you and what are you doing here? Unfortunately, you can't answer these questions. Your memory is gone.
+You can go north.
+> n
+
+> n
+
+Entrance
+You leave the forest behind you. Night has fallen. The path leads you to the entrance of what seems to be a house.
+You can see a gate.
+You can go south or north.
+> open gate
+
+> open gate
+You open the large gate.
+> n
+
+> n
+
+House
+You walk towards an old Victorian house.
+You can see a door mat and a front door.
+You can go south or north.
+> move door mat
+
+> move door mat
+You move the door mat.
+A key is visible.
+> take key
+
+> take key
+You take the key.
+> use key on front door
+
+> use key on front door
+You use the key to open the front door.
+You slowly push the heavy door open.
+> n
+
+> n
+
+Main hall
+The heavy front door closes behind you. You try to open it, but it's locked. It seems you're trapped inside! You find yourself in the main hall of the Victorian house. Although it's quite dark, some candles in the ceiling chandelier dimly lit the main hall.
+You can see a staircase, a front door and a chandelier.
+You can go west, up or south.
+> up
+
+> up
+
+First floor
+You're on the first floor of the old house.
+You can see a painting.
+You can go east, down or west.
+> e
+
+> e
+
+Master bedroom
+You find yourself in what seems to be the master bedroom of the house. You shiver as you look around the room. The Baroque wallpaper design on the walls is covered in blood stains! A blood trail leads to the bathroom on the east.
+You can see a bed, a closet and a desk.
+You can go west or east.
+> e
+
+> e
+
+Bathroom
+You follow the blood trail and enter the bathroom.
+You can see a curtain and a toilet.
+You can go west.
+> open curtain
+
+> open curtain
+You open the curtain.
+The bath is visible.
+> x bath
+
+> x bath
+The huge bath is filled with a large amount of blood. It looks like someone or something is slaughtered here.
+> x toilet
+
+> x toilet
+There's a kitchen knife lying on the toilet seat.
+> take knife
+
+> take knife
+You take the kitchen knife.
+> w
+
+> w
+
+Master bedroom
+You find yourself in what seems to be the master bedroom of the house.  The Baroque wallpaper design on the walls is covered in blood stains! A blood trail leads to the bathroom on the east.
+You can see a bed, a closet and a desk.
+You can go west or east.
+> w
+
+> w
+
+First floor
+You're on the first floor of the old house.
+You can see a painting.
+You can go east, down or west.
+> w
+
+> w
+
+Study
+You're in the study of the house. Someone seems to have had a fight with a laptop and a lot of books.
+You can see a laptop and a bookshelf.
+You can go east.
+> x bookshelf
+
+> x bookshelf
+There are still some books left on the shelf. One particular book catches your eye: "Anne Frank: The Diary of a Young Girl"
+> take book
+
+> take book
+You want to take the book off the shelf, but the book seems to work as a lever! You remove your hand from the book and watch how the bookshelf makes way for a secret room on the north.
+> n
+
+> n
+
+Secret room
+You've found what seems to be a secret room! The room is dimly lit by the light coming from the study. Some empty boxes fill the room.
+You can see a ladder and boxes.
+You can go south or up.
+> up
+
+> up
+
+Attic
+You're in the attic. A lot of small candles lit the room.
+You can see a mirror and candles.
+You can go down.
+> x mirror
+
+> x mirror
+A large floor standing mirror with a baroque style frame. Strangely enough, you can't see the image of yourself in it.
+> use knife on mirror
+
+> use knife on mirror
+You hold the bloody kitchen knife in front of the mirror. You wonder why the image of the knife in the mirror is not covered in blood. Suddenly, the mirror starts to glow and a powerful energy grabs you and pulls you towards the mirror. You can't resist it! Before you know it, you're sucked into the mirror.
+
+Attic
+You find yourself on the floor in front of the mirror. You slowly stand up and look at the kitchen knife. The knife is clean! As expected, the image of the knife in the mirror shows an example covered in blood. Could you be on the other side of the mirror? You're in the attic. A lot of small candles lit the room.
+You can see a mirror and candles.
+You can go down.
+> down
+
+> down
+
+Secret room
+You're in the secret room. The room is dimly lit by the light coming from the study. Some boxes packed with books fill the room.
+You can see a ladder and boxes.
+You can go up or south.
+> s
+
+> s
+
+Study
+You're in the study of the house.
+You can see a laptop.
+You can go north or east.
+> e
+
+> e
+
+First floor
+You're on the first floor of the old house.
+You can see a painting.
+You can go west, east or down.
+> down
+
+> down
+
+Main hall
+You enter the main hall of the Victorian house. The candles in the ceiling chandelier brightly lit the main hall.
+You can see a staircase, a front door and a chandelier.
+You can go up, west or south.
+> w
+
+> w
+
+Kitchen
+You're in the rather small kitchen of the house. The kitchen looks clean.
+You can see a cabinet.
+You can go east.
+> open cabinet
+
+> open cabinet
+You gently open the cabinet doors.
+The cabinet contains a power supply.
+> take power supply
+
+> take power supply
+You take the power supply.
+> e
+
+> e
+
+Main hall
+You enter the main hall of the Victorian house. The candles in the ceiling chandelier brightly lit the main hall.
+You can see a staircase, a front door and a chandelier.
+You can go up, west or south.
+> up
+
+> up
+
+First floor
+You're on the first floor of the old house.
+You can see a painting.
+You can go west, east or down.
+> w
+
+> w
+
+Study
+You're in the study of the house.
+You can see a laptop.
+You can go north or east.
+> use power supply on laptop
+
+> use power supply on laptop
+You connect the power supply to the laptop.
+> turn on laptop
+
+> turn on laptop
+You turn on the laptop. After the laptop started up, an article on the website of what seems to be the local Police Department is displayed on the screen.
+> x screen
+
+> x screen
+The article is titled "Woman found dead in forest". You read the article: "The lifeless body of a still unidentified young woman was found in the forest last night by a runner. The woman has long blond hair and was dressed in a short red dress, black pantyhose and red high heel shoes. We believe she was murdered and possibly raped. She has multiple head injuries and her eyes are missing. Medical personnel have determined that the cause of death is exsanguination due to a cut throat injury. If you have any information that can help us solving this murder, we highly encourage you to contact your local Police Department immediately." You feel strange and dizzy. Suddenly a picture of the bloody eyes of a woman appears in your head. The image frightens you. You've seen those bloody eyes somewhere...
+> n
+
+> n
+
+Secret room
+You're in the secret room. The room is dimly lit by the light coming from the study. Some boxes packed with books fill the room.
+You can see a ladder and boxes.
+You can go up or south.
+> up
+
+> up
+
+Attic
+ You're in the attic. A lot of small candles lit the room.
+You can see a mirror and candles.
+You can go down.
+> use knife on mirror
+
+> use knife on mirror
+You hold the clean kitchen knife in front of the mirror. Suddenly, the mirror starts to glow and a powerful energy grabs you and pulls you towards the mirror. Before you know it, you're sucked into the mirror.
+
+Attic
+You're in the attic. A lot of small candles lit the room.
+You can see a mirror and candles.
+You can go down.
+> down
+
+> down
+
+Secret room
+ The room is dimly lit by the light coming from the study. Some empty boxes fill the room.
+You can see a ladder and boxes.
+You can go south or up.
+> s
+
+> s
+
+Study
+You're in the study of the house. Someone seems to have had a fight with a laptop and a lot of books.
+You can see a laptop.
+You can go east or north.
+> e
+
+> e
+
+First floor
+You're on the first floor of the old house.
+You can see a painting.
+You can go east, down or west.
+> x painting
+
+> x painting
+Intrigued by the painting, you walk towards it. The bloody eyes of a woman are painted on it and they seem to stare at you suspiciously. You closely look into her bloody eyes. You remember these eyes. These eyes belonged to your wife. She couldn't take it any longer and wanted to leave you. But you couldn't let that happen. Anger fills your body as a poison. Suddenly, everything begins to shake! The painting falls off the wall and hits your head. Everything turns black.
+
+Master bedroom
+You find yourself in what seems to be the master bedroom of the house. Your wife is busy packing her clothes.
+You can see your wife, a bed, a closet and a desk.
+> x wife
+
+> x wife
+She wears a sexy short red dress, black pantyhose and red high heels. This is how you like to see her. She's always dressed like she's going to a party. But she isn't going to a party this time. She seems to pack her things and wants to leave.
+> kill wife
+
+> kill wife
+You walk towards her, grab her from behind and throw her against the closet. She screams, but no one will hear her. You grab her head and smash it several times against the closet doors until both doors lay broken on the floor. The sound of her screaming slowly fades away. You look at her blooded face, take the kitchen knife and cut both her eyes out. Blood spurts everywhere! You grab her arms and drag her half dead body to the bathroom. You open the curtain and before dropping her in the bathtub, you slit her throat.
+
+Master bedroom
+You find yourself in what seems to be the master bedroom of the house.  The Baroque wallpaper design on the walls is covered in blood stains! A blood trail leads to the bathroom on the east.
+You can see a bed, a closet, a desk and an emblem.
+You can go west or east.
+> take emblem
+
+> take emblem
+You take the emblem.
+> w
+
+> w
+
+First floor
+You're on the first floor of the old house.
+You can see a small hole.
+You can go east, down or west.
+> use emblem on small hole
+
+> use emblem on small hole
+You place the emblem firmly in the hole and hear a "click". The tree on the emblem suddenly lights up. It hurts your eyes. A high pitched sound enters your ears and you slowly lose consciousness.
+
+Forest
+The sound of police sirens enters your ears. You open your eyes and slowly stand up. Trees surround you. It seems you woke up in a forest. A policeman shouts: "Police! Put your hands up!" You put your hands in the air. "You're arrested for the murder of your wife."
+Texture
+©2015-2017 Ralf Thissen
+
+Thank you for playing!
+[state=Finished]
