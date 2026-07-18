@@ -309,6 +309,21 @@ public:
     // Unset, the call is ignored (arg unevaluated).
     std::function<void(const std::string &text)> update_location;
 
+    // Host hook for JS.uiShow/uiHide("#txtCommandDiv") -- the reference
+    // player's command box. Core's InitInterface hides it when
+    // game.showcommandbar is off, and GamebookCore hides it always (a
+    // gamebook is played by clicking page links, with no parser at all),
+    // re-showing it only around a `get input`. A host with no separate input
+    // box should show no prompt and take no typed line while it is hidden.
+    // Unset, the call is ignored (arg unevaluated).
+    std::function<void(bool shown)> show_command_bar;
+
+    // Host hook for JS.disableAllCommandLinks -- GamebookCore calls it once a
+    // page choice has been taken, so the options printed above stop being
+    // clickable (the reference player strips their anchors). A host that
+    // keeps its transcript on screen must retire those links itself.
+    std::function<void()> disable_command_links;
+
     // -- undo (UndoLogger port) ----------------------------------------------
     // The logger only records while a transaction is open. Core's parser opens
     // one per successfully-parsed player command ("start transaction

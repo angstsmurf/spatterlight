@@ -2829,6 +2829,16 @@ bool Interp::exec_statement_command(const std::string &name,
             update_status(to_string(ev(0)));
         else if (fn == "updateLocation" && !args.empty() && update_location)
             update_location(to_string(ev(0)));
+        else if (fn == "disableAllCommandLinks" && disable_command_links)
+            disable_command_links();
+        else if ((fn == "uiShow" || fn == "uiHide") && !args.empty() &&
+                 show_command_bar) {
+            // The command box only; the other ids this channel carries
+            // ("#location", the panes) are pure layout in the reference
+            // player's DOM and mean nothing here.
+            if (to_string(ev(0)) == "#txtCommandDiv")
+                show_command_bar(fn == "uiShow");
+        }
         else if (fn == "eval" && !args.empty() && request_restart) {
             /* The restart channel: Core's `restart` command evals
              * "window.location.reload();" (older Cores first probe the

@@ -115,6 +115,13 @@ std::string g_room_name;
  * does not appear twice.  Echo-incapable libraries (CheapGlk: the smoke
  * harness) keep the reference presentation, byte-stable for the harness. */
 bool g_prompt_first = false;
+/* Is the reference player's command box showing?  Core hides it when
+ * game.showcommandbar is off, and GamebookCore hides it for good: a gamebook
+ * has no parser at all, it is played by clicking the links on each page.
+ * While it is hidden we print no prompt and request no line input, so the
+ * page reads as a page -- exactly what the reference player shows.  Only a
+ * `get input` re-shows it (GamebookCore's GetInput does so explicitly). */
+bool g_command_bar = true;
 int g_swallow = 0;              /* 2 = leading blank + "> cmd" outstanding,
                                    1 = blank swallowed, "> cmd" outstanding */
 std::string g_swallow_cmd;      /* the trimmed command the echo must match */
@@ -126,8 +133,16 @@ struct LinkAction {
     std::string command;        /* send_command() this */
     std::string event_func;     /* or call_function(event_func, {event_param}) */
     std::string event_param;
+    std::string toggle_key;     /* pane object: expand/collapse its verb list */
 };
 std::vector<LinkAction> g_links;
+/* Link values at or below this are spent: JS.disableAllCommandLinks (Gamebook
+ * Core, when a page choice has been taken) retires every cmdlink printed so
+ * far, so an earlier page's options cannot be clicked again.  A high-water
+ * mark rather than a clear, because the values are indices into g_links and
+ * the already-printed links keep theirs -- clearing would hand an old link on
+ * screen the action of whichever new one reused its number. */
+size_t g_links_spent = 0;
 
 /* Right-hand pane: Quest's Inventory / "Places and Objects" / compass lists
  * (WorldModel.UpdateListsAsync -> the update_list host hook), shown the way
@@ -139,6 +154,13 @@ bool g_use_objpane = false;          /* host can split; probed at startup */
 std::vector<ListData> g_pane_inv, g_pane_places, g_pane_exits;
 bool g_pane_dirty = false;           /* lists changed since the last redraw */
 std::vector<LinkAction> g_pane_links;   /* rebuilt on every pane redraw */
+/* Element name of the pane object whose verb list is currently unfolded, or
+ * empty.  QuestViva pops a verb menu when an object name is clicked; a Glk
+ * pane has nowhere to pop one, so the verbs appear as an indented list under
+ * the name, and clicking the name again folds it away.  One at a time, like
+ * the reference menu.  Survives redraws, so the list stays open across the
+ * turns its own verbs run. */
+std::string g_pane_expanded;
 /* Pane hyperlink values live above the main-window link ids, which only ever
  * grow one per rendered cmdlink and never get near this. */
 const glui32 kPaneLinkBase = 0x40000000;
@@ -634,16 +656,35 @@ void redraw_side_pane(Interp &in)
             glui32 linkval = 0;
             if (g_hyperlinks) {
                 LinkAction act;
-                /* A direction runs itself; an object defaults to VERBS, which
-                 * lists its verb menu (QuestViva pops the same menu on click)
-                 * rather than firing the first verb. */
-                act.command = exit_links
-                    ? d->display_alias
-                    : "verbs " + d->display_alias;
+                /* A direction runs itself; an object unfolds its verb list
+                 * in place, the way QuestViva pops a verb menu on a click. */
+                if (exit_links)
+                    act.command = d->display_alias;
+                else
+                    act.toggle_key = d->element_name;
                 g_pane_links.push_back(act);
                 linkval = kPaneLinkBase + (glui32) g_pane_links.size() - 1;
             }
             put_pane_link(s, label, linkval, true);
+            if (exit_links || d->element_name != g_pane_expanded)
+                continue;
+            /* The unfolded verb menu: one indented link per verb, each
+             * running the command the reference menu item would ("Look at
+             * hat") -- the same phrasing VERBS lists. */
+            for (const std::string &verb : d->verbs) {
+                std::string vtext = plain_text(verb);
+                if (vtext.empty())
+                    continue;
+                glui32 vlink = 0;
+                if (g_hyperlinks) {
+                    LinkAction act;
+                    act.command = vtext + " " + d->display_alias;
+                    g_pane_links.push_back(act);
+                    vlink = kPaneLinkBase + (glui32) g_pane_links.size() - 1;
+                }
+                glk_put_string_stream(s, (char *) "    ");
+                put_pane_link(s, cap_first(vtext), vlink, true);
+            }
         }
     };
 
@@ -759,14 +800,20 @@ struct PromptBreak {
  * (when controllable), so the typed line is atomically replaced by whichever
  * echo applies.  Timer events tick the engine; if a tick opens a prompt or
  * ends the game the request is cancelled and InEnd::State returned. */
-InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
+InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
+                   bool want_line = true)
 {
     static glui32 buf[256];
+    /* Links are the only other way in, so a library without them always gets
+     * the line request (CheapGlk: the smoke harness). */
+    if (!g_hyperlinks)
+        want_line = true;
     if (prompt)
         glk_put_string((char *) prompt);
     if (g_echo_control)
         glk_set_echo_line_event(gwin, 0);
-    glk_request_line_event_uni(gwin, buf, 255, 0);
+    if (want_line)
+        glk_request_line_event_uni(gwin, buf, 255, 0);
     if (g_hyperlinks) {
         glk_request_hyperlink_event(gwin);
         if (gobjwin)
@@ -785,9 +832,11 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
             }
             break;
         case evtype_Hyperlink:
-            if (ev.win == gwin && ev.val1 >= 1 && ev.val1 <= g_links.size()) {
+            if (ev.win == gwin && ev.val1 > g_links_spent &&
+                ev.val1 <= g_links.size()) {
                 event_t ce;
-                glk_cancel_line_event(gwin, &ce);
+                if (want_line)
+                    glk_cancel_line_event(gwin, &ce);
                 const LinkAction &act = g_links[ev.val1 - 1];
                 if (!act.command.empty()) {
                     if (g_manual_echo && echo)
@@ -803,10 +852,27 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
             }
             if (ev.win == gobjwin && ev.val1 >= kPaneLinkBase &&
                 ev.val1 - kPaneLinkBase < g_pane_links.size()) {
-                /* A side-pane item: run its command as if typed. */
+                /* By value: the toggle path rebuilds g_pane_links. */
+                const LinkAction act = g_pane_links[ev.val1 - kPaneLinkBase];
+                if (!act.toggle_key.empty()) {
+                    /* An object name: fold its verb list open or shut and
+                     * repaint the pane.  No turn passes, so the line request
+                     * in the main window stays exactly as it was. */
+                    g_pane_expanded =
+                        g_pane_expanded == act.toggle_key ? "" : act.toggle_key;
+                    g_pane_dirty = true;
+                    redraw_side_pane(in);
+                    if (g_hyperlinks) {
+                        glk_request_hyperlink_event(gwin);
+                        if (gobjwin)
+                            glk_request_hyperlink_event(gobjwin);
+                    }
+                    break;
+                }
+                /* A verb or a direction: run its command as if typed. */
                 event_t ce;
-                glk_cancel_line_event(gwin, &ce);
-                const LinkAction &act = g_pane_links[ev.val1 - kPaneLinkBase];
+                if (want_line)
+                    glk_cancel_line_event(gwin, &ce);
                 if (g_manual_echo && echo)
                     echo_input(act.command);
                 return {InEnd::Command, act.command};
@@ -821,7 +887,9 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
             /* Cancel first: Glk forbids output with a live line request.
              * With echo off the cancel is invisible. */
             event_t ce;
-            glk_cancel_line_event(gwin, &ce);
+            ce.val1 = 0;
+            if (want_line)
+                glk_cancel_line_event(gwin, &ce);
             bool reprompt;
             {
                 PromptBreak pb(in, prompt != nullptr);
@@ -836,7 +904,8 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr)
                 return {InEnd::State, ""};
             if (reprompt)
                 glk_put_string((char *) prompt);
-            glk_request_line_event_uni(gwin, buf, 255, ce.val1);
+            if (want_line)
+                glk_request_line_event_uni(gwin, buf, 255, ce.val1);
             if (g_hyperlinks) {
                 glk_request_hyperlink_event(gwin);
                 if (gobjwin)
@@ -1610,6 +1679,12 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     in.update_location = [](const std::string &text) {
         g_location_line = plain_text(text);
     };
+    /* The command box's visibility -- see g_command_bar. */
+    in.show_command_bar = [](bool shown) { g_command_bar = shown; };
+    /* A taken page choice retires the options above it -- see g_links_spent.
+     * Called before the new page prints, so the links it is about to add are
+     * above the mark and stay live. */
+    in.disable_command_links = [] { g_links_spent = g_links.size(); };
     /* The grid map needs only filled rectangles, so plain gestalt_Graphics
      * gates it.  Unset (CheapGlk: the smoke harness), the engine never even
      * evaluates the paint arguments, keeping headless transcripts intact. */
@@ -1739,8 +1814,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
              * pending `get input` is host-owned either way: the engine
              * consumes the line without any game-side echo. */
             bool host_owned = in.command_override();
-            bool prompted = g_prompt_first || host_owned;
-            InResult r = read_line(in, prompted, prompted ? "\n> " : nullptr);
+            /* With the command box hidden (a gamebook, or any game with
+             * showcommandbar off) there is nothing to type at: no prompt, no
+             * line request, just the page and its links.  A `get input` is
+             * host-owned and re-shows the box, so it prompts as usual. */
+            bool want_line = g_command_bar || host_owned;
+            bool prompted = (g_prompt_first || host_owned) && want_line;
+            InResult r = read_line(in, prompted, prompted ? "\n> " : nullptr,
+                                   want_line);
             if (r.kind == InEnd::State || r.kind == InEnd::Event)
                 { /* re-dispatch on the new engine state */ }
             else {
@@ -1870,6 +1951,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
         stop_sound_ui();
         glk_window_clear(gwin);
         g_links.clear();
+        g_links_spent = 0;
         g_bold = g_italic = g_under = 0;
         apply_style();
         /* No pane content survives the session either. */
@@ -1879,8 +1961,11 @@ extern "C" void aslx_glk_main(const char *storyfile)
         g_pane_places.clear();
         g_pane_exits.clear();
         g_pane_links.clear();
+        g_pane_expanded.clear();
         g_pane_dirty = false;
         g_status_line.clear();
         g_location_line.clear();
+        /* The reloaded game declares its own command box at InitInterface. */
+        g_command_bar = true;
     }
 }

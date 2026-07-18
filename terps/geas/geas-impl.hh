@@ -182,7 +182,7 @@ public:
      verbs it responds to, its own `action <verb>` definitions, and any global
      `verb` declaration it handles.  Backs the "verbs <object>" command, which
      mirrors Quest 4's right-click verb context menu. */
-  std::vector<std::string> object_verbs (const std::string &obj) const;
+  v2string object_verbs (const std::string &obj) const;
   std::string exit_dest (const std::string &room, const std::string &dir, bool *is_act = NULL) const;
   /* Quest locked exits ("<dir> locked <dest; lockmessage>", plus lock/unlock
    * commands).  exit_lock_message returns the declared message (or "").  An
@@ -271,6 +271,7 @@ public:
   virtual v2string get_inventory();
   virtual v2string get_room_contents();
   v2string get_room_contents(const std::string &);
+  virtual v2string get_object_verbs(const std::string &);
   virtual v2string get_room_exits();
   virtual vstring get_status_vars();
   virtual std::vector<bool> get_valid_exits();

@@ -372,24 +372,54 @@ bool geas_implementation::dispatch_obj_verb (const string &obj, const string &ke
   return false;
 }
 
-vector<string> geas_implementation::object_verbs (const string &obj) const
+v2string geas_implementation::object_verbs (const string &obj) const
 {
-  vector<string> out;
+  /* Each entry is {menu label, command, "1" when the command is only a prefix
+     the player still has to finish}; see GeasRunner::get_object_verbs. */
+  v2string out;
+  /* The name a typed command uses for this object -- the same printed alias
+     the pane lists it under (see get_room_contents). */
+  string alias;
+  if (!get_obj_property (obj, "alias", alias))
+    alias = obj;
   /* Capitalise the first letter so a stored key ("destroy", "listen to")
-     reads as a menu label ("Destroy", "Listen to"), matching Quest. */
-  auto label_of = [] (const string &s) {
+     reads as a menu label ("Destroy", "Listen to"), matching Quest.
+
+     A few action keys are spellings of a verb the menu already lists under
+     another name: the parser dispatches "look" and "look at" to the same
+     `look` action, "speak"/"talk"/"talk to" to the same `speak` action, and
+     "x" to `examine` (see run_commands).  An object that spells its handler
+     the short way ("look msg <...>", which the loader stores as
+     `action <look>`) would otherwise be listed twice -- The Mansion's dining
+     room painting showed both "Look at" and "Look", "Speak to" and "Speak".
+     Canonicalise to the label the menu already uses so add()'s duplicate
+     check catches them. */
+  auto label_of = [&] (const string &s) {
     string t = trim (s);
+    if (ci_equal (t, "look"))                            return string ("Look at");
+    if (ci_equal (t, "x"))                               return string ("Examine");
+    if (ci_equal (t, "speak") || ci_equal (t, "talk") ||
+	ci_equal (t, "talk to"))                         return string ("Speak to");
+    /* The take/drop pair is one menu entry, whichever way it is spelled:
+       a carried object offers Drop, one on the floor offers Take. */
+    if (ci_equal (t, "take") || ci_equal (t, "get"))
+      return string (is_held (obj) ? "Drop" : "Take");
     if (!t.empty ()) t[0] = std::toupper ((unsigned char) t[0]);
     return t;
   };
-  auto add = [&] (const string &label) {
+  /* Add one menu entry.  The command defaults to what the player would type
+     to apply this verb to this object ("Look at" -> "Look at red herring");
+     a verb needing a second noun passes its own prefix and more = true. */
+  auto add = [&] (const string &label, const string &command = "",
+		  bool more = false) {
     string t = trim (label);
     if (t == "")
       return;
-    for (const string &e: out)
-      if (ci_equal (e, t))
+    for (const vector<string> &e: out)
+      if (!e.empty () && ci_equal (e[0], t))
 	return;
-    out.push_back (t);
+    out.push_back ({t, command != "" ? command : t + " " + alias,
+		    more ? "1" : ""});
   };
   /* Does the object define its own handler (action or property) for this key? */
   auto responds = [&] (const string &key) {
@@ -434,8 +464,9 @@ vector<string> geas_implementation::object_verbs (const string &obj) const
     return false;
   };
   /* Returns true when a verb phrase names a specific second object, e.g.
-     "break with fire-axe" or "use fire ax".  Such entries are spoilery
-     and omitted; plain "Use" (no noun) is still shown when applicable. */
+     "break with fire-axe", "use fire ax" or "give to guard".  Such entries
+     are spoilery and omitted; the plain forms with no noun ("Use", "Give
+     to...") are still shown when applicable. */
   auto has_indirect_object = [] (const string &v) {
     static const char *preps[] = { " with ", " using ", nullptr };
     for (const char **p = preps; *p; ++p)
@@ -444,13 +475,16 @@ vector<string> geas_implementation::object_verbs (const string &obj) const
 	if (pos != string::npos && pos + strlen (*p) < v.size ())
 	  return true;
       }
-    /* "use <noun>" — bare USE followed directly by a noun, no preposition */
-    if (v.size () > 4 &&
-	(std::tolower ((unsigned char) v[0]) == 'u') &&
-	(std::tolower ((unsigned char) v[1]) == 's') &&
-	(std::tolower ((unsigned char) v[2]) == 'e') &&
-	v[3] == ' ')
-      return true;
+    /* "use <noun>" / "give <noun>" / "give to <noun>" — a verb followed
+       directly by a named object, with or without a preposition.  (The
+       "anything" catch-alls are handled by the caller, before this.) */
+    static const char *verbs[] = { "use ", "give ", "give to ", nullptr };
+    for (const char **w = verbs; *w; ++w)
+      {
+	size_t n = strlen (*w);
+	if (v.size () > n && ci_equal (v.substr (0, n), *w))
+	  return true;
+      }
     return false;
   };
   const GeasBlock *ob = gf.find_by_name ("object", obj);
@@ -464,8 +498,29 @@ vector<string> geas_implementation::object_verbs (const string &obj) const
 	if (!is_param (nm))
 	  continue;
 	for (const string &v: split_param (param_contents (nm)))
-	  if (!is_skipped (trim (v)) && !has_indirect_object (trim (v)))
+	  {
+	    string key = trim (v);
+	    /* The two GIVE catch-alls (see the "give ... to ..." handler in
+	       run_commands).  "give to anything" is this object being handed
+	       over, so it makes a menu entry -- but only as the start of a
+	       command, since the recipient is still missing.  "give anything"
+	       is the mirror case, this object receiving something the player
+	       has not named yet; that command starts with the *other* object,
+	       so there is nothing here to offer.  Both would otherwise be
+	       listed raw ("Give anything", "Give to anything"), reading as two
+	       duplicate verbs that do nothing when clicked.  Checked before
+	       has_indirect_object, which drops the named-recipient forms. */
+	    if (ci_equal (key, "give anything"))
+	      continue;
+	    if (ci_equal (key, "give to anything"))
+	      {
+		add ("Give to...", "give " + alias + " to ", true);
+		continue;
+	      }
+	    if (is_skipped (key) || has_indirect_object (key))
+	      continue;
 	    add (label_of (v));
+	  }
       }
 
   /* Global `verb <name[;syn]> ...` declarations the object responds to. */
@@ -3077,11 +3132,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
     {
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
-      vector<string> verbs = object_verbs (match.bindings[0].var_text);
+      v2string verbs = object_verbs (match.bindings[0].var_text);
       print_formatted ("You can:");
-      for (const string &v: verbs)
+      for (const vector<string> &v: verbs)
 	{
-	  print_normal (v);
+	  if (v.empty ())
+	    continue;
+	  print_normal (v[0]);
 	  print_newline();
 	}
       return true;
@@ -5063,10 +5120,22 @@ v2string geas_implementation::get_room_contents (const string &room)
 	    if (!get_obj_property (objname, "displaytype", otype))
 	      otype = "object";
 	    tmp.push_back (otype);
+	    /* The internal name, so a host that lists this entry can ask for its
+	       verb menu without re-resolving the printed alias (which may be
+	       ambiguous, and would prompt). */
+	    tmp.push_back (objname);
 	    rv.push_back (tmp);
 	  }
       }
   return rv;
+}
+
+v2string geas_implementation::get_object_verbs (const string &obj)
+{
+  /* The same list "verbs <object>" prints, for a host that shows the verb
+     menu in its pane; the caller passes the internal name from a
+     get_room_contents entry, so no object resolution happens here. */
+  return object_verbs (obj);
 }
 
 v2string geas_implementation::get_room_exits ()

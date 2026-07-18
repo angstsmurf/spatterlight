@@ -105,11 +105,25 @@ static bool g_use_objpane = false;       /* host supports a side pane; objwin ma
 static bool g_hyperlinks = false;        /* host supports clickable hyperlinks in a
                                           * text buffer (the object pane's entries) */
 
-/* One click command per objwin hyperlink, indexed by (link value - 1).  Rebuilt
- * on every update_objwin: an object runs "verbs <alias>" (its verb menu, like
- * the Quest 5 pane), an exit runs its navigation command (a direction, "out",
- * or "go to <place>"). */
-static std::vector<std::string> g_objlinks;
+/* One click action per objwin hyperlink, indexed by (link value - 1).  Rebuilt
+ * on every update_objwin: an object unfolds its verb menu in the pane (the
+ * Quest 5 pane does the same), a verb from that menu and an exit each run
+ * their command (a direction, "out", or "go to <place>") as if typed. */
+struct ObjLink {
+    std::string command;     /* run this as if typed */
+    std::string toggle_key;  /* or: unfold/fold this object's verb menu */
+    bool prefill = false;    /* or: `command` is an unfinished command -- put it
+                              * in the input line and let the player complete it
+                              * (a verb still missing its second noun) */
+};
+static std::vector<ObjLink> g_objlinks;
+
+/* Internal name of the object whose verb menu is currently unfolded in the
+ * pane, or empty.  The original Windows Quest 4 pops the menu on a
+ * right-click; a Glk pane has nowhere to pop one, so the verbs appear as an
+ * indented list under the object and clicking the name again folds it away.
+ * One at a time, as in the Quest 5 pane. */
+static std::string g_objwin_expanded;
 
 extern const char *storyfilename;  /* defined in geasglkterm.c */
 extern int use_inputwindow;
@@ -472,7 +486,44 @@ void glk_main(void)
                  * (objects -> "verbs <object>", exits -> their navigation). */
                 if (g_hyperlinks && ev.win == objwin &&
                     ev.val1 >= 1 && ev.val1 <= (glui32) g_objlinks.size()) {
-                    std::string cmd = g_objlinks[ev.val1 - 1];
+                    /* By value: the toggle path rebuilds g_objlinks. */
+                    const ObjLink act = g_objlinks[ev.val1 - 1];
+                    if (!act.toggle_key.empty()) {
+                        /* An object name: fold its verb menu open or shut and
+                         * repaint the pane (which re-arms its hyperlink).  No
+                         * turn passes, so the live line input stays as it is
+                         * and the loop keeps waiting for the real input. */
+                        g_objwin_expanded = g_objwin_expanded == act.toggle_key
+                            ? std::string() : act.toggle_key;
+                        update_objwin(gr);
+                        break;
+                    }
+                    if (act.prefill) {
+                        /* A verb whose command is not finished yet ("give red
+                         * herring to ").  Put it in the input line and hand
+                         * the line back to the player to name the second
+                         * object, instead of running it as it stands.  No turn
+                         * passes; the loop keeps waiting, and the LineInput it
+                         * eventually gets carries the whole line, prefix and
+                         * all. */
+                        event_t ce;
+                        glk_cancel_line_event(inputwin, &ce);
+                        glui32 n = (glui32) act.command.size();
+                        if (n < (sizeof buf) - 1) {
+                            memcpy(buf, act.command.data(), n);
+                            buf[n] = '\0';
+                        } else {
+                            n = 0;
+                        }
+                        glk_request_line_event(inputwin, buf,
+                                               (sizeof buf) - 1, n);
+                        /* Clearing the pane below would drop its hyperlink
+                         * request, so re-arm it here where nothing is redrawn. */
+                        if (g_hyperlinks && objwin)
+                            glk_request_hyperlink_event(objwin);
+                        break;
+                    }
+                    std::string cmd = act.command;
                     /* Cancel the live line input first -- Glk forbids printing to
                      * a window with a pending request; with echo off the cancel
                      * leaves nothing on screen. */
@@ -592,28 +643,36 @@ close_objwin()
 
 /* Write one pane entry (on its own line) to the objwin stream.  When the host
  * supports hyperlinks the label is made clickable: its link value is its
- * 1-based index in g_objlinks, and a click runs `command` as if the player had
- * typed it (see the evtype_Hyperlink handling in glk_main). */
+ * 1-based index in g_objlinks, and a click either runs `command` as if the
+ * player had typed it or folds `toggle_key`'s verb menu open and shut (see the
+ * evtype_Hyperlink handling in glk_main).  An indented entry is a verb inside
+ * such an unfolded menu. */
 static void
-put_objwin_link(strid_t s, const std::string &label, const std::string &command)
+put_objwin_link(strid_t s, const std::string &label, const std::string &command,
+                const std::string &toggle_key = std::string(),
+                bool indent = false, bool prefill = false)
 {
     glui32 linkval = 0;
     if (g_hyperlinks) {
-        g_objlinks.push_back(command);
+        g_objlinks.push_back({command, toggle_key, prefill});
         linkval = (glui32) g_objlinks.size();
     }
+    if (indent)
+        glk_put_string_stream(s, (char *) "    ");
     /* Encoding sniff per label, as in draw_banner: names from UTF-8-authored
      * games are written codepoint-aware, Latin-1 ones pass through as bytes
      * (ASCII is identical either way). */
     put_pane_link(s, label, linkval, utf8_valid(label));
 }
 
-/* Redraw the right-hand pane with the objects/characters in the current room.
- * The pane (and its divider) is shown only when it has something to list --
- * objects or exits; the room-name header alone does not justify it, so a room
- * with neither closes the pane and gives the width back to the main text.
- * If a transcript is running, also echo the list to it (the pane is not part
- * of the main window's echo stream), but only when it changes. */
+/* Redraw the right-hand pane, laid out like the Quest 5 pane: what you carry
+ * under "Inventory", what is here (objects, then the places you can enter)
+ * under "Places and Objects", and the directional exits under "Compass".
+ * The pane (and its divider) is shown only when it has something to list; the
+ * room-name header alone does not justify it, so a room with nothing at all
+ * closes the pane and gives the width back to the main text.
+ * If a transcript is running, also echo the room list to it (the pane is not
+ * part of the main window's echo stream), but only when it changes. */
 static void
 update_objwin(GeasRunner *gr)
 {
@@ -625,6 +684,20 @@ update_objwin(GeasRunner *gr)
     g_room_name = room;
 
     v2string contents = gr->get_room_contents();
+    v2string inventory = gr->get_inventory();
+    /* An unfolded verb menu belongs to an object the pane lists; drop it once
+     * that object is gone (dropped somewhere else, another room, a restart).
+     * Taking one moves it from the room list to the inventory list, where it
+     * stays listed -- and stays unfolded, its menu now offering "Drop". */
+    if (!g_objwin_expanded.empty()) {
+        bool still_here = false;
+        for (const v2string *list : { &contents, &inventory })
+            for (const std::vector<std::string> &item : *list)
+                if (item.size() > 2 && item[2] == g_objwin_expanded)
+                    still_here = true;
+        if (!still_here)
+            g_objwin_expanded.clear();
+    }
     std::string flat;
     for (std::vector<std::string> &item : contents) {
         if (item.empty())
@@ -663,8 +736,23 @@ update_objwin(GeasRunner *gr)
     }
     draw_banner();
 
-    /* Show the pane only when there are objects or exits to list. */
-    bool show = !flat.empty() || !flatexits.empty();
+    /* Split the exits the way the Quest 5 pane does: bare directions (and the
+     * OUT exit) are the compass, while a named place you can walk into is
+     * listed with the objects.  A place's command is "go to <target>"; a
+     * compass entry's is the direction itself. */
+    v2string compass, places;
+    for (std::vector<std::string> &exit : exits) {
+        if (exit.empty() || exit[0].empty())
+            continue;
+        const std::string &command = exit.size() > 1 ? exit[1] : exit[0];
+        if (command.rfind("go to ", 0) == 0)
+            places.push_back(exit);
+        else
+            compass.push_back(exit);
+    }
+
+    /* Show the pane only when it has something to list. */
+    bool show = !flat.empty() || !flatexits.empty() || !inventory.empty();
     if (g_use_objpane) {
         if (show)
             ensure_objwin_open();
@@ -681,30 +769,66 @@ update_objwin(GeasRunner *gr)
         glk_window_clear(objwin);
         strid_t s = glk_window_get_stream(objwin);
 
-        /* List the room's objects.  Clicking one lists its verb menu, matching
-         * the Quest 5 pane's default ("verbs <object>"). */
-        for (std::vector<std::string> &item : contents) {
+        /* Section headers, separated by a blank line -- but the first section
+         * sits at the very top of the pane, whichever one it turns out to be
+         * (an empty section is not drawn at all). */
+        bool first = true;
+        auto header = [&](const char *title) {
+            if (!first)
+                glk_put_char_stream(s, '\n');
+            first = false;
+            put_pane_header(s, title, false);
+        };
+
+        /* One object entry.  Clicking it unfolds its verb menu below the name,
+         * matching the Quest 5 pane. */
+        auto put_object = [&](std::vector<std::string> &item) {
             if (item.empty())
-                continue;
-            put_objwin_link(s, cap_first(item[0]), "verbs " + item[0]);
+                return;
+            std::string oname = item.size() > 2 ? item[2] : item[0];
+            put_objwin_link(s, cap_first(item[0]), "", oname);
+            if (oname != g_objwin_expanded)
+                return;
+            /* The unfolded menu: one indented entry per verb.  Each carries the
+             * command the player would type ("Look at hat"); a verb still
+             * missing a second noun ("Give to...") carries the start of one,
+             * for the input line rather than the parser. */
+            for (const std::vector<std::string> &verb :
+                     gr->get_object_verbs(oname)) {
+                if (verb.empty() || verb[0].empty())
+                    continue;
+                bool more = verb.size() > 2 && verb[2] == "1";
+                put_objwin_link(s, verb[0],
+                                verb.size() > 1 ? verb[1] : verb[0],
+                                std::string(), true, more);
+            }
+        };
+
+        /* An exit entry: no verb menu, the click just runs its navigation
+         * command (a direction, "out", or "go to <place>"). */
+        auto put_exit = [&](std::vector<std::string> &exit) {
+            put_objwin_link(s, cap_first(exit[0]),
+                            exit.size() > 1 ? exit[1] : exit[0]);
+        };
+
+        if (!inventory.empty()) {
+            header("Inventory");
+            for (std::vector<std::string> &item : inventory)
+                put_object(item);
         }
 
-        /* List the room's exits below the objects, under their own subheader
-         * (the original Quest runner showed exits in a separate pane).  Clicking
-         * an exit runs its navigation command (a direction, "out", or
-         * "go to <place>"). */
-        if (!exits.empty()) {
-            /* Separate exits from the objects above, but only when there are
-             * objects -- with none, "Exits" sits at the very top of the pane. */
-            if (!flat.empty())
-                glk_put_char_stream(s, '\n');
-            put_pane_header(s, "Exits", false);
-            for (std::vector<std::string> &exit : exits) {
-                if (exit.empty() || exit[0].empty())
-                    continue;
-                std::string command = exit.size() > 1 ? exit[1] : exit[0];
-                put_objwin_link(s, cap_first(exit[0]), command);
-            }
+        if (!contents.empty() || !places.empty()) {
+            header("Places and Objects");
+            for (std::vector<std::string> &item : contents)
+                put_object(item);
+            for (std::vector<std::string> &place : places)
+                put_exit(place);
+        }
+
+        if (!compass.empty()) {
+            header("Compass");
+            for (std::vector<std::string> &exit : compass)
+                put_exit(exit);
         }
         fill_divider();
 

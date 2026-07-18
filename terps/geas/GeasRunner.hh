@@ -201,7 +201,19 @@ public:
   virtual void run_command(const std::string &) = 0;
 
   virtual v2string get_inventory() = 0;
+  /* The visible things here.  Each entry is {display name, display type,
+   * internal object name}: the first is what a pane shows and what a typed
+   * command names, the last is the key get_object_verbs() takes. */
   virtual v2string get_room_contents() = 0;
+  /* The verb menu for one object, named by the internal name from a
+   * get_room_contents entry -- what the original Windows Quest 4 showed on a
+   * right-click, and what "verbs <object>" prints.  Each entry is
+   * {label, command, more}: the capitalised menu label ("Look at"), the
+   * command a host runs for it ("Look at red herring"), and "1" when that
+   * command is only a prefix the player still has to finish -- "Give to..."
+   * yields "give red herring to ", which a host should put in the input line
+   * for the player to name the recipient, rather than run as it stands. */
+  virtual v2string get_object_verbs(const std::string &obj) = 0;
   /* The available exits from the current room, for hosts that list them in a
    * pane.  Each entry is a {label, command} pair: the display label (a
    * direction, an "out" exit, or a named place) and the command a host runs
