@@ -1,0 +1,144 @@
+Tombs & Mummies
+
+by Matthew Warner
+
+Your arch enemy, having stolen your girlfriend, throws you down through a hole in the ceiling. You have landed in the underground tomb of the Pharaoh Haputet."Have fun staying with the king . . . for eternity!" he says before closing a hatch over the hole. Your way out is somewhere in this tomb. Watch out for hazards!
+
+The Entry Room
+You can see a torch.
+You can go up.
+It's too dark to see much other than the faint outline of the hatch far above you.
+> ignite torch
+
+> ignite torch
+You use a match to ignite the torch. Its flickering flames reveal much.
+The torch has an old, dry wick. It's ancient, after all. Keep an eye on your "Torch Wick" status. When it reaches 0, you'll need to re-light it.
+> take torch
+
+> take torch
+You pick it up.
+> e
+
+> e
+A Shrine of Harpocrates
+You can see a Statue of Harpocrates.
+You can go west, north or south.
+Harpocrates, son of Osiris and Isis. A mural shows this winged boy with his finger to his lips. Harpocrates was the god of secrets.
+
+> s
+
+> s
+The Shrine of Thoth
+You can see the Ark of Magic.
+You can go west or north.
+Thoth was the god of divine words, magic, wisdom, and the moon. A mural shows the beak-faced Thoth writing on a tablet.
+
+> open chest
+
+> open chest
+You open it.
+It contains a papyrus and a Cloak of Protection.
+> translate papyrus
+
+> translate papyrus
+The papyrus contains a magic spell for opening doors. Say: open sesame
+> n
+
+> n
+A Shrine of Harpocrates
+You can see a Statue of Harpocrates.
+You can go west, north or south.
+Harpocrates, son of Osiris and Isis. A mural shows this winged boy with his finger to his lips. Harpocrates was the god of secrets.
+
+> n
+
+> n
+The Shrine of Anubis
+You can see a Flail of Anubis.
+You can go south or west.
+A mural of Anubis, jackal god of embalming and the dead, wraps around the walls. You might expect to find this in the burial chamber, wherever that might be, but the Egyptians must have had another reason to place it here.
+
+> take flail
+
+> take flail
+You take it.
+> w
+
+> w
+A Treasure Room
+You can see a treasure chest, a jar of sustenance and a table (on which there is a selket, a senet board and a sistrum).
+You can go south or east.
+When archeologist Howard Carter first peered into King Tut's tomb in 1922, he was asked, "Can you see anything?" and he famously replied, "Yes, wonderful things!" That's how you feel right now. If you carried the treasures out of here, you would be rich beyond your wildest imagination.
+
+> open sesame
+
+> open sesame
+The hidden door opens to your magic spell. You ask yourself if you have the courage to enter.
+> w
+
+> w
+A Burial Chamber
+You can see a sarcophagus, a canopic jar 1, a canopic jar 2, a canopic jar 3 and a canopic jar 4.
+You can go east, south or in.
+The burial chamber of King Haputet. Hieroglyphs are engraved on the wall.
+Booby trap! A stone block poised over the door falls on your head. At least there was only one.
+The block hurts you!
+
+> translate hieroglyphs
+
+> translate hieroglyphs
+The hieroglyphs say, "Lighten the heavy, and enliven the dead. Say this word: appum"
+> lock sarcophagus
+
+> lock sarcophagus
+You thread the Flail of Anubis through the latch holes, locking the sarcophagus shut.
+> say appum
+
+> say appum
+In a sonorous voice, you shout, "Appum!"
+Your hair stands on end.
+> s
+
+> s
+The Shrine of Ra
+You can see an Amulet of Omnipotence and an Altar of Ra.
+You can go south or east.
+A shrine to Ra the sun god. A mysterious ruby necklace, perhaps depicting the sun, hangs on the wall.
+
+> s
+
+> s
+The Shrine of Horus
+You can see a ladder.
+You can go north or east.
+A mural of Horus, the bird-faced sky god, covers the wall. Perhaps Egyptians thought ladders were a way to reach him.
+
+> take ladder
+
+> take ladder
+You pick it up.
+> n
+
+> n
+The Shrine of Ra
+You can see an Amulet of Omnipotence and an Altar of Ra.
+You can go south or east.
+A shrine to Ra the sun god. A mysterious ruby necklace, perhaps depicting the sun, hangs on the wall.
+
+> e
+
+> e
+The Entry Room
+You can go up, east, north, south or west.
+The hub of King Haputet's tomb and the only way in or out.
+Your torch is about to go out.
+> prop ladder
+
+> prop ladder
+You have propped up the ladder to reach the escape hatch.
+> up
+
+> up
+You are Above Ground
+You escaped! Good job. Now to go find that arch enemy and get your girlfriend back.
+[state=Finished]
