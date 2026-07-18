@@ -1,0 +1,432 @@
+-- Everyman by Simon Deimel --
+You are a nameless everyman. This is the day when you have the chance to leave your grey life behind and make your existence more colorful.
+Note: This game has a basic parser. There are no extraordinary words needed. If you don't find the right syntax, try using one thing on another.
+
+You are in the living room.
+You can see a couch, a TV set and a dresser.
+You can go south, east or north.
+Your living room. Your home is your castle. The north door leads to the apartment corridor.
+It is Saturday. You have some time to relax. Slacking off on your couch is a great option.
+> open dresser
+
+> open dresser
+You open it.
+There are useful things: a ball pen and a hammer.
+> take pen
+
+> take pen
+You pick it up.
+> take hammer
+
+> take hammer
+Taken!
+> e
+
+> e
+
+You are in the bath room.
+You can see a shower, a towel, a toothbrush, a sink, a mirror and a toilet.
+You can go west.
+> take towel
+
+> take towel
+Okay, you take it.
+> w
+
+> w
+
+You are in the living room.
+You can see a couch, a TV set and a dresser.
+You can go south, east or north.
+Your living room. Your home is your castle. The north door leads to the apartment corridor.
+> s
+
+> s
+
+You are in the kitchenette.
+You can see a fridge, a hot plate, a cabinet and a sink.
+You can go east or north.
+The small kitchenette of your flat. Good enough to prepare dinner.
+> open fridge
+
+> open fridge
+You open it.
+There is milk in a bottle.
+> take milk
+
+> take milk
+You pick it up.
+> open cabinet
+
+> open cabinet
+You open it.
+It contains silverware, plates and a frying pan.
+> x silverware
+
+> x silverware
+Nothing unusual, but there is a knife which could be useful.
+> take knife
+
+> take knife
+You pick it up.
+> take frying pan
+
+> take frying pan
+There might be various uses for it. You take it.
+> e
+
+> e
+
+You are in the bed room.
+You can see a bed and a nightstand.
+You can go west.
+> open nightstand
+
+> open nightstand
+You open it.
+You find a sleeping pill and a leaflet.
+> take sleeping pill
+
+> take sleeping pill
+You put it in your pocket.
+> x leaflet
+
+> x leaflet
+"Date: today.
+Town anniversary festival.
+Talent contest!
+Show your skills in whatever you want."
+A leaflet that you did not pay attention to when you received it. But maybe this will be an opportunity to get recognized. You wonder what you could do in such a contest. There is an application form too. You take the form with you.
+> use sleeping pill on milk
+
+> use sleeping pill on milk
+They mix. Let's call the result a sleeping potion. You keep it.
+> use pen on application form
+
+> use pen on application form
+You complete the application form.
+> w
+
+> w
+
+You are in the kitchenette.
+You can see a fridge, a hot plate, a cabinet (containing silverware and plates) and a sink.
+You can go east or north.
+The small kitchenette of your flat. Good enough to prepare dinner.
+> n
+
+> n
+
+You are in the living room.
+You can see a couch, a TV set and a dresser.
+You can go south, east or north.
+Your living room. Your home is your castle. The north door leads to the apartment corridor.
+> n
+
+> n
+You dare to leave your flat.
+
+You are in a corridor.
+You can see your apartment door.
+You can go south or west.
+There are other doors which lead to different flats, but you hardly know your neighbors because of your reclusive lifestyle, so you decide to ignore them.
+> w
+
+> w
+
+You are in a street.
+You can see some booths.
+You can go east, north or south.
+In the east you can see the apartment house where you occupy a flat.
+There are people in the street today as the town festival takes place.
+> n
+
+> n
+
+You are at a crossing.
+You can go south, north, west or east.
+A crossing of ways. There is a different town district in the north. A small alley leads to the east. The town festival takes place in the south. In the west you can see a large building.
+> w
+
+> w
+
+You are in front of a temple.
+You can see a sign and a guard.
+You can go east or west.
+The building looks like an ancient temple. There is a sign over the entrance door. You see a broad-shouldered guard wearing a cloak.
+> x sign
+
+> x sign
+It says "Temple of jokes".
+> speak to guard
+
+> speak to guard
+He says, "Excuse me, but I cannot let you pass. You are not an adept. I take my job seriously. Although guarding this place makes me thirsty." You don't have time to become an adept. There must be another way.
+> give sleeping potion to guard
+
+> give sleeping potion to guard
+"That is for me? Milk? I am so thirsty. Thank you. I will recommend you as an adept." He drinks and falls asleep short time after.
+> w
+
+> w
+
+You are in a temple hall.
+You can see pews, a graven image, candles and a small door.
+You can go east or south.
+This is the sacred hall where people pray to the divine jester. It looks similar to the inner of a church. A small wooden door is in the south.
+> x pews
+
+> x pews
+They look like ordinary church pews.
+There is a stain on the last pew.
+> use towel on stain
+
+> use towel on stain
+You wipe the stain away. There is a number underneath!
+> x number
+
+> x number
+A number written on the last pew, formerly covered by a stain. It is 69105.
+> x small door
+
+> x small door
+A massive door in the south. There is an electronic device to enter a code.
+> use electronic device
+
+> use electronic device
+Enter a code. Now. What will you enter?
+> 69105
+Unlocked. You open the door.
+> s
+
+> s
+
+You are in a gangway.
+You can go north or down.
+A short gangway. There is dim light, you don't know from which source.
+There are stairs leading down.
+> down
+
+> down
+
+You are in a secret chamber.
+You can see a book and a malevolent goblin.
+You can go up.
+It is a small underground chamber. There is dim light from an unknown source.
+> use frying pan on goblin
+
+> use frying pan on goblin
+You knock him out with the frying pan.
+> read book
+
+> read book
+You read about the jokes within the universe. You gain a lot of knowledge how humor works.
+After your lecture you truly know why the chicken crossed the road.
+> up
+
+> up
+
+You are in a gangway.
+You can go north or down.
+A short gangway. There is dim light, you don't know from which source.
+There are stairs leading down.
+> n
+
+> n
+
+You are in a temple hall.
+You can see pews, a graven image, candles, a number, a small door and an electronic device.
+You can go east or south.
+This is the sacred hall where people pray to the divine jester. It looks similar to the inner of a church. A small wooden door is in the south.
+> e
+
+> e
+
+You are in front of a temple.
+You can see a sign and a sleeping guard.
+You can go east or west.
+The building looks like an ancient temple. There is a sign over the entrance door. You see a broad-shouldered guard wearing a cloak.
+> e
+
+> e
+
+You are at a crossing.
+You can go south, north, west or east.
+A crossing of ways. There is a different town district in the north. A small alley leads to the east. The town festival takes place in the south. In the west you can see a large building.
+> e
+
+> e
+
+You are in an alley.
+You can go west or east.
+A small alley. You feel alone. You would not want to be here at night.
+> e
+
+> e
+
+You are at a dead end.
+You can see a fence and a garbage pail.
+You can go west.
+A dead end of the alley. It ends at a high fence.
+> use hammer on fence
+
+> use hammer on fence
+You succeed in loosening some boards. You can go through the gap.
+> e
+
+> e
+
+You are in a backyard.
+You can see shrubs, a back door and a fence.
+You can go west or east.
+The backyard of a rundown house. In the west you can see a fence with a gap in it. There is a door in the east, leading into that old building.
+> x back door
+
+> x back door
+You won't believe it: there is a keyhole.
+> use knife on keyhole
+
+> use knife on keyhole
+You poke in the keyhole until you finally hear a click and open the door.
+> e
+
+> e
+
+You are in a costume shop.
+You can see leftovers.
+You can go west.
+It is an abandoned costume shop.
+> x leftovers
+
+> x leftovers
+Some leftovers that the former owners forgot. Basically parts of a clown suit!
+> take clown suit
+
+> take clown suit
+Great, now you can be Bozo the clown.
+> w
+
+> w
+
+You are in a backyard.
+You can see shrubs, a back door, a fence and a keyhole.
+You can go west or east.
+The backyard of a rundown house. In the west you can see a fence with a gap in it. There is a door in the east, leading into that old building.
+> w
+
+> w
+
+You are at a dead end.
+You can see a fence, a garbage pail and two boards.
+You can go west or east.
+A dead end of the alley. It ends at a high fence.
+There is a gap in that fence though which you can go further.
+> w
+
+> w
+
+You are in an alley.
+You can go west or east.
+A small alley. You feel alone. You would not want to be here at night.
+> w
+
+> w
+
+You are at a crossing.
+You can go south, north, west or east.
+A crossing of ways. There is a different town district in the north. A small alley leads to the east. The town festival takes place in the south. In the west you can see a large building.
+> s
+
+> s
+
+You are in a street.
+You can see some booths.
+You can go east, north or south.
+In the east you can see the apartment house where you occupy a flat.
+There are people in the street today as the town festival takes place.
+> s
+
+> s
+
+You are on a town square.
+You can see a crowd of people.
+You can go north or southwest.
+There is a stage placed in the south.
+The place is very crowded. The whole town seems to have gathered on this square.
+> sw
+
+> sw
+
+You are at a stage entrance.
+You can see a guy.
+You can go northeast or south.
+Here is the entrance to the stage area.
+> x guy
+
+> x guy
+He wears a black uniform and gives access to a talent contest.
+> give application form to guy
+
+> give application form to guy
+Good, he lets you pass.
+> s
+
+> s
+
+You are in a lobby.
+You can see a couch.
+You can go north, south or east.
+The south door is labelled as the wardrobe. The east door leads to the stage.
+> s
+
+> s
+
+You are in a wardrobe.
+You can see benches, pegs and a mirror.
+You can go north.
+A wardrobe for the artists. Currently you are alone here.
+> wear clown suit
+
+> wear clown suit
+You wear a clown costume. You also use the included make-up for a funny look.
+> x mirror
+
+> x mirror
+You look like Bozo the clown.
+> n
+
+> n
+
+You are in a lobby.
+You can see a couch.
+You can go north, south or east.
+The south door is labelled as the wardrobe. The east door leads to the stage.
+> e
+
+> e
+
+You are on a stage.
+You can see a microphone.
+You can go west.
+You are faced with a large audience. The people expect a performancce.
+> switch on microphone
+
+> switch on microphone
+You turn the microphone on. Now you can start.
+> tell joke
+
+> tell joke
+You start telling a joke and suddenly you feel the power of the divine jester.
+It becomes easier from joke to joke and you even do some antics.
+
+Even the lamest jokes seem to be funny enough:
+"What washes up on tiny beaches?" -- "Microwaves!"
+"What do you do when you see a spaceman?" -- "Park your car, man!"
+"What do sharks say when something radical happens?" -- "Jawesome!"
+
+You can see laughing children and happy people in the crowd. They are cheering to you.
+Will you win the contest? In fact, it is not important. You succeeded in gaining personality, and that is all that counts.
+You needn't be the best to be somebody.
+The adventure ends here.
+Congratulations!
+[state=Finished]
