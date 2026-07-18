@@ -110,8 +110,10 @@ table (ASL version, steps, emits, error count, final state). Current coverage:
 **28 games driven** — **26 `Finished`** (genuine wins), **1 `Running`** (I Contain
 Multitudes — its ending sits behind a nested-wait continuation the harness cannot
 pump; its author warns its time-based events break Quest's own walkthrough runner),
-**1 `Wedged`** (Whitefield — a genuine QuestViva-vs-Quest incompatibility, see
-below). No hints-only rows remain: the six games whose walkthroughs are Q&A/prose
+**0 `Wedged`** (Whitefield formerly wedged on QuestViva's script-error breaker;
+its override's `#!errorlimit=200` directive lifts the breaker past a finite
+error burst and the full walkthrough now wins — see below). No hints-only rows
+remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
@@ -132,9 +134,8 @@ an RNG-/timer-specific solve, or (the seven formerly hints-only games) no linear
 walkthrough at all. For each such game, `overrides/<Game>.cmd` is a
 hand-authored winning script (with a `#`-comment header documenting every deviation
 from the raw walkthrough); `run_corpus.sh` uses it verbatim in place of the
-extractor+preamble. `overrides/README.md` tabulates why each of the eighteen exists
-(sixteen win; I Contain Multitudes and Whitefield are best-effort, documented above
-and below). The nine games whose raw walkthroughs already win have no override.
+extractor+preamble. `overrides/README.md` tabulates why each exists
+(all win except I Contain Multitudes, best-effort, documented above). The nine games whose raw walkthroughs already win have no override.
 
 ### Golden baseline (committed regression)
 
@@ -183,17 +184,24 @@ errors on the mandatory `attack general`→prison POV-swap render — `errors=31
 true `Finished`, because `_scriptErrorsFatal` never set. The earlier
 `errors ≥ 20` heuristic wrongly called that a wedge.
 
-*Whitefield Academy of Witchcraft* is a real wedge: the *mandatory* Grislewood snare
+*Whitefield Academy of Witchcraft* was a real wedge: the *mandatory* Grislewood snare
 double-teleports the player into "Inescapable Cage," a room reachable only by that
 teleport that never gets map coordinates, so its enter-script throws
 `DictionaryItem(coordinates,"x")` ~19× *through `RunScriptAsync`* in one transition
-and trips the breaker. In real Quest an enter-script error is non-fatal, so the game
-is winnable there — under this oracle's breaker it is not. This is a genuine
-QuestViva-vs-Quest incompatibility, not a walkthrough error. Genuinely-finished
-games show `ERR=0` except Bony King (`ERR=31`, explained above) and The Shack
-(`ERR=2` — its own `open drawer` onopen/changed-isopen recursion hits the
-200-depth cap twice on a mandatory step; output stays correct and the breaker
-never trips — see its override header).
+and trips the breaker. In real Quest an enter-script error is non-fatal (legacy Quest
+has no breaker at all — it prints every script error and carries on), so the game is
+winnable there. That legacy behaviour is now reproducible per-game: a
+`#!errorlimit=N` first line in a script raises the breaker threshold for that run
+(`QVH_ERROR_LIMIT` via `patch_questviva.py` §4; the native engine honours the same
+directive). Both Whitefield (34 errors, finite cage burst) and The Acreage (58
+errors, finite Port-entry recursion) use it in their overrides and run to their
+genuine endings, every error still printed in the transcript. The directive is only
+for *finite* legacy-tolerable error storms — an infinite per-turn error loop still
+means the game is broken under QuestViva (that stays `Wedged`, whatever the limit).
+Genuinely-finished games otherwise show `ERR=0` except Bony King (`ERR=31`,
+explained above) and The Shack (`ERR=2` — its own `open drawer`
+onopen/changed-isopen recursion hits the 200-depth cap twice on a mandatory step;
+output stays correct and the breaker never trips — see its override header).
 
 ### Real-time timers: `DrainTimers`
 

@@ -2295,4 +2295,598 @@ You can go out.
 You can see Mary Jane Minsky and shelves.
 Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
 Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-[state=Wedged]
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
+
+An Inescapable Cage
+You're inside a  large iron cage pushed against the wall of the kitchen.   There's no visible door or lock or other means of entry beyond squeezing in and out through the bars--it's your standard two-flat-slabs-with-a-bunch-of-bars-in-between model.   You can see shelves containing various kitchen supplies on the opposite wall.
+
+You can go out.
+You can see Mary Jane Minsky and shelves.
+> x Mary Jane
+
+> x Mary Jane
+She's wearing a pink angora sweater and pale pink poodle skirt, neither of which fit her very well after packing on fifty pounds or so in the last twenty-four hours.   She's nibbling on a basket of gingerbread men.
+> x shelves
+
+> x shelves
+A pair of industrial metal shelves bolted to the wall.  There's a slight gap between the wall itself and the shelf, but the ends look to be affixed pretty securely.
+> x trophy
+
+> x trophy
+It's a trophy for Excellence in Institutional Mass Meal Preparation, presented to Baba Grislewood in 1951 by the Greater Pacific Rim Cafeteria Organization.   That's pretty impressive, even if it does appear to be a repurposed bowling trophy.    On top, there's a little statue of a man just about to throw a bowling ball.
+> x juice
+
+> x juice
+There are a variety of kinds: apple, orange, grape, pineapple.  You know from experience they all mostly taste like water with a little sugar in it, though.  They're arranged in an unstable-looking pyramid.
+> x canister
+
+> x canister
+It's a large plastic canister of digestive powder with instructions for use written on the side.
+> read it
+
+> read it
+"Take one heaping spoonful for relief of indigestion, nausea, and bloating caused by excessive food consumption.  Gluttonous Gus says: 'When I'm full, I chug it neat, and once against I'm Red-E-To-Eat!'  That's the DigestOl guarantee!"
+> envive trophy
+
+> envive trophy
+White-gold light envelopes the trophy, and in one smooth stroke, the little metal bowler completes his throw, loosing the ball-bearing-sized bowling ball to fly through the air.  It bounces against the juice boxes, unbalancing them, and drops to the floor before rolling off into the corner.   Several juice boxes tumble from the shelf, landing on the lower shelf or the floor, though you still can't reach any of them.  One carton of orange punch falls behind the canister of DigestOl, nearly pushing it off of the shelf.
+> x trophy
+
+> x trophy
+It's a trophy for Excellence in Institutional Mass Meal Preparation, presented to Baba Grislewood in 1951 by the Greater Pacific Rim Cafeteria Organization.   That's pretty impressive, even if it does appear to be a repurposed bowling trophy.   The little bowler on the top looks bored now.   He's going to be waiting a long time for that ball return.
+> x punch
+
+> x punch
+A juice box filled with a fairly weak orange punch conconction.  It's  fallen down behind a canister of DigestOl, pushing it forward to the edge of the shelf.
+> cryoglaze punch
+
+> cryoglaze punch
+The juice box swells, rips, and eventually bursts apart into a solid orange cube of punch-flavored cryoglaze.  As the liquid expands, it nudges the canister of DigestOl off the edge of the shelf.  The canister tumbles end over end, bounces once, and fetches up just outside the cage.   You can easily reach it now!
+> take canister
+
+> take canister
+You pick it up.
+> eat canister
+
+> eat canister
+You unscrew the top and taste some of the powder.  It's pretty good -- minty.  After a few healthy doses, your stomach gurgles, and you no longer feel bloated.
+> out
+
+> out
+You just manage to wriggle through the heavy iron bars.
+
+Grislewood Kitchen
+Strong arms haul you through the kitchen and towards an ominous-looking iron cage.
+
+You can go in, north or south.
+You can see Baba Grislewood and a carving knife.
+> x baba
+
+> x baba
+A solidly-built woman of Russian ancestry, dressed in a shapeless black dress and pointy hat.  You always remember her being a little off, but basically decent, and a suprisingly good cook for someone working in a school cafeteria.   She's squinting down at her cauldron, seeming to strain to see what she's doing, even though there's never been anything wrong with her eyesight before.  Ever so often, she takes a ladleful of broth, sips it, and mutters something.
+> push baba
+
+> push baba
+"Nice try, dearie!  I'm not falling for THAT old chestnut.  I'm wearing non-stick shoes!"
+> x knife
+
+> x knife
+It's large, sharp, and wicked-looking.
+> take it
+
+> take it
+You pick it up.
+> s
+
+> s
+
+Cooler
+You're in a small walk-in cooler.   The only food in here seems to be pumpkins, of which there are several hundred covering all available shelf space.
+You can go north.
+You can see a plethora of pumpkins and a hideous purse.
+> x pumpkins
+
+> x pumpkins
+There must have been a sale on pumpkins recently.  Assuming you get back to something like normal school after this, you can probably look forward to pumpkin soup, pumpkin pie, pumpkin crackers, pumpkin sandwiches, pumpkin sushi, and the Grizz's famous "Death By Pumpkin" cake.
+> take pumpkin
+
+> take pumpkin
+You pick out a nice big one with no bad spots.
+> use knife on pumpkin
+
+> use knife on pumpkin
+After the initial trepanation and disemboweling, you carefully carve a fearsome face on the pumpkin.   You've made a jack o' lantern!
+> x jack
+
+> x jack
+Deep brows lowered in a permanent grimace, a proud aquiline nose, high cheekbones, full lips twisted in a sneer -- you actually did a pretty damn good job on this one.   If you squint it almost looks human.
+> envive jack
+
+> envive jack
+The jack o' lantern blinks his eyes and breaks out into a wide grin.  "Happy Halloween!" he beams.
+> x purse
+
+> x purse
+You've almost never seen Baba Grislewood without this hideous olive-and-mustard purse within arm's reach, and yet she's carelessly chucked it into the cooler without a second thought.
+> open it
+
+> open it
+You open it.
+It contains a prescription, Lucky Strikes and pills.
+> x prescription
+
+> x prescription
+A handwritten doctor's prescription for antipsychosis pills.  It reads:
+
+"BABA GRISLEWOOD - 100 tablets 0.5 mg antitotenkinderol; take as needed to
+treat delusional episodes.   For emergencies only: if episodes occur (outside of instances of extreme trauma, destabilizing hexes, etc)
+contact a medical professional immediately."
+> x lucky strikes
+
+> x lucky strikes
+This box of Lucky Strikes contains twenty high-quality smokes -- so round, so firm, so fully packed!   When you want a smoke, and I mean really want a smoke, reach for  Lucky Strikes, made from the highest quality sun-dried tobacco and shipped specially to your grocer or druggist.  Remember, L.S.M.F.T.--Lucky Strikes means fine tobacco!
+
+Lucky Strikes cigarettes are the proud sponsor of "Whitefield Academy of Witchcraft", "Zork XI: The Foozing of Frotzopple", and "Gabriel Knight's Mustache Crafting Studio '97".
+> take lucky
+
+> take lucky
+You pick it up.
+> x pills
+
+> x pills
+A handful of large pink pills.  They're a little fuzzy from being in the purse.
+> take pills
+
+> take pills
+You pick them up.
+> n
+
+> n
+
+Grislewood Kitchen
+This is a large institutional kitchen haphazardly converted into a witch's laboratory.   The sinks have been converted into makeshift cauldrons, and yellow candles are dribbling wax everywhere.       The doors to the north have been blocked by several large slabs of stale gingerbread, and the only other direction you can go -- besides back into the cage -- is south, into the walk-in freezer.
+
+Baba Grislewood is here, working at her cauldrons and seeming remarkably unconcerned that you're wandering around out of your cage.
+
+A cage big enough to hold at least two people is plopped down in the middle of the kitchen.   Mary Jane Minsky is clutching at the bars nervously, silently pleading with you to get rid of Grislewood and save her.
+
+You can go in, north or south.
+You can see Baba Grislewood.
+> put pills in jack
+
+> put pills in jack
+Done.
+> give jack to baba
+
+> give jack to baba
+She squints to make out the object you're holding.  "Oh my!  A human head!  I knew I had one or two lying around.   Into the stew with you!"   She hefts the jack o' lantern overhead and drops it theatrically into the sink.
+SPLOOOSH!  The orange globe sinks into the liquid, its megadose of pills fizzing and disintegrating in the water.   "Yes, yes, there we go," Baba Grizzlewood says.  "Now, let's see here..."
+
+She ladles up some broth and takes a sip.  "Hmm...(sip)...not bad...(sip)...a little pumpkinny....(sip)....pumpky...pumpkininny...(sip)...
+
+The oddest look comes over her face.   The cloudiness in her eyes begins to clear, and she looks at you with sudden acuity.
+
+"Page?  Is that you?"
+
+"Where are we?" she continues, blinking.  "What...happened to my kitchen?  Why am I boiling a pumpkin in the sink?  It's not Friday."
+
+"Maybe tell her to let me out of the cage?" Mary Jane hints.
+
+"The cage," Mrs. Grislewood mutters.  "The cage.  The cage.  Of course."   She waves her wand absently, and the bars of the cage go limp and rubbery.   "Oh my...did my wand always leave these...sparkly trails?"
+
+"Yay!" Mary Jane squeals, squeezing between the stretchy bars and grabbing you in a squishy bear hug.  "You totally saved my bacon, Page!  I would have been eaten up for sure!"
+
+Mrs. Grislewood has become distracted by her own wand.    Casually punching the stale gingerbread slab in two as if it were made of Styrofoam, she wanders out of the kitchen, waving the stick of wood like a metronome.  "Oooh.  Lovely."
+
+Mary Jane shrugs.  "I guess she'll be all right."   She eyes one of the lumps of rye gingerbread, which has broken off from the main mass and rolled across the floor to your feet.    "I don't know about you," she laughs, following the Grizz out the door, "but I don't think I'll be hungry for gingerbread for a looooooong time!"
+> take rye
+
+> take rye
+Want some rye?   'Course ya do!
+> n
+
+> n
+
+Frosted Forest
+You've entered a forest of pines the size of a typical Christmas tree, each covered in thick dollops of white frosting and dusted with green sugar crystals.  It's  quite dark here.  If you couldn't just make out the ceiling tiles by squinting, you'd have a hard time telling you weren't outside.
+You can just make out the abandoned kitchen to the south.
+You can go north or south.
+> n
+
+> n
+You slog north through heavy drifts of icing.
+
+Dining Hall
+You are in the dining hall.  The tables have been pushed to the sides of the room, allowing the white frosting covering the floor to gleam in the the guttering light of a few medieval-looking lanterns which have been placed on red-and-white striped candy canes.    The frostingfall was pristine when you entered, but your tracks since have churned it up.
+
+On the south end of the hall, you can see a forest of gingerbread trees.
+You can go north or south.
+> n
+
+> n
+
+Rotunda
+You are in the central rotunda of the school, just under the turquoise dome.  A beautiful mural adorns the circular ceiling, but the rest of the room looks like a junk heap.  Tables are overturned, puddles of punch are splattered across the floor, and loose balloons bob listlessly around the upper reaches.
+
+The foyer and the exit lie to the west.  To the north are the administrative offices, and to the south, where the dining hall used to be, is a curious round portal made of gingerbread.    A grand staircase leads up the second floor of the rotunda.
+You can go west, north, south, east or up.
+You can see a punchbowl, a welcome banner, Gwendolyn Marx and puddles.
+> w
+
+> w
+
+A Foyer
+A rather nice and elegant entryway; the paint is peeling in a few discreet places, but overall every effort has been taken to make this the nicest room in the Academy.   An informational mirror hangs on the wall.
+You can go west or east.
+You can see a mirror.
+> w
+
+> w
+
+Fountain
+This is the area in front of the school.   Saplings sprout from a poorly manicured lawn, and the elegant stained-glass windows are dull with dirt.   The path forks around a large fountain, meeting again on the other side and leading up to the front door to the east, or into the woods to the west.
+You can go south, west or east.
+You can see a dragon fang extractor.
+> s
+
+> s
+
+Battlefield
+You're standing on a field of grass between the forest to the west and the school to the east.   It looks like a battle was fought here.  The ground is dotted with craters and deep gouges.   The main entrance lies to the north, and to the south you can see the school gardens, a greenhouse, and a toolshed.
+You can go north or south.
+> s
+
+> s
+
+Vegetable Garden
+This is an overgrown vegetable garden on the west side of the school.   Most of the vegetables were the subject of student experimentation last year and have been left to go wild over the summer, which means they're covered in strange magical growths and probably aren't edible.   There's a small tool shed built against the side of the school and a greenhouse to the west, shaded by the trees.
+You can go north, west or in.
+You can see a greenhouse.
+> w
+
+> w
+
+Greenhouse
+Once you step away from the walls, it's quite warm and steamy in here.   An oppressive silence hangs over the rows of magical plants.
+You can go east.
+You can see makeshift bedding, an alchemy textbook, an alchemy set, Jenny Yoshida, a big pickle jar and Mary Jane Minsky.
+> give sponge to Jenny
+
+> give sponge to Jenny
+"Spellbase--I can make a potion with that."  Jenny takes the sponge from you and squeezes it out into a mason jar.   "And if you can find me the other ingredients for temporal oil, I can make something to help Gwen!"
+> give shovel to Jenny
+
+> give shovel to Jenny
+"Great, that's another of the ingredients I need," Jenny says, taking the silver and chunking it into the smelter.  Soon molten silver is dripping into the mason jar, giving it a metallic sheen.
+> give foil to Jenny
+
+> give foil to Jenny
+"Great, that's another of the ingredients I need," Jenny says, adding gold to the smelter.  Soon you're watching it drip into the mason jar, raising the liquid level and giving it a dark yellow hue.
+> give rye to Jenny
+
+> give rye to Jenny
+"Great, that's another of the ingredients I need," Jenny says, taking the loaf and dropping it into a tumbler.  Breadcrumbs spray into the mason jar, turning the liquid a thick, dark brown.
+> give specimen to Jenny
+
+> give specimen to Jenny
+"You got it!  A bough from a nonexistent tree is the last thing I need for the potion!" Jenny says, beaming as she pulls out the tentacle.  You watch as its juices drip into the mason jar, turning the potion a bright, gleaming gold.  "All done!   Careful, it's hot!"  She gingerly picks up the jar and hands it to you.
+> x oil
+
+> x oil
+A mason jar brimming with shimmering golden liquid.
+> e
+
+> e
+
+Vegetable Garden
+This is an overgrown vegetable garden on the west side of the school.   Most of the vegetables were the subject of student experimentation last year and have been left to go wild over the summer, which means they're covered in strange magical growths and probably aren't edible.   There's a small tool shed built against the side of the school and a greenhouse to the west, shaded by the trees.
+You can go north, west or in.
+You can see a greenhouse.
+> n
+
+> n
+
+Battlefield
+You're standing on a field of grass between the forest to the west and the school to the east.   It looks like a battle was fought here.  The ground is dotted with craters and deep gouges.   The main entrance lies to the north, and to the south you can see the school gardens, a greenhouse, and a toolshed.
+You can go north or south.
+> n
+
+> n
+
+Fountain
+This is the area in front of the school.   Saplings sprout from a poorly manicured lawn, and the elegant stained-glass windows are dull with dirt.   The path forks around a large fountain, meeting again on the other side and leading up to the front door to the east, or into the woods to the west.
+You can go south, west or east.
+You can see a dragon fang extractor.
+> e
+
+> e
+
+A Foyer
+A rather nice and elegant entryway; the paint is peeling in a few discreet places, but overall every effort has been taken to make this the nicest room in the Academy.   An informational mirror hangs on the wall.
+You can go west or east.
+You can see a mirror.
+> e
+
+> e
+
+Rotunda
+You are in the central rotunda of the school, just under the turquoise dome.  A beautiful mural adorns the circular ceiling, but the rest of the room looks like a junk heap.  Tables are overturned, puddles of punch are splattered across the floor, and loose balloons bob listlessly around the upper reaches.
+
+The foyer and the exit lie to the west.  To the north are the administrative offices, and to the south, where the dining hall used to be, is a curious round portal made of gingerbread.    A grand staircase leads up the second floor of the rotunda.
+You can go west, north, south, east or up.
+You can see a punchbowl, a welcome banner, Gwendolyn Marx and puddles.
+> use oil on Gwen
+
+> use oil on Gwen
+You pour the oil out over Gwen's head.  As the greasy liquid soaks into her hair and clothes, you begin to see movement.  Slow as molasses, you see her finish swallowing the liquid and lower the cup.  Her eyes drift to your face.
+
+"Paaaaaaaaaaaageeee?" she says in baritone surprise, even now speeding up.  "Whaaat aaaare yooou dooing here?"
+
+She takes in the destroyed rotunda, then looks back down at her paper cup.   "Or maybe I should be asking: who spiked the punch?"
+
+You explain what's going on, hoping that this is the last time.  You're getting a little tired of telling people the same story over and over.  Gwen listens.
+
+"Sounds like someone really had it in for this place," she says thoughtfully.   "Have you found Hannigan yet?  She's the only one unaccounted for, and as fond as I'm not of the old bat, we probably shouldn't just leave her if she's been transformed into a lamp or something.   See if you can dig her up, and bring her to me if you do.   In the meantime I'll just hang out here.  I don't want to spoil this new 'doing all the work yourself' kick you're on."
+
+> give monkey to Gwen
+
+> give monkey to Gwen
+"That looks like her, all right.  And you found it in her office?"  Gwen brings her wand close to the toy and winces.  "This thing is practically glowing.  It's gotta be her."
+
+She sets the monkey down and makes a few passes over it, mumbling spells that are way beyond anything you can understand.  You shrink back a little.  If there's one strain on your friendship--not that Gwen ever seems to notice--it's that without even trying, she's so far ahead of you you sometimes feel like a helpless child by comparison.
+
+Gwen raises her wand.  "Down to the last spell.  Here we go!"
+
+There's an explosion of crackling purple light.
+...and the monkey is slightly singed, but otherwise unchanged.
+
+Gwen frowns.   "Oooo-kay.  Looks like it's not her."  She bites her lip.  "But someone went to a lot of trouble to make it look like the headmistress was caught in the same spell that got the rest of us.  Someone who knew enough about all of us to set all this up... Page, I think I know where you've got to go."
+
+You've never seen Gwen take her glasses off before, not even in the shower, but she takes them off now and gently places them on you.
+"Truesight enchantment," she explains.  "It lets you, uh, see the truth, get it?  And if my suspicions are correct, you might want to start looking for the truth in Hannigan's office.  Just be ready for what you might find, okay?   Don't want to sound like a wet blanket or anything, but it might be dangerous."
+
+You protest.  Isn't she going to help you?
+
+"Nah.   You've got this one.  You handled everything, right?  You're tougher than you think you are, Page.  Besides," she grins, "I'm just too lazy!"
+> x glasses
+
+> x glasses
+Purple cat's-eye glasses with a truesight enchantment cast on them.
+> n
+
+> n
+
+Administrative Offices
+The school administration offices.  Most of the desks are bare, thanks to the school's dwindling staff.  Headmistress Hannigan's private office is to the north  and the rotunda is to the south.  A door in the west wall leads to the lost and found closet.
+You can go south, west or north.
+You can see a Yeggle advisory.
+> n
+
+> n
+
+Office of Headmistress Hannigan
+This is the sternly academic office in which -- in normal circumstances -- you could find Headmistress Hannigan crouching over her desk like a white-haired vulture.   Now her chair is empty, and the desk is bare.
+
+Where the painting used to be, you see a heavy oak door.
+You can go south or down.
+You can see a tempting filing cabinet (containing the Brandt file, the Finch file, the Grislewood file, the LeBlanc file, the Marx file, the McBride file, the Minsky file, the Potts file, the Sotherby file and the Yoshida file) and a polished oak desk.
+> d
+
+> d
+
+Secret Tunnel
+You open the door, revealing a spiral staircase decending into pitch darkness, and carefully start down.  Despite the lack of any visible light source, you find yourself easily about to make out what's ahead thanks to the enchanted glasses. This must be the reason Gwen never stubbed her toe or tripped over anything whenever the two of your sneaked out after curfew... it would have been nice for her to let you in on the secret!
+
+After descending about twenty feet, you find yourself facing a winding passage burrowing further ahead to the southeast, beneath the school.   A secret escape tunnel?  The entrance to a dungeon?  What it is, Hannigan's got to be at least a little less stodgy than you've always assumed.
+You can go up or southeast.
+> se
+
+> se
+
+Colossal Cave System
+An enormous system of caverns beneath the school, some of it hollowed out with the use of magic and shored up with Cryoglaze, other sections created naturally, through the tunneling of underground monsters or the less dramatic but equally powerful forces of erosion.  Your glasses guide you, providing you light and preventing you from getting lost in the labyrinth.   You can exit these extensive caverns to the northwest or to the east.
+You can go northwest or east.
+> e
+
+> e
+
+A Root Cellar
+This is a simple root cellar.  Jars of preserves line the dusty shelves.   To the west, there's a door similar to the one in the Headmistress' office.  A wooden staircase leads up.
+You can go west or up.
+> x preserves
+
+> x preserves
+Jars of vegetables canned by floramancy students over the years.  Some of the earliest ones date back to the 1920s.
+> aurale preserves
+
+> aurale preserves
+They've been preserved with a powerful pickling charm, Cucumbro.
+
+Cucumbro!  You open your spellbook....
+
+...and close it again.   Eh.  Who needs Cucumbro?
+> u
+
+> u
+The wooden stairs creak underfoot as you chamber up.  You don't think much of it until you get to the top step and reach for the knob, at which point you hear a voice from the other side of the door.
+
+"Is--is someone down there?"
+
+You freeze, fingers inchs from the knob.  Suddenly, the door jerks open.  You're standing face-to-face with a girl in her early teens, with platinum-blonde hair and a look of dawning horror on her face.    She turns tail and runs before you can say anything.
+
+"Grandma!  Grandma!  Help!"
+
+A Cozy Kitchen
+This is a cozy kitchen which smells of lemon-scented cleaner.   Out of the windows you can see the rocky coastline of the island's eastern shore.   There's a door leading down to the root cellar.  You can spot a living room to the south.
+You can go down or south.
+You can see a Sugar Beets cereal box.
+> x cereal
+
+> x cereal
+The box contains a heaping helping of Sugar Beets, the lip-smacking sugar cereal with the great taste of beets.
+
+> read it
+
+> read it
+"Sugar Beets: packed with vitamin B and FLAVORIN!  Tell mother that if she doesn't buy this cereal for you, you will die."
+> aurale it
+
+> aurale it
+They're magically delicious.
+> eat it
+
+> eat it
+Your stomach still feels kind of delicate.  Stuffing your face with beet-flavored cereal just doesn't appeal to you right now.
+> s
+
+> s
+
+Living Room
+A cozy living room.  A set of furniture, threadbare but spotless, is arranged around a well-polished radio set.   There's a kitchen to the north, and the house's front door lies to the east.
+You can go north or east.
+You can see Henrietta Hannigan and a radio.
+The girl you saw earlier is here, blocking the front door with her wand raised.  She's clearly terrified, but she's not giving any ground.
+
+"I'm n-not scared of you!" she says defiantly, throwing one arm across the door.  "And you're not getting near my grandma!"
+
+You ask who she is.
+
+"H-Henrietta," she gulps.  "I mean--I mean, it's none of your business!  And I know who you are.  You're one of the bad girls from the school Grandma warned me about.  She said you were all, all--"
+
+She takes a deep breathe.
+
+"--all a bunch of hoodlums and lowlives!"
+And where is the headmistress, you ask?  Outside?
+
+"M-maybe, but you aren't getting past me.   We're going on a trip.  Grandma's going to help me with my magic.  She said... she said she didn't have enough money to fix up the school and that she had to give space to a bunch of trollops and third-raters just to keep the lights on, and that wasn't fair and I would never catch up that way, so she set up some tricks so all the bad girls would be scared away."
+
+And let me guess--she's got Dark Overload insurance that guarantees her a fat payout in the event of just such a tragic event, I'll bet?  Enough to fix up the school and hire a real staff?
+
+"I...I don't know," Henrietta stammers.  "She said... she said we should pretend an evil witch did it.  But it's not hurting anyone!  It's helping!  She'll be able to offer good, rigorous schooling like in the olden days, none of this newfangled modern stuff!"
+
+That's what you want, huh? you ask.  Extra-hard school?
+
+"Grandma says that's what I need.  That's why I'm not good at magic, because modern schools have been too soft with me.   Everybody thinks I can't do it.  Even my own mom and dad think I'm stupid!"   Her eyes are shiny.  "Grandma's the only one who believes in me!"
+
+She raises her wand.  "And I won't let you hurt her!"
+> x Henrietta
+
+> x Henrietta
+A short, slim girl, about thirteen or fourteen.  She's wearing a skirt and a too-large sweater she's almost drowning in.   Her white-blonde hair is tied back in a curly ponytail.
+
+She has her wand raised, and is eyeing you uncertainly.
+> x radio
+
+> x radio
+A beautiful radio of lovingly polished wood.
+
+It is currently off.
+> turn on radio
+
+> turn on radio
+The dulcet strains of Paul Anka fill the room.
+> give Hannigan file to Henrietta
+
+> give Hannigan file to Henrietta
+She takes the files, frowning.  "What's this?"
+
+She reads it, at first glancing up at you after every sentence to make sure you don't try anything, but then growing more and more absorbed.
+
+"This... this says..." She gulps.  "This is from that doctor I talked to."
+
+She looks at you, puzzled.
+
+"This says that I should be in that special school.  It says I can catch up to the other kids."  Henrietta shakes her head sadly.   "Grandma said the doctors just thought I was stupid and I could show that they were wrong by working hard, but that's not what it says here.   I know she wants what's best for me.  But... she lied."
+
+She sniffles.  "And it's not just about that.  She promised she wasn't going to hurt anyone, but--but I can still read!  I know what that potion she was making did.  I just...I didn't want to believe it."
+
+She looks away.
+
+"I guess...I guess you need to stop her," she said.  "Just please don't hurt her if you can help it.  She's still my grandma!"
+> e
+
+> e
+You step out onto the beach, the early evening sun throwing your shadow across the pebbley sand.  Down by the waterline, you spot a large maroon Packard, the same one you've seen the Headmistress flying over the island in.
+
+You hear a slam and the click of a lock, and here comes the Headmistress around the side of the car.  She stops when she sees you.
+
+"Miss LeBlanc," she says icily.  "Tardy as usual, I see.  If you laid one hand on my granddaughter--"
+
+You raise your wand and she waves a hand lazily, throwing you back into the sand.   "You will listen to what I have to say."
+"For years I've been watching this institution die a slow death.    This used to be a school for real witches.  The best of the best.  I was tenth in my class--tenth!--and I was damned proud of that.  Back then, that was an achievement.   Then standards slipped, and kept slipping.  Decent people pulled their daughters out, and in order to survive the administration had to open the doors to others.  Then they came to me.  'Whip them into shape', they said.   As if one could whip what is already decayed.   And look at what things have come to.  Look at what all our grand tradition has come down to.  Unrepentant hoodlums like you and Marx.  Moral degenerates.  Arrogant thugs.  Not a one of them with any concern for what it means to be a proper witch.  The school might as well have been empty."
+
+She smiles grimly.
+
+"So I thought--why shouldn't it be?"
+"There are plenty of dark witches still running around.  Why shouldn't one have attacked a school full of defenseless students?   It was chaos.  The survivors will back me up.  And that includes you, Miss LeBlanc; oh, I had a special punishment for you, like the others, but since you couldn't be bothered to show up I'll just overwrite your mind.   A bit messy, rather hard on the brain cells, but it's not as if you ever use them anyway."
+
+She draws herself up.  "So, final exam time, Miss LeBlanc.  Let's see if you have any capacity at all to take things seriously.  We are going to fight a duel, you and I, and as I dislike using violence on my students I shall take an entirely defensive tack.  When you fail to land a blow on me, I shall take that as a tacit admission of inferiority, and I shall expect you to submit to the procedure like the decent young lady you never have been."
+
+She swirls her wand, surrounding herself with an undulating shield of dark water.  "Take your best shot!"
+
+Beach
+This is a rocky beach on the eastern shore of the island.  Surf pounds the gravelly sand.   A large maroon Packard is parked along the waterline, waves crashing against the side and seafoam frothing around the wheels.
+You can go west.
+You can see a Packard and Headmistress Hannigan.
+> x Packard
+
+> x Packard
+A maroon behemoth which the Headmistress likes to take flying.
+> x headmistress
+
+> x headmistress
+A stuffy, white-haired woman in tweed.   She's surrounded by a shield of water and looks quite smug.
+> cryoglaze headmistress
+
+> cryoglaze headmistress
+The water hardens into a solid shell.  You hold your breath, and then--
+
+"Oh, good show, Miss LeBlanc, good show!  You actually managed to display the barest glimmer of scholarship!"   The Headmistress breaks out of the cryoglaze easily, scattering lumps of ice around the sand.  "Let's try something a little more complicated, shall we?"
+
+She snaps her fingers, and a large shield materializes in her hand, a golden disc decorated by the face of a lion frozen in mid-snarl.
+
+"Let's see how you handle an elementary shield spell, Miss LeBlanc."
+> envive shield
+
+> envive shield
+The lion's head bursts to snarling life, its powerful jaws snapping inches away from the Headmistress' face.  She frowns and dismisses it in a puff of smoke.  "Have you actually been applying yourself in my absence, Miss LeBlanc?   I see I'll have to eschew form in favor of function.  Orbus!"   She waggles her fingers and eight steel balls of various sizes appear, orbiting her at breakneck speed.
+
+"I don't supposed you paid attention in Cosmology, but these are the planets--quite a bit smaller than the real thing, but fast enough to pack a punch.  I wouldn't advise getting too close, or trying to grab them.... a hit with one of these could give you a broken bone for your trouble.
+> mermaphro me
+
+> mermaphro me
+You transform yourself and flail forward in a burst of gooey hysteria, grabbing the metal balls with your tentacles and wrapping your boneless arms around the Headmistress.  She flings you off in disgust, stepping back against the Packard.  "Enough of this!"
+
+Walking around the rear of the car, she taps herself with her wand, enveloping her form in a shield of red light.  "There.  No more half measures.  With this spell, no magic can touch me.  No ice, no fire, no lightning, no poison gas; no spell gets through this barrier."  She leans forward over the Packard's trunk, keeping the frame of the solidly built car in between you and her.  "And if you entertain any fantasies of thrashing me with your fist, as I'm sure a little thug like you does with some regularity, well -- I assure you, you'll never get close enough."
+> yeggle Packard
+
+> yeggle Packard
+The trunk pops open, slamming the Headmistress right in the jaw and knocking her cold.   You take the opportunity to punch her several dozen more times before tying her up, gagging her, and taking her wand, and even so, you're not really sure things you're safe until Gwen and Mrs. Grislewood appear from the forest.   Jenny follows them, carrying a sleeping potion, which she dribbles into the Headmistress' slack mouth.
+
+"Nice work, P," Gwen says, grinning.  "I knew you had it in you."
+
+A few hours later, you're in Port Querubin, describing the day's events to the police.
+"We've called your parents," the tired-looking police sergeant says, rubbing his temples.   "In the meantime, we'll find a place for you in town for the night--"
+
+One of the other officers leads Henrietta past you.  She looks like she's been crying, but she smiles shyly when she sees you.   "I talked to my mom and dad about--well--everything.  I'm going to go to that school we talked about.   I think--I think things will be a little better."
+
+You sit back in the hard plastic chair, exhausted.  It's been a long day, but you did it -- you saved all the students.  You saved yourself.   You even saved the lunch lady.   You don't know what's going to happen to the school now.  Is it going to be closed?  Sold?  Renovated?   Are you going to be stuck somewhere else?
+
+Oh well.   You can worry about all that tomorrow.
+
+THE END
+[state=Finished]

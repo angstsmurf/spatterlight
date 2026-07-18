@@ -1,44 +1,27 @@
-# Whitefield Academy of Witchcraft - best-effort script (NOT Finished; oracle Wedges)
-#
-# RESULT: state=Wedged errors=20. state=Finished errors=0 is GENUINELY UNREACHABLE
-# through this oracle. Reason below.
+#!errorlimit=200
+# Whitefield Academy of Witchcraft - WINNING script (state=Finished, errors=34)
 #
 # The script is David Welbourn's full walkthrough, split into one-command-per-line.
-# It runs cleanly (errors=0) through the entire game -- rescuing Jenny, Renee,
-# Traudel and Tally, the underwater sarcophagus, the library/Pluto detour, etc. --
-# right up to the MANDATORY Grislewood snare.
+# It runs cleanly through the entire game -- rescuing Jenny, Renee, Traudel and
+# Tally, the underwater sarcophagus, the library/Pluto detour, Mary Jane, Gwen,
+# the floor door, the cottage and the beach -- to the genuine THE END (all
+# students saved, epilogue at the Port Querubin police station) and `finish`.
 #
-# THE BLOCKER (intended path, not drift):
-#  - Going south from Frosted Forest the first time is the only route deeper into
-#    the kitchen wing and is REQUIRED to rescue Mary Jane (her rye bread is one of
-#    the 5 temporal-oil ingredients -> oil rescues Gwen -> floor door -> cottage ->
-#    beach -> `finish`). There is no alternate entry.
-#  - That south exit (game.aslx line 3444) fires a snare cutscene that teleports the
-#    player with a DOUBLE MoveObject: `MoveObject(player, Grislewood Kitchen)` then
-#    immediately `MoveObject(player, Inescapable Cage)` (lines 3451-3452).
-#  - "Inescapable Cage" is reached only by that teleport and never has grid map
-#    coordinates established for it. On room-enter, OnEnterRoom ->
-#    Grid_CalculateMapCoordinates(cage) calls Grid_GetGridCoordinateForPlayer(cage,"x")
-#    which does DictionaryItem(coordinates,"x") on an empty dict and throws. The
-#    recursion/exit loop throws it ~19 times in that single transition
-#    (8x 'x' + 8x 'y' + 'z' + 2 more), instantly tripping the oracle's 20-error
-#    circuit breaker -> relabeled Wedged.
-#
-# WHY IT CANNOT BE AVOIDED (verified empirically):
-#  - The cage's only neighbour that could propagate coordinates is Grislewood Kitchen
-#    (its "in" exit points at the cage), but the Kitchen is itself only reachable
-#    THROUGH the cage, and the snare's on-ready map calc runs against the cage, not
-#    the Kitchen. So the cage never gets coordinates before you are dropped in it.
-#  - Tested: dropping the entire inventory before the snare, and never picking up
-#    Tally, both still produce the identical ~19-error burst. The crash is intrinsic
-#    to the cage room, independent of carried objects.
-#
-# The coordinates crash is therefore on the INTENDED winning path. It is an artifact
-# of QuestViva's execution ordering of the game's async `on ready` map-coordinate
-# calculation combined with the snare's double-teleport; in real Quest a turnscript/
-# enter-script error is non-fatal (no 20-error breaker), so the game is winnable there.
-#
-# This script reaches the furthest possible state (clean run up to the forced snare).
+# WHY THE #!errorlimit DIRECTIVE (QuestViva incompatibility, not walkthrough drift):
+#  - The MANDATORY Grislewood snare (south from Frosted Forest, game.aslx line 3444)
+#    teleports the player with a DOUBLE MoveObject: `MoveObject(player, Grislewood
+#    Kitchen)` then immediately `MoveObject(player, Inescapable Cage)` (lines
+#    3451-3452). "Inescapable Cage" is reached only by that teleport and never has
+#    grid map coordinates established, so OnEnterRoom ->
+#    Grid_CalculateMapCoordinates(cage) -> DictionaryItem(coordinates,"x") throws
+#    ~19 times in that single transition (8x 'x' + 8x 'y' + 'z' + 2 more).
+#  - QuestViva's 20-script-error circuit breaker (which legacy Quest does not have;
+#    it printed script errors and carried on) then kills the session -> Wedged,
+#    despite the game being fully playable and winnable in real Quest.
+#  - The error storm is FINITE: 34 errors across the whole 440-step game (the cage
+#    burst plus a few later map recalculations). #!errorlimit=200 lifts the breaker
+#    past it; every error is still printed in the transcript, faithfully matching
+#    legacy Quest's carry-on behaviour. Same pattern as The Acreage.
 x me
 x wand
 x spellbook
