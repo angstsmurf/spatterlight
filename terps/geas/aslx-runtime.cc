@@ -2489,6 +2489,15 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
     }
     case Expr::Kind::Member: {
         Value ov = eval_expr(*e.a, ctx);
+        // Property access on null throws in QuestViva (NcalcExpressionEvaluator:
+        // "Property 'x' not found on '<receiver-type>'", where a null receiver
+        // interpolates as '') -- spondre's InitInterface-era UpdatePlayerUI
+        // reads game.pov.longtermtopics before StartGame assigns pov, and its
+        // golden opens with exactly this error. Other unresolvable receivers
+        // (dangling object refs) keep the silent-null behaviour the corpus
+        // already depends on (The Last Hero's misspelled-room bugs).
+        if (ov.type == Value::Type::Null)
+            throw std::runtime_error("Property '" + e.str + "' not found on ''");
         Element *el = interp_eval_element(*this, ov);
         if (!el) return vnull();
         const Value *f = resolve_field(el, e.str);
@@ -3178,6 +3187,18 @@ bool Interp::exec_statement_command(const std::string &name,
     if (name == "list add" || name == "list remove") {
         if (args.size() < 2) return true;
         Value *lst = lvalue_of(*args[0], ctx);
+        // QuestViva's ListAddScript evaluates its target as an EXPRESSION and
+        // mutates the QuestList reference it yields -- the target need not be
+        // an assignable name at all (spondre: `list add (groups[class], entry)`).
+        // When it isn't an lvalue, evaluate it; the copy aliases list_store,
+        // so mutating through it edits the stored list.
+        Value lst_expr;
+        if (!lst) {
+            lst_expr = ev(0);
+            if (lst_expr.type == Value::Type::StringList ||
+                lst_expr.type == Value::Type::ObjectList)
+                lst = &lst_expr;
+        }
         Value item = ev(1);
         if (!lst || !(lst->type == Value::Type::StringList ||
                       lst->type == Value::Type::ObjectList)) {
@@ -3219,6 +3240,16 @@ bool Interp::exec_statement_command(const std::string &name,
     if (name == "dictionary add" || name == "dictionary remove") {
         if (args.size() < 2) return true;
         Value *d = lvalue_of(*args[0], ctx);
+        // Same expression-target fallback as `list add` above (QuestViva
+        // mutates whatever QuestDictionary the expression yields).
+        Value d_expr;
+        if (!d) {
+            d_expr = ev(0);
+            if (d_expr.type == Value::Type::StringDict ||
+                d_expr.type == Value::Type::ObjectDict ||
+                d_expr.type == Value::Type::ScriptDict)
+                d = &d_expr;
+        }
         std::string key = to_string(ev(1));
         if (!d || !(d->type == Value::Type::StringDict ||
                     d->type == Value::Type::ObjectDict ||

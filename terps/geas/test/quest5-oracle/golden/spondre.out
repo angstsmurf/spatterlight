@@ -1,0 +1,1773 @@
+Error running script: Error evaluating expression 'game.pov.longtermtopics': Property 'longtermtopics' not found on ''
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+    		span.title {color:rgb(240,240,240); font-size:20pt; text-shadow:0 0 10px #fff;}
+        div.titleholder { display:table-row; }
+        div.titlecell { display: table-cell; text-align:center; vertical-align:middle; }
+        div.titlespacer {width:50px;}
+        span.titletext {font-size:80pt; text-shadow:0 0 10px #fff;}
+
+          spondre
+
+Who is the mysterious old man?
+
+• click to continue •
+> look
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+"In you go."
+
+        A shove, a stumble, and the heavy door slams shut behind you. If the room had been larger, the sound would
+        have echoed. Instead, it just falls dead, intensifying even further the strange claustrophobia that suddenly
+        engulfs you.
+
+        Standing there, plunged into near darkness, you’re overwhelmed by a feeling wrapped in a word: "finality."
+        You refuse to entertain that thought for long. One thing you’ve learned is that nothing in life is ever final,
+        not even death. Doors that are shut can be opened again. Despite that, you begin to doubt the path that
+        you've decided to follow. That doubt, as well, lasts only a moment.
+
+        The cell is musty, with a hint of decay. The only sound is the slow, erratic patter of water dripping somewhere nearby.
+        Then, suddenly, from beyond the walls, comes a faint scream of pain, brief but piercing.
+
+        Tip: To explore, click words or phrases in the text above (for example, "walls", "door", "death", "erratic patter of water") or
+        in the list below. You will be able to finish the story with only the words below, but to fully experience it, you should explore
+        the main text as well to see where it leads you. If something looks interesting, click on it!
+
+> room
+
+          Stone walls. Metal bars. Light flickering chaotically from somewhere, as if oil lamps are burning just
+          out of sight. It strikes of cliché. Do they make prisons like this anymore? Or have you been thrust
+          into an anachronism, a relic of a distant past that someone took and hid and preserved just for those like you?
+
+There are two beds, one on each side of the room, surrounding a large central window.
+
+The right bed looks unused.
+
+The left bed is clearly occupied.
+
+> walls
+
+          The walls are high and made of stone blocks, with rough, uneven faces. There are numerous holes dotting the surface.
+          It’s unclear whether they’re intentional or just the result of careless craftsmanship.
+
+        As you look, a dark shape scurries to one and disappears into its depths.
+
+> beds
+There are two beds, one on each side of the room, surrounding a large central window.
+
+The right bed looks unused.
+
+The left bed is clearly occupied.
+
+> left bed
+
+          In the half light, you make out a figure on the left bed, propped up in the corner. The
+          eyes are large, larger than seem normal. They shift in your direction and then away. You're not sure
+          if it's out of curiosity or fear. There’s no other movement - just quiet study.
+
+> figure
+ • Look at the strange figure
+ • Talk to the strange figure
+
+        Tip: This topic has more than one possibility. Select a choice by clicking it.
+        These menus are optional, so feel free to select something else if you don't like what you see.
+
+> 1
+
+          Fear catches your breath as you look closer. Thin and gaunt with a hairless head and those huge eyes,
+          it looks like some malevolent mythical creature - and you’re trapped in a room with it.
+          Perhaps this is meant to be your final punishment.
+
+The light shifts, and you blink in confusion. A sudden flicker illuminates the corner, and you see it’s
+        actually an old man. Such weary eyes... Thin and frail, his tattered garments hang on skin and bones.
+        You imagine he’s been here quite a long time. Then the realization hits you,
+        and you're sickened as you gaze at what might well be your own future.
+
+> old man
+ • Look at the old man
+ • Talk to the old man
+> 2
+
+        There's too much tension in the room, too much unsettled. It's time to assert some level of
+        control over the situation, or you’ll go mad.
+
+        You raise a hand tentatively. “Hello.”
+
+          The old man regards you with an empty smile. His voice croaks. "Indeed."
+
+> old man
+ • Look at the old man
+ • Ask the old man about himself
+ • Ask the old man about prison
+> 2
+"Who are you," you say, "if I may ask?"
+
+          He's silent for so long, you think he's ignoring you. Then he seems to come to a decision. "My name is Spon."
+
+          He inclines his head in your direction. "And what might your name be?"
+
+ • Tell him your name
+ • Make up a name
+> 1
+You tell him your name.
+
+"Well met," he says, with a slight bow of his head. "If only it were under better circumstances."
+> Spon
+ • Look at Spon
+ • Ask Spon about prison
+ • Ask Spon why he's here
+> 2
+You take in your surroundings with a sweep of your hand. "What is this place?"
+"Have you ever heard of Colintha?" he asks.
+
+          The room sways. “Colintha.” It's a word whispered when it's spoken at all. Everyone has heard the legend of a place so abhorrent,
+          so terrifying, so anathema to the human soul that most cannot believe it even exists. Discussion is discouraged; details
+          are scarce. More than definitive thought, it invokes what can best be described as a feeling, one beyond dread, beyond fear.
+          It has its roots in the darkest nightmares. It is all that's wrong with the world.
+
+          He watches you in silence, awaiting your reply. You manage to find your voice.
+
+ • Reply yes
+ • Reply no
+> 1
+With a nod, you say, "I've heard legends of a secret prison more terrible than anyone dares imagine."
+
+          "This is that place."
+
+> Colintha
+"Can you tell me more about Colintha?"
+
+          "All I can tell you is what I have experienced myself in this cell, along with what I've gleaned from those who have
+          shared it with me during my time here." He pauses before continuing on.
+
+          "Colintha is a prison for only the worst of the Empire's enemies. All here pose a direct and serious threat to the Empire's existence,
+          whether it be a physical threat or even just a spiritual one. Regardless, nobody sent here has ever returned home.
+
+          "What's more, the place itself seems beyond technology, beyond magic. I don't know what wizardry has gone into its construction,
+          but the walls defy any attempts at destruction, the creatures that live here..." He gestures all around the room.
+          "...are distorted and fantastical,  and the place itself has a regenerative property which, ironically, prolongs life
+          in those who least wish it."
+
+> Spon
+ • Look at Spon
+ • Ask Spon why he's here
+> 2
+"Why are you here? What was your crime?"
+
+          The bitterness is clear in his voice. "My 'crime' was promoting justice. My 'sin' was caring more about the citizens of the empire
+          than about the Emperor himself or his ambitions or his decrees." He leans forward. “I was young and idealistic and bubbling
+          with a naive hubris, ignorant of how the world actually works.” After a moment's silence: “I'm no longer naive. I've learned lessons
+          that, in a better world, no one should have to."
+
+          He shifts on the bed, his gaze beyond the room. "More painful than being in this place is the almost daily torture of thoughts - of my young child
+          whose father never came home, of my beloved wife whose beloved husband suddenly disappeared after just a few short years of marriage.
+          Of them not knowing where I am, whether I'm alive. Of me not knowing the same about them. All in the name of 'civil stability' or
+          whatever they call it these days."
+
+> wife
+"Tell me about your wife."
+
+With surprising agility, he slides from the corner to the edge of the bed. "Let me show you."
+          Cupping his hands, he closes his eyes and relaxes. You wonder what he's doing. Then, with a flash, an image bursts
+          into existence above his upturned hands, bathed in blue fire.
+
+        Long, wispy hair. Gentle eyes. A smile filled with affection and a hint of mischief. It's a snapshot
+        floating in the air before you, brightening the room with more than just its magical light.
+
+> child
+Spon is too occupied to hear you.
+
+        The view pans back to reveal an opulent garden. A fruit tree casts shade on flowering shrubs, and a small, two-person bench beckons.
+        She stands waiting. For a moment, you feel she might be looking at you.
+
+> window
+
+          The one part of the room offering a hope of escape is the tall window between the beds, running all
+          the way to the ceiling. Even that hope is slight, given the mesh of heavy bars across it.
+
+          It's sunset outside, painting the sky with a deep, sanguine tint. Lovely in a depraved sort of way,
+          it only makes the room darker.
+
+        Perhaps during the day, the window will look out
+        onto luscious green hills, a crystal-clear stream, and birds flying free in an open sky. Such a sight
+        would be a welcome change from the dreariness of the room but, at the same time, a tease beyond reach.
+
+        Words form silently in her mouth and then a broad smile. She reaches out her hand just as the image fades.
+
+A great sigh shakes him as he turns to you. His eyes shine in the dim light.
+ "You can't imagine how much I miss her."
+
+> door
+
+        The door seems less a door than a section of movable wall. There must be magic in this place
+        to allow something so large and heavy to move with such ease. Now that it’s shut, it’s as if
+        someone has simply painted a thin, dark, door-shaped outline onto the stone. No light enters around it.
+        There's no handle. It’s cold to the touch, hard and impersonal, and so solid
+        that you could pound as hard as you might, and no one would ever hear you.
+
+> scream
+You've heard screams before, but none like this. It was the sound of someone strong pushed to the breaking point.
+      It was agonized and visceral. It was the sound of defeat.
+> holes
+
+          The more you study the holes, the less you want to. There’s no rhyme or reason to them – some are
+          up high, some are near the beds, and there are even some directly overhead in the ceiling. They’re
+          all shadow just below the surface, but there’s disturbing movement everywhere you look,
+          with dark shapes writhing, just visible, inside the openings. You know that what
+          goes in can come out – and you have to sleep sometime.
+
+Spon sees you looking at the holes. "Be sure not to put your hand in there. You might not get it back."
+> ceiling
+
+          The ceiling overhead is stone, like the walls. There are large webs in the corner, far too
+          high to clear away. Given the size of the spiders needed to make them, you realize that’s probably a good thing.
+
+> child
+"Tell me about your child."
+
+He joins his hands again, and another image appears.
+
+        It's a scene inside someone's home, showing a room with no small amount of clutter.  Overflowing bookcases,
+        scattered furniture, hiding places... A small face peers from a recess, watching, waiting. Then, arms raised, fingers curled, she springs, mouth wide
+        in a shout but never concealing her smile. A burst of laughter, and then she is running, dodging, chased, heading for the outside door and the wide world.
+
+> webs
+
+        These are not your average garden webs. Woven with thick strands, they sit like fishing nets in the corners.
+        Only the irregular construction and familiar circular patterns hint at their true nature.
+
+        A ball rolls across the ground with a small child walking behind, foot extending out from time to time to
+        keep it moving on its way. Her hair is long; her dress is petite, with a handmade quality. A kick too hard, and the ball moves out
+        of sight, with the girl running after.
+
+> window
+Through the bars covering the window, you can gaze longingly out on the world.
+The sky is gradually growing darker.
+
+        The scene shifts once more, and she is standing there, looking up at you shyly before looking away. Her mouth moves
+        in silent jabber, words still strange and new brought forth with precise concentration. A pause, and then she steps forward and reaches up with both hands.
+
+        With that, the image disappears, and the room is dark once more.
+He wipes a tear from his cheek.
+
+        "She was almost three. She'll be a young woman now. I've missed her growing up. I've missed everything."
+
+> scream
+The scream echoes in your mind, a new and unwanted memory.
+> room
+
+          Stone walls. Metal bars. Light flickering chaotically from somewhere, as if oil lamps are burning just
+          out of sight.
+
+There are two beds, one on each side of the room, surrounding a large central window.
+
+The right bed looks unused.
+
+Spon is sitting on the left bed.
+
+            Spon shifts on the bed and takes from his pocket a cloth-wrapped package. Carefully undoing it, he
+            removes what appears to be a small, hand-rolled cigarette. He looks at you and holds it up. "Smoke?"
+
+ • Yes, please
+ • Maybe later
+ • No thanks
+> 1
+
+          You've never wanted something more. "They took mine away." Seeing the need in your eye, he tosses it to you, takes one for himself
+          and lights them both. You take a long drag and let it out slowly. "You're a lifesaver." The aroma is unusual, a blend you're
+          not familiar with.
+
+            He gestures to your bed. "Why not take a load off while you can?"
+
+> right bed
+ • Examine right bed
+ • Sit on the right bed
+> 2
+You sit on the empty bed. From this new vantage, you notice some odd writing on the wall.
+
+The smoke from your cigarettes mixes in the air.
+It has a sweet smell. You find it relaxing in an unusual way.
+> writing
+
+        In the corner, someone has carved a message in the stone. You
+        can barely make out the first part - it’s etched in simple strokes: XYZZY. Below that single
+        faded word, nearly lost to the progress of time, the rest is clearer:
+
+        "Little by little, the chains fell away. One by one, the locks were wrenched off and cast aside. After decades
+        of looking at the same walls, the doors were opened, the crumbling edifice was abandoned, and they
+        staggered out into the promise of a new day. They drew in the crisp, fresh air and felt the warmth
+        of the sun. With sudden laughter, they fell down and rolled in the grass and then lay breathless,
+        looking up at a wide open sky. And having broken free of the shackles that had bound them for so
+        long, they soon discovered with great delight that they could fly."
+
+> window
+Through the bars covering the window, you can gaze longingly out on the world.
+The sky is gradually growing darker.
+> scream
+Your mind keeps returning to that awful sound. Such dwelling will lead to madness. You try to turn your thoughts to something new.
+> decay
+
+        The smell triggers an unwanted memory... It was the first rain after the great destruction.
+        There were still bodies in the streets, or what bits remained of them - too much to pick up. You tried despite the intensity of your grieving, but it was just too much.
+        The raindrops fell like tears at first, a gentle lamentation over the village. Then it turned to a downpour, washing the stench of death into every nook and cranny. In the weeks that followed, all you
+        could do was pray it would some day fade away on its own. It never did.
+
+          Spon takes a long, final drag on his cigarette before extinguishing it.
+
+> doubt
+You often wonder if these doubts that you banish so quickly are mere distractions to be ignored - or the voice of your conscience.
+
+Though the cigarette you hold might be the last for a while, it's making your head swim. You grind it out but pocket the stub.
+
+Spon leans forward. "I suppose if we're going to be sharing a room, I should know at least something about you. Who did you offend to end up in this place?"
+
+          It's the question you've been dreading. The past few days have been a nightmare of threats, beatings, and drugs.
+          Despite all of that, the interrogators were no match for your discipline and determination. You're so used to the
+          struggle, so used to saying nothing to anyone, that you almost can't imagine opening up now. The 'almost' in that
+          thought is because of the old man himself. There is something about him that's calm and reassuring. Safe. Secure. And
+          goodwill may be in short supply for the foreseeable future.
+
+ • Tell the truth.
+ • Be vague.
+ • Lie.
+> 1
+
+          You wonder if the old man has  worked some kind of magic on you. Despite your reservations, you find yourself opening up.
+          "I was arrested for 'being a spy and committing acts of sabotage.'"
+
+He leans forward with interest. "What did you do?"
+
+          A certain intensity in his question raises a tiny alarm. You're not sure if the feeling is something real
+          or just a result of what you've been through lately.
+
+ • Tell him
+ • Be vague
+ • Lie
+> 1
+
+          The words form in your mind, but they just won't come out. You feel an odd comfort with this man,
+          but something inside is rising up in protest, holding your tongue. Resigned to the inevitable,
+          you say instead, "I'd rather not talk about that."
+
+> window
+Through the bars covering the window, you can gaze longingly out on the world.
+The sky is gradually growing darker.
+> scream
+Your mind keeps returning to that awful sound. Such dwelling will lead to madness. You try to turn your thoughts to something new.
+> walls
+
+          The walls are high and made of stone blocks, with rough, uneven faces. There are numerous holes dotting the surface.
+          It’s unclear whether they’re intentional or just the result of careless craftsmanship.
+
+"What about you?" Spon asks. "You have any family or anyone out there who will be missing you?"
+
+A wave of emotions makes the room dim. Thoughts normally kept at bay surge forward, infesting your mind like so many crawly things.
+          They itch and pinch and wriggle. You want to reach inside and rip them out, but like always, they're beyond reach. More suppression,
+          and they'll go away, pushed back below the surface. Or perhaps it's time to let them out somehow.
+
+ • Tell him
+ • Be vague
+ • Lie
+> 1
+
+          "I was married," you say, anger creeping into your voice. "And I had a son. They're both dead now, along with many in my village, victims
+          of this so-called 'emperor'. It was all so pointless..." Your eyes meet as you try to pour all your emotion into him.
+          "My life ended the day they were killed. This madness must end!" You watch him, wondering if you've gone too far.
+
+The next question is not unexpected.
+
+"What happened?"
+ • Open up
+ • Avoid the question
+> 1
+It hits you all over again as you bring forth the words. "I was walking in the hills that day, high above our home." You turn to him.
+        "It was just a normal day, nothing special, no hint of anything. I was watching them down there, the two of them, laughing, playing together..."
+        A smile creeps onto your face. It abruptly vanishes. "Then from from the sky, something like fire..." You almost can't speak. "Great
+        burning balls that fell all over the village, obliterating everything in their path." For a moment, you're no longer in the cell,
+        but someplace much, much worse. You don't even see him any more. "One landed... I saw... They were just..."
+
+He's silent for a while. "I'm sorry for your loss."
+ • Respond angrily
+ • Thank him
+ • Say nothing
+> 2
+"Thank you."
+> window
+Through the bars covering the window, you can gaze longingly out on the world.
+The sky is gradually growing darker.
+> scream
+Your mind keeps returning to that awful sound. Such dwelling will lead to madness. You try to turn your thoughts to something new.
+> beds
+There are two beds, one on each side of the room, surrounding a large central window.
+
+You are sitting on the right bed.
+
+Spon is sitting on the left bed.
+
+A low pure tone begins...
+
+        The contrast to the silent calm startles you. The tone continues and deepens,
+        as if the walls themselves were moaning in sorrow. The prickles of fear this stirs seem
+        founded as a chorus soon joins in, with muffled voices from all around in the prison raised in wails and screams.
+        There is something else as well, a sound from a nightmare.
+
+        From the walls, there is the slush of things suddenly moving, shifting, scurrying, swarming. The holes begin
+        to vomit streams of black life, emerging and spreading out across the surface, covering everything in sight.
+        As they reach the floor, instinct moves you up onto the bed, a gesture that you know is probably hopeless. Great ebony insects with
+        pincers, ribbed pills with antennae curiously testing the air, long millipedes snaking over the writhing mass – those and more clamber to go
+        somewhere, anywhere besides the holes where they previously rested.
+
+          There's more fear in your voice than you wish. "What's going on?"
+
+          His response is simple but chilling. "Feeding time."
+
+        Intensifying the nightmare, you begin to sense movement above you, along the ceiling.
+
+> ceiling
+
+            A sound above draws your gaze, and you collapse back onto the bed. Great bulbous things
+            (you hesitate to call them spiders),
+            with bodies the size of a man's torso and long angled legs, drag themselves from recesses
+            above to take their places in the webs, one directly over each bed. They sit motionless,
+            waiting, sometimes spinning slightly, sometimes darting out with legs to entrap whatever comes near.
+            Their legs are pointed and covered in coarse hair, as are their bodies.
+
+        Spon grabs a beetle off the wall and bites it in half with an unsettling, spurting crunch.
+He drags a hand across his mouth. "Better grab what you can," he says, chewing casually. "This is all we get to eat."
+
+> walls
+
+          The walls teem with anxious, restless life. The creatures that have poured forth from the scattered holes now cover its surface.
+
+> bugs
+ • Look at bugs
+ • Catch bug
+> 2
+
+        You reach into the great moving mass on the wall and grab hold of the first thing you can. It's a hard, black beetle
+        struggling in your grasp, its legs clawing at the air.
+
+> bugs
+ • Look at bugs
+ • Eat bug
+> 2
+
+        If only the thing would stop moving. You contemplate just shoving it all in at once, but the
+        thought that it might somehow remain alive inside you makes you reconsider. Slipping it half way into your mouth,
+        you pause for strength. Its legs dance across your tongue and the inside of your lips. It's all too much.
+        Closing your eyes, you bite down. There's a crack that makes you cringe and then a bitter, sticky liquid squirts
+        along your tongue and part way down your throat. You fight a gag as you begin to chew.
+
+        Eventually, you manage to swallow, despite all the hard bits that remain. Then you swallow again. And again.
+        And finally it's all the way down. One half to go... At least what's left is no longer moving. You shove it in and bite down,
+        and the bitterness doubles. You wonder if there's some sort of acid in these creatures - or any nutrients whatsoever.
+
+> bugs
+ • Look at bugs
+ • Catch bug
+> 2
+Not quite believing this is happening, you reach out again and come away with another scurrying thing.
+> spiders
+Spiders... Why did it have to be spiders?
+
+        "What are those?" you ask, holding back the expletives that would have summed up your emotional state. You point to the ceiling.
+
+        He stares vacantly at a spot just below your bed. "We call them 'tormentors.'"
+
+Suddenly, there comes a most inhuman sound. It's the cry of a bird of prey mixed with the snarl of a large cat, long, drawn-out, terrifying.
+          It echoes in the tiny room.
+
+            Looking up, you see that the spider above Spon has left its web and is dangling in air now on a slender strand,
+            slowly descending straight for him.
+
+> spiders
+
+        The name "tormentors" has implications you'd prefer not to contemplate, but you have no choice.
+        Primary among them is that these creatures might have a definite purpose, one you're not looking forward to experiencing.
+
+        "Why are they called 'tormentors?'"
+
+        "Because every night, just after the sun goes down, they come out and torment us. It's part of our punishment.
+        You'll discover soon enough a new level of pain. They will rip you apart but not kill you. And then you'll heal
+        just in time for it to start all over again the following sunset. You begin to pray for death."
+
+> walls
+
+          The walls teem with anxious, restless life. The creatures that have poured forth from the scattered holes now cover its surface.
+
+The spider is now half way to Spon. It shrieks again, hairs surrounding its beak-like mouth undulating fiercely
+            in the blast of air.
+
+> holes
+The holes are almost indistinguishable now from what has come out of them. You know they're there somewhere,
+        buried under the mass of writhing black, but they don't seem to matter much any more.
+> window
+Looking out the window, you see the sun has set.
+
+The spider is just above Spon now.
+> ceiling
+The spider above Spon is lowering slowly on a strand. The other sits idly in its web above you, waiting.
+> walls
+
+          The walls teem with anxious, restless life. The creatures that have poured forth from the scattered holes now cover its surface.
+
+The spider hovers above Spon. He sits there passively as its legs spread wide, their sharp tips poised to strike.
+> holes
+The holes are almost indistinguishable now from what has come out of them. You know they're there somewhere,
+        buried under the mass of writhing black, but they don't seem to matter much any more.
+> window
+Looking out the window, you see the sun has set.
+
+The spider's legs suddenly thrust inward, heading toward him. You're surprised how quickly they move. You want to reach out, to fight, to scream, anything,
+            but all you can do is sit, immobilized by shock and fear. They seem to take forever to get to him. Your mind races ahead, imagining horrific scenarios.
+            Then at the last moment, the legs snap to a halt. They're so close, you're not sure at first if they've hit him, but then you see the gaps,
+            the mere inches that have spared him.
+
+The spider slowly spreads its legs wide once more, almost reluctantly, and begins inching its way back up toward its
+          nest in the ceiling.
+
+> ceiling
+The creature hadn't attacked Spon as you thought it would. You need to know why.
+
+        "Why didn't it attack you?"
+
+        "They may seem hideous to you," he says, "but there is nothing purely evil, just as there is nothing purely good.
+        Such extremes exist only in the minds of those lacking the ability to comprehend the complexities of the Universe.
+        Those that built this place..." His hand sweeps the room; then he points up. "...also created the tormentors. But in
+        giving them the intelligence needed to creatively rip men apart, they also quite accidentally imparted to them
+        logic and a deep sense of justice. The Empire may never let us leave here, but the tormentors do not have to abide by the
+        Emperor's wishes that we suffer needlessly."
+
+        He looks straight at you. "To avoid their wrath, you must repent. You must abandon your hatred and liberate yourself
+        of your crime. And you must do it honestly and sincerely. They know what's in our hearts."
+
+> repent
+"You said I have to repent. What does that mean?"
+
+        "You must acknowledge your crime," he says, "declaring what you have done and then expressing sincere remorse for your transgression."
+
+          He shifts on the bed. "For example," he continues, "you told me your crime was sabotage, but
+you held back the details
+.
+          You must declare all about your offense for the tormentors to leave you in peace."
+
+The spider continues its ascent.
+> sabotage
+
+            You're not sure why, but you've developed a certain trust for this strange old man.
+
+            And your time in this cell has made you contemplate what you've done. Did your thirst for revenge blind you to what was right?
+
+He hasn't stopped looking at you. "So... what will it be?"
+ • Repent
+ • Refuse
+> 1
+
+            With a great sigh, you decide it's time to cast off your burden. It has only led you to this horrible place.
+            Enough people have died.
+
+            "I've placed a bomb in the Emperor's city." For a moment, you pause as the words "capitol city" flash
+            in your mind. Where did those come from? "It's located near the palace, in a place I knew would be crowded
+            when it went off. I hope you can understand – I'm not normally evil or destructive or hateful.
+            But what they did to my family..." You look out the window and wish you were there. "I've become them.
+            Someone needs to stop it before it's too late."
+
+            Spon looks at you and smiles, as a blinding light grows from all around, making the room, the spiders and the old man disappear...
+
+• click to continue •
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+            Laboratory Notes
+
+			      Subject: Patient X-132
+
+    		    Researcher: Dr. Emil Spon
+
+			      Immersion #XX Results
+
+            The immersion was a complete success today. Patient X eventually opened up, not only about the crime, but about the motivation behind it.
+            Subsequent questioning revealed the location of the sabotage, deep in the heart of the capitol city. It was quickly subverted, much to
+            our relief. Had the device activated, it would have resulted in the deaths of thousands of our good citizens.
+
+            Patient X has been removed by Dark Agency personnel. We were not directly informed of what was to be done next, but I have learned through
+            unofficial channels that an execution will occur shortly.
+
+            Long live our glorious nation!
+
+> day 1
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+          Laboratory Notes
+
+			    Subject: Patient X-132
+
+    		  Researcher: Dr. Emil Spon
+
+			    Day 1 - Arrival
+
+			    Patient X arrived today. This is another Dark Agency project, a prisoner who needs to be broken in some way.
+			    They don't really know who this person is. All attempts so far to learn anything have met with resistance,
+          even when conducted by the agency's top interrogators. This may be some sort of highly trained operative or simply
+          a self-taught renegade acting alone.
+
+			    There is a level of urgency, as it's suspected that an act of sabotage has been performed somewhere in the
+			    city, one which could take effect at any time with unknown damage and loss of life.
+
+			    We've agreed to proceed with a modified immersive approach. There are several scenarios we can choose from.
+			    Dr. Bel is pushing for a replacement reality to engender false comfort and openness. I'm more in favor of
+			    an alternative reality, one we can tailor to the needs of our various inquiries. We have been successful
+			    with this in the past. As I am the senior investigator, Dr. Trot will probably lean my way when it comes
+			    to a vote. Bel knows this and is clearly not happy. Clearly, I am.
+
+> day 2
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+          Laboratory Notes
+
+			    Subject: Patient X-132
+
+    		  Researcher: Dr. Emil Spon
+
+			    Day 2 - Preparation
+
+			    Patient X has been sedated overnight in preparation for immersion. I will be taking part directly in the simulation. Drs. Bel and Trot have declined, for differing reasons. In order to keep the construction to a minimum, and due to the lack of available persons, the alternative reality will be set in a prison cell, which Patient X and I will share. Patient X will be a new prisoner, and I will be the current cell occupant.
+
+			    In order to heighten the threat response, the prison will be fantastical, with engineered creatures to plague the cellmates. We will play on common human fears -
+          confinement, spiders, crawling creatures, darkness.
+
+			    The alternative reality will need to have a correspondence, so that we can map responses back to the real world.
+          That's the only way we'll be able to extract the necessary information.
+
+> today
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+            Laboratory Notes
+
+			      Subject: Patient X-132
+
+    		    Researcher: Dr. Emil Spon
+
+			      Immersion #XX Results
+
+            The immersion was a complete success today. Patient X eventually opened up, not only about the crime, but about the motivation behind it.
+            Subsequent questioning revealed the location of the sabotage, deep in the heart of the capitol city. It was quickly subverted, much to
+            our relief. Had the device activated, it would have resulted in the deaths of thousands of our good citizens.
+
+            Patient X has been removed by Dark Agency personnel. We were not directly informed of what was to be done next, but I have learned through
+            unofficial channels that an execution will occur shortly.
+
+            Long live our glorious nation!
+
+> end game
+
+      span.keyword {color:#C0C080; cursor:pointer;}
+      span.hint {color:#80A01E; font-size:11pt; }
+      span.conjuredimage {color:#40A0FF; font-style:italic; text-shadow: 0 0 10px #ccc; }
+      span.introspection { font-style:italic; color:#aaa; }
+      span.help { color:#f0f0f0; font-family:'Verdana'; font-size:11pt;}
+      span.leadin {text-shadow:1px 1px 0px #000, 2px 2px 0px #000; font-style:normal; font-size:18pt; color:#c0c0c0;}
+      span.feedingtimex {text-shadow:1px 1px 0px #600, 2px 2px 0px #600; color:#c01010;}
+      span.interact {}
+      span.reflect {}
+      span.colortext {}
+      span.tormentor { text-shadow: 1px 1px 6px #A00; }
+      span.finaltext { font-size:14pt; font-style:italic; }
+
+      body { background-color: #180c00; }
+
+      div#gameContent {
+          width: 870px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      input#txtCommand {
+        border-style:none;
+        border-width:0px;
+        background-color:transparent;
+        outline-style:none;
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;
+        margin:0;
+        padding:0;}
+      span.inputPrompt {
+        color:#ffffff;
+        font-size:12pt;
+        font-family:'Inder', Georgia, serif;}
+      div.gameheader {
+        text-align:right;
+        opacity:0.75;
+        }
+      div#gameBorder {
+        border-left: 1px solid #654321;
+        border-right: 1px solid #654321;
+        }
+      div#bar {
+        width:100%;
+        height:auto;
+        background-color:#202020;
+        padding: 2px;
+        font-size:12pt;
+        }
+      div#barLeftHolder {
+        width:80%;
+        text-align:left;
+        height:auto;
+        display:inline-block;
+      }
+      div#barRightHolder {
+        width:20%;
+        text-align:right;
+        height:auto;
+        display:inline-block;
+      }
+      span#keywordPane {
+      }
+      span#helpPane {
+      }
+      span.keywordExtra {
+        color:#c0c0c0;
+        opacity:0.75;
+      }
+      span.temporaryKeyword {
+        font-style:italic;
+      }
+      span.permanentKeyword {
+      }
+      div.separatorholder {
+        height:1px;
+        width:99%;
+        margin:3px 0px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+      }
+      div.separatorx {
+        background-color:#654321;
+        width:100%;
+        height:100%;
+      }
+      div.separator {
+        margin-top: 1px;
+        background-color:#A05000;
+        width:100%;
+        height:100%;
+      }
+      div#divOutput {
+	      cursor:pointer;
+      }
+      span.xyzzy {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #404040;
+        text-shadow: 0 0 5px #CCC
+      }
+      span.xyzzybody {
+        font-family: 'Coming Soon', cursive;
+        font-size:11pt;
+        color: #a0a0a0;
+      }
+      div.endpage1 {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage2 {
+      	background-image:url(bg2.jpg);
+      }
+      div.endpagecurrent {
+      	background-image:url(bg.jpg);
+      }
+      div.endpage {
+        color:#000000;
+        font-family:'Nothing You Could Do', 'Inder', Georgia, serif;
+      	font-size:12pt;
+      	font-weight:bold;
+      	background-color:#ffffff;
+      	border-width: 1px;
+      	border-color:#000000;
+      	border-style:solid;
+      	padding:10px;
+      	margin:10px;
+      	xbox-shadow: 2px 2px 5px #a05040,4px 4px 5px #a05040;
+      	width:650px;
+      	height:500px;
+      }
+      div.endpagebreak { font-size:10pt;}
+      div.titlebreak { font-size:6pt;}
+      span.blurred {
+      	opacity:0.8;
+      	color: transparent;
+      	text-shadow:0 0 6px #000000;
+      }
+
+          This has been 'spondre' by Jay Nabonne.
+
+          Thank you for playing!
+
+[state=Running]

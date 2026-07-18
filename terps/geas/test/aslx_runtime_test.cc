@@ -390,6 +390,27 @@ static void test_realgame_constructs() {
         "msg (\"k\" in d)\n"
         "msg (\"j\" in d)"), "True\nFalse");
 
+    // -- list add / dictionary add through an EXPRESSION target (spondre's
+    // ResponseLib_GroupResponses: `list add (groups[class], entry)`).
+    // QuestViva mutates whatever QuestList/QuestDictionary the expression
+    // yields; the aliasing Value copy must edit the stored collection.
+    CHECK_STR(run(in,
+        "groups = NewDictionary()\n"
+        "l = NewList()\n"
+        "dictionary add (groups, \"c\", l)\n"
+        "list add (groups[\"c\"], \"hit\")\n"
+        "msg (ListCount(groups[\"c\"]))"), "1");
+
+    // -- Property access on a null receiver throws QuestViva's exact message
+    // (spondre's golden opens with it: UpdatePlayerUI reads
+    // game.pov.longtermtopics before StartGame assigns pov).
+    CHECK_STR(run(in,
+        "create (\"holder\")\n"
+        "msg (holder.pov.longtermtopics)"),
+        "Error running script: Error evaluating expression "
+        "'holder.pov.longtermtopics': Property 'longtermtopics' not found on ''");
+    w.errors.clear();
+
     // -- "x => { script }" assigns a script literal (SetScriptScript).
     run(in, "create (\"guard\")");
     CHECK_STR(run(in,

@@ -65,7 +65,13 @@ static std::string strip_html(std::string s) {
     // Basic HTML entity decode (WebUtility.HtmlDecode subset).
     struct { const char *e; const char *r; } ents[] = {
         {"&amp;", "&"}, {"&lt;", "<"}, {"&gt;", ">"}, {"&quot;", "\""},
-        {"&#39;", "'"}, {"&apos;", "'"}, {"&nbsp;", " "},
+        // WebUtility.HtmlDecode: &nbsp; is U+00A0, NOT an ASCII space
+        // (spondre's menu bullets are "&nbsp;&bull; ..." and its golden
+        // carries the real no-break byte); it knows every named entity --
+        // add them here as the corpus needs them.
+        {"&#39;", "'"}, {"&apos;", "'"}, {"&nbsp;", "\xc2\xa0"},
+        {"&bull;", "\xe2\x80\xa2"},
+
     };
     for (auto &en : ents) {
         size_t pos = 0;
@@ -342,7 +348,7 @@ int main(int argc, char **argv) {
     std::cout << normalise(transcript);
     std::cerr << "[diag] steps=" << steps << " errors=" << w.errors.size()
               << " finished=" << w.finished << "\n";
-    for (size_t i = 0; i < w.errors.size() && i < 12; ++i)
+    for (size_t i = 0; i < w.errors.size() && i < 500; ++i)
         std::cerr << "  err: " << w.errors[i] << "\n";
     return 0;
 }
