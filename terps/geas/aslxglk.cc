@@ -196,6 +196,7 @@ std::string g_location_line;
  * named game resource in the main window, original size but never wider
  * than the window. False when unresolvable or images are unsupported. */
 bool draw_image_inline(const std::string &name);
+void panel_arrange();
 
 /* Pane redraw (defined after the HTML renderer): repaints the side pane from
  * the stored lists when they changed; safe to call anywhere no line input is
@@ -1126,6 +1127,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
             update_banner(in);
             fill_pane_divider();
             grid_map_arrange();
+            panel_arrange();
             break;
         }
     }
@@ -1759,28 +1761,143 @@ bool draw_image_inline(const std::string &name)
 #endif
 }
 
-/* Frame-picture redirect (JS.setPanelContents): Quest's picture frame is a
- * persistent panel above the transcript -- Core sets it from the room's
- * `picture` attribute on every room change (OnEnterRoom -> SetFramePicture)
- * and re-sets it at boot/restore (InitInterface). With no panel, draw the
- * picture inline when it CHANGES, the way Scarier folds ADRIFT's graphics
- * into the buffer: room art appears on entry, classic illustrated-IF style,
- * and consecutive re-sets of the same file stay quiet. */
-std::string g_panel_last;   /* case-folded filename currently "in the frame" */
+/* The frame picture (JS.setPanelContents) -------------------------------
+ *
+ * Quest's picture frame is a PERSISTENT panel above the transcript, not a
+ * picture in it: Core sets it from the room's `picture` attribute on every
+ * room change (OnEnterRoom -> SetFramePicture) and re-sets it at boot and
+ * restore (InitInterface). The reference player's #gamePanel is
+ * `position: sticky; top: 32px`, full width, contents centred, hidden when
+ * empty, with the image capped at half the window height
+ * (playercore.js: `(window.innerHeight - 30) * 0.5`) -- a sibling of
+ * #gridPanel, which is why this gets the same treatment as the grid map.
+ *
+ * Drawn inline instead, a room picture ate most of the viewport, pushed the
+ * room description below the fold, and then scrolled away for good, since a
+ * re-set of the same file is deduped (The Shack: every room has art).
+ *
+ * Hosts without graphics (CheapGlk, the smoke harness) keep the old inline
+ * path, so their transcripts are unchanged. */
+winid_t gpanelwin = nullptr;    /* the band, open only while a picture is set */
+std::string g_panel_last;       /* case-folded filename currently in the frame */
+glui32 g_panel_id = 0;          /* its Glk image id */
+
+bool panel_band_available()
+{
+#ifdef SPATTERLIGHT
+    /* The band needs the by-name image registry (g_image_ids), which only
+     * Spatterlight's Glk provides -- see cached_media_id. */
+    return glk_gestalt(gestalt_Graphics, 0) &&
+           glk_gestalt(gestalt_DrawImage, wintype_Graphics);
+#else
+    return false;
+#endif
+}
+
+void panel_close()
+{
+    if (gpanelwin) {
+        glk_window_close(gpanelwin, nullptr);
+        gpanelwin = nullptr;
+    }
+    g_panel_id = 0;
+    g_panel_last.clear();
+}
+
+/* Size the band to the picture and repaint it.  Re-run on every arrange, so
+ * the picture re-fits when the window is resized. */
+void panel_relayout()
+{
+    if (!gpanelwin || !g_panel_id)
+        return;
+    glui32 iw = 0, ih = 0;
+    if (!glk_image_get_info(g_panel_id, &iw, &ih) || !iw || !ih)
+        return;
+
+    /* Glk hands out no window-pixel metric, so probe: parked at 50% the
+     * band's own height IS the reference's max-height, and its width is the
+     * full content width. */
+    winid_t parent = glk_window_get_parent(gpanelwin);
+    if (parent)
+        glk_window_set_arrangement(parent,
+                                   winmethod_Above | winmethod_Proportional,
+                                   50, gpanelwin);
+    glui32 bw = 0, maxh = 0;
+    glk_window_get_size(gpanelwin, &bw, &maxh);
+    if (!bw || !maxh)
+        return;
+
+    /* CSS max-width/max-height only ever shrink -- never blow a small
+     * picture up to fill the band. */
+    double scale = 1.0;
+    if (iw > bw)
+        scale = (double) bw / (double) iw;
+    if ((double) ih * scale > (double) maxh)
+        scale = (double) maxh / (double) ih;
+    glui32 dw = (glui32) ((double) iw * scale);
+    glui32 dh = (glui32) ((double) ih * scale);
+    if (!dw || !dh)
+        return;
+
+    if (parent)
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                   dh, gpanelwin);
+    glk_window_get_size(gpanelwin, &bw, &maxh);
+    glk_window_clear(gpanelwin);
+    glk_image_draw_scaled(gpanelwin, g_panel_id,
+                          (glsi32) (bw > dw ? (bw - dw) / 2 : 0), 0, dw, dh);
+}
+
+void panel_arrange()
+{
+    if (gpanelwin)
+        panel_relayout();
+}
 
 void panel_contents(const std::string &html)
 {
     std::string src = decode_entities(tag_attr(html, "src"));
     if (src.empty()) {          /* ClearFramePicture (or non-img contents) */
-        g_panel_last.clear();
+        if (panel_band_available())
+            panel_close();
+        else
+            g_panel_last.clear();
         return;
     }
     if (lower(src) == g_panel_last)
         return;
-    if (draw_image_inline(src)) {
-        g_panel_last = lower(src);
-        glk_put_char('\n');
+
+    if (!panel_band_available()) {
+        /* No band: the old inline draw, so a picture is at least seen. */
+        if (draw_image_inline(src)) {
+            g_panel_last = lower(src);
+            glk_put_char('\n');
+        }
+        return;
     }
+
+#ifdef SPATTERLIGHT
+    glui32 id = cached_media_id(g_image_ids, src, false);
+#else
+    glui32 id = 0;
+#endif
+    if (!id)                    /* unresolvable: leave the frame as it was */
+        return;
+    g_panel_id = id;
+    g_panel_last = lower(src);
+    if (!gpanelwin) {
+        gpanelwin = glk_window_open(glk_window_get_root(),
+                                    winmethod_Above | winmethod_Proportional,
+                                    50, wintype_Graphics, 0);
+        if (!gpanelwin) {       /* refused the split: fall back to inline */
+            g_panel_id = 0;
+            if (draw_image_inline(src))
+                glk_put_char('\n');
+            return;
+        }
+        glk_window_set_background_color(gpanelwin, 0xFFFFFF);
+    }
+    panel_relayout();
 }
 
 /* Print any warnings the engine queued since the last check ("'play sound'
@@ -2207,6 +2324,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
         /* No pane content survives the session either. */
         close_side_pane();
         grid_map_reset();
+        panel_close();          /* the frame picture does not outlive a session */
         g_pane_inv.clear();
         g_pane_places.clear();
         g_pane_exits.clear();
