@@ -914,6 +914,15 @@ void fire_js_events(Interp &in)
         if (!h || h->elem_type != "function")
             continue;
         if (++fired > kMaxChain) {
+            /* Not silently: past the cap a game is either cycling or doing
+             * something this bridge models badly, and the callbacks dropped
+             * here are real work the browser would have run.  Says what was
+             * refused, so the truncation is diagnosable from the log rather
+             * than showing up as a game that mysteriously stops advancing. */
+            fprintf(stderr,
+                    "JS callback chain exceeded %d in one turn: dropped '%s'"
+                    " and %zu more still queued\n",
+                    kMaxChain, func.c_str(), g_js_events.size());
             g_js_events.clear();
             break;
         }
