@@ -59,11 +59,14 @@ namespace {
 
 using namespace aslx;
 
-/* True while the 1-second timer heartbeat is armed (update_timer_request).
- * A file-scope global so the blocking do_pause hook, which overrides the timer
- * with its own one-shot interval, can reset it and let the next
- * update_timer_request re-arm the heartbeat cleanly. */
-bool g_timer_armed = false;
+/* The Glk timer interval currently requested (ms, 0 = off) and the ms
+ * accumulated toward the next whole engine second while the interval runs
+ * faster than 1s (the map marker glide -- update_timer_request,
+ * timer_event_second).  File-scope globals so the blocking do_pause hook,
+ * which overrides the timer with its own one-shot interval, can reset them
+ * and let the next update_timer_request re-arm cleanly. */
+glui32 g_timer_ms = 0;
+int g_timer_frac_ms = 0;
 
 /* Shared frontend helpers (questglk-common.inc).  Using-declarations rather
  * than a using-directive: aslx.cc has a file-local trim of its own, and a
@@ -207,6 +210,27 @@ void fill_pane_divider();
 /* The grid map (game.gridmap): a graphics band across the top of the screen,
  * drawn from CoreGrid.aslx's paint stream via the grid_draw host hook. */
 #include "aslxglk-map.inc"
+
+void update_timer_request(Interp &in);
+
+/* One evtype_Timer arrived.  While the map marker glides, the shared timer
+ * runs at GM_ANIM_TICK_MS: advance the glide (graphics-window output only,
+ * so it is legal even with a line request pending) and report whether a
+ * whole engine second has also elapsed; on the plain 1-second heartbeat
+ * every event is an engine second. */
+bool timer_event_second(Interp &in)
+{
+    if (g_timer_ms == 0 || g_timer_ms >= 1000)
+        return true;
+    grid_map_anim_tick();
+    redraw_grid_map();
+    g_timer_frac_ms += (int) g_timer_ms;
+    bool due = g_timer_frac_ms >= 1000;
+    if (due)
+        g_timer_frac_ms -= 1000;
+    update_timer_request(in);  /* glide over -> heartbeat cadence, or off */
+    return due;
+}
 
 /* ---------------------------------------------------------------- output -- */
 
@@ -1093,6 +1117,11 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
             }
             break;
         case evtype_Timer: {
+            /* A fast tick advancing the map glide leaves the pending line
+             * request alone; only a whole engine second runs the tick
+             * machinery below. */
+            if (!timer_event_second(in))
+                break;
             /* Cancel first: Glk forbids output with a live line request.
              * With echo off the cancel is invisible. */
             event_t ce;
@@ -1109,6 +1138,8 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
             update_banner(in);
             redraw_side_pane(in);
             redraw_grid_map();
+            update_timer_request(in);  /* a timer script may have moved the
+                                        * player and started a glide */
             if (engine_state_pending(in))
                 return {InEnd::State, ""};
             if (reprompt)
@@ -1167,10 +1198,13 @@ void read_keypress(Interp &in)
             return;
         }
         if (ev.type == evtype_Timer) {
+            if (!timer_event_second(in))
+                continue;
             in.tick(1);
             update_banner(in);
             redraw_side_pane(in);
             redraw_grid_map();
+            update_timer_request(in);
             if (in.world().finished || !in.pending_wait()) {
                 glk_cancel_char_event(gwin);
                 if (g_hyperlinks) {
@@ -1708,12 +1742,17 @@ void do_wait_ui(Interp &in)
 /* The do_pause host hook (pre-v550 `request (Pause, ms)` -- Core's Pause).
  * Block mid-script for `ms` milliseconds using a one-shot timer; a keypress
  * skips it (the safety valve). Deterministic mode never blocks. The
- * prompt-level heartbeat is overridden here and torn down afterwards --
- * g_timer_armed is reset so the next update_timer_request re-arms it. */
+ * prompt-level timer is overridden here and torn down afterwards --
+ * g_timer_ms is reset so the next update_timer_request re-arms it. */
 void do_pause_ui(Interp &in, int ms)
 {
     if (!gli_sa_delays || ms <= 0)
         return;
+    if (grid_map_animating()) {
+        /* The one-shot pause owns the timer; finish the glide at once. */
+        grid_map_anim_snap();
+        redraw_grid_map();
+    }
     glk_request_timer_events((glui32) ms);
     glk_request_char_event(gwin);
     for (;;) {
@@ -1732,7 +1771,7 @@ void do_pause_ui(Interp &in, int ms)
         }
     }
     glk_request_timer_events(0);
-    g_timer_armed = false;
+    g_timer_ms = 0;
 }
 
 bool draw_image_inline(const std::string &name)
@@ -1957,15 +1996,22 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
     }
 }
 
-/* Arm/disarm the 1-second heartbeat to match whether any timer is enabled.
- * Gated on the real-time preference like the classic runner, so the
- * deterministic import tests see no wall-clock events. */
+/* Arm the shared Glk timer to the fastest cadence anyone needs: the map
+ * marker glide's fast tick while one is in flight, else the 1-second
+ * heartbeat while any engine timer is enabled, else off.  Gated on the
+ * real-time preference like the classic runner, so the deterministic import
+ * tests see no wall-clock events (a glide never starts without it either --
+ * grid_map_command snaps). */
 void update_timer_request(Interp &in)
 {
-    bool want = gli_sa_delays && in.next_timer_seconds() > 0;
-    if (want != g_timer_armed) {
-        glk_request_timer_events(want ? 1000 : 0);
-        g_timer_armed = want;
+    bool heart = gli_sa_delays && in.next_timer_seconds() > 0;
+    glui32 want = grid_map_animating() ? GM_ANIM_TICK_MS
+                : heart ? 1000 : 0;
+    if (want != g_timer_ms) {
+        glk_request_timer_events(want);
+        if (g_timer_ms == 0)
+            g_timer_frac_ms = 0;  /* fresh cadence, fresh second */
+        g_timer_ms = want;
     }
 }
 

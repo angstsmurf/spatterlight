@@ -21,14 +21,18 @@
  *    on it, and every other layer with content shows at 20% opacity, so
  *    other floors linger faintly under the one the player is on;
  *  - the player marker is a single circle that later commands move, drawn
- *    on top, its radius in pixels (not grid units);
- *  - the view keeps the player centred (grid.js animates a pan; we just
- *    re-centre every render, like the scarier map's LockPlayerCentre);
+ *    on top, its radius in pixels (not grid units); a move glides the
+ *    marker from the old room to the new one and only then pans the view
+ *    to recentre it -- grid.js's onFrame, the same two chained linear
+ *    slides -- ticked on the shared Glk timer (aslxglk.cc's
+ *    timer_event_second); deterministic mode jumps instead;
+ *  - the view keeps the player centred (like the scarier map's
+ *    LockPlayerCentre);
  *  - colours are authored HTML names / #rrggbb on a white canvas, so the
  *    pane keeps the reference player's white background in any Glk theme.
- * Not carried over: pan/drag and zoom gestures, the player movement
- * animation, GridSquareClick, and the custom-layer vocabulary
- * (Grid_DrawSquare/Svg/Image/Shape...), which the engine ignores for now.
+ * Not carried over: pan/drag and zoom gestures, GridSquareClick, and the
+ * custom-layer vocabulary (Grid_DrawSquare/Svg/Image/Shape...), which the
+ * engine ignores for now.
  */
 
 #include <algorithm>
@@ -56,6 +60,78 @@ struct GmSurface {
 };
 GmSurface g_gm_screen;
 bool g_gm_flush = true;
+
+/* The "you are here" glide.  grid.js moves the marker by a tenth of the
+ * remaining leg per 60fps frame (~170ms a phase); the same feel at Glk timer
+ * rates is 6 steps of 33ms.  g_gm_disp* is the marker as drawn (grid units),
+ * g_gm_view* the view centre (map px); outside a glide both track
+ * g_gm_player exactly (grid_map_anim_snap). */
+const glui32 GM_ANIM_TICK_MS = 33;
+const int GM_ANIM_STEPS = 6;
+
+bool g_gm_glide = false;                  /* marker slide in flight */
+bool g_gm_pan = false;                    /* recentre pan in flight */
+double g_gm_dispx = 0, g_gm_dispy = 0;    /* drawn marker, grid units */
+double g_gm_stepx = 0, g_gm_stepy = 0;    /* marker step per tick */
+double g_gm_viewx = 0, g_gm_viewy = 0;    /* view centre, map px */
+double g_gm_vstepx = 0, g_gm_vstepy = 0;  /* pan step per tick */
+
+bool grid_map_animating()
+{
+    return g_gm_glide || g_gm_pan;
+}
+
+/* Land the marker and centre the view on it at once -- deterministic mode,
+ * a first marker, a scale change, or a blocking hook that needs the shared
+ * timer for itself (do_pause). */
+void grid_map_anim_snap()
+{
+    g_gm_glide = g_gm_pan = false;
+    if (g_gm_have_player) {
+        g_gm_dispx = g_gm_player.x;
+        g_gm_dispy = g_gm_player.y;
+        g_gm_viewx = g_gm_dispx * g_gm_scale;
+        g_gm_viewy = g_gm_dispy * g_gm_scale;
+        g_gm_dirty = true;
+    }
+}
+
+/* One fast tick: step the marker toward its room; once it lands, step the
+ * view centre toward the marker.  grid.js's onFrame chains the two phases
+ * the same way, each a constant vector walked until the remaining distance
+ * is shorter than the step. */
+void grid_map_anim_tick()
+{
+    if (g_gm_glide) {
+        double rx = g_gm_player.x - g_gm_dispx;
+        double ry = g_gm_player.y - g_gm_dispy;
+        if (rx * rx + ry * ry >
+            g_gm_stepx * g_gm_stepx + g_gm_stepy * g_gm_stepy) {
+            g_gm_dispx += g_gm_stepx;
+            g_gm_dispy += g_gm_stepy;
+        } else {
+            g_gm_dispx = g_gm_player.x;
+            g_gm_dispy = g_gm_player.y;
+            g_gm_glide = false;
+            g_gm_vstepx = (g_gm_dispx * g_gm_scale - g_gm_viewx) / GM_ANIM_STEPS;
+            g_gm_vstepy = (g_gm_dispy * g_gm_scale - g_gm_viewy) / GM_ANIM_STEPS;
+            g_gm_pan = true;
+        }
+    } else if (g_gm_pan) {
+        double rx = g_gm_dispx * g_gm_scale - g_gm_viewx;
+        double ry = g_gm_dispy * g_gm_scale - g_gm_viewy;
+        if (rx * rx + ry * ry >
+            g_gm_vstepx * g_gm_vstepx + g_gm_vstepy * g_gm_vstepy) {
+            g_gm_viewx += g_gm_vstepx;
+            g_gm_viewy += g_gm_vstepy;
+        } else {
+            g_gm_viewx = g_gm_dispx * g_gm_scale;
+            g_gm_viewy = g_gm_dispy * g_gm_scale;
+            g_gm_pan = false;
+        }
+    }
+    g_gm_dirty = true;
+}
 
 /* --- colours: the CSS3 extended keywords, as canvas/paper.js accepts and
  * Quest authors write them ("White", "DarkRed", "#803020"). */
@@ -386,12 +462,12 @@ void gm_render(GmSurface &s)
     if (g_gm_ops.empty() && !g_gm_have_player)
         return;
 
-    /* Centre the view on the player; before any player marker exists, on
-     * the first box (grid.js's firstBox centring). */
+    /* Centre the view on the (possibly mid-pan) view centre; before any
+     * player marker exists, on the first box (grid.js's firstBox centring). */
     double cx = 0, cy = 0;
     if (g_gm_have_player) {
-        cx = g_gm_player.x * g_gm_scale;
-        cy = g_gm_player.y * g_gm_scale;
+        cx = g_gm_viewx;
+        cy = g_gm_viewy;
     } else {
         for (const GridDraw &o : g_gm_ops)
             if (o.op == GridDraw::Op::Box) {
@@ -452,11 +528,12 @@ void gm_render(GmSurface &s)
     }
 
     /* The player, on top (grid.js keeps the marker at the end of the active
-     * layer).  Radius is in pixels; the stroke straddles it. */
+     * layer), at its displayed -- possibly mid-glide -- position.  Radius is
+     * in pixels; the stroke straddles it. */
     if (g_gm_have_player) {
         const GridDraw &p = g_gm_player;
         int r = (int) lround(p.w), bw = p.borderwidth;
-        int mx = px(p.x), my = py(p.y);
+        int mx = px(g_gm_dispx), my = py(g_gm_dispy);
         if (bw > 0)
             gm_fill_circle(s, mx, my, r + (bw + 1) / 2,
                            gm_colour(p.border, 0), 255);
@@ -549,6 +626,7 @@ void grid_map_show(int hpx)
     } else if (hpx <= 0 && gmapwin) {
         glk_window_close(gmapwin, nullptr);
         gmapwin = nullptr;
+        grid_map_anim_snap();
         gm_screen_drop();
     } else if (hpx > 0 && gmapwin) {
         winid_t parent = glk_window_get_parent(gmapwin);
@@ -571,8 +649,10 @@ void grid_map_command(const GridDraw &g)
         grid_map_show((int) lround(g.h));
         return;
     case GridDraw::Op::Scale:
-        if (g.w > 0)
+        if (g.w > 0) {
             g_gm_scale = g.w;
+            grid_map_anim_snap();  /* the view centre is in map px */
+        }
         break;
     case GridDraw::Op::Box:
     case GridDraw::Op::Label:
@@ -585,14 +665,31 @@ void grid_map_command(const GridDraw &g)
         g_gm_ops.push_back(line);
         break;
     }
-    case GridDraw::Op::Player:
+    case GridDraw::Op::Player: {
+        bool moved = g_gm_have_player &&
+                     (g.x != g_gm_player.x || g.y != g_gm_player.y);
+        bool had = g_gm_have_player;
         g_gm_layer = g.z;
         g_gm_player = g;
         g_gm_have_player = true;
+        if (moved && gli_sa_delays && gmapwin) {
+            /* Glide from wherever the marker is drawn right now -- a move
+             * mid-glide just retargets, like grid.js recomputing
+             * playerVector from the current position.  The recentre pan is
+             * armed when the marker lands (grid_map_anim_tick). */
+            g_gm_glide = true;
+            g_gm_pan = false;
+            g_gm_stepx = (g.x - g_gm_dispx) / GM_ANIM_STEPS;
+            g_gm_stepy = (g.y - g_gm_dispy) / GM_ANIM_STEPS;
+        } else if (!had || moved) {
+            grid_map_anim_snap();
+        }
         break;
+    }
     case GridDraw::Op::Clear:
         g_gm_ops.clear();
         g_gm_have_player = false;
+        g_gm_glide = g_gm_pan = false;
         break;
     }
     g_gm_dirty = true;
@@ -614,5 +711,7 @@ void grid_map_reset()
     g_gm_height = 0;
     g_gm_layer = 0;
     g_gm_dirty = false;
+    g_gm_glide = g_gm_pan = false;
+    g_gm_dispx = g_gm_dispy = g_gm_viewx = g_gm_viewy = 0;
     gm_screen_drop();
 }
