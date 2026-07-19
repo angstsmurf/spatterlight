@@ -752,21 +752,6 @@ bool engine_state_pending(Interp &in)
            in.world().finished;
 }
 
-/* Will the game side echo the next parser command?  Pre-v520 the engine
- * echoes unconditionally; later Cores echo when game.echocommand is set
- * (CoreParser's HandleCommand -- our commands never carry link metadata, so
- * the plain "&gt; cmd" path is the only one taken). */
-bool command_echoes(Interp &in)
-{
-    if (in.world().asl_version < 520)
-        return true;
-    Element *game = in.world().find("game");
-    if (!game)
-        return false;
-    const Value *v = in.resolve_field(game, "echocommand");
-    return v && Interp::truthy(*v);
-}
-
 /* Scope guard: reroute engine prints so the first output emitted while a
  * prompt sits on the screen breaks to a fresh line first.  broke tells the
  * caller a reprint of the prompt is needed. */
@@ -1842,7 +1827,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd) &&
                            !handle_verbs_command(in, cmd)) {
-                    if (g_prompt_first && !host_owned && command_echoes(in)) {
+                    /* Arm the echo swallow unconditionally: whether the game
+                     * side echoes cannot be predicted from game.echocommand,
+                     * because a game may carry its own copy of Core's
+                     * HandleCommand that echoes regardless (First Times, ASL
+                     * 520, sets no echocommand yet still prints "> cmd").
+                     * Detecting the echo as it arrives covers both -- an
+                     * unechoed turn just disarms on its first chunk. */
+                    if (g_prompt_first && !host_owned) {
                         g_swallow = 2;
                         g_swallow_cmd = cmd;
                     }
