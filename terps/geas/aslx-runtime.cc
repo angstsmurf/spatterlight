@@ -2888,6 +2888,15 @@ bool Interp::exec_statement_command(const std::string &name,
             update_location(to_string(ev(0)));
         else if (fn == "disableAllCommandLinks" && disable_command_links)
             disable_command_links();
+        else if (fn == "StartOutputSection" && !args.empty() &&
+                 start_output_section)
+            start_output_section(to_string(ev(0)));
+        else if (fn == "EndOutputSection" && !args.empty() &&
+                 end_output_section)
+            end_output_section(to_string(ev(0)));
+        else if (fn == "HideOutputSection" && !args.empty() &&
+                 hide_output_section)
+            hide_output_section(to_string(ev(0)));
         else if ((fn == "uiShow" || fn == "uiHide") && !args.empty() &&
                  show_command_bar) {
             // The command box only; the other ids this channel carries

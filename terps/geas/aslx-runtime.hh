@@ -325,6 +325,19 @@ public:
     // keeps its transcript on screen must retire those links itself.
     std::function<void()> disable_command_links;
 
+    // Host hooks for JS.StartOutputSection / EndOutputSection /
+    // HideOutputSection (CoreFunctions.aslx:339-355). The reference player
+    // wraps the enclosed output in a <div id="sectionN"> it can later hide,
+    // which is how a gamebook removes the previous page's option links
+    // (GamebookCore's DoPage hides game.optionsoutputsection) and how Core
+    // retires a numbered menu once answered. Section names are unique and
+    // sequential ("section1", "section2", ...). Unset, all three are ignored
+    // (arg unevaluated) and the output simply stays on screen, which is the
+    // headless/golden behaviour -- so transcripts are untouched.
+    std::function<void(const std::string &name)> start_output_section;
+    std::function<void(const std::string &name)> end_output_section;
+    std::function<void(const std::string &name)> hide_output_section;
+
     // Host hook for script errors ("Error running script: ..."). WorldModel's
     // RunScript catch boundary (WorldModel.cs:1094) Prints them, and the
     // headless transcripts / goldens contain them at that spot -- but the
