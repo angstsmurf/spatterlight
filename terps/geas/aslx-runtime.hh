@@ -11,6 +11,7 @@
 
 #include "aslx.hh"
 
+#include <array>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -395,6 +396,19 @@ public:
     bool restore_game(const std::string &data, std::string &err);
     // Cheap sniff for "is this buffer one of our (v1) saves?".
     static bool is_save_data(const char *data, size_t len);
+
+    // -- Spatterlight autosave: exact RNG capture/restore ---------------------
+    // The deterministic RNG streams: the fallback stream (empty key) plus
+    // every compiled expression's lazily-created stream, keyed by expression
+    // source (expr_cache_ dedups by source, so the key identifies the stream
+    // exactly).  restore recompiles each source into the cache and overwrites
+    // its stream, so the next draw continues where the capture left off;
+    // expressions absent from the capture keep their fresh lazy seed.  Used
+    // only by the Glk frontend's autosave -- a QuestViva save carries no RNG.
+    void capture_rng_streams(
+        std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &out);
+    void restore_rng_streams(
+        const std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &in);
 
     // -- native .quest-save (Quest/QuestViva GameSaver format) ----------------
     // Interoperable with the desktop Quest player and QuestViva: an ASLX

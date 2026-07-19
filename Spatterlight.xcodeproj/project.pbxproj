@@ -796,6 +796,7 @@
 		C396E28A2F814ED500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3A51F00000000000000000E /* quest5.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F00000000000000000F /* quest5.c */; };
+		C3A51F0000000000000000A1 /* geasglk-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000A2 /* geasglk-autosave.mm */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
 		C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */; };
 		C3998E2E26C9836E002C1E5D /* Level 9 command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2D26C9836E002C1E5D /* Level 9 command script.txt */; };
@@ -3388,6 +3389,8 @@
 		C396E2862F812E3500B6308A /* messagenames.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = messagenames.c; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
 		C3A51F00000000000000000F /* quest5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest5.c; sourceTree = "<group>"; };
+		C3A51F0000000000000000A2 /* geasglk-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "geasglk-autosave.mm"; sourceTree = "<group>"; };
+		C3A51F0000000000000000A3 /* geasglk-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "geasglk-autosave.h"; sourceTree = "<group>"; };
 		C3983D872F62CE4600717789 /* SpatterlightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpatterlightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Shades of Gray command script.txt"; sourceTree = "<group>"; };
@@ -4125,6 +4128,8 @@
 				55368B6C272BF24700740A0A /* geasfile.hh */,
 				55368B6B272BF24700740A0A /* geasfile.cc */,
 				55368B60272BF24700740A0A /* geasglk.cc */,
+				C3A51F0000000000000000A3 /* geasglk-autosave.h */,
+				C3A51F0000000000000000A2 /* geasglk-autosave.mm */,
 				55368B6A272BF24700740A0A /* geasglkterm.c */,
 				55368B62272BF24700740A0A /* general.hh */,
 				55368B61272BF24700740A0A /* istring.cc */,
@@ -8066,6 +8071,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55368B74272BF24700740A0A /* geasglk.cc in Sources */,
+				C3A51F0000000000000000A1 /* geasglk-autosave.mm in Sources */,
 				C3A51F00000000000000000A /* aslxglk.cc in Sources */,
 				55368B78272BF24700740A0A /* geas-runner.cc in Sources */,
 				55368B77272BF24700740A0A /* geasfile.cc in Sources */,

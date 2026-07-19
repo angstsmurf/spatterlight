@@ -49,6 +49,11 @@
 
 #include "GeasRunner.hh"
 
+#ifdef SPATTERLIGHT
+/* Spatterlight autosave/autorestore (geasglk-autosave.mm). */
+#include "geasglk-autosave.h"
+#endif
+
 /* Presentation helpers shared with the Quest 5 frontend (aslxglk.cc): the
  * status banner, side pane + divider, transcript metaverb, save-file
  * prompts, string/UTF-8 utilities and resource registration. */
@@ -90,6 +95,14 @@ extern "C" {
 
 #include <assert.h>
 #include "glk.h"
+#ifdef SPATTERLIGHT
+/* Full window/stream structs: autosave needs the serialization tags. */
+#include "glkimp.h"
+/* The shared RNG (seeded by geas-runner's set_game): autosave carries its
+ * exact state so a deterministic session replays identically across an
+ * autorestore, like Bocfel's seed + call-count replay. */
+#include "randomness.h"
+#endif
 
 winid_t mainglkwin;
 winid_t inputwin;
@@ -134,6 +147,12 @@ extern int use_inputwindow;
 extern int gli_sa_delays;
 
 static int ignore_lines = 0;  /* count of lines to ignore in game output */
+
+/* True while set_game() boots the game ahead of an autorestore: the intro is
+ * about to be replaced wholesale by the restored state, so all output is
+ * swallowed and any input the startscript asks for (a name prompt, a "press
+ * any key" pause) is auto-answered instead of blocking. */
+static bool g_autorestore_booting = false;
 
 static std::string banner;
 static void draw_banner();
@@ -398,7 +417,29 @@ void glk_main(void)
     }
 
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());
-    gr->set_game(storyfilename);
+
+    /* When a Spatterlight autosave exists, boot the game silently (output
+     * swallowed, startscript prompts auto-answered) and then replace the
+     * whole state -- engine and Glk library both -- with the saved one.
+     * The app restores the window contents from its own GUI snapshot. */
+    bool autorestored = false;
+#ifdef SPATTERLIGHT
+    if (geas_autosave_exists()) {
+        g_autorestore_booting = true;
+        gr->set_game(storyfilename);
+        autorestored = geas_restore_autosave(gr);
+        g_autorestore_booting = false;
+        if (!autorestored) {
+            /* Bad autosave (now deleted).  The silent boot above already
+             * consumed the game's intro, so restart in a fresh process
+             * rather than continuing from a polluted state. */
+            win_reset();
+            exit(0);
+        }
+    } else
+#endif
+        gr->set_game(storyfilename);
+
     banner = gr->get_banner();
 
     /* Tell the host UI the game's title.  get_banner() returns
@@ -431,18 +472,36 @@ void glk_main(void)
      * leaves room to still exercise a game's real-time events deterministically. */
     if (gr->has_timers() && gli_sa_delays)
         glk_request_timer_events(1000);
+    else if (autorestored)
+        /* updateFromLibraryLate re-armed the saved timer interval; cancel it
+         * if the current preferences say no real-time events. */
+        glk_request_timer_events(0);
 
     char buf[200];
     bool quitting = false;
 
     while(!quitting) {
     while(gr->is_running() && !quitting) {
+        if (autorestored) {
+            /* The restored transcript already ends with the old prompt;
+             * just re-request input below without printing another. */
+            autorestored = false;
+        } else {
 	strncpy(cur_buf, "> ", sizeof(cur_buf));
         if (inputwin != mainglkwin)
             glk_window_clear(inputwin);
         else
             glk_put_cstring("\n");
         glk_put_string_stream(inputwinstream, cur_buf);
+
+#ifdef SPATTERLIGHT
+        /* Autosave at every top-level prompt: after the prompt is printed
+         * (so the GUI snapshot ends with it) but before input is requested
+         * (so the saved windows carry no pending request and a restore just
+         * re-requests input here). */
+        geas_do_autosave(gr);
+#endif
+        }
 
         /* Echo off for the command line, so a timer cancelling it is clean. */
         if (g_manual_echo)
@@ -500,6 +559,12 @@ void glk_main(void)
                                 glk_put_cstring("\n");
                             glk_put_string_stream(inputwinstream, (char *) "> ");
                         }
+#ifdef SPATTERLIGHT
+                        /* The timer changed game state while we sat at the
+                         * prompt; refresh the autosave (it skips itself when
+                         * the autosave-on-timer preference is off). */
+                        geas_do_autosave(gr);
+#endif
                         glk_request_line_event(inputwin, buf,
                                                (sizeof buf) - 1, ce.val1);
                     }
@@ -908,6 +973,8 @@ glk_put_cstring(const char *s)
 GeasResult
 GeasGlkInterface::print_normal (const std::string &s)
 {
+    if (g_autorestore_booting)
+        return r_success;
     if(!ignore_lines)
       {
 	glk_put_cstring(s.c_str());
@@ -919,6 +986,8 @@ GeasGlkInterface::print_normal (const std::string &s)
 GeasResult
 GeasGlkInterface::print_newline ()
 {
+    if (g_autorestore_booting)
+        return r_success;
     if (!ignore_lines)
       {
 	glk_put_cstring("\n");
@@ -1013,6 +1082,8 @@ GeasGlkInterface::get_file (const std::string &fname) const
 GeasResult
 GeasGlkInterface::wait_keypress (const std::string &msg)
 {
+  if (g_autorestore_booting)
+    return r_success;
   if (!msg.empty())
     print_formatted(msg);
   glk_request_char_event(mainglkwin);
@@ -1044,6 +1115,11 @@ GeasGlkInterface::wait_keypress (const std::string &msg)
 std::string
 GeasGlkInterface::get_string ()
 {
+  /* An autorestore boot can't block on input; any non-empty canned answer
+   * satisfies a "what is your name?"-style startscript loop, and the whole
+   * resulting state is about to be replaced by the restored one. */
+  if (g_autorestore_booting)
+    return "x";
   char buf[200];
   /* Use Glk's own echo here: get_string ignores timers, so it never cancels
    * its input, and auto-echo places the entry inline at the prompt. */
@@ -1067,6 +1143,8 @@ GeasGlkInterface::get_string ()
 uint
 GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string> v)
 {
+    if (g_autorestore_booting)
+        return 0;
     size_t n;
 
     /* Only clear a *separate* input window; if input shares the main window
@@ -1180,6 +1258,9 @@ static schanid_t geas_soundchannel = NULL;
 GeasResult
 GeasGlkInterface::play_sound (const std::string &filename, bool looped, bool /*sync*/)
 {
+  if (g_autorestore_booting)
+    return r_success;
+
   /* Quest's "sync" flag blocks until the sound finishes; we play
    * asynchronously to avoid stalling the turn loop. */
 
@@ -1202,7 +1283,13 @@ GeasGlkInterface::play_sound (const std::string &filename, bool looped, bool /*s
       return r_not_supported;
     }
 
-  /* One sound at a time: a new sound replaces the previous one. */
+  /* One sound at a time: a new sound replaces the previous one.  An
+   * interrupted sound resumes after an autorestore via the APP's own
+   * machinery (its GUI snapshot archives the playing channel and
+   * SoundHandler restartAll replays it from the file, which for these
+   * games is a real file next to the story); the terp must not replay it
+   * itself -- the app replaces its sound handler during restore, orphaning
+   * anything already playing beyond the reach of any stop. */
   if (!play_single_sound (&geas_soundchannel, (glui32) resno, looped, 0))
     return r_not_supported;   /* sound disabled or unsupported */
   return r_success;
@@ -1212,6 +1299,8 @@ GeasResult
 GeasGlkInterface::show_image (const std::string &filename, const std::string &resolution,
 			     const std::string & /*caption*/, ...)
 {
+  if (g_autorestore_booting)
+    return r_success;
   if (filename.empty())
     return r_not_supported;
   /* Need a Glk that can draw images inline in the text-buffer window. */
@@ -1257,3 +1346,64 @@ void GeasGlkInterface::debug_print (std::string s) { ; }
 
 GeasResult GeasGlkInterface::pause (int msec) { return r_success; }
 #endif
+
+#ifdef SPATTERLIGHT
+
+/* Autosave support (geasglk-autosave.mm): capture the frontend's Glk object
+ * references as serialization tags, and re-point them at the restored
+ * objects after the library state has been rebuilt. */
+
+void
+geas_stash_frontend_state (GeasGlkFrontendState *st)
+{
+    st->mainwintag = mainglkwin ? mainglkwin->tag : 0;
+    st->inputwintag = inputwin ? inputwin->tag : 0;
+    st->bannerwintag = bannerwin ? bannerwin->tag : 0;
+    st->objwintag = objwin ? objwin->tag : 0;
+    st->gfxwintag = gfxwin ? gfxwin->tag : 0;
+    st->transcripttag = transcriptstr ? transcriptstr->tag : 0;
+    st->soundchanneltag = geas_soundchannel ? geas_soundchannel->tag : 0;
+    st->use_objpane = g_use_objpane ? 1 : 0;
+    st->objwin_expanded = g_objwin_expanded;
+
+    /* The exact RNG state (xoshiro words + which generator is active), so a
+     * deterministic session's randomness continues where it left off. */
+    int usenative = 1;
+    glui32 *words = nullptr;
+    int count = 0;
+    erkyrath_random_get_detstate(&usenative, &words, &count);
+    st->rng_usenative = usenative;
+    for (int i = 0; i < 4; i++)
+        st->rng_state[i] = (count == 4 && words) ? words[i] : 0;
+}
+
+void
+geas_recover_frontend_state (const GeasGlkFrontendState *st)
+{
+    mainglkwin = gli_window_for_tag(st->mainwintag);
+    inputwin = gli_window_for_tag(st->inputwintag);
+    if (!inputwin)
+        inputwin = mainglkwin;
+    bannerwin = gli_window_for_tag(st->bannerwintag);
+    objwin = gli_window_for_tag(st->objwintag);
+    gfxwin = gli_window_for_tag(st->gfxwintag);
+    inputwinstream = inputwin ? glk_window_get_stream(inputwin) : nullptr;
+    transcriptstr = gli_stream_for_tag(st->transcripttag);
+    geas_soundchannel = gli_schan_for_tag(st->soundchanneltag);
+    g_use_objpane = st->use_objpane != 0;
+    g_objwin_expanded = st->objwin_expanded;
+    /* Restore the RNG to its saved position.  The silent autorestore boot
+     * (set_game) re-seeded and drew from it; this puts it back exactly where
+     * the autosave left it.  In native (non-deterministic) mode the flag
+     * keeps the native generator selected and the words are inert. */
+    if (st->rng_usenative >= 0) {
+        glui32 words[4] = { st->rng_state[0], st->rng_state[1],
+                            st->rng_state[2], st->rng_state[3] };
+        erkyrath_random_set_detstate(st->rng_usenative, words, 4);
+    }
+    /* Not stashed: g_manual_echo and g_hyperlinks are re-derived from
+     * gestalts at startup and don't change; g_last_objlist and g_objlinks
+     * are rebuilt by the first update_objwin. */
+}
+
+#endif /* SPATTERLIGHT */

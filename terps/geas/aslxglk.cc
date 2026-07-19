@@ -37,7 +37,19 @@
 
 extern "C" {
 #include "glk.h"
+#ifdef SPATTERLIGHT
+/* Full window/stream structs: autosave needs the serialization tags.
+ * fileref.h: the per-session temp directory staged sounds must live in so
+ * the app can replay them after an autorestore. */
+#include "glkimp.h"
+#include "fileref.h"
+#endif
 }
+
+#ifdef SPATTERLIGHT
+/* Spatterlight autosave/autorestore (geasglk-autosave.mm). */
+#include "geasglk-autosave.h"
+#endif
 
 /* Presentation helpers shared with the classic Quest 1-4 frontend
  * (geasglk.cc): the status banner, side pane + divider, transcript metaverb,
@@ -210,6 +222,23 @@ void fill_pane_divider();
 /* The grid map (game.gridmap): a graphics band across the top of the screen,
  * drawn from CoreGrid.aslx's paint stream via the grid_draw host hook. */
 #include "aslxglk-map.inc"
+
+#ifdef SPATTERLIGHT
+/* Spatterlight autosave.  aslx_do_autosave (defined with the rest of the
+ * autosave glue before run_session) runs at the parser prompt whenever
+ * g_autosave_interp is set -- read_line calls it after printing the prompt
+ * and again after state-changing timer ticks, so the snapshot always ends
+ * at "waiting for a command". */
+bool g_autorestore_pending = false;   /* an autosave exists; restore at boot */
+bool g_autorestore_reentry = false;   /* first prompt after it: no reprint */
+std::string g_autorestore_panel;      /* frame picture to re-establish */
+/* RNG streams captured at autosave time, applied just before play resumes
+ * (AFTER InitInterface's own draws) so the restored prompt's randomness is
+ * exactly the saved one. */
+std::vector<std::pair<std::string, std::array<uint32_t, 4>>> g_autorestore_rngs;
+Interp *g_autosave_interp = nullptr;
+void aslx_do_autosave(Interp &in);
+#endif
 
 void update_timer_request(Interp &in);
 
@@ -1023,6 +1052,13 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
         glk_put_string((char *) prompt);
     if (g_echo_control)
         glk_set_echo_line_event(gwin, 0);
+#ifdef SPATTERLIGHT
+    /* Parser prompt: autosave after the prompt is printed (so the GUI
+     * snapshot ends with it) and before input is requested (so the saved
+     * windows carry no pending request and a restore re-enters here). */
+    if (g_autosave_interp)
+        aslx_do_autosave(*g_autosave_interp);
+#endif
     if (want_line)
         glk_request_line_event_uni(gwin, buf, 255, 0);
     if (g_hyperlinks) {
@@ -1144,6 +1180,13 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 return {InEnd::State, ""};
             if (reprompt)
                 glk_put_string((char *) prompt);
+#ifdef SPATTERLIGHT
+            /* The tick changed game state while the prompt was up; refresh
+             * the autosave (it skips itself when the autosave-on-timer
+             * preference is off). */
+            if (g_autosave_interp)
+                aslx_do_autosave(*g_autosave_interp);
+#endif
             if (want_line)
                 glk_request_line_event_uni(gwin, buf, 255, ce.val1);
             if (g_hyperlinks) {
@@ -1549,13 +1592,31 @@ std::map<std::string, glui32> g_sound_ids;
 int g_image_next_id = 1;
 int g_sound_next_id = 1;
 
-/* Stage bytes in a temporary file for the backend to load. The file is only
- * needed until the load round-trips (see load_media_resource), after which
- * it is unlinked. */
-bool stage_temp_file(const std::string &bytes, std::string &path)
+/* Stage bytes in a temporary file for the backend to load.  An IMAGE file
+ * is only needed until the load round-trips (see load_media_resource),
+ * after which it is unlinked.  A SOUND file must outlive the session: the
+ * app re-reads it from a bookmark when it resumes an interrupted sound
+ * after an autorestore (SoundHandler restartAll), so it is staged in
+ * glkimp's per-session temp directory -- swept on a normal glk_exit but
+ * deliberately preserved on an autosave-quit, exactly like the temp files
+ * backing open file streams -- and never unlinked here. */
+bool stage_temp_file(const std::string &bytes, std::string &path,
+                     bool keep_for_session = false)
 {
-    const char *tmpdir = getenv("TMPDIR");
-    std::string t = (tmpdir && *tmpdir) ? tmpdir : "/tmp";
+    std::string t;
+#ifdef SPATTERLIGHT
+    if (keep_for_session) {
+        gettempdir();
+        if (tempdir[0])
+            t = tempdir;
+    }
+#else
+    (void) keep_for_session;
+#endif
+    if (t.empty()) {
+        const char *tmpdir = getenv("TMPDIR");
+        t = (tmpdir && *tmpdir) ? tmpdir : "/tmp";
+    }
     if (t.back() != '/')
         t += '/';
     t += "aslximgXXXXXX";
@@ -1603,7 +1664,7 @@ glui32 load_media_resource(const std::string &name, bool sound)
         std::string bytes;
         if (!resource_bytes(name, bytes) || bytes.empty())
             return 0;
-        if (!stage_temp_file(bytes, temp_path))
+        if (!stage_temp_file(bytes, temp_path, /*keep_for_session=*/sound))
             return 0;
         id = (glui32) (next_id++);
         if (sound)
@@ -1618,7 +1679,9 @@ glui32 load_media_resource(const std::string &name, bool sound)
                     : glk_image_get_info(id, &w, &h) != 0;
     if (!ok)
         id = 0;
-    if (!temp_path.empty())
+    /* Images are consumed by the round-trip; staged sounds stay for the
+     * app's autorestore restart (glkimp's tempdir sweep owns them). */
+    if (!temp_path.empty() && !sound)
         unlink(temp_path.c_str());
     return id;
 }
@@ -2018,6 +2081,192 @@ void update_timer_request(Interp &in)
 /* Run one full game session, booting fresh or from a validated snapshot
  * (which do_restore_ui already probe-applied). `restore_data` is consumed on
  * entry and re-filled when the session ends with a RESTORE. */
+#ifdef SPATTERLIGHT
+
+/* ---- Spatterlight autosave ---------------------------------------------- */
+
+/* The frontend state blob: a tiny length-prefixed text format carried inside
+ * the library plist.  Window/stream/channel identities cross as glkimp
+ * serialization tags.  The transcript hyperlink actions (g_links) must
+ * survive because the restored transcript still shows their links; the map,
+ * the panes and the banner are repainted from restored ENGINE state on the
+ * way into the session (InitInterface re-runs Grid_Redraw and the panel,
+ * update_lists refills the pane and status), so none of that is saved. */
+
+void blob_num(std::string &s, long v)
+{
+    s += std::to_string(v);
+    s += '\n';
+}
+
+void blob_str(std::string &s, const std::string &v)
+{
+    blob_num(s, (long) v.size());
+    s += v;
+    s += '\n';
+}
+
+struct BlobReader {
+    const std::string &s;
+    size_t pos = 0;
+    bool ok = true;
+
+    long num()
+    {
+        if (!ok)
+            return 0;
+        size_t e = s.find('\n', pos);
+        if (e == std::string::npos) {
+            ok = false;
+            return 0;
+        }
+        long v = atol(s.c_str() + pos);
+        pos = e + 1;
+        return v;
+    }
+    std::string str()
+    {
+        long n = num();
+        if (!ok || n < 0 || pos + (size_t) n + 1 > s.size()) {
+            ok = false;
+            return "";
+        }
+        std::string v = s.substr(pos, (size_t) n);
+        pos += (size_t) n + 1;
+        return v;
+    }
+};
+
+const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 1";
+
+std::string aslx_encode_frontend(Interp &in)
+{
+    std::string b;
+    blob_str(b, kAslxBlobMagic);
+    blob_num(b, gwin ? gwin->tag : 0);
+    blob_num(b, gbanner ? gbanner->tag : 0);
+    blob_num(b, gobjwin ? gobjwin->tag : 0);
+    blob_num(b, gdivider ? gdivider->tag : 0);
+    blob_num(b, gpanelwin ? gpanelwin->tag : 0);
+    blob_num(b, gmapwin ? gmapwin->tag : 0);
+    blob_num(b, gtranscript ? gtranscript->tag : 0);
+    blob_num(b, g_schannel ? g_schannel->tag : 0);
+    blob_num(b, (long) g_links_spent);
+    blob_num(b, (long) g_links.size());
+    for (const LinkAction &l : g_links) {
+        blob_str(b, l.command);
+        blob_str(b, l.event_func);
+        blob_str(b, l.event_param);
+        blob_str(b, l.toggle_key);
+        blob_num(b, l.end_wait ? 1 : 0);
+        blob_num(b, l.inner_text ? 1 : 0);
+    }
+    blob_str(b, g_pane_expanded);
+    blob_str(b, g_status_line);
+    blob_str(b, g_location_line);
+    blob_str(b, g_panel_last);
+    /* The exact RNG streams (fallback + per compiled expression), so a
+     * deterministic session's randomness continues across an autorestore. */
+    std::vector<std::pair<std::string, std::array<uint32_t, 4>>> rngs;
+    in.capture_rng_streams(rngs);
+    blob_num(b, (long) rngs.size());
+    for (const auto &entry : rngs) {
+        blob_str(b, entry.first);
+        for (int i = 0; i < 4; i++)
+            blob_num(b, (long) entry.second[i]);
+    }
+    return b;
+}
+
+bool aslx_recover_frontend(const std::string &blob)
+{
+    BlobReader r{blob};
+    if (r.str() != kAslxBlobMagic)
+        return false;
+    gwin = gli_window_for_tag((int) r.num());
+    gbanner = gli_window_for_tag((int) r.num());
+    gobjwin = gli_window_for_tag((int) r.num());
+    gdivider = gli_window_for_tag((int) r.num());
+    gpanelwin = gli_window_for_tag((int) r.num());
+    gmapwin = gli_window_for_tag((int) r.num());
+    gtranscript = gli_stream_for_tag((int) r.num());
+    g_schannel = gli_schan_for_tag((int) r.num());
+    g_links_spent = (size_t) r.num();
+    long nlinks = r.num();
+    g_links.clear();
+    for (long i = 0; i < nlinks && r.ok; i++) {
+        LinkAction l;
+        l.command = r.str();
+        l.event_func = r.str();
+        l.event_param = r.str();
+        l.toggle_key = r.str();
+        l.end_wait = r.num() != 0;
+        l.inner_text = r.num() != 0;
+        g_links.push_back(l);
+    }
+    g_pane_expanded = r.str();
+    g_status_line = r.str();
+    g_location_line = r.str();
+    g_autorestore_panel = r.str();
+    g_autorestore_rngs.clear();
+    long nrngs = r.num();
+    for (long i = 0; i < nrngs && r.ok; i++) {
+        std::string src = r.str();
+        std::array<uint32_t, 4> s;
+        for (int j = 0; j < 4; j++)
+            s[(size_t) j] = (uint32_t) r.num();
+        g_autorestore_rngs.emplace_back(src, s);
+    }
+    if (!r.ok || !gwin)
+        return false;
+
+    /* The redraw paths dedup against "what is already on screen"; void
+     * those keys so the post-restore repaints actually repaint. */
+    g_panel_last.clear();
+    g_panel_id = 0;
+    gm_screen_drop();
+    g_pane_dirty = true;
+    /* Sounds are NOT resumed from here: the app archives its sound channels
+     * (playing sound, loop count, pause/volume state) in its own GUI
+     * snapshot and replays them itself (SoundHandler restartAll) -- and it
+     * REPLACES its sound handler wholesale during its restore, so anything
+     * the terp started before that point would keep playing as an orphan no
+     * stop can ever reach.  The terp's only job is keeping the staged sound
+     * files alive across the restart (see stage_temp_file). */
+    return true;
+}
+
+/* Re-establish the frame picture after an autorestore, unless the game's
+ * own InitInterface already set one. */
+void panel_restore_picture()
+{
+    std::string src = g_autorestore_panel;
+    g_autorestore_panel.clear();
+    if (src.empty() || g_panel_id || !gpanelwin || !panel_band_available())
+        return;
+    glui32 id = cached_media_id(g_image_ids, src, false);
+    if (!id)
+        return;
+    g_panel_id = id;
+    g_panel_last = src;
+    panel_relayout();
+}
+
+/* Autosave at the parser prompt: the engine snapshot (the same v1 format
+ * SAVE writes), the frontend blob, the Glk library plist, and the GUI
+ * snapshot request, in that order. */
+void aslx_do_autosave(Interp &in)
+{
+    if (!geas_autosave_wanted())
+        return;
+    std::string engine_state = in.save_game(g_storyfile ? g_storyfile : "");
+    if (engine_state.empty())
+        return;
+    aslx_do_autosave_write(engine_state, aslx_encode_frontend(in));
+}
+
+#endif /* SPATTERLIGHT */
+
 SessionEnd run_session(const char *storyfile, std::string &restore_data)
 {
     World w;
@@ -2144,6 +2393,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * StartGame does not, and the reference's no-transcript fallback message
      * is printed. */
     bool restored = false;
+    bool autorestored = false;
     if (!restore_data.empty()) {
         std::string err;
         restored = in.restore_game(restore_data, err);
@@ -2157,6 +2407,34 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             return SessionEnd::Restart;
         }
     }
+#ifdef SPATTERLIGHT
+    /* A Spatterlight autosave: the engine state first (restore_game overlays
+     * the snapshot onto this freshly loaded world -- silent), then the Glk
+     * library from the plist, then the frontend globals from the blob.  The
+     * boot then continues down the saved-game path: InitInterface re-runs
+     * (repainting the grid map and panes from restored engine state),
+     * StartGame and begin_timers are skipped.  The app restores the window
+     * contents from its own GUI snapshot. */
+    else if (g_autorestore_pending) {
+        g_autorestore_pending = false;
+        std::string engine_state, blob, err;
+        bool ok = aslx_autosave_read_game(&engine_state) &&
+                  in.restore_game(engine_state, err) &&
+                  aslx_autosave_restore_library(&blob) &&
+                  aslx_recover_frontend(blob);
+        if (!ok) {
+            /* Bad autosave: delete it and restart in a fresh process rather
+             * than continuing from half-applied state. */
+            geas_autosave_discard();
+            win_reset();
+            exit(0);
+        }
+        aslx_autosave_restore_library_late();
+        restored = true;
+        autorestored = true;
+        g_autorestore_reentry = true;
+    }
+#endif
 
     Context boot;
     if (!restored)
@@ -2171,10 +2449,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     } catch (const TurnSuspended &) {
         /* synchronous `play sound` during boot: rest of Begin abandoned */
     }
-    if (restored) {
+    if (restored && !autorestored) {
         glk_put_string((char *) "Loaded saved game\n");
         update_banner(in);
     }
+#ifdef SPATTERLIGHT
+    if (autorestored)
+        panel_restore_picture();
+#endif
     in.drain_on_ready();
     fire_js_events(in);
     flush_warnings(w, warnings_seen);
@@ -2182,6 +2464,16 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     redraw_side_pane(in);
     redraw_grid_map();
     update_timer_request(in);
+
+#ifdef SPATTERLIGHT
+    /* Put every RNG stream back where the autosave left it, now that the
+     * boot (InitInterface, list refills, repaints) has taken its own draws
+     * -- so the restored prompt's randomness is exactly the saved one. */
+    if (!g_autorestore_rngs.empty()) {
+        in.restore_rng_streams(g_autorestore_rngs);
+        g_autorestore_rngs.clear();
+    }
+#endif
 
     while (!w.finished) {
         if (restart_requested)
@@ -2231,8 +2523,24 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
              * re-shows the box, so it prompts as usual. */
             bool bar_shown = g_command_bar || host_owned;
             bool prompted = (g_prompt_first || host_owned) && bar_shown;
-            InResult r = read_line(in, prompted, prompted ? "\n> " : nullptr,
+            const char *prompt = prompted ? "\n> " : nullptr;
+#ifdef SPATTERLIGHT
+            /* The first prompt after an autorestore is already on screen --
+             * the GUI snapshot was taken just after it was printed. */
+            if (g_autorestore_reentry) {
+                g_autorestore_reentry = false;
+                prompt = nullptr;
+            }
+            /* Autosave while the parser prompt is up.  Not for a pending
+             * `get input`: its callback is not in the engine snapshot. */
+            if (!host_owned)
+                g_autosave_interp = &in;
+#endif
+            InResult r = read_line(in, prompted, prompt,
                                    /*want_line=*/true);
+#ifdef SPATTERLIGHT
+            g_autosave_interp = nullptr;
+#endif
             if (r.kind == InEnd::State || r.kind == InEnd::Event)
                 { /* re-dispatch on the new engine state */ }
             else {
@@ -2371,6 +2679,11 @@ extern "C" void aslx_glk_main(const char *storyfile)
     g_storyfile = storyfile;
     init_resources(storyfile);
     std::string restore_data;
+#ifdef SPATTERLIGHT
+    /* A complete autosave means this launch is an autorestore; run_session
+     * applies it on its way into the first session. */
+    g_autorestore_pending = geas_autosave_exists();
+#endif
     while (run_session(storyfile, restore_data) != SessionEnd::Quit) {
         /* RESTART/RESTORE: fresh world, fresh screen (QuestViva reloads from
          * disk; a restore then applies the snapshot in run_session), and no

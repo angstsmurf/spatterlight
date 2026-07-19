@@ -53,6 +53,10 @@ public:
   GeasOutputStream &put (unsigned long long i) { o << i; o.put (char (0)); return *this; }
   
 
+  /* The raw stream bytes, unobfuscated and headerless (the undo-history
+   * serializer, which only ever travels inside a Spatterlight autosave). */
+  string raw_contents () { return o.str(); }
+
   /* The full save as a self-contained string: a literal "QUEST300\0game\0"
    * header followed by the obfuscated body. */
   string contents (const string &gamename)
@@ -185,6 +189,98 @@ std::string serialize_game (const std::string &gamename, const GeasState &gs)
   GeasOutputStream gos;
   write_to (gos, gs);
   return gos.contents (gamename);
+}
+
+/* ---- undo history (Spatterlight autosave) ------------------------------- */
+
+static void write_to (GeasOutputStream &gos, const UndoState &u)
+{
+  gos.put (char (u.running ? 1 : 0));
+  gos.put (u.location);
+  gos.put ((unsigned long long) u.props_len);
+  write_to (gos, u.objs);
+  write_to (gos, u.exits);
+  write_to (gos, u.timers);
+  write_to (gos, u.svars);
+  write_to (gos, u.ivars);
+  write_to (gos, u.items);
+}
+
+static const char *const kUndoHistoryMagic = "GEASUNDO1";
+
+std::string serialize_undo_history (const std::vector<UndoState> &states)
+{
+  GeasOutputStream gos;
+  gos.put ((unsigned long long) states.size());
+  for (const UndoState &u : states)
+    write_to (gos, u);
+  /* Plain, un-obfuscated: this only ever travels inside the autosave. */
+  return std::string (kUndoHistoryMagic) + char (0) + gos.raw_contents ();
+}
+
+bool deserialize_undo_history (const std::string &data,
+                               std::vector<UndoState> &states)
+{
+  states.clear ();
+  const string magic = kUndoHistoryMagic;
+  if (data.size() < magic.size() + 1) return false;
+  if (data.compare (0, magic.size(), magic) != 0 || data[magic.size()] != 0)
+    return false;
+  GeasInputStream gis (data.substr (magic.size() + 1));
+
+  /* The same hostile-count guards deserialize_game uses: no element can
+   * occupy less than a byte on the wire. */
+  auto count = [&gis] (size_t &out) -> bool
+    {
+      size_t n = gis.get_uint();
+      if (n > gis.remaining()) return false;
+      out = n;
+      return true;
+    };
+  auto elem_count = [&gis] (size_t &out) -> bool
+    {
+      size_t mx = gis.get_uint();
+      if (mx >= gis.remaining()) return false;
+      out = mx + 1;
+      return true;
+    };
+
+  size_t nstates;
+  if (!count (nstates)) return false;
+  for (size_t si = 0; si < nstates; si++)
+    {
+      UndoState u;
+      u.running = gis.get_char() != 0;
+      u.location = gis.get_str();
+      u.props_len = gis.get_uint();
+      size_t n, cnt;
+      if (!count (n)) return false;
+      for (size_t i = 0; i < n; i++)
+        { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
+          o.invisible = (gis.get_char() == 0); o.parent = gis.get_str(); u.objs.push_back (o); }
+      if (!count (n)) return false;
+      for (size_t i = 0; i < n; i++)
+        { string s = gis.get_str(), d = gis.get_str(); u.exits.push_back (ExitRecord (s, d)); }
+      if (!count (n)) return false;
+      for (size_t i = 0; i < n; i++)
+        { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
+          t.interval = gis.get_uint(); t.timeleft = gis.get_uint(); u.timers.push_back (t); }
+      if (!count (n)) return false;
+      for (size_t i = 0; i < n; i++)
+        { SVarRecord v; v.name = gis.get_str();
+          if (!elem_count (cnt)) return false;
+          for (size_t j = 0; j < cnt; j++) v.set (j, gis.get_str()); u.svars.push_back (v); }
+      if (!count (n)) return false;
+      for (size_t i = 0; i < n; i++)
+        { IVarRecord v; v.name = gis.get_str();
+          if (!elem_count (cnt)) return false;
+          for (size_t j = 0; j < cnt; j++) v.set (j, gis.get_int()); u.ivars.push_back (v); }
+      if (!count (n)) return false;
+      for (size_t i = 0; i < n; i++)
+        u.items.push_back (gis.get_str());
+      states.push_back (u);
+    }
+  return true;
 }
 
 /* Parse a save produced by serialize_game()/save_game_to() into gs.  Returns

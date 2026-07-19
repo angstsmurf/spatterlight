@@ -85,6 +85,17 @@ template <class T> class LimitStack {
   {
     return data[dobwd(cur_ptr)];
   }
+
+  /* The stack's live entries, oldest first -- for serializing the undo
+   * history into an autosave.  (Entries occupy the ring slots after end_ptr
+   * up to, but not including, the next write slot cur_ptr.) */
+  std::vector<T> contents ()
+  {
+    std::vector<T> out;
+    for (size_t i = dofwd (end_ptr); i != cur_ptr; fwd (i))
+      out.push_back (data[i]);
+    return out;
+  }
 };
 
 template<class T> std::ostream &operator<< (std::ostream &o, LimitStack<T> st) { st.dump(o); return o; }

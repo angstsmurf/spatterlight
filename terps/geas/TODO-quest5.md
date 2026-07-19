@@ -1,5 +1,110 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-19, Spatterlight autosave/autorestore — BOTH engines)
+
+- **Spatterlight autosave/autorestore lands for the whole geas terp** —
+  the classic Quest 4 frontend (GeasRunner) and the native Quest 5 engine
+  both, modeled on the Bocfel implementation.  New
+  `geasglk-autosave.{h,mm}` (Spatterlight app target only; every call site
+  is `#ifdef SPATTERLIGHT`): at each top-level parser prompt the engine's
+  own full-state serialization (`save_state(false)` / `Interp::save_game`)
+  goes to `Quest Files/Autosaves/<hash>/autosave.glksave`, the Glk library
+  state (TempLibrary + an engine-specific archive hook) to
+  `autosave.plist`, temp-write + rename for atomicity, then
+  `win_autosave(tag)` has the app snapshot the GUI.  Autosave fires AFTER
+  the prompt is printed and BEFORE line input is requested, so the saved
+  windows carry no pending request and a restore re-enters by just
+  re-requesting input (the Bocfel re-execute-the-read pattern); it also
+  refreshes after a state-changing timer tick (guarded by the
+  autosave-on-timer pref) and skips engine prompts (`show menu`/`ask`/
+  `wait`/`get input`) whose callbacks the snapshot cannot capture.
+- **Restore**: Quest 4 boots the game silently (`g_autorestore_booting`
+  swallows output, auto-answers `get_string`/`make_choice`/`wait_keypress`)
+  then `load_state(data, false)` + TempLibrary `updateFromLibrary` +
+  re-pointing the frontend window globals via serialization tags.  Quest 5
+  rides the existing saved-game boot in `run_session`: `restore_game`
+  overlays the freshly loaded world, then the library swap, then a
+  frontend blob (window tags + the transcript's live `g_links` hyperlink
+  actions + pane fold/status/location strings + frame-picture name)
+  decoded by `aslx_recover_frontend`; InitInterface re-runs and repaints
+  map/panes/panel from engine state (StartGame/begin_timers skipped, no
+  "Loaded saved game" line).  A bad autosave is deleted, `win_reset()`,
+  fresh process.
+- **App side**: geas added to the restorable-terp list
+  (`GameLauncher.m`).  **Footgun fixed**: `geasglkterm.c` only set
+  `garglk_set_program_name` under `#ifdef GARGLK`, which Spatterlight
+  doesn't define — glkimp's workdir map never saw "geas" and
+  `create_autosavedir` silently failed on a "(null) Files" path (the app
+  looks in "Quest Files").  Now set under SPATTERLIGHT too.
+- **Verified live** (app driven via AppleScript/AX): Pyramid Of Terror
+  (Quest 4) — quit + relaunch restores transcript AND state (inventory
+  keeps the taken lichen), single prompt, no re-intro; The Deer Trail
+  (Quest 5) — both the app-quit and the close-window/reopen paths restore
+  transcript, state ([NOCK]/[REST] progression), status banner and pane.
+  Harnesses at baseline: `make check` green, Quest 4 corpus walkthroughs
+  22/22, native replay vs frozen goldens 56/57 (the one miss is the
+  documented ICM oracle artifact).
+- **A looping sound resumes after autorestore — via the APP, not the terp**
+  (first shipped as a terp-side replay; petter then found the loop kept
+  playing after the game window closed, which exposed the real design).
+  The app already archives its sound channels (playing sound, loop count,
+  pause/volume/fade state) in its GUI snapshot and replays them itself
+  (`SoundHandler restartAll`, GlkController+Autorestore.m) — and during its
+  restore it REPLACES its sound handler wholesale, so anything the terp
+  starts before that point becomes an orphaned player no
+  `stopAllAndCleanUp` can reach: an immortal loop.  So the terp must NOT
+  replay sounds on restore.  Its only job is keeping the staged sound
+  FILES alive: the app re-reads the sound from a file bookmark on restart,
+  and Quest 5's deflated zip sounds were staged in unlinked mkstemp files.
+  `stage_temp_file` now stages sounds (not images) in glkimp's per-session
+  temp directory — swept on a normal `glk_exit`, deliberately preserved on
+  an autosave-quit, exactly like the temp files backing open file streams
+  — and never unlinks them.  Quest 4 sounds are real files next to the
+  story, so the app's restart already worked there.  Verified with The
+  Deer Trail (looping mp3 from the zip): boot plays, quit silences,
+  relaunch resumes the restored session's loop, window close silences —
+  the coreaudiod power assertion tracked through every step.
+- **RNG position survives an autorestore** (petter pointed at Bocfel's
+  seed + call-count replay).  Quest 4: the erkyrath detstate API
+  (`randomness.c` `erkyrath_random_get/set_detstate` -- the full xoshiro
+  words + which generator is active, no replay loop needed) rides the
+  plist; recover puts the stream back AFTER the silent boot's own draws.
+  Quest 5: new `Interp::capture_rng_streams`/`restore_rng_streams`
+  (aslx-runtime) -- the fallback stream plus every compiled expression's
+  lazily-seeded stream, keyed by expression source (exact: `expr_cache_`
+  dedups by source); the blob carries them and they are applied just
+  before play resumes, AFTER InitInterface's own draws, so the restored
+  prompt's randomness is exactly the saved one.  Engine-level round-trip
+  proven (capture -> draw -> restore -> identical draws, including into a
+  fresh Interp); headless untouched (`make check` green, native replay
+  still 56/57).
+- **Quest 4 UNDO history survives an autorestore** (petter pointed at
+  Bocfel, which writes its whole save stacks -- Undo/MSav chunks -- into
+  its autosave).  The undo ring is flat snapshots, so it serializes
+  cleanly: `serialize_undo_history`/`deserialize_undo_history`
+  (geas-state.cc, plain GEASUNDO1 stream reusing the save-file record
+  writers and its hostile-count guards), `LimitStack::contents()`
+  (oldest-first ring walk), `GeasRunner::save/load_undo_history`, and
+  autosave.glksave became a length-prefixed GEASAUTO1 container (engine
+  state + undo history; the QUEST300 body reads to EOF so bare
+  concatenation was not an option; a magicless file still loads as a bare
+  legacy state).  load runs after load_state: the snapshots' props_len
+  values index the restored append-only props log.  Verified live: take
+  lichen -> quit -> relaunch -> UNDO undoes the pre-quit turn ("Undone.",
+  item back in the room, inventory empty).
+- **Quest 5 undo history deliberately does NOT survive** -- and cannot,
+  faithfully: the UndoLogger's actions hold live runtime references
+  (shared list/dict backings, kept-alive destroyed-element storage,
+  firsttime flag pointers) with no process-independent identity, and the
+  reference behaves the same way (QuestViva saves carry no undo history;
+  after any load, `undo` reports nothing to undo).  Matching Bocfel here
+  would mean inventing semantics the reference does not have, with
+  mis-targeted collection edits as the failure mode.
+- Accepted scope: an autosave is only taken at the parser prompt, so at
+  most the fraction of a turn since the last prompt is lost.
+- Still open in presentation: `<backgroundimage>`, babel zip metadata +
+  cover art.
+
 ## Status (2026-07-17, native `.quest-save` compatibility)
 
 - **The native Quest/QuestViva `.quest-save` format is now bidirectional**

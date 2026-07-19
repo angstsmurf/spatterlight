@@ -205,6 +205,15 @@ public:
   */
 };
 
+/* Serialize/parse a whole undo history (snapshots oldest first) for the
+ * Spatterlight autosave, so UNDO still works after an autorestore.  The
+ * snapshots' props_len values are measured against the same append-only
+ * props log the accompanying full state carries, so they stay valid across
+ * the save/restore round trip. */
+extern std::string serialize_undo_history (const std::vector<UndoState> &states);
+extern bool deserialize_undo_history (const std::string &data,
+                                      std::vector<UndoState> &states);
+
 extern void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs);
 /* Serialize/parse the full game state to/from a self-contained string, leaving
  * the actual file I/O to the host (Glk). */

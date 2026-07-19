@@ -1462,6 +1462,23 @@ bool geas_implementation::load_state (const string &data, bool run_hooks)
   return true;
 }
 
+std::string geas_implementation::save_undo_history ()
+{
+  return serialize_undo_history (undo_buffer.contents ());
+}
+
+bool geas_implementation::load_undo_history (const string &data)
+{
+  std::vector<UndoState> states;
+  if (!deserialize_undo_history (data, states))
+    return false;
+  /* Rebuild the ring by pushing oldest-first, exactly as play would have. */
+  undo_buffer = LimitStack<UndoState> (kUndoLevels);
+  for (UndoState &u : states)
+    undo_buffer.push (u);
+  return true;
+}
+
 void geas_implementation::set_game (const string &s)
 {
   GEAS_DBG << "set_game (...)\n";

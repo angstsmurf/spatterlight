@@ -236,6 +236,13 @@ public:
   virtual std::string save_state(bool run_hooks = true) { (void) run_hooks; return std::string(); }
   virtual bool load_state(const std::string &data, bool run_hooks = true) { (void) run_hooks; return false; }
 
+  /* Serialize / restore the whole undo history (for the Spatterlight
+   * autosave, so UNDO still works across an autorestore -- as Bocfel
+   * carries its save stacks in its autosave).  load must run after
+   * load_state: the snapshots reference the restored props log. */
+  virtual std::string save_undo_history() { return std::string(); }
+  virtual bool load_undo_history(const std::string &data) { (void) data; return false; }
+
   /* Display name of the current room (its alias, or its internal name). */
   virtual std::string get_location() { return std::string(); }
 

@@ -165,7 +165,7 @@
     }
 
     gctl = [[GlkController alloc] initWithWindowNibName:@"GameWindow"];
-    if ([terp isEqualToString:@"glulxe"] || [terp isEqualToString:@"fizmo"] || [terp isEqualToString:@"bocfel"]) {
+    if ([terp isEqualToString:@"glulxe"] || [terp isEqualToString:@"fizmo"] || [terp isEqualToString:@"bocfel"] || [terp isEqualToString:@"geas"]) {
         gctl.window.restorable = YES;
         gctl.window.restorationClass = [AppDelegate class];
         gctl.window.identifier = [NSString stringWithFormat:@"gameWin%@", game.hashTag];

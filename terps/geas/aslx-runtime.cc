@@ -966,6 +966,46 @@ std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
     return e;
 }
 
+void Interp::capture_rng_streams(
+    std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &out)
+{
+    out.clear();
+    out.emplace_back(std::string(),
+                     std::array<uint32_t, 4>{rng_.s[0], rng_.s[1],
+                                             rng_.s[2], rng_.s[3]});
+    for (const auto &kv : expr_cache_) {
+        const ExprP &e = kv.second;
+        if (e && e->rng)
+            out.emplace_back(kv.first,
+                             std::array<uint32_t, 4>{e->rng->s[0], e->rng->s[1],
+                                                     e->rng->s[2], e->rng->s[3]});
+    }
+}
+
+void Interp::restore_rng_streams(
+    const std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &in)
+{
+    for (const auto &entry : in) {
+        if (entry.first.empty()) {
+            for (int i = 0; i < 4; i++)
+                rng_.s[i] = entry.second[i];
+            continue;
+        }
+        ExprP e;
+        try {
+            e = compile_expr(entry.first);
+        } catch (const std::runtime_error &) {
+            continue;  // captured from a source that no longer compiles
+        }
+        if (!e)
+            continue;
+        if (!e->rng)
+            e->rng = std::make_shared<Rng>();
+        for (int i = 0; i < 4; i++)
+            e->rng->s[i] = entry.second[i];
+    }
+}
+
 Value Interp::eval(const std::string &source, Context &ctx) {
     std::string s = rt_trim(source);
     if (s.empty()) return vnull();
