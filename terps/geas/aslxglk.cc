@@ -263,9 +263,21 @@ bool timer_event_second(Interp &in)
 
 /* ---------------------------------------------------------------- output -- */
 
+/* While an output section is being recorded this captures every character
+ * render_html writes into the main window, so HideOutputSection can hand the
+ * exact text back to garglk_unput_string_count_uni (a case-insensitive TAIL
+ * match -- see g_out_log). */
+std::u32string *g_tee = nullptr;
+
+/* Bumped by draw_image_inline; render_html compares it across a chunk to see
+ * whether that chunk put an unmatchable attachment into the window. */
+size_t g_images_drawn = 0;
+
 void put_uni_char(glui32 c)
 {
     glk_put_char_uni(c);
+    if (g_tee)
+        g_tee->push_back((char32_t) c);
 }
 
 void put_uni_string(const std::string &utf8)
@@ -527,7 +539,7 @@ bool swallow_echo_chunk(const std::string &html)
         return true;
     }
     if (g_swallow == 1)
-        glk_put_char('\n');     /* not the echo after all: restore the blank */
+        put_uni_char('\n');     /* not the echo after all: restore the blank */
     g_swallow = 0;
     return false;
 }
@@ -567,11 +579,177 @@ std::string strip_hidden_elements(const std::string &html)
     return out;
 }
 
-/* Render one HTML chunk (a JS.addText payload) into the main window. */
-void render_html(const std::string &raw)
+/* ------------------------------------------------------------- retract -- */
+
+std::u32string u32_from_utf8(const std::string &s)
 {
-    if (g_swallow && swallow_echo_chunk(raw))
+    std::u32string out;
+    for (size_t i = 0; i < s.size();)
+        out.push_back((char32_t) utf8_next_cp(s, i));
+    return out;
+}
+
+/* Take `s` back off the end of the transcript window, but only if it is still
+ * exactly what is there: garglk_unput_string_count_uni is a case-insensitive
+ * TAIL compare (GlkTextBufferWindow+Output.m:221) that removes nothing unless
+ * the whole string matches.  Returns the count removed, 0 if the window has
+ * moved on -- so every caller degrades to "leave the text alone".
+ *
+ * It retracts from the CURRENT output stream (glkimp/stream.c:1835), which
+ * during an engine callback need not be the transcript window, so point it
+ * there and put the old stream back. */
+size_t unput_exact(const std::u32string &s)
+{
+#ifdef SPATTERLIGHT
+    if (s.empty() || !gwin)
+        return 0;
+    strid_t saved_str = glk_stream_get_current();
+    glk_set_window(gwin);
+    std::vector<glui32> buf(s.begin(), s.end());
+    buf.push_back(0);
+    glui32 got = garglk_unput_string_count_uni(buf.data());
+    glk_stream_set_current(saved_str);
+    return got == s.size() ? s.size() : 0;
+#else
+    (void) s;                   /* CheapGlk has no unput */
+    return 0;
+#endif
+}
+
+/* ------------------------------------------------------ output sections -- */
+
+/* The reference player wraps JS.StartOutputSection..EndOutputSection output in
+ * a <div> it can later hide.  A Glk buffer cannot hide anything, but
+ * garglk_unput_string_count_uni retracts text that still matches the END of
+ * the window (GlkTextBufferWindow+Output.m:221, a case-insensitive tail
+ * compare returning the count removed).  A section is rarely the tail when it
+ * is hidden -- GamebookCore prints the chosen option's label BEFORE DoPage
+ * hides the options block above it -- so hiding means: retract everything from
+ * the section's first chunk to the end of the window, then replay the chunks
+ * that came after the section closed.
+ *
+ * That needs a record of what each chunk actually wrote, which is what g_tee
+ * collects.  Anything that fails the tail match (a prompt or host echo landed
+ * in between, an image attachment sits inside the range) leaves the transcript
+ * exactly as it is today: the retract is best-effort, never destructive. */
+
+struct OutChunk {
+    std::string html;       /* raw payload, for replay through render_html */
+    std::u32string text;    /* exactly what it wrote into the window */
+    bool image = false;     /* drew an image: an attachment char we cannot match */
+};
+
+std::vector<OutChunk> g_out_log;
+
+struct OutSection {
+    std::string name;
+    size_t start = 0;                       /* first chunk index */
+    size_t end = (size_t) -1;               /* one past the last, -1 while open */
+};
+
+std::vector<OutSection> g_sections;
+
+/* Sections are only ever hidden a page or two after they close, but nothing
+ * says so -- bound the log rather than grow it for the length of a game. */
+const size_t kMaxSections = 8;
+/* win_unprint copies into the 64 KB message buffer as uint16_t
+ * (glkimp/connect.c:220), so a retract longer than that would overrun it. */
+const size_t kMaxUnput = 16384;
+
+void render_html(const std::string &raw);
+
+/* Drop the sections (and the chunks they cover) that can no longer be hidden. */
+void trim_out_log()
+{
+    if (g_sections.size() <= kMaxSections)
         return;
+    size_t drop = g_sections.size() - kMaxSections;
+    size_t cut = g_sections[drop].start;
+    g_sections.erase(g_sections.begin(), g_sections.begin() + drop);
+    if (cut == 0)
+        return;
+    g_out_log.erase(g_out_log.begin(), g_out_log.begin() + cut);
+    for (OutSection &s : g_sections) {
+        s.start -= cut;
+        if (s.end != (size_t) -1)
+            s.end -= cut;
+    }
+}
+
+void start_output_section(const std::string &name)
+{
+    OutSection s;
+    s.name = name;
+    s.start = g_out_log.size();
+    g_sections.push_back(s);
+    trim_out_log();
+}
+
+void end_output_section(const std::string &name)
+{
+    for (size_t i = g_sections.size(); i-- > 0;)
+        if (g_sections[i].name == name && g_sections[i].end == (size_t) -1) {
+            g_sections[i].end = g_out_log.size();
+            return;
+        }
+}
+
+void hide_output_section(const std::string &name)
+{
+#ifdef SPATTERLIGHT
+    size_t at = (size_t) -1;
+    for (size_t i = g_sections.size(); i-- > 0;)
+        if (g_sections[i].name == name) { at = i; break; }
+    if (at == (size_t) -1)
+        return;
+    const size_t start = g_sections[at].start;
+    size_t end = g_sections[at].end;
+    if (end == (size_t) -1 || end > g_out_log.size())
+        end = g_out_log.size();
+    if (start >= g_out_log.size())
+        return;
+
+    /* Everything from the section's first chunk to the end of the window has
+     * to come off, since only a suffix can be retracted. */
+    std::u32string tail;
+    for (size_t i = start; i < g_out_log.size(); i++) {
+        if (g_out_log[i].image)
+            return;             /* an attachment char will not tail-match */
+        tail += g_out_log[i].text;
+        if (tail.size() > kMaxUnput)
+            return;
+    }
+    if (tail.empty())
+        return;
+
+    /* The buffer window holds a trailing newline back rather than show a blank
+     * line at the prompt (GlkTextBufferWindow+Output.m:187, storedNewline), so
+     * the text storage lags this log by up to one newline.  Try the exact tail
+     * first, then without that newline. */
+    size_t took = unput_exact(tail);
+    if (!took && !tail.empty() && tail.back() == U'\n')
+        took = unput_exact(tail.substr(0, tail.size() - 1));
+    if (!took)
+        return;                 /* tail moved on: leave the transcript alone */
+
+    /* Put back what followed the section.  Replaying through render_html
+     * re-logs the chunks at their new positions and rebuilds their styles and
+     * hyperlinks, so the g_links indices the replayed anchors get are fresh. */
+    std::vector<OutChunk> replay(g_out_log.begin() + end, g_out_log.end());
+    g_out_log.erase(g_out_log.begin() + start, g_out_log.end());
+    for (size_t i = g_sections.size(); i-- > 0;)
+        if (g_sections[i].start >= start)
+            g_sections.erase(g_sections.begin() + i);
+    for (const OutChunk &c : replay)
+        render_html(c.html);
+#else
+    (void) name;                /* CheapGlk has no unput: nothing to hide */
+#endif
+}
+
+/* Render one HTML chunk (a JS.addText payload) into the main window. */
+void render_html_inner(const std::string &raw)
+{
     const std::string html =
         find_ci(raw, "<style", 0) != std::string::npos ||
         find_ci(raw, "<script", 0) != std::string::npos
@@ -593,7 +771,7 @@ void render_html(const std::string &raw)
             if (sp != std::string::npos) name.erase(sp);
 
             if (name == "br") {
-                glk_put_char('\n');
+                put_uni_char('\n');     /* teed: see g_tee */
             } else if (name == "b" || name == "strong") {
                 StylePush p; p.b = 1;
                 closing ? pop_style(p) : push_style(p);
@@ -683,6 +861,39 @@ void render_html(const std::string &raw)
             glk_set_hyperlink(0);
         apply_style();
     }
+}
+
+/* Render a chunk, recording what it wrote while any section is live so
+ * HideOutputSection can retract it later.  With no section open (every game
+ * that never calls StartOutputSection, and the headless harness) this is
+ * render_html_inner plus one branch. */
+void render_html(const std::string &raw)
+{
+    if (g_sections.empty()) {
+        if (g_swallow && swallow_echo_chunk(raw))
+            return;
+        render_html_inner(raw);
+        return;
+    }
+    OutChunk c;
+    std::u32string *saved = g_tee;   /* replay re-enters through here */
+    g_tee = &c.text;
+    const size_t images = g_images_drawn;
+    /* The swallow runs INSIDE the tee: when it decides a provisionally
+     * swallowed blank was not the echo after all it puts that newline back,
+     * and the recorded text has to account for it or the retract below stops
+     * matching the window. */
+    const bool swallowed = g_swallow && swallow_echo_chunk(raw);
+    if (!swallowed)
+        render_html_inner(raw);
+    g_tee = saved;
+    c.image = g_images_drawn != images;
+    /* A swallowed chunk's own html must never be replayed -- the swallow is
+     * spent, so re-rendering it would print the echo this time. All it can
+     * leave behind is that restored newline. */
+    c.html = swallowed ? "<br/>" : raw;
+    if (!swallowed || !c.text.empty())
+        g_out_log.push_back(c);
 }
 
 /* ---------------------------------------------------------------- banner -- */
@@ -1009,7 +1220,32 @@ bool engine_state_pending(Interp &in)
 
 /* Scope guard: reroute engine prints so the first output emitted while a
  * prompt sits on the screen breaks to a fresh line first.  broke tells the
- * caller a reprint of the prompt is needed. */
+ * caller a reprint of the prompt is needed.
+ *
+ * A tempting refinement -- unput_exact the stale empty "> " here instead of
+ * breaking the line, so an interrupting timer leaves no stranded prompt --
+ * does not work yet, and the blocker is NOT the retract.  Tried and reverted
+ * twice (2026-07-19), reproduced with a 2-second recurring timer:
+ *
+ *  - With no input typed it is a clear win: the ticks read as a clean run of
+ *    text with one prompt at the end, instead of a bare "> " stranded above
+ *    every one of them.
+ *  - With a partial line typed it breaks.  Line-input echo is off, so
+ *    cancelLine (GlkTextBufferWindow+Input.m:352) has ALREADY removed the
+ *    typed text -- "> " really is the tail, the retract succeeds, and the
+ *    re-request restores the text as preloaded input (ce.val1).  The window
+ *    then ends up with the typed characters stranded straight after the
+ *    interrupting text and no prompt at all.
+ *  - Clamping the buffer window's cached absolute offsets after a tail delete
+ *    (fence in particular, which cancelLine leaves pointing past the new end
+ *    -- the tail-delete counterpart of shiftCachedOffsetsAfterTrimOf:) is a
+ *    real gap and probably wants fixing on its own account, but it is NOT
+ *    sufficient here: with it the preloaded text duplicates across ticks
+ *    ("xyzxyz") and the prompt is still lost.
+ *
+ * So retracting a prompt that a live line request still owns needs the
+ * preload/fence path understood first; gating the retract on ce.val1 == 0 (no
+ * preload to restore) is the obvious next thing to try. */
 struct PromptBreak {
     Interp &in;
     bool active;
@@ -1848,6 +2084,11 @@ bool draw_image_inline(const std::string &name)
     if (!id)
         return false;
 
+    /* An image is an attachment character in the window's text storage, which
+     * no unput string can match -- a chunk that drew one pins its output
+     * section (see hide_output_section). */
+    g_images_drawn++;
+
     /* Original size with the aspect ratio preserved, but never wider than
      * the window -- re-resolved on every resize (Glk 0.7.6
      * glk_image_draw_scaled_ext). Baseline-aligned like an HTML <img>;
@@ -2106,6 +2347,14 @@ void blob_str(std::string &s, const std::string &v)
     s += '\n';
 }
 
+/* The chunk log's recorded text is UTF-32 (what went to the window); the blob
+ * is bytes. */
+std::string utf8_from_u32(const std::u32string &s)
+{
+    std::vector<glui32> cps(s.begin(), s.end());
+    return utf8_from_uni(cps.empty() ? nullptr : cps.data(), (glui32) cps.size());
+}
+
 struct BlobReader {
     const std::string &s;
     size_t pos = 0;
@@ -2137,7 +2386,10 @@ struct BlobReader {
     }
 };
 
-const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 1";
+/* Bumped to 2 when the output-section log joined the blob: a version-1 blob
+ * has no such fields, and an autorestore that mis-parses is worse than one
+ * that is discarded for a fresh start. */
+const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 2";
 
 std::string aslx_encode_frontend(Interp &in)
 {
@@ -2174,6 +2426,23 @@ std::string aslx_encode_frontend(Interp &in)
         blob_str(b, entry.first);
         for (int i = 0; i < 4; i++)
             blob_num(b, (long) entry.second[i]);
+    }
+    /* Output sections and the chunk log behind them.  The restored transcript
+     * still shows the text they cover, so without these the first hide after
+     * an autorestore -- which for a gamebook is the very next click -- would
+     * find no section and leave the previous page's options on screen.  The
+     * recorded text goes over as UTF-8. */
+    blob_num(b, (long) g_out_log.size());
+    for (const OutChunk &c : g_out_log) {
+        blob_str(b, c.html);
+        blob_str(b, utf8_from_u32(c.text));
+        blob_num(b, c.image ? 1 : 0);
+    }
+    blob_num(b, (long) g_sections.size());
+    for (const OutSection &s : g_sections) {
+        blob_str(b, s.name);
+        blob_num(b, (long) s.start);
+        blob_num(b, s.end == (size_t) -1 ? -1 : (long) s.end);
     }
     return b;
 }
@@ -2216,6 +2485,25 @@ bool aslx_recover_frontend(const std::string &blob)
         for (int j = 0; j < 4; j++)
             s[(size_t) j] = (uint32_t) r.num();
         g_autorestore_rngs.emplace_back(src, s);
+    }
+    g_out_log.clear();
+    long nchunks = r.num();
+    for (long i = 0; i < nchunks && r.ok; i++) {
+        OutChunk c;
+        c.html = r.str();
+        c.text = u32_from_utf8(r.str());
+        c.image = r.num() != 0;
+        g_out_log.push_back(c);
+    }
+    g_sections.clear();
+    long nsecs = r.num();
+    for (long i = 0; i < nsecs && r.ok; i++) {
+        OutSection s;
+        s.name = r.str();
+        s.start = (size_t) r.num();
+        long e = r.num();
+        s.end = e < 0 ? (size_t) -1 : (size_t) e;
+        g_sections.push_back(s);
     }
     if (!r.ok || !gwin)
         return false;
@@ -2320,6 +2608,11 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * Called before the new page prints, so the links it is about to add are
      * above the mark and stay live. */
     in.disable_command_links = [] { g_links_spent = g_links.size(); };
+    /* Output sections -- the reference player's hideable <div>s, retracted
+     * here with garglk_unput_string_count_uni. */
+    in.start_output_section = [](const std::string &n) { start_output_section(n); };
+    in.end_output_section = [](const std::string &n) { end_output_section(n); };
+    in.hide_output_section = [](const std::string &n) { hide_output_section(n); };
     /* Script errors go to stderr, not the page -- the reference web player
      * keeps them in the browser's JavaScript console, off the transcript. The
      * engine still logs every one (Interp::errors()), and headless output is
@@ -2693,6 +2986,9 @@ extern "C" void aslx_glk_main(const char *storyfile)
         glk_window_clear(gwin);
         g_links.clear();
         g_links_spent = 0;
+        /* The cleared window holds nothing to retract. */
+        g_out_log.clear();
+        g_sections.clear();
         g_bold = g_italic = g_under = 0;
         apply_style();
         /* No pane content survives the session either. */
