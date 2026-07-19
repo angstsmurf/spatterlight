@@ -875,6 +875,45 @@ void run_asl_event(Interp &in, const LinkAction &act)
     in.drain_on_ready();
 }
 
+/* JS callback completions queued by the js_event_bridge hook: (js function,
+ * its last argument).  Fired between turns, never mid-script. */
+std::vector<std::pair<std::string, std::string> > g_js_events;
+
+/* Run the JS completion callbacks a game's own <js> animations would have
+ * fired from setTimeout (see Interp::js_event_bridge).  Only an argument that
+ * really names a <function> is fired -- anything else is data that happened to
+ * ride along in the last slot, and firing it would invent behaviour.  One
+ * completion legitimately chains into the next (spondre's title fades in three
+ * stages), so this drains until quiet, with a cap in case a game builds a
+ * cycle the browser would have broken with real elapsed time. */
+void fire_js_events(Interp &in)
+{
+    const int kMaxChain = 16;
+    for (int fired = 0; !g_js_events.empty(); ) {
+        std::pair<std::string, std::string> ev = g_js_events.front();
+        g_js_events.erase(g_js_events.begin());
+        /* "Func" or "Func param": the split the games' own JS does before
+         * calling ASLEvent(args[0], args[1]). */
+        std::string func = trim(ev.second), param;
+        size_t sp = func.find(' ');
+        if (sp != std::string::npos) {
+            param = trim(func.substr(sp + 1));
+            func.erase(sp);
+        }
+        if (func.empty())
+            continue;
+        Element *h = in.world().find(func);
+        if (!h || h->elem_type != "function")
+            continue;
+        if (++fired > kMaxChain) {
+            g_js_events.clear();
+            break;
+        }
+        in.send_event(func, param);
+        in.drain_on_ready();
+    }
+}
+
 /* True when the engine is waiting for something other than a command line --
  * the prompt loop must re-dispatch. */
 bool engine_state_pending(Interp &in)
@@ -1816,6 +1855,13 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * keeps them in the browser's JavaScript console, off the transcript. The
      * engine still logs every one (Interp::errors()), and headless output is
      * untouched: only a host that installs this hook diverts them. */
+    /* The JS callback bridge: queue only -- fire_js_events runs them between
+     * turns, so a callback never lands in the middle of the script that
+     * triggered it (the browser's setTimeout would not either). */
+    in.js_event_bridge = [](const std::string &fn, const std::string &arg) {
+        if (!arg.empty())
+            g_js_events.push_back(std::make_pair(fn, arg));
+    };
     in.script_error = [](const std::string &message) {
         fprintf(stderr, "%s\n", message.c_str());
     };
@@ -1906,6 +1952,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         update_banner(in);
     }
     in.drain_on_ready();
+    fire_js_events(in);
     flush_warnings(w, warnings_seen);
     update_banner(in);
     redraw_side_pane(in);
@@ -1986,6 +2033,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             }
         }
         in.drain_on_ready();
+        fire_js_events(in);
         flush_warnings(w, warnings_seen);
         update_banner(in);
         redraw_side_pane(in);

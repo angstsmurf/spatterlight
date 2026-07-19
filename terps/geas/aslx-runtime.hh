@@ -336,6 +336,23 @@ public:
     // every golden stay byte-identical.
     std::function<void(const std::string &message)> script_error;
 
+    // Host hook for the browser's JS callback bridge -- an escape valve for a
+    // JS.* call this engine does not implement. Games write their own <js>
+    // animations and end them by calling ASLEvent(completion), naming a game
+    // function to run when the animation finishes: spondre's title screen
+    // fades in through JS.FadeInTitle(..., "TitleDone"), and TitleDone is what
+    // prints its "click to continue". With no JS engine those callbacks never
+    // fire and the game stalls forever on its title. When this hook is set,
+    // an unhandled JS.* call hands its LAST argument to the host, which
+    // decides whether it names a game function worth firing -- and fires it
+    // BETWEEN turns, never reentrantly mid-script, which is the closest we get
+    // to the setTimeout the browser would have used. This is a heuristic: an
+    // argument that merely looks like a function name will fire it. Unset, the
+    // call is ignored and the argument is not even evaluated, so headless
+    // output stays oracle-exact.
+    std::function<void(const std::string &fn, const std::string &last_arg)>
+        js_event_bridge;
+
     // -- undo (UndoLogger port) ----------------------------------------------
     // The logger only records while a transaction is open. Core's parser opens
     // one per successfully-parsed player command ("start transaction

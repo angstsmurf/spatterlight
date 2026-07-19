@@ -2826,6 +2826,14 @@ bool Interp::exec_statement_command(const std::string &name,
     // core (a later presentation milestone wires the rest).
     if (name.compare(0, 3, "JS.") == 0) {
         std::string fn = name.substr(3);
+        /* Hand an unimplemented JS.* call's last argument to the host, which
+         * decides whether it names a game function to fire as an ASLEvent.
+         * Evaluating the argument only happens here, hook installed, so the
+         * headless path stays untouched. */
+        auto js_fallback = [&] {
+            if (js_event_bridge && !args.empty())
+                js_event_bridge(fn, to_string(ev(args.size() - 1)));
+        };
         if (fn == "addText" && !args.empty())
             print(to_string(ev(0)));
         else if (fn == "setPanelContents" && !args.empty() && set_panel_contents)
@@ -2856,6 +2864,10 @@ bool Interp::exec_statement_command(const std::string &name,
             if (js.find("location.reload") != std::string::npos ||
                 js.find("RestartGame") != std::string::npos)
                 request_restart();
+        } else if (js_event_bridge && !grid_draw) {
+            /* No grid bridge: everything unhandled goes straight to the JS
+             * callback bridge (see the hook's note). */
+            js_fallback();
         } else if (grid_draw) {
             /* The grid-map paint vocabulary (CoreGrid.aslx -> grid.js),
              * forwarded as GridDraw commands. Argument evaluation only
@@ -2905,6 +2917,8 @@ bool Interp::exec_statement_command(const std::string &name,
             } else if (fn == "Grid_ClearAllLayers") {
                 g.op = GridDraw::Op::Clear;
                 grid_draw(g);
+            } else {
+                js_fallback();
             }
         }
         return true;
