@@ -3054,6 +3054,35 @@ bool Interp::exec_statement_command(const std::string &name,
             // PlayerUI.SetPanelContents -- the picture frame, like
             // JS.setPanelContents.
             set_panel_contents(to_string(ev(1)));
+        } else if (req == "RunScript" && set_panel_contents) {
+            // PlayerUI.RunScript(data) -- Quest 5.0's "call a function in the
+            // player's HTML frame" channel, data being "name; arg". Quest 5.0
+            // games carry their own SetFramePicture built on it (Nearco II:
+            // `request (RunScript, "setFramePicture; " + GetFileURL(f))`,
+            // driving the Frame.htm/Frame.js pair bundled in the package),
+            // which is the same picture frame later Cores reach through
+            // JS.setPanelContents -- so route those two verbs to the same
+            // hook. Every other function this channel can name is real
+            // JavaScript we cannot run, and stays ignored.
+            std::string data = to_string(ev(1));
+            std::string fn = data, arg;
+            size_t semi = data.find(';');
+            if (semi != std::string::npos) {
+                fn = data.substr(0, semi);
+                arg = data.substr(semi + 1);
+            }
+            auto trim_ws = [](std::string t) {
+                size_t b = t.find_first_not_of(" \t\r\n");
+                size_t e = t.find_last_not_of(" \t\r\n");
+                return b == std::string::npos ? std::string()
+                                              : t.substr(b, e - b + 1);
+            };
+            fn = trim_ws(fn);
+            arg = trim_ws(arg);
+            if (fn == "setFramePicture" && !arg.empty())
+                set_panel_contents("<img src=\"" + arg + "\"/>");
+            else if (fn == "clearFramePicture")
+                set_panel_contents("");
         } else if ((req == "Show" || req == "Hide") && show_command_bar) {
             // PlayerUI.Show/Hide -- the element-visibility channel, the pre-JS
             // pairing for JS.uiShow/uiHide. Data is an element name ("Panes",
