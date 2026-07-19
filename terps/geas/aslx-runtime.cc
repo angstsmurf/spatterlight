@@ -2831,8 +2831,12 @@ bool Interp::exec_statement_command(const std::string &name,
          * Evaluating the argument only happens here, hook installed, so the
          * headless path stays untouched. */
         auto js_fallback = [&] {
-            if (js_event_bridge && !args.empty())
-                js_event_bridge(fn, to_string(ev(args.size() - 1)));
+            /* Zero-argument calls reach the host too, with an empty argument:
+             * the name alone can be the signal (JS.HookClicks installs the
+             * reference player's click-anywhere handler). */
+            if (js_event_bridge)
+                js_event_bridge(fn, args.empty() ? std::string()
+                                                 : to_string(ev(args.size() - 1)));
         };
         if (fn == "addText" && !args.empty())
             print(to_string(ev(0)));

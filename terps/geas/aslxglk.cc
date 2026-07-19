@@ -122,6 +122,20 @@ bool g_prompt_first = false;
  * page reads as a page -- exactly what the reference player shows.  Only a
  * `get input` re-shows it (GamebookCore's GetInput does so explicitly). */
 bool g_command_bar = true;
+/* Set by JS.HookClicks: the game has bound a handler to the whole output area
+ * that turns ANY click there into a command (spondre's glue.js sends
+ * "(Unknown)", a token no verb matches, so the game's catch-all response
+ * runs).  A Glk text buffer delivers no such click -- only hyperlinks are
+ * clickable -- so the visible "click to continue" link stands in for it: with
+ * the hook installed and no wait to release, clicking runs a turn.  Without
+ * that, spondre's title has no way forward but typing a command at a screen
+ * that offers nothing to type at. */
+bool g_click_hook = false;
+/* The command a hook-driven click sends.  The text is not inspected by the
+ * games using this idiom -- verified on spondre, where "(Unknown)",
+ * "xyzzyplugh" and "look" all produce byte-identical output at the title, so
+ * what matters is only that a turn runs. */
+const char *const kClickHookCommand = "(Unknown)";
 int g_swallow = 0;              /* 2 = leading blank + "> cmd" outstanding,
                                    1 = blank swallowed, "> cmd" outstanding */
 std::string g_swallow_cmd;      /* the trimmed command the echo must match */
@@ -1011,14 +1025,25 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                     glk_cancel_line_event(gwin, &ce);
                 const LinkAction &act = g_links[ev.val1 - 1];
                 if (act.end_wait) {
-                    /* "click to continue": releasing the wait IS the action,
-                     * and no command is typed.  With nothing waiting the
-                     * click is inert, as the browser's endWait() would be. */
+                    /* "click to continue".  A pending wait is what the
+                     * browser's endWait() releases, so release it (this arm
+                     * is rarely taken: the prompt loop tests pending_wait
+                     * before the line branch, so a click during a wait is
+                     * usually consumed by read_keypress). */
                     if (in.pending_wait()) {
                         PromptBreak pb(in, prompt != nullptr);
                         in.finish_wait();
                         in.drain_on_ready();
+                        return {InEnd::Event, ""};
                     }
+                    /* No wait: in the browser endWait() does nothing and the
+                     * click bubbles to the game's own click-anywhere handler,
+                     * which sends a command -- that, not endWait, is what
+                     * moves spondre off its title.  Stand in for it when the
+                     * game installed such a handler.  No echo: a click is its
+                     * own visible act (see the line-echo note below). */
+                    if (g_click_hook)
+                        return {InEnd::Command, kClickHookCommand};
                     return {InEnd::Event, ""};
                 }
                 if (!act.command.empty()) {
@@ -1876,7 +1901,11 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * turns, so a callback never lands in the middle of the script that
      * triggered it (the browser's setTimeout would not either). */
     in.js_event_bridge = [](const std::string &fn, const std::string &arg) {
-        if (!arg.empty())
+        /* JS.HookClicks: the game has installed a click-anywhere handler --
+         * see g_click_hook. */
+        if (fn == "HookClicks")
+            g_click_hook = true;
+        else if (!arg.empty())
             g_js_events.push_back(std::make_pair(fn, arg));
     };
     in.script_error = [](const std::string &message) {
@@ -2186,7 +2215,10 @@ extern "C" void aslx_glk_main(const char *storyfile)
         g_pane_dirty = false;
         g_status_line.clear();
         g_location_line.clear();
-        /* The reloaded game declares its own command box at InitInterface. */
+        /* The reloaded game declares its own command box and click handler at
+         * InitInterface. */
         g_command_bar = true;
+        g_click_hook = false;
+        g_js_events.clear();
     }
 }
