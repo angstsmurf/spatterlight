@@ -589,26 +589,15 @@ std::u32string u32_from_utf8(const std::string &s)
     return out;
 }
 
-/* Take `s` back off the end of the transcript window, but only if it is still
- * exactly what is there: garglk_unput_string_count_uni is a case-insensitive
- * TAIL compare (GlkTextBufferWindow+Output.m:221) that removes nothing unless
- * the whole string matches.  Returns the count removed, 0 if the window has
- * moved on -- so every caller degrades to "leave the text alone".
- *
- * It retracts from the CURRENT output stream (glkimp/stream.c:1835), which
- * during an engine callback need not be the transcript window, so point it
- * there and put the old stream back. */
+/* Take `s` back off the end of the transcript window, but only if it is
+ * still exactly what is there (questglk::unput_window_tail, the tail-match
+ * retract shared with the classic frontend).  Returns the count removed, 0
+ * if the window has moved on -- so every caller degrades to "leave the text
+ * alone". */
 size_t unput_exact(const std::u32string &s)
 {
 #ifdef SPATTERLIGHT
-    if (s.empty() || !gwin)
-        return 0;
-    strid_t saved_str = glk_stream_get_current();
-    glk_set_window(gwin);
-    std::vector<glui32> buf(s.begin(), s.end());
-    buf.push_back(0);
-    glui32 got = garglk_unput_string_count_uni(buf.data());
-    glk_stream_set_current(saved_str);
+    glui32 got = questglk::unput_window_tail(gwin, s);
     return got == s.size() ? s.size() : 0;
 #else
     (void) s;                   /* CheapGlk has no unput */

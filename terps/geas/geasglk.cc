@@ -544,15 +544,33 @@ void glk_main(void)
                      * "> " prompt in place (it is before the input fence). */
                     event_t ce;
                     glk_cancel_line_event(inputwin, &ce);
+                    /* Retract that stale prompt so the timer's text lands
+                     * after the previous game text instead of ON the prompt
+                     * line, with a single fresh prompt below -- like the
+                     * reference runner.  Main-window input only (a separate
+                     * input window is cleared per turn and strands nothing);
+                     * best-effort: if the window tail is not exactly the
+                     * prompt (no echo control, so the typed text is still on
+                     * screen), today's behaviour is kept.  Typed text comes
+                     * back either way, as preloaded input (ce.val1). */
+                    bool retracted = false;
+#ifdef SPATTERLIGHT
+                    if (inputwin == mainglkwin)
+                        retracted =
+                            questglk::unput_window_tail(mainglkwin, U"\n> ") == 3;
+#endif
                     g_output_seen = false;
                     gr->tick_timers();
                     draw_banner();
                     if (gr->is_running()) {
                         /* If the timer printed something (e.g. surviving the
-                         * dynamite), the old prompt now has text after it, so
-                         * show a fresh prompt.  A silent timer (the interval-0
-                         * mayor-door check) leaves the existing prompt alone. */
-                        if (g_output_seen) {
+                         * dynamite), show a fresh prompt.  After a retract
+                         * one is always owed; a silent timer then gets back
+                         * the exact "\n> " just removed.  With neither (the
+                         * interval-0 mayor-door check under a failed or
+                         * non-Spatterlight retract) the existing prompt is
+                         * left alone. */
+                        if (g_output_seen || retracted) {
                             if (inputwin != mainglkwin)
                                 glk_window_clear(inputwin);
                             else

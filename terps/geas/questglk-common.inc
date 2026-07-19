@@ -15,6 +15,7 @@
 #include <fstream>
 #include <map>
 #include <string>
+#include <vector>
 
 extern "C" {
 #include "glk.h"
@@ -109,6 +110,31 @@ utf8_cp_len (const std::string &s)
             n++;
     return n;
 }
+
+#ifdef SPATTERLIGHT
+/* Take `s` back off the end of `win`, but only if it is still exactly what
+ * is there: garglk_unput_string_count_uni is a case-insensitive TAIL compare
+ * (GlkTextBufferWindow+Output.m unputString) that removes nothing unless the
+ * whole string matches.  Returns the count removed, 0 if the window has
+ * moved on -- so every caller degrades to "leave the text alone".
+ *
+ * It retracts from the CURRENT output stream (glkimp/stream.c), which during
+ * an engine callback need not be `win`, so point it there and put the old
+ * stream back. */
+static glui32
+unput_window_tail (winid_t win, const std::u32string &s)
+{
+    if (s.empty () || !win)
+        return 0;
+    strid_t saved = glk_stream_get_current ();
+    glk_set_window (win);
+    std::vector<glui32> buf (s.begin (), s.end ());
+    buf.push_back (0);
+    glui32 got = garglk_unput_string_count_uni (buf.data ());
+    glk_stream_set_current (saved);
+    return got;
+}
+#endif
 
 /* True when the whole string is well-formed UTF-8 (pure ASCII counts).  Used
  * to pick between byte (Latin-1) and codepoint-aware presentation for
