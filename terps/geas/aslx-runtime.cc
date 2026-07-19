@@ -1344,6 +1344,11 @@ void Interp::report_script_error(const std::string &what) {
         // running scripts and end the game (WorldModel's scriptErrorsFatal).
         script_errors_fatal_ = true;
         world_.finished = true;
+    } else if (script_error) {
+        // A host that surfaces errors out-of-band (the reference web player's
+        // JavaScript console) takes them instead of the transcript. Nothing is
+        // printed, so Core's OutputText never sees them -- see the hook's note.
+        script_error(msg);
     } else if (!reporting_error_) {
         // The message also goes to the player, once (no recursive reports if
         // printing itself errors), through the same channel as any other text:
@@ -3031,6 +3036,14 @@ bool Interp::exec_statement_command(const std::string &name,
             // PlayerUI.SetPanelContents -- the picture frame, like
             // JS.setPanelContents.
             set_panel_contents(to_string(ev(1)));
+        } else if ((req == "Show" || req == "Hide") && show_command_bar) {
+            // PlayerUI.Show/Hide -- the element-visibility channel, the pre-JS
+            // pairing for JS.uiShow/uiHide. Data is an element name ("Panes",
+            // "Command", "Location"); only the command box means anything
+            // outside a DOM (gamebook-style games hide it so the player never
+            // sees a line-input prompt).
+            if (to_string(ev(1)) == "Command")
+                show_command_bar(req == "Show");
         } else if (req == "Wait") {
             // RequestScript Wait -> DoWaitAsync: the pre-JS "press any key"
             // prompt (Core's WaitForKeyPress). Valid only pre-v540 -- v540+

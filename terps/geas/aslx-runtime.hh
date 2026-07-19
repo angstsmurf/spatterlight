@@ -324,6 +324,18 @@ public:
     // keeps its transcript on screen must retire those links itself.
     std::function<void()> disable_command_links;
 
+    // Host hook for script errors ("Error running script: ..."). WorldModel's
+    // RunScript catch boundary (WorldModel.cs:1094) Prints them, and the
+    // headless transcripts / goldens contain them at that spot -- but the
+    // reference WEB player does not put them on the page: they surface only in
+    // the browser's JavaScript console (verified against The Zen Garden's
+    // duplicate-'touch' dictionary error on textadventures.co.uk). With this
+    // hook set the message is routed here INSTEAD of being printed, so a
+    // player-facing host can match the reference player's console-only
+    // behaviour. Unset, the message prints as before -- headless output and
+    // every golden stay byte-identical.
+    std::function<void(const std::string &message)> script_error;
+
     // -- undo (UndoLogger port) ----------------------------------------------
     // The logger only records while a transaction is open. Core's parser opens
     // one per successfully-parsed player command ("start transaction

@@ -1685,6 +1685,13 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * Called before the new page prints, so the links it is about to add are
      * above the mark and stay live. */
     in.disable_command_links = [] { g_links_spent = g_links.size(); };
+    /* Script errors go to stderr, not the page -- the reference web player
+     * keeps them in the browser's JavaScript console, off the transcript. The
+     * engine still logs every one (Interp::errors()), and headless output is
+     * untouched: only a host that installs this hook diverts them. */
+    in.script_error = [](const std::string &message) {
+        fprintf(stderr, "%s\n", message.c_str());
+    };
     /* The grid map needs only filled rectangles, so plain gestalt_Graphics
      * gates it.  Unset (CheapGlk: the smoke harness), the engine never even
      * evaluates the paint arguments, keeping headless transcripts intact. */
